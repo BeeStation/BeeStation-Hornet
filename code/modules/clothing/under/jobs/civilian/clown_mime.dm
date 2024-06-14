@@ -3,7 +3,7 @@
 	name = "mime's outfit"
 	desc = "It's not very colourful."
 	icon_state = "mime"
-	item_state = "mime"
+	item_state = null
 
 /obj/item/clothing/under/rank/civilian/mime/skirt
 	name = "mime's skirt"
@@ -13,13 +13,14 @@
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 
 /obj/item/clothing/under/rank/civilian/mime/sexy
 	name = "sexy mime outfit"
 	desc = "The only time when you DON'T enjoy looking at someone's rack."
 	icon_state = "sexymime"
-	item_state = "sexymime"
+	item_state = null
 	body_parts_covered = CHEST|GROIN|LEGS
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
@@ -94,7 +95,8 @@
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
 	can_adjust = FALSE
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/clown/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'=1), 50)
+	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'=1), 50, falloff_exponent = 20)

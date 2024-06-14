@@ -31,7 +31,7 @@
 	cooldown = TRUE
 	icon_state = "pen_blink"
 	var/cooldown_time = 600/gang.leaders.len
-	addtimer(CALLBACK(src, .proc/cooldown), cooldown_time)
+	addtimer(CALLBACK(src, PROC_REF(cooldown)), cooldown_time)
 
 /obj/item/pen/gang/proc/cooldown()
 	cooldown = FALSE
@@ -52,7 +52,7 @@
 		to_chat(user, "<span class='danger'>This mind is too strong to control!</span>")
 		return
 	var/mob/living/carbon/human/H = gangster_mind.current // we are sure the dude's human cause it's checked in attack()
-	if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		to_chat(user, "<span class='danger'>This mind appears to be too delusional to register the mind-control waves!</span>")
 		return
 	H.silent = max(H.silent, 5)

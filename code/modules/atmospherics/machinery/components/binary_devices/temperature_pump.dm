@@ -30,11 +30,11 @@
 	return ..()
 
 /obj/machinery/atmospherics/components/binary/temperature_pump/update_icon_nopipes()
-	icon_state = "tpump_[on && is_operational() ? "on" : "off"]-[set_overlay_offset(piping_layer)]"
+	icon_state = "tpump_[on && is_operational ? "on" : "off"]-[set_overlay_offset(piping_layer)]"
 
 /obj/machinery/atmospherics/components/binary/temperature_pump/process_atmos()
 
-	if(!on || !is_operational())
+	if(!on || !is_operational)
 		return
 
 	var/datum/gas_mixture/air_input = airs[1]
@@ -93,3 +93,25 @@
 				heat_transfer_rate = clamp(rate, 0, max_heat_transfer_rate)
 				investigate_log("was set to [heat_transfer_rate]% by [key_name(usr)]", INVESTIGATE_ATMOS)
 	update_icon()
+
+// mapping
+
+/obj/machinery/atmospherics/components/binary/temperature_pump/layer2
+	piping_layer = 2
+	icon_state = "tpump_map-2"
+
+/obj/machinery/atmospherics/components/binary/temperature_pump/layer4
+	piping_layer = 4
+	icon_state = "tpump_map-4"
+
+/obj/machinery/atmospherics/components/binary/temperature_pump/on
+	on = TRUE
+	icon_state = "tpump_on_map-3"
+
+/obj/machinery/atmospherics/components/binary/temperature_pump/on/layer2
+	piping_layer = 2
+	icon_state = "tpump_on_map-2"
+
+/obj/machinery/atmospherics/components/binary/temperature_pump/on/layer4
+	piping_layer = 4
+	icon_state = "tpump_on_map-4"

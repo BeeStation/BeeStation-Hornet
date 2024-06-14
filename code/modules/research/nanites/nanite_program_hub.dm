@@ -129,7 +129,7 @@
 			playsound(src, 'sound/machines/terminal_prompt.ogg', 25, FALSE)
 			. = TRUE
 		if("refresh")
-			update_static_data(usr)
+			update_static_data(usr, bypass_cooldown = FALSE)
 			. = TRUE
 		if("toggle_details")
 			detail_view = !detail_view

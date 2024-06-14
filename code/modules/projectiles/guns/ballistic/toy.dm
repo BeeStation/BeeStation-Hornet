@@ -13,6 +13,8 @@
 	casing_ejector = FALSE
 	fire_rate = 3
 	weapon_weight = WEAPON_LIGHT
+	burst_size = 3
+	fire_delay = 3 // Slightly worse than the actual sabre
 
 /obj/item/gun/ballistic/automatic/toy/update_icon()
 	. = ..()
@@ -81,6 +83,8 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "foamcrossbow"
 	item_state = "crossbow"
+	worn_icon_state = "gun"
+	worn_icon = null
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/crossbow
 	fire_sound = 'sound/items/syringeproj.ogg'
 	slot_flags = ITEM_SLOT_BELT

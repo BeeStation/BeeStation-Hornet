@@ -6,8 +6,8 @@
 
 
 ///Monkey checks
-#define SHOULD_RESIST(source) (source.on_fire || source.buckled || source.restrained() || (source.pulledby && source.pulledby.grab_state > GRAB_PASSIVE))
-#define IS_DEAD_OR_INCAP(source) (source.incapacitated() || source.stat)
+#define SHOULD_RESIST(source) (source.on_fire || source.buckled || HAS_TRAIT(source, TRAIT_RESTRAINED) || (source.pulledby && source.pulledby.grab_state > GRAB_PASSIVE))
+#define IS_DEAD_OR_INCAP(source) (HAS_TRAIT(source, TRAIT_INCAPACITATED) || HAS_TRAIT(source, TRAIT_HANDS_BLOCKED) || IS_IN_STASIS(source) || source.stat)
 
 ///For JPS pathing, the maximum length of a path we'll try to generate. Should be modularized depending on what we're doing later on
 #define AI_MAX_PATH_LENGTH 30 // 30 is possibly overkill since by default we lose interest after 14 tiles of distance, but this gives wiggle room for weaving around obstacles
@@ -92,7 +92,7 @@
 #define BB_VENDING_TILT_COOLDOWN "BB_vending_tilt_cooldown"
 #define BB_VENDING_UNTILT_COOLDOWN "BB_vending_untilt_cooldown"
 #define BB_VENDING_BUSY_TILTING "BB_vending_busy_tilting"
-#define BB_VENDING_LAST_HIT_SUCCESFUL "BB_vending_last_hit_succesful"
+#define BB_VENDING_LAST_HIT_SUCCESSFUL "BB_vending_last_hit_successful"
 
 ///Robot customer AI controller blackboard keys
 #define BB_CUSTOMER_CURRENT_ORDER "BB_customer_current_order"
@@ -172,10 +172,11 @@
 
 
 //Hunting defines
-#define SUCCESFUL_HUNT_COOLDOWN 5 SECONDS
+#define SUCCESSFUL_HUNT_COOLDOWN 5 SECONDS
 
 ///Hunting BB keys
 #define BB_CURRENT_HUNTING_TARGET "BB_current_hunting_target"
+#define BB_LOW_PRIORITY_HUNTING_TARGET "BB_low_priority_hunting_target"
 #define BB_HUNTING_COOLDOWN "BB_HUNTING_COOLDOWN"
 
 ///Basic Mob Keys

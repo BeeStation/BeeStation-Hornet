@@ -94,7 +94,8 @@
 /area/tdome/arena)
 "q" = (
 /obj/structure/tubes,
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/fancy/comfy{
+	color = "#1C1C1C";
 	dir = 8
 	},
 /turf/open/floor/pod,
@@ -117,7 +118,8 @@
 	},
 /area/tdome/arena)
 "u" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/fancy/comfy{
+	color = "#1C1C1C";
 	dir = 4
 	},
 /turf/open/floor/pod,
@@ -132,7 +134,8 @@
 /turf/open/floor/carpet/black,
 /area/tdome/arena)
 "w" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/fancy/comfy{
+	color = "#1C1C1C";
 	dir = 8
 	},
 /turf/open/floor/pod,

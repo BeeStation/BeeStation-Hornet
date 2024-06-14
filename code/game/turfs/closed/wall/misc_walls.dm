@@ -2,9 +2,10 @@
 	name = "runed metal wall"
 	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound."
 	icon = 'icons/turf/walls/cult_wall.dmi'
-	icon_state = "cult"
+	icon_state = "cult_wall-0"
+	base_icon_state = "cult_wall"
+	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = null
-	smooth = SMOOTH_MORE
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
@@ -43,10 +44,15 @@
 /turf/closed/wall/vault
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rockvault"
+	smoothing_flags = NONE
+	base_icon_state = null
+	canSmoothWith = null
 
 /turf/closed/wall/ice
 	icon = 'icons/turf/walls/icedmetal_wall.dmi'
-	icon_state = "iced"
+	icon_state = "icedmetal_wall-0"
+	base_icon_state = "icedmetal_wall"
+	smoothing_flags = SMOOTH_BITMASK
 	desc = "A wall covered in a thick sheet of ice."
 	canSmoothWith = null
 	hardness = 35
@@ -70,6 +76,7 @@
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)
 	ScrapeAway()
+	return TRUE
 
 /turf/closed/wall/r_wall/rust
 	//SDMM supports colors, this is simply for easier mapping
@@ -86,17 +93,19 @@
 
 /turf/closed/wall/r_wall/rust/rust_heretic_act()
 	if(prob(50))
-		return
+		return TRUE
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)
 	ScrapeAway()
+	return TRUE
 
 /turf/closed/wall/mineral/bronze
 	name = "clockwork wall"
 	desc = "A huge chunk of bronze, decorated like gears and cogs."
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
-	icon_state = "clockwork_wall"
-	sheet_type = /obj/item/stack/tile/bronze
+	icon_state = "clockwork_wall-0"
+	base_icon_state = "clockwork_wall"
+	sheet_type = /obj/item/stack/sheet/bronze
 	sheet_amount = 2
 	girder_type = /obj/structure/girder/bronze
 
@@ -116,9 +125,12 @@
 		var/mob/interloper = AM
 		interloper.death()
 	if(ismecha(AM))
-		var/obj/mecha/fuckphazons = AM
-		var/mob/living/carbon/interloper = fuckphazons.occupant
+		var/obj/vehicle/sealed/mecha/fuckphazons = AM
+		var/mob/living/carbon/interloper = fuckphazons.occupants
 		interloper?.death()
 		qdel(interloper)
 
 	qdel(AM)
+
+/turf/closed/indestructible/cordon/is_holy()
+	return TRUE // The blessed cordon

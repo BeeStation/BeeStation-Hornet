@@ -10,7 +10,7 @@
 	block_upgrade_walk = 1
 	throw_speed = 3
 	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
 	resistance_flags = FLAMMABLE
 	var/mopping = 0
@@ -23,13 +23,15 @@
 /obj/item/mop/Initialize(mapload)
 	. = ..()
 	create_reagents(mopcap)
+	GLOB.janitor_devices += src
 
-/obj/item/mop/proc/clean(turf/A)
+/obj/item/mop/Destroy()
+	GLOB.janitor_devices -= src
+	return ..()
+
+/obj/item/mop/proc/clean(turf/A, mob/living/cleaner)
 	if(reagents.has_reagent(/datum/reagent/water, 1) || reagents.has_reagent(/datum/reagent/water/holywater, 1) || reagents.has_reagent(/datum/reagent/consumable/ethanol/vodka, 1) || reagents.has_reagent(/datum/reagent/space_cleaner, 1))
-		SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_MEDIUM)
-		for(var/obj/effect/O in A)
-			if(is_cleanable(O))
-				qdel(O)
+		A.wash(CLEAN_SCRUB)
 	reagents.reaction(A, TOUCH, 10)	//Needed for proper floor wetting.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
@@ -55,14 +57,6 @@
 			to_chat(user, "<span class='notice'>You finish mopping.</span>")
 			clean(T)
 
-
-/obj/effect/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/mop) || istype(I, /obj/item/soap))
-		return
-	else
-		return ..()
-
-
 /obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	if(insertable)
 		J.put_in_cart(src, user)
@@ -80,7 +74,7 @@
 	name = "advanced mop"
 	mopcap = 10
 	icon_state = "advmop"
-	item_state = "mop"
+	item_state = "advmop"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	force = 12

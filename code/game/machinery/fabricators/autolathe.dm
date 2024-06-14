@@ -40,10 +40,10 @@
 	wires = new /datum/wires/autolathe(src)
 
 /obj/machinery/modular_fabricator/autolathe/ui_interact(mob/user, datum/tgui/ui = null)
-	if(!is_operational())
+	if(!is_operational)
 		return
 
-	if(shocked && !(stat & NOPOWER))
+	if(shocked && !(machine_stat & NOPOWER))
 		shock(user,50)
 
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -105,7 +105,7 @@
 	if(user.a_intent == INTENT_HARM) //so we can hit the machine
 		return ..()
 
-	if(stat)
+	if(machine_stat)
 		return TRUE
 
 	if(istype(O, /obj/item/disk/design_disk))
@@ -133,7 +133,7 @@
 	wires.ui_update()
 
 /obj/machinery/modular_fabricator/autolathe/proc/shock(mob/user, prb)
-	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock
+	if(machine_stat & (BROKEN|NOPOWER))		// unpowered, no shock
 		return FALSE
 	if(!prob(prb))
 		return FALSE
@@ -157,27 +157,22 @@
 	update_viewer_statics()
 	wires.ui_update()
 
-/obj/machinery/modular_fabricator/autolathe/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/modular_fabricator/autolathe/on_emag(mob/user)
+	..()
 	security_interface_locked = FALSE
 	adjust_hacked(TRUE)
 	playsound(src, "sparks", 100, 1)
-	obj_flags |= EMAGGED
 
 /obj/machinery/modular_fabricator/autolathe/hacked/Initialize(mapload)
 	. = ..()
 	adjust_hacked(TRUE)
 
-/obj/machinery/modular_fabricator/autolathe/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
+/obj/machinery/modular_fabricator/autolathe/AfterMaterialInsert(item_inserted, id_inserted, amount_inserted)
 	. = ..()
-	switch(id_inserted)
-		if (/datum/material/iron)
-			flick("autolathe_o",src)//plays metal insertion animation
-		if(/datum/material/copper)
-			flick("autolathe_c",src)//plays metal insertion animation
-		else
-			flick("autolathe_r",src)//plays glass insertion animation by default otherwise
+	if(custom_materials && custom_materials.len && custom_materials[SSmaterials.GetMaterialRef(/datum/material/glass)])
+		flick("autolathe_r",src)//plays glass insertion animation by default otherwise
+	else
+		flick("autolathe_o",src)//plays metal insertion animation
 
 /obj/machinery/modular_fabricator/autolathe/set_default_sprite()
 	icon_state = "autolathe"

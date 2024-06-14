@@ -4,7 +4,7 @@
 	icon_state = "infrared"
 	custom_materials = list(/datum/material/iron=1000, /datum/material/glass=500)
 	is_position_sensitive = TRUE
-
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 	var/on = FALSE
 	var/visible = FALSE
@@ -22,7 +22,7 @@
 /obj/item/assembly/infra/ComponentInitialize()
 	. = ..()
 	var/static/rotation_flags = ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_FLIP | ROTATION_VERBS
-	AddComponent(/datum/component/simple_rotation, rotation_flags, after_rotation=CALLBACK(src,.proc/after_rotation))
+	AddComponent(/datum/component/simple_rotation, rotation_flags, after_rotation=CALLBACK(src,PROC_REF(after_rotation)))
 
 /obj/item/assembly/infra/proc/after_rotation()
 	refreshBeam()
@@ -105,12 +105,12 @@
 				I.icon_state = "[initial(I.icon_state)]_[(assembly_holder.a_left == src) ? "l":"r"]" //Sync the offset of the beam with the position of the sensor.
 			else if(istype(holder, /obj/item/transfer_valve))
 				I.icon_state = "[initial(I.icon_state)]_ttv"
-			I.density = TRUE
+			I.set_density(TRUE)
 			if(!I.Move(_T))
 				qdel(I)
 				switchListener(_T)
 				break
-			I.density = FALSE
+			I.set_density(FALSE)
 			beams += I
 			I.master = src
 			I.setDir(_dir)
@@ -160,7 +160,7 @@
 		return
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_ATOM_EXITED)
-	RegisterSignal(newloc, COMSIG_ATOM_EXITED, .proc/check_exit)
+	RegisterSignal(newloc, COMSIG_ATOM_EXITED, PROC_REF(check_exit))
 	listeningTo = newloc
 
 /obj/item/assembly/infra/proc/check_exit(datum/source, atom/movable/gone, direction)
@@ -174,7 +174,7 @@
 		var/obj/item/I = gone
 		if (I.item_flags & ABSTRACT)
 			return
-	INVOKE_ASYNC(src, .proc/refreshBeam)
+	INVOKE_ASYNC(src, PROC_REF(refreshBeam))
 
 /obj/item/assembly/infra/setDir()
 	. = ..()
@@ -225,14 +225,14 @@
 	icon_state = "ibeam"
 	anchored = TRUE
 	density = FALSE
-	pass_flags = PASSTABLE|PASSGLASS|PASSGRILLE
+	pass_flags = PASSTABLE|PASSTRANSPARENT|PASSGRILLE
 	pass_flags_self = LETPASSTHROW
 	var/obj/item/assembly/infra/master
 
 /obj/effect/beam/i_beam/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -245,4 +245,4 @@
 		var/obj/item/I = AM
 		if (I.item_flags & ABSTRACT)
 			return
-	INVOKE_ASYNC(master, /obj/item/assembly/infra.proc/trigger_beam, AM, get_turf(src))
+	INVOKE_ASYNC(master, TYPE_PROC_REF(/obj/item/assembly/infra, trigger_beam), AM, get_turf(src))

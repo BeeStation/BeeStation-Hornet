@@ -11,8 +11,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/structure/bed,
 /obj/item/bedsheet/dorms,
+/obj/structure/bed/maint,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (

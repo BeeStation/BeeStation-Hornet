@@ -3,29 +3,28 @@
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "d" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "m" = (
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "p" = (
 /obj/effect/abstract/doorway_marker,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "t" = (
-/obj/item/twohanded/required/kirbyplants/random,
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "C" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "D" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
+/obj/item/kirbyplants/random,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "F" = (
 /turf/closed/wall,
@@ -34,7 +33,7 @@
 /obj/effect/abstract/doorway_marker{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
@@ -46,7 +45,7 @@ F
 "}
 (2,1,1) = {"
 m
-D
+t
 d
 C
 F
@@ -54,7 +53,7 @@ F
 (3,1,1) = {"
 m
 m
-D
+t
 d
 p
 "}
@@ -62,7 +61,7 @@ p
 m
 t
 d
-C
+D
 F
 "}
 (5,1,1) = {"

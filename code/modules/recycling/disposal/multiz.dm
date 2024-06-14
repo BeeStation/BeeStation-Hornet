@@ -22,9 +22,9 @@
 	//Are we a trunk that goes up? Or down?
 	var/turf/target = null
 	if(multiz_dir == MULTIZ_PIPE_UP)
-		target = SSmapping.get_turf_above(get_turf(src))
+		target = GET_TURF_ABOVE(get_turf(src))
 	if(multiz_dir == MULTIZ_PIPE_DOWN)
-		target = SSmapping.get_turf_below(get_turf(src))
+		target = GET_TURF_BELOW(get_turf(src))
 	if(!target) //Nothing located.
 		return
 	var/obj/structure/disposalpipe/trunk/multiz/pipe = locate(/obj/structure/disposalpipe/trunk/multiz) in target

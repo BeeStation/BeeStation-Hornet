@@ -13,6 +13,9 @@
 
 	movement_force = list("KNOCKDOWN" = 3, "THROW" = 0)
 
+	untowable = TRUE
+	undockable = TRUE
+
 	var/damaged	//too damaged to undock?
 	var/list/areas	//areas in our shuttle
 	var/list/queued_announces	//people coming in that we have to announce
@@ -36,7 +39,7 @@
 	areas = list()
 
 	var/list/new_latejoin = list()
-	for(var/area/shuttle/arrival/A in GLOB.sortedAreas)
+	for(var/area/shuttle/arrival/A in GLOB.areas)
 		for(var/obj/structure/chair/C in A)
 			new_latejoin += C
 		if(!console)
@@ -196,7 +199,7 @@
 	if(mode != SHUTTLE_CALL)
 		AnnounceArrival(mob, rank)
 	else
-		LAZYADD(queued_announces, CALLBACK(GLOBAL_PROC, .proc/AnnounceArrival, mob, rank))
+		LAZYADD(queued_announces, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(AnnounceArrival), mob, rank))
 
 /obj/docking_port/mobile/arrivals/vv_edit_var(var_name, var_value)
 	switch(var_name)

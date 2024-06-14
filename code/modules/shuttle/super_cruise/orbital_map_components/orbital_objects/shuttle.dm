@@ -53,6 +53,7 @@
 	stealth = TRUE
 
 /datum/orbital_object/shuttle/Destroy()
+	var/z_level = port?.z
 	port = null
 	can_dock_with = null
 	docking_target = null
@@ -60,6 +61,8 @@
 	shuttleTarget = null
 	. = ..()
 	SSorbits.assoc_shuttles.Remove(shuttle_port_id)
+	if(z_level)
+		SSorbits.assoc_z_levels.Remove("[z_level]")
 
 //Dont fly into the sun idiot.
 /datum/orbital_object/shuttle/explode()
@@ -67,7 +70,7 @@
 		port.jumpToNullSpace()
 	qdel(src)
 
-/datum/orbital_object/shuttle/process()
+/datum/orbital_object/shuttle/process(delta_time)
 	if(check_stuck())
 		return
 
@@ -96,7 +99,7 @@
 	var/thrust_amount = thrust * max_thrust / 100
 	var/thrust_x = cos(angle) * thrust_amount
 	var/thrust_y = sin(angle) * thrust_amount
-	accelerate_towards(new /datum/orbital_vector(thrust_x, thrust_y), ORBITAL_UPDATE_RATE_SECONDS)
+	accelerate_towards(new /datum/orbital_vector(thrust_x, thrust_y), ORBITAL_UPDATE_RATE_SECONDS * delta_time)
 	//Do gravity and movement
 	can_dock_with = null
 	. = ..()
@@ -181,6 +184,7 @@
 	port = dock
 	stealth = dock.hidden
 	SSorbits.assoc_shuttles[shuttle_port_id] = src
+	SSorbits.assoc_z_levels["[dock.virtual_z]"] = src
 
 /datum/orbital_object/shuttle/proc/commence_docking(datum/orbital_object/z_linked/docking, forced = FALSE)
 	//Check for valid docks on z-level

@@ -3,14 +3,13 @@
 	icon_state = "pamphlet"
 	show_written_words = FALSE
 
-
 /obj/item/paper/pamphlet/violent_video_games
 	name = "pamphlet - \'Violent Video Games and You\'"
 	desc = "A pamphlet encouraging the reader to maintain a balanced lifestyle and take care of their mental health, while still enjoying video games in a healthy way. You probably don't need this..."
-	info = "They don't make you kill people. There, we said it. Now get back to work!"
+	default_raw_text = "They don't make you kill people. There, we said it. Now get back to work!"
 
 /obj/item/paper/pamphlet/gateway
-	info = "<b>Welcome to the Nanotrasen Gateway project...</b><br>\
+	default_raw_text = "<b>Welcome to the Nanotrasen Gateway project...</b><br>\
 			Congratulations! If you're reading this, you and your superiors have decided that you're \
 			ready to commit to a life spent colonising the rolling hills of far away worlds. You \
 			must be ready for a lifetime of adventure, a little bit of hard work, and an award \
@@ -40,7 +39,3 @@
 			As a participant in the Nanotrasen Gateway Project, you will be on the frontiers of space. \
 			Though complete safety is assured, participants are advised to prepare for inhospitable \
 			environs."
-
-//we don't want the silly text overlay!
-/obj/item/paper/pamphlet/update_icon()
-	return

@@ -23,6 +23,7 @@
 #define APPRENTICE_BLUESPACE "bluespace"
 #define APPRENTICE_ROBELESS "robeless"
 #define APPRENTICE_HEALING "healing"
+#define APPRENTICE_WILDMAGIC "wildmagic"
 
 
 //Blob
@@ -31,16 +32,6 @@
 #define BLOB_ATTACK_REFUND 2 //blob refunds this much if it attacks and doesn't spread
 #define BLOB_REFLECTOR_COST 15
 #define BLOB_STRAIN_COLOR_LIST list("#BE5532", "#7D6EB4", "#EC8383", "#00E5B1", "#00668B", "#FFF68", "#BBBBAA", "#CD7794", "#57787B", "#3C6EC8", "#AD6570", "#823ABB")
-
-//Overthrow time to update heads obj
-#define OBJECTIVE_UPDATING_TIME 300
-
-//Assimilation
-#define TRACKER_DEFAULT_TIME 900
-#define TRACKER_MINDSHIELD_TIME 1200
-#define TRACKER_AWAKENED_TIME	3000
-#define TRACKER_BONUS_LARGE 300
-#define TRACKER_BONUS_SMALL 100
 
 //gang dominators
 #define NOT_DOMINATING			-1
@@ -75,15 +66,47 @@
 #define SPAWNTYPE_MIDROUND "midround"
 #define SPAWNTYPE_EITHER "either"
 
+/// Checks if the given mob is a blood cultist
+#define IS_CULTIST(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/cult))
+
 ///It is faster as a macro than a proc
 #define IS_HERETIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic))
 #define IS_HERETIC_MONSTER(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
+/// Checks if the given mob is either a heretic or a heretic monster.
+#define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
 
-#define PATH_SIDE "Side"
+/// Define for the heretic faction applied to heretics and heretic mobs.
+#define FACTION_HERETIC "heretics"
 
-#define PATH_ASH "Ash"
-#define PATH_RUST "Rust"
-#define PATH_FLESH "Flesh"
+#define FACTION_SYNDICATE "Syndicate"
+#define FACTION_BLOB "Blob"
+#define FACTION_ALIEN "Xenomorph"
+#define FACTION_WIZARD "Wizard"
+
+// Heretic path defines.
+#define HERETIC_PATH_START "Heretic Start Path"
+#define HERETIC_PATH_SIDE "Heretic Side Path"
+#define HERETIC_PATH_ASH "Heretic Ash Path"
+#define HERETIC_PATH_RUST "Heretic Rust Path"
+#define HERETIC_PATH_FLESH "Heretic Flesh Path"
+#define HERETIC_PATH_VOID "Heretic Void Path"
+
+/// Defines are used in /proc/has_living_heart() to report if the heretic has no heart period, no living heart, or has a living heart.
+#define HERETIC_NO_HEART_ORGAN -1
+#define HERETIC_NO_LIVING_HEART 0
+#define HERETIC_HAS_LIVING_HEART 1
+
+/// A define used in ritual priority for heretics.
+#define MAX_KNOWLEDGE_PRIORITY 100
+
+/// The maximum (and optimal) number of sacrifice targets a heretic should roll.
+#define HERETIC_MAX_SAC_TARGETS 4
+
+//Cult Construct defines
+
+#define CONSTRUCT_JUGGERNAUT "Juggernaut"
+#define CONSTRUCT_WRAITH "Wraith"
+#define CONSTRUCT_ARTIFICER "Artificer"
 
 /// How much does it cost to reroll strains?
 #define BLOB_REROLL_COST 40
@@ -96,3 +119,28 @@
 /// TC to charge someone if they get a free implant through choice or
 /// because they have nothing else that supports an implant.
 #define UPLINK_IMPLANT_TELECRYSTAL_COST 3
+
+///Checks if given mob is a hive host
+#define IS_HIVEHOST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivemind))
+///Checks if given mob is an awakened vessel
+#define IS_WOKEVESSEL(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivevessel))
+
+// Max of all fugitive types
+#define MAXIMUM_TOTAL_FUGITIVES 4
+
+// Fugitive hunter types
+#define FUGITIVE_HUNTER_SPACE_POLICE "space_police"
+#define FUGITIVE_HUNTER_RUSSIAN "russian"
+#define FUGITIVE_HUNTER_BOUNTY "bounty"
+
+// Fugitive types
+#define FUGITIVE_PRISONER "prisoner"
+#define FUGITIVE_WALDO "waldo"
+#define FUGITIVE_CULT "cultist"
+#define FUGITIVE_SYNTH "synth"
+
+//Spider webs
+#define MAX_WEBS_PER_TILE 3
+
+/// The dimensions of the antagonist preview icon. Will be scaled to this size.
+#define ANTAGONIST_PREVIEW_ICON_SIZE 96

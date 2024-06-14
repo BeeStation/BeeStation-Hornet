@@ -28,7 +28,7 @@
 	properties.parent = src
 
 	ADD_TRAIT(parent, TRAIT_FISH_CASE_COMPATIBILE, src)
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/enter_aquarium)
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(enter_aquarium))
 	//If component is added to something already in aquarium at the time initialize it properly.
 	var/atom/movable/movable_parent = parent
 	if(istype(movable_parent.loc, /obj/structure/aquarium))
@@ -68,10 +68,10 @@
 
 /datum/component/aquarium_content/proc/on_inserted(atom/aquarium)
 	current_aquarium = aquarium
-	RegisterSignal(current_aquarium, COMSIG_ATOM_EXITED, .proc/on_removed)
-	RegisterSignal(current_aquarium, COMSIG_AQUARIUM_SURFACE_CHANGED, .proc/on_surface_changed)
-	RegisterSignal(current_aquarium, COMSIG_AQUARIUM_FLUID_CHANGED,.proc/on_fluid_changed)
-	RegisterSignal(current_aquarium, COMSIG_PARENT_ATTACKBY, .proc/attack_reaction)
+	RegisterSignal(current_aquarium, COMSIG_ATOM_EXITED, PROC_REF(on_removed))
+	RegisterSignal(current_aquarium, COMSIG_AQUARIUM_SURFACE_CHANGED, PROC_REF(on_surface_changed))
+	RegisterSignal(current_aquarium, COMSIG_AQUARIUM_FLUID_CHANGED,PROC_REF(on_fluid_changed))
+	RegisterSignal(current_aquarium, COMSIG_PARENT_ATTACKBY, PROC_REF(attack_reaction))
 	properties.on_inserted()
 
 	//If we don't have vc object yet build it

@@ -1,14 +1,17 @@
+/**
+ * Parent class for all implants
+ */
 /obj/item/implant
 	name = "implant"
 	icon = 'icons/obj/implants.dmi'
 	icon_state = "generic" //Shows up as the action button icon
+	item_flags = ABSTRACT | DROPDEL
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	var/activated = TRUE //1 for implant types that can be activated, 0 for ones that are "always on" like mindshield implants
 	var/mob/living/imp_in = null
 	var/implant_color = "b"
 	var/allow_multiple = FALSE
 	var/uses = -1
-	item_flags = DROPDEL
 
 
 /obj/item/implant/proc/trigger(emote, mob/living/carbon/source)
@@ -86,9 +89,30 @@
 	on_implanted(target)
 
 	if(user)
-		log_combat(user, target, "implanted", "\a [name]")
+		log_combat(user, target, "implanted", "\a [name]", important = FALSE)
 
 	SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTED, target, user, silent, force)
+	return TRUE
+
+/obj/item/implant/proc/transfer_implant(mob/living/user, mob/living/target)
+	if(SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTING, args) & COMPONENT_STOP_IMPLANTING)
+		return
+	LAZYINITLIST(target.implants)
+	if(!force && (!target.can_be_implanted() || !can_be_implanted_in(target)))
+		return FALSE
+	forceMove(target)
+	user.implants -= src
+	imp_in = target
+	target.implants += src
+	if(activated)
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.Grant(target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.sec_hud_set_implants()
+	on_implanted(target)
+	SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTED, target, user, TRUE, FALSE)
 	return TRUE
 
 /obj/item/implant/proc/removed(mob/living/source, silent = FALSE, special = 0)

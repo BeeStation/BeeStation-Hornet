@@ -6,7 +6,7 @@
 	anchored = TRUE
 	density = FALSE
 	max_integrity = 200
-	integrity_failure = 50
+	integrity_failure = 0.25
 	layer = ABOVE_WINDOW_LAYER
 	var/obj/item/extinguisher/stored_extinguisher
 	var/opened = FALSE
@@ -14,9 +14,6 @@
 /obj/structure/extinguisher_cabinet/Initialize(mapload, ndir, building)
 	. = ..()
 	if(building)
-		setDir(ndir)
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -27 : 27)
-		pixel_y = (dir & 3)? (dir ==1 ? -30 : 30) : 0
 		opened = TRUE
 		icon_state = "extinguisher_empty"
 	else
@@ -25,6 +22,8 @@
 /obj/structure/extinguisher_cabinet/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Alt-click to [opened ? "close":"open"] it.</span>"
+	if(!stored_extinguisher)
+		. += "<span class='notice'>It is <i>empty</i> and can be <b>unsecured</b> from the wall.</span>"
 
 /obj/structure/extinguisher_cabinet/Destroy()
 	if(stored_extinguisher)
@@ -94,15 +93,16 @@
 
 
 /obj/structure/extinguisher_cabinet/attack_tk(mob/user)
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
 	if(stored_extinguisher)
 		stored_extinguisher.forceMove(loc)
 		to_chat(user, "<span class='notice'>You telekinetically remove [stored_extinguisher] from [src].</span>")
 		stored_extinguisher = null
-		opened = 1
+		opened = TRUE
 		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
 		update_icon()
-	else
-		toggle_cabinet(user)
+		return
+	toggle_cabinet(user)
 
 
 /obj/structure/extinguisher_cabinet/attack_paw(mob/user)
@@ -159,3 +159,4 @@
 	desc = "Used for building wall-mounted extinguisher cabinets."
 	icon_state = "extinguisher"
 	result_path = /obj/structure/extinguisher_cabinet
+	pixel_shift = -30

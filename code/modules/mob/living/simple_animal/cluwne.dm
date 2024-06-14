@@ -16,7 +16,8 @@
     maxHealth = 150
     health = 150
     speak = list("HONK! HONK! HONK! HONK!","AAAAAAAAAAAAAAAAAA!!", "KILLMEKILLME!!", "HONK HENK HONK!!", "Honk Honk!", "HEEEEEEEEEEEEENK!!")
-    do_footstep = TRUE
+    speak_language = /datum/language/metalanguage // It's cursing cluwne why not
+    footstep_type = FOOTSTEP_MOB_SHOE
     chat_color = "#F37EF6"
     discovery_points = 1000
 

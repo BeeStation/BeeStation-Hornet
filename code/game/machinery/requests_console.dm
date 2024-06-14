@@ -28,7 +28,8 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	name = "requests console"
 	desc = "A console intended to send requests to different departments on the station."
 	icon = 'icons/obj/terminals.dmi'
-	icon_state = "req_comp0"
+	icon_state = "req_comp_off"
+	base_icon_state = "req_comp"
 	layer = ABOVE_WINDOW_LAYER
 	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
 	var/list/messages = list() //List of all messages
@@ -69,37 +70,42 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	var/receive_ore_updates = FALSE //If ore redemption machines will send an update when it receives new ores.
 	var/auth_id = "Unknown" //Will contain the name and and job of the person who verified it
 	max_integrity = 300
-	armor = list("melee" = 70, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90, "stamina" = 0)
+	armor = list(MELEE = 70,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
 
-	light_color = LIGHT_COLOR_GREEN
-	light_power = 1.5
-
-/obj/machinery/requests_console/power_change()
-	..()
-	update_icon()
-
-/obj/machinery/requests_console/update_icon()
-	if(stat & NOPOWER)
+/obj/machinery/requests_console/update_appearance(updates=ALL)
+	. = ..()
+	if(machine_stat & NOPOWER)
 		set_light(0)
-	else
-		set_light(1)//green light
+		return
+	set_light(1.4,0.7,"#34D352")//green light
+
+/obj/machinery/requests_console/update_icon_state()
 	if(open)
-		if(!hackState)
-			icon_state="req_comp_open"
-		else
-			icon_state="req_comp_rewired"
-	else if(stat & NOPOWER)
-		if(icon_state != "req_comp_off")
-			icon_state = "req_comp_off"
+		icon_state = "[base_icon_state]_[hackState ? "rewired" : "open"]"
+		return ..()
+	icon_state = "[base_icon_state]_off"
+	return ..()
+
+/obj/machinery/requests_console/update_overlays()
+	. = ..()
+
+	if(open || (machine_stat & NOPOWER))
+		return
+
+	var/screen_state
+
+	if(emergency || (newmessagepriority == REQ_EXTREME_MESSAGE_PRIORITY))
+		screen_state = "[base_icon_state]3"
+	else if(newmessagepriority == REQ_HIGH_MESSAGE_PRIORITY)
+		screen_state = "[base_icon_state]2"
+	else if(newmessagepriority == REQ_NORMAL_MESSAGE_PRIORITY)
+		screen_state = "[base_icon_state]1"
 	else
-		if(emergency || (newmessagepriority == REQ_EXTREME_MESSAGE_PRIORITY))
-			icon_state = "req_comp3"
-		else if(newmessagepriority == REQ_HIGH_MESSAGE_PRIORITY)
-			icon_state = "req_comp2"
-		else if(newmessagepriority == REQ_NORMAL_MESSAGE_PRIORITY)
-			icon_state = "req_comp1"
-		else
-			icon_state = "req_comp0"
+		screen_state = "[base_icon_state]0"
+
+	. += mutable_appearance(icon, screen_state)
+	. += emissive_appearance(icon, screen_state, layer, alpha = src.alpha)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/requests_console/Initialize(mapload)
 	. = ..()
@@ -256,13 +262,13 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 			to_department = GLOB.req_console_ckey_departments[to_department]
 			message = new_message
 			screen = REQ_SCREEN_AUTHENTICATE
-			priority = CLAMP(text2num(href_list["priority"]), REQ_NORMAL_MESSAGE_PRIORITY, REQ_EXTREME_MESSAGE_PRIORITY)
+			priority = clamp(text2num(href_list["priority"]), REQ_NORMAL_MESSAGE_PRIORITY, REQ_EXTREME_MESSAGE_PRIORITY)
 
 	if(href_list["writeAnnouncement"])
 		var/new_message = reject_bad_text(stripped_input(usr, "Write your message:", "Awaiting Input", "", MAX_MESSAGE_LEN))
 		if(new_message)
 			message = new_message
-			priority = CLAMP(text2num(href_list["priority"]) || REQ_NORMAL_MESSAGE_PRIORITY, REQ_NORMAL_MESSAGE_PRIORITY, REQ_EXTREME_MESSAGE_PRIORITY)
+			priority = clamp(text2num(href_list["priority"]) || REQ_NORMAL_MESSAGE_PRIORITY, REQ_NORMAL_MESSAGE_PRIORITY, REQ_EXTREME_MESSAGE_PRIORITY)
 		else
 			message = ""
 			announceAuth = FALSE
@@ -271,11 +277,14 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	if(href_list["sendAnnouncement"])
 		if(!announcementConsole)
 			return
+		if(CHAT_FILTER_CHECK(message))
+			to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+			return
 		if(isliving(usr))
 			var/mob/living/L = usr
 			message = L.treat_message(message)
 		minor_announce(message, "[department] Announcement:", from = auth_id, html_encode = FALSE)
-		GLOB.news_network.SubmitArticle(message, department, "Station Announcements", null)
+		GLOB.news_network.submit_article(message, department, "Station Announcements", null)
 		usr.log_talk(message, LOG_SAY, tag="station announcement from [src]")
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has made a station announcement from [src] at [AREACOORD(usr)].")
 		announceAuth = FALSE
@@ -299,7 +308,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				Radio.set_frequency(radio_freq)
 				Radio.talk_into(src,"[emergency] emergency in [department]!!",radio_freq)
 				update_icon()
-				addtimer(CALLBACK(src, .proc/clear_emergency), 5 MINUTES)
+				addtimer(CALLBACK(src, PROC_REF(clear_emergency)), 5 MINUTES)
 
 	if(href_list["send"] && message && to_department && priority)
 
@@ -334,7 +343,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 
 	//Handle screen switching
 	if(href_list["setScreen"])
-		var/set_screen = CLAMP(text2num(href_list["setScreen"]) || 0, REQ_SCREEN_MAIN, REQ_SCREEN_ANNOUNCE)
+		var/set_screen = clamp(text2num(href_list["setScreen"]) || 0, REQ_SCREEN_MAIN, REQ_SCREEN_ANNOUNCE)
 		switch(set_screen)
 			if(REQ_SCREEN_MAIN)
 				to_department = ""
@@ -442,7 +451,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 			msgVerified = "<font color='green'><b>Verified by [ID.registered_name] ([ID.assignment])</b></font>"
 			updateUsrDialog()
 		if(screen == REQ_SCREEN_ANNOUNCE)
-			if (ACCESS_RC_ANNOUNCE in ID.access)
+			if(ACCESS_RC_ANNOUNCE in ID.access)
 				announceAuth = TRUE
 			else
 				announceAuth = FALSE

@@ -72,7 +72,7 @@ SUBSYSTEM_DEF(throwing)
 /datum/thrownthing/New(thrownthing, target, init_dir, maxrange, speed, thrower, diagonals_first, force, callback, target_zone)
 	. = ..()
 	src.thrownthing = thrownthing
-	RegisterSignal(thrownthing, COMSIG_PARENT_QDELETING, .proc/on_thrownthing_qdel)
+	RegisterSignal(thrownthing, COMSIG_PARENT_QDELETING, PROC_REF(on_thrownthing_qdel))
 	src.target_turf = get_turf(target)
 	if(target_turf != target)
 		src.initial_target = WEAKREF(target)
@@ -199,8 +199,8 @@ SUBSYSTEM_DEF(throwing)
 
 	if(!thrownthing.zfalling) // I don't think you can zfall while thrown but hey, just in case.
 		var/turf/T = get_turf(thrownthing)
-		if(T && thrownthing.has_gravity(T))
-			T.zFall(thrownthing)
+		if(T && thrownthing.loc == T && thrownthing.has_gravity(T))
+			T.try_start_zFall(thrownthing)
 
 	if(thrownthing)
 		SEND_SIGNAL(thrownthing, COMSIG_MOVABLE_THROW_LANDED, src)

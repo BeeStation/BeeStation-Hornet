@@ -82,36 +82,82 @@ CREATE TABLE IF NOT EXISTS `SS13_ban` (
 -- Dumping structure for table ss13tgdb.SS13_characters
 DROP TABLE IF EXISTS `SS13_characters`;
 CREATE TABLE IF NOT EXISTS `SS13_characters` (
-  `real_name` varchar(50) DEFAULT NULL,
-  `name_is_always_random` bit(1) NOT NULL,
-  `body_is_always_random` bit(1) NOT NULL,
-  `gender` varchar(50) NOT NULL,
-  `age` tinyint(3) unsigned NOT NULL,
-  `hair_color` varchar(50) NOT NULL,
-  `facial_hair_color` varchar(50) NOT NULL,
-  `eye_color` varchar(50) NOT NULL,
-  `skin_tone` varchar(50) NOT NULL,
-  `hair_style_name` varchar(50) NOT NULL,
-  `facial_style_name` varchar(50) NOT NULL,
-  `feature_ethcolor` varchar(50) NOT NULL,
-  `underwear` varchar(50) NOT NULL,
-  `undershirt` varchar(50) NOT NULL,
-  `socks` varchar(50) NOT NULL,
-  `backbag` varchar(50) NOT NULL,
-  `uplink_loc` varchar(50) NOT NULL,
-  `species` varchar(50) NOT NULL,
-  `features` json NOT NULL,
-  `joblessrole` smallint(6) NOT NULL,
-  `job_civlian_high` smallint(6) NOT NULL,
-  `job_civilian_med` smallint(6) NOT NULL,
-  `job_civilian_low` smallint(6) NOT NULL,
-  `job_medsci_high` smallint(6) NOT NULL,
-  `job_medsci_med` smallint(6) NOT NULL,
-  `job_medsci_low` smallint(6) NOT NULL,
-  `job_engsec_high` smallint(6) NOT NULL,
-  `job_engsec_med` smallint(6) NOT NULL,
-  `job_engsec_low` smallint(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+	`slot` INT(11) UNSIGNED NOT NULL,
+	`ckey` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`species` VARCHAR(32) COLLATE 'utf8mb4_general_ci',
+	`real_name` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`human_name` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`mime_name` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`clown_name` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`cyborg_name` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`ai_name` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`religion_name` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`deity_name` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`bible_name` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`name_is_always_random` TINYINT(1),
+	`body_is_always_random` TINYINT(1),
+	`gender` VARCHAR(16) COLLATE 'utf8mb4_general_ci',
+	`body_model` VARCHAR(16) COLLATE 'utf8mb4_general_ci',
+	`body_size` VARCHAR(16) COLLATE 'utf8mb4_general_ci',
+	`age` TINYINT(3) UNSIGNED,
+	`hair_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
+	`gradient_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
+	`facial_hair_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
+	`eye_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
+	`skin_tone` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`hair_style_name` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`gradient_style` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`facial_style_name` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`underwear` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`underwear_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
+	`undershirt` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`socks` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`backbag` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`jumpsuit_style` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`uplink_loc` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`pda_theme` VARCHAR(32) COLLATE 'utf8mb4_general_ci',
+	`pda_classic_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
+	`feature_apid_stripes` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_apid_antenna` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_apid_headstripes` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_moth_antennae` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_moth_markings` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_moth_wings` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_ethcolor` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_insect_type` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_ipc_screen` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_ipc_antenna` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_ipc_chassis` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_ipc_screen_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
+	`feature_ipc_antenna_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
+	`feature_lizard_body_markings` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_lizard_frills` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_lizard_horns` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_lizard_legs` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_lizard_snout` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_lizard_spines` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_lizard_tail` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_mcolor` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_human_tail` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_human_ears` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_psyphoza_cap` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`helmet_style` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`preferred_ai_core_display` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`preferred_security_department` VARCHAR(32) COLLATE 'utf8mb4_general_ci',
+	`joblessrole` TINYINT(4) UNSIGNED,
+	`job_preferences` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
+	`all_quirks` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
+	`quirk_prosthetic_limb_location` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`quirk_phobia` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`quirk_multilingual_language` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`quirk_smoker_cigarettes` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`quirk_junkie_drug` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`quirk_alcohol_type` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`equipped_gear` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
+	`role_preferences` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
+	`randomize` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`slot`, `ckey`) USING BTREE
+) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
 
 
 
@@ -265,6 +311,7 @@ CREATE TABLE IF NOT EXISTS `SS13_messages` (
   `timestamp` datetime NOT NULL,
   `expire_timestamp` datetime DEFAULT NULL,
   `severity` text,
+  `playtime` int(11) unsigned NULL DEFAULT NULL,
   `server_name` varchar(32) DEFAULT NULL,
   `server_ip` int(10) unsigned NOT NULL,
   `server_port` smallint(5) unsigned NOT NULL,
@@ -400,44 +447,12 @@ CREATE TABLE IF NOT EXISTS `SS13_poll_vote` (
 
 -- Dumping structure for table ss13tgdb.SS13_preferences
 DROP TABLE IF EXISTS `SS13_preferences`;
-CREATE TABLE IF NOT EXISTS `SS13_preferences` (
-  `ckey` varchar(32) NOT NULL,
-  `asaycolor` varchar(7) DEFAULT NULL,
-  `ooccolor` varchar(7) DEFAULT NULL,
-  `lastchangelog` varchar(50) DEFAULT NULL,
-  `ui_style` varchar(50) DEFAULT NULL,
-  `hotkeys` tinyint(3) unsigned DEFAULT NULL,
-  `tgui_fancy` tinyint(3) unsigned DEFAULT NULL,
-  `tgui_lock` tinyint(3) unsigned DEFAULT NULL,
-  `buttons_locked` tinyint(3) unsigned DEFAULT NULL,
-  `windowflashing` tinyint(3) unsigned DEFAULT NULL,
-  `default_slot` tinyint(3) unsigned DEFAULT NULL,
-  `toggles` smallint(5) unsigned DEFAULT NULL,
-  `chat_toggles` smallint(5) unsigned DEFAULT NULL,
-  `clientfps` smallint(5) unsigned DEFAULT NULL,
-  `parallax` tinyint(4) DEFAULT NULL,
-  `ambientocclusion` tinyint(3) unsigned DEFAULT NULL,
-  `auto_fit_viewport` tinyint(3) unsigned DEFAULT NULL,
-  `ghost_form` varchar(50) DEFAULT NULL,
-  `ghost_orbit` varchar(50) DEFAULT NULL,
-  `ghost_accs` tinyint(3) unsigned DEFAULT NULL,
-  `ghost_others` tinyint(3) unsigned DEFAULT NULL,
-  `menuoptions` json DEFAULT NULL,
-  `be_special` json DEFAULT NULL,
-  `crew_objectives` tinyint(3) unsigned DEFAULT NULL,
-  `pda_style` varchar(50) DEFAULT NULL,
-  `pda_color` varchar(7) DEFAULT NULL,
-  `key_bindings` json DEFAULT NULL,
-  `preferred_map` varchar(50) DEFAULT NULL,
-  `ghost_hud` tinyint(4) DEFAULT NULL,
-  `ignoring` json DEFAULT NULL,
-  `inquisitive_ghost` tinyint(4) unsigned DEFAULT NULL,
-  `uses_glasses_colour` tinyint(4) unsigned DEFAULT NULL,
-  `enable_tips` tinyint(4) unsigned DEFAULT NULL,
-  `tip_delay` mediumint(8) unsigned DEFAULT NULL,
-  PRIMARY KEY (`ckey`)
+CREATE TABLE `SS13_preferences` (
+	`ckey` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`preference_tag` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`preference_value` MEDIUMTEXT NULL COLLATE 'utf8mb4_general_ci',
+	UNIQUE INDEX `prefbinding` (`ckey`, `preference_tag`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 
 
 -- Dumping structure for table ss13tgdb.SS13_role_time
@@ -482,7 +497,7 @@ CREATE TABLE IF NOT EXISTS `SS13_schema_revision` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`major`,`minor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 8);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 2);
 
 
 
@@ -568,6 +583,9 @@ CREATE TABLE IF NOT EXISTS `SS13_achievement_metadata` (
 	`achievement_description` VARCHAR(512) NULL DEFAULT NULL,
 	PRIMARY KEY (`achievement_key`)
 ) ENGINE=InnoDB;
+
+
+
 
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

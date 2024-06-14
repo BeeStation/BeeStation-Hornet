@@ -1,13 +1,13 @@
 /obj/item/clothing/head
 	name = BODY_ZONE_HEAD
-	icon = 'icons/obj/clothing/hats.dmi'
-	icon_state = "top_hat"
-	item_state = "that"
+	icon = 'icons/obj/clothing/head/default.dmi'
+	worn_icon = 'icons/mob/clothing/head/default.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_HEAD
 	dynamic_hair_suffix = "+generic"
 	///Is the person wearing this trackable by the AI?
 	var/blockTracking = FALSE
+	var/obj/item/clothing/head/wig/attached_wig
 
 /obj/item/clothing/head/Initialize(mapload)
 	. = ..()
@@ -15,13 +15,88 @@
 		var/mob/living/carbon/human/H = loc
 		H.update_hair()
 
+/obj/item/clothing/head/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
+		var/mob/living/carbon/human/H = user
+		H.update_inv_head()
+	attached_wig?.equipped(user, slot)
+
+/obj/item/clothing/head/dropped(mob/user)
+	..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.head == src)
+			H.update_inv_head()
+	attached_wig?.dropped(user)
+
+/obj/item/clothing/head/attackby(obj/item/W, mob/user, params)
+	. = ..()
+	if(istype(W, /obj/item/clothing/head/wig))
+		if(flags_inv & HIDEHAIR)
+			to_chat(user, "<span class='notice'>You can't attach a wig to [src]!</span>")
+			return
+		if(attached_wig)
+			to_chat(user,"<span class='notice'>[src] already has a wig attached!</span>")
+			return
+		else
+			if(!user.transferItemToLoc(W, src))
+				to_chat(user, "<span class='warning'>\The [W] is stuck to your hand and can't be attached to \the [src]!</span>")
+				return
+			attached_wig = W
+			attached_wig.hat_attached_to = src
+			add_verb(/obj/item/clothing/head/verb/unattach_wig)
+			update_icon()
+			strip_delay = 1 SECONDS //The fake hair makes it really easy to swipe the hat off the head
+			attached_wig.equipped(user, ITEM_SLOT_HEAD)
+
+
+/obj/item/clothing/head/verb/unattach_wig()
+	set name = "Remove Wig"
+	set category = "Object"
+	set src in usr
+
+	var/mob/user = usr
+	if(!user)
+		return
+	if(HAS_TRAIT_FROM(attached_wig, TRAIT_NODROP, GLUED_ITEM_TRAIT))
+		to_chat(user, "<span class='warning'>\The [attached_wig] is stuck to \the [src] and can't be detached!</span>")
+		return
+	user.put_in_hands(attached_wig)
+	if (user.get_item_by_slot(ITEM_SLOT_HEAD) == user)
+		attached_wig.dropped(user)
+	attached_wig.hat_attached_to = null
+	attached_wig = null
+	update_icon()
+	remove_verb(/obj/item/clothing/head/verb/unattach_wig)
+	strip_delay = initial(strip_delay)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.head == src)
+			H.update_inv_head()
+
+/obj/item/clothing/head/Destroy()
+	if (attached_wig)
+		if (attached_wig.resistance_flags & INDESTRUCTIBLE)
+			attached_wig.forceMove(get_turf(src))
+		else
+			QDEL_NULL(attached_wig)
+	..()
+
+/obj/item/clothing/head/examine(mob/user)
+	. = ..()
+	if(attached_wig)
+		. += "<span class='notice'>There's \a [attached_wig.name] attached, which can be removed through the context menu.</span>"
+	else if(!(flags_inv & HIDEHAIR))
+		. += "<span class='notice'>A wig can be attached to the [src].</span>"
+
 ///Special throw_impact for hats to frisbee hats at people to place them on their heads/attempt to de-hat them.
 /obj/item/clothing/head/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
 	///if the thrown object is caught
 	if(..())
 		return
 	///if the thrown object's target zone isn't the head
-	if(thrownthing.target_zone != BODY_ZONE_HEAD)
+	if(!thrownthing || thrownthing.target_zone != BODY_ZONE_HEAD)
 		return
 	///ignore any hats with special effects that prevent removal ie tinfoil hats
 	if(clothing_flags & EFFECT_HAT)
@@ -60,16 +135,49 @@
 			R.visible_message("<span class='notice'>[src] lands neatly on top of [R]</span>", "<span class='notice'>[src] lands perfectly on top of you.</span>")
 			R.place_on_head(src) //hats aren't designed to snugly fit borg heads or w/e so they'll always manage to knock eachother off
 
-/obj/item/clothing/head/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
+/obj/item/clothing/head/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands)
 		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedhelmet")
+			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedhelmet", item_layer)
 		if(HAS_BLOOD_DNA(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "helmetblood")
+			. += mutable_appearance('icons/effects/blood.dmi', "helmetblood", item_layer)
 
 /obj/item/clothing/head/update_clothes_damaged_state(damaging = TRUE)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_inv_head()
+
+/obj/item/clothing/head/compile_monkey_icon()
+	var/identity = "[type]_[icon_state]" //Allows using multiple icon states for piece of clothing
+	//If the icon, for this type of item, is already made by something else, don't make it again
+	if(GLOB.monkey_icon_cache[identity])
+		monkey_icon = GLOB.monkey_icon_cache[identity]
+		return
+
+	//Start with two sides for the front
+	var/icon/main = icon('icons/mob/clothing/head/default.dmi', icon_state) //This takes the icon and uses the worn version of the icon
+	var/icon/sub = icon('icons/mob/clothing/head/default.dmi', icon_state)
+
+	//merge the sub side with the main, after masking off the middle pixel line
+	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_right") //masking
+	main.AddAlphaMask(mask)
+	mask = new('icons/mob/monkey.dmi', "monkey_mask_left")
+	sub.AddAlphaMask(mask)
+	sub.Shift(EAST, 1)
+	main.Blend(sub, ICON_OVERLAY)
+
+	//handle side icons
+	sub = icon('icons/mob/clothing/head/default.dmi', icon_state, dir = EAST)
+	main.Insert(sub, dir = EAST)
+	sub.Flip(WEST)
+	main.Insert(sub, dir = WEST)
+
+	//Mix in GAG color
+	if(greyscale_colors)
+		main.Blend(greyscale_colors, ICON_MULTIPLY)
+
+	//Finished
+	monkey_icon = main
+	GLOB.monkey_icon_cache[identity] = icon(monkey_icon)

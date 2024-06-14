@@ -55,8 +55,16 @@
 	var/launch_distance = rand(2, 6)
 	for(var/i in 1 to launch_distance)
 		step_away(src, loc)
-	addtimer(CALLBACK(src, .proc/prime), rand(10, 60))
+	addtimer(CALLBACK(src, PROC_REF(prime)), rand(10, 60))
 	randomiseLightColor()
+
+/proc/rand_hex_color()
+	var/list/colors = list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f")
+	var/color=""
+	for (var/i=0;i<6;i++)
+		color = color+pick(colors)
+	return color
+
 
 /obj/item/grenade/discogrenade/subgrenade/prime(mob/living/lanced_by)
 	if(dud_flags)
@@ -88,7 +96,7 @@
 	set_light(range, power, lightcolor)
 	add_atom_colour("#[lightcolor]", FIXED_COLOUR_PRIORITY)
 	update_icon()
-	timerID = addtimer(CALLBACK(src, .proc/randomiseLightColor), 2, TIMER_STOPPABLE)
+	timerID = addtimer(CALLBACK(src, PROC_REF(randomiseLightColor)), 2, TIMER_STOPPABLE)
 
 /obj/item/grenade/discogrenade/subgrenade/proc/forcedance(turf/T , mob/living/carbon/human/M)
 	if(!T)
@@ -113,7 +121,7 @@
 		M.show_message("<span class='warning'>You resist your inner urges to break out your best moves.</span>", 2)
 		M.set_drugginess(5)
 		return
-	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		to_chat(M, "<span class = 'userdanger'>THOSE GLOW-IN-THE-DARK NANOTRASEN LIGHTBULBS WON'T CORRUPT ME WITH THEIR AGENDA!</span>")
 		M.emote("scream")
 		return

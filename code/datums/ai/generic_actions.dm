@@ -12,7 +12,7 @@
 /datum/ai_behavior/battle_screech/perform(delta_time, datum/ai_controller/controller)
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
-	INVOKE_ASYNC(living_pawn, /mob.proc/emote, pick(screeches))
+	INVOKE_ASYNC(living_pawn, TYPE_PROC_REF(/mob, emote), pick(screeches))
 	finish_action(controller, TRUE)
 
 ///Moves to target then finishes
@@ -132,7 +132,7 @@
 		"<span class='info'>[pawn] starts trying to give [held_item] to [living_target]!</span>",
 		"<span class='warning'>[pawn] tries to give you [held_item]!</span>"
 	)
-	if(!do_mob(pawn, living_target, 1 SECONDS))
+	if(!do_after(pawn, 1 SECONDS, living_target))
 		return
 	if(QDELETED(held_item) || QDELETED(living_target))
 		finish_action(controller, FALSE)

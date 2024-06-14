@@ -6,7 +6,7 @@
 	var/t_has = p_have()
 	var/t_is = p_are()
 
-	. = list("<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[src]</EM>!")
+	. = list("<span class='info'>This is [icon2html(src, user)] \a <EM>[src]</EM>!")
 	var/obscured = check_obscured_slots()
 
 	if(handcuffed)
@@ -107,10 +107,11 @@
 	. += msg.Join("")
 
 	if(!appears_dead)
-		if(stat == UNCONSCIOUS)
-			. += "[t_He] [t_is]n't responding to anything around [t_him] and seems to be asleep."
-		else if(InCritical())
-			. += "[t_His] breathing is shallow and labored."
+		switch(stat)
+			if(SOFT_CRIT)
+				. += "[t_His] breathing is shallow and labored."
+			if(UNCONSCIOUS, HARD_CRIT)
+				. += "[t_He] [t_is]n't responding to anything around [t_him] and seems to be asleep."
 
 	var/trait_exam = common_trait_examine()
 	if(!isnull(trait_exam))
@@ -131,4 +132,4 @@
 				. += "[t_He] look[p_s()] very happy."
 			if(MOOD_LEVEL_HAPPY4 to INFINITY)
 				. += "[t_He] look[p_s()] ecstatic."
-	. += "*---------*</span>"
+	. += "</span>"

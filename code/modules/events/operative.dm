@@ -1,9 +1,8 @@
 /datum/round_event_control/operative
 	name = "Lone Operative"
 	typepath = /datum/round_event/ghost_role/operative
-	weight = 0 //Admin only
+	weight = 0 //its weight is relative to how much stationary and neglected the nuke disk is. See nuclearbomb.dm. Shouldn't be dynamic hijackable.
 	max_occurrences = 1
-	dynamic_should_hijack = TRUE
 	cannot_spawn_after_shuttlecall = TRUE
 
 /datum/round_event/ghost_role/operative
@@ -12,7 +11,7 @@
 	fakeable = FALSE
 
 /datum/round_event/ghost_role/operative/spawn_role()
-	var/list/candidates = get_candidates(ROLE_OPERATIVE, null, ROLE_OPERATIVE)
+	var/list/candidates = get_candidates(ROLE_OPERATIVE, /datum/role_preference/midround_ghost/nuclear_operative)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 
@@ -24,9 +23,8 @@
 	if(!spawn_locs.len)
 		return MAP_ERROR
 
-	var/mob/living/carbon/human/operative = new(pick(spawn_locs))
-	var/datum/preferences/A = new
-	A.copy_to(operative)
+	var/mob/living/carbon/human/operative = new (pick(spawn_locs))
+	operative.randomize_human_appearance(~RANDOMIZE_SPECIES)
 	operative.dna.update_dna_identity()
 	var/datum/mind/Mind = new /datum/mind(selected.key)
 	Mind.assigned_role = "Lone Operative"

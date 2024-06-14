@@ -1,17 +1,17 @@
 /datum/symptom/toxoplasmosis //my take on the adminbus disease added a year ago. I wanted to make it an actual symptom instead of a simple idea, and i dont want it to call set_species()
-	name = "Toxoplasmosis Sapiens" 
+	name = "Toxoplasmosis Sapiens"
 	desc = "A parasitic symptom that causes a humanoid host to feel slightly happier around cats and cat people."
 	stealth = 1
 	resistance = -2
 	stage_speed = -3
 	transmission = 1
-	level = -1
+	level = 0
 	severity = -1
 	symptom_delay_min = 40
 	symptom_delay_max = 60
 	prefixes = list("Feline ", "Anime ")
 	suffixes = list(" Madness", " Mania") //However, I want this virus to be a bit grimmer than the funny uwu cat disease
-	var/mania = FALSE 
+	var/mania = FALSE
 	var/uwu = FALSE
 	var/dnacounter = 0
 	threshold_desc = "<b>Transmission 4:</b>The symptom mutates the language center of the host's brain, causing them to speak in an infuriating dialect. Known to drive hosts to suicide.<br>\
@@ -19,18 +19,22 @@
 
 /datum/symptom/toxoplasmosis/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= 4)
+	if(A.stealth >= 4 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.stealth >= 0))
 		severity += 3
 	if(A.transmission >= 4)
 		severity += 2
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Transmission 4:</b>The symptom mutates the language center of the host's brain, causing them to speak in an infuriating dialect. Known to drive hosts to suicide.<br>\
+					  <b>Stealth 0:</b>Hosts are overcome with a dysmorphic mania, causing them to glorify the idea of becoming more catlike. May cause irrational behaviour, and, in extreme cases, major body restructuring."
+
 
 /datum/symptom/toxoplasmosis/Start(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= 4)
+	if(A.stealth >= 4 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.stealth >= 0))
 		mania = TRUE
 	if(A.transmission >= 4)
 		uwu = TRUE
-		RegisterSignal(A.affected_mob, COMSIG_MOB_SAY, .proc/handle_speech)
+		RegisterSignal(A.affected_mob, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/symptom/toxoplasmosis/Activate(datum/disease/advance/A)
 	if(!..())
@@ -38,6 +42,8 @@
 	if(!ishuman(A.affected_mob))
 		return
 	var/mob/living/carbon/human/M = A.affected_mob
+	if(M.stat >= DEAD)
+		return
 	if(A.stage >= 4)
 		if(uwu && prob(40))
 			M.say(pick("", "", "", ";", ".h")+pick("Nya", "MIAOW", "Ny- NYAAA", "meow", "NYAAA", "nya", "Ny- meow", "mrrrr", "Mew- Nya") + pick("!", "!!", "~!!", "!~", "~", "", "", ""), forced = "toxoplasmosis")
@@ -72,11 +78,11 @@
 						playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
 						M.add_splatter_floor(get_turf(M))
 					dnacounter -= 5
-				else if(M.stat)
+				else if(!M.stat)
 					var/mob/living/cat = findcat(M, !ears, !tail)
 					if(cat)
 						M.visible_message("<span class='warning'>[M] sits back, staring at [cat] with a manic gleam in their eyes.</span>", "<span class='hypnophrase'>You prepare to glomp on [cat]!</span>")
-						addtimer(CALLBACK(src, .proc/Pounce, cat, M), 20)
+						addtimer(CALLBACK(src, PROC_REF(Pounce), cat, M), 20)
 			else
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "toxoplasmosis", /datum/mood_event/feline_mania)
 		else if(findcat(M))
@@ -164,17 +170,7 @@
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"
-		var/list/whole_words = strings("owo_talk.json", "wowds")
 		var/list/owo_sounds = strings("owo_talk.json", "sounds")
-
-		for(var/key in whole_words)
-			var/value = whole_words[key]
-			if(islist(value))
-				value = pick(value)
-
-			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
-			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
-			message = replacetextEx(message, " [key]", " [value]")
 
 		for(var/key in owo_sounds)
 			var/value = owo_sounds[key]
@@ -186,6 +182,6 @@
 			message = replacetextEx(message, "[key]", "[value]")
 
 		if(prob(3))
-			message += pick(" Nya!"," Meow!"," OwO!!", " Nya-nya!", " Nyaaa~")
+			message += pick(" Nya!"," Meow!", " Mrooww~", " Mew...")
 	speech_args[SPEECH_MESSAGE] = trim(message)
 

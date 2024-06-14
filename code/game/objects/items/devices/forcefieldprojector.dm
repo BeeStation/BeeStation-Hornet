@@ -7,9 +7,10 @@
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NOBLUDGEON
 	item_state = "electronic"
+	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	materials = list(/datum/material/iron=250, /datum/material/glass=500)
+	custom_materials = list(/datum/material/iron=250, /datum/material/glass=500)
 	var/max_shield_integrity = 250
 	var/shield_integrity = 250
 	var/max_fields = 3
@@ -80,12 +81,13 @@
 	icon_state = "forcefield"
 	layer = ABOVE_ALL_MOB_LAYER
 	anchored = TRUE
-	pass_flags_self = PASSGLASS
+	pass_flags_self = PASSTRANSPARENT
 	density = TRUE
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	resistance_flags = INDESTRUCTIBLE
 	CanAtmosPass = ATMOS_PASS_DENSITY
-	armor = list("melee" = 0, "bullet" = 25, "laser" = 50, "energy" = 50, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 25, LASER = 50, ENERGY = 50, BOMB = 25, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
 	var/obj/item/forcefield_projector/generator
 
 /obj/structure/projected_forcefield/Initialize(mapload, obj/item/forcefield_projector/origin)
@@ -102,7 +104,7 @@
 /obj/structure/projected_forcefield/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	playsound(loc, 'sound/weapons/egloves.ogg', 80, 1)
 
-/obj/structure/projected_forcefield/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/structure/projected_forcefield/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	if(sound_effect)
 		play_attack_sound(damage_amount, damage_type, damage_flag)
 	generator.shield_integrity = max(generator.shield_integrity - damage_amount, 0)

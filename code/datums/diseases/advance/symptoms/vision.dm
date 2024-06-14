@@ -3,7 +3,7 @@
 
 Hyphema (Eye bleeding)
 
-	Slightly noticable.
+	Slightly noticeable.
 	Lowers resistance tremendously.
 	Decreases stage speed tremendously.
 	Decreases transmittablity.
@@ -37,15 +37,18 @@ Bonus
 
 /datum/symptom/visionloss/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 12) //goodbye eyes
+	if(A.resistance >= 12 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.resistance >= 8)) //goodbye eyes
 		severity += 1
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Resistance 8:</b> Weakens extraocular muscles, eventually leading to complete detachment of the eyes.<br>\
+					  <b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/visionloss/Start(datum/disease/advance/A)
 	if(!..())
 		return
 	if(A.stealth >= 4)
 		suppress_warning = TRUE
-	if(A.resistance >= 12) //goodbye eyes
+	if(A.resistance >= 12 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.resistance >= 8)) //goodbye eyes
 		remove_eyes = TRUE
 
 /datum/symptom/visionloss/Activate(datum/disease/advance/A)
@@ -56,10 +59,11 @@ Bonus
 	if(eyes)
 		switch(A.stage)
 			if(1, 2)
-				if(prob(base_message_chance) && !suppress_warning)
+				if(prob(base_message_chance) && !suppress_warning && M.stat != DEAD)
 					to_chat(M, "<span class='warning'>Your eyes itch.</span>")
 			if(3, 4)
-				to_chat(M, "<span class='warning'><b>Your eyes burn!</b></span>")
+				if(M.stat != DEAD)
+					to_chat(M, "<span class='warning'><b>Your eyes burn!</b></span>")
 				M.blur_eyes(10)
 				eyes.applyOrganDamage(1)
 			else
@@ -69,12 +73,14 @@ Bonus
 					M.become_nearsighted(EYE_DAMAGE)
 				if(prob(eyes.damage - 10 + 1))
 					if(!remove_eyes)
-						if(!HAS_TRAIT(M, TRAIT_BLIND))
-							to_chat(M, "<span class='userdanger'>You go blind!</span>")
+						if(!M.is_blind())
+							if(M.stat != DEAD)
+								to_chat(M, "<span class='userdanger'>You go blind!</span>")
 							eyes.applyOrganDamage(eyes.maxHealth)
 					else
 						M.visible_message("<span class='warning'>[M]'s eyes fall out of their sockets!</span>", "<span class='userdanger'>Your eyes fall out of their sockets!</span>")
 						eyes.Remove(M)
 						eyes.forceMove(get_turf(M))
 				else
-					to_chat(M, "<span class='userdanger'>Your eyes burn horrifically!</span>")
+					if(M.stat != DEAD)
+						to_chat(M, "<span class='userdanger'>Your eyes burn horrifically!</span>")

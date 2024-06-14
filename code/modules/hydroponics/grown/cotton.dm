@@ -48,7 +48,7 @@
 //reinforced mutated variant
 /obj/item/seeds/cotton/durathread
 	name = "pack of durathread seeds"
-	desc = "A pack of seeds that'll grow into an extremely durable thread that could easily rival plasteel if woven properly."
+	desc = "A pack of seeds that'll grow into an extremely durable thread that could easily rival plasteel if woven properly. In its woven state, it is incredibly effective at resisting high-energy ballistic attacks making it sought after by organisations that specialise in personal defense."
 	icon_state = "seed-durathread"
 	species = "durathread"
 	plantname = "Durathread"

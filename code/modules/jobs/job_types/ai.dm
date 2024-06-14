@@ -1,8 +1,9 @@
 /datum/job/ai
-	title = "AI"
-	flag = AI_JF
+	title = JOB_NAME_AI
+	description = "Follow your laws above all else, be the invisible eye that watches all."
+	department_for_prefs = DEPT_BITFLAG_SILICON
+	department_head_for_prefs = JOB_NAME_AI
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
-	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -14,7 +15,7 @@
 	exp_type = EXP_TYPE_CREW
 	exp_type_department = EXP_TYPE_SILICON
 	display_order = JOB_DISPLAY_ORDER_AI
-	departments = DEPARTMENT_SILICON
+	departments = DEPT_BITFLAG_SILICON
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
 	var/do_special_check = TRUE
@@ -24,7 +25,7 @@
 		CRASH("dynamic preview is unsupported")
 	. = H.AIize(latejoin,preference_source)
 
-/datum/job/ai/after_spawn(mob/H, mob/M, latejoin)
+/datum/job/ai/after_spawn(mob/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
 	if(latejoin)
 		var/obj/structure/AIcore/latejoin_inactive/lateJoinCore
@@ -38,8 +39,11 @@
 			H.forceMove(lateJoinCore.loc)
 			qdel(lateJoinCore)
 	var/mob/living/silicon/ai/AI = H
-	AI.apply_pref_name("ai", M.client)			//If this runtimes oh well jobcode is fucked.
-	AI.set_core_display_icon(null, M.client)
+	if(M.client)
+		AI.apply_pref_name(/datum/preference/name/ai, preference_source)			//If this runtimes oh well jobcode is fucked.
+	AI.set_core_display_icon(null, preference_source)
+	if(!M.client || on_dummy)
+		return
 
 	//we may have been created after our borg
 	if(SSticker.current_state == GAME_STATE_SETTING_UP)
@@ -65,7 +69,7 @@
 
 /datum/job/ai/announce(mob/living/silicon/ai/AI)
 	. = ..()
-	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, .proc/minor_announce, "[AI] has been downloaded to an empty bluespace-networked AI core at [AREACOORD(AI)]."))
+	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), "[AI] has been downloaded to an empty bluespace-networked AI core at [AREACOORD(AI)]."))
 
 /datum/job/ai/config_check()
 	return CONFIG_GET(flag/allow_ai)

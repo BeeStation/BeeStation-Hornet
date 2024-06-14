@@ -59,7 +59,7 @@
 /obj/machinery/plantgenes/update_icon()
 	..()
 	cut_overlays()
-	if((stat & (BROKEN|NOPOWER)))
+	if((machine_stat & (BROKEN|NOPOWER)))
 		icon_state = "dnamod-off"
 	else
 		icon_state = "dnamod"
@@ -438,7 +438,7 @@
 	name = "plant data disk"
 	desc = "A disk for storing plant genetic data."
 	icon_state = "datadisk_hydro"
-	materials = list(/datum/material/iron=30, /datum/material/glass=10)
+	custom_materials = list(/datum/material/iron=30, /datum/material/glass=10)
 	var/datum/plant_gene/gene
 	var/read_only = 0 //Well, it's still a floppy disk
 	obj_flags = UNIQUE_RENAME
@@ -449,7 +449,8 @@
 	src.pixel_x = rand(-5, 5)
 	src.pixel_y = rand(-5, 5)
 
-/obj/item/disk/plantgene/proc/update_name()
+/obj/item/disk/plantgene/update_name()
+	. = ..()
 	if(gene)
 		name = "[gene.get_name()] (plant data disk)"
 	else

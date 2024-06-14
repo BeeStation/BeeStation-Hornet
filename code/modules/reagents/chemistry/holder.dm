@@ -199,7 +199,8 @@
 			var/transfer_amount = T.volume * part
 			if(preserve_data)
 				trans_data = copy_data(T)
-			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1) //we only handle reaction after every reagent has been transfered.
+			if(!R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = TRUE)) //we only handle reaction after every reagent has been transfered.
+				continue
 			if(method)
 				R.react_single(T, target_atom, method, part, show_message)
 				T.on_transfer(target_atom, method, transfer_amount * multiplier)
@@ -218,7 +219,8 @@
 			var/transfer_amount = amount
 			if(amount > T.volume)
 				transfer_amount = T.volume
-			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1)
+			if(!R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = TRUE)) //we only handle reaction after every reagent has been transfered.
+				continue
 			to_transfer = max(to_transfer - transfer_amount , 0)
 			if(method)
 				R.react_single(T, target_atom, method, transfer_amount, show_message)
@@ -267,6 +269,22 @@
 	R.handle_reactions()
 	src.handle_reactions()
 	return amount
+
+///Multiplies the reagents inside this holder by a specific amount
+/datum/reagents/proc/multiply_reagents(multiplier=1)
+	var/list/cached_reagents = reagent_list
+	if(!total_volume)
+		return
+	var/change = (multiplier - 1) //Get the % change
+	for(var/reagent in cached_reagents)
+		var/datum/reagent/T = reagent
+		if(change > 0)
+			add_reagent(T.type, T.volume * change)
+		else
+			remove_reagent(T.type, abs(T.volume * change)) //absolute value to prevent a double negative situation (removing -50% would be adding 50%)
+
+	update_total()
+	handle_reactions()
 
 /datum/reagents/proc/trans_id_to(obj/target, reagent, amount=1, preserve_data=1)//Not sure why this proc didn't exist before. It does now! /N
 	var/list/cached_reagents = reagent_list
@@ -451,6 +469,9 @@
 
 						if(M.Uses > 0) // added a limit to slime cores -- Muskets requested this
 							matching_other = 1
+
+					else if(C.check_other()) //if a recipe has required_other, call this proc to see if it meets requirements
+						matching_other = 1
 				else
 					if(!C.required_container)
 						matching_container = 1
@@ -460,7 +481,7 @@
 				if(required_temp == 0 || (is_cold_recipe && chem_temp <= required_temp) || (!is_cold_recipe && chem_temp >= required_temp))
 					meets_temp_requirement = 1
 
-				if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other && meets_temp_requirement)
+				if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other && meets_temp_requirement && C.can_react(src))
 					possible_reactions  += C
 
 		if(possible_reactions.len)
@@ -584,7 +605,7 @@
 			can_process = TRUE
 	return can_process
 
-/datum/reagents/proc/reaction(atom/A, method = TOUCH, volume_modifier = 1, show_message = 1)
+/datum/reagents/proc/reaction(atom/A, method = TOUCH, volume_modifier = 1, show_message = 1, obj/item/bodypart/affecting)
 	var/react_type
 	if(isliving(A))
 		react_type = "LIVING"
@@ -609,7 +630,7 @@
 				if(method == VAPOR)
 					var/mob/living/L = A
 					touch_protection = L.get_permeability_protection()
-				R.reaction_mob(A, method, R.volume * volume_modifier, show_message, touch_protection)
+				R.reaction_mob(A, method, R.volume * volume_modifier, show_message, touch_protection, affecting)
 			if("TURF")
 				R.reaction_turf(A, R.volume * volume_modifier, show_message)
 			if("OBJ")
@@ -631,13 +652,16 @@
 
 /datum/reagents/proc/adjust_thermal_energy(J, min_temp = 2.7, max_temp = 1000)
 	var/S = specific_heat()
-	chem_temp = CLAMP(chem_temp + (J / (S * total_volume)), 2.7, 1000)
+	chem_temp = clamp(chem_temp + (J / (S * total_volume)), 2.7, 1000)
 
 /datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300, no_react = 0)
 	if(!isnum_safe(amount) || !amount)
 		return FALSE
 
 	if(amount <= 0)
+		return FALSE
+
+	if(SEND_SIGNAL(src, COMSIG_REAGENTS_PRE_ADD_REAGENT, reagent, amount, reagtemp, data, no_react) & COMPONENT_CANCEL_REAGENT_ADD)
 		return FALSE
 
 	var/datum/reagent/D = GLOB.chemical_reagents_list[reagent]
@@ -685,9 +709,7 @@
 	cached_reagents += R
 	R.holder = src
 	R.volume = amount
-	if(data)
-		R.data = data
-		R.on_new(data)
+	R.on_new(data)
 
 	if(isliving(my_atom))
 		R.on_mob_add(my_atom) //Must occur befor it could posibly run on_mob_delete
@@ -722,7 +744,7 @@
 		if (R.type == reagent)
 			//clamp the removal amount to be between current reagent amount
 			//and zero, to prevent removing more than the holder has stored
-			amount = CLAMP(amount, 0, R.volume)
+			amount = clamp(amount, 0, R.volume)
 			R.volume -= amount
 			update_total()
 			if(!safety)//So it does not handle reactions when it need not to
@@ -935,20 +957,18 @@
 		CHEMICAL_RNG_GENERAL,   // (1<<3)
 		CHEMICAL_RNG_FUN,       // (1<<4)
 		CHEMICAL_RNG_BOTANY,    // (1<<5)
-		CHEMICAL_GOAL_CHEMIST_DRUG,         // (1<<23) - goal_define starts at 23 and goes reversed.
-		CHEMICAL_GOAL_CHEMIST_BLOODSTREAM,  // (1<<22)
-		CHEMICAL_GOAL_BOTANIST_HARVEST,     // (1<<21)
-		CHEMICAL_GOAL_BARTENDER_SERVING)    // (1<<20)
+		CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE,         // (1<<23) - goal_define starts at 23 and goes reversed.
+		CHEMICAL_GOAL_BOTANIST_HARVEST,     // (1<<22)
+		CHEMICAL_GOAL_BARTENDER_SERVING)    // (1<<21)
 	var/static/list/random_reagents_a = list()  // CHEMICAL_NOT_SYNTH
 	var/static/list/random_reagents_b = list()  // CHEMICAL_BASIC_ELEMENT
 	var/static/list/random_reagents_c = list()  // CHEMICAL_BASIC_DRINK
 	var/static/list/random_reagents_d = list()  // CHEMICAL_RNG_GENERAL
 	var/static/list/random_reagents_e = list()  // CHEMICAL_RNG_FUN
 	var/static/list/random_reagents_f = list()  // CHEMICAL_RNG_BOTANY
-	var/static/list/random_reagents_goal_a = list()  // CHEMICAL_GOAL_CHEMIST_DRUG
-	var/static/list/random_reagents_goal_b = list()  // CHEMICAL_GOAL_CHEMIST_BLOODSTREAM
-	var/static/list/random_reagents_goal_c = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
-	var/static/list/random_reagents_goal_d = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
+	var/static/list/random_reagents_goal_a = list()  // CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	var/static/list/random_reagents_goal_b = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
+	var/static/list/random_reagents_goal_c = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
 	var/static/list/random_reagent = list(
 		random_reagents_a,
 		random_reagents_b,
@@ -958,8 +978,7 @@
 		random_reagents_f,
 		random_reagents_goal_a,
 		random_reagents_goal_b,
-		random_reagents_goal_c,
-		random_reagents_goal_d)
+		random_reagents_goal_c)
 	// ----above is a section you might want to edit for more chem RNGs----
 
 	// initialize random reagent static lists

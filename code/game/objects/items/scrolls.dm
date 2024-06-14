@@ -30,7 +30,7 @@
 
 /obj/item/teleportation_scroll/Topic(href, href_list)
 	..()
-	if (usr.stat || usr.restrained() || src.loc != usr)
+	if (usr.stat != CONSCIOUS || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || src.loc != usr)
 		return
 	if (!ishuman(usr))
 		return 1
@@ -46,9 +46,7 @@
 
 /obj/item/teleportation_scroll/proc/teleportscroll(mob/user)
 
-	var/A
-
-	A = input(user, "Area to jump to", "BOOYEA", A) as null|anything in GLOB.teleportlocs
+	var/A = tgui_input_list(user, "Area to jump to", "BOOYEA", items = GLOB.teleportlocs)
 	if(!src || QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated() || !A || !uses)
 		return
 	var/area/thearea = GLOB.teleportlocs[A]
@@ -59,7 +57,7 @@
 	smoke.start()
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(thearea.type))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			L += T
 
 	if(!L.len)

@@ -11,11 +11,6 @@
 /area/template_noop)
 "t" = (
 /obj/structure/table,
-/obj/structure/table,
-/turf/open/floor/holofloor/plating,
-/area/template_noop)
-"H" = (
-/obj/structure/table,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 
@@ -33,8 +28,8 @@ a
 "}
 (2,1,1) = {"
 a
-H
-H
+t
+t
 a
 a
 a
@@ -45,24 +40,24 @@ l
 "}
 (3,1,1) = {"
 a
-H
-H
-H
-H
+t
+t
+t
+t
 a
-H
-H
+t
+t
 a
 l
 "}
 (4,1,1) = {"
 a
 a
-H
-H
-H
-H
-H
+t
+t
+t
+t
+t
 a
 a
 l
@@ -70,11 +65,11 @@ l
 (5,1,1) = {"
 a
 a
-H
+t
 t
 a
-H
-H
+t
+t
 a
 a
 l
@@ -82,10 +77,10 @@ l
 (6,1,1) = {"
 a
 a
-H
-H
-H
-H
+t
+t
+t
+t
 a
 a
 a
@@ -93,25 +88,25 @@ l
 "}
 (7,1,1) = {"
 a
-H
-H
-H
-H
+t
+t
+t
+t
 a
-H
-H
+t
+t
 a
 l
 "}
 (8,1,1) = {"
 a
-H
+t
 a
 a
 a
 a
-H
-H
+t
+t
 a
 a
 "}

@@ -15,8 +15,8 @@
 
 /datum/component/storage/concrete/Initialize()
 	. = ..()
-	RegisterSignal(parent, COMSIG_ATOM_CONTENTS_DEL, .proc/on_contents_del)
-	RegisterSignal(parent, COMSIG_OBJ_DECONSTRUCT, .proc/on_deconstruct)
+	RegisterSignal(parent, COMSIG_ATOM_CONTENTS_DEL, PROC_REF(on_contents_del))
+	RegisterSignal(parent, COMSIG_OBJ_DECONSTRUCT, PROC_REF(on_deconstruct))
 
 /datum/component/storage/concrete/Destroy()
 	var/atom/real_location = real_location()
@@ -129,10 +129,14 @@
 	if(isitem(AM))
 		var/obj/item/I = AM
 		I.item_flags &= ~IN_STORAGE
+		animate_parent()
 		I.remove_outline()
 		if(ismob(parent.loc))
 			var/mob/M = parent.loc
-			I.dropped(M)
+			I.dropped(M, TRUE)
+		if(!(I.item_flags & (NO_PIXEL_RANDOM_DROP | WAS_THROWN)))
+			I.pixel_x = rand(-6, 6)
+			I.pixel_y = rand(-6, 6)
 	if(new_location)
 		//Reset the items values
 		_removal_reset(AM)

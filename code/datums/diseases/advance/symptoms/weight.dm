@@ -3,7 +3,7 @@
 
 Weight Loss
 
-	Very Very Noticable.
+	Very very noticeable.
 	Decreases resistance.
 	Decreases stage speed.
 	Reduced transmission.
@@ -38,7 +38,7 @@ Bonus
 	. = ..()
 	if(A.stealth >= 2) //warn less often
 		severity -= 3
-	
+
 
 /datum/symptom/weight_loss/Start(datum/disease/advance/A)
 	if(!..())
@@ -51,6 +51,8 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	switch(A.stage)
 		if(1, 2, 3, 4)
 			if(prob(base_message_chance))

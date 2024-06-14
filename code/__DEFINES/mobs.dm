@@ -86,43 +86,12 @@
 #define GIB_TYPE_HUMAN "human"
 #define GIB_TYPE_ROBOTIC "robotic"
 
-//Species ID defines
-#define SPECIES_HUMAN			"human"
-#define SPECIES_IPC 			"ipc"
-#define SPECIES_ETHEREAL 		"ethereal"
-#define SPECIES_PLASMAMAN 		"plasmaman"
-#define SPECIES_APID 			"apid"
-#define SPECIES_MOTH			"moth"
-#define SPECIES_LIZARD			"lizard"
- #define SPECIES_ASHWALKER		"ashlizard"
-#define SPECIES_FELINID			"felinid"
-#define SPECIES_OOZELING		"oozeling"
-#define SPECIES_FLY 			"fly"
-#define SPECIES_MONKEY			"monkey"
-#define SPECIES_JELLYPERSON		"jelly"
- #define SPECIES_SLIMEPERSON	"slime"
- #define SPECIES_LUMINESCENT	"lum"
- #define SPECIES_STARGAZER		"stargazer"
-#define SPECIES_ABDUCTOR		"abductor"
-#define SPECIES_SHADOWPERSON	"shadow"
-
-//Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
-#define FLAG_HUMAN			(1<<0)
-#define FLAG_IPC			(1<<1)
-#define FLAG_ETHEREAL		(1<<2)
-#define FLAG_PLASMAMAN		(1<<3)
-#define	FLAG_APID			(1<<4)
-#define FLAG_MOTH			(1<<5)
-#define FLAG_LIZARD			(1<<6)
-#define FLAG_FELINID		(1<<7)
-#define FLAG_OOZELING		(1<<8)
-#define FLAG_FLY			(1<<9)
-#define FLAG_DEBUG_SPECIES	(1<<10)
-#define FLAG_MONKEY (1<<11)
-
 #define DIGITIGRADE_NEVER 0
 #define DIGITIGRADE_OPTIONAL 1
 #define DIGITIGRADE_FORCED 2
+
+// Health/damage defines
+#define MAX_LIVING_HEALTH 100
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
@@ -133,6 +102,14 @@
 #define SYNTHETIC 2
 
 /*see __DEFINES/inventory.dm for bodypart bitflag defines*/
+
+//for determining which type of heartbeat sound is playing
+///Heartbeat is beating fast for hard crit
+#define BEAT_FAST 1
+///Heartbeat is beating slow for soft crit
+#define BEAT_SLOW 2
+///Heartbeat is gone... He's dead Jim :(
+#define BEAT_NONE 0
 
 // Health/damage defines for carbon mobs
 #define HUMAN_MAX_OXYLOSS 3
@@ -174,6 +151,35 @@
 #define TRAUMA_RESILIENCE_MAGIC 4      //! Curable only with magic
 #define TRAUMA_RESILIENCE_ABSOLUTE 5   //! This is here to stay
 
+GLOBAL_LIST_INIT(available_random_trauma_list, list(
+	"spiders" = 5,
+	"space" = 2,
+	"security" = 5,
+	"clowns" = 5,
+	"greytide" = 5,
+	"lizards" = 5,
+	"skeletons" = 5,
+	"snakes" = 5,
+	"robots" = 4,
+	"doctors" = 4,
+	"authority" = 5,
+	"the supernatural" = 5,
+	"aliens" = 5,
+	"strangers" = 5,
+	"birds" = 5,
+	"falling" = 5,
+	"anime" = 5
+))
+
+/// This trauma cannot be cured through "special" means, such as nanites or viruses.
+#define TRAUMA_SPECIAL_CURE_PROOF	(1<<0)
+/// This trauma transfers on cloning.
+#define TRAUMA_CLONEABLE			(1<<1)
+/// This trauma CANNOT be obtained randomly.
+#define TRAUMA_NOT_RANDOM			(1<<2)
+/// Default trauma flags.
+#define TRAUMA_DEFAULT_FLAGS		(TRAUMA_CLONEABLE)
+
 //Limit of traumas for each resilience tier
 #define TRAUMA_LIMIT_BASIC 3
 #define TRAUMA_LIMIT_SURGERY 2
@@ -194,6 +200,7 @@
 #define BIOWARE_NERVES "nerves"
 #define BIOWARE_CIRCULATION "circulation"
 #define BIOWARE_LIGAMENTS "ligaments"
+#define BIOWARE_CORTEX "cortex"
 
 //Health hud screws for carbon mobs
 #define SCREWYHUD_NONE 0
@@ -287,7 +294,7 @@
 //Sentience types, to prevent things like sentience potions from giving bosses sentience
 #define SENTIENCE_ORGANIC 1
 #define SENTIENCE_ARTIFICIAL 2
-// #define SENTIENCE_OTHER 3 unused
+#define SENTIENCE_OTHER 3
 #define SENTIENCE_MINEBOT 4
 #define SENTIENCE_BOSS 5
 
@@ -300,7 +307,8 @@
 #define AI_OFF		3
 #define AI_Z_OFF	4
 
-//determines if a mob can smash through it
+/// An AI hint which tells the AI what it should break.
+/// Note that mobs being able to break walls and r-walls is determined by their attack force.
 #define ENVIRONMENT_SMASH_NONE			0
 #define ENVIRONMENT_SMASH_STRUCTURES	(1<<0) 	//crates, lockers, ect
 #define ENVIRONMENT_SMASH_WALLS			(1<<1)  //walls
@@ -311,6 +319,7 @@
 #define GALOSHES_DONT_HELP		(1<<2)
 #define SLIDE_ICE				(1<<3)
 #define SLIP_WHEN_CRAWLING		(1<<4) //clown planet ruin
+#define NO_SLIP_ON_CATWALK      (1<<5)
 
 ///Flags used by the flags parameter of electrocute act.
 ///Makes it so that the shock doesn't take gloves into account.
@@ -391,22 +400,6 @@
 #define PULL_PRONE_SLOWDOWN 1.5
 #define HUMAN_CARRY_SLOWDOWN 0.35
 
-//! ## control what things can spawn species
-/// Badmin magic mirror
-#define MIRROR_BADMIN (1<<0)
-/// Standard magic mirror (wizard)
-#define MIRROR_MAGIC  (1<<1)
-/// Pride ruin mirror
-#define MIRROR_PRIDE  (1<<2)
-/// Race swap wizard event
-#define RACE_SWAP     (1<<3)
-/// ERT spawn template (avoid races that don't function without correct gear)
-#define ERT_SPAWN     (1<<4)
-/// xenobio black crossbreed
-#define SLIME_EXTRACT (1<<5)
-/// Wabbacjack staff projectiles
-#define WABBAJACK     (1<<6)
-
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
 #define INTERACTING_WITH(X, Y) (Y in X.do_afters)
 
@@ -430,12 +423,153 @@
 ///Define for spawning megafauna instead of a mob for cave gen
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
 
-//Body sizes
-#define BODY_SIZE_NORMAL 1
-#define BODY_SIZE_SHORT 0.93
-#define BODY_SIZE_TALL 1.03
+///How much a mob's sprite should be moved when they're lying down
+#define PIXEL_Y_OFFSET_LYING -6
+
+///Squash flags. For squashable element
+
+///Whether or not the squashing requires the squashed mob to be lying down
+#define SQUASHED_SHOULD_BE_DOWN (1<<0)
+///Whether or not to gib when the squashed mob is moved over
+#define SQUASHED_SHOULD_BE_GIBBED (1<<0)
+
+/*
+ * Defines for "AI emotions", allowing the AI to expression emotions
+ * with status displays via emotes.
+ */
+
+#define AI_EMOTION_VERY_HAPPY "Very Happy"
+#define AI_EMOTION_HAPPY "Happy"
+#define AI_EMOTION_NEUTRAL "Neutral"
+#define AI_EMOTION_UNSURE "Unsure"
+#define AI_EMOTION_CONFUSED "Confused"
+#define AI_EMOTION_SAD "Sad"
+#define AI_EMOTION_BSOD "BSOD"
+#define AI_EMOTION_BLANK "Blank"
+#define AI_EMOTION_PROBLEMS "Problems?"
+#define AI_EMOTION_AWESOME "Awesome"
+#define AI_EMOTION_FACEPALM "Facepalm"
+#define AI_EMOTION_THINKING "Thinking"
+#define AI_EMOTION_FRIEND_COMPUTER "Friend Computer"
+#define AI_EMOTION_DORFY "Dorfy"
+#define AI_EMOTION_BLUE_GLOW "Blue Glow"
+#define AI_EMOTION_RED_GLOW "Red Glow"
+
+//Generic body sizes
+#define BODY_SIZE_NORMAL 0
+#define BODY_SIZE_SHORT 1
+#define BODY_SIZE_TALL -1
 
 /// Throw modes, defines whether or not to turn off throw mode after
 #define THROW_MODE_DISABLED 0
 #define THROW_MODE_TOGGLE 1
 #define THROW_MODE_HOLD 2
+
+/// Converts the layer into a float layer that is within the bounds of the defined maximum mob clothing layer
+/// The bigger the input layer, the deeper it will be (mutations layer is at the bottom, so has a float layer of FLOAT_LAYER - 0.1).
+#define CALCULATE_MOB_OVERLAY_LAYER(_layer) (FLOAT_LAYER - (_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
+
+// Mob Overlays Indexes
+/// KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
+#define TOTAL_LAYERS 29
+/// Mutations layer - Tk headglows, cold resistance glow, etc
+#define MUTATIONS_LAYER 29
+/// Certain mutantrace features (tail when looking south) that must appear behind the body parts
+#define BODY_BEHIND_LAYER 28
+/// Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
+#define BODYPARTS_LAYER 27
+/// certain mutantrace features (snout, body markings) that must appear above the body parts
+#define BODY_ADJ_LAYER 26
+/// underwear, undershirts, socks, eyes, lips(makeup)
+#define BODY_LAYER 25
+/// mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
+#define FRONT_MUTATIONS_LAYER 24
+/// damage indicators (cuts and burns)
+#define DAMAGE_LAYER 23
+/// Jumpsuit clothing layer
+#define UNIFORM_LAYER 22
+/// lmao at the idiot who put both ids and hands on the same layer
+#define ID_LAYER 21
+/// Hands body part layer (or is this for the arm? not sure...)
+#define HANDS_PART_LAYER 20
+/// Gloves layer
+#define GLOVES_LAYER 19
+/// Shoes layer
+#define SHOES_LAYER 18
+/// Ears layer (Spessmen have ears? Wow)
+#define EARS_LAYER 17
+/// Suit layer (armor, hardsuits, etc.)
+#define SUIT_LAYER 16
+/// Glasses layer
+#define GLASSES_LAYER 15
+/// Belt layer
+#define BELT_LAYER 14 //Possible make this an overlay of somethign required to wear a belt?
+/// Suit storage layer (tucking a gun or baton underneath your armor)
+#define SUIT_STORE_LAYER 13
+///  Neck layer (for wearing ties and bedsheets)
+#define NECK_LAYER 12
+/// Back layer (for backpacks and equipment on your back)
+#define BACK_LAYER 11
+/// Hair layer (mess with the fro and you got to go!)
+#define HAIR_LAYER 10		//! TODO: make part of head layer?
+/// Facemask layer (gas masks, breath masks, etc.)
+#define FACEMASK_LAYER 9
+/// Head layer (hats, helmets, etc.)
+#define HEAD_LAYER 8
+/// Handcuff layer (when your hands are cuffed)
+#define HANDCUFF_LAYER 7
+/// Legcuff layer (when your feet are cuffed)
+#define LEGCUFF_LAYER 6
+/// Hands layer (for the actual hand, not the arm... I think?)
+#define HANDS_LAYER 5
+/// Body front layer. Usually used for mutant bodyparts that need to be in front of stuff (e.g. cat ears)
+#define BODY_FRONT_LAYER 4
+/// Blood cult ascended halo layer, because there's currently no better solution for adding/removing
+#define HALO_LAYER 3
+/// Typing layer for the typing indicator
+#define TYPING_LAYER 2
+/// Fire layer when you're on fire
+#define FIRE_LAYER 1
+
+//Mob Overlay Index Shortcuts for alternate_worn_layer, layers
+//Because I *KNOW* somebody will think layer+1 means "above"
+//IT DOESN'T OK, IT MEANS "UNDER"
+/// The layer underneath the suit
+#define UNDER_SUIT_LAYER (SUIT_LAYER+1)
+/// The layer underneath the head (for hats)
+#define UNDER_HEAD_LAYER (HEAD_LAYER+1)
+
+//AND -1 MEANS "ABOVE", OK?, OK!?!
+/// The layer above shoes
+#define ABOVE_SHOES_LAYER (SHOES_LAYER-1)
+/// The layer above mutant body parts
+#define ABOVE_BODY_FRONT_LAYER (BODY_FRONT_LAYER-1)
+
+
+//used by canUseTopic()
+/// If silicons need to be next to the atom to use this
+#define BE_CLOSE TRUE
+/// If other mobs (monkeys, aliens, etc) can use this
+#define NO_DEXTERITY TRUE // I had to change 20+ files because some non-dnd-playing fuckchumbis can't spell "dexterity"
+// If telekinesis you can use it from a distance
+#define NO_TK TRUE
+
+/// The default mob sprite size (used for shrinking or enlarging the mob sprite to regular size)
+#define RESIZE_DEFAULT_SIZE 1
+
+/// Get the client from the var
+#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
+
+/// The mob will vomit a green color
+#define VOMIT_TOXIC 1
+/// The mob will vomit a purple color
+#define VOMIT_PURPLE 2
+/// The mob will vomit up nanites
+#define VOMIT_NANITE 3
+
+
+/// Messages when (something) lays an egg
+#define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
+
+/// Returns whether or not the given mob can succumb
+#define CAN_SUCCUMB(target) (HAS_TRAIT(target, TRAIT_CRITICAL_CONDITION) && !HAS_TRAIT(target, TRAIT_NODEATH))

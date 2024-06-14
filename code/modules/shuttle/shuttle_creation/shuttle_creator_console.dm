@@ -2,7 +2,14 @@
 /obj/machinery/computer/camera_advanced/shuttle_creator
 	name = "internal shuttle creator console"
 	desc = "You should not have access to this, please report this as a bug"
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	networks = list()
+	use_power = NO_POWER_USE
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	var/obj/item/shuttle_creator/owner_rsd
 	var/datum/action/innate/shuttle_creator/designate_area/area_action = new
 	var/datum/action/innate/shuttle_creator/designate_turf/turf_action = new
@@ -12,16 +19,13 @@
 	var/datum/action/innate/shuttle_creator/modify/modify_action = new
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/check_eye(mob/user)
-	if(user.eye_blind || user.incapacitated())
+	if(user.incapacitated())
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/CreateEye()
 	eyeobj = new /mob/camera/ai_eye/remote/shuttle_creation(get_turf(owner_rsd))
 	eyeobj.origin = src
 	eyeobj.use_static = FALSE
-
-/obj/machinery/computer/camera_advanced/shuttle_creator/is_operational()
-	return TRUE
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/can_interact(mob/user)
 	if(!isliving(user))
@@ -67,7 +71,7 @@
 		user.client.images -= eyeobj.user_image
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/attack_hand(mob/user)
-	if(!is_operational()) //you cant use broken machine you chumbis
+	if(!is_operational) //you cant use broken machine you chumbis
 		return
 	if(current_user)
 		to_chat(user, "The console is already in use!")

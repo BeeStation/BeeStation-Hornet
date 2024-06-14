@@ -7,6 +7,7 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"
 	item_state = "flashbang"
+	icon_state_preview = "chemg" // a black stick is bad to recognise as a preview
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	throw_speed = 3
@@ -24,7 +25,7 @@
 	add_overlay("improvised_grenade_filled")
 	add_overlay("improvised_grenade_wired")
 	times = list("5" = 10, "-1" = 20, "[rand(30,80)]" = 50, "[rand(65,180)]" = 20)// "Premature, Dud, Short Fuse, Long Fuse"=[weighting value]
-	det_time = text2num(pickweight(times))
+	det_time = text2num(pick_weight(times))
 	if(det_time < 0) //checking for 'duds'
 		range = 1
 		det_time = rand(30,80)

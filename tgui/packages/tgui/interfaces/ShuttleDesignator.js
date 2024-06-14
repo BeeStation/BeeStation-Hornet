@@ -17,74 +17,59 @@ export const ShuttleDesignator = (props, context) => {
     preferred_direction = null,
   } = data;
 
-  const directions = ["North", "South", "East", "West"];
+  const directions = ['North', 'South', 'East', 'West'];
 
   return (
-    <Window
-      width={500}
-      height={500}>
+    <Window width={500} height={500}>
       <Window.Content />
       {shuttleId && (
-        <Section title="Shuttle Information" >
+        <Section title="Shuttle Information">
           Shuttle name: {name}
           <br />
-          Shuttle mass: {shuttle_mass/10} tons
+          Shuttle mass: {shuttle_mass / 10} tons
           <br />
-          Buffered mass: {buffered_mass/10} tons
+          Buffered mass: {buffered_mass / 10} tons
           <br />
-          Current capacity: {current_capacity/10} tons
+          Current capacity: {current_capacity / 10} tons
           <br />
-          Ideal capacity: {ideal_capacity/10} tons
+          Ideal capacity: {ideal_capacity / 10} tons
         </Section>
       )}
-      <Section title="Shuttle Designation" >
-        {
-          (inFlight ? (
-            <NoticeBox color="Red">
-              Shuttle in flight, designation unavailable.
-            </NoticeBox>
-          ) : (
-            <>
-              {!!shuttleId || (
-                <NoticeBox color="yellow">
-                  No linked shuttle.
-                </NoticeBox>
-              )}
-              Buffer capacity:
-              <ProgressBar
-                value={buffered_mass/max_size}
-                ranges={{
-                  good: [-Infinity, current_capacity/max_size],
-                  average: [current_capacity/max_size,
-                    ideal_capacity/max_size],
-                  bad: [ideal_capacity/max_size, Infinity],
-                }} />
-              <Button
-                content="Designate Area"
-                textAlign="center"
-                onClick={() => act('designate')} />
-            </>
-          ))
-        }
+      <Section title="Shuttle Designation">
+        {inFlight ? (
+          <NoticeBox color="Red">Shuttle in flight, designation unavailable.</NoticeBox>
+        ) : (
+          <>
+            {!!shuttleId || <NoticeBox color="yellow">No linked shuttle.</NoticeBox>}
+            Buffer capacity:
+            <ProgressBar
+              value={buffered_mass / max_size}
+              ranges={{
+                good: [-Infinity, current_capacity / max_size],
+                average: [current_capacity / max_size, ideal_capacity / max_size],
+                bad: [ideal_capacity / max_size, Infinity],
+              }}
+            />
+            <Button content="Designate Area" textAlign="center" onClick={() => act('designate')} />
+          </>
+        )}
       </Section>
-      {
-        shuttleId && !inFlight && (
-          <Section title="Shuttle Configuration" >
-            Current Direction:
-            <Dropdown
-              selected={current_direction}
-              options={directions}
-              onSelected={dir => act("current_direction",
-                { direction: dir })} />
-            Travel Direction:
-            <Dropdown
-              selected={preferred_direction}
-              options={directions}
-              onSelected={dir => act("preferred_direction",
-                { direction: dir })} />
-          </Section>
-        )
-      }
+      {shuttleId && !inFlight && (
+        <Section title="Shuttle Configuration">
+          Current Direction:
+          <Dropdown
+            selected={current_direction}
+            options={directions}
+            onSelected={(dir) => act('current_direction', { direction: dir })}
+          />
+          Travel Direction:
+          <Dropdown
+            selected={preferred_direction}
+            options={directions}
+            onSelected={(dir) => act('preferred_direction', { direction: dir })}
+          />
+        </Section>
+      )}
     </Window>
   );
 };

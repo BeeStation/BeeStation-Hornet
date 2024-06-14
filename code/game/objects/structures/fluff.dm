@@ -7,7 +7,7 @@
 	icon_state = "minibar"
 	anchored = TRUE
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 	var/deconstructible = TRUE
 
 /obj/structure/fluff/attackby(obj/item/I, mob/living/user, params)
@@ -75,6 +75,7 @@
 	name = "bus"
 	desc = "GO TO SCHOOL. READ A BOOK."
 	icon = 'icons/obj/bus.dmi'
+	icon_state = null
 	density = TRUE
 	anchored = TRUE
 	deconstructible = FALSE
@@ -104,7 +105,7 @@
 	icon_state = "driverseat"
 
 /obj/structure/fluff/bus/passable/seat/driver/attack_hand(mob/user)
-	playsound(src, 'sound/items/carhorn.ogg', 50, 1)
+	playsound(src, 'sound/items/carhorn.ogg', 50, TRUE)
 	. = ..()
 
 /obj/structure/fluff/paper
@@ -126,6 +127,7 @@
 /obj/structure/fluff/divine
 	name = "Miracle"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
+	icon_state = "error"
 	anchored = TRUE
 	density = TRUE
 
@@ -167,3 +169,19 @@
 	desc = "A crudely-made sign with the words 'fok of' written in some sort of red paint."
 	icon = 'icons/obj/fluff.dmi'
 	icon_state = "fokof"
+
+/obj/structure/fluff/hedge
+	name = "hedge"
+	desc = "A large bushy hedge."
+	icon = 'icons/obj/smooth_structures/hedge.dmi'
+	icon_state = "hedge-0"
+	base_icon_state = "hedge"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_HEDGE_FLUFF)
+	canSmoothWith = list(SMOOTH_GROUP_HEDGE_FLUFF)
+	density = TRUE
+	anchored = TRUE
+	deconstructible = FALSE
+
+/obj/structure/fluff/hedge/opaque //useful for mazes and such
+	opacity = TRUE

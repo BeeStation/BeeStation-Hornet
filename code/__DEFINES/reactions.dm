@@ -8,8 +8,12 @@
 #define FIRE_CARBON_ENERGY_RELEASED			100000	//! Amount of heat released per mole of burnt carbon into the tile
 #define FIRE_HYDROGEN_ENERGY_RELEASED		280000  //! Amount of heat released per mole of burnt hydrogen and/or tritium(hydrogen isotope)
 #define FIRE_PLASMA_ENERGY_RELEASED			3000000	//! Amount of heat released per mole of burnt plasma into the tile
-//General assmos defines.
-#define WATER_VAPOR_FREEZE					200
+
+// Water Vapor:
+/// The temperature required for water vapor to condense.
+#define WATER_VAPOR_CONDENSATION_POINT (T20C + 10)
+/// The temperature required for water vapor to condense as ice instead of water.
+#define WATER_VAPOR_DEPOSITION_POINT 200
 
 #define N2O_DECOMPOSITION_MIN_ENERGY		1400
 #define N2O_DECOMPOSITION_ENERGY_RELEASED	200000

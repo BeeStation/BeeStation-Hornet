@@ -1,53 +1,147 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/machinery/vending/wardrobe/science_wardrobe,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"b" = (
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"c" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"d" = (
+"ad" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"e" = (
+"ae" = (
 /obj/effect/abstract/open_area_marker,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
-"f" = (
+"af" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/ruin/unpowered)
-"g" = (
+"ai" = (
+/obj/item/kirbyplants/random,
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"aj" = (
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"an" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"ao" = (
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"ap" = (
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"ar" = (
+/obj/machinery/door/airlock/science,
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"au" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"aw" = (
+/obj/machinery/door/window/eastleft{
+	name = "Research and Development Deliveries";
+	req_one_access_txt = "7;29"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"aA" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"aC" = (
+/obj/structure/table,
+/obj/item/stack/sheet/iron/fifty,
+/obj/effect/turf_decal/stripes/end,
+/obj/item/clothing/glasses/welding,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"aD" = (
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"aM" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"aO" = (
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"aP" = (
+/obj/effect/spawner/lootdrop/ruinloot/important,
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"aV" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"bh" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"cy" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"ec" = (
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"gk" = (
+/obj/machinery/vending/wardrobe/science_wardrobe,
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"is" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/structure/table,
+/obj/item/hand_labeler,
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"nb" = (
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"nq" = (
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"nZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -64,25 +158,32 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple,
 /obj/effect/spawner/lootdrop/ruinloot/science,
 /obj/effect/spawner/lootdrop/ruinloot/science,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
-"h" = (
+"qh" = (
 /obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/computer/cargo/request{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"ry" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/computer/rdconsole/core{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
-"k" = (
+"tG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -91,161 +192,20 @@
 	dir = 1
 	},
 /obj/item/clothing/glasses/science,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple,
 /obj/effect/spawner/lootdrop/ruinloot/science,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
-"l" = (
-/obj/effect/turf_decal/tile/purple{
+"yc" = (
+/obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"m" = (
-/obj/effect/turf_decal/tile/purple{
+/obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/ruin/unpowered)
-"o" = (
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"p" = (
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"q" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"r" = (
-/obj/machinery/door/airlock/science,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"s" = (
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/spawner/lootdrop/ruinloot/science,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"t" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/machinery/computer/cargo/request{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"u" = (
-/turf/closed/wall,
-/area/ruin/unpowered)
-"v" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/machinery/rnd/production/protolathe/department/science,
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"w" = (
-/obj/machinery/door/window/eastleft{
-	name = "Research and Development Deliveries";
-	req_one_access_txt = "7;29"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"x" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"y" = (
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"z" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"A" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"B" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/rnd/destructive_analyzer,
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"C" = (
-/obj/structure/table,
-/obj/item/stack/sheet/iron/fifty,
-/obj/effect/turf_decal/stripes/end,
-/obj/item/clothing/glasses/welding,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"D" = (
-/obj/effect/spawner/lootdrop/ruinloot/science,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"E" = (
+"Ar" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -259,369 +219,260 @@
 	pixel_y = 4
 	},
 /obj/item/crowbar,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple,
 /obj/effect/spawner/lootdrop/ruinloot/science,
 /obj/effect/spawner/lootdrop/ruinloot/science,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
-"F" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
+"Cb" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
 	},
-/turf/open/floor/plasteel/white,
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
-"G" = (
+"DS" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/rnd/production/protolathe/department/science,
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"FM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
-"H" = (
-/obj/structure/chair/stool,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
+"IM" = (
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted,
+/turf/open/floor/iron/white,
 /area/ruin/unpowered)
-"I" = (
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
+"KA" = (
+/obj/effect/turf_decal/tile/purple/half/contrasted,
+/turf/open/floor/iron/white,
 /area/ruin/unpowered)
-"J" = (
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"K" = (
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"L" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"M" = (
-/obj/effect/abstract/open_area_marker{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"N" = (
+"Ni" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 4
 	},
-/obj/structure/table,
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"NW" = (
+/obj/item/kirbyplants/random,
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 8
 	},
-/obj/item/hand_labeler,
-/obj/effect/spawner/lootdrop/ruinloot/science,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron/white,
 /area/ruin/unpowered)
-"O" = (
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"P" = (
-/obj/effect/spawner/lootdrop/ruinloot/important,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"Q" = (
+"Pp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/structure/table,
 /obj/structure/window/reinforced,
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
 /obj/item/circuitboard/computer/nanite_chamber_control,
 /obj/item/circuitboard/computer/nanite_cloud_controller,
 /obj/item/circuitboard/machine/nanite_chamber,
 /obj/item/circuitboard/machine/nanite_program_hub,
 /obj/effect/spawner/lootdrop/ruinloot/science,
 /obj/effect/spawner/lootdrop/ruinloot/science,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
-"R" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/purple{
+"PS" = (
+/obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/ruin/unpowered)
-"S" = (
+"QC" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"T" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/turf/open/floor/plasteel/white,
+/obj/machinery/rnd/destructive_analyzer,
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
-"U" = (
+"RM" = (
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"TH" = (
+/obj/structure/chair/stool,
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"WT" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
 /obj/structure/chair/stool,
-/obj/effect/turf_decal/tile/purple{
+/obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/ruin/unpowered)
-"V" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"W" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
+"XC" = (
+/obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"X" = (
-/obj/item/kirbyplants/random,
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"Y" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/computer/rdconsole/core{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"Z" = (
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
-u
-u
-u
-u
-u
-u
-f
-u
-u
+au
+au
+au
+au
+au
+au
+af
+au
+au
 "}
 (2,1,1) = {"
-u
-R
-N
-Q
-w
-k
-O
-K
-u
+au
+an
+is
+Pp
+aw
+tG
+aO
+an
+au
 "}
 (3,1,1) = {"
-u
-q
-H
-U
-x
-T
-O
-I
-u
+au
+nq
+TH
+WT
+cy
+yc
+aO
+aj
+au
 "}
 (4,1,1) = {"
-u
-L
-P
-O
-o
-s
-o
-X
-u
+au
+XC
+aP
+aO
+ao
+RM
+ao
+ai
+au
 "}
 (5,1,1) = {"
-u
-m
-A
-O
-b
-v
-h
-B
-u
+au
+ec
+aA
+aO
+nb
+DS
+bh
+QC
+au
 "}
 (6,1,1) = {"
-u
-C
-L
-D
-b
-G
-S
-Y
-u
+au
+aC
+XC
+aD
+nb
+FM
+Ni
+ry
+au
 "}
 (7,1,1) = {"
-u
-W
-F
-Z
-z
-q
-l
-y
-u
+au
+an
+ec
+KA
+IM
+nq
+PS
+NW
+au
 "}
 (8,1,1) = {"
-u
-E
-c
-g
-t
-a
-Z
-J
-u
+au
+Ar
+Cb
+nZ
+qh
+gk
+KA
+IM
+au
 "}
 (9,1,1) = {"
-u
-u
-d
-d
-d
-u
-V
-r
-u
+au
+au
+ad
+ad
+ad
+au
+aV
+ar
+au
 "}
 (10,1,1) = {"
-p
-p
-p
-p
-p
-p
-p
-p
-p
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+ap
 "}
 (11,1,1) = {"
-M
-p
-p
-p
-p
-p
-p
-p
-e
+aM
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+ae
 "}
 (12,1,1) = {"
-p
-p
-p
-p
-p
-p
-p
-p
-p
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+ap
 "}
 (13,1,1) = {"
-u
-u
-u
-u
-u
-u
-u
-u
-u
+au
+au
+au
+au
+au
+au
+au
+au
+au
 "}

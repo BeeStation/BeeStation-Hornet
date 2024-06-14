@@ -8,6 +8,7 @@
 	dir = SOUTH
 	initialize_directions = SOUTH
 
+	hide = FALSE
 	layer = HIGH_OBJ_LAYER
 	device_type = UNARY
 	paintable = FALSE
@@ -18,6 +19,8 @@
 	var/mutable_appearance/center = null
 	var/mutable_appearance/pipe = null
 	var/obj/machinery/atmospherics/front_node = null
+
+
 
 /* We use New() instead of Initialize() because these values are used in update_icon()
  * in the mapping subsystem init before Initialize() is called in the atoms subsystem init.
@@ -43,11 +46,11 @@
 /// Attempts to locate a multiz pipe that's above us, if it finds one it merges us into its pipenet
 /obj/machinery/atmospherics/pipe/multiz/pipeline_expansion()
 	var/turf/T = get_turf(src)
-	for(var/obj/machinery/atmospherics/pipe/multiz/above in SSmapping.get_turf_above(T))
+	for(var/obj/machinery/atmospherics/pipe/multiz/above in GET_TURF_ABOVE(T))
 		if(above.piping_layer == piping_layer)
 			nodes += above
 			above.nodes += src // Two way travel :)
-	for(var/obj/machinery/atmospherics/pipe/multiz/below in SSmapping.get_turf_below(T))
+	for(var/obj/machinery/atmospherics/pipe/multiz/below in GET_TURF_BELOW(T))
 		if(below.piping_layer == piping_layer)
 			below.pipeline_expansion() // If we've got one below us, force it to add us on facebook
 	return ..()

@@ -1,35 +1,29 @@
-
-
-/*
- * Wrapping Paper
- */
+/* Wrapping Paper */
 
 /obj/item/stack/wrapping_paper
 	name = "wrapping paper"
 	desc = "Wrap packages with this festive paper to make gifts."
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "wrap_paper"
 	item_flags = NOBLUDGEON
 	amount = 25
 	max_amount = 25
 	resistance_flags = FLAMMABLE
 
-/obj/item/stack/wrapping_paper/use(used, transfer)
+/obj/item/stack/wrapping_paper/use(used, transfer, check = TRUE)
 	var/turf/T = get_turf(src)
 	. = ..()
 	if(QDELETED(src) && !transfer)
 		new /obj/item/c_tube(T)
 
 
-/*
- * Package Wrap
- */
+/* Package Wrap */
 
 /obj/item/stack/package_wrap
 	name = "package wrapper"
 	singular_name = "wrapping sheet"
 	desc = "You can use this to wrap items in."
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "deliveryPaper"
 	item_flags = NOBLUDGEON
 	amount = 25
@@ -49,16 +43,18 @@
 		return SHAME
 
 /obj/item/proc/can_be_package_wrapped() //can the item be wrapped with package wrapper into a delivery package
-	return 1
+	if(w_class >= WEIGHT_CLASS_GIGANTIC)
+		return FALSE
+	return TRUE
 
 /obj/item/storage/can_be_package_wrapped()
-	return 0
+	return FALSE
 
 /obj/item/storage/box/can_be_package_wrapped()
-	return 1
+	return TRUE
 
 /obj/item/small_delivery/can_be_package_wrapped()
-	return 0
+	return FALSE
 
 /obj/item/stack/package_wrap/afterattack(obj/target, mob/user, proximity)
 	. = ..()
@@ -86,7 +82,7 @@
 				user.put_in_hands(P)
 			I.forceMove(P)
 			var/size = round(I.w_class)
-			P.name = "[weightclass2text(size)] parcel"
+			P.name = "[weight_class_to_text(size)] parcel"
 			P.w_class = size
 			size = min(size, 5)
 			P.icon_state = "deliverypackage[size]"
@@ -101,6 +97,7 @@
 		if(use(3))
 			var/obj/structure/big_delivery/P = new /obj/structure/big_delivery(get_turf(O.loc))
 			P.icon_state = O.delivery_icon
+			P.drag_slowdown = O.drag_slowdown
 			O.forceMove(P)
 			P.add_fingerprint(user)
 			O.add_fingerprint(user)
@@ -114,7 +111,7 @@
 	user.visible_message("<span class='notice'>[user] wraps [target].</span>")
 	user.log_message("has used [name] on [key_name(target)]", LOG_ATTACK, color="blue")
 
-/obj/item/stack/package_wrap/use(used, transfer = FALSE)
+/obj/item/stack/package_wrap/use(used, transfer = FALSE, check = TRUE)
 	var/turf/T = get_turf(src)
 	. = ..()
 	if(QDELETED(src) && !transfer)
@@ -123,7 +120,7 @@
 /obj/item/c_tube
 	name = "cardboard tube"
 	desc = "A tube... of cardboard."
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "c_tube"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY

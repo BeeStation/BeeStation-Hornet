@@ -4,6 +4,7 @@
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "aicard" // aicard-full
 	item_state = "electronic"
+	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -32,28 +33,29 @@
 	if(!proximity || !target)
 		return
 	if(AI) //AI is on the card, implies user wants to upload it.
-		log_combat(user, AI, "uploaded", src, "to [target].")
+		log_combat(user, AI, "uploaded", src, "to [target].", important = FALSE)
 		target.transfer_ai(AI_TRANS_FROM_CARD, user, AI, src)
 	else //No AI on the card, therefore the user wants to download one.
 		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
 		if(AI)
-			log_combat(user, AI, "carded", src)
+			log_combat(user, AI, "carded", src, important = FALSE)
 	update_icon() //Whatever happened, update the card's state (icon, name) to match.
 
-/obj/item/aicard/update_icon()
-	cut_overlays()
-	if(AI)
-		name = "[initial(name)] - [AI.name]"
-		if(AI.stat == DEAD)
-			icon_state = "[initial(icon_state)]-404"
-		else
-			icon_state = "[initial(icon_state)]-full"
-		if(!AI.control_disabled)
-			add_overlay("[initial(icon_state)]-on")
-		AI.cancel_camera()
-	else
+/obj/item/aicard/update_icon_state()
+	if(!AI)
 		name = initial(name)
 		icon_state = initial(icon_state)
+		return
+	name = "[initial(name)] - [AI.name]"
+	icon_state = "[initial(icon_state)][AI.stat == DEAD ? "-404" : "-full"]"
+	AI.cancel_camera()
+	return ..()
+
+/obj/item/aicard/update_overlays()
+	. = ..()
+	if(!AI || AI.control_disabled)
+		return
+	. += "[initial(icon_state)]-on"
 
 
 /obj/item/aicard/ui_state(mob/user)

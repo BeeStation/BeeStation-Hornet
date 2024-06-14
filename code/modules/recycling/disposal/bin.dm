@@ -5,7 +5,7 @@
 /obj/machinery/disposal
 	icon = 'icons/obj/atmospherics/pipes/disposal.dmi'
 	density = TRUE
-	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0)
 	max_integrity = 200
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
@@ -37,7 +37,7 @@
 
 	air_contents = new /datum/gas_mixture()
 	//gas.volume = 1.05 * CELLSTANDARD
-	update_icon()
+	update_appearance()
 
 	return INITIALIZE_HINT_LATELOAD //we need turfs to have air
 
@@ -94,7 +94,7 @@
 		if((I.item_flags & ABSTRACT) || !user.temporarilyRemoveItemFromInventory(I))
 			return
 		place_item_in_disposal(I, user)
-		update_icon()
+		update_appearance()
 		return 1 //no afterattack
 	else
 		return ..()
@@ -129,7 +129,7 @@
 		. = TRUE
 	else
 		target.visible_message("<span class='danger'>[user] starts putting [target] into [src].</span>", "<span class='userdanger'>[user] starts putting you into [src]!</span>")
-	if(do_mob(user, target, 20))
+	if(do_after(user, 2 SECONDS, target))
 		if (!loc)
 			return
 		target.forceMove(src)
@@ -141,7 +141,7 @@
 			log_combat(user, target, "stuffed", addition="into [src]")
 			target.LAssailant = WEAKREF(user)
 			. = TRUE
-		update_icon()
+		update_appearance()
 
 /obj/machinery/disposal/relaymove(mob/user)
 	attempt_escape(user)
@@ -158,24 +158,20 @@
 // leave the disposal
 /obj/machinery/disposal/proc/go_out(mob/user)
 	user.forceMove(loc)
-	update_icon()
+	update_appearance()
 
 // monkeys and xenos can only pull the flush lever
 /obj/machinery/disposal/attack_paw(mob/user)
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 	flush = !flush
-	update_icon()
+	update_appearance()
 
 
 // eject the contents of the disposal unit
 /obj/machinery/disposal/proc/eject()
 	pipe_eject(src, 0, FALSE)
-	update_icon()
-
-// update the icon & overlays to reflect mode & status
-/obj/machinery/disposal/update_icon()
-	return
+	update_appearance()
 
 /obj/machinery/disposal/proc/flush()
 	flushing = TRUE
@@ -202,11 +198,6 @@
 
 /obj/machinery/disposal/proc/flushAnimation()
 	flick("[icon_state]-flush", src)
-
-// called when area power changes
-/obj/machinery/disposal/power_change()
-	..()	// do default setting/reset of stat NOPOWER bit
-	update_icon()	// update icon
 
 // called when holder is expelled from a disposal
 /obj/machinery/disposal/proc/expel(obj/structure/disposalholder/H)
@@ -261,8 +252,8 @@
 		to_chat(user, "<span class='warning'>You empty the bag.</span>")
 		for(var/obj/item/O in T.contents)
 			STR.remove_from_storage(O,src)
-		T.update_icon()
-		update_icon()
+		T.update_appearance()
+		update_appearance()
 	else
 		return ..()
 
@@ -273,7 +264,7 @@
 	return GLOB.notcontained_state
 
 /obj/machinery/disposal/bin/ui_interact(mob/user, datum/tgui/ui)
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -292,28 +283,29 @@
 	return data
 
 /obj/machinery/disposal/bin/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 
 	switch(action)
 		if("handle-0")
 			flush = FALSE
-			update_icon()
+			update_appearance()
 			. = TRUE
 		if("handle-1")
 			if(!panel_open)
 				flush = TRUE
-				update_icon()
+				update_appearance()
 			. = TRUE
 		if("pump-0")
 			if(pressure_charging)
 				pressure_charging = FALSE
-				update_icon()
+				update_appearance()
 			. = TRUE
 		if("pump-1")
 			if(!pressure_charging)
 				pressure_charging = TRUE
-				update_icon()
+				update_appearance()
 			. = TRUE
 		if("eject")
 			eject()
@@ -325,7 +317,7 @@
 		if(prob(75))
 			AM.forceMove(src)
 			visible_message("<span class='notice'>[AM] lands in [src].</span>")
-			update_icon()
+			update_appearance()
 		else
 			visible_message("<span class='notice'>[AM] bounces off of [src]'s rim!</span>")
 			return ..()
@@ -336,32 +328,36 @@
 	..()
 	full_pressure = FALSE
 	pressure_charging = TRUE
-	update_icon()
+	update_appearance()
 
-/obj/machinery/disposal/bin/update_icon()
-	cut_overlays()
-	if(stat & BROKEN)
-		pressure_charging = FALSE
-		flush = FALSE
+/obj/machinery/disposal/bin/update_overlays()
+	. = ..()
+	if(machine_stat & BROKEN)
 		return
 
 	//flush handle
 	if(flush)
-		add_overlay("dispover-handle")
+		. += "dispover-handle"
 
 	//only handle is shown if no power
-	if(stat & NOPOWER || panel_open)
+	if(machine_stat & NOPOWER || panel_open)
 		return
 
 	//check for items in disposal - occupied light
 	if(contents.len > 0)
-		add_overlay("dispover-full")
+		. += "dispover-full"
+		. += emissive_appearance(icon, "dispover-full", layer, alpha = src.alpha)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 	//charging and ready light
 	if(pressure_charging)
-		add_overlay("dispover-charge")
+		. += "dispover-charge"
+		. += emissive_appearance(icon, "dispover-charge-glow", layer, alpha = src.alpha)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else if(full_pressure)
-		add_overlay("dispover-ready")
+		. += "dispover-ready"
+		. += emissive_appearance(icon, "dispover-ready-glow", layer, alpha = src.alpha)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/disposal/bin/proc/do_flush()
 	set waitfor = FALSE
@@ -370,7 +366,7 @@
 //timed process
 //charge the gas reservoir and perform flush if ready
 /obj/machinery/disposal/bin/process(delta_time)
-	if(stat & BROKEN) //nothing can happen if broken
+	if(machine_stat & BROKEN) //nothing can happen if broken
 		return
 
 	flush_count++
@@ -385,7 +381,7 @@
 	if(flush && air_contents.return_pressure() >= SEND_PRESSURE) // flush can happen even without power
 		do_flush()
 
-	if(stat & NOPOWER) // won't charge if no power
+	if(machine_stat & NOPOWER) // won't charge if no power
 		return
 
 	use_power(100) // base power usage
@@ -414,7 +410,7 @@
 	if(air_contents.return_pressure() >= SEND_PRESSURE)
 		full_pressure = TRUE
 		pressure_charging = FALSE
-		update_icon()
+		update_appearance()
 	return
 
 /obj/machinery/disposal/bin/get_remote_view_fullscreens(mob/user)
@@ -477,13 +473,13 @@
 /atom/movable/proc/CanEnterDisposals()
 	return TRUE
 
-/obj/item/projectile/CanEnterDisposals()
+/obj/projectile/CanEnterDisposals()
 	return
 
 /obj/effect/CanEnterDisposals()
 	return
 
-/obj/mecha/CanEnterDisposals()
+/obj/vehicle/sealed/mecha/CanEnterDisposals()
 	return
 
 /obj/structure/spacevine/CanEnterDisposals()

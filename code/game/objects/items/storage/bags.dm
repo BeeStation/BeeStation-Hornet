@@ -37,9 +37,9 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
 	item_state = "trashbag"
+	worn_icon_state = "baguette"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-
 	w_class = WEIGHT_CLASS_BULKY
 	var/insertable = TRUE
 
@@ -50,20 +50,24 @@
 	STR.max_combined_w_class = 30
 	STR.max_items = 30
 	STR.cant_hold = typecacheof(list(/obj/item/disk/nuclear))
+	STR.can_be_opened = FALSE //Have to dump a trash bag out to look at its contents
 
-/obj/item/storage/bag/trash/suicide_act(mob/user)
+/obj/item/storage/bag/trash/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
 	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
-	return (TOXLOSS)
+	return TOXLOSS
 
-/obj/item/storage/bag/trash/update_icon()
-	if(contents.len == 0)
-		icon_state = "[initial(icon_state)]"
-	else if(contents.len < 12)
-		icon_state = "[initial(icon_state)]1"
-	else if(contents.len < 21)
-		icon_state = "[initial(icon_state)]2"
-	else icon_state = "[initial(icon_state)]3"
+/obj/item/storage/bag/trash/update_icon_state()
+	switch(contents.len)
+		if(20 to INFINITY)
+			icon_state = "[initial(icon_state)]3"
+		if(11 to 20)
+			icon_state = "[initial(icon_state)]2"
+		if(1 to 11)
+			icon_state = "[initial(icon_state)]1"
+		else
+			icon_state = "[initial(icon_state)]"
+	return ..()
 
 /obj/item/storage/bag/trash/cyborg
 	insertable = FALSE
@@ -95,6 +99,7 @@
 	desc = "A belt that opens into a near infinite pocket of bluespace."
 	icon_state = "hammerspace"
 	w_class = WEIGHT_CLASS_GIGANTIC
+	icon = 'icons/obj/storage/backpack.dmi'
 
 /obj/item/storage/bag/trash/bluespace/hammerspace/ComponentInitialize()
 	. = ..()
@@ -122,19 +127,23 @@
 	desc = "This little bugger can be used to store and transport ores."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
+	worn_icon_state = "satchel"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_POCKETS
 	w_class = WEIGHT_CLASS_NORMAL
 	component_type = /datum/component/storage/concrete/stack
-	var/spam_protection = FALSE //If this is TRUE, the holder won't receive any messages when they fail to pick up ore through crossing it
+	///If this is TRUE, the holder won't receive any messages when they fail to pick up ore through crossing it
+	var/spam_protection = FALSE
 	var/mob/listeningTo
 
 /obj/item/storage/bag/ore/ComponentInitialize()
 	. = ..()
+	AddComponent(/datum/component/rad_insulation, 0.05) //please datum mats no more cancer
 	var/datum/component/storage/concrete/stack/STR = GetComponent(/datum/component/storage/concrete/stack)
 	STR.allow_quick_empty = TRUE
 	STR.can_hold = typecacheof(list(/obj/item/stack/ore))
 	STR.max_w_class = WEIGHT_CLASS_HUGE
-	STR.max_combined_stack_amount = 50
+	STR.max_items = 20
+	STR.max_combined_stack_amount = 250
 
 /obj/item/storage/bag/ore/equipped(mob/user)
 	. = ..()
@@ -142,7 +151,7 @@
 		return
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/Pickup_ores)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(Pickup_ores))
 	listeningTo = user
 
 /obj/item/storage/bag/ore/dropped()
@@ -179,6 +188,7 @@
 					continue
 	if(show_message)
 		playsound(user, "rustle", 50, TRUE)
+		STR.animate_parent()
 		if (box)
 			user.visible_message("<span class='notice'>[user] offloads the ores beneath [user.p_them()] into [box].</span>", \
 			"<span class='notice'>You offload the ores beneath you into your [box].</span>")
@@ -210,6 +220,7 @@
 	name = "plant bag"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbag"
+	worn_icon_state = "plantbag"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 
@@ -219,7 +230,7 @@
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.max_combined_w_class = 100
 	STR.max_items = 100
-	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/food/snacks/grown, /obj/item/seeds, /obj/item/grown, /obj/item/reagent_containers/honeycomb, /obj/item/disk/plantgene))
+	STR.can_hold = typecacheof(list(/obj/item/food/grown, /obj/item/seeds, /obj/item/grown, /obj/item/reagent_containers/honeycomb, /obj/item/disk/plantgene))
 
 ////////
 
@@ -227,11 +238,9 @@
 	name = "portable seed extractor"
 	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
 	icon_state = "portaseeder"
+	actions_types = list(/datum/action/item_action/portaseeder_dissolve)
 
-/obj/item/storage/bag/plants/portaseeder/verb/dissolve_contents()
-	set name = "Activate Seed Extraction"
-	set category = "Object"
-	set desc = "Activate to convert your plants into plantable seeds."
+/obj/item/storage/bag/plants/portaseeder/proc/dissolve_contents()
 	if(usr.incapacitated())
 		return
 	for(var/obj/item/O in contents)
@@ -248,7 +257,7 @@
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.max_combined_w_class = 10
 	STR.max_items = 3
-	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/food/snacks/grown, /obj/item/seeds, /obj/item/grown))
+	STR.can_hold = typecacheof(list(/obj/item/food/grown, /obj/item/seeds, /obj/item/grown))
 
 // -----------------------------
 //        Sheet Snatcher
@@ -261,6 +270,7 @@
 	desc = "A patented Nanotrasen storage system designed for any kind of mineral sheet."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sheetsnatcher"
+	worn_icon_state = "satchel"
 
 	var/capacity = 150 //the number of sheets it can carry.
 	w_class = WEIGHT_CLASS_NORMAL
@@ -297,6 +307,7 @@
 	desc = "A bag for books."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bookbag"
+	worn_icon_state = "bookbag"
 	w_class = WEIGHT_CLASS_BULKY //Bigger than a book because physics
 	resistance_flags = FLAMMABLE
 
@@ -307,7 +318,7 @@
 	STR.max_combined_w_class = 21
 	STR.max_items = 7
 	STR.display_numerical_stacking = FALSE
-	STR.can_hold = typecacheof(list(/obj/item/book, /obj/item/storage/book, /obj/item/spellbook))
+	STR.can_hold = typecacheof(list(/obj/item/book, /obj/item/storage/book, /obj/item/spellbook, /obj/item/codex_cicatrix))
 
 /*
  * Trays - Agouri
@@ -316,6 +327,7 @@
 	name = "tray"
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "tray"
+	worn_icon_state = "tray"
 	desc = "A metal tray to lay food on."
 	force = 5
 	throwforce = 10
@@ -323,7 +335,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_BULKY
 	flags_1 = CONDUCT_1
-	materials = list(/datum/material/iron=3000)
+	custom_materials = list(/datum/material/iron=3000)
 
 /obj/item/storage/bag/tray/ComponentInitialize()
 	. = ..()
@@ -352,7 +364,7 @@
 	var/delay = rand(2,4)
 	var/datum/move_loop/loop = SSmove_manager.move_rand(tray_item, list(NORTH,SOUTH,EAST,WEST), delay, timeout = rand(1, 2) * delay, flags = MOVEMENT_LOOP_START_FAST)
 	//This does mean scattering is tied to the tray. Not sure how better to handle it
-	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/change_speed)
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(change_speed))
 
 /obj/item/storage/bag/tray/proc/change_speed(datum/move_loop/source)
 	SIGNAL_HANDLER
@@ -361,10 +373,13 @@
 	source.lifetime = count * new_delay
 	source.delay = new_delay
 
-/obj/item/storage/bag/tray/update_icon()
-	cut_overlays()
+/obj/item/storage/bag/tray/update_overlays()
+	. = ..()
 	for(var/obj/item/I in contents)
-		add_overlay(new /mutable_appearance(I))
+		var/mutable_appearance/I_copy = new(I)
+		I_copy.plane = FLOAT_PLANE
+		I_copy.layer = FLOAT_LAYER
+		. += I_copy
 
 /obj/item/storage/bag/tray/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -382,6 +397,7 @@
 	name = "chemistry bag"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bag"
+	worn_icon_state = "chembag"
 	desc = "A bag for storing pills, patches, and bottles."
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
@@ -402,6 +418,7 @@
 	name = "bio bag"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "biobag"
+	worn_icon_state = "biobag"
 	desc = "A bag for the safe transportation and disposal of biowaste and other biological materials."
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
@@ -412,7 +429,7 @@
 	STR.max_combined_w_class = 200
 	STR.max_items = 25
 	STR.insert_preposition = "in"
-	STR.can_hold = typecacheof(list(/obj/item/slime_extract, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/blood, /obj/item/reagent_containers/hypospray/medipen, /obj/item/reagent_containers/food/snacks/deadmouse, /obj/item/reagent_containers/food/snacks/monkeycube, /obj/item/organ, /obj/item/bodypart))
+	STR.can_hold = typecacheof(list(/obj/item/slime_extract, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/blood, /obj/item/reagent_containers/hypospray/medipen, /obj/item/food/deadmouse, /obj/item/food/monkeycube, /obj/item/organ, /obj/item/bodypart))
 
 /obj/item/storage/bag/bio/pre_attack(atom/A, mob/living/user, params)
 	if(istype(A, /obj/item/slimecross/reproductive))
@@ -423,6 +440,7 @@
 	name = "construction bag"
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "construction_bag"
+	worn_icon_state = "construction_bag"
 	desc = "A bag for storing small construction components."
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
@@ -434,29 +452,4 @@
 	STR.max_items = 50
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 	STR.insert_preposition = "in"
-	STR.can_hold = typecacheof(list(/obj/item/stack/ore/bluespace_crystal, /obj/item/assembly, /obj/item/stock_parts, /obj/item/reagent_containers/glass/beaker, /obj/item/stack/cable_coil, /obj/item/circuitboard, /obj/item/electronics))
-
-// -----------------------------
-//           mail bag
-// -----------------------------
-
-/obj/item/storage/bag/mail
-	name = "mail bag"
-	desc = "A bag for letters, envelopes, and other postage."
-	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "mailbag"
-	resistance_flags = FLAMMABLE
-
-/obj/item/storage/bag/mail/ComponentInitialize()
-	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 32
-	STR.max_items = 32
-	STR.display_numerical_stacking = FALSE
-	STR.can_hold = typecacheof (list(	/obj/item/mail,
-										/obj/item/small_delivery,
-										/obj/item/paper,
-										/obj/item/reagent_containers/food/condiment/milk,
-										/obj/item/reagent_containers/food/snacks/store/bread/plain
-									))
+	STR.can_hold = typecacheof(list(/obj/item/stack/ore/bluespace_crystal, /obj/item/assembly, /obj/item/stock_parts, /obj/item/reagent_containers/glass/beaker, /obj/item/stack/cable_coil, /obj/item/circuitboard, /obj/item/electronics, /obj/item/rcd_ammo))

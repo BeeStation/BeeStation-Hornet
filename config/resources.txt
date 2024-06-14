@@ -37,3 +37,18 @@ ASSET_CDN_WEBROOT data/asset-store/
 # if you want to test this locally, you simpily run the `localhost-asset-webroot-server.py` python3 script to host assets stored in `data/asset-store/` via http://localhost:7123/
 ASSET_CDN_URL http://localhost:7123/
 
+########################
+# Asset Caching Config #
+########################
+## Assets can opt-in to caching their results into `data/spritesheets/legacy_cache`.
+## This is useful, as preferences assets take upwards of 30 seconds (without sleeps) to collect.
+## The cache can be manually cleared via the "Regenerate Asset Cache" verb.
+## This is on in development now, because it is only used by a few select spritesheets.
+CACHE_ASSETS
+
+## Enables 'smart' asset caching, for assets that support it.
+## This is a type of asset cache that automatically invalidates itself based on inputs to the asset generation.
+## It lowers the generation cost and is safe to enable on development and production.
+## This cache is only cleared by the game or manually, but it shouldn't affect the results.
+## This setting is independent of `CACHE_ASSETS`, they do not affect each other whatsoever.
+SMART_CACHE_ASSETS

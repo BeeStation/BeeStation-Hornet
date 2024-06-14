@@ -23,10 +23,14 @@
 	if(!msg)
 		charge_counter = charge_max
 		return
+	if(CHAT_FILTER_CHECK(msg))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	msg = user.treat_message_min(msg)
 	to_chat(user, "<span class='boldnotice'>You concentrate and send thoughts to your other self:</span> <span class='notice'>[msg]</span>")
 	to_chat(trauma.owner, "<span class='boldnotice'>[flufftext]</span> <span class='notice'>[msg]</span>")
 	log_directed_talk(user, trauma.owner, msg, LOG_SAY ,"[name]")
 	for(var/ded in GLOB.dead_mob_list)
 		if(!isobserver(ded))
 			continue
-		to_chat(ded, "[FOLLOW_LINK(ded, user)] <span class='boldnotice'>[user] [name]:</span> <span class='notice'>\"[msg]\" to</span><span class='name'>[trauma]</span>")
+		to_chat(ded, "[FOLLOW_LINK(ded, user)] <span class='boldnotice'>[user] [name]:</span> <span class='notice'>\"[msg]\" to </span><span class='name'>[trauma]</span>")

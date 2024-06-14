@@ -4,6 +4,7 @@
 	desc = "A large structural assembly made out of iron; It requires a layer of iron before it can be considered a wall."
 	anchored = TRUE
 	density = TRUE
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	layer = BELOW_OBJ_LAYER
 	var/state = GIRDER_NORMAL
 	var/girderpasschance = 20 // percentage chance that a projectile passes through the girder.
@@ -167,7 +168,7 @@
 						qdel(src)
 					return
 
-		if(S.sheettype && S.sheettype != "runed")
+		if(S.sheettype != "runed")
 			var/M = S.sheettype
 			if(state == GIRDER_DISPLACED)
 				if(S.get_amount() < 2)
@@ -194,7 +195,16 @@
 					S.use(2)
 					balloon_alert(user, "You add plating.")
 					var/turf/T = get_turf(src)
-					T.PlaceOnTop(text2path("/turf/closed/wall/mineral/[M]"))
+					if(S.walltype)
+						T.PlaceOnTop(S.walltype)
+					else
+						var/turf/newturf = T.PlaceOnTop(/turf/closed/wall/material)
+						var/list/material_list = list()
+						if(S.material_type)
+							material_list[SSmaterials.GetMaterialRef(S.material_type)] = MINERAL_MATERIAL_AMOUNT * 2
+						if(material_list)
+							newturf.set_custom_materials(material_list)
+
 					transfer_fingerprints_to(T)
 					qdel(src)
 				return
@@ -282,9 +292,9 @@
 			qdel(src)
 		return TRUE
 
-/obj/structure/girder/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/girder/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if((mover.pass_flags & PASSGRILLE) || istype(mover, /obj/item/projectile))
+	if((mover.pass_flags & PASSGRILLE) || istype(mover, /obj/projectile))
 		return prob(girderpasschance)
 
 /obj/structure/girder/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
@@ -330,26 +340,29 @@
 
 /obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
-	if(istype(W, /obj/item/melee/cultblade/dagger) && iscultist(user)) //Cultists can demolish cult girders instantly with their tomes
-		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")
-		new /obj/item/stack/sheet/runed_metal(drop_location(), 1)
-		qdel(src)
-
-	else if(W.tool_behaviour == TOOL_WELDER)
+	if(W.tool_behaviour == TOOL_WELDER)
 		if(!W.tool_start_check(user, amount=0))
 			return
 
 		balloon_alert(user, "You start slicing apart [src]...")
 		if(W.use_tool(src, user, 40, volume=50))
 			balloon_alert(user, "You slice [src] apart.")
-			var/obj/item/stack/sheet/runed_metal/R = new(drop_location(), 1)
-			transfer_fingerprints_to(R)
+			var/drop_loc = drop_location()
+			var/obj/item/stack/sheet/runed_metal/R = new(drop_loc, 1)
+			if(QDELETED(R))
+				R = locate(/obj/item/stack/sheet/runed_metal) in drop_loc
+			if(R)
+				transfer_fingerprints_to(R)
 			qdel(src)
 
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, "<span class='notice'>Your jackhammer smashes through [src]!</span>")
-		var/obj/item/stack/sheet/runed_metal/R = new(drop_location(), 2)
-		transfer_fingerprints_to(R)
+		var/drop_loc = drop_location()
+		var/obj/item/stack/sheet/runed_metal/R = new(drop_loc, 2)
+		if(QDELETED(R))
+			R = locate(/obj/item/stack/sheet/runed_metal) in drop_loc
+		if(R)
+			transfer_fingerprints_to(R)
 		W.play_tool_sound(src)
 		qdel(src)
 
@@ -392,11 +405,16 @@
 	switch(passed_mode)
 		if(RCD_FLOORWALL)
 			balloon_alert(user, "You finish the wall.")
+			log_attack("[key_name(user)] has constructed a wall at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
+			var/overlapping_lattice = locate(/obj/structure/lattice) in get_turf(src)
+			if(overlapping_lattice)
+				qdel(overlapping_lattice) // Don't need lattice burried under the wall, or in the case of catwalk - on top of it.
 			T.PlaceOnTop(/turf/closed/wall)
 			qdel(src)
 			return TRUE
 		if(RCD_DECONSTRUCT)
 			balloon_alert(user, "You deconstruct [src].")
+			log_attack("[key_name(user)] has deconstructed [src] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			qdel(src)
 			return TRUE
 	return FALSE
@@ -416,19 +434,27 @@
 		balloon_alert(user, "You start slicing apart [src]...")
 		if(W.use_tool(src, user, 40, volume=50))
 			balloon_alert(user, "You slice apart [src].")
-			var/obj/item/stack/tile/bronze/B = new(drop_location(), 2)
-			transfer_fingerprints_to(B)
+			var/drop_loc = drop_location()
+			var/obj/item/stack/sheet/bronze/B = new(drop_loc, 2)
+			if(QDELETED(B))
+				B = locate(/obj/item/stack/sheet/bronze) in drop_loc
+			if(B)
+				transfer_fingerprints_to(B)
 			qdel(src)
 
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, "<span class='notice'>Your jackhammer smashes through [src]!</span>")
-		var/obj/item/stack/tile/bronze/B = new(drop_location(), 2)
-		transfer_fingerprints_to(B)
+		var/drop_loc = drop_location()
+		var/obj/item/stack/sheet/bronze/B = new(drop_loc, 2)
+		if(QDELETED(B))
+			B = locate(/obj/item/stack/sheet/bronze) in drop_loc
+		if(B)
+			transfer_fingerprints_to(B)
 		W.play_tool_sound(src)
 		qdel(src)
 
-	else if(istype(W, /obj/item/stack/tile/bronze))
-		var/obj/item/stack/tile/bronze/B = W
+	else if(istype(W, /obj/item/stack/sheet/bronze))
+		var/obj/item/stack/sheet/bronze/B = W
 		if(B.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least two bronze sheets to build a bronze wall!</span>")
 			return FALSE

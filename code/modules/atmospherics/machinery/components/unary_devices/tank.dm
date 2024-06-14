@@ -38,7 +38,7 @@
 /obj/machinery/atmospherics/components/unary/tank/carbon_dioxide
 	gas_type = GAS_CO2
 
-/obj/machinery/atmospherics/components/unary/tank/toxins
+/obj/machinery/atmospherics/components/unary/tank/plasma
 	icon_state = "orange"
 	gas_type = GAS_PLASMA
 

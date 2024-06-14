@@ -161,7 +161,7 @@
 	var/list/old = hearing_mobs.Copy()
 	hearing_mobs.len = 0
 	var/turf/source = get_turf(parent)
-	for(var/mob/M in get_hearers_in_view(instrument_range, source, SEE_INVISIBLE_OBSERVER))
+	for(var/mob/M in get_hearers_in_view(instrument_range, source, SEE_INVISIBLE_MAXIMUM))
 		hearing_mobs[M] = get_dist(M, source)
 	var/list/exited = old - hearing_mobs
 	for(var/i in exited)
@@ -402,3 +402,28 @@
 		return TRUE
 	var/obj/structure/musician/M = parent
 	return M.should_stop_playing(user)
+
+/datum/song/headphones
+	instrument_range = 2 //If you're blasting music at lound volume, people around you WILL hear it
+
+/datum/song/headphones/updateDialog(mob/user)
+	parent.ui_interact(user || usr)
+
+/datum/song/headphones/should_stop_playing(mob/user)
+	. = ..()
+	if(.)
+		return TRUE
+	var/obj/item/clothing/ears/headphones/hp = parent
+	return hp.should_stop_playing(user)
+
+/datum/song/headphones/start_playing(mob/user)
+	. = ..()
+	var/obj/item/clothing/ears/headphones/hp = parent
+	hp.toggle(user, "ON")
+
+/datum/song/headphones/stop_playing()
+	. = ..()
+	var/obj/item/clothing/ears/headphones/hp = parent
+	hp.toggle(usr, "OFF")
+
+

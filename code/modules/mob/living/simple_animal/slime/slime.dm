@@ -40,6 +40,8 @@
 	// for the sake of cleanliness, though, here they are.
 	status_flags = CANUNCONSCIOUS|CANPUSH
 
+	footstep_type = FOOTSTEP_MOB_SLIME
+
 	hud_type = /datum/hud/slime
 	hardattacks = TRUE //A sharp blade wont cut a slime from a mere parry
 
@@ -69,8 +71,6 @@
 	var/mood = "" // To show its face
 	var/mutator_used = FALSE //So you can't shove a dozen mutators into a single slime
 	var/force_stasis = FALSE
-
-	do_footstep = TRUE
 
 	var/static/regex/slime_name_regex = new("\\w+ (baby|adult) slime \\(\\d+\\)")
 	///////////TIME FOR SUBSPECIES
@@ -113,7 +113,7 @@
 	. = ..()
 	set_nutrition(SLIME_DEFAULT_NUTRITION)
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
-		set_playable()
+		set_playable(ROLE_SENTIENCE)
 
 /mob/living/simple_animal/slime/Destroy()
 	set_target(null)
@@ -129,7 +129,8 @@
 	coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")
 	regenerate_icons()
 
-/mob/living/simple_animal/slime/proc/update_name()
+/mob/living/simple_animal/slime/update_name()
+	. = ..()
 	if(slime_name_regex.Find(name))
 		number = rand(1, 1000)
 		name = "[colour] [is_adult ? "adult" : "baby"] slime ([number])"
@@ -152,18 +153,18 @@
 
 /mob/living/simple_animal/slime/on_reagent_change()
 	. = ..()
-	remove_movespeed_modifier(MOVESPEED_ID_SLIME_REAGENTMOD, TRUE)
+	remove_movespeed_modifier(/datum/movespeed_modifier/slime_reagentmod)
 	var/amount = 0
 	if(reagents.has_reagent(/datum/reagent/medicine/morphine)) // morphine slows slimes down
 		amount = 2
 	if(reagents.has_reagent(/datum/reagent/consumable/frostoil)) // Frostoil also makes them move VEEERRYYYYY slow
 		amount = 5
 	if(amount)
-		add_movespeed_modifier(MOVESPEED_ID_SLIME_REAGENTMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = amount)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_reagentmod, multiplicative_slowdown = amount)
 
 /mob/living/simple_animal/slime/updatehealth()
 	. = ..()
-	remove_movespeed_modifier(MOVESPEED_ID_SLIME_HEALTHMOD, FALSE)
+	remove_movespeed_modifier(/datum/movespeed_modifier/slime_healthmod)
 	var/health_deficiency = (100 - health)
 	var/mod = 0
 	if(!HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
@@ -171,7 +172,7 @@
 			mod += (health_deficiency / 25)
 		if(health <= 0)
 			mod += 2
-	add_movespeed_modifier(MOVESPEED_ID_SLIME_HEALTHMOD, TRUE, 100, multiplicative_slowdown = mod, override = TRUE)
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_healthmod, multiplicative_slowdown = mod)
 
 /mob/living/simple_animal/slime/update_health_hud()
 	if(hud_used)
@@ -211,7 +212,7 @@
 	else if(bodytemperature < 283.222)
 		mod = ((283.222 - bodytemperature) / 10) * 1.75
 	if(mod)
-		add_movespeed_modifier(MOVESPEED_ID_SLIME_TEMPMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = mod)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_tempmod, multiplicative_slowdown = mod)
 
 /mob/living/simple_animal/slime/ObjBump(obj/O)
 	if(!client && powerlevel > 0)
@@ -240,7 +241,7 @@
 	return 2
 
 /mob/living/simple_animal/slime/get_stat_tab_status()
-	var/list/tab_data = list()
+	var/list/tab_data = ..()
 	if(!docile)
 		tab_data["Nutrition"] = GENERATE_STAT_TEXT("[nutrition]/[get_max_nutrition()]")
 	if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
@@ -249,10 +250,11 @@
 		else
 			tab_data["Slime Status"] = GENERATE_STAT_TEXT("You can evolve!")
 
-	if(stat == UNCONSCIOUS)
-		tab_data["Unconscious"] = GENERATE_STAT_TEXT("You are knocked out by high levels of BZ!")
-	else
-		tab_data["Power Level"] = GENERATE_STAT_TEXT("[powerlevel]")
+	switch(stat)
+		if(HARD_CRIT, UNCONSCIOUS)
+			tab_data["Unconscious"] = GENERATE_STAT_TEXT("You are knocked out by high levels of BZ!")
+		else
+			tab_data["Power Level"] = GENERATE_STAT_TEXT("[powerlevel]")
 	return tab_data
 
 /mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
@@ -260,7 +262,7 @@
 		amount = -abs(amount)
 	return ..() //Heals them
 
-/mob/living/simple_animal/slime/bullet_act(obj/item/projectile/Proj, def_zone, piercing_hit = FALSE)
+/mob/living/simple_animal/slime/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
 	attacked += 10
 	if((Proj.damage_type == BURN))
 		adjustBruteLoss(-abs(Proj.damage)) //fire projectiles heals slimes.
@@ -282,7 +284,7 @@
 			Feedon(Food)
 	return ..()
 
-/mob/living/simple_animal/slime/doUnEquip(obj/item/W, was_thrown = FALSE)
+/mob/living/simple_animal/slime/doUnEquip(obj/item/W, was_thrown = FALSE, silent = FALSE)
 	return
 
 /mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
@@ -400,7 +402,7 @@
 			if(applied >= SLIME_EXTRACT_CROSSING_REQUIRED)
 				to_chat(user, "<span class='notice'>You feed the slime as many of the extracts from the bag as you can, and it mutates!</span>")
 				playsound(src, 'sound/effects/attackblob.ogg', 50, 1)
-				spawn_corecross()
+				spawn_corecross(user)
 				hasOutput = TRUE
 				break
 		if(!hasOutput)
@@ -412,17 +414,25 @@
 		return
 	..()
 
-/mob/living/simple_animal/slime/proc/spawn_corecross()
+/mob/living/simple_animal/slime/proc/spawn_corecross(mob/living/user)
 	var/static/list/crossbreeds = subtypesof(/obj/item/slimecross)
 	visible_message("<span class='danger'>[src] shudders, its mutated core consuming the rest of its body!</span>")
 	playsound(src, 'sound/magic/smoke.ogg', 50, 1)
 	var/crosspath
+	var/crosspath_dangerous = FALSE
+	var/crosspath_name = "crossbred slime extract"
 	for(var/X in crossbreeds)
 		var/obj/item/slimecross/S = X
 		if(initial(S.colour) == colour && initial(S.effect) == effectmod)
 			crosspath = S
+			if(initial(S.dangerous))
+				crosspath_dangerous = TRUE
+			crosspath_name =  initial(S.effect) + " " + initial(S.colour) + " extract"
 			break
 	if(crosspath)
+		log_game("A [crosspath_name] was created at [AREACOORD(src)] by [key_name(user)]")
+		if(crosspath_dangerous)
+			message_admins("A [crosspath_name] was created at [ADMIN_VERBOSEJMP(src)] by [ADMIN_LOOKUPFLW(user)]")
 		new crosspath(loc)
 	else
 		visible_message("<span class='warning'>The mutated core shudders, and collapses into a puddle, unable to maintain its form.</span>")
@@ -440,11 +450,11 @@
 	return
 
 /mob/living/simple_animal/slime/examine(mob/user)
-	. = list("<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[src]</EM>!")
+	. = list("<span class='info'>This is [icon2html(src, user)] \a <EM>[src]</EM>!")
 	if (stat == DEAD)
 		. += "<span class='deadsay'>It is limp and unresponsive.</span>"
 	else
-		if (stat == UNCONSCIOUS) // Slime stasis
+		if (stat == UNCONSCIOUS || stat == HARD_CRIT) // Slime stasis
 			. += "<span class='deadsay'>It appears to be alive but unresponsive.</span>"
 		if (getBruteLoss())
 			. += "<span class='warning'>"
@@ -467,7 +477,7 @@
 			if(10)
 				. += "<span class='warning'><B>It is radiating with massive levels of electrical activity!</B></span>"
 
-	. += "*---------*</span>"
+	. += "</span>"
 
 /mob/living/simple_animal/slime/proc/discipline_slime(mob/user)
 	if(stat)
@@ -491,7 +501,7 @@
 	if(user)
 		step_away(src,user,15)
 
-	addtimer(CALLBACK(src, .proc/slime_move, user), 3)
+	addtimer(CALLBACK(src, PROC_REF(slime_move), user), 3)
 
 /mob/living/simple_animal/slime/proc/slime_move(mob/user)
 	if(user)
@@ -522,6 +532,9 @@
 		blocked += 50
 	. = ..(damage, damagetype, def_zone, blocked, forced)
 
+/mob/living/simple_animal/slime/get_discovery_id()
+	return "[colour] slime"
+
 /mob/living/simple_animal/slime/give_mind(mob/user)
 	. = ..()
 	if (.)
@@ -548,7 +561,7 @@
 	if(old_target && !SLIME_CARES_ABOUT(old_target))
 		UnregisterSignal(old_target, COMSIG_PARENT_QDELETING)
 	if(Target)
-		RegisterSignal(Target, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+		RegisterSignal(Target, COMSIG_PARENT_QDELETING, PROC_REF(clear_memories_of), override = TRUE)
 
 /mob/living/simple_animal/slime/proc/set_leader(new_leader)
 	var/old_leader = Leader
@@ -556,19 +569,19 @@
 	if(old_leader && !SLIME_CARES_ABOUT(old_leader))
 		UnregisterSignal(old_leader, COMSIG_PARENT_QDELETING)
 	if(Leader)
-		RegisterSignal(Leader, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+		RegisterSignal(Leader, COMSIG_PARENT_QDELETING, PROC_REF(clear_memories_of), override = TRUE)
 
 /mob/living/simple_animal/slime/proc/add_friendship(new_friend, amount = 1)
 	if(!Friends[new_friend])
 		Friends[new_friend] = 0
 	Friends[new_friend] += amount
 	if(new_friend)
-		RegisterSignal(new_friend, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+		RegisterSignal(new_friend, COMSIG_PARENT_QDELETING, PROC_REF(clear_memories_of), override = TRUE)
 
 /mob/living/simple_animal/slime/proc/set_friendship(new_friend, amount = 1)
 	Friends[new_friend] = amount
 	if(new_friend)
-		RegisterSignal(new_friend, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+		RegisterSignal(new_friend, COMSIG_PARENT_QDELETING, PROC_REF(clear_memories_of), override = TRUE)
 
 /mob/living/simple_animal/slime/proc/remove_friend(friend)
 	Friends -= friend

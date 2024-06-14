@@ -80,7 +80,7 @@
 	id = "mcube"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 250)
-	build_path = /obj/item/reagent_containers/food/snacks/monkeycube
+	build_path = /obj/item/food/monkeycube
 	category = list("initial", "Food")
 
 /datum/design/ez_nut
@@ -163,6 +163,14 @@
 	build_path = /obj/item/storage/belt/utility
 	category = list("initial","Organic Materials")
 
+/datum/design/botanybelt
+	name = "Botanical Belt"
+	id = "botanybelt"
+	build_type = BIOGENERATOR
+	materials = list(/datum/material/biomass= 300)
+	build_path = /obj/item/storage/belt/botanical
+	category = list("initial","Organic Materials")
+
 /datum/design/secbelt
 	name = "Security Belt"
 	id = "secbelt"
@@ -200,7 +208,7 @@
 	id = "rice_hat"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 300)
-	build_path = /obj/item/clothing/head/rice_hat
+	build_path = /obj/item/clothing/head/costume/rice_hat
 	category = list("initial","Organic Materials")
 
 /datum/design/carton_soy_milk

@@ -11,6 +11,7 @@
 	hardware_flag = PROGRAM_LAPTOP
 	max_hardware_size = 2
 	w_class = WEIGHT_CLASS_NORMAL
+	max_bays = 4
 
 	// No running around with open laptops in hands.
 	item_flags = SLOWS_WHILE_IN_HAND
@@ -56,14 +57,16 @@
 	. = ..()
 	if(over_object == usr || over_object == src)
 		try_toggle_open(usr)
-	else if(istype(over_object, /atom/movable/screen/inventory/hand))
+		return
+	if(istype(over_object, /atom/movable/screen/inventory/hand))
 		var/atom/movable/screen/inventory/hand/H = over_object
 		var/mob/M = usr
 
-		if(!M.restrained() && !M.stat)
-			if(!isturf(loc) || !Adjacent(M))
-				return
-			M.put_in_hand(src, H.held_index)
+		if(M.stat != CONSCIOUS || HAS_TRAIT(M, TRAIT_HANDS_BLOCKED))
+			return
+		if(!isturf(loc) || !Adjacent(M))
+			return
+		M.put_in_hand(src, H.held_index)
 
 /obj/item/modular_computer/laptop/attack_hand(mob/user)
 	. = ..()

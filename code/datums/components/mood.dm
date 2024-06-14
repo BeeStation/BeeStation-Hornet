@@ -8,6 +8,7 @@
 	var/mood_level = 5 //To track what stage of moodies they're on
 	var/sanity_level = 2 //To track what stage of sanity they're on
 	var/mood_modifier = 1 //Modifier to allow certain mobs to be less affected by moodlets
+	var/sanity_modifier = 0.05 //Multiplies sanity changes, lower values make sanity change slower.
 	var/list/datum/mood_event/mood_events = list()
 	var/insanity_effect = 0 //is the owner being punished for low mood? If so, how much?
 	var/atom/movable/screen/mood/screen_obj
@@ -19,12 +20,12 @@
 
 	START_PROCESSING(SSmood, src)
 
-	RegisterSignal(parent, COMSIG_ADD_MOOD_EVENT, .proc/add_event)
-	RegisterSignal(parent, COMSIG_CLEAR_MOOD_EVENT, .proc/clear_event)
-	RegisterSignal(parent, COMSIG_ENTER_AREA, .proc/check_area_mood)
+	RegisterSignal(parent, COMSIG_ADD_MOOD_EVENT, PROC_REF(add_event))
+	RegisterSignal(parent, COMSIG_CLEAR_MOOD_EVENT, PROC_REF(clear_event))
+	RegisterSignal(parent, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(check_area_mood))
 
-	RegisterSignal(parent, COMSIG_MOB_HUD_CREATED, .proc/modify_hud)
-	RegisterSignal(parent, COMSIG_HUMAN_VOID_MASK_ACT, .proc/direct_sanity_drain)
+	RegisterSignal(parent, COMSIG_MOB_HUD_CREATED, PROC_REF(modify_hud))
+	RegisterSignal(parent, COMSIG_HERETIC_MASK_ACT, PROC_REF(direct_sanity_drain))
 	var/mob/living/owner = parent
 	if(owner.hud_used)
 		modify_hud()
@@ -38,60 +39,74 @@
 	return ..()
 
 /datum/component/mood/proc/print_mood(mob/user)
-	var/msg = "<span class='info'>*---------*\n<EM>Your current mood</EM>\n"
+	var/msg = "<span class='info'><EM>Your current mood</EM>\n"
 	msg += "<span class='notice'>My mental status: </span>" //Long term
 	switch(sanity)
 		if(SANITY_GREAT to INFINITY)
-			msg += "<span class='nicegreen'>My mind feels like a temple!<span>\n"
+			msg += "<span class='nicegreen'>My mind feels like a temple!</span>\n"
 		if(SANITY_NEUTRAL to SANITY_GREAT)
-			msg += "<span class='nicegreen'>I have been feeling great lately!<span>\n"
+			msg += "<span class='nicegreen'>I have been feeling great lately!</span>\n"
 		if(SANITY_DISTURBED to SANITY_NEUTRAL)
-			msg += "<span class='nicegreen'>I have felt quite decent lately.<span>\n"
+			msg += "<span class='nicegreen'>I have felt quite decent lately.</span>\n"
 		if(SANITY_UNSTABLE to SANITY_DISTURBED)
 			msg += "<span class='warning'>I'm feeling a little bit unhinged...</span>\n"
 		if(SANITY_CRAZY to SANITY_UNSTABLE)
-			msg += "<span class='boldwarning'>I'm freaking out!!</span>\n"
+			msg += "<span class='boldwarning'>I'm freaking out!!!</span>\n"
 		if(SANITY_INSANE to SANITY_CRAZY)
-			msg += "<span class='boldwarning'>AHAHAHAHAHAHAHAHAHAH!!</span>\n"
+			msg += "<span class='boldwarning'>AHAHAHAHAHAHAHAHAHAH!!!</span>\n"
 
 	msg += "<span class='notice'>My current mood: </span>" //Short term
 	switch(mood_level)
 		if(1)
-			msg += "<span class='boldwarning'>I wish I was dead!<span>\n"
+			msg += "<span class='boldwarning'>I wish I was dead!</span>\n"
 		if(2)
-			msg += "<span class='boldwarning'>I feel terrible...<span>\n"
+			msg += "<span class='boldwarning'>I feel terrible...</span>\n"
 		if(3)
-			msg += "<span class='boldwarning'>I feel very upset.<span>\n"
+			msg += "<span class='boldwarning'>I feel very upset.</span>\n"
 		if(4)
-			msg += "<span class='boldwarning'>I'm a bit sad.<span>\n"
+			msg += "<span class='boldwarning'>I'm a bit sad.</span>\n"
 		if(5)
-			msg += "<span class='nicegreen'>I'm alright.<span>\n"
+			msg += "<span class='nicegreen'>I'm alright.</span>\n"
 		if(6)
-			msg += "<span class='nicegreen'>I feel pretty okay.<span>\n"
+			msg += "<span class='nicegreen'>I feel pretty okay.</span>\n"
 		if(7)
-			msg += "<span class='nicegreen'>I feel pretty good.<span>\n"
+			msg += "<span class='nicegreen'>I feel pretty good.</span>\n"
 		if(8)
-			msg += "<span class='nicegreen'>I feel amazing!<span>\n"
+			msg += "<span class='nicegreen'>I feel amazing!</span>\n"
 		if(9)
-			msg += "<span class='nicegreen'>I love life!<span>\n"
+			msg += "<span class='nicegreen'>I love life!</span>\n"
 
 	msg += "<span class='notice'>Moodlets:\n</span>"//All moodlets
-	if(mood_events.len)
-		for(var/i in mood_events)
-			var/datum/mood_event/event = mood_events[i]
-			msg += event.description
-	else
-		msg += "<span class='nicegreen'>I don't have much of a reaction to anything right now.<span>\n"
-	to_chat(user || parent, msg)
+	var/mood_msg = ""
+	var/thought_msg = ""
+	for(var/i in mood_events)
+		var/datum/mood_event/event = mood_events[i]
+		if(event.mood_change)
+			mood_msg += "[event.description]\n"
+		else
+			thought_msg += "[event.description]\n"
+	if(!mood_msg)
+		msg += "<span class='mood_neutral'>I don't have much of a reaction to anything right now.<span>\n"
+	msg += mood_msg
+	if(thought_msg)
+		msg += "<span class='notice'>Thoughts:</span>\n"
+		msg += thought_msg
+	to_chat(user || parent, EXAMINE_BLOCK(msg))
 
 /datum/component/mood/proc/update_mood() //Called whenever a mood event is added or removed
 	mood = 0
 	shown_mood = 0
 	for(var/i in mood_events)
 		var/datum/mood_event/event = mood_events[i]
-		mood += event.mood_change
+		var/mob/living/owner = parent
+		var/mood_change = event.mood_change
+		if(owner.has_quirk(/datum/quirk/hypersensitive) && (mood_change<0))
+			mood_change*=1.5
+		if(owner.has_quirk(/datum/quirk/apathetic) && (mood_change<0))
+			mood_change*=0.5
+		mood += mood_change
 		if(!event.hidden)
-			shown_mood += event.mood_change
+			shown_mood += mood_change
 		mood *= mood_modifier
 		shown_mood *= mood_modifier
 
@@ -174,25 +189,21 @@
 ///Called on SSmood process
 /datum/component/mood/process(delta_time)
 	var/mob/living/owner = parent
-	switch(mood_level)
-		if(1)
-			setSanity(sanity-0.3*delta_time)
-		if(2)
-			setSanity(sanity-0.15*delta_time)
-		if(3)
-			setSanity(sanity-0.1*delta_time)
-		if(4)
-			setSanity(sanity-0.05*delta_time, minimum=SANITY_UNSTABLE)
-		if(5)
-			setSanity(sanity+0.1, maximum=SANITY_NEUTRAL)
-		if(6)
-			setSanity(sanity+0.2*delta_time, maximum=SANITY_GREAT)
-		if(7)
-			setSanity(sanity+0.3*delta_time, maximum=SANITY_GREAT)
-		if(8)
-			setSanity(sanity+0.4*delta_time, maximum=SANITY_MAXIMUM)
-		if(9)
-			setSanity(sanity+0.6*delta_time, maximum=SANITY_MAXIMUM)
+	switch(sanity)
+		if(SANITY_GREAT-1 to INFINITY)
+			setSanity(sanity+sanity_modifier*delta_time*mood-0.4)
+		if(SANITY_NEUTRAL-1 to SANITY_GREAT-1)
+			setSanity(sanity+sanity_modifier*delta_time*mood-0.2)
+		if(SANITY_DISTURBED-1 to SANITY_NEUTRAL-1)
+			setSanity(sanity+sanity_modifier*delta_time*mood)
+		if(SANITY_UNSTABLE-1 to SANITY_DISTURBED-1)
+			setSanity(sanity+sanity_modifier*delta_time*mood+0.3)
+		if(SANITY_CRAZY-1 to SANITY_UNSTABLE-1)
+			setSanity(sanity+sanity_modifier*delta_time*mood+0.6)
+		if(SANITY_INSANE-1 to SANITY_CRAZY)
+			setSanity(sanity+sanity_modifier*delta_time*mood+0.9)
+		if (-INFINITY to SANITY_INSANE) //prevents it from going below 0. This caused issues.
+			setSanity(0)
 	HandleNutrition(owner)
 
 /datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_GREAT)
@@ -214,37 +225,24 @@
 	else
 		sanity = amount
 
-	var/mob/living/master = parent
 	switch(sanity)
 		if(SANITY_INSANE to SANITY_CRAZY)
 			setInsanityEffect(MAJOR_INSANITY_PEN)
-			master.add_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE, 100, override=TRUE, multiplicative_slowdown=0.6, movetypes=(~FLYING))
-			master.add_actionspeed_modifier(/datum/actionspeed_modifier/low_sanity)
 			sanity_level = 6
 		if(SANITY_CRAZY to SANITY_UNSTABLE)
 			setInsanityEffect(MINOR_INSANITY_PEN)
-			master.add_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE, 100, override=TRUE, multiplicative_slowdown=0.3, movetypes=(~FLYING))
-			master.add_actionspeed_modifier(/datum/actionspeed_modifier/low_sanity)
 			sanity_level = 5
 		if(SANITY_UNSTABLE to SANITY_DISTURBED)
 			setInsanityEffect(0)
-			master.add_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE, 100, override=TRUE, multiplicative_slowdown=0.15, movetypes=(~FLYING))
-			master.add_actionspeed_modifier(/datum/actionspeed_modifier/low_sanity)
 			sanity_level = 4
 		if(SANITY_DISTURBED to SANITY_NEUTRAL)
 			setInsanityEffect(0)
-			master.remove_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE)
-			master.remove_actionspeed_modifier(ACTIONSPEED_ID_SANITY)
 			sanity_level = 3
 		if(SANITY_NEUTRAL+1 to SANITY_GREAT+1) //shitty hack but +1 to prevent it from responding to super small differences
 			setInsanityEffect(0)
-			master.remove_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE)
-			master.add_actionspeed_modifier(/datum/actionspeed_modifier/high_sanity)
 			sanity_level = 2
 		if(SANITY_GREAT+1 to INFINITY)
 			setInsanityEffect(0)
-			master.remove_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE)
-			master.add_actionspeed_modifier(/datum/actionspeed_modifier/high_sanity)
 			sanity_level = 1
 	update_mood_icon()
 
@@ -267,7 +265,7 @@
 			clear_event(null, category)
 		else
 			if(the_event.timeout)
-				the_event.timer = addtimer(CALLBACK(src, .proc/clear_event, null, category), the_event.timeout, TIMER_STOPPABLE|TIMER_UNIQUE|TIMER_OVERRIDE)
+				the_event.timer = addtimer(CALLBACK(src, PROC_REF(clear_event), null, category), the_event.timeout, TIMER_STOPPABLE|TIMER_UNIQUE|TIMER_OVERRIDE)
 			return 0 //Don't have to update the event.
 	the_event = new type(src, param)
 
@@ -276,7 +274,7 @@
 	update_mood()
 
 	if(the_event.timeout)
-		addtimer(CALLBACK(src, .proc/clear_event, null, category), the_event.timeout, TIMER_UNIQUE|TIMER_OVERRIDE)
+		addtimer(CALLBACK(src, PROC_REF(clear_event), null, category), the_event.timeout, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /datum/component/mood/proc/clear_event(datum/source, category)
 	SIGNAL_HANDLER
@@ -315,8 +313,8 @@
 	screen_obj_sanity = new
 	hud.infodisplay += screen_obj
 	hud.infodisplay += screen_obj_sanity
-	RegisterSignal(hud, COMSIG_PARENT_QDELETING, .proc/unmodify_hud)
-	RegisterSignal(screen_obj, COMSIG_CLICK, .proc/hud_click)
+	RegisterSignal(hud, COMSIG_PARENT_QDELETING, PROC_REF(unmodify_hud))
+	RegisterSignal(screen_obj, COMSIG_CLICK, PROC_REF(hud_click))
 
 /datum/component/mood/proc/unmodify_hud(datum/source)
 	SIGNAL_HANDLER
@@ -373,7 +371,9 @@
 /datum/component/mood/proc/check_area_mood(datum/source, var/area/A)
 	SIGNAL_HANDLER
 
-	if(A.mood_bonus)
+	var/mob/living/owner = parent
+
+	if(A.mood_check(owner))
 		if(get_event("area"))	//walking between areas that give mood bonus should first clear the bonus from the previous one
 			clear_event(null, "area")
 		add_event(null, "area", /datum/mood_event/area, list(A.mood_bonus, A.mood_message))

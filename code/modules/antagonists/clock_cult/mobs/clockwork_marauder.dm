@@ -71,7 +71,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 		return
 	. = ..()
 
-/mob/living/simple_animal/hostile/clockwork_marauder/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/hostile/clockwork_marauder/bullet_act(obj/projectile/Proj)
 	//Block Ranged Attacks
 	if(shield_health > 0)
 		damage_shield()

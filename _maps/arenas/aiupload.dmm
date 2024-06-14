@@ -7,11 +7,11 @@
 /obj/item/aicard,
 /obj/item/aiModule/core/freeformcore,
 /obj/machinery/door/window/brigdoor/southright,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/space)
 "g" = (
 /obj/item/kirbyplants/photosynthetic,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/space)
 "h" = (
 /turf/open/floor/monotile/steel,
@@ -31,7 +31,11 @@
 	CanAtmosPass = 3;
 	dir = 4
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
+/area/space)
+"l" = (
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/iron/techmaint,
 /area/space)
 "m" = (
 /obj/machinery/computer{
@@ -46,43 +50,28 @@
 /obj/effect/temp_visual/ratvar/door/window,
 /obj/effect/temp_visual/ratvar/door,
 /obj/machinery/door/window/brigdoor/northright,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/space)
 "q" = (
 /obj/machinery/computer,
 /turf/open/floor/circuit/green,
-/area/space)
-"v" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/structure/AIcore/deactivated,
-/turf/open/floor/plasteel/techmaint,
 /area/space)
 "w" = (
 /obj/effect/temp_visual/ratvar/door/window,
 /turf/open/floor/circuit/green,
 /area/space)
 "x" = (
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/space)
 "y" = (
 /obj/machinery/porta_turret/ai{
 	on = 0
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/space)
 "z" = (
 /obj/machinery/camera,
-/turf/open/floor/plasteel/techmaint,
-/area/space)
-"A" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/space)
 "B" = (
 /obj/structure/table/reinforced,
@@ -93,32 +82,26 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/space)
 "C" = (
 /obj/machinery/camera{
 	pixel_x = 20
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/space)
-"J" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
+"K" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/space)
-"O" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
+"Q" = (
 /obj/structure/AIcore/deactivated,
-/turf/open/floor/plasteel/techmaint,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/techmaint,
 /area/space)
 "R" = (
 /obj/structure/table/reinforced,
@@ -132,17 +115,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/plasteel/techmaint,
-/area/space)
-"S" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/structure/AIcore/deactivated,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/space)
 "T" = (
 /obj/machinery/holopad,
@@ -158,11 +131,16 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/space)
 "X" = (
 /obj/machinery/ai_slipper,
 /turf/open/floor/monotile/steel,
+/area/space)
+"Y" = (
+/obj/structure/AIcore/deactivated,
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/iron/techmaint,
 /area/space)
 "Z" = (
 /obj/effect/temp_visual/ratvar/window/single,
@@ -170,18 +148,18 @@
 /obj/effect/temp_visual/ratvar/window/single,
 /obj/effect/temp_visual/ratvar/window/single,
 /obj/effect/temp_visual/ratvar/window/single,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/space)
 
 (1,1,1) = {"
-O
-J
-J
-J
-J
-J
-J
-S
+Q
+K
+K
+K
+K
+K
+K
+Q
 "}
 (2,1,1) = {"
 z
@@ -314,12 +292,12 @@ h
 x
 "}
 (15,1,1) = {"
-v
-A
-A
-A
-A
-A
-A
-v
+Y
+l
+l
+l
+l
+l
+l
+Y
 "}

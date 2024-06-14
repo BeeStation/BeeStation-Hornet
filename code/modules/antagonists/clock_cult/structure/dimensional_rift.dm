@@ -17,7 +17,7 @@
 		if(!(ismecha(M) && mech_sized))
 			return
 
-	if(ismovableatom(M))
+	if(ismovable(M))
 		if(GLOB.all_wormholes.len)
 			var/obj/effect/portal/wormhole/P = pick(GLOB.all_wormholes)
 			if(P && isturf(P.loc))

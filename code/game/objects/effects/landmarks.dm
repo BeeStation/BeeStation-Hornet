@@ -3,15 +3,11 @@
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "x2"
 	anchored = TRUE
-	layer = MID_LANDMARK_LAYER
+	layer = TURF_LAYER
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/effect/landmark/singularity_act()
-	return
-
-// Please stop bombing the Observer-Start landmark.
-/obj/effect/landmark/ex_act()
 	return
 
 /obj/effect/landmark/singularity_pull()
@@ -153,7 +149,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Medical Doctor"
 	icon_state = "Medical Doctor"
 
-/obj/effect/landmark/start/emt
+/obj/effect/landmark/start/paramedic
 	name = "Paramedic"
 	icon_state = "Medical Doctor"
 
@@ -211,7 +207,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	primary_ai = FALSE
 	latejoin_active = FALSE
 
-/obj/effect/landmark/start/brig_phys
+/obj/effect/landmark/start/brig_physician
 	name = "Brig Physician"
 
 /obj/effect/landmark/start/randommaint
@@ -224,6 +220,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	var/datum/job/J = SSjob.GetJob(job)
 	J.total_positions += 1
 	J.spawn_positions += 1
+	SSjob.job_manager_blacklisted -= J.title
 
 /obj/effect/landmark/start/randommaint/backalley_doc
 	name = "Barber"
@@ -233,13 +230,22 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Stage Magician"
 	job = "Stage Magician"
 
-/obj/effect/landmark/start/randommaint/shrink
+/obj/effect/landmark/start/randommaint/psychiatrist
 	name = "Psychiatrist"
 	job = "Psychiatrist"
 
-/obj/effect/landmark/start/randommaint/celebrity
+/obj/effect/landmark/start/randommaint/vip
 	name = "VIP"
 	job = "VIP"
+
+/obj/effect/landmark/start/randommaint/experiment
+	name = "Experiment"
+	job = "Experiment"
+
+/obj/effect/landmark/start/randommaint/virologist
+	name = "Virologist"
+	icon_state = "Virologist"
+	job= "Virologist"
 
 //Department Security spawns
 
@@ -308,6 +314,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 
 /obj/effect/landmark/start/new_player/Initialize(mapload)
 	..()
+	if (SStitle.newplayer_start_loc)
+		forceMove(SStitle.newplayer_start_loc)
 	GLOB.newplayer_start += loc
 	return INITIALIZE_HINT_QDEL
 
@@ -317,6 +325,18 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/latejoin/Initialize(mapload)
 	..()
 	SSjob.latejoin_trackers += loc
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/landmark/prisonspawn
+	name = "prisonspawn"
+	icon_state = "error"
+	/* Milviu's sin
+	icon_state = "prison_spawn"
+	*/
+
+/obj/effect/landmark/prisonspawn/Initialize(mapload)
+	..()
+	GLOB.prisonspawn += loc
 	return INITIALIZE_HINT_QDEL
 
 //space carps, magicarps, lone ops, slaughter demons, possibly revenants spawn here
@@ -450,7 +470,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/event_spawn
 	name = "generic event spawn"
 	icon_state = "generic_event"
-	layer = HIGH_LANDMARK_LAYER
+	layer = OBJ_LAYER
 
 
 /obj/effect/landmark/event_spawn/Initialize(mapload)

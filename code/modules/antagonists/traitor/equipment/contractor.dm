@@ -1,20 +1,35 @@
-/// Support unit gets it's own very basic antag datum for admin logging.
-/datum/antagonist/traitor/contractor_support
+/// Support unit gets its own very basic antag datum for admin logging.
+/datum/antagonist/contractor_support
 	name = "Contractor Support Unit"
+	banning_key = ROLE_TRAITOR
 	antag_moodlet = /datum/mood_event/focused
 
 	show_in_roundend = FALSE /// We're already adding them in to the contractor's roundend.
 	give_objectives = TRUE /// We give them their own custom objective.
 	show_in_antagpanel = FALSE /// Not a proper/full antag.
-	should_equip = FALSE /// Don't give them an uplink.
 
 	var/datum/team/contractor_team/contractor_team
 
 /// Team for storing both the contractor and their support unit - only really for the HUD and admin logging.
 /datum/team/contractor_team
+	name = "Contractors"
 	show_roundend_report = FALSE
 
-/datum/antagonist/traitor/contractor_support/forge_traitor_objectives()
+/datum/antagonist/contractor_support/on_gain()
+	owner.special_role = ROLE_TRAITOR
+	if(give_objectives)
+		forge_objectives()
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	..()
+
+/datum/antagonist/contractor_support/greet()
+	to_chat(owner.current, "<span class='alertsyndie'>You are the Contractor Support Unit.</span>")
+	owner.announce_objectives()
+	if(owner.current)
+		if(owner.current.client)
+			owner.current.client.tgui_panel?.give_antagonist_popup("Contractor Support Unit", "Follow your contractor's orders.")
+
+/datum/antagonist/contractor_support/proc/forge_objectives()
 	var/datum/objective/generic_objective = new
 
 	generic_objective.name = "Follow Contractor's Orders"
@@ -22,7 +37,8 @@
 
 	generic_objective.completed = TRUE
 
-	add_objective(generic_objective)
+	objectives += generic_objective
+	log_objective(owner, generic_objective.explanation_text)
 
 /datum/contractor_hub
 	var/contract_rep = 0
@@ -77,7 +93,7 @@
 		start_index = assigned_contracts.len + 1
 
 	// Generate contracts, and find the lowest paying.
-	for (var/i = 1; i <= to_generate.len; i++)
+	for(var/i in 1 to to_generate.len)
 		var/datum/syndicate_contract/contract_to_add = new(owner, assigned_targets, to_generate[i])
 		var/contract_payout_total = contract_to_add.contract.payout + contract_to_add.contract.payout_bonus
 
@@ -165,7 +181,7 @@
 	if (.)
 		to_chat(user, "<span class='notice'>The uplink vibrates quietly, connecting to nearby agents...</span>")
 
-		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the Contractor Support Unit for [user.real_name]?", ROLE_PAI, null, FALSE, 100, POLL_IGNORE_CONTRACTOR_SUPPORT)
+		var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the Contractor Support Unit for [user.real_name]?", ROLE_CONTRACTOR_SUPPORT_UNIT, null, 10 SECONDS)
 
 		if(LAZYLEN(candidates))
 			var/mob/dead/observer/C = pick(candidates)
@@ -184,7 +200,7 @@
 	uniform = /obj/item/clothing/under/chameleon
 	suit = /obj/item/clothing/suit/chameleon
 	back = /obj/item/storage/backpack
-	belt = /obj/item/pda/chameleon
+	belt = /obj/item/modular_computer/tablet/pda/chameleon
 	mask = /obj/item/clothing/mask/cigarette/syndicate
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	ears = /obj/item/radio/headset/chameleon
@@ -269,7 +285,7 @@
 			to_chat(user, "<span class='notice'>Your purchase materializes into your hands!</span>")
 		else
 			to_chat(user, "<span class='notice'>Your purchase materializes onto the floor.</span>")
-
+		log_uplink_purchase(user, item_to_create, "\improper contractor tablet")
 		return item_to_create
 	return TRUE
 
@@ -277,9 +293,12 @@
 	name = "contractor pinpointer"
 	desc = "A handheld tracking device that locks onto certain signals. Ignores suit sensors, but is much less accurate."
 	icon_state = "pinpointer_syndicate"
+	worn_icon_state = "pinpointer_black"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	minimum_range = 25
 	has_owner = TRUE
 	ignore_suit_sensor_level = TRUE
+	tracks_grand_z = TRUE
 
 /obj/item/storage/box/contractor/fulton_extraction
 	name = "Fulton Extraction Kit"

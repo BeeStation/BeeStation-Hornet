@@ -4,7 +4,7 @@
 	product_slogans = "THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!;Hands down the best seed selection on the station!;Also certain mushroom varieties available, more for experts! Get certified today!"
 	product_ads = "We like plants!;Grow some crops!;Grow, baby, growww!;Aw h'yeah son!"
 	icon_state = "seeds"
-	light_color = LIGHT_COLOR_GREEN
+	light_mask = "seeds-light-mask"
 	products = list(/obj/item/seeds/ambrosia = 3,
 					/obj/item/seeds/apple = 3,
 					/obj/item/seeds/cotton = 3,
@@ -28,7 +28,7 @@
 					/obj/item/seeds/orange = 3,
 					/obj/item/seeds/pineapple = 3,
 					/obj/item/seeds/potato = 3,
-					/obj/item/seeds/poppy = 3,
+					/obj/item/seeds/flower/poppy = 3,
 					/obj/item/seeds/pumpkin = 3,
 					/obj/item/seeds/replicapod = 3,
 					/obj/item/seeds/wheat/rice = 3,
@@ -55,7 +55,7 @@
 	refill_canister = /obj/item/vending_refill/hydroseeds
 	default_price = 10
 	extra_price = 50
-	payment_department = ACCOUNT_SRV
+	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 /obj/item/vending_refill/hydroseeds
 	machine_name = "MegaSeed Servitor"

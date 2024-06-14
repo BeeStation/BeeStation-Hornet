@@ -89,8 +89,9 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 
 /obj/machinery/telecomms/LateInitialize()
 	..()
-	for(var/obj/machinery/telecomms/T in (long_range_link ? GLOB.telecomms_list : urange(20, src, 1)))
-		add_link(T)
+	for(var/obj/machinery/telecomms/telecomms_machine in GLOB.telecomms_list)
+		if (long_range_link || IN_GIVEN_RANGE(src, telecomms_machine, 20))
+			add_link(telecomms_machine)
 
 /obj/machinery/telecomms/Destroy()
 	GLOB.telecomms_list -= src
@@ -131,7 +132,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	var/newState = on
 
 	if(toggled)
-		if(stat & (BROKEN|NOPOWER|EMPED)) // if powered, on. if not powered, off. if too damaged, off
+		if(machine_stat & (BROKEN|NOPOWER|EMPED)) // if powered, on. if not powered, off. if too damaged, off
 			newState = FALSE
 		else
 			newState = TRUE

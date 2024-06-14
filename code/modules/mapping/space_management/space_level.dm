@@ -6,8 +6,6 @@
 	var/linkage = SELFLOOPING
 	var/xi
 	var/yi   //imaginary placements on the grid
-	//Z-levels orbital body
-	var/datum/orbital_object/z_linked/orbital_body
 	//Is something generating on this level?
 	var/generating = FALSE
 
@@ -17,5 +15,6 @@
 	traits = new_traits
 	set_linkage(new_traits[ZTRAIT_LINKAGE])
 	if(orbital_body_type)
-		orbital_body = new orbital_body_type()
+		var/datum/orbital_object/z_linked/orbital_body = new orbital_body_type()
+		SSorbits.assoc_z_levels["[z_value]"] = orbital_body
 		orbital_body.link_to_z(src)

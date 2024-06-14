@@ -31,7 +31,7 @@
 			/mob/dead))
 
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -96,7 +96,7 @@
 	var/stun_time = 100
 
 /obj/structure/trap/stun/trap_effect(mob/living/L)
-	L.electrocute_act(30, src, safety=1) // electrocute act does a message.
+	L.electrocute_act(30, src, flags = SHOCK_NOGLOVES) // electrocute act does a message.
 	L.Paralyze(stun_time)
 
 /obj/structure/trap/stun/hunter

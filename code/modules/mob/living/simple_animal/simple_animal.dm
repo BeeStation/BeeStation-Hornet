@@ -14,6 +14,7 @@
 
 	var/list/speak = list()
 	var/list/speak_emote = list()//	Emotes while speaking IE: Ian [emote], [text] -- Ian barks, "WOOF!". Spoken text is generated from the speak variable.
+	var/speak_language = /datum/language/common // set this to a desired language path when list/speak should be spoken in a specific language. Dog barking / cat meowing / rat squeak would need to be metalanguage.
 	var/speak_chance = 0
 	var/list/emote_hear = list()	//Hearable emotes
 	var/list/emote_see = list()		//Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps
@@ -88,11 +89,16 @@
 
 	var/my_z // I don't want to confuse this with client registered_z
 
-	var/do_footstep = FALSE
+	///What kind of footstep this mob should have. Null if it shouldn't have any.
+	var/footstep_type
+
 	///Generic flags
 	var/simple_mob_flags = NONE
 
 	var/special_process = FALSE
+
+	///set it TRUE if "health" is not relable to this simple mob.
+	var/do_not_show_health_on_stat_panel
 
 	//Discovery
 	var/discovery_points = 200
@@ -107,10 +113,16 @@
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
 	update_simplemob_varspeed()
+
+	if(footstep_type)
+		AddElement(/datum/element/footstep, footstep_type)
+
+/mob/living/simple_animal/ComponentInitialize()
+	. = ..()
 	if(dextrous)
 		AddComponent(/datum/component/personal_crafting)
 	if(discovery_points)
-		AddComponent(/datum/component/discoverable, discovery_points)
+		AddComponent(/datum/component/discoverable, discovery_points, get_discover_id = CALLBACK(src, PROC_REF(get_discovery_id)))
 
 /mob/living/simple_animal/Destroy()
 	GLOB.simple_animals[AIStatus] -= src
@@ -132,19 +144,15 @@
 	if(stat == DEAD)
 		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
 
-/mob/living/simple_animal/initialize_footstep()
-	if(do_footstep)
-		..()
-
 /mob/living/simple_animal/updatehealth()
-	..()
-	health = CLAMP(health, 0, maxHealth)
+	. = ..()
+	health = clamp(health, 0, maxHealth)
 	update_health_hud()
 
 /mob/living/simple_animal/update_health_hud()
 	if(!hud_used)
 		return
-	var/severity = 5 - CLAMP(FLOOR((health / maxHealth) * 5, 1), 0, 5)
+	var/severity = 5 - clamp(FLOOR((health / maxHealth) * 5, 1), 0, 5)
 	if(severity > 0)
 		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 	else
@@ -161,7 +169,7 @@
 	med_hud_set_status()
 
 
-/mob/living/simple_animal/handle_status_effects()
+/mob/living/simple_animal/handle_status_effects(delta_time)
 	..()
 	if(stuttering)
 		stuttering = 0
@@ -196,7 +204,7 @@
 						length += emote_see.len
 					var/randomValue = rand(1,length)
 					if(randomValue <= speak.len)
-						say(pick(speak), forced = "simple_animal")
+						say(pick(speak), language = speak_language, forced = "simple_animal")
 					else
 						randomValue -= speak.len
 						if(emote_see && randomValue <= emote_see.len)
@@ -204,7 +212,7 @@
 						else
 							emote("me [pick(emote_hear)]", 2)
 				else
-					say(pick(speak), forced = "simple_animal")
+					say(pick(speak), language = speak_language, forced = "simple_animal")
 			else
 				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
 					emote("me", 1, pick(emote_see))
@@ -331,10 +339,13 @@
 
 /mob/living/simple_animal/proc/update_simplemob_varspeed()
 	if(speed == 0)
-		remove_movespeed_modifier(MOVESPEED_ID_SIMPLEMOB_VARSPEED, TRUE)
-	add_movespeed_modifier(MOVESPEED_ID_SIMPLEMOB_VARSPEED, TRUE, 100, multiplicative_slowdown = speed, override = TRUE)
+		remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
 
 /mob/living/simple_animal/get_stat_tab_status()
+	if(do_not_show_health_on_stat_panel)
+		return ..()
+
 	var/list/tab_data = ..()
 	tab_data["Health"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
 	return tab_data
@@ -343,7 +354,7 @@
 	if(flags_1 & HOLOGRAM_1)
 		do_sparks(3, TRUE, src)
 		return
-	if(loot.len)
+	if(length(loot))
 		for(var/i in loot)
 			new i(loc)
 
@@ -357,7 +368,7 @@
 		drop_all_held_items()
 	if(!gibbed)
 		if(deathsound || deathmessage || !del_on_death)
-			INVOKE_ASYNC(src, /mob.proc/emote, "deathgasp")
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
 	if(del_on_death)
 		..()
 		//Prevent infinite loops if the mob Destroy() is overridden in such
@@ -369,7 +380,7 @@
 		icon_state = icon_dead
 		if(flip_on_death)
 			transform = transform.Turn(180)
-		density = FALSE
+		set_density(FALSE)
 		..()
 
 /mob/living/simple_animal/proc/CanAttack(atom/the_target)
@@ -384,8 +395,8 @@
 		if(L.stat != CONSCIOUS)
 			return FALSE
 	if (ismecha(the_target))
-		var/obj/mecha/M = the_target
-		if (M.occupant)
+		var/obj/vehicle/sealed/mecha/M = the_target
+		if(LAZYLEN(M.occupants))
 			return FALSE
 	return TRUE
 
@@ -402,7 +413,7 @@
 	if(..()) //successfully ressuscitated from death
 		icon = initial(icon)
 		icon_state = icon_living
-		density = initial(density)
+		set_density(initial(density))
 		mobility_flags = MOBILITY_FLAGS_DEFAULT
 		update_mobility()
 		. = 1
@@ -429,19 +440,19 @@
 		CHECK_TICK
 
 	if(partner && children < 3)
-		var/childspawn = pickweight(childtype)
+		var/childspawn = pick_weight(childtype)
 		var/turf/target = get_turf(loc)
 		if(target)
 			return new childspawn(target)
 
-/mob/living/simple_animal/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/living/simple_animal/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(incapacitated())
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
 		return FALSE
 	if(be_close && !in_range(M, src))
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
 		return FALSE
-	if(!(no_dextery || dextrous))
+	if(!(no_dexterity || dextrous))
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return FALSE
 	return TRUE
@@ -458,11 +469,18 @@
 	else
 		..()
 
+/mob/living/simple_animal/update_resting()
+	if(resting)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
+	return ..()
+
 /mob/living/simple_animal/update_mobility(value_otherwise = TRUE)
-	if(IsUnconscious() || IsParalyzed() || IsStun() || IsKnockdown() || IsParalyzed() || stat || resting)
+	if(HAS_TRAIT_NOT_FROM(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT))
 		drop_all_held_items()
 		mobility_flags = NONE
-	else if(buckled)
+	else if(buckled || IsImmobilized())
 		mobility_flags = MOBILITY_FLAGS_INTERACTION
 	else
 		if(value_otherwise)
@@ -486,8 +504,9 @@
 
 	if(changed)
 		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT)
+	UPDATE_OO_IF_PRESENT
 
-/mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
+/mob/living/simple_animal/proc/sentience_act(mob/user) //Called when a simple animal gains sentience via gold slime potion
 	toggle_ai(AI_OFF) // To prevent any weirdness.
 	can_have_ai = FALSE
 
@@ -503,6 +522,14 @@
 	see_invisible = initial(see_invisible)
 	see_in_dark = initial(see_in_dark)
 	sight = initial(sight)
+
+	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
+		sight |= (SEE_MOBS)
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
+		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		see_in_dark = max(see_in_dark, 8)
 
 	if(client.eye != src)
 		var/atom/A = client.eye
@@ -563,12 +590,10 @@
 		var/obj/item/l_hand = get_item_for_held_index(1)
 		var/obj/item/r_hand = get_item_for_held_index(2)
 		if(r_hand)
-			r_hand.layer = ABOVE_HUD_LAYER
 			r_hand.plane = ABOVE_HUD_PLANE
 			r_hand.screen_loc = ui_hand_position(get_held_index_of_item(r_hand))
 			client.screen |= r_hand
 		if(l_hand)
-			l_hand.layer = ABOVE_HUD_LAYER
 			l_hand.plane = ABOVE_HUD_PLANE
 			l_hand.screen_loc = ui_hand_position(get_held_index_of_item(l_hand))
 			client.screen |= l_hand
@@ -612,6 +637,9 @@
 		else
 			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
 
+/mob/living/simple_animal/proc/get_discovery_id()
+	return type
+
 /mob/living/simple_animal/proc/consider_wakeup()
 	if (pulledby || shouldwakeup)
 		toggle_ai(AI_ON)
@@ -628,3 +656,8 @@
 	if (AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
 		toggle_ai(initial(AIStatus))
+
+/mob/living/simple_animal/give_mind(mob/user)
+	. = ..()
+	if(.)
+		sentience_act(user)

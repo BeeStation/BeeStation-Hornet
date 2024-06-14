@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "c" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -14,7 +14,7 @@
 /area/shuttle/pod_1)
 "h" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "m" = (
@@ -37,7 +37,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/pod_1)
 "w" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/item/radio/intercom{
@@ -49,7 +49,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "y" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -61,7 +61,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "D" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/machinery/status_display/evac{
@@ -90,7 +90,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/pod_1)
 "M" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/machinery/status_display/evac{
@@ -107,7 +107,7 @@
 /turf/open/floor/plating,
 /area/shuttle/pod_1)
 "W" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{

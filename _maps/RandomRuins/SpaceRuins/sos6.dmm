@@ -10,7 +10,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
 "d" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/mob_spawn/human/corpse/russian,
@@ -29,13 +29,13 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
 "h" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
 "i" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/mob_spawn/human/corpse/russian/ranged,
@@ -49,13 +49,13 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
 "k" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
 "l" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/item/storage/pod{
@@ -72,7 +72,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
 "n" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/item/storage/pod{

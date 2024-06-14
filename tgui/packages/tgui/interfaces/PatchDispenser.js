@@ -4,14 +4,9 @@ import { Window } from '../layouts';
 
 export const PatchDispenser = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    patch_size,
-    patch_name,
-  } = data;
+  const { patch_size, patch_name } = data;
   return (
-    <Window
-      width={300}
-      height={120}>
+    <Window width={300} height={120}>
       <Window.Content>
         <Section>
           <LabeledList>
@@ -24,15 +19,15 @@ export const PatchDispenser = (props, context) => {
                 maxValue={40}
                 step={1}
                 stepPixelSize={2}
-                onChange={(e, value) => act('change_patch_size', {
-                  volume: value,
-                })} />
+                onChange={(e, value) =>
+                  act('change_patch_size', {
+                    volume: value,
+                  })
+                }
+              />
             </LabeledList.Item>
             <LabeledList.Item label="Patch Name">
-              <Button
-                icon="pencil-alt"
-                content={patch_name}
-                onClick={() => act('change_patch_name')} />
+              <Button icon="pencil-alt" content={patch_name} onClick={() => act('change_patch_name')} />
             </LabeledList.Item>
           </LabeledList>
         </Section>

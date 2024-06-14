@@ -11,7 +11,7 @@
   *
   * make sure you add an update to the schema_version stable in the db changelog
   */
-#define DB_MAJOR_VERSION 5
+#define DB_MAJOR_VERSION 7
 
 /**
   * DB minor schema version
@@ -20,7 +20,7 @@
   *
   * make sure you add an update to the schema_version stable in the db changelog
   */
-#define DB_MINOR_VERSION 10
+#define DB_MINOR_VERSION 2
 
 
 //! ## Timing subsystem
@@ -88,9 +88,6 @@
 ///Call qdel on the atom after intialization
 #define INITIALIZE_HINT_QDEL 2
 
-///Call qdel with a force of TRUE after initialization
-#define INITIALIZE_HINT_QDEL_FORCE 3
-
 ///type and all subtypes should always immediately call Initialize in New()
 #define INITIALIZE_IMMEDIATE(X) ##X/New(loc, ...){\
     ..();\
@@ -118,17 +115,17 @@
 #define INIT_ORDER_GREYSCALE 		81
 #define INIT_ORDER_VIS				80
 #define INIT_ORDER_ACHIEVEMENTS 	77
-#define INIT_ORDER_MATERIALS		76
 #define INIT_ORDER_RESEARCH			75
 #define INIT_ORDER_ORBITS			74 //Other things use the orbital map, so it needs to be made early on.
 #define INIT_ORDER_STATION			73 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
+#define INIT_ORDER_QUIRKS			72
+#define INIT_ORDER_JOBS				71 //Must initialize before events for holidays
 #define INIT_ORDER_EVENTS			70
-#define INIT_ORDER_JOBS				65
-#define INIT_ORDER_QUIRKS			60
 #define INIT_ORDER_AI_MOVEMENT 		56 //We need the movement setup
 #define INIT_ORDER_AI_CONTROLLERS 	55 //So the controller can get the ref
 #define INIT_ORDER_TICKER			55
 #define INIT_ORDER_MAPPING			50
+#define INIT_ORDER_EARLY_ASSETS		48
 #define INIT_ORDER_TIMETRACK		47
 #define INIT_ORDER_NETWORKS			45
 #define INIT_ORDER_ECONOMY			40
@@ -149,9 +146,13 @@
 #define INIT_ORDER_STICKY_BAN		-10
 #define INIT_ORDER_LIGHTING			-20
 #define INIT_ORDER_SHUTTLE			-21
+#define INIT_ORDER_ZCOPY			-22 // this should go after lighting and most objects being placed
 #define INIT_ORDER_MINOR_MAPPING	-40
 #define INIT_ORDER_PATH				-50
 #define INIT_ORDER_EXPLOSIONS		-69
+#define INIT_ORDER_ELEVATOR			-70
+#define INIT_ORDER_BAN_CACHE		-98
+#define INIT_ORDER_NATURAL_LIGHT	-120
 #define INIT_ORDER_CHAT				-150 //Should be last to ensure chat remains smooth during init.
 
 // Subsystem fire priority, from lowest to highest priority
@@ -163,15 +164,20 @@
 #define FIRE_PRIORITY_SERVER_MAINT	10
 #define FIRE_PRIORITY_RESEARCH		10
 #define FIRE_PRIORITY_VIS			10
+#define FIRE_PRIORITY_ZCOPY			10
 #define FIRE_PRIORITY_GARBAGE		15
+#define FIRE_PRIORITY_DATABASE 16
+#define FIRE_PRIORITY_PARALLAX		18
 #define FIRE_PRIORITY_WET_FLOORS	20
 #define FIRE_PRIORITY_AIR			20
 #define FIRE_PRIORITY_NPC			20
+#define FIRE_PRIORITY_HYPERSPACE_DRIFT 20
 #define FIRE_PRIORITY_NPC_MOVEMENT  21
 #define FIRE_PRIORITY_NPC_ACTIONS	22
 #define FIRE_PRIORITY_PROCESS		25
 #define FIRE_PRIORITY_THROWING		25
 #define FIRE_PRIORITY_SPACEDRIFT	30
+#define FIRE_PRIORITY_ZFALL         30
 #define FIRE_PRIORITY_FIELDS		30
 #define FIRE_PRIOTITY_SMOOTHING		35
 #define FIRE_PRIORITY_NETWORKS		40
@@ -180,9 +186,9 @@
 #define FIRE_PRIORITY_ACID			40
 #define FIRE_PRIOTITY_BURNING		40
 #define FIRE_PRIORITY_DEFAULT		50
-#define FIRE_PRIORITY_PARALLAX		65
 #define FIRE_PRIORITY_INSTRUMENTS	80
 #define FIRE_PRIORITY_MOBS			100
+#define FIRE_PRIORITY_ASSETS		105
 #define FIRE_PRIORITY_TGUI			110
 #define FIRE_PRIORITY_TICKER		200
 #define FIRE_PRIORITY_ATMOS_ADJACENCY	300
@@ -191,6 +197,7 @@
 #define FIRE_PRIORITY_OVERLAYS		500
 #define FIRE_PRIORITY_CALLBACKS		600
 #define FIRE_PRIORITY_EXPLOSIONS	666
+#define FIRE_PRIORITY_PREFERENCES	690
 #define FIRE_PRIORITY_TIMER			700
 #define FIRE_PRIORITY_SOUND_LOOPS	800
 #define FIRE_PRIORITY_INPUT			1000 // This must always always be the max highest priority. Player input must never be lost.
@@ -225,6 +232,18 @@
 #define SSEXPLOSIONS_TURFS 2
 #define SSEXPLOSIONS_THROWS 3
 
+//SSticker.current_state values
+/// Game is loading
+#define GAME_STATE_STARTUP 0
+/// Game is loaded and in pregame lobby
+#define GAME_STATE_PREGAME 1
+/// Game is attempting to start the round
+#define GAME_STATE_SETTING_UP 2
+/// Game has round in progress
+#define GAME_STATE_PLAYING 3
+/// Game has round finished
+#define GAME_STATE_FINISHED 4
+
 //! ## Overlays subsystem
 
 /// Compile all the overlays for an atom from the cache lists
@@ -232,7 +251,6 @@
 	if (A) {\
 		var/list/ad = A.add_overlays;\
 		var/list/rm = A.remove_overlays;\
-		var/list/po = A.priority_overlays;\
 		if(LAZYLEN(rm)){\
 			A.overlays -= rm;\
 			rm.Cut();\
@@ -240,9 +258,6 @@
 		if(LAZYLEN(ad)){\
 			A.overlays |= ad;\
 			ad.Cut();\
-		}\
-		if(LAZYLEN(po)){\
-			A.overlays |= po;\
 		}\
 		for(var/I in A.alternate_appearances){\
 			var/datum/atom_hud/alternate_appearance/AA = A.alternate_appearances[I];\

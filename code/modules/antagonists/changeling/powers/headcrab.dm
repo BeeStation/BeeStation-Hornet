@@ -11,7 +11,7 @@
 
 /datum/action/changeling/headcrab/sting_action(mob/user)
 	set waitfor = FALSE
-	if(alert("Are we sure we wish to kill ourself and create a headslug?",,"Yes", "No") == "No")
+	if(alert("Are we sure we wish to kill ourself and create a headslug?",,"Yes", "No") != "Yes")
 		return
 	if(isliving(user))
 		var/mob/living/L = user
@@ -56,5 +56,6 @@
 	if(crab.origin)
 		crab.origin.active = 1
 		crab.origin.transfer_to(crab)
+		user.investigate_log("has been gibbed by using their Last Resort headcrab ability.", INVESTIGATE_DEATHS)
 		user.gib()
 		to_chat(crab, "<span class='warning'>You burst out of the remains of your former body in a shower of gore!</span>")

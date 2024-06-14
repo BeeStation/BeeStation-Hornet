@@ -23,6 +23,8 @@
 
 /datum/config_entry/string/servername	// server name (the name of the game window)
 
+/datum/config_entry/string/servertag	// Server tagline for displaying on the hub
+
 /datum/config_entry/string/serversqlname	// short form server name used for the DB
 
 /datum/config_entry/string/stationname	// station name (the name of the station in-game)
@@ -72,6 +74,8 @@
 
 /datum/config_entry/flag/log_emote	// log emotes
 
+/datum/config_entry/flag/log_econ // log economy actions
+
 /datum/config_entry/flag/log_adminchat	// log admin chat messages
 	protection = CONFIG_ENTRY_LOCKED
 
@@ -83,7 +87,12 @@
 
 /datum/config_entry/flag/log_world_topic	// log all world.Topic() calls
 
-/datum/config_entry/flag/log_manifest	// log crew manifest to seperate file
+/datum/config_entry/flag/log_preferences	// log all preferences loading and changes
+
+/// log speech indicators(started/stopped speaking)
+/datum/config_entry/flag/log_speech_indicators
+
+/datum/config_entry/flag/log_manifest	// log crew manifest to separate file
 
 /datum/config_entry/flag/log_job_debug	// log roundstart divide occupations debug information to a file
 
@@ -157,6 +166,14 @@
 	config_entry_value = TICK_LIMIT_MC_INIT_DEFAULT
 	min_val = 0 //oranges warned us
 	integer = FALSE
+
+/datum/config_entry/flag/mc_diagnostics
+
+/datum/config_entry/flag/mc_diagnostics/ValidateAndSet(str_val)
+	. = ..()
+	if (!.)
+		return FALSE
+	Master.diagnostic_mode = config_entry_value
 
 /datum/config_entry/flag/admin_legacy_system	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system
 	protection = CONFIG_ENTRY_LOCKED
@@ -411,6 +428,10 @@
 	config_entry_value = null
 	min_val = 500
 
+/datum/config_entry/number/client_warn_build
+	default = null
+	min_val = 0
+
 /datum/config_entry/string/client_warn_message
 	config_entry_value = "Your version of byond may have issues or be blocked from accessing this server in the future."
 
@@ -424,6 +445,10 @@
 	config_entry_value = "Your version of byond is too old, may have issues, and is blocked from accessing this server."
 
 /datum/config_entry/number/client_error_build
+	config_entry_value = null
+	min_val = 0
+
+/datum/config_entry/number/client_max_build
 	config_entry_value = null
 	min_val = 0
 
@@ -506,8 +531,6 @@
 /datum/config_entry/string/default_view
 	config_entry_value = "15x15"
 
-/datum/config_entry/flag/menu_square_view
-
 /datum/config_entry/flag/log_pictures
 
 /datum/config_entry/flag/picture_logging_camera
@@ -535,18 +558,23 @@
 /datum/config_entry/number/topic_rate_limit
 	config_entry_value = 5
 	min_val = 1
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/number/topic_max_fails
 	config_entry_value = 5
 	min_val = 1
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/string/topic_rule_name
 	config_entry_value = "_DD_Fail2topic"
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/number/topic_max_size
 	config_entry_value = 500
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/flag/topic_enabled
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/flag/auto_profile
 
@@ -595,3 +623,8 @@
 /datum/config_entry/string/elasticsearch_metrics_endpoint
 
 /datum/config_entry/string/elasticsearch_metrics_apikey
+
+
+/datum/config_entry/flag/enable_mrat
+
+/datum/config_entry/string/discord_ooc_tag

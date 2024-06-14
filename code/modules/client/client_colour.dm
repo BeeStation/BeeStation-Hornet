@@ -84,7 +84,6 @@
 		var/datum/client_colour/colour = cc
 		if(colour.type == colour_type)
 			qdel(colour)
-			break
 
 /**
   * Gets the resulting colour/tone from client_colours.
@@ -156,37 +155,37 @@
 	colour = "red"
 
 /datum/client_colour/glass_colour/green
-	colour = "#aaffaa"
+	colour = "#eeffee"
 
 /datum/client_colour/glass_colour/lightgreen
-	colour = "#ccffcc"
+	colour = "#f5fff5"
 
 /datum/client_colour/glass_colour/blue
-	colour = "#aaaaff"
+	colour = "#eeeeff"
 
 /datum/client_colour/glass_colour/lightblue
-	colour = "#ccccff"
+	colour = "#f5f5ff"
 
 /datum/client_colour/glass_colour/yellow
-	colour = "#ffff66"
+	colour = "#ffffee"
 
 /datum/client_colour/glass_colour/red
-	colour = "#ffaaaa"
+	colour = "#ffeeee"
 
 /datum/client_colour/glass_colour/darkred
-	colour = "#bb5555"
+	colour = "#ffe7e7"
 
 /datum/client_colour/glass_colour/orange
-	colour = "#ffbb99"
+	colour = "#fff3ee"
 
 /datum/client_colour/glass_colour/lightorange
-	colour = "#ffddaa"
+	colour = "#fffaf5"
 
 /datum/client_colour/glass_colour/purple
-	colour = "#ff99ff"
+	colour = "#ffeeff"
 
 /datum/client_colour/glass_colour/gray
-	colour = "#cccccc"
+	colour = "#e7e7e7"
 
 
 /datum/client_colour/monochrome
@@ -196,6 +195,9 @@
 	fade_in = 20
 	fade_out = 20
 
+/datum/client_colour/monochrome/blind
+	priority = 1
+
 /datum/client_colour/bloodlust
 	priority = PRIORITY_ABSOLUTE // Only anger.
 	colour = list(0,0,0,0,0,0,0,0,0,1,0,0) //pure red.
@@ -203,7 +205,7 @@
 
 /datum/client_colour/bloodlust/New(mob/_owner)
 	..()
-	addtimer(CALLBACK(src, .proc/update_colour, list(1,0,0,0.8,0.2,0, 0.8,0,0.2,0.1,0,0), 10, SINE_EASING|EASE_OUT), 1)
+	addtimer(CALLBACK(src, PROC_REF(update_colour), list(1,0,0,0.8,0.2,0, 0.8,0,0.2,0.1,0,0), 10, SINE_EASING|EASE_OUT), 1)
 
 #undef PRIORITY_ABSOLUTE
 #undef PRIORITY_HIGH

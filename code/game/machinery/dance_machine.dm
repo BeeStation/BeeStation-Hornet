@@ -18,7 +18,8 @@
 	name = "radiant dance machine mark IV"
 	desc = "The first three prototypes were discontinued after mass casualty incidents."
 	icon_state = "disco"
-	req_access = list(ACCESS_ENGINE)
+	req_access = null
+	req_one_access = list(ACCESS_HEADS, ACCESS_THEATRE, ACCESS_BAR) // you need one of these
 	anchored = FALSE
 	var/list/spotlights = list()
 	var/list/sparkles = list()
@@ -27,6 +28,7 @@
 	name = "radiant dance machine mark V"
 	desc = "Now redesigned with data gathered from the extensive disco and plasma research."
 	req_access = null
+	req_one_access = null
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_1 = NODECONSTRUCT_1
@@ -70,10 +72,10 @@
 		if(O.tool_behaviour == TOOL_WRENCH)
 			if(!anchored && !isinspace())
 				to_chat(user,"<span class='notice'>You secure [src] to the floor.</span>")
-				setAnchored(TRUE)
+				set_anchored(TRUE)
 			else if(anchored)
 				to_chat(user,"<span class='notice'>You unsecure and disconnect [src].</span>")
-				setAnchored(FALSE)
+				set_anchored(FALSE)
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 			return
 	return ..()
@@ -201,7 +203,7 @@
 			continue
 		if(t.x > cen.x && t.y == cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
-			L.light_color = LIGHT_COLOR_YELLOW
+			L.light_color = LIGHT_COLOR_DIM_YELLOW
 			L.light_power = 30-(get_dist(src,L)*8)
 			L.light_range = 1+get_dist(src, L)
 			spotlights+=L
@@ -308,11 +310,11 @@
 				glow.update_light()
 				continue
 			if(glow.light_color == LIGHT_COLOR_BLUEGREEN)
-				glow.light_color = LIGHT_COLOR_YELLOW
+				glow.light_color = LIGHT_COLOR_DIM_YELLOW
 				glow.light_range = glow.light_range * DISCO_INFENO_RANGE
 				glow.update_light()
 				continue
-			if(glow.light_color == LIGHT_COLOR_YELLOW)
+			if(glow.light_color == LIGHT_COLOR_DIM_YELLOW)
 				glow.light_color = LIGHT_COLOR_CYAN
 				glow.light_range = 0
 				glow.update_light()
@@ -324,7 +326,7 @@
 				glow.update_light()
 				continue
 		if(prob(2))  // Unique effects for the dance floor that show up randomly to mix things up
-			INVOKE_ASYNC(src, .proc/hierofunk)
+			INVOKE_ASYNC(src, PROC_REF(hierofunk))
 		sleep(selection.song_beat)
 
 #undef DISCO_INFENO_RANGE
@@ -376,7 +378,7 @@
 			if (WEST)
 				animate(M, pixel_x = M.pixel_x - 3, time = 1, loop = 0)
 		sleep(1)
-	animate(M, pixel_x = M.get_standard_pixel_x_offset(), pixel_y = M.get_standard_pixel_y_offset(), time = 1, loop = 0)
+	animate(M, pixel_x = M.body_position_pixel_x_offset, pixel_y = M.body_position_pixel_y_offset, time = 1, loop = 0)
 
 /obj/machinery/jukebox/disco/proc/dance4(var/mob/living/M)
 	var/speed = rand(1,3)
@@ -410,7 +412,7 @@
 			if (WEST)
 				animate(M, pixel_x = M.pixel_x - 3, time = 1, loop = 0)
 		sleep(1)
-	animate(M, transform = matrix(M.transform).Scale(-1), pixel_x = M.get_standard_pixel_x_offset(), pixel_y = M.get_standard_pixel_y_offset(), time = 1, loop = 0) //dance end
+	animate(M, transform = matrix(M.transform).Scale(-1), pixel_x = M.body_position_pixel_x_offset, pixel_y = M.body_position_pixel_y_offset, time = 1, loop = 0) //dance end
 
 /obj/machinery/jukebox/proc/dance_over()
 	for(var/mob/living/L in rangers)
@@ -435,7 +437,7 @@
 					continue
 				L.stop_sound_channel(CHANNEL_JUKEBOX)
 		for(var/mob/M as() in hearers(10,src))
-			if(!M.client || !(M.client.prefs.toggles & SOUND_INSTRUMENTS))
+			if(!M.client || !M.client.prefs.read_player_preference(/datum/preference/toggle/sound_instruments))
 				continue
 			if(!(M in rangers))
 				rangers += M

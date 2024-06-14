@@ -69,7 +69,7 @@
 	if(recital_sound)
 		SEND_SOUND(invoker, recital_sound)
 	if(text_point < stop_at)
-		invokation_chant_timer = addtimer(CALLBACK(src, .proc/recite, text_point+1, wait_time, stop_at), wait_time, TIMER_STOPPABLE)
+		invokation_chant_timer = addtimer(CALLBACK(src, PROC_REF(recite), text_point+1, wait_time, stop_at), wait_time, TIMER_STOPPABLE)
 
 /datum/clockcult/scripture/proc/check_special_requirements(mob/user)
 	if(!invoker || !invoking_slab)
@@ -104,7 +104,7 @@
 		end_invoke()
 		return
 	recital()
-	if(do_after(M, invokation_time, target=M, extra_checks=CALLBACK(src, .proc/check_special_requirements, M)))
+	if(do_after(M, invokation_time, target=M, extra_checks=CALLBACK(src, PROC_REF(check_special_requirements), M)))
 		invoke()
 		to_chat(M, "<span class='brass'>You invoke [name].</span>")
 		if(end_on_invokation)
@@ -194,7 +194,7 @@
 	time_left --
 	loop_timer_id = null
 	if(time_left > 0)
-		loop_timer_id = addtimer(CALLBACK(src, .proc/count_down), 1, TIMER_STOPPABLE)
+		loop_timer_id = addtimer(CALLBACK(src, PROC_REF(count_down)), 1, TIMER_STOPPABLE)
 	else
 		end_invokation()
 
@@ -214,7 +214,7 @@
 		deltimer(loop_timer_id)
 		loop_timer_id = null
 	to_chat(invoker, "<span class='brass'>You are no longer invoking <b>[name]</b></span>")
-	qdel(progress)
+	progress.end_progress()
 	PH.remove_ranged_ability()
 	invoking_slab.charge_overlay = null
 	invoking_slab.update_icon()
@@ -238,7 +238,7 @@
 	icon_icon = 'icons/mob/actions/actions_clockcult.dmi'
 	background_icon_state = "bg_clock"
 	buttontooltipstyle = "brass"
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
 
 /datum/action/innate/clockcult/quick_bind
 	name = "Quick Bind"
@@ -297,7 +297,7 @@
 	return ..()
 
 /datum/action/innate/clockcult/transmit/Activate()
-	hierophant_message(stripped_input(owner, "What do you want to tell your allies?", "Hierophant Transmit", ""), owner, "<span class='brass'>")
+	hierophant_message(tgui_input_text(owner, "What do you want to tell your allies?", "Hierophant Transmit", "", encode = FALSE), owner, "<span class='brass'>")
 
 /datum/action/innate/clockcult/transmit/Grant(mob/M)
 	..(M)

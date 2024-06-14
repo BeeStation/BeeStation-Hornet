@@ -10,25 +10,25 @@
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/glass/fifty,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/powered)
 "d" = (
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/powered)
 "e" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/space/has_grav/powered)
 "f" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/powered)
 "g" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
-/turf/open/floor/plasteel/airless,
+/obj/machinery/portable_atmospherics/canister/plasma,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/powered)
 "h" = (
 /obj/structure/closet/crate/science,
@@ -39,22 +39,22 @@
 /obj/item/circuitboard/machine/shuttle/engine/plasma,
 /obj/item/circuitboard/machine/shuttle/heater,
 /obj/item/pipe_dispenser,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/powered)
 "i" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/structure/fans/tiny,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/powered)
 "j" = (
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space)
 "k" = (
-/turf/open/floor/plasteel/yellowsiding,
+/turf/open/floor/iron/yellowsiding,
 /area/ruin/space/has_grav/powered)
 "l" = (
-/turf/open/floor/plasteel/yellowsiding{
+/turf/open/floor/iron/yellowsiding{
 	dir = 1
 	},
 /area/ruin/space/has_grav/powered)
@@ -62,12 +62,12 @@
 /obj/structure/rack,
 /obj/item/stack/rods,
 /obj/item/stack/rods,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/powered)
 "n" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/powered)
 "o" = (
 /obj/structure/table,
@@ -75,7 +75,7 @@
 /obj/item/stack/cable_coil/random,
 /obj/item/stack/cable_coil/random,
 /obj/item/storage/toolbox/electrical,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/powered)
 "p" = (
 /turf/open/floor/plating,
@@ -90,7 +90,7 @@
 /area/space)
 "s" = (
 /obj/structure/statue/gold/ce,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/powered)
 
 (1,1,1) = {"

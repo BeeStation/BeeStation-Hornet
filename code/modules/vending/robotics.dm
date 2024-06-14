@@ -4,7 +4,7 @@
 	desc = "All the tools you need to create your own robot army."
 	icon_state = "robotics"
 	icon_deny = "robotics-deny"
-	light_color = LIGHT_COLOR_WHITE
+	light_mask = "robotics-light-mask"
 	req_access = list(ACCESS_ROBOTICS)
 	products = list(/obj/item/clothing/suit/toggle/labcoat = 4,
 					/obj/item/clothing/under/rank/rnd/roboticist = 4,
@@ -23,7 +23,7 @@
 	refill_canister = /obj/item/vending_refill/robotics
 	default_price = 50
 	extra_price = 75
-	payment_department = ACCOUNT_SCI
+	dept_req_for_free = ACCOUNT_SCI_BITFLAG
 
 /obj/item/vending_refill/robotics
 	machine_name = "Robotech Deluxe"

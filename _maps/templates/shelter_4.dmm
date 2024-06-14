@@ -152,7 +152,7 @@
 /area/template_noop)
 "aI" = (
 /obj/structure/table,
-/obj/item/trash/coal,
+/obj/item/stack/sheet/mineral/coal,
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "aJ" = (
@@ -287,7 +287,7 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "bi" = (
-/obj/item/clothing/head/kitty/genuine,
+/obj/item/clothing/head/costume/kitty/genuine,
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "bj" = (
@@ -315,7 +315,7 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/survivalpod)
 "bo" = (
-/obj/item/roller,
+/obj/item/rollerbed,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "bp" = (

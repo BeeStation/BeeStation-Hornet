@@ -17,7 +17,7 @@
 	icon_state = "bulb";
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "d" = (
 /obj/structure/chair/wood/normal{
@@ -34,21 +34,6 @@
 /obj/structure/chair/wood/normal,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/template_noop)
-"g" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
 /area/template_noop)
 "h" = (
 /obj/structure/chair/stool/bar,
@@ -72,7 +57,7 @@
 /obj/item/toy/cards/deck/syndicate{
 	pixel_y = 6
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "k" = (
 /obj/structure/table/wood/poker,
@@ -111,6 +96,12 @@
 "q" = (
 /turf/open/floor/carpet/green,
 /area/template_noop)
+"t" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/template_noop)
 
 (1,1,1) = {"
 b
@@ -120,9 +111,9 @@ n
 "}
 (2,1,1) = {"
 c
-g
-g
-g
+t
+t
+t
 "}
 (3,1,1) = {"
 d

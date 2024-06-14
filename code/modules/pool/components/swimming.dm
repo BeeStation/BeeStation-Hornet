@@ -3,7 +3,7 @@
 /datum/component/swimming
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 	var/lengths = 0 //How far have we swum?
-	var/lengths_for_bonus = 25 //If you swim this much, you'll count as having "excercised" and thus gain a buff.
+	var/lengths_for_bonus = 25 //If you swim this much, you'll count as having "exercised" and thus gain a buff.
 	var/list/species = list()
 	var/drowning = FALSE
 	var/ticks_drowned = 0
@@ -19,10 +19,10 @@
 		return INITIALIZE_HINT_QDEL //Only mobs can swim, like Ian...
 	var/mob/M = parent
 	M.visible_message("<span class='notice'>[parent] starts splashing around in the water!</span>")
-	M.add_movespeed_modifier(MOVESPEED_ID_SWIMMING, update=TRUE, priority=50, multiplicative_slowdown=slowdown, movetypes=GROUND)
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/onMove)
-	RegisterSignal(parent, COMSIG_CARBON_SPECIESCHANGE, .proc/onChangeSpecies)
-	RegisterSignal(parent, COMSIG_MOB_ATTACK_HAND_TURF, .proc/try_leave_pool)
+	M.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/swimming, multiplicative_slowdown=slowdown)
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(onMove))
+	RegisterSignal(parent, COMSIG_CARBON_SPECIESCHANGE, PROC_REF(onChangeSpecies))
+	RegisterSignal(parent, COMSIG_MOB_ATTACK_HAND_TURF, PROC_REF(try_leave_pool))
 	START_PROCESSING(SSprocessing, src)
 	enter_pool()
 
@@ -54,14 +54,14 @@
 	var/mob/living/L = parent
 	if(!L.can_interact_with(clicked_turf))
 		return
-	if(is_blocked_turf(clicked_turf))
+	if(clicked_turf.is_blocked_turf())
 		return
 	if(istype(clicked_turf, /turf/open/indestructible/sound/pool))
 		return
 	if(L.pulling)
-		INVOKE_ASYNC(src, .proc/pull_out, L, clicked_turf)
+		INVOKE_ASYNC(src, PROC_REF(pull_out), L, clicked_turf)
 		return
-	INVOKE_ASYNC(src, .proc/climb_out, L, clicked_turf)
+	INVOKE_ASYNC(src, PROC_REF(climb_out), L, clicked_turf)
 
 /datum/component/swimming/proc/climb_out(var/mob/living/L, turf/clicked_turf)
 	L.forceMove(clicked_turf)
@@ -87,7 +87,7 @@
 		stop_drowning(M)
 	if(bob_tick)
 		M.pixel_y = 0
-	M.remove_movespeed_modifier(MOVESPEED_ID_SWIMMING)
+	M.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/swimming)
 	UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(parent, COMSIG_CARBON_SPECIESCHANGE)
 	UnregisterSignal(parent, COMSIG_MOB_ATTACK_HAND_TURF)
@@ -125,14 +125,19 @@
 /datum/component/swimming/proc/drown(mob/living/victim)
 	if(victim.losebreath < 1)
 		victim.losebreath += 1
+	var/shouldemote = TRUE
+	if(victim.stat > CONSCIOUS)
+		shouldemote = FALSE //Unconscious/dead people shouldn't emote
 	ticks_drowned ++
-	if(prob(20))
-		victim.emote("cough")
-	else if(prob(25))
-		victim.emote("gasp")
+	if(shouldemote)
+		if(prob(20))
+			victim.emote("cough")
+		else if(prob(25))
+			victim.emote("gasp")
 	if(ticks_drowned > 20)
 		if(prob(10))
-			victim.visible_message("<span class='warning'>[victim] falls unconcious for a moment!</span>")
+			if(shouldemote)
+				victim.visible_message("<span class='warning'>[victim] falls unconscious for a moment!</span>")
 			victim.Unconscious(10)
 
 /datum/component/swimming/proc/start_drowning(mob/living/victim)

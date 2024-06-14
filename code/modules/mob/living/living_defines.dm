@@ -23,12 +23,14 @@
 	var/cloneloss = 0	//Damage caused by being cloned or ejected from the cloner early. slimes also deal cloneloss damage to victims
 	var/staminaloss = 0		//Stamina damage, or exhaustion. You recover it slowly naturally, and are knocked down if it gets too high. Holodeck and hallucinations deal this.
 	var/crit_threshold = HEALTH_THRESHOLD_CRIT // when the mob goes from "normal" to crit
+	///When the mob enters hard critical state and is fully incapacitated.
+	var/hardcrit_threshold = HEALTH_THRESHOLD_FULLCRIT
 
 	var/mobility_flags = MOBILITY_FLAGS_DEFAULT
 
 	var/resting = FALSE
 
-	var/lying = 0			//number of degrees. DO NOT USE THIS IN CHECKS. CHECK FOR MOBILITY FLAGS INSTEAD!!
+	VAR_PROTECTED/lying_angle = 0 ///number of degrees. DO NOT USE THIS IN CHECKS. CHECK FOR MOBILITY FLAGS INSTEAD!!
 	var/lying_prev = 0		//last value of lying on update_mobility
 
 	var/confused = 0	//Makes the mob move in random directions.
@@ -41,8 +43,6 @@
 	//Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
 	var/incorporeal_move = FALSE //FALSE is off, INCORPOREAL_MOVE_BASIC is normal, INCORPOREAL_MOVE_SHADOW is for ninjas
 								 //and INCORPOREAL_MOVE_JAUNT is blocked by holy water/salt
-
-	var/list/roundstart_quirks = list()
 
 	var/list/surgeries = list()	//a list of surgery datums. generally empty, they're added when the player wants them.
 
@@ -124,6 +124,9 @@
 
 	var/slowed_by_drag = TRUE //Whether the mob is slowed down when dragging another prone mob
 
+	/// List of changes to body temperature, used by desease symtoms like fever
+	var/list/body_temp_changes = list()
+
 	var/is_busy = FALSE //Used for random actions that take time. ex: curbstomping. We need to make sure we can only do one of these at a time.
 
 	//this stuff is here to make it simple for admins to mess with custom held sprites
@@ -135,3 +138,9 @@
 	//is mob player controllable
 	var/playable = FALSE
 	var/flavor_text = FLAVOR_TEXT_NONE
+
+	///The y amount a mob's sprite should be offset due to the current position they're in (e.g. lying down moves your sprite down)
+	var/body_position_pixel_x_offset = 0
+	///The x amount a mob's sprite should be offset due to the current position they're in
+	var/body_position_pixel_y_offset = 0
+

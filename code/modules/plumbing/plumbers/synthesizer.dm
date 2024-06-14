@@ -59,9 +59,10 @@
 /obj/machinery/plumbing/synthesizer/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_supply, bolt)
+	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/plumbing/synthesizer/process(delta_time)
-	if(stat & NOPOWER || !reagent_id || !amount)
+	if(machine_stat & NOPOWER || !reagent_id || !amount)
 		return
 	if(reagents.total_volume >= amount*delta_time*0.5) //otherwise we get leftovers, and we need this to be precise
 		return
@@ -153,3 +154,4 @@
 		r_overlay.color = "#FFFFFF"
 
 	overlays += r_overlay
+	..()

@@ -2,8 +2,6 @@
 	name = "atmospheric alert console"
 	desc = "Used to monitor the station's air alarms."
 	circuit = /obj/item/circuitboard/computer/atmos_alert
-
-
 	icon_screen = "alert:0"
 	icon_keyboard = "atmos_key"
 	var/list/priority_alarms = list()
@@ -87,7 +85,7 @@
 
 /obj/machinery/computer/atmos_alert/update_icon()
 	..()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 	if(priority_alarms.len)
 		add_overlay("alert:2")

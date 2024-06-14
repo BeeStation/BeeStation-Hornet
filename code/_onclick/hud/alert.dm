@@ -65,7 +65,7 @@
 	animate(thealert, transform = matrix(), time = 2.5, easing = CUBIC_EASING)
 
 	if(thealert.timeout)
-		addtimer(CALLBACK(src, .proc/alert_timeout, thealert, category), thealert.timeout)
+		addtimer(CALLBACK(src, PROC_REF(alert_timeout), thealert, category), thealert.timeout)
 		thealert.timeout = world.time + thealert.timeout - world.tick_lag
 	return thealert
 
@@ -231,7 +231,7 @@ or something covering your eyes."
 		return
 	to_chat(L, "<span class='mind_control'>[command]</span>")
 
-/atom/movable/screen/alert/drunk //Not implemented
+/atom/movable/screen/alert/drunk
 	name = "Drunk"
 	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition. Make sure to act like it."
 	icon_state = "drunk"
@@ -303,8 +303,8 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	add_overlay(receiving)
 	src.receiving = receiving
 	src.offerer = offerer
-	src.offerer = offerer
-	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
+	src.taker = taker
+	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, PROC_REF(check_in_range))
 
 /atom/movable/screen/alert/give/Click(location, control, params)
 	. = ..()
@@ -314,7 +314,10 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /// An overrideable proc used simply to hand over the item when claimed, this is a proc so that high-fives can override them since nothing is actually transferred
 /atom/movable/screen/alert/give/proc/handle_transfer()
-	var/mob/living/carbon/taker = owner
+	var/mob/living/carbon/taker = owner || src.taker
+	if(!taker)
+		qdel(src)
+		return
 	taker.take(offerer, receiving)
 
 /// Simply checks if the other person is still in range
@@ -324,6 +327,23 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	if(!offerer.CanReach(taker))
 		balloon_alert(owner, "You moved out of range of [offerer]!")
 		owner.clear_alert("[offerer]")
+
+/// Gives the player the option to succumb while in critical condition
+/atom/movable/screen/alert/succumb
+	name = "Succumb"
+	desc = "Shuffle off this mortal coil."
+	icon_state = "succumb"
+
+/atom/movable/screen/alert/succumb/Click()
+	if (isobserver(usr))
+		return
+	var/mob/living/living_owner = owner
+	var/last_whisper = tgui_input_text(usr, "Do you have any last words?", "Goodnight, Sweet Prince")
+	if (isnull(last_whisper) || !CAN_SUCCUMB(living_owner))
+		return
+	if (length(last_whisper))
+		living_owner.say("#[last_whisper]")
+	living_owner.succumb(whispered = length(last_whisper) > 0)
 
 //ALIENS
 
@@ -428,7 +448,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		desc = "You are currently tracking [real_target.real_name] in [get_area_name(blood_target)]."
 	else
 		desc = "You are currently tracking [blood_target] in [get_area_name(blood_target)]."
-	var/target_angle = Get_Angle(Q, P)
+	var/target_angle = get_angle(Q, P)
 	var/target_dist = get_dist(P, Q)
 	cut_overlays()
 	switch(target_dist)
@@ -481,7 +501,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	var/datum/antagonist/servant_of_ratvar/servant_antagonist = is_servant_of_ratvar(owner)
 	if(!(servant_antagonist?.team))
 		return
-	desc = "Stored Power - <b>[DisplayPower(GLOB.clockcult_power)]</b>.<br>"
+	desc = "Stored Power - <b>[display_power(GLOB.clockcult_power)]</b>.<br>"
 	desc += "Stored Vitality - <b>[GLOB.clockcult_vitality]</b>.<br>"
 	if(GLOB.ratvar_arrival_tick)
 		if(GLOB.ratvar_arrival_tick - world.time > 6000)
@@ -495,23 +515,14 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 //GUARDIANS
 
-/atom/movable/screen/alert/cancharge
-	name = "Charge Ready"
-	desc = "You are ready to charge at a location!"
-	icon_state = "guardian_charge"
+/atom/movable/screen/alert/holoparasite
+	icon = 'icons/mob/holoparasite.dmi'
 	alerttooltipstyle = "parasite"
 
-/atom/movable/screen/alert/canstealth
-	name = "Stealth Ready"
-	desc = "You are ready to enter stealth!"
-	icon_state = "guardian_canstealth"
-	alerttooltipstyle = "parasite"
-
-/atom/movable/screen/alert/instealth
-	name = "In Stealth"
-	desc = "You are in stealth and your next attack will do bonus damage!"
-	icon_state = "guardian_instealth"
-	alerttooltipstyle = "parasite"
+/atom/movable/screen/alert/holoparasite/anchored
+	name = "Anchored"
+	desc = "You are anchored to your summoner, and will remain behind them until you manually move!"
+	icon_state = "anchored"
 
 //SILICONS
 
@@ -619,15 +630,17 @@ so as to remain in compliance with the most up-to-date laws."
 	var/mob/dead/observer/ghost_owner = usr
 	if(!istype(ghost_owner))
 		return
+	//Any actions that cause you to jump to the target turf
+	if (action == NOTIFY_ATTACK || action == NOTIFY_JUMP)
+		var/turf/T = get_turf(target)
+		if(isturf(T))
+			ghost_owner.abstract_move(T)
+	//Other additional actions
 	switch(action)
 		if(NOTIFY_ATTACK)
 			target.attack_ghost(ghost_owner)
-		if(NOTIFY_JUMP)
-			var/turf/T = get_turf(target)
-			if(T && isturf(T))
-				ghost_owner.abstract_move(T)
 		if(NOTIFY_ORBIT)
-			ghost_owner.ManualFollow(target)
+			ghost_owner.check_orbitable(target)
 
 //OBJECT-BASED
 
@@ -669,10 +682,10 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 	var/list/alerts = mymob.alerts
 	if(!hud_shown)
-		for(var/i = 1, i <= alerts.len, i++)
+		for(var/i in 1 to alerts.len)
 			screenmob.client.screen -= alerts[alerts[i]]
 		return 1
-	for(var/i = 1, i <= alerts.len, i++)
+	for(var/i in 1 to alerts.len)
 		var/atom/movable/screen/alert/alert = alerts[alerts[i]]
 		if(alert.icon_state == "template")
 			alert.icon = ui_style
@@ -702,8 +715,8 @@ so as to remain in compliance with the most up-to-date laws."
 /atom/movable/screen/alert/Click(location, control, params)
 	if(!usr || !usr.client)
 		return
-	var/paramslist = params2list(params)
-	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
 		return
 	if(usr != owner)

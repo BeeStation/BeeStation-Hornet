@@ -5,9 +5,7 @@ import { Window } from '../layouts';
 export const Tank = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window
-      width={400}
-      height={120}>
+    <Window width={400} height={120}>
       <Window.Content>
         <Section>
           <LabeledList>
@@ -26,9 +24,12 @@ export const Tank = (props, context) => {
               <Button
                 icon="fast-backward"
                 disabled={data.ReleasePressure === data.minReleasePressure}
-                onClick={() => act('pressure', {
-                  pressure: 'min',
-                })} />
+                onClick={() =>
+                  act('pressure', {
+                    pressure: 'min',
+                  })
+                }
+              />
               <NumberInput
                 animated
                 value={parseFloat(data.releasePressure)}
@@ -36,22 +37,31 @@ export const Tank = (props, context) => {
                 unit="kPa"
                 minValue={data.minReleasePressure}
                 maxValue={data.maxReleasePressure}
-                onChange={(e, value) => act('pressure', {
-                  pressure: value,
-                })} />
+                onChange={(e, value) =>
+                  act('pressure', {
+                    pressure: value,
+                  })
+                }
+              />
               <Button
                 icon="fast-forward"
                 disabled={data.ReleasePressure === data.maxReleasePressure}
-                onClick={() => act('pressure', {
-                  pressure: 'max',
-                })} />
+                onClick={() =>
+                  act('pressure', {
+                    pressure: 'max',
+                  })
+                }
+              />
               <Button
                 icon="undo"
                 content=""
                 disabled={data.ReleasePressure === data.defaultReleasePressure}
-                onClick={() => act('pressure', {
-                  pressure: 'reset',
-                })} />
+                onClick={() =>
+                  act('pressure', {
+                    pressure: 'reset',
+                  })
+                }
+              />
             </LabeledList.Item>
           </LabeledList>
         </Section>

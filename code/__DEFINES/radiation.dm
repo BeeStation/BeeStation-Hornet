@@ -35,7 +35,7 @@ Ask ninjanomnom if they're around
 #define RAD_MEDIUM_INSULATION  0.7					// What common walls have
 #define RAD_HEAVY_INSULATION 0.6					// What reinforced walls have
 #define RAD_EXTREME_INSULATION 0.5					// What rad collectors have
-#define RAD_FULL_INSULATION 0						// Unused
+#define RAD_FULL_INSULATION 0						// What depleted uranium windows have
 
 // WARNING: The defines below could have disastrous consequences if tweaked incorrectly. See: The great SM purge of Oct.6.2017
 // contamination_chance = 		[doesn't matter, will always contaminate]

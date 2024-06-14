@@ -35,6 +35,7 @@ export const MESSAGE_TYPE_ADMINCHAT = 'adminchat';
 export const MESSAGE_TYPE_MENTORCHAT = 'mentorchat';
 export const MESSAGE_TYPE_EVENTCHAT = 'eventchat';
 export const MESSAGE_TYPE_ADMINLOG = 'adminlog';
+export const MESSAGE_TYPE_MENTORLOG = 'mentorlog';
 export const MESSAGE_TYPE_ATTACKLOG = 'attacklog';
 export const MESSAGE_TYPE_DEBUG = 'debug';
 
@@ -45,7 +46,7 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_SYSTEM,
     name: 'System Messages',
     description: 'Messages from your client, always enabled',
-    selector: '.boldannounce',
+    selector: '.srt_system, .boldannounce',
     important: true,
   },
   // Basic types
@@ -53,37 +54,37 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_LOCALCHAT,
     name: 'Local',
     description: 'In-character local messages (say, emote, etc)',
-    selector: '.say, .emote',
+    selector: '.srt_local, .say, .emote',
   },
   {
     type: MESSAGE_TYPE_RADIO,
     name: 'Radio',
     description: 'All departments of radio messages',
-    selector: '.alert, .syndradio, .centcomradio, .aiprivradio, .comradio, .secradio, .engradio, .medradio, .sciradio, .suppradio, .servradio, .explradio, .entradio, .radio, .deptradio, .newscaster, .redteamradio, .blueteamradio, .sinister, .cult, .shadowling, .changeling',
+    selector: '.srt_radio, .alert, .newscaster, .shadowling, .changeling',
   },
   {
     type: MESSAGE_TYPE_INFO,
     name: 'Info',
     description: 'Non-urgent messages from the game and items',
-    selector: '.notice:not(.pm), .adminnotice, .info',
+    selector: '.srt_info, .notice:not(.pm), .adminnotice, .info',
   },
   {
     type: MESSAGE_TYPE_WARNING,
     name: 'Warnings',
     description: 'Urgent messages from the game and items',
-    selector: '.warning:not(.pm), .critical, .userdanger, .italics',
+    selector: '.srt_warning, .warning:not(.pm), .critical, .userdanger, .italics',
   },
   {
     type: MESSAGE_TYPE_DEADCHAT,
     name: 'Deadchat',
     description: 'All of deadchat',
-    selector: '.deadsay',
+    selector: '.srt_deadchat, .deadsay',
   },
   {
     type: MESSAGE_TYPE_OOC,
     name: 'OOC',
     description: 'OOC and LOOC messages',
-    selector: '.ooc, .looc, .adminooc',
+    selector: '.srt_ooc, .ooc, .looc, .adminooc, .adminobserverooc',
   },
   {
     type: MESSAGE_TYPE_ADMINPM,
@@ -101,7 +102,7 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_COMBAT,
     name: 'Combat Log',
     description: 'Urist McTraitor has stabbed you with a knife!',
-    selector: '.danger',
+    selector: '.srt_combat, .danger',
   },
   {
     type: MESSAGE_TYPE_UNKNOWN,
@@ -127,7 +128,14 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_ADMINLOG,
     name: 'Admin Log',
     description: 'ADMIN LOG: Urist McAdmin has jumped to coordinates X, Y, Z',
-    selector: '.log_message',
+    selector: '.adminlog',
+    admin: true,
+  },
+  {
+    type: MESSAGE_TYPE_MENTORLOG,
+    name: 'Mentor Log',
+    description: "MENTOR LOG: Spacestation13mentor has started replying to Spacestation13player's mentor help.",
+    selector: '.mentorlog',
     admin: true,
   },
   {

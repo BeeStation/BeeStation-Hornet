@@ -2,9 +2,13 @@
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to separate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
-	icon_state = "r_wall"
-	opacity = 1
+	icon_state = "reinforced_wall-0"
+	base_icon_state = "reinforced_wall"
+	smoothing_flags = SMOOTH_BITMASK
+	opacity = TRUE
 	density = TRUE
+	max_integrity = 900
+	damage_deflection = 21
 
 	var/d_state = INTACT
 	hardness = 10
@@ -16,6 +20,9 @@
 	FASTDMM_PROP(\
 		pipe_astar_cost = 50 \
 	)
+
+/turf/closed/wall/r_wall/get_armour_list()
+	return list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70, STAMINA = 0)
 
 /turf/closed/wall/r_wall/deconstruction_hints(mob/user)
 	switch(d_state)
@@ -37,18 +44,6 @@
 /turf/closed/wall/r_wall/devastate_wall()
 	new sheet_type(src, sheet_amount)
 	new /obj/item/stack/sheet/iron(src, 2)
-
-/turf/closed/wall/r_wall/attack_animal(mob/living/simple_animal/M)
-	M.changeNext_move(CLICK_CD_MELEE)
-	M.do_attack_animation(src)
-	if(!M.environment_smash)
-		return
-	if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
-		dismantle_wall(1)
-		playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
-	else
-		playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		to_chat(M, "<span class='warning'>This wall is far too strong for you to destroy.</span>")
 
 /turf/closed/wall/r_wall/try_destroy(obj/item/I, mob/user, turf/T)
 	return FALSE
@@ -196,21 +191,25 @@
 				return TRUE
 	return FALSE
 
-/turf/closed/wall/r_wall/update_icon()
+/turf/closed/wall/r_wall/update_icon(updates=ALL)
 	. = ..()
 	if(d_state != INTACT)
-		smooth = SMOOTH_FALSE
-		clear_smooth_overlays()
-	else
-		smooth = SMOOTH_TRUE
-		queue_smooth_neighbors(src)
-		queue_smooth(src)
+		icon_state = "r_wall-[d_state]"
+		smoothing_flags = NONE
+		return
+	if (!(updates & UPDATE_SMOOTHING))
+		return
+	smoothing_flags = SMOOTH_BITMASK
+	icon_state = "[base_icon_state]-[smoothing_junction]"
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
 
 /turf/closed/wall/r_wall/update_icon_state()
 	if(d_state != INTACT)
 		icon_state = "r_wall-[d_state]"
 	else
 		icon_state = "r_wall"
+	return ..()
 
 /turf/closed/wall/r_wall/wall_singularity_pull(current_size)
 	if(current_size >= STAGE_FIVE)
@@ -231,30 +230,34 @@
 		return
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
 		ScrapeAway()
-		return
+		return TRUE
+	if(prob(70))
+		new /obj/effect/temp_visual/glowing_rune(src)
 	return ..()
 
 /turf/closed/wall/r_wall/syndicate
 	name = "hull"
 	desc = "The armored hull of an ominous looking ship."
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
-	icon_state = "map-shuttle"
+	icon_state = "plastitanium_wall-0"
+	base_icon_state = "plastitanium_wall"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 	explosion_block = 20
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
-	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
-	canSmoothWith = list(/turf/closed/wall/r_wall/syndicate, /turf/closed/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/plastitanium, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)
 
 /turf/closed/wall/r_wall/syndicate/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	return FALSE
 
 /turf/closed/wall/r_wall/syndicate/nodiagonal
-	smooth = SMOOTH_MORE
+	smoothing_flags = SMOOTH_BITMASK
 	icon_state = "map-shuttle_nd"
 
 /turf/closed/wall/r_wall/syndicate/nosmooth
+	smoothing_flags = NONE
 	icon = 'icons/turf/shuttle.dmi'
 	icon_state = "wall"
-	smooth = SMOOTH_FALSE
 
 /turf/closed/wall/r_wall/syndicate/overspace
 	icon_state = "map-overspace"

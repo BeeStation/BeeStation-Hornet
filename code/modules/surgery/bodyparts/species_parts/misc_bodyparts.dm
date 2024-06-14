@@ -507,3 +507,43 @@
 /obj/item/bodypart/r_leg/golem/snow
 	limb_id = "sn_golem"
 	should_draw_greyscale = FALSE
+
+/// Pumpkin people
+
+/obj/item/bodypart/head/pumpkin_man
+	limb_id = "pumpkin_man"
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+	item_flags = ISCARVABLE
+	///Carved overlay
+	var/image/carved_overlay
+
+/obj/item/bodypart/head/pumpkin_man/Initialize(mapload)
+	. = ..()
+	carved_overlay = image('icons/mob/pumpkin_faces.dmi', "blank", -BODY_LAYER)
+
+/obj/item/bodypart/head/pumpkin_man/get_limb_icon(dropped)
+	. = ..()
+	owner.cut_overlay(carved_overlay)
+	. += carved_overlay
+
+/obj/item/bodypart/chest/pumpkin_man
+	limb_id = "pumpkin_man"
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/l_arm/pumpkin_man
+	limb_id = "pumpkin_man"
+	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/r_arm/pumpkin_man
+	limb_id = "pumpkin_man"
+	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/l_leg/pumpkin_man
+	limb_id = "pumpkin_man"
+	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/r_leg/pumpkin_man
+	limb_id = "pumpkin_man"
+	should_draw_greyscale = FALSE

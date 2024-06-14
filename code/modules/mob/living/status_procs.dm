@@ -60,6 +60,7 @@
 ///////////////////////////////// KNOCKDOWN /////////////////////////////////////
 
 /mob/living/proc/IsKnockdown() //If we're knocked down
+	SHOULD_NOT_OVERRIDE(TRUE)
 	return has_status_effect(STATUS_EFFECT_KNOCKDOWN)
 
 /mob/living/proc/AmountKnockdown() //How many deciseconds remain in our knockdown
@@ -378,53 +379,27 @@
 			priority_absorb_key["stuns_absorbed"] += amount
 		return TRUE
 
-/////////////////////////////////// STASIS ///////////////////////////////////
-
-/mob/living/proc/IsInStasis()
-	. = has_status_effect(STATUS_EFFECT_STASIS)
-
-/mob/living/proc/SetStasis(apply, updating = TRUE)
-	. = apply ? apply_status_effect(STATUS_EFFECT_STASIS, null, updating) : remove_status_effect(STATUS_EFFECT_STASIS)
-
-/////////////////////////////////// DISABILITIES ////////////////////////////////////
-/mob/living/proc/add_quirk(quirktype, spawn_effects) //separate proc due to the way these ones are handled
-	if(HAS_TRAIT(src, quirktype))
-		return
-	var/datum/quirk/T = quirktype
-	var/qname = initial(T.name)
-	if(!SSquirks || !SSquirks.quirks[qname])
-		return
-	new quirktype (src, spawn_effects)
-	return TRUE
-
-/mob/living/proc/remove_quirk(quirktype)
-	for(var/datum/quirk/Q in roundstart_quirks)
-		if(Q.type == quirktype)
-			qdel(Q)
-			return TRUE
-	return FALSE
-
-/mob/living/proc/remove_all_quirks()
-	for(var/datum/quirk/Q in roundstart_quirks)
-		qdel(Q)
+/////////////////////////////////// QUIRKS ///////////////////////////////////
+/* These are here to make checking quirks more straightforward, actual functionality is in mind.dm */
 
 /mob/living/proc/has_quirk(quirktype)
-	for(var/datum/quirk/Q in roundstart_quirks)
-		if(Q.type == quirktype)
-			return TRUE
-	return FALSE
+	return src.mind?.has_quirk(quirktype)
 
 /////////////////////////////////// TRAIT PROCS ////////////////////////////////////
 
-/mob/living/proc/cure_blind(source)
+/mob/living/proc/cure_blind(source, can_see = TRUE)
+	if(!can_see)
+		return
 	REMOVE_TRAIT(src, TRAIT_BLIND, source)
-	if(!HAS_TRAIT(src, TRAIT_BLIND))
-		adjust_blindness(-1)
+	if(!is_blind())
+		update_blindness()
 
-/mob/living/proc/become_blind(source)
-	if(!HAS_TRAIT(src, TRAIT_BLIND))
-		blind_eyes(1)
-	ADD_TRAIT(src, TRAIT_BLIND, source)
+/mob/living/proc/become_blind(source, overlay, add_color)
+	if(!HAS_TRAIT(src, TRAIT_BLIND)) // not blind already, add trait then overlay
+		ADD_TRAIT(src, TRAIT_BLIND, source)
+		update_blindness(overlay, add_color)
+	else
+		ADD_TRAIT(src, TRAIT_BLIND, source)
 
 /mob/living/proc/cure_nearsighted(source)
 	REMOVE_TRAIT(src, TRAIT_NEARSIGHT, source)
@@ -456,7 +431,6 @@
 	REMOVE_TRAIT(src, TRAIT_DEATHCOMA, source)
 	if(stat != DEAD)
 		tod = null
-	update_stat()
 
 /mob/living/proc/fakedeath(source, silent = FALSE)
 	if(stat == DEAD)
@@ -470,13 +444,42 @@
 	ADD_TRAIT(src, TRAIT_FAKEDEATH, source)
 	ADD_TRAIT(src, TRAIT_DEATHCOMA, source)
 	tod = station_time_timestamp()
-	update_stat()
 
+///Unignores all slowdowns that lack the IGNORE_NOSLOW flag.
 /mob/living/proc/unignore_slowdown(source)
 	REMOVE_TRAIT(src, TRAIT_IGNORESLOWDOWN, source)
-	update_movespeed(FALSE)
+	update_movespeed()
 
+///Ignores all slowdowns that lack the IGNORE_NOSLOW flag.
 /mob/living/proc/ignore_slowdown(source)
 	ADD_TRAIT(src, TRAIT_IGNORESLOWDOWN, source)
-	update_movespeed(FALSE)
+	update_movespeed()
 	client?.move_delay = world.time
+
+///Ignores specific slowdowns. Accepts a list of slowdowns.
+/mob/living/proc/add_movespeed_mod_immunities(source, slowdown_type, update = TRUE)
+	if(islist(slowdown_type))
+		for(var/listed_type in slowdown_type)
+			if(ispath(listed_type))
+				listed_type = "[listed_type]" //Path2String
+			LAZYADDASSOCLIST(movespeed_mod_immunities, listed_type, source)
+	else
+		if(ispath(slowdown_type))
+			slowdown_type = "[slowdown_type]" //Path2String
+		LAZYADDASSOCLIST(movespeed_mod_immunities, slowdown_type, source)
+	if(update)
+		update_movespeed()
+
+///Unignores specific slowdowns. Accepts a list of slowdowns.
+/mob/living/proc/remove_movespeed_mod_immunities(source, slowdown_type, update = TRUE)
+	if(islist(slowdown_type))
+		for(var/listed_type in slowdown_type)
+			if(ispath(listed_type))
+				listed_type = "[listed_type]" //Path2String
+			LAZYREMOVEASSOC(movespeed_mod_immunities, listed_type, source)
+	else
+		if(ispath(slowdown_type))
+			slowdown_type = "[slowdown_type]" //Path2String
+		LAZYREMOVEASSOC(movespeed_mod_immunities, slowdown_type, source)
+	if(update)
+		update_movespeed()

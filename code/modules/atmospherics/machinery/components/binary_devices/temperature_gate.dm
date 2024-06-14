@@ -44,7 +44,7 @@
 		. += "The sensor's settings can be changed by using a multitool on the device."
 
 /obj/machinery/atmospherics/components/binary/temperature_gate/update_icon_nopipes()
-	if(on && is_operational())
+	if(on && is_operational)
 		if(is_gas_flowing)
 			icon_state = "tgate_flow-[set_overlay_offset(piping_layer)]"
 		else
@@ -55,7 +55,7 @@
 
 /obj/machinery/atmospherics/components/binary/temperature_gate/process_atmos()
 
-	if(!on || !is_operational())
+	if(!on || !is_operational)
 		return
 
 	var/datum/gas_mixture/air1 = airs[1]
@@ -114,7 +114,7 @@
 
 /obj/machinery/atmospherics/components/binary/temperature_gate/can_unwrench(mob/user)
 	. = ..()
-	if(. && on && is_operational())
+	if(. && on && is_operational)
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], turn it off first!</span>")
 		return FALSE
 
@@ -127,3 +127,25 @@
 		else
 			balloon_alert(user, "You set the sensors to release when the temperature is below the target value.")
 	return TRUE
+
+// mapping
+
+/obj/machinery/atmospherics/components/binary/temperature_gate/layer2
+	piping_layer = 2
+	icon_state = "tgate_map-2"
+
+/obj/machinery/atmospherics/components/binary/temperature_gate/layer4
+	piping_layer = 4
+	icon_state = "tgate_map-4"
+
+/obj/machinery/atmospherics/components/binary/temperature_gate/on
+	on = TRUE
+	icon_state = "tgate_on_map-3"
+
+/obj/machinery/atmospherics/components/binary/temperature_gate/on/layer2
+	piping_layer = 2
+	icon_state = "tgate_on_map-2"
+
+/obj/machinery/atmospherics/components/binary/temperature_gate/on/layer4
+	piping_layer = 4
+	icon_state = "tgate_on_map-4"

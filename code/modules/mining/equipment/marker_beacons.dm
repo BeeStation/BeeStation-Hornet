@@ -1,9 +1,9 @@
 /*****************Marker Beacons**************************/
-GLOBAL_LIST_INIT(marker_beacon_colors, sortList(list(
+GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 "Random" = FALSE, //not a true color, will pick a random color
 "Burgundy" = LIGHT_COLOR_FLARE,
 "Bronze" = LIGHT_COLOR_ORANGE,
-"Yellow" = LIGHT_COLOR_YELLOW,
+"Yellow" = LIGHT_COLOR_DIM_YELLOW,
 "Lime" = LIGHT_COLOR_SLIME_LAMP,
 "Olive" = LIGHT_COLOR_GREEN,
 "Jade" = LIGHT_COLOR_BLUEGREEN,
@@ -23,12 +23,14 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sortList(list(
 	merge_type = /obj/item/stack/marker_beacon
 	max_amount = 100
 	novariants = TRUE
+	cost = 1
+	source = /datum/robot_energy_storage/beacon
 	var/picked_color = "random"
 
 /obj/item/stack/marker_beacon/ten //miners start with 10 of these
 	amount = 10
 
-/obj/item/stack/marker_beacon/thirty //and they're bought in stacks of 1, 10, or 30
+/obj/item/stack/marker_beacon/thirty //and they're bought in stacks 30
 	amount = 30
 
 /obj/item/stack/marker_beacon/Initialize(mapload)
@@ -72,7 +74,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sortList(list(
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "markerrandom"
 	layer = BELOW_OPEN_DOOR_LAYER
-	armor = list("melee" = 50, "bullet" = 75, "laser" = 75, "energy" = 75, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 25, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 50,  BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 25, BIO = 100, RAD = 100, FIRE = 25, ACID = 0, STAMINA = 0)
 	max_integrity = 50
 	anchored = TRUE
 	light_range = 2
@@ -109,6 +111,10 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sortList(list(
 	to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
 	if(do_after(user, remove_speed, target = src))
 		var/obj/item/stack/marker_beacon/M = new(loc)
+		if(QDELETED(M))
+			M = locate(/obj/item/stack/marker_beacon) in loc
+		if(!M)
+			return
 		M.picked_color = picked_color
 		M.update_icon()
 		transfer_fingerprints_to(M)

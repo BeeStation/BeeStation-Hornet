@@ -7,7 +7,7 @@ const initialState = {
   statTabs: [],
   statInfomation: [],
   verbData: {},
-  statTabMode: "Scroll",
+  statTabMode: 'Scroll',
 };
 
 export const statReducer = (state = initialState, action) => {
@@ -30,23 +30,19 @@ export const statReducer = (state = initialState, action) => {
       statInfomation: payload,
     };
   }
-  if (type === 'stat/setVerbInfomation')
-  {
+  if (type === 'stat/setVerbInfomation') {
     return {
       ...state,
       verbData: payload,
     };
   }
-  if (type === 'stat/removeVerbs')
-  {
+  if (type === 'stat/removeVerbs') {
     let newVerbData = state.verbData || {};
-    Object.keys(payload).forEach(tabName => {
-      payload[tabName].forEach(thing => {
-        if ((tabName in newVerbData) && (thing in newVerbData[tabName]))
-        {
+    Object.keys(payload).forEach((tabName) => {
+      payload[tabName].forEach((thing) => {
+        if (tabName in newVerbData && thing in newVerbData[tabName]) {
           delete newVerbData[tabName][thing];
-          if (Object.keys(newVerbData[tabName]).length === 0)
-          {
+          if (Object.keys(newVerbData[tabName]).length === 0) {
             delete newVerbData[tabName];
           }
         }
@@ -57,28 +53,22 @@ export const statReducer = (state = initialState, action) => {
       verbData: newVerbData,
     };
   }
-  if (type === 'stat/addVerbs')
-  {
+  if (type === 'stat/addVerbs') {
     let newVerbData = state.verbData || {};
-    for (let tabName in payload)
-    {
-      for (let verbName in payload[tabName])
-      {
+    for (let tabName in payload) {
+      for (let verbName in payload[tabName]) {
         // Find the first key that is greater than the added verb
         let inserted = false;
         let sortedTabDict = {};
         let newTabDict = newVerbData[tabName];
-        for (let key in newTabDict)
-        {
-          if (key > verbName && !inserted)
-          {
+        for (let key in newTabDict) {
+          if (key > verbName && !inserted) {
             sortedTabDict[verbName] = payload[tabName][verbName];
             inserted = true;
           }
           sortedTabDict[key] = newTabDict[key];
         }
-        if (!inserted)
-        {
+        if (!inserted) {
           sortedTabDict[verbName] = payload[tabName][verbName];
         }
         // Add the verb
@@ -133,7 +123,7 @@ export const statReducer = (state = initialState, action) => {
     return {
       ...state,
       alert_popup: null,
-      alert_br: { "title": "Battle Royale", "text": "The round end was delayed, would you like to start Battle Royale?" },
+      alert_br: { 'title': 'Battle Royale', 'text': 'The round end was delayed, would you like to start Battle Royale?' },
     };
   }
   if (type === 'stat/clearAlertBr') {

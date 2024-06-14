@@ -29,8 +29,10 @@
 
 /obj/machinery/processor/proc/process_food(datum/food_processor_process/recipe, atom/movable/what)
 	if (recipe.output && loc && !QDELETED(src))
-		for(var/i = 0, i < rating_amount, i++)
+		var/cached_multiplier = (recipe.food_multiplier * rating_amount)
+		for(var/i in 1 to cached_multiplier)
 			new recipe.output(drop_location())
+
 	if (ismob(what))
 		var/mob/themob = what
 		themob.gib(TRUE,TRUE,TRUE)
@@ -63,7 +65,9 @@
 	if(istype(O, /obj/item/storage/bag/tray))
 		var/obj/item/storage/T = O
 		var/loaded = 0
-		for(var/obj/item/reagent_containers/food/snacks/S in T.contents)
+		for(var/obj/S in T.contents)
+			if(!IS_EDIBLE(S))
+				continue
 			var/datum/food_processor_process/P = select_recipe(S)
 			if(P)
 				if(SEND_SIGNAL(T, COMSIG_TRY_STORAGE_TAKE, S, src))
@@ -124,7 +128,7 @@
 			log_admin("DEBUG: [O] in processor doesn't have a suitable recipe. How do you put it in?")
 			continue
 		process_food(P, O)
-	pixel_x = initial(pixel_x) //return to its spot after shaking
+	pixel_x = base_pixel_x //return to its spot after shaking
 	processing = FALSE
 	visible_message("\The [src] finishes processing.")
 
@@ -132,34 +136,27 @@
 	set category = "Object"
 	set name = "Eject Contents"
 	set src in oview(1)
-	if(usr.stat || usr.restrained())
+	if(usr.stat != CONSCIOUS || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	if(isliving(usr))
 		var/mob/living/L = usr
 		if(!(L.mobility_flags & MOBILITY_UI))
 			return
-	empty()
+	dump_inventory_contents()
 	add_fingerprint(usr)
 
 /obj/machinery/processor/container_resist(mob/living/user)
 	user.forceMove(drop_location())
 	user.visible_message("<span class='notice'>[user] crawls free of the processor!</span>")
 
-/obj/machinery/processor/proc/empty()
-	for (var/obj/O in src)
-		O.forceMove(drop_location())
-	for (var/mob/M in src)
-		M.forceMove(drop_location())
-
 /obj/machinery/processor/slime
 	name = "slime processor"
 	desc = "An industrial grinder with a sticker saying appropriated for science department. Keep hands clear of intake area while operating."
+	circuit = /obj/item/circuitboard/machine/processor/slime
 	var/sbacklogged = FALSE
 
 /obj/machinery/processor/slime/Initialize(mapload)
 	. = ..()
-	var/obj/item/circuitboard/machine/B = new /obj/item/circuitboard/machine/processor/slime(null)
-	B.apply_default_parts(src)
 	proximity_monitor = new(src, 1)
 
 /obj/machinery/processor/slime/adjust_item_drop_location(atom/movable/AM)
@@ -168,12 +165,12 @@
 	if(!(i = slimecores.Find(AM.type))) // If the item is not found
 		return
 	if (i <= 16) // If in the first 12 slots
-		AM.pixel_x = -12 + ((i%4)*8)
-		AM.pixel_y = -12 + (round(i/4)*8)
+		AM.pixel_x = AM.base_pixel_x - 12 + ((i%4)*8)
+		AM.pixel_y = AM.base_pixel_y - 12 + (round(i/4)*8)
 		return i
 	var/ii = i - 16
-	AM.pixel_x = -8 + ((ii%3)*8)
-	AM.pixel_y = -8 + (round(ii/3)*8)
+	AM.pixel_x = AM.base_pixel_x - 8 + ((ii%3)*8)
+	AM.pixel_y = AM.base_pixel_y - 8 + (round(ii/3)*8)
 	return i
 
 /obj/machinery/processor/slime/interact(mob/user)

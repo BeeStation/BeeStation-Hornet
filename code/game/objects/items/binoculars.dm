@@ -13,8 +13,8 @@
 
 /obj/item/binoculars/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
-	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
+	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))
+	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(on_unwield))
 
 /obj/item/binoculars/ComponentInitialize()
 	. = ..()
@@ -27,7 +27,7 @@
 /obj/item/binoculars/proc/on_wield(obj/item/source, mob/user)
 	SIGNAL_HANDLER
 
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/unwield)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(unwield))
 	listeningTo = user
 	user.visible_message("<span class='notice'>[user] holds [src] up to [user.p_their()] eyes.</span>", "<span class='notice'>You hold [src] up to your eyes.</span>")
 	item_state = "binoculars_wielded"

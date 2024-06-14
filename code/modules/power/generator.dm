@@ -5,6 +5,8 @@
 	density = TRUE
 	use_power = NO_POWER_USE
 
+	circuit = /obj/item/circuitboard/machine/generator
+
 	var/obj/machinery/atmospherics/components/binary/circulator/cold_circ
 	var/obj/machinery/atmospherics/components/binary/circulator/hot_circ
 
@@ -17,9 +19,13 @@
 	. = ..()
 	find_circs()
 	connect_to_network()
-	SSair.atmos_machinery += src
-	update_icon()
-	component_parts = list(new /obj/item/circuitboard/machine/generator)
+	SSair.start_processing_machine(src)
+	update_appearance()
+
+/obj/machinery/power/generator/examine()
+	. = ..()
+	if(panel_open)
+		. += "<span class='notice'>Its panel is open.</span>"
 
 /obj/machinery/power/generator/ComponentInitialize()
 	. = ..()
@@ -27,12 +33,12 @@
 
 /obj/machinery/power/generator/Destroy()
 	kill_circs()
-	SSair.atmos_machinery -= src
+	SSair.stop_processing_machine(src)
 	return ..()
 
 /obj/machinery/power/generator/update_icon()
 
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		cut_overlays()
 	else
 		cut_overlays()
@@ -43,6 +49,8 @@
 
 		if(hot_circ && cold_circ)
 			add_overlay("teg-oc[lastcirc]")
+	if(panel_open)
+		icon_state = "teg_open"
 
 
 #define GENRATE 800		// generator output coefficient from Q
@@ -115,7 +123,7 @@
 
 		t += "<div class='statusDisplay'>"
 
-		t += "Output: [DisplayPower(lastgenlev)]"
+		t += "Output: [display_power(lastgenlev)]"
 
 		t += "<BR>"
 
@@ -154,11 +162,6 @@
 		return FALSE
 	return TRUE
 
-
-/obj/machinery/power/generator/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/power/generator/proc/find_circs()
 	kill_circs()
 	var/list/circs = list()
@@ -194,7 +197,7 @@
 /obj/machinery/power/generator/wrench_act(mob/living/user, obj/item/I)
 	if(!panel_open)
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	I.play_tool_sound(src)
 	if(!anchored)
 		kill_circs()
@@ -215,6 +218,7 @@
 	panel_open = !panel_open
 	I.play_tool_sound(src)
 	to_chat(user, "<span class='notice'>You [panel_open?"open":"close"] the panel on [src].</span>")
+	update_icon()
 	return TRUE
 
 /obj/machinery/power/generator/crowbar_act(mob/user, obj/item/I)

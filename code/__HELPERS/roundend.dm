@@ -177,27 +177,27 @@
 	var/list/file_data = list()
 	var/pos = 1
 	for(var/V in GLOB.news_network.network_channels)
-		var/datum/newscaster/feed_channel/channel = V
+		var/datum/feed_channel/channel = V
 		if(!istype(channel))
 			stack_trace("Non-channel in newscaster channel list")
 			continue
-		file_data["[pos]"] = list("channel name" = "[channel.channel_name]", "author" = "[channel.author]", "censored" = channel.censored ? 1 : 0, "author censored" = channel.authorCensor ? 1 : 0, "messages" = list())
+		file_data["[pos]"] = list("channel name" = "[channel.channel_name]", "author" = "[channel.author]", "censored" = channel.censored ? 1 : 0, "author censored" = channel.author_censor ? 1 : 0, "messages" = list())
 		for(var/M in channel.messages)
-			var/datum/newscaster/feed_message/message = M
+			var/datum/feed_message/message = M
 			if(!istype(message))
 				stack_trace("Non-message in newscaster channel messages list")
 				continue
 			var/list/comment_data = list()
 			for(var/C in message.comments)
-				var/datum/newscaster/feed_comment/comment = C
+				var/datum/feed_comment/comment = C
 				if(!istype(comment))
 					stack_trace("Non-message in newscaster message comments list")
 					continue
 				comment_data += list(list("author" = "[comment.author]", "time stamp" = "[comment.time_stamp]", "body" = "[comment.body]"))
-			file_data["[pos]"]["messages"] += list(list("author" = "[message.author]", "time stamp" = "[message.time_stamp]", "censored" = message.bodyCensor ? 1 : 0, "author censored" = message.authorCensor ? 1 : 0, "photo file" = "[message.photo_file]", "photo caption" = "[message.caption]", "body" = "[message.body]", "comments" = comment_data))
+			file_data["[pos]"]["messages"] += list(list("author" = "[message.author]", "time stamp" = "[message.time_stamp]", "censored" = message.body_censor ? 1 : 0, "author censored" = message.author_censor ? 1 : 0, "photo file" = "[message.photo_file]", "photo caption" = "[message.caption]", "body" = "[message.body]", "comments" = comment_data))
 		pos++
 	if(GLOB.news_network.wanted_issue.active)
-		file_data["wanted"] = list("author" = "[GLOB.news_network.wanted_issue.scannedUser]", "criminal" = "[GLOB.news_network.wanted_issue.criminal]", "description" = "[GLOB.news_network.wanted_issue.body]", "photo file" = "[GLOB.news_network.wanted_issue.photo_file]")
+		file_data["wanted"] = list("author" = "[GLOB.news_network.wanted_issue.scanned_user]", "criminal" = "[GLOB.news_network.wanted_issue.criminal]", "description" = "[GLOB.news_network.wanted_issue.body]", "photo file" = "[GLOB.news_network.wanted_issue.photo_file]")
 	WRITE_FILE(json_file, json_encode(file_data))
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
@@ -222,6 +222,7 @@
 							break
 						if(CO.check_completion())
 							C?.inc_metabalance(METACOIN_CO_REWARD, reason="Completed your crew objective!")
+							CO.declared_complete = TRUE
 							break
 
 	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
@@ -337,8 +338,10 @@
 	parts += medal_report()
 	//Station Goals
 	parts += goal_report()
+	//Economy & Money
+	parts += market_report()
 
-	listclearnulls(parts)
+	list_clear_nulls(parts)
 
 	return parts.Join()
 
@@ -352,6 +355,7 @@
 		parts += "[GLOB.TAB]Round ID: <b>[info]</b>"
 	parts += "[GLOB.TAB]Shift Duration: <B>[DisplayTimeText(world.time - SSticker.round_start_time)]</B>"
 	parts += "[GLOB.TAB]Station Integrity: <B>[mode.station_was_nuked ? "<span class='redtext'>Destroyed</span>" : "[popcount["station_integrity"]]%"]</B>"
+	parts += "[GLOB.TAB]Station Traits: <B>[english_list(SSstation.station_traits, nothing_text="none")]</B>"
 	var/total_players = GLOB.joined_player_list.len
 	if(total_players)
 		parts+= "[GLOB.TAB]Total Population: <B>[total_players]</B>"
@@ -370,9 +374,16 @@
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 		parts += "[FOURSPACES]Threat level: [mode.threat_level]"
 		parts += "[FOURSPACES]Threat left: [mode.mid_round_budget]"
+		if(mode.roundend_threat_log.len)
+			parts += "[FOURSPACES]Threat edits:"
+			for(var/entry as anything in mode.roundend_threat_log)
+				parts += "[FOURSPACES][FOURSPACES][entry]<BR>"
 		parts += "[FOURSPACES]Executed rules:"
 		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
-			parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat"
+			if (rule.lategame_spawned)
+				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -0 threat (Lategame, threat cost ignored)"
+			else
+				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat"
 	return parts.Join("<br>")
 
 /client/proc/roundend_report_file()
@@ -393,6 +404,8 @@
 	else
 		content = rustg_file_read(filename)
 	roundend_report.set_content(content)
+	roundend_report.scripts = list()
+	roundend_report.add_script("radarchart", 'html/radarchart.js')
 	roundend_report.stylesheets = list()
 	roundend_report.add_stylesheet("roundend", 'html/browser/roundend.css')
 	roundend_report.add_stylesheet("font-awesome", 'html/font-awesome/css/all.min.css')
@@ -421,7 +434,7 @@
 		if(CONFIG_GET(flag/allow_crew_objectives))
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
 				for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
-					if(CO.check_completion())
+					if(CO.declared_complete)
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='greentext'><B>Success!</B></span><br>"
 					else
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='redtext'><B>Failed.</B></span><br>"
@@ -444,7 +457,7 @@
 
 /datum/controller/subsystem/ticker/proc/law_report()
 	var/list/parts = list()
-	var/borg_spacer = FALSE //inserts an extra linebreak to seperate AIs from independent borgs, and then multiple independent borgs.
+	var/borg_spacer = FALSE //inserts an extra linebreak to separate AIs from independent borgs, and then multiple independent borgs.
 	//Silicon laws report
 	for (var/i in GLOB.ai_list)
 		var/mob/living/silicon/ai/aiPlayer = i
@@ -492,6 +505,57 @@
 			parts += G.get_result()
 		return "<div class='panel stationborder'><ul>[parts.Join()]</ul></div>"
 
+///Generate a report for how much money is on station, as well as the richest crewmember on the station.
+/datum/controller/subsystem/ticker/proc/market_report()
+	var/list/parts = list()
+
+	///This is the richest account on station at roundend.
+	var/datum/bank_account/mr_moneybags
+	///This is the station's total wealth at the end of the round.
+	var/station_vault = 0
+	///How many players joined the round.
+	var/total_players = GLOB.joined_player_list.len
+	var/static/list/typecache_bank = typecacheof(list(/datum/bank_account/department, /datum/bank_account/remote))
+	for(var/datum/bank_account/current_acc as anything in SSeconomy.bank_accounts)
+		if(typecache_bank[current_acc.type])
+			continue
+		station_vault += current_acc.account_balance
+		if(!mr_moneybags || mr_moneybags.account_balance < current_acc.account_balance)
+			mr_moneybags = current_acc
+	parts += "<div class='panel stationborder'><span class='header'>Station Economic Summary:</span><br>"
+	/* Tourist Bots
+	parts += "<span class='service'>Service Statistics:</span><br>"
+	for(var/venue_path in SSrestaurant.all_venues)
+		var/datum/venue/venue = SSrestaurant.all_venues[venue_path]
+		tourist_income += venue.total_income
+		parts += "The [venue] served [venue.customers_served] customer\s and made [venue.total_income] credits.<br>"
+	parts += "In total, they earned [tourist_income] credits[tourist_income ? "!" : "..."]<br>"
+	log_econ("Roundend service income: [tourist_income] credits.")
+	switch(tourist_income)
+		if(0)
+			parts += "[span_redtext("Service did not earn any credits...")]<br>"
+		if(1 to 2000)
+			parts += "[span_redtext("Centcom is displeased. Come on service, surely you can do better than that.")]<br>"
+			award_service(/datum/award/achievement/jobs/service_bad)
+		if(2001 to 4999)
+			parts += "[span_greentext("Centcom is satisfied with service's job today.")]<br>"
+			award_service(/datum/award/achievement/jobs/service_okay)
+		else
+			parts += "<span class='reallybig greentext'>Centcom is incredibly impressed with service today! What a team!</span><br>"
+			award_service(/datum/award/achievement/jobs/service_good)
+
+	parts += "<b>General Statistics:</b><br>"
+	*/
+	parts += "There were [station_vault] credits collected by crew this shift.<br>"
+	if(total_players > 0)
+		parts += "An average of [station_vault/total_players] credits were collected.<br>"
+		log_econ("Roundend credit total: [station_vault] credits. Average Credits: [station_vault/total_players]")
+	if(mr_moneybags)
+		parts += "The most affluent crew member at shift end was <b>[mr_moneybags.account_holder] with [mr_moneybags.account_balance]</b> cr!</div>"
+	else
+		parts += "Somehow, nobody made any money this shift! This'll result in some budget cuts...</div>"
+	return parts
+
 /datum/controller/subsystem/ticker/proc/medal_report()
 	if(GLOB.commendations.len)
 		var/list/parts = list()
@@ -527,7 +591,7 @@
 	var/currrent_category
 	var/datum/antagonist/previous_category
 
-	sortTim(all_antagonists, /proc/cmp_antag_category)
+	sortTim(all_antagonists, GLOBAL_PROC_REF(cmp_antag_category))
 
 	for(var/datum/antagonist/A in all_antagonists)
 		if(!A.show_in_roundend)
@@ -579,13 +643,43 @@
 		Trigger()
 		return
 
+///Returns a custom title for the roundend credit/report
+/proc/get_custom_title_from_id(datum/mind/mind, newline=FALSE)
+	if(!mind)
+		return
+
+	var/custom_title
+	var/obj/item/card/id/I = mind.current?.get_idcard()
+	if(I)
+		if(I.registered_name == mind.name) // card must be yours
+			custom_title = I.assignment // get the custom title
+		if(custom_title == mind.assigned_role) // non-custom title, lame
+			custom_title = null
+	if(!custom_title) // still no custom title? it seems you don't have a ID card
+		var/datum/data/record/R = find_record("name", mind.name, GLOB.data_core.general)
+		if(R)
+			custom_title = R.fields["rank"] // get a custom title from datacore
+		if(custom_title == mind.assigned_role) // lame...
+			return
+
+	if(custom_title)
+		return "[newline ? "<br/>" : " "](as [custom_title])" // i.e. " (as Plague Doctor)"
 
 /proc/printplayer(datum/mind/ply, fleecheck)
 	var/jobtext = ""
-	if(ply.assigned_role)
-		jobtext = " the <b>[ply.assigned_role]</b>"
-	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext] and"
-	if(ply.current)
+	if(ply.assigned_role || ply.special_role)
+		if(ply.assigned_role != "Unassigned")
+			jobtext = ply.assigned_role
+		if(!jobtext)
+			jobtext = ply.special_role
+		if(jobtext)
+			jobtext = " the <b>[jobtext]</b>"
+	var/jobtext_custom = get_custom_title_from_id(ply) // support the custom job title to the roundend report
+
+	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext][jobtext_custom] and"
+	if(ply.cryoed)
+		text += " <span class='bluetext'>entered cryosleep</span>"
+	else if(ply.current)
 		if(ply.current.stat == DEAD)
 			text += " <span class='redtext'>died</span>"
 		else
@@ -616,11 +710,7 @@
 	var/list/objective_parts = list()
 	var/count = 1
 	for(var/datum/objective/objective as() in objectives)
-		if(objective.check_completion())
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-		else
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
-		count++
+		objective_parts += "<b>Objective #[count++]</b>: [objective.get_completion_message()]"
 	return objective_parts.Join("<br>")
 
 /datum/controller/subsystem/ticker/proc/save_admin_data()
@@ -637,7 +727,7 @@
 		var/datum/admins/A = GLOB.protected_admins[i]
 		sql_admins += list(list("ckey" = A.target, "rank" = A.rank.name))
 	SSdbcore.MassInsert(format_table_name("admin"), sql_admins, duplicate_key = TRUE)
-	var/datum/DBQuery/query_admin_rank_update = SSdbcore.NewQuery("UPDATE [format_table_name("player")] p INNER JOIN [format_table_name("admin")] a ON p.ckey = a.ckey SET p.lastadminrank = a.rank")
+	var/datum/db_query/query_admin_rank_update = SSdbcore.NewQuery("UPDATE [format_table_name("player")] p INNER JOIN [format_table_name("admin")] a ON p.ckey = a.ckey SET p.lastadminrank = a.rank")
 	query_admin_rank_update.Execute()
 	qdel(query_admin_rank_update)
 
@@ -671,7 +761,7 @@
 		if(!flags.len)
 			continue
 		var/flags_to_check = flags.Join(" != [R_EVERYTHING] AND ") + " != [R_EVERYTHING]"
-		var/datum/DBQuery/query_check_everything_ranks = SSdbcore.NewQuery(
+		var/datum/db_query/query_check_everything_ranks = SSdbcore.NewQuery(
 			"SELECT flags, exclude_flags, can_edit_flags FROM [format_table_name("admin_ranks")] WHERE rank = :rank AND ([flags_to_check])",
 			list("rank" = R.name)
 		)
@@ -680,7 +770,7 @@
 			return
 		if(query_check_everything_ranks.NextRow()) //no row is returned if the rank already has the correct flag value
 			var/flags_to_update = flags.Join(" = [R_EVERYTHING], ") + " = [R_EVERYTHING]"
-			var/datum/DBQuery/query_update_everything_ranks = SSdbcore.NewQuery(
+			var/datum/db_query/query_update_everything_ranks = SSdbcore.NewQuery(
 				"UPDATE [format_table_name("admin_ranks")] SET [flags_to_update] WHERE rank = :rank",
 				list("rank" = R.name)
 			)
@@ -692,31 +782,32 @@
 
 
 /datum/controller/subsystem/ticker/proc/sendtodiscord(var/survivors, var/escapees, var/integrity)
-    var/discordmsg = ""
-    discordmsg += "--------------ROUND END--------------\n"
-    discordmsg += "Server: [CONFIG_GET(string/servername)]\n"
-    discordmsg += "Round Number: [GLOB.round_id]\n"
-    discordmsg += "Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]\n"
-    discordmsg += "Players: [GLOB.player_list.len]\n"
-    discordmsg += "Survivors: [survivors]\n"
-    discordmsg += "Escapees: [escapees]\n"
-    discordmsg += "Integrity: [integrity]\n"
-    discordmsg += "Gamemode: [SSticker.mode.name]\n"
-    if(istype(SSticker.mode, /datum/game_mode/dynamic))
-        var/datum/game_mode/dynamic/mode = SSticker.mode
-        discordmsg += "Threat level: [mode.threat_level]\n"
-        discordmsg += "Threat left: [mode.mid_round_budget]\n"
-        discordmsg += "Executed rules:\n"
-        for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
-            discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat\n"
-    discordsendmsg("ooc", discordmsg)
-    discordmsg = ""
-    var/list/ded = SSblackbox.first_death
-    if(ded)
-        discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"
-        var/last_words = ded["last_words"] ? "Their last words were: \"[ded["last_words"]]\"\n" : "They had no last words.\n"
-        discordmsg += "[last_words]\n"
-    else
-        discordmsg += "Nobody died!\n"
-    discordmsg += "--------------------------------------\n"
-    discordsendmsg("ooc", discordmsg)
+	var/discordmsg = ""
+	discordmsg += "--------------ROUND END--------------\n"
+	discordmsg += "Server: [CONFIG_GET(string/servername)]\n"
+	discordmsg += "Round Number: [GLOB.round_id]\n"
+	discordmsg += "Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]\n"
+	discordmsg += "Players: [GLOB.player_list.len]\n"
+	discordmsg += "Survivors: [survivors]\n"
+	discordmsg += "Escapees: [escapees]\n"
+	discordmsg += "Integrity: [integrity]\n"
+	discordmsg += "Gamemode: [SSticker.mode.name]\n"
+	if(istype(SSticker.mode, /datum/game_mode/dynamic))
+		var/datum/game_mode/dynamic/mode = SSticker.mode
+		discordmsg += "Threat level: [mode.threat_level]\n"
+		discordmsg += "Threat left: [mode.mid_round_budget]\n"
+		discordmsg += "Executed rules:\n"
+		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
+			if (rule.lategame_spawned)
+				discordmsg += "[rule.ruletype] - [rule.name]: -0 threat (Lategame, threat cost ignored)\n"
+			else
+				discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat\n"
+	var/list/ded = SSblackbox.first_death
+	if(ded)
+		discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"
+		var/last_words = ded["last_words"] ? "Their last words were: \"[ded["last_words"]]\"\n" : "They had no last words.\n"
+		discordmsg += "[last_words]\n"
+	else
+		discordmsg += "Nobody died!\n"
+	discordmsg += "--------------------------------------\n"
+	sendooc2ext(discordmsg)

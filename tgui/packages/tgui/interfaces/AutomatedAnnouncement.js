@@ -6,72 +6,60 @@ import { Window } from '../layouts';
 const TOOLTIP_TEXT = multiline`
   %PERSON will be replaced with their name.
   %RANK with their job.
+  %STNAME fills in the station name.
 `;
 
 export const AutomatedAnnouncement = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    arrivalToggle,
-    arrival,
-    newheadToggle,
-    newhead,
-  } = data;
+  const { arrivalToggle, arrival, newheadToggle, newhead } = data;
   return (
-    <Window
-      width={500}
-      height={225}>
+    <Window width={500} height={225}>
       <Window.Content>
         <Section
           title="Arrival Announcement"
-          buttons={(
+          buttons={
             <Button
               icon={arrivalToggle ? 'power-off' : 'times'}
               selected={arrivalToggle}
               content={arrivalToggle ? 'On' : 'Off'}
-              onClick={() => act('ArrivalToggle')} />
-          )}>
+              onClick={() => act('ArrivalToggle')}
+            />
+          }>
           <LabeledList>
-            <LabeledList.Item
-              label="Message"
-              buttons={(
-                <Button
-                  icon="info"
-                  tooltip={TOOLTIP_TEXT}
-                  tooltipPosition="left" />
-              )}>
+            <LabeledList.Item label="Message" buttons={<Button icon="info" tooltip={TOOLTIP_TEXT} tooltipPosition="left" />}>
               <Input
                 fluid
                 value={arrival}
-                onChange={(e, value) => act('ArrivalText', {
-                  newText: value,
-                })} />
+                onChange={(e, value) =>
+                  act('ArrivalText', {
+                    newText: value,
+                  })
+                }
+              />
             </LabeledList.Item>
           </LabeledList>
         </Section>
         <Section
           title="Departmental Head Announcement"
-          buttons={(
+          buttons={
             <Button
               icon={newheadToggle ? 'power-off' : 'times'}
               selected={newheadToggle}
               content={newheadToggle ? 'On' : 'Off'}
-              onClick={() => act('NewheadToggle')} />
-          )}>
+              onClick={() => act('NewheadToggle')}
+            />
+          }>
           <LabeledList>
-            <LabeledList.Item
-              label="Message"
-              buttons={(
-                <Button
-                  icon="info"
-                  tooltip={TOOLTIP_TEXT}
-                  tooltipPosition="left" />
-              )}>
+            <LabeledList.Item label="Message" buttons={<Button icon="info" tooltip={TOOLTIP_TEXT} tooltipPosition="left" />}>
               <Input
                 fluid
                 value={newhead}
-                onChange={(e, value) => act('NewheadText', {
-                  newText: value,
-                })} />
+                onChange={(e, value) =>
+                  act('NewheadText', {
+                    newText: value,
+                  })
+                }
+              />
             </LabeledList.Item>
           </LabeledList>
         </Section>

@@ -398,6 +398,14 @@
 	. = ..()
 	. += "<span class='notice'>It is set to layer [pipe_layer].</span>"
 
+/obj/item/circuitboard/machine/suit_storage_unit
+	name = "Suit Storage Unit (Machine Board)"
+	icon_state = "generic"
+	build_path = /obj/machinery/suit_storage_unit/
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/micro_laser = 1)
+
 //Generic
 
 
@@ -518,7 +526,7 @@
 	name = "custom vendor (Machine Board)"
 	icon_state = "generic"
 	desc = "You can turn the \"brand selection\" dial using a screwdriver."
-	custom_premium_price = 30
+	custom_premium_price = 25
 	build_path = /obj/machinery/vending/custom
 	req_components = list(/obj/item/vending_refill/custom = 1)
 
@@ -558,7 +566,7 @@
 		/obj/machinery/vending/hydroseeds = "MegaSeed Servitor",
 		/obj/machinery/vending/sustenance = "Sustenance Vendor",
 		/obj/machinery/vending/dinnerware = "Plasteel Chef's Dinnerware Vendor",
-		/obj/machinery/vending/cart = "PTech",
+		/obj/machinery/vending/job_disk = "PTech",
 		/obj/machinery/vending/robotics = "Robotech Deluxe",
 		/obj/machinery/vending/engineering = "Robco Tool Maker",
 		/obj/machinery/vending/sovietsoda = "BODA",
@@ -607,6 +615,15 @@
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/vending_refill/donksoft = 1)
 
+/obj/item/circuitboard/machine/fax
+	name = "Fax Machine"
+	build_path = /obj/machinery/fax
+	req_components = list(
+		/obj/item/stock_parts/scanning_module = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/manipulator = 1)
+
+
 
 //Medical
 
@@ -626,6 +643,7 @@
 
 /obj/item/circuitboard/machine/chem_dispenser/botany				//probably should be generic but who cares
 	name = "minor botanical chem dispenser (Machine Board)"
+	icon_state = "service"
 	build_path = /obj/machinery/chem_dispenser/mutagensaltpetersmall
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
@@ -686,6 +704,8 @@
 		/obj/item/reagent_containers/glass/beaker = 2,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1)
+	def_components = list(
+		/obj/item/reagent_containers/glass/beaker = /obj/item/reagent_containers/glass/beaker/large)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/chem_master/attackby(obj/item/I, mob/user, params)
@@ -821,11 +841,6 @@
 	icon_state = "science"
 	build_path = /obj/machinery/rnd/production/circuit_imprinter/department/science
 
-/obj/item/circuitboard/machine/circuit_imprinter/department/engineering
-	name = "departmental circuit imprinter - engineering (Machine Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/rnd/production/circuit_imprinter/department/engineering
-
 /obj/item/circuitboard/machine/cyborgrecharger
 	name = "cyborg recharger (Machine Board)"
 	icon_state = "science"
@@ -930,7 +945,7 @@
 	var/new_cloud = input("Set the public nanite chamber's Cloud ID (1-100).", "Cloud ID", cloud_id) as num|null
 	if(new_cloud == null)
 		return
-	cloud_id = CLAMP(round(new_cloud, 1), 1, 100)
+	cloud_id = clamp(round(new_cloud, 1), 1, 100)
 
 /obj/item/circuitboard/machine/public_nanite_chamber/examine(mob/user)
 	. = ..()
@@ -1042,6 +1057,13 @@
 	req_components = list(/obj/item/stock_parts/micro_laser = 1)
 	needs_anchored = FALSE
 
+/obj/item/circuitboard/machine/griddle
+	name = "circuit board (Griddle)"
+	icon_state = "service"
+	build_path = /obj/machinery/griddle
+	req_components = list(/obj/item/stock_parts/micro_laser = 1)
+	needs_anchored = FALSE
+
 /obj/item/circuitboard/machine/dish_drive
 	name = "dish drive (Machine Board)"
 	icon_state = "service"
@@ -1064,7 +1086,7 @@
 	to_chat(user, "<span class='notice'>You [suction ? "enable" : "disable"] the board's suction function.</span>")
 
 /obj/item/circuitboard/machine/dish_drive/AltClick(mob/living/user)
-	if(!user.Adjacent(src))
+	if(!user.canUseTopic(src, !issilicon(user)))
 		return
 	transmit = !transmit
 	to_chat(user, "<span class='notice'>You [transmit ? "enable" : "disable"] the board's automatic disposal transmission.</span>")
@@ -1246,9 +1268,29 @@
 		/obj/item/stack/sheet/glass = 2,
 		/obj/item/stack/cable_coil = 5)
 
+/obj/item/circuitboard/machine/processing_unit
+	name = "furnace (Machine Board)"
+	build_path = /obj/machinery/mineral/processing_unit
+	req_components = list(
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/assembly/igniter = 1)
+
+/obj/item/circuitboard/machine/processing_unit_console
+	name = "furnace console (Machine Board)"
+	build_path = /obj/machinery/mineral/processing_unit_console
+	req_components = list()
+
 
 //Misc
 
+/obj/item/circuitboard/machine/sheetifier
+	name = "Sheet-meister 2000 (Machine Board)"
+	icon_state = "supply"
+	build_path = /obj/machinery/sheetifier
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/matter_bin = 2)
 
 /obj/item/circuitboard/machine/abductor
 	name = "alien board (Report This)"

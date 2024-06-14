@@ -28,14 +28,29 @@
 //INDEXES
 #define COOLDOWN_BORG_SELF_REPAIR	"borg_self_repair"
 #define COOLDOWN_LARRYKNIFE			"larry_knife"
+#define COOLDOWN_CLOCK_WMCHIMES		"clock_westminister"
 
+//circuit cooldowns
+
+#define COOLDOWN_CIRCUIT_SOUNDEMITTER "circuit_soundemitter"
+#define COOLDOWN_CIRCUIT_SPEECH "circuit_speech"
+#define COOLDOWN_CIRCUIT_PATHFIND_SAME "circuit_pathfind_same"
+#define COOLDOWN_CIRCUIT_PATHFIND_DIF "circuit_pathfind_different"
+#define COOLDOWN_CIRCUIT_TARGET_INTERCEPT "circuit_target_intercept"
+
+//Mecha cooldowns
+#define COOLDOWN_MECHA_MESSAGE "mecha_message"
+#define COOLDOWN_MECHA_EQUIPMENT "mecha_equipment"
+#define COOLDOWN_MECHA_ARMOR "mecha_armor"
+#define COOLDOWN_MECHA_MELEE_ATTACK "mecha_melee"
+#define COOLDOWN_MECHA_SMOKE "mecha_smoke"
 
 //TIMER COOLDOWN MACROS
 
 #define COMSIG_CD_STOP(cd_index) "cooldown_[cd_index]"
 #define COMSIG_CD_RESET(cd_index) "cd_reset_[cd_index]"
 
-#define TIMER_COOLDOWN_START(cd_source, cd_index, cd_time) LAZYSET(cd_source.cooldowns, cd_index, addtimer(CALLBACK(GLOBAL_PROC, /proc/end_cooldown, cd_source, cd_index), cd_time))
+#define TIMER_COOLDOWN_START(cd_source, cd_index, cd_time) LAZYSET(cd_source.cooldowns, cd_index, addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(end_cooldown), cd_source, cd_index), cd_time))
 
 #define TIMER_COOLDOWN_CHECK(cd_source, cd_index) LAZYACCESS(cd_source.cooldowns, cd_index)
 
@@ -48,7 +63,7 @@
  * A bit more expensive than the regular timers, but can be reset before they end and the time left can be checked.
 */
 
-#define S_TIMER_COOLDOWN_START(cd_source, cd_index, cd_time) LAZYSET(cd_source.cooldowns, cd_index, addtimer(CALLBACK(GLOBAL_PROC, /proc/end_cooldown, cd_source, cd_index), cd_time, TIMER_STOPPABLE))
+#define S_TIMER_COOLDOWN_START(cd_source, cd_index, cd_time) LAZYSET(cd_source.cooldowns, cd_index, addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(end_cooldown), cd_source, cd_index), cd_time, TIMER_STOPPABLE))
 
 #define S_TIMER_COOLDOWN_RESET(cd_source, cd_index) reset_cooldown(cd_source, cd_index)
 
@@ -72,3 +87,5 @@
 #define COOLDOWN_RESET(cd_source, cd_index) cd_source.cd_index = 0
 
 #define COOLDOWN_TIMELEFT(cd_source, cd_index) (max(0, cd_source.cd_index - world.time))
+
+#define COOLDOWN_TIMELEFT_TEXT(cd_source, cd_index) DisplayTimeText(COOLDOWN_TIMELEFT(cd_source, cd_index))

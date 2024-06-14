@@ -1,5 +1,5 @@
 /mob/living/silicon/robot/examine(mob/user)
-	. = list("<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[src]</EM>!")
+	. = list("<span class='info'>This is [icon2html(src, user)] \a <EM>[src]</EM>!")
 	if(desc)
 		. += "[desc]"
 
@@ -39,10 +39,13 @@
 				. += "It appears to be an [deployed ? "active" : "empty"] AI shell."
 			else if(!client)
 				. += "It appears to be in stand-by mode." //afk
-		if(UNCONSCIOUS)
+		if(SOFT_CRIT, UNCONSCIOUS, HARD_CRIT)
 			. += "<span class='warning'>It doesn't seem to be responding.</span>"
 		if(DEAD)
 			. += "<span class='deadsay'>It looks like its system is corrupted and requires a reset.</span>"
-	. += "*---------*</span>"
+	. += "</span>"
 
 	. += ..()
+
+/mob/living/silicon/robot/get_examine_string(mob/user, thats = FALSE)
+	return null

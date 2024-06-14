@@ -16,23 +16,25 @@
 	//----Required for roundspawn----
 	var/allowAntagTargets = FALSE	//Not used in events
 	var/latejoin_allowed = TRUE		//Can latejoins be assigned to this? If you want this to be a midround spawn, put these in the round_event
-	var/list/restricted_jobs = list("Cyborg")
-	var/list/protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain")
+	var/list/restricted_jobs = list(JOB_NAME_CYBORG)
+	var/list/protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CAPTAIN)
 	//----Required for midround----
 	var/weight = 10
 	var/earliest_start = 20 MINUTES
 	var/max_occurrences = 1
 	var/holidayID = ""
 	//Preferences
-	var/preference_type = ROLE_TRAITOR
-	var/special_role_flag = null	//Will use antag rep if enabled
+	var/preference_type = null
+	/// If we should use antag rep. Do note that having a preference_type enables checking during gamemode execution.
+	var/use_antag_rep = TRUE
+	var/banning_key = ROLE_TRAITOR
 
 /datum/special_role/proc/setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += "Assistant"
+		restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
@@ -46,6 +48,7 @@
 	E.antagonist_datum = attached_antag_datum
 	E.antag_name = role_name
 	E.preference_type = preference_type
+	E.banning_key = banning_key
 	E.protected_jobs = restricted_jobs
 	E.typepath = /datum/round_event/create_special_antag
 	E.weight = weight
@@ -72,8 +75,8 @@
 //The datum associated with the role
 
 /datum/antagonist/special
-	name = "Role that should not be accessable in game."
-	job_rank = ROLE_SYNDICATE
+	name = "Role that should not be accessible in game."
+	banning_key = BAN_ROLE_ALL_ANTAGONISTS
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = FALSE
 	prevent_roundtype_conversion = FALSE

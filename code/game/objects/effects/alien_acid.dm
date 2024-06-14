@@ -4,7 +4,7 @@
 	desc = "Burbling corrosive stuff."
 	icon_state = "acid"
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	layer = ABOVE_NORMAL_TURF_LAYER
@@ -26,7 +26,7 @@
 	START_PROCESSING(SSobj, src)
 
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 

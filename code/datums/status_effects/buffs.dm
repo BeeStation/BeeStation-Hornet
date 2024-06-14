@@ -303,7 +303,7 @@
 	owner.add_stun_absorption("bloody bastard sword", duration, 2, "doesn't even flinch as the sword's power courses through them!", "You shrug off the stun!", " glowing with a blazing red aura!")
 	owner.spin(duration,1)
 	animate(owner, color = oldcolor, time = duration, easing = EASE_IN)
-	addtimer(CALLBACK(owner, /atom/proc/update_atom_colour), duration)
+	addtimer(CALLBACK(owner, TYPE_PROC_REF(/atom, update_atom_colour)), duration)
 	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, 0)
 	return ..()
 
@@ -370,12 +370,12 @@
 	return TRUE
 
 //Changeling invisibility
-/datum/status_effect/changeling/camoflague
+/datum/status_effect/changeling/camouflage
 	id = "changelingcamo"
-	alert_type = /atom/movable/screen/alert/status_effect/changeling_camoflague
+	alert_type = /atom/movable/screen/alert/status_effect/changeling_camouflage
 	tick_interval = 5
 
-/datum/status_effect/changeling/camoflague/tick()
+/datum/status_effect/changeling/camouflage/tick()
 	if(!..())
 		return
 	if(owner.on_fire)
@@ -383,27 +383,27 @@
 		return
 	owner.alpha = max(owner.alpha - 20, 0)
 
-/datum/status_effect/changeling/camoflague/on_apply()
+/datum/status_effect/changeling/camouflage/on_apply()
 	if(!..())
 		return FALSE
-	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/slight_increase)
-	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, .proc/large_increase)
-	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, .proc/large_increase)
-	RegisterSignal(owner, COMSIG_ATOM_BUMPED, .proc/slight_increase)
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(slight_increase))
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, PROC_REF(large_increase))
+	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(large_increase))
+	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(slight_increase))
 	return TRUE
 
-/datum/status_effect/changeling/camoflague/on_remove()
+/datum/status_effect/changeling/camouflage/on_remove()
 	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMGE, COMSIG_ATOM_BUMPED))
 	owner.alpha = 255
 
-/datum/status_effect/changeling/camoflague/proc/slight_increase()
+/datum/status_effect/changeling/camouflage/proc/slight_increase()
 	owner.alpha = min(owner.alpha + 15, 255)
 
-/datum/status_effect/changeling/camoflague/proc/large_increase()
+/datum/status_effect/changeling/camouflage/proc/large_increase()
 	owner.alpha = min(owner.alpha + 50, 255)
 
-/atom/movable/screen/alert/status_effect/changeling_camoflague
-	name = "Camoflague"
+/atom/movable/screen/alert/status_effect/changeling_camouflage
+	name = "Camouflage"
 	desc = "We have adapted our skin to refract light around us."
 	icon_state = "changeling_camo"
 
@@ -484,6 +484,7 @@
 			healSnake.desc = "A mystical snake previously trapped upon the Rod of Asclepius, now freed of its burden. Unlike the average snake, its bites contain chemicals with minor healing properties."
 			new /obj/effect/decal/cleanable/ash(owner.loc)
 			new /obj/item/rod_of_asclepius(owner.loc)
+			owner.investigate_log("has been consumed by the Rod of Asclepius.", INVESTIGATE_DEATHS)
 			qdel(owner)
 	else
 		if(iscarbon(owner))
@@ -540,7 +541,6 @@
 	name = "Blessing of the Necropolis"
 	desc = "The power of the necropolis flows through you. You could get used to this..."
 	icon_state = "regenerative_core"
-	name = "Blessing of the Necropolis"
 
 /datum/status_effect/regenerative_core
 	id = "Regenerative Core"
@@ -548,6 +548,7 @@
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /atom/movable/screen/alert/status_effect/regenerative_core
 	var/power = 1
+	var/duration_mod = 1
 	var/alreadyinfected = FALSE
 
 /datum/status_effect/regenerative_core/on_apply()
@@ -557,19 +558,23 @@
 		alreadyinfected = TRUE
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
 	ADD_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
-	if(owner.z == 5)
-		power = 2
-	owner.adjustBruteLoss(-50 * power)
-	owner.adjustFireLoss(-50 * power)
+	if(is_mining_level(owner.z))
+		power = 5
+		duration_mod = 2
+	owner.adjustBruteLoss(-20 * power)
+	owner.adjustFireLoss(-20 * power)
 	owner.cure_nearsighted()
 	owner.ExtinguishMob()
 	owner.fire_stacks = 0
 	owner.set_blindness(0)
 	owner.set_blurriness(0)
 	owner.restore_blood()
-	owner.bodytemperature = BODYTEMP_NORMAL
+	owner.bodytemperature = owner.get_body_temp_normal()
+	if(istype(owner, /mob/living/carbon/human))
+		var/mob/living/carbon/human/humi = owner
+		humi.coretemperature = humi.get_body_temp_normal()
 	owner.restoreEars()
-	duration = rand(150, 450) * power
+	duration = rand(150, 450) * duration_mod
 	return TRUE
 
 /datum/status_effect/regenerative_core/on_remove()
@@ -606,3 +611,50 @@
 /datum/status_effect/antimagic/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
 	owner.visible_message("<span class='warning'>[owner]'s dull aura fades away...</span>")
+
+/datum/status_effect/crucible_soul
+	id = "Blessing of Crucible Soul"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 15 SECONDS
+	examine_text = "<span class='notice'>They don't seem to be all here.</span>"
+	alert_type = /atom/movable/screen/alert/status_effect/crucible_soul
+	var/turf/location
+
+/datum/status_effect/crucible_soul/on_apply()
+	to_chat(owner,"<span class='notice'>You phase through reality, nothing is out of bounds!</span>")
+	owner.alpha = 180
+	owner.pass_flags |= PASSCLOSEDTURF | PASSTRANSPARENT | PASSGRILLE | PASSMACHINE | PASSSTRUCTURE | PASSTABLE | PASSMOB
+	location = get_turf(owner)
+	return TRUE
+
+/datum/status_effect/crucible_soul/on_remove()
+	to_chat(owner,"<span class='notice'>You regain your physicality, returning you to your original location...</span>")
+	owner.alpha = initial(owner.alpha)
+	owner.pass_flags &= ~(PASSCLOSEDTURF | PASSTRANSPARENT | PASSGRILLE | PASSMACHINE | PASSSTRUCTURE | PASSTABLE | PASSMOB)
+	owner.forceMove(location)
+	location = null
+
+/datum/status_effect/duskndawn
+	id = "Blessing of Dusk and Dawn"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 60 SECONDS
+	alert_type =/atom/movable/screen/alert/status_effect/duskndawn
+
+/datum/status_effect/duskndawn/on_apply()
+	ADD_TRAIT(owner,TRAIT_XRAY_VISION,type)
+	owner.update_sight()
+	return TRUE
+
+/datum/status_effect/duskndawn/on_remove()
+	REMOVE_TRAIT(owner,TRAIT_XRAY_VISION,type)
+	owner.update_sight()
+
+/atom/movable/screen/alert/status_effect/crucible_soul
+	name = "Blessing of Crucible Soul"
+	desc = "You phased through reality. You are halfway to your final destination..."
+	icon_state = "crucible"
+
+/atom/movable/screen/alert/status_effect/duskndawn
+	name = "Blessing of Dusk and Dawn"
+	desc = "Many things hide beyond the horizon. With Owl's help I managed to slip past Sun's guard and Moon's watch."
+	icon_state = "duskndawn"

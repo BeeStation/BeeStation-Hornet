@@ -7,14 +7,16 @@
 	can_unwrench = TRUE
 
 	use_power = NO_POWER_USE
-	level = 0
 	layer = GAS_FILTER_LAYER
 	shift_underlay_only = FALSE
+	hide = TRUE
 
 	pipe_flags = PIPING_ONE_PER_TURF
 	pipe_state = "connector"
 
 	var/obj/machinery/portable_atmospherics/connected_device
+
+	var/obj/machinery/atmospherics/components/unary/portables_connector/connect_to
 
 /obj/machinery/atmospherics/components/unary/portables_connector/New()
 	..()
@@ -46,6 +48,13 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/portableConnectorReturnAir()
 	return connected_device.portableConnectorReturnAir()
 
+/obj/machinery/atmospherics/components/unary/portables_connector/build_network()
+	. = ..()
+	if(connect_to)
+		var/obj/machinery/portable_atmospherics/PA = connect_to
+		if(PA)
+			PA.connect(src)
+
 /obj/proc/portableConnectorReturnAir()
 	return
 
@@ -59,7 +68,7 @@
 	icon_state = "connector_map-4"
 
 /obj/machinery/atmospherics/components/unary/portables_connector/visible
-	level = 2
+	hide = FALSE
 
 /obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2
 	piping_layer = 2

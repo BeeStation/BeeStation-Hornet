@@ -137,7 +137,7 @@
 	glass_desc = "The raw essence of a banana. HONK."
 
 /datum/reagent/consumable/banana/on_mob_life(mob/living/carbon/M)
-	if((ishuman(M) && M.job == "Clown") || ismonkey(M))
+	if((ishuman(M) && M.job == JOB_NAME_CLOWN) || ismonkey(M))
 		M.heal_bodypart_damage(1,1, 0)
 		. = 1
 	..()
@@ -154,7 +154,7 @@
 
 
 /datum/reagent/consumable/nothing/on_mob_life(mob/living/carbon/M)
-	if(ishuman(M) && M.job == "Mime")
+	if(ishuman(M) && M.job == JOB_NAME_MIME)
 		M.silent = max(M.silent, MIMEDRINK_SILENCE_DURATION)
 		M.heal_bodypart_damage(1,1, 0)
 		. = 1
@@ -352,6 +352,7 @@
 /datum/reagent/consumable/lemonade
 	name = "Lemonade"
 	description = "Sweet, tangy lemonade. Good for the soul."
+	color = "#daef60"
 	chem_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_NICE
 	taste_description = "sunshine and summertime"
@@ -393,7 +394,7 @@
 	M.dizziness = max(0,M.dizziness-5)
 	M.drowsyness = max(0,M.drowsyness-3)
 	M.AdjustSleeping(-40, FALSE)
-	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
 	M.Jitter(5)
 	..()
 	. = 1
@@ -415,7 +416,7 @@
 	M.AdjustSleeping(-40, FALSE)
 	if(M.getToxLoss() && prob(20))
 		M.adjustToxLoss(-1, 0)
-	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
 	..()
 	. = 1
 
@@ -431,7 +432,7 @@
 
 /datum/reagent/consumable/space_cola/on_mob_life(mob/living/carbon/M)
 	M.drowsyness = max(0,M.drowsyness-5)
-	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
 	..()
 
 /datum/reagent/consumable/nuka_cola
@@ -447,10 +448,10 @@
 
 /datum/reagent/consumable/nuka_cola/on_mob_metabolize(mob/living/L)
 	..()
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.25, blacklisted_movetypes=(FLYING|FLOATING))
+	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nuka_cola)
 
 /datum/reagent/consumable/nuka_cola/on_mob_end_metabolize(mob/living/L)
-	L.remove_movespeed_modifier(type)
+	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nuka_cola)
 	..()
 
 /datum/reagent/consumable/nuka_cola/on_mob_life(mob/living/carbon/M)
@@ -459,7 +460,7 @@
 	M.dizziness += 1.5
 	M.drowsyness = 0
 	M.AdjustSleeping(-40, FALSE)
-	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
 	M.radiation += 4
 	..()
 	. = 1
@@ -488,7 +489,7 @@
 	M.dizziness +=1
 	M.drowsyness = 0
 	M.AdjustSleeping(-40, FALSE)
-	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
 	..()
 
 /datum/reagent/consumable/spacemountainwind
@@ -504,7 +505,7 @@
 /datum/reagent/consumable/spacemountainwind/on_mob_life(mob/living/carbon/M)
 	M.drowsyness = max(0,M.drowsyness-7)
 	M.AdjustSleeping(-20, FALSE)
-	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
 	M.Jitter(5)
 	..()
 	. = 1
@@ -521,7 +522,7 @@
 
 /datum/reagent/consumable/dr_gibb/on_mob_life(mob/living/carbon/M)
 	M.drowsyness = max(0,M.drowsyness-6)
-	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
 	..()
 
 /datum/reagent/consumable/space_up
@@ -594,7 +595,7 @@
 /datum/reagent/consumable/sodawater/on_mob_life(mob/living/carbon/M)
 	M.dizziness = max(0,M.dizziness-5)
 	M.drowsyness = max(0,M.drowsyness-3)
-	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
 	..()
 
 /datum/reagent/consumable/tonic
@@ -611,7 +612,7 @@
 	M.dizziness = max(0,M.dizziness-5)
 	M.drowsyness = max(0,M.drowsyness-3)
 	M.AdjustSleeping(-40, FALSE)
-	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
 	..()
 	. = 1
 
@@ -630,16 +631,16 @@
 	M.dizziness +=1
 	M.drowsyness = 0
 	M.AdjustSleeping(-40, FALSE)
-	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
 	..()
 
 /datum/reagent/consumable/monkey_energy/on_mob_metabolize(mob/living/L)
 	..()
 	if(ismonkey(L))
-		L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.25, blacklisted_movetypes=(FLYING|FLOATING))
+		L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/monkey_energy)
 
 /datum/reagent/consumable/monkey_energy/on_mob_end_metabolize(mob/living/L)
-	L.remove_movespeed_modifier(type)
+	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/monkey_energy)
 	..()
 
 /datum/reagent/consumable/ice
@@ -654,7 +655,7 @@
 	glass_desc = "Generally, you're supposed to put something else in there too..."
 
 /datum/reagent/consumable/ice/on_mob_life(mob/living/carbon/M)
-	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
 	..()
 
 /datum/reagent/consumable/soy_latte
@@ -718,7 +719,7 @@
 	M.adjustToxLoss(-0.5, 0)
 	M.adjustOxyLoss(-0.5, 0)
 	if(M.nutrition && (M.nutrition - 2 > 0))
-		if(M.mind?.assigned_role != "Medical Doctor") //Drains the nutrition of the holder. Not medical doctors though, since it's the Doctor's Delight!
+		if(M.mind && !HAS_TRAIT(M.mind, TRAIT_MEDICAL_METABOLISM)) //Drains the nutrition of the holder. Not medical staff though, since it's the Doctor's Delight!
 			M.adjust_nutrition(-2)
 	..()
 	. = 1
@@ -770,6 +771,62 @@
 	glass_icon_state = "bluecherryshake"
 	glass_name = "blue cherry shake"
 	glass_desc = "An exotic blue milkshake."
+
+
+/datum/reagent/consumable/vanillashake
+	name = "Vanilla Shake"
+	description = "A vanilla flavored milkshake. The basics are still good."
+	color = "#E9D2B2"
+	quality = DRINK_VERYGOOD
+	nutriment_factor = 8 * REAGENTS_METABOLISM
+	taste_description = "sweet creamy vanilla"
+	glass_icon_state = "vanillashake"
+	glass_name = "vanilla shake"
+	glass_desc = "A vanilla flavored milkshake."
+
+/datum/reagent/consumable/caramelshake
+	name = "Salted Caramel Shake"
+	description = "A salted caramel flavored milkshake."
+	color = "#E17C00"
+	quality = DRINK_VERYGOOD
+	nutriment_factor = 10 * REAGENTS_METABOLISM
+	taste_description = "salty caramel"
+	glass_icon_state = "caramelshake"
+	glass_name = "salted caramel shake"
+	glass_desc = "A salted caramel flavored milkshake."
+
+/datum/reagent/consumable/choccyshake
+	name = "Chocolate Shake"
+	description = "A frosty chocolate milkshake."
+	color = "#541B00"
+	quality = DRINK_VERYGOOD
+	nutriment_factor = 8 * REAGENTS_METABOLISM
+	taste_description = "sweet creamy chocolate"
+	glass_icon_state = "choccyshake"
+	glass_name = "chocolate shake"
+	glass_desc = "A chocolate flavored milkshake."
+
+/datum/reagent/consumable/strawberryshake
+	name = "Strawberry Shake"
+	description = "A strawberry milkshake."
+	color = "#ff7b7b"
+	quality = DRINK_VERYGOOD
+	nutriment_factor = 8 * REAGENTS_METABOLISM
+	taste_description = "sweet strawberries and milk"
+	glass_icon_state = "strawberryshake"
+	glass_name = "strawberry shake"
+	glass_desc = "A strawberry flavored milkshake."
+
+/datum/reagent/consumable/bananashake
+	name = "Banana Shake"
+	description = "A banana milkshake. Stuff that clowns drink at their honkday parties."
+	color = "#f2d554"
+	quality = DRINK_VERYGOOD
+	nutriment_factor = 8 * REAGENTS_METABOLISM
+	taste_description = "thick banana"
+	glass_icon_state = "bananashake"
+	glass_name = "banana shake"
+	glass_desc = "A banana flavored milkshake."
 
 /datum/reagent/consumable/pumpkin_latte
 	name = "Pumpkin Latte"
@@ -830,7 +887,7 @@
 	glass_desc = "It's grape (soda)!"
 
 /datum/reagent/consumable/grape_soda/on_mob_life(mob/living/carbon/M)
-	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
 	..()
 
 /datum/reagent/consumable/milk/chocolate_milk
@@ -840,6 +897,9 @@
 	chem_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_NICE
 	taste_description = "chocolate milk"
+	glass_icon_state = null  // Overrides white glass inherited from normal milk
+	glass_name = "glass of chocolate milk"
+	glass_desc = "Brown and delicious goodness!"
 
 /datum/reagent/consumable/menthol
 	name = "Menthol"
@@ -901,7 +961,7 @@
 	glass_desc = "A classic space-American vanilla flavored soft drink."
 
 /datum/reagent/consumable/cream_soda/on_mob_life(mob/living/carbon/M)
-	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
 	..()
 
 /datum/reagent/consumable/red_queen
@@ -959,3 +1019,14 @@
 	M.adjust_disgust(30)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 	. = ..()
+
+/datum/reagent/consumable/bubble_tea
+	name = "Bubble Tea"
+	description = "Refreshing! You aren't sure what those things in the bottom are."
+	color = "#DFC7AB"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	quality = DRINK_VERYGOOD
+	taste_description = "sweet, creamy and silky tea with chewy tapioca pearls"
+	glass_icon_state = "bubble_tea"
+	glass_name = "Bubble Tea"
+	glass_desc = "A cup of refreshing bubble tea."

@@ -15,18 +15,17 @@
 	pixel_x = -32
 	pixel_y = -32
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	flags_1 = SUPERMATTER_IGNORES_1
 	var/list/ghosts = list()
 	var/old_loc
 
 /obj/boh_tear/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, /atom/movable.proc/moveToNullspace), 5 SECONDS) // vanishes after 5 seconds
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/movable, moveToNullspace)), 5 SECONDS) // vanishes after 5 seconds
 	QDEL_IN(src, 10 MINUTES)
 	AddComponent(
 		/datum/component/singularity, \
-		consume_callback = CALLBACK(src, .proc/consume), \
-		admin_investigate_callback = CALLBACK(src, .proc/admin_investigate_setup), \
+		consume_callback = CALLBACK(src, PROC_REF(consume)), \
+		admin_investigate_callback = CALLBACK(src, PROC_REF(admin_investigate_setup)), \
 		consume_range = BOH_TEAR_CONSUME_RANGE, \
 		grav_pull = BOH_TEAR_GRAV_PULL, \
 		roaming = FALSE, \
@@ -64,7 +63,7 @@
 	if(isliving(AM))
 		var/mob/living/M = AM
 		var/turf/T = get_turf(src)
-		investigate_log("([key_name(A)]) has been consumed by the BoH tear at [AREACOORD(T)].", INVESTIGATE_ENGINES)
+		M.investigate_log("has been consumed by the BoH tear at [AREACOORD(T)].", INVESTIGATE_ENGINES)
 		ghosts += M.ghostize(FALSE)
 	else if(!isobj(AM))
 		return
@@ -76,12 +75,14 @@
 	investigate_log("was created at [AREACOORD(T)].", INVESTIGATE_ENGINES)
 
 /obj/boh_tear/attack_tk(mob/living/user)
-	if(!istype(user))
+	if(!isliving(user))
 		return
-	to_chat(user, "<span class='userdanger'>You don't feel like you are real anymore.</span>")
-	user.dust_animation()
-	user.spawn_dust()
-	addtimer(CALLBACK(src, .proc/consume, user), 5)
+	var/mob/living/jedi = user
+	to_chat(jedi, "<span class='userdanger'>You don't feel like you are real anymore.</span>")
+	jedi.dust_animation()
+	jedi.spawn_dust()
+	addtimer(CALLBACK(src, PROC_REF(consume), jedi), 0.5 SECONDS)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 #undef BOH_TEAR_CONSUME_RANGE
 #undef BOH_TEAR_GRAV_PULL

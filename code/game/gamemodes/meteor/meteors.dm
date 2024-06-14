@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 ///////////////////////////////
 
 /proc/spawn_meteors(number = 10, list/meteortypes, z = 0)
-	for(var/i = 0; i < number; i++)
+	for(var/i in 1 to number)
 		spawn_meteor(meteortypes, z)
 
 /proc/spawn_meteor(list/meteortypes, z = 0)
@@ -37,7 +37,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 		max_i--
 		if(max_i<=0)
 			return
-	var/Me = pickweight(meteortypes)
+	var/Me = pick_weight(meteortypes)
 	new Me(pickedstart, pickedgoal)
 
 /proc/spaceDebrisStartLoc(startSide, Z)
@@ -189,7 +189,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	if(!new_loop)
 		return
 
-	RegisterSignal(new_loop, COMSIG_PARENT_QDELETING, .proc/handle_stopping)
+	RegisterSignal(new_loop, COMSIG_PARENT_QDELETING, PROC_REF(handle_stopping))
 
 ///Deals with what happens when we stop moving, IE we die
 /obj/effect/meteor/proc/handle_stopping()
@@ -219,9 +219,6 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 		make_debris()
 		meteor_effect()
 		qdel(src)
-
-/obj/effect/meteor/ex_act()
-	return
 
 /obj/effect/meteor/examine(mob/user)
 	. = ..()
@@ -254,6 +251,9 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 			var/dist = get_dist(M.loc, src.loc)
 			shake_camera(M, dist > 20 ? 2 : 4, dist > 20 ? 1 : 3)
 			M.playsound_local(src.loc, null, 50, 1, random_frequency, 10, S = meteor_sound)
+
+/obj/effect/meteor/has_gravity(turf/T)
+	return FALSE
 
 ///////////////////////
 //Meteor types
@@ -330,13 +330,13 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	hits = 2
 	heavy = 1
 	meteorsound = 'sound/effects/blobattack.ogg'
-	meteordrop = list(/obj/item/reagent_containers/food/snacks/meat/slab/human, /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant, /obj/item/organ/heart, /obj/item/organ/lungs, /obj/item/organ/tongue, /obj/item/organ/appendix/)
+	meteordrop = list(/obj/item/food/meat/slab/human, /obj/item/food/meat/slab/human/mutant, /obj/item/organ/heart, /obj/item/organ/lungs, /obj/item/organ/tongue, /obj/item/organ/appendix/)
 	var/meteorgibs = /obj/effect/gibspawner/generic
 	threat = 2
 
 /obj/effect/meteor/meaty/Initialize(mapload)
 	for(var/path in meteordrop)
-		if(path == /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant)
+		if(path == /obj/item/food/meat/slab/human/mutant)
 			meteordrop -= path
 			meteordrop += pick(subtypesof(path))
 
@@ -356,13 +356,13 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 		new /obj/effect/decal/cleanable/blood(T)
 
 /obj/effect/meteor/meaty/Bump(atom/A)
-	A.ex_act(hitpwr)
+	EX_ACT(A, hitpwr)
 	get_hit()
 
 //Meaty Ore Xeno edition
 /obj/effect/meteor/meaty/xeno
 	color = "#5EFF00"
-	meteordrop = list(/obj/item/reagent_containers/food/snacks/meat/slab/xeno, /obj/item/organ/tongue/alien)
+	meteordrop = list(/obj/item/food/meat/slab/xeno, /obj/item/organ/tongue/alien)
 	meteorgibs = /obj/effect/gibspawner/xeno
 
 /obj/effect/meteor/meaty/xeno/Initialize(mapload)
@@ -413,7 +413,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	hits = 10
 	heavy = 1
 	dropamt = 1
-	meteordrop = list(/obj/item/clothing/head/hardhat/pumpkinhead, /obj/item/reagent_containers/food/snacks/grown/pumpkin)
+	meteordrop = list(/obj/item/clothing/head/utility/hardhat/pumpkinhead, /obj/item/food/grown/pumpkin)
 	threat = 100
 
 /obj/effect/meteor/pumpkin/Initialize(mapload)
@@ -436,7 +436,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	var/prefalltime = 8 SECONDS
 	layer = METEOR_LAYER
 
-/obj/effect/falling_meteor/Initialize(mapload, loc, meteor_type)
+/obj/effect/falling_meteor/Initialize(mapload, meteor_type)
 	. = ..()
 	if(!meteor_type)
 		meteor_type = /obj/effect/meteor/big
@@ -450,7 +450,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	M.Translate(-1.5 * world.icon_size, -1.5 * world.icon_size)
 	M.Translate(0, world.icon_size * 7)
 	transform = M
-	INVOKE_ASYNC(src, .proc/fall_animation)
+	INVOKE_ASYNC(src, PROC_REF(fall_animation))
 
 /obj/effect/falling_meteor/Destroy(force)
 	if(contained_meteor)
@@ -468,10 +468,33 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	animate(src, 5, alpha = 255)
 	animate(src, falltime, transform = matrix(), flags = ANIMATION_PARALLEL)
 	sleep(falltime)
+	if (istype(loc, /turf/open/openspace))
+		fall_below()
+	//Trigger multiple simulated bumps (Z levels are much more expensive to travel)
 	contained_meteor.forceMove(loc)
-	contained_meteor.make_debris()
-	contained_meteor.meteor_effect()
-	qdel(src)
+	contained_meteor.hits -= rand(4, 10)
+	contained_meteor.Bump(loc)
+	//If the meteor was deleted by the bumps, destroy the falling meteor
+	if (QDELETED(contained_meteor))
+		qdel(src)
+	else
+		//Fall down and repeat if possible
+		contained_meteor.forceMove(src)
+		//Try to fall down
+		if (!fall_below())
+			qdel(src)
+
+/obj/effect/falling_meteor/proc/fall_below()
+	var/turf/current = loc
+	if (!istype(current))
+		return FALSE
+	var/turf/below = current.below()
+	//Move down a layer and fall again
+	if (below != null)
+		forceMove(below)
+		fall_animation()
+		return TRUE
+	return FALSE
 
 /obj/effect/meteor_shadow
 	name = "shadow"

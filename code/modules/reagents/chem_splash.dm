@@ -5,7 +5,7 @@
 // Extra heat affects the temperature of the mixture, and may cause it to react in different ways.
 
 
-/proc/chem_splash(turf/epicenter, affected_range = 3, list/datum/reagents/reactants = list(), extra_heat = 0, threatscale = 1, adminlog = 1)
+/proc/chem_splash(turf/epicenter, affected_range = 3, list/datum/reagents/reactants = list(), extra_heat = 0, threatscale = 1, adminlog = 1, atom/override_atom = null)
 	if(!isturf(epicenter) || !reactants.len || threatscale <= 0)
 		return
 	var/has_reagents
@@ -19,7 +19,7 @@
 		return
 
 	var/datum/reagents/splash_holder = new/datum/reagents(total_reagents*threatscale)
-	splash_holder.my_atom = epicenter // For some reason this is setting my_atom to null, and causing runtime errors.
+	splash_holder.my_atom = override_atom ? override_atom : epicenter // For some reason this is setting my_atom to null, and causing runtime errors.
 	var/total_temp = 0
 
 	for(var/datum/reagents/R in reactants)
@@ -36,7 +36,7 @@
 
 		var/list/viewable = view(affected_range, epicenter)
 		var/list/accessible = list(epicenter)
-		for(var/i=1; i<=affected_range; i++)
+		for(var/i in 1 to affected_range)
 			var/list/turflist = RANGE_TURFS(i, epicenter) - RANGE_TURFS(i-1, epicenter)
 			for(var/turf/T as() in turflist)
 				if(!(get_dir(T,epicenter) in GLOB.cardinals) && (abs(T.x - epicenter.x) == abs(T.y - epicenter.y) ))

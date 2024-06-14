@@ -23,8 +23,8 @@ Common titles are in the rotation to be displayed all the time. Any name that do
 
 An example of a common title name is "clown".
 
-The common title screen named "default" is special. It is only used if no other titles are available. You can overwrite "default" safely, but you 
-should have a title named "default" somewhere in your DMI file if you don't have any other common titles. Because default only runs in the 
+The common title screen named "default" is special. It is only used if no other titles are available. You can overwrite "default" safely, but you
+should have a title named "default" somewhere in your DMI file if you don't have any other common titles. Because default only runs in the
 absence of other titles, if you want it to also appear in the general rotation you must rename it.
 
 The common title screen named "blank.png" is also special. It is only used to fill space while the real title screen loads. You should leave this file alone.
@@ -34,7 +34,7 @@ Map Titles:
 
 Map titles are tied to a specific in game map. To make a map title you format the name like this "(name of a map)+(name of your title)"
 
-The spelling of the map name is important. It must match exactly the define MAP_NAME found in the relevant .DM file in the /_maps folder in 
+The spelling of the map name is important. It must match exactly the define MAP_NAME found in the relevant .DM file in the /_maps folder in
 the root directory. It can also be seen in game in the status menu. Note that there are no spaces between the two names.
 
 It is absolutely fine to have more than one title tied to the same map.
@@ -48,3 +48,10 @@ Rare titles are a just for fun feature where they will only have a 1% chance of 
 Add the phrase "rare+" to the beginning of the name. Again note there are no spaces. A title cannot be rare title and a map title at the same time.
 
 An example of a rare title name is "rare+explosion"
+
+
+Custom viewport sizes:
+
+Custom viewport sizes can be done by adding the viewport size at the end of the image.
+
+An example is: "titlescreen17x15" and "rare+explosion17x15"

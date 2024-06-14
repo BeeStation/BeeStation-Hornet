@@ -14,7 +14,7 @@
 	maxHealth = 220
 	health = 220
 	loot = list(/obj/effect/gibspawner/generic/animal)
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/gorilla = 4)
+	butcher_results = list(/obj/item/food/meat/slab/gorilla = 4)
 	response_help  = "prods"
 	response_disarm = "challenges"
 	response_harm   = "thumps"
@@ -30,7 +30,7 @@
 	possible_a_intents = list(INTENT_HELP, INTENT_GRAB, INTENT_DISARM, INTENT_HARM)
 	faction = list("jungle")
 	robust_searching = TRUE
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	minbodytemp = 270
 	maxbodytemp = 350
 	unique_name = TRUE
@@ -38,10 +38,10 @@
 	var/list/gorilla_overlays[GORILLA_TOTAL_LAYERS]
 	var/oogas = 0
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_BAREFOOT
 
-// Gorillas like to dismember limbs from unconcious mobs.
-// Returns null when the target is not an unconcious carbon mob; a list of limbs (possibly empty) otherwise.
+// Gorillas like to dismember limbs from unconscious mobs.
+// Returns null when the target is not an unconscious carbon mob; a list of limbs (possibly empty) otherwise.
 /mob/living/simple_animal/hostile/gorilla/proc/target_bodyparts(atom/the_target)
 	var/list/parts = list()
 	if(iscarbon(the_target))
@@ -120,7 +120,7 @@
 	maxHealth = 220
 	health = 220
 	loot = list(/obj/effect/gibspawner/generic/animal)
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/gorilla = 4)
+	butcher_results = list(/obj/item/food/meat/slab/gorilla = 4)
 	melee_damage = 20
 	damage_coeff = list(BRUTE = 0.8, BURN = 1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 1)
 	obj_damage = 50

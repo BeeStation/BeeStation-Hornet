@@ -23,7 +23,7 @@
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
 
-	RegisterSignal(target, COMSIG_MOUSEDROP_ONTO, .proc/mouse_drop_onto)
+	RegisterSignal(target, COMSIG_MOUSEDROP_ONTO, PROC_REF(mouse_drop_onto))
 
 	src.items = items
 	src.should_strip_proc_path = should_strip_proc_path
@@ -47,12 +47,6 @@
 	if(over != user)
 		return
 
-	// Mobs that can walk through walls cannot strip.
-	if(isliving(user))
-		var/mob/living/L = user
-		if(L.incorporeal_move)
-			return
-
 	// Cyborgs buckle people by dragging them onto them, unless in combat mode.
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/cyborg_user = user
@@ -68,7 +62,7 @@
 		strip_menu = new(source, src)
 		LAZYSET(strip_menus, source, strip_menu)
 
-	INVOKE_ASYNC(strip_menu, /datum/.proc/ui_interact, user)
+	INVOKE_ASYNC(strip_menu, TYPE_PROC_REF(/datum, ui_interact), user)
 
 /datum/strippable_item_layout
 	/// The STRIPPABLE_ITEM_* key
@@ -89,6 +83,16 @@
 	/// Should we warn about dangerous clothing?
 	var/warn_dangerous_clothing = TRUE
 
+/datum/strippable_item/proc/can_interact(mob/user)
+	if(isliving(user))
+		var/mob/living/L = user
+		if(L.incorporeal_move) // Mobs that can walk through walls cannot grasp items to strip
+			to_chat(user, "<span class='warning'>You can't interact with the physical plane while you are incorporeal!</span>")
+			return FALSE
+		return TRUE
+	else
+		return FALSE // Mobs that are not living cannot strip
+
 /// Gets the item from the given source.
 /datum/strippable_item/proc/get_item(atom/source)
 
@@ -97,11 +101,16 @@
 /// This should be used for checking if an item CAN be equipped.
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
+	if(!can_interact(user))
+		return FALSE
 	if(!equipping)
 		return
 	if(HAS_TRAIT(equipping, TRAIT_NODROP))
 		to_chat(user, "<span class='warning'>You can't put [equipping] on [source], it's stuck to your hand!</span>")
 		return FALSE
+	//This is important due to the fact otherwise it will be equipped without a proper existing icon, because it's forced on through the strip menu
+	if(ismonkey(source))
+		equipping.compile_monkey_icon()
 	return TRUE
 
 /// Start the equipping process. This is the proc you should yield in.
@@ -132,6 +141,8 @@
 /// It should not perform the unequipping itself.
 /datum/strippable_item/proc/try_unequip(atom/source, mob/user)
 	SHOULD_NOT_SLEEP(TRUE)
+	if(!can_interact(user))
+		return FALSE
 
 	var/obj/item/item = get_item(source)
 	if(isnull(item))
@@ -147,8 +158,12 @@
 /// Start the unequipping process. This is the proc you should yield in.
 /// Returns TRUE/FALSE depending on if it is allowed.
 /datum/strippable_item/proc/start_unequip(atom/source, mob/user)
+
 	var/obj/item/item = get_item(source)
 	if(isnull(item))
+		return FALSE
+
+	if(HAS_TRAIT(item, TRAIT_NO_STRIP))
 		return FALSE
 
 	source.visible_message(
@@ -230,7 +245,7 @@
 	if(!ismob(source))
 		return FALSE
 
-	if(!do_mob(user, source, get_equip_delay(equipping)))
+	if(!do_after(user, get_equip_delay(equipping), source))
 		return FALSE
 
 	if(!equipping.mob_can_equip(
@@ -295,7 +310,7 @@
 
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
-	if(!do_mob(user, source, strip_delay || item.strip_delay))
+	if(!do_after(user, strip_delay || item.strip_delay, source))
 		return FALSE
 
 	return TRUE
@@ -368,7 +383,7 @@
 			continue
 
 		var/obj/item/item = item_data.get_item(owner)
-		if(isnull(item))
+		if(isnull(item) || (HAS_TRAIT(item, TRAIT_NO_STRIP)))
 			items[strippable_key] = result
 			continue
 

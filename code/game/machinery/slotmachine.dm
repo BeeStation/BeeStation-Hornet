@@ -19,10 +19,18 @@
 	desc = "Gambling for the antisocial."
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "slots1"
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/computer/slot_machine
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	var/money = 3000 //How much money it has CONSUMED
 	var/plays = 0
 	var/working = 0
@@ -30,7 +38,7 @@
 	var/jackpots = 0
 	var/paymode = HOLOCHIP //toggles between HOLOCHIP/COIN, defined above
 	var/cointype = /obj/item/coin/iron //default cointype
-	var/list/coinvalues = list()
+	var/static/list/coinvalues
 	var/list/reels = list(list("", "", "") = 0, list("", "", "") = 0, list("", "", "") = 0, list("", "", "") = 0, list("", "", "") = 0)
 	var/list/symbols = list(SEVEN = 1, "<font color='orange'>&</font>" = 2, "<font color='yellow'>@</font>" = 2, "<font color='green'>$</font>" = 2, "<font color='blue'>?</font>" = 2, "<font color='grey'>#</font>" = 2, "<font color='white'>!</font>" = 2, "<font color='fuchsia'>%</font>" = 2) //if people are winning too much, multiply every number in this list by 2 and see if they are still winning too much.
 
@@ -41,17 +49,20 @@
 	jackpots = rand(1, 4) //false hope
 	plays = rand(75, 200)
 
-	toggle_reel_spin(1) //The reels won't spin unless we activate them
+	INVOKE_ASYNC(src, PROC_REF(toggle_reel_spin), TRUE) //The reels won't spin unless we activate them
 
 	var/list/reel = reels[1]
-	for(var/i = 0, i < reel.len, i++) //Populate the reels.
+	for(var/i in 1 to reel.len) //Populate the reels.
 		randomize_reels()
 
-	toggle_reel_spin(0)
+	INVOKE_ASYNC(src, PROC_REF(toggle_reel_spin), FALSE)
+	if (isnull(coinvalues))
+		coinvalues = list()
 
-	for(cointype in typesof(/obj/item/coin))
-		var/obj/item/coin/C = new cointype
-		coinvalues["[cointype]"] = C.get_item_credit_value()
+		for(cointype in typesof(/obj/item/coin))
+			var/obj/item/coin/C = new cointype
+			coinvalues["[cointype]"] = C.get_item_credit_value()
+			qdel(C) //Sigh
 
 /obj/machinery/computer/slot_machine/Destroy()
 	if(balance)
@@ -66,10 +77,10 @@
 	money += round(delta_time / 2) //SPESSH MAJICKS
 
 /obj/machinery/computer/slot_machine/update_icon()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		icon_state = "slots0"
 
-	else if(stat & BROKEN)
+	else if(machine_stat & BROKEN)
 		icon_state = "slotsb"
 
 	else if(working)
@@ -78,16 +89,12 @@
 	else
 		icon_state = "slots1"
 
-/obj/machinery/computer/slot_machine/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/computer/slot_machine/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/coin))
 		var/obj/item/coin/C = I
 		if(paymode == COIN)
 			if(prob(2))
-				if(!user.transferItemToLoc(C, drop_location()))
+				if(!user.transferItemToLoc(C, drop_location(), silent = FALSE))
 					return
 				C.throw_at(user, 3, 10)
 				if(prob(10))
@@ -97,7 +104,7 @@
 			else
 				if(!user.temporarilyRemoveItemFromInventory(C))
 					return
-				to_chat(user, "<span class='notice'>You insert a [C.cmineral] coin into [src]'s slot!</span>")
+				to_chat(user, "<span class='notice'>You insert [C] into [src]'s slot!</span>")
 				balance += C.value
 				qdel(C)
 		else
@@ -125,10 +132,8 @@
 	else
 		return ..()
 
-/obj/machinery/computer/slot_machine/emag_act()
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/computer/slot_machine/on_emag(mob/user)
+	..()
 	var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(4, 0, src.loc)
 	spark_system.start()
@@ -180,7 +185,7 @@
 
 /obj/machinery/computer/slot_machine/emp_act(severity)
 	. = ..()
-	if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
+	if(machine_stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
 		return
 	if(prob(15 * severity))
 		return
@@ -226,9 +231,9 @@
 		updateDialog()
 
 /obj/machinery/computer/slot_machine/proc/can_spin(mob/user)
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		to_chat(user, "<span class='warning'>The slot machine has no power!</span>")
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		to_chat(user, "<span class='warning'>The slot machine is broken!</span>")
 	if(working)
 		to_chat(user, "<span class='warning'>You need to wait until the machine stops spinning before you can play again!</span>")
@@ -256,14 +261,14 @@
 
 	if(reels[1][2] + reels[2][2] + reels[3][2] + reels[4][2] + reels[5][2] == "[SEVEN][SEVEN][SEVEN][SEVEN][SEVEN]")
 		visible_message("<b>[src]</b> says, 'JACKPOT! You win [money] credits!'")
-		priority_announce("Congratulations to [user ? user.real_name : usrname] for winning the jackpot at the slot machine in [get_area(src)]!", sound = SSstation.announcer.get_rand_alert_sound())
+		priority_announce("Congratulations to [user ? user.real_name : usrname] for winning the jackpot of [money] credits at the slot machine in [get_area(src)]!", sound = SSstation.announcer.get_rand_alert_sound())
 		jackpots += 1
 		balance += money - give_payout(JACKPOT)
 		money = 0
 		if(paymode == HOLOCHIP)
 			new /obj/item/holochip(loc,JACKPOT)
 		else
-			for(var/i = 0, i < 5, i++)
+			for(var/i in 1 to 5)
 				cointype = pick(subtypesof(/obj/item/coin))
 				var/obj/item/coin/C = new cointype(loc)
 				random_step(C, 2, 50)
@@ -287,7 +292,7 @@
 /obj/machinery/computer/slot_machine/proc/get_lines()
 	var/amountthesame
 
-	for(var/i = 1, i <= 3, i++)
+	for(var/i in 1 to 3)
 		var/inputtext = reels[1][i] + reels[2][i] + reels[3][i] + reels[4][i] + reels[5][i]
 		for(var/symbol in symbols)
 			var/j = 3 //The lowest value we have to check for.

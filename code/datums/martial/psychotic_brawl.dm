@@ -34,13 +34,13 @@
 					D.drop_all_held_items()
 					D.stop_pulling()
 					if(A.a_intent == INTENT_GRAB)
-						log_combat(A, D, "grabbed", addition="aggressively")
+						log_combat(A, D, "grabbed", name, addition="aggressively")
 						D.visible_message("<span class='warning'>[A] violently grabs [D]!</span>", \
 										"<span class='userdanger'>You're violently grabbed by [A]!</span>", "<span class='hear'>You hear sounds of aggressive fondling!</span>", null, A)
 						to_chat(A, "<span class='danger'>You violently grab [D]!</span>")
 						A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab
 					else
-						log_combat(A, D, "grabbed", addition="passively")
+						log_combat(A, D, "grabbed", name, addition="passively")
 						A.setGrabState(GRAB_PASSIVE)
 		if(4)
 			A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
@@ -50,7 +50,7 @@
 			playsound(get_turf(D), 'sound/weapons/punch1.ogg', 40, 1, -1)
 			D.apply_damage(rand(5,10), A.dna.species.attack_type, BODY_ZONE_HEAD)
 			A.apply_damage(rand(5,10), A.dna.species.attack_type, BODY_ZONE_HEAD)
-			if(!istype(D.head,/obj/item/clothing/head/helmet/) && !istype(D.head,/obj/item/clothing/head/hardhat))
+			if(!istype(D.head,/obj/item/clothing/head/helmet/) && !istype(D.head,/obj/item/clothing/head/utility/hardhat))
 				D.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
 			A.Stun(rand(10,45))
 			D.Stun(rand(5,30))
@@ -68,5 +68,5 @@
 			basic_hit(A,D)
 
 	if(atk_verb)
-		log_combat(A, D, "[atk_verb] (Psychotic Brawling)")
+		log_combat(A, D, "[atk_verb] (Psychotic Brawling)", name)
 	return 1

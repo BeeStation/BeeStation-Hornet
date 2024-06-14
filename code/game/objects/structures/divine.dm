@@ -17,6 +17,7 @@
 	if(!L)
 		return
 	to_chat(user, "<span class='notice'>You attempt to sacrifice [L] by invoking the sacrificial ritual.</span>")
+	L.investigate_log("has been sacrificially gibbed on an altar.", INVESTIGATE_DEATHS)
 	L.gib()
 	message_admins("[ADMIN_LOOKUPFLW(user)] has sacrificed [key_name_admin(L)] on the sacrificial altar at [AREACOORD(src)].")
 
@@ -41,7 +42,7 @@
 	to_chat(user, "<span class='notice'>The water feels warm and soothing as you touch it. The fountain immediately dries up shortly afterwards.</span>")
 	user.reagents.add_reagent(/datum/reagent/medicine/omnizine/godblood,20)
 	update_icon()
-	addtimer(CALLBACK(src, /atom/.proc/update_icon), time_between_uses)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), time_between_uses)
 
 
 /obj/structure/healingfountain/update_icon()

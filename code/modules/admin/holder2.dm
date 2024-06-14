@@ -18,20 +18,29 @@ GLOBAL_PROTECT(href_token)
 
 	var/spamcooldown = 0
 
-	var/admincaster_screen = 0	//TODO: remove all these 5 variables, they are completly unacceptable
-	var/datum/newscaster/feed_message/admincaster_feed_message = new /datum/newscaster/feed_message
-	var/datum/newscaster/wanted_message/admincaster_wanted_message = new /datum/newscaster/wanted_message
-	var/datum/newscaster/feed_channel/admincaster_feed_channel = new /datum/newscaster/feed_channel
+	///Randomly generated signature used for security records authorization name.
 	var/admin_signature
 
 	var/href_token
 
 	var/deadmined
 
+	var/ooc_confirmation_enabled = TRUE
+
 	//Admin help manager
-	var/datum/admin_help_ui/admin_interface
+	var/datum/help_ui/admin/admin_interface
 
 	var/datum/filter_editor/filteriffic
+	var/datum/particle_editor/particool
+
+	/// Player panel
+	var/datum/admin_player_panel/player_panel
+
+	/// Banning Panel
+	var/datum/admin_ban_panel/ban_panel
+
+	/// A lazylist of tagged datums, for quick reference with the View Tags verb
+	var/list/tagged_datums
 
 /datum/admins/New(datum/admin_rank/R, ckey, force_active = FALSE, protected)
 	if(IsAdminAdvancedProcCall())
@@ -83,7 +92,6 @@ GLOBAL_PROTECT(href_token)
 	if (GLOB.directory[target])
 		associate(GLOB.directory[target])	//find the client for a ckey if they are connected and associate them with us
 
-
 /datum/admins/proc/deactivate()
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
@@ -97,6 +105,7 @@ GLOBAL_PROTECT(href_token)
 	if ((C = owner) || (C = GLOB.directory[target]))
 		disassociate()
 		C.add_verb(/client/proc/readmin)
+		C.update_special_keybinds()
 
 /datum/admins/proc/associate(client/C)
 	if(IsAdminAdvancedProcCall())
@@ -105,19 +114,23 @@ GLOBAL_PROTECT(href_token)
 		log_admin("[key_name(usr)][msg]")
 		return
 
-	if(istype(C))
-		if(C.ckey != target)
-			var/msg = " has attempted to associate with [target]'s admin datum"
-			message_admins("[key_name_admin(C)][msg]")
-			log_admin("[key_name(C)][msg]")
-			return
-		if (deadmined)
-			activate()
-		owner = C
-		owner.holder = src
-		owner.add_admin_verbs()	//TODO <--- todo what? the proc clearly exists and works since its the backbone to our entire admin system
-		owner.remove_verb(/client/proc/readmin)
-		GLOB.admins |= C
+	if(!istype(C))
+		return
+	if(C.ckey != target)
+		var/msg = " has attempted to associate with [target]'s admin datum"
+		message_admins("[key_name_admin(C)][msg]")
+		log_admin("[key_name(C)][msg]")
+		return
+	if (deadmined)
+		activate()
+	owner = C
+	owner.holder = src
+	owner.add_admin_verbs()	//TODO <--- todo what? the proc clearly exists and works since its the backbone to our entire admin system
+	owner.remove_verb(/client/proc/readmin)
+	owner.update_special_keybinds()
+	GLOB.admins |= C
+	if(istype(owner.mentor_datum))
+		owner.mentor_datum.activate()
 
 /datum/admins/proc/disassociate()
 	if(IsAdminAdvancedProcCall())
@@ -125,11 +138,14 @@ GLOBAL_PROTECT(href_token)
 		message_admins("[key_name_admin(usr)][msg]")
 		log_admin("[key_name(usr)][msg]")
 		return
-	if(owner)
-		GLOB.admins -= owner
-		owner.remove_admin_verbs()
-		owner.holder = null
-		owner = null
+	if(!owner)
+		return
+	GLOB.admins -= owner
+	owner.remove_admin_verbs()
+	if(istype(owner.mentor_datum))
+		owner.mentor_datum.deactivate()
+	owner.holder = null
+	owner = null
 
 /datum/admins/proc/check_for_rights(rights_required)
 	if(rights_required && !(rights_required & rank.rights))

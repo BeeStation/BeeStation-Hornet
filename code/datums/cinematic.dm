@@ -22,7 +22,7 @@
 	icon = 'icons/effects/station_explosion.dmi'
 	icon_state = "station_intact"
 	plane = SPLASHSCREEN_PLANE
-	layer = SPLASHSCREEN_LAYER
+	layer = CINEMATIC_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	screen_loc = "1,1"
 
@@ -64,11 +64,11 @@
 	//We are now playing this cinematic
 
 	//Handle what happens when a different cinematic tries to play over us
-	RegisterSignal(SSdcs, COMSIG_GLOB_PLAY_CINEMATIC, .proc/replacement_cinematic)
+	RegisterSignal(SSdcs, COMSIG_GLOB_PLAY_CINEMATIC, PROC_REF(replacement_cinematic))
 
-	//Pause OOC
+	//Pause OOC (unless admin sets off bomb after the rounds over)
 	var/ooc_toggled = FALSE
-	if(is_global && stop_ooc && GLOB.ooc_allowed)
+	if(is_global && stop_ooc && GLOB.ooc_allowed && SSticker.current_state != GAME_STATE_FINISHED)
 		ooc_toggled = TRUE
 		toggle_ooc(FALSE)
 
@@ -76,7 +76,7 @@
 	for(var/MM in watchers)
 		var/mob/M = MM
 		show_to(M, M.client)
-		RegisterSignal(M, COMSIG_MOB_CLIENT_LOGIN, .proc/show_to)
+		RegisterSignal(M, COMSIG_MOB_CLIENT_LOGIN, PROC_REF(show_to))
 		//Close watcher ui's
 		SStgui.close_user_uis(M)
 

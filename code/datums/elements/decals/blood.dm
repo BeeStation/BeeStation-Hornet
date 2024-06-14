@@ -6,13 +6,13 @@
   * Until the rework, blood decal visuals might not work on some items... (but the name change will work, though)
   */
 
-/datum/element/decal/blood/Attach(datum/target, _icon, _icon_state, _dir, _cleanable=CLEAN_STRENGTH_BLOOD, _color, _layer=ABOVE_OBJ_LAYER)
+/datum/element/decal/blood/Attach(datum/target, _icon, _icon_state, _dir, _cleanable=CLEAN_TYPE_BLOOD, _color, _layer=ABOVE_OBJ_LAYER)
 	if(!isitem(target))
 		return ELEMENT_INCOMPATIBLE
 
 	. = ..()
 
-	RegisterSignal(target, COMSIG_ATOM_GET_EXAMINE_NAME, .proc/get_examine_name, TRUE)
+	RegisterSignal(target, COMSIG_ATOM_GET_EXAMINE_NAME, PROC_REF(get_examine_name), TRUE)
 
 /datum/element/decal/blood/Detach(atom/source)
 	UnregisterSignal(source, COMSIG_ATOM_GET_EXAMINE_NAME)

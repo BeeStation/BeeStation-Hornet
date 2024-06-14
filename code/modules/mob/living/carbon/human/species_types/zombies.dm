@@ -5,10 +5,10 @@
 	name = "\improper High-Functioning Zombie"
 	id = "zombie"
 	sexes = 0
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/zombie
+	meat = /obj/item/food/meat/slab/human/mutant/zombie
 	species_traits = list(NOBLOOD,NOZOMBIE,NOTRANSSTING)
 	inherent_traits = list(TRAIT_TOXIMMUNE,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_RADIMMUNE,TRAIT_EASYDISMEMBER,\
-	TRAIT_LIMBATTACHMENT,TRAIT_NOBREATH,TRAIT_NODEATH,TRAIT_FAKEDEATH,TRAIT_NOCLONELOSS)
+	TRAIT_LIMBATTACHMENT,TRAIT_NOBREATH,TRAIT_NODEATH,TRAIT_FAKEDEATH,TRAIT_NOCLONELOSS, TRAIT_FAST_CUFF_REMOVAL)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	mutanttongue = /obj/item/organ/tongue/zombie
 	var/static/list/spooks = list('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg','sound/hallucinations/veryfar_noise.ogg','sound/hallucinations/wail.ogg')
@@ -21,10 +21,20 @@
 	species_l_leg = /obj/item/bodypart/l_leg/zombie
 	species_r_leg = /obj/item/bodypart/r_leg/zombie
 
+	bodytemp_normal = T0C // They have no natural body heat, the environment regulates body temp
+	bodytemp_heat_damage_limit = FIRE_MINIMUM_TEMPERATURE_TO_EXIST // Take damage at fire temp
+	bodytemp_cold_damage_limit = MINIMUM_TEMPERATURE_TO_MOVE // take damage below minimum movement temp
+
 /datum/species/zombie/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
 	return ..()
+
+/datum/species/zombie/get_species_description()
+	return "A rotting zombie! They descend upon Space Station Thirteen Every year to spook the crew! \"Sincerely, the Zombies!\""
+
+/datum/species/zombie/get_species_lore()
+	return list("Zombies have long lasting beef with Botanists. Their last incident involving a lawn with defensive plants has left them very unhinged.")
 
 /datum/species/zombie/infectious
 	name = "\improper Infectious Zombie"
@@ -38,9 +48,12 @@
 	var/regen_cooldown = 0
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
+	/// Zombies do not stabilize body temperature they are the walking dead and are cold blooded
+/datum/species/zombie/body_temperature_core(mob/living/carbon/human/humi)
+	return
+
 /datum/species/zombie/infectious/check_roundstart_eligible()
 	return FALSE
-
 
 /datum/species/zombie/infectious/spec_stun(mob/living/carbon/human/H,amount)
 	. = min(20, amount)
@@ -58,11 +71,12 @@
 	//They must be restrained, beheaded or gibbed to stop being a threat.
 	if(regen_cooldown < world.time)
 		var/heal_amt = heal_rate
-		if(C.InCritical())
+		if(HAS_TRAIT(C, TRAIT_CRITICAL_CONDITION))
 			heal_amt *= 2
 		C.heal_overall_damage(heal_amt,heal_amt)
 		C.adjustToxLoss(-heal_amt)
-	if(!C.InCritical() && prob(4))
+		C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -heal_amt)
+	if(!HAS_TRAIT(C, TRAIT_CRITICAL_CONDITION) && prob(4))
 		playsound(C, pick(spooks), 50, TRUE, 10)
 
 //Congrats you somehow died so hard you stopped being a zombie
@@ -85,18 +99,20 @@
 		infection = new()
 		infection.Insert(C)
 
-/datum/species/zombie/infectious/fast
-	name = "\improper Fast Infectious Zombie"
+/datum/species/zombie/infectious/viral
+	name = "\improper Infected Zombie"
 	id = "memezombiesfast"
 	armor = 0
 	speedmod = 0
+	inherent_biotypes = list(MOB_ORGANIC, MOB_UNDEAD, MOB_HUMANOID) //mob organic, so still susceptible to the disease that created it
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
+	mutanthands = /obj/item/zombie_hand/infectious
 
 // Your skin falls off
 /datum/species/human/krokodil_addict
 	name = "\improper Human"
 	id = "goofzombies"
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/zombie
+	meat = /obj/item/food/meat/slab/human/mutant/zombie
 	mutanttongue = /obj/item/organ/tongue/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 

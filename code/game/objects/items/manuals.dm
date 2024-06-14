@@ -251,9 +251,11 @@
 /obj/item/book/manual/wiki/attack_self(mob/user)
 	var/wikiurl = CONFIG_GET(string/wikiurl)
 	if(!wikiurl)
+		user.balloon_alert(user, "what!? these pages are blank!")
 		return
-	if(alert(user, "This will open the wiki page in your browser. Are you sure?", null, "Yes", "No") != "Yes")
+	if(tgui_alert(user, "This will open the wiki page in your browser. Are you sure?", list("Yes", "No")) != "Yes")
 		return
+
 	DIRECT_OUTPUT(user, link("[wikiurl]/[page_link]"))
 
 /obj/item/book/manual/wiki/chemistry
@@ -291,6 +293,7 @@
 	author = "Nanotrasen"
 	title = "Space Law"
 	page_link = "Space_Law"
+	dye_color = DYE_LAW
 
 /obj/item/book/manual/wiki/security_space_law/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] pretends to read \the [src] intently... then promptly dies of laughter!</span>")
@@ -329,7 +332,7 @@
 	icon_state = "barbook"
 	author = "Sir John Rose"
 	title = "Barman Recipes: Mixing Drinks and Changing Lives"
-	page_link = "Guide_to_food_and_drinks"
+	page_link = "Guide_to_Drinks"
 
 /obj/item/book/manual/wiki/robotics_cyborgs
 	name = "Robotics for Dummies"
@@ -365,7 +368,7 @@
 	icon_state ="cooked_book"
 	author = "the Kanamitan Empire"
 	title = "To Serve Man"
-	page_link = "Guide_to_food_and_drinks"
+	page_link = "Guide_to_Food"
 
 /obj/item/book/manual/wiki/tcomms
 	name = "Subspace Telecommunications And You"
@@ -409,7 +412,7 @@
 	title = "Toxins or: How I Learned to Stop Worrying and Love the Maxcap"
 	page_link = "Guide_to_toxins"
 
-/obj/item/book/manual/wiki/toxins/suicide_act(mob/user)
+/obj/item/book/manual/wiki/toxins/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/H = user
 	user.visible_message("<span class='suicide'>[user] starts dancing to the Rhumba Beat! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
@@ -428,7 +431,7 @@
 		H.spawn_gibs()
 		H.spill_organs()
 		H.spread_bodyparts()
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/book/manual/wiki/plumbing
 	name = "Chemical Factories Without Narcotics"
@@ -436,3 +439,66 @@
 	author = "Nanotrasen"
 	title = "Chemical Factories Without Narcotics"
 	page_link = "Guide_to_plumbing"
+
+/obj/item/book/manual/wiki/xenoarchaeology
+	name = "Xenoarchaeology Fieldguide"
+	icon_state ="xenoarchaeology"
+	author = "Phillippe French"
+	title = "Xenoarchaeology Fieldguide"
+	page_link = "Guide_to_Artifacts"
+
+/obj/item/book/manual/wiki/sopcommand
+	name = "Command Standard Operating Procedures"
+	icon_state ="sop1"
+	author = "Nanotrasen Department of Employee Resources"
+	title = "Command Standard Operating Procedures"
+	page_link = "Department_Standard_Operating_Procedure:_Command"
+	dye_color = DYE_BLUE
+
+/obj/item/book/manual/wiki/sopsecurity
+	name = "Security Standard Operating Procedures"
+	icon_state ="sop2"
+	author = "Nanotrasen Department of Employee Resources"
+	title = "Security Standard Operating Procedures"
+	page_link = "Department_Standard_Operating_Procedure:_Security"
+	dye_color = DYE_SECURITY
+
+/obj/item/book/manual/wiki/sopengineering
+	name = "Engineering Standard Operating Procedures"
+	icon_state ="sop3"
+	author = "Nanotrasen Department of Employee Resources"
+	title = "Engineering Standard Operating Procedures"
+	page_link = "Department_Standard_Operating_Procedure:_Engineering"
+	dye_color = DYE_ORANGE
+
+/obj/item/book/manual/wiki/sopsupply
+	name = "Supply Standard Operating Procedures"
+	icon_state ="sop4"
+	author = "Nanotrasen Department of Employee Resources"
+	title = "Supply Standard Operating Procedures"
+	page_link = "Department_Standard_Operating_Procedure:_Supply"
+	dye_color = DYE_YELLOW
+
+/obj/item/book/manual/wiki/sopscience
+	name = "Science Standard Operating Procedures"
+	icon_state ="sop5"
+	author = "Nanotrasen Department of Employee Resources"
+	title = "Science Standard Operating Procedures"
+	page_link = "Department_Standard_Operating_Procedure:_Science"
+	dye_color = DYE_PURPLE
+
+/obj/item/book/manual/wiki/sopmedical
+	name = "Medical Standard Operating Procedures"
+	icon_state ="sop6"
+	author = "Nanotrasen Department of Employee Resources"
+	title = "Medical Standard Operating Procedures"
+	page_link = "Department_Standard_Operating_Procedure:_Medical"
+	dye_color = DYE_WHITE
+
+/obj/item/book/manual/wiki/sopservice
+	name = "Service Standard Operating Procedures"
+	icon_state ="sop7"
+	author = "Nanotrasen Department of Employee Resources"
+	title = "Service Standard Operating Procedures"
+	page_link = "Department_Standard_Operating_Procedure:_Service"
+	dye_color = DYE_GREEN

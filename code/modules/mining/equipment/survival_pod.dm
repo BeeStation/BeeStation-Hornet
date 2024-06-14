@@ -2,7 +2,7 @@
 /area/survivalpod
 	name = "\improper Emergency Shelter"
 	icon_state = "away"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
@@ -107,6 +107,13 @@
 	icon = 'icons/obj/mining.dmi'
 	template_id = "capsule_barricade"
 
+/obj/item/survivalcapsule/capsule_checkpoint
+	name = "checkpoint capsule"
+	desc = "A 3x3 glass checkpoint designed for allowing safely searching passing personnel."
+	icon_state = "capsulesec"
+	icon = 'icons/obj/mining.dmi'
+	template_id = "capsule_checkpoint"
+
 /obj/item/survivalcapsule/party
 	name = "party capsule"
 	desc = "A 7x7 party area, fit with tables and a dancefloor. Groovy."
@@ -119,10 +126,12 @@
 //Window
 /obj/structure/window/shuttle/survival_pod
 	name = "pod window"
-	icon = 'icons/obj/smooth_structures/pod_window.dmi'
-	icon_state = "smooth"
-	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/closed/wall/mineral/titanium/survival, /obj/machinery/door/airlock/survival_pod, /obj/structure/window/shuttle/survival_pod)
+	icon = 'icons/obj/smooth_structures/windows/pod_window.dmi'
+	icon_state = "pod_window-0"
+	base_icon_state = "pod_window"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD, SMOOTH_GROUP_SHUTTLE_PARTS)
+	canSmoothWith = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 
 /obj/structure/window/shuttle/survival_pod/spawner/north
 	dir = NORTH
@@ -168,12 +177,13 @@
 /obj/structure/table/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "table"
-	smooth = SMOOTH_FALSE
+	smoothing_flags = NONE
 
 //Sleeper
 /obj/machinery/sleeper/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "sleeper"
+	roundstart_vials = list()
 
 /obj/machinery/sleeper/survival_pod/update_icon()
 	if(state_open)
@@ -227,10 +237,14 @@
 		return
 	attack_self(user)
 
-//Bed
+//Beds
 /obj/structure/bed/pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "bed"
+
+/obj/structure/bed/double/pod
+	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon_state = "bed_double"
 
 //Survival Storage Unit
 /obj/machinery/smartfridge/survival_pod
@@ -254,7 +268,7 @@
 	if(empty)
 		return
 	for(var/i in 1 to 5)
-		var/obj/item/reagent_containers/food/snacks/donkpocket/warm/W = new(src)
+		var/obj/item/food/donkpocket/warm/W = new(src)
 		load(W)
 	if(prob(50))
 		var/obj/item/storage/pill_bottle/dice/D = new(src)
@@ -321,14 +335,12 @@
 /obj/structure/sign/mining
 	name = "nanotrasen mining corps sign"
 	desc = "A sign of relief for weary miners, and a warning for would-be competitors to Nanotrasen's mining claims."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
-	icon_state = "ntpod"
+	icon_state = "minskymine"
 
 /obj/structure/sign/mining/survival
 	name = "shelter sign"
 	desc = "A high visibility sign designating a safe shelter."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
-	icon_state = "survival"
+	icon_state = "securearea"
 
 //Fluff
 /obj/structure/tubes
@@ -357,7 +369,7 @@
 						/obj/item/gun/magic/staff/spellblade,
 						/obj/item/gun/magic/wand/death,
 						/obj/item/gun/magic/wand/fireball,
-						/obj/item/stack/telecrystal/twenty,
+						/obj/item/stack/sheet/telecrystal/twenty,
 						/obj/item/nuke_core,
 						/obj/item/phylactery,
 						/obj/item/banhammer)

@@ -28,7 +28,7 @@
 /obj/machinery/anesthetic_machine/attack_hand(mob/living/user)
 	. = ..()
 	if(retract_mask())
-		visible_message("<span class='notice'>[user] retracts the mask back into the [src].</span>")
+		visible_message("<span class='notice'>[user] retracts the mask back into \the [src].</span>")
 
 /obj/machinery/anesthetic_machine/attacked_by(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/tank))
@@ -43,9 +43,11 @@
 
 /obj/machinery/anesthetic_machine/AltClick(mob/user)
 	. = ..()
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(attached_tank)// If attached tank, remove it.
 		attached_tank.forceMove(loc)
-		to_chat(user, "<span class='notice'>You remove the [attached_tank].</span>")
+		to_chat(user, "<span class='notice'>You remove \the [attached_tank].</span>")
 		attached_tank = null
 		update_icon()
 		if(mask_out)
@@ -70,15 +72,15 @@
 		return
 	if(Adjacent(target) && usr.Adjacent(target))
 		if(attached_tank && !mask_out)
-			usr.visible_message("<span class='warning'>[usr] attemps to attach the [src] to [target].</span>", "<span class='notice'>You attempt to attach the [src] to [target].</span>")
-			if(!do_after(usr, 70, TRUE, target))
+			usr.visible_message("<span class='warning'>[usr] attempts to attach \the [src] to [target].</span>", "<span class='notice'>You attempt to attach \the [src] to [target].</span>")
+			if(!do_after(usr, target != usr ? (7 SECONDS) : (1 SECONDS), target))
 				return
 			if(!target.equip_to_appropriate_slot(attached_mask))
-				to_chat(usr, "<span class='warning'>You are unable to attach the [src] to [target]!</span>")
+				to_chat(usr, "<span class='warning'>You are unable to attach \the [src] to [target]!</span>")
 				return
 			else
-				usr.visible_message("<span class='warning'>[usr] attaches the [src] to [target].</span>", "<span class='notice'>You attach the [src] to [target].</span>")
-				target.internal = attached_tank
+				usr.visible_message("<span class='warning'>[usr] attaches \the [src] to [target].</span>", "<span class='notice'>You attach \the [src] to [target].</span>")
+				target.external = attached_tank
 				mask_out = TRUE
 				START_PROCESSING(SSmachines, src)
 				target.update_internals_hud_icon(1)
@@ -91,7 +93,7 @@
 		return PROCESS_KILL
 
 	if(get_dist(src, get_turf(attached_mask)) > 1) // If too far away, detach
-		to_chat(attached_mask.loc, "<span class='warning'>The [attached_mask] is ripped off of your face!</span>")
+		to_chat(attached_mask.loc, "<span class='warning'>\The [attached_mask] is ripped off of your face!</span>")
 		retract_mask()
 		return PROCESS_KILL
 
@@ -99,8 +101,40 @@
 	if(mask_out)
 		retract_mask()
 	QDEL_NULL(attached_mask)
-	new /obj/item/clothing/mask/breath(src)
 	. = ..()
+
+/obj/machinery/anesthetic_machine/obj_destruction()
+	if(mask_out)
+		retract_mask()
+	QDEL_NULL(attached_mask)
+	new /obj/item/clothing/mask/breath(src)
+	if(attached_tank)
+		attached_tank.forceMove(get_turf(src))
+		attached_tank.visible_message("<span class='notice'>[attached_tank] falls to the ground from the destroyed Anesthetic Tank Holder.</span>")
+	return ..()
+
+/obj/machinery/anesthetic_machine/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(attached_tank)
+		to_chat(user, "<span class='warning'>You need to remove the anesthetic tank first!</span>")
+		return
+	if(!mask_out)
+		visible_message("<span class='warning'>[user] attempts to detach the breath mask from [src].</span>", "<span class='notice'>You attempt to detach the breath mask from [src].</span>")
+		if(!do_after(user, 100, src, timed_action_flags = IGNORE_HELD_ITEM))
+			to_chat(user, "<span class='warning'>You fail to dettach the breath mask from [src]!</span>")
+			return
+		visible_message("<span class='warning'>[user] detaches the breath mask from [src].</span>", "<span class='notice'>You detach the breath mask from [src].</span>")
+		new /obj/machinery/iv_drip(loc)
+		QDEL_NULL(attached_mask)
+		user.put_in_hands(new /obj/item/clothing/mask/breath)
+		qdel(src)
+
+/obj/machinery/anesthetic_machine/examine(mob/user)
+	. = ..()
+	if(attached_tank)
+		. += "<span class='notice'>[icon2html(attached_tank, user)] It has \a [attached_tank] mounted onto it. The tank's gauge reads [round(attached_tank.air_contents.total_moles(), 0.01)] mol at [round(attached_tank.air_contents.return_pressure(),0.01)] kPa.</span>"
+	else if(!mask_out)
+		. += "<span class='notice'>There is no tank mounted and the breath mask could be <b>detached</b> from it.</span>"
 
 /obj/item/clothing/mask/breath/machine
 	var/obj/machinery/anesthetic_machine/machine_attached
@@ -117,5 +151,5 @@
 /obj/item/clothing/mask/breath/machine/dropped(mob/user)
 	..()
 	if(loc != machine_attached) // If not already in machine, go back in when dropped (dropped is called on unequip)
-		to_chat(user, "<span class='notice'>The mask snaps back into the [machine_attached].</span>")
+		to_chat(user, "<span class='notice'>The mask snaps back into \the [machine_attached].</span>")
 		machine_attached.retract_mask()

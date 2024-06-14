@@ -2,7 +2,6 @@
 	. = text
 	if(!CONFIG_GET(flag/emojis))
 		return
-	var/static/list/emojis = icon_states(icon('icons/emoji.dmi'))
 	var/parsed = ""
 	var/pos = 1
 	var/search = 0
@@ -15,7 +14,7 @@
 			search = findtext(text, ":", pos + length(text[pos]))
 			if(search)
 				emoji = lowertext(copytext(text, pos + length(text[pos]), search))
-				var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/chat)
+				var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet_batched/chat)
 				var/tag = sheet.icon_tag("emoji-[emoji]")
 				if(tag)
 					parsed += tag

@@ -32,7 +32,6 @@
 /area/shuttle/transport)
 "h" = (
 /obj/structure/shuttle/engine/propulsion/left{
-	icon_state = "propulsion_l";
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -44,7 +43,6 @@
 /obj/structure/window/shuttle,
 /obj/structure/grille,
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater";
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -68,20 +66,7 @@
 /area/shuttle/transport)
 "l" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/chair/comfy/shuttle,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/transport)
-"m" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 "n" = (
@@ -91,7 +76,7 @@
 /area/shuttle/transport)
 "o" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -99,7 +84,6 @@
 /area/shuttle/transport)
 "p" = (
 /obj/structure/shuttle/engine/propulsion{
-	icon_state = "propulsion";
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -114,34 +98,6 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/transport)
-"r" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/transport)
-"s" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
@@ -162,7 +118,6 @@
 	height = 11;
 	id = "ferry";
 	name = "ferry shuttle";
-	port_direction = 1;
 	preferred_direction = 4;
 	width = 5
 	},
@@ -170,7 +125,6 @@
 /area/shuttle/transport)
 "u" = (
 /obj/structure/shuttle/engine/propulsion/right{
-	icon_state = "propulsion_r";
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -178,15 +132,34 @@
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
-"v" = (
-/obj/structure/rack,
+"w" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral{
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/transport)
+"x" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/transport)
+"E" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/transport)
+"L" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
 /obj/item/radio{
 	pixel_x = -6;
 	pixel_y = 6
@@ -201,21 +174,31 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/transport)
-"w" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
-"x" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/chair/comfy/shuttle{
+"U" = (
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/light,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/transport)
+"Y" = (
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 
@@ -243,49 +226,49 @@ c
 (4,1,1) = {"
 d
 k
-r
-v
+U
+L
 d
 "}
 (5,1,1) = {"
 e
 l
-r
+U
 w
 e
 "}
 (6,1,1) = {"
 d
 l
-r
+U
 w
 d
 "}
 (7,1,1) = {"
 f
-m
-s
-m
+E
+Y
+E
 f
 "}
 (8,1,1) = {"
 g
 n
-r
+U
 n
 g
 "}
 (9,1,1) = {"
 e
 l
-r
+U
 w
 e
 "}
 (10,1,1) = {"
 d
 o
-r
+U
 x
 d
 "}

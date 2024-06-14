@@ -36,9 +36,7 @@
 	else
 		user.visible_message("<span class='suicide'>[user]'s [src] receives a signal and [user.p_they()] die[user.p_s()] like a gamer!</span>")
 	user.adjustOxyLoss(200)//it sends an electrical pulse to their heart, killing them. or something.
-	user.death(0)
-	user.set_suicide(TRUE)
-	user.suicide_log()
+	user.death(FALSE)
 	playsound(user, 'sound/machines/triple_beep.ogg', ASSEMBLY_BEEP_VOLUME, TRUE)
 	qdel(src)
 
@@ -83,6 +81,7 @@
 	data["code"] = code
 	data["minFrequency"] = MIN_FREE_FREQ
 	data["maxFrequency"] = MAX_FREE_FREQ
+	data["connection"] = !!radio_connection
 	return data
 
 /obj/item/assembly/signaler/ui_act(action, params)
@@ -91,12 +90,11 @@
 
 	switch(action)
 		if("signal")
-			INVOKE_ASYNC(src, .proc/signal)
+			INVOKE_ASYNC(src, PROC_REF(signal))
 			. = TRUE
 		if("freq")
-			frequency = unformat_frequency(params["freq"])
-			frequency = sanitize_frequency(frequency, TRUE)
-			set_frequency(frequency)
+			var/new_frequency = sanitize_frequency(unformat_frequency(params["freq"]), TRUE)
+			set_frequency(new_frequency)
 			. = TRUE
 		if("code")
 			code = text2num(params["code"])
@@ -132,7 +130,9 @@
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	var/turf/T = get_turf(src)
 	if(usr)
-		GLOB.lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+		GLOB.lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> with frequency: [format_frequency(frequency)]/[code]")
+		log_telecomms("[time] <B>:</B> [usr.key] used [src] @ location [AREACOORD(T)] <B>:</B> with frequency: [format_frequency(frequency)]/[code]")
+		message_admins("<B>:</B> [usr.key] used [src] @ location [AREACOORD(T)] <B>:</B> with frequency: [format_frequency(frequency)]/[code]")
 
 /obj/item/assembly/signaler/receive_signal(datum/signal/signal)
 	. = FALSE
@@ -181,7 +181,7 @@
 /obj/item/assembly/signaler/anomaly
 	name = "anomaly core"
 	desc = "The neutralized core of an anomaly. It'd probably be valuable for research."
-	icon_state = "anomaly core"
+	icon_state = "anomaly_core"
 	item_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
@@ -202,7 +202,6 @@
 /obj/item/assembly/signaler/anomaly/manual_suicide(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user]'s [src] is reacting to the radio signal, warping [user.p_their()] body!</span>")
 	user.set_suicide(TRUE)
-	user.suicide_log()
 	user.gib()
 
 /obj/item/assembly/signaler/anomaly/attackby(obj/item/I, mob/user, params)
@@ -214,32 +213,44 @@
 /obj/item/assembly/signaler/anomaly/pyro
 	name = "\improper pyroclastic anomaly core"
 	desc = "The neutralized core of a pyroclastic anomaly. It feels warm to the touch. It'd probably be valuable for research."
-	icon_state = "pyro core"
+	icon_state = "pyro_core"
 	anomaly_type = /obj/effect/anomaly/pyro
 
 /obj/item/assembly/signaler/anomaly/grav
 	name = "\improper gravitational anomaly core"
 	desc = "The neutralized core of a gravitational anomaly. It feels much heavier than it looks. It'd probably be valuable for research."
-	icon_state = "grav core"
+	icon_state = "grav_core"
 	anomaly_type = /obj/effect/anomaly/grav
 
 /obj/item/assembly/signaler/anomaly/flux
 	name = "\improper flux anomaly core"
 	desc = "The neutralized core of a flux anomaly. Touching it makes your skin tingle. It'd probably be valuable for research."
-	icon_state = "flux core"
+	icon_state = "flux_core"
 	anomaly_type = /obj/effect/anomaly/flux
 
 /obj/item/assembly/signaler/anomaly/bluespace
 	name = "\improper bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	icon_state = "anomaly core"
+	icon_state = "anomaly_core"
 	anomaly_type = /obj/effect/anomaly/bluespace
 
 /obj/item/assembly/signaler/anomaly/vortex
 	name = "\improper vortex anomaly core"
 	desc = "The neutralized core of a vortex anomaly. It won't sit still, as if some invisible force is acting on it. It'd probably be valuable for research."
-	icon_state = "vortex core"
+	icon_state = "vortex_core"
 	anomaly_type = /obj/effect/anomaly/bhole
+
+/obj/item/assembly/signaler/anomaly/bioscrambler
+	name = "\improper bioscrambler anomaly core"
+	desc = "The neutralized core of a bioscrambler anomaly. It's squirming, as if moving. It'd probably be valuable for research."
+	icon_state = "bioscrambler_core"
+	anomaly_type = /obj/effect/anomaly/bioscrambler
+
+/obj/item/assembly/signaler/anomaly/hallucination
+	name = "\improper hallucination anomaly core"
+	desc = "The neutralized core of a hallucination anomaly. It seems to be moving, but it's probably your imagination. It'd probably be valuable for research."
+	icon_state = "hallucination_core"
+	anomaly_type = /obj/effect/anomaly/hallucination
 
 /obj/item/assembly/signaler/anomaly/attack_self()
 	return
@@ -250,3 +261,20 @@
 	return
 /obj/item/assembly/signaler/cyborg/screwdriver_act(mob/living/user, obj/item/I)
 	return
+
+/obj/item/assembly/signaler/internal
+	name = "internal remote signaling device"
+
+/obj/item/assembly/signaler/internal/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/assembly/signaler/internal/attackby(obj/item/W, mob/user, params)
+	return
+
+/obj/item/assembly/signaler/internal/screwdriver_act(mob/living/user, obj/item/I)
+	return
+
+/obj/item/assembly/signaler/internal/can_interact(mob/user)
+	if(istype(user, /mob/living/silicon/pai))
+		return TRUE
+	. = ..()

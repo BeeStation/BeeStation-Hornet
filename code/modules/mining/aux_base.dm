@@ -15,6 +15,10 @@
 	name = "auxillary base management console"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "dorm_available"
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	var/shuttleId = "colony_drop"
 	desc = "Allows a deployable expedition base to be dropped from the station to a designated mining location. It can also \
 interface with the mining shuttle at the landing site if a mobile beacon is also deployed."
@@ -52,9 +56,9 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 		Unit | Condition | Status | Direction | Distance<br>"
 		for(var/PDT in turrets)
 			var/obj/machinery/porta_turret/aux_base/T = PDT
-			var/integrity = max((T.obj_integrity-T.integrity_failure)/(T.max_integrity-T.integrity_failure)*100, 0)
+			var/integrity = max((T.obj_integrity-T.integrity_failure * T.max_integrity)/(T.max_integrity-T.integrity_failure * max_integrity)*100, 0)
 			var/status
-			if(T.stat & BROKEN)
+			if(T.machine_stat & BROKEN)
 				status = "<span class='bad'>ERROR</span>"
 			else if(!T.on)
 				status = "Disabled"
@@ -172,7 +176,6 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	landing_zone.width = base_dock.width
 	landing_zone.height = base_dock.height
 	landing_zone.setDir(base_dock.dir)
-	landing_zone.area_type = A.type
 
 	possible_destinations += "[landing_zone.id];"
 
@@ -243,6 +246,12 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	width = 9
 	height = 9
 
+/obj/docking_port/mobile/auxillary_base/Initialize(mapload)
+	. = ..()
+	for(var/area/A in shuttle_areas)
+		for(var/turf/T in A.contents)
+			underlying_turf_area[T] = GLOB.areas_by_type[/area/construction/mining/aux_base]
+
 /obj/docking_port/mobile/auxillary_base/takeoff(list/old_turfs, list/new_turfs, list/moved_atoms, rotation, movement_direction, old_dock, area/underlying_old_area)
 	for(var/i in new_turfs)
 		var/turf/place = i
@@ -257,7 +266,6 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	dwidth = 3
 	width = 7
 	height = 5
-	area_type = /area/construction/mining/aux_base
 
 /obj/structure/mining_shuttle_beacon
 	name = "mining shuttle beacon"
@@ -285,7 +293,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 		return
 
 	anti_spam_cd = 1
-	addtimer(CALLBACK(src, .proc/clear_cooldown), 50)
+	addtimer(CALLBACK(src, PROC_REF(clear_cooldown)), 50)
 
 	var/turf/landing_spot = get_turf(src)
 
@@ -306,8 +314,6 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 		var/obj/docking_port/stationary/SM = S //SM is declared outside so it can be checked for null
 		if(SM.id == "mining_home" || SM.id == "mining_away")
 
-			var/area/A = get_area(landing_spot)
-
 			Mport = new(landing_spot)
 			Mport.id = "landing_zone_dock"
 			Mport.name = "auxillary base landing site"
@@ -316,7 +322,6 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 			Mport.width = SM.width
 			Mport.height = SM.height
 			Mport.setDir(dir)
-			Mport.area_type = A.type
 
 			break
 	if(!Mport)
@@ -360,7 +365,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 
 	aux_base_console.set_mining_mode() //Lets the colony park the shuttle there, now that it has a dock.
 	to_chat(user, "<span class='notice'>Mining shuttle calibration successful! Shuttle interface available at base console.</span>")
-	anchored = TRUE //Locks in place to mark the landing zone.
+	set_anchored(TRUE) //Locks in place to mark the landing zone.
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 
 /obj/structure/mining_shuttle_beacon/proc/clear_cooldown()

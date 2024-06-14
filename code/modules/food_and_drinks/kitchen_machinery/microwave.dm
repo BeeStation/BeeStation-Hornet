@@ -12,7 +12,7 @@
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/microwave
 	pass_flags = PASSTABLE
-	light_color = LIGHT_COLOR_YELLOW
+	light_color = LIGHT_COLOR_DIM_YELLOW
 	light_power = 3
 	var/wire_disabled = FALSE // is its internal wire cut?
 	var/operating = FALSE
@@ -36,7 +36,7 @@
 	. = ..()
 	wires = new /datum/wires/microwave(src)
 	create_reagents(100)
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 
 /obj/machinery/microwave/Destroy()
 	eject()
@@ -83,7 +83,7 @@
 	else
 		. += "<span class='notice'>\The [src] is empty.</span>"
 
-	if(!(stat & (NOPOWER|BROKEN)))
+	if(!(machine_stat & (NOPOWER|BROKEN)))
 		. += "<span class='notice'>The status display reads:</span>\n"+\
 		"<span class='notice'>- Capacity: <b>[max_n_of_items]</b> items.<span>\n"+\
 		"<span class='notice'>- Cook time reduced by <b>[(efficiency - 1) * 25]%</b>.</span>"
@@ -166,7 +166,9 @@
 	if(istype(O, /obj/item/storage/bag/tray))
 		var/obj/item/storage/T = O
 		var/loaded = 0
-		for(var/obj/item/reagent_containers/food/snacks/S in T.contents)
+		for(var/obj/S in T.contents)
+			if(!IS_EDIBLE(S))
+				continue
 			if(ingredients.len >= max_n_of_items)
 				to_chat(user, "<span class='warning'>\The [src] is full, you can't put anything in!</span>")
 				return TRUE
@@ -200,7 +202,7 @@
 
 	if(operating || panel_open || !anchored || !user.canUseTopic(src, !issilicon(user)))
 		return
-	if(isAI(user) && (stat & NOPOWER))
+	if(isAI(user) && (machine_stat & NOPOWER))
 		return
 
 	if(!length(ingredients))
@@ -215,7 +217,7 @@
 	// post choice verification
 	if(operating || panel_open || !anchored || !user.canUseTopic(src, !issilicon(user)))
 		return
-	if(isAI(user) && (stat & NOPOWER))
+	if(isAI(user) && (machine_stat & NOPOWER))
 		return
 
 	usr.set_machine(src)
@@ -234,7 +236,7 @@
 	ingredients.Cut()
 
 /obj/machinery/microwave/proc/cook()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 	if(operating || broken > 0 || panel_open || !anchored || dirty == 100)
 		return
@@ -290,7 +292,7 @@
 	loop(MICROWAVE_MUCK, 4)
 
 /obj/machinery/microwave/proc/loop(type, time, wait = max(12 - 2 * efficiency, 2)) // standard wait is 10
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		operating = FALSE
 		if(type == MICROWAVE_PRE)
 			pre_fail()
@@ -307,7 +309,7 @@
 		return
 	time--
 	use_power(500)
-	addtimer(CALLBACK(src, .proc/loop, type, time, wait), wait)
+	addtimer(CALLBACK(src, PROC_REF(loop), type, time, wait), wait)
 
 /obj/machinery/microwave/proc/loop_finish()
 	operating = FALSE
@@ -315,8 +317,9 @@
 	var/iron = 0
 	for(var/obj/item/O in ingredients)
 		O.microwave_act(src)
-		if(O.materials[/datum/material/iron])
-			iron += O.materials[/datum/material/iron]
+		if(O.custom_materials && length(O.custom_materials))
+			if(O.custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)])
+				iron += O.custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)]
 
 	if(iron)
 		spark()
@@ -324,10 +327,13 @@
 		if(prob(max(iron / 2, 33)))
 			explosion(loc, 0, 1, 2)
 	else
-		dropContents(ingredients)
-		ingredients.Cut()
+		dump_inventory_contents()
 
 	after_finish_loop()
+
+/obj/machinery/microwave/dump_inventory_contents()
+	. = ..()
+	ingredients.Cut()
 
 /obj/machinery/microwave/proc/pre_fail()
 	broken = 2
@@ -342,11 +348,6 @@
 	dirty = 100
 	dirty_anim_playing = FALSE
 	operating = FALSE
-
-	for(var/obj/item/reagent_containers/food/snacks/S in src)
-		if(prob(50))
-			new /obj/item/reagent_containers/food/snacks/badrecipe(src)
-			qdel(S)
 
 	after_finish_loop()
 

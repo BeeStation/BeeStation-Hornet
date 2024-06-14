@@ -1,6 +1,6 @@
 /datum/species/debug
 	name = "CODER DISASTER"
-	id = "debug"
+	id = SPECIES_DEBUG
 	bodyflag = FLAG_DEBUG_SPECIES
 	changesource_flags = MIRROR_BADMIN
 	sexes = 0
@@ -32,7 +32,7 @@
 		else
 			return
 
-/obj/item/clothing/head/ushanka/spritesheet_debug
+/obj/item/clothing/head/costume/ushanka/spritesheet_debug
 	name = "Racist Ushanka"
 	desc = "The Return"
 	flags_inv = HIDEEARS|HIDEHAIR

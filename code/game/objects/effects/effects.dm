@@ -9,7 +9,17 @@
 	vis_flags = VIS_INHERIT_PLANE
 	var/forensic_protected = FALSE
 
-/obj/effect/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/effect/attackby(obj/item/weapon, mob/user, params)
+	if(SEND_SIGNAL(weapon, COMSIG_ITEM_ATTACK_EFFECT, src, user, params) & COMPONENT_NO_AFTERATTACK)
+		return TRUE
+
+	// I'm not sure why these are snowflaked to early return but they are
+	if(istype(weapon, /obj/item/mop) || istype(weapon, /obj/item/soap))
+		return
+
+	return ..()
+
+/obj/effect/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	return
 
 /obj/effect/fire_act(exposed_temperature, exposed_volume)
@@ -17,9 +27,6 @@
 
 /obj/effect/acid_act()
 	return
-
-/obj/effect/mech_melee_attack(obj/mecha/M)
-	return 0
 
 /obj/effect/blob_act(obj/structure/blob/B)
 	return
@@ -31,25 +38,11 @@
 	return
 
 /obj/effect/ex_act(severity, target)
-	if(target == src)
-		qdel(src)
-	else
-		switch(severity)
-			if(1)
-				qdel(src)
-			if(2)
-				if(prob(60))
-					qdel(src)
-			if(3)
-				if(prob(25))
-					qdel(src)
+	return
 
 /obj/effect/singularity_act()
 	qdel(src)
 	return 0
-
-/obj/effect/abstract/ex_act(severity, target)
-	return
 
 /obj/effect/abstract/singularity_pull()
 	return

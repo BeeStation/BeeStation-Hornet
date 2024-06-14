@@ -74,8 +74,6 @@ to understand what this is about.
 - Lower case names are native browser events and should be used sparingly,
 for example when you need an explicit IE8 support. **DO NOT** use
 lowercase event handlers unless you really know what you are doing.
-- [Button](#button) component does not support the lowercase `onclick` event.
-Use the camel case `onClick` instead.
 
 ## `tgui/components`
 
@@ -226,6 +224,10 @@ the baseline alignment.
 over the button.
 - `children: any` - Content to render inside the button.
 - `onClick: function` - Called when element is clicked.
+- `verticalAlignContent: string` - Align content vertically using flex. Use lineHeight if the height is static.
+  - `top` - align content to the ceiling of the button box.
+  - `middle` - align content on the middle of the button box.
+  - `bottom` - align content on the ground of the button box.
 
 ### `Button.Checkbox`
 
@@ -357,15 +359,14 @@ and displays selected entry.
 
 - See inherited props: [Box](#box)
 - See inherited props: [Icon](#icon)
-- `options: string[]` - An array of strings which will be displayed in the
-dropdown when open
-- `selected: string` - Currently selected entry
-- `width: number` - Width of dropdown button and resulting menu
+- `options: string[] | DropdownEntry[]` - An array of strings which will be displayed in the
+dropdown when open. See Dropdown.tsx for more adcanced usage with DropdownEntry
+- `selected: any` - Currently selected entry
+- `width: string` - Width of dropdown button and resulting menu; css width value
 - `over: boolean` - Dropdown renders over instead of below
 - `color: string` - Color of dropdown button
 - `nochevron: boolean` - Whether or not the arrow on the right hand side of the dropdown button is visible
-- `noscroll: boolean` - Whether or not the dropdown menu should have a scroll bar
-- `displayText: string` - Text to always display in place of the selected text
+- `displayText: string | number | InfernoNode` - Text to always display in place of the selected text
 - `onClick: (e) => void` - Called when dropdown button is clicked
 - `onSelected: (value) => void` - Called when a value is picked from the list, `value` is the value that was picked
 
@@ -643,10 +644,22 @@ to perform some sort of action), there is a way to do that:
 
 **Props:**
 
-- `label: string` - Item label.
-- `color: string` - Sets the color of the text.
+- `label: string|InfernoNode` - Item label.
+- `labelWrap: boolean` - Lets the label wrap and makes it not take the minimum width.
+- `labelColor: string` - Sets the color of the label.
+- `color: string` - Sets the color of the content text.
+- `textAlign: string` - Align the content text.
+  - `left` (default)
+  - `center`
+  - `right`
+- `verticalAlign: string` - Align both the label and the content vertically.
+  - `baseline` (default)
+  - `top`
+  - `middle`
+  - `bottom`
 - `buttons: any` - Buttons to render aside the content.
 - `children: any` - Content of this labeled item.
+- `tooltip: string` - Hovering this labeled item will show a tooltip.
 
 ### `LabeledList.Divider`
 
@@ -985,25 +998,41 @@ Notice that tabs do not contain state. It is your job to track the selected
 tab, handle clicks and place tab content where you need it. In return, you get
 a lot of flexibility in regards to how you can layout your tabs.
 
-Tabs also support a vertical configuration. This is usually paired with a
-[Flex](#flex) component to render tab content to the right.
+Tabs also support a vertical configuration. This is usually paired with
+[Stack](#stack) to render tab content to the right.
 
 ```jsx
-<Flex>
-  <Flex.Item>
+<Stack>
+  <Stack.Item>
     <Tabs vertical>
       ...
     </Tabs>
-  </Flex.Item>
-  <Flex.Item grow={1} basis={0}>
+  </Stack.Item>
+  <Stack.Item grow={1} basis={0}>
     Tab content.
-  </Flex.Item>
-</Flex>
+  </Stack.Item>
+</Stack>
+```
+
+If you need to combine a tab section with other elements, or if you want to
+add scrollable functionality to tabs, pair them with the [Section](#section)
+component:
+
+```jsx
+<Section fill fitted scrollable width="128px">
+  <Tabs vertical>
+    ...
+  </Tabs>
+  ... other things ...
+</Section>
 ```
 
 **Props:**
 
 - See inherited props: [Box](#box)
+- `fluid: boolean` - If true, tabs will take all available horizontal space.
+- `fill: boolean` - Similarly to `fill` on [Section](#section), tabs will fill
+all available vertical space. Only makes sense in a vertical configuration.
 - `vertical: boolean` - Use a vertical configuration, where tabs will be
 stacked vertically.
 - `children: Tab[]` - This component only accepts tabs as its children.

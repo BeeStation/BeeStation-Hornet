@@ -1,7 +1,7 @@
 /obj/effect/abstract/open_area_marker
 	name = "open area marker"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "pinonfar"
+	icon_state = "pincomp_arrow_far"
 
 /obj/effect/abstract/open_area_marker/Initialize(mapload)
 	return INITIALIZE_HINT_QDEL
@@ -9,7 +9,7 @@
 /obj/effect/abstract/doorway_marker
 	name = "doorway marker"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "pinonmedium"
+	icon_state = "pincomp_arrow_medium"
 
 /obj/effect/abstract/doorway_marker/Initialize(mapload)
 	return INITIALIZE_HINT_QDEL
@@ -96,7 +96,7 @@
 		/obj/item/wrench = 6,
 		/obj/item/assembly/signaler = 5,
 		/obj/item/transfer_valve = 6,
-		/obj/item/cartridge/rd = 3,
+		/obj/item/computer_hardware/hard_drive/role/rd = 3,
 		/obj/item/radio = 5,
 		/obj/item/camera = 4,
 		/obj/item/encryptionkey/headset_sci = 3,
@@ -107,8 +107,8 @@
 		/obj/item/hand_tele = 1,
 		/obj/item/inducer/sci = 3,
 		/obj/item/megaphone = 1,
-		/obj/item/pda/roboticist = 3,
-		/obj/item/pda/toxins = 3,
+		/obj/item/modular_computer/tablet/pda/roboticist = 3,
+		/obj/item/modular_computer/tablet/pda/science = 3,
 		/obj/item/pinpointer/crew = 4,
 		/obj/item/reactive_armour_shell = 1,
 		/obj/item/anomaly_neutralizer = 1,
@@ -143,7 +143,7 @@
 		/obj/item/reagent_containers/glass/bottle/chloralhydrate = 1,
 		/obj/item/grenade/flashbang = 2,
 		/obj/item/grenade/chem_grenade/teargas = 1,
-		/obj/item/reagent_containers/spray/pepper = 1,
+		/obj/item/reagent_containers/peppercloud_deployer = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,
 		/obj/item/grenade/exploration = 1,
 	)
@@ -167,7 +167,7 @@
 		/obj/item/clothing/suit/armor/bulletproof = 4,
 		/obj/item/clothing/head/helmet/alt = 4,
 		/obj/item/clothing/suit/armor/riot = 1,
-		/obj/item/clothing/head/helmet/riot = 1,
+		/obj/item/clothing/head/helmet/toggleable/riot = 1,
 		/obj/item/storage/lockbox/loyalty = 1,
 		/obj/item/storage/fancy/donut_box = 6,
 		/obj/item/storage/box/teargas = 2,
@@ -186,7 +186,7 @@
 	loot = list(
 		"" = 4,
 		/obj/item/disk/tech_disk/research/random = 24,
-		/obj/item/alienartifact = 6,
+		/obj/item/xenoartifact = 6,
 		/obj/item/gun/energy/vortex = 3,
 		/obj/item/gun/energy/alien = 1
 	)

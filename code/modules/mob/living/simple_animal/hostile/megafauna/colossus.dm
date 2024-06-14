@@ -24,8 +24,8 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus
 	name = "colossus"
 	desc = "A monstrous creature protected by heavy shielding."
-	health = 2500
-	maxHealth = 2500
+	health = 1250
+	maxHealth = 1250
 	attacktext = "judges"
 	attack_sound = 'sound/magic/clockwork/ratvar_attack.ogg'
 	icon_state = "eva"
@@ -40,13 +40,13 @@ Difficulty: Very Hard
 	move_to_delay = 10
 	ranged = TRUE
 	pixel_x = -32
+	base_pixel_x = -32
 	del_on_death = TRUE
 	gps_name = "Angelic Signal"
 	achievement_type = /datum/award/achievement/boss/colussus_kill
 	crusher_achievement_type = /datum/award/achievement/boss/colussus_crusher
 	score_achievement_type = /datum/award/score/colussus_score
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus, /obj/item/crusher_trophy/blaster_tubes)
-	loot = list(/obj/structure/closet/crate/necropolis/colossus)
+	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/colossus)
 	deathmessage = "disintegrates, leaving a glowing core in its wake."
 	deathsound = 'sound/magic/demon_dies.ogg'
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
@@ -86,9 +86,9 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
 	ranged_cooldown = world.time + 600 //prevents abilities from being spammed by AttackingTarget() while an attack is already underway.
-	anger_modifier = CLAMP(((maxHealth - health)/40),0,20)
+	anger_modifier = clamp(((maxHealth - health)/20),0,20)
 
-	if(client) //Player controlled handled a bit differently. 
+	if(client) //Player controlled handled a bit differently.
 		switch(chosen_attack)
 			if(1)
 				if(health <= maxHealth/10)
@@ -189,7 +189,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
 	SLEEP_CHECK_DEATH(10)
-	INVOKE_ASYNC(src, .proc/spiral_shoot, FALSE, 16)
+	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), FALSE, 16)
 	spiral_shoot(FALSE, 8)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack() //not actually necessarily the final attack, but has a very long cooldown.
@@ -221,7 +221,7 @@ Difficulty: Very Hard
 		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
 		invulnerable_finale = FALSE
 		sleep(30) //Long cooldown (total 15 seconds with one last 30 applied in ) after this attack finally concludes
-	
+
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = pick(TRUE, FALSE), counter_start = 8)
 	var/turf/start_turf = get_step(src, pick(GLOB.alldirs))
 	var/counter = counter_start
@@ -242,7 +242,7 @@ Difficulty: Very Hard
 	if(!isnum_safe(set_angle) && (!marker || marker == loc))
 		return
 	var/turf/startloc = get_turf(src)
-	var/obj/item/projectile/P = new /obj/item/projectile/colossus(startloc)
+	var/obj/projectile/P = new /obj/projectile/colossus(startloc)
 	P.preparePixelProjectile(marker, startloc)
 	P.firer = src
 	if(target)
@@ -260,7 +260,7 @@ Difficulty: Very Hard
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, 1, 2)
 	newtonian_move(get_dir(target_turf, src))
-	var/angle_to_target = Get_Angle(src, target_turf)
+	var/angle_to_target = get_angle(src, target_turf)
 	if(isnum_safe(set_angle))
 		angle_to_target = set_angle
 	var/static/list/colossus_shotgun_shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)
@@ -282,11 +282,6 @@ Difficulty: Very Hard
 			shake_camera(M, 4, 3)
 	playsound(src, 'sound/magic/clockwork/narsie_attack.ogg', 200, 1)
 
-
-/mob/living/simple_animal/hostile/megafauna/colossus/devour(mob/living/L)
-	visible_message("<span class='colossus'>[src] disintegrates [L]!</span>")
-	L.dust()
-
 /obj/effect/temp_visual/at_shield
 	name = "anti-toolbox field"
 	desc = "A shimmering forcefield protecting the colossus."
@@ -303,7 +298,7 @@ Difficulty: Very Hard
 	target = new_target
 	INVOKE_ASYNC(src, /atom/movable/proc/orbit, target, 0, FALSE, 0, 0, FALSE, TRUE)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/projectile/P)
 	if(!stat)
 		var/obj/effect/temp_visual/at_shield/AT = new /obj/effect/temp_visual/at_shield(loc, src)
 		var/random_x = rand(-32, 32)
@@ -313,7 +308,7 @@ Difficulty: Very Hard
 		AT.pixel_y += random_y
 	return ..()
 
-/obj/item/projectile/colossus
+/obj/projectile/colossus
 	name ="death bolt"
 	icon_state= "chronobolt"
 	damage = 25
@@ -323,7 +318,7 @@ Difficulty: Very Hard
 	damage_type = BRUTE
 	pass_flags = PASSTABLE
 
-/obj/item/projectile/colossus/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/colossus/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(isturf(target) || isobj(target))
 		if(isobj(target))
@@ -365,7 +360,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 /obj/machinery/smartfridge/black_box/Initialize(mapload)
 	. = ..()
 	if(GLOB.blackbox != src)
-		return INITIALIZE_HINT_QDEL_FORCE
+		return INITIALIZE_HINT_QDEL
 	GLOB.blackbox = src
 	ReadMemory()
 
@@ -501,12 +496,12 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		ActivationReaction(user, ACTIVATE_WEAPON)
 	..()
 
-/obj/machinery/anomalous_crystal/bullet_act(obj/item/projectile/P, def_zone)
+/obj/machinery/anomalous_crystal/bullet_act(obj/projectile/P, def_zone)
 	. = ..()
-	if(istype(P, /obj/item/projectile/magic))
+	if(istype(P, /obj/projectile/magic))
 		ActivationReaction(P.firer, ACTIVATE_MAGIC, P.damage_type)
 		return
-	ActivationReaction(P.firer, P.flag, P.damage_type)
+	ActivationReaction(P.firer, P.armor_flag, P.damage_type)
 
 /obj/machinery/anomalous_crystal/proc/ActivationReaction(mob/user, method, damtype)
 	if(world.time < last_use_timer)
@@ -537,9 +532,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/W in H)
 			H.dropItemToGround(W)
-		var/datum/job/clown/C = new /datum/job/clown()
+		var/datum/job/C = SSjob.GetJob(JOB_NAME_CLOWN)
 		C.equip(H)
-		qdel(C)
 		affected_targets.Add(H)
 
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
@@ -594,7 +588,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 					var/turf/T = Stuff
 					if((isspaceturf(T) || isfloorturf(T)) && NewTerrainFloors)
 						var/turf/open/O = T.ChangeTurf(NewTerrainFloors, flags = CHANGETURF_INHERIT_AIR)
-						if(prob(florachance) && NewFlora.len && !is_blocked_turf(O, TRUE))
+						if(prob(florachance) && NewFlora.len && !O.is_blocked_turf(TRUE))
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue
@@ -616,18 +610,18 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	observer_desc = "This crystal generates a projectile when activated."
 	activation_method = ACTIVATE_TOUCH
 	cooldown_add = 50
-	var/obj/item/projectile/generated_projectile = /obj/item/projectile/beam/emitter
+	var/obj/projectile/generated_projectile = /obj/projectile/beam/emitter
 
 /obj/machinery/anomalous_crystal/emitter/Initialize(mapload)
 	. = ..()
-	generated_projectile = pick(/obj/item/projectile/colossus)
+	generated_projectile = pick(/obj/projectile/colossus)
 
 	var/proj_name = initial(generated_projectile.name)
 	observer_desc = "This crystal generates \a [proj_name] when activated."
 
 /obj/machinery/anomalous_crystal/emitter/ActivationReaction(mob/user, method)
 	if(..())
-		var/obj/item/projectile/P = new generated_projectile(get_turf(src))
+		var/obj/projectile/P = new generated_projectile(get_turf(src))
 		P.setDir(dir)
 		switch(dir)
 			if(NORTH)
@@ -671,13 +665,9 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	activation_sound = 'sound/effects/ghost2.ogg'
 	var/ready_to_deploy = FALSE
 
-/obj/machinery/anomalous_crystal/helpers/Destroy()
-	GLOB.poi_list -= src
-	. = ..()
-
 /obj/machinery/anomalous_crystal/helpers/ActivationReaction(mob/user, method)
 	if(..() && !ready_to_deploy)
-		GLOB.poi_list |= src
+		AddElement(/datum/element/point_of_interest)
 		ready_to_deploy = TRUE
 		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href=?src=[REF(src)];ghostjoin=1>(Click to enter)</a>", ghost_sound = 'sound/effects/ghost2.ogg', source = src, action = NOTIFY_ATTACK, header = "Anomalous crystal activated")
 
@@ -765,7 +755,15 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	activation_method = ACTIVATE_TOUCH
 	cooldown_add = 50
 	activation_sound = 'sound/magic/timeparadox2.ogg'
-	var/static/list/banned_items_typecache = typecacheof(list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear, /obj/item/projectile, /obj/item/spellbook))
+	var/static/list/banned_items_typecache = typecacheof(list(
+		/obj/item/storage,
+		/obj/item/implant,
+		/obj/item/implanter,
+		/obj/item/disk/nuclear,
+		/obj/projectile,
+		/obj/item/spellbook,
+		/obj/item/dice/d20/fate
+	))
 
 /obj/machinery/anomalous_crystal/refresher/ActivationReaction(mob/user, method)
 	if(..())
@@ -798,7 +796,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 				mobcheck = TRUE
 				break
 			if(!mobcheck)
-				new /mob/living/simple_animal/cockroach(get_step(src,dir)) //Just in case there aren't any animals on the station, this will leave you with a terrible option to possess if you feel like it
+				new /mob/living/basic/cockroach(get_step(src,dir)) //Just in case there aren't any animals on the station, this will leave you with a terrible option to possess if you feel like it
 
 /obj/structure/closet/stasis
 	name = "quantum entanglement stasis warp field"
@@ -813,6 +811,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(holder_animal)
 		if(holder_animal.stat == DEAD)
 			dump_contents()
+			holder_animal.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
 			holder_animal.gib()
 			return
 
@@ -834,7 +833,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		holder_animal.mind.AddSpell(P)
 		holder_animal.remove_verb(/mob/living/verb/pulled)
 
-/obj/structure/closet/stasis/dump_contents(var/kill = 1)
+/obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
 		REMOVE_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
@@ -844,7 +843,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 			holder_animal.mind.transfer_to(L)
 			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/exit_possession)
 		if(kill || !isanimal(loc))
-			L.death(0)
+			L.investigate_log("has died from [src].", INVESTIGATE_DEATHS)
+			L.death(FALSE)
 	..()
 
 /obj/structure/closet/stasis/emp_act()
@@ -858,7 +858,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	desc = "Exits the body you are possessing."
 	charge_max = 60
 	clothes_req = 0
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	max_targets = 1
 	range = -1
 	include_user = TRUE

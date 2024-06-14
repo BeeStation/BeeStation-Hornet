@@ -48,8 +48,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/structure/bed/dogbed,
-/obj/item/bedsheet/random,
+/obj/structure/bed/double/maint,
+/obj/item/bedsheet/random/double,
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
@@ -105,8 +105,8 @@
 /area/template_noop)
 "y" = (
 /obj/item/storage/bag/trash{
-	pixel_y = -12;
-	pixel_x = 13
+	pixel_x = 13;
+	pixel_y = -12
 	},
 /obj/effect/decal/cleanable/food/tomato_smudge,
 /turf/open/floor/plating,
@@ -129,8 +129,8 @@
 	pixel_y = -2
 	},
 /obj/item/wirecutters{
-	pixel_y = -3;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = -3
 	},
 /obj/item/reagent_containers/syringe,
 /turf/open/floor/plating,
@@ -200,6 +200,10 @@
 /obj/effect/decal/cleanable/blood/innards,
 /turf/open/floor/plating,
 /area/template_noop)
+"T" = (
+/obj/structure/bed/dogbed,
+/turf/open/floor/plating,
+/area/template_noop)
 "U" = (
 /obj/item/trash/can/food,
 /obj/item/cigbutt,
@@ -266,7 +270,7 @@ L
 P
 "}
 (7,1,1) = {"
-N
+T
 d
 I
 F

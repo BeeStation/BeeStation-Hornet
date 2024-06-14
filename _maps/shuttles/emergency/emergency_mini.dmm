@@ -38,7 +38,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "h" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -47,7 +47,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "j" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -66,7 +66,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "m" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/machinery/light/small{
@@ -116,13 +116,13 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "x" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "y" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -137,7 +137,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "A" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/machinery/light{
@@ -182,7 +182,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "K" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -195,7 +195,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "M" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -225,7 +225,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "R" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "S" = (

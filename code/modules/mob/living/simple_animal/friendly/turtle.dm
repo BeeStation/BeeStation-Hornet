@@ -11,7 +11,7 @@
 	emote_see = list("Stretches out their neck.", "looks around slowly.")
 	speak_chance = 1
 	turns_per_move = 5
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 1, /obj/item/clothing/head/franks_hat = 1)
+	butcher_results = list(/obj/item/food/meat/slab = 1, /obj/item/clothing/head/franks_hat = 1)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
@@ -25,7 +25,7 @@
 	can_be_held = TRUE
 	chat_color = "#E7D26F"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 	var/turtle_hide_max = 25 //The time spent hiding in its shell
 	var/turtle_hide_dur = 25 //Same as above, this is the var that physically counts down
@@ -62,7 +62,7 @@
 	return ..()
 
 //Bullets
-/mob/living/simple_animal/turtle/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/turtle/bullet_act(obj/projectile/Proj)
 	if(!stat && !client)
 		if(icon_state == icon_hiding)
 			turtle_hide_dur = turtle_hide_max //Reset its hiding timer

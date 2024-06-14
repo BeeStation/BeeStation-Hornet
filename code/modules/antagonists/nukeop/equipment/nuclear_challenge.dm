@@ -1,7 +1,7 @@
 #define CHALLENGE_TELECRYSTALS 280
-#define CHALLENGE_TIME_LIMIT 3000
+#define CHALLENGE_TIME_LIMIT 5 MINUTES
 #define CHALLENGE_MIN_PLAYERS 50
-#define CHALLENGE_SHUTTLE_DELAY 15000 // 25 minutes, so the ops have at least 5 minutes before the shuttle is callable.
+#define CHALLENGE_SHUTTLE_DELAY 35 MINUTES	//35 minutes, giving nukies at least 20 minutes to enact their assault.
 
 /obj/item/nuclear_challenge
 	name = "Declaration of War (Challenge Mode)"
@@ -21,13 +21,13 @@
 		return
 
 	declaring_war = TRUE
-	var/are_you_sure = alert(user, "Consult your team carefully before you declare war on [station_name()]]. Are you sure you want to alert the enemy crew? You have [DisplayTimeText(world.time-SSticker.round_start_time - CHALLENGE_TIME_LIMIT)] to decide", "Declare war?", "Yes", "No")
+	var/are_you_sure = tgui_alert(user, "Consult your team carefully before you declare war on [station_name()]. Are you sure you want to alert the enemy crew? [check_pop()? "" : "You will not be provided with any additional equipment given the small size of the crew. "]You have [DisplayTimeText(CHALLENGE_TIME_LIMIT - world.time + SSticker.round_start_time)] to decide", "Declare war?", list("Yes", "No"))
 	declaring_war = FALSE
 
 	if(!check_allowed(user))
 		return
 
-	if(are_you_sure == "No")
+	if(are_you_sure != "Yes")
 		to_chat(user, "On second thought, the element of surprise isn't so bad after all.")
 		return
 
@@ -48,11 +48,16 @@
 	if(!check_allowed(user) || !war_declaration)
 		return
 
+	declare_war(user, war_declaration)
+
+/obj/item/nuclear_challenge/proc/declare_war(mob/user, war_declaration)
+	set_dynamic_high_impact_event("nuclear operatives have declared war")
 	priority_announce(war_declaration, "Declaration of War", 'sound/machines/alarm.ogg',  has_important_message = TRUE)
 
 	play_soundtrack_music(/datum/soundtrack_song/bee/future_perception)
 
-	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
+	if(user && check_pop())
+		to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
 
 	for(var/V in GLOB.syndicate_shuttle_boards)
 		var/obj/item/circuitboard/computer/syndicate_shuttle/board = V
@@ -73,38 +78,38 @@
 			continue
 		uplinks += uplink
 
+	CONFIG_SET(number/shuttle_refuel_delay, max(CONFIG_GET(number/shuttle_refuel_delay), CHALLENGE_SHUTTLE_DELAY))
+	SSblackbox.record_feedback("amount", "nuclear_challenge_mode", 1)
+
+	if(!check_pop())
+		qdel(src)
+		return
 
 	var/tc_to_distribute = CHALLENGE_TELECRYSTALS
 	var/tc_per_nukie = round(tc_to_distribute / (length(orphans)+length(uplinks)))
-
 	for (var/datum/component/uplink/uplink in uplinks)
 		uplink.telecrystals += tc_per_nukie
 		tc_to_distribute -= tc_per_nukie
 
+
 	for (var/mob/living/L in orphans)
-		var/TC = new /obj/item/stack/telecrystal(user.drop_location(), tc_per_nukie)
+		var/TC = new /obj/item/stack/sheet/telecrystal(L.drop_location(), tc_per_nukie)
 		to_chat(L, "<span class='warning'>Your uplink could not be found so your share of the team's bonus telecrystals has been bluespaced to your [L.put_in_hands(TC) ? "hands" : "feet"].</span>")
 		tc_to_distribute -= tc_per_nukie
 
 	if (tc_to_distribute > 0) // What shall we do with the remainder...
 		for (var/mob/living/simple_animal/hostile/carp/cayenne/C in GLOB.mob_living_list)
 			if (C.stat != DEAD)
-				var/obj/item/stack/telecrystal/TC = new(C.drop_location(), tc_to_distribute)
+				var/obj/item/stack/sheet/telecrystal/TC = new(C.drop_location(), tc_to_distribute)
 				TC.throw_at(get_step(C, C.dir), 3, 3)
 				C.visible_message("<span class='notice'>[C] coughs up a half-digested telecrystal</span>","<span class='usernotice'>You cough up a half-digested telecrystal!</span>")
 				break
-
-	CONFIG_SET(number/shuttle_refuel_delay, max(CONFIG_GET(number/shuttle_refuel_delay), CHALLENGE_SHUTTLE_DELAY))
-	SSblackbox.record_feedback("amount", "nuclear_challenge_mode", 1)
 
 	qdel(src)
 
 /obj/item/nuclear_challenge/proc/check_allowed(mob/living/user)
 	if(declaring_war)
 		to_chat(user, "You are already in the process of declaring war! Make your mind up.")
-		return FALSE
-	if(GLOB.player_list.len < CHALLENGE_MIN_PLAYERS)
-		to_chat(user, "The enemy crew is too small to be worth declaring war on.")
 		return FALSE
 	if(!user.onSyndieBase())
 		to_chat(user, "You have to be at your base to use this.")
@@ -117,6 +122,11 @@
 		if(board.moved)
 			to_chat(user, "The shuttle has already been moved! You have forfeit the right to declare war.")
 			return FALSE
+	return TRUE
+
+/obj/item/nuclear_challenge/proc/check_pop()
+	if(GLOB.player_list.len < CHALLENGE_MIN_PLAYERS)
+		return FALSE
 	return TRUE
 
 /obj/item/nuclear_challenge/clownops

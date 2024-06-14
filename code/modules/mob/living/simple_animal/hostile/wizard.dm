@@ -20,7 +20,7 @@
 	a_intent = INTENT_HARM
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
-	faction = list(ROLE_WIZARD)
+	faction = list(FACTION_WIZARD)
 	status_flags = CANPUSH
 
 	retreat_distance = 3 //out of fireball range
@@ -35,7 +35,7 @@
 
 	var/next_cast = 0
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	discovery_points = 3000
 
 /mob/living/simple_animal/hostile/wizard/Initialize(mapload)

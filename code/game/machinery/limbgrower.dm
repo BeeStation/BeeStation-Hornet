@@ -39,7 +39,7 @@
 
 /obj/machinery/limbgrower/ui_interact(mob/user)
 	. = ..()
-	if(!is_operational())
+	if(!is_operational)
 		return
 
 	var/dat = main_win(user)
@@ -84,7 +84,10 @@
 			screen = text2num(href_list["menu"])
 
 		if(href_list["category"])
-			selected_category = href_list["category"]
+			var/requested_category = href_list["category"]
+			if (!(requested_category in categories))
+				return
+			selected_category = requested_category
 
 		if(href_list["disposeI"])  //Get rid of a reagent incase you add the wrong one by mistake
 			reagents.del_reagent(text2path(href_list["disposeI"]))
@@ -106,7 +109,7 @@
 				use_power(power)
 				flick("limbgrower_fill",src)
 				icon_state = "limbgrower_idleon"
-				addtimer(CALLBACK(src, .proc/build_item),32*prod_coeff)
+				addtimer(CALLBACK(src, PROC_REF(build_item)),32*prod_coeff)
 
 	else
 		to_chat(usr, "<span class=\"alert\">The limb grower is busy. Please wait for completion of previous operation.</span>")
@@ -223,12 +226,10 @@
 		dat += "[D.reagents_list[/datum/reagent/medicine/synthflesh] * prod_coeff] Synthetic flesh "
 	return dat
 
-/obj/machinery/limbgrower/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/limbgrower/on_emag(mob/user)
+	..()
 	for(var/id in SSresearch.techweb_designs)
 		var/datum/design/D = SSresearch.techweb_design_by_id(id)
 		if((D.build_type & LIMBGROWER) && ("emagged" in D.category))
 			stored_research.add_design(D)
 	to_chat(user, "<span class='warning'>A warning flashes onto the screen, stating that safety overrides have been deactivated!</span>")
-	obj_flags |= EMAGGED

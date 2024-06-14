@@ -19,24 +19,30 @@
 
 /datum/symptom/blobspores/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 14)
+	if(A.resistance >= 14 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.resistance >= 8))
 		severity += 1
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Always:</b> There is a chance to spawn a factory blob, instead of a normal blob.<br> \
+					  <b>Always:</b> Spawns a strong blob instead of a normal blob \
+					  <b>Resistance 8:</b> Has a chance to spawn a blob node instead of a normal blob<br>"
 
 
 /datum/symptom/blobspores/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 11)
+	if(A.resistance >= 11 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		factory_blob = TRUE
-	if(A.resistance >= 8)
+	if(A.resistance >= 8 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		strong_blob = TRUE
-		if(A.resistance >= 14)
+		if(A.resistance >= 14 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.resistance >= 8))
 			node_blob = TRUE
 
 /datum/symptom/blobspores/Activate(datum/disease/advance/A)
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	switch(A.stage)
 		if(1)
 			if(prob(2))
@@ -68,7 +74,7 @@
 		return FALSE
 	var/mob/living/M = A.affected_mob
 	M.visible_message("<span class='danger'>[M] starts swelling grotesquely!</span>")
-	addtimer(CALLBACK(src, .proc/blob_the_mob, A, M), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(blob_the_mob), A, M), 10 SECONDS)
 
 /datum/symptom/blobspores/proc/blob_the_mob(datum/disease/advance/A, mob/living/M)
 	if(!A || !M)
@@ -83,10 +89,9 @@
 	var/pick_blob = pick(blob_options)
 	if(ready_to_pop)
 		for(var/i in 1 to rand(1, 6))
-			var/mob/living/simple_animal/hostile/blob/blobspore/B = new(M.loc)//Spores update their health on update_icon, we cant change their colour
-			for(var/datum/disease/D in B.disease)//don't let them farm diseases with this and monkeys
-				B.disease -= D
-			B.disease += A//instead, they contain the disease that was in this
+			var/mob/living/simple_animal/hostile/blob/blobspore/spore = new(M.loc)//Spores update their health on update_icon, we cant change their colour
+			spore.spore_diseases.Cut()
+			spore.spore_diseases += A//instead, they contain the disease that was in this
 		if(prob(A.resistance))
 			var/atom/blobbernaut = new /mob/living/simple_animal/hostile/blob/blobbernaut/(M.loc)
 			blobbernaut.add_atom_colour(pick(BLOB_STRAIN_COLOR_LIST), FIXED_COLOUR_PRIORITY)

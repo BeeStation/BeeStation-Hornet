@@ -2,6 +2,7 @@
 	return
 
 /mob/living/carbon/get_bodypart(zone)
+	RETURN_TYPE(/obj/item/bodypart)
 	if(!zone)
 		zone = BODY_ZONE_CHEST
 	for(var/obj/item/bodypart/L as() in bodyparts)
@@ -236,7 +237,7 @@
 	. = L
 
 
-/proc/skintone2hex(skin_tone)
+/proc/skintone2hex(skin_tone, include_tag = TRUE)
 	. = 0
 	switch(skin_tone)
 		if("caucasian1")
@@ -267,3 +268,5 @@
 			. = "ffc905"
 		if("pink")
 			. = "D7377D"
+	if(include_tag && .)
+		return "#" + .

@@ -8,17 +8,9 @@ export class DraggableClickableControl extends DraggableControl {
   constructor(props) {
     super(props);
 
-    this.handleDragEnd = e => {
-      const {
-        onChange,
-        onDrag,
-        onClick,
-      } = this.props;
-      const {
-        dragging,
-        value,
-        internalValue,
-      } = this.state;
+    this.handleDragEnd = (e) => {
+      const { onChange, onDrag, onClick } = this.props;
+      const { dragging, value, internalValue } = this.state;
       document.body.style['pointer-events'] = 'auto';
       clearTimeout(this.timer);
       clearInterval(this.dragInterval);
@@ -37,8 +29,7 @@ export class DraggableClickableControl extends DraggableControl {
         if (onDrag) {
           onDrag(e, value);
         }
-      }
-      else {
+      } else {
         onClick(e, value);
       }
     };

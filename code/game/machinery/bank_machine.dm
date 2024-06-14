@@ -1,7 +1,8 @@
 /obj/machinery/computer/bank_machine
 	name = "bank machine"
 	desc = "A machine used to deposit and withdraw station funds."
-	icon = 'goon/icons/obj/goon_terminals.dmi'
+	icon_screen = "vault"
+	icon_keyboard = "ratvar_key1"
 	idle_power_usage = 100
 	var/siphoning = FALSE
 	var/next_warning = 0
@@ -30,7 +31,7 @@
 		var/obj/item/holochip/H = I
 		value = H.credits
 	if(value)
-		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+		var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 		if(D)
 			D.adjust_money(value)
 			to_chat(user, "<span class='notice'>You deposit [I]. The Cargo Budget is now $[D.account_balance].</span>")
@@ -41,13 +42,13 @@
 /obj/machinery/computer/bank_machine/process(delta_time)
 	..()
 	if(siphoning)
-		if (stat & (BROKEN|NOPOWER))
+		if (machine_stat & (BROKEN|NOPOWER))
 			say("Insufficient power. Halting siphon.")
 			end_syphon()
 			ui_update()
 			return
 		var/siphon_am = 100 * delta_time
-		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+		var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 		if(!D.has_money(siphon_am))
 			say("Cargo budget depleted. Halting siphon.")
 			end_syphon()
@@ -75,7 +76,7 @@
 
 /obj/machinery/computer/bank_machine/ui_data(mob/user)
 	var/list/data = list()
-	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 
 	if(D)
 		data["current_balance"] = D.account_balance

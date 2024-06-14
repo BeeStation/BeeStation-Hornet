@@ -3,7 +3,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/pod_1)
 "G" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/machinery/status_display/evac{
@@ -19,10 +19,7 @@
 	name = "Escape Pod Airlock"
 	},
 /obj/docking_port/mobile/pod{
-	port_direction = 2;
-	dwidth = 1;
-	width = 3;
-	height = 4
+	port_direction = 2
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
@@ -31,7 +28,7 @@
 /turf/open/floor/plating,
 /area/shuttle/pod_1)
 "U" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/item/radio/intercom{

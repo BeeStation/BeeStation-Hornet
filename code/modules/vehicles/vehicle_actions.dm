@@ -92,12 +92,13 @@
 //ACTION DATUMS
 
 /datum/action/vehicle
-	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUN | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/mob/actions/actions_vehicle.dmi'
 	button_icon_state = "vehicle_eject"
 	var/obj/vehicle/vehicle_target
 
 /datum/action/vehicle/sealed
+	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
 	var/obj/vehicle/sealed/vehicle_entered_target
 
 /datum/action/vehicle/sealed/climb_out
@@ -206,12 +207,15 @@
 			return
 		var/mob/living/L = owner
 		var/turf/landing_turf = get_step(V.loc, V.dir)
-		L.adjustStaminaLoss(V.instability*2)
+		var/multiplier = 1
+		if(HAS_TRAIT(L, TRAIT_PROSKATER))
+			multiplier = 0.3 //70% reduction
+		L.adjustStaminaLoss(V.instability * multiplier * 2)
 		if (L.getStaminaLoss() >= 100)
 			playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
 			V.unbuckle_mob(L)
 			L.throw_at(landing_turf, 2, 2)
-			L.Paralyze(40)
+			L.Paralyze(multiplier * 40)
 			V.visible_message("<span class='danger'>[L] misses the landing and falls on [L.p_their()] face!</span>")
 		else
 			L.spin(4, 1)
@@ -226,5 +230,36 @@
 		if(locate(/obj/structure/table) in V.loc.contents)
 			V.grinding = TRUE
 			V.icon_state = "[V.board_icon]-grind"
-			addtimer(CALLBACK(V, /obj/vehicle/ridden/scooter/skateboard/.proc/grind), 2)
+			addtimer(CALLBACK(V, TYPE_PROC_REF(/obj/vehicle/ridden/scooter/skateboard, grind)), 2)
 		next_ollie = world.time + 5
+
+/datum/action/vehicle/ridden/scooter/skateboard/kflip
+	name = "Kick Flip"
+	desc = "Do a sweet kickflip to dismount... in style."
+	button_icon_state = "skateboard_ollie"
+
+/datum/action/vehicle/ridden/scooter/skateboard/kflip/Trigger()
+	var/obj/vehicle/ridden/scooter/skateboard/V = vehicle_target
+	var/mob/living/L = owner
+	var/multiplier = 1
+	if(HAS_TRAIT(L, TRAIT_PROSKATER))
+		multiplier = 0.3 //70% reduction
+	L.adjustStaminaLoss(V.instability * multiplier)
+	if (L.getStaminaLoss() >= 100)
+		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
+		V.unbuckle_mob(L)
+		L.Paralyze(50 * multiplier)
+		if(prob(15))
+			V.visible_message("<span class='userdanger'>You smack against the board, hard.</span>", "<span class='danger'>[L] misses the landing and falls on [L.p_their()] face!</span>")
+			L.emote("scream")
+			L.adjustBruteLoss(10)  // thats gonna leave a mark
+			return
+		V.visible_message("<span class='userdanger'>You fall flat onto the board!</span>", "<span class='danger'>[L] misses the landing and falls on [L.p_their()] face!</span>")
+	else
+		L.visible_message("<span class='notice'>[L] does a sick kickflip and catches [L.p_their()] board in midair.</span>", "<span class='notice'>You do a sick kickflip, catching the board in midair! Stylish.</span>")
+		playsound(V, 'sound/vehicles/skateboard_ollie.ogg', 50, TRUE)
+		L.spin(4, 1)
+		animate(L, pixel_y = -6, time = 4)
+		animate(V, pixel_y = -6, time = 3)
+		V.unbuckle_mob(L)
+		addtimer(CALLBACK(V, TYPE_PROC_REF(/obj/vehicle/ridden/scooter/skateboard, pick_up_board), L), 2)

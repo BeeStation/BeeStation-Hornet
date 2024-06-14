@@ -9,8 +9,8 @@
 		else
 			remove_enemy(L)
 	else if(ismecha(A))
-		var/obj/mecha/M = A
-		if(M.occupant)
+		var/obj/vehicle/sealed/mecha/M = A
+		if(LAZYLEN(M.occupants))
 			return A
 
 /mob/living/simple_animal/hostile/retaliate/ListTargets()
@@ -31,10 +31,10 @@
 				if(attack_same && H.attack_same)
 					H.add_enemies(enemies)
 		else if(ismecha(A))
-			var/obj/mecha/M = A
-			if(M.occupant)
+			var/obj/vehicle/sealed/mecha/M = A
+			if(LAZYLEN(M.occupants))
 				add_enemy(M)
-				add_enemy(M.occupant)
+				add_enemy(M.occupants)
 	return FALSE
 
 /mob/living/simple_animal/hostile/retaliate/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
@@ -43,12 +43,12 @@
 		Retaliate()
 
 /mob/living/simple_animal/hostile/retaliate/proc/add_enemy(new_enemy)
-	RegisterSignal(new_enemy, COMSIG_PARENT_QDELETING, .proc/remove_enemy, override = TRUE)
+	RegisterSignal(new_enemy, COMSIG_PARENT_QDELETING, PROC_REF(remove_enemy), override = TRUE)
 	enemies |= new_enemy
 
 /mob/living/simple_animal/hostile/retaliate/proc/add_enemies(new_enemies)
 	for(var/new_enemy in new_enemies)
-		RegisterSignal(new_enemy, COMSIG_PARENT_QDELETING, .proc/remove_enemy, override = TRUE)
+		RegisterSignal(new_enemy, COMSIG_PARENT_QDELETING, PROC_REF(remove_enemy), override = TRUE)
 		enemies |= new_enemy
 
 /mob/living/simple_animal/hostile/retaliate/proc/clear_enemies()
@@ -68,4 +68,4 @@
 		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	target = new_target
 	if(target) //we could also check here again if this is in the enemies list but override = TRUE might be the better idea here
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/remove_enemy, override = TRUE)
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(remove_enemy), override = TRUE)

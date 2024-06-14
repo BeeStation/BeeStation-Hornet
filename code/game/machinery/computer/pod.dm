@@ -17,7 +17,7 @@
 
 
 /obj/machinery/computer/pod/proc/alarm()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 
 	if(!connected)
@@ -120,6 +120,11 @@
 	icon_state = "oldcomp"
 	icon_screen = "library"
 	icon_keyboard = "no_keyboard"
+
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 
 /obj/machinery/computer/pod/old/syndicate
 	name = "\improper ProComp Executive IIc"

@@ -4,15 +4,18 @@
 	icon = 'icons/obj/clockwork_objects.dmi'
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi';
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
+	worn_icon_state = "baguette"
+	item_flags = ABSTRACT
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	block_level = 1	//God blocking is actual aids to deal with, I am sorry for putting this here
 	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
+	item_flags = ISWEAPON
 	throwforce = 20
 	throw_speed = 4
 	armour_penetration = 10
-	materials = list(/datum/material/iron=1150, /datum/material/gold=2750)
+	custom_materials = list(/datum/material/iron=1150, /datum/material/gold=2750)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharpness = IS_SHARP_ACCURATE
@@ -22,6 +25,8 @@
 
 /obj/item/clockwork/weapon/pickup(mob/user)
 	..()
+	if(!user.mind)
+		return
 	user.mind.RemoveSpell(SS)
 	if(is_servant_of_ratvar(user))
 		SS = new
@@ -67,7 +72,7 @@
 		var/mob/living/target = hit_atom
 		if(!.)
 			if(!target.anti_magic_check(magic=FALSE,holy=TRUE) && !is_servant_of_ratvar(target))
-				hit_effect(target, throwingdatum.thrower, TRUE)
+				hit_effect(target, throwingdatum?.thrower, TRUE)
 
 /obj/item/clockwork/weapon/proc/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
 	return
@@ -77,7 +82,7 @@
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	clockwork_desc = "A razor-sharp spear made of a magnetic brass allow. It accelerates towards targets while on Reebe dealing increased damage."
 	icon_state = "ratvarian_spear"
-	embedding = list("max_damage_mult" = 15, "armour_block" = 80)
+	embedding = list("max_damage_mult" = 7.5, "armour_block" = 80)
 	throwforce = 36
 	force = 25
 	armour_penetration = 24
@@ -88,6 +93,8 @@
 	desc = "A brass hammer glowing with energy."
 	clockwork_desc = "A brass hammer enfused with an ancient power allowing it to strike foes with incredible force."
 	icon_state = "ratvarian_hammer"
+	worn_icon = 'icons/mob/clothing/back.dmi'
+	worn_icon_state = "mining_hammer1"
 	throwforce = 25
 	armour_penetration = 6
 	sharpness = IS_BLUNT
@@ -109,6 +116,8 @@
 	desc = "A large sword made of brass."
 	clockwork_desc = "A large sword made of brass. It contains an aurora of energetic power designed to disrupt electronics."
 	icon_state = "ratvarian_sword"
+	worn_icon = 'icons/mob/clothing/back.dmi'
+	worn_icon_state = "claymore"
 	force = 26
 	throwforce = 20
 	armour_penetration = 12
@@ -123,27 +132,29 @@
 
 	target.emp_act(EMP_LIGHT)
 	new /obj/effect/temp_visual/emp/pulse(target.loc)
-	addtimer(CALLBACK(src, .proc/send_message, user), 30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(send_message), user), 30 SECONDS)
 	to_chat(user, "<span class='brass'>You strike [target] with an electromagnetic pulse!</span>")
 	playsound(user, 'sound/magic/lightningshock.ogg', 40)
 
 /obj/item/clockwork/weapon/brass_sword/attack_obj(obj/O, mob/living/user)
 	..()
-	if(!(istype(O, /obj/mecha) && is_reebe(user.z)))
+	if(!(istype(O, /obj/vehicle/sealed/mecha) && is_reebe(user.z)))
 		return
 	if(!COOLDOWN_FINISHED(src, emp_cooldown))
 		return
 	COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
 
-	var/obj/mecha/target = O
+	var/obj/vehicle/sealed/mecha/target = O
 	target.emp_act(EMP_HEAVY)
 	new /obj/effect/temp_visual/emp/pulse(target.loc)
-	addtimer(CALLBACK(src, .proc/send_message, user), 20 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(send_message), user), 20 SECONDS)
 	to_chat(user, "<span class='brass'>You strike [target] with an electromagnetic pulse!</span>")
 	playsound(user, 'sound/magic/lightningshock.ogg', 40)
 
 /obj/item/clockwork/weapon/brass_sword/proc/send_message(mob/living/target)
 	to_chat(target, "<span class='brass'>[src] glows, indicating the next attack will disrupt electronics of the target.</span>")
+
+//Clockbow, different pathing
 
 /obj/item/gun/ballistic/bow/clockwork
 	name = "Brass Bow"
@@ -155,7 +166,7 @@
 
 /obj/item/gun/ballistic/bow/clockwork/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/recharge_bolt), recharge_time)
+	addtimer(CALLBACK(src, PROC_REF(recharge_bolt)), recharge_time)
 
 /obj/item/gun/ballistic/bow/clockwork/attack_self(mob/living/user)
 	if (chambered)
@@ -163,7 +174,7 @@
 		to_chat(user, "<span class='notice'>You dispell the arrow.</span>")
 	else if (get_ammo())
 		var/obj/item/I = user.get_active_held_item()
-		if (do_mob(user,I,5))
+		if (do_after(user, 0.5 SECONDS, I))
 			to_chat(user, "<span class='notice'>You draw back the bowstring.</span>")
 			playsound(src, 'sound/weapons/bowdraw.ogg', 75, 0) //gets way too high pitched if the freq varies
 			chamber_round()
@@ -187,9 +198,9 @@
 	name = "energy bolt"
 	desc = "An arrow made from a strange energy."
 	icon_state = "arrow_redlight"
-	projectile_type = /obj/item/projectile/energy/clockbolt
+	projectile_type = /obj/projectile/energy/clockbolt
 
-/obj/item/projectile/energy/clockbolt
+/obj/projectile/energy/clockbolt
 	name = "energy bolt"
 	icon_state = "arrow_energy"
 	damage = 24

@@ -211,6 +211,15 @@
 /obj/effect/turf_decal/siding/red/end
 	icon_state = "siding_end"
 
+/obj/effect/turf_decal/siding/dark_red
+	color = "#B11111"
+
+/obj/effect/turf_decal/siding/dark_red/corner
+	icon_state = "siding_corner"
+
+/obj/effect/turf_decal/siding/dark_red/end
+	icon_state = "siding_end"
+
 /obj/effect/turf_decal/siding/green
 	color = "#9FED58"
 
@@ -220,6 +229,15 @@
 /obj/effect/turf_decal/siding/green/end
 	icon_state = "siding_end"
 
+/obj/effect/turf_decal/siding/dark_green
+	color = "#439C1E"
+
+/obj/effect/turf_decal/siding/dark_green/corner
+	icon_state = "siding_corner"
+
+/obj/effect/turf_decal/siding/dark_green/end
+	icon_state = "siding_end"
+
 /obj/effect/turf_decal/siding/blue
 	color = "#52B4E9"
 
@@ -227,6 +245,15 @@
 	icon_state = "siding_corner"
 
 /obj/effect/turf_decal/siding/blue/end
+	icon_state = "siding_end"
+
+/obj/effect/turf_decal/siding/dark_blue
+	color = "#486091"
+
+/obj/effect/turf_decal/siding/dark_blue/corner
+	icon_state = "siding_corner"
+
+/obj/effect/turf_decal/siding/dark_blue/end
 	icon_state = "siding_end"
 
 /obj/effect/turf_decal/siding/yellow
@@ -258,7 +285,7 @@
 
 /obj/effect/turf_decal/siding/wood
 	icon_state = "siding_wood_line"
-	color = "#55391A"
+	color = "#b16a4c"
 
 /obj/effect/turf_decal/siding/wood/corner
 	icon_state = "siding_wood_corner"
@@ -294,6 +321,15 @@
 
 /obj/effect/turf_decal/siding/thinplating/dark/end
 	icon_state = "siding_thinplating_end"
+
+/obj/effect/turf_decal/siding/dark
+	color = "#474747"
+
+/obj/effect/turf_decal/siding/dark/corner
+	icon_state = "siding_corner"
+
+/obj/effect/turf_decal/siding/dark/end
+	icon_state = "siding_end"
 
 /obj/effect/turf_decal/siding/thinplating/terracotta
 	icon_state = "siding_thinplating_line"
@@ -421,3 +457,30 @@
 
 /obj/effect/turf_decal/siding/wideplating_new/terracotta/end
 	icon_state = "siding_wideplating_new_end"
+
+/obj/effect/turf_decal/numbers
+	icon_state = "number_0-1"
+
+/obj/effect/turf_decal/numbers/two_nine
+	icon_state = "number_2-9"
+
+/obj/effect/turf_decal/techfloor
+	icon_state = "techfloor_edges"
+
+/obj/effect/turf_decal/techfloor/corners
+	icon_state = "techfloor_corners"
+
+/obj/effect/turf_decal/evac
+	icon_state = "evac"
+	
+/obj/effect/turf_decal/evac/evac_big
+	icon_state = "evac_big"
+	
+/obj/effect/turf_decal/evac/evac_massive_left
+	icon_state = "evac_massive_left"
+	
+/obj/effect/turf_decal/evac/evac_massive_middle
+	icon_state = "evac_massive_middle"
+	
+/obj/effect/turf_decal/evac/evac_massive_right
+	icon_state = "evac_massive_right"

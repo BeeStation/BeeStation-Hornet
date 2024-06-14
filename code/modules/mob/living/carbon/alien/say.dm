@@ -1,11 +1,14 @@
 /mob/living/proc/alien_talk(message, shown_name = real_name)
-	log_talk(message, LOG_SAY)
 	message = trim(message)
 	if(!message)
 		return
-
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	message = treat_message_min(message)
+	log_talk(message, LOG_SAY)
 	var/message_a = say_quote(message)
-	var/rendered = "<i><span class='alien'>Hivemind, <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span></i>"
+	var/rendered = "<i><span class='srt_radio alien'>Hivemind, <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span></i>"
 	for(var/mob/S in GLOB.player_list)
 		if(!S.stat && S.hivecheck())
 			to_chat(S, rendered)

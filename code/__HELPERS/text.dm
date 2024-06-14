@@ -62,9 +62,20 @@
 /proc/adminscrub(t,limit=MAX_MESSAGE_LEN)
 	return copytext((html_encode(strip_html_simple(t))),1,limit)
 
+//Modified proc from strip_html_simple, guts the inbetween of <>
+/proc/strip_html_tags(t,limit=100)
+	var/index_one = findtext_char(t, "<")
+	var/index_two
+	while(index_one)
+		index_two = findtext_char(t, ">")
+		if(index_one >= index_two)
+			break
+		t = splicetext_char(t, index_one, index_two + 1, "") // I hope this + 1 works?
+		index_one = findtext_char(t, "<")
+	return t
 
 //Returns null if there is any bad text in the string
-/proc/reject_bad_text(text, max_length = 512, ascii_only = TRUE)
+/proc/reject_bad_text(text, max_length = 512, ascii_only = TRUE, alphanumeric_only = FALSE, underscore_allowed = TRUE)
 	var/char_count = 0
 	var/non_whitespace = FALSE
 	var/lenbytes = length(text)
@@ -79,13 +90,51 @@
 				return
 			if(0 to 31)
 				return
-			if(32)
-				continue
+			if(32 to 47)
+				if(alphanumeric_only)
+					return
+				else
+					non_whitespace = TRUE
+					continue
+			if(58 to 64)
+				if(alphanumeric_only)
+					return
+				else
+					non_whitespace = TRUE
+					continue
+			if(91 to 94)
+				if(alphanumeric_only)
+					return
+				else
+					non_whitespace = TRUE
+					continue
+			if(95)
+				if(underscore_allowed)
+					non_whitespace = TRUE
+					continue
+				else if(alphanumeric_only)
+					return
+				else
+					non_whitespace = TRUE
+					continue
+			if(96)
+				if(alphanumeric_only)
+					return
+				else
+					non_whitespace = TRUE
+					continue
+			if(123 to 126)
+				if(alphanumeric_only)
+					return
+				else
+					non_whitespace = TRUE
+					continue
 			if(127 to INFINITY)
 				if(ascii_only)
 					return
 			else
 				non_whitespace = TRUE
+
 	if(non_whitespace)
 		return text		//only accepts the text if it has some non-spaces
 
@@ -107,21 +156,73 @@
 		return trim(name, max_length)
 
 /// Used to get a properly sanitized (html encoded) input, of max_length. no_trim is self explanatory but it prevents the input from being trimed if you intend to parse newlines or whitespace.
-/proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
+/proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE, strip_method=BYOND_ENCODE)
 	var/name = input(user, message, title, default) as text|null
 
+	switch(strip_method)
+		if(BYOND_ENCODE)
+			name = html_encode(name)
+		if(STRIP_HTML)
+			name = strip_html(name)
+		if(STRIP_HTML_SIMPLE)
+			name = strip_html_simple(name)
+		if(SANITIZE)
+			name = sanitize(name)
+		if(SANITIZE_SIMPLE)
+			name = sanitize_simple(name)
+		if(ADMIN_SCRUB)
+			name = adminscrub(name)
+
 	if(no_trim)
-		return copytext(html_encode(name), 1, max_length)
+		return copytext(name, 1, max_length)
 	else
-		return trim(html_encode(name), max_length) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
+		return trim(name, max_length) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
 
 /// Used to get a properly sanitized (html encoded) multiline input, of max_length
-/proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
+/proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE, strip_method=BYOND_ENCODE)
 	var/name = input(user, message, title, default) as message|null
+
+	switch(strip_method)
+		if(BYOND_ENCODE)
+			name = html_encode(name)
+		if(STRIP_HTML)
+			name = strip_html(name)
+		if(STRIP_HTML_SIMPLE)
+			name = strip_html_simple(name)
+		if(SANITIZE)
+			name = sanitize(name)
+		if(SANITIZE_SIMPLE)
+			name = sanitize_simple(name)
+		if(ADMIN_SCRUB)
+			name = adminscrub(name)
+
 	if(no_trim)
-		return copytext(html_encode(name), 1, max_length)
+		return copytext(name, 1, max_length)
 	else
-		return trim(html_encode(name), max_length)
+		return trim(name, max_length)
+
+/// returns a text after replacing wiki square brackets blacket in a given text into clickable wiki hyperlink
+/proc/encode_wiki_link(text_value)
+	// replaces [[ ]] into wiki link format
+	// "you need to [[guide_to_chemisty read this guide]] please."" will become
+	// "you need to <a href='wiki://guide_to_chemisty'>read this guide</a> please."
+	var/opencut = findtext(text_value, "\[\[")
+	while(opencut)
+		var/list/stacker = list()
+		stacker += copytext(text_value, 1, opencut)       // >> "you need to
+		text_value = splicetext(text_value, 1, opencut+1) // >> [[guide_to_chemisty read this guide]] please."
+		var/spacecut = findtext(text_value, " ")
+		var/closecut = findtext(text_value, "\]\]")
+
+		// if `spacecut > closecut`, it's [[wikipage]]. if not, it's [[wikipage something long text]]
+		var/text_url = spacecut > closecut || !spacecut ? copytext(text_value, 2, closecut) : copytext(text_value, 2, spacecut) // "guide_to_chemisty"
+		var/text_clicker = replacetext(spacecut > closecut || !spacecut ? text_url : copytext(text_value, spacecut+1, closecut), "_", " ") // "read this guide"
+		stacker += OPEN_WIKI(text_url, text_clicker)  // replace [[ ]] wapper in text_value to hyperlink
+		stacker += copytext(text_value, closecut+2)       // >> please."
+
+		text_value = jointext(stacker, "")    // result >> "you need to <a>read this guys</a> please."
+		opencut = findtext(text_value, "\[\[")
+	return text_value
 
 #define NO_CHARS_DETECTED 0
 #define SPACES_DETECTED 1
@@ -264,11 +365,52 @@
 			return copytext(text, 1, i + 1)
 	return ""
 
+/// Returns a string with reserved characters and spaces after the first and last letters removed
+/// Like trim(), but very slightly faster. worth it for niche usecases
+/proc/trim_reduced(text)
+	var/starting_coord = 1
+	var/text_len = length(text)
+	for (var/i in 1 to text_len)
+		if (text2ascii(text, i) > 32)
+			starting_coord = i
+			break
+
+	for (var/i = text_len, i >= starting_coord, i--)
+		if (text2ascii(text, i) > 32)
+			return copytext(text, starting_coord, i + 1)
+
+	if(starting_coord > 1)
+		return copytext(text, starting_coord)
+	return ""
+
+/**
+ * Truncate a string to the given length
+ *
+ * Will only truncate if the string is larger than the length and *ignores unicode concerns*
+ *
+ * This exists soley because trim does other stuff too.
+ *
+ * Arguments:
+ * * text - String
+ * * max_length - integer length to truncate at
+ */
+/proc/truncate(text, max_length)
+	if(length(text) > max_length)
+		return copytext(text, 1, max_length)
+	return text
+
 /// Returns a string with reserved characters and spaces before the first word and after the last word removed.
 /proc/trim(text, max_length)
 	if(max_length)
 		text = copytext_char(text, 1, max_length)
-	return trim_left(trim_right(text))
+	return trim_reduced(text)
+
+/// Returns a string with proper punctuation if there is none.
+/proc/punctuate(message)
+	var/end = copytext(message, length(message))
+	if(!(end in list("!", ".", "?", ":", "\"", "-", "~")))
+		message += "."
+	return message
 
 /// Returns a string with the first element of the string capitalized.
 /proc/capitalize(t)
@@ -331,13 +473,13 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 /// Returns a random string of `length` length and made up of chars from `characters`
 /proc/random_string(length, list/characters)
 	. = ""
-	for(var/i=1, i<=length, i++)
+	for(var/i in 1 to length)
 		. += pick(characters)
 
 /// Returns `string` repeated `times` times
 /proc/repeat_string(times, string="")
 	. = ""
-	for(var/i=1, i<=times, i++)
+	for(var/i in 1 to times)
 		. += string
 
 /// Returns a random hex color 3 digits long
@@ -441,7 +583,7 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 		var/tlistlen = tlist.len
 		var/listlevel = -1
 		var/singlespace = -1 // if 0, double spaces are used before asterisks, if 1, single are
-		for(var/i = 1, i <= tlistlen, i++)
+		for(var/i in 1 to tlistlen)
 			var/line = tlist[i]
 			var/count_asterisk = length(replacetext(line, regex("\[^\\*\]+", "g"), ""))
 			if(count_asterisk % 2 == 1 && findtext(line, regex("^\\s*\\*", "g"))) // there is an extra asterisk in the beggining
@@ -474,7 +616,7 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 		// end for
 
 		t = tlist[1]
-		for(var/i = 2, i <= tlistlen, i++)
+		for(var/i in 2 to tlistlen)
 			t += "\n" + tlist[i]
 
 		while(listlevel >= 0)
@@ -544,7 +686,7 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 
 	t = parsemarkdown_basic_step1(t)
 
-	t = replacetext(t, regex("%s(?:ign)?(?=\\s|$)", "igm"), user ? "<font face=\"[SIGNFONT]\"><i>[user.real_name]</i></font>" : "<span class=\"paper_field\"></span>")
+	t = replacetext(t, regex("%s(?:ign)?(?=\\s|$)", "igm"), user ? "<font face=\"[SIGNATURE_FONT]\"><i>[user.real_name]</i></font>" : "<span class=\"paper_field\"></span>")
 	t = replacetext(t, regex("%f(?:ield)?(?=\\s|$)", "igm"), "<span class=\"paper_field\"></span>")
 
 	t = parsemarkdown_basic_step2(t)
@@ -615,7 +757,7 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 		var/punctbuffer = ""
 		var/cutoff = 0
 		lentext = length_char(buffer)
-		for(var/pos = 1, pos <= lentext, pos++)
+		for(var/pos in 1 to lentext)
 			let = copytext_char(buffer, -pos, -pos + 1)
 			if(!findtext(let, GLOB.is_punctuation)) //This won't handle things like Nyaaaa!~ but that's fine
 				break
@@ -671,7 +813,7 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 
 	var/list/finalized = list()
 	finalized = accepted.Copy() + oldentries.Copy() //we keep old and unreferenced phrases near the bottom for culling
-	listclearnulls(finalized)
+	list_clear_nulls(finalized)
 	if(length(finalized) && (length(finalized) > storemax))
 		finalized.Cut(storemax + 1)
 	fdel(log)
@@ -703,34 +845,37 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 	switch(macro)
 		//prefixes/agnostic
 		if("the")
-			rest = text("\the []", rest)
+			rest = "\the [rest]"
 		if("a")
-			rest = text("\a []", rest)
+			rest = "\a [rest]"
 		if("an")
-			rest = text("\an []", rest)
+			rest = "\an [rest]"
 		if("proper")
-			rest = text("\proper []", rest)
+			rest = "\proper [rest]"
 		if("improper")
-			rest = text("\improper []", rest)
+			rest = "\improper [rest]"
 		if("roman")
-			rest = text("\roman []", rest)
+			rest = "\roman [rest]"
 		//postfixes
 		if("th")
-			base = text("[]\th", rest)
+			base = "[rest]\th"
 		if("s")
-			base = text("[]\s", rest)
+			base = "[rest]\s"
 		if("he")
-			base = text("[]\he", rest)
+			base = "[rest]\he"
 		if("she")
-			base = text("[]\she", rest)
+			base = "[rest]\she"
 		if("his")
-			base = text("[]\his", rest)
+			base = "[rest]\his"
 		if("himself")
-			base = text("[]\himself", rest)
+			base = "[rest]\himself"
 		if("herself")
-			base = text("[]\herself", rest)
+			base = "[rest]\herself"
 		if("hers")
-			base = text("[]\hers", rest)
+			base = "[rest]\hers"
+		else // Someone fucked up, if you're not a macro just go home yeah?
+			// This does technically break parsing, but at least it's better then what it used to do
+			return base
 
 	. = base
 	if(rest)
@@ -842,3 +987,149 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 	for (var/i in 1 to numSquares)
 		loadstring += i <= limit ? "█" : "░"
 	return "\[[loadstring]\]"
+
+/**
+  * Formats a number to human readable form with the appropriate SI unit.
+  *
+  * Supports SI exponents between 1e-15 to 1e15, but properly handles numbers outside that range as well.
+  * Examples:
+  * * `siunit(1234, "Pa", 1)` -> `"1.2 kPa"`
+  * * `siunit(0.5345, "A", 0)` -> `"535 mA"`
+  * * `siunit(1000, "Pa", 4)` -> `"1 kPa"`
+  * Arguments:
+  * * value - The number to convert to text. Can be positive or negative.
+  * * unit - The base unit of the number, such as "Pa" or "W".
+  * * maxdecimals - Maximum amount of decimals to display for the final number. Defaults to 1.
+  * *
+  * * For pressure conversion, use proc/siunit_pressure() below
+  */
+/proc/siunit(value, unit, maxdecimals=1)
+	var/static/list/prefixes = list("f","p","n","μ","m","","k","M","G","T","P")
+
+	// We don't have prefixes beyond this point
+	// and this also captures value = 0 which you can't compute the logarithm for
+	// and also byond numbers are floats and doesn't have much precision beyond this point anyway
+	if(abs(value) <= 1e-18)
+		return "0 [unit]"
+
+	var/exponent = clamp(log(10, abs(value)), -15, 15) // Calculate the exponent and clamp it so we don't go outside the prefix list bounds
+	var/divider = 10 ** (round(exponent / 3) * 3) // Rounds the exponent to nearest SI unit and power it back to the full form
+	var/coefficient = round(value / divider, 10 ** -maxdecimals) // Calculate the coefficient and round it to desired decimals
+	var/prefix_index = round(exponent / 3) + 6 // Calculate the index in the prefixes list for this exponent
+
+	// An edge case which happens if we round 999.9 to 0 decimals for example, which gets rounded to 1000
+	// In that case, we manually swap up to the next prefix if there is one available
+	if(coefficient >= 1000 && prefix_index < 11)
+		coefficient /= 1e3
+		prefix_index++
+
+	var/prefix = prefixes[prefix_index]
+	return "[coefficient] [prefix][unit]"
+
+/** The game code never uses Pa, but kPa, since 1 Pa is too small to reasonably handle
+  * Thus, to ensure correct conversion from any kPa in game code, this value needs to be multiplied by 10e3 to get Pa, which the siunit() proc expects
+  * Args:
+  * * value_in_kpa - Value that should be converted to readable text in kPa
+  * * maxdecimals - maximum number of decimals that are displayed, defaults to 1 in proc/siunit()
+ */
+/proc/siunit_pressure(value_in_kpa, maxdecimals)
+	var/pressure_adj = value_in_kpa * 1000 //to adjust for using kPa instead of Pa
+	return siunit(pressure_adj, "Pa", maxdecimals)
+
+///Properly format a string of text by using replacetext()
+/proc/format_text(text)
+	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
+
+///Returns a string based on the weight class define used as argument
+/proc/weight_class_to_text(var/w_class)
+	switch(w_class)
+		if(WEIGHT_CLASS_TINY)
+			. = "tiny"
+		if(WEIGHT_CLASS_SMALL)
+			. = "small"
+		if(WEIGHT_CLASS_NORMAL)
+			. = "normal-sized"
+		if(WEIGHT_CLASS_LARGE)
+			. = "large"
+		if(WEIGHT_CLASS_BULKY)
+			. = "bulky"
+		if(WEIGHT_CLASS_HUGE)
+			. = "huge"
+		if(WEIGHT_CLASS_GIGANTIC)
+			. = "gigantic"
+		else
+			. = ""
+
+/atom/proc/get_boozepower_text(booze_power, mob/living/L)
+	if(isnull(booze_power))
+		return
+
+	if(HAS_TRAIT(L, TRAIT_SOMMELIER)) // A trained sommelier will have different identifying flavour
+		// because of float values, you need to write like `0 to 10`, `10 to 20`
+		switch(booze_power)
+			if(-INFINITY to 1)
+				. = "For children"
+			if(300 to INFINITY)
+				. = pick("Shift wrecking hammering",
+						"Get new liver after consumption",
+						"Post-consumption support groups exist",
+						"Place in Molotov instead",
+						"To stumble and slur, the will of Bacchus")
+			if(100 to 100)
+				. = "For a real man"
+			// these values must be detected first.
+
+			if(100 to 300)
+				. = "Cheated the blessing"
+			if(90 to 100)
+				. = "Get to drunk tank"
+			if(80 to 90)
+				. = "Liver pickler"
+			if(70 to 80)
+				. = "Drunkard's Challenge"
+			if(60 to 70)
+				. = "Have Shotgun ready"
+			if(50 to 60)
+				. = "3 rounds till down"
+			if(40 to 50)
+				. = "Drunkard's fixers"
+			if(30 to 40)
+				. = "Stick arounds"
+			if(20 to 30)
+				. = "Flask fillers"
+			if(10 to 20)
+				. = "Tipsy stuff"
+			if(1 to 10)
+				. = "Lightweight's dream"
+	else
+		switch(booze_power)
+			if(-INFINITY to 1)
+				. = "Safe for work"
+			if(300 to INFINITY)
+				. = "Lethal"
+			if(100 to 300)
+				. = "Deadly"
+			if(90 to 100)
+				. = "Dangerous"
+			if(80 to 90)
+				. = "Extreme"
+			if(70 to 80)
+				. = "Challenging"
+			if(60 to 70)
+				. = "Stronger"
+			if(50 to 60)
+				. = "Strong"
+			if(40 to 50)
+				. = "Average"
+			if(30 to 40)
+				. = "Less than average"
+			if(20 to 30)
+				. = "Light"
+			if(10 to 20)
+				. = "Mild"
+			if(1 to 10)
+				. = "Delightfully mild"
+
+	if(!.)
+		. = "not measurable. Ask the space god for what's wrong with this drink."
+		CRASH("not valid booze power value is detected: [booze_power]")

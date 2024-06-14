@@ -43,7 +43,8 @@
 	var/search_objects_timer_id //Timer for regaining our old search_objects value after being attacked
 	var/search_objects_regain_time = 30 //the delay between being attacked and gaining our old search_objects value back
 	var/list/wanted_objects = list() //A typecache of objects types that will be checked against to attack, should we have search_objects enabled
-	var/stat_attack = CONSCIOUS //Mobs with stat_attack to UNCONSCIOUS will attempt to attack things that are unconscious, Mobs with stat_attack set to DEAD will attempt to attack the dead.
+	///Mobs ignore mob/living targets with a stat lower than that of stat_attack. If set to DEAD, then they'll include corpses in their targets, if to HARD_CRIT they'll keep attacking until they kill, and so on.
+	var/stat_attack = CONSCIOUS
 	var/stat_exclusive = FALSE //Mobs with this set to TRUE will exclusively attack things defined by stat_attack, stat_attack DEAD means they will only attack corpses
 	var/attack_same = 0 //Set us to 1 to allow us to attack our own faction
 	//Use GET_TARGETS_FROM(mob) to access this
@@ -89,7 +90,7 @@
 /mob/living/simple_animal/hostile/handle_automated_movement()
 	. = ..()
 	if(dodging && target && in_melee && isturf(loc) && isturf(target.loc))
-		var/datum/cb = CALLBACK(src,.proc/sidestep)
+		var/datum/cb = CALLBACK(src,PROC_REF(sidestep))
 		if(sidestep_per_cycle > 1) //For more than one just spread them equally - this could changed to some sensible distribution later
 			var/sidestep_delay = SSnpcpool.wait / sidestep_per_cycle
 			for(var/i in 1 to sidestep_per_cycle)
@@ -119,7 +120,7 @@
 		FindTarget(list(user), 1)
 	return ..()
 
-/mob/living/simple_animal/hostile/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/bullet_act(obj/projectile/P)
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client)
 		if(P.firer && get_dist(src, P.firer) <= aggro_vision_range)
 			FindTarget(list(P.firer), 1)
@@ -131,7 +132,7 @@
 /mob/living/simple_animal/hostile/proc/ListTargets() //Step 1, find out what we can see
 	var/atom/target_from = GET_TARGETS_FROM(src)
 	if(!search_objects)
-		var/static/target_list = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha)) //mobs are handled via ismob(A)
+		var/static/target_list = typecacheof(list(/obj/machinery/porta_turret, /obj/vehicle/sealed/mecha)) //mobs are handled via ismob(A)
 		. = list()
 		for(var/atom/A as() in dview(vision_range, get_turf(target_from), SEE_INVISIBLE_MINIMUM))
 			if((ismob(A) && A != src) || target_list[A.type])
@@ -218,9 +219,9 @@
 			return TRUE
 
 		if(ismecha(the_target))
-			var/obj/mecha/M = the_target
-			if(M.occupant)//Just so we don't attack empty mechs
-				if(CanAttack(M.occupant))
+			var/obj/vehicle/sealed/mecha/M = the_target
+			for(var/occupant in M.occupants)
+				if(CanAttack(occupant))
 					return TRUE
 
 		if(istype(the_target, /obj/machinery/porta_turret))
@@ -229,7 +230,7 @@
 				return FALSE
 			if(P.has_cover &&!P.raised) //Don't attack invincible turrets
 				return FALSE
-			if(P.stat & BROKEN) //Or turrets that are already broken
+			if(P.machine_stat & BROKEN) //Or turrets that are already broken
 				return FALSE
 			return TRUE
 
@@ -250,7 +251,7 @@
 //What we do after closing in
 /mob/living/simple_animal/hostile/proc/MeleeAction(patience = TRUE)
 	if(rapid_melee > 1)
-		var/datum/callback/cb = CALLBACK(src, .proc/CheckAndAttack)
+		var/datum/callback/cb = CALLBACK(src, PROC_REF(CheckAndAttack))
 		var/delay = SSnpcpool.wait / rapid_melee
 		for(var/i in 1 to rapid_melee)
 			addtimer(cb, (i - 1)*delay)
@@ -333,14 +334,16 @@
 
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
-	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
+	if(SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
+		return FALSE
 	in_melee = TRUE
+	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target)
 	return target.attack_animal(src)
 
 /mob/living/simple_animal/hostile/proc/Aggro()
 	vision_range = aggro_vision_range
 	if(target && emote_taunt.len && prob(taunt_chance))
-		INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "[pick(emote_taunt)] at [target].")
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "[pick(emote_taunt)] at [target].")
 		taunt_chance = max(taunt_chance-7,2)
 
 
@@ -391,7 +394,7 @@
 
 
 	if(rapid > 1)
-		var/datum/callback/cb = CALLBACK(src, .proc/Shoot, A)
+		var/datum/callback/cb = CALLBACK(src, PROC_REF(Shoot), A)
 		for(var/i in 1 to rapid)
 			addtimer(cb, (i - 1)*rapid_fire_delay)
 	else
@@ -409,7 +412,7 @@
 		playsound(src, projectilesound, 100, 1)
 		casing.fire_casing(targeted_atom, src, null, null, null, ran_zone(), 0, 1,  src)
 	else if(projectiletype)
-		var/obj/item/projectile/P = new projectiletype(startloc)
+		var/obj/projectile/P = new projectiletype(startloc)
 		playsound(src, projectilesound, 100, 1)
 		P.starting = startloc
 		P.firer = src
@@ -504,8 +507,7 @@
 	if(ranged && ranged_cooldown <= world.time)
 		GiveTarget(A)
 		OpenFire(A)
-	..()
-
+	return ..()
 
 
 ////// AI Status ///////
@@ -529,7 +531,7 @@
 /mob/living/simple_animal/hostile/proc/GainPatience()
 	if(lose_patience_timeout)
 		LosePatience()
-		lose_patience_timer_id = addtimer(CALLBACK(src, .proc/LoseTarget), lose_patience_timeout, TIMER_STOPPABLE)
+		lose_patience_timer_id = addtimer(CALLBACK(src, PROC_REF(LoseTarget)), lose_patience_timeout, TIMER_STOPPABLE)
 
 
 /mob/living/simple_animal/hostile/proc/LosePatience()
@@ -540,7 +542,7 @@
 /mob/living/simple_animal/hostile/proc/LoseSearchObjects()
 	search_objects = 0
 	deltimer(search_objects_timer_id)
-	search_objects_timer_id = addtimer(CALLBACK(src, .proc/RegainSearchObjects), search_objects_regain_time, TIMER_STOPPABLE)
+	search_objects_timer_id = addtimer(CALLBACK(src, PROC_REF(RegainSearchObjects)), search_objects_regain_time, TIMER_STOPPABLE)
 
 
 /mob/living/simple_animal/hostile/proc/RegainSearchObjects(value)
@@ -572,7 +574,7 @@
 		toggle_ai(AI_ON)
 
 /mob/living/simple_animal/hostile/proc/ListTargetsLazy(var/_Z)//Step 1, find out what we can see
-	var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha))
+	var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/vehicle/sealed/mecha))
 	. = list()
 	for (var/I in SSmobs.clients_by_zlevel[_Z])
 		var/mob/M = I
@@ -601,4 +603,4 @@
 		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	target = new_target
 	if(target)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/handle_target_del)
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target_del))

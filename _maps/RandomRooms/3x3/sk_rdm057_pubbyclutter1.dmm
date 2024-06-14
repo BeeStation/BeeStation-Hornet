@@ -12,11 +12,12 @@
 "c" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "d" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
 	dir = 1
 	},
 /turf/open/floor/plating,

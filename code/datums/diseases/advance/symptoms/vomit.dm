@@ -3,7 +3,7 @@
 
 Vomiting
 
-	Very Very Noticable.
+	Very very noticeable.
 	Decreases resistance.
 	Doesn't increase stage speed.
 	Little transmissibility.
@@ -55,6 +55,8 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	switch(A.stage)
 		if(1, 2, 3, 4)
 			if(prob(base_message_chance) && !suppress_warning)

@@ -8,11 +8,11 @@
 	color            = LIGHTING_BASE_MATRIX
 	plane            = LIGHTING_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	layer            = LIGHTING_LAYER
 	invisibility     = INVISIBILITY_LIGHTING
 
 	var/needs_update = FALSE
 	var/turf/myturf
+	var/mutable_appearance/additive_underlay
 
 /atom/movable/lighting_object/Initialize(mapload)
 	. = ..()
@@ -23,24 +23,23 @@
 	if (myturf.lighting_object)
 		qdel(myturf.lighting_object, force = TRUE)
 	myturf.lighting_object = src
-	myturf.luminosity = 0
 
-	for(var/turf/open/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-		S.update_starlight()
+	additive_underlay = mutable_appearance(LIGHTING_ICON, "light", FLOAT_LAYER, LIGHTING_PLANE_ADDITIVE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM)
+	additive_underlay.blend_mode = BLEND_ADD
 
 	needs_update = TRUE
-	GLOB.lighting_update_objects += src
+	SSlighting.objects_queue += src
 
 /atom/movable/lighting_object/Destroy(var/force)
 	if (force)
-		GLOB.lighting_update_objects     -= src
+		SSlighting.objects_queue -= src
 		if (loc != myturf)
 			var/turf/oldturf = get_turf(myturf)
 			var/turf/newturf = get_turf(loc)
 			stack_trace("A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
 		if (isturf(myturf))
 			myturf.lighting_object = null
-			myturf.luminosity = 1
+			myturf.underlays -= additive_underlay
 		myturf = null
 
 		return ..()
@@ -69,18 +68,12 @@
 	// See LIGHTING_CORNER_DIAGONAL in lighting_corner.dm for why these values are what they are.
 	var/static/datum/lighting_corner/dummy/dummy_lighting_corner = new
 
-	var/list/corners = myturf.corners
-	var/datum/lighting_corner/cr = dummy_lighting_corner
-	var/datum/lighting_corner/cg = dummy_lighting_corner
-	var/datum/lighting_corner/cb = dummy_lighting_corner
-	var/datum/lighting_corner/ca = dummy_lighting_corner
-	if (corners) //done this way for speed
-		cr = corners[3] || dummy_lighting_corner
-		cg = corners[2] || dummy_lighting_corner
-		cb = corners[4] || dummy_lighting_corner
-		ca = corners[1] || dummy_lighting_corner
+	var/datum/lighting_corner/cr = myturf.lighting_corner_SW || dummy_lighting_corner
+	var/datum/lighting_corner/cg = myturf.lighting_corner_SE || dummy_lighting_corner
+	var/datum/lighting_corner/cb = myturf.lighting_corner_NW || dummy_lighting_corner
+	var/datum/lighting_corner/ca = myturf.lighting_corner_NE || dummy_lighting_corner
 
-	var/max = max(cr.cache_mx, cg.cache_mx, cb.cache_mx, ca.cache_mx)
+	var/max = max(cr.largest_color_luminosity, cg.largest_color_luminosity, cb.largest_color_luminosity, ca.largest_color_luminosity)
 
 	var/rr = cr.cache_r
 	var/rg = cr.cache_g
@@ -123,9 +116,50 @@
 			00, 00, 00, 01
 		)
 
+	if(cr.applying_additive || cg.applying_additive || cb.applying_additive || ca.applying_additive)
+		myturf.underlays -= additive_underlay
+		additive_underlay.icon_state = "light"
+		var/arr = cr.add_r
+		var/arb = cr.add_b
+		var/arg = cr.add_g
+
+		var/agr = cg.add_r
+		var/agb = cg.add_b
+		var/agg = cg.add_g
+
+		var/abr = cb.add_r
+		var/abb = cb.add_b
+		var/abg = cb.add_g
+
+		var/aarr = ca.add_r
+		var/aarb = ca.add_b
+		var/aarg = ca.add_g
+
+		additive_underlay.color = list(
+			arr, arg, arb, 00,
+			agr, agg, agb, 00,
+			abr, abg, abb, 00,
+			aarr, aarg, aarb, 00,
+			00, 00, 00, 01
+		)
+		myturf.underlays += additive_underlay
+	else
+		myturf.underlays -= additive_underlay
+
+	// Use luminosity directly because we are the lighting object
+	// and not the turf
 	luminosity = set_luminosity
 
+	if (myturf.above)
+		if(myturf.above.shadower)
+			myturf.above.shadower.copy_lighting(src, myturf.loc)
+		else
+			myturf.above.update_mimic()
+
 // Variety of overrides so the overlays don't get affected by weird things.
+
+/atom/movable/lighting_object/update_luminosity()
+	return
 
 /atom/movable/lighting_object/ex_act(severity)
 	return 0
@@ -140,6 +174,10 @@
 	return
 
 /atom/movable/lighting_object/onTransitZ()
+	return
+
+/atom/movable/lighting_object/wash(clean_types)
+	SHOULD_CALL_PARENT(FALSE)
 	return
 
 // Override here to prevent things accidentally moving around overlays.

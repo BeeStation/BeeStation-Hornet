@@ -28,7 +28,16 @@
 	var/list/atmos_overlay_types //gas IDs of current active gas overlays
 
 /turf/open/Initialize(mapload)
-	if(!blocks_air)
+	if (planetary_atmos && Debugger?.enabled)
+		var/static/list/planet_atmos_types = list()
+		if(planet_atmos_types[type])
+			air = planet_atmos_types[type]
+		else
+			air = new(2500,src)
+			air.copy_from_turf(src)
+			update_air_ref(1)
+			planet_atmos_types[type] = air
+	else
 		air = new(2500,src)
 		air.copy_from_turf(src)
 		update_air_ref(planetary_atmos ? 1 : 2)
@@ -50,7 +59,11 @@
 	if(!giver)
 		return FALSE
 	if(SSair.thread_running())
-		SSair.deferred_airs += list(list(giver, air, moles / giver.total_moles()))
+		var giver_moles = giver.total_moles()
+		if(giver_moles > 0)
+			SSair.deferred_airs += list(list(giver, air, moles / giver_moles))
+		else
+			SSair.deferred_airs += list(list(giver, air, 0))
 	else
 		giver.transfer_to(air, moles)
 		update_visuals()
@@ -70,7 +83,11 @@
 	if(!taker || !return_air()) // shouldn't transfer from space
 		return FALSE
 	if(SSair.thread_running())
-		SSair.deferred_airs += list(list(air, taker, moles / air.total_moles()))
+		var air_moles = air.total_moles()
+		if(air_moles > 0)
+			SSair.deferred_airs += list(list(air, taker, moles / air_moles))
+		else
+			SSair.deferred_airs += list(list(air, taker, 0))
 	else
 		air.transfer_to(taker, moles)
 		update_visuals()
@@ -208,7 +225,7 @@
 
 /turf/proc/handle_decompression_floor_rip()
 /turf/open/floor/handle_decompression_floor_rip(sum)
-	if(sum > 20 && prob(CLAMP(sum / 20, 0, 15)))
+	if(sum > 20 && prob(clamp(sum / 20, 0, 15)))
 		if(floor_tile)
 			new floor_tile(src)
 		make_plating()
@@ -249,7 +266,7 @@
 
 /atom/movable/proc/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0, throw_target)
 	set waitfor = FALSE
-	if(SEND_SIGNAL(src, COMSIG_ATOM_PRE_PRESSURE_PUSH) & COMSIG_ATOM_BLOCKS_PRESSURE)
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_PRESSURE_PUSH) & COMSIG_MOVABLE_BLOCKS_PRESSURE)
 		return
 
 	var/const/PROBABILITY_OFFSET = 40
@@ -260,13 +277,13 @@
 		move_prob = (pressure_difference/pressure_resistance*PROBABILITY_BASE_PRECENT)-PROBABILITY_OFFSET
 	move_prob += pressure_resistance_prob_delta
 	if(move_prob > PROBABILITY_OFFSET && prob(move_prob) && (move_resist != INFINITY) && (!anchored && (max_force >= (move_resist * MOVE_FORCE_PUSH_RATIO))) || (anchored && (max_force >= (move_resist * MOVE_FORCE_FORCEPUSH_RATIO))))
-		var/move_force = max_force * CLAMP(move_prob, 0, 100) / 100
+		var/move_force = max_force * clamp(move_prob, 0, 100) / 100
 		if(move_force > 6000)
 			// WALLSLAM HELL TIME OH BOY
 			var/turf/throw_turf = get_ranged_target_turf(get_turf(src), direction, round(move_force / 2000))
 			if(throw_target && (get_dir(src, throw_target) & direction))
 				throw_turf = get_turf(throw_target)
-			var/throw_speed = CLAMP(round(move_force / 3000), 1, 10)
+			var/throw_speed = clamp(round(move_force / 3000), 1, 10)
 			throw_at(throw_turf, move_force / 3000, throw_speed)
 		else
 			step(src, direction)

@@ -6,16 +6,6 @@
 /obj/effect/spawner/structure/window/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"ac" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/storage/box/flashes,
-/turf/open/floor/pod/dark,
-/area/shuttle/escape)
 "ad" = (
 /obj/machinery/porta_turret/aux_base,
 /turf/open/floor/plating,
@@ -61,46 +51,6 @@
 /obj/item/paper/fluff/shuttlenotice,
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
-"an" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/pod/dark,
-/area/shuttle/escape)
-"ao" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/machinery/camera,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/pod/dark,
-/area/shuttle/escape)
-"ap" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/pod/dark,
-/area/shuttle/escape)
 "aq" = (
 /obj/machinery/door/airlock/survival_pod{
 	name = "Emergency Shuttle Brig";
@@ -113,32 +63,6 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid,
 /turf/open/floor/pod/light,
-/area/shuttle/escape)
-"as" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/pod/dark,
-/area/shuttle/escape)
-"au" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/storage/box/handcuffs,
-/obj/machinery/recharger,
-/turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "av" = (
 /obj/item/trash/candy,
@@ -215,25 +139,25 @@
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aK" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aL" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aM" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aN" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -250,7 +174,7 @@
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aQ" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -268,7 +192,7 @@
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aT" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aU" = (
@@ -286,21 +210,6 @@
 "aX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/grille_or_trash,
-/turf/open/floor/pod/light,
-/area/shuttle/escape)
-"aY" = (
-/obj/structure/table/survival_pod,
-/obj/item/storage/backpack/duffelbag/med/surgery,
-/obj/item/storage/firstaid,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aZ" = (
@@ -326,16 +235,6 @@
 /obj/item/storage/toolbox/mechanical,
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
-"bd" = (
-/obj/machinery/sleeper/survival_pod,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/pod/light,
-/area/shuttle/escape)
 "be" = (
 /obj/item/trash/energybar,
 /turf/open/floor/pod/light,
@@ -348,18 +247,6 @@
 "bg" = (
 /obj/structure/closet/crate,
 /turf/open/floor/pod/dark,
-/area/shuttle/escape)
-"bh" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/pod/light,
 /area/shuttle/escape)
 "bi" = (
 /obj/structure/closet/emcloset/anchored,
@@ -377,35 +264,6 @@
 	dir = 8
 	},
 /turf/open/floor/pod/dark,
-/area/shuttle/escape)
-"bl" = (
-/obj/machinery/sleeper/survival_pod,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/pod/light,
-/area/shuttle/escape)
-"bm" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/pod/light,
-/area/shuttle/escape)
-"bn" = (
-/obj/structure/table/optable,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/pod/light,
 /area/shuttle/escape)
 "bo" = (
 /obj/structure/shuttle/engine/heater,
@@ -455,12 +313,109 @@
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
+"jC" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/escape)
+"wN" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box/flashes,
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/pod/dark,
+/area/shuttle/escape)
+"BM" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box/handcuffs,
+/obj/machinery/recharger,
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/pod/dark,
+/area/shuttle/escape)
+"Fe" = (
+/obj/structure/table/survival_pod,
+/obj/item/storage/backpack/duffelbag/med/surgery,
+/obj/item/storage/firstaid,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/escape)
+"HQ" = (
+/obj/machinery/camera,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/escape)
 "Ma" = (
 /obj/machinery/door/airlock/survival_pod{
 	name = "Emergency Shuttle Airlock"
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
+/area/shuttle/escape)
+"NS" = (
+/obj/structure/table/optable,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/turf/open/floor/pod/light,
+/area/shuttle/escape)
+"SY" = (
+/obj/machinery/sleeper/survival_pod,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/escape)
+"Tq" = (
+/obj/machinery/sleeper/survival_pod,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/escape)
+"Ug" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/escape)
+"UF" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/escape)
+"Ya" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/escape)
+"ZG" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/pod/dark,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -533,8 +488,8 @@ bp
 aa
 aa
 ah
-an
-as
+ZG
+Ya
 az
 ah
 al
@@ -555,7 +510,7 @@ bq
 aa
 aa
 ai
-ao
+HQ
 bb
 ay
 aq
@@ -577,9 +532,9 @@ bq
 aa
 ad
 ah
-ap
-au
-ac
+jC
+BM
+wN
 ah
 aI
 av
@@ -610,10 +565,10 @@ aL
 aL
 aU
 ah
-aY
-bd
-bh
-bl
+Fe
+SY
+UF
+Tq
 bo
 bq
 "}
@@ -635,7 +590,7 @@ bt
 aZ
 be
 al
-bm
+Ug
 bo
 bq
 "}
@@ -657,7 +612,7 @@ bv
 ba
 al
 bi
-bn
+NS
 bo
 br
 "}

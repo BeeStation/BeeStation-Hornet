@@ -20,8 +20,8 @@
 	// Stuff needed to render the map
 	var/map_name
 	var/atom/movable/screen/map_view/cam_screen
-	var/atom/movable/screen/plane_master/lighting/cam_plane_master
-	var/atom/movable/screen/plane_master/o_light_visual/visual_plane_master
+	/// All the plane masters that need to be applied.
+	var/datum/remote_view/remote_view
 	var/atom/movable/screen/background/cam_background
 
 /obj/machinery/computer/security/Initialize(mapload)
@@ -40,24 +40,14 @@
 	cam_screen.assigned_map = map_name
 	cam_screen.del_on_map_removal = FALSE
 	cam_screen.screen_loc = "[map_name]:1,1"
-	cam_plane_master = new
-	cam_plane_master.name = "plane_master"
-	cam_plane_master.assigned_map = map_name
-	cam_plane_master.del_on_map_removal = FALSE
-	cam_plane_master.screen_loc = "[map_name]:CENTER"
-	visual_plane_master = new
-	visual_plane_master.name = "plane_master"
-	visual_plane_master.assigned_map = map_name
-	visual_plane_master.del_on_map_removal = FALSE
-	visual_plane_master.screen_loc = "[map_name]:CENTER"
+	remote_view = new(map_name)
 	cam_background = new
 	cam_background.assigned_map = map_name
 	cam_background.del_on_map_removal = FALSE
 
 /obj/machinery/computer/security/Destroy()
 	QDEL_NULL(cam_screen)
-	QDEL_NULL(cam_plane_master)
-	QDEL_NULL(visual_plane_master)
+	QDEL_NULL(remote_view)
 	QDEL_NULL(cam_background)
 	return ..()
 
@@ -69,6 +59,11 @@
 
 /obj/machinery/computer/security/ui_state(mob/user)
 	return GLOB.default_state
+
+/obj/machinery/computer/security/interact(mob/user, special_state)
+	if (!user.client) // monkey proof
+		return
+	. = ..()
 
 /obj/machinery/computer/security/ui_interact(mob/user, datum/tgui/ui)
 	// Update UI
@@ -90,9 +85,8 @@
 			use_power(active_power_usage)
 		// Register map objects
 		user.client.register_map_obj(cam_screen)
-		user.client.register_map_obj(cam_plane_master)
-		user.client.register_map_obj(visual_plane_master)
 		user.client.register_map_obj(cam_background)
+		remote_view.join(user.client)
 		// Open UI
 		ui = new(user, src, "CameraConsole")
 		ui.open()
@@ -182,7 +176,7 @@
 	// Living creature or not, we remove you anyway.
 	concurrent_users -= user_ref
 	// Unregister map objects
-	user.client.clear_map(map_name)
+	remote_view.leave(user.client)
 	// Turn off the console
 	if(length(concurrent_users) == 0 && is_living)
 		active_camera = null
@@ -196,23 +190,17 @@
 
 // Returns the list of cameras accessible from this computer
 /obj/machinery/computer/security/proc/get_available_cameras()
-	var/list/L = list()
-	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-		if((is_away_level(z) || is_away_level(C.z)) && (C.get_virtual_z_level() != get_virtual_z_level()))//if on away mission, can only receive feed from same z_level cameras
+	var/list/camlist = list()
+	for(var/obj/machinery/camera/cam as() in GLOB.cameranet.cameras)
+		if((is_away_level(z) || is_away_level(cam.z)) && (cam.get_virtual_z_level() != get_virtual_z_level()))//if on away mission, can only receive feed from same z_level cameras
 			continue
-		L.Add(C)
-	var/list/D = list()
-	for(var/obj/machinery/camera/C in L)
-		if(!C.network)
-			stack_trace("Camera in a cameranet has no camera network")
+		if(!islist(cam.network))
+			stack_trace("Camera in a cameranet has invaid camera network")
 			continue
-		if(!(islist(C.network)))
-			stack_trace("Camera in a cameranet has a non-list camera network")
+		if(!length(cam.network & network))
 			continue
-		var/list/tempnetwork = C.network & network
-		if(tempnetwork.len)
-			D["[C.c_tag]"] = C
-	return D
+		camlist["[cam.c_tag]"] = cam
+	return camlist
 
 // SECURITY MONITORS
 
@@ -222,6 +210,13 @@
 	icon_state = "television"
 	icon_keyboard = "no_keyboard"
 	icon_screen = "detective_tv"
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+
 	clockwork = TRUE //it'd look weird
 	broken_overlay_emissive = TRUE
 	pass_flags = PASSTABLE
@@ -265,6 +260,13 @@
 	desc = "Used for watching an empty arena."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "telescreen"
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+
 	layer = SIGN_LAYER
 	network = list("thunder")
 	density = FALSE
@@ -275,7 +277,7 @@
 
 /obj/machinery/computer/security/telescreen/update_icon()
 	icon_state = initial(icon_state)
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state += "b"
 	return
 

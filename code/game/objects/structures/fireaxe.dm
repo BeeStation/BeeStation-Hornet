@@ -5,9 +5,9 @@
 	icon_state = "fireaxe"
 	anchored = TRUE
 	density = FALSE
-	armor = list("melee" = 50, "bullet" = 20, "laser" = 0, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 50,  BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 90, ACID = 50, STAMINA = 0)
 	max_integrity = 150
-	integrity_failure = 50
+	integrity_failure = 0.33
 	layer = ABOVE_WINDOW_LAYER
 	var/locked = TRUE
 	var/open = FALSE
@@ -16,7 +16,7 @@
 /obj/structure/fireaxecabinet/Initialize(mapload)
 	. = ..()
 	fireaxe = new
-	update_icon()
+	update_appearance()
 
 /obj/structure/fireaxecabinet/Destroy()
 	if(fireaxe)
@@ -34,7 +34,7 @@
 			to_chat(user, "<span class='notice'>You begin repairing [src].</span>")
 			if(I.use_tool(src, user, 40, volume=50, amount=2))
 				obj_integrity = max_integrity
-				update_icon()
+				update_appearance()
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 		else
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
@@ -48,7 +48,7 @@
 		if(do_after(user, 20, target = src) && G.use(2))
 			broken = 0
 			obj_integrity = max_integrity
-			update_icon()
+			update_appearance()
 	else if(open || broken)
 		if(istype(I, /obj/item/fireaxe) && !fireaxe)
 			var/obj/item/fireaxe/F = I
@@ -58,8 +58,8 @@
 			if(!user.transferItemToLoc(F, src))
 				return
 			fireaxe = F
-			to_chat(user, "<span class='caution'>You place the [F.name] back in the [name].</span>")
-			update_icon()
+			to_chat(user, "<span class='notice'>You place the [F.name] back in the [name].</span>")
+			update_appearance()
 			return
 		else if(!broken)
 			toggle_open()
@@ -76,16 +76,16 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/fireaxecabinet/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/structure/fireaxecabinet/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	if(open)
 		return
 	. = ..()
 	if(.)
-		update_icon()
+		update_appearance()
 
 /obj/structure/fireaxecabinet/obj_break(damage_flag)
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
-		update_icon()
+		update_appearance()
 		broken = TRUE
 		playsound(src, 'sound/effects/glassbr3.ogg', 100, 1)
 		new /obj/item/shard(loc)
@@ -113,16 +113,16 @@
 		if(fireaxe)
 			user.put_in_hands(fireaxe)
 			fireaxe = null
-			to_chat(user, "<span class='caution'>You take the fire axe from the [name].</span>")
+			to_chat(user, "<span class='notice'>You take the fire axe from the [name].</span>")
 			add_fingerprint(user)
-			update_icon()
+			update_appearance()
 			return
 	if(locked)
 		to_chat(user, "<span class='warning'>The [name] won't budge!</span>")
 		return
 	else
 		open = !open
-		update_icon()
+		update_appearance()
 		return
 
 /obj/structure/fireaxecabinet/attack_paw(mob/living/user)
@@ -133,13 +133,12 @@
 	return
 
 /obj/structure/fireaxecabinet/attack_tk(mob/user)
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
 	if(locked)
 		to_chat(user, "<span class='warning'>The [name] won't budge!</span>")
 		return
-	else
-		open = !open
-		update_icon()
-		return
+	open = !open
+	update_icon()
 
 /obj/structure/fireaxecabinet/update_icon()
 	cut_overlays()
@@ -167,12 +166,12 @@
 		add_overlay("glass_raised")
 
 /obj/structure/fireaxecabinet/proc/toggle_lock(mob/user)
-	to_chat(user, "<span class = 'caution'> Resetting circuitry...</span>")
+	to_chat(user, "<span class='notice'> Resetting circuitry...</span>")
 	playsound(src, 'sound/machines/locktoggle.ogg', 50, 1)
 	if(do_after(user, 20, target = src))
-		to_chat(user, "<span class='caution'>You [locked ? "disable" : "re-enable"] the locking modules.</span>")
+		to_chat(user, "<span class='notice'>You [locked ? "disable" : "re-enable"] the locking modules.</span>")
 		locked = !locked
-		update_icon()
+		update_appearance()
 
 /obj/structure/fireaxecabinet/verb/toggle_open()
 	set name = "Open/Close"
@@ -184,5 +183,5 @@
 		return
 	else
 		open = !open
-		update_icon()
+		update_appearance()
 		return

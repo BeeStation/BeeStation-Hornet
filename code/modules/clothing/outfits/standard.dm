@@ -1,24 +1,37 @@
 /datum/outfit/debug //Debug objs plus hardsuit
 	name = "Debug outfit"
 	uniform = /obj/item/clothing/under/misc/patriotsuit
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
+	suit = /obj/item/clothing/suit/space/hardsuit/debug
 	mask = /obj/item/clothing/mask/gas/welding/up
 	gloves = /obj/item/clothing/gloves/combat
 	belt = /obj/item/storage/belt/utility/chief/full
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	id = /obj/item/card/id/syndicate/debug
-	suit_store = /obj/item/tank/internals/oxygen
+	suit_store = /obj/item/tank/internals/emergency_oxygen/magic_oxygen
 	internals_slot = ITEM_SLOT_SUITSTORE
 	glasses = /obj/item/clothing/glasses/hud/debug
-	ears = /obj/item/radio/headset/headset_cent/commander
+	ears = /obj/item/radio/headset/headset_cent/debug
 	box = /obj/item/storage/box/debugtools
-	back = /obj/item/storage/backpack/holding
+	back = /obj/item/storage/backpack/debug
 	backpack_contents = list(/obj/item/gun/magic/wand/resurrection/debug=1,\
 		/obj/item/melee/transforming/energy/axe=1,\
 		/obj/item/storage/part_replacer/bluespace/tier4=1,\
 		/obj/item/debug/human_spawner=1,\
-		/obj/item/debug/omnitool=1
+		/obj/item/debug/omnitool=1,\
+		/obj/item/xenoartifact_labeler/debug=1,\
+		/obj/item/debug/orb_of_power=1
 		)
+
+/datum/outfit/debug/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(isplasmaman(H))
+		suit_store = /obj/item/tank/internals/plasmaman/belt/full/debug
+
+/datum/outfit/debug/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/obj/item/clothing/shoes/magboots/boots = H.shoes
+	boots.toggle()
+
 
 /datum/outfit/space
 	name = "Standard Space Gear"
@@ -38,7 +51,7 @@
 	suit = /obj/item/clothing/suit/armor/vest
 	head = /obj/item/clothing/head/helmet/thunderdome
 	r_hand = /obj/item/gun/energy/pulse/destroyer
-	l_hand = /obj/item/kitchen/knife
+	l_hand = /obj/item/knife/kitchen
 	r_pocket = /obj/item/grenade/smokebomb
 
 /datum/outfit/tournament/green
@@ -50,7 +63,7 @@
 	name = "tournament gangster"
 
 	uniform = /obj/item/clothing/under/rank/security/detective
-	suit = /obj/item/clothing/suit/det_suit
+	suit = /obj/item/clothing/suit/jacket/det_suit
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	head = /obj/item/clothing/head/fedora/det_hat
 	r_hand = /obj/item/gun/ballistic
@@ -68,7 +81,7 @@
 	l_hand = /obj/item/reagent_containers/glass/bucket
 	r_pocket = /obj/item/grenade/chem_grenade/cleaner
 	l_pocket = /obj/item/grenade/chem_grenade/cleaner
-	backpack_contents = list(/obj/item/stack/tile/plasteel=6)
+	backpack_contents = list(/obj/item/stack/tile/iron=6)
 
 /datum/outfit/tournament/janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -104,8 +117,8 @@
 
 	uniform = /obj/item/clothing/under/costume/pirate
 	shoes = /obj/item/clothing/shoes/sneakers/brown
-	suit = /obj/item/clothing/suit/pirate
-	head = /obj/item/clothing/head/bandana
+	suit = /obj/item/clothing/suit/costume/pirate
+	head = /obj/item/clothing/head/costume/pirate/bandana
 	glasses = /obj/item/clothing/glasses/eyepatch
 
 /datum/outfit/pirate/space
@@ -141,7 +154,7 @@
 	ears = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
-	l_pocket = /obj/item/reagent_containers/food/snacks/grown/banana
+	l_pocket = /obj/item/food/grown/banana
 	r_pocket = /obj/item/bikehorn
 	id = /obj/item/card/id
 	r_hand = /obj/item/fireaxe
@@ -164,11 +177,11 @@
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	gloves = /obj/item/clothing/gloves/color/latex
 	mask = /obj/item/clothing/mask/surgical
-	head = /obj/item/clothing/head/welding
+	head = /obj/item/clothing/head/utility/welding
 	ears = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	suit = /obj/item/clothing/suit/apron
-	l_pocket = /obj/item/kitchen/knife
+	l_pocket = /obj/item/knife/kitchen
 	r_pocket = /obj/item/scalpel
 	r_hand = /obj/item/fireaxe
 
@@ -190,7 +203,7 @@
 	l_pocket = /obj/item/melee/transforming/energy/sword/saber
 	l_hand = /obj/item/storage/secure/briefcase
 	id = /obj/item/card/id/syndicate
-	belt = /obj/item/pda/heads
+	belt = /obj/item/modular_computer/tablet/pda/heads
 
 /datum/outfit/assassin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	var/obj/item/clothing/under/U = H.w_uniform
@@ -210,10 +223,9 @@
 	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/a357, null, TRUE, TRUE)
 	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/grenade/plastic/x4, null, TRUE, TRUE)
 
-	var/obj/item/pda/heads/pda = H.belt
-	pda.owner = H.real_name
-	pda.ownjob = "Reaper"
-	pda.update_label()
+	var/obj/item/modular_computer/tablet/pda/heads/pda = H.belt
+	pda.saved_identification = H.real_name
+	pda.saved_job = "Reaper"
 
 	var/obj/item/card/id/syndicate/W = H.wear_id
 	W.access = get_all_accesses()
@@ -222,7 +234,7 @@
 	W.update_label(H.real_name)
 
 /datum/outfit/centcom/commander
-	name = "CentCom Commander"
+	name = JOB_CENTCOM_COMMANDER
 
 	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/armor/bulletproof
@@ -231,7 +243,7 @@
 	ears = /obj/item/radio/headset/headset_cent/commander
 	glasses = /obj/item/clothing/glasses/eyepatch
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
-	head = /obj/item/clothing/head/centhat
+	head = /obj/item/clothing/head/hats/centhat
 	belt = /obj/item/gun/ballistic/revolver/mateba
 	r_pocket = /obj/item/lighter
 	l_pocket = /obj/item/ammo_box/a357
@@ -250,18 +262,18 @@
 		return
 
 	if(isplasmaman(H))
-		H.internal = H.get_item_for_held_index(2)
-		H.update_internals_hud_icon(1)
+		H.open_internals(H.get_item_for_held_index(2))
+
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access("CentCom Commander")
-	W.assignment = "CentCom Commander"
+	W.access |= get_centcom_access(JOB_CENTCOM_COMMANDER)
+	W.assignment = JOB_CENTCOM_COMMANDER
 	W.registered_name = H.real_name
 	W.update_label()
 
 /datum/outfit/admiral
-	name = "Admiral"
+	name = JOB_CENTCOM_ADMIRAL
 
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/officer
@@ -284,8 +296,8 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access("Admiral")
-	W.assignment = "Admiral"
+	W.access |= get_centcom_access(JOB_CENTCOM_ADMIRAL)
+	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
 	W.update_label()
 
@@ -297,9 +309,9 @@
 	name = "Cultist Ghost"
 
 	uniform = /obj/item/clothing/under/color/black/ghost
-	suit = /obj/item/clothing/suit/cultrobes/alt/ghost
+	suit = /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	shoes = /obj/item/clothing/shoes/cult/alt/ghost
-	head = /obj/item/clothing/head/culthood/alt/ghost
+	head = /obj/item/clothing/shoes/cult/alt/ghost
 	r_hand = /obj/item/melee/cultblade/ghost
 
 /datum/outfit/wizard
@@ -347,12 +359,12 @@
 	name = "Soviet Admiral"
 
 	uniform = /obj/item/clothing/under/costume/soviet
-	head = /obj/item/clothing/head/pirate/captain
+	head = /obj/item/clothing/head/costume/pirate/captain
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset/headset_cent
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
-	suit = /obj/item/clothing/suit/pirate/captain
+	suit = /obj/item/clothing/suit/costume/pirate/captain
 	back = /obj/item/storage/backpack/satchel/leather
 	belt = /obj/item/gun/ballistic/revolver/mateba
 
@@ -365,8 +377,8 @@
 	var/obj/item/card/id/silver/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access("Admiral")
-	W.assignment = "Admiral"
+	W.access |= get_centcom_access(JOB_CENTCOM_ADMIRAL)
+	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
 	W.update_label()
 
@@ -387,7 +399,7 @@
 		return
 
 	var/obj/item/card/id/W = H.wear_id
-	W.assignment = "Assistant"
+	W.assignment = JOB_NAME_ASSISTANT
 	W.registered_name = H.real_name
 	W.update_label()
 
@@ -400,7 +412,6 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman
 	uniform = /obj/item/clothing/under/plasmaman
 	r_hand= /obj/item/tank/internals/plasmaman/belt/full
-	mask = /obj/item/clothing/mask/breath
 
 /datum/outfit/chrono_agent
 	name = "Timeline Eradication Agent"
@@ -414,7 +425,7 @@
 /datum/outfit/joker
 	name = "Joker"
 	uniform = /obj/item/clothing/under/costume/joker
-	suit = /obj/item/clothing/suit/joker
+	suit = /obj/item/clothing/suit/costume/joker
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/white
 	id = /obj/item/card/id/job/clown

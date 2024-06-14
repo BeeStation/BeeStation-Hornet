@@ -2,43 +2,32 @@
 "a" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"c" = (
-/obj/structure/closet/firecloset/full,
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
 "d" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "e" = (
 /obj/machinery/space_heater,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
+"f" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/ruin/unpowered)
 "v" = (
 /obj/structure/reagent_dispensers/plumbed,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"y" = (
-/obj/structure/closet/emcloset,
-/obj/effect/turf_decal/tile/green{
+"A" = (
+/obj/structure/closet/firecloset/full,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "B" = (
 /turf/closed/wall,
@@ -49,17 +38,15 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"K" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
+"J" = (
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "P" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "R" = (
 /obj/effect/abstract/doorway_marker,
@@ -67,7 +54,7 @@
 /area/ruin/unpowered)
 "S" = (
 /obj/effect/abstract/open_area_marker,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "W" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -104,9 +91,9 @@ B
 "}
 (5,1,1) = {"
 B
-y
-K
-c
+J
+f
+A
 B
 "}
 (6,1,1) = {"

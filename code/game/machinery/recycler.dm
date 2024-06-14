@@ -13,6 +13,7 @@
 	var/safety_mode = FALSE // Temporarily stops machine if it detects a mob
 	var/icon_name = "grinder-o"
 	var/blood = 0
+	var/emagged_by = null // Used for logging
 	var/eat_dir = WEST
 	var/amount_produced = 50
 	var/crush_damage = 1000
@@ -44,13 +45,9 @@
 /obj/machinery/recycler/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Reclaiming <b>[amount_produced]%</b> of materials salvaged.</span>"
-	. += "The power light is [(stat & NOPOWER) ? "off" : "on"].\n"+\
+	. += "The power light is [(machine_stat & NOPOWER) ? "off" : "on"].\n"+\
 	"The safety-mode light is [safety_mode ? "on" : "off"].\n"+\
 	"The safety-sensors status light is [obj_flags & EMAGGED ? "off" : "on"]."
-
-/obj/machinery/recycler/power_change()
-	..()
-	update_icon()
 
 
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
@@ -67,26 +64,26 @@
 		return
 	return ..()
 
-/obj/machinery/recycler/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/recycler/on_emag(mob/user)
+	..()
 	if(safety_mode)
 		safety_mode = FALSE
-		update_icon()
+		update_appearance()
 	playsound(src, "sparks", 75, 1, -1)
 	to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
+	if(user)
+		emagged_by = key_name(user) // key_name is collected here instead of when it's logged so that it gets their current mob name, not whatever future mob they may have
 
 /obj/machinery/recycler/update_icon()
 	..()
-	var/is_powered = !(stat & (BROKEN|NOPOWER))
+	var/is_powered = !(machine_stat & (BROKEN|NOPOWER))
 	if(safety_mode)
 		is_powered = FALSE
 	icon_state = icon_name + "[is_powered]" + "[(blood ? "bld" : "")]" // add the blood tag at the end
 
 /obj/machinery/recycler/Bumped(atom/movable/AM)
 
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_stat & (BROKEN|NOPOWER))
 		return
 	if(!anchored)
 		return
@@ -154,16 +151,16 @@
 
 
 /obj/machinery/recycler/proc/emergency_stop(mob/living/L)
-	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
+	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 	safety_mode = TRUE
-	update_icon()
+	update_appearance()
 	L.forceMove(loc)
-	addtimer(CALLBACK(src, .proc/reboot), SAFETY_COOLDOWN)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
-	playsound(src, 'sound/machines/ping.ogg', 50, 0)
+	playsound(src, 'sound/machines/ping.ogg', 50, FALSE)
 	safety_mode = FALSE
-	update_icon()
+	update_appearance()
 
 /obj/machinery/recycler/proc/crush_living(mob/living/L)
 
@@ -192,6 +189,7 @@
 	// Instantly lie down, also go unconscious from the pain, before you die.
 	L.Unconscious(100)
 	L.adjustBruteLoss(crush_damage)
+	L.log_message("has been crushed by a recycler that was emagged by [(emagged_by || "nobody")]", LOG_ATTACK, color="red")
 	if(L.stat == DEAD && (L.butcher_results || L.guaranteed_butcher_results))
 		var/datum/component/butchering/butchering = GetComponent(/datum/component/butchering)
 		butchering.Butcher(src,L)
@@ -204,6 +202,6 @@
 
 /obj/item/paper/guides/recycler
 	name = "paper - 'garbage duty instructions'"
-	info = "<h2>New Assignment</h2> You have been assigned to collect garbage from trash bins, located around the station. The crewmembers will put their trash into it and you will collect the said trash.<br><br>There is a recycling machine near your closet, inside maintenance; use it to recycle the trash for a small chance to get useful minerals. Then deliver these minerals to cargo or engineering. You are our last hope for a clean station, do not screw this up!"
+	default_raw_text = "<h2>New Assignment</h2> You have been assigned to collect garbage from trash bins, located around the station. The crewmembers will put their trash into it and you will collect the said trash.<br><br>There is a recycling machine near your closet, inside maintenance; use it to recycle the trash for a small chance to get useful minerals. Then deliver these minerals to cargo or engineering. You are our last hope for a clean station, do not screw this up!"
 
 #undef SAFETY_COOLDOWN

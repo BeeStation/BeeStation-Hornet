@@ -79,50 +79,23 @@
 		if(!(m in R.held_items))
 			. += m
 
-/obj/item/robot_module/proc/get_or_create_estorage(var/storage_type)
-	for(var/datum/robot_energy_storage/S in storages)
-		if(istype(S, storage_type))
-			return S
-
-	return new storage_type(src)
+/obj/item/robot_module/proc/get_or_create_estorage(storage_type)
+	return (locate(storage_type) in storages) || new storage_type(src)
 
 /obj/item/robot_module/proc/add_module(obj/item/I, nonstandard, requires_rebuild)
 	if(istype(I, /obj/item/stack))
-		var/obj/item/stack/S = I
+		var/obj/item/stack/sheet_module = I
+		if(ispath(sheet_module.source, /datum/robot_energy_storage))
+			sheet_module.source = get_or_create_estorage(sheet_module.source)
 
-		if(is_type_in_list(S, list(/obj/item/stack/sheet/iron, /obj/item/stack/rods, /obj/item/stack/tile/plasteel, /obj/item/stack/tile/light)))
-			if(S.materials[/datum/material/iron])
-				S.cost = S.materials[/datum/material/iron] * 0.25
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
+		if(istype(sheet_module, /obj/item/stack/sheet/rglass/cyborg))
+			var/obj/item/stack/sheet/rglass/cyborg/rglass_module = sheet_module
+			if(ispath(rglass_module.glasource, /datum/robot_energy_storage))
+				rglass_module.glasource = get_or_create_estorage(rglass_module.glasource)
 
-		else if(istype(S, /obj/item/stack/sheet/glass))
-			S.cost = 500
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/glass)
-
-		else if(istype(S, /obj/item/stack/sheet/rglass/cyborg))
-			var/obj/item/stack/sheet/rglass/cyborg/G = S
-			G.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
-			G.glasource = get_or_create_estorage(/datum/robot_energy_storage/glass)
-
-		else if(istype(S, /obj/item/stack/tile/brass))
-			S.cost = 500
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/brass)
-
-		else if(istype(S, /obj/item/stack/medical))
-			S.cost = 250
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/medical)
-
-		else if(istype(S, /obj/item/stack/cable_coil))
-			S.cost = 1
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/wire)
-
-		else if(istype(S, /obj/item/stack/marker_beacon))
-			S.cost = 1
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/beacon)
-
-		if(S?.source)
-			S.materials = list()
-			S.is_cyborg = 1
+		if(istype(sheet_module.source))
+			sheet_module.cost = max(sheet_module.cost, 1) // Must not cost 0 to prevent div/0 errors.
+			sheet_module.is_cyborg = TRUE
 
 	if(I.loc != src)
 		I.forceMove(src)
@@ -198,7 +171,8 @@
 	R.module = RM
 	R.update_module_innate()
 	RM.rebuild_modules()
-	INVOKE_ASYNC(RM, .proc/do_transform_animation)
+	R.set_modularInterface_theme()
+	INVOKE_ASYNC(RM, PROC_REF(do_transform_animation))
 	qdel(src)
 	return RM
 
@@ -225,7 +199,8 @@
 	flick("[cyborg_base_icon]_transform", R)
 	R.notransform = TRUE
 	R.SetLockdown(TRUE)
-	R.anchored = TRUE
+	R.set_anchored(TRUE)
+	R.logevent("Chassis configuration has been set to [name].")
 	sleep(1)
 	for(var/i in 1 to 4)
 		playsound(R, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 80, 1, -1)
@@ -233,9 +208,9 @@
 	if(!prev_lockcharge)
 		R.SetLockdown(FALSE)
 	R.setDir(SOUTH)
-	R.anchored = FALSE
+	R.set_anchored(FALSE)
 	R.notransform = FALSE
-	R.update_headlamp()
+	R.update_icons()
 	R.notify_ai(NEW_MODULE)
 	if(R.hud_used)
 		R.hud_used.update_robot_modules_display()
@@ -264,12 +239,12 @@
 		/obj/item/reagent_containers/borghypo/epi,
 		/obj/item/healthanalyzer,
 		/obj/item/borg/charger,
-		/obj/item/weldingtool/largetank/cyborg,
+		/obj/item/weldingtool/cyborg,
 		/obj/item/wrench/cyborg,
 		/obj/item/crowbar/cyborg,
-		/obj/item/stack/sheet/iron/cyborg,
+		/obj/item/stack/sheet/iron,
 		/obj/item/stack/rods/cyborg,
-		/obj/item/stack/tile/plasteel/cyborg,
+		/obj/item/stack/tile/iron,
 		/obj/item/extinguisher,
 		/obj/item/pickaxe,
 		/obj/item/t_scanner/adv_mining_scanner,
@@ -283,7 +258,7 @@
 		/obj/item/clock_module/kindle,
 		/obj/item/clock_module/abstraction_crystal,
 		/obj/item/clockwork/replica_fabricator,
-		/obj/item/stack/tile/brass/cyborg,
+		/obj/item/stack/sheet/brass/cyborg,
 		/obj/item/clockwork/weapon/brass_spear)
 	moduleselect_icon = "standard"
 	hat_offset = -3
@@ -294,6 +269,7 @@
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/healthanalyzer,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/reagent_containers/borghypo,
 		/obj/item/borg/apparatus/beaker,
 		/obj/item/reagent_containers/dropper,
@@ -307,9 +283,9 @@
 		/obj/item/circular_saw,
 		/obj/item/blood_filter,
 		/obj/item/extinguisher/mini,
-		/obj/item/roller/robo,
+		/obj/item/rollerbed/robo,
 		/obj/item/borg/cyborghug/medical,
-		/obj/item/stack/medical/gauze/cyborg,
+		/obj/item/stack/medical/gauze,
 		/obj/item/organ_storage,
 		/obj/item/borg/lollipop)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/hacked)
@@ -332,7 +308,7 @@
 		/obj/item/construction/rcd/borg,
 		/obj/item/pipe_dispenser,
 		/obj/item/extinguisher,
-		/obj/item/weldingtool/largetank/cyborg,
+		/obj/item/weldingtool/cyborg,
 		/obj/item/screwdriver/cyborg,
 		/obj/item/wrench/cyborg,
 		/obj/item/crowbar/cyborg,
@@ -344,12 +320,12 @@
 		/obj/item/assembly/signaler/cyborg,
 		/obj/item/areaeditor/blueprints/cyborg,
 		/obj/item/electroadaptive_pseudocircuit,
-		/obj/item/stack/sheet/iron/cyborg,
-		/obj/item/stack/sheet/glass/cyborg,
+		/obj/item/stack/sheet/iron,
+		/obj/item/stack/sheet/glass,
 		/obj/item/stack/sheet/rglass/cyborg,
 		/obj/item/stack/rods/cyborg,
-		/obj/item/stack/tile/plasteel/cyborg,
-		/obj/item/stack/cable_coil/cyborg,
+		/obj/item/stack/tile/iron,
+		/obj/item/stack/cable_coil,
 		/obj/item/holosign_creator/atmos)
 	emag_modules = list(/obj/item/borg/stun)
 	ratvar_modules = list(
@@ -359,7 +335,7 @@
 		/obj/item/clock_module/stargazer,
 		/obj/item/clock_module/abstraction_crystal,
 		/obj/item/clockwork/replica_fabricator,
-		/obj/item/stack/tile/brass/cyborg)
+		/obj/item/stack/sheet/brass/cyborg)
 	cyborg_base_icon = "engineer"
 	moduleselect_icon = "engineer"
 	magpulsing = TRUE
@@ -372,6 +348,7 @@
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/melee/baton/loaded,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/shield/riot/tele,
 		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/melee/transforming/energy/sword/cyborg,
@@ -392,6 +369,7 @@
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/melee/baton/loaded,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/clothing/mask/gas/sechailer/cyborg,
 		/obj/item/extinguisher/mini)
@@ -428,12 +406,13 @@
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/cookiesynth,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/harmalarm,
 		/obj/item/reagent_containers/borghypo/peace,
 		/obj/item/holosign_creator/cyborg,
 		/obj/item/borg/cyborghug/peacekeeper,
 		/obj/item/extinguisher,
-		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/reagent_containers/peppercloud_deployer,
 		/obj/item/borg/projectile_dampen)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/peace/hacked)
 	ratvar_modules = list(
@@ -452,14 +431,15 @@
 	You are not a security module and you are expected to follow orders and prevent harm above all else. Space law means nothing to you.</span>")
 
 /obj/item/robot_module/janitor
-	name = "Janitor"
+	name = JOB_NAME_JANITOR
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/screwdriver/cyborg,
 		/obj/item/crowbar/cyborg,
-		/obj/item/stack/tile/plasteel/cyborg,
+		/obj/item/stack/tile/iron,
 		/obj/item/soap/nanotrasen,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/storage/bag/trash/cyborg,
 		/obj/item/melee/flyswatter,
 		/obj/item/extinguisher/mini,
@@ -492,7 +472,7 @@
 			LR.Charge(R)
 
 /obj/item/robot_module/clown
-	name = "Clown"
+	name = JOB_NAME_CLOWN
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/toy/crayon/rainbow,
@@ -502,6 +482,7 @@
 		/obj/item/bikehorn/airhorn,
 		/obj/item/paint/anycolor,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/soap/nanotrasen,
 		/obj/item/pneumatic_cannon/pie/selfcharge/cyborg,
 		/obj/item/razor,					//killbait material
@@ -534,6 +515,7 @@
 		/obj/item/hand_labeler/borg,
 		/obj/item/razor,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/rsf,
 		/obj/item/cookiesynth,
 		/obj/item/instrument/piano_synth,
@@ -569,7 +551,7 @@
 		"Kent" = image(icon = 'icons/mob/robots.dmi', icon_state = "kent"),
 		"Tophat" = image(icon = 'icons/mob/robots.dmi', icon_state = "tophat")
 	)
-	var/service_robot_icon = show_radial_menu(cyborg, cyborg, service_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_module), radius = 42, require_near = TRUE)
+	var/service_robot_icon = show_radial_menu(cyborg, cyborg, service_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), cyborg, old_module), radius = 42, require_near = TRUE)
 	switch(service_robot_icon)
 		if("Waitress")
 			cyborg_base_icon = "service_f"
@@ -608,7 +590,7 @@
 		/obj/item/shovel,
 		/obj/item/borg/charger,
 		/obj/item/crowbar/cyborg,
-		/obj/item/weldingtool/mini,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/extinguisher/mini,
 		/obj/item/storage/bag/sheetsnatcher/borg,
 		/obj/item/gun/energy/kinetic_accelerator/cyborg,
@@ -632,7 +614,7 @@
 		"Asteroid Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "minerOLD"),
 		"Spider Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "spidermin")
 	)
-	var/miner_robot_icon = show_radial_menu(cyborg, cyborg, miner_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_module), radius = 42, require_near = TRUE)
+	var/miner_robot_icon = show_radial_menu(cyborg, cyborg, miner_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), cyborg, old_module), radius = 42, require_near = TRUE)
 	switch(miner_robot_icon)
 		if("Lavaland Miner")
 			cyborg_base_icon = "miner"
@@ -663,6 +645,7 @@
 		/obj/item/gun/ballistic/revolver/grenadelauncher/cyborg,
 		/obj/item/card/emag,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/crowbar/cyborg,
 		/obj/item/extinguisher/mini,
 		/obj/item/pinpointer/syndicate_cyborg)
@@ -690,18 +673,19 @@
 		/obj/item/healthanalyzer,
 		/obj/item/surgical_drapes,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/retractor,
 		/obj/item/hemostat,
 		/obj/item/cautery,
 		/obj/item/surgicaldrill,
 		/obj/item/scalpel,
 		/obj/item/melee/transforming/energy/sword/cyborg/saw,
-		/obj/item/roller/robo,
+		/obj/item/rollerbed/robo,
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg,
 		/obj/item/extinguisher/mini,
 		/obj/item/pinpointer/syndicate_cyborg,
-		/obj/item/stack/medical/gauze/cyborg,
+		/obj/item/stack/medical/gauze,
 		/obj/item/gun/medbeam,
 		/obj/item/organ_storage)
 	cyborg_base_icon = "synd_medical"
@@ -719,19 +703,19 @@
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/borg/charger,
 		/obj/item/extinguisher,
-		/obj/item/weldingtool/largetank/cyborg,
+		/obj/item/weldingtool/cyborg,
 		/obj/item/screwdriver/nuke,
 		/obj/item/wrench/cyborg,
 		/obj/item/crowbar/cyborg,
 		/obj/item/wirecutters/cyborg,
 		/obj/item/multitool/cyborg,
-		/obj/item/stack/sheet/iron/cyborg,
-		/obj/item/stack/sheet/glass/cyborg,
+		/obj/item/stack/sheet/iron,
+		/obj/item/stack/sheet/glass,
 		/obj/item/stack/sheet/rglass/cyborg,
 		/obj/item/stack/rods/cyborg,
-		/obj/item/stack/tile/plasteel/cyborg,
+		/obj/item/stack/tile/iron,
 		/obj/item/dest_tagger/borg,
-		/obj/item/stack/cable_coil/cyborg,
+		/obj/item/stack/cable_coil,
 		/obj/item/card/emag,
 		/obj/item/pinpointer/syndicate_cyborg,
 		/obj/item/borg_chameleon,

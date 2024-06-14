@@ -2,7 +2,7 @@
 	name = "health sensor"
 	desc = "Used for scanning and monitoring health."
 	icon_state = "health"
-	materials = list(/datum/material/iron=800, /datum/material/glass=200)
+	custom_materials = list(/datum/material/iron=800, /datum/material/glass=200)
 	attachable = TRUE
 
 	var/scanning = FALSE
@@ -31,6 +31,8 @@
 	return secured
 
 /obj/item/assembly/health/AltClick(mob/living/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(alarm_health == HEALTH_THRESHOLD_CRIT)
 		alarm_health = HEALTH_THRESHOLD_DEAD
 		to_chat(user, "<span class='notice'>You toggle [src] to \"detect death\" mode.</span>")

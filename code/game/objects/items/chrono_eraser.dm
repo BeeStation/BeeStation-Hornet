@@ -14,6 +14,7 @@
 	actions_types = list(/datum/action/item_action/equip_unequip_TED_Gun)
 	var/obj/item/gun/energy/chrono_gun/PA = null
 	var/list/erased_minds = list() //a collection of minds from the dead
+	item_flags = ISWEAPON
 
 /obj/item/chrono_eraser/proc/pass_mind(datum/mind/M)
 	erased_minds += M
@@ -38,8 +39,7 @@
 				user.put_in_hands(PA)
 
 /obj/item/chrono_eraser/item_action_slot_check(slot, mob/user)
-	if(slot == ITEM_SLOT_BACK)
-		return 1
+	return slot == ITEM_SLOT_BACK
 
 /obj/item/gun/energy/chrono_gun
 	name = "T.E.D. Projection Apparatus"
@@ -48,7 +48,7 @@
 	icon_state = "chronogun"
 	item_state = "chronogun"
 	w_class = WEIGHT_CLASS_NORMAL
-	item_flags = DROPDEL
+	item_flags = DROPDEL | ISWEAPON
 	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
 	can_charge = FALSE
 	fire_delay = 50
@@ -65,8 +65,9 @@
 		TED = new(src.loc)
 		return INITIALIZE_HINT_QDEL
 
-/obj/item/gun/energy/chrono_gun/update_icon()
-	return
+/obj/item/gun/energy/chrono_gun/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/update_icon_blocker)
 
 /obj/item/gun/energy/chrono_gun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	if(field)
@@ -110,34 +111,34 @@
 		if(field == F)
 			var/turf/currentpos = get_turf(src)
 			var/mob/living/user = loc
-			if((currentpos == startpos) && (field in view(CHRONO_BEAM_RANGE, currentpos)) && (user.mobility_flags & MOBILITY_STAND) && (user.stat == CONSCIOUS))
-				return 1
+			if(currentpos == startpos && isliving(user) && (user.mobility_flags & MOBILITY_STAND) && (user.stat == CONSCIOUS) && (field in view(CHRONO_BEAM_RANGE, currentpos)))
+				return TRUE
 		field_disconnect(F)
-		return 0
+		return FALSE
 
 /obj/item/gun/energy/chrono_gun/proc/pass_mind(datum/mind/M)
 	if(TED)
 		TED.pass_mind(M)
 
 
-/obj/item/projectile/energy/chrono_beam
+/obj/projectile/energy/chrono_beam
 	name = "eradication beam"
 	icon_state = "chronobolt"
 	range = CHRONO_BEAM_RANGE
 	nodamage = TRUE
 	var/obj/item/gun/energy/chrono_gun/gun = null
 
-/obj/item/projectile/energy/chrono_beam/Initialize(mapload)
+/obj/projectile/energy/chrono_beam/Initialize(mapload)
 	. = ..()
 	var/obj/item/ammo_casing/energy/chrono_beam/C = loc
 	if(istype(C))
 		gun = C.gun
 
-/obj/item/projectile/energy/chrono_beam/Destroy()
+/obj/projectile/energy/chrono_beam/Destroy()
 	gun = null
 	return ..()
 
-/obj/item/projectile/energy/chrono_beam/on_hit(atom/target)
+/obj/projectile/energy/chrono_beam/on_hit(atom/target)
 	if(target && gun && isliving(target))
 		var/obj/structure/chrono_field/F = new(target.loc, target, gun)
 		gun.field_connect(F)
@@ -145,7 +146,8 @@
 
 /obj/item/ammo_casing/energy/chrono_beam
 	name = "eradication beam"
-	projectile_type = /obj/item/projectile/energy/chrono_beam
+	projectile_type = /obj/projectile/energy/chrono_beam
+	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "chronobolt"
 	e_cost = 0
 	var/obj/item/gun/energy/chrono_gun/gun
@@ -173,19 +175,21 @@
 	interaction_flags_atom = NONE
 	var/mob/living/captured = null
 	var/obj/item/gun/energy/chrono_gun/gun = null
-	var/timetokill = 30
+	var/timetokill = 3 SECONDS
 	var/mutable_appearance/mob_underlay
-	var/preloaded = 0
 	var/RPpos = null
+	var/attached = TRUE //if the gun arg isn't included initially, then the chronofield will work without one
 
 /obj/structure/chrono_field/Initialize(mapload, mob/living/target, obj/item/gun/energy/chrono_gun/G)
-	if(target && isliving(target) && G)
+	if(target && isliving(target))
+		if(!G)
+			attached = FALSE
 		target.forceMove(src)
 		captured = target
 		var/icon/mob_snapshot = getFlatIcon(target)
 		var/icon/cached_icon = new()
 
-		for(var/i=1, i<=CHRONO_FRAME_COUNT, i++)
+		for(var/i in 1 to CHRONO_FRAME_COUNT)
 			var/icon/removing_frame = icon('icons/obj/chronos.dmi', "erasing", SOUTH, i)
 			var/icon/mob_icon = icon(mob_snapshot)
 			mob_icon.Blend(removing_frame, ICON_MULTIPLY)
@@ -199,17 +203,17 @@
 	return ..()
 
 /obj/structure/chrono_field/Destroy()
-	if(gun && gun.field_check(src))
+	if(gun?.field_check(src))
 		gun.field_disconnect(src)
 	return ..()
 
 /obj/structure/chrono_field/update_icon()
 	var/ttk_frame = 1 - (timetokill / initial(timetokill))
-	ttk_frame = CLAMP(CEILING(ttk_frame * CHRONO_FRAME_COUNT, 1), 1, CHRONO_FRAME_COUNT)
+	ttk_frame = clamp(CEILING(ttk_frame * CHRONO_FRAME_COUNT, 1), 1, CHRONO_FRAME_COUNT)
 	if(ttk_frame != RPpos)
 		RPpos = ttk_frame
+		underlays -= mob_underlay
 		mob_underlay.icon_state = "frame[RPpos]"
-		underlays = list() //hack: BYOND refuses to update the underlay to match the icon_state otherwise
 		underlays += mob_underlay
 
 /obj/structure/chrono_field/process(delta_time)
@@ -239,14 +243,16 @@
 				else
 					gun = null
 					return .()
+			else if(!attached)
+				timetokill -= delta_time
 			else
 				timetokill += delta_time
 	else
 		qdel(src)
 
-/obj/structure/chrono_field/bullet_act(obj/item/projectile/P)
-	if(istype(P, /obj/item/projectile/energy/chrono_beam))
-		var/obj/item/projectile/energy/chrono_beam/beam = P
+/obj/structure/chrono_field/bullet_act(obj/projectile/P)
+	if(istype(P, /obj/projectile/energy/chrono_beam))
+		var/obj/projectile/energy/chrono_beam/beam = P
 		var/obj/item/gun/energy/chrono_gun/Pgun = beam.gun
 		if(Pgun && istype(Pgun))
 			Pgun.field_connect(src)
@@ -254,13 +260,7 @@
 		return BULLET_ACT_HIT
 
 /obj/structure/chrono_field/assume_air()
-	return null
-
-/obj/effect/chrono_field/assume_air_moles()
-	return null
-
-/obj/effect/chrono_field/assume_air_ratio()
-	return null
+	return 0
 
 /obj/structure/chrono_field/return_air() //we always have nominal air and temperature
 	var/datum/gas_mixture/GM = new

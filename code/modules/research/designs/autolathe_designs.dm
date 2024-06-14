@@ -145,17 +145,18 @@
 /datum/design/welding_helmet
 	name = "Welding Helmet"
 	id = "welding_helmet"
-	build_type = AUTOLATHE
+	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 1750, /datum/material/glass = 400)
-	build_path = /obj/item/clothing/head/welding
-	category = list("initial","Tools")
+	build_path = /obj/item/clothing/head/utility/welding
+	category = list("initial","Tools","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/cable_coil
 	name = "Cable Coil"
 	id = "cable_coil"
-	build_type = AUTOLATHE
+	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 10, /datum/material/glass = 5)
-	build_path = /obj/item/stack/cable_coil
+	build_path = /obj/item/stack/cable_coil/red/one
 	category = list("initial","Tools","Tool Designs")
 	maxstack = MAXCOIL
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
@@ -264,6 +265,15 @@
 	category = list("initial","Tools","Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
+/datum/design/airlock_painter/decal/tile
+	name = "Tile Sprayer"
+	id = "tile_sprayer"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 50, /datum/material/glass = 50)
+	build_path = /obj/item/airlock_painter/decal/tile
+	category = list("initial","Tools","Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SERVICE
+
 /datum/design/emergency_oxygen
 	name = "Emergency Oxygen Tank"
 	id = "emergency_oxygen"
@@ -348,7 +358,7 @@
 	id = "kitchen_knife"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 12000)
-	build_path = /obj/item/kitchen/knife
+	build_path = /obj/item/knife/kitchen
 	category = list("initial","Dinnerware")
 
 /datum/design/fork
@@ -449,7 +459,7 @@
 	id = "tinfoil_hat"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 5500)
-	build_path = /obj/item/clothing/head/foilhat
+	build_path = /obj/item/clothing/head/costume/foilhat
 	category = list("hacked", "Misc")
 
 /datum/design/blood_filter
@@ -539,7 +549,7 @@
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 50)
 	build_path = /obj/item/healthanalyzer
-	category = list("initial", "Medical", "Medical Designs")
+	category = list("hacked", "Medical", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/pillbottle
@@ -550,6 +560,14 @@
 	build_path = /obj/item/storage/pill_bottle
 	category = list("initial", "Medical", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/hacksaw
+	name = "Hacksaw"
+	id = "hacksaw"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron=12000)
+	build_path = /obj/item/hacksaw
+	category = list("hacked", "Medical")
 
 /datum/design/beanbag_slug
 	name = "Beanbag Slug"
@@ -863,7 +881,7 @@
 	id = "cleaver"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 18000)
-	build_path = /obj/item/kitchen/knife/butcher
+	build_path = /obj/item/knife/butcher
 	category = list("hacked", "Dinnerware")
 
 /datum/design/spraycan
@@ -1023,6 +1041,14 @@
 	build_path = /obj/item/vending_refill/custom
 	category = list("initial", "Misc")
 
+/datum/design/custom_vendor_board
+	name = "Custom Vendor Machine Board"
+	id = "custom_vendor_board"
+	build_type = AUTOLATHE
+	build_path = /obj/item/circuitboard/machine/vendor
+	materials = list(/datum/material/iron = 100, /datum/material/glass = 100)
+	category = list("initial", "Misc")
+
 /datum/design/toygun
 	name = "Cap Gun"
 	id = "toygun"
@@ -1063,3 +1089,21 @@
 	materials = list(/datum/material/iron = 50)
 	build_path = /obj/item/clothing/suit/caution
 	category = list("initial","Misc")
+
+/datum/design/control
+	name = "Blast Door Controller"
+	id = "blast"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 100, /datum/material/glass = 50)
+	build_path = /obj/item/assembly/control
+	category = list("initial","Misc")
+
+/datum/design/digital_clock_frame
+	name = "Digital Clock Frame"
+	id = "digital_clock_frame"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 700, /datum/material/glass = 400)
+	build_path = /obj/item/wallframe/digital_clock
+	category = list("initial", "Construction")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SERVICE
+

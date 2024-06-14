@@ -13,7 +13,7 @@
 	block_upgrade_walk = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	armour_penetration = 50
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
@@ -43,17 +43,20 @@
 		spark_system.start()
 		playsound(user, "sparks", 50, 1)
 		playsound(user, 'sound/weapons/blade1.ogg', 50, 1)
-		target.emag_act(user)
+		target.use_emag(user)
 
 /obj/item/energy_katana/pickup(mob/living/user)
 	..()
-	jaunt.Grant(user, src)
+	if(jaunt)
+		jaunt.Grant(user, src)
+	if(user.client)
+		playsound(src, 'sound/items/unsheath.ogg', 25, 1)
 	user.update_icons()
-	playsound(src, 'sound/items/unsheath.ogg', 25, 1)
 
 /obj/item/energy_katana/dropped(mob/user)
 	..()
-	jaunt.Remove(user)
+	if(jaunt)
+		jaunt.Remove(user)
 	user.update_icons()
 
 //If we hit the Ninja who owns this Katana, they catch it.

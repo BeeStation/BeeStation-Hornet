@@ -52,6 +52,7 @@
 /turf/open/floor/holofloor/grass
 	gender = PLURAL
 	name = "lush grass"
+	icon = 'icons/turf/floors/grass.dmi'
 	icon_state = "grass"
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE
@@ -104,6 +105,8 @@
 	name = "\proper space"
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	luminosity = 2
 
 /turf/open/floor/holofloor/space/Initialize(mapload)
 	icon_state = SPACE_ICON_STATE // so realistic
@@ -115,6 +118,11 @@
 	icon_state = "speedspace_ns_1"
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	luminosity = 2
+
+/turf/open/floor/holofloor/hyperspace/nograv/check_gravity()
+    return FALSE
 
 /turf/open/floor/holofloor/hyperspace/Initialize(mapload)
 	icon_state = "speedspace_ns_[(x + 5*y + (y%2+1)*7)%15+1]"
@@ -128,24 +136,27 @@
 	name = "carpet"
 	desc = "Electrically inviting."
 	icon = 'icons/turf/floors/carpet.dmi'
-	icon_state = "carpet"
+	icon_state = "carpet-255"
+	base_icon_state = "carpet"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CARPET)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET)
 	floor_tile = /obj/item/stack/tile/carpet
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE
 
 /turf/open/floor/holofloor/carpet/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, /atom/.proc/update_icon), 1)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance)), 1)
 
-/turf/open/floor/holofloor/carpet/update_icon()
+/turf/open/floor/holofloor/carpet/update_icon(updates=ALL)
 	. = ..()
-	if(intact)
-		queue_smooth(src)
+	if((updates & UPDATE_SMOOTHING) && overfloor_placed && smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH(src)
 
 /turf/open/floor/holofloor/wood
 	icon_state = "wood"
+	variants = list("wood", "wood1", "wood2", "wood3", "wood4")
 	tiled_dirt = FALSE
 
 /turf/open/floor/holofloor/snow
@@ -179,3 +190,23 @@
 	name = "white floor"
 	desc = "A tile in a pure white color."
 	icon_state = "pure_white"
+
+/turf/open/floor/holofloor/eighties
+	name = "retro floor"
+	desc = "This one takes you back."
+	icon_state = "eighties"
+
+/turf/open/floor/holofloor/monotile/dark
+	name = "dark holotile"
+	desc = "A really big dark steel holotile."
+	icon_state = "monotile_dark"
+
+/turf/open/floor/holofloor/monotile/steel
+	name = "steel holotile"
+	desc = "A really big steel holotile."
+	icon_state = "steel_monotile"
+
+/turf/open/floor/holofloor/monotile/light
+	name = "light holotile"
+	desc = "A really big light steel holotile."
+	icon_state = "grey_full"

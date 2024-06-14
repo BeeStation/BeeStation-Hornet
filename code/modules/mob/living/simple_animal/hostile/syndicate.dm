@@ -29,7 +29,7 @@
 	response_disarm = "shoves"
 	response_harm = "hits"
 	speed = 0
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 	maxHealth = 100
 	health = 100
@@ -40,13 +40,13 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
-	faction = list(ROLE_SYNDICATE)
+	faction = list(FACTION_SYNDICATE)
 	check_friendly_fire = 1
 	status_flags = CANPUSH
 	del_on_death = TRUE
 	dodging = TRUE
 	rapid_melee = 2
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	mobchatspan = "syndmob"
 
 ///////////////Melee////////////
@@ -287,7 +287,7 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	attacktext = "cuts"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	faction = list(ROLE_SYNDICATE)
+	faction = list(FACTION_SYNDICATE)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	mob_size = MOB_SIZE_TINY

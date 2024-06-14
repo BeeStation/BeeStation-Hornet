@@ -1,50 +1,10 @@
+// Preferences value defines
 
-//Preference toggles
-#define SOUND_ADMINHELP			(1<<0)
-#define SOUND_MIDI				(1<<1)
-#define SOUND_AMBIENCE			(1<<2)
-#define SOUND_LOBBY				(1<<3)
-#define MEMBER_PUBLIC			(1<<4)
-#define INTENT_STYLE			(1<<5)
-#define MIDROUND_ANTAG			(1<<6)
-#define SOUND_INSTRUMENTS		(1<<7)
-#define SOUND_SHIP_AMBIENCE		(1<<8)
-#define SOUND_PRAYERS			(1<<9)
-#define ANNOUNCE_LOGIN			(1<<10)
-#define SOUND_ANNOUNCEMENTS		(1<<11)
-#define DISABLE_DEATHRATTLE		(1<<12)
-#define DISABLE_ARRIVALRATTLE	(1<<13)
-#define COMBOHUD_LIGHTING		(1<<14)
-
-#define DEADMIN_ALWAYS			(1<<15)
-#define DEADMIN_ANTAGONIST		(1<<16)
-#define DEADMIN_POSITION_HEAD	(1<<17)
-#define DEADMIN_POSITION_SECURITY	(1<<18)
-#define DEADMIN_POSITION_SILICON	(1<<19)
-
-#define TOGGLES_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|MEMBER_PUBLIC|INTENT_STYLE|MIDROUND_ANTAG|SOUND_INSTRUMENTS|SOUND_SHIP_AMBIENCE|SOUND_PRAYERS|SOUND_ANNOUNCEMENTS)
-
-//Chat toggles
-#define CHAT_OOC			(1<<0)
-#define CHAT_DEAD			(1<<1)
-#define CHAT_GHOSTEARS		(1<<2)
-#define CHAT_GHOSTSIGHT		(1<<3)
-#define CHAT_PRAYER			(1<<4)
-#define CHAT_RADIO			(1<<5)
-#define CHAT_PULLR			(1<<6)
-#define CHAT_GHOSTWHISPER	(1<<7)
-#define CHAT_GHOSTPDA		(1<<8)
-#define CHAT_GHOSTRADIO 	(1<<9)
-#define CHAT_BANKCARD  (1<<10)
-#define CHAT_GHOSTLAWS	(1<<11)
-
-#define TOGGLES_DEFAULT_CHAT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_PULLR|CHAT_GHOSTWHISPER|CHAT_GHOSTPDA|CHAT_GHOSTRADIO|CHAT_BANKCARD|CHAT_GHOSTLAWS)
-
-#define PARALLAX_INSANE -1 //for show offs
-#define PARALLAX_HIGH    0 //default.
-#define PARALLAX_MED     1
-#define PARALLAX_LOW     2
-#define PARALLAX_DISABLE 3 //this option must be the highest number
+#define PARALLAX_INSANE "Insane"
+#define PARALLAX_HIGH "High"
+#define PARALLAX_MED "Medium"
+#define PARALLAX_LOW "Low"
+#define PARALLAX_DISABLE "Disabled"
 
 #define PIXEL_SCALING_AUTO 0
 #define PIXEL_SCALING_1X 1
@@ -116,7 +76,117 @@
 #define UPLINK_IMPLANT "Implant"
 #define UPLINK_IMPLANT_WITH_PRICE "[UPLINK_IMPLANT] (-[UPLINK_IMPLANT_TELECRYSTAL_COST] TC)"
 
-//Plasmamen helmet styles, when you edit those remember to edit list in preferences.dm
+//Plasmamen helmet styles
 #define HELMET_DEFAULT "Default"
 #define HELMET_MK2 "Mark II"
 #define HELMET_PROTECTIVE "Protective"
+
+GLOBAL_LIST_INIT(helmet_styles, list(
+	HELMET_DEFAULT,
+	HELMET_MK2,
+	HELMET_PROTECTIVE,
+))
+
+// True value of max save slots (3 is default, 8 is byond member, +1 to either if you have the extra slot loadout entry). Potential max is 9
+#define TRUE_MAX_SAVE_SLOTS 9
+
+// Values for /datum/preference/preference_type
+/// This preference is character specific.
+#define PREFERENCE_CHARACTER "character"
+/// This preference is account specific.
+#define PREFERENCE_PLAYER "player"
+
+// Values for /datum/preferences/current_tab
+/// Open the character preference window
+#define PREFERENCE_TAB_CHARACTER_PREFERENCES 0
+
+/// Open the game preferences window
+#define PREFERENCE_TAB_GAME_PREFERENCES 1
+
+/// These will be shown in the character sidebar, but at the bottom.
+#define PREFERENCE_CATEGORY_FEATURES "features"
+
+/// Any preferences that will show to the sides of the character in the setup menu.
+#define PREFERENCE_CATEGORY_CLOTHING "clothing"
+
+/// Preferences that will be put into the 3rd list, and are not contextual.
+#define PREFERENCE_CATEGORY_NON_CONTEXTUAL "non_contextual"
+
+/// Will be put under the game preferences window.
+#define PREFERENCE_CATEGORY_GAME_PREFERENCES "game_preferences"
+
+/// These will show in the list to the right of the character preview.
+#define PREFERENCE_CATEGORY_SECONDARY_FEATURES "secondary_features"
+
+/// These are preferences that are supplementary for main features,
+/// such as hair color being affixed to hair.
+#define PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES "supplemental_features"
+
+//randomized elements
+#define RANDOM_ANTAG_ONLY 1
+#define RANDOM_DISABLED 2
+#define RANDOM_ENABLED 3
+
+// randomize_appearance_prefs() and randomize_human_appearance() proc flags
+#define RANDOMIZE_SPECIES (1<<0)
+#define RANDOMIZE_NAME (1<<1)
+
+
+// Undatumized preference tags
+
+#define PREFERENCE_TAG_LAST_CL			"last_changelog"
+#define PREFERENCE_TAG_DEFAULT_SLOT		"default_slot"
+#define PREFERENCE_TAG_IGNORING			"ignoring"
+#define PREFERENCE_TAG_KEYBINDS			"key_bindings"
+#define PREFERENCE_TAG_PURCHASED_GEAR	"purchased_gear"
+#define PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL "be_special"
+#define PREFERENCE_TAG_PAI_NAME			"pai_name"
+#define PREFERENCE_TAG_PAI_DESCRIPTION	"pai_description"
+#define PREFERENCE_TAG_PAI_COMMENT		"pai_comment"
+
+GLOBAL_LIST_INIT(undatumized_preference_tags_player, list(
+	PREFERENCE_TAG_LAST_CL,
+	PREFERENCE_TAG_DEFAULT_SLOT,
+	PREFERENCE_TAG_IGNORING,
+	PREFERENCE_TAG_KEYBINDS,
+	PREFERENCE_TAG_PURCHASED_GEAR,
+	PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL,
+	PREFERENCE_TAG_PAI_NAME,
+	PREFERENCE_TAG_PAI_DESCRIPTION,
+	PREFERENCE_TAG_PAI_COMMENT,
+))
+
+GLOBAL_PROTECT(undatumized_preference_tags_player)
+
+#define CHARACTER_PREFERENCE_RANDOMIZE "randomize"
+#define CHARACTER_PREFERENCE_JOB_PREFERENCES "job_preferences"
+#define CHARACTER_PREFERENCE_ALL_QUIRKS "all_quirks"
+#define CHARACTER_PREFERENCE_EQUIPPED_GEAR "equipped_gear"
+#define CHARACTER_PREFERENCE_ROLE_PREFERENCES "role_preferences"
+
+GLOBAL_LIST_INIT(undatumized_preference_tags_character, list(
+	CHARACTER_PREFERENCE_RANDOMIZE,
+	CHARACTER_PREFERENCE_JOB_PREFERENCES,
+	CHARACTER_PREFERENCE_ALL_QUIRKS,
+	CHARACTER_PREFERENCE_EQUIPPED_GEAR,
+	CHARACTER_PREFERENCE_ROLE_PREFERENCES,
+))
+
+GLOBAL_PROTECT(undatumized_preference_tags_character)
+
+#define PREFERENCE_SHEET_NORMAL "preferences"
+#define PREFERENCE_SHEET_LARGE "preferences_l"
+#define PREFERENCE_SHEET_HUGE "preferences_h"
+
+#define PREFERENCE_BODYZONE_SIMPLIFIED "Simplified Targeting"	// Use the simplified system
+#define PREFERENCE_BODYZONE_INTENT "Precise Targeting"	// Use the bodyzone intent system
+
+/// Stop loading immediately, inform the user. Do not save the data.
+#define PREFERENCE_LOAD_ERROR 0
+/// There is no data to load, they are a guest and will never have this data.
+#define PREFERENCE_LOAD_IGNORE 1
+/// No data found - create a new character, continue loading
+#define PREFERENCE_LOAD_NO_DATA 2
+/// Normal behavior - success!
+#define PREFERENCE_LOAD_SUCCESS 3
+

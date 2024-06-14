@@ -11,11 +11,8 @@ again.
 
 /obj/effect/spawner/structure/Initialize(mapload)
 	. = ..()
-	if(spawn_list?.len)
-		for(var/I in spawn_list)
-			new I(get_turf(src))
-	return INITIALIZE_HINT_QDEL
-
+	for(var/spawn_type in spawn_list)
+		new spawn_type(loc)
 
 //normal windows
 
@@ -91,13 +88,18 @@ again.
 
 //reinforced
 
-/obj/effect/spawner/structure/window/reinforced
+/obj/effect/spawner/structure/window/reinforced //brig windows here
 	name = "reinforced window spawner"
 	icon_state = "rwindow_spawner"
 	spawn_list = list(/obj/structure/grille, /obj/structure/window/reinforced/fulltile)
 	FASTDMM_PROP(\
 		pipe_astar_cost = 2\
 	)
+
+//Alarm grilles for prison wing
+/obj/effect/spawner/structure/window/reinforced/prison
+	name = "prison window spawner"
+	spawn_list = list(/obj/structure/grille/prison, /obj/structure/window/reinforced/fulltile)
 
 //reinforced shutter
 /obj/effect/spawner/structure/window/reinforced/shutter
@@ -386,3 +388,64 @@ again.
 	name = "reinforced plasma shutter window spawner"
 	icon_state = "shprwindow_spawner"
 	spawn_list = list(/obj/machinery/door/firedoor/window, /obj/structure/grille, /obj/structure/window/plasma/reinforced/fulltile)
+
+//Depleted Uranium Windows
+
+/obj/effect/spawner/structure/window/depleteduranium
+	name = "reinforced depleted uranium window spawner"
+	icon_state = "duwindow_spawner"
+	spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium/fulltile)
+
+/obj/effect/spawner/structure/window/hollow/depleteduranium
+	name = "hollow depleted uranium window spawner"
+	icon_state = "duhwindow_spawner_full"
+	spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium, /obj/structure/window/depleteduranium/spawner/north, /obj/structure/window/depleteduranium/spawner/east, /obj/structure/window/depleteduranium/spawner/west)
+
+/obj/effect/spawner/structure/window/hollow/depleteduranium/end
+	icon_state = "duhwindow_spawner_end"
+
+/obj/effect/spawner/structure/window/hollow/depleteduranium/end/Initialize(mapload)
+	switch(dir)
+		if(NORTH)
+			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium/spawner/north, /obj/structure/window/depleteduranium/spawner/east, /obj/structure/window/depleteduranium/spawner/west)
+		if(EAST)
+			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium, /obj/structure/window/depleteduranium/spawner/north, /obj/structure/window/depleteduranium/spawner/east)
+		if(SOUTH)
+			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium, /obj/structure/window/depleteduranium/spawner/east, /obj/structure/window/depleteduranium/spawner/west)
+		if(WEST)
+			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium, /obj/structure/window/depleteduranium/spawner/north, /obj/structure/window/depleteduranium/spawner/west)
+	. = ..()
+
+/obj/effect/spawner/structure/window/hollow/depleteduranium/middle
+	icon_state = "duhwindow_spawner_middle"
+
+/obj/effect/spawner/structure/window/hollow/depleteduranium/middle/Initialize(mapload)
+	switch(dir)
+		if(NORTH,SOUTH)
+			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium, /obj/structure/window/depleteduranium/spawner/north)
+		if(EAST,WEST)
+			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium/spawner/east, /obj/structure/window/depleteduranium/spawner/west)
+	. = ..()
+
+/obj/effect/spawner/structure/window/hollow/depleteduranium/directional
+	icon_state = "duhwindow_spawner_directional"
+
+/obj/effect/spawner/structure/window/hollow/depleteduranium/directional/Initialize(mapload)
+	switch(dir)
+		if(NORTH)
+			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium/spawner/north)
+		if(NORTHEAST)
+			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium/spawner/north, /obj/structure/window/depleteduranium/spawner/east)
+		if(EAST)
+			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium/spawner/east)
+		if(SOUTHEAST)
+			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium, /obj/structure/window/depleteduranium/spawner/east)
+		if(SOUTH)
+			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium)
+		if(SOUTHWEST)
+			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium, /obj/structure/window/depleteduranium/spawner/west)
+		if(WEST)
+			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium/spawner/west)
+		if(NORTHWEST)
+			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium/spawner/north, /obj/structure/window/depleteduranium/spawner/west)
+	. = ..()

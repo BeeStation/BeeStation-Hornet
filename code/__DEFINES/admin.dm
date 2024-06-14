@@ -54,31 +54,13 @@
 #define ADMIN_VERBOSEJMP(src) "[src ? "[AREACOORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"
 #define ADMIN_INDIVIDUALLOG(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];individuallog=[REF(user)]'>LOGS</a>)"
 #define ADMIN_RETRIEVE_BOH_ITEMS(boh) "(<a href='?_src_=holder;[HrefToken(TRUE)];retrieveboh=[REF(boh)]'>RETRIEVE CONSUMED ITEMS</a>)"
+/// Displays "(SHOW)" in the chat, when clicked it tries to show atom(paper). First you need to set the request_state variable to TRUE for the paper.
+#define ADMIN_SHOW_PAPER(atom) "(<A href='?_src_=holder;[HrefToken(forceGlobal = TRUE)];show_paper=[REF(atom)]'>SHOW</a>)"
 
-#define ADMIN_PUNISHMENT_LIGHTNING "Lightning Bolt"
-#define ADMIN_PUNISHMENT_BRAINDAMAGE "Brain Damage"
-#define ADMIN_PUNISHMENT_GIB "Gib"
-#define ADMIN_PUNISHMENT_BSA "Bluespace Artillery Device"
-#define ADMIN_PUNISHMENT_FIREBALL "Fireball"
-#define ADMIN_PUNISHMENT_ROD "Immovable Rod"
-#define ADMIN_PUNISHMENT_SUPPLYPOD_QUICK "Supply Pod (Quick)"
-#define ADMIN_PUNISHMENT_SUPPLYPOD "Supply Pod"
-#define ADMIN_PUNISHMENT_MAZING "Puzzle"
-#define ADMIN_PUNISHMENT_FLOORCLUWNE "Floor Cluwne"
-#define ADMIN_PUNISHMENT_CLUWNE "Make Cluwne"
-#define ADMIN_PUNISHMENT_NUGGET "Nugget"
-#define ADMIN_PUNISHMENT_IMMERSE "Fully Immerse"
-#define ADMIN_PUNISHMENT_GHOST "Offer To Ghosts"
-#define ADMIN_PUNISHMENT_DEMOCRACY "Deadchat Control (Democracy)"
-#define ADMIN_PUNISHMENT_ANARCHY "Deadchat Control (Anarchy)"
-#define ADMIN_PUNISHMENT_TOE "Stub Toe (Once)"
-#define ADMIN_PUNISHMENT_TOEPLUS "Stub Toe (Always)"
-#define ADMIN_PUNISHMENT_CRYO "Force Cryo"
-
-#define AHELP_UNCLAIMED 1
-#define AHELP_ACTIVE 2
-#define AHELP_CLOSED 3
-#define AHELP_RESOLVED 4
+#define TICKET_UNCLAIMED 1
+#define TICKET_ACTIVE 2
+#define TICKET_CLOSED 3
+#define TICKET_RESOLVED 4
 
 #define ROUNDSTART_LOGOUT_REPORT_TIME	6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
 
@@ -90,10 +72,6 @@
 
 #define STICKYBAN_DB_CACHE_TIME 10 SECONDS
 #define STICKYBAN_ROGUE_CHECK_TIME 5
-
-
-#define POLICY_POLYMORPH "polymorph" //Shown to vicitm of staff of change and related effects.
-#define POLICY_VERB_HEADER "policy_verb_header" //Shown on top of policy verb window
 
 // allowed ghost roles this round, starts as everything allowed
 GLOBAL_VAR_INIT(ghost_role_flags, (~0))
@@ -109,3 +87,8 @@ GLOBAL_VAR_INIT(ghost_role_flags, (~0))
 #define GHOSTROLE_SILICONS			(1<<3)
 //ie mafia, ctf
 #define GHOSTROLE_MINIGAME			(1<<4)
+
+// Job deadmin flags
+#define DEADMIN_POSITION_HEAD		(1<<0)
+#define DEADMIN_POSITION_SECURITY	(1<<1)
+#define DEADMIN_POSITION_SILICON	(1<<2)

@@ -1,32 +1,54 @@
-GLOBAL_LIST_EMPTY(mentor_datums)
-GLOBAL_PROTECT(mentor_datums)
-
-GLOBAL_VAR_INIT(mentor_href_token, GenerateToken())
-GLOBAL_PROTECT(mentor_href_token)
-
+/// A datum storing various mentor functionality on a client.
+/// These are created regardless of if said client is signed in, and then assigned on login from the mentor_datums list.
 /datum/mentors
 	var/name = "someone's mentor datum"
-	var/client/owner // the actual mentor, client type
-	var/target // the mentor's ckey
-	var/href_token // href token for mentor commands, uses the same token used by admins.
-	var/mob/following
+	/// The mentor datum's client
+	var/client/owner
+	/// The mentor's key (aka client.ckey with ckey() proc called on it)
+	var/target
+	/// href token for mentor commands, similar to the token used by admins.
+	var/href_token
+	/// The Mentor Ticket Manager interface
+	var/datum/help_ui/mentor/mentor_interface
+	/// If this mentor datum is inactive due to de-adminning.
+	var/dementored = FALSE
+	/// If this mentor datum was created due to someone being an admin, but not a mentor.
+	/// This is used so that deadminning doesn't remove verbs if someone is both a mentor and an admin.
+	var/for_admin = FALSE
 
-/datum/mentors/New(ckey)
+/datum/mentors/New(ckey, for_admin)
 	if(!ckey)
 		QDEL_IN(src, 0)
-		throw EXCEPTION("Mentor datum created without a ckey")
+		stack_trace("Mentor datum created without a ckey: [ckey]")
 		return
 	target = ckey(ckey)
+	if(GLOB.mentor_datums[target])
+		QDEL_IN(src, 0)
+		stack_trace("A second mentor datum was created for [target]!")
+		return
 	name = "[ckey]'s mentor datum"
 	href_token = GenerateToken()
+	src.for_admin = for_admin
 	GLOB.mentor_datums[target] = src
-	//set the owner var and load commands
-	owner = GLOB.directory[ckey]
-	if(owner)
-		owner.mentor_datum = src
+	// If they're logged in, let's assign their mentor datum now.
+	var/client/C = GLOB.directory[ckey]
+	assign_to_client(C)
+
+/datum/mentors/proc/assign_to_client(client/C)
+	if(!C)
+		return
+	var/new_client_ckey = ckey(C.ckey)
+	if(new_client_ckey != target) // what the fuck
+		stack_trace("Invalid client assigned to mentor datum for [target], the new client was [new_client_ckey]")
+		return
+	owner = C
+	owner.mentor_datum = src
+	if(for_admin)
+		activate()
+	else
 		owner.add_mentor_verbs()
-		if(!check_rights_for(owner, R_ADMIN,0)) // don't add admins to mentor list.
-			GLOB.mentors += owner
+	if(!check_rights_for(owner, R_ADMIN)) // add nonadmins to the mentor list.
+		GLOB.mentors |= owner
 
 /datum/mentors/proc/CheckMentorHREF(href, href_list)
 	var/auth = href_list["mentor_token"]
@@ -57,37 +79,48 @@ GLOBAL_PROTECT(mentor_href_token)
 /proc/MentorHrefToken(forceGlobal = FALSE)
 	return "mentor_token=[RawMentorHrefToken(forceGlobal)]"
 
-/proc/load_mentors()
-	GLOB.mentor_datums.Cut()
-	for(var/client/C in GLOB.mentors)
-		C.remove_mentor_verbs()
-		C.mentor_datum = null
-	GLOB.mentors.Cut()
-	if(CONFIG_GET(flag/mentor_legacy_system))//legacy
-		var/list/lines = world.file2list("config/mentors.txt")
-		for(var/line in lines)
-			if(!length(line))
-				continue
-			if(findtextEx(line, "#", 1, 2))
-				continue
-			new /datum/mentors(line)
-	else//Database
-		if(!SSdbcore.Connect())
-			log_world("Failed to connect to database in load_mentors(). Reverting to legacy system.")
-			WRITE_FILE(GLOB.world_game_log, "Failed to connect to database in load_mentors(). Reverting to legacy system.")
-			CONFIG_SET(flag/mentor_legacy_system, TRUE)
-			load_mentors()
-			return
-		var/datum/DBQuery/query_load_mentors = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("mentor")]")
-		if(!query_load_mentors.Execute())
-			qdel(query_load_mentors)
-			return
-		while(query_load_mentors.NextRow())
-			var/ckey = ckey(query_load_mentors.item[1])
-			new /datum/mentors(ckey)
-		qdel(query_load_mentors)
+/datum/mentors/Topic(href, href_list)
+	..()
+
+	if(usr.client != src.owner || !GLOB.mentor_datums[usr.ckey])
+		log_href_exploit(usr, " Tried to use the mentor panel without having the correct mentor datum.")
+		return
+
+	if(dementored)
+		return
+
+	if(!CheckMentorHREF(href, href_list))
+		return
+
+	if(href_list["mhelp"])
+		var/mhelp_ref = href_list["mhelp"]
+		var/datum/help_ticket/mentor/MH = locate(mhelp_ref)
+		if(istype(MH))
+			MH.Action(href_list["mhelp_action"])
+		else
+			to_chat(usr, "Ticket [mhelp_ref] has been deleted!")
+	else if(href_list["mhelp_tickets"])
+		GLOB.mhelp_tickets.BrowseTickets(usr)
 
 
-/client
-	/// Acts the same way holder does towards admin: it holds the mentor datum. if set, the guy's a mentor.
-	var/datum/mentors/mentor_datum
+/datum/mentors/proc/activate()
+	if(!for_admin)
+		return
+	if(IsAdminAdvancedProcCall())
+		var/msg = " has tried to elevate permissions!"
+		message_admins("[key_name_admin(usr)][msg]")
+		log_admin("[key_name(usr)][msg]")
+		return
+	dementored = FALSE
+	owner.add_mentor_verbs()
+
+/datum/mentors/proc/deactivate()
+	if(!for_admin)
+		return
+	if(IsAdminAdvancedProcCall())
+		var/msg = " has tried to elevate permissions!"
+		message_admins("[key_name_admin(usr)][msg]")
+		log_admin("[key_name(usr)][msg]")
+		return
+	dementored = TRUE
+	owner.remove_mentor_verbs()

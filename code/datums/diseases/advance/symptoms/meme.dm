@@ -30,21 +30,19 @@
 		return
 	if(!emote)
 		emote = pick(emotelist)
-		
+
 /datum/symptom/meme/Activate(datum/disease/advance/A)
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	if(prob(20 * A.stage) && !M.stat && !HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		M.emote(emote)
-		if(A.stage >= 5)
-			for(var/mob/living/carbon/C in oviewers(M, 7))
+		if(A.stage >= 5 && prob(20) && (A.transmission >= 14 || CONFIG_GET(flag/unconditional_virus_spreading) || A.event))
+			for(var/mob/living/carbon/C in oviewers(M, 4))
 				var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
-				if(!eyes || HAS_TRAIT(C, TRAIT_BLIND) || HAS_TRAIT(C, TRAIT_MINDSHIELD) || istype(C.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+				if(!eyes || HAS_TRAIT(C, TRAIT_BLIND) || HAS_TRAIT(C, TRAIT_MINDSHIELD) || istype(C.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 					continue
-				for(var/datum/disease/advance/D in C.diseases)
-					if(D.GetDiseaseID() == A.GetDiseaseID())
-						C.emote(emote)
-				if(A.transmission >= 14)
-					if(C.ForceContractDisease(A))
-						C.emote(emote)
+				if(C.ForceContractDisease(A))
+					C.emote(emote)

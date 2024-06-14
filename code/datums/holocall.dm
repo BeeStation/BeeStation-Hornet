@@ -43,7 +43,7 @@
 
 	for(var/I in callees)
 		var/obj/machinery/holopad/H = I
-		if(!QDELETED(H) && H.is_operational())
+		if(!QDELETED(H) && H.is_operational)
 			dialed_holopads += H
 			H.say("Incoming call.")
 			LAZYADD(H.holo_calls, src)
@@ -166,13 +166,13 @@
 /datum/holocall/proc/Check()
 	for(var/I in dialed_holopads)
 		var/obj/machinery/holopad/H = I
-		if(!H.is_operational())
+		if(!H.is_operational)
 			ConnectionFailure(H)
 
 	if(QDELETED(src))
 		return FALSE
 
-	. = !QDELETED(user) && !user.incapacitated() && !QDELETED(calling_holopad) && calling_holopad.is_operational() && user.loc == calling_holopad.loc
+	. = !QDELETED(user) && !user.incapacitated() && !QDELETED(calling_holopad) && calling_holopad.is_operational && user.loc == calling_holopad.loc
 
 	if(.)
 		if(!connected_holopad)
@@ -217,7 +217,7 @@
 	desc = "Stores recorder holocalls."
 	icon_state = "holodisk"
 	obj_flags = UNIQUE_RENAME
-	materials = list(/datum/material/iron = 100, /datum/material/glass = 100)
+	custom_materials = list(/datum/material/iron = 100, /datum/material/glass = 100)
 	var/datum/holorecord/record
 	//Preset variables
 	var/preset_image_type

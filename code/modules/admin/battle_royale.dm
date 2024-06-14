@@ -1,9 +1,9 @@
 //Global lists so they can be editted by admins
 GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/soap,
-		/obj/item/kitchen/knife,
-		/obj/item/kitchen/knife/combat,
-		/obj/item/kitchen/knife/poison,
+		/obj/item/knife/kitchen,
+		/obj/item/knife/combat,
+		/obj/item/knife/poison,
 		/obj/item/throwing_star,
 		/obj/item/syndie_glue,
 		/obj/item/book_of_babel,
@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/storage/box/lethalshot,
 		/obj/item/storage/box/gorillacubes,
 		/obj/item/storage/box/teargas,
-		/obj/item/storage/box/security/radio,
+		/obj/item/storage/box/survival/security,
 		/obj/item/storage/box/medsprays,
 		/obj/item/storage/toolbox/syndicate,
 		/obj/item/storage/box/syndie_kit/bee_grenades,
@@ -44,9 +44,9 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/clothing/suit/armor/vest/russian_coat,
 		/obj/item/clothing/suit/armor/hos/trenchcoat,
 		/obj/item/clothing/mask/chameleon,
-		/obj/item/clothing/head/centhat,
-		/obj/item/clothing/head/crown,
-		/obj/item/clothing/head/HoS/syndicate,
+		/obj/item/clothing/head/hats/centhat,
+		/obj/item/clothing/head/costume/crown,
+		/obj/item/clothing/head/hats/hos/syndicate,
 		/obj/item/clothing/head/helmet,
 		/obj/item/clothing/head/helmet/clockcult,
 		/obj/item/clothing/head/helmet/space,
@@ -87,8 +87,8 @@ GLOBAL_LIST_INIT(battle_royale_good_loot, list(
 		/obj/item/melee/transforming/energy/sword,
 		/obj/item/dualsaber,
 		/obj/item/fireaxe,
-		/obj/item/stack/telecrystal/five,
-		/obj/item/stack/telecrystal/twenty,
+		/obj/item/stack/sheet/telecrystal/five,
+		/obj/item/stack/sheet/telecrystal/twenty,
 		/obj/item/clothing/suit/space/hardsuit/syndi
 	))
 
@@ -97,9 +97,9 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/energy_katana,
 		/obj/item/clothing/suit/space/hardsuit/shielded/syndi,
 		/obj/item/his_grace,
-		/obj/mecha/combat/marauder/mauler/loaded,
-		/obj/item/guardiancreator/tech,
-		/obj/item/mjollnir,
+		/obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded,
+		/obj/item/holoparasite_creator/tech,
+		/obj/item/mjolnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
 		/obj/item/uplink/nuclear
 	))
@@ -206,7 +206,6 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//BR finished? Let people play as borgs/golems again
 	ENABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
 
-	world.update_status()
 	GLOB.battle_royale = null
 
 //Trigger random events and shit, update the world border
@@ -246,6 +245,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		return
 	//Once every 15 seconsd
 	// 1,920 seconds (about 32 minutes per game)
+	if(!field_delay) //Division by 0 protection
+		field_delay = 1
 	if(process_num % (field_delay) == 0)
 		for(var/obj/effect/death_wall/wall as() in death_wall)
 			wall.decrease_size()
@@ -273,7 +274,6 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//Don't let anyone join as posibrains/golems etc
 	DISABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
 
-	world.update_status()
 	if(SSticker.current_state < GAME_STATE_PREGAME)
 		to_chat(world, "<span class=boldannounce>Battle Royale: Waiting for server to be ready...</span>")
 		SSticker.start_immediately = FALSE
@@ -307,22 +307,22 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Starting game.</span>")
 	titanfall()
 	death_wall = list()
-	var/z_level = SSmapping.station_start
-	var/turf/center = SSmapping.get_station_center()
-	var/list/edge_turfs = list()
-	edge_turfs += block(locate(12, 12, z_level), locate(244, 12, z_level))			//BOTTOM
-	edge_turfs += block(locate(12, 244, z_level), locate(244, 244, z_level))		//TOP
-	edge_turfs |= block(locate(12, 12, z_level), locate(12, 244, z_level))			//LEFT
-	edge_turfs |= block(locate(244, 12, z_level), locate(244, 244, z_level)) 	//RIGHT
-	for(var/turf/T in edge_turfs)
-		var/obj/effect/death_wall/DW = new(T)
-		DW.set_center(center)
-		death_wall += DW
-		CHECK_TICK
+	for(var/z_level in SSmapping.levels_by_trait(ZTRAIT_STATION))
+		var/turf/center = SSmapping.get_station_center(level = z_level)
+		var/list/edge_turfs = list()
+		edge_turfs += block(locate(12, 12, z_level), locate(244, 12, z_level))		//BOTTOM
+		edge_turfs += block(locate(12, 244, z_level), locate(244, 244, z_level))	//TOP
+		edge_turfs |= block(locate(12, 12, z_level), locate(12, 244, z_level))		//LEFT
+		edge_turfs |= block(locate(244, 12, z_level), locate(244, 244, z_level))	//RIGHT
+		for(var/turf/T in edge_turfs)
+			var/obj/effect/death_wall/DW = new(T)
+			DW.set_center(center)
+			death_wall += DW
+			CHECK_TICK
 	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall()
-	var/list/participants = pollGhostCandidates("Would you like to partake in BATTLE ROYALE?")
+	var/list/participants = poll_ghost_candidates("Would you like to partake in BATTLE ROYALE?")
 	var/turf/spawn_turf = get_safe_random_station_turfs()
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()
@@ -352,7 +352,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	to_chat(world, "<span class='boldannounce'>[players.len] people remain...</span>")
 
 	//Start processing our world events
-	addtimer(CALLBACK(src, .proc/end_grace), 300)
+	addtimer(CALLBACK(src, PROC_REF(end_grace)), 300)
 	generate_basic_loot(150)
 
 /datum/battle_royale_controller/proc/end_grace()
@@ -410,7 +410,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /obj/effect/death_wall/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -419,7 +419,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//lol u died
 	if(isliving(AM))
 		var/mob/living/M = AM
-		INVOKE_ASYNC(M, /mob/living/carbon.proc/gib)
+		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob/living/carbon, gib))
 		to_chat(M, "<span class='warning'>You left the zone!</span>")
 
 /obj/effect/death_wall/Moved(atom/OldLoc, Dir)
@@ -432,10 +432,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	center_turf = center
 
 /obj/effect/death_wall/proc/decrease_size()
-	var/minx = CLAMP(center_turf.x - current_radius, 1, 255)
-	var/maxx = CLAMP(center_turf.x + current_radius, 1, 255)
-	var/miny = CLAMP(center_turf.y - current_radius, 1, 255)
-	var/maxy = CLAMP(center_turf.y + current_radius, 1, 255)
+	var/minx = clamp(center_turf.x - current_radius, 1, 255)
+	var/maxx = clamp(center_turf.x + current_radius, 1, 255)
+	var/miny = clamp(center_turf.y - current_radius, 1, 255)
+	var/maxy = clamp(center_turf.y + current_radius, 1, 255)
 	if(y == maxy || y == miny)
 		//We have nowhere to move to so are deleted
 		if(x == minx || x == minx + 1 || x == maxx || x == maxx - 1)

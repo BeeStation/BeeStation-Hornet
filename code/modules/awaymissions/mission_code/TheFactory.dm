@@ -70,7 +70,7 @@
 	ambientsounds = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambifac.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambiruin6.ogg','sound/ambience/ambitech3.ogg')
 	requires_power = FALSE
 	always_unpowered = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 
 /area/awaymission/factory/factoryafter/down/maint
 	ambientsounds = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambimaint2.ogg')
@@ -114,11 +114,10 @@
 	ambientsounds = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambitech.ogg','sound/ambience/ambitech2.ogg','sound/ambience/ambitech3.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/ambiatmos2.ogg','sound/ambience/signal.ogg','sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiruin2.ogg')
 
 /area/awaymission/factory/factoryduring/down/levelthree/engine
-	name = "The old reality engine"
+	name = "The reality engine"
 	mood_bonus = 1
 	mood_message = "<span class='nicegreen'>Uhm... Ok?... I guess...\n</span>"
 	ambientsounds = list('sound/ambience/singulambience.ogg','sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg','sound/ambience/antag/assimilation.ogg','sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg')
-	name = "The reality engine"
 
 /area/awaymission/factory/factoryduring/down/leveltwo
 	name = "The old Factory - middle level"
@@ -169,7 +168,7 @@
 /area/awaymission/factory/villageduring/basement
 	name = "The old basement"
 	ambientsounds = list('sound/ambience/ambibasement.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambiodd.ogg')
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 
 /area/awaymission/factory/villageduring/house/start
 	name = "The old House"
@@ -181,7 +180,7 @@
 
 /area/awaymission/factory/transition
 	name = "Beyond the time"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	ambientsounds = list('sound/ambience/shipambience.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/antag/malf.ogg','sound/ambience/signal.ogg','sound/ambience/ambimalf.ogg')
 
 //ITEMS//
@@ -236,7 +235,7 @@
 	turns_per_move = 5
 	speak_chance = 5
 	del_on_death = TRUE
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	search_objects = 1
 	a_intent = INTENT_HARM
@@ -248,7 +247,7 @@
 	maxHealth = 100
 	health = 100
 	melee_damage = 12
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	faction = list("nanotrasenprivate")
 	status_flags = CANPUSH
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
@@ -274,7 +273,7 @@
 		playsound(get_turf(src), chosen_sound, 100, 0, 0)
 		var/list/possible_phrases = list("Anomaly spotted! Send backup!","Intruder over here!","Hostile spotted, get them!")
 		var/chosen_phrase = pick(possible_phrases)
-		say(chosen_phrase)
+		say(chosen_phrase, language = speak_language)
 	else
 		return
 
@@ -363,7 +362,7 @@
 	speak_chance = 2
 	var/cooldown = 0
 	speak = list("You're pretty good.","You can't dodge everything!","Fall down already!")
-	loot = list(/obj/item/gun/ballistic/automatic/sniper_rifle,
+	loot = list(/obj/item/gun/ballistic/sniper_rifle,
 					/obj/effect/mob_spawn/human/corpse/sniper,
 					/obj/item/ammo_box/magazine/sniper_rounds,
 					/obj/item/ammo_box/magazine/sniper_rounds/penetrator,
@@ -416,7 +415,7 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	obj_damage = 5
 	sidestep_per_cycle = 0
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	melee_damage = 15
 	lose_patience_timeout = 350
 	loot = list(/obj/effect/mob_spawn/human/corpse/psychost)
@@ -534,7 +533,7 @@
 		playsound(src, chosen_sound, 50, FALSE)
 	if(health < maxHealth)
 		playsound(src, 'sound/machines/beep.ogg', 80, FALSE)
-		addtimer(CALLBACK(src, .proc/death), 200)
+		addtimer(CALLBACK(src, PROC_REF(death)), 200)
 
 /mob/living/simple_animal/hostile/psycho/trap/AttackingTarget()
 	var/list/possible_sounds = list('sound/creatures/psychhead.ogg','sound/creatures/psychhead2.ogg')
@@ -562,7 +561,7 @@
 	ranged = TRUE
 	rapid = 65
 	rapid_fire_delay = 0.5
-	projectiletype = /obj/item/projectile/beam
+	projectiletype = /obj/projectile/beam
 	ranged_cooldown_time = 110
 	vision_range = 9
 	speak_chance = 0
@@ -601,7 +600,7 @@
 	if(!(simple_mob_flags & SILENCE_RANGED_MESSAGE))
 		visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
 	if(rapid > 1)
-		var/datum/callback/cb = CALLBACK(src, .proc/Shoot, A)
+		var/datum/callback/cb = CALLBACK(src, PROC_REF(Shoot), A)
 		for(var/i in 1 to rapid)
 			addtimer(cb, (i - 1)*rapid_fire_delay)
 	else
@@ -619,7 +618,7 @@
 	safety = FALSE
 
 /mob/living/simple_animal/hostile/zombie_suicide
-	name = "agressive corpse"
+	name = "aggressive corpse"
 	desc = "This corpse is holding a grenade without a pin in it..."
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "suicidezombie"
@@ -635,13 +634,13 @@
 	melee_damage = null
 	attack_sound = null
 	del_on_death = TRUE
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	a_intent = INTENT_HARM
 	var/det_time = 30
 	var/active = 0
 	var/cooldown = 0
 	loot = list(/obj/effect/mob_spawn/human/corpse/suicidezombie, /obj/item/grenade/syndieminibomb/concussion/frag/activated)
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	hardattacks = TRUE
 
 /mob/living/simple_animal/hostile/zombie_suicide/Aggro()
@@ -660,7 +659,7 @@
 		var/chosen_sound = pick(possible_sounds)
 		playsound(get_turf(src), chosen_sound, 50, TRUE, 0)
 		visible_message("<span class='danger'>[src] primes the grenade!.</span>")
-		addtimer(CALLBACK(src, .proc/prime), det_time)
+		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
 
 /mob/living/simple_animal/hostile/zombie_suicide/proc/prime()
 	explosion(src,0, 2, 3, flame_range = 3)
@@ -777,7 +776,7 @@
 	move_to_delay = 20
 	ranged_cooldown = 300
 	ranged_cooldown_time = 300
-	INVOKE_ASYNC(src, .proc/explosion, src.loc, 0, 3, 4, null, null, FALSE, 2)
+	INVOKE_ASYNC(src, PROC_REF(explosion), src.loc, 0, 3, 4, null, null, FALSE, 2)
 	..()
 
 //GUNS//
@@ -785,11 +784,12 @@
 /obj/item/gun/ballistic/shotgun/lever_action
 	name = "lever action shotgun"
 	desc = "A really old shotgun with five shell capacity. This one can fit in a backpack."
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	dual_wield_spread = 0
 	fire_sound_volume = 60    //tried on 90 my eardrums said goodbye
 	item_state = "leveraction"
 	icon_state = "leveraction"
+	worn_icon_state = "shotgun"
 	rack_sound = "sound/weapons/leveractionrack.ogg"
 	fire_sound = "sound/weapons/leveractionshot.ogg"
 	vary_fire_sound = FALSE

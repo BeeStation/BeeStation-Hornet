@@ -90,14 +90,14 @@
 	if(D.stat || D.IsParalyzed())
 		return 0
 	var/obj/item/bodypart/affecting = D.get_bodypart(BODY_ZONE_CHEST)
-	var/armor_block = D.run_armor_check(affecting, "melee")
+	var/armor_block = D.run_armor_check(affecting, MELEE)
 	D.visible_message("<span class='warning'>[A] leg sweeps [D]!</span>", \
 					"<span class='userdanger'>Your legs are sweeped by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", null, A)
 	to_chat(A, "<span class='danger'>You leg sweep [D]!</span>")
 	playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	D.apply_damage(rand(20,30), STAMINA, affecting, armor_block)
 	D.Knockdown(60)
-	log_combat(A, D, "leg sweeped")
+	log_combat(A, D, "leg sweeped", name)
 	return 1
 
 /datum/martial_art/krav_maga/proc/quick_choke(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)//is actually lung punch
@@ -105,9 +105,9 @@
 				  	"<span class='userdanger'>[A] slams your chest! You can't breathe!</span>", null, COMBAT_MESSAGE_RANGE)
 	playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	if(D.losebreath <= 10)
-		D.losebreath = CLAMP(D.losebreath + 5, 0, 10)
+		D.losebreath = clamp(D.losebreath + 5, 0, 10)
 	D.adjustOxyLoss(10)
-	log_combat(A, D, "quickchoked")
+	log_combat(A, D, "quickchoked", name)
 	return 1
 
 /datum/martial_art/krav_maga/proc/neck_chop(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
@@ -116,22 +116,21 @@
 	playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	D.apply_damage(5, A.dna.species.attack_type)
 	if(D.silent <= 10)
-		D.silent = CLAMP(D.silent + 10, 0, 10)
-	log_combat(A, D, "neck chopped")
+		D.silent = clamp(D.silent + 10, 0, 10)
+	log_combat(A, D, "neck chopped", name)
 	return 1
 
 /datum/martial_art/krav_maga/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(check_streak(A,D))
 		return 1
-	log_combat(A, D, "grabbed (Krav Maga)")
+	log_combat(A, D, "grabbed (Krav Maga)", name)
 	..()
 
 /datum/martial_art/krav_maga/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(check_streak(A,D))
 		return 1
-	log_combat(A, D, "punched")
-	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, "melee")
+	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.get_combat_bodyzone(D)))
+	var/armor_block = D.run_armor_check(affecting, MELEE)
 	var/picked_hit_type = pick("punched", "kicked")
 	var/bonus_damage = 0
 	if(!(D.mobility_flags & MOBILITY_STAND))
@@ -146,14 +145,14 @@
 		playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>", null, COMBAT_MESSAGE_RANGE)
-	log_combat(A, D, "[picked_hit_type] with [name]")
+	log_combat(A, D, "[picked_hit_type] with [name]", name)
 	return 1
 
 /datum/martial_art/krav_maga/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(check_streak(A,D))
 		return 1
-	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, "melee")
+	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.get_combat_bodyzone(D)))
+	var/armor_block = D.run_armor_check(affecting, MELEE)
 	if((D.mobility_flags & MOBILITY_STAND))
 		D.visible_message("<span class='danger'>[A] reprimands [D]!</span>", \
 					"<span class='userdanger'>You're slapped by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, A)
@@ -161,7 +160,7 @@
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		playsound(D, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 		D.apply_damage(rand(5,10), STAMINA, affecting, armor_block)
-		log_combat(A, D, "punched nonlethally")
+		log_combat(A, D, "punched nonlethally", name)
 	if(!(D.mobility_flags & MOBILITY_STAND))
 		D.visible_message("<span class='danger'>[A] reprimands [D]!</span>", \
 					"<span class='userdanger'>You're manhandled by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, A)
@@ -169,7 +168,7 @@
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		playsound(D, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 		D.apply_damage(rand(10,15), STAMINA, affecting, armor_block)
-		log_combat(A, D, "stomped nonlethally")
+		log_combat(A, D, "stomped nonlethally", name)
 	if(prob(D.getStaminaLoss()))
 		D.visible_message("<span class='warning'>[D] sputters and recoils in pain!</span>", "<span class='userdanger'>You recoil in pain as you are jabbed in a nerve!</span>")
 		D.drop_all_held_items()
@@ -191,6 +190,7 @@
 	var/datum/martial_art/krav_maga/style = new
 
 /obj/item/clothing/gloves/krav_maga/equipped(mob/user, slot)
+	. = ..()
 	if(!ishuman(user))
 		return
 	if(slot == ITEM_SLOT_GLOVES)
@@ -198,7 +198,7 @@
 		style.teach(H,1)
 
 /obj/item/clothing/gloves/krav_maga/dropped(mob/user)
-	..()
+	. = ..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
@@ -214,4 +214,4 @@
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	strip_delay = 80
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 0)

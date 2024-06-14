@@ -24,19 +24,19 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "e" = (
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "f" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/template_noop)
 "g" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants/random,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "h" = (
@@ -59,22 +59,6 @@
 /obj/structure/table_frame/wood,
 /turf/open/floor/plating,
 /area/template_noop)
-"k" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "l" = (
 /obj/structure/bookcase,
 /obj/effect/decal/cleanable/cobweb,
@@ -84,7 +68,7 @@
 "m" = (
 /obj/structure/chair/office,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "n" = (
 /obj/structure/chair/office,
@@ -96,7 +80,7 @@
 "o" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/item/kirbyplants/random,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "p" = (
 /obj/effect/decal/cleanable/dirt,
@@ -107,7 +91,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "r" = (
 /obj/structure/table/wood,
@@ -124,7 +108,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "u" = (
 /obj/structure/bookcase/random/fiction,
@@ -134,7 +118,7 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "w" = (
 /obj/structure/table/wood,
@@ -170,11 +154,11 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "B" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "C" = (
 /obj/effect/decal/cleanable/dirt,
@@ -182,11 +166,6 @@
 /area/template_noop)
 "D" = (
 /turf/closed/wall,
-/area/template_noop)
-"E" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken7"
-	},
 /area/template_noop)
 "F" = (
 /obj/structure/bookcase/random/reference,
@@ -201,16 +180,16 @@
 /area/template_noop)
 "H" = (
 /obj/structure/bookcase/random/adult,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "I" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/wood,
 /area/template_noop)
 "J" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "K" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -238,25 +217,23 @@
 /area/template_noop)
 "O" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/template_noop)
-"P" = (
+"Q" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"R" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/morgue{
 	name = "Occult Study"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "S" = (
 /obj/structure/table/wood,
@@ -304,11 +281,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/taperecorder,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "Z" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -325,13 +302,13 @@ S
 "}
 (2,1,1) = {"
 b
-k
+Q
 p
 p
 e
 e
-E
-E
+O
+O
 I
 T
 "}
@@ -404,7 +381,7 @@ e
 B
 D
 D
-P
+R
 D
 "}
 (9,1,1) = {"

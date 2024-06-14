@@ -1,12 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "b" = (
 /obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "c" = (
 /obj/machinery/light/small/built{
@@ -14,14 +9,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"d" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "e" = (
 /obj/effect/turf_decal/stripes/line{
@@ -81,11 +69,11 @@
 /area/template_noop)
 "o" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "p" = (
 /obj/structure/AIcore,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "q" = (
 /turf/open/floor/circuit,
@@ -93,7 +81,7 @@
 "r" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/robot_debris,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "s" = (
 /obj/structure/table,
@@ -105,14 +93,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"u" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "v" = (
 /obj/structure/chair/office{
@@ -128,26 +109,45 @@
 /obj/item/stack/cable_coil/random/five,
 /turf/open/floor/plating,
 /area/template_noop)
-"x" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "y" = (
 /obj/machinery/light/small/broken,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "z" = (
 /obj/machinery/light/small/broken,
 /turf/open/floor/plating,
 /area/template_noop)
+"C" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"K" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"P" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/blue,
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"R" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/template_noop)
 
 (1,1,1) = {"
-a
-a
+P
+P
 o
 t
 t
@@ -157,7 +157,7 @@ b
 j
 k
 q
-x
+K
 "}
 (3,1,1) = {"
 c
@@ -167,18 +167,18 @@ q
 y
 "}
 (4,1,1) = {"
-d
+C
 k
 q
 q
-u
+R
 "}
 (5,1,1) = {"
-d
-d
+C
+C
 r
-u
-u
+R
+R
 "}
 (6,1,1) = {"
 e

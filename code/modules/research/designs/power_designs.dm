@@ -67,6 +67,17 @@
 	category = list("Power Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_ENGINEERING
 
+/datum/design/light_replacer_bluespace
+	name = "Bluespace Light Replacer"
+	desc = "A device to automatically replace lights from a distance. Refill with working light bulbs."
+	id = "light_replacer_bluespace"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 1500, /datum/material/silver = 150, /datum/material/glass = 6000, /datum/material/bluespace = 300)
+	build_path = /obj/item/lightreplacer/bluespace
+	category = list("Power Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_ENGINEERING
+
+
 /datum/design/inducer
 	name = "Heavy-Duty Inducer"
 	desc = "Inducers can wirelessly induce electric charge in an object, allowing you to recharge power cells without having to remove them. This heavy-duty model is more potent."

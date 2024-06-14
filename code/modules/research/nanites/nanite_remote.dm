@@ -37,11 +37,9 @@
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
-/obj/item/nanite_remote/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/item/nanite_remote/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='warning'>You override [src]'s ID lock.</span>")
-	obj_flags |= EMAGGED
 	if(locked)
 		locked = FALSE
 		update_icon()
@@ -175,7 +173,6 @@
 /obj/item/nanite_remote/comm
 	name = "nanite communication remote"
 	desc = "A device that can send text messages to specific programs."
-	icon_state = "nanite_comm_remote"
 	var/comm_message = ""
 
 /obj/item/nanite_remote/comm/afterattack(atom/target, mob/user, etc)
@@ -225,9 +222,16 @@
 		if("set_message")
 			if(locked)
 				return
-			var/new_message = html_encode(params["value"])
+			var/new_message = trim(html_encode(params["value"]))
 			if(!new_message)
 				return
+			if(CHAT_FILTER_CHECK(new_message))
+				to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+				var/logmsg = "attempted to set a forbidden nanite cloud message with contents: \"[new_message]\". The message was filtered and blocked."
+				log_admin_private("[key_name(usr)] [logmsg]")
+				message_admins("[ADMIN_LOOKUPFLW(usr)] [logmsg]")
+				return
+			log_game("[key_name(usr)] set the nanite cloud message to: \"[new_message]\"")
 			comm_message = new_message
 			. = TRUE
 

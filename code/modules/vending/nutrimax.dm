@@ -5,7 +5,7 @@
 	product_ads = "We like plants!;Don't you want some?;The greenest thumbs ever.;We like big plants.;Soft soil..."
 	icon_state = "nutri"
 	icon_deny = "nutri-deny"
-	light_color = LIGHT_COLOR_GREEN
+	light_mask = "nutri-light-mask"
 	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 30,
 					/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 20,
 					/obj/item/reagent_containers/glass/bottle/nutrient/rh = 10,
@@ -20,7 +20,7 @@
 	refill_canister = /obj/item/vending_refill/hydronutrients
 	default_price = 10
 	extra_price = 50
-	payment_department = ACCOUNT_SRV
+	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 /obj/item/vending_refill/hydronutrients
 	machine_name = "NutriMax"

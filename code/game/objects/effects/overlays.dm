@@ -52,7 +52,13 @@
 	vis_flags = NONE
 	var/unused = 0 //When detected to be unused it gets set to world.time, after a while it gets removed
 	var/cache_expiration = 2 MINUTES // overlays which go unused for 2 minutes get cleaned up
-	vis_flags = VIS_INHERIT_ID
+	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE
+
+/obj/effect/overlay/vis/mob_alpha
+	/// this separately exists because "mob_alpha_id" is to reference this single, but "mob_owner_ref" is to reference multiple things to a mob
+	var/mob_owner_ref
+	var/mob_alpha_id
+	var/use_count = 0
 
 /obj/effect/overlay/airlock_part
 	anchored = TRUE
@@ -77,14 +83,3 @@
 	layer = FLOAT_LAYER
 	vis_flags = VIS_INHERIT_ID
 	appearance_flags = KEEP_TOGETHER | LONG_GLIDE | PIXEL_SCALE
-
-/obj/effect/overlay/light_visible
-	name = ""
-	icon = 'icons/effects/light_overlays/light_32.dmi'
-	icon_state = "light"
-	layer = O_LIGHTING_VISUAL_LAYER
-	plane = O_LIGHTING_VISUAL_PLANE
-	appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	alpha = 0
-	vis_flags = NONE

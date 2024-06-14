@@ -10,7 +10,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "e" = (
-/obj/item/stack/tile/brass,
+/obj/item/stack/sheet/brass,
 /turf/open/floor/clockwork{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -76,7 +76,7 @@
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "t" = (
-/obj/item/stack/tile/brass,
+/obj/item/stack/sheet/brass,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "u" = (
@@ -96,19 +96,8 @@
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors/unexplored)
-"x" = (
-/obj/item/stack/tile/brass,
-/turf/open/floor/clockwork{
-	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
-	},
-/area/lavaland/surface/outdoors/unexplored)
 "y" = (
 /obj/item/clockwork/component/geis_capacitor/fallen_armor,
-/turf/open/floor/clockwork{
-	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
-	},
-/area/lavaland/surface/outdoors/unexplored)
-"z" = (
 /turf/open/floor/clockwork{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -146,7 +135,7 @@
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "G" = (
-/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/sheet/brass/fifty,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 

@@ -79,11 +79,11 @@
 					if(MEDIUM_HOLE)
 						visible_message("<span class='notice'>\The [user] cuts into \the [src] some more.</span>")
 						to_chat(user, "<span class='info'>You could probably fit yourself through that hole now. Although climbing through would be much faster if you made it even bigger.</span>")
-						climbable = TRUE
+						AddElement(/datum/element/climbable)
 					if(LARGE_HOLE)
 						visible_message("<span class='notice'>\The [user] completely cuts through \the [src].</span>")
 						to_chat(user, "<span class='info'>The hole in \the [src] is now big enough to walk through.</span>")
-						climbable = FALSE
+						RemoveElement(/datum/element/climbable)
 
 				update_cut_status()
 
@@ -92,7 +92,7 @@
 /obj/structure/fence/proc/update_cut_status()
 	if(!cuttable)
 		return
-	density = TRUE
+	var/new_density = TRUE
 	switch(hole_size)
 		if(NO_HOLE)
 			icon_state = initial(icon_state)
@@ -100,7 +100,8 @@
 			icon_state = "straight_cut2"
 		if(LARGE_HOLE)
 			icon_state = "straight_cut3"
-			density = FALSE
+			new_density = FALSE
+	set_density(new_density)
 
 //FENCE DOORS
 
@@ -119,9 +120,9 @@
 /obj/structure/fence/door/opened
 	icon_state = "door_opened"
 	open = TRUE
-	density = TRUE
+	density = FALSE
 
-/obj/structure/fence/door/attack_hand(mob/user)
+/obj/structure/fence/door/attack_hand(mob/user, list/modifiers)
 	if(can_open(user))
 		toggle(user)
 
@@ -130,8 +131,9 @@
 /obj/structure/fence/door/proc/toggle(mob/user)
 	open = !open
 	visible_message("<span class='notice'>\The [user] [open ? "opens" : "closes"] \the [src].</span>")
+	set_density(!density)
 	update_door_status()
-	playsound(src, 'sound/machines/click.ogg', 100, 1)
+	playsound(src, 'sound/machines/click.ogg', 100, TRUE)
 
 /obj/structure/fence/door/proc/update_door_status()
 	density = !density

@@ -8,8 +8,8 @@
 	required_players = 30 // 30 players - 3 players to be the nuke ops = 27 players remaining
 	required_enemies = 2
 	recommended_enemies = 5
-	antag_flag = ROLE_OPERATIVE
-	enemy_minimum_age = 14
+	role_preference = /datum/role_preference/antagonist/nuclear_operative
+	antag_datum = /datum/antagonist/nukeop
 
 	announce_span = "danger"
 	announce_text = "Syndicate forces are approaching the station in an attempt to destroy it!\n\
@@ -31,7 +31,7 @@
 	var/n_agents = min(round(num_players() / 10), antag_candidates.len, agents_possible)
 	if(n_agents >= required_enemies)
 		for(var/i = 0, i < n_agents, ++i)
-			var/datum/mind/new_op = antag_pick(antag_candidates, ROLE_OPERATIVE)
+			var/datum/mind/new_op = antag_pick(antag_candidates, /datum/role_preference/antagonist/nuclear_operative)
 			pre_nukeops += new_op
 			new_op.assigned_role = "Nuclear Operative"
 			new_op.special_role = "Nuclear Operative"
@@ -126,7 +126,7 @@
 	id = /obj/item/card/id/syndicate
 	belt = /obj/item/gun/ballistic/automatic/pistol
 	backpack_contents = list(/obj/item/storage/box/syndie=1,\
-		/obj/item/kitchen/knife/combat/survival)
+		/obj/item/knife/combat/survival)
 
 	var/tc = 25
 	var/command_radio = FALSE
@@ -160,7 +160,7 @@
 	E.implant(H)
 	var/obj/item/implant/weapons_auth/W = new/obj/item/implant/weapons_auth(H)
 	W.implant(H)
-	H.faction |= ROLE_SYNDICATE
+	H.faction |= FACTION_SYNDICATE
 	H.update_icons()
 
 /datum/outfit/syndicate/full
@@ -172,11 +172,11 @@
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
 	internals_slot = ITEM_SLOT_RPOCKET
 	belt = /obj/item/storage/belt/military
-	r_hand = /obj/item/gun/ballistic/shotgun/bulldog
+	r_hand = /obj/item/gun/ballistic/shotgun/automatic/bulldog
 	backpack_contents = list(/obj/item/storage/box/syndie=1,\
 		/obj/item/tank/jetpack/oxygen/harness=1,\
 		/obj/item/gun/ballistic/automatic/pistol=1,\
-		/obj/item/kitchen/knife/combat/survival)
+		/obj/item/knife/combat/survival)
 
 
 /datum/game_mode/nuclear/generate_credit_text()

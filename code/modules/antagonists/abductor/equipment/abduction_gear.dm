@@ -13,7 +13,7 @@
 	icon_state = "vest_stealth"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 15, "rad" = 15, "fire" = 70, "acid" = 70, "stamina" = 30)
+	armor = list(MELEE = 15,  BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70, STAMINA = 30)
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	allowed = list(
 		/obj/item/abductor,
@@ -22,13 +22,14 @@
 		/obj/item/gun/energy,
 		/obj/item/restraints/handcuffs
 		)
+	slowdown = 0
 	var/mode = VEST_STEALTH
 	var/stealth_active = FALSE
 	/// Cooldown in seconds
 	var/combat_cooldown = 20
 	var/datum/icon_snapshot/disguise
-	var/stealth_armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 15, "rad" = 15, "fire" = 70, "acid" = 70, "stamina" = 30)
-	var/combat_armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 90, "acid" = 90, "stamina" = 60)
+	var/stealth_armor = list(MELEE = 15,  BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70, STAMINA = 30)
+	var/combat_armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, RAD = 50, FIRE = 90, ACID = 90, STAMINA = 60)
 
 /obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
 	. = ..()
@@ -57,9 +58,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
 	if(slot == ITEM_SLOT_OCLOTHING) //we only give the mob the ability to activate the vest if he's actually wearing it.
@@ -257,40 +256,12 @@
 	icon_state = "silencer"
 	item_state = "gizmo"
 
-/obj/item/abductor/silencer/attack(mob/living/M, mob/user)
-	if(!AbductorCheck(user))
-		return
-	radio_off(M, user)
-
-/obj/item/abductor/silencer/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/silencer/ComponentInitialize()
 	. = ..()
-	if(flag)
-		return
-	if(!AbductorCheck(user))
-		return
-	radio_off(target, user)
-
-/obj/item/abductor/silencer/proc/radio_off(atom/target, mob/living/user)
-	if(!(user in (viewers(7, target))))
-		return
-
-	var/turf/targloc = get_turf(target)
-
-	for(var/mob/living/carbon/human/M in hearers(2,targloc))
-		if(M == user)
-			continue
-		to_chat(user, "<span class='notice'>You silence [M]'s radio devices.</span>")
-		radio_off_mob(M)
-
-/obj/item/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
-	var/list/all_items = M.GetAllContents()
-
-	for(var/obj/I in all_items)
-		if(istype(I, /obj/item/radio/))
-			var/obj/item/radio/r = I
-			r.listening = 0
-			if(!istype(I, /obj/item/radio/headset))
-				r.broadcasting = 0 //goddamned headset hacks
+	//Activate the jammer
+	//This jammer will not block cameras or AI shells
+	var/datum/component/radio_jamming/added_component = AddComponent(/datum/component/radio_jamming, 5, RADIO_JAMMER_ABDUCTOR_LEVEL)
+	added_component.enable()
 
 /obj/item/abductor/mind_device
 	name = "mental interface device"
@@ -349,7 +320,7 @@
 		if(QDELETED(G))
 			return
 
-		if(istype(C.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(istype(C.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, "<span class='warning'>Your target seems to have some sort of protective headgear on, blocking the message from being sent!</span>")
 			return
 
@@ -365,11 +336,20 @@
 		var/message = stripped_input(user, "Write a message to send to your target's brain.","Enter message")
 		if(!message)
 			return
+		if(CHAT_FILTER_CHECK(message))
+			to_chat(user, "<span class='warning'>Your message contains forbidden words.</span>")
+			return
+		message = user.treat_message_min(message)
 		if(QDELETED(L) || L.stat == DEAD)
 			return
 
 		to_chat(L, "<span class='italics'>You hear a voice in your head saying: </span><span class='abductor'>[message]</span>")
 		to_chat(user, "<span class='notice'>You send the message to your target.</span>")
+
+		for(var/mob/dead/observer/ghost in GLOB.dead_mob_list)
+			var/sender = FOLLOW_LINK(ghost, user)
+			var/receiver = FOLLOW_LINK(ghost, L)
+			to_chat(ghost, "<span class='deadsay'>[sender] <span class='name'>[user]</span> <span class='abductor'>Abductor Mental Telepathy</span> -> [receiver] <span class='name'>[L]</span>: <span class='bold message'>[message]</span></span>")
 		log_directed_talk(user, L, message, LOG_SAY, "abductor whisper")
 
 
@@ -397,7 +377,7 @@
 	name = "Dissection Guide"
 	icon_state = "alienpaper_words"
 	show_written_words = FALSE
-	info = {"<b>Dissection for Dummies</b><br>
+	default_raw_text = {"<b>Dissection for Dummies</b><br>
 
 <br>
  1.Acquire fresh specimen.<br>
@@ -416,9 +396,6 @@
 <br>
 Congratulations! You are now trained for invasive xenobiology research!"}
 
-/obj/item/paper/guides/antag/abductor/update_icon()
-	return
-
 /obj/item/paper/guides/antag/abductor/AltClick()
 	return //otherwise it would fold into a paperplane.
 
@@ -434,10 +411,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	var/mode = BATON_STUN
 	icon_state = "wonderprodStun"
 	item_state = "wonderprod"
+	worn_icon_state = "classic_baton"
 	slot_flags = ITEM_SLOT_BELT
 	force = 7
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	actions_types = list(/datum/action/item_action/toggle_mode)
+	//The mob we are currently incapacitating.
+	var/mob/current_target
 
 /obj/item/abductor/baton/proc/toggle(mob/living/user=usr)
 	mode = (mode+1)%BATON_MODES
@@ -454,6 +434,21 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	to_chat(usr, "<span class='notice'>You switch the baton to [txt] mode.</span>")
 	update_icon()
+
+/obj/item/abductor/baton/examine(mob/user)
+	. = ..()
+	if (!isabductor(user))
+		return
+	. += "The device emits active neuro-impulses capable of stunning up to a single target at a time."
+	switch(mode)
+		if(BATON_STUN)
+			. += "<span class='warning'>The baton is in stun mode.</span>"
+		if(BATON_SLEEP)
+			. += "<span class='warning'>The baton is in sleep inducement mode.</span>"
+		if(BATON_CUFF)
+			. += "<span class='warning'>The baton is in restraining mode.</span>"
+		if(BATON_PROBE)
+			. += "<span class='warning'>The baton is in probing mode.</span>"
 
 /obj/item/abductor/baton/update_icon()
 	switch(mode)
@@ -508,12 +503,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	L.lastattacker = user.real_name
 	L.lastattackerckey = user.ckey
-	if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		to_chat(user, "<span class='warning'>The specimen's protective headgear is interfering with the baton's stun function!</span>")
 		L.visible_message("<span class='danger'>[user] tried to stun [L] with [src], but [L.p_their()] headgear protected [L.p_them()]!</span>", \
 								"<span class='userdanger'>You feel a slight tickle where [src] touches you!</span>")
 		return
 	L.Paralyze(140)
+	switch_target(L)
 	L.apply_effect(EFFECT_STUTTER, 7)
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK)
 
@@ -523,13 +519,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		H.forcesay(GLOB.hit_appends)
+		H.force_say(user)
 
 	log_combat(user, L, "stunned")
 
 /obj/item/abductor/baton/proc/SleepAttack(mob/living/L,mob/living/user)
 	if(L.incapacitated(TRUE, TRUE))
-		if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, "<span class='warning'>The specimen's protective headgear is interfering with the sleep inducement!</span>")
 			L.visible_message("<span class='danger'>[user] tried to induced sleep in [L] with [src], but [L.p_their()] headgear protected [L.p_them()]!</span>", \
 								"<span class='userdanger'>You feel a strange wave of heavy drowsiness wash over you, but your headgear deflects most of it!</span>")
@@ -539,9 +535,10 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
 		playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 		L.Sleeping(1200)
+		switch_target(L)
 		log_combat(user, L, "put to sleep")
 	else
-		if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, "<span class='warning'>The specimen's protective headgear is completely blocking our sleep inducement methods!</span>")
 			L.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src], but [L.p_their()] headgear completely protected [L.p_them()]!</span>", \
 								"<span class='userdanger'>Any sense of drowsiness is quickly diminished as your headgear deflects the effects!</span>")
@@ -560,9 +557,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 			C.visible_message("<span class='danger'>[user] begins restraining [C] with [src]!</span>", \
 									"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
-			if(do_mob(user, C, 30) && (C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore()))
+			if(do_after(user, 3 SECONDS, C) && (C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore()))
 				if(!C.handcuffed)
-					C.handcuffed = new /obj/item/restraints/handcuffs/energy/used(C)
+					C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(C))
 					C.update_handcuffed()
 					to_chat(user, "<span class='notice'>You restrain [C].</span>")
 					log_combat(user, C, "handcuffed")
@@ -595,6 +592,40 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	to_chat(user, "<span class='notice'>Probing result:</span>[species]")
 	to_chat(user, "[helptext]")
 
+/// Switch a target, freeing our old target
+/obj/item/abductor/baton/proc/switch_target(mob/new_target)
+	if (current_target == new_target)
+		return
+	if (current_target)
+		//Free the target
+		if (isliving(current_target))
+			var/mob/living/L = current_target
+			L.SetParalyzed(0)
+			L.SetSleeping(0)
+		//Unregister them
+		unregister_target()
+	current_target = new_target
+	if (current_target)
+		RegisterSignal(current_target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target))
+		START_PROCESSING(SSprocessing, src)
+
+/// Called when a target is deleted
+/obj/item/abductor/baton/proc/unregister_target()
+	SIGNAL_HANDLER
+	UnregisterSignal(current_target, COMSIG_PARENT_QDELETING)
+	current_target = null
+	STOP_PROCESSING(SSprocessing, src)
+
+/obj/item/abductor/baton/process(delta_time)
+	if (!current_target)
+		return PROCESS_KILL
+	var/mob/living/L = current_target
+	if (!istype(L))
+		return
+	//If our target is not paralysed or sleeping, they are already free
+	if (!L.IsParalyzed() && !L.IsSleeping())
+		unregister_target()
+
 /obj/item/restraints/handcuffs/energy
 	name = "hard-light energy field"
 	desc = "A hard-light field restraining the hands."
@@ -615,18 +646,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	S.set_up(4,0,user.loc)
 	S.start()
 	..()
-
-/obj/item/abductor/baton/examine(mob/user)
-	. = ..()
-	switch(mode)
-		if(BATON_STUN)
-			. += "<span class='warning'>The baton is in stun mode.</span>"
-		if(BATON_SLEEP)
-			. += "<span class='warning'>The baton is in sleep inducement mode.</span>"
-		if(BATON_CUFF)
-			. += "<span class='warning'>The baton is in restraining mode.</span>"
-		if(BATON_PROBE)
-			. += "<span class='warning'>The baton is in probing mode.</span>"
 
 /obj/item/radio/headset/abductor
 	name = "alien headset"
@@ -659,7 +678,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	user.visible_message("<span class='notice'>[user] places down [src] and activates it.</span>", "<span class='notice'>You place down [src] and activate it.</span>")
 	user.dropItemToGround(src)
 	playsound(src, 'sound/machines/terminal_alert.ogg', 50)
-	addtimer(CALLBACK(src, .proc/try_spawn_machine), 30)
+	addtimer(CALLBACK(src, PROC_REF(try_spawn_machine)), 30)
 
 /obj/item/abductor_machine_beacon/proc/try_spawn_machine()
 	var/viable = FALSE
@@ -725,7 +744,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "alienhelmet"
 	flash_protect = 1
 	blockTracking = TRUE
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 
 // Operating Table / Beds / Lockers
 
@@ -749,7 +768,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		I.play_tool_sound(src)
 		if(I.use_tool(src, user, 30))
 			playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
-			for(var/i = 1, i <= framestackamount, i++)
+			for(var/i in 1 to framestackamount)
 				new framestack(get_turf(src))
 			qdel(src)
 			return
@@ -778,13 +797,16 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/structure/table/abductor
 	name = "alien table"
 	desc = "Advanced flat surface technology at work!"
-	icon = 'icons/obj/smooth_structures/alien_table.dmi'
-	icon_state = "alien_table"
+	icon = 'icons/obj/smooth_structures/tables/alien_table.dmi'
+	icon_state = "alien_table-0"
+	base_icon_state = "alien_table"
 	buildstack = /obj/item/stack/sheet/mineral/abductor
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	buildstackamount = 1
 	framestackamount = 1
-	canSmoothWith = null
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_ABDUCTOR_TABLES)
+	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_TABLES)
 	frame = /obj/structure/table_frame/abductor
 
 /obj/structure/table/optable/abductor
@@ -806,7 +828,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/structure/table/optable/abductor/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -850,7 +872,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/clothing/under/abductor
 	desc = "The most advanced form of jumpsuit known to reality, looks uncomfortable."
 	name = "alien jumpsuit"
+	icon = 'icons/obj/clothing/under/syndicate.dmi'
 	icon_state = "abductor-suit"
 	item_state = "bl_suit"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 10, rad = 0, fire = 0, acid = 0, stamina = 0)
-	can_adjust = 0
+	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 10, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	can_adjust = FALSE

@@ -1,34 +1,38 @@
-/datum/job/hydro
-	title = "Botanist"
-	flag = BOTANIST
-	department_head = list("Head of Personnel")
-	department_flag = CIVILIAN
+/datum/job/botanist
+	title = JOB_NAME_BOTANIST
+	description = "Grow plants for the Kitchen, Bar and Chemistry. Sell cannabis and other goods to the crew. Clone people with Replica Pods when needed."
+	department_for_prefs = DEPT_BITFLAG_SRV
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
+	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 2
-	supervisors = "the head of personnel"
 	selection_color = "#bbe291"
 
 	outfit = /datum/outfit/job/botanist
 
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
-	paycheck = PAYCHECK_EASY
-	paycheck_department = ACCOUNT_SRV
+
+	departments = DEPT_BITFLAG_SRV
+	bank_account_department = ACCOUNT_SRV_BITFLAG
+	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
+
 	display_order = JOB_DISPLAY_ORDER_BOTANIST
-	departments = DEPARTMENT_SERVICE
 	rpg_title = "Gardener"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/botany
 	)
 
+	minimal_lightup_areas = list(/area/hydroponics, /area/medical/morgue)
+
 /datum/outfit/job/botanist
-	name = "Botanist"
-	jobtype = /datum/job/hydro
+	name = JOB_NAME_BOTANIST
+	jobtype = /datum/job/botanist
 
 	id = /obj/item/card/id/job/botanist
-	belt = /obj/item/pda/service
+	belt = /obj/item/modular_computer/tablet/pda/service
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
 	suit = /obj/item/clothing/suit/apron

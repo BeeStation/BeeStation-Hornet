@@ -2,6 +2,10 @@
 	if(stat == DEAD)
 		return
 
+	if(!gibbed)
+		// Will update all AI status displays with a blue screen of death
+		INVOKE_ASYNC(src, PROC_REF(emote), "bsod")
+
 	. = ..()
 
 	cut_overlays() //remove portraits
@@ -31,13 +35,7 @@
 
 	if(explosive)
 		var/T = get_turf(src)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/explosion, T, 3, 6, 12, 15), 10)
-
-	if(src.key)
-		for(var/each in GLOB.ai_status_displays) //change status
-			var/obj/machinery/status_display/ai/O = each
-			O.mode = 2
-			O.update()
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), T, 3, 6, 12, 15), 10)
 
 	if(istype(loc, /obj/item/aicard/aitater))
 		loc.icon_state = "aitater-404"
@@ -53,6 +51,7 @@
 		for(var/obj/item/pinpointer/nuke/P in GLOB.pinpointer_list)
 			P.switch_mode_to(TRACK_NUKE_DISK) //Party's over, back to work, everyone
 			P.alert = FALSE
+			P.tracks_grand_z = FALSE
 
 	if(doomsday_device)
 		doomsday_device.timing = FALSE

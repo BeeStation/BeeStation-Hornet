@@ -1,7 +1,6 @@
 SUBSYSTEM_DEF(blackbox)
 	name = "Blackbox"
 	wait = 6000
-	flags = SS_NO_TICK_CHECK
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	init_order = INIT_ORDER_BLACKBOX
 
@@ -50,7 +49,7 @@ SUBSYSTEM_DEF(blackbox)
 	var/admincount = GLOB.admins.len
 
 
-	var/datum/DBQuery/query_record_playercount = SSdbcore.NewQuery({"
+	var/datum/db_query/query_record_playercount = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("legacy_population")] (playercount, admincount, time, server_name, server_ip, server_port, round_id)
 		VALUES (:playercount, :admincount, :time, :server_name, INET_ATON(:server_ip), :server_port, :round_id)
 	"}, list(
@@ -72,7 +71,7 @@ SUBSYSTEM_DEF(blackbox)
 //no touchie
 /datum/controller/subsystem/blackbox/vv_get_var(var_name)
 	if(var_name == "feedback")
-		return debug_variable(var_name, deepCopyList(feedback), 0, src)
+		return debug_variable(var_name, deep_copy_list(feedback), 0, src)
 	return ..()
 
 /datum/controller/subsystem/blackbox/vv_edit_var(var_name, var_value)
@@ -89,8 +88,8 @@ SUBSYSTEM_DEF(blackbox)
 /datum/controller/subsystem/blackbox/proc/FinalFeedback()
 	record_feedback("tally", "ahelp_stats", GLOB.ahelp_tickets.active_tickets.len, "unresolved")
 	for (var/obj/machinery/telecomms/message_server/MS in GLOB.telecomms_list)
-		if (MS.pda_msgs.len)
-			record_feedback("tally", "radio_usage", MS.pda_msgs.len, "PDA")
+		if (MS.modular_msgs.len)
+			record_feedback("tally", "radio_usage", MS.modular_msgs.len, "PDA")
 		if (MS.rc_msgs.len)
 			record_feedback("tally", "radio_usage", MS.rc_msgs.len, "request console")
 
@@ -302,7 +301,7 @@ Versioning
 	if(!SSdbcore.Connect())
 		return
 
-	var/datum/DBQuery/query_log_ahelp = SSdbcore.NewQuery({"
+	var/datum/db_query/query_log_ahelp = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("ticket")] (ticket, action, message, recipient, sender, server_ip, server_port, round_id, timestamp)
 		VALUES (:ticket, :action, :message, :recipient, :sender, INET_ATON(:server_ip), :server_port, :round_id, :time)
 	"}, list("ticket" = ticket, "action" = action, "message" = message, "recipient" = recipient, "sender" = sender, "server_ip" = world.internet_address || "0", "server_port" = world.port, "round_id" = GLOB.round_id, "time" = SQLtime()))
@@ -328,7 +327,7 @@ Versioning
 	if(!SSdbcore.Connect())
 		return
 
-	var/datum/DBQuery/query_report_death = SSdbcore.NewQuery({"
+	var/datum/db_query/query_report_death = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("death")] (pod, x_coord, y_coord, z_coord, mapname, server_name, server_ip, server_port, round_id, tod, job, special, name, byondkey, laname, lakey, bruteloss, fireloss, brainloss, oxyloss, toxloss, cloneloss, staminaloss, last_words, suicide)
 		VALUES (:pod, :x_coord, :y_coord, :z_coord, :map, :server_name, INET_ATON(:internet_address), :port, :round_id, :time, :job, :special, :name, :key, :laname, :lakey, :brute, :fire, :brain, :oxy, :tox, :clone, :stamina, :last_words, :suicide)
 	"}, list(

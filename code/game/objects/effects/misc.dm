@@ -2,7 +2,7 @@
 /obj/effect/spresent
 	name = "strange present"
 	desc = "It's a ... present?"
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/storage/wrapping.dmi'
 	icon_state = "strangepresent"
 	density = TRUE
 	anchored = FALSE
@@ -21,6 +21,19 @@
 /obj/effect/spawner
 	name = "object spawner"
 
+// Brief explanation:
+// Rather then setting up and then deleting spawners, we block all atomlike setup
+// and do the absolute bare minimum
+// This is with the intent of optimizing mapload
+/obj/effect/spawner/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/spawner/Destroy(force)
+	SHOULD_CALL_PARENT(FALSE)
+	moveToNullspace()
+	return QDEL_HINT_QUEUE
+
 /obj/effect/list_container
 	name = "list container"
 
@@ -36,17 +49,34 @@
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "2" //what?
 	anchored = TRUE
-	opacity = TRUE
-	density = TRUE
+	opacity = FALSE
+	density = FALSE
 	layer = FLY_LAYER
+
+/obj/effect/overlay/thermite/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/overlay/thermite/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+	if(isliving(AM))
+		var/mob/living/L = AM
+		L.adjust_fire_stacks(5)
+		L.IgniteMob()
 
 //Makes a tile fully lit no matter what
 /obj/effect/fullbright
 	icon = 'icons/effects/alphacolors.dmi'
 	icon_state = "white"
 	plane = LIGHTING_PLANE
-	layer = LIGHTING_LAYER
 	blend_mode = BLEND_ADD
+
+/obj/effect/fullbright/starlight
+	plane = STARLIGHT_PLANE
+	transform = matrix(2, 0, 0, 0, 2, 0)
 
 /obj/effect/abstract/marker
 	name = "marker"

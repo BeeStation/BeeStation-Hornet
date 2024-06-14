@@ -192,18 +192,20 @@
 	desc = "Allows you to summon a ritual dagger, in case you've lost the dagger that was given to you."
 	invocation = "Wur d'dai leev'mai k'sagan!" //where did I leave my keys, again?
 	button_icon_state = "equip" //this is the same icon that summon equipment uses, but eh, I'm not a spriter
+	/// The item given to the cultist when the spell is invoked. Typepath.
+	var/obj/item/summoned_type = /obj/item/melee/cultblade/dagger
 
 /datum/action/innate/cult/blood_spell/dagger/Activate()
 	var/turf/owner_turf = get_turf(owner)
 	owner.whisper(invocation, language = /datum/language/common)
 	owner.visible_message("<span class='warning'>[owner]'s hand glows red for a moment.</span>", \
 		"<span class='cultitalic'>Your plea for aid is answered, and light begins to shimmer and take form within your hand!</span>")
-	var/obj/item/melee/cultblade/dagger/summoned_blade = new (owner_turf)
+	var/obj/item/summoned_blade = new summoned_type(owner_turf)
 	if(owner.put_in_hands(summoned_blade))
-		to_chat(owner, "<span class='warning'>A ritual dagger appears in your hand!</span>")
+		to_chat(owner, "<span class='warning'>A [summoned_blade] appears in your hand!</span>")
 	else
-		owner.visible_message("<span class='warning'>A ritual dagger appears at [owner]'s feet!</span>", \
-			 "<span class='cultitalic'>A ritual dagger materializes at your feet.</span>")
+		owner.visible_message("<span class='warning'>A [summoned_blade] appears at [owner]'s feet!</span>", \
+			 "<span class='cultitalic'>A [summoned_blade] materializes at your feet.</span>")
 	SEND_SOUND(owner, sound('sound/effects/magic.ogg', FALSE, 0, 25))
 	charges--
 	if(charges <= 0)
@@ -266,7 +268,7 @@
 		SEND_SOUND(ranged_ability_user, sound('sound/effects/ghost.ogg',0,1,50))
 		var/image/C = image('icons/effects/cult_effects.dmi',H,"bloodsparkles", ABOVE_MOB_LAYER)
 		add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/cult, "cult_apoc", C, NONE)
-		addtimer(CALLBACK(H,/atom/.proc/remove_alt_appearance,"cult_apoc",TRUE), 2400, TIMER_OVERRIDE|TIMER_UNIQUE)
+		addtimer(CALLBACK(H,TYPE_PROC_REF(/atom, remove_alt_appearance),"cult_apoc",TRUE), 2400, TIMER_OVERRIDE|TIMER_UNIQUE)
 		to_chat(ranged_ability_user,"<span class='cult'><b>[H] has been cursed with living nightmares!</b></span>")
 		attached_action.charges--
 		attached_action.desc = attached_action.base_desc
@@ -384,7 +386,7 @@
 		uses = 0
 		qdel(src)
 		return
-	log_combat(user, M, "used a cult spell on", source.name, "")
+	log_combat(user, M, "used a cult spell on", src, "")
 	M.lastattacker = user.real_name
 	M.lastattackerckey = user.ckey
 
@@ -427,14 +429,14 @@
 		if(anti_magic_source)
 
 			L.mob_light(_range = 2, _color = LIGHT_COLOR_HOLY_MAGIC, _duration = 10 SECONDS)
-			var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
+			var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
 			L.add_overlay(forbearance)
-			addtimer(CALLBACK(L, /atom/proc/cut_overlay, forbearance), 100)
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/atom, cut_overlay), forbearance), 100)
 
 			if(istype(anti_magic_source, /obj/item))
 				target.visible_message("<span class='warning'>[L] is utterly unphased by your utterance!</span>", \
 									   "<span class='userdanger'>[GLOB.deity] protects you from the heresy of [user]!</span>")
-		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, "<span class='cultitalic'>[L] falls to the ground, gibbering madly!</span>")
 			L.Paralyze(160)
 			L.flash_act(1,1)
@@ -467,19 +469,16 @@
 	if(iscultist(user))
 		var/list/potential_runes = list()
 		var/list/teleportnames = list()
-		for(var/R in GLOB.teleport_runes)
-			var/obj/effect/rune/teleport/T = R
-			potential_runes[avoid_assoc_duplicate_keys(T.listkey, teleportnames)] = T
+		for(var/obj/effect/rune/teleport/teleport_rune as anything in GLOB.teleport_runes)
+			potential_runes[avoid_assoc_duplicate_keys(teleport_rune.listkey, teleportnames)] = teleport_rune
 
 		if(!potential_runes.len)
 			to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
-			log_game("Teleport talisman failed - no other teleport runes")
 			return
 
 		var/turf/T = get_turf(src)
 		if(is_away_level(T.z))
 			to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
-			log_game("Teleport spell failed - user in away mission")
 			return
 
 		var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
@@ -487,7 +486,7 @@
 		if(QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated() || !actual_selected_rune || !proximity)
 			return
 		var/turf/dest = get_turf(actual_selected_rune)
-		if(is_blocked_turf(dest, TRUE))
+		if(dest.is_blocked_turf(TRUE))
 			to_chat(user, "<span class='warning'>The target rune is blocked. You cannot teleport there.</span>")
 			return
 		uses--
@@ -521,13 +520,13 @@
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with dark magic!</span>", \
 								"<span class='userdanger'>[user] begins shaping dark magic shackles around your wrists!</span>")
-		if(do_mob(user, C, 30))
+		if(do_after(user, 3 SECONDS, C))
 			if(!C.handcuffed)
-				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
+				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
 				C.update_handcuffed()
 				C.silent += 5
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
-				log_combat(user, C, "shackled")
+				log_combat(user, C, "shackled", src)
 				uses--
 			else
 				to_chat(user, "<span class='warning'>[C] is already bound.</span>")
@@ -592,26 +591,24 @@
 				SEND_SOUND(user, sound('sound/effects/magic.ogg',0,1,25))
 		else if(istype(target,/mob/living/silicon/robot))
 			var/mob/living/silicon/robot/candidate = target
-			if(candidate.mmi)
+			if(candidate.mmi || candidate.shell)
 				channeling = TRUE
 				user.visible_message("<span class='danger'>A dark cloud emanates from [user]'s hand and swirls around [candidate]!</span>")
 				playsound(T, 'sound/machines/airlock_alien_prying.ogg', 80, 1)
 				var/prev_color = candidate.color
 				candidate.color = "black"
 				if(do_after(user, 90, target = candidate))
+					candidate.undeploy()
 					candidate.emp_act(EMP_HEAVY)
-					var/construct_class = alert(user, "Please choose which type of construct you wish to create.",,"Juggernaut","Wraith","Artificer")
+					var/construct_class = show_radial_menu(user, src, GLOB.construct_radial_images, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+					if(!check_menu(user))
+						return
 					if(QDELETED(candidate))
 						channeling = FALSE
 						return
+					candidate.grab_ghost()
 					user.visible_message("<span class='danger'>The dark cloud receedes from what was formerly [candidate], revealing a\n [construct_class]!</span>")
-					switch(construct_class)
-						if("Juggernaut")
-							makeNewConstruct(/mob/living/simple_animal/hostile/construct/armored, candidate, user, 0, T)
-						if("Wraith")
-							makeNewConstruct(/mob/living/simple_animal/hostile/construct/wraith, candidate, user, 0, T)
-						if("Artificer")
-							makeNewConstruct(/mob/living/simple_animal/hostile/construct/builder, candidate, user, 0, T)
+					make_new_construct_from_class(construct_class, THEME_CULT, candidate, user, FALSE, T)
 					SEND_SOUND(user, sound('sound/effects/magic.ogg',0,1,25))
 					uses--
 					candidate.mmi = null
@@ -623,7 +620,7 @@
 					return
 			else
 				uses--
-				to_chat(user, "<span class='warning'>A dark cloud emanates from you hand and swirls around [candidate] - twisting it into a construct shell!</span>")
+				to_chat(user, "<span class='warning'>A dark cloud emanates from your hand and swirls around [candidate] - twisting it into a construct shell!</span>")
 				new /obj/structure/constructshell(T)
 				SEND_SOUND(user, sound('sound/effects/magic.ogg',0,1,25))
 				qdel(candidate)
@@ -648,6 +645,13 @@
 			return
 		..()
 
+/obj/item/melee/blood_magic/construction/proc/check_menu(mob/user)
+	if(!istype(user))
+		return FALSE
+	if(user.incapacitated() || !user.Adjacent(src))
+		return FALSE
+	return TRUE
+
 //Armor: Gives the target (cultist) a basic cultist combat loadout
 /obj/item/melee/blood_magic/armor
 	name = "Arming Aura"
@@ -660,8 +664,8 @@
 		var/mob/living/carbon/C = target
 		C.visible_message("<span class='warning'>Otherworldly armor suddenly appears on [C]!</span>")
 		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black,ITEM_SLOT_ICLOTHING)
-		C.equip_to_slot_or_del(new /obj/item/clothing/suit/cultrobes/alt(user), ITEM_SLOT_OCLOTHING)
-		C.equip_to_slot_or_del(new /obj/item/clothing/head/culthood/alt(user), ITEM_SLOT_HEAD)
+		C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), ITEM_SLOT_OCLOTHING)
+		C.equip_to_slot_or_del(new /obj/item/clothing/head/hooded/cult_hoodie/alt(user), ITEM_SLOT_HEAD)
 		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult/alt(user), ITEM_SLOT_FEET)
 		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), ITEM_SLOT_BACK)
 		if(C == user)
@@ -725,7 +729,7 @@
 					H.updatehealth()
 					playsound(get_turf(H), 'sound/magic/staff_healing.ogg', 25)
 					new /obj/effect/temp_visual/cult/sparks(get_turf(H))
-					user.Beam(H,icon_state="sendbeam",time=15)
+					user.Beam(H, icon_state="sendbeam", time = 15)
 			else
 				if(H.stat == DEAD)
 					to_chat(user,"<span class='warning'>[H.p_their(TRUE)] blood has stopped flowing, you'll have to find another way to extract it.</span>")
@@ -736,7 +740,7 @@
 				if(H.blood_volume > BLOOD_VOLUME_SAFE)
 					H.blood_volume -= 100
 					uses += 50
-					user.Beam(H,icon_state="drainbeam",time=10)
+					user.Beam(H, icon_state="drainbeam", time = 1 SECONDS)
 					playsound(get_turf(H), 'sound/magic/enter_blood.ogg', 50)
 					H.visible_message("<span class='danger'>[user] has drained some of [H]'s blood!</span>")
 					to_chat(user,"<span class='cultitalic'>Your blood rite gains 50 charges from draining [H]'s blood.</span>")
@@ -757,7 +761,7 @@
 					M.visible_message("<span class='warning'>[M] is partially healed by [user]'s blood magic!</span>")
 					uses = 0
 				playsound(get_turf(M), 'sound/magic/staff_healing.ogg', 25)
-				user.Beam(M,icon_state="sendbeam",time=10)
+				user.Beam(M, icon_state="sendbeam", time = 1 SECONDS)
 		if(istype(target, /obj/effect/decal/cleanable/blood))
 			blood_draw(target, user)
 		..()
@@ -776,12 +780,8 @@
 				qdel(B)
 		for(var/obj/effect/decal/cleanable/trail_holder/TH in view(2, T))
 			qdel(TH)
-		var/obj/item/clothing/shoes/shoecheck = user.shoes
-		if(shoecheck && shoecheck.bloody_shoes[/datum/reagent/blood])
-			temp += shoecheck.bloody_shoes[/datum/reagent/blood]/20
-			shoecheck.bloody_shoes[/datum/reagent/blood] = 0
 		if(temp)
-			user.Beam(T,icon_state="drainbeam",time=15)
+			user.Beam(T, icon_state="drainbeam", time = 15)
 			new /obj/effect/temp_visual/cult/sparks(get_turf(user))
 			playsound(T, 'sound/magic/enter_blood.ogg', 50)
 			to_chat(user, "<span class='cultitalic'>Your blood rite has gained [round(temp)] charge\s from blood sources around you!</span>")

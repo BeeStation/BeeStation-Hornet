@@ -46,8 +46,9 @@
 /datum/effect_system/trail_follow/generate_effect()
 	if(!check_conditions())
 		return stop()
-	if(oldposition && !(oldposition == get_turf(holder)))
-		if(!oldposition.has_gravity() || !nograv_required)
+	var/turf/current_position = get_turf(holder)
+	if(oldposition && oldposition != current_position)
+		if(!oldposition.has_gravity() || !nograv_required || isopenspace(current_position))
 			var/obj/effect/E = new effect_type(oldposition)
 			set_dir(E)
 			if(fade)
@@ -55,7 +56,7 @@
 				E.icon_state = ""
 			if(qdel_in_time)
 				QDEL_IN(E, qdel_in_time)
-	oldposition = get_turf(holder)
+	oldposition = current_position
 
 /datum/effect_system/trail_follow/proc/check_conditions()
 	if(!get_turf(holder))
@@ -88,6 +89,8 @@
 	var/flashing = 0			// does explosion creates flash effect?
 	var/flashing_factor = 0		// factor of how powerful the flash effect relatively to the explosion
 	var/explosion_message = 1				//whether we show a message to mobs.
+	/// List of explosion size overrides
+	var/list/explosion_sizes = list(1, 1, 1, 1)
 
 /datum/effect_system/reagents_explosion/set_up(amt, loca, flash = 0, flash_fact = 0, message = 1)
 	amount = amt
@@ -105,4 +108,4 @@
 		location.visible_message("<span class='danger'>The solution violently explodes!</span>", \
 								"<span class='italics'>You hear an explosion!</span>")
 
-	dyn_explosion(location, amount, flashing_factor)
+	dyn_explosion(location, amount, flashing_factor, explosion_multiplier = explosion_sizes)

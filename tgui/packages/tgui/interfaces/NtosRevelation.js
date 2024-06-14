@@ -1,15 +1,12 @@
-import { Section, Button, LabeledList } from "../components";
-import { useBackend } from "../backend";
-import { NtosWindow } from "../layouts";
+import { Section, Button, LabeledList } from '../components';
+import { useBackend } from '../backend';
+import { NtosWindow } from '../layouts';
 
 export const NtosRevelation = (props, context) => {
   const { act, data } = useBackend(context);
 
   return (
-    <NtosWindow
-      theme="syndicate"
-      width={400}
-      height={250}>
+    <NtosWindow theme="syndicate" width={400} height={250}>
       <NtosWindow.Content>
         <Section>
           <Button.Input
@@ -21,23 +18,16 @@ export const NtosRevelation = (props, context) => {
           <LabeledList>
             <LabeledList.Item
               label="Payload Status"
-              buttons={(
+              buttons={
                 <Button
                   content={data.armed ? 'ARMED' : 'DISARMED'}
                   color={data.armed ? 'bad' : 'average'}
                   onClick={() => act('PRG_arm')}
                 />
-              )}
+              }
             />
           </LabeledList>
-          <Button
-            fluid
-            bold
-            content="ACTIVATE"
-            textAlign="center"
-            color="bad"
-            disabled={!data.armed}
-          />
+          <Button fluid bold content="ACTIVATE" textAlign="center" color="bad" disabled={!data.armed} />
         </Section>
       </NtosWindow.Content>
     </NtosWindow>

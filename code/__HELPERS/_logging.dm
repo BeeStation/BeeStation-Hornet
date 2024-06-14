@@ -112,9 +112,21 @@
 	if (CONFIG_GET(flag/log_attack) && SSticker.current_state != GAME_STATE_FINISHED)
 		WRITE_LOG(GLOB.world_attack_log, "ATTACK: [text]")
 
+/proc/log_econ(text)
+	if (CONFIG_GET(flag/log_econ))
+		WRITE_LOG(GLOB.world_econ_log, "MONEY: [text]")
+
 /proc/log_manifest(ckey, datum/mind/mind,mob/body, latejoin = FALSE)
 	if (CONFIG_GET(flag/log_manifest))
-		WRITE_LOG(GLOB.world_manifest_log, "[ckey] \\ [body.real_name] \\ [mind.assigned_role] \\ [mind.special_role ? mind.special_role : "NONE"] \\ [latejoin ? "LATEJOIN":"ROUNDSTART"]")
+		var/species = null
+		if(iscarbon(body))
+			var/mob/living/carbon/M = body
+			if(M.dna?.species)
+				species = format_text(initial(M.dna.species.name))
+		if(!isnull(species))
+			WRITE_LOG(GLOB.world_manifest_log, "[ckey] \\ [body.real_name] \\ [mind.assigned_role] \\ [mind.special_role ? mind.special_role : "NONE"] \\ [latejoin ? "LATEJOIN":"ROUNDSTART"] \\ [species]")
+		else
+			WRITE_LOG(GLOB.world_manifest_log, "[ckey] \\ [body.real_name] \\ [mind.assigned_role] \\ [mind.special_role ? mind.special_role : "NONE"] \\ [latejoin ? "LATEJOIN":"ROUNDSTART"]")
 
 /proc/log_bomber(atom/user, details, atom/bomb, additional_details, message_admins = TRUE)
 	if(SSticker.current_state == GAME_STATE_FINISHED)
@@ -137,6 +149,10 @@
 /proc/log_say(text)
 	if (CONFIG_GET(flag/log_say))
 		WRITE_LOG(GLOB.world_game_log, "SAY: [text]")
+
+/proc/log_radio_emote(text)
+	if (CONFIG_GET(flag/log_emote))
+		WRITE_LOG(GLOB.world_game_log, "RADIOEMOTE: [text]")
 
 /proc/log_ooc(text)
 	if (CONFIG_GET(flag/log_ooc))
@@ -176,6 +192,10 @@
 	if (CONFIG_GET(flag/log_vote))
 		WRITE_LOG(GLOB.world_game_log, "VOTE: [text]")
 
+/// Logging for speech indicators.
+/proc/log_speech_indicators(text)
+	if (CONFIG_GET(flag/log_speech_indicators))
+		WRITE_LOG(GLOB.world_speech_indicators_log, "SPEECH INDICATOR: [text]")
 
 /proc/log_topic(text)
 	WRITE_LOG(GLOB.world_game_log, "TOPIC: [text]")
@@ -196,9 +216,9 @@
 	if (CONFIG_GET(flag/log_job_debug))
 		WRITE_LOG(GLOB.world_job_debug_log, "JOB: [text]")
 
-/proc/log_href_exploit(atom/user)
-	WRITE_LOG(GLOB.href_exploit_attempt_log, "HREF: [key_name(user)] has potentially attempted an href exploit.")
-	message_admins("[key_name_admin(user)] has potentially attempted an href exploit.")
+/proc/log_href_exploit(atom/user, data = "")
+	WRITE_LOG(GLOB.href_exploit_attempt_log, "HREF: [key_name(user)] has potentially attempted an href exploit.[data]")
+	message_admins("[key_name_admin(user)] has potentially attempted an href exploit.[data]")
 
 /* Log to both DD and the logfile. */
 /proc/log_world(text)
@@ -237,6 +257,10 @@
 	entry += ":\n[text]"
 	WRITE_LOG(GLOB.tgui_log, entry)
 
+/proc/log_preferences(text)
+	if(CONFIG_GET(flag/log_preferences))
+		WRITE_LOG(GLOB.prefs_log, text)
+
 /* For logging round startup. */
 /proc/start_log(log)
 	WRITE_LOG(log, "Starting up round ID [GLOB.round_id].\n-------------------------")
@@ -246,7 +270,7 @@
 	rustg_log_close_all()
 
 /* Helper procs for building detailed log lines */
-/proc/key_name(whom, include_link = null, include_name = TRUE)
+/proc/key_name(whom, include_link = null, include_name = TRUE, href = "priv_msg")
 	var/mob/M
 	var/client/C
 	var/key
@@ -303,11 +327,11 @@
 	if(key)
 		if(C?.holder?.fakekey && !include_name)
 			if(include_link)
-				. += "<a href='?priv_msg=[C.findStealthKey()]'>"
+				. += "<a href='?[href]=[C.findStealthKey()]'>"
 			. += "Administrator"
 		else
 			if(include_link)
-				. += "<a href='?priv_msg=[ckey]'>"
+				. += "<a href='?[href]=[ckey]'>"
 			. += key
 		if(!C)
 			. += "\[DC\]"

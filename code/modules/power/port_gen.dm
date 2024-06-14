@@ -21,7 +21,7 @@
 
 /obj/machinery/power/port_gen/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src), active)
+	soundloop = new(src, active)
 
 /obj/machinery/power/port_gen/Destroy()
 	QDEL_NULL(soundloop)
@@ -117,7 +117,7 @@
 
 /obj/machinery/power/port_gen/pacman/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The generator has [sheets] units of [sheet_name] fuel left, producing [DisplayPower(power_gen)] per cycle.</span>"
+	. += "<span class='notice'>The generator has [sheets] units of [sheet_name] fuel left, producing [display_power(power_gen)] per cycle.</span>"
 	if(anchored)
 		. += "<span class='notice'>It is anchored to the ground.</span>"
 	if(in_range(user, src) || isobserver(user))
@@ -171,6 +171,15 @@
 /obj/machinery/power/port_gen/pacman/proc/overheat()
 	explosion(src.loc, 2, 5, 2, -1)
 
+/obj/machinery/power/port_gen/pacman/set_anchored(anchorvalue)
+	. = ..()
+	if(isnull(.))
+		return //no need to process if we didn't change anything.
+	if(anchorvalue)
+		connect_to_network()
+	else
+		disconnect_from_network()
+
 /obj/machinery/power/port_gen/pacman/attackby(obj/item/O, mob/user, params)
 	if(istype(O, sheet_path))
 		var/obj/item/stack/addstack = O
@@ -185,12 +194,10 @@
 	else if(!active)
 		if(O.tool_behaviour == TOOL_WRENCH)
 			if(!anchored && !isinspace())
-				anchored = TRUE
-				connect_to_network()
+				set_anchored(TRUE)
 				to_chat(user, "<span class='notice'>You secure the generator to the floor.</span>")
 			else if(anchored)
-				anchored = FALSE
-				disconnect_from_network()
+				set_anchored(FALSE)
 				to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
 
 			playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
@@ -207,10 +214,8 @@
 			return
 	return ..()
 
-/obj/machinery/power/port_gen/pacman/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/power/port_gen/pacman/on_emag(mob/user)
+	..()
 	emp_act(EMP_HEAVY)
 
 /obj/machinery/power/port_gen/pacman/attack_ai(mob/user)
@@ -241,9 +246,9 @@
 	data["anchored"] = anchored
 	data["connected"] = (powernet == null ? 0 : 1)
 	data["ready_to_boot"] = anchored && HasFuel()
-	data["power_generated"] = DisplayPower(power_gen)
-	data["power_output"] = DisplayPower(power_gen * power_output)
-	data["power_available"] = (powernet == null ? 0 : DisplayPower(avail()))
+	data["power_generated"] = display_power(power_gen)
+	data["power_output"] = display_power(power_gen * power_output)
+	data["power_available"] = (powernet == null ? 0 : display_power(avail()))
 	data["current_heat"] = current_heat
 	. =  data
 

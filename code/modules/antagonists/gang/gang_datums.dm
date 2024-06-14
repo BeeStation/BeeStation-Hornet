@@ -10,14 +10,14 @@
 	color = "#FF0000"
 	hat = /obj/item/clothing/head/beanie/black
 	outfit = /obj/item/clothing/under/syndicate/combat
-	suit = /obj/item/clothing/suit/jacket
+	suit = /obj/item/clothing/suit/jacket/bomber
 
 /datum/team/gang/prima
 	name = "Prima"
 	color = "#FFFF00"	//cluck cluck clan
-	hat = /obj/item/clothing/head/chicken
+	hat = /obj/item/clothing/head/costume/chicken
 	outfit = /obj/item/clothing/under/color/yellow
-	suit = /obj/item/clothing/suit/chickensuit
+	suit = /obj/item/clothing/suit/costume/chickensuit
 
 /datum/team/gang/zerog
 	name = "Zero-G"
@@ -29,9 +29,9 @@
 /datum/team/gang/max
 	name = "Max"
 	color = "#800000"
-	hat = /obj/item/clothing/head/that
+	hat = /obj/item/clothing/head/hats/tophat
 	outfit = /obj/item/clothing/under/costume/joker
-	suit = /obj/item/clothing/suit/joker
+	suit = /obj/item/clothing/suit/costume/joker
 
 /datum/team/gang/blasto
 	name = "Blasto"
@@ -43,16 +43,16 @@
 /datum/team/gang/waffle
 	name = "Waffle"
 	color = "#808000"
-	hat = /obj/item/clothing/head/sombrero/green
+	hat = /obj/item/clothing/head/costume/sombrero/green
 	outfit = /obj/item/clothing/under/suit/green
-	suit = /obj/item/clothing/suit/poncho/green
+	suit = /obj/item/clothing/suit/costume/poncho/green
 
 /datum/team/gang/north
 	name = "North"
 	color = "#C0C0C0"
-	hat = /obj/item/clothing/head/snowman
+	hat = /obj/item/clothing/head/costume/snowman
 	outfit = /obj/item/clothing/under/suit/white
-	suit = /obj/item/clothing/suit/snowman
+	suit = /obj/item/clothing/suit/costume/snowman
 
 /datum/team/gang/omni
 	name = "Omni"
@@ -64,7 +64,7 @@
 /datum/team/gang/newton
 	name = "Newton"
 	color = "#A52A2A"
-	hat = /obj/item/clothing/head/griffin
+	hat = /obj/item/clothing/head/costume/griffin
 	outfit = /obj/item/clothing/under/color/brown
 	suit = /obj/item/clothing/suit/toggle/owlwings/griffinwings
 
@@ -73,7 +73,7 @@
 	color = "#0000FF"
 	hat = /obj/item/clothing/head/helmet/rus_ushanka
 	outfit = /obj/item/clothing/under/color/darkblue
-	suit = /obj/item/clothing/suit/security/officer/russian
+	suit = /obj/item/clothing/suit/jacket/officer/tan
 
 /datum/team/gang/donk
 	name = "Donk"
@@ -94,7 +94,7 @@
 	color = "#000000"
 	outfit = /obj/item/clothing/under/color/black
 	suit = /obj/item/clothing/suit/toggle/lawyer/black
-	hat = /obj/item/clothing/head/bowler
+	hat = /obj/item/clothing/head/hats/bowler
 
 /datum/team/gang/diablo
 	name = "Diablo"
@@ -107,7 +107,7 @@
 	name = "Psyke"
 	color = "#808080"
 	hat = /obj/item/clothing/head/soft/rainbow
-	suit = /obj/item/clothing/suit/poncho/ponchoshame
+	suit = /obj/item/clothing/suit/costume/poncho/ponchoshame
 	outfit = /obj/item/clothing/under/color/rainbow
 
 /datum/team/gang/osiron
@@ -122,7 +122,7 @@
 	color = "#FFC0CB"
 	hat = /obj/item/clothing/head/fedora
 	outfit = /obj/item/clothing/under/color/white
-	suit = /obj/item/clothing/suit/nerdshirt
+	suit = /obj/item/clothing/suit/costume/nerdshirt
 
 /datum/team/gang/sleepingcarp
 	name = "Sleeping Carp"
@@ -136,11 +136,11 @@
 	color = "#cc9900" // p a s t a colored
 	outfit = /obj/item/clothing/under/rank/civilian/chef
 	suit = /obj/item/clothing/suit/apron/chef
-	hat = /obj/item/clothing/head/chefhat
+	hat = /obj/item/clothing/head/utility/chefhat
 
 /datum/team/gang/weed
 	name = "Weed"
 	color = "#66ff33"
 	hat = /obj/item/clothing/head/beanie/rasta
 	outfit = /obj/item/clothing/under/color/green
-	suit = /obj/item/clothing/suit/vapeshirt
+	suit = /obj/item/clothing/suit/costume/vapeshirt

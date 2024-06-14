@@ -1,5 +1,5 @@
 /mob/living/simple_animal/hostile/retaliate/clown
-	name = "Clown"
+	name = JOB_NAME_CLOWN
 	desc = "A denizen of clown planet."
 	icon = 'icons/mob/clown_mobs.dmi'
 	icon_state = "clown"
@@ -12,6 +12,7 @@
 	response_disarm = "gently pushes aside"
 	response_harm = "robusts"
 	speak = list("HONK", "Honk!", "Welcome to clown planet!")
+	speak_language = /datum/language/metalanguage // somehow clown speaks in this (same to all clown mobs)
 	emote_see = list("honks", "squeaks")
 	speak_chance = 1
 	a_intent = INTENT_HARM
@@ -32,7 +33,7 @@
 	minbodytemp = 270
 	maxbodytemp = 370
 	unsuitable_atmos_damage = 10
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	hardattacks = TRUE
 	var/banana_time = 0 // If there's no time set it won't spawn.
 	var/banana_type = /obj/item/grown/bananapeel
@@ -151,6 +152,7 @@
 	maxHealth = 150
 	health = 150
 	pixel_x = -16
+	base_pixel_x = -16
 	speed = 10
 	melee_damage = 5
 	attacktext = "YA-HONKs"
@@ -171,6 +173,7 @@
 	maxHealth = 400
 	health = 400
 	pixel_x = -16
+	base_pixel_x = -16
 	speed = 2
 	melee_damage = 17
 	attacktext = "pummels"
@@ -228,7 +231,7 @@
 	speed = 5
 	melee_damage = 30
 	armour_penetration = 30
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	attacktext = "acts out divine vengeance on"
 	obj_damage = 50
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
@@ -250,6 +253,7 @@
 	maxHealth = 130
 	health = 130
 	pixel_x = -16
+	base_pixel_x = -16
 	speed = -5
 	melee_damage = 15
 	attacktext = "awkwardly flails at"

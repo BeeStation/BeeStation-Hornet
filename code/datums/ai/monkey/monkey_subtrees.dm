@@ -19,7 +19,7 @@
 			// Weighted list, so the closer they are the more likely they are to be chosen as the enemy
 			valids[possible_enemy] = CEILING(100 / (get_dist(living_pawn, possible_enemy) || 1), 1)
 
-		selected_enemy = pickweight(valids)
+		selected_enemy = pick_weight(valids)
 
 		if(selected_enemy)
 			if(!selected_enemy.stat) //He's up, get him!
@@ -76,7 +76,7 @@
 			controller.queue_behavior(/datum/ai_behavior/consume, pick(food_candidates))
 			return
 
-	if(prob(50))
+	if(isturf(living_pawn.loc) && prob(50))
 		var/list/possible_targets = list()
 		for(var/atom/thing in view(2, living_pawn))
 			if(!thing.mouse_opacity)

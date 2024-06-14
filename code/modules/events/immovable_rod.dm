@@ -64,7 +64,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	z_original = z
 	destination = end
 	special_target = aimed_at
-	GLOB.poi_list += src
+	AddElement(/datum/element/point_of_interest)
+	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 
 	var/special_target_valid = FALSE
 	if(special_target)
@@ -79,7 +80,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		previous_distance = get_dist(src, destination)
 
 /obj/effect/immovablerod/Destroy()
-	GLOB.poi_list -= src
 	SSaugury.unregister_doom(src)
 	. = ..()
 
@@ -87,10 +87,10 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(href_list["orbit"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
-			ghost.ManualFollow(src)
+			ghost.check_orbitable(src)
 
 /obj/effect/immovablerod/Moved()
-	if(!loc)
+	if(!loc || QDELETED(src))
 		return ..()
 	//Moved more than 10 tiles in 1 move.
 	var/cur_dist = get_dist(src, destination)
@@ -106,9 +106,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	special_target = null
 	destination = get_edge_target_turf(src, dir)
 	SSmove_manager.home_onto(src, destination)
-
-/obj/effect/immovablerod/ex_act(severity, target)
-	return 0
 
 /obj/effect/immovablerod/singularity_act()
 	return
@@ -128,10 +125,14 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(special_target && clong == special_target)
 		complete_trajectory()
 
-	if(isturf(clong) || isobj(clong))
+	if(isturf(clong))
 		if(clong.density)
-			clong.ex_act(EXPLODE_HEAVY)
-
+			var/turf/hit_turf = clong
+			hit_turf.take_damage(hit_turf.integrity, armour_penetration = 100)
+	else if (isobj(clong))
+		if(clong.density)
+			var/obj/hit_obj = clong
+			hit_obj.take_damage(hit_obj.obj_integrity, armour_penetration = 100)
 	else if(isliving(clong))
 		penetrate(clong)
 	else if(istype(clong, type))
@@ -153,12 +154,12 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		var/mob/living/carbon/human/H = L
 		H.adjustBruteLoss(160)
 	if(L && (L.density || prob(10)))
-		L.ex_act(EXPLODE_HEAVY)
+		EX_ACT(L, EXPLODE_HEAVY)
 
 /obj/effect/immovablerod/attack_hand(mob/living/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/U = user
-		if(U.job in list("Research Director"))
+		if(U.job in list(JOB_NAME_RESEARCHDIRECTOR))
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			for(var/mob/M in urange(8, src))
 				if(!M.stat)

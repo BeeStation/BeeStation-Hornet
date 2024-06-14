@@ -33,7 +33,7 @@
 				ban["message"] = "[reason]"
 
 			if(SSdbcore.Connect())
-				var/datum/DBQuery/query_create_stickyban = SSdbcore.NewQuery({"
+				var/datum/db_query/query_create_stickyban = SSdbcore.NewQuery({"
 					INSERT INTO [format_table_name("stickyban")] (ckey, reason, banning_admin)
 					VALUES (:ckey, :message, :banning_admin)
 				"}, list("ckey" = ckey, "message" = ban["message"], "banning_admin" = usr.ckey))
@@ -61,7 +61,7 @@
 			if (!ban)
 				to_chat(usr, "<span class='adminnotice'>Error: No sticky ban for [ckey] found!</span>")
 				return
-			if (alert("Are you sure you want to remove the sticky ban on [ckey]?","Are you sure","Yes","No") == "No")
+			if (alert("Are you sure you want to remove the sticky ban on [ckey]?","Are you sure","Yes","No") != "Yes")
 				return
 			if (!get_stickyban_from_ckey(ckey))
 				to_chat(usr, "<span class='adminnotice'>Error: The ban disappeared.</span>")
@@ -98,7 +98,7 @@
 				to_chat(usr, "<span class='adminnotice'>Error: [alt] is not linked to [ckey]'s sticky ban!</span>")
 				return
 
-			if (alert("Are you sure you want to disassociate [alt] from [ckey]'s sticky ban? \nNote: Nothing stops byond from re-linking them, Use \[E] to exempt them","Are you sure","Yes","No") == "No")
+			if (alert("Are you sure you want to disassociate [alt] from [ckey]'s sticky ban? \nNote: Nothing stops byond from re-linking them, Use \[E] to exempt them","Are you sure","Yes","No") != "Yes")
 				return
 
 			//we have to do this again incase something changes
@@ -119,7 +119,7 @@
 			SSstickyban.cache[ckey] = ban
 
 			if (SSdbcore.Connect())
-				var/datum/DBQuery/query_remove_stickyban_alt = SSdbcore.NewQuery(
+				var/datum/db_query/query_remove_stickyban_alt = SSdbcore.NewQuery(
 					"DELETE FROM [format_table_name("stickyban_matched_ckey")] WHERE stickyban = :ckey AND matched_ckey = :alt",
 					list("ckey" = ckey, "alt" = alt)
 				)
@@ -153,7 +153,7 @@
 			SSstickyban.cache[ckey] = ban
 
 			if (SSdbcore.Connect())
-				var/datum/DBQuery/query_edit_stickyban = SSdbcore.NewQuery(
+				var/datum/db_query/query_edit_stickyban = SSdbcore.NewQuery(
 					"UPDATE [format_table_name("stickyban")] SET reason = :reason WHERE ckey = :ckey",
 					list("reason" = reason, "ckey" = ckey)
 				)
@@ -180,7 +180,7 @@
 				to_chat(usr, "<span class='adminnotice'>Error: [alt] is not linked to [ckey]'s sticky ban!</span>")
 				return
 
-			if (alert("Are you sure you want to exempt [alt] from [ckey]'s sticky ban?","Are you sure","Yes","No") == "No")
+			if (alert("Are you sure you want to exempt [alt] from [ckey]'s sticky ban?","Are you sure","Yes","No") != "Yes")
 				return
 
 			//we have to do this again incase something changes
@@ -203,7 +203,7 @@
 			SSstickyban.cache[ckey] = ban
 
 			if (SSdbcore.Connect())
-				var/datum/DBQuery/query_exempt_stickyban_alt = SSdbcore.NewQuery(
+				var/datum/db_query/query_exempt_stickyban_alt = SSdbcore.NewQuery(
 					"UPDATE [format_table_name("stickyban_matched_ckey")] SET exempt = 1 WHERE stickyban = :ckey AND matched_ckey = :alt",
 					list("ckey" = ckey, "alt" = alt)
 				)
@@ -230,7 +230,7 @@
 				to_chat(usr, "<span class='adminnotice'>Error: [alt] is not exempt from [ckey]'s sticky ban!</span>")
 				return
 
-			if (alert("Are you sure you want to unexempt [alt] from [ckey]'s sticky ban?","Are you sure","Yes","No") == "No")
+			if (alert("Are you sure you want to unexempt [alt] from [ckey]'s sticky ban?","Are you sure","Yes","No") != "Yes")
 				return
 
 			//we have to do this again incase something changes
@@ -253,7 +253,7 @@
 			SSstickyban.cache[ckey] = ban
 
 			if (SSdbcore.Connect())
-				var/datum/DBQuery/query_unexempt_stickyban_alt = SSdbcore.NewQuery(
+				var/datum/db_query/query_unexempt_stickyban_alt = SSdbcore.NewQuery(
 					"UPDATE [format_table_name("stickyban_matched_ckey")] SET exempt = 0 WHERE stickyban = :ckey AND matched_ckey = :alt",
 					list("ckey" = ckey, "alt" = alt)
 				)
@@ -272,7 +272,7 @@
 
 			var/ckey = data["ckey"]
 
-			if (alert("Are you sure you want to put [ckey]'s stickyban on timeout until next round (or removed)?","Are you sure","Yes","No") == "No")
+			if (alert("Are you sure you want to put [ckey]'s stickyban on timeout until next round (or removed)?","Are you sure","Yes","No") != "Yes")
 				return
 			var/ban = get_stickyban_from_ckey(ckey)
 			if (!ban)
@@ -298,7 +298,7 @@
 				return
 			var/ckey = data["ckey"]
 
-			if (alert("Are you sure you want to lift the timeout on [ckey]'s stickyban?","Are you sure","Yes","No") == "No")
+			if (alert("Are you sure you want to lift the timeout on [ckey]'s stickyban?","Are you sure","Yes","No") != "Yes")
 				return
 
 			var/ban = get_stickyban_from_ckey(ckey)
@@ -323,7 +323,7 @@
 			if (!data["ckey"])
 				return
 			var/ckey = data["ckey"]
-			if (alert("Are you sure you want to revert the sticky ban on [ckey] to its state at round start (or last edit)?","Are you sure","Yes","No") == "No")
+			if (alert("Are you sure you want to revert the sticky ban on [ckey] to its state at round start (or last edit)?","Are you sure","Yes","No") != "Yes")
 				return
 			var/ban = get_stickyban_from_ckey(ckey)
 			if (!ban)
@@ -404,7 +404,7 @@
 		if (SSstickyban.dbcacheexpire)
 			return SSstickyban.dbcache.Copy()
 
-	return sortList(world.GetConfig("ban"))
+	return sort_list(world.GetConfig("ban"))
 
 
 /proc/get_stickyban_from_ckey(var/ckey)

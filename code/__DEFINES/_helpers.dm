@@ -7,3 +7,8 @@
 //Returns an integer given a hex input, supports negative values "-ff"
 //skips preceding invalid characters
 #define hex2num(X) text2num(X, 16)
+
+// Refs contain a type id within their string that can be used to identify byond types.
+// Custom types that we define don't get a unique id, but this is useful for identifying
+// types that don't normally have a way to run istype() on them.
+#define TYPEID(thing) copytext(REF(thing), 4, 6)

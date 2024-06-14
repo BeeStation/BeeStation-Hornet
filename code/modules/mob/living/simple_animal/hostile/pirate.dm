@@ -39,7 +39,7 @@
 	attack_sound = 'sound/weapons/blade1.ogg'
 	var/obj/effect/light_emitter/red_energy_sword/sord
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	hardattacks = TRUE
 
 /mob/living/simple_animal/hostile/pirate/melee/space
@@ -76,7 +76,7 @@
 	rapid_fire_delay = 6
 	retreat_distance = 5
 	minimum_distance = 5
-	projectiletype = /obj/item/projectile/beam/laser
+	projectiletype = /obj/projectile/beam/laser
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged,
 			/obj/item/gun/energy/laser)
 

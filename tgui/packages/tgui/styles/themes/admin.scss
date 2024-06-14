@@ -1,37 +1,46 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-$nanotrasen: #6d697a;
+$generic: #4c4958;
 
 @use '../colors.scss' with (
   $fg-map-keys: (),
   $bg-map-keys: (),
+  $primary: #ffbf00,
+  $yellow: #ffbf00
 );
 @use '../base.scss' with (
-  $color-bg: color.scale($nanotrasen, $lightness: -45%),
+  $color-bg: color.scale($generic, $lightness: -45%),
   $border-radius: 2px,
+  $color-bg-grad-spread: 3%
 );
 
 .theme-admin {
   // Components
-  @include meta.load-css('../components/Button.scss', $with: (
-    'color-default': $nanotrasen,
-    'color-transparent-text': rgba(227, 240, 255, 0.75),
-  ));
-  @include meta.load-css('../components/ProgressBar.scss', $with: (
-    'color-default-fill': $nanotrasen,
-    'background-color': rgba(0, 0, 0, 0.5),
-  ));
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: ('color-default': color.scale($generic, $lightness: -30%), 'color-transparent-text': rgba(227, 240, 255, 0.75))
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('color-default-fill': $generic, 'background-color': rgba(0, 0, 0, 0.5))
+  );
   @include meta.load-css('../components/Section.scss');
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: (
-    'background-color': color.scale($nanotrasen, $lightness: -25%),
-  ));
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: (
+      'background-color': color.scale($generic, $lightness: -50%),
+      'shadow-color': #ffff0021,
+      'shadow-color-core': #ffbf00,
+      'shadow-core-height': 3px
+    )
+  );
 
   .Layout__content {
-    background-image: none;
+    background-image: url('../../assets/bg-beestation.svg');
   }
 }

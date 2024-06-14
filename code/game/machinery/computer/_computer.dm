@@ -1,19 +1,24 @@
 /obj/machinery/computer
 	name = "computer"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "computer"
+	icon_state = "computer-0"
+	base_icon_state = "computer"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL | SMOOTH_BITMASK_SKIP_CORNERS | SMOOTH_OBJ //SMOOTH_OBJ is needed because of narsie_act using initial() to restore
+	smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
+	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 300
 	active_power_usage = 300
 	max_integrity = 200
-	integrity_failure = 100
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20, "stamina" = 0)
+	integrity_failure = 0.5
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 20, STAMINA = 0)
 	clicksound = "keyboard"
 	light_system = STATIC_LIGHT
-	light_range = 2
-	light_power = 1
+	light_range = 1
+	light_power = 0.5
 	light_on = TRUE
+	zmm_flags = ZMM_MANGLE_PLANES
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
 	var/clockwork = FALSE
@@ -23,20 +28,18 @@
 	///Should the [icon_state]_broken overlay be shown as an emissive or regular overlay?
 	var/broken_overlay_emissive = FALSE
 
-/obj/machinery/computer/Initialize(mapload, obj/item/circuitboard/C)
+/obj/machinery/computer/Initialize(mapload)
 	. = ..()
+	QUEUE_SMOOTH(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	power_change()
-	if(!QDELETED(C))
-		qdel(circuit)
-		circuit = C
-		C.moveToNullspace()
 
 /obj/machinery/computer/Destroy()
-	QDEL_NULL(circuit)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 /obj/machinery/computer/process()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return 0
 	return 1
 
@@ -47,46 +50,55 @@
 		icon_keyboard = "ratvar_key[rand(1, 2)]"
 		icon_state = "ratvarcomputer"
 		broken_overlay_emissive = TRUE
-		update_icon()
+		smoothing_groups = null
+		QUEUE_SMOOTH_NEIGHBORS(src)
+		smoothing_flags = NONE
+		update_appearance()
 
 /obj/machinery/computer/narsie_act()
 	if(clockwork && clockwork != initial(clockwork)) //if it's clockwork but isn't normally clockwork
 		clockwork = FALSE
 		icon_screen = initial(icon_screen)
 		icon_keyboard = initial(icon_keyboard)
-		icon_state = initial(icon_state)
 		broken_overlay_emissive = initial(broken_overlay_emissive)
-		update_icon()
+		smoothing_flags = initial(smoothing_flags)
+		smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
+		canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
+		SET_BITFLAG_LIST(smoothing_groups)
+		SET_BITFLAG_LIST(canSmoothWith)
+		QUEUE_SMOOTH(src)
+		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+			QUEUE_SMOOTH_NEIGHBORS(src)
+		update_appearance()
 
-/obj/machinery/computer/update_icon()
-	cut_overlays()
-	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
-	if(stat & NOPOWER)
-		add_overlay("[icon_keyboard]_off")
-		return
-	add_overlay(icon_keyboard)
+/obj/machinery/computer/update_overlays()
+	. = ..()
+	if(icon_keyboard)
+		if(machine_stat & NOPOWER)
+			. += "[icon_keyboard]_off"
+		else
+			. += icon_keyboard
 
 	// This whole block lets screens ignore lighting and be visible even in the darkest room
-	var/overlay_state = icon_screen
-	if(stat & BROKEN)
-		if(broken_overlay_emissive)
-			overlay_state = "[icon_state]_broken"
-		else
-			add_overlay("[icon_state]_broken")
-			overlay_state = null
+	if(machine_stat & BROKEN)
+		. += mutable_appearance(icon, "[icon_state]_broken")
+		return // If we don't do this broken computers glow in the dark.
 
-	if(overlay_state)
-		SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, plane, dir)
-		SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, EMISSIVE_PLANE, dir)
+	if(machine_stat & NOPOWER) // Your screen can't be on if you've got no damn charge
+		return
+
+	. += mutable_appearance(icon, icon_screen)
+	. += emissive_appearance(icon, icon_screen, layer)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/computer/power_change()
-	..()
-	if(stat & NOPOWER)
+	. = ..()
+	if(!.)
+		return // reduce unneeded light changes
+	if(machine_stat & NOPOWER)
 		set_light(FALSE)
 	else
 		set_light(TRUE)
-	update_icon()
-	return
 
 /obj/machinery/computer/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
@@ -100,7 +112,7 @@
 /obj/machinery/computer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			if(stat & BROKEN)
+			if(machine_stat & BROKEN)
 				playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
 			else
 				playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
@@ -108,12 +120,12 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
 /obj/machinery/computer/obj_break(damage_flag)
-	if(circuit && !(flags_1 & NODECONSTRUCT_1)) //no circuit, no breaking
-		if(!(stat & BROKEN))
-			playsound(loc, 'sound/effects/glassbr3.ogg', 100, 1)
-			stat |= BROKEN
-			update_icon()
-			set_light(0)
+	if(!circuit) //no circuit, no breaking
+		return
+	. = ..()
+	if(.)
+		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
+		set_light(0)
 
 /obj/machinery/computer/emp_act(severity)
 	. = ..()
@@ -121,10 +133,10 @@
 		switch(severity)
 			if(1)
 				if(prob(50))
-					obj_break("energy")
+					obj_break(ENERGY)
 			if(2)
 				if(prob(10))
-					obj_break("energy")
+					obj_break(ENERGY)
 
 /obj/machinery/computer/deconstruct(disassembled = TRUE, mob/user)
 	on_deconstruction()
@@ -133,8 +145,10 @@
 			var/obj/structure/frame/computer/A = new /obj/structure/frame/computer(src.loc)
 			A.setDir(dir)
 			A.circuit = circuit
-			A.setAnchored(TRUE)
-			if(stat & BROKEN)
+			// Circuit removal code is handled in /obj/machinery/Exited()
+			circuit.forceMove(A)
+			A.set_anchored(TRUE)
+			if(machine_stat & BROKEN)
 				if(user)
 					to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 				else
@@ -148,7 +162,6 @@
 					to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
 				A.state = 4
 				A.icon_state = "4"
-			circuit = null
 		for(var/obj/C in src)
 			C.forceMove(loc)
 	qdel(src)

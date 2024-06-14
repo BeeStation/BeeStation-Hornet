@@ -87,6 +87,11 @@
 	desc = "A sign labelling the genetics division of the station. Watch for mutants."
 	icon_state = "minskygene"
 
+/obj/structure/sign/departments/minsky/research/dorms
+	name = "Dorms"
+	desc = "A sign labelling the dorms area of the station. Eat, sleep, relax."
+	icon_state = "minskydorms"
+
 /obj/structure/sign/departments/minsky/research/robotics
 	name = "Robotics Division"
 	desc = "A sign labelling the robotics division of the station. Produces $6 cyborgs."
@@ -157,6 +162,16 @@
 	desc = "A sign labelling the security department of the station. Guilty until proven innocent."
 	icon_state = "minskysec"
 
+/obj/structure/sign/departments/minsky/security/command
+	name = "Command Department"
+	desc = "A sign labelling the Command department of the station. Ask the helpful HOP for AA."
+	icon_state = "minskyhead"
+
+/obj/structure/sign/departments/minsky/security/evac
+	name = "Evacuation Lounge"
+	desc = "A sign labelling the evacuation lounge of the station. A watched ETA never arrives."
+	icon_state = "minskyevac"
+
 /obj/structure/sign/departments/minsky/supply/cargo
 	name = "Cargo Division"
 	desc = "A sign labelling the cargo division of the station. Watch your pockets and credit disks."
@@ -176,3 +191,8 @@
 	name = "Hydroponics Division"
 	desc = "A sign labelling the hydroponics division of the station. Don't mind the redeyes and giggles."
 	icon_state = "minskyhydro"
+
+/obj/structure/sign/departments/minsky/supply/hydroponics2
+	name = "Hydroponics Division"
+	desc = "A sign labelling the hydroponics division of the station. Don't mind the redeyes and giggles."
+	icon_state = "minskyhydrob"

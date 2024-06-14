@@ -65,7 +65,7 @@
 	persistence_id = "HoP"
 
 /obj/item/storage/photo_album/Captain
-	persistence_id = "Captain"
+	persistence_id = JOB_NAME_CAPTAIN
 
 /obj/item/storage/photo_album/CMO
 	persistence_id = "CMO"

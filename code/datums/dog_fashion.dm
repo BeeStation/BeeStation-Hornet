@@ -82,6 +82,10 @@
 	desc = "NAME sees through your lies..."
 	emote_see = list("investigates the area.","sniffs around for clues.","searches for scooby snacks.","takes a candycorn from the hat.")
 
+/datum/dog_fashion/head/noir
+	name = "Private Eye REAL_NAME"
+	desc = "This dog doesn't mind a reasonable amount of trouble."
+	emote_see = list("contemplates a case.","broods.","looks world-weary.","takes a candycorn from the hat.")
 
 /datum/dog_fashion/head/nurse
 	name = "Nurse REAL_NAME"

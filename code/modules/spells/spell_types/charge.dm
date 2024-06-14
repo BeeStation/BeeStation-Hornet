@@ -6,7 +6,7 @@
 	charge_max = 600
 	clothes_req = FALSE
 	invocation = "DIRI CEL"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	range = -1
 	cooldown_min = 400 //50 deciseconds reduction per rank
 	include_user = TRUE
@@ -97,7 +97,7 @@
 		if(!charged_item)
 			to_chat(L, "<span class='notice'>You feel magical power surging through your hands, but the feeling rapidly fades...</span>")
 		else if(burnt_out)
-			to_chat(L, "<span class='caution'>[charged_item] doesn't seem to be reacting to the spell...</span>")
+			to_chat(L, "<span class='warning'>[charged_item] doesn't seem to be reacting to the spell...</span>")
 		else
 			playsound(get_turf(L), 'sound/magic/charge.ogg', 50, 1)
 			to_chat(L, "<span class='notice'>[charged_item] suddenly feels very warm!</span>")

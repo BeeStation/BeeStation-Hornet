@@ -19,6 +19,7 @@
 	mob_size = MOB_SIZE_LARGE
 
 	pixel_x = -16
+	base_pixel_x = -16
 
 	melee_damage = 10
 	attacktext = "bites"
@@ -34,7 +35,7 @@
 
 	faction = list("hostile")
 	deathmessage = "is hacked into pieces!"
-	loot = list(/obj/item/stack/sheet/mineral/wood)
+	loot = list(/obj/item/stack/sheet/wood)
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = TRUE
 	hardattacks = TRUE

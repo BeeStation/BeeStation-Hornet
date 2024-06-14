@@ -16,8 +16,9 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
+	item_flags = ISWEAPON
 	var/icon_prefix = "fireaxe"
 
 /obj/item/fireaxe/Initialize(mapload)
@@ -32,21 +33,25 @@
 	icon_state = "[icon_prefix]0"
 	..()
 
-/obj/item/fireaxe/suicide_act(mob/user)
+/obj/item/fireaxe/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] axes [user.p_them()]self from head to toe! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/fireaxe/afterattack(atom/A, mob/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
-	if(ISWIELDED(src)) //destroys windows and grilles in one hit
+	if(ISWIELDED(src)) //destroys windows, and grilles in one hit
 		if(istype(A, /obj/structure/window))
 			var/obj/structure/window/W = A
-			W.take_damage(200, BRUTE, "melee", 0)
+			W.take_damage(200, BRUTE, MELEE, 0)
+		else if(istype(A, /obj/machinery/door/window) || istype(A, /obj/structure/windoor_assembly)\
+				|| istype(A, /obj/structure/table/glass))
+			var/obj/WD = A
+			WD.take_damage(80, BRUTE, MELEE, 0) //Destroy glass tables in one hit, windoors in two hits.
 		else if(istype(A, /obj/structure/grille))
 			var/obj/structure/grille/G = A
-			G.take_damage(40, BRUTE, "melee", 0)
+			G.take_damage(40, BRUTE, MELEE, 0)
 
 /*
  * Bone Axe
