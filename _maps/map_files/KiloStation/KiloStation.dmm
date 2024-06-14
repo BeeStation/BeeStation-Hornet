@@ -78269,13 +78269,6 @@
 	dir = 8
 	},
 /obj/machinery/digital_clock/directional/north,
-/obj/effect/turf_decal/bot,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/locker)
 "tCc" = (
