@@ -3896,7 +3896,8 @@
 /area/maintenance/central)
 "apY" = (
 /obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "47"
+	req_one_access_txt = "47";
+	name = "science aft maintenance access"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -3974,7 +3975,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "47"
+	req_one_access_txt = "47";
+	name = "science aft maintenance access"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
