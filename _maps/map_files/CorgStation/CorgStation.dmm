@@ -2850,6 +2850,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/iron,
 /area/medical/storage)
 "aIw" = (
@@ -8640,14 +8641,14 @@
 /turf/open/space/basic,
 /area/space)
 "czn" = (
-/obj/machinery/computer/rdconsole/robotics{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /obj/machinery/camera/autoname{
 	dir = 10
+	},
+/obj/machinery/computer/rdconsole/production{
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
@@ -15339,9 +15340,9 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
-/obj/machinery/fax/med,
-/obj/structure/table/glass,
-/obj/item/book/manual/wiki/sopmedical,
+/obj/machinery/computer/rdconsole/production{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/medical/storage)
 "ePd" = (
