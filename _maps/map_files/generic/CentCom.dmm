@@ -6319,6 +6319,15 @@
 	},
 /turf/open/floor/pod/dark,
 /area/syndicate_mothership/control)
+"qi" = (
+/obj/effect/turf_decal/trimline/neutral/warning{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/floor,
+/obj/effect/turf_decal/trimline/neutral,
+/turf/open/floor/monotile/dark,
+/area/syndicate_mothership/control)
 "qj" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/shutters{
@@ -52729,7 +52738,7 @@ Ws
 HQ
 SS
 rO
-hV
+qi
 HC
 WF
 vZ
