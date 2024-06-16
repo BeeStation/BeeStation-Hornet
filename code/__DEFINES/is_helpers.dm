@@ -173,6 +173,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define iscogscarab(A) (istype(A, /mob/living/simple_animal/drone/cogscarab))
 
+#define isfaithless(A) (istype(A, /mob/living/simple_animal/hostile/faithless))
+
 //Misc mobs
 #define isobserver(A) (istype(A, /mob/dead/observer))
 

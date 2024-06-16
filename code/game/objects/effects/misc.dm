@@ -32,6 +32,7 @@
 /obj/effect/spawner/Destroy(force)
 	SHOULD_CALL_PARENT(FALSE)
 	moveToNullspace()
+	return QDEL_HINT_QUEUE
 
 /obj/effect/list_container
 	name = "list container"
