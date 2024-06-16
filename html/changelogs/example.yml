@@ -7,21 +7,36 @@
 # When it is, any changes listed below will disappear.
 #
 # Valid Prefixes:
-#   bugfix
+#   fix
 #     - (fixes bugs)
 #   wip
 #     - (work in progress)
-#   tweak
-#     - (tweaks something)
 #   soundadd
+#     - (adds a sound)
 #   sounddel
-#   rscadd (general adding of nice things)
-#   rscdel (general deleting of nice things)
+#     - (removes a sound)
+#   rscadd
+#     - (adds a feature)
+#   rscdel
+#     - (removes a feature)
 #   imageadd
 #     - (adds an image or sprite)
 #   imagedel
-#     - (deletes an image or sprite)
-#   spellcheck (typo fixes)
+#     - (removes an image or sprite)
+#   spellcheck
+#     - (fixes spelling or grammar)
+#   balance
+#     - (balance changes)
+#   code_imp
+#     - (misc internal code change)
+#   refactor
+#     - (refactors code)
+#   config
+#     - (makes a change to the config files)
+#   admin
+#     - (makes changes to administrator tools)
+#   server
+#     - (miscellaneous changes to server)
 #################################
 
 # Your name.
