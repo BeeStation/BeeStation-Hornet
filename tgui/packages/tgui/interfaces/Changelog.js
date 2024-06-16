@@ -57,6 +57,7 @@ export class Changelog extends Component {
   getData = (date, attemptNumber = 1) => {
     const { act } = useBackend(this.context);
     const self = this;
+    const maxAttempts = 6;
 
     if (attemptNumber > maxAttempts) {
       return this.setData('Failed to load data after ' + maxAttempts + ' attempts');
