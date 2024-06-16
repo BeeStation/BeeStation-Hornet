@@ -68,7 +68,10 @@ const serializeObject = (obj) => {
       }
       refs.push(value);
       // Error object
-      const isError = value instanceof Error || (value.code && value.message && value.message.includes('Error'));
+      // prettier-ignore
+      const isError = value instanceof Error || (
+        value.code && value.message && value.message.includes('Error')
+      );
       if (isError) {
         return {
           __error__: true,
