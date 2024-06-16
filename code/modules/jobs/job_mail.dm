@@ -132,7 +132,7 @@
 //CLOWN
 /datum/job/clown
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/grown/banana = 20,
+		/obj/item/food/grown/banana = 20,
 		/obj/item/food/pie/cream = 15,
 		/obj/item/clothing/shoes/clown_shoes/combat = 5,
 		// lube
@@ -153,7 +153,7 @@
 		/obj/item/reagent_containers/food/condiment/soymilk = 15,
 		/obj/item/reagent_containers/food/condiment/milk = 15,
 		//UR SO FAT!
-		/obj/item/reagent_containers/food/snacks/mint = 12,
+		/obj/item/food/mint = 12,
 		/obj/item/storage/box/ingredients/wildcard = 10,
 		//EEEEEEEK
 		/obj/item/storage/box/monkeycubes = 5,
@@ -176,6 +176,8 @@
 		/obj/item/toy/plush/flushed = 5,
 		//rare, but not that much...
 		/obj/item/paicard = 2,
+		//definetly better than the lame PAi
+		/obj/item/toy/plush/flushed/rainbow = 2,
 	)
 
 //DEPUTY...IS THIS JOB EVEN ACTIVE? I DON'T THINK IT IS
@@ -232,7 +234,7 @@
 	mail_goodies = list(
 		/obj/item/reagent_containers/pill/mutadone = 15,
 		/obj/item/storage/pill_bottle/mannitol = 10,
-		/obj/item/reagent_containers/food/snacks/monkeycube = 10,
+		/obj/item/food/monkeycube = 10,
 		/obj/effect/spawner/mail/genes = 5,
 	)
 
@@ -255,7 +257,7 @@
 		/obj/item/firing_pin = 10,
 		/obj/item/implantcase/mindshield = 7,
 		//Vile, vile person...
-		/obj/item/clothing/head/kitty = 5,
+		/obj/item/clothing/head/costume/kitty = 5,
 		//hey, always come in handy!
 		/obj/item/storage/lockbox/loyalty = 2,
 	)
@@ -295,7 +297,7 @@
 		/obj/item/clothing/head/mob_holder/rabbit = 40,
 		/obj/item/gun/magic/wand = 10,
 		/obj/item/clothing/head/collectable/tophat = 10,
-		/obj/item/clothing/head/bowler = 5,
+		/obj/item/clothing/head/hats/bowler = 5,
 	)
 
 //MEDICAL DOCTOR
@@ -313,7 +315,7 @@
 /datum/job/mime
 	mail_goodies = list(
 		/obj/item/food/baguette/mime = 15,
-		/obj/item/reagent_containers/food/snacks/store/cheesewheel = 10,
+		/obj/item/food/cheese/wheel = 10,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 10,
 		/obj/item/book/mimery = 2,
 		//when you thought it could get worse...
@@ -348,6 +350,7 @@
 		// it's hard to not look cool
 		/obj/item/clothing/glasses/science/sciencesun = 10,
 		/obj/item/taperecorder = 7,
+		/obj/item/toy/plush/slimeplushie/random = 7,
 		/obj/item/disk/tech_disk/research/random  = 4,
 		/obj/item/borg/upgrade/ai = 2,
 	)
@@ -370,6 +373,7 @@
 	mail_goodies = list(
 		/obj/item/anomaly_neutralizer = 10,
 		/obj/item/disk/tech_disk = 7,
+		/obj/item/toy/plush/slimeplushie/random = 7,
 		//STUFF
 		/obj/effect/spawner/mail/science = 4,
 	)
@@ -414,7 +418,7 @@
 		/obj/item/reagent_containers/syringe/used = 15,
 		//keep your workplace clean, please.
 		/obj/item/reagent_containers/spray/cleaner = 15,
-		/obj/item/reagent_containers/food/snacks/monkeycube = 10,
+		/obj/item/food/monkeycube = 10,
 		/obj/item/reagent_containers/glass/bottle/formaldehyde = 10,
 		/obj/item/reagent_containers/glass/bottle/random_virus/minor = 10,
 		/obj/item/reagent_containers/glass/bottle/random_virus = 5,

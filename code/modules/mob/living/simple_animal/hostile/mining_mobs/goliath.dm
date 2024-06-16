@@ -33,7 +33,7 @@
 	var/pre_attack_icon = "Goliath_preattack"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_HEAVY
 	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
@@ -49,7 +49,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/revive(full_heal = 0, admin_revive = 0)
 	if(..())
-		anchored = TRUE
+		set_anchored(TRUE)
 		. = 1
 
 /mob/living/simple_animal/hostile/asteroid/goliath/death(gibbed)
@@ -92,10 +92,10 @@
 	throw_message = "does nothing to the tough hide of the"
 	pre_attack_icon = "goliath2"
 	crusher_loot = /obj/item/crusher_trophy/goliath_tentacle
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/goliath = 2, /obj/item/stack/sheet/bone = 2)
+	butcher_results = list(/obj/item/food/meat/slab/goliath = 2, /obj/item/stack/sheet/bone = 2)
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/goliath_hide = 1)
 	loot = list()
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize(mapload)
@@ -117,7 +117,7 @@
 	pre_attack_icon = "Goliath_preattack"
 	throw_message = "does nothing to the rocky hide of the"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide) //A throwback to the asteroid days
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/goliath = 2, /obj/item/stack/sheet/bone = 2)
+	butcher_results = list(/obj/item/food/meat/slab/goliath = 2, /obj/item/stack/sheet/bone = 2)
 	guaranteed_butcher_results = list()
 	crusher_drop_mod = 30
 	wander = FALSE

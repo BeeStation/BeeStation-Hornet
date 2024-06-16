@@ -12,6 +12,7 @@
 	throw_range = 7
 	max_amount = 60
 	novariants = TRUE
+	material_flags = MATERIAL_EFFECTS
 	/// What type of turf does this tile produce.
 	var/turf_type = null
 	/// Determines certain welder interactions.
@@ -26,6 +27,24 @@
 	if(tile_reskin_types)
 		tile_reskin_types = tile_reskin_list(tile_reskin_types)
 
+/obj/item/stack/tile/examine(mob/user)
+	. = ..()
+	if(throwforce && !is_cyborg) //do not want to divide by zero or show the message to borgs who can't throw
+		var/verb
+		switch(CEILING(MAX_LIVING_HEALTH / throwforce, 1)) //throws to crit a human
+			if(1 to 3)
+				verb = "superb"
+			if(4 to 6)
+				verb = "great"
+			if(7 to 9)
+				verb = "good"
+			if(10 to 12)
+				verb = "fairly decent"
+			if(13 to 15)
+				verb = "mediocre"
+		if(!verb)
+			return
+		. += "<span class='notice'>Those could work as a [verb] throwing weapon.</span>"
 
 /obj/item/stack/tile/attackby(obj/item/W, mob/user, params)
 	if (W.tool_behaviour == TOOL_WELDER)
@@ -71,6 +90,11 @@
 					user.put_in_hands(new_item)
 	else
 		return ..()
+
+/obj/item/stack/tile/proc/place_tile(turf/open/T)
+	if(!turf_type || !use(1))
+		return
+	. = T.PlaceOnTop(turf_type, flags = CHANGETURF_INHERIT_AIR)
 
 //Grass
 /obj/item/stack/tile/grass
@@ -294,6 +318,13 @@
 	merge_type = /obj/item/stack/tile/carpet/grimy
 	turf_type = /turf/open/floor/carpet/grimy
 
+/*
+/obj/item/stack/tile/material/place_tile(turf/open/T)
+	. = ..()
+	var/turf/open/floor/material/F = .
+	F?.set_custom_materials(mats_per_unit)
+*/
+
 /obj/item/stack/tile/eighties
 	name = "retro tile"
 	singular_name = "retro floor tile"
@@ -483,26 +514,23 @@
 	turf_type = /turf/open/floor/pod/dark
 
 //Plasteel (normal)
-/obj/item/stack/tile/plasteel
+/obj/item/stack/tile/iron
 	name = "floor tile"
 	singular_name = "floor tile"
-	desc = "Those could work as a pretty decent throwing weapon."
+	desc = "The ground you walk on."
 	icon_state = "tile"
 	item_state = "tile"
 	force = 6
-	materials = list(/datum/material/iron=500)
+	mats_per_unit = list(/datum/material/iron=500)
 	throwforce = 10
 	flags_1 = CONDUCT_1
-	turf_type = /turf/open/floor/plasteel
+	turf_type = /turf/open/floor/iron
 	mineralType = "iron"
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
-
-/obj/item/stack/tile/plasteel/cyborg
-	desc = "The ground you walk on." //Not the usual floor tile desc as that refers to throwing, Cyborgs can't do that - RR
-	materials = list() // All other Borg versions of items have no Iron or Glass - RR
-	is_cyborg = 1
+	matter_amount = 1
 	cost = 125
+	source = /datum/robot_energy_storage/metal
 
 //Monotiles
 
@@ -511,7 +539,7 @@
 	singular_name = "steel mono tile"
 	desc = "A really big steel tile compared to the standard station tiles."
 	icon_state = "tile"
-	materials = list(/datum/material/iron=500)
+	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile
 
 /obj/item/stack/tile/mono/dark
@@ -519,7 +547,7 @@
 	singular_name = "dark mono tile"
 	desc = "A really big (dark) steel tile compared to the standard station tiles."
 	icon_state = "tile"
-	materials = list(/datum/material/iron=500)
+	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile/dark
 
 /obj/item/stack/tile/mono/light
@@ -527,7 +555,7 @@
 	singular_name = "light mono tile"
 	desc = "A really big (shiny) steel tile compared to the standard station tiles."
 	icon_state = "tile"
-	materials = list(/datum/material/iron=500)
+	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile/light
 
 //Bay grids
@@ -536,16 +564,16 @@
 	singular_name = "grey grid tile"
 	desc = "A gridded version of the standard station tiles."
 	icon_state = "tile_grid"
-	materials = list(/datum/material/iron=500)
-	turf_type = /turf/open/floor/plasteel/grid
+	custom_materials = list(/datum/material/iron=500)
+	turf_type = /turf/open/floor/iron/grid
 
 /obj/item/stack/tile/ridge
 	name = "grey ridge tile"
 	singular_name = "grey ridge tile"
 	desc = "A ridged version of the standard station tiles."
 	icon_state = "tile_ridged"
-	materials = list(/datum/material/iron=500)
-	turf_type = /turf/open/floor/plasteel/ridged
+	custom_materials = list(/datum/material/iron=500)
+	turf_type = /turf/open/floor/iron/ridged
 
 //Techtiles
 /obj/item/stack/tile/techgrey
@@ -553,31 +581,31 @@
 	singular_name = "grey techfloor tile"
 	desc = "A fancy tile usually found in secure areas and engineering bays."
 	icon_state = "tile_tech_grey"
-	materials = list(/datum/material/iron=500)
-	turf_type = /turf/open/floor/plasteel/tech
+	custom_materials = list(/datum/material/iron=500)
+	turf_type = /turf/open/floor/iron/tech
 
 /obj/item/stack/tile/techgrid
 	name = "grid techfloor tile"
 	singular_name = "grid techfloor tile"
 	desc = "A fancy tile usually found in secure areas and engineering bays, this one has a grid pattern."
 	icon_state = "tile_tech_grid"
-	materials = list(/datum/material/iron=500)
-	turf_type = /turf/open/floor/plasteel/tech/grid
+	custom_materials = list(/datum/material/iron=500)
+	turf_type = /turf/open/floor/iron/tech/grid
 
 /obj/item/stack/tile/techmaint
 	name = "dark techfloor tile"
 	singular_name = "dark techfloor tile"
 	desc = "A fancy tile usually found in secure areas and engineering bays, this one is dark."
 	icon_state = "tile_tech_maint"
-	materials = list(/datum/material/iron=500)
-	turf_type = /turf/open/floor/plasteel/techmaint
+	custom_materials = list(/datum/material/iron=500)
+	turf_type = /turf/open/floor/iron/techmaint
 
 /obj/item/stack/tile/dock
 	name = "dock tile"
 	singular_name = "dock tile"
 	desc = "A bulky chunk of flooring capable of holding the weight of a shuttle."
 	icon_state = "tile_dock"
-	materials = list(/datum/material/iron=500, /datum/material/plasma=500)
+	custom_materials = list(/datum/material/iron=500, /datum/material/plasma=500)
 	turf_type = /turf/open/floor/dock
 
 /obj/item/stack/tile/drydock
@@ -585,5 +613,20 @@
 	singular_name = "dry dock tile"
 	desc = "An extra-bulky chunk of flooring capable of supporting shuttle construction."
 	icon_state = "tile_drydock"
-	materials = list(/datum/material/iron=1000, /datum/material/plasma=1000)
+	custom_materials = list(/datum/material/iron=1000, /datum/material/plasma=1000)
 	turf_type = /turf/open/floor/dock/drydock
+
+/obj/item/stack/tile/material
+	name = "floor tile"
+	singular_name = "floor tile"
+	desc = "The ground you walk on."
+	throwforce = 10
+	icon_state = "material_tile"
+	turf_type = /turf/open/floor/material
+	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	merge_type = /obj/item/stack/tile/material
+
+/obj/item/stack/tile/material/place_tile(turf/open/target_plating, mob/user)
+	. = ..()
+	var/turf/open/floor/material/floor = .
+	floor?.set_custom_materials(mats_per_unit)

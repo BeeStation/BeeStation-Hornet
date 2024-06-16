@@ -56,6 +56,7 @@
 #define OVERLOAD    /datum/mutation/overload
 #define ACIDOOZE    /datum/mutation/acidooze
 #define MEDIEVAL    /datum/mutation/medieval
+#define SPORES      /datum/mutation/spores
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"
@@ -178,3 +179,6 @@
 #define G_MALE 1
 #define G_FEMALE 2
 #define G_PLURAL 3
+
+//Size / height stuff
+#define SPECIES_HEIGHTS(x, y, z) list("Short" = x, "Normal" = y, "Tall" = z)

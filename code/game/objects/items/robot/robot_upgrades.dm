@@ -582,7 +582,7 @@
 		R.notransform = TRUE
 		var/prev_lockcharge = R.lockcharge
 		R.SetLockdown(TRUE)
-		R.anchored = TRUE
+		R.set_anchored(TRUE)
 		var/datum/effect_system/smoke_spread/smoke = new
 		smoke.set_up(TRUE, R.loc)
 		smoke.start()
@@ -592,7 +592,7 @@
 			sleep(12)
 		if(!prev_lockcharge)
 			R.SetLockdown(FALSE)
-		R.anchored = FALSE
+		R.set_anchored(FALSE)
 		R.notransform = FALSE
 		R.resize = 2
 		R.hasExpanded = TRUE
@@ -609,7 +609,7 @@
 /obj/item/borg/upgrade/rped
 	name = "engineering cyborg RPED"
 	desc = "A rapid part exchange device for the engineering cyborg."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "borgrped"
 	require_module = TRUE
 	module_type = list(/obj/item/robot_module/engineering, /obj/item/robot_module/saboteur)
@@ -820,7 +820,7 @@
 /obj/item/borg/upgrade/speciality/kitchen
 	name = "Cook Speciality"
 	desc = "A service cyborg upgrade allowing for basic food handling."
-	hat = /obj/item/clothing/head/chefhat
+	hat = /obj/item/clothing/head/utility/chefhat
 	addmodules = list (
 		/obj/item/knife/kitchen,
 		/obj/item/kitchen/rollingpin,
@@ -835,7 +835,7 @@
 /obj/item/borg/upgrade/speciality/botany
 	name = "Botany Speciality"
 	desc = "A service cyborg upgrade allowing for plant tending and manipulation."
-	hat = /obj/item/clothing/head/rice_hat
+	hat = /obj/item/clothing/head/costume/rice_hat
 	addmodules = list (
 		/obj/item/storage/bag/plants/portaseeder,
 		/obj/item/cultivator,
@@ -850,7 +850,7 @@
 /obj/item/borg/upgrade/speciality/casino
 	name = "Gambler Speciality"
 	desc = "It's not crew harm if they do it themselves!"
-	hat = /obj/item/clothing/head/rabbitears
+	hat = /obj/item/clothing/head/costume/rabbitears
 	addmodules = list (
 		/obj/item/gobbler,
 		/obj/item/storage/pill_bottle/dice_cup/cyborg,

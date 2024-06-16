@@ -1,7 +1,6 @@
 /datum/objective/assassinate
 	name = "assasinate"
 	var/target_role_type=FALSE
-	martyr_compatible = 1
 
 /datum/objective/assassinate/find_target_by_role(role, role_type=FALSE,invert=FALSE)
 	if(!invert)

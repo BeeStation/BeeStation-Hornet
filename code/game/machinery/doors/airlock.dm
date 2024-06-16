@@ -38,7 +38,7 @@
 	appearance_flags = TILE_BOUND | LONG_GLIDE | PIXEL_SCALE | KEEP_TOGETHER
 	max_integrity = 300
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
-	integrity_failure = 70
+	integrity_failure = 0.25
 	damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
 	autoclose = TRUE
 	secondsElectrified = MACHINE_NOT_ELECTRIFIED //How many seconds remain until the door is no longer electrified. -1/MACHINE_ELECTRIFIED_PERMANENT = permanently electrified until someone fixes it.
@@ -86,7 +86,7 @@
 	var/note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi' //Used for papers and photos pinned to the airlock
 	/* Note mask_file needed some change due to the change from 513 to 514(the behavior of alpha filters seems to have changed) thats the reason why the mask
 	dmi file for normal airlocks is not 32x32 but 64x64 and for the large airlocks instead of 64x32 its now 96x64 due to the fix to this problem*/
-	var/mask_file = 'icons/obj/doors/airlocks/mask_32x32_airlocks.dmi' // because filters aren't allowed to have icon_states :(
+	var/mask_file = 'icons/obj/doors/mask_32x32_doors.dmi' // because filters aren't allowed to have icon_states :(
 	var/mask_x = 0
 	var/mask_y = 0
 	var/anim_parts = "left=-14,0;right=13,0" //format is "airlock_part=open_px,open_py,move_start_time,move_end_time,aperture_angle"
@@ -203,7 +203,10 @@
 /obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/Airlock in GLOB.airlocks)
 		if(Airlock.closeOtherId == closeOtherId && Airlock != src)
-			close_others += Airlock
+			if(!(Airlock in close_others))
+				close_others += Airlock
+			if(!(src in Airlock.close_others))
+				Airlock.close_others += src
 
 /obj/machinery/door/airlock/proc/cyclelinkairlock()
 	if (cyclelinkedairlock)
@@ -389,16 +392,18 @@
 	if(operating)
 		return
 	if(ismecha(AM))
-		var/obj/mecha/mecha = AM
+		var/obj/vehicle/sealed/mecha/mecha = AM
 		if(density)
-			if(mecha.occupant)
-				if(world.time - mecha.occupant.last_bumped <= 10)
-					return
-				mecha.occupant.last_bumped = world.time
-			if(locked && (allowed(mecha.occupant) || check_access_list(mecha.operation_req_access)) && aac)
+			if(mecha.occupants)
+				//Occupants are a list. Bump vars are stored on mobs, so we check those instead of mecha.occupants
+				for(var/mob/living/mecha_mobs in mecha.occupants)
+					if(world.time - mecha_mobs.last_bumped <= 10)
+						return
+					mecha_mobs.last_bumped = world.time
+			if(locked && (allowed(mecha.occupants) || check_access_list(mecha.operation_req_access)) && aac)
 				aac.request_from_door(src)
 				return
-			if(mecha.occupant && (src.allowed(mecha.occupant) || src.check_access_list(mecha.operation_req_access)))
+			if(mecha.occupants && (src.allowed(mecha.occupants) || src.check_access_list(mecha.operation_req_access)))
 				open()
 			else
 				do_animate("deny")
@@ -599,12 +604,12 @@
 					part.transform = T
 				if(AIRLOCK_CLOSING)
 					part.transform = T
-					animate(part, transform = T, time = open_speed - part.move_end_time, flags = ANIMATION_LINEAR_TRANSFORM)
-					animate(transform = matrix(), time = part.move_end_time - part.move_start_time, flags = ANIMATION_LINEAR_TRANSFORM)
+					animate(part, transform = T, time = open_speed - part.move_end_time, easing =  CIRCULAR_EASING, flags = ANIMATION_LINEAR_TRANSFORM)
+					animate(transform = matrix(), time = part.move_end_time - part.move_start_time, easing = CIRCULAR_EASING, flags = ANIMATION_LINEAR_TRANSFORM)
 				if(AIRLOCK_OPENING)
 					part.transform = matrix()
-					animate(part, transform = matrix(), time = part.move_start_time, flags = ANIMATION_LINEAR_TRANSFORM)
-					animate(transform = T, time = part.move_end_time - part.move_start_time, flags = ANIMATION_LINEAR_TRANSFORM)
+					animate(part, transform = matrix(), time = part.move_start_time, easing = CIRCULAR_EASING, flags = ANIMATION_LINEAR_TRANSFORM)
+					animate(transform = T, time = part.move_end_time - part.move_start_time, easing = CIRCULAR_EASING, flags = ANIMATION_LINEAR_TRANSFORM)
 		else
 			switch(state)
 				if(AIRLOCK_CLOSED, AIRLOCK_DENY, AIRLOCK_EMAG)
@@ -616,13 +621,13 @@
 				if(AIRLOCK_CLOSING)
 					part.pixel_x = part.open_px
 					part.pixel_y = part.open_py
-					animate(part, pixel_x = part.open_px, pixel_y = part.open_py, time = open_speed - part.move_end_time)
-					animate(pixel_x = 0, pixel_y = 0, time = part.move_end_time - part.move_start_time)
+					animate(part, pixel_x = part.open_px, pixel_y = part.open_py, time = open_speed - part.move_end_time, easing = CIRCULAR_EASING)
+					animate(pixel_x = 0, pixel_y = 0, time = part.move_end_time - part.move_start_time, easing = CIRCULAR_EASING)
 				if(AIRLOCK_OPENING)
 					part.pixel_x = 0
 					part.pixel_y = 0
-					animate(part, pixel_x = 0, pixel_y = 0, time = part.move_start_time)
-					animate(pixel_x = part.open_px, pixel_y = part.open_py, time = part.move_end_time - part.move_start_time)
+					animate(part, pixel_x = 0, pixel_y = 0, time = part.move_start_time, easing = CIRCULAR_EASING)
+					animate(pixel_x = part.open_px, pixel_y = part.open_py, time = part.move_end_time - part.move_start_time, easing = CIRCULAR_EASING)
 
 	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
 
@@ -637,7 +642,7 @@
 					SSvis_overlays.add_vis_overlay(src, overlays_file, "lights_emergency", FLOAT_LAYER, FLOAT_PLANE, dir)
 			if(welded)
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "welded", FLOAT_LAYER, FLOAT_PLANE, dir)
-			if(obj_integrity <integrity_failure)
+			if(obj_integrity < integrity_failure * max_integrity)
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_broken", FLOAT_LAYER, FLOAT_PLANE, dir)
 			else if(obj_integrity < (0.75 * max_integrity))
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_damaged", FLOAT_LAYER, FLOAT_PLANE, dir)
@@ -648,7 +653,7 @@
 			SSvis_overlays.add_vis_overlay(src, overlays_file, "lights_denied", FLOAT_LAYER, FLOAT_PLANE, dir)
 			if(welded)
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "welded", FLOAT_LAYER, FLOAT_PLANE, dir)
-			if(obj_integrity <integrity_failure)
+			if(obj_integrity < integrity_failure * max_integrity)
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_broken", FLOAT_LAYER, FLOAT_PLANE, dir)
 			else if(obj_integrity < (0.75 * max_integrity))
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_damaged", FLOAT_LAYER, FLOAT_PLANE, dir)
@@ -657,7 +662,7 @@
 			if(welded)
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "welded", FLOAT_LAYER, FLOAT_PLANE, dir)
 			SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks", FLOAT_LAYER, FLOAT_PLANE, dir)
-			if(obj_integrity <integrity_failure)
+			if(obj_integrity < integrity_failure * max_integrity)
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_broken", FLOAT_LAYER, FLOAT_PLANE, dir)
 			else if(obj_integrity < (0.75 * max_integrity))
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_damaged", FLOAT_LAYER, FLOAT_PLANE, dir)
@@ -721,6 +726,10 @@
 
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()
+	if(closeOtherId)
+		. += "<span_class='warning'>This airlock cycles on ID: [sanitize(closeOtherId)].</span>"
+	if(obj_flags & EMAGGED)
+		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
 	if(charge && !panel_open && in_range(user, src))
 		. += "<span class='warning'>The maintenance panel seems haphazardly fastened.</span>"
 	if(charge && panel_open)
@@ -1116,7 +1125,7 @@
 				welded = !welded
 				user.visible_message("[user.name] has [welded? "welded shut":"unwelded"] [src].", \
 									"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
-				log_combat(user, src, welded? "welded shut":"unwelded")
+				log_combat(user, src, welded? "welded shut":"unwelded", important = FALSE)
 				update_icon()
 		else
 			if(obj_integrity < max_integrity)
@@ -1147,7 +1156,7 @@
 		to_chat(user, "<span class='notice'>You carefully start removing [charge] from [src]...</span>")
 		if(!I.use_tool(src, user, 150, volume=50))
 			to_chat(user, "<span class='warning'>You slip and [charge] detonates!</span>")
-			charge.ex_act(EXPLODE_DEVASTATE)
+			EX_ACT(charge, EXPLODE_DEVASTATE)
 			user.Paralyze(60)
 			return
 		user.visible_message("<span class='notice'>[user] removes [charge] from [src].</span>", \
@@ -1185,7 +1194,7 @@
 		update_icon(AIRLOCK_OPENING)
 		visible_message("<span class='warning'>[src]'s panel is blown off in a spray of deadly shrapnel!</span>")
 		charge.forceMove(drop_location())
-		charge.ex_act(EXPLODE_DEVASTATE)
+		EX_ACT(charge, EXPLODE_DEVASTATE)
 		detonated = 1
 		charge = null
 		for(var/mob/living/carbon/human/H in orange(2,src))
@@ -1416,10 +1425,10 @@
 			else
 				message = "temp shocked for [secondsElectrified] seconds"
 		LAZYADD(shockedby, "\[[time_stamp()]\] [key_name(user)] - ([uppertext(message)])")
-		log_combat(user, src, message)
+		log_combat(user, src, message, important = FALSE)
 		add_hiddenprint(user)
 
-/obj/machinery/door/airlock/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/machinery/door/airlock/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(obj_integrity < (0.75 * max_integrity))
 		update_icon()
@@ -1433,7 +1442,7 @@
 			A = new /obj/structure/door_assembly(loc)
 			//If you come across a null assemblytype, it will produce the default assembly instead of disintegrating.
 		A.heat_proof_finished = heat_proof //tracks whether there's rglass in
-		A.setAnchored(TRUE)
+		A.set_anchored(TRUE)
 		A.glass = glass
 		A.state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 		A.created_name = name
@@ -1630,10 +1639,10 @@
 			to_chat(user, "<span class='warning'>The door has no power - you can't raise the door bolts.</span>")
 		else
 			unbolt()
-			log_combat(user, src, "unbolted")
+			log_combat(user, src, "unbolted", important = FALSE)
 	else
 		bolt()
-		log_combat(user, src, "bolted")
+		log_combat(user, src, "bolted", important = FALSE)
 /obj/machinery/door/airlock/proc/toggle_emergency(mob/user)
 	if(!user_allowed(user))
 		return

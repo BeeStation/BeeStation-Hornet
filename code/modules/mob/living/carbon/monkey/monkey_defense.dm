@@ -22,7 +22,7 @@
 		var/damage = rand(1, 3)
 		if(stat != DEAD)
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.zone_selected))
+			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.get_combat_bodyzone(src)))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
 			apply_damage(damage, BRUTE, affecting)
@@ -42,17 +42,17 @@
 					"<span class='userdanger'>[M] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
 			playsound(loc, "punch", 25, 1, -1)
 			var/damage = M.dna.species.punchdamage
-			var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.zone_selected))
+			var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.get_combat_bodyzone(src)))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
 			apply_damage(damage, BRUTE, affecting)
-			log_combat(M, src, "attacked")
+			log_combat(M, src, "attacked", "harm")
 		if("disarm")
 			if(stat < UNCONSCIOUS)
 				M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 				Knockdown(40)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				log_combat(M, src, "pushed")
+				log_combat(M, src, "pushed", "disarm")
 				visible_message("<span class='danger'>[M] pushes [src] down!</span>", \
 					"<span class='userdanger'>[M] pushes you down!</span>")
 				dropItemToGround(get_active_held_item())
@@ -73,8 +73,8 @@
 					visible_message("<span class='danger'>[M] slashes [name]!</span>", \
 							"<span class='userdanger'>[M] slashes you!</span>", null, COMBAT_MESSAGE_RANGE)
 
-				var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
-				log_combat(M, src, "attacked")
+				var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
+				log_combat(M, src, "attacked", M)
 				if(!affecting)
 					affecting = get_bodypart(BODY_ZONE_CHEST)
 				if(!dismembering_strike(M, affecting.body_zone)) //Dismemberment successful
@@ -100,7 +100,7 @@
 						"<span class='userdanger'>[M] disarms you!</span>", null, COMBAT_MESSAGE_RANGE)
 				else
 					I = null
-			log_combat(M, src, "disarmed", "[I ? " removing \the [I]" : ""]")
+			log_combat(M, src, "disarmed", null, "[I ? " removing \the [I]" : ""]", important = FALSE)
 			updatehealth()
 
 

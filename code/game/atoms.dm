@@ -66,7 +66,7 @@
 	var/custom_premium_price
 
 	//List of datums orbiting this atom
-	var/datum/component/orbiter/orbiters
+	var/datum/component/orbiter/orbit_datum
 
 	/// Will move to flags_1 when i can be arsed to (2019, has not done so)
 	var/rad_flags = NONE
@@ -74,9 +74,13 @@
 	var/rad_insulation = RAD_NO_INSULATION
 
 	///The custom materials this atom is made of, used by a lot of things like furniture, walls, and floors (if I finish the functionality, that is.)
+	///The list referenced by this var can be shared by multiple objects and should not be directly modified. Instead, use [set_custom_materials][/atom/proc/set_custom_materials].
 	var/list/custom_materials
 	///Bitfield for how the atom handles materials.
 	var/material_flags = NONE
+	///Modifier that raises/lowers the effect of the amount of a material, prevents small and easy to get items from being death machines.
+	var/material_modifier = 1
+
 	///Light systems, both shouldn't be active at the same time.
 	var/light_system = STATIC_LIGHT
 	///Boolean variable for toggleable lights. Has no effect without the proper light_system, light_range and light_power values.
@@ -134,12 +138,17 @@
 	///Used for changing icon states for different base sprites.
 	var/base_icon_state
 
-	///Used to show a specific icon state in certain situations - i.e.) crafting menu
-	var/icon_state_preview
 	// This veriable exists BECAUSE animating sprite (bola) has an issue to render to TGUI crafting window - it shows wrong icons.
 
 	///LazyList of all balloon alerts currently on this atom
 	var/list/balloon_alerts
+
+	/// What is our default level of luminosity, if you want inherent luminosity
+	/// withing an atom's type, set luminosity instead and we will manage it for you.
+	/// Always use set_base_luminosity instead of directly modifying this
+	VAR_PRIVATE/base_luminosity = 0
+	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
+	VAR_PRIVATE/_emissive_count = 0
 
 /**
   * Called when an atom is created in byond (built in engine proc)
@@ -218,13 +227,8 @@
 	if (light_system == STATIC_LIGHT && light_power && light_range)
 		update_light()
 
-	if(custom_materials && custom_materials.len)
-		var/temp_list = list()
-		for(var/i in custom_materials)
-			temp_list[getmaterialref(i)] = custom_materials[i] //Get the proper instanced version
-
-		custom_materials = null //Null the list to prepare for applying the materials properly
-		set_custom_materials(temp_list)
+	// apply materials properly from the default custom_materials value
+	set_custom_materials(custom_materials)
 
 	ComponentInitialize()
 	InitializeAIController()
@@ -282,7 +286,7 @@
 	if(reagents)
 		QDEL_NULL(reagents)
 
-	orbiters = null // The component is attached to us normaly and will be deleted elsewhere
+	orbit_datum = null // The component is attached to us normaly and will be deleted elsewhere
 
 	// Checking length(overlays) before cutting has significant speed benefits
 	if (length(overlays))
@@ -427,22 +431,25 @@
   * Otherwise it simply forceMoves the atom into this atom
   */
 /atom/proc/CheckParts(list/parts_list, datum/crafting_recipe/R)
-	if(parts_list)
-		for(var/A in parts_list)
-			if(istype(A, /datum/reagent))
-				if(!reagents)
-					reagents = new()
-				reagents.reagent_list.Add(A)
-				reagents.conditional_update()
-			else if(ismovable(A))
-				var/atom/movable/M = A
-				if(isliving(M.loc))
-					var/mob/living/L = M.loc
-					L.transferItemToLoc(M, src)
-				else
-					M.forceMove(src)
-		parts_list.Cut()
 	SEND_SIGNAL(src, COMSIG_ATOM_CHECKPARTS, parts_list, R)
+	if(!parts_list)
+		return
+
+	for(var/A in parts_list)
+		if(istype(A, /datum/reagent))
+			if(!reagents)
+				reagents = new()
+			reagents.reagent_list.Add(A)
+			reagents.conditional_update()
+		else if(ismovable(A))
+			var/atom/movable/M = A
+			if(isliving(M.loc))
+				var/mob/living/L = M.loc
+				L.transferItemToLoc(M, src)
+			else
+				M.forceMove(src)
+			SEND_SIGNAL(M, COMSIG_ATOM_USED_IN_CRAFT, src)
+	parts_list.Cut()
 
 ///Take air from the passed in gas mixture datum
 /atom/proc/assume_air(datum/gas_mixture/giver)
@@ -600,7 +607,7 @@
 		var/diff = abs(user.z - z)
 		. += "<span class='bold notice'>[p_theyre(TRUE)] [diff] level\s below you.</span>"
 
-	if(custom_materials)
+	if(custom_materials && material_flags & MATERIAL_EFFECTS) //Only runs if custom materials existed at first and affected src.
 		for(var/i in custom_materials)
 			var/datum/material/M = i
 			. += "<u>It is made out of [M.name]</u>."
@@ -643,6 +650,21 @@
 				. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
 			else
 				. += "<span class='danger'>It's empty.</span>"
+
+	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE))
+		var/list/souls = return_souls()
+		if(!length(souls))
+			return
+		to_chat(user, "<span class='notice'>You sense a presence here...")
+		//Count of souls
+		var/list/present_souls = list()
+		for(var/soul in souls)
+			present_souls[soul] += 1
+		//Display the total soul count
+		for(var/soul in present_souls)
+			if(!present_souls[soul] || !GLOB.soul_glimmer_colors[soul])
+				continue
+			to_chat(user, "\t<span class='notice'><span class='[GLOB.soul_glimmer_cfc_list[soul]]'>[soul]</span>, [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
@@ -695,6 +717,9 @@
 		if(LAZYLEN(managed_vis_overlays))
 			SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
 
+		// Clear the luminosity sources for our managed overlays
+		REMOVE_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+		// Update the overlays where any luminous things get added again
 		var/list/new_overlays = update_overlays(updates)
 		if(managed_overlays)
 			cut_overlay(managed_overlays)
@@ -765,14 +790,14 @@
 	return //For handling the effects of explosions on contents that would not normally be effected
 
 /**
-  * React to being hit by an explosion
-  *
-  * Default behaviour is to call contents_explosion() and send the COMSIG_ATOM_EX_ACT signal
-  */
+ * React to being hit by an explosion
+ *
+ * Should be called through the [EX_ACT] wrapper macro.
+ * The wrapper takes care of the [COMSIG_ATOM_EX_ACT] signal.
+ * as well as calling [/atom/proc/contents_explosion].
+ */
 /atom/proc/ex_act(severity, target)
 	set waitfor = FALSE
-	contents_explosion(severity, target)
-	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity, target)
 
 /**
   * React to a hit by a blob objecd
@@ -1012,7 +1037,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	while (do_after(user, 1 SECONDS, src, NONE, FALSE, CALLBACK(STR, TYPE_PROC_REF(/datum/component/storage, handle_mass_item_insertion), things, src_object, user, progress)))
 		stoplag(1)
-	qdel(progress)
+	progress.end_progress()
 	to_chat(user, "<span class='notice'>You dump as much of [src_object.parent]'s contents into [STR.insert_preposition]to [src] as you can.</span>")
 	STR.orient2hud(user)
 	src_object.orient2hud(user)
@@ -1076,10 +1101,6 @@
 	setDir(newdir)
 	return TRUE
 
-///Handle melee attack by a mech
-/atom/proc/mech_melee_attack(obj/mecha/M)
-	return
-
 /**
   * Called when the atom log's in or out
   *
@@ -1114,8 +1135,7 @@
 ///Removes an instance of colour_type from the atom's atom_colours list
 /atom/proc/remove_atom_colour(colour_priority, coloration)
 	if(!atom_colours)
-		atom_colours = list()
-		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
+		return
 	if(colour_priority > atom_colours.len)
 		return
 	if(coloration && atom_colours[colour_priority] != coloration)
@@ -1126,10 +1146,9 @@
 
 ///Resets the atom's color to null, and then sets it to the highest priority colour available
 /atom/proc/update_atom_colour()
-	if(!atom_colours)
-		atom_colours = list()
-		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
 	color = null
+	if(!atom_colours)
+		return
 	for(var/C in atom_colours)
 		if(islist(C))
 			var/list/L = C
@@ -1139,6 +1158,27 @@
 		else if(C)
 			color = C
 			return
+
+
+/**
+  * Wash this atom
+  *
+  * This will clean it off any temporary stuff like blood. Override this in your item to add custom cleaning behavior.
+  * Returns true if any washing was necessary and thus performed
+  * Arguments:
+  * * clean_types: any of the CLEAN_ constants
+  */
+/atom/proc/wash(clean_types)
+	SHOULD_CALL_PARENT(TRUE)
+
+	. = FALSE
+	if(SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, clean_types))
+		. = TRUE
+
+	// Basically "if has washable coloration"
+	if(length(atom_colours) >= WASHABLE_COLOUR_PRIORITY && atom_colours[WASHABLE_COLOUR_PRIORITY])
+		remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+		return TRUE
 
 /**
   * call back when a var is edited on this atom
@@ -1159,6 +1199,8 @@
 		if(NAMEOF(src, base_pixel_y))
 			set_base_pixel_y(var_value)
 			. = TRUE
+		if (NAMEOF(src, _emissive_count))
+			return FALSE
 
 	if(!isnull(.))
 		datum_flags |= DF_VAR_EDITED
@@ -1168,6 +1210,11 @@
 		flags_1 |= ADMIN_SPAWNED_1
 
 	. = ..()
+
+	// Check for appearance updates
+	var/static/list/appearance_updaters = list("layer", "plane", "alpha", "icon", "icon_state", "name", "desc", "blocks_emissive", "appearance_flags")
+	if (var_name in appearance_updaters)
+		update_appearance()
 
 	switch(var_name)
 		if(NAMEOF(src, color))
@@ -1189,7 +1236,9 @@
 	VV_DROPDOWN_OPTION(VV_HK_ADD_REAGENT, "Add Reagent")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EMP, "EMP Pulse")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EXPLOSION, "Explosion")
+	VV_DROPDOWN_OPTION(VV_HK_RADIATE, "Radiate")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
+	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
 	if(greyscale_colors)
 		VV_DROPDOWN_OPTION(VV_HK_MODIFY_GREYSCALE, "Modify greyscale colors")
@@ -1240,6 +1289,11 @@
 	if(href_list[VV_HK_TRIGGER_EMP] && check_rights(R_FUN))
 		usr.client.cmd_admin_emp(src)
 
+	if(href_list[VV_HK_RADIATE] && check_rights(R_FUN))
+		var/strength = input(usr, "Choose the radiation strength.", "Choose the strength.") as num|null
+		if(!isnull(strength))
+			AddComponent(/datum/component/radioactive, strength, src)
+
 	if(href_list[VV_HK_MODIFY_TRANSFORM] && check_rights(R_VAREDIT))
 		var/result = input(usr, "Choose the transformation to apply","Transform Mod") as null|anything in list("Scale","Translate","Rotate")
 		var/matrix/M = transform
@@ -1276,6 +1330,10 @@
 	if(href_list[VV_HK_EDIT_FILTERS] && check_rights(R_VAREDIT))
 		var/client/C = usr.client
 		C?.open_filter_editor(src)
+
+	if(href_list[VV_HK_EDIT_COLOR_MATRIX] && check_rights(R_VAREDIT))
+		var/client/C = usr.client
+		C?.open_color_matrix_editor(src)
 
 /atom/vv_get_header()
 	. = ..()
@@ -1391,7 +1449,7 @@
 	to_chat(user, "<span class='notice'>You start working on [src]</span>")
 	if(process_item.use_tool(src, user, processing_time, volume=50))
 		var/atom/atom_to_create = chosen_option[TOOL_PROCESSING_RESULT]
-		//var/list/atom/created_atoms = list() //Customfood
+		var/list/atom/created_atoms = list()
 		var/amount_to_create = chosen_option[TOOL_PROCESSING_AMOUNT]
 		for(var/i = 1 to amount_to_create)
 			var/atom/created_atom = new atom_to_create(drop_location())
@@ -1401,8 +1459,9 @@
 				created_atom.pixel_x += rand(-8,8)
 				created_atom.pixel_y += rand(-8,8)
 			created_atom.OnCreatedFromProcessing(user, process_item, chosen_option, src)
-		to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.gender) == PLURAL ? "[initial(atom_to_create.name)]" : "[initial(atom_to_create.name)][plural_s(initial(atom_to_create.name))]"] from [src].</span>")
-		//SEND_SIGNAL(src, COMSIG_ATOM_PROCESSED, user, process_item, created_atoms) //Custom food
+			to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.gender) == PLURAL ? "[initial(atom_to_create.name)]" : "[initial(atom_to_create.name)][plural_s(initial(atom_to_create.name))]"] from [src].</span>")
+			created_atoms.Add(created_atom)
+		SEND_SIGNAL(src, COMSIG_ATOM_PROCESSED, user, process_item, created_atoms)
 		UsedforProcessing(user, process_item, chosen_option)
 		return
 
@@ -1477,6 +1536,8 @@
 			log_comment(log_text)
 		if(LOG_TELECOMMS)
 			log_telecomms(log_text)
+		if(LOG_ECON)
+			log_econ(log_text)
 		if(LOG_OOC)
 			log_ooc(log_text)
 		if(LOG_ADMIN)
@@ -1540,8 +1601,9 @@
   * 3 is a verb describing the action (e.g. punched, throwed, kicked, etc.)
   * 4 is a tool with which the action was made (usually an item)
   * 5 is any additional text, which will be appended to the rest of the log line
+  * 6 if an attack isn't important, then it won't be considered for the blackbox combat log outcomes
   */
-/proc/log_combat(atom/user, atom/target, what_done, atom/object=null, addition=null)
+/proc/log_combat(atom/user, atom/target, what_done, object=null, addition=null, important = TRUE)
 	if(isweakref(user))
 		var/datum/weakref/A_ref = user
 		user = A_ref.resolve()
@@ -1556,7 +1618,7 @@
 		stam = "(STAM: [C.getStaminaLoss()]) "
 
 	var/sobject = ""
-	if(object)
+	if(object && !isitem(object))
 		sobject = " with [object]"
 	var/saddition = ""
 	if(addition)
@@ -1567,6 +1629,11 @@
 	var/message = "has [what_done] [starget][postfix]"
 	user.log_message(message, LOG_ATTACK, color="red")
 
+	if (important && isliving(user) && isliving(target))
+		var/mob/living/living_user = user
+		var/datum/tool_atom = object
+		SScombat_logging.log_combat(living_user, living_target, istype(tool_atom) ? tool_atom.type : object)
+
 	if(user != target)
 		var/reverse_message = "has been [what_done] by [ssource][postfix]"
 		target.log_message(reverse_message, LOG_ATTACK, color="orange", log_globally=FALSE)
@@ -1574,15 +1641,16 @@
 /**
   * Log for buying items from the uplink
   *
-  * 1 argument is for the user that bought the item
-  * 2 argument is for the item that was purchased
-  * 3 argument is for the uplink type (traitor/contractor)
+  * [buyer]: is for the user that bought the item
+  * [object]: is for the item that was purchased
+  * [type]: is for the uplink type (traitor/contractor)
+  * [is_bonus]: is given TRUE when an item is given for free
  */
-/proc/log_uplink_purchase(mob/buyer, atom/object, type = "\improper uplink")
-	var/message = "has bought [object] from \a [type]"
+/proc/log_uplink_purchase(mob/buyer, atom/object, type = "\improper uplink", is_bonus = FALSE)
+	var/message = "has [!is_bonus ? "bought" : "received a bonus item"] [object] from \a [type]"
 	buyer.log_message(message, LOG_GAME)
 	if(isnull(locate(/datum/antagonist) in buyer.mind?.antag_datums))
-		message_admins("[ADMIN_LOOKUPFLW(buyer)] has bought [object] from \a [type] as a non-antagonist.")
+		message_admins("[ADMIN_LOOKUPFLW(buyer)] has [!is_bonus ? "bought" : "received a bonus item"] [object] from \a [type] as a non-antagonist.")
 
 /atom/proc/add_filter(name,priority,list/params)
 	LAZYINITLIST(filter_data)
@@ -1648,21 +1716,22 @@
 
 ///Sets the custom materials for an item.
 /atom/proc/set_custom_materials(var/list/materials, multiplier = 1)
+
 	if(custom_materials) //Only runs if custom materials existed at first. Should usually be the case but check anyways
 		for(var/i in custom_materials)
-			var/datum/material/custom_material = i
+			var/datum/material/custom_material = SSmaterials.GetMaterialRef(i)
 			custom_material.on_removed(src, material_flags) //Remove the current materials
 
 	if(!length(materials))
+		custom_materials = null
 		return
 
-	custom_materials = list() //Reset the list
+	if(material_flags & MATERIAL_EFFECTS)
+		for(var/x in materials)
+			var/datum/material/custom_material = SSmaterials.GetMaterialRef(x)
+			custom_material.on_applied(src, materials[x] * multiplier * material_modifier, material_flags)
 
-	for(var/x in materials)
-		var/datum/material/custom_material = x
-
-		custom_material.on_applied(src, materials[custom_material] * multiplier, material_flags)
-		custom_materials[custom_material] += materials[custom_material] * multiplier
+	custom_materials = SSmaterials.FindOrCreateMaterialCombo(materials, multiplier)
 
 /// Returns the indice in filters of the given filter name.
 /// If it is not found, returns null.
@@ -1700,6 +1769,14 @@
   */
 /atom/proc/setClosed()
 	return
+	
+/**
+  * Used to attempt to charge an object with a payment component.
+  *
+  * Use this if an atom needs to attempt to charge another atom.
+  */
+/atom/proc/attempt_charge(var/atom/sender, var/atom/target, var/extra_fees = 0)
+	return SEND_SIGNAL(sender, COMSIG_OBJ_ATTEMPT_CHARGE, target, extra_fees)
 
 /**
 * Instantiates the AI controller of this atom. Override this if you want to assign variables first.
@@ -1812,3 +1889,37 @@
 			qdel(src)
 		return TRUE
 	return FALSE
+
+//Used to exclude this atom from the psychic highlight plane
+/atom/proc/generate_psychic_mask()
+	var/mutable_appearance/MA = mutable_appearance()
+	MA.appearance = appearance
+	MA.plane = ANTI_PSYCHIC_PLANE
+	add_overlay(MA)
+
+/atom/proc/update_luminosity()
+	if (isnull(base_luminosity))
+		base_luminosity = initial(luminosity)
+
+	if (_emissive_count)
+		luminosity = max(1, base_luminosity)
+	else
+		luminosity = base_luminosity
+
+/atom/movable/update_luminosity()
+	if (isnull(base_luminosity))
+		base_luminosity = initial(luminosity)
+
+	if (UNLINT(_emissive_count))
+		UNLINT(luminosity = max(max(base_luminosity, affecting_dynamic_lumi), 1))
+	else
+		UNLINT(luminosity = max(base_luminosity, affecting_dynamic_lumi))
+
+#define set_base_luminosity(target, new_value)\
+if (UNLINT(target.base_luminosity != new_value)) {\
+	UNLINT(target.base_luminosity = new_value);\
+	target.update_luminosity();\
+}
+
+/atom/movable/proc/get_orbitable()
+	return src

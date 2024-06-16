@@ -38,4 +38,4 @@
 	return list("manifest" = GLOB.data_core.get_manifest(), "user_theme" = user_theme)
 
 /datum/crew_manifest/ui_assets(mob/user)
-	return list(get_asset_datum(/datum/asset/spritesheet/job_icons))
+	return list(get_asset_datum(/datum/asset/spritesheet_batched/job_icons))

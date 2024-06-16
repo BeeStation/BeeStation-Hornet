@@ -14,7 +14,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 3)
+	butcher_results = list(/obj/item/food/meat/slab = 3)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
@@ -23,7 +23,7 @@
 	mobchatspan = "fox"
 	can_be_held = TRUE
 	held_state = "fox"
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 	worn_slot_flags = ITEM_SLOT_HEAD
 
 //Captain fox

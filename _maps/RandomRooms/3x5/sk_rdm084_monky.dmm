@@ -32,7 +32,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "g" = (
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/food/grown/banana,
 /turf/open/floor/grass,
 /area/template_noop)
 "h" = (

@@ -124,6 +124,9 @@
 
 	var/slowed_by_drag = TRUE //Whether the mob is slowed down when dragging another prone mob
 
+	/// List of changes to body temperature, used by desease symtoms like fever
+	var/list/body_temp_changes = list()
+
 	var/is_busy = FALSE //Used for random actions that take time. ex: curbstomping. We need to make sure we can only do one of these at a time.
 
 	//this stuff is here to make it simple for admins to mess with custom held sprites

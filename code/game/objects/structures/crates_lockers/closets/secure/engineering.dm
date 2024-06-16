@@ -29,6 +29,8 @@
 
 	new /obj/item/circuitboard/machine/techfab/department/engineering(src)
 
+	new /obj/item/paper_reader(src)
+
 	// prioritized items
 	new /obj/item/storage/toolbox/mechanical(src)
 	new /obj/item/clothing/neck/cloak/ce(src)
@@ -59,9 +61,9 @@
 	new /obj/item/clothing/under/rank/engineering/chief_engineer(src)
 	new /obj/item/clothing/under/rank/engineering/chief_engineer/skirt(src)
 	new /obj/item/clothing/head/beret/ce(src)
-	new /obj/item/clothing/head/hardhat/white(src)
-	new /obj/item/clothing/head/hardhat/weldhat/white(src)
-	new /obj/item/clothing/head/welding(src)
+	new /obj/item/clothing/head/utility/hardhat/white(src)
+	new /obj/item/clothing/head/utility/hardhat/welding/white(src)
+	new /obj/item/clothing/head/utility/welding(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical
@@ -89,7 +91,7 @@
 /obj/structure/closet/secure_closet/engineering_welding/PopulateContents()
 	..()
 	for(var/i in 1 to 3)
-		new /obj/item/clothing/head/welding(src)
+		new /obj/item/clothing/head/utility/welding(src)
 	for(var/i in 1 to 3)
 		new /obj/item/weldingtool(src)
 
@@ -123,7 +125,7 @@
 	new /obj/item/analyzer(src)
 	new /obj/item/holosign_creator/atmos(src)
 	new /obj/item/watertank/atmos(src)
-	new /obj/item/clothing/suit/fire/atmos(src)
-	new /obj/item/clothing/head/hardhat/atmos(src)
+	new /obj/item/clothing/suit/utility/fire/atmos(src)
+	new /obj/item/clothing/head/utility/hardhat/atmos(src)
 	new /obj/item/clothing/glasses/meson/engine/tray(src)
 	new /obj/item/extinguisher/advanced(src)

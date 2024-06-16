@@ -83,6 +83,21 @@
 	L.look_reset()
 	return TRUE
 
+//Keybind for sense
+/datum/keybinding/living/primary_species_action
+	keys = list("Shift-Space")
+	name = "species_primary"
+	full_name = "Primary Species Action"
+	description = "Activates a species primary action."
+	keybind_signal = COMSIG_SPECIES_ACTION_PRIMARY
+
+/datum/keybinding/living/primary_species_action/down(client/user)
+	. = ..()
+	if(. || !iscarbon(user.mob)) 
+		return
+	var/mob/living/carbon/L = user.mob
+	L.dna.species.primary_species_action()
+	return TRUE
 
 /datum/keybinding/living/select_intent
 	/// The intent this keybinding will switch to.

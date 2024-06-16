@@ -176,7 +176,7 @@
 	arm_hud.begin_timer(arming_cooldown_length)
 	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(display_examine))
 	RegisterSignal(target, COMSIG_PARENT_PREQDELETED, PROC_REF(on_bomb_destroyed))
-	RegisterSignal(target, boom_signals, PROC_REF(kaboom))
+	RegisterSignals(target, boom_signals, PROC_REF(kaboom))
 	bomb_disarm_timers[target] = addtimer(CALLBACK(src, PROC_REF(disable), target), master_stats.potential * 18 * 10, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
 	bombs += target
 
@@ -251,7 +251,7 @@
 	owner.log_message("caught [key_name(explodee)] with a bomb trap ([source.name] | [source.type]) at [AREACOORD(target_turf)]", LOG_ATTACK, log_globally = FALSE)
 	playsound(target_turf, "explosion", vol = 200, vary = TRUE)
 	new /obj/effect/temp_visual/explosion(target_turf)
-	explodee.ex_act(EXPLODE_HEAVY)
+	EX_ACT(explodee, EXPLODE_HEAVY)
 	disable(source, silent = TRUE, result = "success")
 
 /**
@@ -316,7 +316,7 @@
 	desc = "Manually detonate an armed bomb trap."
 	icon_state = "explode"
 
-/atom/movable/screen/holoparasite/explosive/detonate/Click()
+/atom/movable/screen/holoparasite/explosive/detonate/use()
 	ability.manual_kaboom()
 	update_appearance()
 
@@ -359,7 +359,7 @@
 /atom/movable/screen/holoparasite/explosive/arm/activated()
 	return ability.arming
 
-/atom/movable/screen/holoparasite/explosive/arm/Click(location, control, params)
+/atom/movable/screen/holoparasite/explosive/arm/use()
 	if(!COOLDOWN_FINISHED(ability, arming_cooldown))
 		begin_timer(COOLDOWN_TIMELEFT(ability, arming_cooldown))
 		update_appearance()

@@ -1,3 +1,5 @@
+
+#define DECISECONDS_IN_DAY 864000	//number of deciseconds in a day
 #define MIDNIGHT_ROLLOVER		864000	//number of deciseconds in a day
 
 #define JANUARY		1
@@ -59,3 +61,4 @@ When using time2text(), please use "DDD" to find the weekday. Refrain from using
 
 /// Amount of years from the current year to offset in-universe
 #define YEAR_OFFSET 540
+

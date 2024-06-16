@@ -1,6 +1,5 @@
 /datum/job/exploration_crew
 	title = JOB_NAME_EXPLORATIONCREW
-	flag = EXPLORATION_CREW
 	description = "Go out into space to complete different missions for loads of cash. Find and deliver back research disks for rare technologies."
 	department_for_prefs = DEPT_BITFLAG_SCI
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
@@ -18,7 +17,6 @@
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX,ACCESS_TOX_STORAGE, ACCESS_MECH_SCIENCE, ACCESS_XENOBIOLOGY)
 	minimal_access = list(ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_HARD)
@@ -74,7 +72,6 @@
 	backpack_contents = list(
 		/obj/item/knife/combat/survival=1,\
 		/obj/item/stack/marker_beacon/thirty=1)
-	l_pocket = /obj/item/gps/mining/exploration
 	r_pocket = /obj/item/gun/energy/e_gun/mini/exploration
 
 	backpack = /obj/item/storage/backpack/explorer

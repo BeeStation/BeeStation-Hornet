@@ -179,19 +179,23 @@
 		return ..()
 
 
-//BOMBANANA
+//BOMBANANA]
 
-/obj/item/reagent_containers/food/snacks/grown/banana/bombanana
-	trash = /obj/item/grown/bananapeel/bombanana
-	bitesize = 1
-	customfoodfilling = FALSE
-	seed = null
+/obj/item/seeds/banana/bombanana
+	name = "pack of bombanana seeds"
+	desc = "They're seeds that grow into bombanana trees. When grown, give to the clown."
+	plantname = "Bombanana Tree"
+	product = /obj/item/food/grown/banana/bombanana
+
+/obj/item/food/grown/banana/bombanana
+	trash_type = /obj/item/grown/bananapeel/bombanana
+	seed = /obj/item/seeds/banana/bombanana
 	tastes = list("explosives" = 10)
-	list_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 1)
+	food_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 1)
 
 /obj/item/grown/bananapeel/bombanana
 	desc = "A peel from a banana. Why is it beeping?"
-	seed = null
+	seed = /obj/item/seeds/banana/bombanana
 	var/det_time = 50
 	var/obj/item/grenade/syndieminibomb/bomb
 
@@ -257,7 +261,7 @@
 	projectiles = 8
 	projectile_energy_cost = 1000
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/banana_mortar/bombanana/can_attach(obj/mecha/combat/honker/M)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/banana_mortar/bombanana/can_attach(obj/vehicle/sealed/mecha/combat/honker/M)
 	if(..())
 		if(istype(M))
 			return TRUE
@@ -275,13 +279,13 @@
 	equip_cooldown = 60
 	det_time = 20
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/tearstache/can_attach(obj/mecha/combat/honker/M)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/tearstache/can_attach(obj/vehicle/sealed/mecha/combat/honker/M)
 	if(..())
 		if(istype(M))
 			return TRUE
 	return FALSE
 
-/obj/mecha/combat/honker/dark
+/obj/vehicle/sealed/mecha/combat/honker/dark
 	desc = "Produced by \"Tyranny of Honk, INC\", this exosuit is designed as heavy clown-support. This one has been painted black for maximum fun. HONK!"
 	name = "\improper Dark H.O.N.K"
 	icon_state = "darkhonker"
@@ -295,14 +299,14 @@
 	wreckage = /obj/structure/mecha_wreckage/honker/dark
 	max_equip = 4
 
-/obj/mecha/combat/honker/dark/add_cell(obj/item/stock_parts/cell/C)
+/obj/vehicle/sealed/mecha/combat/honker/dark/add_cell(obj/item/stock_parts/cell/C)
 	if(C)
 		C.forceMove(src)
 		cell = C
 		return
 	cell = new /obj/item/stock_parts/cell/hyper(src)
 
-/obj/mecha/combat/honker/dark/loaded/Initialize(mapload)
+/obj/vehicle/sealed/mecha/combat/honker/dark/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/thrusters/ion(src)
 	ME.attach(src)

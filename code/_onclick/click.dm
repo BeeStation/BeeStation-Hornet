@@ -29,15 +29,15 @@
 		adj += S.nextmove_adjust()
 	next_move = world.time + ((num + adj)*mod)
 
-/*
-	Before anything else, defer these calls to a per-mobtype handler.  This allows us to
-	remove istype() spaghetti code, but requires the addition of other handler procs to simplify it.
-
-	Alternately, you could hardcode every mob's variation in a flat ClickOn() proc; however,
-	that's a lot of code duplication and is hard to maintain.
-
-	Note that this proc can be overridden, and is in the case of screen objects.
-*/
+/**
+  * Before anything else, defer these calls to a per-mobtype handler.  This allows us to
+  * remove istype() spaghetti code, but requires the addition of other handler procs to simplify it.
+  *
+  * Alternately, you could hardcode every mob's variation in a flat [/mob/proc/ClickOn] proc; however,
+  * that's a lot of code duplication and is hard to maintain.
+  *
+  * Note that this proc can be overridden, and is in the case of screen objects.
+  */
 /atom/Click(location,control,params)
 	if(flags_1 & INITIALIZED_1)
 		SEND_SIGNAL(src, COMSIG_CLICK, location, control, params, usr)
@@ -51,19 +51,19 @@
 	if(flags_1 & INITIALIZED_1)
 		usr.MouseWheelOn(src, delta_x, delta_y, params)
 
-/*
-	Standard mob ClickOn()
-	Handles exceptions: Buildmode, middle click, modified clicks, mech actions
-
-	After that, mostly just check your state, check whether you're holding an item,
-	check whether you're adjacent to the target, then pass off the click to whoever
-	is receiving it.
-	The most common are:
-	* mob/UnarmedAttack(atom,adjacent) - used here only when adjacent, with no item in hand; in the case of humans, checks gloves
-	* atom/attackby(item,user) - used only when adjacent
-	* item/afterattack(atom,user,adjacent,params) - used both ranged and adjacent
-	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
-*/
+/**
+  * Standard mob ClickOn()
+  * Handles exceptions: Buildmode, middle click, modified clicks, mech actions
+  *
+  * After that, mostly just check your state, check whether you're holding an item,
+  * check whether you're adjacent to the target, then pass off the click to whoever
+  * is receiving it.
+  * The most common are:
+  * * [mob/proc/UnarmedAttack] (atom,adjacent) - used here only when adjacent, with no item in hand; in the case of humans, checks gloves
+  * * [atom/proc/attackby] (item,user) - used only when adjacent
+  * * [obj/item/proc/afterattack] (atom,user,adjacent,params) - used both ranged and adjacent
+  * * [mob/proc/RangedAttack] (atom,params) - used only ranged, only used for tk and laser eyes but could be changed
+  */
 /mob/proc/ClickOn( atom/A, params )
 	if(world.time <= next_click)
 		return
@@ -89,7 +89,10 @@
 		ShiftClickOn(A)
 		return
 	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
-		MiddleClickOn(A)
+		if(LAZYACCESS(modifiers, CTRL_CLICK))
+			CtrlMiddleClickOn(A)
+			return
+		MiddleClickOn(A, params)
 		return
 	if(LAZYACCESS(modifiers, ALT_CLICK)) // alt and alt-gr (rightalt)
 		AltClickOn(A)
@@ -109,13 +112,9 @@
 	if(!LAZYACCESS(modifiers, "catcher") && A.IsObscured())
 		return
 
-	if(ismecha(loc))
-		var/obj/mecha/M = loc
-		return M.click_action(A,src,params)
-
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED)   //Doing shit in cuffs shall be vey slow
-		RestrainedClickOn(A)
+		UnarmedAttack(A)
 		return
 
 	if(throw_mode && throw_item(A))
@@ -158,7 +157,7 @@
 		else
 			RangedAttack(A,params)
 
-//Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
+/// Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
 /atom/proc/IsObscured()
 	SHOULD_BE_PURE(TRUE)
 	if(!isturf(loc)) //This only makes sense for things directly on turfs for now
@@ -177,9 +176,11 @@
 			return TRUE
 	return FALSE
 
+/**
+  * A backwards depth-limited breadth-first-search to see if the target is
+  * logically "in" anything adjacent to us.
+  */
 /atom/movable/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE)
-	// A backwards depth-limited breadth-first-search to see if the target is
-	// logically "in" anything adjacent to us.
 	var/list/direct_access = DirectAccess()
 	var/depth = 1 + (view_only ? STORAGE_VIEW_DEPTH : INVENTORY_DEPTH)
 
@@ -192,7 +193,7 @@
 		for(var/atom/target in checking)  // will filter out nulls
 			if(closed[target] || isarea(target))  // avoid infinity situations
 				continue
-			if(isturf(target) || isturf(target.loc) || (target in direct_access)) //Directly accessible atoms
+			if(isturf(target) || isturf(target.loc) || (target in direct_access) || (isobj(target) && target.flags_1 & IS_ONTOP_1)) //Directly accessible atoms
 				if(Adjacent(target) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
 					return TRUE
 
@@ -201,7 +202,8 @@
 			if (!target.loc)
 				continue
 
-			if(!(SEND_SIGNAL(target.loc, COMSIG_ATOM_CANREACH, next) & COMPONENT_BLOCK_REACH))
+			//Storage and things with reachable internal atoms need add to next here. Or return COMPONENT_ALLOW_REACH.
+			if(SEND_SIGNAL(target.loc, COMSIG_ATOM_CANREACH, next) & COMPONENT_ALLOW_REACH)
 				next += target.loc
 
 		checking = next
@@ -244,60 +246,52 @@
 					return
 			qdel(dummy)
 
-// Default behavior: ignore double clicks (the second click that makes the doubleclick call already calls for a normal click)
+/// Default behavior: ignore double clicks (the second click that makes the doubleclick call already calls for a normal click)
 /mob/proc/DblClickOn(atom/A, params)
 	return
 
 
-/*
-	Translates into attack_hand, etc.
-
-	Note: proximity_flag here is used to distinguish between normal usage (flag=1),
-	and usage when clicking on things telekinetically (flag=0).  This proc will
-	not be called at ranged except with telekinesis.
-
-	proximity_flag is not currently passed to attack_hand, and is instead used
-	in human click code to allow glove touches only at melee range.
-*/
+/**
+  * Translates into [atom/proc/attack_hand], etc.
+  *
+  * Note: proximity_flag here is used to distinguish between normal usage (flag=1),
+  * and usage when clicking on things telekinetically (flag=0).  This proc will
+  * not be called at ranged except with telekinesis.
+  *
+  * proximity_flag is not currently passed to attack_hand, and is instead used
+  * in human click code to allow glove touches only at melee range.
+  */
 /mob/proc/UnarmedAttack(atom/A, proximity_flag)
 	if(ismob(A))
 		changeNext_move(CLICK_CD_MELEE)
 	return
 
-/*
-	Ranged unarmed attack:
-
-	This currently is just a default for all mobs, involving
-	laser eyes and telekinesis.  You could easily add exceptions
-	for things like ranged glove touches, spitting alien acid/neurotoxin,
-	animals lunging, etc.
-*/
+/**
+  * Ranged unarmed attack:
+  *
+  * This currently is just a default for all mobs, involving
+  * laser eyes and telekinesis.  You could easily add exceptions
+  * for things like ranged glove touches, spitting alien acid/neurotoxin,
+  * animals lunging, etc.
+  */
 /mob/proc/RangedAttack(atom/A, params)
 	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params)
-/*
-	Restrained ClickOn
-
-	Used when you are handcuffed and click things.
-	Not currently used by anything but could easily be.
-*/
-/mob/proc/RestrainedClickOn(atom/A)
-	return
 
 /**
- * Middle click
- * *Mainly used for swapping hands
- */
-/mob/proc/MiddleClickOn(atom/A)
-	. = SEND_SIGNAL(src, COMSIG_MOB_MIDDLECLICKON, A)
+  * Middle click
+  * Mainly used for swapping hands
+  */
+/mob/proc/MiddleClickOn(atom/A, params)
+	. = SEND_SIGNAL(src, COMSIG_MOB_MIDDLECLICKON, A, params)
 	if(. & COMSIG_MOB_CANCEL_CLICKON)
 		return
 	swap_hand()
 
-/*
-	Shift click
-	For most mobs, examine.
-	This is overridden in ai.dm
-*/
+/**
+  * Shift click
+  * For most mobs, examine.
+  * This is overridden in ai.dm
+  */
 /mob/proc/ShiftClickOn(atom/A)
 	A.ShiftClick(src)
 	return
@@ -307,11 +301,10 @@
 		user.examinate(src)
 	return
 
-/*
-	Ctrl click
-	For most objects, pull
-*/
-
+/**
+  * Ctrl click
+  * For most objects, pull
+  */
 /mob/proc/CtrlClickOn(atom/A)
 	A.CtrlClick(src)
 	return
@@ -331,10 +324,19 @@
 		H.changeNext_move(CLICK_CD_MELEE)
 	else
 		..()
-/*
-	Alt click
-	Unused except for AI
-*/
+
+/mob/proc/CtrlMiddleClickOn(atom/A)
+	// specifically made for admin feature.
+	if(check_rights_for(client, R_ADMIN))
+		client.toggle_tag_datum(A)
+		return
+	A.CtrlClick(src) // this assumes you did CtrlClick instead of MiddleClick
+	return
+
+/**
+  * Alt click
+  * Unused except for AI
+  */
 /mob/proc/AltClickOn(atom/A)
 	. = SEND_SIGNAL(src, COMSIG_MOB_ALTCLICKON, A)
 	if(. & COMSIG_MOB_CANCEL_CLICKON)
@@ -348,7 +350,7 @@
 		user.listed_turf = T
 		user.set_stat_tab(T.name)
 
-// Use this instead of /mob/proc/AltClickOn(atom/A) where you only want turf content listing without additional atom alt-click interaction
+/// Use this instead of [/mob/proc/AltClickOn] where you only want turf content listing without additional atom alt-click interaction
 /atom/proc/AltClickNoInteract(mob/user, atom/A)
 	var/turf/T = get_turf(A)
 	if(T && user.TurfAdjacent(T))
@@ -358,10 +360,10 @@
 /mob/proc/TurfAdjacent(turf/T)
 	return T.Adjacent(src)
 
-/*
-	Control+Shift click
-	Unused except for AI
-*/
+/**
+  * Control+Shift click
+  * Used for AI and Give code
+  */
 /mob/proc/CtrlShiftClickOn(atom/A)
 	A.CtrlShiftClick(src)
 	return
@@ -392,11 +394,11 @@
 	playsound(usr.loc, 'sound/weapons/taser2.ogg', 75, 1)
 
 	LE.firer = src
-	LE.def_zone = ran_zone(zone_selected)
+	LE.def_zone = ran_zone(get_combat_bodyzone(A))
 	LE.preparePixelProjectile(A, src, params)
 	LE.fire()
 
-// Simple helper to face what you clicked on, in case it should be needed in more than one place
+/// Simple helper to face what you clicked on, in case it should be needed in more than one place
 /mob/proc/face_atom(atom/A)
 	if( buckled || stat != CONSCIOUS || !A || !x || !y || !A.x || !A.y )
 		return
@@ -469,10 +471,18 @@
 			click_turf.Click(click_turf, control, list2params(modifiers))
 	. = 1
 
-/* MouseWheelOn */
-
+/// MouseWheelOn
 /mob/proc/MouseWheelOn(atom/A, delta_x, delta_y, params)
 	SEND_SIGNAL(src, COMSIG_MOB_MOUSE_SCROLL_ON, A, delta_x, delta_y, params)
+	if (!client)
+		return
+	// Send the hotkey action
+	if (delta_y > 0)
+		client.keyDown("ScrollUp")
+		client.keyUp("ScrollUp")
+	else if (delta_y < 0)
+		client.keyDown("ScrollDown")
+		client.keyUp("ScrollDown")
 
 /mob/dead/observer/proc/mouse_wheeled(atom/A, delta_x, delta_y, params)
 	SIGNAL_HANDLER

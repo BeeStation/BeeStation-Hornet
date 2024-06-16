@@ -6,7 +6,9 @@
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
-	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	/// build_worn_icon is reponsible for building this, as each bodypart may be emissive and clothes
+	/// or other bodyparts may block the emissive elements of it.
+	blocks_emissive = FALSE
 	///Hair color
 	var/hair_color = "000"
 	///Hair style
@@ -45,6 +47,8 @@
 
 	var/bleed_rate = 0 //how much are we bleeding
 	var/bleedsuppress = 0 //for stopping bloodloss, eventually this will be limb-based like bleeding
+	/// How many "units of blood" we have on our hands
+	var/blood_in_hands = 0
 
 	var/name_override //For temporary visible name changes
 
@@ -55,3 +59,9 @@
 	var/static/list/can_ride_typecache = typecacheof(list(/mob/living/carbon/human, /mob/living/simple_animal/slime, /mob/living/simple_animal/parrot, /mob/living/carbon/monkey))
 	var/lastpuke = 0
 	var/last_fire_update
+
+	/// The core temperature of the human compaired to the skin temp of the body
+	var/coretemperature = BODYTEMP_NORMAL
+
+	///Exposure to damaging heat levels increases stacks, stacks clean over time when temperatures are lower. Stack is consumed to add a wound.
+	var/heat_exposure_stacks = 0

@@ -19,6 +19,7 @@
 	invisibility = INVISIBILITY_SPIRIT
 	health = INFINITY //Revenants don't use health, they use essence instead
 	maxHealth = INFINITY
+	do_not_show_health_on_stat_panel = TRUE // showing their health info is confusing
 	plane = GHOST_PLANE
 	healable = FALSE
 	spacewalk = TRUE
@@ -154,7 +155,7 @@
 
 /mob/living/simple_animal/revenant/get_stat_tab_status()
 	var/list/tab_data = ..()
-	tab_data["Current essence"] = GENERATE_STAT_TEXT("[essence]/[essence_regen_cap]E")
+	tab_data["Current essence (health)"] = GENERATE_STAT_TEXT("[essence]E (Regeneration Cap: [essence_regen_cap]E)")
 	tab_data["Stolen essence"] = GENERATE_STAT_TEXT("[essence_accumulated]E")
 	tab_data["Unused stolen essence"] = GENERATE_STAT_TEXT("[essence_excess]E")
 	tab_data["Stolen perfect souls"] = GENERATE_STAT_TEXT("[perfectsouls]")

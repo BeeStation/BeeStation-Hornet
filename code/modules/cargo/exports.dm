@@ -33,6 +33,7 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 	var/list/contents = AM.GetAllContents()
 
 	var/datum/export_report/report = external_report
+
 	if(!report) //If we don't have any longer transaction going on
 		report = new
 
@@ -40,6 +41,7 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 	for(var/i in reverse_range(contents))
 		var/atom/movable/thing = i
 		var/sold = FALSE
+
 		for(var/datum/export/E in GLOB.exports_list)
 			if(!E)
 				continue
@@ -146,11 +148,18 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 		return FALSE
 	return TRUE
 
-// Called only once, when the object is actually sold by the datum.
-// Adds item's cost and amount to the current export cycle.
-// get_cost, get_amount and applies_to do not neccesary mean a successful sale.
+/**
+  * Calculates the exact export value of the object, while factoring in all the relivant variables.
+  *
+  * Called only once, when the object is actually sold by the datum.
+  * Adds item's cost and amount to the current export cycle.
+  * get_cost, get_amount and applies_to do not neccesary mean a successful sale.
+  *
+  */
 /datum/export/proc/sell_object(obj/O, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO , apply_elastic = TRUE)
+	///This is the value of the object, as derived from export datums.
 	var/the_cost = get_cost(O, allowed_categories , apply_elastic)
+	///Quantity of the object in question.
 	var/amount = get_amount(O)
 
 	if(amount <=0 || the_cost <=0)

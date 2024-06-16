@@ -89,7 +89,7 @@
 			each.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 			if(isitem(each))
 				var/obj/item/I = each
-				I.materials = null // we don't want to feed lathe with these items
+				I.custom_materials = null // we don't want to feed lathe with these items
 
 /obj/item/debug/omnitool/examine()
 	. = ..()
@@ -126,7 +126,7 @@
 
 /obj/item/debug/omnitool/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/tools)
+		get_asset_datum(/datum/asset/spritesheet_batched/tools)
 	)
 
 /obj/item/debug/omnitool/ui_data(mob/user)
@@ -158,7 +158,7 @@
 	matter = INFINITY
 	delay_mod = 0.1
 	ranged = TRUE
-	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS
+	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS | RCD_UPGRADE_FURNISHING
 	canRturf = TRUE
 
 /obj/item/construction/rld/debug
@@ -239,6 +239,7 @@
 
 /obj/item/storage/backpack/debug/ComponentInitialize()
 	. = ..()
+	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.allow_big_nesting = TRUE
 	STR.max_w_class = WEIGHT_CLASS_GIGANTIC

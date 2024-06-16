@@ -8,9 +8,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	))
 
 /obj/item/stack/rods/cyborg
-	materials = list()
-	is_cyborg = 1
-	cost = 250
+	merge_type = /obj/item/stack/rods
 
 /obj/item/stack/rods/cyborg/ComponentInitialize()
 	. = ..()

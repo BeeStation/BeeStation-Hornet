@@ -85,11 +85,14 @@
 	/// Boolean value indicating if the mob attached to this mind entered cryosleep.
 	var/cryoed = FALSE
 
+	/// What color our soul is
+	var/soul_glimmer
 
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src
 	martial_art = default_martial_art
+	setup_soul_glimmer()
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
@@ -135,7 +138,7 @@
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud//we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
 	if(current)
-		current.transfer_observers_to(new_character)	//transfer anyone observing the old character to the new one
+		current.transfer_observers_to(new_character, TRUE)	//transfer anyone observing the old character to the new one
 	set_current(new_character)								//associate ourself with our new body
 	new_character.mind = src							//and associate our new body with ourself
 
@@ -360,11 +363,11 @@
 		U.setup_unlock_code()
 		if(!silent)
 			if(uplink_loc == R)
-				U.unlock_text = "[employer] has cunningly disguised a Syndicate Uplink as your [R.name]. Simply speak [U.unlock_code] into the :d channel to unlock its hidden features."
+				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [R.name]. Simply speak [U.unlock_code] into the :d channel to unlock its hidden features."
 			else if(uplink_loc == PDA)
-				U.unlock_text = "[employer] has cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
+				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
 			else if(uplink_loc == P)
-				U.unlock_text = "[employer] has cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
+				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
 			to_chat(traitor_mob, "<span class='boldnotice'>[U.unlock_text]</span>")
 
 		if(uplink_owner)
@@ -376,7 +379,7 @@
 		I.implant(traitor_mob, null, silent = TRUE)
 		var/datum/component/uplink/U = I.GetComponent(/datum/component/uplink)
 		if(!silent)
-			U.unlock_text = "[employer] has cunningly implanted you with a Syndicate Uplink (although uplink implants cost valuable TC, so you will have slightly less). Simply trigger the uplink to access it."
+			U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly implanted [employer == "You" ? "yourself" : "you"] with a Syndicate Uplink (although uplink implants cost valuable TC, so you will have slightly less). Simply trigger the uplink to access it."
 			to_chat(traitor_mob, "<span class='boldnotice'>[U.unlock_text]</span>")
 		return I
 
@@ -670,8 +673,8 @@
 		add_antag_datum(/datum/antagonist/traitor)
 
 /datum/mind/proc/make_Contractor_Support()
-	if(!(has_antag_datum(/datum/antagonist/traitor/contractor_support)))
-		add_antag_datum(/datum/antagonist/traitor/contractor_support)
+	if(!(has_antag_datum(/datum/antagonist/contractor_support)))
+		add_antag_datum(/datum/antagonist/contractor_support)
 
 /datum/mind/proc/make_Changeling()
 	var/datum/antagonist/changeling/C = has_antag_datum(/datum/antagonist/changeling)
@@ -873,3 +876,23 @@
 	if(!holoparasite_holder)
 		holoparasite_holder = new(src)
 	return holoparasite_holder
+
+/datum/mind/proc/setup_soul_glimmer()
+	// initialise to calculate how many soul colours will be given to people
+	var/static/max_soul_pool
+	if(!max_soul_pool)
+		var/pop_value = length(GLOB.player_list)
+		var/decrement = SOUL_GLIMMER_POP_REQ_CREEP_STARTING
+		while(pop_value > 0)
+			pop_value -= decrement++ // 4, 5, 6, 7...
+			max_soul_pool++
+			if(max_soul_pool >= length(GLOB.soul_glimmer_colors))
+				break // Failsafe loop even if our codebase won't have +100 pop count...
+		max_soul_pool = clamp(max_soul_pool, SOUL_GLIMMER_MINIMUM_POP_COLOR, length(GLOB.soul_glimmer_colors))
+
+	// build a list for colours to give
+	var/static/list/options_to_give
+	if(!length(options_to_give))
+		options_to_give = GLOB.soul_glimmer_colors.Copy(1, max_soul_pool+1) // Copy(1, 3) = copy items 1-2. Not 3. Be careful.
+
+	soul_glimmer = pick_n_take(options_to_give)

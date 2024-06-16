@@ -1,15 +1,20 @@
 /*
  * Contains:
- *		Fire protection
- *		Bomb protection
- *		Radiation protection
+ * Fire protection
+ * Bomb protection
+ * Radiation protection
  */
 
 /*
  * Fire protection
  */
 
-/obj/item/clothing/suit/fire
+
+/obj/item/clothing/suit/utility
+	icon = 'icons/obj/clothing/suits/utility.dmi'
+	worn_icon = 'icons/mob/clothing/suits/utility.dmi'
+
+/obj/item/clothing/suit/utility/fire
 	name = "emergency firesuit"
 	desc = "A suit that helps protect against fire and heat."
 	icon_state = "fire"
@@ -18,7 +23,14 @@
 	gas_transfer_coefficient = 0.9
 	permeability_coefficient = 0.5
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/extinguisher, /obj/item/crowbar, /obj/item/powertool/jaws_of_life)
+	allowed = list(
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/extinguisher,
+		/obj/item/crowbar,
+		/obj/item/powertool/jaws_of_life
+	)
 	slowdown = 1
 	armor = list(MELEE = 15,  BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 10, RAD = 20, FIRE = 100, ACID = 50, STAMINA = 10)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
@@ -31,19 +43,18 @@
 	equip_delay_other = 60
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/suit/fire/firefighter
+/obj/item/clothing/suit/utility/fire/firefighter
 	icon_state = "firesuit"
 	item_state = "firefighter"
 
-
-/obj/item/clothing/suit/fire/heavy
+/obj/item/clothing/suit/utility/fire/heavy
 	name = "heavy firesuit"
 	desc = "An old, bulky thermal protection suit."
 	icon_state = "thermal"
 	item_state = "ro_suit"
 	slowdown = 1.5
 
-/obj/item/clothing/suit/fire/atmos
+/obj/item/clothing/suit/utility/fire/atmos
 	name = "firesuit"
 	desc = "An expensive firesuit that protects against even the most deadly of station fires. Designed to protect even if the wearer is set aflame."
 	icon_state = "atmos_firesuit"
@@ -54,7 +65,7 @@
 /*
  * Bomb protection
  */
-/obj/item/clothing/head/bomb_hood
+/obj/item/clothing/head/utility/bomb_hood
 	name = "bomb hood"
 	desc = "Use in case of bomb."
 	icon_state = "bombsuit"
@@ -73,7 +84,7 @@
 	resistance_flags = NONE
 
 
-/obj/item/clothing/suit/bomb_suit
+/obj/item/clothing/suit/utility/bomb_suit
 	name = "bomb suit"
 	desc = "A suit designed for safety when handling explosives."
 	icon_state = "bombsuit"
@@ -94,21 +105,21 @@
 	equip_delay_other = 70
 	resistance_flags = NONE
 
-/obj/item/clothing/head/bomb_hood/security
+/obj/item/clothing/head/utility/bomb_hood/security
 	icon_state = "bombsuit_sec"
 	item_state = "bombsuit_sec"
 
-/obj/item/clothing/suit/bomb_suit/security
+/obj/item/clothing/suit/utility/bomb_suit/security
 	icon_state = "bombsuit_sec"
 	item_state = "bombsuit_sec"
 	allowed = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/restraints/handcuffs)
 
 
-/obj/item/clothing/head/bomb_hood/white
+/obj/item/clothing/head/utility/bomb_hood/white
 	icon_state = "bombsuit_white"
 	item_state = "bombsuit_white"
 
-/obj/item/clothing/suit/bomb_suit/white
+/obj/item/clothing/suit/utility/bomb_suit/white
 	icon_state = "bombsuit_white"
 	item_state = "bombsuit_white"
 
@@ -116,7 +127,7 @@
 * Radiation protection
 */
 
-/obj/item/clothing/head/radiation
+/obj/item/clothing/head/utility/radiation
 	name = "radiation hood"
 	icon_state = "rad"
 	desc = "A hood with radiation protective properties. The label reads, 'Made with lead. Please do not consume insulation.'"
@@ -128,7 +139,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	rad_flags = RAD_PROTECT_CONTENTS
 
-/obj/item/clothing/suit/radiation
+/obj/item/clothing/suit/utility/radiation
 	name = "radiation suit"
 	desc = "A suit that protects against radiation. The label reads, 'Made with lead. Please do not consume insulation.'"
 	icon_state = "rad"
@@ -146,6 +157,6 @@
 	flags_inv = HIDEJUMPSUIT
 	rad_flags = RAD_PROTECT_CONTENTS
 
-/obj/item/clothing/suit/radiation/ComponentInitialize()
+/obj/item/clothing/suit/utility/radiation/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)

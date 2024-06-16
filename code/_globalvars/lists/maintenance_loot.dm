@@ -25,7 +25,6 @@
 //port:					5  items,  5 spots 0 extra (08/08/2014)
 
 GLOBAL_LIST_INIT(maintenance_loot, list(
-	"" = 3,
 	/obj/effect/spawner/lootdrop/gloves = 8,
 	/obj/effect/spawner/lootdrop/glowstick = 4,
 	/obj/item/airlock_painter = 1,
@@ -45,11 +44,11 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/clothing/gloves/color/fyellow = 1,
 	/obj/item/clothing/head/cone = 1,
 	/obj/item/clothing/head/cone = 2,
-	/obj/item/clothing/head/hardhat = 1,
-	/obj/item/clothing/head/hardhat/red = 1,
-	/obj/item/clothing/head/that = 1,
-	/obj/item/clothing/head/ushanka = 1,
-	/obj/item/clothing/head/welding = 1,
+	/obj/item/clothing/head/utility/hardhat = 1,
+	/obj/item/clothing/head/utility/hardhat/red = 1,
+	/obj/item/clothing/head/hats/tophat = 1,
+	/obj/item/clothing/head/costume/ushanka = 1,
+	/obj/item/clothing/head/utility/welding = 1,
 	/obj/item/clothing/mask/gas/old = 15,		//greytide
 	/obj/item/clothing/shoes/laceup = 1,
 	/obj/item/clothing/suit/hazardvest = 1,
@@ -74,9 +73,9 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/radio/headset = 1,
 	/obj/item/radio/off = 2,
 	/obj/item/reagent_containers/food/drinks/bottle/homemaderum = 1,
-	/obj/item/reagent_containers/food/snacks/canned/peaches/maint = 1,
-	/obj/item/reagent_containers/food/snacks/grown/citrus/orange = 1,
-	/obj/item/reagent_containers/food/snacks/grown/flower/poppy = 10,
+	/obj/item/food/canned/peaches/maint = 1,
+	/obj/item/food/grown/citrus/orange = 1,
+	/obj/item/food/grown/flower/poppy = 10,
 	/obj/item/reagent_containers/glass/rag = 3,
 	/obj/item/reagent_containers/pill/floorpill = 4,
 	/obj/item/reagent_containers/spray/pestspray = 1,
@@ -116,4 +115,5 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/wrench = 4,
 	/obj/item/reagent_containers/food/drinks/bottle/homemaderum = 1,
 	/obj/item/xenoartifact/maint = 1,
+	/obj/item/paper_reader = 1,
 ))

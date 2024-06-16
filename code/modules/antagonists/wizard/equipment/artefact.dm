@@ -131,16 +131,18 @@
 	)
 
 /obj/tear_in_reality/attack_tk(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		var/datum/component/mood/insaneinthemembrane = C.GetComponent(/datum/component/mood)
-		if(insaneinthemembrane.sanity < 15)
-			return //they've already seen it and are about to die, or are just too insane to care
-		to_chat(C, "<span class='userdanger'>OH GOD! NONE OF IT IS REAL! NONE OF IT IS REEEEEEEEEEEEEEEEEEEEEEEEAL!</span>")
-		insaneinthemembrane.sanity = 0
-		for(var/lore in typesof(/datum/brain_trauma/severe))
-			C.gain_trauma(lore)
-		addtimer(CALLBACK(src, PROC_REF(deranged), C), 100)
+	if(!iscarbon(user))
+		return
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
+	var/mob/living/carbon/jedi = user
+	var/datum/component/mood/insaneinthemembrane = jedi.GetComponent(/datum/component/mood)
+	if(insaneinthemembrane.sanity < 15)
+		return //they've already seen it and are about to die, or are just too insane to care
+	to_chat(jedi, "<span class='userdanger'>OH GOD! NONE OF IT IS REAL! NONE OF IT IS REEEEEEEEEEEEEEEEEEEEEEEEAL!</span>")
+	insaneinthemembrane.sanity = 0
+	for(var/lore in typesof(/datum/brain_trauma/severe))
+		jedi.gain_trauma(lore)
+	addtimer(CALLBACK(src, PROC_REF(deranged), jedi), 10 SECONDS)
 
 /obj/tear_in_reality/proc/deranged(mob/living/carbon/C)
 	if(!C || C.stat == DEAD)
@@ -331,7 +333,7 @@
 			target.adjust_bodytemperature(50)
 			GiveHint(target)
 		else if(is_pointed(I))
-			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.zone_selected)]!</span>")
+			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.get_combat_bodyzone(target))]!</span>")
 			target.Paralyze(40)
 			GiveHint(target)
 		else if(istype(I, /obj/item/bikehorn))
@@ -359,7 +361,15 @@
 		target = input(user, "Select your victim!", "Voodoo") as null|anything in sort_names(possible)
 		return
 
-	if(user.zone_selected == BODY_ZONE_CHEST)
+	var/datum/task/select_zone_task = user.select_bodyzone(user, TRUE, BODYZONE_STYLE_DEFAULT)
+	select_zone_task.continue_with(CALLBACK(src,PROC_REF(perform_voodoo), user))
+
+/obj/item/voodoo/proc/perform_voodoo(mob/user, zone_selected)
+	if (!can_interact(user))
+		to_chat(user, "<span class='warning'>You are too far away!</span>")
+		return
+
+	if(zone_selected == BODY_ZONE_CHEST)
 		if(voodoo_link)
 			target = null
 			voodoo_link.forceMove(drop_location())
@@ -369,7 +379,7 @@
 			return
 
 	if(target && cooldown < world.time)
-		switch(user.zone_selected)
+		switch(zone_selected)
 			if(BODY_ZONE_PRECISE_MOUTH)
 				var/wgw =  stripped_input(user, "What would you like the victim to say", "Voodoo")
 				target.say(wgw, forced = "voodoo doll")
@@ -451,6 +461,7 @@
 /obj/item/warpwhistle/proc/end_effect(mob/living/carbon/user)
 	user.invisibility = initial(user.invisibility)
 	user.status_flags &= ~GODMODE
+	REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, WARPWHISTLE_TRAIT)
 	user.update_mobility()
 
 /obj/item/warpwhistle/attack_self(mob/living/carbon/user)
@@ -460,10 +471,11 @@
 	last_user = user
 	var/turf/T = get_turf(user)
 	playsound(T,'sound/magic/warpwhistle.ogg', 200, 1)
-	user.mobility_flags &= ~MOBILITY_MOVE
+	ADD_TRAIT(user, TRAIT_IMMOBILIZED, WARPWHISTLE_TRAIT)
 	new /obj/effect/temp_visual/tornado(T)
 	sleep(20)
 	if(interrupted(user))
+		REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, WARPWHISTLE_TRAIT)
 		return
 	user.invisibility = INVISIBILITY_MAXIMUM
 	user.status_flags |= GODMODE
@@ -476,7 +488,6 @@
 		var/turf/potential_T = find_safe_turf()
 		if(T.get_virtual_z_level() != potential_T.get_virtual_z_level() || abs(get_dist_euclidian(potential_T,T)) > 50 - breakout)
 			do_teleport(user, potential_T, channel = TELEPORT_CHANNEL_MAGIC)
-			user.mobility_flags &= ~MOBILITY_MOVE
 			T = potential_T
 			break
 		breakout += 1
@@ -500,7 +511,7 @@
 	name = "tornado"
 	desc = "This thing sucks!"
 	layer = FLY_LAYER
-	randomdir = 0
+	randomdir = FALSE
 	duration = 40
 	pixel_x = 500
 

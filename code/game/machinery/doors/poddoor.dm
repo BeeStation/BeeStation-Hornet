@@ -1,7 +1,7 @@
 /obj/machinery/door/poddoor
 	name = "blast door"
 	desc = "A heavy duty blast door that opens mechanically."
-	icon = 'icons/obj/doors/blastdoor.dmi'
+	icon = 'icons/obj/doors/blastdoors/blastdoor.dmi'
 
 	var/id = 1
 	layer = BLASTDOOR_LAYER
@@ -123,6 +123,9 @@
 		return 0
 	else
 		return ..()
+
+/obj/machinery/door/poddoor/shutters/bumpopen()
+	return
 
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
 /obj/machinery/door/poddoor/ex_act(severity, target)

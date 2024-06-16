@@ -474,7 +474,7 @@
 	hearers -= ignored_mobs
 
 	for (var/mob/hearer in hearers)
-		if (hearer.is_blind())
+		if (hearer.is_blind() && get_dist(hearer, src) > BLIND_TEXT_DIST)
 			continue
 
 		balloon_alert(hearer, (hearer == src && self_message) || message, show_in_chat = show_in_chat)

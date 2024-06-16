@@ -292,7 +292,7 @@
 
 /datum/crafting_recipe/ghostsheet
 	name = "Ghost Sheet"
-	result = /obj/item/clothing/suit/ghost_sheet
+	result = /obj/item/clothing/suit/costume/ghost_sheet
 	time = 5
 	tools = list(TOOL_WIRECUTTER)
 	reqs = list(/obj/item/bedsheet = 1)
@@ -300,7 +300,7 @@
 
 /datum/crafting_recipe/foilhat
 	name = "Tinfoil Hat"
-	result = /obj/item/clothing/head/foilhat
+	result = /obj/item/clothing/head/costume/foilhat
 	time = 5
 	tools = list(TOOL_CROWBAR)
 	reqs = list(/obj/item/stack/sheet/iron = 3)
@@ -308,15 +308,15 @@
 
 /datum/crafting_recipe/foilenvirohelm
 	name = "Ghetto Envirosuit Helmet"
-	result = /obj/item/clothing/head/foilhat/plasmaman
+	result = /obj/item/clothing/head/costume/foilhat/plasmaman
 	time = 40
 	tools = list(TOOL_CROWBAR, TOOL_WIRECUTTER, TOOL_SCREWDRIVER)
-	reqs = list(/obj/item/clothing/head/foilhat = 1,
+	reqs = list(/obj/item/clothing/head/costume/foilhat = 1,
 				/obj/item/stack/package_wrap = 10,
 				/obj/item/stack/cable_coil = 15,
 				/obj/item/clothing/glasses/meson = 1,
 				/obj/item/flashlight = 1,
-				/obj/item/clothing/head/hardhat = 1,
+				/obj/item/clothing/head/utility/hardhat = 1,
 				/obj/item/stack/sheet/glass = 1)
 	category = CAT_CLOTHING
 
@@ -324,7 +324,7 @@
 	name = "Rainbow Flower Crown"
 	result = /obj/item/clothing/head/flowercrown/rainbowbunch
 	time = 20
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/flower/rainbow = 5,
+	reqs = list(/obj/item/food/grown/flower/rainbow = 5,
 				/obj/item/stack/cable_coil = 3)
 	category = CAT_CLOTHING
 
@@ -340,7 +340,7 @@
 	name = "Poppy Crown"
 	result = /obj/item/clothing/head/flowercrown/poppy
 	time = 20
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/flower/poppy = 5,
+	reqs = list(/obj/item/food/grown/flower/poppy = 5,
 				/obj/item/stack/cable_coil = 3)
 	category = CAT_CLOTHING
 
@@ -348,6 +348,6 @@
 	name = "Lily Crown"
 	result = /obj/item/clothing/head/flowercrown/lily
 	time = 20
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/flower/lily = 3,
+	reqs = list(/obj/item/food/grown/flower/lily = 3,
 				/obj/item/stack/cable_coil = 3)
 	category = CAT_CLOTHING

@@ -525,7 +525,7 @@ SUBSYSTEM_DEF(explosions)
 		for(var/thing in low_turf)
 			var/turf/turf_thing = thing
 			turf_thing.explosion_level = max(turf_thing.explosion_level, EXPLODE_LIGHT)
-			turf_thing.ex_act(EXPLODE_LIGHT)
+			EX_ACT(turf_thing, EXPLODE_LIGHT)
 			lowturf -= turf_thing
 		cost_lowturf = MC_AVERAGE(cost_lowturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -535,7 +535,7 @@ SUBSYSTEM_DEF(explosions)
 		for(var/thing in med_turf)
 			var/turf/turf_thing = thing
 			turf_thing.explosion_level = max(turf_thing.explosion_level, EXPLODE_HEAVY)
-			turf_thing.ex_act(EXPLODE_HEAVY)
+			EX_ACT(turf_thing, EXPLODE_HEAVY)
 			medturf -= turf_thing
 		cost_medturf = MC_AVERAGE(cost_medturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -545,7 +545,7 @@ SUBSYSTEM_DEF(explosions)
 		for(var/thing in high_turf)
 			var/turf/turf_thing = thing
 			turf_thing.explosion_level = max(turf_thing.explosion_level, EXPLODE_DEVASTATE)
-			turf_thing.ex_act(EXPLODE_DEVASTATE)
+			EX_ACT(turf_thing, EXPLODE_DEVASTATE)
 			highturf -= turf_thing
 		cost_highturf = MC_AVERAGE(cost_highturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -571,7 +571,7 @@ SUBSYSTEM_DEF(explosions)
 			var/atom/movable/movable_thing = thing
 			if(QDELETED(movable_thing))
 				continue
-			movable_thing.ex_act(EXPLODE_DEVASTATE)
+			EX_ACT(movable_thing, EXPLODE_DEVASTATE)
 			high_mov_atom -= movable_thing
 		cost_high_mov_atom = MC_AVERAGE(cost_high_mov_atom, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -582,7 +582,7 @@ SUBSYSTEM_DEF(explosions)
 			var/atom/movable/movable_thing = thing
 			if(QDELETED(movable_thing))
 				continue
-			movable_thing.ex_act(EXPLODE_HEAVY)
+			EX_ACT(movable_thing, EXPLODE_HEAVY)
 			med_mov_atom -= movable_thing
 		cost_med_mov_atom = MC_AVERAGE(cost_med_mov_atom, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -593,7 +593,7 @@ SUBSYSTEM_DEF(explosions)
 			var/atom/movable/movable_thing = thing
 			if(QDELETED(movable_thing))
 				continue
-			movable_thing.ex_act(EXPLODE_LIGHT)
+			EX_ACT(movable_thing, EXPLODE_LIGHT)
 			low_mov_atom -= movable_thing
 		cost_low_mov_atom = MC_AVERAGE(cost_low_mov_atom, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 

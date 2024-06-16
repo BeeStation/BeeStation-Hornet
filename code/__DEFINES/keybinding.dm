@@ -11,6 +11,7 @@
 #define COMSIG_KB_ADMIN_AGHOST_DOWN "keybinding_admin_aghost_down"
 #define COMSIG_KB_ADMIN_PLAYERPANEL_DOWN "keybinding_admin_playerpanelnew_down"
 #define COMSIG_KB_ADMIN_INVISIMINTOGGLE_DOWN "keybinding_admin_invisimintoggle_down"
+#define COMSIG_KB_ADMIN_VIEWTAGS_DOWN "keybinding_admin_viewtags_down"
 
 //Carbon
 #define COMSIG_KB_CARBON_TOGGLETHROWMODE_DOWN "keybinding_carbon_togglethrowmode_down"
@@ -66,6 +67,8 @@
 #define COMSIG_KB_MOB_TARGETRIGHTLEG_DOWN "keybinding_mob_targetrightleg_down"
 #define COMSIG_KB_MOB_TARGETBODYGROIN_DOWN "keybinding_mob_targetbodygroin_down"
 #define COMSIG_KB_MOB_TARGETLEFTLEG_DOWN "keybinding_mob_targetleftleg_down"
+#define COMSIG_KB_MOB_TARGETCYCLEUP_DOWN "keybinding_mob_targetcycleup_down"
+#define COMSIG_KB_MOB_TARGETCYCLEDOWN_DOWN "keybinding_mob_targetcycledown_down"
 #define COMSIG_KB_MOB_PREVENTMOVEMENT_DOWN "keybinding_mob_preventmovement_down"
 #define COMSIG_KB_MOB_MOVEUP_DOWN "keybinding_mob_moveup_down"
 #define COMSIG_KB_MOB_MOVEDOWN_DOWN "keybinding_mob_movedown_down"
@@ -78,3 +81,6 @@
 #define COMSIG_KB_SILICON_UNEQUIPMODULE_DOWN "keybinding_silicon_unequipmodule_down"
 #define COMSIG_KB_SILION_UNDEPLOY_DOWN "keybinding_silicon_undeploy_down"
 #define COMSIG_KB_SILICON_RECONNECT_DOWN "keybinding_silicon_reconnect_down"
+
+//Species Specific
+#define COMSIG_SPECIES_ACTION_PRIMARY "keybinding_species_action_primary"

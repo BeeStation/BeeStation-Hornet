@@ -10,7 +10,7 @@
 	item_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	materials = list(/datum/material/glass=1000)
+	custom_materials = list(/datum/material/glass=1000)
 	w_class = WEIGHT_CLASS_SMALL
 	grind_results = list(/datum/reagent/silicon = 20)
 	var/build_path = null
@@ -38,6 +38,15 @@
 		qdel(M.circuit)
 		M.circuit = src
 
+	return
+
+/**
+  * Used to allow the circuitboard to configure a machine in some way, shape or form.
+  *
+  * Arguments:
+  * * machine - The machine to attempt to configure.
+  */
+/obj/item/circuitboard/proc/configure_machine(obj/machinery/machine)
 	return
 
 // Circuitboard/machine

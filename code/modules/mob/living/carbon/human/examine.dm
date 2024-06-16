@@ -22,6 +22,10 @@
 		apparent_species = ", \an [dna.species.name]"
 	. = list("<span class='info'>This is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
 
+	//Psychic soul stuff
+	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE) && mind)
+		to_chat(user, "<span class='notice'>[src] has a <span class='[GLOB.soul_glimmer_cfc_list[mind.soul_glimmer]]'>[mind.soul_glimmer]</span> presence.")
+
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING) && !(w_uniform.item_flags & EXAMINE_SKIP))
 		//accessory
@@ -298,13 +302,14 @@
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "religious_comfort", /datum/mood_event/religiously_comforted)
 
 	if(!appears_dead)
-		if(stat == UNCONSCIOUS)
-			msg += "[t_He] [t_is]n't responding to anything around [t_him] and seem[p_s()] to be asleep.\n"
-		else
-			if(HAS_TRAIT(src, TRAIT_DUMB))
-				msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
-			if(InCritical())
+		switch(stat)
+			if(UNCONSCIOUS, HARD_CRIT)
+				msg += "[t_He] [t_is]n't responding to anything around [t_him] and seem[p_s()] to be asleep.\n"
+			if(SOFT_CRIT)
 				msg += "[t_He] [t_is] barely conscious.\n"
+			if(CONSCIOUS)
+				if(HAS_TRAIT(src, TRAIT_DUMB))
+					msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
 		if(getorgan(/obj/item/organ/brain))
 			if(ai_controller?.ai_status == AI_STATUS_ON)
 				msg += "<span class='deadsay'>[t_He] do[t_es]n't appear to be [t_him]self.</span>\n"
@@ -386,5 +391,8 @@
 	if(dat.len)
 		return dat.Join()
 
-/mob/living/proc/soul_departed()
+/mob/proc/soul_departed()
+	return !key && !get_ghost(FALSE, TRUE)
+
+/mob/living/soul_departed()
 	return getorgan(/obj/item/organ/brain) && !key && !get_ghost(FALSE, TRUE)

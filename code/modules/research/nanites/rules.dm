@@ -55,9 +55,7 @@
 	desc = "Checks if the host is in critical condition."
 
 /datum/nanite_rule/crit/check_rule()
-	if(program.host_mob.InCritical())
-		return TRUE
-	return FALSE
+	return HAS_TRAIT(program.host_mob, TRAIT_CRITICAL_CONDITION)
 
 /datum/nanite_rule/death
 	name = "Death"
@@ -205,7 +203,7 @@
 	return rule
 
 /datum/nanite_rule/nutrition/display()
-	return "Nutrition [above ? ">=" : "<"] [min(round(threshold / NUTRITION_LEVEL_FAT, 5), 100)]%"
+	return "Nutrition [above ? ">=" : "<"] [min(round(( threshold / NUTRITION_LEVEL_FAT )*100, 5), 100)]%"
 
 /datum/nanite_rule/blood
 	name = "Blood"

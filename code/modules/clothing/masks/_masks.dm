@@ -38,14 +38,14 @@
 /obj/item/clothing/mask/proc/get_name(mob/user, default_name)
 	return default_name
 
-/obj/item/clothing/mask/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
+/obj/item/clothing/mask/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands)
 		if(body_parts_covered & HEAD)
 			if(damaged_clothes)
-				. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask")
+				. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
 			if(HAS_BLOOD_DNA(src))
-				. += mutable_appearance('icons/effects/blood.dmi', "maskblood")
+				. += mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
 
 /obj/item/clothing/mask/update_clothes_damaged_state(damaging = TRUE)
 	..()
@@ -93,8 +93,8 @@
 		return
 
 	//Start with two sides
-	var/icon/main = icon('icons/mob/mask.dmi', icon_state) //This takes the icon and uses the worn version of the icon
-	var/icon/sub = icon('icons/mob/mask.dmi', icon_state)
+	var/icon/main = icon('icons/mob/clothing/mask.dmi', icon_state) //This takes the icon and uses the worn version of the icon
+	var/icon/sub = icon('icons/mob/clothing/mask.dmi', icon_state)
 
 	//merge the sub side with the main, after masking off the middle pixel line
 	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_right") //masking
@@ -105,7 +105,7 @@
 	main.Blend(sub, ICON_OVERLAY)
 
 	//Flip it facing west, due to a spriting quirk
-	sub = icon('icons/mob/mask.dmi', icon_state, dir = EAST)
+	sub = icon('icons/mob/clothing/mask.dmi', icon_state, dir = EAST)
 	main.Insert(sub, dir = EAST)
 	sub.Flip(WEST)
 	main.Insert(sub, dir = WEST)

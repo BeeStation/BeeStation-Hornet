@@ -1,3 +1,7 @@
+/obj/item/clothing/under/costume
+	icon = 'icons/obj/clothing/under/costume.dmi'
+	worn_icon = 'icons/mob/clothing/under/costume.dmi'
+
 /obj/item/clothing/under/costume/roman
 	name = "\improper Roman armor"
 	desc = "Ancient Roman armor. Made of metallic and leather straps."
@@ -11,7 +15,7 @@
 	name = "jabroni outfit"
 	desc = "The leather club is two sectors down."
 	icon_state = "darkholme"
-	item_state = "darkholme"
+	item_state = null
 	can_adjust = FALSE
 
 /obj/item/clothing/under/costume/owl
@@ -28,8 +32,7 @@
 
 /obj/item/clothing/under/costume/cloud
 	name = "cloud costume"
-	desc = "A costume made to resemble a fluffy cloud. Hopefully concealing any naughty bits the children might see."
-	icon_state = "cloud"
+	desc = "A costume made to resemble a fluffy cloud."
 	can_adjust = FALSE
 
 /obj/item/clothing/under/costume/schoolgirl
@@ -40,6 +43,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/costume/schoolgirl/red
 	name = "red schoolgirl uniform"
@@ -70,13 +74,6 @@
 	item_state = "soviet"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/costume/redcoat
-	name = "redcoat uniform"
-	desc = "Looks old."
-	icon_state = "redcoat"
-	item_state = "redcoat"
-	can_adjust = FALSE
-
 /obj/item/clothing/under/costume/kilt
 	name = "kilt"
 	desc = "Includes shoes and plaid."
@@ -85,6 +82,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/costume/kilt/highlander
 	desc = "You're the only one worthy of this kilt."
@@ -191,7 +189,7 @@
 	name = "draculass coat"
 	desc = "A dress inspired by the ancient \"Victorian\" era."
 	icon_state = "draculass"
-	item_state = "draculass"
+	item_state = null
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
@@ -222,7 +220,7 @@
 	name = "skeleton jumpsuit"
 	desc = "A black jumpsuit with a white bone pattern printed on it. Spooky!"
 	icon_state = "skeleton"
-	item_state = "skeleton"
+	item_state = null
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
 	fitted = NO_FEMALE_UNIFORM
 	can_adjust = FALSE
@@ -254,8 +252,10 @@
 /obj/item/clothing/under/costume/russian_officer
 	name = "\improper Russian officer's uniform"
 	desc = "The latest in fashionable russian outfits."
+	icon = 'icons/obj/clothing/under/security.dmi'
 	icon_state = "hostanclothes"
-	item_state = "hostanclothes"
+	item_state = null
+	worn_icon = 'icons/mob/clothing/under/security.dmi'
 	alt_covers_chest = TRUE
 	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30, STAMINA = 10)
 	strip_delay = 50
@@ -269,3 +269,19 @@
 	icon_state = "SwagOutfit"
 	item_state = "SwagOutfit"
 	can_adjust = FALSE
+
+/obj/item/clothing/under/costume/joker
+	name = "comedian suit"
+	desc = "The worst part of having a mental illness is people expect you to behave as if you don't."
+	icon_state = "joker"
+	can_adjust = FALSE
+
+/obj/item/clothing/under/costume/gangster
+	name = "gangstar suit"
+	desc = "Those who carry on the will of those who passed must keep moving forward."
+	icon_state = "gangster"
+	can_adjust = FALSE
+
+/obj/item/clothing/under/costume/gangster/purple
+	desc = "I have a dream."
+	icon_state = "gangster_p"

@@ -291,111 +291,6 @@
 	M.toggle_move_intent()
 	return TRUE
 
-/datum/keybinding/mob/target_head_cycle
-	keys = list("Numpad8")
-	name = "target_head_cycle"
-	full_name = "Target: Cycle head"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_TARGETCYCLEHEAD_DOWN
-
-/datum/keybinding/mob/target_head_cycle/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	user.body_toggle_head()
-	return TRUE
-
-/datum/keybinding/mob/target_r_arm
-	keys = list("Numpad4")
-	name = "target_r_arm"
-	full_name = "Target: right arm"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_TARGETRIGHTARM_DOWN
-
-/datum/keybinding/mob/target_r_arm/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	user.body_r_arm()
-	return TRUE
-
-/datum/keybinding/mob/target_body_chest
-	keys = list("Numpad5")
-	name = "target_body_chest"
-	full_name = "Target: Body"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_TARGETBODYCHEST_DOWN
-
-/datum/keybinding/mob/target_body_chest/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	user.body_chest()
-	return TRUE
-
-/datum/keybinding/mob/target_left_arm
-	keys = list("Numpad6")
-	name = "target_left_arm"
-	full_name = "Target: left arm"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_TARGETLEFTARM_DOWN
-
-/datum/keybinding/mob/target_left_arm/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	user.body_l_arm()
-	return TRUE
-
-/datum/keybinding/mob/target_right_leg
-	keys = list("Numpad1")
-	name = "target_right_leg"
-	full_name = "Target: Right leg"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_TARGETRIGHTLEG_DOWN
-
-/datum/keybinding/mob/target_right_leg/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	user.body_r_leg()
-	return TRUE
-
-/datum/keybinding/mob/target_body_groin
-	keys = list("Numpad2")
-	name = "target_body_groin"
-	full_name = "Target: Groin"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_TARGETBODYGROIN_DOWN
-
-/datum/keybinding/mob/target_body_groin/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	user.body_groin()
-	return TRUE
-
-/datum/keybinding/mob/target_left_leg
-	keys = list("Numpad3")
-	name = "target_left_leg"
-	full_name = "Target: left leg"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_TARGETLEFTLEG_DOWN
-
-/datum/keybinding/mob/target_left_leg/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	user.body_l_leg()
-	return TRUE
-
 /datum/keybinding/mob/prevent_movement
 	keys = list("Ctrl")
 	name = "block_movement"
@@ -414,4 +309,178 @@
 	if(.)
 		return
 	user.movement_locked = FALSE
+
+/**
+ * ===========================
+ * Bodyzone targeting section
+ * ===========================
+ *
+ * Precise hotkeys
+ *
+ */
+
+/datum/keybinding/mob/target_head_cycle
+	keys = list("Numpad8")
+	name = "target_head_cycle"
+	full_name = "Target: Cycle head"
+	description = ""
+	keybind_signal = COMSIG_KB_MOB_TARGETCYCLEHEAD_DOWN
+	required_pref_type = /datum/preference/choiced/zone_select
+	required_pref_value = PREFERENCE_BODYZONE_INTENT
+
+/datum/keybinding/mob/target_head_cycle/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.body_toggle_head()
+	return TRUE
+
+/datum/keybinding/mob/target_r_arm
+	keys = list("Numpad4")
+	name = "target_r_arm"
+	full_name = "Target: right arm"
+	description = ""
+	keybind_signal = COMSIG_KB_MOB_TARGETRIGHTARM_DOWN
+	required_pref_type = /datum/preference/choiced/zone_select
+	required_pref_value = PREFERENCE_BODYZONE_INTENT
+
+/datum/keybinding/mob/target_r_arm/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.body_r_arm()
+	return TRUE
+
+/datum/keybinding/mob/target_body_chest
+	keys = list("Numpad5")
+	name = "target_body_chest"
+	full_name = "Target: Body"
+	description = ""
+	keybind_signal = COMSIG_KB_MOB_TARGETBODYCHEST_DOWN
+	required_pref_type = /datum/preference/choiced/zone_select
+	required_pref_value = PREFERENCE_BODYZONE_INTENT
+
+/datum/keybinding/mob/target_body_chest/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.body_chest()
+	return TRUE
+
+/datum/keybinding/mob/target_left_arm
+	keys = list("Numpad6")
+	name = "target_left_arm"
+	full_name = "Target: left arm"
+	description = ""
+	keybind_signal = COMSIG_KB_MOB_TARGETLEFTARM_DOWN
+	required_pref_type = /datum/preference/choiced/zone_select
+	required_pref_value = PREFERENCE_BODYZONE_INTENT
+
+/datum/keybinding/mob/target_left_arm/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.body_l_arm()
+	return TRUE
+
+/datum/keybinding/mob/target_right_leg
+	keys = list("Numpad1")
+	name = "target_right_leg"
+	full_name = "Target: Right leg"
+	description = ""
+	keybind_signal = COMSIG_KB_MOB_TARGETRIGHTLEG_DOWN
+	required_pref_type = /datum/preference/choiced/zone_select
+	required_pref_value = PREFERENCE_BODYZONE_INTENT
+
+/datum/keybinding/mob/target_right_leg/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.body_r_leg()
+	return TRUE
+
+/datum/keybinding/mob/target_body_groin
+	keys = list("Numpad2")
+	name = "target_body_groin"
+	full_name = "Target: Groin"
+	description = ""
+	keybind_signal = COMSIG_KB_MOB_TARGETBODYGROIN_DOWN
+	required_pref_type = /datum/preference/choiced/zone_select
+	required_pref_value = PREFERENCE_BODYZONE_INTENT
+
+/datum/keybinding/mob/target_body_groin/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.body_groin()
+	return TRUE
+
+/datum/keybinding/mob/target_left_leg
+	keys = list("Numpad3")
+	name = "target_left_leg"
+	full_name = "Target: left leg"
+	description = ""
+	keybind_signal = COMSIG_KB_MOB_TARGETLEFTLEG_DOWN
+	required_pref_type = /datum/preference/choiced/zone_select
+	required_pref_value = PREFERENCE_BODYZONE_INTENT
+
+/datum/keybinding/mob/target_left_leg/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.body_l_leg()
+	return TRUE
+
+/**
+ * ===========================
+ * Bodyzone targeting section
+ * ===========================
+ *
+ * Simplified hotkeys
+ *
+ */
+
+/datum/keybinding/mob/target_higher_zone
+	keys = list("ScrollUp")
+	name = "target_higher_zone"
+	full_name = "Target: Cycle zone up"
+	description = "Cycles the targeted bodyzone upwards. Leg targeting will become arm targeting, and arm targeting will become body/head targeting."
+	keybind_signal = COMSIG_KB_MOB_TARGETCYCLEUP_DOWN
+	required_pref_type = /datum/preference/choiced/zone_select
+	required_pref_value = PREFERENCE_BODYZONE_SIMPLIFIED
+
+/datum/keybinding/mob/target_higher_zone/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob)
+		return
+	user.body_up()
+	return TRUE
+
+
+/datum/keybinding/mob/target_lower_zone
+	keys = list("ScrollDown")
+	name = "target_lower_zone"
+	full_name = "Target: Cycle zone down"
+	description = "Cycles the targeted bodyzone downwards. Head/body targeting will become arm targeting and arm targeting will become leg targeting.."
+	keybind_signal = COMSIG_KB_MOB_TARGETCYCLEDOWN_DOWN
+	required_pref_type = /datum/preference/choiced/zone_select
+	required_pref_value = PREFERENCE_BODYZONE_SIMPLIFIED
+
+/datum/keybinding/mob/target_lower_zone/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob)
+		return
+	user.body_down()
+	return TRUE
 

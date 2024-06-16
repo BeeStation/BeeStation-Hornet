@@ -42,12 +42,6 @@
 
 	face_atom(A) // change direction to face what you clicked on
 
-	/*
-	cyborg restrained() currently does nothing
-	if(restrained())
-		RestrainedClickOn(A)
-		return
-	*/
 	if(aicamera.in_camera_mode) //Cyborg picture taking
 		aicamera.camera_mode_off()
 		aicamera.captureimage(A, usr)
@@ -60,8 +54,17 @@
 		return
 
 	if(W)
-		// buckled cannot prevent machine interlinking but stops arm movement
-		if( buckled || incapacitated())
+		if(incapacitated())
+			return
+
+		//while buckled, you can still connect to and control things like doors, but you can't use your modules
+		if(buckled)
+			to_chat(src, "<span class='warning'>You can't use modules while buckled to [buckled]!</span>")
+			return
+
+		//Same trait as humans.
+		//While we cant handcuff cyborgs, theres still scenarios where we dont want a mob to be able to use their "hands" or modules in this case
+		if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 			return
 
 		if(W == A)
@@ -95,10 +98,13 @@
 // for non-doors/apcs
 /mob/living/silicon/robot/CtrlShiftClickOn(atom/A)
 	A.BorgCtrlShiftClick(src)
+
 /mob/living/silicon/robot/ShiftClickOn(atom/A)
 	A.BorgShiftClick(src)
+
 /mob/living/silicon/robot/CtrlClickOn(atom/A)
 	A.BorgCtrlClick(src)
+
 /mob/living/silicon/robot/AltClickOn(atom/A)
 	A.BorgAltClick(src)
 
@@ -147,7 +153,7 @@
 	AltClick(user)
 	return
 
-/obj/machinery/door/airlock/BorgAltClick(mob/living/silicon/robot/user) // Eletrifies doors. Forwards to AI code.
+/obj/machinery/door/airlock/BorgAltClick(mob/living/silicon/robot/user) // Electrifies doors. Forwards to AI code.
 	if(get_dist(src,user) <= user.interaction_range)
 		AIAltClick(user)
 	else
@@ -168,7 +174,10 @@
 	change attack_robot() above to the proper function
 */
 /mob/living/silicon/robot/UnarmedAttack(atom/A)
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
 	A.attack_robot(src)
+
 /mob/living/silicon/robot/RangedAttack(atom/A)
 	A.attack_robot(src)
 

@@ -12,7 +12,7 @@
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 3
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 	density = FALSE
 	pass_flags = PASSMOB
@@ -26,7 +26,7 @@
 	icon_living = "hamster"
 	held_state = "hamster"
 	icon_dead = "hamster_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/hamster = 1)
+	butcher_results = list(/obj/item/food/meat/slab/hamster = 1)
 	childtype = /mob/living/simple_animal/pet/hamster
 	animal_species = /mob/living/simple_animal/pet/hamster
 	gold_core_spawnable = FRIENDLY_SPAWN

@@ -117,7 +117,8 @@
 		return
 	// Cascade turf damage downwards on destruction
 	if (additional_damage > 0)
-		take_damage(additional_damage, BRUTE, damage_flag, FALSE)
+		if (damage_flag == BOMB || damage_flag == ACID || damage_flag == FIRE)
+			take_damage(additional_damage, BRUTE, damage_flag, FALSE)
 
 //====================================
 // Generic Hits
@@ -318,7 +319,7 @@
 // Mechs
 //====================================
 
-/turf/mech_melee_attack(obj/mecha/M)
+/turf/mech_melee_attack(obj/vehicle/sealed/mecha/M)
 	if (!can_hit)
 		return FALSE
 	M.do_attack_animation(src)

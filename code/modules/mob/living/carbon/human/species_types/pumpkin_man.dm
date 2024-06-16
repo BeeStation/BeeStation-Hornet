@@ -61,7 +61,7 @@
 	//Check if the item is sharp - give owner a random face if applicable
 	var/mob/living/carbon/human/M = _source
 	var/obj/item/bodypart/head/pumpkin_man/head = M.get_bodypart(BODY_ZONE_HEAD)
-	if(_item.is_sharp() && head?.item_flags & ISCARVABLE && _user.a_intent == INTENT_HELP && _user.zone_selected == BODY_ZONE_HEAD)
+	if(_item.is_sharp() && head?.item_flags & ISCARVABLE && _user.a_intent == INTENT_HELP && _user.is_zone_selected(BODY_ZONE_HEAD))
 		to_chat(_user, "<span class='notice'>You begin to carve a face into [_source]...</span>")
 		//Do after for *flourish*
 		if(do_after(_user, 3 SECONDS))
@@ -110,8 +110,10 @@
 
 /datum/action/item_action/organ_action/pumpkin_head_candy/Trigger()
 	. = ..()
-	if(iscarbon(owner) && !IS_DEAD_OR_INCAP(owner))
-		var/mob/living/carbon/H = owner
+	if(!iscarbon(owner))
+		return
+	var/mob/living/carbon/H = owner
+	if(!IS_DEAD_OR_INCAP(H))
 		//Get candy if we have it
 		var/obj/item/type
 		if(available_candy.len)
@@ -134,10 +136,10 @@
 	//Get a candy type
 	var/obj/item/type = pick(/obj/item/food/cookie/sugar/spookyskull,
 		/obj/item/food/cookie/sugar/spookycoffin,
-		/obj/item/reagent_containers/food/snacks/candy_corn,
-		/obj/item/reagent_containers/food/snacks/candy,
-		/obj/item/reagent_containers/food/snacks/candiedapple,
-		/obj/item/reagent_containers/food/snacks/chocolatebar)
+		/obj/item/food/candy_corn,
+		/obj/item/food/candy,
+		/obj/item/food/candiedapple,
+		/obj/item/food/chocolatebar)
 	//Make some candy & put it in the list
 	type = new type
 	available_candy += type

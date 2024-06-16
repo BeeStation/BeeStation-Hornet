@@ -594,10 +594,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	for(var/obj/machinery/field/generator/F in GLOB.machines)
 		if(F.active == 0)
+			F.set_anchored(TRUE)
 			F.active = 1
 			F.state = 2
 			F.power = 250
-			F.anchored = TRUE
 			F.warming_up = 3
 			F.start_fields()
 			F.update_icon()
@@ -789,6 +789,24 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		to_chat(src, "<span class='italics'>[template.description]</span>")
 	else
 		to_chat(src, "<span class='warning'>Failed to place [template.name].</span>")
+
+/client/proc/run_empty_query(val as num)
+	set category = "Debug"
+	set name = "Run empty query"
+	set desc = "Amount of queries to run"
+
+	var/list/queries = list()
+	for(var/i in 1 to val)
+		var/datum/db_query/query = SSdbcore.NewQuery("NULL")
+		INVOKE_ASYNC(query, TYPE_PROC_REF(/datum/db_query, Execute))
+		queries += query
+
+	for(var/datum/db_query/query as anything in queries)
+		query.sync()
+		qdel(query)
+	queries.Cut()
+
+	message_admins("[key_name_admin(src)] ran [val] empty queries.")
 
 /client/proc/generate_ruin()
 	set category = "Debug"
@@ -994,7 +1012,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/list/sorted = list()
 	for (var/source in per_source)
 		sorted += list(list("source" = source, "count" = per_source[source]))
-	sorted = sortTim(sorted, PROC_REF(cmp_timer_data))
+	sorted = sortTim(sorted, GLOBAL_PROC_REF(cmp_timer_data))
 
 	// Now that everything is sorted, compile them into an HTML output
 	var/output = "<table border='1'>"
@@ -1012,6 +1030,72 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 /proc/cmp_timer_data(list/a, list/b)
 	return b["count"] - a["count"]
+
+#ifdef TESTING
+/client/proc/check_missing_sprites()
+	set category = "Debug"
+	set name = "Debug Worn Item Sprites"
+	set desc = "We're cancelling the Spritemageddon. (This will create a LOT of runtimes! Don't use on a live server!)"
+	var/actual_file_name
+	for(var/test_obj in subtypesof(/obj/item))
+		var/obj/item/sprite = new test_obj
+		if(!sprite.slot_flags || (sprite.item_flags & ABSTRACT))
+			continue
+		//Is there an explicit worn_icon to pick against the worn_icon_state? Easy street expected behavior.
+		if(sprite.worn_icon)
+			if(!(sprite.icon_state in icon_states(sprite.worn_icon)))
+				to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Slot Flags are [sprite.slot_flags].</span>")
+		else if(sprite.worn_icon_state)
+			if(sprite.slot_flags & ITEM_SLOT_MASK)
+				actual_file_name = 'icons/mob/clothing/mask.dmi'
+				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Mask slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_NECK)
+				actual_file_name = 'icons/mob/clothing/neck.dmi'
+				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Neck slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_BACK)
+				actual_file_name = 'icons/mob/clothing/back.dmi'
+				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Back slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_HEAD)
+				actual_file_name = 'icons/mob/clothing/head/default.dmi'
+				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Head slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_BELT)
+				actual_file_name = 'icons/mob/clothing/belt.dmi'
+				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Belt slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_SUITSTORE)
+				actual_file_name = 'icons/mob/clothing/belt_mirror.dmi'
+				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Suit Storage slot.</span>")
+		else if(sprite.icon_state)
+			if(sprite.slot_flags & ITEM_SLOT_MASK)
+				actual_file_name = 'icons/mob/clothing/mask.dmi'
+				if(!(sprite.icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Mask slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_NECK)
+				actual_file_name = 'icons/mob/clothing/neck.dmi'
+				if(!(sprite.icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Neck slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_BACK)
+				actual_file_name = 'icons/mob/clothing/back.dmi'
+				if(!(sprite.icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Back slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_HEAD)
+				actual_file_name = 'icons/mob/clothing/head/default.dmi'
+				if(!(sprite.icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Head slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_BELT)
+				actual_file_name = 'icons/mob/clothing/belt.dmi'
+				if(!(sprite.icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Belt slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_SUITSTORE)
+				actual_file_name = 'icons/mob/clothing/belt_mirror.dmi'
+				if(!(sprite.icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Suit Storage slot.</span>")
+#endif
 
 /*
  * Test Luminosity Changes vs Dview
@@ -1060,3 +1144,36 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	//Print the results
 	to_chat(usr, "<span class='notice'>10000 dview calls resulted in a [total_time_dview]ms overhead. ([total_dview] items located)</span>")
 	to_chat(usr, "<span class='notice'>10000 lum changes resulted in a [total_time_lum]ms overhead. ([total_lum] items located)</span>")
+
+/client/proc/cmd_regenerate_asset_cache()
+	set category = "Debug"
+	set name = "Regenerate Asset Cache"
+	set desc = "Clears the asset cache and regenerates it immediately."
+	if(!CONFIG_GET(flag/cache_assets))
+		to_chat(usr, "<span class='warning'>Asset caching is disabled in the config!</span>")
+		return
+	var/regenerated = 0
+	for(var/datum/asset/A as() in subtypesof(/datum/asset))
+		if(!initial(A.cross_round_cachable))
+			continue
+		if(A == initial(A._abstract))
+			continue
+		var/datum/asset/asset_datum = GLOB.asset_datums[A]
+		asset_datum.regenerate()
+		regenerated++
+	to_chat(usr, "<span class='notice'>Regenerated [regenerated] asset\s.</span>")
+
+/client/proc/cmd_clear_smart_asset_cache()
+	set category = "Debug"
+	set name = "Clear Smart Asset Cache"
+	set desc = "Clears the smart asset cache."
+	if(!CONFIG_GET(flag/smart_cache_assets))
+		to_chat(usr, "<span class='warning'>Smart asset caching is disabled in the config!</span>")
+		return
+	var/cleared = 0
+	for(var/datum/asset/spritesheet_batched/A as() in subtypesof(/datum/asset/spritesheet_batched))
+		if(A == initial(A._abstract))
+			continue
+		fdel("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[initial(A.name)].json")
+		cleared++
+	to_chat(usr, "<span class='notice'>Cleared [cleared] asset\s.</span>")

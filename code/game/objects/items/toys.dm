@@ -33,6 +33,32 @@
 	throw_range = 7
 	force = 0
 
+/*
+ * Empty plushies before stuffing
+ */
+/obj/item/toy/empty_plush //not a plushie subtype because of all the code regarding breeding and weird jokes, this is just a transitory state
+	name = "plush fabric"
+	desc = "An empty plush fabric. Ready to be stuffed with cotton."
+	icon = 'icons/obj/plushes.dmi'
+	lefthand_file = 'icons/mob/inhands/plushes_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/plushes_righthand.dmi'
+	icon_state = "debug"
+
+/obj/item/toy/empty_plush/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/stack/sheet/cotton))
+		var/obj/item/stack/S = I
+		if(S.amount< 3)
+			to_chat(user, "<span class'danger'>You need three stacks of cotton to stuff a plush!</span>")
+			return
+		if(do_after(user, 3 SECONDS))
+			var/obj/item/toy/plush/P = pick(subtypesof(/obj/item/toy/plush) - /obj/item/toy/plush/carpplushie/dehy_carp)
+			new P(get_turf(src))
+			to_chat(user, "<span class='notice'>You make a new plush.</span>")
+			S.use(3)
+			qdel(src)
+			return
+	. = ..()
+
 
 /*
  * Balloons
@@ -162,12 +188,13 @@
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "revolver"
 	item_state = "gun"
+	worn_icon_state = "gun"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
-	materials = list(/datum/material/iron=10, /datum/material/glass=10)
+	custom_materials = list(/datum/material/iron=10, /datum/material/glass=10)
 	attack_verb = list("struck", "pistol whipped", "hit", "bashed")
 	var/bullets = 7
 
@@ -221,7 +248,7 @@
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "357OLD-7"
 	w_class = WEIGHT_CLASS_TINY
-	materials = list(/datum/material/iron=10, /datum/material/glass=10)
+	custom_materials = list(/datum/material/iron=10, /datum/material/glass=10)
 	var/amount_left = 7
 
 /obj/item/toy/ammo/gun/update_icon_state()
@@ -826,7 +853,7 @@
 	name = "hand of cards"
 	desc = "A number of cards not in a deck, customarily held in ones hand."
 	icon = 'icons/obj/toy.dmi'
-	icon_state = "none"
+	icon_state = "nothing"
 	w_class = WEIGHT_CLASS_TINY
 	var/list/currenthand = list()
 	var/choice = null
@@ -1285,6 +1312,7 @@
 /obj/item/toy/figure/assistant
 	name = "Assistant action figure"
 	icon_state = "assistant"
+	item_state = "doll"
 	toysay = "Grey tide world wide!"
 
 /obj/item/toy/figure/atmos
@@ -1470,8 +1498,8 @@
 	name = "ventriloquist dummy"
 	desc = "It's a dummy, dummy."
 	icon = 'icons/obj/toy.dmi'
-	icon_state = "assistant"
-	item_state = "doll"
+	icon_state = "puppet"
+	item_state = "puppet"
 	var/doll_name = "Dummy"
 
 //Add changing looks when i feel suicidal about making 20 inhands for these.

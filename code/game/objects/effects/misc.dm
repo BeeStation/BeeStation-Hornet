@@ -2,7 +2,7 @@
 /obj/effect/spresent
 	name = "strange present"
 	desc = "It's a ... present?"
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/storage/wrapping.dmi'
 	icon_state = "strangepresent"
 	density = TRUE
 	anchored = FALSE
@@ -32,6 +32,7 @@
 /obj/effect/spawner/Destroy(force)
 	SHOULD_CALL_PARENT(FALSE)
 	moveToNullspace()
+	return QDEL_HINT_QUEUE
 
 /obj/effect/list_container
 	name = "list container"

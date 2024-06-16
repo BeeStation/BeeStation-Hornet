@@ -19,7 +19,7 @@
 	chat_color = "#ECDA88"
 	mobchatspan = "corgi"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 //Corgis and pugs are now under one dog subtype
 
@@ -30,7 +30,7 @@
 	icon_state = "corgi"
 	icon_living = "corgi"
 	icon_dead = "corgi_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
+	butcher_results = list(/obj/item/food/meat/slab/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -67,7 +67,7 @@
 	icon_state = "pug"
 	icon_living = "pug"
 	icon_dead = "pug_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/pug = 3)
+	butcher_results = list(/obj/item/food/meat/slab/pug = 3)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	worn_slot_flags = ITEM_SLOT_HEAD
 	collar_type = "pug"
@@ -82,7 +82,7 @@
 	icon_state = "bullterrier"
 	icon_living = "bullterrier"
 	icon_dead = "bullterrier_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/corgi = 3) // Would feel redundant to add more new dog meats.
+	butcher_results = list(/obj/item/food/meat/slab/corgi = 3) // Would feel redundant to add more new dog meats.
 	gold_core_spawnable = FRIENDLY_SPAWN
 	worn_slot_flags = ITEM_SLOT_HEAD //by popular demand
 	collar_type = "bullterrier"
@@ -465,9 +465,9 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 			if(!movement_target || !(src in viewers(3, movement_target.loc)))
 				movement_target = null
 				stop_automated_movement = 0
-				for(var/obj/item/reagent_containers/food/snacks/S in oview(3, src))
-					if(isturf(S.loc) || ishuman(S.loc))
-						movement_target = S
+				for(var/obj/item/potential_snack in oview(src,3))
+					if(IS_EDIBLE(potential_snack) && (isturf(potential_snack.loc) || ishuman(potential_snack.loc)))
+						movement_target = potential_snack
 						break
 			if(movement_target)
 				stop_automated_movement = 1

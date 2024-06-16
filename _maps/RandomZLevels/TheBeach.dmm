@@ -123,9 +123,9 @@
 	desc = "Now this is what island exploration is all about.";
 	name = "Treasure Chest"
 	},
-/obj/item/clothing/head/pirate,
+/obj/item/clothing/head/costume/pirate,
 /obj/item/clothing/glasses/eyepatch,
-/obj/item/clothing/suit/pirate,
+/obj/item/clothing/suit/costume/pirate,
 /obj/item/melee/sabre{
 	desc = "This isn't real however it can trick someone into thinking you have something real..";
 	force = 0;
@@ -597,7 +597,7 @@
 	pixel_y = 8
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bM" = (
 /obj/structure/mirror{
@@ -607,7 +607,7 @@
 /obj/structure/sink{
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bN" = (
 /obj/structure/mirror{
@@ -617,7 +617,7 @@
 /obj/structure/sink{
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bO" = (
 /obj/structure/table/wood,
@@ -633,7 +633,7 @@
 /area/awaymission/beach)
 "bQ" = (
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bR" = (
 /obj/machinery/button/door{
@@ -644,7 +644,7 @@
 	specialfunctions = 4
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bS" = (
 /obj/machinery/button/door{
@@ -655,7 +655,7 @@
 	specialfunctions = 4
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bT" = (
 /obj/structure/bed,
@@ -705,7 +705,7 @@
 	name = "restroom stall"
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bY" = (
 /obj/machinery/door/airlock/sandstone{
@@ -713,7 +713,7 @@
 	name = "restroom stall"
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bZ" = (
 /obj/structure/dresser{
@@ -857,11 +857,11 @@
 /area/awaymission/beach)
 "cw" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/reagent_containers/food/snacks/meat/slab/goliath,
-/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
-/obj/item/reagent_containers/food/snacks/meat/slab/spider,
-/obj/item/reagent_containers/food/snacks/meat/slab/killertomato,
-/obj/item/reagent_containers/food/snacks/meat/slab/bear,
+/obj/item/food/meat/slab/goliath,
+/obj/item/food/meat/slab/xeno,
+/obj/item/food/meat/slab/spider,
+/obj/item/food/meat/slab/killertomato,
+/obj/item/food/meat/slab/bear,
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "cx" = (
@@ -956,7 +956,7 @@
 /area/awaymission/beach)
 "cM" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/chips,
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "cN" = (

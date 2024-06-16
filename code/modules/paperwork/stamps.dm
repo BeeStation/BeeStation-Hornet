@@ -8,9 +8,10 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
-	materials = list(/datum/material/iron=60)
+	custom_materials = list(/datum/material/iron=60)
 	pressure_resistance = 2
 	attack_verb = list("stamped")
+	dye_color = DYE_GREEN
 
 /obj/item/stamp/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead.</span>")
@@ -18,7 +19,7 @@
 	return OXYLOSS
 
 /obj/item/stamp/get_writing_implement_details()
-	var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+	var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
 	return list(
 		interaction_mode = MODE_STAMPING,
 		stamp_icon_state = icon_state,
@@ -68,7 +69,7 @@
 /obj/item/stamp/denied
 	name = "\improper DENIED rubber stamp"
 	icon_state = "stamp-deny"
-	dye_color = DYE_REDCOAT
+	dye_color = DYE_DENIED
 
 /obj/item/stamp/void
 	name = "VOID rubber stamp"
@@ -78,6 +79,25 @@
 	name = "clown's rubber stamp"
 	icon_state = "stamp-clown"
 	dye_color = DYE_CLOWN
+
+/obj/item/stamp/chap
+	name = "chaplain's rubber stamp"
+	icon_state = "stamp-chap"
+
+/obj/item/stamp/mime
+	name = "mime's rubber stamp"
+	icon_state = "stamp-mime"
+	dye_color = DYE_MIME
+
+/obj/item/stamp/centcom
+	name = "CENTCOM rubber stamp"
+	icon_state = "stamp-cent"
+	dye_color = DYE_CENTCOM
+
+/obj/item/stamp/syndicate
+	name = "syndicate rubber stamp"
+	icon_state = "stamp-syndicate"
+	dye_color = DYE_SYNDICATE
 
 /obj/item/stamp/attack_paw(mob/user)
 	return attack_hand(user)

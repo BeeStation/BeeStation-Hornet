@@ -1,6 +1,7 @@
 /obj/item/clothing/under
-	icon = 'icons/obj/clothing/uniforms.dmi'
 	name = "under"
+	icon = 'icons/obj/clothing/under/default.dmi'
+	worn_icon = 'icons/mob/clothing/under/default.dmi'
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	permeability_coefficient = 0.9
 	slot_flags = ITEM_SLOT_ICLOTHING
@@ -17,15 +18,17 @@
 	var/obj/item/clothing/accessory/attached_accessory
 	var/mutable_appearance/accessory_overlay
 	var/freshly_laundered = FALSE
+	dying_key = DYE_REGISTRY_UNDER
 
-/obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
+/obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands)
 		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform")
+			. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform", item_layer +  0.0002)
 		if(HAS_BLOOD_DNA(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "uniformblood")
+			. += mutable_appearance('icons/effects/blood.dmi', "uniformblood", item_layer +  0.0002)
 		if(accessory_overlay)
+			accessory_overlay.layer = item_layer +  0.0001
 			. += accessory_overlay
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
@@ -133,6 +136,7 @@
 
 			var/accessory_color = attached_accessory.icon_state
 			accessory_overlay = mutable_appearance('icons/mob/accessories.dmi', "[accessory_color]")
+			accessory_overlay.appearance_flags |= RESET_COLOR
 			accessory_overlay.alpha = attached_accessory.alpha
 			accessory_overlay.color = attached_accessory.color
 
@@ -223,8 +227,8 @@
 		return
 
 	//Start with a base and align it with the mask
-	var/icon/base = icon('icons/mob/clothing/uniform.dmi', icon_state, SOUTH) //This takes the icon and uses the worn version of the icon
-	var/icon/back = icon('icons/mob/clothing/uniform.dmi', icon_state, NORTH) //Awkard but, we have to manually insert the back
+	var/icon/base = icon('icons/mob/clothing/under/default.dmi', icon_state, SOUTH) //This takes the icon and uses the worn version of the icon
+	var/icon/back = icon('icons/mob/clothing/under/default.dmi', icon_state, NORTH) //Awkard but, we have to manually insert the back
 	back.Shift(SOUTH, 2) //Allign with masks
 	base.Shift(SOUTH, 2)
 

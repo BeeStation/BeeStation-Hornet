@@ -88,7 +88,7 @@
 /obj/item/slime_extract/grey/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			var/obj/item/reagent_containers/food/snacks/monkeycube/M = new(drop_location())
+			var/obj/item/food/monkeycube/M = new(drop_location())
 			user.put_in_active_hand(M)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			to_chat(user, "<span class='notice'>You spit out a monkey cube.</span>")
@@ -914,8 +914,6 @@
 
 /obj/item/slimepotion/speed/pre_attack(obj/thingy, mob/user)
 	. = ..()
-	if(!.)
-		return
 	if(isitem(thingy))
 		var/obj/item/item = thingy
 		if(item.anchored)
@@ -959,8 +957,6 @@
 
 /obj/item/slimepotion/fireproof/pre_attack(obj/item/clothing/clothing, mob/user)
 	. = ..()
-	if(!.)
-		return
 	if(!uses)
 		qdel(src)
 		return
@@ -1116,7 +1112,7 @@
 	item_state = "tile-bluespace"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
-	materials = list(/datum/material/iron=500)
+	mats_per_unit = list(/datum/material/iron=500)
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
@@ -1133,7 +1129,7 @@
 	item_state = "tile-sepia"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
-	materials = list(/datum/material/iron=500)
+	mats_per_unit = list(/datum/material/iron=500)
 	throwforce = 10
 	throw_speed = 0.1
 	throw_range = 28

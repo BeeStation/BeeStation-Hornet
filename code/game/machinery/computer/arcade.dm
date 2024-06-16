@@ -51,7 +51,9 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/clothing/shoes/wheelys = 2,
 		/obj/item/clothing/shoes/kindleKicks = 2,
 		/obj/item/toy/plush/moth/random = 2,
+		/obj/item/toy/plush/slimeplushie/random = 2,
 		/obj/item/toy/plush/flushed = 2,
+		/obj/item/toy/plush/flushed/rainbow = 1,
 		/obj/item/toy/plush/gondola = 2,
 		/obj/item/toy/plush/rouny = 2,
 		/obj/item/storage/box/heretic_asshole = 1,
@@ -74,7 +76,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 	//these muthafuckas arent supposed to smooth
 	base_icon_state = null
-	smoothing_flags = null
+	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
 
@@ -88,14 +90,6 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	return
 
 /obj/machinery/computer/arcade/Initialize(mapload)
-	// If it's a generic arcade machine, pick a random arcade
-	// circuit board for it
-	if(!circuit)
-		var/list/gameodds = list(/obj/item/circuitboard/computer/arcade/battle = 49,
-							/obj/item/circuitboard/computer/arcade/orion_trail = 49,
-							/obj/item/circuitboard/computer/arcade/amputation = 2)
-		circuit = pick_weight(gameodds)
-
 	. = ..()
 
 	Reset()
@@ -349,15 +343,6 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 // *** THE ORION TRAIL ** //
 
-/obj/item/gamer_pamphlet
-	name = "pamphlet - \'Violent Video Games and You\'"
-	desc = "A pamphlet encouraging the reader to maintain a balanced lifestyle and take care of their mental health, while still enjoying video games in a healthy way. You probably don't need this..."
-	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "pamphlet"
-	item_state = "paper"
-	w_class = WEIGHT_CLASS_TINY
-
-
 #define ORION_TRAIL_WINTURN		9
 
 //Orion Trail Events
@@ -478,7 +463,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 	if(gamers[gamer] == -1)
 		say("WARNING: Continued antisocial behavior detected: Dispensing self-help literature.")
-		new /obj/item/gamer_pamphlet(get_turf(src))
+		new /obj/item/paper/pamphlet/violent_video_games(drop_location())
 		gamers[gamer]--
 		return
 

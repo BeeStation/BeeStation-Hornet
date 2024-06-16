@@ -41,7 +41,7 @@
 	ui_interact(user)
 
 /obj/item/instrument/ui_interact(mob/living/user)
-	if(!isliving(user) || user.stat || (user.restrained() && !ispAI(user)))
+	if((!isliving(user) || user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) && !ispAI(user))
 		return
 
 	user.set_machine(src)
@@ -239,7 +239,7 @@
 /obj/item/choice_beacon/radial/music
 	name = "instrument delivery beacon"
 	desc = "Summon your tool of art."
-	icon_state = "gangtool-red"
+	icon_state = "gangtool-music"
 	var/static/list/instrument_list
 
 /obj/item/choice_beacon/radial/music/Initialize(mapload)
