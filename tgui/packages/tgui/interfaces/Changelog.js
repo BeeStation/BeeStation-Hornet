@@ -63,9 +63,7 @@ export class Changelog extends Component {
     const maxAttempts = 6;
 
     if (attemptNumber > maxAttempts) {
-      return this.setData(
-        'Failed to load data after ' + maxAttempts + ' attempts'
-      );
+      return this.setData('Failed to load data after ' + maxAttempts + ' attempts');
     }
 
     act('get_month', { date });
@@ -93,9 +91,7 @@ export class Changelog extends Component {
     } = useBackend(this.context);
 
     if (dates) {
-      dates.forEach((date) =>
-        this.dateChoices.push(dateformat(date, 'mmmm yyyy', true))
-      );
+      dates.forEach((date) => this.dateChoices.push(dateformat(date, 'mmmm yyyy', true)));
       this.setSelectedDate(this.dateChoices[0]);
       this.getData(dates[0]);
     }
@@ -121,11 +117,7 @@ export class Changelog extends Component {
               this.setData('Loading changelog data...');
               this.setSelectedIndex(index);
               this.setSelectedDate(dateChoices[index]);
-              window.scrollTo(
-                0,
-                document.body.scrollHeight ||
-                  document.documentElement.scrollHeight
-              );
+              window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
               return this.getData(dates[index]);
             }}
           />
@@ -140,11 +132,7 @@ export class Changelog extends Component {
               this.setData('Loading changelog data...');
               this.setSelectedIndex(index);
               this.setSelectedDate(value);
-              window.scrollTo(
-                0,
-                document.body.scrollHeight ||
-                  document.documentElement.scrollHeight
-              );
+              window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
               return this.getData(dates[index]);
             }}
             selected={selectedDate}
@@ -162,11 +150,7 @@ export class Changelog extends Component {
               this.setData('Loading changelog data...');
               this.setSelectedIndex(index);
               this.setSelectedDate(dateChoices[index]);
-              window.scrollTo(
-                0,
-                document.body.scrollHeight ||
-                  document.documentElement.scrollHeight
-              );
+              window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
               return this.getData(dates[index]);
             }}
           />
@@ -179,19 +163,15 @@ export class Changelog extends Component {
         <h1>Traditional Games Space Station 13</h1>
         <p>
           <b>Thanks to: </b>
-          Baystation 12, /vg/station, NTstation, CDK Station devs,
-          FacepunchStation, GoonStation devs, the original Space Station 13
-          developers, Invisty for the title image and the countless others who
-          have contributed to the game, issue tracker or wiki over the years.
+          Baystation 12, /vg/station, NTstation, CDK Station devs, FacepunchStation, GoonStation devs, the original Space
+          Station 13 developers, Invisty for the title image and the countless others who have contributed to the game, issue
+          tracker or wiki over the years.
         </p>
         <p>
           {'Current organization members can be found '}
           <a href="https://github.com/orgs/tgstation/people">here</a>
           {', recent GitHub contributors can be found '}
-          <a href="https://github.com/tgstation/tgstation/pulse/monthly">
-            here
-          </a>
-          .
+          <a href="https://github.com/tgstation/tgstation/pulse/monthly">here</a>.
         </p>
         <p>
           {'You can also join our discord '}
@@ -207,17 +187,16 @@ export class Changelog extends Component {
         <h3>GoonStation 13 Development Team</h3>
         <p>
           <b>Coders: </b>
-          Stuntwaffle, Showtime, Pantaloons, Nannek, Keelin, Exadv1, hobnob,
-          Justicefries, 0staf, sniperchance, AngriestIBM, BrianOBlivion
+          Stuntwaffle, Showtime, Pantaloons, Nannek, Keelin, Exadv1, hobnob, Justicefries, 0staf, sniperchance, AngriestIBM,
+          BrianOBlivion
         </p>
         <p>
           <b>Spriters: </b>
-          Supernorn, Haruhi, Stuntwaffle, Pantaloons, Rho, SynthOrange, I Said
-          No
+          Supernorn, Haruhi, Stuntwaffle, Pantaloons, Rho, SynthOrange, I Said No
         </p>
         <p>
-          Traditional Games Space Station 13 is thankful to the GoonStation 13
-          Development Team for its work on the game up to the
+          Traditional Games Space Station 13 is thankful to the GoonStation 13 Development Team for its work on the game up to
+          the
           {' r4407 release. The changelog for changes up to r4407 can be seen '}
           <a href="https://wiki.ss13.co/Pre-2016_Changelog#April_2010">here</a>.
         </p>
@@ -233,53 +212,32 @@ export class Changelog extends Component {
         <h3>Traditional Games Space Station 13 License</h3>
         <p>
           {'All code after '}
-          <a
-            href={
-              'https://github.com/tgstation/tgstation/commit/' +
-              '333c566b88108de218d882840e61928a9b759d8f'
-            }>
-            commit 333c566b88108de218d882840e61928a9b759d8f on 2014/31/12 at
-            4:38 PM PST
+          <a href={'https://github.com/tgstation/tgstation/commit/' + '333c566b88108de218d882840e61928a9b759d8f'}>
+            commit 333c566b88108de218d882840e61928a9b759d8f on 2014/31/12 at 4:38 PM PST
           </a>
           {' is licensed under '}
           <a href="https://www.gnu.org/licenses/agpl-3.0.html">GNU AGPL v3</a>
           {'. All code before that commit is licensed under '}
           <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3</a>
           {', including tools unless their readme specifies otherwise. See '}
-          <a href="https://github.com/tgstation/tgstation/blob/master/LICENSE">
-            LICENSE
-          </a>
+          <a href="https://github.com/tgstation/tgstation/blob/master/LICENSE">LICENSE</a>
           {' and '}
-          <a href="https://github.com/tgstation/tgstation/blob/master/GPLv3.txt">
-            GPLv3.txt
-          </a>
+          <a href="https://github.com/tgstation/tgstation/blob/master/GPLv3.txt">GPLv3.txt</a>
           {' for more details.'}
         </p>
         <p>
           The TGS DMAPI API is licensed as a subproject under the MIT license.
           {' See the footer of '}
-          <a
-            href={
-              'https://github.com/tgstation/tgstation/blob/master' +
-              '/code/__DEFINES/tgs.dm'
-            }>
-            code/__DEFINES/tgs.dm
-          </a>
+          <a href={'https://github.com/tgstation/tgstation/blob/master' + '/code/__DEFINES/tgs.dm'}>code/__DEFINES/tgs.dm</a>
           {' and '}
-          <a
-            href={
-              'https://github.com/tgstation/tgstation/blob/master' +
-              '/code/modules/tgs/LICENSE'
-            }>
+          <a href={'https://github.com/tgstation/tgstation/blob/master' + '/code/modules/tgs/LICENSE'}>
             code/modules/tgs/LICENSE
           </a>
           {' for the MIT license.'}
         </p>
         <p>
           {'All assets including icons and sound are under a '}
-          <a href="https://creativecommons.org/licenses/by-sa/3.0/">
-            Creative Commons 3.0 BY-SA license
-          </a>
+          <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons 3.0 BY-SA license</a>
           {' unless otherwise indicated.'}
         </p>
       </Section>
@@ -302,27 +260,13 @@ export class Changelog extends Component {
                         const changeType = Object.keys(change)[0];
                         return (
                           <Table.Row key={changeType + change[changeType]}>
-                            <Table.Cell
-                              className={classes([
-                                'Changelog__Cell',
-                                'Changelog__Cell--Icon',
-                              ])}>
+                            <Table.Cell className={classes(['Changelog__Cell', 'Changelog__Cell--Icon'])}>
                               <Icon
-                                color={
-                                  icons[changeType]
-                                    ? icons[changeType].color
-                                    : icons['unknown'].color
-                                }
-                                name={
-                                  icons[changeType]
-                                    ? icons[changeType].icon
-                                    : icons['unknown'].icon
-                                }
+                                color={icons[changeType] ? icons[changeType].color : icons['unknown'].color}
+                                name={icons[changeType] ? icons[changeType].icon : icons['unknown'].icon}
                               />
                             </Table.Cell>
-                            <Table.Cell className="Changelog__Cell">
-                              {change[changeType]}
-                            </Table.Cell>
+                            <Table.Cell className="Changelog__Cell">{change[changeType]}</Table.Cell>
                           </Table.Row>
                         );
                       })}
