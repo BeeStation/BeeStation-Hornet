@@ -1,6 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: Improved job datum access list readibility. "base_access" will be given
-      always. if "jobs_have_minimal_access" config is turned on, "extra_access" will
-      be given additionally.
