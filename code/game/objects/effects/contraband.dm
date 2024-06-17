@@ -215,7 +215,7 @@
 /obj/structure/sign/poster/contraband/syndicate_recruitment
 	name = "Syndicate Recruitment"
 	desc = "See the galaxy! Shatter corrupt megacorporations! Join today!"
-	icon_state = "poster_syndicate_recruitment"
+	icon_state = "poster5"
 
 /obj/structure/sign/poster/contraband/clown
 	name = "Clown"
@@ -311,7 +311,7 @@
 	// have fun seeing this poster in "spawn 'c20r'", admins...
 	name = "C-20r"
 	desc = "A poster advertising the Scarborough Arms C-20r."
-	icon_state = "poster_cobra"
+	icon_state = "poster24"
 
 /obj/structure/sign/poster/contraband/have_a_puff
 	name = "Have a Puff"
@@ -674,12 +674,12 @@
 /obj/structure/sign/poster/contraband/syndicate
 	name = "Syndicate Emblem"
 	desc = "Almost anyone could recognize this as the logo of the Syndicate."
-	icon_state = "poster_syndicate"
+	icon_state = "poster51"
 
 /obj/structure/sign/poster/contraband/m90
 	// have fun seeing this poster in "spawn 'c20r'", admins...
 	name = "M-90"
 	desc = "A poster advertising the Scarborough Arms M-90"
-	icon_state = "poster_m90"
+	icon_state = "poster53"
 
 #undef PLACE_SPEED
