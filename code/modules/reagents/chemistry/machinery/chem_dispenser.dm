@@ -84,7 +84,7 @@
 
 	var/list/saved_recipes = list()
 
-	//Whether the chem lookup button appears or not on chem dispensers & subtypes. Defaults to TRUE
+	//Whether the chem lookup button is usable or not on chem dispensers & subtypes. Defaults to TRUE
 	var/can_reagent_lookup = TRUE
 
 /obj/machinery/chem_dispenser/Initialize(mapload)
