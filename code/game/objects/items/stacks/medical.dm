@@ -18,6 +18,8 @@
 	///What reagent does it apply?
 	var/list/reagent
 	///Is this for bruises?
+	var/heal_creatures = FALSE
+	///Is this for bruises?
 	var/heal_brute = FALSE
 	///Is this for burns?
 	var/heal_burn = FALSE
@@ -55,7 +57,7 @@
 		if(critter.health == critter.maxHealth)
 			to_chat(user, "<span class='notice'>[M] is at full health.</span>")
 			return
-		if(!heal_brute) //simplemobs can only take brute damage, and can only benefit from items intended to heal it
+		if(!heal_creatures) //simplemobs can only take brute damage, and can only benefit from items intended to heal it
 			to_chat(user, "<span class='notice'>[src] won't help [M] at all.</span>")
 			return
 		M.heal_bodypart_damage(REAGENT_AMOUNT_PER_ITEM)
@@ -143,11 +145,11 @@
 		if (C.is_bleeding())
 			C.balloon_alert(user, "You reduce [M == user ? "your" : M.p_their()] bleeding to [C.get_bleed_rate_string()]")
 		else
-			C.balloon_alert(user, "You stop [M == user ? "your" : M.p_their()]'s bleeding!")
+			C.balloon_alert(user, "You stop [M == user ? "your" : M.p_their()] bleeding!")
 	else
 		C.balloon_alert(user, "You apply [src] to [M == user ? "yourself" : M].")
 
-	user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
+	user.visible_message("<span class='green'>[user] applies [src] to [M].</span>", "<span class='green'>You apply [src] to [M].</span>")
 	if(reagent)
 		reagents.reaction(M, PATCH, affecting = affecting)
 		M.reagents.add_reagent_list(reagent) //Stack size is reduced by one instead of actually removing reagents from the stack.
@@ -166,6 +168,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	heal_brute = TRUE
+	heal_creatures = TRUE
 	reagent = list(/datum/reagent/medicine/styptic_powder = REAGENT_AMOUNT_PER_ITEM)
 	grind_results = list(/datum/reagent/medicine/styptic_powder = REAGENT_AMOUNT_PER_ITEM)
 
@@ -198,7 +201,7 @@
 	desc = "A roll of elastic cloth that is extremely effective at stopping bleeding, heals minor bruising."
 	icon_state = "gauze"
 	stop_bleeding = BLEED_CRITICAL
-	heal_brute = TRUE //Enables gauze to be used on simplemobs for healing
+	heal_creatures = TRUE //Enables gauze to be used on simplemobs for healing
 	max_amount = 12
 
 /obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
@@ -223,7 +226,7 @@
 	singular_name = "improvised gauze"
 	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
 	stop_bleeding = BLEED_SURFACE
-	heal_brute = 0
+	heal_creatures = FALSE
 
 /obj/item/stack/medical/gauze/adv
 	name = "sterilized medical gauze"
