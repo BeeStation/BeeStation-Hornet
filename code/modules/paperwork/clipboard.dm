@@ -6,12 +6,17 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "clipboard"
 	item_state = "clipboard"
+	worn_icon_state = "clipboard"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
-	var/obj/item/pen/pen		//The stored pen.
-	var/integrated_pen = FALSE 	//Is the pen integrated?
+	slot_flags = ITEM_SLOT_BELT
+	resistance_flags = FLAMMABLE
+	/// The stored pen
+	var/obj/item/pen/pen
+	/// Is the pen integrated?
+	var/integrated_pen = FALSE
 	/**
 	 * Weakref of the topmost piece of paper
 	 *
@@ -20,8 +25,6 @@
 	 * (As you can't organise contents directly in BYOND)
 	 */
 	var/datum/weakref/toppaper_ref
-	slot_flags = ITEM_SLOT_BELT
-	resistance_flags = FLAMMABLE
 
 /obj/item/clipboard/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins putting [user.p_their()] head into the clip of \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -138,7 +141,7 @@
 	if(.)
 		return
 
-	if(usr.stat != CONSCIOUS || usr.restrained())
+	if(usr.stat != CONSCIOUS || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	switch(action)

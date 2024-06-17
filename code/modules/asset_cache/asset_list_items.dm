@@ -112,7 +112,11 @@
 		"stamp-rd" = 'icons/stamp_icons/large_stamp-rd.png',
 		"stamp-cap" = 'icons/stamp_icons/large_stamp-cap.png',
 		"stamp-qm" = 'icons/stamp_icons/large_stamp-qm.png',
-		"stamp-law" = 'icons/stamp_icons/large_stamp-law.png'
+		"stamp-law" = 'icons/stamp_icons/large_stamp-law.png',
+		"stamp-chap" = 'icons/stamp_icons/large_stamp-chap.png',
+		"stamp-mime" = 'icons/stamp_icons/large_stamp-mime.png',
+		"stamp-cent" = 'icons/stamp_icons/large_stamp-cent.png',
+		"stamp-syndicate" = 'icons/stamp_icons/large_stamp-syndicate.png',
 	)
 
 
@@ -393,6 +397,15 @@
 	for(var/atom/item as() in target_items)
 		if (!ispath(item, /atom))
 			return FALSE
+
+		var/overlay = initial(item.icon_state)
+		var/icon_init = initial(item.icon)
+		var/list/icon_states_available = icon_states(icon_init)
+		if(!(overlay in icon_states_available))
+			var/icon_file = "[icon_init]" || "Unknown Generated Icon"
+			stack_trace("Invalid overlay: Icon object '[icon_file]' [REF(src)] used in '[src]' [type] is missing icon state [overlay].")
+			continue
+
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
 		insert_icon(imgid, get_display_icon_for(item))
 

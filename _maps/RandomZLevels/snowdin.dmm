@@ -400,6 +400,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/research)
+"bq" = (
+/obj/structure/statue/snow/snowman{
+	name = "Snow-Luc Price"
+	},
+/obj/item/clothing/head/hats/hos{
+	pixel_y = 10
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/snowdin/outside)
 "bs" = (
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/research)
@@ -5549,16 +5558,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/engineering)
-"qd" = (
-/obj/structure/reagent_dispensers/fueltank,
-/obj/item/clothing/head/welding,
-/obj/item/weldingtool/largetank,
-/obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/simple/supply/visible{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/awaymission/snowdin/post/engineering)
 "qe" = (
 /obj/machinery/atmospherics/pipe/simple/supply/visible{
 	dir = 8
@@ -5849,6 +5848,15 @@
 	broken = 1
 	},
 /area/awaymission/snowdin/post/engineering)
+"qT" = (
+/obj/structure/statue/snow/snowman{
+	anchored = 1
+	},
+/obj/item/clothing/head/hats/bowler{
+	pixel_y = 13
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/snowdin/outside)
 "qX" = (
 /obj/machinery/computer/atmos_control/tank{
 	dir = 1;
@@ -6529,15 +6537,6 @@
 	name = "Shuttle Transist Console"
 	},
 /turf/open/floor/iron/dark/snowdin,
-/area/awaymission/snowdin/outside)
-"sV" = (
-/obj/structure/statue/snow/snowman{
-	anchored = 1
-	},
-/obj/item/clothing/head/bowler{
-	pixel_y = 13
-	},
-/turf/open/floor/plating/asteroid/snow,
 /area/awaymission/snowdin/outside)
 "sW" = (
 /obj/machinery/power/turbine{
@@ -10066,15 +10065,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/snowdin/outside)
-"FF" = (
-/obj/structure/statue/snow/snowman{
-	name = "Snow-Luc Price"
-	},
-/obj/item/clothing/head/HoS{
-	pixel_y = 10
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "FG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -10356,15 +10346,6 @@
 /area/awaymission/snowdin/outside)
 "Gx" = (
 /turf/closed/wall,
-/area/awaymission/snowdin/post/mining_main/robotics)
-"Gy" = (
-/obj/structure/table,
-/obj/item/clothing/head/welding{
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/welding,
-/turf/open/floor/iron,
 /area/awaymission/snowdin/post/mining_main/robotics)
 "Gz" = (
 /turf/open/floor/plating,
@@ -10856,14 +10837,6 @@
 /obj/machinery/mech_bay_recharge_port,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/post/mining_main/mechbay)
-"In" = (
-/obj/mecha/working/ripley/mining{
-	dir = 1;
-	ruin_mecha = 1
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/mech_bay_recharge_floor,
-/area/awaymission/snowdin/post/mining_main/mechbay)
 "Io" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -11198,6 +11171,16 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/mining_main)
+"JM" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/item/clothing/head/utility/welding,
+/obj/item/weldingtool/largetank,
+/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/simple/supply/visible{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/awaymission/snowdin/post/engineering)
 "JN" = (
 /obj/structure/closet/crate{
 	opened = 1
@@ -11861,6 +11844,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/cave)
+"Nc" = (
+/obj/vehicle/sealed/mecha/working/ripley/mining,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mech_bay_recharge_floor,
+/area/awaymission/snowdin/post/mining_main/mechbay)
 "Nd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -13554,6 +13542,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/cave)
+"Wh" = (
+/obj/structure/table,
+/obj/item/clothing/head/utility/welding{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/welding,
+/turf/open/floor/iron,
+/area/awaymission/snowdin/post/mining_main/robotics)
 "Wi" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -26417,7 +26414,7 @@ af
 af
 ak
 af
-sV
+qT
 af
 af
 af
@@ -30007,7 +30004,7 @@ nY
 ov
 oV
 nN
-qd
+JM
 qB
 Xs
 rt
@@ -43814,7 +43811,7 @@ af
 af
 am
 sf
-FF
+bq
 af
 am
 ae
@@ -58725,7 +58722,7 @@ oZ
 oZ
 oZ
 Ge
-Gy
+Wh
 GV
 Hs
 HJ
@@ -63355,7 +63352,7 @@ GJ
 He
 HA
 HO
-In
+Nc
 GH
 wL
 wL

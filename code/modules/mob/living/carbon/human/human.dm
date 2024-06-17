@@ -32,6 +32,7 @@
 	AddComponent(/datum/component/personal_crafting)
 	AddComponent(/datum/component/bloodysoles/feet)
 	AddElement(/datum/element/strippable, GLOB.strippable_human_items, TYPE_PROC_REF(/mob/living/carbon/human, should_strip), GLOB.strippable_human_layout)
+	AddElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -520,7 +521,7 @@
 		threatcount -= 5
 
 	//individuals wearing tinfoil hats are 30% more likely to be criminals
-	if(istype(get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		threatcount += 2
 	return threatcount
 
@@ -588,8 +589,9 @@
 			to_chat(C, "<span class='unconscious'>You feel a breath of fresh air, which is a sensation you don't recognise.</span>")
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
-	if(dna && dna.check_mutation(HULK))
-		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
+	if(HAS_TRAIT(src, TRAIT_FAST_CUFF_REMOVAL))
+		if(dna && dna.check_mutation(HULK))
+			say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
 		if(..(I, cuff_break = FAST_CUFFBREAK))
 			dropItemToGround(I)
 	else
@@ -790,6 +792,8 @@
 	for(var/datum/mutation/HM as() in dna.mutations)
 		if(HM.quality != POSITIVE)
 			dna.remove_mutation(HM.name)
+	coretemperature = get_body_temp_normal(apply_change=FALSE)
+	heat_exposure_stacks = 0
 	..()
 
 /mob/living/carbon/human/check_weakness(obj/item/weapon, mob/living/attacker)

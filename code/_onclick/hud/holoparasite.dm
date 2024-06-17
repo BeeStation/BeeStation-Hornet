@@ -136,7 +136,7 @@
 		LAZYADD(accent_overlays, overlay)
 	RegisterSignal(owner, COMSIG_HOLOPARA_SET_ACCENT_COLOR, PROC_REF(on_set_accent_color))
 	RegisterSignal(owner, COMSIG_MOB_LOGIN, PROC_REF(on_login))
-	RegisterSignal(owner, list(COMSIG_HOLOPARA_POST_MANIFEST, COMSIG_HOLOPARA_RECALL, COMSIG_MOVABLE_MOVED), PROC_REF(_update_appearance))
+	RegisterSignals(owner, list(COMSIG_HOLOPARA_POST_MANIFEST, COMSIG_HOLOPARA_RECALL, COMSIG_MOVABLE_MOVED), PROC_REF(_update_appearance))
 
 /atom/movable/screen/holoparasite/Destroy()
 	stop_timer()

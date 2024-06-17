@@ -21,9 +21,6 @@
 	QDEL_NULL(dna)
 	GLOB.carbon_list -= src
 
-/mob/living/carbon/initialize_footstep()
-	AddComponent(/datum/component/footstep, 1, 2)
-
 /mob/living/carbon/swap_hand(held_index)
 	. = ..()
 	if(!.)
@@ -182,9 +179,6 @@
 		return TRUE
 	return FALSE
 
-/mob/living/carbon/restrained(ignore_grab)
-	. = (handcuffed || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_NECK))
-
 /mob/living/carbon/proc/canBeHandcuffed()
 	return FALSE
 
@@ -221,7 +215,7 @@
 		return FALSE
 
 /mob/living/carbon/resist_buckle()
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
 		changeNext_move(CLICK_CD_BREAKOUT)
 		last_special = world.time + CLICK_CD_BREAKOUT
 		var/buckle_cd = 600
@@ -302,7 +296,7 @@
 /mob/living/carbon/proc/uncuff()
 	if (handcuffed)
 		var/obj/item/W = handcuffed
-		handcuffed = null
+		set_handcuffed(null)
 		if (buckled && buckled.buckle_requires_restraints)
 			buckled.unbuckle_mob(src)
 		update_handcuffed()
@@ -344,7 +338,7 @@
 	else
 		if(I == handcuffed)
 			handcuffed.forceMove(drop_location())
-			handcuffed = null
+			set_handcuffed(null)
 			I.dropped(src)
 			if(buckled && buckled.buckle_requires_restraints)
 				buckled.unbuckle_mob(src)
@@ -642,7 +636,7 @@
 				severity = 9
 			if(-INFINITY to -95)
 				severity = 10
-		if(!InFullCritical())
+		if(stat != HARD_CRIT)
 			var/visionseverity = 4
 			switch(health)
 				if(-8 to -4)
@@ -758,15 +752,16 @@
 		if(health <= HEALTH_THRESHOLD_DEAD && !HAS_TRAIT(src, TRAIT_NODEATH))
 			death()
 			return
-		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
+		if(health <= hardcrit_threshold && !HAS_TRAIT(src, TRAIT_NOHARDCRIT))
+			set_stat(HARD_CRIT)
+		else if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
 			set_stat(UNCONSCIOUS)
+		else if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
+			set_stat(SOFT_CRIT)
 		else
-			if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
-				set_stat(SOFT_CRIT)
-			else
-				set_stat(CONSCIOUS)
+			set_stat(CONSCIOUS)
 			if(!is_blind())
-				var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)	
+				var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
 				B?.RemoveComponent()
 		update_mobility()
 	update_damage_hud()
@@ -801,6 +796,9 @@
 	if(!getorganslot(ORGAN_SLOT_LIVER))
 		return FALSE
 
+	// We don't want walking husks god no
+	if(HAS_TRAIT(src, TRAIT_HUSK))
+		src.cure_husk()
 	return ..()
 
 /mob/living/carbon/fully_heal(admin_revive = FALSE)
@@ -820,7 +818,7 @@
 		suiciding = FALSE
 		regenerate_limbs()
 		regenerate_organs()
-		handcuffed = initial(handcuffed)
+		set_handcuffed(null)
 		for(var/obj/item/restraints/R in contents) //actually remove cuffs from inventory
 			qdel(R)
 		update_handcuffed()
@@ -860,7 +858,7 @@
 /mob/living/carbon/fakefire(var/fire_icon = "Generic_mob_burning")
 	var/mutable_appearance/new_fire_overlay = mutable_appearance('icons/mob/OnFire.dmi', fire_icon, CALCULATE_MOB_OVERLAY_LAYER(FIRE_LAYER))
 	new_fire_overlay.appearance_flags = RESET_COLOR
-	new_fire_overlay.overlays.Add(emissive_appearance('icons/mob/OnFire.dmi', fire_icon, CALCULATE_MOB_OVERLAY_LAYER(FIRE_LAYER)))
+	new_fire_overlay.overlays.Add(emissive_appearance('icons/mob/OnFire.dmi', fire_icon, CALCULATE_MOB_OVERLAY_LAYER(FIRE_LAYER), filters = src.filters))
 	overlays_standing[FIRE_LAYER] = new_fire_overlay
 	apply_overlay(FIRE_LAYER)
 
@@ -1138,3 +1136,17 @@
 	if(update_icon)
 		update_body()
 		update_body_parts(TRUE)
+
+/// Modifies the handcuffed value if a different value is passed, returning FALSE otherwise. The variable should only be changed through this proc.
+/mob/living/carbon/proc/set_handcuffed(new_value)
+	if(handcuffed == new_value)
+		return FALSE
+	. = handcuffed
+	handcuffed = new_value
+	if(.)
+		if(!handcuffed)
+			REMOVE_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, HANDCUFFED_TRAIT)
+	else if(handcuffed)
+		ADD_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
+		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, HANDCUFFED_TRAIT)
