@@ -55,6 +55,11 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		desc = "[initial(desc)] There are [uses] reactivations remaining."
 		button.desc = desc
 
+/datum/action/innate/ai/New()
+	..()
+	if(initial(uses) > 1)
+		update_desc()
+
 /datum/action/innate/ai/proc/adjust_uses(amt, silent)
 	uses += amt
 	update_desc()
@@ -581,10 +586,6 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	uses = 2
 	linked_ability_type = /obj/effect/proc_holder/ranged_ai/overload_machine
 
-/datum/action/innate/ai/ranged/overload_machine/New()
-	..()
-	update_desc()
-
 /datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
 		var/turf/T = get_turf(M)
@@ -637,10 +638,6 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	button_icon_state = "override_machine"
 	uses = 4
 	linked_ability_type = /obj/effect/proc_holder/ranged_ai/override_machine
-
-/datum/action/innate/ai/ranged/override_machine/New()
-	..()
-	update_desc()
 
 /datum/action/innate/ai/ranged/override_machine/proc/animate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
@@ -770,10 +767,6 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	button_icon_state = "blackout"
 	uses = 3
 
-/datum/action/innate/ai/blackout/New()
-	..()
-	update_desc()
-
 /datum/action/innate/ai/blackout/Activate()
 	for(var/obj/machinery/power/apc/apc in GLOB.apcs_list)
 		if(prob(30 * apc.overload))
@@ -831,10 +824,6 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	uses = 20
 	auto_use_uses = FALSE
 	cooldown_period = 30
-
-/datum/action/innate/ai/reactivate_cameras/New()
-	..()
-	update_desc()
 
 /datum/action/innate/ai/reactivate_cameras/Activate()
 	var/fixed_cameras = 0
@@ -924,9 +913,6 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	button_icon_state = "fake_alert"
 	uses = 1
 
-/datum/action/innate/ai/fake_alert/New()
-	..()
-	update_desc()
 /datum/action/innate/ai/fake_alert/Activate()
 	var/list/events_to_chose = list()
 	for(var/datum/round_event_control/E in SSevents.control)
