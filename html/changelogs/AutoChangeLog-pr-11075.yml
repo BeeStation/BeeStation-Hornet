@@ -1,0 +1,5 @@
+author: MarkusLarsson421
+delete-after: true
+changes:
+  - balance: Made nanite mindshield unobtainable.
+  - rscadd: Classified Nanites category (mindshield).
