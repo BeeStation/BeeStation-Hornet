@@ -1,7 +1,7 @@
 import { toFixed } from 'common/math';
 import { toTitleCase } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { AnimatedNumber, Box, Button, Dimmer, Flex, Icon, LabeledList, ProgressBar, Section, Stack } from '../components';
+import { AnimatedNumber, Box, Button, Dimmer, Icon, LabeledList, ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 const RecipeOptions = (_props, context) => {
@@ -92,7 +92,7 @@ const RecipeButton = (props, context) => {
     <Button
       icon={deletingRecipes ? 'trash' : 'tint'}
       width="129.5px"
-      lineHeight="21px"
+      lineHeight={1.75}
       content={recipe.name}
       color={!!deletingRecipes && 'red'}
       onClick={() => {
@@ -141,9 +141,9 @@ export const ChemDispenser = (_props, context) => {
               )}
               <Button
                 icon="book"
-                disabled={!data.isBeakerLoaded}
+                disabled={!data.isBeakerLoaded || !data.canReagentLookup}
                 content={'Reaction search'}
-                tooltip={data.isBeakerLoaded ? 'Look up recipes and reagents!' : 'Please insert a beaker!'}
+                tooltip={!data.canReagentLookup ? 'You cannot lookup reagents on a Drinks Dispenser!' : data.isBeakerLoaded ? 'Look up recipes and reagents!' : 'Please insert a beaker!'}
                 tooltipPosition="bottom-start"
                 onClick={() => act('reaction_lookup')}
               />
@@ -184,7 +184,7 @@ export const ChemDispenser = (_props, context) => {
                 key={chemical.id}
                 icon="tint"
                 width="129.5px"
-                lineHeight="21px"
+                lineHeight={1.75}
                 content={chemical.title}
                 onClick={() =>
                   act('dispense', {

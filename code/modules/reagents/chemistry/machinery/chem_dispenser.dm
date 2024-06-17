@@ -84,6 +84,9 @@
 
 	var/list/saved_recipes = list()
 
+	//Whether the chem lookup button appears or not on chem dispensers & subtypes. Defaults to TRUE
+	var/can_reagent_lookup = TRUE
+
 /obj/machinery/chem_dispenser/Initialize(mapload)
 	. = ..()
 	dispensable_reagents = sort_list(dispensable_reagents, GLOBAL_PROC_REF(cmp_reagents_asc))
@@ -168,13 +171,16 @@
 		cut_overlays()
 
 
-/obj/machinery/chem_dispenser/ui_state(mob/user)
-	return GLOB.default_state
+/obj/machinery/chem_dispenser/ui_static_data(mob/user)
+	var/list/data = list()
+	data["canReagentLookup"] = can_reagent_lookup
+	return data
 
 /obj/machinery/chem_dispenser/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ChemDispenser")
+
 		if(user.hallucinating())
 			ui.set_autoupdate(FALSE) //to not ruin the immersion by constantly changing the fake chemicals
 			//Seems like a pretty bad way to do it, but I think a better one would deserve a wider refactor including at least sleeper
@@ -343,8 +349,10 @@
 
 		if("reaction_lookup")
 			//drink dispensers shouldnt be able to look up reagents
-			if(istype(src, /obj/machinery/chem_dispenser/drinks))
+			//UI should have stopped this from happening, sanity check incase it somehow got bypassed
+			if(!can_reagent_lookup)
 				to_chat(usr, "<span class ='danger'>This dispenser does not support reagent lookup!</span>")
+				message_admins("[ADMIN_LOOKUPFLW(usr)] has bypassed a UI check on [src], but was stopped by a code check. This should not have happened and something has gone wrong.")
 			else if(beaker)
 				beaker.reagents.ui_interact(usr)
 
@@ -504,6 +512,7 @@
 		/datum/reagent/toxin/mindbreaker,
 		/datum/reagent/toxin/staminatoxin
 	)
+	can_reagent_lookup = FALSE
 
 /obj/machinery/chem_dispenser/drinks/fullupgrade //fully upgraded stock parts, emagged
 	desc = "Contains a large reservoir of soft drinks. This model has had its safeties shorted out."
