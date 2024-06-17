@@ -134,12 +134,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	desc = "Long range bluespace artillery."
 	icon = 'icons/obj/lavaland/cannon.dmi'
 	icon_state = "cannon_west"
+	var/base_battery_icon_state = "bsa_west_capacitor"
 	var/static/mutable_appearance/top_layer
 	var/ex_power = 3
 	var/ready
 
 	var/power_used_per_shot = 2000000
 	var/obj/item/stock_parts/cell/cell
+	var/obj/machinery/power/terminal/terminal
 	use_power = NO_POWER_USE
 	idle_power_usage = 50 // when idle
 	active_power_usage = 20000 // amount charged
@@ -150,6 +152,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	bound_x = -192
 	appearance_flags = NONE //Removes default TILE_BOUND
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+	var/sound/select_sound = 'sound/machines/bsa/bsa_charge.ogg'
+	var/sound/fire_sound = 'sound/machines/bsa/bsa_fire.ogg'
 
 /obj/machinery/power/bsa/full/wrench_act(mob/living/user, obj/item/I)
 	return FALSE
@@ -182,23 +187,48 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 			return locate(world.maxx,y,z)
 	return get_turf(src)
 
+/obj/machinery/power/bsa/full/proc/make_terminal(turf/T)
+	// create a terminal object at the same position as original turf loc
+	// wires will attach to this
+	terminal = new /obj/machinery/power/terminal(T)
+	terminal.master = src
+
 /obj/machinery/power/bsa/full/Initialize(mapload, cannon_direction = WEST)
 	. = ..()
 	cell = new /obj/item/stock_parts/cell(src, 2000000)
 	cell.charge = 0
-	connect_to_network(get_back_turf())
 	top_layer = top_layer || mutable_appearance(icon, layer = ABOVE_MOB_LAYER)
 	switch(cannon_direction)
 		if(WEST)
 			setDir(WEST)
 			pixel_x = -192
-			top_layer.icon_state = "top_west"
-			icon_state = "cannon_west"
 		if(EAST)
 			setDir(EAST)
-			top_layer.icon_state = "top_east"
-			icon_state = "cannon_east"
+	update_icon_state()
+	make_terminal(get_back_turf())
+
+
+/obj/machinery/power/bsa/full/update_icon_state()
+	. = ..()
+	icon_state = "cannon_[dir2text(dir)]"
+	base_battery_icon_state = "bsa_[dir2text(dir)]_capacitor"
+
+/obj/machinery/power/bsa/full/update_overlays()
+	. = ..()
+	cut_overlays()
 	add_overlay(top_layer)
+	top_layer.icon_state = "top_[dir2text(dir)]"
+
+	var/percent = cell.percent()
+	if(percent >= 25)
+		add_overlay("[base_battery_icon_state]_25")
+	if(percent >= 50)
+		add_overlay("[base_battery_icon_state]_50")
+	if(percent >= 75)
+		add_overlay("[base_battery_icon_state]_75")
+	if(percent >= 100)
+		add_overlay("[base_battery_icon_state]_100")
+
 
 /obj/machinery/power/bsa/full/proc/fire(mob/user, turf/bullseye)
 	if(!cell.use(power_used_per_shot))
@@ -244,12 +274,13 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	ui_update()
 
 /obj/machinery/power/bsa/full/process(delta_time)
-	if(cell.percent() >= 100 || surplus() < 1)
+	if(cell.percent() >= 100 || terminal.surplus() < 1)
 		return
-	add_load(idle_power_usage)
-	var/charge = CLAMP(surplus(), 0, active_power_usage) * delta_time
-	add_load(charge)
+	terminal.add_load(idle_power_usage)
+	var/charge = clamp(terminal.surplus(), 0, active_power_usage) * delta_time
+	terminal.add_load(charge)
 	cell.give(charge)
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/structure/filler
 	name = "big machinery part"
@@ -329,15 +360,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 		if(G.tracking)
 			targets[G.gpstag] = G
 
-	var/list/options = gps_locators
 	if(area_aim)
-		options += GLOB.teleportlocs
-	var/victim = tgui_input_list(user, "Select target", "Artillery Targeting", options)
+		targets += GLOB.teleportlocs
+	var/victim = tgui_input_list(user, "Select target", "Artillery Targeting", targets)
 	if(isnull(victim))
 		return
-	if(isnull(options[victim]))
+	if(isnull(targets[victim]))
 		return
-	target = options[victim]
+	target = targets[victim]
 	var/datum/component/gps/log_target = target
 	log_game("[key_name(user)] has aimed the bluespace artillery strike (BSA) at [get_area_name(log_target.parent)].")
 
