@@ -145,7 +145,7 @@
 	name = "Bee Explosion"
 	id = "beesplosion"
 	required_reagents = list(/datum/reagent/consumable/honey = 1, /datum/reagent/medicine/strange_reagent = 1, /datum/reagent/uranium/radium = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/beesplosion/on_reaction(datum/reagents/holder, created_volume)
 	var/location = holder.my_atom.drop_location()
@@ -399,7 +399,7 @@
 	id = /datum/reagent/napalm
 	results = list(/datum/reagent/napalm = 3)
 	required_reagents = list(/datum/reagent/oil = 1, /datum/reagent/fuel = 1, /datum/reagent/consumable/ethanol = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_PLANT
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DANGEROUS | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/cryostylane
 	name = /datum/reagent/cryostylane
@@ -452,7 +452,7 @@
 	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/silver = 1, /datum/reagent/blackpowder = 1)
 	mix_message = "<span class='danger'>A jet of sparks flies from the mixture as it merges into a flickering slurry.</span>"
 	required_temp = 400
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/energized_jelly
 	name = "Energized Jelly"
