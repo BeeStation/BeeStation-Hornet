@@ -514,6 +514,7 @@
 /mob/living/proc/update_resting()
 	update_rest_hud_icon()
 	update_mobility()
+	SEND_SIGNAL(src, COMSIG_LIVING_RESTING_UPDATED, resting)
 
 
 //Recursive function to find everything a mob is holding. Really shitty proc tbh.

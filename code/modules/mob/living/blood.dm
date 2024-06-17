@@ -46,7 +46,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		linked_alert.maptext = MAPTEXT(owner.get_bleed_rate_string())
 
 /datum/status_effect/bleeding/tick()
-	if (HAS_TRAIT(owner, TRAIT_NO_BLEED))
+	if (HAS_TRAIT(owner, TRAIT_NO_BLOOD))
 		qdel(src)
 		return
 	time_applied += tick_interval
@@ -108,7 +108,10 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			linked_alert.desc = "Your wounds are bleeding heavily and are unlikely to heal themselves. Seek medical attention immediately![ishuman(owner) ? " Click to apply pressure to the wounds." : ""]"
 			linked_alert.icon_state = "bleed_heavy"
 
-	linked_alert.maptext = MAPTEXT(owner.get_bleed_rate_string())
+	if (HAS_TRAIT(owner, TRAIT_NO_BLEEDING) || IS_IN_STASIS(owner))
+		linked_alert.maptext = MAPTEXT("<s>[owner.get_bleed_rate_string()]</s>")
+	else
+		linked_alert.maptext = MAPTEXT(owner.get_bleed_rate_string())
 
 /datum/status_effect/bleeding/on_remove()
 	var/mob/living/carbon/human/human = owner
@@ -132,7 +135,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		human.hold_wounds()
 
 /mob/living/carbon/proc/is_bandaged()
-	if (HAS_TRAIT(src, TRAIT_NO_BLEED))
+	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return FALSE
 	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
 	if (!bleed)
@@ -140,7 +143,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	return bleed.bandaged_bleeding > 0
 
 /mob/living/carbon/proc/is_bleeding()
-	if (HAS_TRAIT(src, TRAIT_NO_BLEED))
+	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return FALSE
 	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
 	if (!bleed)
@@ -148,7 +151,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	return bleed.bleed_rate > 0
 
 /mob/living/carbon/proc/add_bleeding(bleed_level)
-	if (HAS_TRAIT(src, TRAIT_NO_BLEED))
+	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return
 	playsound(src, 'sound/surgery/blood_wound.ogg', 80, vary = TRUE)
 	apply_status_effect(dna?.species?.bleed_effect || STATUS_EFFECT_BLEED, bleed_level)
@@ -263,7 +266,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
 
-	if((NOBLOOD in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_NO_BLEED))
+	if((NOBLOOD in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		cauterise_wounds()
 		return
 
@@ -333,7 +336,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/bleed(amt)
-	if(blood_volume && !HAS_TRAIT(src, TRAIT_NO_BLEED))
+	if(blood_volume && !HAS_TRAIT(src, TRAIT_NO_BLOOD) && !HAS_TRAIT(src, TRAIT_NO_BLEEDING) && !IS_IN_STASIS(src))
 		// As you get less bloodloss, you bleed slower
 		// See the top of this file for desmos lines
 		var/decrease_multiplier = BLEED_RATE_MULTIPLIER
@@ -487,7 +490,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip)
-	if (HAS_TRAIT(src, TRAIT_NO_BLEED))
+	if (HAS_TRAIT(src, TRAIT_NO_BLOOD) || HAS_TRAIT(src, TRAIT_NO_BLEEDING) || IS_IN_STASIS(src))
 		return
 	if(get_blood_id() != /datum/reagent/blood)
 		return

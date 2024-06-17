@@ -704,7 +704,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		var/possibledist = power + 1
 		if(M.get_blood_id() != /datum/reagent/blood)
 			possibledist = 1
-		if(!((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLEED))) //if you dont have blood, well... sucks to be you
+		if(!((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD))) //if you dont have blood, well... sucks to be you
 			H.setOxyLoss(0,0) //this is so a crit person still revives if suffocated
 			if(bloodpoints >= 200 && H.health > 0 && H.blood_volume >= BLOOD_VOLUME_NORMAL) //note that you need to actually need to heal, so a maxed out virus won't be bringing you back instantly in most cases. *even so*, if this needs to be nerfed ill do it in a heartbeat
 				H.revive(0)
@@ -753,7 +753,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			else
 				var/list/candidates = list()
 				for(var/mob/living/carbon/human/C in ohearers(min(bloodpoints/4, possibledist), H))
-					if((NOBLOOD in C.dna.species.species_traits) || HAS_TRAIT(C, TRAIT_NO_BLEED))
+					if((NOBLOOD in C.dna.species.species_traits) || HAS_TRAIT(C, TRAIT_NO_BLOOD))
 						continue
 					if(C.stat && C.blood_volume && C.get_blood_id() == H.get_blood_id())
 						candidates += C
@@ -772,10 +772,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		var/mob/living/carbon/human/H = M
 		if(H.pulling && ishuman(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
 			var/mob/living/carbon/human/C = H.pulling
-			if(!C.is_bleeding() && vampire && C.can_inject() && H.grab_state && C.get_blood_id() == H.get_blood_id() && !((NOBLOOD in C.dna.species.species_traits)|| HAS_TRAIT(C, TRAIT_NO_BLEED)))//aggressive grab as a "vampire" starts the target bleeding
+			if(!C.is_bleeding() && vampire && C.can_inject() && H.grab_state && C.get_blood_id() == H.get_blood_id() && !((NOBLOOD in C.dna.species.species_traits)|| HAS_TRAIT(C, TRAIT_NO_BLOOD)))//aggressive grab as a "vampire" starts the target bleeding
 				C.add_bleeding(BLEED_SURFACE)
 				C.visible_message("<span class='warning'>Wounds open on [C.name]'s skin as [H.name] grips them tightly!</span>", "<span class='userdanger'>You begin bleeding at [H.name]'s touch!</span>")
-			if(C.blood_volume && C.can_inject() && (C.is_bleeding() && vampire) && C.get_blood_id() == H.get_blood_id() && !((NOBLOOD in C.dna.species.species_traits)|| HAS_TRAIT(C, TRAIT_NO_BLEED)))
+			if(C.blood_volume && C.can_inject() && (C.is_bleeding() && vampire) && C.get_blood_id() == H.get_blood_id() && !((NOBLOOD in C.dna.species.species_traits)|| HAS_TRAIT(C, TRAIT_NO_BLOOD)))
 				var/amt = (H.grab_state + C.stat + 2) * power
 				if(C.blood_volume)
 					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4), 0)
@@ -819,7 +819,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(ishuman(M) && aggression)//finally, attack mobs touching the host.
 		var/mob/living/carbon/human/H = M
 		for(var/mob/living/carbon/human/C in ohearers(1, H))
-			if((NOBLOOD in C.dna.species.species_traits) || HAS_TRAIT(C, TRAIT_NO_BLEED))
+			if((NOBLOOD in C.dna.species.species_traits) || HAS_TRAIT(C, TRAIT_NO_BLOOD))
 				continue
 			if((C.pulling && C.pulling == H) || (C.loc == H.loc) && C.is_bleeding() && C.get_blood_id() == H.get_blood_id())
 				var/amt = (2 * power)
