@@ -951,6 +951,12 @@
 
 /datum/status_effect/heretic_mark/rust
 	effect_icon_state = "emark3"
+	var/static/list/item_blacklist = list()
+
+/datum/status_effect/heretic_mark/rust/on_creation(mob/living/new_owner, ...)
+	. = ..()
+	if(!item_blacklist[owner])
+		item_blacklist[owner] = typecacheof(list(/obj/item/grenade))
 
 /datum/status_effect/heretic_mark/rust/on_effect()
 	if(!iscarbon(owner))
@@ -971,13 +977,10 @@
 		for(var/organ_slot in organs_to_damage)
 			if(prob(75))
 				carbon_owner.adjustOrganLoss(organ_slot, 20)
-		var/list/item_blacklist = list(/obj/item/grenade)
 		// And roughly 75% of their items will take a smack, too
 		for(var/obj/item/thing in carbon_owner.get_all_gear())
-			if(!QDELETED(thing) && prob(75))
-				for(var/blacklisted in item_blacklist)
-					if(!istype(thing, blacklisted))
-						thing.take_damage(100)
+			if(!QDELETED(thing) && prob(75) && !is_type_in_typecache(thing, item_blacklist[owner]))
+				thing.take_damage(100)
 	return ..()
 
 /datum/status_effect/corrosion_curse
