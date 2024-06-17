@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - rscadd: added a investigate_list() proc. This returns a text form of a list, good
+      to investigate a list at a glance. This will be useful when you want to investigate
+      TGUI list.
