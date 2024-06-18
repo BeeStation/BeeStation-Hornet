@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: You will now be hit by projectiles when moving, preventing abuse of inertia
+      mechanics, lying and guns in space.
