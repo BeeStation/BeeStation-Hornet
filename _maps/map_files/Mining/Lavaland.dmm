@@ -398,6 +398,15 @@
 	},
 /turf/open/floor/circuit/telecomms,
 /area/mine/maintenance)
+"dq" = (
+/obj/structure/chair/fancy/bench/pew/right{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/mine/living_quarters)
 "dt" = (
 /turf/open/floor/carpet/royalblue,
 /area/mine/science)
@@ -522,13 +531,6 @@
 	},
 /turf/open/floor/plating,
 /area/mine/science)
-"en" = (
-/obj/machinery/computer/arcade{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron/checker,
-/area/mine/living_quarters)
 "er" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -2105,6 +2107,13 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"oI" = (
+/obj/item/toy/plush/lizard_plushie{
+	pixel_x = 5;
+	name = "Walks-upon-Embers"
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "oN" = (
 /obj/machinery/shower{
 	dir = 8
@@ -3308,6 +3317,13 @@
 /obj/item/bedsheet/brown,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/carpet/red,
+/area/mine/living_quarters)
+"ym" = (
+/obj/effect/spawner/randomarcade{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron/checker,
 /area/mine/living_quarters)
 "yv" = (
 /turf/closed/mineral/random/labormineral/volcanic,
@@ -6851,15 +6867,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/eva)
-"Yo" = (
-/obj/structure/chair/fancy/bench/pew/right{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/wood/corner{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/mine/living_quarters)
 "Yp" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/checker,
@@ -36691,7 +36698,7 @@ Zd
 RR
 RR
 RR
-Zd
+oI
 Zd
 RR
 RR
@@ -40792,7 +40799,7 @@ wS
 wS
 wS
 wS
-en
+ym
 kM
 Yp
 KI
@@ -44380,7 +44387,7 @@ ZH
 ZH
 YM
 uv
-Yo
+dq
 ZH
 ZH
 mq

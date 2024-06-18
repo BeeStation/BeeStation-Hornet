@@ -11,8 +11,8 @@
 
 	outfit = /datum/outfit/job/clown
 
-	access = list(ACCESS_THEATRE)
-	minimal_access = list(ACCESS_THEATRE)
+	base_access = list(ACCESS_THEATRE)
+	extra_access = list()
 
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
