@@ -401,7 +401,9 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define HUMAN_CARRY_SLOWDOWN 0.35
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+
 #define INTERACTING_WITH(X, Y) (Y in X.do_afters)
+#define DOING_INTERACTION_WITH_TARGET(user, target) (LAZYACCESS(user.do_afters, target))
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
 
