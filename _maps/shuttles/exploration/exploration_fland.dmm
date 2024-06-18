@@ -2,7 +2,7 @@
 "ax" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "aA" = (
 /obj/machinery/door/airlock/shuttle,
@@ -50,7 +50,7 @@
 	dir = 4;
 	light_color = "#d8b1b1"
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "ds" = (
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
@@ -60,7 +60,7 @@
 /obj/effect/turf_decal/caution{
 	dir = 4
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "du" = (
 /obj/effect/turf_decal/siding/wideplating_new{
@@ -88,7 +88,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "eA" = (
 /obj/structure/table,
@@ -148,7 +148,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "gz" = (
 /obj/structure/sign/nanotrasen,
@@ -158,7 +158,7 @@
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
 	dir = 8
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "hJ" = (
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
@@ -167,7 +167,7 @@
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "hQ" = (
 /obj/effect/turf_decal/bot,
@@ -232,7 +232,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "kV" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -272,7 +272,7 @@
 /obj/effect/decal/cleanable/generic{
 	pixel_x = 11
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "pl" = (
 /obj/machinery/camera{
@@ -337,7 +337,7 @@
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 4
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "tF" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -366,7 +366,7 @@
 "uw" = (
 /obj/machinery/computer/cargo/request,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "uE" = (
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
@@ -374,7 +374,7 @@
 	},
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "vp" = (
 /obj/structure/tank_dispenser/oxygen,
@@ -397,7 +397,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "wo" = (
 /obj/structure/table/reinforced,
@@ -424,7 +424,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "xe" = (
 /obj/structure/fans/tiny,
@@ -438,7 +438,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id = "exploration"
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "xC" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -449,7 +449,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "yx" = (
 /obj/structure/chair/office{
@@ -458,7 +458,7 @@
 	},
 /obj/effect/decal/cleanable/oil/streak,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "yV" = (
 /obj/structure/lattice/catwalk/over,
@@ -478,7 +478,7 @@
 /obj/structure/closet/crate/large,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /obj/effect/spawner/lootdrop/ruinloot/medical,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "zG" = (
 /obj/machinery/door/airlock/shuttle,
@@ -493,7 +493,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "BP" = (
 /obj/effect/decal/cleanable/dirt,
@@ -501,7 +501,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "BR" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -515,7 +515,7 @@
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Cf" = (
 /obj/effect/turf_decal/box,
@@ -533,7 +533,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Cj" = (
 /turf/open/floor/carpet,
@@ -550,7 +550,7 @@
 	pixel_y = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "CZ" = (
 /obj/structure/chair/stool/bar,
@@ -585,7 +585,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Gb" = (
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Gc" = (
 /obj/structure/fans/tiny,
@@ -598,7 +598,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id = "exploration"
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "Gt" = (
 /obj/effect/turf_decal/loading_area{
@@ -607,15 +607,15 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "GJ" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "HU" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "It" = (
 /obj/structure/railing/corner{
@@ -641,7 +641,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/purple/visible,
 /obj/machinery/light/small,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "JF" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -695,11 +695,11 @@
 	name = "Exploration Shuttle Shutters";
 	pixel_x = -24
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "LM" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Mk" = (
 /obj/structure/chair/stool/bar,
@@ -713,7 +713,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Nt" = (
 /obj/effect/turf_decal/stripes/line{
@@ -734,13 +734,13 @@
 	dir = 4
 	},
 /obj/machinery/door/window,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Oa" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Og" = (
 /obj/structure/window/reinforced/survival_pod{
@@ -794,7 +794,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/box,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "QV" = (
 /obj/machinery/computer/arcade/orion_trail{
@@ -812,12 +812,12 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/stairs,
+/turf/open/floor/iron/stairs,
 /area/shuttle/exploration)
 "Rt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "RB" = (
 /obj/structure/bed/dogbed,
@@ -828,13 +828,13 @@
 	dir = 1
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken6"
+	broken = 1
 	},
 /area/shuttle/exploration)
 "RG" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/light/small,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Sf" = (
 /obj/effect/turf_decal/box,
@@ -846,7 +846,7 @@
 /obj/item/soap/nanotrasen,
 /obj/item/storage/bag/trash,
 /obj/item/reagent_containers/spray/cleaner,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Sw" = (
 /obj/machinery/door/airlock/shuttle,
@@ -874,7 +874,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/stairs,
+/turf/open/floor/iron/stairs,
 /area/shuttle/exploration)
 "UN" = (
 /obj/structure/table/reinforced,
@@ -944,7 +944,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Xo" = (
 /obj/structure/table/reinforced,
@@ -962,7 +962,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "XD" = (
 /obj/structure/table,
@@ -997,7 +997,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/glass,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "Zq" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1017,14 +1017,14 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "ZU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "ZY" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1037,7 +1037,7 @@
 /obj/machinery/power/apc/auto_name/north{
 	cell_type = /obj/item/stock_parts/cell/high
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 
 (1,1,1) = {"

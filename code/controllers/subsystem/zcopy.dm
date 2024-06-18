@@ -567,7 +567,7 @@ SUBSYSTEM_DEF(zcopy)
 				fixed_underlays[i] = fixed_appearance
 
 		if (mutated)
-			for (var/i in 1 to fixed_overlays.len)
+			for (var/i in 1 to fixed_underlays.len)
 				if (fixed_underlays[i] == null)
 					fixed_underlays[i] = appearance:underlays[i]
 

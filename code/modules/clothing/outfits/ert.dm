@@ -176,6 +176,7 @@
 	r_pocket = /obj/item/modular_computer/tablet/pda/heads
 	l_hand = /obj/item/clipboard
 	id = /obj/item/card/id/centcom
+	backpack_contents = list(/obj/item/stamp/centcom=1)
 
 /datum/outfit/centcom_official/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -373,7 +374,7 @@
 	suit = /obj/item/clothing/suit/armor/vest
 	suit_store = /obj/item/gun/ballistic/rifle/boltaction
 	l_hand = /obj/item/megaphone
-	head = /obj/item/clothing/head/intern
+	head = /obj/item/clothing/head/hats/intern
 
 /datum/outfit/centcom_clown
 	name = "Code Banana ERT"
@@ -388,7 +389,7 @@
 	backpack_contents = list(
 		/obj/item/stamp/clown = 1,
 		/obj/item/reagent_containers/spray/waterflower/lube = 1,
-		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
+		/obj/item/food/grown/banana = 1,
 		/obj/item/instrument/bikehorn = 1,
 		/obj/item/megaphone/clown = 1,
 		)
@@ -427,7 +428,7 @@
 	backpack_contents = list(
 		/obj/item/stamp/clown = 1,
 		/obj/item/reagent_containers/spray/waterflower/lube = 1,
-		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
+		/obj/item/food/grown/banana = 1,
 		/obj/item/instrument/bikehorn = 1,
 		/obj/item/megaphone/clown = 1,
 		/obj/item/reagent_containers/spray/chemsprayer/janitor/clown = 1,

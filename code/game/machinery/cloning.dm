@@ -296,7 +296,7 @@
 
 /obj/machinery/clonepod/proc/offer_to_ghost(mob/living/carbon/H)
 	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [H.real_name]'s experimental clone?", ROLE_EXPERIMENTAL_CLONE, null, 30 SECONDS, H)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [H.real_name]'s experimental clone?", ROLE_EXPERIMENTAL_CLONE, null, 30 SECONDS, H)
 	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		H.key = C.key
@@ -447,7 +447,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 			to_chat(user, "<span class='notice'>You force an emergency ejection. </span>")
 			go_out()
 			log_cloning("[key_name(user)] manually ejected [key_name(mob_occupant)] from [src] at [AREACOORD(src)].")
-			log_combat(user, mob_occupant, "ejected", W, "from [src]")
+			log_combat(user, mob_occupant, "ejected", W, "from [src]", important = FALSE)
 	else
 		return ..()
 
@@ -460,7 +460,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 	malfunction()
 	add_fingerprint(user)
 	log_cloning("[key_name(user)] emagged [src] at [AREACOORD(src)], causing it to malfunction.")
-	log_combat(user, src, "emagged", null, occupant ? "[occupant] inside, killing them via malfunction." : null)
+	log_combat(user, src, "emagged", null, occupant ? "[occupant] inside, killing them via malfunction." : null, important = FALSE)
 
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)

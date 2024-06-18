@@ -85,7 +85,7 @@
  */
 /mob/living/simple_animal/hostile/holoparasite/proc/extra_host_damage(amount)
 	// NOTE: checking unconscious and not sleeping here is intentional! ~Lucy
-	if(!summoner.current || !(summoner.current.IsUnconscious() || summoner.current.InCritical()))
+	if(!summoner.current || !(summoner.current.IsUnconscious() || HAS_TRAIT(summoner.current, TRAIT_CRITICAL_CONDITION)))
 		return
 	// No brain? Ah whatever, just deal clone damage.
 	var/obj/item/organ/brain/brain = summoner.current.getorganslot(ORGAN_SLOT_BRAIN)
@@ -143,7 +143,7 @@
 /**
  * Holoparasites are NOT physically soft like flesh.
  */
-/mob/living/simple_animal/hostile/holoparasite/can_inject()
+/mob/living/simple_animal/hostile/holoparasite/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
 	return FALSE
 
 /mob/living/simple_animal/hostile/holoparasite/ex_act(severity, target)

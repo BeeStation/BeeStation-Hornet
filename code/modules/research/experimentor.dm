@@ -32,7 +32,7 @@
 	var/resetTime = 15
 	var/cloneMode = FALSE
 	var/list/item_reactions = list()
-	var/list/valid_items = list() //valid items for special reactions like transforming
+	var/static/list/valid_items = list() //valid items for special reactions like transforming
 	var/list/critical_items_typecache //items that can cause critical reactions
 	var/banned_typecache // items that won't be produced
 
@@ -42,13 +42,15 @@
 		temp_list[O] = text2num(temp_list[O])
 	return temp_list
 
-
-/obj/machinery/rnd/experimentor/proc/SetTypeReactions()
-	// Don't need to keep this typecache around, only used in this proc once.
-	var/list/banned_typecache = typecacheof(list(
+/obj/machinery/rnd/experimentor/proc/valid_items()
+	if (!isnull(valid_items))
+		return valid_items
+	var/static/list/banned_typecache = typecacheof(list(
 		/obj/item/stock_parts/cell/infinite,
 		/obj/item/grenade/chem_grenade/tuberculosis
 	))
+
+	valid_items = list()
 
 	for(var/I in typesof(/obj/item))
 		if(ispath(I, /obj/item/relic))
@@ -68,13 +70,13 @@
 			var/obj/item/tempCheck = I
 			if(initial(tempCheck.icon_state) != null) //check it's an actual usable item, in a hacky way
 				valid_items["[I]"] += rand(1,4)
+	return valid_items
 
 /obj/machinery/rnd/experimentor/Initialize(mapload)
 	. = ..()
 
 	trackedIan = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list
 	trackedRuntime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list
-	SetTypeReactions()
 
 	critical_items_typecache = typecacheof(list(
 		/obj/item/construction/rcd,
@@ -291,7 +293,7 @@
 		else if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			var/savedName = "[exp_on]"
 			ejectItem(TRUE)
-			var/newPath = text2path(pick_weight(valid_items))
+			var/newPath = text2path(pick_weight(valid_items()))
 			loaded_item = new newPath(src)
 			visible_message("<span class='warning'>[src] malfunctions, transforming [savedName] into [loaded_item]!</span>")
 			investigate_log("Experimentor has transformed [savedName] into [loaded_item]", INVESTIGATE_EXPERIMENTOR)
@@ -425,8 +427,8 @@
 		visible_message("<span class='warning'>[exp_on] activates the crushing mechanism, [exp_on] is destroyed!</span>")
 		if(linked_console.linked_lathe)
 			var/datum/component/material_container/linked_materials = linked_console.linked_lathe.GetComponent(/datum/component/material_container)
-			for(var/material in exp_on.materials)
-				linked_materials.insert_amount_mat( min((linked_materials.max_amount - linked_materials.total_amount), (exp_on.materials[material])), material)
+			for(var/material in exp_on.custom_materials)
+				linked_materials.insert_amount_mat( min((linked_materials.max_amount - linked_materials.total_amount), (exp_on.custom_materials[material])), material)
 		if(prob(EFFECT_PROB_LOW) && criticalReaction)
 			visible_message("<span class='warning'>[src]'s crushing mechanism slowly and smoothly descends, flattening the [exp_on]!</span>")
 			new /obj/item/stack/sheet/plasteel(get_turf(pick(oview(1,src))))

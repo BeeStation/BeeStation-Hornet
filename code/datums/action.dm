@@ -1,7 +1,7 @@
-#define AB_CHECK_RESTRAINED 1
-#define AB_CHECK_STUN 2
-#define AB_CHECK_LYING 4
-#define AB_CHECK_CONSCIOUS 8
+#define AB_CHECK_HANDS_BLOCKED (1<<0)
+#define AB_CHECK_IMMOBILE (1<<1)
+#define AB_CHECK_LYING (1<<2)
+#define AB_CHECK_CONSCIOUS (1<<3)
 
 /datum/action
 	var/name = "Generic Action"
@@ -106,22 +106,16 @@
 /datum/action/proc/IsAvailable()
 	if(!owner)
 		return FALSE
-	if(check_flags & AB_CHECK_RESTRAINED)
-		if(owner.restrained())
+	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
+		return FALSE
+	if((check_flags & AB_CHECK_LYING) && isliving(owner))
+		var/mob/living/action_user = owner
+		if(!(action_user.mobility_flags & MOBILITY_STAND))
 			return FALSE
-	if(check_flags & AB_CHECK_STUN)
-		if(isliving(owner))
-			var/mob/living/L = owner
-			if(L.IsParalyzed() || L.IsStun())
-				return FALSE
-	if(check_flags & AB_CHECK_LYING)
-		if(isliving(owner))
-			var/mob/living/L = owner
-			if(!(L.mobility_flags & MOBILITY_STAND))
-				return FALSE
-	if(check_flags & AB_CHECK_CONSCIOUS)
-		if(owner.stat)
-			return FALSE
+	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
+		return FALSE
 	return TRUE
 
 /datum/action/proc/UpdateButtonIcon(status_only = FALSE, force = FALSE)
@@ -161,7 +155,7 @@
 
 //Presets for item actions
 /datum/action/item_action
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	button_icon_state = null
 	// If you want to override the normal icon being the item
 	// then change this to an icon state
@@ -179,6 +173,7 @@
 	return ..()
 
 /datum/action/item_action/Trigger()
+	. = ..()
 	if(!..())
 		return FALSE
 	if(target)
@@ -276,7 +271,7 @@
 	name = "Toggle Welding Screen"
 
 /datum/action/item_action/toggle_welding_screen/Trigger()
-	var/obj/item/clothing/head/hardhat/weldhat/H = target
+	var/obj/item/clothing/head/utility/hardhat/welding/H = target
 	if(istype(H))
 		H.toggle_welding_screen(owner)
 
@@ -403,14 +398,14 @@
 /datum/action/item_action/switch_hud
 	name = "Switch HUD"
 
-/datum/action/item_action/toggle_wings
-	name = "Toggle Wings"
-
 /datum/action/item_action/toggle_human_head
 	name = "Toggle Human Head"
 
 /datum/action/item_action/toggle_helmet
 	name = "Toggle Helmet"
+
+/datum/action/item_action/toggle_seclight
+	name = "Toggle Seclight"
 
 /datum/action/item_action/toggle_jetpack
 	name = "Toggle Jetpack"
@@ -530,7 +525,7 @@
 /datum/action/item_action/agent_box
 	name = "Deploy Box"
 	desc = "Find inner peace, here, in the box."
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
 	background_icon_state = "bg_agent"
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	button_icon_state = "deploy_box"
@@ -558,6 +553,13 @@
 	var/box = new boxtype(owner.drop_location())
 	owner.forceMove(box)
 	owner.playsound_local(box, 'sound/misc/box_deploy.ogg', 50, TRUE)
+
+/datum/action/item_action/portaseeder_dissolve
+	name = "Activate Seed Extractor"
+
+/datum/action/item_action/portaseeder_dissolve/Trigger()
+	var/obj/item/storage/bag/plants/portaseeder/H = target
+	H.dissolve_contents()
 
 //Preset for spells
 /datum/action/spell_action

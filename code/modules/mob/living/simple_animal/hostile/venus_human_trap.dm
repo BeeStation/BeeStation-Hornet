@@ -136,12 +136,27 @@
 	var/vine_grab_distance = 5
 	/// Whether or not this plant is ghost possessable
 	var/playable_plant = TRUE
-
+	var/withering = FALSE
 	discovery_points = 2000
+
+/mob/living/simple_animal/hostile/venus_human_trap/Initialize()
+	remove_verb(/mob/living/verb/pulled) //No pulling people into the vines
+	. = ..()
 
 /mob/living/simple_animal/hostile/venus_human_trap/Life()
 	. = ..()
 	pull_vines()
+	if(locate(/obj/structure/spacevine) in get_turf(src))//Heal if we are on vines
+		if(withering)
+			to_chat(src, "<span class='notice'> The vines nourish you, healing your wounds.</span>")
+		adjustHealth(-maxHealth*0.05)
+		withering = FALSE
+		return
+	if(!withering)
+		to_chat(src, "<span class='userdanger'>You are not being nourished by the vines and are withering away! Stay in the vines!</span>")
+	withering = TRUE
+	playsound(src.loc, 'sound/creatures/venus_trap_hurt.ogg', 50, 1)
+	adjustHealth(maxHealth*0.05)
 
 /mob/living/simple_animal/hostile/venus_human_trap/Moved(atom/OldLoc, Dir)
 	. = ..()
@@ -176,6 +191,11 @@
 		var/mob/living/L = the_target
 		L.Paralyze(20)
 	ranged_cooldown = world.time + ranged_cooldown_time
+
+/mob/living/simple_animal/hostile/venus_human_trap/Destroy()
+	for(var/datum/beam/vine as anything in vines)
+		qdel(vine) //reference is automatically deleted by remove_vine
+	return ..()
 
 /mob/living/simple_animal/hostile/venus_human_trap/Login()
 	. = ..()

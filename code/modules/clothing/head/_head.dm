@@ -1,8 +1,7 @@
 /obj/item/clothing/head
 	name = BODY_ZONE_HEAD
-	icon = 'icons/obj/clothing/hats.dmi'
-	icon_state = "top_hat"
-	item_state = "that"
+	icon = 'icons/obj/clothing/head/default.dmi'
+	worn_icon = 'icons/mob/clothing/head/default.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_HEAD
 	dynamic_hair_suffix = "+generic"
@@ -34,7 +33,7 @@
 /obj/item/clothing/head/attackby(obj/item/W, mob/user, params)
 	. = ..()
 	if(istype(W, /obj/item/clothing/head/wig))
-		if(flags_inv && HIDEHAIR)
+		if(flags_inv & HIDEHAIR)
 			to_chat(user, "<span class='notice'>You can't attach a wig to [src]!</span>")
 			return
 		if(attached_wig)
@@ -88,7 +87,7 @@
 	. = ..()
 	if(attached_wig)
 		. += "<span class='notice'>There's \a [attached_wig.name] attached, which can be removed through the context menu.</span>"
-	else if(!(flags_inv && HIDEHAIR))
+	else if(!(flags_inv & HIDEHAIR))
 		. += "<span class='notice'>A wig can be attached to the [src].</span>"
 
 ///Special throw_impact for hats to frisbee hats at people to place them on their heads/attempt to de-hat them.
@@ -136,13 +135,13 @@
 			R.visible_message("<span class='notice'>[src] lands neatly on top of [R]</span>", "<span class='notice'>[src] lands perfectly on top of you.</span>")
 			R.place_on_head(src) //hats aren't designed to snugly fit borg heads or w/e so they'll always manage to knock eachother off
 
-/obj/item/clothing/head/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
+/obj/item/clothing/head/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands)
 		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedhelmet")
+			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedhelmet", item_layer)
 		if(HAS_BLOOD_DNA(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "helmetblood")
+			. += mutable_appearance('icons/effects/blood.dmi', "helmetblood", item_layer)
 
 /obj/item/clothing/head/update_clothes_damaged_state(damaging = TRUE)
 	..()
@@ -158,8 +157,8 @@
 		return
 
 	//Start with two sides for the front
-	var/icon/main = icon('icons/mob/clothing/head.dmi', icon_state) //This takes the icon and uses the worn version of the icon
-	var/icon/sub = icon('icons/mob/clothing/head.dmi', icon_state)
+	var/icon/main = icon('icons/mob/clothing/head/default.dmi', icon_state) //This takes the icon and uses the worn version of the icon
+	var/icon/sub = icon('icons/mob/clothing/head/default.dmi', icon_state)
 
 	//merge the sub side with the main, after masking off the middle pixel line
 	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_right") //masking
@@ -170,7 +169,7 @@
 	main.Blend(sub, ICON_OVERLAY)
 
 	//handle side icons
-	sub = icon('icons/mob/clothing/head.dmi', icon_state, dir = EAST)
+	sub = icon('icons/mob/clothing/head/default.dmi', icon_state, dir = EAST)
 	main.Insert(sub, dir = EAST)
 	sub.Flip(WEST)
 	main.Insert(sub, dir = WEST)

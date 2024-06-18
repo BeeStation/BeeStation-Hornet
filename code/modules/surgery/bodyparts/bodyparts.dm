@@ -25,8 +25,10 @@
 	var/draw_color //Greyscale draw color
 
 	var/body_zone //BODY_ZONE_CHEST, BODY_ZONE_L_ARM, etc , used for def_zone
+	/// The body zone of this part in english ("chest", "left arm", etc) without the species attached to it
+	var/plaintext_zone
 	var/aux_zone // used for hands
-	var/aux_layer
+	var/aux_layer = BODYPARTS_LAYER
 	var/body_part = null //bitflag used to check which clothes cover this bodypart
 
 	var/list/embedded_objects = list()
@@ -75,7 +77,7 @@
 	var/heavy_burn_msg = "peeling away"
 
 /obj/item/bodypart/Initialize(mapload)
-	..()
+	. = ..()
 	name = "[limb_id] [parse_zone(body_zone)]"
 	if(is_dimorphic)
 		limb_gender = pick("m", "f")
@@ -247,6 +249,10 @@
 		total = max(total, stamina_dam)
 	return total
 
+//Returns only stamina damage.
+/obj/item/bodypart/proc/get_staminaloss()
+	return stamina_dam
+
 //Checks disabled status thresholds
 /obj/item/bodypart/proc/update_disabled()
 	set_disabled(is_disabled())
@@ -405,14 +411,13 @@
 		image_dir = SOUTH
 		if(dmg_overlay_type)
 			if(brutestate)
-				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_[brutestate]0", -DAMAGE_LAYER, image_dir)
+				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_[brutestate]0", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), image_dir)
 			if(burnstate)
-				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_0[burnstate]", -DAMAGE_LAYER, image_dir)
+				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_0[burnstate]", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), image_dir)
 
-	var/image/limb = image(layer = -BODYPARTS_LAYER, dir = image_dir)
+	var/image/limb = image(layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER), dir = image_dir)
 	var/image/aux
 	. += limb
-
 
 	if(animal_origin) //Cringe ass animal-specific code.
 		if(IS_ORGANIC_LIMB(src))
@@ -424,14 +429,17 @@
 		else
 			limb.icon = 'icons/mob/augmentation/augments.dmi'
 			limb.icon_state = "[animal_origin]_[body_zone]"
+		. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
 		return
 
 	if(is_husked)
 		limb.icon = husk_icon
 		limb.icon_state = "[husk_type]_husk_[body_zone]"
+		. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
 		if(aux_zone) //Hand shit
-			aux = image(limb.icon, "[husk_type]_husk_[aux_zone]", -aux_layer, image_dir)
+			aux = image(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 			. += aux
+			. += emissive_blocker(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 		return
 
 	////This is the MEAT of limb icon code
@@ -442,13 +450,15 @@
 
 	///The icon_state overlay for the limb
 	limb.icon_state = "[limb_id]_[body_zone][is_dimorphic ? "_[limb_gender]" : ""]"
+	. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
 
 	if(!icon_exists(limb.icon, limb.icon_state))
 		stack_trace("Limb generated with nonexistant icon. File: [limb.icon] | State: [limb.icon_state]")
 
 	if(aux_zone) //Hand shit
-		aux = image(limb.icon, "[limb_id]_[aux_zone]", -aux_layer, image_dir)
+		aux = image(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 		. += aux
+		. += emissive_blocker(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 
 	draw_color = mutation_color
 	if(should_draw_greyscale) //Should the limb be colored?
@@ -466,10 +476,11 @@
 /obj/item/bodypart/chest
 	name = BODY_ZONE_CHEST
 	desc = "It's impolite to stare at a person's chest."
-	icon_state = "default_human_chest"
+	//icon_state = "default_human_chest"
 	max_damage = 200
 	body_zone = BODY_ZONE_CHEST
 	body_part = CHEST
+	plaintext_zone = "chest"
 	px_x = 0
 	px_y = 0
 	stam_damage_coeff = 1
@@ -478,7 +489,7 @@
 	var/obj/item/cavity_item
 
 /obj/item/bodypart/chest/can_dismember(obj/item/I)
-	if(!((owner.stat == DEAD) || owner.InFullCritical()))
+	if(owner.stat < HARD_CRIT)
 		return FALSE
 	return ..()
 
@@ -528,12 +539,13 @@
 		Latin 'sinestra' (left hand), because the left hand was supposed to \
 		be possessed by the devil? This arm appears to be possessed by no \
 		one though."
-	icon_state = "default_human_l_arm"
+	//icon_state = "default_human_l_arm"
 	attack_verb = list("slapped", "punched")
 	max_damage = 50
 	max_stamina_damage = 50
 	body_zone = BODY_ZONE_L_ARM
 	body_part = ARM_LEFT
+	plaintext_zone = "left arm"
 	aux_zone = BODY_ZONE_PRECISE_L_HAND
 	aux_layer = HANDS_PART_LAYER
 	body_damage_coeff = 0.75
@@ -597,12 +609,13 @@
 	name = "right arm"
 	desc = "Over 87% of humans are right handed. That figure is much lower \
 		among humans missing their right arm."
-	icon_state = "default_human_r_arm"
+	//icon_state = "default_human_r_arm"
 	attack_verb = list("slapped", "punched")
 	max_damage = 50
 	max_stamina_damage = 50
 	body_zone = BODY_ZONE_R_ARM
 	body_part = ARM_RIGHT
+	plaintext_zone = "right arm"
 	aux_zone = BODY_ZONE_PRECISE_R_HAND
 	aux_layer = HANDS_PART_LAYER
 	body_damage_coeff = 0.75
@@ -667,11 +680,12 @@
 	name = "left leg"
 	desc = "Some athletes prefer to tie their left shoelaces first for good \
 		luck. In this instance, it probably would not have helped."
-	icon_state = "default_human_l_leg"
+	//icon_state = "default_human_l_leg"
 	attack_verb = list("kicked", "stomped")
 	max_damage = 50
 	body_zone = BODY_ZONE_L_LEG
 	body_part = LEG_LEFT
+	plaintext_zone = "left leg"
 	body_damage_coeff = 0.75
 	px_x = -2
 	px_y = 12
@@ -728,11 +742,12 @@
 		shake it all about. And apparently then it detaches.\n\
 		The hokey pokey has certainly changed a lot since space colonisation."
 	// alternative spellings of 'pokey' are available
-	icon_state = "default_human_r_leg"
+	//icon_state = "default_human_r_leg"
 	attack_verb = list("kicked", "stomped")
 	max_damage = 50
 	body_zone = BODY_ZONE_R_LEG
 	body_part = LEG_RIGHT
+	plaintext_zone = "right leg"
 	body_damage_coeff = 0.75
 	px_x = 2
 	px_y = 12

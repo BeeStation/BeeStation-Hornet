@@ -42,7 +42,10 @@
 #define ZMIMIC_LIGHT_BLEED
 
 /// If this is uncommented, will profile mapload atom initializations
-// #define PROFILE_MAPLOAD_INIT_ATOM
+//#define PROFILE_MAPLOAD_INIT_ATOM
+#ifdef PROFILE_MAPLOAD_INIT_ATOM
+#warn PROFILE_MAPLOAD_INIT_ATOM creates very large profiles, do not leave this on!
+#endif
 
 //#define UNIT_TESTS			//If this is uncommented, we do a single run though of the game setup and tear down process with unit tests in between
 
@@ -80,8 +83,14 @@
 #endif				// 1 to use the default behaviour;
 					// 2 for preloading absolutely everything;
 
+//#define LOWMEMORYMODE
 #ifdef LOWMEMORYMODE
-#define FORCE_MAP "runtimestation"
+	#warn WARNING: Compiling with LOWMEMORYMODE.
+	#ifdef FORCE_MAP
+	#warn WARNING: FORCE_MAP is already defined.
+	#else
+	#define FORCE_MAP "runtimestation"
+	#endif
 #endif
 
 //TODO Remove the SDMM check when it supports 1568

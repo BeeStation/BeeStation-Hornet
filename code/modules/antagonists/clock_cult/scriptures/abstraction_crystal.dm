@@ -171,7 +171,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	else
 		active_hologram.real_name = "the eminence"
 
-	var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
+	var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
 	active_hologram.add_overlay(forbearance)
 
 	to_chat(active_hologram, "<span class='neovgre'>You manifest yourself at [src].</span>")

@@ -38,6 +38,8 @@
 /obj/item/clothing/head/helmet/space/plasmaman
 	name = "plasma envirosuit helmet"
 	desc = "A special containment helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment. It is space-worthy, and may be worn in tandem with other EVA gear."
+	icon = 'icons/obj/clothing/head/plasmaman_hats.dmi'
+	worn_icon = 'icons/mob/clothing/head/plasmaman_head.dmi'
 	icon_state = "helmet"
 	item_state = "helmet"
 	greyscale_colors = "#DF5900#A349A4#DF5900"
@@ -45,6 +47,7 @@
 	greyscale_config_inhand_left = /datum/greyscale_config/plasmaman_helmet_default_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/plasmaman_helmet_default_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/plasmaman_helmet_default_worn
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
 	strip_delay = 80
 	flash_protect = 2
 	tint = 2
@@ -129,7 +132,7 @@
 		// i know someone is gonna do it after i thought about it
 		&& !istype(item, /obj/item/clothing/head/helmet/space/plasmaman) \
 		// messy and icon can't be seen before putting on
-		&& !istype(item, /obj/item/clothing/head/foilhat))
+		&& !istype(item, /obj/item/clothing/head/costume/foilhat))
 		var/obj/item/clothing/head/hat = item
 		if(attached_hat)
 			to_chat(user, "<span class='notice'>There's already a hat on the helmet!</span>")
@@ -159,19 +162,19 @@
 		var/datum/action/A=X
 		A.UpdateButtonIcon()
 
-/obj/item/clothing/head/helmet/space/plasmaman/worn_overlays(mutable_appearance/standing, isinhands)
+/obj/item/clothing/head/helmet/space/plasmaman/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
 	if(!isinhands)
 		if(smile)
-			var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/head.dmi', smile_state)
+			var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/head/plasmaman_head.dmi', smile_state, item_layer)
 			M.color = smile_color
 			. += M
 		if(helmet_on)
-			. += mutable_appearance('icons/mob/clothing/head.dmi', visor_state + "_light")
+			. += mutable_appearance('icons/mob/clothing/head/plasmaman_head.dmi', visor_state + "_light", item_layer)
 		if(!up)
-			. += mutable_appearance('icons/mob/clothing/head.dmi', visor_state + "_weld")
+			. += mutable_appearance('icons/mob/clothing/head/plasmaman_head.dmi', visor_state + "_weld", item_layer)
 		if(attached_hat)
-			. += attached_hat.build_worn_icon(attached_hat.icon_state, default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head.dmi')
+			. += attached_hat.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/default.dmi')
 
 /obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat()
 	set name = "Remove Hat"
@@ -185,18 +188,12 @@
 	update_icon()
 	remove_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
-/obj/item/clothing/head/helmet/space/plasmaman/ComponentInitialize()
+/obj/item/clothing/head/helmet/space/plasmaman/wash(clean_types)
 	. = ..()
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(wipe_that_smile_off_your_face))
-
-///gets called when receiving the CLEAN_ACT signal from something, i.e soap or a shower. exists to remove any smiley faces drawn on the helmet.
-/obj/item/clothing/head/helmet/space/plasmaman/proc/wipe_that_smile_off_your_face()
-	SIGNAL_HANDLER
-
-	if(smile)
+	if(smile && (clean_types & CLEAN_TYPE_PAINT))
 		smile = FALSE
-		cut_overlays()
 		update_icon()
+		return TRUE
 
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
 	helmet_on = !helmet_on
@@ -237,9 +234,9 @@
 	cut_overlays()
 
 	if(!up)
-		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_weld"))
+		add_overlay(mutable_appearance('icons/obj/clothing/head/plasmaman_hats.dmi', visor_state + "_weld"))
 	else if(helmet_on)
-		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_light"))
+		add_overlay(mutable_appearance('icons/obj/clothing/head/plasmaman_hats.dmi', visor_state + "_light"))
 
 	return ..()
 
@@ -338,7 +335,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/bartender/Initialize(mapload)
 	. = ..()
-	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat
 	attached_hat = hat
 	hat.forceMove(src)
 	update_icon()
@@ -645,7 +642,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/bartender/Initialize(mapload)
 	. = ..()
-	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat
 	attached_hat = hat
 	hat.forceMove(src)
 	update_icon()
@@ -821,7 +818,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/protective/bartender/Initialize(mapload)
 	. = ..()
-	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat
 	attached_hat = hat
 	hat.forceMove(src)
 	update_icon()

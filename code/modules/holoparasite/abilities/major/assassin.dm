@@ -134,7 +134,7 @@
 		CRASH("Tried to make assassin holoparasite HUD without proper reference to assassin ability")
 	ability = _ability
 
-/atom/movable/screen/holoparasite/toggle_assassin/Click()
+/atom/movable/screen/holoparasite/toggle_assassin/use()
 	if(ability.assassin)
 		ability.exit_assassin()
 	else

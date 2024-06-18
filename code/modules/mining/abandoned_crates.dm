@@ -41,7 +41,7 @@
 				to_chat(user, "<span class='notice'>The crate unlocks!</span>")
 				locked = FALSE
 				cut_overlays()
-				add_overlay("securecrateg")
+				add_overlay("unlocked_secure")
 				add_overlay("[icon_door || icon_state]_door") //needs to put the door overlayer back cause of this snowflake code
 				tamperproof = 0 // set explosion chance to zero, so we dont accidently hit it with a multitool and instantly die
 				if(!spawned_loot)
@@ -124,7 +124,7 @@
 	switch(loot)
 		if(1 to 5) //5% chance
 			new /obj/item/reagent_containers/food/drinks/bottle/rum(src)
-			new /obj/item/reagent_containers/food/snacks/grown/ambrosia/deus(src)
+			new /obj/item/food/grown/ambrosia/deus(src)
 			new /obj/item/reagent_containers/food/drinks/bottle/whiskey(src)
 			new /obj/item/lighter(src)
 		if(6 to 10)
@@ -171,14 +171,14 @@
 			new /obj/item/clothing/head/helmet/space(src)
 		if(61 to 62)
 			for(var/i in 1 to 5)
-				new /obj/item/clothing/head/kitty(src)
+				new /obj/item/clothing/head/costume/kitty(src)
 				new /obj/item/clothing/neck/petcollar(src)
 		if(63 to 64)
 			for(var/i in 1 to rand(4, 7))
 				var/newcoin = pick(/obj/item/coin/silver, /obj/item/coin/silver, /obj/item/coin/silver, /obj/item/coin/iron, /obj/item/coin/iron, /obj/item/coin/iron, /obj/item/coin/gold, /obj/item/coin/diamond, /obj/item/coin/plasma, /obj/item/coin/uranium)
 				new newcoin(src)
 		if(65 to 66)
-			new /obj/item/clothing/suit/ianshirt(src)
+			new /obj/item/clothing/suit/costume/ianshirt(src)
 			new /obj/item/clothing/suit/hooded/ian_costume(src)
 		if(67 to 68)
 			for(var/i in 1 to rand(4, 7))
@@ -248,7 +248,7 @@
 			new /obj/item/storage/belt/champion(src)
 			new /obj/item/clothing/mask/luchador(src)
 		if(100)
-			new /obj/item/clothing/head/bearpelt(src)
+			new /obj/item/clothing/head/costume/bearpelt(src)
 	spawned_loot = TRUE
 
 /obj/structure/closet/crate/secure/loot/emp_act(severity)

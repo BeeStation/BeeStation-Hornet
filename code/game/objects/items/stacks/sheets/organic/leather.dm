@@ -8,7 +8,6 @@
 	item_state = "sheet-leather"
 	icon = 'icons/obj/stacks/organic.dmi'
 
-
 /obj/item/stack/sheet/leather/get_recipes()
 	return GLOB.leather_recipes
 
@@ -29,6 +28,10 @@
 	icon = 'icons/obj/stacks/organic.dmi'
 	var/wetness = 30 //Reduced when exposed to high temperautres
 	var/drying_threshold_temperature = 500 //Kelvin to start drying
+
+/obj/item/stack/sheet/leather/wetleather/Initialize(mapload, new_amount, merge)
+	. = ..()
+	AddElement(/datum/element/dryable, /obj/item/stack/sheet/leather)
 
 //Step two to make leather - washing
 

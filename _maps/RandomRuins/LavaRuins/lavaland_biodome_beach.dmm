@@ -134,7 +134,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/powered/beach)
 "aC" = (
 /turf/open/floor/wood,
@@ -148,8 +148,7 @@
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aE" = (
-/obj/structure/table,
-/obj/machinery/reagentgrinder,
+/obj/machinery/griddle,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aF" = (
@@ -160,13 +159,11 @@
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aH" = (
-/obj/structure/table,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/food/drinks/shaker,
-/obj/item/reagent_containers/glass/rag,
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aI" = (
@@ -183,11 +180,11 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/powered/beach)
 "aK" = (
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/powered/beach)
 "aM" = (
 /obj/structure/reagent_dispensers/beerkeg,
@@ -196,11 +193,7 @@
 "aN" = (
 /obj/machinery/vending/cigarette/beach,
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel,
-/area/ruin/powered/beach)
-"aO" = (
-/obj/structure/weightmachine/stacklifter,
-/turf/open/floor/plating/beach/sand,
+/turf/open/floor/iron,
 /area/ruin/powered/beach)
 "aP" = (
 /obj/structure/table/wood,
@@ -223,7 +216,7 @@
 "aT" = (
 /obj/machinery/vending/cola,
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/powered/beach)
 "aU" = (
 /obj/effect/overlay/palmtree_l,
@@ -239,16 +232,17 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/powered/beach)
 "aX" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
+/obj/item/reagent_containers/food/condiment/enzyme,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aY" = (
 /obj/machinery/vending/snack,
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/powered/beach)
 "aZ" = (
 /obj/effect/overlay/coconut,
@@ -284,7 +278,7 @@
 "bl" = (
 /obj/effect/turf_decal/caution,
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/powered/beach)
 "bx" = (
 /obj/structure/flora/rock,
@@ -359,7 +353,7 @@
 	},
 /area/ruin/powered/beach)
 "bM" = (
-/turf/open/floor/plasteel/stairs/old,
+/turf/open/floor/iron/stairs/old,
 /area/ruin/powered/beach)
 "bN" = (
 /obj/structure/flora/ausbushes/reedbush,
@@ -430,7 +424,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/powered/beach)
 "cs" = (
 /obj/effect/overlay/palmtree_l,
@@ -501,7 +495,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/powered/beach)
 "pg" = (
 /obj/effect/turf_decal/sand,
@@ -541,7 +535,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/powered/beach)
 "sO" = (
 /obj/machinery/jukebox/disco/indestructible,
@@ -557,7 +551,7 @@
 "yp" = (
 /obj/item/reagent_containers/spray/spraytan,
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/powered/beach)
 "zw" = (
 /obj/structure/closet/athletic_mixed,
@@ -583,7 +577,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/powered/beach)
 "Gc" = (
 /obj/effect/turf_decal/sand,
@@ -595,6 +589,13 @@
 /obj/item/clothing/shoes/sandal,
 /obj/effect/turf_decal/sand,
 /turf/open/floor/pod/dark,
+/area/ruin/powered/beach)
+"NQ" = (
+/obj/structure/table/wood,
+/obj/item/book/manual/wiki/barman_recipes,
+/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/glass/rag,
+/turf/open/floor/wood,
 /area/ruin/powered/beach)
 "QS" = (
 /obj/effect/turf_decal/sand,
@@ -759,7 +760,7 @@ bW
 ad
 ar
 ar
-aO
+bb
 ar
 bb
 ar
@@ -823,7 +824,7 @@ ar
 ap
 az
 ar
-aO
+bb
 ar
 bb
 ar
@@ -1047,7 +1048,7 @@ at
 ax
 hY
 aC
-aP
+NQ
 aW
 aK
 sy

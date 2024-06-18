@@ -1,6 +1,7 @@
 /obj/item/storage/toolbox
 	name = "toolbox"
 	desc = "Danger. Very robust."
+	icon = 'icons/obj/storage/toolbox.dmi'
 	icon_state = "toolbox_default"
 	item_state = "toolbox_default"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
@@ -12,10 +13,10 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON
-	materials = list(/datum/material/iron = 500)
 	attack_verb = list("robusted")
 	hitsound = 'sound/weapons/smash.ogg'
 	custom_materials = list(/datum/material/iron = 500) //Toolboxes by default use iron as their core, custom material.
+	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
 	var/latches = "single_latch"
 	var/has_latches = TRUE
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
@@ -44,7 +45,7 @@
 	name = "emergency toolbox"
 	icon_state = "red"
 	item_state = "toolbox_red"
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/emergency/PopulateContents()
 	new /obj/item/crowbar/red(src)
@@ -63,13 +64,13 @@
 	name = "rusty red toolbox"
 	icon_state = "toolbox_red_old"
 	has_latches = FALSE
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/mechanical
 	name = "mechanical toolbox"
 	icon_state = "blue"
 	item_state = "toolbox_blue"
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/mechanical/PopulateContents()
 	new /obj/item/screwdriver(src)
@@ -83,11 +84,11 @@
 	name = "rusty blue toolbox"
 	icon_state = "toolbox_blue_old"
 	has_latches = FALSE
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/heirloomtoolbox //Not actually a toolbox at all, just an heirloom
 	name = "family toolbox"
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/toolbox.dmi'
 	icon_state = "toolbox_blue_old"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
@@ -137,7 +138,7 @@
 	name = "electrical toolbox"
 	icon_state = "yellow"
 	item_state = "toolbox_yellow"
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/electrical/PopulateContents()
 	var/pickedcolor = pick("red","yellow","green","blue","pink","orange","cyan","white")
@@ -158,7 +159,7 @@
 	item_state = "toolbox_syndi"
 	force = 15
 	throwforce = 18
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/syndicate/ComponentInitialize()
 	. = ..()
@@ -178,7 +179,7 @@
 	name = "mechanical toolbox"
 	icon_state = "blue"
 	item_state = "toolbox_blue"
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/drone/PopulateContents()
 	var/pickedcolor = pick("red","yellow","green","blue","pink","orange","cyan","white")
@@ -195,11 +196,12 @@
 	desc = "A huge brass box with several indentations in its surface."
 	icon_state = "brassbox"
 	item_state = null
+	worn_icon_state = null
 	has_latches = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("robusted", "crushed", "smashed")
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/brass/ComponentInitialize()
 	. = ..()
@@ -216,6 +218,7 @@
 	new /obj/item/weldingtool/experimental/brass(src)
 
 /obj/item/storage/toolbox/brass/prefilled/servant
+	worn_icon_state = "baguette"
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/storage/toolbox/artistic
@@ -224,7 +227,7 @@
 	icon_state = "green"
 	item_state = "artistic_toolbox"
 	w_class = WEIGHT_CLASS_GIGANTIC //Holds more than a regular toolbox!
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/artistic/ComponentInitialize()
 	. = ..()
@@ -245,8 +248,9 @@
 	new /obj/item/stack/cable_coil/white(src)
 
 /obj/item/storage/toolbox/ammo
-	name = "ammo box"
+	name = "ammo box (7.62mm)"
 	desc = "It contains a few clips."
+	icon = 'icons/obj/storage/case.dmi'
 	icon_state = "ammobox"
 	item_state = "ammobox"
 	drop_sound = 'sound/items/handling/ammobox_drop.ogg'
@@ -261,15 +265,34 @@
 	new /obj/item/ammo_box/a762(src)
 	new /obj/item/ammo_box/a762(src)
 
-//floorbot assembly
-/obj/item/storage/toolbox/attackby(obj/item/stack/tile/plasteel/T, mob/user, params)
-	var/list/allowed_toolbox = list(/obj/item/storage/toolbox/emergency,	//which toolboxes can be made into floorbots
-							/obj/item/storage/toolbox/electrical,
-							/obj/item/storage/toolbox/mechanical,
-							/obj/item/storage/toolbox/artistic,
-							/obj/item/storage/toolbox/syndicate)
+/obj/item/storage/toolbox/ammo/c38
+	name = "ammo crate (.38)"
+	desc = "It contains a few boxes of bullets."
 
-	if(!istype(T, /obj/item/stack/tile/plasteel))
+/obj/item/storage/toolbox/ammo/c38/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_combined_w_class = 10
+	STR.max_items = 5
+
+/obj/item/storage/toolbox/ammo/c38/PopulateContents()
+	new /obj/item/ammo_box/c38/box(src)
+	new /obj/item/ammo_box/c38/box(src)
+	new /obj/item/ammo_box/c38/box(src)
+	new /obj/item/ammo_box/c38/box(src)
+	new /obj/item/ammo_box/c38/box(src)
+
+//floorbot assembly
+/obj/item/storage/toolbox/attackby(obj/item/stack/tile/iron/T, mob/user, params)
+	var/list/allowed_toolbox = list(
+		/obj/item/storage/toolbox/emergency, //which toolboxes can be made into floorbots
+		/obj/item/storage/toolbox/electrical,
+		/obj/item/storage/toolbox/mechanical,
+		/obj/item/storage/toolbox/artistic,
+		/obj/item/storage/toolbox/syndicate,
+	)
+
+	if(!istype(T, /obj/item/stack/tile/iron))
 		..()
 		return
 	if(!is_type_in_list(src, allowed_toolbox) && (type != /obj/item/storage/toolbox))

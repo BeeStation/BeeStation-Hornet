@@ -107,7 +107,7 @@
 	loot = list(/obj/item/organ/regenerative_core/legion)
 	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
 	del_on_death = TRUE
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
@@ -170,16 +170,24 @@
 	throw_message = "is shrugged off by"
 	pass_flags = PASSTABLE
 	del_on_death = TRUE
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 	var/can_infest_dead = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/Life()
-	if(isturf(loc))
-		for(var/mob/living/carbon/human/H in viewers(1, src)) //Only for corpse right next to/on same tile
-			if(H.stat == UNCONSCIOUS || (can_infest_dead && H.stat == DEAD))
-				infest(H)
-	..()
+	. = ..()
+	if(stat == DEAD || !isturf(loc))
+		return
+
+	for(var/mob/living/carbon/human/victim in viewers(1, src)) //Only for corpse right next to/on same tile
+		switch(victim.stat)
+			if(UNCONSCIOUS, HARD_CRIT)
+				infest(victim)
+				return //This will qdelete the legion.
+			if(DEAD)
+				if(can_infest_dead)
+					infest(victim)
+					return //This will qdelete the legion.
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	visible_message("<span class='warning'>[name] burrows into the flesh of [H]!</span>")
@@ -313,7 +321,7 @@
 			belt = null
 			backpack_contents = list()
 			if(prob(70))
-				backpack_contents += pick(list(/obj/item/stamp/clown = 1, /obj/item/reagent_containers/spray/waterflower = 1, /obj/item/reagent_containers/food/snacks/grown/banana = 1, /obj/item/megaphone/clown = 1, /obj/item/reagent_containers/food/drinks/soda_cans/canned_laughter = 1, /obj/item/pneumatic_cannon/pie = 1))
+				backpack_contents += pick(list(/obj/item/stamp/clown = 1, /obj/item/reagent_containers/spray/waterflower = 1, /obj/item/food/grown/banana = 1, /obj/item/megaphone/clown = 1, /obj/item/reagent_containers/food/drinks/soda_cans/canned_laughter = 1, /obj/item/pneumatic_cannon/pie = 1))
 			if(prob(30))
 				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pick_weight(list( 1 = 3, 2 = 2, 3 = 1)))
 			if(prob(10))
@@ -356,7 +364,7 @@
 			mask = /obj/item/clothing/mask/breath
 		if("Cultist")
 			uniform = /obj/item/clothing/under/costume/roman
-			suit = /obj/item/clothing/suit/cultrobes
+			suit = /obj/item/clothing/suit/hooded/cultrobes
 			suit_store = /obj/item/tome
 			shoes = /obj/item/clothing/shoes/cult
 			r_pocket = /obj/item/restraints/legcuffs/bola/cult

@@ -44,6 +44,7 @@
 	var/dormant = FALSE //this prevents a disease from having any effects or spreading
 	var/keepid = FALSE
 	var/archivecure
+	var/event = FALSE // check if this virus spawned as a part of an event.
 	var/static/list/advance_cures = list(
 		list(/datum/reagent/water, /datum/reagent/consumable/nutriment, /datum/reagent/ash, /datum/reagent/iron),
 		list(/datum/reagent/consumable/ethanol, /datum/reagent/uranium/radium, /datum/reagent/oil, /datum/reagent/potassium, /datum/reagent/lithium),
@@ -94,7 +95,7 @@
 			advance_diseases += P
 	var/replace_num = advance_diseases.len + 1 - DISEASE_LIMIT //amount of diseases that need to be removed to fit this one
 	if(replace_num > 0)
-		sortTim(advance_diseases, GLOBAL_PROC_REF(cmp_advdisease_resistance_asc))
+		sort_list(advance_diseases, GLOBAL_PROC_REF(cmp_advdisease_resistance_asc))
 		for(var/i in 1 to replace_num)
 			var/datum/disease/advance/competition = advance_diseases[i]
 			if(transmission > (competition.resistance * 2))
@@ -153,7 +154,8 @@
 	QDEL_LIST(A.symptoms)
 	for(var/datum/symptom/S as() in symptoms)
 		A.symptoms += S.Copy()
-	A.dormant = dormant
+	if(!CONFIG_GET(flag/biohazards_allowed))
+		A.dormant = dormant
 	A.mutable = mutable
 	A.initial = initial
 	A.faltered = faltered
@@ -165,6 +167,8 @@
 	A.speed = speed
 	A.keepid = keepid
 	A.id = id
+	A.event = event
+	A.Refresh()
 	//this is a new disease starting over at stage 1, so processing is not copied
 	return A
 
@@ -185,7 +189,16 @@
 // Mix the symptoms of two diseases (the src and the argument)
 /datum/disease/advance/proc/Mix(datum/disease/advance/D)
 	if(!(IsSame(D)))
-		var/list/possible_symptoms = shuffle(D.symptoms)
+		var/list/possible_symptoms = list()
+		if(CONFIG_GET(flag/seeded_symptoms)) //two diseases mixing always returns the same result if this option is on
+			for(var/datum/symptom/S in symptoms)
+				possible_symptoms += S
+				RemoveSymptom(S)
+			for(var/datum/symptom/S in D.symptoms)
+				possible_symptoms += S
+			possible_symptoms = sort_list(possible_symptoms, GLOBAL_PROC_REF(cmp_advdisease_symptomid_asc))
+		else
+			possible_symptoms = shuffle(D.symptoms)
 		for(var/datum/symptom/S in possible_symptoms)
 			AddSymptom(S.Copy())
 
@@ -239,6 +252,7 @@
 		if(actual_name != "Unknown")
 			name = actual_name
 
+
 //Generate disease properties based on the effects. Returns an associated list.
 /datum/disease/advance/proc/GenerateProperties()
 	resistance = 0
@@ -286,6 +300,7 @@
 	stage_prob = max(stage_rate, 2)
 	SetDanger(severity)
 	GenerateCure()
+	symptoms = sort_list(symptoms, GLOBAL_PROC_REF(cmp_advdisease_symptomid_asc))
 
 
 
@@ -295,8 +310,12 @@
 		spread_flags = DISEASE_SPREAD_FALTERED
 		spread_text = "Intentional Injection"
 	else if(dormant)
-		spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
-		spread_text = "None"
+		if(CONFIG_GET(flag/biohazards_allowed))
+			spread_flags = DISEASE_SPREAD_BLOOD
+			spread_text = "Blood"
+		else
+			spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
+			spread_text = "None"
 	else
 		switch(transmission)
 			if(-INFINITY to 5)
@@ -373,7 +392,6 @@
 	var/s = safepick(GenerateSymptoms(min_level, max_level, 1))
 	if(s)
 		AddSymptom(s)
-		Refresh(TRUE)
 	return
 
 // Randomly remove a symptom.
@@ -381,10 +399,8 @@
 	if(!mutable && !ignore_mutable)
 		return
 	if(symptoms.len > 1)
-		var/s = safepick(symptoms)
-		if(s)
-			RemoveSymptom(s)
-			Refresh(TRUE)
+		RemoveRandomSymptom()
+		Refresh(TRUE)
 
 // Randomly neuter a symptom.
 /datum/disease/advance/proc/Neuter(ignore_mutable = FALSE)
@@ -426,14 +442,24 @@
 
 // Add a symptom, if it is over the limit we take a random symptom away and add the new one.
 /datum/disease/advance/proc/AddSymptom(datum/symptom/S)
-
 	if(HasSymptom(S))
 		return
-
 	if(symptoms.len >= VIRUS_SYMPTOM_LIMIT)
-		RemoveSymptom(pick(symptoms))
+		RemoveRandomSymptom()
 	symptoms += S
 	S.OnAdd(src)
+	Refresh()
+
+//removes a random symptom. If SEEDED_SYMPTOMS is on in config, removes a symptom predetermined at roundstart instead
+/datum/disease/advance/proc/RemoveRandomSymptom()
+	if(CONFIG_GET(flag/seeded_symptoms))
+		var/list/orderlysymptoms = list()
+		for(var/datum/symptom/S in symptoms)
+			orderlysymptoms += S //sort symptoms by their ID. Symptom ID is chosen based on order in the symptom list, which is randomized on disease subsystem init
+		var/list/queuedsymptoms = sort_list(orderlysymptoms, GLOBAL_PROC_REF(cmp_advdisease_symptomid_asc))
+		RemoveSymptom(queuedsymptoms[1])
+	else
+		RemoveSymptom(pick(symptoms))
 
 // Simply removes the symptom.
 /datum/disease/advance/proc/RemoveSymptom(datum/symptom/S)
@@ -458,6 +484,8 @@
 	var/list/diseases = list()
 
 	for(var/datum/disease/advance/A in D_list)
+		if(!A.mutable)
+			continue
 		diseases += A.Copy()
 
 	if(!diseases.len)
@@ -479,7 +507,8 @@
 
 	 // Should be only 1 entry left, but if not let's only return a single entry
 	var/datum/disease/advance/to_return = pick(diseases)
-	to_return.Refresh(1)
+	to_return.dormant = FALSE
+	to_return.Refresh(new_name = TRUE)
 	return to_return
 
 /proc/SetViruses(datum/reagent/R, list/data)

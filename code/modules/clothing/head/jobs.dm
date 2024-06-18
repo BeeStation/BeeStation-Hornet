@@ -5,17 +5,18 @@
 #define DRILL_CANADIAN	"canadian"
 
 //Chef
-/obj/item/clothing/head/chefhat
+/obj/item/clothing/head/utility/chefhat
 	name = "chef's hat"
-	item_state = "chef"
+	item_state = "chefhat"
 	icon_state = "chef"
 	desc = "The commander in chef's head wear."
 	strip_delay = 10
 	equip_delay_other = 10
 	dynamic_hair_suffix = ""
+
 	dog_fashion = /datum/dog_fashion/head/chef
 
-/obj/item/clothing/head/chefhat/suicide_act(mob/living/user)
+/obj/item/clothing/head/utility/chefhat/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is donning [src]! It looks like [user.p_theyre()] trying to become a chef.</span>")
 	user.say("Bork Bork Bork!", forced = "chef hat suicide")
 	sleep(20)
@@ -25,7 +26,7 @@
 	return(FIRELOSS)
 
 //Captain
-/obj/item/clothing/head/caphat
+/obj/item/clothing/head/hats/caphat
 	name = "captain's hat"
 	desc = "It's good being the king."
 	icon_state = "captain"
@@ -34,9 +35,10 @@
 	armor = list(MELEE = 25,  BULLET = 15, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
+	dying_key = DYE_REGISTRY_CAP
 
 //Captain: This is no longer space-worthy
-/obj/item/clothing/head/caphat/parade
+/obj/item/clothing/head/hats/caphat/parade
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "capcap"
@@ -44,27 +46,28 @@
 	dog_fashion = null
 
 //Head of Personnel
-/obj/item/clothing/head/hopcap
+/obj/item/clothing/head/hats/hopcap
 	name = "head of personnel's cap"
 	icon_state = "hopcap"
 	desc = "The symbol of true bureaucratic micromanagement."
 	armor = list(MELEE = 25,  BULLET = 15, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
 	dog_fashion = /datum/dog_fashion/head/hop
+	dying_key = DYE_REGISTRY_CAP
 
 //Chaplain
-/obj/item/clothing/head/nun_hood
+/obj/item/clothing/head/chaplain/nun_hood
 	name = "nun hood"
 	desc = "Maximum piety in this star system."
 	icon_state = "nun_hood"
 	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
-/obj/item/clothing/head/bishopmitre
+/obj/item/clothing/head/chaplain/bishopmitre
 	name = "bishop mitre"
 	desc = "An opulent hat that functions as a radio to God. Or as a lightning rod, depending on who you ask."
 	icon_state = "bishopmitre"
 
-/obj/item/clothing/head/bishopmitre/black
+/obj/item/clothing/head/chaplain/bishopmitre/black
 	icon_state = "blackbishopmitre"
 
 //Detective
@@ -73,6 +76,7 @@
 	desc = "There's only one man who can sniff out the dirty stench of crime, and he's likely wearing this hat."
 	armor = list(MELEE = 25,  BULLET = 5, LASER = 25, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 50, STAMINA = 25)
 	icon_state = "detective"
+	item_state = "det_hat"
 	var/candy_cooldown = 0
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/detective
 	dog_fashion = /datum/dog_fashion/head/detective
@@ -88,7 +92,7 @@
 /obj/item/clothing/head/fedora/det_hat/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE, ismonkey(user)) && loc == user)
 		if(candy_cooldown < world.time)
-			var/obj/item/reagent_containers/food/snacks/candy_corn/CC = new /obj/item/reagent_containers/food/snacks/candy_corn(src)
+			var/obj/item/food/candy_corn/CC = new /obj/item/food/candy_corn(src)
 			user.put_in_hands(CC)
 			to_chat(user, "You slip a candy corn from your hat.")
 			candy_cooldown = world.time+1200
@@ -105,11 +109,33 @@
 /obj/item/clothing/head/beret
 	name = "beret"
 	desc = "A beret, a mime's favorite headwear."
+	icon = 'icons/obj/clothing/head/beret.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret.dmi'
 	icon_state = "beret"
 	dog_fashion = /datum/dog_fashion/head/beret
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
 	w_class = WEIGHT_CLASS_SMALL
+	dying_key = DYE_REGISTRY_BERET
+
+/obj/item/clothing/head/beret/color
+	name = "white beret"
+	icon_state = "beret_white"
+
+/obj/item/clothing/head/beret/rainbow
+	name = "rainbow beret"
+	desc = "The result of a passionate relationship between a mime and a clown."
+	icon_state = "beret_rainbow"
+
+/obj/item/clothing/head/beret/mime
+	name = "invisible beret"
+	desc = "Only a very scholarly mime is able to cram enough mimery into a beret for this to happen."
+	icon_state = "beret_mime"
+
+/obj/item/clothing/head/beret/clown
+	name = "H.O.N.K tactical beret"
+	desc = "A tactical berret to be used during the enacting of the most dangerous of pranks."
+	icon_state = "beret_clown"
 
 /obj/item/clothing/head/beret/vintage
 	name = "vintage beret"
@@ -149,28 +175,33 @@
 
 //Security
 
-/obj/item/clothing/head/HoS
+/obj/item/clothing/head/hats/hos
 	name = "head of security cap"
 	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hoscap"
 	armor = list(MELEE = 40,  BULLET = 30, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60, STAMINA = 30)
 	strip_delay = 80
 	dynamic_hair_suffix = ""
+	dying_key = DYE_REGISTRY_CAP
 
-/obj/item/clothing/head/HoS/syndicate
+/obj/item/clothing/head/hats/hos/syndicate
 	name = "syndicate cap"
 	desc = "A black cap fit for a high ranking syndicate officer."
 
-/obj/item/clothing/head/HoS/beret
+/obj/item/clothing/head/hats/hos/beret
 	name = "head of security beret"
+	icon = 'icons/obj/clothing/head/beret.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret.dmi'
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
 	icon_state = "hosberetblack"
+	dying_key = DYE_REGISTRY_CAP
 
-/obj/item/clothing/head/HoS/beret/syndicate
+/obj/item/clothing/head/hats/hos/beret/syndicate
 	name = "syndicate beret"
 	desc = "A black beret with thick armor padding inside. Stylish and robust."
+	dying_key = DYE_REGISTRY_CAP
 
-/obj/item/clothing/head/warden
+/obj/item/clothing/head/hats/warden
 	name = "warden's police hat"
 	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
 	icon_state = "policehelm"
@@ -178,15 +209,15 @@
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
 
-/obj/item/clothing/head/warden/drill
+/obj/item/clothing/head/hats/warden/drill
 	name = "warden's campaign hat"
 	desc = "A special armored campaign hat with the security insignia emblazoned on it. Uses reinforced fabric to offer sufficient protection."
 	icon_state = "wardendrill"
-	item_state = "wardendrill"
+	item_state = null
 	dog_fashion = null
 	var/mode = DRILL_DEFAULT
 
-/obj/item/clothing/head/warden/drill/screwdriver_act(mob/living/carbon/human/user, obj/item/I)
+/obj/item/clothing/head/hats/warden/drill/screwdriver_act(mob/living/carbon/human/user, obj/item/I)
 	if(..())
 		return TRUE
 	switch(mode)
@@ -203,24 +234,24 @@
 			to_chat(user, "<span class='danger'>You adjust voice circuit but nothing happens, probably because it's broken.</span>")
 	return TRUE
 
-/obj/item/clothing/head/warden/drill/wirecutter_act(mob/living/user, obj/item/I)
+/obj/item/clothing/head/hats/warden/drill/wirecutter_act(mob/living/user, obj/item/I)
 	if(mode != DRILL_CANADIAN)
 		to_chat(user, "<span class='danger'>You broke the voice circuit!</span>")
 		mode = DRILL_CANADIAN
 	return TRUE
 
-/obj/item/clothing/head/warden/drill/equipped(mob/M, slot)
+/obj/item/clothing/head/hats/warden/drill/equipped(mob/M, slot)
 	. = ..()
 	if (slot == ITEM_SLOT_HEAD)
 		RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	else
 		UnregisterSignal(M, COMSIG_MOB_SAY)
 
-/obj/item/clothing/head/warden/drill/dropped(mob/M)
+/obj/item/clothing/head/hats/warden/drill/dropped(mob/M)
 	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
-/obj/item/clothing/head/warden/drill/proc/handle_speech(datum/source, mob/speech_args)
+/obj/item/clothing/head/hats/warden/drill/proc/handle_speech(datum/source, mob/speech_args)
 	SIGNAL_HANDLER
 
 	var/message = speech_args[SPEECH_MESSAGE]

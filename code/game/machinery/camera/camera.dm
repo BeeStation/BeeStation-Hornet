@@ -15,7 +15,7 @@
 
 	armor = list(MELEE = 50,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 50, STAMINA = 0)
 	max_integrity = 100
-	integrity_failure = 50
+	integrity_failure = 0.5
 	var/default_camera_icon = "camera" //the camera's base icon used by update_icon - icon_state is primarily used for mapping display purposes.
 	var/list/network = list("ss13")
 	var/c_tag = null
@@ -164,13 +164,13 @@
 		return
 	if(!(. & EMP_PROTECT_SELF))
 		if(prob(150/severity))
-			update_icon()
+			update_appearance()
 			previous_network = network
 			network = list()
 			GLOB.cameranet.removeCamera(src)
 			set_light(0)
 			emped = emped+1  //Increase the number of consecutive EMP's
-			update_icon()
+			update_appearance()
 			thisemp = emped //Take note of which EMP this proc is for
 			for(var/i in GLOB.player_list)
 				var/mob/M = i
@@ -184,7 +184,7 @@
 	triggerCameraAlarm() //camera alarm triggers even if multiple EMPs are in effect.
 	if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
 		network = previous_network
-		update_icon()
+		update_appearance()
 		if(can_use())
 			GLOB.cameranet.addCamera(src)
 		emped = 0 //Resets the consecutive EMP count
@@ -216,7 +216,7 @@
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You screw the camera's panel [panel_open ? "open" : "closed"].</span>")
 	I.play_tool_sound(src)
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/camera/wirecutter_act(mob/living/user, obj/item/I)
@@ -396,13 +396,14 @@
 			new /obj/item/stack/cable_coil(loc, 2)
 	qdel(src)
 
-/obj/machinery/camera/update_icon() //TO-DO: Make panel open states, xray camera, and indicator lights overlays instead.
+/obj/machinery/camera/update_icon_state() //TO-DO: Make panel open states, xray camera, and indicator lights overlays instead.
 	if(!current_state)
 		icon_state = "[default_camera_icon]_off"
 	else if (machine_stat & EMPED)
 		icon_state = "[default_camera_icon]_emp"
 	else
 		icon_state = "[default_camera_icon][in_use_lights ? "_in_use" : ""]"
+	return ..()
 
 /obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	status = !status
@@ -441,7 +442,7 @@
 			visible_message("<span class='danger'>\The [src] [change_msg]!</span>")
 
 		playsound(src, 'sound/items/wirecutter.ogg', 100, TRUE)
-	update_icon() //update Initialize() if you remove this.
+	update_appearance() //update Initialize() if you remove this.
 
 	// now disconnect anyone using the camera
 	//Apparently, this will disconnect anyone even if the camera was re-activated.

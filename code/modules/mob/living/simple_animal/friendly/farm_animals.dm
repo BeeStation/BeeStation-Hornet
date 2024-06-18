@@ -13,7 +13,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 4)
+	butcher_results = list(/obj/item/food/meat/slab = 4)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -31,7 +31,7 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	chat_color = "#B2CEB3"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/goat/Initialize(mapload)
 	AddComponent(/datum/component/udder)
@@ -112,7 +112,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 6)
+	butcher_results = list(/obj/item/food/meat/slab = 6)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -124,7 +124,7 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	chat_color = "#FFFFFF"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/cow/Initialize(mapload)
 	AddComponent(/datum/component/udder)
@@ -179,7 +179,7 @@
 	density = FALSE
 	speak_chance = 2
 	turns_per_move = 2
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/chicken = 1)
+	butcher_results = list(/obj/item/food/meat/slab/chicken = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -193,7 +193,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	chat_color = "#FFDC9B"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/chick/Initialize(mapload)
 	. = ..()
@@ -240,9 +240,9 @@
 	density = FALSE
 	speak_chance = 2
 	turns_per_move = 3
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/chicken = 2)
-	var/egg_type = /obj/item/reagent_containers/food/snacks/egg
-	var/food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
+	butcher_results = list(/obj/item/food/meat/slab/chicken = 2)
+	var/egg_type = /obj/item/food/egg
+	var/food_type = /obj/item/food/grown/wheat
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -266,7 +266,7 @@
 	chat_color = "#FFDC9B"
 	mobchatspan = "stationengineer"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/chicken/Initialize(mapload)
 	. = ..()
@@ -316,8 +316,8 @@
 			if(prob(25))
 				START_PROCESSING(SSobj, E)
 
-/obj/item/reagent_containers/food/snacks/egg/var/amount_grown = 0
-/obj/item/reagent_containers/food/snacks/egg/process(delta_time)
+/obj/item/food/egg/var/amount_grown = 0
+/obj/item/food/egg/process(delta_time)
 	if(isturf(loc))
 		amount_grown += rand(1,2) * delta_time
 		if(amount_grown >= 200)

@@ -9,9 +9,9 @@ from mapmerge2.dmm import *
 desc = """
 Update dmm files given update file/string.
 Replacement syntax example:
-    /turf/open/floor/plasteel/warningline : /obj/effect/turf_decal {dir = @OLD ;tag = @SKIP;icon_state = @SKIP}
-    /turf/open/floor/plasteel/warningline : /obj/effect/turf_decal {@OLD} , /obj/thing {icon_state = @OLD:name; name = "meme"}
-    /turf/open/floor/plasteel/warningline{dir=2} : /obj/thing
+    /turf/open/floor/iron/warningline : /obj/effect/turf_decal {dir = @OLD ;tag = @SKIP;icon_state = @SKIP}
+    /turf/open/floor/iron/warningline : /obj/effect/turf_decal {@OLD} , /obj/thing {icon_state = @OLD:name; name = "meme"}
+    /turf/open/floor/iron/warningline{dir=2} : /obj/thing
     /obj/effect/landmark/start/virologist : @DELETE
     /mob/living{resize = @ANY} : /mob/living{@OLD; resize = @SKIP}
 Syntax for subtypes also exist, to update a path's type but maintain subtypes:
@@ -127,6 +127,8 @@ def update_path(dmm_data, replacement_string, verbose=False):
                     out_props[prop_name] = old_props[params[1]] if len(params) > 1 else old_props[prop_name]
                     continue
                 out_props[prop_name] = prop_value
+            # For some reason, pop() leaves None values in the dict.
+            out_props = {k:v for (k,v) in out_props.items() if k != "" and k is not None}
             if out_props:
                 out += props_to_string(out_props)
             out_paths.append(out)

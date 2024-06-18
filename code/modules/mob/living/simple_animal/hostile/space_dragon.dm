@@ -147,8 +147,8 @@
 			is_swallowing = FALSE
 			return
 	. = ..()
-	if(istype(target, /obj/mecha))
-		var/obj/mecha/M = target
+	if(istype(target, /obj/vehicle/sealed/mecha))
+		var/obj/vehicle/sealed/mecha/M = target
 		M.take_damage(50, BRUTE, MELEE, 1)
 
 /mob/living/simple_animal/hostile/space_dragon/Move()
@@ -173,6 +173,23 @@
 /mob/living/simple_animal/hostile/space_dragon/wabbajack_act(mob/living/new_mob)
 	empty_contents()
 	. = ..()
+
+/mob/living/simple_animal/hostile/space_dragon/ex_act(severity, target, origin)
+	set waitfor = FALSE
+	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
+		return
+	// Deal with parent operations
+	contents_explosion(severity, target)
+	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity, target)
+	// Run bomb armour
+	var/bomb_armor = (100 - getarmor(null, BOMB)) / 100
+	switch (severity)
+		if (EXPLODE_DEVASTATE)
+			adjustBruteLoss(180 * bomb_armor)
+		if (EXPLODE_HEAVY)
+			adjustBruteLoss(80 * bomb_armor)
+		if(EXPLODE_LIGHT)
+			adjustBruteLoss(30 * bomb_armor)
 
 /**
   * Allows space dragon to choose its own name.
@@ -304,7 +321,7 @@
 		L.adjustFireLoss(30)
 		to_chat(L, "<span class='userdanger'>You're hit by [src]'s fire breath!</span>")
 	// deals damage to mechs
-	for(var/obj/mecha/M in T.contents)
+	for(var/obj/vehicle/sealed/mecha/M in T.contents)
 		if(M in hit_list)
 			continue
 		hit_list += M
@@ -361,7 +378,7 @@
  */
 /mob/living/simple_animal/hostile/space_dragon/proc/start_carp_speedboost(mob/living/target)
 	target.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 2))
-	target.add_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE, multiplicative_slowdown = -0.5)
+	target.add_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 	addtimer(CALLBACK(src, PROC_REF(end_carp_speedboost), target), 8 SECONDS)
 
 /**
@@ -373,7 +390,7 @@
  */
 /mob/living/simple_animal/hostile/space_dragon/proc/end_carp_speedboost(mob/living/target)
 	target.remove_filter("anger_glow")
-	target.remove_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE)
+	target.remove_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 
 /**
  * Handles wing gust from the windup all the way to the endlag at the end.
@@ -419,9 +436,10 @@
 	message = treat_message_min(message)
 	log_talk(message, LOG_SAY)
 	var/message_a = say_quote(message)
-	var/rendered = "<span class='carpspeak'>Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span>"
+	var/valid_span_class = "srt_radio carpspeak"
 	if(istype(src, /mob/living/simple_animal/hostile/space_dragon))
-		rendered = "<span class='big'>[rendered]</span>"
+		valid_span_class += " big"
+	var/rendered = "<span class='[valid_span_class]'>Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span>"
 	for(var/mob/S in GLOB.player_list)
 		if(!S.stat && ("carp" in S.faction))
 			to_chat(S, rendered)

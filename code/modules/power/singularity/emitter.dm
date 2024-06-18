@@ -69,7 +69,7 @@
 	wires = new /datum/wires/emitter(src)
 	if(welded)
 		if(!anchored)
-			setAnchored(TRUE)
+			set_anchored(TRUE)
 		connect_to_network()
 
 	sparks = new
@@ -80,7 +80,7 @@
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
 
-/obj/machinery/power/emitter/setAnchored(anchorvalue)
+/obj/machinery/power/emitter/set_anchored(anchorvalue)
 	. = ..()
 	if(!anchored && welded) //make sure they're keep in sync in case it was forcibly unanchored by badmins or by a megafauna.
 		welded = FALSE
@@ -100,8 +100,6 @@
 	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
 		power_usage -= 50 * manipulator.rating
 	active_power_usage = power_usage
-	//if(anchored && welded)
-	//	state = EMITTER_WRENCHED
 
 /obj/machinery/power/emitter/examine(mob/user)
 	. = ..()
@@ -177,7 +175,7 @@
 
 /obj/machinery/power/emitter/attack_animal(mob/living/simple_animal/M)
 	if(ismegafauna(M) && anchored)
-		setAnchored(FALSE)
+		set_anchored(FALSE)
 		M.visible_message("<span class='warning'>[M] rips [src] free from its moorings!</span>")
 	else
 		. = ..()
@@ -421,7 +419,7 @@
 	auto.Grant(buckled_mob, src)
 
 /datum/action/innate/proto_emitter
-	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUN | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
 	///Stores the emitter the user is currently buckled on
 	var/obj/machinery/power/emitter/prototype/proto_emitter
 	///Stores the mob instance that is buckled to the emitter

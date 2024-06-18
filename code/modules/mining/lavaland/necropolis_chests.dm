@@ -28,15 +28,6 @@
 	to_chat(user, "<span class='notice'>You disable the magic lock with the [item].</span>")
 	return TRUE
 
-
-/obj/effect/spawner/mail/maintloot
-	name = "\improper Random maintenance loot spawner"
-
-/obj/effect/spawner/mail/maintloot/Initialize()
-	var/static/list/mail_maintloot = pick(GLOB.maintenance_loot)
-	new mail_maintloot(loc)
-	return ..()
-
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
@@ -149,6 +140,7 @@
 	desc = "A mysterious pendant. An inscription on it says: \"Certain death tomorrow means certain life today.\""
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "memento_mori"
+	worn_icon_state = "memento"
 	actions_types = list(/datum/action/item_action/hands_free/memento_mori)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/mob/living/carbon/human/active_owner
@@ -395,9 +387,6 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	anchored = TRUE
 
-/obj/effect/warp_cube/ex_act(severity, target)
-	return
-
 //Meat Hook
 /obj/item/gun/magic/hook
 	name = "meat hook"
@@ -418,7 +407,6 @@
 	desc = "A hook."
 	projectile_type = /obj/projectile/hook
 	caliber = "hook"
-	icon_state = "hook"
 
 /obj/projectile/hook
 	name = "hook"
@@ -532,9 +520,6 @@
 /obj/effect/immortality_talisman/attackby()
 	return
 
-/obj/effect/immortality_talisman/ex_act()
-	return
-
 /obj/effect/immortality_talisman/singularity_pull()
 	return
 
@@ -552,9 +537,10 @@
 /obj/item/shared_storage
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "cultpack"
-	slot_flags = ITEM_SLOT_BACK
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "paradox_bag"
+	worn_icon_state = "paradoxbag"
+	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/item/shared_storage/red
@@ -716,6 +702,7 @@
 	inhand_y_dimension = 64
 	icon_state = "cleaving_saw"
 	icon_state_on = "cleaving_saw_open"
+	worn_icon_state = "cleaving_saw"
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb_off = list("attacked", "sawed", "sliced", "tore", "ripped", "diced", "cut")
 	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
@@ -858,7 +845,7 @@
 	if(href_list["orbit"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
-			ghost.ManualFollow(src)
+			ghost.check_orbitable(src)
 
 /obj/item/melee/ghost_sword/process()
 	ghost_check()
@@ -872,7 +859,7 @@
 		var/atom/A = thing
 		A.transfer_observers_to(src)
 
-	for(var/i in orbiters?.orbiters)
+	for(var/i in orbit_datum?.current_orbiters)
 		if(!isobserver(i))
 			continue
 		var/mob/dead/observer/G = i

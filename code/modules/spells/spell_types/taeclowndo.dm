@@ -5,7 +5,7 @@
 	include_user = 1
 	range = -1
 	clothes_req = 0
-	item_type = /obj/item/reagent_containers/food/snacks/pie/cream
+	item_type = /obj/item/food/pie/cream
 
 	charge_max = 30
 	cooldown_min = 30

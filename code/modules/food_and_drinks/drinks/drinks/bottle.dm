@@ -60,20 +60,21 @@
 
 	force = 15 //Smashing bottles over someoen's head hurts.
 
-	var/obj/item/bodypart/affecting = user.zone_selected //Find what the player is aiming at
-
 	var/armor_block = 0 //Get the target's armor values for normal attack damage.
 	var/armor_duration = 0 //The more force the bottle has, the longer the duration.
+
+	// Preference for smashing on the head with this item due to it dealing a stun effect on top
+	var/target_zone = user.is_zone_selected(BODY_ZONE_HEAD) ? BODY_ZONE_HEAD : user.get_combat_bodyzone(target)
 
 	//Calculating duration and calculating damage.
 	if(ishuman(target))
 
 		var/mob/living/carbon/human/H = target
 		var/headarmor = 0 // Target's head armor
-		armor_block = H.run_armor_check(affecting, MELEE,"","",armour_penetration) // For normal attack damage
+		armor_block = H.run_armor_check(target_zone, MELEE,"","",armour_penetration) // For normal attack damage
 
 		//If they have a hat/helmet and the user is targeting their head.
-		if(istype(H.head, /obj/item/clothing/head) && affecting == BODY_ZONE_HEAD)
+		if(istype(H.head, /obj/item/clothing/head) && target_zone == BODY_ZONE_HEAD)
 			headarmor = H.head.armor.melee
 		else
 			headarmor = 0
@@ -83,17 +84,17 @@
 
 	else
 		//Only humans can have armor, right?
-		armor_block = target.run_armor_check(affecting, MELEE)
-		if(affecting == BODY_ZONE_HEAD)
+		armor_block = target.run_armor_check(target_zone, MELEE)
+		if(target_zone == BODY_ZONE_HEAD)
 			armor_duration = bottle_knockdown_duration + force
 
 	//Apply the damage!
 	armor_block = min(90,armor_block)
-	target.apply_damage(force, BRUTE, affecting, armor_block)
+	target.apply_damage(force, BRUTE, target_zone, armor_block)
 
 	// You are going to knock someone down for longer if they are not wearing a helmet.
 	var/head_attack_message = ""
-	if(affecting == BODY_ZONE_HEAD && istype(target, /mob/living/carbon/))
+	if(target_zone == BODY_ZONE_HEAD && istype(target, /mob/living/carbon/))
 		head_attack_message = " on the head"
 		//Knock down the target for the duration that we calculated and divide it by 5.
 		if(armor_duration)

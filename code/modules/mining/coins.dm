@@ -15,7 +15,7 @@
 	throwforce = 2
 	w_class = WEIGHT_CLASS_TINY
 	custom_materials = list(/datum/material/iron = 400)
-	material_flags = MATERIAL_ADD_PREFIX
+	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 	var/string_attached
 	var/list/sideslist = list("heads","tails")
 	var/cooldown = 0
@@ -164,14 +164,13 @@
 /obj/item/coin/antagtoken
 	name = "antag token"
 	desc = "A novelty coin that helps the heart know what hard evidence cannot prove."
-	icon_state = "coin_valid_valid"
+	icon_state = "coin_valid"
 	custom_materials = list(/datum/material/plastic = 400)
 	sideslist = list("valid", "salad")
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/coin/arcade_token
 	name = "arcade token"
-	icon_state = "coin_bananium_heads"
 	custom_materials = list(/datum/material/bananium = 400)
 	desc = "A coin that allows you to redeem a prize from an arcade machine."
 	value = 0

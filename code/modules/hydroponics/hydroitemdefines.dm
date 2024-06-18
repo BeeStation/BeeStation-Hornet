@@ -5,12 +5,13 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hydro"
 	item_state = "analyzer"
+	worn_icon_state = "plantanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
 	belt_icon_state = "plant_analyzer"
-	materials = list(/datum/material/iron=30, /datum/material/glass=20)
+	custom_materials = list(/datum/material/iron=30, /datum/material/glass=20)
 
 // *************************************
 // Hydroponics Tools
@@ -58,7 +59,7 @@
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(/datum/material/iron=50)
+	custom_materials = list(/datum/material/iron=50)
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
@@ -81,7 +82,7 @@
 	throwforce = 15
 	throw_speed = 3
 	throw_range = 4
-	materials = list(/datum/material/iron = 15000)
+	custom_materials = list(/datum/material/iron = 15000)
 	attack_verb = list("chopped", "tore", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
@@ -131,17 +132,17 @@
 /obj/item/scythe/pre_attack(atom/A, mob/living/user, params)
 	if(swiping || !istype(A, /obj/structure/spacevine) || get_turf(A) == get_turf(user))
 		return ..()
-	else
-		var/turf/user_turf = get_turf(user)
-		var/dir_to_target = get_dir(user_turf, get_turf(A))
-		swiping = TRUE
-		var/static/list/scythe_slash_angles = list(0, 45, 90, -45, -90)
-		for(var/i in scythe_slash_angles)
-			var/turf/T = get_step(user_turf, turn(dir_to_target, i))
-			for(var/obj/structure/spacevine/V in T)
-				if(user.Adjacent(V))
-					melee_attack_chain(user, V)
-		swiping = FALSE
+	var/turf/user_turf = get_turf(user)
+	var/dir_to_target = get_dir(user_turf, get_turf(A))
+	swiping = TRUE
+	var/static/list/scythe_slash_angles = list(0, 45, 90, -45, -90)
+	for(var/i in scythe_slash_angles)
+		var/turf/T = get_step(user_turf, turn(dir_to_target, i))
+		for(var/obj/structure/spacevine/V in T)
+			if(user.Adjacent(V))
+				melee_attack_chain(user, V)
+	swiping = FALSE
+	return TRUE
 
 // *************************************
 // Nutrient defines for hydroponics
@@ -164,19 +165,19 @@
 	name = "bottle of E-Z-Nutrient"
 	desc = "Contains a fertilizer that causes mild mutations with each harvest."
 	list_reagents = list(/datum/reagent/plantnutriment/eznutriment = 50)
-	vendor_icon_preview = "bottle_eznutrient"
+	icon_state_preview = "bottle_eznutrient"
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z
 	name = "bottle of Left 4 Zed"
 	desc = "Contains a fertilizer that limits plant yields to no more than one and causes significant mutations in plants."
 	list_reagents = list(/datum/reagent/plantnutriment/left4zednutriment = 50)
-	vendor_icon_preview = "bottle_left4zed"
+	icon_state_preview = "bottle_left4zed"
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
 	name = "bottle of Robust Harvest"
 	desc = "Contains a fertilizer that increases the yield of a plant by 30% while causing no mutations."
 	list_reagents = list(/datum/reagent/plantnutriment/robustharvestnutriment = 50)
-	vendor_icon_preview = "bottle_robustharvest"
+	icon_state_preview = "bottle_robustharvest"
 
 /obj/item/reagent_containers/glass/bottle/nutrient/empty
 	name = "bottle"

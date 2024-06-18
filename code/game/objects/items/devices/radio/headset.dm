@@ -21,7 +21,8 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc = "An updated, modular intercom that fits over the head. Takes encryption keys."
 	icon_state = "headset"
 	item_state = "headset"
-	materials = list(/datum/material/iron=75)
+	worn_icon_state = "headset"
+	custom_materials = list(/datum/material/iron=75)
 	subspace_transmission = TRUE
 	headset = TRUE
 	canhear_range = 0 // can't hear headsets from very far away
@@ -110,60 +111,69 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	name = "security radio headset"
 	desc = "This is used by your elite security force."
 	icon_state = "sec_headset"
+	worn_icon_state = "sec_headset"
 	keyslot = new /obj/item/encryptionkey/headset_sec
 
 /obj/item/radio/headset/headset_spacepol
 	name = "spacepol radio headset"
 	desc = "This is used by the intergalatic organization SpacePol."
 	icon_state = "sec_headset"
+	worn_icon_state = "sec_headset"
 
 /obj/item/radio/headset/headset_medsec
 	name = "medical-security radio headset"
 	desc = "Used to hear how many security officers need to be stiched back together."
 	icon_state = "medsec_headset"
+	worn_icon_state = "sec_headset"
 	keyslot = new /obj/item/encryptionkey/headset_medsec
 
 /obj/item/radio/headset/headset_sec/alt
 	name = "security bowman headset"
 	desc = "This is used by your elite security force. Protects ears from flashbangs."
 	icon_state = "sec_headset_alt"
-	item_state = "sec_headset_alt"
+	worn_icon_state = "sec_headset_alt"
 	bang_protect = 1
 
 /obj/item/radio/headset/headset_eng
 	name = "engineering radio headset"
 	desc = "When the engineers wish to chat like girls."
 	icon_state = "eng_headset"
+	worn_icon_state = "eng_headset"
 	keyslot = new /obj/item/encryptionkey/headset_eng
 
 /obj/item/radio/headset/headset_rob
 	name = "robotics radio headset"
 	desc = "Made specifically for the roboticists, who cannot decide between departments."
 	icon_state = "rob_headset"
+	worn_icon_state = "rob_headset"
 	keyslot = new /obj/item/encryptionkey/headset_rob
 
 /obj/item/radio/headset/headset_med
 	name = "medical radio headset"
 	desc = "A headset for the trained staff of the medbay."
 	icon_state = "med_headset"
+	worn_icon_state = "med_headset"
 	keyslot = new /obj/item/encryptionkey/headset_med
 
 /obj/item/radio/headset/headset_sci
 	name = "science radio headset"
 	desc = "A sciency headset. Like usual."
 	icon_state = "sci_headset"
+	worn_icon_state = "sci_headset"
 	keyslot = new /obj/item/encryptionkey/headset_sci
 
 /obj/item/radio/headset/headset_srvsec
 	name = "law and order headset"
 	desc = "In the criminal justice headset, the encryption key represents two separate but equally important groups. Sec, who investigate crime, and Service, who provide services. These are their comms."
 	icon_state = "srvsec_headset"
+	worn_icon_state = "srvsec_headset"
 	keyslot = new /obj/item/encryptionkey/headset_srvsec
 
 /obj/item/radio/headset/headset_com
 	name = "command radio headset"
 	desc = "A headset with a commanding channel."
 	icon_state = "com_headset"
+	worn_icon_state = "com_headset"
 	keyslot = new /obj/item/encryptionkey/headset_com
 
 /obj/item/radio/headset/heads
@@ -173,92 +183,105 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	name = "\proper the captain's headset"
 	desc = "The headset of the king."
 	icon_state = "com_headset"
+	worn_icon_state = "com_headset"
 	keyslot = new /obj/item/encryptionkey/heads/captain
 
 /obj/item/radio/headset/heads/captain/alt
 	name = "\proper the captain's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs."
 	icon_state = "com_headset_alt"
-	item_state = "com_headset_alt"
+	worn_icon_state = "com_headset_alt"
 	bang_protect = 1
 
 /obj/item/radio/headset/heads/research_director
 	name = "\proper the research director's headset"
 	desc = "Headset of the fellow who keeps society marching towards technological singularity."
 	icon_state = "com_headset"
+	worn_icon_state = "com_headset"
 	keyslot = new /obj/item/encryptionkey/heads/rd
 
 /obj/item/radio/headset/heads/hos
 	name = "\proper the head of security's headset"
 	desc = "The headset of the man in charge of keeping order and protecting the station."
 	icon_state = "com_headset"
+	worn_icon_state = "com_headset"
 	keyslot = new /obj/item/encryptionkey/heads/hos
 
 /obj/item/radio/headset/heads/hos/alt
 	name = "\proper the head of security's bowman headset"
 	desc = "The headset of the man in charge of keeping order and protecting the station. Protects ears from flashbangs."
 	icon_state = "com_headset_alt"
-	item_state = "com_headset_alt"
+	worn_icon_state = "com_headset_alt"
 	bang_protect = 1
 
 /obj/item/radio/headset/heads/chief_engineer
 	name = "\proper the chief engineer's headset"
 	desc = "The headset of the guy in charge of keeping the station powered and undamaged."
 	icon_state = "com_headset"
+	worn_icon_state = "com_headset"
 	keyslot = new /obj/item/encryptionkey/heads/ce
 
 /obj/item/radio/headset/heads/cmo
 	name = "\proper the chief medical officer's headset"
 	desc = "The headset of the highly trained medical chief."
 	icon_state = "com_headset"
+	worn_icon_state = "com_headset"
 	keyslot = new /obj/item/encryptionkey/heads/cmo
 
 /obj/item/radio/headset/heads/head_of_personnel
 	name = "\proper the head of personnel's headset"
 	desc = "The headset of the guy who will one day be captain."
 	icon_state = "com_headset"
+	worn_icon_state = "com_headset"
 	keyslot = new /obj/item/encryptionkey/heads/hop
 
 /obj/item/radio/headset/headset_cargo
 	name = "supply radio headset"
 	desc = "A headset used by the QM's slaves."
 	icon_state = "cargo_headset"
+	worn_icon_state = "cargo_headset"
 	keyslot = new /obj/item/encryptionkey/headset_cargo
 
 /obj/item/radio/headset/headset_quartermaster
 	name = "quartermaster radio headset"
 	desc = "A headset used by the QM."
 	icon_state = "cargo_headset"
+	worn_icon_state = "cargo_headset"
 	keyslot = new /obj/item/encryptionkey/headset_cargo
 
 /obj/item/radio/headset/headset_exploration
 	name = "exploration radio headset"
 	desc = "A headset used by exploration teams."
 	icon_state = "exploration_headset"
+	worn_icon_state = "mine_headset"
 	keyslot = new /obj/item/encryptionkey/headset_expteam
 
 /obj/item/radio/headset/headset_cargo/shaft_miner
 	name = "mining radio headset"
 	desc = "Headset used by shaft miners."
 	icon_state = "mine_headset"
+	worn_icon_state = "mine_headset"
 	keyslot = new /obj/item/encryptionkey/headset_mining
 
 /obj/item/radio/headset/headset_srv
 	name = "service radio headset"
 	desc = "Headset used by the service staff, tasked with keeping the station full, happy and clean."
 	icon_state = "srv_headset"
+	worn_icon_state = "srv_headset"
 	keyslot = new /obj/item/encryptionkey/headset_service
 
 /obj/item/radio/headset/headset_curator
 	name = "curator radio headset"
 	desc = "Headset used by the curator, which allows for communication with the exploration team."
 	icon_state = "srv_headset"
+	worn_icon_state = "srv_headset"
 	keyslot = new /obj/item/encryptionkey/headset_curator
 
 /obj/item/radio/headset/headset_cent
 	name = "\improper CentCom headset"
 	desc = "A headset used by the upper echelons of Nanotrasen."
 	icon_state = "cent_headset"
+	worn_icon_state = "cent_headset"
 	keyslot = new /obj/item/encryptionkey/headset_com
 	keyslot2 = new /obj/item/encryptionkey/headset_cent
 
@@ -276,7 +299,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	name = "\improper CentCom bowman headset"
 	desc = "A headset especially for emergency response personnel. Protects ears from flashbangs."
 	icon_state = "cent_headset_alt"
-	item_state = "cent_headset_alt"
+	worn_icon_state = "cent_headset_alt"
 	keyslot = null
 	bang_protect = 1
 

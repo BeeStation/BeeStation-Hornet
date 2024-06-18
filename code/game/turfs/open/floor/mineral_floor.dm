@@ -13,14 +13,13 @@
 /turf/open/floor/mineral
 	name = "mineral floor"
 	icon_state = ""
+	material_flags = MATERIAL_EFFECTS
 	var/list/icons
 	tiled_dirt = FALSE
 	max_integrity = 200
 
 
 /turf/open/floor/mineral/Initialize(mapload)
-	if(!broken_states)
-		broken_states = list("[initial(icon_state)]_dam")
 	. = ..()
 	icons = typelist("icons", icons)
 
@@ -95,8 +94,6 @@
 	name = "shuttle floor"
 	icon_state = "titanium"
 	floor_tile = /obj/item/stack/tile/mineral/titanium
-	broken_states = list("titanium_dam1","titanium_dam2","titanium_dam3","titanium_dam4","titanium_dam5")
-	max_integrity = 300
 
 /turf/open/floor/mineral/titanium/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -133,7 +130,6 @@
 	name = "titanium floor"
 	icon_state = "titanium_alt"
 	floor_tile = /obj/item/stack/tile/mineral/titanium/alt
-	broken_states = list("titanium_dam1_alt","titanium_dam2_alt","titanium_dam3_alt","titanium_dam4_alt","titanium_dam5_alt")
 
 /turf/open/floor/mineral/titanium/alt/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -171,7 +167,6 @@
 	name = "shuttle floor"
 	icon_state = "plastitanium"
 	floor_tile = /obj/item/stack/tile/mineral/plastitanium
-	broken_states = list("plastitanium_dam1","plastitanium_dam2","plastitanium_dam3","plastitanium_dam4","plastitanium_dam5")
 
 /turf/open/floor/mineral/plastitanium/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -192,6 +187,8 @@
 	icon_state = "bananium"
 	floor_tile = /obj/item/stack/tile/mineral/bananium
 	icons = list("bananium","bananium_dam")
+	custom_materials = list(/datum/material/bananium = 500)
+	material_flags = NONE //The slippery comp makes it unpractical for good clown decor. The custom mat one should still slip.
 	max_integrity = 100
 	var/spam_flag = 0
 

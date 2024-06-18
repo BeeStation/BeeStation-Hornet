@@ -4,11 +4,13 @@
 #define SENSORS_TRACKING 3
 #define SENSOR_CHANGE_DELAY 1.5 SECONDS
 
+#define MOTH_EATING_CLOTHING_DAMAGE 15
+
 /obj/item/clothing
 	name = "clothing"
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
-	integrity_failure = 80
+	integrity_failure = 0.4
 	var/damaged_clothes = 0 //similar to machine's BROKEN stat and structure's broken var
 	var/flash_protect = 0		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/bang_protect = 0		//what level of sound protection the item has. 1 is the level of a normal bowman.
@@ -22,15 +24,14 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	var/alt_desc = null
-	var/toggle_message = null
-	var/alt_toggle_message = null
-	var/active_sound = null
 	var/cooldown = 0
 	var/envirosealed = FALSE //is it safe for plasmamen
 
 	var/blocks_shove_knockdown = FALSE //Whether wearing the clothing item blocks the ability for shove to knock down.
 
 	var/clothing_flags = NONE
+
+	var/can_be_bloody = TRUE
 
 	//Var modification - PLEASE be careful with this I know who you are and where you live
 	var/list/user_vars_to_edit //VARNAME = VARVALUE eg: "name" = "butts"
@@ -50,12 +51,20 @@
 	var/high_pressure_multiplier = 1
 	var/static/list/high_pressure_multiplier_types = list(MELEE, BULLET, LASER, ENERGY, BOMB)
 
+	/// A lazily initiated "food" version of the clothing for moths
+	var/obj/item/food/clothing/moth_snack
+
 /obj/item/clothing/Initialize(mapload)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
 		actions_types += /datum/action/item_action/toggle_voice_box
 	. = ..()
 	if(ispath(pocket_storage_component_path))
 		LoadComponent(pocket_storage_component_path)
+	if(can_be_bloody && ((body_parts_covered & FEET) || (flags_inv & HIDESHOES)))
+		LoadComponent(/datum/component/bloodysoles)
+
+	if(!icon_state)
+		item_flags |= ABSTRACT
 
 /obj/item/clothing/MouseDrop(atom/over_object)
 	. = ..()
@@ -69,20 +78,48 @@
 		if(M.putItemFromInventoryInHandIfPossible(src, H.held_index))
 			add_fingerprint(usr)
 
-/obj/item/reagent_containers/food/snacks/clothing
+/obj/item/food/clothing // fuck you
 	name = "temporary moth clothing snack item"
-	desc = "If you're reading this it means I messed up. This is related to moths eating clothes and I didn't know a better way to do it than making a new food object."
-	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
+	desc = "If you're reading this it means I messed up. This is related to moths eating clothes and I didn't know a better way to do it than making a new food object." // die
+	bite_consumption = 1
+	// sigh, ok, so it's not ACTUALLY infinite nutrition. this is so you can eat clothes more than...once.
+	// bite_consumption limits how much you actually get, and the take_damage in after eat makes sure you can't abuse this.
+	// ...maybe this was a mistake after all.
+	food_reagents = list(/datum/reagent/consumable/nutriment = INFINITY)
 	tastes = list("dust" = 1, "lint" = 1)
-	foodtype = CLOTH
+	foodtypes = CLOTH
 
-/obj/item/clothing/attack(mob/M, mob/user, def_zone)
-	if(user.a_intent != INTENT_HARM && ismoth(M) && !(clothing_flags & NOTCONSUMABLE) && !(resistance_flags & INDESTRUCTIBLE) && (armor.getRating(MELEE) == 0))
-		var/obj/item/reagent_containers/food/snacks/clothing/clothing_as_food = new
-		clothing_as_food.name = name
-		if(clothing_as_food.attack(M, user, def_zone))
-			take_damage(15, sound_effect=FALSE)
-		qdel(clothing_as_food)
+	/// A weak reference to the clothing that created us
+	var/datum/weakref/clothing
+
+/obj/item/food/clothing/make_edible()
+	AddComponent(/datum/component/edible,\
+		initial_reagents = food_reagents,\
+		food_flags = food_flags,\
+		foodtypes = foodtypes,\
+		volume = max_volume,\
+		eat_time = eat_time,\
+		tastes = tastes,\
+		eatverbs = eatverbs,\
+		bite_consumption = bite_consumption,\
+		microwaved_type = microwaved_type,\
+		junkiness = junkiness,\
+		after_eat = CALLBACK(src, PROC_REF(after_eat)))
+
+/obj/item/food/clothing/proc/after_eat(mob/eater)
+	var/obj/item/clothing/resolved_clothing = clothing.resolve()
+	if (resolved_clothing)
+		resolved_clothing.take_damage(MOTH_EATING_CLOTHING_DAMAGE, sound_effect = FALSE, damage_flag = CONSUME)
+	else
+		qdel(src)
+
+/obj/item/clothing/attack(mob/attacker, mob/user, def_zone)
+	if(user.a_intent != INTENT_HARM && (ismoth(attacker) || ispsyphoza(attacker)) && !(clothing_flags & NOTCONSUMABLE) && !(resistance_flags & INDESTRUCTIBLE) && (armor.getRating(MELEE) == 0))
+		if (isnull(moth_snack))
+			moth_snack = new
+			moth_snack.name = name
+			moth_snack.clothing = WEAKREF(src)
+		moth_snack.attack(attacker, user, def_zone)
 	else
 		return ..()
 
@@ -98,6 +135,7 @@
 
 /obj/item/clothing/Destroy()
 	user_vars_remembered = null //Oh god somebody put REFERENCES in here? not to worry, we'll clean it up
+	QDEL_NULL(moth_snack)
 	return ..()
 
 /obj/item/clothing/dropped(mob/user)
@@ -281,7 +319,7 @@ BLIND     // can't see anything
 
 /proc/generate_female_clothing(index,t_color,icon,type)
 	var/icon/female_clothing_icon	= icon("icon"=icon, "icon_state"=t_color)
-	var/icon/female_s				= icon("icon"='icons/mob/clothing/uniform.dmi', "icon_state"="[(type == FEMALE_UNIFORM_FULL) ? "female_full" : "female_top"]")
+	var/icon/female_s = icon("icon"='icons/mob/clothing/under/masking_helpers.dmi', "icon_state"="[(type == FEMALE_UNIFORM_FULL) ? "female_full" : "female_top"]")
 	female_clothing_icon.Blend(female_s, ICON_MULTIPLY)
 	female_clothing_icon 			= fcopy_rsc(female_clothing_icon)
 	GLOB.female_clothing_icons[index] = female_clothing_icon
@@ -445,13 +483,19 @@ BLIND     // can't see anything
 			return 1
 	return 0
 
-
 /obj/item/clothing/obj_destruction(damage_flag)
 	if(damage_flag == BOMB || damage_flag == MELEE)
 		var/turf/T = get_turf(src)
 		spawn(1) //so the shred survives potential turf change from the explosion.
 			var/obj/effect/decal/cleanable/shreds/Shreds = new(T)
 			Shreds.desc = "The sad remains of what used to be [name]."
+		deconstruct(FALSE)
+	if(damage_flag == CONSUME) //This allows for moths to fully consume clothing, rather than damaging it like other sources like brute
+		var/turf/current_position = get_turf(src)
+		new /obj/effect/decal/cleanable/shreds(current_position, name)
+		if(isliving(loc))
+			var/mob/living/possessing_mob = loc
+			possessing_mob.visible_message("<span class='danger'>[src] is consumed until naught but shreds remains!</span>", "<span class='boldwarning'>[src] falls apart into little bits!</span>")
 		deconstruct(FALSE)
 	else
 		..()
@@ -471,3 +515,5 @@ BLIND     // can't see anything
 #undef SENSORS_VITALS
 #undef SENSORS_TRACKING
 #undef SENSOR_CHANGE_DELAY
+
+#undef MOTH_EATING_CLOTHING_DAMAGE

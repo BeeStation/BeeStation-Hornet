@@ -21,7 +21,7 @@
 			"Why is Christmas just like life on ss13?\n\n<i>You do all the work and the fat guy gets all the credit.</i>",
 			"Why doesn't Santa have any children?\n\n<i>Because he only comes down the chimney.</i>"))
 		joke_paper.update_appearance()
-		new /obj/item/clothing/head/festive(target.loc)
+		new /obj/item/clothing/head/costume/festive(target.loc)
 		user.update_icons()
 		cracked = 1
 		icon_state = "cracker1"
@@ -33,14 +33,14 @@
 		return TRUE
 	return ..()
 
-/obj/item/clothing/head/festive
+/obj/item/clothing/head/costume/festive
 	name = "festive paper hat"
 	icon_state = "xmashat"
 	desc = "A crappy paper hat that you are REQUIRED to wear."
 	flags_inv = 0
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 
-/obj/item/clothing/head/festive/Initialize(mapload)
+/obj/item/clothing/head/costume/festive/Initialize(mapload)
 	//Merry christmas
 	if(CHRISTMAS in SSevents.holidays)
 		armor = list(MELEE = 30,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 30, BIO = 30, RAD = 30, FIRE = 30, ACID = 30, STAMINA = 30)
@@ -84,7 +84,7 @@
 	priority_announce("Santa is coming to town!", "Unknown Transmission", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/santa/start()
-	var/list/candidates = pollGhostCandidates("Santa is coming to town! Do you want to be Santa?", poll_time = 15 SECONDS)
+	var/list/candidates = poll_ghost_candidates("Santa is coming to town! Do you want to be Santa?", poll_time = 15 SECONDS)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		santa = new /mob/living/carbon/human(pick(GLOB.blobstart))

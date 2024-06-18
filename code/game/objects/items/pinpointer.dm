@@ -8,11 +8,12 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
+	worn_icon_state = "pinpointer"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	throw_speed = 3
 	throw_range = 7
-	materials = list(/datum/material/iron = 500, /datum/material/glass = 250)
+	custom_materials = list(/datum/material/iron = 500, /datum/material/glass = 250)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/active = FALSE
 	var/atom/movable/target //The thing we're searching for
@@ -56,7 +57,7 @@
 
 /obj/item/pinpointer/proc/toggle_on()
 	active = !active
-	playsound(src, 'sound/items/screwdriver2.ogg', 50, 1)
+	playsound(src, 'sound/items/screwdriver2.ogg', 50, TRUE)
 	if(active)
 		START_PROCESSING(SSfastprocess, src)
 	else
@@ -198,6 +199,7 @@
 	name = "crew pinpointer"
 	desc = "A handheld tracking device that points to crew suit sensors."
 	icon_state = "pinpointer_crew"
+	worn_icon_state = "pinpointer_crew"
 	custom_price = 150
 	jamming_resistance = JAMMER_PROTECTION_SENSOR_NETWORK
 	var/has_owner = FALSE

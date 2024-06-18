@@ -12,7 +12,7 @@
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/microwave
 	pass_flags = PASSTABLE
-	light_color = LIGHT_COLOR_YELLOW
+	light_color = LIGHT_COLOR_DIM_YELLOW
 	light_power = 3
 	var/wire_disabled = FALSE // is its internal wire cut?
 	var/operating = FALSE
@@ -166,7 +166,9 @@
 	if(istype(O, /obj/item/storage/bag/tray))
 		var/obj/item/storage/T = O
 		var/loaded = 0
-		for(var/obj/item/reagent_containers/food/snacks/S in T.contents)
+		for(var/obj/S in T.contents)
+			if(!IS_EDIBLE(S))
+				continue
 			if(ingredients.len >= max_n_of_items)
 				to_chat(user, "<span class='warning'>\The [src] is full, you can't put anything in!</span>")
 				return TRUE
@@ -315,8 +317,9 @@
 	var/iron = 0
 	for(var/obj/item/O in ingredients)
 		O.microwave_act(src)
-		if(O.materials[/datum/material/iron])
-			iron += O.materials[/datum/material/iron]
+		if(O.custom_materials && length(O.custom_materials))
+			if(O.custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)])
+				iron += O.custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)]
 
 	if(iron)
 		spark()
@@ -345,11 +348,6 @@
 	dirty = 100
 	dirty_anim_playing = FALSE
 	operating = FALSE
-
-	for(var/obj/item/reagent_containers/food/snacks/S in src)
-		if(prob(50))
-			new /obj/item/reagent_containers/food/snacks/badrecipe(src)
-			qdel(S)
 
 	after_finish_loop()
 

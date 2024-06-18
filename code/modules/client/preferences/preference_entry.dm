@@ -111,6 +111,9 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// If this requires create_informed_default_value
 	var/informed = FALSE
 
+	/// Disables database writes. This can be useful for a testmerged preference
+	var/disable_serialization = FALSE
+
 /// Called on the saved input when retrieving.
 /// Also called by the value sent from the user through UI. Do not trust it.
 /// Input is the value inside the database, output is to tell other code
@@ -457,10 +460,10 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	for (var/name in sprite_accessories)
 		var/datum/sprite_accessory/sprite_accessory = sprite_accessories[name]
 		if (istype(sprite_accessory))
-			possible_values[name] = icon(sprite_accessory.icon, sprite_accessory.icon_state)
+			possible_values[name] = uni_icon(sprite_accessory.icon, sprite_accessory.icon_state)
 		else
 			// This means it didn't have an icon state
-			possible_values[name] = icon('icons/mob/landmarks.dmi', "x")
+			possible_values[name] = uni_icon('icons/mob/landmarks.dmi', "x")
 	return possible_values
 
 /// Takes an assoc list of names to /datum/sprite_accessory and returns a value
@@ -479,15 +482,15 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	for (var/name in sprite_accessories)
 		var/datum/sprite_accessory/sprite_accessory = sprite_accessories[name]
 
-		var/icon/final_icon
+		var/datum/universal_icon/final_icon
 
 		for (var/layer in layers)
-			var/icon/icon = icon(sprite_accessory.icon, "m_[body_part]_[sprite_accessory.icon_state]_[layer]")
+			var/datum/universal_icon/icon = uni_icon(sprite_accessory.icon, "m_[body_part]_[sprite_accessory.icon_state]_[layer]")
 
 			if (isnull(final_icon))
 				final_icon = icon
 			else
-				final_icon.Blend(icon, ICON_OVERLAY)
+				final_icon.blend_icon(icon, ICON_OVERLAY)
 
 		possible_values[name] = final_icon
 
@@ -527,7 +530,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 		"step" = step,
 	)
 
-/// A prefernece whose value is always TRUE or FALSE
+/// A preference whose value is always TRUE or FALSE
 /datum/preference/toggle
 	abstract_type = /datum/preference/toggle
 

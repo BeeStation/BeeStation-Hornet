@@ -50,7 +50,7 @@
 	. = ..()
 	UnregisterSignal(M, COMSIG_MOB_CLICKON)
 
-/obj/vehicle/sealed/car/clowncar/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/vehicle/sealed/car/clowncar/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(prob(33))
 		visible_message("<span class='danger'>[src] spews out a ton of space lube!</span>")
@@ -58,8 +58,8 @@
 
 /obj/vehicle/sealed/car/clowncar/attacked_by(obj/item/I, mob/living/user)
 	. = ..()
-	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/banana))
-		var/obj/item/reagent_containers/food/snacks/grown/banana/banana = I
+	if(istype(I, /obj/item/food/grown/banana))
+		var/obj/item/food/grown/banana/banana = I
 		obj_integrity += min(banana.seed.potency, max_integrity-obj_integrity)
 		to_chat(user, "<span class='danger'>You use the [banana] to repair the [src]!</span>")
 		qdel(banana)
@@ -98,7 +98,7 @@
 	if(istype(C))
 		if(!C.handcuffed)
 			if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
-				C.handcuffed = new /obj/item/restraints/handcuffs/energy/used(C)
+				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(C))
 				C.update_handcuffed()
 				to_chat(C, "<span class = 'danger'> Your hands are restrained by the sheer volume of occupants in the car!</span>")
 

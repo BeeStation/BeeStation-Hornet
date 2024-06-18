@@ -170,7 +170,7 @@
 		if(mob.incapacitated(ignore_restraints = 1))
 			move_delay = world.time + 10
 			return TRUE
-		else if(mob.restrained(ignore_grab = 1))
+		else if(HAS_TRAIT(mob, TRAIT_RESTRAINED))
 			move_delay = world.time + 10
 			to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
 			return TRUE
@@ -366,9 +366,9 @@
 /mob/proc/update_gravity(has_gravity, override=FALSE)
 	var/speed_change = max(0, has_gravity - STANDARD_GRAVITY)
 	if(!speed_change)
-		remove_movespeed_modifier(MOVESPEED_ID_MOB_GRAVITY, update=TRUE)
+		remove_movespeed_modifier(/datum/movespeed_modifier/gravity)
 	else
-		add_movespeed_modifier(MOVESPEED_ID_MOB_GRAVITY, update=TRUE, priority=100, override=TRUE, multiplicative_slowdown=speed_change, blacklisted_movetypes=FLOATING)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/gravity, multiplicative_slowdown=speed_change)
 
 //bodypart selection verbs - Cyberboss
 //8:repeated presses toggles through head - eyes - mouth
@@ -391,8 +391,10 @@
 	if(!check_has_body_select())
 		return
 
+	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
+
 	var/next_in_line
-	switch(mob.zone_selected)
+	switch(selector.selecting)
 		if(BODY_ZONE_HEAD)
 			next_in_line = BODY_ZONE_PRECISE_EYES
 		if(BODY_ZONE_PRECISE_EYES)
@@ -400,7 +402,6 @@
 		else
 			next_in_line = BODY_ZONE_HEAD
 
-	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line, mob)
 
 ///Hidden verb to target the right arm, bound to 4
@@ -468,6 +469,34 @@
 
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(BODY_ZONE_L_LEG, mob)
+
+/client/verb/body_up()
+	set name = "body-up"
+	set hidden = 1
+
+	if(!check_has_body_select())
+		return
+
+	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
+	switch (selector.selecting)
+		if (BODY_GROUP_LEGS, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+			selector.set_selected_zone(BODY_GROUP_ARMS, mob)
+		if (BODY_GROUP_ARMS, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+			selector.set_selected_zone(BODY_GROUP_CHEST_HEAD, mob)
+
+/client/verb/body_down()
+	set name = "body-down"
+	set hidden = 1
+
+	if(!check_has_body_select())
+		return
+
+	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
+	switch (selector.selecting)
+		if (BODY_GROUP_CHEST_HEAD, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_GROIN)
+			selector.set_selected_zone(BODY_GROUP_ARMS, mob)
+		if (BODY_GROUP_ARMS, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+			selector.set_selected_zone(BODY_GROUP_LEGS, mob)
 
 ///Verb to toggle the walk or run status
 /client/verb/toggle_walk_run()

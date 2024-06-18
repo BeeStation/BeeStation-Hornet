@@ -9,10 +9,11 @@
 		"**/.pnp.*": true
 	},
 	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": true
+		"source.fixAll.eslint": "explicit"
 	},
 	"files.eol": "\n",
 	"files.insertFinalNewline": true,
+	"git.branchProtection": ["master"],
 	"gitlens.advanced.blame.customArguments": ["-w"],
 	"tgstationTestExplorer.project.resultsType": "json",
 	"tgstationTestExplorer.project.DMEName": "beestation.dme",

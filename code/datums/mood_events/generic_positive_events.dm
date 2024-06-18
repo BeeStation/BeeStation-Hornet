@@ -1,7 +1,3 @@
-/datum/mood_event/hug
-	description = "<span class='nicegreen'>Hugs are nice.</span>"
-	mood_change = 1
-	timeout = 2 MINUTES
 
 /datum/mood_event/betterhug
 	description = "<span class='nicegreen'>Someone was very nice to me.</span>"
@@ -19,11 +15,6 @@
 /datum/mood_event/besthug/add_effects(mob/friend)
 	description = "<span class='nicegreen'>[friend.name] is great to be around, [friend.p_they()] makes me feel so happy!</span>"
 
-/datum/mood_event/headpat
-	description = "<span class='nicegreen'>Headpats are lovely!</span>"
-	mood_change = 1
-	timeout = 2 MINUTES
-
 /datum/mood_event/arcade
 	description = "<span class='nicegreen'>I beat the arcade game!</span>"
 	mood_change = 3
@@ -33,37 +24,6 @@
 	description = "<span class='nicegreen'>I've been blessed.</span>"
 	mood_change = 3
 	timeout = 8 MINUTES
-
-/datum/mood_event/book_nerd
-	description = "<span class='nicegreen'>I have recently read a book.</span>"
-	mood_change = 1
-	timeout = 5 MINUTES
-
-/datum/mood_event/exercise
-	description = "<span class='nicegreen'>Working out releases those endorphins!</span>"
-	mood_change = 2
-	timeout = 5 MINUTES
-
-/datum/mood_event/pet_animal
-	description = "<span class='nicegreen'>Animals are adorable! I can't stop petting them!</span>"
-	mood_change = 2
-	timeout = 5 MINUTES
-
-/datum/mood_event/pet_animal/add_effects(mob/animal)
-	description = "<span class='nicegreen'>\The [animal.name] is adorable! I can't stop petting [animal.p_them()]!</span>"
-
-/datum/mood_event/animal_play
-	description = "<span class='nicegreen'>Aww, it's having fun!</span>"
-	mood_change = 2
-	timeout = 3 MINUTES
-
-/datum/mood_event/animal_play/add_effects(mob/animal)
-	description = "<span class='nicegreen'>Aww, [animal.name]'s having fun!</span>"
-
-/datum/mood_event/honk
-	description = "<span class='nicegreen'>Maybe clowns aren't so bad after all. Honk!</span>"
-	mood_change = 2
-	timeout = 4 MINUTES
 
 /datum/mood_event/perform_cpr
 	description = "<span class='nicegreen'>It feels good to save a life.</span>"
@@ -158,6 +118,16 @@
 	description = "<span class='nicegreen'>The shoes are a clown's legacy, I never want to take them off!</span>"
 	mood_change = 5
 
+/datum/mood_event/artgood
+	description = "<span class='nicegreen'>What a thought-provoking piece of art. I'll remember that for a while.</span>\n"
+	mood_change = 3
+	timeout = 3 MINUTES
+
+/datum/mood_event/artgreat
+	description = "<span class='nicegreen'>That work of art was so great it made me believe in the goodness of humanity. Says a lot in a place like this.</span>\n"
+	mood_change = 4
+	timeout = 4 MINUTES
+
 /datum/mood_event/sacrifice_good
 	description ="<span class='nicegreen'>The gods are pleased with this offering!</span>"
 	mood_change = 5
@@ -187,6 +157,11 @@
 	description = "<span class='nicegreen'>What a peculiar emblem. It makes me feel hopeful for my future.</span>"
 	mood_change = 5
 
+/datum/mood_event/holy_consumption
+	description = "Truly, that was the food of the Divine!"
+	mood_change = 1 // 1 + 5 from it being liked food makes it as good as jolly
+	timeout = 3 MINUTES
+
 /datum/mood_event/nanite_happiness
 	description = "<span class='nicegreen robot'>+++++++HAPPINESS ENHANCEMENT+++++++</span>"
 	mood_change = 7
@@ -196,6 +171,14 @@
 
 /datum/mood_event/poppy_pin
 	description = "<span class='nicegreen'>I feel proud to show my remembrance of the many who have died to ensure that I have freedom.</span>"
+	mood_change = 1
+
+/datum/mood_event/sec_black_gloves
+	description = "<span class='nicegreen'>Black gloves look good on me.</span>"
+	mood_change = 1
+
+/datum/mood_event/assistant_insulated_gloves
+	description = "<span class='nicegreen'>Finally got my hands on a good pair of gloves!</span>"
 	mood_change = 1
 
 /datum/mood_event/funny_prank
@@ -210,19 +193,6 @@
 /datum/mood_event/area/add_effects(list/param)
 	mood_change = param[1]
 	description = param[2]
-
-/datum/mood_event/sec_black_gloves
-	description = "<span class='nicegreen'>Black gloves look good on me.</span>"
-	mood_change = 1
-
-/datum/mood_event/assistant_insulated_gloves
-	description = "<span class='nicegreen'>Finally got my hands on a good pair of gloves!</span>"
-	mood_change = 1
-
-/datum/mood_event/aquarium_positive
-	description = "<span class='nicegreen'>Watching fish in aquarium is calming.</span>"
-	mood_change = 3
-	timeout = 1.5 MINUTES
 
 /datum/mood_event/toxoplasmosis
 	description = "<span class='nicegreen'>I really like being around cats!</span>"

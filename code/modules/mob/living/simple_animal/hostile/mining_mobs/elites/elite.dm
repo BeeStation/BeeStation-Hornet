@@ -15,7 +15,7 @@
 	vision_range = 6
 	aggro_vision_range = 18
 	environment_smash = ENVIRONMENT_SMASH_NONE  //This is to prevent elites smashing up the mining station, we'll make sure they can smash minerals fine below.
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	layer = LARGE_MOB_LAYER
 	sentience_type = SENTIENCE_BOSS
 	hud_type = /datum/hud/lavaland_elite
@@ -156,7 +156,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 					addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 30)
 					return
 				visible_message("<span class='boldwarning'>Something within [src] stirs...</span>")
-				var/list/candidates = pollCandidatesForMob("Do you want to play as a lavaland elite?", ROLE_LAVALAND_ELITE, null, 10 SECONDS, src)
+				var/list/candidates = poll_candidates_for_mob("Do you want to play as a lavaland elite?", ROLE_LAVALAND_ELITE, null, 10 SECONDS, src)
 				if(candidates.len)
 					audible_message("<span class='boldwarning'>The stirring sounds increase in volume!</span>")
 					elitemind = pick(candidates)

@@ -13,7 +13,7 @@
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/apid
+	meat = /obj/item/food/meat/slab/human/mutant/apid
 	mutanteyes = /obj/item/organ/eyes/apid
 	mutantlungs = /obj/item/organ/lungs/apid
 	mutantwings = /obj/item/organ/wings/bee
@@ -32,6 +32,8 @@
 	species_r_arm = /obj/item/bodypart/r_arm/apid
 	species_l_leg = /obj/item/bodypart/l_leg/apid
 	species_r_leg = /obj/item/bodypart/r_leg/apid
+
+	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
 /datum/species/apid/spec_life(mob/living/carbon/human/H)
 	. = ..()

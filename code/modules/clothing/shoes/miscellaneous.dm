@@ -1,9 +1,3 @@
-/obj/item/clothing/shoes/proc/step_action() //this was made to rewrite clown shoes squeaking
-	SEND_SIGNAL(src, COMSIG_SHOES_STEP_ACTION)
-
-/obj/item/clothing/shoes/sneakers/mime
-	name = "mime shoes"
-	greyscale_colors = "#ffffff#ffffff"
 
 /obj/item/clothing/shoes/combat //basic syndicate combat boots for nuke ops and mob corpses
 	name = "combat boots"
@@ -29,22 +23,11 @@
 	desc = "A pair of rather plain wooden sandals."
 	name = "sandals"
 	icon_state = "wizard"
+	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.5)
 	strip_delay = 50
 	equip_delay_other = 50
 	permeability_coefficient = 0.9
 	strip_delay = 5
-
-/obj/item/clothing/shoes/sneakers/marisa
-	desc = "A pair of magic black shoes."
-	name = "magic shoes"
-	worn_icon_state = "marisa"
-	greyscale_colors = "#545454#ffffff"
-	greyscale_config = /datum/greyscale_config/sneakers_marisa
-	greyscale_config_worn = null
-	strip_delay = 5
-	equip_delay_other = 50
-	permeability_coefficient = 0.9
-	resistance_flags = FIRE_PROOF |  ACID_PROOF
 
 /obj/item/clothing/shoes/sandal/magic
 	name = "magical sandals"
@@ -70,7 +53,13 @@
 	desc = "A pair of orange rubber boots, designed to prevent slipping on wet surfaces while also drying them."
 	icon_state = "galoshes_dry"
 
-/obj/item/clothing/shoes/galoshes/dry/step_action()
+/obj/item/clothing/shoes/galoshes/dry/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, PROC_REF(on_step))
+
+/obj/item/clothing/shoes/galoshes/dry/proc/on_step()
+	SIGNAL_HANDLER
+
 	var/turf/open/t_loc = get_turf(src)
 	SEND_SIGNAL(t_loc, COMSIG_TURF_MAKE_DRY, TURF_WET_WATER, TRUE, INFINITY)
 
@@ -86,7 +75,7 @@
 
 /obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
 	. = ..()
-	LoadComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50)
+	LoadComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50, falloff_exponent = 20)
 
 /obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
 	. = ..()
@@ -135,6 +124,13 @@
 	permeability_coefficient = 0.05 //Thick soles, and covers the ankle
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
+/obj/item/clothing/shoes/jackboots_replica // loadout cosmetic variant that's just a normal pair of shoes
+	name = "replica jackboots"
+	desc = "A cheap replica of Nanotrasen's Security combat boots. Unlike the real deal. This pair is better fit for everyday wear rather than combat."
+	icon_state = "jackboots"
+	item_state = "jackboots"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 /obj/item/clothing/shoes/jackboots/fast
 	name = "modified jackboots"
 	desc = "Security combat boots for combat scenarios or combat situations. This pair seems to be modified with lighter materials."
@@ -203,11 +199,6 @@
 /obj/item/clothing/shoes/cult/alt/ghost/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CULT_TRAIT)
-
-/obj/item/clothing/shoes/sneakers/cyborg
-	name = "cyborg boots"
-	desc = "Shoes for a cyborg costume."
-	greyscale_colors = "#4e4e4e#4e4e4e"
 
 /obj/item/clothing/shoes/laceup
 	name = "laceup shoes"
@@ -284,48 +275,6 @@
 /obj/item/clothing/shoes/bronze/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/machines/clockcult/integration_cog_install.ogg' = 1, 'sound/magic/clockwork/fellowship_armory.ogg' = 1), 50)
-
-/obj/item/clothing/shoes/wheelys
-	name = "Wheely-Heels"
-	desc = "Uses patented retractable wheel technology. Never sacrifice speed for style - not that this provides much of either." //Thanks Fel
-	item_state = "wheelys"
-	greyscale_colors = "#545454#ffffff"
-	greyscale_config = /datum/greyscale_config/sneakers_wheelys
-	icon_state = "sneakers"
-	worn_icon_state = "wheelys"
-	actions_types = list(/datum/action/item_action/wheelys)
-	var/wheelToggle = FALSE //False means wheels are not popped out
-	var/obj/vehicle/ridden/scooter/wheelys/W
-
-/obj/item/clothing/shoes/wheelys/Initialize(mapload)
-	. = ..()
-	W = new /obj/vehicle/ridden/scooter/wheelys(null)
-
-/obj/item/clothing/shoes/wheelys/ui_action_click(mob/user, action)
-	if(!isliving(user))
-		return
-	if(!istype(user.get_item_by_slot(ITEM_SLOT_FEET), /obj/item/clothing/shoes/wheelys))
-		to_chat(user, "<span class='warning'>You must be wearing the wheely-heels to use them!</span>")
-		return
-	if(!(W.is_occupant(user)))
-		wheelToggle = FALSE
-	if(wheelToggle)
-		W.unbuckle_mob(user)
-		wheelToggle = FALSE
-		return
-	W.forceMove(get_turf(user))
-	W.buckle_mob(user)
-	wheelToggle = TRUE
-
-/obj/item/clothing/shoes/wheelys/dropped(mob/user)
-	..()
-	if(wheelToggle)
-		W.unbuckle_mob(user)
-		wheelToggle = FALSE
-
-/obj/item/clothing/shoes/wheelys/Destroy()
-	QDEL_NULL(W)
-	. = ..()
 
 /obj/item/clothing/shoes/kindleKicks
 	name = "Kindle Kicks"
