@@ -202,8 +202,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 					else //Adding uses to an existing module
 						action.uses += initial(action.uses)
 						temp = "Additional use[action.uses > 1 ? "s" : ""] added to [action.name]!"
-						action.desc = "[initial(action.desc)] There are [action.uses] reactivations remaining."
-						A.update_action_buttons()
+						action.update_desc()
 						A.log_message("purchased malf module [AM.module_name] (NEW USES: [action.uses]) (NEW PROCESSING: [processing_time - AM.cost])", LOG_GAME)
 			processing_time -= AM.cost
 
@@ -774,7 +773,6 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		else
 			apc.overload++
 	owner.log_message("activated malf module [name]", LOG_GAME)
-	owner_AI.update_action_buttons()
 	to_chat(owner, "<span class='notice'>Overcurrent applied to the powernet.</span>")
 	owner.playsound_local(owner, "sparks", 50, 0)
 
@@ -838,7 +836,6 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 			uses-- //Not adjust_uses() so it doesn't automatically delete or show a message
 	to_chat(owner, "<span class='notice'>Diagnostic complete! Cameras reactivated: <b>[fixed_cameras]</b>. Reactivations remaining: <b>[uses]</b>.</span>")
 	owner.playsound_local(owner, 'sound/items/wirecutter.ogg', 50, 0)
-	owner_AI.update_action_buttons()
 	if(uses)
 		owner.log_message("activated malf module [name] (NEW USES: [uses])", LOG_GAME)
 	else
@@ -897,7 +894,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		AI.eyeobj.set_relay_speech(TRUE)
 
 
-//Fake Alert: Overloads a random number of lights across the station. Three uses. //Actually one use, always has been, silly comment
+//Fake Alert: Overloads a random number of lights across the station. One use.
 /datum/AI_Module/small/fake_alert
 	module_name = "Fake Alert"
 	mod_pick_name = "fake_alert"
@@ -928,7 +925,6 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	var/datum/round_event/event_announcement = new event_control.typepath()
 	event_announcement.kill()
 	event_announcement.announce(TRUE)
-	owner_AI.update_action_buttons()
 	owner.log_message("activated malf module [name] (TYPE: [chosen_event])", LOG_GAME)
 	return TRUE
 
