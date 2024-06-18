@@ -10651,6 +10651,10 @@
 /obj/machinery/air_sensor/atmos/sm_core,
 /turf/open/floor/engine,
 /area/engine/supermatter)
+"cKe" = (
+/obj/item/beacon,
+/turf/open/floor/iron,
+/area/engine/atmos)
 "cKl" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -21726,6 +21730,15 @@
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
 /area/docking/arrival)
+"fzM" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "fzQ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
@@ -24487,8 +24500,6 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
 "gia" = (
-/obj/structure/closet/crate/goldcrate,
-/obj/item/crowbar,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 4
 	},
@@ -28136,6 +28147,8 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 4
 	},
+/obj/structure/closet/crate/goldcrate,
+/obj/item/crowbar,
 /turf/open/floor/engine,
 /area/security/nuke_storage)
 "hen" = (
@@ -34453,7 +34466,6 @@
 /obj/item/screwdriver{
 	pixel_y = 5
 	},
-/obj/item/beacon,
 /obj/item/radio/off{
 	pixel_x = 4
 	},
@@ -41033,12 +41045,10 @@
 	},
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/item/assembly/prox_sensor{
-	pixel_x = 5;
-	pixel_y = 7
-	},
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass/fifty,
 /turf/open/floor/iron/grid/steel,
 /area/science/robotics/lab)
 "krt" = (
@@ -42589,6 +42599,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/beacon,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
 "kNe" = (
@@ -50469,6 +50480,10 @@
 /obj/item/stock_parts/cell/high,
 /obj/item/stock_parts/cell/high,
 /obj/machinery/firealarm/directional/south,
+/obj/item/assembly/prox_sensor{
+	pixel_x = 5;
+	pixel_y = 7
+	},
 /turf/open/floor/iron/grid/steel,
 /area/science/robotics/lab)
 "mLd" = (
@@ -51783,7 +51798,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark/side,
-/area/quartermaster/warehouse)
+/area/hallway/primary/port)
 "ndM" = (
 /obj/effect/turf_decal/guideline/guideline_in/red{
 	dir = 4
@@ -54772,19 +54787,22 @@
 "nTn" = (
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
-/obj/item/bodypart/l_arm/robot{
-	pixel_x = -3
+/obj/item/stack/sheet/plasteel{
+	amount = 15
 	},
 /obj/item/bodypart/r_arm/robot{
 	pixel_x = 3
 	},
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
+/obj/item/bodypart/l_arm/robot{
+	pixel_x = -3
+	},
 /obj/item/stack/cable_coil/white,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
 /turf/open/floor/iron/grid/steel,
 /area/science/robotics/lab)
 "nTs" = (
@@ -58459,15 +58477,10 @@
 /area/hallway/primary/central)
 "oUj" = (
 /obj/structure/table/reinforced,
-/obj/item/pen,
 /obj/machinery/door/window/eastright{
 	dir = 2;
 	name = "Robotics Desk";
 	req_access_txt = "29"
-	},
-/obj/item/folder/white{
-	pixel_x = 4;
-	pixel_y = -3
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "robotics_shutters";
@@ -58477,6 +58490,16 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/desk_bell{
 	pixel_x = -8
+	},
+/obj/item/paper_bin{
+	pixel_x = 8
+	},
+/obj/item/pen{
+	pixel_x = 8
+	},
+/obj/item/folder/white{
+	pixel_x = 2;
+	pixel_y = -3
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/robotics/lab)
@@ -60289,6 +60312,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
+/obj/item/beacon,
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
 "pvL" = (
@@ -67613,12 +67637,8 @@
 /area/hallway/primary/port)
 "roX" = (
 /obj/structure/table,
-/obj/item/retractor,
-/obj/item/hemostat,
-/obj/item/cautery,
-/obj/item/circular_saw,
-/obj/item/scalpel{
-	pixel_y = 12
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
 	},
 /turf/open/floor/iron/white/side{
 	dir = 1
@@ -75672,9 +75692,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "tnS" = (
@@ -77558,17 +77575,15 @@
 /area/vacant_room/commissary/commissary2)
 "tOf" = (
 /obj/structure/table,
-/obj/item/stack/sheet/glass,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/mineral/copper{
-	amount = 5
-	},
 /obj/item/clothing/glasses/welding,
 /obj/item/wrench,
 /obj/item/crowbar,
+/obj/item/stack/sheet/glass/ten,
+/obj/item/stack/sheet/mineral/copper/five,
 /obj/machinery/requests_console{
 	department = "Research Lab";
 	name = "Research RC";
@@ -81510,7 +81525,6 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/gloves/color/yellow,
 /obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed,
 /obj/item/assembly/timer,
@@ -84089,13 +84103,10 @@
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/plasteel{
-	amount = 15
-	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26
 	},
+/obj/item/stack/sheet/glass/fifty,
 /turf/open/floor/iron/grid/steel,
 /area/science/robotics/lab)
 "vpP" = (
@@ -85836,7 +85847,6 @@
 /obj/structure/table/optable{
 	name = "Robotics Operating Table"
 	},
-/obj/item/surgical_drapes,
 /obj/item/clothing/gloves/color/latex,
 /turf/open/floor/iron/white/side{
 	dir = 1
@@ -97373,14 +97383,14 @@
 	name = "External Research Shutters Control";
 	pixel_x = -6;
 	pixel_y = 24;
-	req_access_txt = "7"
+	req_one_access_txt = "7;29"
 	},
 /obj/machinery/button/door{
 	id = "rndlabint";
 	name = "Internal Research Shutters Control";
 	pixel_x = 6;
 	pixel_y = 24;
-	req_access_txt = "7"
+	req_one_access_txt = "7;29"
 	},
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
@@ -114717,7 +114727,7 @@ oBk
 wLn
 nvW
 taP
-ygc
+fzM
 mFs
 tTj
 gzo
@@ -143786,7 +143796,7 @@ uLE
 uzm
 ijV
 uzm
-uzm
+cKe
 uzm
 ijV
 mcv
