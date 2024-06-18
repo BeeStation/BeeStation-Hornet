@@ -262,6 +262,8 @@ GLOBAL_LIST_EMPTY(species_list)
 /proc/do_after(mob/user, delay = 3 SECONDS, atom/target, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks)
 	if(!user)
 		return FALSE
+	if(!isnum(delay))
+		CRASH("do_after was passed a non-number delay: [delay || "null"].")
 
 	if(target)
 		LAZYADD(user.do_afters, target)
@@ -302,29 +304,24 @@ GLOBAL_LIST_EMPTY(species_list)
 			drifting = FALSE
 			user_loc = user.loc
 
-		// Check flags
-		if(!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc)
+		if(
+			QDELETED(user) \
+			|| (!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
+			|| (!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding) \
+			|| (!(timed_action_flags & IGNORE_INCAPACITATED) && HAS_TRAIT(user, TRAIT_INCAPACITATED)) \
+			|| (extra_checks && !extra_checks.Invoke()) \
+		)
 			. = FALSE
+			break
 
-		if(!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding)
+		if(
+			!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) \
+			&& !drifting \
+			&& !QDELETED(target_loc) \
+			&& (QDELETED(target) || target_loc != target.loc) \
+			&& ((user_loc != target_loc || target_loc != user)) \
+			)
 			. = FALSE
-
-		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated(ignore_restraints = (timed_action_flags & IGNORE_RESTRAINED)))
-			. = FALSE
-
-
-		if(extra_checks && !extra_checks.Invoke())
-			. = FALSE
-
-		// If we have a target, we check for them moving here. We don't care about it if we're drifting or we ignore target loc change
-		if(!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && !drifting)
-			if(target_loc && user != target && (QDELETED(target) || target_loc != target.loc))
-				. = FALSE
-
-		if(target && !(timed_action_flags & IGNORE_TARGET_IN_DOAFTERS) && !(target in user.do_afters))
-			. = FALSE
-
-		if(!.)
 			break
 
 	if(!QDELETED(progbar))
