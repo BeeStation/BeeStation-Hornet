@@ -175,6 +175,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 			// Cost check
 			if(AM.cost > processing_time)
 				temp = "You cannot afford this module."
+				to_chat(A, "<span class='notice'>You cannot afford this module.</span>")
 				break
 
 			var/datum/action/innate/ai/action = locate(AM.power_type) in A.actions
