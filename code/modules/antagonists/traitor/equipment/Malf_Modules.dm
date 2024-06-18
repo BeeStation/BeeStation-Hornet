@@ -52,8 +52,8 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		owner_AI.malf_cooldown = world.time + cooldown_period
 
 /datum/action/innate/ai/proc/update_desc()
-		desc = "[initial(desc)] There are [uses] reactivations remaining."
-		button.desc = desc
+	desc = ("[initial(desc)] There [uses > 1 ? "are" : "is"] <b>[uses]</b> reactivation[uses > 1 ? "s" : ""] remaining.")
+	button.desc = desc
 
 /datum/action/innate/ai/New()
 	..()
