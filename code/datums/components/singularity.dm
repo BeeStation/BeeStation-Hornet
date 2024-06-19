@@ -5,7 +5,7 @@
 #define CHANCE_TO_MOVE_TO_TARGET 60
 
 //What's the range for the singularity to see things to eat?
-#define SINGULARITY_SIGHT_SIZE 20
+#define SINGULARITY_SIGHT_SIZE 10
 
 /// Things that maybe move around and does stuff to things around them
 /// Used for the singularity (duh) and Nar'Sie
@@ -212,22 +212,16 @@
 /datum/component/singularity/proc/move(delta_time)
 	var/list/drifting_dir = GLOB.alldirs
 	drifting_dir -= last_failed_movement
-	var/singularity_sight_modifier
-	var/nearest_distance = SINGULARITY_SIGHT_SIZE + singularity_sight_modifier
+	var/neareest_distance = SINGULARITY_SIGHT_SIZE
 	var/closest_target
-	var/static/things_to_eat = typecacheof(list(/turf/closed/wall, /obj/structure, /mob/living))
-	var/static/things_to_not_eat = typecacheof(list(/obj/structure/grille/indestructable, /obj/structure/window/reinforced/fulltile/indestructable, /turf/closed/indestructible, /turf/open/indestructible))
-	for(var/atom/A as() in oview(SINGULARITY_SIGHT_SIZE + singularity_sight_modifier, parent)) //Find the nearest wall, floor, structure or mob
-		if((A.type in things_to_eat) && !(A.type in things_to_not_eat)) //can we eat it?
+	var/static/things_to_eat = typecacheof(list(/turf/open/floor, /turf/closed/wall, /obj/structure))
+	for(var/atom/A as() in oview(SINGULARITY_SIGHT_SIZE, parent)) //Find the furthest wall, floor or structure that we can eat, then go that direction
+		if(A.type in things_to_eat)
 			var/dist = get_dist(parent, A)
-			if(dist < nearest_distance)
+			if(dist < neareest_distance)
 				closest_target = A
-				nearest_distance = dist
-				singularity_sight_modifier = 0
-	var/dir = get_dir(parent, closest_target) //go that way
-	if ((dir == null) && (singularity_sight_modifier < 45)) //Increase the search radius if you find nothing, up to a maximum, ofcourse.
-		singularity_sight_modifier++
-		return
+				neareest_distance = dist
+	var/dir = get_dir(parent, closest_target)
 	if(dir in drifting_dir) //Can we go that direction?
 		final_dir = dir //If so, go that way.
 	else
