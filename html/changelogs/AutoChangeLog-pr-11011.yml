@@ -1,0 +1,5 @@
+author: XeonMations
+delete-after: true
+changes:
+  - bugfix: Fixed a bug where any projectile would delete the singularity instead
+      of being deleted itself.
