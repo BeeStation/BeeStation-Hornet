@@ -971,13 +971,11 @@
 		for(var/organ_slot in organs_to_damage)
 			if(prob(75))
 				carbon_owner.adjustOrganLoss(organ_slot, 20)
-		var/list/item_blacklist = list(/obj/item/grenade)
+
 		// And roughly 75% of their items will take a smack, too
 		for(var/obj/item/thing in carbon_owner.get_all_gear())
-			if(!QDELETED(thing) && prob(75))
-				for(var/blacklisted in item_blacklist)
-					if(!istype(thing, blacklisted))
-						thing.take_damage(100)
+			if(!QDELETED(thing) && prob(75) && !istype(thing, /obj/item/grenade))
+				thing.take_damage(100)
 	return ..()
 
 /datum/status_effect/corrosion_curse
