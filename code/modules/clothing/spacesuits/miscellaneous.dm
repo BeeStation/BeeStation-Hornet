@@ -66,6 +66,8 @@ Contains:
 	icon = 'icons/obj/clothing/suits/armor.dmi'
 	worn_icon = 'icons/mob/clothing/suits/jacket.dmi'
 	icon_state = "centcom_coat"
+	icon = 'icons/obj/clothing/suits/jacket.dmi'
+	worn_icon = 'icons/mob/clothing/suits/jacket.dmi'
 	item_state = "centcom"
 	blood_overlay_type = "coat"
 	slowdown = 0
