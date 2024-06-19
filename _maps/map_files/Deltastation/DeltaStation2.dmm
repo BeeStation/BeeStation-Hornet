@@ -11947,6 +11947,7 @@
 "btj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/firecloset,
+/obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron,
 /area/quartermaster/exploration_prep)
 "btw" = (
@@ -19544,6 +19545,10 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/table,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/item/radio/headset/headset_exploration{
+	pixel_x = 2;
+	pixel_y = 2
+	},
 /turf/open/floor/iron,
 /area/tcommsat/server)
 "cok" = (
@@ -44739,6 +44744,10 @@
 	},
 /turf/open/floor/iron,
 /area/security/courtroom)
+"hJO" = (
+/obj/machinery/airalarm/directional/west,
+/turf/open/floor/iron,
+/area/quartermaster/exploration_prep)
 "hKc" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /obj/effect/decal/cleanable/dirt,
@@ -52548,6 +52557,7 @@
 	name = "exploration preperation room";
 	req_access_txt = "49"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_prep)
 "koj" = (
@@ -68806,7 +68816,6 @@
 /obj/machinery/suit_storage_unit/exploration,
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "pKB" = (
@@ -78541,6 +78550,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/quartermaster/exploration_prep)
 "sWk" = (
@@ -79165,6 +79176,10 @@
 /obj/item/trash/popcorn{
 	pixel_x = -3;
 	pixel_y = -6
+	},
+/obj/item/radio/headset/headset_exploration{
+	pixel_x = 6;
+	pixel_y = 4
 	},
 /turf/open/floor/carpet,
 /area/quartermaster/exploration_prep)
@@ -80170,10 +80185,6 @@
 /area/security/checkpoint/customs)
 "tAw" = (
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/glass,
 /obj/machinery/door/airlock/science/glass{
 	name = "exploration preperation room";
@@ -124925,7 +124936,7 @@ pbR
 qGi
 uBv
 btj
-mSc
+hJO
 tMC
 alf
 alg

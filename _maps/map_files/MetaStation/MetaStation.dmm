@@ -31965,6 +31965,10 @@
 	pixel_x = -9;
 	pixel_y = 6
 	},
+/obj/item/radio/headset/headset_exploration{
+	pixel_x = 6;
+	pixel_y = 4
+	},
 /turf/open/floor/iron/techmaint,
 /area/science/shuttledock)
 "glr" = (
@@ -71501,10 +71505,13 @@
 	network = list("ss13","tcomms")
 	},
 /obj/structure/table/wood,
-/obj/item/pen,
 /obj/machinery/light_switch/tcomms{
 	pixel_x = 9;
 	pixel_y = -24
+	},
+/obj/item/radio/headset/headset_exploration{
+	pixel_x = 2;
+	pixel_y = 2
 	},
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
@@ -73375,6 +73382,7 @@
 	pixel_y = 6
 	},
 /obj/structure/table/wood,
+/obj/item/pen,
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "wlA" = (

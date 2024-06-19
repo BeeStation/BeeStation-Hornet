@@ -67889,6 +67889,10 @@
 	name = "Telecomms RC";
 	pixel_y = 30
 	},
+/obj/item/radio/headset/headset_exploration{
+	pixel_x = 2;
+	pixel_y = 2
+	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "rrR" = (
@@ -87214,6 +87218,10 @@
 /obj/machinery/recharger,
 /obj/item/gps/mining/exploration{
 	pixel_x = 10
+	},
+/obj/item/radio/headset/headset_exploration{
+	pixel_x = -4;
+	pixel_y = 2
 	},
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)

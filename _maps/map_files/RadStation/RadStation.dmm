@@ -5787,7 +5787,8 @@
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration{
 	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/tech,
 /area/quartermaster/exploration_prep)
 "bUG" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/carbon_output{
@@ -6808,7 +6809,7 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/tech,
 /area/quartermaster/exploration_prep)
 "cly" = (
 /obj/structure/disposalpipe/segment{
@@ -7501,8 +7502,17 @@
 /turf/closed/wall,
 /area/medical/sleeper)
 "cvL" = (
-/obj/item/kirbyplants/random,
-/turf/open/floor/iron/dark,
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 3
+	},
+/obj/item/wrench,
+/obj/item/clothing/glasses/welding{
+	pixel_y = -4
+	},
+/obj/item/storage/firstaid/regular,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/tech,
 /area/quartermaster/exploration_prep)
 "cwh" = (
 /obj/structure/chair/fancy/corp{
@@ -10062,6 +10072,10 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	network = list("thunder","court");
 	pixel_y = -32
+	},
+/obj/item/radio/headset/headset_exploration{
+	pixel_x = 6;
+	pixel_y = 4
 	},
 /turf/open/floor/carpet,
 /area/quartermaster/exploration_prep)
@@ -13427,7 +13441,10 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "ekN" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "ekR" = (
@@ -20300,10 +20317,6 @@
 	dir = 1
 	},
 /area/hallway/primary/central)
-"gkV" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/turf/open/floor/iron/dark,
-/area/quartermaster/exploration_prep)
 "glm" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/chair/fancy/plastic{
@@ -23904,6 +23917,9 @@
 "hqH" = (
 /obj/machinery/suit_storage_unit/exploration,
 /obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "hqW" = (
@@ -26423,7 +26439,7 @@
 	initialize_directions = 8
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/tech,
 /area/quartermaster/exploration_prep)
 "ijs" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
@@ -32205,17 +32221,7 @@
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "kcG" = (
-/obj/structure/rack,
-/obj/item/wrench,
-/obj/item/clothing/glasses/welding{
-	pixel_y = -4
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_y = 3
-	},
-/obj/item/storage/firstaid/regular,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/tech,
 /area/quartermaster/exploration_prep)
 "kcO" = (
 /obj/effect/turf_decal/box/corners{
@@ -33880,7 +33886,7 @@
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/tech,
 /area/quartermaster/exploration_prep)
 "kEh" = (
 /obj/structure/chair/fancy/bench/pew/left{
@@ -38503,6 +38509,10 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet)
+"mdw" = (
+/obj/item/kirbyplants/random,
+/turf/open/floor/iron/tech,
+/area/quartermaster/exploration_prep)
 "mdz" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
@@ -38679,7 +38689,8 @@
 /obj/machinery/computer/objective{
 	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/tech,
 /area/quartermaster/exploration_prep)
 "mgp" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -47010,6 +47021,10 @@
 "oHG" = (
 /turf/open/floor/circuit/telecomms/server,
 /area/science/xenobiology)
+"oHU" = (
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron/tech,
+/area/quartermaster/exploration_prep)
 "oHV" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "medpriv1";
@@ -49723,6 +49738,9 @@
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "pxJ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "pxM" = (
@@ -49762,7 +49780,7 @@
 	pixel_y = -2;
 	receive_ore_updates = 1
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/tech,
 /area/quartermaster/exploration_prep)
 "pyL" = (
 /obj/machinery/rnd/experimentor,
@@ -51270,7 +51288,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/tech,
 /area/quartermaster/exploration_prep)
 "pVo" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -52401,6 +52419,9 @@
 /area/maintenance/department/engine)
 "qoh" = (
 /obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "qol" = (
@@ -60992,7 +61013,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/tech,
 /area/quartermaster/exploration_prep)
 "tda" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -68686,7 +68707,7 @@
 "vur" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/tech,
 /area/quartermaster/exploration_prep)
 "vut" = (
 /obj/structure/cable/yellow{
@@ -69108,7 +69129,7 @@
 	dir = 5
 	},
 /obj/structure/disposalpipe/segment,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/tech,
 /area/quartermaster/exploration_prep)
 "vBI" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -72516,6 +72537,11 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
+/obj/item/radio/headset/headset_exploration{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/structure/table,
 /turf/open/floor/iron,
 /area/quartermaster/exploration_prep)
 "wHY" = (
@@ -97974,7 +98000,7 @@ gVn
 cCS
 tIR
 pUY
-pxJ
+mdw
 clu
 kcG
 rqR
@@ -98233,7 +98259,7 @@ tIR
 kEg
 vur
 vBz
-qoh
+oHU
 qoh
 wVC
 dqs
@@ -98490,7 +98516,7 @@ tIR
 ijl
 cvL
 tcN
-gkV
+kcG
 ekN
 hCg
 pzS
