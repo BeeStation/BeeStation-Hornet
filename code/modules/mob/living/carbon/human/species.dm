@@ -89,6 +89,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/organ/lungs/mutantlungs = null
 	var/breathid = "o2"
 
+	var/list/required_organs = list()
 	var/obj/item/organ/brain/mutant_brain = /obj/item/organ/brain
 	var/obj/item/organ/heart/mutant_heart = /obj/item/organ/heart
 	var/obj/item/organ/eyes/mutanteyes = /obj/item/organ/eyes
@@ -256,50 +257,61 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(heart && (!should_have_heart || replace_current))
 		heart.Remove(C,1)
 		QDEL_NULL(heart)
+		required_organs -= heart
 	if(should_have_heart && !heart)
 		heart = new mutant_heart()
 		heart.Insert(C)
+		required_organs += heart
 
 	if(lungs && (!should_have_lungs || replace_current))
 		lungs.Remove(C,1)
 		QDEL_NULL(lungs)
+		required_organs -= lungs
 	if(should_have_lungs && !lungs)
 		if(mutantlungs)
 			lungs = new mutantlungs()
 		else
 			lungs = new()
 		lungs.Insert(C)
+		required_organs += lungs
 
 	if(liver && (!should_have_liver || replace_current))
 		liver.Remove(C,1)
 		QDEL_NULL(liver)
+		required_organs -= liver
 	if(should_have_liver && !liver)
 		if(mutantliver)
 			liver = new mutantliver()
 		else
 			liver = new()
 		liver.Insert(C)
+		required_organs += liver
 
 	if(stomach && (!should_have_stomach || replace_current))
 		stomach.Remove(C,1)
 		QDEL_NULL(stomach)
+		required_organs -= stomach
 	if(should_have_stomach && !stomach)
 		if(mutantstomach)
 			stomach = new mutantstomach()
 		else
 			stomach = new()
 		stomach.Insert(C)
+		required_organs += stomach
 
 	if(appendix && (!should_have_appendix || replace_current))
 		appendix.Remove(C,1)
 		QDEL_NULL(appendix)
+		required_organs -= appendix
 	if(should_have_appendix && !appendix)
 		appendix = new()
 		appendix.Insert(C)
+		required_organs += appendix
 
 	if(tail && (!should_have_tail || replace_current))
 		tail.Remove(C,1)
 		QDEL_NULL(tail)
+		required_organs -= tail
 	if(should_have_tail && !tail)
 		tail = new mutanttail()
 		if(islizard(C))
@@ -308,10 +320,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			lizard_tail.spines = C.dna.features["spines"]
 			tail = lizard_tail
 		tail.Insert(C)
+		required_organs += tail
 
 	if(wings && (!should_have_wings || replace_current))
 		wings.Remove(C,1)
 		QDEL_NULL(wings)
+		required_organs -= wings
 	if(should_have_wings && !wings)
 		wings = new mutantwings()
 		if(ismoth(C))
@@ -320,36 +334,45 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(locate(/datum/mutation/strongwings) in C.dna.mutations)
 				wings.flight_level = WINGS_FLYING
 		wings.Insert(C)
+		required_organs += wings
 
 	if(C.get_bodypart(BODY_ZONE_HEAD))
 		if(brain && (replace_current || !should_have_brain))
 			if(!brain.decoy_override)//Just keep it if it's fake
 				brain.Remove(C,TRUE,TRUE)
 				QDEL_NULL(brain)
+				required_organs -= brain
 		if(should_have_brain && !brain)
 			brain = new mutant_brain()
 			brain.Insert(C, TRUE, TRUE)
+			required_organs += brain
 
 		if(eyes && (replace_current || !should_have_eyes))
 			eyes.Remove(C,1)
 			QDEL_NULL(eyes)
+			required_organs -= eyes
 		if(should_have_eyes && !eyes)
 			eyes = new mutanteyes
 			eyes.Insert(C)
+			required_organs += eyes
 
 		if(ears && (replace_current || !should_have_ears))
 			ears.Remove(C,1)
 			QDEL_NULL(ears)
+			required_organs -= ears
 		if(should_have_ears && !ears)
 			ears = new mutantears
 			ears.Insert(C)
+			required_organs += ears
 
 		if(tongue && (replace_current || !should_have_tongue))
 			tongue.Remove(C,1)
 			QDEL_NULL(tongue)
+			required_organs -= tongue
 		if(should_have_tongue && !tongue)
 			tongue = new mutanttongue
 			tongue.Insert(C)
+			required_organs += tongue
 
 	if(old_species)
 		for(var/mutantorgan in old_species.mutant_organs)
@@ -357,10 +380,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(I)
 				I.Remove(C)
 				QDEL_NULL(I)
+				required_organs -= I
 
 	for(var/path in mutant_organs)
 		var/obj/item/organ/I = new path()
 		I.Insert(C)
+		required_organs += I
 
 /datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
 	new_species ||= C.dna.species //If no new species is provided, assume its src.

@@ -287,8 +287,6 @@ GENE SCANNER
 						healthy = FALSE
 				if(healthy)
 					message += "\t<span class='info'>Healthy.</span>"
-			else
-				message += "\t<span class='alert'>Subject does not have ears.</span>"
 			var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
 			message += "\t<span class='info'><b>==EYE STATUS==</b></span>"
 			if(istype(eyes))
@@ -310,9 +308,6 @@ GENE SCANNER
 					healthy = FALSE
 				if(healthy)
 					message += "\t<span class='info'>Healthy.</span>"
-			else
-				message += "\t<span class='alert'>Subject does not have eyes.</span>"
-
 
 	// Body part damage report
 	if(iscarbon(M))
@@ -349,7 +344,7 @@ GENE SCANNER
 		var/major_damage
 		var/max_damage
 		var/missing_organs
-		var/list/required_organs = list(/obj/item/organ/lungs, /obj/item/organ/heart,  /obj/item/organ/brain, /obj/item/organ/tongue, /obj/item/organ/liver, /obj/item/organ/stomach)
+		var/list/missing_organ_list = list()
 		var/report_organs = FALSE
 
 		//Piece together the lists to be reported
@@ -379,11 +374,11 @@ GENE SCANNER
 				else
 					minor_damage = "\t<span class='info'>Mildly Damaged Organs: "
 					minor_damage += organ.name
-		for(var/X in required_organs)
-			if(H.getorgan(X))
-				required_organs -= X
-		if(required_organs.len > 0)
-			for(var/C in required_organs)
+		for(var/X in H.dna.species.required_organs) //Start checking against the carbon mob, seeing if there is any organs missing.
+			if(!(H.getorgan(X))) //Can we find the given organ in the mob?
+				missing_organ_list += X //If not, add it to the list.
+		if(missing_organ_list.len > 0) //We have missing organs?
+			for(var/C in missing_organ_list)
 				var/obj/item/organ/organ = C
 				var/name = initial(organ.name) //Purely so that i can get the name from the obj type
 				report_organs = TRUE
