@@ -33,6 +33,8 @@
 	. = ..()
 	if(.)
 		return
+	if (HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
 	var/mob/living/carbon/human/H = user.mob
 	var/obj/item/thing = H.get_active_held_item()
 	var/obj/item/equipped_belt = H.get_item_by_slot(ITEM_SLOT_BELT)
@@ -77,6 +79,8 @@
 	. = ..()
 	if(.)
 		return
+	if (HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
 	var/mob/living/carbon/human/H = user.mob
 	var/obj/item/thing = H.get_active_held_item()
 	var/obj/item/equipped_back = H.get_item_by_slot(ITEM_SLOT_BACK)
@@ -117,6 +121,8 @@
 /datum/keybinding/human/quick_equip_suit_storage/down(client/user)
 	. = ..()
 	if(.)
+		return
+	if (HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	var/mob/living/carbon/human/H = user.mob
 	var/obj/item/thing = H.get_active_held_item()

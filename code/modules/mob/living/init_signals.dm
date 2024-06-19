@@ -59,6 +59,8 @@
 	SIGNAL_HANDLER
 	mobility_flags &= ~(MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
 	drop_all_held_items()
+	if (active_storage)
+		active_storage.hide_from(src)
 
 ///Called when TRAIT_HANDS_BLOCKED is removed from the mob.
 /mob/living/proc/on_handsblocked_trait_loss(datum/source)

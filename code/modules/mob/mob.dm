@@ -316,6 +316,10 @@
   * on the item in the slot if the users active hand is empty
   */
 /mob/proc/attack_ui(slot)
+	if(world.time <= usr.next_move)
+		return FALSE
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return FALSE
 	var/obj/item/W = get_active_held_item()
 	if(istype(W))
 		//IF HELD TRY APPLY TO SLOT
