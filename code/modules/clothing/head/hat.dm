@@ -2,7 +2,7 @@
 	icon = 'icons/obj/clothing/head/hats.dmi'
 	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 
-/obj/item/clothing/head/hats/centhat
+/obj/item/clothing/head/hats/centcom_cap
 	name = "\improper CentCom hat"
 	icon_state = "centcom"
 	desc = "It's good to be emperor."
@@ -143,3 +143,12 @@
 		item_state = initial(item_state)
 		earflaps_down = TRUE
 		to_chat(user, "<span class='notice'>You lower the ear flaps on the ushanka.</span>")
+
+/obj/item/clothing/head/centcom_cap
+	name = "\improper CentCom commander cap"
+	icon_state = "centcom_cap"
+	desc = "Worn by the finest of CentCom commanders. Inside the lining of the cap, lies two faint initials."
+	item_state = "that"
+	flags_inv = 0
+	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 40, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	strip_delay = (8 SECONDS)
