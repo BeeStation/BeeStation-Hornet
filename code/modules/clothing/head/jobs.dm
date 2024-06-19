@@ -436,10 +436,8 @@
 	name = "\improper CentCom Formal Beret"
 	desc = "Sometimes, a compromise between fashion and defense needs to be made. Thanks to Nanotrasen's most recent nano-fabric durability enhancements, this time, it's not the case."
 	icon_state = "beret_badge"
-	greyscale_config = /datum/greyscale_config/beret_badge
-	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#46b946#f2c42e"
-	armor_type = /datum/armor/beret_centcom_formal
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, FIRE = 100, ACID = 90)
 	strip_delay = 10 SECONDS
 
 #undef DRILL_DEFAULT

@@ -2,7 +2,7 @@
 	icon = 'icons/obj/clothing/head/hats.dmi'
 	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 
-/obj/item/clothing/head/hats/centcom_cap
+/obj/item/clothing/head/hats/centhat
 	name = "\improper CentCom hat"
 	icon_state = "centcom"
 	desc = "It's good to be emperor."
@@ -11,6 +11,15 @@
 	armor = list(MELEE = 30,  BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
 	strip_delay = 80
 	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
+
+/obj/item/clothing/head/hats/centcom_cap
+	name = "\improper CentCom commander cap"
+	icon_state = "centcom_cap"
+	desc = "Worn by the finest of CentCom commanders. Inside the lining of the cap, lies two faint initials."
+	item_state = "that"
+	flags_inv = 0
+	armor = list(MELEE = 30,  BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
+	strip_delay = (8 SECONDS)
 
 /obj/item/clothing/head/costume/canada
 	name = "striped red tophat"
@@ -143,12 +152,3 @@
 		item_state = initial(item_state)
 		earflaps_down = TRUE
 		to_chat(user, "<span class='notice'>You lower the ear flaps on the ushanka.</span>")
-
-/obj/item/clothing/head/centcom_cap
-	name = "\improper CentCom commander cap"
-	icon_state = "centcom_cap"
-	desc = "Worn by the finest of CentCom commanders. Inside the lining of the cap, lies two faint initials."
-	item_state = "that"
-	flags_inv = 0
-	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 40, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-	strip_delay = (8 SECONDS)

@@ -321,9 +321,9 @@
 	icon_state = "centcom_formal"
 	item_state = "centcom"
 	body_parts_covered = CHEST|GROIN|ARMS
-	armor = list("melee" = 35, "bullet" = 40, "laser" = 40, "energy" = 50, "bomb" = 35, "bio" = 10, "rad" = 10, "fire" = 10, "acid" = 60)
-	togglename = "buttons"
+	armor = list(MELEE = 35, BULLET = 40, LASER = 40, ENERGY = 50, BOMB = 35, BIO = 10, RAD = 10, FIRE = 10, ACID = 60, STAMINA = 40)
 
-/obj/item/clothing/suit/toggle/armor/vest/centcom_formal/Initialize()
+/obj/item/clothing/suit/toggle/armor/vest/centcom_formal/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/toggle_icon)
 	allowed = GLOB.security_wintercoat_allowed
