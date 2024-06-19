@@ -315,7 +315,7 @@
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	armor = list(MELEE = 25,  BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 50, RAD = 20, FIRE = -10, ACID = 50, STAMINA = 30)
 
-/obj/item/clothing/suit/toggle/armor/vest/centcom_formal
+/obj/item/clothing/suit/armor/centcom_formal
 	name = "\improper CentCom formal coat"
 	desc = "A stylish coat given to CentCom Commanders. Perfect for sending ERTs to suicide missions with style!"
 	icon_state = "centcom_formal"
@@ -323,7 +323,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	armor = list(MELEE = 35, BULLET = 40, LASER = 40, ENERGY = 50, BOMB = 35, BIO = 10, RAD = 10, FIRE = 10, ACID = 60, STAMINA = 40)
 
-/obj/item/clothing/suit/toggle/armor/vest/centcom_formal/Initialize(mapload)
+/obj/item/clothing/suit/armor/centcom_formal/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/toggle_icon)
 	allowed = GLOB.security_wintercoat_allowed

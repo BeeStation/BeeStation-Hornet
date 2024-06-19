@@ -589,7 +589,7 @@
 		/obj/item/clothing/under/rank/centcom/official = 3,
 		/obj/item/clothing/under/rank/centcom/officer = 3,
 		/obj/item/clothing/under/rank/centcom/officer_skirt = 3,
-		/obj/item/clothing/suit/toggle/armor/vest/centcom_formal = 3,
+		/obj/item/clothing/suit/armor/centcom_formal = 3,
 		/obj/item/clothing/suit/space/officer = 3,
 		/obj/item/clothing/suit/hooded/wintercoat/centcom = 3,
 		/obj/item/clothing/head/hats/centcom_cap = 3,
