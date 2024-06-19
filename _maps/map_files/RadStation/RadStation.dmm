@@ -59174,11 +59174,6 @@
 /turf/open/floor/iron/tech/grid,
 /area/engine/engineering)
 "syK" = (
-/obj/machinery/door/window/eastright{
-	dir = 8;
-	name = "Robotics Surgery";
-	req_access_txt = "29"
-	},
 /turf/open/floor/iron/white,
 /area/science/robotics)
 "syT" = (
