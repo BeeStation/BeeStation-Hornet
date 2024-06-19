@@ -17,6 +17,9 @@
 	display_order = JOB_DISPLAY_ORDER_CYBORG
 	departments = DEPT_BITFLAG_SILICON
 
+/datum/job/cyborg/get_access() // no point of calling parent proc
+	return list()
+
 /datum/job/cyborg/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
 	if(visualsOnly)
 		CRASH("dynamic preview is unsupported")
