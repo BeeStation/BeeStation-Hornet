@@ -31841,9 +31841,6 @@
 	name = "Exploration Telecommunications";
 	req_access_txt = "61"
 	},
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
@@ -48013,9 +48010,6 @@
 /turf/open/floor/iron/techmaint,
 /area/gateway)
 "qaN" = (
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/manifold/general/hidden{
 	dir = 8
 	},
