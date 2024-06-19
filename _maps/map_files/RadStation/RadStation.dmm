@@ -30553,7 +30553,6 @@
 	pixel_y = 4
 	},
 /obj/structure/desk_bell{
-	pixel_y = 0;
 	pixel_x = -6
 	},
 /turf/open/floor/iron/dark,
@@ -32623,6 +32622,7 @@
 /obj/machinery/computer/security/telescreen/rd{
 	pixel_y = 32
 	},
+/obj/machinery/computer/card/minor/rd,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "kht" = (
@@ -56800,6 +56800,9 @@
 	},
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engine/storage)
 "rId" = (
