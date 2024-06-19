@@ -480,5 +480,5 @@
 	allowed += GLOB.security_wintercoat_allowed
 
 /obj/item/clothing/head/hooded/winterhood/centcom
-	icon_state = "winterhood_centcom"
+	icon_state = "hood_centcom"
 	armor = list(MELEE = 35, BULLET = 40, LASER = 40, ENERGY = 50, BOMB = 35, BIO = 10, RAD = 10, FIRE = 10, ACID = 60)
