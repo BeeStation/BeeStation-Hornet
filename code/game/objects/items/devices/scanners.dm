@@ -348,6 +348,8 @@ GENE SCANNER
 		var/minor_damage
 		var/major_damage
 		var/max_damage
+		var/missing_organs
+		var/list/required_organs = list(/obj/item/organ/lungs, /obj/item/organ/heart,  /obj/item/organ/brain, /obj/item/organ/tongue, /obj/item/organ/liver, /obj/item/organ/stomach)
 		var/report_organs = FALSE
 
 		//Piece together the lists to be reported
@@ -377,8 +379,26 @@ GENE SCANNER
 				else
 					minor_damage = "\t<span class='info'>Mildly Damaged Organs: "
 					minor_damage += organ.name
+		for(var/X in required_organs)
+			if(H.getorgan(X))
+				required_organs -= X
+		if(required_organs.len > 0)
+			for(var/C in required_organs)
+				var/obj/item/organ/organ = C
+				var/name = initial(organ.name) //Purely so that i can get the name from the obj type
+				report_organs = TRUE
+				if(missing_organs)
+					missing_organs += ", "
+					missing_organs += name
+				else
+					missing_organs = "\t<span class='alert'>Missing Organs: "
+					missing_organs += name
 
 		if(report_organs)	//we either finish the list, or set it to be empty if no organs were reported in that category
+			if(!missing_organs)
+				missing_organs = "\t<span class='alert'>Missing Organs: </span>"
+			else
+				missing_organs += "</span>"
 			if(!max_damage)
 				max_damage = "\t<span class='alert'>Non-Functional Organs: </span>"
 			else
@@ -394,6 +414,7 @@ GENE SCANNER
 			message += minor_damage
 			message += major_damage
 			message += max_damage
+			message += missing_organs
 		//Genetic damage
 		if(advanced && H.has_dna())
 			message += "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>"
