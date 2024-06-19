@@ -21,9 +21,6 @@
 	/// The chosen direction to drift in
 	var/drifting_dir
 
-	/// The final chosen direction to go.
-	var/final_dir
-
 	/// How many tiles out to pull in
 	var/grav_pull
 
