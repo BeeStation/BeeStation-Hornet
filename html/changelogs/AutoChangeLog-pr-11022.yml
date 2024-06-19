@@ -1,9 +1,0 @@
-author: Gilgaxx
-delete-after: true
-changes:
-  - balance: Removed one time limitation on Reactivate Cameras module for Malf AI
-      but lowered the cameras fixed (30 -> 20)
-  - bugfix: Action buttons for malf powers with multiple uses now correctly update
-  - tweak: Purchasing more uses of a Malf Module now gives feedback in chat and with
-      noise
-  - bugfix: Removed a malf power logging runtime
