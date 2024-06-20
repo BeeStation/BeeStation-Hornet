@@ -2182,7 +2182,7 @@
 					/obj/item/bouquet/sunflower,
 					/obj/item/bouquet/poppy,
 					/obj/item/bouquet/poppy,
-					/obj/item/reagent_containers/food/drinks/bottle/champagne
+					/obj/item/reagent_containers/food/drinks/bottle/champagne,
 					/obj/item/reagent_containers/food/drinks/bottle/champagne)
 	crate_name = "wedding crate"
 

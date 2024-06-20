@@ -900,5 +900,4 @@
 	name = "cummerbund"
 	desc = "A pleated sash that pairs well with a suit jacket."
 	icon_state = "cummerbund"
-	inhand_icon_state = "cummerbund"
 	worn_icon_state = "cummerbund"
