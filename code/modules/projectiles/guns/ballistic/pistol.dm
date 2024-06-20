@@ -115,3 +115,22 @@
 		to_chat(user, "<span class='notice'>..and falls into view. Whew, that was a close one.</span>")
 		user.dropItemToGround(src)
 
+
+// ==================================
+// Officer's Pistol
+// ==================================
+
+/obj/item/gun/ballistic/automatic/pistol/service
+	name = "service pistol"
+	desc = "A commemorative pistol given to Nanotrasen officers designed to use higher densities of energy to emulate the ballistic service pistols that they replaced.\
+	It primarilly serves as a symbol of power, but has proven to be an effective tool at enforcing the power that is portrays.\
+	It fires less-lethal rounds which stun the area of the body that they bruise."
+	icon = 'icons/obj/guns/energy.dmi'
+	icon_state = "officer"
+	w_class = WEIGHT_CLASS_NORMAL
+	mag_type = /obj/item/ammo_box/magazine/recharge/service
+	can_suppress = FALSE
+	fire_sound = 'sound/weapons/laser.ogg'
+	casing_ejector = FALSE
+	fire_rate = 4
+

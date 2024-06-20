@@ -11,3 +11,6 @@
 	projectile_type = /obj/projectile/beam/weak/penetrator
 	variance = 0.8
 	click_cooldown_override = 1
+
+/obj/item/ammo_casing/caseless/laser/lesslethal
+	projectile_type = /obj/projectile/beam/laser/lesslethal

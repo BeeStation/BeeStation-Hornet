@@ -12,3 +12,9 @@
 
 /obj/item/ammo_box/magazine/recharge/attack_self() //No popping out the "bullets"
 	return
+
+/obj/item/ammo_box/magazine/recharge/service
+	name = "energy pistol magazine"
+	desc = "A rechargeable energy pack used by service pistols."
+	max_ammo = 8
+	ammo_type = /obj/item/ammo_casing/caseless/laser/lesslethal
