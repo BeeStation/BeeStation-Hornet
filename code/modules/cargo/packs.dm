@@ -2176,12 +2176,12 @@
 					/obj/item/clothing/under/suit/tuxedo,
 					/obj/item/storage/belt/cummerbund,
 					/obj/item/storage/belt/cummerbund,
-					/obj/item/bouquet,
-					/obj/item/bouquet,
-					/obj/item/bouquet/sunflower,
-					/obj/item/bouquet/sunflower,
-					/obj/item/bouquet/poppy,
-					/obj/item/bouquet/poppy,
+					/obj/item/bouquets/bouquet,
+					/obj/item/bouquets/bouquet,
+					/obj/item/bouquets/bouquet/sunflower,
+					/obj/item/bouquets/bouquet/sunflower,
+					/obj/item/bouquets/bouquet/poppy,
+					/obj/item/bouquets/bouquet/poppy,
 					/obj/item/reagent_containers/food/drinks/bottle/champagne,
 					/obj/item/reagent_containers/food/drinks/bottle/champagne)
 	crate_name = "wedding crate"
