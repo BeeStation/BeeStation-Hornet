@@ -1,0 +1,5 @@
+author: Gilgaxx
+delete-after: true
+changes:
+  - rscadd: Added a HUD button to access the Spawners Menu for ghosts
+  - bugfix: Added missing text description for swarmer in the Spawners Menu
