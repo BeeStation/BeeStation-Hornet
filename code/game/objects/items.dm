@@ -134,6 +134,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/equip_delay_other = 20
 	/// In deciseconds, how long an item takes to remove from another person
 	var/strip_delay = 40
+	/// In deciseconds, how long an item takes to remove from yourself
+	var/strip_delay_self = 0
 	/// In deciseconds, how long it takes to break out of an item by using resist. ex: handcuffs
 	var/breakouttime = 0
 
@@ -496,7 +498,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(throwing)
 		throwing.finalize(FALSE)
 	if(loc == user)
-		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
+		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src, bypass_delay = FALSE))
 			return
 
 	. = FALSE
