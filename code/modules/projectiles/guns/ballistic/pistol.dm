@@ -133,3 +133,14 @@
 	casing_ejector = FALSE
 	fire_rate = 4
 
+/obj/item/gun/ballistic/automatic/pistol/service/captain
+
+/obj/item/gun/ballistic/automatic/pistol/service/hop
+
+/obj/item/gun/ballistic/automatic/pistol/service/hos
+
+/obj/item/gun/ballistic/automatic/pistol/service/ce
+
+/obj/item/gun/ballistic/automatic/pistol/service/rd
+
+/obj/item/gun/ballistic/automatic/pistol/service/cmo
