@@ -29,17 +29,6 @@
 	blacklist = list(/datum/station_trait/strong_supply_lines)
 	trait_to_give = STATION_TRAIT_DISTANT_SUPPLY_LINES
 
-/datum/station_trait/late_arrivals
-	name = "Late Arrivals"
-	trait_type = STATION_TRAIT_NEGATIVE
-	weight = 2
-	show_in_report = TRUE
-	report_message = "Sorry for that, we didn't expect to fly into that vomiting goose while bringing you to your new station."
-	trait_to_give = STATION_TRAIT_LATE_ARRIVALS
-	blacklist = list(/datum/station_trait/random_spawns, /datum/station_trait/hangover)
-	possible_announcements = list("You are getting late, again. Get your stuff together or you are all fired.",
-								"Our calculations were off by a bit. Shuttle will be there in a few seconds.")
-
 /datum/station_trait/random_spawns
 	name = "Drive-by landing"
 	trait_type = STATION_TRAIT_NEGATIVE
@@ -47,7 +36,7 @@
 	show_in_report = TRUE
 	report_message = "Sorry for that, we missed your station by a few miles, so we just launched you towards your station in pods. Hope you don't mind!"
 	trait_to_give = STATION_TRAIT_RANDOM_ARRIVALS
-	blacklist = list(/datum/station_trait/late_arrivals, /datum/station_trait/hangover)
+	blacklist = list(/datum/station_trait/hangover)
 	possible_announcements = list("We overshot your station by a few miles. Prepare to be pod launched onto it.",
 								"We've missed your station, sorry for that. You will be launched onto it shortly.")
 
@@ -58,7 +47,7 @@
 	show_in_report = TRUE
 	report_message = "Ohh.... Man.... That mandatory office party from last shift... God that was awesome... I woke up in some random toilet 3 sectors away..."
 	trait_to_give = STATION_TRAIT_HANGOVER
-	blacklist = list(/datum/station_trait/late_arrivals, /datum/station_trait/random_spawns)
+	blacklist = list(/datum/station_trait/random_spawns)
 	possible_announcements = list("That was one hell of a night. Now, get back to work.",
 								"Party's over. Get back to work.")
 

@@ -511,37 +511,15 @@ SUBSYSTEM_DEF(job)
 
 	living_mob.job = rank
 
-	//If we joined at roundstart we should be positioned at our workstation
+	//If we joined at roundstart we should be positioned at our workstation //Nah dude, watch me:
 	if(!joined_late)
-		var/spawning_handled = FALSE
-		var/obj/S = null
-		if(HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS) && job.random_spawns_possible)
-			SendToLateJoin(living_mob)
-			spawning_handled = TRUE
-		else if(HAS_TRAIT(SSstation, STATION_TRAIT_RANDOM_ARRIVALS) && job.random_spawns_possible)
+		if(HAS_TRAIT(SSstation, STATION_TRAIT_RANDOM_ARRIVALS) && job.random_spawns_possible)
 			DropLandAtRandomHallwayPoint(living_mob)
-			spawning_handled = TRUE
 		else if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER) && job.random_spawns_possible)
 			SpawnLandAtRandom(living_mob, (typesof(/area/hallway) | typesof(/area/crew_quarters/bar) | typesof(/area/crew_quarters/dorms)))
-			spawning_handled = TRUE
-		else if(length(GLOB.jobspawn_overrides[rank]))
-			S = pick(GLOB.jobspawn_overrides[rank])
-		else
-			for(var/obj/effect/landmark/start/sloc in GLOB.start_landmarks_list)
-				if(sloc.name != rank)
-					S = sloc //so we can revert to spawning them on top of eachother if something goes wrong
-					continue
-				if(locate(/mob/living) in sloc.loc)
-					continue
-				S = sloc
-				sloc.used = TRUE
-				break
-		if(S)
-			S.JoinPlayerHere(living_mob, FALSE)
-		if(!S && !spawning_handled) //if there isn't a spawnpoint send them to latejoin, if there's no latejoin go yell at your mapper
-			log_world("Couldn't find a round start spawn point for [rank]")
-			SendToLateJoin(living_mob)
 
+		//send those fuckers to arrivals anyways.
+		SendToLateJoin(living_mob)
 
 	if(living_mob.mind)
 		living_mob.mind.assigned_role = rank

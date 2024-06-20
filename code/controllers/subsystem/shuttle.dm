@@ -5,7 +5,7 @@ SUBSYSTEM_DEF(shuttle)
 	wait = 1 SECONDS
 	init_order = INIT_ORDER_SHUTTLE
 	flags = SS_KEEP_TIMING
-	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
+	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
 
 	var/list/mobile = list()
 	var/list/stationary = list()
