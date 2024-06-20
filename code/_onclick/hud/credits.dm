@@ -93,7 +93,6 @@ GLOBAL_LIST(end_titles)
 
 /proc/get_contribs()
 	var/list/contribs = list()
-
 	if(fexists("[global.config.directory]/contributors.txt"))
 		contribs += world.file2list("[global.config.directory]/contributors.txt")
 
@@ -101,3 +100,7 @@ GLOBAL_LIST(end_titles)
 		contribs.Cut(21)
 
 	return contribs
+
+/proc/get_top_contrib()
+	var/list/contribs = get_contribs()
+	return contribs.len ? contribs[1] : "Beebot"

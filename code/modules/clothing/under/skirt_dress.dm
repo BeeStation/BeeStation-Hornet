@@ -110,3 +110,45 @@
 	name = "midnight gown"
 	desc = "A classic and stylish velvet dress."
 	icon_state = "midnight_gown"
+
+///////////////////
+//CODER EX. ITEMS//
+///////////////////
+
+/obj/item/clothing/under/dress/skirt/coder
+	name = "coder skirt"
+	desc = "The best of the best. Many have stood before them, however they were powerful enough to not only wear the (in)famous socks, but to embrace them."
+	icon_state = "coderskirt"
+	item_state = "plaid_green"
+
+/obj/item/clothing/under/dress/skirt/coder/Initialize()
+	. = ..()
+	add_emitter(/obj/emitter/coder_sparks, "coder_sparks")
+	add_filter("outline", 1, list(type = "outline", size = 1,  color = "#00ff37"))
+	desc = "It has a tag on it reading \'Pull request approved by [sanitize(get_top_contrib())]\'."
+
+/obj/item/clothing/under/dress/skirt/coder/equipped(mob/living/carbon/human/H, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_ICLOTHING)
+		H.add_emitter(/obj/emitter/coder_sparks, "coder_sparks_H")
+		remove_emitter("coder_sparks")
+		if(H.socks == "Coder Socks (Pink)"||H.socks == "Coder Socks (Blue)"||H.socks == "Coder Socks (Trans)") //Just don't question it. Blame BYOND on this one...
+			to_chat(H, "<span class='notice'>You suddenly feel like you know how reality works!</span>")
+		else
+			to_chat(H, "<span class='notice'>You feel like would know how reality works but something's missing...</span>")
+			if (prob(50))
+				var/list/randomcodersocks = pick(
+					"Coder Socks (Pink)",
+					"Coder Socks (Blue)",
+					"Coder Socks (Trans)",)
+				H.socks = randomcodersocks
+				to_chat(H, "<span class='warning'>Your socks suddenly changes to a pair of coder socks!</span>")
+				to_chat(H, "<span class='notice'>...But now you do!</span>")
+				H.update_body()
+
+/obj/item/clothing/under/dress/skirt/coder/dropped(mob/living/carbon/human/H, slot)
+	. = ..()
+	if(slot != ITEM_SLOT_ICLOTHING)
+		H.remove_emitter("coder_sparks_H")
+		add_emitter(/obj/emitter/coder_sparks, "coder_sparks")
+		to_chat(H, "<span class='notice'>you feel like you're back to reality... that was weird!</span>")
