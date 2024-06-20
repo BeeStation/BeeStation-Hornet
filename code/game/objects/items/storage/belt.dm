@@ -896,8 +896,14 @@
 /obj/item/storage/belt/sabre/mime/PopulateContents()
 	new /obj/item/melee/sabre/mime(src)
 	update_icon()
+
 /obj/item/storage/belt/cummerbund
 	name = "cummerbund"
 	desc = "A pleated sash that pairs well with a suit jacket."
 	icon_state = "cummerbund"
 	worn_icon_state = "cummerbund"
+
+/obj/item/storage/belt/cummerbund/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 2

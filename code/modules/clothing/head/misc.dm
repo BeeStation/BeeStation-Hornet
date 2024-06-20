@@ -30,6 +30,7 @@
 	name = "wedding veil"
 	desc = "A gauzy white veil."
 	icon_state = "weddingveil"
+	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 
 /////////////////
 //DONATOR ITEMS//

@@ -2176,12 +2176,12 @@
 					/obj/item/clothing/under/suit/tuxedo,
 					/obj/item/storage/belt/cummerbund,
 					/obj/item/storage/belt/cummerbund,
-					/obj/item/bouquets/bouquet,
-					/obj/item/bouquets/bouquet,
-					/obj/item/bouquets/bouquet/sunflower,
-					/obj/item/bouquets/bouquet/sunflower,
-					/obj/item/bouquets/bouquet/poppy,
-					/obj/item/bouquets/bouquet/poppy,
+					/obj/item/bouquet,
+					/obj/item/bouquet,
+					/obj/item/bouquet/sunflower,
+					/obj/item/bouquet/sunflower,
+					/obj/item/bouquet/poppy,
+					/obj/item/bouquet/poppy,
 					/obj/item/reagent_containers/food/drinks/bottle/champagne,
 					/obj/item/reagent_containers/food/drinks/bottle/champagne)
 	crate_name = "wedding crate"
@@ -2927,6 +2927,8 @@
 					/obj/item/clothing/neck/tie/black,
 					/obj/item/clothing/head/hats/bowler,
 					/obj/item/clothing/head/fedora,
+					/obj/item/clothing/head/fedora/white,
+					/obj/item/clothing/head/fedora/beige,
 					/obj/item/clothing/head/flatcap,
 					/obj/item/clothing/head/beret,
 					/obj/item/clothing/head/hats/tophat,
@@ -2938,6 +2940,8 @@
 					/obj/item/clothing/under/suit/burgundy,
 					/obj/item/clothing/under/suit/checkered,
 					/obj/item/clothing/under/suit/tan,
+					/obj/item/clothing/under/suit/beige,
+					/obj/item/clothing/under/suit/white,
 					/obj/item/lipstick/random)
 	crate_name = "formalwear crate"
 	crate_type = /obj/structure/closet/crate/wooden

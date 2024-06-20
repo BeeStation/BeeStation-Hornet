@@ -1302,28 +1302,28 @@
 /datum/crafting_recipe/mirror
 	name = "Wall Mirror Frame"
 	result = /obj/item/wallframe/mirror
-	time = 15 SECONDS
+	time = 4 SECONDS
 	reqs = list(/obj/item/stack/sheet/mineral/silver = 1, /obj/item/stack/sheet/glass = 2)
 	tools = list(TOOL_WRENCH)
 	category = CAT_STRUCTURE
 
 /datum/crafting_recipe/bouquet
 	name = "mixed flower bouquet"
-	result = /obj/item/bouquets/bouquet
+	result = /obj/item/bouquet
 	time = 15 SECONDS
 	reqs = list(/obj/item/grown/sunflower = 2, /obj/item/food/grown/flower/lily = 2, /obj/item/paper = 2)
 	category = CAT_MISC
 
 /datum/crafting_recipe/sunflower_bouquet
 	name = "sunflowers bouquet"
-	result = /obj/item/bouquets/bouquet/sunflower
+	result = /obj/item/bouquet/sunflower
 	time = 15 SECONDS
 	reqs = list(/obj/item/grown/sunflower = 6, /obj/item/paper = 2)
 	category = CAT_MISC
 
 /datum/crafting_recipe/poppy_bouquet
 	name = "poppys bouquet"
-	result = /obj/item/bouquets/bouquet/poppy
+	result = /obj/item/bouquet/poppy
 	time = 15 SECONDS
 	reqs = list(/obj/item/food/grown/flower/poppy = 2, /obj/item/paper = 2)
 	category = CAT_MISC
