@@ -2164,6 +2164,28 @@
 					/obj/item/survivalcapsule/party)
 	crate_name = "party equipment crate"
 
+/datum/supply_pack/service/wedding
+	name = "Wedding Crate"
+	desc = "Everything you need to host a wedding! Now you just need an officiant."
+	cost = 1500
+	contains = list(/obj/item/clothing/under/dress/wedding_dress,
+					/obj/item/clothing/under/dress/wedding_dress,
+					/obj/item/clothing/head/weddingveil,
+					/obj/item/clothing/head/weddingveil,
+					/obj/item/clothing/under/suit/tuxedo,
+					/obj/item/clothing/under/suit/tuxedo,
+					/obj/item/storage/belt/cummerbund,
+					/obj/item/storage/belt/cummerbund,
+					/obj/item/bouquet,
+					/obj/item/bouquet,
+					/obj/item/bouquet/sunflower,
+					/obj/item/bouquet/sunflower,
+					/obj/item/bouquet/poppy,
+					/obj/item/bouquet/poppy,
+					/obj/item/reagent_containers/food/drinks/bottle/champagne
+					/obj/item/reagent_containers/food/drinks/bottle/champagne)
+	crate_name = "wedding crate"
+
 /datum/supply_pack/service/carpet
 	name = "Premium Carpet Crate"
 	desc = "Plasteel floor tiles getting on your nerves? These stacks of extra soft carpet will tie any room together."

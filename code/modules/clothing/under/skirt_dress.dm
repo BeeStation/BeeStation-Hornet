@@ -92,6 +92,14 @@
 	icon_state = "plaid_green"
 	item_state = "plaid_green"
 
+/obj/item/clothing/under/dress/wedding_dress
+	name = "wedding dress"
+	desc = "A luxurious gown for once-in-a-lifetime occasions."
+	icon_state = "wedding_dress"
+	inhand_icon_state = "wedding_dress"
+	body_parts_covered = CHEST|GROIN|LEGS
+	flags_cover = HIDESHOES
+
 /////////////////
 //DONATOR ITEMS//
 /////////////////

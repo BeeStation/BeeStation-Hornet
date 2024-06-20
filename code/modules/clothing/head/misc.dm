@@ -26,6 +26,12 @@
 	desc = "King of the labs, the half slime half man mutant, the slimeboy."
 	icon_state = "cowboy_alt_science"
 
+/obj/item/clothing/head/weddingveil
+	name = "wedding veil"
+	desc = "A gauzy white veil."
+	icon_state = "weddingveil"
+	inhand_icon_state = "weddingveil"
+
 /////////////////
 //DONATOR ITEMS//
 /////////////////

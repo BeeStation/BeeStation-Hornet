@@ -1311,19 +1311,19 @@
 	name = "mixed flower bouquet"
 	result = /obj/item/bouquet
 	time = 15 SECONDS
-	reqs = list(/obj/item/grown/sunflower = 2, /obj/item/grown/geranium = 2, /obj/item/grown/lily = 2)
+	reqs = list(/obj/item/grown/sunflower = 2, /obj/item/grown/geranium = 2, /obj/item/grown/lily = 2, /obj/item/paper = 2)
 	category = CAT_MISC
 
 /datum/crafting_recipe/sunflower_bouquet
 	name = "sunflowers bouquet"
 	result = /obj/item/bouquet/sunflower
 	time = 15 SECONDS
-	reqs = list(/obj/item/grown/sunflower = 6)
+	reqs = list(/obj/item/grown/sunflower = 6, /obj/item/paper = 2)
 	category = CAT_MISC
 
 /datum/crafting_recipe/poppy_bouquet
 	name = "poppys bouquet"
 	result = /obj/item/bouquet/poppy
 	time = 15 SECONDS
-	reqs = list(/obj/item/grown/poppy = 2)
+	reqs = list(/obj/item/grown/poppy = 2, /obj/item/paper = 2)
 	category = CAT_MISC
