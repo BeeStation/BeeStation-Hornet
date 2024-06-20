@@ -1171,7 +1171,7 @@
 	name = "Paper Slip"
 	result = /obj/item/card/id/paper
 	time = 1 SECONDS
-	reqs = list(/o per = 5)
+	reqs = list(/obj/item/paper  = 5)
 	category = CAT_MISC
 	tools = list(TOOL_WIRECUTTER)
 
