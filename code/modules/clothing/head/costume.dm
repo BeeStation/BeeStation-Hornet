@@ -224,3 +224,10 @@
 	body_parts_covered = HEAD
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+
+/obj/item/clothing/head/weddingveil
+	name = "wedding veil"
+	desc = "A gauzy white veil."
+	icon_state = "wedding_veil"
+	worn_icon = 'icons/mob/clothing/head/hats.dmi'
+	flags_cover = HEADCOVERSEYES
