@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes being unable to use items while buckled.
-  - bugfix: Fixes inconsistencies between when you can and can't use items, resulting
-      in hotkeys bypassing some item use checks.
