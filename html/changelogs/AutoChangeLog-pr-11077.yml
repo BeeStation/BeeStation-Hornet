@@ -1,0 +1,4 @@
+author: ToasterBan
+delete-after: true
+changes:
+  - tweak: Rust Heretic's Mark of Rust can no longer damage grenades
