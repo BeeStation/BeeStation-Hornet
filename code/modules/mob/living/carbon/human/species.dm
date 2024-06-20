@@ -256,8 +256,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(heart && (!should_have_heart || replace_current))
 		heart.Remove(C,1)
-		QDEL_NULL(heart)
 		required_organs -= heart
+		QDEL_NULL(heart)
 	if(should_have_heart && !heart)
 		heart = new mutant_heart()
 		heart.Insert(C)
@@ -265,8 +265,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(lungs && (!should_have_lungs || replace_current))
 		lungs.Remove(C,1)
-		QDEL_NULL(lungs)
 		required_organs -= lungs
+		QDEL_NULL(lungs)
 	if(should_have_lungs && !lungs)
 		if(mutantlungs)
 			lungs = new mutantlungs()
@@ -277,8 +277,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(liver && (!should_have_liver || replace_current))
 		liver.Remove(C,1)
-		QDEL_NULL(liver)
 		required_organs -= liver
+		QDEL_NULL(liver)
 	if(should_have_liver && !liver)
 		if(mutantliver)
 			liver = new mutantliver()
@@ -289,8 +289,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(stomach && (!should_have_stomach || replace_current))
 		stomach.Remove(C,1)
-		QDEL_NULL(stomach)
 		required_organs -= stomach
+		QDEL_NULL(stomach)
 	if(should_have_stomach && !stomach)
 		if(mutantstomach)
 			stomach = new mutantstomach()
@@ -301,8 +301,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(appendix && (!should_have_appendix || replace_current))
 		appendix.Remove(C,1)
-		QDEL_NULL(appendix)
 		required_organs -= appendix
+		QDEL_NULL(appendix)
 	if(should_have_appendix && !appendix)
 		appendix = new()
 		appendix.Insert(C)
@@ -310,8 +310,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(tail && (!should_have_tail || replace_current))
 		tail.Remove(C,1)
-		QDEL_NULL(tail)
 		required_organs -= tail
+		QDEL_NULL(tail)
 	if(should_have_tail && !tail)
 		tail = new mutanttail()
 		if(islizard(C))
@@ -324,8 +324,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(wings && (!should_have_wings || replace_current))
 		wings.Remove(C,1)
-		QDEL_NULL(wings)
 		required_organs -= wings
+		QDEL_NULL(wings)
 	if(should_have_wings && !wings)
 		wings = new mutantwings()
 		if(ismoth(C))
@@ -340,8 +340,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(brain && (replace_current || !should_have_brain))
 			if(!brain.decoy_override)//Just keep it if it's fake
 				brain.Remove(C,TRUE,TRUE)
-				QDEL_NULL(brain)
 				required_organs -= brain
+				QDEL_NULL(brain)
 		if(should_have_brain && !brain)
 			brain = new mutant_brain()
 			brain.Insert(C, TRUE, TRUE)
@@ -349,8 +349,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		if(eyes && (replace_current || !should_have_eyes))
 			eyes.Remove(C,1)
-			QDEL_NULL(eyes)
 			required_organs -= eyes
+			QDEL_NULL(eyes)
 		if(should_have_eyes && !eyes)
 			eyes = new mutanteyes
 			eyes.Insert(C)
@@ -358,8 +358,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		if(ears && (replace_current || !should_have_ears))
 			ears.Remove(C,1)
-			QDEL_NULL(ears)
 			required_organs -= ears
+			QDEL_NULL(ears)
 		if(should_have_ears && !ears)
 			ears = new mutantears
 			ears.Insert(C)
@@ -367,8 +367,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		if(tongue && (replace_current || !should_have_tongue))
 			tongue.Remove(C,1)
-			QDEL_NULL(tongue)
 			required_organs -= tongue
+			QDEL_NULL(tongue)
 		if(should_have_tongue && !tongue)
 			tongue = new mutanttongue
 			tongue.Insert(C)
@@ -379,8 +379,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/obj/item/organ/I = C.getorgan(mutantorgan)
 			if(I)
 				I.Remove(C)
-				QDEL_NULL(I)
 				required_organs -= I
+				QDEL_NULL(I)
 
 	for(var/path in mutant_organs)
 		var/obj/item/organ/I = new path()
