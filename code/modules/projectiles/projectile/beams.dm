@@ -42,7 +42,7 @@
 /obj/projectile/beam/laser/lesslethal
 	damage = 10
 	stamina = 18
-	icon_state = "lesslaser"
+	icon_state = "minilaser"
 
 /obj/projectile/beam/weak
 	damage = 12

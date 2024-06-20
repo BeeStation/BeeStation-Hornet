@@ -7,6 +7,9 @@
 	fire_sound = 'sound/weapons/laser.ogg'
 	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/energy
 
+/obj/item/ammo_casing/caseless/laser/bounce_away(still_warm, bounce_delay)
+	qdel(src)
+
 /obj/item/ammo_casing/caseless/laser/gatling
 	projectile_type = /obj/projectile/beam/weak/penetrator
 	variance = 0.8

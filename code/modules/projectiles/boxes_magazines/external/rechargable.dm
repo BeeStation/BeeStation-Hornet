@@ -16,5 +16,5 @@
 /obj/item/ammo_box/magazine/recharge/service
 	name = "energy pistol magazine"
 	desc = "A rechargeable energy pack used by service pistols."
-	max_ammo = 8
+	max_ammo = 10
 	ammo_type = /obj/item/ammo_casing/caseless/laser/lesslethal
