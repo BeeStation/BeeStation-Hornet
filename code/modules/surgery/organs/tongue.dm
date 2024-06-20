@@ -364,6 +364,10 @@
 	name = "diona tongue"
 	desc = "It's an odd tongue, seemingly made of plant matter."
 	icon_state = "diona_tongue"
+	say_mod = "rustles"
+	ask_mod = "quivers"
+	yell_mod = "shrieks"
+	exclaim_mod = "ripples"
 	disliked_food = MEAT | DAIRY | FRUIT | GRAIN | CLOTH
 	liked_food = VEGETABLES
 
