@@ -143,3 +143,9 @@
 		item_state = initial(item_state)
 		earflaps_down = TRUE
 		to_chat(user, "<span class='notice'>You lower the ear flaps on the ushanka.</span>")
+
+/obj/item/clothing/head/hats/weddingveil
+	name = "wedding veil"
+	desc = "A gauzy white veil."
+	icon_state = "wedding_veil"
+	flags_cover = HEADCOVERSEYES

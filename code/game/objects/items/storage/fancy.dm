@@ -449,3 +449,32 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
 	STR.can_hold = typecacheof(list( /obj/item/food/nugget))
+
+//WEDDING RING
+
+/obj/item/storage/fancy/ringbox
+	name = "wedding ring box"
+	desc = "For when it's the time to ask them to go together to the next step."
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "weddingringbox"
+	item_state = "weddingringbox"
+	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
+	w_class = WEIGHT_CLASS_TINY
+	throwforce = 0
+	slot_flags = ITEM_SLOT_BELT
+	spawn_type = /obj/item/clothing/gloves/ring
+	contents_tag = "ring"
+
+/obj/item/storage/fancy/ringbox/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 1
+	STR.can_hold = typecacheof(list(/obj/item/clothing/gloves/ring))
+
+/obj/item/storage/fancy/ringbox/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Alt-click to extract contents.</span>"
+	var/obj/item/lighter/L = locate(/obj/item/clothing/gloves/ring) in contents
+	if(L)
+		. += "<span class='notice'>There seems to be a ring inside. Ctrl-click to pull it out.</span>"
