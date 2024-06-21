@@ -9,6 +9,8 @@
 	equip_delay_other = 25
 	resistance_flags = NONE
 	custom_materials = list(/datum/material/glass = 250)
+	equip_delay_self = 0
+	strip_delay_self = 0
 	var/vision_flags = 0
 	var/darkness_view = 2//Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING	//admin only for now
@@ -534,7 +536,7 @@
 	clothing_flags = SCAN_REAGENTS | SCAN_BOOZEPOWER
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	vision_correction = 1  // why should the eye of a god have bad vision? 
+	vision_correction = 1  // why should the eye of a god have bad vision?
 
 /obj/item/clothing/glasses/godeye/Initialize(mapload)
 	. = ..()

@@ -1298,6 +1298,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(!I.equip_delay_self || bypass_equip_delay_self)
 		return TRUE
 	H.visible_message("<span class='notice'>[H] start putting on [I].</span>", "<span class='notice'>You start putting on [I].</span>")
+	H.balloon_alert_to_viewers("[H] starts putting on [I]...", "You start putting on [I]...")
+	playsound(H, 'sound/effects/equip.ogg', 40)
 	return do_after(H, I.equip_delay_self, target = H)
 
 /datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null)
