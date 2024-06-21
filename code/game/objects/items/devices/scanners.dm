@@ -381,10 +381,6 @@ GENE SCANNER
 		if(missing_organ_list.len > 0) //If we have missing organs, display them in a fancy list.
 			missing_organs += "\t<span class='alert'>Missing Organs: [english_list(missing_organ_list)]"
 		if(report_organs)	//we either finish the list, or set it to be empty if no organs were reported in that category
-			if(!missing_organs)
-				missing_organs = "\t<span class='alert'>Missing Organs: </span>"
-			else
-				missing_organs += "</span>"
 			if(!max_damage)
 				max_damage = "\t<span class='alert'>Non-Functional Organs: </span>"
 			else
