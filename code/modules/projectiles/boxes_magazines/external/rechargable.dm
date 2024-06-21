@@ -37,5 +37,11 @@
 /obj/item/ammo_box/magazine/recharge/service
 	name = "energy pistol magazine"
 	desc = "A rechargeable energy pack used by service pistols."
+	icon_state = "officer"
 	max_ammo = 10
+	multiple_sprites = 1
 	ammo_type = /obj/item/ammo_casing/caseless/laser/lesslethal
+
+/obj/item/ammo_box/magazine/recharge/service/update_icon()
+	..()
+	icon_state = "officer-[round(ammo_count(),2)]"
