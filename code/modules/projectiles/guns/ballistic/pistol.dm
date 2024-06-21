@@ -132,15 +132,31 @@
 	fire_sound = 'sound/weapons/laser.ogg'
 	casing_ejector = FALSE
 	fire_rate = 4
+	can_suppress = FALSE
+	worn_icon_state = "officer_pistol"
+	var/stripe_state = "officer_com"
+
+/obj/item/gun/ballistic/automatic/pistol/service/update_icon()
+	. = ..()
+	var/mutable_appearance/stripe = mutable_appearance(icon, stripe_state)
+	if (bolt_locked)
+		stripe.pixel_x = -5
+	add_overlay(stripe)
 
 /obj/item/gun/ballistic/automatic/pistol/service/captain
+	stripe_state = "officer_com"
 
 /obj/item/gun/ballistic/automatic/pistol/service/hop
+	stripe_state = "officer_srv"
 
 /obj/item/gun/ballistic/automatic/pistol/service/hos
+	stripe_state = "officer_sec"
 
 /obj/item/gun/ballistic/automatic/pistol/service/ce
+	stripe_state = "officer_eng"
 
 /obj/item/gun/ballistic/automatic/pistol/service/rd
+	stripe_state = "officer_sci"
 
 /obj/item/gun/ballistic/automatic/pistol/service/cmo
+	stripe_state = "officer_med"
