@@ -374,21 +374,12 @@ GENE SCANNER
 				else
 					minor_damage = "\t<span class='info'>Mildly Damaged Organs: "
 					minor_damage += organ.name
-		for(var/X in H.dna.species.required_organs) //Start checking against the carbon mob, seeing if there is any organs missing.
-			if(!(H.getorgan(X))) //Can we find the given organ in the mob?
-				missing_organ_list += X //If not, add it to the list.
-		if(missing_organ_list.len > 0) //We have missing organs?
-			for(var/C in missing_organ_list)
-				var/obj/item/organ/organ = C
-				var/name = initial(organ.name) //Purely so that i can get the name from the obj type
+		for(var/obj/item/organ/each_organ as anything in H.dna.species.required_organs) //Start checking against the carbon mob, seeing if there is any organs missing.
+			if(isnull(H.getorgan(each_organ))) //Can we find the given organ in the mob?
+				missing_organ_list += initial(each_organ.name) //If not, add it to the list.
 				report_organs = TRUE
-				if(missing_organs)
-					missing_organs += ", "
-					missing_organs += name
-				else
-					missing_organs = "\t<span class='alert'>Missing Organs: "
-					missing_organs += name
-
+		if(missing_organ_list.len > 0) //If we have missing organs, display them in a fancy list.
+			missing_organs += "\t<span class='alert'>Missing Organs: [english_list(missing_organ_list)]"
 		if(report_organs)	//we either finish the list, or set it to be empty if no organs were reported in that category
 			if(!missing_organs)
 				missing_organs = "\t<span class='alert'>Missing Organs: </span>"

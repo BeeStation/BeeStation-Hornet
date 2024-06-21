@@ -261,7 +261,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(should_have_heart && !heart)
 		heart = new mutant_heart()
 		heart.Insert(C)
-		required_organs += /obj/item/organ/heart
+		required_organs |= /obj/item/organ/heart
 
 	if(lungs && (!should_have_lungs || replace_current))
 		lungs.Remove(C,1)
@@ -273,7 +273,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else
 			lungs = new()
 		lungs.Insert(C)
-		required_organs += /obj/item/organ/lungs
+		required_organs |= /obj/item/organ/lungs
 
 	if(liver && (!should_have_liver || replace_current))
 		liver.Remove(C,1)
@@ -285,7 +285,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else
 			liver = new()
 		liver.Insert(C)
-		required_organs += /obj/item/organ/liver
+		required_organs |= /obj/item/organ/liver
 
 	if(stomach && (!should_have_stomach || replace_current))
 		stomach.Remove(C,1)
@@ -297,7 +297,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else
 			stomach = new()
 		stomach.Insert(C)
-		required_organs += /obj/item/organ/stomach
+		required_organs |= /obj/item/organ/stomach
 
 	if(appendix && (!should_have_appendix || replace_current))
 		appendix.Remove(C,1)
@@ -306,7 +306,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(should_have_appendix && !appendix)
 		appendix = new()
 		appendix.Insert(C)
-		required_organs += /obj/item/organ/appendix
+		required_organs |= /obj/item/organ/appendix
 
 	if(tail && (!should_have_tail || replace_current))
 		tail.Remove(C,1)
@@ -320,7 +320,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			lizard_tail.spines = C.dna.features["spines"]
 			tail = lizard_tail
 		tail.Insert(C)
-		required_organs += /obj/item/organ/tail
+		required_organs |= /obj/item/organ/tail
 
 	if(wings && (!should_have_wings || replace_current))
 		wings.Remove(C,1)
@@ -334,7 +334,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(locate(/datum/mutation/strongwings) in C.dna.mutations)
 				wings.flight_level = WINGS_FLYING
 		wings.Insert(C)
-		required_organs += /obj/item/organ/wings
+		required_organs |= /obj/item/organ/wings
 
 	if(C.get_bodypart(BODY_ZONE_HEAD))
 		if(brain && (replace_current || !should_have_brain))
@@ -345,7 +345,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(should_have_brain && !brain)
 			brain = new mutant_brain()
 			brain.Insert(C, TRUE, TRUE)
-			required_organs += /obj/item/organ/brain
+			required_organs |= /obj/item/organ/brain
 
 		if(eyes && (replace_current || !should_have_eyes))
 			eyes.Remove(C,1)
@@ -354,7 +354,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(should_have_eyes && !eyes)
 			eyes = new mutanteyes
 			eyes.Insert(C)
-			required_organs += /obj/item/organ/eyes
+			required_organs |= /obj/item/organ/eyes
 
 		if(ears && (replace_current || !should_have_ears))
 			ears.Remove(C,1)
@@ -363,7 +363,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(should_have_ears && !ears)
 			ears = new mutantears
 			ears.Insert(C)
-			required_organs += /obj/item/organ/ears
+			required_organs |= /obj/item/organ/ears
 
 		if(tongue && (replace_current || !should_have_tongue))
 			tongue.Remove(C,1)
@@ -372,7 +372,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(should_have_tongue && !tongue)
 			tongue = new mutanttongue
 			tongue.Insert(C)
-			required_organs += /obj/item/organ/tongue
+			required_organs |= /obj/item/organ/tongue
 
 	if(old_species)
 		for(var/mutantorgan in old_species.mutant_organs)
@@ -385,7 +385,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	for(var/path in mutant_organs)
 		var/obj/item/organ/I = new path()
 		I.Insert(C)
-		required_organs += I
+		required_organs |= I
 
 /datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
 	new_species ||= C.dna.species //If no new species is provided, assume its src.
