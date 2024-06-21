@@ -332,19 +332,19 @@
 	if (user.mind?.has_antag_datum(/datum/antagonist/rev))
 		var/datum/antagonist/rev/rev = user.mind.has_antag_datum(/datum/antagonist/rev)
 		user.say("Isn't it obvious, Nanotrasen, the governments; everyone around us has been tricking us, playing us like we are pawns...", forced = "space law")
-		if (rev.add_revolutionary(target, FALSE))
-			target.visible_message("<span class='notice'>[target] nods in approval, taking in the information!</span>", "<span class='notice'>That all makes perfect sense, the truth washes over you!</span>")
+		if (rev.add_revolutionary(target.current, FALSE))
+			target.current.visible_message("<span class='notice'>[target] nods in approval, taking in the information!</span>", "<span class='notice'>That all makes perfect sense, the truth washes over you!</span>")
 		else
-			target.visible_message("<span class='userdanger'>[target] spits on the floor, disrespecting [user]'s authority!</span>", "<span class='notice'>You finish listening to [user]'s waffling. What a knobhead, you think to yourself...</span>")
+			target.current.visible_message("<span class='userdanger'>[target] spits on the floor, disrespecting [user]'s authority!</span>", "<span class='notice'>You finish listening to [user]'s waffling. What a knobhead, you think to yourself...</span>")
 	else
 		user.say("These shall all be considered acts which are in violation of your contract of employment, and you are contractually obliged not commit them.", forced = "space law")
 		if(target.mind?.has_antag_datum(/datum/antagonist/rev/head) || target.mind?.unconvertable)
-			target.visible_message("<span class='userdanger'>[target] spits on the floor, disrespecting [user]'s authority!</span>", "<span class='notice'>You finish listening to [user]'s waffling. What a knobhead, you think to yourself...</span>")
+			target.current.visible_message("<span class='userdanger'>[target] spits on the floor, disrespecting [user]'s authority!</span>", "<span class='notice'>You finish listening to [user]'s waffling. What a knobhead, you think to yourself...</span>")
 			return
 		var/datum/antagonist/rev/rev = target.mind?.has_antag_datum(/datum/antagonist/rev)
 		if(rev)
 			rev.remove_revolutionary(FALSE, user)
-		target.visible_message("<span class='notice'>[target] nods in approval, taking in the information!</span>", "<span class='notice'>That all makes perfect sense, you feel a sense of pride to be working for Nanotrasen!</span>")
+		target.current.visible_message("<span class='notice'>[target] nods in approval, taking in the information!</span>", "<span class='notice'>That all makes perfect sense, you feel a sense of pride to be working for Nanotrasen!</span>")
 
 /obj/item/book/manual/wiki/infections
 	name = "Infections - Making your own pandemic!"
