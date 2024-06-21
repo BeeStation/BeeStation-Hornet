@@ -91,8 +91,8 @@
 					balloon_alert(user, "This gun cannot be charged.")
 					return 1
 
-			if (istype(G, /obj/item/gun))
-				var/obj/item/gun/gun = G
+			if (istype(G, /obj/item/gun/ballistic))
+				var/obj/item/gun/ballistic/gun = G
 				if (ispath(G.mag_type, /obj/item/ammo_box/magazine/recharge))
 					to_chat(user, "<span class='notice'>You need to charge the magazine of this gun!</span>")
 					balloon_alert(user, "Remove the magazine first!")
