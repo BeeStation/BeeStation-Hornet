@@ -299,6 +299,34 @@
 	user.visible_message("<span class='suicide'>[user] pretends to read \the [src] intently... then promptly dies of laughter!</span>")
 	return OXYLOSS
 
+/obj/item/book/manual/wiki/security_space_law/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
+	. = ..()
+	if (isliving(target) && (user.mind.assigned_role == JOB_NAME_LAWYER || user.mind.assigned_role == JOB_NAME_HEADOFPERSONNEL))
+		INVOKE_ASYNC(src, PROC_REF(deconvert_target), user, target)
+
+/obj/item/book/manual/wiki/security_space_law/proc/deconvert_target(mob/living/user, mob/living/target)
+	if (user.do_afters)
+		return
+	for (var/i in 1 to 4)
+		if (user.do_afters)
+			return
+		if (!do_after(user, 2 SECONDS, target))
+			return
+		var/datum/crime/chosen = pick(subtypesof(/datum/crime) - /datum/crime/minor - /datum/crime/capital - /datum/crime/major - /datum/crime/misdemeanour)
+		user.say("[initial(chosen.tooltip)]", forced = "space_law")
+	if (user.do_afters)
+		return
+	if (!do_after(user, 2 SECONDS, target))
+		return
+	user.say("These shall all be considered acts which are in violation of your contract of employment, and you are contractually obliged not commit them.", forced = "space_law")
+	if(target.mind.has_antag_datum(/datum/antagonist/rev/head) || target.mind.unconvertable)
+		target.visible_message("<span class='userdanger'>[target] spits on the floor, disrespecting [user]'s authority!</span>", "<span class='notice'>You finish listening to [user]'s waffling. What a knobhead, you think to yourself...</span>")
+		return
+	var/datum/antagonist/rev/rev = target.mind.has_antag_datum(/datum/antagonist/rev)
+	if(rev)
+		rev.remove_revolutionary(FALSE, user)
+	target.visible_message("<span class='notice'>[target] nods in approval, taking in the information!</span>", "<span class='notice'>That all makes perfect sense, you feel a sense of pride to be working for Nanotrasen!</span>")
+
 /obj/item/book/manual/wiki/infections
 	name = "Infections - Making your own pandemic!"
 	icon_state = "bookInfections"

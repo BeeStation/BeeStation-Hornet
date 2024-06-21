@@ -159,9 +159,11 @@
 //Checks for rev victory//
 //////////////////////////
 /datum/game_mode/revolution/proc/check_rev_victory()
-	for(var/datum/objective/mutiny/objective in revolution.objectives)
-		if(!(objective.check_completion()))
-			return FALSE
+	for(var/datum/mind/staff_mind in SSjob.get_all_heads())
+		var/turf/location = get_turf(staff_mind.current)
+		if(!considered_afk(staff_mind) && considered_alive(staff_mind) && is_station_level(location.z))
+			if(ishuman(staff_mind.current))
+				return FALSE
 	return TRUE
 
 /////////////////////////////
