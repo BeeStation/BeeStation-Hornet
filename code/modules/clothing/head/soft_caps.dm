@@ -5,6 +5,8 @@
 	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 	icon_state = "mimesoft"
 	dying_key = DYE_REGISTRY_CAP
+	equip_delay_self = 5
+	strip_delay_self = 2
 
 	///Is the hat flipped?
 	var/flipped = FALSE

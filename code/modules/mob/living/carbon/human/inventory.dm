@@ -159,15 +159,19 @@
 	var/index = get_held_index_of_item(I)
 	if(index && !QDELETED(src) && dna.species.mutanthands) //hand freed, fill with claws, skip if we're getting deleted.
 		put_in_hand(new dna.species.mutanthands(), index)
-	if(I == wear_suit)
-		if (I.strip_delay_self && !bypass_delay)
-			var/mob/living/carbon/human/H = src
-			if(!(I in held_items))
-				H.visible_message("<span class='notice'>[H] starts unequipping [I]...</span>", "<span class='notice'>You start unequipping [I]...</span>")
-				if(!do_after(H, I.strip_delay_self, TRUE, H))
+	if(!bypass_delay)
+		if(!(I in held_items) && I == head || I == wear_suit || I == shoes || I == gloves || I == wear_mask || I == w_uniform) //only apply to shit in said slots, never to items that aren't actually worn.
+			if (I.strip_delay_self)
+				var/mob/living/carbon/human/H = src
+				H.visible_message("<span class='notice'>[H] starts taking off [I]...</span>", "<span class='notice'>You start taking off [I]...</span>")
+				H.balloon_alert_to_viewers("[H] starts taking off [I]...", "You start taking off [I]...")
+				playsound(H, 'sound/effects/equip.ogg', 60)
+				if(!do_after(H, I.strip_delay_self))
 					if(s_store && invdrop)
 						return FALSE
-		dropItemToGround(s_store, TRUE) //It makes no sense for your suit storage to stay on you if you drop your suit.
+	if(I == wear_suit)
+		if(s_store && invdrop)
+			dropItemToGround(s_store, TRUE, FALSE, FALSE, TRUE) //It makes no sense for your suit storage to stay on you if you drop your suit.
 		if(wear_suit.breakouttime) //when unequipping a straightjacket
 			REMOVE_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 			REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, SUIT_TRAIT)

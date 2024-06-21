@@ -309,7 +309,7 @@
 
 //visibly unequips I but it is NOT MOVED AND REMAINS IN SRC
 //item MUST BE FORCEMOVE'D OR QDEL'D
-mob/proc/temporarilyRemoveItemFromInventory(obj/item/I, force = FALSE, idrop = TRUE, bypass_delay)
+/mob/proc/temporarilyRemoveItemFromInventory(obj/item/I, force = FALSE, idrop = TRUE, bypass_delay)
 	return doUnEquip(I, force, null, TRUE, idrop, bypass_delay = bypass_delay)
 
 //DO NOT CALL THIS PROC

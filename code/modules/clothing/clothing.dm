@@ -34,8 +34,8 @@
 	var/can_be_bloody = TRUE
 
 	//Universally takes a bit of time to wear
-	equip_delay_self = 5
-	strip_delay_self = 2
+	equip_delay_self = 10
+	strip_delay_self = 5
 
 	//Var modification - PLEASE be careful with this I know who you are and where you live
 	var/list/user_vars_to_edit //VARNAME = VARVALUE eg: "name" = "butts"

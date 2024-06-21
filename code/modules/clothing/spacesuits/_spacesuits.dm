@@ -20,7 +20,7 @@
 	flash_protect = 2
 	strip_delay = 50
 	equip_delay_self = 15
-	strip_delay_self = 15
+	strip_delay_self = 7
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
 	dog_fashion = null
@@ -48,5 +48,5 @@
 	strip_delay = 80
 	equip_delay_other = 80
 	equip_delay_self = 30
-	strip_delay_self = 30
+	strip_delay_self = 15
 	resistance_flags = NONE

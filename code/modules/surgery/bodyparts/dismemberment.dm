@@ -88,7 +88,7 @@
 	C.bodyparts -= src
 
 	if(held_index)
-		C.dropItemToGround(owner.get_item_for_held_index(held_index), 1)
+		C.dropItemToGround(owner.get_item_for_held_index(held_index), 1, FALSE, TRUE, TRUE)
 		C.hand_bodyparts[held_index] = null
 
 	owner = null
