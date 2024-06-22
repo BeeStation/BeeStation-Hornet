@@ -210,7 +210,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	return TRUE
 
 /mob/living/carbon/proc/hold_wounds()
-	if (IsUnconscious())
+	if (stat >= UNCONSCIOUS)
 		return
 	if (!is_bleeding())
 		if (is_bandaged())
