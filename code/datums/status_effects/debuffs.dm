@@ -968,7 +968,7 @@
 
 		// And roughly 75% of their items will take a smack, too
 		for(var/obj/item/thing in carbon_owner.get_all_gear())
-			if(!QDELETED(thing) && prob(75))
+			if(!QDELETED(thing) && prob(75) && !istype(thing, /obj/item/grenade))
 				thing.take_damage(100)
 	return ..()
 

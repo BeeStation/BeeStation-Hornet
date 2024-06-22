@@ -15,16 +15,8 @@
 	speech_span = SPAN_ROBOT
 	vis_flags = VIS_INHERIT_PLANE
 	appearance_flags = APPEARANCE_UI
-	/// A reference to the object in the slot. Grabs or items, generally.
-	var/obj/master = null
 	/// A reference to the owner HUD, if any.
 	var/datum/hud/hud = null
-
-
-/atom/movable/screen/Destroy()
-	master = null
-	hud = null
-	return ..()
 
 /atom/movable/screen/examine(mob/user)
 	return list()
@@ -101,16 +93,6 @@
 	plane = HUD_PLANE
 
 /atom/movable/screen/inventory/Click(location, control, params)
-	// At this point in client Click() code we have passed the 1/10 sec check and little else
-	// We don't even know if it's a middle click
-	if(world.time <= usr.next_move)
-		return TRUE
-
-	if(usr.incapacitated())
-		return TRUE
-	if(ismecha(usr.loc)) // stops inventory actions in a mech
-		return TRUE
-
 	//This is where putting stuff into hands is handled
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
@@ -233,9 +215,14 @@
 	plane = ABOVE_HUD_PLANE
 	icon_state = "backpack_close"
 
+	/// A reference to the object in the slot. Grabs or items, generally.
+	var/datum/component/storage/master = null
+
 /atom/movable/screen/close/Initialize(mapload, new_master)
 	. = ..()
 	master = new_master
+	if (master && !istype(master))
+		CRASH("Attempting to create a backpack close without referencing a storage concrete component.")
 
 /atom/movable/screen/close/Click()
 	var/datum/component/storage/S = master
@@ -430,22 +417,17 @@
 	icon_state = "block"
 	screen_loc = "7,7 to 10,8"
 	plane = HUD_PLANE
+	/// A reference to the object in the slot. Grabs or items, generally.
+	var/datum/component/storage/master = null
 
 /atom/movable/screen/storage/Initialize(mapload, new_master)
 	. = ..()
 	master = new_master
+	if (master && !istype(master))
+		CRASH("Attempting to create a backpack close without referencing a storage concrete component.")
 
-/atom/movable/screen/storage/Click(location, control, params)
-	if(world.time <= usr.next_move)
-		return TRUE
-	if(usr.incapacitated())
-		return TRUE
-	if (ismecha(usr.loc)) // stops inventory actions in a mech
-		return TRUE
-	if(master)
-		var/obj/item/I = usr.get_active_held_item()
-		if(I)
-			master.attackby(null, I, usr, params)
+/atom/movable/screen/storage/attackby(obj/item/W, mob/user, params)
+	master.attackby(src, W, user, params)
 	return TRUE
 
 /atom/movable/screen/throw_catch
