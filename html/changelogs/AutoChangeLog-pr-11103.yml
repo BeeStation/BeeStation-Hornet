@@ -1,0 +1,4 @@
+author: Gilgaxx
+delete-after: true
+changes:
+  - bugfix: fixed the metallic arm sprite turning you into a white square.
