@@ -121,8 +121,8 @@
 		log_combat(user, S, "shone in the sensors", src)
 		//chance to actually hit the eyes depends on internal component
 		if(prob(effectchance * diode.rating))
-			S.flash_act(affect_silicon = 1, type = /atom/movable/screen/fullscreen/flash/static)
-			if(S.last_flashed + 30 SECONDS < world.time)
+			S.flash_act(affect_silicon = 1)
+			if(S.last_flashed + FLASHED_COOLDOWN < world.time)
 				S.last_flashed = world.time
 				S.Paralyze(5 SECONDS)
 				to_chat(S, "<span class='danger'>Your sensors were overloaded by a laser!</span>")
