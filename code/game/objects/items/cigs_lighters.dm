@@ -297,6 +297,18 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		qdel(src)
 	. = ..()
 
+/obj/item/clothing/mask/cigarette/afterattack(mob/living/carbon/M, mob/user, proximity)
+	if(!istype(M))
+		return ..()
+	if(lit && user.a_intent == INTENT_HARM)
+		qdel(src)
+		var/cig_butt = new type_butt()
+		user.put_in_hands(cig_butt)
+		new /obj/effect/decal/cleanable/ash(M.loc)
+		playsound(user, 'sound/items/cig_snuff.ogg', 25, 1)
+		return ..()
+	. = ..()
+
 /obj/item/clothing/mask/cigarette/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!istype(M))
 		return ..()
