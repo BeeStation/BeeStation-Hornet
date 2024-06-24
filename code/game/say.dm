@@ -99,9 +99,10 @@ GLOBAL_LIST_INIT(freqtospan, list(
 
 	var/languageicon = ""
 	var/space = " "
-	if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
+	if(message_mods[MODE_CUSTOM_SAY_EMOTE])
 		if(!should_have_space_before_emote(html_decode(message_mods[MODE_CUSTOM_SAY_EMOTE])[1]))
 			space = null
+	if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
 		messagepart = message_mods[MODE_CUSTOM_SAY_EMOTE]
 	else
 		messagepart = lang_treat(speaker, message_language, raw_message, spans, message_mods)
