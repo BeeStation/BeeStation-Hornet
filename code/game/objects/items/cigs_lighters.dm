@@ -297,7 +297,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		qdel(src)
 	. = ..()
 
-/obj/item/clothing/mask/cigarette/afterattack(mob/living/carbon/M, mob/user, proximity)
+/obj/item/clothing/mask/cigarette/afterattack(mob/M, mob/user, proximity)
 	if(!istype(M))
 		return ..()
 	if(lit && user.a_intent == INTENT_HARM)
@@ -307,6 +307,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		new /obj/effect/decal/cleanable/ash(M.loc)
 		playsound(user, 'sound/items/cig_snuff.ogg', 25, 1)
 		return ..()
+	if(lit && user.a_intent != INTENT_HARM)
+		smoketime -= 120
+		return
 	. = ..()
 
 /obj/item/clothing/mask/cigarette/attack(mob/living/carbon/M, mob/living/carbon/user)
