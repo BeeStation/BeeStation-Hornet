@@ -12,6 +12,9 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), PROC_REF(on_handsblocked_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED), PROC_REF(on_handsblocked_trait_loss))
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), PROC_REF(on_incapacitated_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED), PROC_REF(on_incapacitated_trait_loss))
+
 	RegisterSignals(src, list(
 		SIGNAL_ADDTRAIT(TRAIT_CRITICAL_CONDITION),
 		SIGNAL_REMOVETRAIT(TRAIT_CRITICAL_CONDITION),
@@ -59,11 +62,15 @@
 	SIGNAL_HANDLER
 	mobility_flags &= ~(MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
 	drop_all_held_items()
+	if (active_storage)
+		active_storage.hide_from(src)
+	update_action_buttons_icon(TRUE)
 
 ///Called when TRAIT_HANDS_BLOCKED is removed from the mob.
 /mob/living/proc/on_handsblocked_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	mobility_flags |= (MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
+	update_action_buttons_icon(TRUE)
 
 /// Called when traits that alter succumbing are added/removed.
 /// Will show or hide the succumb alert prompt.
@@ -73,3 +80,13 @@
 		throw_alert("succumb", /atom/movable/screen/alert/succumb)
 	else
 		clear_alert("succumb")
+
+///Called when TRAIT_INCAPACITATED is added to the mob.
+/mob/living/proc/on_incapacitated_trait_gain(datum/source)
+	SIGNAL_HANDLER
+	update_action_buttons_icon(TRUE)
+
+///Called when TRAIT_INCAPACITATED is removed from the mob.
+/mob/living/proc/on_incapacitated_trait_loss(datum/source)
+	SIGNAL_HANDLER
+	update_action_buttons_icon(TRUE)
