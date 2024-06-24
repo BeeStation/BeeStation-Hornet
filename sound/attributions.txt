@@ -2,3 +2,5 @@ sound/items/handling/standard_stamp.ogg is adapted from tom_woysky's "Stamp.wav"
 sound/ambience/antag/abductee.ogg is from "Warp SFX" https://freesound.org/people/Breviceps/sounds/453391 (CC0)
 sound/ambience/antag/brainwash.ogg is from "nog.wav" https://freesound.org/people/_NOMINAL_/sounds/124602 (CC-BY 3.0)
 sound/ambience/antag/hypnosis.ogg is from "Flashback.wav" https://freesound.org/people/Sclolex/sounds/342103 (CC0)
+
+growl1.ogg and growl2.ogg in /sound/creatures/dog are adapted from Glitchedtones's Freesound shih-tzu uploads https://freesound.org/people/Glitchedtones/

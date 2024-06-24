@@ -31,7 +31,8 @@
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target
 	gold_core_spawnable = FRIENDLY_SPAWN
-	collar_type = "cat"
+	collar_icon_state = "cat"
+	has_collar_resting_icon_state = TRUE
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
 	held_state = "cat2"
@@ -41,6 +42,7 @@
 
 /mob/living/simple_animal/pet/cat/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/pet_bonus, "purrs!")
 	add_verb(/mob/living/proc/lay_down)
 
 /mob/living/simple_animal/pet/cat/space
@@ -61,7 +63,7 @@
 	icon_state = "original"
 	icon_living = "original"
 	icon_dead = "original_dead"
-	collar_type = null
+	collar_icon_state = null
 	unique_pet = TRUE
 	held_state = "original"
 
@@ -74,7 +76,7 @@
 	density = FALSE
 	pass_flags = PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	collar_type = "kitten"
+	collar_icon_state = "kitten"
 
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
 /mob/living/simple_animal/pet/cat/Runtime
@@ -177,7 +179,7 @@
 				break
 		for(var/obj/item/toy/cattoy/T in get_turf(src))
 			if (T.cooldown < (world.time - 400))
-				INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "bats \the [T] around with its paw!")
+				manual_emote("bats \the [T] around with its paw!")
 				T.cooldown = world.time
 
 /mob/living/simple_animal/pet/cat/update_resting()
@@ -185,29 +187,27 @@
 	if(stat != DEAD)
 		if (resting)
 			icon_state = "[icon_living]_rest"
-			collar_type = "[initial(collar_type)]_rest"
 		else
 			icon_state = "[icon_living]"
-			collar_type = "[initial(collar_type)]"
 
 /mob/living/simple_animal/pet/cat/Life()
 	if(!stat && !buckled && !client)
 		if(prob(3))
 			switch(rand(1, 3))
 				if (1)
-					INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
+					manual_emote(pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
 					set_resting(TRUE)
 				if (2)
-					INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
+					manual_emote(pick("sits down.", "crouches on its hind legs.", "looks alert."))
 					set_resting(TRUE)
 					icon_state = "[icon_living]_sit"
-					collar_type = "[initial(collar_type)]_sit"
+					cut_overlays() // No collar support in sitting state
 				if (3)
 					if (resting)
-						INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("gets up and meows.", "walks around.", "stops resting."))
+						manual_emote(pick("gets up and meows.", "walks around.", "stops resting."))
 						set_resting(FALSE)
 					else
-						INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
+						manual_emote(pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
 
 	..()
 	if(next_scan_time <= world.time)
@@ -231,26 +231,6 @@
 			if(movement_target)
 				stop_automated_movement = 1
 				SSmove_manager.move_to(src, movement_target, 0, 3)
-
-/mob/living/simple_animal/pet/cat/attack_hand(mob/living/carbon/human/M)
-	. = ..()
-	switch(M.a_intent)
-		if("help")
-			wuv(TRUE, M)
-		if("harm")
-			wuv(FALSE, M)
-
-/mob/living/simple_animal/pet/cat/proc/wuv(change, mob/M)
-	if(change)
-		if(M && stat != DEAD)
-			new /obj/effect/temp_visual/heart(loc)
-			emote("me", 1, "purrs!")
-			if(flags_1 & HOLOGRAM_1)
-				return
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
-	else
-		if(M && stat != DEAD)
-			emote("me", 1, "hisses!")
 
 /mob/living/simple_animal/pet/cat/cak //I told you I'd do it, Remie
 	name = "Keeki"
@@ -310,7 +290,7 @@
 	icon_state = "breadcat"
 	icon_living = "breadcat"
 	icon_dead = "breadcat_dead"
-	collar_type = null
+	collar_icon_state = null
 	held_state = "breadcat"
 	butcher_results = list(/obj/item/food/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/organ/tongue/cat = 1, /obj/item/food/breadslice/plain = 1)
 
@@ -320,5 +300,5 @@
 	gender = MALE
 	icon_state = "cathalal"
 	icon_living = "cathalal"
-	collar_type = null
+	collar_icon_state = null
 	held_state = "cathalal"

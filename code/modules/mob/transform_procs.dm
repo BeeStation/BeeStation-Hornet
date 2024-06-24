@@ -615,7 +615,7 @@
 	if(pre_transform())
 		return
 
-	var/mob/living/simple_animal/pet/dog/corgi/new_corgi = new /mob/living/simple_animal/pet/dog/corgi (loc)
+	var/mob/living/basic/pet/dog/corgi/new_corgi = new /mob/living/basic/pet/dog/corgi (loc)
 	new_corgi.a_intent = INTENT_HARM
 	new_corgi.key = key
 

@@ -128,6 +128,7 @@
 
 /mob/living/simple_animal/cow/Initialize(mapload)
 	AddComponent(/datum/component/udder)
+	AddElement(/datum/element/pet_bonus, "moos happily!")
 	. = ..()
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M)
@@ -197,6 +198,7 @@
 
 /mob/living/simple_animal/chick/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/pet_bonus, "chirps!")
 	pixel_x = base_pixel_x + rand(-6, 6)
 	pixel_y = base_pixel_y + rand(0, 10)
 	GLOB.total_chickens++

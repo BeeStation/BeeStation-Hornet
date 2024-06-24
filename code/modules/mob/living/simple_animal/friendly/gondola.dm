@@ -30,6 +30,7 @@
 
 /mob/living/simple_animal/pet/gondola/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/pet_bonus, "smiles!")
 	if (!(istype(src, /mob/living/simple_animal/pet/gondola/gondolapod)))
 		CreateGondola()
 

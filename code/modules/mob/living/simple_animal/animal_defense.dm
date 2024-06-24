@@ -4,10 +4,11 @@
 	..()
 	switch(M.a_intent)
 		if("help")
-			if (health > 0)
-				visible_message("<span class='notice'>[M] [response_help] [src].</span>", \
-					"<span class='notice'>[M] [response_help] you.</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			if (stat == DEAD)
+				return
+			visible_message("<span class='notice'>[M] [response_help] [src].</span>", \
+				"<span class='notice'>[M] [response_help] you.</span>")
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 		if("grab")
 			grabbedby(M)

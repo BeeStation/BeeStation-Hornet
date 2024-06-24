@@ -51,6 +51,10 @@
 	feedMessages = list("It nibbles happily.","It noms happily.")
 	layMessage = list("hides an egg.","scampers around suspiciously.","begins making a huge racket.","begins shuffling.")
 
+/mob/living/simple_animal/chicken/rabbit/Initialize()
+	. = ..()
+	AddElement(/datum/element/pet_bonus, "hops around happily!")
+
 /mob/living/simple_animal/chicken/rabbit/space
 	icon_prefix = "s_rabbit"
 	icon_state = "s_rabbit_white"

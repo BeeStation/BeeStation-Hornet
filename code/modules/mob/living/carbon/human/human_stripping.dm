@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 		new /datum/strippable_item_layout("head"),
 		new /datum/strippable_item_layout("mask"),
 		new /datum/strippable_item_layout("neck"),
-		new /datum/strippable_item_layout("corgi_collar"),
+		new /datum/strippable_item_layout("pet_collar"),
 		new /datum/strippable_item_layout("parrot_headset"),
 		new /datum/strippable_item_layout("eyes"),
 		new /datum/strippable_item_layout("ears")

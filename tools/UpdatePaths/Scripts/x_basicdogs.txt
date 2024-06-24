@@ -1,0 +1,3 @@
+/mob/living/simple_animal/pet/dog/corgi/lisa : /mob/living/basic/pet/dog/corgi/lisa{@OLD}
+/mob/living/simple_animal/pet/dog/corgi/Ian : /mob/living/basic/pet/dog/corgi/ian{@OLD}
+/mob/living/simple_animal/pet/dog/@SUBTYPES : /mob/living/basic/pet/dog/@SUBTYPES {@OLD}

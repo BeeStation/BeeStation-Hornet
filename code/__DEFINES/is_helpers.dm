@@ -151,9 +151,9 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define iscat(A) (istype(A, /mob/living/simple_animal/pet/cat))
 
-#define iscorgi(A) (istype(A, /mob/living/simple_animal/pet/dog/corgi))
+#define isdog(A) (istype(A, /mob/living/basic/pet/dog))
 
-#define isdog(A) (istype(A, /mob/living/simple_animal/pet/dog))
+#define iscorgi(A) (istype(A, /mob/living/basic/pet/dog/corgi))
 
 #define ishostile(A) (istype(A, /mob/living/simple_animal/hostile))
 

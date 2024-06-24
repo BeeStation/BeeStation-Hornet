@@ -53,26 +53,6 @@
 /obj/structure/bed/dogbed,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
-"ap" = (
-/mob/living/simple_animal/pet/dog/pug,
-/turf/open/floor/wood,
-/area/ruin/space/has_grav/powered)
-"aq" = (
-/mob/living/simple_animal/pet/dog/corgi/exoticcorgi,
-/turf/open/floor/grass,
-/area/ruin/space/has_grav/powered)
-"ar" = (
-/mob/living/simple_animal/pet/dog/corgi/seccie,
-/turf/open/floor/grass,
-/area/ruin/space/has_grav/powered)
-"as" = (
-/mob/living/simple_animal/pet/dog/corgi/puppy,
-/turf/open/floor/wood,
-/area/ruin/space/has_grav/powered)
-"at" = (
-/mob/living/simple_animal/pet/dog/bullterrier,
-/turf/open/floor/grass,
-/area/ruin/space/has_grav/powered)
 "au" = (
 /obj/machinery/hydroponics,
 /turf/open/floor/iron/checker,
@@ -81,21 +61,9 @@
 /obj/structure/flora/junglebush,
 /turf/open/floor/grass,
 /area/ruin/space/has_grav/powered)
-"aw" = (
-/mob/living/simple_animal/pet/dog/corgi/seccie,
-/turf/open/floor/wood,
-/area/ruin/space/has_grav/powered)
 "ax" = (
 /obj/item/food/nugget/dog,
 /turf/open/floor/grass,
-/area/ruin/space/has_grav/powered)
-"ay" = (
-/mob/living/simple_animal/pet/dog/corgi/puppy,
-/turf/open/floor/holofloor/beach/coast_t,
-/area/ruin/space/has_grav/powered)
-"az" = (
-/mob/living/simple_animal/pet/dog/corgi/chef,
-/turf/open/floor/iron/checker,
 /area/ruin/space/has_grav/powered)
 "aA" = (
 /obj/machinery/grill,
@@ -124,10 +92,6 @@
 "aG" = (
 /obj/structure/flora/grass/green,
 /turf/open/floor/grass,
-/area/ruin/space/has_grav/powered)
-"aH" = (
-/obj/item/toy/plush/lizard_plushie,
-/turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 "aI" = (
 /obj/item/toy/plush/slimeplushie,
@@ -253,6 +217,42 @@
 /area/ruin/space/has_grav/powered)
 "bh" = (
 /obj/item/food/nugget/dog,
+/turf/open/floor/wood,
+/area/ruin/space/has_grav/powered)
+"dJ" = (
+/mob/living/basic/pet/dog/corgi/seccie,
+/turf/open/floor/grass,
+/area/ruin/space/has_grav/powered)
+"lX" = (
+/obj/item/toy/plush/lizard_plushie,
+/turf/open/floor/wood,
+/area/ruin/space/has_grav/powered)
+"nk" = (
+/mob/living/basic/pet/dog/bullterrier,
+/turf/open/floor/grass,
+/area/ruin/space/has_grav/powered)
+"uP" = (
+/mob/living/basic/pet/dog/corgi/puppy,
+/turf/open/floor/holofloor/beach/coast_t,
+/area/ruin/space/has_grav/powered)
+"xa" = (
+/mob/living/basic/pet/dog/corgi/exoticcorgi,
+/turf/open/floor/grass,
+/area/ruin/space/has_grav/powered)
+"xA" = (
+/mob/living/basic/pet/dog/corgi/chef,
+/turf/open/floor/iron/checker,
+/area/ruin/space/has_grav/powered)
+"Gr" = (
+/mob/living/basic/pet/dog/corgi/puppy,
+/turf/open/floor/wood,
+/area/ruin/space/has_grav/powered)
+"Ls" = (
+/mob/living/basic/pet/dog/corgi/seccie,
+/turf/open/floor/wood,
+/area/ruin/space/has_grav/powered)
+"Xg" = (
+/mob/living/basic/pet/dog/pug,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 
@@ -624,7 +624,7 @@ ab
 ab
 ad
 ad
-aH
+lX
 ao
 ad
 au
@@ -728,13 +728,13 @@ ad
 aB
 ae
 ae
-aw
+Ls
 ae
 bh
 ak
 af
 af
-az
+xA
 af
 af
 au
@@ -762,8 +762,8 @@ ab
 ad
 ao
 ae
-ap
-as
+Xg
+Gr
 ae
 aU
 ad
@@ -876,7 +876,7 @@ aK
 ae
 ae
 bh
-aw
+Ls
 ae
 ae
 al
@@ -972,7 +972,7 @@ ab
 ad
 aD
 bb
-ar
+dJ
 aG
 ac
 aG
@@ -1007,14 +1007,14 @@ ab
 ad
 av
 aF
-aq
-at
+xa
+nk
 ax
 ac
 ak
 ag
 ag
-ay
+uP
 ai
 aP
 ai
@@ -1049,7 +1049,7 @@ aD
 ad
 aX
 ag
-ay
+uP
 ai
 ai
 ad

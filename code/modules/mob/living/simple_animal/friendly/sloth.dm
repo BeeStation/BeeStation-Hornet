@@ -27,6 +27,10 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 
+/mob/living/simple_animal/sloth/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/pet_bonus, "slowly smiles!")
+
 //Cargo Sloth
 /mob/living/simple_animal/sloth/paperwork
 	name = "Paperwork"
