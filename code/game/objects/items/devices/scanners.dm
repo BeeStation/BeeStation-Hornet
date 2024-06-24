@@ -378,8 +378,6 @@ GENE SCANNER
 			if(isnull(H.getorgan(each_organ))) //Can we find the given organ in the mob?
 				missing_organ_list += initial(each_organ.name) //If not, add it to the list.
 				report_organs = TRUE
-		if(length(missing_organ_list)) //If we have missing organs, display them in a fancy list.
-			missing_organs = "\t<span class='alert'>Missing Organs: [english_list(missing_organ_list)]</span>"
 		if(report_organs)	//we either finish the list, or set it to be empty if no organs were reported in that category
 			if(!max_damage)
 				max_damage = "\t<span class='alert'>Non-Functional Organs: </span>"
@@ -393,6 +391,9 @@ GENE SCANNER
 				minor_damage = "\t<span class='info'>Mildly Damaged Organs: </span>"
 			else
 				minor_damage += "</span>"
+			missing_organs = "\t<span class='alert'>Missing Organs: </span>"
+			if(length(missing_organ_list)) //If we have missing organs, display them in a fancy list.
+				missing_organs += "<span class='alert'>[english_list(missing_organ_list)]</span>"
 			message += minor_damage
 			message += major_damage
 			message += max_damage
