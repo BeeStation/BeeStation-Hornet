@@ -909,7 +909,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","rd")
 	},
 /turf/open/floor/iron,
@@ -957,7 +957,7 @@
 /turf/open/floor/iron,
 /area/janitor)
 "Ax" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/space)

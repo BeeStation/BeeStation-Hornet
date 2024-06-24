@@ -38,7 +38,7 @@
 /turf/closed/wall/r_wall,
 /area/engine/gravity_generator)
 "al" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
@@ -68,7 +68,7 @@
 /turf/open/space,
 /area/space/nearstation)
 "ap" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
@@ -98,7 +98,7 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
@@ -506,7 +506,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
@@ -534,7 +534,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bG" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
@@ -616,7 +616,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bU" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
@@ -953,7 +953,7 @@
 /turf/open/floor/iron,
 /area/storage/primary)
 "cW" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
@@ -985,7 +985,7 @@
 /turf/open/floor/iron,
 /area/construction)
 "da" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
@@ -1276,7 +1276,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron{
 	dir = 4
 	},
@@ -1292,7 +1292,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron{
 	dir = 9
 	},

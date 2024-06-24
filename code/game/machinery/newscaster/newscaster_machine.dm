@@ -57,6 +57,8 @@
 	///Text of the currently written bounty
 	var/bounty_text = ""
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
+
 /obj/machinery/newscaster/Initialize(mapload, ndir, building)
 	. = ..()
 	GLOB.allCasters += src
@@ -954,6 +956,6 @@
 	icon_state = "newscaster"
 	custom_materials = list(/datum/material/iron=14000, /datum/material/glass=8000)
 	result_path = /obj/machinery/newscaster
-	pixel_shift = -32
+	pixel_shift = 30
 
 #undef ALERT_DELAY

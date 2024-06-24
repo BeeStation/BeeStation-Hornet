@@ -78,6 +78,8 @@
 	var/last_spark = 0
 	var/datum/effect_system/spark_spread/spark_system
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/sparker, 26)
+
 /obj/machinery/sparker/toxmix
 	id = INCINERATOR_TOXMIX_IGNITER
 

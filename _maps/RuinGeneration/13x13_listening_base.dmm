@@ -142,7 +142,8 @@
 /area/ruin/space/has_grav/listeningstation)
 "kX" = (
 /obj/machinery/airalarm/syndicate{
-	pixel_y = 24
+	pixel_y = 24;
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
@@ -214,7 +215,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/syndicate{
-	dir = 8;
+	dir = 4;
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -891,7 +892,8 @@
 "YS" = (
 /obj/machinery/computer/message_monitor,
 /obj/machinery/airalarm/syndicate{
-	pixel_y = 24
+	pixel_y = 24;
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,

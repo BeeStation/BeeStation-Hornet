@@ -7,9 +7,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/chair/stool{
-	dir = 8
-	},
+/obj/structure/chair/stool/directional/west,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "c" = (
@@ -49,7 +47,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "k" = (
- /obj/machinery/vending/boozeomat/maint,
+/obj/machinery/vending/boozeomat/maint,
 /turf/closed/wall,
 /area/template_noop)
 "l" = (
@@ -159,9 +157,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "B" = (
-/obj/structure/chair/stool{
-	dir = 1
-	},
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/carpet,
 /area/template_noop)
 "C" = (

@@ -11,6 +11,7 @@
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "fire_bitem"
 	result_path = /obj/machinery/firealarm
+	pixel_shift = 26
 
 /obj/machinery/firealarm
 	name = "fire alarm"
@@ -37,31 +38,11 @@
 	var/last_alarm = 0
 	var/area/myarea = null
 
-/obj/machinery/firealarm/directional/north
-	dir = SOUTH
-	pixel_y = 24
-
-/obj/machinery/firealarm/directional/south
-	dir = NORTH
-	pixel_y = -24
-
-/obj/machinery/firealarm/directional/east
-	dir = WEST
-	pixel_x = 24
-
-/obj/machinery/firealarm/directional/west
-	dir = EAST
-	pixel_x = -24
-
 /obj/machinery/firealarm/Initialize(mapload, dir, building)
 	. = ..()
-	if(dir)
-		src.setDir(dir)
 	if(building)
 		buildstage = 0
 		panel_open = TRUE
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
-		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 	update_appearance()
 	myarea = get_area(src)
 	LAZYADD(myarea.firealarms, src)
@@ -278,6 +259,8 @@
 					return
 
 	return ..()
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26)
 
 /obj/machinery/firealarm/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if((buildstage == 0) && (the_rcd.upgrade & RCD_UPGRADE_SIMPLE_CIRCUITS))

@@ -720,7 +720,7 @@
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/kitchen)
 "cf" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /obj/structure/spider/stickyweb,
@@ -2337,7 +2337,7 @@
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/gateway)
 "ho" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -2730,8 +2730,7 @@
 /area/awaymission/snowdin/post)
 "iz" = (
 /obj/structure/table,
-/obj/machinery/airalarm{
-	dir = 4;
+/obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
 /obj/item/paper_bin,
@@ -2833,7 +2832,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /turf/open/floor/iron,
@@ -2942,7 +2941,7 @@
 /area/awaymission/snowdin/post/garage)
 "iX" = (
 /obj/structure/table,
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /turf/open/floor/plating,
@@ -3309,8 +3308,7 @@
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/gateway)
 "ka" = (
-/obj/machinery/airalarm{
-	dir = 4;
+/obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
 /turf/open/floor/iron/cafeteria,
@@ -3552,7 +3550,7 @@
 /area/awaymission/snowdin/post/custodials)
 "kE" = (
 /obj/structure/table,
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /turf/open/floor/iron/dark,
@@ -3657,7 +3655,7 @@
 /area/awaymission/snowdin/post/garage)
 "la" = (
 /obj/structure/filingcabinet,
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /turf/open/floor/iron,
@@ -5899,7 +5897,7 @@
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/cavern2)
 "rg" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /turf/open/floor/engine/cult,
@@ -6937,7 +6935,7 @@
 /turf/open/floor/plating/asteroid/snow/ice,
 /area/awaymission/snowdin/cave/cavern)
 "uy" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /turf/open/floor/plating,
@@ -10707,8 +10705,7 @@
 /area/awaymission/snowdin/outside)
 "HJ" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/airalarm{
-	dir = 4;
+/obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
 /turf/open/floor/iron,
@@ -10735,8 +10732,7 @@
 /area/awaymission/snowdin/post/mining_main/robotics)
 "HN" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/airalarm{
-	dir = 4;
+/obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
 /turf/open/floor/plating{
@@ -11904,7 +11900,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -11934,7 +11930,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
@@ -12041,8 +12037,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/machinery/airalarm{
-	dir = 8;
+/obj/machinery/airalarm/directional/east{
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -12987,7 +12982,7 @@
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/mining_main)
 "Tp" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /obj/structure/sign/warning/docking{
@@ -13159,7 +13154,7 @@
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/research)
 "Uf" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
@@ -13560,7 +13555,7 @@
 	},
 /area/awaymission/snowdin/post/mining_main)
 "Wj" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -13603,7 +13598,7 @@
 "Ww" = (
 /obj/structure/table,
 /obj/item/clothing/glasses/hud/health,
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -14091,7 +14086,7 @@
 /turf/open/floor/iron/white,
 /area/awaymission/snowdin/post)
 "YR" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -14108,8 +14103,7 @@
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/dorm)
 "YU" = (
-/obj/machinery/airalarm{
-	dir = 4;
+/obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
 /obj/effect/turf_decal/tile/green/half/contrasted{

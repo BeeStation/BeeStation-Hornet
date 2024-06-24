@@ -16,10 +16,14 @@
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/defibrillator_mount, 28)
+
 /obj/machinery/defibrillator_mount/loaded/Initialize(mapload) //loaded subtype for mapping use
 	. = ..()
 	defib = new/obj/item/defibrillator/loaded(src)
 	update_icon()
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/defibrillator_mount/loaded, 28)
 
 /obj/machinery/defibrillator_mount/Destroy()
 	if(defib)
@@ -172,4 +176,4 @@
 	custom_materials = list(/datum/material/iron = 300, /datum/material/glass = 100)
 	w_class = WEIGHT_CLASS_BULKY
 	result_path = /obj/machinery/defibrillator_mount
-	pixel_shift = -28
+	pixel_shift = 28

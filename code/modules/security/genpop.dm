@@ -364,7 +364,6 @@
 	icon = 'icons/obj/machines/genpop_display.dmi'
 	icon_state = "frame"
 	pixel_shift = 32
-	inverse = 1
 	result_path = /obj/machinery/genpop_interface
 
 /obj/item/electronics/genpop_interface

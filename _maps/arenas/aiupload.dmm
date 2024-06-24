@@ -70,7 +70,7 @@
 /turf/open/floor/iron/techmaint,
 /area/space)
 "z" = (
-/obj/machinery/camera,
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/techmaint,
 /area/space)
 "B" = (
@@ -85,7 +85,7 @@
 /turf/open/floor/iron/techmaint,
 /area/space)
 "C" = (
-/obj/machinery/camera{
+/obj/machinery/camera/directional/north{
 	pixel_x = 20
 	},
 /turf/open/floor/iron/techmaint,
