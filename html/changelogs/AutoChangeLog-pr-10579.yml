@@ -1,6 +1,0 @@
-author: Markus Larsson
-delete-after: true
-changes:
-  - rscadd: Added almost 20 new maintenance rooms.
-  - tweak: Added a chance for a ripley to spawn.
-  - tweak: Added a sniffer to the Robotics maintenance room.
