@@ -23,7 +23,7 @@
 
 /obj/machinery/rnd/server/Initialize(mapload)
 	. = ..()
-	server = AddComponent(/datum/component/server)
+	server_component = AddComponent(/datum/component/server)
 	server_id = 0
 	while(server_id == 0)
 		var/test_id = rand(1,65535)

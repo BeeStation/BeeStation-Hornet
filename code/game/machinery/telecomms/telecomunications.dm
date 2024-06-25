@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 		signal.data["slow"] = netlag
 
 	// Aply some lag from throttling
-	var/efficiency = server_component.get_efficiency()
+	var/efficiency = get_efficiency()
 	var/throttling = (10 - 10 * efficiency)
 	signal.data["slow"] += throttling
 
