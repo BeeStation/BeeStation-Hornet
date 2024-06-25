@@ -1,6 +1,0 @@
-author: Gilgaxx
-delete-after: true
-changes:
-  - bugfix: "Echostation: replaced disposals' delivery chute (input) with a disposals\
-      \ outlet (output)"
-  - bugfix: "Echostation: Inverted the airmixer to distro so it's now 21/79 o2/n2"
