@@ -135,6 +135,7 @@
 	. = ..()
 	if(!on)
 		mobility_flags |= MOBILITY_STAND //base bots removes all mobility flags when turned off, resulting in the bot becoming passable. we don't want this since it's a large device that should block things.
+		update_action_buttons_icon(TRUE)
 
 /mob/living/simple_animal/bot/mulebot/proc/set_id(new_id)
 	id = new_id
