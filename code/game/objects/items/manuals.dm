@@ -337,7 +337,7 @@
 		else
 			target.visible_message("<span class='userdanger'>[target] spits on the floor, disrespecting [user]'s authority!</span>", "<span class='notice'>You finish listening to [user]'s waffling. What a knobhead, you think to yourself...</span>")
 	else
-		user.say("These shall all be considered acts which are in violation of your contract of employment, and you are contractually obliged not commit them.", forced = "space law")
+		user.say("These shall all be considered acts which are in violation of your contract of employment, and you are contractually obliged to not commit them.", forced = "space law")
 		if(target.mind?.has_antag_datum(/datum/antagonist/rev/head) || target.mind?.unconvertable)
 			target.visible_message("<span class='userdanger'>[target] spits on the floor, disrespecting [user]'s authority!</span>", "<span class='notice'>You finish listening to [user]'s waffling. What a knobhead, you think to yourself...</span>")
 			return
