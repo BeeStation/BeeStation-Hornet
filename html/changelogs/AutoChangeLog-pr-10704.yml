@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: Language menu TGUI now shows language icon, and better readable description
+      layout
+  - code_imp: Slightly improved language menu code
