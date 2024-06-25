@@ -1620,7 +1620,7 @@
 
 	var/sobject = ""
 	if(object)
-		sobject = " with [object] [(istype(tool_atom) ? "[tool_atom.type]" : "")]"
+		sobject = " with [object][(istype(tool_atom) ? " ([tool_atom.type])" : "")]"
 	var/saddition = ""
 	if(addition)
 		saddition = " [addition]"
