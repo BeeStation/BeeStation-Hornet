@@ -758,7 +758,7 @@
 	singular_name = "catwalk floor tile"
 	desc = "Flooring that shows its contents underneath. Engineers love it!"
 	icon_state = "maint_catwalk"
-	inhand_icon_state = "tile-catwalk"
+	item_state = "tile-catwalk"
 	turf_type = /turf/open/floor/catwalk_floor
 	merge_type = /obj/item/stack/tile/catwalk_tile //Just to be cleaner, these all stack with eachother
 	tile_reskin_types = list(

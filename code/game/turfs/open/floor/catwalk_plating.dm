@@ -36,10 +36,10 @@
 	. = ..()
 
 	if(covered)
-		. += span_notice("You can <b>unscrew</b> it to reveal the contents beneath.")
+		. += "<span class='notice'>You can <b>unscrew</b> it to reveal the contents beneath.</span>"
 	else
-		. += span_notice("You can <b>screw</b> it to hide the contents beneath.")
-		. += span_notice("There's a <b>small crack</b> on the edge of it.")
+		. += "<span class='notice'>You can <b>screw</b> it to hide the contents beneath.</span>"
+		. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
 
 /turf/open/floor/catwalk_floor/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
