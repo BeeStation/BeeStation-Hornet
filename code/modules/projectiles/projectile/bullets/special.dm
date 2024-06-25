@@ -3,6 +3,7 @@
 /obj/projectile/bullet/honker
 	name = "banana"
 	damage = 0
+	bleed_force = 0
 	paralyze = 60
 	movement_type = FLYING
 	projectile_piercing = ALL

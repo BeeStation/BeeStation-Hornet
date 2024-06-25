@@ -12,7 +12,7 @@
 	throw_range = 7
 	attack_verb = list("banned")
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/banhammer/suicide_act(mob/living/user)
@@ -82,8 +82,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_level = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	sharpness = IS_SHARP
+	bleed_force = BLEED_DEEP_WOUND
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/claymore/Initialize(mapload)
@@ -121,7 +122,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		loc.layer = LARGE_MOB_LAYER //NO HIDING BEHIND PLANTS FOR YOU, DICKWEED (HA GET IT, BECAUSE WEEDS ARE PLANTS)
-		H.bleedsuppress = TRUE //AND WE WON'T BLEED OUT LIKE COWARDS
+		H.cauterise_wounds(0.1)
 	else
 		if(!(flags_1 & ADMIN_SPAWNED_1))
 			qdel(src)
@@ -236,7 +237,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	block_level = 0
 	block_power = 30
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
 
 /obj/item/katana
 	name = "katana"
@@ -259,8 +260,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_upgrade_walk = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	sharpness = IS_SHARP
+	bleed_force = BLEED_DEEP_WOUND
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/katana/cursed
@@ -329,6 +331,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_flags = ISWEAPON
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	custom_materials = list(/datum/material/iron=500, /datum/material/glass=500)
 	resistance_flags = FIRE_PROOF
 
@@ -392,6 +395,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		sharpness = IS_SHARP
+		bleed_force = BLEED_CUT
 	else
 		force = initial(force)
 		w_class = WEIGHT_CLASS_SMALL
@@ -400,6 +404,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		attack_verb = list("stubbed", "poked")
 		hitsound = 'sound/weapons/genhit.ogg'
 		sharpness = IS_BLUNT
+		bleed_force = 0
 
 /obj/item/switchblade/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] own throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -536,6 +541,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throw_range = 0
 	throw_speed = 0
 	sharpness = IS_SHARP
+	bleed_force = BLEED_DEEP_WOUND
 	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
 	tool_behaviour = TOOL_SAW
@@ -980,6 +986,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_upgrade_walk = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
@@ -999,6 +1006,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throwforce = 20
 	throw_speed = 4
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	attack_verb = list("cut", "sliced", "diced")
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON

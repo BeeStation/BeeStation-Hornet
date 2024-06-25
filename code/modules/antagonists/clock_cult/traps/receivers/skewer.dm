@@ -37,8 +37,9 @@
 			M.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
-				if(!H.bleed_rate)
-					H.bleed(30)
+				var/armour_block = H.run_armor_check(BODY_ZONE_CHEST, BLEED)
+				var/hit_amount = (100 - armour_block) / 100
+				H.add_bleeding(BLEED_CRITICAL * hit_amount)
 	if(target_stabbed)
 		if(!stab_overlay)
 			stab_overlay = mutable_appearance('icons/obj/clockwork_objects.dmi', "brass_skewer_pokeybit", layer=ABOVE_MOB_LAYER)

@@ -109,6 +109,7 @@
 	damage = 0
 	nodamage = TRUE
 	martial_arts_no_deflect = TRUE
+	bleed_force = 0
 
 /obj/projectile/bullet/c38/mime/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target))

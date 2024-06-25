@@ -154,10 +154,6 @@
 		return TRUE
 	return FALSE
 
-/*
-	Aliens
-	Defaults to same as monkey in most places
-*/
 /mob/living/carbon/alien/UnarmedAttack(atom/A)
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return

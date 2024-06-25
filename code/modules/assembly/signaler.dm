@@ -252,6 +252,12 @@
 	icon_state = "hallucination_core"
 	anomaly_type = /obj/effect/anomaly/hallucination
 
+/obj/item/assembly/signaler/anomaly/blood
+	name = "\improper blood anomaly core"
+	desc = "The neutralized core of a blood anomaly. You feel your blood running through your veins when you are around it. It'd probably be valuable for research."
+	icon_state = "hallucination_core"
+	anomaly_type = /obj/effect/anomaly/blood
+
 /obj/item/assembly/signaler/anomaly/attack_self()
 	return
 

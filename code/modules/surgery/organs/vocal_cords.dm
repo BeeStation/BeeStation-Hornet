@@ -321,7 +321,7 @@
 	else if((findtext(message, bleed_words)))
 		cooldown = COOLDOWN_DAMAGE
 		for(var/mob/living/carbon/human/H in listeners)
-			H.bleed_rate += (5 * power_multiplier)
+			H.add_bleeding(BLEED_SURFACE)
 
 	//FIRE
 	else if((findtext(message, burn_words)))

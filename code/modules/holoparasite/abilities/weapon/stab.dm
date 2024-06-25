@@ -14,11 +14,9 @@
 		)
 	)
 	/**
-	 * The (maximum) amount of bleed damage with each hit.
-	 * This is premultiplied by 10, and then randomized between 50% and 100% of the value.
-	 * We need to pre-multiply by 10, as BYOND's rand() doesn't support decimal ranges, so we just multiply the final random value by 0.1.
+	 * Randomised between 50% and 100%
 	 */
-	var/premultiplied_bleed_rate = 40
+	var/bleed_level = BLEED_SURFACE
 
 /datum/holoparasite_ability/weapon/blade/apply()
 	. = ..()
@@ -29,7 +27,7 @@
 		owner.attack_sound = 'sound/weapons/bladeslice.ogg'
 	owner.response_harm = "stabs"
 	owner.attacktext = "stabs"
-	premultiplied_bleed_rate = master_stats.damage * 8
+	bleed_level = (master_stats.damage / 5) * (BLEED_DEEP_WOUND - BLEED_SURFACE) + BLEED_SURFACE
 
 /datum/holoparasite_ability/weapon/blade/remove()
 	. = ..()
@@ -45,6 +43,4 @@
 	. = ..()
 	if(successful && ishuman(target))
 		var/mob/living/carbon/human/human_target = target
-		if(human_target.bleed_rate < 15)
-			var/randomized_bleed_rate = rand(round(premultiplied_bleed_rate * 0.5), premultiplied_bleed_rate) * 0.1
-			human_target.bleed_rate = clamp(human_target.bleed_rate + randomized_bleed_rate, 0, 15)
+		human_target.add_bleeding((rand(500, 1000) / 1000) * bleed_level)
