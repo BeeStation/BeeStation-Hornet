@@ -51,6 +51,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
 "ah" = (
+/obj/structure/frame/computer,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
 "ai" = (
@@ -1463,18 +1464,6 @@
 	id = "infiltrator_starboardblast";
 	name = "Infiltrator Starboard Hatch"
 	},
-/obj/docking_port/mobile{
-	dheight = 1;
-	dir = 8;
-	dwidth = 12;
-	height = 17;
-	hidden = 1;
-	id = "syndicate";
-	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
-	name = "syndicate infiltrator";
-	port_direction = 4;
-	width = 21
-	},
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/box,
 /obj/machinery/button/door{
@@ -1482,6 +1471,18 @@
 	name = "Infiltrator Starboard Hatch Control";
 	pixel_y = 26;
 	req_access_txt = "150"
+	},
+/obj/docking_port/mobile{
+	dheight = 1;
+	dir = 8;
+	dwidth = 13;
+	height = 21;
+	hidden = 1;
+	id = "syndicate";
+	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
+	name = "syndicate infiltrator";
+	port_direction = 4;
+	width = 21
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/airlock)
