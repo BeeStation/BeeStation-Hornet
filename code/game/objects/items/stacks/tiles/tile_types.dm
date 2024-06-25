@@ -751,3 +751,15 @@
 
 /obj/item/stack/tile/rglass/plasma
 	amount = 60
+
+/obj/item/stack/tile/catwalk_tile
+	name = "catwalk floor"
+	singular_name = "catwalk floor tile"
+	desc = "Catwalk floor to be able see things underneath"
+	icon_state = "catwalk_floor"
+	inhand_icon_state = "tile-catwalk"
+	turf_type = /turf/open/floor/plating/catwalk_floor
+	merge_type = /obj/item/stack/tile/catwalk_tile
+
+/obj/item/stack/tile/catwalk_tile/sixty
+	amount = 60
