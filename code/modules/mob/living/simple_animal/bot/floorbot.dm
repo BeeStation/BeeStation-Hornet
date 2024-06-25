@@ -352,7 +352,7 @@
 		if(do_after(src, 50, target = target_turf) && mode == BOT_REPAIRING)
 			if(autotile) //Build the floor and include a tile.
 				if(replacetiles && tilestack)
-					tilestack.place_tile(target_turf)
+					tilestack.place_tile(target_turf, src)
 					if(!tilestack)
 						speak("Requesting refill of custom floor tiles to continue replacing.")
 				else
@@ -382,7 +382,7 @@
 		if(success)
 			F = F.make_plating(TRUE) || F
 			if(was_replacing && tilestack)
-				tilestack.place_tile(F)
+				tilestack.place_tile(F, src)
 				if(!tilestack)
 					speak("Requesting refill of custom floor tiles to continue replacing.")
 			else

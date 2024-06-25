@@ -71,6 +71,7 @@
 		return
 	T.break_tile()
 
+/// Things seem to rely on this actually returning plating. Override it if you have other baseturfs.
 /turf/open/floor/proc/make_plating()
 	//Remove previous damage overlays
 	for(var/i in damage_overlays)

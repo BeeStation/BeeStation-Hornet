@@ -62,12 +62,44 @@
 			return
 		. += "<span class='notice'>Those could work as a [verb] throwing weapon.</span>"
 
-/obj/item/stack/tile/proc/place_tile(turf/open/T)
-	if(!turf_type || !use(1))
+/**
+ * Place our tile on a plating, or replace it.
+ *
+ * Arguments:
+ * * target_plating - Instance of the plating we want to place on. Replaced during sucessful executions.
+ * * user - The mob doing the placing.
+ */
+/obj/item/stack/tile/proc/place_tile(turf/open/floor/plating/target_plating, mob/user)
+	var/turf/placed_turf_path = turf_type
+	if(!ispath(placed_turf_path))
 		return
-	var/turf/placed_turf = T.PlaceOnTop(turf_type, flags = CHANGETURF_INHERIT_AIR)
-	placed_turf.setDir(turf_dir)
-	return placed_turf
+	if(!istype(target_plating))
+		return
+
+	if(!replace_plating)
+		if(!use(1))
+			return
+		target_plating = target_plating.PlaceOnTop(placed_turf_path, flags = CHANGETURF_INHERIT_AIR)
+		target_plating.setDir(turf_dir)
+		playsound(target_plating, 'sound/weapons/genhit.ogg', 50, TRUE)
+		return target_plating // Most executions should end here.
+
+	// If we and the target tile share the same initial baseturf and they consent, replace em.
+	if(!target_plating.allow_replacement || initial(target_plating.baseturfs) != initial(placed_turf_path.baseturfs))
+		to_chat(user, "<span class='notice'>You cannot place this tile here directly!</span>")
+		return
+	to_chat(user, "<span class='notice'>You begin replacing the floor with the tile...</span>")
+	if(!do_after(user, 3 SECONDS, target_plating))
+		return
+	if(!istype(target_plating))
+		return
+	if(!use(1))
+		return
+
+	target_plating = target_plating.ChangeTurf(placed_turf_path, target_plating.baseturfs, CHANGETURF_INHERIT_AIR)
+	target_plating.setDir(turf_dir)
+	playsound(target_plating, 'sound/weapons/genhit.ogg', 50, TRUE)
+	return target_plating
 
 //Grass
 /obj/item/stack/tile/grass
@@ -328,12 +360,10 @@
 	merge_type = /obj/item/stack/tile/carpet/grimy
 	turf_type = /turf/open/floor/carpet/grimy
 
-/*
-/obj/item/stack/tile/material/place_tile(turf/open/T)
+/obj/item/stack/tile/material/place_tile(turf/open/target_plating, mob/user)
 	. = ..()
-	var/turf/open/floor/material/F = .
-	F?.set_custom_materials(mats_per_unit)
-*/
+	var/turf/open/floor/material/floor = .
+	floor?.set_custom_materials(mats_per_unit)
 
 /obj/item/stack/tile/eighties
 	name = "retro tile"
@@ -620,8 +650,8 @@
 	turf_type = /turf/open/floor/glass
 	item_state = "tile-glass"
 	merge_type = /obj/item/stack/tile/glass
-	materials = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT * 0.25) // 4 tiles per sheet
-	//replace_plating = TRUE
+	mats_per_unit = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT * 0.25) // 4 tiles per sheet
+	replace_plating = TRUE
 
 /obj/item/stack/tile/glass/sixty
 	amount = 60
@@ -634,8 +664,8 @@
 	item_state = "tile-rglass"
 	turf_type = /turf/open/floor/glass/reinforced
 	merge_type = /obj/item/stack/tile/rglass
-	materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT * 0.125, /datum/material/glass=MINERAL_MATERIAL_AMOUNT * 0.25) // 4 tiles per sheet
-	//replace_plating = TRUE
+	mats_per_unit = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT * 0.125, /datum/material/glass=MINERAL_MATERIAL_AMOUNT * 0.25) // 4 tiles per sheet
+	replace_plating = TRUE
 
 /obj/item/stack/tile/rglass/sixty
 	amount = 60
