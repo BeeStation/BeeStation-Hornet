@@ -1,6 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - bugfix: Renewed Cyborg software to correctly deal with laser pointer spam.
-  - balance: Laser pointers now stunlock a cyborg for 5 seconds instead of the previous
-      1-2 seconds, now consider cyborg software before flashing a borg.
