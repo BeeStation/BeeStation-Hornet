@@ -1,0 +1,5 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: Tinfoil envirosuit helmets act as internals now and no longer block syringes,
+      just like other envirosuit helmets
