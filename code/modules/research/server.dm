@@ -19,10 +19,11 @@
 	var/base_mining_income = 3.70
 
 	req_access = list(ACCESS_RD_SERVER) //ONLY THE R&D, AND WHO HAVE THE ACCESS TO CAN CHANGE SERVER SETTINGS.
+	var/datum/component/server/server_component
 
 /obj/machinery/rnd/server/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/server)
+	server = AddComponent(/datum/component/server)
 	server_id = 0
 	while(server_id == 0)
 		var/test_id = rand(1,65535)
@@ -71,16 +72,16 @@
 		return list(TECHWEB_POINT_TYPE_GENERIC = 0)
 
 /obj/machinery/rnd/server/proc/get_temperature()
-	return GetComponent(/datum/component/server).temperature
+	return server_component.temperature
 
 /obj/machinery/rnd/server/proc/get_overheat_temperature()
-	return GetComponent(/datum/component/server).overheated_temp
+	return server_component.overheated_temp
 
 /obj/machinery/rnd/server/proc/get_warning_temperature()
-	return GetComponent(/datum/component/server).warning_temp
+	return server_component.warning_temp
 
 /obj/machinery/rnd/server/proc/get_efficiency()
-	return GetComponent(/datum/component/server).efficiency
+	return server_component.efficiency
 
 /obj/machinery/rnd/server/on_set_machine_stat(old_value)
 	. = ..()

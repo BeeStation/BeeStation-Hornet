@@ -34,6 +34,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	var/toggled = TRUE 	// Is it toggled on
 	var/long_range_link = FALSE  // Can you link it across Z levels or on the otherside of the map? (Relay & Hub)
 	var/hide = FALSE  // Is it a hidden machine?
+	var/datum/component/server/server_component
 
 
 /obj/machinery/telecomms/proc/relay_information(datum/signal/subspace/signal, filter, copysig, amount = 20)
@@ -48,7 +49,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 		signal.data["slow"] = netlag
 
 	// Aply some lag from throttling
-	var/efficiency = GetComponent(/datum/component/server).efficiency
+	var/efficiency = server_component.get_efficiency()
 	var/throttling = (10 - 10 * efficiency)
 	signal.data["slow"] += throttling
 
@@ -90,7 +91,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 
 /obj/machinery/telecomms/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/server) // they generate heat
+	server_component = AddComponent(/datum/component/server) // they generate heat
 	update_network() // we try to connect to NTnet
 	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
 	GLOB.telecomms_list += src
@@ -112,13 +113,13 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	return ..()
 
 /obj/machinery/telecomms/proc/get_temperature()
-	return GetComponent(/datum/component/server).temperature
+	return server_component.temperature
 
 /obj/machinery/telecomms/proc/get_efficiency()
-	return GetComponent(/datum/component/server).efficiency
+	return server_component.efficiency
 
 /obj/machinery/telecomms/proc/get_overheat_temperature()
-	return GetComponent(/datum/component/server).overheated_temp
+	return server_component.overheated_temp
 
 // Used in auto linking
 /obj/machinery/telecomms/proc/add_link(obj/machinery/telecomms/T)
