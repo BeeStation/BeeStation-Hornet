@@ -1618,7 +1618,7 @@
 		stam = "(STAM: [C.getStaminaLoss()]) "
 
 	var/sobject = ""
-	if(object && !isitem(object))
+	if(object)
 		sobject = " with [object]"
 	var/saddition = ""
 	if(addition)
