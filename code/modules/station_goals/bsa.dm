@@ -155,6 +155,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 
 	var/sound/select_sound = 'sound/machines/bsa/bsa_charge.ogg'
 	var/sound/fire_sound = 'sound/machines/bsa/bsa_fire.ogg'
+	var/last_charge_quarter = 0
 
 /obj/machinery/power/bsa/full/wrench_act(mob/living/user, obj/item/I)
 	return FALSE
@@ -219,15 +220,17 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	add_overlay(top_layer)
 	top_layer.icon_state = "top_[dir2text(dir)]"
 
-	var/percent = cell.percent()
-	if(percent >= 25)
+	var/charge_quarter = FLOOR(cell.percent() / 25, 1)
+	if(charge_quarter >= 1)
 		add_overlay("[base_battery_icon_state]_25")
-	if(percent >= 50)
+	if(charge_quarter >= 2)
 		add_overlay("[base_battery_icon_state]_50")
-	if(percent >= 75)
+	if(charge_quarter >= 3)
 		add_overlay("[base_battery_icon_state]_75")
-	if(percent >= 100)
+	if(charge_quarter >= 4)
 		add_overlay("[base_battery_icon_state]_100")
+	if(charge_quarter > last_charge_quarter)
+		playsound(get_turf(src), 'sound/machines/apc/PowerSwitch_Off.ogg', 25, 1)
 
 
 /obj/machinery/power/bsa/full/proc/fire(mob/user, turf/bullseye)
@@ -251,7 +254,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 			break
 		else
 			SSexplosions.highturf += tile
-
+	var/sound/charge_up = sound('sound/machines/bsa/bsa_charge.ogg')
+	playsound(get_turf(src), charge_up, 50, 1)
+	spawn(charge_up.len)
 	point.Beam(target, icon_state = "bsa_beam", time = 5 SECONDS, maxdistance = world.maxx) //ZZZAP
 	new /obj/effect/temp_visual/bsa_splash(point, dir)
 
@@ -281,6 +286,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	terminal.add_load(charge)
 	cell.give(charge)
 	update_appearance(UPDATE_OVERLAYS)
+	last_charge_quarter = FLOOR(cell.percent() / 25, 1)
 
 /obj/structure/filler
 	name = "big machinery part"
