@@ -1235,6 +1235,7 @@
 	else
 		mobility_flags |= MOBILITY_UI|MOBILITY_PULL
 
+	update_action_buttons_icon(TRUE)
 
 	if(stat == UNCONSCIOUS)
 		drop_all_held_items()

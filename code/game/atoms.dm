@@ -1769,7 +1769,7 @@
   */
 /atom/proc/setClosed()
 	return
-	
+
 /**
   * Used to attempt to charge an object with a payment component.
   *
