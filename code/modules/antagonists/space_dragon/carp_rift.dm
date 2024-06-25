@@ -89,12 +89,6 @@
 /obj/structure/carp_rift/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	AddComponent( \
-		/datum/component/gravity_aura, \
-		range = 15, \
-		requires_visibility = FALSE, \
-		gravity_strength = 1, \
-	)
 
 /obj/structure/carp_rift/examine(mob/user)
 	. = ..()

@@ -1,0 +1,8 @@
+author: rkz, Fikou, twaticus, Pepsiman0, Twaticus, Arkatos1
+delete-after: true
+changes:
+  - rscadd: expanded Tile reskinning to all iron tiles. Tile reskinning now controlled
+      via radial menu when pressing 'Z' while holding the tilestack.
+  - rscadd: rad edits
+  - rscadd: adds several new iron tile types, at the moment exclusively in the tile
+      reskinning menu

@@ -112,11 +112,6 @@
 	if(operating)
 		return
 
-	if(istype(C, /obj/item/modular_computer/tablet/pda))
-		var/attack_verb = pick("smushes","rubs","smashes","presses","taps")
-		visible_message("<span class='warning'>[user] [attack_verb] \the [C] against [src]\s card reader.</span>", "<span class='warning'>You [attack_verb] \the [C] against [src]\s card reader. It doesn't do anything.</span>", "You hear plastic click against metal.")
-		return
-
 	if(welded)
 		if(C.tool_behaviour == TOOL_WRENCH)
 			if(boltslocked)
@@ -152,19 +147,19 @@
 	if(!density || welded)
 		return
 
-	if(isidcard(I))
-		if((check_safety(user) == TRUE) || check_access(I))
-			log_opening(I, user, check_safety(user))
+	var/obj/item/card/id/id_card = I.GetID()
+	if(istype(id_card))
+		if((check_safety(user) == TRUE) || check_access(id_card))
+			log_opening(id_card, user, check_safety(user))
 			playsound(src, 'sound/machines/beep.ogg', 50, 1)
 			open()
 			return
 		else
-			log_opening(I, user, -1)
+			log_opening(id_card, user, -1)
 			to_chat(user, "<span class='danger'>Access Denied, User not authorized to override alarms or pressure checks.</span>")
 			playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
 			return
 	to_chat("<span class='warning'>You try to pull the card reader. Nothing happens.</span>")
-	return
 
 /obj/machinery/door/firedoor/proc/log_opening(obj/item/card/id/I, mob/user, safe)
 	var/safestate = "UNK_STATE:"

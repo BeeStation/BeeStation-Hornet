@@ -15,6 +15,7 @@
 	item_flags = NOBLUDGEON
 	cost = 250
 	source = /datum/robot_energy_storage/medical
+	merge_type = /obj/item/stack/medical
 	///What reagent does it apply?
 	var/list/reagent
 	///Is this for bruises?
@@ -171,6 +172,7 @@
 	heal_creatures = TRUE
 	reagent = list(/datum/reagent/medicine/styptic_powder = REAGENT_AMOUNT_PER_ITEM)
 	grind_results = list(/datum/reagent/medicine/styptic_powder = REAGENT_AMOUNT_PER_ITEM)
+	merge_type = /obj/item/stack/medical/bruise_pack
 
 /obj/item/stack/medical/bruise_pack/one
 	amount = 1
@@ -188,6 +190,7 @@
 	heal_burn = TRUE
 	reagent = list(/datum/reagent/medicine/silver_sulfadiazine = REAGENT_AMOUNT_PER_ITEM)
 	grind_results = list(/datum/reagent/medicine/silver_sulfadiazine = REAGENT_AMOUNT_PER_ITEM)
+	merge_type = /obj/item/stack/medical/ointment
 
 /obj/item/stack/medical/ointment/one
 	amount = 1
@@ -203,6 +206,7 @@
 	stop_bleeding = BLEED_CRITICAL
 	heal_creatures = TRUE //Enables gauze to be used on simplemobs for healing
 	max_amount = 12
+	merge_type = /obj/item/stack/medical/gauze
 
 /obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
@@ -227,12 +231,14 @@
 	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
 	stop_bleeding = BLEED_SURFACE
 	heal_creatures = FALSE
+	merge_type = /obj/item/stack/medical/gauze/improvised
 
 /obj/item/stack/medical/gauze/adv
 	name = "sterilized medical gauze"
 	desc = "A roll of elastic sterilized cloth that is extremely effective at stopping bleeding, heals minor wounds and cleans them."
 	singular_name = "sterilized medical gauze"
 	self_delay = 0.5 SECONDS
+	merge_type = /obj/item/stack/medical/gauze/adv
 
 /obj/item/stack/medical/gauze/adv/one
 	amount = 1

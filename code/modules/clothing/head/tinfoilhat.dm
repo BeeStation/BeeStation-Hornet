@@ -60,7 +60,7 @@
 	icon_state = "tinfoil_envirohelm"
 	item_state = "tinfoil_envirohelm"
 	strip_delay = 150
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | EFFECT_HAT | SNUG_FIT
+	clothing_flags = STOPSPRESSUREDAMAGE | EFFECT_HAT | SNUG_FIT | HEADINTERNALS
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 50)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	light_system = MOVABLE_LIGHT

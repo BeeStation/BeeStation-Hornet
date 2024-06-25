@@ -95,13 +95,6 @@
 /obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"abs" = (
-/obj/machinery/power/tracker,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/airless/solarpanel,
-/area/solar/port/fore)
 "aby" = (
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
@@ -123,13 +116,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"abX" = (
-/obj/machinery/power/tracker,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/airless/solarpanel,
-/area/solar/starboard/fore)
 "abY" = (
 /obj/structure/grille,
 /turf/open/space,
@@ -184,18 +170,6 @@
 /obj/item/stamp/hos,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
-"acV" = (
-/obj/machinery/power/solar{
-	id = "auxsolareast";
-	name = "Port Auxiliary Solar Array"
-	},
-/obj/structure/cable/yellow{
-	cable_color = "red";
-	color = "#ff0000";
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/airless/solarpanel,
-/area/solar/port/fore)
 "acW" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
@@ -236,18 +210,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
-"ads" = (
-/obj/machinery/power/solar{
-	id = "auxsolareast";
-	name = "Port Auxiliary Solar Array"
-	},
-/obj/structure/cable/yellow{
-	cable_color = "red";
-	color = "#ff0000";
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/airless/solarpanel,
-/area/solar/starboard/fore)
 "adt" = (
 /obj/structure/cable,
 /obj/structure/lattice/catwalk,
@@ -384,14 +346,6 @@
 	},
 /turf/open/space,
 /area/solar/starboard/fore)
-"adZ" = (
-/obj/machinery/power/solar{
-	id = "auxsolareast";
-	name = "Port Auxiliary Solar Array"
-	},
-/obj/structure/cable,
-/turf/open/floor/iron/airless/solarpanel,
-/area/solar/port/fore)
 "aed" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -426,14 +380,6 @@
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/bridge)
-"aeG" = (
-/obj/structure/cable,
-/obj/machinery/power/solar{
-	id = "auxsolareast";
-	name = "Port Auxiliary Solar Array"
-	},
-/turf/open/floor/iron/airless/solarpanel,
-/area/solar/starboard/fore)
 "aeK" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -9990,6 +9936,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/space_heater,
 /turf/open/floor/iron,
 /area/tcommsat/computer)
 "bOt" = (
@@ -10709,11 +10656,13 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "bSt" = (
-/obj/structure/closet/emcloset,
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/tcommsat/computer)
 "bSu" = (
@@ -11030,6 +10979,11 @@
 	name = "Telecomms RC";
 	pixel_x = 30
 	},
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/mapping_helpers/atmos_auto_connect,
 /turf/open/floor/iron,
 /area/tcommsat/computer)
 "bUd" = (
@@ -11520,6 +11474,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 6
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "bWD" = (
@@ -11529,6 +11486,9 @@
 "bWE" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/telecomms,
@@ -11547,6 +11507,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "bWG" = (
@@ -11561,6 +11524,9 @@
 	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
@@ -11731,6 +11697,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "bXA" = (
@@ -11938,6 +11905,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "bYA" = (
@@ -11953,6 +11921,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "bYB" = (
@@ -12101,6 +12070,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
@@ -12776,26 +12754,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/misc_lab)
-"cca" = (
-/obj/machinery/power/solar{
-	id = "portsolar";
-	name = "Port Solar Array"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/open/floor/iron/airless/solarpanel,
-/area/solar/port/aft)
-"ccb" = (
-/obj/machinery/power/solar{
-	id = "portsolar";
-	name = "Port Solar Array"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/open/floor/iron/airless/solarpanel,
-/area/solar/port/aft)
 "ccc" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -12821,6 +12779,8 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "ccg" = (
@@ -12922,6 +12882,10 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "cdd" = (
@@ -12939,6 +12903,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "cdh" = (
@@ -13051,6 +13016,9 @@
 	dir = 8
 	},
 /obj/machinery/light,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "cea" = (
@@ -13064,6 +13032,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "cec" = (
@@ -13075,6 +13046,9 @@
 	},
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = -32
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
@@ -13089,6 +13063,9 @@
 	dir = 8
 	},
 /obj/machinery/light,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "cef" = (
@@ -13734,13 +13711,6 @@
 	icon_state = "4-8"
 	},
 /turf/open/space,
-/area/solar/port/aft)
-"chJ" = (
-/obj/machinery/power/tracker,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/open/floor/iron/airless/solarpanel,
 /area/solar/port/aft)
 "chK" = (
 /obj/structure/lattice/catwalk,
@@ -15382,11 +15352,6 @@
 	},
 /turf/open/floor/iron,
 /area/medical/genetics)
-"ctB" = (
-/obj/structure/cable,
-/obj/machinery/power/tracker,
-/turf/open/floor/iron/airless/solarpanel,
-/area/solar/starboard/aft)
 "ctE" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
@@ -17728,18 +17693,6 @@
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/engine/supermatter)
-"cMQ" = (
-/obj/machinery/power/solar{
-	id = "starboardsolar";
-	name = "Starboard Solar Array"
-	},
-/obj/structure/cable/yellow{
-	cable_color = "red";
-	color = "#ff0000";
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/airless/solarpanel,
-/area/solar/starboard/aft)
 "cMU" = (
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 4
@@ -17749,14 +17702,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
-"cNa" = (
-/obj/machinery/power/solar{
-	id = "starboardsolar";
-	name = "Starboard Solar Array"
-	},
-/obj/structure/cable,
-/turf/open/floor/iron/airless/solarpanel,
-/area/solar/starboard/aft)
 "cNq" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
@@ -18026,6 +17971,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "cSG" = (
@@ -18773,6 +18720,24 @@
 /obj/effect/turf_decal/bot_white/left,
 /turf/open/floor/engine/light,
 /area/engine/gravity_generator)
+"dkr" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/turf/open/floor/iron/goonplaque,
+/area/security/brig)
 "dla" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
@@ -18821,6 +18786,9 @@
 	},
 /obj/effect/turf_decal/siding/white{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 5
 	},
 /turf/open/floor/iron,
 /area/tcommsat/computer)
@@ -19555,6 +19523,18 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/fitness)
+"dAd" = (
+/obj/machinery/power/solar{
+	id = "auxsolareast";
+	name = "Port Auxiliary Solar Array"
+	},
+/obj/structure/cable/yellow{
+	cable_color = "red";
+	color = "#ff0000";
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/fore)
 "dAs" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -19567,6 +19547,14 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"dAJ" = (
+/obj/structure/cable,
+/obj/machinery/power/solar{
+	id = "auxsolareast";
+	name = "Port Auxiliary Solar Array"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/fore)
 "dAN" = (
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 4
@@ -21453,9 +21441,6 @@
 /obj/machinery/camera/autoname{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
-	dir = 5
-	},
 /turf/open/floor/circuit/telecomms/server,
 /area/quartermaster/exploration_dock)
 "eqw" = (
@@ -22667,6 +22652,9 @@
 /obj/machinery/telecomms/receiver/preset_exploration,
 /obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
+	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_dock)
 "ePu" = (
@@ -22710,6 +22698,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_dock)
 "eQj" = (
@@ -24368,14 +24357,6 @@
 	},
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
-"fCK" = (
-/obj/machinery/power/solar{
-	id = "auxsolareast";
-	name = "Port Auxiliary Solar Array"
-	},
-/obj/structure/cable,
-/turf/open/floor/iron/airless/solarpanel,
-/area/solar/starboard/fore)
 "fDa" = (
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 5
@@ -24922,6 +24903,13 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
+"fSt" = (
+/obj/machinery/power/tracker,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/aft)
 "fSx" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -25341,6 +25329,17 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"fZG" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/turf/open/floor/iron/dark/telecomms,
+/area/tcommsat/server)
 "fZH" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/effect/landmark/start/security_officer,
@@ -26501,6 +26500,14 @@
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
+"gAZ" = (
+/obj/machinery/power/solar{
+	id = "starboardsolar";
+	name = "Starboard Solar Array"
+	},
+/obj/structure/cable,
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/aft)
 "gBM" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -29333,6 +29340,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "hSv" = (
@@ -34173,6 +34184,15 @@
 /obj/effect/turf_decal/caution{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "jYS" = (
@@ -34694,6 +34714,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "kmE" = (
@@ -35503,6 +35526,14 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/security/brig)
+"kCj" = (
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/mapping_helpers/atmos_auto_connect,
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "kCJ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -39168,6 +39199,16 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/surgery)
+"meM" = (
+/obj/machinery/power/solar{
+	id = "portsolar";
+	name = "Port Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/aft)
 "meO" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -39588,7 +39629,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -42428,6 +42475,13 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
+"nAO" = (
+/obj/machinery/power/tracker,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/fore)
 "nAP" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -44812,6 +44866,11 @@
 /obj/machinery/meter,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"oBV" = (
+/obj/structure/cable,
+/obj/machinery/power/tracker,
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/aft)
 "oCv" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -45288,6 +45347,15 @@
 	name = "Server Room";
 	req_access_txt = "61"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "oTf" = (
@@ -45383,6 +45451,15 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "oVe" = (
@@ -46505,6 +46582,15 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "pyz" = (
@@ -48135,6 +48221,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/storage/tech)
+"qkT" = (
+/obj/machinery/power/solar{
+	id = "auxsolareast";
+	name = "Port Auxiliary Solar Array"
+	},
+/obj/structure/cable,
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/fore)
 "qlf" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -48752,6 +48846,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 9
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "qyw" = (
@@ -48888,6 +48986,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "qCh" = (
@@ -49826,13 +49925,17 @@
 /area/medical/virology)
 "qZW" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
@@ -51198,10 +51301,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "rCa" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -51210,6 +51309,15 @@
 	},
 /obj/effect/turf_decal/siding/white{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/general/hidden{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/tcommsat/computer)
@@ -51513,6 +51621,15 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
+"rHF" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/turf/open/floor/iron/goonplaque,
+/area/hallway/secondary/entry)
 "rHU" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -51611,6 +51728,9 @@
 /area/science/research)
 "rKw" = (
 /obj/machinery/telecomms/hub/preset/exploration,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
+	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_dock)
 "rLd" = (
@@ -52112,24 +52232,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/iron,
 /area/science/mixing)
-"rUb" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/turf/open/floor/goonplaque,
-/area/security/brig)
 "rUC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -52963,6 +53065,18 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
+"soh" = (
+/obj/machinery/power/solar{
+	id = "auxsolareast";
+	name = "Port Auxiliary Solar Array"
+	},
+/obj/structure/cable/yellow{
+	cable_color = "red";
+	color = "#ff0000";
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/fore)
 "soA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -53541,6 +53655,9 @@
 /area/crew_quarters/locker)
 "szx" = (
 /obj/machinery/telecomms/bus/preset_exploration,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_dock)
 "szC" = (
@@ -53615,6 +53732,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "sAt" = (
@@ -53831,8 +53949,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
-	dir = 10
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_dock)
@@ -54702,6 +54826,9 @@
 /area/science/robotics/lab)
 "sWW" = (
 /obj/machinery/telecomms/broadcaster/preset_exploration,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_dock)
 "sXf" = (
@@ -55057,8 +55184,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
-	dir = 5
+/obj/machinery/atmospherics/pipe/manifold/general/hidden{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
@@ -58417,7 +58550,10 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
 /turf/open/floor/iron/dark/telecomms,
@@ -58509,6 +58645,8 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "uDa" = (
@@ -60254,6 +60392,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
+"vAE" = (
+/obj/machinery/power/solar{
+	id = "portsolar";
+	name = "Port Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/aft)
 "vBe" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
@@ -62794,6 +62942,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
+"wIW" = (
+/obj/machinery/power/tracker,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/fore)
 "wIY" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -63145,15 +63300,6 @@
 /obj/structure/transit_tube/station/reverse,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
-"wQN" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/turf/open/floor/goonplaque,
-/area/hallway/secondary/entry)
 "wRj" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
@@ -63384,6 +63530,14 @@
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/service)
+"wWA" = (
+/obj/machinery/power/solar{
+	id = "auxsolareast";
+	name = "Port Auxiliary Solar Array"
+	},
+/obj/structure/cable,
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/fore)
 "wWU" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/yellow{
@@ -64428,9 +64582,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/white,
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/structure/closet/emcloset,
 /turf/open/floor/iron,
 /area/tcommsat/computer)
 "xtS" = (
@@ -65742,9 +65894,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	external_pressure_bound = 120;
-	name = "server vent"
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_dock)
@@ -66201,6 +66358,18 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/storage/primary)
+"yic" = (
+/obj/machinery/power/solar{
+	id = "starboardsolar";
+	name = "Starboard Solar Array"
+	},
+/obj/structure/cable/yellow{
+	cable_color = "red";
+	color = "#ff0000";
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/aft)
 "yiw" = (
 /obj/structure/reflector/box/anchored{
 	dir = 1
@@ -66242,9 +66411,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/cyan/hidden{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_dock)
 "yjY" = (
@@ -80587,7 +80755,7 @@ aaa
 aaa
 aaS
 aaf
-chJ
+fSt
 aaf
 aaS
 aaa
@@ -81001,17 +81169,17 @@ aaa
 aaa
 abY
 aaa
-acV
+soh
 adv
-adZ
+qkT
 aaa
-acV
+soh
 adv
-adZ
+qkT
 aaa
-acV
+soh
 adv
-adZ
+qkT
 aaa
 aaS
 aaf
@@ -81258,17 +81426,17 @@ aaa
 aaa
 abY
 aaf
-acV
+soh
 adu
-adZ
+qkT
 aaa
-acV
+soh
 adu
-adZ
+qkT
 aaa
-acV
+soh
 adu
-adZ
+qkT
 aaf
 aaf
 aaa
@@ -81352,19 +81520,19 @@ aaa
 aaa
 aaS
 aaf
-cca
-cca
-cca
-cca
-cca
+vAE
+vAE
+vAE
+vAE
+vAE
 aaa
 chK
 aaa
-cca
-cca
-cca
-cca
-cca
+vAE
+vAE
+vAE
+vAE
+vAE
 aaf
 aaS
 aaa
@@ -81515,17 +81683,17 @@ aaa
 aaa
 abY
 aaa
-acV
+soh
 adu
-adZ
+qkT
 aaf
-acV
+soh
 adu
-adZ
+qkT
 aaf
-acV
+soh
 adu
-adZ
+qkT
 aaa
 aaf
 aaa
@@ -81555,7 +81723,7 @@ azF
 aIR
 ayl
 ayl
-wQN
+rHF
 ayl
 ayl
 ayl
@@ -81772,17 +81940,17 @@ aaa
 aaa
 aaf
 aaf
-acV
+soh
 adu
-adZ
+qkT
 aaa
-acV
+soh
 adu
-adZ
+qkT
 aaa
-acV
+soh
 adu
-adZ
+qkT
 aaf
 aaf
 aaf
@@ -81866,19 +82034,19 @@ aaa
 aaf
 aaS
 aaf
-ccb
-ccb
-ccb
-ccb
-ccb
+meM
+meM
+meM
+meM
+meM
 aaa
 chL
 aaa
-ccb
-ccb
-ccb
-ccb
-ccb
+meM
+meM
+meM
+meM
+meM
 aaf
 aaS
 aaa
@@ -82029,17 +82197,17 @@ aaS
 aaS
 aaf
 aaa
-acV
+soh
 adu
-adZ
+qkT
 aaa
-acV
+soh
 adu
-adZ
+qkT
 aaa
-acV
+soh
 adu
-adZ
+qkT
 aaa
 aaf
 aaa
@@ -82380,19 +82548,19 @@ aaa
 aaf
 aaS
 aaf
-cca
-cca
-cca
-cca
-cca
+vAE
+vAE
+vAE
+vAE
+vAE
 aaa
 chL
 aaa
-cca
-cca
-cca
-cca
-cca
+vAE
+vAE
+vAE
+vAE
+vAE
 aaf
 aaS
 aaa
@@ -82540,7 +82708,7 @@ aaa
 aaa
 aaS
 aaf
-abs
+nAO
 abZ
 abZ
 acW
@@ -82894,19 +83062,19 @@ aaa
 aaf
 aaS
 acy
-ccb
-ccb
-ccb
-ccb
-ccb
+meM
+meM
+meM
+meM
+meM
 aaa
 chL
 aaa
-ccb
-ccb
-ccb
-ccb
-ccb
+meM
+meM
+meM
+meM
+meM
 aaf
 aaS
 aaa
@@ -83057,17 +83225,17 @@ aba
 aaS
 aaf
 aaa
-acV
+soh
 adz
-adZ
+qkT
 aaa
-acV
+soh
 adz
-adZ
+qkT
 aaa
-acV
+soh
 adz
-adZ
+qkT
 aaa
 aaf
 aaa
@@ -83314,17 +83482,17 @@ aaa
 aaa
 aaf
 aaf
-acV
+soh
 adz
-adZ
+qkT
 aaa
-acV
+soh
 adz
-adZ
+qkT
 aaa
-acV
+soh
 adz
-adZ
+qkT
 aaf
 aaf
 aaa
@@ -83408,19 +83576,19 @@ aaa
 aaf
 aaS
 aaf
-cca
-cca
-cca
-cca
-cca
+vAE
+vAE
+vAE
+vAE
+vAE
 aaa
 chL
 aaa
-cca
-cca
-cca
-cca
-cca
+vAE
+vAE
+vAE
+vAE
+vAE
 aaf
 aaS
 aaa
@@ -83571,17 +83739,17 @@ aaa
 aaa
 aaS
 aaa
-acV
+soh
 adz
-adZ
+qkT
 aaf
-acV
+soh
 adz
-adZ
+qkT
 aaf
-acV
+soh
 adz
-adZ
+qkT
 aaa
 aaf
 aaf
@@ -83828,17 +83996,17 @@ aaa
 aaa
 aaS
 aaf
-acV
+soh
 adz
-adZ
+qkT
 aaa
-acV
+soh
 adz
-adZ
+qkT
 aaa
-acV
+soh
 adz
-adZ
+qkT
 aaf
 aaf
 aaa
@@ -83922,19 +84090,19 @@ aoV
 aaa
 aaS
 aaf
-ccb
-ccb
-ccb
-ccb
-ccb
+meM
+meM
+meM
+meM
+meM
 aaa
 chL
 aaa
-ccb
-ccb
-ccb
-ccb
-ccb
+meM
+meM
+meM
+meM
+meM
 aaf
 aaS
 aaa
@@ -84085,17 +84253,17 @@ aaa
 aaa
 aaS
 aaa
-acV
+soh
 adA
-adZ
+qkT
 aaa
-acV
+soh
 adA
-adZ
+qkT
 aaa
-acV
+soh
 adA
-adZ
+qkT
 aaa
 aaS
 aaa
@@ -89053,7 +89221,7 @@ bHE
 bHE
 bHE
 bCq
-bHE
+hFT
 pdT
 bCq
 bHE
@@ -89306,11 +89474,11 @@ bKq
 bxy
 aaf
 bCq
+bCq
 cTF
 bCq
 bCq
 bCq
-bHE
 pdT
 bCq
 bHE
@@ -89564,10 +89732,10 @@ bxy
 bLv
 bCq
 bHE
+bHE
 bLv
 aaa
 bLv
-hFT
 pdT
 bCq
 bHE
@@ -89821,10 +89989,10 @@ bCq
 bLu
 bHE
 bHE
-bLv
-aaf
-bLv
 bHE
+bLv
+aaa
+bLv
 pdT
 bCq
 bHE
@@ -90075,13 +90243,13 @@ bHE
 bHE
 bHE
 bCq
-bLv
 bHE
-bLv
+bHE
 bCq
-aaa
 bLv
-bHE
+bLv
+aaf
+bLv
 pdT
 bCq
 bHE
@@ -90332,13 +90500,13 @@ bHE
 bHE
 bHE
 bCq
-bLv
 bHE
-bLv
+bHE
+bCq
 aaa
+aaf
 aaa
 bCq
-bHE
 kbu
 bCq
 bCq
@@ -90588,14 +90756,14 @@ bCq
 bCq
 bCq
 bCq
-bLv
-bLv
+bCq
+bCq
 bOK
-bLv
+bCq
 bLv
 bLv
 bCq
-bHE
+bCq
 qAd
 iJf
 iJf
@@ -92141,7 +92309,7 @@ bLu
 jfW
 bVI
 bWG
-cdf
+fZG
 uCW
 cSE
 bZo
@@ -95138,7 +95306,7 @@ fha
 ipF
 tEy
 rvt
-rUb
+dkr
 uav
 vom
 vbv
@@ -105930,17 +106098,17 @@ aaa
 aaa
 aaS
 aaa
-ads
+dAd
 adS
-aeG
+dAJ
 aaa
-ads
+dAd
 adS
-fCK
+wWA
 aaa
-ads
+dAd
 adS
-fCK
+wWA
 aaa
 aaS
 aaf
@@ -106187,17 +106355,17 @@ aaa
 aaa
 aaS
 aaf
-ads
+dAd
 adT
-aeG
+dAJ
 aaa
-ads
+dAd
 adT
-fCK
+wWA
 aaa
-ads
+dAd
 adT
-fCK
+wWA
 aaf
 aaf
 aaa
@@ -106444,17 +106612,17 @@ aaa
 aaa
 aaS
 aaa
-ads
+dAd
 adT
-aeG
+dAJ
 aaf
-ads
+dAd
 adT
-fCK
+wWA
 aaf
-ads
+dAd
 adT
-fCK
+wWA
 aaa
 aaf
 aaa
@@ -106701,17 +106869,17 @@ aaa
 aaa
 aaf
 aaf
-ads
+dAd
 adT
-aeG
+dAJ
 aaa
-ads
+dAd
 adT
-fCK
+wWA
 aaa
-ads
+dAd
 adT
-fCK
+wWA
 aaf
 aaf
 aaf
@@ -106958,17 +107126,17 @@ aaS
 aaS
 aaf
 aaa
-ads
+dAd
 adT
-aeG
+dAJ
 aaa
-ads
+dAd
 adT
-fCK
+wWA
 aaa
-ads
+dAd
 adT
-fCK
+wWA
 aaa
 aaf
 aaa
@@ -107469,7 +107637,7 @@ aaa
 aaa
 aaS
 aaf
-abX
+wIW
 acx
 acx
 adt
@@ -107986,17 +108154,17 @@ aba
 aaS
 acy
 aaa
-ads
+dAd
 adW
-aeG
+dAJ
 aaa
-ads
+dAd
 adW
-fCK
+wWA
 aaa
-ads
+dAd
 adW
-fCK
+wWA
 aaa
 aaf
 aaa
@@ -108243,17 +108411,17 @@ aaa
 aaa
 aaf
 aaf
-ads
+dAd
 adW
-aeG
+dAJ
 aaa
-ads
+dAd
 adW
-fCK
+wWA
 aaa
-ads
+dAd
 adW
-fCK
+wWA
 aaf
 aaf
 aaf
@@ -108500,17 +108668,17 @@ aaa
 aaa
 aaS
 aaa
-ads
+dAd
 adW
-aeG
+dAJ
 aaf
-ads
+dAd
 adW
-fCK
+wWA
 aaf
-ads
+dAd
 adW
-fCK
+wWA
 aaa
 aaf
 aaa
@@ -108757,17 +108925,17 @@ aaa
 aaa
 aaS
 aaf
-ads
+dAd
 adW
-aeG
+dAJ
 aaa
-ads
+dAd
 adW
-fCK
+wWA
 aaa
-ads
+dAd
 adW
-fCK
+wWA
 aaf
 aaf
 aaa
@@ -109014,17 +109182,17 @@ aaa
 aaa
 aaS
 aaa
-ads
+dAd
 adY
-aeG
+dAJ
 aaa
-ads
+dAd
 adY
-fCK
+wWA
 aaa
-ads
+dAd
 adY
-fCK
+wWA
 aaa
 aaS
 aaf
@@ -114780,17 +114948,17 @@ aaa
 aaa
 aaS
 aaa
-cMQ
+yic
 crB
-cNa
+gAZ
 aaa
-cMQ
+yic
 crB
-cNa
+gAZ
 aaa
-cMQ
+yic
 crB
-cNa
+gAZ
 aaa
 aaS
 aaa
@@ -115037,17 +115205,17 @@ aaa
 aaa
 aba
 aaf
-cMQ
+yic
 crC
-cNa
+gAZ
 aaa
-cMQ
+yic
 crC
-cNa
+gAZ
 aaa
-cMQ
+yic
 crC
-cNa
+gAZ
 aaf
 aaS
 aaa
@@ -115294,17 +115462,17 @@ aaa
 aaa
 aaf
 aaa
-cMQ
+yic
 crC
-cNa
+gAZ
 aaf
-cMQ
+yic
 crC
-cNa
+gAZ
 aaf
-cMQ
+yic
 crC
-cNa
+gAZ
 aaa
 aaS
 aaa
@@ -115551,17 +115719,17 @@ aaf
 aaf
 aaf
 aaf
-cMQ
+yic
 crC
-cNa
+gAZ
 aaa
-cMQ
+yic
 crC
-cNa
+gAZ
 aaa
-cMQ
+yic
 crC
-cNa
+gAZ
 aaf
 aaf
 aaa
@@ -115808,17 +115976,17 @@ aaa
 aaa
 aaf
 aaa
-cMQ
+yic
 crC
-cNa
+gAZ
 aaa
-cMQ
+yic
 crC
-cNa
+gAZ
 aaa
-cMQ
+yic
 crC
-cNa
+gAZ
 aaa
 aaf
 aaS
@@ -116335,7 +116503,7 @@ crk
 crk
 cpi
 cpi
-ctB
+oBV
 aaf
 aaS
 aaa
@@ -116836,17 +117004,17 @@ aaa
 aaa
 aaf
 aaa
-cMQ
+yic
 crE
-cNa
+gAZ
 aaa
-cMQ
+yic
 crE
-cNa
+gAZ
 aaa
-cMQ
+yic
 crE
-cNa
+gAZ
 aaa
 aaf
 aaS
@@ -117093,17 +117261,17 @@ aaf
 aaf
 aaf
 aaf
-cMQ
+yic
 crE
-cNa
+gAZ
 aaa
-cMQ
+yic
 crE
-cNa
+gAZ
 aaa
-cMQ
+yic
 crE
-cNa
+gAZ
 aaf
 aaf
 aaa
@@ -117350,17 +117518,17 @@ aaa
 aaa
 aaf
 aaa
-cMQ
+yic
 crE
-cNa
+gAZ
 aaf
-cMQ
+yic
 crE
-cNa
+gAZ
 aaf
-cMQ
+yic
 crE
-cNa
+gAZ
 aaa
 aaS
 aaa
@@ -117557,7 +117725,7 @@ aaa
 bky
 gpn
 tep
-btp
+kCj
 bky
 dnB
 kEM
@@ -117607,17 +117775,17 @@ aaf
 aaf
 aaf
 aaf
-cMQ
+yic
 crE
-cNa
+gAZ
 aaa
-cMQ
+yic
 crE
-cNa
+gAZ
 aaa
-cMQ
+yic
 crE
-cNa
+gAZ
 aaf
 aaS
 aaa
@@ -117864,17 +118032,17 @@ aaa
 aaa
 aba
 aaa
-cMQ
+yic
 crG
-cNa
+gAZ
 aaa
-cMQ
+yic
 crG
-cNa
+gAZ
 aaa
-cMQ
+yic
 crG
-cNa
+gAZ
 aaa
 aaS
 aaa
