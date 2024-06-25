@@ -297,19 +297,33 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		qdel(src)
 	. = ..()
 
-/obj/item/clothing/mask/cigarette/afterattack(mob/M, mob/user, proximity)
+/obj/item/clothing/mask/cigarette/afterattack(mob/living/M, mob/living/user, proximity)
 	if(!istype(M))
 		return ..()
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		return ..()
 	if(lit && user.a_intent == INTENT_HARM)
+		force = 4
+		var/target_zone = user.get_combat_bodyzone()
+		M.apply_damage(force, BURN, target_zone)
 		qdel(src)
 		var/cig_butt = new type_butt()
 		user.put_in_hands(cig_butt)
 		new /obj/effect/decal/cleanable/ash(M.loc)
-		playsound(user, 'sound/items/cig_snuff.ogg', 25, 1)
+		playsound(user, 'sound/surgery/cautery2.ogg', 25, 1)
 		return ..()
 	if(lit && user.a_intent != INTENT_HARM)
 		smoketime -= 120
-		return
+		if(prob(40))
+			src.extinguish()
+			if(src.smoketime <= 0)
+				qdel(src)
+				var/cig_butt = new type_butt()
+				user.put_in_hands(cig_butt)
+				playsound(user, 'sound/items/cig_snuff.ogg', 25, 1)
+				return ..()
+		else
+			return ..()
 	. = ..()
 
 /obj/item/clothing/mask/cigarette/attack(mob/living/carbon/M, mob/living/carbon/user)
