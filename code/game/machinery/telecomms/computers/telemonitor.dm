@@ -19,6 +19,10 @@
     update_network()
     RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
 
+/obj/machinery/computer/telecomms/monitor/Destroy()
+	. = ..()
+	UnregisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE)
+
 
 /obj/machinery/computer/telecomms/monitor/ui_interact(mob/user, datum/tgui/ui)
   ui = SStgui.try_update_ui(user, src, ui)
