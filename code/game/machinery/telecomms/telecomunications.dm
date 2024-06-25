@@ -104,6 +104,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 			add_link(telecomms_machine)
 
 /obj/machinery/telecomms/Destroy()
+	UnregisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE)
 	GLOB.telecomms_list -= src
 	for(var/obj/machinery/telecomms/comm in GLOB.telecomms_list)
 		comm.links -= src
