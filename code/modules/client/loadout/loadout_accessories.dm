@@ -116,7 +116,7 @@
 
 /datum/gear/accessory/oldnecklace
 	display_name = "necklace, gold"
-	path = /obj/item/clothing/neck/necklace/dope
+	path = /obj/item/clothing/neck/necklace/dope/cross
 	cost = 25000
 
 /datum/gear/accessory/headphones
@@ -155,6 +155,10 @@
 /datum/gear/accessory/glasses/circle
 	display_name = "circular glasses"
 	path = /obj/item/clothing/glasses/regular/circle
+
+/datum/gear/accessory/glasses/circle_sunglasses
+	display_name = "circular sunglasses"
+	path = /obj/item/clothing/glasses/sunglasses/circle_sunglasses
 
 /datum/gear/accessory/glasses/sunglasses
 	display_name = "sunglasses"

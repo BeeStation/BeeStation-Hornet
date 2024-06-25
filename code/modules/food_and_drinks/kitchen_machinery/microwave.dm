@@ -12,7 +12,7 @@
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/microwave
 	pass_flags = PASSTABLE
-	light_color = LIGHT_COLOR_YELLOW
+	light_color = LIGHT_COLOR_DIM_YELLOW
 	light_power = 3
 	var/wire_disabled = FALSE // is its internal wire cut?
 	var/operating = FALSE
@@ -348,11 +348,6 @@
 	dirty = 100
 	dirty_anim_playing = FALSE
 	operating = FALSE
-
-	for(var/obj/item/reagent_containers/food/snacks/S in src)
-		if(prob(50))
-			new /obj/item/reagent_containers/food/snacks/badrecipe(src)
-			qdel(S)
 
 	after_finish_loop()
 

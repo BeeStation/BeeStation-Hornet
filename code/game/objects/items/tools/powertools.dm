@@ -24,6 +24,7 @@
 	desc = "A simple powered hand drill. It's fitted with a screw bit."
 	icon_state = "drill_screw"
 	item_state = "drill"
+	worn_icon_state = "drill"
 
 	force = 8 //might or might not be too high, subject to change
 	throwforce = 8
@@ -89,6 +90,7 @@
 	usesound = 'sound/items/jaws_pry.ogg'
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
+	worn_icon_state = "jawsoflife"
 
 	tool_behaviour = TOOL_CROWBAR
 
@@ -151,7 +153,7 @@
 /obj/item/powertool/jaws_of_life/attack(mob/living/carbon/C, mob/living/user)
 	if(tool_behaviour == TOOL_WIRECUTTER && istype(C) && C.handcuffed)
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
-		log_combat(user, C, "cut handcuffs from")
+		log_combat(user, C, "cut handcuffs from", important = FALSE)
 		qdel(C.handcuffed)
 		return
 	else

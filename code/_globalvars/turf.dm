@@ -13,7 +13,7 @@ GLOBAL_LIST_INIT(reinfglass_turf_damage, list("reinf_glass-damaged1", "reinf_gla
 GLOBAL_LIST_INIT(turf_texture_hallway, list(/datum/turf_texture/hallway))
 GLOBAL_LIST_INIT(turf_texture_maint, list(/datum/turf_texture/maint, /datum/turf_texture/hallway, /datum/turf_texture/maint/tile))
 
-GLOBAL_LIST_INIT(turf_texture_plasteel, list(/datum/turf_texture/hallway, /datum/turf_texture/maint/tile))
+GLOBAL_LIST_INIT(turf_texture_iron, list(/datum/turf_texture/hallway, /datum/turf_texture/maint/tile))
 GLOBAL_LIST_INIT(turf_texture_plating, list(/datum/turf_texture/maint))
 
 /*
@@ -25,7 +25,7 @@ GLOBAL_LIST_INIT(turf_textures, list())
 
 /proc/load_turf_texture(datum/turf_texture/texture)
 	if(!GLOB.turf_textures[texture])
-		var/obj/effect/turf_texture/TF = new(null, texture)
+		var/atom/movable/turf_texture/TF = new(null, texture)
 		GLOB.turf_textures[texture] = TF
 	return GLOB.turf_textures[texture]
 

@@ -1,3 +1,8 @@
+/obj/item/clothing/under/rank/medical
+	icon = 'icons/obj/clothing/under/medical.dmi'
+	worn_icon = 'icons/mob/clothing/under/medical.dmi'
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+
 /obj/item/clothing/under/rank/medical/chief_medical_officer
 	desc = "It's a jumpsuit worn by those with the experience to be \"Chief Medical Officer\". It provides minor biological protection."
 	name = "chief medical officer's jumpsuit"
@@ -15,6 +20,7 @@
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/medical/geneticist
 	desc = "It's made of a special fiber that gives special protection against biohazards. It has a genetics rank stripe on it."
@@ -33,6 +39,7 @@
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/medical/virologist
 	desc = "It's made of a special fiber that gives special protection against biohazards. It has a virologist rank stripe on it."
@@ -51,11 +58,12 @@
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/medical/paramedic
 	name = "paramedic's jumpsuit"
 	desc = "A standard jumpsuit used by paramedics onboard space stations. It's made of a special fiber that gives special protection against biohazards."
-	icon_state = "emt"
+	icon_state = "paramedic"
 	permeability_coefficient = 0.5
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 	can_adjust = FALSE
@@ -63,12 +71,13 @@
 /obj/item/clothing/under/rank/medical/paramedic/skirt
 	name = "paramedic's jumpskirt"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. It has a dark blue cross on the chest denoting that the wearer is a trained paramedic."
-	icon_state = "emt_skirt"
+	icon_state = "paramedic_skirt"
 	item_state = "w_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/medical/doctor/nurse
 	desc = "It's a jumpsuit commonly worn by nursing staff in the medical department."
@@ -98,6 +107,7 @@
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/medical/doctor/blue
 	name = "medical scrubs"
@@ -134,3 +144,4 @@
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	dying_key = DYE_REGISTRY_JUMPSKIRT

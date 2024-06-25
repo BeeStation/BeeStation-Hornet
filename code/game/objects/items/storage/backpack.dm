@@ -78,6 +78,7 @@
 	name = "hammerspace backpack"
 	desc = "A backpack that opens into a near infinite pocket of bluespace."
 	icon_state = "hammerspace"
+	worn_icon_state = "baguette"
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
@@ -376,13 +377,54 @@
 	qdel(C)
 
 /obj/item/storage/backpack/satchel/flat/with_tools/PopulateContents()
-	new /obj/item/stack/tile/plasteel(src)
+	new /obj/item/stack/tile/iron/base(src)
 	new /obj/item/crowbar(src)
+
+	..()
+
+/obj/item/storage/backpack/satchel/flat/treasure/PopulateContents()
+	new /obj/item/dualsaber/toy(src)
+	new /obj/item/clothing/suit/costume/pirate(src)
+	new /obj/item/clothing/head/costume/pirate(src)
+	for(var/i in 1 to 3)
+		new /obj/item/coin/gold(src)
 
 	..()
 
 /obj/item/storage/backpack/satchel/flat/empty/PopulateContents()
 	return
+
+// -----------------------------
+//           mail bag
+// -----------------------------
+
+/obj/item/storage/backpack/satchel/mail
+	name = "mail bag"
+	desc = "A bag for letters, envelopes, and other postage."
+	icon_state = "mailbag"
+	item_state = "mailbag"
+	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
+
+/obj/item/storage/backpack/satchel/mail/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.allow_quick_gather = TRUE
+	STR.allow_quick_empty = TRUE
+	STR.display_numerical_stacking = TRUE
+	STR.click_gather = TRUE
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_combined_w_class = 32
+	STR.max_items = 32
+	STR.display_numerical_stacking = FALSE
+	STR.can_hold = typecacheof(list(
+		/obj/item/mail,
+		/obj/item/small_delivery,
+		/obj/item/paper,
+		/obj/item/reagent_containers/food/condiment/milk,
+		/obj/item/food/bread/plain
+		)
+	)
+
 
 /obj/item/storage/backpack/duffelbag
 	name = "duffel bag"
@@ -484,6 +526,13 @@
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
 
+/obj/item/storage/backpack/duffelbag/science
+	name = "science duffel bag"
+	desc = "A large duffel bag for holding extra tools and artifacts."
+	icon_state = "duffel-drone"
+	item_state = "duffel-drone"
+	resistance_flags = FIRE_PROOF
+
 /obj/item/storage/backpack/duffelbag/clown
 	name = "clown's duffel bag"
 	desc = "A large duffel bag for holding lots of funny gags!"
@@ -544,7 +593,7 @@
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/cautery(src)
 	new /obj/item/surgical_drapes(src)
-	new /obj/item/clothing/suit/straight_jacket(src)
+	new /obj/item/clothing/suit/jacket/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
 	new /obj/item/mmi/syndie(src)
 

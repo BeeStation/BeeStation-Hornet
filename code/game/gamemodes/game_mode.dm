@@ -167,7 +167,7 @@
 			arguments["commit_hash"] = GLOB.revdata.originmastercommit
 		if(to_set.len)
 			arguments["round_id"] = GLOB.round_id
-			var/datum/DBQuery/query_round_game_mode = SSdbcore.NewQuery(
+			var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery(
 				"UPDATE [format_table_name("round")] SET [to_set.Join(", ")] WHERE id = :round_id",
 				arguments
 			)
@@ -714,7 +714,7 @@
 				if(L.suiciding)	//Suicider
 					msg += "<b>[L.name]</b> ([L.key]), the [L.job] (<span class='boldannounce'>Suicide</span>)\n"
 					failed = TRUE //Disconnected client
-				if(!failed && L.stat == UNCONSCIOUS)
+				if(!failed && (L.stat == UNCONSCIOUS || L.stat == HARD_CRIT))
 					msg += "<b>[L.name]</b> ([L.key]), the [L.job] (Dying)\n"
 					failed = TRUE //Unconscious
 				if(!failed && L.stat == DEAD)

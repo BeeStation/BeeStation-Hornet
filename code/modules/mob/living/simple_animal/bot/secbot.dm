@@ -205,6 +205,8 @@
 /mob/living/simple_animal/bot/secbot/UnarmedAttack(atom/A)
 	if(!on)
 		return
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(!C.IsParalyzed() || arrest_type)
@@ -234,7 +236,7 @@
 	if( !on || !Adjacent(C) || !isturf(C.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
 		return
 	if(!C.handcuffed)
-		C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
+		C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
 		C.update_handcuffed()
 		playsound(src, "law", 50, 0)
 		back_to_idle()
@@ -292,7 +294,7 @@
 					stun_attack(target)
 
 					mode = BOT_PREP_ARREST
-					anchored = TRUE
+					set_anchored(TRUE)
 					target_lastloc = target.loc
 					return
 
@@ -326,7 +328,7 @@
 
 		if(BOT_ARREST)
 			if(!target)
-				anchored = FALSE
+				set_anchored(FALSE)
 				mode = BOT_IDLE
 				last_found = world.time
 				frustration = 0
@@ -341,7 +343,7 @@
 				return
 			else //Try arresting again if the target escapes.
 				mode = BOT_PREP_ARREST
-				anchored = FALSE
+				set_anchored(FALSE)
 
 		if(BOT_START_PATROL)
 			look_for_perp()

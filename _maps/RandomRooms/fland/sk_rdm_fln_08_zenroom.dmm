@@ -155,7 +155,7 @@
 /obj/structure/mineral_door/paperframe{
 	name = "Zen Room"
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/template_noop)
 "Y" = (
 /obj/item/radio/intercom{

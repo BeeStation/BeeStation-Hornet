@@ -1,7 +1,7 @@
 /datum/objective/robot_army
 	name = "robot army"
 	explanation_text = "Have at least eight active cyborgs synced to you."
-	martyr_compatible = 0
+	martyr_compatible = FALSE
 	var/counter = 0
 
 /datum/objective/robot_army/check_completion()

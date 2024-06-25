@@ -52,7 +52,11 @@
 	if(!spawn_locs.len) //If we can't find THAT, then just give up and cry
 		return MAP_ERROR
 
-	var/mob/living/simple_animal/revenant/revvie = new(pick(spawn_locs))
+	var/turf/spawnable_turf = get_non_holy_tile_from_list(spawn_locs)
+	if(!spawnable_turf)
+		message_admins("Failed to find a proper spawn location because there are a lot of blessed tiles. We'll spawn it anyway.")
+		spawnable_turf = pick(spawn_locs)
+	var/mob/living/simple_animal/revenant/revvie = new(spawnable_turf)
 	revvie.key = selected.key
 	message_admins("[ADMIN_LOOKUPFLW(revvie)] has been made into a revenant by an event.")
 	log_game("[key_name(revvie)] was spawned as a revenant by an event.")

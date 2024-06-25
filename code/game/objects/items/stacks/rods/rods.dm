@@ -33,9 +33,8 @@
 	update_icon()
 	AddElement(/datum/element/openspace_item_click_handler)
 
-/obj/item/stack/rods/get_main_recipes()
-	. = ..()
-	. += GLOB.rod_recipes
+/obj/item/stack/rods/get_recipes()
+	return GLOB.rod_recipes
 
 /obj/item/stack/rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag)
@@ -67,15 +66,6 @@
 			if (!R && replace)
 				user.put_in_hands(new_item)
 
-	else if(istype(W, /obj/item/reagent_containers/food/snacks))
-		var/obj/item/reagent_containers/food/snacks/S = W
-		if(amount != 1)
-			to_chat(user, "<span class='warning'>You must use a single rod!</span>")
-		else if(S.w_class > WEIGHT_CLASS_SMALL)
-			to_chat(user, "<span class='warning'>The ingredient is too big for [src]!</span>")
-		else
-			var/obj/item/reagent_containers/food/snacks/customizable/A = new/obj/item/reagent_containers/food/snacks/customizable/kebab(get_turf(src))
-			A.initialize_custom_food(src, S, user)
 	else
 		return ..()
 

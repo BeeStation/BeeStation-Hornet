@@ -18,16 +18,12 @@
 		diag_hud.add_to_hud(src)
 	faction += "[REF(src)]"
 	GLOB.mob_living_list += src
-	initialize_footstep()
 	if (playable)
 		addtimer(CALLBACK(src, PROC_REF(set_playable)), 2 SECONDS) //announce playable mobs to ghosts
 		// this should be delayed because some 'playable=TRUE' mobs are not actually playable because mob key is automatically given
 		// it prevents 'GLOB.poi_list' being glitched. without this, it will show xeno(or some mobs) twice in orbit panel.
 	//color correction
 	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(apply_color_correction))
-
-/mob/living/proc/initialize_footstep()
-	AddComponent(/datum/component/footstep)
 
 /mob/living/prepare_huds()
 	..()
@@ -117,7 +113,7 @@
 				ContactContractDisease(D)
 
 		//Should stop you pushing a restrained person out of the way
-		if(L.pulledby && L.pulledby != src && L.restrained())
+		if(L.pulledby && L.pulledby != src && HAS_TRAIT(L, TRAIT_RESTRAINED))
 			if(!(world.time % 5))
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return TRUE
@@ -125,7 +121,7 @@
 		if(L.pulling)
 			if(ismob(L.pulling))
 				var/mob/P = L.pulling
-				if(P.restrained())
+				if(HAS_TRAIT(P, TRAIT_RESTRAINED))
 					if(!(world.time % 5))
 						to_chat(src, "<span class='warning'>[L] is restraining [P], you cannot push past.</span>")
 					return TRUE
@@ -145,8 +141,8 @@
 				mob_swap = TRUE
 			else if(
 				!(HAS_TRAIT(M, TRAIT_NOMOBSWAP) || HAS_TRAIT(src, TRAIT_NOMOBSWAP))&&\
-				((M.restrained() && !too_strong) || M.a_intent == INTENT_HELP) &&\
-				(restrained() || a_intent == INTENT_HELP)
+				((HAS_TRAIT(M, TRAIT_RESTRAINED) && !too_strong) || M.a_intent == INTENT_HELP) &&\
+				(HAS_TRAIT(src, TRAIT_RESTRAINED) || a_intent == INTENT_HELP)
 			)
 				mob_swap = TRUE
 		if(mob_swap)
@@ -293,7 +289,7 @@
 	if(AM.pulledby)
 		if(!supress_message)
 			visible_message("<span class='danger'>[src] has pulled [AM] from [AM.pulledby]'s grip.</span>")
-		log_combat(AM, AM.pulledby, "pulled from", src)
+		log_combat(AM, AM.pulledby, "pulled from", src, important = FALSE)
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 
 	pulling = AM
@@ -417,35 +413,32 @@
 	visible_message("<b>[src]</b> points at [A].", "<span class='notice'>You point at [A].</span>")
 	return TRUE
 
+
 /mob/living/verb/succumb(whispered as null)
 	set hidden = TRUE
-	if (InCritical())
-		log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] while in [InFullCritical() ? "hard":"soft"] critical with [round(health, 0.1)] points of health!", LOG_ATTACK)
-		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
-		updatehealth()
-		if(!whispered)
-			to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
+	if (!CAN_SUCCUMB(src))
+		return
 
-		if (src.client)
-			client.give_award(/datum/award/achievement/misc/succumb, client.mob)
+	log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] with [round(health, 0.1)] points of health!", LOG_ATTACK)
+	adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
+	updatehealth()
+	if(!whispered)
+		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
-		investigate_log("has succumbed to death.", INVESTIGATE_DEATHS)
-		death()
+	if (src.client)
+		client.give_award(/datum/award/achievement/misc/succumb, client.mob)
+
+	investigate_log("has succumbed to death.", INVESTIGATE_DEATHS)
+	death()
 
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_stasis = FALSE)
-	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED) || (!ignore_restraints && restrained(ignore_grab)) || (!ignore_stasis && IS_IN_STASIS(src)))
+	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED) || (!ignore_restraints && (HAS_TRAIT(src, TRAIT_RESTRAINED) || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE))) || (!ignore_stasis && IS_IN_STASIS(src)))
 		return TRUE
 
 /mob/living/canUseStorage()
 	if (get_num_arms() <= 0)
 		return FALSE
 	return TRUE
-
-/mob/living/proc/InCritical()
-	return (health <= crit_threshold && (stat == SOFT_CRIT || stat == UNCONSCIOUS))
-
-/mob/living/proc/InFullCritical()
-	return (health <= HEALTH_THRESHOLD_FULLCRIT && stat == UNCONSCIOUS)
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
 //affects them once clothing is factored in. ~Errorage
@@ -499,7 +492,7 @@
 	if(!resting)
 		set_resting(TRUE, FALSE)
 	else
-		if(do_after(src, 10, target = src, timed_action_flags = IGNORE_RESTRAINED | IGNORE_HELD_ITEM))
+		if(do_after(src, 10, target = src, timed_action_flags = IGNORE_RESTRAINED | IGNORE_HELD_ITEM | IGNORE_USER_LOC_CHANGE))
 			set_resting(FALSE, FALSE)
 		else
 			to_chat(src, "<span class='notice'>You fail to get up.</span>")
@@ -568,7 +561,7 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_HEALTH)
 
 //proc used to ressuscitate a mob
-/mob/living/proc/revive(full_heal = 0, admin_revive = 0)
+/mob/living/proc/revive(full_heal = FALSE, admin_revive = FALSE)
 	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, src, full_heal, admin_revive)
 	if(full_heal)
 		fully_heal(admin_revive)
@@ -644,7 +637,7 @@
 		update_mobility()
 
 //proc used to completely heal a mob.
-/mob/living/proc/fully_heal(admin_revive = 0)
+/mob/living/proc/fully_heal(admin_revive = FALSE)
 	restore_blood()
 	setToxLoss(0, 0) //zero as second argument not automatically call updatehealth().
 	setOxyLoss(0, 0)
@@ -820,7 +813,7 @@
 
 	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
 	//resisting grabs (as if it helps anyone...)
-	if(!restrained(ignore_grab = 1) && pulledby)
+	if(!HAS_TRAIT(src, TRAIT_RESTRAINED) && pulledby)
 		log_combat(src, pulledby, "resisted grab")
 		resist_grab()
 		return
@@ -968,6 +961,26 @@
 	else if(!src.mob_negates_gravity())
 		step_towards(src,S)
 
+/mob/living/proc/do_stun_animation()
+	var/matrix/rotation_matrix = matrix()
+	rotation_matrix.Turn(5)
+	var/matrix/reset_matrix = matrix()
+	reset_matrix.Turn(-5)
+	// Offset animation
+	animate(src, time = 1, pixel_x = rand(-2, 2), pixel_y = rand(-1, 1), easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
+	for (var/i in 1 to 4)
+		var/dx = rand(-4, 2)
+		var/dy = rand(-4, 2)
+		animate(time = 1, pixel_x = dx, pixel_y = dy, easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
+		animate(time = 0, pixel_x = -dx, pixel_y = -dy, easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
+	var/final_pixel_x = base_pixel_x + body_position_pixel_x_offset
+	var/final_pixel_y = base_pixel_y + body_position_pixel_y_offset
+	animate(time = 1, pixel_x = final_pixel_x , pixel_y = final_pixel_y)
+	// Rotational Animation
+	animate(src, time = 3, transform = rotation_matrix, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
+	animate(time = 2, flags = ANIMATION_RELATIVE)
+	animate(time = 1, transform = reset_matrix, flags = ANIMATION_RELATIVE)
+
 /mob/living/proc/do_jitter_animation(jitteriness)
 	var/amplitude = min(4, (jitteriness/100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
@@ -1013,7 +1026,7 @@
 	return TRUE
 
 //used in datum/reagents/reaction() proc
-/mob/living/proc/get_permeability_protection()
+/mob/living/proc/get_permeability_protection(list/target_zones)
 	return 0
 
 /mob/living/proc/harvest(mob/living/user) //used for extra objects etc. in butchering
@@ -1107,8 +1120,6 @@
 	. = ..()
 	if(.)
 		return
-	if((magic && HAS_TRAIT(src, TRAIT_ANTIMAGIC)) || (holy && HAS_TRAIT(src, TRAIT_HOLY)))
-		return src
 
 /mob/living/proc/fakefireextinguish()
 	return
@@ -1116,7 +1127,8 @@
 /mob/living/proc/fakefire()
 	return
 
-
+/mob/living/proc/unfry_mob() //Callback proc to tone down spam from multiple sizzling frying oil dipping.
+	REMOVE_TRAIT(src, TRAIT_OIL_FRIED, "cooking_oil_react")
 
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
@@ -1189,13 +1201,8 @@
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
 //Robots, animals and brains have their own version so don't worry about them
 /mob/living/proc/update_mobility()
-	var/stat_softcrit = stat == SOFT_CRIT
-	var/stat_conscious = (stat == CONSCIOUS) || stat_softcrit
-	var/chokehold = pulledby && pulledby.grab_state >= GRAB_NECK
-	var/restrained = restrained()
 	var/has_legs = get_num_legs()
 	var/has_arms = get_num_arms()
-	var/paralyzed = IsParalyzed()
 	var/ignore_legs = get_leg_ignore()
 	var/canmove = !HAS_TRAIT(src, TRAIT_IMMOBILIZED) && (has_arms || ignore_legs || has_legs)
 	if(canmove)
@@ -1221,20 +1228,14 @@
 		mobility_flags |= MOBILITY_STAND
 		set_lying_angle(0)
 
-	if(lying_angle != 0 || restrained || incapacitated())
+	if(lying_angle != 0 || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED) || incapacitated())
 		mobility_flags &= ~(MOBILITY_UI|MOBILITY_PULL)
 	else
 		mobility_flags |= MOBILITY_UI|MOBILITY_PULL
 
+	update_action_buttons_icon(TRUE)
 
 	if(stat == UNCONSCIOUS)
-		drop_all_held_items()
-	var/canitem = !paralyzed && !IsStun() && stat_conscious && !chokehold && !restrained && has_arms
-	if(canitem)
-		mobility_flags |= (MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
-	else
-		mobility_flags &= ~(MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
-	if(!(mobility_flags & MOBILITY_USE))
 		drop_all_held_items()
 	if(!(mobility_flags & MOBILITY_PULL))
 		if(pulling)
@@ -1251,9 +1252,9 @@
 			if(!has_legs && has_arms < 2)
 				limbless_slowdown += 6 - (has_arms * 3)
 		if(limbless_slowdown)
-			add_movespeed_modifier(MOVESPEED_ID_LIVING_LIMBLESS, update=TRUE, priority=100, override=TRUE, multiplicative_slowdown=limbless_slowdown, movetypes=GROUND)
+			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/limbless, multiplicative_slowdown = limbless_slowdown)
 		else
-			remove_movespeed_modifier(MOVESPEED_ID_LIVING_LIMBLESS, update=TRUE)
+			remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
 
 ///Called when mob changes from a standing position into a prone while lacking the ability to stand up at the moment, through update_mobility()
 /mob/living/proc/on_fall()
@@ -1306,26 +1307,47 @@
 		if(CONSCIOUS)
 			if(stat >= UNCONSCIOUS)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+				ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_KNOCKEDOUT)
 			ADD_TRAIT(src, TRAIT_FLOORED, UNCONSCIOUS_TRAIT)
 		if(SOFT_CRIT)
 			if(stat >= UNCONSCIOUS)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT) //adding trait sources should come before removing to avoid unnecessary updates
+				ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_KNOCKEDOUT)
 			if(pulledby)
 				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
 		if(UNCONSCIOUS)
-			cure_blind(UNCONSCIOUS_TRAIT)
+			if(stat != HARD_CRIT)
+				cure_blind(UNCONSCIOUS_TRAIT)
+		if(HARD_CRIT)
+			if(stat != UNCONSCIOUS)
+				cure_blind(UNCONSCIOUS_TRAIT)
 	switch(stat) //Current stat.
 		if(CONSCIOUS)
 			if(. >= UNCONSCIOUS)
 				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+				REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_KNOCKEDOUT)
 			REMOVE_TRAIT(src, TRAIT_FLOORED, UNCONSCIOUS_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 		if(SOFT_CRIT)
 			if(pulledby)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT) //adding trait sources should come before removing to avoid unnecessary updates
 			if(. >= UNCONSCIOUS)
 				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+				REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_KNOCKEDOUT)
+			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 		if(UNCONSCIOUS)
-			become_blind(UNCONSCIOUS_TRAIT)
+			if(. != HARD_CRIT)
+				become_blind(UNCONSCIOUS_TRAIT)
+			if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
+				ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+			else
+				REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+		if(HARD_CRIT)
+			if(. != UNCONSCIOUS)
+				become_blind(UNCONSCIOUS_TRAIT)
+			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+		if(DEAD)
+			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 
 ///Reports the event of the change in value of the buckled variable.
 /mob/living/proc/set_buckled(new_buckled)
@@ -1354,6 +1376,19 @@
 			ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
 	else if(. && stat == SOFT_CRIT)
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
+
+/// Updates the grab state of the mob and updates movespeed
+/mob/living/setGrabState(newstate)
+	. = ..()
+	switch(grab_state)
+		if(GRAB_PASSIVE)
+			remove_movespeed_modifier(MOVESPEED_ID_MOB_GRAB_STATE)
+		if(GRAB_AGGRESSIVE)
+			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/aggressive)
+		if(GRAB_NECK)
+			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/neck)
+		if(GRAB_KILL)
+			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/kill)
 
 /mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
 	if (registered_z != new_z)

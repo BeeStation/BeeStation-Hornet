@@ -3,7 +3,7 @@
 Usage:
 Override /Run() to run your test code
 
-Call Fail() to fail the test (You should specify a reason)
+Call TEST_FAIL() to fail the test (You should specify a reason)
 
 You may use /New() and /Destroy() for setup/teardown respectively
 
@@ -54,21 +54,21 @@ GLOBAL_VAR(test_log)
 	// clear the test area
 	for (var/turf/turf in block(locate(1, 1, run_loc_floor_bottom_left.z), locate(world.maxx, world.maxy, run_loc_floor_bottom_left.z)))
 		for (var/content in turf.contents)
-			if (iseffect(content))
+			if (istype(content, /obj/effect/landmark))
 				continue
 			qdel(content)
 	return ..()
 
 /datum/unit_test/proc/Run()
-	Fail("Run() called parent or not implemented")
+	TEST_FAIL("Run() called parent or not implemented")
 
-/datum/unit_test/proc/Fail(reason = "No reason")
+/datum/unit_test/proc/Fail(reason = "No reason", file = "OUTDATED_TEST", line = 1)
 	succeeded = FALSE
 
 	if(!istext(reason))
 		reason = "FORMATTED: [reason != null ? reason : "NULL"]"
 
-	LAZYADD(fail_reasons, reason)
+	LAZYADD(fail_reasons, list(list(reason, file, line)))
 
 /// Allocates an instance of the provided type, and places it somewhere in an available loc
 /// Instances allocated through this proc will be destroyed when the test is over
@@ -82,25 +82,54 @@ GLOBAL_VAR(test_log)
 	allocated += instance
 	return instance
 
+/// Logs a test message. Will use GitHub action syntax found at https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions
+/datum/unit_test/proc/log_for_test(text, priority, file, line)
+	var/map_name = SSmapping.config.map_name
+
+	// Need to escape the text to properly support newlines.
+	var/annotation_text = replacetext(text, "%", "%25")
+	annotation_text = replacetext(annotation_text, "\n", "%0A")
+
+	log_world("::[priority] file=[file],line=[line],title=[map_name]: [type]::[annotation_text]")
+
 /proc/RunUnitTest(test_path, list/test_results)
+
 	var/datum/unit_test/test = new test_path
 
 	GLOB.current_test = test
 	var/duration = REALTIMEOFDAY
 
+	log_world("::group::[test_path]")
 	test.Run()
 
 	duration = REALTIMEOFDAY - duration
 	GLOB.current_test = null
 	GLOB.failed_any_test |= !test.succeeded
 
-	var/list/log_entry = list("[test.succeeded ? "PASS" : "FAIL"]: [test_path] [duration / 10]s")
+	var/list/log_entry = list()
 	var/list/fail_reasons = test.fail_reasons
 
-	for(var/J in 1 to LAZYLEN(fail_reasons))
-		log_entry += "\tREASON #[J]: [fail_reasons[J]]"
+	for(var/reasonID in 1 to LAZYLEN(fail_reasons))
+		var/text = fail_reasons[reasonID][1]
+		var/file = fail_reasons[reasonID][2]
+		var/line = fail_reasons[reasonID][3]
+
+		test.log_for_test(text, "error", file, line)
+
+		// Normal log message
+		log_entry += "\tFAILURE #[reasonID]: [text] at [file]:[line]"
+
 	var/message = log_entry.Join("\n")
 	log_test(message)
+
+	var/test_output_desc = "[test_path] [duration / 10]s"
+	if (test.succeeded)
+		log_world("[TEST_OUTPUT_GREEN("PASS")] [test_output_desc]")
+
+	log_world("::endgroup::")
+
+	if (!test.succeeded)
+		log_world("::error::[TEST_OUTPUT_RED("FAIL")] [test_output_desc]")
 
 	test_results[test_path] = list("status" = test.succeeded ? UNIT_TEST_PASSED : UNIT_TEST_FAILED, "message" = message, "name" = test_path)
 

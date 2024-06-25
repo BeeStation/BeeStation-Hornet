@@ -1,11 +1,9 @@
 /datum/job/ai
 	title = JOB_NAME_AI
-	flag = AI_JF
 	description = "Follow your laws above all else, be the invisible eye that watches all."
 	department_for_prefs = DEPT_BITFLAG_SILICON
 	department_head_for_prefs = JOB_NAME_AI
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
-	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -21,6 +19,9 @@
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
 	var/do_special_check = TRUE
+
+/datum/job/ai/get_access() // no point of calling parent proc
+	return list()
 
 /datum/job/ai/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source = null)
 	if(visualsOnly)

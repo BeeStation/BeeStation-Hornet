@@ -87,16 +87,18 @@
 		return
 	if(!ismob(AM))
 		if(ismecha(AM))
-			var/obj/mecha/mecha = AM
-			if(mecha.occupant && allowed(mecha.occupant))
-				open_and_close()
-			else
-				do_animate("deny")
+			var/obj/vehicle/sealed/mecha/mecha = AM
+			for(var/O in mecha.occupants)
+				var/mob/living/occupant = O
+				if(allowed(occupant))
+					open_and_close()
+					return
+			do_animate("deny")
 		return
 	if(!SSticker)
 		return
 	var/mob/M = AM
-	if(M.restrained() || ((isdrone(M) || iscyborg(M)) && M.stat))
+	if(HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) || ((isdrone(M) || iscyborg(M)) && M.stat != CONSCIOUS))
 		return
 	bumpopen(M)
 
@@ -297,7 +299,7 @@
 							if("rightsecure")
 								WA.facing = "r"
 								WA.secure = TRUE
-						WA.setAnchored(TRUE)
+						WA.set_anchored(TRUE)
 						WA.state= "02"
 						WA.setDir(dir)
 						WA.update_icon()
@@ -628,3 +630,42 @@
 	dir = SOUTH
 	icon_state = "rightsecure"
 	base_state = "rightsecure"
+
+/obj/machinery/door/window/checkpoint
+	icon_state = "sec_left"
+	base_state = "sec_left"
+	layer = ABOVE_MOB_LAYER
+	closingLayer = ABOVE_MOB_LAYER
+	req_access = list(ACCESS_SEC_DOORS)
+
+/obj/machinery/door/window/checkpoint/northleft
+	dir = NORTH
+
+/obj/machinery/door/window/checkpoint/eastleft
+	dir = EAST
+
+/obj/machinery/door/window/checkpoint/westleft
+	dir = WEST
+
+/obj/machinery/door/window/checkpoint/southleft
+	dir = SOUTH
+
+/obj/machinery/door/window/checkpoint/northright
+	dir = NORTH
+	icon_state = "sec_right"
+	base_state = "sec_right"
+
+/obj/machinery/door/window/checkpoint/eastright
+	dir = EAST
+	icon_state = "sec_right"
+	base_state = "sec_right"
+
+/obj/machinery/door/window/checkpoint/westright
+	dir = WEST
+	icon_state = "sec_right"
+	base_state = "sec_right"
+
+/obj/machinery/door/window/checkpoint/southright
+	dir = SOUTH
+	icon_state = "sec_right"
+	base_state = "sec_right"

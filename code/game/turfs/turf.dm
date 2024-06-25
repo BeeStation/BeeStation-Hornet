@@ -130,6 +130,15 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if (opacity)
 		directional_opacity = ALL_CARDINALS
 
+	if(custom_materials)
+
+		var/temp_list = list()
+		for(var/i in custom_materials)
+			temp_list[SSmaterials.GetMaterialRef(i)] = custom_materials[i] //Get the proper instanced version
+
+		custom_materials = null //Null the list to prepare for applying the materials properly
+		set_custom_materials(temp_list)
+
 	ComponentInitialize()
 	if(isopenturf(src))
 		var/turf/open/O = src
@@ -195,7 +204,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		else if(allow_z_travel)
 			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
 	. = ..()
-	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_NO_ATTACK_HAND)
+	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		. = TRUE
 	if(.)
 		return
@@ -371,7 +380,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	var/datum/progressbar/progress = new(user, things.len, src)
 	while (do_after(usr, 10, src, progress = FALSE, extra_checks = CALLBACK(src_object, TYPE_PROC_REF(/datum/component/storage, mass_remove_from_storage), src, things, progress)))
 		stoplag(1)
-	qdel(progress)
+	progress.end_progress()
 
 	return TRUE
 
@@ -537,13 +546,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return TRUE
 	return FALSE
 
-/turf/proc/make_traction(add_visual = TRUE)
-	if(add_visual)
-		//Add overlay
-		var/mutable_appearance/MA = mutable_appearance(icon, "no_slip")
-		MA.blend_mode = BLEND_OVERLAY
-		add_overlay(MA)
-
 ///Add our relevant floor texture, if we can / need
 /turf/proc/add_turf_texture(list/textures, force)
 	if(!length(textures) || length(contents) && (locate(/obj/effect/decal/cleanable/dirt) in contents || locate(/obj/effect/decal/cleanable/dirt) in vis_contents))
@@ -558,7 +560,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		vis_contents += load_turf_texture(turf_texture)
 
 /turf/proc/clean_turf_texture()
-	for(var/obj/effect/turf_texture/TF in vis_contents)
+	for(var/atom/movable/turf_texture/TF in vis_contents)
 		if(initial(TF.parent_texture?.cleanable))
 			vis_contents -= TF
 
