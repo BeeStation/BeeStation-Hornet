@@ -16,6 +16,9 @@
 	floor_tile = /obj/item/stack/tile/glass
 	overfloor_placed = FALSE
 
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	luminosity = 2
+
 	z_flags = Z_MIMIC_DEFAULTS
 
 /turf/open/floor/glass/broken_states()

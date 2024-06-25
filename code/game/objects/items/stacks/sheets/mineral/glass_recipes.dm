@@ -23,7 +23,8 @@ STACKSIZE_MACRO(/obj/item/stack/sheet/rglass)
 /* plasma glass */
 GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	new/datum/stack_recipe("directional window", /obj/structure/window/plasma/unanchored, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("fulltile window", /obj/structure/window/plasma/fulltile/unanchored, 2, on_floor = TRUE, window_checks = TRUE) \
+	new/datum/stack_recipe("fulltile window", /obj/structure/window/plasma/fulltile/unanchored, 2, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe("plasma glass tile", /obj/item/stack/tile/glass/plasma, 1, 4, 20) \
 ))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/plasmaglass)
