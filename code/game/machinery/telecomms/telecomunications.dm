@@ -165,7 +165,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 			send_data["temperature"] = get_temperature()
 			send_data["overheat_temperature"] = get_overheat_temperature()
 			send_data["efficiency"] = get_efficiency()
-			send_data["overheated"] = (machine_stat & OVERHEATED) ? TRUE : FALSE
+			send_data["overheated"] = (machine_stat & OVERHEATED)
 
 			ntnet_send(send_data, data["sender_id"])
 
