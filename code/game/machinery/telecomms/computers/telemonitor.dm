@@ -45,7 +45,7 @@
 /obj/machinery/computer/telecomms/monitor/ui_data(mob/user)
 	var/list/data = list()
 	data["network_id"] = network
-	["current_time"] = world.time
+	data["current_time"] = world.time
 	data["servers"] = servers
 
 	return data
