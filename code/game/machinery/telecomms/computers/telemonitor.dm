@@ -25,30 +25,30 @@
 
 
 /obj/machinery/computer/telecomms/monitor/ui_interact(mob/user, datum/tgui/ui)
-  ui = SStgui.try_update_ui(user, src, ui)
-  if(!ui)
-    ui = new(user, src, "Telemonitor")
-    ui.set_autoupdate(TRUE)
-    ui.open()
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+        ui = new(user, src, "Telemonitor")
+        ui.set_autoupdate(TRUE)
+        ui.open()
 
 /obj/machinery/computer/telecomms/monitor/ui_act(action, params)
-  . = ..()
-  if(.)
-	return
-  if(action == "change_network")
-    network = params["network_name"]
-    update_network()
-    return TRUE
-  if(action == "delete_server")
-    servers -= params["server_id"]
+	. = ..()
+	if(.)
+		return
+	if(action == "change_network")
+		network = params["network_name"]
+		update_network()
+		return TRUE
+	if(action == "delete_server")
+		servers -= params["server_id"]
 
 /obj/machinery/computer/telecomms/monitor/ui_data(mob/user)
-  var/list/data = list()
-  data["network_id"] = network
-  data["current_time"] = world.time
-  data["servers"] = servers
+    var/list/data = list()
+    data["network_id"] = network
+    ["current_time"] = world.time
+    data["servers"] = servers
 
-  return data
+    return data
 
 /obj/machinery/computer/telecomms/monitor/process()
     get_server_status()
