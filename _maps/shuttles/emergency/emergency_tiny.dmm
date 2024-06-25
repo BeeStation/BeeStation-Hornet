@@ -379,7 +379,7 @@
 /area/shuttle/escape)
 "zZ" = (
 /obj/machinery/door/airlock/security{
-	req_access_txt = "2"
+	req_one_access_txt = "2;19"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/mineral/plastitanium/red/brig,

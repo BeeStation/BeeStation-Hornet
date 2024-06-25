@@ -10627,8 +10627,8 @@
 /turf/open/floor/iron,
 /area/engine/break_room)
 "bph" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/window/reinforced,
+/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/plating,
 /area/engine/storage_shared)
 "bpn" = (
@@ -56404,7 +56404,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/closed/wall,
 /area/engine/break_room)
 "pNj" = (
