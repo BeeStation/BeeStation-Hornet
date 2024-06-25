@@ -26,6 +26,11 @@
 	RegisterSignal(parent, COMSIG_MACHINERY_POWER_USED, PROC_REF(ParentPowerUsed))
 	START_PROCESSING(SSservers, src)
 
+/datum/component/server/Destroy(force, silent)
+	. = ..()
+	UnregisterSignal(parent, COMSIG_MACHINERY_POWER_USED)
+	STOP_PROCESSING(SSservers, src)
+
 /datum/component/server/proc/ParentPowerUsed(source, amount, chan)
 	heat_generation += amount * 1000
 
