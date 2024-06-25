@@ -28,8 +28,9 @@
     ui.open()
 
 /obj/machinery/computer/telecomms/monitor/ui_act(action, params)
-  if(..())
-    return
+  . = ..()
+  if(.)
+	return
   if(action == "change_network")
     network = params["network_name"]
     update_network()
