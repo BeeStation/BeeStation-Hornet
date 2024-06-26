@@ -34901,7 +34901,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/goonplaque,
+/turf/open/floor/iron/goonplaque,
 /area/security/brig)
 "eLn" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -35506,12 +35506,12 @@
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "eVa" = (
+/obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/shutters{
 	id = "HOSarmory";
 	name = "Armory Shutter"
 	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
+/turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "eVT" = (
 /obj/structure/table,
@@ -78046,7 +78046,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/open/floor/goonplaque,
 /area/security/courtroom)
 "swT" = (
 /obj/effect/turf_decal/stripes/line{
@@ -86486,7 +86485,7 @@
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/space)
+/area/quartermaster/miningoffice)
 "vlB" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/bot,
@@ -149268,8 +149267,8 @@ hue
 uEN
 wTH
 bhd
-aaa
-aaa
+abj
+abj
 aaZ
 hIp
 gVt
@@ -149769,7 +149768,7 @@ bgZ
 qgQ
 qMZ
 aLW
-bhd
+bgZ
 uTb
 lOM
 sRn
@@ -150026,7 +150025,7 @@ bgZ
 yaF
 qGI
 tVC
-bhd
+bgZ
 qjm
 uRa
 rmQ
@@ -150283,7 +150282,7 @@ bgZ
 oNA
 oSo
 oEY
-bhd
+bgZ
 upu
 lla
 sTn
