@@ -113,9 +113,9 @@
 			"name" = S.name,
 			"server_id" = S.server_id,
 			"temperature" = S.get_temperature(),
-			"temperature_warning" = S.get_warning_temperature(), // TODO: CHANGE IT TO A VARIABLE
+			"temperature_warning" = S.get_warning_temperature(),
 			"temperature_max" = S.get_overheat_temperature(),
-			"enabled" = !(S.machine_stat & TURNED_OFF),
+			"enabled" = !(S.machine_stat & TURNED_OFF), // is the server toggled on in the console?
 			"overheated" = (S.machine_stat & OVERHEATED),
 		))
 	data["servers"] = servers
