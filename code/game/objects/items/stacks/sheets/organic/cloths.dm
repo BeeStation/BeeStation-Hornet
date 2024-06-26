@@ -20,7 +20,7 @@ Various Cloths
 	merge_type = /obj/item/stack/sheet/cotton
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
-	var/pull_effort = 30
+	var/pull_effort = 10
 	var/loom_result = /obj/item/stack/sheet/cotton/cloth
 
 /obj/item/stack/sheet/cotton/cloth
@@ -48,7 +48,6 @@ Various Cloths
 	singular_name = "raw durathread ball"
 	icon_state = "sheet-durathreadraw"
 	merge_type = /obj/item/stack/sheet/cotton/durathread
-	pull_effort = 70
 	loom_result = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/stack/sheet/cotton/cloth/durathread

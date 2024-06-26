@@ -52,6 +52,9 @@
 		Butcher(user, M)
 
 /datum/component/butchering/proc/startNeckSlice(obj/item/source, mob/living/carbon/human/H, mob/living/user)
+	if(DOING_INTERACTION_WITH_TARGET(user, H))
+		to_chat(user, "<span class='warning'>You're already interacting with [H]!</span>")
+		return
 	user.visible_message("<span class='danger'>[user] is slitting [H]'s throat!</span>", \
 					"<span class='danger'>You start slicing [H]'s throat!</span>", \
 					"<span class='hear'>You hear a cutting noise!</span>")

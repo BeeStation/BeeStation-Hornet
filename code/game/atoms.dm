@@ -121,9 +121,6 @@
 	///A string of hex format colors to be used by greyscale sprites, ex: "#0054aa#badcff"
 	var/greyscale_colors
 
-	///Mobs that are currently do_after'ing this atom, to be cleared from on Destroy()
-	var/list/targeted_by
-
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
 
@@ -295,12 +292,6 @@
 
 	QDEL_NULL(light)
 	QDEL_NULL(ai_controller)
-
-	for(var/i in targeted_by)
-		var/mob/M = i
-		LAZYREMOVE(M.do_afters, src)
-
-	targeted_by = null
 
 	return ..()
 
@@ -1769,7 +1760,7 @@
   */
 /atom/proc/setClosed()
 	return
-	
+
 /**
   * Used to attempt to charge an object with a payment component.
   *
