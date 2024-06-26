@@ -259,7 +259,7 @@ GLOBAL_LIST_EMPTY(species_list)
  * * progress - if TRUE, a progress bar is displayed.
  * * extra_checks - a callback that can be used to add extra checks to the do_after. Returning false in this callback will cancel the do_after.
  */
-/proc/do_after(mob/user, delay = 3 SECONDS, atom/target, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = 1)
+/proc/do_after(mob/user, delay, atom/target, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = 1, hidden = FALSE)
 	if(!user)
 		return FALSE
 	if(!isnum(delay))
@@ -285,11 +285,14 @@ GLOBAL_LIST_EMPTY(species_list)
 	delay *= user.cached_multiplicative_actions_slowdown
 
 	var/datum/progressbar/progbar
+	var/datum/cogbar/cog
+
 	if(progress)
-		if(target) // the progress bar needs a target, so if we don't have one just pass it the user.
-			progbar = new(user, delay, target)
-		else
-			progbar = new(user, delay, user)
+		if(user.client)
+			progbar = new(user, delay, target || user)
+
+		if(!hidden && delay >= 1 SECONDS)
+			cog = new(user)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
@@ -320,6 +323,8 @@ GLOBAL_LIST_EMPTY(species_list)
 
 	if(!QDELETED(progbar))
 		progbar.end_progress()
+
+	cog?.remove()
 
 	if(interaction_key)
 		LAZYREMOVE(user.do_afters, interaction_key)

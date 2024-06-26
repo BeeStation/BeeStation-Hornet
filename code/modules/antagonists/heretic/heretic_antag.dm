@@ -300,7 +300,7 @@
 	drawing_rune = TRUE
 
 	target_turf.balloon_alert(user, "You start drawing a rune")
-	if(!do_after(user, drawing_time, target = target_turf, extra_checks = additional_checks))
+	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks, hidden = TRUE))
 		target_turf.balloon_alert(user, "Interrupted")
 		drawing_rune = FALSE
 		return
