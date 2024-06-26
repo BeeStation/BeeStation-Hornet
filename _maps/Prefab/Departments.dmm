@@ -347,13 +347,6 @@
 /obj/machinery/status_display/supply,
 /turf/open/floor/iron,
 /area/space)
-"jx" = (
-/obj/machinery/requests_console{
-	department = "Cargo Bay";
-	supplies_requestable = 1
-	},
-/turf/open/floor/iron/sepia,
-/area/quartermaster/sorting)
 "jA" = (
 /obj/machinery/mineral/stacking_unit_console{
 	input_dir = 8;
@@ -1055,6 +1048,17 @@
 /obj/machinery/vending/dinnerware,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
+"DS" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Captain's Desk";
+	departmentType = 5;
+	name = "Captain RC"
+	},
+/obj/item/disk/nuclear,
+/obj/item/book/manual/wiki/sopcommand,
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/captain)
 "Eb" = (
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
@@ -1116,6 +1120,13 @@
 /mob/living/carbon/monkey,
 /turf/open/floor/iron/dark,
 /area/medical/genetics)
+"Fh" = (
+/obj/machinery/requests_console{
+	department = "Cargo Bay";
+	departmentType = 2
+	},
+/turf/open/floor/iron/sepia,
+/area/quartermaster/sorting)
 "Fn" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/machinery/door/airlock{
@@ -1152,18 +1163,6 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/library)
-"GB" = (
-/obj/machinery/requests_console{
-	department = "Captain's Desk";
-	name = "Captain RC";
-	assistance_requestable = 1;
-	anon_tips_receiver = 1;
-	can_send_announcements = 1
-	},
-/obj/item/disk/nuclear,
-/obj/item/book/manual/wiki/sopcommand,
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/captain)
 "GN" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /obj/structure/grille/broken,
@@ -1174,6 +1173,17 @@
 /obj/machinery/vending/wardrobe/science_wardrobe,
 /turf/open/floor/iron/white,
 /area/science/research)
+"Hd" = (
+/obj/machinery/newscaster{
+	pixel_y = 33
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/south,
+/obj/machinery/light/small,
+/turf/open/floor/iron/goonplaque,
+/area/space)
 "HB" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -1381,17 +1391,6 @@
 /obj/machinery/vending/wardrobe/chem_wardrobe,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
-"Nd" = (
-/obj/machinery/newscaster{
-	pixel_y = 33
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/airalarm/directional/south,
-/obj/machinery/light/small,
-/turf/open/floor/iron/goonplaque,
-/area/space)
 "Nu" = (
 /obj/effect/landmark/start/botanist,
 /turf/open/floor/grass/no_border,
@@ -1813,13 +1812,27 @@
 "XF" = (
 /turf/open/floor/iron/dark,
 /area/space)
-"XI" = (
+"XW" = (
+/obj/item/book/manual/wiki/security_space_law,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"XZ" = (
+/turf/open/floor/carpet/purple,
+/area/chapel/office)
+"Ya" = (
+/obj/machinery/fax/sci,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/heads/hor)
+"Yg" = (
+/obj/item/storage/book/bible,
+/turf/open/floor/carpet/purple,
+/area/chapel/office)
+"YE" = (
 /obj/machinery/requests_console{
+	announcementConsole = 1;
 	department = "Bridge";
-	name = "ai RC";
-	assistance_requestable = 1;
-	anon_tips_receiver = 1;
-	can_send_announcements = 1
+	departmentType = 5;
+	name = "ai RC"
 	},
 /obj/item/radio/intercom,
 /obj/item/radio/intercom,
@@ -1836,21 +1849,6 @@
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
-"XW" = (
-/obj/item/book/manual/wiki/security_space_law,
-/turf/open/floor/carpet/red,
-/area/crew_quarters/heads/hos)
-"XZ" = (
-/turf/open/floor/carpet/purple,
-/area/chapel/office)
-"Ya" = (
-/obj/machinery/fax/sci,
-/turf/open/floor/carpet/purple,
-/area/crew_quarters/heads/hor)
-"Yg" = (
-/obj/item/storage/book/bible,
-/turf/open/floor/carpet/purple,
-/area/chapel/office)
 "YT" = (
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 2;
@@ -1922,7 +1920,7 @@ Oq
 TZ
 "}
 (2,1,1) = {"
-GB
+DS
 vl
 qD
 rP
@@ -2138,7 +2136,7 @@ Qk
 Qk
 Qk
 tb
-jx
+Fh
 va
 "}
 (13,1,1) = {"
@@ -2285,7 +2283,7 @@ Qk
 ZA
 EM
 JN
-XI
+YE
 CT
 ou
 XF
@@ -2335,7 +2333,7 @@ XF
 XF
 XF
 sb
-Nd
+Hd
 sb
 jR
 dO
