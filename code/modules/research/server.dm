@@ -38,6 +38,7 @@
 	stored_research = SSresearch.science_tech
 
 /obj/machinery/rnd/server/Destroy()
+	server_component = null
 	SSresearch.servers -= src
 	return ..()
 

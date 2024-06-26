@@ -106,6 +106,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 
 /obj/machinery/telecomms/Destroy()
 	UnregisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE)
+	server_component = null
 	GLOB.telecomms_list -= src
 	for(var/obj/machinery/telecomms/comm in GLOB.telecomms_list)
 		comm.links -= src
@@ -161,7 +162,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 		return
 
 	switch(data.data["type"])
-		if("ping") // we respond to the ping with our status
+		if(PACKET_TYPE_PING) // we respond to the ping with our status
 			var/list/send_data = list()
 			send_data["name"] = name
 			send_data["temperature"] = get_temperature()

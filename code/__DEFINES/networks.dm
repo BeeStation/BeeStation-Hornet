@@ -133,3 +133,6 @@
 #define NETWORK_ERROR_BAD_NETWORK "network_error_bad_network"
 #define NETWORK_ERROR_BAD_RECEIVER_ID "network_error_bad_receiver_id"
 #define NETWORK_ERROR_UNAUTHORIZED "network_error_bad_unauthorized"
+
+// Packet types
+#define PACKET_TYPE_PING "ping"

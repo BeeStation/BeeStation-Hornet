@@ -57,7 +57,7 @@
 	if(network_id == __NETWORK_SERVER)
 		return
 	var/data = list()
-	data["type"] = "ping"
+	data["type"] = PACKET_TYPE_PING
 	ntnet_send(data, network_id)
 
 /obj/machinery/computer/telecomms/monitor/proc/ntnet_receive(datum/source, datum/netdata/data)
