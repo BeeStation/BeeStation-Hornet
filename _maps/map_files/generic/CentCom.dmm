@@ -10568,9 +10568,10 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Captain's Desk";
-	departmentType = 5;
 	name = "Captain RC";
-	pixel_y = 32
+	pixel_y = 32;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /turf/open/floor/carpet/grimy,
 /area/centcom/ferry)

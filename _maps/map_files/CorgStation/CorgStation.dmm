@@ -12249,10 +12249,10 @@
 	},
 /obj/machinery/requests_console{
 	department = "Hydroponics";
-	departmentType = 2;
 	name = "Hydroponics RC";
 	pixel_x = 32;
-	pixel_y = -32
+	pixel_y = -32;
+	supplies_requestable = 1
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
@@ -15890,9 +15890,10 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Captain's Desk";
-	departmentType = 5;
 	name = "Captain RC";
-	pixel_x = -32
+	pixel_x = -32;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
@@ -19218,9 +19219,10 @@
 	},
 /obj/machinery/requests_console{
 	department = "Security";
-	departmentType = 5;
 	name = "Medbay RC";
-	pixel_y = 30
+	pixel_y = 30;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
@@ -29162,10 +29164,11 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Research Director's Desk";
-	departmentType = 5;
 	name = "Research Director's RC";
 	pixel_x = -32;
-	receive_ore_updates = 1
+	receive_ore_updates = 1;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
@@ -40646,10 +40649,11 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Bridge";
-	departmentType = 5;
 	name = "Bridge RC";
 	pixel_x = -32;
-	pixel_y = -32
+	pixel_y = -32;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Bridge - Command Chair";
@@ -46901,9 +46905,10 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Chief Engineer's Desk";
-	departmentType = 5;
 	name = "Chief Engineer's RC";
-	pixel_x = -32
+	pixel_x = -32;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Engineering - Chief Engineer's Office";
@@ -51863,10 +51868,10 @@
 	},
 /obj/machinery/requests_console{
 	department = "Medbay";
-	departmentType = 1;
 	name = "Medbay RC";
 	pixel_x = -32;
-	pixel_y = -2
+	pixel_y = -2;
+	assistance_requestable = 1
 	},
 /obj/machinery/light_switch{
 	pixel_x = 10;
@@ -51992,10 +51997,11 @@
 "kin" = (
 /obj/machinery/requests_console{
 	department = "AI";
-	departmentType = 5;
 	name = "AI RC";
 	pixel_x = 30;
-	pixel_y = 30
+	pixel_y = 30;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /obj/machinery/ai_slipper{
 	uses = 10
@@ -54033,9 +54039,10 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Chief Medical Officer's Desk";
-	departmentType = 5;
 	name = "Chief Medical Officer's RC";
-	pixel_y = 30
+	pixel_y = 30;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -62045,10 +62052,11 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Head of Personnel's Desk";
-	departmentType = 5;
 	name = "Head of Personnel RC";
 	pixel_x = 32;
-	pixel_y = 32
+	pixel_y = 32;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /obj/machinery/light_switch{
 	pixel_x = -38;
@@ -87361,9 +87369,10 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Head of Security's Desk";
-	departmentType = 5;
 	name = "Head of Security RC";
-	pixel_y = 32
+	pixel_y = 32;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
