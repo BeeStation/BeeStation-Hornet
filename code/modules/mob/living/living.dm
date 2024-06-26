@@ -1120,8 +1120,6 @@
 	. = ..()
 	if(.)
 		return
-	if((magic && HAS_TRAIT(src, TRAIT_ANTIMAGIC)) || (holy && HAS_TRAIT(src, TRAIT_HOLY)))
-		return src
 
 /mob/living/proc/fakefireextinguish()
 	return
@@ -1235,6 +1233,7 @@
 	else
 		mobility_flags |= MOBILITY_UI|MOBILITY_PULL
 
+	update_action_buttons_icon(TRUE)
 
 	if(stat == UNCONSCIOUS)
 		drop_all_held_items()

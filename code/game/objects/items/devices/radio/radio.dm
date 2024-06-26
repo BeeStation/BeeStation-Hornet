@@ -481,8 +481,6 @@
 	var/curremp = emped //Remember which EMP this was
 	if (listening && ismob(loc))	// if the radio is turned on and on someone's person they notice
 		to_chat(loc, "<span class='warning'>\The [src] overloads.</span>")
-	for (var/ch_name in channels)
-		channels[ch_name] = 0
 	set_on(FALSE)
 	addtimer(CALLBACK(src, PROC_REF(end_emp_effect), curremp), 200)
 

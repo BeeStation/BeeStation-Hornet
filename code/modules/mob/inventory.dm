@@ -457,6 +457,9 @@
 	set name = "quick-equip"
 	set hidden = 1
 
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return TRUE
+
 	var/obj/item/I = get_active_held_item()
 	if (I)
 		I.equip_to_best_slot(src)
