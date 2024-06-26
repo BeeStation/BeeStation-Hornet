@@ -1050,11 +1050,11 @@
 /area/crew_quarters/kitchen)
 "DS" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Captain's Desk";
 	name = "Captain RC";
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/item/disk/nuclear,
 /obj/item/book/manual/wiki/sopcommand,
@@ -1830,11 +1830,11 @@
 /area/chapel/office)
 "YE" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Bridge";
 	name = "ai RC";
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/item/radio/intercom,
 /obj/item/radio/intercom,

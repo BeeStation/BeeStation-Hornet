@@ -1051,12 +1051,12 @@
 	alpha = 180
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Bridge";
 	name = "Bridge RC";
 	pixel_y = -31;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/structure/filingcabinet{
 	pixel_x = -8
@@ -2789,14 +2789,14 @@
 	pixel_y = -1
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Research Director's Desk";
 	name = "Research Director RC";
 	pixel_x = -2;
 	pixel_y = 30;
 	receive_ore_updates = 1;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/effect/turf_decal/tile/black/opposingcorners{
 	dir = 1
@@ -3597,13 +3597,13 @@
 /area/asteroid/paradise/surface)
 "bqm" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Chief Medical Officer's Desk";
 	name = "Chief Medical Officer's RC";
 	pixel_x = 1;
 	pixel_y = -31;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = -6;
@@ -18216,13 +18216,13 @@
 	pixel_y = -3
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Captain's Desk";
 	name = "Captain RC";
 	pixel_x = -1;
 	pixel_y = -33;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
@@ -26777,12 +26777,12 @@
 	network = list("ss13","engine")
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Chief Engineer's Desk";
 	name = "Chief Engineer RC";
 	pixel_x = 32;
 	pixel_y = 31;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/power/apc/auto_name/east{
 	pixel_x = 24
@@ -32656,11 +32656,11 @@
 /area/asteroid/paradise/surface/water)
 "qDp" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Bridge";
 	pixel_y = 30;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/vending/job_disk,
 /obj/effect/turf_decal/bot,
@@ -37854,13 +37854,13 @@
 	dir = 1
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Captain's Desk";
 	name = "Captain RC";
 	pixel_x = -32;
 	pixel_y = -2;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/carpet/royalblue,
