@@ -81,3 +81,6 @@
 
 	/// Timer id of any transformation
 	var/transformation_timer
+
+	/// Can other carbons be shoved into this one to make it fall?
+	var/can_be_shoved_into = FALSE
