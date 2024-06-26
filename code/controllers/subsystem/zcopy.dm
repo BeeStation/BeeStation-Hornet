@@ -789,4 +789,3 @@ SUBSYSTEM_DEF(zcopy)
 		out += "<em>No atoms.</em>"
 
 #undef FMT_DEPTH
-#undef READ_BASETURF
