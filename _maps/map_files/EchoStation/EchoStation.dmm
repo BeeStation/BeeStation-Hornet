@@ -3191,7 +3191,9 @@
 	dir = 8
 	},
 /obj/machinery/rnd/production/techfab/department/cargo,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -5343,6 +5345,21 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/bridge)
+"cne" = (
+/obj/machinery/airalarm/directional/west,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_x = 1;
+	pixel_y = 23
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 2
+	},
+/obj/structure/disposaloutlet{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/disposal)
 "cnh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -10588,7 +10605,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/tech,
 /area/science/mixing/chamber)
@@ -16831,7 +16850,9 @@
 /area/medical/medbay/central)
 "idv" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -17989,7 +18010,9 @@
 "iOV" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -18981,6 +19004,22 @@
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
+"jsJ" = (
+/obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped/inverse{
+	dir = 8;
+	piping_layer = 2
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "jsW" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -23230,7 +23269,9 @@
 	icon_state = "2-8"
 	},
 /obj/effect/spawner/lootdrop/aimodule_harmless,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -26632,6 +26673,48 @@
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
+"nyu" = (
+/obj/structure/table/reinforced,
+/obj/item/clipboard{
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/obj/item/paper/monitorkey{
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/obj/item/folder/yellow,
+/obj/item/toy/figure/ce{
+	pixel_x = 8;
+	pixel_y = 4
+	},
+/obj/item/stamp/chief_engineer{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 5
+	},
+/obj/machinery/camera/autoname{
+	dir = 8;
+	network = list("ss13","engine")
+	},
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Chief Engineer's Desk";
+	departmentType = 4;
+	name = "Chief Engineer RC";
+	pixel_x = 32;
+	pixel_y = 31
+	},
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/carpet/royalblue,
+/area/crew_quarters/heads/chief)
 "nyB" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -27205,8 +27288,8 @@
 	pixel_x = 4
 	},
 /obj/item/food/dough{
-	pixel_y = 2;
-	pixel_x = 9
+	pixel_x = 9;
+	pixel_y = 2
 	},
 /obj/item/reagent_containers/food/condiment/enzyme{
 	pixel_x = -5;
@@ -27835,22 +27918,6 @@
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/dorms)
-"okn" = (
-/obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped{
-	dir = 8;
-	piping_layer = 2
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
 "okx" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -32831,7 +32898,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/chair/office/light{
 	dir = 1;
 	pixel_y = 3
@@ -40418,8 +40487,8 @@
 	name = "Chef window"
 	},
 /obj/item/toy/figure/chef{
-	pixel_y = -1;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = -1
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
@@ -41472,7 +41541,9 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/pod/dark,
 /area/maintenance/department/medical/morgue)
@@ -41809,21 +41880,6 @@
 /area/engineering/hallway{
 	name = "Engineering Viewing Platform"
 	})
-"uTm" = (
-/obj/machinery/airalarm/directional/west,
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_x = 1;
-	pixel_y = 23
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 2
-	},
-/obj/machinery/disposal/deliveryChute{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/disposal)
 "uTt" = (
 /obj/machinery/camera/autoname{
 	dir = 1;
@@ -47159,7 +47215,9 @@
 /obj/item/radio/intercom{
 	pixel_y = 29
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -47430,7 +47488,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -57529,7 +57589,7 @@ hbl
 uli
 mgL
 bKc
-okn
+jsJ
 cnW
 qdc
 tIa
@@ -134874,7 +134934,7 @@ auW
 fcC
 jsb
 aqu
-uTm
+cne
 wHe
 swz
 piQ

@@ -11,8 +11,8 @@
 
 	outfit = /datum/outfit/job/chaplain
 
-	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_THEATRE)
-	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_THEATRE)
+	base_access = list(ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MORGUE, ACCESS_THEATRE)
+	extra_access = list()
 
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = ACCOUNT_CIV_BITFLAG

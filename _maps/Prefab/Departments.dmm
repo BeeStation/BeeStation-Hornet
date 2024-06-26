@@ -311,18 +311,6 @@
 "ic" = (
 /turf/open/floor/wood,
 /area/security/detectives_office)
-"ih" = (
-/obj/machinery/requests_console{
-	department = "Captain's Desk";
-	name = "Captain RC";
-	assistance_requestable = 1;
-	anon_tips_receiver = 1;
-	can_send_announcements = 1
-	},
-/obj/item/disk/nuclear,
-/obj/item/book/manual/wiki/sopcommand,
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/captain)
 "ir" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/item/reagent_containers/glass/bucket{
@@ -351,10 +339,21 @@
 /obj/structure/girder,
 /turf/open/floor/plating,
 /area/space)
+"iP" = (
+/obj/machinery/status_display/door_timer,
+/turf/open/floor/iron,
+/area/space)
 "jm" = (
 /obj/machinery/status_display/supply,
 /turf/open/floor/iron,
 /area/space)
+"jx" = (
+/obj/machinery/requests_console{
+	department = "Cargo Bay";
+	supplies_requestable = 1
+	},
+/turf/open/floor/iron/sepia,
+/area/quartermaster/sorting)
 "jA" = (
 /obj/machinery/mineral/stacking_unit_console{
 	input_dir = 8;
@@ -538,13 +537,6 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
-"nC" = (
-/obj/machinery/requests_console{
-	department = "Cargo Bay";
-	supplies_requestable = 1
-	},
-/turf/open/floor/iron/sepia,
-/area/quartermaster/sorting)
 "nG" = (
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 2;
@@ -1032,29 +1024,6 @@
 /obj/machinery/rnd/production/techfab/department/service,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
-"CJ" = (
-/obj/machinery/requests_console{
-	department = "Bridge";
-	name = "ai RC";
-	assistance_requestable = 1;
-	anon_tips_receiver = 1;
-	can_send_announcements = 1
-	},
-/obj/item/radio/intercom,
-/obj/item/radio/intercom,
-/obj/item/radio/intercom,
-/obj/item/radio/intercom,
-/obj/machinery/button/door{
-	id = "AIwindows";
-	name = "AI View Blast doors";
-	req_access_txt = "19"
-	},
-/obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai";
-	name = "AI Chamber turret control"
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai)
 "CM" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Robotics Lab";
@@ -1183,6 +1152,18 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/library)
+"GB" = (
+/obj/machinery/requests_console{
+	department = "Captain's Desk";
+	name = "Captain RC";
+	assistance_requestable = 1;
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
+	},
+/obj/item/disk/nuclear,
+/obj/item/book/manual/wiki/sopcommand,
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/captain)
 "GN" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /obj/structure/grille/broken,
@@ -1193,17 +1174,6 @@
 /obj/machinery/vending/wardrobe/science_wardrobe,
 /turf/open/floor/iron/white,
 /area/science/research)
-"Hd" = (
-/obj/machinery/newscaster{
-	pixel_y = 33
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/airalarm/directional/south,
-/obj/machinery/light/small,
-/turf/open/floor/goonplaque,
-/area/space)
 "HB" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -1336,10 +1306,6 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
-"Lj" = (
-/obj/machinery/status_display/door_timer,
-/turf/open/floor/iron,
-/area/space)
 "Lw" = (
 /obj/effect/landmark/start/chaplain,
 /turf/open/floor/carpet/purple,
@@ -1415,6 +1381,17 @@
 /obj/machinery/vending/wardrobe/chem_wardrobe,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
+"Nd" = (
+/obj/machinery/newscaster{
+	pixel_y = 33
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/south,
+/obj/machinery/light/small,
+/turf/open/floor/iron/goonplaque,
+/area/space)
 "Nu" = (
 /obj/effect/landmark/start/botanist,
 /turf/open/floor/grass/no_border,
@@ -1836,6 +1813,29 @@
 "XF" = (
 /turf/open/floor/iron/dark,
 /area/space)
+"XI" = (
+/obj/machinery/requests_console{
+	department = "Bridge";
+	name = "ai RC";
+	assistance_requestable = 1;
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
+	},
+/obj/item/radio/intercom,
+/obj/item/radio/intercom,
+/obj/item/radio/intercom,
+/obj/item/radio/intercom,
+/obj/machinery/button/door{
+	id = "AIwindows";
+	name = "AI View Blast doors";
+	req_access_txt = "19"
+	},
+/obj/machinery/turretid{
+	control_area = "/area/ai_monitored/turret_protected/ai";
+	name = "AI Chamber turret control"
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
 "XW" = (
 /obj/item/book/manual/wiki/security_space_law,
 /turf/open/floor/carpet/red,
@@ -1922,7 +1922,7 @@ Oq
 TZ
 "}
 (2,1,1) = {"
-ih
+GB
 vl
 qD
 rP
@@ -2138,7 +2138,7 @@ Qk
 Qk
 Qk
 tb
-nC
+jx
 va
 "}
 (13,1,1) = {"
@@ -2285,7 +2285,7 @@ Qk
 ZA
 EM
 JN
-CJ
+XI
 CT
 ou
 XF
@@ -2335,7 +2335,7 @@ XF
 XF
 XF
 sb
-Hd
+Nd
 sb
 jR
 dO
@@ -2455,7 +2455,7 @@ XF
 XF
 XF
 TX
-Lj
+iP
 ps
 Co
 Zj
