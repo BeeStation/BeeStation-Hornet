@@ -16,13 +16,25 @@
 	floor_tile = /obj/item/stack/tile/glass
 	overfloor_placed = FALSE
 
-	fullbright_type = FULLBRIGHT_STARLIGHT
-	luminosity = 2
-
 	z_flags = Z_MIMIC_DEFAULTS
 
 /turf/open/floor/glass/broken_states()
 	return GLOB.glass_turf_damage
+
+/turf/open/floor/glass/AfterChange()
+	var/turf/base = READ_BASETURF(src)
+	if(ispath(base, /turf/baseturf_bottom))
+		base = get_z_base_turf()
+
+	luminosity = initial(base.luminosity)
+	fullbright_type = initial(base.fullbright_type)
+	set_light_power(initial(base.light_power))
+
+	var/area/A = loc
+	if(IS_DYNAMIC_LIGHTING(A) && fullbright_type == FULLBRIGHT_STARLIGHT)
+		overlays += GLOB.starfloor_overlay
+
+	return ..()
 
 /turf/open/floor/glass/Initialize(mapload)
 	icon_state = "" //Prevent the normal icon from appearing behind the smooth overlays
