@@ -71,7 +71,7 @@
 		REMOVE_TRAIT(user, TRAIT_SEE_ANTIMAGIC, identifier)
 		user.remove_alt_appearance("magic_protection_[identifier]")
 		user.update_alt_appearances()
-	. = ..()
+	return ..()
 
 /datum/component/anti_magic/proc/protect(datum/source, mob/user, _magic, _holy, major, self, list/protection_sources)
 	SIGNAL_HANDLER
