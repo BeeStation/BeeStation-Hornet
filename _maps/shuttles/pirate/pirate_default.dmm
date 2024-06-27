@@ -303,6 +303,17 @@
 /obj/machinery/door/poddoor{
 	id = "pirate_cargo_shutters"
 	},
+/obj/docking_port/mobile/pirate{
+	dwidth = 14;
+	height = 13;
+	launch_status = 0;
+	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
+	name = "Pirate Ship";
+	width = 24;
+	port_direction = 8;
+	preferred_direction = 4;
+	dir = 2
+	},
 /turf/open/floor/plating,
 /area/shuttle/pirate)
 "lT" = (
@@ -1097,16 +1108,6 @@
 	dir = 1
 	},
 /obj/structure/fans/tiny,
-/obj/docking_port/mobile/pirate{
-	dwidth = 3;
-	height = 13;
-	launch_status = 0;
-	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
-	name = "Pirate Ship";
-	width = 24;
-	port_direction = 2;
-	preferred_direction = 4
-	},
 /obj/docking_port/stationary{
 	dwidth = 3;
 	height = 13;
