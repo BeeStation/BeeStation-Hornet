@@ -411,7 +411,7 @@
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
 
-	new /obj/item/stack/tile/iron(Tsec, 1)
+	new /obj/item/stack/tile/iron/base(Tsec, 1)
 
 	do_sparks(3, TRUE, src)
 	..()
@@ -420,6 +420,8 @@
 	req_one_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
 
 /mob/living/simple_animal/bot/floorbot/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
 	if(isturf(A))
 		repair(A)
 	else

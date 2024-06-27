@@ -1,7 +1,4 @@
 /turf/open/floor
-	//NOTE: Floor code has been refactored, many procs were removed and refactored
-	//- you should use istype() if you want to find out whether a floor has a certain type
-	//- floor_tile is now a path, and not a tile obj
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
 	base_icon_state = "floor"
@@ -28,6 +25,7 @@
 	. = ..()
 	if(mapload && prob(33))
 		MakeDirty()
+
 	if(is_station_level(z))
 		GLOB.station_turfs += src
 
@@ -102,7 +100,7 @@
 		return TRUE
 
 /turf/open/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
-	if(T.turf_type == type)
+	if(T.turf_type == type && T.turf_dir == dir)
 		return
 	var/obj/item/CB = user.is_holding_tool_quality(TOOL_CROWBAR)
 	if(!CB)
@@ -126,8 +124,16 @@
 		if(user && !silent)
 			to_chat(user, "<span class='notice'>You remove the floor tile.</span>")
 		if(floor_tile && make_tile)
-			new floor_tile(src)
+			spawn_tile()
 	return make_plating()
+
+/turf/open/floor/proc/has_tile()
+	return floor_tile
+
+/turf/open/floor/proc/spawn_tile()
+	if(!has_tile())
+		return null
+	return new floor_tile(src)
 
 /turf/open/floor/singularity_pull(S, current_size)
 	..()
@@ -287,3 +293,18 @@
 		variants += list("[icon_state]" = 1)
 	for(var/i in 1 to max)
 		variants += list("[icon_state][i]" = 1)
+
+/turf/open/floor/material
+	name = "floor"
+	icon_state = "materialfloor"
+	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	floor_tile = /obj/item/stack/tile/material
+
+/turf/open/floor/material/has_tile()
+	return LAZYLEN(custom_materials)
+
+/turf/open/floor/material/spawn_tile()
+	. = ..()
+	if(.)
+		var/obj/item/stack/tile = .
+		tile.set_mats_per_unit(custom_materials, 1)

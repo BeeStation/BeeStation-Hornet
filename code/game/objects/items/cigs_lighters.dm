@@ -109,6 +109,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	name = "firebrand"
 	desc = "An unlit firebrand. It makes you wonder why it's not just called a stick."
 	smoketime = 40
+	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/carbon = 2)
 
 /obj/item/match/firebrand/Initialize(mapload)
@@ -587,6 +588,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "zippo"
 	item_state = "zippo"
+	worn_icon_state = "lighter"
 	w_class = WEIGHT_CLASS_TINY
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT

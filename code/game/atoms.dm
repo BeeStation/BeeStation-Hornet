@@ -143,10 +143,12 @@
 	///LazyList of all balloon alerts currently on this atom
 	var/list/balloon_alerts
 
-	/// How much luminosity should we have by default?
-	var/base_luminosity = 0
+	/// What is our default level of luminosity, if you want inherent luminosity
+	/// withing an atom's type, set luminosity instead and we will manage it for you.
+	/// Always use set_base_luminosity instead of directly modifying this
+	VAR_PRIVATE/base_luminosity = 0
 	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
-	var/_emissive_count = 0
+	VAR_PRIVATE/_emissive_count = 0
 
 /**
   * Called when an atom is created in byond (built in engine proc)
@@ -1099,10 +1101,6 @@
 	setDir(newdir)
 	return TRUE
 
-///Handle melee attack by a mech
-/atom/proc/mech_melee_attack(obj/mecha/M)
-	return
-
 /**
   * Called when the atom log's in or out
   *
@@ -1240,6 +1238,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EXPLOSION, "Explosion")
 	VV_DROPDOWN_OPTION(VV_HK_RADIATE, "Radiate")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
+	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
 	if(greyscale_colors)
 		VV_DROPDOWN_OPTION(VV_HK_MODIFY_GREYSCALE, "Modify greyscale colors")
@@ -1331,6 +1330,10 @@
 	if(href_list[VV_HK_EDIT_FILTERS] && check_rights(R_VAREDIT))
 		var/client/C = usr.client
 		C?.open_filter_editor(src)
+
+	if(href_list[VV_HK_EDIT_COLOR_MATRIX] && check_rights(R_VAREDIT))
+		var/client/C = usr.client
+		C?.open_color_matrix_editor(src)
 
 /atom/vv_get_header()
 	. = ..()
@@ -1533,6 +1536,8 @@
 			log_comment(log_text)
 		if(LOG_TELECOMMS)
 			log_telecomms(log_text)
+		if(LOG_ECON)
+			log_econ(log_text)
 		if(LOG_OOC)
 			log_ooc(log_text)
 		if(LOG_ADMIN)
@@ -1604,6 +1609,7 @@
 		user = A_ref.resolve()
 	var/ssource = key_name(user)
 	var/starget = key_name(target)
+	var/datum/tool_atom = object
 
 	var/mob/living/living_target = target
 	var/hp = istype(living_target) ? " (NEWHP: [living_target.health]) " : ""
@@ -1613,8 +1619,8 @@
 		stam = "(STAM: [C.getStaminaLoss()]) "
 
 	var/sobject = ""
-	if(object && !isitem(object))
-		sobject = " with [object]"
+	if(object)
+		sobject = " with [object][(istype(tool_atom) ? " ([tool_atom.type])" : "")]"
 	var/saddition = ""
 	if(addition)
 		saddition = " [addition]"
@@ -1626,7 +1632,6 @@
 
 	if (important && isliving(user) && isliving(target))
 		var/mob/living/living_user = user
-		var/datum/tool_atom = object
 		SScombat_logging.log_combat(living_user, living_target, istype(tool_atom) ? tool_atom.type : object)
 
 	if(user != target)
@@ -1766,6 +1771,14 @@
 	return
 
 /**
+  * Used to attempt to charge an object with a payment component.
+  *
+  * Use this if an atom needs to attempt to charge another atom.
+  */
+/atom/proc/attempt_charge(var/atom/sender, var/atom/target, var/extra_fees = 0)
+	return SEND_SIGNAL(sender, COMSIG_OBJ_ATTEMPT_CHARGE, target, extra_fees)
+
+/**
 * Instantiates the AI controller of this atom. Override this if you want to assign variables first.
 *
 * This will work fine without manually passing arguments.
@@ -1897,7 +1910,16 @@
 	if (isnull(base_luminosity))
 		base_luminosity = initial(luminosity)
 
-	if (_emissive_count)
-		luminosity = max(max(base_luminosity, affecting_dynamic_lumi), 1)
+	if (UNLINT(_emissive_count))
+		UNLINT(luminosity = max(max(base_luminosity, affecting_dynamic_lumi), 1))
 	else
-		luminosity = max(base_luminosity, affecting_dynamic_lumi)
+		UNLINT(luminosity = max(base_luminosity, affecting_dynamic_lumi))
+
+#define set_base_luminosity(target, new_value)\
+if (UNLINT(target.base_luminosity != new_value)) {\
+	UNLINT(target.base_luminosity = new_value);\
+	target.update_luminosity();\
+}
+
+/atom/movable/proc/get_orbitable()
+	return src

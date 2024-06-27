@@ -37,7 +37,7 @@
 
 /obj/effect/immovablerod/wizard/Moved()
 	. = ..()
-	if(get_dist(start_turf, get_turf(src)) >= max_distance)
+	if(get_dist(start_turf, get_turf(src)) >= max_distance && !QDELETED(src))
 		qdel(src)
 
 /obj/effect/immovablerod/wizard/Destroy()

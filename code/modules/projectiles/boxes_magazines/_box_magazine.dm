@@ -6,6 +6,7 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	item_state = "syringe_kit"
+	worn_icon_state = "ammobox"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	custom_materials = list(/datum/material/iron = 30000)
@@ -67,14 +68,17 @@
 	if(!can_load(user))
 		return
 	if(istype(A, /obj/item/ammo_box))
+		if (length(user.progressbars))
+			return
 		var/obj/item/ammo_box/AM = A
-		for(var/obj/item/ammo_casing/AC in AM.stored_ammo)
-			//If the box you're loading from is empty, break.
-			if(!AM.stored_ammo)
-				break
+		while (length(AM.stored_ammo))
 			if(!multiload)
 				if(!do_after(user, 4, src, IGNORE_USER_LOC_CHANGE))
 					break
+			//If the box you're loading from is empty, break.
+			if (!length(AM.stored_ammo))
+				break
+			var/obj/item/ammo_casing/AC = AM.stored_ammo[1]
 			var/did_load = give_round(AC)
 			if(did_load)
 				AM.stored_ammo -= AC

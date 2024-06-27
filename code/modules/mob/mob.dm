@@ -177,7 +177,7 @@
 				if(type & MSG_VISUAL && is_blind())
 					return
 	// voice muffling
-	if(stat == UNCONSCIOUS)
+	if(stat == UNCONSCIOUS || stat == HARD_CRIT)
 		if(type & MSG_AUDIBLE) //audio
 			to_chat(src, "<I>... You can almost hear something ...</I>")
 		return
@@ -305,10 +305,6 @@
 /mob/proc/get_item_by_slot(slot_id)
 	return null
 
-///Is the mob restrained
-/mob/proc/restrained(ignore_grab)
-	return
-
 ///Is the mob incapacitated
 /mob/proc/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, check_immobilized = FALSE)
 	return
@@ -320,6 +316,10 @@
   * on the item in the slot if the users active hand is empty
   */
 /mob/proc/attack_ui(slot)
+	if(world.time <= usr.next_move)
+		return FALSE
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return FALSE
 	var/obj/item/W = get_active_held_item()
 	if(istype(W))
 		//IF HELD TRY APPLY TO SLOT
@@ -807,13 +807,13 @@
 /mob/proc/canface()
 	if(world.time < client.last_turn)
 		return FALSE
-	if(stat == DEAD || stat == UNCONSCIOUS)
+	if(stat >= UNCONSCIOUS)
 		return FALSE
 	if(anchored)
 		return FALSE
 	if(notransform)
 		return FALSE
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
 		return FALSE
 	return TRUE
 
@@ -900,8 +900,6 @@
 			return pick(protection_sources)
 		else
 			return src
-	if((magic && HAS_TRAIT(src, TRAIT_ANTIMAGIC)) || (holy && HAS_TRAIT(src, TRAIT_HOLY)))
-		return src
 
 ///Return any anti artifact atom on this mob
 /mob/proc/anti_artifact_check(self = FALSE)
@@ -962,6 +960,9 @@
 ///Can the mob interact() with an atom?
 /mob/proc/can_interact_with(atom/A, treat_mob_as_adjacent)
 	if(IsAdminGhost(src))
+		return TRUE
+	var/datum/dna/mob_dna = has_dna()
+	if(mob_dna?.check_mutation(TK) && tkMaxRangeCheck(src, A))
 		return TRUE
 	if(treat_mob_as_adjacent && src == A.loc)
 		return TRUE
@@ -1103,7 +1104,7 @@
 		return
 	client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 	if (ismecha(loc))
-		var/obj/mecha/M = loc
+		var/obj/vehicle/sealed/mecha/M = loc
 		if(M.mouse_pointer)
 			client.mouse_pointer_icon = M.mouse_pointer
 	else if (istype(loc, /obj/vehicle/sealed))
@@ -1228,19 +1229,6 @@
 	. = ..()
 	update_movespeed(FALSE)
 
-/// Updates the grab state of the mob and updates movespeed
-/mob/setGrabState(newstate)
-	. = ..()
-	switch(grab_state)
-		if(GRAB_PASSIVE)
-			remove_movespeed_modifier(MOVESPEED_ID_MOB_GRAB_STATE)
-		if(GRAB_AGGRESSIVE)
-			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/aggressive)
-		if(GRAB_NECK)
-			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/neck)
-		if(GRAB_KILL)
-			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/kill)
-
 /mob/proc/update_equipment_speed_mods()
 	var/speedies = equipped_speed_mods()
 	if(!speedies)
@@ -1265,6 +1253,7 @@
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat)
 	. = stat
 	stat = new_stat
+	update_action_buttons_icon(TRUE)
 
 /mob/proc/set_active_storage(new_active_storage)
 	if(active_storage)

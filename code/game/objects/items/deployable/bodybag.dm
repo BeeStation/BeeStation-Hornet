@@ -33,10 +33,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NO_MAT_REDEMPTION
 
-/obj/item/bodybag/bluespace/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_ATOM_CANREACH, PROC_REF(CanReachReact))
-
 /obj/item/bodybag/bluespace/examine(mob/user)
 	. = ..()
 	if(length(contents))
@@ -49,7 +45,3 @@
 		if(isliving(A))
 			to_chat(A, "<span class='notice'>You suddenly feel the space around you tear apart! You're free!</span>")
 	return ..()
-
-/obj/item/bodybag/bluespace/proc/CanReachReact(atom/movable/source, list/next)
-	SIGNAL_HANDLER
-	return COMPONENT_BLOCK_REACH

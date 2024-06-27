@@ -820,9 +820,11 @@
 	name = "dark corner"
 	color = "#0e0f0f"
 
-/obj/effect/turf_decal/dark/white/corner_ramp
+/* BriggIDP's sin
+/obj/effect/turf_decal/tile/dark/corner_ramp
 	icon_state = "dark_corner_ramp"
-	name = "white corner ramp"
+	name = "dark corner ramp"
+*/
 
 /obj/effect/turf_decal/tile/dark/opposingcorners
 	icon_state = "tile_opposing_corners"
@@ -871,6 +873,10 @@
 /obj/effect/turf_decal/tile/dark/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted dark anticorner ramp"
+
+/obj/effect/turf_decal/tile/dark
+	name = "dark corner"
+	color = "#0e0f0f"
 
 /// Random tiles
 
