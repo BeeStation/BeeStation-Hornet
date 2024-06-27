@@ -140,10 +140,6 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
-/obj/structure/punching_bag{
-	pixel_x = 13;
-	pixel_y = 10
-	},
 /obj/item/caution{
 	pixel_x = -10;
 	pixel_y = 18
@@ -154,6 +150,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/structure/punching_bag,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "fD" = (
@@ -361,7 +358,8 @@
 /mob/living/simple_animal/cow{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	desc = "Stolen from a cow genetics lab, she can survive in a vacuum safely, her milk is also delicious!";
-	name = "Ol Betsy"
+	name = "Ol Betsy";
+	faction = list("pirate")
 	},
 /obj/machinery/door/window{
 	dir = 1;
@@ -463,13 +461,10 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/chair/fancy/bench{
-	dir = 4;
-	pixel_x = -7
-	},
 /obj/effect/decal/fakelattice{
 	icon_state = "lattice-223"
 	},
+/obj/structure/chair/fancy/bench,
 /turf/open/floor/plating/rust,
 /area/shuttle/pirate)
 "pt" = (
@@ -976,11 +971,6 @@
 	pixel_y = -4;
 	pixel_x = 10
 	},
-/obj/structure/closet/crate/bin{
-	pixel_x = -6;
-	pixel_y = 16;
-	density = 0
-	},
 /obj/structure/sign/departments/cargo{
 	pixel_y = 32;
 	layer = 2.8
@@ -988,6 +978,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
+/obj/structure/closet/crate/bin,
 /turf/open/floor/plating{
 	icon_state = "foam_plating"
 	},
@@ -1096,10 +1087,6 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "Fq" = (
-/obj/item/storage/pill_bottle/happiness{
-	pixel_y = 18;
-	pixel_x = -9
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
@@ -1498,6 +1485,7 @@
 	},
 /obj/item/storage/backpack,
 /obj/item/storage/backpack,
+/obj/item/storage/pill_bottle/happiness,
 /turf/open/floor/wood,
 /area/shuttle/pirate)
 "Pc" = (
@@ -1565,16 +1553,13 @@
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "QG" = (
-/obj/structure/bed/maint{
-	pixel_x = 4;
-	pixel_y = 13
-	},
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
 /obj/structure/sign/departments/engineering{
 	pixel_x = -32
 	},
+/obj/structure/bed/maint,
 /turf/open/floor/plating{
 	icon_state = "foam_plating"
 	},
