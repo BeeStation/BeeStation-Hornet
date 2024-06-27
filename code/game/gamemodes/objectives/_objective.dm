@@ -126,10 +126,10 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/proc/get_crewmember_minds()
 	. = list()
-	for(var/datum/data/record/R as() in GLOB.data_core.locked)
-		var/datum/mind/M = R.fields["mindref"]
-		if(M)
-			. += M
+	for(var/datum/record/locked/target in GLOB.manifest.locked)
+		var/datum/mind/mind = target.mind_ref
+		if(mind)
+			. += mind
 
 //dupe_search_range is a list of antag datums / minds / teams
 /datum/objective/proc/find_target(list/dupe_search_range, list/blacklist)

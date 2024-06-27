@@ -490,19 +490,17 @@
 	//Check for arrest warrant
 	if(judgment_criteria & JUDGE_RECORDCHECK)
 		var/perpname = get_face_name(get_id_name())
-		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-		if(R && R.fields["criminal"])
-			switch(R.fields["criminal"])
-				if("Arrest")
+		var/datum/record/crew/target = find_record(perpname)
+		if(!target || (target.wanted_status == WANTED_ARREST))
+			switch(target.wanted_status)
+				if(WANTED_ARREST)
 					threatcount += 5
-				if("Incarcerated")
+				if(WANTED_PRISONER)
 					threatcount += 2
-				if("Paroled")
+				if(WANTED_PAROLE)
 					threatcount += 2
-				if("Monitor")
+				if(WANTED_SUSPECT)
 					threatcount += 1
-				if("Search")
-					threatcount += 2
 
 	//Check for dresscode violations
 	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
