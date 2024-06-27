@@ -15722,9 +15722,8 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bSj" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
+/obj/structure/lattice,
 /turf/open/space,
 /area/space/nearstation)
 "bSk" = (
@@ -22822,13 +22821,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"ddl" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 4
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
 "ddv" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
@@ -40575,7 +40567,7 @@
 	dir = 5
 	},
 /obj/structure/lattice,
-/turf/open/space,
+/turf/open/space/basic,
 /area/space/nearstation)
 "jJU" = (
 /obj/structure/cable/yellow{
@@ -45231,6 +45223,13 @@
 	},
 /turf/open/floor/iron,
 /area/engine/break_room)
+"lxD" = (
+/obj/machinery/atmospherics/pipe/simple/orange/visible{
+	dir = 4
+	},
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/space/nearstation)
 "lxJ" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -50022,8 +50021,8 @@
 /turf/open/floor/iron/stairs,
 /area/science/mixing)
 "nos" = (
-/obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
+/obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
 "noL" = (
@@ -54359,13 +54358,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/genetics)
-"oPe" = (
-/obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 4
-	},
-/obj/structure/lattice,
-/turf/open/space,
-/area/space/nearstation)
 "oPg" = (
 /obj/structure/sink{
 	dir = 8;
@@ -55108,6 +55100,13 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
+"pin" = (
+/obj/machinery/atmospherics/pipe/simple/orange/visible{
+	dir = 10
+	},
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/space/nearstation)
 "pix" = (
 /obj/machinery/gateway{
 	dir = 5
@@ -60856,7 +60855,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod Four";
-	space_dir = 4
+	
 	},
 /turf/open/floor/iron,
 /area/engine/break_room)
@@ -70180,11 +70179,6 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"uZM" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/open/space,
-/area/space/nearstation)
 "vaz" = (
 /obj/machinery/vending/tool,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -123409,11 +123403,11 @@ aYx
 dgf
 dgj
 ack
-dgJ
+lxD
 wOY
 adF
 wOY
-nWv
+aaa
 aaf
 xpl
 aaf
@@ -123666,7 +123660,7 @@ azd
 azd
 azd
 dgB
-ddl
+lxD
 aaa
 aaa
 aaa
@@ -123923,7 +123917,7 @@ dgk
 dgt
 dgk
 dgv
-ddl
+lxD
 aaa
 aaa
 aaa
@@ -124180,7 +124174,7 @@ dgk
 dgt
 dgk
 dgB
-ddl
+lxD
 aaa
 aaa
 aaa
@@ -124437,11 +124431,11 @@ azd
 azd
 azd
 dgv
-oPe
+lxD
 aaa
 aaa
 aaa
-uZM
+aaf
 aaf
 xpl
 aaf
@@ -124694,10 +124688,10 @@ dgk
 dgt
 dgk
 dgB
-dgJ
+lxD
 anT
-aaf
-aaf
+lMJ
+lMJ
 aaf
 aaa
 xXx
@@ -124951,9 +124945,9 @@ dgk
 dgk
 dgk
 dgv
-dgJ
+lxD
 aaf
-aaf
+lMJ
 aaf
 aaf
 aaa
@@ -125208,7 +125202,7 @@ dgm
 dgu
 dgm
 dgB
-dgr
+pin
 dgN
 nos
 nos
@@ -125465,10 +125459,10 @@ aye
 dgv
 aye
 dgv
-gXq
+lMJ
 anT
-gXq
-gXq
+lMJ
+lMJ
 aaf
 aaa
 xXx
@@ -125722,7 +125716,7 @@ aaa
 aaa
 aaf
 aaa
-aaf
+lMJ
 anT
 aaa
 aaa
@@ -125983,7 +125977,7 @@ aaa
 anT
 aaa
 aaa
-aaf
+lMJ
 aaa
 xXx
 aaa
@@ -126240,7 +126234,7 @@ aaf
 anT
 aaf
 aaf
-aaf
+lMJ
 aaa
 xXx
 aaa
@@ -126754,7 +126748,7 @@ aaa
 aaa
 aaa
 aaa
-aaf
+lMJ
 aaa
 xXx
 aaa
@@ -127011,7 +127005,7 @@ aaa
 aaa
 aaa
 aaa
-aaf
+lMJ
 aaf
 xpl
 aaf
