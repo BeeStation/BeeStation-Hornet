@@ -119,6 +119,26 @@
 	var/datum/dna/dna_ref
 	/// Mind datum
 	var/datum/mind/mind_ref
+	// DNA Features
+	var/datum/dna/features
+	// Last death
+	var/datum/last_death
+	// Species
+	var/datum/species/mrace
+	// SE
+	var/datum/SE
+	// Factions
+	var/datum/factions
+	// Bank account
+	var/datum/bank_account
+	// Traumas
+	var/datum/traumas
+	// body_only
+	var/datum/body_only
+	//Unique identity
+	var/datum/dna/uni_identity
+	//Unique Enzyme
+	var/datum/dna/unique_enzymes
 
 /datum/record/locked/New(
 	age = 18,
@@ -135,10 +155,29 @@
 	/// Locked specific
 	datum/dna/dna_ref,
 	datum/mind/mind_ref,
+	datum/dna/features,
+	datum/last_death,
+	datum/species/mrace,
+	datum/SE,
+	datum/factions,
+	datum/bank_account,
+	datum/traumas,
+	datum/body_only,
+	datum/dna/uni_identity,
+	datum/dna/unique_enzymes,
 )
 	. = ..()
 	src.dna_ref = dna_ref
 	src.mind_ref = mind_ref
+	src.features = features
+	src.last_death = last_death
+	src.mrace = mrace
+	src.SE = SE
+	src.factions = factions
+	src.bank_account = bank_account
+	src.traumas = traumas
+	src.uni_identity = uni_identity
+	src.unique_enzymes = unique_enzymes
 
 	GLOB.manifest.locked += src
 

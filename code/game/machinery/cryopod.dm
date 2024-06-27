@@ -271,12 +271,6 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	// Delete them from datacore.
 
 	var/announce_rank = null
-	for(var/datum/record/crew/R as() in GLOB.manifest.medical)
-		if((R.name == mob_occupant.real_name))
-			qdel(R)
-	for(var/datum/record/crew/T as() in GLOB.manifest.security)
-		if((T.name == mob_occupant.real_name))
-			qdel(T)
 	for(var/datum/record/crew/G as() in GLOB.manifest.general)
 		if((G.name == mob_occupant.real_name))
 			announce_rank = G.rank

@@ -286,7 +286,6 @@
 	var/perp_name = get_face_name(get_id_name(""))
 	if(!perp_name || !GLOB.manifest)
 		holder.icon_state = null
-		set_hud_image_inactive(WANTED_HUD)
 		return
 
 	var/datum/record/crew/target = find_record(perp_name)

@@ -241,17 +241,17 @@
 	if(user.client?.screen_maps[assigned_view])
 		return
 
-	var/atom/movable/screen/map_view/char_preview/new_view = new(null, src)
-	new_view.generate_view(assigned_view)
-	new_view.display_to(user)
+	var/atom/movable/screen/map_view/character_preview_view/new_view = new(null, src)
+	new_view.create_body(assigned_view)
+	new_view.register_to_client(user)
 
 /// Takes a record and updates the character preview view to match it.
 /obj/machinery/computer/proc/update_preview(mob/user, assigned_view, datum/record/crew/target)
 	var/mutable_appearance/preview = new(target.character_appearance)
 	preview.underlays += mutable_appearance('icons/effects/effects.dmi', "static_base", alpha = 20)
-	preview.add_overlay(mutable_appearance(generate_icon_alpha_mask('icons/effects/effects.dmi', "scanline"), alpha = 20))
+	preview.add_overlay(mutable_appearance(getIconMask('icons/effects/effects.dmi', "scanline"), alpha = 20))
 
-	var/atom/movable/screen/map_view/char_preview/old_view = user.client?.screen_maps[assigned_view]?[1]
+	var/atom/movable/screen/map_view/character_preview_view/old_view = user.client?.screen_maps[assigned_view]?[1]
 	if(!old_view)
 		return
 

@@ -26,7 +26,7 @@ GLOBAL_DATUM_INIT(manifest, /datum/manifest, new)
 	var/list/manifest_out = list()
 	for(var/datum/job_department/department as anything in SSjob.joinable_departments)
 		manifest_out[department.department_name] = list()
-	manifest_out[DEPARTMENT_UNASSIGNED] = list()
+	manifest_out[JOB_HUD_UNKNOWN] = list()
 
 	var/list/departments_by_type = SSjob.joinable_departments_by_type
 	for(var/datum/record/crew/target as anything in GLOB.manifest.general)
@@ -35,7 +35,7 @@ GLOBAL_DATUM_INIT(manifest, /datum/manifest, new)
 		var/trim = target.trim // internal jobs by trim type
 		var/datum/job/job = SSjob.GetJob(trim)
 		if(!job || !(job.job_flags & JOB_CREW_MANIFEST) || !LAZYLEN(job.departments_list)) // In case an unlawful custom rank is added.
-			var/list/misc_list = manifest_out[DEPARTMENT_UNASSIGNED]
+			var/list/misc_list = manifest_out[JOB_HUD_UNKNOWN]
 			misc_list[++misc_list.len] = list(
 				"name" = name,
 				"rank" = rank,
@@ -139,11 +139,11 @@ GLOBAL_DATUM_INIT(manifest, /datum/manifest, new)
 		trim = assignment,
 		// Crew specific
 		lock_ref = REF(lockfile),
-		major_disabilities = person.get_quirk_string(FALSE, CAT_QUIRK_MAJOR_DISABILITY),
-		major_disabilities_desc = person.get_quirk_string(TRUE, CAT_QUIRK_MAJOR_DISABILITY),
-		minor_disabilities = person.get_quirk_string(FALSE, CAT_QUIRK_MINOR_DISABILITY),
-		minor_disabilities_desc = person.get_quirk_string(TRUE, CAT_QUIRK_MINOR_DISABILITY),
-		quirk_notes = person.get_quirk_string(TRUE, CAT_QUIRK_NOTES),
+		//major_disabilities = person.major_disabilities,
+		//major_disabilities_desc = person.major_disabilities_desc,
+		//minor_disabilities = person.minor_disabilities,
+		//minor_disabilities_desc = person.minor_disabilities_desc,
+		quirk_notes = person.mind.quirks,
 	)
 
 	return

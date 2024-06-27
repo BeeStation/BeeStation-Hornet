@@ -123,7 +123,7 @@
 		)
 		warrant.alert_owner(user, src, target.name, "[pick(titles)] has paid [amount]cr towards your fine.")
 
-	var/datum/bank_account/sec_account = SSeconomy.get_dep_account(ACCOUNT_SEC)
+	var/datum/bank_account/sec_account = SSeconomy.get_budget_account(ACCOUNT_SEC_ID)
 	sec_account.adjust_money(amount)
 
 	if(warrant.fine != 0 || target.name == user)
