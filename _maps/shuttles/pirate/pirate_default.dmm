@@ -126,10 +126,6 @@
 	name = "tactical swivel chair";
 	dir = 1
 	},
-/obj/item/extinguisher{
-	pixel_y = 19;
-	pixel_x = 11
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "6-8"
@@ -763,16 +759,13 @@
 /obj/effect/decal/cleanable/blood/gibs/body{
 	pixel_y = -13
 	},
-/obj/item/trash/can{
-	pixel_y = 14;
-	icon_state = "dr_gibb"
-	},
 /obj/machinery/airalarm/all_access{
 	pixel_y = 24
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/item/trash/can,
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/pirate)
 "uG" = (
@@ -868,7 +861,7 @@
 	},
 /obj/item/stack/rods/five{
 	pixel_x = 6;
-	pixel_y = -16
+	pixel_y = -2
 	},
 /obj/item/reagent_containers/food/drinks/coffee{
 	pixel_x = 10;
@@ -1463,6 +1456,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/item/extinguisher,
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
 "OB" = (
