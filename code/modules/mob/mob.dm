@@ -903,8 +903,6 @@
 			return pick(protection_sources)
 		else
 			return src
-	if((magic && HAS_TRAIT(src, TRAIT_ANTIMAGIC)) || (holy && HAS_TRAIT(src, TRAIT_HOLY)))
-		return src
 
 ///Return any anti artifact atom on this mob
 /mob/proc/anti_artifact_check(self = FALSE, slot)
