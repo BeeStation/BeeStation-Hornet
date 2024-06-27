@@ -105,7 +105,7 @@
 
 /obj/item/assembly/flash/Initialize(mapload)
 	. = ..()
-	bulb = new bulb
+	bulb = new bulb(src)
 
 /obj/item/assembly/flash/examine(mob/user)
 	. = ..()
