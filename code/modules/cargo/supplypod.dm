@@ -89,6 +89,9 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	max_integrity = 20
 
+
+//DROPPOD SNOWFLAKE
+
 /obj/structure/closet/supplypod/droppod
 	name = "'HELLE' Infiltration Drop Pod" //TODO: Add some cool name with a serial number in front I guess
 	desc = "A HELLE-class Drop Pod intended for operative insertion behind enemy lines. <b>Nuclear Operative ADDENDUM: After deployment, the Pod cannot be retrieved. Be certain of your designated target before launch.</b>"
@@ -97,6 +100,87 @@
 	bluespace = FALSE // We want the pod to persist after landing. Unusable, but proof a nukie dropped.
 	delays = list(POD_TRANSIT = 20, POD_FALLING = 4, POD_OPENING = 30, POD_LEAVING = 30)
 	reversing = FALSE //Under no circumstances should it reverse
+	//Flying snowflake procs copied from assault pods
+	var/shuttle_id = "pod"
+	var/dwidth = 1
+	var/dheight = 0
+	var/width = 1
+	var/height = 1
+	var/lz_dir = 1
+
+	///Snowflake proc if we are occupied
+	var/playerinside = FALSE
+	///Snowflake proc if our pod landed yet
+	var/poddrop_landed = FALSE
+
+/obj/structure/closet/supplypod/droppod/interact(mob/user)
+
+	user.visible_message("<span class='notice'>Erm, what the sigma. Interact proc has fired.</span>")
+
+	//We finished flying
+	if(poddrop_landed)
+		//open if not open, otherwise nothing
+		if(!opened)
+			return open(user)
+		return
+
+	/*
+	//if we got a pilot inside and we havent flown yet
+	if(playerinside && !poddrop_landed)
+
+		var/target_area = tgui_input_list(user, "Area to land", "Landing Zone", GLOB.teleportlocs)
+		if(isnull(target_area))
+			return
+		if(isnull(GLOB.teleportlocs[target_area]))
+			return
+		var/area/picked_area = GLOB.teleportlocs[target_area]
+		if(!src || QDELETED(src))
+			return
+
+		var/turf/T = safepick(get_area_turfs(picked_area))
+		if(!T)
+			return
+		var/obj/docking_port/stationary/landing_zone = new /obj/docking_port/stationary(T)
+		landing_zone.id = "drop_pod([REF(src)])"
+		landing_zone.name = "Landing Zone"
+		landing_zone.dwidth = dwidth
+		landing_zone.dheight = dheight
+		landing_zone.width = width
+		landing_zone.height = height
+		landing_zone.setDir(lz_dir)
+
+		for(var/obj/machinery/computer/shuttle_flight/S in GLOB.machines)
+			if(S.shuttleId == shuttle_id)
+				S.recall_docking_port_id = "[landing_zone.id]"
+				S.valid_docks = list("[landing_zone.id]")
+
+		to_chat(user, "Landing zone set.")
+
+		qdel(src)
+	*/
+
+
+//Override our parent /obj/structure/closet/supplypod, and copying the behavior of our grandfather /obj/structure/closet, allowing us to be manually opened/closed
+/obj/structure/closet/supplypod/droppod/toggle(mob/living/user)
+	if(opened)
+		return close(user)
+	else
+		return open(user)
+
+//Override our parent
+/obj/structure/closet/supplypod/droppod/open(mob/living/user, force = TRUE)
+	return
+
+//Override our parent
+/obj/structure/closet/supplypod/droppod/close(atom/movable/holder)
+	if (!holder)
+		return
+	take_contents(holder)
+	playsound(holder, close_sound, soundVolume*0.75, TRUE, -3)
+	holder.setClosed()
+
+//SNOWFLAKE END
+
 
 /obj/structure/closet/supplypod/Initialize(mapload, customStyle = FALSE)
 	. = ..()
