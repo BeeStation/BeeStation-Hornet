@@ -4,7 +4,7 @@
 #define JOB_UNAVAILABLE_PLAYTIME 3
 #define JOB_UNAVAILABLE_ACCOUNTAGE 4
 #define JOB_UNAVAILABLE_SLOTFULL 5
-#define JOB_UNAVAILABLE_LOCKED 6
+#define JOB_UNAVAILABLE_LOCKED 6 /// Job unavailable due to incompatibility with an antag role.
 
 // reasons why you can't play this job
 #define JOB_LOCK_REASON_ABSTRACT (1<<0)
@@ -53,19 +53,80 @@
 #define JOB_DISPLAY_ORDER_AI 33
 #define JOB_DISPLAY_ORDER_CYBORG 34
 
+#define DEPARTMENT_UNASSIGNED "No department assigned"
+#define DEPARTMENT_BITFLAG_SECURITY (1<<0)
+#define DEPARTMENT_SECURITY "Security"
+#define DEPARTMENT_BITFLAG_COMMAND (1<<1)
+#define DEPARTMENT_COMMAND "Command"
+#define DEPARTMENT_BITFLAG_SERVICE (1<<2)
+#define DEPARTMENT_SERVICE "Service"
+#define DEPARTMENT_BITFLAG_CARGO (1<<3)
+#define DEPARTMENT_CARGO "Cargo"
+#define DEPARTMENT_BITFLAG_ENGINEERING (1<<4)
+#define DEPARTMENT_ENGINEERING "Engineering"
+#define DEPARTMENT_BITFLAG_SCIENCE (1<<5)
+#define DEPARTMENT_SCIENCE "Science"
+#define DEPARTMENT_BITFLAG_MEDICAL (1<<6)
+#define DEPARTMENT_MEDICAL "Medical"
+#define DEPARTMENT_BITFLAG_SILICON (1<<7)
+#define DEPARTMENT_SILICON "Silicon"
+#define DEPARTMENT_BITFLAG_VIP (1<<8)
+#define DEPARTMENT_VIP "VIP"
 
-#define DEPT_BITFLAG_COM (1<<0)
-#define DEPT_BITFLAG_CIV (1<<1)
-#define DEPT_BITFLAG_SRV (1<<2)
-#define DEPT_BITFLAG_CAR (1<<3)
-#define DEPT_BITFLAG_SCI (1<<4)
-#define DEPT_BITFLAG_ENG (1<<5)
-#define DEPT_BITFLAG_MED (1<<6)
-#define DEPT_BITFLAG_SEC (1<<7)
-#define DEPT_BITFLAG_VIP (1<<8)
-#define DEPT_BITFLAG_SILICON  (1<<9)
-#define DEPT_BITFLAG_CAPTAIN (1<<10)
-#define DEPT_BITFLAG_ASSISTANT (1<<11)
+/* Job datum job_flags */
+/// Whether the mob is announced on arrival.
+#define JOB_ANNOUNCE_ARRIVAL (1<<0)
+/// Whether the mob is added to the crew manifest.
+#define JOB_CREW_MANIFEST (1<<1)
+/// Whether the mob is equipped through SSjob.EquipRank() on spawn.
+#define JOB_EQUIP_RANK (1<<2)
+/// Whether the job is considered a regular crew member of the station. Equipment such as AI and cyborgs not included.
+#define JOB_CREW_MEMBER (1<<3)
+/// Whether this job can be joined through the new_player menu.
+#define JOB_NEW_PLAYER_JOINABLE (1<<4)
+/// Whether this job appears in bold in the job menu.
+#define JOB_BOLD_SELECT_TEXT (1<<5)
+/// Reopens this position if we lose the player at roundstart.
+#define JOB_REOPEN_ON_ROUNDSTART_LOSS (1<<6)
+/// If the player with this job can have quirks assigned to him or not. Relevant for new player joinable jobs and roundstart antags.
+#define JOB_ASSIGN_QUIRKS (1<<7)
+/// Whether this job can be an intern.
+#define JOB_CAN_BE_INTERN (1<<8)
+/// This job cannot have more slots opened by the Head of Personnel (but admins or other random events can still do this).
+#define JOB_CANNOT_OPEN_SLOTS (1<<9)
+/// This job will not display on the job menu when there are no slots available, instead of appearing greyed out
+#define JOB_HIDE_WHEN_EMPTY (1<<10)
+/// This job cannot be signed up for at round start or recorded in your preferences
+#define JOB_LATEJOIN_ONLY (1<<11)
+/// This job is a head of staff.
+#define JOB_HEAD_OF_STAFF (1<<12)
+
+DEFINE_BITFIELD(job_flags, list(
+	"JOB_ANNOUNCE_ARRIVAL" = JOB_ANNOUNCE_ARRIVAL,
+	"JOB_CREW_MANIFEST" = JOB_CREW_MANIFEST,
+	"JOB_EQUIP_RANK" = JOB_EQUIP_RANK,
+	"JOB_CREW_MEMBER" = JOB_CREW_MEMBER,
+	"JOB_NEW_PLAYER_JOINABLE" = JOB_NEW_PLAYER_JOINABLE,
+	"JOB_BOLD_SELECT_TEXT" = JOB_BOLD_SELECT_TEXT,
+	"JOB_REOPEN_ON_ROUNDSTART_LOSS" = JOB_REOPEN_ON_ROUNDSTART_LOSS,
+	"JOB_ASSIGN_QUIRKS" = JOB_ASSIGN_QUIRKS,
+	"JOB_CAN_BE_INTERN" = JOB_CAN_BE_INTERN,
+	"JOB_CANNOT_OPEN_SLOTS" = JOB_CANNOT_OPEN_SLOTS,
+	"JOB_HIDE_WHEN_EMPTY" = JOB_HIDE_WHEN_EMPTY,
+	"JOB_LATEJOIN_ONLY" = JOB_LATEJOIN_ONLY,
+	"JOB_HEAD_OF_STAFF" = JOB_HEAD_OF_STAFF,
+))
+
+/// Combination flag for jobs which are considered regular crew members of the station.
+#define STATION_JOB_FLAGS (JOB_ANNOUNCE_ARRIVAL|JOB_CREW_MANIFEST|JOB_EQUIP_RANK|JOB_CREW_MEMBER|JOB_NEW_PLAYER_JOINABLE|JOB_REOPEN_ON_ROUNDSTART_LOSS|JOB_ASSIGN_QUIRKS|JOB_CAN_BE_INTERN)
+/// Combination flag for jobs which are considered heads of staff.
+#define HEAD_OF_STAFF_JOB_FLAGS (JOB_BOLD_SELECT_TEXT|JOB_CANNOT_OPEN_SLOTS|JOB_HEAD_OF_STAFF)
+/// Combination flag for jobs which are enabled by station traits.
+#define STATION_TRAIT_JOB_FLAGS (JOB_CANNOT_OPEN_SLOTS|JOB_HIDE_WHEN_EMPTY|JOB_LATEJOIN_ONLY&~JOB_REOPEN_ON_ROUNDSTART_LOSS)
+
+#define FACTION_NONE "None"
+#define FACTION_STATION "Station"
+
 
 // should check the ones in `\_DEFINES\economy.dm`
 // It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
