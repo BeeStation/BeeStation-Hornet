@@ -151,11 +151,13 @@
 			var/image/override_image = overrides[A]
 			atom_name = override_image.name
 			image_overrides[A] = override_image
-		var/list/item_group = atom_count["[atom_type][atom_name]"]
+		// use the max item sanity as an extention if the unique flag is set, since its unique
+		var/extension = (A.flags_1 & STAT_UNIQUE_1) && max_item_sanity
+		var/list/item_group = atom_count["[atom_type][atom_name][extension]"]
 		if (item_group)
 			item_group += A
 		else
-			atom_count["[A.type][A.name]"] = list(A)
+			atom_count["[A.type][A.name][extension]"] = list(A)
 			// To many icon types per tile
 			if (icon_count_sanity-- <= 0)
 				break
