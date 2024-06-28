@@ -30,10 +30,13 @@
 /turf/open/floor/pod,
 /area/shuttle/pirate)
 "ce" = (
-/obj/machinery/vending/boozeomat/all_access{
-	onstation = 0
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
 	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/obj/structure/fluff/fans{
+	pixel_x = 24
+	},
+/turf/open/floor/wood/big,
 /area/shuttle/pirate)
 "ch" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -52,6 +55,9 @@
 /obj/structure/fluff/hedge,
 /obj/effect/turf_decal/weather/dirt{
 	dir = 10
+	},
+/obj/structure/sign/poster/contraband/energy_swords{
+	pixel_x = -32
 	},
 /turf/open/floor/wood/big,
 /area/shuttle/pirate)
@@ -118,6 +124,9 @@
 	},
 /obj/item/clothing/glasses/welding{
 	pixel_y = -1
+	},
+/obj/structure/fluff/fans{
+	pixel_x = 24
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
@@ -228,7 +237,9 @@
 /area/shuttle/pirate)
 "iK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/bed/dogbed,
+/obj/structure/bed/dogbed{
+	name = "snitch's bed"
+	},
 /mob/living/simple_animal/parrot{
 	name = "Snitch"
 	},
@@ -316,6 +327,9 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/pirate)
+"lP" = (
+/turf/open/floor/plating/airless,
+/area/shuttle/pirate)
 "lT" = (
 /obj/effect/mapping_helpers/tile_breaker,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
@@ -353,11 +367,11 @@
 /area/shuttle/pirate)
 "mF" = (
 /obj/structure/table/reinforced,
-/obj/machinery/chem_dispenser/drinks/fullupgrade{
-	dir = 4
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
+	},
+/obj/machinery/chem_dispenser/drinks{
+	dir = 4
 	},
 /turf/open/floor/wood/big,
 /area/shuttle/pirate)
@@ -370,7 +384,7 @@
 	},
 /obj/machinery/door/window{
 	dir = 1;
-	req_access_txt = "1"
+	req_access_txt = "180"
 	},
 /obj/structure/flora/junglebush/c,
 /obj/structure/flora/ausbushes/ywflowers{
@@ -455,6 +469,9 @@
 /area/shuttle/pirate)
 "oQ" = (
 /obj/structure/grille,
+/obj/structure/fluff/fans{
+	pixel_x = -24
+	},
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -472,6 +489,12 @@
 	icon_state = "lattice-223"
 	},
 /obj/structure/chair/fancy/bench,
+/obj/structure/fluff/fans{
+	pixel_x = -24
+	},
+/obj/structure/fluff/fans{
+	pixel_y = -24
+	},
 /turf/open/floor/plating/rust,
 /area/shuttle/pirate)
 "pt" = (
@@ -525,7 +548,7 @@
 /obj/item/seeds/wheat,
 /obj/machinery/door/window/eastright{
 	dir = 1;
-	req_access_txt = "1"
+	req_access_txt = "180"
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
@@ -552,15 +575,12 @@
 	pixel_x = -8;
 	pixel_y = 14
 	},
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 10
-	},
 /obj/item/reagent_containers/food/drinks/mug{
 	pixel_x = -14;
 	pixel_y = 1
 	},
 /obj/item/stack/cable_coil{
-	pixel_x = 12
+	pixel_x = 7
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
@@ -611,15 +631,17 @@
 	name = "Engineering";
 	req_access_txt = "180"
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "sj" = (
 /obj/structure/chair{
 	dir = 8
-	},
-/obj/structure/sign/poster/contraband/energy_swords{
-	pixel_x = 32;
-	pixel_y = -32
 	},
 /turf/open/floor/wood/big,
 /area/shuttle/pirate)
@@ -793,6 +815,12 @@
 	name = "Armoury";
 	req_access_txt = "180"
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/plating/rust,
 /area/shuttle/pirate)
 "vm" = (
@@ -938,13 +966,11 @@
 	pixel_x = -3;
 	pixel_y = 12
 	},
-/obj/item/modular_computer/laptop/preset{
-	pixel_x = 2;
-	pixel_y = 1;
-	layer = 3.1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
+	},
+/obj/item/modular_computer/laptop/preset/civillian{
+	pixel_x = 3
 	},
 /turf/open/floor/wood,
 /area/shuttle/pirate)
@@ -958,6 +984,9 @@
 	},
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/structure/fluff/fans{
+	pixel_x = 24
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
@@ -1043,6 +1072,9 @@
 /obj/item/kirbyplants/random,
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/structure/fluff/fans{
+	pixel_x = -24
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/pirate)
@@ -1167,11 +1199,12 @@
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
 "Gh" = (
-/obj/structure/fluff/fans,
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/obj/structure/shuttle/engine/propulsion/right{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
 /area/shuttle/pirate)
 "Gp" = (
-/obj/effect/spawner/lootdrop/maintenance/three,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
@@ -1194,6 +1227,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "GC" = (
@@ -1217,11 +1251,8 @@
 /turf/open/floor/wood/big,
 /area/shuttle/pirate)
 "Ha" = (
-/obj/structure/girder,
-/obj/effect/turf_decal/siding/dark/corner{
-	dir = 1
-	},
-/turf/open/floor/pod/light,
+/obj/machinery/vending/boozeomat/all_access,
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
 "Hg" = (
 /obj/machinery/porta_turret/syndicate/pod{
@@ -1287,6 +1318,10 @@
 	req_access_txt = "180"
 	},
 /obj/effect/decal/cleanable/greenglow,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plating/rust,
 /area/shuttle/pirate)
 "Jt" = (
@@ -1399,13 +1434,13 @@
 /area/shuttle/pirate)
 "Nz" = (
 /obj/structure/table/reinforced,
-/obj/machinery/chem_dispenser/drinks/beer/fullupgrade{
-	dir = 4
-	},
 /obj/structure/sign/poster/contraband/smoke{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/weather/dirt/corner{
+	dir = 4
+	},
+/obj/machinery/chem_dispenser/drinks/beer{
 	dir = 4
 	},
 /turf/open/floor/wood/big,
@@ -1469,7 +1504,10 @@
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
 "OW" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/structure/closet/secure_closet/personal/cabinet{
+	req_access = null;
+	req_access_txt = "180"
+	},
 /obj/effect/turf_decal/siding/wood,
 /obj/item/storage/backpack/duffelbag{
 	pixel_y = -1;
@@ -1680,6 +1718,10 @@
 	name = "Cargo";
 	req_access_txt = "180"
 	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/pod,
 /area/shuttle/pirate)
 "SJ" = (
@@ -1735,6 +1777,9 @@
 	dir = 1
 	},
 /obj/structure/grille/broken,
+/obj/structure/fluff/fans{
+	pixel_x = -24
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "Tb" = (
@@ -1757,7 +1802,6 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance/three,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
@@ -1767,17 +1811,18 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "TO" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/fakelattice{
+	icon_state = "lattice-21"
+	},
 /obj/machinery/button/door{
 	name = "Cargo Shutters";
 	pixel_x = 22;
 	id = "pirate_cargo_shutters"
-	},
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-21"
 	},
 /turf/open/floor/plating,
 /area/shuttle/pirate)
@@ -1788,7 +1833,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/barricade/wooden/crude,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -1796,6 +1840,12 @@
 	id_tag = "piratebridgebolt";
 	name = "Bridge";
 	req_access_txt = "180"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/pirate)
@@ -1906,6 +1956,10 @@
 	name = "Cargo";
 	req_access_txt = "180"
 	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "VZ" = (
@@ -1934,13 +1988,13 @@
 	},
 /area/shuttle/pirate)
 "Wb" = (
-/obj/effect/spawner/lootdrop/maintenance/three,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "Wm" = (
@@ -1955,10 +2009,12 @@
 	},
 /obj/item/toy/cards/deck,
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/fluff/fans{
+	pixel_y = 24
+	},
 /turf/open/floor/wood,
 /area/shuttle/pirate)
 "Wx" = (
-/obj/structure/closet/crate,
 /obj/effect/turf_decal/bot,
 /obj/item/reagent_containers/food/drinks/bottle/moonshine{
 	pixel_x = 7;
@@ -1997,6 +2053,7 @@
 	pixel_y = -8;
 	pixel_x = 8
 	},
+/obj/structure/closet/secure_closet/freezer,
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
 "WC" = (
@@ -2011,6 +2068,9 @@
 /obj/machinery/light/small,
 /obj/structure/sign/poster/contraband/red_rum{
 	pixel_y = -32
+	},
+/obj/structure/fluff/fans{
+	pixel_x = 24
 	},
 /turf/open/floor/pod,
 /area/shuttle/pirate)
@@ -2077,8 +2137,9 @@
 /turf/open/floor/monotile/dark,
 /area/shuttle/pirate)
 "Yz" = (
+/obj/structure/girder/reinforced,
 /obj/structure/barricade/wooden,
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/turf/open/floor/plating/broken,
 /area/shuttle/pirate)
 "YF" = (
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -2140,13 +2201,13 @@ yV
 yV
 yV
 yV
-Gw
-IM
-IM
-Gw
-IM
+OB
+Gh
 IM
 Gw
+Gh
+IM
+to
 yV
 yV
 yV
@@ -2164,7 +2225,7 @@ Gw
 KR
 KR
 Gw
-yV
+lP
 yV
 yV
 yV
@@ -2248,7 +2309,7 @@ Gw
 QG
 Gp
 pa
-Gh
+Gw
 Wm
 js
 Gw
@@ -2329,7 +2390,7 @@ Gw
 Gw
 Gw
 Gw
-Gh
+Gw
 uG
 Gw
 Gw
@@ -2417,7 +2478,7 @@ QI
 Gw
 Ha
 Ew
-rw
+ce
 sj
 fS
 yV
@@ -2432,9 +2493,9 @@ Gw
 Gw
 Yz
 Gw
-Gh
+Gw
 Us
-ce
+Gw
 Gw
 Gw
 yV
