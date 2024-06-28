@@ -118,6 +118,7 @@
 	tab_data[REF(src)] = list(
 		text="[name]",
 		tag = STAT_PANEL_TAG(src),
+		image = FAST_REF(src),
 		type=STAT_ATOM
 	)
 	var/max_item_sanity = MAX_ITEMS_TO_READ
@@ -168,20 +169,26 @@
 			for (var/obj/item/stack/stack_item as() in atom_items)
 				item_count += stack_item.amount
 		var/atom_name = first_atom.name
+		var/image_icon
 		if (image_overrides[first_atom])
 			var/image/override_image = image_overrides[first_atom]
 			atom_name = override_image.name
+			image_icon = FAST_REF(override_image)
+		else
+			image_icon = FAST_REF(first_atom)
 		tab_data[REF(first_atom)] = list(
 			text = "[atom_name][item_count > 1 ? " (x[item_count])" : ""]",
 			tag = STAT_PANEL_TAG(first_atom),
+			image = image_icon,
 			type = STAT_ATOM
 		)
 	// Display self
 	tab_data[REF(client.mob)] = list(
-			text = client.mob.name,
-			tag = "You",
-			type = STAT_ATOM
-		)
+		text = client.mob.name,
+		tag = "You",
+		image = FAST_REF(client.mob),
+		type = STAT_ATOM
+	)
 
 /mob/proc/get_all_verbs()
 	var/list/all_verbs = new
