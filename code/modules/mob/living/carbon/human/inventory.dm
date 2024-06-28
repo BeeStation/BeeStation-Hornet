@@ -159,6 +159,11 @@
 	var/index = get_held_index_of_item(I)
 	if(index && !QDELETED(src) && dna.species.mutanthands) //hand freed, fill with claws, skip if we're getting deleted.
 		put_in_hand(new dna.species.mutanthands(), index)
+
+	. = ..(I, force, newloc, no_move, invdrop, was_thrown) //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
+	if(!. || !I)
+		return
+
 	if(!bypass_delay)
 		if(!(I in held_items) && I == head || I == wear_suit || I == shoes || I == gloves || I == wear_mask || I == w_uniform) //only apply to shit in said slots, never to items that aren't actually worn.
 			if (I.strip_delay_self)
@@ -243,9 +248,6 @@
 		s_store = null
 		if(!QDELETED(src))
 			update_inv_s_store()
-	. = ..(I, force, newloc, no_move, invdrop, was_thrown) //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
-	if(!. || !I)
-		return
 
 	// Send a signal for when we unequip an item that used to cover our feet/shoes. Used for bloody feet
 	if((I.body_parts_covered & FEET) || (I.flags_inv | I.transparent_protection) & HIDESHOES)
