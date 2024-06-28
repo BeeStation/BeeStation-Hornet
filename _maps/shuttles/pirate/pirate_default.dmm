@@ -165,13 +165,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
-"fA" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/shuttle/pirate)
 "fD" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32
@@ -190,13 +183,6 @@
 	dir = 9
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/pirate)
-"gt" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/turf/open/floor/wood,
 /area/shuttle/pirate)
 "he" = (
 /obj/effect/decal/cleanable/dirt,
@@ -429,6 +415,13 @@
 	dir = 1
 	},
 /turf/open/floor/grass/no_border,
+/area/shuttle/pirate)
+"mV" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste{
+	dir = 4;
+	piping_layer = 4
+	},
+/turf/open/floor/plating/airless,
 /area/shuttle/pirate)
 "mX" = (
 /obj/machinery/porta_turret/syndicate/pod{
@@ -676,15 +669,6 @@
 "sj" = (
 /obj/structure/chair{
 	dir = 8
-	},
-/turf/open/floor/wood/big,
-/area/shuttle/pirate)
-"sq" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/fluff/fans{
-	pixel_x = 24
 	},
 /turf/open/floor/wood/big,
 /area/shuttle/pirate)
@@ -1027,6 +1011,13 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/pirate)
+"Bn" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
 "BN" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 6
@@ -1105,6 +1096,15 @@
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
+/area/shuttle/pirate)
+"Ds" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/fluff/fans{
+	pixel_x = 24
+	},
+/turf/open/floor/wood/big,
 /area/shuttle/pirate)
 "Du" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -1261,11 +1261,11 @@
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
 "Gh" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste{
-	dir = 4;
-	piping_layer = 4
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/wood,
 /area/shuttle/pirate)
 "Gp" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -1346,7 +1346,7 @@
 	},
 /turf/open/floor/pod,
 /area/shuttle/pirate)
-"HT" = (
+"Ir" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -2265,7 +2265,7 @@
 "Zi" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
+	dir = 4
 	},
 /turf/open/floor/wood,
 /area/shuttle/pirate)
@@ -2303,11 +2303,11 @@ yV
 yV
 yV
 OB
-ce
 IM
+ce
 Gw
-ce
 IM
+ce
 to
 yV
 yV
@@ -2318,7 +2318,7 @@ yV
 yV
 yV
 yV
-Gh
+mV
 Gw
 KR
 KR
@@ -2335,7 +2335,7 @@ yV
 yV
 yV
 OB
-HT
+Ir
 Gw
 Ht
 ch
@@ -2429,7 +2429,7 @@ lT
 JR
 Jc
 UR
-Zi
+Gh
 NG
 Gw
 "}
@@ -2446,7 +2446,7 @@ WX
 Gw
 Gw
 Fq
-fA
+Zi
 NG
 Gw
 "}
@@ -2463,7 +2463,7 @@ FY
 Gw
 AW
 nx
-gt
+Bn
 oM
 Gw
 "}
@@ -2579,7 +2579,7 @@ QI
 Gw
 Ha
 Ew
-sq
+Ds
 sj
 fS
 yV
