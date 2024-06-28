@@ -1,9 +1,9 @@
 /datum/job/roboticist
 	title = JOB_NAME_ROBOTICIST
 	description = "Create bots and utility mechs for helping out around the station. Construct war machines by the request of the Captain or Head of Security. Make new Cyborgs, give augmentations and implants to crew members."
-	department_for_prefs = DEPT_BITFLAG_SCI
+	department_for_prefs = DEPARTMENT_BITFLAG_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "the research director"
@@ -18,7 +18,8 @@
 						ACCESS_MECH_MEDICAL, ACCESS_MECH_ENGINE, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 	extra_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_XENOBIOLOGY)
 
-	departments = DEPT_BITFLAG_SCI
+	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
+	departments = DEPARTMENT_BITFLAG_SCIENCE
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
 

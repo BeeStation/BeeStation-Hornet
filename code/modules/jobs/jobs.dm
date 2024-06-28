@@ -257,8 +257,28 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 GLOBAL_LIST_INIT(exp_specialmap, list(
 	EXP_TYPE_LIVING = list(), // all living mobs
 	EXP_TYPE_ANTAG = list(),
-	EXP_TYPE_SPECIAL = list("Lifebringer","Ash Walker","Exile","Servant Golem","Free Golem","Hermit","Translocated Vet","Escaped Prisoner","Hotel Staff","SuperFriend","Space Syndicate","Ancient Crew","Space Doctor","Beach Bum","Skeleton","Zombie","Lavaland Syndicate",JOB_NAME_PAI,"Ghost Role"), // Ghost roles
-	EXP_TYPE_GHOST = list() // dead people, observers
+	EXP_TYPE_SPECIAL = list(
+		ROLE_LIFEBRINGER,
+		ROLE_ASHWALKER,
+		ROLE_EXILE,
+		ROLE_SERVANT_GOLEM,
+		ROLE_FREE_GOLEM,
+		ROLE_HERMIT,
+		ROLE_ESCAPED_PRISONER,
+		ROLE_HOTEL_STAFF,
+		ROLE_SPACE_SYNDICATE,
+		ROLE_ANCIENT_CREW,
+		ROLE_SPACE_DOCTOR,
+		ROLE_SPACE_BARTENDER,
+		ROLE_BEACH_BUM,
+		ROLE_SKELETON,
+		ROLE_ZOMBIE,
+		ROLE_SPACE_BAR_PATRON,
+		ROLE_LAVALAND_SYNDICATE,
+		ROLE_MAINTENANCE_DRONE,
+		ROLE_GHOST_ROLE,
+		), // Ghost roles	EXP_TYPE_GHOST = list() // dead people, observers
+		EXP_TYPE_GHOST = list() // dead people, observers
 ))
 GLOBAL_PROTECT(exp_jobsmap)
 GLOBAL_PROTECT(exp_specialmap)
@@ -274,7 +294,7 @@ GLOBAL_PROTECT(exp_specialmap)
 	if(!job_title)
 		return list()
 
-	for(var/datum/job/J in SSjob.occupations)
+	for(var/datum/job/J in SSjob.joinable_occupations)
 		if(J.title == job_title)
 			return J.department_head //this is a list
 

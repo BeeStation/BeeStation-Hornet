@@ -89,10 +89,8 @@
 		app.wiz_team = master_wizard.wiz_team
 		master_wizard.wiz_team.add_member(app_mind)
 	app_mind.add_antag_datum(app)
-	//TODO Kill these if possible
-	app_mind.assigned_role = "Apprentice"
-	app_mind.special_role = "apprentice"
-	//
+	app_mind.set_assigned_role(SSjob.GetJobType(/datum/job/wizard_apprentice))
+	app_mind.special_role = ROLE_WIZARD_APPRENTICE
 	SEND_SOUND(M, sound('sound/effects/magic.ogg'))
 
 ///////////BORGS AND OPERATIVES
@@ -120,7 +118,7 @@
 		return
 
 	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
-	var/list/nuke_candidates = poll_ghost_candidates("Do you want to play as a syndicate [borg_to_spawn ? "[lowertext(borg_to_spawn)] cyborg":"operative"]?", ROLE_OPERATIVE, /datum/role_preference/midround_ghost/nuclear_operative, 15 SECONDS)
+	var/list/nuke_candidates = poll_ghost_candidates("Do you want to play as a syndicate [borg_to_spawn ? "[lowertext(borg_to_spawn)] cyborg":"operative"]?", ROLE_NUCLEAR_OPERATIVE, /datum/role_preference/midround_ghost/nuclear_operative, 15 SECONDS)
 	if(LAZYLEN(nuke_candidates))
 		if(QDELETED(src) || !check_usability(user))
 			return
@@ -260,8 +258,8 @@
 	var/mob/living/simple_animal/slaughter/S = new demon_type(holder)
 	S.holder = holder
 	S.key = C.key
-	S.mind.assigned_role = S.name
-	S.mind.special_role = S.name
+	S.mind.set_assigned_role(SSjob.GetJobType(/datum/job/slaughter_demon))
+	S.mind.special_role = ROLE_SLAUGHTER_DEMON
 	S.mind.add_antag_datum(antag_type)
 	to_chat(S, S.playstyle_string)
 	to_chat(S, "<B>You are currently not currently in the same plane of existence as the station. \

@@ -483,7 +483,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	name = "Doctor Hilbert"
 	mob_name = "Doctor Hilbert"
 	mob_gender = "male"
-	assignedrole = null
+	spawner_job_path = /datum/job/ghost_role
 	ghost_usable = FALSE
 	oxy_damage = 500
 	mob_species = /datum/species/skeleton

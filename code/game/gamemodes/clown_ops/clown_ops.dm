@@ -23,8 +23,8 @@
 				new /obj/machinery/nuclearbomb/syndicate/bananium(T)
 		for(var/V in pre_nukeops)
 			var/datum/mind/the_op = V
-			the_op.assigned_role = "Clown Operative"
-			the_op.special_role = "Clown Operative"
+			the_op.set_assigned_role(SSjob.GetJobType(/datum/job/clown_operative))
+			the_op.special_role = ROLE_CLOWN_OPERATIVE
 
 /datum/outfit/syndicate/clownop
 	name = "Clown Operative - Basic"

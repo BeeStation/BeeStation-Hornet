@@ -1,10 +1,10 @@
 /datum/job/atmospheric_technician
 	title = JOB_NAME_ATMOSPHERICTECHNICIAN
 	description = "Maintain the air distribution loop to ensure adequate atmospheric conditions in the station, re-pressurize areas after hull breaches, and be a firefighter if necessary."
-	department_for_prefs = DEPT_BITFLAG_ENG
+	department_for_prefs = DEPARTMENT_BITFLAG_ENGINEERING
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 3
 	spawn_positions = 2
 	selection_color = "#fff5cc"
@@ -16,7 +16,9 @@
 	base_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_CONSTRUCTION, ACCESS_MECH_ENGINE, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 	extra_access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_EXTERNAL_AIRLOCKS)
 
-	departments = DEPT_BITFLAG_ENG
+	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
+
+	departments = DEPARTMENT_BITFLAG_ENGINEERING
 	bank_account_department = ACCOUNT_ENG_BITFLAG
 	payment_per_department = list(ACCOUNT_ENG_ID = PAYCHECK_MEDIUM)
 

@@ -1,10 +1,10 @@
 /datum/job/exploration_crew
 	title = JOB_NAME_EXPLORATIONCREW
 	description = "Go out into space to complete different missions for loads of cash. Find and deliver back research disks for rare technologies."
-	department_for_prefs = DEPT_BITFLAG_SCI
+	department_for_prefs = DEPARTMENT_BITFLAG_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 3
 	spawn_positions = 3
 	minimal_player_age = 3
@@ -17,7 +17,8 @@
 	base_access = list(ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE)
 	extra_access = list(ACCESS_MAINT_TUNNELS, ACCESS_TOX_STORAGE, ACCESS_XENOBIOLOGY)
 
-	departments = DEPT_BITFLAG_SCI
+	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
+	departments = DEPARTMENT_BITFLAG_SCIENCE
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_HARD)
 

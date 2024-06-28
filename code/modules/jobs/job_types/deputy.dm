@@ -2,10 +2,10 @@
 	title = JOB_NAME_DEPUTY
 	description = "Follow orders and do your best to maintain order on the station while following Space Law."
 	lock_flags = JOB_LOCK_REASON_ABSTRACT
-	department_for_prefs = DEPT_BITFLAG_SEC
+	department_for_prefs = DEPARTMENT_BITFLAG_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 0
 	spawn_positions = 0
 	selection_color = "#ffeeee"
@@ -18,7 +18,8 @@
 	base_access = list(ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_SEC
+	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
+	departments = DEPARTMENT_BITFLAG_SECURITY
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_EASY)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)

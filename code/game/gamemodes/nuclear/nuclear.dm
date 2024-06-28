@@ -33,8 +33,8 @@
 		for(var/i = 0, i < n_agents, ++i)
 			var/datum/mind/new_op = antag_pick(antag_candidates, /datum/role_preference/antagonist/nuclear_operative)
 			pre_nukeops += new_op
-			new_op.assigned_role = "Nuclear Operative"
-			new_op.special_role = "Nuclear Operative"
+			new_op.set_assigned_role(SSjob.GetJobType(/datum/job/nuclear_operative))
+			new_op.special_role = ROLE_NUCLEAR_OPERATIVE
 			log_game("[key_name(new_op)] has been selected as a nuclear operative")
 		return TRUE
 	else

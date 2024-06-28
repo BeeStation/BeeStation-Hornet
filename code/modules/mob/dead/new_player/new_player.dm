@@ -1,17 +1,16 @@
 #define LINKIFY_READY(string, value) "<a href='byond://?src=[REF(src)];ready=[value]'>[string]</a>"
 
 /mob/dead/new_player
-	var/ready = 0
-	var/spawning = 0//Referenced when you want to delete the new_player later on in the code.
-
 	flags_1 = NONE
-
 	invisibility = INVISIBILITY_ABSTRACT
-
 	density = FALSE
 	stat = DEAD
 
-	var/mob/living/new_character	//for instant transfer once the round is set up
+	var/ready = FALSE
+	/// Referenced when you want to delete the new_player later on in the code.
+	var/spawning = FALSE
+	/// For instant transfer once the round is set up
+	var/mob/living/new_character
 	///Used to make sure someone doesn't get spammed with messages if they're ineligible for roles.
 	var/ineligible_for_roles = FALSE
 
@@ -267,16 +266,16 @@
 
 /mob/dead/new_player/proc/IsJobUnavailable(rank, latejoin = FALSE)
 	var/datum/job/job = SSjob.GetJob(rank)
-	if(!job)
+	if(!(job.job_flags & JOB_NEW_PLAYER_JOINABLE))
 		return JOB_UNAVAILABLE_GENERIC
 	if(job.lock_flags)
 		return JOB_UNAVAILABLE_LOCKED
 	if((job.current_positions >= job.total_positions) && job.total_positions != -1)
-		if(job.title == JOB_NAME_ASSISTANT)
+		if(is_assistant_job(job))
 			if(isnum_safe(client.player_age) && client.player_age <= 14) //Newbies can always be assistants
 				return JOB_AVAILABLE
-			for(var/datum/job/J in SSjob.occupations)
-				if(J && J.current_positions < J.total_positions && J.title != job.title)
+			for(var/datum/job/other_job as anything in SSjob.joinable_occupations)
+				if(other_job.current_positions < other_job.total_positions && other_job != job)
 					return JOB_UNAVAILABLE_SLOTFULL
 		else
 			return JOB_UNAVAILABLE_SLOTFULL
@@ -302,7 +301,6 @@
 		tgui_alert(src, "An administrator has disabled late join spawning.")
 		return FALSE
 
-	var/arrivals_docked = TRUE
 	if(SSshuttle.arrivals)
 		close_spawn_windows()	//In case we get held up
 		if(SSshuttle.arrivals.damaged && CONFIG_GET(flag/arrivals_shuttle_require_safe_latejoin))
@@ -311,29 +309,41 @@
 
 		if(CONFIG_GET(flag/arrivals_shuttle_require_undocked))
 			SSshuttle.arrivals.RequireUndocked(src)
-		arrivals_docked = SSshuttle.arrivals.mode != SHUTTLE_CALL
 
 	//Remove the player from the join queue if he was in one and reset the timer
 	SSticker.queued_players -= src
 	SSticker.queue_delay = 4
 
-	SSjob.AssignRole(src, rank, 1)
-
-	var/mob/living/character = create_character(TRUE)	//creates the human and transfers vars and mind
-	var/equip = SSjob.EquipRank(character, rank, TRUE)
-	if(isliving(equip))	//Borgs get borged in the equip, so we need to make sure we handle the new mob.
-		character = equip
-
 	var/datum/job/job = SSjob.GetJob(rank)
+	SSjob.AssignRole(src, job, TRUE)
 
-	if(job && !job.override_latejoin_spawn(character))
-		SSjob.SendToLateJoin(character)
-		if(!arrivals_docked)
-			var/atom/movable/screen/splash/Spl = new(null, character.client, TRUE)
-			Spl.Fade(TRUE)
-			character.playsound_local(get_turf(character), 'sound/voice/welcomeBee.ogg', 50)
+	mind.late_joiner = TRUE
+	var/atom/destination = mind.assigned_role.get_latejoin_spawn_point()
+	if(!destination)
+		CRASH("Failed to find a latejoin spawn point.")
+	var/mob/living/character = create_character(destination)
+	if(!character)
+		CRASH("Failed to create a character for latejoin.")
+	transfer_character()
 
-		character.update_parallax_teleport()
+	SSjob.EquipRank(character, job, character.client)
+
+	#define IS_NOT_CAPTAIN 0
+	#define IS_ACTING_CAPTAIN 1
+	#define IS_FULL_CAPTAIN 2
+	var/is_captain = IS_NOT_CAPTAIN
+	// If we already have a captain, are they a "Captain" rank and are we allowing multiple of them to be assigned?
+	if(is_captain_job(job))
+		is_captain = IS_FULL_CAPTAIN
+	// If we don't have an assigned cap yet, check if this person qualifies for some from of captaincy.
+	else if(!SSjob.assigned_captain && ishuman(character) && SSjob.chain_of_command[rank] && !is_banned_from(ckey, list("Captain")))
+		is_captain = IS_ACTING_CAPTAIN
+	if(is_captain != IS_NOT_CAPTAIN)
+		minor_announce(job.get_captaincy_announcement(character))
+		SSjob.promote_to_captain(character, is_captain == IS_ACTING_CAPTAIN)
+	#undef IS_NOT_CAPTAIN
+	#undef IS_ACTING_CAPTAIN
+	#undef IS_FULL_CAPTAIN
 
 	SSticker.minds += character.mind
 
@@ -452,33 +462,35 @@
 /// Creates, assigns and returns the new_character to spawn as. Assumes a valid mind.assigned_role exists.
 /mob/dead/new_player/proc/create_character(transfer_after)
 	spawning = TRUE
-	close_spawn_windows()
 
-	var/mob/living/carbon/human/H = new(loc)
-
-	H.apply_prefs_job(client, SSjob.GetJob(mind.assigned_role))
+	mind.active = FALSE //we wish to transfer the key manually
+	var/mob/living/spawning_mob = mind.assigned_role.get_spawn_mob(client, destination)
 	if(QDELETED(src) || !client)
 		return // Disconnected while checking for the appearance ban.
-	if(mind)
-		if(transfer_after)
-			mind.late_joiner = TRUE
-		mind.active = 0					//we wish to transfer the key manually
-		mind.transfer_to(H)					//won't transfer key since the mind is not active
+	if(!isAI(spawning_mob)) // Unfortunately there's still snowflake AI code out there.
+		// transfer_to sets mind to null
+		var/datum/mind/preserved_mind = mind
+		preserved_mind.original_character_slot_index = client.prefs.default_slot
+		preserved_mind.transfer_to(spawning_mob) //won't transfer key since the mind is not active
+		preserved_mind.set_original_character(spawning_mob)
 
-	H.name = real_name
-
-	. = H
+	LAZYADD(client.player_details.joined_as_slots, "[client.prefs.default_slot]")
+	client.init_verbs()
+	. = spawning_mob
 	new_character = .
-	if(transfer_after)
-		transfer_character()
+
 
 /mob/dead/new_player/proc/transfer_character()
 	. = new_character
-	if(.)
-		new_character.key = key		//Manually transfer the key to log them in
-		new_character.stop_sound_channel(CHANNEL_LOBBYMUSIC)
-		new_character = null
-		qdel(src)
+	if(!.)
+		return
+	new_character.key = key //Manually transfer the key to log them in,
+	new_character.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+	var/area/joined_area = get_area(new_character.loc)
+	if(joined_area)
+		joined_area.on_joining_game(new_character)
+	new_character = null
+	qdel(src)
 
 /mob/dead/new_player/proc/ViewManifest()
 	if(!client || !COOLDOWN_FINISHED(client, crew_manifest_delay))

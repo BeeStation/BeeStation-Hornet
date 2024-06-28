@@ -34,9 +34,9 @@
 /obj/item/paper/contract/employment/attack(mob/living/M, mob/living/carbon/human/user)
 	var/deconvert = FALSE
 	if(M.mind == target && !M.owns_soul())
-		if(user.mind && (user.mind.assigned_role == JOB_NAME_LAWYER))
+		if(user.mind && (is_lawyer_job(user.mind.assigned_role)))
 			deconvert = TRUE
-		else if (user.mind && (user.mind.assigned_role ==JOB_NAME_HEADOFPERSONNEL) || (user.mind.assigned_role == JOB_CENTCOM_COMMANDER))
+		else if (user.mind && (is_head_of_personnel_job(user.mind.assigned_role)) || (user.mind.assigned_role == JOB_CENTCOM_COMMANDER))
 			deconvert = prob (25) // the HoP doesn't have AS much legal training
 		else
 			deconvert = prob (5)

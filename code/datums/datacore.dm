@@ -246,14 +246,8 @@
 /datum/datacore/proc/manifest_inject(mob/living/carbon/human/H, send_signal = TRUE)
 	set waitfor = FALSE
 	var/static/list/show_directions = list(SOUTH, WEST)
-	if(H.mind && (H.mind.assigned_role != H.mind.special_role))
-		var/assignment
-		if(H.mind.assigned_role)
-			assignment = H.mind.assigned_role
-		else if(H.job)
-			assignment = H.job
-		else
-			assignment = "Unassigned"
+	if(H.mind?.assigned_role.job_flags & JOB_CREW_MANIFEST)
+		var/assignment = H.mind.assigned_role.title
 
 		var/static/record_id_num = 1001
 		var/id = num2hex(record_id_num++,6)

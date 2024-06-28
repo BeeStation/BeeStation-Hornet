@@ -316,6 +316,7 @@
 			O.updatename(BM.client)
 
 			BM.mind.transfer_to(O)
+			playsound(O.loc, 'sound/voice/liveagain.ogg', 75, TRUE)
 
 			if(O.mind?.special_role)
 				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")

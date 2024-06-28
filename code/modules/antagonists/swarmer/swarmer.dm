@@ -20,7 +20,7 @@
 	mob_name = "a swarmer"
 	death = FALSE
 	roundstart = FALSE
-	assignedrole = ROLE_SWARMER
+	spawner_job_path = /datum/job/swarmer
 	banType = ROLE_SWARMER
 	is_antagonist = TRUE
 

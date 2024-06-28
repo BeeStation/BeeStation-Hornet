@@ -739,11 +739,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/loop = 1
 	var/safety = 0
 
-	var/banned = C ? is_banned_from(C.ckey, "Appearance") : null
+	var/random = CONFIG_GET(flag/force_random_names) || (C ? is_banned_from(C.ckey, "Appearance") : FALSE)
 
 	while(loop && safety < 5)
-		if(!safety && !banned)
-			newname = C?.prefs?.read_character_preference(preference_type)
+		if(!safety && !random)
+			newname = C?.prefs?.read_preference(preference_type)
 		else
 			var/datum/preference/preference = GLOB.preference_entries[preference_type]
 			newname = preference.create_informed_default_value(C.prefs)

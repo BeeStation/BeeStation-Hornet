@@ -2,11 +2,6 @@
 	name = "mutiny"
 	var/target_role_type=FALSE
 
-/datum/objective/mutiny/find_target_by_role(role, role_type=FALSE,invert=FALSE)
-	if(!invert)
-		target_role_type = role_type
-	..()
-
 /datum/objective/mutiny/check_completion()
 	if(!target || !considered_alive(target) || considered_afk(target))
 		return TRUE
@@ -16,7 +11,7 @@
 /datum/objective/mutiny/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Assassinate or exile [target.name], the [!target_role_type ? target.assigned_role : target.special_role]."
+		explanation_text = "Assassinate or exile [target.name], the [!target_role_type ? target.assigned_role.title : target.special_role]."
 	else
 		explanation_text = "Free Objective"
 

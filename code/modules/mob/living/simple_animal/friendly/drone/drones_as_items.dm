@@ -18,6 +18,7 @@
 	short_desc = "You are a drone."
 	flavour_text = "You are a drone, a tiny insect-like creature. Follow your assigned laws to the best of your ability."
 	mob_type = /mob/living/simple_animal/drone
+	spawner_job_path = /datum/job/maintenance_drone
 	var/seasonal_hats = TRUE //If TRUE, and there are no default hats, different holidays will grant different hats
 	var/static/list/possible_seasonal_hats //This is built automatically in build_seasonal_hats() but can also be edited by admins!
 

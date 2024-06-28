@@ -493,7 +493,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		if(drunkenness >= 11 && slurring < 5)
 			slurring += 1.2 * delta_time
 
-		if(mind && (mind.assigned_role == JOB_NAME_SCIENTIST || mind.assigned_role == JOB_NAME_RESEARCHDIRECTOR))
+		if(mind && (is_scientist_job(mind.assigned_role) || is_research_director_job(mind.assigned_role)))
 			if(SSresearch.science_tech)
 				if(drunkenness >= 12.9 && drunkenness <= 13.8)
 					drunkenness = round(drunkenness, 0.01)

@@ -3,12 +3,12 @@
 	description = "Oversee paramedics, doctors, chemists, geneticists and the virologist. \
 	Ensure doctors and paramedicts are treating people in a timely manner, request medicine and other concoctions from chemists, \
 	and ensure geneticists and the virologist are following appropriate safety precautions while performing their research."
-	department_for_prefs = DEPT_BITFLAG_MED
+	department_for_prefs = DEPARTMENT_BITFLAG_MEDICAL
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#c1e1ec"
@@ -25,7 +25,8 @@
 			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_BRIGPHYS, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_WEAPONS)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_MED | DEPT_BITFLAG_COM
+	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
+	departments = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_COMMAND
 	bank_account_department = ACCOUNT_MED_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
@@ -49,6 +50,9 @@
 		/area/medical/surgery,
 		/area/storage/eva
 	)
+
+/datum/job/chief_medical_officer/get_captaincy_announcement(mob/living/captain)
+	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
 
 /datum/outfit/job/chief_medical_officer
 	name = JOB_NAME_CHIEFMEDICALOFFICER

@@ -118,6 +118,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/bodypart/species_r_leg = /obj/item/bodypart/r_leg
 	var/obj/item/bodypart/species_l_leg = /obj/item/bodypart/l_leg
 
+	var/roundstart_changed = FALSE //Was the species changed from its original type at the start of the round?
+
 	/// if false, having no tongue makes you unable to speak
 	var/speak_no_tongue = TRUE
 

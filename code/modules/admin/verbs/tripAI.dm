@@ -6,10 +6,10 @@
 		to_chat(usr, "This option is currently only usable during pregame. This may change at a later date.")
 		return
 
-	var/datum/job/job = SSjob.GetJob(JOB_NAME_AI)
+	var/datum/job/job = SSjob.GetJobType(/datum/job/ai)
 	if(!job)
 		to_chat(usr, "Unable to locate the AI job")
-		return
+		CRASH("triple_ai() called, no /datum/job/ai to be found.")
 	if(SSticker.triai)
 		SSticker.triai = 0
 		to_chat(usr, "Only one AI will be spawned at round start.")

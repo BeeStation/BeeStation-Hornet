@@ -30,6 +30,7 @@
 	default_hatmask = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	hacked = TRUE
 	flavortext = null
+	spawner_job_path = /datum/job/ghost_role
 
 /mob/living/simple_animal/drone/syndrone/Initialize(mapload)
 	. = ..()
@@ -106,6 +107,7 @@
 	short_desc = "You are a long forgotten drone!"
 	flavour_text = "You are a drone on Kosmicheskaya Stantsiya 13. Something has brought you out of hibernation, and the station is in gross disrepair. \
 	Build, repair, maintain and improve the station that housed you on activation."
+	spawner_job_path = /datum/job/ghost_role
 
 /mob/living/simple_animal/drone/derelict
 	name = "derelict drone"

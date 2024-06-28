@@ -1,13 +1,13 @@
 /datum/job/head_of_personnel
 	title = JOB_NAME_HEADOFPERSONNEL
 	description = "Second in command on the station, oversee the crew assigned to service and cargo positions, handle department transfer requests by consulting relevant heads. Protect Ian at all costs."
-	department_for_prefs = DEPT_BITFLAG_CAPTAIN
+	department_for_prefs = DEPARTMENT_BITFLAG_COMMAND
 	department_head_for_prefs = JOB_NAME_CAPTAIN
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list(RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_SERVICE)
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ddddff"
@@ -28,7 +28,8 @@
 			            ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_COM | DEPT_BITFLAG_SRV
+	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
+	departments = DEPARTMENT_BITFLAG_COMMAND | DEPARTMENT_BITFLAG_SERVICE
 	bank_account_department = ACCOUNT_SRV_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
@@ -46,6 +47,9 @@
 // Special handling to avoid lighting up the entirety of supply whenever there's a HoP.
 /datum/job/head_of_personnel/areas_to_light_up(minimal_access = TRUE)
 	return minimal_lightup_areas | GLOB.command_lightup_areas
+
+/datum/job/head_of_personnel/get_captaincy_announcement(mob/living/captain)
+	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
 
 /datum/outfit/job/head_of_personnel
 	name = JOB_NAME_HEADOFPERSONNEL

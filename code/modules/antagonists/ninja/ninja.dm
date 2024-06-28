@@ -37,7 +37,7 @@
 			if(ishuman(M.current))
 				if(M.special_role)
 					possible_targets[M] = 0						//bad-guy
-				else if(M.assigned_role in GLOB.command_positions)
+				else if(M.assigned_role.departments & DEPARTMENT_COMMAND)
 					possible_targets[M] = 1						//good-guy
 
 	var/list/possible_objectives = list(1,2,3,4)
@@ -65,7 +65,7 @@
 				var/datum/objective/assassinate/O = new /datum/objective/assassinate()
 				O.owner = owner
 				O.set_target(M)
-				O.explanation_text = "Slay \the [M.current.real_name], the [M.assigned_role]."
+				O.explanation_text = "Slay \the [M.current.real_name], the [M.assigned_role.title]."
 				objectives += O
 				log_objective(owner, O.explanation_text)
 			if(4)	//capture
@@ -109,7 +109,7 @@
 	. = ..()
 
 /datum/antagonist/ninja/admin_add(datum/mind/new_owner,mob/admin)
-	new_owner.assigned_role = ROLE_NINJA
+	owner.current.mind.set_assigned_role(SSjob.GetJobType(/datum/job/space_ninja))
 	new_owner.special_role = ROLE_NINJA
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has ninja'd [key_name_admin(new_owner)].")

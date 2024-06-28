@@ -3,11 +3,6 @@
 	martyr_compatible = FALSE
 	var/target_role_type=0
 
-/datum/objective/debrain/find_target_by_role(role, role_type=FALSE,invert=FALSE)
-	if(!invert)
-		target_role_type = role_type
-	..()
-
 /datum/objective/debrain/check_completion()
 	if(!target)//If it's a free objective.
 		return TRUE
@@ -25,7 +20,7 @@
 /datum/objective/debrain/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Steal the brain of [target.name], the [!target_role_type ? target.assigned_role : target.special_role]."
+		explanation_text = "Steal the brain of [target.name], the [!target_role_type ? target.assigned_role.title : target.special_role]."
 	else
 		explanation_text = "Free Objective"
 

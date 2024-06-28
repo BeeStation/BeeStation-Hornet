@@ -1,8 +1,8 @@
 /datum/antagonist/nukeop
-	name = "Nuclear Operative"
+	name = ROLE_NUCLEAR_OPERATIVE
 	roundend_category = "syndicate operatives" //just in case
 	antagpanel_category = "NukeOp"
-	banning_key = ROLE_OPERATIVE
+	banning_key = ROLE_NUCLEAR_OPERATIVE
 	required_living_playtime = 8
 	antag_moodlet = /datum/mood_event/focused
 	show_to_ghosts = TRUE
@@ -152,7 +152,7 @@
 	nuke_team = new_team
 
 /datum/antagonist/nukeop/admin_add(datum/mind/new_owner,mob/admin)
-	new_owner.assigned_role = ROLE_OPERATIVE
+	new_owner.set_assigned_role(SSjob.GetJobType(/datum/job/nuclear_operative))
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has nuke op'ed [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has nuke op'ed [key_name(new_owner)].")
