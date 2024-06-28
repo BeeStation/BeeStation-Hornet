@@ -33,11 +33,10 @@
 /turf/open/floor/pod,
 /area/shuttle/pirate)
 "ce" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
+/obj/structure/shuttle/engine/propulsion/right{
+	dir = 8
 	},
-/turf/open/floor/wood,
+/turf/open/floor/plating/airless,
 /area/shuttle/pirate)
 "ch" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -77,13 +76,6 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/pod/dark,
-/area/shuttle/pirate)
-"dx" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/wood,
 /area/shuttle/pirate)
 "dC" = (
 /obj/machinery/computer/shuttle_flight/pirate{
@@ -173,6 +165,13 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
+"fA" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
 "fD" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32
@@ -191,6 +190,13 @@
 	dir = 9
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/pirate)
+"gt" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/wood,
 /area/shuttle/pirate)
 "he" = (
 /obj/effect/decal/cleanable/dirt,
@@ -661,20 +667,24 @@
 	name = "Engineering";
 	req_access_txt = "180"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "sj" = (
 /obj/structure/chair{
 	dir = 8
+	},
+/turf/open/floor/wood/big,
+/area/shuttle/pirate)
+"sq" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/fluff/fans{
+	pixel_x = 24
 	},
 /turf/open/floor/wood/big,
 /area/shuttle/pirate)
@@ -854,15 +864,10 @@
 	name = "Armoury";
 	req_access_txt = "180"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating/rust,
 /area/shuttle/pirate)
 "vm" = (
@@ -1256,15 +1261,11 @@
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
 "Gh" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste{
+	dir = 4;
+	piping_layer = 4
 	},
-/obj/structure/window/plastitanium,
-/obj/structure/grille,
-/obj/machinery/door/poddoor{
-	id = "pirate_engines_shutters"
-	},
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/shuttle/pirate)
 "Gp" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -1345,6 +1346,17 @@
 	},
 /turf/open/floor/pod,
 /area/shuttle/pirate)
+"HT" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/window/plastitanium,
+/obj/structure/grille,
+/obj/machinery/door/poddoor{
+	id = "pirate_engines_shutters"
+	},
+/turf/open/floor/plating,
+/area/shuttle/pirate)
 "II" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
@@ -1386,11 +1398,8 @@
 	req_access_txt = "180"
 	},
 /obj/effect/decal/cleanable/greenglow,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating/rust,
 /area/shuttle/pirate)
 "Jt" = (
@@ -1444,13 +1453,6 @@
 /obj/structure/window/reinforced/spawner/east,
 /obj/machinery/door/poddoor{
 	id = "pirate_engines_shutters"
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/pirate)
-"KU" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste{
-	dir = 4;
-	piping_layer = 4
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/pirate)
@@ -1756,15 +1758,6 @@
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
-"Rz" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/fluff/fans{
-	pixel_x = 24
-	},
-/turf/open/floor/wood/big,
-/area/shuttle/pirate)
 "RH" = (
 /obj/effect/decal/cleanable/glass{
 	pixel_y = -10
@@ -1814,11 +1807,8 @@
 	name = "Cargo";
 	req_access_txt = "180"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/firedoor,
 /turf/open/floor/pod,
 /area/shuttle/pirate)
 "SJ" = (
@@ -1939,15 +1929,10 @@
 	name = "Bridge";
 	req_access_txt = "180"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "UD" = (
@@ -2062,10 +2047,7 @@
 	name = "Cargo";
 	req_access_txt = "180"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "VZ" = (
@@ -2122,12 +2104,6 @@
 	pixel_y = 24
 	},
 /turf/open/floor/wood,
-/area/shuttle/pirate)
-"Wp" = (
-/obj/structure/shuttle/engine/propulsion/right{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
 /area/shuttle/pirate)
 "Wx" = (
 /obj/effect/turf_decal/bot,
@@ -2288,8 +2264,8 @@
 /area/shuttle/pirate)
 "Zi" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
 	},
 /turf/open/floor/wood,
 /area/shuttle/pirate)
@@ -2327,10 +2303,10 @@ yV
 yV
 yV
 OB
-Wp
+ce
 IM
 Gw
-Wp
+ce
 IM
 to
 yV
@@ -2342,7 +2318,7 @@ yV
 yV
 yV
 yV
-KU
+Gh
 Gw
 KR
 KR
@@ -2359,7 +2335,7 @@ yV
 yV
 yV
 OB
-Gh
+HT
 Gw
 Ht
 ch
@@ -2453,7 +2429,7 @@ lT
 JR
 Jc
 UR
-ce
+Zi
 NG
 Gw
 "}
@@ -2470,7 +2446,7 @@ WX
 Gw
 Gw
 Fq
-dx
+fA
 NG
 Gw
 "}
@@ -2487,7 +2463,7 @@ FY
 Gw
 AW
 nx
-Zi
+gt
 oM
 Gw
 "}
@@ -2603,7 +2579,7 @@ QI
 Gw
 Ha
 Ew
-Rz
+sq
 sj
 fS
 yV
