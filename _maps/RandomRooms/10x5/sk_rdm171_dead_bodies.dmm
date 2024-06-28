@@ -93,7 +93,7 @@
 "B" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/cult,
+/turf/open/floor/cult,
 /area/template_noop)
 "D" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -119,7 +119,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/cult,
+/turf/open/floor/cult,
 /area/template_noop)
 "Q" = (
 /obj/effect/decal/cleanable/dirt,
@@ -130,7 +130,7 @@
 /obj/item/toy/plush/moth/poison,
 /obj/structure/table/wood/fancy,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/cult,
+/turf/open/floor/cult,
 /area/template_noop)
 "Y" = (
 /obj/effect/decal/cleanable/blood/old,
