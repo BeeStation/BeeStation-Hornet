@@ -40,10 +40,19 @@ export const StatText = (props, context) => {
                     />
                   )) ||
                   (statPanelData[key].type === STAT_ATOM && (
-                    <StatTextAtom atom_ref={key} atom_name={statPanelData[key].text} atom_tag={statPanelData[key].tag} atom_icon={statPanelData[key].image} />
+                    <StatTextAtom
+                      atom_ref={key}
+                      atom_name={statPanelData[key].text}
+                      atom_tag={statPanelData[key].tag}
+                      atom_icon={statPanelData[key].image}
+                    />
                   )) ||
                   (statPanelData[key].type === STAT_DIVIDER && <StatTextDivider />) ||
-                  (statPanelData[key].type === STAT_BLANK && <Flex.Item width="100%"><br /></Flex.Item>))
+                  (statPanelData[key].type === STAT_BLANK && (
+                    <Flex.Item width="100%">
+                      <br />
+                    </Flex.Item>
+                  )))
             )
           : 'No data'}
         {Object.keys(verbs).map((verb) => (
@@ -194,7 +203,7 @@ export const StatTextAtom = (props, context) => {
   storeAtomRef(null);
 
   return (
-    <Flex.Item mt={0.5} width={Byond.BYOND_MAJOR >= 515 ? "33%" : "100%"}>
+    <Flex.Item mt={0.5} width={Byond.BYOND_MAJOR >= 515 ? '33%' : '100%'}>
       <Button
         height="100%"
         pl={0}
@@ -255,7 +264,9 @@ export const StatTextAtom = (props, context) => {
                 <div className={StatTagToClassName(atom_tag)}>{atom_tag}</div>
               </Flex.Item>
             )}
-            <Flex.Item grow={1} className="StatWordWrap">{capitalize(atom_name)}</Flex.Item>
+            <Flex.Item grow={1} className="StatWordWrap">
+              {capitalize(atom_name)}
+            </Flex.Item>
           </Flex>
         </div>
       </Button>
@@ -264,7 +275,11 @@ export const StatTextAtom = (props, context) => {
 };
 
 export const StatTextDivider = (props, context) => {
-  return <Flex.Item width="100%"><Divider /></Flex.Item>;
+  return (
+    <Flex.Item width="100%">
+      <Divider />
+    </Flex.Item>
+  );
 };
 
 export const StatTextVerb = (props, context) => {
