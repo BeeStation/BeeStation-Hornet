@@ -1,7 +1,7 @@
 /datum/job/research_director
 	title = JOB_NAME_RESEARCHDIRECTOR
 	description = "Oversee the scientists and roboticists and keep up with their research projects, take care of any issues with the station's AI that may arise, ensure research is being prioritized in accordance with the needs of the station."
-	department_for_prefs = DEPARTMENT_BITFLAG_SCIENCE
+	department_for_prefs = DEPT_BITFLAG_SCI
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
@@ -26,7 +26,7 @@
 	extra_access = list()
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
-	departments = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_COMMAND
+	departments = DEPT_BITFLAG_SCI | DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_SCI_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,

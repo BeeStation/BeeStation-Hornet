@@ -1,7 +1,7 @@
 /datum/job/chief_engineer
 	title = JOB_NAME_CHIEFENGINEER
 	description = "Oversee the engineers and atmospheric technicians, keep a watchful eye on the station's engine, gravity generator, and telecomms. Send your staff to repair hull breaches and damaged equipment as necessary."
-	department_for_prefs = DEPARTMENT_BITFLAG_ENGINEERING
+	department_for_prefs = DEPT_BITFLAG_ENG
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
@@ -25,7 +25,7 @@
 	extra_access = list()
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
-	departments = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_COMMAND
+	departments = DEPT_BITFLAG_ENG | DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_ENG_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,

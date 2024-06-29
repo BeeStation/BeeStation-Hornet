@@ -475,7 +475,7 @@ SUBSYSTEM_DEF(ticker)
 		if(!new_player_living.mind)
 			CHECK_TICK
 			continue
-		var/datum/job/player_assigned_role = new_player_living.mind.assigned_role
+		var/datum/job/player_assigned_role = SSjob.GetJob(new_player_living.mind.assigned_role)
 		if(player_assigned_role.job_flags & JOB_EQUIP_RANK)
 			SSjob.EquipRank(new_player_living, player_assigned_role, new_player_mob.client)
 		if(picked_spare_id_candidate == new_player_mob)

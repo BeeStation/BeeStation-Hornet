@@ -310,17 +310,17 @@
 	. = minimal_lightup_areas.Copy()
 	if(!minimal_access)
 		. |= lightup_areas
-	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_COMMAND))
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_COM))
 		. |= GLOB.command_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_ENGINEERING))
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_ENG))
 		. |= GLOB.engineering_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_MEDICAL))
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_MED))
 		. |= GLOB.medical_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_SCIENCE))
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_SCI))
 		. |= GLOB.science_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_CARGO))
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_CAR))
 		. |= GLOB.supply_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_SECURITY))
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_SEC))
 		. |= GLOB.security_lightup_areas
 
 /datum/job/proc/available_in_days(client/C)
@@ -452,7 +452,7 @@
 	if(!player_client)
 		return // Disconnected while checking for the appearance ban.
 
-	var/require_human = CONFIG_GET(flag/enforce_human_authority) && (job.departments & DEPARTMENT_BITFLAG_COMMAND)
+	var/require_human = CONFIG_GET(flag/enforce_human_authority) && (job.departments & DEPT_BITFLAG_COM)
 
 	if(fully_randomize)
 		if(require_human)

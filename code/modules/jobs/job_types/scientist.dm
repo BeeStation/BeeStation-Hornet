@@ -1,7 +1,7 @@
 /datum/job/scientist
 	title = JOB_NAME_SCIENTIST
 	description = "Engage in Xenobiology, Xenoarchaeology, Nanites, and Toxins; research new technology; and upgrade the machine parts around the station."
-	department_for_prefs = DEPARTMENT_BITFLAG_SCIENCE
+	department_for_prefs = DEPT_BITFLAG_SCI
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
 	faction = FACTION_STATION
@@ -19,7 +19,7 @@
 	extra_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE)
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
-	departments = DEPARTMENT_BITFLAG_SCIENCE
+	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
 

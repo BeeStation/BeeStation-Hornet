@@ -1,7 +1,7 @@
 /datum/job/station_engineer
 	title = JOB_NAME_STATIONENGINEER
 	description = "Ensure the station has an adequate power supply, repair and build new machinery, repair wiring chewed up by mice."
-	department_for_prefs = DEPARTMENT_BITFLAG_ENGINEERING
+	department_for_prefs = DEPT_BITFLAG_ENG
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
 	faction = FACTION_STATION
@@ -18,7 +18,7 @@
 	extra_access = list(ACCESS_ATMOSPHERICS)
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
-	departments = DEPARTMENT_BITFLAG_ENGINEERING
+	departments = DEPT_BITFLAG_ENG
 	bank_account_department = ACCOUNT_ENG_BITFLAG
 	payment_per_department = list(ACCOUNT_ENG_ID = PAYCHECK_MEDIUM)
 

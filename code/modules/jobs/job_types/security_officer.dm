@@ -1,7 +1,7 @@
 /datum/job/security_officer
 	title = JOB_NAME_SECURITYOFFICER
 	description = "Follow Space Law, patrol the station, arrest criminals and bring them to the Brig."
-	department_for_prefs = DEPARTMENT_BITFLAG_SECURITY
+	department_for_prefs = DEPT_BITFLAG_SEC
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
@@ -27,7 +27,7 @@
 	var/list/dept_access_engineering = list(ACCESS_ENGINE, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_AUX_BASE)
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
-	departments = DEPARTMENT_BITFLAG_SECURITY
+	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_HARD)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)

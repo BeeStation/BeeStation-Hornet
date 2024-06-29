@@ -4,7 +4,7 @@ Assistant
 /datum/job/assistant
 	title = JOB_NAME_ASSISTANT
 	description = "Help out around the station or ask the Head of Personnel for an assignment. As the lowest-level position, expect to be treated like an intern most of the time."
-	department_for_prefs = DEPARTMENT_BITFLAG_CIVILIAN
+	department_for_prefs = DEPT_BITFLAG_CIV
 	supervisors = "absolutely everyone"
 	faction = FACTION_STATION
 	total_positions = 5
@@ -19,7 +19,7 @@ Assistant
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 
-	departments = DEPARTMENT_BITFLAG_CIVILIAN
+	departments = DEPT_BITFLAG_CIV
 	bank_account_department = NONE // nothing is free for them
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT) // Get a job. Job reassignment changes your paycheck now. Get over it.
 

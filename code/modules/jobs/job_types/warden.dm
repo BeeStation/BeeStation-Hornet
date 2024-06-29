@@ -1,7 +1,7 @@
 /datum/job/warden
 	title = JOB_NAME_WARDEN
 	description = "Oversee prisoners in the brig and guard the armory. Hand out equipment when necessary and ensure it is returned after threats have been contained."
-	department_for_prefs = DEPARTMENT_BITFLAG_SECURITY
+	department_for_prefs = DEPT_BITFLAG_SEC
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
@@ -21,7 +21,7 @@
 	extra_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MORGUE,ACCESS_FORENSICS_LOCKERS)
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
-	departments = DEPARTMENT_BITFLAG_SECURITY
+	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_HARD)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)

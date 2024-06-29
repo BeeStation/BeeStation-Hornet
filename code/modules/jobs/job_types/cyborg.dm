@@ -1,7 +1,7 @@
 /datum/job/cyborg
 	title = JOB_NAME_CYBORG
 	description = "Follow your AI's interpretation of your laws above all else, or your own interpretation if not connected to an AI. Choose one of many modules with different tools, ask robotics for maintenance and upgrades."
-	department_for_prefs = DEPARTMENT_BITFLAG_SILICON
+	department_for_prefs = DEPT_BITFLAG_SILICON
 	department_head_for_prefs = JOB_NAME_AI
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	faction = FACTION_STATION
@@ -15,7 +15,7 @@
 	random_spawns_possible = FALSE
 
 	display_order = JOB_DISPLAY_ORDER_CYBORG
-	departments = DEPARTMENT_BITFLAG_SILICON
+	departments = DEPT_BITFLAG_SILICON
 	job_flags = JOB_NEW_PLAYER_JOINABLE | JOB_EQUIP_RANK
 
 /datum/job/cyborg/get_access() // no point of calling parent proc

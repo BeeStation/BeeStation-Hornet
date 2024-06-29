@@ -1,7 +1,7 @@
 /datum/job/head_of_security
 	title = JOB_NAME_HEADOFSECURITY
 	description = "Oversee the members of security and ensure they follow Space Law. Deputize other crew members when the station is in need of additional protection."
-	department_for_prefs = DEPARTMENT_BITFLAG_SECURITY
+	department_for_prefs = DEPT_BITFLAG_SEC
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
@@ -25,7 +25,7 @@
 	extra_access = list()
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
-	departments = DEPARTMENT_BITFLAG_SECURITY | DEPARTMENT_BITFLAG_COMMAND
+	departments = DEPT_BITFLAG_SEC | DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_SEC_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,

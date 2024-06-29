@@ -1,7 +1,7 @@
 /datum/job/bartender
 	title = JOB_NAME_BARTENDER
 	description = "Brew a variety of drinks for the crew, cooperate with Botany and Chemistry for more exotic recipes, create a comfy atmosphere in your Bar."
-	department_for_prefs = DEPARTMENT_BITFLAG_SERVICE
+	department_for_prefs = DEPT_BITFLAG_SRV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = FACTION_STATION
@@ -17,7 +17,7 @@
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 
-	departments = DEPARTMENT_BITFLAG_SERVICE
+	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
 

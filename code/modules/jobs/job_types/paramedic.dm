@@ -1,7 +1,7 @@
 /datum/job/paramedic
 	title = JOB_NAME_PARAMEDIC
 	description = "Retrieve the gravely injured and dead people from around the station, deliver medicine for minor wounds, and keep a close eye on the Crew Monitor in your free time."
-	department_for_prefs = DEPARTMENT_BITFLAG_MEDICAL
+	department_for_prefs = DEPT_BITFLAG_MED
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = FACTION_STATION
@@ -17,7 +17,7 @@
 	extra_access = list(ACCESS_SURGERY, ACCESS_MINERAL_STOREROOM)
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
-	departments = DEPARTMENT_BITFLAG_MEDICAL
+	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)

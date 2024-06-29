@@ -1,7 +1,7 @@
 /datum/job/detective
 	title = JOB_NAME_DETECTIVE
 	description = "Investigate crimes, solve murder mysteries, report your findings to the rest of Security."
-	department_for_prefs = DEPARTMENT_BITFLAG_SECURITY
+	department_for_prefs = DEPT_BITFLAG_SEC
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
@@ -21,7 +21,7 @@
 	extra_access = list()
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
-	departments = DEPARTMENT_BITFLAG_SECURITY
+	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_MEDIUM)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)

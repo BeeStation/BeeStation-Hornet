@@ -1,7 +1,7 @@
 /datum/job/brig_physician
 	title = JOB_NAME_BRIGPHYSICIAN
 	description = "Tend to the health of Security Officers and Prisoners, help out at Medbay if you have free time."
-	department_for_prefs = DEPARTMENT_BITFLAG_SECURITY
+	department_for_prefs = DEPT_BITFLAG_SEC
 	department_head_for_prefs = JOB_NAME_HEADOFSECURITY
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "chief medical officer"
@@ -18,7 +18,7 @@
 	extra_access = list()
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
-	departments = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SECURITY
+	departments = DEPT_BITFLAG_MED | DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)

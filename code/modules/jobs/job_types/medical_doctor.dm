@@ -1,7 +1,7 @@
 /datum/job/medical_doctor
 	title = JOB_NAME_MEDICALDOCTOR
 	description = "Treat people of both minor wounds, serious injuries and resurrect them from the dead. Make use of surgeries and surgical tools, Chemistry's pills and patches, Virology's viruses and in dire cases, Genetics' cloning."
-	department_for_prefs = DEPARTMENT_BITFLAG_MEDICAL
+	department_for_prefs = DEPT_BITFLAG_MED
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = FACTION_STATION
@@ -16,7 +16,7 @@
 	extra_access = list(ACCESS_CHEMISTRY, ACCESS_GENETICS,  ACCESS_VIROLOGY)
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
-	departments = DEPARTMENT_BITFLAG_MEDICAL
+	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)

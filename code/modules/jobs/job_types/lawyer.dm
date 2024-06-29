@@ -1,7 +1,7 @@
 /datum/job/lawyer
 	title = JOB_NAME_LAWYER
 	description = "Ensure Security follows Space Law and Standard Operating Procedure perfectly, represent your clients in trials and other legal troubles, make sure the crew is treated fairly by the men in red."
-	department_for_prefs = DEPARTMENT_BITFLAG_SERVICE
+	department_for_prefs = DEPT_BITFLAG_SRV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = FACTION_STATION
@@ -16,7 +16,7 @@
 	extra_access = list()
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
-	departments = DEPARTMENT_BITFLAG_SERVICE
+	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
