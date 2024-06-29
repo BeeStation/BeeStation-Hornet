@@ -190,7 +190,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/ui_interact(mob/user, datum/tgui/ui)
 	// IMPORTANT: If someone opens the prefs menu before jobs load, then the jobs menu will be empty for everyone.
 	// Do NOT call ui_assets until the jobs are loaded.
-	if(!length(SSjob.joinable_occupations))
+	if(!length(SSjob.occupations))
 		return
 
 	// If you leave and come back, re-register the character preview. This also runs the first time it's opened

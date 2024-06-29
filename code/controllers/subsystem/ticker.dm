@@ -423,11 +423,7 @@ SUBSYSTEM_DEF(ticker)
 	for(var/mob/dead/new_player/player in GLOB.player_list)
 		if(player.ready == PLAYER_READY_TO_PLAY && player.mind)
 			GLOB.joined_player_list += player.ckey
-			var/atom/destination = player.mind.assigned_role.get_roundstart_spawn_point()
-			if(!destination) // Failed to fetch a proper roundstart location, won't be going anywhere.
-				player.new_player_panel()
-				continue
-			player.create_character(destination)
+			player.create_character(FALSE)
 		else
 			player.new_player_panel()
 		CHECK_TICK
@@ -441,7 +437,6 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
 	var/captainless = TRUE
-
 	var/highest_rank = length(SSjob.chain_of_command) + 1
 	var/list/spare_id_candidates = list()
 	var/enforce_coc = CONFIG_GET(flag/spare_enforce_coc)
@@ -469,36 +464,15 @@ SUBSYSTEM_DEF(ticker)
 				SSjob.EquipRank(N, mind.assigned_role, FALSE)
 			if(CONFIG_GET(flag/roundstart_traits))
 				SSquirks.AssignQuirks(mind, N.client, TRUE)
-
-	// Find a suitable player to hold captaincy.
-	for(var/mob/dead/new_player/new_player_mob as anything in GLOB.new_player_list)
-		if(is_banned_from(new_player_mob.ckey, list(JOB_NAME_CAPTAIN)))
-			CHECK_TICK
-			continue
-		if(!ishuman(new_player_mob.new_character))
-			continue
-		var/mob/living/carbon/human/new_player_human = new_player_mob.new_character
-		if(!new_player_human.mind || is_unassigned_job(new_player_human.mind.assigned_role))
-			continue
-		// Keep a rolling tally of who'll get the cap's spare ID vault code.
-		// Check assigned_role's priority and curate the candidate list appropriately.
-		var/player_assigned_role = new_player_human.mind.assigned_role.title
-		var/spare_id_priority = SSjob.chain_of_command[player_assigned_role]
-		if(spare_id_priority)
-			if(spare_id_priority < highest_rank)
-				spare_id_candidates.Cut()
-				spare_id_candidates += new_player_mob
-				highest_rank = spare_id_priority
-			else if(spare_id_priority == highest_rank)
-				spare_id_candidates += new_player_mob
 		CHECK_TICK
+	if(length(spare_id_candidates))			//No captain, time to choose acting captain
+		if(!enforce_coc)
+			for(var/mob/dead/new_player/player in spare_id_candidates)
+				SSjob.promote_to_captain(player, captainless)
 
-	if(captainless)
-		for(var/mob/dead/new_player/new_player_mob as anything in GLOB.new_player_list)
-			var/mob/living/carbon/human/new_player_human = new_player_mob.new_character
-			if(new_player_human)
-				to_chat(new_player_mob, "<span class='notice'>Captainship not forced on anyone.</span>")
-			CHECK_TICK
+		else
+			SSjob.promote_to_captain(pick(spare_id_candidates), captainless)		//This is just in case 2 heads of the same priority spawn
+		CHECK_TICK
 
 
 /datum/controller/subsystem/ticker/proc/transfer_characters()

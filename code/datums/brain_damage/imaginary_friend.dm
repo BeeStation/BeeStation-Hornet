@@ -121,7 +121,7 @@
 	var/gender = pick(MALE, FEMALE)
 	real_name = owner.dna.species.random_name(gender)
 	name = real_name
-	human_image = get_flat_human_icon(null, pick(SSjob.joinable_occupations))
+	human_image = get_flat_human_icon(null, pick(SSjob.occupations))
 
 /mob/camera/imaginary_friend/proc/Show()
 	SIGNAL_HANDLER
