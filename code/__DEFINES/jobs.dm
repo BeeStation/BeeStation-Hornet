@@ -53,26 +53,27 @@
 #define JOB_DISPLAY_ORDER_AI 33
 #define JOB_DISPLAY_ORDER_CYBORG 34
 
-#define DEPT_BITFLAG_SEC (1<<7)
-#define DEPARTMENT_SECURITY "Security"
 #define DEPT_BITFLAG_COM (1<<0)
 #define DEPARTMENT_COMMAND "Command"
+#define DEPT_BITFLAG_CIV (1<<1)
+#define DEPARTMENT_CIVLIAN
 #define DEPT_BITFLAG_SRV (1<<2)
 #define DEPARTMENT_SERVICE "Service"
 #define DEPT_BITFLAG_CAR (1<<3)
 #define DEPARTMENT_CARGO "Cargo"
-#define DEPT_BITFLAG_ENG (1<<5)
-#define DEPARTMENT_ENGINEERING "Engineering"
 #define DEPT_BITFLAG_SCI (1<<4)
 #define DEPARTMENT_SCIENCE "Science"
+#define DEPT_BITFLAG_ENG (1<<5)
+#define DEPARTMENT_ENGINEERING "Engineering"
 #define DEPT_BITFLAG_MED (1<<6)
 #define DEPARTMENT_MEDICAL "Medical"
-#define DEPT_BITFLAG_SILICON  (1<<9)
-#define DEPARTMENT_SILICON "Silicon"
+#define DEPT_BITFLAG_SEC (1<<7)
+#define DEPARTMENT_SECURITY "Security"
 #define DEPT_BITFLAG_VIP (1<<8)
 #define DEPARTMENT_VIP "VIP"
-#define DEPT_BITFLAG_CIV (1<<1)
-#define DEPARTMENT_CIVLIAN
+#define DEPT_BITFLAG_SILICON  (1<<9)
+#define DEPARTMENT_SILICON "Silicon"
+
 
 /* Job datum job_flags */
 /// Whether the mob is announced on arrival.

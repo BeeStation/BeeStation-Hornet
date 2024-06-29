@@ -442,13 +442,13 @@ SUBSYSTEM_DEF(ticker)
 	var/mob/dead/new_player/picked_spare_id_candidate
 
 	// Find a suitable player to hold captaincy.
-	for(var/mob/dead/new_player/new_player_mob as anything in GLOB.new_player_list)
-		if(is_banned_from(new_player_mob.ckey, list(JOB_NAME_CAPTAIN)))
+	for(var/mob/dead/new_player/new_player_mob_captaincy as anything in GLOB.new_player_list)
+		if(is_banned_from(new_player_mob_captaincy.ckey, list(JOB_NAME_CAPTAIN)))
 			CHECK_TICK
 			continue
-		if(!ishuman(new_player_mob.new_character))
+		if(!ishuman(new_player_mob_captaincy.new_character))
 			continue
-		var/mob/living/carbon/human/new_player_human = new_player_mob.new_character
+		var/mob/living/carbon/human/new_player_human = new_player_mob_captaincy.new_character
 		if(!new_player_human.mind || !new_player_human.mind.assigned_role)
 			continue
 		// Keep a rolling tally of who'll get the cap's spare ID vault code.
@@ -458,10 +458,10 @@ SUBSYSTEM_DEF(ticker)
 		if(spare_id_priority)
 			if(spare_id_priority < highest_rank)
 				spare_id_candidates.Cut()
-				spare_id_candidates += new_player_mob
+				spare_id_candidates += new_player_mob_captaincy
 				highest_rank = spare_id_priority
 			else if(spare_id_priority == highest_rank)
-				spare_id_candidates += new_player_mob
+				spare_id_candidates += new_player_mob_captaincy
 		CHECK_TICK
 
 	if(length(spare_id_candidates))
@@ -477,7 +477,7 @@ SUBSYSTEM_DEF(ticker)
 			continue
 		var/datum/job/player_assigned_role = SSjob.GetJob(new_player_living.mind.assigned_role)
 		if(player_assigned_role.job_flags & JOB_EQUIP_RANK)
-			SSjob.EquipRank(new_player_living, player_assigned_role, new_player_mob.client)
+			SSjob.EquipRank(new_player_living, player_assigned_role, new_player_mob.client, FALSE)
 		if(picked_spare_id_candidate == new_player_mob)
 			captainless = FALSE
 			var/acting_captain = !(player_assigned_role == JOB_NAME_CAPTAIN)

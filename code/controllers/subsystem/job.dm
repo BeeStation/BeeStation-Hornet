@@ -19,12 +19,12 @@ SUBSYSTEM_DEF(job)
 	var/spare_id_safe_code = ""
 
 	var/list/chain_of_command = list(
-		"Captain" = 1,				//Not used yet but captain is first in chain_of_command
-		"Head of Personnel" = 2,
-		"Research Director" = 3,
-		"Chief Engineer" = 4,
-		"Chief Medical Officer" = 5,
-		"Head of Security" = 6)
+		JOB_NAME_CAPTAIN = 1,				//Not used yet but captain is first in chain_of_command
+		JOB_NAME_HEADOFPERSONNEL = 2,
+		JOB_NAME_RESEARCHDIRECTOR = 3,
+		JOB_NAME_CHIEFENGINEER = 4,
+		JOB_NAME_CHIEFMEDICALOFFICER = 5,
+		JOB_NAME_HEADOFSECURITY = 6)
 
 	//Crew Objective stuff
 	var/list/crew_obj_list = list()
@@ -496,20 +496,18 @@ SUBSYSTEM_DEF(job)
 			RejectPlayer(player)
 
 
-//Gives the player the stuff he should have with his rank
-/datum/controller/subsystem/job/proc/EquipRank(mob/M, rank, joined_late = FALSE)
+//Gives the player the stuff he should have with his job
+/datum/controller/subsystem/job/proc/EquipRank(mob/M, datum/job/job, client/C,  joined_late = FALSE)
 	var/mob/dead/new_player/newplayer
 	var/mob/living/living_mob
 
-	if(!joined_late)
+	if(joined_late)
 		newplayer = M
 		living_mob = newplayer.new_character
 	else
 		living_mob = M
 
-	var/datum/job/job = GetJob(rank)
-
-	living_mob.job = rank
+	living_mob.job = job
 
 	//If we joined at roundstart we should be positioned at our workstation
 	if(!joined_late)
@@ -524,11 +522,11 @@ SUBSYSTEM_DEF(job)
 		else if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER) && job.random_spawns_possible)
 			SpawnLandAtRandom(living_mob, (typesof(/area/hallway) | typesof(/area/crew_quarters/bar) | typesof(/area/crew_quarters/dorms)))
 			spawning_handled = TRUE
-		else if(length(GLOB.jobspawn_overrides[rank]))
-			S = pick(GLOB.jobspawn_overrides[rank])
+		else if(length(GLOB.jobspawn_overrides[job.title]))
+			S = pick(GLOB.jobspawn_overrides[job.title])
 		else
 			for(var/obj/effect/landmark/start/sloc in GLOB.start_landmarks_list)
-				if(sloc.name != rank)
+				if(sloc.name != job.title)
 					S = sloc //so we can revert to spawning them on top of eachother if something goes wrong
 					continue
 				if(locate(/mob/living) in sloc.loc)
@@ -539,15 +537,15 @@ SUBSYSTEM_DEF(job)
 		if(S)
 			S.JoinPlayerHere(living_mob, FALSE)
 		if(!S && !spawning_handled) //if there isn't a spawnpoint send them to latejoin, if there's no latejoin go yell at your mapper
-			log_world("Couldn't find a round start spawn point for [rank]")
+			log_world("Couldn't find a round start spawn point for [job.title]")
 			SendToLateJoin(living_mob)
 
 
 	if(living_mob.mind)
-		living_mob.mind.assigned_role = rank
-	to_chat(M, "<b>You are the [rank].</b>")
+		living_mob.mind.assigned_role = job.title
+	to_chat(M, "<b>You are the [job.title].</b>")
 	if(job)
-		var/new_mob = job.equip(living_mob, null, null, joined_late , null, M.client)
+		var/new_mob = job.equip(living_mob, null, null, joined_late , null, C)
 		if(ismob(new_mob))
 			living_mob = new_mob
 			if(!joined_late)
@@ -555,14 +553,14 @@ SUBSYSTEM_DEF(job)
 			else
 				M = living_mob
 
-		SSpersistence.antag_rep_change[M.client.ckey] += job.GetAntagRep()
+		SSpersistence.antag_rep_change[C.ckey] += job.GetAntagRep()
 
-		if(M.client.holder)
-			if(CONFIG_GET(flag/auto_deadmin_players) || M.client?.prefs.read_player_preference(/datum/preference/toggle/deadmin_always))
-				M.client.holder.auto_deadmin()
+		if(C.holder)
+			if(CONFIG_GET(flag/auto_deadmin_players) || C?.prefs.read_player_preference(/datum/preference/toggle/deadmin_always))
+				C.holder.auto_deadmin()
 			else
-				handle_auto_deadmin_roles(M.client, rank)
-		to_chat(M, "<b>As the [rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
+				handle_auto_deadmin_roles(C, job)
+		to_chat(M, "<b>As the [job.title] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
 		job.radio_help_message(M)
 		if(job.req_admin_notify)
 			to_chat(M, "<b>You are playing a job that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
@@ -573,17 +571,16 @@ SUBSYSTEM_DEF(job)
 		if(wageslave.mind?.account_id)
 			living_mob.add_memory("Your account ID is [wageslave.mind.account_id].")
 	if(job && living_mob)
-		job.after_spawn(living_mob, M, joined_late, M.client) // note: this happens before the mob has a key! M will always have a client, living_mob might not.
+		job.after_spawn(living_mob, M, joined_late, C) // note: this happens before the mob has a key! M will always have a client, living_mob might not.
 
 	if(living_mob.mind && !living_mob.mind.crew_objectives.len)
 		give_crew_objective(living_mob.mind, M)
 
 	return living_mob
 
-/datum/controller/subsystem/job/proc/handle_auto_deadmin_roles(client/C, rank)
+/datum/controller/subsystem/job/proc/handle_auto_deadmin_roles(client/C, datum/job/job)
 	if(!C?.holder)
 		return TRUE
-	var/datum/job/job = GetJob(rank)
 	if(!job)
 		return
 	if((job.auto_deadmin_role_flags & DEADMIN_POSITION_HEAD) && (CONFIG_GET(flag/auto_deadmin_heads) || C.prefs?.read_player_preference(/datum/preference/toggle/deadmin_position_head)))

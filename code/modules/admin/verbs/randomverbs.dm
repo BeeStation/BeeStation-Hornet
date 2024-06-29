@@ -461,7 +461,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	//Now for special roles and equipment.
 	var/datum/antagonist/traitor/traitordatum = new_character.mind.has_antag_datum(/datum/antagonist/traitor)
 	if(traitordatum)
-		SSjob.EquipRank(new_character, new_character.mind.assigned_role, 1)
+		SSjob.EquipRank(new_character, new_character.mind.assigned_role, new_character.client, 1)
 		traitordatum.equip()
 
 
@@ -490,7 +490,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				if(JOB_NAME_AI)
 					new_character = new_character.AIize()
 				else
-					SSjob.EquipRank(new_character, new_character.mind.assigned_role, 1)//Or we simply equip them.
+					SSjob.EquipRank(new_character, new_character.mind.assigned_role, new_character.client, 1)//Or we simply equip them.
 
 	//Announces the character on all the systems, based on the record.
 	if(!issilicon(new_character))//If they are not a cyborg/AI.
