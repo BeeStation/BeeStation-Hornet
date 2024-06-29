@@ -172,7 +172,7 @@
 	singular_name = "tiled titanium floor tile"
 	desc = "Titanium floor tiles, used for shuttles."
 	turf_type = /turf/open/floor/mineral/titanium/tiled
-	icon_state = "tile_titanium_tiled"
+	icon_state = "titanium_alt"
 	merge_type = /obj/item/stack/tile/mineral/titanium/tiled
 
 /obj/item/stack/tile/mineral/titanium/tiled/yellow
@@ -180,7 +180,7 @@
 	singular_name = "yellow titanium floor tile"
 	desc = "Yellow titanium floor tiles, used for shuttles."
 	turf_type = /turf/open/floor/mineral/titanium/tiled/yellow
-	icon_state = "tile_titanium_tiled_yellow"
+	icon_state = "titanium_yellow_alt"
 	merge_type = /obj/item/stack/tile/mineral/titanium/tiled/yellow
 
 /obj/item/stack/tile/mineral/titanium/tiled/blue
@@ -188,7 +188,7 @@
 	singular_name = "blue titanium floor tile"
 	desc = "Blue titanium floor tiles, used for shuttles."
 	turf_type = /turf/open/floor/mineral/titanium/tiled/blue
-	icon_state = "tile_titanium_tiled_blue"
+	icon_state = "titanium_blue_alt"
 	merge_type = /obj/item/stack/tile/mineral/titanium/tiled/blue
 
 /obj/item/stack/tile/mineral/titanium/tiled/white
@@ -196,7 +196,7 @@
 	singular_name = "white titanium floor tile"
 	desc = "White titanium floor tiles, used for shuttles."
 	turf_type = /turf/open/floor/mineral/titanium/tiled/white
-	icon_state = "tile_titanium_tiled_white"
+	icon_state = "titanium_white_alt"
 	merge_type = /obj/item/stack/tile/mineral/titanium/tiled/white
 
 /obj/item/stack/tile/mineral/titanium/tiled/purple
@@ -204,7 +204,7 @@
 	singular_name = "purple titanium floor tile"
 	desc = "Purple titanium floor tiles, used for shuttles."
 	turf_type = /turf/open/floor/mineral/titanium/tiled/purple
-	icon_state = "tile_titanium_tiled_purple"
+	icon_state = "titanium_purple_alt"
 	merge_type = /obj/item/stack/tile/mineral/titanium/tiled/purple
 
 /obj/item/stack/tile/mineral/plastitanium

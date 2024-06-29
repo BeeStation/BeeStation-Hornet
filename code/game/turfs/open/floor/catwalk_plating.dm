@@ -6,7 +6,7 @@
  * unless you want to!
  */
 /turf/open/floor/catwalk_floor	//the base type, meant to look like a maintenance panel
-	icon = 'icons/turf/floors/catwalk_plating.dmi'
+	icon = 'icons/turf/catwalk_plating.dmi'
 	icon_state = "maint_above"
 	name = "catwalk floor"
 	desc = "Flooring that shows its contents underneath. Engineers love it!"
@@ -54,13 +54,13 @@
 		layer = CATWALK_LAYER
 		plane = GAME_PLANE
 		icon_state = "[catwalk_type]_above"
-	user.balloon_alert(user, "[!covered ? "cover removed" : "cover added"]")
+	user.balloon_alert(user, "[!covered ? "Cover removed" : "Ccover added"]")
 	tool.play_tool_sound(src)
 	update_appearance()
 
 /turf/open/floor/catwalk_floor/crowbar_act(mob/user, obj/item/crowbar)
 	if(covered)
-		user.balloon_alert(user, "remove cover first!")
+		user.balloon_alert(user, "Remove the cover first!")
 		return FALSE
 	. = ..()
 
@@ -96,7 +96,13 @@
 	floor_tile = /obj/item/stack/tile/catwalk_tile/titanium
 	catwalk_type = "titanium"
 
-/turf/open/floor/catwalk_floor/iron_smooth //the original green type
+/turf/open/floor/catwalk_floor/titanium/alt
+	name = "titanium plated catwalk floor"
+	icon_state = "titanium_alt_above"
+	floor_tile = /obj/item/stack/tile/catwalk_tile/titanium
+	catwalk_type = "titanium_alt"
+
+/turf/open/floor/catwalk_floor/iron_smooth //the original green type //pgn> do we REALLY need em?
 	name = "smooth plated catwalk floor"
 	icon_state = "smoothiron_above"
 	floor_tile = /obj/item/stack/tile/catwalk_tile/iron_smooth
