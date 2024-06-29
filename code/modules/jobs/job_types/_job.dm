@@ -32,6 +32,9 @@
 	///Mostly deprecated, but only used in pref job savefiles
 	var/department_flag = NONE
 
+	/// All values = (JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_BOLD_SELECT_TEXT | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN | JOB_CANNOT_OPEN_SLOTS | JOB_HEAD_OF_STAFF)
+	var/job_flags = NONE
+
 	///Players will be allowed to spawn in as jobs that are set to "Station"
 	var/faction = "None"
 
@@ -307,17 +310,17 @@
 	. = minimal_lightup_areas.Copy()
 	if(!minimal_access)
 		. |= lightup_areas
-	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_COM))
+	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_COMMAND))
 		. |= GLOB.command_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_ENG))
+	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_ENGINEERING))
 		. |= GLOB.engineering_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_MED))
+	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_MEDICAL))
 		. |= GLOB.medical_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_SCI))
+	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_SCIENCE))
 		. |= GLOB.science_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_CAR))
+	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_CARGO))
 		. |= GLOB.supply_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_SEC))
+	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_SECURITY))
 		. |= GLOB.security_lightup_areas
 
 /datum/job/proc/available_in_days(client/C)
@@ -449,7 +452,7 @@
 	if(!player_client)
 		return // Disconnected while checking for the appearance ban.
 
-	var/require_human = CONFIG_GET(flag/enforce_human_authority) && (job.departments & DEPT_BITFLAG_COM)
+	var/require_human = CONFIG_GET(flag/enforce_human_authority) && (job.departments & DEPARTMENT_BITFLAG_COMMAND)
 
 	if(fully_randomize)
 		if(require_human)
@@ -505,3 +508,6 @@
 	// If this checks fails, then the name will have been handled during initialization.
 	if(player_client.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
 		apply_pref_name(/datum/preference/name/cyborg, player_client)
+
+/datum/job/proc/get_captaincy_announcement(mob/living/captain)
+	return "Due to extreme staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"

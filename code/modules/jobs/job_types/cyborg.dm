@@ -7,7 +7,6 @@
 	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
-	spawn_type = /mob/living/silicon/robot
 	supervisors = "your laws and the AI"	//Nodrak
 	selection_color = "#ddffdd"
 	minimal_player_age = 21
@@ -22,14 +21,10 @@
 /datum/job/cyborg/get_access() // no point of calling parent proc
 	return list()
 
-
-/datum/job/cyborg/after_spawn(mob/living/spawned, client/player_client)
-	. = ..()
-	if(!iscyborg(spawned))
-		return
-	spawned.gender = NEUTER
-	var/mob/living/silicon/robot/robot_spawn = spawned
-	robot_spawn.notify_ai(NEW_BORG)
+/datum/job/cyborg/after_spawn(mob/living/silicon/robot/R, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
+	if(!M.client || on_dummy)
+		R.updatename(M.client)
+		R.gender = NEUTER
 
 /datum/job/cyborg/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :b to speak with other cyborgs and AI.</b>")

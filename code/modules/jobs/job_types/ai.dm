@@ -1,10 +1,10 @@
 /datum/job/ai
 	title = JOB_NAME_AI
 	description = "Follow your laws above all else, be the invisible eye that watches all."
-	department_for_prefs = DEPT_BITFLAG_SILICON
+	department_for_prefs = DEPARTMENT_BITFLAG_SILICON
 	department_head_for_prefs = JOB_NAME_AI
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ccffcc"
@@ -15,7 +15,7 @@
 	exp_type = EXP_TYPE_CREW
 	exp_type_department = EXP_TYPE_SILICON
 	display_order = JOB_DISPLAY_ORDER_AI
-	departments = DEPT_BITFLAG_SILICON
+	departments = DEPARTMENT_BITFLAG_SILICON
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
 	var/do_special_check = TRUE
