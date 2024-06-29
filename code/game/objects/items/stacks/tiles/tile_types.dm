@@ -794,6 +794,10 @@
 	icon_state = "titanium_catwalk"
 	turf_type = /turf/open/floor/catwalk_floor/titanium
 
+/obj/item/stack/tile/catwalk_tile/titanium/alt
+	icon_state = "titanium_alt_catwalk"
+	turf_type = /turf/open/floor/catwalk_floor/titanium/alt
+
 /obj/item/stack/tile/catwalk_tile/iron_smooth //this is the greenish one
 	icon_state = "smoothiron_catwalk"
 	turf_type = /turf/open/floor/catwalk_floor/iron_smooth
