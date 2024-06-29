@@ -28,6 +28,15 @@
 	icon_file = 'icons/obj/atmospherics/prototype_canister.dmi'
 	json_config = 'code/datums/greyscale/json_configs/canister_proto.json'
 
+/datum/greyscale_config/carp
+	name = "Space Carp"
+	icon_file = 'icons/mob/carp.dmi'
+	json_config = 'code/datums/greyscale/json_configs/carp.json'
+
+/datum/greyscale_config/carp/disk_mouth
+	name = "Space Carp Disk in Mouth"
+	json_config = 'code/datums/greyscale/json_configs/carp_disk_mouth.json'
+
 /datum/greyscale_config/screwdriver
 	name = "Screwdriver"
 	icon_file = 'icons/obj/tools.dmi'
@@ -178,11 +187,16 @@
 	icon_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_mk2_inhand.json'
 
-/datum/greyscale_config/carp
-	name = "Space Carp"
-	icon_file = 'icons/mob/carp.dmi'
-	json_config = 'code/datums/greyscale/json_configs/carp.json'
+//
+// PLUSHIES
+//
 
-/datum/greyscale_config/carp/disk_mouth
-	name = "Space Carp Disk in Mouth"
-	json_config = 'code/datums/greyscale/json_configs/carp_disk_mouth.json'
+/datum/greyscale_config/plush_lizard
+	name = "Plushie Lizard"
+	icon_file = 'icons/obj/plushes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plushie_lizard.json'
+
+/datum/greyscale_config/plush_spacelizard
+	name = "Plushie Space Lizard"
+	icon_file = 'icons/obj/plushes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plushie_spacelizard.json'

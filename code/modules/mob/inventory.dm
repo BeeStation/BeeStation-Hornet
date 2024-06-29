@@ -426,8 +426,8 @@
 	return obscured
 
 
-/obj/item/proc/equip_to_best_slot(mob/M)
-	if(src != M.get_active_held_item())
+/obj/item/proc/equip_to_best_slot(mob/M, swap = FALSE, check_hand = TRUE)
+	if(check_hand && src != M.get_active_held_item())
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
 		return FALSE
 
@@ -456,6 +456,9 @@
 /mob/verb/quick_equip()
 	set name = "quick-equip"
 	set hidden = 1
+
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return TRUE
 
 	var/obj/item/I = get_active_held_item()
 	if (I)
