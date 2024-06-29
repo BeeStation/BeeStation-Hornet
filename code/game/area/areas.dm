@@ -616,10 +616,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/proc/PlaceOnTopReact(turf/T, list/new_baseturfs, turf/fake_turf_type, flags)
 	return flags
 
-//Called when a living mob that spawned here, joining the round, receives the player client.
-/area/proc/on_joining_game(mob/living/boarder)
-	return
-
 /// Gets an areas virtual z value. For having multiple areas on the same z-level treated mechanically as different z-levels
 /area/proc/get_virtual_z(turf/T)
 	return T.z

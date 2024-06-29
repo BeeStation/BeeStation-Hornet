@@ -26,7 +26,7 @@
 	var/burn_damage = 0
 	var/datum/disease/disease = null //Do they start with a pre-spawned disease?
 	var/mob_color //Change the mob's color
-	var/spawner_job_path = /datum/job/ghost_role /// Typepath indicating the kind of job datum this ert member will have.
+	var/assignedrole
 	var/show_flavour = TRUE
 	var/banType
 	var/ghost_usable = TRUE
@@ -120,7 +120,8 @@
 				O.owner = MM
 				A.objectives += O
 				log_objective(O.owner, O.explanation_text)
-		M.mind.set_assigned_role(SSjob.GetJobType(spawner_job_path))
+		if(assignedrole)
+			M.mind.assigned_role = assignedrole
 		special(M, name)
 		MM.name = M.real_name
 	if(uses > 0)
@@ -140,7 +141,7 @@
 	var/id_job = null			//Such as JOB_NAME_CLOWN or "Chef." This just determines what the ID reads as, not their access
 	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use JOB_NAME_CAPTAIN if you want it to be all access.
 	var/id_access_list = null	//Allows you to manually add access to an ID card.
-	spawner_job_path = /datum/job/ghost_role
+	assignedrole = "Ghost Role"
 
 	var/husk = null
 	//these vars are for lazy mappers to override parts of the outfit
@@ -220,7 +221,7 @@
 	var/obj/item/card/id/W = H.wear_id
 	if(W)
 		if(id_access)
-			for(var/datum/job/J in SSjob.all_occupations)
+			for(var/datum/job/J in SSjob.occupations)
 				if(J.title == id_access)
 					W.access = J.get_access()
 					break
@@ -333,7 +334,7 @@
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
 	short_desc = "You are a space doctor!"
-	spawner_job_path = /datum/job/space_doctor
+	assignedrole = "Space Doctor"
 	use_cooldown = TRUE // Use cooldown
 
 /obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H)
@@ -389,12 +390,12 @@
 	icon_state = "sleeper"
 	short_desc = "You are a space bartender!"
 	flavour_text = "Time to mix drinks and change lives. Smoking space drugs makes it easier to understand your patrons' odd dialect."
-	spawner_job_path = /datum/job/beach_bartender
+	assignedrole = "Space Bartender"
 	id_job = JOB_NAME_BARTENDER
 	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/bartender/alive/beach
-	spawner_job_path = /datum/job/beach_bartender
+	assignedrole = "Beach Bartender"
 	banType = ROLE_BEACH_BUM
 	outfit = /datum/outfit/spacebartender/beach
 
@@ -434,7 +435,7 @@
 	icon_state = "sleeper"
 	short_desc = "You're, like, totally a dudebro, bruh."
 	flavour_text = "Ch'yea. You came here, like, on spring break, hopin' to pick up some bangin' hot chicks, y'knaw?"
-	spawner_job_path = /datum/job/beach_bum
+	assignedrole = "Beach Bum"
 	use_cooldown = TRUE
 	banType = ROLE_BEACH_BUM
 
@@ -530,7 +531,7 @@
 	icon_state = "remains"
 	short_desc = "By unknown powers, your skeletal remains have been reanimated!"
 	flavour_text = "Walk this mortal plane and terrorize all living adventurers who dare cross your path."
-	spawner_job_path = /datum/job/skeleton
+	assignedrole = "Skeleton"
 	use_cooldown = TRUE
 	banType = ROLE_SKELETAL_REMAINS
 

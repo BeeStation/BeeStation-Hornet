@@ -792,7 +792,7 @@
 		return TRUE
 	var/mob/living/carbon/human/H = usr
 
-	if(H.mind.special_role == ROLE_WIZARD_APPRENTICE)
+	if(H.mind.special_role == "apprentice")
 		temp = "If you got caught sneaking a peek from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not."
 		return
 

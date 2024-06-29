@@ -174,7 +174,7 @@
 /obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient)
 	switch(rand(1,5))
 		if(5)
-			name = "[initial(name)] critical to [recipient.name] ([recipient.assigned_role.title])"
+			name = "[initial(name)] critical to [recipient.name] ([recipient.assigned_role])"
 		else
 			name = "[initial(name)] for [recipient.name] ([recipient.assigned_role])"
 	recipient_ref = WEAKREF(recipient)
@@ -187,7 +187,7 @@
 	var/list/danger_goodies = hazard_goodies
 
 	//Load the job the player have
-	var/datum/job/this_job = recipient.assigned_role // only station crews have 'assigned role'
+	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role] // only station crews have 'assigned role'
 	if(this_job)
 		goodies += this_job.mail_goodies
 		var/datum/data/record/R = find_record("name", recipient.name, GLOB.data_core.general)
@@ -275,7 +275,7 @@
 
 	for(var/mob/living/carbon/human/human in GLOB.player_list)
 		// Skip wizards, nuke ops, cyborgs and dead people; Centcom does not send them mail
-		if(!(human.mind.assigned_role.job_flags & JOB_CREW_MEMBER))
+		if(human.stat == DEAD || !human.mind || !SSjob.GetJob(human.mind.assigned_role) || human.mind.special_role)
 			continue
 
 		mail_recipients += human.mind

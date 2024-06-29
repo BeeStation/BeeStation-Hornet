@@ -43,9 +43,11 @@
 		var/turf/T = get_turf(H)
 		if(!T)
 			continue
+		if(!is_station_level(T.z))
+			continue
 		if(!H.client)
 			continue
-		if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_CRITICAL_CONDITION) || !(H.mind.assigned_role.job_flags & JOB_CREW_MEMBER))
+		if(H.stat == DEAD)
 			continue
 		if(!(MOB_ORGANIC in H.mob_biotypes))
 			continue

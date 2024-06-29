@@ -16,7 +16,7 @@
 //These are synced with the Database, if you change the values of the defines
 //then you MUST update the database!
 #define ROLE_TRAITOR			"Traitor"
-#define ROLE_NUCLEAR_OPERATIVE	"Nuclear Operative"
+#define ROLE_OPERATIVE			"Nuclear Operative"
 #define ROLE_CHANGELING			"Changeling"
 #define ROLE_WIZARD				"Wizard"
 //#define ROLE_MALF				"Malf AI" // Currently under traitor datum, so we can't have this separate.
@@ -53,19 +53,11 @@
 #define ROLE_PYRO_SLIME			"Pyroclastic Anomaly Slime"
 #define ROLE_MONKEY_HELMET		"Sentient Monkey"
 #define ROLE_PRISONER			"Prisoner"
-#define ROLE_POSITRONIC_BRAIN "Positronic Brain"
-#define ROLE_SERVANT_GOLEM "Servant Golem"
-#define ROLE_CLOWN_OPERATIVE "Clown Operative"
-#define ROLE_LONE_OPERATIVE "Lone Operative"
-#define ROLE_WIZARD_APPRENTICE "Apprentice"
-#define ROLE_SENTIENT_DISEASE "Sentient Disease"
-#define ROLE_SANTA "Santa"
-
 
 /// Roles that are antagonists, roundstart or not, and have passes to do.. antagonistry
 GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_TRAITOR,
-	ROLE_NUCLEAR_OPERATIVE,
+	ROLE_OPERATIVE,
 	ROLE_CHANGELING,
 	ROLE_WIZARD,
 //	ROLE_MALF,

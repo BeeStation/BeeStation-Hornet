@@ -632,10 +632,10 @@
 	if (client)
 		client.give_award(/datum/award/achievement/misc/singularity_death, client.mob)
 
-	switch(mind?.assigned_role.type)
-		if(/datum/job/chief_engineer, /datum/job/station_engineer)
+	if(mind)
+		if((mind.assigned_role == JOB_NAME_STATIONENGINEER) || (mind.assigned_role == JOB_NAME_CHIEFENGINEER) )
 			. = 100
-		if(/datum/job/clown)
+		if(mind.assigned_role == JOB_NAME_CLOWN)
 			. = rand(-1000, 1000)
 	..()
 

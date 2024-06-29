@@ -83,8 +83,6 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	player_mind.special_role = ROLE_FUGITIVE
 	var/datum/antagonist/fugitive/A = new()
 	A.backstory = backstory
-	player_mind.set_assigned_role(SSjob.GetJobType(/datum/job/fugitive))
-	player_mind.special_role = ROLE_FUGITIVE
 	player_mind.add_antag_datum(A)
 	var/outfit = (leader && backstory.has_leader) ? backstory.leader_outfit : backstory.outfit
 	if(islist(outfit))

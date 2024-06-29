@@ -45,9 +45,6 @@
 
 	var/special_voice = "" // For changing our voice. Used by a symptom.
 
-	/// your bank account id
-	var/account_id
-
 	var/bleed_rate = 0 //how much are we bleeding
 	var/bleedsuppress = 0 //for stopping bloodloss, eventually this will be limb-based like bleeding
 	/// How many "units of blood" we have on our hands

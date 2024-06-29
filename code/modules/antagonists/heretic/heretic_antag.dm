@@ -508,7 +508,7 @@
 		return
 	if(tgui_alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
 		to_chat(owner.current, "<span class='danger'>The Mansus has modified your targets. Go find them!</span>")
-		to_chat(owner.current, "<span class='danger'>[new_target.real_name], the [new_target.mind?.assigned_role.title || "human"].</span>")
+		to_chat(owner.current, "<span class='danger'>[new_target.real_name], the [new_target.mind?.assigned_role || "human"].</span>")
 	add_sacrifice_target(new_target)
 
 /*
@@ -568,7 +568,7 @@
 			var/datum/mind/actual_target = ref.resolve()
 			if(istype(actual_target))
 				continue
-			. += " - <b>[actual_target.name]</b>, the [actual_target.assigned_role.title || "Unknown"].<br>"
+			. += " - <b>[actual_target.name]</b>, the [actual_target.assigned_role || "Unknown"].<br>"
 	else
 		. += "<i>None!</i><br>"
 	. += "<br>"

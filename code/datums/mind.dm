@@ -40,8 +40,7 @@
 	var/memory
 	var/list/quirks = list()
 
-	/// Job datum indicating the mind's role. This should always exist after initialization, as a reference to a singleton.
-	var/datum/job/assigned_role
+	var/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
@@ -75,6 +74,8 @@
 
 	/// A lazy list of statuses to add next to this mind in the traitor panel
 	var/list/special_statuses
+	/// your bank account id in your mind
+	var/account_id
 	/// A holder datum used to handle holoparasites and their shared behavior.
 	var/datum/holoparasite_holder/holoparasite_holder
 
@@ -92,7 +93,6 @@
 	soulOwner = src
 	martial_art = default_martial_art
 	setup_soul_glimmer()
-	set_assigned_role(SSjob.GetJobType(/datum/job/unassigned)) // Unassigned by default.
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
@@ -462,14 +462,10 @@
 		A.admin_remove(usr)
 
 	if (href_list["role_edit"])
-		var/new_role = input("Select new role", "Assigned role", assigned_role.title) as null|anything in sort_list(SSjob.all_occupations)
-		if(isnull(new_role))
+		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in sort_list(get_all_jobs())
+		if (!new_role)
 			return
-		var/datum/job/new_job = SSjob.GetJob(new_role)
-		if (!new_job)
-			to_chat(usr, "<span class='warning'>Job not found.</span>")
-			return
-		set_assigned_role(new_role)
+		assigned_role = new_role
 
 	else if (href_list["memory_edit"])
 		var/new_memo = stripped_multiline_input(usr, "Write new memory", "Memory", memory, MAX_MESSAGE_LEN)
@@ -688,11 +684,10 @@
 	return C
 
 /datum/mind/proc/make_Wizard()
-	if(has_antag_datum(/datum/antagonist/wizard))
-		return
-	set_assigned_role(SSjob.GetJobType(/datum/job/space_wizard))
-	special_role = ROLE_WIZARD
-	add_antag_datum(/datum/antagonist/wizard)
+	if(!has_antag_datum(/datum/antagonist/wizard))
+		special_role = ROLE_WIZARD
+		assigned_role = ROLE_WIZARD
+		add_antag_datum(/datum/antagonist/wizard)
 
 
 /datum/mind/proc/make_Cultist()
@@ -708,13 +703,6 @@
 	head.give_hud = TRUE
 	add_antag_datum(head)
 	special_role = ROLE_REV_HEAD
-
-/// Setter for the assigned_role job datum.
-/datum/mind/proc/set_assigned_role(datum/job/new_role)
-	if(assigned_role == new_role)
-		return
-	. = assigned_role
-	assigned_role = new_role
 
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	// HACK: Preferences menu creates one of every selectable species.
@@ -833,20 +821,26 @@
 	..()
 	last_mind = mind
 
+//HUMAN
+/mob/living/carbon/human/mind_initialize()
+	..()
+	if(!mind.assigned_role)
+		mind.assigned_role = "Unassigned" //default
+
 //AI
 /mob/living/silicon/ai/mind_initialize()
-	. = ..()
-	mind.set_assigned_role(SSjob.GetJobType(/datum/job/ai))
+	..()
+	mind.assigned_role = JOB_NAME_AI
 
 //BORG
 /mob/living/silicon/robot/mind_initialize()
-	. = ..()
-	mind.set_assigned_role(SSjob.GetJobType(/datum/job/cyborg))
+	..()
+	mind.assigned_role = JOB_NAME_CYBORG
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()
-	. = ..()
-	mind.set_assigned_role(SSjob.GetJobType(/datum/job/personal_ai))
+	..()
+	mind.assigned_role = ROLE_PAI
 	mind.special_role = ""
 
 // Quirk Procs //

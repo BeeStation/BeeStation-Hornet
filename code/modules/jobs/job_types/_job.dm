@@ -33,7 +33,7 @@
 	var/department_flag = NONE
 
 	///Players will be allowed to spawn in as jobs that are set to "Station"
-	var/faction = FACTION_NONE
+	var/faction = "None"
 
 	///How many players can be this job
 	var/total_positions = 0
@@ -49,9 +49,6 @@
 
 	///Selection screen color
 	var/selection_color = "#ffffff"
-
-	/// What kind of mob type joining players with this job as their assigned role are spawned as.
-	var/spawn_type = /mob/living/carbon/human
 
 	///Overhead chat message colour
 	var/chat_color = "#ffffff"
@@ -120,12 +117,6 @@
 	 */
 	var/list/minimal_lightup_areas = list()
 
-	/// All values = (JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK)
-	var/job_flags = NONE
-
-	/// String. If set to a non-empty one, it will be the key for the policy text value to show this role on spawn.
-	var/policy_index = ""
-
 
 /datum/job/New()
 	. = ..()
@@ -144,15 +135,17 @@
 /// do actions on H but send messages to M as the key may not have been transferred_yet
 /// preference_source allows preferences to be retrieved if the original mob (M) is null - for use on preference dummies.
 /// Don't do non-visual changes if M.client is null, since that means it's just a dummy and doesn't need them.
-/// Executes after the mob has been spawned in the map. Client might not be yet in the mob, and is thus a separate variable.
-/datum/job/proc/after_spawn(mob/living/spawned, client/player_client)
-	SHOULD_CALL_PARENT(TRUE)
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, spawned, player_client)
-	for(var/trait in mind_traits)
-		ADD_TRAIT(spawned.mind, trait, JOB_TRAIT)
+/datum/job/proc/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
+	if(!on_dummy) // Bad dummy
+		//do actions on H but send messages to M as the key may not have been transferred_yet
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H, M, latejoin)
+		if(mind_traits && H?.mind)
+			for(var/t in mind_traits)
+				ADD_TRAIT(H.mind, t, JOB_TRAIT)
 
-	if(!ishuman(spawned))
+	if(!ishuman(H))
 		return
+	apply_loadout_to_mob(H, M, preference_source, on_dummy)
 
 /proc/apply_loadout_to_mob(mob/living/carbon/human/H, mob/M, client/preference_source, on_dummy = FALSE)
 	var/mob/living/carbon/human/human = H
@@ -237,9 +230,12 @@
 				to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
 			qdel(item)
 
-/datum/job/proc/announce_job(mob/living/H)
+/datum/job/proc/announce(mob/living/carbon/human/H)
 	if(head_announce)
 		announce_head(H, head_announce)
+
+/datum/job/proc/override_latejoin_spawn(mob/living/carbon/human/H)		//Return TRUE to force latejoining to not automatically place the person in latejoin shuttle/whatever.
+	return FALSE
 
 //Used for a special check of whether to allow a client to latejoin as this job.
 /datum/job/proc/special_check_latejoin(client/C)
@@ -255,22 +251,35 @@
 	if(. == null)
 		return antag_rep
 
-/mob/living/proc/on_job_equipping(datum/job/equipping)
-	return
+//Don't override this unless the job transforms into a non-human (Silicons do this for example)
+/datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
+	if(!H)
+		return FALSE
+	if(CONFIG_GET(flag/enforce_human_authority) && (title in GLOB.command_positions))
+		if(H.dna.species.id != SPECIES_HUMAN)
+			H.set_species(/datum/species/human)
+			H.apply_pref_name(/datum/preference/name/backup_human, preference_source)
+	if(!visualsOnly)
+		var/datum/bank_account/bank_account = new(H.real_name, src)
+		bank_account.payday(STARTING_PAYCHECKS, TRUE)
+		H.mind?.account_id = bank_account.account_id
 
-/mob/living/carbon/human/on_job_equipping(datum/job/equipping)
-	var/datum/bank_account/bank_account = new(real_name, equipping)
-	bank_account.payday(STARTING_PAYCHECKS, TRUE)
-	account_id = bank_account.account_id
+	//Equip the rest of the gear
+	H.dna.species.before_equip_job(src, H, visualsOnly)
 
-	dress_up_as_job(equipping)
+	if(src.species_outfits)
+		if(H.dna.species.id in src.species_outfits)
+			var/datum/outfit/O = species_outfits[H.dna.species.id]
+			H.equipOutfit(O, visualsOnly)
 
-/mob/living/proc/dress_up_as_job(datum/job/equipping, visual_only = FALSE)
-	return
+	if(outfit_override || outfit)
+		H.equipOutfit(outfit_override ? outfit_override : outfit, visualsOnly)
 
-/mob/living/carbon/human/dress_up_as_job(datum/job/equipping, visual_only = FALSE)
-	dna.species.after_equip_job(equipping, src, visual_only)
-	equipOutfit(equipping.outfit, visual_only)
+	H.dna.species.after_equip_job(src, H, visualsOnly, preference_source)
+
+	if(!visualsOnly && announce)
+		announce(H)
+	H.give_random_dormant_disease(biohazard, (title == JOB_NAME_CLOWN || title == JOB_NAME_MIME) ? 0 : 4)
 
 /datum/job/proc/get_access()
 	if(!config)	//Needed for robots.
@@ -298,17 +307,17 @@
 	. = minimal_lightup_areas.Copy()
 	if(!minimal_access)
 		. |= lightup_areas
-	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_COMMAND))
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_COM))
 		. |= GLOB.command_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_ENGINEERING))
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_ENG))
 		. |= GLOB.engineering_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_MEDICAL))
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_MED))
 		. |= GLOB.medical_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_SCIENCE))
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_SCI))
 		. |= GLOB.science_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_CARGO))
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_CAR))
 		. |= GLOB.supply_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPARTMENT_BITFLAG_SECURITY))
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_SEC))
 		. |= GLOB.security_lightup_areas
 
 /datum/job/proc/available_in_days(client/C)
@@ -405,11 +414,13 @@
 		C.assignment = J.title
 		C.set_hud_icon_on_spawn(J.title)
 		C.update_label()
-		var/datum/bank_account/account = SSeconomy.bank_accounts["[H.account_id]"]
-
-		if(account && account.account_id == H.account_id)
-			C.registered_account = account
-			account.bank_cards += C
+		for(var/datum/bank_account/B in SSeconomy.bank_accounts)
+			if(!H.mind)
+				continue
+			if(B.account_id == H.mind.account_id)
+				C.registered_account = B
+				B.bank_cards += C
+				break
 		H.sec_hud_set_ID()
 
 	var/obj/item/modular_computer/tablet/pda/PDA = H.get_item_by_slot(pda_slot)
@@ -438,7 +449,7 @@
 	if(!player_client)
 		return // Disconnected while checking for the appearance ban.
 
-	var/require_human = CONFIG_GET(flag/enforce_human_authority) && (job.departments & DEPARTMENT_BITFLAG_COMMAND)
+	var/require_human = CONFIG_GET(flag/enforce_human_authority) && (job.departments & DEPT_BITFLAG_COM)
 
 	if(fully_randomize)
 		if(require_human)
@@ -494,136 +505,3 @@
 	// If this checks fails, then the name will have been handled during initialization.
 	if(player_client.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
 		apply_pref_name(/datum/preference/name/cyborg, player_client)
-
-/**
- * Called after a successful roundstart spawn.
- * Client is not yet in the mob.
- * This happens after after_spawn()
- */
-/datum/job/proc/after_roundstart_spawn(mob/living/spawning, client/player_client)
-	SHOULD_CALL_PARENT(TRUE)
-
-/**
- * Called after a successful latejoin spawn.
- * Client is in the mob.
- * This happens after after_spawn()
- */
-/datum/job/proc/after_latejoin_spawn(mob/living/spawning)
-	SHOULD_CALL_PARENT(TRUE)
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, src, spawning)
-
-
-
-/datum/job/proc/award_service(client/winner, award)
-	return
-
-
-/datum/job/proc/get_captaincy_announcement(mob/living/captain)
-	return "Due to extreme staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
-
-
-/// Returns an atom where the mob should spawn in.
-/datum/job/proc/get_roundstart_spawn_point()
-	if(random_spawns_possible)
-		if(HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS))
-			return get_latejoin_spawn_point()
-		if(HAS_TRAIT(SSstation, STATION_TRAIT_RANDOM_ARRIVALS))
-			return get_safe_random_station_turfs(typesof(/area/hallway)) || get_latejoin_spawn_point()
-	if(length(GLOB.jobspawn_overrides[title]))
-		return pick(GLOB.jobspawn_overrides[title])
-	var/obj/effect/landmark/start/spawn_point = get_default_roundstart_spawn_point()
-	if(!spawn_point) //if there isn't a spawnpoint send them to latejoin, if there's no latejoin go yell at your mapper
-		return get_latejoin_spawn_point()
-	return spawn_point
-
-
-/// Handles finding and picking a valid roundstart effect landmark spawn point, in case no uncommon different spawning events occur.
-/datum/job/proc/get_default_roundstart_spawn_point()
-	for(var/obj/effect/landmark/start/spawn_point as anything in GLOB.start_landmarks_list)
-		if(spawn_point.name != title)
-			continue
-		. = spawn_point
-		if(spawn_point.used) //so we can revert to spawning them on top of eachother if something goes wrong
-			continue
-		spawn_point.used = TRUE
-		break
-	if(!.)
-		log_world("Couldn't find a round start spawn point for [title]")
-
-
-/// Finds a valid latejoin spawn point, checking for events and special conditions.
-/datum/job/proc/get_latejoin_spawn_point()
-	if(length(GLOB.jobspawn_overrides[title])) //We're doing something special today.
-		return pick(GLOB.jobspawn_overrides[title])
-	if(length(SSjob.latejoin_trackers))
-		return pick(SSjob.latejoin_trackers)
-	return SSjob.get_last_resort_spawn_points()
-
-/// Spawns the mob to be played as, taking into account preferences and the desired spawn point.
-/datum/job/proc/get_spawn_mob(client/player_client, atom/spawn_point)
-	var/mob/living/spawn_instance
-	if(ispath(spawn_type, /mob/living/silicon/ai))
-		// This is unfortunately necessary because of snowflake AI init code. To be refactored.
-		spawn_instance = new spawn_type(get_turf(spawn_point), null, player_client.mob)
-	else
-		spawn_instance = new spawn_type(player_client.mob.loc)
-		spawn_point.JoinPlayerHere(spawn_instance, TRUE)
-	spawn_instance.apply_prefs_job(player_client, src)
-	if(!player_client)
-		qdel(spawn_instance)
-		return // Disconnected while checking for the appearance ban.
-	return spawn_instance
-
-/mob/living/carbon/human/apply_prefs_job(client/player_client, datum/job/job)
-	if(!player_client)
-		return // Disconnected while checking for the appearance ban.
-
-	var/is_antag = (player_client.mob.mind in GLOB.pre_setup_antags)
-	var/require_human = CONFIG_GET(flag/enforce_human_authority) && (job.job_flags & JOB_HEAD_OF_STAFF)
-	src.job = job.title
-
-	var/is_antag = (player_client.mob.mind in GLOB.pre_setup_antags)
-	if(require_human)
-		player_client.prefs.randomize["species"] = FALSE
-	player_client.prefs.safe_transfer_prefs_to(src, TRUE, is_antag)
-	if(require_human && !ishumanbasic(src))
-		set_species(/datum/species/human)
-		dna.species.roundstart_changed = TRUE
-		apply_pref_name(/datum/preference/name/backup_human, player_client)
-	if(CONFIG_GET(flag/force_random_names))
-		real_name = random_unique_name(
-			player_client.prefs.read_preference(/datum/preference/choiced/gender),
-			TRUE,
-			player_client.prefs.read_preference(/datum/preference/choiced/species),
-		)
-	dna.update_dna_identity()
-
-
-/mob/living/silicon/ai/apply_prefs_job(client/player_client, datum/job/job)
-	apply_pref_name("ai", player_client) // This proc already checks if the player is appearance banned.
-	set_core_display_icon(null, player_client)
-
-
-/mob/living/silicon/robot/apply_prefs_job(client/player_client, datum/job/job)
-	if(mmi)
-		var/organic_name
-		if(GLOB.current_anonymous_theme)
-			organic_name = GLOB.current_anonymous_theme.anonymous_name(src)
-		else if(player_client.prefs.randomize[RANDOM_NAME] || CONFIG_GET(flag/force_random_names) || is_banned_from(player_client.ckey, "Appearance"))
-			if(!player_client)
-				return // Disconnected while checking the appearance ban.
-			organic_name = player_client.prefs.pref_species.random_name(player_client.prefs.gender, TRUE)
-		else
-			if(!player_client)
-				return // Disconnected while checking the appearance ban.
-			organic_name = player_client.prefs.real_name
-
-		mmi.name = "[initial(mmi.name)]: [organic_name]"
-		if(mmi.brain)
-			mmi.brain.name = "[organic_name]'s brain"
-		if(mmi.brainmob)
-			mmi.brainmob.real_name = organic_name //the name of the brain inside the cyborg is the robotized human's name.
-			mmi.brainmob.name = organic_name
-	// If this checks fails, then the name will have been handled during initialization.
-	if(!GLOB.current_anonymous_theme && player_client.prefs.custom_names["cyborg"] != DEFAULT_CYBORG_NAME)
-		apply_pref_name("cyborg", player_client)

@@ -816,7 +816,8 @@
 /obj/item/clothing/suit/space/hardsuit/clown/mob_can_equip(mob/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
 	if(!..() || !ishuman(M))
 		return FALSE
-	if(is_clown_job(M.mind.assigned_role))
+	var/mob/living/carbon/human/H = M
+	if(H.mind.assigned_role == JOB_NAME_CLOWN)
 		return TRUE
 	else
 		return FALSE

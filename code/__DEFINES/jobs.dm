@@ -53,6 +53,7 @@
 #define JOB_DISPLAY_ORDER_AI 33
 #define JOB_DISPLAY_ORDER_CYBORG 34
 
+#define DEPARTMENT_UNASSIGNED "No department assigned"
 #define DEPARTMENT_BITFLAG_SECURITY (1<<0)
 #define DEPARTMENT_SECURITY "Security"
 #define DEPARTMENT_BITFLAG_COMMAND (1<<1)
@@ -71,8 +72,6 @@
 #define DEPARTMENT_SILICON "Silicon"
 #define DEPARTMENT_BITFLAG_VIP (1<<8)
 #define DEPARTMENT_VIP "VIP"
-#define DEPARTMENT_BITFLAG_UNASSIGNED (1<<9)
-#define DEPARTMENT_UNASSIGNED "No department assigned"
 
 /* Job datum job_flags */
 /// Whether the mob is announced on arrival.

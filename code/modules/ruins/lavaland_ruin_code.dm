@@ -114,7 +114,7 @@
 	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Continue your research as best you can, and try to keep a low profile."
 	important_info = "The base is rigged with explosives, DO NOT abandon it or let it fall into enemy hands!"
 	outfit = /datum/outfit/lavaland_syndicate
-	spawner_job_path = /datum/job/lavaland_syndicate
+	assignedrole = "Lavaland Syndicate"
 	use_cooldown = TRUE
 	banType = ROLE_LAVALAND_SYNDICATE
 

@@ -437,14 +437,15 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 
 /datum/export/pirate/ransom/get_cost(atom/movable/AM)
 	var/mob/living/carbon/human/H = AM
-	if(H.stat != CONSCIOUS || !H.mind) //mint condition only
+	if(H.stat != CONSCIOUS || !H.mind || !H.mind.assigned_role) //mint condition only
 		return 0
 	else if("pirate" in H.faction) //can't ransom your fellow pirates to CentCom!
 		return 0
-	else if(H.mind.assigned_role.title in GLOB.command_positions)
-		return 3000
 	else
-		return 1000
+		if(H.mind.assigned_role in GLOB.command_positions)
+			return 3000
+		else
+			return 1000
 
 /datum/export/pirate/parrot
 	cost = 2000

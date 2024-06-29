@@ -36,8 +36,8 @@
 	var/mob/living/simple_animal/slaughter/S = new (holder)
 	S.holder = holder
 	player_mind.transfer_to(S)
-	player_mind.set_assigned_role(SSjob.GetJobType(/datum/job/slaughter_demon))
-	player_mind.special_role = ROLE_SLAUGHTER_DEMON
+	player_mind.assigned_role = "Slaughter Demon"
+	player_mind.special_role = "Slaughter Demon"
 	player_mind.add_antag_datum(/datum/antagonist/slaughter)
 	to_chat(S, S.playstyle_string)
 	to_chat(S, "<B>You are currently not currently in the same plane of existence as the station. Blood Crawl near a blood pool to manifest.</B>")

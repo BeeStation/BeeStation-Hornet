@@ -185,7 +185,7 @@
 	var/mob/M = antag_pick_n_take(candidates)
 	if (M)
 		assigned += M.mind
-		M.mind.set_assigned_role(SSjob.GetJobType(/datum/job/space_wizard))
+		M.mind.assigned_role = ROLE_WIZARD
 		M.mind.special_role = ROLE_WIZARD
 		GLOB.pre_setup_antags += M.mind
 
@@ -287,8 +287,8 @@
 			break
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
-		M.mind.set_assigned_role(SSjob.GetJobType(/datum/job/nuclear_operative))
-		M.mind.special_role = ROLE_NUCLEAR_OPERATIVE
+		M.mind.assigned_role = ROLE_OPERATIVE
+		M.mind.special_role = ROLE_OPERATIVE
 		GLOB.pre_setup_antags += M.mind
 	return TRUE
 

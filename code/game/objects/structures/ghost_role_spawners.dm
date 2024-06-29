@@ -16,7 +16,7 @@
 	the universe to every planet they could chart. You are in one such seed vault. \
 	Your goal is to cultivate and spread life wherever it will go while waiting for contact from your creators. \
 	Estimated time of last contact: Deployment, 5000 millennia ago."
-	spawner_job_path = /datum/job/lifebringer
+	assignedrole = "Lifebringer"
 	use_cooldown = TRUE
 	banType = ROLE_LIFEBRINGER
 
@@ -52,7 +52,7 @@
 	flavour_text = "The wastes are sacred ground, its monsters a blessed bounty. \
 	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. \
 	Fresh sacrifices for your nest."
-	spawner_job_path = /datum/job/ash_walker
+	assignedrole = "Ash Walker"
 	var/datum/team/ashwalkers/team
 	use_cooldown = TRUE
 	banType = ROLE_ASHWALKER
@@ -141,9 +141,9 @@
 		else
 			H.fully_replace_character_name(null, name)
 	if(has_owner)
-		new_spawn.mind.set_assigned_role(SSjob.GetJobType(/datum/job/servant_golem))
+		new_spawn.mind.assigned_role = "Servant Golem"
 	else
-		new_spawn.mind.set_assigned_role(SSjob.GetJobType(/datum/job/free_golem))
+		new_spawn.mind.assigned_role = "Free Golem"
 		var/obj/item/card/id/I = new_spawn.get_idcard()
 		if(I)
 			I.registered_name = new_spawn.name
@@ -197,7 +197,7 @@
 	flavour_text = "Each day you barely scrape by, and between the terrible conditions of your makeshift shelter, \
 	the hostile creatures, and the ash drakes swooping down from the cloudless skies, all you can wish for is the feel of soft grass between your toes and \
 	the fresh air of Earth. These thoughts are dispelled by yet another recollection of how you got here... "
-	spawner_job_path = /datum/job/hermit
+	assignedrole = "Hermit"
 	use_cooldown = TRUE
 	banType = ROLE_HERMIT
 
@@ -241,6 +241,7 @@
 	flavour_text = "What...? Where are you? What's the purpose of this place? This is still the animal hospital - you should know, you've been an intern here for weeks - but \
 	all you did was apply bruise packs. Why is this place full of advanced medical equipment? And what are those screams you hear? The world outside is desolate - tormented with fire and brimstone. But you took an oath. \
 	You have to save these people! You might not have a fancy cloning machine like a real hospital, but surely there must be some way to save these people with the tools you have. Right?"
+	assignedrole = "Translocated Vet"
 	banType = ROLE_TRANSLOCATED_VET
 
 /obj/effect/mob_spawn/human/doctor/alive/lavaland/Destroy()
@@ -261,7 +262,7 @@
 	short_desc = "You're a prisoner, sentenced to hard work in one of Nanotrasen's labor camps, but it seems as \
 	though fate has other plans for you."
 	flavour_text = "Good. It seems as though your ship crashed. You remember that you were convicted of "
-	spawner_job_path = /datum/job/escaped_prisoner
+	assignedrole = "Escaped Prisoner"
 	use_cooldown = TRUE
 	banType = ROLE_LAVALAND_ESCAPED_PRISONER
 
@@ -302,7 +303,7 @@
 	short_desc = "You are a staff member of a top-of-the-line space hotel!"
 	flavour_text = "You are a staff member of a top-of-the-line space hotel! Cater to guests and make sure the manager doesn't fire you."
 	important_info = "DON'T leave the hotel"
-	spawner_job_path = /datum/job/hotel_staff
+	assignedrole = "Hotel Staff"
 	use_cooldown = TRUE
 	banType = ROLE_HOTEL_STAFF
 
@@ -351,6 +352,7 @@
 	id_access = "assistant"
 	var/obj/effect/proc_holder/spell/targeted/summon_friend/spell
 	var/datum/mind/owner
+	assignedrole = "SuperFriend"
 	banType = ROLE_DEMONIC_FRIEND
 
 /obj/effect/mob_spawn/human/demonic_friend/Initialize(mapload, datum/mind/owner_mind, obj/effect/proc_holder/spell/targeted/summon_friend/summoning_spell)
@@ -414,7 +416,7 @@
 	id = /obj/item/card/id/away/old/sec
 	r_pocket = /obj/item/restraints/handcuffs
 	l_pocket = /obj/item/assembly/flash/handheld
-	spawner_job_path = /datum/job/ancient_crew
+	assignedrole = "Ancient Crew"
 	use_cooldown = TRUE
 	banType = ROLE_ANCIENT_CREW
 
@@ -442,7 +444,7 @@
 	id = /obj/item/card/id/away/old/eng
 	gloves = /obj/item/clothing/gloves/color/fyellow/old
 	l_pocket = /obj/item/tank/internals/emergency_oxygen
-	spawner_job_path = /datum/job/ancient_crew
+	assignedrole = "Ancient Crew"
 	use_cooldown = TRUE
 	banType = ROLE_ANCIENT_CREW
 
@@ -469,7 +471,7 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	id = /obj/item/card/id/away/old/sci
 	l_pocket = /obj/item/stack/medical/bruise_pack
-	spawner_job_path = /datum/job/ancient_crew
+	assignedrole = "Ancient Crew"
 	use_cooldown = TRUE
 	banType = ROLE_ANCIENT_CREW
 
@@ -493,7 +495,7 @@
 	show_flavour = FALSE //Flavour only exists for spawners menu
 	short_desc = "You are a space pirate."
 	flavour_text = "The station refused to pay for your protection, protect the ship, siphon the credits from the station and raid it for even more loot."
-	spawner_job_path = /datum/job/space_pirate
+	assignedrole = ROLE_SPACE_PIRATE
 	banType = ROLE_SPACE_PIRATE
 	is_antagonist = TRUE
 	var/rank = "Mate"
@@ -514,6 +516,7 @@
 /obj/effect/mob_spawn/human/pirate/captain
 	rank = "Captain"
 	outfit = /datum/outfit/pirate/space/captain
+	assignedrole = "Space Pirate Captain"
 
 /obj/effect/mob_spawn/human/pirate/captain/special(mob/living/new_spawn)
 	new_spawn.fully_replace_character_name(new_spawn.real_name,generate_pirate_name())
