@@ -196,3 +196,9 @@
 
 	round_credits += ..()
 	return round_credits
+
+/datum/game_mode/nuclear/setup_maps()
+	//Since we are loading in pre_setup, disable map loading.
+	SSticker.gamemode_hotswap_disabled = TRUE
+	LoadReebe()
+	return TRUE
