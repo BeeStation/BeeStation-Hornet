@@ -3187,7 +3187,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/iron/dark,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/maintenance/disposal/incinerator)
 "bet" = (
 /obj/structure/sign/departments/custodian,
@@ -5849,7 +5849,7 @@
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
 	dir = 6
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/maintenance/disposal/incinerator)
 "cuW" = (
 /obj/structure/window/plasma/reinforced{
@@ -15653,7 +15653,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
-/turf/open/floor/iron/dark,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/maintenance/disposal/incinerator)
 "hwy" = (
 /obj/effect/turf_decal/stripes/line{
@@ -34191,7 +34191,8 @@
 	})
 "roL" = (
 /obj/item/toy/plush/moth/firewatch{
-	pixel_x = -10
+	pixel_x = -10;
+	name = "Zinnia"
 	},
 /obj/item/toy/plush/lizard_plushie{
 	name = "Walks-upon-Embers";
@@ -41336,7 +41337,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engineering)
 "uHM" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -45080,10 +45081,6 @@
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
-"wET" = (
-/obj/item/toy/plush/lizard_plushie,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/asteroid/paradise)
 "wEX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -46003,7 +46000,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/iron/dark,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/maintenance/disposal/incinerator)
 "xdb" = (
 /obj/effect/landmark/start/cook,
@@ -46939,7 +46936,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/maintenance/disposal/incinerator)
 "xyh" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -69942,7 +69939,7 @@ vqI
 cEk
 cEk
 xqU
-wET
+sLz
 bXA
 bXA
 sLz
