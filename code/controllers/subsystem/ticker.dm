@@ -444,7 +444,31 @@ SUBSYSTEM_DEF(ticker)
 
 	var/highest_rank = length(SSjob.chain_of_command) + 1
 	var/list/spare_id_candidates = list()
-	var/mob/dead/new_player/picked_spare_id_candidate
+	var/enforce_coc = CONFIG_GET(flag/spare_enforce_coc)
+
+	for(var/mob/dead/new_player/N in GLOB.player_list)
+		var/mob/living/carbon/human/player = N.new_character
+		var/datum/mind/mind = player?.mind
+		if(istype(player) && mind && mind.assigned_role)
+			if(mind.assigned_role == JOB_NAME_CAPTAIN)
+				captainless = FALSE
+				spare_id_candidates += N
+			else if(captainless && (mind.assigned_role in GLOB.command_positions) && !(is_banned_from(N.ckey, JOB_NAME_CAPTAIN)))
+				if(!enforce_coc)
+					spare_id_candidates += N
+				else
+					var/spare_id_priority = SSjob.chain_of_command[mind.assigned_role]
+					if(spare_id_priority)
+						if(spare_id_priority < highest_rank)
+							spare_id_candidates.Cut()
+							spare_id_candidates += N
+							highest_rank = spare_id_priority
+						else if(spare_id_priority == highest_rank)
+							spare_id_candidates += N
+			if(mind.assigned_role != mind.special_role)
+				SSjob.EquipRank(N, mind.assigned_role, FALSE)
+			if(CONFIG_GET(flag/roundstart_traits))
+				SSquirks.AssignQuirks(mind, N.client, TRUE)
 
 	// Find a suitable player to hold captaincy.
 	for(var/mob/dead/new_player/new_player_mob as anything in GLOB.new_player_list)
@@ -467,30 +491,6 @@ SUBSYSTEM_DEF(ticker)
 				highest_rank = spare_id_priority
 			else if(spare_id_priority == highest_rank)
 				spare_id_candidates += new_player_mob
-		CHECK_TICK
-
-	if(length(spare_id_candidates))
-		picked_spare_id_candidate = pick(spare_id_candidates)
-
-	for(var/mob/dead/new_player/new_player_mob as anything in GLOB.new_player_list)
-		if(QDELETED(new_player_mob) || !isliving(new_player_mob.new_character))
-			CHECK_TICK
-			continue
-		var/mob/living/new_player_living = new_player_mob.new_character
-		if(!new_player_living.mind)
-			CHECK_TICK
-			continue
-		var/datum/job/player_assigned_role = new_player_living.mind.assigned_role
-		if(player_assigned_role.job_flags & JOB_EQUIP_RANK)
-			SSjob.EquipRank(new_player_living, player_assigned_role, new_player_mob.client)
-		player_assigned_role.after_roundstart_spawn(new_player_living, new_player_mob.client)
-		if(picked_spare_id_candidate == new_player_mob)
-			captainless = FALSE
-			var/acting_captain = !is_captain_job(player_assigned_role)
-			SSjob.promote_to_captain(new_player_living, acting_captain)
-			OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), player_assigned_role.get_captaincy_announcement(new_player_living)))
-		if((player_assigned_role.job_flags & JOB_ASSIGN_QUIRKS) && ishuman(new_player_living) && CONFIG_GET(flag/roundstart_traits))
-			SSquirks.AssignQuirks(new_player_living, new_player_mob.client)
 		CHECK_TICK
 
 	if(captainless)
