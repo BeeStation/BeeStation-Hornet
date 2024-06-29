@@ -240,6 +240,9 @@ const PageMain = (props, context) => {
     shuttleLastCalled,
     shuttleRecallable,
     page,
+    canRequestSafeCode,
+    safeCodeDeliveryWait,
+    safeCodeDeliveryArea,
   } = data;
 
   const [callingShuttle, setCallingShuttle] = useLocalState(context, 'calling_shuttle', false);
@@ -562,11 +565,34 @@ const ConditionalTooltip = (props, context) => {
 
 export const CommunicationsConsole = (props, context) => {
   const { act, data } = useBackend(context);
-  const { authenticated, authorizeName, canLogOut, emagged, hasConnection, page, canBuyShuttles } = data;
+  const {
+    canRequestSafeCode,
+    safeCodeDeliveryWait,
+    safeCodeDeliveryArea,
+    authenticated,
+    authorizeName,
+    canLogOut,
+    emagged,
+    hasConnection,
+    page,
+    canBuyShuttles,
+  } = data;
 
   return (
     <Window width={800} height={550} theme={emagged ? 'syndicate' : undefined}>
       <Window.Content>
+        {(canRequestSafeCode ? (
+          <Section title="Emergency Safe Code">
+            <Button icon="key" content="Request Safe Code" color="good" onClick={() => act('requestSafeCodes')} />
+          </Section>
+        ) : null) ||
+          (safeCodeDeliveryWait ? (
+            <Section title="Emergency Safe Code Delivery">
+              {`Drop pod to ${safeCodeDeliveryArea} in \
+            ${Math.round(safeCodeDeliveryWait / 10)}s`}
+            </Section>
+          ) : null)}
+
         {authenticated ? (
           <Stack fill>
             <Stack.Item width="40%">
