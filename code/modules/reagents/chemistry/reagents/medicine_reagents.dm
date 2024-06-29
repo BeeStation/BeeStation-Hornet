@@ -1386,6 +1386,8 @@
 	M.adjustToxLoss(-5*REM, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -15*REM)
 	M.adjustCloneLoss(-3*REM, 0)
+	if (M.blood_volume < BLOOD_VOLUME_NORMAL)
+		M.blood_volume = max(M.blood_volume, min(M.blood_volume + 4, BLOOD_VOLUME_NORMAL))
 	..()
 	. = 1
 
@@ -1672,7 +1674,7 @@
 
 /datum/reagent/medicine/polypyr  //This is intended to be an ingredient in advanced chems.
 	name = "Polypyrylium Oligomers"
-	description = "A purple mixture of short polyelectrolyte chains not easily synthesized in the laboratory. It is valued as an intermediate in the synthesis of the cutting edge pharmaceuticals."
+	description = "A purple mixture of short polyelectrolyte chains not easily synthesized in the laboratory. It is a powerful pharmaceutical drug which provides minor healing and prevents bloodloss, making it incredibly useful for the synthesis of other drugs."
 	reagent_state = SOLID
 	color = "#9423FF"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
@@ -1683,10 +1685,9 @@
 /datum/reagent/medicine/polypyr/on_mob_life(mob/living/carbon/M) //I wanted a collection of small positive effects, this is as hard to obtain as coniine after all.
 	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, -0.25)
 	M.adjustBruteLoss(-0.35, 0)
-	if(prob(50))
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			H.bleed_rate = max(H.bleed_rate - 1, 0)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.cauterise_wounds(0.1)
 	..()
 	. = 1
 
@@ -1705,7 +1706,7 @@
 
 /datum/reagent/medicine/stabilizing_nanites
 	name = "Stabilizing nanites"
-	description = "Rapidly heals a patient out of crit by regenerating damaged cells. Nanites distribution in the blood makes them ineffective against moderately healthy targets."
+	description = "Rapidly heals a patient out of crit by regenerating damaged cells and causing blood to clot, preventing bleeding. Nanites distribution in the blood makes them ineffective against moderately healthy targets."
 	reagent_state = LIQUID
 	color = "#000000"
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
@@ -1722,4 +1723,12 @@
 	if(prob(20))
 		M.Jitter(5)
 	M.losebreath = 0
+	if (M.blood_volume < BLOOD_VOLUME_SAFE)
+		M.blood_volume = max(M.blood_volume, min(M.blood_volume + 4, BLOOD_VOLUME_SAFE))
 	..()
+
+/datum/reagent/medicine/stabilizing_nanites/on_mob_metabolize(mob/living/L)
+	ADD_TRAIT(L, TRAIT_NO_BLEEDING, type)
+
+/datum/reagent/medicine/stabilizing_nanites/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_NO_BLEEDING, type)

@@ -390,7 +390,7 @@
 	name = "offhand"
 	icon_state = "offhand"
 	w_class = WEIGHT_CLASS_HUGE
-	item_flags = ABSTRACT | DROPDEL
+	item_flags = ABSTRACT | DROPDEL | NOBLUDGEON
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// Off Hand tracking of wielded status
 	var/wielded = FALSE

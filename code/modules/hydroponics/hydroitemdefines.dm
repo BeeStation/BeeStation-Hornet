@@ -86,6 +86,7 @@
 	attack_verb = list("chopped", "tore", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 
 /obj/item/hatchet/Initialize(mapload)
 	. = ..()

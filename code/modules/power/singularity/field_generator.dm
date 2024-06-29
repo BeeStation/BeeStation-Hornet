@@ -33,7 +33,7 @@ field_generator power level display
 	use_power = NO_POWER_USE
 	max_integrity = 500
 	//100% immune to lasers and energy projectiles since it absorbs their energy.
-	armor = list(MELEE = 25,  BULLET = 10, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
+	armor = list(MELEE = 25,  BULLET = 10, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0, BLEED = 0)
 	var/power_level = 0
 	var/active = FG_OFFLINE
 	var/power = 20  // Current amount of power

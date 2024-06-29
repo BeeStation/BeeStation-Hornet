@@ -19,6 +19,7 @@
 	attack_verb = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	//attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = IS_SHARP_ACCURATE
+	bleed_force = BLEED_CUT
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/bayonet = FALSE //Can this be attached to a gun?
 	//wound_bonus = 5
@@ -156,7 +157,7 @@
 	throwforce = 12//fuck git
 	custom_materials = list()
 	attack_verb = list("shanked", "shivved")
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
 
 // Shank - Makeshift weapon that can embed on throw
 /obj/item/knife/shank

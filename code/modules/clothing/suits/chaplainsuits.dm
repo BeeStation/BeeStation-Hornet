@@ -130,6 +130,44 @@
 	slowdown = 0
 	move_sound = null
 
+/obj/item/clothing/head/helmet/plate/crusader
+	name = "Crusader's Hood"
+	desc = "A brownish hood."
+	icon = 'icons/obj/clothing/head/chaplain.dmi'
+	worn_icon = 'icons/mob/clothing/head/chaplain.dmi'
+	icon_state = "crusader"
+	w_class = WEIGHT_CLASS_NORMAL
+	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACE
+	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 60, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 50, BLEED = 60)
+
+/obj/item/clothing/head/helmet/plate/crusader/blue
+	icon_state = "crusader-blue"
+	item_state = null
+
+/obj/item/clothing/head/helmet/plate/crusader/red
+	icon_state = "crusader-red"
+	item_state = null
+
+//Prophet helmet
+/obj/item/clothing/head/helmet/plate/crusader/prophet
+	name = "Prophet's Hat"
+	desc = "A religious-looking hat."
+	icon_state = null
+	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
+	item_state = null
+	flags_1 = 0
+	armor = list(MELEE = 60,  BULLET = 60, LASER = 60, ENERGY = 50, BOMB = 70, BIO = 50, RAD = 50, FIRE = 60, ACID = 60, STAMINA = 60, BLEED = 60) //religion protects you from disease and radiation, honk.
+	worn_x_dimension = 64
+	worn_y_dimension = 64
+
+/obj/item/clothing/head/helmet/plate/crusader/prophet/red
+	icon_state = "prophet-red"
+	item_state = null
+
+/obj/item/clothing/head/helmet/plate/crusader/prophet/blue
+	icon_state = "prophet-blue"
+	item_state = null
+
 /obj/item/clothing/head/helmet/chaplain/cage
 	name = "cage"
 	desc = "A cage that restrains the will of the self, allowing one to see the profane world for what it is."

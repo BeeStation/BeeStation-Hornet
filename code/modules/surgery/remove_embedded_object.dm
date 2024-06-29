@@ -27,6 +27,7 @@
 	if(L)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
+			H.cauterise_wounds()
 			var/objects = 0
 			for(var/obj/item/I in L.embedded_objects)
 				objects++

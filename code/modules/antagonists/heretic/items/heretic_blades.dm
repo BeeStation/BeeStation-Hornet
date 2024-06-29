@@ -10,6 +10,7 @@
 	inhand_y_dimension = 64
 	flags_1 = CONDUCT_1
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_LARGE
 	force = 24
 	throwforce = 10
