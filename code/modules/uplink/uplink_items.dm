@@ -2178,7 +2178,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		by bouncing them back at the ones who fired them. It can also be thrown to bounce off of people, slipping them, \
 		and returning to you even if you miss. WARNING: DO NOT ATTEMPT TO STAND ON SHIELD WHILE DEPLOYED, EVEN IF WEARING ANTI-SLIP SHOES."
 	item = /obj/item/shield/energy/bananium
-	cost = 16
+	cost = 15
 	surplus = 0
 	restricted_roles = list(JOB_NAME_CLOWN)
 
