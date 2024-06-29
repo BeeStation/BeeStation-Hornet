@@ -3613,6 +3613,9 @@
 /obj/structure/sign/plaques/deempisi{
 	pixel_x = -32
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "aOW" = (
@@ -8813,6 +8816,9 @@
 	},
 /obj/item/flashlight/lamp/bananalamp{
 	pixel_y = 3
+	},
+/obj/machinery/light/small{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/theatre)
@@ -19279,15 +19285,15 @@
 /turf/open/floor/iron/white,
 /area/medical/patients_rooms)
 "dmK" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
 /obj/machinery/light/floor{
 	brightness = 15;
 	bulb_colour = "#FFE4CE";
 	bulb_vacuum_brightness = 15;
 	nightshift_brightness = 10;
 	nightshift_light_color = "#E6EBFF"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
@@ -25149,6 +25155,13 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "fJY" = (
@@ -25494,13 +25507,6 @@
 /area/crew_quarters/fitness)
 "fTI" = (
 /mob/living/carbon/monkey/punpun,
-/obj/machinery/light/floor{
-	brightness = 15;
-	bulb_colour = "#FFE4CE";
-	bulb_vacuum_brightness = 15;
-	nightshift_brightness = 10;
-	nightshift_light_color = "#E6EBFF"
-	},
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "fTL" = (
@@ -28798,6 +28804,9 @@
 	},
 /obj/structure/closet/secure_closet/freezer/cream_pie,
 /obj/item/food/pie/cream,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/theatre)
 "hvV" = (
@@ -34475,13 +34484,6 @@
 /area/hallway/primary/aft)
 "jRJ" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/light/floor{
-	brightness = 15;
-	bulb_colour = "#FFE4CE";
-	bulb_vacuum_brightness = 15;
-	nightshift_brightness = 10;
-	nightshift_light_color = "#E6EBFF"
-	},
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "jSj" = (
@@ -40551,9 +40553,6 @@
 /obj/structure/table/wood,
 /obj/item/toy/dummy,
 /obj/item/food/baguette,
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/open/floor/iron,
 /area/crew_quarters/theatre)
 "muj" = (
@@ -51463,6 +51462,13 @@
 "rop" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
+	},
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
@@ -67190,6 +67196,9 @@
 /obj/item/toy/figure/bartender,
 /obj/machinery/status_display/evac{
 	pixel_x = 32
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
@@ -101458,13 +101467,13 @@ aMp
 aMr
 lqD
 seN
-bUD
 ldf
 ldf
-bUD
 ldf
 ldf
-bUD
+ldf
+ldf
+ldf
 eGg
 aYV
 aYV
@@ -101721,7 +101730,7 @@ jKY
 fJJ
 cad
 xjb
-ldf
+bUD
 cQz
 aYV
 aYV
@@ -102486,13 +102495,13 @@ vNj
 wRy
 aOH
 seN
-bUD
 ldf
 ldf
-dmK
+ldf
+mvz
 ldf
 ldf
-bUD
+ldf
 aQg
 aYV
 nTk
@@ -103003,10 +103012,10 @@ qYb
 nRm
 gEU
 dWa
-mvz
+dmK
 adn
 fPk
-ldf
+bUD
 aJC
 vck
 iGe
@@ -103517,10 +103526,10 @@ fRF
 fTI
 gEU
 dWa
-dmK
+mvz
 ldf
 ldf
-bUD
+ldf
 mYv
 bcr
 bdq
@@ -104291,7 +104300,7 @@ dWa
 rop
 tAG
 sSZ
-ldf
+bUD
 byX
 aYV
 kDj
@@ -104545,10 +104554,10 @@ fRF
 jRJ
 gEU
 dWa
-bUD
 ldf
 ldf
-bUD
+ldf
+ldf
 byX
 ewK
 cuf
