@@ -2,6 +2,7 @@
 	name = "Brother"
 	antagpanel_category = "Brother"
 	banning_key = ROLE_BROTHER
+	faction = FACTION_SYNDICATE
 	required_living_playtime = 4
 	ui_name = "AntagInfoBrother"
 	hijack_speed = 0.5

@@ -38,6 +38,9 @@
   @include meta.load-css('../components/Section.scss');
   @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': #4a0202));
 
+  // Interfaces
+  @include meta.load-css('../interfaces/Uplink.scss');
+
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');

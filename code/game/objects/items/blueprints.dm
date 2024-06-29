@@ -51,10 +51,13 @@
 	var/legend = FALSE	//Viewing the wire legend
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/areaeditor/blueprints/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/trackable)
+
 /obj/item/areaeditor/blueprints/Destroy()
 	clear_viewer()
 	return ..()
-
 
 /obj/item/areaeditor/blueprints/attack_self(mob/user)
 	. = ..()

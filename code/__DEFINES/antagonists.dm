@@ -112,13 +112,41 @@
 #define BLOB_REROLL_COST 40
 
 /// How many telecrystals a normal traitor starts with
-#define TELECRYSTALS_DEFAULT 20
+#define TELECRYSTALS_DEFAULT 15
 /// How many telecrystals mapper/admin only "precharged" uplink implant
 #define TELECRYSTALS_PRELOADED_IMPLANT 10
-/// The normal cost of an uplink implant; used for calcuating how many
+/// The cost of a roundstart uplink implant; used for calcuating how many
 /// TC to charge someone if they get a free implant through choice or
 /// because they have nothing else that supports an implant.
-#define UPLINK_IMPLANT_TELECRYSTAL_COST 3
+#define UPLINK_IMPLANT_TELECRYSTAL_COST 1
+
+/// Traitor reputation levels
+
+/// Ex-communicated
+#define REPUTATION_EXCOMMUNICATED 0
+/// Blood brother level: Untrusted
+#define REPUTATION_LOW 100
+/// Standard traitor level
+#define REPUTATION_STANDARD 200
+/// Good reputation, additional gear
+#define REPUTATION_GOOD 400
+/// Excellent reputation, more murderboney stuff
+#define REPUTATION_EXCELLENT 600
+/// Elite reputation, access to rare and unique items.
+/// Nuclear operative level
+#define REPUTATION_ELITE 800
+/// Access to anything your heart could ever desire
+#define REPUTATION_MAX 1000
+
+#define REPUTATION_TRAITOR_START 300
+
+/// How much reputation is gained per completed directive
+#define REPUTATION_GAIN_PER_DIRECTIVE 200
+
+/// How much reputation you lose for failing a solo directive
+#define REPUTATION_LOSS_SOLO_DIRECTIVE 50
+/// How much reputation you lose for failing a team-directive
+#define REPUTATION_LOSS_TEAM_DIRECTIVE 100
 
 ///Checks if given mob is a hive host
 #define IS_HIVEHOST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivemind))

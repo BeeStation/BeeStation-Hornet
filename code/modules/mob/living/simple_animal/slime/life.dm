@@ -6,6 +6,10 @@
 	var/attack_cooldown = 0
 	var/attack_cooldown_time = 20 //How long, in deciseconds, the cooldown of attacks is
 
+/mob/living/simple_animal/slime/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/trackable)
+
 /mob/living/simple_animal/slime/Life()
 	set invisibility = 0
 	if(notransform)
