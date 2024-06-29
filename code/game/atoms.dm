@@ -1609,7 +1609,6 @@
 		user = A_ref.resolve()
 	var/ssource = key_name(user)
 	var/starget = key_name(target)
-	var/datum/tool_atom = object
 
 	var/mob/living/living_target = target
 	var/hp = istype(living_target) ? " (NEWHP: [living_target.health]) " : ""
@@ -1619,8 +1618,8 @@
 		stam = "(STAM: [C.getStaminaLoss()]) "
 
 	var/sobject = ""
-	if(object)
-		sobject = " with [object][(istype(tool_atom) ? " ([tool_atom.type])" : "")]"
+	if(object && !isitem(object))
+		sobject = " with [object]"
 	var/saddition = ""
 	if(addition)
 		saddition = " [addition]"
@@ -1632,6 +1631,7 @@
 
 	if (important && isliving(user) && isliving(target))
 		var/mob/living/living_user = user
+		var/datum/tool_atom = object
 		SScombat_logging.log_combat(living_user, living_target, istype(tool_atom) ? tool_atom.type : object)
 
 	if(user != target)

@@ -1,7 +1,8 @@
 /datum/mapGeneratorModule/bottomLayer/shuttleFloor
-	spawnableTurfs = list(/turf/open/floor/mineral/titanium = 100)
+	spawnableTurfs = list(/turf/open/floor/iron/shuttle = 100)
 
 /datum/mapGeneratorModule/border/shuttleWalls
+	spawnableAtoms = list()
 	spawnableTurfs = list(/turf/closed/wall/mineral/titanium = 100)
 // Generators
 

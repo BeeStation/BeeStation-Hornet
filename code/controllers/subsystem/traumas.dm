@@ -160,8 +160,8 @@ SUBSYSTEM_DEF(traumas)
 
 		"the supernatural"  = typecacheof(list(
 			/obj/structure/destructible/cult, /obj/item/tome,
-			/obj/item/melee/cultblade, /obj/item/restraints/legcuffs/bola/cult,
-			/obj/item/clothing/suit/hooded/cultrobes,
+			/obj/item/melee/cultblade, /obj/item/cult_bastard, /obj/item/restraints/legcuffs/bola/cult,
+			/obj/item/clothing/suit/hooded/cultrobes, /obj/item/clothing/suit/hooded/cultrobes/hardened,
 			/obj/item/clothing/suit/hooded/cultrobes, /obj/item/clothing/head/hooded/cult_hoodie, /obj/effect/rune,
 			/obj/item/stack/sheet/runed_metal, /obj/machinery/door/airlock/cult, /obj/eldritch/narsie,
 			/obj/item/soulstone, /obj/item/clockwork,
@@ -224,7 +224,7 @@ SUBSYSTEM_DEF(traumas)
 
 	phobia_turfs = list("space" = typecacheof(list(/turf/open/space, /turf/open/floor/holofloor/space, /turf/open/floor/fakespace)),
 						"the supernatural" = typecacheof(list(/turf/open/floor/clockwork, /turf/closed/wall/clockwork,
-						/turf/open/floor/cult, /turf/closed/wall/mineral/cult)),
+						/turf/open/floor/iron/cult, /turf/closed/wall/mineral/cult)),
 						"aliens" = typecacheof(list(/turf/open/floor/plating/abductor, /turf/open/floor/plating/abductor2,
 						/turf/open/floor/mineral/abductor, /turf/closed/wall/mineral/abductor)),
 						"falling" = typecacheof(list(/turf/open/chasm, /turf/open/floor/fakepit))

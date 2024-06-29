@@ -14,7 +14,6 @@
 	flags_1 = CONDUCT_1
 	max_amount = 60
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/copper = 5)
-	merge_type = /obj/item/stack/light_w
 
 /obj/item/stack/light_w/attackby(obj/item/O, mob/user, params)
 	if(!istype(O, /obj/item/stack/sheet/iron))
@@ -44,7 +43,6 @@
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
 	turf_type = /turf/open/floor/light
 	var/state = 0
-	merge_type = /obj/item/stack/tile/light
 
 /obj/item/stack/tile/light/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -76,7 +74,6 @@
 	custom_materials = null
 	is_cyborg = 1
 	cost = 125
-	merge_type = /obj/item/stack/tile/light/cyborg
 
 /obj/item/stack/tile/light/cyborg/attackby(obj/item/O, mob/user, params)
 	return

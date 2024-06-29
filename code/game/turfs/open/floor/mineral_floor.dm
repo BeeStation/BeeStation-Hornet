@@ -126,41 +126,40 @@
 /turf/open/floor/mineral/titanium/purple/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-// OLD TITANIUM
-/turf/open/floor/mineral/titanium/tiled
+/turf/open/floor/mineral/titanium/alt
 	name = "titanium floor"
-	icon_state = "titanium_tiled"
-	floor_tile = /obj/item/stack/tile/mineral/titanium/tiled
+	icon_state = "titanium_alt"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/alt
 
-/turf/open/floor/mineral/titanium/tiled/airless
+/turf/open/floor/mineral/titanium/alt/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/floor/mineral/titanium/tiled/yellow
-	icon_state = "titanium_tiled_yellow"
-	floor_tile = /obj/item/stack/tile/mineral/titanium/tiled/yellow
+/turf/open/floor/mineral/titanium/alt/yellow
+	icon_state = "titanium_yellow_alt"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/yellow
 
-/turf/open/floor/mineral/titanium/tiled/yellow/airless
+/turf/open/floor/mineral/titanium/alt/yellow/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/floor/mineral/titanium/tiled/blue
-	icon_state = "titanium_tiled_blue"
-	floor_tile = /obj/item/stack/tile/mineral/titanium/tiled/blue
+/turf/open/floor/mineral/titanium/alt/blue
+	icon_state = "titanium_blue_alt"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/blue
 
-/turf/open/floor/mineral/titanium/tiled/blue/airless
+/turf/open/floor/mineral/titanium/alt/blue/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/floor/mineral/titanium/tiled/white
-	icon_state = "titanium_tiled_white"
-	floor_tile = /obj/item/stack/tile/mineral/titanium/tiled/white
+/turf/open/floor/mineral/titanium/alt/white
+	icon_state = "titanium_white_alt"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/white
 
-/turf/open/floor/mineral/titanium/tiled/white/airless
+/turf/open/floor/mineral/titanium/alt/white/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/floor/mineral/titanium/tiled/purple
-	icon_state = "titanium_tiled_purple"
-	floor_tile = /obj/item/stack/tile/mineral/titanium/tiled/purple
+/turf/open/floor/mineral/titanium/alt/purple
+	icon_state = "titanium_purple_alt"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/purple
 
-/turf/open/floor/mineral/titanium/tiled/purple/airless
+/turf/open/floor/mineral/titanium/alt/purple/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
 //PLASTITANIUM (syndieshuttle)
@@ -174,7 +173,6 @@
 
 /turf/open/floor/mineral/plastitanium/red
 	icon_state = "plastitanium_red"
-	floor_tile = /obj/item/stack/tile/mineral/plastitanium/red
 
 /turf/open/floor/mineral/plastitanium/red/airless
 	initial_gas_mix = AIRLESS_ATMOS

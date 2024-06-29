@@ -449,9 +449,6 @@
 				C.stuttering += 15
 				C.cultslurring += 15
 				C.Jitter(15)
-				// EMP the radio on your ears
-				if (C.ears)
-					C.ears.emp_act(EMP_LIGHT)
 		else
 			target.visible_message("<span class='warning'>You fail to corrupt [L]'s mind!</span>", \
 									   "<span class='userdanger'>Your mindshield protects you from the heresy of [user]!</span>")

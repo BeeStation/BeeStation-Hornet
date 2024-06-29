@@ -1182,7 +1182,7 @@
 	},
 /obj/machinery/airalarm/directional/south,
 /obj/machinery/light/small,
-/turf/open/floor/iron/goonplaque,
+/turf/open/floor/goonplaque,
 /area/space)
 "HB" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{

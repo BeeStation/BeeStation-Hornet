@@ -404,7 +404,3 @@
 /turf/open/floor/plating/snowed/temperatre
 	initial_temperature = 255.37
 
-/turf/open/floor/plating/elevatorshaft
-	name = "elevator shaft"
-	icon_state = "elevatorshaft"
-	base_icon_state = "elevatorshaft"

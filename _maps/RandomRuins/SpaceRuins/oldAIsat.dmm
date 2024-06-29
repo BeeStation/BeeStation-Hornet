@@ -300,18 +300,18 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bc" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bd" = (
 /obj/structure/window/reinforced,
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "be" = (
 /obj/structure/window/reinforced,
@@ -319,7 +319,7 @@
 	dir = 1
 	},
 /obj/item/electronics/airlock,
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bf" = (
 /obj/structure/door_assembly/door_assembly_hatch,
@@ -385,7 +385,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bq" = (
 /obj/structure/window/reinforced{
@@ -420,14 +420,14 @@
 /area/tcommsat/oldaisat)
 "bv" = (
 /obj/machinery/door/airlock/maintenance_hatch,
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bw" = (
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bx" = (
 /obj/machinery/door/airlock/hatch,
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "by" = (
 /obj/structure/window/reinforced{
@@ -443,7 +443,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bA" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end{
@@ -474,7 +474,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bF" = (
 /obj/structure/window/reinforced{
@@ -491,7 +491,7 @@
 	dir = 8
 	},
 /obj/item/stack/rods,
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bH" = (
 /obj/item/stack/rods,
@@ -504,13 +504,13 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bJ" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bK" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/directional{
@@ -533,7 +533,7 @@
 /obj/item/scalpel{
 	pixel_y = 12
 	},
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bO" = (
 /obj/structure/window/reinforced{
@@ -542,7 +542,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bP" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/middle{
@@ -557,7 +557,7 @@
 /area/tcommsat/oldaisat)
 "bR" = (
 /obj/item/radio/off,
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bS" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/middle{
@@ -588,11 +588,11 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bX" = (
 /obj/structure/door_assembly/door_assembly_mhatch,
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "bY" = (
 /obj/machinery/light/small{
@@ -607,7 +607,7 @@
 "ca" = (
 /obj/effect/decal/cleanable/blood,
 /obj/item/assembly/signaler,
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "cb" = (
 /obj/structure/table,
@@ -615,7 +615,7 @@
 /obj/item/reagent_containers/syringe/lethal{
 	pixel_y = 4
 	},
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "cc" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end{
@@ -635,12 +635,12 @@
 "cf" = (
 /obj/structure/table,
 /obj/item/hemostat,
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "cg" = (
 /obj/structure/table,
 /obj/item/circular_saw,
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "ch" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/directional{
@@ -656,7 +656,7 @@
 	dir = 4
 	},
 /obj/item/stack/rods,
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "cj" = (
 /obj/structure/window/reinforced{
@@ -706,7 +706,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "cr" = (
 /obj/item/paper/crumpled,
@@ -730,7 +730,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/airless,
+/turf/open/floor/iron/airless/dark,
 /area/tcommsat/oldaisat)
 "cv" = (
 /obj/effect/turf_decal/stripes/line{

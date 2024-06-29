@@ -1,4 +1,7 @@
 /turf/open/floor
+	//NOTE: Floor code has been refactored, many procs were removed and refactored
+	//- you should use istype() if you want to find out whether a floor has a certain type
+	//- floor_tile is now a path, and not a tile obj
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
 	base_icon_state = "floor"
@@ -25,7 +28,6 @@
 	. = ..()
 	if(mapload && prob(33))
 		MakeDirty()
-
 	if(is_station_level(z))
 		GLOB.station_turfs += src
 
@@ -100,7 +102,7 @@
 		return TRUE
 
 /turf/open/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
-	if(T.turf_type == type && T.turf_dir == dir)
+	if(T.turf_type == type)
 		return
 	var/obj/item/CB = user.is_holding_tool_quality(TOOL_CROWBAR)
 	if(!CB)

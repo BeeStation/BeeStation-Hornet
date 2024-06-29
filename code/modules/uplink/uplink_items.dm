@@ -1393,9 +1393,9 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/explosives/explosive_flashbulbs
-	name = "Explosive Flash"
-	desc = "A flash with a bulb stuffed with explosives that when used by an oblivious security officers, will cause a violent explosion."
-	item = /obj/item/assembly/flash/bomb
+	name = "Explosive Flashbulb"
+	desc = "A flashbulb stuffed with explosives that when used by an oblivious security officers, will cause a violent explosion."
+	item = /obj/item/flashbulb/bomb
 	cost = 1
 	surplus = 8
 

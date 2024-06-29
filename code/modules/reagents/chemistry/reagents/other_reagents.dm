@@ -248,12 +248,10 @@
 
 /datum/reagent/water/holywater/on_mob_metabolize(mob/living/L)
 	..()
-	L.AddComponent(/datum/component/anti_magic, type, _magic = FALSE, _holy = TRUE)
+	ADD_TRAIT(L, TRAIT_HOLY, type)
 
 /datum/reagent/water/holywater/on_mob_end_metabolize(mob/living/L)
-	for (var/datum/component/anti_magic/anti_magic in L.GetComponents(/datum/component/anti_magic))
-		if (anti_magic.source == type)
-			qdel(anti_magic)
+	REMOVE_TRAIT(L, TRAIT_HOLY, type)
 	if(HAS_TRAIT_FROM(L, TRAIT_DEPRESSION, HOLYWATER_TRAIT))
 		REMOVE_TRAIT(L, TRAIT_DEPRESSION, HOLYWATER_TRAIT)
 		to_chat(L, "<span class='notice'>You cheer up, knowing that everything is going to be ok.</span>")
