@@ -25,7 +25,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start
 	name = "start"
-	icon = 'icons/mob/landmarks.dmi'
 	icon_state = "x"
 	anchored = TRUE
 	layer = MOB_LAYER
@@ -67,7 +66,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/cargo_technician
 	name = "Cargo Technician"
-	icon_state = "Cargo Technician"
+	icon_state = "CargoTech"
 
 /obj/effect/landmark/start/bartender
 	name = "Bartender"
@@ -87,7 +86,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/atmospheric_technician
 	name = "Atmospheric Technician"
-	icon_state = "Atmospheric Technician"
+	icon_state = "AtmosTech"
 
 /obj/effect/landmark/start/cook
 	name = "Cook"
@@ -95,15 +94,15 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/shaft_miner
 	name = "Shaft Miner"
-	icon_state = "Shaft Miner"
+	icon_state = "ShaftMiner"
 
 /obj/effect/landmark/start/exploration
 	name = "Exploration Crew"
-	icon_state = "Exploration Crew"
+	icon_state = "ExploCrew"
 
 /obj/effect/landmark/start/security_officer
 	name = "Security Officer"
-	icon_state = "Security Officer"
+	icon_state = "SecOff"
 
 /obj/effect/landmark/start/botanist
 	name = "Botanist"
@@ -111,7 +110,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/head_of_security
 	name = "Head of Security"
-	icon_state = "Head of Security"
+	icon_state = "HoS"
 
 /obj/effect/landmark/start/captain
 	name = "Captain"
@@ -127,11 +126,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/chief_engineer
 	name = "Chief Engineer"
-	icon_state = "Chief Engineer"
+	icon_state = "CE"
 
 /obj/effect/landmark/start/head_of_personnel
 	name = "Head of Personnel"
-	icon_state = "Head of Personnel"
+	icon_state = "HoP"
 
 /obj/effect/landmark/start/librarian
 	name = "Curator"
@@ -143,15 +142,15 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/station_engineer
 	name = "Station Engineer"
-	icon_state = "Station Engineer"
+	icon_state = "StatEngie"
 
 /obj/effect/landmark/start/medical_doctor
 	name = "Medical Doctor"
-	icon_state = "Medical Doctor"
+	icon_state = "MedDoc"
 
 /obj/effect/landmark/start/paramedic
 	name = "Paramedic"
-	icon_state = "Medical Doctor"
+	icon_state = "MedDoc"
 
 /obj/effect/landmark/start/scientist
 	name = "Scientist"
@@ -167,7 +166,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/research_director
 	name = "Research Director"
-	icon_state = "Research Director"
+	icon_state = "RD"
 
 /obj/effect/landmark/start/geneticist
 	name = "Geneticist"
@@ -175,7 +174,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/chief_medical_officer
 	name = "Chief Medical Officer"
-	icon_state = "Chief Medical Officer"
+	icon_state = "CMO"
 
 /obj/effect/landmark/start/virologist
 	name = "Virologist"
@@ -202,17 +201,17 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	return ..()
 
 /obj/effect/landmark/start/ai/secondary
-	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "ai_spawn"
 	primary_ai = FALSE
 	latejoin_active = FALSE
 
 /obj/effect/landmark/start/brig_physician
 	name = "Brig Physician"
+	icon_state = "BrigPhys"
 
 /obj/effect/landmark/start/randommaint
 	name = "maintjobstart"
-	icon_state = "x3"
+	icon_state = "Random"
 	var/job = "Gimmick" //put the title of the job here.
 
 /obj/effect/landmark/start/randommaint/New() //automatically opens up a job slot when the job's spawner loads in
@@ -251,7 +250,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/depsec
 	name = "department_sec"
-	icon_state = "Security Officer"
+	icon_state = "SecOff_Huh"
 
 /obj/effect/landmark/start/depsec/Initialize(mapload)
 	. = ..()
@@ -263,21 +262,23 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/depsec/supply
 	name = "supply_sec"
-
+	icon_state = "SecOff_Cargo"
 /obj/effect/landmark/start/depsec/medical
 	name = "medical_sec"
+	icon_state = "SecOff_Medbay"
 
 /obj/effect/landmark/start/depsec/engineering
 	name = "engineering_sec"
+	icon_state = "SecOff_Engie"
 
 /obj/effect/landmark/start/depsec/science
 	name = "science_sec"
+	icon_state = "SecOff_Science"
 
 //Antagonist spawns
 
 /obj/effect/landmark/start/wizard
 	name = "wizard"
-	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "wiznerd_spawn"
 
 /obj/effect/landmark/start/wizard/Initialize(mapload)
@@ -287,7 +288,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/nukeop
 	name = "nukeop"
-	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "snukeop_spawn"
 
 /obj/effect/landmark/start/nukeop/Initialize(mapload)
@@ -297,7 +297,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/nukeop_leader
 	name = "nukeop leader"
-	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "snukeop_leader_spawn"
 
 /obj/effect/landmark/start/nukeop_leader/Initialize(mapload)
@@ -328,11 +327,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/prisonspawn
-	name = "prisonspawn"
-	icon_state = "error"
-	/* Milviu's sin
-	icon_state = "prison_spawn"
-	*/
+	name = "Prisoner"
+	icon_state = "Prisoner"
+	// You were arguably both wrong
 
 /obj/effect/landmark/prisonspawn/Initialize(mapload)
 	..()

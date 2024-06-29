@@ -1311,7 +1311,6 @@
 /mob/living/carbon/human/species/moth
 	race = /datum/species/moth
 
-
 /mob/living/carbon/human/species/plasma
 	race = /datum/species/plasmaman
 
@@ -1347,3 +1346,7 @@
 
 /mob/living/carbon/human/species/psyphoza
 	race = /datum/species/psyphoza
+
+//if you're looking all the way down here, it's just a debug boy, nothing else.
+/mob/living/carbon/human/species/debug
+	race = /datum/species/debug
