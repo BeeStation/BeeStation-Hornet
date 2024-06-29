@@ -97,4 +97,4 @@
 
 /obj/machinery/telecomms/relay/preset/exploration
 	id = "Exploration Relay"
-	autolinkers = list("exp_relay")
+	autolinkers = list("exp_relay", "hub")
