@@ -2410,6 +2410,7 @@
 	pixel_x = 32;
 	pixel_y = 28
 	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "aGQ" = (
@@ -8288,10 +8289,13 @@
 /turf/closed/wall,
 /area/security/checkpoint/science)
 "byj" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "byk" = (
@@ -9889,12 +9893,19 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "bLV" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Central Access"
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/central)
+/obj/structure/closet/crate/wooden,
+/obj/item/clothing/under/costume/gondola,
+/obj/item/clothing/under/costume/jabroni,
+/obj/item/clothing/under/costume/mech_suit/blue,
+/obj/item/clothing/under/costume/mech_suit/white,
+/obj/item/clothing/under/costume/villain,
+/obj/item/clothing/suit/hooded/ian_costume,
+/obj/item/clothing/suit/costume/pirate/captain,
+/obj/item/clothing/head/costume/rabbitears,
+/obj/item/clothing/suit/costume/madsci,
+/obj/item/clothing/under/costume/russian_officer,
+/turf/open/floor/wood/big,
+/area/crew_quarters/theatre)
 "bMa" = (
 /obj/machinery/smartfridge{
 	name = "Sample Storage"
@@ -22254,13 +22265,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"ewK" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
-/turf/open/floor/iron,
-/area/hallway/primary/starboard)
 "ewN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -47738,6 +47742,16 @@
 	dir = 8;
 	light_color = "#e8eaff"
 	},
+/obj/structure/closet/crate/wooden,
+/obj/item/clothing/under/costume/gangster,
+/obj/item/clothing/under/costume/gangster/purple,
+/obj/item/clothing/under/costume/geisha,
+/obj/item/clothing/suit/hooded/renault_costume,
+/obj/item/clothing/suit/hooded/carp_costume,
+/obj/item/clothing/head/costume/santa,
+/obj/item/clothing/head/costume/sombrero/shamebrero,
+/obj/item/clothing/under/costume/lobster,
+/obj/item/clothing/head/costume/lobsterhat,
 /turf/open/floor/wood/big,
 /area/crew_quarters/theatre)
 "pEv" = (
@@ -51599,7 +51613,6 @@
 /turf/open/floor/iron/white,
 /area/medical/cryo)
 "rop" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
@@ -65620,7 +65633,6 @@
 /area/maintenance/port/aft)
 "xrG" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/camera/autoname,
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
 	},
@@ -101120,9 +101132,9 @@ xxP
 xxP
 fzD
 aJC
-bLV
-bLV
-bLV
+qVS
+qVS
+qVS
 btZ
 btZ
 btZ
@@ -101622,7 +101634,7 @@ aFl
 vwT
 pQu
 aCr
-adq
+bLV
 aMr
 lqD
 seN
@@ -101634,8 +101646,8 @@ ldf
 ldf
 ldf
 eGg
-aYV
-aYV
+tqW
+oVr
 aYV
 btZ
 bgZ
@@ -101892,7 +101904,7 @@ xjb
 bUD
 cQz
 aYV
-aYV
+mNB
 hdg
 btZ
 aUy
@@ -102149,7 +102161,7 @@ pev
 ldf
 aJC
 vck
-aYV
+mNB
 ber
 btZ
 bhb
@@ -102406,7 +102418,7 @@ aKr
 ldf
 aJC
 aYV
-aYV
+mNB
 aKq
 btZ
 btZ
@@ -102663,7 +102675,7 @@ fJJ
 qlf
 aJC
 gfh
-aYV
+mNB
 bes
 uwZ
 aNl
@@ -102920,7 +102932,7 @@ uYr
 jLZ
 xxP
 rop
-oVr
+mNB
 cOt
 uwZ
 cZK
@@ -103433,8 +103445,8 @@ dVI
 rlg
 kYi
 xxP
-byj
-ewK
+rop
+iGe
 rpN
 lUQ
 pcD
@@ -104976,7 +104988,7 @@ aQg
 rwx
 eGg
 aGP
-kDj
+byj
 aKq
 bok
 bok
@@ -107033,7 +107045,7 @@ bQF
 aJI
 pJk
 aYV
-aYV
+bds
 xJf
 nRz
 but
