@@ -167,6 +167,8 @@
 	icon_state = "tile_titanium_purple"
 	merge_type = /obj/item/stack/tile/mineral/titanium/purple
 
+/* alt titanium tiles */
+
 /obj/item/stack/tile/mineral/titanium/tiled
 	name = "tiled titanium tile"
 	singular_name = "tiled titanium floor tile"
