@@ -267,7 +267,7 @@
 
 /mob/dead/new_player/proc/IsJobUnavailable(rank, latejoin = FALSE)
 	var/datum/job/job = SSjob.GetJob(rank)
-	if(!job)
+	if(!(job.job_flags & JOB_NEW_PLAYER_JOINABLE))
 		return JOB_UNAVAILABLE_GENERIC
 	if(job.lock_flags)
 		return JOB_UNAVAILABLE_LOCKED
@@ -275,8 +275,8 @@
 		if(job.title == JOB_NAME_ASSISTANT)
 			if(isnum_safe(client.player_age) && client.player_age <= 14) //Newbies can always be assistants
 				return JOB_AVAILABLE
-			for(var/datum/job/J in SSjob.occupations)
-				if(J && J.current_positions < J.total_positions && J.title != job.title)
+			for(var/datum/job/J in SSjob.joinable_occupations)
+				if(J && J.current_positions < J.total_positions && J != job)
 					return JOB_UNAVAILABLE_SLOTFULL
 		else
 			return JOB_UNAVAILABLE_SLOTFULL

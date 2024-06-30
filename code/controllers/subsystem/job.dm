@@ -3,14 +3,17 @@ SUBSYSTEM_DEF(job)
 	init_order = INIT_ORDER_JOBS
 	flags = SS_NO_FIRE
 
-	var/list/occupations = list()		//List of all jobs
+	/// List of all jobs.
+	var/list/all_occupations = list()
+	/// List of jobs that can be joined through the starting menu.
+	var/list/joinable_occupations = list()
 	var/list/datum/job/name_occupations = list()	//Dict of all jobs, keys are titles
 	var/list/type_occupations = list()	//Dict of all jobs, keys are types
 	var/list/unassigned = list()		//Players who need jobs
 	var/initial_players_to_assign = 0 	//used for checking against population caps
 
 	var/list/prioritized_jobs = list()
-	var/list/latejoin_trackers = list()	//Don't read this list, use GetLateJoinTurfs() instead
+	var/list/latejoin_trackers = list()
 
 	var/overflow_role = JOB_NAME_ASSISTANT
 
@@ -56,7 +59,7 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/Initialize(timeofday)
 	SSmapping.HACK_LoadMapConfig()
-	if(!occupations.len)
+	if(!all_occupations.len)
 		SetupOccupations()
 	if(CONFIG_GET(flag/load_jobs_from_txt))
 		LoadJobs()
@@ -78,7 +81,7 @@ SUBSYSTEM_DEF(job)
 	return ..()
 
 /datum/controller/subsystem/job/Recover()
-	occupations = SSjob.occupations
+	all_occupations = SSjob.all_occupations
 	name_occupations = SSjob.name_occupations
 	type_occupations = SSjob.type_occupations
 	unassigned = SSjob.unassigned
@@ -114,7 +117,8 @@ SUBSYSTEM_DEF(job)
 		JobDebug("Overflow role set to : [new_overflow_role]")
 
 /datum/controller/subsystem/job/proc/SetupOccupations(faction = FACTION_STATION)
-	occupations = list()
+	all_occupations = list()
+	joinable_occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
 		to_chat(world, "<span class='boldannounce'>Error setting up jobs, no job datums found.</span>")
@@ -124,9 +128,11 @@ SUBSYSTEM_DEF(job)
 		each_job = new each_job()
 		if(each_job.faction != faction)
 			continue
-		occupations += each_job
+		all_occupations += each_job
 		name_occupations[each_job.title] = each_job
 		type_occupations[each_job.type] = each_job
+		if(each_job.job_flags & JOB_NEW_PLAYER_JOINABLE)
+			joinable_occupations += each_job
 
 	return 1
 
@@ -135,7 +141,7 @@ SUBSYSTEM_DEF(job)
 	RETURN_TYPE(/datum/job)
 	if(!rank)
 		CRASH("proc has taken no job name")
-	if(!occupations.len)
+	if(!all_occupations.len)
 		SetupOccupations()
 	if(!name_occupations[rank])
 		CRASH("job name [rank] is not valid")
@@ -145,7 +151,7 @@ SUBSYSTEM_DEF(job)
 	RETURN_TYPE(/datum/job)
 	if(!jobtype)
 		CRASH("proc has taken no job type")
-	if(!occupations.len)
+	if(!all_occupations.len)
 		SetupOccupations()
 	if(!type_occupations[jobtype])
 		CRASH("job type [jobtype] is not valid")
@@ -154,7 +160,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/GetJobActiveDepartment(rank)
 	if(!rank)
 		CRASH("proc has taken no job name")
-	if(!occupations.len)
+	if(!all_occupations.len)
 		SetupOccupations()
 	if(!name_occupations[rank])
 		CRASH("job name [rank] is not valid")
@@ -217,7 +223,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/GiveRandomJob(mob/dead/new_player/player)
 	JobDebug("GRJ Giving random job, Player: [player]")
 	. = FALSE
-	for(var/datum/job/job in shuffle(occupations))
+	for(var/datum/job/job in shuffle(joinable_occupations))
 		if(!job || job.lock_flags)
 			continue
 
@@ -328,7 +334,7 @@ SUBSYSTEM_DEF(job)
 
 	//Holder for Triumvirate is stored in the SSticker, this just processes it
 	if(SSticker.triai)
-		for(var/datum/job/ai/A in occupations)
+		for(var/datum/job/ai/A in all_occupations)
 			A.spawn_positions = 3
 		for(var/obj/effect/landmark/start/ai/secondary/S in GLOB.start_landmarks_list)
 			S.latejoin_active = TRUE
@@ -393,7 +399,7 @@ SUBSYSTEM_DEF(job)
 	// Hopefully this will add more randomness and fairness to job giving.
 
 	// Loop through all levels from high to low
-	var/list/shuffledoccupations = shuffle(occupations)
+	var/list/shuffledoccupations = shuffle(joinable_occupations)
 	for(var/level in level_order)
 		//Check the head jobs first each level
 		CheckHeadPositions(level)
@@ -618,7 +624,7 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/proc/LoadJobs()
 	var/jobstext = rustg_file_read("[global.config.directory]/jobs.txt")
-	for(var/datum/job/J in occupations)
+	for(var/datum/job/J in joinable_occupations)
 		if(J.gimmick) //gimmick job slots are dependant on random maint
 			continue
 		var/regex/jobs = new("[J.title]=(-1|\\d+),(-1|\\d+)")
@@ -629,7 +635,7 @@ SUBSYSTEM_DEF(job)
 			log_runtime("Error in /datum/controller/subsystem/job/proc/LoadJobs: Failed to locate job of title [J.title] in jobs.txt")
 
 /datum/controller/subsystem/job/proc/HandleFeedbackGathering()
-	for(var/datum/job/job in occupations)
+	for(var/datum/job/job in joinable_occupations)
 		var/high = 0 //high
 		var/medium = 0 //medium
 		var/low = 0 //low
