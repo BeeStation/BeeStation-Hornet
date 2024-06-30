@@ -1528,6 +1528,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
+/obj/item/clothing/gloves/color/latex{
+	pixel_x = -1;
+	pixel_y = -1
+	},
 /turf/open/floor/iron,
 /area/medical/surgery)
 "azA" = (
@@ -34667,11 +34671,11 @@
 	pixel_x = -1;
 	pixel_y = 5
 	},
-/obj/item/storage/backpack/duffelbag/med/surgery{
-	pixel_y = 7
-	},
 /obj/machinery/defibrillator_mount{
 	pixel_y = -24
+	},
+/obj/item/storage/backpack/duffelbag/med/implant{
+	pixel_y = 4
 	},
 /turf/open/floor/iron,
 /area/medical/surgery)
