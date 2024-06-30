@@ -12475,7 +12475,8 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "dQs" = (
-/obj/machinery/anesthetic_machine,
+/obj/structure/table,
+/obj/item/storage/box/bodybags,
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
 "dQx" = (
@@ -14151,9 +14152,8 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/medical2{
-	req_access = list(29)
-	},
+/obj/structure/table,
+/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
 "erm" = (
@@ -61886,7 +61886,6 @@
 /obj/item/mmi,
 /obj/item/mmi,
 /obj/item/mmi,
-/obj/item/storage/box/bodybags,
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
 "tVs" = (
@@ -65219,7 +65218,6 @@
 /obj/item/storage/backpack/duffelbag/sec/surgery{
 	pixel_y = 4
 	},
-/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
 "uXM" = (
