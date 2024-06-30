@@ -5,6 +5,13 @@
 
 	charge_max = 1800
 
+	var/static/list/special_roles // security roles + Captain are resistant against this spell
+
+/obj/effect/proc_holder/spell/target_hive/hive_shatter/Initialize(mapload)
+	. = ..()
+	if(!special_roles)
+		special_roles = GLOB.security_positions.Copy() + JOB_NAME_CAPTAIN
+
 /obj/effect/proc_holder/spell/target_hive/hive_shatter/cast(list/targets, mob/living/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
 	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
@@ -14,7 +21,7 @@
 		return
 	if(!hive.hivemembers)
 		return
-	if(target.mind?.assigned_role in GLOB.security_positions || CAPTAIN)
+	if(target.mind?.assigned_role in special_roles)
 		to_chat(user, "<span class='warning'>A subconsciously trained response barely protects [target.name]'s mind.</span>")
 		to_chat(target, "<span class='assimilator'>Powerful mental attacks strike out against us, our training allows us to barely overcome it.</span>")
 		return

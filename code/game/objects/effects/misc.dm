@@ -32,6 +32,7 @@
 /obj/effect/spawner/Destroy(force)
 	SHOULD_CALL_PARENT(FALSE)
 	moveToNullspace()
+	return QDEL_HINT_QUEUE
 
 /obj/effect/list_container
 	name = "list container"
@@ -76,6 +77,10 @@
 /obj/effect/fullbright/starlight
 	plane = STARLIGHT_PLANE
 	transform = matrix(2, 0, 0, 0, 2, 0)
+
+/obj/effect/fullbright/starlight/starfloor
+	icon_state = "grey"
+	transform = matrix(1.5, 0, 0, 0, 1.5, 0)
 
 /obj/effect/abstract/marker
 	name = "marker"

@@ -14,6 +14,7 @@
 	desc = "A tool used by great men to placate the frothing masses."
 	icon_state = "chain"
 	item_state = "chain"
+	worn_icon_state = "whip"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -161,6 +162,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "baton"
 	item_state = "classic_baton"
+	worn_icon_state = "classic_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
@@ -348,7 +350,7 @@
 	force = 8
 	throwforce = 7
 	cooldown = 0
-	stamina_damage = 25 // 4 hits to stamcrit
+	stamina_damage = 30 // 4 hits to stamcrit < that was a lie
 	stun_animation = TRUE
 	/// Per-mob sleep cooldowns.
 	/// [mob] = [world.time where the cooldown ends]
@@ -412,7 +414,7 @@
 			target.visible_message(desc["visiblestun"], desc["localstun"])
 
 		else if(user.is_zone_selected(BODY_ZONE_HEAD) || user.is_zone_selected(BODY_ZONE_PRECISE_EYES) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
-			target.apply_damage(18, STAMINA, BODY_ZONE_HEAD, def_check) // 90 : 5 = 18 , 5 hits to KnockOut
+			target.apply_damage(stamina_damage*0.8, STAMINA, BODY_ZONE_HEAD, def_check) // 90 : 5 = 18 , 5 hits to KnockOut
 
 			if(target.staminaloss > 89 && !target.has_status_effect(STATUS_EFFECT_SLEEPING) && (!sleep_cooldowns[target] || COOLDOWN_FINISHED(src, sleep_cooldowns[target])))
 				T.force_say(user)
@@ -435,13 +437,13 @@
 			log_combat(user, target, "stunned", src)
 			target.visible_message(desc["visibleleg"], desc["localleg"])
 			if (Rl.get_staminaloss() < 26 && Ra.get_staminaloss() < 26 && La.get_staminaloss() < 26)
-				target.apply_damage(25, STAMINA, BODY_ZONE_L_LEG, def_check)
+				target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_L_LEG, def_check)
 			else
-				target.apply_damage(10, STAMINA, BODY_ZONE_L_LEG, def_check)
+				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_L_LEG, def_check)
 			if (Ll.get_staminaloss() == 50)
-				target.apply_damage(10, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_CHEST, def_check)
 			else
-				target.apply_damage(5, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_CHEST, def_check)
 
 			if(Ll.get_staminaloss() == 50 && CHECK_BITFIELD(target.mobility_flags, MOBILITY_STAND) && (!trip_cooldowns[target] || COOLDOWN_FINISHED(src, trip_cooldowns[target])))
 				target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls down.","falls face first into the floor.","gets viciously tripped.","got clumsy."))]</span>")
@@ -456,13 +458,13 @@
 			log_combat(user, target, "stunned", src)
 			target.visible_message(desc["visibleleg"], desc["localleg"])
 			if (Ll.get_staminaloss() < 26 && Ra.get_staminaloss() < 26 && La.get_staminaloss() < 26)
-				target.apply_damage(25, STAMINA, BODY_ZONE_R_LEG, def_check)
+				target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_R_LEG, def_check)
 			else
-				target.apply_damage(10, STAMINA, BODY_ZONE_R_LEG, def_check)
+				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_R_LEG, def_check)
 			if (Rl.get_staminaloss() == 50)
-				target.apply_damage(10, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_CHEST, def_check)
 			else
-				target.apply_damage(5, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_CHEST, def_check)
 
 			if(Rl.get_staminaloss() == 50 && CHECK_BITFIELD(target.mobility_flags, MOBILITY_STAND) && (!trip_cooldowns[target] || COOLDOWN_FINISHED(src, trip_cooldowns[target])))
 				target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls down.","falls face first into the floor.","gets viciously tripped.","got clumsy."))]</span>")
@@ -481,13 +483,13 @@
 				log_combat(user, target, "disarmed", src)
 				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
 			if (Ra.get_staminaloss() < 26 && Ll.get_staminaloss() < 26 && Rl.get_staminaloss() < 26)
-				target.apply_damage(20, STAMINA, BODY_ZONE_L_ARM, def_check)
+				target.apply_damage(stamina_damage*0.8, STAMINA, BODY_ZONE_L_ARM, def_check)
 			else
-				target.apply_damage(5, STAMINA, BODY_ZONE_L_ARM, def_check)
+				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_L_ARM, def_check)
 			if (La.get_staminaloss() == 50)
-				target.apply_damage(10, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_CHEST, def_check)
 			else
-				target.apply_damage(4, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_CHEST, def_check)
 
 		else if(user.is_zone_selected(BODY_ZONE_R_ARM))
 			if(!Ra.get_staminaloss() == 50)
@@ -497,13 +499,13 @@
 				log_combat(user, target, "disarmed", src)
 				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
 			if (La.get_staminaloss() < 26 && Ll.get_staminaloss() < 26 && Rl.get_staminaloss() < 26)
-				target.apply_damage(20, STAMINA, BODY_ZONE_R_ARM, def_check)
+				target.apply_damage(stamina_damage*0.8, STAMINA, BODY_ZONE_R_ARM, def_check)
 			else
-				target.apply_damage(5, STAMINA, BODY_ZONE_R_ARM, def_check)
+				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_R_ARM, def_check)
 			if (Ra.get_staminaloss() == 50)
-				target.apply_damage(10, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_CHEST, def_check)
 			else
-				target.apply_damage(4, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_CHEST, def_check)
 
 		add_fingerprint(user)
 
@@ -884,6 +886,7 @@
 	item_state = "chain"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+	worn_icon_state = "whip"
 	slot_flags = ITEM_SLOT_BELT
 	force = 0.001 //"Some attack noises shit"
 	reach = 3
@@ -935,7 +938,8 @@
 	name = "advanced roasting stick"
 	desc = "A telescopic roasting stick with a miniature shield generator designed to ensure entry into various high-tech shielded cooking ovens and firepits."
 	icon_state = "roastingstick_0"
-	item_state = "null"
+	item_state = null
+	worn_icon_state = "tele_baton"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
@@ -1045,6 +1049,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "telebaton_1"
 	item_state = "nullrod"
+	worn_icon_state = "tele_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT

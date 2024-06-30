@@ -471,7 +471,7 @@
 	layer = 3;
 	color = "#808080"
 	},
-/turf/open/floor/iron/elevatorshaft{
+/turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
 	},
 /area/shuttle/hunter)
@@ -1093,7 +1093,7 @@
 	layer = 3;
 	color = "#808080"
 	},
-/turf/open/floor/iron/elevatorshaft{
+/turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
 	},
 /area/shuttle/hunter)
