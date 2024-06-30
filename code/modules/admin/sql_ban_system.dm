@@ -225,12 +225,12 @@
 	var/use_last_connection = FALSE
 	var/static/list/static_roles = list("command" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND),
 					"security" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY),
-					"engineering" = GLOB.engineering_positions,
-					"medical" = GLOB.medical_positions,
-					"science" = GLOB.science_positions,
-					"supply" = GLOB.supply_positions,
-					"silicon" = GLOB.nonhuman_positions,
-					"civilian" = GLOB.civilian_positions,
+					"engineering" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_ENGINEERING),
+					"medical" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_MEDICAL),
+					"science" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SCIENCE),
+					"supply" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CARGO),
+					"silicon" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SILICON),
+					"civilian" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CIVILIAN),
 					"gimmick" = list(JOB_NAME_CLOWN,JOB_NAME_MIME,JOB_NAME_GIMMICK,JOB_NAME_ASSISTANT), //Hardcoded since it's not a real category but handy for rolebans
 					"antagonist_positions" = list(BAN_ROLE_ALL_ANTAGONISTS) + GLOB.antagonist_bannable_roles,
 					"forced_antagonist_positions" = list(BAN_ROLE_FORCED_ANTAGONISTS) + GLOB.forced_bannable_roles,
@@ -1250,10 +1250,10 @@
 		output += "</div></div>"
 		//standard departments all have identical handling
 		var/list/job_lists = list("Security" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY),
-							"Engineering" = GLOB.engineering_positions,
-							"Medical" = GLOB.medical_positions,
-							"Science" = GLOB.science_positions,
-							"Supply" = GLOB.supply_positions)
+							"Engineering" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_ENGINEERING),
+							"Medical" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_MEDICAL),
+							"Science" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SCIENCE),
+							"Supply" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CARGO))
 		for(var/department in job_lists)
 			//the first element is the department head so they need the same javascript call as above
 			output += "<div class='column'><label class='rolegroup [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' [fancy_tgui ? " onClick='toggle_checkboxes(this, \"_com\")'" : ""]>[department]</label><div class='content'>"
@@ -1272,7 +1272,7 @@
 				break_counter++
 			output += "</div></div>"
 		//departments/groups that don't have command staff would throw a javascript error since there's no corresponding reference for toggle_head()
-		var/list/headless_job_lists = list("Silicon" = GLOB.nonhuman_positions,
+		var/list/headless_job_lists = list("Silicon" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SILICON),
 										"Abstract" = list("Appearance", "Emote", "OOC", "DSAY"))
 		for(var/department in headless_job_lists)
 			output += "<div class='column'><label class='rolegroup [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' [fancy_tgui ? " onClick='toggle_checkboxes(this, \"_com\")'" : ""]>[department]</label><div class='content'>"
@@ -1287,7 +1287,7 @@
 				break_counter++
 			output += "</div></div>"
 		var/list/long_job_lists = list(
-			"Civilian" = GLOB.civilian_positions | JOB_NAME_GIMMICK,
+			"Civilian" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CIVILIAN) | JOB_NAME_GIMMICK,
 			"Antagonist Positions" = list(BAN_ROLE_ALL_ANTAGONISTS) + GLOB.antagonist_bannable_roles,
 			"Forced Antagonist Positions" = list(BAN_ROLE_FORCED_ANTAGONISTS) + GLOB.forced_bannable_roles,
 			"Ghost Roles" = list(BAN_ROLE_ALL_GHOST) + GLOB.ghost_role_bannable_roles,

@@ -403,7 +403,7 @@
 		"Science" = "#ffddff",
 		"Security" = "#ffdddd"
 	)
-	var/static/list/department_list = list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND)) + list(GLOB.engineering_positions) + list(GLOB.supply_positions) + list(GLOB.nonhuman_positions - "pAI") + list(GLOB.civilian_positions) + list(GLOB.gimmick_positions) + list(GLOB.medical_positions) + list(GLOB.science_positions) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY))
+	var/static/list/department_list = list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_ENGINEERING)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CARGO)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SILICON) - "pAI") + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CIVILIAN)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_MEDICAL)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SCIENCE)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY))
 
 	var/list/dat = list("<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>")
 	if(SSjob.prioritized_jobs.len > 0)

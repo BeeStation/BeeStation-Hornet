@@ -231,13 +231,13 @@ GLOBAL_VAR(clockcult_eminence)
 				//Ew, this could be done better with a dictionary list, but this isn't much slower
 				if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND))
 					prefix = "High Priest"
-				else if(role in GLOB.engineering_positions)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_ENGINEERING))
 					prefix = "Cogturner"
-				else if(role in GLOB.medical_positions)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_MEDICAL))
 					prefix = "Rejuvinator"
-				else if(role in GLOB.science_positions)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SCIENCE))
 					prefix = "Calculator"
-				else if(role in GLOB.supply_positions)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CARGO))
 					prefix = "Pathfinder"
 				else if(role in JOB_NAME_ASSISTANT)
 					prefix = "Helper"
@@ -245,11 +245,11 @@ GLOBAL_VAR(clockcult_eminence)
 					prefix = "Cogwatcher"
 				else if(role in JOB_NAME_CLOWN)
 					prefix = "Clonker"
-				else if((role in GLOB.civilian_positions) || (role in GLOB.gimmick_positions))
+				else if((role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CIVILIAN)))
 					prefix = "Cogworker"
 				else if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY))
 					prefix = "Warrior"
-				else if(role in GLOB.nonhuman_positions)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SILICON))
 					prefix = "CPU"
 			//Fallthrough is default of "Clockbrother"
 		hierophant_message += "<b>[prefix] [sender.name]</b> transmits, \"[msg]\""

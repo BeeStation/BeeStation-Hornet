@@ -21,16 +21,16 @@
 	//note that command and sillycone are gone because borgs can't be obsessions and the heads have their respective department. Sorry cap, your place is more with centcom or something
 	if(obsession.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY))
 		chosen_department = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY)
-	else if(obsession.assigned_role in GLOB.engineering_positions)
-		chosen_department = GLOB.engineering_positions
-	else if(obsession.assigned_role in GLOB.medical_positions)
-		chosen_department = GLOB.medical_positions
-	else if(obsession.assigned_role in GLOB.science_positions)
-		chosen_department = GLOB.science_positions
-	else if(obsession.assigned_role in GLOB.supply_positions)
-		chosen_department = GLOB.supply_positions
-	else if(obsession.assigned_role in (GLOB.civilian_positions | GLOB.gimmick_positions))
-		chosen_department = GLOB.civilian_positions | GLOB.gimmick_positions
+	else if(obsession.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_ENGINEERING))
+		chosen_department = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_ENGINEERING)
+	else if(obsession.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_MEDICAL))
+		chosen_department = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_MEDICAL)
+	else if(obsession.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SCIENCE))
+		chosen_department = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SCIENCE)
+	else if(obsession.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CARGO))
+		chosen_department = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CARGO)
+	else if(obsession.assigned_role in (SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CIVILIAN)))
+		chosen_department = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CIVILIAN)
 	else
 		set_target(null)
 		update_explanation_text()
