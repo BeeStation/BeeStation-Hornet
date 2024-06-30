@@ -1,0 +1,5 @@
+author: MarkusLarsson421
+delete-after: true
+changes:
+  - rscadd: Surplus Implant duffelbag.
+  - rscadd: Cargo order for surplus implant crate.
