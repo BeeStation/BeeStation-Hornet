@@ -125,6 +125,8 @@
 #define REQ_HIGH_MESSAGE_PRIORITY 		2
 #define REQ_EXTREME_MESSAGE_PRIORITY 	3
 
-#define REQ_DEP_TYPE_ASSISTANCE 	(1<<0)
-#define REQ_DEP_TYPE_SUPPLIES 		(1<<1)
-#define REQ_DEP_TYPE_INFORMATION 	(1<<2)
+#define ASSISTANCE_REQUEST "Assistance Request"
+#define SUPPLY_REQUEST "Supplies Request"
+#define INFORMATION_REQUEST "Relay Information"
+#define ORE_UPDATE_REQUEST "Ore Update"
+#define REPLY_REQUEST "Reply"

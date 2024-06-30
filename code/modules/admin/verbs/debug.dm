@@ -368,7 +368,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_air_alarm.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/requests_console/RC in GLOB.machines)
+	for(var/obj/machinery/requests_console/RC in GLOB.req_console_all)
 		var/area/A = get_area(RC)
 		if(!A)
 			dat += "Skipped over [RC] in invalid location, [RC.loc].<br>"

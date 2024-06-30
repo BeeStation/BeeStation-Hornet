@@ -408,7 +408,7 @@ GLOBAL_LIST_EMPTY(species_list)
 		var/override = FALSE
 		if(M?.client.holder && dchat)
 			override = TRUE
-		if(HAS_TRAIT(M, TRAIT_SIXTHSENSE))
+		if(HAS_TRAIT(M, TRAIT_SIXTHSENSE) && message_type == DEADCHAT_REGULAR)
 			override = TRUE
 		if(SSticker.current_state == GAME_STATE_FINISHED)
 			override = TRUE
