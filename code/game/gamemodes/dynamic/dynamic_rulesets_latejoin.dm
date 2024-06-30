@@ -111,7 +111,7 @@
 		return FALSE
 	var/head_check = 0
 	for(var/mob/player in mode.current_players[CURRENT_LIVING_PLAYERS])
-		if (player.mind.assigned_role in GLOB.command_positions)
+		if (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND))
 			head_check++
 	return (head_check >= required_heads_of_staff)
 

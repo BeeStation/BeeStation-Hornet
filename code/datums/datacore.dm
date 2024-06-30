@@ -188,7 +188,7 @@
 
 /datum/datacore/proc/get_manifest()
 	var/list/manifest_out = list()
-	var/static/list/heads = make_associative(GLOB.command_positions)
+	var/static/list/heads = make_associative(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND))
 
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		var/name = t.fields["name"]

@@ -19,8 +19,8 @@
 	var/list/all_coworkers = list()
 	var/list/chosen_department
 	//note that command and sillycone are gone because borgs can't be obsessions and the heads have their respective department. Sorry cap, your place is more with centcom or something
-	if(obsession.assigned_role in GLOB.security_positions)
-		chosen_department = GLOB.security_positions
+	if(obsession.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY))
+		chosen_department = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY)
 	else if(obsession.assigned_role in GLOB.engineering_positions)
 		chosen_department = GLOB.engineering_positions
 	else if(obsession.assigned_role in GLOB.medical_positions)

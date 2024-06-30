@@ -229,7 +229,7 @@ GLOBAL_VAR(clockcult_eminence)
 			if(CLOCKCULT_PREFIX_RECRUIT)
 				var/role = sender.mind?.assigned_role
 				//Ew, this could be done better with a dictionary list, but this isn't much slower
-				if(role in GLOB.command_positions)
+				if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND))
 					prefix = "High Priest"
 				else if(role in GLOB.engineering_positions)
 					prefix = "Cogturner"
@@ -247,7 +247,7 @@ GLOBAL_VAR(clockcult_eminence)
 					prefix = "Clonker"
 				else if((role in GLOB.civilian_positions) || (role in GLOB.gimmick_positions))
 					prefix = "Cogworker"
-				else if(role in GLOB.security_positions)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY))
 					prefix = "Warrior"
 				else if(role in GLOB.nonhuman_positions)
 					prefix = "CPU"

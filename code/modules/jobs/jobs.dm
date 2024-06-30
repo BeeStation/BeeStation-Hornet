@@ -264,7 +264,7 @@ GLOBAL_PROTECT(exp_jobsmap)
 GLOBAL_PROTECT(exp_specialmap)
 
 /proc/guest_jobbans(job)
-	return ((job in GLOB.command_positions) || (job in GLOB.nonhuman_positions) || (job in GLOB.security_positions))
+	return ((job in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND)) || (job in GLOB.nonhuman_positions) || (job in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY)))
 
 
 

@@ -223,8 +223,8 @@
 	var/duration_type = "Temporary"
 	var/time_units = "Minutes"
 	var/use_last_connection = FALSE
-	var/static/list/static_roles = list("command" = GLOB.command_positions,
-					"security" = GLOB.security_positions,
+	var/static/list/static_roles = list("command" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND),
+					"security" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY),
 					"engineering" = GLOB.engineering_positions,
 					"medical" = GLOB.medical_positions,
 					"science" = GLOB.science_positions,
@@ -1239,7 +1239,7 @@
 		output += "<div class='row'><div class='column'><label class='rolegroup command'><input type='checkbox' name='Command' class='hidden' [fancy_tgui ? " onClick='toggle_checkboxes(this, \"_dep\")'" : ""]>Command</label><div class='content'>"
 		//all heads are listed twice so have a javascript call to toggle both their checkboxes when one is pressed
 		//for simplicity this also includes the captain even though it doesn't do anything
-		for(var/job in GLOB.command_positions)
+		for(var/job in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND))
 			if(break_counter > 0 && (break_counter % 3 == 0))
 				output += "<br>"
 			output += {"<label class='inputlabel checkbox'>[job]
@@ -1249,7 +1249,7 @@
 			break_counter++
 		output += "</div></div>"
 		//standard departments all have identical handling
-		var/list/job_lists = list("Security" = GLOB.security_positions,
+		var/list/job_lists = list("Security" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY),
 							"Engineering" = GLOB.engineering_positions,
 							"Medical" = GLOB.medical_positions,
 							"Science" = GLOB.science_positions,

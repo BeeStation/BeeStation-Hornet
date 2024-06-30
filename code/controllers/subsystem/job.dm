@@ -230,7 +230,7 @@ SUBSYSTEM_DEF(job)
 		if(istype(job, GetJob(SSjob.overflow_role))) // We don't want to give him assistant, that's boring!
 			continue
 
-		if(job.title in GLOB.command_positions) //If you want a command position, select it!
+		if(job.title in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND)) //If you want a command position, select it!
 			continue
 
 		if(QDELETED(player))
@@ -275,7 +275,7 @@ SUBSYSTEM_DEF(job)
 //This is basically to ensure that there's atleast a few heads in the round
 /datum/controller/subsystem/job/proc/FillHeadPosition()
 	for(var/level in level_order)
-		for(var/command_position in GLOB.command_positions)
+		for(var/command_position in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND))
 			var/datum/job/job = GetJob(command_position)
 			if(!job)
 				continue
@@ -293,7 +293,7 @@ SUBSYSTEM_DEF(job)
 //This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level
 //This is also to ensure we get as many heads as possible
 /datum/controller/subsystem/job/proc/CheckHeadPositions(level)
-	for(var/command_position in GLOB.command_positions)
+	for(var/command_position in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND))
 		var/datum/job/job = GetJob(command_position)
 		if(!job)
 			continue
@@ -776,7 +776,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/get_living_heads()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
-		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.command_positions))
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND)))
 			. |= player.mind
 
 
@@ -787,7 +787,7 @@ SUBSYSTEM_DEF(job)
 	. = list()
 	for(var/i in GLOB.mob_list)
 		var/mob/player = i
-		if(player.mind && (player.mind.assigned_role in GLOB.command_positions))
+		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND)))
 			. |= player.mind
 
 //////////////////////////////////////////////
@@ -796,7 +796,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/get_living_sec()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
-		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.security_positions))
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY)))
 			. |= player.mind
 
 ////////////////////////////////////////
@@ -805,7 +805,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/get_all_sec()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
-		if(player.mind && (player.mind.assigned_role in GLOB.security_positions))
+		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY)))
 			. |= player.mind
 
 /datum/controller/subsystem/job/proc/JobDebug(message)
