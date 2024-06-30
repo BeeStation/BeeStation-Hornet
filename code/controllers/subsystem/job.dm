@@ -507,15 +507,9 @@ SUBSYSTEM_DEF(job)
 
 //Gives the player the stuff he should have with his job
 /datum/controller/subsystem/job/proc/EquipRank(mob/M, datum/job/job, client/C,  joined_late = FALSE)
-	var/mob/dead/new_player/newplayer
 	var/mob/living/living_mob
 
-	if(joined_late)
-		newplayer = M
-		living_mob = newplayer.new_character
-	else
-		living_mob = M
-
+	living_mob = M
 	living_mob.job = job
 
 	//If we joined at roundstart we should be positioned at our workstation
@@ -557,10 +551,7 @@ SUBSYSTEM_DEF(job)
 		var/new_mob = job.equip(living_mob, null, null, joined_late , null, C)
 		if(ismob(new_mob))
 			living_mob = new_mob
-			if(!joined_late)
-				newplayer.new_character = living_mob
-			else
-				M = living_mob
+			M = living_mob
 
 		SSpersistence.antag_rep_change[C.ckey] += job.GetAntagRep()
 
