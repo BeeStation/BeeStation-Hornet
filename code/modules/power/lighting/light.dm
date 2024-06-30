@@ -194,8 +194,10 @@
 	. = ..()
 	if(!on || status != LIGHT_OK)
 		return
+
 	if(on && turning_on)
 		return
+		
 	var/area/local_area = get_area(src)
 	if(emergency_mode || (local_area?.fire))
 		. += mutable_appearance(overlayicon, "[base_state]_emergency")
@@ -436,7 +438,7 @@
 			if(prob(12))
 				electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 
-/obj/machinery/light/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+/obj/machinery/light/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(. && !QDELETED(src))
 		if(prob(damage_amount * 5))

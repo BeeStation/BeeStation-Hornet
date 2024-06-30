@@ -528,7 +528,7 @@
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizard_plushie,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cf" = (

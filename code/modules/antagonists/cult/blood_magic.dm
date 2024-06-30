@@ -449,6 +449,9 @@
 				C.stuttering += 15
 				C.cultslurring += 15
 				C.Jitter(15)
+				// EMP the radio on your ears
+				if (C.ears)
+					C.ears.emp_act(EMP_LIGHT)
 		else
 			target.visible_message("<span class='warning'>You fail to corrupt [L]'s mind!</span>", \
 									   "<span class='userdanger'>Your mindshield protects you from the heresy of [user]!</span>")
@@ -522,7 +525,7 @@
 								"<span class='userdanger'>[user] begins shaping dark magic shackles around your wrists!</span>")
 		if(do_after(user, 3 SECONDS, C))
 			if(!C.handcuffed)
-				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
+				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
 				C.update_handcuffed()
 				C.silent += 5
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
