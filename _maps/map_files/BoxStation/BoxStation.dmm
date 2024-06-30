@@ -29541,10 +29541,6 @@
 	},
 /turf/open/floor/iron,
 /area/janitor)
-"hYs" = (
-/obj/machinery/ecto_sniffer,
-/turf/open/floor/iron/white,
-/area/science/robotics/lab)
 "hYG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -44564,6 +44560,9 @@
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
+	},
+/obj/machinery/ecto_sniffer{
+	pixel_y = 4
 	},
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
@@ -110511,7 +110510,7 @@ aXq
 bds
 bfV
 bhx
-hYs
+biL
 biL
 cHO
 pJV
