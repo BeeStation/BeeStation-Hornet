@@ -89,36 +89,6 @@ SUBSYSTEM_DEF(department)
 
 	return jobs_to_return
 
-// get access proc
-/// returns job list by id. if id is given as a list, it will return as a list as `[department_id]=list(jobs)`
-/datum/controller/subsystem/department/proc/get_dept_assoc_jobs_by_dept_id(id_or_list)
-	if(!id_or_list)
-		stack_trace("proc has no id value")
-		return list()
-
-	if(!islist(id_or_list))
-		id_or_list = list(id_or_list)
-	else if(islist(id_or_list?[1]))
-		CRASH("You did something wrong. Check if you did like 'list(list())'")
-
-	var/list/jobs_to_return = list()
-	for(var/each in id_or_list)
-		var/datum/department_group/dept = department_by_key[each]
-		if(!dept || !length(dept.jobs))
-			continue
-		jobs_to_return[dept.dept_id] = dept.jobs.Copy()
-
-	return jobs_to_return
-
-/// WARNING: This returns silicon jobs + non-station jobs. use `get_jobs_by_dept_id()`
-/datum/controller/subsystem/department/proc/get_all_jobs()
-	var/list/jobs_to_return = list()
-	for(var/datum/department_group/dept in department_type_list)
-		if(!dept || !length(dept.jobs)) // do not put 'if(!dept.is_station)' or silicons will not be chosen
-			continue
-		jobs_to_return[dept.dept_id] = dept.jobs.Copy()
-	return jobs_to_return
-
 /datum/controller/subsystem/department/proc/refresh_all_station_accesses(first_init=FALSE)
 	for(var/datum/department_group/dept in department_type_list)
 		if(!dept.is_station)
@@ -127,26 +97,6 @@ SUBSYSTEM_DEF(department)
 			all_station_accesses |= dept.get_department_accesses()
 		else
 			all_station_accesses |= dept.custom_access
-
-
-// ----------------------------------------------------------
-// 			Access related procs
-/datum/controller/subsystem/department/proc/get_department_access_by_dept_id(id)
-	var/datum/department_group/dept = department_by_key[id]
-	if(!dept)
-		CRASH("wrong id '[id]' is given.")
-	return dept.get_department_accesses()
-
-/datum/controller/subsystem/department/proc/get_all_station_accesses()
-	return all_station_accesses
-
-/datum/controller/subsystem/department/proc/get_all_ingame_accesses()
-	var/list/access_to_return = list()
-	for(var/datum/department_group/dept in department_type_list)
-		access_to_return |= dept.get_department_accesses()
-	return access_to_return
-
-
 
 /// returns the department list as manifest order
 /datum/controller/subsystem/department/proc/get_departments_by_manifest_order()
@@ -193,27 +143,6 @@ SUBSYSTEM_DEF(department)
 		if(!sanity_check)
 			stack_trace("the proc reached 0 sanity check - something's causing the infinite loop.")
 	return sorted_department_for_pref
-
-
-/datum/controller/subsystem/department/proc/add_new_custom_access_by_dept_id(list/id, new_code, access_name, protected=FALSE)
-	if(!id)
-		CRASH("No id detected")
-
-	if(!islist(id))
-		id = list(id)
-	new_code = "[new_code]"
-
-	for(var/each in id)
-		var/datum/department_group/current = department_by_key[each]
-		if(!current)
-			continue
-		current.custom_access += new_code
-		GLOB.access_desc_list["[new_code]"] = access_name
-		if(protected)
-			current.protected_access += new_code
-		current.refresh_full_access_list()
-		if(current.is_station)
-			refresh_all_station_accesses()
 
 
 // --------------------------------------------
@@ -389,15 +318,8 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_BOTANIST,
 				JOB_NAME_COOK,
 				JOB_NAME_JANITOR,
-				JOB_NAME_LAWYER,
-				JOB_NAME_CURATOR,
-				JOB_NAME_CHAPLAIN,
 				JOB_NAME_MIME,
-				JOB_NAME_CLOWN,
-				JOB_NAME_STAGEMAGICIAN,
-				JOB_NAME_BARBER,
-				JOB_NAME_ASSISTANT,
-				JOB_NAME_VIP)
+				JOB_NAME_CLOWN)
 
 	access_group_name = "Service"
 	access_dominant = list(ACCESS_CHANGE_IDS)
@@ -435,8 +357,14 @@ SUBSYSTEM_DEF(department)
 
 	leaders = list(JOB_NAME_HEADOFPERSONNEL)
 	jobs = list(JOB_NAME_ASSISTANT,
+				JOB_NAME_GIMMICK,
+				JOB_NAME_BARBER,
 				JOB_NAME_STAGEMAGICIAN,
-				JOB_NAME_BARBER)
+				JOB_NAME_PSYCHIATRIST,
+				JOB_NAME_VIP,
+				JOB_NAME_CHAPLAIN,
+				JOB_NAME_CURATOR,
+				JOB_NAME_LAWYER)
 
 	access_group_name = "Civilian"
 	access_dominant = list(ACCESS_CHANGE_IDS)
