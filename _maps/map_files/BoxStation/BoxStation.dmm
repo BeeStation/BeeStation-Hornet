@@ -5879,9 +5879,7 @@
 	dir = 1
 	},
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
-/obj/machinery/ecto_sniffer{
-	pixel_y = 0
-	},
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
 "bhy" = (
