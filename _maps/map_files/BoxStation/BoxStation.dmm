@@ -5879,6 +5879,9 @@
 	dir = 1
 	},
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
+/obj/machinery/ecto_sniffer{
+	pixel_y = 0
+	},
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
 "bhy" = (
@@ -44560,9 +44563,6 @@
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
-	},
-/obj/machinery/ecto_sniffer{
-	pixel_y = 4
 	},
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
