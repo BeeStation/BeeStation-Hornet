@@ -29021,9 +29021,13 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/borg/upgrade/rename,
 /obj/effect/turf_decal/bot,
-/obj/machinery/ecto_sniffer,
+/obj/item/storage/box/bodybags,
+/obj/item/storage/box/gloves{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/borg/upgrade/rename,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "due" = (
@@ -43267,9 +43271,8 @@
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/bodycontainer/morgue{
-	dir = 8
-	},
+/obj/machinery/rnd/production/circuit_imprinter/department/science,
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "hjT" = (
@@ -45768,7 +45771,9 @@
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/aug_manipulator,
+/obj/structure/bodycontainer/morgue{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "iam" = (
@@ -56630,7 +56635,6 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
 "lJQ" = (
-/obj/structure/table/reinforced,
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = -32
 	},
@@ -56638,11 +56642,7 @@
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/bot,
-/obj/item/storage/box/gloves{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/bodybags,
+/obj/machinery/aug_manipulator,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "lJU" = (
@@ -73862,7 +73862,10 @@
 /turf/open/floor/iron,
 /area/quartermaster/qm)
 "ruu" = (
-/obj/item/kirbyplants/random,
+/obj/machinery/computer/rdconsole/robotics{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "ruB" = (
@@ -78027,13 +78030,6 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
-"sQL" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/rnd/production/circuit_imprinter/department/science,
-/turf/open/floor/iron,
-/area/science/robotics/lab)
 "sQX" = (
 /obj/machinery/computer/security/mining{
 	dir = 4
@@ -80208,9 +80204,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/computer/rdconsole/robotics{
-	dir = 8
-	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "tCt" = (
@@ -132595,7 +132589,7 @@ dwB
 dyd
 dzK
 dAO
-sQL
+tvW
 tCn
 tvW
 dGd

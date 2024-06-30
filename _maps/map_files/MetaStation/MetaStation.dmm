@@ -25352,10 +25352,13 @@
 	dir = 1;
 	pixel_y = 1
 	},
+/obj/item/storage/box/bodybags{
+	pixel_y = 2
+	},
+/obj/item/clothing/gloves/color/latex,
 /obj/item/razor{
 	pixel_y = 5
 	},
-/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
@@ -32549,7 +32552,9 @@
 /obj/item/radio/intercom{
 	pixel_x = -29
 	},
-/obj/item/storage/backpack/duffelbag/sec/surgery,
+/obj/item/storage/backpack/duffelbag/sec/surgery{
+	pixel_y = 5
+	},
 /turf/open/floor/iron/white/corner{
 	dir = 4
 	},
@@ -54784,9 +54789,12 @@
 	dir = 1;
 	pixel_y = 1
 	},
-/obj/item/storage/box/bodybags{
-	pixel_x = 2;
-	pixel_y = 2
+/obj/item/mmi,
+/obj/item/mmi{
+	pixel_y = 4
+	},
+/obj/item/mmi{
+	pixel_y = 8
 	},
 /turf/open/floor/iron/white/side{
 	dir = 8
@@ -68881,17 +68889,10 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
 "uyf" = (
-/obj/structure/table,
-/obj/item/mmi,
-/obj/item/mmi{
-	pixel_y = 4
-	},
-/obj/item/mmi{
-	pixel_y = 8
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/machinery/aug_manipulator,
 /turf/open/floor/iron/white/corner{
 	dir = 1
 	},
