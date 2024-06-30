@@ -20358,7 +20358,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/aug_manipulator,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "cFf" = (
@@ -20482,6 +20481,9 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
+/obj/machinery/ecto_sniffer{
+	pixel_y = 0
+	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "cGW" = (
@@ -44169,9 +44171,6 @@
 	req_access_txt = "29"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/ecto_sniffer{
-	pixel_y = 4
-	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "lge" = (

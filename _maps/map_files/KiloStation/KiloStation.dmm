@@ -26741,6 +26741,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "cIr" = (
@@ -49704,7 +49705,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/ecto_sniffer,
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "jRE" = (

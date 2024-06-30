@@ -60363,10 +60363,6 @@
 "ptM" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/filingcabinet/chestdrawer,
-/obj/machinery/ecto_sniffer{
-	pixel_x = -1;
-	pixel_y = 6
-	},
 /turf/open/floor/iron/grid/steel,
 /area/science/robotics/lab)
 "ptN" = (
@@ -74027,11 +74023,13 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "sPf" = (
-/obj/item/borg/upgrade/rename,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
 /obj/machinery/airalarm{
 	pixel_y = 22
+	},
+/obj/machinery/ecto_sniffer{
+	pixel_y = 0
 	},
 /turf/open/floor/iron/grid/steel,
 /area/science/robotics/lab)
@@ -84316,6 +84314,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26
 	},
+/obj/item/borg/upgrade/rename,
 /turf/open/floor/iron/grid/steel,
 /area/science/robotics/lab)
 "vpP" = (
