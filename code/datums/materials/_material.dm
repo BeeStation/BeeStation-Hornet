@@ -70,6 +70,9 @@ Simple datum which is instanced once per type and is used for every object of sa
 	if(material_flags & MATERIAL_ADD_PREFIX)
 		source.name = "[name] [source.name]"
 
+	//if(beauty_modifier)
+	//	source.AddElement(/datum/element/beauty, beauty_modifier * amount)
+
 	if(istype(source, /obj)) //objs
 		on_applied_obj(source, amount, material_flags)
 
@@ -135,6 +138,12 @@ Simple datum which is instanced once per type and is used for every object of sa
 		O.barefootstep = turf_sound_override
 		O.clawfootstep = turf_sound_override
 		O.heavyfootstep = turf_sound_override
+	if(alpha < 255) //We can see through you, so we want to see stuff happening below you. Either space, or multi-z
+		T.enable_zmimic()
+		if(isspaceturf(T.baseturfs[1]))
+			T.fullbright_type = FULLBRIGHT_STARLIGHT
+			T.luminosity = 2
+
 	return
 
 /datum/material/proc/get_greyscale_config_for(datum/greyscale_config/config_path)
@@ -183,8 +192,12 @@ Simple datum which is instanced once per type and is used for every object of sa
 			new_inhand_right = initial(item.greyscale_config_inhand_right)
 		)
 
-/datum/material/proc/on_removed_turf(turf/T, amount, material_flags)
-	return
+/datum/material/proc/on_removed_turf(turf/T, material_flags)
+	if(alpha < 255)
+		T.disable_zmimic()
+		if(ispath(READ_BASETURF(T), /turf/open/space))
+			T.fullbright_type = FULLBRIGHT_DEFAULT
+			T.luminosity = 1
 
 /**
  * This proc is called when the mat is found in an item that's consumed by accident. see /obj/item/proc/on_accidental_consumption.
