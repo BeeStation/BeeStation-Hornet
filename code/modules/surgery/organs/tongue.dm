@@ -388,3 +388,10 @@
 	color = "#1b1b1b"
 	liked_food = RAW | GROSS
 	disliked_food = DAIRY
+
+/obj/item/organ/tongue/monkey
+	name = "primitive tongue"
+	desc = "For aggressively chimpering. And consuming bananas."
+	say_mod = "chimpers"
+	liked_food = MEAT | FRUIT
+	disliked_food = CLOTH

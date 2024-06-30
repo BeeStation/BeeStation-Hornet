@@ -11,7 +11,6 @@
 	gender = NEUTER
 	health = 350
 	maxHealth = 350
-	ventcrawler = VENTCRAWLER_NONE
 	density = TRUE
 	pass_flags =  0
 	sight = (SEE_TURFS | SEE_OBJS)
@@ -28,6 +27,8 @@
 	mobchatspan = "cultmobsay"
 
 /mob/living/carbon/true_devil/Initialize(mapload)
+	// as a wise man once wrote: "pull over that ass too fat"
+	REMOVE_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	create_bodyparts() //initialize bodyparts
 	create_internal_organs()
 	grant_all_languages()

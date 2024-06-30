@@ -97,3 +97,20 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 
 /mob/living/carbon/human/dummy/remove_from_alive_mob_list()
 	return
+
+/mob/living/carbon/human/dummy/create_dna()
+	dna = new /datum/dna/dummy(src)
+	if(!dna.species)
+		var/rando_race = pick(get_selectable_species())
+		dna.species = new rando_race()
+
+/*
+	Specialized dummy DNA to remove artifacts from character preview
+*/
+/datum/dna/dummy
+
+/datum/dna/dummy/update_height_holder()
+	return
+
+/datum/dna/dummy/update_body_size(force, height)
+	return

@@ -186,7 +186,7 @@
 	var/randomize = pick("monkey","robot","slime","xeno","humanoid","animal")
 	switch(randomize)
 		if("monkey")
-			new_mob = new /mob/living/carbon/monkey(M.loc)
+			new_mob = new /mob/living/carbon/human/species/monkey(M.loc)
 
 		if("robot")
 			var/robot = pick(200;/mob/living/silicon/robot,

@@ -1,4 +1,4 @@
-/datum/mutation/shock
+/datum/mutation/human/shock
 	name = "Shock Touch"
 	desc = "A mutation that allows the user to store accumulated bioelectric and static charge, consciously discharging it upon others with no harm to themselves."
 	quality = POSITIVE
@@ -48,7 +48,7 @@
 	use_charge(user)
 	return ..()
 
-/datum/mutation/acidooze
+/datum/mutation/human/acidooze
 	name = "Acidic Hands"
 	desc = "Allows an Oozeling to metabolize some of their blood into acid, concentrated on their hands."
 	quality = POSITIVE

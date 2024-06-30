@@ -505,9 +505,8 @@
 
 /obj/item/bodypart/chest/monkey
 	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "default_monkey_chest"
 	limb_id = SPECIES_MONKEY
-	animal_origin = MONKEY_BODYPART
+	is_dimorphic = TRUE
 
 /obj/item/bodypart/chest/monkey/teratoma
 	icon_state = "teratoma_chest"
@@ -797,3 +796,11 @@
 	dismemberable = 0
 	max_damage = 5000
 	animal_origin = DEVIL_BODYPART
+
+///Proc to turn bodypart into another.
+/obj/item/bodypart/proc/change_bodypart(obj/item/bodypart/new_type)
+	var/mob/living/carbon/our_owner = owner //dropping nulls the limb
+	drop_limb(TRUE)
+	var/obj/item/bodypart/new_part = new new_type()
+	new_part.attach_limb(our_owner, TRUE)
+	qdel(src)

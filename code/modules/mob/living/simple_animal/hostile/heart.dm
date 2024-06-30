@@ -19,7 +19,6 @@
 	response_harm = "breaks"
 	density = FALSE
 	attacktext = "beats"
-	ventcrawler = VENTCRAWLER_ALWAYS
 	attack_sound = 'sound/effects/singlebeat.ogg'
 	stat_attack = HARD_CRIT
 	attack_same = 1
@@ -31,3 +30,7 @@
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 150
 	maxbodytemp = 500
+
+/mob/living/simple_animal/hostile/heart/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)

@@ -263,7 +263,7 @@
 
 /datum/antagonist/rev/head/equip_rev()
 	var/mob/living/carbon/H = owner.current
-	if(!ishuman(H) && !ismonkey(H))
+	if(!ishuman(H))
 		return
 
 	if(remove_clumsy)

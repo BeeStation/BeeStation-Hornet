@@ -1,10 +1,10 @@
-/datum/mutation/cluwne
+/datum/mutation/human/cluwne
 	name = "Cluwne"
 	desc = "Turns a person into a Cluwne, a poor soul cursed to a short and miserable life by the honkmother."
 	quality = NEGATIVE
 	locked = TRUE
 
-/datum/mutation/cluwne/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/cluwne/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	owner.dna.add_mutation(CLOWNMUT)
@@ -30,7 +30,7 @@
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/cluwne(H), ITEM_SLOT_FEET)
 		owner.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/white(owner), ITEM_SLOT_GLOVES) // ditto
 
-/datum/mutation/cluwne/on_life()
+/datum/mutation/human/cluwne/on_life()
 	if(prob(15) && owner.IsUnconscious())
 		owner.setOrganLoss(ORGAN_SLOT_BRAIN, 199)
 		switch(rand(1, 6))
@@ -43,7 +43,7 @@
 				owner.Knockdown(20)
 				owner.Jitter(500)
 
-/datum/mutation/cluwne/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/cluwne/on_losing(mob/living/carbon/owner)
 	owner.adjust_fire_stacks(1)
 	owner.IgniteMob()
 	owner.dna.add_mutation(CLUWNEMUT)

@@ -22,13 +22,16 @@
 
 	var/override = 0
 
-	for(var/datum/mutation/HM as() in dna.mutations)
+	for(var/datum/mutation/human/HM as() in dna.mutations)
 		override += HM.on_attack_hand(A, proximity)
 
 	if(override)
 		return
 
-	SEND_SIGNAL(src, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, A)
+	SEND_SIGNAL(src, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, A, proximity)
+
+	if(dna?.species?.spec_unarmedattack(src, A)) //Because species like monkeys dont use attack hand
+		return
 	A.attack_hand(src)
 
 /// Return TRUE to cancel other attack hand effects that respect it.
@@ -85,7 +88,7 @@
 	. = ..()
 	if(!dna)
 		return
-	for(var/datum/mutation/HM as() in dna.mutations)
+	for(var/datum/mutation/human/HM as() in dna.mutations)
 		HM.on_ranged_attack(A, mouseparams)
 
 /mob/living/carbon/human/RangedAttack(atom/A, mouseparams)
