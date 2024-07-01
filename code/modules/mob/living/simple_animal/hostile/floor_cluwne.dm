@@ -187,7 +187,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			interest = 0
 			stage = STAGE_HAUNT
 			return target = current_victim
-	if(!terrorize || terror_count == 2)
+	if(!terrorize)
 		message_admins("Floor Cluwne was deleted due to a lack of valid targets, if this was a manually targeted instance please re-evaluate your choice.")
 		qdel(src)
 
@@ -627,7 +627,9 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	// Could use a little pick-me-up...
 	sac_target.reagents?.add_reagent(/datum/reagent/eldritchkiss, 12) //this used to kill toxinlovers, hence the snowflake reagent
 	terror_count += 1
-
+	if(terror_count == 2)
+		message_admins("Floor Cluwne was deleted due to reaching its max terror count")
+		qdel(src)
 
 #undef STAGE_HAUNT
 #undef STAGE_SPOOK
