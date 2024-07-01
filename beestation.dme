@@ -1741,6 +1741,7 @@
 #include "code\modules\admin\smites\dchat_democracy.dm"
 #include "code\modules\admin\smites\fireball.dm"
 #include "code\modules\admin\smites\floorcluwne.dm"
+#include "code\modules\admin\smites\floorcluwne_trauma.dm"
 #include "code\modules\admin\smites\floorcluwne_stalker.dm"
 #include "code\modules\admin\smites\forcecryo.dm"
 #include "code\modules\admin\smites\forcesay.dm"
