@@ -243,14 +243,10 @@
 /turf/open/floor/iron/white,
 /area/centcom/holding)
 "aI" = (
-/obj/machinery/door/poddoor/shuttledock{
-	checkdir = 1;
-	name = "syndicate blast door";
-	turftype = /turf/open/floor/plating/asteroid/snow
-	},
 /obj/structure/fans/tiny{
 	name = "drain"
 	},
+/obj/machinery/door/poddoor,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "aJ" = (
@@ -622,6 +618,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/tile_breaker,
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
 "bJ" = (
@@ -1177,6 +1174,7 @@
 	name = "Equipment Room";
 	req_access_txt = "150"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/grid/steel{
 	color = "#808080"
 	},
@@ -1788,6 +1786,7 @@
 	name = "Hangar Hallway";
 	req_access_txt = "150"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_corner{
 	dir = 8
 	},
@@ -2503,6 +2502,7 @@
 /obj/effect/turf_decal/weather/dirt{
 	dir = 4
 	},
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/wood/big,
 /area/syndicate_mothership/control)
 "gW" = (
@@ -3094,6 +3094,7 @@
 	name = "Launch Pods";
 	req_access_txt = "150"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
 "iT" = (
@@ -5709,6 +5710,7 @@
 	name = "Equipment Room";
 	req_access_txt = "150"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/grid/steel{
 	color = "#808080"
 	},
@@ -6375,17 +6377,9 @@
 /obj/effect/turf_decal/weather/dirt{
 	dir = 8
 	},
-/obj/item/reagent_containers/pill/floorpill{
-	pixel_y = -4;
-	pixel_x = 3
-	},
 /obj/item/toy/plush/lizard_plushie/space{
 	pixel_y = 16;
 	name = "Watches-The-Fungi"
-	},
-/obj/item/reagent_containers/pill/floorpill{
-	pixel_y = -9;
-	pixel_x = 2
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/syndicate_mothership/control)
@@ -7867,6 +7861,7 @@
 /obj/structure/sign/poster/contraband/kss13{
 	pixel_x = 32
 	},
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/glass/reinforced/plasma,
 /area/syndicate_mothership/control)
 "wo" = (
@@ -8119,7 +8114,8 @@
 "wX" = (
 /obj/structure/tubes,
 /obj/structure/fans{
-	pixel_y = 32
+	pixel_y = 32;
+	density = 0
 	},
 /obj/effect/turf_decal/delivery,
 /obj/item/trash/boritos{
@@ -10262,6 +10258,7 @@
 	name = "Hangar Hallway";
 	req_access_txt = "150"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_large,
 /area/syndicate_mothership/control)
 "Dg" = (
@@ -10282,6 +10279,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/dark/side{
 	dir = 9
 	},
@@ -11564,6 +11562,10 @@
 	},
 /obj/machinery/firealarm/directional/west,
 /obj/effect/landmark/start/nukeop,
+/obj/item/reagent_containers/pill/floorpill{
+	pixel_y = 6;
+	pixel_x = -6
+	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/syndicate_mothership/control)
 "GU" = (
@@ -12015,6 +12017,17 @@
 	},
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/wood/big,
+/area/syndicate_mothership/control)
+"Ie" = (
+/obj/structure/fluff/empty_sleeper/syndicate{
+	dir = 1
+	},
+/obj/effect/turf_decal/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/techfloor,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/tech/grid,
 /area/syndicate_mothership/control)
 "If" = (
 /obj/structure/railing{
@@ -13397,6 +13410,7 @@
 /obj/item/chair{
 	pixel_x = 3
 	},
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/tech/grid,
 /area/syndicate_mothership/control)
 "Mf" = (
@@ -14222,6 +14236,7 @@
 "Oo" = (
 /obj/structure/weightmachine/weightlifter,
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/dark/smooth_large,
 /area/syndicate_mothership/control)
 "Op" = (
@@ -14683,6 +14698,7 @@
 	name = "Arrivals Checkpoint";
 	req_access_txt = "150"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
 "PC" = (
@@ -15492,6 +15508,7 @@
 	name = "Hangar Hallway";
 	req_access_txt = "150"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_corner{
 	dir = 1
 	},
@@ -16066,15 +16083,11 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/centcom/evac)
 "Tl" = (
-/obj/machinery/door/poddoor/shuttledock{
-	checkdir = 1;
-	name = "syndicate blast door";
-	turftype = /turf/open/floor/plating/asteroid/snow
-	},
 /obj/effect/turf_decal/weather/dirt,
 /obj/structure/fans/tiny{
 	name = "drain"
 	},
+/obj/machinery/door/poddoor,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "Tm" = (
@@ -17566,6 +17579,7 @@
 	name = "Hangar Hallway";
 	req_access_txt = "150"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_large,
 /area/syndicate_mothership/control)
 "Xv" = (
@@ -35319,7 +35333,7 @@ ku
 lm
 ZQ
 Tp
-oS
+Ie
 ku
 ku
 ku
