@@ -49,6 +49,8 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 
 /mob/living/simple_animal/hostile/clockwork_marauder/Login()
 	. = ..()
+	if(!. || !client)
+		return FALSE
 	add_servant_of_ratvar(src)
 	to_chat(src, "<span class='brass'>You can block up to 4 attacks with your shield, however it requires a welder to be repaired.</span>")
 
