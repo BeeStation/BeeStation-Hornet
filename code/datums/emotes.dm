@@ -88,10 +88,8 @@
 
 	user.log_message(msg, LOG_EMOTE)
 
-	var/space = should_have_space_before_emote(html_decode(msg)[1]) ? " " : null
-	var/end = copytext(msg, length(message))
-	if(!(end in list("!", ".", "?", ":", "\"", "-")))
-		msg += "."
+	var/space = should_have_space_before_emote(html_decode(msg)[1]) ? " " : ""
+	msg = punctuate(msg)
 
 	var/dchatmsg = "<b>[user]</b>[space][msg]"
 

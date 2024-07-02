@@ -98,6 +98,10 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	var/messagepart
 
 	var/languageicon = ""
+	var/space = " "
+	if(message_mods[MODE_CUSTOM_SAY_EMOTE])
+		if(!should_have_space_before_emote(html_decode(message_mods[MODE_CUSTOM_SAY_EMOTE])[1]))
+			space = null
 	if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
 		messagepart = message_mods[MODE_CUSTOM_SAY_EMOTE]
 	else
@@ -107,7 +111,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		if(istype(D) && D.display_icon(src))
 			languageicon = "[D.get_icon()] "
 
-	messagepart = " <span class='message'>[say_emphasis(messagepart)]</span></span>"
+	messagepart = "[space]<span class='message'>[say_emphasis(messagepart)]</span></span>"
 
 	return "[spanpart1][spanpart2][freqpart][languageicon][compose_track_href(speaker, namepart)][namepart][compose_job(speaker, message_language, raw_message, radio_freq)][endspanpart][messagepart]"
 
