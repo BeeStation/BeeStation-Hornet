@@ -62,7 +62,7 @@ const ObjectivePrintout = (_props, context) => {
                 <span
                   // eslint-disable-next-line react/no-danger
                   dangerouslySetInnerHTML={{
-                    __html: sanitizeText(objective.explanation), // brainwashing objectives are sanitized anyways
+                    __html: sanitizeText(objective.explanation, false), // brainwashing objectives are sanitized anyways
                   }}
                 />
               </Stack.Item>
