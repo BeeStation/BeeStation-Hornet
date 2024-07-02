@@ -13,6 +13,7 @@
 
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera"
+	icon_keyboard = null
 	base_icon_state = null
 	smoothing_flags = NONE
 	smoothing_groups = null

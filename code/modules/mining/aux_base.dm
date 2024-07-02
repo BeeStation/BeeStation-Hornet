@@ -15,6 +15,7 @@
 	name = "auxillary base management console"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "dorm_available"
+	icon_keyboard = null
 	base_icon_state = null
 	smoothing_flags = NONE
 	smoothing_groups = null

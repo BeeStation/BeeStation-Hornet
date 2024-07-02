@@ -116,7 +116,7 @@
 		add_overlay("[icon_state]_suppressor")
 	if(!chambered && empty_indicator)
 		add_overlay("[icon_state]_empty")
-	if (magazine)
+	if (magazine && initial(magazine.icon_state))
 		if (special_mags)
 			if(magazine.multiple_sprites)
 				add_overlay("[icon_state]_mag_[initial(magazine.icon_state)]")

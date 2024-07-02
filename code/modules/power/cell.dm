@@ -69,12 +69,13 @@
 	cut_overlays()
 	if(grown_battery)
 		add_overlay(image('icons/obj/power.dmi',"grown_wires"))
-	if(charge < 0.01)
-		return
-	else if(charge/maxcharge >=0.995)
-		add_overlay("cell-o2")
 	else
-		add_overlay("cell-o1")
+		if(charge < 0.01)
+			return
+		else if(charge/maxcharge >=0.995)
+			add_overlay("cell-o2")
+		else
+			add_overlay("cell-o1")
 
 /obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
 	return maxcharge ? 100 * charge / maxcharge : 0 //Division by 0 protection
