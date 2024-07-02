@@ -9624,6 +9624,16 @@
 	},
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"Bz" = (
+/obj/docking_port/stationary{
+	dwidth = 25;
+	height = 50;
+	id = "emergency_syndicate";
+	name = "Syndicate Auxillary Shuttle Dock";
+	width = 50
+	},
+/turf/open/space/basic,
+/area/space)
 "BA" = (
 /obj/item/toy/figure/syndie{
 	pixel_x = -8;
@@ -32495,7 +32505,7 @@ aa
 aa
 aa
 aa
-aa
+Bz
 Ws
 tj
 eq
