@@ -812,6 +812,11 @@
 	changeNext_move(CLICK_CD_RESIST)
 
 	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
+
+	// If they have the quick release trait, then resist restraints first
+	if (HAS_TRAIT(src, TRAIT_FAST_CUFF_REMOVAL) && resist_restraints())
+		return
+
 	//resisting grabs (as if it helps anyone...)
 	if(!HAS_TRAIT(src, TRAIT_RESTRAINED) && pulledby)
 		log_combat(src, pulledby, "resisted grab")
@@ -865,8 +870,9 @@
 /mob/living/proc/resist_fire()
 	return
 
+/// Returning false means that we have nothing to resist
 /mob/living/proc/resist_restraints()
-	return
+	return FALSE
 
 /mob/living/proc/get_visible_name()
 	return name
