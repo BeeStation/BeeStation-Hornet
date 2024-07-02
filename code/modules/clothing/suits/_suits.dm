@@ -18,6 +18,9 @@
 	var/mob/listeningTo
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo
 
+/obj/item/clothing/suit/Initialize(mapload)
+	. = ..()
+	setup_shielding()
 
 /obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
@@ -80,5 +83,14 @@
 /obj/item/clothing/suit/Destroy()
 	listeningTo = null
 	. = ..()
+
+/**
+ * Wrapper proc to apply shielding through AddComponent().
+ * Called in /obj/item/clothing/Initialize().
+ * Override with an AddComponent(/datum/component/shielded, args) call containing the desired shield statistics.
+ * See /datum/component/shielded documentation for a description of the arguments
+ **/
+/obj/item/clothing/suit/proc/setup_shielding()
+	return
 
 #undef FOOTSTEP_COOLDOWN
