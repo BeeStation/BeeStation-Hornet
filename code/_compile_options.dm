@@ -78,6 +78,10 @@
 #warn IF YOU PUT THIS ON LIVE I WILL FIND YOU AND MAKE YOU WISH YOU WERE NEVE-
 #endif
 
+/// If this is uncommented, Autowiki will generate edits and shut down the server.
+/// Prefer the autowiki build target instead.
+// #define AUTOWIKI
+
 #ifndef PRELOAD_RSC	//set to:
 #define PRELOAD_RSC	0 // 0 to allow using external resources or on-demand behaviour;
 #endif				// 1 to use the default behaviour;
