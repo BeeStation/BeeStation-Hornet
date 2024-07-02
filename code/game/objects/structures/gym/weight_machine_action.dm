@@ -11,7 +11,7 @@
 	var/obj/structure/weightmachine/weightpress
 
 /datum/action/push_weights/IsAvailable(feedback = FALSE)
-	if(INTERACTING_WITH(owner, weightpress))
+	if(DOING_INTERACTION_WITH_TARGET(owner, weightpress))
 		return FALSE
 	return TRUE
 
