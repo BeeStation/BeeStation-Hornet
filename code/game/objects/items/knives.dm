@@ -113,8 +113,8 @@
 	icon_state = "buckknife"
 	desc = "A military combat utility survival knife."
 	embedding = list("pain_mult" = 4, "embed_chance" = 65, "fall_chance" = 10, "ignore_throwspeed_threshold" = TRUE, "armour_block" = 60)
-	force = 20
-	throwforce = 20
+	force = 17
+	throwforce = 17
 	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "cut")
 	bayonet = TRUE
 
@@ -125,6 +125,14 @@
 	desc = "A hunting grade survival knife."
 	force = 15
 	throwforce = 15
+	bayonet = TRUE
+
+/obj/item/knife/combat/secknife
+	name = "security survival knife"
+	icon_state = "secknife"
+	desc = "A strengthened version of the survival knife intended for use as a practical tool in security."
+	force = 16
+	throwforce = 16
 	bayonet = TRUE
 
 /obj/item/knife/combat/bone
