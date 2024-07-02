@@ -88,7 +88,7 @@
 #define COMSIG_CLOCKWORK_SIGNAL_RECEIVED "clock_received"			//! When anything the trap is attatched to is triggered
 
 ///Subsystem signals
-///From base of datum/controller/subsystem/Initialize: (start_timeofday)
+///From base of datum/controller/subsystem/Initialize
 #define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"
 
 /// a weather event of some kind occured

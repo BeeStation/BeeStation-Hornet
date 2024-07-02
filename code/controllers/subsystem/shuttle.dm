@@ -60,7 +60,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/shuttles_loaded = FALSE
 
-/datum/controller/subsystem/shuttle/Initialize(timeofday)
+/datum/controller/subsystem/shuttle/Initialize()
 	initial_load()
 
 	if(!arrivals)
@@ -71,7 +71,7 @@ SUBSYSTEM_DEF(shuttle)
 		WARNING("No /obj/docking_port/mobile/emergency/backup placed on the map!")
 	if(!supply)
 		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/shuttle/proc/initial_load()
 	shuttles_loaded = TRUE

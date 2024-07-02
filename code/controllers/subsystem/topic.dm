@@ -3,7 +3,7 @@ SUBSYSTEM_DEF(topic)
 	init_order = INIT_ORDER_TOPIC
 	flags = SS_NO_FIRE
 
-/datum/controller/subsystem/topic/Initialize(timeofday)
+/datum/controller/subsystem/topic/Initialize()
 	// Initialize topic datums
 	var/list/anonymous_functions = list()
 	for(var/path in subtypesof(/datum/world_topic))
@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(topic)
 	for(var/server in servers)
 		handshake_server(server, servers[server])
 
-	return ..()
+	return SS_INIT_SUCCESS
 
 /*
 	A bit of background for future coders maintaining this:

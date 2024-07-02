@@ -45,8 +45,7 @@ SUBSYSTEM_DEF(job)
 		JOB_NAME_DEPUTY,
 		JOB_NAME_GIMMICK)
 
-/datum/controller/subsystem/job/Initialize(timeofday)
-	SSmapping.HACK_LoadMapConfig()
+/datum/controller/subsystem/job/Initialize()
 	if(!occupations.len)
 		SetupOccupations()
 	if(CONFIG_GET(flag/load_jobs_from_txt))
@@ -66,7 +65,7 @@ SUBSYSTEM_DEF(job)
 			crew_obj_jobs["[job]"] += list(type)
 		qdel(obj)
 
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/job/Recover()
 	occupations = SSjob.occupations

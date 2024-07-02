@@ -234,7 +234,7 @@
 	tab_data["divider_2"] = GENERATE_STAT_BLANK
 
 	if(!SSticker.HasRoundStarted())
-		tab_data["Players Ready/Connected"] = GENERATE_STAT_TEXT("[SSticker.totalPlayersReady]/[GLOB.clients.len]")
+		tab_data["Players Ready/Connected"] = GENERATE_STAT_TEXT("[LAZYLEN(GLOB.clients)]/[GLOB.clients.len]")
 	else
 		tab_data["Players Playing/Connected"] = GENERATE_STAT_TEXT("[get_active_player_count()]/[GLOB.clients.len]")
 	if(SSticker.round_start_time)

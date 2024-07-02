@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(stickyban)
 	var/dbcacheexpire = 0
 
 
-/datum/controller/subsystem/stickyban/Initialize(timeofday)
+/datum/controller/subsystem/stickyban/Initialize()
 	var/list/bannedkeys = sticky_banned_ckeys()
 	//sanitize the sticky ban list
 
@@ -55,7 +55,7 @@ SUBSYSTEM_DEF(stickyban)
 		cache[ckey] = ban
 		world.SetConfig("ban", ckey, list2stickyban(ban))
 
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/stickyban/proc/Populatedbcache()
 	var/newdbcache = list() //so if we runtime or the db connection dies we don't kill the existing cache
