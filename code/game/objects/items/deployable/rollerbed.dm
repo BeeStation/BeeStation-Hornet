@@ -22,3 +22,10 @@
 /obj/item/rollerbed/robo/update_icon()
 	icon_state = "folded"
 	return ..()
+
+/obj/item/rollerbed/abductor
+	name = "Abductorbed"
+	desc = "A modified roller bed that will strap the victim onto the bed securely."
+
+/obj/item/rollerbed/abductor/proc/DeployableInitialize()
+	AddComponent(/datum/component/deployable, /obj/structure/bed/roller/abductor, ignores_mob_density = TRUE)

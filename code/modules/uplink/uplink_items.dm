@@ -745,6 +745,17 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 12
 	purchasable_from = UPLINK_NUKE_OPS
 
+	/datum/uplink_item/dangerous/narsie_conversion
+	name = "Romerol"
+	desc = "A highly experimental bioterror agent which creates dormant nodules to be etched into the grey matter of the brain. \
+			On death, these nodules take control of the dead body, causing limited revivification, \
+			along with slurred speech, aggression, and the ability to infect others with this agent."
+	item = /obj/item/storage/box/syndie_kit/romerol
+	cost = 20
+	cant_discount = TRUE
+	murderbone_type = TRUE
+	surplus = 0
+
 
 // Stealthy Weapons
 /datum/uplink_item/stealthy_weapons
@@ -844,7 +855,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Poison Kit"
 	desc = "An assortment of deadly chemicals packed into a compact box. Comes with a syringe for more precise application."
 	item = /obj/item/storage/box/syndie_kit/chemical
-	cost = 7
+	cost = 4
 	surplus = 50
 
 /datum/uplink_item/stealthy_weapons/romerol_kit
@@ -1824,6 +1835,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Hypnotic Flash"
 	desc = "A modified flash able to hypnotize targets. If the target is not in a mentally vulnerable state, it will only confuse and pacify them temporarily."
 	item = /obj/item/assembly/flash/hypnotic
+	player_minimum = 20
 	cost = 7
 
 /datum/uplink_item/device_tools/medgun
@@ -1930,6 +1942,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/clothing/glasses/thermal/syndi
 	cost = 3
 
+/datum/uplink_item/device_tools/antag_lasso
+	name = "Mindslave Lasso"
+	desc = "A state of the art taming device.\n Use this device to tame almost any animal by lassoing and untying them.\n Tamed animals can be rode & commanded!"
+	item = /obj/item/mob_lasso/traitor
+	cost = 3
+	surplus = 0
+
 // Implants
 /datum/uplink_item/implants
 	category = "Implants"
@@ -2031,7 +2050,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	new /obj/item/implanter/uplink(uplink_box, purchaser_uplink.uplink_flag)
 	return uplink_box
 
-
 /datum/uplink_item/implants/xray
 	name = "X-ray Vision Implant"
 	desc = "These cybernetic eyes will give you X-ray vision. Comes with an autosurgeon."
@@ -2040,6 +2058,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	surplus = 0
 	purchasable_from = UPLINK_NUKE_OPS
 
+/datum/uplink_item/implants/cultist
+	name = "Ancient Blood"
+	desc = "Contains the Ancient Blood of a Blood God."
+	item = /obj/item/implanter/cultist
+	cost = 20
+	surplus = 0
+	restricted_roles = list(JOB_NAME_CHAPLAIN)
+	murderbone_type = TRUE
 
 //Race-specific items
 /datum/uplink_item/race_restricted
@@ -2054,6 +2080,21 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 2
 	item = /obj/item/flashlight/lantern/syndicate
 	restricted_species = list(SPECIES_MOTH)
+
+/datum/uplink_item/race_restricted/plasma_friend
+	name = "Plasma Man Mutation Toxin"
+	desc = "Become one with the fire. Rumors have it that there is a secret sect dedicated to the Super Matter Crystal and must be of their species to unlock it, be aware however, they will take damage in oxygenrich environments without proper protection equipment. \
+	Protection equipment not included."
+	item = /obj/item/reagent_containers/hypospray/medipen/plasma_species_mutator
+	cost = 5
+	restricted_roles = list(SPECIES_PLASMAMAN)
+
+/datum/uplink_item/race_restricted/onehuman
+	name = "One-Human Law Board"
+	desc = "A stolen One-Human Law Board used to subvert an AI or Cyborg. Ensure that the Cyborg has their panel open and isn't synced to an AI."
+	cost = "1"
+	item = /obj/item/aiModule/zeroth/oneHuman
+	restricted_species = list(SPECIES_HUMAN)
 
 /datum/uplink_item/race_restricted/ethereal_grenade
 	name = "Ethereal Dance Grenade"
@@ -2135,6 +2176,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 6
 	restricted_roles = list(JOB_NAME_GENETICIST, JOB_NAME_CHIEFMEDICALOFFICER)
 
+/datum/uplink_item/role_restricted/thermal_eyes_injector
+	name = "Thermal Eyes Injector"
+	desc = "An injector containing the encoding required to geneticially alter you or someone elses body to seeing more than what's in front of you. \
+	Causion: May have an unintended side effect of glowing red eyes."
+	item = /obj/item/dnainjector/thermal
+	cost = 6
+	restricted_roles = list(JOB_NAME_GENETICIST, JOB_NAME_CHIEFMEDICALOFFICER)
+
 /datum/uplink_item/role_restricted/rad_laser
 	name = "Radioactive Microlaser"
 	desc = "A radioactive microlaser disguised as a standard Nanotrasen health analyzer. When used, it emits a \
@@ -2144,6 +2193,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/healthanalyzer/rad_laser
 	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_ROBOTICIST, JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
 	cost = 3
+
+/datum/uplink_item/role_restricted/brainwash_disk
+	name = "Brainwashing Surgery Program"
+	desc = "A disk containing the procedure to perform a brainwashing surgery, allowing you to implant an objective onto a target. \
+	Insert into an Operating Console to enable the procedure."
+	item = /obj/item/disk/surgery/brainwashing
+	cost = 2
+	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER)
 
 /datum/uplink_item/role_restricted/syndicate_mmi
 	name = "Syndicate MMI"
@@ -2164,7 +2221,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "We found these lying around Warehouse R1O-GN, which was decommissioned years ago. We were going to throw them out but we heard you might be interested in them."
 	item = /obj/item/storage/pill_bottle/floorpill/full
 	restricted_roles = list(JOB_NAME_ASSISTANT)
-	cost = 2
+	cost = 1
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
 
@@ -2293,7 +2350,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	To activate His Grace, simply unlatch Him."
 	item = /obj/item/his_grace
 	cost = 20
-	restricted_roles = list(JOB_NAME_CHAPLAIN)
+	restricted_roles = list(JOB_NAME_CHAPLAIN, JOB_NAME_ASSISTANT)
 	murderbone_type = TRUE
 	surplus = 0
 
@@ -2306,7 +2363,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/role_restricted/shadowmutationtoxin
 	name = "Shadow Person Mutation Toxin"
-	desc = "Become one with the night, Rumors have it that there is a secret sect dedicated to the shadows and must be of their species to unlock it, be aware however, you will take damage in the light."
+	desc = "Become one with the night. Rumors have it that there is a secret sect dedicated to the shadows and must be of their species to unlock it, be aware however, you will take damage in the light."
 	item = /obj/item/reagent_containers/hypospray/medipen/shadow_species_mutator
 	cost = 5
 	restricted_roles = list(JOB_NAME_CHAPLAIN)
@@ -2369,6 +2426,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A box with three cleaner grenades using the trademark Waffle Co. formula. Serves as a cleaner and causes acid damage to anyone standing nearby. \
 			The acid only affects carbon-based creatures."
 	item = /obj/item/storage/box/syndie_kit/ez_clean
+	cost = 4
+	surplus = 20
+	restricted_roles = list(JOB_NAME_JANITOR)
+
+/datum/uplink_item/role_restricted/ez_mess_bundle
+	name = "EZ Mess Grenade Bundle"
+	desc = "A box with three messy grenades using the trademark Waffle Co. formula. Serves as an explosive and firey method of 'cleaning'."
+	item = /obj/item/storage/box/syndie_kit/ez_mess
 	cost = 6
 	surplus = 20
 	restricted_roles = list(JOB_NAME_JANITOR)
@@ -2399,6 +2464,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	limited_stock = 1 //you can't use more than one!
 	restricted_roles = list(JOB_NAME_SHAFTMINER)
 
+/datum/uplink_item/role_restricted/syndiecash/plus
+	name = "Bigger Syndicate Briefcase Full of Cash"
+	desc = "A secure briefcase containing 10 000 space credits. Useful for buying weapons from NT to be used on NT! \
+			This design was especially made to become more robust the more money it has inside it!"
+	item = /obj/item/storage/secure/briefcase/syndie/plus
+	cost = 4
+	restricted_roles = list(JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN)
+
 /datum/uplink_item/role_restricted/esaw
 	name = "Energy Saw"
 	desc = "A deadly energy saw. Comes in a slick black finish."
@@ -2412,6 +2485,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 8
 	item = /obj/item/autosurgeon/syndicate/esaw_arm
 	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
+
+/datum/uplink_item/role_restricted/abductor_bed
+	name = "Abductor Bed"
+	desc = "A normal looking abductor, but which immediately strap any victim placed in it with zip ties."
+	cost = 5
+	item = /obj/item/rollerbed/abductor
+	restricted_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
 
 /datum/uplink_item/role_restricted/magillitis_serum
 	name = "Magillitis Serum Autoinjector"
@@ -2432,7 +2512,15 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Reagent Dartgun"
 	desc = "A heavily modified syringe gun which is capable of synthesizing its own chemical darts using input reagents. Can hold 100u of reagents."
 	item = /obj/item/gun/chem
-	cost = 12
+	cost = 8
+	restricted_roles = list(JOB_NAME_CHEMIST, JOB_NAME_CHIEFMEDICALOFFICER)
+
+/datum/uplink_item/role_restricted/DIY_grenades
+	name = "DIY_grenades"
+	desc = "Do It Yourself grenade starter kit! Provides multiple detonators and grenade casings for all your exploding desires. \
+	Warning: Limb reattachment not included, all warrenty will be null and void if bought."
+	item = /obj/item/storage/backpack/duffelbag/syndie/DIY_grenades
+	cost = 4
 	restricted_roles = list(JOB_NAME_CHEMIST, JOB_NAME_CHIEFMEDICALOFFICER)
 
 /datum/uplink_item/role_restricted/reverse_bear_trap
@@ -2468,7 +2556,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/badass/costumes
 	surplus = 0
-	cost = 4
+	cost = 2
 	cant_discount = TRUE
 	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
@@ -2477,7 +2565,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
 			Please note that this kit did NOT pass quality control."
 	item = /obj/item/storage/box/syndie_kit/chameleon/broken
-	cost = 2
 	purchasable_from = ALL
 
 /datum/uplink_item/badass/costumes/centcom_official
@@ -2522,7 +2609,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			and services at lucrative prices. The briefcase also feels a little heavier to hold; it has been \
 			manufactured to pack a little bit more of a punch if your client needs some convincing."
 	item = /obj/item/storage/secure/briefcase/syndie
-	cost = 1
+	cost = 2
 	restricted = TRUE
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
@@ -2540,7 +2627,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Syndicate Smokes"
 	desc = "Strong flavor, dense smoke, infused with omnizine."
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
-	cost = 2
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
 
@@ -2550,7 +2636,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	Toys inside of the box are totally safe and not harmful, approved by Nanotrasen safety assurance even, that can be said as non-contraband stuff literally. \
 	This package will be special when you're going to present funny toys to your beloved child. Don't ask why the box is red."
 	item = /obj/item/storage/box/syndie_kit/toy_box
-	cost = 2
 	surplus = 0
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
@@ -2565,10 +2650,3 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 4
 	surplus = 0
 	purchasable_from = UPLINK_NUKE_OPS
-
-/datum/uplink_item/device_tools/antag_lasso
-	name = "Mindslave Lasso"
-	desc = "A state of the art taming device.\n Use this device to tame almost any animal by lassoing and untying them.\n Tamed animals can be rode & commanded!"
-	item = /obj/item/mob_lasso/traitor
-	cost = 3
-	surplus = 0
