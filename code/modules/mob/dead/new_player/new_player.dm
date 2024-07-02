@@ -393,17 +393,17 @@
 
 /mob/dead/new_player/proc/LateChoices()
 	var/static/list/department_order = list( // department order and its dept color
-		"Command" = "#ddddff",
-		"Engineering" = "#ffeeaa",
-		"Supply"= "#d7b088",
-		"Silicon" = "#ccffcc",
-		"Civilian"= "#bbe291",
+		DEPARTMENT_COMMAND= "#ddddff",
+		DEPARTMENT_ENGINEERING = "#ffeeaa",
+		DEPARTMENT_CARGO = "#d7b088",
+		DEPARTMENT_SILICON = "#ccffcc",
+		DEPARTMENT_CIVILIAN = "#bbe291",
 		"Gimmick" = "#dddddd",
-		"Medical" = "#c1e1ec",
-		"Science" = "#ffddff",
-		"Security" = "#ffdddd"
+		DEPARTMENT_MEDICAL= "#c1e1ec",
+		DEPARTMENT_SCIENCE = "#ffddff",
+		DEPARTMENT_SECURITY = "#ffdddd"
 	)
-	var/static/list/department_list = list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_ENGINEERING)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CARGO)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SILICON) - "pAI") + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CIVILIAN)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_MEDICAL)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SCIENCE)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY))
+	var/static/list/department_list = GLOB.dept_name_all_station_dept_list
 
 	var/list/dat = list("<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>")
 	if(SSjob.prioritized_jobs.len > 0)
@@ -454,20 +454,19 @@
 	spawning = TRUE
 	close_spawn_windows()
 
-	var/mob/living/carbon/human/H = new(loc)
+	var/mob/living/spawning_mob = mind.assigned_role.get_spawn_mob(client, loc)
 
-	H.apply_prefs_job(client, SSjob.GetJob(mind.assigned_role))
 	if(QDELETED(src) || !client)
 		return // Disconnected while checking for the appearance ban.
 	if(mind)
 		if(transfer_after)
 			mind.late_joiner = TRUE
 		mind.active = 0					//we wish to transfer the key manually
-		mind.transfer_to(H)					//won't transfer key since the mind is not active
+		mind.transfer_to(spawning_mob)					//won't transfer key since the mind is not active
 
-	H.name = real_name
+	spawning_mob.name = real_name
 
-	. = H
+	. = spawning_mob
 	new_character = .
 	if(transfer_after)
 		transfer_character()

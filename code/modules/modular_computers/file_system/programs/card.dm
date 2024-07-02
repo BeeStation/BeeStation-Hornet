@@ -299,7 +299,7 @@
 		departments = list("CentCom" = get_all_centcom_jobs())
 	else if(isnull(departments))
 		departments = list(
-			CARDCON_DEPARTMENT_COMMAND = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND),
+			CARDCON_DEPARTMENT_COMMAND = list(JOB_NAME_CAPTAIN),
 			CARDCON_DEPARTMENT_ENGINEERING = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_ENGINEERING),
 			CARDCON_DEPARTMENT_MEDICAL = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_MEDICAL),
 			CARDCON_DEPARTMENT_SCIENCE = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SCIENCE),

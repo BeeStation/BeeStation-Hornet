@@ -51,9 +51,6 @@
 		/area/storage/eva
 	)
 
-/datum/job/chief_medical_officer/get_captaincy_announcement(mob/living/captain)
-	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
-
 /datum/outfit/job/chief_medical_officer
 	name = JOB_NAME_CHIEFMEDICALOFFICER
 	jobtype = /datum/job/chief_medical_officer

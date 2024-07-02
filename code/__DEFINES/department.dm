@@ -22,6 +22,10 @@
 #define DEPARTMENT_CENTCOM "CentCom"
 #define DEPT_BITFLAG_OTHER (1<<11)
 #define DEPARTMENT_OTHER "Other"
+#define DEPT_BITFLAG_CAPTAIN (1<<12)
+#define DEPARTMENT_CAPTAIN
+#define DEPT_BITFLAG_ASSISTANT (1<<13)
+#define DEPARTMENT_ASSISTANT
 
 
 // Crew Manifest will show crew data in this order
@@ -50,12 +54,6 @@
 #define DEPT_PREF_ORDER_CIVILIAN 80
 #define DEPT_PREF_ORDER_SILICON 90
 
-
-#define DEPT_AUTHCHECK_DOMINANT "dominant"
-#define DEPT_AUTHCHECK_SUPERVISOR "supervisor"
-#define DEPT_AUTHCHECK_ACCESS_MANAGER "domi_super"
-#define DEPT_AUTHCHECK_MANIFEST "manifest"
-#define DEPT_AUTHCHECK_BUDGET "budget"
 
 GLOBAL_LIST_INIT(dept_name_all_station_dept_list, list(
 	DEPARTMENT_COMMAND,

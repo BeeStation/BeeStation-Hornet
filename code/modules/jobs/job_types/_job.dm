@@ -50,6 +50,9 @@
 	///Supervisors, who this person answers to directly
 	var/supervisors = ""
 
+	/// What kind of mob type joining players with this job as their assigned role are spawned as.
+	var/spawn_type = /mob/living/carbon/human
+
 	///Selection screen color
 	var/selection_color = "#ffffff"
 
@@ -139,9 +142,10 @@
 /// preference_source allows preferences to be retrieved if the original mob (M) is null - for use on preference dummies.
 /// Don't do non-visual changes if M.client is null, since that means it's just a dummy and doesn't need them.
 /datum/job/proc/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H, preference_source)
 	if(!on_dummy) // Bad dummy
 		//do actions on H but send messages to M as the key may not have been transferred_yet
-		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H, M, latejoin)
 		if(mind_traits && H?.mind)
 			for(var/t in mind_traits)
 				ADD_TRAIT(H.mind, t, JOB_TRAIT)
@@ -299,7 +303,7 @@
 	if(H && GLOB.announcement_systems.len)
 		//timer because these should come after the captain announcement
 		var/datum/job/job = H.job
-		SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_addtimer), CALLBACK(pick(GLOB.announcement_systems), /obj/machinery/announcement_system/proc/announce, "NEWHEAD", H.real_name, job.title, channels), 1))
+		SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_addtimer), CALLBACK(pick(GLOB.announcement_systems), PROC_REF(announce), "NEWHEAD", H.real_name, job.title, channels), 1))
 
 //If the configuration option is set to require players to be logged as old enough to play certain jobs, then this proc checks that they are, otherwise it just returns 1
 /datum/job/proc/player_old_enough(client/C)
@@ -445,6 +449,21 @@
 /datum/job/proc/check_config_for_sec_maint()
 	return CONFIG_GET(flag/security_has_maint_access)
 
+/// Spawns the mob to be played as, taking into account preferences and the desired spawn point.
+/datum/job/proc/get_spawn_mob(client/player_client, atom/spawn_point)
+	var/mob/living/spawn_instance
+	if(ispath(spawn_type, /mob/living/silicon/ai))
+		// This is unfortunately necessary because of snowflake AI init code. To be refactored.
+		spawn_instance = new spawn_type(get_turf(GLOB.start_landmarks_list), null, player_client.mob)
+	else
+		spawn_instance = new spawn_type(player_client.mob.loc)
+		spawn_point.JoinPlayerHere(spawn_instance, TRUE)
+	spawn_instance.apply_prefs_job(player_client, src)
+	if(!player_client)
+		qdel(spawn_instance)
+		return // Disconnected while checking for the appearance ban.
+	return spawn_instance
+
 /// Applies the preference options to the spawning mob, taking the job into account. Assumes the client has the proper mind.
 /mob/living/proc/apply_prefs_job(client/player_client, datum/job/job)
 
@@ -509,6 +528,3 @@
 	// If this checks fails, then the name will have been handled during initialization.
 	if(player_client.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
 		apply_pref_name(/datum/preference/name/cyborg, player_client)
-
-/datum/job/proc/get_captaincy_announcement(mob/living/captain)
-	return "Due to extreme staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"

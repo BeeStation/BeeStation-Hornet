@@ -263,11 +263,6 @@ GLOBAL_LIST_INIT(exp_specialmap, list(
 GLOBAL_PROTECT(exp_jobsmap)
 GLOBAL_PROTECT(exp_specialmap)
 
-/proc/guest_jobbans(job)
-	return ((job in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND)) || (job in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SILICON)) || (job in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY)))
-
-
-
 //this is necessary because antags happen before job datums are handed out, but NOT before they come into existence
 //so I can't simply use job datum.department_head straight from the mind datum, laaaaame.
 /proc/get_department_heads(var/job_title)

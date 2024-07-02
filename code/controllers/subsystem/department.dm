@@ -1,9 +1,4 @@
-/*
-	----- QUICK WARNING -----
-		This subsystem also stores how to give access by region/job/id
-*/
 
-#define ACCESS_TEMP_SETUP(temp, acclist) temp = acclist; acclist = list();
 SUBSYSTEM_DEF(department)
 	name = "Departments"
 	init_order = INIT_ORDER_DEPARTMENT
@@ -13,45 +8,16 @@ SUBSYSTEM_DEF(department)
 	var/list/department_id_list = list()
 	var/list/department_type_list = list()
 	var/list/department_by_key = list()
-	var/list/sorted_department_for_manifest = list()
-	var/list/sorted_department_for_pref = list()
-
-	var/list/all_station_accesses = list()
 
 	var/list/checker
 
 /datum/controller/subsystem/department/Initialize(timeofday)
-	message_admins("stating department INIT") // remove this later
 	for(var/datum/department_group/each_dept as() in subtypesof(/datum/department_group))
 		each_dept = new each_dept()
 		department_type_list += each_dept
 		department_by_key[each_dept.dept_id] = each_dept
 		department_id_list += each_dept.dept_id
-
-	// initialising static list inside of the procs
-	get_departments_by_pref_order()
-	get_departments_by_manifest_order()
-	refresh_all_station_accesses()
-
-	// I fucking hate this to be here but this was initialized in ticker before
-	// generate_code_phrase() should be called after this subsystem init'ed job list
-	if(!GLOB.syndicate_code_phrase)
-		GLOB.syndicate_code_phrase	= generate_code_phrase(return_list=TRUE)
-
-		var/codewords = jointext(GLOB.syndicate_code_phrase, "|")
-		var/regex/codeword_match = new("([codewords])", "ig")
-
-		GLOB.syndicate_code_phrase_regex = codeword_match
-
-	if(!GLOB.syndicate_code_response)
-		GLOB.syndicate_code_response = generate_code_phrase(return_list=TRUE)
-
-		var/codewords = jointext(GLOB.syndicate_code_response, "|")
-		var/regex/codeword_match = new("([codewords])", "ig")
-
-		GLOB.syndicate_code_response_regex = codeword_match
-	message_admins("DEPARTMENT INIT DONE")// remove this later
-
+		//To do: remind for #10933 Just in case: Blame EvilDragonFiend.
 	return ..()
 
 /datum/controller/subsystem/department/proc/get_department_by_bitflag(bitflag)
@@ -89,62 +55,6 @@ SUBSYSTEM_DEF(department)
 
 	return jobs_to_return
 
-/datum/controller/subsystem/department/proc/refresh_all_station_accesses(first_init=FALSE)
-	for(var/datum/department_group/dept in department_type_list)
-		if(!dept.is_station)
-			continue
-		if(first_init)
-			all_station_accesses |= dept.get_department_accesses()
-		else
-			all_station_accesses |= dept.custom_access
-
-/// returns the department list as manifest order
-/datum/controller/subsystem/department/proc/get_departments_by_manifest_order()
-	if(!length(sorted_department_for_manifest))
-		var/list/copied_dept = department_type_list.Copy()
-		var/sanity_check = 1000 // this won't happen but just in case
-		while(length(copied_dept) && sanity_check--)
-			var/datum/department_group/current
-			for(var/datum/department_group/each_dept in copied_dept)
-				if(!each_dept.manifest_category_order || !each_dept.manifest_category_name)
-					copied_dept -= each_dept
-					continue
-				if(!current)
-					current = each_dept
-					continue
-				if(each_dept.manifest_category_order < current.manifest_category_order)
-					current = each_dept
-					continue
-			sorted_department_for_manifest += current
-			copied_dept -= current
-		if(!sanity_check)
-			stack_trace("the proc reached 0 sanity check - something's causing the infinite loop.")
-	return sorted_department_for_manifest
-
-/// returns the department list as preference order (used in latejoin)
-/datum/controller/subsystem/department/proc/get_departments_by_pref_order()
-	if(!length(sorted_department_for_pref))
-		var/list/copied_dept = department_type_list.Copy()
-		var/sanity_check = 1000
-		while(length(copied_dept) && sanity_check--)
-			var/datum/department_group/current
-			for(var/datum/department_group/each_dept in copied_dept)
-				if(!each_dept.pref_category_order || !each_dept.pref_category_name)
-					copied_dept -= each_dept
-					continue
-				if(!current)
-					current = each_dept
-					continue
-				if(each_dept.pref_category_order < current.pref_category_order)
-					current = each_dept
-					continue
-			sorted_department_for_pref += current
-			copied_dept -= current
-		if(!sanity_check)
-			stack_trace("the proc reached 0 sanity check - something's causing the infinite loop.")
-	return sorted_department_for_pref
-
-
 // --------------------------------------------
 // department group datums for this subsystem
 /datum/department_group
@@ -166,90 +76,10 @@ SUBSYSTEM_DEF(department)
 	/// job list of people working in a department
 	var/list/jobs = list()
 
-	// access related variables
-	/// name of the access group. Being null means it has no access.
-	var/access_group_name
-	/// access that can control every access of this department
-	var/list/access_dominant = list()
-	/// an access that can control `list/access` (excluding protected access)
-	var/list/access_supervisor = list()
-	/// access list that is assigned to a department
-	var/list/standard_access = list()
-	/// access list that is added by HoP work and only exists during a round
-	var/list/custom_access = list()
-	/// supervisor access can't adjust these accesses (i.e. CMO can't give 'CMO office access' to their medical doctors card)
-	var/list/protected_access = list()
-	/// automated list var that is combination of standard+custom+protected, and used to display sane order
-	var/list/full_access_list = list()
-
-	// datacore & crew manifest
-	/// an access that can inject someone into a manifest
-	var/list/access_manifest_changer = list()
 	/// If you check crew manifest, department name will be displayed as this
 	var/manifest_category_name = "No department"
 	/// Crew manifest sort by low number (Command first)
 	var/manifest_category_order = 0
-
-	// budget related variables
-	/// an access that can adjust payment
-	var/list/access_accountancy = list()
-	var/budget_id = null
-	var/budget_bitflag = NONE
-
-// ----------------------------------------------
-//           department datum procs
-// ----------------------------------------------
-/// most variables exists as a list, but should be replaced as typecache for faster performance
-/datum/department_group/New()
-	refresh_full_access_list()
-
-/// only call this when HoP/Admin added a new custom accesss
-/datum/department_group/proc/refresh_full_access_list()
-	full_access_list = list()
-	for(var/each_access in standard_access)
-		if((each_access in custom_access) || (each_access in protected_access))
-			continue
-		full_access_list += each_access // this will make protected access come after custom access
-	full_access_list |= custom_access
-	full_access_list |= protected_access
-	if(is_station)
-		SSdepartment.all_station_accesses |= full_access_list
-
-/// returns all accesses to a department.
-/datum/department_group/proc/get_department_accesses()
-	return full_access_list
-
-/// returns TRUE or FALSE based on auth type
-/datum/department_group/proc/check_authentication(check_type, list/access_to_check)
-	if(!check_type)
-		stack_trace("check_type is not specified")
-		return FALSE
-
-	var/list/auth_access
-	switch(check_type)
-		if(DEPT_AUTHCHECK_DOMINANT)
-			auth_access = access_dominant
-		if(DEPT_AUTHCHECK_SUPERVISOR)
-			auth_access = access_supervisor
-		if(DEPT_AUTHCHECK_ACCESS_MANAGER)
-			auth_access = access_dominant
-			auth_access |= access_supervisor
-		if(DEPT_AUTHCHECK_MANIFEST)
-			auth_access = access_manifest_changer
-		if(DEPT_AUTHCHECK_BUDGET)
-			auth_access = access_accountancy
-
-	if(!auth_access)
-		stack_trace("check_type is wrong: [check_type]")
-		return FALSE
-	if(!length(auth_access)) // no need to check
-		return TRUE
-	for(var/each_access in auth_access)
-		if(each_access in access_to_check)
-			return TRUE
-	return FALSE
-
-
 
 // ---------------------------------------------------------------------
 //                                COMMAND
@@ -273,30 +103,8 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_CHIEFMEDICALOFFICER,
 				JOB_NAME_HEADOFSECURITY)
 
-	access_group_name = DEPARTMENT_COMMAND
-	access_dominant = list(ACCESS_CHANGE_IDS)
-	access_supervisor = list(JOB_NAME_CAPTAIN)
-	standard_access = list(ACCESS_HEADS,
-							ACCESS_RC_ANNOUNCE,
-							ACCESS_KEYCARD_AUTH,
-							ACCESS_CHANGE_IDS,
-							ACCESS_AI_UPLOAD,
-							ACCESS_TELEPORTER,
-							ACCESS_EVA,
-							ACCESS_GATEWAY,
-							ACCESS_ALL_PERSONAL_LOCKERS,
-							ACCESS_HOP,
-							ACCESS_CAPTAIN,
-							ACCESS_VAULT)
-	protected_access = list()
-
-	access_manifest_changer = list(ACCESS_CHANGE_IDS, JOB_NAME_CAPTAIN)
 	manifest_category_name = DEPARTMENT_COMMAND
 	manifest_category_order = DEPT_MANIFEST_ORDER_COMMAND
-
-	access_accountancy = list(ACCESS_CENT_CAPTAIN) // only centcom can change command payment
-	budget_id = ACCOUNT_COM_ID
-	budget_bitflag = ACCOUNT_COM_BITFLAG
 
 // ---------------------------------------------------------------------
 //                                SERVICE
@@ -321,27 +129,8 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_MIME,
 				JOB_NAME_CLOWN)
 
-	access_group_name = "Service"
-	access_dominant = list(ACCESS_CHANGE_IDS)
-	access_supervisor = list(ACCESS_HOP)
-	standard_access = list(ACCESS_KITCHEN,
-							ACCESS_BAR,
-							ACCESS_HYDROPONICS,
-							ACCESS_JANITOR,
-							ACCESS_CHAPEL_OFFICE,
-							ACCESS_CREMATORIUM,
-							ACCESS_LIBRARY,
-							ACCESS_THEATRE,
-							ACCESS_LAWYER)
-	protected_access = list(ACCESS_HOP)
-
-	access_manifest_changer = list(ACCESS_CHANGE_IDS, ACCESS_HOP)
 	manifest_category_name = DEPARTMENT_SERVICE
 	manifest_category_order = DEPT_MANIFEST_ORDER_SERVICE
-
-	access_accountancy = list(ACCESS_CHANGE_IDS, ACCESS_HOP)
-	budget_id = ACCOUNT_SRV_ID
-	budget_bitflag = ACCOUNT_SRV_BITFLAG
 
 // ---------------------------------------------------------------------
 //                                CIVILIAN
@@ -366,19 +155,8 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_CURATOR,
 				JOB_NAME_LAWYER)
 
-	access_group_name = "Civilian"
-	access_dominant = list(ACCESS_CHANGE_IDS)
-	access_supervisor = list(ACCESS_HOP)
-	standard_access = list(ACCESS_MAINT_TUNNELS)
-	protected_access = list(ACCESS_HOP)
-
-	access_manifest_changer = list(ACCESS_CHANGE_IDS, ACCESS_HOP)
 	manifest_category_name = DEPARTMENT_CIVILIAN
 	manifest_category_order = DEPT_MANIFEST_ORDER_CIVILIAN
-
-	access_accountancy = list(ACCESS_CHANGE_IDS, ACCESS_HOP)
-	budget_id = ACCOUNT_CIV_ID
-	budget_bitflag = ACCOUNT_CIV_BITFLAG
 
 // ---------------------------------------------------------------------
 //                               SUPPLY (CARGO)
@@ -400,27 +178,8 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_CARGOTECHNICIAN,
 				JOB_NAME_SHAFTMINER)
 
-
-	access_group_name = "Cargo"
-	access_dominant = list(ACCESS_CHANGE_IDS)
-	access_supervisor = list(ACCESS_HOP)
-	standard_access = list(ACCESS_MAILSORTING,
-							ACCESS_MINING,
-							ACCESS_MINING_STATION,
-							ACCESS_MECH_MINING,
-							ACCESS_MINERAL_STOREROOM,
-							ACCESS_CARGO,
-							ACCESS_QM,
-							ACCESS_VAULT)
-	protected_access = list()
-
-	access_manifest_changer = list(ACCESS_CHANGE_IDS, ACCESS_HOP)
 	manifest_category_name = DEPARTMENT_CARGO
 	manifest_category_order = DEPT_MANIFEST_ORDER_CARGO
-
-	access_accountancy = list(ACCESS_CHANGE_IDS, ACCESS_HOP)
-	budget_id = ACCOUNT_CAR_ID
-	budget_bitflag = ACCOUNT_CAR_BITFLAG
 
 // ---------------------------------------------------------------------
 //                              SCIENCE
@@ -442,29 +201,8 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_EXPLORATIONCREW,
 				JOB_NAME_ROBOTICIST)
 
-	access_group_name = "Research"
-	access_dominant = list(ACCESS_CHANGE_IDS)
-	access_supervisor = list(ACCESS_RD)
-	standard_access = list(ACCESS_RESEARCH,
-							ACCESS_TOX,
-							ACCESS_TOX_STORAGE,
-							ACCESS_ROBOTICS,
-							ACCESS_XENOBIOLOGY,
-							ACCESS_EXPLORATION,
-							ACCESS_MECH_SCIENCE,
-							ACCESS_MINISAT,
-							ACCESS_NETWORK,
-							ACCESS_RD_SERVER,
-							ACCESS_RD)
-	protected_access = list(ACCESS_RD)
-
-	access_manifest_changer = list(ACCESS_CHANGE_IDS, ACCESS_RD)
 	manifest_category_name = DEPARTMENT_SCIENCE
 	manifest_category_order = DEPT_MANIFEST_ORDER_SCIENCE
-
-	access_accountancy = list(ACCESS_CHANGE_IDS, ACCESS_RD)
-	budget_id = ACCOUNT_SCI_ID
-	budget_bitflag = ACCOUNT_SCI_BITFLAG
 
 // ---------------------------------------------------------------------
 //                            ENGINEERING
@@ -485,30 +223,10 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_STATIONENGINEER,
 				JOB_NAME_ATMOSPHERICTECHNICIAN)
 
-	access_group_name = "Engineering"
-	access_dominant = list(ACCESS_CHANGE_IDS)
-	access_supervisor = list(ACCESS_CE)
-	standard_access = list(ACCESS_CONSTRUCTION,
-							ACCESS_AUX_BASE,
-							ACCESS_MAINT_TUNNELS,
-							ACCESS_ENGINE,
-							ACCESS_ENGINE_EQUIP,
-							ACCESS_EXTERNAL_AIRLOCKS,
-							ACCESS_TECH_STORAGE,
-							ACCESS_ATMOSPHERICS,
-							ACCESS_MECH_ENGINE,
-							ACCESS_TCOMSAT,
-							ACCESS_MINISAT,
-							ACCESS_CE)
-	protected_access = list()
 
-	access_manifest_changer = list(ACCESS_CHANGE_IDS, ACCESS_CE)
+
 	manifest_category_name = DEPARTMENT_ENGINEERING
 	manifest_category_order = DEPT_MANIFEST_ORDER_ENGINEERING
-
-	access_accountancy = list(ACCESS_CHANGE_IDS, ACCESS_CE)
-	budget_id = ACCOUNT_ENG_ID
-	budget_bitflag = ACCOUNT_ENG_BITFLAG
 
 // ---------------------------------------------------------------------
 //                               MEDICAL
@@ -534,27 +252,9 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_VIROLOGIST,
 				JOB_NAME_PSYCHIATRIST)
 
-	access_group_name = "Medbay"
-	access_dominant = list(ACCESS_CHANGE_IDS)
-	access_supervisor = list(ACCESS_CMO)
-	standard_access = list(ACCESS_MEDICAL,
-							ACCESS_GENETICS,
-							ACCESS_CLONING,
-							ACCESS_MORGUE,
-							ACCESS_CHEMISTRY,
-							ACCESS_VIROLOGY,
-							ACCESS_SURGERY,
-							ACCESS_MECH_MEDICAL,
-							ACCESS_CMO)
-	protected_access = list()
 
-	access_manifest_changer = list(ACCESS_CHANGE_IDS, ACCESS_CMO)
 	manifest_category_name = DEPARTMENT_MEDICAL
 	manifest_category_order = DEPT_MANIFEST_ORDER_MEDICAL
-
-	access_accountancy = list(ACCESS_CHANGE_IDS, ACCESS_CMO)
-	budget_id = ACCOUNT_MED_ID
-	budget_bitflag = ACCOUNT_MED_BITFLAG
 
 // ---------------------------------------------------------------------
 //                               SECURITY
@@ -577,29 +277,8 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_SECURITYOFFICER,
 				JOB_NAME_DEPUTY)
 
-	access_group_name = "Security"
-	access_dominant = list(ACCESS_CHANGE_IDS)
-	access_supervisor = list(ACCESS_HOS)
-	standard_access = list(ACCESS_SEC_DOORS,
-							ACCESS_SEC_RECORDS,
-							ACCESS_WEAPONS,
-							ACCESS_SECURITY,
-							ACCESS_BRIG,
-							ACCESS_BRIGPHYS,
-							ACCESS_ARMORY,
-							ACCESS_FORENSICS_LOCKERS,
-							ACCESS_COURT,
-							ACCESS_MECH_SECURITY,
-							ACCESS_HOS)
-	protected_access = list()
-
-	access_manifest_changer = list(ACCESS_CHANGE_IDS, ACCESS_HOS)
 	manifest_category_name = DEPARTMENT_SECURITY
 	manifest_category_order = DEPT_MANIFEST_ORDER_SECURITY
-
-	access_accountancy = list(ACCESS_CHANGE_IDS, ACCESS_HOS)
-	budget_id = ACCOUNT_SEC_ID
-	budget_bitflag = ACCOUNT_SEC_BITFLAG
 
 // ---------------------------------------------------------------------
 //                               VIP
@@ -611,13 +290,8 @@ SUBSYSTEM_DEF(department)
 	dept_id = DEPARTMENT_VIP
 	dept_bitflag = DEPT_BITFLAG_VIP
 
-	access_manifest_changer = list(ACCESS_CENT_CAPTAIN)
 	manifest_category_name = "Very Important People"
 	manifest_category_order = DEPT_MANIFEST_ORDER_VIP
-
-	access_accountancy = list(ACCESS_CENT_CAPTAIN)
-	budget_id = ACCOUNT_VIP_ID
-	budget_bitflag = ACCOUNT_VIP_BITFLAG
 
 // ---------------------------------------------------------------------
 //                              SILICON
@@ -653,19 +327,6 @@ SUBSYSTEM_DEF(department)
 	dept_colour = "#00eba4"
 	dept_radio_channel = FREQ_CENTCOM
 
-	access_group_name = "CentCom"
-	access_dominant = list(ACCESS_CENT_CAPTAIN)
-	standard_access = list(ACCESS_CENT_GENERAL,
-							ACCESS_CENT_THUNDER,
-							ACCESS_CENT_SPECOPS,
-							ACCESS_CENT_MEDICAL,
-							ACCESS_CENT_LIVING,
-							ACCESS_CENT_STORAGE,
-							ACCESS_CENT_TELEPORTER,
-							ACCESS_CENT_BAR,
-							ACCESS_CENT_CAPTAIN)
-
-	access_manifest_changer = list(ACCESS_CENT_CAPTAIN)
 	manifest_category_name = DEPARTMENT_CENTCOM
 	manifest_category_order = DEPT_MANIFEST_ORDER_CENTCOM
 
@@ -680,24 +341,5 @@ SUBSYSTEM_DEF(department)
 	dept_colour = "#00eba4"
 	dept_radio_channel = FREQ_CENTCOM
 
-	access_group_name = "Other (Non-CC)"
-	access_dominant = list(ACCESS_CENT_CAPTAIN)
-	standard_access = list(ACCESS_SYNDICATE,
-							ACCESS_SYNDICATE_LEADER,
-							ACCESS_PIRATES,
-							ACCESS_HUNTERS,
-							ACCESS_AWAY_GENERAL,
-							ACCESS_AWAY_MAINT,
-							ACCESS_AWAY_MED,
-							ACCESS_AWAY_SEC,
-							ACCESS_AWAY_ENGINE,
-							ACCESS_AWAY_GENERIC1,
-							ACCESS_AWAY_GENERIC2,
-							ACCESS_AWAY_GENERIC3,
-							ACCESS_AWAY_GENERIC4,
-							ACCESS_BLOODCULT,
-							ACCESS_CLOCKCULT)
-
-	access_manifest_changer = list(ACCESS_CENT_CAPTAIN)
 	manifest_category_name = DEPARTMENT_OTHER
 	manifest_category_order = 1000

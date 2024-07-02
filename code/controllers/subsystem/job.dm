@@ -512,7 +512,7 @@ SUBSYSTEM_DEF(job)
 
 
 //Gives the player the stuff he should have with his job
-/datum/controller/subsystem/job/proc/EquipRank(mob/M, datum/job/job, client/C,  joined_late = FALSE)
+/datum/controller/subsystem/job/proc/EquipRank(mob/M, datum/job/job, client/player_client,  joined_late = FALSE)
 	var/mob/living/living_mob
 
 	living_mob = M
@@ -554,18 +554,18 @@ SUBSYSTEM_DEF(job)
 		living_mob.mind.assigned_role = job.title
 	to_chat(M, "<b>You are the [job.title].</b>")
 	if(job)
-		var/new_mob = job.equip(living_mob, null, null, joined_late , null, C)
+		var/new_mob = job.equip(living_mob, null, null, joined_late , null, player_client)
 		if(ismob(new_mob))
 			living_mob = new_mob
 			M = living_mob
 
-		SSpersistence.antag_rep_change[C.ckey] += job.GetAntagRep()
+		SSpersistence.antag_rep_change[player_client.ckey] += job.GetAntagRep()
 
-		if(C.holder)
-			if(CONFIG_GET(flag/auto_deadmin_players) || C?.prefs.read_player_preference(/datum/preference/toggle/deadmin_always))
-				C.holder.auto_deadmin()
+		if(player_client.holder)
+			if(CONFIG_GET(flag/auto_deadmin_players) || player_client?.prefs.read_player_preference(/datum/preference/toggle/deadmin_always))
+				player_client.holder.auto_deadmin()
 			else
-				handle_auto_deadmin_roles(C, job)
+				handle_auto_deadmin_roles(player_client, job)
 		to_chat(M, "<b>As the [job.title] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
 		job.radio_help_message(M)
 		if(job.req_admin_notify)
@@ -577,24 +577,24 @@ SUBSYSTEM_DEF(job)
 		if(wageslave.mind?.account_id)
 			living_mob.add_memory("Your account ID is [wageslave.mind.account_id].")
 	if(job && living_mob)
-		job.after_spawn(living_mob, M, joined_late, C) // note: this happens before the mob has a key! M will always have a client, living_mob might not.
+		job.after_spawn(living_mob, M, joined_late, player_client) // note: this happens before the mob has a key! M will always have a client, living_mob might not.
 
 	if(living_mob.mind && !living_mob.mind.crew_objectives.len)
 		give_crew_objective(living_mob.mind, M)
 
 	return living_mob
 
-/datum/controller/subsystem/job/proc/handle_auto_deadmin_roles(client/C, datum/job/job)
-	if(!C?.holder)
+/datum/controller/subsystem/job/proc/handle_auto_deadmin_roles(client/player_client, datum/job/job)
+	if(!player_client?.holder)
 		return TRUE
 	if(!job)
 		return
-	if((job.auto_deadmin_role_flags & DEADMIN_POSITION_HEAD) && (CONFIG_GET(flag/auto_deadmin_heads) || C.prefs?.read_player_preference(/datum/preference/toggle/deadmin_position_head)))
-		return C.holder.auto_deadmin()
-	else if((job.auto_deadmin_role_flags & DEADMIN_POSITION_SECURITY) && (CONFIG_GET(flag/auto_deadmin_security) || C.prefs?.read_player_preference(/datum/preference/toggle/deadmin_position_security)))
-		return C.holder.auto_deadmin()
-	else if((job.auto_deadmin_role_flags & DEADMIN_POSITION_SILICON) && (CONFIG_GET(flag/auto_deadmin_silicons) || C.prefs?.read_player_preference(/datum/preference/toggle/deadmin_position_silicon))) //in the event there's ever psuedo-silicon roles added, ie synths.
-		return C.holder.auto_deadmin()
+	if((job.auto_deadmin_role_flags & DEADMIN_POSITION_HEAD) && (CONFIG_GET(flag/auto_deadmin_heads) || player_client.prefs?.read_player_preference(/datum/preference/toggle/deadmin_position_head)))
+		return player_client.holder.auto_deadmin()
+	else if((job.auto_deadmin_role_flags & DEADMIN_POSITION_SECURITY) && (CONFIG_GET(flag/auto_deadmin_security) || player_client.prefs?.read_player_preference(/datum/preference/toggle/deadmin_position_security)))
+		return player_client.holder.auto_deadmin()
+	else if((job.auto_deadmin_role_flags & DEADMIN_POSITION_SILICON) && (CONFIG_GET(flag/auto_deadmin_silicons) || player_client.prefs?.read_player_preference(/datum/preference/toggle/deadmin_position_silicon))) //in the event there's ever psuedo-silicon roles added, ie synths.
+		return player_client.holder.auto_deadmin()
 
 /datum/controller/subsystem/job/proc/setup_officer_positions()
 	var/datum/job/J = SSjob.GetJob("Security Officer")

@@ -41,8 +41,7 @@
 
 	minimal_lightup_areas = list(/area/crew_quarters/heads/chief, /area/engine/atmos)
 
-/datum/job/chief_engineer/get_captaincy_announcement(mob/living/captain)
-	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
+
 
 /datum/outfit/job/chief_engineer
 	name = JOB_NAME_CHIEFENGINEER

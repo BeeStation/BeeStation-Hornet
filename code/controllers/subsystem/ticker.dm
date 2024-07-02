@@ -481,7 +481,7 @@ SUBSYSTEM_DEF(ticker)
 			captainless = FALSE
 			var/acting_captain = !(player_assigned_role == JOB_NAME_CAPTAIN)
 			SSjob.promote_to_captain(new_player_living, acting_captain)
-			OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), player_assigned_role.get_captaincy_announcement(new_player_living)))
+			OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), "Due to extreme staffing shortages, newly promoted Acting Captain [new_player_living.name] on deck!"))
 		SSquirks.AssignQuirks(new_player_living, new_player_mob.client)
 		CHECK_TICK
 

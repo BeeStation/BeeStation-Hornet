@@ -48,9 +48,6 @@
 /datum/job/head_of_personnel/areas_to_light_up(minimal_access = TRUE)
 	return minimal_lightup_areas | GLOB.command_lightup_areas
 
-/datum/job/head_of_personnel/get_captaincy_announcement(mob/living/captain)
-	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
-
 /datum/outfit/job/head_of_personnel
 	name = JOB_NAME_HEADOFPERSONNEL
 	jobtype = /datum/job/head_of_personnel

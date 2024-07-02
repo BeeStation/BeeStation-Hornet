@@ -21,10 +21,13 @@
 /datum/job/cyborg/get_access() // no point of calling parent proc
 	return list()
 
-/datum/job/cyborg/after_spawn(mob/living/silicon/robot/R, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
-	if(!M.client || on_dummy)
-		R.updatename(M.client)
-		R.gender = NEUTER
+/datum/job/cyborg/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
+	. = ..()
+	if(!iscyborg(H))
+		return
+	H.gender = NEUTER
+	var/mob/living/silicon/robot/robot_spawn = H
+	robot_spawn.notify_ai(NEW_BORG)
 
 /datum/job/cyborg/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :b to speak with other cyborgs and AI.</b>")
