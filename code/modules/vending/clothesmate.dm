@@ -51,6 +51,8 @@
 				/obj/item/clothing/head/chaplain/taqiyah/red = 3,
 				/obj/item/clothing/head/hats/tophat = 1,
 				/obj/item/clothing/head/fedora = 1,
+				/obj/item/clothing/head/fedora/beige = 1,
+				/obj/item/clothing/head/fedora/white = 1,
 				/obj/item/clothing/head/cowboy = 1,
 				/obj/item/clothing/head/costume/sombrero = 1,
 
@@ -121,6 +123,7 @@
 				/obj/item/clothing/under/suit/white = 1,
 				/obj/item/clothing/under/suit/sl = 1,
 				/obj/item/clothing/under/suit/tan = 1,
+				/obj/item/clothing/under/suit/beige = 1,
 				/obj/item/clothing/suit/jacket/puffer/vest = 2,
 				/obj/item/clothing/suit/jacket/puffer = 2,
 				/obj/item/clothing/suit/toggle/softshell = 2,

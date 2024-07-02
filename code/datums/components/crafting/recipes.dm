@@ -1171,7 +1171,7 @@
 	name = "Paper Slip"
 	result = /obj/item/card/id/paper
 	time = 1 SECONDS
-	reqs = list(/obj/item/paper = 5)
+	reqs = list(/obj/item/paper  = 5)
 	category = CAT_MISC
 	tools = list(TOOL_WIRECUTTER)
 
@@ -1306,3 +1306,24 @@
 	reqs = list(/obj/item/stack/sheet/mineral/silver = 1, /obj/item/stack/sheet/glass = 2)
 	tools = list(TOOL_WRENCH)
 	category = CAT_STRUCTURE
+
+/datum/crafting_recipe/bouquet
+	name = "mixed flower bouquet"
+	result = /obj/item/bouquet
+	time = 15 SECONDS
+	reqs = list(/obj/item/grown/sunflower = 2, /obj/item/food/grown/flower/lily = 2, /obj/item/paper = 2)
+	category = CAT_MISC
+
+/datum/crafting_recipe/sunflower_bouquet
+	name = "sunflowers bouquet"
+	result = /obj/item/bouquet/sunflower
+	time = 15 SECONDS
+	reqs = list(/obj/item/grown/sunflower = 6, /obj/item/paper = 2)
+	category = CAT_MISC
+
+/datum/crafting_recipe/poppy_bouquet
+	name = "poppys bouquet"
+	result = /obj/item/bouquet/poppy
+	time = 15 SECONDS
+	reqs = list(/obj/item/food/grown/flower/poppy = 2, /obj/item/paper = 2)
+	category = CAT_MISC

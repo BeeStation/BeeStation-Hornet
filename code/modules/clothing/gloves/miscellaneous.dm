@@ -144,3 +144,11 @@
 	if(istype(pinchy))
 		pinchy.safety = !pinchy.safety
 		button.icon_state = (pinchy.safety ? "template_active" : "template")
+
+/obj/item/clothing/gloves/ring
+	name = "wedding ring"
+	desc = "For your future spouse. Comes with a pure diamond mined personnally by John Miner."
+	icon_state = "ring"
+	item_state = "ring"
+	worn_icon_state = "ring"
+	transfer_prints = TRUE
