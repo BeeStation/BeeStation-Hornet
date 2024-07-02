@@ -1803,13 +1803,15 @@
 /turf/open/floor/iron/dark,
 /area/centcom/supply)
 "eU" = (
-/obj/structure/fluff/empty_sleeper/syndicate,
 /obj/effect/turf_decal/techfloor{
 	dir = 1
 	},
 /obj/effect/turf_decal/techfloor,
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/structure/fluff/empty_sleeper/syndicate{
+	icon_state = "sleeper_s-o"
 	},
 /turf/open/floor/iron/tech/grid,
 /area/syndicate_mothership/control)
@@ -3912,13 +3914,15 @@
 	},
 /area/syndicate_mothership/control)
 "lm" = (
-/obj/structure/fluff/empty_sleeper/syndicate,
 /obj/effect/turf_decal/techfloor{
 	dir = 1
 	},
 /obj/effect/turf_decal/techfloor,
 /obj/structure/sign/poster/contraband/free_key{
 	pixel_y = 32
+	},
+/obj/structure/fluff/empty_sleeper/syndicate{
+	icon_state = "sleeper_s-o"
 	},
 /turf/open/floor/iron/tech/grid,
 /area/syndicate_mothership/control)
@@ -4449,10 +4453,6 @@
 /obj/machinery/computer/communications,
 /turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
-"mP" = (
-/obj/effect/landmark/start/nukeop_leader,
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/syndicate_mothership/control)
 "mQ" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -10583,6 +10583,8 @@
 /area/centcom/control)
 "DX" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/iron,
 /area/syndicate_mothership/control)
 "DY" = (
@@ -11561,11 +11563,11 @@
 	pixel_x = -10
 	},
 /obj/machinery/firealarm/directional/west,
-/obj/effect/landmark/start/nukeop,
 /obj/item/reagent_containers/pill/floorpill{
 	pixel_y = 6;
 	pixel_x = -6
 	},
+/obj/effect/landmark/start/nukeop_leader,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/syndicate_mothership/control)
 "GU" = (
@@ -13201,6 +13203,7 @@
 /obj/effect/turf_decal/arrows,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/mapping_helpers/tile_breaker,
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron/grid/steel{
 	color = "#808080"
 	},
@@ -18444,7 +18447,6 @@
 /obj/structure/flora/ausbushes/sparsegrass{
 	pixel_x = 6
 	},
-/obj/effect/landmark/start/nukeop,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/syndicate_mothership/control)
 "ZR" = (
@@ -35075,7 +35077,7 @@ ku
 ku
 bS
 GT
-mP
+My
 CL
 ku
 wX
@@ -35588,7 +35590,7 @@ Nj
 Nj
 ku
 eU
-My
+xO
 My
 oS
 ll
