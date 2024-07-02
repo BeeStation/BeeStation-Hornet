@@ -414,13 +414,13 @@
 		overlay.appearance_flags = RESET_COLOR
 		add_overlay(overlay)
 	playsound(src, 'sound/effects/gravhit.ogg', 100, TRUE)
-	for (var/mob/living/candidate in view(gust_distance, src))
+	for (var/mob/living/candidate in view(gust_distance, usr))
 		if(candidate == src || candidate.faction_check_mob(src))
 			continue
 		visible_message("<span class='boldwarning'>[candidate] is knocked back by the gust!</span>")
 		to_chat(candidate, "<span class='userdanger'>You're knocked back by the gust!</span>")
 		var/dir_to_target = get_dir(get_turf(src), get_turf(candidate))
-		var/throwtarget = get_edge_target_turf(target, dir_to_target)
+		var/throwtarget = get_edge_target_turf(candidate, dir_to_target)
 		candidate.safe_throw_at(throwtarget, 10, 1, src)
 		candidate.Paralyze(50)
 	addtimer(CALLBACK(src, PROC_REF(reset_status)), 4 + ((tiredness * tiredness_mult) / 10))
