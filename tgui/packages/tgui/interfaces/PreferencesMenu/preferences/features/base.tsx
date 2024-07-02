@@ -484,3 +484,22 @@ export const FeatureValueInput = (
     />
   );
 };
+
+export type FeatureShortTextData = {
+  maximum_length: number;
+};
+
+export const FeatureShortTextInput = (props: FeatureValueProps<string, string, FeatureShortTextData>) => {
+  if (!props.serverData) {
+    return <Box>Loading...</Box>;
+  }
+
+  return (
+    <Input
+      width="100%"
+      value={props.value}
+      maxLength={props.serverData.maximum_length}
+      onChange={(_, value) => props.handleSetValue(value)}
+    />
+  );
+};
