@@ -1,7 +1,7 @@
 /datum/job/mime
 	title = JOB_NAME_MIME
 	description = "Be the Clown's mute counterpart and arch nemesis. Conduct pantomimes and performances, create interesting situations with your mime powers. Remember your job is to keep things funny for others, not just yourself."
-	department_for_prefs = DEPT_BITFLAG_CIV
+	department_for_prefs = DEPT_BITFLAG_SRV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
