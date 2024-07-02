@@ -70,7 +70,9 @@
 
 /datum/config_entry/flag/disable_peaceborg
 
-/datum/config_entry/flag/donator_items 	// do you need to be a donator to use donator items
+/datum/config_entry/flag/donator_items 	// you need to be a donator to use donator items
+
+datum/config_entry/flag/maintainer_items // you need to be a maintainer/contributer to use such items
 
 /datum/config_entry/number/traitor_scaling_coeff	//how much does the amount of players get divided by to determine traitors
 	config_entry_value = 6
