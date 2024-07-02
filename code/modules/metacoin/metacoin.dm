@@ -33,6 +33,9 @@
 		CRASH("Metacoin amount fetched before value initialized")
 	return metabalance_cached
 
+/client/proc/get_metabalance_async()
+	return metabalance_cached || get_metabalance_db()
+
 /// Gets the user's metabalance from the DB. Blocking.
 /client/proc/get_metabalance_db()
 	var/datum/db_query/query_get_metacoins = SSdbcore.NewQuery(
