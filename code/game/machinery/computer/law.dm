@@ -26,7 +26,7 @@
 		if(!current)
 			to_chat(user, "<span class='warning'>You haven't selected anything to transmit laws to!</span>")
 			return
-		var/input = stripped_input(user, "Please enter the Upload code.", "Uplode Code Check")
+		var/input = stripped_input(user, "Please enter the Upload code.", "Upload Code Check")
 		if(!GLOB.upload_code)
 			GLOB.upload_code = random_code(4)
 		if(input != GLOB.upload_code)
