@@ -185,21 +185,25 @@
 		user.show_message("<span class='notice'>\The [src] is recharging!</span>")
 		return
 	var/teleport_target = L[t1]
+	var/turf/target_turf = get_teleport_turf(get_turf(teleport_target))
+	var/move_source = TRUE
 	// Non-turfs (Wakes) are handled differently
 	if (istype(teleport_target, /obj/effect/temp_visual/teleportation_wake))
 		var/distance = get_dist(teleport_target, user)
 		var/obj/effect/temp_visual/teleportation_wake/wake = teleport_target
-		var/turf/target_turf = get_teleport_turf(wake.destination, 2 + distance)
+		target_turf = get_teleport_turf(wake.destination, 2 + distance)
+		move_source = FALSE
 		to_chat(user, "<span class='notice'>You begin teleporting to the target.</span>")
-		var/obj/effect/temp_visual/portal_opening/target_effect = new(target_turf)
-		var/obj/effect/temp_visual/portal_opening/source_effect = new(get_turf(user))
-		if (do_after(user, 10 SECONDS, user))
-			do_teleport(user, target_turf)
-		else
+		// Longer distances take more time to teleport, since they are more likely
+		// to be something like a base of operations and not just a quick jaunt away
+		var/time = max(1 SECONDS, target_turf.get_virtual_z_level() == current_location.get_virtual_z_level() ? min(get_dist(target_turf, current_location) * 3, 15 SECONDS) : 15 SECONDS)
+		var/obj/effect/temp_visual/portal_opening/target_effect = new(target_turf, time)
+		var/obj/effect/temp_visual/portal_opening/source_effect = new(current_location, time)
+		if (!do_after(user, time, user))
 			animate(user, flags = ANIMATION_END_NOW)
 			qdel(target_effect)
 			qdel(source_effect)
-		return
+			return
 	var/area/A = get_area(teleport_target)
 	if(A.teleport_restriction)
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
@@ -209,16 +213,19 @@
 	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
-	var/list/obj/effect/portal/created = create_portal_pair(current_location, get_teleport_turf(get_turf(teleport_target)), src, 300, 1, null, atmos_link_override)
+	var/list/obj/effect/portal/created = create_portal_pair(current_location, target_turf, src, 300, 1, null, atmos_link_override)
 	if(!(LAZYLEN(created) == 2))
 		return
 
 	var/obj/effect/portal/c1 = created[1]
 	var/obj/effect/portal/c2 = created[2]
 
-	var/turf/check_turf = get_turf(get_step(user, user.dir))
-	if(!check_turf.is_blocked_turf(TRUE, src))
-		c1.forceMove(check_turf)
+	if (move_source)
+		var/turf/check_turf = get_turf(get_step(user, user.dir))
+		if(!check_turf.is_blocked_turf(TRUE, src))
+			c1.forceMove(check_turf)
+	else
+		c1.Bumped(user)
 	active_portal_pairs[created[1]] = created[2]
 
 	investigate_log("was used by [key_name(user)] at [AREACOORD(user)] to create a portal pair with destinations [AREACOORD(c1)] and [AREACOORD(c2)].", INVESTIGATE_PORTAL)
