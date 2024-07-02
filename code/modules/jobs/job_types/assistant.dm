@@ -6,7 +6,7 @@ Assistant
 	description = "Help out around the station or ask the Head of Personnel for an assignment. As the lowest-level position, expect to be treated like an intern most of the time."
 	department_for_prefs = DEPT_BITFLAG_ASSISTANT
 	supervisors = "absolutely everyone"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 5
 	spawn_positions = 5
 	selection_color = "#dddddd"
@@ -16,6 +16,8 @@ Assistant
 
 	base_access = list()	//See /datum/job/assistant/get_access()
 	extra_access = list()	//See /datum/job/assistant/get_access()
+
+	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = NONE // nothing is free for them

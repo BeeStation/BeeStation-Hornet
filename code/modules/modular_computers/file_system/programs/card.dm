@@ -83,7 +83,7 @@
 
 	head_subordinates = list()
 	if(length(head_types))
-		for(var/j in SSjob.occupations)
+		for(var/j in SSjob.all_occupations)
 			var/datum/job/job = j
 			for(var/head in head_types)//god why
 				if(head in job.department_head)
@@ -299,13 +299,13 @@
 		departments = list("CentCom" = get_all_centcom_jobs())
 	else if(isnull(departments))
 		departments = list(
-			CARDCON_DEPARTMENT_COMMAND = list(JOB_NAME_CAPTAIN),//lol
-			CARDCON_DEPARTMENT_ENGINEERING = GLOB.engineering_positions,
-			CARDCON_DEPARTMENT_MEDICAL = GLOB.medical_positions,
-			CARDCON_DEPARTMENT_SCIENCE = GLOB.science_positions,
-			CARDCON_DEPARTMENT_SECURITY = GLOB.security_positions,
-			CARDCON_DEPARTMENT_SUPPLY = GLOB.supply_positions,
-			CARDCON_DEPARTMENT_CIVILIAN = GLOB.civilian_positions | GLOB.gimmick_positions
+			CARDCON_DEPARTMENT_COMMAND = list(JOB_NAME_CAPTAIN),
+			CARDCON_DEPARTMENT_ENGINEERING = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_ENGINEERING),
+			CARDCON_DEPARTMENT_MEDICAL = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_MEDICAL),
+			CARDCON_DEPARTMENT_SCIENCE = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SCIENCE),
+			CARDCON_DEPARTMENT_SECURITY = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY),
+			CARDCON_DEPARTMENT_SUPPLY = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CARGO),
+			CARDCON_DEPARTMENT_CIVILIAN = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CIVILIAN)
 		)
 	data["jobs"] = list()
 	for(var/department in departments)

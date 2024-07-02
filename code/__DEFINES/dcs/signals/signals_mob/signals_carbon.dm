@@ -36,3 +36,6 @@
 /// Called from bodypart being removed /obj/item/bodypart/proc/drop_limb(mob/living/carbon/old_owner, dismembered)
 #define COMSIG_BODYPART_REMOVED "bodypart_removed"
 #define COMSIG_CARBON_TRANSFORMED	"carbon_transformed"			//! Called whenever a carbon is transformed into another carbon, i.e monkeyize/humanize (mob/living/carbon/new_body)
+
+///Whenever EquipRanked is called, called after job is set
+#define COMSIG_JOB_RECEIVED "job_received"

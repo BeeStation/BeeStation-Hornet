@@ -5,7 +5,7 @@
 	department_head_for_prefs = JOB_NAME_QUARTERMASTER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 3
 	spawn_positions = 3
 	selection_color = "#dcba97"
@@ -15,6 +15,7 @@
 	base_access = list(ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 	extra_access = list(ACCESS_QM, ACCESS_CARGO, ACCESS_MAINT_TUNNELS)
 
+	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 	departments = DEPT_BITFLAG_CAR
 	bank_account_department = ACCOUNT_CAR_BITFLAG
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_HARD)

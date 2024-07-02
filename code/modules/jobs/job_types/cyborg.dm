@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_BITFLAG_SILICON
 	department_head_for_prefs = JOB_NAME_AI
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "your laws and the AI"	//Nodrak
@@ -16,20 +16,18 @@
 
 	display_order = JOB_DISPLAY_ORDER_CYBORG
 	departments = DEPT_BITFLAG_SILICON
+	job_flags = JOB_NEW_PLAYER_JOINABLE | JOB_EQUIP_RANK
 
 /datum/job/cyborg/get_access() // no point of calling parent proc
 	return list()
 
-/datum/job/cyborg/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
-	if(visualsOnly)
-		CRASH("dynamic preview is unsupported")
-	return H.Robotize(FALSE, latejoin)
-
-/datum/job/cyborg/after_spawn(mob/living/silicon/robot/R, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
-	if(!M.client || on_dummy)
+/datum/job/cyborg/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
+	. = ..()
+	if(!iscyborg(H))
 		return
-	R.updatename(M.client)
-	R.gender = NEUTER
+	H.gender = NEUTER
+	var/mob/living/silicon/robot/robot_spawn = H
+	robot_spawn.notify_ai(NEW_BORG)
 
 /datum/job/cyborg/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :b to speak with other cyborgs and AI.</b>")
