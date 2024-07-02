@@ -194,7 +194,8 @@ effective or pretty fucking useless.
 	item_state = "utility"
 	worn_icon_state = "utility"
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("whipped", "lashed", "disciplined")
+	attack_verb_continuous = list("whips", "lashes", "disciplines")
+	attack_verb_simple = list("whip", "lash", "discipline")
 
 	var/mob/living/carbon/human/user = null
 	var/charge = 300
@@ -261,7 +262,8 @@ effective or pretty fucking useless.
 	worn_icon_state = "sheetblack"
 	slot_flags = ITEM_SLOT_NECK
 	layer = MOB_LAYER
-	attack_verb = null
+	attack_verb_continuous = null
+	attack_verb_simple = null
 
 /obj/item/shadowcloak/magician/attackby(obj/item/W, mob/user, params)
 	. = ..()

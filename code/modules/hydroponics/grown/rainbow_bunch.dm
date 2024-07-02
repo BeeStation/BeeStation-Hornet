@@ -28,7 +28,8 @@
 	throw_range = 3
 	bite_consumption_mod = 0
 	foodtypes = null
-	attack_verb = list("pompfed")
+	attack_verb_continuous = list("pompfs")
+	attack_verb_simple = list("pompf")
 
 /obj/item/food/grown/flower/rainbow/Initialize(mapload)
 	. = ..()

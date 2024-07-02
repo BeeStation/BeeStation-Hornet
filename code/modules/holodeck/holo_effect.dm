@@ -50,14 +50,14 @@
 		deck.card_throwforce = 0
 		deck.card_throw_speed = 3
 		deck.card_throw_range = 7
-		deck.card_attack_verb = list("attacked")
+		deck.card_attack_verb_continuous = list("attacks")
 	else
 		deck.card_hitsound = 'sound/weapons/bladeslice.ogg'
 		deck.card_force = 5
 		deck.card_throwforce = 10
 		deck.card_throw_speed = 3
 		deck.card_throw_range = 7
-		deck.card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
+		deck.card_attack_verb_continuous = list("attacks", "slices", "dices", "slashes", "cuts")
 
 
 /obj/effect/holodeck_effect/sparks/activate(var/obj/machinery/computer/holodeck/HC)

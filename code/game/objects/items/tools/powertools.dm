@@ -51,7 +51,8 @@
 
 	hitsound = null
 
-	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
+	attack_verb_continuous = list("attacks", "bashes", "batters", "bludgeons", "whacks")
+	attack_verb_simple = list("attack", "bash", "batter", "bludgeon", "whack")
 	throw_range = 7
 
 /obj/item/powertool/hand_drill/proc/become_screwdriver()
@@ -60,7 +61,8 @@
 
 	hitsound = 'sound/items/drill_hit.ogg'
 
-	attack_verb = list("drilled", "screwed", "jabbed")
+	attack_verb_continuous = list("drills", "screws", "jabs", "whacks")
+	attack_verb_simple = list("drill", "screw", "jab", "whack")
 	throw_range = 3
 
 /obj/item/powertool/hand_drill/suicide_act(mob/living/user)
@@ -96,7 +98,8 @@
 
 	force = 15
 	throwforce = 7
-	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
+	attack_verb_continuous = list("attacks", "bashes", "batters", "bludgeons", "whacks")
+	attack_verb_simple = list("attack", "bash", "batter", "bludgeon", "whack")
 
 /obj/item/powertool/jaws_of_life/Initialize(mapload)
 	. = ..()
@@ -117,7 +120,8 @@
 
 	usesound = 'sound/items/jaws_cut.ogg'
 
-	attack_verb = list("pinched", "nipped")
+	attack_verb_continuous = list("pinches", "nips")
+	attack_verb_simple = list("pinch", "nip")
 	force = 6
 	throw_speed = 3
 
@@ -129,7 +133,8 @@
 
 	usesound = 'sound/items/jaws_pry.ogg'
 
-	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
+	attack_verb_continuous = list("attacks", "bashes", "batters", "bludgeons", "whacks")
+	attack_verb_simple = list("attack", "bash", "batter", "bludgeon", "whack")
 	force = 15
 	throw_speed = 2
 

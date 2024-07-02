@@ -13,7 +13,8 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON
-	attack_verb = list("robusted")
+	attack_verb_continuous = list("robusts")
+	attack_verb_simple = list("robust")
 	hitsound = 'sound/weapons/smash.ogg'
 	custom_materials = list(/datum/material/iron = 500) //Toolboxes by default use iron as their core, custom material.
 	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
@@ -98,7 +99,8 @@
 	throw_speed = 2
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("robusted")
+	attack_verb_continuous = list("robusts")
+	attack_verb_simple = list("robust")
 	hitsound = 'sound/weapons/smash.ogg'
 
 /obj/item/storage/toolbox/mechanical/old/clean
@@ -200,7 +202,8 @@
 	has_latches = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_HUGE
-	attack_verb = list("robusted", "crushed", "smashed")
+	attack_verb_continuous = list("robusts")
+	attack_verb_simple = list("robust")
 	material_flags = NONE
 
 /obj/item/storage/toolbox/brass/ComponentInitialize()
