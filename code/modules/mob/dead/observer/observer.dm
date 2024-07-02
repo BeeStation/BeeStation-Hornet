@@ -842,7 +842,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				remove_verb(/mob/dead/observer/verb/boo)
 				remove_verb(/mob/dead/observer/verb/possess)
 
-/mob/dead/observer/reset_perspective(atom/A)
+/mob/dead/observer/reset_perspective(atom/new_eye)
 	if(client)
 		if(ismob(client.eye) && (client.eye != src))
 			var/mob/target = client.eye
@@ -873,7 +873,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/mob/mob_eye = creatures[eye_name]
 	//Istype so we filter out points of interest that are not mobs
 	if(client && mob_eye && istype(mob_eye))
-		client.eye = mob_eye
+		client.set_eye(mob_eye)
 		if(mob_eye.hud_used)
 			client.screen = list()
 			LAZYINITLIST(mob_eye.observers)
