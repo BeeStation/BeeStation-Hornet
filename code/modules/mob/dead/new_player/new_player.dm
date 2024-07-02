@@ -333,7 +333,7 @@
 			Spl.Fade(TRUE)
 			character.playsound_local(get_turf(character), 'sound/voice/welcomeBee.ogg', 50)
 
-		character.update_parallax_teleport()
+		character.hud_used.update_parallax()
 
 	SSticker.minds += character.mind
 

@@ -206,3 +206,8 @@
 		if(NAMEOF(src, perma_docked))
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("arrivals shuttle", "[var_value ? "stopped" : "started"]"))
 	return ..()
+
+/obj/docking_port/mobile/arrivals/on_docking_success()
+	. = ..()
+	if(hyper_parallax_data)
+		hyper_parallax_data.parallax_hyperspace_transit_time = 1 // this makes shuttle looks always launching
