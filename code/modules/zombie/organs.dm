@@ -8,6 +8,11 @@
 	var/datum/species/old_species = /datum/species/human
 	var/living_transformation_time = 30
 	var/converts_living = FALSE
+	/*
+	* If pacifist upon receiving the infection, we remove it, but store it in this var
+	* When the organ is removed, this var is checked, and if true we give pacifism back.
+	*/
+	var/we_had_pacifist_prior_trauma = FALSE
 
 	var/revive_time_min = 60 SECONDS
 	var/revive_time_max = 100 SECONDS
@@ -27,6 +32,13 @@
 /obj/item/organ/zombie_infection/Insert(var/mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	//trauma-induced pacifism check
+	if(HAS_TRAIT_FROM(M, TRAIT_PACIFISM, TRAUMA_TRAIT))
+		REMOVE_TRAIT(M, TRAIT_PACIFISM, TRAUMA_TRAIT)
+		we_had_pacifist_prior_trauma = TRUE
+	//quirk pacifism check
+	if(M.has_quirk(/datum/quirk/nonviolent))
+		REMOVE_TRAIT(M, TRAIT_PACIFISM, ROUNDSTART_TRAIT)
 
 /obj/item/organ/zombie_infection/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()
@@ -35,6 +47,11 @@
 		M.set_species(old_species)
 	if(timer_id)
 		deltimer(timer_id)
+
+	if(we_had_pacifist_prior_trauma == TRUE)
+		ADD_TRAIT(M, TRAIT_PACIFISM, TRAUMA_TRAIT)
+	if(M.has_quirk(/datum/quirk/nonviolent))
+		ADD_TRAIT(M, TRAIT_PACIFISM, ROUNDSTART_TRAIT)
 
 /obj/item/organ/zombie_infection/on_find(mob/living/finder)
 	to_chat(finder, "<span class='warning'>Inside the head is a disgusting black \
