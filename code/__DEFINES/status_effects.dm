@@ -117,6 +117,14 @@
 
 #define STATUS_EFFECT_LING_TRANSFORMATION /datum/status_effect/ling_transformation // transform stung by a changeling
 
+///Raises click cooldowns for everything you do.
+#define STATUS_EFFECT_WOOZY /datum/status_effect/woozy
+
+///Makes you bleed harder
+#define STATUS_EFFECT_HIGHBLOODPRESSURE /datum/status_effect/high_blood_pressure
+
+///Makes you seize up
+#define STATUS_EFFECT_SEIZURE /datum/status_effect/seizure
 
 //---------//
 // NEUTRAL //
