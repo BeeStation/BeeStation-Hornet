@@ -400,6 +400,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/research)
+"bq" = (
+/obj/structure/statue/snow/snowman{
+	name = "Snow-Luc Price"
+	},
+/obj/item/clothing/head/hats/hos{
+	pixel_y = 10
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/snowdin/outside)
 "bs" = (
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/research)
@@ -1208,6 +1217,9 @@
 /obj/structure/table,
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/dorm)
+"dJ" = (
+/turf/open/floor/plating/elevatorshaft,
+/area/awaymission/snowdin/post/mining_dock)
 "dK" = (
 /turf/closed/wall,
 /area/awaymission/snowdin/post)
@@ -5549,16 +5561,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/engineering)
-"qd" = (
-/obj/structure/reagent_dispensers/fueltank,
-/obj/item/clothing/head/utility/welding,
-/obj/item/weldingtool/largetank,
-/obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/simple/supply/visible{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/awaymission/snowdin/post/engineering)
 "qe" = (
 /obj/machinery/atmospherics/pipe/simple/supply/visible{
 	dir = 8
@@ -5849,6 +5851,15 @@
 	broken = 1
 	},
 /area/awaymission/snowdin/post/engineering)
+"qT" = (
+/obj/structure/statue/snow/snowman{
+	anchored = 1
+	},
+/obj/item/clothing/head/hats/bowler{
+	pixel_y = 13
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/snowdin/outside)
 "qX" = (
 /obj/machinery/computer/atmos_control/tank{
 	dir = 1;
@@ -5864,6 +5875,9 @@
 	broken = 1
 	},
 /area/awaymission/snowdin/post/engineering)
+"ra" = (
+/turf/open/floor/plating/elevatorshaft,
+/area/awaymission/snowdin/post/mining_main)
 "rc" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/structure/fans/tiny,
@@ -6530,15 +6544,6 @@
 	},
 /turf/open/floor/iron/dark/snowdin,
 /area/awaymission/snowdin/outside)
-"sV" = (
-/obj/structure/statue/snow/snowman{
-	anchored = 1
-	},
-/obj/item/clothing/head/hats/bowler{
-	pixel_y = 13
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "sW" = (
 /obj/machinery/power/turbine{
 	dir = 2;
@@ -6638,9 +6643,6 @@
 /mob/living/simple_animal/hostile/asteroid/basilisk,
 /turf/open/floor/plating/asteroid/snow/ice,
 /area/awaymission/snowdin/cave/cavern)
-"tn" = (
-/turf/open/floor/plating/elevatorshaft,
-/area/awaymission/snowdin/post/mining_main)
 "tp" = (
 /turf/closed/wall/mineral/snow,
 /area/awaymission/snowdin/cave/cavern)
@@ -7934,17 +7936,6 @@
 /obj/structure/fence,
 /turf/open/floor/plating/snowed/cavern,
 /area/awaymission/snowdin/cave/cavern)
-"yj" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/closet/crate,
-/obj/item/relic,
-/obj/item/relic,
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/awaymission/snowdin/post/mining_dock)
 "yl" = (
 /obj/structure/sign/warning/nosmoking{
 	pixel_x = -32
@@ -8008,13 +7999,6 @@
 "yv" = (
 /turf/closed/wall/mineral/snow,
 /area/awaymission/snowdin/outside)
-"yx" = (
-/obj/structure/closet/crate,
-/obj/item/relic,
-/obj/item/relic,
-/obj/item/relic,
-/turf/open/floor/plating,
-/area/awaymission/snowdin/post/mining_dock)
 "yy" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -10064,15 +10048,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/snowdin/outside)
-"FF" = (
-/obj/structure/statue/snow/snowman{
-	name = "Snow-Luc Price"
-	},
-/obj/item/clothing/head/hats/hos{
-	pixel_y = 10
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "FG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -10354,15 +10329,6 @@
 /area/awaymission/snowdin/outside)
 "Gx" = (
 /turf/closed/wall,
-/area/awaymission/snowdin/post/mining_main/robotics)
-"Gy" = (
-/obj/structure/table,
-/obj/item/clothing/head/utility/welding{
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/welding,
-/turf/open/floor/iron,
 /area/awaymission/snowdin/post/mining_main/robotics)
 "Gz" = (
 /turf/open/floor/plating,
@@ -10832,11 +10798,6 @@
 	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_dock)
-"Ig" = (
-/obj/vehicle/sealed/mecha/working/ripley/mining,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/mech_bay_recharge_floor,
-/area/awaymission/snowdin/post/mining_main/mechbay)
 "Ii" = (
 /obj/machinery/mech_bay_recharge_port,
 /obj/machinery/light,
@@ -11193,6 +11154,16 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/mining_main)
+"JM" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/item/clothing/head/utility/welding,
+/obj/item/weldingtool/largetank,
+/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/simple/supply/visible{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/awaymission/snowdin/post/engineering)
 "JN" = (
 /obj/structure/closet/crate{
 	opened = 1
@@ -11853,6 +11824,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/cave)
+"Nc" = (
+/obj/vehicle/sealed/mecha/working/ripley/mining,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mech_bay_recharge_floor,
+/area/awaymission/snowdin/post/mining_main/mechbay)
 "Nd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -11868,12 +11844,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/mining_main)
-"Ng" = (
-/obj/structure/closet/crate,
-/obj/item/relic,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/snowdin/post/mining_dock)
 "Nj" = (
 /obj/structure/door_assembly/door_assembly_min{
 	anchored = 1;
@@ -12146,11 +12116,6 @@
 	heat_capacity = 1e+006
 	},
 /area/awaymission/snowdin/post/mining_dock)
-"OF" = (
-/turf/open/floor/plating/elevatorshaft{
-	initial_gas_mix = "o2=22;n2=82;TEMP=180"
-	},
-/area/awaymission/snowdin/cave)
 "OJ" = (
 /obj/item/shard,
 /obj/item/stack/cable_coil/red{
@@ -12325,14 +12290,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/snowdin/post)
-"PK" = (
-/obj/structure/closet/crate,
-/obj/item/relic,
-/obj/item/relic,
-/obj/item/relic,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/snowdin/post/mining_dock)
 "PO" = (
 /obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -12787,6 +12744,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/snowdin/post)
+"Sn" = (
+/obj/structure/closet/crate,
+/turf/open/floor/plating,
+/area/awaymission/snowdin/post/mining_dock)
 "Sp" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 10;
@@ -12975,6 +12936,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/research)
+"Tl" = (
+/turf/open/floor/plating/elevatorshaft{
+	initial_gas_mix = "o2=22;n2=82;TEMP=180"
+	},
+/area/awaymission/snowdin/cave)
 "Tm" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 2;
@@ -13457,6 +13423,15 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post)
+"VJ" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/closet/crate,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/awaymission/snowdin/post/mining_dock)
 "VK" = (
 /obj/item/aicard,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -13551,6 +13526,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/cave)
+"Wh" = (
+/obj/structure/table,
+/obj/item/clothing/head/utility/welding{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/welding,
+/turf/open/floor/iron,
+/area/awaymission/snowdin/post/mining_main/robotics)
 "Wi" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -13999,9 +13983,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark/snowdin,
 /area/awaymission/snowdin/cave)
-"Yq" = (
-/turf/open/floor/plating/elevatorshaft,
-/area/awaymission/snowdin/post/mining_dock)
 "Yr" = (
 /obj/effect/decal/cleanable/vomit/old,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -26414,7 +26395,7 @@ af
 af
 ak
 af
-sV
+qT
 af
 af
 af
@@ -28406,11 +28387,11 @@ II
 IY
 Go
 xv
-tn
-tn
-tn
-tn
-tn
+ra
+ra
+ra
+ra
+ra
 ME
 Go
 ac
@@ -28663,11 +28644,11 @@ Gq
 Gq
 Go
 xv
-tn
-tn
-tn
-tn
-tn
+ra
+ra
+ra
+ra
+ra
 ME
 GP
 ac
@@ -28920,11 +28901,11 @@ Iy
 Iy
 Go
 Qf
-tn
-tn
-tn
-tn
-tn
+ra
+ra
+ra
+ra
+ra
 VP
 GP
 ac
@@ -29177,11 +29158,11 @@ GP
 GP
 GP
 xv
-tn
-tn
-tn
-tn
-tn
+ra
+ra
+ra
+ra
+ra
 ME
 GP
 ac
@@ -29434,11 +29415,11 @@ ae
 ae
 Go
 xv
-tn
-tn
-tn
-tn
-tn
+ra
+ra
+ra
+ra
+ra
 ME
 GP
 ac
@@ -30004,7 +29985,7 @@ nY
 ov
 oV
 nN
-qd
+JM
 qB
 Xs
 rt
@@ -30353,12 +30334,12 @@ ae
 ae
 aj
 xa
-OF
-OF
-OF
-OF
-OF
-OF
+Tl
+Tl
+Tl
+Tl
+Tl
+Tl
 an
 ii
 ii
@@ -30610,12 +30591,12 @@ ae
 ae
 aj
 xa
-OF
-OF
-OF
-OF
-OF
-OF
+Tl
+Tl
+Tl
+Tl
+Tl
+Tl
 yp
 ii
 wS
@@ -30867,12 +30848,12 @@ ae
 wQ
 ai
 xb
-OF
-OF
-OF
-OF
-OF
-OF
+Tl
+Tl
+Tl
+Tl
+Tl
+Tl
 yq
 ii
 wS
@@ -31124,12 +31105,12 @@ ae
 wQ
 ai
 xb
-OF
-OF
-OF
-OF
-OF
-OF
+Tl
+Tl
+Tl
+Tl
+Tl
+Tl
 yq
 an
 ii
@@ -31381,12 +31362,12 @@ ae
 wQ
 wS
 xa
-OF
-OF
-OF
-OF
-OF
-OF
+Tl
+Tl
+Tl
+Tl
+Tl
+Tl
 yp
 an
 ii
@@ -31638,12 +31619,12 @@ ae
 wQ
 wS
 xa
-OF
-OF
-OF
-OF
-OF
-OF
+Tl
+Tl
+Tl
+Tl
+Tl
+Tl
 ai
 an
 an
@@ -43811,7 +43792,7 @@ af
 af
 am
 sf
-FF
+bq
 af
 am
 ae
@@ -58722,7 +58703,7 @@ oZ
 oZ
 oZ
 Ge
-Gy
+Wh
 GV
 Hs
 HJ
@@ -62587,11 +62568,11 @@ IO
 wL
 wE
 WX
-Yq
-Yq
-Yq
-Yq
-Yq
+dJ
+dJ
+dJ
+dJ
+dJ
 xw
 wE
 bh
@@ -62844,11 +62825,11 @@ IQ
 wL
 wE
 WX
-Yq
-Yq
-Yq
-Yq
-Yq
+dJ
+dJ
+dJ
+dJ
+dJ
 xw
 wE
 bh
@@ -63101,11 +63082,11 @@ wL
 wL
 wE
 MC
-Yq
-Yq
-Yq
-Yq
-Yq
+dJ
+dJ
+dJ
+dJ
+dJ
 Tc
 wE
 bh
@@ -63352,17 +63333,17 @@ GJ
 He
 HA
 HO
-Ig
+Nc
 GH
 wL
 wL
 wE
 WX
-Yq
-Yq
-Yq
-Yq
-Yq
+dJ
+dJ
+dJ
+dJ
+dJ
 xw
 wE
 bh
@@ -63615,11 +63596,11 @@ wL
 wL
 wD
 WX
-Yq
-Yq
-Yq
-Yq
-Yq
+dJ
+dJ
+dJ
+dJ
+dJ
 xw
 wD
 bh
@@ -64282,8 +64263,8 @@ RA
 wL
 wL
 Nk
-yj
-PK
+VJ
+UT
 xW
 eJ
 eJ
@@ -64539,8 +64520,8 @@ xy
 XD
 xy
 Nk
-Ng
-yx
+UT
+Sn
 wD
 eJ
 eJ
@@ -65562,12 +65543,12 @@ eJ
 wE
 Wj
 ym
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
 yz
 yR
 wD
@@ -65819,12 +65800,12 @@ eJ
 wD
 wW
 ym
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
 yA
 wM
 zm
@@ -66076,12 +66057,12 @@ wD
 wP
 RF
 ym
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
 yB
 xy
 zn
@@ -66334,11 +66315,11 @@ wP
 wW
 xh
 wW
-Yq
-Yq
-Yq
-Yq
-Yq
+dJ
+dJ
+dJ
+dJ
+dJ
 yB
 xy
 zn
@@ -66592,10 +66573,10 @@ wW
 xh
 wW
 wW
-Yq
-Yq
-Yq
-Yq
+dJ
+dJ
+dJ
+dJ
 OD
 TG
 zm
@@ -66850,9 +66831,9 @@ xi
 wW
 wW
 wW
-Yq
-Yq
-Yq
+dJ
+dJ
+dJ
 RK
 Qw
 wE

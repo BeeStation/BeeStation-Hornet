@@ -27,6 +27,8 @@
 	var/beam_type = /obj/effect/ebeam
 	///This is used as the visual_contents of beams, so you can apply one effect to this and the whole beam will look like that. never gets deleted on redrawing.
 	var/obj/effect/ebeam/visuals
+	///What color override we're using
+	var/color_override = "#fff"
 
 /datum/beam/New(beam_origin, beam_target, beam_icon='icons/effects/beam.dmi', beam_icon_state="b_beam", time=INFINITY, maxdistance=INFINITY, btype = /obj/effect/ebeam)
 	origin = beam_origin
@@ -93,6 +95,7 @@
 			break
 		var/obj/effect/ebeam/X = new beam_type(origin_turf)
 		X.owner = src
+		X.color = color_override
 		elements += X
 
 		//Assign our single visual ebeam to each ebeam's vis_contents

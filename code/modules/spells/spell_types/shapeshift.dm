@@ -173,6 +173,14 @@
 		qdel(shape)
 	qdel(src)
 
+//Special subtype for artifacts that use it in a wonky-ish way, don't worry :)
+/obj/shapeshift_holder/no_damage
+
+/obj/shapeshift_holder/no_damage/restore(death=FALSE, convert_damage = FALSE)
+	convert_damage = FALSE //Bruh
+	death = FALSE
+	. = ..()
+
 /datum/soullink/shapeshift
 	var/obj/shapeshift_holder/source
 

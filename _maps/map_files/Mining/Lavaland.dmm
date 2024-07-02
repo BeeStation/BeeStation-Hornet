@@ -531,13 +531,6 @@
 	},
 /turf/open/floor/plating,
 /area/mine/science)
-"en" = (
-/obj/effect/spawner/randomarcade{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron/checker,
-/area/mine/living_quarters)
 "er" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -2114,6 +2107,13 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"oI" = (
+/obj/item/toy/plush/lizard_plushie{
+	pixel_x = 5;
+	name = "Walks-upon-Embers"
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "oN" = (
 /obj/machinery/shower{
 	dir = 8
@@ -3318,6 +3318,13 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/carpet/red,
 /area/mine/living_quarters)
+"ym" = (
+/obj/effect/spawner/randomarcade{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron/checker,
+/area/mine/living_quarters)
 "yv" = (
 /turf/closed/mineral/random/labormineral/volcanic,
 /area/lavaland/surface/outdoors/explored)
@@ -3480,13 +3487,6 @@
 	},
 /turf/open/floor/wood,
 /area/mine/living_quarters)
-"zJ" = (
-/obj/item/toy/plush/lizard_plushie{
-	pixel_x = 5;
-	name = "Walks-upon-Embers"
-	},
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "zK" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -5314,11 +5314,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/carpet/blue,
 /area/mine/living_quarters)
-"Nz" = (
-/obj/machinery/rnd/experimentor,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/engine,
-/area/mine/science)
 "NB" = (
 /obj/structure/camera_assembly{
 	dir = 6
@@ -36703,7 +36698,7 @@ Zd
 RR
 RR
 RR
-zJ
+oI
 Zd
 RR
 RR
@@ -40804,7 +40799,7 @@ wS
 wS
 wS
 wS
-en
+ym
 kM
 Yp
 KI
@@ -50317,7 +50312,7 @@ mp
 qy
 zA
 cE
-Nz
+YW
 mp
 Zd
 Zd
