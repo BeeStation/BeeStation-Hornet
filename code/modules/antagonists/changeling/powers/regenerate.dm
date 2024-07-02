@@ -73,7 +73,6 @@
 			"<span class='userdanger'>Our [BP] forms into a horrifying snake and heads towards our attackers!</span>")
 	BP.dismember()
 	BP.Destroy()
-	C.update_mobility()
 	//Deploy limbsnake
 	var/mob/living/snek = new /mob/living/simple_animal/hostile/poison/limbsnake(get_turf(user))
 	//assign faction

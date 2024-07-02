@@ -41,7 +41,7 @@
 
 /mob/living/simple_animal/pet/cat/Initialize(mapload)
 	. = ..()
-	add_verb(/mob/living/proc/lay_down)
+	add_verb(/mob/living/proc/toggle_resting)
 
 /mob/living/simple_animal/pet/cat/space
 	name = "space cat"
@@ -182,34 +182,36 @@
 
 /mob/living/simple_animal/pet/cat/update_resting()
 	. = ..()
-	if(stat != DEAD)
-		if (resting)
-			icon_state = "[icon_living]_rest"
-			collar_type = "[initial(collar_type)]_rest"
-		else
-			icon_state = "[icon_living]"
-			collar_type = "[initial(collar_type)]"
+	if(stat == DEAD)
+		return
+	if (resting)
+		icon_state = "[icon_living]_rest"
+		collar_type = "[initial(collar_type)]_rest"
+	else
+		icon_state = "[icon_living]"
+		collar_type = "[initial(collar_type)]"
+	regenerate_icons()
+
 
 /mob/living/simple_animal/pet/cat/Life()
 	if(!stat && !buckled && !client)
-		if(prob(3))
-			switch(rand(1, 3))
-				if (1)
-					INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
-					set_resting(TRUE)
-				if (2)
-					INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
-					set_resting(TRUE)
-					icon_state = "[icon_living]_sit"
-					collar_type = "[initial(collar_type)]_sit"
-				if (3)
-					if (resting)
-						INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("gets up and meows.", "walks around.", "stops resting."))
-						set_resting(FALSE)
-					else
-						INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
+		if(prob(1))
+			manual_emote(pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
+			set_resting(TRUE)
+		else if (prob(1))
+			manual_emote(pick("sits down.", "crouches on its hind legs.", "looks alert."))
+			set_resting(TRUE)
+			icon_state = "[icon_living]_sit"
+			collar_type = "[initial(collar_type)]_sit"
+		else if (prob(1))
+			if (resting)
+				manual_emote(pick("gets up and meows.", "walks around.", "stops resting."))
+				set_resting(FALSE)
+			else
+				manual_emote(pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
 
 	..()
+
 	if(next_scan_time <= world.time)
 		make_babies()
 

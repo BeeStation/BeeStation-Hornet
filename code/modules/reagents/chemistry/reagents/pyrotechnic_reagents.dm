@@ -283,7 +283,7 @@
 /datum/reagent/teslium/energized_jelly/on_mob_life(mob/living/carbon/M)
 	if(isoozeling(M))
 		shock_timer = 0 //immune to shocks
-		M.AdjustAllImmobility(-40, FALSE)
+		M.AdjustAllImmobility(-40)
 		M.adjustStaminaLoss(-2, 0)
 		if(isluminescent(M))
 			var/mob/living/carbon/human/H = M
