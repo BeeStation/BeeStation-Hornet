@@ -12,6 +12,15 @@
 	strip_delay = 80
 	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
 
+/obj/item/clothing/head/hats/centcom_cap
+	name = "\improper CentCom commander cap"
+	icon_state = "centcom_cap"
+	desc = "Worn by the finest of CentCom commanders. Inside the lining of the cap, lies two faint initials."
+	item_state = "that"
+	flags_inv = 0
+	armor = list(MELEE = 30,  BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
+	strip_delay = (8 SECONDS)
+
 /obj/item/clothing/head/costume/canada
 	name = "striped red tophat"
 	desc = "It smells like fresh donut holes. / <i>Il sent comme des trous de beignets frais.</i>"

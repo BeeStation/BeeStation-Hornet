@@ -46,11 +46,12 @@ Contains:
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 
 /obj/item/clothing/head/helmet/space/beret
-	name = "officer's beret"
+	name = "CentCom officer's beret"
 	desc = "An armored beret commonly used by special operations officers. Uses advanced force field technology to protect the head from space."
 	icon = 'icons/obj/clothing/head/beret.dmi'
 	worn_icon = 'icons/mob/clothing/head/beret.dmi'
-	icon_state = "dsberet"
+	icon_state = "beret_badge"
+	greyscale_colors = "#397F3F#FFCE5B"
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
 	flags_inv = 0
@@ -60,12 +61,14 @@ Contains:
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/suit/space/officer
-	name = "officer's coat"
+	name = "CentCom officer's coat"
 	desc = "An armored, space-proof coat used in special operations."
-	icon_state = "specops"
+	icon = 'icons/obj/clothing/suits/armor.dmi'
+	worn_icon = 'icons/mob/clothing/suits/jacket.dmi'
+	icon_state = "centcom_coat"
 	icon = 'icons/obj/clothing/suits/jacket.dmi'
 	worn_icon = 'icons/mob/clothing/suits/jacket.dmi'
-	item_state = "specops"
+	item_state = "centcom"
 	blood_overlay_type = "coat"
 	slowdown = 0
 	flags_inv = 0

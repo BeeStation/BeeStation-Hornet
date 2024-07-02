@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/clothing/suit/armor/vest/russian_coat,
 		/obj/item/clothing/suit/armor/hos/trenchcoat,
 		/obj/item/clothing/mask/chameleon,
-		/obj/item/clothing/head/hats/centhat,
+		/obj/item/clothing/head/hats/centcom_cap,
 		/obj/item/clothing/head/costume/crown,
 		/obj/item/clothing/head/hats/hos/syndicate,
 		/obj/item/clothing/head/helmet,
