@@ -16,3 +16,6 @@
 	#define COMPONENT_OBJ_CANCEL_CHARGE  (1<<0)
 ///Called when a payment component changes value
 #define COMSIG_OBJ_ATTEMPT_CHARGE_CHANGE "obj_attempt_simple_charge_change"
+
+///from /obj/item/assembly/proc/pulsed(mob/pulser)
+#define COMSIG_ASSEMBLY_PULSED "assembly_pulsed"
