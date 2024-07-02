@@ -74,6 +74,10 @@
 		return
 	duration = world.time + original_duration
 
+/// Merge this status effect by applying new arguments
+/datum/status_effect/proc/merge(...)
+	return
+
 /datum/status_effect/proc/get_examine_text() //Called when the owner is examined
 	return examine_text
 
@@ -111,6 +115,9 @@
 				S.be_replaced()
 			else if(S.status_type == STATUS_EFFECT_REFRESH)
 				S.refresh()
+				return
+			else if (S.status_type == STATUS_EFFECT_MERGE)
+				S.merge(arglist(args.Copy(2)))
 				return
 			else
 				return
