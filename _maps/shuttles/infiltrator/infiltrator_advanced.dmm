@@ -675,17 +675,11 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/medical)
 "bm" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 6
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium/red,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/airlock)
 "bn" = (
 /obj/structure/shuttle/engine/heater,
@@ -799,30 +793,21 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/airlock)
 "by" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/medical)
 "bz" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 6
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/medical)
 "bA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/medical)
 "bB" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -863,17 +848,11 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/eva)
 "bH" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4
-	},
 /obj/structure/sign/departments/medbay/alt{
 	pixel_x = -32;
 	pixel_y = -32
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/medical)
 "bI" = (
 /obj/effect/turf_decal/stripes/line,
@@ -882,12 +861,6 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/eva)
-"bJ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate/medical)
 "bK" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -901,6 +874,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/medical)
 "bM" = (
@@ -915,12 +891,10 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/medical)
 "bO" = (
@@ -997,15 +971,12 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/hallway)
 "bU" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
 /obj/item/radio/intercom{
 	freerange = 1;
 	name = "Syndicate Radio Intercom";
 	pixel_y = 22
 	},
-/turf/open/floor/mineral/plastitanium/red,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/airlock)
 "bV" = (
 /obj/machinery/door/window{
@@ -1096,10 +1067,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 9
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/medical)
 "cd" = (
@@ -1257,17 +1226,11 @@
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/syndicate/armory)
 "cu" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium/red,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/airlock)
 "cv" = (
 /obj/effect/turf_decal/delivery,
@@ -1535,24 +1498,17 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/armory)
 "dc" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/turf/open/floor/mineral/plastitanium/red,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/airlock)
 "dd" = (
-/obj/effect/turf_decal/box/corners,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/medical)
 "de" = (
 /obj/effect/turf_decal/stripes/line,
@@ -1608,11 +1564,8 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/mineral/plastitanium/red,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/airlock)
 "dj" = (
 /obj/item/grenade/syndieminibomb{
@@ -1631,20 +1584,6 @@
 /obj/item/grenade/plastic/c4,
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/armory)
-"dk" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/machinery/airalarm/syndicate{
-	dir = 1;
-	pixel_y = -24
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate/airlock)
 "dl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -1700,24 +1639,21 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/airlock)
 "dq" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /obj/machinery/light/small,
-/turf/open/floor/mineral/plastitanium/red,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/airlock)
 "dr" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/medical)
 "ds" = (
@@ -1777,16 +1713,13 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/armory)
 "dx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom{
 	freerange = 1;
 	name = "Syndicate Radio Intercom";
 	pixel_y = 22
 	},
-/turf/open/floor/mineral/plastitanium/red,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/airlock)
 "dy" = (
 /obj/effect/turf_decal/stripes/line{
@@ -2373,11 +2306,7 @@
 /obj/structure/sink{
 	pixel_y = 24
 	},
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/medical)
 "eq" = (
 /obj/machinery/porta_turret/syndicate/shuttle{
@@ -2566,7 +2495,7 @@ dt
 bh
 br
 cc
-bJ
+br
 bN
 bW
 ch
@@ -2837,7 +2766,7 @@ ad
 aO
 aN
 cu
-dk
+di
 aO
 ai
 bY
