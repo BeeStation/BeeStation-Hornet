@@ -521,7 +521,7 @@
 	var/curse_flags = NONE
 	var/effect_last_activation = 0
 	var/effect_cooldown = 100
-	var/obj/effect/temp_visual/curse/wasting_effect = new
+	var/obj/effect/curse/wasting_effect = new
 
 /datum/status_effect/necropolis_curse/on_creation(mob/living/new_owner, set_curse)
 	. = ..()
@@ -585,12 +585,8 @@
 	C.preparePixelProjectile(ownerloc, spawn_turf)
 	C.fire()
 
-/obj/effect/temp_visual/curse
+/obj/effect/curse
 	icon_state = "curse"
-
-/obj/effect/temp_visual/curse/Initialize(mapload)
-	. = ..()
-	deltimer(timerid)
 
 /datum/status_effect/gonbolaPacify
 	id = "gonbolaPacify"

@@ -847,7 +847,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(QDELETED(src))
 		return
 	do_area_burn(T, 1.5)
-	new /obj/effect/hotspot(T)
+	new /obj/effect/simple_fire(T)
 	qdel(src)
 
 /obj/effect/rune/blood_boil/proc/do_area_burn(turf/T, multiplier)
