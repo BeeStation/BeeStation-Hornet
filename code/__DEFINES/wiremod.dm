@@ -202,8 +202,6 @@
 #define COMP_STATE_DISCHARGED "Discharged"
 #define COMP_STATE_NONE "None"
 
-#define COMP_SECURITY_ARREST_AMOUNT_TO_FLAG 10
-
 #define WIREMOD_CIRCUITRY "Circuitry"
 #define WIREMOD_CORE "Core"
 #define WIREMOD_SHELLS "Shells"

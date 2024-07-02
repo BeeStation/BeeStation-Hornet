@@ -74,6 +74,9 @@
 	///your payment per department. geneticist will be a good example for this.
 	var/payment_per_department = list(ACCOUNT_CIV_ID = 0)
 
+	/// All values = (JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_BOLD_SELECT_TEXT | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN | JOB_CANNOT_OPEN_SLOTS | JOB_HEAD_OF_STAFF)
+	var/job_flags = NONE
+
 	var/list/mind_traits // Traits added to the mind of the mob assigned this job
 
 	var/display_order = JOB_DISPLAY_ORDER_DEFAULT
@@ -349,7 +352,8 @@
 		return "Unknown: [lock_flags]"
 
 /datum/job/proc/radio_help_message(mob/M)
-	to_chat(M, "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>")
+	if(job_flags & JOB_CREW_MEMBER)
+		to_chat(M, "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>")
 
 /datum/outfit/job
 	name = "Standard Gear"

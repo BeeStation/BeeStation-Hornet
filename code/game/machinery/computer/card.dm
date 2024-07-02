@@ -181,7 +181,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return TRUE
 
 /obj/machinery/computer/card/proc/update_modify_manifest()
-	GLOB.data_core.manifest_modify(inserted_modify_id.registered_name, inserted_modify_id.assignment, inserted_modify_id.hud_state)
+	GLOB.manifest.modify(inserted_modify_id.registered_name, inserted_modify_id.assignment, inserted_modify_id.hud_state)
 
 /obj/machinery/computer/card/AltClick(mob/user)
 	..()
@@ -206,8 +206,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return
 	if (mode == 1) // accessing crew manifest
 		var/crew = ""
-		for(var/datum/data/record/t in sort_record(GLOB.data_core.general))
-			crew += t.fields["name"] + " - " + t.fields["rank"] + "<br>"
+		for(var/datum/record/crew/t in sort_record(GLOB.manifest.general))
+			crew += t.name + " - " + t.rank + "<br>"
 		dat = "<tt><b>Crew Manifest:</b><br>Please use security record computer to modify entries.<br><br>[crew]<a href='?src=[REF(src)];choice=print'>Print</a><br><br><a href='?src=[REF(src)];choice=mode;mode_target=0'>Return</a><br></tt>"
 
 	else if(mode == 2)
@@ -321,10 +321,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if(length(paycheck_departments))
 			for(var/datum/bank_account/B in SSeconomy.bank_accounts)
-				var/datum/data/record/R = find_record("name", B.account_holder, GLOB.data_core.general)
+				var/datum/record/crew/R = find_record("name", B.account_holder, GLOB.manifest.general)
 				dat += "<tr>"
 				dat += "<td>[B.account_holder] [B.suspended ? "(Account closed)" : ""]</td>"
-				dat += "<td>[R ? R.fields["rank"] : "(No data)"]</td>"
+				dat += "<td>[R ? R.rank : "(No data)"]</td>"
 				if(!(target_paycheck in paycheck_departments))
 					dat += "<td>(Auth-denied)</td>"
 				else
@@ -430,12 +430,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			// Department active status
 			banking += "<tr>"
 			banking += "<td><b>Active Department Manifest:</b></td>"
-			var/datum/data/record/R = find_record("name", inserted_modify_id.registered_name, GLOB.data_core.general)
+			var/datum/record/crew/R = find_record("name", inserted_modify_id.registered_name, GLOB.manifest.general)
 			if(R)
 				for(var/each in available_paycheck_departments)
 					if(!(SSeconomy.get_budget_acc_bitflag(each) & region_access_payment))
 						continue
-					if(R.fields["active_dept"] & SSeconomy.get_budget_acc_bitflag(each))
+					if(R.rank & SSeconomy.get_budget_acc_bitflag(each))
 						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[SSeconomy.get_budget_acc_bitflag(each)]'><font color=\"6bc473\">[each]</a></font></td>"
 					else
 						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[SSeconomy.get_budget_acc_bitflag(each)]'>[each]</a></td>"
@@ -617,7 +617,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if ("assign")
 			if (authenticated == 2)
 				var/datum/bank_account/B = inserted_modify_id?.registered_account
-				var/datum/data/record/R = find_record("name", inserted_modify_id.registered_name, GLOB.data_core.general)
+				var/datum/record/crew/R = find_record("name", inserted_modify_id.registered_name, GLOB.manifest.general)
 				var/t1 = href_list["assign_target"]
 				if(t1 == "Custom")
 					var/newJob = reject_bad_text(stripped_input("Enter a custom job assignment.", "Assignment", inserted_modify_id ? inserted_modify_id.assignment : "Unassigned"), MAX_NAME_LEN)
@@ -642,8 +642,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						for(var/each in B.payment_per_department)
 							if(SSeconomy.is_nonstation_account(each)) // do not touch VIP/Command flag
 								continue
-							R.fields["active_dept"] &= ~SSeconomy.get_budget_acc_bitflag(each) // turn off all bitflag for each department except for VIP/Command. *note: this actually shouldn't use `get_budget_acc_bitflag()` proc, because bitflags are the same but these have a different purpose.
-						R.fields["active_dept"] &= ~DEPT_BITFLAG_COM  // micromanagement2. the reason is the same. Command should be removed manually.
+							R.rank &= ~SSeconomy.get_budget_acc_bitflag(each) // turn off all bitflag for each department except for VIP/Command. *note: this actually shouldn't use `get_budget_acc_bitflag()` proc, because bitflags are the same but these have a different purpose.
+						R.rank &= ~DEPT_BITFLAG_COM  // micromanagement2. the reason is the same. Command should be removed manually.
 
 
 					log_id("[key_name(usr)] unassigned and stripped all access from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
@@ -677,9 +677,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						for(var/each in available_paycheck_departments)
 							if(SSeconomy.is_nonstation_account(each))
 								continue
-							R.fields["active_dept"] &= ~SSeconomy.get_budget_acc_bitflag(each)
-						R.fields["active_dept"] &= ~DEPT_BITFLAG_COM  // micromanagement2
-						// Note: `fields["active_dept"] = NONE` is a bad idea because you should keep VIP_BITFLAG.
+							R.rank &= ~SSeconomy.get_budget_acc_bitflag(each)
+						R.rank &= ~DEPT_BITFLAG_COM  // micromanagement2
+						// Note: `rank = NONE` is a bad idea because you should keep VIP_BITFLAG.
 					// Step 2: giving the job info into their bank and record
 					if(B && jobdatum) // 2-A: setting bank payment
 						for(var/each in jobdatum.payment_per_department)
@@ -688,7 +688,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							B.payment_per_department[each] = jobdatum.payment_per_department[each]
 						B.active_departments |= jobdatum.bank_account_department
 					if(R && jobdatum) // 2-B: setting crew manifest
-						R.fields["active_dept"] |= jobdatum.departments
+						R.rank |= jobdatum.departments
 
 					log_id("[key_name(usr)] assigned [jobdatum || t1] job to [inserted_modify_id], manipulating it to the default access of the job using [inserted_scan_id] at [AREACOORD(usr)].")
 
@@ -864,15 +864,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("turn_on_off_department_manifest")
 			var/target_bitflag = text2num(href_list["target_bitflag"])
-			var/datum/data/record/R = find_record("name", inserted_modify_id.registered_name, GLOB.data_core.general)
+			var/datum/record/crew/R = find_record("name", inserted_modify_id.registered_name, GLOB.manifest.general)
 			if(!R)
 				updateUsrDialog()
 				return
 
-			if(R.fields["active_dept"] & target_bitflag)
-				R.fields["active_dept"] &= ~target_bitflag // turn off
+			if(R.rank & target_bitflag)
+				R.rank &= ~target_bitflag // turn off
 			else
-				R.fields["active_dept"] |= target_bitflag // turn on
+				R.rank |= target_bitflag // turn on
 
 		if ("print")
 			if (!( printing ))
@@ -881,8 +881,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				sleep(50)
 				var/obj/item/paper/P = new /obj/item/paper( loc )
 				var/t1 = "<B>Crew Manifest:</B><BR>"
-				for(var/datum/data/record/t in sort_record(GLOB.data_core.general))
-					t1 += t.fields["name"] + " - " + t.fields["rank"] + "<br>"
+				for(var/datum/record/crew/t in sort_record(GLOB.manifest.general))
+					t1 += t.name + " - " + t.rank + "<br>"
 				P.default_raw_text = t1
 				P.name = "paper- 'Crew Manifest'"
 				printing = null

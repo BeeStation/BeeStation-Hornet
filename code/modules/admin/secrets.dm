@@ -301,8 +301,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			var/dat = "<B>Showing Crew Manifest.</B><HR>"
 			dat += "<table cellspacing=5><tr><th>Name</th><th>Position</th></tr>"
-			for(var/datum/data/record/t in GLOB.data_core.general)
-				dat += "<tr><td>[t.fields["name"]]</td><td>[t.fields["rank"]]</td></tr>"
+			for(var/datum/record/crew/entry in GLOB.manifest.general)
+				dat += "<tr><td>[entry.name]</td><td>[entry.rank][entry.rank != entry.trim ? " ([entry.trim])" : ""]</td></tr>"
 			dat += "</table>"
 			usr << browse(dat, "window=manifest;size=440x410")
 		if("DNA")
