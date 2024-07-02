@@ -289,3 +289,74 @@
 		S.start()
 	if(holder?.my_atom)
 		holder.clear_reagents()
+
+//Diona species mutation
+/datum/mutation/drone
+	name = "Nymph Drone"
+	desc = "An ancient mutation that gives diona the ability to send out a nymph drone."
+	quality = POSITIVE
+	difficulty = 12
+	locked = TRUE
+	power = /obj/effect/proc_holder/spell/self/drone
+	instability = 30
+	energy_coeff = 1
+	power_coeff = 1
+	species_allowed = list(SPECIES_DIONA)
+
+/obj/effect/proc_holder/spell/self/drone
+	name = "Release/Control Drone"
+	desc = "A rare genome that allows the diona to evict a nymph from their gestalt and gain the ability to control them."
+	school = "evocation"
+	invocation = ""
+	clothes_req = FALSE
+	charge_max = 60
+	invocation_type = INVOCATION_NONE
+	base_icon_state = "control"
+	action_icon_state = "control"
+	var/has_drone = FALSE //If the diona has a drone active or not, for their special mutation.
+	var/mob/living/simple_animal/nymph/drone = null
+
+/obj/effect/proc_holder/spell/self/drone/cast(list/targets, mob/user = usr)
+	. = ..()
+	var/mob/living/carbon/human/C = user
+	if(!isdiona(C))
+		return
+	CHECK_DNA_AND_SPECIES(C)
+	var/datum/species/diona/S = C.dna.species
+	if(!has_drone)
+		if(do_after(C, 5 SECONDS, C, NONE, TRUE))
+			has_drone = TRUE
+			var/mob/living/simple_animal/nymph/nymph = new(C.loc)
+			nymph.is_drone = TRUE
+			nymph.drone_parent = C
+			nymph.switch_ability = new
+			nymph.switch_ability.Grant(nymph)
+			drone = nymph
+			S.drone = nymph
+	else if(has_drone)
+		if(drone.stat == DEAD)
+			to_chat(C, "You can't seem to find the psychic link with your nymph.")
+			has_drone = FALSE
+		else
+			to_chat(C, "Switching to nymph...")
+			SwitchTo(drone, C)
+	else
+		to_chat(C, "Something fucked up, tell the admins and coders to figure out what went wrong!")
+
+
+/obj/effect/proc_holder/spell/self/drone/proc/SwitchTo(mob/living/simple_animal/nymph/drone, mob/living/carbon/M)
+	if(drone.stat == DEAD) //sanity check
+		return
+	var/datum/mind/C = M.mind
+	if(M.stat == CONSCIOUS)
+		M.visible_message("<span class='notice'>[M] \
+			stops moving and starts staring vacantly into space.</span>",
+			"<span class='notice'>You stop moving this form...</span>")
+	else
+		to_chat(C, "<span class='notice'>You abandon this nymph...</span>")
+	C.transfer_to(drone)
+	drone.origin = C
+	drone.visible_message("<span class='notice'>[drone] blinks and looks \
+		around.</span>",
+		"<span class='notice'>...and move this one instead.</span>")
+

@@ -1,4 +1,4 @@
-/datum/species/pod/pumpkin_man
+/datum/species/pumpkin_man
 	name = "\improper Pumpkinperson"
 	plural_form = "Pumpkinpeople"
 	id = SPECIES_PUMPKINPERSON
@@ -11,7 +11,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 
 	mutant_brain = /obj/item/organ/brain/pumpkin_brain
-	mutanttongue = /obj/item/organ/tongue/podperson/pumpkin
+	mutanttongue = /obj/item/organ/tongue/diona/pumpkin
 
 	species_chest = /obj/item/bodypart/chest/pumpkin_man
 	species_head = /obj/item/bodypart/head/pumpkin_man
@@ -21,28 +21,28 @@
 	species_r_leg = /obj/item/bodypart/r_leg/pumpkin_man
 
 //Only allow race roundstart on Halloween
-/datum/species/pod/pumpkin_man/check_roundstart_eligible()
+/datum/species/pumpkin_man/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
 	return ..()
 
-/datum/species/pod/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	. = ..()
 	//They can't speak!
 	//Register signal for carving
 	RegisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY, PROC_REF(handle_carving))
 
-/datum/species/pod/pumpkin_man/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+/datum/species/pumpkin_man/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY)
 
-/datum/species/pod/pumpkin_man/get_species_description()
-	return "A rare subspecies of the Podpeople, Pumpkinpeople are gourdy and orange, appearing every halloween."
+/datum/species/pumpkin_man/get_species_description()
+	return "A rare species of Pumpkinpeople, gourdy and orange, appearing every halloween."
 
-/datum/species/pod/pumpkin_man/get_species_lore()
+/datum/species/pumpkin_man/get_species_lore()
 	return null
 
-/datum/species/pod/pumpkin_man/create_pref_unique_perks()
+/datum/species/pumpkin_man/create_pref_unique_perks()
 	var/list/to_add = list()
 
 	to_add += list(
@@ -57,7 +57,7 @@
 	return to_add
 
 //Handler for face carving!
-/datum/species/pod/pumpkin_man/proc/handle_carving(datum/_source, mob/living/_user, obj/item/_item)
+/datum/species/pumpkin_man/proc/handle_carving(datum/_source, mob/living/_user, obj/item/_item)
 	//Check if the item is sharp - give owner a random face if applicable
 	var/mob/living/carbon/human/M = _source
 	var/obj/item/bodypart/head/pumpkin_man/head = M.get_bodypart(BODY_ZONE_HEAD)
@@ -76,7 +76,7 @@
 			M.update_body_parts_head_only()
 			to_chat(_user, "<span class='notice'>You carve a face into [_source].</span>")
 			//Adjust the tongue
-			var/obj/item/organ/tongue/podperson/pumpkin/P = M.internal_organs_slot[ORGAN_SLOT_TONGUE]
+			var/obj/item/organ/tongue/diona/pumpkin/P = M.internal_organs_slot[ORGAN_SLOT_TONGUE]
 			if(istype(P))
 				P?.carved = TRUE
 		else
