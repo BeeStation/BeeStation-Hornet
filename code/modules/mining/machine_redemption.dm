@@ -27,7 +27,7 @@
 /obj/machinery/mineral/ore_redemption/Initialize(mapload)
 	. = ..()
 	stored_research = new /datum/techweb/specialized/autounlocking/smelter
-	materials = AddComponent(/datum/component/remote_materials, "orm", mapload)
+	materials = AddComponent(/datum/component/remote_materials, "orm", mapload, mat_container_flags=BREAKDOWN_FLAGS_ORM)
 
 /obj/machinery/mineral/ore_redemption/Destroy()
 	QDEL_NULL(stored_research)
@@ -61,7 +61,7 @@
 	if(O.refined_type == null)
 		return
 
-	var/material_amount = mat_container.get_item_material_amount(O)
+	var/material_amount = mat_container.get_item_material_amount(O, BREAKDOWN_FLAGS_ORM)
 
 	if(!material_amount)
 		qdel(O) //no materials, incinerate it
@@ -72,9 +72,10 @@
 	else
 		if(O?.refined_type)
 			stored_points += O.points * O.amount
-		var/mats = O.custom_materials & mat_container.materials
+		var/list/stack_mats = O.get_material_composition(BREAKDOWN_FLAGS_ORM)
+		var/mats = stack_mats & mat_container.materials
 		var/amount = O.amount
-		mat_container.insert_item(O, ore_multiplier) //insert it
+		mat_container.insert_item(O, ore_multiplier, breakdown_flags=BREAKDOWN_FLAGS_ORM) //insert it
 		materials.silo_log(src, "smelted", amount, "someone", mats)
 		qdel(O)
 
