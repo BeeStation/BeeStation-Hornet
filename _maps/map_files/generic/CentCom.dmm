@@ -2894,6 +2894,10 @@
 /area/abductor_ship)
 "lE" = (
 /obj/structure/table/optable/abductor,
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "lF" = (
