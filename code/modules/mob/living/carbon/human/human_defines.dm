@@ -9,7 +9,6 @@
 	/// build_worn_icon is reponsible for building this, as each bodypart may be emissive and clothes
 	/// or other bodyparts may block the emissive elements of it.
 	blocks_emissive = FALSE
-	can_be_shoved_into = TRUE
 
 	///Hair color
 	var/hair_color = "000"
