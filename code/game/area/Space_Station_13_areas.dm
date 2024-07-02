@@ -172,7 +172,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_job_reverse = TRUE
 	lighting_colour_tube = "#ffe5cb"
 	lighting_colour_bulb = "#ffdbb4"
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
 	lights_always_start_on = TRUE
 	color_correction = /datum/client_colour/area_color/cold_ish
 
@@ -743,7 +743,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#fff4d6"
 	lighting_colour_bulb = "#ffebc1"
 	sound_environment = SOUND_AREA_WOODFLOOR
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
 	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/crew_quarters/bar/mood_check(mob/living/carbon/subject)
@@ -802,7 +802,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
 	lighting_brightness_tube = 8
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
 	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/library/lounge
@@ -823,7 +823,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	clockwork_warp_allowed = FALSE
 	clockwork_warp_fail = "The consecration here prevents you from warping in."
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 
 /area/chapel/main
 	name = "Chapel"
@@ -1348,7 +1348,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#ffe3cc"
 	lighting_colour_bulb = "#ffdbb8"
 	sound_environment = SOUND_AREA_STANDARD_STATION
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	color_correction = /datum/client_colour/area_color/warm_yellow
 
 /area/quartermaster/get_turf_textures()
@@ -1376,16 +1376,18 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/cargo/lobby
 	name = "\improper Cargo Lobby"
 	icon_state = "cargo_lobby"
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	color_correction = /datum/client_colour/area_color/warm_yellow
 
 /area/quartermaster/qm
 	name = "Quartermaster's Office"
 	icon_state = "quart_office"
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
 
 /area/quartermaster/qm_bedroom
 	name = "Quartermaster's Bedroom"
 	icon_state = "quart_private"
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
 
 /area/quartermaster/miningdock
 	name = "Mining Dock"
@@ -1416,7 +1418,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_bonus = -1
 	mood_message = "<span class='warning'>It feels dirty in here!\n</span>"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
 
 /area/janitor/custodian
 	name = "Custodial Closet"
@@ -1427,7 +1429,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "hydro"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
 	color_correction = /datum/client_colour/area_color/cold_ish
 
 /area/hydroponics/get_turf_textures()
@@ -1554,7 +1556,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //Storage
 /area/storage
 	sound_environment = SOUND_AREA_STANDARD_STATION
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	lights_always_start_on = TRUE
 	color_correction = /datum/client_colour/area_color/warm_yellow
 
@@ -1603,7 +1605,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 	ambience_index = AMBIENCE_ENGI
 	sound_environment = SOUND_AREA_STANDARD_STATION
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
 
 /area/construction/mining/aux_base
 	name = "Auxiliary Base Construction"
