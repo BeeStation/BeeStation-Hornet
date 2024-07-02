@@ -8,7 +8,7 @@
 	 */
 	var/static/internal_storage_slot_aliases = ITEM_SLOT_DEX_STORAGE | ITEM_SLOT_BACK | ITEM_SLOT_BELT
 
-/mob/living/simple_animal/hostile/holoparasite/doUnEquip(obj/item/equipped_item, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
+/mob/living/simple_animal/hostile/holoparasite/doUnEquip(obj/item/equipped_item, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE, bypass_delay = TRUE)
 	if(!is_manifested() || !can_use_abilities)
 		return FALSE
 	. = ..()
