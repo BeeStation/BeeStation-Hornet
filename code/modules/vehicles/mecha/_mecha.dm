@@ -264,12 +264,13 @@
 	icon_state = "[base_icon_state]-open"
 	return ..()
 
-/obj/vehicle/sealed/mecha/CanPassThrough(atom/blocker, turf/target, blocker_opinion)
+/obj/vehicle/sealed/mecha/CanPassThrough(atom/blocker, movement_dir, blocker_opinion)
 	if(!phasing || get_charge() <= phasing_energy_drain || throwing)
 		return ..()
 	if(phase_state)
 		flick(phase_state, src)
-	var/area/destination_area = target.loc
+	var/turf/destination_turf = get_step(loc, movement_dir)
+	var/area/destination_area = destination_turf.loc
 	if(destination_area.teleport_restriction >= TELEPORT_ALLOW_NONE)
 		return FALSE
 	return TRUE
