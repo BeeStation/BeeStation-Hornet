@@ -181,14 +181,14 @@
 		//Announce victory or fuck up
 		var/success_type
 		switch(success_rate)
+			if(0.3 to 0.69)
+				success_type = "sufficient research"
+			if(0.7 to 0.89)
+				success_type = "admirable research"
 			if(0.9 to INFINITY)
 				success_type = "incredible discovery"
-			if(0.89 to 0.7)
-				success_type = "admirable research"
-			if(0.69 to 0.3)
-				success_type = "sufficient research"
 			else
-				success_type = prob(50) ? "scientific failure." : "who let the clown in?"
+				success_type = prob(1) ? "scientific failure." : "who let the clown in?"
 		if(!radio_solved_notice)
 			radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
 			at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of $[monetary_reward].",\
