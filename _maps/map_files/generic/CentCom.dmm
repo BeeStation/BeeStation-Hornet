@@ -2068,8 +2068,8 @@
 	dwidth = 1;
 	height = 5;
 	name = "recovery ship";
-	shuttle_id = "pod_6_away";
-	width = 3
+	width = 3;
+	id = "pod_6_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -3311,8 +3311,8 @@
 	dwidth = 1;
 	height = 5;
 	name = "recovery ship";
-	shuttle_id = "pod_4_away";
-	width = 3
+	width = 3;
+	id = "pod_4_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -3910,8 +3910,8 @@
 	dwidth = 1;
 	height = 5;
 	name = "recovery ship";
-	shuttle_id = "pod_8_away";
-	width = 3
+	width = 3;
+	id = "pod_8_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -4138,8 +4138,8 @@
 	dwidth = 1;
 	height = 5;
 	name = "recovery ship";
-	shuttle_id = "pod_2_away";
-	width = 3
+	width = 3;
+	id = "pod_2_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -6211,8 +6211,8 @@
 	dwidth = 2;
 	height = 7;
 	name = "recovery ship";
-	shuttle_id = "pod_away";
-	width = 5
+	width = 5;
+	id = "pod_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -9741,6 +9741,7 @@
 	},
 /obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
+/obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/evac)
 "KW" = (
@@ -9767,8 +9768,8 @@
 	dwidth = 1;
 	height = 5;
 	name = "recovery ship";
-	shuttle_id = "pod_5_away";
-	width = 3
+	width = 3;
+	id = "pod_5_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -9796,8 +9797,8 @@
 	dwidth = 1;
 	height = 5;
 	name = "recovery ship";
-	shuttle_id = "pod_3_away";
-	width = 3
+	width = 3;
+	id = "pod_3_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -9825,6 +9826,7 @@
 	},
 /obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
+/obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/evac)
 "Li" = (
@@ -9911,8 +9913,8 @@
 	dwidth = 1;
 	height = 5;
 	name = "recovery ship";
-	shuttle_id = "pod_7_away";
-	width = 3
+	width = 3;
+	id = "pod_7_away"
 	},
 /turf/open/space/basic,
 /area/space)
