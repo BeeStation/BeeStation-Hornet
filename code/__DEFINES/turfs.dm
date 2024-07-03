@@ -7,6 +7,8 @@
 
 #define IS_OPAQUE_TURF(turf) (turf.directional_opacity == ALL_CARDINALS)
 
+#define READ_BASETURF(T) (islist(T.baseturfs) ? T.baseturfs[length(T.baseturfs)] : T.baseturfs)
+
 //supposedly the fastest way to do this according to https://gist.github.com/Giacom/be635398926bb463b42a
 ///Returns a list of turf in a square
 #define RANGE_TURFS(RADIUS, CENTER) \

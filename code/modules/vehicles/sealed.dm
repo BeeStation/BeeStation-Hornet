@@ -1,5 +1,5 @@
 /obj/vehicle/sealed
-	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 | NO_DIRECT_ACCESS_FROM_CONTENTS_1
 	var/enter_delay = 2 SECONDS
 	var/mouse_pointer
 
@@ -33,7 +33,6 @@
 /obj/vehicle/sealed/after_add_occupant(mob/M)
 	. = ..()
 	ADD_TRAIT(M, TRAIT_HANDS_BLOCKED, VEHICLE_TRAIT)
-
 
 /obj/vehicle/sealed/after_remove_occupant(mob/M)
 	. = ..()

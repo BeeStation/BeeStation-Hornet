@@ -318,7 +318,8 @@
 				break
 	if(!rite_target)
 		return FALSE
-	ADD_TRAIT(rite_target, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
+	rite_target.AddComponent(/datum/component/anti_magic, MAGIC_TRAIT, _magic = TRUE, _holy = FALSE)
+	//glowing wings overlay
 	to_chat(rite_target, "<span class='userdanger'>You are grateful to have been converted to the dark by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 	playsound(rite_target, 'sound/weapons/fwoosh.ogg', 75, 0)
 	rite_target.visible_message("<span class='notice'>[rite_target] has been blessed by the rite of [name]!</span>")

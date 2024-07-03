@@ -365,7 +365,7 @@
 			old_comp = GetExactComponent(nt)
 		else
 			old_comp = GetComponent(dt)
-			
+
 		if(old_comp)
 			switch(dm)
 				if(COMPONENT_DUPE_UNIQUE)

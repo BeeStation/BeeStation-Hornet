@@ -110,6 +110,7 @@
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
 #include "icon_smoothing_unit_test.dm"
+#include "merge_type.dm"
 #include "metabolizing.dm"
 #include "missing_icons.dm"
 #include "ntnetwork_tests.dm"
