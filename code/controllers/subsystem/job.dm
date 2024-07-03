@@ -167,8 +167,8 @@ SUBSYSTEM_DEF(job)
 	var/datum/job/J = name_occupations[rank]
 	return J.departments
 
-/datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/player, rank, latejoin = FALSE)
-	var/datum/job/job = rank
+/datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/player, rank, latejoin = FALSE) //rank is the job's title
+	var/datum/job/job = GetJob(rank)
 	JobDebug("Running AR, Player: [player], Rank: [job.title], LJ: [latejoin]")
 	if(player?.mind && job.title)
 		if(!job || job.lock_flags)
@@ -316,7 +316,7 @@ SUBSYSTEM_DEF(job)
 			candidates = FindOccupationCandidates(job, level)
 			if(candidates.len)
 				var/mob/dead/new_player/candidate = pick(candidates)
-				if(AssignRole(candidate, job))
+				if(AssignRole(candidate, job.title))
 					ai_selected++
 					break
 	if(ai_selected)

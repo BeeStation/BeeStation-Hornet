@@ -452,8 +452,8 @@ SUBSYSTEM_DEF(ticker)
 			continue
 		// Keep a rolling tally of who'll get the cap's spare ID vault code.
 		// Check assigned_role's priority and curate the candidate list appropriately.
-		var/player_assigned_role = new_player_human.mind.assigned_role
-		var/spare_id_priority = SSjob.chain_of_command[player_assigned_role]
+		var/player_assigned_role_captaincy = new_player_human.mind.assigned_role
+		var/spare_id_priority = SSjob.chain_of_command[player_assigned_role_captaincy]
 		if(spare_id_priority)
 			if(spare_id_priority < highest_rank)
 				spare_id_candidates.Cut()
@@ -467,14 +467,14 @@ SUBSYSTEM_DEF(ticker)
 		picked_spare_id_candidate = pick(spare_id_candidates)
 
 	for(var/mob/dead/new_player/new_player_mob as anything in GLOB.new_player_list)
-		if(QDELETED(new_player_mob) || !isliving(new_player_mob.new_character)) //WHY IS new_player_mob.new_character NULL?????
+		if(QDELETED(new_player_mob) || !isliving(new_player_mob.new_character))
 			CHECK_TICK
 			continue
 		var/mob/living/new_player_living = new_player_mob.new_character
 		if(!new_player_living.mind)
 			CHECK_TICK
 			continue
-		var/datum/job/player_assigned_role = new_player_living.mind.assigned_role
+		var/datum/job/player_assigned_role = SSjob.GetJob(new_player_living.mind.assigned_role.title)
 		if(player_assigned_role.job_flags & JOB_EQUIP_RANK)
 			SSjob.EquipRank(new_player_living, player_assigned_role, new_player_mob.client, FALSE)
 		if(picked_spare_id_candidate == new_player_mob)
@@ -482,7 +482,8 @@ SUBSYSTEM_DEF(ticker)
 			var/acting_captain = !(player_assigned_role == JOB_NAME_CAPTAIN)
 			SSjob.promote_to_captain(new_player_living, acting_captain)
 			OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), "Due to extreme staffing shortages, newly promoted Acting Captain [new_player_living.name] on deck!"))
-		SSquirks.AssignQuirks(new_player_living, new_player_mob.client)
+		if((player_assigned_role.job_flags & JOB_ASSIGN_QUIRKS) && ishuman(new_player_living) && CONFIG_GET(flag/roundstart_traits))
+			SSquirks.AssignQuirks(new_player_living, new_player_mob.client)
 		CHECK_TICK
 
 	if(captainless)

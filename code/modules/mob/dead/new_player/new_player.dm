@@ -456,8 +456,6 @@
 
 	var/mob/living/spawning_mob = mind.assigned_role.get_spawn_mob(client, loc)
 
-	if(QDELETED(src) || !client)
-		return // Disconnected while checking for the appearance ban.
 	if(mind)
 		if(transfer_after)
 			mind.late_joiner = TRUE

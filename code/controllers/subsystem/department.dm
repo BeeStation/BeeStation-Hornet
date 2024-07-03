@@ -8,6 +8,8 @@ SUBSYSTEM_DEF(department)
 	var/list/department_id_list = list()
 	var/list/department_type_list = list()
 	var/list/department_by_key = list()
+	var/list/sorted_department_for_manifest = list()
+	var/list/sorted_department_for_pref = list()
 
 	var/list/checker
 
@@ -18,6 +20,9 @@ SUBSYSTEM_DEF(department)
 		department_by_key[each_dept.dept_id] = each_dept
 		department_id_list += each_dept.dept_id
 		//To do: remind for #10933 Just in case: Blame EvilDragonFiend.
+	// initialising static list inside of the procs
+	get_departments_by_pref_order()
+	get_departments_by_manifest_order()
 	return ..()
 
 /datum/controller/subsystem/department/proc/get_department_by_bitflag(bitflag)
@@ -54,6 +59,52 @@ SUBSYSTEM_DEF(department)
 		jobs_to_return |= dept.jobs
 
 	return jobs_to_return
+
+/// returns the department list as manifest order
+/datum/controller/subsystem/department/proc/get_departments_by_manifest_order()
+	if(!length(sorted_department_for_manifest))
+		var/list/copied_dept = department_type_list.Copy()
+		var/sanity_check = 1000 // this won't happen but just in case
+		while(length(copied_dept) && sanity_check--)
+			var/datum/department_group/current
+			for(var/datum/department_group/each_dept in copied_dept)
+				if(!each_dept.manifest_category_order || !each_dept.manifest_category_name)
+					copied_dept -= each_dept
+					continue
+				if(!current)
+					current = each_dept
+					continue
+				if(each_dept.manifest_category_order < current.manifest_category_order)
+					current = each_dept
+					continue
+			sorted_department_for_manifest += current
+			copied_dept -= current
+		if(!sanity_check)
+			stack_trace("the proc reached 0 sanity check - something's causing the infinite loop.")
+	return sorted_department_for_manifest
+
+/// returns the department list as preference order (used in latejoin)
+/datum/controller/subsystem/department/proc/get_departments_by_pref_order()
+	if(!length(sorted_department_for_pref))
+		var/list/copied_dept = department_type_list.Copy()
+		var/sanity_check = 1000
+		while(length(copied_dept) && sanity_check--)
+			var/datum/department_group/current
+			for(var/datum/department_group/each_dept in copied_dept)
+				if(!each_dept.pref_category_order || !each_dept.pref_category_name)
+					copied_dept -= each_dept
+					continue
+				if(!current)
+					current = each_dept
+					continue
+				if(each_dept.pref_category_order < current.pref_category_order)
+					current = each_dept
+					continue
+			sorted_department_for_pref += current
+			copied_dept -= current
+		if(!sanity_check)
+			stack_trace("the proc reached 0 sanity check - something's causing the infinite loop.")
+	return sorted_department_for_pref
 
 // --------------------------------------------
 // department group datums for this subsystem
