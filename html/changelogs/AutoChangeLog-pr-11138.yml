@@ -1,0 +1,4 @@
+author: spockye
+delete-after: true
+changes:
+  - bugfix: adds lights to the abductor pods
