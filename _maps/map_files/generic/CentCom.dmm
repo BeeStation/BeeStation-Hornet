@@ -738,20 +738,6 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
-"bY" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark,
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/neutral/warning{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/dark/corner{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/iron/dark/textured_large,
-/area/syndicate_mothership/control)
 "bZ" = (
 /obj/effect/turf_decal/sand,
 /turf/open/floor/plating/broken,
@@ -35355,7 +35341,7 @@ ku
 ku
 nD
 xO
-bY
+lR
 qp
 AL
 gP
