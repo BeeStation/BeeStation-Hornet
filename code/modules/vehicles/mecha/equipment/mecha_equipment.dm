@@ -32,7 +32,7 @@
 
 ///Updates chassis equipment list html menu
 /obj/item/mecha_parts/mecha_equipment/proc/update_chassis_page()
-	HOULD_CALL_PARENT(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
 	send_byjax(chassis.occupants,"exosuit.browser","eq_list", chassis.get_equipment_list())
 	send_byjax(chassis.occupants,"exosuit.browser","equipment_menu", chassis.get_equipment_menu(),"dropdowns")
 	return TRUE
@@ -58,15 +58,15 @@
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/try_attach_part(mob/user, obj/vehicle/sealed/mecha/mech)
-	if(!do_after(user, 15, M))
+	if(!do_after(user, 15, mech))
 		return FALSE
 	if(!can_attach(mech))
-		to_chat(user, "<span class='warning'>You are unable to attach [src] to [M]!</span>")
+		to_chat(user, "<span class='warning'>You are unable to attach [src] to [mech]!</span>")
 		return FALSE
 	if(!user.temporarilyRemoveItemFromInventory(src))
 		return FALSE
 	attach(mech)
-	user.visible_message("[user] attaches [src] to [mech].", "<span class='notice'>You attach [src] to [M].</span>")
+	user.visible_message("[user] attaches [src] to [mech].", "<span class='notice'>You attach [src] to [mech].</span>")
 	return TRUE
 
 ///fetches and returns a html formatted string with equippability status
