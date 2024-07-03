@@ -154,8 +154,7 @@
 	var/throw_mode = THROW_MODE_DISABLED
 
 	/// What job does this mob have
-	var/job = null//Living
-
+	var/datum/job = null
 	/// A list of factions that this mob is currently in, for hostile mob targetting, amongst other things
 	var/list/faction = list("neutral")
 

@@ -121,6 +121,8 @@
 	else
 		make_laws()
 
+	create_eye()
+
 	if(target_ai.mind)
 		target_ai.mind.transfer_to(src)
 		if(mind.special_role)
@@ -139,8 +141,6 @@
 	to_chat(src, "<span class='bold'>These laws may be changed by other players, or by you being the traitor.</span>")
 
 	job = JOB_NAME_AI
-
-	create_eye()
 
 	create_modularInterface()
 

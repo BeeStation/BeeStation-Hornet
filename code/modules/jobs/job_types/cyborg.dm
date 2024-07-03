@@ -8,6 +8,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "your laws and the AI"	//Nodrak
+	spawn_type = /mob/living/silicon/robot
 	selection_color = "#ddffdd"
 	minimal_player_age = 21
 	exp_requirements = 120
@@ -21,8 +22,7 @@
 /datum/job/cyborg/get_access() // no point of calling parent proc
 	return list()
 
-/datum/job/cyborg/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
-	. = ..()
+/datum/job/cyborg/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
 	if(!iscyborg(H))
 		return
 	H.gender = NEUTER

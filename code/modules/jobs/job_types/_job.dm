@@ -454,7 +454,8 @@
 	var/mob/living/spawn_instance
 	if(ispath(spawn_type, /mob/living/silicon/ai))
 		// This is unfortunately necessary because of snowflake AI init code. To be refactored.
-		spawn_instance = new spawn_type(get_turf(GLOB.start_landmarks_list), null, player_client.mob)
+		spawn_instance = new spawn_type(player_client.mob.loc, null, player_client.mob)
+		spawn_point.JoinPlayerHere(spawn_instance, TRUE)
 	else
 		spawn_instance = new spawn_type(player_client.mob.loc)
 		spawn_point.JoinPlayerHere(spawn_instance, TRUE)

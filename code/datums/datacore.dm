@@ -249,9 +249,10 @@
 	if(H.mind && (H.mind.assigned_role != H.mind.special_role))
 		var/assignment
 		if(H.mind.assigned_role)
-			assignment = H.mind.assigned_role
+			assignment = H.mind.assigned_role.title
 		else if(H.job)
-			assignment = H.job
+			var/datum/job/jobname = H.job
+			assignment = jobname.title
 		else
 			assignment = "Unassigned"
 

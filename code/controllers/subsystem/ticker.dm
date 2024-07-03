@@ -364,7 +364,7 @@ SUBSYSTEM_DEF(ticker)
 		var/role = player.mind?.assigned_role
 		if(!role)
 			continue
-		var/datum/job/job = SSjob.GetJob(role)
+		var/datum/job/job = role
 		if(!job)
 			continue
 		lightup_area_typecache |= job.areas_to_light_up(minimal_access)
@@ -467,14 +467,14 @@ SUBSYSTEM_DEF(ticker)
 		picked_spare_id_candidate = pick(spare_id_candidates)
 
 	for(var/mob/dead/new_player/new_player_mob as anything in GLOB.new_player_list)
-		if(QDELETED(new_player_mob) || !isliving(new_player_mob.new_character))
+		if(QDELETED(new_player_mob) || !isliving(new_player_mob.new_character)) //WHY IS new_player_mob.new_character NULL?????
 			CHECK_TICK
 			continue
 		var/mob/living/new_player_living = new_player_mob.new_character
 		if(!new_player_living.mind)
 			CHECK_TICK
 			continue
-		var/datum/job/player_assigned_role = SSjob.GetJob(new_player_living.mind.assigned_role)
+		var/datum/job/player_assigned_role = new_player_living.mind.assigned_role
 		if(player_assigned_role.job_flags & JOB_EQUIP_RANK)
 			SSjob.EquipRank(new_player_living, player_assigned_role, new_player_mob.client, FALSE)
 		if(picked_spare_id_candidate == new_player_mob)

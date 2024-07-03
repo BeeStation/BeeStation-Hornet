@@ -168,12 +168,12 @@ SUBSYSTEM_DEF(job)
 	return J.departments
 
 /datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/player, rank, latejoin = FALSE)
-	JobDebug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
-	if(player?.mind && rank)
-		var/datum/job/job = GetJob(rank)
+	var/datum/job/job = rank
+	JobDebug("Running AR, Player: [player], Rank: [job.title], LJ: [latejoin]")
+	if(player?.mind && job.title)
 		if(!job || job.lock_flags)
 			return FALSE
-		if(QDELETED(player) || is_banned_from(player.ckey, rank))
+		if(QDELETED(player) || is_banned_from(player.ckey, job.title))
 			return FALSE
 		if(!job.player_old_enough(player.client))
 			return FALSE
@@ -182,12 +182,12 @@ SUBSYSTEM_DEF(job)
 		var/position_limit = job.total_positions
 		if(!latejoin)
 			position_limit = job.spawn_positions
-		JobDebug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]")
-		player.mind.assigned_role = rank
+		JobDebug("Player: [player] is now Rank: [job.title], JCP:[job.current_positions], JPL:[position_limit]")
+		player.mind.assigned_role = job
 		unassigned -= player
 		job.current_positions++
 		return TRUE
-	JobDebug("AR has failed, Player: [player], Rank: [rank]")
+	JobDebug("AR has failed, Player: [player], Rank: [job.title]")
 	return FALSE
 
 /datum/controller/subsystem/job/proc/FreeRole(rank)
@@ -255,7 +255,7 @@ SUBSYSTEM_DEF(job)
 
 		if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
 			JobDebug("GRJ Random job given, Player: [player], Job: [job]")
-			if(AssignRole(player, job.title))
+			if(AssignRole(player, job))
 				return TRUE
 
 /datum/controller/subsystem/job/proc/ResetOccupations()
@@ -303,11 +303,11 @@ SUBSYSTEM_DEF(job)
 		if(!candidates.len)
 			continue
 		var/mob/dead/new_player/candidate = pick(candidates)
-		AssignRole(candidate, command_position)
+		AssignRole(candidate, job)
 
 /datum/controller/subsystem/job/proc/FillAIPosition()
 	var/ai_selected = 0
-	var/datum/job/job = GetJob("AI")
+	var/datum/job/job = GetJob(JOB_NAME_AI)
 	if(!job)
 		return 0
 	for(var/i = job.total_positions, i > 0, i--)
@@ -316,7 +316,7 @@ SUBSYSTEM_DEF(job)
 			candidates = FindOccupationCandidates(job, level)
 			if(candidates.len)
 				var/mob/dead/new_player/candidate = pick(candidates)
-				if(AssignRole(candidate, "AI"))
+				if(AssignRole(candidate, job))
 					ai_selected++
 					break
 	if(ai_selected)
@@ -439,7 +439,7 @@ SUBSYSTEM_DEF(job)
 					// If the job isn't filled
 					if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
 						JobDebug("DO pass, Player: [player], Level:[level], Job:[job.title]")
-						AssignRole(player, job.title)
+						AssignRole(player, job)
 						unassigned -= player
 						break
 
@@ -496,7 +496,7 @@ SUBSYSTEM_DEF(job)
 				if(QDELETED(player) || !allowed_to_be_a_loser)
 					RejectPlayer(player)
 				else
-					if(!AssignRole(player, overflow_role_datum.title))
+					if(!AssignRole(player, overflow_role_datum))
 						RejectPlayer(player)
 		if (BERANDOMJOB)
 			if(!GiveRandomJob(player))
@@ -551,7 +551,7 @@ SUBSYSTEM_DEF(job)
 
 
 	if(living_mob.mind)
-		living_mob.mind.assigned_role = job.title
+		living_mob.mind.assigned_role = job
 	to_chat(M, "<b>You are the [job.title].</b>")
 	if(job)
 		var/new_mob = job.equip(living_mob, null, null, joined_late , null, player_client)
