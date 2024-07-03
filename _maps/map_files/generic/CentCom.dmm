@@ -3677,7 +3677,7 @@
 /area/centcom/control)
 "ob" = (
 /obj/structure/flora/tree/palm{
-	pixel_x = 0
+	pixel_x = -1
 	},
 /obj/item/toy/plush/beeplushie{
 	pixel_y = 5;
@@ -4755,7 +4755,7 @@
 "sG" = (
 /obj/structure/flora/tree/palm{
 	icon_state = "palm2";
-	pixel_x = 0
+	pixel_x = 1
 	},
 /turf/open/floor/grass,
 /area/centcom/evac)
@@ -10015,7 +10015,7 @@
 /area/centcom/evac)
 "LF" = (
 /obj/structure/flora/tree/palm{
-	pixel_x = 0
+	pixel_x = -1
 	},
 /turf/open/floor/grass,
 /area/centcom/evac)
@@ -13584,7 +13584,7 @@
 "Yp" = (
 /obj/structure/flora/tree/palm{
 	icon_state = "palm2";
-	pixel_x = 0
+	pixel_x = 1
 	},
 /obj/machinery/light{
 	dir = 8
