@@ -1,6 +1,0 @@
-author: rkz, GoldenAlpharex
-delete-after: true
-changes:
-  - refactor: refactored undertile element to support layers without casting ambient
-      occlusion
-  - bugfix: no more audio runtime when walking on catwalk tiles
