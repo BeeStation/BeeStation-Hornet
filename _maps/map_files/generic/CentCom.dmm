@@ -4671,7 +4671,6 @@
 "sg" = (
 /obj/structure/railing/corner,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/bed/dogbed,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
@@ -13124,6 +13123,12 @@
 	},
 /obj/machinery/light{
 	dir = 1
+	},
+/mob/living/simple_animal/pet/dog/corgi/capybara{
+	name = "Tincho"
+	},
+/obj/structure/bed/dogbed{
+	name = "Tincho's bed"
 	},
 /turf/open/floor/carpet/red,
 /area/centcom/evac)
