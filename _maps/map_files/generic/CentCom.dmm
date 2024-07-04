@@ -238,6 +238,20 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/evac)
+"aN" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/fourcorners,
+/obj/structure/sign/picture_frame{
+	pixel_x = 32
+	},
+/turf/open/floor/iron/dark/textured_large,
+/area/centcom/evac)
 "aP" = (
 /obj/machinery/vending/hydronutrients,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
@@ -3638,6 +3652,16 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/supply)
+"nJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/catwalk_floor/iron_smooth,
+/area/centcom/evac)
 "nK" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 1
@@ -3964,10 +3988,10 @@
 "pw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
+	dir = 9
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/centcom/evac)
@@ -4905,6 +4929,15 @@
 "sU" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/centcom/evac)
+"sV" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/arrows{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -7934,30 +7967,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/wizard_station)
-"DT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/turf/open/floor/catwalk_floor/iron_smooth,
-/area/centcom/evac)
-"DU" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/structure/sign/picture_frame{
-	pixel_x = 32
-	},
-/turf/open/floor/iron/dark/textured_large,
-/area/centcom/evac)
 "DV" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
@@ -13508,15 +13517,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/tdome/arena)
-"XO" = (
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/arrows{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/centcom/evac)
 "XP" = (
 /obj/structure/table/wood,
 /obj/structure/sign/plaques/golden{
@@ -14083,8 +14083,7 @@
 /turf/open/floor/iron,
 /area/centcom/supplypod/loading/one)
 "ZR" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/components/unary/tank/air,
 /turf/open/floor/iron/smooth_large,
 /area/centcom/evac)
 "ZS" = (
@@ -40865,7 +40864,7 @@ JW
 WI
 TG
 Id
-XO
+sV
 ho
 LJ
 KI
@@ -41116,7 +41115,7 @@ LQ
 cc
 Or
 dj
-DU
+aN
 LI
 PY
 cH
@@ -42891,7 +42890,7 @@ Ls
 KI
 KI
 CU
-pw
+nJ
 ar
 KI
 KI
@@ -43148,7 +43147,7 @@ KI
 de
 LG
 EA
-DT
+pw
 cU
 oi
 LO
