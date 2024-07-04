@@ -747,7 +747,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	desc = "It's a capybara."
 	icon_state = "capybara"
 	icon_living = "capybara"
-	icon_dead = "capybara"
+	icon_dead = "capybara_dead"
 	held_state = null
 	can_be_held = FALSE
 	butcher_results = list()
