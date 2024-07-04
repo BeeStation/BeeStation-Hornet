@@ -944,9 +944,6 @@
 "amP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/storage/backpack/duffelbag/sec/surgery{
-	pixel_y = 5
-	},
 /obj/item/clothing/mask/balaclava,
 /obj/item/reagent_containers/spray/cleaner{
 	pixel_x = 5
@@ -39917,16 +39914,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/closet/crate,
 /obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 5;
-	pixel_y = -1
-	},
-/obj/item/reagent_containers/spray/cleaner{
 	pixel_x = -3;
 	pixel_y = 2
 	},
 /obj/item/clothing/mask/surgical,
 /obj/item/clothing/gloves/color/latex,
-/obj/item/defibrillator/loaded,
 /obj/item/reagent_containers/blood/OPlus,
 /turf/open/floor/iron/techmaint,
 /area/security/main)
@@ -40818,9 +40810,6 @@
 /obj/item/storage/box/bodybags,
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/mask/surgical,
-/obj/item/storage/backpack/duffelbag/sec/surgery{
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/dark,
@@ -65433,10 +65422,6 @@
 	pixel_y = 2
 	},
 /obj/item/storage/firstaid/regular,
-/obj/item/reagent_containers/glass/bottle/charcoal{
-	pixel_x = 6
-	},
-/obj/item/reagent_containers/glass/bottle/epinephrine,
 /obj/item/reagent_containers/syringe,
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera{
@@ -92089,9 +92074,6 @@
 /obj/item/reagent_containers/syringe{
 	name = "steel point"
 	},
-/obj/item/reagent_containers/glass/bottle/charcoal,
-/obj/item/reagent_containers/glass/bottle/epinephrine,
-/obj/item/storage/backpack/duffelbag/sec/surgery,
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{

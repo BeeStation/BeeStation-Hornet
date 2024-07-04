@@ -11083,8 +11083,6 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
 	},
-/obj/item/storage/backpack/duffelbag/sec/surgery,
-/obj/item/blood_filter,
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "dqj" = (
@@ -44144,7 +44142,6 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/wrench/medical,
-/obj/item/reagent_containers/glass/bottle/morphine,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /turf/open/floor/iron/dark,
@@ -69017,7 +69014,7 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
-/obj/item/defibrillator/loaded,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/iron/dark,
 /area/security/brig/medbay)
 "whZ" = (

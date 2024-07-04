@@ -19724,7 +19724,6 @@
 	name = "Prison Visitation"
 	})
 "gee" = (
-/obj/item/defibrillator/loaded,
 /obj/structure/closet/crate/freezer/blood,
 /obj/item/rollerbed,
 /obj/item/rollerbed{
@@ -48862,10 +48861,6 @@
 /area/science/xenobiology)
 "pmV" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/brute{
-	pixel_x = -5;
-	pixel_y = 10
-	},
 /obj/item/storage/toolbox/mechanical,
 /obj/machinery/light/very_dim/directional/west,
 /turf/open/floor/iron/dark,
@@ -60222,15 +60217,6 @@
 	pixel_x = 5;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/glass/bottle/morphine{
-	pixel_x = -1;
-	pixel_y = 11
-	},
-/obj/item/reagent_containers/glass/bottle/morphine{
-	pixel_x = -7;
-	pixel_y = 12
-	},
-/obj/item/storage/backpack/duffelbag/sec/surgery,
 /turf/open/floor/iron,
 /area/security/brig/medbay)
 "sRq" = (
@@ -66446,10 +66432,6 @@
 	pixel_y = -4
 	},
 /obj/structure/table/glass,
-/obj/item/storage/backpack/duffelbag/med/surgery{
-	pixel_y = 5
-	},
-/obj/item/blood_filter,
 /turf/open/floor/iron/dark,
 /area/security/brig/medbay)
 "uJI" = (
