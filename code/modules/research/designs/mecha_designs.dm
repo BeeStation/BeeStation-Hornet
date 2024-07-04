@@ -146,7 +146,7 @@
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
 	category = list("Weapons")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	departmental_flags = DEPARTMENTAL_FLAG_ARMORY
 
 
 /datum/design/mech_carbine
@@ -158,7 +158,7 @@
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
 	category = list("Weapons")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	departmental_flags = DEPARTMENTAL_FLAG_ARMORY
 
 /datum/design/mech_ion
 	name = "Exosuit Weapon (MKIV Ion Heavy Cannon)"
@@ -169,7 +169,7 @@
 	materials = list(/datum/material/iron=20000,/datum/material/silver=6000,/datum/material/uranium=2000)
 	construction_time = 100
 	category = list("Weapons")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	departmental_flags = DEPARTMENTAL_FLAG_ARMORY
 
 /datum/design/mech_tesla
 	name = "Exosuit Weapon (MKI Tesla Cannon)"
@@ -180,7 +180,7 @@
 	materials = list(/datum/material/iron=20000,/datum/material/silver=8000)
 	construction_time = 100
 	category = list("Weapons")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	departmental_flags = DEPARTMENTAL_FLAG_ARMORY
 
 /datum/design/mech_laser
 	name = "Exosuit Weapon (CH-PS \"Immolator\" Laser)"
@@ -191,7 +191,7 @@
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
 	category = list("Weapons")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	departmental_flags = DEPARTMENTAL_FLAG_ARMORY
 
 /datum/design/mech_laser_heavy
 	name = "Exosuit Weapon (CH-LC \"Solaris\" Laser Cannon)"
@@ -202,7 +202,7 @@
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
 	category = list("Weapons")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	departmental_flags = DEPARTMENTAL_FLAG_ARMORY
 
 /datum/design/mech_disabler
 	name = "Exosuit Weapon (CH-DS \"Peacemaker\" Disabler)"
@@ -233,7 +233,7 @@
 	materials = list(/datum/material/iron=20000,/datum/material/gold=10000,/datum/material/uranium=10000)
 	construction_time = 100
 	category = list("Weapons")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	departmental_flags = DEPARTMENTAL_FLAG_ARMORY
 
 /datum/design/mech_wormhole_gen
 	name = "Exosuit Module (Localized Wormhole Generator)"
@@ -364,7 +364,7 @@
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
 	category = list("Weapons")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	departmental_flags = DEPARTMENTAL_FLAG_ARMORY
 
 /datum/design/mech_sleeper
 	name = "Exosuit Medical (Mounted Sleeper)"

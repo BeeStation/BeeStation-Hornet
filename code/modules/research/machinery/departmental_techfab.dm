@@ -45,3 +45,10 @@
 	department_tag = "Security"
 	circuit = /obj/item/circuitboard/machine/techfab/department/security
 	stripe_color = "#DE3A3A"
+
+/obj/machinery/rnd/production/techfab/department/armory
+	name = "department techfab (Armory)"
+	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_ARMORY
+	department_tag = "Security"
+	circuit = /obj/item/circuitboard/machine/techfab/department/armory
+	stripe_color = "#922525"

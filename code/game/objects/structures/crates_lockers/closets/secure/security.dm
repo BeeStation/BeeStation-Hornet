@@ -159,7 +159,7 @@
 	new /obj/item/storage/lockbox/medal/sec(src)
 	new /obj/item/storage/lockbox/loyalty(src)
 	new /obj/item/flashlight/seclite(src)
-	new /obj/item/circuitboard/machine/techfab/department/security(src)
+	new /obj/item/circuitboard/machine/techfab/department/armory(src)
 
 	new /obj/item/paper_reader(src)
 
@@ -211,6 +211,7 @@
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/gun/ballistic/shotgun/automatic/combat/compact(src)
 	new /obj/item/storage/box/deputy(src)
+	new /obj/item/circuitboard/machine/techfab/department/security(src)
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"

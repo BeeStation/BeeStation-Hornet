@@ -73724,10 +73724,10 @@
 /area/science/xenobiology)
 "rsa" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/flasher/portable,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/machinery/rnd/production/techfab/department/armory,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "rsd" = (
