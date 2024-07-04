@@ -329,6 +329,14 @@
 	build_path = /obj/item/circuitboard/machine/cyborgrecharger
 	category = list("Research Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+	
+/datum/design/board/dronerecharger
+	name = "Machine Design (Drone Recharger Board)"
+	desc = "The circuit board for a Drone Recharger."
+	id = "dronerecharger"
+	build_path = /obj/item/circuitboard/machine/dronerecharger
+	category = list("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/mech_recharger
 	name = "Machine Design (Mechbay Recharger Board)"

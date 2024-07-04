@@ -290,6 +290,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
+"bj" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/vending/coffee,
+/turf/open/floor/iron,
+/area/syndicate_mothership/control)
 "bk" = (
 /obj/machinery/light{
 	dir = 4
@@ -939,8 +944,9 @@
 /turf/open/floor/iron,
 /area/centcom/supplypod/loading/two)
 "dM" = (
-/obj/machinery/vending/coffee,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/recharge_station/drone,
+/mob/living/simple_animal/pet/drone/syndie,
 /turf/open/floor/iron,
 /area/syndicate_mothership/control)
 "dN" = (
@@ -30496,7 +30502,7 @@ kt
 kt
 kt
 nz
-Sf
+bj
 ba
 gv
 WZ

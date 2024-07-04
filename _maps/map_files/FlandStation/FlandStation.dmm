@@ -6320,8 +6320,8 @@
 /turf/closed/wall,
 /area/maintenance/aft)
 "bzK" = (
-/obj/structure/curtain,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/curtain,
 /turf/open/floor/iron/grid/steel,
 /area/science/robotics/lab)
 "bzV" = (
@@ -16848,6 +16848,10 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 15
+	},
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
 "eso" = (
@@ -26260,10 +26264,7 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "gDL" = (
 /obj/machinery/light,
-/obj/structure/bodycontainer/morgue{
-	dir = 1
-	},
-/obj/effect/turf_decal/bot,
+/obj/machinery/aug_manipulator,
 /turf/open/floor/iron/white/corner{
 	dir = 4
 	},
@@ -39092,8 +39093,8 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
 "jQO" = (
-/obj/structure/curtain,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/curtain,
 /turf/open/floor/iron/grid/steel,
 /area/science/robotics/lab)
 "jQP" = (
@@ -45457,8 +45458,12 @@
 /turf/open/floor/iron/grid/steel,
 /area/engine/atmos)
 "lqQ" = (
-/obj/machinery/aug_manipulator,
 /obj/effect/turf_decal/bot,
+/obj/machinery/recharge_station/drone,
+/mob/living/simple_animal/pet/drone{
+	name = "Helix Sage";
+	desc = "It's a helpful little drone."
+	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "lrd" = (
@@ -52785,9 +52790,8 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "noj" = (
-/obj/structure/sink{
-	pixel_y = 30
-	},
+/obj/structure/bodycontainer/morgue,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
@@ -85038,6 +85042,10 @@
 	},
 /turf/open/floor/wood,
 /area/lawoffice)
+"vvO" = (
+/obj/effect/landmark/start/roboticist,
+/turf/open/floor/iron/dark,
+/area/science/robotics/mechbay)
 "vvX" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Robotics Maintenance";
@@ -95169,7 +95177,6 @@
 /turf/open/floor/carpet/red,
 /area/library)
 "xIK" = (
-/obj/effect/landmark/start/roboticist,
 /obj/machinery/holopad{
 	pixel_y = -16
 	},
@@ -129955,7 +129962,7 @@ xIW
 bgZ
 xje
 uNj
-uNj
+vvO
 fOp
 sJa
 shK

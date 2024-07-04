@@ -107,3 +107,39 @@
 		if(R?.module)
 			var/coeff = recharge_speed * 0.025
 			R.module.respawn_consumable(R, coeff)
+
+/obj/machinery/recharge_station/drone
+	name = "drone recharging station"
+	desc = "This device recharges drones."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "dronecharger0"
+	density = FALSE
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 5
+	active_power_usage = 1000
+	req_access = list(ACCESS_ROBOTICS)
+	state_open = TRUE
+	circuit = /obj/item/circuitboard/machine/dronerecharger
+	occupant_typecache = list(/mob/living/simple_animal/pet/drone, /mob/living/simple_animal/drone)
+
+/obj/machinery/recharge_station/drone/attackby(obj/item/P, mob/user, params)
+	if(state_open)
+		if(default_deconstruction_screwdriver(user, "dronedecon2", "dronecharger0", P))
+			return
+
+	if(default_pry_open(P))
+		return
+
+	if(default_deconstruction_crowbar(P))
+		return
+	return ..()
+	
+/obj/machinery/recharge_station/drone/update_icon()
+	if(is_operational)
+		if(state_open)
+			icon_state = "dronecharger0"
+		else
+			icon_state = (occupant ? "dronecharger1" : "dronecharger2")
+	else
+		icon_state = (state_open ? "dronecharger-u0" : "dronecharger-u1")
+			
