@@ -946,7 +946,9 @@
 "dM" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/recharge_station/drone,
-/mob/living/simple_animal/pet/drone/syndie,
+/mob/living/simple_animal/pet/drone/syndie{
+	name = "Gigatron"
+	},
 /turf/open/floor/iron,
 /area/syndicate_mothership/control)
 "dN" = (

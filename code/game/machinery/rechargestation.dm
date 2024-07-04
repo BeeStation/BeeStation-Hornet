@@ -142,4 +142,3 @@
 			icon_state = (occupant ? "dronecharger1" : "dronecharger2")
 	else
 		icon_state = (state_open ? "dronecharger-u0" : "dronecharger-u1")
-			

@@ -14,6 +14,7 @@
 	emote_hear = list("beeps!", "BEEPS!", "dwoops.", "beep, beep.", "chirps")
 	emote_see = list("makes a series of clicks and beeps.")
 	faction = list("neutral")
+	
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 10
@@ -22,13 +23,17 @@
 	chat_color = "#ECDA88"
 	mobchatspan = "drone"
 	gold_core_spawnable = FRIENDLY_SPAWN
+	gender = NEUTER
+	density = FALSE
+	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
+	unsuitable_atmos_damage = 0
 	
 	icon = 'icons/mob/drone.dmi'
 	icon_state = "drone_maint_grey"
 	icon_living = "drone_maint_grey"
 	icon_dead = "drone_maint_dead"
 	
-	footstep_type = FOOTSTEP_OBJ_ROBOT
+	footstep_type = FOOTSTEP_MOB_CLAW
 	
 /mob/living/simple_animal/pet/drone/syndie
 	name = "Syndrone"
@@ -37,9 +42,9 @@
 	speak = list("Kill, kill!", "I want secret NT research!", "I want it now!", "NUKE! NUKE! NUKE!")
 	speak_emote = list("clicks")
 	speak_language = /datum/language_holder/drone
-	emote_hear = list("beeps!", "BEEPS!", "dwoops.", "beep, beep.", "chirps.")
+	emote_hear = list("beeps angrily!", "BEEPS ANGRIER!", "dwoops.", "BEEP, BEEP.")
 	emote_see = list("makes a series of clicks and beeps.")
-	list("Syndicate")
+	faction = list("Syndicate")
 	
 	icon = 'icons/mob/drone.dmi'
 	icon_state = "drone_synd"
