@@ -11,7 +11,6 @@ GLOBAL_LIST_INIT(vox_sounds, list(
 "soundairhorn" = 'sound/vox_fem/soundairhorn.ogg',
 "soundalarm1" = 'sound/vox_fem/soundalarm1.ogg',
 "soundalarm2" = 'sound/vox_fem/soundalarm2.ogg',
-"soundalarm3" = 'sound/vox_fem/soundalarm3.ogg',
 "soundannounce" = 'sound/vox_fem/soundannounce.ogg',
 "soundcensor" = 'sound/vox_fem/soundcensor.ogg',
 "soundhonk" = 'sound/vox_fem/soundhonk.ogg',
