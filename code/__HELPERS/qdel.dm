@@ -1,4 +1,6 @@
-#define QDEL_IN(item, time) _qdel_in(item, time) // this is remained as a macro, so that we can revert the new qdel, or port stuff easily.
+/// * If time <= 0, use the old qdel method(addtimer thing). That's because global vars controller can not be initialized yet, but 0 timer is used in those cases.
+/// * If time > 0, use the new qdel method(calling proc). This put the qdel target stuff into a list with time key index, so that we do qdel things quickly from SStimer.
+#define QDEL_IN(item, time) (time > 0 ? _qdel_in(item, time) : addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), item), 0, TIMER_STOPPABLE))
 #define QDEL_TIMER_CANCEL(item, time_key) qdel_timer_cancel(item, time_key)
 #define QDEL_IN_CLIENT_TIME(item, time) addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), item), time, TIMER_STOPPABLE | TIMER_CLIENT_TIME)
 #define QDEL_NULL(item) qdel(item); item = null
@@ -27,9 +29,6 @@ GLOBAL_LIST_EMPTY(qdel_timers) /// a list that stores a schedule to qdel, taking
 /// * return value: "timer_key" is used to track a qdel-scheduled item is which timer group in.
 /// If you don't have this key when you do `qdel_timer_cancel()`, cancelling qdel schedule will be slow.
 /proc/_qdel_in(datum/D, time, force=FALSE, ...) // NOTE: do not call this proc directly. Use "QDEL_IN()" macro.
-	// Note: even if 'time=0', it should be scheduled for a next tick
-	if(time < 0)
-		time = 0
 	var/timer_key = "[time + world.time]" // TODO: when Lummox makes numeric key for a list, change it.
 	if(!GLOB.qdel_timers[timer_key])
 		GLOB.qdel_timers[timer_key] = list()
