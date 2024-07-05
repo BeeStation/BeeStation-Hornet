@@ -20,6 +20,7 @@
 	uses_mutcolor = TRUE
 	limb_id = SPECIES_LIZARD
 
+/**
 /obj/item/bodypart/l_leg/lizard
 	icon = 'icons/mob/species/lizard/bodyparts.dmi'
 	uses_mutcolor = TRUE
@@ -29,6 +30,7 @@
 	icon = 'icons/mob/species/lizard/bodyparts.dmi'
 	uses_mutcolor = TRUE
 	limb_id = SPECIES_LIZARD
+ */
 
 /obj/item/bodypart/l_leg/digitigrade
 	icon = 'icons/mob/species/lizard/bodyparts.dmi'

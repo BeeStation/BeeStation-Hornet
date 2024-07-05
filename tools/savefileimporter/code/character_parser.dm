@@ -60,7 +60,6 @@ var/global/list/custom_name_types = list(
 		READ_FILE_EXVAR(S["feature_lizard_frills"], features["frills"])
 		READ_FILE_EXVAR(S["feature_lizard_spines"], features["spines"])
 		READ_FILE_EXVAR(S["feature_lizard_body_markings"], features["body_markings"])
-		READ_FILE_EXVAR(S["feature_lizard_legs"], features["legs"])
 		READ_FILE_EXVAR(S["feature_moth_wings"], features["moth_wings"])
 		READ_FILE_EXVAR(S["feature_ipc_screen"], features["ipc_screen"])
 		READ_FILE_EXVAR(S["feature_ipc_antenna"], features["ipc_antenna"])
