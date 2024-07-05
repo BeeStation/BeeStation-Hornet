@@ -1,5 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - rscadd: Added the ability for admins to remove a language from a mob's blocked
-      language's list innately.
