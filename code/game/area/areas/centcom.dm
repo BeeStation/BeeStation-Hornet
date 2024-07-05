@@ -12,7 +12,7 @@
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
-	area_flags = VALID_TERRITORY | UNIQUE_AREA
+	area_flags = VALID_TERRITORY | UNIQUE_AREA | AREA_DEADCHAT_ALLOWED
 	flags_1 = NONE
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
 
@@ -84,6 +84,7 @@
 /area/tdome
 	name = "Thunderdome"
 	icon_state = "yellow"
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | AREA_DEADCHAT_ALLOWED
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
@@ -126,7 +127,7 @@
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
-	area_flags = VALID_TERRITORY | UNIQUE_AREA
+	area_flags = VALID_TERRITORY | UNIQUE_AREA | AREA_DEADCHAT_ALLOWED
 	flags_1 = NONE
 	network_root_id = "MAGIC_NET"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
@@ -172,6 +173,7 @@
 /area/ctf
 	name = "Capture the Flag"
 	icon_state = "yellow"
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | AREA_DEADCHAT_ALLOWED
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	has_gravity = STANDARD_GRAVITY

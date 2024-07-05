@@ -109,6 +109,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define XENOBIOLOGY_COMPATIBLE		(1<<9)
 /// Are hidden stashes allowed to spawn here?
 #define HIDDEN_STASH_LOCATION		(1<<10)
+/// People that are in an area with this flag will hear dead chat from ghosts. Kinda CentCom OOC feature.
+#define AREA_DEADCHAT_ALLOWED		(1<<11)
 
 /*
 	These defines are used specifically with the atom/pass_flags bitmask

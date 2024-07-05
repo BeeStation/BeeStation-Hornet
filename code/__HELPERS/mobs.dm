@@ -412,6 +412,9 @@ GLOBAL_LIST_EMPTY(species_list)
 			override = TRUE
 		if(SSticker.current_state == GAME_STATE_FINISHED)
 			override = TRUE
+		var/area/mob_area = get_area(M)
+		if(mob_area.area_flags & AREA_DEADCHAT_ALLOWED)
+			override = TRUE
 		if(isnewplayer(M) && !override)
 			continue
 		if(M.stat != DEAD && !override)
