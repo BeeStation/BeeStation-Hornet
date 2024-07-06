@@ -3,6 +3,7 @@
 	desc = "An adhesive graphic."
 	icon = 'icons/obj/sticker.dmi'
 	icon_state = "happy"
+	flags_1 = IS_ONTOP_1
 	w_class = WEIGHT_CLASS_TINY
 	appearance_flags = TILE_BOUND | PIXEL_SCALE | KEEP_APART
 	///Our current state for being stuck or unstuck
@@ -86,12 +87,6 @@
 			vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_DIR
 		else
 			return
-
-/obj/item/sticker/Click(location, control, params)
-	. = ..()
-	//This is a fix for some changes you guys made to attack_hand()
-	if(get_dist(usr, src) <= 1)
-		attack_hand(usr)
 
 /obj/item/sticker/proc/build_item_appearance()
 	return setup_appearance(mutable_appearance(src.icon, src.icon_state, plane = src.plane))
