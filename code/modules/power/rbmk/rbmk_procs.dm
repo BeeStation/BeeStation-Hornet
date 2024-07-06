@@ -14,6 +14,7 @@
 			if(!length(fuel_rods))
 				activate(user) //That was the first fuel rod. Let's heat it up.
 			fuel_rods += W
+			playsound(src, pick('sound/effects/rbmk/switch1.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
 			W.forceMove(src)
 			update_appearance()
 		return TRUE
@@ -370,6 +371,7 @@ Arguments:
 	if(temperature >= RBMK_TEMPERATURE_CRITICAL)
 		var/temp_damage = (temperature/100 * critical_threshold_proximity_archived/40) //40 seconds to meltdown from full integrity, worst-case. Bit less than blowout since it's harder to spike heat that much.
 		critical_threshold_proximity += temp_damage
+		check_alert()
 		if(critical_threshold_proximity >= melting_point)
 			countdown() //Oops! All meltdown
 			return
@@ -381,11 +383,12 @@ Arguments:
 		// Warning: Pressure reaching critical thresholds!
 		var/pressure_damage = (pressure/100 * critical_threshold_proximity_archived/45)	//You get 45 seconds (if you had full integrity), worst-case. But hey, at least it can't be instantly nuked with a pipe-fire.. though it's still very difficult to save.
 		critical_threshold_proximity += pressure_damage
+		check_alert()
 		if(critical_threshold_proximity >= melting_point)
 			countdown()
 			return
 /**
- * Called by process_atmos() in hfr_main_processes.dm
+ * Called by process_atmos() in rbmk_main_processes.dm
  * Called after checking the damage of the machine, calls alarm() and countdown()
  * Broadcast messages into engi and common radio
  */
@@ -505,7 +508,6 @@ Arguments:
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/blowout()
 	explosion(get_turf(src), GLOB.MAX_EX_DEVESTATION_RANGE, GLOB.MAX_EX_HEAVY_RANGE, GLOB.MAX_EX_LIGHT_RANGE, GLOB.MAX_EX_FLASH_RANGE)
-	meltdown() //Double kill.
 	var/turf/T = get_turf(src)
 	var/rbmkzlevel = T.get_virtual_z_level()
 	for(var/mob/M in GLOB.player_list)
@@ -518,6 +520,7 @@ Arguments:
 			var/obj/modules/power/rbmk/nuclear_sludge_spawner/WS = X
 			if(src.get_virtual_z_level() == WS.get_virtual_z_level()) //Begin the SLUDGING
 				WS.fire()
+	meltdown() //Double kill.
 
 //Plutonium sludge
 
