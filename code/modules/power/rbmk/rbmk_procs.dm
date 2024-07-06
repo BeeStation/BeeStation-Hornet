@@ -458,9 +458,9 @@ Arguments:
 		radio.talk_into(src, speaking, common_channel)
 		sleep(1 SECONDS)
 
-	if(pressure < RBMK_PRESSURE_CRITICAL)
+	if(pressure > RBMK_PRESSURE_CRITICAL)
 		blowout()
-	else if(temperature < RBMK_TEMPERATURE_CRITICAL)
+	else if(temperature > RBMK_TEMPERATURE_CRITICAL)
 		meltdown()
 	else
 		meltdown() //This is caused if neither pressure nor temperature was in critical. We still want to explode
