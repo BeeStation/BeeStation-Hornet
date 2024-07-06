@@ -10,6 +10,8 @@
 	throw_range = 3
 	///What type of artifact
 	var/datum/xenoartifact_material/artifact_type
+	///Cover some special interactions we fuck up
+	var/transfer_prints = TRUE
 
 /obj/item/xenoartifact/Initialize(mapload, _artifact_type)
 	. = ..()

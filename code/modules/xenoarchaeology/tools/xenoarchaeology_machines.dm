@@ -209,7 +209,7 @@
 	. += "<span class='notice'>Alt-Click to calibrate inserted artifacts.\nArtifacts can be calibrated by labeling them 100% correctly, excluding malfunctions.</span>"
 
 /obj/machinery/xenoarchaeology_machine/calibrator/attack_hand(mob/living/user)
-	if(length(contents))
+	if(length(held_contents))
 		return ..()
 	else
 		var/turf/T = get_turf(src)

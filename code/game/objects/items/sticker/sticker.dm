@@ -87,6 +87,12 @@
 		else
 			return
 
+/obj/item/sticker/Click(location, control, params)
+	. = ..()
+	//This is a fix for some changes you guys made to attack_hand()
+	if(get_dist(usr, src) <= 1)
+		attack_hand(usr)
+
 /obj/item/sticker/proc/build_item_appearance()
 	return setup_appearance(mutable_appearance(src.icon, src.icon_state, plane = src.plane))
 
