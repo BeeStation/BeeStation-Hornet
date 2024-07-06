@@ -297,7 +297,7 @@ Arguments:
  */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/get_status()
 	var/integrity = get_integrity_percent()
-	if(integrity < REACTOR_MELTING_PERCENT)
+	if(integrity < REACTOR_DANGER_PERCENT)
 		return REACTOR_MELTING
 
 /**
@@ -391,7 +391,7 @@ Arguments:
  * Broadcast messages into engi and common radio
  */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/check_alert()
-	if(critical_threshold_proximity > warning_point)
+	if(critical_threshold_proximity < warning_point)
 		return
 	if((REALTIMEOFDAY - lastwarning) / 10 >= WARNING_TIME_DELAY)
 		alarm()

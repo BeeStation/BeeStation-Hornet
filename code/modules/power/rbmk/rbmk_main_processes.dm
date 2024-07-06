@@ -70,10 +70,9 @@
 				coolant_output.adjust_moles(GAS_TRITIUM, total_fuel_moles/20) //Shove out tritium into the air when it's fuelled. You need to filter this off, or you're gonna have a bad time.
 			var/turf/T = get_turf(src)
 			var/obj/structure/cable/C = T.get_cable_node()
-			if (!C)
-				return
-			C.get_connections()
-			C.add_avail(last_power_produced)
+			if(C)
+				C.get_connections()
+				C.add_avail(last_power_produced)
 
 		var/total_control_moles = moderator_input.get_moles(GAS_N2) + (moderator_input.get_moles(GAS_CO2)*4) + (moderator_input.get_moles(GAS_PLUOXIUM)*8) //N2 helps you control the reaction at the cost of making it absolutely blast you with rads. Pluoxium has the same effect but without the rads!
 		if(total_control_moles >= minimum_coolant_level)
