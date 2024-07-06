@@ -9,13 +9,12 @@
 			to_chat(user, "<span class='warning'>[src] is already at maximum fuel load.</span>")
 			return FALSE
 		to_chat(user, "<span class='notice'>You start to insert [W] into [src]...</span>")
-		radiation_pulse(src, temperature)
+		radiation_pulse(src, temperature) //Wear protective equipment when even breathing near a reactor!
 		if(do_after(user, 5 SECONDS, target=src))
 			if(!length(fuel_rods))
 				activate(user) //That was the first fuel rod. Let's heat it up.
 			fuel_rods += W
 			W.forceMove(src)
-			radiation_pulse(src, temperature) //Wear protective equipment when even breathing near a reactor!
 			update_appearance()
 		return TRUE
 	if(istype(W, /obj/item/sealant))
@@ -498,11 +497,11 @@ Arguments:
 	T.assume_air(coolant_input)
 	T.assume_air(moderator_input)
 	T.assume_air(coolant_output)
-	Destroy()
 	explosion(get_turf(src), 0, 5, 10, 20, TRUE, TRUE)
 	empulse(get_turf(src), 20, 30)
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "failed")
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
+	Destroy()
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/blowout()
 	explosion(get_turf(src), GLOB.MAX_EX_DEVESTATION_RANGE, GLOB.MAX_EX_HEAVY_RANGE, GLOB.MAX_EX_LIGHT_RANGE, GLOB.MAX_EX_FLASH_RANGE)

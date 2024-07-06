@@ -44,7 +44,7 @@
 			if(no_coolant_ticks > RBMK_NO_COOLANT_TOLERANCE)
 				temperature += temperature / 500 //This isn't really harmful early game, but when your reactor is up to full power, this can get out of hand quite quickly.
 				critical_threshold_proximity += temperature / 200 //Think fast loser.
-				take_damage(10) //Just for the sound effect, to let you know you've fucked up.
+				playsound(src, 'sound/weapons/smash.ogg', 50, 1) //Just for the sound effect, to let you know you've fucked up.
 
 	//Now, heat up the output and set our pressure.
 	coolant_output.set_temperature(temperature+273.15) //Heat the coolant output gas that we just had pass through us.
@@ -116,7 +116,6 @@
 		temperature += K
 	else
 		temperature -= 10 //Nothing to heat us up, so.
-	check_alert() //Let's check if they're about to die, and let them know.
 	update_icon()
 	radiation_pulse(src, temperature*radioactivity_spice_multiplier)
 	if(power >= 90 && world.time >= next_flicker) //You're overloading the reactor. Give a more subtle warning that power is getting out of control.
