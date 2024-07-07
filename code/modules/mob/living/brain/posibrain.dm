@@ -2,37 +2,27 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 
 GLOBAL_LIST_EMPTY(on_station_posis)
 
-/datum/job/posibrain
+/datum/job/cyborg/posibrain
 	title = JOB_NAME_POSIBRAIN
-	description = "A cube of shining metal, four inches to a side and covered in shallow grooves."
-	department_for_prefs = DEPT_BITFLAG_SILICON
-	department_head_for_prefs = JOB_NAME_AI
-	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
-	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0
-	selection_color = "#ccffcc"
-	supervisors = "your laws"
-	req_admin_notify = TRUE
-	minimal_player_age = 30
-	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
-	exp_type_department = EXP_TYPE_SILICON
-	display_order = JOB_DISPLAY_ORDER_AI
-	departments = DEPT_BITFLAG_SILICON
-	random_spawns_possible = FALSE
-	allow_bureaucratic_error = FALSE
-	var/do_special_check = TRUE
+	supervisors = "your laws" //No AI yet as you are just a cube
 
-/datum/job/posibrain/get_access() // no point of calling parent proc
-	return list()
-
-/datum/job/posibrain/after_spawn(mob/living/H, mob/M, latejoin, client/preference_source, on_dummy)
+/datum/job/cyborg/posibrain/after_spawn(mob/living/H, mob/M, latejoin, client/preference_source, on_dummy)
 	. = ..()
 
 	var/obj/item/mmi/posibrain/P = pick(GLOB.on_station_posis)
 
-	P.activate(H)
+	//Never show number of current posis
+	SSjob.GetJob(JOB_NAME_POSIBRAIN).current_positions = 0
+
+	if(!P.activate(H)) //If we failed to activate a posi, kick them back to the lobby.
+		//Code taken from "send to lobby" admin panel
+		var/mob/dead/new_player/NP = new()
+		NP.ckey = M.ckey
+		qdel(M)
+
+		to_chat(NP, "<span class='warning'>Failed to Late Join as a Posibrain. Look higher in chat for the reason.</span>")
 
 	qdel(H)
 
@@ -124,27 +114,27 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 //Two ways to activate a positronic brain. A clickable link in the ghost notif, or simply clicking the object itself.
 /obj/item/mmi/posibrain/proc/activate(mob/user)
 	if(QDELETED(brainmob))
-		return
+		return FALSE
 	if(is_banned_from(user.ckey, ROLE_POSIBRAIN))
 		to_chat(user, "<span class='warning'>You are restricted from taking positronic brain spawns at this time.</span>")
-		return
+		return FALSE
 	if(user.client.get_exp_living(TRUE) <= MINUTES_REQUIRED_BASIC)
 		to_chat(user, "<span class='warning'>You aren't allowed to take positronic brain spawns yet.</span>")
-		return
+		return FALSE
 	if(is_occupied() || QDELETED(brainmob) || QDELETED(src) || QDELETED(user))
-		return
+		return FALSE
 	if(user.ckey in GLOB.posi_key_list)
 		to_chat(user, "<span class='warning'>Positronic brain spawns limited to 1 per round.</span>")
-		return
+		return FALSE
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SILICONS))
 		to_chat(user, "<span class='warning'>Central Command has temporarily outlawed posibrain sentience in this sector...</span>")
-		return
+		return FALSE
 	if(user.suiciding) //if they suicided, they're out forever.
 		to_chat(user, "<span class='warning'>[src] fizzles slightly. Sadly it doesn't take those who suicided!</span>")
-		return
+		return FALSE
 	var/posi_ask = alert("Become a [name]? (Warning, You can no longer be cloned, and all past lives will be forgotten!)","Are you positive?","Yes","No")
 	if(posi_ask != "Yes" || QDELETED(src))
-		return
+		return FALSE
 	if(brainmob.suiciding) //clear suicide status if the old occupant suicided.
 		brainmob.set_suicide(FALSE)
 	var/ckey = user.ckey
@@ -160,6 +150,8 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 			SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions = 0
 		//We should never show a posibrain as a filled job, so just make number of current positions zero
 		SSjob.GetJob(JOB_NAME_POSIBRAIN).current_positions = 0
+
+	return TRUE
 
 /obj/item/mmi/posibrain/transfer_identity(mob/living/carbon/C)
 	name = "[initial(name)] ([C])"
