@@ -3995,6 +3995,13 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/syndicate_mothership/control)
+"rl" = (
+/obj/structure/chair,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/iron/textured_large,
+/area/centcom/evac)
 "rm" = (
 /obj/machinery/computer/shuttle_flight/labor,
 /obj/effect/turf_decal/stripes/line{
@@ -4342,6 +4349,15 @@
 /obj/item/stamp/law,
 /turf/open/floor/carpet/grimy,
 /area/centcom/control)
+"sx" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron/textured_large,
+/area/centcom/evac)
 "sz" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -4778,7 +4794,10 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/iron/textured_large,
 /area/centcom/evac)
 "ub" = (
 /obj/machinery/light,
@@ -6673,7 +6692,10 @@
 /area/centcom/ferry)
 "BL" = (
 /obj/structure/chair,
-/turf/open/floor/iron/dark,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/iron/textured_large,
 /area/centcom/evac)
 "BM" = (
 /obj/machinery/door/airlock/centcom{
@@ -7835,6 +7857,11 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/supply)
+"GC" = (
+/obj/structure/chair,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/textured_large,
+/area/centcom/evac)
 "GE" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -10568,6 +10595,15 @@
 	},
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
+"RO" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/iron/textured_large,
+/area/centcom/evac)
 "RP" = (
 /obj/item/storage/box/handcuffs,
 /obj/item/crowbar/red,
@@ -64238,11 +64274,11 @@ sS
 AV
 AV
 ns
-BL
+GC
 AV
 AW
 AV
-ua
+sx
 ns
 AV
 AV
@@ -64495,11 +64531,11 @@ ns
 AV
 AW
 ns
-BL
+rl
 AV
 ns
 AV
-ua
+RO
 ns
 AW
 AV
