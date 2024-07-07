@@ -72,10 +72,11 @@
 
 ///Common defines for trait hints
 #define XENOA_TRAIT_HINT_MATERIAL list("icon" = "eye", "desc" = "This trait can appear in the artifact's material description.")
-#define XENOA_TRAIT_HINT_INHAND list("icon" = "search", "desc" = "This trait can be detected by 'feeling' the artifact.")
+#define XENOA_TRAIT_HINT_INHAND list("icon" = "hand-sparkles", "desc" = "This trait can be detected by 'feeling' the artifact.")
 #define XENOA_TRAIT_HINT_TRIGGER(X) list("icon" = "wrench", "desc" = "This trait can be triggered with a [X].")
 #define XENOA_TRAIT_HINT_DETECT(X) list("icon" = "search", "desc" = "This trait can be detected with a [X].")
 #define XENOA_TRAIT_HINT_TWIN list("icon" = "clone", "desc" = "This trait has sister traits which perform a similar, but unqiue, action.")
 #define XENOA_TRAIT_HINT_TWIN_VARIANT(X) list("icon" = "fingerprint", "desc" = "This variant will [X].")
 #define XENOA_TRAIT_HINT_RANDOMISED list("icon" = "dice", "desc" = "This trait's effects may differ between instances.")
 #define XENOA_TRAIT_HINT_APPEARANCE(X) list("icon" = "snowflake", "desc" = "This trait's changes the artifact's appearance. [X]")
+#define XENOA_TRAIT_HINT_SOUND(X) list("icon" = "volume-up", "desc" = "This trait will passively make noise. listen for [X].")

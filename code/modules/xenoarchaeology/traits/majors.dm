@@ -61,14 +61,14 @@
 	Hollow
 	Captures the target for an amount of time
 */
+//TODO: This sometimes fucks peoples camera. It'll release them, but the camera acts if they're still inside  - Racc
 /datum/xenoartifact_trait/major/hollow
 	material_desc = "hollow"
 	label_name = "Hollow"
 	label_desc = "Hollow: The artifact seems to contain hollow components. Triggering these components will capture the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
-	weight = -10
-	weight = 27
+	weight = -15
 	///Maximum time we hold people for
 	var/hold_time = 15 SECONDS
 
@@ -192,6 +192,7 @@
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
 	possible_projectiles = list(/obj/projectile/beam/laser, /obj/projectile/bullet, /obj/projectile/energy/tesla)
+	conductivity = 3
 
 /datum/xenoartifact_trait/major/projectile/unsafe/get_dictionary_hint()
 	. = ..()
@@ -271,6 +272,7 @@
 /datum/xenoartifact_trait/major/animalize/vermin
 	label_name = "Bestialized Δ"
 	possible_animals = list(/mob/living/basic/mothroach, /mob/living/simple_animal/mouse, /mob/living/basic/cockroach)
+	conductivity = 6
 
 /datum/xenoartifact_trait/major/animalize/vermin/get_dictionary_hint()
 	. = ..()
@@ -279,6 +281,7 @@
 /datum/xenoartifact_trait/major/animalize/dangerous
 	label_name = "Bestialized Σ"
 	possible_animals = list(/mob/living/simple_animal/hostile/bear, /mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/hostile/killertomato)
+	conductivity = 3
 
 /datum/xenoartifact_trait/major/animalize/dangerous/get_dictionary_hint()
 	. = ..()
@@ -381,6 +384,7 @@
 /datum/xenoartifact_trait/major/illuminating/shadow
 	label_name = "Illuminating Δ"
 	label_desc = "Illuminating Δ: The artifact seems to contain de-illuminating components. Triggering these components will cause the artifact to de-illuminate."
+	conductivity = 3
 
 /datum/xenoartifact_trait/major/illuminating/shadow/get_dictionary_hint()
 	. = ..()
@@ -529,6 +533,7 @@
 	label_name = "Exchanging Δ"
 	label_desc = "Exchanging Δ: The artifact seems to contain exchanging components. Triggering these components will exchange the damage of the last two targets."
 	damage_type = BURN
+	conductivity = 3
 
 /datum/xenoartifact_trait/major/exchange/burn/get_dictionary_hint()
 	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("exchange burn damage between two targets"))
@@ -580,6 +585,7 @@
 	label_desc = "Hypodermic Δ: The artifact seems to contain chemical components. Triggering these components will inject the target with a chemical."
 	chem_category = CHEMICAL_RNG_FUN
 	rarity = XENOA_TRAIT_WEIGHT_RARE
+	conductivity = 3
 
 /datum/xenoartifact_trait/major/chem/fun/get_dictionary_hint()
 	. = ..()
@@ -605,6 +611,7 @@
 /datum/xenoartifact_trait/major/force/pull
 	label_name = "Forcing Δ"
 	force_dir = 0
+	conductivity = 3
 
 /datum/xenoartifact_trait/major/force/pull/get_dictionary_hint()
 	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("pull the target"))
@@ -797,6 +804,7 @@
 	label_name = "Dissipating Σ"
 	label_desc = "Dissipating: The artifact seems to contain dissipating components. Triggering these components will cause the artifact to create a body of foam."
 	max_size = 5
+	conductivity = 3
 
 /datum/xenoartifact_trait/major/smoke/foam/get_dictionary_hint()
 	. = ..()
@@ -813,6 +821,7 @@
 	label_desc = "Dissipating Δ: The artifact seems to contain dissipating components. Triggering these components will cause the artifact to create a cloud of smoke containing a random chemical."
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	conductivity = 12
 	///What chemical we're injecting
 	var/datum/reagent/formula
 	///max amount we can inject people with
@@ -841,6 +850,7 @@
 	label_name = "Dissipating Ω"
 	label_desc = "Dissipating Ω: The artifact seems to contain dissipating components. Triggering these components will cause the artifact to create a body of foam containing a random chemical."
 	max_size = 5
+	conductivity = 21
 
 /datum/xenoartifact_trait/major/smoke/chem/foam/make_smoke()
 	var/datum/effect_system/foam_spread/E = new()
@@ -888,6 +898,7 @@
 /datum/xenoartifact_trait/major/color/random
 	label_name = "Marking Δ"
 	label_desc = "Marking Δ: The artifact seems to contain colorizing components. Triggering these components will color the target."
+	conductivity = 3
 
 /datum/xenoartifact_trait/major/color/random/get_dictionary_hint()
 	. = ..()
@@ -1085,6 +1096,7 @@
 	label_name = "Flourishing Δ"
 	label_desc = "Flourishing Δ: The artifact seems to contain flourishing components. Triggering these components will age down plant targets."
 	max_aging = -5
+	conductivity = 3
 
 /datum/xenoartifact_trait/major/growing/youth/get_dictionary_hint()
 	. = ..()

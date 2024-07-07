@@ -189,7 +189,7 @@
 				success_type = "incredible discovery"
 			else
 				success_type = prob(1) ? "scientific failure." : "who let the clown in?"
-		if(!radio_solved_notice)
+		if(radio_solved_notice)
 			radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
 			at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of $[monetary_reward].",\
 		RADIO_CHANNEL_SCIENCE)

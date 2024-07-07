@@ -78,6 +78,7 @@
 	label_desc = "Parallel Entity Retrieval Δ: A strange malfunction causes the Artifact to open a gateway to another plane that summons a random entity."
 	max_summons = 6
 	summon_type = /mob/living/simple_animal/hostile/carp
+	conductivity = 7
 
 /datum/xenoartifact_trait/malfunction/animal/carp/get_dictionary_hint()
 	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("summon space carps"))
@@ -414,6 +415,7 @@
 	alt_label_name = "Immediate Organ Extraction Δ"
 	label_desc = "Immediate Organ Extraction Δ: A strange malfunction causes the Artifact to extract the target's tongue."
 	target_organ_slot = ORGAN_SLOT_TONGUE
+	conductivity = 14
 
 /datum/xenoartifact_trait/malfunction/organ_stealer/tongue/get_dictionary_hint()
 	. = ..()

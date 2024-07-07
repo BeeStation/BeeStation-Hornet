@@ -535,6 +535,7 @@
 	material_desc = "ringed"
 	label_name = "Ringed Δ"
 	label_desc = "Ringed Δ: The artifact's design seems to incorporate ringed elements. This will allow the artifact to be worn, and catch information from the wearer."
+	conductivity = 15
 
 /datum/xenoartifact_trait/minor/ringed/attack/equip_action(datum/source, mob/equipper, slot)
 	if(slot == ITEM_SLOT_GLOVES)
@@ -725,7 +726,9 @@
 
 /datum/xenoartifact_trait/minor/signaller/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_DETECT("analyzer, which will also reveal its output code & frequency"), XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_APPEARANCE("This trait will make radar particles appear around the artifact."))
+	return list(XENOA_TRAIT_HINT_DETECT("analyzer, which will also reveal its output code & frequency"),
+	XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_APPEARANCE("This trait will make radar particles appear around the artifact."),
+	XENOA_TRAIT_HINT_SOUND("sonar ping"))
 
 /*
 	Anchor
@@ -839,7 +842,8 @@
 	return ..()
 
 /datum/xenoartifact_trait/minor/haunted/get_dictionary_hint()
-	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("allow the artifact to be moved, by ghosts, every 8 seconds"))
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("allow the artifact to be moved, by ghosts, every 8 seconds"),
+	XENOA_TRAIT_HINT_SOUND("ghost moaning"))
 
 /datum/xenoartifact_trait/minor/haunted/proc/do_wail(repeat = TRUE)
 	if(QDELETED(src))
@@ -872,6 +876,7 @@
 	label_desc = "Haunted Δ: The artifact's design seems to incorporate incorporeal elements. This will cause the artifact to move unexpectedly, when not observed."
 	move_delay = 1 SECONDS
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/haunted)
+	conductivity = 5
 	///Cooldown for the use action
 	var/action_cooldown
 	var/action_cooldown_time = 8 SECONDS
@@ -890,7 +895,8 @@
 		return ..()
 
 /datum/xenoartifact_trait/minor/haunted/instant/get_dictionary_hint()
-	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("allow the artifact to be moved, by ghosts, when no-one is looking"))
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("allow the artifact to be moved, by ghosts, when no-one is looking"),
+	XENOA_TRAIT_HINT_SOUND("ghost moaning"))
 
 /datum/xenoartifact_trait/minor/haunted/instant/proc/reset_action_timer()
 	if(action_cooldown)
@@ -978,6 +984,7 @@
 	label_name = "Magnetic Δ"
 	label_desc = "Magnetic Δ: The artifact's design seems to incorporate magnetic elements. This will cause the artifact to repulse metalic objects when triggered."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/magnetic)
+	conductivity = 10
 
 /datum/xenoartifact_trait/minor/magnetic/push/get_dictionary_hint()
 	. = ..()

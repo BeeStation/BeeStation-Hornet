@@ -90,6 +90,7 @@
 	///Get the combined weight of all artifacts in our target
 	var/atom/target = get_target()
 	var/total_weight = 0
+	var/label_weight = 0
 	for(var/atom/A in target)
 		var/datum/component/xenoartifact/X = A.GetComponent(/datum/component/xenoartifact)
 		if(X)
@@ -99,6 +100,7 @@
 		if(L)
 			for(var/datum/xenoartifact_trait/T as() in L.traits)
 				say("[initial(T.label_name)] - Weight: [initial(T.weight)]")
+				label_weight += initial(T.weight)
 		else if(isitem(A) || isliving(A))
 			if(isliving(A))
 				if(prob(1))
@@ -108,7 +110,7 @@
 					say("Unexpected Item Detected!")
 				return
 	if(total_weight)
-		say("Total Mass: [total_weight] KG.")
+		say("Total Mass: [total_weight] KG.\n[label_weight ? "Label Mass: [label_weight]." : ""]")
 	else
 		say("No Mass Detected!")
 	playsound(src, 'sound/machines/uplinkpurchase.ogg', 50, TRUE)
@@ -137,6 +139,7 @@
 	///Get the combined conductivity of all artifacts in our target
 	var/atom/target = get_target()
 	var/total_conductivity = 0
+	var/label_conductivity = 0
 	for(var/atom/A in target)
 		var/datum/component/xenoartifact/X = A.GetComponent(/datum/component/xenoartifact)
 		if(X)
@@ -146,6 +149,7 @@
 		if(L)
 			for(var/datum/xenoartifact_trait/T as() in L.traits)
 				say("[initial(T.label_name)] - conductivity: [initial(T.conductivity)]")
+				label_conductivity += initial(T.conductivity)
 		else if(isitem(A) || isliving(A))
 			if(isliving(A))
 				if(prob(1))
@@ -155,7 +159,7 @@
 					say("Unexpected Item Detected!")
 				return
 	if(total_conductivity)
-		say("Total Conductivity: [total_conductivity] MPC.")
+		say("Total Conductivity: [total_conductivity] MPC.\n[label_conductivity ? "Label Conductivity: [label_conductivity]." : ""]")
 	else
 		say("No Conductivity Detected!")
 	playsound(src, 'sound/machines/uplinkpurchase.ogg', 50, TRUE)

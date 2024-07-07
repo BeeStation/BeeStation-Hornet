@@ -30,6 +30,7 @@ GLOBAL_LIST(labeler_minor_traits)
 GLOBAL_LIST(labeler_major_traits)
 GLOBAL_LIST(labeler_malfunction_traits)
 GLOBAL_LIST_INIT(labeler_tooltip_stats, list())
+GLOBAL_LIST(labeler_traits_filter)
 
 ///Material weights, basically rarity
 GLOBAL_LIST_INIT(xenoartifact_material_weights, list(XENOA_BLUESPACE = 10, XENOA_PLASMA = 8, XENOA_URANIUM = 5, XENOA_BANANIUM = 1))
@@ -75,6 +76,7 @@ GLOBAL_LIST_INIT(discovered_traits, list())
 	GLOB.labeler_minor_traits = get_trait_list_stats(GLOB.xenoa_minors)
 	GLOB.labeler_major_traits = get_trait_list_stats(GLOB.xenoa_majors)
 	GLOB.labeler_malfunction_traits = get_trait_list_stats(GLOB.xenoa_malfunctions)
+	GLOB.labeler_traits_filter = build_trait_filters()
 
 ///Proc used to compile trait weights into a list
 /proc/compile_artifact_weights(path, keyed = FALSE)
@@ -132,6 +134,7 @@ GLOBAL_LIST_INIT(discovered_traits, list())
 /proc/get_trait_list_stats(list/trait_type)
 	var/list/temp = list()
 	for(var/datum/xenoartifact_trait/T as() in trait_type)
+		//generate tool tips
 		temp += list(initial(T.label_name))
 		var/datum/xenoartifact_trait/hint_holder = new T()
 		GLOB.labeler_tooltip_stats["[initial(T.label_name)]"] = list("weight" = initial(T.weight), "conductivity" = initial(T.conductivity), "alt_name" = initial(T.alt_label_name), "desc" = initial(T.label_desc), "hints" = hint_holder.get_dictionary_hint())
@@ -142,4 +145,16 @@ GLOBAL_LIST_INIT(discovered_traits, list())
 		for(var/datum/xenoartifact_material/M as() in materials)
 			if(initial(M.trait_flags) & initial(T.flags))
 				GLOB.labeler_tooltip_stats["[initial(T.label_name)]"]["availability"] += list(list("color" = initial(M.material_color), "icon" = initial(M.label_icon)))
+	return temp
+
+/proc/build_trait_filters()
+	var/list/temp = list()
+	for(var/datum/xenoartifact_trait/T as() in GLOB.xenoa_all_traits)
+		T = new T()
+		var/list/hints = T.get_dictionary_hint()
+		for(var/i in hints)
+			if(!temp[i["icon"]])
+				temp[i["icon"]] = list()
+			temp[i["icon"]] += list("[initial(T.label_name)]")
+		QDEL_NULL(T)
 	return temp

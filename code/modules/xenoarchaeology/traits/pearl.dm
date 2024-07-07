@@ -12,8 +12,7 @@
 
 /obj/item/sticker/trait_pearl/Initialize(mapload, trait)
 	. = ..()
-	//Debug, mapping, presets, etc.
-	stored_trait = trait || pick(subtypesof(/datum/xenoartifact_trait/activator))
+	stored_trait = trait
 
 /obj/item/sticker/trait_pearl/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
 	//Prechecks
@@ -45,7 +44,7 @@
 /obj/item/sticker/trait_pearl/examine(mob/user)
 	. = ..()
 	if(user.can_see_reagents())
-		. += "<span class='notice'>[src] holds '[initial(stored_trait.label_name)]'.</span>"
+		. += "<span class='notice'>[src] holds '[initial(stored_trait.label_name) || "nothing"]'.\nYou can affix it to an item.</span>"
 
 /obj/item/sticker/trait_pearl/build_stuck_appearance()
 	var/mutable_appearance/MA = setup_appearance(mutable_appearance(sticker_icon || src.icon, sticker_icon_state || src.icon_state))

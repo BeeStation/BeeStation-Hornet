@@ -144,6 +144,7 @@
 
 /datum/xenoartifact_trait/activator/sturdy/timed/process(delta_time)
 	if(!searching)
+		playsound(get_turf(parent?.parent), 'sound/effects/clock_tick.ogg', 10, TRUE)
 		return
 	if(search_cooldown_timer)
 		return
@@ -160,7 +161,8 @@
 
 /datum/xenoartifact_trait/activator/sturdy/timed/get_dictionary_hint()
 	. = ..()
-	return list(list("icon" = "exclamation", "desc" = "This trait will, after an arming time, activate on the nearest living target, periodically."))
+	return list(list("icon" = "exclamation", "desc" = "This trait will, after an arming time, activate on the nearest living target, periodically."),
+	XENOA_TRAIT_HINT_SOUND("clock ticking"))
 
 /datum/xenoartifact_trait/activator/sturdy/timed/proc/reset_timer()
 	if(search_cooldown_timer)
@@ -169,7 +171,7 @@
 
 /datum/xenoartifact_trait/activator/sturdy/timed/proc/indicator_hint(engaging = FALSE)
 	var/atom/A = parent?.parent
-	A?.balloon_alert_to_viewers("[A] [!engaging ? "stops ticking." : "starts ticking"]!")
+	A?.balloon_alert_to_viewers("[A] [!engaging ? "stops ticking" : "starts ticking"]!")
 
 /*
 	Flammable
@@ -307,7 +309,11 @@
 
 /datum/xenoartifact_trait/activator/signal/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_TRIGGER("signaller assembly"), XENOA_TRAIT_HINT_DETECT("analyzer, which will also reveal its trigger code & frequency"), XENOA_TRAIT_HINT_RANDOMISED, list("icon" = "exclamation", "desc" = "This trait will activate on the nearest living target."), XENOA_TRAIT_HINT_APPEARANCE("This trait will make radar particles appear around the artifact."))
+	return list(XENOA_TRAIT_HINT_TRIGGER("signaller assembly"),
+	XENOA_TRAIT_HINT_DETECT("analyzer, which will also reveal its trigger code & frequency"),
+	XENOA_TRAIT_HINT_RANDOMISED, list("icon" = "exclamation", "desc" = "This trait will activate on the nearest living target."),
+	XENOA_TRAIT_HINT_APPEARANCE("This trait will make radar particles appear around the artifact."),
+	XENOA_TRAIT_HINT_SOUND("sonar pings"))
 
 /datum/xenoartifact_trait/activator/signal/proc/receive_signal(datum/signal/signal)
 	if(!signal)
@@ -416,6 +422,7 @@
 	label_name = "Greedy Δ"
 	label_desc = "Greedy Δ: The artifact seems to be made of a collective material. This material seems to be triggered by inserting credit holochips."
 	key_item = /obj/item/holochip
+	conductivity = 8
 	///How many credits we need to activate
 	var/credit_requirement = 1
 
@@ -541,6 +548,7 @@
 	label_desc = "Hungry Δ: The artifact seems to be made of a semi-living, hungry, material. This material seems to be triggered by feeding interactions."
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	maneater = TRUE
+	conductivity = 8
 
 /datum/xenoartifact_trait/activator/sturdy/hungry/maneater/get_dictionary_hint()
 	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("eat food items, and mobs"))
@@ -613,6 +621,7 @@
 	label_desc = "Edible Δ: The artifact seems to be made of an edible material. This material seems to be triggered by being consumed."
 	bite_time = 6 SECONDS
 	food_reagents = list()
+	conductivity = 8
 
 /datum/xenoartifact_trait/activator/edible/random/New(atom/_parent)
 	var/random_reagents = rand(1, 3)
@@ -646,4 +655,3 @@
 	if(isliving(A.loc))
 		trigger_artifact(target, XENOA_ACTIVATION_SPECIAL)
 		return
-	trigger_artifact(target)

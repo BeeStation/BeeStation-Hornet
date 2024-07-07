@@ -1,12 +1,27 @@
 import { useBackend } from '../backend';
-import { Button, Section, Box, Flex, Input, BlockQuote, Icon, Divider } from '../components';
+import { Button, Section, Box, Flex, Input, BlockQuote, Icon, Divider, Dropdown, Collapsible } from '../components';
 import { Window } from '../layouts';
 
 export const XenoartifactLabeler = (props, context) => {
   return (
-    <Window width={500} height={525}>
+    <Window width={500} height={600}>
       <Window.Content scrollable={0}>
-        <XenoartifactlabelerSticker />
+        <Section>
+          <Flex>
+            <Flex.Item>
+              <XenoartifactlabelerSticker />
+            </Flex.Item>
+            <Flex.Item ml={'auto'}>
+              <Button icon="question" tooltip="Left-Click to check traits, and Right-Click to exclude traits." />
+            </Flex.Item>
+          </Flex>
+        </Section>
+        <Divider />
+        <Section>
+          <Collapsible title='Filters'>
+            <XenoartifactlabelerGenerateFilterEntry />
+          </Collapsible>
+        </Section>
         <Divider />
         <Flex direction="row">
           <Flex.Item>
@@ -23,7 +38,7 @@ export const XenoartifactLabeler = (props, context) => {
 
 const XenoartifactlabelerTraits = (props, context) => {
   const { act, data } = useBackend(context);
-  const { activator_traits, minor_traits, major_traits, malfunction_list } = data;
+  const { activator_traits, minor_traits, major_traits, malfunction_list, enabled_trait_filters, filtered_traits } = data;
 
   let alphasort = function (a, b) {
     return a.localeCompare(b, 'en');
@@ -34,11 +49,16 @@ const XenoartifactlabelerTraits = (props, context) => {
   const sorted_majors = major_traits.sort(alphasort);
   const sorted_malfs = malfunction_list.sort(alphasort);
 
+  let filtered_activators = sorted_activators.filter(n => !filtered_traits.includes(n));
+  let filtered_minors = sorted_minors.filter(n => !filtered_traits.includes(n));
+  let filtered_majors = sorted_majors.filter(n => !filtered_traits.includes(n));
+  let filtered_malfs = sorted_malfs.filter(n => !filtered_traits.includes(n));
+
   return (
     <Box px={1} grow={1} overflowY="auto" height="425px" width="150px">
       <Section title="Activator Traits">
         <Box>
-          {sorted_activators.map((trait) => (
+          {filtered_activators.map((trait) => (
             <XenoartifactlabelerGenerateEntry specific_trait={trait} key={trait} trait_type="activator" />
           ))}
         </Box>
@@ -46,7 +66,7 @@ const XenoartifactlabelerTraits = (props, context) => {
       <Divider />
       <Section title="Minor Traits">
         <Box>
-          {sorted_minors.map((trait) => (
+          {filtered_minors.map((trait) => (
             <XenoartifactlabelerGenerateEntry specific_trait={trait} key={trait} trait_type="minor" />
           ))}
         </Box>
@@ -54,7 +74,7 @@ const XenoartifactlabelerTraits = (props, context) => {
       <Divider />
       <Section title="Major Traits">
         <Box>
-          {sorted_majors.map((trait) => (
+          {filtered_majors.map((trait) => (
             <XenoartifactlabelerGenerateEntry specific_trait={trait} key={trait} trait_type="major" />
           ))}
         </Box>
@@ -62,7 +82,7 @@ const XenoartifactlabelerTraits = (props, context) => {
       <Divider />
       <Section title="Malfunction Traits">
         <Box>
-          {sorted_malfs.map((trait) => (
+          {filtered_malfs.map((trait) => (
             <XenoartifactlabelerGenerateEntry key={trait} specific_trait={trait} trait_type="malfunction" />
           ))}
         </Box>
@@ -73,7 +93,7 @@ const XenoartifactlabelerTraits = (props, context) => {
 
 const XenoartifactlabelerInfo = (props, context) => {
   const { act, data } = useBackend(context);
-  const { selected_traits } = data;
+  const { selected_traits, labeler_traits_filter } = data;
   return (
     <Box px={1} overflowY="auto" height="425px">
       {selected_traits.map((info) => (
@@ -86,16 +106,21 @@ const XenoartifactlabelerInfo = (props, context) => {
 const XenoartifactlabelerGenerateEntry = (props, context) => {
   const { act, data } = useBackend(context);
   const { specific_trait, trait_type } = props;
-  const { tooltip_stats, selected_traits } = data;
+  const { tooltip_stats, selected_traits, deselected_traits } = data;
   return (
     <Box>
       <Button.Checkbox
         content={specific_trait}
         checked={selected_traits.includes(specific_trait)}
-        onClick={() => act(`toggle_trait`, { trait_name: specific_trait })}
+        color={deselected_traits.includes(specific_trait) ? "bad" : "transparent"}
+        onClick={() => act(`toggle_trait`, { trait_name: specific_trait, select: true })}
         tooltip={`${tooltip_stats[specific_trait]['alt_name'] ? `${tooltip_stats[specific_trait]['alt_name']},` : ``}
           Weight: ${tooltip_stats[specific_trait]['weight']},
           Conductivity: ${tooltip_stats[specific_trait]['conductivity']}`}
+        oncontextmenu={(e) => {
+          e.preventDefault();
+          act(`toggle_trait`, { trait_name: specific_trait, select: false });
+        }}
       />
     </Box>
   );
@@ -123,9 +148,28 @@ const XenoartifactlabelerGenerateInfo = (props, context) => {
 const XenoartifactlabelerSticker = (props, context) => {
   const { act } = useBackend(context);
   return (
-    <Section>
+    <Box>
       <Button content="Print" onClick={() => act('print_traits')} />
       <Button content="Clear" onClick={() => act('clear_traits')} />
-    </Section>
+    </Box>
+  );
+};
+
+const XenoartifactlabelerGenerateFilterEntry = (props, context) => {
+  const { act, data } = useBackend(context);
+  //  const { specific_trait, trait_type } = props;
+  const { trait_filters, enabled_trait_filters } = data;
+  return (
+    <Box>
+      {trait_filters.map((filter) => (
+        <Button
+          key={filter["desc"]}
+          tooltip={filter["desc"]}
+          icon={filter["icon"]}
+          onClick={() => act(`toggle_filter`, { filter: filter["icon"] })}
+          selected={enabled_trait_filters.includes(filter["icon"])}
+        />
+      ))}
+    </Box>
   );
 };

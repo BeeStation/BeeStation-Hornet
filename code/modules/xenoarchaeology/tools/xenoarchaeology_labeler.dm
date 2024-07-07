@@ -8,8 +8,23 @@
 	w_class = WEIGHT_CLASS_TINY
 	///Checked traits
 	var/list/selected_traits = list()
+	///List of deselected traits
+	var/list/deselected_traits = list()
 	///List of selected traits we'll put on the label
 	var/list/label_traits = list()
+	///List of possible trait filters
+	var/list/trait_filters = list(list("icon" = "eye", "desc" = "Traits that can appear in the material description."),
+	list("icon" = "hand-sparkles", "desc" = "Traits that can be detected by 'feeling' the artifact."),
+	list("icon" = "wrench", "desc" = "Traits that can be triggered with specific items."),
+	list("icon" = "search", "desc" = "Traits that can be detected with specific items."),
+	list("icon" = "clone", "desc" = "Traits that have 'clones' or 'twins'."),
+	list("icon" = "dice", "desc" = "Traits with randomized effects."),
+	list("icon" = "snowflake", "desc" = "Traits that spawn particles, or change the artifact's appearance."),
+	list("icon" = "volume-up", "desc" = "Traits that passively make noise"))
+	///List of currently enabled trait filters
+	var/list/enabled_trait_filters = list()
+	///List of filtered traits
+	var/list/filtered_traits = list()
 	///Cooldown for stickers
 	var/sticker_cooldown = 5 SECONDS
 	COOLDOWN_DECLARE(sticker_cooldown_timer)
@@ -19,6 +34,9 @@
 	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
 	//bake / used baked stuff so we don't have to waste electricity
 	generate_xenoa_statics()
+	//Fill enabled filters with all filters
+	for(var/i in trait_filters)
+		enabled_trait_filters += i["icon"]
 
 /obj/item/xenoarchaeology_labeler/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -29,6 +47,9 @@
 /obj/item/xenoarchaeology_labeler/ui_data(mob/user)
 	var/list/data = list()
 	data["selected_traits"] = selected_traits
+	data["deselected_traits"] = deselected_traits
+	data["enabled_trait_filters"] = enabled_trait_filters
+	data["filtered_traits"] = filtered_traits
 
 	return data
 
@@ -39,6 +60,8 @@
 	data["minor_traits"] = GLOB.labeler_minor_traits
 	data["activator_traits"] = GLOB.labeler_activator_traits
 	data["tooltip_stats"] = GLOB.labeler_tooltip_stats
+
+	data["trait_filters"] = trait_filters
 
 	return data
 
@@ -63,12 +86,31 @@
 			for(var/list/i as() in focus)
 				if(!(trait_key in i))
 					continue
+				//Selected traits
 				if(trait_key in selected_traits)
 					selected_traits -= trait_key
 					label_traits -= GLOB.xenoa_all_traits_keyed[trait_key]
-				else
-					selected_traits.Insert(1, trait_key)
-					label_traits.Insert(1, GLOB.xenoa_all_traits_keyed[trait_key])
+					if(!params["select"])
+						deselected_traits += trait_key
+						continue
+				else if(!(trait_key in deselected_traits))
+					if(params["select"])
+						selected_traits.Insert(1, trait_key)
+						label_traits.Insert(1, GLOB.xenoa_all_traits_keyed[trait_key])
+					else
+						deselected_traits += trait_key
+						continue
+				//Deselected traits
+				if(trait_key in deselected_traits)
+					deselected_traits -= trait_key
+		if("toggle_filter")
+			var/specific_filter = params["filter"]
+			if(specific_filter in enabled_trait_filters)
+				enabled_trait_filters -= specific_filter
+				filtered_traits += GLOB.labeler_traits_filter[params["filter"]]
+			else
+				enabled_trait_filters += specific_filter
+				filtered_traits -= GLOB.labeler_traits_filter[params["filter"]]
 	return TRUE
 
 /obj/item/xenoarchaeology_labeler/afterattack(atom/target, mob/user, proximity_flag)
@@ -83,6 +125,7 @@
 /obj/item/xenoarchaeology_labeler/proc/clear_selection()
 	label_traits = list()
 	selected_traits = list()
+	deselected_traits = list()
 	ui_update()
 
 /obj/item/xenoarchaeology_labeler/proc/create_label(mob/target, mob/user)
