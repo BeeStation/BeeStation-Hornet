@@ -8,14 +8,30 @@
 	light_color = "#55BA55"
 	light_power = 1
 	light_range = 3
-	icon_state = "oldcomp"
-	icon_screen = "stock_computer"
-	icon_keyboard = null
+	icon = 'icons/obj/modular_console.dmi'
+	icon_state = "smmon_1"
 	var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor
 	var/active = FALSE
 
 /obj/machinery/computer/reactor/Initialize()
 	. = ..()
+
+/obj/machinery/computer/reactor/process()
+	. = ..()
+	var/last_status = reactor.desired_k
+	switch(last_status)
+		if(0 to 0.5)
+			icon_state = "smmon_6"
+		if(0.5 to 1)
+			icon_state = "smmon_5"
+		if(1 to 1.5)
+			icon_state = "smmon_4"
+		if(1.5 to 2)
+			icon_state = "smmon_3"
+		if(2 to 2.5)
+			icon_state = "smmon_2"
+		if(2.5 to 3)
+			icon_state = "smmon_1"
 
 /obj/machinery/computer/reactor/control_rods
 	name = "control rod management computer"

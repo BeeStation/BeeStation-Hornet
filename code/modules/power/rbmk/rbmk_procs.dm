@@ -14,8 +14,9 @@
 			if(!length(fuel_rods))
 				activate(user) //That was the first fuel rod. Let's heat it up.
 			fuel_rods += W
-			playsound(src, pick('sound/effects/rbmk/switch1.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
 			W.forceMove(src)
+			if(!(length(fuel_rods) == 1)) // Not the first fuel rod? Play the sound.
+				playsound(src, pick('sound/effects/rbmk/switch1.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
 			update_appearance()
 		return TRUE
 	if(istype(W, /obj/item/sealant))
@@ -292,22 +293,27 @@ Arguments:
 	src.fuel_rods -= fuel_rod
 
 /**
- * Called by alarm() in this file
  * Check the integrity level and returns the status of the machine
  */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/get_status()
 	var/integrity = get_integrity_percent()
-	if(integrity < REACTOR_DANGER_PERCENT)
+	if(integrity < REACTOR_MELTING_PERCENT)
 		return REACTOR_MELTING
+	if(integrity < REACTOR_EMERGENCY_PERCENT)
+		return REACTOR_EMERGENCY
+	if(integrity < REACTOR_DANGER_PERCENT)
+		return REACTOR_DANGER
+	if(integrity < REACTOR_WARNING_PERCENT)
+		return REACTOR_NOMINAL
 
-/**
- * Called by check_alert() in this file
- * Play a sound from the machine, the type depends on the status of the hfr
- */
-/obj/machinery/atmospherics/components/unary/rbmk/core/proc/alarm()
-	switch(get_status())
-		if(REACTOR_MELTING)
-			playsound(src, 'sound/effects/rbmk/alarm.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/start_alarm()
+	if(alarm == FALSE)
+		alarm = TRUE
+		soundloop.start()
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/end_alarm()
+	soundloop.stop()
+	alarm = FALSE
 
 /**
  * Getter for the machine integrity
@@ -362,15 +368,16 @@ Arguments:
 	grilled_item = grilled_result //use the new item!!
 
 
-/obj/machinery/atmospherics/components/unary/rbmk/core/proc/damage_handler()
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/damage_handler(delta_time)
 	critical_threshold_proximity_archived = critical_threshold_proximity
 	if(K <= 0 && temperature <= 0 && !has_fuel())
 		deactivate()
 	//First alert condition: Overheat
 	var/turf/T = get_turf(src)
 	if(temperature >= RBMK_TEMPERATURE_CRITICAL)
-		var/temp_damage = (temperature/100 * critical_threshold_proximity_archived/40) //40 seconds to meltdown from full integrity, worst-case. Bit less than blowout since it's harder to spike heat that much.
-		critical_threshold_proximity += temp_damage
+		var/damagevalue = (temperature - 900)/10 * REACTOR_DAMAGE_MAGIC_NUMBER
+		critical_threshold_proximity += damagevalue
+		warning_damage_flags |= RBMK_TEMPERATURE_DAMAGE
 		check_alert()
 		if(critical_threshold_proximity >= melting_point)
 			countdown() //Oops! All meltdown
@@ -381,8 +388,9 @@ Arguments:
 		playsound(src, 'sound/machines/clockcult/steam_whoosh.ogg', 100, TRUE)
 		T.atmos_spawn_air("water_vapor=[pressure/100];TEMP=[temperature+273.15]")
 		// Warning: Pressure reaching critical thresholds!
-		var/pressure_damage = (pressure/100 * critical_threshold_proximity_archived/45)	//You get 45 seconds (if you had full integrity), worst-case. But hey, at least it can't be instantly nuked with a pipe-fire.. though it's still very difficult to save.
-		critical_threshold_proximity += pressure_damage
+		var/damagevalue = (pressure-10100)/300 * REACTOR_DAMAGE_MAGIC_NUMBER
+		critical_threshold_proximity += damagevalue
+		warning_damage_flags |= RBMK_PRESSURE_DAMAGE
 		check_alert()
 		if(critical_threshold_proximity >= melting_point)
 			countdown()
@@ -394,9 +402,9 @@ Arguments:
  */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/check_alert()
 	if(critical_threshold_proximity < warning_point)
+		end_alarm()
 		return
 	if((REALTIMEOFDAY - lastwarning) / 10 >= WARNING_TIME_DELAY)
-		alarm()
 		if(critical_threshold_proximity > emergency_point)
 			radio.talk_into(src, "[emergency_alert] Integrity: [get_integrity_percent()]%", common_channel)
 			lastwarning = REALTIMEOFDAY
@@ -405,13 +413,17 @@ Arguments:
 				message_admins("[src] has reached the emergency point [ADMIN_JMP(src)].")
 				has_reached_emergency = TRUE
 			send_radio_explanation()
+			start_alarm()
 		else if(critical_threshold_proximity > critical_threshold_proximity_archived) // The damage is still going up
-			radio.talk_into(src, "[warning_alert] Integrity: [get_integrity_percent()]%", engineering_channel)
 			lastwarning = REALTIMEOFDAY - (WARNING_TIME_DELAY * 5)
 			send_radio_explanation()
+			start_alarm()
 		else if (critical_threshold_proximity < critical_threshold_proximity_archived)// Phew, we're safe, damage going down
 			radio.talk_into(src, "[safe_alert] Integrity: [get_integrity_percent()]%", engineering_channel)
 			lastwarning = REALTIMEOFDAY
+			warning_damage_flags &= RBMK_TEMPERATURE_DAMAGE
+			warning_damage_flags &= RBMK_PRESSURE_DAMAGE
+			end_alarm()
 
 /**
  * Called by check_alert() in this file
@@ -419,9 +431,9 @@ Arguments:
  */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/send_radio_explanation()
 	if(warning_damage_flags & RBMK_PRESSURE_DAMAGE)
-		radio.talk_into(src, "Warning: Reactor overpressurized!", engineering_channel)
+		radio.talk_into(src, "Warning: Reactor overpressurized! Integrity: [get_integrity_percent()]%", engineering_channel)
 	if(warning_damage_flags & RBMK_TEMPERATURE_DAMAGE)
-		radio.talk_into(src, "Warning: Reactor overheating!", engineering_channel)
+		radio.talk_into(src, "Warning: Reactor overheating! Integrity: [get_integrity_percent()]%", engineering_channel)
 
 /**
  * Called by check_alert() in this file
@@ -479,7 +491,6 @@ Arguments:
 	update_icon()
 	STOP_PROCESSING(SSmachines, src)
 	AddComponent(/datum/component/radioactive, 15000 , src)
-	var/obj/modules/power/rbmk/nuclear_sludge_spawner/NSW = new /obj/modules/power/rbmk/nuclear_sludge_spawner/strong(get_turf(src))
 	var/turf/T = get_turf(src)
 	var/rbmkzlevel = T.get_virtual_z_level()
 	for(var/mob/M in GLOB.player_list)
@@ -487,7 +498,6 @@ Arguments:
 			to_chat(M, "<span class='userdanger'>You hear a horrible metallic hissing.</span>")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "delam", /datum/mood_event/delam) //Might as well use the same moodlet since its essentialy the same thing happening
 
-	NSW.fire() //This will take out engineering for a decent amount of time as they have to clean up the sludge.
 	for(var/obj/machinery/power/apc/A in GLOB.apcs_list)
 		if(src.get_virtual_z_level() == A.get_virtual_z_level() && prob(70))
 			A.overload_lighting()
@@ -520,6 +530,8 @@ Arguments:
 			var/obj/modules/power/rbmk/nuclear_sludge_spawner/WS = X
 			if(src.get_virtual_z_level() == WS.get_virtual_z_level()) //Begin the SLUDGING
 				WS.fire()
+	var/obj/modules/power/rbmk/nuclear_sludge_spawner/NSW = new /obj/modules/power/rbmk/nuclear_sludge_spawner/strong(get_turf(src))
+	NSW.fire() //This will take out engineering for a decent amount of time as they have to clean up the sludge.
 	meltdown() //Double kill.
 
 //Plutonium sludge

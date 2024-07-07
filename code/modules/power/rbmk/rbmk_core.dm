@@ -101,8 +101,9 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	///The common channel
 	var/common_channel = null
 
-	//Our soundloop for the alaarm
+	//Our soundloop for the alarm
 	var/datum/looping_sound/rbmk/soundloop
+	var/alarm = FALSE //Is the alarm playing already?
 
 	//Console statistics
 	var/last_coolant_temperature = 0
@@ -115,8 +116,8 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	///Boolean used for logging if we've passed the emergency point
 	var/has_reached_emergency = FALSE
 
-	///Integrity of the machine, if reaches 900 the machine will explode
-	var/critical_threshold_proximity = 0
+	///Integrity of the machine, if reaches 900 the machine will explode. 1 so it doesnt stunlock itself and never change for damage calculations
+	var/critical_threshold_proximity = 1
 	///Store the integrity for calculations
 	var/critical_threshold_proximity_archived = 0
 	///Our "Shit is no longer fucked" message. We send it when critical_threshold_proximity is less then critical_threshold_proximity_archived
@@ -201,6 +202,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	src.name = name + " ([reactorcount])"
 	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for K.
 	gas_absorption_constant = gas_absorption_effectiveness //And set this up for the rest of the round.
+	soundloop = new(src,  FALSE)
 	check_part_connectivity()
 	update_appearance()
 
@@ -233,18 +235,19 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	else
 		icon_state = "reactor_active"
 	cut_overlays()
-	if(!length(fuel_rods))
-		add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_0"))
-	if(length(fuel_rods) == 1)
-		add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_1"))
-	if(length(fuel_rods) == 2)
-		add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_2"))
-	if(length(fuel_rods) == 3)
-		add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_3"))
-	if(length(fuel_rods) == 4)
-		add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_4"))
-	if(length(fuel_rods) == 5)
-		add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_5"))
+	switch(length(fuel_rods))
+		if(0)
+			add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_0"))
+		if(1)
+			add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_1"))
+		if(2)
+			add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_2"))
+		if(3)
+			add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_3"))
+		if(4)
+			add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_4"))
+		if(5)
+			add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_5"))
 
 	// Lord forgive me for what I'm about to do.
 	var/mutable_appearance/InputOverlay = mutable_appearance('icons/obj/machines/rbmk.dmi',"input")
@@ -261,9 +264,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	. = ..()
 	if(Adjacent(src, user))
 		if(do_after(user, 1 SECONDS, target=src))
-			var/slope = -100 / 900
-			var/intercept = 100
-			var/percent = slope * critical_threshold_proximity + intercept
+			var/percent = get_integrity_percent()
 			var/msg = "<span class='warning'>The reactor looks operational.</span>"
 			switch(percent)
 				if(0 to 10)

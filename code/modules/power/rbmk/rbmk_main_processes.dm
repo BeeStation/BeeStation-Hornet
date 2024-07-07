@@ -3,7 +3,7 @@
  * process() Organizes all other calls, and is the best starting point for top-level logic.
  */
 
-/obj/machinery/atmospherics/components/unary/rbmk/core/process(seconds_per_tick)
+/obj/machinery/atmospherics/components/unary/rbmk/core/process(delta_time)
 	//Pre-Checks
 
 	//first check if the machine is active
@@ -16,13 +16,13 @@
 		return
 	// Run the reaction if it is either live or being started
 	if (start_power || power)
-		atmos_process(seconds_per_tick)
-		damage_handler()
+		atmos_process(delta_time)
+		damage_handler(delta_time)
 		check_alert()
 	update_pipenets()
 	update_appearance()
 
-/obj/machinery/atmospherics/components/unary/rbmk/core/proc/atmos_process(seconds_per_tick)
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/atmos_process(delta_time)
 	var/datum/gas_mixture/coolant_input = linked_input.airs[1]
 	var/datum/gas_mixture/moderator_input = linked_moderator.airs[1]
 	var/datum/gas_mixture/coolant_output = linked_output.airs[1]
@@ -44,6 +44,7 @@
 			if(no_coolant_ticks > RBMK_NO_COOLANT_TOLERANCE)
 				temperature += temperature / 500 //This isn't really harmful early game, but when your reactor is up to full power, this can get out of hand quite quickly.
 				critical_threshold_proximity += temperature / 200 //Think fast loser.
+				check_alert()
 				playsound(src, 'sound/weapons/smash.ogg', 50, 1) //Just for the sound effect, to let you know you've fucked up.
 
 	//Now, heat up the output and set our pressure.
@@ -121,14 +122,14 @@
 	if(power >= 90 && world.time >= next_flicker) //You're overloading the reactor. Give a more subtle warning that power is getting out of control.
 		next_flicker = world.time + 1 MINUTES
 		for(var/obj/machinery/light/L in GLOB.machines)
-			if(DT_PROB(75, seconds_per_tick)) //If youre running the reactor cold though, no need to flicker the lights.
+			if(DT_PROB(75, delta_time)) //If youre running the reactor cold though, no need to flicker the lights.
 				L.flicker()
 	for(var/atom/movable/I in get_turf(src))
 		if(isliving(I) && temperature > 0)
 			var/mob/living/L = I
 			L.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
 	if(grilled_item)
-		SEND_SIGNAL(grilled_item, COMSIG_ITEM_GRILLED, grilled_item, seconds_per_tick)
-		grill_time += seconds_per_tick
+		SEND_SIGNAL(grilled_item, COMSIG_ITEM_GRILLED, grilled_item, delta_time)
+		grill_time += delta_time
 		grilled_item.AddComponent(/datum/component/sizzle)
 
