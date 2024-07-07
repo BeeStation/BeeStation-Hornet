@@ -1,7 +1,7 @@
 /datum/job/gimmick //gimmick var must be set to true for all gimmick jobs BUT the parent
 	title = JOB_NAME_GIMMICK
 	description = "Use your unique position to provide a service or entertain the crew."
-	department_for_prefs = DEPT_BITFLAG_ASSISTANT
+	department_for_prefs = DEPT_BITFLAG_CIV
 	show_in_prefs = TRUE
 	faction = FACTION_STATION
 	total_positions = 0

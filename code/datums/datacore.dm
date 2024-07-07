@@ -209,7 +209,7 @@
 			LAZYADDASSOCLIST(manifest_out, "Misc", entry)
 	//Sort the list by 'departments' primarily so command is on top.
 	var/list/sorted_out = list()
-	for(var/department in (assoc_to_keys(GLOB.departments) + "Misc"))
+	for(var/department in (assoc_to_keys(DEPARTMENTS) + "Misc"))
 		if(!isnull(manifest_out[department]))
 			sorted_out[department] = manifest_out[department]
 	return sorted_out

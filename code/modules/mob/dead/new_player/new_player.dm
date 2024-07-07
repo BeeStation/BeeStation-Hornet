@@ -392,19 +392,6 @@
 */
 
 /mob/dead/new_player/proc/LateChoices()
-	var/static/list/department_order = list( // department order and its dept color
-		DEPARTMENT_COMMAND= "#ddddff",
-		DEPARTMENT_ENGINEERING = "#ffeeaa",
-		DEPARTMENT_CARGO = "#d7b088",
-		DEPARTMENT_SILICON = "#ccffcc",
-		DEPARTMENT_CIVILIAN = "#bbe291",
-		"Gimmick" = "#dddddd",
-		DEPARTMENT_MEDICAL= "#c1e1ec",
-		DEPARTMENT_SCIENCE = "#ffddff",
-		DEPARTMENT_SECURITY = "#ffdddd"
-	)
-	var/static/list/department_list = GLOB.dept_name_all_station_dept_list
-
 	var/list/dat = list("<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>")
 	if(SSjob.prioritized_jobs.len > 0)
 		dat+="<div class='priority' style='text-align:center'>Jobs in Green have been prioritized by the Head of Personnel.<br>Please consider joining the game as that role.</div>"
@@ -420,10 +407,10 @@
 			SSjob.prioritized_jobs -= prioritized_job
 	dat += "<table><tr><td valign='top'>"
 	var/column_counter = 0
-	for(var/list/category in department_list)
-		var/cat_color = department_order[department_order[column_counter+1]] // color from `department_order`
+	for(var/list/category in DEPT_NAME_ALL_STATION_DEPT_LIST)
+		var/cat_color = DEPARTMENT_ORDER[DEPARTMENT_ORDER[column_counter+1]] // color from `department_order`
 		dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
-		dat += "<legend align='center' style='color: [cat_color]'>[department_order[column_counter+1]]</legend>"
+		dat += "<legend align='center' style='color: [cat_color]'>[DEPARTMENT_ORDER[column_counter+1]]</legend>"
 		var/list/dept_dat = list()
 		for(var/job in category)
 			var/datum/job/job_datum = SSjob.name_occupations[job]

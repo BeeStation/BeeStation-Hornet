@@ -24,8 +24,6 @@
 #define DEPARTMENT_OTHER "Other"
 #define DEPT_BITFLAG_CAPTAIN (1<<12)
 #define DEPARTMENT_CAPTAIN
-#define DEPT_BITFLAG_ASSISTANT (1<<13)
-#define DEPARTMENT_ASSISTANT
 
 
 // Crew Manifest will show crew data in this order
@@ -55,43 +53,54 @@
 #define DEPT_PREF_ORDER_SILICON 90
 
 
-GLOBAL_LIST_INIT(dept_name_all_station_dept_list, list(
-	DEPARTMENT_COMMAND,
-	DEPARTMENT_CIVILIAN,
-	DEPARTMENT_SERVICE,
-	DEPARTMENT_CARGO,
-	DEPARTMENT_SCIENCE,
-	DEPARTMENT_ENGINEERING,
-	DEPARTMENT_MEDICAL,
-	DEPARTMENT_SECURITY,
-	DEPARTMENT_VIP,
-	DEPARTMENT_SILICON))
+#define DEPT_NAME_ALL_STATION_DEPT_LIST list(\
+	DEPARTMENT_COMMAND,\
+	DEPARTMENT_CIVILIAN,\
+	DEPARTMENT_SERVICE,\
+	DEPARTMENT_CARGO,\
+	DEPARTMENT_SCIENCE,\
+	DEPARTMENT_ENGINEERING,\
+	DEPARTMENT_MEDICAL,\
+	DEPARTMENT_SECURITY,\
+	DEPARTMENT_VIP,\
+	DEPARTMENT_SILICON)
 
 /// A list of each bitflag and the name of its associated department. For use in the preferences menu.
-GLOBAL_LIST_INIT(dept_bitflag_to_name, list(
-	"[DEPT_BITFLAG_COM]" = "Command",
-	"[DEPT_BITFLAG_CIV]" = "Civilian",
-	"[DEPT_BITFLAG_SRV]" = "Service",
-	"[DEPT_BITFLAG_CAR]" = "Cargo",
-	"[DEPT_BITFLAG_SCI]" = "Science",
-	"[DEPT_BITFLAG_ENG]" = "Engineering",
-	"[DEPT_BITFLAG_MED]" = "Medical",
-	"[DEPT_BITFLAG_SEC]" = "Security",
-	"[DEPT_BITFLAG_VIP]" = "Very Important People",
-	"[DEPT_BITFLAG_SILICON]" = "Silicon"
-))
+#define DEPT_BITFLAG_TO_NAME list(\
+	"[DEPT_BITFLAG_CAPTAIN]" = "Captain",\
+	"[DEPT_BITFLAG_COM]" = "Command",\
+	"[DEPT_BITFLAG_CIV]" = "Civilian",\
+	"[DEPT_BITFLAG_SRV]" = "Service",\
+	"[DEPT_BITFLAG_CAR]" = "Cargo",\
+	"[DEPT_BITFLAG_SCI]" = "Science",\
+	"[DEPT_BITFLAG_ENG]" = "Engineering",\
+	"[DEPT_BITFLAG_MED]" = "Medical",\
+	"[DEPT_BITFLAG_SEC]" = "Security",\
+	"[DEPT_BITFLAG_VIP]" = "Very Important People",\
+	"[DEPT_BITFLAG_SILICON]" = "Silicon")
 
 /// A list of each department and its associated bitflag.
-GLOBAL_LIST_INIT(departments, list(
-	"Command" = DEPT_BITFLAG_COM,
-	"Very Important People" = DEPT_BITFLAG_VIP,
-	"Security" = DEPT_BITFLAG_SEC,
-	"Engineering" = DEPT_BITFLAG_ENG,
-	"Medical" = DEPT_BITFLAG_MED,
-	"Science" = DEPT_BITFLAG_SCI,
-	"Supply" = DEPT_BITFLAG_CAR,
-	"Cargo" = DEPT_BITFLAG_CAR, // code seems to switch between calling it Supply and Cargo. not going to fix that today, let's just split the difference.
-	"Service" = DEPT_BITFLAG_SRV,
-	"Civilian" = DEPT_BITFLAG_CIV,
-	"Silicon" = DEPT_BITFLAG_SILICON
-))
+#define DEPARTMENTS list(\
+	"Command" = DEPT_BITFLAG_COM,\
+	"Very Important People" = DEPT_BITFLAG_VIP,\
+	"Security" = DEPT_BITFLAG_SEC,\
+	"Engineering" = DEPT_BITFLAG_ENG,\
+	"Medical" = DEPT_BITFLAG_MED,\
+	"Science" = DEPT_BITFLAG_SCI,\
+	"Supply" = DEPT_BITFLAG_CAR,\
+	"Cargo" = DEPT_BITFLAG_CAR,\
+	"Service" = DEPT_BITFLAG_SRV,\
+	"Civilian" = DEPT_BITFLAG_CIV,\
+	"Silicon" = DEPT_BITFLAG_SILICON)
+
+#define DEPARTMENT_ORDER list( \
+	DEPARTMENT_COMMAND = "#ddddff",\
+	DEPARTMENT_VIP = "#999791",\
+	DEPARTMENT_SECURITY = "#ffdddd",\
+	DEPARTMENT_ENGINEERING = "#ffeeaa",\
+	DEPARTMENT_MEDICAL= "#c1e1ec",\
+	DEPARTMENT_SCIENCE = "#ffddff",\
+	DEPARTMENT_CARGO = "#d7b088",\
+	DEPARTMENT_SERVICE = "#bbe291",\
+	DEPARTMENT_CIVILIAN = "#bbe291",\
+	DEPARTMENT_SILICON = "#ccffcc") // department order and its dept color

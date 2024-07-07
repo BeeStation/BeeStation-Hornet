@@ -55,7 +55,7 @@
 			stack_trace("[job] does not have a description set, yet is a joinable occupation!")
 			continue
 
-		var/department_name = GLOB.dept_bitflag_to_name["[department_flag]"]
+		var/department_name = DEPT_BITFLAG_TO_NAME["[department_flag]"]
 		if (isnull(departments[department_name]))
 			var/department_head_jobname = job.department_head_for_prefs || job.department_head
 			if(islist(department_head_jobname) && length(department_head_jobname))

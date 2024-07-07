@@ -254,8 +254,8 @@ GLOBAL_LIST_INIT(command_huds, list(
 	. = list()
 	for(var/flag in GLOB.bitflags)
 		var/key = "[flag]"
-		var/department = GLOB.dept_bitflag_to_name[key]
-		if(!department || !GLOB.departments[department])
+		var/department = DEPT_BITFLAG_TO_NAME[key]
+		if(!department || !DEPARTMENTS[department])
 			continue
 		if(CHECK_BITFIELD(field, flag))
 			. += department
