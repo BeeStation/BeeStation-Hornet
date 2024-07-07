@@ -375,7 +375,7 @@ Arguments:
 	//First alert condition: Overheat
 	var/turf/T = get_turf(src)
 	if(temperature >= RBMK_TEMPERATURE_CRITICAL)
-		var/damagevalue = (temperature - 900)/10 * REACTOR_DAMAGE_MAGIC_NUMBER
+		var/damagevalue = (temperature - 900)/50
 		critical_threshold_proximity += damagevalue
 		warning_damage_flags |= RBMK_TEMPERATURE_DAMAGE
 		check_alert()
@@ -388,7 +388,7 @@ Arguments:
 		playsound(src, 'sound/machines/clockcult/steam_whoosh.ogg', 100, TRUE)
 		T.atmos_spawn_air("water_vapor=[pressure/100];TEMP=[temperature+273.15]")
 		// Warning: Pressure reaching critical thresholds!
-		var/damagevalue = (pressure-10100)/300 * REACTOR_DAMAGE_MAGIC_NUMBER
+		var/damagevalue = (pressure-10100)/300
 		critical_threshold_proximity += damagevalue
 		warning_damage_flags |= RBMK_PRESSURE_DAMAGE
 		check_alert()
@@ -421,8 +421,6 @@ Arguments:
 		else if (critical_threshold_proximity < critical_threshold_proximity_archived)// Phew, we're safe, damage going down
 			radio.talk_into(src, "[safe_alert] Integrity: [get_integrity_percent()]%", engineering_channel)
 			lastwarning = REALTIMEOFDAY
-			warning_damage_flags &= RBMK_TEMPERATURE_DAMAGE
-			warning_damage_flags &= RBMK_PRESSURE_DAMAGE
 			end_alarm()
 
 /**
@@ -432,8 +430,10 @@ Arguments:
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/send_radio_explanation()
 	if(warning_damage_flags & RBMK_PRESSURE_DAMAGE)
 		radio.talk_into(src, "Warning: Reactor overpressurized! Integrity: [get_integrity_percent()]%", engineering_channel)
+		warning_damage_flags &= RBMK_PRESSURE_DAMAGE
 	if(warning_damage_flags & RBMK_TEMPERATURE_DAMAGE)
 		radio.talk_into(src, "Warning: Reactor overheating! Integrity: [get_integrity_percent()]%", engineering_channel)
+		warning_damage_flags &= RBMK_TEMPERATURE_DAMAGE
 
 /**
  * Called by check_alert() in this file

@@ -31,6 +31,3 @@
 #define REACTOR_EMERGENCY_PERCENT 25
 #define REACTOR_DANGER_PERCENT 50
 #define REACTOR_WARNING_PERCENT 100
-
-//Blame Aramix for this monstrosity. In case you are wondering what this is, it is exp(0.005669), which is used for graphing reactor damage calculations (constant)
-#define REACTOR_DAMAGE_MAGIC_NUMBER 1.0056850991882220077025096652119341723277747452195921845851

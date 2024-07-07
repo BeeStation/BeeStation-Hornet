@@ -87,4 +87,5 @@
 	mid_sounds = list('sound/effects/rbmk/alarm.ogg' = 1)
 	volume = 100
 	extra_range = 10
-	mid_length = 30
+	mid_length = 58
+	ignore_walls = TRUE
