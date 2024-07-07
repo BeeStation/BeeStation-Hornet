@@ -78163,6 +78163,7 @@
 	dir = 8
 	},
 /obj/structure/table/glass,
+/obj/item/stack/medical/gauze,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "tzZ" = (

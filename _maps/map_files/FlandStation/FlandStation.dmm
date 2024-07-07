@@ -92079,6 +92079,7 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
+/obj/item/stack/medical/gauze,
 /turf/open/floor/iron/white,
 /area/security/main)
 "xcT" = (

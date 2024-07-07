@@ -72440,6 +72440,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
+/obj/item/stack/medical/gauze,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "qVr" = (

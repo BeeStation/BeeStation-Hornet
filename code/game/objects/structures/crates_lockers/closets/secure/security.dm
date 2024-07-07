@@ -115,7 +115,8 @@
 	new /obj/item/blood_filter(src)
 	new /obj/item/radio/headset/headset_medsec(src)
 	new	/obj/item/storage/firstaid/regular(src)
-	new /obj/item/storage/pill_bottle/charcoal
+	new /obj/item/storage/pill_bottle/charcoal(src)
+	new /obj/item/storage/pill_bottle/kelotane(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/under/rank/brig_physician(src)

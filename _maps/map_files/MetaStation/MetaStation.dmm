@@ -21987,6 +21987,7 @@
 	pixel_y = -4
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/obj/item/stack/medical/gauze,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "cUm" = (

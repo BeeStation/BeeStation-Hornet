@@ -59884,6 +59884,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
+/obj/item/stack/medical/gauze,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "vnK" = (

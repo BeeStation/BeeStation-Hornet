@@ -60217,6 +60217,7 @@
 	pixel_x = 5;
 	pixel_y = 12
 	},
+/obj/item/stack/medical/gauze,
 /turf/open/floor/iron,
 /area/security/brig/medbay)
 "sRq" = (
