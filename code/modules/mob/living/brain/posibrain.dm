@@ -1,5 +1,42 @@
 GLOBAL_VAR(posibrain_notify_cooldown)
 
+GLOBAL_LIST_EMPTY(on_station_posis)
+
+/datum/job/posibrain
+	title = JOB_NAME_POSIBRAIN
+	description = "A cube of shining metal, four inches to a side and covered in shallow grooves."
+	department_for_prefs = DEPT_BITFLAG_SILICON
+	department_head_for_prefs = JOB_NAME_AI
+	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
+	faction = "Station"
+	total_positions = 0
+	spawn_positions = 0
+	selection_color = "#ccffcc"
+	supervisors = "your laws"
+	req_admin_notify = TRUE
+	minimal_player_age = 30
+	exp_requirements = 600
+	exp_type = EXP_TYPE_CREW
+	exp_type_department = EXP_TYPE_SILICON
+	display_order = JOB_DISPLAY_ORDER_AI
+	departments = DEPT_BITFLAG_SILICON
+	random_spawns_possible = FALSE
+	allow_bureaucratic_error = FALSE
+	var/do_special_check = TRUE
+
+/datum/job/posibrain/get_access() // no point of calling parent proc
+	return list()
+
+/datum/job/posibrain/after_spawn(mob/living/H, mob/M, latejoin, client/preference_source, on_dummy)
+	. = ..()
+
+	var/obj/item/mmi/posibrain/P = pick(GLOB.on_station_posis)
+
+	P.activate(H)
+
+	qdel(H)
+
+
 /obj/item/mmi/posibrain
 	name = "positronic brain"
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
@@ -114,6 +151,16 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	if(transfer_personality(user))
 		GLOB.posi_key_list += ckey
 
+	//If Posi is on Station, We need to take off one posi job slot.
+	var/turf/currentturf = get_turf(src)
+	if( is_station_level(currentturf.z) )
+		GLOB.on_station_posis -= src
+		SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions--
+		if(SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions < 0)
+			SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions = 0
+		//We should never show a posibrain as a filled job, so just make number of current positions zero
+		SSjob.GetJob(JOB_NAME_POSIBRAIN).current_positions = 0
+
 /obj/item/mmi/posibrain/transfer_identity(mob/living/carbon/C)
 	name = "[initial(name)] ([C])"
 	brainmob.name = C.real_name
@@ -181,6 +228,16 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	brainmob.real_name = brainmob.name
 	brainmob.forceMove(src)
 	brainmob.container = src
+
+	// Register a signal so that the posibrain will detect when it leaves station level to remove it from the job list.
+	RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(check_z))
+
+	//If we are on the station level, add it to the list of available posibrains.
+	var/turf/currentturf = get_turf(src)
+	if( is_station_level(currentturf.z))
+		GLOB.on_station_posis += src
+		SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions++
+
 	if(autoping)
 		ping_ghosts("created", TRUE)
 
@@ -196,3 +253,41 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		icon_state = "[initial(icon_state)]-occupied"
 	else
 		icon_state = initial(icon_state)
+
+//This Proc triggers when the Z level changes. If the Posi enters the station level, add it to the Job list.
+//If it leaves, remove it.
+/obj/item/mmi/posibrain/proc/check_z(datum/source, old_z, new_z)
+	SIGNAL_HANDLER
+	if(is_occupied())
+		//No need to track occupied Posis
+		return
+
+	//We should never show a posibrain as a filled job, so just make number of current positions zero
+	SSjob.GetJob(JOB_NAME_POSIBRAIN).current_positions = 0
+
+	//Posi was on station, now is not on station
+	if( is_station_level(old_z) && !is_station_level(new_z))
+		GLOB.on_station_posis -= src
+		SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions--
+		if(SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions < 0)
+			SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions = 0
+
+	//Posi was off station, now is on station
+	if( !is_station_level(old_z) && is_station_level(new_z))
+		GLOB.on_station_posis += src
+		SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions++
+
+/obj/item/mmi/posibrain/Destroy()
+
+	if(is_occupied())
+		//No need to track occupied Posis
+		return ..()
+
+	//If Posi is on station, remove it from the list.
+	if( src in GLOB.on_station_posis)
+		GLOB.on_station_posis -= src
+		SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions--
+		if(SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions < 0)
+			SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions = 0
+
+	return ..()
