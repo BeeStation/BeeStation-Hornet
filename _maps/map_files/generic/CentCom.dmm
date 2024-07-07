@@ -960,14 +960,6 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/supplypod/loading/two)
-"dM" = (
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/machinery/recharge_station/drone,
-/mob/living/simple_animal/pet/drone/syndie{
-	name = "Gigatron"
-	},
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "dN" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -30600,7 +30592,7 @@ kt
 kt
 kt
 nz
-Vo
+Sf
 ba
 gv
 WZ
@@ -31372,7 +31364,7 @@ ku
 ku
 ku
 ku
-dM
+Vo
 Sf
 Sf
 Sf
