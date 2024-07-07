@@ -185,12 +185,12 @@
 
 /atom/movable/screen/alert/hot
 	name = "Too Hot"
-	desc = "You're flaming hot! Get somewhere cooler and take off any insulating clothing like a fire suit."
+	desc = "Is it just me, or is it HOT around here?!"
 	icon_state = "hot"
 
 /atom/movable/screen/alert/cold
 	name = "Too Cold"
-	desc = "You're freezing cold! Get somewhere warmer and take off any insulating clothing like a space suit."
+	desc = "Man, this is pretty cold!"
 	icon_state = "cold"
 
 /atom/movable/screen/alert/lowpressure

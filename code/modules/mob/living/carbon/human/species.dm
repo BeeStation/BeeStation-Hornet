@@ -1894,12 +1894,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * Used to stabilize the core temperature back to normal on living mobs
  *
  * The metabolisim heats up the core of the mob trying to keep it at the normal body temp
+ * Metabolic overhead means there's always excess heat.
  * vars:
  * * humi (required) The mob we will stabilize
  */
 /datum/species/proc/body_temperature_core(mob/living/carbon/human/humi)
-	var/natural_change = get_temp_change_amount(humi.get_body_temp_normal() - humi.coretemperature, 0.12)
-	humi.adjust_coretemperature(humi.metabolism_efficiency * natural_change)
+	var/natural_change = get_temp_change_amount(humi.get_body_temp_normal() - humi.coretemperature, 0.16)
+	humi.adjust_coretemperature(humi.metabolism_efficiency * natural_change + 1)
 
 /**
  * Used to normalize the skin temperature on living mobs
@@ -1913,8 +1914,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	// change the core based on the skin temp
 	var/skin_core_diff = humi.bodytemperature - humi.coretemperature
-	// change rate of 0.08 to be slightly below area to skin change rate and still have a solid curve
-	var/skin_core_change = get_temp_change_amount(skin_core_diff, 0.08)
+	// change rate of 0.01 because core temperature is hard to change
+	var/skin_core_change = get_temp_change_amount(skin_core_diff, 0.01)
 
 	humi.adjust_coretemperature(skin_core_change)
 
@@ -1933,7 +1934,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/area_skin_diff = area_temp - humi.bodytemperature
 	if(!humi.on_fire || area_skin_diff > 0)
 		// change rate of 0.1 as area temp has large impact on the surface
-		var/area_skin_change = get_temp_change_amount(area_skin_diff, 0.1)
+		var/area_skin_change = get_temp_change_amount(area_skin_diff, 0.2)
 
 		// We need to apply the thermal protection of the clothing when applying area to surface change
 		// If the core bodytemp goes over the normal body temp you are overheating and becom sweaty
@@ -1951,8 +1952,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(!humi.on_fire)
 		// Get the changes to the skin from the core temp
 		var/core_skin_diff = humi.coretemperature - humi.bodytemperature
-		// change rate of 0.08 to reflect temp back in to the core at the same rate as core to skin
-		var/core_skin_change = (1 + thermal_protection) * get_temp_change_amount(core_skin_diff, 0.08)
+		// change rate of 0.04 to reflect temp back in to the core a bit more because we lose more heat through the skin
+		var/core_skin_change = (1 + thermal_protection) * get_temp_change_amount(core_skin_diff, 0.04)
 
 		// We do not want to over shoot after using protection
 		if(core_skin_diff > 0)
@@ -1972,12 +1973,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/old_bodytemp = humi.old_bodytemperature
 	var/bodytemp = humi.bodytemperature
 	// Body temperature is too hot, and we do not have resist traits
+	// Offset cuz it's easier to make heat than to lose it
 	if(bodytemp > bodytemp_heat_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTHEAT))
 		// Clear cold mood and apply hot mood
 		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "cold")
 		SEND_SIGNAL(humi, COMSIG_ADD_MOOD_EVENT, "hot", /datum/mood_event/hot)
 
-		//Remove any slowdown from the cold.
+		// Remove any slowdown from the cold.
 		humi.remove_movespeed_modifier(/datum/movespeed_modifier/cold)
 		// display alerts based on how hot it is
 		// Can't be a switch due to http://www.byond.com/forum/post/2750423
@@ -1989,7 +1991,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			humi.throw_alert("temp", /atom/movable/screen/alert/hot, 3)
 
 	// Body temperature is too cold, and we do not have resist traits
-	else if(humi.bodytemperature < bodytemp_cold_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTCOLD))
+	else if(humi.bodytemperature < (bodytemp_cold_damage_limit - 5) && !HAS_TRAIT(humi, TRAIT_RESISTCOLD))
 		// clear any hot moods and apply cold mood
 		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "hot")
 		SEND_SIGNAL(humi, COMSIG_ADD_MOOD_EVENT, "cold", /datum/mood_event/cold)
@@ -2041,8 +2043,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if (!humi.on_fire) // We are not on fire, reduce the modifier
 			firemodifier = min(firemodifier, 0)
 
-		// this can go below 5 at log 2.5
-		var/burn_damage = max(log(2 - firemodifier, (humi.coretemperature - humi.get_body_temp_normal(apply_change=FALSE))) - 5,0)
+		// removed the -5 cuz it wasn't needed anymore
+		var/burn_damage = max(log(2 - firemodifier, (humi.coretemperature - humi.get_body_temp_normal(apply_change=FALSE))),0)
 
 		// Apply species and physiology modifiers to heat damage
 		burn_damage = burn_damage * heatmod * humi.physiology.heat_mod

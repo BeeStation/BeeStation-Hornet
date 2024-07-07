@@ -17,6 +17,9 @@
 	var/footstep = 0
 	var/mob/listeningTo
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo
+	body_parts_covered = CHEST
+	cold_protection = CHEST
+	min_cold_protection_temperature = JACKET_MIN_TEMP_PROTECT
 
 
 /obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)

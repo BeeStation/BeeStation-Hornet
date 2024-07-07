@@ -90,10 +90,12 @@
 /// This is used in handle_temperature_damage() for humans, and in reagents that affect body temperature. Temperature damage is multiplied by this amount.
 #define TEMPERATURE_DAMAGE_COEFFICIENT 1.5
 
-/// The natural temperature for a body
-#define BODYTEMP_NORMAL 310.15
+// NOTE: AS FAR AS I KNOW: ALL THE STUFF BELOW IS ACTUALLY CORE TEMP. NOT BODY TEMP.
+
+/// The natural temperature for a body / slightly lower to account for metabolic heating effects
+#define BODYTEMP_NORMAL 309
 /// This is the divisor which handles how much of the temperature difference between the current body temperature and 310.15K (optimal temperature) humans auto-regenerate each tick. The higher the number, the slower the recovery. This is applied each tick, so long as the mob is alive.
-#define BODYTEMP_AUTORECOVERY_DIVISOR 14
+#define BODYTEMP_AUTORECOVERY_DIVISOR 10
 /// Minimum amount of kelvin moved toward 310K per tick. So long as abs(310.15 - bodytemp) is more than 50.
 #define BODYTEMP_AUTORECOVERY_MINIMUM 6
 ///Similar to the BODYTEMP_AUTORECOVERY_DIVISOR, but this is the divisor which is applied at the stage that follows autorecovery. This is the divisor which comes into play when the human's loc temperature is lower than their body temperature. Make it lower to lose bodytemp faster.
@@ -101,34 +103,40 @@
 /// Similar to the BODYTEMP_AUTORECOVERY_DIVISOR, but this is the divisor which is applied at the stage that follows autorecovery. This is the divisor which comes into play when the human's loc temperature is higher than their body temperature. Make it lower to gain bodytemp faster.
 #define BODYTEMP_HEAT_DIVISOR 15
 /// The maximum number of degrees that your body can cool in 1 tick, due to the environment, when in a cold area.
-#define BODYTEMP_COOLING_MAX -30
+#define BODYTEMP_COOLING_MAX -5
 /// The maximum number of degrees that your body can heat up in 1 tick, due to the environment, when in a hot area.
-#define BODYTEMP_HEATING_MAX 30
+#define BODYTEMP_HEATING_MAX 5
 
 /// The body temperature limit the human body can take before it starts taking damage from heat.
 /// This also affects how fast the body normalises it's temperature when hot.
-/// 340k is about 66c, and rather high for a human.
-#define BODYTEMP_HEAT_DAMAGE_LIMIT (BODYTEMP_NORMAL + 30)
+/// Anything above 38 is Hyperthermic.
+/// Remember this is core temperature, to change core temps this much needs hella bad conditions.
+#define BODYTEMP_HEAT_DAMAGE_LIMIT (BODYTEMP_NORMAL + 2)
 /// The body temperature limit the human body can take before it starts taking damage from cold.
 /// This also affects how fast the body normalises it's temperature when cold.
-/// 270k is about -3c, that is below freezing and would hurt over time.
-#define BODYTEMP_COLD_DAMAGE_LIMIT (BODYTEMP_NORMAL - 40)
+/// Everything under 34c is Hypothermic.
+#define BODYTEMP_COLD_DAMAGE_LIMIT (BODYTEMP_NORMAL - 2)
 /// The body temperature limit the human body can take before it will take wound damage.
-#define BODYTEMP_HEAT_WOUND_LIMIT (BODYTEMP_NORMAL + 90) // 400.5 k
+#define BODYTEMP_HEAT_WOUND_LIMIT (BODYTEMP_NORMAL + 40) // 350.15 k / 77c. At this point the proteins in your skin start denaturing.
 
 // Body temperature warning icons
 /// The temperature the red icon is displayed.
-#define BODYTEMP_HEAT_WARNING_3 (BODYTEMP_HEAT_DAMAGE_LIMIT + 360) //+700k
+#define BODYTEMP_HEAT_WARNING_3 (BODYTEMP_HEAT_DAMAGE_LIMIT + 30)
 /// The temperature the orange icon is displayed.
-#define BODYTEMP_HEAT_WARNING_2 (BODYTEMP_HEAT_DAMAGE_LIMIT + 120) //460K
+#define BODYTEMP_HEAT_WARNING_2 (BODYTEMP_HEAT_DAMAGE_LIMIT + 15)
 /// The temperature the yellow icon is displayed.
-#define BODYTEMP_HEAT_WARNING_1 (BODYTEMP_HEAT_DAMAGE_LIMIT) //340K
+#define BODYTEMP_HEAT_WARNING_1 (BODYTEMP_HEAT_DAMAGE_LIMIT)
 /// The temperature the light green icon is displayed.
-#define BODYTEMP_COLD_WARNING_1 (BODYTEMP_COLD_DAMAGE_LIMIT) //270k
+#define BODYTEMP_COLD_WARNING_1 (BODYTEMP_COLD_DAMAGE_LIMIT)
 /// The temperature the cyan icon is displayed.
-#define BODYTEMP_COLD_WARNING_2 (BODYTEMP_COLD_DAMAGE_LIMIT - 70) //200k
+#define BODYTEMP_COLD_WARNING_2 (BODYTEMP_COLD_DAMAGE_LIMIT - 15)
 /// The temperature the blue icon is displayed.
-#define BODYTEMP_COLD_WARNING_3 (BODYTEMP_COLD_DAMAGE_LIMIT - 150) //120k
+#define BODYTEMP_COLD_WARNING_3 (BODYTEMP_COLD_DAMAGE_LIMIT - 30)
+
+#define JACKET_MIN_TEMP_PROTECT			100
+#define JACKET_MAX_TEMP_PROTECT			300
+#define UNDER_MIN_TEMP_PROTECT			50
+#define UNDER_MAX_TEMP_PROTECT			200
 
 #define SPACE_HELM_MIN_TEMP_PROTECT			2.0		//! what min_cold_protection_temperature is set to for space-helmet quality headwear. MUST NOT BE 0.
 #define SPACE_HELM_MAX_TEMP_PROTECT			1500	//! Thermal insulation works both ways /Malkevin

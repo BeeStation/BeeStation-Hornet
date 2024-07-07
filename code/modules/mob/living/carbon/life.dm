@@ -570,6 +570,8 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
  */
 /mob/living/carbon/proc/natural_bodytemperature_stabilization(datum/gas_mixture/environment)
 	var/areatemp = get_temperature(environment)
+	// For anyone else confused by this goddamn MESS: This is the part where body temperature gets taken.
+	// ALL REFERENCES TO BODY TEMPERATURE IN ATMOSPHERICS.DM OR HERE ARE ACTUALLY CORE TEMP.
 	var/body_temperature_difference = get_body_temp_normal() - bodytemperature
 	var/natural_change = 0
 

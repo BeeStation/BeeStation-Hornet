@@ -19,6 +19,9 @@
 	var/mutable_appearance/accessory_overlay
 	var/freshly_laundered = FALSE
 	dying_key = DYE_REGISTRY_UNDER
+	body_parts_covered = CHEST|GROIN|ARMS
+	cold_protection = CHEST|GROIN|ARMS
+	min_cold_protection_temperature = UNDER_MIN_TEMP_PROTECT
 
 /obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
