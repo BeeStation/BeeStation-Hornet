@@ -18,7 +18,7 @@ export const XenoartifactLabeler = (props, context) => {
         </Section>
         <Divider />
         <Section>
-          <Collapsible title='Filters'>
+          <Collapsible title="Filters">
             <XenoartifactlabelerGenerateFilterEntry />
           </Collapsible>
         </Section>
@@ -49,10 +49,10 @@ const XenoartifactlabelerTraits = (props, context) => {
   const sorted_majors = major_traits.sort(alphasort);
   const sorted_malfs = malfunction_list.sort(alphasort);
 
-  let filtered_activators = sorted_activators.filter(n => !filtered_traits.includes(n));
-  let filtered_minors = sorted_minors.filter(n => !filtered_traits.includes(n));
-  let filtered_majors = sorted_majors.filter(n => !filtered_traits.includes(n));
-  let filtered_malfs = sorted_malfs.filter(n => !filtered_traits.includes(n));
+  let filtered_activators = sorted_activators.filter((n) => !filtered_traits.includes(n));
+  let filtered_minors = sorted_minors.filter((n) => !filtered_traits.includes(n));
+  let filtered_majors = sorted_majors.filter((n) => !filtered_traits.includes(n));
+  let filtered_malfs = sorted_malfs.filter((n) => !filtered_traits.includes(n));
 
   return (
     <Box px={1} grow={1} overflowY="auto" height="425px" width="150px">
@@ -112,7 +112,7 @@ const XenoartifactlabelerGenerateEntry = (props, context) => {
       <Button.Checkbox
         content={specific_trait}
         checked={selected_traits.includes(specific_trait)}
-        color={deselected_traits.includes(specific_trait) ? "bad" : "transparent"}
+        color={deselected_traits.includes(specific_trait) ? 'bad' : 'transparent'}
         onClick={() => act(`toggle_trait`, { trait_name: specific_trait, select: true })}
         tooltip={`${tooltip_stats[specific_trait]['alt_name'] ? `${tooltip_stats[specific_trait]['alt_name']},` : ``}
           Weight: ${tooltip_stats[specific_trait]['weight']},
@@ -163,11 +163,11 @@ const XenoartifactlabelerGenerateFilterEntry = (props, context) => {
     <Box>
       {trait_filters.map((filter) => (
         <Button
-          key={filter["desc"]}
-          tooltip={filter["desc"]}
-          icon={filter["icon"]}
-          onClick={() => act(`toggle_filter`, { filter: filter["icon"] })}
-          selected={enabled_trait_filters.includes(filter["icon"])}
+          key={filter['desc']}
+          tooltip={filter['desc']}
+          icon={filter['icon']}
+          onClick={() => act(`toggle_filter`, { filter: filter['icon'] })}
+          selected={enabled_trait_filters.includes(filter['icon'])}
         />
       ))}
     </Box>
