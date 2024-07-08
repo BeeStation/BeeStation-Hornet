@@ -48,7 +48,7 @@
 	icon_state = "ion_fade"
 	layer = BELOW_MOB_LAYER
 	duration = 10
-	randomdir = 0
+	randomdir = FALSE
 
 /obj/effect/temp_visual/dir_setting/firing_effect
 	icon = 'icons/effects/effects.dmi'
@@ -155,13 +155,13 @@
 	fades = TRUE
 
 /obj/effect/temp_visual/dir_setting/curse/hand
-	icon_state = "cursehand"
+	icon_state = "cursehand1"
 
 /obj/effect/temp_visual/bsa_splash
 	name = "\improper Bluespace energy wave"
 	desc = "A massive, rippling wave of bluepace energy, all rapidly exhausting itself the moment it leaves the concentrated beam of light."
 	icon = 'icons/effects/beam_splash.dmi'
-	icon_state = "beam_splash_l"
+	icon_state = "beam_splash_e"
 	layer = ABOVE_ALL_MOB_LAYER
 	pixel_y = -16
 	duration = 50
@@ -198,7 +198,7 @@
 	duration = 5
 
 /obj/effect/temp_visual/holoparasite
-	randomdir = 0
+	randomdir = FALSE
 
 /obj/effect/temp_visual/holoparasite/phase
 	duration = 5
@@ -286,7 +286,7 @@
 	name = "emp pulse"
 	icon_state = "emppulse"
 	duration = 8
-	randomdir = 0
+	randomdir = FALSE
 
 /obj/effect/temp_visual/bluespace_fissure
 	name = "bluespace fissure"
@@ -355,7 +355,7 @@
 	name = "blob"
 	icon_state = "blob_attack"
 	alpha = 140
-	randomdir = 0
+	randomdir = FALSE
 	duration = 6
 
 /obj/effect/temp_visual/desynchronizer

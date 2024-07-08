@@ -1893,12 +1893,6 @@
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
 /area/awaymission/caves/BMP_asteroid)
-"fQ" = (
-/turf/open/floor/iron/elevatorshaft{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7";
-	name = "elevator flooring"
-	},
-/area/awaymission/caves/BMP_asteroid)
 "fR" = (
 /obj/structure/grille,
 /obj/structure/barricade/wooden,
@@ -1916,13 +1910,6 @@
 "fT" = (
 /obj/machinery/iv_drip,
 /turf/open/floor/iron,
-/area/awaymission/caves/BMP_asteroid)
-"fU" = (
-/obj/effect/landmark/awaystart,
-/turf/open/floor/iron/elevatorshaft{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7";
-	name = "elevator flooring"
-	},
 /area/awaymission/caves/BMP_asteroid)
 "fW" = (
 /obj/structure/girder,
@@ -2115,12 +2102,6 @@
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
 /area/awaymission/caves/BMP_asteroid)
-"gC" = (
-/obj/mecha/working/ripley/mining{
-	ruin_mecha = 1
-	},
-/turf/open/floor/iron/recharge_floor,
-/area/awaymission/caves/BMP_asteroid)
 "gD" = (
 /obj/structure/spawner/mining/hivelord,
 /turf/open/floor/plating/asteroid/basalt{
@@ -2253,6 +2234,23 @@
 /obj/effect/baseturf_helper/asteroid/basalt,
 /turf/closed/wall,
 /area/awaymission/caves/northblock)
+"Eb" = (
+/obj/effect/landmark/awaystart,
+/turf/open/floor/plating/elevatorshaft{
+	initial_gas_mix = "n2=23;o2=14;TEMP=2.7";
+	name = "elevator flooring"
+	},
+/area/awaymission/caves/BMP_asteroid)
+"KD" = (
+/obj/vehicle/sealed/mecha/working/ripley/mining,
+/turf/open/floor/iron/recharge_floor,
+/area/awaymission/caves/BMP_asteroid)
+"SX" = (
+/turf/open/floor/plating/elevatorshaft{
+	initial_gas_mix = "n2=23;o2=14;TEMP=2.7";
+	name = "elevator flooring"
+	},
+/area/awaymission/caves/BMP_asteroid)
 
 (1,1,1) = {"
 aa
@@ -13770,10 +13768,10 @@ bV
 cj
 bV
 fJ
-fQ
-fQ
-fQ
-fQ
+SX
+SX
+SX
+SX
 fJ
 bV
 bV
@@ -14027,10 +14025,10 @@ bV
 bV
 bV
 fJ
-fQ
-fQ
-fQ
-fQ
+SX
+SX
+SX
+SX
 fJ
 bV
 bV
@@ -14284,10 +14282,10 @@ bV
 bV
 bV
 fJ
-fQ
-fU
-fQ
-fQ
+SX
+Eb
+SX
+SX
 fJ
 bV
 bV
@@ -14541,10 +14539,10 @@ cj
 bV
 bV
 fJ
-fQ
-fQ
-fQ
-fQ
+SX
+SX
+SX
+SX
 fJ
 bV
 bV
@@ -19436,7 +19434,7 @@ bL
 bL
 bL
 dX
-gC
+KD
 gE
 gG
 gJ

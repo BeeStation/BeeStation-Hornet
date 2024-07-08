@@ -10,6 +10,7 @@
 	item_flags = NOBLUDGEON
 	amount = 5
 	max_amount = 5
+	merge_type = /obj/item/stack/sticky_tape
 
 	var/list/conferred_embed = EMBED_HARMLESS
 	var/overwrite_existing = FALSE
@@ -42,6 +43,7 @@
 	icon_state = "tape_y"
 	prefix = "super sticky"
 	conferred_embed = EMBED_HARMLESS_SUPERIOR
+	merge_type = /obj/item/stack/sticky_tape
 
 /obj/item/stack/sticky_tape/pointy
 	name = "pointy tape"
@@ -50,6 +52,7 @@
 	icon_state = "tape_evil"
 	prefix = "pointy"
 	conferred_embed = EMBED_POINTY
+	merge_type = /obj/item/stack/sticky_tape/pointy
 
 /obj/item/stack/sticky_tape/pointy/super
 	name = "super pointy tape"
@@ -58,3 +61,4 @@
 	icon_state = "tape_spikes"
 	prefix = "super pointy"
 	conferred_embed = EMBED_POINTY_SUPERIOR
+	merge_type = /obj/item/stack/sticky_tape/pointy/super

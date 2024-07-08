@@ -183,6 +183,12 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
+"ck" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/head/costume/ushanka,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/turretedoutpost)
 "fm" = (
 /obj/item/rack_parts,
 /obj/machinery/light{
@@ -216,6 +222,14 @@
 /obj/item/rack_parts,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/ruin/space/has_grav/turretedoutpost)
+"yB" = (
+/obj/structure/rack,
+/obj/item/clothing/head/helmet/toggleable/riot,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/turretedoutpost)
@@ -266,12 +280,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/turretedoutpost)
-"IX" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/head/ushanka,
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/turretedoutpost)
 "KJ" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -292,14 +300,6 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
-"NF" = (
-/obj/structure/rack,
-/obj/item/clothing/head/helmet/riot,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/turretedoutpost)
 "SK" = (
 /obj/structure/rack,
@@ -483,7 +483,7 @@ az
 az
 az
 az
-NF
+yB
 ad
 al
 ab
@@ -539,7 +539,7 @@ ad
 ad
 ad
 ad
-IX
+ck
 hh
 hh
 FQ

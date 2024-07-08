@@ -118,7 +118,7 @@
 
 /obj/item/storage/box/hero/PopulateContents()
 	new /obj/item/clothing/head/fedora/curator(src)
-	new /obj/item/clothing/suit/curator(src)
+	new /obj/item/clothing/suit/jacket/curator(src)
 	new /obj/item/clothing/under/rank/civilian/curator/treasure_hunter(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/melee/curator_whip(src)
@@ -166,7 +166,7 @@
 	info_text = "Carp Hunter, Wildlife Expert - 2506. \n<span class='notice'>Comes with a hunting knife</span>"
 
 /obj/item/storage/box/hero/carphunter/PopulateContents()
-	new /obj/item/clothing/suit/space/hardsuit/carp/old(src)
+	new /obj/item/clothing/suit/hooded/carp_costume/spaceproof/old(src)
 	new /obj/item/clothing/mask/gas/carp(src)
 	new /obj/item/knife/hunting(src)
 
@@ -177,7 +177,7 @@
 
 /obj/item/storage/box/hero/ronin/PopulateContents()
     new /obj/item/clothing/under/costume/kamishimo(src)
-    new /obj/item/clothing/head/rice_hat(src)
+    new /obj/item/clothing/head/costume/rice_hat(src)
     new /obj/item/katana/weak/curator(src)
     new /obj/item/clothing/shoes/sandal(src)
 
@@ -265,20 +265,20 @@
 
 /obj/item/storage/box/magic/hat
 	name = "Bottomless Top Hat"
-	item_icon_file = 'icons/obj/clothing/hats.dmi'
+	item_icon_file = 'icons/obj/clothing/head/hats.dmi'
 	item_icon_state = "tophat"
 	info_text = "Bottomless Top Hat. \n<span class='notice'>Allows for storage of items and living beings inside.</span>"
 
 /obj/item/storage/box/magic/hat/PopulateContents()
-	new /obj/item/clothing/head/that/bluespace(src)
+	new /obj/item/clothing/head/hats/tophat/bluespace(src)
 
-/obj/item/clothing/head/that/bluespace //code shamelessly ripped from bluespace body bags, cuz that's basically what this is
+/obj/item/clothing/head/hats/tophat/bluespace //code shamelessly ripped from bluespace body bags, cuz that's basically what this is
 	var/itemheld = FALSE
 	var/capacity = 2
 	var/maximum_size = 2 //one human, two pets, unlimited tiny mobs, but no big boys like megafauna
 	var/kidnappingcoefficient = 1
 
-/obj/item/clothing/head/that/bluespace/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/head/hats/tophat/bluespace/attackby(obj/item/W, mob/user, params)
 	. = ..()
 	if(istype(W, /obj/item/upgradewand))
 		var/obj/item/upgradewand/wand = W
@@ -290,7 +290,7 @@
 			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 
-/obj/item/clothing/head/that/bluespace/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/clothing/head/hats/tophat/bluespace/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!proximity_flag)
 		return
@@ -325,7 +325,7 @@
 		else
 			to_chat(user, "[I] will not fit in the tophat!")
 
-/obj/item/clothing/head/that/bluespace/attack_self(mob/user)
+/obj/item/clothing/head/hats/tophat/bluespace/attack_self(mob/user)
 	. = ..()
 	capacity = maximum_size
 	itemheld = FALSE
@@ -338,19 +338,19 @@
 			var/obj/item/I = A
 			user.put_in_hands(I)
 
-/obj/item/clothing/head/that/bluespace/examine(mob/user)
+/obj/item/clothing/head/hats/tophat/bluespace/examine(mob/user)
 	. = ..()
 	if(contents.len)
 		. += "<span class='notice'>You can make out [contents.len] object\s in the hat.</span>"
 
-/obj/item/clothing/head/that/bluespace/Destroy()
+/obj/item/clothing/head/hats/tophat/bluespace/Destroy()
 	for(var/atom/movable/A in contents)
 		A.forceMove(get_turf(src))
 		if(isliving(A))
 			to_chat(A, "<span class='notice'>You suddenly feel the space around you tear apart! You're free!</span>")
 	return ..()
 
-/obj/item/clothing/head/that/bluespace/container_resist(mob/living/user)
+/obj/item/clothing/head/hats/tophat/bluespace/container_resist(mob/living/user)
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't get out while you're restrained like this!</span>")
 		return

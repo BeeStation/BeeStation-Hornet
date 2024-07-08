@@ -4,7 +4,7 @@
 /area/template_noop)
 "i" = (
 /obj/structure/table,
-/obj/item/clothing/head/chefhat,
+/obj/item/clothing/head/utility/chefhat,
 /obj/item/clothing/suit/apron/chef,
 /obj/machinery/light/small{
 	dir = 1

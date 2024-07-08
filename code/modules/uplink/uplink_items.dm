@@ -1393,9 +1393,9 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/explosives/explosive_flashbulbs
-	name = "Explosive Flashbulb"
-	desc = "A flashbulb stuffed with explosives that when used by an oblivious security officers, will cause a violent explosion."
-	item = /obj/item/flashbulb/bomb
+	name = "Explosive Flash"
+	desc = "A flash with a bulb stuffed with explosives that when used by an oblivious security officers, will cause a violent explosion."
+	item = /obj/item/assembly/flash/bomb
 	cost = 1
 	surplus = 8
 
@@ -1456,13 +1456,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Dark Gygax Exosuit"
 	desc = "A lightweight exosuit, painted in a dark scheme. Its speed and equipment selection make it excellent \
 			for hit-and-run style attacks. Features an incendiary carbine, flash bang launcher, teleporter, ion thrusters and a Tesla energy array."
-	item = /obj/mecha/combat/gygax/dark/loaded
+	item = /obj/vehicle/sealed/mecha/combat/gygax/dark/loaded
 	cost = 80
 
 /datum/uplink_item/support/honker
 	name = "Dark H.O.N.K."
 	desc = "A clown combat mech equipped with bombanana peel and tearstache grenade launchers, as well as the ubiquitous HoNkER BlAsT 5000."
-	item = /obj/mecha/combat/honker/dark/loaded
+	item = /obj/vehicle/sealed/mecha/combat/honker/dark/loaded
 	cost = 80
 	purchasable_from = UPLINK_CLOWN_OPS
 
@@ -1470,7 +1470,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Mauler Exosuit"
 	desc = "A massive and incredibly deadly military-grade exosuit. Features long-range targeting, thrust vectoring \
 			and deployable smoke. Comes equipped with an LMG, scattershot carbine, missile rack, an antiprojectile armor booster and a Tesla energy array."
-	item = /obj/mecha/combat/marauder/mauler/loaded
+	item = /obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded
 	cost = 140
 
 // Stealth Items
@@ -2215,6 +2215,25 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A pair of shoes for the most elite agents of the honkmotherland. They grant the mastery of taeclowndo with some honk-fu moves as long as they're worn."
 	cost = 12
 	item = /obj/item/clothing/shoes/clown_shoes/taeclowndo
+	restricted_roles = list(JOB_NAME_CLOWN)
+
+/datum/uplink_item/role_restricted/bananashield
+	name = "Bananium Energy Shield"
+	desc = "A clown's most powerful defensive weapon, this personal shield provides near immunity to ranged energy attacks \
+		by bouncing them back at the ones who fired them. It can also be thrown to bounce off of people, slipping them, \
+		and returning to you even if you miss. WARNING: DO NOT ATTEMPT TO STAND ON SHIELD WHILE DEPLOYED, EVEN IF WEARING ANTI-SLIP SHOES."
+	item = /obj/item/shield/energy/bananium
+	cost = 15
+	surplus = 0
+	restricted_roles = list(JOB_NAME_CLOWN)
+
+/datum/uplink_item/role_restricted/clownsword
+	name = "Bananium Energy Sword"
+	desc = "An energy sword that deals no damage, but will slip anyone it contacts, be it by melee attack, thrown \
+	impact, or just stepping on it. Beware friendly fire, as even anti-slip shoes will not protect against it."
+	item = /obj/item/melee/transforming/energy/sword/bananium
+	cost = 5
+	surplus = 0
 	restricted_roles = list(JOB_NAME_CLOWN)
 
 /datum/uplink_item/role_restricted/superior_honkrender
