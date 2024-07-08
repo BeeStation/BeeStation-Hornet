@@ -30,5 +30,5 @@
 	. = ..()
 	if(. && !HAS_TRAIT(M, TRAIT_MEDICAL_HUD))
 		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-		var/mob/living/brain/B = mmi_as_oc.brainmob
-		hud.add_hud_to(B)
+		var/mob/living/brain/B = M.brainmob
+		hud.add_atom_to_hud(B)
