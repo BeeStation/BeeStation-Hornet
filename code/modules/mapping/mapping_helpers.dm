@@ -457,7 +457,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 
 	// well, it's a bad idea to put a directional window here. Mapping failsafe process here.
 	if(unliable_atmos_blocking && (isspaceturf(my_turf) || isopenspace(my_turf)))
-		my_turf.PlaceOnTop(list(/turf/open/floor/plating, /turf/open/floor/plasteel), flags = CHANGETURF_INHERIT_AIR)
+		my_turf.PlaceOnTop(list(/turf/open/floor/plating, /turf/open/floor/iron), flags = CHANGETURF_INHERIT_AIR)
 		for(var/turf/each_turf in nearby_turfs)
 			if(isspaceturf(each_turf) || isopenspace(each_turf))
 				var/obj/d_glass = new window_type(my_turf)

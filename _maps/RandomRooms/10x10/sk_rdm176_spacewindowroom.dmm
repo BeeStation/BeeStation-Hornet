@@ -5,10 +5,10 @@
 /area/template_noop)
 "k" = (
 /obj/machinery/light/floor,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "t" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "G" = (
 /obj/effect/mapping_helpers/space_window_placer,
