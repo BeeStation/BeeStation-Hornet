@@ -1,0 +1,5 @@
+author: tonty
+delete-after: true
+changes:
+  - bugfix: starting an emote with " 's " or "," won't leave a space anymore. roleplay
+      has been saved
