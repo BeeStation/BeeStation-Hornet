@@ -85,7 +85,7 @@
 	AM.custom_price += extra_value
 
 //Remeber to call this before setting a new parent
-/datum/xenoartifact_trait/proc/remove_parent(datum/source)
+/datum/xenoartifact_trait/proc/remove_parent(datum/source, pensive = TRUE)
 	SIGNAL_HANDLER
 
 	//Detach from current parent
@@ -104,7 +104,8 @@
 		You might have to implement a reverse state for some traits though, like dense.
 		- Racc : PLAYTEST
 	*/
-	qdel(src)
+	if(pensive)
+		qdel(src)
 	parent = null
 	dump_targets()
 
@@ -244,7 +245,7 @@
 	if(do_after(user, 8 SECONDS, A))
 		new /obj/item/sticker/trait_pearl(get_turf(A), src)
 		parent.remove_individual_trait(src)
-		remove_parent()
+		remove_parent(pensive = FALSE)
 	else
 		to_chat(user, "<span class='warning'>You reconsider...</span>")
 
