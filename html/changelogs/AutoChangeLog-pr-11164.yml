@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: fixed a runtime that's caused by hallucination making an item to say
