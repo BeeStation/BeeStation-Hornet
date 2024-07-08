@@ -164,6 +164,10 @@
 		if(nightshift_enabled)
 			update(FALSE, TRUE, TRUE)
 
+/obj/machinery/light/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
+
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
 	if(A)
@@ -197,7 +201,7 @@
 
 	if(on && turning_on)
 		return
-		
+
 	var/area/local_area = get_area(src)
 	if(emergency_mode || (local_area?.fire))
 		. += mutable_appearance(overlayicon, "[base_state]_emergency")
@@ -669,7 +673,10 @@
 
 // called when on fire
 
-/obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/light/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 673
+
+/obj/machinery/light/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		break_light_tube()
 

@@ -28,12 +28,18 @@
 
 /obj/structure/mineral_door/Initialize(mapload)
 	. = ..()
-	air_update_turf(TRUE)
+	air_update_turf(TRUE, TRUE)
+
+/obj/structure/mineral_door/Destroy()
+	if(!door_opened)
+		air_update_turf(TRUE, FALSE)
+	. = ..()
 
 /obj/structure/mineral_door/Move()
 	var/turf/T = loc
 	. = ..()
-	move_update_air(T)
+	if(!door_opened)
+		move_update_air(T)
 
 /obj/structure/mineral_door/Bumped(atom/movable/AM)
 	..()
@@ -93,7 +99,7 @@
 	set_density(FALSE)
 	z_flags &= ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 	door_opened = TRUE
-	air_update_turf(1)
+	air_update_turf(TRUE, FALSE)
 	update_appearance()
 	isSwitchingStates = FALSE
 
@@ -114,7 +120,7 @@
 	z_flags |= (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 	set_opacity(TRUE)
 	door_opened = FALSE
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
 	update_appearance()
 	isSwitchingStates = FALSE
 
@@ -133,7 +139,7 @@
 /obj/structure/mineral_door/set_anchored(anchorvalue) //called in default_unfasten_wrench() chain
 	. = ..()
 	set_opacity(anchored ? !door_opened : FALSE)
-	air_update_turf(TRUE)
+	air_update_turf(TRUE, anchorvalue)
 
 /obj/structure/mineral_door/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I, 40)
@@ -249,7 +255,8 @@
 	sheetType = /obj/item/stack/sheet/mineral/plasma
 
 /obj/structure/mineral_door/transparent/plasma/ComponentInitialize()
-	return
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
 
 /obj/structure/mineral_door/transparent/plasma/welder_act(mob/living/user, obj/item/I)
 	return
@@ -260,9 +267,11 @@
 	else
 		return ..()
 
-/obj/structure/mineral_door/transparent/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 300)
-		plasma_ignition(6)
+/obj/structure/mineral_door/transparent/plasma/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 300
+
+/obj/structure/mineral_door/transparent/plasma/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	plasma_ignition(6)
 
 /obj/structure/mineral_door/transparent/plasma/bullet_act(obj/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)

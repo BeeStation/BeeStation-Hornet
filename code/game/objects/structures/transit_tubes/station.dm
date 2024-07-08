@@ -154,7 +154,7 @@
 		if(!QDELETED(pod))
 			var/datum/gas_mixture/floor_mixture = loc.return_air()
 			equalize_all_gases_in_list(list(pod.air_contents,floor_mixture))
-			air_update_turf()
+			air_update_turf(FALSE, FALSE)
 
 /obj/structure/transit_tube/station/init_tube_dirs()
 	switch(dir)

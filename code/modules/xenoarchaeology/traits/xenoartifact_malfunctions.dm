@@ -252,14 +252,14 @@
 	var/turf/T = get_turf(X)
 	var/datum/gas_mixture/mixture = T.return_air()
 	mixture.scrub_into(air_contents, volume_rate / mixture.return_volume(), scrubbing)
-	X.air_update_turf()
+	X.air_update_turf(FALSE, FALSE)
 
 //Throw sucked gas into our tile when we die
 /datum/xenoartifact_trait/malfunction/absorbant/Destroy()
 	. = ..()
 	var/turf/T = get_turf(parent)
 	T.assume_air(air_contents)
-	parent.air_update_turf()
+	parent.air_update_turf(FALSE, FALSE)
 
 //============
 // Hallucination, shows a random hallucination to the target once

@@ -129,6 +129,7 @@
 	icon = 'icons/turf/boss_floors.dmi'
 	icon_state = "boss"
 	baseturfs = /turf/open/indestructible/boss
+	planetary_atmos = TRUE
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 
 /turf/open/indestructible/boss/air
@@ -136,6 +137,7 @@
 
 /turf/open/indestructible/hierophant
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
+	planetary_atmos = TRUE
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	baseturfs = /turf/open/indestructible/hierophant
 	tiled_dirt = FALSE
@@ -174,15 +176,17 @@
 	init_air = FALSE
 
 /turf/open/Initalize_Atmos(times_fired)
-	if(!istype(air, /datum/gas_mixture/turf))
-		air = new(2500,src)
-	air.copy_from_turf(src)
-	update_air_ref(planetary_atmos ? 1 : 2)
-
+	excited = FALSE
 	update_visuals()
-
+	current_cycle = times_fired
 	ImmediateCalculateAdjacentTurfs()
-
+	for(var/i in atmos_adjacent_turfs)
+		var/turf/open/enemy_tile = i
+		var/datum/gas_mixture/enemy_air = enemy_tile.return_air()
+		if(!excited && air.compare(enemy_air))
+			//testing("Active turf found. Return value of compare(): [is_active]")
+			excited = TRUE
+			SSair.active_turfs += src
 
 /turf/open/proc/GetHeatCapacity()
 	. = air.heat_capacity()
@@ -192,7 +196,7 @@
 
 /turf/open/proc/TakeTemperature(temp)
 	air.set_temperature(air.return_temperature() + temp)
-	air_update_turf()
+	air_update_turf(FALSE, FALSE)
 
 /turf/open/proc/freeze_turf()
 	for(var/obj/I in contents)

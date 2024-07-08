@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		return
 	var/datum/gas_mixture/gas = T.return_air()
 	gas.set_temperature(T0C + 200)
-	T.air_update_turf()
+	T.air_update_turf(FALSE, FALSE)
 
 /obj/structure/slime_crystal/purple
 	colour = "purple"
@@ -191,7 +191,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 			continue
 		var/datum/gas_mixture/gas = T.return_air()
 		gas.parse_gas_string(OPENTURF_DEFAULT_ATMOS)
-		T.air_update_turf()
+		T.air_update_turf(FALSE, FALSE)
 
 /obj/structure/slime_crystal/metal
 	colour = "metal"

@@ -18,27 +18,23 @@
 	..()
 
 	for(var/i in 1 to device_type)
-		var/datum/gas_mixture/A = new(200)
+		var/datum/gas_mixture/A = new
+		A.volume = 200
 		airs[i] = A
-
-/obj/machinery/atmospherics/components/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
 
 /obj/machinery/atmospherics/components/Initialize()
 	. = ..()
 
 	if(hide)
-		RegisterSignal(src, COMSIG_OBJ_HIDE, PROC_REF(hide_pipe))
+		RegisterSignal(src, COMSIG_OBJ_HIDE, .proc/hide_pipe)
 
 // Iconnery
 
 /obj/machinery/atmospherics/components/proc/update_icon_nopipes()
 	return
 
-/obj/machinery/atmospherics/components/proc/hide_pipe(datum/source, underfloor_accessibility)
-	SIGNAL_HANDLER
-	showpipe = !!underfloor_accessibility
+/obj/machinery/atmospherics/components/proc/hide_pipe(datum/source, covered)
+	showpipe = !covered
 	update_icon()
 
 /obj/machinery/atmospherics/components/update_icon()
@@ -49,7 +45,7 @@
 	plane = showpipe ? GAME_PLANE : FLOOR_PLANE
 
 	if(!showpipe)
-		return
+		return ..()
 
 	var/connected = 0 //Direction bitset
 
@@ -66,6 +62,7 @@
 
 	if(!shift_underlay_only)
 		PIPING_LAYER_SHIFT(src, piping_layer)
+	return ..()
 
 /obj/machinery/atmospherics/components/proc/get_pipe_underlay(state, dir, color = null)
 	if(color)
@@ -76,10 +73,8 @@
 // Pipenet stuff; housekeeping
 
 /obj/machinery/atmospherics/components/nullifyNode(i)
-	// Every node has a parent pipeline and an air associated with it, but we need to accomdate for edge cases like init dir cache building...
 	if(parents[i])
 		nullifyPipenet(parents[i])
-	if(airs[i])
 		QDEL_NULL(airs[i])
 	..()
 
@@ -89,7 +84,7 @@
 
 /obj/machinery/atmospherics/components/build_network()
 	for(var/i in 1 to device_type)
-		if(QDELETED(parents[i]))
+		if(!parents[i])
 			parents[i] = new /datum/pipeline()
 			var/datum/pipeline/P = parents[i]
 			P.build_pipeline(src)
@@ -100,27 +95,10 @@
 	var/i = parents.Find(reference)
 	reference.other_airs -= airs[i]
 	reference.other_atmosmch -= src
-	/**
-	 *  We explicitly qdel pipeline when this particular pipeline
-	 *  is projected to have no member and cause GC problems.
-	 *  We have to do this because components don't qdel pipelines
-	 *  while pipes must and will happily wreck and rebuild everything again
-	 *  every time they are qdeleted.
-	 */
-	if(!(reference.other_atmosmch.len || reference.members.len || QDESTROYING(reference)))
-		qdel(reference)
 	parents[i] = null
 
-// We should return every air sharing a parent
 /obj/machinery/atmospherics/components/returnPipenetAir(datum/pipeline/reference)
-	for(var/i in 1 to device_type)
-		if(parents[i] == reference)
-			if(.)
-				if(!islist(.))
-					. = list(.)
-				. += airs[i]
-			else
-				. = airs[i]
+	return airs[parents.Find(reference)]
 
 /obj/machinery/atmospherics/components/pipeline_expansion(datum/pipeline/reference)
 	if(reference)
@@ -136,7 +114,7 @@
 /obj/machinery/atmospherics/components/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
 	parents[parents.Find(Old)] = New
 
-/obj/machinery/atmospherics/components/unsafe_pressure_release(var/mob/user, var/pressures)
+/obj/machinery/atmospherics/components/unsafe_pressure_release(mob/user, pressures)
 	..()
 
 	var/turf/T = get_turf(src)
@@ -147,18 +125,29 @@
 		var/times_lost = 0
 		for(var/i in 1 to device_type)
 			var/datum/gas_mixture/air = airs[i]
-			lost += pressures*environment.return_volume()/(air.return_temperature() * R_IDEAL_GAS_EQUATION)
+			lost += pressures*environment.volume/(air.temperature * R_IDEAL_GAS_EQUATION)
 			times_lost++
 		var/shared_loss = lost/times_lost
 
+		var/datum/gas_mixture/to_release
 		for(var/i in 1 to device_type)
 			var/datum/gas_mixture/air = airs[i]
-			T.assume_air_moles(air, shared_loss)
+			if(!to_release)
+				to_release = air.remove(shared_loss)
+				continue
+			to_release.merge(air.remove(shared_loss))
+		T.assume_air(to_release)
+		air_update_turf(FALSE, FALSE)
 
-/obj/machinery/atmospherics/components/proc/safe_input(var/title, var/text, var/default_set)
-	var/new_value = input(usr,text,title,default_set) as num
+/obj/machinery/atmospherics/components/proc/safe_input(title, text, default_set)
+	var/new_value = input(usr,text,title,default_set) as num|null
+
+	if (isnull(new_value))
+		return default_set
+
 	if(usr.canUseTopic(src))
 		return new_value
+
 	return default_set
 
 // Helpers
@@ -167,11 +156,10 @@
 	for(var/i in 1 to device_type)
 		var/datum/pipeline/parent = parents[i]
 		if(!parent)
-			//WARNING("Component is missing a pipenet! Rebuilding...")
-			//At pre-SSair_rebuild_pipenets times, not having a parent wasn't supposed to happen
+			WARNING("Component is missing a pipenet! Rebuilding...")
 			SSair.add_to_rebuild_queue(src)
-			continue
-		parent.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
+		else
+			parent.update = TRUE
 
 /obj/machinery/atmospherics/components/returnPipenets()
 	. = list()

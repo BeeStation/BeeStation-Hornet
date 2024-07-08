@@ -86,7 +86,7 @@
 /obj/machinery/portable_atmospherics/pump/Destroy()
 	var/turf/T = get_turf(src)
 	T.assume_air(air_contents)
-	air_update_turf()
+	air_update_turf(FALSE, FALSE)
 	QDEL_NULL(pump)
 	return ..()
 
@@ -116,7 +116,7 @@
 
 	pump.process_atmos() // Pump gas.
 	if(!holding)
-		air_update_turf() // Update the environment if needed.
+		air_update_turf(FALSE, FALSE) // Update the environment if needed.
 
 /obj/machinery/portable_atmospherics/pump/emp_act(severity)
 	. = ..()

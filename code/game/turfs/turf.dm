@@ -116,7 +116,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			add_overlay(GLOB.fullbright_overlay)
 
 	if(requires_activation)
-		CALCULATE_ADJACENT_TURFS(src)
+		CALCULATE_ADJACENT_TURFS(src, KILL_EXCITED)
 
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
@@ -162,7 +162,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 /// Initializes our adjacent turfs. If you want to avoid this, do not override it, instead set init_air to FALSE
 /turf/proc/Initalize_Atmos(times_fired)
-	CALCULATE_ADJACENT_TURFS(src)
+	CALCULATE_ADJACENT_TURFS(src, NORMAL_TURF)
 
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC

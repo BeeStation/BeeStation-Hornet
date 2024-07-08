@@ -182,6 +182,8 @@ field_generator power level display
 
 /obj/machinery/field/generator/proc/turn_off()
 	active = FG_OFFLINE
+	air_update_turf(TRUE, FALSE)
+	CanAtmosPass = ATMOS_PASS_YES
 	spawn(1)
 		cleanup()
 		while (warming_up>0 && !active)
@@ -252,7 +254,7 @@ field_generator power level display
 		return
 	move_resist = INFINITY
 	CanAtmosPass = ATMOS_PASS_NO
-	air_update_turf(TRUE)
+	air_update_turf(TRUE, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(setup_field), 1), 1)
 	addtimer(CALLBACK(src, PROC_REF(setup_field), 2), 2)
 	addtimer(CALLBACK(src, PROC_REF(setup_field), 4), 3)

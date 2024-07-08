@@ -107,11 +107,12 @@
 	. = ..()
 	var/turf/local = get_turf(loc)
 	ADD_TRAIT(local, TRAIT_FIREDOOR_STOP, TRAIT_GENERIC)
-	air_update_turf(TRUE)
+	air_update_turf(TRUE, TRUE)
 
 /obj/structure/holosign/barrier/atmos/Destroy()
 	var/turf/local = get_turf(loc)
 	REMOVE_TRAIT(local, TRAIT_FIREDOOR_STOP, TRAIT_GENERIC)
+	air_update_turf(TRUE, FALSE)
 	return ..()
 
 /obj/structure/holosign/barrier/atmos/Move(atom/newloc, direct)

@@ -527,7 +527,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		if(produces_gas)
 			env.merge(removed)
-			air_update_turf()
+			air_update_turf(FALSE, FALSE)
 
 	for(var/mob/living/carbon/human/l in viewers(HALLUCINATION_RANGE(power), src)) // If they can see it without mesons on.  Bad on them.
 		if(HAS_TRAIT(l, TRAIT_MADNESS_IMMUNE) || (l.mind && HAS_TRAIT(l.mind, TRAIT_MADNESS_IMMUNE)))

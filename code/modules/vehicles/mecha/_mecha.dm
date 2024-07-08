@@ -212,6 +212,10 @@
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 	update_step_speed()
 
+/obj/mecha/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
+
 /obj/vehicle/sealed/mecha/Destroy()
 	for(var/M in occupants)
 		var/mob/living/occupant = M

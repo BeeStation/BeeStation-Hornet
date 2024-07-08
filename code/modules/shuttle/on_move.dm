@@ -78,8 +78,8 @@ All ShuttleMove procs go here
 		update_air_ref(-1)
 
 	//Air stuff
-	newT.air_update_turf(TRUE)
-	air_update_turf(TRUE)
+	newT.air_update_turf(TRUE, FALSE)
+	air_update_turf(TRUE, TRUE)
 
 	return TRUE
 
@@ -119,8 +119,8 @@ All ShuttleMove procs go here
 	return TRUE
 
 /turf/proc/lateShuttleMove(turf/oldT)
-	air_update_turf(TRUE)
-	oldT.air_update_turf(TRUE)
+	air_update_turf(TRUE, blocks_air)
+	oldT.air_update_turf(TRUE, oldT.blocks_air)
 
 
 /////////////////////////////////////////////////////////////////////////////////////

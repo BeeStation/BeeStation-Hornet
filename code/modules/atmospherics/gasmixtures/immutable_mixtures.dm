@@ -27,10 +27,39 @@
 /datum/gas_mixture/immutable/cloner/populate()
 	set_moles(GAS_N2, MOLES_O2STANDARD + MOLES_N2STANDARD)
 
-//breathable planet surface
+//planet side stuff
 /datum/gas_mixture/immutable/planetary
-	initial_temperature = T20C
+	var/list/initial_gas = list()
 
-/datum/gas_mixture/immutable/planetary/populate()
-	set_moles(GAS_O2, MOLES_O2STANDARD)
-	set_moles(GAS_N2, MOLES_N2STANDARD)
+/datum/gas_mixture/immutable/planetary/garbage_collect()
+	..()
+	gases.Cut()
+	for(var/id in initial_gas)
+		ADD_GAS(id, gases)
+		gases[id][MOLES] = initial_gas[id][MOLES]
+		gases[id][ARCHIVE] = initial_gas[id][ARCHIVE]
+
+/datum/gas_mixture/immutable/planetary/proc/parse_string_immutable(gas_string) //I know I know, I need this tho
+	gas_string = SSair.preprocess_gas_string(gas_string)
+
+	var/list/mix = initial_gas
+	var/list/gas = params2list(gas_string)
+	if(gas["TEMP"])
+		initial_temperature = text2num(gas["TEMP"])
+		temperature_archived = initial_temperature
+		temperature = initial_temperature
+		gas -= "TEMP"
+	mix.Cut()
+	for(var/id in gas)
+		var/path = id
+		if(!ispath(path))
+			path = gas_id2path(path) //a lot of these strings can't have embedded expressions (especially for mappers), so support for IDs needs to stick around
+		ADD_GAS(path, mix)
+		mix[path][MOLES] = text2num(gas[id])
+		mix[path][ARCHIVE] = mix[path][MOLES]
+
+	for(var/id in mix)
+		ADD_GAS(id, gases)
+		gases[id][MOLES] = mix[id][MOLES]
+		gases[id][ARCHIVE] = mix[id][MOLES]
+

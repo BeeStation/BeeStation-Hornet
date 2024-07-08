@@ -124,7 +124,7 @@
 	if(deltaTemperature < 0)
 		return
 	env.set_temperature(env.return_temperature() + deltaTemperature)
-	air_update_turf()
+	air_update_turf(FALSE, FALSE)
 
 /obj/machinery/shuttle/engine/attackby(obj/item/I, mob/living/user, params)
 	check_setup()

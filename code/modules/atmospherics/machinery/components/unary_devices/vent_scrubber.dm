@@ -155,11 +155,11 @@
 
 	if(scrubbing & SCRUBBING)
 		environment.scrub_into(air_contents, volume_rate/environment.return_volume(), filter_types)
-		tile.air_update_turf()
+		tile.air_update_turf(FALSE, FALSE)
 
 	else //Just siphoning all air
 		environment.transfer_ratio_to(air_contents, volume_rate/environment.return_volume())
-		tile.air_update_turf()
+		tile.air_update_turf(FALSE, FALSE)
 
 	update_parents()
 

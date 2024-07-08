@@ -7,7 +7,9 @@
 	density = FALSE
 	max_integrity = 15
 
-
+/obj/structure/spider/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
 
 /obj/structure/spider/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type == BURN)//the stickiness of the web mutes all attack sounds except fire damage type
@@ -27,9 +29,11 @@
 				damage_amount *= 2
 	. = ..()
 
-/obj/structure/spider/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 300)
-		take_damage(5, BURN, 0, 0)
+/obj/structure/spider/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 300
+
+/obj/structure/spider/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	take_damage(5, BURN, 0, 0)
 
 /obj/structure/spider/stickyweb
 	icon_state = "stickyweb1"
@@ -127,9 +131,11 @@
 	else
 		to_chat(user, "<span class='warning'>[src] isn't ready yet!</span>")
 
-/obj/structure/spider/eggcluster/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 500)
-		take_damage(5, BURN, 0, 0)
+/obj/structure/spider/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 300
+
+/obj/structure/spider/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	take_damage(5, BURN, 0, 0)
 
 /obj/structure/spider/eggcluster/Destroy()
 	var/list/spawners = GLOB.mob_spawners[name]

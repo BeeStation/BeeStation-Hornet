@@ -81,16 +81,14 @@
 
 		if(pressure_delta > 0)
 			if(air1.return_temperature() > 0)
-				var/transfer_moles = pressure_delta*environment.return_volume()/(air1.return_temperature() * R_IDEAL_GAS_EQUATION)
+				var/transfer_moles = (pressure_delta*environment.volume)/(air1.return_temperature() * R_IDEAL_GAS_EQUATION)
 
 				loc.assume_air_moles(air1, transfer_moles)
 
-				air_update_turf()
+				air_update_turf(FALSE, FALSE)
 
 				var/datum/pipeline/parent1 = parents[1]
-				if(!parent1)
-					return
-				parent1.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
+				parent1.update = TRUE
 
 	else //external -> output
 		if(environment.return_pressure() > 0)
@@ -103,10 +101,10 @@
 
 			if(moles_delta > 0)
 				loc.transfer_air(air2, moles_delta)
-				air_update_turf()
+				air_update_turf(FALSE, FALSE)
 
 				var/datum/pipeline/parent2 = parents[2]
-				parent2.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
+				parent2.update = TRUE
 
 	//Radio remote control
 

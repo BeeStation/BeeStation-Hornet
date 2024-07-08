@@ -28,6 +28,7 @@
 
 /obj/item/survivalcapsule/Destroy()
 	template = null // without this, capsules would be one use. per round.
+	air_update_turf(TRUE, FALSE)
 	. = ..()
 
 /obj/item/survivalcapsule/examine(mob/user)
@@ -323,7 +324,7 @@
 
 /obj/structure/fans/Initialize(mapload)
 	. = ..()
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
 
 //Inivisible, indestructible fans
 /obj/structure/fans/tiny/invisible

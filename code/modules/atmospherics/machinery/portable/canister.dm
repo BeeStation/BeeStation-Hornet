@@ -58,6 +58,10 @@
 	. = ..()
 	AddComponent(/datum/component/usb_port, list(/obj/item/circuit_component/canister_valve))
 
+/obj/machinery/portable_atmospherics/canister/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
+
 /obj/item/circuit_component/canister_valve
 	display_name = "Canister Valve"
 	desc = "The interface for communicating with a canister's valve."
@@ -310,10 +314,11 @@
 	if(update == last_update)
 		return
 
-/obj/machinery/portable_atmospherics/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > temperature_resistance)
-		take_damage(5, BURN, 0)
+/obj/machinery/portable_atmospherics/canister/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > temperature_resistance * mode
 
+/obj/machinery/portable_atmospherics/canister/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	take_damage(5, BURN, 0)
 
 /obj/machinery/portable_atmospherics/canister/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -350,7 +355,7 @@
 	disconnect()
 	var/turf/T = get_turf(src)
 	T.assume_air(air_contents)
-	air_update_turf()
+	air_update_turf(FALSE, FALSE)
 
 	set_machine_stat(machine_stat | BROKEN)
 	density = FALSE
@@ -389,7 +394,7 @@
 		var/datum/gas_mixture/target_air = holding ? holding.air_contents : T.return_air()
 
 		if(air_contents.release_gas_to(target_air, release_pressure) && !holding)
-			air_update_turf()
+			air_update_turf(FALSE, FALSE)
 	update_icon()
 
 /obj/machinery/portable_atmospherics/canister/ui_status(mob/user)

@@ -31,7 +31,7 @@
 	. = ..()
 	if(. && obj_integrity > 0)
 		atmosblock = obj_integrity < (max_integrity * 0.5)
-		air_update_turf(TRUE)
+		air_update_turf(TRUE, atmosblock)
 
 /obj/structure/blob/shield/update_icon_state()
 	icon_state = "[initial(icon_state)][(obj_integrity < (max_integrity * 0.5)) ? "_damaged" : null]"

@@ -15,7 +15,11 @@
 /obj/structure/emergency_shield/Initialize(mapload)
 	. = ..()
 	setDir(pick(GLOB.cardinals))
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
+
+/obj/structure/emergency_shield/Destroy()
+	air_update_turf(TRUE, FALSE)
+	. = ..()
 
 /obj/structure/emergency_shield/Move()
 	var/turf/T = loc
@@ -60,7 +64,6 @@
 	max_integrity = 20
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_MOB_LAYER
-
 /obj/structure/emergency_shield/invoker/emp_act(severity)
 	return
 

@@ -206,10 +206,10 @@
 /datum/artifact_effect/airfreeze/proc/updateAir(atom/source, atom/oldLoc)
 	if(isturf(oldLoc))
 		var/turf/oldTurf = oldLoc
-		oldTurf.air_update_turf(TRUE)
+		oldTurf.air_update_turf(TRUE, TRUE)
 	if(isturf(source.loc))
 		var/turf/newTurf = source.loc
-		newTurf.air_update_turf(TRUE)
+		newTurf.air_update_turf(TRUE, TRUE)
 
 //===================
 // Atmos Stabilizer

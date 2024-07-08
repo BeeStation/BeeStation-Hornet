@@ -32,6 +32,10 @@
 	slippery_foam = FALSE
 	var/absorbed_plasma = 0
 
+/obj/effect/particle_effect/foam/firefighting/ComponentInitialize()
+	..()
+	RemoveElement(/datum/element/atmos_sensitive)
+
 /obj/effect/particle_effect/foam/firefighting/process()
 	..()
 
@@ -45,7 +49,7 @@
 		absorbed_plasma += plas_amt
 		if(G.return_temperature() > T20C)
 			G.set_temperature(max(G.return_temperature()/2,T20C))
-		T.air_update_turf()
+		T.air_update_turf(FALSE, FALSE)
 
 /obj/effect/particle_effect/foam/firefighting/kill_foam()
 	STOP_PROCESSING(SSfastprocess, src)
@@ -64,9 +68,6 @@
 		return
 	L.adjust_fire_stacks(-2)
 	L.ExtinguishMob()
-
-/obj/effect/particle_effect/foam/firefighting/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	return
 
 /obj/effect/particle_effect/foam/metal
 	name = "aluminium foam"
@@ -107,6 +108,7 @@
 
 /obj/effect/particle_effect/foam/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
 	create_reagents(1000) //limited by the size of the reagent holder anyway.
 	START_PROCESSING(SSfastprocess, src)
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, 1, -3)
@@ -207,15 +209,12 @@
 		F.add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 		F.metal = metal
 
+/obj/effect/particle_effect/foam/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 475
 
-/obj/effect/particle_effect/foam/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(prob(max(0, exposed_temperature - 475))) //foam dissolves when heated
+/obj/effect/particle_effect/foam/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	if(prob(max(0, exposed_temperature - 475)))   //foam dissolves when heated
 		kill_foam()
-
-
-/obj/effect/particle_effect/foam/metal/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	return
-
 
 ///////////////////////////////////////////////
 //FOAM EFFECT DATUM
@@ -290,7 +289,11 @@
 
 /obj/structure/foamedmetal/Initialize(mapload)
 	. = ..()
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
+
+/obj/structure/foamedmetal/Destroy()
+	air_update_turf(TRUE, FALSE)
+	. = ..()
 
 /obj/structure/foamedmetal/Move()
 	var/turf/T = loc
@@ -340,7 +343,6 @@
 				if(I == GAS_O2 || I == GAS_N2)
 					continue
 				G.set_moles(I, 0)
-			O.air_update_turf()
 		for(var/obj/machinery/atmospherics/components/unary/U in O)
 			if(!U.welded)
 				U.welded = TRUE
