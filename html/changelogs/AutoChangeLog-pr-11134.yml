@@ -1,0 +1,4 @@
+author: XeonMations
+delete-after: true
+changes:
+  - tweak: All admin votes now automatically popup.
