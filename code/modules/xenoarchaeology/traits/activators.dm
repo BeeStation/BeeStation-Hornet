@@ -622,16 +622,26 @@
 	bite_time = 6 SECONDS
 	food_reagents = list()
 	conductivity = 8
+	///How many random reaagents we're rocking with
+	var/random_reagents
 
 /datum/xenoartifact_trait/activator/edible/random/New(atom/_parent)
-	var/random_reagents = rand(1, 3)
+	random_reagents = rand(1, 3)
 	for(var/i in 1 to random_reagents)
-		food_reagents += list(get_random_reagent_id(CHEMICAL_RNG_GENERAL) = INFINITY/random_reagents)
+		food_reagents += list(get_random_reagent_id(CHEMICAL_RNG_GENERAL) = 300/random_reagents)
 	max_bite_reagents = random_reagents * 2
 	return ..()
 
 /datum/xenoartifact_trait/activator/edible/random/get_dictionary_hint()
 	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_DETECT("health analyzer"), XENOA_TRAIT_HINT_TWIN_VARIANT("start with 1-3 random chemicals"))
+
+/datum/xenoartifact_trait/activator/edible/random/after_eat(mob/living/eater, mob/feeder, bitecount, bitesize)
+	. = ..()
+	var/atom/A = parent.parent
+	for(var/datum/reagent/R in A.reagents.reagent_list)
+		if(R.type in food_reagents)
+			R.volume = 300/random_reagents
+	A.reagents.update_total()
 
 /*
 	Observational
