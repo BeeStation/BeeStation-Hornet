@@ -222,7 +222,7 @@
 		return
 	//Check if we're at our heart location, which is based on our weight-x and conductivity-y
 	var/atom/A = parent.parent
-	if(target.x % (weight || target.x) == 0 && target.y % (conductivity || target.y) == 0)
+	if(target.x % (weight || target.x || 1) == 0 && target.y % (conductivity || target.y || 1) == 0)
 		var/atom/target_loc = A.loc
 		target_loc.visible_message("<span class='warning'>[A] develops a slight opening!</span>\n<span class='notice'>You could probably use a screwdriver on [A]!</span>", allow_inside_usr = TRUE)
 		//Do effects
