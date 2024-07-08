@@ -142,10 +142,14 @@
 
 /obj/item/paper_bin/bundlenatural
 	name = "natural paper bundle"
-	desc = "A bundle of paper created using traditional methods. <b>You can cut the cord on this with a sharp implement, freeing all 30 sheets at once.</b>"
+	desc = "A bundle of paper created using traditional methods."
 	icon_state = "paper_bundle"
 	papertype = /obj/item/paper/natural
 	resistance_flags = FLAMMABLE
+
+/obj/item/paper_bin/bundlenatural/examine()
+	. = ..()
+	. += "<span class='notice'>You can cut the cord on this with a sharp implement, freeing all 30 sheets at once.</span>"
 
 /obj/item/paper_bin/bundlenatural/attack_hand(mob/user)
 	..()
