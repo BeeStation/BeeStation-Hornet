@@ -110,11 +110,11 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
@@ -422,7 +422,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "cS" = (
 /turf/closed/wall/mineral/plastitanium,
@@ -487,7 +487,7 @@
 /obj/item/surgical_drapes,
 /obj/item/retractor,
 /obj/item/cautery,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "dc" = (
 /obj/effect/turf_decal/stripes/line{

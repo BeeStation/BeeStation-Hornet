@@ -38,3 +38,15 @@
 /obj/item/reagent_containers/chem_bag/epi
 	name = "epinephrine reserve bag"
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 200)
+
+/obj/item/reagent_containers/chem_bag/bicaridine
+	name = "bicaridine reserve bag"
+	list_reagents=  list(/datum/reagent/medicine/bicaridine = 100)
+
+/obj/item/reagent_containers/chem_bag/kelotane
+	name = "kelotane reserve bag"
+	list_reagents=  list(/datum/reagent/medicine/kelotane = 100)
+
+/obj/item/reagent_containers/chem_bag/antitoxin
+	name = "anti-toxin reserve bag"
+	list_reagents=  list(/datum/reagent/medicine/antitoxin = 100)

@@ -12,7 +12,7 @@
 			var/datum/chemical_reaction/r1 = reactions[i]
 			var/datum/chemical_reaction/r2 = reactions[i2]
 			if(recipes_do_conflict(r1, r2))
-				Fail("Chemical recipe conflict between [r1.type] and [r2.type]")
+				TEST_FAIL("Chemical recipe conflict between [r1.type] and [r2.type]")
 
 /datum/unit_test/reagent_recipe_collisions/proc/recipes_do_conflict(datum/chemical_reaction/r1, datum/chemical_reaction/r2)
 	//do the non-list tests first, because they are cheaper

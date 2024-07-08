@@ -130,6 +130,15 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if (opacity)
 		directional_opacity = ALL_CARDINALS
 
+	if(custom_materials)
+
+		var/temp_list = list()
+		for(var/i in custom_materials)
+			temp_list[SSmaterials.GetMaterialRef(i)] = custom_materials[i] //Get the proper instanced version
+
+		custom_materials = null //Null the list to prepare for applying the materials properly
+		set_custom_materials(temp_list)
+
 	ComponentInitialize()
 	if(isopenturf(src))
 		var/turf/open/O = src
@@ -195,7 +204,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		else if(allow_z_travel)
 			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
 	. = ..()
-	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_NO_ATTACK_HAND)
+	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		. = TRUE
 	if(.)
 		return
@@ -343,7 +352,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
 		if(O.flags_1 & INITIALIZED_1)
-			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, underfloor_accessibility < UNDERFLOOR_VISIBLE)
+			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, underfloor_accessibility)
 
 // override for space turfs, since they should never hide anything
 /turf/open/space/levelupdate()
@@ -371,7 +380,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	var/datum/progressbar/progress = new(user, things.len, src)
 	while (do_after(usr, 10, src, progress = FALSE, extra_checks = CALLBACK(src_object, TYPE_PROC_REF(/datum/component/storage, mass_remove_from_storage), src, things, progress)))
 		stoplag(1)
-	qdel(progress)
+	progress.end_progress()
 
 	return TRUE
 
