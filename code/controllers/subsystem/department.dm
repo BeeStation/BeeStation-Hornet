@@ -13,6 +13,29 @@ SUBSYSTEM_DEF(department)
 
 	var/list/checker
 
+	var/list/all_station_departments_list = list(
+		DEPARTMENT_COMMAND,
+		DEPARTMENT_CIVILIAN,
+		DEPARTMENT_SERVICE,
+		DEPARTMENT_CARGO,
+		DEPARTMENT_SCIENCE,
+		DEPARTMENT_ENGINEERING,
+		DEPARTMENT_MEDICAL,
+		DEPARTMENT_SECURITY,
+		DEPARTMENT_VIP,
+		DEPARTMENT_SILICON
+	)
+
+	// A list of each bitflag and the name of its associated department. For use in the preferences menu.
+	var/list/department_bitflag_to_name = list()
+
+	// A list of each department and its associated bitflag.
+	var/list/departments = list()
+
+	// department order and its dept color
+	var/list/department_order = list()
+
+
 /datum/controller/subsystem/department/Initialize(timeofday)
 	for(var/datum/department_group/each_dept as() in subtypesof(/datum/department_group))
 		each_dept = new each_dept()
@@ -23,6 +46,44 @@ SUBSYSTEM_DEF(department)
 	// initialising static list inside of the procs
 	get_departments_by_pref_order()
 	get_departments_by_manifest_order()
+	department_bitflag_to_name = list(
+		"[DEPT_BITFLAG_CAPTAIN]" = "Captain",
+		"[DEPT_BITFLAG_COM]" = "Command",
+		"[DEPT_BITFLAG_CIV]" = "Civilian",
+		"[DEPT_BITFLAG_SRV]" = "Service",
+		"[DEPT_BITFLAG_CAR]" = "Cargo",
+		"[DEPT_BITFLAG_SCI]" = "Science",
+		"[DEPT_BITFLAG_ENG]" = "Engineering",
+		"[DEPT_BITFLAG_MED]" = "Medical",
+		"[DEPT_BITFLAG_SEC]" = "Security",
+		"[DEPT_BITFLAG_VIP]" = "Very Important People",
+		"[DEPT_BITFLAG_SILICON]" = "Silicon"
+	)
+	departments = list(
+		"Command" = DEPT_BITFLAG_COM,
+		"Very Important People" = DEPT_BITFLAG_VIP,
+		"Security" = DEPT_BITFLAG_SEC,
+		"Engineering" = DEPT_BITFLAG_ENG,
+		"Medical" = DEPT_BITFLAG_MED,
+		"Science" = DEPT_BITFLAG_SCI,
+		"Supply" = DEPT_BITFLAG_CAR,
+		"Cargo" = DEPT_BITFLAG_CAR,
+		"Service" = DEPT_BITFLAG_SRV,
+		"Civilian" = DEPT_BITFLAG_CIV,
+		"Silicon" = DEPT_BITFLAG_SILICON
+	)
+	department_order = list(
+		DEPARTMENT_COMMAND = "#ddddff",
+		DEPARTMENT_VIP = "#999791",
+		DEPARTMENT_SECURITY = "#ffdddd",
+		DEPARTMENT_ENGINEERING = "#ffeeaa",
+		DEPARTMENT_MEDICAL= "#c1e1ec",
+		DEPARTMENT_SCIENCE = "#ffddff",
+		DEPARTMENT_CARGO = "#d7b088",
+		DEPARTMENT_SERVICE = "#bbe291",
+		DEPARTMENT_CIVILIAN = "#bbe291",
+		DEPARTMENT_SILICON = "#ccffcc"
+	)
 	return ..()
 
 /datum/controller/subsystem/department/proc/get_department_by_bitflag(bitflag)

@@ -407,10 +407,10 @@
 			SSjob.prioritized_jobs -= prioritized_job
 	dat += "<table><tr><td valign='top'>"
 	var/column_counter = 0
-	for(var/list/category in DEPT_NAME_ALL_STATION_DEPT_LIST)
-		var/cat_color = DEPARTMENT_ORDER[DEPARTMENT_ORDER[column_counter+1]] // color from `department_order`
+	for(var/list/category in SSdepartment.all_station_departments_list)
+		var/cat_color = SSdepartment.department_order[SSdepartment.department_order[column_counter+1]] // color from `department_order`
 		dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
-		dat += "<legend align='center' style='color: [cat_color]'>[DEPARTMENT_ORDER[column_counter+1]]</legend>"
+		dat += "<legend align='center' style='color: [cat_color]'>[SSdepartment.department_order[column_counter+1]]</legend>"
 		var/list/dept_dat = list()
 		for(var/job in category)
 			var/datum/job/job_datum = SSjob.name_occupations[job]
