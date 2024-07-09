@@ -1,0 +1,7 @@
+author: TsunamiAnt
+delete-after: true
+changes:
+  - tweak: paper frames now take 10 paper and 2 wood to craft
+  - tweak: paper bundle is now also called that
+  - rscadd: add description text to paper bundle to show people you can just cut it
+      open
