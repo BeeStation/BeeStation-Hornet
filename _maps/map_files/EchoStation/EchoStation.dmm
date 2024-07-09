@@ -16136,10 +16136,6 @@
 	})
 "hKX" = (
 /obj/effect/turf_decal/tile/neutral,
-/obj/item/storage/backpack/duffelbag/sec/surgery{
-	pixel_x = -1;
-	pixel_y = 7
-	},
 /obj/item/clothing/mask/surgical{
 	pixel_x = 3;
 	pixel_y = -8
