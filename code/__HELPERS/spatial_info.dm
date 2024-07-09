@@ -37,7 +37,7 @@
 	var/list/references = list()
 
 /mob/oranges_ear/Initialize(mapload)
-	SHOULD_CALL_PARENT(FALSE)\
+	SHOULD_CALL_PARENT(FALSE)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
