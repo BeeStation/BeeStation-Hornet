@@ -1528,6 +1528,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
+/obj/item/clothing/gloves/color/latex{
+	pixel_x = -1;
+	pixel_y = -1
+	},
 /turf/open/floor/iron,
 /area/medical/surgery)
 "azA" = (
@@ -16132,10 +16136,6 @@
 	})
 "hKX" = (
 /obj/effect/turf_decal/tile/neutral,
-/obj/item/storage/backpack/duffelbag/sec/surgery{
-	pixel_x = -1;
-	pixel_y = 7
-	},
 /obj/item/clothing/mask/surgical{
 	pixel_x = 3;
 	pixel_y = -8
@@ -34667,11 +34667,11 @@
 	pixel_x = -1;
 	pixel_y = 5
 	},
-/obj/item/storage/backpack/duffelbag/med/surgery{
-	pixel_y = 7
-	},
 /obj/machinery/defibrillator_mount{
 	pixel_y = -24
+	},
+/obj/item/storage/backpack/duffelbag/med/implant{
+	pixel_y = 4
 	},
 /turf/open/floor/iron,
 /area/medical/surgery)
