@@ -17,6 +17,8 @@ SUBSYSTEM_DEF(air)
 	var/cost_rebuilds = 0
 	var/cost_atmos_machinery = 0
 	var/cost_ex_cleanup = 0
+	var/cost_rebuilds = 0
+	var/cost_hotspots = 0
 
 	var/list/excited_groups = list()
 	var/list/cleanup_ex_groups = list()
