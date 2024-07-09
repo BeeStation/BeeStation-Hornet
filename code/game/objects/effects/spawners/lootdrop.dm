@@ -543,3 +543,22 @@
 		/obj/item/stack/ore/uranium = 2,
 		/obj/item/stack/ore/diamond = 2)
 
+/obj/effect/spawner/lootdrop/nanite_disks
+	name = "nanite disks"
+	lootcount = "5"
+	lootdoubles = FALSE
+	loot = list(
+		/obj/item/disk/nanite_program/hardening = 10,
+		/obj/item/disk/nanite_program/coagulating = 10,
+		/obj/item/disk/nanite_program/glitch = 10,
+		/obj/item/disk/nanite_program/monitoring = 10,
+		/obj/item/disk/nanite_program/regenerative  = 10,
+		/obj/item/disk/nanite_program/metabolic_synthesis = 10,
+		/obj/item/disk/nanite_program/repairing = 8,
+		/obj/item/disk/nanite_program/aggressive_replication = 8,
+		/obj/item/disk/nanite_program/viral = 4,
+		/obj/item/disk/nanite_program/pacifying = 4,
+		/obj/item/disk/nanite_program/spreading = 2,
+		/obj/item/disk/nanite_program/explosive = 1,
+	)
+

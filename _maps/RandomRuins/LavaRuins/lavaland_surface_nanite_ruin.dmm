@@ -1,0 +1,1380 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"dw" = (
+/turf/open/space/basic,
+/area/space)
+"dU" = (
+/obj/structure/table,
+/obj/item/nanite_scanner,
+/obj/item/nanite_remote{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"dX" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/space)
+"fY" = (
+/obj/machinery/modular_fabricator/component_printer,
+/obj/effect/turf_decal/trimline/purple/filled/end{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"ij" = (
+/turf/open/floor/plating,
+/area/space)
+"kk" = (
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/space)
+"kw" = (
+/turf/closed/wall,
+/area/space)
+"kP" = (
+/obj/effect/turf_decal/trimline/purple/filled/line,
+/obj/effect/turf_decal/trimline/purple/filled/corner{
+	dir = 1
+	},
+/obj/item/stack/rods,
+/turf/open/floor/iron/dark,
+/area/space)
+"lc" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/door/airlock/research{
+	name = "Nanite Laboratory";
+	req_one_access_txt = "47"
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"mb" = (
+/obj/structure/table,
+/obj/item/disk/nanite_program{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/disk/nanite_program/mind_shield{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 4
+	},
+/obj/item/folder/white,
+/obj/item/pen,
+/turf/open/floor/iron/dark,
+/area/space)
+"oP" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/vault,
+/area/space)
+"pF" = (
+/turf/open/floor/plating/broken,
+/area/space)
+"qV" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"qZ" = (
+/obj/item/stack/rods/five,
+/turf/open/floor/plating,
+/area/space)
+"sc" = (
+/obj/machinery/vending/wardrobe/science_wardrobe,
+/obj/effect/turf_decal/trimline/purple/filled/end{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"sx" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plating/broken,
+/area/space)
+"sB" = (
+/obj/item/circuitboard/machine/public_nanite_chamber,
+/obj/structure/frame/machine,
+/obj/item/stock_parts/micro_laser,
+/turf/open/floor/plating,
+/area/space)
+"wS" = (
+/obj/machinery/light/small/broken,
+/turf/open/floor/plating/broken,
+/area/space)
+"xY" = (
+/obj/structure/sign/departments/minsky/research/research{
+	pixel_y = -32
+	},
+/turf/open/floor/plating/broken,
+/area/space)
+"Cp" = (
+/obj/effect/turf_decal/trimline/purple/filled/corner,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"Cr" = (
+/turf/closed/wall/mineral/iron,
+/area/space)
+"Dq" = (
+/obj/machinery/computer/nanite_chamber_control{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"Ee" = (
+/obj/item/kirbyplants/random,
+/obj/effect/turf_decal/trimline/purple/filled/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"Gf" = (
+/obj/machinery/door/airlock/highsecurity,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/vault,
+/area/space)
+"GJ" = (
+/obj/machinery/power/smes,
+/obj/effect/turf_decal/trimline/purple/filled/end{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"Ht" = (
+/obj/machinery/nanite_program_hub,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"JM" = (
+/obj/structure/closet/crate,
+/obj/machinery/light/small/broken{
+	dir = 1
+	},
+/turf/open/floor/vault,
+/area/space)
+"Ke" = (
+/obj/effect/turf_decal/trimline/purple/filled/line,
+/obj/effect/turf_decal/trimline/purple/filled/corner{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"Le" = (
+/turf/closed/wall/r_wall,
+/area/space)
+"Lx" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/item/stock_parts/micro_laser,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/space)
+"NF" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"NI" = (
+/obj/machinery/nanite_chamber,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"Ot" = (
+/obj/item/stack/rods/ten,
+/turf/open/floor/plating,
+/area/space)
+"OA" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/trimline/purple/filled/warning,
+/turf/open/floor/iron/dark,
+/area/space)
+"OO" = (
+/obj/machinery/computer/rdconsole/core{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/purple/filled/end{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"OV" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/effect/turf_decal/trimline/purple/filled/warning{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"PQ" = (
+/turf/template_noop,
+/area/template_noop)
+"Qd" = (
+/obj/machinery/computer/nanite_cloud_controller,
+/turf/open/floor/vault,
+/area/space)
+"QD" = (
+/obj/structure/girder,
+/turf/open/floor/plating,
+/area/space)
+"QJ" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"Rb" = (
+/obj/machinery/power/apc/auto_name/east,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/vault,
+/area/space)
+"XU" = (
+/obj/machinery/nanite_programmer,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"Zq" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/item/stock_parts/manipulator,
+/turf/open/floor/plating,
+/area/space)
+
+(1,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(2,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(3,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(4,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(5,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(6,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(7,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(8,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+PQ
+PQ
+PQ
+PQ
+PQ
+dX
+dX
+Ot
+ij
+pF
+dX
+dX
+PQ
+PQ
+PQ
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(9,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+PQ
+PQ
+dX
+dX
+Cr
+Cr
+Cr
+pF
+QD
+Cr
+Cr
+dX
+PQ
+PQ
+PQ
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(10,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+PQ
+PQ
+dX
+pF
+Cr
+GJ
+Cr
+Cr
+QD
+sc
+Le
+Le
+Le
+pF
+PQ
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(11,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+pF
+pF
+sB
+xY
+Cr
+Ee
+Ht
+dU
+XU
+kP
+kw
+JM
+Le
+Le
+pF
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(12,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+PQ
+pF
+kk
+Zq
+lc
+OV
+qV
+QJ
+NF
+OA
+Gf
+oP
+Qd
+Le
+PQ
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(13,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+PQ
+dX
+sx
+wS
+Cr
+Cp
+NI
+Dq
+mb
+Ke
+kw
+Rb
+Le
+Le
+PQ
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(14,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+PQ
+Lx
+dX
+dX
+Cr
+OO
+Cr
+Cr
+Cr
+fY
+Le
+Le
+Le
+PQ
+PQ
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(15,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+PQ
+PQ
+PQ
+dX
+QD
+QD
+Cr
+ij
+Cr
+Cr
+Cr
+PQ
+PQ
+PQ
+PQ
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(16,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+PQ
+PQ
+PQ
+PQ
+dX
+qZ
+pF
+pF
+dX
+dX
+PQ
+PQ
+PQ
+PQ
+PQ
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(17,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(18,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(19,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(20,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(21,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(22,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(23,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(24,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(25,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(26,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(27,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(28,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(29,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(30,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(31,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
+(32,1,1) = {"
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+dw
+"}
