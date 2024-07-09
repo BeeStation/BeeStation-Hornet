@@ -499,7 +499,7 @@
 	var/maneater = FALSE
 
 /datum/xenoartifact_trait/activator/sturdy/hungry/trigger_artifact(atom/target, type, force)
-	if(parent.anti_check(target, type) || parent.calcified)
+	if(parent.anti_check(target, type) || parent.calcified || get_dist(target, parent?.parent) > parent?.target_range)
 		return FALSE
 	//Find a food item
 	var/mob/living/M = target
