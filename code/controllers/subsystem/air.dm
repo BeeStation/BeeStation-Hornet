@@ -16,13 +16,7 @@ SUBSYSTEM_DEF(air)
 	var/cost_superconductivity = 0
 	var/cost_pipenets = 0
 	var/cost_atmos_machinery = 0
-<<<<<<< HEAD
-	var/cost_ex_cleanup = 0
 	var/cost_rebuilds = 0
-	var/cost_hotspots = 0
-=======
-	var/cost_rebuilds = 0
->>>>>>> 4cd1db4e6f0 (Prevents the most common case of fire settling with an excited group (#56317))
 
 	var/list/excited_groups = list()
 	var/list/cleanup_ex_groups = list()
@@ -676,6 +670,7 @@ GLOBAL_LIST_EMPTY(colored_images)
 			return TRUE
 		if("toggle_user_display")
 			var/atom/movable/screen/plane_master/plane = ui.user.hud_used.plane_masters["[ATMOS_GROUP_PLANE]"]
+
 			if(!plane.alpha)
 				if(ui.user.client)
 					ui.user.client.images += GLOB.colored_images
