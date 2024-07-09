@@ -272,6 +272,7 @@
 	name = "Prophet's Hat"
 	desc = "A religious-looking hat."
 	icon_state = null
+	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
 	item_state = null
 	flags_1 = 0
 	armor = list(MELEE = 60,  BULLET = 60, LASER = 60, ENERGY = 50, BOMB = 70, BIO = 50, RAD = 50, FIRE = 60, ACID = 60, STAMINA = 60) //religion protects you from disease and radiation, honk.
