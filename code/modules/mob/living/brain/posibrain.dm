@@ -117,12 +117,12 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 /obj/item/mmi/posibrain/proc/activate(mob/user)
 	if(QDELETED(brainmob))
 		return FALSE
-	/*if(is_banned_from(user.ckey, ROLE_POSIBRAIN))
+	if(is_banned_from(user.ckey, ROLE_POSIBRAIN))
 		to_chat(user, "<span class='warning'>You are restricted from taking positronic brain spawns at this time.</span>")
 		return FALSE
 	if(user.client.get_exp_living(TRUE) <= MINUTES_REQUIRED_BASIC)
 		to_chat(user, "<span class='warning'>You aren't allowed to take positronic brain spawns yet.</span>")
-		return FALSE*/
+		return FALSE
 	if(is_occupied() || QDELETED(brainmob) || QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(user.ckey in GLOB.posi_key_list)
