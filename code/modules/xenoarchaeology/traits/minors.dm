@@ -843,8 +843,14 @@
 	QDEL_NULL(controller)
 	return ..()
 
+/datum/xenoartifact_trait/minor/haunted/do_hint(mob/user, atom/item)
+	if(istype(item, /obj/item/storage/book/bible))
+		to_chat(user, "<span class='warning'>[item] upsets the sprits of [parent?.parent]!</span>")
+		return ..()
+
 /datum/xenoartifact_trait/minor/haunted/get_dictionary_hint()
-	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("allow the artifact to be moved, by ghosts, every 8 seconds"),
+	return list(XENOA_TRAIT_HINT_DETECT("bible"),
+	XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("allow the artifact to be moved, by ghosts, every 8 seconds"),
 	XENOA_TRAIT_HINT_SOUND("ghost moaning"))
 
 /datum/xenoartifact_trait/minor/haunted/proc/do_wail(repeat = TRUE)
@@ -888,8 +894,10 @@
 /datum/xenoartifact_trait/minor/haunted/instant/haunted_step(atom/movable/target, dir)
 	//This may seem scary, and expensive, but it's only called WHEN ghosts try to move the artifact
 	var/list/mobs = oview(seek_distance, parent.parent)
-	if(!(locate(/mob/living) in mobs))
-		return ..()
+	for(var/mob/living/M in mobs)
+		if(!M.stat)
+			return
+	return ..()
 
 /datum/xenoartifact_trait/minor/haunted/instant/activate_parent()
 	if(!action_cooldown)
@@ -897,7 +905,8 @@
 		return ..()
 
 /datum/xenoartifact_trait/minor/haunted/instant/get_dictionary_hint()
-	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("allow the artifact to be moved, by ghosts, when no-one is looking"),
+	return list(XENOA_TRAIT_HINT_DETECT("bible"),
+	XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("allow the artifact to be moved, by ghosts, when no-one is looking"),
 	XENOA_TRAIT_HINT_SOUND("ghost moaning"))
 
 /datum/xenoartifact_trait/minor/haunted/instant/proc/reset_action_timer()
