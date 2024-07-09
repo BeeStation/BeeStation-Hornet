@@ -14,16 +14,25 @@
 	},
 /area/ruin/unpowered)
 "e" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 4
+/obj/machinery/shuttle/engine/plasma{
+	dir = 8
 	},
-/turf/template_noop/open,
+/turf/open/floor/plating/broken,
 /area/ruin/unpowered)
 "f" = (
 /mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon,
 /turf/open/floor/mineral/plastitanium/red{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
+/area/ruin/unpowered)
+"p" = (
+/turf/open/floor/plating/broken,
+/area/ruin/unpowered)
+"E" = (
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 8
+	},
+/turf/open/floor/plating/broken,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
@@ -32,12 +41,12 @@ a
 a
 a
 b
+b
+c
+p
+c
 a
-a
-a
-a
-a
-a
+b
 a
 a
 a
@@ -49,10 +58,10 @@ a
 b
 b
 b
+d
+d
+d
 c
-a
-c
-a
 b
 b
 a
@@ -65,10 +74,10 @@ b
 b
 b
 b
+a
 d
 d
-d
-c
+b
 b
 b
 a
@@ -82,8 +91,8 @@ b
 b
 b
 a
-d
-d
+a
+a
 b
 b
 b
@@ -96,12 +105,12 @@ b
 b
 b
 b
-b
+c
 a
 a
+d
+c
 a
-b
-b
 b
 b
 a
@@ -111,13 +120,13 @@ a
 b
 b
 b
-b
 c
-a
-a
+d
+d
+d
+d
 d
 c
-a
 b
 b
 a
@@ -146,7 +155,7 @@ a
 c
 d
 d
-d
+f
 d
 d
 c
@@ -159,10 +168,10 @@ a
 a
 b
 a
-c
+a
 d
 d
-f
+d
 d
 d
 c
@@ -177,9 +186,9 @@ b
 a
 a
 d
-d
-d
-d
+p
+p
+p
 d
 c
 b
@@ -192,12 +201,12 @@ a
 b
 b
 a
-d
-d
-d
-d
-d
-c
+p
+p
+p
+p
+p
+a
 b
 b
 a
@@ -208,11 +217,11 @@ a
 a
 b
 a
-d
 c
+E
+p
+p
 c
-c
-a
 a
 a
 a
@@ -224,11 +233,11 @@ a
 a
 a
 c
-c
+E
 e
 e
-e
-c
+p
+E
 c
 a
 a
@@ -244,7 +253,7 @@ e
 a
 a
 a
-e
+p
 c
 a
 a

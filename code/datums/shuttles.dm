@@ -804,6 +804,10 @@
 	suffix = "syndicate_fighter_shiv"
 	name = "Syndicate Fighter"
 
+/datum/map_template/shuttle/ruin/syndicate_swarmer
+	suffix = "syndicate_swarmer"
+	name = "swarmer transport shuttle"
+
 /datum/map_template/shuttle/snowdin/mining
 	suffix = "mining"
 	name = "Snowdin Mining Elevator"

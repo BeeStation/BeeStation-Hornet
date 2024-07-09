@@ -1,0 +1,260 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop/closed,
+/area/lavaland/surface/outdoors)
+"c" = (
+/obj/structure/closet/crate,
+/obj/item/storage/toolbox/syndicate,
+/obj/item/multitool,
+/obj/effect/mapping_helpers/no_lava,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"h" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/portable_atmospherics/canister/plasma{
+	filled = 0.1
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"u" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"C" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/docking_port/stationary{
+	dwidth = 8;
+	width = 8;
+	dheight = 7;
+	roundstart_template = /datum/map_template/shuttle/ruin/syndicate_swarmer
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"K" = (
+/turf/template_noop,
+/area/lavaland/surface/outdoors)
+
+(1,1,1) = {"
+K
+K
+K
+K
+K
+u
+u
+u
+u
+u
+K
+K
+K
+K
+"}
+(2,1,1) = {"
+K
+K
+K
+a
+K
+u
+u
+u
+u
+u
+K
+a
+K
+K
+"}
+(3,1,1) = {"
+K
+K
+a
+a
+K
+u
+u
+u
+u
+u
+u
+a
+K
+K
+"}
+(4,1,1) = {"
+a
+a
+a
+a
+K
+u
+u
+u
+u
+u
+u
+a
+K
+K
+"}
+(5,1,1) = {"
+a
+a
+a
+a
+u
+u
+u
+u
+u
+u
+u
+a
+a
+K
+"}
+(6,1,1) = {"
+K
+a
+a
+u
+u
+u
+u
+u
+u
+u
+u
+u
+a
+K
+"}
+(7,1,1) = {"
+K
+a
+u
+u
+u
+u
+u
+u
+u
+u
+u
+h
+u
+K
+"}
+(8,1,1) = {"
+K
+a
+u
+u
+u
+u
+u
+u
+u
+u
+C
+u
+u
+K
+"}
+(9,1,1) = {"
+K
+K
+u
+u
+u
+u
+u
+u
+u
+u
+u
+u
+u
+a
+"}
+(10,1,1) = {"
+K
+K
+c
+K
+u
+u
+u
+u
+u
+u
+u
+a
+a
+a
+"}
+(11,1,1) = {"
+K
+K
+a
+a
+u
+u
+u
+u
+u
+u
+u
+a
+a
+K
+"}
+(12,1,1) = {"
+K
+K
+K
+a
+u
+u
+u
+u
+u
+u
+u
+K
+K
+K
+"}
+(13,1,1) = {"
+K
+K
+K
+K
+u
+u
+u
+u
+u
+u
+u
+u
+K
+K
+"}
+(14,1,1) = {"
+K
+K
+K
+K
+u
+u
+u
+u
+u
+u
+u
+u
+K
+K
+"}

@@ -78,6 +78,12 @@
 	name = "Forgotten Ruin"
 	icon_state = "dk_yellow"
 
+//Nanite Ruin
+
+/area/ruin/powered/nanite_ruin
+	name = "Nanite Ruins"
+	requires_power = TRUE
+
 //Xeno Nest
 
 /area/ruin/unpowered/xenonest
