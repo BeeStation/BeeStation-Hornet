@@ -271,13 +271,13 @@
 	. = ..()
 	if(!parent?.parent)
 		return
+	//Register a signal to KILL!
+	RegisterSignal(parent, XENOA_CALCIFIED, PROC_REF(suicide))
 	//Setup ghost canidates and mob spawners
 	if(SSticker.HasRoundStarted())
 		INVOKE_ASYNC(src, PROC_REF(get_canidate))
 	else
 		mob_spawner = new(parent.parent, src)
-	//Register a signal to KILL!
-	RegisterSignal(parent, XENOA_CALCIFIED, PROC_REF(suicide))
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
 	QDEL_NULL(sentience)
@@ -286,7 +286,7 @@
 
 /datum/xenoartifact_trait/minor/sentient/get_dictionary_hint()
 	. = ..()
-	return list(list("icon" = "exclamation", "desc" = "This trait will make the artifact unable to be sold."))
+	return list(list("icon" = "exclamation", "desc" = "This trait will make the artifact unable to be sold, unless calcified."))
 
 /datum/xenoartifact_trait/minor/sentient/proc/handle_ghost(datum/source, mob/M, list/examine_text)
 	if(isobserver(M) && !sentience?.key && (alert(M, "Are you sure you want to control of [sentience]?", "Assume control of [sentience]", "Yes", "No") == "Yes"))
@@ -294,14 +294,16 @@
 
 /datum/xenoartifact_trait/minor/sentient/proc/get_canidate()
 	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the maleviolent force inside the [parent?.parent]?", ROLE_SENTIENT_XENOARTIFACT, null, 8 SECONDS)
-	if(LAZYLEN(candidates))
+	if(LAZYLEN(candidates) && parent?.parent)
 		var/mob/dead/observer/O = pick(candidates)
-		if(istype(O)) //I though LAZYLEN would catch this, I guess NULL is getting injected somewhere
+		if(istype(O) && O.ckey) //I though LAZYLEN would catch this, I guess NULL is getting injected somewhere
 			setup_sentience(O.ckey)
 			return
 	mob_spawner = new(parent?.parent, src)
 
 /datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(ckey)
+	if(!parent?.parent || !ckey)
+		return
 	//Sentience
 	sentience = new(parent?.parent)
 	sentience.name = pick(GLOB.xenoa_artifact_names)
