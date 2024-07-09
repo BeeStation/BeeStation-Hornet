@@ -242,9 +242,9 @@
 /datum/xenoartifact_trait/proc/pry_action(mob/living/user, obj/item/I)
 	var/atom/movable/A = parent.parent
 	to_chat(user, "<span class='warning'>You begin to pry [A] open with [I].</span>")
-	if(do_after(user, 8 SECONDS, A))
+	if(do_after(user, 8 SECONDS, A) && parent)
 		new /obj/item/sticker/trait_pearl(get_turf(A), src)
-		parent.remove_individual_trait(src)
+		parent?.remove_individual_trait(src) //You never know...
 		remove_parent(pensive = FALSE)
 	else
 		to_chat(user, "<span class='warning'>You reconsider...</span>")
