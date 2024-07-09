@@ -8,15 +8,18 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	spawn_positions = 0
 	supervisors = "your laws" //No AI yet as you are just a cube
 
-/datum/job/cyborg/posibrain/after_spawn(mob/living/H, mob/M, latejoin, client/preference_source, on_dummy)
+/datum/job/cyborg/posibrain/after_spawn(mob/living/silicon/robot/R, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
+	after_spawn_silicon(R, M)
 
+
+/datum/job/cyborg/posibrain/after_spawn_silicon(mob/living/silicon/robot/R, mob/M)
 	var/obj/item/mmi/posibrain/P = pick(GLOB.on_station_posis)
 
 	//Never show number of current posis
 	SSjob.GetJob(JOB_NAME_POSIBRAIN).current_positions = 0
 
-	if(!P.activate(H)) //If we failed to activate a posi, kick them back to the lobby.
+	if(!P.activate(R)) //If we failed to activate a posi, kick them back to the lobby.
 		//Code taken from "send to lobby" admin panel
 		var/mob/dead/new_player/NP = new()
 		NP.ckey = M.ckey
@@ -24,8 +27,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 
 		to_chat(NP, "<span class='warning'>Failed to Late Join as a Posibrain. Look higher in chat for the reason.</span>")
 
-	qdel(H)
-
+	qdel(R)
 
 /obj/item/mmi/posibrain
 	name = "positronic brain"
@@ -115,12 +117,12 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 /obj/item/mmi/posibrain/proc/activate(mob/user)
 	if(QDELETED(brainmob))
 		return FALSE
-	if(is_banned_from(user.ckey, ROLE_POSIBRAIN))
+	/*if(is_banned_from(user.ckey, ROLE_POSIBRAIN))
 		to_chat(user, "<span class='warning'>You are restricted from taking positronic brain spawns at this time.</span>")
 		return FALSE
 	if(user.client.get_exp_living(TRUE) <= MINUTES_REQUIRED_BASIC)
 		to_chat(user, "<span class='warning'>You aren't allowed to take positronic brain spawns yet.</span>")
-		return FALSE
+		return FALSE*/
 	if(is_occupied() || QDELETED(brainmob) || QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(user.ckey in GLOB.posi_key_list)
@@ -221,9 +223,6 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	brainmob.forceMove(src)
 	brainmob.container = src
 
-	// Register a signal so that the posibrain will detect when it leaves station level to remove it from the job list.
-	RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(check_z))
-
 	//If we are on the station level, add it to the list of available posibrains.
 	var/turf/currentturf = get_turf(src)
 	if( is_station_level(currentturf.z))
@@ -248,8 +247,8 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 
 //This Proc triggers when the Z level changes. If the Posi enters the station level, add it to the Job list.
 //If it leaves, remove it.
-/obj/item/mmi/posibrain/proc/check_z(datum/source, old_z, new_z)
-	SIGNAL_HANDLER
+/obj/item/mmi/posibrain/onTransitZ(old_z, new_z)
+	.=..()
 	if(is_occupied())
 		//No need to track occupied Posis
 		return
