@@ -578,11 +578,12 @@
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "dS" = (
+/obj/effect/spawner/structure/window/plastitanium,
+/obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor/preopen{
-	id = "lavalandsyndi";
+	id = "lavalandsyndiwindow";
 	name = "Syndicate Research Experimentation Shutters"
 	},
-/obj/effect/spawner/structure/window/plastitanium,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "dT" = (
@@ -4119,15 +4120,27 @@
 	},
 /obj/machinery/button/door{
 	id = "lavalandsyndi";
-	name = "Syndicate Experimentation Lockdown Control";
-	pixel_y = 26;
-	req_access_txt = "150"
+	name = "Syndicate Experimentation Door Control";
+	pixel_y = 25;
+	req_access_txt = "150";
+	pixel_x = -6
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/button/door{
+	id = "lavalandsyndiwindow";
+	name = "Syndicate Experimentation Window Control";
+	pixel_y = 25;
+	req_access_txt = "150";
+	pixel_x = 6
+	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "tK" = (
@@ -4532,6 +4545,12 @@
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"Ap" = (
+/obj/structure/disposaloutlet{
+	dir = 1
+	},
+/turf/open/floor/engine,
+/area/ruin/unpowered/syndicate_lava_base/testlab)
 "Au" = (
 /obj/machinery/washing_machine,
 /obj/effect/decal/cleanable/dirt,
@@ -4558,6 +4577,9 @@
 	pixel_y = -3
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "AF" = (
@@ -4632,7 +4654,7 @@
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "BF" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "lavalandsyndi";
+	id = "lavalandsyndiwindow";
 	name = "Syndicate Research Experimentation Shutters"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -4884,6 +4906,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
+"Gb" = (
+/obj/effect/spawner/structure/window/plastitanium,
+/obj/machinery/door/poddoor/preopen{
+	id = "lavalandsyndiwindow";
+	name = "Syndicate Research Experimentation Shutters"
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered/syndicate_lava_base/testlab)
 "Gi" = (
 /obj/effect/mob_spawn/human/lavaland_syndicate{
 	dir = 4
@@ -5074,17 +5104,17 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "Ja" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/hatch{
-	heat_proof = 1;
-	name = "Experimentation Room";
-	req_access_txt = "150"
-	},
 /obj/machinery/door/poddoor/preopen{
 	id = "lavalandsyndi";
 	name = "Syndicate Research Experimentation Shutters"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/door/airlock/hatch{
+	heat_proof = 1;
+	name = "Experimentation Room";
+	req_access_txt = "150"
+	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "Jh" = (
@@ -6836,7 +6866,7 @@ aq
 Cg
 aq
 Cg
-aq
+Ap
 dS
 AC
 TT
@@ -6937,7 +6967,7 @@ aq
 DL
 di
 aq
-dS
+Gb
 AF
 rc
 ae
