@@ -8,16 +8,12 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	spawn_positions = 0
 	supervisors = "your laws" //No AI yet as you are just a cube
 
-/datum/job/cyborg/posibrain/after_spawn(mob/living/silicon/robot/R, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
-	. = ..()
-	after_spawn_silicon(R, M)
-
-
 /datum/job/cyborg/posibrain/after_spawn_silicon(mob/living/silicon/robot/R, mob/M)
 	var/obj/item/mmi/posibrain/P = pick(GLOB.on_station_posis)
 
 	//Never show number of current posis
-	SSjob.GetJob(JOB_NAME_POSIBRAIN).current_positions = 0
+	var/datum/job/job = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+	job.current_positions = 0
 
 	if(!P.activate(R)) //If we failed to activate a posi, kick them back to the lobby.
 		//Code taken from "send to lobby" admin panel
@@ -147,11 +143,12 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	var/turf/currentturf = get_turf(src)
 	if( is_station_level(currentturf.z) )
 		GLOB.on_station_posis -= src
-		SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions--
-		if(SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions < 0)
-			SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions = 0
+
+		var/datum/job/job = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+		job.total_positions = length(GLOB.on_station_posis)
+
 		//We should never show a posibrain as a filled job, so just make number of current positions zero
-		SSjob.GetJob(JOB_NAME_POSIBRAIN).current_positions = 0
+		job.current_positions = 0
 
 	return TRUE
 
@@ -227,7 +224,8 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	var/turf/currentturf = get_turf(src)
 	if( is_station_level(currentturf.z))
 		GLOB.on_station_posis += src
-		SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions++
+		var/datum/job/job = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+		job.total_positions = length(GLOB.on_station_posis)
 
 	if(autoping)
 		ping_ghosts("created", TRUE)
@@ -249,24 +247,30 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 //If it leaves, remove it.
 /obj/item/mmi/posibrain/onTransitZ(old_z, new_z)
 	.=..()
+
+	if( is_station_level(old_z) == is_station_level(new_z))
+		//Early Return if we aren't entering or leaving station Z level.
+		return
+
 	if(is_occupied())
 		//No need to track occupied Posis
 		return
 
-	//We should never show a posibrain as a filled job, so just make number of current positions zero
-	SSjob.GetJob(JOB_NAME_POSIBRAIN).current_positions = 0
-
 	//Posi was on station, now is not on station
 	if( is_station_level(old_z) && !is_station_level(new_z))
 		GLOB.on_station_posis -= src
-		SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions--
-		if(SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions < 0)
-			SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions = 0
 
 	//Posi was off station, now is on station
 	if( !is_station_level(old_z) && is_station_level(new_z))
 		GLOB.on_station_posis += src
-		SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions++
+
+	//Update Job Quantities
+	var/datum/job/job = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+
+	//We should never show a posibrain as a filled job, so just make number of current positions zero
+	job.current_positions = 0
+
+	job.total_positions = length(GLOB.on_station_posis)
 
 /obj/item/mmi/posibrain/Destroy()
 
@@ -277,8 +281,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	//If Posi is on station, remove it from the list.
 	if( src in GLOB.on_station_posis)
 		GLOB.on_station_posis -= src
-		SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions--
-		if(SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions < 0)
-			SSjob.GetJob(JOB_NAME_POSIBRAIN).total_positions = 0
+		var/datum/job/job = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+		job.total_positions = length(GLOB.on_station_posis)
 
 	return ..()
