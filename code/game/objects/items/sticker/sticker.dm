@@ -56,6 +56,9 @@
 
 /obj/item/sticker/attack_hand(mob/user)
 	unstick()
+	if(user.a_intent != INTENT_HELP)
+		var/atom/A = loc
+		A.attack_hand(user)
 	return ..()
 
 /obj/item/sticker/attackby(obj/item/I, mob/living/user, params)

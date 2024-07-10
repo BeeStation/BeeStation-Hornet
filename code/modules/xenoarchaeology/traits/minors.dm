@@ -482,7 +482,7 @@
 	label_name = "Ringed"
 	label_desc = "Ringed: The artifact's design seems to incorporate ringed elements. This will allow the artifact to be worn, and catch information from the wearer."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
-	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense, /datum/xenoartifact_trait/minor/ringed/attack)
 	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
 	///Old wearable state
 	var/old_wearable
@@ -539,6 +539,7 @@
 	label_name = "Ringed Δ"
 	label_desc = "Ringed Δ: The artifact's design seems to incorporate ringed elements. This will allow the artifact to be worn, and catch information from the wearer."
 	conductivity = 15
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense, /datum/xenoartifact_trait/minor/ringed)
 
 /datum/xenoartifact_trait/minor/ringed/attack/equip_action(datum/source, mob/equipper, slot)
 	if(slot == ITEM_SLOT_GLOVES)
