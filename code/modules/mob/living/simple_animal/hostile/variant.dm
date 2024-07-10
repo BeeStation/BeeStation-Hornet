@@ -66,8 +66,12 @@
 	var/travelling_in_vent = 0
 
 /mob/living/simple_animal/hostile/variant/Initialize()
+	. = ..()
 	AddElement(/datum/element/point_of_interest)
-	..()
+	var/image/I = image(icon = 'icons/mob/hud.dmi', icon_state = "hudcultist", layer = DATA_HUD_PLANE, loc = src)
+	I.alpha = 180
+	I.appearance_flags = RESET_ALPHA
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/variants, "hudcultist", I)
 
 /mob/living/simple_animal/hostile/variant/examine(mob/user)
 	if(morphed)
