@@ -272,7 +272,7 @@
 
 /obj/structure/alien/egg/ComponentInitialize()
 	. = ..()
-	AddElement(/datum/element/atmos_sensitive
+	AddElement(/datum/element/atmos_sensitive)
 
 /obj/structure/alien/egg/update_icon()
 	..()

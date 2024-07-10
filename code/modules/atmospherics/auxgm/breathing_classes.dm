@@ -22,20 +22,20 @@
 
 /datum/breathing_class/oxygen
 	gases = list(
-		GAS_O2 = 1,
+		/datum/gas/oxygen = 1,
 		GAS_PLUOXIUM = 8,
-		GAS_CO2 = -0.7, // CO2 isn't actually toxic, just an asphyxiant
+		/datum/gas/carbon_dioxide = -0.7, // CO2 isn't actually toxic, just an asphyxiant
 	)
 	products = list(
-		GAS_CO2 = 1,
+		/datum/gas/carbon_dioxide = 1,
 	)
 
 /datum/breathing_class/plasma
 	gases = list(
-		GAS_PLASMA = 1
+		/datum/gas/plasma = 1
 	)
 	products = list(
-		GAS_CO2 = 1
+		/datum/gas/carbon_dioxide = 1
 	)
 	low_alert_category = "not_enough_tox"
 	low_alert_datum = /atom/movable/screen/alert/not_enough_tox

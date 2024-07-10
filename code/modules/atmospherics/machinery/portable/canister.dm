@@ -135,35 +135,35 @@
 /obj/machinery/portable_atmospherics/canister/bz
 	name = "\improper BZ canister"
 	desc = "BZ, a powerful hallucinogenic nerve agent."
-	gas_type = GAS_BZ
+	gas_type = /datum/gas/bz
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#9b5d7f#d0d2a0"
 
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide
 	name = "co2 canister"
 	desc = "Carbon dioxide. What the fuck is carbon dioxide?"
-	gas_type = GAS_CO2
+	gas_type = /datum/gas/carbon_dioxide
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#4e4c48"
 
 /obj/machinery/portable_atmospherics/canister/nitrogen
 	name = "n2 canister"
 	desc = "Nitrogen gas. Reportedly useful for something."
-	gas_type = GAS_N2
+	gas_type = /datum/gas/nitrogen
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#d41010"
 
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide
 	name = "n2o canister"
 	desc = "Nitrous oxide gas. Known to cause drowsiness."
-	gas_type = GAS_NITROUS
+	gas_type = /datum/gas/nitrous_oxide
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#c63e3b#f7d5d3"
 
 /obj/machinery/portable_atmospherics/canister/nitryl
 	name = "nitryl canister"
 	desc = "Nitryl gas. Feels great 'til the acid eats your lungs."
-	gas_type = GAS_NITRYL
+	gas_type = /datum/gas/nitryl
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#7b4732"
 
@@ -177,7 +177,7 @@
 /obj/machinery/portable_atmospherics/canister/oxygen
 	name = "o2 canister"
 	desc = "Oxygen. Necessary for human life."
-	gas_type = GAS_O2
+	gas_type = /datum/gas/oxygen
 	greyscale_config = /datum/greyscale_config/canister/stripe
 	greyscale_colors = "#2786e5#e8fefe"
 
@@ -191,28 +191,28 @@
 /obj/machinery/portable_atmospherics/canister/stimulum
 	name = "stimulum canister"
 	desc = "Stimulum. High energy gas, high energy people."
-	gas_type = GAS_STIMULUM
+	gas_type = /datum/gas/stimulum
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#9b5d7f"
 
 /obj/machinery/portable_atmospherics/canister/plasma
 	name = "plasma canister"
 	desc = "Plasma gas. The reason YOU are here. Highly toxic."
-	gas_type = GAS_PLASMA
+	gas_type = /datum/gas/plasma
 	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#f64300#000000"
 
 /obj/machinery/portable_atmospherics/canister/tritium
 	name = "tritium canister"
 	desc = "Tritium. Inhalation might cause irradiation."
-	gas_type = GAS_TRITIUM
+	gas_type = /datum/gas/tritium
 	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#3fcd40#000000"
 
 /obj/machinery/portable_atmospherics/canister/water_vapor
 	name = "water vapor canister"
 	desc = "Water Vapor. We get it, you vape."
-	gas_type = GAS_H2O
+	gas_type = /datum/gas/water_vapor
 	filled = 1
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#4c4e4d#f7d5d3"
@@ -248,7 +248,7 @@
 /obj/machinery/portable_atmospherics/canister/proto/default/oxygen
 	name = "prototype canister"
 	desc = "A prototype canister for a prototype bike, what could go wrong?"
-	gas_type = GAS_O2
+	gas_type = /datum/gas/oxygen
 	filled = 1
 	release_pressure = ONE_ATMOSPHERE*2
 
@@ -280,8 +280,8 @@
 
 /obj/machinery/portable_atmospherics/canister/air/create_gas()
 	air_contents.set_temperature(starter_temp)
-	air_contents.set_moles(GAS_O2, (O2STANDARD * maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
-	air_contents.set_moles(GAS_N2, (N2STANDARD * maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
+	air_contents.set_moles(/datum/gas/oxygen, (O2STANDARD * maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
+	air_contents.set_moles(/datum/gas/nitrogen, (N2STANDARD * maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
 
 /obj/machinery/portable_atmospherics/canister/update_icon()
 	. = ..()

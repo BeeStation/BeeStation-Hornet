@@ -146,42 +146,42 @@
 /obj/machinery/atmospherics/miner/n2o
 	name = "\improper N2O Gas Miner"
 	overlay_color = "#FFCCCC"
-	spawn_id = GAS_NITROUS
+	spawn_id = /datum/gas/nitrous_oxide
 
 /obj/machinery/atmospherics/miner/nitrogen
 	name = "\improper N2 Gas Miner"
 	overlay_color = "#CCFFCC"
-	spawn_id = GAS_N2
+	spawn_id = /datum/gas/nitrogen
 
 /obj/machinery/atmospherics/miner/oxygen
 	name = "\improper O2 Gas Miner"
 	overlay_color = "#007FFF"
-	spawn_id = GAS_O2
+	spawn_id = /datum/gas/oxygen
 
 /obj/machinery/atmospherics/miner/plasma
 	name = "\improper Plasma Gas Miner"
 	overlay_color = "#FF0000"
-	spawn_id = GAS_PLASMA
+	spawn_id = /datum/gas/plasma
 
 /obj/machinery/atmospherics/miner/carbon_dioxide
 	name = "\improper CO2 Gas Miner"
 	overlay_color = "#CDCDCD"
-	spawn_id = GAS_CO2
+	spawn_id = /datum/gas/carbon_dioxide
 
 /obj/machinery/atmospherics/miner/bz
 	name = "\improper BZ Gas Miner"
 	overlay_color = "#FAFF00"
-	spawn_id = GAS_BZ
+	spawn_id = /datum/gas/bz
 
 /obj/machinery/atmospherics/miner/water_vapor
 	name = "\improper Water Vapor Gas Miner"
 	overlay_color = "#99928E"
-	spawn_id = GAS_H2O
+	spawn_id = /datum/gas/water_vapor
 
 /obj/machinery/atmospherics/miner/tritium
 	name = "\improper Tritium Gas Miner"
 	overlay_color = "#1ae000"
-	spawn_id = GAS_TRITIUM
+	spawn_id = /datum/gas/tritium
 
 /obj/machinery/atmospherics/miner/hypernoblium
 	name = "\improper Hypernoblium Gas Miner"
@@ -191,12 +191,12 @@
 /obj/machinery/atmospherics/miner/nitryl
 	name = "\improper Nitryl Gas Miner"
 	overlay_color = "#5e4000"
-	spawn_id = GAS_NITRYL
+	spawn_id = /datum/gas/nitryl
 
 /obj/machinery/atmospherics/miner/stimulum
 	name = "\improper Stimulum Gas Miner"
 	overlay_color = "#c9c9c9"
-	spawn_id = GAS_STIMULUM
+	spawn_id = /datum/gas/stimulum
 
 /obj/machinery/atmospherics/miner/pluoxium
 	name = "\improper Pluoxium Gas Miner"
@@ -211,37 +211,37 @@
 /obj/machinery/atmospherics/miner/station/n2o
 	name = "\improper N2O Gas Miner"
 	overlay_color = "#FFCCCC"
-	spawn_id = GAS_NITROUS
+	spawn_id = /datum/gas/nitrous_oxide
 
 /obj/machinery/atmospherics/miner/station/nitrogen
 	name = "\improper N2 Gas Miner"
 	overlay_color = "#CCFFCC"
-	spawn_id = GAS_N2
+	spawn_id = /datum/gas/nitrogen
 
 /obj/machinery/atmospherics/miner/station/oxygen
 	name = "\improper O2 Gas Miner"
 	overlay_color = "#007FFF"
-	spawn_id = GAS_O2
+	spawn_id = /datum/gas/oxygen
 
 /obj/machinery/atmospherics/miner/station/plasma
 	name = "\improper Plasma Gas Miner"
 	overlay_color = "#FF0000"
-	spawn_id = GAS_PLASMA
+	spawn_id = /datum/gas/plasma
 
 /obj/machinery/atmospherics/miner/station/carbon_dioxide
 	name = "\improper CO2 Gas Miner"
 	overlay_color = "#CDCDCD"
-	spawn_id = GAS_CO2
+	spawn_id = /datum/gas/carbon_dioxide
 
 /obj/machinery/atmospherics/miner/station/bz
 	name = "\improper BZ Gas Miner"
 	overlay_color = "#FAFF00"
-	spawn_id = GAS_BZ
+	spawn_id = /datum/gas/bz
 
 /obj/machinery/atmospherics/miner/station/water_vapor
 	name = "\improper Water Vapor Gas Miner"
 	overlay_color = "#99928E"
-	spawn_id = GAS_H2O
+	spawn_id = /datum/gas/water_vapor
 
 
 #undef GASMINER_POWER_NONE

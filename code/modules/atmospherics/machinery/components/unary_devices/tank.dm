@@ -32,20 +32,20 @@
 /obj/machinery/atmospherics/components/unary/tank/air/New()
 	..()
 	var/datum/gas_mixture/air_contents = airs[1]
-	air_contents.set_moles(GAS_O2, AIR_CONTENTS * 0.2)
-	air_contents.set_moles(GAS_N2, AIR_CONTENTS * 0.8)
+	air_contents.set_moles(/datum/gas/oxygen, AIR_CONTENTS * 0.2)
+	air_contents.set_moles(/datum/gas/nitrogen, AIR_CONTENTS * 0.8)
 
 /obj/machinery/atmospherics/components/unary/tank/carbon_dioxide
-	gas_type = GAS_CO2
+	gas_type = /datum/gas/carbon_dioxide
 
 /obj/machinery/atmospherics/components/unary/tank/plasma
 	icon_state = "orange"
-	gas_type = GAS_PLASMA
+	gas_type = /datum/gas/plasma
 
 /obj/machinery/atmospherics/components/unary/tank/oxygen
 	icon_state = "blue"
-	gas_type = GAS_O2
+	gas_type = /datum/gas/oxygen
 
 /obj/machinery/atmospherics/components/unary/tank/nitrogen
 	icon_state = "red"
-	gas_type = GAS_N2
+	gas_type = /datum/gas/nitrogen

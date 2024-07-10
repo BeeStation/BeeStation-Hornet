@@ -151,8 +151,8 @@
 /turf/closed/wall/mineral/plasma/should_atmos_process(datum/gas_mixture/air, exposed_temperature)//Doesn't work because walls have superconduction turned off
 	return exposed_temperature > 300
 /turf/closed/wall/mineral/plasma/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-		if(plasma_ignition(6))
-			new /obj/structure/girder/displaced(loc)
+	if(plasma_ignition(6))
+		new /obj/structure/girder/displaced(loc)
 
 /turf/closed/wall/mineral/plasma/bullet_act(obj/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)

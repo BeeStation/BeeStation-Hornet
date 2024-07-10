@@ -52,16 +52,16 @@
 	var/last_barrier_tick
 	//Gasses
 	var/list/gasses = list(
-		GAS_BZ = 1,
-		GAS_CO2 = 1,
+		/datum/gas/bz = 1,
+		/datum/gas/carbon_dioxide = 1,
 		GAS_HYPERNOB = 1,
-		GAS_NITROUS = 1,
-		GAS_NITRYL = 1,
-		GAS_PLASMA = 1,
+		/datum/gas/nitrous_oxide = 1,
+		/datum/gas/nitryl = 1,
+		/datum/gas/plasma = 1,
 		GAS_PLUOXIUM = 0,
-		GAS_STIMULUM = 0,
-		GAS_TRITIUM = 1,
-		GAS_H2O = 0,
+		/datum/gas/stimulum = 0,
+		/datum/gas/tritium = 1,
+		/datum/gas/water_vapor = 0,
 	)
 	// Have we spoken our alert yet?
 	var/has_spoken = FALSE
@@ -214,10 +214,10 @@
 		if(pressure_delta > 0)
 			var/transfer_moles = pressure_delta*environment.return_volume()/(T20C * R_IDEAL_GAS_EQUATION)
 			if(emagged == 2)
-				environment.adjust_moles(GAS_CO2, transfer_moles)
+				environment.adjust_moles(/datum/gas/carbon_dioxide, transfer_moles)
 			else
-				environment.adjust_moles(GAS_N2, transfer_moles * 0.7885)
-				environment.adjust_moles(GAS_O2, transfer_moles * 0.2115)
+				environment.adjust_moles(/datum/gas/nitrogen, transfer_moles * 0.7885)
+				environment.adjust_moles(/datum/gas/oxygen, transfer_moles * 0.2115)
 			air_update_turf(FALSE, FALSE)
 	new /obj/effect/temp_visual/vent_wind(get_turf(src))
 
@@ -251,7 +251,7 @@
 				return ATMOSBOT_HIGH_TOXINS
 	//Too little oxygen or too little pressure
 	var/partial_pressure = R_IDEAL_GAS_EQUATION * gas_mix.return_temperature() / gas_mix.return_volume()
-	var/oxygen_moles = gas_mix.get_moles(GAS_O2) * partial_pressure
+	var/oxygen_moles = gas_mix.get_moles(/datum/gas/oxygen) * partial_pressure
 	if(oxygen_moles < 20 || gas_mix.return_pressure() < WARNING_LOW_PRESSURE)
 		return ATMOSBOT_LOW_OXYGEN
 	//Check temperature

@@ -29,8 +29,8 @@
 	var/safe_damage_type = OXY
 	var/list/gas_min = list()
 	var/list/gas_max = list(
-		GAS_CO2 = 30, // Yes it's an arbitrary value who cares?
-		GAS_PLASMA = MOLES_GAS_VISIBLE
+		/datum/gas/carbon_dioxide = 30, // Yes it's an arbitrary value who cares?
+		/datum/gas/plasma = MOLES_GAS_VISIBLE
 	)
 	var/list/gas_damage = list(
 		"default" = list(
@@ -38,7 +38,7 @@
 			max = MAX_TOXIC_GAS_DAMAGE,
 			damage_type = OXY
 		),
-		GAS_PLASMA = list(
+		/datum/gas/plasma = list(
 			min = MIN_TOXIC_GAS_DAMAGE,
 			max = MAX_TOXIC_GAS_DAMAGE,
 			damage_type = TOX
@@ -254,7 +254,7 @@
 
 	// N2O
 
-		var/SA_pp = PP(breath, GAS_NITROUS)
+		var/SA_pp = PP(breath, /datum/gas/nitrous_oxide)
 		if(SA_pp > SA_para_min) // Enough to make us stunned for a bit
 			H.Unconscious(60) // 60 gives them one second to wake up and run away a bit!
 			if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
@@ -268,7 +268,7 @@
 
 	// BZ
 
-		var/bz_pp = PP(breath, GAS_BZ)
+		var/bz_pp = PP(breath, /datum/gas/bz)
 		if(bz_pp > BZ_brain_damage_min)
 			H.hallucination += 10
 			H.reagents.add_reagent(/datum/reagent/metabolite/bz,5)
@@ -280,7 +280,7 @@
 			H.reagents.add_reagent(/datum/reagent/metabolite/bz,1)
 
 	// Nitryl
-		var/nitryl_pp = PP(breath,GAS_NITRYL)
+		var/nitryl_pp = PP(breath,/datum/gas/nitryl)
 		if (prob(nitryl_pp))
 			to_chat(H, "<span class='alert'>Your mouth feels like it's burning!</span>")
 		if (nitryl_pp >40)
@@ -291,18 +291,18 @@
 				H.silent = max(H.silent, 3)
 		else
 			H.adjustFireLoss(nitryl_pp/4)
-		gas_breathed = PP(breath,GAS_NITRYL)
+		gas_breathed = PP(breath,/datum/gas/nitryl)
 		if (gas_breathed > gas_stimulation_min)
 			H.reagents.add_reagent(/datum/reagent/nitryl,1)
 
-		breath.adjust_moles(GAS_NITRYL, -gas_breathed)
+		breath.adjust_moles(/datum/gas/nitryl, -gas_breathed)
 
 	// Stimulum
-		gas_breathed = PP(breath,GAS_STIMULUM)
+		gas_breathed = PP(breath,/datum/gas/stimulum)
 		if (gas_breathed > gas_stimulation_min)
 			var/existing = H.reagents.get_reagent_amount(/datum/reagent/stimulum)
 			H.reagents.add_reagent(/datum/reagent/stimulum, max(0, 5 - existing))
-		breath.adjust_moles(GAS_STIMULUM, -gas_breathed)
+		breath.adjust_moles(/datum/gas/stimulum, -gas_breathed)
 
 		handle_breath_temperature(breath, H)
 	return TRUE
@@ -370,7 +370,7 @@
 
 /obj/item/organ/lungs/plasmaman/populate_gas_info()
 	..()
-	gas_max -= GAS_PLASMA
+	gas_max -= /datum/gas/plasma
 
 /obj/item/organ/lungs/slime
 	name = "vacuole"
@@ -400,8 +400,8 @@
 	safe_breath_min = 4
 	safe_breath_max = 250
 	gas_max = list(
-		GAS_PLASMA = 30,
-		GAS_CO2 = 30
+		/datum/gas/plasma = 30,
+		/datum/gas/carbon_dioxide = 30
 	)
 	maxHealth = 2 * STANDARD_ORGAN_THRESHOLD
 
@@ -422,8 +422,8 @@
 	safe_breath_min = 4
 	safe_breath_max = 20
 	gas_max = list(
-		GAS_CO2 = 45,
-		GAS_PLASMA = MOLES_GAS_VISIBLE
+		/datum/gas/carbon_dioxide = 45,
+		/datum/gas/plasma = MOLES_GAS_VISIBLE
 	)
 #undef PP
 #undef PP_MOLES

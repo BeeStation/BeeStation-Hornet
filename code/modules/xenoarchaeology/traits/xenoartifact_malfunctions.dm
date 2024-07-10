@@ -235,7 +235,7 @@
 	///What gasses we've S U C K E D
 	var/datum/gas_mixture/air_contents
 	///Gasses we can suck. Currently everything but, it's here if we need to blacklist in the future
-	var/list/scrubbing = list(GAS_PLASMA, GAS_CO2, GAS_NITROUS, GAS_BZ, GAS_NITRYL, GAS_TRITIUM, GAS_HYPERNOB, GAS_H2O, GAS_O2, GAS_N2, GAS_STIMULUM, GAS_PLUOXIUM)
+	var/list/scrubbing = list(/datum/gas/plasma, /datum/gas/carbon_dioxide, /datum/gas/nitrous_oxide, /datum/gas/bz, /datum/gas/nitryl, /datum/gas/tritium, GAS_HYPERNOB, /datum/gas/water_vapor, /datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/stimulum, GAS_PLUOXIUM)
 	///Adjust for balance - I'm sure this will have no ramifications
 	var/volume = 1000000
 	var/volume_rate = 200000

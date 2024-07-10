@@ -457,15 +457,15 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		//Can cause an overestimation of mol count, should stabalize things though.
 		//Prevents huge bursts of gas/heat when a large amount of something is introduced
 		//They range between 0 and 1
-		plasmacomp += clamp(max(removed.get_moles(GAS_PLASMA)/combined_gas, 0) - plasmacomp, -1, gas_change_rate)
-		o2comp += clamp(max(removed.get_moles(GAS_O2)/combined_gas, 0) - o2comp, -1, gas_change_rate)
-		co2comp += clamp(max(removed.get_moles(GAS_CO2)/combined_gas, 0) - co2comp, -1, gas_change_rate)
+		plasmacomp += clamp(max(removed.get_moles(/datum/gas/plasma)/combined_gas, 0) - plasmacomp, -1, gas_change_rate)
+		o2comp += clamp(max(removed.get_moles(/datum/gas/oxygen)/combined_gas, 0) - o2comp, -1, gas_change_rate)
+		co2comp += clamp(max(removed.get_moles(/datum/gas/carbon_dioxide)/combined_gas, 0) - co2comp, -1, gas_change_rate)
 		pluoxiumcomp += clamp(max(removed.get_moles(GAS_PLUOXIUM)/combined_gas, 0) - pluoxiumcomp, -1, gas_change_rate)
-		tritiumcomp += clamp(max(removed.get_moles(GAS_TRITIUM)/combined_gas, 0) - tritiumcomp, -1, gas_change_rate)
-		bzcomp += clamp(max(removed.get_moles(GAS_BZ)/combined_gas, 0) - bzcomp, -1, gas_change_rate)
+		tritiumcomp += clamp(max(removed.get_moles(/datum/gas/tritium)/combined_gas, 0) - tritiumcomp, -1, gas_change_rate)
+		bzcomp += clamp(max(removed.get_moles(/datum/gas/bz)/combined_gas, 0) - bzcomp, -1, gas_change_rate)
 
-		n2ocomp += clamp(max(removed.get_moles(GAS_NITROUS)/combined_gas, 0) - n2ocomp, -1, gas_change_rate)
-		n2comp += clamp(max(removed.get_moles(GAS_N2)/combined_gas, 0) - n2comp, -1, gas_change_rate)
+		n2ocomp += clamp(max(removed.get_moles(/datum/gas/nitrous_oxide)/combined_gas, 0) - n2ocomp, -1, gas_change_rate)
+		n2comp += clamp(max(removed.get_moles(/datum/gas/nitrogen)/combined_gas, 0) - n2comp, -1, gas_change_rate)
 
 		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + tritiumcomp + bzcomp - pluoxiumcomp - n2comp, 0), 1)
 
@@ -521,9 +521,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		removed.set_temperature(max(0, min(removed.return_temperature(), 2500 * dynamic_heat_modifier)))
 
 		//Calculate how much gas to release
-		removed.adjust_moles(GAS_PLASMA, max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0))
+		removed.adjust_moles(/datum/gas/plasma, max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0))
 
-		removed.adjust_moles(GAS_O2, max(((device_energy + removed.return_temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
+		removed.adjust_moles(/datum/gas/oxygen, max(((device_energy + removed.return_temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
 
 		if(produces_gas)
 			env.merge(removed)

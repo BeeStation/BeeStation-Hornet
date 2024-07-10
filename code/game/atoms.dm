@@ -1858,7 +1858,7 @@
 /atom/proc/plasma_ignition(strength, mob/user, reagent_reaction)
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()
-	if(environment.get_moles(GAS_O2) >= PLASMA_MINIMUM_OXYGEN_NEEDED) //Flashpoint ignition can only occur with at least this much oxygen present
+	if(environment.get_moles(/datum/gas/oxygen) >= PLASMA_MINIMUM_OXYGEN_NEEDED) //Flashpoint ignition can only occur with at least this much oxygen present
 		//no reason to alert admins or create an explosion if there's not enough power to actually make an explosion
 		if(strength > 1)
 			if(user)

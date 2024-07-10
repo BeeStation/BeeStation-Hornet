@@ -107,8 +107,8 @@
 					var/obj/item/organ/lungs/clockwork/organ = new()
 					if(robustbits)
 						organ.gas_max = list(
-							GAS_PLASMA = 15,
-							GAS_CO2 = 15,
+							/datum/gas/plasma = 15,
+							/datum/gas/carbon_dioxide = 15,
 						)
 						organ.SA_para_min = 15
 						organ.SA_sleep_min = 15
