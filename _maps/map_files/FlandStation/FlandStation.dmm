@@ -82235,7 +82235,6 @@
 /area/construction)
 "uQZ" = (
 /obj/structure/table,
-/obj/structure/table,
 /obj/item/storage/backpack/duffelbag/sec/surgery{
 	pixel_y = 4
 	},
