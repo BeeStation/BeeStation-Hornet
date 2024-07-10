@@ -1,0 +1,10 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: 'minor port of set_eye() and reset_perspective() proc from TG, #PR 69115
+      (LemonInTheDark)'
+  - code_imp: improved basic game system to track client's currently used eye
+  - tweak: advanced camera is now visible by anyone even if it's currently used by
+      someone. (This doesn't support the shuttle docking system, because it uses different
+      one.)
+  - bugfix: minor fix that advanced camera was still usable even if you're locker'ed
