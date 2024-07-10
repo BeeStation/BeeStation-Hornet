@@ -7,6 +7,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	total_positions = 0
 	spawn_positions = 0
 	supervisors = "your laws" //No AI yet as you are just a cube
+	show_in_prefs = FALSE //No reason to show in preferences
 
 /datum/job/cyborg/posibrain/after_spawn_silicon(mob/living/silicon/robot/R, mob/M)
 	var/obj/item/mmi/posibrain/P = pick(GLOB.on_station_posis)
