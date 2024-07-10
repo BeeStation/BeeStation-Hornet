@@ -1,5 +1,0 @@
-author: MarkusLarsson421
-delete-after: true
-changes:
-  - code_imp: Changed PopulateItems() to check if it should be empty or not.
-  - tweak: Changed Medkits to not use their empty variable.
