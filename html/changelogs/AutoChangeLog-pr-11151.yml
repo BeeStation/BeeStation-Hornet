@@ -1,0 +1,7 @@
+author: spockye
+delete-after: true
+changes:
+  - rscadd: Added glass floors and catwalk floors to corg station
+  - rscadd: small decal additions and changes to corg station
+  - rscadd: fixes to fland station
+  - rscadd: glass tiles to fland station
