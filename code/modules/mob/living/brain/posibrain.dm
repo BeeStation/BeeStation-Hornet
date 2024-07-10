@@ -13,8 +13,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	var/obj/item/mmi/posibrain/P = pick(GLOB.on_station_posis)
 
 	//Never show number of current posis
-	var/datum/job/job = SSjob.GetJob(JOB_NAME_POSIBRAIN)
-	job.current_positions = 0
+	current_positions = 0
 
 	if(!P.activate(R)) //If we failed to activate a posi, kick them back to the lobby.
 		//Code taken from "send to lobby" admin panel
