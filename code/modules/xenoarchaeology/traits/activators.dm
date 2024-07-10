@@ -144,7 +144,6 @@
 
 /datum/xenoartifact_trait/activator/sturdy/timed/process(delta_time)
 	if(!searching)
-		playsound(get_turf(parent?.parent), 'sound/effects/clock_tick.ogg', 10, TRUE)
 		return
 	if(search_cooldown_timer)
 		return
@@ -161,8 +160,7 @@
 
 /datum/xenoartifact_trait/activator/sturdy/timed/get_dictionary_hint()
 	. = ..()
-	return list(list("icon" = "exclamation", "desc" = "This trait will, after an arming time, activate on the nearest living target, periodically."),
-	XENOA_TRAIT_HINT_SOUND("clock ticking"))
+	return list(list("icon" = "exclamation", "desc" = "This trait will, after an arming time, activate on the nearest living target, periodically."))
 
 /datum/xenoartifact_trait/activator/sturdy/timed/proc/reset_timer()
 	if(search_cooldown_timer)
