@@ -198,7 +198,7 @@
 /mob/living/simple_animal/bot/atmosbot/proc/change_temperature()
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()
-	environment.set_temperature(ideal_temperature)
+	environment.temperature = (ideal_temperature)
 
 /mob/living/simple_animal/bot/atmosbot/proc/vent_air()
 	//Just start pumping out air

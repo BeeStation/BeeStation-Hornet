@@ -175,7 +175,7 @@
 	if(T.air)
 		var/datum/gas_mixture/G = T.air
 		if(!distcheck || get_dist(T, location) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
-			G.set_temperature(temperature)
+			G.temperature = temperature
 		T.air_update_turf(FALSE, FALSE)
 		for(var/obj/effect/hotspot/H in T)
 			qdel(H)

@@ -135,7 +135,7 @@
 		return FALSE
 	var/datum/gas_mixture/merger = new
 	merger.set_moles(spawn_id, spawn_mol * delta_time)
-	merger.set_temperature(spawn_temp)
+	merger.temperature = (spawn_temp)
 	O.assume_air(merger)
 
 /obj/machinery/atmospherics/miner/attack_ai(mob/living/silicon/user)

@@ -17,7 +17,7 @@
 /obj/machinery/portable_atmospherics/Initialize(mapload)
 	. = ..()
 	air_contents = new(volume)
-	air_contents.set_temperature(T20C)
+	air_contents.temperature = (T20C)
 	SSair.start_processing_machine(src)
 
 /obj/machinery/portable_atmospherics/Destroy()

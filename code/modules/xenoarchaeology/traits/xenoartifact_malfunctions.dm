@@ -244,7 +244,7 @@
 
 /datum/xenoartifact_trait/malfunction/absorbant/on_init(obj/item/xenoartifact/X)
 	air_contents = new(volume)
-	air_contents.set_temperature(T20C)
+	air_contents.temperature = (T20C)
 	parent = X
 
 /datum/xenoartifact_trait/malfunction/absorbant/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)

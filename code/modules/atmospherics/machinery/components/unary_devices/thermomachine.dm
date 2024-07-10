@@ -119,7 +119,7 @@
 
 	if(combined_heat_capacity > 0)
 		var/combined_energy = heat_capacity * target_temperature + air_heat_capacity * air_contents.return_temperature()
-		air_contents.set_temperature(combined_energy/combined_heat_capacity)
+		air_contents.temperature = (combined_energy/combined_heat_capacity)
 
 	var/temperature_delta= abs(old_temperature - air_contents.return_temperature())
 	if(temperature_delta > 1)

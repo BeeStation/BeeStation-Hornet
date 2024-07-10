@@ -516,9 +516,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		//Also keep in mind we are only adding this temperature to (efficiency)% of the one tile the rock
 		//is on. An increase of 4*C @ 25% efficiency here results in an increase of 1*C / (#tilesincore) overall.
-		removed.set_temperature(removed.return_temperature() + ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER))
+		removed.temperature = (removed.return_temperature() + ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER))
 
-		removed.set_temperature(max(0, min(removed.return_temperature(), 2500 * dynamic_heat_modifier)))
+		removed.temperature = (max(0, min(removed.return_temperature(), 2500 * dynamic_heat_modifier)))
 
 		//Calculate how much gas to release
 		removed.adjust_moles(/datum/gas/plasma, max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0))

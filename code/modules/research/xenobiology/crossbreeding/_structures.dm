@@ -149,7 +149,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(!istype(T))
 		return
 	var/datum/gas_mixture/gas = T.return_air()
-	gas.set_temperature(T0C + 200)
+	gas.temperature = (T0C + 200)
 	T.air_update_turf(FALSE, FALSE)
 
 /obj/structure/slime_crystal/purple

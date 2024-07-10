@@ -116,7 +116,7 @@
 
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature((temperature*old_heat_capacity + energy_released)/new_heat_capacity)
+			air.temperature = ((temperature*old_heat_capacity + energy_released)/new_heat_capacity)
 		return REACTING
 	return NO_REACTION
 
@@ -173,7 +173,7 @@
 	if(energy_released > 0)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature((temperature*old_heat_capacity + energy_released)/new_heat_capacity)
+			air.temperature = ((temperature*old_heat_capacity + energy_released)/new_heat_capacity)
 
 	//let the floor know a fire is happening
 	if(istype(location))
@@ -241,7 +241,7 @@
 	if(energy_released > 0)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature((temperature*old_heat_capacity + energy_released)/new_heat_capacity)
+			air.temperature = ((temperature*old_heat_capacity + energy_released)/new_heat_capacity)
 
 	//let the floor know a fire is happening
 	if(istype(location))
@@ -324,7 +324,7 @@
 	var/final_energy = air.thermal_energy() + energy_released
 	for(var/result in burn_results)
 		air.adjust_moles(result, burn_results[result])
-	air.set_temperature(final_energy / air.heat_capacity())
+	air.temperature = (final_energy / air.heat_capacity())
 	var/list/cached_results = air.reaction_results
 	cached_results["fire"] = min(total_fuel, oxidation_power) * 2
 	return cached_results["fire"] ? REACTING : NO_REACTION
@@ -417,12 +417,12 @@
 			radiation_pulse(location, max(2000 * 3 ** (log(10,standard_energy) - FUSION_RAD_MIDPOINT), 0))
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature(clamp(thermal_energy/new_heat_capacity, TCMB, INFINITY))
+			air.temperature = (clamp(thermal_energy/new_heat_capacity, TCMB, INFINITY))
 		return REACTING
 	else if(reaction_energy == 0 && instability <= FUSION_INSTABILITY_ENDOTHERMALITY)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature(clamp(thermal_energy/new_heat_capacity, TCMB, INFINITY)) //THIS SHOULD STAY OR FUSION WILL EAT YOUR FACE
+			air.temperature = (clamp(thermal_energy/new_heat_capacity, TCMB, INFINITY)) //THIS SHOULD STAY OR FUSION WILL EAT YOUR FACE
 		return REACTING
 
 /datum/gas_reaction/nitrylformation //The formation of nitryl. Endothermic. Requires N2O as a catalyst.
@@ -453,7 +453,7 @@
 	if(energy_used > 0)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature(max(((temperature*old_heat_capacity - energy_used)/new_heat_capacity),TCMB))
+			air.temperature = (max(((temperature*old_heat_capacity - energy_used)/new_heat_capacity),TCMB))
 		return REACTING
 
 /datum/gas_reaction/bzformation //Formation of BZ by combining plasma and tritium at low pressures. Exothermic.
@@ -489,7 +489,7 @@
 	if(energy_released > 0)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature(max(((temperature*old_heat_capacity + energy_released)/new_heat_capacity),TCMB))
+			air.temperature = (max(((temperature*old_heat_capacity + energy_released)/new_heat_capacity),TCMB))
 		return REACTING
 
 /datum/gas_reaction/stimformation //Stimulum formation follows a strange pattern of how effective it will be at a given temperature, having some multiple peaks and some large dropoffs. Exo and endo thermic.
@@ -522,7 +522,7 @@
 	if(stim_energy_change)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature(max(((air.return_temperature()*old_heat_capacity + stim_energy_change)/new_heat_capacity),TCMB))
+			air.temperature = (max(((air.return_temperature()*old_heat_capacity + stim_energy_change)/new_heat_capacity),TCMB))
 		return REACTING
 
 /datum/gas_reaction/nobliumformation //Hyper-Noblium formation is extrememly endothermic, but requires high temperatures to start. Due to its high mass, hyper-nobelium uses large amounts of nitrogen and tritium. BZ can be used as a catalyst to make it less endothermic.
@@ -551,7 +551,7 @@
 	if (nob_formed)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature(max(((air.return_temperature()*old_heat_capacity - energy_taken)/new_heat_capacity),TCMB))
+			air.temperature = (max(((air.return_temperature()*old_heat_capacity - energy_taken)/new_heat_capacity),TCMB))
 
 /datum/gas_reaction/stim_ball
 	priority = 7
@@ -588,5 +588,5 @@
 	if(energy_released)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature(clamp((air.return_temperature()*old_heat_capacity + energy_released)/new_heat_capacity,TCMB,INFINITY))
+			air.temperature = (clamp((air.return_temperature()*old_heat_capacity + energy_released)/new_heat_capacity,TCMB,INFINITY))
 		return REACTING

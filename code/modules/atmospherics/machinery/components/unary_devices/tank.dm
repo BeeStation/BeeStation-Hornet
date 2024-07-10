@@ -18,7 +18,7 @@
 	..()
 	var/datum/gas_mixture/air_contents = airs[1]
 	air_contents.set_volume(volume)
-	air_contents.set_temperature(T20C)
+	air_contents.temperature = (T20C)
 	if(gas_type)
 		air_contents.set_moles(gas_type, AIR_CONTENTS)
 		name = "[name] ([GLOB.gas_data.names[gas_type]])"

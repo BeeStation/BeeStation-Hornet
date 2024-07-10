@@ -6,7 +6,7 @@
 
 /datum/gas_mixture/immutable/New()
 	..()
-	set_temperature(initial_temperature)
+	temperature = (initial_temperature)
 	populate()
 	mark_immutable()
 

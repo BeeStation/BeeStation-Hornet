@@ -15,7 +15,7 @@
 	. = ..()
 	air_contents.set_moles(/datum/gas/oxygen, MOLES_O2STANDARD)
 	air_contents.set_moles(/datum/gas/nitrogen, MOLES_N2STANDARD)
-	air_contents.set_temperature(T20C)
+	air_contents.temperature = T20C
 
 
 /obj/structure/transit_tube_pod/Destroy()

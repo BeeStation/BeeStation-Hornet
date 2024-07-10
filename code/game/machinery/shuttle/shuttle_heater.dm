@@ -91,7 +91,7 @@
 	if(!air_contents)
 		return
 	air_contents.set_volume(gas_capacity)
-	air_contents.set_temperature(T20C)
+	air_contents.temperature = T20C
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/proc/hasFuel(var/required)
 	var/datum/gas_mixture/air_contents = airs[1]

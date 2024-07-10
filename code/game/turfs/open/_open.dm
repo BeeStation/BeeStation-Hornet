@@ -195,7 +195,7 @@
 	. = air.return_temperature()
 
 /turf/open/proc/TakeTemperature(temp)
-	air.set_temperature(air.return_temperature() + temp)
+	air.temperature = air.return_temperature() + temp
 	air_update_turf(FALSE, FALSE)
 
 /turf/open/proc/freeze_turf()

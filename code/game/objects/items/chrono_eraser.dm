@@ -266,7 +266,7 @@
 	var/datum/gas_mixture/GM = new
 	GM.set_moles(/datum/gas/oxygen, MOLES_O2STANDARD)
 	GM.set_moles(/datum/gas/nitrogen, MOLES_N2STANDARD)
-	GM.set_temperature(T20C)
+	GM.temperature = T20C
 	return GM
 
 /obj/structure/chrono_field/singularity_act()

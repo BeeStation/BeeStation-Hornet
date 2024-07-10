@@ -158,7 +158,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 /turf/return_temperature()
 
-/turf/proc/set_temperature()
 
 /// Initializes our adjacent turfs. If you want to avoid this, do not override it, instead set init_air to FALSE
 /turf/proc/Initalize_Atmos(times_fired)

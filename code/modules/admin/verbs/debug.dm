@@ -956,7 +956,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 
 	C.air_contents.set_moles(gas_to_add, amount)
-	C.air_contents.set_temperature(temp)
+	C.air_contents.temperature = (temp)
 	C.update_icon()
 
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp].</span>")
