@@ -64,7 +64,7 @@
 			wear_neck = I
 			update_inv_neck(I)
 		if(ITEM_SLOT_HANDCUFFED)
-			handcuffed = I
+			set_handcuffed(I)
 			update_handcuffed()
 		if(ITEM_SLOT_LEGCUFFED)
 			legcuffed = I
@@ -108,7 +108,7 @@
 		if(!QDELETED(src))
 			update_inv_neck(I)
 	else if(I == handcuffed)
-		handcuffed = null
+		set_handcuffed(null)
 		if(buckled && buckled.buckle_requires_restraints)
 			buckled.unbuckle_mob(src)
 		if(!QDELETED(src))

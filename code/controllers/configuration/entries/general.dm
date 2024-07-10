@@ -23,6 +23,8 @@
 
 /datum/config_entry/string/servername	// server name (the name of the game window)
 
+/datum/config_entry/string/servertag	// Server tagline for displaying on the hub
+
 /datum/config_entry/string/serversqlname	// short form server name used for the DB
 
 /datum/config_entry/string/stationname	// station name (the name of the station in-game)
@@ -71,6 +73,8 @@
 /datum/config_entry/flag/log_attack	// log attack messages
 
 /datum/config_entry/flag/log_emote	// log emotes
+
+/datum/config_entry/flag/log_econ // log economy actions
 
 /datum/config_entry/flag/log_adminchat	// log admin chat messages
 	protection = CONFIG_ENTRY_LOCKED

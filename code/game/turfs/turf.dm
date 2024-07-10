@@ -204,7 +204,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		else if(allow_z_travel)
 			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
 	. = ..()
-	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_NO_ATTACK_HAND)
+	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		. = TRUE
 	if(.)
 		return
@@ -352,7 +352,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
 		if(O.flags_1 & INITIALIZED_1)
-			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, underfloor_accessibility < UNDERFLOOR_VISIBLE)
+			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, underfloor_accessibility)
 
 // override for space turfs, since they should never hide anything
 /turf/open/space/levelupdate()

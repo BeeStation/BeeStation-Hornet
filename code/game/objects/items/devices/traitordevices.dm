@@ -258,6 +258,7 @@ effective or pretty fucking useless.
 	righthand_file = 'icons/mob/inhands/misc/bedsheet_righthand.dmi'
 	icon_state = "sheetmagician"
 	item_state = "sheetmagician"
+	worn_icon_state = "sheetblack"
 	slot_flags = ITEM_SLOT_NECK
 	layer = MOB_LAYER
 	attack_verb = null

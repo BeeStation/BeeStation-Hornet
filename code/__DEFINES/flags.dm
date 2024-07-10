@@ -54,6 +54,16 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define IS_ONTOP_1 (1<<12)
 /// Should we use the initial icon for display? Mostly used by overlay only objects
 #define HTML_USE_INITAL_ICON_1 (1<<13)
+/// Prevents direct access for anything in the contents of this atom.
+#define NO_DIRECT_ACCESS_FROM_CONTENTS_1 (1<<14)
+
+//turf-only flags. These use flags_1 too.
+// These exist to cover /turf and /area at the same time
+#define NOJAUNT_1					(1<<15)
+#define UNUSED_RESERVATION_TURF_1	(1<<16)
+#define CAN_BE_DIRTY_1				(1<<17) 	//! If a turf can be made dirty at roundstart. This is also used in areas.
+#define NO_LAVA_GEN_1				(1<<18) 	//! Blocks lava rivers being generated on the turf
+#define NO_RUINS_1					(1<<19) //! Blocks ruins spawning on the turf
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
@@ -72,16 +82,9 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define UPDATE_ICON (UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /// If the thing can reflect light (lasers/energy)
-#define RICOCHET_SHINY			(1<<0)
+#define RICOCHET_SHINY (1<<0)
 /// If the thing can reflect matter (bullets/bomb shrapnel)
-#define RICOCHET_HARD			(1<<1)
-
-//turf-only flags
-#define NOJAUNT_1					(1<<0)
-#define UNUSED_RESERVATION_TURF_1	(1<<1)
-#define CAN_BE_DIRTY_1				(1<<2) 	//! If a turf can be made dirty at roundstart. This is also used in areas.
-#define NO_LAVA_GEN_1				(1<<6) 	//! Blocks lava rivers being generated on the turf
-#define NO_RUINS_1					(1<<10) //! Blocks ruins spawning on the turf
+#define RICOCHET_HARD (1<<1)
 
 ////////////////Area flags\\\\\\\\\\\\\\
 /// If it's a valid territory for cult summoning or the CRAB-17 phone to spawn

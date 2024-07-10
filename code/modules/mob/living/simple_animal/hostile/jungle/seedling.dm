@@ -26,7 +26,7 @@
 	projectiletype = /obj/projectile/seedling
 	projectilesound = 'sound/weapons/pierce.ogg'
 	robust_searching = TRUE
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	var/combatant_state = SEEDLING_STATE_NEUTRAL
 	var/obj/seedling_weakpoint/weak_point
@@ -40,7 +40,7 @@
 	damage_type = BURN
 	light_range = 2
 	armor_flag = ENERGY
-	light_color = LIGHT_COLOR_YELLOW
+	light_color = LIGHT_COLOR_DIM_YELLOW
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
 	nondirectional_sprite = TRUE

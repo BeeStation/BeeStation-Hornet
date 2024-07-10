@@ -130,19 +130,21 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IMMOBILIZED "immobilized"
 /// Prevents voluntary standing or staying up on its own.
 #define TRAIT_FLOORED "floored"
-/* All to replace update_mobility with traits
 /// Forces user to stay standing (ensures the unconscious/immobilized dont enter a lying position in cryopods)
 #define TRAIT_FORCED_STANDING "forcedstanding"
 /// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
 #define TRAIT_HANDS_BLOCKED "handsblocked"
+/* All to replace update_mobility with traits
 /// Inability to access UI hud elements. Turned into a trait from [MOBILITY_UI] to be able to track sources.
 #define TRAIT_UI_BLOCKED "uiblocked"
 /// Inability to pull things. Turned into a trait from [MOBILITY_PULL] to be able to track sources.
 #define TRAIT_PULL_BLOCKED "pullblocked"
+*/
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
-*/
 #define TRAIT_INCAPACITATED "incapacitated"
+//In some kind of critical condition. Is able to succumb.
+#define TRAIT_CRITICAL_CONDITION "critical-condition"
 
 //mob traits
 #define TRAIT_BLIND "blind"
@@ -198,8 +200,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_TOXINLOVER		"toxinlover"
 #define TRAIT_NOHAIRLOSS		"no_hair_loss"
 #define TRAIT_NOBREATH			"no_breath"
-#define TRAIT_ANTIMAGIC			"anti_magic"
-#define TRAIT_HOLY				"holy"
+#define TRAIT_SEE_ANTIMAGIC		"see_anti_magic"
 #define TRAIT_DEPRESSION		"depression"
 #define TRAIT_JOLLY				"jolly"
 #define TRAIT_NOCRITDAMAGE		"no_crit"
@@ -270,6 +271,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_METALANGUAGE_KEY_ALLOWED "metalanguage_key_allowed" // you can use language key for metalanguage (,`) and but also you see lang icon
 #define TRAIT_HYPERSPACED "hyperspaced" // Sanity trait to keep track of when we're in hyperspace and add the appropriate element if we werent
 #define TRAIT_FREE_HYPERSPACE_MOVEMENT "free_hyperspace_movement" // Gives the movable free hyperspace movement without being pulled during shuttle transit
+#define TRAIT_FAST_CUFF_REMOVAL "fast_cuff_removal" // Faster cuff removal
 
 // You can stare into the abyss, but it does not stare back.
 // You're immune to the hallucination effect of the supermatter, either
@@ -350,6 +352,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// this object has been frozen
 #define TRAIT_FROZEN "frozen"
+///Turf trait for when a turf is transparent
+#define TURF_Z_TRANSPARENT_TRAIT "turf_z_transparent"
 
 // common trait sources
 #define TRAIT_GENERIC "generic"
@@ -384,10 +388,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CHOKEHOLD_TRAIT "chokehold"
 //trait associated to resting
 #define RESTING_TRAIT "resting"
+//trait associated to a stat value or range of
+#define STAT_TRAIT "stat"
+/// Trait associated to wearing a suit
+#define SUIT_TRAIT "suit"
 #define GLASSES_TRAIT "glasses"
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"
 #define TRAIT_RUSTY "rust_trait"
+#define TURF_TRAIT "turf"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"
@@ -448,6 +457,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define BUSY_FLOORBOT_TRAIT "busy-floorbot"
 #define PULLED_WHILE_SOFTCRIT_TRAIT "pulled-while-softcrit"
 #define LOCKED_BORG_TRAIT "locked-borg"
+#define LACKING_MANIPULATION_APPENDAGES_TRAIT "lacking-manipulation-appengades" //trait associated to not having fine manipulation appendages such as hands
+#define HANDCUFFED_TRAIT "handcuffed"
+/// Trait granted by [/obj/item/warpwhistle]
+#define WARPWHISTLE_TRAIT "warpwhistle"
 #define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
 #define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
 #define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"

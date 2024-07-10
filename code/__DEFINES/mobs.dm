@@ -433,6 +433,28 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 ///Whether or not to gib when the squashed mob is moved over
 #define SQUASHED_SHOULD_BE_GIBBED (1<<0)
 
+/*
+ * Defines for "AI emotions", allowing the AI to expression emotions
+ * with status displays via emotes.
+ */
+
+#define AI_EMOTION_VERY_HAPPY "Very Happy"
+#define AI_EMOTION_HAPPY "Happy"
+#define AI_EMOTION_NEUTRAL "Neutral"
+#define AI_EMOTION_UNSURE "Unsure"
+#define AI_EMOTION_CONFUSED "Confused"
+#define AI_EMOTION_SAD "Sad"
+#define AI_EMOTION_BSOD "BSOD"
+#define AI_EMOTION_BLANK "Blank"
+#define AI_EMOTION_PROBLEMS "Problems?"
+#define AI_EMOTION_AWESOME "Awesome"
+#define AI_EMOTION_FACEPALM "Facepalm"
+#define AI_EMOTION_THINKING "Thinking"
+#define AI_EMOTION_FRIEND_COMPUTER "Friend Computer"
+#define AI_EMOTION_DORFY "Dorfy"
+#define AI_EMOTION_BLUE_GLOW "Blue Glow"
+#define AI_EMOTION_RED_GLOW "Red Glow"
+
 //Generic body sizes
 #define BODY_SIZE_NORMAL 0
 #define BODY_SIZE_SHORT 1
@@ -442,6 +464,8 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define THROW_MODE_DISABLED 0
 #define THROW_MODE_TOGGLE 1
 #define THROW_MODE_HOLD 2
+
+#define MOB_OVERLAY_LAYER_ABSOLUTE(_mob_layer, _overlay_layer) (_mob_layer - (_overlay_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
 
 /// Converts the layer into a float layer that is within the bounds of the defined maximum mob clothing layer
 /// The bigger the input layer, the deeper it will be (mutations layer is at the bottom, so has a float layer of FLOAT_LAYER - 0.1).
@@ -548,3 +572,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 /// Messages when (something) lays an egg
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
+
+/// Returns whether or not the given mob can succumb
+#define CAN_SUCCUMB(target) (HAS_TRAIT(target, TRAIT_CRITICAL_CONDITION) && !HAS_TRAIT(target, TRAIT_NODEATH))
