@@ -56,6 +56,65 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">10 July 2024</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">minor port of set_eye() and reset_perspective() proc from TG, #PR 69115 (LemonInTheDark)</li>
+				<li class="code_imp">improved basic game system to track client's currently used eye</li>
+				<li class="tweak">advanced camera is now visible by anyone even if it's currently used by someone. (This doesn't support the shuttle docking system, because it uses different one.)</li>
+				<li class="bugfix">minor fix that advanced camera was still usable even if you're locker'ed</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Removes unconciousness from mech brute attacks</li>
+			</ul>
+			<h3 class="author">XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">NT's mapping department has repaired radstation's security disposals loop. It now works properly.</li>
+			</ul>
+			<h3 class="author">spockye updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed Rad decals</li>
+				<li class="bugfix">fixed half tiles</li>
+				<li class="rscdel">removes Captain spawner from rdm_captain_quarters.dmm</li>
+				<li class="tweak">replaces item spawner in rdm_captain_quarters.dmm</li>
+				<li class="rscadd">Added glass floors and catwalk floors to corg station</li>
+				<li class="rscadd">small decal additions and changes to corg station</li>
+				<li class="rscadd">fixes to fland station</li>
+				<li class="rscadd">glass tiles to fland station</li>
+			</ul>
+
+			<h2 class="date">09 July 2024</h2>
+			<h3 class="author">Howluinb updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Digitigrade Lizards will no longer get their toe stubbed on tables.</li>
+			</ul>
+			<h3 class="author">TsunamiAnt updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">paper frames now take 10 paper and 2 wood to craft</li>
+				<li class="tweak">paper bundle is now also called that</li>
+				<li class="rscadd">add description text to paper bundle to show people you can just cut it open</li>
+			</ul>
+
+			<h2 class="date">08 July 2024</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed a runtime that's caused by hallucination making an item to say</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Items will no longer drift out of your hand when picked up</li>
+			</ul>
+			<h3 class="author">XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">All admin votes now automatically popup.</li>
+				<li class="bugfix">Fixed swarmer traps not working correctly.</li>
+			</ul>
+			<h3 class="author">tonty updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">starting an emote with " 's " or "," won't leave a space anymore. roleplay has been saved</li>
+			</ul>
+
 			<h2 class="date">07 July 2024</h2>
 			<h3 class="author">DarnTheMarn updated:</h3>
 			<ul class="changes bgimages16">
@@ -507,54 +566,6 @@
 				<li class="bugfix">addresses possible runtime when qdeleting self-recharging guns with attached bayonets</li>
 				<li class="rscadd">new minigunlight sprite for mini e_guns like the PTSD</li>
 				<li class="code_imp">splits toggleable sec helmets into their own subtype to reduce snowflake code</li>
-			</ul>
-
-			<h2 class="date">08 May 2024</h2>
-			<h3 class="author">DrDuckedGoose updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fix emissives on players</li>
-				<li class="tweak">Add filter compatibility to emissives</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Improved textification of the language icon rendering in TGUI.</li>
-				<li class="code_imp">cleaned up religion code into multiple dm files</li>
-				<li class="code_imp">Refactored weather code and fixed weather bad rendering issue.</li>
-				<li class="bugfix">Void Heretic no longer shows void weather where they don't stand on.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes 515 compilation issue regarding species cold temperature</li>
-			</ul>
-			<h3 class="author">XeonMations updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed blood cultists being able to place structures on survival pods</li>
-			</ul>
-			<h3 class="author">rkz, coiax updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">Refactors step_action to save us from a few thousand useless proccalls per shift</li>
-			</ul>
-			<h3 class="author">rkz, nightred, lemoninthedark updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">refactored temperature stabilization in humans. Split human temperature into core temperature, which is affected by fevers & shivering symptoms and represents the overall temperature range, and Body Temperature which is what is directly affected by environmental factors and projectiles.</li>
-				<li class="rscadd">All species will now receive temperature HUD alerts before receiving damage.</li>
-				<li class="balance">recalculates burn damage based on overall temperature</li>
-			</ul>
-
-			<h2 class="date">07 May 2024</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed some nulls</li>
-			</ul>
-			<h3 class="author">Hardly updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Adds an universal enzyme to the lavaland beach biodome, allowing beach bums to make stuff like bread and tofu</li>
-				<li class="bugfix">Adds a griddle to the lavaland beach biodome, allowing beach bums to cook again</li>
-			</ul>
-			<h3 class="author">rkz, haukeschuemann, Rohesie, Timberpoes, zxaber updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">Standardized the entire attack_chain and added stack_traces to detect when & where it fails.</li>
-				<li class="balance">minor buff to telekinesis to use most interact() code. Unlikely to cause major change, just reducing duplicate code where TK would have its own proc for essentially doing the exact same thing</li>
 			</ul>
 		</div>
 
