@@ -1120,8 +1120,6 @@
 	. = ..()
 	if(.)
 		return
-	if((magic && HAS_TRAIT(src, TRAIT_ANTIMAGIC)) || (holy && HAS_TRAIT(src, TRAIT_HOLY)))
-		return src
 
 /mob/living/proc/fakefireextinguish()
 	return
@@ -1235,6 +1233,7 @@
 	else
 		mobility_flags |= MOBILITY_UI|MOBILITY_PULL
 
+	update_action_buttons_icon(TRUE)
 
 	if(stat == UNCONSCIOUS)
 		drop_all_held_items()
@@ -1454,15 +1453,16 @@
 		result += static_virus
 	return result
 
-/mob/living/reset_perspective(atom/A)
-	if(..())
-		update_sight()
-		if(client.eye && client.eye != src)
-			var/atom/AT = client.eye
-			AT.get_remote_view_fullscreens(src)
-		else
-			clear_fullscreen("remote_view", 0)
-		update_pipe_vision()
+/mob/living/reset_perspective(atom/new_eye)
+	if(!..())
+		return
+	update_sight()
+	if(client.eye && client.eye != src)
+		var/atom/AT = client.eye
+		AT.get_remote_view_fullscreens(src)
+	else
+		clear_fullscreen("remote_view", 0)
+	update_pipe_vision()
 
 /mob/living/update_mouse_pointer()
 	..()
