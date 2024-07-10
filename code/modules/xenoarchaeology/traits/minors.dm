@@ -898,7 +898,7 @@
 	//This may seem scary, and expensive, but it's only called WHEN ghosts try to move the artifact
 	var/list/mobs = oview(seek_distance, parent.parent)
 	for(var/mob/living/M in mobs)
-		if(!M.stat)
+		if(!M.stat && M.ckey)
 			return
 	return ..()
 
