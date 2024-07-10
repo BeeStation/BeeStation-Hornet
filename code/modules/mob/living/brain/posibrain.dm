@@ -33,8 +33,8 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 
 	//Update Job Quantities
 	//We should never show a posibrain as a filled job, so just make number of current positions zero
-	src.current_positions = 0
-	src.total_positions = length(GLOB.on_station_posis)
+	current_positions = 0
+	total_positions = length(GLOB.on_station_posis)
 
 /datum/job/cyborg/posibrain/proc/remove_posi_slot(obj/item/mmi/posibrain/pb)
 	if( pb in GLOB.on_station_posis)
@@ -42,8 +42,8 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 
 	//Update Job Quantities
 	//We should never show a posibrain as a filled job, so just make number of current positions zero
-	src.current_positions = 0
-	src.total_positions = length(GLOB.on_station_posis)
+	current_positions = 0
+	total_positions = length(GLOB.on_station_posis)
 
 
 /obj/item/mmi/posibrain
