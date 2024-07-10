@@ -1,5 +1,0 @@
-author: spockye
-delete-after: true
-changes:
-  - rscdel: removes Captain spawner from rdm_captain_quarters.dmm
-  - tweak: replaces item spawner in rdm_captain_quarters.dmm

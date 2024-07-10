@@ -1,5 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - bugfix: NT's mapping department has repaired radstation's security disposals loop.
-      It now works properly.
