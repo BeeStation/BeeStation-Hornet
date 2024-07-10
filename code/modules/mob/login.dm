@@ -26,7 +26,7 @@
 /mob/Login()
 	// set_eye() is important here, because your eye doesn't know if you're using them as your eye
 	// FALSE when weakref doesn't exist, to prevent using their current eye
-	client.set_eye(client.eye, client.eye_weakref?.resolve() || FALSE)
+	client.set_eye(client.eye, client.eye_weakref?.resolve() || CLIENT_OLD_EYE_NULL)
 	add_to_player_list()
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
@@ -35,6 +35,9 @@
 	client.screen = list()				//remove hud items just in case
 	client.images = list()
 
+	// unorthodox removal of a signal. DM handles client instance very badly
+	for(var/datum/each_hud as anything in client.comp_lookup?[COMSIG_CLIENT_EYE_Z_CHANGED])
+		each_hud.UnregisterSignal(client, COMSIG_CLIENT_EYE_Z_CHANGED)
 	if(!hud_used)
 		create_mob_hud()
 	if(hud_used)

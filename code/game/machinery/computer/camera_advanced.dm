@@ -202,13 +202,11 @@
 
 		if(camera_location)
 			eyeobj.eye_initialized = TRUE
-			give_eye_control(L)
-			eyeobj.setLoc(camera_location)
+			eyeobj.abstract_move(camera_location)
 		else
 			user.unset_machine()
-	else
-		give_eye_control(L)
-		eyeobj.setLoc(eyeobj.loc)
+
+	give_eye_control(L)
 
 /obj/machinery/computer/camera_advanced/proc/start_observe(mob/user)
 	if(!user.client || !eyeobj)
@@ -259,7 +257,6 @@
 	RevealCameraMob()
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
-	eyeobj.setLoc(eyeobj.loc)
 	if(should_supress_view_changes )
 		user.client.view_size.supress()
 

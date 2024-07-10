@@ -170,6 +170,7 @@ GLOBAL_LIST_INIT(huds, list(
 
 		RegisterSignal(new_viewer, COMSIG_PARENT_QDELETING, PROC_REF(unregister_atom), override = TRUE) //both hud users and hud atoms use these signals
 		RegisterSignal(new_viewer, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_atom_or_user_z_level_changed), override = TRUE)
+		RegisterSignal(new_viewer.client, COMSIG_CLIENT_EYE_Z_CHANGED, PROC_REF(on_atom_or_user_z_level_changed), override = TRUE)
 
 		var/turf/their_turf = get_turf(new_viewer)
 		if(!their_turf)
@@ -201,6 +202,8 @@ GLOBAL_LIST_INIT(huds, list(
 		if(!hud_atoms_all_z_levels[former_viewer])//make sure we arent unregistering changes on a mob thats also a hud atom for this hud
 			UnregisterSignal(former_viewer, COMSIG_MOVABLE_Z_CHANGED)
 			UnregisterSignal(former_viewer, COMSIG_PARENT_QDELETING)
+		if(former_viewer.client)
+			UnregisterSignal(former_viewer.client, COMSIG_CLIENT_EYE_Z_CHANGED)
 
 		hud_users_all_z_levels -= former_viewer
 
@@ -224,7 +227,7 @@ GLOBAL_LIST_INIT(huds, list(
 
 	// No matter where or who you are, you matter to me :)
 	RegisterSignal(new_hud_atom, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_atom_or_user_z_level_changed), override = TRUE)
-	RegisterSignal(new_hud_atom, COMSIG_PARENT_QDELETING, PROC_REF(unregister_atom), override = TRUE) //both hud atoms and hud users use these signals
+	RegisterSignal(new_hud_atom, COMSIG_CLIENT_EYE_Z_CHANGED, PROC_REF(on_atom_or_user_z_level_changed), override = TRUE)
 	hud_atoms_all_z_levels[new_hud_atom] = TRUE
 
 	var/turf/atom_turf = get_turf(new_hud_atom)
@@ -307,6 +310,11 @@ GLOBAL_LIST_INIT(huds, list(
 ///because of how signals work we need the same proc to handle both use cases because being a hud atom and being a hud user arent mutually exclusive
 /datum/atom_hud/proc/on_atom_or_user_z_level_changed(atom/movable/moved_atom, old_z, new_z)
 	SIGNAL_HANDLER
+
+	if(isclient(moved_atom)) // need to do this because of COMSIG_CLIENT_EYE_Z_CHANGED signal
+		var/client/client = moved_atom
+		moved_atom = client.mob
+
 	if(old_z)
 		if(hud_users_all_z_levels[moved_atom])
 			hud_users[old_z] -= moved_atom
@@ -457,6 +465,7 @@ GLOBAL_LIST_INIT(huds, list(
 		if(hud?.hud_users_all_z_levels[src])
 			for(var/atom/hud_atom as anything in hud.get_hud_atoms_for_z_level(our_turf.z))
 				hud.add_atom_to_single_mob_hud(src, hud_atom)
+				hud.RegisterSignal(client, COMSIG_CLIENT_EYE_Z_CHANGED, TYPE_PROC_REF(/datum/atom_hud, on_atom_or_user_z_level_changed), override = TRUE)
 
 /mob/dead/new_player/reload_huds()
 	return
