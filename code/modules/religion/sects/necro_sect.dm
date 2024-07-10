@@ -137,6 +137,7 @@
 	if(GLOB.religion)
 		var/obj/item/storage/book/bible/booze/B = new
 		undead.mind?.holy_role = HOLY_ROLE_PRIEST
+		SSclient_vision.grant_vision_key_to_mind(CLIVIS_KEY_HOLYTURF, undead.mind)
 		B.deity_name = GLOB.deity
 		B.name = GLOB.bible_name
 		B.icon_state = GLOB.bible_icon_state
