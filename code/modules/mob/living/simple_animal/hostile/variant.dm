@@ -302,8 +302,8 @@
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "personal"
 	ranged = TRUE
-	vision_range = 5
-	aggro_vision_range = 5
+	vision_range = 7
+	aggro_vision_range = 7
 	speed = 7
 	move_to_delay = 7
 	rapid = 3
