@@ -264,7 +264,7 @@
 	weight = 30
 	incompatabilities = TRAIT_INCOMPATIBLE_MOB
 	///Mob who lives inside the artifact, and who we give actions to
-	var/mob/living/simple_animal/shade/sentience
+	var/mob/living/simple_animal/shade/sentience/sentience
 	///Mob spawner for ghosts
 	var/obj/effect/mob_spawn/sentient_artifact/mob_spawner
 
@@ -284,10 +284,6 @@
 	QDEL_NULL(sentience)
 	QDEL_NULL(mob_spawner)
 	return ..()
-
-/datum/xenoartifact_trait/minor/sentient/get_dictionary_hint()
-	. = ..()
-	return list(list("icon" = "exclamation", "desc" = "This trait will make the artifact unable to be sold, unless calcified."))
 
 /datum/xenoartifact_trait/minor/sentient/proc/handle_ghost(datum/source, mob/M, list/examine_text)
 	if(isobserver(M) && !sentience?.key && (alert(M, "Are you sure you want to control of [sentience]?", "Assume control of [sentience]", "Yes", "No") == "Yes"))
@@ -341,6 +337,8 @@
 	flavour_text = "Return to your master..."
 	use_cooldown = TRUE
 	ghost_usable = TRUE
+	instant = FALSE
+	roundstart = FALSE
 	banType = ROLE_SENTIENT_XENOARTIFACT
 	density = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -383,6 +381,9 @@
 			sentient_artifact.register_target(M, TRUE)
 	if(length(sentient_artifact.targets))
 		sentient_artifact.trigger(TRUE)
+
+/mob/living/simple_animal/shade/sentience
+	desc = "Wait, what the fuck?"
 
 /*
 	Delicate
