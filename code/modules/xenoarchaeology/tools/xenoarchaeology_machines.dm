@@ -110,7 +110,7 @@
 					say("Unexpected Item Detected!")
 				return
 	if(total_weight)
-		say("Total Mass: [total_weight] KG.\n[label_weight ? "Label Mass: [label_weight]." : ""]")
+		say("Total Mass: [total_weight] KG.\n[label_weight ? "Label Mass: [label_weight] KG." : ""]")
 	else
 		say("No Mass Detected!")
 	playsound(src, 'sound/machines/uplinkpurchase.ogg', 50, TRUE)
@@ -159,7 +159,7 @@
 					say("Unexpected Item Detected!")
 				return
 	if(total_conductivity)
-		say("Total Conductivity: [total_conductivity] MPC.\n[label_conductivity ? "Label Conductivity: [label_conductivity]." : ""]")
+		say("Total Conductivity: [total_conductivity] MPC.\n[label_conductivity ? "Label Conductivity: [label_conductivity] MPC." : ""]")
 	else
 		say("No Conductivity Detected!")
 	playsound(src, 'sound/machines/uplinkpurchase.ogg', 50, TRUE)
