@@ -192,7 +192,7 @@
 	//Build malfunctions
 	var/list/focus_traits
 	focus_traits = GLOB.xenoa_malfunctions & artifact_type.get_trait_list()
-	build_traits(focus_traits, artifact_type.trait_malfunctions)
+	build_traits(focus_traits, 1)
 	//Reset instability
 	instability = 0
 
