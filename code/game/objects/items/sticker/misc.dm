@@ -46,22 +46,27 @@
 	drop_rate = STICKER_WEIGHT_UNCOMMON
 
 /obj/item/sticker/series_1/pride/gay
+	item_flags = NONE
 	icon_state = "gay"
 	sticker_icon_state = "gay_sticker"
 
 /obj/item/sticker/series_1/pride/lesbian
+	item_flags = NONE
 	icon_state = "lesbian"
 	sticker_icon_state = "lesbian_sticker"
 
 /obj/item/sticker/series_1/pride/bi
+	item_flags = NONE
 	icon_state = "bi"
 	sticker_icon_state = "bi_sticker"
 
 /obj/item/sticker/series_1/pride/trans
+	item_flags = NONE
 	icon_state = "trans"
 	sticker_icon_state = "trans_sticker"
 
 //Mime pride?
 /obj/item/sticker/series_1/pride/straight
+	item_flags = NONE
 	icon_state = "straight"
 	sticker_icon_state = "straight_sticker"
