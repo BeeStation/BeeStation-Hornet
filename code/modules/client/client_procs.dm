@@ -589,6 +589,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 			send2tgs("Server", "[cheesy_message] (No admins online)")
 
+	if(isatom(eye)) // admeme vv failproof. eye must be atom
+		var/atom/eye_thing = eye
+		LAZYREMOVE(eye_thing.eye_users, src)
 	GLOB.requests.client_logout(src)
 
 	SSambience.remove_ambience_client(src)
@@ -968,6 +971,24 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED]")
 
 	..()
+
+/// Sets client eye to 1st param.
+/// * WARN: Do not change old_eye. Check client/var/eye_weakref
+/client/proc/set_eye(atom/new_eye, atom/old_eye = src.eye)
+	if(new_eye == old_eye)
+		return
+
+	if(isatom(old_eye)) // admeme vv failproof. /datum can't be their eyes
+		LAZYREMOVE(old_eye.eye_users, src)
+
+	eye = new_eye
+	eye_weakref = WEAKREF(eye)
+
+	if(isatom(new_eye))
+		LAZYADD(new_eye.eye_users, src)
+
+	// SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye) // use this when you want a thing from TG //This is from planecube pr, dragon, we most certainly dont want from that pr
+
 
 /client/proc/add_verbs_from_config()
 	if (interviewee)
