@@ -26,6 +26,26 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 
 	qdel(R)
 
+/datum/job/cyborg/posibrain/proc/check_add_posi_slot(obj/item/mmi/posibrain/pb)
+	var/turf/currentturf = get_turf(pb)
+	if( is_station_level(currentturf.z) )
+		GLOB.on_station_posis += pb
+
+	//Update Job Quantities
+	//We should never show a posibrain as a filled job, so just make number of current positions zero
+	src.current_positions = 0
+	src.total_positions = length(GLOB.on_station_posis)
+
+/datum/job/cyborg/posibrain/proc/remove_posi_slot(obj/item/mmi/posibrain/pb)
+	if( pb in GLOB.on_station_posis)
+		GLOB.on_station_posis -= pb
+
+	//Update Job Quantities
+	//We should never show a posibrain as a filled job, so just make number of current positions zero
+	src.current_positions = 0
+	src.total_positions = length(GLOB.on_station_posis)
+
+
 /obj/item/mmi/posibrain
 	name = "positronic brain"
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
@@ -140,16 +160,8 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	if(transfer_personality(user))
 		GLOB.posi_key_list += ckey
 
-	//If Posi is on Station, We need to take off one posi job slot.
-	var/turf/currentturf = get_turf(src)
-	if( is_station_level(currentturf.z) )
-		GLOB.on_station_posis -= src
-
-		var/datum/job/job = SSjob.GetJob(JOB_NAME_POSIBRAIN)
-		job.total_positions = length(GLOB.on_station_posis)
-
-		//We should never show a posibrain as a filled job, so just make number of current positions zero
-		job.current_positions = 0
+	var/datum/job/cyborg/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+	pj.remove_posi_slot(src)
 
 	return TRUE
 
@@ -222,11 +234,9 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	brainmob.container = src
 
 	//If we are on the station level, add it to the list of available posibrains.
-	var/turf/currentturf = get_turf(src)
-	if( is_station_level(currentturf.z))
-		GLOB.on_station_posis += src
-		var/datum/job/job = SSjob.GetJob(JOB_NAME_POSIBRAIN)
-		job.total_positions = length(GLOB.on_station_posis)
+	var/datum/job/cyborg/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+	pj.check_add_posi_slot(src)
+
 
 	if(autoping)
 		ping_ghosts("created", TRUE)
@@ -257,21 +267,13 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 		//No need to track occupied Posis
 		return
 
+	var/datum/job/cyborg/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+
 	//Posi was on station, now is not on station
-	if( is_station_level(old_z) && !is_station_level(new_z))
-		GLOB.on_station_posis -= src
-
-	//Posi was off station, now is on station
-	if( !is_station_level(old_z) && is_station_level(new_z))
-		GLOB.on_station_posis += src
-
-	//Update Job Quantities
-	var/datum/job/job = SSjob.GetJob(JOB_NAME_POSIBRAIN)
-
-	//We should never show a posibrain as a filled job, so just make number of current positions zero
-	job.current_positions = 0
-
-	job.total_positions = length(GLOB.on_station_posis)
+	if( is_station_level(new_z) )
+		pj.check_add_posi_slot(src)
+	else
+		pj.remove_posi_slot(src)
 
 /obj/item/mmi/posibrain/Destroy()
 
@@ -279,10 +281,8 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 		//No need to track occupied Posis
 		return ..()
 
-	//If Posi is on station, remove it from the list.
-	if( src in GLOB.on_station_posis)
-		GLOB.on_station_posis -= src
-		var/datum/job/job = SSjob.GetJob(JOB_NAME_POSIBRAIN)
-		job.total_positions = length(GLOB.on_station_posis)
+	var/datum/job/cyborg/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+	pj.remove_posi_slot(src)
+
 
 	return ..()
