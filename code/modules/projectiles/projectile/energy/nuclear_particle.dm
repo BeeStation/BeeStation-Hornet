@@ -57,8 +57,8 @@
 	. = ..()
 	//Do a gas check first
 	var/turf/T = get_turf(src)
-	var/datum/gas_mixture/air = T.return_air()
-	var/moles = (air.get_moles(GAS_TRITIUM) > MOLES_GAS_VISIBLE) //TODO: Take suggestions for what gas should do this - Racc : CONSULT, PLAYTEST
+	var/datum/gas_mixture/air = T?.return_air()
+	var/moles = (air?.get_moles(GAS_TRITIUM) > MOLES_GAS_VISIBLE) //TODO: Take suggestions for what gas should do this - Racc : CONSULT, PLAYTEST
 	//TODO: Make a rarer gas make regular artifacts for whatever reason, or different gasses make differant artifacts? - Racc : CONSULT, PLAYTEST
 	if(!moles)
 		return

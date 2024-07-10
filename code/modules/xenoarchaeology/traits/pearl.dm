@@ -58,3 +58,13 @@
 	var/mutable_appearance/MA = setup_appearance(mutable_appearance(sticker_icon || src.icon, sticker_icon_state || src.icon_state))
 	MA.blend_mode = BLEND_INSET_OVERLAY
 	return MA
+
+/obj/item/sticker/trait_pearl/debug
+
+/obj/item/sticker/trait_pearl/debug/AltClick(mob/user)
+	. = ..()
+	var/list/options = GLOB.xenoa_all_traits
+	var/datum/xenoartifact_trait/decision = tgui_input_list(user, "Choose a trait", "Traits", options)
+	if(decision)
+		QDEL_NULL(stored_trait)
+		stored_trait = new decision()

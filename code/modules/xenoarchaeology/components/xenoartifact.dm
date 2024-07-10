@@ -86,19 +86,19 @@
 		if(length(artifact_traits[TRAIT_PRIORITY_ACTIVATOR]) < artifact_type.trait_activators)
 			//Generate activators
 			focus_traits = GLOB.xenoa_activators & artifact_type.get_trait_list()
-			build_traits(focus_traits, artifact_type.trait_activators)
+			build_traits(focus_traits, artifact_type.trait_activators - length(artifact_traits[TRAIT_PRIORITY_ACTIVATOR]))
 		if(length(artifact_traits[TRAIT_PRIORITY_MINOR]) < artifact_type.trait_minors)
 			//Generate minors
 			focus_traits = GLOB.xenoa_minors & artifact_type.get_trait_list()
-			build_traits(focus_traits, artifact_type.trait_minors)
+			build_traits(focus_traits, artifact_type.trait_minors - length(artifact_traits[TRAIT_PRIORITY_MINOR]))
 		if(length(artifact_traits[TRAIT_PRIORITY_MAJOR]) < artifact_type.trait_majors)
 			//Generate majors
 			focus_traits = GLOB.xenoa_majors & artifact_type.get_trait_list()
-			build_traits(focus_traits, artifact_type.trait_majors)
+			build_traits(focus_traits, artifact_type.trait_majors - length(artifact_traits[TRAIT_PRIORITY_MAJOR]))
 		if(length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]) < artifact_type.trait_malfunctions)
 			//Generate malfunctions
 			focus_traits = GLOB.xenoa_malfunctions & artifact_type.get_trait_list()
-			build_traits(focus_traits, artifact_type.trait_malfunctions)
+			build_traits(focus_traits, artifact_type.trait_malfunctions - length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]))
 	//Cooldown
 	trait_cooldown = get_extra_cooldowns()
 	//Description
