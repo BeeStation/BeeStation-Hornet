@@ -33,7 +33,7 @@
 	minbodytemp = 270
 	maxbodytemp = 370
 	unsuitable_atmos_damage = 10
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	hardattacks = TRUE
 	var/banana_time = 0 // If there's no time set it won't spawn.
 	var/banana_type = /obj/item/grown/bananapeel
@@ -231,7 +231,7 @@
 	speed = 5
 	melee_damage = 30
 	armour_penetration = 30
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	attacktext = "acts out divine vengeance on"
 	obj_damage = 50
 	environment_smash = ENVIRONMENT_SMASH_RWALLS

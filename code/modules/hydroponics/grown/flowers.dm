@@ -2,6 +2,8 @@
 /obj/item/seeds/flower
 	name = "pack of generic flower seeds"
 	desc = "You should not be seeing this."
+	icon_state = null
+	worn_icon_state = null
 	endurance = 10
 	maturation = 8
 	yield = 6
@@ -12,8 +14,11 @@
 /obj/item/food/grown/flower
 	name = "generic flower"
 	desc = "You should not be seeing this"
+	icon_state = null
+	worn_icon_state = null
 	slot_flags = ITEM_SLOT_HEAD
 	bite_consumption_mod = 2
+	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
 	food_reagents = null //get the unit test off our back
 	foodtypes = VEGETABLES | GROSS
 

@@ -85,7 +85,7 @@
 	uniform = /obj/item/clothing/under/costume/pirate
 	shoes = /obj/item/clothing/shoes/jackboots
 	glasses = /obj/item/clothing/glasses/eyepatch
-	head = /obj/item/clothing/head/bandana
+	head = /obj/item/clothing/head/costume/pirate/bandana
 
 
 /obj/effect/mob_spawn/human/corpse/pirate/ranged
@@ -94,8 +94,8 @@
 
 /datum/outfit/piratecorpse/ranged
 	name = "Pirate Gunner Corpse"
-	suit = /obj/item/clothing/suit/pirate
-	head = /obj/item/clothing/head/pirate
+	suit = /obj/item/clothing/suit/costume/pirate
+	head = /obj/item/clothing/head/costume/pirate
 
 
 /obj/effect/mob_spawn/human/corpse/russian
@@ -108,7 +108,7 @@
 	name = "Russian Corpse"
 	uniform = /obj/item/clothing/under/costume/soviet
 	shoes = /obj/item/clothing/shoes/jackboots
-	head = /obj/item/clothing/head/bearpelt
+	head = /obj/item/clothing/head/costume/bearpelt
 	gloves = /obj/item/clothing/gloves/color/black
 	mask = /obj/item/clothing/mask/gas/old
 
@@ -119,7 +119,7 @@
 
 /datum/outfit/russiancorpse/ranged
 	name = "Ranged Russian Corpse"
-	head = /obj/item/clothing/head/ushanka
+	head = /obj/item/clothing/head/costume/ushanka
 
 
 /obj/effect/mob_spawn/human/corpse/russian/ranged/trooper
@@ -143,10 +143,10 @@
 /datum/outfit/russiancorpse/officer
 	name = "Russian Officer Corpse"
 	uniform = /obj/item/clothing/under/costume/russian_officer
-	suit = /obj/item/clothing/suit/security/officer/russian
+	suit = /obj/item/clothing/suit/jacket/officer/tan
 	shoes = /obj/item/clothing/shoes/combat
 	ears = /obj/item/radio/headset
-	head = /obj/item/clothing/head/ushanka
+	head = /obj/item/clothing/head/costume/ushanka
 
 
 /obj/effect/mob_spawn/human/corpse/wizard
@@ -252,7 +252,7 @@
 
 /datum/outfit/straightjacket
 	name = "Straight jacket"
-	suit = /obj/item/clothing/suit/straight_jacket
+	suit = /obj/item/clothing/suit/jacket/straight_jacket
 
 /obj/effect/mob_spawn/human/corpse/psychost/muzzle
 	name = "Muzzled psycho"
@@ -260,7 +260,7 @@
 
 /datum/outfit/straightmuz
 	name = "Straight jacket and a muzzle"
-	suit = /obj/item/clothing/suit/straight_jacket
+	suit = /obj/item/clothing/suit/jacket/straight_jacket
 	mask = /obj/item/clothing/mask/muzzle
 
 /obj/effect/mob_spawn/human/corpse/psychost/trap
@@ -269,7 +269,7 @@
 
 /datum/outfit/straighttrap
 	name = "Straight jacket and a reverse bear trap"
-	suit = /obj/item/clothing/suit/straight_jacket
+	suit = /obj/item/clothing/suit/jacket/straight_jacket
 	head = /obj/item/reverse_bear_trap
 
 /obj/effect/mob_spawn/human/corpse/heavy

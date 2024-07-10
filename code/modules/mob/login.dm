@@ -2,6 +2,7 @@
   * Run when a client is put in this mob or reconnets to byond and their client was on this mob
   *
   * Things it does:
+  * * call set_eye() to manually manage atom/list/eye_users
   * * Adds player to player_list
   * * sets lastKnownIP
   * * sets computer_id
@@ -23,6 +24,9 @@
   * * attaches the ash listener element so clients can hear weather
   */
 /mob/Login()
+	// set_eye() is important here, because your eye doesn't know if you're using them as your eye
+	// FALSE when weakref doesn't exist, to prevent using their current eye
+	client.set_eye(client.eye, client.eye_weakref?.resolve() || FALSE)
 	add_to_player_list()
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id

@@ -465,6 +465,8 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define THROW_MODE_TOGGLE 1
 #define THROW_MODE_HOLD 2
 
+#define MOB_OVERLAY_LAYER_ABSOLUTE(_mob_layer, _overlay_layer) (_mob_layer - (_overlay_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
+
 /// Converts the layer into a float layer that is within the bounds of the defined maximum mob clothing layer
 /// The bigger the input layer, the deeper it will be (mutations layer is at the bottom, so has a float layer of FLOAT_LAYER - 0.1).
 #define CALCULATE_MOB_OVERLAY_LAYER(_layer) (FLOAT_LAYER - (_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
@@ -570,3 +572,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 /// Messages when (something) lays an egg
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
+
+/// Returns whether or not the given mob can succumb
+#define CAN_SUCCUMB(target) (HAS_TRAIT(target, TRAIT_CRITICAL_CONDITION) && !HAS_TRAIT(target, TRAIT_NODEATH))

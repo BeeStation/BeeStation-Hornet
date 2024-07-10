@@ -20,6 +20,15 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	var/list/arguments = args.Copy(2)
 	return new type(arglist(arguments))
 
+/mob/proc/update_alt_appearances()
+	for (var/datum/atom_hud/alternate_appearance/alt_appearance in GLOB.active_alternate_appearances)
+		if (alt_appearance.mobShouldSee(src))
+			// If we don't see it already, then add it
+			if (!alt_appearance.hudusers[src])
+				alt_appearance.add_hud_to(src)
+		else
+			alt_appearance.remove_hud_from(src)
+
 /datum/atom_hud/alternate_appearance
 	var/appearance_key
 	var/transfer_overlays = FALSE

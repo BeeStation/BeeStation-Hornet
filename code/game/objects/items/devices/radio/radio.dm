@@ -4,7 +4,8 @@
 	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"
 	icon_state = "walkietalkie"
-	item_state = "walkietalkie"
+	item_state = "radio"
+	worn_icon_state = "radio"
 	desc = "A basic handheld radio that communicates with local telecommunication networks."
 	dog_fashion = /datum/dog_fashion/back
 
@@ -389,10 +390,6 @@
 	var/curremp = emped //Remember which EMP this was
 	if (listening && ismob(loc))	// if the radio is turned on and on someone's person they notice
 		to_chat(loc, "<span class='warning'>\The [src] overloads.</span>")
-	broadcasting = FALSE
-	listening = FALSE
-	for (var/ch_name in channels)
-		channels[ch_name] = 0
 	on = FALSE
 	addtimer(CALLBACK(src, PROC_REF(end_emp_effect), curremp), 200)
 
