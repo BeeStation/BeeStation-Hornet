@@ -1,6 +1,0 @@
-author: MarkusLarsson421
-delete-after: true
-changes:
-  - balance: Added or moved insuls to Engineering lockers.
-  - rscadd: Gave the RD a departmental console so they can do ID stuff.
-  - bugfix: Fixed Engineering disposals chute.
