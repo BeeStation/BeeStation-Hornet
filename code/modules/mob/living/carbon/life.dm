@@ -551,7 +551,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 
 		if(drunkenness >= 101)
 			adjustToxLoss(2 * delta_time) //Let's be honest you shouldn't be alive by now
-
+			
 /// Base carbon environment handler, adds natural stabilization
 /mob/living/carbon/handle_environment(datum/gas_mixture/environment)
 	var/areatemp = get_temperature(environment)
@@ -647,12 +647,12 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 /mob/living/carbon/proc/share_bodytemperature(mob/living/carbon/M)
 	var/temp_diff = bodytemperature - M.bodytemperature
 	if(temp_diff > 0) // you are warm share the heat of life
-		M.adjust_bodytemperature(temp_diff, use_insulation=TRUE, use_steps=TRUE) // warm up the giver
-		adjust_bodytemperature((temp_diff * -1), use_insulation=TRUE, use_steps=TRUE) // cool down the reciver
+		M.adjust_bodytemperature((temp_diff * 0.5), use_insulation=TRUE, use_steps=TRUE) // warm up the giver
+		adjust_bodytemperature((temp_diff * -0.5), use_insulation=TRUE, use_steps=TRUE) // cool down the reciver
 
 	else // they are warmer leech from them
-		adjust_bodytemperature(temp_diff, use_insulation=TRUE, use_steps=TRUE) // warm up the reciver
-		M.adjust_bodytemperature((temp_diff * -1), use_insulation=TRUE, use_steps=TRUE) // cool down the giver
+		adjust_bodytemperature((temp_diff * -0.5) , use_insulation=TRUE, use_steps=TRUE) // warm up the reciver
+		M.adjust_bodytemperature((temp_diff * 0.5), use_insulation=TRUE, use_steps=TRUE) // cool down the giver
 
 /**
  * Adjust the body temperature of a mob
