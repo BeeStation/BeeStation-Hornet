@@ -174,6 +174,7 @@ Arguments:
 	playsound(loc, startup_sound, 50)
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "started")
+	soundloop.start()
 
 /obj/machinery/atmospherics/components/unary/rbmk/proc/get_held_buffer_item(mob/user)
 	// Let's double check
@@ -235,6 +236,7 @@ Arguments:
 	can_unwrench = 1
 	desired_k = 0
 	temperature = 0
+	soundloop.stop()
 	update_appearance()
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/disassemble(obj/item/I)
@@ -309,10 +311,10 @@ Arguments:
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/start_alarm()
 	if(alarm == FALSE)
 		alarm = TRUE
-		soundloop.start()
+		alarmloop.start()
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/end_alarm()
-	soundloop.stop()
+	alarmloop.stop()
 	alarm = FALSE
 
 /**

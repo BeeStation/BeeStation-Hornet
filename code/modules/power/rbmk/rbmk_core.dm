@@ -102,8 +102,11 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	var/common_channel = null
 
 	//Our soundloop for the alarm
-	var/datum/looping_sound/rbmk/soundloop
+	var/datum/looping_sound/rbmk/alarmloop
 	var/alarm = FALSE //Is the alarm playing already?
+
+	//Soundloop for ambience
+	var/datum/looping_sound/rbmk_ambience/soundloop
 
 	//Console statistics
 	var/last_coolant_temperature = 0
@@ -203,8 +206,10 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for K.
 	gas_absorption_constant = gas_absorption_effectiveness //And set this up for the rest of the round.
 	soundloop = new(src,  FALSE)
+	alarmloop = new(src, FALSE)
 	check_part_connectivity()
 	update_appearance()
+	update_pipenets()
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/Destroy()
 	unregister_signals(TRUE)
@@ -220,6 +225,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	QDEL_NULL(grill_loop)
 	QDEL_NULL(radio)
 	QDEL_NULL(soundloop)
+	QDEL_NULL(alarmloop)
 	cut_overlays()
 	machine_parts = null
 	return ..()
@@ -262,21 +268,19 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/examine(mob/user)
 	. = ..()
-	if(Adjacent(src, user))
-		if(do_after(user, 1 SECONDS, target=src))
-			var/percent = get_integrity_percent()
-			var/msg = "<span class='warning'>The reactor looks operational.</span>"
-			switch(percent)
-				if(0 to 10)
-					msg = "<span class='boldwarning'>[src]'s seals are dangerously warped and you can see cracks all over the reactor vessel! </span>"
-				if(10 to 40)
-					msg = "<span class='boldwarning'>[src]'s seals are heavily warped and cracked! </span>"
-				if(40 to 60)
-					msg = "<span class='warning'>[src]'s seals are holding, but barely. You can see some micro-fractures forming in the reactor vessel.</span>"
-				if(60 to 80)
-					msg = "<span class='warning'>[src]'s seals are in-tact, but slightly worn. There are no visible cracks in the reactor vessel.</span>"
-				if(80 to 90)
-					msg = "<span class='notice'>[src]'s seals are in good shape, and there are no visible cracks in the reactor vessel.</span>"
-				if(95 to 100)
-					msg = "<span class='notice'>[src]'s seals look factory new, and the reactor's in excellent shape.</span>"
-			. += msg
+	var/percent = get_integrity_percent()
+	var/msg = "<span class='warning'>The reactor looks operational.</span>"
+	switch(percent)
+		if(0 to 10)
+			msg = "<span class='boldwarning'>[src]'s seals are dangerously warped and you can see cracks all over the reactor vessel! </span>"
+		if(10 to 40)
+			msg = "<span class='boldwarning'>[src]'s seals are heavily warped and cracked! </span>"
+		if(40 to 60)
+			msg = "<span class='warning'>[src]'s seals are holding, but barely. You can see some micro-fractures forming in the reactor vessel.</span>"
+		if(60 to 80)
+			msg = "<span class='warning'>[src]'s seals are in-tact, but slightly worn. There are no visible cracks in the reactor vessel.</span>"
+		if(80 to 90)
+			msg = "<span class='notice'>[src]'s seals are in good shape, and there are no visible cracks in the reactor vessel.</span>"
+		if(95 to 100)
+			msg = "<span class='notice'>[src]'s seals look factory new, and the reactor's in excellent shape.</span>"
+	. += msg
