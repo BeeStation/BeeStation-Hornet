@@ -303,7 +303,7 @@
 
 /datum/action/item_action/toggle_spacesuit/New(Target)
 	. = ..()
-	RegisterSignal(target, COMSIG_SUIT_SPACE_TOGGLE, .proc/toggle)
+	RegisterSignal(target, COMSIG_SUIT_SPACE_TOGGLE, PROC_REF(toggle))
 
 /datum/action/item_action/toggle_spacesuit/Destroy()
 	UnregisterSignal(target, COMSIG_SUIT_SPACE_TOGGLE)
