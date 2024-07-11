@@ -595,6 +595,13 @@
 		H.update_inv_wear_suit()
 		H.update_inv_w_uniform()
 
+//Stupid snowflake type so we dont freak out the spritesheets
+/obj/item/clothing/suit/space/hardsuit/syndipreview
+	name = "blood-red hardsuit"
+	icon_state = "hardsuit1-syndi"
+	item_state = "syndie_hardsuit"
+	hardsuit_type = "syndi"
+
 //Elite Syndie suit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
 	name = "elite syndicate hardsuit helmet"
