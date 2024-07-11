@@ -9510,8 +9510,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "bMB" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
@@ -9678,8 +9681,10 @@
 /obj/machinery/camera/autoname{
 	dir = 9
 	},
+/obj/machinery/power/apc/auto_name/east,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "bNA" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
@@ -9903,8 +9908,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/machinery/airalarm/mixingchamber{
+	dir = 8;
+	pixel_x = 24
+	},
 /turf/open/floor/iron,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "bOJ" = (
 /obj/item/target,
 /obj/structure/window/reinforced{
@@ -19113,8 +19122,11 @@
 /area/crew_quarters/fitness)
 "dyt" = (
 /obj/machinery/door/firedoor,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/white,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "dyB" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
@@ -26920,9 +26932,6 @@
 "gWT" = (
 /obj/machinery/portable_atmospherics/pump,
 /obj/effect/turf_decal/bot,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -27460,7 +27469,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/white,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "hjw" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -30679,9 +30688,6 @@
 /turf/open/floor/carpet,
 /area/quartermaster/exploration_prep)
 "izy" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -27
-	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/side{
 	dir = 5
@@ -40037,6 +40043,14 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"mHi" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -27
+	},
+/turf/open/floor/iron/white/side{
+	dir = 5
+	},
+/area/science/research)
 "mHx" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
@@ -41995,7 +42009,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/white,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "nyw" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -49265,14 +49279,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
-"qQC" = (
-/obj/machinery/portable_atmospherics/canister,
-/obj/effect/turf_decal/bot,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/iron,
-/area/science/mixing)
 "qQG" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/trimline/dark_blue/filled/line,
@@ -52429,7 +52435,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "sfj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -53119,7 +53125,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "swm" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -61812,14 +61818,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
-"wlM" = (
-/obj/machinery/power/apc/auto_name/west{
-	pixel_x = -24
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/cable/yellow,
-/turf/open/floor/iron/white,
-/area/science/mixing/chamber)
 "wlS" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -64340,10 +64338,6 @@
 /turf/open/floor/iron,
 /area/security/checkpoint/auxiliary)
 "xrs" = (
-/obj/machinery/airalarm/mixingchamber{
-	dir = 4;
-	pixel_x = -24
-	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/white,
 /area/science/mixing/chamber)
@@ -64695,9 +64689,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -64706,6 +64697,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/iron,
 /area/science/mixing)
@@ -112327,7 +112321,7 @@ bzE
 bID
 bzE
 bzE
-bzE
+mHi
 hlc
 bsX
 bzE
@@ -115147,9 +115141,9 @@ rYJ
 rYJ
 bFW
 rYJ
-qQC
-dCN
-wlM
+rYJ
+bKa
+xrs
 bMz
 cQR
 bOH
@@ -115662,12 +115656,12 @@ uUy
 aJK
 glg
 xxW
-bKa
+dCN
 dyt
 bMA
 bNz
 bOI
-dyt
+xrs
 bFU
 pEC
 bFU
@@ -115920,11 +115914,11 @@ bEC
 bEC
 gik
 bEC
-bEC
-bEC
-bEC
-bEC
-bEC
+dGF
+dGF
+dGF
+dGF
+dGF
 dMZ
 bGk
 bFU
