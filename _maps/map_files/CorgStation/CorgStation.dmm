@@ -35082,6 +35082,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/landmark/blobstart,
 /obj/effect/mapping_helpers/make_non_slip,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "llm" = (
 /obj/effect/turf_decal/stripes/line,

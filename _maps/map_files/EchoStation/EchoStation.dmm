@@ -34858,7 +34858,7 @@
 	})
 "rFt" = (
 /obj/effect/turf_decal/delivery,
-/obj/item/xenoartifact,
+/obj/item/xenoartifact/tutorial,
 /turf/open/floor/engine,
 /area/science/explab)
 "rFF" = (
