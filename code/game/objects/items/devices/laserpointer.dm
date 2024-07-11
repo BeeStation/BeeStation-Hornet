@@ -117,14 +117,18 @@
 
 	//robots
 	else if(iscyborg(target))
-		var/mob/living/silicon/S = target
+		var/mob/living/silicon/robot/S = target
 		log_combat(user, S, "shone in the sensors", src)
 		//chance to actually hit the eyes depends on internal component
 		if(prob(effectchance * diode.rating))
 			S.flash_act(affect_silicon = 1)
-			S.Paralyze(rand(100,200))
-			to_chat(S, "<span class='danger'>Your sensors were overloaded by a laser!</span>")
-			outmsg = "<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>"
+			if(S.last_flashed + FLASHED_COOLDOWN < world.time)
+				S.last_flashed = world.time
+				S.Paralyze(5 SECONDS)
+				to_chat(S, "<span class='danger'>Your sensors were overloaded by a laser!</span>")
+				outmsg = "<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>"
+			else
+				outmsg = "<span class='warning'>You attempt to overload [S]'s sensors with the flash, but their defense protocols mitigate the effect!</span>"
 		else
 			outmsg = "<span class='warning'>You fail to overload [S] by shining [src] at [S.p_their()] sensors!</span>"
 

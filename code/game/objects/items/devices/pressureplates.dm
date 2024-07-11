@@ -68,5 +68,7 @@
 	return ..()
 
 ///Called from COMSIG_OBJ_HIDE to toggle the active part, because yeah im not making a special exception on the element to support it
-/obj/item/pressure_plate/proc/ToggleActive(datum/source, covered)
-	active = covered
+/obj/item/pressure_plate/proc/ToggleActive(datum/source, underfloor_accessibility)
+	SIGNAL_HANDLER
+
+	active = underfloor_accessibility < UNDERFLOOR_VISIBLE
