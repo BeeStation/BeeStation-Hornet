@@ -2626,6 +2626,9 @@
 /area/security/main)
 "aFH" = (
 /obj/structure/table,
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = 4
+	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "aFX" = (
@@ -5769,11 +5772,11 @@
 /area/medical/medbay/aft)
 "bCT" = (
 /obj/machinery/light,
-/obj/effect/turf_decal/stripes/end,
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
-/turf/open/floor/iron,
+/obj/structure/closet/firecloset/full,
+/turf/open/floor/noslip/dark,
 /area/engine/engineering)
 "bCU" = (
 /obj/effect/turf_decal/stripes/line{
@@ -10773,6 +10776,7 @@
 	},
 /obj/machinery/power/apc/auto_name/east,
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
+/obj/structure/closet/secure_closet/engineering_electrical,
 /turf/open/floor/iron,
 /area/engine/engine_smes)
 "dky" = (
@@ -10890,10 +10894,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
@@ -10901,6 +10901,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "dmI" = (
@@ -11919,8 +11920,6 @@
 	icon_state = "0-2"
 	},
 /obj/structure/table,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/gloves/color/yellow,
 /obj/item/pipe_dispenser,
 /obj/item/pipe_dispenser,
 /obj/item/pipe_dispenser,
@@ -13454,7 +13453,7 @@
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "edJ" = (
-/obj/structure/closet/radiation,
+/obj/structure/closet/secure_closet/engineering_personal,
 /turf/open/floor/noslip/dark,
 /area/engine/engineering)
 "edS" = (
@@ -22627,10 +22626,10 @@
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "hic" = (
-/obj/structure/closet/secure_closet/engineering_welding,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet/engineering_personal,
 /turf/open/floor/noslip/dark,
 /area/engine/engineering)
 "hiu" = (
@@ -24062,6 +24061,7 @@
 /obj/machinery/requests_console{
 	pixel_y = -32
 	},
+/obj/item/clothing/gloves/color/yellow,
 /turf/open/floor/iron/dark,
 /area/engine/engine_smes)
 "hGE" = (
@@ -36863,9 +36863,6 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/gloves/color/yellow,
 /obj/machinery/requests_console{
 	pixel_x = -32
 	},
@@ -38918,7 +38915,6 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/department/chapel/monastery)
 "mrz" = (
-/obj/structure/closet/secure_closet/engineering_electrical,
 /obj/machinery/airalarm/directional/east,
 /obj/machinery/light_switch{
 	pixel_y = 28
@@ -38926,6 +38922,7 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 4
 	},
+/obj/structure/tank_dispenser,
 /turf/open/floor/iron,
 /area/engine/engine_smes)
 "mrH" = (
@@ -48286,8 +48283,8 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "pvv" = (
-/obj/structure/closet/firecloset/full,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/structure/closet/radiation,
 /turf/open/floor/noslip/dark,
 /area/engine/engineering)
 "pvJ" = (
@@ -68884,7 +68881,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/structure/closet/secure_closet/engineering_electrical,
+/obj/structure/closet/secure_closet/engineering_personal,
 /turf/open/floor/noslip/dark,
 /area/engine/engineering)
 "wbE" = (
@@ -69679,9 +69676,6 @@
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/gloves/color/yellow,
 /turf/open/floor/iron/dark,
 /area/engine/engine_smes)
 "woC" = (
@@ -74932,12 +74926,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/tank_dispenser,
 /obj/item/radio/intercom{
 	pixel_x = 29;
 	pixel_y = -2
 	},
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
+/obj/structure/closet/secure_closet/engineering_welding,
 /turf/open/floor/iron,
 /area/engine/engine_smes)
 "xZS" = (

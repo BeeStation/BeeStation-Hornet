@@ -722,14 +722,12 @@
 "aex" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/atmospheric_technician,
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /obj/effect/turf_decal/stripes/white/end{
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "aeB" = (
@@ -8131,9 +8129,11 @@
 /obj/machinery/light_switch{
 	pixel_x = -26
 	},
-/obj/structure/disposalpipe/trunk,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 4
 	},
 /turf/open/floor/iron/dark/corner{
 	dir = 1
@@ -8142,17 +8142,20 @@
 "aYi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "aYj" = (
 /obj/structure/table/reinforced,
-/obj/item/wrench,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/machinery/newscaster{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/storage/toolbox/electrical,
+/obj/item/wrench,
+/obj/item/clothing/gloves/color/yellow,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "aYk" = (
@@ -8345,15 +8348,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
-"baa" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/corner{
-	dir = 1
-	},
-/area/engine/atmos)
 "bac" = (
 /obj/structure/closet/secure_closet/atmospherics,
 /obj/effect/decal/cleanable/dirt,
@@ -8544,9 +8538,6 @@
 /turf/open/floor/catwalk_floor,
 /area/engine/transit_tube)
 "bbF" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
 /obj/structure/fireaxecabinet{
 	pixel_x = -32
 	},
@@ -9142,6 +9133,11 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = -5;
+	pixel_y = 6
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -16736,25 +16732,12 @@
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
 "cas" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/fire,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
-/area/engine/engineering)
-"cat" = (
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk,
-/obj/effect/turf_decal/delivery,
+/obj/structure/closet/secure_closet/engineering_personal,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "cau" = (
 /obj/structure/closet/secure_closet/engineering_personal,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
-/area/engine/engineering)
-"cav" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/engine/engineering)
@@ -17079,22 +17062,13 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
-"cbX" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/engine/engineering)
 "cbY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
@@ -21009,12 +20983,12 @@
 /area/medical/surgery)
 "cwl" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/gloves/color/yellow,
 /obj/item/storage/toolbox/electrical,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/clothing/gloves/color/yellow,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "cwn" = (
@@ -39652,7 +39626,6 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/obj/item/clothing/gloves/color/yellow,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -54596,6 +54569,8 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
+/obj/item/storage/firstaid/fire,
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "lcb" = (
@@ -56940,6 +56915,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
+"lNF" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/disposal/bin,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "lNI" = (
 /obj/structure/table/wood,
 /obj/machinery/status_display/evac{
@@ -58850,6 +58831,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "muE" = (
@@ -118906,8 +118888,8 @@ bSe
 ost
 bWn
 bYx
-cat
-cbX
+cas
+cDY
 tMd
 cfF
 xrS
@@ -119163,7 +119145,7 @@ bSf
 qwa
 bWo
 bYy
-cau
+lNF
 cbY
 rJn
 cfF
@@ -119390,7 +119372,7 @@ cfI
 aUS
 aMB
 aYh
-baa
+bdg
 bbF
 bdg
 beB
@@ -119677,7 +119659,7 @@ bSh
 bTY
 bWp
 bPW
-cav
+cas
 cbZ
 rJn
 cfF

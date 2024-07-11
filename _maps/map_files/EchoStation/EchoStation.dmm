@@ -6841,6 +6841,10 @@
 /obj/structure/table,
 /obj/item/pickaxe,
 /obj/machinery/firealarm/directional/north,
+/obj/item/clothing/mask/gas/explorer{
+	pixel_x = -5;
+	pixel_y = 6
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "cXQ" = (
@@ -17825,10 +17829,8 @@
 	pixel_x = -1;
 	pixel_y = 31
 	},
-/obj/item/clothing/mask/gas/explorer{
-	pixel_x = -5;
-	pixel_y = 6
-	},
+/obj/item/storage/toolbox/electrical,
+/obj/item/clothing/gloves/color/yellow,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "iIl" = (
@@ -20914,7 +20916,6 @@
 /turf/open/floor/plating,
 /area/ai_monitored/security/armory)
 "klc" = (
-/obj/item/clothing/gloves/color/yellow,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera/autoname{
@@ -35299,7 +35300,6 @@
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "rNF" = (
-/obj/item/clothing/gloves/color/yellow,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/secure_closet/atmospherics{
@@ -46539,11 +46539,14 @@
 /area/science/test_area)
 "xoN" = (
 /obj/structure/table,
-/obj/item/airlock_painter,
+/obj/item/airlock_painter{
+	pixel_y = 4
+	},
 /obj/item/storage/toolbox/electrical,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/item/clothing/gloves/color/yellow,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "xoR" = (

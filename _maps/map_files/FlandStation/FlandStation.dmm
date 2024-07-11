@@ -11626,6 +11626,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/atmospherics,
 /turf/open/floor/iron/dark/side,
 /area/engine/atmos)
 "cUp" = (
@@ -64248,20 +64249,10 @@
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
 "qtI" = (
-/obj/item/book/manual/wiki/atmospherics,
-/obj/item/clothing/head/utility/welding{
-	pixel_x = -5;
-	pixel_y = 3
-	},
-/obj/item/clothing/head/utility/welding{
-	pixel_x = -5;
-	pixel_y = 3
-	},
-/obj/item/multitool{
-	layer = 4
-	},
 /obj/effect/turf_decal/bot,
 /obj/structure/table/reinforced,
+/obj/item/storage/toolbox/electrical,
+/obj/item/clothing/gloves/color/yellow,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "qtM" = (
@@ -80195,6 +80186,17 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
+	},
+/obj/item/clothing/head/utility/welding{
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/obj/item/clothing/head/utility/welding{
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/obj/item/multitool{
+	layer = 4
 	},
 /turf/open/floor/iron/dark/side,
 /area/engine/atmos)

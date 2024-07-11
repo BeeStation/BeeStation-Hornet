@@ -25991,6 +25991,7 @@
 	pixel_x = -19;
 	pixel_y = 1
 	},
+/obj/item/clothing/gloves/color/yellow,
 /turf/open/floor/iron/dark,
 /area/engine/storage)
 "iaG" = (
@@ -35626,7 +35627,6 @@
 /obj/structure/closet/secure_closet/atmospherics{
 	anchored = 1
 	},
-/obj/item/clothing/gloves/color/yellow,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "lgY" = (
@@ -60950,7 +60950,6 @@
 /obj/structure/closet/secure_closet/atmospherics{
 	anchored = 1
 	},
-/obj/item/clothing/gloves/color/yellow,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "tdF" = (
@@ -69239,6 +69238,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
+/obj/item/storage/toolbox/electrical,
+/obj/item/clothing/gloves/color/yellow,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "vFo" = (
