@@ -728,7 +728,7 @@
 			hud_used.healths.icon_state = "health7"
 
 /mob/living/carbon/proc/update_internals_hud_icon(internal_state = 0)
-	if(hud_used && hud_used.internals)
+	if(hud_used?.internals)
 		hud_used.internals.icon_state = "internal[internal_state]"
 
 /mob/living/carbon/proc/update_spacesuit_hud_icon(cell_state = "empty")
