@@ -22,6 +22,8 @@ Contents:
 	armor = list(MELEE = 60,  BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 100, ACID = 100, STAMINA = 60)
 	strip_delay = 12
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	cell = null
+	show_hud = FALSE
 	actions_types = list(
 		/datum/action/item_action/initialize_ninja_suit,
 		/datum/action/item_action/ninjasmoke,
@@ -63,10 +65,6 @@ Contents:
 		//Ability function variables.
 	var/s_bombs = 10//Number of smoke bombs.
 	var/a_boost = 3//Number of adrenaline boosters.
-
-
-/obj/item/clothing/suit/space/space_ninja/get_cell()
-	return cell
 
 /obj/item/clothing/suit/space/space_ninja/examine(mob/user)
 	. = .()
