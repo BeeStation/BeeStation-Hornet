@@ -117,9 +117,9 @@
 		tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[target_tank.air_contents.return_pressure()]")
 		tab_data["Distribution Pressure"] = GENERATE_STAT_TEXT("[target_tank.distribute_pressure]")
 	if(istype(wear_suit, /obj/item/clothing/suit/space))
-			var/obj/item/clothing/suit/space/S = wear_suit
-			tab_data["Thermal Regulator"] = GENERATE_STAT_TEXT("[S.thermal_on ? "on" : "off"]")
-			tab_data["Cell Charge"] = GENERATE_STAT_TEXT("[S.cell ? "[round(S.cell.percent(), 0.1)]%" : "!invalid!"]")
+		var/obj/item/clothing/suit/space/S = wear_suit
+		tab_data["Thermal Regulator"] = GENERATE_STAT_TEXT("[S.thermal_on ? "on" : "off"]")
+		tab_data["Cell Charge"] = GENERATE_STAT_TEXT("[S.cell ? "[round(S.cell.percent(), 0.1)]%" : "!invalid!"]")
 
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)

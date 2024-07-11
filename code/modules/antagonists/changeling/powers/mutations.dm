@@ -406,6 +406,7 @@
 	var/datum/reagent/salbutamol = /datum/reagent/medicine/salbutamol
 	actions_types = list()
 	cell = null
+	show_hud = FALSE
 
 /obj/item/clothing/suit/space/changeling/Initialize(mapload)
 	. = ..()
