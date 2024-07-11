@@ -120,6 +120,7 @@
 	access_any = TRUE
 	max_supply = 1
 	current_supply = 1
+	cost = 0
 	can_secure = FALSE
 
 #undef SELLER_PERSONALITY_GENEROUS

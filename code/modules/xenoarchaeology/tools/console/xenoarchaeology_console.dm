@@ -28,9 +28,12 @@
 	var/radio_solved_notice = TRUE
 
 	///The supply pack we ship stuff in
-	var/datum/supply_pack/console_pack
+	//var/datum/supply_pack/console_pack
 	///Our current, if available, order
 	var/datum/supply_order/console_order
+
+	var/list/console_orders = list()
+	var/max_pack_contents = 5
 
 	///History
 	var/list/history = list()
@@ -83,15 +86,20 @@
 	data["history"] = history
 	//Current requests
 	data["active_request"] = list()
-	if(console_order?.pack)
-		data["active_request"] = list(list(
-			"object" = console_order.pack.name,
-			"cost" = console_order.pack.get_cost(),
-			"supply" = console_order.pack.current_supply,
-			"orderer" = console_order.orderer,
-			"reason" = console_order.reason,
-			"id" = console_order.id
-			))
+	if(length(console_orders))
+		for(var/datum/supply_order/console_order in console_orders)
+			if(!(console_order in SSsupply.shoppinglist))
+				console_orders -= console_order
+				qdel(console_order)
+				continue
+			data["active_request"] += list(list(
+				"object" = console_order.pack.name,
+				"cost" = console_order.pack.get_cost(),
+				"supply" = console_order.pack.current_supply,
+				"orderer" = console_order.orderer,
+				"reason" = console_order.reason,
+				"id" = console_order.id
+				))
 
 	return data
 
@@ -124,22 +132,39 @@
 			else if(issilicon(usr))
 				name = usr.real_name
 				rank = "Silicon"
-			//Ship the pack
-			if(!console_pack)
-				console_pack = new /datum/supply_pack/science_listing()
-				console_pack.contains = list()
-			console_pack?.current_supply = max(1, console_pack.current_supply)
-			if(!console_order || !(locate(console_order) in SSsupply.shoppinglist))
-				console_pack.contains = list()
-				console_pack.cost = 0
-			console_pack.cost += seller?.get_price(locate(params["item_id"]))
-			console_pack.contains += seller?.buy_stock(locate(params["item_id"]))
-			if(console_order)
-				SSsupply.shoppinglist -= console_order
-				qdel(console_order)
-			console_order = new(console_pack, name, rank, ckey, "Research Material Requisition", D)
-			console_order.generateRequisition(get_turf(src))
-			SSsupply.shoppinglist |= console_order
+			//Check if we can add the artifact to a pending order
+			var/datum/supply_order/current_order
+			var/datum/supply_pack/current_pack
+			if(length(console_orders))
+				current_order = console_orders[length(console_orders)]
+				current_pack = console_orders[current_order]
+				if(length(current_pack.contains) < max_pack_contents && (current_order in SSsupply.shoppinglist))
+					//Update pack content and cost
+					current_pack.cost += seller?.get_price(locate(params["item_id"]))
+					current_pack.contains += seller?.buy_stock(locate(params["item_id"]))
+					//Generate a new order
+					SSsupply.shoppinglist -= current_order
+					console_orders -= current_order
+					qdel(current_order)
+					current_order = new /datum/supply_order(current_pack, name, rank, ckey, "Research Material Requisition", D)
+					SSsupply.shoppinglist += current_order
+					console_orders[current_order] = current_pack
+					ui_update()
+					return
+				else if(!(current_order in SSsupply.shoppinglist))
+					console_orders -= current_order
+					qdel(current_order)
+			//If we can't, make a new order
+			current_pack = new /datum/supply_pack/science_listing()
+			current_pack.contains = list()
+			current_pack?.current_supply = max(1, current_pack.current_supply) //Don't worry about it :^)
+			current_pack.cost += seller?.get_price(locate(params["item_id"]))
+			current_pack.contains += seller?.buy_stock(locate(params["item_id"]))
+			current_order = new /datum/supply_order(current_pack, name, rank, ckey, "Research Material Requisition", D)
+			current_order.generateRequisition(get_turf(src))
+			SSsupply.shoppinglist += current_order
+			console_orders[current_order] = current_pack
+		//Radio shit
 		if("toggle_purchase_audio")
 			radio_purchase_notice = !radio_purchase_notice
 		if("toggle_solved_audio")
