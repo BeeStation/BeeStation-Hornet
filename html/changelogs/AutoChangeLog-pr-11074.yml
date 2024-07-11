@@ -1,4 +1,0 @@
-author: tonty
-delete-after: true
-changes:
-  - bugfix: crewmembers no longer get cold feet when attempting to piggyback eachother
