@@ -274,7 +274,8 @@
 
 //Fourth and final link in a breath chain
 /mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
-	return
+	// The air you breathe out should match your body temperature
+	breath.set_temperature(bodytemperature)
 
 /// Attempts to take a breath from the external or internal air tank.
 /mob/living/carbon/proc/get_breath_from_internal(volume_needed)
@@ -551,7 +552,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 
 		if(drunkenness >= 101)
 			adjustToxLoss(2 * delta_time) //Let's be honest you shouldn't be alive by now
-			
+
 /// Base carbon environment handler, adds natural stabilization
 /mob/living/carbon/handle_environment(datum/gas_mixture/environment)
 	var/areatemp = get_temperature(environment)
