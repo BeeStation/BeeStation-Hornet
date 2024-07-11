@@ -21697,10 +21697,6 @@
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/mask/surgical,
 /obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/spray/cleaner{
 	pixel_x = 5;
 	pixel_y = -1
 	},
@@ -23594,10 +23590,6 @@
 	pixel_y = 2
 	},
 /obj/item/storage/firstaid/regular,
-/obj/item/reagent_containers/glass/bottle/charcoal{
-	pixel_x = 6
-	},
-/obj/item/reagent_containers/glass/bottle/epinephrine,
 /obj/item/reagent_containers/syringe,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/red/opposingcorners,
@@ -39780,9 +39772,6 @@
 	pixel_x = -28
 	},
 /obj/structure/table,
-/obj/item/storage/backpack/duffelbag/sec/surgery{
-	pixel_y = 5
-	},
 /obj/item/clothing/mask/balaclava,
 /obj/item/reagent_containers/spray/cleaner{
 	pixel_x = 5
@@ -59889,15 +59878,13 @@
 /obj/item/reagent_containers/syringe{
 	name = "steel point"
 	},
-/obj/item/reagent_containers/glass/bottle/charcoal,
-/obj/item/reagent_containers/glass/bottle/epinephrine,
-/obj/item/storage/backpack/duffelbag/sec/surgery,
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
+/obj/item/stack/medical/gauze,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "vnK" = (
@@ -64556,7 +64543,6 @@
 /area/teleporter)
 "xvB" = (
 /obj/structure/table/optable,
-/obj/item/defibrillator/loaded,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/structure/window/reinforced{

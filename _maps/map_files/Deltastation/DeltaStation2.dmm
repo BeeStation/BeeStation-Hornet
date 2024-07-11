@@ -38944,7 +38944,6 @@
 	dir = 8
 	},
 /obj/structure/table/glass,
-/obj/item/storage/backpack/duffelbag/sec/surgery,
 /obj/item/healthanalyzer,
 /turf/open/floor/iron/white,
 /area/security/brig)
@@ -50768,9 +50767,6 @@
 	},
 /obj/item/reagent_containers/glass/bottle/facid{
 	pixel_x = 7
-	},
-/obj/item/storage/backpack/duffelbag/sec/surgery{
-	pixel_y = 5
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
@@ -72437,11 +72433,6 @@
 	icon_state = "4-8"
 	},
 /obj/item/clothing/gloves/color/latex,
-/obj/item/healthanalyzer,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 2
-	},
 /obj/item/reagent_containers/spray/cleaner{
 	pixel_x = 5;
 	pixel_y = -1
@@ -72449,7 +72440,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/obj/item/storage/firstaid/regular,
+/obj/item/stack/medical/gauze,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "qVr" = (
@@ -92552,8 +92543,6 @@
 /area/maintenance/port/aft)
 "xDw" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/bottle/epinephrine,
-/obj/item/reagent_containers/glass/bottle/charcoal,
 /obj/item/reagent_containers/syringe,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8

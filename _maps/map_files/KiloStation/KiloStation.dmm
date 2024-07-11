@@ -34798,9 +34798,6 @@
 	dir = 1
 	},
 /obj/structure/table/optable,
-/obj/item/storage/backpack/duffelbag/sec/surgery{
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
@@ -40809,7 +40806,6 @@
 /area/crew_quarters/fitness/recreation)
 "hbv" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -56670,10 +56666,6 @@
 /obj/item/clothing/gloves/color/latex,
 /obj/item/healthanalyzer,
 /obj/item/storage/box/bodybags,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 2
-	},
 /obj/item/reagent_containers/spray/cleaner{
 	pixel_x = 5;
 	pixel_y = -1
@@ -78171,9 +78163,7 @@
 	dir = 8
 	},
 /obj/structure/table/glass,
-/obj/item/storage/backpack/duffelbag/sec/surgery{
-	pixel_y = 5
-	},
+/obj/item/stack/medical/gauze,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "tzZ" = (
@@ -86956,7 +86946,6 @@
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/regular,
 /obj/item/reagent_containers/syringe,
-/obj/item/reagent_containers/glass/bottle/epinephrine,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/showroomfloor,
