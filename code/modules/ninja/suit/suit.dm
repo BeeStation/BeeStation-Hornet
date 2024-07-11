@@ -22,7 +22,18 @@ Contents:
 	armor = list(MELEE = 60,  BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 100, ACID = 100, STAMINA = 60)
 	strip_delay = 12
 
-	actions_types = list(/datum/action/item_action/initialize_ninja_suit, /datum/action/item_action/ninjasmoke, /datum/action/item_action/ninjaboost, /datum/action/item_action/ninjapulse, /datum/action/item_action/ninjastar, /datum/action/item_action/ninjanet, /datum/action/item_action/ninja_sword_recall, /datum/action/item_action/ninja_stealth, /datum/action/item_action/toggle_glove)
+	actions_types = list(
+		/datum/action/item_action/toggle_spacesuit,
+		/datum/action/item_action/initialize_ninja_suit,
+		/datum/action/item_action/ninjasmoke,
+		/datum/action/item_action/ninjaboost,
+		/datum/action/item_action/ninjapulse,
+		/datum/action/item_action/ninjastar,
+		/datum/action/item_action/ninjanet,
+		/datum/action/item_action/ninja_sword_recall,
+		/datum/action/item_action/ninja_stealth,
+		/datum/action/item_action/toggle_glove
+	)
 
 		//Important parts of the suit.
 	var/mob/living/carbon/human/affecting = null
@@ -72,6 +83,7 @@ Contents:
 	//Cell Init
 	cell = new/obj/item/stock_parts/cell/high
 	cell.charge = 60000 // larger as it now heats
+	cell.maxcharge = 60000
 	cell.name = "black power cell"
 	cell.icon_state = "bscell"
 

@@ -140,7 +140,10 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/construction/rcd, /obj/item/pipe_dispenser)
 	siemens_coefficient = 0
 	var/obj/item/clothing/head/helmet/space/hardsuit/helmet
-	actions_types = list(/datum/action/item_action/toggle_spacesuit, /datum/action/item_action/toggle_helmet)
+	actions_types = list(
+		/datum/action/item_action/toggle_spacesuit,
+		/datum/action/item_action/toggle_helmet
+	)
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
 	var/obj/item/tank/jetpack/suit/jetpack = null
 	pocket_storage_component_path = null
@@ -410,13 +413,9 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/exploration
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	actions_types = list(
-		/datum/action/item_action/toggle_helmet
-	)
 
-	//Cybersun Hardsuit
-	//A kind of side-grade to the explorer suit, sacrificing burn protection for brute. If you can kill the guy inside it, anyways.
-
+//Cybersun Hardsuit
+//A kind of side-grade to the explorer suit, sacrificing burn protection for brute. If you can kill the guy inside it, anyways.
 /obj/item/clothing/head/helmet/space/hardsuit/cybersun
 	name = "Cybersun hardsuit helmet"
 	desc = "A bulbous red helmet designed for scavenging in hazardous, low pressure environments. Has dual floodlights, and a 360 Degree view."
@@ -449,8 +448,10 @@
 	armor = list(MELEE = 40,  BULLET = 50, LASER = 30, ENERGY = 55, BOMB = 35, BIO = 100, RAD = 50, FIRE = 50, ACID = 90, STAMINA = 60)
 	on = TRUE
 	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
-	actions_types = list(/datum/action/item_action/toggle_helmet_mode,\
-		/datum/action/item_action/toggle_beacon_hud)
+	actions_types = list(
+		/datum/action/item_action/toggle_helmet_mode,
+		/datum/action/item_action/toggle_beacon_hud
+	)
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDEEARS|HIDESNOUT
 	visor_flags = STOPSPRESSUREDAMAGE | HEADINTERNALS
 
@@ -543,6 +544,7 @@
 	item_flags = ILLEGAL	//Syndicate only and difficult to obtain outside of uplink anyway. Nukie hardsuits on the ship are illegal.
 	slowdown = 0.5
 	actions_types = list(
+		/datum/action/item_action/toggle_spacesuit,
 		/datum/action/item_action/toggle_helmet,
 		/datum/action/item_action/toggle_beacon,
 		/datum/action/item_action/toggle_beacon_frequency
@@ -716,7 +718,10 @@
 	armor = list(MELEE = 30,  BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 100, BIO = 100, RAD = 60, FIRE = 60, ACID = 80, STAMINA = 30)
 	var/obj/machinery/doppler_array/integrated/bomb_radar
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS | HEADINTERNALS
-	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_research_scanner)
+	actions_types = list(
+		/datum/action/item_action/toggle_helmet_light,
+		/datum/action/item_action/toggle_research_scanner
+	)
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/Initialize(mapload)
 	. = ..()
@@ -807,7 +812,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
 
-/obj/item/clothing/head/helmet/space/hardsuit/swat/attack_self()
+/obj/item/clothing/head/helmet/space/hardsuit/swat/attack_self() //What the fuck
 
 /obj/item/clothing/suit/space/hardsuit/swat
 	name = "\improper MK.II SWAT Suit"
@@ -991,6 +996,7 @@
 	slowdown = 0
 	shield_icon = "shield-red"
 	actions_types = list(
+		/datum/action/item_action/toggle_spacesuit,
 		/datum/action/item_action/toggle_helmet,
 		/datum/action/item_action/toggle_beacon,
 		/datum/action/item_action/toggle_beacon_frequency
@@ -1019,8 +1025,10 @@
 	item_state = "syndie_helm"
 	hardsuit_type = "syndi"
 	armor = list(MELEE = 40,  BULLET = 50, LASER = 30, ENERGY = 40, BOMB = 35, BIO = 100, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 60)
-	actions_types = list(/datum/action/item_action/toggle_helmet_light,\
-		/datum/action/item_action/toggle_beacon_hud)
+	actions_types = list(
+		/datum/action/item_action/toggle_helmet_light,
+		/datum/action/item_action/toggle_beacon_hud
+	)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/Initialize(mapload)
 	. = ..()
