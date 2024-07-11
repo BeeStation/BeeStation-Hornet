@@ -466,6 +466,18 @@
 		if(mob_occupant)
 			dump_inventory_contents()
 
+/obj/machinery/suit_storage_unit/process()
+	if(!suit)
+		return
+	if(!istype(suit, /obj/item/clothing/suit/space))
+		return
+	if(!suit.cell)
+		return
+
+	var/obj/item/stock_parts/cell/C = suit.cell
+	use_power(charge_rate)
+	C.give(charge_rate)
+
 /obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
 	if(!prob(prb))
 		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread

@@ -731,6 +731,11 @@
 	if(hud_used && hud_used.internals)
 		hud_used.internals.icon_state = "internal[internal_state]"
 
+/mob/living/carbon/proc/update_spacesuit_hud_icon(cell_state = "empty")
+	if(hud_used?.spacesuit)
+		hud_used.spacesuit.icon_state = "spacesuit_[cell_state]"
+
+
 /mob/living/carbon/set_health(new_value)
 	. = ..()
 	if(. > hardcrit_threshold)

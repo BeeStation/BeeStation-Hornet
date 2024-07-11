@@ -43,6 +43,7 @@ Contains:
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/deathsquad
 	dog_fashion = /datum/dog_fashion/back/deathsquad
+	cell = /obj/item/stock_parts/cell/bluespace
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 
 /obj/item/clothing/head/helmet/space/beret
@@ -193,6 +194,11 @@ Contains:
 		/datum/action/item_action/toggle_beacon,
 		/datum/action/item_action/toggle_beacon_frequency
 	)
+
+// ERT suit's gets EMP Protection
+/obj/item/clothing/suit/space/hardsuit/ert/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_CONTENTS)
 
 /obj/item/clothing/suit/space/hardsuit/ert/ui_action_click(mob/user, datum/actiontype)
 	switch(actiontype.type)
@@ -419,6 +425,7 @@ Contains:
 	armor = list(melee = 60, bullet = 40, laser = 40, energy = 50, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100, stamina = 70)
 	strip_delay = 130
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	cell = /obj/item/stock_parts/cell/hyper
 
 /obj/item/clothing/head/helmet/space/hardsuit/skinsuit
 	name = "skinsuit helmet"
