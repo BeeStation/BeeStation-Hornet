@@ -146,9 +146,7 @@
 "abl" = (
 /obj/structure/showcase/machinery/tv,
 /obj/structure/table/wood,
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/turf/open/floor/wood,
 /area/maintenance/central)
 "abm" = (
 /obj/structure/cable/yellow{
@@ -3953,6 +3951,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"bmc" = (
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/carpet,
+/area/library)
 "bmu" = (
 /obj/effect/turf_decal/tile/dark_green/half/contrasted{
 	dir = 8
@@ -8060,6 +8062,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wideplating/dark,
+/turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "cCl" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8831,9 +8834,7 @@
 /area/crew_quarters/cafeteria)
 "cOp" = (
 /obj/structure/chair/fancy/sofa/old/left,
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/turf/open/floor/wood,
 /area/maintenance/central)
 "cOA" = (
 /turf/closed/wall/rust,
@@ -10902,6 +10903,7 @@
 	pixel_y = 9
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/wood,
 /area/library)
 "dxu" = (
@@ -11430,6 +11432,7 @@
 /area/medical/chemistry)
 "dEr" = (
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/wood,
 /area/maintenance/port/aft)
 "dEP" = (
@@ -16399,14 +16402,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/medical/exam_room)
-"fbM" = (
-/obj/structure/chair/fancy/sofa/old{
-	dir = 4
-	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/maintenance/central)
 "fbP" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -16675,6 +16670,13 @@
 "fft" = (
 /turf/closed/wall,
 /area/maintenance/disposal)
+"ffT" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "fgd" = (
 /obj/machinery/holopad{
 	pixel_y = 16
@@ -17820,6 +17822,7 @@
 /obj/structure/chair/fancy/sofa/old/right{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/wood,
 /area/maintenance/central)
 "fxR" = (
@@ -17897,6 +17900,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/wood,
 /area/library)
 "fzf" = (
@@ -22809,6 +22813,7 @@
 /area/science/explab)
 "gXs" = (
 /obj/effect/decal/cleanable/oil,
+/obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/wood,
 /area/maintenance/central)
 "gXC" = (
@@ -32907,6 +32912,7 @@
 	dir = 6
 	},
 /obj/item/bikehorn,
+/obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/wood,
 /area/maintenance/central)
 "ksd" = (
@@ -36710,9 +36716,8 @@
 /area/science/robotics)
 "lEb" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/wood{
-	icon_state = "wood-broken2"
-	},
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/wood,
 /area/vacant_room/office)
 "lEg" = (
 /obj/effect/turf_decal/caution{
@@ -36912,6 +36917,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
+/turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "lJz" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -38454,6 +38460,10 @@
 	dir = 8
 	},
 /area/medical/sleeper)
+"miv" = (
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/wood,
+/area/maintenance/port/aft)
 "miw" = (
 /turf/open/floor/engine,
 /area/science/explab)
@@ -43179,6 +43189,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/turf/open/floor/iron/dark/side,
 /area/science/mixing/chamber)
 "nAr" = (
 /obj/machinery/vending/boozeomat,
@@ -45333,9 +45344,7 @@
 	},
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /obj/structure/table/wood,
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/turf/open/floor/wood,
 /area/maintenance/central)
 "ojt" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -48527,9 +48536,8 @@
 /turf/open/floor/iron/tech/grid,
 /area/engine/engine_room)
 "pis" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/wood,
 /area/vacant_room/office)
 "pix" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -52254,6 +52262,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wideplating/dark,
+/turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "qoI" = (
 /obj/structure/table/wood,
@@ -52821,7 +52830,7 @@
 /obj/effect/landmark/start/randommaint/vip,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "qyo" = (
@@ -55535,10 +55544,6 @@
 /obj/item/stack/sheet/plasteel,
 /turf/open/space/basic,
 /area/space/nearstation)
-"ron" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/iron,
-/area/hallway/primary/central)
 "roB" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /obj/machinery/iv_drip,
@@ -56656,9 +56661,8 @@
 /obj/item/shovel/spade,
 /obj/item/storage/belt/botanical,
 /obj/structure/table/wood,
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/wood,
 /area/maintenance/central)
 "rEC" = (
 /obj/structure/chair/stool{
@@ -58169,6 +58173,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "sga" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
@@ -60317,6 +60322,13 @@
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"sRp" = (
+/obj/structure/chair/fancy/sofa/old{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/wood,
+/area/maintenance/central)
 "sRq" = (
 /obj/machinery/vending/snack/blue,
 /obj/effect/turf_decal/bot,
@@ -61872,6 +61884,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
+/turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "tpl" = (
 /obj/effect/turf_decal/tile/neutral/anticorner{
@@ -68414,6 +68427,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
 	},
+/turf/open/floor/iron/dark/corner,
 /area/hallway/primary/central)
 "vrX" = (
 /obj/effect/turf_decal/siding/wood{
@@ -68457,6 +68471,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/wood,
 /area/library)
 "vtv" = (
@@ -73615,6 +73630,16 @@
 	},
 /turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
+"xgC" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/carpet,
+/area/library)
 "xgQ" = (
 /obj/machinery/teleport/station,
 /obj/machinery/light{
@@ -74257,14 +74282,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
-"xrA" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/area/hallway/primary/central)
 "xrM" = (
 /obj/effect/spawner/room/fivexfour,
 /obj/effect/decal/cleanable/dirt,
@@ -75007,9 +75024,8 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/wood,
 /area/maintenance/central)
 "xzx" = (
 /obj/effect/turf_decal/guideline/guideline_in/red{
@@ -75755,9 +75771,6 @@
 "xMG" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/machinery/door/firedoor,
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "xMJ" = (
@@ -101619,7 +101632,7 @@ qyp
 oSy
 fAl
 hYv
-vHW
+miv
 qyl
 wpm
 vGx
@@ -106441,10 +106454,10 @@ xPE
 cDX
 yfX
 gQP
-ron
+bGs
 qUU
 mBz
-ron
+bGs
 oiI
 fIf
 uwF
@@ -108233,7 +108246,7 @@ seT
 seT
 hdp
 hdp
-xrA
+xgv
 vjz
 qBZ
 hVF
@@ -110330,7 +110343,7 @@ cbk
 tyE
 sOr
 xMG
-cbk
+ffT
 cbk
 xhi
 cbk
@@ -112328,8 +112341,8 @@ jGx
 gsA
 hdp
 eKY
-fbM
 beb
+sRp
 bLz
 fia
 jED
@@ -119541,7 +119554,7 @@ dhI
 vMO
 otE
 vat
-gaJ
+xgC
 acM
 fZQ
 uTB
@@ -120571,7 +120584,7 @@ vVs
 ncI
 waj
 nLK
-fNg
+bmc
 fNg
 fzc
 aeh
