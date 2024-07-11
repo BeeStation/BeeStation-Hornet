@@ -32,8 +32,6 @@
 /obj/item/xenoarchaeology_labeler/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
-	//bake / used baked stuff so we don't have to waste electricity
-	generate_xenoa_statics()
 	//Fill enabled filters with all filters
 	for(var/i in trait_filters)
 		enabled_trait_filters += i["icon"]
@@ -55,11 +53,11 @@
 
 /obj/item/xenoarchaeology_labeler/ui_static_data(mob/user)
 	var/list/data = list()
-	data["malfunction_list"] = GLOB.labeler_malfunction_traits
-	data["major_traits"] = GLOB.labeler_major_traits
-	data["minor_traits"] = GLOB.labeler_minor_traits
-	data["activator_traits"] = GLOB.labeler_activator_traits
-	data["tooltip_stats"] = GLOB.labeler_tooltip_stats
+	data["malfunction_list"] = SSxenoarchaeology.labeler_malfunction_traits
+	data["major_traits"] = SSxenoarchaeology.labeler_major_traits
+	data["minor_traits"] = SSxenoarchaeology.labeler_minor_traits
+	data["activator_traits"] = SSxenoarchaeology.labeler_activator_traits
+	data["tooltip_stats"] = SSxenoarchaeology.labeler_tooltip_stats
 
 	data["trait_filters"] = trait_filters
 
@@ -82,21 +80,21 @@
 			return
 		if("toggle_trait")
 			var/trait_key = params["trait_name"]
-			var/list/focus = list(GLOB.labeler_activator_traits, GLOB.labeler_minor_traits, GLOB.labeler_major_traits, GLOB.labeler_malfunction_traits)
+			var/list/focus = list(SSxenoarchaeology.labeler_activator_traits, SSxenoarchaeology.labeler_minor_traits, SSxenoarchaeology.labeler_major_traits, SSxenoarchaeology.labeler_malfunction_traits)
 			for(var/list/i as() in focus)
 				if(!(trait_key in i))
 					continue
 				//Selected traits
 				if(trait_key in selected_traits)
 					selected_traits -= trait_key
-					label_traits -= GLOB.xenoa_all_traits_keyed[trait_key]
+					label_traits -= SSxenoarchaeology.xenoa_all_traits_keyed[trait_key]
 					if(!params["select"])
 						deselected_traits += trait_key
 						continue
 				else if(!(trait_key in deselected_traits))
 					if(params["select"])
 						selected_traits.Insert(1, trait_key)
-						label_traits.Insert(1, GLOB.xenoa_all_traits_keyed[trait_key])
+						label_traits.Insert(1, SSxenoarchaeology.xenoa_all_traits_keyed[trait_key])
 					else
 						deselected_traits += trait_key
 						continue
@@ -107,10 +105,10 @@
 			var/specific_filter = params["filter"]
 			if(specific_filter in enabled_trait_filters)
 				enabled_trait_filters -= specific_filter
-				filtered_traits += GLOB.labeler_traits_filter[params["filter"]]
+				filtered_traits += SSxenoarchaeology.labeler_traits_filter[params["filter"]]
 			else
 				enabled_trait_filters += specific_filter
-				filtered_traits -= GLOB.labeler_traits_filter[params["filter"]]
+				filtered_traits -= SSxenoarchaeology.labeler_traits_filter[params["filter"]]
 	return TRUE
 
 /obj/item/xenoarchaeology_labeler/afterattack(atom/target, mob/user, proximity_flag)

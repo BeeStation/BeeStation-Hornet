@@ -30,8 +30,8 @@
 /datum/rnd_lister/random/New()
 	. = ..()
 	///Randomized stats
-	name = pick(GLOB.xenoa_seller_names)
-	dialogue = pick(GLOB.xenoa_seller_dialogue)
+	name = pick(SSxenoarchaeology.xenoa_seller_names)
+	dialogue = pick(SSxenoarchaeology.xenoa_seller_dialogue)
 	personality = pick(list(SELLER_PERSONALITY_GENEROUS, SELLER_PERSONALITY_NORMAL, SELLER_PERSONALITY_STINGY))
 
 /datum/rnd_lister/proc/get_new_stock()

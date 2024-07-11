@@ -21,7 +21,7 @@
 	if(target && HAS_TRAIT(target, TRAIT_ARTIFACT_IGNORE))
 		return FALSE
 	//Stop traits that don't register targets activating when we feel them
-	if(parent.anti_check(target, type))
+	if(parent?.anti_check(target, type))
 		return FALSE
 	parent.register_target(target, force, type)
 	parent.trigger()
@@ -94,13 +94,13 @@
 
 /datum/xenoartifact_trait/activator/sturdy/translation_type_d(datum/source, atom/item, atom/target)
 	var/atom/A = parent?.parent
-	if(!isliving(A.loc) && !A.density || check_item_safety(item))
+	if(!isliving(A?.loc) && !A?.density || check_item_safety(item))
 		return
 	trigger_artifact(target || item, XENOA_ACTIVATION_TOUCH)
 
 /datum/xenoartifact_trait/activator/sturdy/translation_type_a(datum/source, atom/target)
 	var/atom/A = parent?.parent
-	if(isliving(A.loc))
+	if(isliving(A?.loc))
 		trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 		return
 	trigger_artifact(target)

@@ -63,7 +63,7 @@
 
 /obj/item/sticker/trait_pearl/debug/AltClick(mob/user)
 	. = ..()
-	var/list/options = GLOB.xenoa_all_traits
+	var/list/options = SSxenoarchaeology.xenoa_all_traits
 	var/datum/xenoartifact_trait/decision = tgui_input_list(user, "Choose a trait", "Traits", options)
 	if(decision)
 		QDEL_NULL(stored_trait)

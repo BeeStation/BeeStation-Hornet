@@ -53,14 +53,13 @@
 
 /datum/component/xenoartifact/Initialize(type, list/traits, _do_appearance = TRUE, _do_mask = TRUE, patch_traits = TRUE)
 	. = ..()
-	generate_xenoa_statics()
 	var/atom/A = parent
 
 	//Add discovery component
 	A.AddComponent(/datum/component/discoverable/artifact)
 
 	//Setup our typing
-	artifact_type = type || pick_weight(GLOB.xenoartifact_material_weights)
+	artifact_type = type || pick_weight(SSxenoarchaeology.xenoartifact_material_weights)
 	artifact_type = new artifact_type()
 	A.custom_price = A.custom_price || artifact_type.custom_price
 
@@ -72,7 +71,7 @@
 	build_material_appearance()
 
 	//Populate priotity list
-	for(var/i in GLOB.xenoartifact_trait_priorities)
+	for(var/i in SSxenoarchaeology.xenoartifact_trait_priorities)
 		artifact_traits[i] = list()
 
 	//If we're force-generating traits
@@ -85,19 +84,19 @@
 		var/list/focus_traits
 		if(length(artifact_traits[TRAIT_PRIORITY_ACTIVATOR]) < artifact_type.trait_activators)
 			//Generate activators
-			focus_traits = GLOB.xenoa_activators & artifact_type.get_trait_list()
+			focus_traits = SSxenoarchaeology.xenoa_activators & artifact_type.get_trait_list()
 			build_traits(focus_traits, artifact_type.trait_activators - length(artifact_traits[TRAIT_PRIORITY_ACTIVATOR]))
 		if(length(artifact_traits[TRAIT_PRIORITY_MINOR]) < artifact_type.trait_minors)
 			//Generate minors
-			focus_traits = GLOB.xenoa_minors & artifact_type.get_trait_list()
+			focus_traits = SSxenoarchaeology.xenoa_minors & artifact_type.get_trait_list()
 			build_traits(focus_traits, artifact_type.trait_minors - length(artifact_traits[TRAIT_PRIORITY_MINOR]))
 		if(length(artifact_traits[TRAIT_PRIORITY_MAJOR]) < artifact_type.trait_majors)
 			//Generate majors
-			focus_traits = GLOB.xenoa_majors & artifact_type.get_trait_list()
+			focus_traits = SSxenoarchaeology.xenoa_majors & artifact_type.get_trait_list()
 			build_traits(focus_traits, artifact_type.trait_majors - length(artifact_traits[TRAIT_PRIORITY_MAJOR]))
 		if(length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]) < artifact_type.trait_malfunctions)
 			//Generate malfunctions
-			focus_traits = GLOB.xenoa_malfunctions & artifact_type.get_trait_list()
+			focus_traits = SSxenoarchaeology.xenoa_malfunctions & artifact_type.get_trait_list()
 			build_traits(focus_traits, artifact_type.trait_malfunctions - length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]))
 	//Cooldown
 	trait_cooldown = get_extra_cooldowns()
@@ -138,7 +137,7 @@
 	if(play_hint_sound)
 		playsound(get_turf(parent), 'sound/magic/blink.ogg', 50, TRUE)
 	//Trait triggers
-	for(var/i in GLOB.xenoartifact_trait_priorities)
+	for(var/i in SSxenoarchaeology.xenoartifact_trait_priorities)
 		SEND_SIGNAL(src, XENOA_TRIGGER, i)
 	//Malfunctions
 	if(!calibrated)
@@ -156,7 +155,7 @@
 	options -= blacklisted_traits
 	//Remove any incompatible traits
 	if(incompatabilities)
-		options -= get_trait_incompatibilities(parent)
+		options -= SSxenoarchaeology.get_trait_incompatibilities(parent)
 	for(var/i in 1 to amount)
 		//Pick a random trait
 		var/datum/xenoartifact_trait/T = pick_weight(options)
@@ -191,7 +190,7 @@
 	A.visible_message("<span class='warning'>[A] makes a concerning sound, as if something has gone terribly wrong...</span>")
 	//Build malfunctions
 	var/list/focus_traits
-	focus_traits = GLOB.xenoa_malfunctions & artifact_type.get_trait_list()
+	focus_traits = SSxenoarchaeology.xenoa_malfunctions & artifact_type.get_trait_list()
 	build_traits(focus_traits, 1)
 	//Reset instability
 	instability = 0

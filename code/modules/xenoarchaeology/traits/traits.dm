@@ -196,8 +196,8 @@
 /datum/xenoartifact_trait/proc/hint_translation_type_b(datum/source, mob/living)
 	SIGNAL_HANDLER
 
-	var/atom/A = parent.parent
-	if(!A.density && A.loc != living)
+	var/atom/A = parent?.parent
+	if(!A?.density && A?.loc != living)
 		return
 	do_hint(living, null)
 
@@ -235,7 +235,7 @@
 	if(!parent.calibrated)
 		return
 	var/atom/A = parent.parent
-	if(A.x % (weight || A.x) != 0 || A.y % (conductivity || A.y) != 0)
+	if(A.x % (weight || A.x || 1) != 0 || A.y % (conductivity || A.y || 1) != 0)
 		return
 	INVOKE_ASYNC(src, PROC_REF(pry_action), user, I)
 

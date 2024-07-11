@@ -42,7 +42,7 @@
 
 //Set this proc to return a pre-made list so we can avoid some overhead
 /datum/xenoartifact_material/proc/get_trait_list()
-	return GLOB.xenoa_all_traits
+	return SSxenoarchaeology.xenoa_all_traits
 
 /datum/xenoartifact_material/proc/get_texture()
 	return icon(texture_icon, pick(texture_icon_states))
@@ -61,7 +61,7 @@
 	label_icon = "circle"
 
 /datum/xenoartifact_material/bananium/get_trait_list()
-	return GLOB.xenoa_bananium_traits
+	return SSxenoarchaeology.xenoa_bananium_traits
 
 /datum/xenoartifact_material/uranium
 	name = "uranium"
@@ -76,7 +76,7 @@
 	label_icon = "certificate"
 
 /datum/xenoartifact_material/uranium/get_trait_list()
-	return GLOB.xenoa_uranium_traits
+	return SSxenoarchaeology.xenoa_uranium_traits
 
 /datum/xenoartifact_material/plasma
 	name = "plasma"
@@ -89,7 +89,7 @@
 	label_icon = "play"
 
 /datum/xenoartifact_material/plasma/get_trait_list()
-	return GLOB.xenoa_plasma_traits
+	return SSxenoarchaeology.xenoa_plasma_traits
 
 /datum/xenoartifact_material/bluespace
 	name = "bluespace"
@@ -101,7 +101,7 @@
 	label_icon = "star"
 
 /datum/xenoartifact_material/bluespace/get_trait_list()
-	return GLOB.xenoa_bluespace_traits
+	return SSxenoarchaeology.xenoa_bluespace_traits
 
 //Artificial
 /datum/xenoartifact_material/pearl

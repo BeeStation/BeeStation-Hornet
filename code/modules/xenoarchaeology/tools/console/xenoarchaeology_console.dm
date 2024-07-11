@@ -1,3 +1,4 @@
+//TODO: Fix a million artifacts spawning in one crate - Racc
 ///Stability lost on purchase
 #define STABILITY_COST 30
 ///Stability gained on-tick
@@ -166,7 +167,7 @@
 					else
 						score -= 1
 				max_score = T.contribute_calibration ?  max_score + 1 : max_score
-		var/success_rate = score / max_score
+		var/success_rate = score / (max_score || 1)
 		//Rewards
 			//Research Points
 		var/rnd_reward = max(0, (artifact.custom_price*X.artifact_type.rnd_rate)*success_rate)

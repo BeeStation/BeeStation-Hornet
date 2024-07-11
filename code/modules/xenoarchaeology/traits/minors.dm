@@ -303,7 +303,7 @@
 		return
 	//Sentience
 	sentience = new(parent?.parent)
-	sentience.name = pick(GLOB.xenoa_artifact_names)
+	sentience.name = pick(SSxenoarchaeology.xenoa_artifact_names)
 	sentience.real_name = "[sentience.name] - [parent?.parent]"
 	sentience.key = ckey
 	sentience.status_flags |= GODMODE
@@ -866,6 +866,8 @@
 
 
 /datum/xenoartifact_trait/minor/haunted/proc/haunted_step(atom/movable/target, dir)
+	if(parent.calcified)
+		return
 	//Make any mobs drop this before it moves
 	if(isliving(target.loc))
 		var/mob/living/M = target.loc
@@ -874,6 +876,8 @@
 	step(target, dir)
 
 /datum/xenoartifact_trait/minor/haunted/proc/activate_parent()
+	if(parent.calcified)
+		return
 	//Find a target
 	for(var/atom/target in oview(parent.target_range, get_turf(parent?.parent)))
 		parent.register_target(target, TRUE)
@@ -894,6 +898,8 @@
 	var/seek_distance = 9
 
 /datum/xenoartifact_trait/minor/haunted/instant/haunted_step(atom/movable/target, dir)
+	if(parent.calcified)
+		return
 	//This may seem scary, and expensive, but it's only called WHEN ghosts try to move the artifact
 	var/list/mobs = oview(seek_distance, parent.parent)
 	for(var/mob/living/M in mobs)
