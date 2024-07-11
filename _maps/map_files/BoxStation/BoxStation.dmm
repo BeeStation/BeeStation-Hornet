@@ -10446,6 +10446,7 @@
 /obj/item/t_scanner,
 /obj/item/t_scanner,
 /obj/item/t_scanner,
+/obj/item/clothing/gloves/color/yellow,
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
@@ -14489,7 +14490,11 @@
 /turf/open/space,
 /area/space/nearstation)
 "coZ" = (
-/obj/structure/closet/secure_closet/engineering_electrical,
+/obj/structure/table,
+/obj/item/crowbar/large,
+/obj/item/storage/box/lights/mixed,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "cpa" = (
@@ -14582,10 +14587,10 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/closet/radiation,
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/engineering_personal,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "cpR" = (
@@ -14708,7 +14713,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/structure/closet/secure_closet/engineering_personal,
+/obj/structure/closet/secure_closet/engineering_electrical,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "cqq" = (
@@ -16386,7 +16391,14 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "cDm" = (
-/obj/machinery/vending/engivend,
+/obj/structure/rack,
+/obj/item/storage/belt/utility,
+/obj/item/wrench,
+/obj/item/weldingtool,
+/obj/item/clothing/head/utility/welding{
+	pixel_x = -3;
+	pixel_y = 5
+	},
 /turf/open/floor/iron,
 /area/engine/engineering)
 "cDq" = (
@@ -17093,10 +17105,6 @@
 /area/engine/engineering)
 "cGk" = (
 /obj/machinery/light,
-/turf/open/floor/iron/dark,
-/area/engine/engineering)
-"cGl" = (
-/obj/structure/closet/secure_closet/engineering_personal,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "cGx" = (
@@ -19698,10 +19706,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/gloves/color/yellow,
+/obj/item/storage/box/lights/mixed,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "dHO" = (
@@ -30426,8 +30431,8 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "irL" = (
-/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
+/obj/structure/closet/secure_closet/engineering_personal,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "irX" = (
@@ -30810,17 +30815,10 @@
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "ixY" = (
-/obj/structure/rack,
-/obj/item/storage/belt/utility,
-/obj/item/wrench,
-/obj/item/weldingtool,
-/obj/item/clothing/head/utility/welding{
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/vending/wardrobe/engi_wardrobe,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "iyk" = (
@@ -32594,10 +32592,6 @@
 /obj/effect/spawner/randomarcade,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
-"jnY" = (
-/obj/structure/closet/secure_closet/engineering_personal,
-/turf/open/floor/iron,
-/area/engine/engineering)
 "joe" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -34268,8 +34262,8 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
+/obj/structure/closet/secure_closet/engineering_personal,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "kch" = (
@@ -37452,10 +37446,10 @@
 /area/bridge)
 "lsb" = (
 /obj/structure/table,
-/obj/item/clothing/gloves/color/yellow,
 /obj/item/storage/toolbox/electrical{
 	pixel_y = 5
 	},
+/obj/item/clothing/gloves/color/yellow,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "lsU" = (
@@ -51924,7 +51918,6 @@
 /obj/structure/table,
 /obj/item/stack/cable_coil,
 /obj/item/stack/cable_coil,
-/obj/item/storage/box/lights/mixed,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
@@ -56484,7 +56477,6 @@
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet)
 "tIH" = (
-/obj/machinery/vending/wardrobe/engi_wardrobe,
 /obj/machinery/camera/autoname{
 	dir = 8;
 	network = list("ss13","engine")
@@ -56492,6 +56484,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/engineering_personal,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "tIO" = (
@@ -60039,14 +60032,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "vso" = (
-/obj/structure/table,
-/obj/item/crowbar/large,
-/obj/item/storage/box/lights/mixed,
-/obj/item/clothing/glasses/meson,
-/obj/item/clothing/glasses/meson,
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 1
 	},
+/obj/machinery/vending/engivend,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "vsD" = (
@@ -97450,7 +97439,7 @@ csd
 csd
 cFz
 csd
-cGj
+csd
 xZy
 cGM
 cGZ
@@ -97963,8 +97952,8 @@ crL
 cEW
 cse
 cse
+cGj
 csu
-cGl
 ccw
 aaa
 aaa
@@ -98210,7 +98199,7 @@ cpP
 irL
 kbT
 tIH
-jnY
+cgR
 hCM
 cjh
 cDI
