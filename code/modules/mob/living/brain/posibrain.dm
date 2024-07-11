@@ -19,7 +19,6 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 		//Code taken from "send to lobby" admin panel
 		var/mob/dead/new_player/NP = new()
 		NP.ckey = M.ckey
-		qdel(M)
 
 		to_chat(NP, "<span class='warning'>Failed to Late Join as a Posibrain. Look higher in chat for the reason.</span>")
 
@@ -28,7 +27,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 /datum/job/cyborg/posibrain/proc/check_add_posi_slot(obj/item/mmi/posibrain/pb)
 	var/turf/currentturf = get_turf(pb)
 	if( is_station_level(currentturf.z) )
-		GLOB.on_station_posis += pb
+		GLOB.on_station_posis |= pb
 
 	//Update Job Quantities
 	//We should never show a posibrain as a filled job, so just make number of current positions zero
@@ -36,8 +35,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	total_positions = length(GLOB.on_station_posis)
 
 /datum/job/cyborg/posibrain/proc/remove_posi_slot(obj/item/mmi/posibrain/pb)
-	if( pb in GLOB.on_station_posis)
-		GLOB.on_station_posis -= pb
+	GLOB.on_station_posis -= pb
 
 	//Update Job Quantities
 	//We should never show a posibrain as a filled job, so just make number of current positions zero
