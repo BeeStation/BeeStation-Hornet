@@ -1,0 +1,6 @@
+author: Geatish
+delete-after: true
+changes:
+  - tweak: you can now butt cigarettes on other people if you're on harm intent
+  - tweak: cigarettes will have their smoke time reduced and have a chance to get
+      extinguished if attacking on non harm intent
