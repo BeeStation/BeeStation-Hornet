@@ -326,9 +326,7 @@
 
 /mob/living/simple_animal/hostile/mimite/ranged
 	name = "Ranged mimite"
-	desc = "This mimite seems to be holding onto the shape of a PTSD!"
-	icon = 'icons/obj/guns/energy.dmi'
-	icon_state = "personal"
+	desc = "This mimite seems to be bursting with energy, beware of ranged shots!"
 	ranged = TRUE
 	vision_range = 7
 	aggro_vision_range = 7
