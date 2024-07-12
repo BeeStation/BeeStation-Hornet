@@ -87,7 +87,7 @@
 		if(use_static)
 			ai.camera_visibility(src)
 		if(ai.client && !ai.multicam_on)
-			ai.client.eye = src
+			ai.client.set_eye(src)
 		update_ai_detect_hud()
 		//Holopad
 		if(istype(ai.current_holopad, /obj/machinery/holopad))

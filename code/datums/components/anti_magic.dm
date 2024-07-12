@@ -12,6 +12,19 @@
 	var/identifier
 
 /datum/component/anti_magic/Initialize(_source, _magic = FALSE, _holy = FALSE, _charges, _blocks_self = TRUE, datum/callback/_reaction, datum/callback/_expire, _allowed_slots)
+	// Random enough that it will never conflict, and avoids having a static variable
+	identifier = identifier_current++
+	source = _source
+	magic = _magic
+	holy = _holy
+	if(!isnull(_charges))
+		charges = _charges
+	blocks_self = _blocks_self
+	reaction = _reaction
+	expire = _expire
+	if(!isnull(_allowed_slots))
+		allowed_slots = _allowed_slots
+
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 		RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
@@ -25,19 +38,6 @@
 		mob_parent.update_alt_appearances()
 	else
 		return COMPONENT_INCOMPATIBLE
-
-	// Random enough that it will never conflict, and avoids having a static variable
-	identifier = identifier_current++
-	source = _source
-	magic = _magic
-	holy = _holy
-	if(!isnull(_charges))
-		charges = _charges
-	blocks_self = _blocks_self
-	reaction = _reaction
-	expire = _expire
-	if(!isnull(_allowed_slots))
-		allowed_slots = _allowed_slots
 
 /datum/component/anti_magic/proc/on_equip(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
@@ -63,6 +63,15 @@
 	REMOVE_TRAIT(user, TRAIT_SEE_ANTIMAGIC, identifier)
 	user.remove_alt_appearance("magic_protection_[identifier]")
 	user.update_alt_appearances()
+
+/datum/component/anti_magic/Destroy(force, silent)
+	if(ismob(parent)) //If the component is attached to an item, it should go through on_drop instead.
+		var/mob/user = parent
+		UnregisterSignal(user, COMSIG_MOB_RECEIVE_MAGIC)
+		REMOVE_TRAIT(user, TRAIT_SEE_ANTIMAGIC, identifier)
+		user.remove_alt_appearance("magic_protection_[identifier]")
+		user.update_alt_appearances()
+	return ..()
 
 /datum/component/anti_magic/proc/protect(datum/source, mob/user, _magic, _holy, major, self, list/protection_sources)
 	SIGNAL_HANDLER
