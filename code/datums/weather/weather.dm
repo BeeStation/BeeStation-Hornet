@@ -207,7 +207,7 @@
 	// And list/impacted_areas will be updated with the new list
 
 	if(is_overlay_same)
-	//! [Func B] overlays are the same, but we have new areas.
+	// * [Func B] overlays are the same, but we have new areas.
 	// * Calculate list
 	// * Early return if there's no list to iterate
 	// * If old_areas_to_remove exists, cut_overlay() for those
@@ -238,7 +238,7 @@
 		return
 
 	else
-	//! [Func C] different overlays, but also we have new areas
+	// * [Func C] different overlays, but also we have new areas
 	// * Removing old overlays from impacted_areas
 	// * Adding new overlays to new areas
 		if(cached_current_overlay)

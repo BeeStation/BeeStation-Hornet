@@ -138,13 +138,13 @@
 
 /obj/item/clockwork/weapon/brass_sword/attack_obj(obj/O, mob/living/user)
 	..()
-	if(!(istype(O, /obj/mecha) && is_reebe(user.z)))
+	if(!(istype(O, /obj/vehicle/sealed/mecha) && is_reebe(user.z)))
 		return
 	if(!COOLDOWN_FINISHED(src, emp_cooldown))
 		return
 	COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
 
-	var/obj/mecha/target = O
+	var/obj/vehicle/sealed/mecha/target = O
 	target.emp_act(EMP_HEAVY)
 	new /obj/effect/temp_visual/emp/pulse(target.loc)
 	addtimer(CALLBACK(src, PROC_REF(send_message), user), 20 SECONDS)
@@ -154,10 +154,12 @@
 /obj/item/clockwork/weapon/brass_sword/proc/send_message(mob/living/target)
 	to_chat(target, "<span class='brass'>[src] glows, indicating the next attack will disrupt electronics of the target.</span>")
 
+//Clockbow, different pathing
+
 /obj/item/gun/ballistic/bow/clockwork
 	name = "Brass Bow"
 	desc = "A bow made from brass and other components that you can't quite understand. It glows with a deep energy and frabricates arrows by itself."
-	icon_state = "bow_clockwork_unloaded"
+	icon_state = "bow_clockwork"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/clockcult
 	var/recharge_time = 15
