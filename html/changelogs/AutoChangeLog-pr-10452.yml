@@ -1,0 +1,6 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - rscdel: Decomissioned for good the E.X.P.E.R.I-MENTOR in favour of the anomaly
+      system.
+  - rscadd: All of the Anomaly research room has been refurbished properly.
