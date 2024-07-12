@@ -970,7 +970,7 @@
 	M.confused = max(M.confused, 3)
 	..()
 
-/datum/reagent/toxin/morphvenom/variant
-	name = "Variant venom"
+/datum/reagent/toxin/morphvenom/mimite
+	name = "Mimite venom"
 	description = "Deadly venom of a shapeshifting creature."
 	color = "#330063"

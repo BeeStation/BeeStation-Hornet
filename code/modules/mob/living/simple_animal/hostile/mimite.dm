@@ -1,11 +1,11 @@
-#define VARIANT_COOLDOWN 80
+#define MIMITE_COOLDOWN 80
 
-/mob/living/simple_animal/hostile/variant
-	name = "variant"
+/mob/living/simple_animal/hostile/mimite
+	name = "Mimite"
 	desc = "A creature of unknown origin, it enjoys hiding in plain sight to ambush its prey"
 	icon = 'icons/mob/animal.dmi'
-	icon_state = "variant"
-	icon_living = "variant"
+	icon_state = "mimite"
+	icon_living = "mimite"
 	pass_flags = PASSTABLE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	a_intent = INTENT_HARM
@@ -38,7 +38,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
-	faction = list("variant")
+	faction = list("mimite")
 	move_to_delay = 3
 	gold_core_spawnable = NO_SPAWN
 	hardattacks = TRUE
@@ -59,21 +59,23 @@
 	))
 	var/atom/movable/form = null
 	var/morphed = FALSE
-	var/variant_time = 0
-	var/variant_growth = 0
+	var/mimite_time = 0
+	var/mimite_growth = 0
 	var/grow_as = null
 	var/obj/machinery/atmospherics/components/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
+	var/replicate = TRUE
+	var/venthunt = TRUE
 
-/mob/living/simple_animal/hostile/variant/Initialize()
+/mob/living/simple_animal/hostile/mimite/Initialize()
 	. = ..()
 	AddElement(/datum/element/point_of_interest)
 	var/image/I = image(icon = 'icons/mob/hud.dmi', icon_state = "hudcultist", layer = DATA_HUD_PLANE, loc = src)
 	I.alpha = 180
 	I.appearance_flags = RESET_ALPHA
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/variants, "hudcultist", I)
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/mimites, "hudcultist", I)
 
-/mob/living/simple_animal/hostile/variant/examine(mob/user)
+/mob/living/simple_animal/hostile/mimite/examine(mob/user)
 	if(morphed)
 		. = form.examine(user)
 		if(get_dist(user,src)<=2)
@@ -81,25 +83,25 @@
 	else
 		. = ..()
 
-/mob/living/simple_animal/hostile/variant/med_hud_set_health()
+/mob/living/simple_animal/hostile/mimite/med_hud_set_health()
 	if(morphed && !isliving(form))
 		var/image/holder = hud_list[HEALTH_HUD]
 		holder.icon_state = null
 		return //we hide medical hud while morphed
 	..()
 
-/mob/living/simple_animal/hostile/variant/med_hud_set_status()
+/mob/living/simple_animal/hostile/mimite/med_hud_set_status()
 	if(morphed && !isliving(form))
 		var/image/holder = hud_list[STATUS_HUD]
 		holder.icon_state = null
 		return //we hide medical hud while morphed
 	..()
 
-/mob/living/simple_animal/hostile/variant/proc/allowed(atom/movable/A) // make it into property/proc ? not sure if worth it
+/mob/living/simple_animal/hostile/mimite/proc/allowed(atom/movable/A) // make it into property/proc ? not sure if worth it
 	return !is_type_in_typecache(A, blacklist_typecache) && (isobj(A) || ismob(A))
 
-/mob/living/simple_animal/hostile/variant/ShiftClickOn(atom/movable/A)
-	if(variant_time <= world.time && !stat)
+/mob/living/simple_animal/hostile/mimite/ShiftClickOn(atom/movable/A)
+	if(mimite_time <= world.time && !stat)
 		if(A == src)
 			restore(TRUE)
 			return
@@ -108,7 +110,7 @@
 	else
 		to_chat(src, "<span class='warning'>Your chameleon skin is still repairing itself!</span>")
 
-/mob/living/simple_animal/hostile/variant/proc/assume(atom/movable/target)
+/mob/living/simple_animal/hostile/mimite/proc/assume(atom/movable/target)
 	morphed = TRUE
 	form = target
 
@@ -124,14 +126,14 @@
 	density = target.density
 	mobchatspan = initial(mobchatspan)
 
-	variant_time = world.time + VARIANT_COOLDOWN
+	mimite_time = world.time + MIMITE_COOLDOWN
 	med_hud_set_health()
 	med_hud_set_status() //we're an object honest
 	vision_range = 1
 	aggro_vision_range = 1
 	return
 
-/mob/living/simple_animal/hostile/variant/proc/restore(var/intentional = FALSE)
+/mob/living/simple_animal/hostile/mimite/proc/restore(var/intentional = FALSE)
 	if(!morphed)
 		if(intentional)
 			to_chat(src, "<span class='warning'>You're already in your normal form!</span>")
@@ -157,16 +159,16 @@
 	melee_damage = initial(melee_damage)
 	set_varspeed(initial(speed))
 
-	variant_time = world.time + VARIANT_COOLDOWN
+	mimite_time = world.time + MIMITE_COOLDOWN
 	med_hud_set_health()
 	med_hud_set_status() //we are not an object
 
 
-/mob/living/simple_animal/hostile/variant/Aggro() // automated only
+/mob/living/simple_animal/hostile/mimite/Aggro() // automated only
 	..()
 	restore()
 
-/mob/living/simple_animal/hostile/variant/AIShouldSleep(var/list/possible_targets)
+/mob/living/simple_animal/hostile/mimite/AIShouldSleep(var/list/possible_targets)
 	. = ..()
 	if(.)
 		if(!morphed)
@@ -178,21 +180,21 @@
 				var/atom/movable/T = pick(things)
 				assume(T)
 
-/mob/living/simple_animal/hostile/variant/can_track(mob/living/user)
+/mob/living/simple_animal/hostile/mimite/can_track(mob/living/user)
 	if(morphed)
 		return FALSE
 	return ..()
 
-/mob/living/simple_animal/hostile/variant/AttackingTarget()
+/mob/living/simple_animal/hostile/mimite/AttackingTarget()
 	if(morphed)
 		restore()
 	return ..()
 
 //Ambush attack
-/mob/living/simple_animal/hostile/variant/attack_hand(mob/living/carbon/human/M)
+/mob/living/simple_animal/hostile/mimite/attack_hand(mob/living/carbon/human/M)
 	if(morphed)
 		M.Knockdown(40)
-		M.reagents.add_reagent(/datum/reagent/toxin/morphvenom/variant, 10)
+		M.reagents.add_reagent(/datum/reagent/toxin/morphvenom/mimite, 10)
 		to_chat(M, "<span class='userdanger'>[src] bites you!</span>")
 		visible_message("<span class='danger'>[src] violently bites [M]!</span>",\
 				"<span class='userdanger'>You ambush [M]!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -200,109 +202,131 @@
 	else
 		..()
 
-/mob/living/simple_animal/hostile/variant/Life()
+/mob/living/simple_animal/hostile/mimite/Life()
 	..()
-	if(isturf(loc))
-		variant_growth += rand(0,2)
-		if(variant_growth >= 150)
+	if(isturf(loc) && replicate)
+		mimite_growth += rand(0,2)
+		if(mimite_growth >= 150)
 			if(!grow_as)
-				grow_as = pick(/mob/living/simple_animal/hostile/variant, /mob/living/simple_animal/hostile/variant/crate, /mob/living/simple_animal/hostile/variant/ranged)
-			var/mob/living/simple_animal/hostile/variant/S = new grow_as(src.loc)
+				grow_as = pick(/mob/living/simple_animal/hostile/mimite, /mob/living/simple_animal/hostile/mimite/crate, /mob/living/simple_animal/hostile/mimite/ranged)
+			var/mob/living/simple_animal/hostile/mimite/S = new grow_as(src.loc)
 			playsound(S.loc, 'sound/effects/meatslap.ogg', 20, TRUE)
-			variant_growth = 0
+			mimite_growth = 0
 	if(AIStatus == AI_STATUS_OFF || client)
 		return
-	if(travelling_in_vent)
-		if(isturf(loc))
-			travelling_in_vent = 0
-			entry_vent = null
-	else if(entry_vent)
-		if(get_dist(src, entry_vent) <= 3)
-			var/list/vents = list()
-			var/datum/pipeline/entry_vent_parent = entry_vent.parents[1]
-			for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in entry_vent_parent.other_atmosmch)
-				vents.Add(temp_vent)
-			if(!vents.len)
+	if(venthunt)
+		if(travelling_in_vent)
+			if(isturf(loc))
+				travelling_in_vent = 0
 				entry_vent = null
-				return
-			var/obj/machinery/atmospherics/components/unary/vent_pump/exit_vent = pick(vents)
-			if(prob(50))
-				visible_message("<B>[src] scrambles into the ventilation ducts!</B>", \
-								"<span class='italics'>You hear something scampering through the ventilation ducts.</span>")
-
-			spawn(rand(20,60))
-				forceMove(exit_vent)
-				var/travel_time = round(get_dist(loc, exit_vent.loc) / 2)
-				spawn(travel_time)
-
-					if(!exit_vent || exit_vent.welded)
-						forceMove(entry_vent)
-						entry_vent = null
-						return
-
-					if(prob(50))
-						audible_message("<span class='italics'>You hear something scampering through the ventilation ducts.</span>")
-					sleep(travel_time)
-
-					if(!exit_vent || exit_vent.welded)
-						forceMove(entry_vent)
-						entry_vent = null
-						return
-					forceMove(exit_vent.loc)
+		else if(entry_vent)
+			if(get_dist(src, entry_vent) <= 3)
+				var/list/vents = list()
+				var/datum/pipeline/entry_vent_parent = entry_vent.parents[1]
+				for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in entry_vent_parent.other_atmosmch)
+					vents.Add(temp_vent)
+				if(!vents.len)
 					entry_vent = null
-					var/area/new_area = get_area(loc)
-					if(new_area)
-						new_area.Entered(src)
-					SSmove_manager.move_away(src, exit_vent, 4)
-	//=================
-	else if(prob(1))
-		//ventcrawl!
-		for(var/obj/machinery/atmospherics/components/unary/vent_pump/v in view(6,src))
-			if(!v.welded)
-				entry_vent = v
-				SSmove_manager.move_to(src, entry_vent, 1)
-				break
+					return
+				var/obj/machinery/atmospherics/components/unary/vent_pump/exit_vent = pick(vents)
+				if(prob(50))
+					visible_message("<B>[src] scrambles into the ventilation ducts!</B>", \
+									"<span class='italics'>You hear something scampering through the ventilation ducts.</span>")
 
-/mob/living/simple_animal/hostile/variant/death(gibbed)
+				spawn(rand(20,60))
+					forceMove(exit_vent)
+					var/travel_time = round(get_dist(loc, exit_vent.loc) / 2)
+					spawn(travel_time)
+
+						if(!exit_vent || exit_vent.welded)
+							forceMove(entry_vent)
+							entry_vent = null
+							return
+
+						if(prob(50))
+							audible_message("<span class='italics'>You hear something scampering through the ventilation ducts.</span>")
+						sleep(travel_time)
+
+						if(!exit_vent || exit_vent.welded)
+							forceMove(entry_vent)
+							entry_vent = null
+							return
+						forceMove(exit_vent.loc)
+						entry_vent = null
+						var/area/new_area = get_area(loc)
+						if(new_area)
+							new_area.Entered(src)
+						SSmove_manager.move_away(src, exit_vent, 4)
+		//=================
+		else if(prob(1))
+			//ventcrawl!
+			for(var/obj/machinery/atmospherics/components/unary/vent_pump/v in view(6,src))
+				if(!v.welded)
+					entry_vent = v
+					SSmove_manager.move_to(src, entry_vent, 1)
+					break
+
+/mob/living/simple_animal/hostile/mimite/death(gibbed)
 	new /obj/effect/decal/cleanable/oil(get_turf(src))
 	..()
 
-/mob/living/simple_animal/hostile/variant/crate
+/mob/living/simple_animal/hostile/mimite/crate
 	name = "crate"
 	desc = "A rectangular steel crate."
 	icon = 'icons/obj/storage/crates.dmi'
 	icon_state = "crate"
 	icon_living = "crate"
+	attacktext = "bites"
+	speak_emote = list("clatters")
 	vision_range = 0
 	aggro_vision_range = 0
 	melee_damage = 15
 	speed = 4
 	move_to_delay = 4
+	replicate = FALSE
+	venthunt = FALSE
 
-/mob/living/simple_animal/hostile/variant/crate/Initialize()
+/mob/living/simple_animal/hostile/mimite/crate/AttackingTarget()
+	cut_overlays()
+	if(prob(50))
+		add_overlay("[icon_state]_open")
+	else
+		add_overlay("[icon_state]_door")
+	return ..()
+
+/mob/living/simple_animal/hostile/mimite/crate/LoseTarget()
 	..()
+	cut_overlays()
 	add_overlay("[icon_state]_door")
 
-//Ambush attack does extra knockdown as crate variant
-/mob/living/simple_animal/hostile/variant/crate/attack_hand(mob/living/carbon/human/M)
+/mob/living/simple_animal/hostile/mimite/crate/Initialize()
+	..()
+	icon_state = pick("crate","weapon_crate","secgear_crate","private_crate")
+	icon_living = icon_state
+	add_overlay("[icon_state]_door")
+
+//Ambush attack does extra knockdown as crate mimite
+/mob/living/simple_animal/hostile/mimite/crate/attack_hand(mob/living/carbon/human/M)
 	vision_range = 9
 	aggro_vision_range = 9
 	M.Knockdown(60)
-	M.reagents.add_reagent(/datum/reagent/toxin/morphvenom/variant, 15)
+	M.reagents.add_reagent(/datum/reagent/toxin/morphvenom/mimite, 15)
 	to_chat(M, "<span class='userdanger'>[src] bites you!</span>")
 	visible_message("<span class='danger'>[src] violently bites [M]!</span>",\
 			"<span class='userdanger'>You ambush [M]!</span>", null, COMBAT_MESSAGE_RANGE)
+	cut_overlays()
+	add_overlay("[icon_state]_open")
 	..()
 
-/mob/living/simple_animal/hostile/variant/crate/AIShouldSleep(var/list/possible_targets)
+/mob/living/simple_animal/hostile/mimite/crate/AIShouldSleep(var/list/possible_targets)
 	..()
 
-/mob/living/simple_animal/hostile/variant/crate/assume(atom/movable/target)
+/mob/living/simple_animal/hostile/mimite/crate/assume(atom/movable/target)
 	return FALSE
 
-/mob/living/simple_animal/hostile/variant/ranged
-	name = "Ranged Variant"
-	desc = "This variant seems to be holding onto the shape of a PTSD!"
+/mob/living/simple_animal/hostile/mimite/ranged
+	name = "Ranged mimite"
+	desc = "This mimite seems to be holding onto the shape of a PTSD!"
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "personal"
 	ranged = TRUE
