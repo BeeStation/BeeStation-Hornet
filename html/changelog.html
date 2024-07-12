@@ -56,6 +56,68 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">11 July 2024</h2>
+			<h3 class="author">Geatish updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">you can now butt cigarettes on other people if you're on harm intent</li>
+				<li class="tweak">cigarettes will have their smoke time reduced and have a chance to get extinguished if attacking on non harm intent</li>
+			</ul>
+			<h3 class="author">MarkusLarsson421 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Added or moved insuls to Engineering lockers.</li>
+				<li class="rscadd">Gave the RD a departmental console so they can do ID stuff.</li>
+				<li class="bugfix">Fixed Engineering disposals chute.</li>
+			</ul>
+			<h3 class="author">tonty updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">crewmembers no longer get cold feet when attempting to piggyback eachother</li>
+			</ul>
+
+			<h2 class="date">10 July 2024</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">minor port of set_eye() and reset_perspective() proc from TG, #PR 69115 (LemonInTheDark)</li>
+				<li class="code_imp">improved basic game system to track client's currently used eye</li>
+				<li class="tweak">advanced camera is now visible by anyone even if it's currently used by someone. (This doesn't support the shuttle docking system, because it uses different one.)</li>
+				<li class="bugfix">minor fix that advanced camera was still usable even if you're locker'ed</li>
+			</ul>
+			<h3 class="author">MarkusLarsson421 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Changed PopulateItems() to check if it should be empty or not.</li>
+				<li class="tweak">Changed Medkits to not use their empty variable.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Removes unconciousness from mech brute attacks</li>
+			</ul>
+			<h3 class="author">XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">NT's mapping department has repaired radstation's security disposals loop. It now works properly.</li>
+			</ul>
+			<h3 class="author">spockye updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed Rad decals</li>
+				<li class="bugfix">fixed half tiles</li>
+				<li class="rscdel">removes Captain spawner from rdm_captain_quarters.dmm</li>
+				<li class="tweak">replaces item spawner in rdm_captain_quarters.dmm</li>
+				<li class="rscadd">Added glass floors and catwalk floors to corg station</li>
+				<li class="rscadd">small decal additions and changes to corg station</li>
+				<li class="rscadd">fixes to fland station</li>
+				<li class="rscadd">glass tiles to fland station</li>
+			</ul>
+
+			<h2 class="date">09 July 2024</h2>
+			<h3 class="author">Howluinb updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Digitigrade Lizards will no longer get their toe stubbed on tables.</li>
+			</ul>
+			<h3 class="author">TsunamiAnt updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">paper frames now take 10 paper and 2 wood to craft</li>
+				<li class="tweak">paper bundle is now also called that</li>
+				<li class="rscadd">add description text to paper bundle to show people you can just cut it open</li>
+			</ul>
+
 			<h2 class="date">08 July 2024</h2>
 			<h3 class="author">EvilDragonfiend updated:</h3>
 			<ul class="changes bgimages16">
@@ -507,57 +569,6 @@
 				<li class="rscadd">makes newscasters & status displays emissive!</li>
 				<li class="bugfix">fixes hardels with Status Display vis_contents</li>
 				<li class="bugfix">Status display marquee text flows nicer</li>
-			</ul>
-
-			<h2 class="date">10 May 2024</h2>
-			<h3 class="author">ClownMoff updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">CorgStation: Added 3 oxytans to the security E.V.A room.</li>
-				<li class="tweak">CorgStation: Split the HoS shutter controllers into 2 buttons instead of one, for both the private room and the office.</li>
-				<li class="tweak">CorgStation: Cargo windoor from maints could be opened by everyone. Not anymore.</li>
-				<li class="tweak">CorgStation: Solved a camera and a fire alarm being in a window</li>
-				<li class="rscdel">CorgStation: Deleted an unnecesary shutter from the HoS room</li>
-			</ul>
-			<h3 class="author">rkz, Qustinnus, AnturK, TiviPlus, ShizCalev, MrMelbert, LemonInTheDark, ghommie updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">gunlight component</li>
-				<li class="refactor">refactored energy guns to have valid inhands</li>
-				<li class="rscadd">adds automated handling for inhand and worn energy guns</li>
-				<li class="bugfix">addresses possible runtime when qdeleting self-recharging guns with attached bayonets</li>
-				<li class="rscadd">new minigunlight sprite for mini e_guns like the PTSD</li>
-				<li class="code_imp">splits toggleable sec helmets into their own subtype to reduce snowflake code</li>
-			</ul>
-
-			<h2 class="date">08 May 2024</h2>
-			<h3 class="author">DrDuckedGoose updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fix emissives on players</li>
-				<li class="tweak">Add filter compatibility to emissives</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Improved textification of the language icon rendering in TGUI.</li>
-				<li class="code_imp">cleaned up religion code into multiple dm files</li>
-				<li class="code_imp">Refactored weather code and fixed weather bad rendering issue.</li>
-				<li class="bugfix">Void Heretic no longer shows void weather where they don't stand on.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes 515 compilation issue regarding species cold temperature</li>
-			</ul>
-			<h3 class="author">XeonMations updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed blood cultists being able to place structures on survival pods</li>
-			</ul>
-			<h3 class="author">rkz, coiax updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">Refactors step_action to save us from a few thousand useless proccalls per shift</li>
-			</ul>
-			<h3 class="author">rkz, nightred, lemoninthedark updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">refactored temperature stabilization in humans. Split human temperature into core temperature, which is affected by fevers & shivering symptoms and represents the overall temperature range, and Body Temperature which is what is directly affected by environmental factors and projectiles.</li>
-				<li class="rscadd">All species will now receive temperature HUD alerts before receiving damage.</li>
-				<li class="balance">recalculates burn damage based on overall temperature</li>
 			</ul>
 		</div>
 
