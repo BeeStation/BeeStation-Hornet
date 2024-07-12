@@ -1,6 +1,7 @@
 /datum/job/deputy
 	title = JOB_NAME_DEPUTY
 	description = "Follow orders and do your best to maintain order on the station while following Space Law."
+	lock_flags = JOB_LOCK_REASON_ABSTRACT
 	department_for_prefs = DEPT_BITFLAG_SEC
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
@@ -14,8 +15,8 @@
 
 	outfit = /datum/outfit/job/deputy
 
-	access = list(ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
-	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
+	base_access = list(ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
+	extra_access = list()
 
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG

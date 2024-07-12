@@ -112,13 +112,9 @@
 	if(!LAZYACCESS(modifiers, "catcher") && A.IsObscured())
 		return
 
-	if(ismecha(loc))
-		var/obj/mecha/M = loc
-		return M.click_action(A,src,params)
-
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED)   //Doing shit in cuffs shall be vey slow
-		RestrainedClickOn(A)
+		UnarmedAttack(A)
 		return
 
 	if(throw_mode && throw_item(A))
@@ -134,7 +130,7 @@
 
 	//These are always reachable.
 	//User itself, current loc, and user inventory
-	if(A in DirectAccess())
+	if(HasDirectAccess(A))
 		if(W)
 			W.melee_attack_chain(src, A, params)
 		else
@@ -185,7 +181,6 @@
   * logically "in" anything adjacent to us.
   */
 /atom/movable/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE)
-	var/list/direct_access = DirectAccess()
 	var/depth = 1 + (view_only ? STORAGE_VIEW_DEPTH : INVENTORY_DEPTH)
 
 	var/list/closed = list()
@@ -197,7 +192,7 @@
 		for(var/atom/target in checking)  // will filter out nulls
 			if(closed[target] || isarea(target))  // avoid infinity situations
 				continue
-			if(isturf(target) || isturf(target.loc) || (target in direct_access) || (isobj(target) && target.flags_1 & IS_ONTOP_1)) //Directly accessible atoms
+			if(isturf(target) || isturf(target.loc) || HasDirectAccess(target) || (isobj(target) && target.flags_1 & IS_ONTOP_1)) //Directly accessible atoms
 				if(Adjacent(target) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
 					return TRUE
 
@@ -206,20 +201,42 @@
 			if (!target.loc)
 				continue
 
-			if(!(SEND_SIGNAL(target.loc, COMSIG_ATOM_CANREACH, next) & COMPONENT_BLOCK_REACH))
+			//Storage and things with reachable internal atoms need add to next here. Or return COMPONENT_ALLOW_REACH.
+			if(SEND_SIGNAL(target.loc, COMSIG_ATOM_CANREACH, next) & COMPONENT_ALLOW_REACH)
 				next += target.loc
 
 		checking = next
 	return FALSE
 
-/atom/movable/proc/DirectAccess()
-	return list(src, loc)
+/atom/movable/proc/HasDirectAccess(atom/target)
+	// We can always directly access ourselves
+	if (target == src)
+		return TRUE
+	// We can directly access our location if it lets us touch it from the contents
+	if (target == loc && !(target.flags_1 & NO_DIRECT_ACCESS_FROM_CONTENTS_1))
+		return TRUE
+	return FALSE
 
-/mob/DirectAccess(atom/target)
-	return ..() + contents
+/mob/HasDirectAccess(atom/target)
+	if (..())
+		return TRUE
+	if (istype(target, /atom/movable/screen))
+		return TRUE
+	// We can directly access things that are inside of us
+	if (target.loc == src)
+		return TRUE
+	return FALSE
 
-/mob/living/DirectAccess(atom/target)
-	return ..() + GetAllContents()
+/mob/living/HasDirectAccess(atom/target)
+	if (..())
+		return TRUE
+	// We can directly access things that are recursively inside of us
+	var/atom/current = target
+	while (current && !isturf(current))
+		if (current == src)
+			return TRUE
+		current = current.loc
+	return FALSE
 
 /atom/proc/AllowClick()
 	return FALSE
@@ -281,20 +298,11 @@
 	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params)
 
 /**
-  * Restrained ClickOn
-  *
-  * Used when you are handcuffed and click things.
-  * Not currently used by anything but could easily be.
-  */
-/mob/proc/RestrainedClickOn(atom/A)
-	return
-
-/**
   * Middle click
   * Mainly used for swapping hands
   */
-/mob/proc/MiddleClickOn(atom/A)
-	. = SEND_SIGNAL(src, COMSIG_MOB_MIDDLECLICKON, A)
+/mob/proc/MiddleClickOn(atom/A, params)
+	. = SEND_SIGNAL(src, COMSIG_MOB_MIDDLECLICKON, A, params)
 	if(. & COMSIG_MOB_CANCEL_CLICKON)
 		return
 	swap_hand()

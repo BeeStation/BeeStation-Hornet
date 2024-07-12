@@ -2054,7 +2054,7 @@
 /turf/open/floor/wood,
 /area/awaymission/research/interior/dorm)
 "lU" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /turf/open/floor/iron/yellowsiding{
 	dir = 4
 	},
@@ -4353,7 +4353,7 @@
 /turf/open/floor/plating,
 /area/awaymission/research/interior/escapepods)
 "TF" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
