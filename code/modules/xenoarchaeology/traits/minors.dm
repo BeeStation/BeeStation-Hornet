@@ -840,7 +840,7 @@
 			 "left" = CALLBACK(src, PROC_REF(haunted_step), A, WEST),
 			 "right" = CALLBACK(src, PROC_REF(haunted_step), A, EAST),
 			 "activate" = CALLBACK(src, PROC_REF(activate_parent), A)), move_delay))
-	addtimer(CALLBACK(src, PROC_REF(do_wail)), 40 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(do_wail)), 45 SECONDS)
 
 /datum/xenoartifact_trait/minor/haunted/Destroy(force, ...)
 	QDEL_NULL(controller)
@@ -862,7 +862,7 @@
 	var/atom/A = parent.parent
 	if(isturf(A.loc))
 		playsound(get_turf(parent?.parent), 'sound/spookoween/ghost_whisper.ogg', 30, TRUE)
-	addtimer(CALLBACK(src, PROC_REF(do_wail)), 40 / (isturf(A.loc) ? 2 : 1))
+	addtimer(CALLBACK(src, PROC_REF(do_wail)), 45 SECONDS)
 
 
 /datum/xenoartifact_trait/minor/haunted/proc/haunted_step(atom/movable/target, dir)
