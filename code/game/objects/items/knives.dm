@@ -113,8 +113,8 @@
 	icon_state = "buckknife"
 	desc = "A military combat utility survival knife."
 	embedding = list("pain_mult" = 4, "embed_chance" = 65, "fall_chance" = 10, "ignore_throwspeed_threshold" = TRUE, "armour_block" = 60)
-	force = 17
-	throwforce = 17
+	force = 20
+	throwforce = 20
 	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "cut")
 	bayonet = TRUE
 
