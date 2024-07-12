@@ -3,6 +3,9 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	flags = SS_NO_FIRE
 	init_order = INIT_ORDER_XENOARCHAEOLOGY
 
+	///Which console is the main character
+	var/obj/machinery/computer/xenoarchaeology_console/main_console
+
 	///Traits types, referenced for generation
 	var/list/xenoa_activators
 	var/list/xenoa_minors
@@ -86,6 +89,20 @@ SUBSYSTEM_DEF(xenoarchaeology)
 
 /datum/controller/subsystem/xenoarchaeology/Shutdown()
 	. = ..()
+
+/datum/controller/subsystem/xenoarchaeology/proc/register_console(var/obj/machinery/computer/xenoarchaeology_console/new_console)
+	if(main_console)
+		main_console.main_console = FALSE
+		UnregisterSignal(main_console, COMSIG_PARENT_QDELETING)
+	main_console = new_console
+	main_console.main_console = TRUE
+	RegisterSignal(main_console, COMSIG_PARENT_QDELETING, PROC_REF(catch_console))
+
+/datum/controller/subsystem/xenoarchaeology/proc/catch_console(datum/source)
+	SIGNAL_HANDLER
+
+	main_console = null
+	SEND_SIGNAL(src, XENOA_NEW_CONSOLE)
 
 ///Proc used to compile trait weights into a list
 /datum/controller/subsystem/xenoarchaeology/proc/compile_artifact_weights(path, keyed = FALSE)

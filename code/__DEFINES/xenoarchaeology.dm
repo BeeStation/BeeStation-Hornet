@@ -24,9 +24,12 @@
 #define TRAIT_INCOMPATIBLE_STRUCTURE (1<<2)
 
 ///Signal for artifact trigger
-#define XENOA_TRIGGER "xenoa_trigger"
+#define XENOA_TRIGGER "XENOA_TRIGGER"
 ///Signal for artifact calcified
-#define XENOA_CALCIFIED "xenoa_calcified"
+#define XENOA_CALCIFIED "XENOA_CALCIFIED"
+
+///Signal for SS needing new mainc onsole
+#define XENOA_NEW_CONSOLE "XENOA_NEW_CONSOLE"
 
 ///generic starting cooldown timer for triggers
 #define XENOA_GENERIC_COOLDOWN 5 SECONDS

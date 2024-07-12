@@ -27,19 +27,23 @@
 	///Do we do solved notices on the radio?
 	var/radio_solved_notice = TRUE
 
-	///The supply pack we ship stuff in
-	//var/datum/supply_pack/console_pack
-	///Our current, if available, order
-	var/datum/supply_order/console_order
-
+	///List of active orders
 	var/list/console_orders = list()
+	///Max contents per order - leave this as a variable, trust
 	var/max_pack_contents = 5
 
-	///History
+	///History of purchases and sales
 	var/list/history = list()
+
+	///Is this console the main character?
+	var/main_console = FALSE
 
 /obj/machinery/computer/xenoarchaeology_console/Initialize()
 	. = ..()
+	//Link up with SS to see if we're the choosen one
+	if(!SSxenoarchaeology.main_console)
+		SSxenoarchaeology.register_console(src)
+	RegisterSignal(SSxenoarchaeology, XENOA_NEW_CONSOLE, PROC_REF(be_the_guy))
 	//Link relevant stuff
 	linked_techweb = SSresearch.science_tech
 	budget = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
@@ -198,12 +202,13 @@
 		var/rnd_reward = max(0, (artifact.custom_price*X.artifact_type.rnd_rate)*success_rate)
 			//Discovery Points
 		var/dp_reward = max(0, (artifact.custom_price*X.artifact_type.dp_rate)*success_rate)
-			//Alloctae
-		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)
-		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, dp_reward)
-			//Money //TODO: Check if this is sufficient - Racc : PLAYTEST
+				//Money //TODO: Check if this is sufficient - Racc : PLAYTEST
 		var/monetary_reward = ((artifact.custom_price * success_rate * 2)^1.5) * (success_rate >= 0.5 ? 1 : 0)
-		budget.adjust_money(monetary_reward)
+			//Alloctae
+		if(main_console)
+			linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)
+			linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, dp_reward)
+			budget.adjust_money(monetary_reward)
 		//Announce victory or fuck up
 		var/success_type
 		switch(success_rate)
@@ -221,6 +226,12 @@
 		RADIO_CHANNEL_SCIENCE)
 		history += list("[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
 		at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of $[monetary_reward].")
+
+/obj/machinery/computer/xenoarchaeology_console/proc/be_the_guy(datum/source)
+	SIGNAL_HANDLER
+
+	if(!SSxenoarchaeology.main_console && !main_console)
+		SSxenoarchaeology.register_console(src)
 
 //Circuitboard for this console
 /obj/item/circuitboard/computer/xenoarchaeology_console
