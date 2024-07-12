@@ -123,3 +123,13 @@
 	desc = "A white suit and jacket with a blue shirt. You wanna play rough? OKAY!"
 	icon_state = "white_suit"
 	item_state = "white_suit"
+
+/obj/item/clothing/under/suit/beige
+	name = "beige suit"
+	desc = "An excellent light colored suit, experts in the field stress that it should not to be confused with the inferior tan suit."
+	icon_state = "beige_suit"
+
+/obj/item/clothing/under/suit/tuxedo
+	name = "tuxedo"
+	desc = "A formal black tuxedo. It exudes classiness."
+	icon_state = "tuxedo"

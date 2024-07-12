@@ -16,3 +16,15 @@
 	sleep(10)
 	H.facial_hair_style = "Neckbeard"
 	return BRUTELOSS
+
+/obj/item/clothing/head/fedora/white
+	name = "white fedora"
+	icon_state = "fedora_white"
+	item_state = "fedora_white"
+	desc = "A really cool hat if you're a mobster. A really lame hat if you're not."
+
+/obj/item/clothing/head/fedora/beige
+	name = "white fedora"
+	icon_state = "fedora_beige"
+	item_state = "fedora_beige"
+	desc = "A really cool hat if you're a mobster. A really lame hat if you're not."
