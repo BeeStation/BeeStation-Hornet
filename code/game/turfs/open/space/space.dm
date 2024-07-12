@@ -70,6 +70,9 @@
 	if(IS_DYNAMIC_LIGHTING(A))
 		overlays += GLOB.starlight_overlay
 
+	if(requires_activation)
+		SSair.add_to_active(src, TRUE)
+
 	return INITIALIZE_HINT_NORMAL
 
 /turf/open/space/Destroy()

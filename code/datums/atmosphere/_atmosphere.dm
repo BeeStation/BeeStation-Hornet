@@ -23,7 +23,7 @@
 	// First let's set up the gasmix and base gases for this template
 	// We make the string from a gasmix in this proc because gases need to calculate their pressure
 	var/datum/gas_mixture/gasmix = new
-	gasmix.set_temperature(rand(minimum_temp, maximum_temp))
+	gasmix.temperature = rand(minimum_temp, maximum_temp)
 	for(var/i in base_gases)
 		gasmix.set_moles(i, base_gases[i])
 

@@ -16,99 +16,54 @@
 /turf/open/CanAtmosPass = ATMOS_PASS_PROC
 /turf/open/CanAtmosPassVertical = ATMOS_PASS_PROC
 
+//Do NOT use this to see if 2 turfs are connected, it mutates state, and we cache that info anyhow. Use TURFS_CAN_SHARE or TURF_SHARES depending on your usecase
 /turf/open/CanAtmosPass(turf/T, vertical = FALSE)
-	var/dir = vertical ? get_dir_multiz(src, T) : get_dir(src, T)
+	var/dir = vertical? get_dir_multiz(src, T) : get_dir(src, T)
 	var/opp = REVERSE_DIR(dir)
-	. = TRUE
+	var/R = FALSE
 	if(vertical && !(zAirOut(dir, T) && T.zAirIn(dir, src)))
-		. = FALSE
-	if(isclosedturf(src) || isclosedturf(T))
-		. = FALSE
+		R = TRUE
+	if(blocks_air || T.blocks_air)
+		R = TRUE
 	if (T == src)
-		return .
+		return !R
 	for(var/obj/O in contents+T.contents)
 		var/turf/other = (O.loc == src ? T : src)
 		if(!(vertical? (CANVERTICALATMOSPASS(O, other)) : (CANATMOSPASS(O, other))))
-			. = FALSE
-		if(O.BlockThermalConductivity()) 	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
-			conductivity_blocked_directions |= dir
-			T.conductivity_blocked_directions |= opp
-			if(!.)
-				return .
+			R = TRUE
+			if(O.BlockSuperconductivity()) 	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
+				atmos_supeconductivity |= dir
+				T.atmos_supeconductivity |= opp
+				return FALSE						//no need to keep going, we got all we asked
 
-/atom/movable/proc/BlockThermalConductivity() // Objects that don't let heat through.
+	atmos_supeconductivity &= ~dir
+	T.atmos_supeconductivity &= ~opp
+
+	return !R
+
+/atom/movable/proc/BlockSuperconductivity() // objects that block air and don't let superconductivity act. Only firelocks atm.
 	return FALSE
 
 /turf/proc/ImmediateCalculateAdjacentTurfs()
-	if(SSair.thread_running())
-		CALCULATE_ADJACENT_TURFS(src)
-		return
-	LAZYINITLIST(src.atmos_adjacent_turfs)
-	var/is_closed = isclosedturf(src)
-	var/list/atmos_adjacent_turfs = src.atmos_adjacent_turfs
 	var/canpass = CANATMOSPASS(src, src)
 	var/canvpass = CANVERTICALATMOSPASS(src, src)
-	// I am essentially inlineing two get_dir_multizs here, because they're way too slow on their own. I'm sorry brother
-	var/list/z_traits = SSmapping.multiz_levels[z]
 	for(var/direction in GLOB.cardinals_multiz)
-		// Yes this is a reimplementation of get_step_mutliz. It's faster tho. fuck you
-		var/turf/current_turf = (direction & (UP|DOWN)) ? \
-			(direction & UP) ? \
-				(z_traits[Z_LEVEL_UP]) ? \
-					(get_step(locate(x, y, z + 1), NONE)) : \
-				(null) : \
-				(z_traits[Z_LEVEL_DOWN]) ? \
-					(get_step(locate(x, y, z - 1), NONE)) : \
-				(null) : \
-			(get_step(src, direction))
-		if(!isopenturf(current_turf))
+		var/turf/T = get_step_multiz(src, direction)
+		if(!isopenturf(T))
 			continue
-		if(!is_closed && ((direction & (UP|DOWN)) ? (canvpass && CANVERTICALATMOSPASS(current_turf, src)) : (canpass && CANATMOSPASS(current_turf, src))))
-			LAZYINITLIST(current_turf.atmos_adjacent_turfs)
-			atmos_adjacent_turfs[current_turf] = TRUE
-			current_turf.atmos_adjacent_turfs[src] = TRUE
+		if(!(blocks_air || T.blocks_air) && ((direction & (UP|DOWN))? (canvpass && CANVERTICALATMOSPASS(T, src)) : (canpass && CANATMOSPASS(T, src))) )
+			LAZYINITLIST(atmos_adjacent_turfs)
+			LAZYINITLIST(T.atmos_adjacent_turfs)
+			atmos_adjacent_turfs[T] = TRUE
+			T.atmos_adjacent_turfs[src] = TRUE
 		else
-			atmos_adjacent_turfs -= current_turf
-			if (current_turf.atmos_adjacent_turfs)
-				current_turf.atmos_adjacent_turfs -= src
-			UNSETEMPTY(current_turf.atmos_adjacent_turfs)
-			current_turf.set_sleeping(isclosedturf(current_turf))
-		current_turf.__update_auxtools_turf_adjacency_info()
+			if (atmos_adjacent_turfs)
+				atmos_adjacent_turfs -= T
+			if (T.atmos_adjacent_turfs)
+				T.atmos_adjacent_turfs -= src
+			UNSETEMPTY(T.atmos_adjacent_turfs)
 	UNSETEMPTY(atmos_adjacent_turfs)
 	src.atmos_adjacent_turfs = atmos_adjacent_turfs
-	set_sleeping(is_closed)
-	__update_auxtools_turf_adjacency_info()
-
-/turf/proc/ImmediateDisableAdjacency(disable_adjacent = TRUE)
-	if(SSair.thread_running())
-		SSadjacent_air.disable_queue[src] = disable_adjacent
-		return
-	if(disable_adjacent)
-		// I am essentially inlineing two get_dir_multizs here, because they're way too slow on their own. I'm sorry brother
-		var/list/z_traits = SSmapping.multiz_levels[z]
-		for(var/direction in GLOB.cardinals_multiz)
-			// Yes this is a reimplementation of get_step_mutliz. It's faster tho.
-			var/turf/current_turf = (direction & (UP|DOWN)) ? \
-				(direction & UP) ? \
-					(z_traits[Z_LEVEL_UP]) ? \
-						(get_step(locate(x, y, z + 1), NONE)) : \
-					(null) : \
-					(z_traits[Z_LEVEL_DOWN]) ? \
-						(get_step(locate(x, y, z - 1), NONE)) : \
-					(null) : \
-				(get_step(src, direction))
-			if(!istype(current_turf))
-				continue
-			if (current_turf.atmos_adjacent_turfs)
-				current_turf.atmos_adjacent_turfs -= src
-			UNSETEMPTY(current_turf.atmos_adjacent_turfs)
-			current_turf.__update_auxtools_turf_adjacency_info()
-	LAZYCLEARLIST(atmos_adjacent_turfs)
-	__update_auxtools_turf_adjacency_info()
-
-/turf/proc/set_sleeping(should_sleep)
-
-/turf/proc/__update_auxtools_turf_adjacency_info()
 
 //returns a list of adjacent turfs that can share air with this one.
 //alldir includes adjacent diagonal tiles that can share
@@ -145,28 +100,31 @@
 
 	return adjacent_turfs
 
-/**
- * For the love of all that is holy, DO NOT SET `command` TO TRUE ON HOTCODE. This will cause atmos to freeze up for considerable amounts at a time.
- * In fact- please just refrain from using this if you're not changing how atmos flows turf to turf
- */
-/atom/proc/air_update_turf(command = 0)
-	if(!SSair.initialized) // I'm sorry for polutting user code, I'll do 10 hail giacom's
-		return
-	if(!isturf(loc) && command)
-		return
+/atom/proc/air_update_turf(update = FALSE, remove = FALSE)
 	var/turf/T = get_turf(loc)
-	T.air_update_turf(command)
+	T.air_update_turf(update, remove)
 
-/turf/air_update_turf(command = 0)
-	if(!SSair.initialized) // I'm sorry for polutting user code, I'll do 10 hail giacom's
-		return
-	if(command)
+/**
+ * A helper proc for dealing with atmos changes
+ *
+ * Ok so this thing is pretty much used as a catch all for all the situations someone might wanna change something
+ * About a turfs atmos. It's real clunky, and someone needs to clean it up, but not today.
+ * Arguments:
+ * * update - Has the state of the structures in the world changed? If so, update our adjacent atmos turf list, if not, don't.
+ * * remove - Are you removing an active turf (Read wall), or adding one
+*/
+/turf/air_update_turf(update = FALSE, remove = FALSE)
+	if(update)
 		ImmediateCalculateAdjacentTurfs()
+	if(remove)
+		SSair.remove_from_active(src)
+	else
+		SSair.add_to_active(src)
 
 /atom/movable/proc/move_update_air(turf/T)
-    if(isturf(T))
-        T.air_update_turf(1)
-    air_update_turf(1)
+	if(isturf(T))
+		T.air_update_turf(TRUE, FALSE) //You're empty now
+	air_update_turf(TRUE, TRUE) //You aren't
 
 /atom/proc/atmos_spawn_air(text) //because a lot of people loves to copy paste awful code lets just make an easy proc to spawn your plasma fires
 	var/turf/open/T = get_turf(src)
@@ -180,4 +138,7 @@
 
 	var/datum/gas_mixture/G = new
 	G.parse_gas_string(text)
-	assume_air(G)
+
+	air.merge(G)
+	archive()
+	SSair.add_to_active(src)

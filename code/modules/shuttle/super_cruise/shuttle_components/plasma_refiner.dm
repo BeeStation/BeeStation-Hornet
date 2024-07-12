@@ -20,7 +20,7 @@
 		if(!air_contents)
 			return
 		qdel(stack)
-		air_contents.adjust_moles(GAS_PLASMA, moles_created)
+		air_contents.adjust_moles(/datum/gas/plasma, moles_created)
 		say("[moles_created] moles of plasma refined.")
 		return
 
@@ -35,12 +35,12 @@
 
 /obj/machinery/atmospherics/components/unary/plasma_refiner/AltClick(mob/living/user)
 	var/datum/gas_mixture/air_contents = airs[1]
-	var/plasmoles = air_contents.get_moles(GAS_PLASMA)
+	var/plasmoles = air_contents.get_moles(/datum/gas/plasma)
 	if(!air_contents)
 		return
 	if(plasmoles >= 100)
 		var/obj/item/stack/sheet/mineral/plasma/P = new(src.loc, 1)
-		air_contents.adjust_moles(GAS_PLASMA, -100)
+		air_contents.adjust_moles(/datum/gas/plasma, -100)
 		say("100 moles of plasma consumed. A sheet of [P.name] has been created.")
 	else
 		say("Insufficient plasma. At least 100 moles of plasma are required. There are currently [plasmoles] moles of plasma.")

@@ -38,7 +38,7 @@
 	active = internal.temperature_share(external, OPEN_HEAT_TRANSFER_COEFFICIENT) || active
 
 	if(active)
-		air_update_turf()
+		air_update_turf(FALSE, FALSE)
 		update_parents()
 
 /obj/machinery/atmospherics/components/unary/passive_vent/can_crawl_through()

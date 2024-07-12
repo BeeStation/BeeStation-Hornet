@@ -28,6 +28,7 @@
 /obj/machinery/field/containment/Destroy()
 	FG1?.fields -= src
 	FG2?.fields -= src
+	air_update_turf(TRUE, FALSE)
 	return ..()
 
 /obj/machinery/field/containment/proc/block_singularity()

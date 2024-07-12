@@ -47,7 +47,7 @@
 		for(var/m in buckled_mobs)
 			var/mob/living/L = m
 			L.bodytemperature = avg_temp
-		pipe_air.set_temperature(avg_temp)
+		pipe_air.temperature = (avg_temp)
 
 /obj/machinery/atmospherics/pipe/heat_exchanging/process(delta_time)
 	if(!parent)

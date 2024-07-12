@@ -15,12 +15,12 @@
 /datum/bounty/item/engineering/gas/nitryl_tank
 	name = "Full Tank of Nitryl"
 	description = "The non-human staff of Station 88 has been volunteered to test performance enhancing drugs. Ship them a tank full of Nitryl so they can get started."
-	gas_type = GAS_NITRYL
+	gas_type = /datum/gas/nitryl
 
 /datum/bounty/item/engineering/gas/tritium_tank
 	name = "Full Tank of Tritium"
 	description = "Station 49 is looking to kickstart their research program. Ship them a tank full of Tritium."
-	gas_type = GAS_TRITIUM
+	gas_type = /datum/gas/tritium
 
 /datum/bounty/item/engineering/energy_ball
 	name = "Contained Tesla Ball"

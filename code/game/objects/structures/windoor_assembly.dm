@@ -35,7 +35,7 @@
 	. = ..()
 	if(set_dir)
 		setDir(set_dir)
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
@@ -45,7 +45,7 @@
 
 /obj/structure/windoor_assembly/Destroy()
 	set_density(FALSE)
-	air_update_turf(1)
+	air_update_turf(TRUE, FALSE)
 	return ..()
 
 /obj/structure/windoor_assembly/Move()

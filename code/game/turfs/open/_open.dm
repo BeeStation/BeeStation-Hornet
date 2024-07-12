@@ -129,6 +129,7 @@
 	icon = 'icons/turf/boss_floors.dmi'
 	icon_state = "boss"
 	baseturfs = /turf/open/indestructible/boss
+	planetary_atmos = TRUE
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 
 /turf/open/indestructible/boss/air
@@ -136,6 +137,7 @@
 
 /turf/open/indestructible/hierophant
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
+	planetary_atmos = TRUE
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	baseturfs = /turf/open/indestructible/hierophant
 	tiled_dirt = FALSE
@@ -174,15 +176,17 @@
 	init_air = FALSE
 
 /turf/open/Initalize_Atmos(times_fired)
-	if(!istype(air, /datum/gas_mixture/turf))
-		air = new(2500,src)
-	air.copy_from_turf(src)
-	update_air_ref(planetary_atmos ? 1 : 2)
-
+	excited = FALSE
 	update_visuals()
-
+	current_cycle = times_fired
 	ImmediateCalculateAdjacentTurfs()
-
+	for(var/i in atmos_adjacent_turfs)
+		var/turf/open/enemy_tile = i
+		var/datum/gas_mixture/enemy_air = enemy_tile.return_air()
+		if(!excited && air.compare(enemy_air))
+			//testing("Active turf found. Return value of compare(): [is_active]")
+			excited = TRUE
+			SSair.active_turfs += src
 
 /turf/open/proc/GetHeatCapacity()
 	. = air.heat_capacity()
@@ -191,8 +195,8 @@
 	. = air.return_temperature()
 
 /turf/open/proc/TakeTemperature(temp)
-	air.set_temperature(air.return_temperature() + temp)
-	air_update_turf()
+	air.temperature = air.return_temperature() + temp
+	air_update_turf(FALSE, FALSE)
 
 /turf/open/proc/freeze_turf()
 	for(var/obj/I in contents)
@@ -280,10 +284,10 @@
 
 /turf/open/rad_act(pulse_strength)
 	. = ..()
-	if (air.get_moles(GAS_CO2) && air.get_moles(GAS_O2))
-		pulse_strength = min(pulse_strength,air.get_moles(GAS_CO2)*1000,air.get_moles(GAS_O2)*2000) //Ensures matter is conserved properly
-		air.set_moles(GAS_CO2, max(air.get_moles(GAS_CO2)-(pulse_strength/1000),0))
-		air.set_moles(GAS_O2, max(air.get_moles(GAS_O2)-(pulse_strength/2000),0))
+	if (air.get_moles(/datum/gas/carbon_dioxide) && air.get_moles(/datum/gas/oxygen))
+		pulse_strength = min(pulse_strength,air.get_moles(/datum/gas/carbon_dioxide)*1000,air.get_moles(/datum/gas/oxygen)*2000) //Ensures matter is conserved properly
+		air.set_moles(/datum/gas/carbon_dioxide, max(air.get_moles(/datum/gas/carbon_dioxide)-(pulse_strength/1000),0))
+		air.set_moles(/datum/gas/oxygen, max(air.get_moles(/datum/gas/oxygen)-(pulse_strength/2000),0))
 		air.adjust_moles(GAS_PLUOXIUM, pulse_strength/4000)
 
 /turf/open/proc/break_tile(force, allow_base)
