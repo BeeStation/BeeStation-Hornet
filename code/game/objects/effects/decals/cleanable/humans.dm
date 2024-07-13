@@ -57,6 +57,8 @@
 	return ..()
 
 /obj/effect/decal/cleanable/blood/old
+	name = "dried blood"
+	desc = "Looks like it's been here a while.  Eew."
 	bloodiness = 0
 	icon_state = "floor1-old"
 	var/list/datum/disease/diseases = list()
