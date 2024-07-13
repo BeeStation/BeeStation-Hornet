@@ -4668,14 +4668,6 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/iron/white,
 /area/science/explab)
 "bhn" = (
@@ -6206,7 +6198,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "bHW" = (
-/obj/effect/turf_decal/delivery,
+/obj/item/beacon,
 /turf/open/floor/engine,
 /area/science/explab)
 "bIn" = (
@@ -7230,17 +7222,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
-"bYS" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/caution{
-	dir = 1
-	},
-/obj/effect/landmark/xeno_spawn,
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
-/turf/open/floor/engine,
-/area/science/explab)
 "bZc" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -7292,17 +7273,6 @@
 	},
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 10
 	},
 /turf/open/floor/iron/white,
 /area/science/explab)
@@ -7521,17 +7491,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/item/xenoartifact,
-/obj/structure/rack,
-/obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "cdb" = (
@@ -9570,13 +9529,6 @@
 "cPF" = (
 /obj/machinery/airalarm/directional/south,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/landmark/event_spawn,
-/obj/effect/landmark/start/scientist,
 /turf/open/floor/iron/white,
 /area/science/explab)
 "cPS" = (
@@ -11370,20 +11322,6 @@
 /obj/item/paicard,
 /obj/item/book/manual/wiki/xenoarchaeology,
 /obj/structure/table,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/requests_console{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/item/paicard,
-/obj/item/book/manual/wiki/xenoarchaeology,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "dtW" = (
@@ -13140,12 +13078,6 @@
 	name = "Pugley XI";
 	real_name = "Pugley X"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/box/corners,
 /turf/open/floor/engine,
 /area/science/explab)
 "dYA" = (
@@ -16713,23 +16645,6 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/bombcloset,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/table/reinforced,
-/obj/item/healthanalyzer,
-/obj/item/storage/firstaid/regular{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 27
-	},
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "fkI" = (
@@ -17156,15 +17071,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/main)
-"fri" = (
-/obj/machinery/door/poddoor/preopen{
-	id = "testlab";
-	name = "test chamber blast door"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/engine,
-/area/science/explab)
 "frt" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -18962,6 +18868,13 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"fWL" = (
+/obj/item/radio/intercom{
+	pixel_x = 29;
+	pixel_y = -2
+	},
+/turf/open/floor/engine,
+/area/science/explab)
 "fXv" = (
 /obj/machinery/door/airlock/research{
 	name = "Mech Bay";
@@ -19542,12 +19455,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/closed/wall/r_wall,
+/turf/open/floor/engine,
 /area/science/explab)
 "ggr" = (
 /obj/structure/disposalpipe/segment,
@@ -21739,21 +21647,6 @@
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 1
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/camera/autoname{
-	dir = 4
-	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -24
-	},
-/obj/structure/chair/office/light{
-	dir = 1
-	},
 /turf/open/floor/iron/white,
 /area/science/explab)
 "gQn" = (
@@ -23252,17 +23145,6 @@
 "hpU" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/xenoarchaeology_machine/calibrator/tutorial,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/camera/autoname{
-	dir = 6
-	},
-/obj/effect/turf_decal/box/corners{
-	dir = 4
-	},
 /turf/open/floor/engine,
 /area/science/explab)
 "hqk" = (
@@ -23505,11 +23387,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/nanite)
-"hur" = (
-/obj/effect/turf_decal/caution,
-/obj/item/beacon,
-/turf/open/floor/engine,
-/area/science/explab)
 "huQ" = (
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
@@ -24240,12 +24117,6 @@
 	pixel_y = 8
 	},
 /obj/item/clothing/glasses/science,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "hGE" = (
@@ -24365,17 +24236,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engine_room)
-"hIx" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/xenoartifact_inbox,
-/obj/item/xenoartifact,
-/turf/open/floor/engine,
-/area/science/explab)
 "hIE" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -26163,16 +26023,6 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
-"ijW" = (
-/mob/living/simple_animal/pet/dog/pug{
-	density = 0;
-	dir = 8
-	},
-/obj/effect/turf_decal/box/corners{
-	dir = 8
-	},
-/turf/open/floor/engine,
-/area/science/explab)
 "ike" = (
 /obj/machinery/light{
 	dir = 1
@@ -34041,8 +33891,7 @@
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "kMs" = (
-/obj/structure/closet/bombcloset,
-/turf/open/floor/iron/dark,
+/turf/open/floor/plating,
 /area/science/explab)
 "kMC" = (
 /obj/structure/frame/machine,
@@ -34739,12 +34588,6 @@
 	},
 /turf/open/space/basic,
 /area/solar/port/aft)
-"kZn" = (
-/obj/effect/turf_decal/box/corners{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/science/explab)
 "kZD" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/item/clothing/head/collectable/kitty,
@@ -35221,7 +35064,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/bot,
-/turf/closed/wall/r_wall,
+/turf/open/floor/engine,
 /area/science/explab)
 "lhX" = (
 /obj/structure/closet/emcloset,
@@ -36296,21 +36139,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
-"lzd" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/status_display/evac{
-	pixel_x = 32
-	},
-/turf/open/floor/engine,
-/area/science/explab)
 "lzw" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -39104,16 +38932,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/landmark/event_spawn,
 /obj/machinery/holopad,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/white,
 /area/science/explab)
 "mqD" = (
@@ -41835,21 +41653,6 @@
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/light_switch{
-	pixel_x = 1;
-	pixel_y = 28
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
 	},
 /turf/open/floor/iron/white,
 /area/science/explab)
@@ -46314,11 +46117,11 @@
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
 "oEz" = (
+/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "testlab";
+	id = "telelab";
 	name = "test chamber blast door"
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/explab)
 "oED" = (
@@ -46663,14 +46466,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
-"oKZ" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Experimentation Chamber";
-	req_access_txt = "8";
-	security_level = 6
-	},
-/turf/open/floor/plating,
-/area/science/explab)
 "oLv" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -49305,14 +49100,6 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/iron/white,
 /area/science/explab)
 "pIk" = (
@@ -49925,17 +49712,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/landmark/start/scientist,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /turf/open/floor/iron/white,
 /area/science/explab)
 "pSi" = (
@@ -52336,11 +52112,8 @@
 	},
 /area/hallway/secondary/service)
 "qGp" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/status_display/ai{
-	pixel_x = -32
+/obj/machinery/camera/autoname{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/science/explab)
@@ -54496,13 +54269,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/atmospherics_engine)
-"rrh" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/structure/closet/radiation,
-/turf/open/floor/iron/dark,
-/area/science/explab)
 "rrv" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -58868,12 +58634,6 @@
 "sLf" = (
 /obj/effect/turf_decal/box,
 /obj/item/xenoartifact/tutorial,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/engine,
 /area/science/explab)
 "sLg" = (
@@ -59802,21 +59562,6 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/computer/xenoarchaeology_console,
 /obj/effect/turf_decal/bot,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/computer/xenoartifact_console,
-/obj/machinery/button/door{
-	id = "testlab";
-	name = "Test Chamber Blast Doors";
-	pixel_x = -24
-	},
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "tca" = (
@@ -62168,10 +61913,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
-"tRJ" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/dark,
-/area/science/explab)
 "tRP" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/effect/turf_decal/stripes/line{
@@ -65952,20 +65693,6 @@
 /obj/item/storage/firstaid/regular,
 /obj/item/clothing/neck/stethoscope,
 /obj/item/healthanalyzer,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/item/xenoartifact_labeler,
-/obj/item/xenoartifact_labeler{
-	pixel_x = -10
-	},
-/obj/item/clothing/gloves/artifact_pinchers,
-/obj/item/clothing/glasses/science,
-/obj/item/clothing/glasses/science,
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "vbv" = (
@@ -67361,11 +67088,6 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/xenoarchaeology_machine/conductor,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /turf/open/floor/engine,
 /area/science/explab)
 "vwV" = (
@@ -68270,9 +67992,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/maintenance/department/chapel/monastery)
-"vIA" = (
-/turf/open/floor/iron/dark,
-/area/science/explab)
 "vIW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -70570,20 +70289,7 @@
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 1
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/item/storage/toolbox/mechanical,
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "wyw" = (
 /obj/effect/turf_decal/stripes/line{
@@ -72348,14 +72054,6 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
-	},
 /turf/open/floor/iron/white,
 /area/science/explab)
 "xdc" = (
@@ -72753,7 +72451,7 @@
 "xkr" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/xenoarchaeology_machine/scale,
-/turf/closed/wall/r_wall,
+/turf/open/floor/engine,
 /area/science/explab)
 "xku" = (
 /obj/machinery/newscaster{
@@ -73989,17 +73687,6 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/iron/white,
 /area/science/explab)
 "xEN" = (
@@ -74399,18 +74086,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "xKq" = (
@@ -104162,9 +103837,9 @@ nvc
 mHr
 kIy
 xrJ
-kZn
+ejA
 sLf
-ijW
+ejA
 oEz
 tbS
 gPQ
@@ -104419,15 +104094,15 @@ iUv
 mHr
 kIy
 lWn
-bYS
-hIx
-hur
-fri
+ejA
+ejA
+ejA
+oEz
 hGA
 xcD
 xEE
 cda
-lWn
+nBB
 tNr
 gAn
 jpk
@@ -104679,7 +104354,7 @@ lWn
 hpU
 bHW
 dYw
-oEz
+lWn
 vbb
 bFF
 bhh
@@ -104934,14 +104609,14 @@ jvu
 ilJ
 lWn
 vwR
-lzd
+ejA
 igZ
 ggo
 wyu
 rrv
 pIg
 tUz
-nBB
+lWn
 tNr
 dgd
 dQJ
@@ -105191,7 +104866,7 @@ mHr
 kIy
 lWn
 xkr
-lWn
+fWL
 lhN
 lWn
 ngI
@@ -105446,16 +105121,16 @@ ipn
 gBc
 mHr
 kwc
-pOm
-cRG
-oKZ
-vIA
-tRJ
+yak
+yak
+lWn
+lWn
+lWn
 bZZ
 jbl
 ede
 cPF
-nBB
+lWn
 tNr
 awk
 pnr
@@ -105703,11 +105378,11 @@ ean
 tWI
 mHr
 gGZ
-nJu
-kIy
-lWn
+pOm
+cRG
 kMs
-rrh
+kMs
+lWn
 xKl
 vVG
 fkF
