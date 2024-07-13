@@ -32,7 +32,7 @@
 	card.forceMove(src)
 	if(client)
 		client.perspective = EYE_PERSPECTIVE
-		client.eye = src
+		client.set_eye(src)
 	set_light_on(FALSE)
 	icon_state = "[chassis]"
 	held_state = "[chassis]"
@@ -59,7 +59,7 @@
 		MH.release()
 	if(client)
 		client.perspective = EYE_PERSPECTIVE
-		client.eye = card
+		client.set_eye(card)
 	var/turf/T = drop_location()
 	card.forceMove(T)
 	forceMove(card)
