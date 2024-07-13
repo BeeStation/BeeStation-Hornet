@@ -33,6 +33,7 @@
 /datum/blood_type/o_minus
 	name = "O-"
 	compatible_types = list(/datum/blood_type/o_minus)
+	color = COLOR_BLOOD
 
 /datum/blood_type/o_plus
 	name = "O+"
@@ -52,13 +53,13 @@
 	color = "#009696"
 	compatible_types = list(/datum/blood_type/lizard)
 
-/datum/blood_type/elzuosa
+/datum/blood_type/ethereal
 	name = "E"
 	color = "#7fff7f"
-	compatible_types = list(/datum/blood_type/elzuosa)
+	compatible_types = list(/datum/blood_type/ethereal)
 
 /datum/blood_type/synthetic //Blood for synthetic/robotic species
-	name = "Oil Coolant"
+	name = "Coolant"
 	color = "#dddeff"
 	compatible_types = list(/datum/blood_type/synthetic)
 
