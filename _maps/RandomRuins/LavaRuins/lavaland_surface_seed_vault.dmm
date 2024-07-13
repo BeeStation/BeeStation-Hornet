@@ -21,20 +21,14 @@
 /obj/structure/fermenting_barrel,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"aI" = (
-/obj/effect/turf_decal/techfloor{
-	dir = 8
-	},
-/obj/machinery/button/door{
-	id = "lifebring1";
-	pixel_x = -25;
-	pixel_y = 25
-	},
-/turf/open/floor/grass,
-/area/ruin/powered/seedvault)
 "aY" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/button{
+	id = "lifebring";
+	pixel_x = 1;
+	pixel_y = -32
 	},
 /obj/machinery/light,
 /turf/open/floor/grass,
@@ -51,7 +45,7 @@
 	dir = 1
 	},
 /obj/machinery/door/poddoor{
-	id = "lifebring4"
+	id = "lifebring"
 	},
 /obj/structure/window/shuttle/survival_pod,
 /turf/open/floor/plating,
@@ -198,11 +192,6 @@
 	},
 /obj/structure/sign/warning/vacuum{
 	pixel_x = 33
-	},
-/obj/machinery/button/door{
-	id = "lifebring4";
-	pixel_y = -25;
-	pixel_x = 25
 	},
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
@@ -559,13 +548,6 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"yq" = (
-/obj/machinery/door/poddoor{
-	id = "lifebring1"
-	},
-/obj/structure/window/shuttle/survival_pod,
-/turf/open/floor/plating,
-/area/ruin/powered/seedvault)
 "yE" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -604,6 +586,11 @@
 "zb" = (
 /obj/effect/mob_spawn/human/seed_vault,
 /obj/effect/turf_decal/box,
+/obj/machinery/button{
+	id = "lifebring";
+	pixel_x = 32;
+	pixel_y = -1
+	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -757,13 +744,6 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"FJ" = (
-/obj/machinery/door/poddoor{
-	id = "lifebring2"
-	},
-/obj/structure/window/shuttle/survival_pod,
-/turf/open/floor/plating,
-/area/ruin/powered/seedvault)
 "FY" = (
 /turf/template_noop/closed,
 /area/lavaland/surface/outdoors)
@@ -881,13 +861,6 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"Kj" = (
-/obj/machinery/door/poddoor{
-	id = "lifebring5"
-	},
-/obj/structure/window/shuttle/survival_pod,
-/turf/open/floor/plating,
-/area/ruin/powered/seedvault)
 "KA" = (
 /obj/structure/railing{
 	dir = 1
@@ -951,11 +924,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/button/door{
-	id = "lifebring2";
-	pixel_x = 25;
-	pixel_y = 25
-	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "LG" = (
@@ -1017,14 +985,6 @@
 "Nn" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"Ns" = (
-/obj/machinery/button/door{
-	id = "lifebring3";
-	pixel_x = -25;
-	pixel_y = -25
-	},
-/turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "Ny" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -1233,7 +1193,7 @@
 /area/ruin/powered/seedvault)
 "Rh" = (
 /obj/machinery/door/poddoor{
-	id = "lifebring3"
+	id = "lifebring"
 	},
 /obj/structure/window/shuttle/survival_pod,
 /turf/open/floor/plating,
@@ -1450,6 +1410,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/button{
+	id = "lifebring";
+	pixel_y = 32
+	},
 /obj/structure/beebox/unwrenched,
 /turf/open/floor/pod/light,
 /area/ruin/powered/seedvault)
@@ -1465,11 +1429,6 @@
 /obj/structure/sign/warning/vacuum{
 	pixel_x = 33
 	},
-/obj/machinery/button/door{
-	id = "lifebring5";
-	pixel_y = 25;
-	pixel_x = 25
-	},
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 
@@ -1482,10 +1441,10 @@ ab
 ab
 FY
 FY
-yq
-yq
-yq
-yq
+Rh
+Rh
+Rh
+Rh
 FY
 FY
 ab
@@ -1504,10 +1463,10 @@ ab
 FY
 FY
 dM
-yq
+Rh
 wa
 Po
-yq
+Rh
 dM
 FY
 FY
@@ -1548,7 +1507,7 @@ dM
 MJ
 dM
 RA
-aI
+NH
 kb
 WD
 NH
@@ -1607,7 +1566,7 @@ FY
 "}
 (7,1,1) = {"
 FY
-FJ
+Rh
 fk
 NF
 mo
@@ -1623,13 +1582,13 @@ Zl
 hj
 iQ
 RR
-Ns
+bm
 Rh
 FY
 "}
 (8,1,1) = {"
 FY
-FJ
+Rh
 fk
 lF
 JD
@@ -1651,7 +1610,7 @@ FY
 "}
 (9,1,1) = {"
 FY
-FJ
+Rh
 zb
 Lp
 sn
@@ -1766,7 +1725,7 @@ de
 de
 MJ
 GC
-Kj
+Rh
 QK
 os
 Em
@@ -1788,14 +1747,14 @@ GC
 NL
 aj
 GC
-Kj
+Rh
 nO
 ZS
 Wr
 UL
 ja
 KJ
-ck
+Rh
 GC
 aj
 GC

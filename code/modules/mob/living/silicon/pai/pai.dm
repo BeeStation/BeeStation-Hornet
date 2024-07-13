@@ -220,9 +220,9 @@
 	notes_assets.send(client)
 	client.perspective = EYE_PERSPECTIVE
 	if(holoform)
-		client.set_eye(src)
+		client.eye = src
 	else
-		client.set_eye(card)
+		client.eye = card
 
 /mob/living/silicon/pai/get_stat_tab_status()
 	var/list/tab_data = ..()

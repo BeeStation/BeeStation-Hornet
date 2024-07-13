@@ -53,6 +53,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/captain,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/landmark/start/captain,
 /obj/machinery/light_switch{
 	pixel_x = 23
 	},
@@ -93,11 +94,7 @@
 	req_access = list(20);
 	name = "captain's locker"
 	},
-/obj/item/clothing/head/collectable/captain,
-/obj/item/toy/figure/captain{
-	pixel_x = 4;
-	pixel_y = -7
-	},
+/obj/effect/spawner/lootdrop/ruinloot/security,
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "G" = (

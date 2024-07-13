@@ -127,6 +127,3 @@
 
 	/// Whether or not this client has standard hotkeys enabled
 	var/hotkeys = TRUE
-
-	/// client/eye is immediately changed, and it makes a lot of errors to track eye change
-	var/datum/weakref/eye_weakref

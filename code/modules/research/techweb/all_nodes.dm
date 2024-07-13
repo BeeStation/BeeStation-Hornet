@@ -22,6 +22,7 @@
 		"design_disk",
 		"dest_tagger",
 		"destructive_analyzer",
+		"experimentor",
 		"fax",
 		"glasses_prescription",
 		"handlabel",

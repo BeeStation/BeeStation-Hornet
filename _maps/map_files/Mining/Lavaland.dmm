@@ -2186,13 +2186,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/living_quarters)
-"py" = (
-/obj/item/toy/plush/lizard_plushie{
-	pixel_x = 5;
-	name = "Walks-upon-Embers"
-	},
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "pz" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -3487,6 +3480,13 @@
 	},
 /turf/open/floor/wood,
 /area/mine/living_quarters)
+"zJ" = (
+/obj/item/toy/plush/lizard_plushie{
+	pixel_x = 5;
+	name = "Walks-upon-Embers"
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "zK" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -5314,6 +5314,11 @@
 /obj/machinery/light/small,
 /turf/open/floor/carpet/blue,
 /area/mine/living_quarters)
+"Nz" = (
+/obj/machinery/rnd/experimentor,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/engine,
+/area/mine/science)
 "NB" = (
 /obj/structure/camera_assembly{
 	dir = 6
@@ -36698,7 +36703,7 @@ Zd
 RR
 RR
 RR
-py
+zJ
 Zd
 RR
 RR
@@ -50312,7 +50317,7 @@ mp
 qy
 zA
 cE
-YW
+Nz
 mp
 Zd
 Zd

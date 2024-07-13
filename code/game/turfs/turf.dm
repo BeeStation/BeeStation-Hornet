@@ -352,7 +352,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
 		if(O.flags_1 & INITIALIZED_1)
-			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, underfloor_accessibility)
+			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, underfloor_accessibility < UNDERFLOOR_VISIBLE)
 
 // override for space turfs, since they should never hide anything
 /turf/open/space/levelupdate()
