@@ -99,7 +99,10 @@
 	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(BP.dmg_overlay_type && !BP.is_husked)
 			if(BP.brutestate)
-				damage_overlay.add_overlay("[BP.dmg_overlay_type]_[BP.body_zone]_[BP.brutestate]0")	//we're adding icon_states of the base image as overlays
+				var/image/brute_overlay = image('icons/mob/dam_mob.dmi', "[BP.dmg_overlay_type]_[BP.body_zone]_[BP.brutestate]0")
+				if(BP.use_damage_color)
+					brute_overlay.color = BP.damage_color
+				damage_overlay.add_overlay(brute_overlay)
 			if(BP.burnstate)
 				damage_overlay.add_overlay("[BP.dmg_overlay_type]_[BP.body_zone]_0[BP.burnstate]")
 

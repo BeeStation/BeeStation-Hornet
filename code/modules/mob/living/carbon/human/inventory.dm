@@ -145,7 +145,7 @@
 
 		// Send a signal for when we equip an item that used to cover our feet/shoes. Used for bloody feet
 		if((I.body_parts_covered & FEET) || (I.flags_inv | I.transparent_protection) & HIDESHOES)
-			SEND_SIGNAL(src, COMSIG_CARBON_EQUIP_SHOECOVER, I, slot, initial, redraw_mob)
+			SEND_SIGNAL(src, COMSIG_CARBON_EQUIP_SHOECOVER, I, slot, initial, redraw_mob, swap)
 
 	return not_handled //For future deeper overrides
 

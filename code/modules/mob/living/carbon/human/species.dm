@@ -73,6 +73,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// The body temperature limit the body can take before it starts taking damage from cold.
 	var/bodytemp_cold_damage_limit = BODYTEMP_COLD_DAMAGE_LIMIT
 
+	///Does our species have colors for its' damage overlays?
+	var/use_damage_color = TRUE
+
 	// species-only traits. Can be found in DNA.dm
 	var/list/species_traits = list()
 	// generic traits tied to having the species
@@ -425,7 +428,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	regenerate_organs(C,old_species)
 
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
-		C.dna.blood_type = exotic_bloodtype
+		C.dna.blood_type = get_blood_type(exotic_bloodtype)
 
 	if(old_species?.mutanthands)
 		for(var/obj/item/I in C.held_items)
@@ -726,7 +729,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		// blush
 		if (HAS_TRAIT(H, TRAIT_BLUSHING)) // Caused by either the *blush emote or the "drunk" mood event
 			var/mutable_appearance/blush_overlay = mutable_appearance('icons/mob/human_face.dmi', "blush", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER)) //should appear behind the eyes
-			blush_overlay.color = COLOR_BLUSH_PINK
+			if(H.dna && H.dna.species && H.dna.species.blush_color)
+				blush_overlay.color = H.dna.species.blush_color
 
 			if(OFFSET_FACE in H.dna.species.offset_features)
 				blush_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]

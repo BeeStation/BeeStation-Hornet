@@ -459,7 +459,7 @@ GENE SCANNER
 				if(H.bleed_rate)
 					message += "<span class='alert'><b>Subject is bleeding!</b></span>"
 			var/blood_percent =  round((C.blood_volume / BLOOD_VOLUME_NORMAL)*100)
-			var/blood_type = C.dna.blood_type
+			var/blood_type = C.dna.blood_type.name
 			if(blood_id != /datum/reagent/blood)//special blood substance
 				var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 				if(R)

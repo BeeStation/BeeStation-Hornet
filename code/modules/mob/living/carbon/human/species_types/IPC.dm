@@ -4,8 +4,26 @@
 	id = SPECIES_IPC
 	bodyflag = FLAG_IPC
 	sexes = FALSE
-	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH, MUTCOLORS)
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_EASYDISMEMBER,TRAIT_POWERHUNGRY,TRAIT_XENO_IMMUNE, TRAIT_TOXIMMUNE)
+	species_traits = list(
+		NOTRANSSTING,
+		NOEYESPRITES,
+		NO_DNA_COPY,
+		NOZOMBIE,
+		MUTCOLORS,
+		REVIVESBYHEALING,
+		NOHUSK,
+		NOMOUTH,
+	)
+	inherent_traits = list(
+		TRAIT_RESISTCOLD,
+		TRAIT_NOBREATH,
+		TRAIT_RADIMMUNE,
+		TRAIT_LIMBATTACHMENT,
+		TRAIT_EASYDISMEMBER,
+		TRAIT_POWERHUNGRY,
+		TRAIT_XENO_IMMUNE,
+		TRAIT_TOXIMMUNE
+	)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutant_brain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
@@ -19,7 +37,7 @@
 	default_features = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics (Custom)")
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
-	exotic_blood = /datum/reagent/oil
+	exotic_bloodtype = "Coolant"
 	damage_overlay_type = "synth"
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
 	default_features = list("ipc_screen" = "BSOD", "ipc_antenna" = "None")

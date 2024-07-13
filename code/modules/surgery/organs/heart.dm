@@ -17,9 +17,12 @@
 	var/beating = 1
 	var/icon_base = "heart"
 	attack_verb = list("beat", "thumped")
-	var/beat = BEAT_NONE//is this mob having a heatbeat sound played? if so, which?
-	var/failed = FALSE		//to prevent constantly running failing code
-	var/operated = FALSE	//whether the heart's been operated on to fix some of its damages
+	//is this mob having a heatbeat sound played? if so, which?
+	var/beat = BEAT_NONE
+	//to prevent constantly running failing code
+	var/failed = FALSE
+	//whether the heart's been operated on to fix some of its damages
+	var/operated = FALSE
 
 /obj/item/organ/heart/update_icon()
 	if(beating)
@@ -179,6 +182,12 @@
 	var/dose_available = TRUE
 	var/rid = /datum/reagent/medicine/epinephrine
 	var/ramount = 10
+
+/obj/item/organ/heart/cybernetic/ipc //this sucks
+	name = "coolant pump"
+	desc = "A small pump powered by the IPC's internal systems for circulating coolant."
+	status = ORGAN_ROBOTIC
+	emp_vulnerability = 30
 
 /obj/item/organ/heart/cybernetic/emp_act()
 	. = ..()
