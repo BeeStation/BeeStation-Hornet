@@ -763,10 +763,6 @@
 	dir = 1
 	},
 /area/hallway/secondary/exit/departure_lounge)
-"amE" = (
-/obj/structure/lattice/catwalk,
-/turf/open/floor/plating,
-/area/space/nearstation)
 "amY" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
@@ -3616,13 +3612,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/robotics)
-"bjk" = (
-/obj/machinery/atmospherics/pipe/simple/yellow/visible{
-	dir = 4
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/floor/plating,
-/area/space/nearstation)
 "bjv" = (
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -23621,7 +23610,7 @@
 /area/engine/engine_room)
 "hlX" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
-/turf/open/floor/engine/n2,
+/turf/open/floor/engine/vacuum,
 /area/engine/atmos)
 "hmg" = (
 /obj/structure/railing/corner,
@@ -59763,7 +59752,7 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 10
 	},
-/turf/open/floor/plating,
+/turf/open/space/basic,
 /area/space/nearstation)
 "sKy" = (
 /obj/structure/window/reinforced{
@@ -64536,7 +64525,7 @@
 "ufa" = (
 /obj/machinery/atmospherics/pipe/manifold4w/green/visible,
 /obj/structure/lattice/catwalk,
-/turf/open/floor/plating,
+/turf/open/space/basic,
 /area/space/nearstation)
 "uff" = (
 /obj/effect/turf_decal/bot,
@@ -65131,7 +65120,7 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/floor/plating,
+/turf/open/space/basic,
 /area/space/nearstation)
 "uox" = (
 /obj/structure/lattice/catwalk,
@@ -65189,7 +65178,7 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/floor/plating,
+/turf/open/space/basic,
 /area/space/nearstation)
 "upD" = (
 /obj/structure/table,
@@ -67721,7 +67710,7 @@
 	dir = 9
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/floor/plating,
+/turf/open/space/basic,
 /area/space/nearstation)
 "vfY" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -118676,15 +118665,15 @@ uor
 sKs
 ufa
 vfW
-bjk
-amE
+dUp
+jGx
 upx
-amE
-bjk
-amE
+jGx
+dUp
+jGx
 upx
-amE
-amE
+jGx
+jGx
 jGx
 bhN
 gsA
