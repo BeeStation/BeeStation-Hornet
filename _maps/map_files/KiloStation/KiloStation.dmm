@@ -29462,11 +29462,6 @@
 /turf/open/floor/iron/dark,
 /area/construction/mining/aux_base)
 "djL" = (
-/obj/effect/landmark/event_spawn,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -32313,14 +32308,7 @@
 /obj/machinery/computer{
 	dir = 4
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/bot,
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/science/explab)
@@ -35409,19 +35397,6 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
-"fhX" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "telelab";
-	name = "Test Chamber Blast Door"
-	},
-/obj/structure/barricade/wooden/crude,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/closed/wall/r_wall/rust,
-/area/science/explab)
 "fia" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 5
@@ -71136,19 +71111,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/department/science)
-"rfM" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "telelab";
-	name = "Test Chamber Blast Door"
-	},
-/obj/structure/barricade/wooden/crude,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/closed/wall/r_wall,
-/area/science/explab)
 "rfO" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/delivery,
@@ -75926,9 +75888,6 @@
 /turf/open/floor/iron/showroomfloor,
 /area/science/explab)
 "sPl" = (
-/obj/machinery/status_display/ai{
-	pixel_x = -32
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -92247,24 +92206,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/main)
-"ygh" = (
-/obj/machinery/atmospherics/pipe/simple/general/visible{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/heavy,
-/obj/machinery/door/poddoor/preopen{
-	id = "telelab";
-	name = "Test Chamber Blast Door"
-	},
-/obj/effect/turf_decal/caution/stand_clear,
-/obj/structure/barricade/wooden,
-/obj/structure/barricade/wooden/crude,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/closed/wall/r_wall,
-/area/science/explab)
 "ygm" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -129560,9 +129501,9 @@ alB
 nHp
 apT
 aWY
-rfM
-ygh
-fhX
+aWY
+aWY
+aXk
 aZS
 bai
 bah
