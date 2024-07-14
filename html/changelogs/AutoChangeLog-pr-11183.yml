@@ -1,4 +1,0 @@
-author: rkz
-delete-after: true
-changes:
-  - bugfix: fix tile sprites for white & textured tiles
