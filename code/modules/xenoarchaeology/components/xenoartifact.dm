@@ -404,7 +404,7 @@
 /datum/beam/xenoa_beam/redrawing(atom/movable/mover, atom/oldloc, direction)
 	//Add a custom check to stop the beam shooting off into infinity, artifact traits fuck with default beam stuff
 	if(!isturf(target?.loc) || oldloc?.z != target?.z)
-		target =  get_turf(oldloc)
-		if(!target)
-			qdel(src)
+		target = get_turf(oldloc)
+	if(!target)
+		qdel(src)
 	return ..()

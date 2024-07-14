@@ -90,6 +90,35 @@ SUBSYSTEM_DEF(xenoarchaeology)
 /datum/controller/subsystem/xenoarchaeology/Shutdown()
 	. = ..()
 
+/datum/controller/subsystem/xenoarchaeology/Recover()
+	. = ..()
+	xenoa_seller_names = SSxenoarchaeology.xenoa_seller_names
+	xenoa_seller_dialogue = SSxenoarchaeology.xenoa_seller_dialogue
+	xenoa_artifact_names = SSxenoarchaeology.xenoa_artifact_names
+
+	xenoa_activators = SSxenoarchaeology.xenoa_activators
+	xenoa_minors = SSxenoarchaeology.xenoa_minors
+	xenoa_majors = SSxenoarchaeology.xenoa_majors
+	xenoa_malfunctions = SSxenoarchaeology.xenoa_malfunctions
+	xenoa_all_traits = SSxenoarchaeology.xenoa_all_traits
+	xenoa_all_traits_keyed = SSxenoarchaeology.xenoa_all_traits_keyed
+
+	xenoa_bluespace_traits = SSxenoarchaeology.xenoa_bluespace_traits
+	xenoa_plasma_traits = SSxenoarchaeology.xenoa_plasma_traits
+	xenoa_uranium_traits = SSxenoarchaeology.xenoa_uranium_traits
+	xenoa_bananium_traits = SSxenoarchaeology.xenoa_bananium_traits
+	xenoa_pearl_traits = SSxenoarchaeology.xenoa_pearl_traits
+
+	xenoa_item_incompatible = SSxenoarchaeology.xenoa_item_incompatible
+	xenoa_mob_incompatible = SSxenoarchaeology.xenoa_mob_incompatible
+	xenoa_structure_incompatible = SSxenoarchaeology.xenoa_structure_incompatible
+
+	labeler_activator_traits = SSxenoarchaeology.labeler_activator_traits
+	labeler_minor_traits = SSxenoarchaeology.labeler_minor_traits
+	labeler_major_traits = SSxenoarchaeology.labeler_major_traits
+	labeler_malfunction_traits = SSxenoarchaeology.labeler_malfunction_traits
+	labeler_traits_filter = SSxenoarchaeology.labeler_traits_filter
+
 /datum/controller/subsystem/xenoarchaeology/proc/register_console(var/obj/machinery/computer/xenoarchaeology_console/new_console)
 	if(main_console)
 		main_console.main_console = FALSE
