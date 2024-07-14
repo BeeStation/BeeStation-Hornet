@@ -1,0 +1,4 @@
+author: rkz, Mothblocks
+delete-after: true
+changes:
+  - code_imp: genericized disarm code for humanoids/monkeys

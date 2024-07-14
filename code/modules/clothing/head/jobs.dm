@@ -430,6 +430,16 @@
 	armor = list(melee = 50, bullet = 30, laser = 20, energy = 30, bomb = 15, bio = 10, rad = 10, fire = 10, acid = 60, stamina = 40, BLEED = 20)
 	strip_delay = 90
 
+
+//CentCom
+/obj/item/clothing/head/beret/centcom_formal
+	name = "\improper CentCom Formal Beret"
+	desc = "Sometimes, a compromise between fashion and defense needs to be made. Thanks to Nanotrasen's most recent nano-fabric durability enhancements, this time, it's not the case."
+	icon_state = "beret_badge"
+	greyscale_colors = "#46b946#f2c42e"
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, FIRE = 100, ACID = 90)
+	strip_delay = 10 SECONDS
+
 #undef DRILL_DEFAULT
 #undef DRILL_SHOUTING
 #undef DRILL_YELLING
