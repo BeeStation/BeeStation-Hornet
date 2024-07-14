@@ -1,6 +1,0 @@
-author: rkz, Ghom, TemporalOroboros
-delete-after: true
-changes:
-  - rscadd: Basematerials alloy support (plasteel, plasmaglass, plastitanium, etc.)
-  - rscadd: plasteel basestructures apply slowdown based on material unit
-  - rscadd: alien alloy basestructures now have self-healing properties
