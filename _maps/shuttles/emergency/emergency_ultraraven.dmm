@@ -1408,7 +1408,6 @@
 	name = "Cockpit Blast Door"
 	},
 /obj/machinery/door/firedoor/window,
-/obj/machinery/door/firedoor,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/escape)
 "Gd" = (
