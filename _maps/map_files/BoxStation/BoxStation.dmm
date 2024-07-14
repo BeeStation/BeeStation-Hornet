@@ -7241,10 +7241,11 @@
 /obj/machinery/button/door{
 	desc = "A remote control switch for the medbay foyer.";
 	id = "MedbayFoyer";
-	name = s;
+	name = "Medbay Left Doors Control";
 	normaldoorcontrol = 1;
 	pixel_x = 25;
-	pixel_y = -24
+	pixel_y = -24;
+	req_access_txt = "5"
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/machinery/button/door{
