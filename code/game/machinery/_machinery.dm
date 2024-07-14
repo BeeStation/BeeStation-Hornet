@@ -1,84 +1,89 @@
-/*
-Overview:
-   Used to create objects that need a per step proc call.  Default definition of 'Initialize()'
-   stores a reference to src machine in global 'machines list'.  Default definition
-   of 'Destroy' removes reference to src machine in global 'machines list'.
-
-Class Variables:
-   use_power (num)
-      current state of auto power use.
-      Possible Values:
-         NO_POWER_USE -- no auto power use
-         IDLE_POWER_USE -- machine is using power at its idle power level
-         ACTIVE_POWER_USE -- machine is using power at its active power level
-
-   active_power_usage (num)
-      Value for the amount of power to use when in active power mode
-
-   idle_power_usage (num)
-      Value for the amount of power to use when in idle power mode
-
-   power_channel (num)
-      What channel to draw from when drawing power for power mode
-      Possible Values:
-         AREA_USAGE_EQUIP:0 -- Equipment Channel
-         AREA_USAGE_LIGHT:2 -- Lighting Channel
-         AREA_USAGE_ENVIRON:3 -- Environment Channel
-
-   component_parts (list)
-      A list of component parts of machine used by frame based machines.
-
-   machine_stat (bitflag)
-      Machine status bit flags.
-      Possible bit flags:
-         BROKEN -- Machine is broken
-         NOPOWER -- No power is being supplied to machine.
-         MAINT -- machine is currently under going maintenance.
-         EMPED -- temporary broken by EMP pulse
-
-Class Procs:
-   Initialize()                     'game/machinery/machine.dm'
-
-   Destroy()                   'game/machinery/machine.dm'
-
-   auto_use_power()            'game/machinery/machine.dm'
-      This proc determines how power mode power is deducted by the machine.
-      'auto_use_power()' is called by the 'master_controller' game_controller every
-      tick.
-
-      Return Value:
-         return:1 -- if object is powered
-         return:0 -- if object is not powered.
-
-      Default definition uses 'use_power', 'power_channel', 'active_power_usage',
-      'idle_power_usage', 'powered()', and 'use_power()' implement behavior.
-
-   powered(chan = -1)         'modules/power/power.dm'
-      Checks to see if area that contains the object has power available for power
-      channel given in 'chan'. -1 defaults to power_channel
-
-   use_power(amount, chan=-1)   'modules/power/power.dm'
-      Deducts 'amount' from the power channel 'chan' of the area that contains the object.
-
-   power_change()               'modules/power/power.dm'
-      Called by the area that contains the object when ever that area under goes a
-      power state change (area runs out of power, or area channel is turned off).
-
-   RefreshParts()               'game/machinery/machine.dm'
-      Called to refresh the variables in the machine that are contributed to by parts
-      contained in the component_parts list. (example: glass and material amounts for
-      the autolathe)
-
-      Default definition does nothing.
-
-   process()                  'game/machinery/machine.dm'
-      Called by the 'machinery subsystem' once per machinery tick for each machine that is listed in its 'machines' list.
-
-   process_atmos()
-      Called by the 'air subsystem' once per atmos tick for each machine that is listed in its 'atmos_machines' list.
-
-	Compiled by Aygar
-*/
+/**
+ * Machines in the world, such as computers, pipes, and airlocks.
+ *
+ *Overview:
+ *  Used to create objects that need a per step proc call.  Default definition of 'Initialize()'
+ *  stores a reference to src machine in global 'machines list'.  Default definition
+ *  of 'Destroy' removes reference to src machine in global 'machines list'.
+ *
+ *Class Variables:
+ *  use_power (num)
+ *     current state of auto power use.
+ *     Possible Values:
+ *        NO_POWER_USE -- no auto power use
+ *        IDLE_POWER_USE -- machine is using power at its idle power level
+ *        ACTIVE_POWER_USE -- machine is using power at its active power level
+ *
+ *  active_power_usage (num)
+ *     Value for the amount of power to use when in active power mode
+ *
+ *  idle_power_usage (num)
+ *     Value for the amount of power to use when in idle power mode
+ *
+ *  power_channel (num)
+ *     What channel to draw from when drawing power for power mode
+ *     Possible Values:
+ *        AREA_USAGE_EQUIP:1 -- Equipment Channel
+ *        AREA_USAGE_LIGHT:2 -- Lighting Channel
+ *        AREA_USAGE_ENVIRON:3 -- Environment Channel
+ *
+ *  component_parts (list)
+ *     A list of component parts of machine used by frame based machines.
+ *
+ *  machine_stat (bitflag)
+ *     Machine status bit flags.
+ *     Possible bit flags:
+ *        BROKEN -- Machine is broken
+ *        NOPOWER -- No power is being supplied to machine.
+ *        MAINT -- machine is currently under going maintenance.
+ *        EMPED -- temporary broken by EMP pulse
+ *
+ *Class Procs:
+ *  Initialize()
+ *
+ *  Destroy()
+ *
+ *	update_mode_power_usage()
+ *		updates the static_power_usage var of this machine and makes its static power usage from its area accurate.
+ *		called after the idle or active power usage has been changed.
+ *
+ *	update_power_channel()
+ *		updates the static_power_usage var of this machine and makes its static power usage from its area accurate.
+ *		called after the power_channel var has been changed or called to change the var itself.
+ *
+ *	unset_static_power()
+ *		completely removes the current static power usage of this machine from its area.
+ *		used in the other power updating procs to then readd the correct power usage.
+ *
+ *
+ *     Default definition uses 'use_power', 'power_channel', 'active_power_usage',
+ *     'idle_power_usage', 'powered()', and 'use_power()' implement behavior.
+ *
+ *  powered(chan = -1)         'modules/power/power.dm'
+ *     Checks to see if area that contains the object has power available for power
+ *     channel given in 'chan'. -1 defaults to power_channel
+ *
+ *  use_power(amount, chan=-1)   'modules/power/power.dm'
+ *     Deducts 'amount' from the power channel 'chan' of the area that contains the object.
+ *
+ *  power_change()               'modules/power/power.dm'
+ *     Called by the area that contains the object when ever that area under goes a
+ *     power state change (area runs out of power, or area channel is turned off).
+ *
+ *  RefreshParts()               'game/machinery/machine.dm'
+ *     Called to refresh the variables in the machine that are contributed to by parts
+ *     contained in the component_parts list. (example: glass and material amounts for
+ *     the autolathe)
+ *
+ *     Default definition does nothing.
+ *
+ *  process()                  'game/machinery/machine.dm'
+ *     Called by the 'machinery subsystem' once per machinery tick for each machine that is listed in its 'machines' list.
+ *
+ *  process_atmos()
+ *     Called by the 'air subsystem' once per atmos tick for each machine that is listed in its 'atmos_machines' list.
+ * Compiled by Aygar
+ */
 
 /obj/machinery
 	name = "machinery"
@@ -98,11 +103,16 @@ Class Procs:
 
 	var/machine_stat = NONE
 	var/use_power = IDLE_POWER_USE
-		//0 = dont run the auto
-		//1 = run auto, use idle
-		//2 = run auto, use active
+		//0 = dont use power
+		//1 = use idle_power_usage
+		//2 = use active_power_usage
+	///the amount of static power load this machine adds to its area's power_usage list when use_power = IDLE_POWER_USE
 	var/idle_power_usage = 0
+	///the amount of static power load this machine adds to its area's power_usage list when use_power = ACTIVE_POWER_USE
 	var/active_power_usage = 0
+	///the current amount of static power usage this machine is taking from its area
+	var/static_power_usage = 0
+
 	var/power_channel = AREA_USAGE_EQUIP
 		//AREA_USAGE_EQUIP,AREA_USAGE_ENVIRON or AREA_USAGE_LIGHT
 		///A combination of factors such as having power, not being broken and so on. Boolean.
@@ -166,6 +176,63 @@ Class Procs:
 
 	return INITIALIZE_HINT_LATELOAD
 
+/obj/machinery/LateInitialize()
+	. = ..()
+	power_change()
+	if(use_power == NO_POWER_USE)
+		return
+
+	update_current_power_usage()
+	setup_area_power_relationship()
+
+/obj/machinery/Destroy()
+	GLOB.machines.Remove(src)
+	end_processing()
+	dump_inventory_contents()
+	QDEL_LIST(component_parts)
+	QDEL_NULL(circuit)
+	unset_static_power()
+	return ..()
+
+/**
+ * proc to call when the machine starts to require power after a duration of not requiring power
+ * sets up power related connections to its area if it exists and becomes area sensitive
+ * does not affect power usage itself
+ */
+/obj/machinery/proc/setup_area_power_relationship()
+	become_area_sensitive(INNATE_TRAIT)
+
+	var/area/our_area = get_area(src)
+	if(our_area)
+		RegisterSignal(our_area, COMSIG_AREA_POWER_CHANGE, .proc/power_change)
+	RegisterSignal(src, COMSIG_ENTER_AREA, .proc/on_enter_area)
+	RegisterSignal(src, COMSIG_EXIT_AREA, .proc/on_exit_area)
+
+/**
+ * proc to call when the machine stops requiring power after a duration of requiring power
+ * saves memory by removing the power relationship with its area if it exists and loses area sensitivity
+ * does not affect power usage itself
+ */
+/obj/machinery/proc/remove_area_power_relationship()
+	var/area/our_area = get_area(src)
+	if(our_area)
+		UnregisterSignal(our_area, COMSIG_AREA_POWER_CHANGE)
+
+	REMOVE_TRAIT(src, TRAIT_AREA_SENSITIVE, INNATE_TRAIT)
+	UnregisterSignal(src, COMSIG_ENTER_AREA)
+	UnregisterSignal(src, COMSIG_EXIT_AREA)
+
+/obj/machinery/proc/on_enter_area(datum/source, area/area_to_register)
+	SIGNAL_HANDLER
+	update_current_power_usage()
+	power_change()
+	RegisterSignal(area_to_register, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_change))
+
+/obj/machinery/proc/on_exit_area(datum/source, area/area_to_unregister)
+	SIGNAL_HANDLER
+	unset_static_power()
+	UnregisterSignal(area_to_unregister, COMSIG_AREA_POWER_CHANGE)
+
 /obj/machinery/proc/set_occupant(atom/movable/new_occupant)
 	SHOULD_CALL_PARENT(TRUE)
 
@@ -181,20 +248,6 @@ Class Procs:
 /obj/machinery/proc/end_processing()
 	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
 	STOP_PROCESSING(subsystem, src)
-
-/obj/machinery/LateInitialize()
-	. = ..()
-	power_change()
-	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(power_change))
-
-/obj/machinery/Destroy()
-	GLOB.machines.Remove(src)
-	if(datum_flags & DF_ISPROCESSING) // A sizeable portion of machines stops processing before qdel
-		end_processing()
-	dump_inventory_contents()
-	QDEL_LIST(component_parts)
-	QDEL_NULL(circuit)
-	return ..()
 
 /obj/machinery/proc/locate_machinery()
 	return
@@ -213,10 +266,12 @@ Class Procs:
 
 ///Called when the value of `machine_stat` changes, so we can react to it.
 /obj/machinery/proc/on_set_machine_stat(old_value)
-	if(old_value & (NOPOWER|BROKEN|MAINT))
-		if(!(machine_stat & (NOPOWER|BROKEN|MAINT))) //From off to on.
-			set_is_operational(TRUE)
-	else if(machine_stat & (NOPOWER|BROKEN|MAINT)) //From on to off.
+	//From off to on.
+	if((old_value & (NOPOWER|BROKEN|MAINT)) && !(machine_stat & (NOPOWER|BROKEN|MAINT)))
+		set_is_operational(TRUE)
+		return
+	//From on to off.
+	if(machine_stat & (NOPOWER|BROKEN|MAINT))
 		set_is_operational(FALSE)
 
 /obj/machinery/emp_act(severity)
@@ -295,7 +350,7 @@ Class Procs:
 			living_mob.update_mobility()
 
 		if(occupant == movable_atom)
-			occupant = null
+			set_occupant(null)
 
 /**
  * Puts passed object in to user's hand
@@ -339,14 +394,119 @@ Class Procs:
 	update_icon()
 	ui_update()
 
-/obj/machinery/proc/auto_use_power()
-	if(!powered(power_channel))
-		return 0
-	if(use_power == 1)
-		use_power(idle_power_usage,power_channel)
-	else if(use_power >= 2)
-		use_power(active_power_usage,power_channel)
-	return 1
+///updates the use_power var for this machine and updates its static power usage from its area to reflect the new value
+/obj/machinery/proc/update_use_power(new_use_power)
+	SHOULD_CALL_PARENT(TRUE)
+	if(new_use_power == use_power)
+		return FALSE
+
+	unset_static_power()
+
+	var/new_usage = 0
+	switch(new_use_power)
+		if(IDLE_POWER_USE)
+			new_usage = idle_power_usage
+		if(ACTIVE_POWER_USE)
+			new_usage = active_power_usage
+
+	if(use_power == NO_POWER_USE)
+		setup_area_power_relationship()
+	else if(new_use_power == NO_POWER_USE)
+		remove_area_power_relationship()
+
+	static_power_usage = new_usage
+
+	if(new_usage)
+		var/area/our_area = get_area(src)
+		our_area?.addStaticPower(new_usage, DYNAMIC_TO_STATIC_CHANNEL(power_channel))
+
+	use_power = new_use_power
+
+	return TRUE
+
+///updates the power channel this machine uses. removes the static power usage from the old channel and readds it to the new channel
+/obj/machinery/proc/update_power_channel(new_power_channel)
+	SHOULD_CALL_PARENT(TRUE)
+	if(new_power_channel == power_channel)
+		return FALSE
+
+	var/usage = unset_static_power()
+
+	var/area/our_area = get_area(src)
+
+	if(our_area && usage)
+		our_area.addStaticPower(usage, DYNAMIC_TO_STATIC_CHANNEL(new_power_channel))
+
+	power_channel = new_power_channel
+
+	return TRUE
+
+///internal proc that removes all static power usage from the current area
+/obj/machinery/proc/unset_static_power()
+	SHOULD_NOT_OVERRIDE(TRUE)
+	var/old_usage = static_power_usage
+
+	var/area/our_area = get_area(src)
+
+	if(our_area && old_usage)
+		our_area.removeStaticPower(old_usage, DYNAMIC_TO_STATIC_CHANNEL(power_channel))
+		static_power_usage = 0
+
+	return old_usage
+
+/**
+ * sets the power_usage linked to the specified use_power_mode to new_usage
+ * e.g. update_mode_power_usage(ACTIVE_POWER_USE, 10) sets active_power_use = 10 and updates its power draw from the machines area if use_power == ACTIVE_POWER_USE
+ *
+ * Arguments:
+ * * use_power_mode - the use_power power mode to change. if IDLE_POWER_USE changes idle_power_usage, ACTIVE_POWER_USE changes active_power_usage
+ * * new_usage - the new value to set the specified power mode var to
+ */
+/obj/machinery/proc/update_mode_power_usage(use_power_mode, new_usage)
+	SHOULD_CALL_PARENT(TRUE)
+	if(use_power_mode == NO_POWER_USE)
+		stack_trace("trying to set the power usage associated with NO_POWER_USE in update_mode_power_usage()!")
+		return FALSE
+
+	unset_static_power() //completely remove our static_power_usage from our area, then readd new_usage
+
+	switch(use_power_mode)
+		if(IDLE_POWER_USE)
+			idle_power_usage = new_usage
+		if(ACTIVE_POWER_USE)
+			active_power_usage = new_usage
+
+	if(use_power_mode == use_power)
+		static_power_usage = new_usage
+
+	var/area/our_area = get_area(src)
+
+	if(our_area)
+		our_area.addStaticPower(static_power_usage, DYNAMIC_TO_STATIC_CHANNEL(power_channel))
+
+	return TRUE
+
+///makes this machine draw power from its area according to which use_power mode it is set to
+/obj/machinery/proc/update_current_power_usage()
+	if(static_power_usage)
+		unset_static_power()
+
+	var/area/our_area = get_area(src)
+	if(!our_area)
+		return FALSE
+
+	switch(use_power)
+		if(IDLE_POWER_USE)
+			static_power_usage = idle_power_usage
+		if(ACTIVE_POWER_USE)
+			static_power_usage = active_power_usage
+		if(NO_POWER_USE)
+			return
+
+	if(static_power_usage)
+		our_area.addStaticPower(static_power_usage, DYNAMIC_TO_STATIC_CHANNEL(power_channel))
+
+	return TRUE
 
 ///Called when we want to change the value of the `is_operational` variable. Boolean.
 /obj/machinery/proc/set_is_operational(new_value)
@@ -582,7 +742,7 @@ Class Procs:
 
 /obj/machinery/run_obj_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
-		return 0
+		return FALSE
 	return ..()
 
 /obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
@@ -596,8 +756,8 @@ Class Procs:
 			panel_open = FALSE
 			icon_state = icon_state_closed
 			to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /**
  * * turns: The amount of times to turn -90 degrees. Pointless to set this to anything above 4
@@ -608,8 +768,8 @@ Class Procs:
 		I.play_tool_sound(src, 50)
 		setDir(turn(dir,turns))
 		to_chat(user, "<span class='notice'>You rotate [src].</span>")
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/proc/can_be_unfasten_wrench(mob/user, silent) //if we can unwrench this object; returns SUCCESSFUL_UNFASTEN and FAILED_UNFASTEN, which are both TRUE, or CANT_UNFASTEN, which isn't.
 	if(!(isfloorturf(loc) || istype(loc, /turf/open/indestructible)) && !anchored)

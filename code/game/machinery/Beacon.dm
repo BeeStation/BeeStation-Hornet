@@ -3,9 +3,9 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "floor_beaconf"
 	name = "bluespace gigabeacon"
-	desc = "A device that draws power from bluespace and creates a permanent tracking beacon."
+	desc = "A self-powered device that draws power from bluespace and creates a permanent tracking beacon."
 	layer = LOW_OBJ_LAYER
-	use_power = IDLE_POWER_USE
+	use_power = NO_POWER_USE //The gigabeacon should not fail if there's no power around!
 	idle_power_usage = 0
 	var/obj/item/beacon/Beacon
 
