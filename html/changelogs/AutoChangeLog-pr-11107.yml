@@ -1,0 +1,14 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Revs no longer block the shuttle
+  - balance: Revs no longer have a deconversion message
+  - balance: Lawyers and HOPs can now deconvert people by using a space law book on
+      them. If the lawyer is a revolutionary, then they will use this to convert people
+      instead.
+  - balance: Revs no longer have objectives to kill all the heads of staff, instead
+      its a soft objective to establish a new command structure which works the same
+      way but doesn't really matter if someone fucks off to space since it won't affect
+      if you win or lose
+  - balance: Revs no longer ends when all the heads of either side are killed
+  - balance: Completely removes the midround rev ruleset cause its just stupid
