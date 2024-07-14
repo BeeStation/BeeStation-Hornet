@@ -61043,7 +61043,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Theatre Maintenance";
-	req_access_txt = ssxs
+	req_access_txt = "46"
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/theatre/backstage)
