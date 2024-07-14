@@ -953,6 +953,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "wE" = (
@@ -1433,6 +1434,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "GI" = (
@@ -1821,6 +1823,10 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"Rq" = (
+/obj/machinery/door/firedoor,
+/turf/template_noop,
+/area/template_noop)
 "Rw" = (
 /obj/effect/turf_decal/raven/four,
 /obj/effect/turf_decal/tile/dark_blue/diagonal_edge,
@@ -2092,7 +2098,7 @@ aa
 aa
 aa
 aa
-aa
+Rq
 aa
 aa
 aa
