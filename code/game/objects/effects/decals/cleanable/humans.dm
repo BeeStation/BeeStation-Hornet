@@ -100,6 +100,11 @@
 	random_icon_states = null
 	var/list/existing_dirs = list()
 
+/obj/effect/decal/cleanable/blood/trail_holder/glowy
+	light_power = 0.5
+	light_range = 0.25
+	light_color = "#7fff7f"
+
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
 	desc = "They look bloody and gruesome."

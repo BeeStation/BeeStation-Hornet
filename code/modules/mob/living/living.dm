@@ -730,6 +730,7 @@
 	if(!has_gravity() || (movement_type & THROWN))
 		return
 	var/blood_exists = locate(/obj/effect/decal/cleanable/blood/trail_holder) in start
+	var/mob/living/carbon/human/humanoid = src
 
 	if(isturf(start))
 		var/trail_type = getTrail()
@@ -747,7 +748,12 @@
 				if((newdir in GLOB.cardinals) && (prob(50)))
 					newdir = turn(get_dir(target_turf, start), 180)
 				if(!blood_exists)
-					new /obj/effect/decal/cleanable/blood/trail_holder(start, get_static_viruses())
+					//Snowflake to make ethereal blood glow
+					if(isethereal(humanoid))
+						new /obj/effect/decal/cleanable/blood/trail_holder/glowy(start, get_static_viruses())
+					else
+						new /obj/effect/decal/cleanable/blood/trail_holder(start, get_static_viruses())
+
 
 				for(var/obj/effect/decal/cleanable/blood/trail_holder/TH in start)
 					if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)

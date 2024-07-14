@@ -139,7 +139,7 @@
 				var/splatter_color = null
 				if(iscarbon(target))
 					var/mob/living/carbon/carbon_target = target
-					splatter_color = carbon_target.dna.blood_type.color
+					splatter_color = carbon_target.dna.blood_type.blood_color
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target.drop_location(), splatter_dir, splatter_color)
 
 		//organs go everywhere

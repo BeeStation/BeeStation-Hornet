@@ -40,7 +40,7 @@
 		SetViruses(src, data)
 		var/datum/blood_type/blood_type = data["blood_type"]
 		if(blood_type)
-			color = blood_type.color
+			color = blood_type.blood_color
 
 /datum/reagent/blood/on_merge(list/mix_data)
 	if(data && mix_data)

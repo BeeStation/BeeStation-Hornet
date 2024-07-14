@@ -248,7 +248,7 @@
 				var/splatter_color = null
 				if(iscarbon(L))
 					var/mob/living/carbon/carbon_target = L
-					splatter_color = carbon_target.dna.blood_type.color
+					splatter_color = carbon_target.dna.blood_type.blood_color
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, splatter_color)
 			if(prob(33))
 				L.add_splatter_floor(target_loca)

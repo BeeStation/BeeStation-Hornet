@@ -102,7 +102,7 @@
 				var/image/brute_overlay = image('icons/mob/dam_mob.dmi', "[BP.dmg_overlay_type]_[BP.body_zone]_[BP.brutestate]0")
 				if(BP.use_damage_color && !(NOBLOOD in src.dna.species.species_traits))
 					//Set damage_color to species blood color
-					BP.damage_color = src.dna.blood_type.color
+					BP.damage_color = src.dna.blood_type.blood_color
 					brute_overlay.color = BP.damage_color
 				damage_overlay.add_overlay(brute_overlay)
 			if(BP.burnstate)
