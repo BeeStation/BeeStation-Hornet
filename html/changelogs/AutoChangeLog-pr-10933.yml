@@ -1,6 +1,0 @@
-author: rkz, mothblocks, Tastyfish, MrStonedOne, LemonInTheDark
-delete-after: true
-changes:
-  - server: ss init stages
-  - server: ss init logging
-  - server: ss init time measurement messages now precise to 2 decimals
