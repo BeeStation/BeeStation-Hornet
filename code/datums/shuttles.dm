@@ -624,7 +624,7 @@
 	name = "CentCom Emergency Ultra Raven Cruiser"
 	description = "This is the shuttle you need for any extreme alert situation. The high prices is there for a reason, comes with a fully equiped medbay and armory integrated, more than enough to survive the situation while you get to CentCom"
 	admin_notes = "Comes with turrets that will target anything without the neutral faction (nuke ops, xenos etc, but not pets). It is basically made for when you have a Red Alert situation and you have more corpses than guns avaiable"
-	credit_cost = 70000
+	credit_cost = 120000
 
 /datum/map_template/shuttle/emergency/zeta
 	suffix = "zeta"
