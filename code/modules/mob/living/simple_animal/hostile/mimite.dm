@@ -71,7 +71,7 @@
 	. = ..()
 	AddElement(/datum/element/point_of_interest)
 	var/image/I = image(icon = 'icons/mob/hud.dmi', icon_state = "hudcultist", layer = DATA_HUD_PLANE, loc = src)
-	I.alpha = 180
+	I.alpha = 200
 	I.appearance_flags = RESET_ALPHA
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/mimites, "hudcultist", I)
 
@@ -204,9 +204,11 @@
 
 /mob/living/simple_animal/hostile/mimite/Life()
 	..()
+	if(QDELETED(entry_vent))
+		entry_vent = null
 	if(isturf(loc) && replicate)
 		mimite_growth += rand(0,2)
-		if(mimite_growth >= 150)
+		if(mimite_growth >= 250)
 			if(!grow_as)
 				grow_as = pick(/mob/living/simple_animal/hostile/mimite, /mob/living/simple_animal/hostile/mimite/crate, /mob/living/simple_animal/hostile/mimite/ranged)
 			var/mob/living/simple_animal/hostile/mimite/S = new grow_as(src.loc)
@@ -285,6 +287,7 @@
 	move_to_delay = 4
 	replicate = FALSE
 	venthunt = FALSE
+	morphed = TRUE
 
 /mob/living/simple_animal/hostile/mimite/crate/AttackingTarget()
 	cut_overlays()
@@ -304,9 +307,12 @@
 	icon_state = pick("crate","weapon_crate","secgear_crate","private_crate")
 	icon_living = icon_state
 	add_overlay("[icon_state]_door")
+	med_hud_set_health()
+	med_hud_set_status()
 
 //Ambush attack does extra knockdown as crate mimite
 /mob/living/simple_animal/hostile/mimite/crate/attack_hand(mob/living/carbon/human/M)
+	morphed = FALSE
 	vision_range = 9
 	aggro_vision_range = 9
 	M.Knockdown(60)
@@ -316,9 +322,6 @@
 			"<span class='userdanger'>You ambush [M]!</span>", null, COMBAT_MESSAGE_RANGE)
 	cut_overlays()
 	add_overlay("[icon_state]_open")
-	..()
-
-/mob/living/simple_animal/hostile/mimite/crate/AIShouldSleep(var/list/possible_targets)
 	..()
 
 /mob/living/simple_animal/hostile/mimite/crate/assume(atom/movable/target)
@@ -332,7 +335,7 @@
 	aggro_vision_range = 7
 	speed = 7
 	move_to_delay = 7
-	rapid = 3
+	rapid = 2
 	approaching_target = TRUE
 	minimum_distance = 1
 	melee_queue_distance = 1
