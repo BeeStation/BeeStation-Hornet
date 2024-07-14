@@ -254,9 +254,9 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 //This Proc triggers when the Z level changes. If the Posi enters the station level, add it to the Job list.
 //If it leaves, remove it.
 /obj/item/mmi/posibrain/onTransitZ(old_z, new_z)
-	.=..()
+	. = ..()
 
-	if( is_station_level(old_z) == is_station_level(new_z))
+	if(is_station_level(old_z) == is_station_level(new_z))
 		//Early Return if we aren't entering or leaving station Z level.
 		return
 
@@ -267,7 +267,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	var/datum/job/cyborg/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
 
 	//Posi was on station, now is not on station
-	if( is_station_level(new_z) )
+	if(is_station_level(new_z))
 		pj.check_add_posi_slot(src)
 	else
 		pj.remove_posi_slot(src)
