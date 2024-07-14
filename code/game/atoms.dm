@@ -143,10 +143,15 @@
 	///LazyList of all balloon alerts currently on this atom
 	var/list/balloon_alerts
 
-	/// How much luminosity should we have by default?
-	var/base_luminosity = 0
+	/// What is our default level of luminosity, if you want inherent luminosity
+	/// withing an atom's type, set luminosity instead and we will manage it for you.
+	/// Always use set_base_luminosity instead of directly modifying this
+	VAR_PRIVATE/base_luminosity = 0
 	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
-	var/_emissive_count = 0
+	VAR_PRIVATE/_emissive_count = 0
+
+	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
+	var/list/eye_users
 
 /**
   * Called when an atom is created in byond (built in engine proc)
@@ -269,6 +274,7 @@
   * Top level of the destroy chain for most atoms
   *
   * Cleans up the following:
+  * * Removes clients who use this, and resets their eye
   * * Removes alternate apperances from huds that see them
   * * qdels the reagent holder from atoms if it exists
   * * clears the orbiters list
@@ -276,6 +282,14 @@
   * * clears the light object
   */
 /atom/Destroy()
+	for(var/client/each_client as anything in eye_users)
+		eye_users -= each_client
+		if(isnull(each_client.mob))
+			stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
+			continue
+		each_client.mob.reset_perspective()
+	eye_users = null
+
 	if(alternate_appearances)
 		for(var/current_alternate_appearance in alternate_appearances)
 			var/datum/atom_hud/alternate_appearance/selected_alternate_appearance = alternate_appearances[current_alternate_appearance]
@@ -1083,7 +1097,6 @@
 /atom/proc/update_remote_sight(mob/living/user)
 	return
 
-
 /**
   * Hook for running code when a dir change occurs
   *
@@ -1098,10 +1111,6 @@
 /atom/proc/try_face(newdir)
 	setDir(newdir)
 	return TRUE
-
-///Handle melee attack by a mech
-/atom/proc/mech_melee_attack(obj/mecha/M)
-	return
 
 /**
   * Called when the atom log's in or out
@@ -1611,6 +1620,7 @@
 		user = A_ref.resolve()
 	var/ssource = key_name(user)
 	var/starget = key_name(target)
+	var/datum/tool_atom = object
 
 	var/mob/living/living_target = target
 	var/hp = istype(living_target) ? " (NEWHP: [living_target.health]) " : ""
@@ -1620,8 +1630,8 @@
 		stam = "(STAM: [C.getStaminaLoss()]) "
 
 	var/sobject = ""
-	if(object && !isitem(object))
-		sobject = " with [object]"
+	if(object)
+		sobject = " with [object][(istype(tool_atom) ? " ([tool_atom.type])" : "")]"
 	var/saddition = ""
 	if(addition)
 		saddition = " [addition]"
@@ -1633,7 +1643,6 @@
 
 	if (important && isliving(user) && isliving(target))
 		var/mob/living/living_user = user
-		var/datum/tool_atom = object
 		SScombat_logging.log_combat(living_user, living_target, istype(tool_atom) ? tool_atom.type : object)
 
 	if(user != target)
@@ -1912,10 +1921,16 @@
 	if (isnull(base_luminosity))
 		base_luminosity = initial(luminosity)
 
-	if (_emissive_count)
-		luminosity = max(max(base_luminosity, affecting_dynamic_lumi), 1)
+	if (UNLINT(_emissive_count))
+		UNLINT(luminosity = max(max(base_luminosity, affecting_dynamic_lumi), 1))
 	else
-		luminosity = max(base_luminosity, affecting_dynamic_lumi)
+		UNLINT(luminosity = max(base_luminosity, affecting_dynamic_lumi))
+
+#define set_base_luminosity(target, new_value)\
+if (UNLINT(target.base_luminosity != new_value)) {\
+	UNLINT(target.base_luminosity = new_value);\
+	target.update_luminosity();\
+}
 
 /atom/movable/proc/get_orbitable()
 	return src

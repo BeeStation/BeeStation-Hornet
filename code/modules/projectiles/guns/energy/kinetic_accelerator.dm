@@ -1,6 +1,7 @@
 /obj/item/gun/energy/kinetic_accelerator
 	name = "proto-kinetic accelerator"
 	desc = "A self recharging, ranged mining tool that does increased damage in low pressure."
+	automatic_charge_overlays = FALSE
 	icon_state = "kineticgun"
 	item_state = "kineticgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
@@ -16,13 +17,14 @@
 	can_bayonet = TRUE
 	knife_x_offset = 20
 	knife_y_offset = 12
+	has_weapon_slowdown = FALSE
 
 	var/max_mod_capacity = 100
 	var/list/modkits = list()
 
 	var/recharge_timerid
 
-/obj/item/gun/energy/recharge/kinetic_accelerator/add_seclight_point()
+/obj/item/gun/energy/kinetic_accelerator/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \
 		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
 		light_overlay = "flight", \

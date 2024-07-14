@@ -5,6 +5,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "pepperspray"
 	item_state = "pepperspray"
+	worn_icon_state = "spraybottle"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	volume = 75
@@ -101,4 +102,4 @@
 	playsound(src, 'sound/weapons/grenadelaunch.ogg', 70, FALSE, -2)
 	playsound(src, 'sound/effects/smoke.ogg', 50, TRUE, -2)
 	smoke.start()
-	user.investigate_log("deployed a peppercloud at [COORD(center)].", INVESTIGATE_EXPERIMENTOR)
+	user.investigate_log("deployed a peppercloud at [COORD(center)].", INVESTIGATE_PEPPERSPRAY)

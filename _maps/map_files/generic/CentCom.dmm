@@ -1730,14 +1730,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/control)
-"gJ" = (
-/obj/structure/rack,
-/obj/item/storage/box/donkpockets,
-/obj/item/storage/box/donkpockets,
-/obj/item/clothing/head/chefhat,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/tdome/tdomeobserve)
 "gL" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -2902,6 +2894,10 @@
 /area/abductor_ship)
 "lE" = (
 /obj/structure/table/optable/abductor,
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "lF" = (
@@ -3380,30 +3376,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/centcom/ferry)
-"oj" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/rank/civilian/curator/treasure_hunter,
-/obj/item/clothing/under/dress/skirt,
-/obj/item/clothing/under/shorts/black,
-/obj/item/clothing/under/pants/track,
-/obj/item/clothing/accessory/armband/deputy,
-/obj/item/clothing/accessory/waistcoat,
-/obj/item/clothing/shoes/jackboots,
-/obj/item/clothing/shoes/laceup,
-/obj/item/clothing/neck/stripedredscarf,
-/obj/item/clothing/neck/tie/red,
-/obj/item/clothing/head/helmet/space/beret,
-/obj/item/clothing/suit/curator,
-/obj/item/clothing/suit/space/officer,
-/obj/item/clothing/gloves/fingerless,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/glasses/eyepatch,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -24
-	},
-/turf/open/floor/carpet/grimy,
-/area/centcom/ferry)
 "os" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -3658,6 +3630,13 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/supplypod/loading/ert)
+"pU" = (
+/obj/structure/table/reinforced,
+/obj/item/toy/plush/lizard_plushie/green{
+	name = "Escapes-On-Pods"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/centcom/evac)
 "pV" = (
 /obj/machinery/light{
 	dir = 4
@@ -4753,6 +4732,30 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/evac)
+"uc" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/under/rank/civilian/curator/treasure_hunter,
+/obj/item/clothing/under/dress/skirt,
+/obj/item/clothing/under/shorts/black,
+/obj/item/clothing/under/pants/track,
+/obj/item/clothing/accessory/armband/deputy,
+/obj/item/clothing/accessory/waistcoat,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/shoes/laceup,
+/obj/item/clothing/neck/stripedredscarf,
+/obj/item/clothing/neck/tie/red,
+/obj/item/clothing/head/helmet/space/beret,
+/obj/item/clothing/suit/jacket/curator,
+/obj/item/clothing/suit/space/officer,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/glasses/eyepatch,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -24
+	},
+/turf/open/floor/carpet/grimy,
+/area/centcom/ferry)
 "ud" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "nukeop_ready";
@@ -6049,6 +6052,14 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
+"zb" = (
+/obj/structure/rack,
+/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets,
+/obj/item/clothing/head/utility/chefhat,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/tdome/tdomeobserve)
 "zc" = (
 /obj/structure/bed,
 /obj/item/bedsheet/black,
@@ -6656,19 +6667,6 @@
 /obj/item/pen/red,
 /obj/structure/window/reinforced{
 	dir = 1
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/centcom/evac)
-"BP" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window/brigdoor{
-	base_state = "rightsecure";
-	dir = 1;
-	icon_state = "rightsecure";
-	name = "CentCom Customs";
-	req_access_txt = "109"
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
@@ -8009,6 +8007,22 @@
 /obj/machinery/smartfridge,
 /turf/closed/indestructible/hotelwall,
 /area/centcom/holding)
+"HO" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window/brigdoor{
+	base_state = "rightsecure";
+	dir = 1;
+	icon_state = "rightsecure";
+	name = "CentCom Customs";
+	req_access_txt = "109"
+	},
+/obj/effect/turf_decal/bot,
+/obj/item/toy/plush/lizard_plushie/space/green{
+	name = "Escapee"
+	},
+/turf/open/floor/iron,
+/area/centcom/evac)
 "HP" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -41609,7 +41623,7 @@ aa
 LC
 LD
 KV
-Tk
+pU
 Ua
 bG
 du
@@ -51812,7 +51826,7 @@ mD
 bU
 Rg
 Yb
-oj
+uc
 ep
 nU
 rr
@@ -53134,7 +53148,7 @@ Ti
 bK
 NR
 hg
-gJ
+zb
 hn
 Ep
 IB
@@ -63137,7 +63151,7 @@ yB
 In
 At
 AW
-BP
+HO
 fn
 VB
 Rl

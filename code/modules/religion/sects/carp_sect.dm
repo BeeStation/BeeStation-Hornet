@@ -106,7 +106,7 @@
 		user.visible_message("<span class'notice'>The [chosen_clothing] transforms!</span>")
 		chosen_clothing.obj_destruction()
 		chosen_clothing = null
-		new /obj/item/clothing/suit/space/hardsuit/carp/old(get_turf(religious_tool))
+		new /obj/item/clothing/suit/hooded/carp_costume/spaceproof/old(get_turf(religious_tool))
 		playsound(get_turf(religious_tool), 'sound/effects/slosh.ogg', 50, TRUE)
 		return ..()
 	chosen_clothing = null

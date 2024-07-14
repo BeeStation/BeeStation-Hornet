@@ -364,7 +364,7 @@
 			mask = /obj/item/clothing/mask/breath
 		if("Cultist")
 			uniform = /obj/item/clothing/under/costume/roman
-			suit = /obj/item/clothing/suit/cultrobes
+			suit = /obj/item/clothing/suit/hooded/cultrobes
 			suit_store = /obj/item/tome
 			shoes = /obj/item/clothing/shoes/cult
 			r_pocket = /obj/item/restraints/legcuffs/bola/cult

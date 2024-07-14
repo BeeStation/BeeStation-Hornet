@@ -125,6 +125,13 @@ GLOBAL_DATUM_INIT(starlight_overlay, /image, create_starlight_overlay())
 	lighting_effect.appearance = /obj/effect/fullbright/starlight
 	return lighting_effect
 
+GLOBAL_DATUM_INIT(starfloor_overlay, /image, create_starfloor_overlay())
+
+/proc/create_starfloor_overlay()
+	var/image/lighting_effect = new()
+	lighting_effect.appearance = /obj/effect/fullbright/starlight/starfloor
+	return lighting_effect
+
 /// Innate lum source that cannot be removed
 #define LUM_SOURCE_INNATE (1 << 4)
 /// Luminosity source for glasses
@@ -139,16 +146,16 @@ GLOBAL_DATUM_INIT(starlight_overlay, /image, create_starlight_overlay())
 
 /// Add a luminosity source to a target
 #define ADD_LUM_SOURCE(target, em_source) \
-target._emissive_count |= em_source;\
-if (target._emissive_count == em_source)\
+UNLINT(target._emissive_count |= em_source);\
+if (UNLINT(target._emissive_count == em_source))\
 {\
 	target.update_luminosity();\
 }
 
 /// Remove a luminosity source to a target
 #define REMOVE_LUM_SOURCE(target, em_source) \
-target._emissive_count &= ~(em_source);\
-if (target._emissive_count == 0)\
+UNLINT(target._emissive_count &= ~(em_source));\
+if (UNLINT(target._emissive_count == 0))\
 {\
 	target.update_luminosity();\
 }

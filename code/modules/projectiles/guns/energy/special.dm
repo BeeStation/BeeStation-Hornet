@@ -2,9 +2,8 @@
 	name = "ion rifle"
 	desc = "A man-portable anti-armor weapon designed to disable mechanical threats at range."
 	icon_state = "ionrifle"
-	item_state = null	//so the human update icon uses the icon_state instead.
+	item_state = null //so the human update icon uses the icon_state instead.
 	worn_icon_state = null
-	shaded_charge = TRUE
 	w_class = WEIGHT_CLASS_HUGE
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
@@ -156,14 +155,14 @@
 	dead_cell = TRUE
 	usesound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')
 	tool_behaviour = TOOL_WELDER
+	weapon_weight = WEAPON_LIGHT
+	fire_rate = 3
+	automatic = 1
 	toolspeed = 0.7 //plasmacutters can be used as welders, and are faster than standard welders
 	var/progress_flash_divisor = 10  //copypasta is best pasta
 	var/light_intensity = 1
 	var/charge_weld = 25 //amount of charge used up to start action (multiplied by amount) and per progress_flash_divisor ticks of welding
 	var/heat_weld = 3800
-	weapon_weight = WEAPON_LIGHT
-	fire_rate = 3
-	automatic = 1
 
 /obj/item/gun/energy/plasmacutter/Initialize(mapload)
 	. = ..()
@@ -375,6 +374,9 @@
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit."
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
+	charge_sections = 5
+	ammo_x_offset = 2
+	shaded_charge = FALSE
 
 /obj/item/gun/energy/laser/instakill/red
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a red design."
