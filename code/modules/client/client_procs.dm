@@ -975,6 +975,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(new_eye == old_eye)
 		return
 
+	if(old_eye == CLIENT_OLD_EYE_NULL)
+		old_eye = null
+
 	if(isatom(old_eye)) // admeme vv failproof. /datum can't be their eyes
 		LAZYREMOVE(old_eye.eye_users, src)
 
