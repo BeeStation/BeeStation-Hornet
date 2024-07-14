@@ -1,0 +1,8 @@
+author: ro5490, kit-katz
+delete-after: true
+changes:
+  - rscadd: New creatures that enjoy fooling people into thinking they're just generic
+      objects, Mimites, Ranged Mimites, and Crate Mimites now exist! Be careful what
+      items you interact with!
+  - rscadd: Added Mimites Midround event
+  - imageadd: added an icon for Mimites, Courtesy of Kit-Katz
