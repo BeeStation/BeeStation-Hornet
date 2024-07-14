@@ -851,6 +851,16 @@
 		/obj/item/stock_parts/manipulator = 1)
 	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
 
+/obj/item/circuitboard/machine/dronerecharger
+	name = "drone recharger (Machine Board)"
+	icon_state = "science"
+	build_path = /obj/machinery/recharge_station/drone
+	req_components = list(
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/cell = 1,
+		/obj/item/stock_parts/manipulator = 1)
+	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
+
 /obj/item/circuitboard/machine/destructive_analyzer
 	name = "destructive analyzer (Machine Board)"
 	icon_state = "science"

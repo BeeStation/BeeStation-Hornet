@@ -29453,20 +29453,24 @@
 /area/science/robotics/lab)
 "dzG" = (
 /obj/item/paper_bin,
-/obj/item/assembly/prox_sensor{
-	pixel_x = 5;
-	pixel_y = 7
-	},
-/obj/item/assembly/prox_sensor{
-	pixel_x = 5;
-	pixel_y = 7
-	},
-/obj/item/assembly/prox_sensor{
-	pixel_x = 5;
-	pixel_y = 7
-	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
+/obj/item/clipboard{
+	pixel_y = -2;
+	pixel_x = 3
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = 5;
+	pixel_y = 7
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = 5;
+	pixel_y = 7
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = 5;
+	pixel_y = 7
+	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "dzH" = (
@@ -29494,9 +29498,6 @@
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "dzK" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/toy/figure/roboticist,
 /obj/machinery/button/door{
 	id = "roboticsprivacy";
 	name = "Robotics Privacy Control";
@@ -29509,6 +29510,11 @@
 	pixel_y = 38
 	},
 /obj/effect/turf_decal/bot,
+/mob/living/simple_animal/pet/drone{
+	name = "Alpha Spark";
+	desc = "It's a helpful little drone."
+	},
+/obj/structure/bed/dogbed,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "dzM" = (
@@ -30776,6 +30782,7 @@
 	pixel_y = -26
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/toy/figure/roboticist,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "dIM" = (

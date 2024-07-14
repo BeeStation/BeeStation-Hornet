@@ -26,6 +26,7 @@
 #define FOOTSTEP_MOB_SLIME 6
 #define FOOTSTEP_OBJ_MACHINE 7
 #define FOOTSTEP_OBJ_ROBOT 8
+#define FOOTSTEP_OBJ_IPC 9
 
 /*
 
@@ -198,3 +199,7 @@ GLOBAL_LIST_INIT(heavyfootstep, list(
 		'sound/effects/meatslap.ogg'), 100, 0),
 ))
 
+GLOBAL_LIST_INIT(ipcfootstep, list(
+	FOOTSTEP_FLOOR = list(list(
+		'sound/effects/servostep.ogg'), 100, 2)
+))
