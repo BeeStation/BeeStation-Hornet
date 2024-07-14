@@ -1,0 +1,563 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall/mineral/gold,
+/area/shuttle/escape)
+"b" = (
+/obj/machinery/computer/slot_machine,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"c" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"d" = (
+/obj/machinery/computer/operating,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"e" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"h" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/obj/item/storage/firstaid/brute,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"j" = (
+/turf/template_noop,
+/area/template_noop)
+"m" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"n" = (
+/obj/machinery/vending/medical,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"o" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"p" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57"
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"q" = (
+/obj/machinery/computer/communications,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"r" = (
+/obj/machinery/computer/apc_control{
+	dir = 8
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"s" = (
+/obj/machinery/computer/slot_machine,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"u" = (
+/obj/machinery/computer/atmos_alert{
+	dir = 8
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"v" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57";
+	dir = 8
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"y" = (
+/obj/machinery/computer/crew{
+	dir = 4
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"A" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"B" = (
+/obj/structure/table/optable,
+/obj/item/storage/backpack/duffelbag/med/surgery,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"C" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57";
+	dir = 4
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"D" = (
+/obj/docking_port/mobile/emergency,
+/obj/machinery/door/airlock/gold,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"E" = (
+/obj/structure/table/wood/poker,
+/obj/item/toy/cards/deck,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"F" = (
+/obj/structure/table/reinforced,
+/obj/item/assembly/flash,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"G" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/handcuffs,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"H" = (
+/obj/machinery/door/airlock/gold,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"I" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/glass/bottle/epinephrine,
+/obj/item/reagent_containers/syringe/epinephrine,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"J" = (
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"K" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57";
+	dir = 1
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"M" = (
+/obj/machinery/stasis,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"N" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig";
+	req_access_txt = "2"
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"O" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"P" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Q" = (
+/obj/structure/table/reinforced,
+/obj/item/defibrillator/compact/loaded,
+/obj/item/defibrillator/compact/loaded,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"R" = (
+/obj/machinery/door/airlock/command{
+	name = "Cockpit";
+	req_access_txt = "19"
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"T" = (
+/obj/machinery/computer/emergency_shuttle,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"W" = (
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"X" = (
+/obj/machinery/computer/security{
+	dir = 4
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"Y" = (
+/obj/structure/table/wood/poker,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"Z" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/firstaid/fire,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+N
+a
+D
+a
+a
+a
+a
+a
+H
+a
+H
+a
+j
+"}
+(2,1,1) = {"
+a
+G
+P
+b
+b
+J
+a
+s
+s
+s
+s
+s
+s
+W
+W
+W
+e
+m
+"}
+(3,1,1) = {"
+a
+b
+O
+o
+o
+J
+a
+v
+v
+v
+v
+v
+v
+W
+W
+W
+e
+m
+"}
+(4,1,1) = {"
+a
+b
+O
+J
+J
+J
+N
+W
+W
+W
+W
+W
+W
+W
+W
+C
+e
+m
+"}
+(5,1,1) = {"
+a
+b
+O
+c
+c
+J
+a
+C
+C
+p
+Y
+W
+Y
+K
+W
+s
+e
+m
+"}
+(6,1,1) = {"
+a
+F
+P
+b
+b
+J
+a
+s
+s
+p
+Y
+C
+Y
+K
+W
+C
+e
+m
+"}
+(7,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+s
+s
+p
+Y
+E
+Y
+K
+W
+s
+e
+m
+"}
+(8,1,1) = {"
+a
+s
+A
+W
+y
+X
+a
+v
+v
+W
+v
+v
+v
+W
+W
+C
+e
+m
+"}
+(9,1,1) = {"
+a
+T
+A
+W
+W
+W
+R
+W
+W
+W
+W
+W
+W
+W
+W
+s
+e
+m
+"}
+(10,1,1) = {"
+a
+q
+A
+W
+W
+W
+a
+C
+C
+C
+C
+C
+W
+W
+W
+W
+e
+m
+"}
+(11,1,1) = {"
+a
+s
+A
+W
+r
+u
+a
+s
+s
+s
+s
+s
+W
+W
+W
+W
+e
+m
+"}
+(12,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+H
+a
+a
+a
+j
+"}
+(13,1,1) = {"
+j
+j
+j
+j
+j
+j
+j
+j
+j
+a
+Q
+Z
+h
+W
+s
+a
+j
+j
+"}
+(14,1,1) = {"
+j
+j
+j
+j
+j
+j
+j
+j
+j
+a
+B
+W
+W
+W
+v
+a
+j
+j
+"}
+(15,1,1) = {"
+j
+j
+j
+j
+j
+j
+j
+j
+j
+a
+d
+W
+W
+W
+W
+a
+j
+j
+"}
+(16,1,1) = {"
+j
+j
+j
+j
+j
+j
+j
+j
+j
+a
+M
+W
+I
+n
+M
+a
+j
+j
+"}
+(17,1,1) = {"
+j
+j
+j
+j
+j
+j
+j
+j
+j
+a
+a
+a
+a
+a
+a
+a
+j
+j
+"}

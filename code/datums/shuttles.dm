@@ -634,6 +634,13 @@
 	admin_notes = "Has an on-board experimental cloner that creates copies of its user, alien surgery tools, and a void core that provides unlimited power."
 	credit_cost = 8000
 
+/datum/map_template/shuttle/emergency/casino
+	suffix = "casino"
+	name = "The Emergency Casino"
+	description = "Makes you feel like Space Vegas. Comes fully equiped."
+	admin_notes = "It's a normal shuttle but full of slot machines and made out of gold."
+	credit_cost = 5000
+
 /datum/map_template/shuttle/emergency/zeta/prerequisites_met()
 	if(SHUTTLE_UNLOCK_ALIENTECH in SSshuttle.shuttle_purchase_requirements_met)
 		return TRUE
