@@ -147,6 +147,13 @@
 /obj/item/extinguisher,
 /obj/item/tank/internals/oxygen/red,
 /obj/effect/turf_decal/tile/dark_blue/diagonal_edge,
+/obj/machinery/button/door{
+	id = "narmory";
+	name = "Armory North Shutters";
+	pixel_y = -24;
+	req_access_txt = "3";
+	pixel_x = -8
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "aT" = (
@@ -438,12 +445,6 @@
 /obj/effect/turf_decal/tile/dark_blue/diagonal_edge,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"bR" = (
-/obj/machinery/atmospherics/pipe/simple/general/hidden{
-	dir = 5
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
 "bS" = (
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
@@ -549,6 +550,9 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "cH" = (
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 5
+	},
 /obj/machinery/light,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -642,12 +646,6 @@
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"hd" = (
-/obj/machinery/atmospherics/pipe/simple/general/hidden{
-	dir = 9
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
 "ht" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 9
@@ -695,6 +693,12 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"jR" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -25
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "kc" = (
 /obj/effect/turf_decal/tile/dark_blue{
 	dir = 1
@@ -709,6 +713,16 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
+/area/shuttle/escape)
+"kl" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/effect/turf_decal/raven/five,
+/obj/structure/rack,
+/obj/item/defibrillator/loaded,
+/obj/item/defibrillator/loaded,
+/obj/item/defibrillator/loaded,
+/obj/item/defibrillator/loaded,
+/turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "kJ" = (
 /obj/machinery/sleeper{
@@ -766,6 +780,9 @@
 	dir = 1
 	},
 /area/shuttle/escape)
+"nk" = (
+/turf/open/space/basic,
+/area/template_noop)
 "nv" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
@@ -790,6 +807,13 @@
 /area/shuttle/escape)
 "nT" = (
 /obj/effect/turf_decal/raven/four,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"nV" = (
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 9
+	},
+/obj/machinery/light,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "nY" = (
@@ -821,18 +845,26 @@
 /turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "qd" = (
-/obj/machinery/door/airlock/command{
-	name = "Cockpit Armory Access";
-	req_access_txt = "58"
-	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id = "escape_cockpit_windows";
 	name = "Cockpit Blast Door"
 	},
-/obj/machinery/door/firedoor/window,
-/obj/effect/turf_decal/tile/dark_red/diagonal_edge,
-/turf/open/floor/iron/dark,
+/obj/machinery/door/poddoor/shutters{
+	id = "narmory";
+	name = "Armory Shutter"
+	},
+/turf/open/floor/iron/techmaint,
+/area/shuttle/escape)
+"qA" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 23
+	},
+/turf/open/floor/iron/dark/side{
+	dir = 8
+	},
 /area/shuttle/escape)
 "qL" = (
 /obj/machinery/computer/security{
@@ -857,7 +889,6 @@
 "sc" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/delivery/red,
-/obj/structure/window/reinforced,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "sN" = (
@@ -879,7 +910,6 @@
 "tw" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/delivery/red,
-/obj/structure/window/reinforced,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "tx" = (
@@ -1000,6 +1030,11 @@
 "xz" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/escape)
+"xE" = (
+/obj/effect/turf_decal/delivery/white,
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "xY" = (
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -1245,10 +1280,6 @@
 	dir = 4
 	},
 /area/shuttle/escape)
-"Es" = (
-/obj/structure/window/reinforced,
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/escape)
 "Eu" = (
 /obj/machinery/door/airlock/external,
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
@@ -1271,19 +1302,92 @@
 	},
 /turf/open/floor/mineral/silver,
 /area/shuttle/escape)
+"EK" = (
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/head/utility/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/utility/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/utility/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/utility/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/utility/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/structure/closet/crate{
+	name = "lifejackets"
+	},
+/obj/effect/turf_decal/box/red,
+/obj/structure/window/reinforced,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "Fc" = (
 /obj/machinery/atmospherics/pipe/manifold/general/hidden,
 /turf/open/floor/plating,
-/area/shuttle/escape)
-"Fh" = (
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/effect/turf_decal/raven/five,
-/obj/structure/rack,
-/obj/item/defibrillator/loaded,
-/obj/item/defibrillator/loaded,
-/obj/item/defibrillator/loaded,
-/obj/item/defibrillator/loaded,
-/turf/open/floor/grass,
 /area/shuttle/escape)
 "Fk" = (
 /obj/structure/rack,
@@ -1305,19 +1409,17 @@
 /turf/open/floor/iron/dark/corner,
 /area/shuttle/escape)
 "Fs" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Armory";
-	req_access_txt = "3"
-	},
+/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id = "escape_cockpit_windows";
 	name = "Cockpit Blast Door"
 	},
 /obj/machinery/door/firedoor/window,
-/obj/effect/turf_decal/tile/dark_red/diagonal_edge,
-/turf/open/floor/iron/dark/smooth_edge{
-	dir = 4
+/obj/machinery/door/airlock/command{
+	name = "Cockpit Armory Access";
+	req_access_txt = "58"
 	},
+/turf/open/floor/iron/techmaint,
 /area/shuttle/escape)
 "Gd" = (
 /obj/structure/shuttle/engine/large,
@@ -1502,6 +1604,28 @@
 	},
 /obj/effect/turf_decal/box/red,
 /turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"LO" = (
+/obj/item/storage/box/teargas{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/handcuffs,
+/obj/item/storage/box/flashbangs{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/gun/grenadelauncher/security{
+	pixel_y = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/obj/structure/rack,
+/turf/open/floor/iron/smooth,
 /area/shuttle/escape)
 "LU" = (
 /obj/effect/turf_decal/raven/three,
@@ -1757,10 +1881,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"TI" = (
-/obj/structure/tank_dispenser/oxygen,
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
 "TQ" = (
 /obj/machinery/computer/station_alert{
 	dir = 4
@@ -1768,6 +1888,9 @@
 /obj/effect/turf_decal/tile/dark_blue/diagonal_edge,
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -25
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -1833,6 +1956,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 24
+	},
 /turf/open/floor/iron/smooth,
 /area/shuttle/escape)
 "Wk" = (
@@ -1883,6 +2009,9 @@
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/escape)
+"Xo" = (
+/turf/open/space/basic,
+/area/shuttle/escape)
 "Xq" = (
 /obj/effect/turf_decal/tile/blue/anticorner_ramp,
 /turf/open/floor/mineral/silver,
@@ -1907,9 +2036,11 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "YV" = (
-/obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 9
+	},
+/obj/machinery/advanced_airlock_controller{
+	pixel_y = -22
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -2208,7 +2339,7 @@ sU
 fc
 sN
 aZ
-TI
+aZ
 bB
 LM
 aw
@@ -2224,7 +2355,7 @@ aZ
 aZ
 aZ
 Gg
-LM
+EK
 nv
 ad
 "}
@@ -2313,14 +2444,14 @@ aa
 aa
 Ss
 sU
-CE
+xE
 sU
 xv
 Qa
 aq
 aq
 aq
-Vu
+qA
 ZB
 aZ
 bG
@@ -2346,7 +2477,7 @@ aa
 aa
 aa
 aa
-MK
+aa
 sU
 sU
 sU
@@ -2369,6 +2500,7 @@ sU
 aa
 "}
 (13,1,1) = {"
+nk
 aa
 aa
 aa
@@ -2389,12 +2521,11 @@ aZ
 aZ
 aZ
 aZ
-aZ
+jR
 ja
 aZ
-aZ
 bH
-bR
+af
 cH
 sU
 QW
@@ -2404,6 +2535,7 @@ nv
 ad
 "}
 (14,1,1) = {"
+nk
 aa
 aa
 aa
@@ -2413,7 +2545,7 @@ aa
 aa
 aa
 aa
-aa
+MK
 sU
 sU
 sU
@@ -2430,7 +2562,6 @@ wq
 bC
 cF
 bH
-af
 Pe
 Ml
 Md
@@ -2439,6 +2570,7 @@ bT
 Gd
 "}
 (15,1,1) = {"
+nk
 aa
 aa
 aa
@@ -2446,7 +2578,7 @@ aa
 aa
 aa
 aa
-aa
+MK
 uc
 sU
 sU
@@ -2465,7 +2597,6 @@ ah
 bD
 bI
 aZ
-aZ
 sU
 cB
 Dl
@@ -2474,6 +2605,7 @@ bT
 sU
 "}
 (16,1,1) = {"
+nk
 aa
 aa
 aa
@@ -2481,7 +2613,7 @@ aa
 aa
 aa
 aa
-aa
+MK
 sU
 Cl
 bq
@@ -2500,7 +2632,6 @@ ah
 ah
 pa
 aZ
-aZ
 sU
 Gz
 oq
@@ -2509,6 +2640,7 @@ ab
 xz
 "}
 (17,1,1) = {"
+Xo
 sU
 sU
 sU
@@ -2529,12 +2661,11 @@ bd
 ah
 ah
 cC
-Fh
+kl
 bs
 ah
 ah
 bK
-aZ
 aZ
 sU
 Vo
@@ -2544,6 +2675,7 @@ bT
 Gd
 "}
 (18,1,1) = {"
+nk
 aa
 aa
 aa
@@ -2551,7 +2683,7 @@ aa
 aa
 aa
 aa
-aa
+MK
 sU
 mM
 Ey
@@ -2570,7 +2702,6 @@ ah
 ah
 bL
 aZ
-aZ
 sU
 ww
 bm
@@ -2579,6 +2710,7 @@ bT
 sU
 "}
 (19,1,1) = {"
+nk
 aa
 aa
 aa
@@ -2586,7 +2718,7 @@ aa
 aa
 aa
 aa
-aa
+MK
 Qc
 sU
 sU
@@ -2605,7 +2737,6 @@ ah
 Xq
 nY
 aZ
-aZ
 sU
 jP
 Oh
@@ -2614,6 +2745,7 @@ ab
 xz
 "}
 (20,1,1) = {"
+nk
 aa
 aa
 aa
@@ -2623,7 +2755,7 @@ aa
 aa
 aa
 aa
-aa
+MK
 sU
 sU
 sU
@@ -2640,7 +2772,6 @@ bj
 AG
 bx
 wE
-af
 Pe
 Ml
 ht
@@ -2649,6 +2780,7 @@ bT
 Gd
 "}
 (21,1,1) = {"
+nk
 aa
 aa
 aa
@@ -2661,7 +2793,7 @@ aa
 aa
 aa
 aa
-aa
+MK
 sU
 Af
 aZ
@@ -2672,10 +2804,9 @@ aZ
 aZ
 ZM
 Hj
-aZ
 wE
-hd
-cH
+af
+nV
 sU
 QW
 QW
@@ -2730,7 +2861,7 @@ aa
 aa
 aa
 aa
-MK
+aa
 Ss
 sU
 TQ
@@ -2845,7 +2976,7 @@ sU
 Qq
 wW
 wW
-wW
+LO
 sU
 AL
 bw
@@ -2854,7 +2985,7 @@ bw
 Ec
 sU
 sU
-Es
+sU
 nv
 ad
 "}
