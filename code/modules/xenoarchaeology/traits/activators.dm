@@ -657,9 +657,3 @@
 		return
 	//Register all the relevant signals we trigger from
 	RegisterSignal(parent?.parent, COMSIG_PARENT_EXAMINE, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
-
-/datum/xenoartifact_trait/activator/examine/translation_type_a(datum/source, atom/target)
-	var/atom/A = parent?.parent
-	if(isliving(A.loc))
-		trigger_artifact(target, XENOA_ACTIVATION_SPECIAL)
-		return

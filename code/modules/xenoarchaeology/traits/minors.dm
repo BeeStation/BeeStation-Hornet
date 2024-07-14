@@ -299,7 +299,8 @@
 	mob_spawner = new(parent?.parent, src)
 
 /datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(ckey)
-	if(!parent?.parent || !ckey)
+	var/atom/A = parent?.parent
+	if(!parent?.parent || !ckey || !A?.loc)
 		return
 	//Sentience
 	sentience = new(parent?.parent)
