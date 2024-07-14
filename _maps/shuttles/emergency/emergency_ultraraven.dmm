@@ -2,13 +2,6 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
-"ab" = (
-/obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/escape)
 "ac" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
@@ -604,6 +597,7 @@
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "fx" = (
@@ -1247,6 +1241,13 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"DX" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "Ec" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
@@ -1406,6 +1407,7 @@
 	name = "Cockpit Blast Door"
 	},
 /obj/machinery/door/firedoor/window,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/escape)
 "Gd" = (
@@ -1466,9 +1468,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Jz" = (
@@ -2525,7 +2525,7 @@ sU
 QW
 QW
 Rn
-nv
+DX
 ad
 "}
 (14,1,1) = {"
@@ -2627,7 +2627,7 @@ sU
 Gz
 oq
 sU
-ab
+DX
 xz
 "}
 (17,1,1) = {"
@@ -2729,7 +2729,7 @@ sU
 jP
 Oh
 Pk
-ab
+DX
 xz
 "}
 (20,1,1) = {"
