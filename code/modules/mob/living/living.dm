@@ -731,6 +731,7 @@
 		return
 	var/blood_exists = locate(/obj/effect/decal/cleanable/blood/trail_holder) in start
 	var/mob/living/carbon/human/humanoid = src
+	var/glowyblood = humanoid.dna.blood_type.glowy
 
 	if(isturf(start))
 		var/trail_type = getTrail()
@@ -748,8 +749,8 @@
 				if((newdir in GLOB.cardinals) && (prob(50)))
 					newdir = turn(get_dir(target_turf, start), 180)
 				if(!blood_exists)
-					//Snowflake to make ethereal blood glow
-					if(isethereal(humanoid))
+					//Snowflake to make blood glow
+					if(glowyblood)
 						new /obj/effect/decal/cleanable/blood/trail_holder/glowy(start, get_static_viruses())
 					else
 						new /obj/effect/decal/cleanable/blood/trail_holder(start, get_static_viruses())
