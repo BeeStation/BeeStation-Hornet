@@ -182,10 +182,15 @@
 		CreateEye()
 
 	if(!eyeobj.eye_initialized)
-		var/camera_location
+		var/turf/camera_location
 		var/turf/myturf = get_turf(src)
-		if(eyeobj.use_static != FALSE)
-			if((!z_lock.len || (myturf.z in z_lock)) && GLOB.cameranet.checkTurfVis(myturf))
+		if(eyeobj.use_static)
+			camera_location = myturf
+			if(z_lock.len && !(myturf.z in z_lock))
+				camera_location = locate(round(world.maxx/2), round(world.maxy/2), z_lock[1])
+
+		else
+			if(GLOB.cameranet.checkTurfVis(myturf) && (!z_lock.len || (myturf.z in z_lock)))
 				camera_location = myturf
 			else
 				for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
@@ -195,20 +200,16 @@
 					if(network_overlap.len)
 						camera_location = get_turf(C)
 						break
-		else
-			camera_location = myturf
-			if(z_lock.len && !(myturf.z in z_lock))
-				camera_location = locate(round(world.maxx/2), round(world.maxy/2), z_lock[1])
 
-		if(camera_location)
+		if(isturf(camera_location))
 			eyeobj.eye_initialized = TRUE
-			give_eye_control(L)
-			eyeobj.setLoc(camera_location)
-		else
-			user.unset_machine()
-	else
-		give_eye_control(L)
-		eyeobj.setLoc(eyeobj.loc)
+			eyeobj.abstract_move(camera_location)
+
+	if(!eyeobj.eye_initialized)
+		user.unset_machine()
+		return
+
+	give_eye_control(L)
 
 /obj/machinery/computer/camera_advanced/proc/start_observe(mob/user)
 	if(!user.client || !eyeobj)
@@ -259,7 +260,6 @@
 	RevealCameraMob()
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
-	eyeobj.setLoc(eyeobj.loc)
 	if(should_supress_view_changes )
 		user.client.view_size.supress()
 
