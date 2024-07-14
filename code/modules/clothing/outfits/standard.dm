@@ -282,7 +282,7 @@
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 	ears = /obj/item/radio/headset/headset_cent/commander
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
-	head = /obj/item/clothing/head/helmet/space/beret
+	head = /obj/item/clothing/head/hats/centhat
 	belt = /obj/item/gun/energy/pulse/pistol/m1911
 	r_pocket = /obj/item/lighter
 	back = /obj/item/storage/backpack/satchel/leather
