@@ -6,7 +6,7 @@
 	strip_delay = 40
 	equip_delay_other = 40
 	var/modifies_speech = FALSE
-	var/mask_adjusted = 0
+	var/mask_adjusted = FALSE
 	var/adjusted_flags = null
 	var/voice_change = FALSE //Used to mask/change the user's voice, only specific masks can set this to TRUE
 	var/obj/item/organ/tongue/chosen_tongue = null
