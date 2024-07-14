@@ -25,8 +25,7 @@
 	spacewalk = TRUE
 	sight = SEE_SELF
 	throwforce = 0
-
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	response_help   = "passes through"
 	response_disarm = "swings through"
