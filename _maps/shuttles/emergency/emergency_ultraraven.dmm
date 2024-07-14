@@ -142,10 +142,6 @@
 /turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "aP" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/emergency,
-/obj/item/extinguisher,
-/obj/item/tank/internals/oxygen/red,
 /obj/effect/turf_decal/tile/dark_blue/diagonal_edge,
 /obj/machinery/button/door{
 	id = "narmory";
@@ -337,13 +333,13 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "bA" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/general/hidden,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary"
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "bB" = (
@@ -454,12 +450,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"bT" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/escape)
 "bU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -562,13 +552,13 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "dr" = (
+/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
 	id_tag = "prisonereducation";
 	name = "Prison access";
 	req_one_access_txt = "1;4"
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "dX" = (
@@ -644,6 +634,7 @@
 /obj/item/restraints/handcuffs{
 	pixel_y = 3
 	},
+/obj/effect/turf_decal/raven/six,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "ht" = (
@@ -659,13 +650,12 @@
 	},
 /area/shuttle/escape)
 "in" = (
+/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Armory";
 	req_access_txt = "3"
 	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/dark_red/diagonal_edge,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/escape)
 "ja" = (
 /obj/machinery/light{
@@ -754,6 +744,14 @@
 	id = "escape_cockpit_windows";
 	name = "Cockpit Blast Door"
 	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"mg" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/emergency,
+/obj/item/extinguisher,
+/obj/item/tank/internals/oxygen/red,
+/obj/effect/turf_decal/tile/dark_blue/diagonal_edge,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "mv" = (
@@ -867,6 +865,7 @@
 /obj/machinery/computer/security{
 	dir = 4
 	},
+/obj/effect/turf_decal/raven/four,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "rF" = (
@@ -1151,6 +1150,7 @@
 /obj/machinery/computer/crew{
 	dir = 4
 	},
+/obj/effect/turf_decal/raven/seven,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "AL" = (
@@ -1215,12 +1215,7 @@
 	id = "sarmory";
 	name = "Armory Shutter"
 	},
-/obj/machinery/door/airlock/security/glass{
-	name = "Armory";
-	req_access_txt = "3"
-	},
-/obj/effect/turf_decal/tile/dark_red/diagonal_edge,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/escape)
 "Dk" = (
 /obj/effect/turf_decal/raven/nine,
@@ -1406,16 +1401,11 @@
 /turf/open/floor/iron/dark/corner,
 /area/shuttle/escape)
 "Fs" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id = "escape_cockpit_windows";
 	name = "Cockpit Blast Door"
 	},
 /obj/machinery/door/firedoor/window,
-/obj/machinery/door/airlock/command{
-	name = "Cockpit Armory Access";
-	req_access_txt = "58"
-	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/escape)
 "Gd" = (
@@ -1476,6 +1466,9 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary"
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Jz" = (
@@ -1519,6 +1512,10 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/mineral/silver,
+/area/shuttle/escape)
+"KH" = (
+/obj/effect/turf_decal/raven/eight,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "LM" = (
 /obj/item/clothing/suit/hazardvest{
@@ -1718,10 +1715,11 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Pe" = (
+/obj/machinery/atmospherics/pipe/simple/general/hidden,
 /obj/machinery/door/airlock/engineering{
 	name = "Emergency Shutle Engineering"
 	},
-/obj/machinery/atmospherics/pipe/simple/general/hidden,
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Pk" = (
@@ -1810,6 +1808,7 @@
 /obj/machinery/computer/secure_data{
 	dir = 4
 	},
+/obj/effect/turf_decal/raven/one,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "QW" = (
@@ -1911,6 +1910,10 @@
 /obj/effect/turf_decal/tile/dark_blue/diagonal_edge,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"Vn" = (
+/obj/effect/turf_decal/raven/two,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
 "Vo" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -1974,6 +1977,7 @@
 	pixel_y = 8;
 	pixel_x = 9
 	},
+/obj/effect/turf_decal/raven/three,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "WL" = (
@@ -1989,6 +1993,13 @@
 	pixel_x = -28
 	},
 /obj/effect/turf_decal/tile/dark_blue/diagonal_edge,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"Xc" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary"
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Xf" = (
@@ -2007,6 +2018,10 @@
 /obj/effect/turf_decal/tile/blue/anticorner_ramp,
 /turf/open/floor/mineral/silver,
 /area/shuttle/escape)
+"Xv" = (
+/obj/effect/turf_decal/raven/five,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
 "Yf" = (
 /obj/effect/turf_decal/raven/eight,
 /obj/structure/table/glass,
@@ -2024,6 +2039,7 @@
 /obj/item/storage/lockbox/loyalty{
 	pixel_y = 9
 	},
+/obj/effect/turf_decal/raven/nine,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "YV" = (
@@ -2463,10 +2479,10 @@ sU
 sU
 IG
 zl
-IG
+Xc
 zl
 sU
-bA
+Xc
 zl
 bA
 zl
@@ -2543,7 +2559,7 @@ Pe
 Ml
 Md
 ae
-bT
+sU
 Gd
 "}
 (15,1,1) = {"
@@ -2577,7 +2593,7 @@ sU
 cB
 Dl
 Pk
-bT
+sU
 sU
 "}
 (16,1,1) = {"
@@ -2645,7 +2661,7 @@ sU
 Vo
 ez
 cG
-bT
+sU
 Gd
 "}
 (18,1,1) = {"
@@ -2679,7 +2695,7 @@ sU
 ww
 bm
 sU
-bT
+sU
 sU
 "}
 (19,1,1) = {"
@@ -2747,7 +2763,7 @@ Pe
 Ml
 ht
 ae
-bT
+sU
 Gd
 "}
 (21,1,1) = {"
@@ -2781,7 +2797,7 @@ sU
 QW
 QW
 Rn
-bT
+sU
 sU
 "}
 (22,1,1) = {"
@@ -2835,7 +2851,7 @@ sU
 TQ
 bQ
 bQ
-PX
+mg
 bB
 ag
 zd
@@ -2944,9 +2960,9 @@ wW
 LO
 sU
 AL
-bw
-bw
-bw
+KH
+Xv
+Vn
 Ec
 sU
 sU
