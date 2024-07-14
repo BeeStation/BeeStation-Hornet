@@ -7,12 +7,12 @@ SUBSYSTEM_DEF(security_level)
 	/// A list of initialised security level datums.
 	var/list/available_levels = list()
 
-/datum/controller/subsystem/security_level/Initialize(start_timeofday)
-	. = ..()
+/datum/controller/subsystem/security_level/Initialize()
 	for(var/iterating_security_level_type in subtypesof(/datum/security_level))
 		var/datum/security_level/new_security_level = new iterating_security_level_type
 		available_levels[new_security_level.name] = new_security_level
 	current_security_level = available_levels[number_level_to_text(SEC_LEVEL_GREEN)]
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/security_level/fire(resumed)
 	if(!current_security_level.looping_sound) // No sound? No play.
@@ -44,8 +44,6 @@ SUBSYSTEM_DEF(security_level)
 
 	announce_security_level(selected_level) // We want to announce BEFORE updating to the new level
 
-	var/old_shuttle_call_time_mod = current_security_level.shuttle_call_time_mod // Need this before we set the new one
-
 	SSsecurity_level.current_security_level = selected_level
 
 	if(selected_level.looping_sound)
@@ -55,9 +53,7 @@ SUBSYSTEM_DEF(security_level)
 		can_fire = FALSE
 
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL || SSshuttle.emergency.mode == SHUTTLE_RECALL) // By god this is absolutely shit
-		old_shuttle_call_time_mod = 1 / old_shuttle_call_time_mod
-		SSshuttle.emergency.modTimer(old_shuttle_call_time_mod)
-		SSshuttle.emergency.modTimer(selected_level.shuttle_call_time_mod)
+		SSshuttle.emergency.alert_coeff_change(selected_level.shuttle_call_time_mod)
 
 	SEND_SIGNAL(src, COMSIG_SECURITY_LEVEL_CHANGED, selected_level.number_level)
 	SSblackbox.record_feedback("tally", "security_level_changes", 1, selected_level.name)
@@ -78,13 +74,13 @@ SUBSYSTEM_DEF(security_level)
  * Returns the current security level as a number
  */
 /datum/controller/subsystem/security_level/proc/get_current_level_as_number()
-	return current_security_level.number_level
+	return ((!initialized || !current_security_level) ? SEC_LEVEL_GREEN : current_security_level.number_level) //Send the default security level in case the subsystem hasn't finished initializing yet
 
 /**
  * Returns the current security level as text
  */
 /datum/controller/subsystem/security_level/proc/get_current_level_as_text()
-	return current_security_level.name
+	return ((!initialized || !current_security_level) ? "green" : current_security_level.name)
 
 /**
  * Converts a text security level to a number
@@ -94,7 +90,7 @@ SUBSYSTEM_DEF(security_level)
  */
 /datum/controller/subsystem/security_level/proc/text_level_to_number(text_level)
 	var/datum/security_level/selected_level = available_levels[text_level]
-	return selected_level.number_level
+	return selected_level?.number_level
 
 /**
  * Converts a number security level to a text
