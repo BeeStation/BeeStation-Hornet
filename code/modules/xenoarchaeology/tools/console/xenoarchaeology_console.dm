@@ -116,6 +116,9 @@
 		if("stock_purchase")
 			//Locate seller and purchase our item from them
 			var/datum/rnd_lister/seller = locate(params["seller_id"])
+			//Check if this is even possible
+			if(!(locate(params["item_id"]) in seller.current_stock))
+				return
 			//If we got no cash
 			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
 			if(seller.get_price(locate(params["item_id"])) > D.account_balance)
