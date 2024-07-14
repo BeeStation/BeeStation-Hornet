@@ -1,0 +1,4 @@
+author: ToasterBan
+delete-after: true
+changes:
+  - tweak: Aiming head with a tonfa will paralyze rather than put the target to sleep
