@@ -10,6 +10,8 @@
 
 	/// a datum to hold client data that we want to keep even if client is gone
 	var/datum/client_data/data
+	/// If this client has been fully initialized or not
+	var/fully_created = FALSE
 
 	/// The admin state of the client. If this is null, the client is not an admin.
 	var/datum/admins/holder = null
@@ -85,7 +87,7 @@
 	var/next_keysend_trip_reset = 0
 	var/keysend_tripped = FALSE
 
-	var/datum/viewData/view_size
+	var/datum/view_data/view_size
 
 	// List of all asset filenames sent to this client by the asset cache, along with their assoicated md5s
 	var/list/sent_assets = list()
