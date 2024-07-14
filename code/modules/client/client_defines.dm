@@ -8,6 +8,9 @@
 		//ADMIN THINGS//
 		////////////////
 
+	/// If this client has been fully initialized or not
+	var/fully_created = FALSE
+
 	/// The admin state of the client. If this is null, the client is not an admin.
 	var/datum/admins/holder = null
 	var/datum/click_intercept = null // Needs to implement InterceptClickOn(user,params,atom) proc
@@ -106,7 +109,7 @@
 	var/next_keysend_trip_reset = 0
 	var/keysend_tripped = FALSE
 
-	var/datum/viewData/view_size
+	var/datum/view_data/view_size
 
 	// List of all asset filenames sent to this client by the asset cache, along with their assoicated md5s
 	var/list/sent_assets = list()
@@ -127,3 +130,6 @@
 
 	/// Whether or not this client has standard hotkeys enabled
 	var/hotkeys = TRUE
+
+	/// client/eye is immediately changed, and it makes a lot of errors to track eye change
+	var/datum/weakref/eye_weakref
