@@ -1,0 +1,5 @@
+author: Gilgaxx
+delete-after: true
+changes:
+  - tweak: The HoS and captain's guns now show distinctly if they've been blown up
+      to the point of not working anymore.
