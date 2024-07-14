@@ -780,9 +780,6 @@
 	dir = 1
 	},
 /area/shuttle/escape)
-"nk" = (
-/turf/open/space/basic,
-/area/template_noop)
 "nv" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
@@ -1662,9 +1659,6 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"MK" = (
-/turf/template_noop,
-/area/shuttle/escape)
 "ML" = (
 /obj/structure/rack,
 /obj/item/gun/energy/ionrifle{
@@ -2009,9 +2003,6 @@
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/escape)
-"Xo" = (
-/turf/open/space/basic,
-/area/shuttle/escape)
 "Xq" = (
 /obj/effect/turf_decal/tile/blue/anticorner_ramp,
 /turf/open/floor/mineral/silver,
@@ -2095,7 +2086,6 @@ aa
 aa
 aa
 aa
-aa
 ac
 sU
 Ky
@@ -2115,7 +2105,6 @@ aa
 aa
 "}
 (2,1,1) = {"
-aa
 aa
 aa
 aa
@@ -2165,7 +2154,6 @@ aa
 aa
 aa
 aa
-aa
 sU
 wK
 nR
@@ -2185,7 +2173,6 @@ aa
 aa
 "}
 (4,1,1) = {"
-aa
 aa
 aa
 aa
@@ -2231,7 +2218,6 @@ aa
 aa
 aa
 aa
-aa
 Ss
 sU
 CE
@@ -2255,7 +2241,6 @@ sU
 sU
 "}
 (6,1,1) = {"
-aa
 aa
 aa
 aa
@@ -2299,7 +2284,6 @@ aa
 aa
 aa
 aa
-aa
 Ss
 aI
 sN
@@ -2325,7 +2309,6 @@ nv
 ad
 "}
 (8,1,1) = {"
-aa
 aa
 aa
 aa
@@ -2369,7 +2352,6 @@ aa
 aa
 aa
 aa
-aa
 Ss
 aI
 sN
@@ -2404,7 +2386,6 @@ aa
 aa
 aa
 aa
-aa
 Qc
 Ss
 Ss
@@ -2430,7 +2411,6 @@ nv
 ad
 "}
 (11,1,1) = {"
-aa
 aa
 aa
 aa
@@ -2477,7 +2457,6 @@ aa
 aa
 aa
 aa
-aa
 sU
 sU
 sU
@@ -2500,7 +2479,6 @@ sU
 aa
 "}
 (13,1,1) = {"
-nk
 aa
 aa
 aa
@@ -2535,7 +2513,6 @@ nv
 ad
 "}
 (14,1,1) = {"
-nk
 aa
 aa
 aa
@@ -2545,7 +2522,7 @@ aa
 aa
 aa
 aa
-MK
+aa
 sU
 sU
 sU
@@ -2570,7 +2547,6 @@ bT
 Gd
 "}
 (15,1,1) = {"
-nk
 aa
 aa
 aa
@@ -2578,7 +2554,7 @@ aa
 aa
 aa
 aa
-MK
+aa
 uc
 sU
 sU
@@ -2605,7 +2581,6 @@ bT
 sU
 "}
 (16,1,1) = {"
-nk
 aa
 aa
 aa
@@ -2613,7 +2588,7 @@ aa
 aa
 aa
 aa
-MK
+aa
 sU
 Cl
 bq
@@ -2640,7 +2615,6 @@ ab
 xz
 "}
 (17,1,1) = {"
-Xo
 sU
 sU
 sU
@@ -2675,7 +2649,6 @@ bT
 Gd
 "}
 (18,1,1) = {"
-nk
 aa
 aa
 aa
@@ -2683,7 +2656,7 @@ aa
 aa
 aa
 aa
-MK
+aa
 sU
 mM
 Ey
@@ -2710,7 +2683,6 @@ bT
 sU
 "}
 (19,1,1) = {"
-nk
 aa
 aa
 aa
@@ -2718,7 +2690,7 @@ aa
 aa
 aa
 aa
-MK
+aa
 Qc
 sU
 sU
@@ -2745,7 +2717,6 @@ ab
 xz
 "}
 (20,1,1) = {"
-nk
 aa
 aa
 aa
@@ -2755,7 +2726,7 @@ aa
 aa
 aa
 aa
-MK
+aa
 sU
 sU
 sU
@@ -2780,7 +2751,6 @@ bT
 Gd
 "}
 (21,1,1) = {"
-nk
 aa
 aa
 aa
@@ -2793,7 +2763,7 @@ aa
 aa
 aa
 aa
-MK
+aa
 sU
 Af
 aZ
@@ -2815,7 +2785,6 @@ bT
 sU
 "}
 (22,1,1) = {"
-aa
 aa
 aa
 aa
@@ -2861,7 +2830,6 @@ aa
 aa
 aa
 aa
-aa
 Ss
 sU
 TQ
@@ -2885,7 +2853,6 @@ sU
 nA
 "}
 (24,1,1) = {"
-aa
 aa
 aa
 aa
@@ -2929,7 +2896,6 @@ aa
 aa
 aa
 aa
-aa
 Ss
 AY
 Kr
@@ -2955,7 +2921,6 @@ nv
 ad
 "}
 (26,1,1) = {"
-aa
 aa
 aa
 aa
@@ -2999,7 +2964,6 @@ aa
 aa
 aa
 aa
-aa
 Ss
 yE
 Kr
@@ -3025,7 +2989,6 @@ nv
 ad
 "}
 (28,1,1) = {"
-aa
 aa
 aa
 aa
@@ -3071,7 +3034,6 @@ aa
 aa
 aa
 aa
-aa
 Ss
 sU
 aC
@@ -3095,7 +3057,6 @@ sU
 sU
 "}
 (30,1,1) = {"
-aa
 aa
 aa
 aa

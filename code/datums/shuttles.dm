@@ -641,6 +641,13 @@
 	admin_notes = "It's a normal shuttle but full of slot machines and made out of gold."
 	credit_cost = 5000
 
+/datum/map_template/shuttle/emergency/ragecage
+	suffix = "ragecage"
+	name = "THE RAGE CAGE"
+	description = "WE ARE RAGING, WE ARE CAGING.Comes with brig, medbay and comman area."
+	admin_notes = "It's a normal shuttle but it has a rage cage with baseball bats in the middle powered by a PACMAN, plasma tanks included."
+	credit_cost = 10000
+
 /datum/map_template/shuttle/emergency/zeta/prerequisites_met()
 	if(SHUTTLE_UNLOCK_ALIENTECH in SSshuttle.shuttle_purchase_requirements_met)
 		return TRUE
