@@ -234,7 +234,6 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	var/datum/job/cyborg/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
 	pj.check_add_posi_slot(src)
 
-
 	if(autoping)
 		ping_ghosts("created", TRUE)
 
