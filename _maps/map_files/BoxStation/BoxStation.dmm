@@ -5302,22 +5302,17 @@
 /turf/closed/wall,
 /area/vacant_room/commissary)
 "bdc" = (
-/obj/item/storage/box/syringes{
-	pixel_x = -13;
-	pixel_y = 12
-	},
 /obj/item/clothing/glasses/science{
 	pixel_x = 10;
 	pixel_y = 12
 	},
-/obj/item/hand_labeler{
-	pixel_x = 12
+/obj/item/reagent_containers/dropper{
+	pixel_x = -6;
+	pixel_y = 11
 	},
 /obj/item/reagent_containers/dropper{
-	pixel_x = -12
-	},
-/obj/item/reagent_containers/dropper{
-	pixel_x = -12
+	pixel_x = -6;
+	pixel_y = 11
 	},
 /obj/structure/table/glass,
 /obj/structure/cable/yellow{
@@ -5331,36 +5326,36 @@
 	pixel_y = 12
 	},
 /obj/item/assembly/timer{
-	pixel_x = 3;
+	pixel_x = 10;
 	pixel_y = -3
 	},
 /obj/item/assembly/timer{
-	pixel_x = 3;
+	pixel_x = 9;
 	pixel_y = -3
 	},
 /obj/item/assembly/timer{
-	pixel_x = 3;
+	pixel_x = 9;
 	pixel_y = -3
 	},
 /obj/item/assembly/timer{
-	pixel_x = 3;
+	pixel_x = 9;
 	pixel_y = -3
 	},
 /obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
+	pixel_x = -7;
+	pixel_y = -2
 	},
 /obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
+	pixel_x = -7;
+	pixel_y = -2
 	},
 /obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
+	pixel_x = -7;
+	pixel_y = -2
 	},
 /obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
+	pixel_x = -7;
+	pixel_y = -2
 	},
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /obj/effect/turf_decal/tile/yellow{
@@ -5872,15 +5867,21 @@
 	req_one_access_txt = "5; 33"
 	},
 /obj/structure/table/glass,
-/obj/machinery/reagentgrinder,
 /obj/item/storage/box/beakers{
-	pixel_x = 11;
-	pixel_y = 13
-	},
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_y = 4
+	pixel_y = 13;
+	pixel_x = 8
 	},
 /obj/effect/turf_decal/tile/yellow,
+/obj/item/storage/box/medsprays{
+	pixel_y = 13;
+	pixel_x = -6
+	},
+/obj/item/storage/box/pillbottles{
+	pixel_x = -6
+	},
+/obj/item/storage/box/syringes{
+	pixel_x = 7
+	},
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
 "bhl" = (
@@ -5888,7 +5889,7 @@
 /obj/item/book/manual/wiki/grenades,
 /obj/item/screwdriver{
 	pixel_x = 2;
-	pixel_y = 18
+	pixel_y = 6
 	},
 /obj/item/stack/cable_coil/random,
 /obj/item/grenade/chem_grenade,
@@ -6660,12 +6661,10 @@
 /turf/open/floor/plating,
 /area/security/warden)
 "bll" = (
-/obj/item/reagent_containers/glass/bottle/epinephrine{
-	pixel_x = 8;
-	pixel_y = 6
+/obj/item/hand_labeler{
+	pixel_x = -9;
+	pixel_y = 13
 	},
-/obj/item/storage/box/medsprays,
-/obj/item/hand_labeler,
 /obj/structure/table/glass,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -6673,6 +6672,9 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_y = 4
 	},
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
@@ -15561,10 +15563,6 @@
 /obj/machinery/light_switch{
 	pixel_x = -7;
 	pixel_y = 26
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 5;
-	pixel_y = 30
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -24481,10 +24479,10 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/chemist,
-/obj/structure/chair,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
+/obj/structure/chair/office/light,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
 "fzQ" = (
@@ -29741,9 +29739,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/structure/sign/departments/minsky/research/genetics{
-	pixel_x = -32
-	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
@@ -32619,6 +32614,13 @@
 /obj/structure/chair/office,
 /turf/open/floor/carpet/royalblack,
 /area/lawoffice)
+"iZy" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/structure/sign/departments/minsky/research/genetics{
+	pixel_x = 32
+	},
+/turf/open/floor/iron/white,
+/area/medical/medbay/central)
 "iZV" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Garden"
@@ -36834,6 +36836,9 @@
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
 	dir = 2
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 37
 	},
 /turf/open/floor/iron/white,
 /area/medical/genetics)
@@ -43773,6 +43778,9 @@
 	},
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/blue,
+/obj/structure/sign/departments/medbay/alt{
+	pixel_y = -31
+	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "nKn" = (
@@ -44924,10 +44932,9 @@
 /area/maintenance/fore)
 "oke" = (
 /obj/item/reagent_containers/glass/bottle/salglu_solution{
-	pixel_x = -5;
+	pixel_x = -8;
 	pixel_y = 10
 	},
-/obj/item/storage/box/pillbottles,
 /obj/structure/table/glass,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -44935,6 +44942,14 @@
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
+	},
+/obj/machinery/reagentgrinder{
+	pixel_y = 6;
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/glass/bottle/epinephrine{
+	pixel_x = -8;
+	pixel_y = 3
 	},
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
@@ -48748,6 +48763,15 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
+"pYV" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/structure/sign/departments/minsky/medical/clone/cloning2{
+	pixel_x = 32
+	},
+/turf/open/floor/iron/white,
+/area/medical/medbay/central)
 "pZC" = (
 /obj/structure/lattice,
 /obj/machinery/camera/autoname{
@@ -55571,6 +55595,9 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/blue,
+/obj/structure/sign/departments/medbay/alt{
+	pixel_y = -31
+	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "sOe" = (
@@ -58613,12 +58640,12 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
+	},
+/obj/structure/chair/office/light{
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
@@ -107934,7 +107961,7 @@ xJf
 qSV
 kYP
 qLB
-kYP
+iZy
 kDe
 bNU
 udE
@@ -107942,7 +107969,7 @@ bFL
 udE
 wji
 ucP
-ucP
+pYV
 rDE
 nKE
 ucP
