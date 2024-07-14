@@ -4185,6 +4185,11 @@
 	dir = 1
 	},
 /area/security/brig)
+"aGu" = (
+/obj/structure/closet/secure_closet/security/sec,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/textured_large,
+/area/security/main)
 "aGA" = (
 /obj/machinery/door/airlock{
 	id_tag = "Toilet2";
@@ -16187,16 +16192,6 @@
 /obj/machinery/telecomms/server/presets/security,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
-"bUM" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/siding/white{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/white,
-/turf/open/floor/iron/techmaint,
-/area/security/main)
 "bUQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -27724,6 +27719,13 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"ePY" = (
+/obj/effect/turf_decal/siding/dark,
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/textured,
+/area/ai_monitored/security/armory)
 "eQa" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -32361,7 +32363,11 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
-/turf/open/floor/iron/techmaint,
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark,
+/turf/open/floor/iron/dark/textured,
 /area/security/main)
 "gEg" = (
 /obj/structure/grille,
@@ -33120,12 +33126,6 @@
 /obj/machinery/vending/wardrobe/chap_wardrobe,
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
-"gTU" = (
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/textured,
-/area/ai_monitored/security/armory)
 "gTX" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/shower{
@@ -45059,6 +45059,16 @@
 	},
 /turf/open/floor/iron,
 /area/engine/break_room)
+"lxo" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/white,
+/turf/open/floor/iron/techmaint,
+/area/security/main)
 "lxJ" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -45490,18 +45500,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
-"lHo" = (
-/obj/effect/turf_decal/siding/dark{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/dark/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/red/line{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/textured,
-/area/ai_monitored/security/armory)
 "lHx" = (
 /obj/machinery/camera{
 	c_tag = "Departure Lounge - Port Aft";
@@ -47278,11 +47276,6 @@
 /obj/item/restraints/legcuffs/beartrap,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
-"mrI" = (
-/obj/effect/turf_decal/siding/dark,
-/obj/effect/turf_decal/trimline/red/line,
-/turf/open/floor/iron/dark/textured,
-/area/ai_monitored/security/armory)
 "mrL" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -47468,7 +47461,7 @@
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/dark/textured,
 /area/security/main)
 "mun" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -68769,13 +68762,6 @@
 /obj/structure/closet/secure_closet/chemical,
 /turf/open/floor/iron,
 /area/medical/chemistry)
-"umr" = (
-/obj/effect/turf_decal/siding/dark,
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/textured,
-/area/ai_monitored/security/armory)
 "umz" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -70333,6 +70319,18 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
+"uTb" = (
+/obj/effect/turf_decal/siding/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/textured,
+/area/ai_monitored/security/armory)
 "uTd" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -71895,6 +71893,11 @@
 	},
 /turf/open/floor/iron,
 /area/security/prison)
+"vxm" = (
+/obj/effect/turf_decal/siding/dark,
+/obj/effect/turf_decal/trimline/red/line,
+/turf/open/floor/iron/dark/textured,
+/area/ai_monitored/security/armory)
 "vxn" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -75801,6 +75804,12 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/storage)
+"wRc" = (
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/textured,
+/area/ai_monitored/security/armory)
 "wRm" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -78212,11 +78221,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/starboard/secondary)
-"xIk" = (
-/obj/structure/closet/secure_closet/security/sec,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/textured_large,
-/area/security/main)
 "xIq" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -106985,7 +106989,7 @@ aaa
 lMJ
 aaf
 aeq
-mrI
+vxm
 qHw
 saH
 phu
@@ -107762,11 +107766,11 @@ egJ
 uyg
 aqa
 xwX
-xIk
-xIk
-xIk
-bUM
-xIk
+aGu
+aGu
+aGu
+lxo
+aGu
 aqa
 vVe
 kyr
@@ -108013,10 +108017,10 @@ aaa
 lMJ
 aeq
 qEq
-umr
+ePY
 vRS
 fDl
-gTU
+wRc
 aqa
 scy
 sMC
@@ -108273,7 +108277,7 @@ aeq
 afX
 fsC
 dBX
-lHo
+uTb
 rQn
 jXZ
 hUN
