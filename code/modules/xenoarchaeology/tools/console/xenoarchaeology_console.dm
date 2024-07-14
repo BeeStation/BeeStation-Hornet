@@ -188,26 +188,44 @@
 	var/atom/artifact = L.loc
 	var/datum/component/xenoartifact/X = artifact.GetComponent(/datum/component/xenoartifact)
 	if(X && L)
-		//Calculate success rate
+		//Grab values to calculate success
 		var/score = 0
 		var/max_score = 0
-		for(var/i in X.artifact_traits)
-			for(var/datum/xenoartifact_trait/T in X.artifact_traits[i])
+		var/bonus = 0
+		var/max_bonus = 0
+		var/attempted_bonus = FALSE
+		var/list/traits_by_type = list()
+		for(var/i in X.artifact_traits) //By priority
+			for(var/datum/xenoartifact_trait/T in X.artifact_traits[i]) //By trait in priorty
+				traits_by_type += list(T.type)
 				if(T.contribute_calibration)
-					if(locate(T) in L.traits)
-						score += 1
-					else
-						score -= 1
-				max_score = T.contribute_calibration ?  max_score + 1 : max_score
+					max_score += 1
+				else
+					max_bonus += 1
+		for(var/datum/xenoartifact_trait/T as() in L.traits)
+			if((T in traits_by_type))
+				if(initial(T.contribute_calibration))
+					score += 1
+				else
+					bonus += 1
+					attempted_bonus = TRUE
+			else
+				if(initial(T.contribute_calibration))
+					score -= 1
+				else
+					bonus -= 1
+					attempted_bonus = TRUE
+		//Calculate success rate
 		var/success_rate = score / (max_score || 1)
+		var/bonus_rate = max(1, 2*(bonus/(max_bonus||1)))
 		//Rewards
 			//Research Points
-		var/rnd_reward = max(0, (artifact.custom_price*X.artifact_type.rnd_rate)*success_rate)
+		var/rnd_reward = max(0, (artifact.custom_price*X.artifact_type.rnd_rate)*success_rate) * bonus_rate
 			//Discovery Points
-		var/dp_reward = max(0, (artifact.custom_price*X.artifact_type.dp_rate)*success_rate)
-				//Money //TODO: Check if this is sufficient - Racc : PLAYTEST
-		var/monetary_reward = ((artifact.custom_price * success_rate * 2)^1.5) * (success_rate >= 0.5 ? 1 : 0)
-			//Alloctae
+		var/dp_reward = max(0, (artifact.custom_price*X.artifact_type.dp_rate)*success_rate) * bonus_rate
+			//Money //TODO: Check if this is sufficient - Racc : PLAYTEST
+		var/monetary_reward = ((artifact.custom_price * success_rate * 1.5)^1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate
+		//Alloctae
 		if(main_console)
 			linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)
 			linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, dp_reward)
@@ -225,6 +243,7 @@
 				success_type = prob(1) ? "scientific failure." : "who let the clown in?"
 		if(radio_solved_notice)
 			radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
+			[attempted_bonus ? "with a bonus achieved of [100 * (bonus / (max_bonus||1))]%, " : ""]\
 			at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of $[monetary_reward].",\
 		RADIO_CHANNEL_SCIENCE)
 		history += list("[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \

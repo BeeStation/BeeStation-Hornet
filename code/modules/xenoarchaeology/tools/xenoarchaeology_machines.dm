@@ -255,12 +255,19 @@
 		if(solid_as) //This is kinda wacky but it's for a player option so idc
 			for(var/i in X.artifact_traits)
 				for(var/datum/xenoartifact_trait/T in X.artifact_traits[i])
-					if(!(locate(T) in L.traits))
-						if(T.contribute_calibration)
+					if(T.contribute_calibration)
+						if(!(locate(T) in L.traits))
 							solid_as = FALSE
-					else
-						score += 1
+						else
+							score += 1
 					max_score = T.contribute_calibration ?  max_score + 1 : max_score
+		//Check against label length, for extra labeled traits
+		var/label_length = 0
+		for(var/datum/xenoartifact_trait/T as() in L.traits)
+			if(initial(T.contribute_calibration))
+				label_length += 1
+		if(label_length != max_score)
+			solid_as = FALSE
 		//FX
 		INVOKE_ASYNC(src, PROC_REF(do_cooking_sounds), solid_as)
 		cooking_timer = addtimer(CALLBACK(src, PROC_REF(finish_cooking), A, X, score, max_score, solid_as), cooking_time, TIMER_STOPPABLE)
