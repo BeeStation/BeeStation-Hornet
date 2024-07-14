@@ -124,7 +124,7 @@
 					break
 
 			fax_paper.name = "paper — [default_paper_name]"
-			fax_paper.add_raw_text(params["rawText"])
+			fax_paper.add_raw_text(params["rawText"], advanced_html = TRUE)
 
 			if(stamp)
 				fax_paper.add_stamp(stamp_class, params["stampX"], params["stampY"], params["stampAngle"], stamp)

@@ -1,4 +1,6 @@
 /obj/item/clothing/suit/armor
+	icon = 'icons/obj/clothing/suits/armor.dmi'
+	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
 	allowed = null
 	body_parts_covered = CHEST
 	cold_protection = CHEST|GROIN
@@ -22,7 +24,7 @@
 	name = "armor vest"
 	desc = "A slim Type I-A armored vest that provides decent protection against most types of damage."
 	icon_state = "armoralt"
-	item_state = "armoralt"
+	item_state = "armor"
 	blood_overlay_type = "armor"
 	dog_fashion = /datum/dog_fashion/back
 
@@ -42,7 +44,7 @@
 	name = "large armor vest"
 	desc = "A large, yet comfortable piece of armor, protecting you from some threats. Type H-L"
 	icon_state = "blueshift"
-	item_state = "blueshift"
+	item_state = null
 	custom_premium_price = 600
 
 /obj/item/clothing/suit/armor/vest/corporate
@@ -119,17 +121,18 @@
 	desc = "A sinister looking vest of advanced armor worn over a black and red fireproof jacket. The gold collar and shoulders denote that this belongs to a high ranking syndicate officer."
 	icon_state = "syndievest"
 
-/obj/item/clothing/suit/armor/vest/capcarapace/alt
-	name = "captain's parade jacket"
+/obj/item/clothing/suit/armor/vest/capcarapace/captains_formal
+	name = "captain's parade coat"
 	desc = "For when an armoured vest isn't fashionable enough."
 	icon_state = "capformal"
-	item_state = "capspacesuit"
+	item_state = null
+	body_parts_covered = CHEST|GROIN|ARMS
 
 /obj/item/clothing/suit/armor/vest/capcarapace/jacket
 	name = "captain's jacket"
 	desc = "An armored Jacket in the Captains colors"
 	icon_state = "capjacket"
-	item_state = "capspacesuit"
+	item_state = null
 	body_parts_covered = CHEST|ARMS
 	armor = list(MELEE = 40,  BULLET = 30, LASER = 40, ENERGY = 50, BOMB = 55, BIO = 0, RAD = 0, FIRE = 90, ACID = 80, STAMINA = 40)
 
@@ -196,22 +199,6 @@
 	allowed = GLOB.detective_vest_allowed
 
 //All of the armor below is mostly unused
-
-/obj/item/clothing/suit/armor/centcom
-	name = "\improper CentCom armor"
-	desc = "A suit that protects against some damage."
-	icon_state = "centcom"
-	item_state = "centcom"
-	w_class = WEIGHT_CLASS_BULKY
-	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	cold_protection = CHEST | GROIN | LEGS | FEET | ARMS | HANDS
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
-	armor = list(MELEE = 80,  BULLET = 80, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90, STAMINA = 70)
-	slowdown = 0.1
 
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor"
@@ -306,8 +293,21 @@
 	name = "russian battle coat"
 	desc = "Used in extremly cold fronts, made out of real bears."
 	icon_state = "rus_coat"
-	item_state = "rus_coat"
+	item_state = null
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	armor = list(MELEE = 25,  BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 50, RAD = 20, FIRE = -10, ACID = 50, STAMINA = 30)
+
+/obj/item/clothing/suit/armor/centcom_formal
+	name = "\improper CentCom formal coat"
+	desc = "A stylish coat given to CentCom Commanders. Perfect for sending ERTs to suicide missions with style!"
+	icon_state = "centcom_formal"
+	item_state = "centcom"
+	body_parts_covered = CHEST|GROIN|ARMS
+	armor = list(MELEE = 35, BULLET = 40, LASER = 40, ENERGY = 50, BOMB = 35, BIO = 10, RAD = 10, FIRE = 10, ACID = 60, STAMINA = 40)
+
+/obj/item/clothing/suit/armor/centcom_formal/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/toggle_icon)
+	allowed = GLOB.security_wintercoat_allowed

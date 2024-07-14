@@ -162,18 +162,18 @@
 /obj/item/clockwork/alloy_shards/large
 	w_class = WEIGHT_CLASS_TINY
 	randomsinglesprite = TRUE
-	icon_state = "shard_large"
+	//icon_state = "shard_large"
 	sprite_shift = 9
 
 /obj/item/clockwork/alloy_shards/medium
 	w_class = WEIGHT_CLASS_TINY
 	randomsinglesprite = TRUE
-	icon_state = "shard_medium"
+	//icon_state = "shard_medium"
 	sprite_shift = 10
 
 /obj/item/clockwork/alloy_shards/medium/gear_bit
 	randomspritemax = 4
-	icon_state = "gear_bit"
+	//icon_state = "gear_bit"
 	sprite_shift = 12
 
 /obj/item/clockwork/alloy_shards/medium/gear_bit/replace_name_desc()
@@ -190,7 +190,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	randomsinglesprite = TRUE
 	randomspritemax = 3
-	icon_state = "shard_small"
+	//icon_state = "shard_small"
 	sprite_shift = 12
 
 /obj/item/clockwork/alloy_shards/pinion_lock

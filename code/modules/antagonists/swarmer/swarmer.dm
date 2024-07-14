@@ -11,6 +11,8 @@
 	desc = "A currently unactivated swarmer. Swarmers can self activate at any time, it would be wise to immediately dispose of this."
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "swarmer_unactivated"
+	short_desc = "You are a swarmer!"
+	flavour_text = "Consume resources and replicate until there are no more resources left. Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable. Biological resources will be harvested at a later date; do not harm them."
 	density = FALSE
 	anchored = FALSE
 
@@ -539,6 +541,7 @@
 
 /obj/effect/temp_visual/swarmer //temporary swarmer visual feedback objects
 	icon = 'icons/mob/swarmer.dmi'
+	icon_state = "nothing"
 	layer = BELOW_MOB_LAYER
 
 /obj/effect/temp_visual/swarmer/disintegration
@@ -608,7 +611,7 @@
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer) && !L.incorporeal_move)
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
-			L.electrocute_act(0, src, 1, flags = SHOCK_NOGLOVES|SHOCK_ILLUSION)
+			L.electrocute_act(100, src, 1, flags = SHOCK_NOGLOVES|SHOCK_ILLUSION)
 			if(iscyborg(L))
 				L.Paralyze(100)
 			qdel(src)

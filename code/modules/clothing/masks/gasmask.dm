@@ -11,6 +11,14 @@
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	resistance_flags = NONE
 
+/obj/item/clothing/mask/gas/atmos/centcom
+	name = "\improper CentCom gas mask"
+	desc = "Oooh, gold and green. Fancy! This should help as you sit in your office."
+	icon = 'icons/obj/clothing/masks.dmi'
+	icon_state = "gas_centcom"
+	item_state = "gas_centcom"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+
 // **** Welding gas mask ****
 
 /obj/item/clothing/mask/gas/welding
@@ -169,8 +177,8 @@
 
 /obj/item/clothing/mask/gas/death_commando
 	name = "Death Commando Mask"
-	icon_state = "death_commando_mask"
-	item_state = "death_commando_mask"
+	icon_state = "swat"
+	item_state = "swat"
 
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"

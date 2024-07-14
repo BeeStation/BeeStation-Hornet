@@ -999,7 +999,7 @@
 /obj/structure/table,
 /obj/item/storage/firstaid/ancient,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/airless/white/side{
+/turf/open/floor/iron/white/side/airless{
 	dir = 5
 	},
 /area/ruin/space/has_grav/ancientstation/betanorth)
@@ -1148,7 +1148,7 @@
 "dD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/rollerbed,
-/turf/open/floor/iron/airless/white/side{
+/turf/open/floor/iron/white/side/airless{
 	dir = 4
 	},
 /area/ruin/space/has_grav/ancientstation/betanorth)
@@ -1387,7 +1387,7 @@
 /area/ruin/space/has_grav/ancientstation/betanorth)
 "eH" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/airless/white/side{
+/turf/open/floor/iron/white/side/airless{
 	dir = 4
 	},
 /area/ruin/space/has_grav/ancientstation/betanorth)
@@ -2590,7 +2590,7 @@
 /area/template_noop)
 "hP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -3844,7 +3844,7 @@
 "lv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/glass,
-/turf/open/floor/iron/airless/white/side{
+/turf/open/floor/iron/white/side/airless{
 	dir = 4
 	},
 /area/ruin/space/has_grav/ancientstation/betanorth)

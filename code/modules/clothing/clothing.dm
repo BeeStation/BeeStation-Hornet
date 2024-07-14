@@ -24,9 +24,6 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	var/alt_desc = null
-	var/toggle_message = null
-	var/alt_toggle_message = null
-	var/active_sound = null
 	var/cooldown = 0
 	var/envirosealed = FALSE //is it safe for plasmamen
 
@@ -65,6 +62,9 @@
 		LoadComponent(pocket_storage_component_path)
 	if(can_be_bloody && ((body_parts_covered & FEET) || (flags_inv & HIDESHOES)))
 		LoadComponent(/datum/component/bloodysoles)
+
+	if(!icon_state)
+		item_flags |= ABSTRACT
 
 /obj/item/clothing/MouseDrop(atom/over_object)
 	. = ..()
@@ -319,7 +319,7 @@ BLIND     // can't see anything
 
 /proc/generate_female_clothing(index,t_color,icon,type)
 	var/icon/female_clothing_icon	= icon("icon"=icon, "icon_state"=t_color)
-	var/icon/female_s				= icon("icon"='icons/mob/clothing/uniform.dmi', "icon_state"="[(type == FEMALE_UNIFORM_FULL) ? "female_full" : "female_top"]")
+	var/icon/female_s = icon("icon"='icons/mob/clothing/under/masking_helpers.dmi', "icon_state"="[(type == FEMALE_UNIFORM_FULL) ? "female_full" : "female_top"]")
 	female_clothing_icon.Blend(female_s, ICON_MULTIPLY)
 	female_clothing_icon 			= fcopy_rsc(female_clothing_icon)
 	GLOB.female_clothing_icons[index] = female_clothing_icon

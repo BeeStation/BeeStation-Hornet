@@ -18,8 +18,8 @@
 
 	outfit = /datum/outfit/job/captain
 
-	access = list() 			//See get_access()
-	minimal_access = list() 	//See get_access()
+	base_access = list()  //See get_access()
+	extra_access = list() //See get_access()
 
 	departments = DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_SEC_BITFLAG | ACCOUNT_COM_BITFLAG
@@ -60,7 +60,7 @@
 	uniform =  /obj/item/clothing/under/rank/captain
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
 	shoes = /obj/item/clothing/shoes/sneakers/brown
-	head = /obj/item/clothing/head/caphat
+	head = /obj/item/clothing/head/hats/caphat
 	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1, /obj/item/station_charter=1)
 
 	backpack = /obj/item/storage/backpack/captain
