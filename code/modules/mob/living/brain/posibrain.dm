@@ -273,13 +273,10 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 		pj.remove_posi_slot(src)
 
 /obj/item/mmi/posibrain/Destroy()
-
 	if(is_occupied())
 		//No need to track occupied Posis
 		return ..()
 
 	var/datum/job/cyborg/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
 	pj.remove_posi_slot(src)
-
-
 	return ..()
