@@ -1,0 +1,6 @@
+author: LemonInTheDark, Timberpoes (Port by EvilDragonfiend)
+delete-after: true
+changes:
+  - code_imp: ported 'Fit Viewport' related PRs from TG to fix a runtime
+  - code_imp: added 'VERB_REF' macro
+  - code_imp: repathed '/datum/viewData' into '/datum/view_data' (to match TG code)
