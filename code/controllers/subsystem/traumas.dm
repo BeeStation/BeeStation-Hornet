@@ -240,4 +240,4 @@ SUBSYSTEM_DEF(traumas)
 						  "anime" = typecacheof(list(/datum/species/human/felinid))
 						 )
 
-	return ..()
+	return SS_INIT_SUCCESS
