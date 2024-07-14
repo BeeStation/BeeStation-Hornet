@@ -49,18 +49,9 @@
 	var/canpass = CANATMOSPASS(src, src)
 	var/canvpass = CANVERTICALATMOSPASS(src, src)
 	// I am essentially inlineing two get_dir_multizs here, because they're way too slow on their own. I'm sorry brother
-	var/list/z_traits = SSmapping.multiz_levels[z]
 	for(var/direction in GLOB.cardinals_multiz)
-		// Yes this is a reimplementation of get_step_mutliz. It's faster tho. fuck you
-		var/turf/current_turf = (direction & (UP|DOWN)) ? \
-			(direction & UP) ? \
-				(z_traits[Z_LEVEL_UP]) ? \
-					(get_step(locate(x, y, z + 1), NONE)) : \
-				(null) : \
-				(z_traits[Z_LEVEL_DOWN]) ? \
-					(get_step(locate(x, y, z - 1), NONE)) : \
-				(null) : \
-			(get_step(src, direction))
+		// Get step multi-z is cached now so is much faster
+		var/turf/current_turf = get_step_multiz(src, direction)
 		if(!isopenturf(current_turf))
 			continue
 		if(!is_closed && ((direction & (UP|DOWN)) ? (canvpass && CANVERTICALATMOSPASS(current_turf, src)) : (canpass && CANATMOSPASS(current_turf, src))))
@@ -85,18 +76,9 @@
 		return
 	if(disable_adjacent)
 		// I am essentially inlineing two get_dir_multizs here, because they're way too slow on their own. I'm sorry brother
-		var/list/z_traits = SSmapping.multiz_levels[z]
 		for(var/direction in GLOB.cardinals_multiz)
 			// Yes this is a reimplementation of get_step_mutliz. It's faster tho.
-			var/turf/current_turf = (direction & (UP|DOWN)) ? \
-				(direction & UP) ? \
-					(z_traits[Z_LEVEL_UP]) ? \
-						(get_step(locate(x, y, z + 1), NONE)) : \
-					(null) : \
-					(z_traits[Z_LEVEL_DOWN]) ? \
-						(get_step(locate(x, y, z - 1), NONE)) : \
-					(null) : \
-				(get_step(src, direction))
+			var/turf/current_turf = get_step_multiz(src, direction)
 			if(!istype(current_turf))
 				continue
 			if (current_turf.atmos_adjacent_turfs)
