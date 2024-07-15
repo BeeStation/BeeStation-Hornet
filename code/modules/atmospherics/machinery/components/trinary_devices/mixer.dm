@@ -116,15 +116,15 @@
 	if(transfer_moles1)
 		air1.transfer_to(air3, transfer_moles1)
 		var/datum/pipeline/parent1 = parents[1]
-		parent1.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
+		parent1.update = TRUE
 
 	if(transfer_moles2)
 		air2.transfer_to(air3, transfer_moles2)
 		var/datum/pipeline/parent2 = parents[2]
-		parent2.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
+		parent2.update = TRUE
 
 	var/datum/pipeline/parent3 = parents[3]
-	parent3.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
+	parent3.update = TRUE
 
 
 /obj/machinery/atmospherics/components/trinary/mixer/ui_state(mob/user)
