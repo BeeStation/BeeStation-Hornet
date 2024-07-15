@@ -317,7 +317,7 @@
 
 //LAVALAND
 /// what pressure you have to be under to increase the effect of equipment meant for lavaland
-#define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 50
+#define MAXIMUM_LAVALAND_EQUIPMENT_EFFECT_PRESSURE 90
 
 //ATMOS MIX IDS
 #define LAVALAND_DEFAULT_ATMOS		"LAVALAND_ATMOS"
