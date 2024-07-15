@@ -186,6 +186,11 @@
 /// The temperature the blue icon is displayed.
 #define BODYTEMP_COLD_WARNING_3 (BODYTEMP_COLD_DAMAGE_LIMIT - 150) //120k
 
+
+//Emergency skinsuits
+#define EMERGENCY_HELM_MIN_TEMP_PROTECT		2.0		//The helmet is pressurized with air from the oxygen tank. If they don't take damage from that they won't take damage here
+#define EMERGENCY_SUIT_MIN_TEMP_PROTECT		237		//This is the approximate average temperature of Mt. Everest in the winter
+
 /// what min_cold_protection_temperature is set to for space-helmet quality headwear. MUST NOT BE 0.
 #define SPACE_HELM_MIN_TEMP_PROTECT			2.0
 /// Thermal insulation works both ways /Malkevin
@@ -328,9 +333,9 @@
 #define ATMOS_GAS_MONITOR_OUTPUT_O2 "o2_out"
 #define ATMOS_GAS_MONITOR_SENSOR_O2 "o2_sensor"
 
-#define ATMOS_GAS_MONITOR_INPUT_TOX "tox_in"
-#define ATMOS_GAS_MONITOR_OUTPUT_TOX "tox_out"
-#define ATMOS_GAS_MONITOR_SENSOR_TOX "tox_sensor"
+#define ATMOS_GAS_MONITOR_INPUT_PLASMA "plasma_in"
+#define ATMOS_GAS_MONITOR_OUTPUT_PLASMA "plasma_out"
+#define ATMOS_GAS_MONITOR_SENSOR_PLASMA "plasma_sensor"
 
 #define ATMOS_GAS_MONITOR_INPUT_AIR "air_in"
 #define ATMOS_GAS_MONITOR_OUTPUT_AIR "air_out"
@@ -429,6 +434,18 @@
 
 #define ATMOS_GAS_MONITOR_WASTE_ENGINE "engine-waste_out"
 #define ATMOS_GAS_MONITOR_WASTE_ATMOS "atmos-waste_out"
+
+#define ATMOS_GAS_MONITOR_INPUT_SM "sm_in"
+#define ATMOS_GAS_MONITOR_OUTPUT_SM "sm_out"
+#define ATMOS_GAS_MONITOR_SENSOR_SM "sm_sense"
+
+#define ATMOS_GAS_MONITOR_INPUT_SM_WASTE "sm_waste_in"
+#define ATMOS_GAS_MONITOR_OUTPUT_SM_WASTE "sm_waste_out"
+#define ATMOS_GAS_MONITOR_SENSOR_SM_WASTE "sm_waste_sense"
+
+#define ATMOS_GAS_MONITOR_INPUT_TOXINS_WASTE "toxins_waste_in"
+#define ATMOS_GAS_MONITOR_OUTPUT_TOXINS_WASTE "toxins_waste_out"
+#define ATMOS_GAS_MONITOR_SENSOR_TOXINS_WASTE "toxins_waste_sense"
 
 //AIRLOCK CONTROLLER TAGS
 
