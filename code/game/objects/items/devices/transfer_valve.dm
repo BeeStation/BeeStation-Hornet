@@ -134,8 +134,8 @@
 		target_self = TRUE
 	if(change_volume)
 		if(!target_self)
-			target.set_volume(target.return_volume() + tank_two.air_contents.return_volume())
-		target.set_volume(target.return_volume() + tank_one.air_contents.return_volume())
+			target.volume = target.return_volume() + tank_two.air_contents.return_volume()
+		target.volume = target.return_volume() + tank_one.air_contents.return_volume()
 	tank_one.air_contents.transfer_ratio_to(target, 1)
 	if(!target_self)
 		tank_two.air_contents.transfer_ratio_to(target, 1)
@@ -145,7 +145,7 @@
 		return
 	var/ratio1 = tank_one.air_contents.return_volume()/tank_two.air_contents.return_volume()
 	tank_two.air_contents.transfer_ratio_to(tank_one.air_contents, ratio1)
-	tank_two.air_contents.set_volume(tank_two.air_contents.return_volume() - tank_one.air_contents.return_volume())
+	tank_two.air_contents.volume tank_two.air_contents.return_volume() - tank_one.air_contents.return_volume()
 
 	/*
 	Exadv1: I know this isn't how it's going to work, but this was just to check

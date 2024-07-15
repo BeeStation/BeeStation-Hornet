@@ -17,7 +17,7 @@
 /obj/machinery/atmospherics/components/unary/tank/New()
 	..()
 	var/datum/gas_mixture/air_contents = airs[1]
-	air_contents.set_volume(volume)
+	air_contents.volume = volume
 	air_contents.temperature = (T20C)
 	if(gas_type)
 		air_contents.gases[gas_type][MOLES] = AIR_CONTENTS

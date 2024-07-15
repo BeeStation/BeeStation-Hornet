@@ -141,7 +141,7 @@
 				loc_as_obj.handle_internal_lifeform(src,0)
 
 	if(breath)
-		breath.set_volume(BREATH_VOLUME)
+		breath.volume = BREATH_VOLUME
 	check_breath(breath)
 
 	if(breath)

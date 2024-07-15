@@ -219,8 +219,8 @@
 	..()
 	var/datum/gas_mixture/air1 = airs[1]
 	var/datum/gas_mixture/air2 = airs[2]
-	air1.set_volume(1000)
-	air2.set_volume(1000)
+	air1.volume = 1000
+	air2.volume = 1000
 
 // Mapping
 

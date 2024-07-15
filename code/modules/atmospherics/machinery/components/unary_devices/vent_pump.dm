@@ -303,7 +303,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/New()
 	..()
 	var/datum/gas_mixture/air_contents = airs[1]
-	air_contents.set_volume(1000)
+	air_contents.volume = 1000
 
 // mapping
 

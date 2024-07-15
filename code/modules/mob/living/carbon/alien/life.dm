@@ -50,7 +50,7 @@
 		breath = loc.remove_air_ratio(breath_ratio)
 
 	if(breath)
-		breath.set_volume(BREATH_VOLUME)
+		breath.volume = BREATH_VOLUME
 	check_breath(breath)
 
 /mob/living/carbon/alien/handle_status_effects(delta_time)

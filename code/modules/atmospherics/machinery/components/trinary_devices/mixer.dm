@@ -58,7 +58,7 @@
 /obj/machinery/atmospherics/components/trinary/mixer/New()
 	..()
 	var/datum/gas_mixture/air3 = airs[3]
-	air3.set_volume(300)
+	air3.volume = 300
 	airs[3] = air3
 
 /obj/machinery/atmospherics/components/trinary/mixer/process_atmos()
