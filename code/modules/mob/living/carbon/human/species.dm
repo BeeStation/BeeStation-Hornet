@@ -379,13 +379,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/obj/item/organ/I = C.getorgan(mutantorgan)
 			if(I)
 				I.Remove(C)
-				required_organs -= I
+				required_organs -= I.type
 				QDEL_NULL(I)
 
 	for(var/path in mutant_organs)
 		var/obj/item/organ/I = new path()
 		I.Insert(C)
-		required_organs |= I
+		required_organs |= I.type
 
 /datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
 	new_species ||= C.dna.species //If no new species is provided, assume its src.
