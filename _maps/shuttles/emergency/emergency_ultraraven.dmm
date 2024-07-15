@@ -109,15 +109,15 @@
 "aK" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/delivery/red,
-/obj/machinery/button/door{
-	id = "evashutter";
-	name = "EVA Shutter Control";
-	pixel_x = 6;
-	pixel_y = 26;
-	req_access_txt = "18"
-	},
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/machinery/button/door{
+	id = ""shuttleevashutter"";
+	name = "Shuttle EVA Shutter Control";
+	pixel_x = 8;
+	pixel_y = 26;
+	req_access_txt = "18"
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -169,7 +169,7 @@
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/mineral/silver,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "aZ" = (
 /turf/open/floor/iron/dark,
@@ -284,7 +284,7 @@
 /obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
 	dir = 1
 	},
-/turf/open/floor/mineral/silver,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "br" = (
 /obj/structure/table/glass,
@@ -319,7 +319,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/mineral/silver,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "bz" = (
 /obj/effect/turf_decal/raven/five,
@@ -554,6 +554,13 @@
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"dB" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/engineering{
+	name = "Emergency Shutle Engineering"
+	},
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "dX" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
@@ -591,13 +598,12 @@
 /turf/open/floor/iron/smooth,
 /area/shuttle/escape)
 "fo" = (
-/obj/machinery/door/airlock/external{
-	name = "Emegency Shuttle External Airlock"
-	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/external{
+	name = "Emegency Shuttle External Airlock"
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "fx" = (
@@ -616,7 +622,13 @@
 	},
 /area/shuttle/escape)
 "fX" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "Security External Airlock";
+	req_access_txt = "1"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "hc" = (
@@ -642,6 +654,10 @@
 /turf/open/floor/iron/dark/corner{
 	dir = 4
 	},
+/area/shuttle/escape)
+"hV" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "in" = (
 /obj/machinery/door/firedoor,
@@ -687,7 +703,7 @@
 /obj/effect/turf_decal/tile/dark_blue{
 	dir = 1
 	},
-/turf/open/floor/mineral/silver,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "kg" = (
 /obj/effect/turf_decal/stripes/line{
@@ -716,7 +732,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/mineral/silver,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "lj" = (
 /obj/effect/turf_decal/tile/blue/anticorner_ramp{
@@ -726,7 +742,7 @@
 /area/shuttle/escape)
 "lC" = (
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted,
-/turf/open/floor/mineral/silver,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "lW" = (
 /obj/machinery/door/airlock/command/glass{
@@ -764,7 +780,8 @@
 /obj/machinery/stasis{
 	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "ne" = (
 /obj/effect/turf_decal/raven/eight,
@@ -831,7 +848,7 @@
 /obj/effect/turf_decal/tile/dark_blue{
 	dir = 4
 	},
-/turf/open/floor/mineral/silver,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "qd" = (
 /obj/machinery/door/poddoor/preopen{
@@ -933,7 +950,7 @@
 /obj/item/storage/firstaid{
 	pixel_y = 2
 	},
-/turf/open/floor/mineral/silver,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "wq" = (
 /obj/structure/window/reinforced{
@@ -1006,8 +1023,8 @@
 "xv" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/button/door{
-	id = "evashutter";
-	name = "EVA Shutter Control";
+	id = ""shuttleevashutter"";
+	name = "Shuttle EVA Shutter Control";
 	pixel_x = -6;
 	pixel_y = 26;
 	req_access_txt = "18"
@@ -1017,10 +1034,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"xz" = (
-/obj/structure/shuttle/engine/propulsion,
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/escape)
 "xE" = (
 /obj/effect/turf_decal/delivery/white,
@@ -1080,7 +1093,7 @@
 	desc = "Used to the Raven's automated defenses.";
 	icon_state = "control_kill";
 	lethal = 1;
-	pixel_x = 5;
+	pixel_x = 2;
 	pixel_y = 32;
 	req_access = null;
 	req_access_txt = "19"
@@ -1088,9 +1101,9 @@
 /obj/machinery/button/door{
 	id = "escape_cockpit_windows";
 	name = "Cockpit Window Blast Doors";
-	pixel_x = -10;
+	pixel_x = -7;
 	req_access_txt = "19";
-	pixel_y = 34
+	pixel_y = 40
 	},
 /obj/effect/turf_decal/tile/dark_blue/diagonal_edge,
 /turf/open/floor/iron/dark,
@@ -1102,8 +1115,8 @@
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/poddoor/shutters{
-	id = "evashutter";
-	name = "EVA Storage Shutters"
+	id = "shuttleevashutter";
+	name = "Shuttle EVA Storage Shutters"
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -1188,7 +1201,8 @@
 /obj/item/storage/backpack/duffelbag/med/surgery{
 	pixel_y = 7
 	},
-/turf/open/floor/iron/dark,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "CE" = (
 /obj/machinery/shieldgen{
@@ -1275,9 +1289,12 @@
 	},
 /area/shuttle/escape)
 "Eu" = (
-/obj/machinery/door/airlock/external,
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/external{
+	name = "Security External Airlock";
+	req_access_txt = "1"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Ew" = (
@@ -1294,7 +1311,7 @@
 /obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
 	dir = 4
 	},
-/turf/open/floor/mineral/silver,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "EK" = (
 /obj/item/clothing/suit/hazardvest{
@@ -1412,7 +1429,7 @@
 /area/shuttle/escape)
 "Gd" = (
 /obj/structure/shuttle/engine/large,
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "Gg" = (
 /turf/open/floor/iron/dark/side{
@@ -1687,7 +1704,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "NJ" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -1735,7 +1753,7 @@
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/mineral/silver,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Px" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
@@ -1822,10 +1840,6 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"Rq" = (
-/obj/machinery/door/firedoor,
-/turf/template_noop,
-/area/template_noop)
 "Rw" = (
 /obj/effect/turf_decal/raven/four,
 /obj/effect/turf_decal/tile/dark_blue/diagonal_edge,
@@ -1940,9 +1954,6 @@
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
-/area/shuttle/escape)
-"VI" = (
-/turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "VJ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -2097,7 +2108,7 @@ aa
 aa
 aa
 aa
-Rq
+aa
 aa
 aa
 aa
@@ -2463,7 +2474,7 @@ Vu
 ZB
 sc
 sU
-wF
+nA
 "}
 (12,1,1) = {"
 aa
@@ -2494,7 +2505,7 @@ zl
 sU
 sU
 sU
-Pe
+dB
 zl
 sU
 aa
@@ -2531,7 +2542,7 @@ QW
 QW
 Rn
 DX
-ad
+hV
 "}
 (14,1,1) = {"
 aa
@@ -2564,7 +2575,7 @@ Pe
 Ml
 Md
 ae
-sU
+QW
 Gd
 "}
 (15,1,1) = {"
@@ -2598,8 +2609,8 @@ sU
 cB
 Dl
 Pk
-sU
-sU
+QW
+QW
 "}
 (16,1,1) = {"
 aa
@@ -2633,7 +2644,7 @@ Gz
 oq
 sU
 DX
-xz
+hV
 "}
 (17,1,1) = {"
 sU
@@ -2648,7 +2659,7 @@ sU
 Np
 Pm
 vA
-VI
+aZ
 vm
 aZ
 aZ
@@ -2666,7 +2677,7 @@ sU
 Vo
 ez
 cG
-sU
+QW
 Gd
 "}
 (18,1,1) = {"
@@ -2700,8 +2711,8 @@ sU
 ww
 bm
 sU
-sU
-sU
+QW
+QW
 "}
 (19,1,1) = {"
 aa
@@ -2735,7 +2746,7 @@ jP
 Oh
 Pk
 DX
-xz
+hV
 "}
 (20,1,1) = {"
 aa
@@ -2768,7 +2779,7 @@ Pe
 Ml
 ht
 ae
-sU
+QW
 Gd
 "}
 (21,1,1) = {"
@@ -2802,8 +2813,8 @@ sU
 QW
 QW
 Rn
-sU
-sU
+QW
+QW
 "}
 (22,1,1) = {"
 aa
@@ -2832,7 +2843,7 @@ zl
 QD
 zl
 sU
-zl
+sU
 sU
 zl
 zl
@@ -2871,7 +2882,7 @@ zl
 Ck
 dj
 sU
-nA
+wF
 "}
 (24,1,1) = {"
 aa
