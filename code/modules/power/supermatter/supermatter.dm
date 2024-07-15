@@ -521,9 +521,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		removed.temperature = (max(0, min(removed.return_temperature(), 2500 * dynamic_heat_modifier)))
 
 		//Calculate how much gas to release
-		removed.gases[/datum/gas/plasma][MOLES] += max((device_energy * dynamic_heat_modifier / PLASMA_RELEASE_MODIFIER, 0))
+		removed.gases[/datum/gas/plasma][MOLES] += max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0)
 
-		removed.gases[/datum/gas/oxygen][MOLES] += max(((device_energy + removed.return_temperature( * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
+		removed.gases[/datum/gas/oxygen][MOLES] += max(((device_energy + removed.return_temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
 
 		if(produces_gas)
 			env.merge(removed)

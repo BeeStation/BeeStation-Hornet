@@ -412,7 +412,10 @@
 
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
 	var/standard_waste_gas_output = scale_factor * (FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED)
-	delta_plasma > 0 ? air.gases[/datum/gas/water_vapor][MOLES] += standard_waste_gas_output : air.gases[/datum/gas/bz][MOLES] += standard_waste_gas_output
+	if(delta_plasma > 0)
+		air.gases[/datum/gas/water_vapor][MOLES] += standard_waste_gas_output
+	else
+		air.gases[/datum/gas/bz][MOLES] += standard_waste_gas_output
 	air.gases[/datum/gas/oxygen][MOLES] += standard_waste_gas_output //Oxygen is a bit touchy subject
 
 	if(reaction_energy)
