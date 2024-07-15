@@ -106,13 +106,16 @@
 
 
 	burned_fuel = max(0,0.00002*(temperature-(0.00001*(temperature**2))))*air.gases[/datum/gas/nitrous_oxide][MOLES]
-	air.set_moles(/datum/gas/nitrous_oxide, air.gases[/datum/gas/nitrous_oxide][MOLES] - burned_fuel)
+	air.gases[/datum/gas/nitrous_oxide][MOLES] = air.gases[/datum/gas/nitrous_oxide][MOLES] - burned_fuel
+
 
 	if(burned_fuel)
 		energy_released += (N2O_DECOMPOSITION_ENERGY_RELEASED * burned_fuel)
 
-		air.set_moles(/datum/gas/oxygen, air.gases[/datum/gas/oxygen][MOLES] + burned_fuel/2)
-		air.set_moles(/datum/gas/nitrogen, air.gases[/datum/gas/nitrogen][MOLES] + burned_fuel)
+		air.gases[/datum/gas/oxygen][MOLES] = air.gases[/datum/gas/oxygen][MOLES] + burned_fuel/2
+
+		air.gases[/datum/gas/nitrogen][MOLES] = air.gases[/datum/gas/nitrogen][MOLES] + burned_fuel
+
 
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
@@ -156,7 +159,8 @@
 		air.adjust_moles(/datum/gas/tritium, -burned_fuel)
 	else
 		burned_fuel = initial_trit // Yogs -- Conservation of Mass fix
-		air.set_moles(/datum/gas/tritium, air.gases[/datum/gas/tritium][MOLES] * (1 - 1/TRITIUM_BURN_TRIT_FACTOR)) // Yogs -- Maybe a tiny performance boost? I'unno
+		air.gases[/datum/gas/tritium][MOLES] = air.gases[/datum/gas/tritium][MOLES] * (1 - 1/TRITIUM_BURN_TRIT_FACTOR
+) // Yogs -- Maybe a tiny performance boost? I'unno
 		air.adjust_moles(/datum/gas/oxygen, -air.gases[/datum/gas/tritium][MOLES])
 		energy_released += (FIRE_HYDROGEN_ENERGY_RELEASED * burned_fuel * (TRITIUM_BURN_TRIT_FACTOR - 1)) // Yogs -- Fixes low-energy tritium fires
 
@@ -227,8 +231,10 @@
 
 		if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
 			plasma_burn_rate = min(plasma_burn_rate,air.gases[/datum/gas/plasma][MOLES],air.gases[/datum/gas/oxygen][MOLES]/oxygen_burn_rate) //Ensures matter is conserved properly
-			air.set_moles(/datum/gas/plasma, QUANTIZE(air.gases[/datum/gas/plasma][MOLES] - plasma_burn_rate))
-			air.set_moles(/datum/gas/oxygen, QUANTIZE(air.gases[/datum/gas/oxygen][MOLES] - (plasma_burn_rate * oxygen_burn_rate)))
+			air.gases[/datum/gas/plasma][MOLES] = QUANTIZE(air.gases[/datum/gas/plasma][MOLES] - plasma_burn_rate
+)
+			air.gases[/datum/gas/oxygen][MOLES] = QUANTIZE(air.gases[/datum/gas/oxygen][MOLES] - (plasma_burn_rate * oxygen_burn_rate
+))
 			if (super_saturation)
 				air.adjust_moles(/datum/gas/tritium, plasma_burn_rate)
 			else
@@ -380,8 +386,10 @@
 	plasma = MODULUS(plasma - (instability*sin(TODEGREES(carbon))), toroidal_size)
 	carbon = MODULUS(carbon - plasma, toroidal_size)
 
-	air.set_moles(/datum/gas/plasma, plasma*scale_factor + FUSION_MOLE_THRESHOLD )//Scales the gases back up
-	air.set_moles(/datum/gas/carbon_dioxide, carbon*scale_factor + FUSION_MOLE_THRESHOLD)
+	air.gases[/datum/gas/plasma][MOLES] = plasma*scale_factor + FUSION_MOLE_THRESHOLD
+//Scales the gases back up
+	air.gases[/datum/gas/carbon_dioxide][MOLES] = carbon*scale_factor + FUSION_MOLE_THRESHOLD
+
 	var/delta_plasma = min(initial_plasma - air.gases[/datum/gas/plasma][MOLES], toroidal_size * scale_factor * 1.5)
 
 	//Energy is gained or lost corresponding to the creation or destruction of mass.

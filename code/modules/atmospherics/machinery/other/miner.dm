@@ -134,7 +134,8 @@
 	if(!isopenturf(O))
 		return FALSE
 	var/datum/gas_mixture/merger = new
-	merger.set_moles(spawn_id, spawn_mol * delta_time)
+	merger.gases[spawn_id][MOLES] = spawn_mol * delta_time
+
 	merger.temperature = (spawn_temp)
 	O.assume_air(merger)
 

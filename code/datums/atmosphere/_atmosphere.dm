@@ -25,7 +25,8 @@
 	var/datum/gas_mixture/gasmix = new
 	gasmix.temperature = rand(minimum_temp, maximum_temp)
 	for(var/i in base_gases)
-		gasmix.set_moles(i, base_gases[i])
+		gasmix.gases[i][MOLES] = base_gases[i]
+
 
 	// Now let the random choices begin
 	var/datum/gas/gastype

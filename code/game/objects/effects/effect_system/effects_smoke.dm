@@ -181,7 +181,8 @@
 			qdel(H)
 		if(G.gases[/datum/gas/plasma][MOLES])
 			G.adjust_moles(/datum/gas/nitrogen, G.gases[/datum/gas/plasma][MOLES])
-			G.set_moles(/datum/gas/plasma, 0)
+			G.gases[/datum/gas/plasma][MOLES] = 0
+
 	if (weldvents)
 		for(var/obj/machinery/atmospherics/components/unary/U in T)
 			if(!isnull(U.welded) && !U.welded) //must be an unwelded vent pump or vent scrubber.

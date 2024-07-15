@@ -29,7 +29,8 @@
 
 /obj/item/tank/jetpack/populate_gas()
 	if(gas_type)
-		air_contents.set_moles(gas_type, ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)))
+		air_contents.gases[gas_type][MOLES] = ((6 * ONE_ATMOSPHERE
+ * volume / (R_IDEAL_GAS_EQUATION * T20C)))
 
 /obj/item/tank/jetpack/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/toggle_jetpack))
@@ -335,8 +336,10 @@
 /obj/item/tank/jetpack/combustion/populate_gas()
 	var/moles_full = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 	var/ideal_o2_percent = (1 / PLASMA_OXYGEN_FULLBURN) * 2
-	air_contents.set_moles(/datum/gas/plasma, moles_full * (1 - ideal_o2_percent))
-	air_contents.set_moles(/datum/gas/oxygen, moles_full * ideal_o2_percent)
+	air_contents.gases[/datum/gas/plasma][MOLES] = moles_full * (1 - ideal_o2_percent
+)
+	air_contents.gases[/datum/gas/oxygen][MOLES] = moles_full * ideal_o2_percent
+
 
 /obj/item/tank/jetpack/combustion/allow_thrust(num, mob/living/user, use_fuel = TRUE)
 	if(!on || !known_user)
@@ -369,8 +372,10 @@
 
 	// Consume
 	if(use_fuel)
-		air_contents.set_moles(/datum/gas/plasma, QUANTIZE(air_contents.gases[/datum/gas/plasma][MOLES] - plasma_burn_rate))
-		air_contents.set_moles(/datum/gas/oxygen, QUANTIZE(air_contents.gases[/datum/gas/oxygen][MOLES] - (plasma_burn_rate * oxygen_burn_rate)))
+		air_contents.gases[/datum/gas/plasma][MOLES] = QUANTIZE(air_contents.gases[/datum/gas/plasma][MOLES] - plasma_burn_rate
+)
+		air_contents.gases[/datum/gas/oxygen][MOLES] = QUANTIZE(air_contents.gases[/datum/gas/oxygen][MOLES] - (plasma_burn_rate * oxygen_burn_rate
+))
 	update_fade(15)
 	update_lifespan(4)
 

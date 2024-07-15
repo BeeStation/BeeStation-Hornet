@@ -342,7 +342,8 @@
 			for(var/I in G.get_gases())
 				if(I == /datum/gas/oxygen || I == /datum/gas/nitrogen)
 					continue
-				G.set_moles(I, 0)
+				G.gases[I][MOLES] = 0
+
 		for(var/obj/machinery/atmospherics/components/unary/U in O)
 			if(!U.welded)
 				U.welded = TRUE
