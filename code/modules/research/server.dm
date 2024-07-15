@@ -91,7 +91,7 @@
 		if(env)
 			var/perc = max((get_env_temp() - temp_tolerance_high), 0) * temp_penalty_coefficient / base_mining_income
 
-			env.adjust_heat(heating_power * perc * heat_gen)
+			env.temperature = (heating_power * perc * heat_gen) / env.heat_capacity()
 			air_update_turf(FALSE, FALSE)
 			src.air_update_turf(FALSE, FALSE)
 		else
