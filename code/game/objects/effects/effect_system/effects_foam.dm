@@ -339,7 +339,7 @@
 			G.temperature = 293.15
 			for(var/obj/effect/hotspot/H in O)
 				qdel(H)
-			for(var/I in G.get_gases())
+			for(var/I in G.gases)
 				if(I == /datum/gas/oxygen || I == /datum/gas/nitrogen)
 					continue
 				G.gases[I][MOLES] = 0

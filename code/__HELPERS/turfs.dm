@@ -400,7 +400,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	if(QDELETED(air))
 		return FALSE
 	// Can most things breathe?
-	for(var/id in air.get_gases())
+	for(var/id in air.gases)
 		if(id in GLOB.hardcoded_gases)
 			continue
 		return FALSE

@@ -100,7 +100,7 @@
 		logmsg = "Valve was <b>toggled</b> by [parent.get_creator_admin()]'s circuit, starting a transfer into \the [attached_can.holding || "air"].<br>"
 		if(!attached_can.holding)
 			var/list/danger = list()
-			for(var/id in attached_can.air_contents.get_gases())
+			for(var/id in attached_can.air_contents.gases)
 				if(!(GLOB.gas_data.flags[id] & GAS_FLAG_DANGEROUS))
 					continue
 				if(attached_can.air_contents.gases[id][MOLES] > (GLOB.gas_data.visibility[id] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
@@ -536,7 +536,7 @@
 			logmsg = "Valve was <b>opened</b> by [key_name(user)], starting a transfer into \the [holding || "air"].<br>"
 		if(!holding)
 			var/list/danger = list()
-			for(var/id in air_contents.get_gases())
+			for(var/id in air_contents.gases)
 				if(!(GLOB.gas_data.flags[id] & GAS_FLAG_DANGEROUS))
 					continue
 				if(air_contents.gases[id][MOLES] > (GLOB.gas_data.visibility[id] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility

@@ -723,7 +723,7 @@ GENE SCANNER
 		else
 			message += "<span class='info'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.gases[/datum/gas/plasma][MOLES], 0.01)] mol)</span>"
 
-		for(var/id in environment.get_gases())
+		for(var/id in environment.gases)
 			if(id in GLOB.hardcoded_gases)
 				continue
 			var/gas_concentration = environment.gases[id][MOLES]/total_moles

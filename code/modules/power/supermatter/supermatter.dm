@@ -222,12 +222,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/list/gasdata = list()
 	if(air.total_moles())
 		data["SM_moles"] = air.total_moles()
-		for(var/gasid in air.get_gases())
+		for(var/gasid in air.gases)
 			gasdata.Add(list(list(
 			"name"= GLOB.gas_data.names[gasid],
 			"amount" = round(100*air.gases[gasid][MOLES]/air.total_moles(),0.01))))
 	else
-		for(var/gasid in air.get_gases())
+		for(var/gasid in air.gases)
 			gasdata.Add(list(list(
 				"name"= GLOB.gas_data.names[gasid],
 				"amount" = 0)))

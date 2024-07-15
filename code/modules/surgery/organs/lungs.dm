@@ -240,7 +240,7 @@
 		else
 			clear_alert_for(H, alert_category)
 	var/list/breath_reagents = GLOB.gas_data.breath_reagents
-	for(var/gas in breath.get_gases())
+	for(var/gas in breath.gases)
 		if(gas in breath_reagents)
 			var/datum/reagent/R = breath_reagents[gas]
 			//H.reagents.add_reagent(R, breath.gases[gas][MOLES] * R.molarity) // See next line
