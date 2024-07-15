@@ -109,6 +109,7 @@
 	icon_state = "tile_abductor"
 	item_state = "tile-abductor"
 	turf_type = /turf/open/floor/mineral/abductor
+	mats_per_unit = list(/datum/material/alloy/alien=MINERAL_MATERIAL_AMOUNT*0.25)
 	mineralType = "abductor"
 	merge_type = /obj/item/stack/tile/mineral/abductor
 
@@ -217,7 +218,7 @@
 	item_state = "tile-darkshuttle"
 	turf_type = /turf/open/floor/mineral/plastitanium
 	mineralType = "plastitanium"
-	mats_per_unit = list(/datum/material/titanium=500, /datum/material/plasma=500)
+	mats_per_unit = list(/datum/material/alloy/plastitanium=MINERAL_MATERIAL_AMOUNT*0.50)
 	merge_type = /obj/item/stack/tile/mineral/plastitanium
 	tile_reskin_types = list(
 		/obj/item/stack/tile/mineral/plastitanium,

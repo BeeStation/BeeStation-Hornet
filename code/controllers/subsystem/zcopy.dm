@@ -142,11 +142,11 @@ SUBSYSTEM_DEF(zcopy)
 	while (idx <= zlev_maximums.len)
 	return jointext(zmx, ", ")
 
-/datum/controller/subsystem/zcopy/Initialize(timeofday)
+/datum/controller/subsystem/zcopy/Initialize()
 	calculate_zstack_limits()
 	// Flush the queue.
 	fire(FALSE, TRUE)
-	return ..()
+	return SS_INIT_SUCCESS
 
 // If you add a new Zlevel or change Z-connections, call this.
 /datum/controller/subsystem/zcopy/proc/calculate_zstack_limits()
