@@ -1,0 +1,6 @@
+author: Programs-The-Station
+delete-after: true
+changes:
+  - bugfix: Printed Positronic Brains will now show the correct locations to ghosts
+      on creation, instead of null.
+  - bugfix: Random Hardcoded pAI jobcode value.

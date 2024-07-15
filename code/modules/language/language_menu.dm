@@ -132,6 +132,12 @@
 					if("Both")
 						spoken = TRUE
 						understood = TRUE
+				if(language_holder.blocked_languages.Find(language_datum))
+					var/blocked_language_choice = alert(user,"The [language_name] language is in this mob's list of blocked languages. Do you wish to remove it so you may give the mob the [language_name] language?","[language_datum]", "Yes", "No")
+					if(blocked_language_choice == "Yes")
+						language_holder.remove_blocked_language(language_datum)
+						message_admins("[key_name_admin(user)] removed the [language_name] language from [key_name_admin(AM)]'s blocked languages list.")
+						log_admin("[key_name(user)] removed the language [language_name] from [key_name(AM)]'s blocked languages list.")
 				language_holder.grant_language(language_datum, understood, spoken)
 				if(spoken && language_datum == /datum/language/metalanguage)
 					var/yes = alert(user, "You have added speakable Metalanguage. Do you wish to give them a trait that they can use language key(,`) to say that? Otherwise, they'll have no way to say that, or, instead, you should set their default language to metalanguage.", "Give Metalangauge trait?", "Yes", "No")

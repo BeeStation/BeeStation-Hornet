@@ -1,3 +1,8 @@
+/**
+ * TILE STACKS
+ *
+ * Allows us to place a turf on a plating.
+ */
 /obj/item/stack/tile
 	name = "broken tile"
 	singular_name = "broken tile"
@@ -21,6 +26,8 @@
 	var/list/tile_reskin_types
 	/// Cached associative lazy list to hold the radial options for tile dirs. See tile_reskinning.dm for more information.
 	var/list/tile_rotate_dirs
+	/// Allows us to replace the plating we are attacking if our baseturfs are the same.
+	var/replace_plating = FALSE
 
 /obj/item/stack/tile/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
@@ -55,12 +62,44 @@
 			return
 		. += "<span class='notice'>Those could work as a [verb] throwing weapon.</span>"
 
-/obj/item/stack/tile/proc/place_tile(turf/open/T)
-	if(!turf_type || !use(1))
+/**
+ * Place our tile on a plating, or replace it.
+ *
+ * Arguments:
+ * * target_plating - Instance of the plating we want to place on. Replaced during sucessful executions.
+ * * user - The mob doing the placing.
+ */
+/obj/item/stack/tile/proc/place_tile(turf/open/floor/plating/target_plating, mob/user)
+	var/turf/placed_turf_path = turf_type
+	if(!ispath(placed_turf_path))
 		return
-	var/turf/placed_turf = T.PlaceOnTop(turf_type, flags = CHANGETURF_INHERIT_AIR)
-	placed_turf.setDir(turf_dir)
-	return placed_turf
+	if(!istype(target_plating))
+		return
+
+	if(!replace_plating)
+		if(!use(1))
+			return
+		target_plating = target_plating.PlaceOnTop(placed_turf_path, flags = CHANGETURF_INHERIT_AIR)
+		target_plating.setDir(turf_dir)
+		playsound(target_plating, 'sound/weapons/genhit.ogg', 50, TRUE)
+		return target_plating // Most executions should end here.
+
+	// If we and the target tile share the same initial baseturf and they consent, replace em.
+	if(!target_plating.allow_replacement || initial(target_plating.baseturfs) != initial(placed_turf_path.baseturfs))
+		to_chat(user, "<span class='notice'>You cannot place this tile here directly!</span>")
+		return
+	to_chat(user, "<span class='notice'>You begin replacing the floor with the tile...</span>")
+	if(!do_after(user, 3 SECONDS, target_plating))
+		return
+	if(!istype(target_plating))
+		return
+	if(!use(1))
+		return
+
+	target_plating = target_plating.ChangeTurf(placed_turf_path, target_plating.baseturfs, CHANGETURF_INHERIT_AIR)
+	target_plating.setDir(turf_dir)
+	playsound(target_plating, 'sound/weapons/genhit.ogg', 50, TRUE)
+	return target_plating
 
 //Grass
 /obj/item/stack/tile/grass
@@ -321,12 +360,10 @@
 	merge_type = /obj/item/stack/tile/carpet/grimy
 	turf_type = /turf/open/floor/carpet/grimy
 
-/*
-/obj/item/stack/tile/material/place_tile(turf/open/T)
+/obj/item/stack/tile/material/place_tile(turf/open/target_plating, mob/user)
 	. = ..()
-	var/turf/open/floor/material/F = .
-	F?.set_custom_materials(mats_per_unit)
-*/
+	var/turf/open/floor/material/floor = .
+	floor?.set_custom_materials(mats_per_unit)
 
 /obj/item/stack/tile/eighties
 	name = "retro tile"
@@ -604,6 +641,35 @@
 	turf_type = /turf/open/floor/iron/techmaint
 	merge_type = /obj/item/stack/tile/techmaint
 
+// Glass floors
+/obj/item/stack/tile/glass
+	name = "glass floor"
+	singular_name = "glass floor tile"
+	desc = "Glass window floors, to let you see... Whatever that is down there."
+	icon_state = "tile_glass"
+	turf_type = /turf/open/floor/glass
+	item_state = "tile-glass"
+	merge_type = /obj/item/stack/tile/glass
+	mats_per_unit = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT * 0.25) // 4 tiles per sheet
+	replace_plating = TRUE
+
+/obj/item/stack/tile/glass/sixty
+	amount = 60
+
+/obj/item/stack/tile/rglass
+	name = "reinforced glass floor"
+	singular_name = "reinforced glass floor tile"
+	desc = "Reinforced glass window floors. These bad boys are 50% stronger than their predecessors!"
+	icon_state = "tile_rglass"
+	item_state = "tile-rglass"
+	turf_type = /turf/open/floor/glass/reinforced
+	merge_type = /obj/item/stack/tile/rglass
+	mats_per_unit = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT * 0.125, /datum/material/glass=MINERAL_MATERIAL_AMOUNT * 0.25) // 4 tiles per sheet
+	replace_plating = TRUE
+
+/obj/item/stack/tile/rglass/sixty
+	amount = 60
+
 /obj/item/stack/tile/dock
 	name = "dock tile"
 	singular_name = "dock tile"
@@ -636,3 +702,102 @@
 	. = ..()
 	var/turf/open/floor/material/floor = .
 	floor?.set_custom_materials(mats_per_unit)
+
+// Glass floors
+/obj/item/stack/tile/glass
+	name = "glass floor"
+	singular_name = "glass floor tile"
+	desc = "Glass window floors, to let you see... Whatever that is down there."
+	icon_state = "tile_glass"
+	turf_type = /turf/open/floor/glass
+	merge_type = /obj/item/stack/tile/glass
+	custom_materials = list(/datum/material/glass=500) // 4 tiles per sheet
+
+/obj/item/stack/tile/glass/sixty
+	amount = 60
+
+/obj/item/stack/tile/rglass
+	name = "reinforced glass floor"
+	singular_name = "reinforced glass floor tile"
+	desc = "Reinforced glass window floors. These bad boys are 50% stronger than their predecessors!"
+	icon_state = "tile_rglass"
+	turf_type = /turf/open/floor/glass/reinforced
+	merge_type = /obj/item/stack/tile/rglass
+	custom_materials = list(/datum/material/iron=250, /datum/material/glass=250) // 4 tiles per sheet
+
+/obj/item/stack/tile/rglass/sixty
+	amount = 60
+
+/obj/item/stack/tile/glass/plasma
+	name = "plasma glass floor"
+	singular_name = "plasma glass floor tile"
+	desc = "Plasma glass window floors, for when... Whatever is down there is too scary for normal glass."
+	icon_state = "tile_pglass"
+	turf_type = /turf/open/floor/glass/plasma
+	merge_type = /obj/item/stack/tile/glass/plasma
+	custom_materials = list(/datum/material/plasma =500)
+
+/obj/item/stack/tile/glass/plasma
+	amount = 60
+
+/obj/item/stack/tile/rglass/plasma
+	name = "reinforced plasma glass floor"
+	singular_name = "reinforced plasma glass floor tile"
+	desc = "Reinforced plasma glass window floors, because whatever's downstairs should really stay down there."
+	icon_state = "tile_rpglass"
+	turf_type = /turf/open/floor/glass/reinforced/plasma
+	merge_type = /obj/item/stack/tile/rglass/plasma
+	custom_materials = list(/datum/material/iron = 250, /datum/material/plasma = 250)
+
+/obj/item/stack/tile/rglass/plasma
+	amount = 60
+
+//Catwalk Tiles
+/obj/item/stack/tile/catwalk_tile //This is our base type, sprited to look maintenance-styled
+	name = "catwalk floor"
+	singular_name = "catwalk floor tile"
+	desc = "Flooring that shows its contents underneath. Engineers love it!"
+	icon_state = "maint_catwalk"
+	item_state = "tile-catwalk"
+	turf_type = /turf/open/floor/catwalk_floor
+	merge_type = /obj/item/stack/tile/catwalk_tile //Just to be cleaner, these all stack with eachother
+	tile_reskin_types = list(
+		/obj/item/stack/tile/catwalk_tile,
+		/obj/item/stack/tile/catwalk_tile/iron,
+		/obj/item/stack/tile/catwalk_tile/iron_white,
+		/obj/item/stack/tile/catwalk_tile/iron_dark,
+		/obj/item/stack/tile/catwalk_tile/flat_white,
+		/obj/item/stack/tile/catwalk_tile/titanium,
+		/obj/item/stack/tile/catwalk_tile/iron_smooth //this is the original greenish one
+	)
+
+/obj/item/stack/tile/catwalk_tile/sixty
+	amount = 60
+
+/obj/item/stack/tile/catwalk_tile/iron
+	icon_state = "iron_catwalk"
+	turf_type = /turf/open/floor/catwalk_floor/iron
+
+/obj/item/stack/tile/catwalk_tile/iron_white
+	icon_state = "whiteiron_catwalk"
+	turf_type = /turf/open/floor/catwalk_floor/iron_white
+
+/obj/item/stack/tile/catwalk_tile/iron_dark
+	icon_state = "darkiron_catwalk"
+	turf_type = /turf/open/floor/catwalk_floor/iron_dark
+
+/obj/item/stack/tile/catwalk_tile/flat_white
+	icon_state = "flatwhite_catwalk"
+	turf_type = /turf/open/floor/catwalk_floor/flat_white
+
+/obj/item/stack/tile/catwalk_tile/titanium
+	icon_state = "titanium_catwalk"
+	turf_type = /turf/open/floor/catwalk_floor/titanium
+
+/obj/item/stack/tile/catwalk_tile/titanium/alt
+	icon_state = "titanium_alt_catwalk"
+	turf_type = /turf/open/floor/catwalk_floor/titanium/alt
+
+/obj/item/stack/tile/catwalk_tile/iron_smooth //this is the greenish one
+	icon_state = "smoothiron_catwalk"
+	turf_type = /turf/open/floor/catwalk_floor/iron_smooth

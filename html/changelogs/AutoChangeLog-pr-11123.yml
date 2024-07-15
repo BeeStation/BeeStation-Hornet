@@ -1,5 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - bugfix: Fixed holy aura not being removed after holy water is removed from the
-      person's symptom
