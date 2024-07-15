@@ -28,9 +28,6 @@
 /datum/job/cyborg/after_spawn(mob/living/silicon/robot/R, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	if(!M.client || on_dummy)
 		return
-	after_spawn_silicon(R, M)
-
-/datum/job/cyborg/proc/after_spawn_silicon(mob/living/silicon/robot/R, mob/M)
 	R.updatename(M.client)
 	R.gender = NEUTER
 

@@ -9,20 +9,24 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	supervisors = "your laws" //No AI yet as you are just a cube
 	show_in_prefs = FALSE //No reason to show in preferences
 
-/datum/job/cyborg/posibrain/after_spawn_silicon(mob/living/silicon/robot/R, mob/M)
+/datum/job/cyborg/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
+
 	var/obj/item/mmi/posibrain/P = pick(GLOB.on_station_posis)
 
 	//Never show number of current posis
 	current_positions = 0
 
-	if(!P.activate(R)) //If we failed to activate a posi, kick them back to the lobby.
+	if(!P.activate(H)) //If we failed to activate a posi, kick them back to the lobby.
 		//Code taken from "send to lobby" admin panel
 		var/mob/dead/new_player/NP = new()
-		NP.ckey = M.ckey
+		NP.ckey = H.ckey
 
 		to_chat(NP, "<span class='warning'>Failed to Late Join as a Posibrain. Look higher in chat for the reason.</span>")
+		qdel(H)
+		return NP
 
-	qdel(R)
+	qdel(H)
+	return P
 
 /datum/job/cyborg/posibrain/proc/check_add_posi_slot(obj/item/mmi/posibrain/pb)
 	var/turf/currentturf = get_turf(pb)
