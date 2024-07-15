@@ -47,7 +47,7 @@
 	name = "server assembly"
 	icon_state = "setup_stationary-open"
 	shell_to_spawn = /obj/structure/server
-	screw_delay = 8 SECONDS
+	screw_delay = 6 SECONDS
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/shell/server/ComponentInitialize()
