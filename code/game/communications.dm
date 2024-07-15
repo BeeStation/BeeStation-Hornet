@@ -173,7 +173,6 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 				if(start_point.get_virtual_z_level() != end_point.get_virtual_z_level() || (range > 0 && get_dist(start_point, end_point) > range))
 					continue
 			device.receive_signal(signal)
-			CHECK_TICK
 
 /datum/radio_frequency/proc/add_listener(obj/device, filter as text|null)
 	if (!filter)
@@ -181,7 +180,7 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 
 	var/datum/weakref/new_listener = WEAKREF(device)
 	if(isnull(new_listener))
-		return stack_trace("null, non-datum, or qdeleted device")
+		CRASH("null, non-datum, or qdeleted device")
 	var/list/devices_line = devices[filter]
 	if(!devices_line)
 		devices[filter] = devices_line = list()

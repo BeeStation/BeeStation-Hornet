@@ -121,8 +121,8 @@
 			balloon_alert(user, "both devices not attachable!")
 			return
 
-		holder = new/obj/item/assembly_holder(get_turf(src))
-		holder.assemble(src,new_assembly,user)
+		holder = new /obj/item/assembly_holder(get_turf(src))
+		holder.assemble(src, new_assembly, user)
 		to_chat(user, "<span class='notice'>You attach and secure \the [new_assembly] to \the [src]!</span>")
 		return
 

@@ -199,6 +199,7 @@
 	var/mutable_appearance/emissive_overlay = emissive_appearance(icon, icon_state, layer, alpha, appearance_flags, filters)
 	emissive_overlay.transform = transform
 	emissive_overlay.alpha = alpha
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	. += emissive_overlay
 
 /obj/effect/ebeam/Destroy()
@@ -295,5 +296,5 @@
 	layer = ABOVE_ALL_MOB_LAYER
 )
 	var/datum/beam/newbeam = new(src,BeamTarget,icon,icon_state,time,maxdistance,beam_type, beam_color, emissive, override_origin_pixel_x, override_origin_pixel_y, override_target_pixel_x, override_target_pixel_y, layer)
-	INVOKE_ASYNC(newbeam, TYPE_PROC_REF(/datum/beam/, Start))
+	INVOKE_ASYNC(newbeam, TYPE_PROC_REF(/datum/beam, Start))
 	return newbeam
