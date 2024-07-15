@@ -329,7 +329,7 @@
 	icon = 'icons/turf/floors/ice_turf.dmi'
 	icon_state = "ice-0"
 	initial_gas_mix = FROZEN_ATMOS
-	initial_temperature = 180
+	temperature = 180
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/floor/plating/ice
 	slowdown = 1
@@ -360,10 +360,10 @@
 	base_icon_state = "red_ice"
 
 /turf/open/floor/plating/ice/colder
-	initial_temperature = 140
+	temperature = 140
 
 /turf/open/floor/plating/ice/temperate
-	initial_temperature = 255.37
+	temperature = 255.37
 
 /turf/open/floor/plating/ice/break_tile()
 	return
@@ -378,7 +378,7 @@
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snowplating"
 	initial_gas_mix = FROZEN_ATMOS
-	initial_temperature = 180
+	temperature = 180
 	attachment_holes = FALSE
 	planetary_atmos = TRUE
 	footstep = FOOTSTEP_SAND
@@ -399,10 +399,10 @@
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_SNOWED)
 
 /turf/open/floor/plating/snowed/colder
-	initial_temperature = 140
+	temperature = 140
 
 /turf/open/floor/plating/snowed/temperatre
-	initial_temperature = 255.37
+	temperature = 255.37
 
 /turf/open/floor/plating/elevatorshaft
 	name = "elevator shaft"

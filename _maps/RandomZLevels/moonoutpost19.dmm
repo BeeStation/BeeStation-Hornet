@@ -566,7 +566,7 @@
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "bY" = (
@@ -593,7 +593,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "ca" = (
@@ -601,7 +601,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cd" = (
@@ -615,7 +615,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "ce" = (
@@ -629,7 +629,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cf" = (
@@ -643,7 +643,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cg" = (
@@ -656,7 +656,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "ci" = (
@@ -727,7 +727,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cp" = (
@@ -773,7 +773,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cw" = (
@@ -839,7 +839,7 @@
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cD" = (
@@ -856,7 +856,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cG" = (
@@ -922,7 +922,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cR" = (
@@ -931,7 +931,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cT" = (
@@ -967,7 +967,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cW" = (
@@ -976,7 +976,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cX" = (
@@ -985,7 +985,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "damaged3";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cY" = (
@@ -1002,7 +1002,7 @@
 	dir = 1;
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cZ" = (
@@ -1068,7 +1068,7 @@
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "df" = (
@@ -1090,7 +1090,7 @@
 	dir = 1;
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "dh" = (
@@ -1142,7 +1142,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "dm" = (
@@ -1153,7 +1153,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "dn" = (
@@ -1163,7 +1163,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "do" = (
@@ -1172,7 +1172,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "dq" = (
@@ -1260,7 +1260,7 @@
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "dx" = (
@@ -1282,7 +1282,7 @@
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "dz" = (
@@ -1311,7 +1311,7 @@
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "dD" = (
@@ -1323,7 +1323,7 @@
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "dE" = (
@@ -1387,7 +1387,7 @@
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "dJ" = (
@@ -1413,7 +1413,7 @@
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "dM" = (
@@ -1422,7 +1422,7 @@
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/main)
 "dN" = (
@@ -4083,7 +4083,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kd" = (
@@ -4095,7 +4095,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "ke" = (
@@ -4107,7 +4107,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kf" = (
@@ -4121,7 +4121,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kg" = (
@@ -4133,7 +4133,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "ki" = (
@@ -4145,7 +4145,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "damaged3";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kj" = (
@@ -4332,7 +4332,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kC" = (
@@ -4351,7 +4351,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kE" = (
@@ -4359,7 +4359,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kF" = (
@@ -4368,7 +4368,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "damaged5";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kG" = (
@@ -4377,7 +4377,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kH" = (
@@ -4558,7 +4558,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "lm" = (
@@ -4612,7 +4612,7 @@
 "lv" = (
 /turf/open/floor/iron/showroomfloor{
 	heat_capacity = 1e+006;
-	initial_temperature = 273.15
+	temperature = 273.15
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "lw" = (
@@ -4623,7 +4623,7 @@
 	},
 /turf/open/floor/iron/showroomfloor{
 	heat_capacity = 1e+006;
-	initial_temperature = 273.15
+	temperature = 273.15
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "lx" = (
@@ -4635,7 +4635,7 @@
 /obj/item/clothing/under/suit/waiter,
 /turf/open/floor/iron/showroomfloor{
 	heat_capacity = 1e+006;
-	initial_temperature = 273.15
+	temperature = 273.15
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "ly" = (
@@ -4662,7 +4662,7 @@
 	},
 /turf/open/floor/plating{
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "lE" = (
@@ -4705,7 +4705,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "lJ" = (
@@ -4715,7 +4715,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "lK" = (
@@ -4783,7 +4783,7 @@
 /obj/item/gun/ballistic/shotgun/sc_pump,
 /turf/open/floor/iron/showroomfloor{
 	heat_capacity = 1e+006;
-	initial_temperature = 273.15
+	temperature = 273.15
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "lV" = (
@@ -4863,7 +4863,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "mi" = (
@@ -4893,7 +4893,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/showroomfloor{
 	heat_capacity = 1e+006;
-	initial_temperature = 273.15
+	temperature = 273.15
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "mn" = (
@@ -4908,7 +4908,7 @@
 /obj/item/food/meat/slab/monkey,
 /turf/open/floor/iron/showroomfloor{
 	heat_capacity = 1e+006;
-	initial_temperature = 273.15
+	temperature = 273.15
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "mo" = (
@@ -4923,7 +4923,7 @@
 /obj/item/storage/fancy/egg_box,
 /turf/open/floor/iron/showroomfloor{
 	heat_capacity = 1e+006;
-	initial_temperature = 273.15
+	temperature = 273.15
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "mp" = (
@@ -4988,7 +4988,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "my" = (
@@ -5156,7 +5156,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "mQ" = (
@@ -5170,7 +5170,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "mR" = (
@@ -5247,7 +5247,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "na" = (
@@ -5300,7 +5300,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "nj" = (
@@ -5313,7 +5313,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "nk" = (
@@ -5372,7 +5372,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "ns" = (
@@ -5397,7 +5397,7 @@
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "ny" = (
@@ -5410,7 +5410,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "nz" = (
@@ -5460,7 +5460,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "nG" = (
@@ -5473,7 +5473,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "nH" = (
@@ -5529,7 +5529,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "nO" = (
@@ -5573,7 +5573,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "nT" = (
@@ -5610,7 +5610,7 @@
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "nX" = (
@@ -5623,7 +5623,7 @@
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "nY" = (
@@ -5635,7 +5635,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "nZ" = (
@@ -5645,7 +5645,7 @@
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/main)
 "oa" = (
@@ -5667,7 +5667,7 @@
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/main)
 "od" = (
@@ -5749,7 +5749,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "ql" = (
@@ -5891,7 +5891,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "vq" = (
@@ -5900,7 +5900,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "vM" = (
@@ -5925,7 +5925,7 @@
 	heat_capacity = 1e+006;
 	broken = 1;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "vV" = (
@@ -5959,7 +5959,7 @@
 	heat_capacity = 1e+006;
 	broken = 1;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "xg" = (
@@ -6069,7 +6069,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "zZ" = (
@@ -6118,7 +6118,7 @@
 	heat_capacity = 1e+006;
 	broken = 1;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "CF" = (
@@ -6165,7 +6165,7 @@
 	heat_capacity = 1e+006;
 	broken = 1;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "DR" = (
@@ -6177,7 +6177,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "DU" = (
@@ -6291,7 +6291,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "GN" = (
@@ -6300,7 +6300,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "Hc" = (
@@ -6369,7 +6369,7 @@
 	heat_capacity = 1e+006;
 	broken = 1;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "In" = (
@@ -6397,7 +6397,7 @@
 	heat_capacity = 1e+006;
 	broken = 1;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "II" = (
@@ -6414,7 +6414,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "Jk" = (
@@ -6424,7 +6424,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "JH" = (
@@ -6453,7 +6453,7 @@
 /turf/open/floor/iron/cafeteria{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "LE" = (
@@ -6517,7 +6517,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "NJ" = (
@@ -6526,7 +6526,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "Ot" = (
@@ -6537,7 +6537,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "Oy" = (
@@ -6575,7 +6575,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "QP" = (
@@ -6594,7 +6594,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "RA" = (
@@ -6602,7 +6602,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "RD" = (
@@ -6657,7 +6657,7 @@
 	heat_capacity = 1e+006;
 	broken = 1;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "Ul" = (
@@ -6675,7 +6675,7 @@
 /turf/open/floor/iron{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "Uo" = (
@@ -6737,7 +6737,7 @@
 /turf/open/floor/iron/cafeteria{
 	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	initial_temperature = 251
+	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "Xd" = (

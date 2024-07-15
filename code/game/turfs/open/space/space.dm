@@ -13,7 +13,7 @@
 
 	allow_z_travel = TRUE
 
-	initial_temperature = TCMB
+	temperature = TCMB
 	thermal_conductivity = 0
 	heat_capacity = 700000
 
