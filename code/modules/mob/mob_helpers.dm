@@ -458,6 +458,8 @@
 				H.update_damage_overlays()
 			user.visible_message("[user] has fixed some of the [dam ? "dents on" : "burnt wires in"] [H]'s [parse_zone(affecting.body_zone)].", \
 			"<span class='notice'>You fix some of the [dam ? "dents on" : "burnt wires in"] [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)].</span>")
+			if((affecting.brute_dam <= 0 && brute_heal) || (affecting.burn_dam <= 0 && burn_heal))
+				return FALSE //successful heal, but the target is at full health. Returns false to signal you can stop healing now
 			return TRUE //successful heal
 		else
 			to_chat(user, "<span class='warning'>[affecting] is already in good condition!</span>")
