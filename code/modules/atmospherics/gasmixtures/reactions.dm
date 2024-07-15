@@ -49,7 +49,7 @@
 	id = "nobstop"
 
 /datum/gas_reaction/nobliumsupression/init_reqs()
-	min_requirements = list(GAS_HYPERNOB = REACTION_OPPRESSION_THRESHOLD)
+	min_requirements = list(/datum/gas/hypernoblium = REACTION_OPPRESSION_THRESHOLD)
 
 /datum/gas_reaction/nobliumsupression/react()
 	return STOP_REACTIONS
@@ -553,7 +553,7 @@
 		return NO_REACTION
 	air.gases[/datum/gas/tritium][MOLES] += -10*nob_formed
 	air.gases[/datum/gas/nitrogen][MOLES] += -20*nob_formed
-	air.gases[GAS_HYPERNOB][MOLES] += nob_formed
+	air.gases[/datum/gas/hypernoblium][MOLES] += nob_formed
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, nob_formed*NOBLIUM_RESEARCH_AMOUNT)
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, nob_formed*NOBLIUM_RESEARCH_AMOUNT*0.5)
 

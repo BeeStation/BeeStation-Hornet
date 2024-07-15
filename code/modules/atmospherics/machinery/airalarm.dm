@@ -98,7 +98,7 @@
 		/datum/gas/plasma			= new/datum/tlv/dangerous,
 		/datum/gas/nitrous_oxide	= new/datum/tlv/dangerous,
 		/datum/gas/bz				= new/datum/tlv/dangerous,
-		GAS_HYPERNOB		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
+		/datum/gas/hypernoblium		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
 		/datum/gas/water_vapor		= new/datum/tlv/dangerous,
 		/datum/gas/tritium			= new/datum/tlv/dangerous,
 		/datum/gas/stimulum			= new/datum/tlv/dangerous,
@@ -116,7 +116,7 @@
 		/datum/gas/plasma			= new/datum/tlv/no_checks,
 		/datum/gas/nitrous_oxide	= new/datum/tlv/no_checks,
 		/datum/gas/bz				= new/datum/tlv/no_checks,
-		GAS_HYPERNOB		= new/datum/tlv/no_checks,
+		/datum/gas/hypernoblium		= new/datum/tlv/no_checks,
 		/datum/gas/water_vapor		= new/datum/tlv/no_checks,
 		/datum/gas/tritium			= new/datum/tlv/no_checks,
 		/datum/gas/stimulum			= new/datum/tlv/no_checks,
@@ -134,7 +134,7 @@
 		/datum/gas/plasma			= new/datum/tlv/dangerous,
 		/datum/gas/nitrous_oxide	= new/datum/tlv/dangerous,
 		/datum/gas/bz				= new/datum/tlv/dangerous,
-		GAS_HYPERNOB		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
+		/datum/gas/hypernoblium		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
 		/datum/gas/water_vapor		= new/datum/tlv/dangerous,
 		/datum/gas/tritium			= new/datum/tlv/dangerous,
 		/datum/gas/stimulum			= new/datum/tlv/dangerous,
@@ -530,7 +530,7 @@
 						/datum/gas/carbon_dioxide,
 						/datum/gas/plasma,
 						/datum/gas/water_vapor,
-						GAS_HYPERNOB,
+						/datum/gas/hypernoblium,
 						/datum/gas/nitrous_oxide,
 						/datum/gas/nitryl,
 						/datum/gas/tritium,

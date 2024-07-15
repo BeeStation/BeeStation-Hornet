@@ -187,7 +187,7 @@
 /obj/machinery/atmospherics/miner/hypernoblium
 	name = "\improper Hypernoblium Gas Miner"
 	overlay_color = "#00a6e7"
-	spawn_id = GAS_HYPERNOB
+	spawn_id = /datum/gas/hypernoblium
 
 /obj/machinery/atmospherics/miner/nitryl
 	name = "\improper Nitryl Gas Miner"

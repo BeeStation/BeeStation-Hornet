@@ -54,7 +54,7 @@
 	var/list/gasses = list(
 		/datum/gas/bz = 1,
 		/datum/gas/carbon_dioxide = 1,
-		GAS_HYPERNOB = 1,
+		/datum/gas/hypernoblium = 1,
 		/datum/gas/nitrous_oxide = 1,
 		/datum/gas/nitryl = 1,
 		/datum/gas/plasma = 1,

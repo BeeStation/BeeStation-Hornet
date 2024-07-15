@@ -132,7 +132,7 @@
 
 	worth += C.air_contents.gases[/datum/gas/bz][MOLES]*4
 	worth += C.air_contents.gases[/datum/gas/stimulum][MOLES]*100
-	worth += C.air_contents.gases[GAS_HYPERNOB][MOLES]*1000
+	worth += C.air_contents.gases[/datum/gas/hypernoblium][MOLES]*1000
 	worth += C.air_contents.gases[/datum/gas/tritium][MOLES]*5
 	worth += C.air_contents.gases[/datum/gas/pluoxium][MOLES]*5
 	return worth
