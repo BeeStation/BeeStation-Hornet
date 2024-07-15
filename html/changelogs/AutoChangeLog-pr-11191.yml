@@ -1,0 +1,5 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: Modular Fabricators no longer dump the contents of a connected ore silo
+      onto the ground
