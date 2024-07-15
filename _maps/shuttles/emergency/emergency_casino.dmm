@@ -1,29 +1,306 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/closed/wall/mineral/gold,
+"ae" = (
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"b" = (
+"av" = (
+/obj/structure/table/optable,
+/obj/item/storage/backpack/duffelbag/med/surgery,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"aw" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57";
+	dir = 1
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"bs" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"bw" = (
+/obj/structure/window/reinforced/tinted,
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57";
+	dir = 8
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"cP" = (
 /obj/machinery/computer/slot_machine,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"dC" = (
+/obj/structure/window/reinforced/tinted,
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57";
+	dir = 8
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"em" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"c" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
+"fK" = (
+/obj/machinery/computer/apc_control{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"gt" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"gO" = (
+/obj/machinery/computer/slot_machine,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"hi" = (
+/obj/machinery/door/airlock/gold,
+/turf/open/floor/carpet/green,
+/area/shuttle/escape)
+"hJ" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57"
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"ii" = (
+/obj/docking_port/mobile/emergency,
+/obj/machinery/door/airlock/gold,
+/turf/open/floor/carpet/green,
+/area/shuttle/escape)
+"le" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig";
+	req_access_txt = "2"
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"d" = (
-/obj/machinery/computer/operating,
-/turf/open/floor/mineral/gold,
+"lx" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57"
+	},
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/turf/open/floor/carpet/black,
 /area/shuttle/escape)
-"e" = (
+"lE" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57"
+	},
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"lH" = (
+/obj/structure/table/reinforced,
+/obj/item/defibrillator/compact/loaded,
+/obj/item/defibrillator/compact/loaded,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"mY" = (
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/escape)
+"nj" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57";
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"nN" = (
+/obj/machinery/computer/slot_machine,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"qd" = (
+/obj/machinery/vending/medical,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"rC" = (
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"sb" = (
+/obj/machinery/computer/security{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"so" = (
+/obj/machinery/computer/slot_machine,
+/obj/structure/window/reinforced/tinted,
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"tN" = (
+/obj/structure/window/reinforced/tinted,
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
+/obj/machinery/computer/slot_machine,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"un" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57";
+	dir = 4
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"up" = (
+/obj/machinery/computer/slot_machine,
+/obj/structure/window/reinforced/tinted,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"uM" = (
+/obj/machinery/door/airlock/command{
+	name = "Cockpit";
+	req_access_txt = "19"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"wj" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"wJ" = (
+/obj/machinery/computer/operating,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"xd" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57";
+	dir = 4
+	},
+/obj/structure/window/reinforced/tinted,
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"xm" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/firstaid/fire,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"xr" = (
+/turf/template_noop,
+/area/template_noop)
+"xD" = (
+/obj/structure/window/reinforced/tinted,
+/obj/machinery/computer/slot_machine,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"yB" = (
+/obj/structure/table/glass,
+/obj/item/book/manual/wiki/medicine,
+/obj/item/stack/medical/gauze,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"Cf" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Ci" = (
+/obj/machinery/computer/atmos_alert{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"CQ" = (
+/obj/machinery/computer/crew{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"Dq" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"h" = (
+"Dy" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"FM" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57";
+	dir = 4
+	},
+/obj/structure/window/reinforced/tinted,
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"FP" = (
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"HW" = (
+/obj/machinery/door/airlock/gold,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"Ir" = (
+/obj/machinery/shower{
+	dir = 1;
+	name = "emergency shower"
+	},
+/turf/open/floor/noslip/white,
+/area/shuttle/escape)
+"IG" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid{
 	pixel_x = 3;
@@ -33,531 +310,528 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/mineral/gold,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
-"j" = (
-/turf/template_noop,
-/area/template_noop)
-"m" = (
-/obj/structure/shuttle/engine/propulsion,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"n" = (
-/obj/machinery/vending/medical,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"o" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
-	},
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"p" = (
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#c45c57"
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"q" = (
-/obj/machinery/computer/communications,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"r" = (
-/obj/machinery/computer/apc_control{
-	dir = 8
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"s" = (
-/obj/machinery/computer/slot_machine,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"u" = (
-/obj/machinery/computer/atmos_alert{
-	dir = 8
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"v" = (
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#c45c57";
-	dir = 8
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"y" = (
-/obj/machinery/computer/crew{
-	dir = 4
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"A" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"B" = (
-/obj/structure/table/optable,
-/obj/item/storage/backpack/duffelbag/med/surgery,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"C" = (
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#c45c57";
-	dir = 4
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"D" = (
-/obj/docking_port/mobile/emergency,
-/obj/machinery/door/airlock/gold,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"E" = (
-/obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"F" = (
-/obj/structure/table/reinforced,
-/obj/item/assembly/flash,
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"G" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/handcuffs,
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"H" = (
-/obj/machinery/door/airlock/gold,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"I" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/glass/bottle/epinephrine,
-/obj/item/reagent_containers/syringe/epinephrine,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"J" = (
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"K" = (
+"JA" = (
 /obj/structure/chair/fancy/comfy{
 	buildstackamount = 0;
 	color = "#c45c57";
 	dir = 1
 	},
-/turf/open/floor/mineral/gold,
+/turf/open/floor/carpet/green,
 /area/shuttle/escape)
-"M" = (
-/obj/machinery/stasis,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"N" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig";
-	req_access_txt = "2"
-	},
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"O" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"P" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger,
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"Q" = (
-/obj/structure/table/reinforced,
-/obj/item/defibrillator/compact/loaded,
-/obj/item/defibrillator/compact/loaded,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"R" = (
+"JS" = (
 /obj/machinery/door/airlock/command{
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-/turf/open/floor/mineral/gold,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"T" = (
-/obj/machinery/computer/emergency_shuttle,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"W" = (
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"X" = (
-/obj/machinery/computer/security{
+"KA" = (
+/obj/structure/window/reinforced/tinted{
 	dir = 4
 	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"Y" = (
-/obj/structure/table/wood/poker,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
-"Z" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57";
 	dir = 1
 	},
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid{
-	pixel_x = 3;
-	pixel_y = 3
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"Li" = (
+/obj/structure/table/glass,
+/obj/item/storage/belt/medical,
+/obj/item/storage/belt/medical,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
 	},
-/obj/item/storage/firstaid/fire,
-/turf/open/floor/mineral/gold,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/glasses/hud/health,
+/obj/item/clothing/glasses/hud/health,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"LF" = (
+/obj/machinery/computer/communications,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"Mk" = (
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/escape)
+"Nk" = (
+/obj/machinery/computer/slot_machine,
+/obj/structure/window/reinforced/tinted,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"Nl" = (
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"NG" = (
+/obj/structure/table/reinforced,
+/obj/item/assembly/flash,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"NY" = (
+/obj/structure/table/wood/poker,
+/turf/open/floor/carpet/green,
+/area/shuttle/escape)
+"OY" = (
+/turf/open/floor/carpet/green,
+/area/shuttle/escape)
+"Pn" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/glass/bottle/epinephrine,
+/obj/item/reagent_containers/syringe/epinephrine,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"PL" = (
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57";
+	dir = 1
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"RZ" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/handcuffs,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"SQ" = (
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Tc" = (
+/obj/machinery/computer/emergency_shuttle,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"Ur" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"UD" = (
+/obj/machinery/computer/slot_machine,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"WJ" = (
+/obj/structure/table/wood/poker,
+/obj/item/toy/cards/deck,
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"WN" = (
+/obj/machinery/stasis,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"WQ" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Yr" = (
+/obj/machinery/computer/slot_machine,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"ZK" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57";
+	dir = 8
+	},
+/turf/open/floor/carpet/black,
 /area/shuttle/escape)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-N
-a
-D
-a
-a
-a
-a
-a
-H
-a
-H
-a
-j
+mY
+mY
+mY
+mY
+mY
+hi
+mY
+ii
+mY
+gt
+mY
+gt
+mY
+hi
+mY
+hi
+mY
+xr
 "}
 (2,1,1) = {"
-a
-G
-P
-b
-b
-J
-a
-s
-s
-s
-s
-s
-s
-W
-W
-W
-e
-m
+mY
+lH
+xm
+IG
+mY
+rC
+rC
+rC
+tN
+xD
+xD
+xD
+xD
+rC
+rC
+rC
+Dq
+wj
 "}
 (3,1,1) = {"
-a
-b
-O
-o
-o
-J
-a
-v
-v
-v
-v
-v
-v
-W
-W
-W
-e
-m
+gt
+Nl
+Nl
+Nl
+gt
+hJ
+OY
+OY
+bw
+dC
+dC
+dC
+dC
+OY
+OY
+aw
+Dq
+wj
 "}
 (4,1,1) = {"
-a
-b
-O
-J
-J
-J
-N
-W
-W
-W
-W
-W
-W
-W
-W
-C
-e
-m
+gt
+av
+Nl
+Nl
+HW
+rC
+OY
+OY
+rC
+rC
+rC
+rC
+rC
+OY
+OY
+aw
+Dq
+wj
 "}
 (5,1,1) = {"
-a
-b
-O
-c
-c
-J
-a
-C
-C
-p
-Y
-W
-Y
-K
-W
-s
-e
-m
+gt
+wJ
+Nl
+Nl
+gt
+hJ
+OY
+rC
+rC
+un
+un
+un
+rC
+rC
+OY
+aw
+Dq
+wj
 "}
 (6,1,1) = {"
-a
-F
-P
-b
-b
-J
-a
-s
-s
-p
-Y
-C
-Y
-K
-W
-C
-e
-m
+mY
+WN
+Nl
+Nl
+gt
+nN
+PL
+rC
+OY
+NY
+NY
+NY
+JA
+rC
+lx
+Nk
+Dq
+wj
 "}
 (7,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-s
-s
-p
-Y
-E
-Y
-K
-W
-s
-e
-m
+mY
+Pn
+Nl
+Ir
+gt
+cP
+KA
+rC
+OY
+rC
+rC
+WJ
+JA
+rC
+lE
+up
+Dq
+wj
 "}
 (8,1,1) = {"
-a
-s
-A
-W
-y
-X
-a
-v
-v
-W
-v
-v
-v
-W
-W
-C
-e
-m
+mY
+WN
+Nl
+Nl
+gt
+cP
+KA
+rC
+OY
+NY
+NY
+NY
+JA
+rC
+lE
+up
+Dq
+wj
 "}
 (9,1,1) = {"
-a
-T
-A
-W
-W
-W
-R
-W
-W
-W
-W
-W
-W
-W
-W
-s
-e
-m
+gt
+gO
+Nl
+Nl
+gt
+hJ
+OY
+rC
+rC
+ZK
+ZK
+ZK
+rC
+rC
+OY
+aw
+Dq
+wj
 "}
 (10,1,1) = {"
-a
-q
-A
-W
-W
-W
-a
-C
-C
-C
-C
-C
-W
-W
-W
-W
-e
-m
+gt
+nj
+Nl
+Nl
+HW
+rC
+OY
+OY
+rC
+rC
+rC
+rC
+rC
+OY
+OY
+aw
+Dq
+wj
 "}
 (11,1,1) = {"
-a
-s
-A
-W
-r
-u
-a
-s
-s
-s
-s
-s
-W
-W
-W
-W
-e
-m
+gt
+Li
+Nl
+Nl
+gt
+hJ
+OY
+OY
+FM
+xd
+xd
+xd
+xd
+OY
+OY
+aw
+Dq
+wj
 "}
 (12,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-H
-a
-a
-a
-j
+mY
+qd
+Nl
+yB
+mY
+rC
+rC
+rC
+so
+up
+up
+up
+up
+rC
+rC
+rC
+Dq
+wj
 "}
 (13,1,1) = {"
-j
-j
-j
-j
-j
-j
-j
-j
-j
-a
-Q
-Z
-h
-W
-s
-a
-j
-j
+mY
+mY
+uM
+mY
+mY
+mY
+uM
+mY
+mY
+mY
+mY
+mY
+mY
+mY
+le
+mY
+Dq
+wj
 "}
 (14,1,1) = {"
-j
-j
-j
-j
-j
-j
-j
-j
-j
-a
-B
-W
-W
-W
-v
-a
-j
-j
+gt
+ae
+ae
+ae
+bs
+Yr
+ae
+Yr
+Yr
+mY
+RZ
+em
+UD
+UD
+SQ
+UD
+Dq
+wj
 "}
 (15,1,1) = {"
-j
-j
-j
-j
-j
-j
-j
-j
-j
-a
-d
-W
-W
-W
-W
-a
-j
-j
+gt
+Tc
+Ur
+FP
+FP
+FP
+FP
+FP
+ae
+mY
+SQ
+SQ
+Cf
+Cf
+SQ
+Cf
+Dq
+wj
 "}
 (16,1,1) = {"
-j
-j
-j
-j
-j
-j
-j
-j
-j
-a
-M
-W
-I
-n
-M
-a
-j
-j
+gt
+Yr
+Ur
+Mk
+Mk
+Mk
+Mk
+FP
+ae
+JS
+SQ
+SQ
+SQ
+SQ
+SQ
+SQ
+Dq
+wj
 "}
 (17,1,1) = {"
-j
-j
-j
-j
-j
-j
-j
-j
-j
-a
-a
-a
-a
-a
-a
-a
-j
-j
+gt
+LF
+Ur
+FP
+FP
+FP
+FP
+FP
+ae
+mY
+SQ
+SQ
+WQ
+WQ
+WQ
+WQ
+Dq
+wj
+"}
+(18,1,1) = {"
+gt
+ae
+ae
+ae
+Dy
+fK
+Ci
+CQ
+sb
+mY
+NG
+em
+UD
+UD
+UD
+UD
+Dq
+wj
+"}
+(19,1,1) = {"
+mY
+gt
+gt
+gt
+mY
+gt
+gt
+gt
+gt
+mY
+gt
+gt
+mY
+mY
+gt
+gt
+mY
+xr
 "}
