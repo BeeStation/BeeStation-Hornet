@@ -1,11 +1,16 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ae" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	alpha = 180;
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "av" = (
 /obj/structure/table/optable,
 /obj/item/storage/backpack/duffelbag/med/surgery,
-/turf/open/floor/mineral/titanium/blue,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "aw" = (
 /obj/structure/chair/fancy/comfy{
@@ -18,6 +23,10 @@
 "bs" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "bw" = (
@@ -31,6 +40,13 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"cJ" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "cP" = (
 /obj/machinery/computer/slot_machine,
@@ -53,10 +69,17 @@
 /obj/machinery/recharger,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"fE" = (
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "fK" = (
 /obj/machinery/computer/apc_control{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "gt" = (
@@ -65,7 +88,8 @@
 /area/shuttle/escape)
 "gO" = (
 /obj/machinery/computer/slot_machine,
-/turf/open/floor/mineral/titanium/blue,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "hi" = (
 /obj/machinery/door/airlock/gold,
@@ -117,7 +141,8 @@
 /obj/structure/table/reinforced,
 /obj/item/defibrillator/compact/loaded,
 /obj/item/defibrillator/compact/loaded,
-/turf/open/floor/mineral/titanium/blue,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "mY" = (
 /turf/closed/wall/mineral/titanium,
@@ -128,7 +153,8 @@
 	color = "#c45c57";
 	dir = 8
 	},
-/turf/open/floor/mineral/titanium/blue,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "nN" = (
 /obj/machinery/computer/slot_machine,
@@ -140,9 +166,22 @@
 	},
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
+"os" = (
+/obj/machinery/computer/slot_machine,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"pg" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "qd" = (
 /obj/machinery/vending/medical,
-/turf/open/floor/mineral/titanium/blue,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "rC" = (
 /turf/open/floor/carpet/black,
@@ -151,6 +190,7 @@
 /obj/machinery/computer/security{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "so" = (
@@ -181,7 +221,7 @@
 	color = "#c45c57";
 	dir = 4
 	},
-/turf/open/floor/carpet/black,
+/turf/open/floor/carpet/green,
 /area/shuttle/escape)
 "up" = (
 /obj/machinery/computer/slot_machine,
@@ -198,13 +238,21 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
+"vS" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark_blue/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "wj" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "wJ" = (
 /obj/machinery/computer/operating,
-/turf/open/floor/mineral/titanium/blue,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "xd" = (
 /obj/structure/chair/fancy/comfy{
@@ -225,7 +273,8 @@
 	pixel_y = 3
 	},
 /obj/item/storage/firstaid/fire,
-/turf/open/floor/mineral/titanium/blue,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "xr" = (
 /turf/template_noop,
@@ -242,7 +291,15 @@
 /obj/structure/table/glass,
 /obj/item/book/manual/wiki/medicine,
 /obj/item/stack/medical/gauze,
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
+"Am" = (
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"Bv" = (
+/obj/structure/table/wood/poker,
+/turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "Cf" = (
 /obj/structure/chair/fancy/shuttle{
@@ -254,11 +311,21 @@
 /obj/machinery/computer/atmos_alert{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "CQ" = (
 /obj/machinery/computer/crew{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"Dh" = (
+/obj/machinery/computer/slot_machine,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	alpha = 180;
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -272,6 +339,7 @@
 "Dy" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "FM" = (
@@ -287,7 +355,10 @@
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "FP" = (
-/turf/open/floor/mineral/plastitanium,
+/obj/effect/turf_decal/tile/dark_blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "HW" = (
 /obj/machinery/door/airlock/gold,
@@ -298,6 +369,7 @@
 	dir = 1;
 	name = "emergency shower"
 	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/noslip/white,
 /area/shuttle/escape)
 "IG" = (
@@ -310,7 +382,15 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/mineral/titanium/blue,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
+"Jx" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "JA" = (
 /obj/structure/chair/fancy/comfy{
@@ -350,14 +430,16 @@
 /obj/item/clothing/neck/stethoscope,
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/hud/health,
-/turf/open/floor/mineral/titanium/blue,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "LF" = (
 /obj/machinery/computer/communications,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	alpha = 180;
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"Mk" = (
-/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "Nk" = (
 /obj/machinery/computer/slot_machine,
@@ -371,11 +453,12 @@
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "Nl" = (
-/turf/open/floor/mineral/titanium/blue,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "NG" = (
-/obj/structure/table/reinforced,
 /obj/item/assembly/flash,
+/obj/structure/table/reinforced,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "NY" = (
@@ -389,7 +472,8 @@
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/bottle/epinephrine,
 /obj/item/reagent_containers/syringe/epinephrine,
-/turf/open/floor/mineral/titanium/blue,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "PL" = (
 /obj/structure/window/reinforced/tinted{
@@ -415,13 +499,20 @@
 /area/shuttle/escape)
 "Tc" = (
 /obj/machinery/computer/emergency_shuttle,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	alpha = 180;
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Ur" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
+/obj/effect/turf_decal/tile/dark_blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "UD" = (
 /obj/machinery/computer/slot_machine,
@@ -434,7 +525,8 @@
 /area/shuttle/escape)
 "WN" = (
 /obj/machinery/stasis,
-/turf/open/floor/mineral/titanium/blue,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "WQ" = (
 /obj/structure/chair/fancy/shuttle{
@@ -444,6 +536,19 @@
 /area/shuttle/escape)
 "Yr" = (
 /obj/machinery/computer/slot_machine,
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"YN" = (
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"YW" = (
+/obj/effect/turf_decal/tile/dark_blue/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "ZK" = (
@@ -452,7 +557,7 @@
 	color = "#c45c57";
 	dir = 8
 	},
-/turf/open/floor/carpet/black,
+/turf/open/floor/carpet/green,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -566,7 +671,7 @@ PL
 rC
 OY
 NY
-NY
+Bv
 NY
 JA
 rC
@@ -606,7 +711,7 @@ KA
 rC
 OY
 NY
-NY
+Bv
 NY
 JA
 rC
@@ -717,21 +822,21 @@ wj
 "}
 (14,1,1) = {"
 gt
-ae
-ae
-ae
+YN
+cJ
+cJ
 bs
-Yr
-ae
-Yr
+os
+cJ
+os
 Yr
 mY
 RZ
-em
-UD
-UD
+WQ
+WQ
+WQ
 SQ
-UD
+WQ
 Dq
 wj
 "}
@@ -746,31 +851,31 @@ FP
 FP
 ae
 mY
+em
 SQ
 SQ
-Cf
-Cf
 SQ
-Cf
+SQ
+SQ
 Dq
 wj
 "}
 (16,1,1) = {"
 gt
-Yr
-Ur
-Mk
-Mk
-Mk
-Mk
-FP
+Dh
+Jx
+Am
+Am
+Am
+Am
+Am
 ae
 JS
 SQ
 SQ
+UD
 SQ
-SQ
-SQ
+UD
 SQ
 Dq
 wj
@@ -778,28 +883,28 @@ wj
 (17,1,1) = {"
 gt
 LF
-Ur
-FP
-FP
-FP
-FP
-FP
+vS
+YW
+YW
+YW
+YW
+YW
 ae
 mY
+em
 SQ
 SQ
-WQ
-WQ
-WQ
-WQ
+SQ
+SQ
+SQ
 Dq
 wj
 "}
 (18,1,1) = {"
 gt
-ae
-ae
-ae
+fE
+pg
+pg
 Dy
 fK
 Ci
@@ -807,11 +912,11 @@ CQ
 sb
 mY
 NG
-em
-UD
-UD
-UD
-UD
+Cf
+Cf
+Cf
+Cf
+Cf
 Dq
 wj
 "}
