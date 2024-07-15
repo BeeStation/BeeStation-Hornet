@@ -1049,6 +1049,7 @@
 	label_name = "Freezing"
 	label_desc = "Freezing: The artifact seems to contain freezing components. Triggering these components will freeze the target."
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
 	conductivity = 12
 	weight = 24
 

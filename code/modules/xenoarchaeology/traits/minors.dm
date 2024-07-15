@@ -218,7 +218,7 @@
 	label_name = "Cooling"
 	label_desc = "Cooling: The artifact's design seems to incorporate cooling elements. This will cause the artifact to cooldown faster."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
-	cooldown = -5 SECONDS //Point of balance
+	cooldown = -4 SECONDS //Point of balance
 	weight = 15
 	var/atom/movable/artifact_particle_holder/particle_holder
 
@@ -841,7 +841,7 @@
 			 "left" = CALLBACK(src, PROC_REF(haunted_step), A, WEST),
 			 "right" = CALLBACK(src, PROC_REF(haunted_step), A, EAST),
 			 "activate" = CALLBACK(src, PROC_REF(activate_parent), A)), move_delay))
-	addtimer(CALLBACK(src, PROC_REF(do_wail)), 45 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(do_wail)), 35 SECONDS)
 
 /datum/xenoartifact_trait/minor/haunted/Destroy(force, ...)
 	QDEL_NULL(controller)
@@ -862,8 +862,8 @@
 		return
 	var/atom/A = parent.parent
 	if(isturf(A.loc))
-		playsound(get_turf(parent?.parent), 'sound/spookoween/ghost_whisper.ogg', 30, TRUE)
-	addtimer(CALLBACK(src, PROC_REF(do_wail)), 45 SECONDS)
+		playsound(get_turf(parent?.parent), 'sound/spookoween/ghost_whisper_short.ogg', 30, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(do_wail)), 35 SECONDS)
 
 
 /datum/xenoartifact_trait/minor/haunted/proc/haunted_step(atom/movable/target, dir)

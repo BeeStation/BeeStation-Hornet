@@ -204,7 +204,7 @@
 /obj/item/sticker/xenoartifact_label/Initialize(mapload, list/_traits)
 	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
 	//Setup traits & examine desc
-	traits = _traits
+	traits = _traits.Copy()
 	if(length(traits))
 		examine_override = "Traits:"
 		for(var/datum/xenoartifact_trait/T as() in traits)

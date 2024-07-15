@@ -186,6 +186,8 @@
 	///Cooking logic
 	var/cooking_time = 4 SECONDS
 	var/cooking_timer
+	///How effective are our parts, for making DP
+	var/reward_rate = 0.25
 
 /obj/machinery/xenoarchaeology_machine/calibrator/tutorial/Initialize(mapload, _artifact_type)
 	. = ..()
@@ -207,6 +209,11 @@
 	QDEL_NULL(radio)
 	if(cooking_timer)
 		deltimer(cooking_timer)
+
+/obj/machinery/xenoarchaeology_machine/calibrator/RefreshParts()
+	//Should only be one, but I'm lazy and this seems safe
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
+		reward_rate = M.rating / 4
 
 /obj/machinery/xenoarchaeology_machine/calibrator/examine(mob/user)
 	. = ..()
@@ -292,7 +299,7 @@
 	//Scoring & success
 	if(score)
 		var/success_rate = score / max_score
-		var/dp_reward = max(0, (A.custom_price*X.artifact_type.dp_rate)*success_rate)
+		var/dp_reward = max(0, (A.custom_price*X.artifact_type.dp_rate)*success_rate) * reward_rate
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, dp_reward)
 		//Announce this, for honor or shame
 		var/message = "[A] has been calibrated, and generated [dp_reward] Discovery Points!"
@@ -313,3 +320,4 @@
 	name = "anomalous material calibrator (Machine Board)"
 	icon_state = "science"
 	build_path = /obj/machinery/xenoarchaeology_machine/calibrator
+	req_components = list(/obj/item/stock_parts/matter_bin = 3, /obj/item/stock_parts/manipulator = 1)

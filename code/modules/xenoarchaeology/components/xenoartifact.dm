@@ -197,7 +197,7 @@
 
 /datum/component/xenoartifact/proc/register_target(atom/target, force, type = XENOA_ACTIVATION_CONTACT)
 	//Don't register new targets unless the cooldown is finished
-	if(use_cooldown_timer && !force)
+	if((use_cooldown_timer || cooldown_override) && !force)
 		return
 	//Range check
 	if(get_dist(get_turf(parent), get_turf(target))> target_range && !force)
