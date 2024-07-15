@@ -6,9 +6,9 @@
 
 
 /datum/round_event/mimite_infestation
-	announceWhen	= 400
+	announceWhen	= 200
 	// 50% chance of being incremented by one
-	var/spawncount = 2
+	var/spawncount = 3
 	fakeable = TRUE
 
 /datum/round_event/mimite_infestation/setup()
@@ -23,7 +23,7 @@
 			living_mimites = TRUE
 
 	if(living_mimites || fake)
-		priority_announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", ANNOUNCER_ALIENS)
+		priority_announce("Anomlous lifesigns detected aboard [station_name()]. Please report any strange disturbances and Secure any exterior access, including ducting and ventilation.", "Lifesign Anomaly Alert", ANNOUNCER_ALIENS)
 
 /datum/round_event/mimite_infestation/start()
 	var/list/vents = list()
@@ -44,6 +44,7 @@
 		var/obj/vent = pick_n_take(vents)
 		var/mob/living/simple_animal/hostile/mimite/new_mimite = new(vent.loc)
 		spawncount--
+		announce_to_ghosts(new_mimite)
 		message_admins("[ADMIN_LOOKUPFLW(new_mimite)] has been spawned by an event.")
 		log_game("mimites where spawned by an event.")
 	return SUCCESSFUL_SPAWN
