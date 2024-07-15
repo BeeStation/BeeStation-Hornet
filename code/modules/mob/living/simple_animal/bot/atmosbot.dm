@@ -276,7 +276,7 @@
 /mob/living/simple_animal/bot/atmosbot/proc/return_nearest_breach()
 	var/turf/origin = get_turf(src)
 
-	if(isclosedturf(origin))
+	if(origin.blocks_air)
 		return null
 
 	var/room_limit = ATMOSBOT_MAX_AREA_SCAN

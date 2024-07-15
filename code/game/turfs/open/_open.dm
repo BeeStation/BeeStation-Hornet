@@ -171,12 +171,18 @@
 
 /turf/open/indestructible/airblock
 	icon_state = "bluespace"
+	blocks_air = TRUE
 	baseturfs = /turf/open/indestructible/airblock
-	CanAtmosPass = ATMOS_PASS_NO
 	init_air = FALSE
 
 /turf/open/Initalize_Atmos(times_fired)
 	excited = FALSE
+	if(!blocks_air)
+		if(!istype(air,/datum/gas_mixture/turf))
+			air = new(2500,src)
+		air.copy_from_turf(src)
+		update_air_ref(planetary_atmos ? 1 : 2)
+
 	update_visuals()
 	current_cycle = times_fired
 	ImmediateCalculateAdjacentTurfs()
