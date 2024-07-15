@@ -294,9 +294,9 @@
 		cur_tlv = TLV[gas_id]
 		data["environment_data"] += list(list(
 								"name" = GLOB.gas_data.names[gas_id],
-								"value" = environment.get_moles(gas_id) / total_moles * 100,
+								"value" = environment.gases[gas_id][MOLES] / total_moles * 100,
 								"unit" = "%",
-								"danger_level" = cur_tlv.get_danger_level(environment.get_moles(gas_id) * partial_pressure)
+								"danger_level" = cur_tlv.get_danger_level(environment.gases[gas_id][MOLES] * partial_pressure)
 		))
 
 	if(!locked || user.has_unlimited_silicon_privilege)
@@ -668,7 +668,7 @@
 		if(!(gas_id in TLV)) // We're not interested in this gas, it seems.
 			continue
 		cur_tlv = TLV[gas_id]
-		gas_dangerlevel = max(gas_dangerlevel, cur_tlv.get_danger_level(environment.get_moles(gas_id) * partial_pressure))
+		gas_dangerlevel = max(gas_dangerlevel, cur_tlv.get_danger_level(environment.gases[gas_id][MOLES] * partial_pressure))
 
 	var/old_danger_level = danger_level
 	danger_level = max(pressure_dangerlevel, temperature_dangerlevel, gas_dangerlevel)
@@ -923,7 +923,7 @@
 		pressure.set_output(round(environment.return_pressure()))
 		temperature.set_output(round(environment.return_temperature()))
 		if(ispath(options_map[current_option]))
-			gas_amount.set_output(round(environment.get_moles(current_option)))
+			gas_amount.set_output(round(environment.gases[current_option][MOLES]))
 		return
 
 	var/datum/tlv/settings = connected_alarm.TLV[options_map[current_option]]

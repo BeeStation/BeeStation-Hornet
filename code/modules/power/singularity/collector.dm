@@ -50,21 +50,21 @@
 	if(!loaded_tank)
 		return
 	if(!bitcoinmining)
-		if(loaded_tank.air_contents.get_moles(/datum/gas/plasma) < 0.0001)
+		if(loaded_tank.air_contents.gases[/datum/gas/plasma][MOLES] < 0.0001)
 			investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_ENGINES)
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
 			var/msg = "Plasma depleted, recommend replacing tank."
 			radio.talk_into(src, msg, RADIO_CHANNEL_ENGINEERING)
 			eject()
 		else
-			var/gasdrained = min(powerproduction_drain*drainratio*delta_time,loaded_tank.air_contents.get_moles(/datum/gas/plasma))
+			var/gasdrained = min(powerproduction_drain*drainratio*delta_time,loaded_tank.air_contents.gases[/datum/gas/plasma][MOLES])
 			loaded_tank.air_contents.adjust_moles(/datum/gas/plasma, -gasdrained)
 			loaded_tank.air_contents.adjust_moles(/datum/gas/tritium, gasdrained)
 			var/power_produced = RAD_COLLECTOR_OUTPUT
 			add_avail(power_produced)
 			stored_energy-=power_produced
 	else if(is_station_level(z) && SSresearch.science_tech)
-		if(!loaded_tank.air_contents.get_moles(/datum/gas/tritium) || !loaded_tank.air_contents.get_moles(/datum/gas/oxygen))
+		if(!loaded_tank.air_contents.gases[/datum/gas/tritium][MOLES] || !loaded_tank.air_contents.gases[/datum/gas/oxygen][MOLES])
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
 			eject()
 		else
@@ -86,7 +86,7 @@
 			toggle_power()
 			user.visible_message("[user.name] turns the [src.name] [active? "on":"off"].", \
 			"<span class='notice'>You turn the [src.name] [active? "on":"off"].</span>")
-			var/fuel = loaded_tank?.air_contents.get_moles(/datum/gas/plasma)
+			var/fuel = loaded_tank?.air_contents.gases[/datum/gas/plasma][MOLES]
 			investigate_log("turned [active?"<font color='green'>on</font>":"<font color='red'>off</font>"] by [key_name(user)]. [loaded_tank?"Fuel: [round(fuel/0.29)]%":"<font color='red'>It is empty</font>"].", INVESTIGATE_ENGINES)
 			return
 		else

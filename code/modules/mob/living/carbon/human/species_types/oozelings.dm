@@ -88,11 +88,11 @@
 	if(!atmos_sealed)
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment?.total_moles())
-			if(environment.get_moles(/datum/gas/water_vapor) >= 1)
+			if(environment.gases[/datum/gas/water_vapor][MOLES] >= 1)
 				H.blood_volume -= 15
 				if(prob(50))
 					to_chat(H, "<span class='danger'>Your ooze melts away rapidly in the water vapor!</span>")
-			if(H.blood_volume <= 672 && environment.get_moles(/datum/gas/plasma) >= 1)
+			if(H.blood_volume <= 672 && environment.gases[/datum/gas/plasma][MOLES] >= 1)
 				H.blood_volume += 15
 	if(H.blood_volume < BLOOD_VOLUME_OKAY && prob(5))
 		to_chat(H, "<span class='danger'>You feel drained!</span>")

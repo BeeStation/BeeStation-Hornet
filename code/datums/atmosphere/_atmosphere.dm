@@ -37,23 +37,23 @@
 		else
 			gastype = pick(restricted_gases)
 			amount = restricted_gases[gastype]
-			if(gasmix.get_moles(gastype))
+			if(gasmix.gases[gastype][MOLES])
 				continue
 
 		amount *= rand(50, 200) / 100	// Randomly modifes the amount from half to double the base for some variety
 		amount *= pressure_scalar		// If we pick a really small target pressure we want roughly the same mix but less of it all
 		amount = CEILING(amount, 0.1)
 
-		gasmix.set_moles(gastype, gasmix.get_moles(gastype) + amount)
+		gasmix.gases[gastype][MOLES] = gasmix.gases[gastype][MOLES] + amount
 
 	// That last one put us over the limit, remove some of it
 	while(gasmix.return_pressure() > target_pressure)
-		gasmix.set_moles(gastype, gasmix.get_moles(gastype) - (gasmix.get_moles(gastype) * 0.1))
-	gasmix.set_moles(gastype, FLOOR(gasmix.get_moles(gastype), 0.1))
+		gasmix.gases[gastype][MOLES] =  gasmix.gases[gastype][MOLES] - (gasmix.gases[gastype][MOLES] * 0.1)
+	gasmix.gases[gastype][MOLES] = FLOOR(gasmix.gases[gastype][MOLES], 0.1)
 
 	// Now finally lets make that string
 	var/list/gas_string_builder = list()
 	for(var/i in gasmix.get_gases())
-		gas_string_builder += "[GLOB.gas_data.ids[i]]=[gasmix.get_moles(i)]"
+		gas_string_builder += "[GLOB.gas_data.ids[i]]=[gasmix.gases[i][MOLES]]"
 	gas_string_builder += "TEMP=[gasmix.return_temperature()]"
 	gas_string = gas_string_builder.Join(";")

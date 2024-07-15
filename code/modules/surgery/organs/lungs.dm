@@ -157,7 +157,7 @@
 
 	#define PP_MOLES(X) ((X / total_moles) * pressure)
 
-	#define PP(air, gas) PP_MOLES(air.get_moles(gas))
+	#define PP(air, gas) PP_MOLES(air.gases[gas][MOLES])
 
 	var/gas_breathed = 0
 
@@ -180,7 +180,7 @@
 			alert_category = class.low_alert_category
 			alert_type = class.low_alert_datum
 			for(var/gas in gases)
-				var/moles = breath.get_moles(gas)
+				var/moles = breath.gases[gas][MOLES]
 				var/multiplier = gases[gas]
 				mole_adjustments[gas] = (gas in mole_adjustments) ? mole_adjustments[gas] - moles : -moles
 				required_pp += PP_MOLES(moles) * multiplier
@@ -190,7 +190,7 @@
 					for(var/product in products)
 						mole_adjustments[product] = (product in mole_adjustments) ? mole_adjustments[product] + to_add : to_add
 		else
-			required_moles = breath.get_moles(entry)
+			required_moles = breath.gases[entry][MOLES]
 			required_pp = PP_MOLES(required_moles)
 			if(entry in breath_alert_info)
 				var/list/alert = breath_alert_info[entry]["not_enough_alert"]
@@ -243,9 +243,9 @@
 	for(var/gas in breath.get_gases())
 		if(gas in breath_reagents)
 			var/datum/reagent/R = breath_reagents[gas]
-			//H.reagents.add_reagent(R, breath.get_moles(gas) * R.molarity) // See next line
-			H.reagents.add_reagent(R, breath.get_moles(gas) * 2) // 2 represents molarity of O2, we don't have citadel molarity
-			mole_adjustments[gas] = (gas in mole_adjustments) ? mole_adjustments[gas] - breath.get_moles(gas) : -breath.get_moles(gas)
+			//H.reagents.add_reagent(R, breath.gases[gas][MOLES] * R.molarity) // See next line
+			H.reagents.add_reagent(R, breath.gases[gas][MOLES] * 2) // 2 represents molarity of O2, we don't have citadel molarity
+			mole_adjustments[gas] = (gas in mole_adjustments) ? mole_adjustments[gas] - breath.gases[gas][MOLES] : -breath.gases[gas][MOLES]
 
 	for(var/gas in mole_adjustments)
 		breath.adjust_moles(gas, mole_adjustments[gas])

@@ -448,7 +448,7 @@
 	var/datum/gas_mixture/air = T.return_air()
 	var/input_id = initial(input.id)
 	var/output_id = initial(output.id)
-	var/moles = min(air.get_moles(input_id), 5)
+	var/moles = min(air.gases[input_id][MOLES], 5)
 	if(moles)
 		air.adjust_moles(input_id, -moles)
 		air.adjust_moles(output_id, moles)

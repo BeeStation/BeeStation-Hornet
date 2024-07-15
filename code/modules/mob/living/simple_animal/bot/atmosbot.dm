@@ -229,7 +229,7 @@
 		var/datum/gas_mixture/environment = T.return_air()
 		for(var/G in gasses)
 			if(gasses[G])
-				var/moles_in_atmos = environment.get_moles(G)
+				var/moles_in_atmos = environment.gases[G][MOLES]
 				environment.adjust_moles(G, -min(moles_in_atmos, ATMOSBOT_MAX_SCRUB_CHANGE))
 
 /mob/living/simple_animal/bot/atmosbot/proc/deploy_holobarrier()
@@ -247,11 +247,11 @@
 	//Toxins in the air
 	if(emagged != 2)
 		for(var/G in gasses)
-			if(gasses[G] && gas_mix.get_moles(G) > 0.2)
+			if(gasses[G] && gas_mix.gases[G][MOLES] > 0.2)
 				return ATMOSBOT_HIGH_TOXINS
 	//Too little oxygen or too little pressure
 	var/partial_pressure = R_IDEAL_GAS_EQUATION * gas_mix.return_temperature() / gas_mix.return_volume()
-	var/oxygen_moles = gas_mix.get_moles(/datum/gas/oxygen) * partial_pressure
+	var/oxygen_moles = gas_mix.gases[/datum/gas/oxygen][MOLES] * partial_pressure
 	if(oxygen_moles < 20 || gas_mix.return_pressure() < WARNING_LOW_PRESSURE)
 		return ATMOSBOT_LOW_OXYGEN
 	//Check temperature

@@ -350,12 +350,12 @@
 	// Also produces no waste products (CO2/Trit)
 	var/oxygen_burn_rate = (OXYGEN_BURN_RATE_BASE - 1)
 	var/plasma_burn_rate = 0
-	if(air_contents.get_moles(/datum/gas/oxygen) > air_contents.get_moles(/datum/gas/plasma)*PLASMA_OXYGEN_FULLBURN)
-		plasma_burn_rate = air_contents.get_moles(/datum/gas/plasma)/PLASMA_BURN_RATE_DELTA
+	if(air_contents.gases[/datum/gas/oxygen][MOLES] > air_contents.gases[/datum/gas/plasma][MOLES]*PLASMA_OXYGEN_FULLBURN)
+		plasma_burn_rate = air_contents.gases[/datum/gas/plasma][MOLES]/PLASMA_BURN_RATE_DELTA
 	else
-		plasma_burn_rate = (air_contents.get_moles(/datum/gas/oxygen)/PLASMA_OXYGEN_FULLBURN)/PLASMA_BURN_RATE_DELTA
+		plasma_burn_rate = (air_contents.gases[/datum/gas/oxygen][MOLES]/PLASMA_OXYGEN_FULLBURN)/PLASMA_BURN_RATE_DELTA
 	if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
-		plasma_burn_rate = min(plasma_burn_rate,air_contents.get_moles(/datum/gas/plasma),air_contents.get_moles(/datum/gas/oxygen)/oxygen_burn_rate) //Ensures matter is conserved properly
+		plasma_burn_rate = min(plasma_burn_rate,air_contents.gases[/datum/gas/plasma][MOLES],air_contents.gases[/datum/gas/oxygen][MOLES]/oxygen_burn_rate) //Ensures matter is conserved properly
 		potential_energy = FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 
 	// Normalize thrust volume to joules
@@ -369,8 +369,8 @@
 
 	// Consume
 	if(use_fuel)
-		air_contents.set_moles(/datum/gas/plasma, QUANTIZE(air_contents.get_moles(/datum/gas/plasma) - plasma_burn_rate))
-		air_contents.set_moles(/datum/gas/oxygen, QUANTIZE(air_contents.get_moles(/datum/gas/oxygen) - (plasma_burn_rate * oxygen_burn_rate)))
+		air_contents.set_moles(/datum/gas/plasma, QUANTIZE(air_contents.gases[/datum/gas/plasma][MOLES] - plasma_burn_rate))
+		air_contents.set_moles(/datum/gas/oxygen, QUANTIZE(air_contents.gases[/datum/gas/oxygen][MOLES] - (plasma_burn_rate * oxygen_burn_rate)))
 	update_fade(15)
 	update_lifespan(4)
 

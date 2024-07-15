@@ -103,8 +103,8 @@
 			for(var/id in attached_can.air_contents.get_gases())
 				if(!(GLOB.gas_data.flags[id] & GAS_FLAG_DANGEROUS))
 					continue
-				if(attached_can.air_contents.get_moles(id) > (GLOB.gas_data.visibility[id] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
-					danger[GLOB.gas_data.names[id]] = attached_can.air_contents.get_moles(id) //ex. "plasma" = 20
+				if(attached_can.air_contents.gases[id][MOLES] > (GLOB.gas_data.visibility[id] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
+					danger[GLOB.gas_data.names[id]] = attached_can.air_contents.gases[id][MOLES] //ex. "plasma" = 20
 
 			if(danger.len && attached_can.valve_open)
 				message_admins("[parent.get_creator_admin()]'s circuit opened a canister that contains the following at [ADMIN_VERBOSEJMP(attached_can)]:")
@@ -536,8 +536,8 @@
 			for(var/id in air_contents.get_gases())
 				if(!(GLOB.gas_data.flags[id] & GAS_FLAG_DANGEROUS))
 					continue
-				if(air_contents.get_moles(id) > (GLOB.gas_data.visibility[id] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
-					danger[GLOB.gas_data.names[id]] = air_contents.get_moles(id) //ex. "plasma" = 20
+				if(air_contents.gases[id][MOLES] > (GLOB.gas_data.visibility[id] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
+					danger[GLOB.gas_data.names[id]] = air_contents.gases[id][MOLES] //ex. "plasma" = 20
 
 			if(danger.len && user)
 				message_admins("[ADMIN_LOOKUPFLW(user)] opened a canister that contains the following at [ADMIN_VERBOSEJMP(src)]:")

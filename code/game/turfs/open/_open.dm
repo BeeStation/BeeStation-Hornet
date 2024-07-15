@@ -284,10 +284,10 @@
 
 /turf/open/rad_act(pulse_strength)
 	. = ..()
-	if (air.get_moles(/datum/gas/carbon_dioxide) && air.get_moles(/datum/gas/oxygen))
-		pulse_strength = min(pulse_strength,air.get_moles(/datum/gas/carbon_dioxide)*1000,air.get_moles(/datum/gas/oxygen)*2000) //Ensures matter is conserved properly
-		air.set_moles(/datum/gas/carbon_dioxide, max(air.get_moles(/datum/gas/carbon_dioxide)-(pulse_strength/1000),0))
-		air.set_moles(/datum/gas/oxygen, max(air.get_moles(/datum/gas/oxygen)-(pulse_strength/2000),0))
+	if (air.gases[/datum/gas/carbon_dioxide][MOLES] && air.gases[/datum/gas/oxygen][MOLES])
+		pulse_strength = min(pulse_strength,air.gases[/datum/gas/carbon_dioxide][MOLES]*1000,air.gases[/datum/gas/oxygen][MOLES]*2000) //Ensures matter is conserved properly
+		air.set_moles(/datum/gas/carbon_dioxide, max(air.gases[/datum/gas/carbon_dioxide][MOLES]-(pulse_strength/1000),0))
+		air.set_moles(/datum/gas/oxygen, max(air.gases[/datum/gas/oxygen][MOLES]-(pulse_strength/2000),0))
 		air.adjust_moles(GAS_PLUOXIUM, pulse_strength/4000)
 
 /turf/open/proc/break_tile(force, allow_base)
