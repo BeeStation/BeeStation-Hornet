@@ -27,8 +27,8 @@
 		clear_alert("alien_tox")
 
 	//Breathe in toxins and out oxygen
-	breath.adjust_moles(/datum/gas/plasma, -toxins_used)
-	breath.adjust_moles(/datum/gas/oxygen, toxins_used)
+	breath.gases[/datum/gas/plasma][MOLES] += -toxins_used
+	breath.gases[/datum/gas/oxygen][MOLES] += toxins_used
 
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)

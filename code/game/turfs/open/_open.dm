@@ -290,7 +290,7 @@
 ,0))
 		air.gases[/datum/gas/oxygen][MOLES] = max(air.gases[/datum/gas/oxygen][MOLES]-(pulse_strength/2000
 ,0))
-		air.adjust_moles(GAS_PLUOXIUM, pulse_strength/4000)
+		air.gases[/datum/gas/pluoxium][MOLES] += pulse_strength/4000
 
 /turf/open/proc/break_tile(force, allow_base)
 	LAZYINITLIST(damage_overlays)

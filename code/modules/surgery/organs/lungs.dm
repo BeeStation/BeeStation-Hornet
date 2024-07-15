@@ -248,7 +248,7 @@
 			mole_adjustments[gas] = (gas in mole_adjustments) ? mole_adjustments[gas] - breath.gases[gas][MOLES] : -breath.gases[gas][MOLES]
 
 	for(var/gas in mole_adjustments)
-		breath.adjust_moles(gas, mole_adjustments[gas])
+		breath.gases[gas][MOLES] += mole_adjustments[gas]
 
 	if(breath)	// If there's some other shit in the air lets deal with it here.
 
@@ -295,14 +295,14 @@
 		if (gas_breathed > gas_stimulation_min)
 			H.reagents.add_reagent(/datum/reagent/nitryl,1)
 
-		breath.adjust_moles(/datum/gas/nitryl, -gas_breathed)
+		breath.gases[/datum/gas/nitryl][MOLES] += -gas_breathed
 
 	// Stimulum
 		gas_breathed = PP(breath,/datum/gas/stimulum)
 		if (gas_breathed > gas_stimulation_min)
 			var/existing = H.reagents.get_reagent_amount(/datum/reagent/stimulum)
 			H.reagents.add_reagent(/datum/reagent/stimulum, max(0, 5 - existing))
-		breath.adjust_moles(/datum/gas/stimulum, -gas_breathed)
+		breath.gases[/datum/gas/stimulum][MOLES] += -gas_breathed
 
 		handle_breath_temperature(breath, H)
 	return TRUE

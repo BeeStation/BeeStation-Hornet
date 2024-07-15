@@ -58,7 +58,7 @@
 		/datum/gas/nitrous_oxide = 1,
 		/datum/gas/nitryl = 1,
 		/datum/gas/plasma = 1,
-		GAS_PLUOXIUM = 0,
+		/datum/gas/pluoxium = 0,
 		/datum/gas/stimulum = 0,
 		/datum/gas/tritium = 1,
 		/datum/gas/water_vapor = 0,
@@ -214,10 +214,10 @@
 		if(pressure_delta > 0)
 			var/transfer_moles = pressure_delta*environment.return_volume()/(T20C * R_IDEAL_GAS_EQUATION)
 			if(emagged == 2)
-				environment.adjust_moles(/datum/gas/carbon_dioxide, transfer_moles)
+				environment.gases[/datum/gas/carbon_dioxide][MOLES] += transfer_moles
 			else
-				environment.adjust_moles(/datum/gas/nitrogen, transfer_moles * 0.7885)
-				environment.adjust_moles(/datum/gas/oxygen, transfer_moles * 0.2115)
+				environment.gases[/datum/gas/nitrogen][MOLES] += transfer_moles * 0.7885
+				environment.gases[/datum/gas/oxygen][MOLES] += transfer_moles * 0.2115
 			air_update_turf(FALSE, FALSE)
 	new /obj/effect/temp_visual/vent_wind(get_turf(src))
 
@@ -230,7 +230,7 @@
 		for(var/G in gasses)
 			if(gasses[G])
 				var/moles_in_atmos = environment.gases[G][MOLES]
-				environment.adjust_moles(G, -min(moles_in_atmos, ATMOSBOT_MAX_SCRUB_CHANGE))
+				environment.gases[G][MOLES] += -min(moles_in_atmos, ATMOSBOT_MAX_SCRUB_CHANGE)
 
 /mob/living/simple_animal/bot/atmosbot/proc/deploy_holobarrier()
 	if(deployed_holobarrier)

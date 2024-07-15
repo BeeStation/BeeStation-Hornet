@@ -450,8 +450,8 @@
 	var/output_id = initial(output.id)
 	var/moles = min(air.gases[input_id][MOLES], 5)
 	if(moles)
-		air.adjust_moles(input_id, -moles)
-		air.adjust_moles(output_id, moles)
+		air.gases[input_id][MOLES] += -moles
+		air.gases[output_id][MOLES] += moles
 
 ///============
 /// Destabilizing, teleports the victim to that weird place from the exploration meme.

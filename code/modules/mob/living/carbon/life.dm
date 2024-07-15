@@ -183,7 +183,7 @@
 	var/oxygen_used = 0
 	var/moles = breath.total_moles()
 	var/breath_pressure = (moles*R_IDEAL_GAS_EQUATION*breath.return_temperature())/BREATH_VOLUME
-	var/O2_partialpressure = ((breath.gases[/datum/gas/oxygen][MOLES]/moles)*breath_pressure) + (((breath.gases[GAS_PLUOXIUM][MOLES]*8)/moles)*breath_pressure)
+	var/O2_partialpressure = ((breath.gases[/datum/gas/oxygen][MOLES]/moles)*breath_pressure) + (((breath.gases[/datum/gas/pluoxium][MOLES]*8)/moles)*breath_pressure)
 	var/Toxins_partialpressure = (breath.gases[/datum/gas/plasma][MOLES]/moles)*breath_pressure
 	var/CO2_partialpressure = (breath.gases[/datum/gas/carbon_dioxide][MOLES]/moles)*breath_pressure
 
@@ -209,8 +209,8 @@
 		oxygen_used = breath.gases[/datum/gas/oxygen][MOLES]
 		clear_alert("not_enough_oxy")
 
-	breath.adjust_moles(/datum/gas/oxygen, -oxygen_used)
-	breath.adjust_moles(/datum/gas/carbon_dioxide, oxygen_used)
+	breath.gases[/datum/gas/oxygen][MOLES] += -oxygen_used
+	breath.gases[/datum/gas/carbon_dioxide][MOLES] += oxygen_used
 
 	//CARBON DIOXIDE
 	if(CO2_partialpressure > safe_co2_max)

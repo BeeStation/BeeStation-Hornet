@@ -45,7 +45,7 @@
 		qdel(hotspot)
 		var/datum/gas_mixture/G = T.air
 		var/plas_amt = min(30,G.gases[/datum/gas/plasma][MOLES]) //Absorb some plasma
-		G.adjust_moles(/datum/gas/plasma, -plas_amt)
+		G.gases[/datum/gas/plasma][MOLES] += -plas_amt
 		absorbed_plasma += plas_amt
 		if(G.return_temperature() > T20C)
 			G.temperature = max(G.return_temperature()/2,T20C)

@@ -58,8 +58,8 @@
 			eject()
 		else
 			var/gasdrained = min(powerproduction_drain*drainratio*delta_time,loaded_tank.air_contents.gases[/datum/gas/plasma][MOLES])
-			loaded_tank.air_contents.adjust_moles(/datum/gas/plasma, -gasdrained)
-			loaded_tank.air_contents.adjust_moles(/datum/gas/tritium, gasdrained)
+			loaded_tank.air_contents.gases[/datum/gas/plasma][MOLES] += -gasdrained
+			loaded_tank.air_contents.gases[/datum/gas/tritium][MOLES] += gasdrained
 			var/power_produced = RAD_COLLECTOR_OUTPUT
 			add_avail(power_produced)
 			stored_energy-=power_produced
@@ -69,9 +69,9 @@
 			eject()
 		else
 			var/gasdrained = bitcoinproduction_drain*drainratio*delta_time
-			loaded_tank.air_contents.adjust_moles(/datum/gas/tritium, -gasdrained)
-			loaded_tank.air_contents.adjust_moles(/datum/gas/oxygen, -gasdrained)
-			loaded_tank.air_contents.adjust_moles(/datum/gas/carbon_dioxide, gasdrained*2)
+			loaded_tank.air_contents.gases[/datum/gas/tritium][MOLES] += -gasdrained
+			loaded_tank.air_contents.gases[/datum/gas/oxygen][MOLES] += -gasdrained
+			loaded_tank.air_contents.gases[/datum/gas/carbon_dioxide][MOLES] += gasdrained*2
 			var/bitcoins_mined = RAD_COLLECTOR_OUTPUT
 			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_ENG_ID)
 			if(D)

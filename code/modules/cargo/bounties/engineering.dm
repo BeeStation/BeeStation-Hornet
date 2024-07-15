@@ -4,7 +4,7 @@
 	reward = 7500
 	wanted_types = list(/obj/item/tank)
 	var/moles_required = 20 // A full tank is 28 moles, but CentCom ignores that fact.
-	var/gas_type = GAS_PLUOXIUM
+	var/gas_type = /datum/gas/pluoxium
 
 /datum/bounty/item/engineering/gas/applies_to(obj/O)
 	if(!..())

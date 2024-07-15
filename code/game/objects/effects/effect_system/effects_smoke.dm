@@ -180,7 +180,7 @@
 		for(var/obj/effect/hotspot/H in T)
 			qdel(H)
 		if(G.gases[/datum/gas/plasma][MOLES])
-			G.adjust_moles(/datum/gas/nitrogen, G.gases[/datum/gas/plasma][MOLES])
+			G.gases[/datum/gas/nitrogen][MOLES] += G.gases[/datum/gas/plasma][MOLES]
 			G.gases[/datum/gas/plasma][MOLES] = 0
 
 	if (weldvents)

@@ -82,7 +82,7 @@
 			consumed = MOLES_GAS_VISIBLE
 
 	if(consumed)
-		air.adjust_moles(/datum/gas/water_vapor, -consumed)
+		air.gases[/datum/gas/water_vapor][MOLES] += -consumed
 		SET_REACTION_RESULTS(consumed)
 		. = REACTING
 
@@ -156,12 +156,12 @@
 	if(air.gases[/datum/gas/oxygen][MOLES] < initial_trit || MINIMUM_TRIT_OXYBURN_ENERGY > (temperature * old_heat_capacity))// Yogs -- Maybe a tiny performance boost? I'unno
 		burned_fuel = air.gases[/datum/gas/oxygen][MOLES]/TRITIUM_BURN_OXY_FACTOR
 		if(burned_fuel > initial_trit) burned_fuel = initial_trit //Yogs -- prevents negative moles of Tritium
-		air.adjust_moles(/datum/gas/tritium, -burned_fuel)
+		air.gases[/datum/gas/tritium][MOLES] += -burned_fuel
 	else
 		burned_fuel = initial_trit // Yogs -- Conservation of Mass fix
 		air.gases[/datum/gas/tritium][MOLES] = air.gases[/datum/gas/tritium][MOLES] * (1 - 1/TRITIUM_BURN_TRIT_FACTOR
 ) // Yogs -- Maybe a tiny performance boost? I'unno
-		air.adjust_moles(/datum/gas/oxygen, -air.gases[/datum/gas/tritium][MOLES])
+		air.gases[/datum/gas/oxygen][MOLES] += -air.gases[/datum/gas/tritium][MOLES]
 		energy_released += (FIRE_HYDROGEN_ENERGY_RELEASED * burned_fuel * (TRITIUM_BURN_TRIT_FACTOR - 1)) // Yogs -- Fixes low-energy tritium fires
 
 	if(burned_fuel)
@@ -170,7 +170,7 @@
 			radiation_pulse(location, energy_released/TRITIUM_BURN_RADIOACTIVITY_FACTOR)
 
 		//oxygen+more-or-less hydrogen=H2O
-		air.adjust_moles(/datum/gas/water_vapor, burned_fuel )// Yogs -- Conservation of Mass
+		air.gases[/datum/gas/water_vapor][MOLES] += burned_fuel // Yogs -- Conservation of Mass
 
 		cached_results["fire"] += burned_fuel
 
@@ -231,14 +231,12 @@
 
 		if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
 			plasma_burn_rate = min(plasma_burn_rate,air.gases[/datum/gas/plasma][MOLES],air.gases[/datum/gas/oxygen][MOLES]/oxygen_burn_rate) //Ensures matter is conserved properly
-			air.gases[/datum/gas/plasma][MOLES] = QUANTIZE(air.gases[/datum/gas/plasma][MOLES] - plasma_burn_rate
-)
-			air.gases[/datum/gas/oxygen][MOLES] = QUANTIZE(air.gases[/datum/gas/oxygen][MOLES] - (plasma_burn_rate * oxygen_burn_rate
-))
+			air.gases[/datum/gas/plasma][MOLES] = QUANTIZE(air.gases[/datum/gas/plasma][MOLES] - plasma_burn_rate)
+			air.gases[/datum/gas/oxygen][MOLES] = QUANTIZE(air.gases[/datum/gas/oxygen][MOLES] - (plasma_burn_rate * oxygen_burn_rate))
 			if (super_saturation)
-				air.adjust_moles(/datum/gas/tritium, plasma_burn_rate)
+				air.gases[/datum/gas/tritium][MOLES] += plasma_burn_rate
 			else
-				air.adjust_moles(/datum/gas/carbon_dioxide, plasma_burn_rate)
+				air.gases[/datum/gas/carbon_dioxide][MOLES] += plasma_burn_rate
 
 			energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 
@@ -329,7 +327,7 @@
 			burn_results[product] += amt
 	var/final_energy = air.thermal_energy() + energy_released
 	for(var/result in burn_results)
-		air.adjust_moles(result, burn_results[result])
+		air.gases[result][MOLES] += burn_results[result]
 	air.temperature = (final_energy / air.heat_capacity())
 	var/list/cached_results = air.reaction_results
 	cached_results["fire"] = min(total_fuel, oxidation_power) * 2
@@ -410,12 +408,12 @@
 		thermal_energy = middle_energy * 10 ** log(FUSION_ENERGY_TRANSLATION_EXPONENT, (thermal_energy + bowdlerized_reaction_energy) / middle_energy)
 
 	//The reason why you should set up a tritium production line.
-	air.adjust_moles(/datum/gas/tritium, -FUSION_TRITIUM_MOLES_USED)
+	air.gases[/datum/gas/tritium][MOLES] += -FUSION_TRITIUM_MOLES_USED
 
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
 	var/standard_waste_gas_output = scale_factor * (FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED)
-	delta_plasma > 0 ? air.adjust_moles(/datum/gas/water_vapor, standard_waste_gas_output) : air.adjust_moles(/datum/gas/bz, standard_waste_gas_output)
-	air.adjust_moles(/datum/gas/oxygen, standard_waste_gas_output) //Oxygen is a bit touchy subject
+	delta_plasma > 0 ? air.gases[/datum/gas/water_vapor][MOLES] += standard_waste_gas_output : air.gases[/datum/gas/bz][MOLES] += standard_waste_gas_output
+	air.gases[/datum/gas/oxygen][MOLES] += standard_waste_gas_output //Oxygen is a bit touchy subject
 
 	if(reaction_energy)
 		if(location)
@@ -442,7 +440,7 @@
 	min_requirements = list(
 		/datum/gas/oxygen = 20,
 		/datum/gas/nitrogen = 20,
-		GAS_PLUOXIUM = 5, //Gates Nitryl behind pluoxium to offset N2O burning up during formation
+		/datum/gas/pluoxium = 5, //Gates Nitryl behind pluoxium to offset N2O burning up during formation
 		"TEMP" = FIRE_MINIMUM_TEMPERATURE_TO_EXIST*60
 	)
 
@@ -454,9 +452,9 @@
 	var/energy_used = heat_efficency*NITRYL_FORMATION_ENERGY
 	if ((air.gases[/datum/gas/oxygen][MOLES] - heat_efficency < 0 )|| (air.gases[/datum/gas/nitrogen][MOLES] - heat_efficency < 0)) //Shouldn't produce gas from nothing.
 		return NO_REACTION
-	air.adjust_moles(/datum/gas/oxygen, -heat_efficency)
-	air.adjust_moles(/datum/gas/nitrogen, -heat_efficency)
-	air.adjust_moles(/datum/gas/nitryl, heat_efficency*2)
+	air.gases[/datum/gas/oxygen][MOLES] += -heat_efficency
+	air.gases[/datum/gas/nitrogen][MOLES] += -heat_efficency
+	air.gases[/datum/gas/nitryl][MOLES] += heat_efficency*2
 
 	if(energy_used > 0)
 		var/new_heat_capacity = air.heat_capacity()
@@ -484,12 +482,12 @@
 	var/energy_released = 2*reaction_efficency*FIRE_CARBON_ENERGY_RELEASED
 	if ((air.gases[/datum/gas/nitrous_oxide][MOLES] - reaction_efficency < 0 )|| (air.gases[/datum/gas/plasma][MOLES] - (2*reaction_efficency) < 0) || energy_released <= 0) //Shouldn't produce gas from nothing.
 		return NO_REACTION
-	air.adjust_moles(/datum/gas/bz, reaction_efficency)
+	air.gases[/datum/gas/bz][MOLES] += reaction_efficency
 	if(reaction_efficency == air.gases[/datum/gas/nitrous_oxide][MOLES])
-		air.adjust_moles(/datum/gas/bz, -min(pressure,1))
-		air.adjust_moles(/datum/gas/oxygen, min(pressure,1))
-	air.adjust_moles(/datum/gas/nitrous_oxide, -reaction_efficency)
-	air.adjust_moles(/datum/gas/plasma, -2*reaction_efficency)
+		air.gases[/datum/gas/bz][MOLES] += -min(pressure,1)
+		air.gases[/datum/gas/oxygen][MOLES] += min(pressure,1)
+	air.gases[/datum/gas/nitrous_oxide][MOLES] += -reaction_efficency
+	air.gases[/datum/gas/plasma][MOLES] += -2*reaction_efficency
 
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, min((reaction_efficency**2)*BZ_RESEARCH_SCALE,BZ_RESEARCH_MAX_AMOUNT))
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, min((reaction_efficency**2)*BZ_RESEARCH_SCALE,BZ_RESEARCH_MAX_AMOUNT)*0.5)
@@ -521,10 +519,10 @@
 
 	if ((air.gases[/datum/gas/plasma][MOLES] - heat_scale < 0) || (air.gases[/datum/gas/nitryl][MOLES] - heat_scale < 0) || (air.gases[/datum/gas/tritium][MOLES] - heat_scale < 0)) //Shouldn't produce gas from nothing.
 		return NO_REACTION
-	air.adjust_moles(/datum/gas/stimulum, heat_scale/10)
-	air.adjust_moles(/datum/gas/plasma, -heat_scale)
-	air.adjust_moles(/datum/gas/nitryl, -heat_scale)
-	air.adjust_moles(/datum/gas/tritium, -heat_scale)
+	air.gases[/datum/gas/stimulum][MOLES] += heat_scale/10
+	air.gases[/datum/gas/plasma][MOLES] += -heat_scale
+	air.gases[/datum/gas/nitryl][MOLES] += -heat_scale
+	air.gases[/datum/gas/tritium][MOLES] += -heat_scale
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, STIMULUM_RESEARCH_AMOUNT*max(stim_energy_change,0))
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, STIMULUM_RESEARCH_AMOUNT*max(stim_energy_change,0)*0.5)
 	if(stim_energy_change)
@@ -550,9 +548,9 @@
 	var/energy_taken = nob_formed*(NOBLIUM_FORMATION_ENERGY/(max(air.gases[/datum/gas/bz][MOLES],1)))
 	if ((air.gases[/datum/gas/tritium][MOLES] - 10*nob_formed < 0) || (air.gases[/datum/gas/nitrogen][MOLES] - 20*nob_formed < 0))
 		return NO_REACTION
-	air.adjust_moles(/datum/gas/tritium, -10*nob_formed)
-	air.adjust_moles(/datum/gas/nitrogen, -20*nob_formed)
-	air.adjust_moles(GAS_HYPERNOB, nob_formed)
+	air.gases[/datum/gas/tritium][MOLES] += -10*nob_formed
+	air.gases[/datum/gas/nitrogen][MOLES] += -20*nob_formed
+	air.gases[GAS_HYPERNOB][MOLES] += nob_formed
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, nob_formed*NOBLIUM_RESEARCH_AMOUNT)
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, nob_formed*NOBLIUM_RESEARCH_AMOUNT*0.5)
 
@@ -568,7 +566,7 @@
 
 /datum/gas_reaction/stim_ball/init_reqs()
 	min_requirements = list(
-		GAS_PLUOXIUM = STIM_BALL_GAS_AMOUNT,
+		/datum/gas/pluoxium = STIM_BALL_GAS_AMOUNT,
 		/datum/gas/stimulum = STIM_BALL_GAS_AMOUNT,
 		/datum/gas/nitryl = MINIMUM_MOLE_COUNT,
 		/datum/gas/plasma = MINIMUM_MOLE_COUNT,
@@ -585,14 +583,14 @@
 		location = get_turf(holder)
 	var/ball_shot_angle = 180*cos(air.gases[/datum/gas/water_vapor][MOLES]/air.gases[/datum/gas/nitryl][MOLES])+180
 	var/stim_used = min(STIM_BALL_GAS_AMOUNT/air.gases[/datum/gas/plasma][MOLES],air.gases[/datum/gas/stimulum][MOLES])
-	var/pluox_used = min(STIM_BALL_GAS_AMOUNT/air.gases[/datum/gas/plasma][MOLES],air.gases[GAS_PLUOXIUM][MOLES])
+	var/pluox_used = min(STIM_BALL_GAS_AMOUNT/air.gases[/datum/gas/plasma][MOLES],air.gases[/datum/gas/pluoxium][MOLES])
 	var/energy_released = stim_used*STIMULUM_HEAT_SCALE//Stimulum has a lot of stored energy, and breaking it up releases some of it
 	location.fire_nuclear_particle(ball_shot_angle)
-	air.adjust_moles(/datum/gas/carbon_dioxide, 4*pluox_used)
-	air.adjust_moles(/datum/gas/nitrogen, 8*stim_used)
-	air.adjust_moles(GAS_PLUOXIUM, -pluox_used)
-	air.adjust_moles(/datum/gas/stimulum, -stim_used)
-	air.adjust_moles(/datum/gas/plasma, max(-air.gases[/datum/gas/plasma][MOLES]/2,-30))
+	air.gases[/datum/gas/carbon_dioxide][MOLES] += 4*pluox_used
+	air.gases[/datum/gas/nitrogen][MOLES] += 8*stim_used
+	air.gases[/datum/gas/pluoxium][MOLES] += -pluox_used
+	air.gases[/datum/gas/stimulum][MOLES] += -stim_used
+	air.gases[/datum/gas/plasma][MOLES] += max(-air.gases[/datum/gas/plasma][MOLES]/2,-30)
 	if(energy_released)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)

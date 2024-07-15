@@ -202,7 +202,7 @@
 /obj/machinery/atmospherics/miner/pluoxium
 	name = "\improper Pluoxium Gas Miner"
 	overlay_color = "#c5c9b1"
-	spawn_id = GAS_PLUOXIUM
+	spawn_id = /datum/gas/pluoxium
 
 /obj/machinery/atmospherics/miner/station
 	power_draw = GASMINER_POWER_FULLSCALE
