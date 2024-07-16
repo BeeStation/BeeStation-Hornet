@@ -230,6 +230,7 @@
 			user.client.view_size.supress()
 		for(var/datum/camerachunk/camerachunk as anything in eyeobj.visibleCameraChunks)
 			camerachunk.single_add(eyeobj, user.client)
+		user.transfer_observers_to(eyeobj, temporary = TRUE)
 	RegisterSignals(user, list(COMSIG_MOB_LOGOUT, COMSIG_MOVABLE_MOVED), PROC_REF(stop_observe))
 
 /obj/machinery/computer/camera_advanced/proc/stop_observe(mob/user)
