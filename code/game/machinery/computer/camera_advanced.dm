@@ -314,7 +314,7 @@
 		update_ai_detect_hud()
 
 		if(use_static)
-			GLOB.cameranet.visibility(src, eye_user.client, null, use_static)
+			GLOB.cameranet.visibility(src, GetViewerClient(), null, use_static)
 
 		if(visible_icon)
 			if(!user_image)
