@@ -30,7 +30,7 @@
 		return FALSE
 	forceMove(get_turf(card))
 	card.forceMove(src)
-	reset_perspective(src)
+	reset_perspective()
 	set_light_on(FALSE)
 	icon_state = "[chassis]"
 	held_state = "[chassis]"

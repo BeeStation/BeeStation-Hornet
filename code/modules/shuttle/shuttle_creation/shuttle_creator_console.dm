@@ -99,4 +99,4 @@
 			eye.source_turf = camera_location
 			eyeobj.setLoc(camera_location)
 		else
-			eyeobj.setLoc(eyeobj.loc)
+			eyeobj.setLoc(get_turf(eyeobj))

@@ -909,7 +909,7 @@
 	malf_picker = new /datum/module_picker
 
 /mob/living/silicon/ai/get_my_eye()
-	return eyeobj || src
+	return multicam_on ? GLOB.ai_camera_room_landmark : eyeobj || src
 
 /mob/living/silicon/ai/reset_perspective(atom/new_eye)
 	. = ..()
@@ -918,7 +918,6 @@
 
 	if(camera_light_on)
 		light_cameras()
-	end_multicam(from_reset_perspective = TRUE)
 
 /mob/living/silicon/ai/revive(full_heal = 0, admin_revive = 0)
 	. = ..()

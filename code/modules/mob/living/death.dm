@@ -84,8 +84,8 @@
 
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed)
 
+	reset_perspective()
 	if (client)
-		reset_perspective(null)
 		reload_fullscreen()
 		client.move_delay = initial(client.move_delay)
 		//This first death of the game will not incur a ghost role cooldown

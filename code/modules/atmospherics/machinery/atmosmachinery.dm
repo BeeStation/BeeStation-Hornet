@@ -312,7 +312,6 @@
 				if(pipenetdiff.len)
 					user.update_pipe_vision(target_move)
 				user.forceMove(target_move)
-				user.reset_perspective(target_move)  //Byond only updates the eye every tick, This smooths out the movement
 				if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 					user.last_played_vent = world.time
 					playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)

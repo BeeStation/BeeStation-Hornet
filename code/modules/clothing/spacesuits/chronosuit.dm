@@ -302,7 +302,7 @@
 		qdel(src)
 
 /obj/effect/chronos_cam/on_unset_machine(mob/user)
-	user.reset_perspective(null)
+	user.reset_perspective()
 
 /obj/effect/chronos_cam/Destroy()
 	if(holder)

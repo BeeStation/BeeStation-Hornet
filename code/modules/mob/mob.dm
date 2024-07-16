@@ -36,10 +36,8 @@
 		progressbars = null
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
-	if(observers?.len)
-		for(var/M in observers)
-			var/mob/dead/observe = M
-			observe.reset_perspective(null)
+	for(var/mob/dead/observe as anything in observers)
+		observe.reset_perspective()
 	qdel(hud_used)
 	for(var/cc in client_colours)
 		qdel(cc)
@@ -452,12 +450,19 @@
 	if(new_eye == real_eye)
 		return // no need to do this
 
-	// var/atom/old_eye = real_eye // to-be-used
+	var/atom/old_eye = real_eye
+
+	if(isatom(old_eye)) // admeme vv failproof. /datum can't be their eyes
+		LAZYREMOVE(old_eye.eye_mobs, src)
+
 	real_eye = new_eye
 	if(client)
 		client.set_eye(real_eye)
 
-	return TRUE // return old_eye
+	if(isatom(new_eye))
+		LAZYADD(new_eye.eye_mobs, src)
+
+	return TRUE
 
 /**
   * Examine a mob
@@ -686,7 +691,7 @@
 /mob/verb/cancel_camera()
 	set name = "Cancel Camera View"
 	set category = "OOC"
-	reset_perspective(null)
+	reset_perspective()
 	unset_machine()
 
 //suppress the .click/dblclick macros so people can't use them to identify the location of items or aimbot

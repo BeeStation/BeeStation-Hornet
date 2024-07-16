@@ -86,7 +86,7 @@
 			moveToNullspace()
 		if(use_static)
 			ai.camera_visibility(src)
-		if(ai.client && !ai.multicam_on)
+		if(!ai.multicam_on)
 			ai.reset_perspective(src)
 		update_ai_detect_hud()
 		//Holopad
@@ -188,14 +188,14 @@
 		create_eye()
 
 	transfer_observers_to(eyeobj) // ai core to eyemob
-	eyeobj.setLoc(loc)
+	eyeobj.setLoc(get_turf(src))
 
 /mob/living/silicon/ai/proc/create_eye()
 	if(!eyeobj || QDELETED(eyeobj))
 		eyeobj = new /mob/camera/ai_eye()
 		all_eyes += eyeobj
 		eyeobj.ai = src
-		eyeobj.setLoc(loc)
+		eyeobj.setLoc(get_turf(src))
 		eyeobj.name = "[name] (AI Eye)"
 		eyeobj.real_name = eyeobj.name
 		set_eyeobj_visible(TRUE)

@@ -3,6 +3,7 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 	var/list/current_orbiters
 	var/datum/movement_detector/tracker
+	var/datum/weakref/back_to /// when 'return_observers()' proc is called, ghost will go back to this weakref.
 
 //radius: range to orbit at, radius of the circle formed by orbiting (in pixels)
 //clockwise: whether you orbit clockwise or anti clockwise
@@ -179,7 +180,8 @@
 
 /// includes_everyone=FALSE: when an orbitted mob is a camera eye or something. That shouldn't transfer revenants.
 /// includes_everyone=TRUE: when an orbitted mob is a mob who is being transformed(monkeyize). They should keep orbiters.
-/atom/proc/transfer_observers_to(atom/target, includes_everyone=FALSE)
+/// temporary=TRUE: when 'return_observers()' proc is called, they'll go back to a mob where they came from.
+/atom/proc/transfer_observers_to(atom/target, includes_everyone = FALSE, temporary = FALSE)
 	if(!orbit_datum || !istype(target) || !get_turf(target) || target == src)
 		return
 	if(includes_everyone)
@@ -188,4 +190,20 @@
 	for(var/each in orbit_datum.current_orbiters)
 		if(!isobserver(each))
 			continue
+		if(temporary)
+			orbit_datum.back_to = WEAKREF(src)
 		orbit_datum.transfer_orbiter_to(each, target)
+
+/// returns ghosts to a mob where they came from when they are sent through 'transfer_observers_to()'
+/atom/proc/return_observers(atom/target)
+	if(!orbit_datum)
+		return
+	for(var/each_ghost in orbit_datum.current_orbiters)
+		if(!isobserver(each_ghost))
+			continue
+		var/atom/back_to = orbit_datum.back_to?.resolve()
+		if(back_to)
+			orbit_datum.transfer_orbiter_to(each_ghost, back_to)
+			orbit_datum.back_to = null
+		else
+			orbit_datum.transfer_orbiter_to(each_ghost, target)

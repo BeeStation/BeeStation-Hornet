@@ -33,8 +33,7 @@
 	//Check for any living mobs trigger hasmob.
 	//hasmob effects whether the package goes to cargo or its tagged destination.
 	for(var/mob/living/M in D)
-		if(M.client)
-			M.reset_perspective(src)
+		M.reset_perspective(src)
 		hasmob = TRUE
 
 	//Checks 1 contents level deep. This means that players can be sent through disposals mail...

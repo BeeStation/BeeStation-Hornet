@@ -1295,11 +1295,10 @@
 		unbuckle_all_mobs(force = TRUE)
 	. = ..()
 	if(.)
-		if(client)
-			if(isturf(destination))
-				reset_perspective()
-			else
-				reset_perspective(destination)
+		if(isturf(destination))
+			reset_perspective()
+		else
+			reset_perspective(destination)
 		update_mobility() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
 
 /mob/living/set_stat(new_stat)
