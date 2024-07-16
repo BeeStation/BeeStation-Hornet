@@ -99,12 +99,14 @@
 	if(!.)
 		return
 	for(var/atom/target in focus)
+		if(!isitem(target) && !isliving(target))
+			continue
 		build_summon(target)
 	dump_targets()
 	clear_focus()
 
 /datum/xenoartifact_trait/malfunction/animal/twin/build_summon(atom/target)
-	if(!target || !isitem(target) && !ismob(target))
+	if(!target || !isitem(target) && !ismob(target) || length(summons) >= max_summons)
 		return
 	var/mob/living/simple_animal/hostile/twin/T = new(get_turf(parent.parent))
 	//Setup appearance for evil twin

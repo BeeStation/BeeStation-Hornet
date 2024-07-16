@@ -26,8 +26,8 @@
 	icon_state = "c4"
 	sticker_icon_state = "c4_sticker"
 	do_outline = FALSE
-	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_RARE
-	drop_rate = STICKER_WEIGHT_RARE
+	sticker_flags = STICKER_SERIES_1 | STICKER_WEIGHT_EXOTIC
+	drop_rate = STICKER_WEIGHT_EXOTIC
 
 /obj/item/sticker/series_1/sad
 	icon_state = "sad"

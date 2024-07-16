@@ -58,9 +58,7 @@
 
 /obj/machinery/computer/xenoarchaeology_console/Destroy()
 	. = ..()
-	for(var/datum/rnd_lister/S as() in sellers)
-		sellers -= S
-		qdel(S)
+	QDEL_LIST(sellers)
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(radio)
 

@@ -24,7 +24,7 @@
 
 /obj/item/sticker/sticky_note/examine(mob/user)
 	. = ..()
-	return my_paper.examine(user)
+	. += my_paper.examine(user)
 
 /obj/item/sticker/sticky_note/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
@@ -106,6 +106,6 @@
 /obj/item/sticky_note_pile/examine(mob/user)
 	. = ..()
 	if(current_notes)
-		. += "It contains [current_notes > 1 ? "[current_notes] notes" : " one note"]."
+		. += "It contains [current_notes] [current_notes > 1 ? "notes" : "note"]."
 	else
 		. += "It doesn't contain anything."

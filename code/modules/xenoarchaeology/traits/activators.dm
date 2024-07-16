@@ -13,6 +13,7 @@
 	///Do we override the artifact's generic cooldown?
 	var/override_cooldown = FALSE
 
+//Translation procs that catch a signal and translate it into a trigger
 //Throw custom cooldown logic in here
 /datum/xenoartifact_trait/activator/proc/trigger_artifact(atom/target, type = XENOA_ACTIVATION_CONTACT, force)
 	SIGNAL_HANDLER
@@ -27,11 +28,13 @@
 	parent.trigger()
 	return TRUE
 
+///Translates a (atom/target) input
 /datum/xenoartifact_trait/activator/proc/translation_type_a(datum/source, atom/target)
 	SIGNAL_HANDLER
 
 	trigger_artifact(target)
 
+///Translates a (atom/item, atom/target) input
 /datum/xenoartifact_trait/activator/proc/translation_type_b(datum/source, atom/item, atom/target)
 	SIGNAL_HANDLER
 
@@ -39,6 +42,7 @@
 		return
 	trigger_artifact(target)
 
+///Translates a (atom/target, atom/item) input
 /datum/xenoartifact_trait/activator/proc/translation_type_c(datum/source, atom/target, atom/item)
 	SIGNAL_HANDLER
 
@@ -46,6 +50,7 @@
 		return
 	trigger_artifact(target)
 
+///Translates a (atom/target) input, different to A becuase we use this one to handle dense cases and other conditions
 /datum/xenoartifact_trait/activator/proc/translation_type_d(datum/source, atom/target)
 	SIGNAL_HANDLER
 
@@ -355,7 +360,11 @@
 	RegisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
 
 /datum/xenoartifact_trait/activator/item_key/translation_type_b(datum/source, atom/item, atom/target)
-	return (is_strict ? item?.type == key_item.type : istype(item, key_item)) && !parent.use_cooldown_timer
+	if(is_strict)
+		. = item?.type == key_item.type
+	else
+		. = istype(item, key_item)
+	return (. && !parent.use_cooldown_timer)
 
 /*
 	Cell

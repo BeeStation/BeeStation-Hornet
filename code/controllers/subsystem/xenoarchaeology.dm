@@ -174,13 +174,13 @@ SUBSYSTEM_DEF(xenoarchaeology)
 ///Get a trait incompatability list based on the passed type
 /datum/controller/subsystem/xenoarchaeology/proc/get_trait_incompatibilities(atom/type)
 	//Items
-	if(istype(type, /obj/item))
+	if(isitem(type))
 		return xenoa_item_incompatible
 	//Mob
-	if(istype(type, /mob))
+	if(ismob(type))
 		return xenoa_mob_incompatible
 	//Structure
-	if(istype(type, /obj/structure))
+	if(isstructure(type))
 		return xenoa_structure_incompatible
 
 	return list()

@@ -231,7 +231,6 @@
 			for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
 				if(T.label_name)
 					examine_text += "<span class='info'>- [T.label_name]</span>"
-	return
 
 //Build the description for the scientific examination
 /datum/component/xenoartifact/proc/get_material_desc()
