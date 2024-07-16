@@ -105,7 +105,8 @@
 /datum/outfit/vip_target/centcom_official_vip
 	name = "Centcom (VIP Target)"
 
-	uniform = /obj/item/clothing/under/rank/centcom/officer
+	uniform = /obj/item/clothing/under/rank/centcom/official
+	suit = /obj/item/clothing/suit/armor/bulletproof
 	gloves = /obj/item/clothing/gloves/color/black
 	ears = /obj/item/radio/headset/headset_cent/empty
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
