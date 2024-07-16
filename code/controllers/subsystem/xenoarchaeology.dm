@@ -164,7 +164,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	return output
 
 ///Compile a list of traits from a given compatability flag/s
-/datum/controller/subsystem/xenoarchaeology/proc/compile_artifact_compatibilties(var/flags)
+/datum/controller/subsystem/xenoarchaeology/proc/compile_artifact_compatibilties(flags)
 	var/list/output = list()
 	for(var/datum/xenoartifact_trait/T as() in xenoa_all_traits)
 		if(initial(T.incompatabilities) & flags)
