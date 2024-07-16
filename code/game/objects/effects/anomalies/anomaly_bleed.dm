@@ -25,7 +25,7 @@
 	// Stop processing here since we don't want to keep moving while doing the detonation action
 	STOP_PROCESSING(SSobj, src)
 	// Needs to sleep since this gets instantly deleted as soon as the proc ends
-	for (var/mob/living/carbon/human/player in GLOB.player_list)
+	for (var/mob/living/carbon/human/player in shuffle(GLOB.player_list))
 		if (!is_station_level(player.z))
 			continue
 		var/turf/player_loc = get_turf(player)
