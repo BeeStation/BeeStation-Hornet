@@ -528,6 +528,7 @@
 /// Proc to append and redefine behavior to the change of the [/mob/living/var/resting] variable.
 /mob/living/proc/update_resting()
 	update_rest_hud_icon()
+	SEND_SIGNAL(src, COMSIG_LIVING_RESTING_UPDATED, resting)
 
 
 /mob/living/proc/get_up(instant = FALSE)
@@ -815,7 +816,7 @@
 							TH.color = spec_color
 
 /mob/living/carbon/human/makeTrail(turf/T, turf/start, direction, spec_color)
-	if((NOBLOOD in dna.species.species_traits) || !bleed_rate || bleedsuppress)
+	if((NOBLOOD in dna.species.species_traits) || !is_bleeding())
 		return
 	spec_color = dna.species.blood_color
 	..()

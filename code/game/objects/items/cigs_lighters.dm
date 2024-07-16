@@ -175,8 +175,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	else
 		return ..()
 
-/obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/glass, mob/user, proximity)
-	. = ..()
+/obj/item/clothing/mask/cigarette/proc/dip(obj/item/reagent_containers/glass/glass, mob/user, proximity)
 	if(!proximity || lit) //can't dip if cigarette is lit (it will heat the reagents in the glass instead)
 		return
 	if(istype(glass))	//you can dip cigarettes into beakers
@@ -190,6 +189,38 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			else
 				to_chat(user, "<span class='notice'>[src] is full.</span>")
 
+/obj/item/clothing/mask/cigarette/proc/butt(mob/living/M, mob/living/user, proximity)
+	if(!istype(M))
+		return
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		return
+	if(lit && user.a_intent == INTENT_HARM)
+		force = 4
+		var/target_zone = user.get_combat_bodyzone()
+		M.apply_damage(force, BURN, target_zone)
+		qdel(src)
+		var/cig_butt = new type_butt()
+		user.put_in_hands(cig_butt)
+		new /obj/effect/decal/cleanable/ash(M.loc)
+		playsound(user, 'sound/surgery/cautery2.ogg', 25, 1)
+		return
+	if(lit && user.a_intent != INTENT_HARM)
+		smoketime -= 120
+		if(prob(40))
+			src.extinguish()
+			if(src.smoketime <= 0)
+				qdel(src)
+				var/cig_butt = new type_butt()
+				user.put_in_hands(cig_butt)
+				playsound(user, 'sound/items/cig_snuff.ogg', 25, 1)
+
+/obj/item/clothing/mask/cigarette/afterattack(var/target, mob/living/user, proximity)
+	if (istype(target, /mob/living))
+		butt(target, user, proximity)
+		. = ..()
+	else
+		. = ..()
+		dip(target, user, proximity)
 
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
 	if(lit)

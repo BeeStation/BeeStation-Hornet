@@ -58,7 +58,7 @@
 	name = "doctor's bag"
 	icon_state = "firstaid-surgeryalt"
 	item_state = "firstaid-surgeryalt"
-	worn_icon_state = "baguette"
+	worn_icon_state = "firstaid_surgeryalt"
 	desc = "A fancy high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
 	skin_type = null
 	w_class = WEIGHT_CLASS_BULKY
