@@ -854,13 +854,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				client.screen = list()
 				LAZYOR(observetarget.observers, src)
 				observetarget.hud_used.show_hud(observetarget.hud_used.hud_version, src)
+				to_chat(src, "<span class='notice'>You started observing [observetarget]</span>")
 
 		else // stop observing
+			to_chat(src, "<span class='notice'>You stopped observing [observetarget]</span>")
 			LAZYREMOVE(observetarget.observers, src)
 			observetarget = null
-		return
-
-	if(hud_used) // use my ghost hud
+	if(!new_eye && hud_used) // use my ghost hud
 		client.screen = list()
 		hud_used.show_hud(hud_used.hud_version)
 
