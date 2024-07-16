@@ -1,3 +1,4 @@
+/// Anything above a lattice should go here.
 /turf/open/floor
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
@@ -12,6 +13,9 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+
 	thermal_conductivity = 0.04
 	heat_capacity = 10000
 	tiled_dirt = TRUE
@@ -19,10 +23,12 @@
 	overfloor_placed = TRUE
 
 	var/icon_plating = "plating"
-	var/floor_tile = null //tile that this floor drops
+	/// Path of the tile that this floor drops
+	var/floor_tile = null
 
 /turf/open/floor/Initialize(mapload)
 	. = ..()
+
 	if(mapload && prob(33))
 		MakeDirty()
 
@@ -65,6 +71,7 @@
 		return
 	T.break_tile()
 
+/// Things seem to rely on this actually returning plating. Override it if you have other baseturfs.
 /turf/open/floor/proc/make_plating()
 	//Remove previous damage overlays
 	for(var/i in damage_overlays)
@@ -137,23 +144,23 @@
 
 /turf/open/floor/singularity_pull(S, current_size)
 	..()
-	if(current_size == STAGE_THREE)
-		if(prob(30))
+	var/sheer = FALSE
+	switch(current_size)
+		if(STAGE_THREE)
+			if(prob(30))
+				sheer = TRUE
+		if(STAGE_FOUR)
+			if(prob(50))
+				sheer = TRUE
+		if(STAGE_FIVE to INFINITY)
 			if(floor_tile)
-				new floor_tile(src)
-				make_plating()
-	else if(current_size == STAGE_FOUR)
-		if(prob(50))
-			if(floor_tile)
-				new floor_tile(src)
-				make_plating()
-	else if(current_size >= STAGE_FIVE)
-		if(floor_tile)
-			if(prob(70))
-				new floor_tile(src)
-				make_plating()
-		else if(prob(50))
-			ReplaceWithLattice()
+				if(prob(70))
+					sheer = TRUE
+			else if(prob(50) && (/turf/open/space in baseturfs))
+				ReplaceWithLattice()
+	if(sheer)
+		if(has_tile())
+			remove_tile(null, TRUE, TRUE, TRUE)
 
 /turf/open/floor/narsie_act(force, ignore_mobs, probability = 20)
 	. = ..()

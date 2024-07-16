@@ -87,6 +87,13 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/gun/energy/e_gun/hos/contents_explosion(severity, target)
+	if (!ammo_type || !cell)
+		name = "\improper Broken X-01 MultiPhase Energy Gun"
+		desc = "This is an expensive, modern recreation of an antique laser gun. This gun had several unique firemodes, but lacked the ability to recharge over time. Seems too be damaged to the point of not functioning, but still valuable."
+		icon_state = "hoslaser_broken"
+		update_icon()
+
 /obj/item/gun/energy/e_gun/dragnet
 	name = "\improper DRAGnet"
 	desc = "The \"Dynamic Rapid-Apprehension of the Guilty\" net is a revolution in law enforcement technology."
