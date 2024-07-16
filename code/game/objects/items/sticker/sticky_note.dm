@@ -70,18 +70,18 @@
 
 /obj/item/sticky_note_pile/MouseDrop(atom/over_object)
 	. = ..()
-	var/mob/living/M = usr
-	if(!istype(M) || M.incapacitated() || !Adjacent(M))
+	var/mob/living/L = usr
+	if(!istype(L) || L.incapacitated() || !Adjacent(L))
 		return
 
-	if(over_object == M)
-		M.put_in_hands(src)
+	if(over_object == L)
+		L.put_in_hands(src)
 
 	else if(istype(over_object, /atom/movable/screen/inventory/hand))
 		var/atom/movable/screen/inventory/hand/H = over_object
-		M.putItemFromInventoryInHandIfPossible(src, H.held_index)
+		L.putItemFromInventoryInHandIfPossible(src, H.held_index)
 
-	add_fingerprint(M)
+	add_fingerprint(L)
 
 /obj/item/sticky_note_pile/attack_hand(mob/user)
 	. = ..()
