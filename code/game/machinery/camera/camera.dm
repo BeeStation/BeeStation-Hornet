@@ -176,7 +176,7 @@
 				var/mob/M = i
 				if (M.client.eye == src)
 					M.unset_machine()
-					M.reset_perspective(null)
+					M.reset_perspective()
 					to_chat(M, "The screen bursts into static.")
 
 /obj/machinery/camera/emp_reset()
@@ -450,7 +450,7 @@
 	for(var/mob/O in GLOB.player_list)
 		if (O.client && O.client.eye == src)
 			O.unset_machine()
-			O.reset_perspective(null)
+			O.reset_perspective()
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm()

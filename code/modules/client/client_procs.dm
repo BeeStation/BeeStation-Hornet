@@ -191,6 +191,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	///////////
 
 /client/New(TopicData)
+	perspective = EYE_PERSPECTIVE // We always use EYE_PERSPECTIVE.
 	var/tdata = TopicData //save this for later use
 	TopicData = null							//Prevent calls to client.Topic from connect
 

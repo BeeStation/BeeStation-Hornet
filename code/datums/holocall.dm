@@ -16,7 +16,7 @@
 
 /obj/machinery/holopad/remove_eye_control(mob/living/user)
 	if(user.client)
-		user.reset_perspective(null)
+		user.reset_perspective()
 	user.remote_control = null
 
 //this datum manages it's own references

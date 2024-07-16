@@ -244,7 +244,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 			var/atom/movable/screen/movable/pic_in_pic/P = V
 			P.show_to(client)
 
-/mob/living/silicon/ai/proc/end_multicam()
+/mob/living/silicon/ai/proc/end_multicam(from_reset_perspective)
 	if(!multicam_on)
 		return
 	multicam_on = FALSE
@@ -254,7 +254,8 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 		for(var/V in multicam_screens)
 			var/atom/movable/screen/movable/pic_in_pic/P = V
 			P.unshow_to(client)
-	reset_perspective()
+	if(!from_reset_perspective)
+		reset_perspective()
 	to_chat(src, "<span class='notice'>Multiple-camera viewing mode deactivated.</span>")
 
 /mob/living/silicon/ai/proc/refresh_camera_obj_visibility()

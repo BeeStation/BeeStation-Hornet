@@ -26,7 +26,7 @@
 /mob/Login()
 	// set_eye() is important here, because your eye doesn't know if you're using them as your eye
 	// FALSE when weakref doesn't exist, to prevent using their current eye
-	client.set_eye(client.eye, client.eye_weakref?.resolve() || CLIENT_OLD_EYE_NULL)
+	client.set_eye(real_eye, client.eye_weakref?.resolve() || CLIENT_OLD_EYE_NULL)
 	add_to_player_list()
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
@@ -47,7 +47,7 @@
 
 	if (client && key != client.key)
 		key = client.key
-	reset_perspective(loc)
+	reset_perspective()
 
 	if(loc)
 		loc.on_log(TRUE)

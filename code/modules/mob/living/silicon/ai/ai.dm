@@ -908,37 +908,17 @@
 	add_verb(/mob/living/silicon/ai/proc/choose_modules)
 	malf_picker = new /datum/module_picker
 
+/mob/living/silicon/ai/get_my_eye()
+	return eyeobj || src
 
 /mob/living/silicon/ai/reset_perspective(atom/new_eye)
-	SHOULD_CALL_PARENT(FALSE) // AI needs to work as their own...
-	if(camera_light_on)
-		light_cameras()
-	if(!client)
+	. = ..()
+	if(!.)
 		return
 
-	if(ismovable(new_eye))
-		if(new_eye != GLOB.ai_camera_room_landmark)
-			end_multicam()
-		client.perspective = EYE_PERSPECTIVE
-		client.set_eye(new_eye)
-	else
-		end_multicam()
-		if(isturf(loc))
-			if(eyeobj)
-				client.set_eye(eyeobj)
-				client.perspective = EYE_PERSPECTIVE
-			else
-				client.set_eye(client.mob)
-				client.perspective = MOB_PERSPECTIVE
-		else
-			client.perspective = EYE_PERSPECTIVE
-			client.set_eye(loc)
-	update_sight()
-	if(client.eye != src)
-		var/atom/AT = client.eye
-		AT.get_remote_view_fullscreens(src)
-	else
-		clear_fullscreen("remote_view", 0)
+	if(camera_light_on)
+		light_cameras()
+	end_multicam(from_reset_perspective = TRUE)
 
 /mob/living/silicon/ai/revive(full_heal = 0, admin_revive = 0)
 	. = ..()

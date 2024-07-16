@@ -30,6 +30,7 @@
 	remove_from_alive_mob_list()
 	remove_from_mob_suicide_list()
 	focus = null
+	real_eye = null
 	if(length(progressbars))
 		stack_trace("[src] destroyed with elements in its progressbars list")
 		progressbars = null
@@ -437,45 +438,26 @@
 				STR.handle_item_insertion(W,1)
 			return B
 
-/**
- * Reset the attached clients perspective (viewpoint)
- *
- * reset_perspective(null) set eye to common default : mob on turf, loc otherwise
- * reset_perspective(thing) set the eye to the thing (if it's equal to current default reset to mob perspective)
- */
-/mob/proc/reset_perspective(atom/new_eye)
-	SHOULD_CALL_PARENT(TRUE)
-	if(!client)
-		return
+/mob/proc/get_my_eye()
+	return src
 
-	if(new_eye)
-		if(ismovable(new_eye))
-			//Set the the thing unless it's us
-			if(new_eye != src)
-				client.perspective = EYE_PERSPECTIVE
-				client.set_eye(new_eye)
-			else
-				client.set_eye(client.mob)
-				client.perspective = MOB_PERSPECTIVE
-		else if(isturf(new_eye))
-			//Set to the turf unless it's our current turf
-			if(new_eye != loc)
-				client.perspective = EYE_PERSPECTIVE
-				client.set_eye(new_eye)
-			else
-				client.set_eye(client.mob)
-				client.perspective = MOB_PERSPECTIVE
-		else
-			//Do nothing
-	else
-		//Reset to common defaults: mob if on turf, otherwise current loc
-		if(isturf(loc))
-			client.set_eye(client.mob)
-			client.perspective = MOB_PERSPECTIVE
-		else
-			client.perspective = EYE_PERSPECTIVE
-			client.set_eye(loc)
-	return TRUE
+// Do not port TG version.
+/mob/proc/reset_perspective(atom/new_eye)
+	if(client && client.perspective != EYE_PERSPECTIVE)
+		stack_trace("something changed client's eye perspective. Current: [client.perspective]")
+		client.perspective = EYE_PERSPECTIVE
+
+	if(isnull(new_eye))
+		new_eye = get_my_eye()
+	if(new_eye == real_eye)
+		return // no need to do this
+
+	// var/atom/old_eye = real_eye // to-be-used
+	real_eye = new_eye
+	if(client)
+		client.set_eye(real_eye)
+
+	return TRUE // return old_eye
 
 /**
   * Examine a mob

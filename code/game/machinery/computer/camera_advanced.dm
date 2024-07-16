@@ -124,7 +124,7 @@
 		var/datum/camerachunk/C = V
 		C.remove(eyeobj)
 	if(user.client)
-		user.reset_perspective(null)
+		user.reset_perspective()
 		if(eyeobj.visible_icon && user.client)
 			user.client.images -= eyeobj.user_image
 		user.client.view_size.unsupress()
