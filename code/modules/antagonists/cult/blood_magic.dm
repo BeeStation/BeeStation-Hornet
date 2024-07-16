@@ -450,6 +450,9 @@
 				C.stuttering += 15
 				C.cultslurring += 15
 				C.Jitter(15)
+				// EMP the radio on your ears
+				if (C.ears)
+					C.ears.emp_act(EMP_LIGHT)
 		else
 			target.visible_message("<span class='warning'>You fail to corrupt [L]'s mind!</span>", \
 									   "<span class='userdanger'>Your mindshield protects you from the heresy of [user]!</span>")
@@ -688,7 +691,7 @@
 	if(proximity)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
-			if((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLEED))
+			if((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD))
 				to_chat(user,"<span class='warning'>Blood rites do not work on species with no blood!</span>")
 				return
 			if(iscultist(H))

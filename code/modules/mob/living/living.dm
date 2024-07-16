@@ -432,7 +432,7 @@
 	death()
 
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_stasis = FALSE)
-	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED) || (!ignore_restraints && (HAS_TRAIT(src, TRAIT_RESTRAINED) || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE))) || (!ignore_stasis && IS_IN_STASIS(src)))
+	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED) || (!ignore_restraints && (HAS_TRAIT(src, TRAIT_RESTRAINED) || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_NECK))) || (!ignore_stasis && IS_IN_STASIS(src)))
 		return TRUE
 
 /mob/living/canUseStorage()
@@ -514,6 +514,7 @@
 /mob/living/proc/update_resting()
 	update_rest_hud_icon()
 	update_mobility()
+	SEND_SIGNAL(src, COMSIG_LIVING_RESTING_UPDATED, resting)
 
 
 //Recursive function to find everything a mob is holding. Really shitty proc tbh.
@@ -1120,8 +1121,6 @@
 	. = ..()
 	if(.)
 		return
-	if((magic && HAS_TRAIT(src, TRAIT_ANTIMAGIC)) || (holy && HAS_TRAIT(src, TRAIT_HOLY)))
-		return src
 
 /mob/living/proc/fakefireextinguish()
 	return
@@ -1235,6 +1234,7 @@
 	else
 		mobility_flags |= MOBILITY_UI|MOBILITY_PULL
 
+	update_action_buttons_icon(TRUE)
 
 	if(stat == UNCONSCIOUS)
 		drop_all_held_items()
@@ -1454,15 +1454,16 @@
 		result += static_virus
 	return result
 
-/mob/living/reset_perspective(atom/A)
-	if(..())
-		update_sight()
-		if(client.eye && client.eye != src)
-			var/atom/AT = client.eye
-			AT.get_remote_view_fullscreens(src)
-		else
-			clear_fullscreen("remote_view", 0)
-		update_pipe_vision()
+/mob/living/reset_perspective(atom/new_eye)
+	if(!..())
+		return
+	update_sight()
+	if(client.eye && client.eye != src)
+		var/atom/AT = client.eye
+		AT.get_remote_view_fullscreens(src)
+	else
+		clear_fullscreen("remote_view", 0)
+	update_pipe_vision()
 
 /mob/living/update_mouse_pointer()
 	..()

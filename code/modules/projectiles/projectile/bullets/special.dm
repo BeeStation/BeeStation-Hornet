@@ -12,6 +12,7 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
 	range = 200
+	bleed_force = 0
 
 /obj/projectile/bullet/honker/Initialize(mapload)
 	. = ..()
