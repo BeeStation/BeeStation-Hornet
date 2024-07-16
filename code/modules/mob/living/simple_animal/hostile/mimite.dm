@@ -71,10 +71,10 @@
 	var/mimite_stuck_threshold = 10 //if this == mimite_stuck, it'll force the mimite to stop moving
 	var/attemptingventcrawl = FALSE
 
-
 /mob/living/simple_animal/hostile/mimite/Initialize()
 	. = ..()
 	AddElement(/datum/element/point_of_interest)
+	GLOB.all_mimites += src
 	var/image/I = image(icon = 'icons/mob/hud.dmi', icon_state = "hudcultist", layer = DATA_HUD_PLANE, loc = src)
 	I.alpha = 200
 	I.appearance_flags = RESET_ALPHA
@@ -212,7 +212,13 @@
 /mob/living/simple_animal/hostile/mimite/Life()
 	. = ..()
 	if(isturf(loc) && replicate)
-		mimite_growth += rand(1,6)
+		if(LAZYLEN(GLOB.all_mimites) >= 30) //stop replicating if theres 30 or more
+			replicate = FALSE
+			mimite_growth = 0
+		else if(LAZYLEN(GLOB.all_mimites) <=10 && venthunt) //start replicating again if under a total of 10
+			replicate = TRUE
+		if(replicate) //we still want growth and replication if over 10
+			mimite_growth += rand(1,6)
 		if(mimite_growth >= 350)
 			if(!grow_as)
 				grow_as = pick_weight(list(/mob/living/simple_animal/hostile/mimite = 60, /mob/living/simple_animal/hostile/mimite/ranged = 30, /mob/living/simple_animal/hostile/mimite/crate = 10))
@@ -300,6 +306,7 @@
 	return 0
 
 /mob/living/simple_animal/hostile/mimite/death(gibbed)
+	GLOB.all_mimites -= src
 	new /obj/effect/decal/cleanable/oil(get_turf(src))
 	..()
 
