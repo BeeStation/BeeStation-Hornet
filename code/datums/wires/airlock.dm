@@ -125,18 +125,18 @@
 	wires.ui_update()
 	ui_update()
 
-/datum/wires/airlock/on_cut(wire, mend)
+/datum/wires/airlock/on_cut(wire, mob/user, mend)
 	var/obj/machinery/door/airlock/A = holder
-	if(isliving(usr) && A.hasPower())
-		A.shock(usr, 100) //Cutting wires directly on powered doors without protection is not advised.
+	if(isliving(user) && A.hasPower())
+		A.shock(user, 100) //Cutting wires directly on powered doors without protection is not advised.
 	switch(wire)
 		if(WIRE_POWER1, WIRE_POWER2) // Cut to loose power, repair all to gain power.
 			if(mend && !is_cut(WIRE_POWER1) && !is_cut(WIRE_POWER2))
 				A.regainMainPower()
 			else
 				A.loseMainPower()
-			if(isliving(usr))
-				A.shock(usr, 50)
+			if(isliving(user))
+				A.shock(user, 50)
 		if(WIRE_BACKUP1, WIRE_BACKUP2) // Cut to loose backup power, repair all to gain backup power.
 			if(mend && !is_cut(WIRE_BACKUP1) && !is_cut(WIRE_BACKUP2))
 				A.regainBackupPower()
