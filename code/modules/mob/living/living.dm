@@ -514,6 +514,7 @@
 /mob/living/proc/update_resting()
 	update_rest_hud_icon()
 	update_mobility()
+	SEND_SIGNAL(src, COMSIG_LIVING_RESTING_UPDATED, resting)
 
 
 //Recursive function to find everything a mob is holding. Really shitty proc tbh.
@@ -763,7 +764,7 @@
 						TH.transfer_mob_blood_dna(src)
 
 /mob/living/carbon/human/makeTrail(turf/T)
-	if((NOBLOOD in dna.species.species_traits) || !bleed_rate || bleedsuppress)
+	if((NOBLOOD in dna.species.species_traits) || !is_bleeding())
 		return
 	..()
 

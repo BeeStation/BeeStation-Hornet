@@ -5,6 +5,7 @@
 	bodyflag = FLAG_IPC
 	sexes = FALSE
 	species_traits = list(
+		TRAIT_BLOOD_COOLANT,
 		NOTRANSSTING,
 		NOEYESPRITES,
 		NO_DNA_COPY,
@@ -37,7 +38,6 @@
 	default_features = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics (Custom)")
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
-	exotic_bloodtype = "Coolant"
 	damage_overlay_type = "synth"
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
 	default_features = list("ipc_screen" = "BSOD", "ipc_antenna" = "None")
@@ -62,6 +62,9 @@
 	species_r_arm = /obj/item/bodypart/r_arm/ipc
 	species_l_leg = /obj/item/bodypart/l_leg/ipc
 	species_r_leg = /obj/item/bodypart/r_leg/ipc
+
+	exotic_bloodtype = "Coolant"
+	bleed_effect = /datum/status_effect/bleeding/robotic
 
 	var/saved_screen //for saving the screen when they die
 	var/datum/action/innate/change_screen/change_screen
@@ -299,3 +302,37 @@
 	)
 
 	return to_add
+
+/datum/status_effect/bleeding/robotic
+	alert_type = /atom/movable/screen/alert/status_effect/bleeding/robotic
+	bleed_heal_multiplier = 0
+
+/datum/status_effect/bleeding/robotic/tick()
+	// Since we don't have flesh, we will instantly repair any sealed wounds
+	bandaged_bleeding = 0
+	..()
+
+/datum/status_effect/bleeding/robotic/update_icon()
+	// The actual rate of bleeding, can be reduced by holding wounds
+	// Calculate the message to show to the user
+	if (HAS_TRAIT(owner, TRAIT_BLEED_HELD))
+		linked_alert.name = "Leaking (Held)"
+		if (bleed_rate > BLEED_RATE_MINOR)
+			linked_alert.desc = "Critical leaks have been detected in your system and require welding. Leak rate slowed by applied pressure."
+		else
+			linked_alert.desc = "Minor leaks have been detected in your system and require welding. Leak rate slowed by applied pressure."
+	else
+		if (bleed_rate < BLEED_RATE_MINOR)
+			linked_alert.name = "Leaking (Light)"
+			linked_alert.desc = "Minor leaks have been detected in your system and require welding."
+		else
+			linked_alert.name = "Leaking (Heavy)"
+			linked_alert.desc = "Critical leaks have been detected in your system and require welding."
+	linked_alert.icon_state = "bleed_robo"
+
+	linked_alert.maptext = MAPTEXT(owner.get_bleed_rate_string())
+
+/atom/movable/screen/alert/status_effect/bleeding/robotic
+	name = "Leaking"
+	desc = "You are leaking, weld the leaks back together or you will die."
+	icon_state = "bleed_robo"
