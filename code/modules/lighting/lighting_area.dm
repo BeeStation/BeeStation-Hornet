@@ -3,7 +3,7 @@
 	var/dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	var/fullbright_type = FULLBRIGHT_DEFAULT
 
-/area/proc/set_dynamic_lighting(var/new_dynamic_lighting = DYNAMIC_LIGHTING_ENABLED)
+/area/proc/set_dynamic_lighting(new_dynamic_lighting = DYNAMIC_LIGHTING_ENABLED)
 	if (new_dynamic_lighting == dynamic_lighting)
 		return FALSE
 

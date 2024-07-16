@@ -131,7 +131,7 @@
 	/// To prevent sound loop bugs
 	var/apc_sound_stage = null
 
-/obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
+/obj/machinery/power/apc/New(turf/loc, ndir, building=0)
 	if (!req_access)
 		req_access = list(ACCESS_ENGINE_EQUIP)
 	if (!armor)

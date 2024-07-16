@@ -219,7 +219,7 @@ By default, all atom have a reagents var - but its empty. if you want to use an 
 		R.my_atom = src <<<<< set the holders my_atom to src so that we know where we are.
 
 		This can also be done by calling a convenience proc:
-		atom/proc/create_reagents(var/max_volume)
+		atom/proc/create_reagents(max_volume)
 ```
 
 ## Other important stuff:

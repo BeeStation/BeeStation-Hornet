@@ -151,7 +151,7 @@
 	return primary_mat
 
 /// For inserting an amount of material
-/datum/component/material_container/proc/insert_amount_mat(amt, var/datum/material/mat)
+/datum/component/material_container/proc/insert_amount_mat(amt, datum/material/mat)
 	if(!istype(mat))
 		mat = SSmaterials.GetMaterialRef(mat)
 	if(amt > 0 && has_space(amt))
@@ -167,7 +167,7 @@
 	return FALSE
 
 /// Uses an amount of a specific material, effectively removing it.
-/datum/component/material_container/proc/use_amount_mat(amt, var/datum/material/mat)
+/datum/component/material_container/proc/use_amount_mat(amt, datum/material/mat)
 	if(!istype(mat))
 		mat = SSmaterials.GetMaterialRef(mat)
 	var/amount = materials[mat]
@@ -180,7 +180,7 @@
 	return FALSE
 
 /// Proc for transfering materials to another container.
-/datum/component/material_container/proc/transer_amt_to(var/datum/component/material_container/T, amt, var/datum/material/mat)
+/datum/component/material_container/proc/transer_amt_to(datum/component/material_container/T, amt, datum/material/mat)
 	if(!istype(mat))
 		mat = SSmaterials.GetMaterialRef(mat)
 	if((amt==0)||(!T)||(!mat))
@@ -235,7 +235,7 @@
 	return total_amount_save - total_amount
 
 /// For spawning mineral sheets at a specific location. Used by machines to output sheets.
-/datum/component/material_container/proc/retrieve_sheets(sheet_amt, var/datum/material/M, target = null)
+/datum/component/material_container/proc/retrieve_sheets(sheet_amt, datum/material/M, target = null)
 	if(!M.sheet_type)
 		return 0 //Add greyscale sheet handling here later
 	if(sheet_amt <= 0)
@@ -305,7 +305,7 @@
 
 
 /// Returns TRUE if you have enough of the specified material.
-/datum/component/material_container/proc/has_enough_of_material(var/datum/material/req_mat, amount, multiplier=1)
+/datum/component/material_container/proc/has_enough_of_material(datum/material/req_mat, amount, multiplier=1)
 	if(!materials[req_mat]) //Do we have the resource?
 		return FALSE //Can't afford it
 	var/amount_required = amount * multiplier
@@ -345,7 +345,7 @@
 	return material_amount
 
 /// Returns the amount of a specific material in this container.
-/datum/component/material_container/proc/get_material_amount(var/datum/material/mat)
+/datum/component/material_container/proc/get_material_amount(datum/material/mat)
 	if(!istype(mat))
 		mat = SSmaterials.GetMaterialRef(mat)
 	return materials[mat]

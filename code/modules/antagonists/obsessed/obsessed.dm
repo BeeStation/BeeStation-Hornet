@@ -154,12 +154,12 @@
 
 	return report.Join("<br>")
 
-/datum/antagonist/obsessed/proc/update_obsession_icons_added(var/mob/living/carbon/human/obsessed)
+/datum/antagonist/obsessed/proc/update_obsession_icons_added(mob/living/carbon/human/obsessed)
 	var/datum/atom_hud/antag/creephud = GLOB.huds[ANTAG_HUD_OBSESSED]
 	creephud.join_hud(obsessed)
 	set_antag_hud(obsessed, "obsessed")
 
-/datum/antagonist/obsessed/proc/update_obsession_icons_removed(var/mob/living/carbon/human/obsessed)
+/datum/antagonist/obsessed/proc/update_obsession_icons_removed(mob/living/carbon/human/obsessed)
 	var/datum/atom_hud/antag/creephud = GLOB.huds[ANTAG_HUD_OBSESSED]
 	creephud.leave_hud(obsessed)
 	set_antag_hud(obsessed, null)

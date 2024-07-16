@@ -134,7 +134,7 @@
 	bloodcrawl_swallow(victim)
 	return TRUE
 
-/mob/living/proc/bloodcrawl_swallow(var/mob/living/victim)
+/mob/living/proc/bloodcrawl_swallow(mob/living/victim)
 	qdel(victim)
 
 /obj/item/bloodcrawl

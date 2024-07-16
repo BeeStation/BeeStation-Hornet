@@ -56,7 +56,7 @@
 		T.attack_icon = new('icons/obj/carp_lasso.dmi', "carp_attack")
 
 ///Add allies
-/datum/component/tamed_command/proc/add_ally(var/mob/living/M)
+/datum/component/tamed_command/proc/add_ally(mob/living/M)
 	var/mob/living/P = parent
 	if(istype(P))
 		var/datum/ai_controller/tamed/T = P.ai_controller

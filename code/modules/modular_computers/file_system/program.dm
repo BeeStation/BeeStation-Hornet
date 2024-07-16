@@ -95,7 +95,7 @@
   *transfer, if TRUE and access_to_check is null, will tell this proc to use the program's transfer_access in place of access_to_check
   *access can contain a list of access numbers to check against. If access is not empty, it will be used istead of checking any inserted ID.
 */
-/datum/computer_file/program/proc/can_run(mob/user, loud = FALSE, access_to_check, transfer = FALSE, var/list/access)
+/datum/computer_file/program/proc/can_run(mob/user, loud = FALSE, access_to_check, transfer = FALSE, list/access)
 	if(issilicon(user))
 		return TRUE
 

@@ -362,7 +362,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		var/obj/item/organ/I = new path()
 		I.Insert(C)
 
-/datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
+/datum/species/proc/replace_body(mob/living/carbon/C, datum/species/new_species)
 	new_species ||= C.dna.species //If no new species is provided, assume its src.
 	//Note for future: Potentionally add a new C.dna.species() to build a template species for more accurate limb replacement
 
@@ -2333,10 +2333,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			T.Entered(H)
 
 ///Calls the DMI data for a custom icon for a given bodypart from the Species Datum.
-/datum/species/proc/get_custom_icons(var/part)
+/datum/species/proc/get_custom_icons(part)
 	return
 /*Here's what a species that has a unique icon for every slot would look like. If your species doesnt have any custom icons for a given part, return null.
-/datum/species/teshari/get_custom_icons(var/part)
+/datum/species/teshari/get_custom_icons(part)
 	switch(part)
 		if("uniform")
 			return 'icons/mob/species/teshari/tesh_uniforms.dmi'

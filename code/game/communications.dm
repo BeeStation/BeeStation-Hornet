@@ -38,7 +38,7 @@
         filter - described above.
         range - radius of regular byond's square circle on that z-level. null means everywhere, on all z-levels.
 
-  obj/proc/receive_signal(datum/signal/signal, var/receive_method as num, var/receive_param)
+  obj/proc/receive_signal(datum/signal/signal, receive_method as num, receive_param)
     Handler from received signals. By default does nothing. Define your own for your object.
     Avoid of sending signals directly from this proc, use spawn(0). Do not use sleep() here please.
       parameters:

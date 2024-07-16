@@ -412,7 +412,7 @@
 //Where thing is the additional thing you want to same (For example ores inside an ORM)
 //Just add ,\n between each thing
 //generate_tgm_metadata(thing) handles everything inside the {} for you
-/obj/proc/on_object_saved(var/depth = 0)
+/obj/proc/on_object_saved(depth = 0)
 	return ""
 
 // Should move all contained objects to it's location.

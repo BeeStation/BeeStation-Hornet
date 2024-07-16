@@ -24,7 +24,7 @@
 	GLOB.zombie_infection_list -= src
 	. = ..()
 
-/obj/item/organ/zombie_infection/Insert(var/mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/zombie_infection/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
@@ -64,7 +64,7 @@
 	var/flags = TIMER_STOPPABLE
 	timer_id = addtimer(CALLBACK(src, PROC_REF(zombify), owner), revive_time, flags)
 
-/obj/item/organ/zombie_infection/proc/zombify(var/mob/living/carbon/C)
+/obj/item/organ/zombie_infection/proc/zombify(mob/living/carbon/C)
 	timer_id = null
 
 	if(!converts_living && owner.stat != DEAD)

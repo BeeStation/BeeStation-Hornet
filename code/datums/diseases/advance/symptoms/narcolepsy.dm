@@ -45,7 +45,7 @@ Bonus
 		symptom_delay_min = 5
 		symptom_delay_max = 20
 
-/datum/symptom/narcolepsy/Activate(var/datum/disease/advance/A)
+/datum/symptom/narcolepsy/Activate(datum/disease/advance/A)
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob

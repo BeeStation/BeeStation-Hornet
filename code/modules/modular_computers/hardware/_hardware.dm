@@ -36,7 +36,7 @@
 	/// If the hardware can be "hotswapped" (ejected when another is installed)
 	var/hotswap = FALSE
 
-/obj/item/computer_hardware/New(var/obj/L)
+/obj/item/computer_hardware/New(obj/L)
 	..()
 	pixel_x = base_pixel_x + rand(-8, 8)
 	pixel_y = base_pixel_y + rand(-8, 8)
@@ -91,7 +91,7 @@
 
 	return TRUE // Good to go.
 
-/obj/item/computer_hardware/examine(var/mob/user)
+/obj/item/computer_hardware/examine(mob/user)
 	. = ..()
 	if(damage > damage_failure)
 		. += "<span class='danger'>It seems to be severely damaged!</span>"

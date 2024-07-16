@@ -44,7 +44,7 @@
 	for(var/obj/item/implant/bloodbrother/i in linked_implants) // Removes this implant from the list of implants
 		i.linked_implants -= src
 
-/obj/item/implant/bloodbrother/proc/link_implant(var/obj/item/implant/bloodbrother/BB)
+/obj/item/implant/bloodbrother/proc/link_implant(obj/item/implant/bloodbrother/BB)
 	if(BB)
 		if(BB == src) // Don't want to put this implant into itself
 			return

@@ -900,7 +900,7 @@
 
 	return english_list(out, "something indescribable")
 
-/datum/reagents/proc/expose_temperature(var/temperature, var/coeff=0.02)
+/datum/reagents/proc/expose_temperature(temperature, coeff=0.02)
 	var/temp_delta = (temperature - chem_temp) * coeff
 	if(temp_delta > 0)
 		chem_temp = min(chem_temp + max(temp_delta, 1), temperature)
@@ -920,7 +920,7 @@
 	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
 
-/proc/get_random_reagent_id(var/flag_check, var/blacklist_flag = NONE, var/union = TRUE, var/return_as_list = FALSE)
+/proc/get_random_reagent_id(flag_check, blacklist_flag = NONE, union = TRUE, return_as_list = FALSE)
 	/* This proc returns a random reagent ID based on given 'flag_check' which is used to check bitflag for each reagent.
 	 *--- arguments ---*
 		* flag_check

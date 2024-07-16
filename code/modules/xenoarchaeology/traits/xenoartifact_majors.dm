@@ -28,7 +28,7 @@
 			victim.Paralyze(X.charge*0.5 SECONDS, ignore_canstun = TRUE)
 		X.cooldownmod = X.charge*0.6 SECONDS
 
-/datum/xenoartifact_trait/major/capture/proc/release(obj/item/xenoartifact/X, var/atom/movable/AM) //Empty contents
+/datum/xenoartifact_trait/major/capture/proc/release(obj/item/xenoartifact/X, atom/movable/AM) //Empty contents
 	if(QDELETED(src) || QDELETED(X) || QDELETED(AM))
 		return
 	var/turf/T = get_turf(X.loc)
@@ -263,7 +263,7 @@
 	addtimer(CALLBACK(src, PROC_REF(unlight), X), (X.charge*0.6) SECONDS)
 	X.cooldownmod = (X.charge*0.6) SECONDS
 
-/datum/xenoartifact_trait/major/lamp/proc/unlight(var/obj/item/xenoartifact/X)
+/datum/xenoartifact_trait/major/lamp/proc/unlight(obj/item/xenoartifact/X)
 	X.set_light(0, 0)
 
 ///============

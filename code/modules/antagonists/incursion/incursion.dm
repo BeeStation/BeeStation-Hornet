@@ -103,7 +103,7 @@
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] and [key_name_admin(new_owner.current)] into blood brothers.")
 	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(new_owner.current)] into incursion traitor team.")
 
-/datum/antagonist/incursion/proc/equip(var/silent = FALSE)
+/datum/antagonist/incursion/proc/equip(silent = FALSE)
 	var/obj/item/uplink_loc = owner.equip_traitor("The Syndicate", FALSE, src, 15)
 	var/datum/component/uplink/uplink = uplink_loc?.GetComponent(/datum/component/uplink)
 	if(uplink)

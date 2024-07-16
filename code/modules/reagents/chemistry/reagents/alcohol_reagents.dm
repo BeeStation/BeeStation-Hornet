@@ -661,7 +661,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "Whoah, this thing is on FIRE!"
 	shot_glass_icon_state = "toxinsspecialglass"
 
-/datum/reagent/consumable/ethanol/toxins_special/on_mob_life(var/mob/living/M)
+/datum/reagent/consumable/ethanol/toxins_special/on_mob_life(mob/living/M)
 	M.adjust_bodytemperature(15 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, BODYTEMP_NORMAL + 20) //310.15 is the normal bodytemp.
 	return ..()
 
@@ -2365,7 +2365,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "Just looking at this makes your head hurt."
 	var/list/trauma_list
 
-/datum/reagent/consumable/ethanol/fourthwall/proc/traumaweightpick(var/mild,var/severe,var/special)
+/datum/reagent/consumable/ethanol/fourthwall/proc/traumaweightpick(mild,severe,special)
 	return pick(pick_weight(list(subtypesof(/datum/brain_trauma/mild) = mild, subtypesof(/datum/brain_trauma/severe) - /datum/brain_trauma/severe/split_personality - /datum/brain_trauma/severe/hypnotic_stupor = severe, subtypesof(/datum/brain_trauma/special) - /datum/brain_trauma/special/imaginary_friend = special)))
 
 /datum/reagent/consumable/ethanol/fourthwall/on_mob_metabolize(mob/living/carbon/M)

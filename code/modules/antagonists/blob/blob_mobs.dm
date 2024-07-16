@@ -69,7 +69,7 @@
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/simple_animal/hostile/blob/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	if(!overmind)
 		return ..()
 	if(CHAT_FILTER_CHECK(message))
@@ -116,7 +116,7 @@
 	var/list/datum/disease/spore_diseases = list()
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 
-/mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
+/mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src

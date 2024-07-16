@@ -356,7 +356,7 @@
 	var/uses = 1
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
 	var/datum/action/innate/cult/blood_spell/source
-/obj/item/melee/blood_magic/Initialize(mapload, var/spell)
+/obj/item/melee/blood_magic/Initialize(mapload, spell)
 	. = ..()
 	if(!istype(spell, /datum/action/innate/cult/blood_spell))
 		return INITIALIZE_HINT_QDEL
