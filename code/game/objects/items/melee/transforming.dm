@@ -1,9 +1,11 @@
 /obj/item/melee/transforming
 	sharpness = IS_SHARP
+	bleed_force = 0
 	var/active = FALSE
 	var/force_on = 30 //force when active
 	var/faction_bonus_force = 0 //Bonus force dealt against certain factions
 	var/throwforce_on = 20
+	var/bleed_force_on = BLEED_CUT
 	var/icon_state_on = "axe1"
 	var/hitsound_on = 'sound/weapons/blade1.ogg'
 	var/list/attack_verb_on = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
@@ -61,6 +63,7 @@
 			attack_verb = attack_verb_on
 		icon_state = icon_state_on
 		w_class = w_class_on
+		bleed_force = bleed_force_on
 		if(embedding)
 			updateEmbedding()
 	else
@@ -72,6 +75,7 @@
 			attack_verb = attack_verb_off
 		icon_state = initial(icon_state)
 		w_class = initial(w_class)
+		bleed_force = initial(bleed_force)
 		if(embedding)
 			disableEmbedding()
 	if(is_sharp())
