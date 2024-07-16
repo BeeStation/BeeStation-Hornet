@@ -149,7 +149,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	return weighted
 
 ///Compile a blacklist of traits from a given flag/s
-/datum/controller/subsystem/xenoarchaeology/proc/compile_artifact_whitelist(var/flags)
+/datum/controller/subsystem/xenoarchaeology/proc/compile_artifact_whitelist(flags)
 	var/list/output = list()
 	for(var/datum/xenoartifact_trait/T as() in xenoa_all_traits)
 		if(initial(T.flags) & XENOA_HIDE_TRAIT)
