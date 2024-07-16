@@ -234,8 +234,10 @@
 		net.add_plumber(src, dir)
 		net.add_plumber(P, opposite_dir)
 
-/datum/component/plumbing/proc/hide(atom/movable/AM, should_hide)
+/datum/component/plumbing/proc/hide(atom/movable/AM, underfloor_accessibility)
 	SIGNAL_HANDLER
+
+	var/should_hide = !underfloor_accessibility
 
 	tile_covered = should_hide
 	AM.update_appearance()

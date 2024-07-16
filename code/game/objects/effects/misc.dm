@@ -78,6 +78,10 @@
 	plane = STARLIGHT_PLANE
 	transform = matrix(2, 0, 0, 0, 2, 0)
 
+/obj/effect/fullbright/starlight/starfloor
+	icon_state = "grey"
+	transform = matrix(1.5, 0, 0, 0, 1.5, 0)
+
 /obj/effect/abstract/marker
 	name = "marker"
 	icon = 'icons/effects/effects.dmi'

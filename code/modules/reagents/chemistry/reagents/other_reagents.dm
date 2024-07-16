@@ -248,10 +248,12 @@
 
 /datum/reagent/water/holywater/on_mob_metabolize(mob/living/L)
 	..()
-	ADD_TRAIT(L, TRAIT_HOLY, type)
+	L.AddComponent(/datum/component/anti_magic, type, _magic = FALSE, _holy = TRUE)
 
 /datum/reagent/water/holywater/on_mob_end_metabolize(mob/living/L)
-	REMOVE_TRAIT(L, TRAIT_HOLY, type)
+	for (var/datum/component/anti_magic/anti_magic in L.GetComponents(/datum/component/anti_magic))
+		if (anti_magic.source == type)
+			qdel(anti_magic)
 	if(HAS_TRAIT_FROM(L, TRAIT_DEPRESSION, HOLYWATER_TRAIT))
 		REMOVE_TRAIT(L, TRAIT_DEPRESSION, HOLYWATER_TRAIT)
 		to_chat(L, "<span class='notice'>You cheer up, knowing that everything is going to be ok.</span>")
@@ -317,6 +319,12 @@
 		M.reagents.add_reagent(type,reac_volume/4)
 		return
 	return ..()
+
+/datum/reagent/fuel/unholywater/on_mob_metabolize(mob/living/L)
+	ADD_TRAIT(L, TRAIT_NO_BLEEDING, type)
+
+/datum/reagent/fuel/unholywater/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_NO_BLEEDING, type)
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/carbon/M)
 	if(iscultist(M))
