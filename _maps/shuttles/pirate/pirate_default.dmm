@@ -267,7 +267,7 @@
 	},
 /obj/machinery/light,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /turf/open/floor/wood/broken,
@@ -1440,7 +1440,6 @@
 	},
 /obj/machinery/shuttle_scrambler,
 /obj/machinery/airalarm/all_access{
-	dir = 1;
 	pixel_y = -24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1794,7 +1793,7 @@
 	pixel_x = 3
 	},
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /obj/effect/decal/fakelattice{
@@ -1833,7 +1832,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /turf/open/floor/iron/tech,
@@ -1881,7 +1880,7 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /turf/open/floor/pod/dark,

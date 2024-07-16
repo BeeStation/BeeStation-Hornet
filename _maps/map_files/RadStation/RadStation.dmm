@@ -1015,7 +1015,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/airalarm/engine{
-	dir = 4;
+	dir = 8;
 	pixel_x = -23
 	},
 /obj/machinery/atmospherics/components/binary/pump{
@@ -4697,8 +4697,9 @@
 "bBv" = (
 /obj/structure/closet/secure_closet/freezer/meat,
 /obj/effect/turf_decal/bot,
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 28
+/obj/machinery/airalarm/kitchen_cold_room{
+	dir = 1;
+	pixel_y = 24
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
@@ -12489,7 +12490,7 @@
 /area/maintenance/department/security)
 "dWi" = (
 /obj/machinery/airalarm/server{
-	dir = 4;
+	dir = 8;
 	pixel_x = -22
 	},
 /turf/open/floor/engine{
@@ -24795,7 +24796,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/mixingchamber{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /turf/open/floor/iron/dark/side{
@@ -51588,7 +51589,7 @@
 	},
 /obj/item/geiger_counter,
 /obj/machinery/airalarm/engine{
-	dir = 4;
+	dir = 8;
 	pixel_x = -23
 	},
 /turf/open/floor/iron,

@@ -49787,14 +49787,14 @@
 /obj/machinery/camera/directional/south{
 	c_tag = "Kitchen - Coldroom"
 	},
-/obj/machinery/airalarm/directional/south{
-	pixel_y = -22
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/airalarm/kitchen_cold_room{
+	pixel_y = -22
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
@@ -64766,7 +64766,7 @@
 	},
 /obj/item/reagent_containers/dropper,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /obj/machinery/button/ignition{
