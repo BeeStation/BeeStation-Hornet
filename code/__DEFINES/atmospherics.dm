@@ -1,19 +1,35 @@
 //ATMOS
 //stuff you should probably leave well alone!
-#define R_IDEAL_GAS_EQUATION	8.31	//! kPa*L/(K*mol)
-#define ONE_ATMOSPHERE			101.325	//! kPa
-#define TCMB					2.7		//! -270.3degC
-#define TCRYO					225		//! -48.15degC
-#define T0C						273.15	//! 0degC
-#define T20C					293.15	//! 20degC
+/// kPa*L/(K*mol)
+#define R_IDEAL_GAS_EQUATION 8.31
+/// kPa
+#define ONE_ATMOSPHERE 101.325
+/// -270.3degC
+#define TCMB 2.7
+/// -48.15degC
+#define TCRYO 225
+/// 0degC
+#define T0C 273.15
+/// 20degC
+#define T20C 293.15
+/// -14C - Temperature used for kitchen cold room, medical freezer, etc.
+#define COLD_ROOM_TEMP 259.15
 
-#define MOLES_CELLSTANDARD		(ONE_ATMOSPHERE*CELL_VOLUME/(T20C*R_IDEAL_GAS_EQUATION))	//! moles in a 2.5 m^3 cell at 101.325 Pa and 20 degC
-#define M_CELL_WITH_RATIO		(MOLES_CELLSTANDARD * 0.005) //! compared against for superconductivity
-#define O2STANDARD				0.21	//! percentage of oxygen in a normal mixture of air
-#define N2STANDARD				0.79	//! percentage of nitrogen in a normal mixture of air
-#define MOLES_O2STANDARD		(MOLES_CELLSTANDARD*O2STANDARD)	//! O2 standard value (21%)
-#define MOLES_N2STANDARD		(MOLES_CELLSTANDARD*N2STANDARD)	//! N2 standard value (79%)
-#define CELL_VOLUME				2500	//! liters in a cell
+///moles in a 2.5 m^3 cell at 101.325 Pa and 20 degC (103 or so)
+#define MOLES_CELLSTANDARD (ONE_ATMOSPHERE*CELL_VOLUME/(T20C*R_IDEAL_GAS_EQUATION))
+///compared against for superconductivity
+#define M_CELL_WITH_RATIO (MOLES_CELLSTANDARD * 0.005)
+/// percentage of oxygen in a normal mixture of air
+#define O2STANDARD 0.21
+/// same but for nitrogen
+#define N2STANDARD 0.79
+/// O2 standard value (21%)
+#define MOLES_O2STANDARD (MOLES_CELLSTANDARD*O2STANDARD)
+/// N2 standard value (79%)
+#define MOLES_N2STANDARD (MOLES_CELLSTANDARD*N2STANDARD)
+/// liters in a cell
+#define CELL_VOLUME 2500
+
 #define BREATH_VOLUME			0.5		//! liters in a normal breath
 #define BREATH_PERCENTAGE		(BREATH_VOLUME/CELL_VOLUME)					//! Amount of air to take a from a tile
 
@@ -181,12 +197,19 @@
 #define CANVERTICALATMOSPASS(A, O) ( A.CanAtmosPassVertical == ATMOS_PASS_PROC ? A.CanAtmosPass(O, TRUE) : ( A.CanAtmosPassVertical == ATMOS_PASS_DENSITY ? !A.density : A.CanAtmosPassVertical ) )
 
 //OPEN TURF ATMOS
-#define OPENTURF_DEFAULT_ATMOS		"o2=22;n2=82;TEMP=293.15" //the default air mix that open turfs spawn
-#define OPENTURF_LOW_PRESSURE		"o2=14;n2=30;TEMP=293.15"
-#define TCOMMS_ATMOS				"n2=100;TEMP=80" //-193,15°C telecommunications. also used for xenobiology slime killrooms
-#define AIRLESS_ATMOS				"TEMP=2.7" //space
-#define FROZEN_ATMOS				"o2=22;n2=82;TEMP=180" //-93.15°C snow and ice turfs
-#define BURNMIX_ATMOS				"o2=100;plasma=200;TEMP=370" //used in the holodeck burn test program
+/// the default air mix that open turfs spawn
+#define OPENTURF_DEFAULT_ATMOS "o2=22;n2=82;TEMP=293.15"
+#define OPENTURF_LOW_PRESSURE "o2=14;n2=30;TEMP=293.15"
+/// -193,15°C telecommunications. also used for xenobiology slime killrooms
+#define TCOMMS_ATMOS "n2=100;TEMP=80"
+/// space
+#define AIRLESS_ATMOS "TEMP=2.7"
+/// -93.15°C snow and ice turfs
+#define FROZEN_ATMOS "o2=22;n2=82;TEMP=180"
+/// -14°C kitchen coldroom, just might lose your tail; higher amount of mol to reach about 101.3 kpA
+#define KITCHEN_COLDROOM_ATMOS "o2=26;n2=97;TEMP=[COLD_ROOM_TEMP]"
+/// used in the holodeck burn test program
+#define BURNMIX_ATMOS "o2=100;plasma=200;TEMP=370" //used in the holodeck burn test program
 
 //ATMOSPHERICS DEPARTMENT GAS TANK TURFS
 #define ATMOS_TANK_N2O				"n2o=6000;TEMP=293.15"

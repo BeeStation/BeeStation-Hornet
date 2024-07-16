@@ -177,6 +177,7 @@
 /obj/machinery/abductor/experiment/proc/send_back(mob/living/carbon/human/H)
 	H.Sleeping(160)
 	H.uncuff()
+	H.cauterise_wounds()
 	if(console && console.pad && console.pad.teleport_target)
 		do_teleport(H, console.pad.teleport_target, channel = TELEPORT_CHANNEL_BLINK, no_effects = TRUE, teleport_mode = TELEPORT_MODE_ABDUCTORS)
 		return

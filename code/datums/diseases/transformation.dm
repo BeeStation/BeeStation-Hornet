@@ -157,9 +157,8 @@
 
 /datum/disease/transformation/slime
 	name = "Advanced Mutation Transformation"
-	cure_text = "frost oil"
-	cures = list(/datum/reagent/consumable/frostoil)
-	cure_chance = 80
+	cure_text = "Below Freezing Temperature"
+	cures = list()
 	agent = "Advanced Mutation Toxin"
 	desc = "This highly concentrated extract converts anything into more of itself."
 	danger = DISEASE_BIOHAZARD
@@ -173,6 +172,9 @@
 
 /datum/disease/transformation/slime/stage_act()
 	..()
+	var/mob/living/carbon/H = affected_mob
+	if(H.bodytemperature < T0C)
+		cure()
 	switch(stage)
 		if(1)
 			if(ishuman(affected_mob) && affected_mob.dna)

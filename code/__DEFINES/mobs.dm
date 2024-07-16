@@ -17,6 +17,23 @@
 #define MOVE_INTENT_WALK "walk"
 #define MOVE_INTENT_RUN  "run"
 
+// Bleed rates
+// See blood.dm for calculations
+#define BLEED_RATE_MINOR 2.4 		/// Point at which bleeding is considered minor and will eventually self-heal
+#define BLEED_HEAL_RATE_MINOR 0.02 	/// How quickly minor bleeds will stop bleeding (0.05/sec)
+#define MAX_BLEED_RATE 3			/// Mobs can get more bleed than this, but won't actually bleed faster than this value
+
+// Bleed damage values
+#define BLEED_TINY 0.1
+#define BLEED_SCRATCH 0.8
+#define BLEED_SURFACE 1.5			// 560 > 506 blood in 75 seconds
+#define BLEED_CUT 2.3				// 560 > 442 blood ni 115 seconds
+#define BLEED_DEEP_WOUND 2.4		// Crit in 285 seconds, Death in 356 seconds
+#define BLEED_CRITICAL 3.6			// Crit in 190 seconds, Death in 238 seconds
+
+#define BLEED_RATE_MULTIPLIER 1				/// How quickly do we bleed out? A value of 1 means that if we have a bleed rate of 10, then we lose 5 blood per second.
+#define BLEED_RATE_MULTIPLIER_NO_HEART 0.4 	/// If we have no heart, then we will bleed slower. This multiplies by our bleeding rate if that is the case.
+
 //Blood levels
 #define BLOOD_VOLUME_MAXIMUM		2000
 #define BLOOD_VOLUME_SLIME_SPLIT	1120
@@ -25,6 +42,8 @@
 #define BLOOD_VOLUME_OKAY			336
 #define BLOOD_VOLUME_BAD			224
 #define BLOOD_VOLUME_SURVIVE		122
+
+#define AMOUNT_TO_BLEED_INTENSITY(x) ((x) ** 0.3333)
 
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0
@@ -464,6 +483,8 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define THROW_MODE_DISABLED 0
 #define THROW_MODE_TOGGLE 1
 #define THROW_MODE_HOLD 2
+
+#define MOB_OVERLAY_LAYER_ABSOLUTE(_mob_layer, _overlay_layer) (_mob_layer - (_overlay_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
 
 /// Converts the layer into a float layer that is within the bounds of the defined maximum mob clothing layer
 /// The bigger the input layer, the deeper it will be (mutations layer is at the bottom, so has a float layer of FLOAT_LAYER - 0.1).
