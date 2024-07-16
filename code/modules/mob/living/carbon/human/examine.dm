@@ -189,6 +189,17 @@
 	burn_msg = burn_msg ? burn_msg : "burns"
 	bleed_msg = bleed_msg ? bleed_msg : "bleeding"
 
+	if (is_bleeding())
+		switch (get_bleed_rate())
+			if (BLEED_DEEP_WOUND to INFINITY)
+				msg += "<span class='warning'>[src] is [bleed_msg] extremely quickly.</span>\n"
+			if (BLEED_RATE_MINOR to BLEED_DEEP_WOUND)
+				msg += "<span class='warning'>[src] is [bleed_msg] at a significant rate.</span>\n"
+			else
+				msg += "<span class='warning'>[src] has some minor [bleed_msg] which look like it will stop soon.</span>\n"
+	else if (is_bandaged())
+		msg += "[src] is [bleed_msg], but it is covered.\n"
+
 	if(!(user == src && src.hal_screwyhud == SCREWYHUD_HEALTHY)) //fake healthy
 		if(temp)
 			if(temp < 25)
@@ -243,14 +254,6 @@
 
 	if(blood_volume < BLOOD_VOLUME_SAFE)
 		msg += "[t_He] appear[p_s()] faint.\n"
-
-	if(bleedsuppress)
-		msg += "[t_He] [t_is] bandaged with something.\n"
-	else if(bleed_rate)
-		if(reagents.has_reagent(/datum/reagent/toxin/heparin, needs_metabolizing = TRUE))
-			msg += "<b>[t_He] [t_is] [bleed_msg] uncontrollably!</b>\n"
-		else
-			msg += "<B>[t_He] [t_is] [bleed_msg]!</B>\n"
 
 	if(reagents.has_reagent(/datum/reagent/teslium, needs_metabolizing = TRUE))
 		msg += "[t_He] [t_is] emitting a gentle blue glow!\n"

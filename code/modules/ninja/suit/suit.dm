@@ -19,7 +19,7 @@ Contents:
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/stock_parts/cell)
 	slowdown = 1
 	resistance_flags = LAVA_PROOF | ACID_PROOF
-	armor = list(MELEE = 60,  BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 100, ACID = 100, STAMINA = 60)
+	armor = list(MELEE = 60,  BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 100, ACID = 100, STAMINA = 60, BLEED = 60)
 	strip_delay = 12
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	cell = null
