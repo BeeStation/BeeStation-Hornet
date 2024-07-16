@@ -166,7 +166,7 @@
 				/obj/item/bodypart/r_leg/robot = 1,
 				/obj/item/stack/sheet/iron = 1,
 				/obj/item/stack/cable_coil = 1,
-				/obj/item/gun/energy/e_gun/dragnet = 1,
+				/obj/item/gun/energy/disabler = 1,
 				/obj/item/stock_parts/cell = 1,
 				/obj/item/assembly/prox_sensor = 1)
 	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
@@ -731,11 +731,11 @@
 	name = "Paper Frames"
 	result = /obj/item/stack/sheet/paperframes/five
 	time = 10
-	reqs = list(/obj/item/stack/sheet/wood = 5, /obj/item/paper = 20)
+	reqs = list(/obj/item/stack/sheet/wood = 2, /obj/item/paper = 10)
 	category = CAT_MISC
 
 /datum/crafting_recipe/naturalpaper
-	name = "Hand-Pressed Paper"
+	name = "Hand-Pressed Paper Bundle"
 	time = 30
 	reqs = list(/datum/reagent/water = 50, /obj/item/stack/sheet/wood = 1)
 	tools = list(/obj/item/hatchet)

@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	. = ..()
 	ADD_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN, ABSTRACTION_HOLOGRAM_TRAIT)
 	ADD_TRAIT(src, TRAIT_NODISMEMBER, ABSTRACTION_HOLOGRAM_TRAIT)
-	dna.species.species_traits |= NOBLOOD
+	ADD_TRAIT(src, TRAIT_NO_BLOOD, ABSTRACTION_HOLOGRAM_TRAIT)
 
 /mob/living/carbon/human/abstraction_hologram/death(gibbed)
 	//Put the person back in their body

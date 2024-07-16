@@ -76,7 +76,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	var/anon_tips_receiver = FALSE // Can you relay information to this console?
 	var/auth_id = "Unknown" //Will contain the name and and job of the person who verified it
 	max_integrity = 300
-	armor = list(MELEE = 70,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
+	armor = list(MELEE = 70,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0, BLEED = 0)
 
 	light_color = LIGHT_COLOR_GREEN
 	light_power = 1.5

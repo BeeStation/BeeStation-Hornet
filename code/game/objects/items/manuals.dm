@@ -299,6 +299,53 @@
 	user.visible_message("<span class='suicide'>[user] pretends to read \the [src] intently... then promptly dies of laughter!</span>")
 	return OXYLOSS
 
+/obj/item/book/manual/wiki/security_space_law/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
+	. = ..()
+	if (target != user && isliving(target) && (user.mind.assigned_role == JOB_NAME_LAWYER || user.mind.assigned_role == JOB_NAME_HEADOFPERSONNEL))
+		INVOKE_ASYNC(src, PROC_REF(deconvert_target), user, target)
+
+/obj/item/book/manual/wiki/security_space_law/proc/deconvert_target(mob/living/user, mob/living/target)
+	if (user.do_afters)
+		return
+	for (var/i in 1 to 4)
+		if (user.do_afters)
+			return
+		if (!do_after(user, 2 SECONDS, target))
+			return
+		if (user.mind?.has_antag_datum(/datum/antagonist/rev))
+			switch (i)
+				if (1)
+					user.say("Number One: In 1945, corporations paid 50% of federal taxes; now they pay about 5%.", forced="space law")
+				if (2)
+					user.say("Number Two: In 1900, 90% of people were self employed; now it's about 2%... It's called consolidation; strengthen governments and corporations, weaken individuals. With taxes, this can be done imperceptibly over time.", forced="space law")
+				if (3)
+					user.say("Number Three: In the 2030s, there were strict regulations to prevent monopolies; now those regulations have been dismantled, allowing a few companies to control entire industries. This concentration of power stifles competition and innovation.")
+				if (4)
+					user.say("Number Four: In the past, media outlets were independent; now a handful of conglomerates control the majority of information. Control the narrative, control the minds of the masses.")
+		else
+			var/datum/crime/chosen = pick(subtypesof(/datum/crime) - /datum/crime/minor - /datum/crime/capital - /datum/crime/major - /datum/crime/misdemeanour)
+			user.say("[initial(chosen.tooltip)]", forced = "space law")
+	if (user.do_afters)
+		return
+	if (!do_after(user, 2 SECONDS, target))
+		return
+	if (user.mind?.has_antag_datum(/datum/antagonist/rev))
+		var/datum/antagonist/rev/rev = user.mind.has_antag_datum(/datum/antagonist/rev)
+		user.say("Isn't it obvious, Nanotrasen, the governments; everyone around us has been tricking us, playing us like we are pawns...", forced = "space law")
+		if (rev.add_revolutionary(target.mind, FALSE))
+			target.visible_message("<span class='notice'>[target] nods in approval, taking in the information!</span>", "<span class='notice'>That all makes perfect sense, the truth washes over you!</span>")
+		else
+			target.visible_message("<span class='userdanger'>[target] spits on the floor, disrespecting [user]'s authority!</span>", "<span class='notice'>You finish listening to [user]'s waffling. What a knobhead, you think to yourself...</span>")
+	else
+		user.say("These shall all be considered acts which are in violation of your contract of employment, and you are contractually obliged to not commit them.", forced = "space law")
+		if(target.mind?.has_antag_datum(/datum/antagonist/rev/head) || target.mind?.unconvertable)
+			target.visible_message("<span class='userdanger'>[target] spits on the floor, disrespecting [user]'s authority!</span>", "<span class='notice'>You finish listening to [user]'s waffling. What a knobhead, you think to yourself...</span>")
+			return
+		var/datum/antagonist/rev/rev = target.mind?.has_antag_datum(/datum/antagonist/rev)
+		if(rev)
+			rev.remove_revolutionary(FALSE, user)
+		target.visible_message("<span class='notice'>[target] nods in approval, taking in the information!</span>", "<span class='notice'>That all makes perfect sense, you feel a sense of pride to be working for Nanotrasen!</span>")
+
 /obj/item/book/manual/wiki/infections
 	name = "Infections - Making your own pandemic!"
 	icon_state = "bookInfections"
@@ -347,13 +394,6 @@
 	author = "Dr. L. Ight"
 	title = "Research and Development 101"
 	page_link = "Guide_to_Research_and_Development"
-
-/obj/item/book/manual/wiki/experimentor
-	name = "Mentoring your Experiments"
-	icon_state = "rdbook"
-	author = "Dr. H.P. Kritz"
-	title = "Mentoring your Experiments"
-	page_link = "Experimentor"
 
 /obj/item/book/manual/wiki/medical_cloning
 	name = "Cloning techniques of the 26th century"
@@ -424,7 +464,7 @@
 			if(prob(50))
 				step(W, pick(GLOB.alldirs))
 		ADD_TRAIT(H, TRAIT_DISFIGURED, TRAIT_GENERIC)
-		H.bleed_rate = 5
+		H.add_bleeding(BLEED_CRITICAL)
 		H.gib_animation()
 		sleep(3)
 		H.adjustBruteLoss(1000) //to make the body super-bloody
