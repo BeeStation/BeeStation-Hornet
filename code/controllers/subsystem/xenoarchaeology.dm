@@ -55,10 +55,6 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	xenoa_seller_names = world.file2list("strings/names/science_seller.txt")
 	xenoa_seller_dialogue = world.file2list("strings/science_dialogue.txt")
 	xenoa_artifact_names = world.file2list("strings/names/artifact_sentience.txt")
-	//Bruh
-	xenoa_seller_names -= ""
-	xenoa_seller_dialogue -= ""
-	xenoa_artifact_names -= ""
 
 	//List of weights based on trait type
 	xenoa_activators = compile_artifact_weights(/datum/xenoartifact_trait/activator)
