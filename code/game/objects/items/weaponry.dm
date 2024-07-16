@@ -943,15 +943,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 			H.apply_damage(stamforce, STAMINA, blocked = def_check)
 	return ..()
 
-/obj/item/club/afterattack(atom/A, mob/user, proximity)
-	if(!proximity)
-		return
-	if(isstructure(A) || ismachinery(A))
-		var/obj/W = A
-		W.take_damage(force * 3, BRUTE, MELEE, FALSE, armour_penetration = armour_penetration)
-	if (isturf(A))
-		var/turf/T = A
-		T.take_damage(force * 3, BRUTE, MELEE, FALSE, armour_penetration = armour_penetration)
+/obj/item/club/pre_attack(atom/A, mob/living/user, params)
+	force = initial(force)
+	armour_penetration = initial(armour_penetration)
+	if(isstructure(A) || ismachinery(A) || isturf(A))
+		force *= 4
+		armour_penetration += 50
 	return ..()
 
 /obj/item/club/tailclub
