@@ -150,6 +150,9 @@
 	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
 	VAR_PRIVATE/_emissive_count = 0
 
+	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
+	var/list/eye_users
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -271,6 +274,7 @@
   * Top level of the destroy chain for most atoms
   *
   * Cleans up the following:
+  * * Removes clients who use this, and resets their eye
   * * Removes alternate apperances from huds that see them
   * * qdels the reagent holder from atoms if it exists
   * * clears the orbiters list
@@ -278,6 +282,14 @@
   * * clears the light object
   */
 /atom/Destroy()
+	for(var/client/each_client as anything in eye_users)
+		eye_users -= each_client
+		if(isnull(each_client.mob))
+			stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
+			continue
+		each_client.mob.reset_perspective()
+	eye_users = null
+
 	if(alternate_appearances)
 		for(var/current_alternate_appearance in alternate_appearances)
 			var/datum/atom_hud/alternate_appearance/selected_alternate_appearance = alternate_appearances[current_alternate_appearance]
@@ -1085,7 +1097,6 @@
 /atom/proc/update_remote_sight(mob/living/user)
 	return
 
-
 /**
   * Hook for running code when a dir change occurs
   *
@@ -1609,6 +1620,7 @@
 		user = A_ref.resolve()
 	var/ssource = key_name(user)
 	var/starget = key_name(target)
+	var/datum/tool_atom = object
 
 	var/mob/living/living_target = target
 	var/hp = istype(living_target) ? " (NEWHP: [living_target.health]) " : ""
@@ -1618,8 +1630,8 @@
 		stam = "(STAM: [C.getStaminaLoss()]) "
 
 	var/sobject = ""
-	if(object && !isitem(object))
-		sobject = " with [object]"
+	if(object)
+		sobject = " with [object][(istype(tool_atom) ? " ([tool_atom.type])" : "")]"
 	var/saddition = ""
 	if(addition)
 		saddition = " [addition]"
@@ -1631,7 +1643,6 @@
 
 	if (important && isliving(user) && isliving(target))
 		var/mob/living/living_user = user
-		var/datum/tool_atom = object
 		SScombat_logging.log_combat(living_user, living_target, istype(tool_atom) ? tool_atom.type : object)
 
 	if(user != target)
@@ -1720,7 +1731,7 @@
 	if(custom_materials) //Only runs if custom materials existed at first. Should usually be the case but check anyways
 		for(var/i in custom_materials)
 			var/datum/material/custom_material = SSmaterials.GetMaterialRef(i)
-			custom_material.on_removed(src, material_flags) //Remove the current materials
+			custom_material.on_removed(src, custom_materials[i], material_flags) //Remove the current materials
 
 	if(!length(materials))
 		custom_materials = null
@@ -1732,6 +1743,25 @@
 			custom_material.on_applied(src, materials[x] * multiplier * material_modifier, material_flags)
 
 	custom_materials = SSmaterials.FindOrCreateMaterialCombo(materials, multiplier)
+
+/**Returns the material composition of the atom.
+  *
+  * Used when recycling items, specifically to turn alloys back into their component mats.
+  *
+  * Exists because I'd need to add a way to un-alloy alloys or otherwise deal
+  * with people converting the entire stations material supply into alloys.
+  *
+  * Arguments:
+  * - flags: A set of flags determining how exactly the materials are broken down.
+  */
+/atom/proc/get_material_composition(breakdown_flags=NONE)
+	. = list()
+	var/list/cached_materials = custom_materials
+	for(var/mat in cached_materials)
+		var/datum/material/material = SSmaterials.GetMaterialRef(mat)
+		var/list/material_comp = material.return_composition(cached_materials[material], breakdown_flags)
+		for(var/comp_mat in material_comp)
+			.[comp_mat] += material_comp[comp_mat]
 
 /// Returns the indice in filters of the given filter name.
 /// If it is not found, returns null.
@@ -1769,7 +1799,7 @@
   */
 /atom/proc/setClosed()
 	return
-	
+
 /**
   * Used to attempt to charge an object with a payment component.
   *
