@@ -86,7 +86,7 @@
 		eyeobj.visible_icon = FALSE
 		eyeobj.invisibility = INVISIBILITY_ABSTRACT
 	if(current_user && eyeobj) // indent is correct: transfer ghosts when nobody uses
-		eyeobj.return_observers(current_user)
+		eyeobj.return_observers()
 
 /obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
 	if(off_action)
@@ -244,6 +244,7 @@
 		user.client.view_size.unsupress()
 		if(camera_sprite_for_observers)
 			user.client.images -= camera_sprite_for_observers
+		eyeobj.return_observers(user)
 	UnregisterSignal(user, list(COMSIG_MOB_LOGOUT, COMSIG_MOVABLE_MOVED))
 
 /obj/machinery/computer/camera_advanced/proc/shoo_all_observers()

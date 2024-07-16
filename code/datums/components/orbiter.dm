@@ -195,15 +195,13 @@
 		orbit_datum.transfer_orbiter_to(each, target)
 
 /// returns ghosts to a mob where they came from when they are sent through 'transfer_observers_to()'
-/atom/proc/return_observers(atom/target)
+/atom/proc/return_observers(atom/desired_target)
 	if(!orbit_datum)
 		return
 	for(var/each_ghost in orbit_datum.current_orbiters)
 		if(!isobserver(each_ghost))
 			continue
 		var/atom/back_to = orbit_datum.back_to?.resolve()
-		if(back_to)
+		if(back_to && (isnull(desired_target) || back_to == desired_target))
 			orbit_datum.transfer_orbiter_to(each_ghost, back_to)
 			orbit_datum.back_to = null
-		else
-			orbit_datum.transfer_orbiter_to(each_ghost, target)
