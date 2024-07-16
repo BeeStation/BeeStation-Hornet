@@ -184,7 +184,7 @@
 		var/turf/camera_location
 		var/turf/myturf = get_turf(src)
 		if(eyeobj.use_static) // I don't honestly get what this code means. Feel free to nuke....
-			if(GLOB.cameranet.checkTurfVis(myturf) && (!z_lock.len || (myturf.z in z_lock)))
+			if((!z_lock.len || (myturf.z in z_lock)) && GLOB.cameranet.checkTurfVis(myturf))
 				camera_location = myturf
 			else
 				for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
