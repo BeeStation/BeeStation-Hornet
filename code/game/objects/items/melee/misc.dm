@@ -45,6 +45,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 
 /obj/item/melee/synthetic_arm_blade/Initialize(mapload)
 	. = ..()
@@ -68,6 +69,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 75
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	attack_verb = list("slashed", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	custom_materials = list(/datum/material/iron = 1000)
@@ -352,9 +354,9 @@
 	cooldown = 0
 	stamina_damage = 30 // 4 hits to stamcrit < that was a lie
 	stun_animation = TRUE
-	/// Per-mob sleep cooldowns.
+	/// Per-mob paralyze cooldowns.
 	/// [mob] = [world.time where the cooldown ends]
-	var/static/list/sleep_cooldowns = list()
+	var/static/list/paralyze_cooldowns = list()
 	/// Per-mob trip cooldowns.
 	/// [mob] = [world.time where the cooldown ends]
 	var/static/list/trip_cooldowns = list()
@@ -416,19 +418,19 @@
 		else if(user.is_zone_selected(BODY_ZONE_HEAD) || user.is_zone_selected(BODY_ZONE_PRECISE_EYES) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
 			target.apply_damage(stamina_damage*0.8, STAMINA, BODY_ZONE_HEAD, def_check) // 90 : 5 = 18 , 5 hits to KnockOut
 
-			if(target.staminaloss > 89 && !target.has_status_effect(STATUS_EFFECT_SLEEPING) && (!sleep_cooldowns[target] || COOLDOWN_FINISHED(src, sleep_cooldowns[target])))
+			if(target.staminaloss > 89 && !target.has_status_effect(STATUS_EFFECT_PARALYZED) && (!paralyze_cooldowns[target] || COOLDOWN_FINISHED(src, paralyze_cooldowns[target])))
 				T.force_say(user)
-				target.balloon_alert_to_viewers("Knock-Out!")
-				if(!target.has_status_effect(STATUS_EFFECT_SLEEPING))
-					target.Sleeping(80)
+				target.balloon_alert_to_viewers("Knock-Down!")
+				if(!target.has_status_effect(STATUS_EFFECT_PARALYZED))
+					target.Paralyze(80)
 					target.setStaminaLoss(0)
 					playsound(usr.loc, "sound/machines/bellsound.ogg", 15, 1)
-					log_combat(user, target, "Knocked-Out", src)
+					log_combat(user, target, "Knocked-Down", src)
 				if(CHECK_BITFIELD(target.mobility_flags, MOBILITY_STAND)) //this is here so the "falls" message doesn't appear if the target is already on the floor
-					target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls unconscious.","falls limp like a bag of bricks.","falls to the ground, unresponsive.","lays down on the ground for a little nap.","got [T.p_their()] dome rung in."))]</span>")
+					target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls limp like a bag of bricks.","falls to the ground, unresponsive.","lays down on the ground.","got [T.p_their()] dome rung in."))]</span>")
 				else
-					target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls unconscious.","falls into a deep sleep.","was sent to dreamland.","closes [T.p_their()] and prepares for a little nap."))]</span>")
-				COOLDOWN_START(src, sleep_cooldowns[target], 16 SECONDS)
+					target.visible_message("<span class='emote'><b>[T]</b> [pick(list("goes limp.","falls flat."))]</span>")
+				COOLDOWN_START(src, paralyze_cooldowns[target], 16 SECONDS)
 			else
 				log_combat(user, target, "stunned", src)
 				target.visible_message(desc["visiblestun"], desc["localstun"])
