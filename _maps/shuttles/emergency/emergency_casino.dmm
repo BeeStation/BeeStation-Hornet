@@ -204,6 +204,13 @@
 	},
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
+"sI" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#c45c57"
+	},
+/turf/open/floor/glass/reinforced,
+/area/shuttle/escape)
 "tN" = (
 /obj/structure/window/reinforced/tinted,
 /obj/structure/window/reinforced/tinted{
@@ -221,7 +228,7 @@
 	color = "#c45c57";
 	dir = 4
 	},
-/turf/open/floor/carpet/green,
+/turf/open/floor/glass/reinforced,
 /area/shuttle/escape)
 "up" = (
 /obj/machinery/computer/slot_machine,
@@ -296,10 +303,6 @@
 "Am" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"Bv" = (
-/obj/structure/table/wood/poker,
-/turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "Cf" = (
 /obj/structure/chair/fancy/shuttle{
@@ -398,7 +401,7 @@
 	color = "#c45c57";
 	dir = 1
 	},
-/turf/open/floor/carpet/green,
+/turf/open/floor/glass/reinforced,
 /area/shuttle/escape)
 "JS" = (
 /obj/machinery/door/airlock/command{
@@ -494,6 +497,9 @@
 /obj/item/storage/box/handcuffs,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"Sk" = (
+/turf/open/floor/glass/reinforced,
+/area/shuttle/escape)
 "SQ" = (
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -521,7 +527,7 @@
 "WJ" = (
 /obj/structure/table/wood/poker,
 /obj/item/toy/cards/deck,
-/turf/open/floor/carpet/black,
+/turf/open/floor/carpet/green,
 /area/shuttle/escape)
 "WN" = (
 /obj/machinery/stasis,
@@ -541,6 +547,9 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"YI" = (
+/turf/open/floor/carpet/red,
+/area/shuttle/escape)
 "YN" = (
 /obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
 	dir = 1
@@ -557,7 +566,7 @@
 	color = "#c45c57";
 	dir = 8
 	},
-/turf/open/floor/carpet/green,
+/turf/open/floor/glass/reinforced,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -669,9 +678,9 @@ gt
 nN
 PL
 rC
-OY
+sI
 NY
-Bv
+NY
 NY
 JA
 rC
@@ -689,9 +698,9 @@ gt
 cP
 KA
 rC
+Sk
 OY
-rC
-rC
+YI
 WJ
 JA
 rC
@@ -709,9 +718,9 @@ gt
 cP
 KA
 rC
-OY
+sI
 NY
-Bv
+NY
 NY
 JA
 rC
