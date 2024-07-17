@@ -217,7 +217,7 @@
 		mimite_growth += rand(1,6)
 		if(mimite_growth >= 350 && remaining_replications)
 			if(!grow_as)
-				grow_as = pick_weight(list(/mob/living/simple_animal/hostile/mimite = 60, /mob/living/simple_animal/hostile/mimite/ranged = 30, /mob/living/simple_animal/hostile/mimite/crate = 10))
+				grow_as = pick_weight(list(/mob/living/simple_animal/hostile/mimite = 50, /mob/living/simple_animal/hostile/mimite/ranged = 45, /mob/living/simple_animal/hostile/mimite/crate = 5))
 			var/mob/living/simple_animal/hostile/mimite/S = new grow_as(src.loc)
 			remaining_replications--
 			S.remaining_replications = remaining_replications
@@ -321,7 +321,6 @@
 	melee_damage = 15
 	speed = 4
 	move_to_delay = 4
-	replicate = FALSE
 	venthunt = FALSE
 	morphed = TRUE
 
