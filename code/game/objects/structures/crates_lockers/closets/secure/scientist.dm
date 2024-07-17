@@ -9,7 +9,7 @@
 	new /obj/item/laser_pointer(src)
 	new /obj/item/card/id/departmental_budget/sci(src)
 
-/obj/structure/closet/secure_closet/RD/PopulateContents()
+	/PopulateContents()
 	..()
 	new /obj/item/storage/box/suitbox/rd(src)
 	new /obj/item/clothing/suit/toggle/labcoat/research_director(src)
@@ -30,6 +30,9 @@
 	new /obj/item/computer_hardware/hard_drive/role/rd(src)
 	new /obj/item/storage/lockbox/medal/sci(src)
 	new /obj/item/circuitboard/machine/techfab/department/science(src)
+
+	new /obj/item/card/id/temp/science(src)
+	new /obj/item/card/id/temp/science/extended(src)
 
 	// prioritized items
 	new /obj/item/clothing/neck/cloak/rd(src)
