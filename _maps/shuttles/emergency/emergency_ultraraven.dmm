@@ -943,7 +943,7 @@
 "xv" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/button/door{
-	id = ""shuttleevashutter"";
+	id = "shuttleevashutter";
 	name = "Shuttle EVA Shutter Control";
 	pixel_x = -6;
 	pixel_y = 26;
