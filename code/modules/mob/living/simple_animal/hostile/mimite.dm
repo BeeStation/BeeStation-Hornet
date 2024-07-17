@@ -185,6 +185,8 @@
 			if(LAZYLEN(things) >= 1)
 				var/atom/movable/T = pick(things)
 				assume(T)
+			else
+				approachvent()
 
 /mob/living/simple_animal/hostile/mimite/can_track(mob/living/user)
 	if(morphed)
