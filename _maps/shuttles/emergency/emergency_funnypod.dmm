@@ -23,6 +23,7 @@
 	name = "Escape Pod Airlock"
 	},
 /obj/docking_port/mobile/emergency,
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "R" = (

@@ -595,9 +595,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"YI" = (
-/turf/open/floor/carpet/red,
-/area/shuttle/escape)
 "YN" = (
 /obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
 	dir = 1
@@ -751,7 +748,7 @@ KA
 rC
 Sk
 OY
-YI
+rC
 WJ
 JA
 rC
