@@ -16,21 +16,15 @@ GLOBAL_LIST_EMPTY(all_mimites)
 
 /datum/round_event/mimite_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)
-	endWhen = 9000 //90 min, if I'm correct? after 90 min, CC finishes scanning and nukes all remaining Mimites
+	endWhen = 6000 //60 min, if I'm correct?
 	if(prob(50))
 		spawncount++
-
-/datum/round_event/mimite_infestation/tick()
-	if(LAZYLEN(GLOB.all_mimites) <= 0)
-		end()
-		endWhen = activeFor += 1
 
 /datum/round_event/mimite_infestation/announce(fake)
 	var/living_mimites = FALSE
 	for(var/mob/living/simple_animal/hostile/mimite/A)
 		if(A.stat != DEAD)
 			living_mimites = TRUE
-
 	if(living_mimites || fake)
 		priority_announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", ANNOUNCER_ALIENS)
 
@@ -60,13 +54,8 @@ GLOBAL_LIST_EMPTY(all_mimites)
 
 
 /datum/round_event/mimite_infestation/end()
-	if(LAZYLEN(GLOB.all_mimites) >= 1)
-		priority_announce("After a full calibration, our sensors detected an outbreak of Mimites, Deploying countermeasures now.", "Lifesign Alert", SSstation.announcer.get_rand_alert_sound())
+	if(LAZYLEN(GLOB.all_mimites) >= 1) //If they're still around at the end of 60 min, turn of replication permanently
 		for(var/mob/living/simple_animal/hostile/mimite/M in GLOB.all_mimites)
-			new /obj/effect/temp_visual/target(M.loc)
-			sleep(9)
-			M.death()
-		if(LAZYLEN(GLOB.all_mimites) >= 1)
-			QDEL_LIST(GLOB.all_mimites)// just incase they somehow didnt die
+			M.eventongoing = FALSE
 	else
 		priority_announce("Sensors are no-longer detecting an outbreak of Mimites, well done crew!", "Lifesign Alert", SSstation.announcer.get_rand_alert_sound())

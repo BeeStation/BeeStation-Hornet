@@ -70,6 +70,7 @@
 	var/mimite_stuck = 0	//If mimite_lastmove hasn't changed, this will increment until it reaches mimite_stuck_threshold
 	var/mimite_stuck_threshold = 10 //if this == mimite_stuck, it'll force the mimite to stop moving
 	var/attemptingventcrawl = FALSE
+	var/eventongoing = TRUE
 
 /mob/living/simple_animal/hostile/mimite/Initialize()
 	. = ..()
@@ -214,10 +215,9 @@
 	if(isturf(loc) && replicate)
 		if(LAZYLEN(GLOB.all_mimites) >= 30) //stop replicating if theres 30 or more
 			replicate = FALSE
-			mimite_growth = 0
-		else if(LAZYLEN(GLOB.all_mimites) <=10 && venthunt) //start replicating again if under a total of 10
+		else if(LAZYLEN(GLOB.all_mimites) <= 15 && eventongoing) //if event hasnt ended, and theres 15 or less, replicate
 			replicate = TRUE
-		if(replicate) //we still want growth and replication if over 10
+		if(replicate) //we still want growth and replication if over 15
 			mimite_growth += rand(1,6)
 		if(mimite_growth >= 350)
 			if(!grow_as)
