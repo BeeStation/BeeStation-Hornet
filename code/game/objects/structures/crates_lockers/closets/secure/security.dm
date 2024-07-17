@@ -81,6 +81,8 @@
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
 	new /obj/item/circuitboard/machine/techfab/department/service(src)
 
+	new /obj/item/card/id/temp/service(src)
+
 	new /obj/item/paper_reader(src)
 
 	// prioritized items

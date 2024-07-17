@@ -116,6 +116,11 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/xenoartifact/maint = 1,
 	/obj/item/paper_reader = 1,
 	/obj/item/card/id/temp/lost = 5,
-	/obj/item/card/id/temp/science = 3,
-	/obj/item/card/id/temp/science/extended = 1,
+	/obj/item/card/id/temp/science = 1,
+	/obj/item/card/id/temp/medbay = 1,
+	/obj/item/card/id/temp/cargo = 1,
+	/obj/item/card/id/temp/security = 1,
+	/obj/item/card/id/temp/engineering = 1,
+	/obj/item/card/id/temp/service = 1,
+
 ))

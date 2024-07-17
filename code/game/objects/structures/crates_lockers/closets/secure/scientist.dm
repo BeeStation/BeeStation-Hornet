@@ -32,7 +32,6 @@
 	new /obj/item/circuitboard/machine/techfab/department/science(src)
 
 	new /obj/item/card/id/temp/science(src)
-	new /obj/item/card/id/temp/science/extended(src)
 
 	// prioritized items
 	new /obj/item/clothing/neck/cloak/rd(src)

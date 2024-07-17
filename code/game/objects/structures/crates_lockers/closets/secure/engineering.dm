@@ -27,6 +27,8 @@
 	new /obj/item/computer_hardware/hard_drive/role/ce(src)
 	new /obj/item/storage/bag/construction(src)
 
+	new /obj/item/card/id/temp/engineering(src)
+
 	new /obj/item/circuitboard/machine/techfab/department/engineering(src)
 
 	new /obj/item/paper_reader(src)
