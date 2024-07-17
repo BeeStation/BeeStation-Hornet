@@ -18,8 +18,12 @@
 	name = "patient's closet"
 
 /obj/structure/closet/secure_closet/personal/patient/PopulateContents()
-	new /obj/item/clothing/under/color/white( src )
-	new /obj/item/clothing/shoes/sneakers/white( src )
+	new /obj/item/clothing/under/color/white(src)
+	new /obj/item/clothing/shoes/sneakers/white(src)
+
+	if(prob(0.1))
+		new /obj/item/card/id/temp/lost(src)
+
 
 /obj/structure/closet/secure_closet/personal/cabinet
 	icon_state = "cabinet"
