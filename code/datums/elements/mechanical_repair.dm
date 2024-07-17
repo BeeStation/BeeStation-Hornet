@@ -50,8 +50,9 @@
 				"<span class='notice'>You start fixing some of the dents on [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
 				if(!do_after(user, 1.5 SECONDS, target))
 					return COMPONENT_NO_AFTERATTACK
-			while ((I.use_tool(target, user, 0, volume=50, amount=1) ? item_heal_robotic(target, user, 15, 0, affecting) : FALSE) && user.is_zone_selected(selected_zone) && !QDELETED(I))
-			//Conditional is to both check if there is enough fuel, and also to use it
+				if(!I.use_tool(target, user, 0, volume=50, amount=1)) //Using fuel
+					break
+			while (item_heal_robotic(target, user, 15, 0, affecting) && user.is_zone_selected(selected_zone) && !QDELETED(I))
 		user.changeNext_move(CLICK_CD_MELEE * 0.5) //antispam
 		return COMPONENT_NO_AFTERATTACK
 
