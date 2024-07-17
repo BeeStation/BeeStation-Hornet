@@ -71,6 +71,7 @@
 	var/mimite_stuck_threshold = 10 //if this == mimite_stuck, it'll force the mimite to stop moving
 	var/attemptingventcrawl = FALSE
 	var/eventongoing = TRUE
+	var/remaining_replications = 4
 
 /mob/living/simple_animal/hostile/mimite/Initialize()
 	. = ..()
@@ -213,16 +214,13 @@
 /mob/living/simple_animal/hostile/mimite/Life()
 	. = ..()
 	if(isturf(loc) && replicate)
-		if(LAZYLEN(GLOB.all_mimites) >= 30) //stop replicating if theres 30 or more
-			replicate = FALSE
-		else if(LAZYLEN(GLOB.all_mimites) <= 15 && eventongoing) //if event hasnt ended, and theres 15 or less, replicate
-			replicate = TRUE
-		if(replicate) //we still want growth and replication if over 15
-			mimite_growth += rand(1,6)
-		if(mimite_growth >= 350)
+		mimite_growth += rand(1,6)
+		if(mimite_growth >= 350 && remaining_replications)
 			if(!grow_as)
 				grow_as = pick_weight(list(/mob/living/simple_animal/hostile/mimite = 60, /mob/living/simple_animal/hostile/mimite/ranged = 30, /mob/living/simple_animal/hostile/mimite/crate = 10))
 			var/mob/living/simple_animal/hostile/mimite/S = new grow_as(src.loc)
+			remaining_replications--
+			S.remaining_replications = remaining_replications
 			playsound(S.loc, 'sound/effects/meatslap.ogg', 60, TRUE)
 			mimite_growth = 0
 			approachvent()

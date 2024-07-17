@@ -1,6 +1,3 @@
-//Global List for mimite event
-GLOBAL_LIST_EMPTY(all_mimites)
-
 /datum/round_event_control/mimite_infestation
 	name = "Mimite Infestation"
 	typepath = /datum/round_event/mimite_infestation
@@ -16,7 +13,7 @@ GLOBAL_LIST_EMPTY(all_mimites)
 
 /datum/round_event/mimite_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)
-	endWhen = 6000 //60 min, if I'm correct?
+	endWhen = 3600 //60 min
 	if(prob(50))
 		spawncount++
 
@@ -46,6 +43,13 @@ GLOBAL_LIST_EMPTY(all_mimites)
 	while(spawncount > 0 && vents.len)
 		var/obj/vent = pick_n_take(vents)
 		var/mob/living/simple_animal/hostile/mimite/new_mimite = new(vent.loc)
+		switch(length(GLOB.player_list))
+			if(0 to 20)
+				new_mimite.remaining_replications = 3
+			if(20 to 40)
+				new_mimite.remaining_replications = 4
+			else
+				new_mimite.remaining_replications = 5
 		spawncount--
 		announce_to_ghosts(new_mimite)
 		message_admins("[ADMIN_LOOKUPFLW(new_mimite)] has been spawned by an event.")
