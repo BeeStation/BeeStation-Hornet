@@ -90,7 +90,7 @@
 					L.dropItemToGround(AM, TRUE)
 				else
 					AM.forceMove(get_turf(AM.loc))
-			M.forceMove(parent.parent)
+			M.forceMove(AM)
 			//Buckle targets to artifact
 			AM.buckle_mob(M)
 			//Paralyze so they don't break shit, I know they would if they were able to move
