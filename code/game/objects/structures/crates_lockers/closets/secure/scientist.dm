@@ -9,7 +9,7 @@
 	new /obj/item/laser_pointer(src)
 	new /obj/item/card/id/departmental_budget/sci(src)
 
-	/PopulateContents()
+/obj/structure/closet/secure_closet/RD/PopulateContents()
 	..()
 	new /obj/item/storage/box/suitbox/rd(src)
 	new /obj/item/clothing/suit/toggle/labcoat/research_director(src)
