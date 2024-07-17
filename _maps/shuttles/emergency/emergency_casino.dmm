@@ -20,6 +20,11 @@
 	},
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
+"aG" = (
+/obj/machinery/light/floor,
+/obj/machinery/light/floor,
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
 "bs" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid,
@@ -142,6 +147,9 @@
 /obj/item/defibrillator/compact/loaded,
 /obj/item/defibrillator/compact/loaded,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "mY" = (
@@ -178,12 +186,28 @@
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"pJ" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
 "qd" = (
 /obj/machinery/vending/medical,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "rC" = (
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"rS" = (
+/obj/machinery/light/floor,
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "sb" = (
@@ -271,9 +295,6 @@
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "xm" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid{
 	pixel_x = 3;
@@ -299,6 +320,12 @@
 /obj/item/book/manual/wiki/medicine,
 /obj/item/stack/medical/gauze,
 /turf/open/floor/iron/white,
+/area/shuttle/escape)
+"zP" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "Am" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
@@ -343,7 +370,19 @@
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"EX" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "FM" = (
 /obj/structure/chair/fancy/comfy{
@@ -382,9 +421,6 @@
 	pixel_y = 2
 	},
 /obj/item/storage/firstaid/brute,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
@@ -409,6 +445,12 @@
 	req_access_txt = "19"
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Ks" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "KA" = (
 /obj/structure/window/reinforced/tinted{
@@ -476,6 +518,9 @@
 /obj/item/reagent_containers/glass/bottle/epinephrine,
 /obj/item/reagent_containers/syringe/epinephrine,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "PL" = (
@@ -545,6 +590,9 @@
 /obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
 	dir = 8
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "YI" = (
@@ -553,6 +601,9 @@
 "YN" = (
 /obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
 	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -596,7 +647,7 @@ xm
 IG
 mY
 rC
-rC
+Ks
 rC
 tN
 xD
@@ -604,7 +655,7 @@ xD
 xD
 xD
 rC
-rC
+Ks
 rC
 Dq
 wj
@@ -658,11 +709,11 @@ gt
 hJ
 OY
 rC
-rC
+aG
 un
 un
 un
-rC
+rS
 rC
 OY
 aw
@@ -738,11 +789,11 @@ gt
 hJ
 OY
 rC
-rC
+rS
 ZK
 ZK
 ZK
-rC
+rS
 rC
 OY
 aw
@@ -797,13 +848,13 @@ yB
 mY
 rC
 rC
-rC
+zP
 so
 up
 up
 up
 up
-rC
+zP
 rC
 rC
 Dq
@@ -843,7 +894,7 @@ mY
 RZ
 WQ
 WQ
-WQ
+pJ
 SQ
 WQ
 Dq
@@ -922,7 +973,7 @@ sb
 mY
 NG
 Cf
-Cf
+EX
 Cf
 Cf
 Cf
