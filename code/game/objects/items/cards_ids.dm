@@ -686,6 +686,83 @@ update_label("John Doe", "Clowny")
 	access = J.get_access()
 	. = ..()
 
+// Temporary IDs
+/obj/item/card/id/temp
+	registered_name = "Temporary ID"
+	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
+
+/obj/item/card/id/temp/lost
+	registered_name = "Lost ID"
+	assignment = "Unknown"
+	desc = "A card used to provide ID and determine access across the station. It has a bunch of scribbled numbers on the side of it."
+
+/obj/item/card/id/temp/lost/Initialize()
+	var/list/accesses = list(
+			"[ACCESS_CARGO]" = 12,
+			"[ACCESS_COURT]" = 6,
+			"[ACCESS_MEDICAL]" = 10,
+			"[ACCESS_GENETICS]" = 10,
+			"[ACCESS_MORGUE]" = 7,
+			"[ACCESS_TOX]" = 10,
+			"[ACCESS_TOX_STORAGE]" = 8,
+			"[ACCESS_CHEMISTRY]" = 10,
+			"[ACCESS_BRIGPHYS]" = 10,
+			"[ACCESS_BAR]" = 8,
+			"[ACCESS_JANITOR]" = 8,
+			"[ACCESS_ENGINE]" = 10,
+			"[ACCESS_ENGINE_EQUIP]" = 10,
+			"[ACCESS_MAINT_TUNNELS]" = 20,
+			"[ACCESS_CHAPEL_OFFICE]" = 7,
+			"[ACCESS_TECH_STORAGE]" = 10,
+			"[ACCESS_ATMOSPHERICS]" = 10,
+			"[ACCESS_CONSTRUCTION]" = 12,
+			"[ACCESS_KITCHEN]" = 8,
+			"[ACCESS_HYDROPONICS]" = 10,
+			"[ACCESS_LIBRARY]" = 6,
+			"[ACCESS_LAWYER]" = 7,
+			"[ACCESS_ROBOTICS]" = 10,
+			"[ACCESS_EXPLORATION]" = 8,
+			"[ACCESS_SURGERY]" = 10,
+			"[ACCESS_THEATRE]" = 8,
+			"[ACCESS_RESEARCH]" = 12,
+			"[ACCESS_MINING]" = 11,
+			"[ACCESS_MAILSORTING]" = 9,
+			"[ACCESS_MINING_STATION]" = 10,
+			"[ACCESS_XENOBIOLOGY]" = 15,
+			"[ACCESS_RC_ANNOUNCE]" = 10,
+			"[ACCESS_CLONING]" = 5,
+			"[ACCESS_MECH_MINING]" = 5,
+			"[ACCESS_MECH_MEDICAL]" = 7,
+			"[ACCESS_MECH_SCIENCE]" = 7,
+			"[ACCESS_MECH_ENGINE]" = 7,
+			"[ACCESS_AUX_BASE]" = 10,
+		)
+	access = get_random_access(accesses, 12)
+	. = ..()
+
+/obj/item/card/id/temp/lost/proc/get_random_access(list/accesses, amount = 10)
+	if(!length(accesses))
+		return
+	var/list/random_accesses = list()
+	for(var/i in 1 to amount)
+		var/pick = pick_weight(accesses)
+		accesses.Remove(pick)
+		random_accesses.Add(text2num(pick))
+	return random_accesses
+
+/obj/item/card/id/temp/science
+	icon_state = "rawscience"
+	assignment = JOB_NAME_SCIENTIST
+	access = list(ACCESS_TOX, ACCESS_RESEARCH)
+
+/obj/item/card/id/temp/science/extended
+	icon_state = "rd"
+	assignment = JOB_NAME_RESEARCHDIRECTOR
+	access = list(ACCESS_TOX, ACCESS_EXPLORATION, ACCESS_TOX_STORAGE, ACCESS_MECH_SCIENCE,
+			ACCESS_MECH_MINING, ACCESS_MECH_MEDICAL, ACCESS_MECH_ENGINE, ACCESS_RESEARCH,
+			ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_MINISAT, ACCESS_NETWORK, ACCESS_RD_SERVER)
+
 /obj/item/card/id/centcom
 	name = "\improper CentCom ID"
 	desc = "A shimmering Central Command ID card. Simply seeing this is illegal for the majority of the crew."
