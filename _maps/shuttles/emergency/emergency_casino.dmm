@@ -91,13 +91,11 @@
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"gO" = (
-/obj/machinery/computer/slot_machine,
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/iron/white,
-/area/shuttle/escape)
 "hi" = (
-/obj/machinery/door/airlock/gold,
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/gold{
+	name = "CASINO"
+	},
 /turf/open/floor/carpet/green,
 /area/shuttle/escape)
 "hJ" = (
@@ -109,7 +107,10 @@
 /area/shuttle/escape)
 "ii" = (
 /obj/docking_port/mobile/emergency,
-/obj/machinery/door/airlock/gold,
+/obj/machinery/door/airlock/gold{
+	name = "CASINO"
+	},
+/obj/structure/fans/tiny,
 /turf/open/floor/carpet/green,
 /area/shuttle/escape)
 "le" = (
@@ -118,6 +119,12 @@
 	req_access_txt = "2"
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"lj" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/open/floor/carpet/royalblack,
 /area/shuttle/escape)
 "lx" = (
 /obj/structure/chair/fancy/comfy{
@@ -155,15 +162,6 @@
 "mY" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"nj" = (
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#c45c57";
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/iron/white,
-/area/shuttle/escape)
 "nN" = (
 /obj/machinery/computer/slot_machine,
 /obj/structure/window/reinforced/tinted{
@@ -173,6 +171,15 @@
 	dir = 4
 	},
 /turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"or" = (
+/obj/structure/chair/fancy/sofa/corp/corner/concave{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/open/floor/carpet/royalblack,
 /area/shuttle/escape)
 "os" = (
 /obj/machinery/computer/slot_machine,
@@ -276,6 +283,12 @@
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"wd" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/carpet/royalblack,
+/area/shuttle/escape)
 "wj" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/open/floor/plating,
@@ -321,6 +334,13 @@
 /obj/item/stack/medical/gauze,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
+"yI" = (
+/obj/structure/chair/fancy/sofa/corp/corner/concave,
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/open/floor/carpet/royalblack,
+/area/shuttle/escape)
 "zP" = (
 /obj/machinery/light{
 	dir = 4
@@ -330,6 +350,10 @@
 "Am" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"AO" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/carpet/royalblack,
 /area/shuttle/escape)
 "Cf" = (
 /obj/structure/chair/fancy/shuttle{
@@ -351,6 +375,13 @@
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"De" = (
+/obj/structure/chair/fancy/sofa/corp,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/carpet/royalblack,
+/area/shuttle/escape)
 "Dh" = (
 /obj/machinery/computer/slot_machine,
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted{
@@ -358,6 +389,18 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"Dl" = (
+/obj/item/storage/fancy/cigarettes/cigars/cohiba,
+/obj/item/storage/fancy/cigarettes/cigars/havana{
+	pixel_y = 3
+	},
+/obj/item/storage/box/matches{
+	pixel_x = -5;
+	pixel_y = 12
+	},
+/obj/structure/table/wood/fancy/royalblack,
+/turf/open/floor/carpet/royalblack,
 /area/shuttle/escape)
 "Dq" = (
 /obj/structure/shuttle/engine/heater,
@@ -402,8 +445,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"HR" = (
+/obj/structure/chair/fancy/sofa/corp/right{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/carpet/royalblack,
+/area/shuttle/escape)
 "HW" = (
-/obj/machinery/door/airlock/gold,
+/obj/machinery/door/airlock/gold{
+	name = "Medbay"
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "Ir" = (
@@ -565,6 +619,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"UB" = (
+/obj/structure/chair/fancy/sofa/corp/left{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/carpet/royalblack,
+/area/shuttle/escape)
 "UD" = (
 /obj/machinery/computer/slot_machine,
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -584,6 +647,12 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"XU" = (
+/obj/machinery/door/airlock/gold{
+	name = "Smokers Lounge"
+	},
+/turf/open/floor/holofloor/wood,
 /area/shuttle/escape)
 "Yr" = (
 /obj/machinery/computer/slot_machine,
@@ -619,9 +688,9 @@
 
 (1,1,1) = {"
 mY
-mY
-mY
-mY
+gt
+gt
+gt
 mY
 hi
 mY
@@ -638,10 +707,10 @@ mY
 xr
 "}
 (2,1,1) = {"
-mY
-lH
-xm
-IG
+gt
+or
+HR
+wd
 mY
 rC
 Ks
@@ -659,11 +728,11 @@ wj
 "}
 (3,1,1) = {"
 gt
-Nl
-Nl
-Nl
-gt
-hJ
+De
+Dl
+AO
+XU
+rC
 OY
 OY
 bw
@@ -679,11 +748,11 @@ wj
 "}
 (4,1,1) = {"
 gt
-av
-Nl
-Nl
-HW
-rC
+yI
+UB
+lj
+mY
+hJ
 OY
 OY
 rC
@@ -698,10 +767,10 @@ Dq
 wj
 "}
 (5,1,1) = {"
-gt
-wJ
-Nl
-Nl
+mY
+mY
+mY
+mY
 gt
 hJ
 OY
@@ -719,9 +788,9 @@ wj
 "}
 (6,1,1) = {"
 mY
-WN
-Nl
-Nl
+lH
+xm
+IG
 gt
 nN
 PL
@@ -739,7 +808,7 @@ wj
 "}
 (7,1,1) = {"
 mY
-Pn
+av
 Nl
 Ir
 gt
@@ -747,7 +816,7 @@ cP
 KA
 rC
 Sk
-OY
+rC
 rC
 WJ
 JA
@@ -759,7 +828,7 @@ wj
 "}
 (8,1,1) = {"
 mY
-WN
+wJ
 Nl
 Nl
 gt
@@ -779,7 +848,7 @@ wj
 "}
 (9,1,1) = {"
 gt
-gO
+WN
 Nl
 Nl
 gt
@@ -799,7 +868,7 @@ wj
 "}
 (10,1,1) = {"
 gt
-nj
+Pn
 Nl
 Nl
 HW
@@ -819,9 +888,9 @@ wj
 "}
 (11,1,1) = {"
 gt
+WN
+Nl
 Li
-Nl
-Nl
 gt
 hJ
 OY

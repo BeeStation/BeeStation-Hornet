@@ -57,12 +57,7 @@
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Airlock"
 	},
-/obj/docking_port/mobile/emergency{
-	dwidth = 12;
-	height = 20;
-	name = "Corg emergency shuttle";
-	width = 38
-	},
+/obj/docking_port/mobile/emergency,
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "em" = (
