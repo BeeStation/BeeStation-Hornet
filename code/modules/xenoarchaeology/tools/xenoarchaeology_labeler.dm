@@ -184,6 +184,7 @@
 	name = "artifact label"
 	desc = "An adhesive label, for artifacts."
 	do_outline = FALSE
+	roll_unusual = FALSE
 	///List of artifact traits we're labelling
 	var/list/traits = list()
 	///A special examine description built from the traits we have
