@@ -40,9 +40,21 @@
 	///What icon we use in the labeler
 	var/label_icon = "circle"
 
-//Set this proc to return a pre-made list so we can avoid some overhead
-/datum/xenoartifact_material/proc/get_trait_list()
-	return SSxenoarchaeology.xenoa_all_traits
+/datum/xenoartifact_material/proc/get_activators()
+	var/datum/xenoa_material_traits/traits = SSxenoarchaeology.material_traits[type]
+	return traits.activators
+
+/datum/xenoartifact_material/proc/get_minors()
+	var/datum/xenoa_material_traits/traits = SSxenoarchaeology.material_traits[type]
+	return traits.minors
+
+/datum/xenoartifact_material/proc/get_majors()
+	var/datum/xenoa_material_traits/traits = SSxenoarchaeology.material_traits[type]
+	return traits.majors
+
+/datum/xenoartifact_material/proc/get_malfunctions()
+	var/datum/xenoa_material_traits/traits = SSxenoarchaeology.material_traits[type]
+	return traits.malfunctions
 
 /datum/xenoartifact_material/proc/get_texture()
 	return icon(texture_icon, pick(texture_icon_states))
@@ -60,9 +72,6 @@
 	trait_flags = XENOA_BANANIUM_TRAIT
 	label_icon = "circle"
 
-/datum/xenoartifact_material/bananium/get_trait_list()
-	return SSxenoarchaeology.xenoa_bananium_traits
-
 /datum/xenoartifact_material/uranium
 	name = "uranium"
 	material_color = "#88ff00"
@@ -75,9 +84,6 @@
 	trait_flags = XENOA_URANIUM_TRAIT
 	label_icon = "certificate"
 
-/datum/xenoartifact_material/uranium/get_trait_list()
-	return SSxenoarchaeology.xenoa_uranium_traits
-
 /datum/xenoartifact_material/plasma
 	name = "plasma"
 	material_color = "#f200ff"
@@ -88,9 +94,6 @@
 	trait_flags = XENOA_PLASMA_TRAIT
 	label_icon = "play"
 
-/datum/xenoartifact_material/plasma/get_trait_list()
-	return SSxenoarchaeology.xenoa_plasma_traits
-
 /datum/xenoartifact_material/bluespace
 	name = "bluespace"
 	material_color = "#006aff"
@@ -99,9 +102,6 @@
 	mask_icon_states = list("mask-bluespace1", "mask-bluespace2", "mask-bluespace3")
 	trait_flags = XENOA_BLUESPACE_TRAIT
 	label_icon = "star"
-
-/datum/xenoartifact_material/bluespace/get_trait_list()
-	return SSxenoarchaeology.xenoa_bluespace_traits
 
 //Artificial
 /datum/xenoartifact_material/pearl

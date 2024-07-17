@@ -53,10 +53,10 @@
 
 /obj/item/xenoarchaeology_labeler/ui_static_data(mob/user)
 	var/list/data = list()
-	data["malfunction_list"] = SSxenoarchaeology.labeler_malfunction_traits
-	data["major_traits"] = SSxenoarchaeology.labeler_major_traits
-	data["minor_traits"] = SSxenoarchaeology.labeler_minor_traits
-	data["activator_traits"] = SSxenoarchaeology.labeler_activator_traits
+	data["malfunction_list"] = SSxenoarchaeology.labeler_traits.malfunctions
+	data["major_traits"] = SSxenoarchaeology.labeler_traits.majors
+	data["minor_traits"] = SSxenoarchaeology.labeler_traits.minors
+	data["activator_traits"] = SSxenoarchaeology.labeler_traits.activators
 	data["tooltip_stats"] = SSxenoarchaeology.labeler_tooltip_stats
 
 	data["trait_filters"] = trait_filters
@@ -80,7 +80,8 @@
 			return
 		if("toggle_trait")
 			var/trait_key = params["trait_name"]
-			var/list/focus = list(SSxenoarchaeology.labeler_activator_traits, SSxenoarchaeology.labeler_minor_traits, SSxenoarchaeology.labeler_major_traits, SSxenoarchaeology.labeler_malfunction_traits)
+			//TODO: Make sure this doesn't have crazy overhead - Racc
+			var/list/focus = list(SSxenoarchaeology.labeler_traits.activators, SSxenoarchaeology.labeler_traits.minors, SSxenoarchaeology.labeler_traits.majors, SSxenoarchaeology.labeler_traits.malfunctions)
 			for(var/list/i as() in focus)
 				if(!(trait_key in i))
 					continue

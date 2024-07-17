@@ -84,19 +84,19 @@
 		var/list/focus_traits
 		if(length(artifact_traits[TRAIT_PRIORITY_ACTIVATOR]) < artifact_type.trait_activators)
 			//Generate activators
-			focus_traits = SSxenoarchaeology.xenoa_activators & artifact_type.get_trait_list()
+			focus_traits = artifact_type.get_activators()
 			build_traits(focus_traits, artifact_type.trait_activators - length(artifact_traits[TRAIT_PRIORITY_ACTIVATOR]))
 		if(length(artifact_traits[TRAIT_PRIORITY_MINOR]) < artifact_type.trait_minors)
 			//Generate minors
-			focus_traits = SSxenoarchaeology.xenoa_minors & artifact_type.get_trait_list()
+			focus_traits = artifact_type.get_minors()
 			build_traits(focus_traits, artifact_type.trait_minors - length(artifact_traits[TRAIT_PRIORITY_MINOR]))
 		if(length(artifact_traits[TRAIT_PRIORITY_MAJOR]) < artifact_type.trait_majors)
 			//Generate majors
-			focus_traits = SSxenoarchaeology.xenoa_majors & artifact_type.get_trait_list()
+			focus_traits = artifact_type.get_majors()
 			build_traits(focus_traits, artifact_type.trait_majors - length(artifact_traits[TRAIT_PRIORITY_MAJOR]))
 		if(length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]) < artifact_type.trait_malfunctions)
 			//Generate malfunctions
-			focus_traits = SSxenoarchaeology.xenoa_malfunctions & artifact_type.get_trait_list()
+			focus_traits = artifact_type.get_malfunctions()
 			build_traits(focus_traits, artifact_type.trait_malfunctions - length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]))
 	//Cooldown
 	trait_cooldown = get_extra_cooldowns()
@@ -150,7 +150,7 @@
 		use_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), max(0, use_cooldown + trait_cooldown), TIMER_STOPPABLE)
 
 /datum/component/xenoartifact/proc/build_traits(list/trait_list, amount, incompatabilities = TRUE)
-	var/list/options = trait_list
+	var/list/options = trait_list.Copy()
 	//Remove any blacklisted traits
 	options -= blacklisted_traits
 	//Remove any incompatible traits
@@ -190,7 +190,7 @@
 	A.visible_message("<span class='warning'>[A] makes a concerning sound, as if something has gone terribly wrong...</span>")
 	//Build malfunctions
 	var/list/focus_traits
-	focus_traits = SSxenoarchaeology.xenoa_malfunctions & artifact_type.get_trait_list()
+	focus_traits = artifact_type.get_malfunctions()
 	build_traits(focus_traits, 1)
 	//Reset instability
 	instability = 0
