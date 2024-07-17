@@ -40,7 +40,7 @@
 	return weighted
 
 ///Compile a blacklist of traits from a given flag/s
-/proc/compile_artifact_blacklist(var/flags)
+/proc/compile_artifact_blacklist(flags)
 	var/list/output = list()
 	for(var/datum/xenoartifact_trait/T as() in GLOB.xenoa_all_traits)
 		if(!(initial(T.flags) & flags))

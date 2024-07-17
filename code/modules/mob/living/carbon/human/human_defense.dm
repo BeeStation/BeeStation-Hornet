@@ -121,7 +121,7 @@
 			return 1
 	return 0
 
-/mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
+/mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
 	SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, AM, attack_text, damage, attack_type, armour_penetration)
 	for(var/obj/item/I in held_items)
 		if(!isclothing(I))

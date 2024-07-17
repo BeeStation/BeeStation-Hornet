@@ -1,7 +1,7 @@
 #define ANTAG_TOKENS_MAXIMUM 255
 #define ANTAG_TOKENS_MINIMUM 0
 
-/client/proc/cmd_admin_mod_antag_tokens(client/C in GLOB.clients, var/operation)
+/client/proc/cmd_admin_mod_antag_tokens(client/C in GLOB.clients, operation)
 	set category = "Adminbus"
 	set name = "Modify Antagonist Tokens"
 

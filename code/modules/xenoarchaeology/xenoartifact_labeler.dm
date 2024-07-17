@@ -135,7 +135,7 @@
 	P.info = selected_activator_traits+selected_minor_traits+selected_major_traits+selected_malfunction_traits
 	P.attempt_attach(target, user, TRUE)
 
-/obj/item/xenoartifact_labeler/proc/trait_toggle(action, toggle_type, var/list/trait_list, var/list/active_trait_list)
+/obj/item/xenoartifact_labeler/proc/trait_toggle(action, toggle_type, list/trait_list, list/active_trait_list)
 	var/datum/xenoartifact_trait/description_holder
 	var/new_trait
 	for(var/t in trait_list)

@@ -294,7 +294,7 @@
 		category = REF(category)
 	return mood_events[category]
 
-/datum/component/mood/proc/remove_temp_moods(var/admin) //Removes all temp moods
+/datum/component/mood/proc/remove_temp_moods(admin) //Removes all temp moods
 	for(var/i in mood_events)
 		var/datum/mood_event/moodlet = mood_events[i]
 		if(!moodlet || !moodlet.timeout)
@@ -368,7 +368,7 @@
 		if(0 to NUTRITION_LEVEL_STARVING)
 			add_event(null, "nutrition", /datum/mood_event/decharged)
 
-/datum/component/mood/proc/check_area_mood(datum/source, var/area/A)
+/datum/component/mood/proc/check_area_mood(datum/source, area/A)
 	SIGNAL_HANDLER
 
 	var/mob/living/owner = parent

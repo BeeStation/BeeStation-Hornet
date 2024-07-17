@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(sound_effects)
 
 // ===== Sound effect procs =====
 
-/proc/sound_fade(sound/S, start_volume = 100, end_volume = 0, time = 10, var/listeners)
+/proc/sound_fade(sound/S, start_volume = 100, end_volume = 0, time = 10, listeners)
 	//Check basics
 	if(!S)
 		CRASH("sound_fade called without a sound file.")

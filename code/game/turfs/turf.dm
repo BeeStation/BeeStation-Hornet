@@ -389,7 +389,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 //////////////////////////////
 
 //Distance associates with all directions movement
-/turf/proc/Distance(var/turf/T)
+/turf/proc/Distance(turf/T)
 	return get_dist(src,T)
 
 //  This Distance proc assumes that only cardinal movement is

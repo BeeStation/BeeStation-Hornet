@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		)
 
 //returns the dwidth, dheight, width, and height in that order of the union bounds of all shuttles relative to our shuttle.
-/obj/docking_port/proc/return_union_bounds(var/list/obj/docking_port/others)
+/obj/docking_port/proc/return_union_bounds(list/obj/docking_port/others)
 	var/list/coords =  return_union_coords(others, 0, 0, NORTH)
 	var/X0 = min(coords[1],coords[3]) //This will be the negative dwidth of the combined bounds
 	var/Y0 = min(coords[2],coords[4]) //This will be the negative dheight of the combined bounds
@@ -104,7 +104,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	return list(-X0, -Y0, X1-X0+1,Y1-Y0+1)
 
 //Returns the the bounding box fully containing all provided docking ports
-/obj/docking_port/proc/return_union_coords(var/list/obj/docking_port/others, _x, _y, _dir)
+/obj/docking_port/proc/return_union_coords(list/obj/docking_port/others, _x, _y, _dir)
 	if(_dir == null)
 		_dir = dir
 	if(_x == null)
@@ -129,7 +129,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		)
 
 //Returns the bounding box containing only the intersection of all provided docking ports
-/obj/docking_port/proc/return_intersect_coords(var/list/obj/docking_port/others, _x, _y, _dir)
+/obj/docking_port/proc/return_intersect_coords(list/obj/docking_port/others, _x, _y, _dir)
 	if(_dir == null)
 		_dir = dir
 	if(_x == null)
@@ -386,7 +386,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 /obj/docking_port/mobile/is_in_shuttle_bounds(atom/A)
 	return shuttle_areas[get_area(A)]
 
-/obj/docking_port/mobile/proc/add_turf(var/turf/T, var/area/shuttle/A)
+/obj/docking_port/mobile/proc/add_turf(turf/T, area/shuttle/A)
 	if(!shuttle_areas[A]) //Invalid area
 		return TRUE
 
@@ -427,7 +427,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	current_area.contents -= T
 	T.change_area(current_area, A)
 
-/obj/docking_port/mobile/proc/remove_turf(var/turf/T)
+/obj/docking_port/mobile/proc/remove_turf(turf/T)
 
 	var/area/shuttle/A = get_area(T)
 	var/area/shuttle/new_area = underlying_turf_area[T]

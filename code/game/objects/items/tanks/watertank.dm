@@ -223,7 +223,7 @@
 /obj/item/watertank/janitor/make_noz()
 	return new /obj/item/reagent_containers/spray/mister/janitor(src)
 
-/obj/item/reagent_containers/spray/mister/janitor/attack_self(var/mob/user)
+/obj/item/reagent_containers/spray/mister/janitor/attack_self(mob/user)
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 

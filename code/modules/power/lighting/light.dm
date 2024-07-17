@@ -197,7 +197,7 @@
 
 	if(on && turning_on)
 		return
-		
+
 	var/area/local_area = get_area(src)
 	if(emergency_mode || (local_area?.fire))
 		. += mutable_appearance(overlayicon, "[base_state]_emergency")
@@ -497,7 +497,7 @@
 	return TRUE
 
 
-/obj/machinery/light/proc/flicker(var/amount = rand(10, 20))
+/obj/machinery/light/proc/flicker(amount = rand(10, 20))
 	set waitfor = 0
 	if(flickering)
 		return

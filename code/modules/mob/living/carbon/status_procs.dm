@@ -90,7 +90,7 @@
 	if(B)
 		. = B.cure_all_traumas(resilience, special_method)
 
-/mob/living/carbon/update_blindness(overlay = /atom/movable/screen/fullscreen/blind, add_color, var/can_see = TRUE)
+/mob/living/carbon/update_blindness(overlay = /atom/movable/screen/fullscreen/blind, add_color, can_see = TRUE)
 	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
 	can_see = E?.can_see
 	return ..()

@@ -362,7 +362,7 @@
 	. = ..()
 	. += "<span class='notice'>It will begin a chain reaction sequence of dissipation if touched by the firefighting backpack's nozzle in the smart foam mode.</span>"
 
-/obj/structure/foamedmetal/resin/chainreact/proc/find_nearby_foam(var/loc_direction)
+/obj/structure/foamedmetal/resin/chainreact/proc/find_nearby_foam(loc_direction)
 	var/obj/structure/foamedmetal/resin/chainreact/R = locate(/obj/structure/foamedmetal/resin/chainreact) in get_step(get_turf(src), loc_direction)
 	if(istype(R))
 		addtimer(CALLBACK(R, PROC_REF(start_the_chain)), 0.2 SECONDS)

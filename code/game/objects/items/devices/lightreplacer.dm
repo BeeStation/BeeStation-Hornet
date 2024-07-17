@@ -185,7 +185,7 @@
 		playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 	return new_bulbs
 
-/obj/item/lightreplacer/proc/Charge(var/mob/user)
+/obj/item/lightreplacer/proc/Charge(mob/user)
 	AddUses(1)
 
 /obj/item/lightreplacer/proc/ReplaceLight(obj/machinery/light/target, mob/living/U)

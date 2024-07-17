@@ -165,7 +165,7 @@
 	med_hud_set_status() //we're an object honest
 	return
 
-/mob/living/simple_animal/hostile/morph/proc/restore(var/intentional = FALSE)
+/mob/living/simple_animal/hostile/morph/proc/restore(intentional = FALSE)
 	if(!morphed)
 		if(intentional)
 			to_chat(src, "<span class='warning'>You're already in your normal form!</span>")
@@ -219,7 +219,7 @@
 /mob/living/simple_animal/hostile/morph/LoseAggro()
 	vision_range = initial(vision_range)
 
-/mob/living/simple_animal/hostile/morph/AIShouldSleep(var/list/possible_targets)
+/mob/living/simple_animal/hostile/morph/AIShouldSleep(list/possible_targets)
 	. = ..()
 	if(.)
 		var/list/things = list()

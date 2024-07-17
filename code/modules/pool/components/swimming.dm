@@ -63,12 +63,12 @@
 		return
 	INVOKE_ASYNC(src, PROC_REF(climb_out), L, clicked_turf)
 
-/datum/component/swimming/proc/climb_out(var/mob/living/L, turf/clicked_turf)
+/datum/component/swimming/proc/climb_out(mob/living/L, turf/clicked_turf)
 	L.forceMove(clicked_turf)
 	L.visible_message("<span class='notice'>[parent] climbs out of the pool.</span>")
 	RemoveComponent()
 
-/datum/component/swimming/proc/pull_out(var/mob/living/L, turf/clicked_turf)
+/datum/component/swimming/proc/pull_out(mob/living/L, turf/clicked_turf)
 	to_chat(parent, "<span class='notice'>You start to climb out of the pool...</span>")
 	if(do_after(parent, 1 SECONDS, target=clicked_turf))
 		to_chat(parent, "<span class='notice'>You start to lift [L.pulling] out of the pool...</span>")

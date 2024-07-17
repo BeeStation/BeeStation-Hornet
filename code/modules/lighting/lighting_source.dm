@@ -33,7 +33,7 @@
 #define GET_APPROXIMATE_PIXEL_DIR(PX, PY) ((!(PX) ? 0 : ((PX >= 16 ? EAST : (PX <= -16 ? WEST : 0)))) | (!PY ? 0 : (PY >= 16 ? NORTH : (PY <= -16 ? SOUTH : 0))))
 #define UPDATE_APPROXIMATE_PIXEL_TURF var/_mask = GET_APPROXIMATE_PIXEL_DIR(top_atom.pixel_x, top_atom.pixel_y); pixel_turf = _mask ? (get_step(source_turf, _mask) || source_turf) : source_turf
 
-/datum/light_source/New(var/atom/owner, var/atom/top)
+/datum/light_source/New(atom/owner, atom/top)
 	source_atom = owner // Set our new owner.
 	LAZYADD(source_atom.light_sources, src)
 	top_atom = top
@@ -80,7 +80,7 @@
 
 
 // This proc will cause the light source to update the top atom, and add itself to the update queue.
-/datum/light_source/proc/update(var/atom/new_top_atom)
+/datum/light_source/proc/update(atom/new_top_atom)
 	// This top atom is different.
 	if (new_top_atom && new_top_atom != top_atom)
 		if(top_atom != source_atom && top_atom.light_sources) // Remove ourselves from the light sources of that top atom.
@@ -149,7 +149,7 @@
 		REMOVE_CORNER(corner)
 		LAZYREMOVE(corner.affecting, src)
 
-/datum/light_source/proc/recalc_corner(var/datum/lighting_corner/C)
+/datum/light_source/proc/recalc_corner(datum/lighting_corner/C)
 	LAZYINITLIST(effect_str)
 	if (effect_str[C]) // Already have one.
 		REMOVE_CORNER(C)

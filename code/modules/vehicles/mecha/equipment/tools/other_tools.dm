@@ -293,7 +293,7 @@
 		return 1000 //making magic
 
 
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/GET_MUTATION_POWER_channel(var/area/A)
+/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/GET_MUTATION_POWER_channel(area/A)
 	var/pow_chan
 	if(A)
 		for(var/c in use_channels)
@@ -512,13 +512,13 @@
 /obj/item/mecha_parts/mecha_equipment/thrusters/get_equip_info()
 	return "[..()] \[<a href='?src=[REF(src)];mode=0'>Enable</a>|<a href='?src=[REF(src)];mode=1'>Disable</a>\]"
 
-/obj/item/mecha_parts/mecha_equipment/thrusters/proc/thrust(var/movement_dir)
+/obj/item/mecha_parts/mecha_equipment/thrusters/proc/thrust(movement_dir)
 	if(!chassis)
 		return FALSE
 	generate_effect(movement_dir)
 	return TRUE //This parent should never exist in-game outside admeme use, so why not let it be a creative thruster?
 
-/obj/item/mecha_parts/mecha_equipment/thrusters/proc/generate_effect(var/movement_dir)
+/obj/item/mecha_parts/mecha_equipment/thrusters/proc/generate_effect(movement_dir)
 	var/obj/effect/particle_effect/E = new effect_type(get_turf(chassis))
 	E.dir = turn(movement_dir, 180)
 	step(E, turn(movement_dir, 180))
@@ -537,7 +537,7 @@
 		return FALSE
 	. = ..()
 
-/obj/item/mecha_parts/mecha_equipment/thrusters/gas/thrust(var/movement_dir)
+/obj/item/mecha_parts/mecha_equipment/thrusters/gas/thrust(movement_dir)
 	if(!chassis || !chassis.internal_tank)
 		return FALSE
 	var/moles = chassis.internal_tank.air_contents.total_moles()
@@ -557,7 +557,7 @@
 	salvageable = FALSE
 	effect_type = /obj/effect/particle_effect/ion_trails
 
-/obj/item/mecha_parts/mecha_equipment/thrusters/ion/thrust(var/movement_dir)
+/obj/item/mecha_parts/mecha_equipment/thrusters/ion/thrust(movement_dir)
 	if(!chassis)
 		return FALSE
 	if(chassis.use_power(chassis.step_energy_drain))

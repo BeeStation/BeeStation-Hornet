@@ -120,7 +120,7 @@
 	if(!has_cover)
 		INVOKE_ASYNC(src, PROC_REF(popUp))
 
-/obj/machinery/porta_turret/proc/toggle_on(var/set_to)
+/obj/machinery/porta_turret/proc/toggle_on(set_to)
 	var/current = on
 	if (!isnull(set_to))
 		on = set_to
@@ -550,7 +550,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 		if (!perp.has_mindshield_hud_icon())
 			. += 4
 
-/obj/machinery/porta_turret/proc/check_for_weapons(var/obj/item/slot_item)
+/obj/machinery/porta_turret/proc/check_for_weapons(obj/item/slot_item)
 	if(slot_item && (slot_item.item_flags & NEEDS_PERMIT))
 		return TRUE
 	return FALSE
