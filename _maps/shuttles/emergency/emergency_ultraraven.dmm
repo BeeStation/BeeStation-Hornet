@@ -517,13 +517,6 @@
 /obj/effect/turf_decal/raven/two,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"hg" = (
-/obj/effect/turf_decal/tile/neutral/corner_ramp{
-	dir = 1
-	},
-/obj/machinery/holopad,
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
 "hB" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
 /turf/open/floor/iron/dark/corner{
@@ -618,6 +611,7 @@
 	id = "escape_cockpit_windows";
 	name = "Cockpit Blast Door"
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "lj" = (
@@ -779,6 +773,11 @@
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
+/area/shuttle/escape)
+"qB" = (
+/obj/effect/turf_decal/tile/neutral/corner_ramp,
+/obj/machinery/holopad,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "qL" = (
 /obj/item/clothing/suit/hazardvest{
@@ -987,7 +986,7 @@
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/window,
+,
 /obj/machinery/door/poddoor/preopen{
 	id = "escape_cockpit_windows";
 	name = "Cockpit Blast Door"
@@ -2426,7 +2425,7 @@ aa
 aa
 aa
 aa
-Ss
+bB
 sU
 PX
 sU
@@ -2461,8 +2460,8 @@ aa
 aa
 aa
 uc
-Ss
-Ss
+bB
+bB
 bW
 aZ
 zW
@@ -2496,7 +2495,7 @@ aa
 aa
 aa
 aa
-Ss
+bB
 aI
 sN
 ZX
@@ -2568,7 +2567,7 @@ aa
 aa
 aa
 aa
-Ss
+bB
 aI
 sN
 ax
@@ -2605,8 +2604,8 @@ aa
 aa
 aa
 Qc
-Ss
-Ss
+bB
+bB
 xY
 aZ
 zW
@@ -2642,7 +2641,7 @@ aa
 aa
 aa
 aa
-Ss
+bB
 sU
 sU
 sU
@@ -2728,13 +2727,13 @@ sU
 sU
 sU
 sU
-Bt
+bB
 uP
 sU
 uP
-Bt
+bB
 sU
-Ss
+bB
 AL
 DX
 hV
@@ -2863,7 +2862,7 @@ yG
 bQ
 wE
 nb
-hg
+yA
 ez
 sU
 wW
@@ -2899,7 +2898,7 @@ Ur
 IG
 Bt
 yA
-ez
+qB
 vm
 QU
 wW
@@ -3094,7 +3093,7 @@ aK
 sU
 sU
 sU
-Ss
+bB
 AL
 DX
 hV
@@ -3402,9 +3401,9 @@ aa
 aa
 Xf
 sU
-Bt
-Bt
-Bt
+bB
+bB
+bB
 sU
 sU
 sU
