@@ -49,6 +49,7 @@
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm_bitem"
 	result_path = /obj/machinery/airalarm
+	pixel_shift = 24
 
 #define AALARM_MODE_SCRUBBING 1
 #define AALARM_MODE_VENTING 2 //makes draught
@@ -66,7 +67,7 @@
 	name = "air alarm"
 	desc = "A machine that monitors atmosphere levels and alerts if the area is dangerous."
 	icon = 'icons/obj/monitors.dmi'
-	icon_state = "alarm0"
+	icon_state = "alarmp"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 8
@@ -74,7 +75,7 @@
 	req_access = list(ACCESS_ATMOSPHERICS)
 	max_integrity = 250
 	integrity_failure = 0.33
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
@@ -112,8 +113,86 @@
 		GAS_PLUOXIUM	= new/datum/tlv(-1, -1, 5, 6), // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
 	)
 
+<<<<<<< HEAD
 /obj/machinery/airalarm/New(mapload, ndir, nbuild)
 	..()
+=======
+/obj/machinery/airalarm/server // No checks here.
+	TLV = list(
+		"pressure"					= new/datum/tlv/no_checks,
+		"temperature"				= new/datum/tlv/no_checks,
+		GAS_O2			= new/datum/tlv/no_checks,
+		GAS_N2			= new/datum/tlv/no_checks,
+		GAS_CO2	= new/datum/tlv/no_checks,
+		GAS_PLASMA			= new/datum/tlv/no_checks,
+		GAS_NITROUS	= new/datum/tlv/no_checks,
+		GAS_BZ				= new/datum/tlv/no_checks,
+		GAS_HYPERNOB		= new/datum/tlv/no_checks,
+		GAS_H2O		= new/datum/tlv/no_checks,
+		GAS_TRITIUM			= new/datum/tlv/no_checks,
+		GAS_STIMULUM			= new/datum/tlv/no_checks,
+		GAS_NITRYL			= new/datum/tlv/no_checks,
+		GAS_PLUOXIUM			= new/datum/tlv/no_checks
+	)
+
+/obj/machinery/airalarm/kitchen_cold_room // Kitchen cold rooms start off at -20°C or 253.15 K.
+	TLV = list(
+		"pressure"					= new/datum/tlv(ONE_ATMOSPHERE * 0.8, ONE_ATMOSPHERE*  0.9, ONE_ATMOSPHERE * 1.1, ONE_ATMOSPHERE * 1.2), // kPa
+		"temperature"				= new/datum/tlv(T0C-273.15, T0C-80, T0C-10, T0C+10),
+		GAS_O2			= new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
+		GAS_N2			= new/datum/tlv(-1, -1, 1000, 1000),
+		GAS_CO2	= new/datum/tlv(-1, -1, 5, 10),
+		GAS_PLASMA			= new/datum/tlv/dangerous,
+		GAS_NITROUS	= new/datum/tlv/dangerous,
+		GAS_BZ				= new/datum/tlv/dangerous,
+		GAS_HYPERNOB		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
+		GAS_H2O		= new/datum/tlv/dangerous,
+		GAS_TRITIUM			= new/datum/tlv/dangerous,
+		GAS_STIMULUM			= new/datum/tlv/dangerous,
+		GAS_NITRYL			= new/datum/tlv/dangerous,
+		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 1000, 1000) // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
+	)
+
+/obj/machinery/airalarm/unlocked
+	locked = FALSE
+
+/obj/machinery/airalarm/engine
+	name = "engine air alarm"
+	locked = FALSE
+	req_access = null
+	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
+
+/obj/machinery/airalarm/mixingchamber
+	name = "chamber air alarm"
+	locked = FALSE
+	req_access = null
+	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_TOX, ACCESS_TOX_STORAGE)
+
+/obj/machinery/airalarm/all_access
+	name = "all-access air alarm"
+	desc = "This particular atmospherics control unit appears to have no access restrictions."
+	locked = FALSE
+	req_access = null
+	req_one_access = null
+
+/obj/machinery/airalarm/syndicate //general syndicate access
+	req_access = list(ACCESS_SYNDICATE)
+
+/obj/machinery/airalarm/away //general away mission access
+	req_access = list(ACCESS_AWAY_GENERAL)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
+
+//all air alarms in area are connected via magic
+/area
+	var/list/air_vent_names = list()
+	var/list/air_scrub_names = list()
+	var/list/air_vent_info = list()
+	var/list/air_scrub_info = list()
+
+/obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
+	. = ..()
+>>>>>>> a3b142770114888d37337d81fade833b83798ffd
 	wires = new /datum/wires/airalarm(src)
 	if(ndir)
 		setDir(ndir)
@@ -121,8 +200,6 @@
 	if(nbuild)
 		buildstage = 0
 		panel_open = TRUE
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
-		pixel_y = (dir & 3)? (dir == 1 ? -24 : 24) : 0
 
 	if(name == initial(name))
 		name = "[get_area_name(src)] Air Alarm"
@@ -545,7 +622,26 @@
 					"set_internal_pressure" = 0
 				), signal_source)
 
-/obj/machinery/airalarm/update_icon()
+/obj/machinery/airalarm/update_appearance(updates)
+	. = ..()
+
+	if(panel_open || (machine_stat & (NOPOWER|BROKEN)) || shorted)
+		set_light(0)
+		return
+
+	var/area/our_area = get_area(src)
+	var/color
+	switch(max(danger_level, !!our_area.active_alarms[ALARM_ATMOS]))
+		if(0)
+			color = "#03A728" // green
+		if(1)
+			color = "#EC8B2F" // yellow
+		if(2)
+			color = "#DA0205" // red
+
+	set_light(1.4, 1, color)
+
+/obj/machinery/airalarm/update_icon_state()
 	if(panel_open)
 		switch(buildstage)
 			if(2)
@@ -554,20 +650,29 @@
 				icon_state = "alarm_b2"
 			if(0)
 				icon_state = "alarm_b1"
-		return
+		return ..()
+
+	icon_state = "alarmp"
+	return ..()
+
+/obj/machinery/airalarm/update_overlays()
+	. = ..()
 
 	if((machine_stat & (NOPOWER|BROKEN)) || shorted)
-		icon_state = "alarmp"
 		return
 
 	var/area/our_area = get_area(src)
+	var/state
 	switch(max(danger_level, !!our_area.active_alarms[ALARM_ATMOS]))
 		if(0)
-			icon_state = "alarm0"
+			state = "alarm0"
 		if(1)
-			icon_state = "alarm2" //yes, alarm2 is yellow alarm
+			state = "alarm2" //yes, alarm2 is yellow alarm
 		if(2)
-			icon_state = "alarm1"
+			state = "alarm1"
+
+	. += mutable_appearance(icon, state)
+	. += emissive_appearance(icon, state, alpha = src.alpha)
 
 /**
  * main proc for throwing a shitfit if the air isnt right.
@@ -852,21 +957,7 @@
 /obj/machinery/airalarm/away //general away mission access
 	req_access = list(ACCESS_AWAY_GENERAL)
 
-/obj/machinery/airalarm/directional/north //Pixel offsets get overwritten on New()
-	dir = SOUTH
-	pixel_y = 24
-
-/obj/machinery/airalarm/directional/south
-	dir = NORTH
-	pixel_y = -24
-
-/obj/machinery/airalarm/directional/east
-	dir = WEST
-	pixel_x = 24
-
-/obj/machinery/airalarm/directional/west
-	dir = EAST
-	pixel_x = -24
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
 
 /**end of air alarms variants **/
 
