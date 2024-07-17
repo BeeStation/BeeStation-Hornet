@@ -13,7 +13,7 @@
 	item_flags = ISWEAPON
 	attack_verb_continuous = list("enforces the law upon")
 	attack_verb_simple = list("enforce the law upon")
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0, BLEED = 0)
 
 	var/stunforce = 40
 	var/turned_on = FALSE

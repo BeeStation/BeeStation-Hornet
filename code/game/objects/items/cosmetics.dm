@@ -266,15 +266,6 @@
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] own throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
-/obj/item/razor/attack(mob/M, mob/user)
-	. = ..()
-	if(ishuman(M) && extended == 1 && (user.a_intent == INTENT_HARM))
-		var/mob/living/carbon/human/H = M
-		var/def_check = H.getarmor(MELEE)
-		H.bleed_rate += ((force * 10) - def_check)/30 //sharp blade causes a shitload of blood loss if on harm intent
-		if(H.bleed_rate >= 10)
-			to_chat(M, "<span class='userdanger'>You're losing blood fast!</span>")
-
 /obj/item/razor/straightrazor/attack_self(mob/user)
 	extended = !extended
 	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
@@ -287,6 +278,7 @@
 		attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		sharpness = IS_SHARP
+		bleed_force = BLEED_SURFACE
 		tool_behaviour = TOOL_SCALPEL
 	else
 		force = initial(force)
@@ -297,6 +289,7 @@
 		attack_verb_simple = list("stub", "poke")
 		hitsound = 'sound/weapons/genhit.ogg'
 		sharpness = IS_BLUNT
+		bleed_force = 0
 		tool_behaviour = null
 
 /obj/item/handmirror
