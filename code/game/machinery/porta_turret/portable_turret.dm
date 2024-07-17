@@ -877,10 +877,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 /obj/machinery/turretid/Initialize(mapload, ndir = 0, built = 0)
 	. = ..()
 	if(built)
-		setDir(ndir)
 		locked = FALSE
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
-		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 	power_change() //Checks power and initial settings
 
 /obj/machinery/turretid/Destroy()
@@ -1044,6 +1041,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 	icon_state = "apc"
 	result_path = /obj/machinery/turretid
 	custom_materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
+	pixel_shift = 29
 
 /obj/item/gun/proc/get_turret_properties()
 	. = list()
