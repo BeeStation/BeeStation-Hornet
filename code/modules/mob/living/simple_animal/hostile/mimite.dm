@@ -185,8 +185,6 @@
 			if(LAZYLEN(things) >= 1)
 				var/atom/movable/T = pick(things)
 				assume(T)
-			else
-				assume(pick(/obj/item/clothing/gloves/color/yellow, /obj/item/clothing/mask/gas/sechailer, /obj/item/cigbutt, /obj/item/reagent_containers/food/drinks/beer/almost_empty, /obj/item/shard, /obj/item/pen, /obj/item/clothing/head/helmet/alt, /obj/item/restraints/handcuffs))
 
 /mob/living/simple_animal/hostile/mimite/can_track(mob/living/user)
 	if(morphed)
