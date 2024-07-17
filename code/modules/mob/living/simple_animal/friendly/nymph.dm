@@ -7,12 +7,11 @@
 	icon_state = "nymph"
 	icon_living = "nymph"
 	icon_dead = "nymph_dead"
-	speak_language = /datum/language/sylvan
-	speak_emote = list("chirrups")
 	gender = NEUTER
 	gold_core_spawnable = FRIENDLY_SPAWN
 	ventcrawler = VENTCRAWLER_ALWAYS
-	pass_flags = PASSTABLE
+	pass_flags = PASSTABLE | PASSMOB
+	density = FALSE
 	mob_size = MOB_SIZE_SMALL
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	can_be_held = TRUE
@@ -21,7 +20,6 @@
 	held_state = "nymph"
 	footstep_type = FOOTSTEP_MOB_CLAW
 	hud_type = /datum/hud/nymph
-	speak_emote = list("chirps")
 	butcher_results = list(/obj/item/food/meat/slab/human/mutant/diona = 4)
 
 	health = 100
@@ -37,7 +35,6 @@
 	var/is_ghost_spawn = FALSE //For if a ghost can become this.
 	var/is_drone = FALSE //Is a remote controlled nymph from a diona.
 	var/drone_parent //The diona which can control the nymph, if there is one
-	var/datum/mind/origin
 	var/old_name // The diona nymph's old name.
 	var/datum/action/nymph/evolve/evolve_ability //The ability to grow up into a diona.
 	var/datum/action/nymph/SwitchFrom/switch_ability //The ability to switch back to the parent diona as a drone.
@@ -49,13 +46,11 @@
 	add_verb(/mob/living/proc/lay_down)
 	evolve_ability = new
 	evolve_ability.Grant(src)
-
 	instance_num = rand(1, 1000)
 	name = "[initial(name)] ([instance_num])"
 	real_name = name
 	regenerate_icons()
-	grant_language(/datum/language/common)
-	grant_language(/datum/language/sylvan)
+	ADD_TRAIT(src, TRAIT_MUTE, "nymph")
 
 /mob/living/simple_animal/nymph/get_stat_tab_status()
 	var/list/tab_data = ..()
@@ -76,7 +71,7 @@
 		switch_ability.Remove(src)
 	return ..(gibbed,death_msg)
 
-/mob/living/simple_animal/nymph/spawn_gibs() //redgrubs dont have much in the way of gibs or mess. just meat.
+/mob/living/simple_animal/nymph/spawn_gibs()
 	new /obj/effect/decal/cleanable/insectguts(drop_location())
 	playsound(drop_location(), 'sound/effects/blobattack.ogg', 60, TRUE)
 
@@ -184,7 +179,7 @@
 	SwitchFrom(user, DroneParent)
 
 /datum/action/nymph/SwitchFrom/proc/SwitchFrom(mob/living/simple_animal/nymph/user, mob/living/carbon/M)
-	var/datum/mind/C = user.origin
+	var/datum/mind/C = user.mind
 	M = user.drone_parent
 	if(user.stat == CONSCIOUS)
 		user.visible_message("<span class='notice'>[user] \

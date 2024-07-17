@@ -20,8 +20,8 @@ ALTER TABLE 'SS13_characters'
 	ADD COLUMN IF NOT EXISTS `feature_diona_moss` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_diona_flowers',
 	ADD COLUMN IF NOT EXISTS `feature_diona_mushroom` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_diona_moss',
 	ADD COLUMN IF NOT EXISTS `feature_diona_antennae` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_diona_mushroom';
-	ADD COLUMN IF NOT EXISTS `feature_diona_eyes` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_diona_eyes';
-	ADD COLUMN IF NOT EXISTS `feature_diona_pbody` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_diona_pbody';
+	ADD COLUMN IF NOT EXISTS `feature_diona_eyes` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_diona_antennae';
+	ADD COLUMN IF NOT EXISTS `feature_diona_pbody` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_diona_eyes';
 
 -----------------------------------------------------
 

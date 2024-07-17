@@ -355,7 +355,7 @@
 	else
 		to_chat(C, "<span class='notice'>You abandon this nymph...</span>")
 	C.transfer_to(drone)
-	drone.origin = C
+	drone.mind = C
 	drone.visible_message("<span class='notice'>[drone] blinks and looks \
 		around.</span>",
 		"<span class='notice'>...and move this one instead.</span>")

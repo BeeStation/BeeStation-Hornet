@@ -24,8 +24,8 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/diona
 	bodytemp_normal = (BODYTEMP_NORMAL - 22) // Body temperature for dionae is much lower then humans as they are plants, supposed to be 15 celsius
-	speedmod = 2 // Dionae are slow.
-	species_height = SPECIES_HEIGHTS(-1, 0, -2) //Naturally tall.
+	speedmod = 1.8 // Dionae are slow.
+	species_height = SPECIES_HEIGHTS(0, -1, -2) //Naturally tall.
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = DRONE
 
@@ -51,7 +51,12 @@
 	var/time_spent_in_light
 
 /datum/species/diona/spec_life(mob/living/carbon/human/H)
-	if(H.stat == DEAD)
+	if(H.fire_stacks < 1)
+		H.adjust_fire_stacks(1) //VERY flammable
+	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
+		H.take_overall_damage(1,0)
+	if(H.stat != CONSCIOUS)
+		H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
 		return
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(isturf(H.loc)) //else, there's considered to be no light
@@ -69,10 +74,6 @@
 		else
 			H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
 			time_spent_in_light = 0  //No light? Reset the timer.
-	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
-		H.take_overall_damage(1,0)
-	if(H.fire_stacks < 1)
-		H.adjust_fire_stacks(1) //VERY flammable
 
 /datum/species/diona/spec_updatehealth(mob/living/carbon/human/H)
 	var/datum/mind/M = H.mind
@@ -148,11 +149,13 @@
 	if(special)
 		fakeDeath(FALSE, user) //This runs when you are dead.
 		return TRUE
-	if(user.incapacitated())
+	if(user.incapacitated()) //Are we incapacitated right now?
 		return FALSE
 	if(alert("Are we sure we wish to kill ourselves and split into seperated nymphs?",,"Yes", "No") != "Yes")
 		return FALSE
-	if(do_after(user, 5 SECONDS, user, NONE, TRUE))
+	if(do_after(user, 8 SECONDS, user, NONE, TRUE))
+		if(user.incapacitated()) //Second check incase the ability was activated RIGHT as we were being cuffed, and thus now in cuffs when this triggers
+			return FALSE
 		fakeDeath(FALSE, user) //This runs when you manually activate the ability.
 		return TRUE
 
@@ -172,12 +175,12 @@
 		H.dropItemToGround(I, TRUE)
 		I.pixel_x = rand(-10, 10)
 		I.pixel_y = rand(-10, 10)
-	nymph.origin = M
+	nymph.mind = M
 	nymph.old_name = H.real_name
 	nymph.features = H.dna.features
-	if(nymph.origin)
-		nymph.origin.active = 1
-		nymph.origin.transfer_to(nymph) //Move the player's mind to the player nymph
+	if(nymph.mind)
+		nymph.mind.active = 1
+		nymph.mind.transfer_to(nymph) //Move the player's mind to the player nymph
 	H.gib(TRUE, TRUE, FALSE)  //Gib the old corpse with nothing left of use besides limbs
 
 /datum/species/diona/get_species_description()
