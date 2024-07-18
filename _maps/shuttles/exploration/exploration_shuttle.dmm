@@ -9,7 +9,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/west{
+/obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -303,7 +303,7 @@
 /area/shuttle/exploration)
 "K" = (
 /obj/machinery/camera/preset{
-	dir = 5
+	dir = 10
 	},
 /obj/machinery/vendor/exploration,
 /obj/machinery/button/door{

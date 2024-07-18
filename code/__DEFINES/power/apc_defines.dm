@@ -14,9 +14,9 @@
 /// The APCs cover is missing.
 #define APC_COVER_REMOVED 2
 
-// !NOT IMPLEMENTED! APC visuals 
-/// Pixel offset of the APC from the floor turf 
-//#define APC_PIXEL_OFFSET 25
+// APC visuals
+/// Pixel offset of the APC from the floor turf
+#define APC_PIXEL_OFFSET 25
 
 // APC charging status:
 /// The APC is not charging.

@@ -4,7 +4,7 @@
 /obj/item/reagent_containers/food/snacks/breadslice/@SUBTYPES : /obj/item/food/breadslice/@SUBTYPES{@OLD}
 /obj/item/reagent_containers/food/snacks/store/cake : /obj/item/food/cake/plain{@OLD}
 /obj/item/reagent_containers/food/snacks/store/cake/@SUBTYPES : /obj/item/food/cake/@SUBTYPES{@OLD}
-/obj/item/reagent_containers/food/snacks/cakeslice : /obj/item/reagent_containers/food/snacks/cakeslice/plain{@OLD
+/obj/item/reagent_containers/food/snacks/cakeslice : /obj/item/reagent_containers/food/snacks/cakeslice/plain{@OLD}
 /obj/item/reagent_containers/food/snacks/cakeslice/@SUBTYPES : /obj/item/reagent_containers/food/snacks/cakeslice/@SUBTYPES{@OLD}
 
 /obj/item/reagent_containers/food/snacks/bluecherrycupcake : /obj/item/reagent_containers/food/snacks/cherrycupcake/blue{@OLD}

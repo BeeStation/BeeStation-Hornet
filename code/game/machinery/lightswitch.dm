@@ -11,6 +11,8 @@
 	var/area/area = null
 	var/screwdrivered = FALSE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
+
 /obj/machinery/light_switch/Initialize(mapload)
 	. = ..()
 	if(istext(area))
