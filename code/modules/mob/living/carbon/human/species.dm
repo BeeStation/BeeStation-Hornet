@@ -226,7 +226,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 //Please override this locally if you want to define when what species qualifies for what rank if human authority is enforced.
 /datum/species/proc/qualifies_for_rank(rank, list/features)
-	if(rank in GLOB.command_positions)
+	if(rank in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND))
 		return 0
 	return 1
 

@@ -403,7 +403,7 @@
 		"Science" = "#ffddff",
 		"Security" = "#ffdddd"
 	)
-	var/static/list/department_list = list(GLOB.command_positions) + list(GLOB.engineering_positions) + list(GLOB.supply_positions) + list(GLOB.nonhuman_positions - ROLE_PAI) + list(GLOB.civilian_positions) + list(GLOB.gimmick_positions) + list(GLOB.medical_positions) + list(GLOB.science_positions) + list(GLOB.security_positions)
+	var/static/list/department_list = list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_ENGINEERING)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CARGO)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SILICON) - ROLE_PAI) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CIVILIAN)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_MEDICAL)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SCIENCE)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY))
 
 	var/list/dat = list("<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>")
 	if(SSjob.prioritized_jobs.len > 0)
@@ -429,7 +429,7 @@
 			var/datum/job/job_datum = SSjob.name_occupations[job]
 			if(job_datum && IsJobUnavailable(job_datum.title, TRUE) == JOB_AVAILABLE)
 				var/command_bold = ""
-				if(job in GLOB.command_positions)
+				if(job in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND))
 					command_bold = " command"
 				if(job_datum in SSjob.prioritized_jobs)
 					dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'><span class='priority'>[job_datum.title] ([job_datum.current_positions])</span></a>"
