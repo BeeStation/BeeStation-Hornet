@@ -70,7 +70,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 
 	//Populate traits by material
 	material_traits = list()
-	for(var/datum/xenoartifact_material/material_index in typesof(/datum/xenoartifact_material))
+	for(var/datum/xenoartifact_material/material_index as() in typesof(/datum/xenoartifact_material))
 		if(SSxenoarchaeology.material_traits[initial(material_index.material_parent)])
 			continue
 		var/datum/xenoa_material_traits/material = new()

@@ -270,7 +270,7 @@
 					max_score = T.contribute_calibration ?  max_score + 1 : max_score
 		//Check against label length, for extra labeled traits
 		var/label_length = 0
-		for(var/datum/xenoartifact_trait/T as() in L.traits)
+		for(var/datum/xenoartifact_trait/T as() in L?.traits)
 			if(initial(T.contribute_calibration))
 				label_length += 1
 		if(label_length != max_score)
