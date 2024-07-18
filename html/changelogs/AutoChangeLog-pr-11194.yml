@@ -1,0 +1,10 @@
+author: ro5490
+delete-after: true
+changes:
+  - rscadd: If all Mimites are dead, an announcement plays.
+  - rscadd: If the Mimite event hits 60 minutes and mimites still alive, they stop
+      replicating entirely
+  - tweak: tweaked replication rate of the Mimites, and added a replication limit
+  - balance: Nerfed Mimite health and ambush venom. Remember that they can be scanned
+      with Discovery Scanners and examine can reveal them.
+  - bugfix: fixed a few runtimes regarding Mimites
