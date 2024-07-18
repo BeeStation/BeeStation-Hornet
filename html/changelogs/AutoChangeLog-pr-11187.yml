@@ -1,0 +1,4 @@
+author: ToasterBan
+delete-after: true
+changes:
+  - tweak: stunbatons only shove on disarm intent
