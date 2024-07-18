@@ -24,6 +24,11 @@
 	if(access_to_give)
 		job.base_access += access_to_give
 
+//// ---- RAD STATION ---- ////
+/datum/map_adjustment/RadStation
+	map_file_name = "RadStation.dmm"
+	no_lavaland = TRUE
+
 //// ---- ECHO STATION ---- ////
 /datum/map_adjustment/EchoStation
 	map_file_name = "EchoStation.dmm"
@@ -35,7 +40,6 @@
 		JOB_NAME_GENETICIST,
 		JOB_NAME_PARAMEDIC,
 		JOB_NAME_VIROLOGIST)
-	no_lavaland = TRUE
 
 /datum/map_adjustment/EchoStation/job_change()
 	change_job_position(JOB_NAME_COOK, 1)
