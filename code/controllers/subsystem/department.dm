@@ -84,7 +84,7 @@ SUBSYSTEM_DEF(department)
 		DEPARTMENT_CIVILIAN = "#bbe291",
 		DEPARTMENT_SILICON = "#ccffcc"
 	)
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/department/proc/get_department_by_bitflag(bitflag)
 	for(var/datum/department_group/each_dept in department_type_list)

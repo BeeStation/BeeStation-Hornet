@@ -392,19 +392,6 @@
 */
 
 /mob/dead/new_player/proc/LateChoices()
-	var/static/list/department_order = list( // department order and its dept color
-		"Command" = "#ddddff",
-		"Engineering" = "#ffeeaa",
-		"Supply"= "#d7b088",
-		"Silicon" = "#ccffcc",
-		"Civilian"= "#bbe291",
-		"Gimmick" = "#dddddd",
-		"Medical" = "#c1e1ec",
-		"Science" = "#ffddff",
-		"Security" = "#ffdddd"
-	)
-	var/static/list/department_list = list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_ENGINEERING)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CARGO)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SILICON) - ROLE_PAI) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CIVILIAN)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_MEDICAL)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SCIENCE)) + list(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY))
-
 	var/list/dat = list("<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>")
 	if(SSjob.prioritized_jobs.len > 0)
 		dat+="<div class='priority' style='text-align:center'>Jobs in Green have been prioritized by the Head of Personnel.<br>Please consider joining the game as that role.</div>"
@@ -420,24 +407,24 @@
 			SSjob.prioritized_jobs -= prioritized_job
 	dat += "<table><tr><td valign='top'>"
 	var/column_counter = 0
-	for(var/list/category in department_list)
-		var/cat_color = department_order[department_order[column_counter+1]] // color from `department_order`
+	for(var/datum/department_group/each_dept in SSdepartment.get_departments_by_pref_order())
+		var/cat_color = each_dept.dept_colour
 		dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
-		dat += "<legend align='center' style='color: [cat_color]'>[department_order[column_counter+1]]</legend>"
-		var/list/dept_dat = list()
-		for(var/job in category)
+		dat += "<legend align='center' style='color: [cat_color]'>[each_dept.dept_name]</legend>"
+		var/list/valid_jobs = list()
+		for(var/job in each_dept.jobs)
 			var/datum/job/job_datum = SSjob.name_occupations[job]
 			if(job_datum && IsJobUnavailable(job_datum.title, TRUE) == JOB_AVAILABLE)
 				var/command_bold = ""
-				if(job in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND))
+				if(each_dept.dept_id == DEPARTMENT_COMMAND || (job in each_dept.leaders))
 					command_bold = " command"
 				if(job_datum in SSjob.prioritized_jobs)
-					dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'><span class='priority'>[job_datum.title] ([job_datum.current_positions])</span></a>"
+					valid_jobs += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'><span class='priority'>[job_datum.title] ([job_datum.current_positions])</span></a>"
 				else
-					dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[job_datum.title] ([job_datum.current_positions])</a>"
-		if(!dept_dat.len)
-			dept_dat += "<span class='nopositions'>No positions open.</span>"
-		dat += jointext(dept_dat, "")
+					valid_jobs += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[job_datum.title] ([job_datum.current_positions])</a>"
+		if(!valid_jobs.len)
+			valid_jobs += "<span class='nopositions'>No positions open.</span>"
+		dat += jointext(valid_jobs, "")
 		dat += "</fieldset><br>"
 		column_counter++
 		if(column_counter > 0 && (column_counter % 3 == 0))
