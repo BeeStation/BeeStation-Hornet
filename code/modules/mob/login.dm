@@ -2,10 +2,10 @@
   * Run when a client is put in this mob or reconnets to byond and their client was on this mob
   *
   * Things it does:
-  * * call set_eye() to manually manage atom/list/eye_users
   * * Adds player to player_list
   * * sets lastKnownIP
   * * sets computer_id
+  * * call set_eye() to manually manage atom/list/eye_users
   * * logs the login
   * * tells the world to update it's status (for player count)
   * * create mob huds for the mob if needed
@@ -24,18 +24,20 @@
   * * attaches the ash listener element so clients can hear weather
   */
 /mob/Login()
-	// set_eye() is important here, because your eye doesn't know if you're using them as your eye
-	// FALSE when weakref doesn't exist, to prevent using their current eye
-	if(!real_eye)
-		reset_perspective()
-	client.set_eye(real_eye, client.eye_weakref?.resolve() || CLIENT_OLD_EYE_NULL)
 	add_to_player_list()
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
 	log_access("Mob Login: [key_name(src)] was assigned to a [type]")
 	world.update_status()
+
+	// eye, hud, images
 	client.screen = list()				//remove hud items just in case
 	client.images = list()
+	// set_eye() is important here, because your eye doesn't know if you're using them as your eye
+	// FALSE when weakref doesn't exist, to prevent using their current eye
+	if(!real_eye)
+		reset_perspective()
+	client.set_eye(real_eye, client.eye_weakref?.resolve() || CLIENT_OLD_EYE_NULL)
 
 	if(!hud_used)
 		create_mob_hud()

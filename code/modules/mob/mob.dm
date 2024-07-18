@@ -441,6 +441,11 @@
 
 // Do not port TG version.
 /mob/proc/reset_perspective(atom/new_eye)
+	// somewhat tricky. If no client ever used this mob as their eye, this proc is not necessary.
+	// This is necessary because we don't want N number of mobs having 'eye_mobs = list(src)'. not necessary.
+	if(isnull(lastKnownIP))
+		return
+
 	if(client && client.perspective != EYE_PERSPECTIVE)
 		stack_trace("something changed client's eye perspective. Current: [client.perspective]")
 		client.perspective = EYE_PERSPECTIVE

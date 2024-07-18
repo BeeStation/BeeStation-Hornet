@@ -87,7 +87,7 @@
 		eyeobj.invisibility = INVISIBILITY_ABSTRACT
 	if(current_user && eyeobj) // indent is correct: transfer ghosts when nobody uses
 		eyeobj.return_observers() // send ghosts back to their original orbit
-		eyeobj.transfer_observers_to(user) // if a ghost started observing an eye at first, the return proc won't work.
+		eyeobj.transfer_observers_to(current_user) // if a ghost started observing an eye at first, the return proc won't work.
 
 /obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
 	if(off_action)
@@ -111,7 +111,7 @@
 		actions += move_down_action
 
 /obj/machinery/proc/remove_eye_control(mob/living/user)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // this should be stated at parent
 	CRASH("[type] does not implement ai eye handling")
 
 /obj/machinery/computer/camera_advanced/remove_eye_control(mob/living/user)
