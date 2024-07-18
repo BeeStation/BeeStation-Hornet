@@ -117,6 +117,7 @@ SUBSYSTEM_DEF(job)
 		occupations += each_job
 		name_occupations[each_job.title] = each_job
 		type_occupations[each_job.type] = each_job
+	SSmapping.map_adjustment?.job_change()
 
 	return 1
 
