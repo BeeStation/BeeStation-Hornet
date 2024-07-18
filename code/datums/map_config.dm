@@ -122,7 +122,7 @@
 		for(var/datum/map_adjustment/each_adjust as anything in subtypesof(/datum/map_adjustment))
 			if(initial(each_adjust.map_file_name) != map_file)
 				continue
-			SSmapping.map_adjustment = new each_adjust() // we call this later
+			SSmapping.map_adjustment = new each_adjust() // we use this later
 			break
 
 	// "map_file": ["Lower.dmm", "Upper.dmm"]

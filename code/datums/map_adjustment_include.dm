@@ -8,4 +8,3 @@
 */
 
 #include "..\..\_maps\map_files\EchoStation\map_adjustment_echo.dm"
-#include "..\..\_maps\map_files\RadStation\map_adjustment_rad.dm"

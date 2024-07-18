@@ -6,19 +6,36 @@
 	/// if TRUE, we won't spawn lavaland
 	var/no_lavaland
 	/// Determines which orbital planet will become the centre of the universe
-	var/central_orbit
+	/// * If not specified, "/datum/orbital_object/z_linked/lavaland" is default
+	var/datum/orbital_object/central_orbit
 
+/datum/map_adjustment/New()
+	. = ..()
+	if(station_planet != central_orbit && (ispath(central_orbit, station_planet) || ispath(station_planet, central_orbit)))
+		stack_trace("It appears map_adjustment values are set incorrectly. station_planet:[station_planet], central_orbit:[central_orbit]")
+		// If you believe this isn't an error, remove this runtime. This is made for failsafe
+		// i.e.) /datum/orbital_object/z_linked/station + /datum/orbital_object/z_linked/station/echo_planet
+
+/// called upon job datum creation. Override this proc to change.
 /datum/map_adjustment/proc/job_change()
 	return
 
+/// * job_name[string/JOB_DEFINES]: 	JOB_NAME macros from jobs.dm
+/// * spawn_positions[number]: 		how many positions of this job will be spawned at roundstart
+/// * total_positions[number, null]: 	how many positions will be available from this map. If not specified, uses spawn_positions.
 /datum/map_adjustment/proc/change_job_position(job_name, spawn_positions, total_positions = null)
+	SHOULD_NOT_OVERRIDE(TRUE)
 	var/datum/job/job = SSjob.GetJob(job_name)
 	if(!job)
 		CRASH("Failed to adjust a job position: [job_name]")
 	job.spawn_positions = spawn_positions
 	job.total_positions = total_positions || spawn_positions
 
+/// * job_name[string/JOB_DEFINES]: 	JOB_NAME macros from jobs.dm
+/// * access_to_give[number, list, null]:		which access this job will additionally be given
+/// * access_to_remove[number, list, null]:
 /datum/map_adjustment/proc/change_job_access(job_name, list/access_to_give = null, list/access_to_remove = null) // it's fine not to be a list
+	SHOULD_NOT_OVERRIDE(TRUE)
 	var/datum/job/job = SSjob.GetJob(job_name)
 	if(!job)
 		CRASH("Failed to adjust a job position: [job_name]")
