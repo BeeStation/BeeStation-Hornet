@@ -76,7 +76,7 @@
 /mob/living/simple_animal/hostile/mimite/Initialize()
 	. = ..()
 	AddElement(/datum/element/point_of_interest)
-	LAZYADD(GLOB.all_mimites, src)
+	GLOB.all_mimites += src
 	var/image/I = image(icon = 'icons/mob/hud.dmi', icon_state = "hudcultist", layer = DATA_HUD_PLANE, loc = src)
 	I.alpha = 200
 	I.appearance_flags = RESET_ALPHA
@@ -308,7 +308,7 @@
 	..()
 
 /mob/living/simple_animal/hostile/mimite/Destroy()
-	LAZYREMOVE(GLOB.all_mimites, src)
+	GLOB.all_mimites -= src
 	..()
 
 /mob/living/simple_animal/hostile/mimite/crate
