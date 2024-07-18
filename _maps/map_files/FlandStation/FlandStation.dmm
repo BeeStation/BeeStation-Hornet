@@ -17132,19 +17132,8 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "ewK" = (
-/obj/machinery/power/apc/auto_name/west{
-	pixel_x = -24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
 /obj/effect/turf_decal/trimline/purple/filled/end{
 	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/chair{
 	dir = 4
@@ -22192,7 +22181,7 @@
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/noslip/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "fGg" = (
 /obj/structure/chair/fancy/sofa/old/left{
@@ -23887,7 +23876,7 @@
 /obj/structure/closet/bombcloset/white,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/noslip/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "gbz" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
@@ -26914,51 +26903,20 @@
 /turf/open/floor/iron/grid/steel,
 /area/science/mixing)
 "gNT" = (
-/obj/machinery/button/door{
-	id = "telelab";
-	name = "Test Chamber Toggle";
-	pixel_y = 24
-	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -22
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/table/reinforced,
 /obj/effect/loot_jobscale/medical/first_aid_kit,
 /obj/item/clothing/neck/stethoscope,
-/obj/item/healthanalyzer,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/button/door{
 	id = "telelab";
 	name = "Test Chamber Toggle";
 	pixel_y = 24
 	},
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/pen{
-	pixel_x = 8;
-	pixel_y = 5
-	},
-/obj/item/folder{
-	pixel_x = -6
-	},
-/obj/effect/turf_decal/bot,
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -22
 	},
-/obj/item/storage/box/beakers{
-	pixel_y = 5
-	},
-/turf/open/floor/noslip/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "gNU" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
@@ -29975,7 +29933,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/item/paicard,
 /obj/item/book/manual/wiki/xenoarchaeology,
-/turf/open/floor/noslip/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "hFg" = (
 /obj/structure/sign/plaques/deempisi{
@@ -34935,11 +34893,6 @@
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
 "iLY" = (
-/obj/machinery/camera{
-	c_tag = "Science - Experimentation Lab";
-	name = "science camera";
-	network = list("ss13","rd")
-	},
 /obj/machinery/requests_console{
 	department = "Science";
 	departmentType = 2;
@@ -34947,10 +34900,6 @@
 	pixel_y = 30;
 	receive_ore_updates = 1
 	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
@@ -34959,16 +34908,8 @@
 /obj/item/analyzer{
 	pixel_x = -9
 	},
-/obj/item/multitool{
-	pixel_x = -1
-	},
 /obj/item/geiger_counter{
 	pixel_x = 5
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Science - Experimentation Lab";
@@ -34977,20 +34918,12 @@
 	},
 /obj/item/hand_labeler,
 /obj/item/stack/package_wrap,
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science RC";
-	pixel_y = 30;
-	receive_ore_updates = 1
-	},
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/geiger_counter,
 /obj/item/multitool,
 /obj/structure/table/reinforced,
-/turf/open/floor/noslip/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "iLZ" = (
 /obj/structure/disposalpipe/sorting/mail{
@@ -59677,11 +59610,6 @@
 /area/vacant_room/office)
 "phZ" = (
 /obj/structure/lattice/catwalk/over,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/camera/autoname/directional/east{
 	network = list("ss13","rd")
 	},
@@ -90460,7 +90388,7 @@
 	dir = 1
 	},
 /obj/structure/table/reinforced,
-/turf/open/floor/noslip/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "wOA" = (
 /obj/machinery/computer/atmos_control{
@@ -94606,7 +94534,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/noslip/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "xFZ" = (
 /obj/item/bot_assembly/cleanbot,

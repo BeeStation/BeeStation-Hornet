@@ -14491,7 +14491,6 @@
 /turf/open/floor/iron,
 /area/maintenance/starboard)
 "bSv" = (
-/obj/effect/turf_decal/trimline/purple/filled/line,
 /obj/structure/sink{
 	dir = 1
 	},
@@ -14502,6 +14501,9 @@
 	pixel_y = -24
 	},
 /obj/structure/cable/yellow,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 6
+	},
 /turf/open/floor/iron/white,
 /area/science/explab)
 "bSy" = (
@@ -18103,27 +18105,13 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
 "cwa" = (
-/obj/machinery/camera{
-	c_tag = "Club - Aft";
-	dir = 1
-	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -29
 	},
 /obj/machinery/vending/sticker,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Club - Aft"
 	},
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_y = -29
-	},
-/obj/item/clothing/mask/cigarette/pipe,
-/obj/structure/table/wood,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar)
 "cwb" = (
@@ -27397,6 +27385,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/effect/turf_decal/trimline/purple/filled/corner,
 /turf/open/floor/iron/white,
 /area/science/explab)
 "fnM" = (
@@ -57514,18 +57503,12 @@
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
 "qtl" = (
-/obj/effect/turf_decal/trimline/purple/filled/line,
 /obj/machinery/shower{
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/landmark/blobstart,
 /obj/effect/mapping_helpers/make_non_slip,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/item/radio/intercom{
 	pixel_y = -29
 	},
@@ -57534,7 +57517,6 @@
 	network = list("ss13","rd")
 	},
 /obj/machinery/light,
-/obj/effect/turf_decal/trimline/purple/filled/line,
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/iron/white,
 /area/science/explab)
@@ -64528,6 +64510,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/turf_decal/trimline/purple/filled/line,
 /turf/open/floor/iron/white,
 /area/science/explab)
 "sYm" = (
@@ -67008,16 +66991,8 @@
 "tUg" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/xenoarchaeology_machine/calibrator/tutorial,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/camera/autoname{
 	dir = 9
-	},
-/obj/effect/turf_decal/box/corners{
-	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/science/explab)
@@ -72215,9 +72190,11 @@
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "vSM" = (
-/obj/effect/turf_decal/trimline/purple/filled/line,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
+	},
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 10
 	},
 /turf/open/floor/iron/white,
 /area/science/explab)
@@ -72962,24 +72939,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/purple/filled/line,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/regular,
-/obj/item/clothing/neck/stethoscope,
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
 /turf/open/floor/iron/white,
 /area/science/explab)
 "wjj" = (
@@ -78308,6 +78267,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/trimline/purple/filled/corner{
+	dir = 8
 	},
 /turf/open/floor/iron/white,
 /area/science/explab)

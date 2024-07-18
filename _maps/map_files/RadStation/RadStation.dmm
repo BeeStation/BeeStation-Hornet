@@ -24104,7 +24104,6 @@
 	dir = 10;
 	network = list("ss13","rd")
 	},
-/obj/structure/rack,
 /obj/item/storage/firstaid/regular{
 	pixel_x = -3;
 	pixel_y = -3
@@ -24113,22 +24112,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/airalarm/directional/south,
-/obj/machinery/camera/autoname{
-	dir = 5;
-	network = list("ss13","rd")
-	},
 /obj/structure/rack,
-/obj/item/storage/firstaid/regular{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/healthanalyzer,
 /turf/open/floor/iron/white,
 /area/science/explab)
 "hzY" = (
@@ -25103,18 +25087,9 @@
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
 "hNY" = (
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/box/corners,
 /obj/machinery/camera/autoname/directional/east,
 /turf/open/floor/engine,
 /area/science/explab)
@@ -66680,31 +66655,12 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "uSK" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
 /obj/item/paicard,
 /obj/item/book/manual/wiki/xenoarchaeology,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/item/book/manual/wiki/xenoarchaeology,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/clothing/mask/gas,
-/obj/item/multitool,
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"

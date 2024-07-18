@@ -34098,34 +34098,19 @@
 /turf/open/floor/iron,
 /area/maintenance/port/fore)
 "ePs" = (
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/structure/sign/poster/official/xenoarchaeology{
 	pixel_y = -32
 	},
-/obj/item/kirbyplants/random,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/white,
 /obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
 /obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
 	},
 /obj/structure/rack,
 /obj/item/xenoartifact,
-/obj/structure/sign/warning/securearea{
-	pixel_y = -32
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "ePA" = (
@@ -54576,9 +54561,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/structure/bed/dogbed,
 /mob/living/simple_animal/pet/dog/pug{
@@ -58452,14 +58434,11 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "mLi" = (
-/obj/machinery/power/apc/auto_name/west{
-	pixel_x = -24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 1
+	},
+/obj/machinery/newscaster{
+	pixel_x = -32
 	},
 /turf/open/floor/iron/white,
 /area/science/explab)
@@ -65460,11 +65439,6 @@
 "oXL" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/xenoarchaeology_machine/scale,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/camera/autoname/directional/east{
 	network = list("ss13","rd")
 	},
@@ -65621,12 +65595,12 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
 	},
 /turf/open/floor/iron/white,
 /area/science/explab)
@@ -66222,22 +66196,11 @@
 	pixel_y = 32
 	},
 /obj/structure/closet/firecloset,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Science - Experimentation Lab";
 	name = "science camera";
 	network = list("ss13","rd")
 	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 23
-	},
-/obj/structure/closet/radiation,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "plk" = (
@@ -74843,11 +74806,11 @@
 	network = list("ss13","rd")
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/airalarm{
-	pixel_y = 23
-	},
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/airalarm/directional/north{
+	pixel_y = 23
+	},
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "sfI" = (

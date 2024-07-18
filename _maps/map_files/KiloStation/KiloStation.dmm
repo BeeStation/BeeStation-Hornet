@@ -21655,9 +21655,6 @@
 /area/maintenance/solars/port/aft)
 "cqg" = (
 /obj/structure/table,
-/obj/machinery/camera/autoname{
-	dir = 5
-	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
@@ -21679,21 +21676,12 @@
 /obj/item/clothing/glasses/science{
 	pixel_y = 8
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/item/book/manual/wiki/xenoarchaeology{
 	pixel_x = -5;
 	pixel_y = 6
 	},
-/obj/structure/table,
 /obj/machinery/camera/autoname{
 	dir = 10
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 1
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/explab)
