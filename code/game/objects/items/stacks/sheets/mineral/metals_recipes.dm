@@ -50,12 +50,10 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 		new/datum/stack_recipe("fire closet",						/obj/structure/closet/radiation/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 		new/datum/stack_recipe("radiation closet",						/obj/structure/closet/firecloset/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 		new/datum/stack_recipe("tool closet",						/obj/structure/closet/toolcloset/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
-		new/datum/stack_recipe("personal closet",						/obj/structure/closet/secure_closet/personal/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 		new/datum/stack_recipe("wardrobe closet",						/obj/structure/closet/wardrobe/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 		new/datum/stack_recipe("bomb closet",							/obj/structure/closet/bombcloset/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 		)),
 	null, \
-	new/datum/stack_recipe("crate",										/obj/structure/closet/crate, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 	new/datum/stack_recipe("canister",									/obj/machinery/portable_atmospherics/canister, 10, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 	null, \
 	new/datum/stack_recipe("floor tile",								/obj/item/stack/tile/iron, 1, 4, 20), \
