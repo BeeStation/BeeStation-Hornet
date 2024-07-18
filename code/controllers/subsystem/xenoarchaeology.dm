@@ -8,16 +8,13 @@ SUBSYSTEM_DEF(xenoarchaeology)
 
 	//All the traits - before we sort them, semi needed for generation
 	var/list/xenoa_all_traits
-	///All traits indexed by name - We *could* use this for generation too, but let's all just relax and move on
+	///All traits indexed by name, used for labelling stuff
 	var/list/xenoa_all_traits_keyed
 
 	///Names for science sellers & artifacts
 	var/list/xenoa_seller_names
 	var/list/xenoa_seller_dialogue
 	var/list/xenoa_artifact_names
-
-	///Traits, all of them
-	var/datum/xenoa_material_traits/weighted/keyed_traits
 
 	///Whitelist for traits by material type
 	var/list/material_traits
@@ -53,10 +50,6 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	xenoa_all_traits = compile_artifact_weights(/datum/xenoartifact_trait)
 	xenoa_all_traits_keyed = compile_artifact_weights(/datum/xenoartifact_trait, TRUE)
 
-	//Traits associated with weight
-	keyed_traits = new()
-	keyed_traits.compile_artifact_whitelist(/datum/xenoartifact_material)
-
 	//Compatabilities
 	xenoa_item_incompatible = compile_artifact_compatibilties(TRAIT_INCOMPATIBLE_ITEM)
 	xenoa_mob_incompatible = compile_artifact_compatibilties(TRAIT_INCOMPATIBLE_MOB)
@@ -77,11 +70,13 @@ SUBSYSTEM_DEF(xenoarchaeology)
 
 	//Populate traits by material
 	material_traits = list()
-	for(var/i in typesof(/datum/xenoartifact_material))
+	for(var/datum/xenoartifact_material/material_index in typesof(/datum/xenoartifact_material))
+		if(SSxenoarchaeology.material_traits[initial(material_index.material_parent)])
+			continue
 		var/datum/xenoa_material_traits/material = new()
-		material_traits[i] = material
+		material_traits[material_index] = material
 		//Populate datum fields
-		material.compile_artifact_whitelist(i)
+		material.compile_artifact_whitelist(material_index)
 
 /datum/controller/subsystem/xenoarchaeology/Shutdown()
 	. = ..()
@@ -127,26 +122,14 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	for(var/datum/xenoartifact_trait/T as() in temp)
 		if(initial(T.flags) & XENOA_HIDE_TRAIT)
 			continue
+		//Filter out abstract types
+		if(T == /datum/xenoartifact_trait/activator || T == /datum/xenoartifact_trait/minor || T == /datum/xenoartifact_trait/major || T == /datum/xenoartifact_trait/malfunction)
+			continue
 		if(keyed)
 			weighted += list(initial(T.label_name) = (T))
 		else
 			weighted += list((T) = initial(T.rarity)) //The (T) will not work if it is T
 	return weighted
-
-///Compile a blacklist of traits from a given flag/s
-/datum/controller/subsystem/xenoarchaeology/proc/compile_artifact_whitelist(flags)
-	var/list/output = list()
-	for(var/datum/xenoartifact_trait/T as() in xenoa_all_traits)
-		if(initial(T.flags) & XENOA_HIDE_TRAIT)
-			continue
-		if(!ispath(flags))
-			if((initial(T.flags) & flags))
-				output += T
-		else
-			var/datum/xenoartifact_material/M = flags
-			if((initial(T.flags) & initial(M.trait_flags)))
-				output += T
-	return output
 
 ///Compile a list of traits from a given compatability flag/s
 /datum/controller/subsystem/xenoarchaeology/proc/compile_artifact_compatibilties(flags)
@@ -209,45 +192,21 @@ SUBSYSTEM_DEF(xenoarchaeology)
 		if(!(initial(T.flags) & initial(material.trait_flags)))
 			continue
 		//Sort trait into list
-		if(ispath(T, /datum/xenoartifact_trait/activator) && T != /datum/xenoartifact_trait/activator)
-			activators += T
+		if(ispath(T, /datum/xenoartifact_trait/activator))
+			activators[T] = initial(T.rarity)
 			continue
-		if(ispath(T, /datum/xenoartifact_trait/minor) && T != /datum/xenoartifact_trait/minor)
-			minors += T
-			continue
-		if(ispath(T, /datum/xenoartifact_trait/major) && T != /datum/xenoartifact_trait/major)
-			majors += T
-			continue
-		if(ispath(T, /datum/xenoartifact_trait/malfunction) && T != /datum/xenoartifact_trait/malfunction)
-			malfunctions += T
-			continue
-	compiled = TRUE
-
-//Variant for weighting
-/datum/xenoa_material_traits/weighted
-
-/datum/xenoa_material_traits/weighted/compile_artifact_whitelist(datum/xenoartifact_material/material)
-	for(var/datum/xenoartifact_trait/T as() in SSxenoarchaeology.xenoa_all_traits)
-		if(initial(T.flags) & XENOA_HIDE_TRAIT)
-			continue
-		if(!(initial(T.flags) & initial(material.trait_flags)))
-			continue
-		//Sort trait into list
-		if(ispath(T, /datum/xenoartifact_trait/activator) && T != /datum/xenoartifact_trait/activator)
-			activators[T] = initial(T.rarity) //The (T) will not work if it is T
-			continue
-		if(ispath(T, /datum/xenoartifact_trait/minor) && T != /datum/xenoartifact_trait/minor)
+		if(ispath(T, /datum/xenoartifact_trait/minor))
 			minors[T] = initial(T.rarity)
 			continue
-		if(ispath(T, /datum/xenoartifact_trait/major) && T != /datum/xenoartifact_trait/major)
+		if(ispath(T, /datum/xenoartifact_trait/major))
 			majors[T] = initial(T.rarity)
 			continue
-		if(ispath(T, /datum/xenoartifact_trait/malfunction) && T != /datum/xenoartifact_trait/malfunction)
+		if(ispath(T, /datum/xenoartifact_trait/malfunction))
 			malfunctions[T] = initial(T.rarity)
 			continue
 	compiled = TRUE
 
-//Variant for stats, labaler baking
+//Variant for stats, labeler baking
 /datum/xenoa_material_traits/stats
 
 /datum/xenoa_material_traits/stats/compile_artifact_whitelist(datum/xenoartifact_material/material)

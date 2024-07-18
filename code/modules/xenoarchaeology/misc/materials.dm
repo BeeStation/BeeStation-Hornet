@@ -40,20 +40,23 @@
 	///What icon we use in the labeler
 	var/label_icon = "circle"
 
+	///Parent path - Use this if you're making a material subtype and don't change the traits
+	var/material_parent
+
 /datum/xenoartifact_material/proc/get_activators()
-	var/datum/xenoa_material_traits/traits = SSxenoarchaeology.material_traits[type]
+	var/datum/xenoa_material_traits/traits = SSxenoarchaeology.material_traits[material_parent || type]
 	return traits.activators
 
 /datum/xenoartifact_material/proc/get_minors()
-	var/datum/xenoa_material_traits/traits = SSxenoarchaeology.material_traits[type]
+	var/datum/xenoa_material_traits/traits = SSxenoarchaeology.material_traits[material_parent || type]
 	return traits.minors
 
 /datum/xenoartifact_material/proc/get_majors()
-	var/datum/xenoa_material_traits/traits = SSxenoarchaeology.material_traits[type]
+	var/datum/xenoa_material_traits/traits = SSxenoarchaeology.material_traits[material_parent || type]
 	return traits.majors
 
 /datum/xenoartifact_material/proc/get_malfunctions()
-	var/datum/xenoa_material_traits/traits = SSxenoarchaeology.material_traits[type]
+	var/datum/xenoa_material_traits/traits = SSxenoarchaeology.material_traits[material_parent || type]
 	return traits.malfunctions
 
 /datum/xenoartifact_material/proc/get_texture()
