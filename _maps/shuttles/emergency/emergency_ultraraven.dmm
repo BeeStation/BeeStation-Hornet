@@ -523,6 +523,14 @@
 	dir = 4
 	},
 /area/shuttle/escape)
+"hK" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/sign/warning{
+	pixel_y = 32
+	},
+/turf/open/floor/iron/smooth,
+/area/shuttle/escape)
 "hV" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/open/floor/plating,
@@ -740,6 +748,21 @@
 	},
 /turf/open/floor/mineral/silver,
 /area/shuttle/escape)
+"ps" = (
+/obj/effect/turf_decal/tile/neutral/corner_ramp/offset{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/sign/departments/medbay/alt2{
+	pixel_y = -32
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "qd" = (
 /obj/machinery/space_heater,
 /turf/open/floor/plating,
@@ -777,7 +800,7 @@
 "qB" = (
 /obj/effect/turf_decal/tile/neutral/corner_ramp,
 /obj/machinery/holopad,
-/turf/open/floor/iron/dark,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/escape)
 "qL" = (
 /obj/item/clothing/suit/hazardvest{
@@ -962,6 +985,13 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"vr" = (
+/obj/effect/turf_decal/tile/neutral/corner_ramp,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = -32
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "vA" = (
 /obj/structure/table/glass,
 /obj/item/storage/firstaid{
@@ -986,7 +1016,6 @@
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-,
 /obj/machinery/door/poddoor/preopen{
 	id = "escape_cockpit_windows";
 	name = "Cockpit Blast Door"
@@ -1180,6 +1209,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"Aq" = (
+/obj/effect/turf_decal/tile/neutral/corner_ramp{
+	dir = 1
+	},
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/shuttle/escape)
 "Ay" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1311,6 +1346,21 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
+/area/shuttle/escape)
+"Ea" = (
+/obj/effect/turf_decal/tile/neutral/corner_ramp/offset{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = -32
+	},
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Ec" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1545,15 +1595,6 @@
 /obj/machinery/holopad,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"IT" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/corner_ramp{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
 "Jz" = (
 /obj/item/stack/sheet/plastitaniumglass{
 	amount = 20;
@@ -1567,7 +1608,14 @@
 	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/sign/warning{
+	pixel_y = 32
+	},
 /turf/open/floor/iron/smooth,
+/area/shuttle/escape)
+"JD" = (
+/obj/effect/turf_decal/tile/neutral/corner_ramp,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/escape)
 "JU" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -1880,7 +1928,7 @@
 /turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "Pe" = (
-/obj/structure/sign/departments/security{
+/obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = 32
 	},
 /turf/open/floor/iron/dark/side{
@@ -1895,10 +1943,31 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"Pv" = (
+/obj/effect/turf_decal/tile/neutral/corner_ramp/offset{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/catwalk_floor/titanium,
+/area/shuttle/escape)
 "Px" = (
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 5
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"PG" = (
+/obj/effect/turf_decal/tile/neutral/corner_ramp{
+	dir = 1
+	},
+/obj/structure/sign/departments/security{
+	pixel_y = -32
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -1971,6 +2040,9 @@
 	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -2070,6 +2142,16 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"Uf" = (
+/obj/effect/turf_decal/tile/neutral/corner_ramp,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "Ur" = (
 /obj/effect/turf_decal/raven/two,
 /obj/effect/turf_decal/tile/dark_blue/diagonal_edge,
@@ -2090,6 +2172,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/sign/poster/official/moth3{
+	pixel_y = 32
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Vo" = (
@@ -2109,6 +2194,9 @@
 "Vu" = (
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/structure/sign/departments/security{
+	pixel_x = 32
 	},
 /turf/open/floor/iron/dark/side{
 	dir = 8
@@ -2205,6 +2293,14 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/silver,
 /area/shuttle/escape)
+"YD" = (
+/obj/effect/turf_decal/tile/neutral/corner_ramp/offset,
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/catwalk_floor/titanium,
+/area/shuttle/escape)
 "YV" = (
 /obj/effect/turf_decal/raven/four,
 /obj/structure/table/reinforced,
@@ -2240,6 +2336,9 @@
 "ZM" = (
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/structure/sign/departments/security{
+	pixel_x = 32
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -2466,7 +2565,7 @@ bW
 aZ
 zW
 yA
-ez
+JD
 vm
 aw
 bV
@@ -2502,7 +2601,7 @@ ZX
 aZ
 zW
 ez
-vm
+YD
 nb
 aw
 Hh
@@ -2538,7 +2637,7 @@ xE
 aZ
 bB
 qL
-nb
+Pv
 yA
 aw
 aZ
@@ -2574,7 +2673,7 @@ ax
 aZ
 zW
 nb
-yA
+Aq
 ez
 aw
 aZ
@@ -2610,7 +2709,7 @@ xY
 aZ
 zW
 yA
-ez
+JD
 vm
 aw
 bV
@@ -2646,7 +2745,7 @@ sU
 sU
 sU
 SO
-vm
+YD
 nb
 aw
 Hh
@@ -2682,7 +2781,7 @@ aa
 sU
 sc
 vm
-nb
+Pv
 yA
 ep
 aq
@@ -2718,7 +2817,7 @@ sU
 sU
 sU
 rY
-yA
+Aq
 ez
 sU
 sU
@@ -2753,8 +2852,8 @@ sU
 sU
 by
 sU
-IT
-ez
+yA
+JD
 vm
 sU
 aa
@@ -2789,9 +2888,9 @@ TQ
 bQ
 bQ
 sU
-ez
-vm
-nb
+Uf
+YD
+Ea
 zM
 zM
 zM
@@ -2826,8 +2925,8 @@ bQ
 bQ
 Bt
 vm
-nb
-yA
+Pv
+PG
 zM
 Mf
 ag
@@ -2862,7 +2961,7 @@ yG
 bQ
 wE
 nb
-yA
+Aq
 ez
 sU
 wW
@@ -2934,7 +3033,7 @@ Dx
 bQ
 kJ
 ez
-vm
+YD
 nb
 sU
 wW
@@ -2970,8 +3069,8 @@ bQ
 bQ
 Bt
 vm
-nb
-yA
+Pv
+PG
 sU
 Hj
 ML
@@ -3006,8 +3105,8 @@ dX
 dX
 sU
 Rj
-yA
-ez
+Aq
+vr
 sU
 zM
 zM
@@ -3021,7 +3120,7 @@ bw
 bw
 cB
 zM
-zl
+hK
 ae
 Wk
 Gd
@@ -3042,7 +3141,7 @@ sU
 by
 sU
 yA
-ez
+JD
 vm
 sU
 aa
@@ -3078,8 +3177,8 @@ sU
 sU
 sU
 ez
-vm
-nb
+YD
+ps
 sU
 sU
 sU
@@ -3114,7 +3213,7 @@ aa
 sU
 KH
 vm
-nb
+Pv
 yA
 ba
 CN
@@ -3150,7 +3249,7 @@ sU
 sU
 sU
 nb
-yA
+Aq
 ez
 bb
 bg
@@ -3186,7 +3285,7 @@ Md
 vA
 bB
 yA
-ez
+JD
 vm
 bc
 Fs
@@ -3222,7 +3321,7 @@ aZ
 aZ
 bB
 ez
-vm
+YD
 nb
 bS
 Fs
@@ -3258,7 +3357,7 @@ bF
 aZ
 Sf
 vm
-nb
+Pv
 yA
 bS
 Fs
@@ -3294,7 +3393,7 @@ aZ
 aZ
 bB
 nb
-yA
+Aq
 ez
 GM
 Fs
