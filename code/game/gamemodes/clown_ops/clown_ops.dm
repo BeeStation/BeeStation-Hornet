@@ -47,12 +47,6 @@
 /datum/outfit/syndicate/clownop/no_crystals
 	tc = 0
 
-/datum/outfit/syndicate/clownop/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	H.dna.add_mutation(CLOWNMUT)
-
 /datum/outfit/syndicate/clownop/leader
 	name = "Clown Operative Leader - Basic"
 	id = /obj/item/card/id/syndicate/nuke_leader
