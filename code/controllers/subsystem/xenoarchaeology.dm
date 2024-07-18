@@ -77,7 +77,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 
 	//Populate traits by material
 	material_traits = list()
-	for(var/i in xenoartifact_material_weights)
+	for(var/i in typesof(/datum/xenoartifact_material))
 		var/datum/xenoa_material_traits/material = new()
 		material_traits[i] = material
 		//Populate datum fields
@@ -234,16 +234,16 @@ SUBSYSTEM_DEF(xenoarchaeology)
 			continue
 		//Sort trait into list
 		if(ispath(T, /datum/xenoartifact_trait/activator) && T != /datum/xenoartifact_trait/activator)
-			activators += list((T) = initial(T.rarity)) //The (T) will not work if it is T
+			activators[T] = initial(T.rarity) //The (T) will not work if it is T
 			continue
 		if(ispath(T, /datum/xenoartifact_trait/minor) && T != /datum/xenoartifact_trait/minor)
-			minors += list((T) = initial(T.rarity))
+			minors[T] = initial(T.rarity)
 			continue
 		if(ispath(T, /datum/xenoartifact_trait/major) && T != /datum/xenoartifact_trait/major)
-			majors += list((T) = initial(T.rarity))
+			majors[T] = initial(T.rarity)
 			continue
 		if(ispath(T, /datum/xenoartifact_trait/malfunction) && T != /datum/xenoartifact_trait/malfunction)
-			malfunctions += list((T) = initial(T.rarity))
+			malfunctions[T] = initial(T.rarity)
 			continue
 	compiled = TRUE
 
@@ -269,14 +269,14 @@ SUBSYSTEM_DEF(xenoarchaeology)
 				SSxenoarchaeology.labeler_tooltip_stats["[initial(T.label_name)]"]["availability"] += list(list("color" = initial(M.material_color), "icon" = initial(M.label_icon)))
 		//Sort trait into list
 		if(ispath(T, /datum/xenoartifact_trait/activator) && T != /datum/xenoartifact_trait/activator)
-			activators += list(initial(T.label_name))
+			activators += initial(T.label_name)
 			continue
 		if(ispath(T, /datum/xenoartifact_trait/minor) && T != /datum/xenoartifact_trait/minor)
-			minors += list(initial(T.label_name))
+			minors += initial(T.label_name)
 			continue
 		if(ispath(T, /datum/xenoartifact_trait/major) && T != /datum/xenoartifact_trait/major)
-			majors += list(initial(T.label_name))
+			majors += initial(T.label_name)
 			continue
 		if(ispath(T, /datum/xenoartifact_trait/malfunction) && T != /datum/xenoartifact_trait/malfunction)
-			malfunctions += list(initial(T.label_name))
+			malfunctions += initial(T.label_name)
 			continue
