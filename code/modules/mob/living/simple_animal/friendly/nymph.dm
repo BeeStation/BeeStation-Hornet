@@ -73,6 +73,10 @@
 		switch_ability.Remove(src)
 	return ..(gibbed,death_msg)
 
+/mob/living/simple_animal/nymph/UnarmedAttack(atom/A, proximity)
+	melee_damage = 0
+	. = ..()
+
 /mob/living/simple_animal/nymph/attack_animal(mob/living/L)
 	if(is_drone)
 		. = ..()
