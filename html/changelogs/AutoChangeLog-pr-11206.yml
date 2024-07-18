@@ -1,0 +1,5 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: placing lightswitch frame uses the correct pixelshift
+  - bugfix: weird camera thing
