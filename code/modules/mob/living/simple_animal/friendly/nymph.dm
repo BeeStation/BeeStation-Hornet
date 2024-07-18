@@ -24,12 +24,14 @@
 
 	health = 100
 	maxHealth = 100
+	melee_damage = 0
+	attack_sound = 'sound/weapons/slash.ogg'
 	var/can_namepick_as_adult = FALSE
 	var/adult_name = "diona gestalt"
 	var/death_msg = "expires with a pitiful chirrup..."
 
 	var/amount_grown = 0
-	var/max_grown = 200
+	var/max_grown = 250
 	var/time_of_birth
 	var/instance_num
 	var/is_ghost_spawn = FALSE //For if a ghost can become this.
@@ -71,6 +73,20 @@
 		switch_ability.Remove(src)
 	return ..(gibbed,death_msg)
 
+/mob/living/simple_animal/nymph/attack_animal(mob/living/L)
+	if(is_drone)
+		. = ..()
+		return
+	if(istype(src, /mob/living/simple_animal/nymph) && stat != DEAD)
+		if(mind == null) // No RRing fellow nymphs
+			var/mob/living/simple_animal/nymph/M = L
+			M.melee_damage = 50
+			M.amount_grown += 50
+			M.visible_message("<span class='warning'>[L] devours [src]!</span>",
+							  "<span class='warning'> You devour [src]!</span>")
+	. = ..()
+	melee_damage = 0
+
 /mob/living/simple_animal/nymph/spawn_gibs()
 	new /obj/effect/decal/cleanable/insectguts(drop_location())
 	playsound(drop_location(), 'sound/effects/blobattack.ogg', 60, TRUE)
@@ -95,6 +111,8 @@
 /mob/living/simple_animal/nymph/proc/update_progression()
 	if(amount_grown < max_grown)
 		amount_grown++
+	if(amount_grown > max_grown)
+		amount_grown = max_grown
 
 /datum/action/nymph/evolve
 	name = "Evolve"
