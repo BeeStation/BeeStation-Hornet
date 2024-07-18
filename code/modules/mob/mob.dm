@@ -443,7 +443,7 @@
 /mob/proc/reset_perspective(atom/new_eye)
 	// somewhat tricky. If no client ever used this mob as their eye, this proc is not necessary.
 	// This is necessary because we don't want N number of mobs having 'eye_mobs = list(src)'. not necessary.
-	if(isnull(lastKnownIP))
+	if(isnull(computer_id)) // "var/lastKnownIP" doesn't work for debug environment
 		return
 
 	if(client && client.perspective != EYE_PERSPECTIVE)
