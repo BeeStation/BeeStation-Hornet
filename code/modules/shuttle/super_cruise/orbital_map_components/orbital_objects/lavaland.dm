@@ -11,4 +11,5 @@
 /datum/orbital_object/z_linked/lavaland/New()
 	. = ..()
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
-	linked_map.center = src
+	if(!linked_map.center) // only if there's no centre of the universe
+		linked_map.center = src

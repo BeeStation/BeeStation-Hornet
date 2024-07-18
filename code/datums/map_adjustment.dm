@@ -4,6 +4,8 @@
 	var/list/blacklisted_jobs
 	/// if TRUE, we won't spawn lavaland
 	var/no_lavaland
+	/// Determines which orbital planet will become the centre of the universe
+	var/central_orbit
 
 /datum/map_adjustment/proc/job_change()
 	return
@@ -28,10 +30,13 @@
 /datum/map_adjustment/RadStation
 	map_file_name = "RadStation.dmm"
 	no_lavaland = TRUE
+	central_orbit = /datum/orbital_object/z_linked/station
 
 //// ---- ECHO STATION ---- ////
 /datum/map_adjustment/EchoStation
 	map_file_name = "EchoStation.dmm"
+	no_lavaland = TRUE
+	central_orbit = /datum/orbital_object/z_linked/station
 	blacklisted_jobs = list(
 		JOB_NAME_ATMOSPHERICTECHNICIAN,
 		JOB_NAME_BARTENDER,

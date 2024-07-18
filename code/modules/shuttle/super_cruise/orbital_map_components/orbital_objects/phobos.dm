@@ -7,14 +7,8 @@
 	render_mode = RENDER_MODE_PLANET
 	priority = 20
 
-/datum/orbital_object/z_linked/phobos/New()
-	. = ..()
-	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
-	if(SSmapping.map_adjustment?.no_lavaland) // we have no lavaland. we're the center of this universe
-		linked_map.center = src
-
 /datum/orbital_object/z_linked/phobos/post_map_setup()
 	//Orbit around the systems sun
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
-	if(linked_map.center != src) // we don't orbit ourselves (when no_lavaland)
+	if(linked_map.center != src) // we don't orbit ourselves
 		set_orbitting_around_body(linked_map.center, 3800)
