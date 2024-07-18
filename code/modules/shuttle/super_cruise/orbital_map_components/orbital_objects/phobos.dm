@@ -10,5 +10,4 @@
 /datum/orbital_object/z_linked/phobos/post_map_setup()
 	//Orbit around the systems sun
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
-	if(linked_map.center != src) // we don't orbit ourselves
-		set_orbitting_around_body(linked_map.center, 3800)
+	set_orbitting_around_body(linked_map.center, 3800)

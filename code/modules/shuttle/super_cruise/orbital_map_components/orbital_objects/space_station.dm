@@ -31,5 +31,4 @@
 /datum/orbital_object/z_linked/station/post_map_setup()
 	//Orbit around the system center
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
-	if(linked_map.center != src) // we don't orbit ourselves
-		set_orbitting_around_body(linked_map.center, 2500)
+	set_orbitting_around_body(linked_map.center, 2500)

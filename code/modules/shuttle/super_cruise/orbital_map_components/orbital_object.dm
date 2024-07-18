@@ -290,6 +290,8 @@
 /datum/orbital_object/proc/set_orbitting_around_body(datum/orbital_object/target_body, orbit_radius = 10, force = FALSE)
 	if(orbitting && !force)
 		return
+	if(target_body == src) // we don't orbit ourselves
+		return
 	var/prev_x = position.x
 	var/prev_y = position.y
 	orbitting = TRUE
