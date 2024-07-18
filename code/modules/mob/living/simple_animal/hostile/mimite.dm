@@ -378,3 +378,8 @@
 	minimum_distance = 1
 	melee_queue_distance = 1
 	projectiletype = /obj/projectile/beam/disabler
+
+
+#undef MIMITE_COOLDOWN
+#undef MIMITE_VENT_COOLDOWN
+#undef MIMITE_STUCK_THRESHOLD
