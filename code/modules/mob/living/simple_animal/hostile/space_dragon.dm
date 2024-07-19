@@ -414,18 +414,22 @@
 		overlay.appearance_flags = RESET_COLOR
 		add_overlay(overlay)
 	playsound(src, 'sound/effects/gravhit.ogg', 100, TRUE)
+	var/list/candidates_flung = list()
 	for (var/turf/epicenter in view(1, usr.loc))
 		if(istype(epicenter, /turf/closed)) //Gusts dont go through walls.
 			continue
-		for (var/mob/living/candidate in view(gust_distance, epicenter))
-			if(candidate == src || candidate.faction_check_mob(src))
+		for (var/mob/living/mob in view(gust_distance, epicenter))
+			if(mob == src || mob.faction_check_mob(src))
 				continue
-			visible_message("<span class='boldwarning'>[candidate] is knocked back by the gust!</span>")
-			to_chat(candidate, "<span class='userdanger'>You're knocked back by the gust!</span>")
-			var/dir_to_target = get_dir(get_turf(src), get_turf(candidate))
-			var/throwtarget = get_edge_target_turf(candidate, dir_to_target)
-			candidate.safe_throw_at(throwtarget, 10, 1, src)
-			candidate.Paralyze(50)
+			candidates_flung |= mob
+
+	for(var/mob/living/candidate in candidates_flung)
+		visible_message("<span class='boldwarning'>[candidate] is knocked back by the gust!</span>")
+		to_chat(candidate, "<span class='userdanger'>You're knocked back by the gust!</span>")
+		var/dir_to_target = get_dir(get_turf(src), get_turf(candidate))
+		var/throwtarget = get_edge_target_turf(candidate, dir_to_target)
+		candidate.safe_throw_at(throwtarget, 10, 1, src)
+		candidate.Paralyze(50)
 	addtimer(CALLBACK(src, PROC_REF(reset_status)), 4 + ((tiredness * tiredness_mult) / 10))
 	tiredness = tiredness + (gust_tiredness * tiredness_mult)
 
