@@ -26,6 +26,7 @@
 	health = 100
 	maxHealth = 100
 	melee_damage = 1.5
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	attack_sound = 'sound/weapons/slash.ogg'
 	var/can_namepick_as_adult = FALSE
 	var/adult_name = "diona gestalt"
@@ -68,6 +69,9 @@
 		update_progression()
 	get_stat_tab_status()
 
+/mob/living/simple_animal/hostile/retaliate/nymph/handle_environment(datum/gas_mixture/environment)
+	return
+
 /mob/living/simple_animal/hostile/retaliate/nymph/death(gibbed)
 	evolve_ability.Remove(src)
 	if(is_drone)
@@ -87,8 +91,6 @@
 			var/mob/living/simple_animal/hostile/retaliate/nymph/M = L
 			M.melee_damage = 50
 			M.amount_grown += 50
-			M.visible_message("<span class='warning'>[L] devours [src]!</span>",
-							  "<span class='warning'> You devour [src]!</span>")
 	. = ..()
 	melee_damage = 1.5
 

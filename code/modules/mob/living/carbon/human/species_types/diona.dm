@@ -6,7 +6,7 @@
 	bodyflag = FLAG_DIONA
 	default_color = "59CE00"
 	species_traits = list(MUTCOLORS,EYECOLOR,AGENDER,NOHUSK,NO_DNA_COPY,NOMOUTH,NO_UNDERWEAR,NOSOCKS,NOTRANSSTING,NOEYESPRITES)
-	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE)
+	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
 	default_features = list("diona_leaves" = "None", "diona_thorns" = "None", "diona_flowers" = "None", "diona_moss" = "None", "diona_mushroom" = "None", "diona_antennae" = "None", "body_size" = "Normal", "diona_eyes" = "None", "diona_pbody" = "None")
