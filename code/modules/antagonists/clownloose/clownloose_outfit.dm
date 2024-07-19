@@ -8,7 +8,8 @@
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	head = /obj/item/clothing/head/hats/centhat/james
 	r_hand = /obj/item/gun/magic/staff/honk
-	l_pocket = /obj/item/stack/sheet/mineral/bananium/twenty
+	l_hand = /obj/item/stack/sheet/mineral/bananium/twenty
+	l_pocket = /obj/item/bikehorn/golden
 	r_pocket = /obj/item/reagent_containers/spray/superlube
 	back= /obj/item/storage/backpack/duffelbag/clown/cream_pie
 
