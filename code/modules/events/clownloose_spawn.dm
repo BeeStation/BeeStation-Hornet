@@ -1,6 +1,7 @@
 /datum/round_event_control/clownloose
 	name = "Spawn Loose Clown"
 	typepath = /datum/round_event/ghost_role/clownloose
+	weight = 9999
 	max_occurrences = 1
 	min_players = 20
 	cannot_spawn_after_shuttlecall = TRUE
@@ -22,7 +23,7 @@
 	var/result = spawn_clownloose(landing_turf, candidates, spawned_mobs)
 	if(result != SUCCESSFUL_SPAWN)
 		return result
-	priority_announce("CATCH THAT CLOWN!!! JAMES D. CENTCOM HERE, THAT FUCKING CLOWN ESCAPED FROM OUR PRISON AND STOLE MY HAT. HE JUST DROPPED ON A DROP POD ON YOUR STATION. BRING HIM AND MY HAT BACK!! .", "Security Alert", SSstation.announcer.get_rand_report_sound())
+	priority_announce("CATCH THAT CLOWN!!! JAMES D. CENTCOM HERE, THAT FUCKING CLOWN ESCAPED FROM OUR PRISON AND STOLE MY HAT. HE JUST DROPPED in A DROP POD ON YOUR STATION. BRING HIM AND MY HAT BACK!! .", "Security Alert", SSstation.announcer.get_rand_report_sound())
 	return SUCCESSFUL_SPAWN
 
 /proc/spawn_clownloose(turf/landing_turf, list/candidates, list/spawned_mobs)

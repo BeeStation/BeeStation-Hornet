@@ -6,17 +6,12 @@
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	shoes = /obj/item/clothing/shoes/clown_shoes/banana_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat
-	head = /obj/item/clothing/head/beret/cccaptain
+	head = /obj/item/clothing/head/hats/centhat/james
 	r_hand = /obj/item/gun/magic/staff/honk
-	l_pocket = /obj/item/bikehorn
+	l_pocket = /obj/item/stack/sheet/mineral/bananium/twenty
+	r_pocket = /obj/item/reagent_containers/spray/superlube
 	back= /obj/item/storage/backpack/duffelbag/clown/cream_pie
-	backpack_contents = list(
-		/obj/item/stamp/clown = 1,
-		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/food/grown/banana = 1,
-		/obj/item/instrument/bikehorn = 1,
-		/obj/item/stack/sheet/mineral/bananium/twenty,
-		)
+
 
 	implants = list(/obj/item/implant/sad_trombone)
 
