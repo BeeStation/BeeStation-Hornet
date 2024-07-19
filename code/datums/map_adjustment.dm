@@ -9,13 +9,6 @@
 	/// * If not specified, "/datum/orbital_object/z_linked/lavaland" is default
 	var/datum/orbital_object/central_orbit
 
-/datum/map_adjustment/New()
-	. = ..()
-	if(station_planet != central_orbit && (ispath(central_orbit, station_planet) || ispath(station_planet, central_orbit)))
-		stack_trace("It appears map_adjustment values are set incorrectly. station_planet:[station_planet], central_orbit:[central_orbit]")
-		// If you believe this isn't an error, remove this runtime. This is made for failsafe
-		// i.e.) /datum/orbital_object/z_linked/station + /datum/orbital_object/z_linked/station/echo_planet
-
 /// called upon job datum creation. Override this proc to change.
 /datum/map_adjustment/proc/job_change()
 	return
