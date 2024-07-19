@@ -211,6 +211,10 @@
 	QDEL_NULL(src)
 	organ_owner.update_body()
 
+/obj/item/organ/nymph_organ/transfer_to_limb(obj/item/bodypart/LB, mob/living/carbon/C)
+	Remove(C, FALSE)
+	forceMove(LB)
+
 /obj/item/organ/nymph_organ/r_arm
 	zone = BODY_ZONE_R_ARM
 	slot = ORGAN_SLOT_R_ARM_NYMPH
