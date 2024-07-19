@@ -1,12 +1,13 @@
 // This code is for dionae nymphs that get spread out in the room when a diona dies. One is player controlled.
 
-/mob/living/simple_animal/nymph
+/mob/living/simple_animal/hostile/retaliate/nymph
 	name = "diona nymph"
 	desc = "Is that a plant?"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "nymph"
 	icon_living = "nymph"
 	icon_dead = "nymph_dead"
+	faction = list("diona")
 	gender = NEUTER
 	gold_core_spawnable = FRIENDLY_SPAWN
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -24,7 +25,7 @@
 
 	health = 100
 	maxHealth = 100
-	melee_damage = 0
+	melee_damage = 1.5
 	attack_sound = 'sound/weapons/slash.ogg'
 	var/can_namepick_as_adult = FALSE
 	var/adult_name = "diona gestalt"
@@ -42,7 +43,7 @@
 	var/datum/action/nymph/SwitchFrom/switch_ability //The ability to switch back to the parent diona as a drone.
 	var/list/features = list()
 
-/mob/living/simple_animal/nymph/Initialize()
+/mob/living/simple_animal/hostile/retaliate/nymph/Initialize()
 	. = ..()
 	time_of_birth = world.time
 	add_verb(/mob/living/proc/lay_down)
@@ -54,48 +55,48 @@
 	regenerate_icons()
 	ADD_TRAIT(src, TRAIT_MUTE, "nymph")
 
-/mob/living/simple_animal/nymph/get_stat_tab_status()
+/mob/living/simple_animal/hostile/retaliate/nymph/get_stat_tab_status()
 	var/list/tab_data = ..()
 	tab_data["Health"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
 	if(!is_drone)
 		tab_data["Growth"] = GENERATE_STAT_TEXT("[(round(amount_grown / max_grown * 100))]%")
 	return tab_data
 
-/mob/living/simple_animal/nymph/Life(delta_time, times_fired)
+/mob/living/simple_animal/hostile/retaliate/nymph/Life(delta_time, times_fired)
 	. = ..()
 	if(!is_drone)
 		update_progression()
 	get_stat_tab_status()
 
-/mob/living/simple_animal/nymph/death(gibbed)
+/mob/living/simple_animal/hostile/retaliate/nymph/death(gibbed)
 	evolve_ability.Remove(src)
 	if(is_drone)
 		switch_ability.Remove(src)
 	return ..(gibbed,death_msg)
 
-/mob/living/simple_animal/nymph/UnarmedAttack(atom/A, proximity)
-	melee_damage = 0
+/mob/living/simple_animal/hostile/retaliate/nymph/UnarmedAttack(atom/A, proximity)
+	melee_damage = 1.5
 	. = ..()
 
-/mob/living/simple_animal/nymph/attack_animal(mob/living/L)
+/mob/living/simple_animal/hostile/retaliate/nymph/attack_animal(mob/living/L)
 	if(is_drone)
 		. = ..()
 		return
-	if(istype(src, /mob/living/simple_animal/nymph) && stat != DEAD)
+	if(istype(src, /mob/living/simple_animal/hostile/retaliate/nymph) && stat != DEAD)
 		if(mind == null) // No RRing fellow nymphs
-			var/mob/living/simple_animal/nymph/M = L
+			var/mob/living/simple_animal/hostile/retaliate/nymph/M = L
 			M.melee_damage = 50
 			M.amount_grown += 50
 			M.visible_message("<span class='warning'>[L] devours [src]!</span>",
 							  "<span class='warning'> You devour [src]!</span>")
 	. = ..()
-	melee_damage = 0
+	melee_damage = 1.5
 
-/mob/living/simple_animal/nymph/spawn_gibs()
+/mob/living/simple_animal/hostile/retaliate/nymph/spawn_gibs()
 	new /obj/effect/decal/cleanable/insectguts(drop_location())
 	playsound(drop_location(), 'sound/effects/blobattack.ogg', 60, TRUE)
 
-/mob/living/simple_animal/nymph/attack_ghost(mob/dead/observer/user)
+/mob/living/simple_animal/hostile/retaliate/nymph/attack_ghost(mob/dead/observer/user)
 	if(client || key || ckey)
 		to_chat(user, "<span class='warning'>\The [src] already has a player.")
 		return
@@ -107,12 +108,12 @@
 		return FALSE
 	if(QDELETED(src) || QDELETED(user) || !user.client)
 		return
-	var/mob/living/simple_animal/nymph/newnymph = src
+	var/mob/living/simple_animal/hostile/retaliate/nymph/newnymph = src
 	newnymph.key = user.key
 	newnymph.unique_name = TRUE
 	to_chat(newnymph, "<span class='boldwarning'>Remember that you have forgotten all of your past lives and are a new person!</span>")
 
-/mob/living/simple_animal/nymph/proc/update_progression()
+/mob/living/simple_animal/hostile/retaliate/nymph/proc/update_progression()
 	if(amount_grown < max_grown)
 		amount_grown++
 	if(amount_grown > max_grown)
@@ -127,7 +128,7 @@
 
 /datum/action/nymph/evolve/Trigger()
 	. = ..()
-	var/mob/living/simple_animal/nymph/user = owner
+	var/mob/living/simple_animal/hostile/retaliate/nymph/user = owner
 	if(!isnymph(user))
 		return
 	if(user.is_drone)
@@ -147,7 +148,7 @@
 		return FALSE
 
 
-/mob/living/simple_animal/nymph/verb/evolve()
+/mob/living/simple_animal/hostile/retaliate/nymph/verb/evolve()
 	if(stat != CONSCIOUS)
 		return
 
@@ -192,7 +193,7 @@
 
 /datum/action/nymph/SwitchFrom/Trigger(DroneParent)
 	. = ..()
-	var/mob/living/simple_animal/nymph/user = owner
+	var/mob/living/simple_animal/hostile/retaliate/nymph/user = owner
 	if(!isnymph(user))
 		return
 	if(user.movement_type & VENTCRAWLING)
@@ -200,7 +201,7 @@
 		return
 	SwitchFrom(user, DroneParent)
 
-/datum/action/nymph/SwitchFrom/proc/SwitchFrom(mob/living/simple_animal/nymph/user, mob/living/carbon/M)
+/datum/action/nymph/SwitchFrom/proc/SwitchFrom(mob/living/simple_animal/hostile/retaliate/nymph/user, mob/living/carbon/M)
 	var/datum/mind/C = user.mind
 	M = user.drone_parent
 	if(user.stat == CONSCIOUS)

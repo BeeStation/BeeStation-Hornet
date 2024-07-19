@@ -10,7 +10,7 @@
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
 	default_features = list("diona_leaves" = "None", "diona_thorns" = "None", "diona_flowers" = "None", "diona_moss" = "None", "diona_mushroom" = "None", "diona_antennae" = "None", "body_size" = "Normal", "diona_eyes" = "None", "diona_pbody" = "None")
-	inherent_factions = list("plants", "vines")
+	inherent_factions = list("plants", "vines", "diona")
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slice.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
@@ -46,7 +46,7 @@
 	species_r_leg = /obj/item/bodypart/r_leg/diona
 
 	var/datum/action/diona/split/split_ability //All dionae start with this.
-	var/mob/living/simple_animal/nymph/drone = null
+	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = null
 
 	var/time_spent_in_light
 
@@ -127,6 +127,7 @@
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
 	split_ability.Remove(H)
+	QDEL_NULL(split_ability)
 
 /datum/species/diona/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.diona_names)]"
@@ -166,11 +167,15 @@
 	H.death() //Ha ha, we're totally dead right now
 	addtimer(CALLBACK(src, PROC_REF(split), gibbed, H), 5 SECONDS, TIMER_DELETE_ME) //Or are we?
 
-/datum/action/diona/split/proc/split(gibbed, mob/living/carbon/H)
+/datum/action/diona/split/proc/split(gibbed, mob/living/carbon/human/H)
+	var/nymph_spawn_amount = -1 // -1, since this part of the code only spawns the NPC nymphs and we need to remove one for the player nymph.
+	for(var/obj/item/bodypart/BP as anything in H.bodyparts)
+		nymph_spawn_amount++
+	for (var/amount in 1 to nymph_spawn_amount) //Spawn the NPC nymphs
+		new /mob/living/simple_animal/hostile/retaliate/nymph(H.loc)
+
 	var/datum/mind/M = H.mind
-	for (var/amount in 1 to NPC_NYMPH_SPAWN_AMOUNT) //Spawn the NPC nymphs
-		new /mob/living/simple_animal/nymph(H.loc)
-	var/mob/living/simple_animal/nymph/nymph = new(H.loc) //Spawn the player nymph
+	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = new(H.loc) //Spawn the player nymph, including this one, should be six total nymphs
 	for(var/obj/item/I in H.contents) //Drop the player's items on the ground
 		H.dropItemToGround(I, TRUE)
 		I.pixel_x = rand(-10, 10)
@@ -181,7 +186,7 @@
 	if(nymph.mind)
 		nymph.mind.active = 1
 		nymph.mind.transfer_to(nymph) //Move the player's mind to the player nymph
-	H.gib(TRUE, TRUE, FALSE)  //Gib the old corpse with nothing left of use besides limbs
+	H.gib(TRUE, TRUE, TRUE)  //Gib the old corpse with nothing left of use
 
 /datum/species/diona/get_species_description()
 	return "Dionae are the equivalent to a shambling mound of bug-like sentient plants \

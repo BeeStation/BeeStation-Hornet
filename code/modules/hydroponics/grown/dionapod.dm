@@ -6,7 +6,7 @@
 	icon_state = "seed-dionapod"
 	species = "diona"
 	plantname = "Diona Pod"
-	product = /mob/living/simple_animal/nymph
+	product = /mob/living/simple_animal/hostile/retaliate/nymph
 	lifespan = 50
 	endurance = 8
 	maturation = 8
@@ -33,7 +33,7 @@
 	var/obj/machinery/hydroponics/parent = src.loc
 	if(CONFIG_GET(flag/revival_pod_plants) && spawn_nymph)
 		for (var/x in 0 to yield)
-			var/mob/living/simple_animal/nymph/child = new /mob/living/simple_animal/nymph(get_turf(parent))
+			var/mob/living/simple_animal/hostile/retaliate/nymph/child = new /mob/living/simple_animal/hostile/retaliate/nymph(get_turf(parent))
 			child.is_ghost_spawn = TRUE
 	else
 		var/seed_count = 1

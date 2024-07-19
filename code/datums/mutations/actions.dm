@@ -314,7 +314,7 @@
 	base_icon_state = "control"
 	action_icon_state = "control"
 	var/has_drone = FALSE //If the diona has a drone active or not, for their special mutation.
-	var/mob/living/simple_animal/nymph/drone = null
+	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = null
 
 /obj/effect/proc_holder/spell/self/drone/cast(list/targets, mob/user = usr)
 	. = ..()
@@ -326,7 +326,7 @@
 	if(!has_drone)
 		if(do_after(C, 5 SECONDS, C, NONE, TRUE))
 			has_drone = TRUE
-			var/mob/living/simple_animal/nymph/nymph = new(C.loc)
+			var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = new(C.loc)
 			nymph.is_drone = TRUE
 			nymph.drone_parent = C
 			nymph.switch_ability = new
@@ -344,7 +344,7 @@
 		to_chat(C, "Something fucked up, tell the admins and coders to figure out what went wrong!")
 
 
-/obj/effect/proc_holder/spell/self/drone/proc/SwitchTo(mob/living/simple_animal/nymph/drone, mob/living/carbon/M)
+/obj/effect/proc_holder/spell/self/drone/proc/SwitchTo(mob/living/simple_animal/hostile/retaliate/nymph/drone, mob/living/carbon/M)
 	if(drone.stat == DEAD) //sanity check
 		return
 	var/datum/mind/C = M.mind
