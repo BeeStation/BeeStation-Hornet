@@ -1,0 +1,6 @@
+author: Aramix
+delete-after: true
+changes:
+  - code_imp: added a new 'divable' var in closets controlling interaction with skittish
+      trait
+  - tweak: supply pods are now not divable
