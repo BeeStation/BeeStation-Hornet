@@ -55,6 +55,10 @@
 	real_name = name
 	regenerate_icons()
 	ADD_TRAIT(src, TRAIT_MUTE, "nymph")
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/hostile/retaliate/nymph/get_stat_tab_status()
 	var/list/tab_data = ..()
@@ -121,9 +125,20 @@
 	if(amount_grown > max_grown)
 		amount_grown = max_grown
 
+/mob/living/simple_animal/hostile/retaliate/nymph/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	if(isdiona(arrived))
+		var/mob/living/carbon/human/H = arrived
+		playsound(H, 'sound/creatures/venus_trap_hit.ogg', 25, 1)
+		var/list/limbs_to_heal = H.get_missing_limbs()
+		if(!LAZYLEN(limbs_to_heal))
+			return
+		var/healed_limb = pick(limbs_to_heal)
+		H.regenerate_limb(healed_limb)
+		QDEL_NULL(src)
+
 /datum/action/nymph/evolve
 	name = "Evolve"
-	desc = "Evolve into your adult form."
+	desc = "Evolve into your adult form with the help of another nymph."
 	background_icon_state = "bg_default"
 	icon_icon = 'icons/mob/actions/actions_spells.dmi'
 	button_icon_state = "grow"
@@ -139,40 +154,41 @@
 	if(user.movement_type & VENTCRAWLING)
 		to_chat(user, "<span class='danger'>You cannot evolve while in a vent.</span>")
 		return
-
+	if(user.stat != CONSCIOUS)
+		return
 	if(user.amount_grown >= user.max_grown)
 		if(user.incapacitated()) //something happened to us while we were choosing.
 			return
-		user.evolve()
-		return TRUE
+		for(var/mob/living/simple_animal/hostile/retaliate/nymph/helpers in view(1,user.loc))
+			if(helpers.mind != null)
+				continue
+			QDEL_NULL(helpers)
+			playsound(user, 'sound/creatures/venus_trap_death.ogg', 25, 1)
+			user.evolve()
+			return TRUE
+		to_chat(user, "<span class='danger'>You don't have any nymphs around you to help you grow up!</span>") // There is no one around to help you.
 	else
 		to_chat(user, "<span class='danger'>You are not fully grown.</span>")
 		return FALSE
 
 
 /mob/living/simple_animal/hostile/retaliate/nymph/verb/evolve()
-	if(stat != CONSCIOUS)
-		return
-
-	if(amount_grown < max_grown)
-		to_chat(src, "<span class='warning'>You are not fully grown.")
-		return
-	if(src.movement_type & VENTCRAWLING)
-		to_chat(src, "<span class='danger'>You cannot evolve while in a vent.</span>")
-		return
 	if(istype(loc, /obj/item/clothing/head/mob_holder))
 		var/obj/item/clothing/head/mob_holder/L = loc
 		src.loc = L.loc
 		qdel(L)
 
 	src.visible_message(
-		("<span class='warning'>[src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea."),
-		("<span class='warning'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form.")
+		("<span class='warning'>[src] begins to shift and quiver, and after engulfing another nymph, erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea."),
+		("<span class='warning'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients and a friend to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form. Our friends should help with obtaining the rest of our limbs...")
 	)
 
 	var/mob/living/carbon/human/species/diona/adult = new /mob/living/carbon/human/species/diona(src.loc)
 	adult.set_species(SPECIES_DIONA)
 	adult.dna.features = src.features
+	for(var/obj/item/bodypart/body_part in adult.bodyparts) //No limbs for you, small diona.
+		if(istype(body_part, /obj/item/bodypart/l_arm) || istype(body_part, /obj/item/bodypart/r_arm) || istype(body_part, /obj/item/bodypart/l_leg) || istype(body_part, /obj/item/bodypart/r_leg)) // I'm sorry.
+			QDEL_NULL(body_part)
 	adult.update_body()
 	if(!("neutral" in src.faction))
 		adult.faction = src.faction

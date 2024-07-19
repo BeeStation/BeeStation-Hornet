@@ -145,6 +145,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_INCAPACITATED "incapacitated"
 //In some kind of critical condition. Is able to succumb.
 #define TRAIT_CRITICAL_CONDITION "critical-condition"
+// Grants them the ability to move even when without any limbs.
+#define TRAIT_MOBILE "mobile"
 
 //mob traits
 #define TRAIT_BLIND "blind"

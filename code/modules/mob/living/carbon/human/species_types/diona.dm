@@ -124,11 +124,13 @@
 		QDEL_NULL(appendix)
 	split_ability = new
 	split_ability.Grant(H)
+	ADD_TRAIT(H, TRAIT_MOBILE, "diona")
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
 	split_ability.Remove(H)
 	QDEL_NULL(split_ability)
+	REMOVE_TRAIT(H, TRAIT_MOBILE, "diona")
 
 /datum/species/diona/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.diona_names)]"

@@ -620,7 +620,7 @@
 	duration = -1
 	tick_interval = 25
 	alert_type = /atom/movable/screen/alert/status_effect/planthealing
-	examine_text = "<span class='notice'>Your wounds seem to be healing from the light.</span>"
+	examine_text = "<span class='notice'>Their leaves seem to be flourishing in the light!</span>"
 
 /atom/movable/screen/alert/status_effect/planthealing
 	name = "Photosynthesis"

@@ -1206,7 +1206,7 @@
 	var/has_arms = get_num_arms()
 	var/ignore_legs = get_leg_ignore()
 	var/canmove = !HAS_TRAIT(src, TRAIT_IMMOBILIZED) && (has_arms || ignore_legs || has_legs)
-	if(canmove)
+	if(canmove || HAS_TRAIT(src, TRAIT_MOBILE))
 		mobility_flags |= MOBILITY_MOVE
 	else
 		mobility_flags &= ~MOBILITY_MOVE
