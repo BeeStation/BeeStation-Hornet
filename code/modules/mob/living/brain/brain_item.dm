@@ -227,6 +227,7 @@
 /obj/item/organ/brain/diona/Remove(mob/living/carbon/C, special, no_id_transfer, pref_load)
 	if(special)
 		return
+	C.dna.species.spec_death(FALSE, src)
 	QDEL_NULL(src)
 
 /obj/item/organ/brain/positron

@@ -133,6 +133,6 @@
 			owner.toxloss += 5
 
 /obj/item/organ/liver/diona
-	name = "Liverwort"
+	name = "liverwort"
 	desc = "A mass of plant vines and leaves, seeming to be responsible for chemical digestion."
 	icon_state = "diona_liver"

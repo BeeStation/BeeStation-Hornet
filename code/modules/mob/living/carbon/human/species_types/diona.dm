@@ -9,6 +9,7 @@
 	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
+	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
 	default_features = list("diona_leaves" = "None", "diona_thorns" = "None", "diona_flowers" = "None", "diona_moss" = "None", "diona_mushroom" = "None", "diona_antennae" = "None", "body_size" = "Normal", "diona_eyes" = "None", "diona_pbody" = "None")
 	inherent_factions = list("plants", "vines", "diona")
 	attack_verb = "slash"
@@ -187,6 +188,48 @@
 		nymph.mind.active = 1
 		nymph.mind.transfer_to(nymph) //Move the player's mind to the player nymph
 	H.gib(TRUE, TRUE, TRUE)  //Gib the old corpse with nothing left of use
+
+/obj/item/organ/nymph_organ
+	name = "diona nymph"
+	desc = "You should not be seeing this, if you are, please contact a coder."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "nymph"
+
+/obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, pref_load)
+	. = ..()
+	if(istype(organ_owner, /mob/living/carbon/human/dummy) || special)
+		return
+	var/obj/item/bodypart/body_part = organ_owner.get_bodypart(zone)
+	for(var/datum/surgery/organ_manipulation/surgery in organ_owner.surgeries)
+		surgery.Destroy()
+	if(istype(body_part, /obj/item/bodypart/chest)) //Does the same things as removing the brain would, since the torso is what keeps the diona together.
+		organ_owner.dna.species.spec_death(FALSE, src)
+		QDEL_NULL(src)
+		return
+	new /mob/living/simple_animal/hostile/retaliate/nymph(organ_owner.loc)
+	QDEL_NULL(body_part)
+	QDEL_NULL(src)
+	organ_owner.update_body()
+
+/obj/item/organ/nymph_organ/r_arm
+	zone = BODY_ZONE_R_ARM
+	slot = ORGAN_SLOT_R_ARM_NYMPH
+
+/obj/item/organ/nymph_organ/l_arm
+	zone = BODY_ZONE_L_ARM
+	slot = ORGAN_SLOT_L_ARM_NYMPH
+
+/obj/item/organ/nymph_organ/r_leg
+	zone = BODY_ZONE_R_LEG
+	slot = ORGAN_SLOT_R_LEG_NYMPH
+
+/obj/item/organ/nymph_organ/l_leg
+	zone = BODY_ZONE_L_LEG
+	slot = ORGAN_SLOT_L_LEG_NYMPH
+
+/obj/item/organ/nymph_organ/chest
+	zone = BODY_ZONE_CHEST
+	slot = ORGAN_SLOT_CHEST_NYMPH
 
 /datum/species/diona/get_species_description()
 	return "Dionae are the equivalent to a shambling mound of bug-like sentient plants \
