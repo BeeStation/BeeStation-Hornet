@@ -75,6 +75,7 @@
 #define ANTAG_HUD_VALENTINE		37
 #define ANTAG_HUD_HEARTBREAKER	38
 #define ANTAG_HUD_PRISONER		39
+#define ANTAG_HUD_CLOWNLOOSE	40
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

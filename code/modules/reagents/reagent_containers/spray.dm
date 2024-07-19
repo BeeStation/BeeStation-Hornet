@@ -151,6 +151,20 @@
 		user.visible_message("<span class='suicide'>[user] decided life was worth living.</span>")
 		return
 
+//super lube bottle
+/obj/item/reagent_containers/spray/superlube
+	name = "super Lube Bottle"
+	desc = "HENK! A STRONGER VERSION OF LUBE, STAY AWAY FROM THE CLOWN!"
+	volume = 100
+	list_reagents = list(/datum/reagent/lube/superlube = 100)
+	amount_per_transfer_from_this = 3
+	stream_amount = 5
+	current_range = 3
+	spray_range = 3
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "superlube_bottle"
+	item_state = "superlube_bottle"
+
 //spray tan
 /obj/item/reagent_containers/spray/spraytan
 	name = "spray tan"

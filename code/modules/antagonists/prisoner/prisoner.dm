@@ -35,7 +35,7 @@
 /datum/antagonist/prisoner/proc/update_prisoner_icons_added(var/mob/living/carbon/human/prisoner)
 	var/datum/atom_hud/antag/prihud = GLOB.huds[ANTAG_HUD_PRISONER]
 	prihud.join_hud(prisoner)
-	set_antag_hud(prisoner, "prisoner")
+	set_antag_hud(prisoner, "Prisoner")
 
 /datum/antagonist/prisoner/proc/update_prisoner_icons_removed(var/mob/living/carbon/human/prisoner)
 	var/datum/atom_hud/antag/prihud = GLOB.huds[ANTAG_HUD_PRISONER]

@@ -182,11 +182,18 @@
 	return finish_preview_icon(morph_icon)
 
 /datum/role_preference/midround_ghost/prisoner
-	name = "prisoner"
+	name = "Prisoner"
 	description = "You are a Prisoner, sent to the station brig by Nanotrasen. \
 	You have a chance to escape, but be careful, the security officers are on high alert."
 	antag_datum = /datum/antagonist/prisoner
 	preview_outfit = /datum/outfit/prisoner
+
+/datum/role_preference/midround_ghost/clownloose
+	name = "Loose Clown"
+	description = "You are a Loose Clown from Centcom!,you escaped to the station in a drop pod. \
+	You need to escape free in a shuttle or escape pod while keeping the hat you stole from the CentCom Captain."
+	antag_datum = /datum/antagonist/clownloose
+	preview_outfit = /datum/outfit/clownloose
 
 /datum/role_preference/midround_ghost/fugitive
 	name = "Fugitive"
