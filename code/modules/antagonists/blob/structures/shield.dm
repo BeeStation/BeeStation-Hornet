@@ -9,7 +9,7 @@
 	explosion_block = 3
 	point_return = 4
 	atmosblock = TRUE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0, BLEED = 0)
 
 /obj/structure/blob/shield/scannerreport()
 	if(atmosblock)
@@ -27,7 +27,7 @@
 	. = ..()
 	desc = (obj_integrity < (max_integrity * 0.5)) ? "[damaged_desc]" : initial(desc)
 
-/obj/structure/blob/shield/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir)
+/obj/structure/blob/shield/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(. && obj_integrity > 0)
 		atmosblock = obj_integrity < (max_integrity * 0.5)

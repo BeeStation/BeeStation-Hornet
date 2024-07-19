@@ -736,7 +736,8 @@
 /datum/reagent/toxin/heparin/on_mob_life(mob/living/carbon/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.bleed_rate = min(H.bleed_rate + 2, 8)
+		if (!H.is_bleeding())
+			H.add_bleeding(BLEED_SURFACE)
 		H.adjustBruteLoss(1, 0) //Brute damage increases with the amount they're bleeding
 		. = 1
 	return ..() || .
@@ -969,3 +970,8 @@
 	M.silent = max(M.silent, 3)
 	M.confused = max(M.confused, 3)
 	..()
+
+/datum/reagent/toxin/morphvenom/mimite
+	name = "Mimite venom"
+	description = "Deadly venom of a shapeshifting creature."
+	color = "#330063"

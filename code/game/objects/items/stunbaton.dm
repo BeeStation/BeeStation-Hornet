@@ -12,7 +12,7 @@
 	w_class = WEIGHT_CLASS_LARGE
 	item_flags = ISWEAPON
 	attack_verb = list("enforced the law upon")
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0, BLEED = 0)
 
 	var/stunforce = 40
 	var/turned_on = FALSE
@@ -187,13 +187,14 @@
 	target.stuttering = 20
 
 	// Shoving
-	var/shove_dir = get_dir(user.loc, target.loc)
-	var/turf/target_shove_turf = get_step(target.loc, shove_dir)
-	var/mob/living/carbon/human/target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
-	if (target_collateral_human && target_shove_turf != get_turf(user))
-		target.Knockdown(0.5 SECONDS)
-		target_collateral_human.Knockdown(0.5 SECONDS)
-	target.Move(target_shove_turf, shove_dir)
+	if(user.a_intent == INTENT_DISARM)
+		var/shove_dir = get_dir(user.loc, target.loc)
+		var/turf/target_shove_turf = get_step(target.loc, shove_dir)
+		var/mob/living/carbon/human/target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
+		if (target_collateral_human && target_shove_turf != get_turf(user))
+			target.Knockdown(0.5 SECONDS)
+			target_collateral_human.Knockdown(0.5 SECONDS)
+		target.Move(target_shove_turf, shove_dir)
 
 	target.do_stun_animation()
 

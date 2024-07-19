@@ -356,6 +356,7 @@
 	var/uses = 1
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
 	var/datum/action/innate/cult/blood_spell/source
+
 /obj/item/melee/blood_magic/Initialize(mapload, var/spell)
 	. = ..()
 	if(!istype(spell, /datum/action/innate/cult/blood_spell))
@@ -449,6 +450,9 @@
 				C.stuttering += 15
 				C.cultslurring += 15
 				C.Jitter(15)
+				// EMP the radio on your ears
+				if (C.ears)
+					C.ears.emp_act(EMP_LIGHT)
 		else
 			target.visible_message("<span class='warning'>You fail to corrupt [L]'s mind!</span>", \
 									   "<span class='userdanger'>Your mindshield protects you from the heresy of [user]!</span>")
@@ -522,7 +526,7 @@
 								"<span class='userdanger'>[user] begins shaping dark magic shackles around your wrists!</span>")
 		if(do_after(user, 3 SECONDS, C))
 			if(!C.handcuffed)
-				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
+				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
 				C.update_handcuffed()
 				C.silent += 5
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
@@ -687,7 +691,7 @@
 	if(proximity)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
-			if(NOBLOOD in H.dna.species.species_traits)
+			if((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD))
 				to_chat(user,"<span class='warning'>Blood rites do not work on species with no blood!</span>")
 				return
 			if(iscultist(H))

@@ -5,13 +5,15 @@
 	icon_state = "fireaxe"
 	anchored = TRUE
 	density = FALSE
-	armor = list(MELEE = 50,  BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 90, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 50,  BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 90, ACID = 50, STAMINA = 0, BLEED = 0)
 	max_integrity = 150
 	integrity_failure = 0.33
 	layer = ABOVE_WINDOW_LAYER
 	var/locked = TRUE
 	var/open = FALSE
 	var/obj/item/fireaxe/fireaxe
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 
 /obj/structure/fireaxecabinet/Initialize(mapload)
 	. = ..()
@@ -76,7 +78,7 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/fireaxecabinet/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/structure/fireaxecabinet/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	if(open)
 		return
 	. = ..()

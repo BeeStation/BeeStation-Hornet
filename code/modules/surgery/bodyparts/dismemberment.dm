@@ -27,9 +27,7 @@
 	drop_limb()
 
 	C.update_equipment_speed_mods() // Update in case speed affecting item unequipped by dismemberment
-	var/turf/location = C.loc
-	if(istype(location))
-		C.add_splatter_floor(location)
+	C.add_bleeding(BLEED_CRITICAL)
 
 	if(QDELETED(src)) //Could have dropped into lava/explosion/chasm/whatever
 		return TRUE
@@ -61,7 +59,7 @@
 		return FALSE
 	. = list()
 	var/turf/T = get_turf(C)
-	C.add_splatter_floor(T)
+	C.add_bleeding(BLEED_CRITICAL)
 	playsound(get_turf(C), 'sound/misc/splort.ogg', 80, 1)
 	for(var/X in C.internal_organs)
 		var/obj/item/organ/O = X
@@ -180,7 +178,7 @@
 		if(C.handcuffed)
 			C.handcuffed.forceMove(drop_location())
 			C.handcuffed.dropped(C)
-			C.handcuffed = null
+			C.set_handcuffed(null)
 			C.update_handcuffed()
 		if(C.hud_used)
 			var/atom/movable/screen/inventory/hand/R = C.hud_used.hand_slots["[held_index]"]
@@ -198,7 +196,7 @@
 		if(C.handcuffed)
 			C.handcuffed.forceMove(drop_location())
 			C.handcuffed.dropped(C)
-			C.handcuffed = null
+			C.set_handcuffed(null)
 			C.update_handcuffed()
 		if(C.hud_used)
 			var/atom/movable/screen/inventory/hand/L = C.hud_used.hand_slots["[held_index]"]

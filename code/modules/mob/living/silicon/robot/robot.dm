@@ -354,9 +354,6 @@
 	SIGNAL_HANDLER
 	queueAlarm("--- [alarm_type] alarm in [source_area.name] has been cleared.", alarm_type, FALSE)
 
-/mob/living/silicon/robot/restrained(ignore_grab)
-	. = 0
-
 /mob/living/silicon/robot/can_interact_with(atom/A)
 	if (A == modularInterface)
 		return TRUE //bypass for borg tablets
@@ -620,7 +617,7 @@
 	if(stat != DEAD && !(IsUnconscious() || low_power_mode)) //Not dead, not stunned.
 		if(!eye_lights)
 			eye_lights = new()
-		if(last_flashed && last_flashed + 30 SECONDS >= world.time) //We want to make sure last_flashed isn't zero because otherwise roundstart borgs blink for 30 seconds
+		if(last_flashed && last_flashed + FLASHED_COOLDOWN >= world.time) //We want to make sure last_flashed isn't zero because otherwise roundstart borgs blink for 30 seconds
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_fl"
 		else if(lamp_enabled)
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_l"

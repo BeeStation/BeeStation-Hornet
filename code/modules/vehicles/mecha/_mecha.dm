@@ -55,9 +55,12 @@
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	///if we cant use our equipment(such as due to EMP)
 	var/equipment_disabled = FALSE
-	var/obj/item/stock_parts/cell/cell ///Keeps track of the mech's cell
-	var/obj/item/stock_parts/scanning_module/scanmod ///Keeps track of the mech's scanning module
-	var/obj/item/stock_parts/capacitor/capacitor ///Keeps track of the mech's capacitor
+	/// Keeps track of the mech's cell
+	var/obj/item/stock_parts/cell/cell
+	/// Keeps track of the mech's scanning module
+	var/obj/item/stock_parts/scanning_module/scanmod
+	/// Keeps track of the mech's capacitor
+	var/obj/item/stock_parts/capacitor/capacitor
 	///Whether the mechs maintenance protocols are on or off
 	var/construction_state = MECHA_LOCKED
 	///Contains flags for the mecha
@@ -82,7 +85,7 @@
 	///The setting of the valve on the internal tank
 	var/internal_tank_valve = ONE_ATMOSPHERE
 	///The internal air tank obj of the mech
-	var/obj/machinery/portable_atmospherics/canister/internal_tank
+	var/obj/machinery/portable_atmospherics/canister/air/internal_tank
 	///Internal air mix datum
 	var/datum/gas_mixture/cabin_air
 	///The connected air port, if we have one
@@ -93,7 +96,6 @@
 	var/list/trackers = list()
 
 	var/max_temperature = 25000
-
 	///Bitflags for internal damage
 	var/internal_damage = NONE
 	///health percentage below which internal damage is possible
@@ -172,6 +174,7 @@
 	///Bool for whether this mech can only be used on lavaland
 	var/lavaland_only = FALSE
 
+
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
 /obj/item/radio/mech //this has to go somewhere
@@ -229,11 +232,6 @@
 	STOP_PROCESSING(SSobj, src)
 	LAZYCLEARLIST(equipment)
 	assume_air(cabin_air)
-	if(loc)
-		loc.assume_air(cabin_air)
-		air_update_turf()
-	else
-		qdel(cabin_air)
 	cabin_air = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
@@ -535,7 +533,7 @@
 	if(is_currently_ejecting)
 		return
 	var/list/mouse_control = params2list(params)
-	if(isAI(user) && !mouse_control["middle"])//AIs use MMB
+	if(isAI(user) == !mouse_control["middle"])//BASICALLY if a human uses MMB, or an AI doesn't, then do nothing.
 		return
 	if(phasing)
 		to_chat(occupants, "[icon2html(src, occupants)]<span class='warning'>Unable to interact with objects while phasing.</span>")
@@ -581,6 +579,9 @@
 	target.mech_melee_attack(src, user)
 	TIMER_COOLDOWN_START(src, COOLDOWN_MECHA_MELEE_ATTACK, melee_cooldown)
 
+/obj/vehicle/sealed/mecha/proc/on_middlemouseclick(mob/user, atom/target, params)
+	if(isAI(user))
+		on_mouseclick(user, target, params)
 
 //////////////////////////////////
 ////////  Movement procs  ////////
@@ -825,10 +826,21 @@
 			if(!construction_state) //Mech must be in maint mode to allow carding.
 				to_chat(user, "<span class='warning'>[name] must have maintenance protocols active in order to allow a transfer.</span>")
 				return
-			if(!locate(AI) in occupants) //Mech does not have an AI for a pilot
+			var/list/ai_pilots = list()
+			for(var/mob/living/silicon/ai/aipilot in occupants)
+				ai_pilots += aipilot
+			if(!ai_pilots.len) //Mech does not have an AI for a pilot
 				to_chat(user, "<span class='warning'>No AI detected in the [name] onboard computer.</span>")
 				return
-			for(var/mob/living/silicon/ai in occupants)
+			if(ai_pilots.len > 1) //Input box for multiple AIs, but if there's only one we'll default to them.
+				AI = input(user,"Which AI do you wish to card?", "AI Selection") as null|anything in sort_list(ai_pilots)
+			else
+				AI = ai_pilots[1]
+			if(!AI)
+				return
+			if(!(AI in occupants) || !user.Adjacent(src))
+				return //User sat on the selection window and things changed.
+
 			AI.ai_restore_power()//So the AI initially has power.
 			AI.control_disabled = TRUE
 			AI.radio_enabled = FALSE
@@ -1110,6 +1122,7 @@
 /obj/vehicle/sealed/mecha/add_occupant(mob/M, control_flags)
 	RegisterSignal(M, COMSIG_MOB_DEATH, PROC_REF(mob_exit))
 	RegisterSignal(M, COMSIG_MOB_CLICKON, PROC_REF(on_mouseclick))
+	RegisterSignal(M, COMSIG_MOB_MIDDLECLICKON, PROC_REF(on_middlemouseclick)) //For AIs
 	RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(display_speech_bubble))
 	. = ..()
 	update_appearance()
@@ -1117,6 +1130,7 @@
 /obj/vehicle/sealed/mecha/remove_occupant(mob/M)
 	UnregisterSignal(M, COMSIG_MOB_DEATH)
 	UnregisterSignal(M, COMSIG_MOB_CLICKON)
+	UnregisterSignal(M, COMSIG_MOB_MIDDLECLICKON)
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 	M.clear_alert("charge")
 	M.clear_alert("mech damage")

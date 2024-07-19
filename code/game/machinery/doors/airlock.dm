@@ -388,16 +388,18 @@
 		note = null
 		update_icon()
 
-/obj/machinery/door/airlock/Bumped(atom/movable/AM, mob/living/mobs)
+/obj/machinery/door/airlock/Bumped(atom/movable/AM)
 	if(operating)
 		return
 	if(ismecha(AM))
 		var/obj/vehicle/sealed/mecha/mecha = AM
 		if(density)
 			if(mecha.occupants)
-				if(world.time - mobs.last_bumped <= 10)
-					return
-				mobs.last_bumped = world.time
+				//Occupants are a list. Bump vars are stored on mobs, so we check those instead of mecha.occupants
+				for(var/mob/living/mecha_mobs in mecha.occupants)
+					if(world.time - mecha_mobs.last_bumped <= 10)
+						return
+					mecha_mobs.last_bumped = world.time
 			if(locked && (allowed(mecha.occupants) || check_access_list(mecha.operation_req_access)) && aac)
 				aac.request_from_door(src)
 				return
@@ -1426,7 +1428,7 @@
 		log_combat(user, src, message, important = FALSE)
 		add_hiddenprint(user)
 
-/obj/machinery/door/airlock/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/machinery/door/airlock/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(obj_integrity < (0.75 * max_integrity))
 		update_icon()

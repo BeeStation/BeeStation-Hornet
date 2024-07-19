@@ -874,6 +874,10 @@
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted dark anticorner ramp"
 
+/obj/effect/turf_decal/tile/dark
+	name = "dark corner"
+	color = "#0e0f0f"
+
 /// Random tiles
 
 /obj/effect/turf_decal/tile/random // so many colors
