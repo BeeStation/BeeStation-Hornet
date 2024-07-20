@@ -29,18 +29,18 @@
 	return ..()
 
 /datum/antagonist/clownloose/proc/forge_objectives()
-	var/datum/objective/escape/escape = new
+	var/datum/objective/escape/escape = new()
 	escape.owner = owner
 	objectives += escape
-	var/datum/objective/clowncaphat = new
-	clowncaphat.owner = owner
-	objectives += owner
+	var/datum/objective/clowncaphat/objective2 = new()
+	objective2.owner = owner
+	objectives += objective2
 
 /datum/antagonist/clownloose/greet()
 	to_chat(owner, "<span class='big bold'>You are the Loose Clown!</span>")
 	to_chat(owner, "<span class='boldannounce'>You were a clown imprisoned in CentCom, but managed to slip an officer and escaped on a drop pod to another station before getting caught!\
 								 You are wanted for stealing the a captain hat from James D. Centcom, and security in this new station you dropped on will try to catch you.\
-								 Escape in the shuttle or an escape pod witouth getting caught while having the hat. Do not kill anyone. You have more than enough gear to prank everyone and escape being a free clown.</span>")
+								 Escape in the shuttle or an escape pod without getting caught while having the hat. Do not kill anyone. You have more than enough gear to prank everyone and escape being a free clown.</span>")
 	owner.announce_objectives()
 
 /datum/antagonist/clownloose/proc/update_clownloose_icons_added(var/mob/living/carbon/human/clownloose)
