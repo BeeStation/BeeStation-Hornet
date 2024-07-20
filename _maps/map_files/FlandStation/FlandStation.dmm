@@ -2006,6 +2006,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"aBu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "aBw" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -9044,6 +9049,7 @@
 	color = "#742925";
 	dir = 8
 	},
+/obj/effect/landmark/clownloose_spawn,
 /turf/open/floor/carpet,
 /area/hallway/primary/aft)
 "cpH" = (
@@ -22471,6 +22477,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
+"fKg" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/iron,
+/area/crew_quarters/fitness/recreation)
 "fKk" = (
 /obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/delivery,
@@ -76935,6 +76950,20 @@
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hop)
+"tJM" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/iron/dark,
+/area/hallway/primary/starboard)
 "tJY" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -81759,6 +81788,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
+"uSz" = (
+/obj/structure/chair/stool/directional/west,
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "uSM" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/orange,
@@ -118351,7 +118385,7 @@ mse
 sxX
 mRd
 cXO
-kSv
+uSz
 mRd
 fXw
 rkv
@@ -138665,7 +138699,7 @@ wGi
 mJZ
 vjW
 vjW
-vjW
+fKg
 vjW
 fhM
 uso
@@ -139197,7 +139231,7 @@ bXO
 sIe
 mYU
 mQq
-wOR
+aBu
 mEm
 wdn
 poc
@@ -148143,7 +148177,7 @@ hfB
 eXI
 vNw
 llb
-luh
+tJM
 ioe
 joS
 mVm

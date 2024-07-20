@@ -18355,6 +18355,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
+/obj/effect/landmark/clownloose_spawn,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "dHz" = (
@@ -40970,6 +40971,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
+/obj/effect/landmark/clownloose_spawn,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet)
 "nvb" = (
@@ -51947,6 +51949,7 @@
 	dir = 8
 	},
 /obj/machinery/digital_clock/directional/east,
+/obj/effect/landmark/clownloose_spawn,
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
 "shn" = (
@@ -57323,6 +57326,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
+/obj/effect/landmark/clownloose_spawn,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/locker)
 "uog" = (
@@ -61227,6 +61231,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
+/obj/effect/landmark/clownloose_spawn,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit)
 "wfS" = (
@@ -63001,6 +63006,10 @@
 	},
 /turf/open/floor/circuit/telecomms/server,
 /area/quartermaster/exploration_dock)
+"wUE" = (
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/iron,
+/area/hydroponics/garden)
 "wUH" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -81804,7 +81813,7 @@ azF
 oQN
 ett
 aDg
-aAQ
+wUE
 aAQ
 ntl
 loU

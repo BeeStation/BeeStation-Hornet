@@ -33729,6 +33729,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/effect/landmark/clownloose_spawn,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "eIV" = (
@@ -35831,6 +35832,11 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"fsX" = (
+/obj/effect/landmark/clownloose_spawn,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "fto" = (
 /obj/structure/disposalpipe/junction/flip,
 /obj/structure/cable/yellow{
@@ -36923,6 +36929,7 @@
 /area/hallway/primary/starboard)
 "fJG" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/landmark/clownloose_spawn,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness/recreation)
 "fJO" = (
@@ -133084,7 +133091,7 @@ dny
 bYg
 dIb
 bTD
-kEU
+fsX
 luH
 bUf
 bUf

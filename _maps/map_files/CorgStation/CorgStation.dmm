@@ -13739,6 +13739,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/genetics)
+"elp" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 8
+	},
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/grass,
+/area/hallway/primary/fore)
 "elS" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -24447,6 +24455,10 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/iron/dark,
 /area/security/brig)
+"hOM" = (
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/iron/white,
+/area/crew_quarters/toilet)
 "hOQ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
@@ -40687,6 +40699,13 @@
 	},
 /turf/open/floor/iron,
 /area/construction/mining/aux_base)
+"mWe" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/iron,
+/area/maintenance/starboard/aft)
 "mWh" = (
 /obj/structure/transit_tube/curved{
 	dir = 1
@@ -56626,6 +56645,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/effect/landmark/clownloose_spawn,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "slJ" = (
@@ -101576,7 +101596,7 @@ aTr
 dMx
 bDY
 fZv
-hlt
+hOM
 hlt
 hlt
 tlG
@@ -101755,7 +101775,7 @@ anT
 anT
 anT
 jxO
-nXF
+elp
 kuk
 hlu
 sJH
@@ -113647,7 +113667,7 @@ kEd
 sdO
 vJF
 kYV
-mef
+mWe
 eBM
 kfy
 gLw

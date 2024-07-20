@@ -3584,6 +3584,7 @@
 /area/construction/mining/aux_base)
 "aDh" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/clownloose_spawn,
 /turf/open/floor/iron,
 /area/maintenance/central)
 "aDk" = (
@@ -29772,6 +29773,16 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron,
 /area/medical/chemistry)
+"fHi" = (
+/obj/structure/sign/warning/vacuum/external{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "fHk" = (
 /obj/structure/table/reinforced,
 /obj/structure/desk_bell{
@@ -37802,6 +37813,7 @@
 /obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
+/obj/effect/landmark/clownloose_spawn,
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/port)
 "iOQ" = (
@@ -41506,6 +41518,11 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/iron,
 /area/storage/primary)
+"knd" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/toilet/restrooms)
 "knz" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -48964,6 +48981,16 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/mixing)
+"nem" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/iron,
+/area/crew_quarters/fitness/recreation)
 "nep" = (
 /obj/machinery/shieldwallgen/xenobiologyaccess,
 /obj/structure/cable/yellow,
@@ -50409,6 +50436,13 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
+"nJk" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/iron,
+/area/hydroponics/garden)
 "nJv" = (
 /obj/machinery/door/airlock/external{
 	name = "Auxiliary Escape Airlock"
@@ -88660,7 +88694,7 @@ aaa
 aaa
 aaa
 aRA
-btS
+fHi
 aWU
 bOd
 lIZ
@@ -113292,7 +113326,7 @@ aje
 axC
 ayL
 sID
-deG
+knd
 rTX
 deG
 hnz
@@ -114559,7 +114593,7 @@ aaf
 aaa
 acQ
 afv
-agu
+nem
 flb
 fDF
 cHu
@@ -115356,7 +115390,7 @@ aCH
 fBL
 aJh
 aKq
-mhI
+nJk
 aNi
 mlI
 aNi

@@ -14930,6 +14930,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/cobweb,
+/obj/effect/landmark/clownloose_spawn,
 /turf/open/floor/wood{
 	broken = 1
 	},
@@ -35670,6 +35671,7 @@
 	},
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow,
+/obj/effect/landmark/clownloose_spawn,
 /turf/open/floor/wood,
 /area/security/courtroom)
 "lqK" = (
@@ -58454,6 +58456,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
+"svO" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/iron/dark,
+/area/hallway/secondary/exit/departure_lounge)
 "svR" = (
 /obj/machinery/clonepod/prefilled,
 /obj/effect/turf_decal/bot,
@@ -63535,6 +63545,12 @@
 	},
 /turf/open/floor/iron/stairs/left,
 /area/hallway/primary/central)
+"tWZ" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "tXp" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -120165,7 +120181,7 @@ mJb
 wOb
 hSa
 psm
-mXh
+svO
 kyR
 kyR
 kyR
@@ -120368,7 +120384,7 @@ gQs
 gQs
 gQs
 gQs
-gQs
+tWZ
 gQs
 vhZ
 dbP
