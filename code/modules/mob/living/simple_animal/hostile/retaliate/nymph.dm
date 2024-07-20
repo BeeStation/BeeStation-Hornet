@@ -23,6 +23,8 @@
 	hud_type = /datum/hud/nymph
 	butcher_results = list(/obj/item/food/meat/slab/human/mutant/diona = 4)
 
+	var/brute_damage = 0
+	var/fire_damage = 0
 	health = 100
 	maxHealth = 100
 	melee_damage = 1.5
@@ -82,6 +84,14 @@
 		switch_ability.Remove(src)
 	return ..(gibbed,death_msg)
 
+/mob/living/simple_animal/hostile/retaliate/nymph/adjustBruteLoss(amount, updating_health, forced)
+	brute_damage = brute_damage + amount * damage_coeff[BRUTE] * CONFIG_GET(number/damage_multiplier)
+	. = ..()
+
+/mob/living/simple_animal/hostile/retaliate/nymph/adjustFireLoss(amount, updating_health, forced)
+	fire_damage = fire_damage + amount * damage_coeff[BURN] * CONFIG_GET(number/damage_multiplier)
+	. = ..()
+
 /mob/living/simple_animal/hostile/retaliate/nymph/UnarmedAttack(atom/A, proximity)
 	melee_damage = 1.5
 	. = ..()
@@ -128,12 +138,16 @@
 /mob/living/simple_animal/hostile/retaliate/nymph/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	if(isdiona(arrived))
 		var/mob/living/carbon/human/H = arrived
-		playsound(H, 'sound/creatures/venus_trap_hit.ogg', 25, 1)
 		var/list/limbs_to_heal = H.get_missing_limbs()
 		if(!LAZYLEN(limbs_to_heal))
 			return
-		var/healed_limb = pick(limbs_to_heal)
+		playsound(H, 'sound/creatures/venus_trap_hit.ogg', 25, 1)
+		var/obj/item/bodypart/healed_limb = pick(limbs_to_heal)
 		H.regenerate_limb(healed_limb)
+		for(var/obj/item/bodypart/body_part in H.bodyparts)
+			if(body_part.body_zone == healed_limb)
+				body_part.brute_dam = brute_damage
+				body_part.burn_dam = fire_damage
 		QDEL_NULL(src)
 
 /datum/action/nymph/evolve
@@ -162,9 +176,8 @@
 		for(var/mob/living/simple_animal/hostile/retaliate/nymph/helpers in view(1,user.loc))
 			if(helpers.mind != null)
 				continue
-			QDEL_NULL(helpers)
 			playsound(user, 'sound/creatures/venus_trap_death.ogg', 25, 1)
-			user.evolve()
+			user.evolve(helpers)
 			return TRUE
 		to_chat(user, "<span class='danger'>You don't have any nymphs around you to help you grow up!</span>") // There is no one around to help you.
 	else
@@ -172,7 +185,7 @@
 		return FALSE
 
 
-/mob/living/simple_animal/hostile/retaliate/nymph/verb/evolve()
+/mob/living/simple_animal/hostile/retaliate/nymph/verb/evolve(var/mob/living/simple_animal/hostile/retaliate/nymph/helpers)
 	if(istype(loc, /obj/item/clothing/head/mob_holder))
 		var/obj/item/clothing/head/mob_holder/L = loc
 		src.loc = L.loc
@@ -188,7 +201,16 @@
 	adult.dna.features = src.features
 	for(var/obj/item/bodypart/body_part in adult.bodyparts) //No limbs for you, small diona.
 		if(istype(body_part, /obj/item/bodypart/l_arm) || istype(body_part, /obj/item/bodypart/r_arm) || istype(body_part, /obj/item/bodypart/l_leg) || istype(body_part, /obj/item/bodypart/r_leg)) // I'm sorry.
+			for(var/obj/item/organ/nymph_organ/I in body_part)
+				QDEL_NULL(I)
+			body_part.drop_limb()
 			QDEL_NULL(body_part)
+		if(istype(body_part, /obj/item/bodypart/chest))
+			body_part.brute_dam = helpers.brute_damage
+			body_part.burn_dam = helpers.fire_damage
+		if(istype(body_part, /obj/item/bodypart/head))
+			body_part.brute_dam = brute_damage
+			body_part.burn_dam = fire_damage
 	adult.update_body()
 	if(!("neutral" in src.faction))
 		adult.faction = src.faction
@@ -200,6 +222,7 @@
 		mind.transfer_to(adult)
 	else
 		adult.key = src.key
+	QDEL_NULL(helpers)
 	qdel(src)
 
 /datum/action/nymph/SwitchFrom

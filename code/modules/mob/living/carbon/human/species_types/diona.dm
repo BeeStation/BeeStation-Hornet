@@ -171,11 +171,13 @@
 	addtimer(CALLBACK(src, PROC_REF(split), gibbed, H), 5 SECONDS, TIMER_DELETE_ME) //Or are we?
 
 /datum/action/diona/split/proc/split(gibbed, mob/living/carbon/human/H)
-	var/nymph_spawn_amount = -1 // -1, since this part of the code only spawns the NPC nymphs and we need to remove one for the player nymph.
 	for(var/obj/item/bodypart/BP as anything in H.bodyparts)
-		nymph_spawn_amount++
-	for (var/amount in 1 to nymph_spawn_amount) //Spawn the NPC nymphs
-		new /mob/living/simple_animal/hostile/retaliate/nymph(H.loc)
+		if(istype(BP, /obj/item/bodypart/head))
+			continue
+		var/mob/living/simple_animal/hostile/retaliate/nymph/limb_nymph = new /mob/living/simple_animal/hostile/retaliate/nymph(H.loc)
+		limb_nymph.adjustBruteLoss(BP.brute_dam)
+		limb_nymph.adjustFireLoss(BP.burn_dam)
+		limb_nymph.updatehealth()
 
 	var/datum/mind/M = H.mind
 	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = new(H.loc) //Spawn the player nymph, including this one, should be six total nymphs
