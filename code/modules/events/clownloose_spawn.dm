@@ -13,7 +13,7 @@
 
 /datum/round_event/ghost_role/clownloose/spawn_role()
 	var/list/possible_spawns = list()
-	for(var/turf/L in GLOB.prisonspawn)
+	for(var/turf/L in GLOB./obj/effect/landmark/start/assistant)
 		possible_spawns += L
 	if(!length(possible_spawns))
 		message_admins("No valid spawn locations found, aborting...")
@@ -25,6 +25,7 @@
 		return result
 	priority_announce("CATCH THAT CLOWN!!! JAMES D. CENTCOM HERE, THAT FUCKING CLOWN ESCAPED FROM OUR PRISON AND STOLE MY HAT. HE JUST DROPPED in A DROP POD ON YOUR STATION. BRING HIM AND MY HAT BACK!! .", "Security Alert", SSstation.announcer.get_rand_report_sound())
 	return SUCCESSFUL_SPAWN
+	sound_to_playing_players('sound/misc/honk_echo_distant.ogg', 20)
 
 /proc/spawn_clownloose(turf/landing_turf, list/candidates, list/spawned_mobs)
 	var/job_check = 0
@@ -66,3 +67,8 @@
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Loose Clown by an event.")
 	log_game("[key_name(S)] was spawned as a Loose Clown by an event.")
 	return S
+
+/obj/effect/clownloose/Initialize(mapload, user)
+	. = ..()
+	clownloose = user
+	addtimer(CALLBACK(src, PROC_REF(startLaunch)), 100)

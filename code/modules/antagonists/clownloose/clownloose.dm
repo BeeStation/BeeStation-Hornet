@@ -16,6 +16,14 @@
 	var/mob/living/M = mob_override || owner.current
 	update_clownloose_icons_removed(M)
 
+/datum/objective/clowncaphat
+	name = "Keep the Centcom Captain hat."
+	explanation_text = "Have the stolen captain centcom hat on you by the end of the shift. HONK!"
+
+
+/datum/objective/clowncaphat/check_completion()
+	return ..() || owner?.current?.check_contents_for(/obj/item/clothing/head/hats/centhat/james)
+
 /datum/antagonist/clownloose/on_gain()
 	forge_objectives()
 	return ..()
@@ -24,6 +32,9 @@
 	var/datum/objective/escape/escape = new
 	escape.owner = owner
 	objectives += escape
+	var/datum/objective/clowncaphat = new
+	clowncaphat.owner = owner
+	objectives += owner
 
 /datum/antagonist/clownloose/greet()
 	to_chat(owner, "<span class='big bold'>You are the Loose Clown!</span>")

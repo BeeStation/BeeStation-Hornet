@@ -19,10 +19,15 @@
 	box = /obj/item/storage/box/survival/hug
 
 /datum/outfit/clownloose/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
+    ..()
+    if(visualsOnly)
+        return
 
-	H.fully_replace_character_name(H.real_name, pick(GLOB.clown_names))
-	H.dna.add_mutation(CLOWNMUT)
-	ADD_TRAIT(H, TRAIT_NAIVE, JOB_TRAIT)
+    H.fully_replace_character_name(H.real_name, pick(GLOB.clown_names))
+    var/obj/item/card/id/I = H.get_idcard()
+    if(I)
+        I.registered_name = H.real_name
+        I.update_label()
+
+    H.dna.add_mutation(CLOWNMUT)
+    ADD_TRAIT(H, TRAIT_NAIVE, JOB_TRAIT)
