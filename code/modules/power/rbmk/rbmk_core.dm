@@ -212,6 +212,8 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	update_pipenets()
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/Destroy()
+	soundloop.stop()
+	alarmloop.stop()
 	unregister_signals(TRUE)
 	if(linked_input)
 		QDEL_NULL(linked_input)
