@@ -13,7 +13,7 @@
 
 /datum/round_event/ghost_role/clownloose/spawn_role()
 	var/list/possible_spawns = list()
-	for(var/turf/L in GLOB.prisonspawn)
+	for(var/turf/L in GLOB.clownloose_spawn)
 		possible_spawns += L
 	if(!length(possible_spawns))
 		message_admins("No valid spawn locations found, aborting...")
@@ -23,7 +23,7 @@
 	var/result = spawn_clownloose(landing_turf, candidates, spawned_mobs)
 	if(result != SUCCESSFUL_SPAWN)
 		return result
-	priority_announce("CATCH THAT CLOWN!!! JAMES D. CENTCOM HERE, THAT FUCKING CLOWN ESCAPED FROM OUR PRISON AND STOLE MY HAT. HE JUST DROPPED in A DROP POD ON YOUR STATION. BRING HIM AND MY HAT BACK!! .", "Security Alert", SSstation.announcer.get_rand_report_sound())
+	priority_announce("Delta level prisoner has breached CentCom prisons and stolen a high rank officers headwear. Be weary of any potential fugitive onboard. Retrieve the prisoner and the stolen posetion back to CentCom.", "Security Alert", SSstation.announcer.get_rand_report_sound())
 	sound_to_playing_players('sound/misc/honk_echo_distant.ogg', 20)
 	return SUCCESSFUL_SPAWN
 

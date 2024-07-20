@@ -17,8 +17,8 @@
 	update_clownloose_icons_removed(M)
 
 /datum/objective/clowncaphat
-	name = "Keep the Centcom Captain hat."
-	explanation_text = "Have the stolen captain centcom hat on you by the end of the shift. HONK!"
+	name = "Keep the Centcom hat."
+	explanation_text = "Have the stolen  centcom hat on you by the end of the shift. HONK!"
 
 
 /datum/objective/clowncaphat/check_completion()

@@ -359,7 +359,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	GLOB.xeno_spawn += loc
 	return INITIALIZE_HINT_QDEL
 
-//ClownLoose
+//ClownLoose - loose clowns need to spawn in hall areas because they don't have maintenance access so I created their own spawn
 /obj/effect/landmark/clownloose_spawn
 	name = "clownloose_spawn"
 	icon_state = "clownloose_spawn"

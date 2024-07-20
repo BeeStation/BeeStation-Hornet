@@ -193,7 +193,16 @@
 	description = "You are a Loose Clown from Centcom!,you escaped to the station in a drop pod. \
 	You need to escape free in a shuttle or escape pod while keeping the hat you stole from the CentCom Captain."
 	antag_datum = /datum/antagonist/clownloose
-	preview_outfit = /datum/outfit/clownloose
+
+/datum/role_preference/midround_ghost/clownloose/get_preview_icon()
+	var/icon/final_icon = icon('icons/effects/effects.dmi', "nothing")
+	var/icon/foreground = render_preview_outfit(/datum/outfit/clownloose)
+	var/icon/background = icon(foreground)
+	background.Blend(rgb(206, 206, 206, 220), ICON_MULTIPLY)
+
+	final_icon.Blend(foreground, ICON_OVERLAY, 0, 0)
+
+	return finish_preview_icon(final_icon)
 
 /datum/role_preference/midround_ghost/fugitive
 	name = "Fugitive"

@@ -12,10 +12,10 @@
 	strip_delay = 80
 	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
 
-/obj/item/clothing/head/hats/centhat/james
-	name = "James D. CentCom CentCom hat"
+/obj/item/clothing/head/hats/centhat/stolen
+	name = "Stolen Centcom Hat"
 	icon_state = "centcom"
-	desc = "The hat the clown stole from James D. CentCom!."
+	desc = "The hat the clown stole from CentCom!."
 	item_state = "that"
 
 /obj/item/clothing/head/hats/centcom_cap

@@ -6,7 +6,7 @@
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	shoes = /obj/item/clothing/shoes/clown_shoes/banana_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat
-	head = /obj/item/clothing/head/hats/centhat/james
+	head = /obj/item/clothing/head/hats/centhat/stolen
 	r_hand = /obj/item/gun/magic/staff/honk
 	l_hand = /obj/item/stack/sheet/mineral/bananium/twenty
 	l_pocket = /obj/item/bikehorn/golden
