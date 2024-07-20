@@ -138,7 +138,9 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "z" = (
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "A" = (
@@ -161,7 +163,8 @@
 /area/template_noop)
 "F" = (
 /obj/structure/table/wood,
-/obj/machinery/airalarm/directional/west{
+/obj/machinery/airalarm{
+	dir = 4;
 	pixel_x = -23
 	},
 /obj/machinery/light_switch{

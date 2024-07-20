@@ -41,7 +41,7 @@
 			"<span class='danger'>Your veins burst from within and unholy flame erupts from your blood!</span>"
 		)
 
-		victim.add_bleeding(BLEED_DEEP_WOUND)
+		victim.bleed_rate += 5
 		victim.adjustFireLoss(20)
 		new /obj/effect/temp_visual/cleave(victim.drop_location())
 

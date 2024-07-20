@@ -23,7 +23,8 @@
 	pixel_x = -26;
 	unlocked = 1
 	},
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","cargo")
 	},
 /obj/effect/turf_decal/loading_area{

@@ -592,7 +592,6 @@
 	icon_state = "gumball"
 	ammo_type = /obj/item/food/gumball/cyborg
 	nodamage = TRUE
-	bleed_force = 0
 
 /obj/projectile/bullet/reusable/gumball/handle_drop()
 	if(!dropped)
@@ -613,7 +612,6 @@
 	ammo_type = /obj/item/food/lollipop/cyborg
 	var/color2 = rgb(0, 0, 0)
 	nodamage = TRUE
-	bleed_force = 0
 
 /obj/projectile/bullet/reusable/lollipop/Initialize(mapload)
 	. = ..()

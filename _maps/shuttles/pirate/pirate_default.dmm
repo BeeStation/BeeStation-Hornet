@@ -826,8 +826,7 @@
 	pixel_y = -13
 	},
 /obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -1440,8 +1439,8 @@
 	},
 /obj/machinery/shuttle_scrambler,
 /obj/machinery/airalarm/all_access{
-	pixel_y = -24;
-	dir = 1
+	dir = 1;
+	pixel_y = -24
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,

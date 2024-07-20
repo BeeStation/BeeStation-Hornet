@@ -91,7 +91,8 @@
 	pixel_y = 9
 	},
 /obj/structure/closet/crate/internals,
-/obj/machinery/airalarm/directional/west{
+/obj/machinery/airalarm{
+	dir = 4;
 	pixel_x = -22
 	},
 /obj/machinery/light/small,

@@ -225,7 +225,6 @@
 	item_flags = ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = IS_SHARP
-	bleed_force = BLEED_DEEP_WOUND
 
 /obj/item/light_eater/Initialize(mapload)
 	. = ..()

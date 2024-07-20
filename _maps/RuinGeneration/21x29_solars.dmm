@@ -9,16 +9,6 @@
 	},
 /turf/template_noop/open,
 /area/template_noop)
-"d" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/solar{
-	id = "auxsolareast";
-	name = "Port Auxiliary Solar Array"
-	},
-/turf/open/floor/iron/solarpanel/airless,
-/area/template_noop)
 "f" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -120,6 +110,16 @@
 	},
 /turf/template_noop/open,
 /area/template_noop)
+"w" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/solar{
+	id = "auxsolareast";
+	name = "Port Auxiliary Solar Array"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/template_noop)
 "x" = (
 /obj/structure/cable,
 /obj/structure/lattice/catwalk,
@@ -140,13 +140,6 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"D" = (
-/obj/machinery/power/tracker,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/solarpanel/airless,
-/area/template_noop)
 "E" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -200,14 +193,14 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"M" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
+"L" = (
+/obj/structure/cable,
+/obj/machinery/power/solar{
+	id = "auxsolareast";
+	name = "Port Auxiliary Solar Array"
 	},
-/obj/machinery/power/smes,
-/obj/machinery/camera/autoname/directional/south,
-/turf/open/floor/plating,
-/area/ruin/unpowered)
+/turf/open/floor/iron/solarpanel/airless,
+/area/template_noop)
 "N" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -218,6 +211,23 @@
 "O" = (
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"P" = (
+/obj/machinery/power/tracker,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/template_noop)
+"S" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/smes,
+/obj/machinery/camera/autoname{
+	dir = 1
+	},
+/turf/open/floor/plating,
 /area/ruin/unpowered)
 "U" = (
 /obj/structure/cable{
@@ -232,14 +242,6 @@
 /obj/structure/grille,
 /obj/structure/lattice,
 /turf/template_noop/open,
-/area/template_noop)
-"X" = (
-/obj/structure/cable,
-/obj/machinery/power/solar{
-	id = "auxsolareast";
-	name = "Port Auxiliary Solar Array"
-	},
-/turf/open/floor/iron/solarpanel/airless,
 /area/template_noop)
 "Z" = (
 /obj/structure/chair/stool{
@@ -380,17 +382,17 @@ q
 q
 W
 q
-d
+w
 n
-X
+L
 q
-d
+w
 n
-X
+L
 q
-d
+w
 n
-X
+L
 q
 W
 z
@@ -411,17 +413,17 @@ q
 q
 W
 z
-d
+w
 v
-X
+L
 q
-d
+w
 v
-X
+L
 q
-d
+w
 v
-X
+L
 z
 z
 q
@@ -442,17 +444,17 @@ q
 q
 W
 q
-d
+w
 v
-X
+L
 z
-d
+w
 v
-X
+L
 z
-d
+w
 v
-X
+L
 q
 z
 q
@@ -473,17 +475,17 @@ q
 q
 z
 z
-d
+w
 v
-X
+L
 q
-d
+w
 v
-X
+L
 q
-d
+w
 v
-X
+L
 z
 z
 z
@@ -504,17 +506,17 @@ W
 W
 z
 q
-d
+w
 v
-X
+L
 q
-d
+w
 v
-X
+L
 q
-d
+w
 v
-X
+L
 q
 z
 q
@@ -563,7 +565,7 @@ q
 q
 W
 z
-D
+P
 N
 N
 x
@@ -617,7 +619,7 @@ b
 b
 F
 p
-M
+S
 O
 "}
 (13,1,1) = {"
@@ -628,17 +630,17 @@ o
 W
 G
 q
-d
+w
 g
-X
+L
 q
-d
+w
 g
-X
+L
 q
-d
+w
 g
-X
+L
 q
 z
 q
@@ -659,17 +661,17 @@ q
 q
 z
 z
-d
+w
 g
-X
+L
 q
-d
+w
 g
-X
+L
 q
-d
+w
 g
-X
+L
 z
 z
 z
@@ -690,17 +692,17 @@ q
 q
 W
 q
-d
+w
 g
-X
+L
 z
-d
+w
 g
-X
+L
 z
-d
+w
 g
-X
+L
 q
 z
 q
@@ -721,17 +723,17 @@ q
 q
 W
 z
-d
+w
 g
-X
+L
 q
-d
+w
 g
-X
+L
 q
-d
+w
 g
-X
+L
 z
 z
 q
@@ -752,17 +754,17 @@ q
 q
 W
 q
-d
+w
 J
-X
+L
 q
-d
+w
 J
-X
+L
 q
-d
+w
 J
-X
+L
 q
 W
 z

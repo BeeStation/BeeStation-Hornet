@@ -363,7 +363,7 @@
 	return T
 
 /obj/machinery/modular_fabricator/on_deconstruction()
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	var/datum/component/material_container/materials = get_material_container()
 	materials.retrieve_all()
 
 /obj/machinery/modular_fabricator/proc/AfterMaterialInsert(item_inserted, id_inserted, amount_inserted)

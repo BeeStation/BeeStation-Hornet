@@ -15,8 +15,6 @@
 	// Current number of a pinned notices
 	var/notices = 0
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/noticeboard, 32)
-
 /obj/structure/noticeboard/Initialize(mapload)
 	. = ..()
 

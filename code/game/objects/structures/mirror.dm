@@ -12,8 +12,6 @@
 	layer = ABOVE_WINDOW_LAYER
 	var/magical = FALSE
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror, 28)
-
 /obj/structure/mirror/Initialize(mapload, dir, building)
 	. = ..()
 	if(icon_state == "mirror_broke" && !broken)

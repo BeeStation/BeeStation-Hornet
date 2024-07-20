@@ -91,7 +91,9 @@
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "t" = (
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "u" = (

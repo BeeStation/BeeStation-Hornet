@@ -22,11 +22,11 @@
 /datum/surgery_step/incise/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if ishuman(target)
 		var/mob/living/carbon/human/H = target
-		if (!((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD)))
+		if (!(NOBLOOD in H.dna.species.species_traits))
 			display_results(user, target, "<span class='notice'>Blood pools around the incision in [H]'s [parse_zone(surgery.location)].</span>",
 				"Blood pools around the incision in [H]'s [parse_zone(surgery.location)].",
 				"")
-			H.add_bleeding(BLEED_CUT)
+			H.bleed_rate += 3
 	return TRUE
 
 /datum/surgery_step/incise/nobleed //silly friendly!
@@ -95,7 +95,6 @@
 /datum/surgery_step/close/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(locate(/datum/surgery_step/saw) in surgery.steps)
 		target.heal_bodypart_damage(45,0)
-	target.cauterise_wounds()
 	return ..()
 
 

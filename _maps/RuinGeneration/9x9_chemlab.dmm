@@ -206,7 +206,9 @@
 /turf/open/floor/iron/white,
 /area/ruin)
 "FI" = (
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /obj/structure/rack,
 /obj/item/storage/box/beakers,
 /obj/item/storage/box/medsprays,

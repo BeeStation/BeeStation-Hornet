@@ -152,7 +152,8 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "hc" = (
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/autoname{
+	dir = 8;
 	name = "Exploration Shuttle";
 	network = list("exploration shuttle")
 	},
@@ -778,7 +779,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/directional/east{
+/obj/machinery/power/apc/auto_name/east{
 	locked = 0
 	},
 /obj/structure/cable/yellow,

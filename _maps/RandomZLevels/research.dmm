@@ -536,7 +536,8 @@
 "ct" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
-/obj/machinery/airalarm/directional/west{
+/obj/machinery/airalarm{
+	dir = 4;
 	pixel_x = -32
 	},
 /turf/open/floor/iron/dark,
@@ -947,7 +948,8 @@
 /turf/open/floor/plating,
 /area/awaymission/research/interior/security)
 "eT" = (
-/obj/machinery/airalarm/directional/west{
+/obj/machinery/airalarm{
+	dir = 4;
 	pixel_x = -32
 	},
 /turf/open/floor/iron/dark,
@@ -1553,7 +1555,7 @@
 /turf/open/floor/iron,
 /area/awaymission/research/interior/dorm)
 "iZ" = (
-/obj/machinery/airalarm/directional/north{
+/obj/machinery/airalarm{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/blue,
@@ -2000,7 +2002,8 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/machinery/airalarm/directional/east{
+/obj/machinery/airalarm{
+	dir = 8;
 	pixel_x = 32
 	},
 /turf/open/floor/iron/yellowsiding{
@@ -2244,7 +2247,8 @@
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/escapepods)
 "mX" = (
-/obj/machinery/airalarm/directional/east{
+/obj/machinery/airalarm{
+	dir = 8;
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/green{
@@ -3361,7 +3365,7 @@
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
 "DK" = (
-/obj/machinery/airalarm/directional/north{
+/obj/machinery/airalarm{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -3402,7 +3406,7 @@
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/cryo)
 "Ex" = (
-/obj/machinery/airalarm/directional/north{
+/obj/machinery/airalarm{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -3798,7 +3802,7 @@
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/medbay)
 "Kf" = (
-/obj/machinery/airalarm/directional/north{
+/obj/machinery/airalarm{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -3991,7 +3995,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/airalarm/directional/west{
+/obj/machinery/airalarm{
+	dir = 4;
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
@@ -4393,7 +4398,8 @@
 	id = "cryopodg1";
 	name = "panic lockdown button"
 	},
-/obj/machinery/airalarm/directional/south{
+/obj/machinery/airalarm{
+	dir = 1;
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -4758,7 +4764,7 @@
 	id = "cryopodg2";
 	name = "panic lockdown button"
 	},
-/obj/machinery/airalarm/directional/north{
+/obj/machinery/airalarm{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,

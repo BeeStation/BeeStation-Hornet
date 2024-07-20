@@ -8,6 +8,13 @@
 "aW" = (
 /turf/template_noop,
 /area/template_noop)
+"bv" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
 "bO" = (
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -41,7 +48,9 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/unpowered)
 "gN" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -111,7 +120,7 @@
 	},
 /obj/machinery/hydroponics/soil,
 /obj/item/plant_analyzer,
-/obj/machinery/camera/directional/north,
+/obj/machinery/camera/autoname,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
 	},
@@ -524,7 +533,7 @@ KP
 Nf
 xe
 NR
-gN
+bv
 NR
 VL
 dn
@@ -619,7 +628,7 @@ NR
 jz
 NR
 NR
-gN
+bv
 NR
 NR
 NR
