@@ -22,7 +22,7 @@
 
 
 /datum/objective/clowncaphat/check_completion()
-	return ..() || owner?.current?.check_contents_for(/obj/item/clothing/head/hats/centhat/james)
+	return ..() || owner?.current?.check_contents_for(/obj/item/clothing/head/hats/centhat/stolen)
 
 /datum/antagonist/clownloose/on_gain()
 	forge_objectives()
