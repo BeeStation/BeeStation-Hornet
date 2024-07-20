@@ -113,86 +113,8 @@
 		GAS_PLUOXIUM	= new/datum/tlv(-1, -1, 5, 6), // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
 	)
 
-<<<<<<< HEAD
 /obj/machinery/airalarm/New(mapload, ndir, nbuild)
 	..()
-=======
-/obj/machinery/airalarm/server // No checks here.
-	TLV = list(
-		"pressure"					= new/datum/tlv/no_checks,
-		"temperature"				= new/datum/tlv/no_checks,
-		GAS_O2			= new/datum/tlv/no_checks,
-		GAS_N2			= new/datum/tlv/no_checks,
-		GAS_CO2	= new/datum/tlv/no_checks,
-		GAS_PLASMA			= new/datum/tlv/no_checks,
-		GAS_NITROUS	= new/datum/tlv/no_checks,
-		GAS_BZ				= new/datum/tlv/no_checks,
-		GAS_HYPERNOB		= new/datum/tlv/no_checks,
-		GAS_H2O		= new/datum/tlv/no_checks,
-		GAS_TRITIUM			= new/datum/tlv/no_checks,
-		GAS_STIMULUM			= new/datum/tlv/no_checks,
-		GAS_NITRYL			= new/datum/tlv/no_checks,
-		GAS_PLUOXIUM			= new/datum/tlv/no_checks
-	)
-
-/obj/machinery/airalarm/kitchen_cold_room // Kitchen cold rooms start off at -20°C or 253.15 K.
-	TLV = list(
-		"pressure"					= new/datum/tlv(ONE_ATMOSPHERE * 0.8, ONE_ATMOSPHERE*  0.9, ONE_ATMOSPHERE * 1.1, ONE_ATMOSPHERE * 1.2), // kPa
-		"temperature"				= new/datum/tlv(T0C-273.15, T0C-80, T0C-10, T0C+10),
-		GAS_O2			= new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
-		GAS_N2			= new/datum/tlv(-1, -1, 1000, 1000),
-		GAS_CO2	= new/datum/tlv(-1, -1, 5, 10),
-		GAS_PLASMA			= new/datum/tlv/dangerous,
-		GAS_NITROUS	= new/datum/tlv/dangerous,
-		GAS_BZ				= new/datum/tlv/dangerous,
-		GAS_HYPERNOB		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
-		GAS_H2O		= new/datum/tlv/dangerous,
-		GAS_TRITIUM			= new/datum/tlv/dangerous,
-		GAS_STIMULUM			= new/datum/tlv/dangerous,
-		GAS_NITRYL			= new/datum/tlv/dangerous,
-		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 1000, 1000) // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
-	)
-
-/obj/machinery/airalarm/unlocked
-	locked = FALSE
-
-/obj/machinery/airalarm/engine
-	name = "engine air alarm"
-	locked = FALSE
-	req_access = null
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
-
-/obj/machinery/airalarm/mixingchamber
-	name = "chamber air alarm"
-	locked = FALSE
-	req_access = null
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_TOX, ACCESS_TOX_STORAGE)
-
-/obj/machinery/airalarm/all_access
-	name = "all-access air alarm"
-	desc = "This particular atmospherics control unit appears to have no access restrictions."
-	locked = FALSE
-	req_access = null
-	req_one_access = null
-
-/obj/machinery/airalarm/syndicate //general syndicate access
-	req_access = list(ACCESS_SYNDICATE)
-
-/obj/machinery/airalarm/away //general away mission access
-	req_access = list(ACCESS_AWAY_GENERAL)
-
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
-
-//all air alarms in area are connected via magic
-/area
-	var/list/air_vent_names = list()
-	var/list/air_scrub_names = list()
-	var/list/air_vent_info = list()
-	var/list/air_scrub_info = list()
-
-/obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
-	. = ..()
->>>>>>> a3b142770114888d37337d81fade833b83798ffd
 	wires = new /datum/wires/airalarm(src)
 	if(ndir)
 		setDir(ndir)
