@@ -58907,8 +58907,10 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
 "qHw" = (
+/obj/structure/rack,
+/obj/item/storage/box/sec_barricades,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/rnd/production/techfab/department/armory,
+/obj/item/survivalcapsule/capsule_checkpoint,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "qHC" = (
@@ -62523,8 +62525,6 @@
 /obj/item/beacon/nettingportal,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/loot_jobscale/armoury/dragnet,
-/obj/item/storage/box/sec_barricades,
-/obj/item/survivalcapsule/capsule_checkpoint,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "sbc" = (

@@ -63708,8 +63708,15 @@
 /turf/open/floor/iron,
 /area/crew_quarters/cafeteria)
 "tRD" = (
+/mob/living/simple_animal/bot/secbot{
+	arrest_type = 1;
+	health = 45;
+	icon_state = "secbot1";
+	idcheck = 1;
+	name = "Sergeant-at-Armsky";
+	weaponscheck = 1
+	},
 /obj/effect/turf_decal/box,
-/obj/machinery/rnd/production/techfab/department/armory,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "tRE" = (
@@ -68572,20 +68579,6 @@
 	},
 /turf/open/floor/iron,
 /area/vacant_room/commissary/commissary2)
-"vvK" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/mob/living/simple_animal/bot/secbot{
-	arrest_type = 1;
-	health = 45;
-	icon_state = "secbot1";
-	idcheck = 1;
-	name = "Sergeant-at-Armsky";
-	weaponscheck = 1
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "vvP" = (
 /obj/effect/turf_decal/tile/blue/half{
 	dir = 4
@@ -105162,7 +105155,7 @@ uYx
 aZT
 wDS
 tRD
-vvK
+lQp
 rcG
 uYx
 sXY

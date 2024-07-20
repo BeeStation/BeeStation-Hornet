@@ -86014,6 +86014,7 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/fore)
 "wgz" = (
+/obj/machinery/flasher/portable,
 /obj/machinery/camera/motion{
 	c_tag = "Armory Internal";
 	dir = 8;
@@ -86023,7 +86024,6 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
-/obj/machinery/rnd/production/techfab/department/armory,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "wgB" = (

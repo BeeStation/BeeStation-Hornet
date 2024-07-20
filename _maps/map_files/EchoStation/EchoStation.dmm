@@ -31973,7 +31973,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "qfG" = (
-/obj/machinery/rnd/production/techfab/department/armory,
+/obj/machinery/flasher/portable,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "qgj" = (

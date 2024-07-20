@@ -53363,10 +53363,10 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "szk" = (
+/obj/machinery/flasher/portable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/rnd/production/techfab/department/armory,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "szq" = (

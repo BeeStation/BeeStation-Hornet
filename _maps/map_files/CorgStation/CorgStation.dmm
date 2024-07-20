@@ -68261,8 +68261,8 @@
 /area/medical/genetics/cloning)
 "vTi" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/flasher/portable,
 /obj/effect/turf_decal/bot,
-/obj/machinery/rnd/production/techfab/department/armory,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "vTj" = (

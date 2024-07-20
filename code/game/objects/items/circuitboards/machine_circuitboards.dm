@@ -1001,10 +1001,6 @@
 	icon_state = "security"
 	build_path = /obj/machinery/rnd/production/techfab/department/security
 
-/obj/item/circuitboard/machine/techfab/department/armory
-	name = "departmental techfab - armory (Machine Board)"
-	icon_state = "security"
-	build_path = /obj/machinery/rnd/production/techfab/department/armory
 
 //Service
 
