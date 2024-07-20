@@ -35978,8 +35978,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/stripes/box,
-/obj/machinery/rnd/production/techfab/department/security,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -63573,6 +63571,10 @@
 	dir = 1
 	},
 /obj/machinery/recharger,
+/obj/item/clothing/mask/gas/sechailer,
+/obj/item/clothing/mask/gas/sechailer,
+/obj/item/toy/figure/warden,
+/obj/item/clipboard,
 /turf/open/floor/iron,
 /area/security/warden)
 "nUw" = (
@@ -63739,11 +63741,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"nWG" = (
-/obj/effect/turf_decal/loading_area,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/security/main)
 "nWQ" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -75510,21 +75507,18 @@
 /turf/open/floor/iron/dark,
 /area/chapel/office)
 "rUM" = (
-/obj/structure/table/reinforced,
 /obj/machinery/airalarm{
 	dir = 4;
 	pixel_x = -23
 	},
-/obj/item/clipboard,
-/obj/item/toy/figure/warden,
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/mask/gas/sechailer,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/box,
+/obj/machinery/rnd/production/techfab/department/security,
 /turf/open/floor/iron,
 /area/security/warden)
 "rUZ" = (
@@ -147934,7 +147928,7 @@ bgZ
 aaa
 bhe
 eQF
-nWG
+frY
 frY
 jjc
 kRr

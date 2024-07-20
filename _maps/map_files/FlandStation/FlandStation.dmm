@@ -30960,6 +30960,7 @@
 	id = "BrigFlashAft";
 	pixel_y = 25
 	},
+/obj/machinery/rnd/production/techfab/department/security,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "hPW" = (
@@ -47165,10 +47166,10 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
 "lOm" = (
-/obj/machinery/rnd/production/techfab/department/security,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/techmaint,
 /area/security/brig)
 "lOq" = (
