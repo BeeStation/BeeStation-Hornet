@@ -63760,18 +63760,7 @@
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "tTZ" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/curtain/directional,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating,
+/turf/open/space/basic,
 /area/crew_quarters/heads/chief)
 "tUd" = (
 /obj/effect/decal/cleanable/dirt/dust,
