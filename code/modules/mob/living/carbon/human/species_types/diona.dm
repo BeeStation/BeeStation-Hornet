@@ -157,7 +157,7 @@
 		return FALSE
 	if(alert("Are we sure we wish to kill ourselves and split into seperated nymphs?",,"Yes", "No") != "Yes")
 		return FALSE
-	if(do_after(user, 8 SECONDS, user, NONE, TRUE))
+	if(do_after(user, 8 SECONDS, user, UNINTERRUPTIBLE_CONSCIOUS, TRUE))
 		if(user.incapacitated()) //Second check incase the ability was activated RIGHT as we were being cuffed, and thus now in cuffs when this triggers
 			return FALSE
 		fakeDeath(FALSE, user) //This runs when you manually activate the ability.
@@ -171,16 +171,24 @@
 	addtimer(CALLBACK(src, PROC_REF(split), gibbed, H), 5 SECONDS, TIMER_DELETE_ME) //Or are we?
 
 /datum/action/diona/split/proc/split(gibbed, mob/living/carbon/human/H)
+	var/list/alive_nymphs = list()
+	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = new(H.loc) //Spawn the player nymph, including this one, should be six total nymphs
 	for(var/obj/item/bodypart/BP as anything in H.bodyparts)
 		if(istype(BP, /obj/item/bodypart/head))
-			continue
+			nymph.adjustBruteLoss(BP.brute_dam)
+			nymph.adjustFireLoss(BP.burn_dam)
+			nymph.updatehealth()
+			continue //Exclude the head nymph from the alive_nymphs list, since that list is used for secondary consciousness transfer.
 		var/mob/living/simple_animal/hostile/retaliate/nymph/limb_nymph = new /mob/living/simple_animal/hostile/retaliate/nymph(H.loc)
 		limb_nymph.adjustBruteLoss(BP.brute_dam)
 		limb_nymph.adjustFireLoss(BP.burn_dam)
 		limb_nymph.updatehealth()
+		if(limb_nymph.stat != DEAD)
+			alive_nymphs += limb_nymph
 
 	var/datum/mind/M = H.mind
-	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = new(H.loc) //Spawn the player nymph, including this one, should be six total nymphs
+	if(nymph.stat == DEAD) //If the head nymph is dead, transfer all consciousness to the next best thing - an alive limb nymph!
+		nymph = pick(alive_nymphs)
 	for(var/obj/item/I in H.contents) //Drop the player's items on the ground
 		H.dropItemToGround(I, TRUE)
 		I.pixel_x = rand(-10, 10)

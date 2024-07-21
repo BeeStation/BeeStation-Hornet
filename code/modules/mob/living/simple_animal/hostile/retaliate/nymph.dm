@@ -25,8 +25,8 @@
 
 	var/brute_damage = 0
 	var/fire_damage = 0
-	health = 100
-	maxHealth = 100
+	health = 50
+	maxHealth = 50
 	melee_damage = 1.5
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	attack_sound = 'sound/weapons/slash.ogg'
@@ -103,7 +103,7 @@
 	if(istype(src, /mob/living/simple_animal/hostile/retaliate/nymph) && stat != DEAD)
 		if(mind == null) // No RRing fellow nymphs
 			var/mob/living/simple_animal/hostile/retaliate/nymph/M = L
-			M.melee_damage = 50
+			M.melee_damage = 25
 			M.amount_grown += 50
 	. = ..()
 	melee_damage = 1.5
@@ -257,3 +257,30 @@
 		around.</span>",
 		"<span class='notice'>...and move this one instead.</span>")
 
+/mob/living/simple_animal/hostile/retaliate/nymph/mob_try_pickup(mob/living/user)
+	if(!ishuman(user))
+		return
+	if(user.get_active_held_item())
+		to_chat(user, "<span class='warning'>Your hands are full!</span>")
+		return FALSE
+	if(buckled)
+		to_chat(user, "<span class='warning'>[src] is buckled to something!</span>")
+		return FALSE
+	mob_pickup(user)
+	return TRUE
+
+/mob/living/simple_animal/hostile/retaliate/nymph/mob_pickup(mob/living/L)
+	if(resting)
+		resting = FALSE
+		update_resting()
+	var/obj/item/clothing/head/mob_holder/nymph/holder = new(get_turf(src), src, held_state, head_icon, held_lh, held_rh, worn_slot_flags)
+	L.visible_message("<span class='warning'>[L] scoops up [src]!</span>")
+	L.put_in_hands(holder)
+
+/obj/item/clothing/head/mob_holder/nymph
+
+/obj/item/clothing/head/mob_holder/nymph/relaymove(mob/user)
+	user.visible_message("<span class='notice'>[user] starts to squirm in [loc]'s hands!",
+	"<span class='notice'>You start to squirm in [loc]'s hands...</span>")
+	if(do_after(src, 8 SECONDS, user, NONE, TRUE))
+		release()
