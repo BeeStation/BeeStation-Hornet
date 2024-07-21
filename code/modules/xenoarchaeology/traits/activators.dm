@@ -510,21 +510,19 @@
 		return FALSE
 	//Find a food item
 	var/mob/living/M = target
-	var/datum/component/edible/food_item
+	var/edible
 	if(isliving(M))
 		var/list/sides = list("left", "right")
 		for(var/i in sides)
 			var/atom/A = M.get_held_items_for_side(i)
-			food_item = A?.GetComponent(/datum/component/edible)
-			if(food_item)
-				break
-	if(!food_item)
-		food_item = target?.GetComponent(/datum/component/edible)
+			if(A) //Not pre-checking A can cause some runtimes
+				edible = SEND_SIGNAL(A, COMSIG_FOOD_FEED_ITEM, parent?.parent)
+	if(!edible && target)
+		edible = SEND_SIGNAL(target, COMSIG_FOOD_FEED_ITEM, parent?.parent)
 	//If food
 	var/atom/movable/AM = parent.parent
-	if(food_item)
+	if(edible)
 		playsound(AM.loc, 'sound/items/eatfood.ogg', 60, 1, 1)
-		food_item.feed_to_item(src, parent.parent)
 		return ..()
 	//Otherwise, nibble the target, and spit them out, they're gross, ew
 	if(isliving(M) && !bite_timer)

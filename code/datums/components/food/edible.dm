@@ -79,6 +79,7 @@ Behavior that's still missing from this component that original food items had t
 	RegisterSignal(parent, COMSIG_ITEM_MICROWAVE_COOKED, PROC_REF(on_microwave_cooked))
 	RegisterSignal(parent, COMSIG_FOOD_INGREDIENT_ADDED, PROC_REF(edible_ingredient_added))
 	RegisterSignal(parent, COMSIG_EDIBLE_ON_COMPOST, PROC_REF(compost))
+	RegisterSignal(parent, COMSIG_FOOD_FEED_ITEM, PROC_REF(feed_to_item))
 
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(use_from_hand))
