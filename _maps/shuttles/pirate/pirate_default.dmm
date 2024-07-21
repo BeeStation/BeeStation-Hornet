@@ -242,7 +242,8 @@
 	name = "snitch's bed"
 	},
 /mob/living/simple_animal/parrot{
-	name = "Snitch"
+	name = "Snitch";
+	faction = list("pirate")
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/pirate)
@@ -449,6 +450,7 @@
 	pixel_y = 6
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised,
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "ok" = (
@@ -719,6 +721,7 @@
 	pixel_x = 8;
 	pixel_y = 3
 	},
+/obj/item/storage/belt/bandolier,
 /obj/item/storage/belt/bandolier,
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
@@ -1655,7 +1658,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/storage/box/lethalshot,
+/obj/item/storage/box/lethalshot{
+	pixel_y = 9
+	},
+/obj/item/storage/box/breacherslug,
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "QU" = (
