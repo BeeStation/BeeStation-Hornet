@@ -87957,6 +87957,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/dark,
 /area/security/main)
 "vMR" = (
@@ -151456,12 +151459,12 @@ cuM
 cuM
 cuM
 cuM
-cuM
+cuL
 xiV
 cuM
 cuM
 cOh
-cuM
+cuL
 cuM
 cuM
 cuM
@@ -151710,8 +151713,8 @@ rJs
 nnq
 cuM
 aaa
-aaa
 aad
+aaa
 aaa
 cuM
 pod
@@ -151720,8 +151723,8 @@ cLn
 cOc
 cuM
 aaa
-aad
 aaa
+aad
 aaa
 cuM
 dak
@@ -151967,18 +151970,18 @@ cuM
 cuM
 cuL
 aad
+cuL
 cuM
 cuM
-cuM
-cuM
+cuL
 fOK
 cuM
 cuM
 upk
+cuL
 cuM
 cuM
-cuM
-cuM
+cuL
 aad
 cuL
 cuM
@@ -154529,7 +154532,7 @@ aad
 abj
 qYo
 aad
-aad
+abj
 aad
 aad
 aad
@@ -154537,18 +154540,18 @@ wiQ
 aad
 cuL
 aad
+cuL
 cuM
 cuM
-cuM
-cuM
+cuL
 xiV
 cuM
 cuM
 cOh
+cuL
 cuM
 cuM
-cuM
-cuM
+cuL
 aad
 cuL
 aad
@@ -154794,8 +154797,8 @@ aaa
 aad
 cuM
 aaa
-aaa
 aad
+aaa
 aaa
 cuM
 mbL
@@ -154804,8 +154807,8 @@ cuL
 cOi
 cuM
 aaa
-aad
 aaa
+aad
 aaa
 cuM
 aad
@@ -155054,12 +155057,12 @@ cuM
 cuM
 cuM
 cuM
-cuM
+cuL
 fOK
 cuM
 cuM
 upk
-cuM
+cuL
 cuM
 cuM
 cuM
@@ -155575,8 +155578,8 @@ cOf
 upD
 cJE
 aad
-aaa
 wiQ
+aaa
 wiQ
 aaa
 aaa
