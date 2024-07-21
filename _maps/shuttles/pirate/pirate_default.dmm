@@ -46,9 +46,6 @@
 "cm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance/three,
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-23"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/shuttle/pirate)
@@ -173,9 +170,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/weather/dirt{
-	dir = 6
-	},
 /turf/open/floor/plating,
 /area/shuttle/pirate)
 "fS" = (
@@ -191,9 +185,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
-	},
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-29"
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
@@ -457,9 +448,6 @@
 /obj/item/gun/ballistic/shotgun/doublebarrel{
 	pixel_y = 6
 	},
-/obj/item/gun/ballistic/shotgun/automatic/bulldog/unrestricted{
-	pixel_y = -5
-	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
@@ -504,9 +492,6 @@
 /obj/structure/grille/broken,
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-223"
 	},
 /obj/structure/chair/fancy/bench,
 /obj/structure/fluff/fans{
@@ -578,10 +563,6 @@
 /area/shuttle/pirate)
 "qF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/head/cone{
-	pixel_x = -18;
-	pixel_y = 17
-	},
 /obj/item/toy/gun{
 	pixel_y = -9;
 	pixel_x = 13
@@ -984,9 +965,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-223"
-	},
 /obj/item/stack/rods/five{
 	pixel_x = 6;
 	pixel_y = -11
@@ -1020,9 +998,6 @@
 /turf/open/floor/wood,
 /area/shuttle/pirate)
 "BN" = (
-/obj/effect/turf_decal/weather/dirt{
-	dir = 6
-	},
 /obj/item/chair{
 	pixel_y = -1;
 	pixel_x = -2
@@ -1146,9 +1121,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-46"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -1242,7 +1214,6 @@
 /area/shuttle/pirate)
 "FY" = (
 /obj/structure/girder/reinforced,
-/obj/effect/turf_decal/weather/dirt,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -1288,9 +1259,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/weather/dirt{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -1489,10 +1457,6 @@
 	pixel_x = -1;
 	pixel_y = -4
 	},
-/obj/item/grenade/stingbang{
-	pixel_x = 5;
-	pixel_y = -9
-	},
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "LZ" = (
@@ -1628,9 +1592,6 @@
 /turf/open/floor/pod,
 /area/shuttle/pirate)
 "Pq" = (
-/obj/effect/turf_decal/weather/dirt{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/pistachios{
 	pixel_x = 8;
@@ -1691,39 +1652,10 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/ammo_box/magazine/m12g/breacher{
-	pixel_x = -7;
-	pixel_y = 6
-	},
-/obj/item/ammo_box/magazine/m12g/breacher{
-	pixel_x = -7;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/magazine/m12g{
-	pixel_x = -7
-	},
-/obj/item/ammo_box/magazine/m12g{
-	pixel_x = -7;
-	pixel_y = -3
-	},
-/obj/item/ammo_box/magazine/m12g{
-	pixel_x = 7;
-	pixel_y = 6
-	},
-/obj/item/ammo_box/magazine/m12g{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/magazine/m12g{
-	pixel_x = 7
-	},
-/obj/item/ammo_box/magazine/m12g{
-	pixel_x = 7;
-	pixel_y = -3
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/item/storage/box/lethalshot,
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "QU" = (
@@ -1780,9 +1712,6 @@
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "Ss" = (
-/obj/effect/turf_decal/weather/dirt{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/blood/old{
 	pixel_x = -2;
 	pixel_y = 5;
@@ -1795,9 +1724,6 @@
 /obj/machinery/airalarm/all_access{
 	dir = 8;
 	pixel_x = -24
-	},
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-223"
 	},
 /turf/open/floor/plating,
 /area/shuttle/pirate)
@@ -1860,9 +1786,6 @@
 	pixel_y = -8
 	},
 /obj/structure/closet/crate/large,
-/obj/effect/turf_decal/weather/dirt/corner{
-	dir = 1
-	},
 /obj/structure/grille/broken,
 /obj/structure/fluff/fans{
 	pixel_x = -24
@@ -1904,9 +1827,6 @@
 /area/shuttle/pirate)
 "TO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-21"
-	},
 /obj/machinery/button/door{
 	name = "Cargo Shutters";
 	pixel_x = 22;
@@ -2064,9 +1984,6 @@
 	pixel_x = -7;
 	pixel_y = 24
 	},
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-29"
-	},
 /obj/item/trash/semki{
 	pixel_x = 11;
 	pixel_y = 2
@@ -2082,7 +1999,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
@@ -2183,7 +2099,6 @@
 	pixel_y = -3;
 	pixel_x = -2
 	},
-/obj/effect/turf_decal/weather/dirt/corner,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
 	},
@@ -2192,9 +2107,6 @@
 	},
 /obj/structure/sign/painting/library{
 	pixel_y = -32
-	},
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-74"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
