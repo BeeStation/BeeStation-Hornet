@@ -11,7 +11,8 @@
 	allow_dense = TRUE
 	delivery_icon = null
 	can_weld_shut = FALSE
-	armor = list(MELEE = 30,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0)
+	divable = FALSE
+	armor = list(MELEE = 30,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0, BLEED = 0)
 	anchored = TRUE //So it cant slide around after landing
 	anchorable = FALSE
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
@@ -56,7 +57,7 @@
 	var/effectShrapnel = FALSE
 	var/shrapnel_type = /obj/projectile/bullet/shrapnel
 	var/shrapnel_magnitude = 3
-	var/list/reverseOptionList = list("Mobs"=FALSE,"Objects"=FALSE,"Anchored"=FALSE,"Underfloor"=FALSE,"Wallmounted"=FALSE,"Floors"=FALSE,"Walls"=FALSE)
+	var/list/reverse_option_list = list("Mobs"=FALSE,"Objects"=FALSE,"Anchored"=FALSE,"Underfloor"=FALSE,"Wallmounted"=FALSE,"Floors"=FALSE,"Walls"=FALSE, "Mecha"=FALSE)
 	var/list/turfs_in_cargo = list()
 
 /obj/structure/closet/supplypod/bluespacepod
@@ -358,7 +359,7 @@
 	if(to_insert.invisibility == INVISIBILITY_ABSTRACT)
 		return FALSE
 	if(ismob(to_insert))
-		if(!reverseOptionList["Mobs"])
+		if(!reverse_option_list["Mobs"])
 			return FALSE
 		if(!isliving(to_insert)) //let's not put ghosts or camera mobs inside
 			return FALSE
@@ -377,30 +378,30 @@
 			return FALSE
 		if(istype(obj_to_insert, /obj/effect/supplypod_rubble))
 			return FALSE
-		/*
-		if((obj_to_insert.comp_lookup && obj_to_insert.comp_lookup[COMSIG_OBJ_HIDE]) && reverseOptionList["Underfloor"])
+		if((obj_to_insert.comp_lookup && obj_to_insert.comp_lookup[COMSIG_OBJ_HIDE]) && reverse_option_list["Underfloor"])
 			return TRUE
-		else if ((obj_to_insert.comp_lookup && obj_to_insert.comp_lookup[COMSIG_OBJ_HIDE]) && !reverseOptionList["Underfloor"])
+		else if ((obj_to_insert.comp_lookup && obj_to_insert.comp_lookup[COMSIG_OBJ_HIDE]) && !reverse_option_list["Underfloor"])
 			return FALSE
-		*/
-		if(isProbablyWallMounted(obj_to_insert) && reverseOptionList["Wallmounted"])
+		if(isProbablyWallMounted(obj_to_insert) && reverse_option_list["Wallmounted"])
 			return TRUE
-		else if (isProbablyWallMounted(obj_to_insert) && !reverseOptionList["Wallmounted"])
+		else if (isProbablyWallMounted(obj_to_insert) && !reverse_option_list["Wallmounted"])
 			return FALSE
-		if(!obj_to_insert.anchored && reverseOptionList["Unanchored"])
+		if(!obj_to_insert.anchored && reverse_option_list["Unanchored"])
 			return TRUE
-		if(obj_to_insert.anchored && reverseOptionList["Anchored"])
+		if(obj_to_insert.anchored && !ismecha(obj_to_insert) && reverse_option_list["Anchored"]) //Mecha are anchored but there is a separate option for them
+			return TRUE
+		if(ismecha(obj_to_insert) && reverse_option_list["Mecha"])
 			return TRUE
 		return FALSE
 
 	else if (isturf(to_insert))
-		if(isfloorturf(to_insert) && reverseOptionList["Floors"])
+		if(isfloorturf(to_insert) && reverse_option_list["Floors"])
 			return TRUE
-		if(isfloorturf(to_insert) && !reverseOptionList["Floors"])
+		if(isfloorturf(to_insert) && !reverse_option_list["Floors"])
 			return FALSE
-		if(isclosedturf(to_insert) && reverseOptionList["Walls"])
+		if(isclosedturf(to_insert) && reverse_option_list["Walls"])
 			return TRUE
-		if(isclosedturf(to_insert) && !reverseOptionList["Walls"])
+		if(isclosedturf(to_insert) && !reverse_option_list["Walls"])
 			return FALSE
 		return FALSE
 	return TRUE

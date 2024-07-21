@@ -49,13 +49,7 @@
 			log_combat(M, src, "attacked", "harm")
 		if("disarm")
 			if(stat < UNCONSCIOUS)
-				M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-				Knockdown(40)
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				log_combat(M, src, "pushed", "disarm")
-				visible_message("<span class='danger'>[M] pushes [src] down!</span>", \
-					"<span class='userdanger'>[M] pushes you down!</span>")
-				dropItemToGround(get_active_held_item())
+				M.disarm(src)
 
 /mob/living/carbon/monkey/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(..()) //if harm or disarm intent.

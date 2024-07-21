@@ -16,8 +16,9 @@
 
 	outfit = /datum/outfit/job/warden
 
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_ARMORY,ACCESS_COURT, ACCESS_MECH_SECURITY, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_FORENSICS_LOCKERS, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_ARMORY, ACCESS_MECH_SECURITY, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM) // See /datum/job/warden/get_access()
+	base_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_ARMORY, ACCESS_MECH_SECURITY,
+						ACCESS_COURT, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM) // See /datum/job/warden/get_access()
+	extra_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MORGUE,ACCESS_FORENSICS_LOCKERS)
 
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
@@ -35,9 +36,9 @@
 	minimal_lightup_areas = list(/area/security/warden)
 
 /datum/job/warden/get_access()
-	var/list/L = list()
-	L = ..() | check_config_for_sec_maint()
-	return L
+	. = ..()
+	if(check_config_for_sec_maint())
+		. |= ACCESS_MAINT_TUNNELS
 
 /datum/outfit/job/warden
 	name = JOB_NAME_WARDEN

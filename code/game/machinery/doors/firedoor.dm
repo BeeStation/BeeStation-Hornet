@@ -24,7 +24,7 @@
 	layer = BELOW_OPEN_DOOR_LAYER
 	closingLayer = CLOSED_FIREDOOR_LAYER
 	assemblytype = /obj/structure/firelock_frame
-	armor = list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 95, ACID = 70, STAMINA = 0)
+	armor = list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 95, ACID = 70, STAMINA = 0, BLEED = 0)
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	air_tight = TRUE
 	open_speed = 2
@@ -86,6 +86,8 @@
 		return ..()
 	return FALSE
 
+/obj/machinery/door/firedoor/bumpopen(mob/living/user)
+	return FALSE //No bumping to open, not even in mechs
 
 /obj/machinery/door/firedoor/power_change()
 	. = ..()
@@ -108,11 +110,6 @@
 /obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, params)
 	add_fingerprint(user)
 	if(operating)
-		return
-
-	if(istype(C, /obj/item/modular_computer/tablet/pda))
-		var/attack_verb = pick("smushes","rubs","smashes","presses","taps")
-		visible_message("<span class='warning'>[user] [attack_verb] \the [C] against [src]\s card reader.</span>", "<span class='warning'>You [attack_verb] \the [C] against [src]\s card reader. It doesn't do anything.</span>", "You hear plastic click against metal.")
 		return
 
 	if(welded)
@@ -150,19 +147,19 @@
 	if(!density || welded)
 		return
 
-	if(isidcard(I))
-		if((check_safety(user) == TRUE) || check_access(I))
-			log_opening(I, user, check_safety(user))
+	var/obj/item/card/id/id_card = I.GetID()
+	if(istype(id_card))
+		if((check_safety(user) == TRUE) || check_access(id_card))
+			log_opening(id_card, user, check_safety(user))
 			playsound(src, 'sound/machines/beep.ogg', 50, 1)
 			open()
 			return
 		else
-			log_opening(I, user, -1)
+			log_opening(id_card, user, -1)
 			to_chat(user, "<span class='danger'>Access Denied, User not authorized to override alarms or pressure checks.</span>")
 			playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
 			return
 	to_chat("<span class='warning'>You try to pull the card reader. Nothing happens.</span>")
-	return
 
 /obj/machinery/door/firedoor/proc/log_opening(obj/item/card/id/I, mob/user, safe)
 	var/safestate = "UNK_STATE:"

@@ -297,37 +297,6 @@
 			var/armor_block = run_armor_check(affecting, MELEE)
 			apply_damage(damage, BRUTE, affecting, armor_block)
 
-/mob/living/carbon/human/attack_basic_mob(mob/living/basic/user)
-	. = ..()
-	if(!.)
-		return
-	if(check_shields(user, user.melee_damage, "the [user.name]", MELEE_ATTACK, user.armour_penetration))
-		return FALSE
-	var/dam_zone = dismembering_strike(user, pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-	if(!dam_zone) //Dismemberment successful
-		return TRUE
-	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
-	if(!affecting)
-		affecting = get_bodypart(BODY_ZONE_CHEST)
-	var/armor = run_armor_check(affecting, MELEE, armour_penetration = user.armour_penetration)
-	apply_damage(user.melee_damage, user.melee_damage_type, affecting, armor)
-
-/mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
-	. = ..()
-	if(.)
-		var/damage = M.melee_damage
-		if(check_shields(M, damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))
-			return FALSE
-		var/dam_zone = dismembering_strike(M, pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-		if(!dam_zone) //Dismemberment successful
-			return TRUE
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
-		if(!affecting)
-			affecting = get_bodypart(BODY_ZONE_CHEST)
-		var/armor = run_armor_check(affecting, MELEE, armour_penetration = M.armour_penetration)
-		apply_damage(damage, M.melee_damage_type, affecting, armor)
-
-
 /mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
 		var/damage = 20
@@ -349,43 +318,6 @@
 			affecting = get_bodypart(BODY_ZONE_CHEST)
 		var/armor_block = run_armor_check(affecting, MELEE)
 		apply_damage(damage, BRUTE, affecting, armor_block)
-
-/mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
-
-	if(M.occupant.a_intent == INTENT_HARM)
-		M.do_attack_animation(src)
-		if(M.damtype == BRUTE)
-			step_away(src,M,15)
-		var/obj/item/bodypart/temp = get_bodypart(pick(BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_HEAD))
-		if(temp)
-			var/update = 0
-			var/dmg = rand(M.force/2, M.force)
-			switch(M.damtype)
-				if(BRUTE)
-					if(M.force > 35) // durand and other heavy mechas
-						Unconscious(20)
-					else if(M.force > 20 && !IsKnockdown()) // lightweight mechas like gygax
-						Knockdown(40)
-					update |= temp.receive_damage(dmg, 0)
-					playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
-				if(FIRE)
-					update |= temp.receive_damage(0, dmg)
-					playsound(src, 'sound/items/welder.ogg', 50, 1)
-				if(TOX)
-					M.mech_toxin_damage(src)
-				else
-					return
-			if(update)
-				update_damage_overlays()
-			updatehealth()
-
-		visible_message("<span class='danger'>[M.name] hits [src]!</span>", \
-								"<span class='userdanger'>[M.name] hits you!</span>", null, COMBAT_MESSAGE_RANGE)
-		log_combat(M.occupant, src, "attacked", M, "(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
-
-	else
-		..()
-
 
 /mob/living/carbon/human/ex_act(severity, target, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
@@ -763,8 +695,10 @@
 	for(var/t in missing)
 		to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")
 
-	if(bleed_rate)
+	if(is_bleeding())
 		to_chat(src, "<span class='danger'>You are [bleed_msg]!</span>")
+	else if (is_bandaged())
+		to_chat(src, "<span class='danger'>Your [bleed_msg] is bandaged!</span>")
 	if(getStaminaLoss())
 		if(getStaminaLoss() > 30)
 			to_chat(src, "<span class='info'>You're completely exhausted.</span>")
@@ -911,3 +845,13 @@
 	ADD_TRAIT(src, TRAIT_NOBLOCK, type)
 	stoplag(50)
 	REMOVE_TRAIT(src, TRAIT_NOBLOCK, type)
+
+/mob/living/carbon/human/attack_basic_mob(mob/living/basic/user)
+	if(user.melee_damage != 0 && !HAS_TRAIT(user, TRAIT_PACIFISM) && check_shields(user, user.melee_damage, "the [user.name]", MELEE_ATTACK, user.armour_penetration))
+		return FALSE
+	return ..()
+
+/mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
+	if(M.melee_damage != 0 && !HAS_TRAIT(M, TRAIT_PACIFISM) && check_shields(M, M.melee_damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))
+		return FALSE
+	return ..()
