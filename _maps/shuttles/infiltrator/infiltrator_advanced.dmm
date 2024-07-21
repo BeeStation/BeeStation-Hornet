@@ -458,7 +458,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/airalarm/syndicate{
-	dir = 8;
+	dir = 4;
 	pixel_x = 24
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -1590,7 +1590,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/syndicate{
-	dir = 8;
+	dir = 4;
 	pixel_x = 24
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -2295,7 +2295,8 @@
 	pixel_x = 26
 	},
 /obj/machinery/airalarm/syndicate{
-	pixel_y = 24
+	pixel_y = 24;
+	dir = 1
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/armory)

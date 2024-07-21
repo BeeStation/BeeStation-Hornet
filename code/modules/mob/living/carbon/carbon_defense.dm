@@ -73,6 +73,10 @@
 		affecting = bodyparts[1]
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
 	send_item_attack_message(I, user, parse_zone(affecting.body_zone))
+	if (I.bleed_force)
+		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
+		var/hit_amount = (100 - armour_block) / 100
+		add_bleeding(I.bleed_force * hit_amount)
 	if(I.force)
 		var/armour_block = run_armor_check(affecting, MELEE, armour_penetration = I.armour_penetration)
 		apply_damage(I.force, I.damtype, affecting, armour_block)
@@ -93,6 +97,10 @@
 					if(head)
 						head.add_mob_blood(src)
 						update_inv_head()
+		else if (I.damtype == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
+			cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(I.force / 3))
+			to_chat(src, "<span class='userdanger'>The heat from [I] cauterizes your bleeding!</span>")
+			playsound(src, 'sound/surgery/cautery2.ogg', 70)
 
 		//dismemberment
 		var/dismemberthreshold = (((affecting.max_damage * 2) / max(I.is_sharp(), 0.5)) - (affecting.get_damage() + ((I.w_class - 3) * 10) + ((I.attack_weight - 1) * 15)))
@@ -198,6 +206,32 @@
 		return affecting.body_zone
 	return dam_zone
 
+/**
+ * Attempt to disarm the target mob.
+ * Will shove the target mob back, and drop them if they're in front of something dense
+ * or another carbon.
+*/
+/mob/living/carbon/proc/disarm(mob/living/carbon/target)
+	do_attack_animation(target, ATTACK_EFFECT_DISARM)
+	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+	if (ishuman(target))
+		var/mob/living/carbon/human/human_target = target
+		human_target.w_uniform?.add_fingerprint(src)
+
+	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, src, get_combat_bodyzone(target))
+	target.disarm_effect(src)
+
+/mob/living/carbon/is_shove_knockdown_blocked() //If you want to add more things that block shove knockdown, extend this
+	for (var/obj/item/clothing/clothing in get_equipped_items())
+		if(clothing.blocks_shove_knockdown)
+			return TRUE
+	return FALSE
+
+/mob/living/carbon/proc/clear_shove_slowdown()
+	remove_movespeed_modifier(/datum/movespeed_modifier/shove)
+	var/active_item = get_active_held_item()
+	if(is_type_in_typecache(active_item, GLOB.shove_disarming_types))
+		visible_message("<span class='warning'>[name] regains their grip on \the [active_item]!</span>", "<span class='warning'>You regain your grip on \the [active_item].</span>", null, COMBAT_MESSAGE_RANGE)
 
 /mob/living/carbon/blob_act(obj/structure/blob/B)
 	if (stat == DEAD)
@@ -465,3 +499,56 @@
 			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
 	else if(getOxyLoss() <= 50)
 		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+
+/mob/living/carbon/bullet_act(obj/projectile/P, def_zone, piercing_hit)
+	var/obj/item/bodypart/affecting = get_bodypart(check_zone(def_zone))
+	if(!affecting) //missing limb? we select the first bodypart (you can never have zero, because of chest)
+		affecting = bodyparts[1]
+	if (P.bleed_force)
+		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = P.armour_penetration, silent = TRUE)
+		var/hit_amount = (100 - armour_block) / 100
+		add_bleeding(P.bleed_force * hit_amount)
+	if (P.damage_type == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
+		cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(P.damage / 3))
+		playsound(src, 'sound/surgery/cautery2.ogg', 70)
+		to_chat(src, "<span class='userdanger'>The heat from [P] cauterizes your bleeding!</span>")
+
+	return ..()
+
+/mob/living/carbon/attack_basic_mob(mob/living/basic/user)
+	. = ..()
+	if(!.)
+		return
+	var/affected_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/dam_zone = dismembering_strike(user, affected_zone)
+	if(!dam_zone) //Dismemberment successful
+		return TRUE
+	var/obj/item/bodypart/affecting = get_bodypart(affected_zone)
+	if(!affecting)
+		affecting = get_bodypart(BODY_ZONE_CHEST)
+	var/armor = run_armor_check(affecting, MELEE, armour_penetration = user.armour_penetration)
+	apply_damage(user.melee_damage, user.melee_damage_type, affecting, armor)
+	// Apply bleeding
+	if (user.melee_damage_type == BRUTE)
+		var/armour_block = run_armor_check(dam_zone, BLEED, armour_penetration = user.armour_penetration, silent = TRUE)
+		var/hit_amount = (100 - armour_block) / 100
+		add_bleeding(user.melee_damage * 0.1 * hit_amount)
+
+/mob/living/carbon/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(!.)
+		return
+	var/affected_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/dam_zone = dismembering_strike(M, affected_zone)
+	if(!dam_zone) //Dismemberment successful
+		return TRUE
+	var/obj/item/bodypart/affecting = get_bodypart(affected_zone)
+	if(!affecting)
+		affecting = get_bodypart(BODY_ZONE_CHEST)
+	var/armor = run_armor_check(affecting, MELEE, armour_penetration = M.armour_penetration)
+	apply_damage(M.melee_damage, M.melee_damage_type, affecting, armor)
+	// Apply bleeding
+	if (M.melee_damage_type == BRUTE)
+		var/armour_block = run_armor_check(dam_zone, BLEED, armour_penetration = M.armour_penetration, silent = TRUE)
+		var/hit_amount = (100 - armour_block) / 100
+		add_bleeding(M.melee_damage * 0.1 * hit_amount)
