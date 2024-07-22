@@ -17099,6 +17099,7 @@
 	},
 /obj/machinery/fax/service,
 /obj/structure/table,
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "cZt" = (
@@ -20456,6 +20457,13 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"eqX" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/machinery/camera/autoname/directional/east,
+/turf/open/floor/iron/white,
+/area/medical/chemistry)
 "erk" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
@@ -20794,18 +20802,6 @@
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/ai)
-"eye" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/turf/open/floor/grass/no_border,
-/area/medical/genetics)
 "eyf" = (
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow{
@@ -21370,9 +21366,6 @@
 "eJN" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/machinery/camera/directional/north,
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
 /turf/open/floor/grass/no_border,
 /area/medical/genetics)
 "eJS" = (
@@ -26945,15 +26938,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
-"hfZ" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/medical/chemistry)
 "hgc" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -38676,6 +38660,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/sign/poster/contraband/clown{
+	pixel_y = -32
+	},
 /turf/open/floor/iron/checker,
 /area/hallway/secondary/service)
 "lYS" = (
@@ -45532,10 +45519,10 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/start/bartender,
 /obj/effect/turf_decal/siding/wood{
 	layer = 1
 	},
+/obj/effect/landmark/start/bartender,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "oTb" = (
@@ -57755,9 +57742,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "tIW" = (
-/obj/structure/sign/poster/contraband/clown{
-	pixel_x = -32
-	},
 /obj/effect/turf_decal/tile/dark_green/half/contrasted{
 	dir = 8
 	},
@@ -60226,14 +60210,6 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high/plus,
-/obj/machinery/camera/autoname/directional/east,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
@@ -63291,16 +63267,6 @@
 /obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
-"wee" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/airalarm/directional/west{
-	pixel_x = -23
-	},
-/turf/closed/wall,
-/area/hallway/secondary/service)
 "wen" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 5
@@ -108301,7 +108267,7 @@ kEB
 cVb
 kEC
 lYu
-wee
+cVb
 cVb
 rSC
 mos
@@ -109365,7 +109331,7 @@ jLS
 jLS
 itF
 bye
-eye
+icf
 pyN
 bBQ
 hnu
@@ -109618,8 +109584,8 @@ tzn
 rha
 bvu
 bQh
+eqX
 bvu
-hfZ
 uMw
 bye
 bon
