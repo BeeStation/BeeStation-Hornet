@@ -954,7 +954,6 @@
 	pixel_y = 20
 	},
 /obj/machinery/door/airlock/public/glass,
-/obj/structure/elevator_segment/primary,
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/pod/light,
@@ -2058,7 +2057,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/trimline/neutral/warning,
-/obj/structure/elevator_segment/primary,
 /obj/structure/door_assembly/door_assembly_public,
 /obj/structure/barricade/wooden,
 /turf/open/floor/pod/light,
@@ -2434,11 +2432,6 @@
 "gS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
-	},
-/obj/structure/elevator_segment/primary,
-/obj/machinery/elevator_interface/primary{
-	pixel_x = -24;
-	preset_z = 1
 	},
 /turf/open/floor/pod/dark,
 /area/syndicate_mothership/control)
@@ -4728,7 +4721,6 @@
 /turf/open/floor/iron,
 /area/centcom/control)
 "nO" = (
-/obj/structure/elevator_segment/primary,
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
 "nP" = (
@@ -5540,7 +5532,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/structure/elevator_segment/primary,
 /turf/open/floor/pod/dark,
 /area/syndicate_mothership/control)
 "qc" = (
@@ -6561,7 +6552,6 @@
 /turf/closed/indestructible/riveted,
 /area/centcom/ferry)
 "te" = (
-/obj/structure/elevator_segment/primary,
 /turf/open/floor/pod/dark,
 /area/syndicate_mothership/control)
 "tf" = (
@@ -6684,7 +6674,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 9
 	},
-/obj/structure/elevator_segment/primary,
 /turf/open/floor/pod/dark,
 /area/syndicate_mothership/control)
 "tz" = (
@@ -7096,7 +7085,6 @@
 /obj/effect/turf_decal/trimline/neutral/warning,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/public/glass,
-/obj/structure/elevator_segment/primary,
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/pod/light,
 /area/syndicate_mothership/control)
@@ -11449,15 +11437,6 @@
 /obj/machinery/light/floor,
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
-"Ha" = (
-/obj/structure/elevator_segment/primary,
-/obj/machinery/elevator_indicator{
-	id = "primary";
-	pixel_x = -24;
-	preset_z = 1
-	},
-/turf/open/floor/plating/rust,
-/area/syndicate_mothership/control)
 "Hb" = (
 /obj/structure/sink{
 	dir = 8;
@@ -13571,7 +13550,6 @@
 /turf/open/floor/wood,
 /area/wizard_station)
 "MF" = (
-/obj/structure/elevator_segment/primary,
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
 "MG" = (
@@ -28898,7 +28876,7 @@ AO
 WV
 ux
 MF
-Ha
+nO
 gS
 ku
 tj
