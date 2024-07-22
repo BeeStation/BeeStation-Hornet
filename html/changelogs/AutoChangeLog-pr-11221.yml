@@ -1,0 +1,5 @@
+author: Spockye
+delete-after: true
+changes:
+  - balance: rebalanced the pirate shuttle
+  - bugfix: some misc decal changes for the pirate shuttle
