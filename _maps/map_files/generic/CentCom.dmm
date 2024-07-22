@@ -1274,10 +1274,6 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/wood/big,
 /area/syndicate_mothership/control)
-"dt" = (
-/obj/structure/lattice,
-/turf/closed/indestructible/rock,
-/area/syndicate_mothership)
 "du" = (
 /obj/structure/grille,
 /obj/structure/window/shuttle,
@@ -10994,10 +10990,6 @@
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt,
 /turf/open/floor/plating/rust,
-/area/syndicate_mothership/control)
-"FI" = (
-/obj/structure/lattice,
-/turf/closed/indestructible/syndicate,
 /area/syndicate_mothership/control)
 "FJ" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
@@ -40191,9 +40183,9 @@ tj
 tj
 tj
 tj
-dt
-FI
-dt
+tj
+ku
+tj
 gj
 gj
 ku
