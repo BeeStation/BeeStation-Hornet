@@ -16,7 +16,12 @@ SUBSYSTEM_DEF(job)
 
 	var/list/level_order = list(JP_HIGH,JP_MEDIUM,JP_LOW)
 
-	var/spare_id_safe_code = ""
+	var/cap_safe_code = ""
+	var/hop_safe_code = ""
+	var/rd_safe_code = ""
+	var/ce_safe_code = ""
+	var/cmo_safe_code = ""
+	var/hos_safe_code = ""
 
 	var/list/chain_of_command = list(
 		"Captain" = 1,				//Not used yet but captain is first in chain_of_command
@@ -52,7 +57,12 @@ SUBSYSTEM_DEF(job)
 		LoadJobs()
 	set_overflow_role(CONFIG_GET(string/overflow_job))
 
-	spare_id_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
+	cap_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
+	hop_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
+	rd_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
+	ce_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
+	cmo_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
+	hos_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
 
 	crew_obj_list = subtypesof(/datum/objective/crew)
 	for(var/type as() in crew_obj_list)
@@ -79,7 +89,12 @@ SUBSYSTEM_DEF(job)
 
 	overflow_role = SSjob.overflow_role
 
-	spare_id_safe_code = SSjob.spare_id_safe_code
+	cap_safe_code = SSjob.cap_safe_code
+	hop_safe_code = SSjob.hop_safe_code
+	rd_safe_code  = SSjob.rd_safe_code
+	ce_safe_code  = SSjob.ce_safe_code
+	cmo_safe_code = SSjob.cmo_safe_code
+	hos_safe_code = SSjob.hos_safe_code
 	crew_obj_list = SSjob.crew_obj_list
 	crew_obj_jobs = SSjob.crew_obj_jobs
 
@@ -807,13 +822,58 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/JobDebug(message)
 	log_job_debug(message)
 
-/obj/item/paper/fluff/spare_id_safe_code
+/obj/item/paper/fluff/cap_safe_code
 	name = "Nanotrasen-Approved Spare ID Safe Code"
 	desc = "Proof that you have been approved for Captaincy, with all its glory and all its horror."
 
-/obj/item/paper/fluff/spare_id_safe_code/Initialize(mapload)
-	var/id_safe_code = SSjob.spare_id_safe_code
-	default_raw_text = "Captain's Spare ID safe code combination: [id_safe_code ? id_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe on the bridge."
+/obj/item/paper/fluff/cap_safe_code/Initialize(mapload)
+	var/cap_safe_code = SSjob.cap_safe_code
+	default_raw_text = "Captain's Spare ID safe code combination: [cap_safe_code ? cap_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe on the bridge."
+	return ..()
+
+/obj/item/paper/fluff/hop_safe_code
+	name = "Nanotrasen-Approved Spare ID Safe Code"
+	desc = "Proof that you have been approved for Captaincy, with all its glory and all its horror."
+
+/obj/item/paper/fluff/hop_safe_code/Initialize(mapload)
+	var/hop_safe_code = SSjob.hop_safe_code
+	default_raw_text = "Head of Personnel's Spare ID safe code combination: [hop_safe_code ? hop_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe in their office."
+	return ..()
+
+/obj/item/paper/fluff/rd_safe_code
+	name = "Nanotrasen-Approved Spare ID Safe Code"
+	desc = "Proof that you have been approved for Captaincy, with all its glory and all its horror."
+
+/obj/item/paper/fluff/rd_safe_code/Initialize(mapload)
+	var/rd_safe_code = SSjob.rd_safe_code
+	default_raw_text = "Research Director's Spare ID safe code combination: [rd_safe_code ? rd_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe in their office."
+	return ..()
+
+/obj/item/paper/fluff/ce_safe_code
+	name = "Nanotrasen-Approved Spare ID Safe Code"
+	desc = "Proof that you have been approved for Captaincy, with all its glory and all its horror."
+
+/obj/item/paper/fluff/ce_safe_code/Initialize(mapload)
+	var/ce_safe_code = SSjob.ce_safe_code
+	default_raw_text = "Chief Engineer's Spare ID safe code combination: [ce_safe_code ? ce_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe in their office."
+	return ..()
+
+/obj/item/paper/fluff/cmo_safe_code
+	name = "Nanotrasen-Approved Spare ID Safe Code"
+	desc = "Proof that you have been approved for Captaincy, with all its glory and all its horror."
+
+/obj/item/paper/fluff/cmo_safe_code/Initialize(mapload)
+	var/cmo_safe_code = SSjob.cmo_safe_code
+	default_raw_text = "Chief Medical Officer's Spare ID safe code combination: [cmo_safe_code ? cmo_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe in their office."
+	return ..()
+
+/obj/item/paper/fluff/hos_safe_code
+	name = "Nanotrasen-Approved Spare ID Safe Code"
+	desc = "Proof that you have been approved for Captaincy, with all its glory and all its horror."
+
+/obj/item/paper/fluff/hos_safe_code/Initialize(mapload)
+	var/hos_safe_code = SSjob.hos_safe_code
+	default_raw_text = "Head of Security's Spare ID safe code combination: [hos_safe_code ? hos_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe in their office."
 	return ..()
 
 /datum/controller/subsystem/job/proc/promote_to_captain(var/mob/dead/new_player/new_captain, acting_captain = FALSE)
@@ -821,10 +881,10 @@ SUBSYSTEM_DEF(job)
 	if(!new_captain)
 		CRASH("Cannot promote [new_captain.ckey], there is no new_character attached to him.")
 
-	if(!spare_id_safe_code)
-		CRASH("Cannot promote [H.real_name] to Captain, there is no spare_id_safe_code.")
+	if(!cap_safe_code)
+		CRASH("Cannot promote [H.real_name] to Captain, there is no cap_safe_code.")
 
-	var/paper = new /obj/item/paper/fluff/spare_id_safe_code(H.loc)
+	var/paper = new /obj/item/paper/fluff/cap_safe_code(H.loc)
 	var/list/slots = list(
 		"in your left pocket" = ITEM_SLOT_LPOCKET,
 		"in your right pocket" = ITEM_SLOT_RPOCKET,

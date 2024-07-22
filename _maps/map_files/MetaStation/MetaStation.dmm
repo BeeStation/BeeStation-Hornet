@@ -621,10 +621,6 @@
 	pixel_y = 30
 	},
 /obj/machinery/computer/med_data/laptop,
-/obj/item/storage/secure/safe/HoS{
-	pixel_x = 36;
-	pixel_y = 28
-	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Head of Security's Office"
 	},
@@ -4756,6 +4752,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
+/obj/item/storage/secure/safe/id/hop/directional/west,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "aKb" = (
@@ -20202,13 +20199,10 @@
 /area/science/robotics/lab)
 "cGe" = (
 /obj/machinery/modular_computer/console/preset/engineering,
-/obj/item/storage/secure/safe/caps_spare{
-	pixel_x = 6;
-	pixel_y = 28
-	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
+/obj/item/storage/secure/safe/id/caps_spare/directional/north,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "cGf" = (
@@ -30650,6 +30644,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/storage/secure/safe/id/hos/directional/south,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "fVz" = (
@@ -40552,6 +40547,7 @@
 /obj/effect/turf_decal/tile/black/opposingcorners{
 	dir = 1
 	},
+/obj/item/storage/secure/safe/id/rd/directional/east,
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/hor)
 "jUK" = (
@@ -65580,6 +65576,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
+/obj/item/storage/secure/safe/id/cmo/directional/west,
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
 "tpu" = (
@@ -76434,6 +76431,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/storage/secure/safe/id/ce/directional/east,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/chief)
 "xsi" = (
