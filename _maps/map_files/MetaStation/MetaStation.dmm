@@ -1542,6 +1542,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "anw" = (
@@ -2112,12 +2113,6 @@
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
 /area/maintenance/port)
-"aqZ" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 27
-	},
-/turf/closed/wall,
-/area/security/brig)
 "arb" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -9651,6 +9646,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "bkX" = (
@@ -26168,6 +26164,7 @@
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "ekG" = (
@@ -30059,6 +30056,7 @@
 	req_access_txt = "3"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "fMG" = (
@@ -38413,8 +38411,11 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
 "iZi" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/space/basic,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 27
+	},
+/turf/open/floor/iron/dark,
 /area/security/brig)
 "iZn" = (
 /obj/item/storage/book/bible,
@@ -48289,13 +48290,6 @@
 	name = "Labor Camp Shuttle Airlock";
 	req_access_txt = "2"
 	},
-/obj/machinery/button/door{
-	id = "prison release";
-	name = "Labor Camp Shuttle Lockdown";
-	pixel_y = -10;
-	req_access_txt = "2";
-	pixel_x = -23
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -50736,6 +50730,9 @@
 "nMs" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 27
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -59932,6 +59929,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/security/brig)
 "rhX" = (
@@ -111660,7 +111658,7 @@ aaa
 aaa
 lMJ
 ahx
-iZi
+ajo
 ajm
 ang
 ayy
@@ -113465,8 +113463,8 @@ jRV
 ieV
 ajm
 emp
-ybb
-aqZ
+iZi
+ahx
 avk
 ajm
 wdT
