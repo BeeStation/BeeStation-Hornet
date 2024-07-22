@@ -23,7 +23,7 @@
 	var/result = spawn_clownloose(landing_turf, candidates, spawned_mobs)
 	if(result != SUCCESSFUL_SPAWN)
 		return result
-	priority_announce("Delta level prisoner has breached CentCom prisons and stolen a high rank officers headwear. Be weary of any potential fugitive onboard. Retrieve the prisoner and the stolen posetion back to CentCom.", "Security Alert", SSstation.announcer.get_rand_report_sound())
+	priority_announce("Delta level prisoner has breached CentCom prisons and stolen a high rank officers headwear. Be weary of any potential fugitive onboard. Retrieve the prisoner and the stolen possession back to CentCom.", "Security Alert", SSstation.announcer.get_rand_report_sound())
 	sound_to_playing_players('sound/misc/honk_echo_distant.ogg', 20)
 	return SUCCESSFUL_SPAWN
 
