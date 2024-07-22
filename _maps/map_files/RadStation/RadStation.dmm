@@ -24854,6 +24854,7 @@
 	icon_state = "0-8"
 	},
 /obj/structure/curtain/directional,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/chief)
 "hNf" = (
@@ -73779,7 +73780,18 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "xph" = (
-/turf/open/space/basic,
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/curtain/directional,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
 /area/crew_quarters/heads/chief)
 "xpx" = (
 /obj/machinery/space_heater,
