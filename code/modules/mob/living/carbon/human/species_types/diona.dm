@@ -58,7 +58,8 @@
 		H.take_overall_damage(1,0)
 	if(H.stat != CONSCIOUS)
 		H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
-		return
+	if((H.health <= H.crit_threshold)) //Shit, we're dying! Scatter!
+		split_ability.Trigger(TRUE)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
@@ -70,6 +71,7 @@
 			time_spent_in_light++  //If so, how long have we been somewhere with light?
 			if(time_spent_in_light > 5) //More than 5 seconds spent in the light
 				if(H.stat != CONSCIOUS)
+					H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
 					return
 				H.apply_status_effect(STATUS_EFFECT_PLANTHEALING)
 		else
