@@ -17100,6 +17100,7 @@
 /obj/machinery/fax/service,
 /obj/structure/table,
 /obj/machinery/airalarm/directional/north,
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "cZt" = (
@@ -32445,6 +32446,7 @@
 	req_access_txt = "45"
 	},
 /obj/effect/mapping_helpers/airlock/unres,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/medical/surgery)
 "jsj" = (
@@ -41350,6 +41352,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "ngx" = (
@@ -42473,6 +42476,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "nDF" = (
@@ -49993,6 +49997,7 @@
 "qMz" = (
 /obj/machinery/camera/autoname/directional/north,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "qMH" = (
@@ -59057,6 +59062,7 @@
 	name = "Operating Theatre";
 	req_access_txt = "45"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "ulq" = (
