@@ -9,10 +9,10 @@
 
 /// Is this movable visible from a turf that is mimicking below? Note: this does not necessarily mean *directly* below.
 #define MOVABLE_IS_BELOW_ZTURF(M) (\
-	isturf(M:loc) && isturf(M:loc?:above) && ( \
-		TURF_IS_MIMICKING(M:loc?:above) \
-		|| ((M:zmm_flags & ZMM_LOOKAHEAD) && ZM_INTERNAL_SCAN_LOOKAHEAD(M:loc?:above, z_flags, Z_MIMIC_BELOW))  \
-		|| ((M:zmm_flags & ZMM_LOOKBESIDE) && ZM_INTERNAL_SCAN_LOOKBESIDE(M:loc?:above, z_flags, Z_MIMIC_BELOW))) \
+	isturf(M:loc) && isturf(M:loc:above) && ( \
+		TURF_IS_MIMICKING(M:loc:above) \
+		|| ((M:zmm_flags & ZMM_LOOKAHEAD) && ZM_INTERNAL_SCAN_LOOKAHEAD(M, above?:z_flags, Z_MIMIC_BELOW))  \
+		|| ((M:zmm_flags & ZMM_LOOKBESIDE) && ZM_INTERNAL_SCAN_LOOKBESIDE(M, above?:z_flags, Z_MIMIC_BELOW))) \
 )
 /// Is this movable located on a turf that is mimicking below? Note: this does not necessarily mean *directly* on.
 #define MOVABLE_IS_ON_ZTURF(M) (\
