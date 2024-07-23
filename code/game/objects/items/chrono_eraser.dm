@@ -147,6 +147,7 @@
 /obj/item/ammo_casing/energy/chrono_beam
 	name = "eradication beam"
 	projectile_type = /obj/projectile/energy/chrono_beam
+	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "chronobolt"
 	e_cost = 0
 	var/obj/item/gun/energy/chrono_gun/gun

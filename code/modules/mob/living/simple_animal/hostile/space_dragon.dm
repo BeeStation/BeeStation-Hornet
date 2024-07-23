@@ -27,7 +27,7 @@
 	health = 350
 	spacewalk = TRUE
 	a_intent = INTENT_HARM
-	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0.5, OXY = 1)
+	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	speed = 0
 	attacktext = "chomps"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
@@ -147,8 +147,8 @@
 			is_swallowing = FALSE
 			return
 	. = ..()
-	if(istype(target, /obj/mecha))
-		var/obj/mecha/M = target
+	if(istype(target, /obj/vehicle/sealed/mecha))
+		var/obj/vehicle/sealed/mecha/M = target
 		M.take_damage(50, BRUTE, MELEE, 1)
 
 /mob/living/simple_animal/hostile/space_dragon/Move()
@@ -321,7 +321,7 @@
 		L.adjustFireLoss(30)
 		to_chat(L, "<span class='userdanger'>You're hit by [src]'s fire breath!</span>")
 	// deals damage to mechs
-	for(var/obj/mecha/M in T.contents)
+	for(var/obj/vehicle/sealed/mecha/M in T.contents)
 		if(M in hit_list)
 			continue
 		hit_list += M

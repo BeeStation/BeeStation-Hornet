@@ -45,6 +45,20 @@
 /obj/machinery/atmospherics/pipe/simple/purple/hidden,
 /turf/open/floor/plating,
 /area/shuttle/hunter)
+"aN" = (
+/obj/machinery/power/apc/auto_name/directional/north{
+	cell_type = /obj/item/stock_parts/cell/high/plus;
+	req_access = list(181)
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/manifold/purple/hidden{
+	dir = 1
+	},
+/turf/open/floor/iron/tech,
+/area/shuttle/hunter)
 "aS" = (
 /obj/structure/curtain/bounty,
 /turf/open/floor/iron/tech/grid,
@@ -301,6 +315,35 @@
 	},
 /turf/open/floor/iron/ridged/steel,
 /area/shuttle/hunter)
+"mn" = (
+/obj/structure/railing{
+	dir = 6;
+	layer = 4.1
+	},
+/obj/item/trash/sosjerky{
+	anchored = 1;
+	color = "#808080";
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/greenglow{
+	color = "#808080"
+	},
+/obj/item/cigbutt{
+	anchored = 1;
+	color = "#808080";
+	layer = 2;
+	pixel_x = -4;
+	pixel_y = 11
+	},
+/obj/structure/lattice{
+	layer = 3;
+	color = "#808080"
+	},
+/turf/open/floor/plating/elevatorshaft{
+	color = "#808080"
+	},
+/area/shuttle/hunter)
 "ms" = (
 /obj/structure/railing{
 	dir = 2;
@@ -445,35 +488,6 @@
 	dir = 8
 	},
 /turf/open/floor/iron/grid/steel,
-/area/shuttle/hunter)
-"rX" = (
-/obj/structure/railing{
-	dir = 6;
-	layer = 4.1
-	},
-/obj/item/trash/sosjerky{
-	anchored = 1;
-	color = "#808080";
-	pixel_x = 8;
-	pixel_y = 8
-	},
-/obj/effect/decal/cleanable/greenglow{
-	color = "#808080"
-	},
-/obj/item/cigbutt{
-	anchored = 1;
-	color = "#808080";
-	layer = 2;
-	pixel_x = -4;
-	pixel_y = 11
-	},
-/obj/structure/lattice{
-	layer = 3;
-	color = "#808080"
-	},
-/turf/open/floor/iron/elevatorshaft{
-	color = "#808080"
-	},
 /area/shuttle/hunter)
 "rY" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -649,6 +663,37 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/hunter)
+"Gx" = (
+/obj/structure/railing{
+	dir = 10;
+	layer = 4.1
+	},
+/obj/effect/decal/cleanable/leaper_sludge{
+	color = "#808080"
+	},
+/obj/item/trash/energybar{
+	color = "#808080";
+	layer = 2;
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/item/cigbutt{
+	anchored = 1;
+	color = "#808080";
+	layer = 2;
+	pixel_x = -4;
+	pixel_y = 1
+	},
+/obj/effect/decal/cleanable/plasma,
+/obj/structure/lattice{
+	layer = 3;
+	color = "#808080"
+	},
+/turf/open/floor/plating/elevatorshaft{
+	color = "#808080"
+	},
+/area/shuttle/hunter)
 "GA" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	req_access_txt = "181"
@@ -680,20 +725,6 @@
 	},
 /obj/machinery/suit_storage_unit/bounty,
 /turf/open/floor/iron/tech/grid,
-/area/shuttle/hunter)
-"Hr" = (
-/obj/machinery/power/apc/auto_name/north{
-	cell_type = /obj/item/stock_parts/cell/high/plus;
-	req_access = list(181)
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/manifold/purple/hidden{
-	dir = 1
-	},
-/turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "IA" = (
 /obj/effect/turf_decal/siding/thinplating/dark/corner,
@@ -1066,37 +1097,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
-"ZO" = (
-/obj/structure/railing{
-	dir = 10;
-	layer = 4.1
-	},
-/obj/effect/decal/cleanable/leaper_sludge{
-	color = "#808080"
-	},
-/obj/item/trash/energybar{
-	color = "#808080";
-	layer = 2;
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/item/cigbutt{
-	anchored = 1;
-	color = "#808080";
-	layer = 2;
-	pixel_x = -4;
-	pixel_y = 1
-	},
-/obj/effect/decal/cleanable/plasma,
-/obj/structure/lattice{
-	layer = 3;
-	color = "#808080"
-	},
-/turf/open/floor/iron/elevatorshaft{
-	color = "#808080"
-	},
-/area/shuttle/hunter)
 "ZQ" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/computer/launchpad{
@@ -1198,7 +1198,7 @@ nn
 "}
 (7,1,1) = {"
 nn
-Hr
+aN
 pC
 jA
 Vx
@@ -1264,7 +1264,7 @@ ab
 sc
 ri
 nn
-rX
+mn
 fp
 lw
 nn
@@ -1309,7 +1309,7 @@ Hl
 js
 ms
 nn
-ZO
+Gx
 BE
 Ly
 nn

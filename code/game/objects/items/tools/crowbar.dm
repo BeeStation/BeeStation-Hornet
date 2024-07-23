@@ -16,7 +16,7 @@
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 	tool_behaviour = TOOL_CROWBAR
 	toolspeed = 1
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0, BLEED = 0)
 	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
 	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
 
@@ -34,6 +34,7 @@
 	desc = "A brass crowbar. It feels faintly warm to the touch."
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	icon_state = "crowbar_brass"
+	worn_icon_state = "crowbar"
 	toolspeed = 0.5
 
 /obj/item/crowbar/abductor
@@ -54,7 +55,7 @@
 	throw_range = 3
 	custom_materials = list(/datum/material/iron=70)
 	icon_state = "crowbar_large"
-	item_state = "crowbar"
+	worn_icon_state = "crowbar"
 	toolspeed = 0.7
 
 /obj/item/crowbar/cyborg

@@ -17,7 +17,7 @@
 	var/directive = stripped_input(user, "What objective do you want to give that vessel?", "Objective")
 
 	if(target.mind && target.client && target.stat != DEAD)
-		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD)) && !istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD)) && !istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			if(!IS_HIVEHOST(target) && !IS_WOKEVESSEL(target))
 				target.hive_weak_awaken(directive)
 				to_chat(user, "<span class='warning'>We successfully overpower their weak psyche!.</span>")

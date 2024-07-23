@@ -27,9 +27,7 @@
 	drop_limb()
 
 	C.update_equipment_speed_mods() // Update in case speed affecting item unequipped by dismemberment
-	var/turf/location = C.loc
-	if(istype(location))
-		C.add_splatter_floor(location)
+	C.add_bleeding(BLEED_CRITICAL)
 
 	if(QDELETED(src)) //Could have dropped into lava/explosion/chasm/whatever
 		return TRUE
@@ -60,9 +58,8 @@
 	if(HAS_TRAIT(C, TRAIT_NODISMEMBER))
 		return FALSE
 	. = list()
-	var/organ_spilled = 0
 	var/turf/T = get_turf(C)
-	C.add_splatter_floor(T)
+	C.add_bleeding(BLEED_CRITICAL)
 	playsound(get_turf(C), 'sound/misc/splort.ogg', 80, 1)
 	for(var/X in C.internal_organs)
 		var/obj/item/organ/O = X
@@ -71,18 +68,11 @@
 			continue
 		O.Remove(C)
 		O.forceMove(T)
-		organ_spilled = 1
 		. += X
 	if(cavity_item)
 		cavity_item.forceMove(T)
 		. += cavity_item
 		cavity_item = null
-		organ_spilled = 1
-
-	if(organ_spilled)
-		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
-
-
 
 //limb removal. The "special" argument is used for swapping a limb with a new one without the effects of losing a limb kicking in.
 /obj/item/bodypart/proc/drop_limb(special, dismembered)
@@ -188,7 +178,7 @@
 		if(C.handcuffed)
 			C.handcuffed.forceMove(drop_location())
 			C.handcuffed.dropped(C)
-			C.handcuffed = null
+			C.set_handcuffed(null)
 			C.update_handcuffed()
 		if(C.hud_used)
 			var/atom/movable/screen/inventory/hand/R = C.hud_used.hand_slots["[held_index]"]
@@ -206,7 +196,7 @@
 		if(C.handcuffed)
 			C.handcuffed.forceMove(drop_location())
 			C.handcuffed.dropped(C)
-			C.handcuffed = null
+			C.set_handcuffed(null)
 			C.update_handcuffed()
 		if(C.hud_used)
 			var/atom/movable/screen/inventory/hand/L = C.hud_used.hand_slots["[held_index]"]

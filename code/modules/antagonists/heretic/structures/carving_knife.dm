@@ -7,6 +7,7 @@
 	icon_state = "rune_carver"
 	flags_1 = CONDUCT_1
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 10
 	throwforce = 20
@@ -165,7 +166,7 @@
 /obj/structure/trap/eldritch
 	name = "elder carving"
 	desc = "A collection of unknown symbols, they remind you of days long gone..."
-	icon = 'icons/obj/heretic.dmi'
+	icon = 'icons/obj/hand_of_god_structures.dmi'
 	/// A tip displayed to heretics who examine the rune carver. Explains what the rune does.
 	var/carver_tip
 	/// Reference to trap owner mob
