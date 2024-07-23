@@ -1,4 +1,0 @@
-author: spockye
-delete-after: true
-changes:
-  - bugfix: fixed floating cameras on the exploration shuttle
