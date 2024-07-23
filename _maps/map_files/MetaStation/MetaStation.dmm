@@ -812,12 +812,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
-"ahf" = (
-/obj/effect/turf_decal/tile/dark_red/half{
-	dir = 1
-	},
-/turf/open/floor/iron/smooth_large,
-/area/space)
 "ahi" = (
 /obj/machinery/airalarm/directional/east{
 	pixel_x = 24
@@ -78653,12 +78647,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
-"xXN" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/space)
 "xYl" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Gravity Generator Area";
@@ -109780,7 +109768,7 @@ aaa
 aaa
 aaa
 aaa
-ahf
+aaa
 aaa
 aaa
 aaa
@@ -110037,7 +110025,7 @@ aaa
 aaa
 aaa
 aaa
-xXN
+aaa
 aaa
 aaa
 aaa
@@ -112593,7 +112581,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+jdU
 aaa
 aaa
 aaa
