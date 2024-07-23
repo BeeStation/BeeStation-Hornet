@@ -7,7 +7,7 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 400
 	deflect_chance = 20
-	armor = list(MELEE = 40,  BULLET = 35, LASER = 15, ENERGY = 10, BOMB = 20, BIO = 0, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 40,  BULLET = 35, LASER = 15, ENERGY = 10, BOMB = 20, BIO = 0, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
 	max_temperature = 30000
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand
@@ -68,8 +68,8 @@
 	SEND_SIGNAL(shield, COMSIG_MECHA_ACTION_TRIGGER, owner, signal_args)
 
 //Redirects projectiles to the shield if defense_check decides they should be blocked and returns true.
-/obj/vehicle/sealed/mecha/combat/durand/proc/prehit(obj/projectile/source, list/signal_args)
-	if(defense_check(source.loc) && shield)
+/obj/vehicle/sealed/mecha/combat/durand/proc/prehit(obj/vehicle/sealed/mecha/combat/durand/source, obj/projectile/projectile, list/signal_args)
+	if(defense_check(get_step(src, angle2dir(projectile.Angle + 180))) && shield)
 		signal_args[2] = shield
 
 
@@ -205,13 +205,11 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 		invisibility = 0
 		flick("shield_raise", src)
 		playsound(src, 'sound/mecha/mech_shield_raise.ogg', 50, FALSE)
-		set_light(l_range = MINIMUM_USEFUL_LIGHT_RANGE	, l_power = 5, l_color = "#00FFFF")
 		icon_state = "shield"
 		RegisterSignal(chassis, COMSIG_ATOM_DIR_CHANGE, PROC_REF(resetdir))
 	else
 		flick("shield_drop", src)
 		playsound(src, 'sound/mecha/mech_shield_drop.ogg', 50, FALSE)
-		set_light(0)
 		icon_state = "shield_null"
 		invisibility = INVISIBILITY_MAXIMUM //no showing on right-click
 		UnregisterSignal(chassis, COMSIG_ATOM_DIR_CHANGE)

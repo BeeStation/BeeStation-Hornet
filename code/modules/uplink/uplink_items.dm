@@ -1393,9 +1393,9 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/explosives/explosive_flashbulbs
-	name = "Explosive Flashbulb"
-	desc = "A flashbulb stuffed with explosives that when used by an oblivious security officers, will cause a violent explosion."
-	item = /obj/item/flashbulb/bomb
+	name = "Explosive Flash"
+	desc = "A flash with a bulb stuffed with explosives that when used by an oblivious security officers, will cause a violent explosion."
+	item = /obj/item/assembly/flash/bomb
 	cost = 1
 	surplus = 8
 
@@ -2215,6 +2215,25 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A pair of shoes for the most elite agents of the honkmotherland. They grant the mastery of taeclowndo with some honk-fu moves as long as they're worn."
 	cost = 12
 	item = /obj/item/clothing/shoes/clown_shoes/taeclowndo
+	restricted_roles = list(JOB_NAME_CLOWN)
+
+/datum/uplink_item/role_restricted/bananashield
+	name = "Bananium Energy Shield"
+	desc = "A clown's most powerful defensive weapon, this personal shield provides near immunity to ranged energy attacks \
+		by bouncing them back at the ones who fired them. It can also be thrown to bounce off of people, slipping them, \
+		and returning to you even if you miss. WARNING: DO NOT ATTEMPT TO STAND ON SHIELD WHILE DEPLOYED, EVEN IF WEARING ANTI-SLIP SHOES."
+	item = /obj/item/shield/energy/bananium
+	cost = 15
+	surplus = 0
+	restricted_roles = list(JOB_NAME_CLOWN)
+
+/datum/uplink_item/role_restricted/clownsword
+	name = "Bananium Energy Sword"
+	desc = "An energy sword that deals no damage, but will slip anyone it contacts, be it by melee attack, thrown \
+	impact, or just stepping on it. Beware friendly fire, as even anti-slip shoes will not protect against it."
+	item = /obj/item/melee/transforming/energy/sword/bananium
+	cost = 5
+	surplus = 0
 	restricted_roles = list(JOB_NAME_CLOWN)
 
 /datum/uplink_item/role_restricted/superior_honkrender
