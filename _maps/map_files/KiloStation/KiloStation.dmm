@@ -26293,6 +26293,9 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
+/obj/machinery/ecto_sniffer{
+	pixel_x = 6
+	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "cIr" = (
@@ -89272,7 +89275,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/ecto_sniffer,
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron/showroomfloor,
 /area/science/robotics/lab)

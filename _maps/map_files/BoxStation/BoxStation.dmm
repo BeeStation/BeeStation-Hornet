@@ -6404,7 +6404,7 @@
 /obj/machinery/status_display/evac{
 	pixel_x = 32
 	},
-/obj/machinery/aug_manipulator,
+/obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
 "bkx" = (
@@ -7130,13 +7130,6 @@
 	dir = 10
 	},
 /area/science/research)
-"bqa" = (
-/obj/machinery/door/window/eastright{
-	name = "Robotics Surgery";
-	req_access_txt = "29"
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "bqd" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/conveyor{
@@ -17374,14 +17367,14 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/machinery/aug_manipulator,
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "cIf" = (
-/obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
 "cIg" = (
@@ -29617,10 +29610,6 @@
 	},
 /turf/open/floor/iron,
 /area/janitor)
-"hYs" = (
-/obj/machinery/ecto_sniffer,
-/turf/open/floor/iron/white,
-/area/science/robotics/lab)
 "hYG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -44610,6 +44599,9 @@
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
+	},
+/obj/machinery/ecto_sniffer{
+	pixel_y = 5
 	},
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
@@ -109748,7 +109740,7 @@ bjP
 bnb
 bfT
 boG
-bqa
+bsQ
 cIe
 box
 bWr
@@ -110513,7 +110505,7 @@ aXq
 bds
 bfV
 bhx
-hYs
+biL
 biL
 cHO
 pJV

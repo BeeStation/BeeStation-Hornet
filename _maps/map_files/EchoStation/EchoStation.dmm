@@ -39342,14 +39342,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
-"tJf" = (
-/obj/machinery/door/window/eastright{
-	dir = 2;
-	name = "Robotics Surgery";
-	req_access_txt = "29"
-	},
-/turf/open/floor/iron/white,
-/area/science/robotics)
 "tJk" = (
 /obj/structure/closet{
 	name = "Evidence Closet"
@@ -196306,7 +196298,7 @@ gXD
 ohi
 fZv
 eVJ
-tJf
+eVJ
 crG
 rJc
 cpg

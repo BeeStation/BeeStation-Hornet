@@ -20252,6 +20252,10 @@
 	req_access_txt = "29"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/ecto_sniffer{
+	pixel_x = -3;
+	pixel_y = 7
+	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "cDd" = (
@@ -20488,7 +20492,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/aug_manipulator,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "cFf" = (
@@ -73753,13 +73756,6 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line,
 /turf/open/floor/iron/dark,
 /area/science/server)
-"wqA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/ecto_sniffer,
-/turf/open/floor/iron,
-/area/science/robotics/lab)
 "wqM" = (
 /obj/machinery/door/airlock/external{
 	req_access_txt = "13"
@@ -107875,7 +107871,7 @@ cDb
 wCo
 cFd
 cGb
-wqA
+cGb
 cHQ
 cUa
 cYc
