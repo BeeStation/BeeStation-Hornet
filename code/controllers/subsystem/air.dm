@@ -47,6 +47,14 @@ SUBSYSTEM_DEF(air)
 	var/list/queued_for_activation
 	var/display_all_groups = FALSE
 
+	// Supercruise Z-pausing
+	var/list/paused_z_levels	//Paused z-levels will not add turfs to active
+	var/list/unpausing_z_levels = list()
+	var/list/unpause_processing = list()
+
+	var/list/pausing_z_levels = list()
+	var/list/pause_processing = list()
+
 
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
@@ -86,6 +94,41 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/fire(resumed = FALSE)
 	var/timer = TICK_USAGE_REAL
+
+	//If we have unpausing z-level, process them first
+	if(length(unpausing_z_levels) && !length(unpause_processing))
+		var/z_value = unpausing_z_levels[1]
+		unpausing_z_levels.Remove(z_value)
+		unpause_processing = block(locate(1, 1, z_value), locate(world.maxx, world.maxy, z_value))
+
+	while(length(unpause_processing))
+		var/turf/T = unpause_processing[length(unpause_processing)]
+		if(!isspaceturf(T))	//Skip space turfs, since they won't have atmos
+			T.Initalize_Atmos()
+		//Goodbye
+		unpause_processing.len --
+		//We overran this tick, stop processing
+		//This may result in a very brief atmos freeze when running unpause_z at high loads
+		//but that is better than freezing the entire MC
+		if(MC_TICK_CHECK)
+			return
+
+	//If we have unpausing z-level, process them first
+	if(length(pausing_z_levels) && !length(pause_processing))
+		var/z_value = pausing_z_levels[1]
+		pausing_z_levels.Remove(z_value)
+		pause_processing = block(locate(1, 1, z_value), locate(world.maxx, world.maxy, z_value))
+
+	while(length(pause_processing))
+		var/turf/T = pause_processing[length(pause_processing)]
+		T.ImmediateDisableAdjacency()
+		//Goodbye
+		pause_processing.len --
+		//We overran this tick, stop processing
+		//This may result in a very brief atmos freeze when running unpause_z at high loads
+		//but that is better than freezing the entire MC
+		if(MC_TICK_CHECK)
+			return
 
 	//Rebuilds can happen at any time, so this needs to be done outside of the normal system
 	cost_rebuilds = 0
@@ -727,3 +770,14 @@ GLOBAL_LIST_EMPTY(colored_images)
 					ui.user.client.images -= GLOB.colored_images
 				plane.alpha = 0
 			return TRUE
+
+// Supercruise Z-pausing
+/datum/controller/subsystem/air/proc/pause_z(z_level)
+	LAZYADD(paused_z_levels, z_level)
+	unpausing_z_levels -= z_level
+	pausing_z_levels |= z_level
+
+/datum/controller/subsystem/air/proc/unpause_z(z_level)
+	pausing_z_levels -= z_level
+	unpausing_z_levels |= z_level
+	LAZYREMOVE(paused_z_levels, z_level)
