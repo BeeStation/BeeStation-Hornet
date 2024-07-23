@@ -24854,7 +24854,6 @@
 	icon_state = "0-8"
 	},
 /obj/structure/curtain/directional,
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/chief)
 "hNf" = (
