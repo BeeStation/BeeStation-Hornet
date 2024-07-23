@@ -159,7 +159,7 @@
 		return FALSE
 	if(alert("Are we sure we wish to kill ourselves and split into seperated nymphs?",,"Yes", "No") != "Yes")
 		return FALSE
-	if(do_after(user, 8 SECONDS, user, UNINTERRUPTIBLE_CONSCIOUS, TRUE))
+	if(do_after(user, 8 SECONDS, user, NONE, TRUE))
 		if(user.incapacitated()) //Second check incase the ability was activated RIGHT as we were being cuffed, and thus now in cuffs when this triggers
 			return FALSE
 		fakeDeath(FALSE, user) //This runs when you manually activate the ability.
