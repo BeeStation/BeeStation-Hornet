@@ -1,16 +1,223 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ab" = (
+/turf/open/floor/iron,
+/area/ruin)
+"ac" = (
+/obj/structure/table/glass,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/iron/white,
+/area/ruin)
+"ah" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"ak" = (
+/turf/open/floor/iron/white,
+/area/ruin)
+"al" = (
+/obj/structure/table/glass,
+/obj/item/storage/box/beakers,
+/obj/item/reagent_containers/syringe,
+/obj/item/reagent_containers/syringe,
+/obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"an" = (
+/obj/effect/abstract/open_area_marker,
+/turf/open/floor/iron,
+/area/ruin)
+"ao" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted,
+/turf/open/floor/iron/white,
+/area/ruin)
+"ar" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
 "as" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/ruin)
+"av" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/ruin)
+"az" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/northleft{
+	dir = 4;
+	name = "Chemistry Desk";
+	req_access_txt = "5; 33"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/white,
+/area/ruin)
+"aB" = (
+/obj/machinery/chem_master,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"aG" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"aH" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted,
+/turf/open/floor/iron/white,
+/area/ruin)
+"aK" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Chemistry Lab";
+	req_access_txt = "5; 33"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"aN" = (
+/obj/effect/turf_decal/bot_white,
+/turf/open/floor/iron/white,
+/area/ruin)
 "aO" = (
 /turf/closed/wall,
+/area/ruin)
+"aP" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/turf/open/floor/iron/white,
+/area/ruin)
+"aQ" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"aR" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"aS" = (
+/obj/machinery/chem_heater,
+/obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
+/turf/open/floor/iron/white,
 /area/ruin)
 "aT" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
 /turf/closed/wall,
 /area/ruin)
-"fq" = (
+"aV" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"aW" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"bl" = (
+/obj/machinery/light_switch{
+	pixel_x = 1;
+	pixel_y = -25
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"kt" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted,
+/turf/open/floor/iron/white,
+/area/ruin)
+"pt" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"ti" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"vp" = (
+/obj/structure/closet/secure_closet/chemical,
+/obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"wA" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"xi" = (
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder{
+	pixel_x = -1;
+	pixel_y = 7
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"AP" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"Cy" = (
+/obj/machinery/vending/wardrobe/chem_wardrobe,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/ruin)
+"FE" = (
+/obj/structure/rack,
+/obj/item/storage/box/beakers,
+/obj/item/storage/box/medsprays,
+/obj/item/reagent_containers/medspray,
+/obj/item/reagent_containers/medspray,
+/obj/effect/turf_decal/tile/yellow/half/contrasted,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/camera/autoname/directional/east,
 /obj/structure/rack,
 /obj/item/storage/box/beakers,
 /obj/item/storage/box/medsprays,
@@ -19,46 +226,19 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin)
-"fK" = (
-/obj/effect/abstract/open_area_marker{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/ruin)
-"fT" = (
-/obj/effect/turf_decal/bot_white,
+"FK" = (
+/obj/structure/rack,
+/obj/item/construction/plumbing,
+/obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin)
-"jj" = (
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"jO" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/glass/bottle/charcoal{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/glass/bottle/epinephrine{
-	pixel_x = -2;
-	pixel_y = 1
-	},
-/obj/item/storage/pill_bottle,
-/obj/item/storage/pill_bottle,
-/obj/item/storage/pill_bottle,
-/obj/item/reagent_containers/syringe,
+"GR" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/iron/white,
 /area/ruin)
-"ks" = (
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
-/turf/open/floor/iron/white,
-/area/ruin)
-"lA" = (
+"Ih" = (
 /obj/structure/table/glass,
 /obj/machinery/light{
 	dir = 1
@@ -71,14 +251,7 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin)
-"mE" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted,
-/turf/open/floor/iron/white,
-/area/ruin)
-"nD" = (
+"IQ" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop/snowdin/dungeonlite,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -86,137 +259,7 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin)
-"oe" = (
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"px" = (
-/obj/effect/abstract/doorway_marker{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"pH" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Chemistry Lab";
-	req_access_txt = "5; 33"
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"qy" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"ss" = (
-/obj/machinery/vending/wardrobe/chem_wardrobe,
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"wv" = (
-/obj/structure/closet/secure_closet/chemical,
-/obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"xb" = (
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 4
-	},
-/obj/structure/closet/secure_closet/chemical/plumbing,
-/turf/open/floor/iron/white,
-/area/ruin)
-"xz" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/northleft{
-	dir = 4;
-	name = "Chemistry Desk";
-	req_access_txt = "5; 33"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron/white,
-/area/ruin)
-"yv" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"yW" = (
-/turf/open/floor/iron/white,
-/area/ruin)
-"zs" = (
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"EI" = (
-/obj/machinery/chem_master,
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"HB" = (
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"IB" = (
-/obj/machinery/light_switch{
-	pixel_x = 1;
-	pixel_y = -25
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"Je" = (
-/obj/structure/table/glass,
-/obj/machinery/reagentgrinder{
-	pixel_x = -1;
-	pixel_y = 7
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"Kl" = (
-/turf/open/floor/iron,
-/area/ruin)
-"KV" = (
-/obj/structure/table/glass,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/iron/white,
-/area/ruin)
-"Mo" = (
-/obj/effect/abstract/open_area_marker,
-/turf/open/floor/iron,
-/area/ruin)
-"Mr" = (
-/obj/machinery/chem_heater,
-/obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
-/turf/open/floor/iron/white,
-/area/ruin)
-"ML" = (
+"JC" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/beaker/large{
 	pixel_x = -3;
@@ -236,27 +279,7 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin)
-"Po" = (
-/obj/structure/rack,
-/obj/item/construction/plumbing,
-/obj/effect/turf_decal/tile/yellow/half/contrasted,
-/turf/open/floor/iron/white,
-/area/ruin)
-"PC" = (
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"SS" = (
-/obj/effect/turf_decal/tile/blue/half/contrasted,
-/turf/open/floor/iron/white,
-/area/ruin)
-"SW" = (
-/obj/effect/turf_decal/tile/yellow/half/contrasted,
-/turf/open/floor/iron/white,
-/area/ruin)
-"TQ" = (
+"Px" = (
 /obj/machinery/chem_dispenser{
 	layer = 2.7
 	},
@@ -265,41 +288,30 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin)
-"Ul" = (
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 1
+"Rt" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/glass/bottle/charcoal{
+	pixel_x = 3;
+	pixel_y = 3
 	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"Um" = (
+/obj/item/reagent_containers/glass/bottle/epinephrine{
+	pixel_x = -2;
+	pixel_y = 1
+	},
+/obj/item/storage/pill_bottle,
+/obj/item/storage/pill_bottle,
+/obj/item/storage/pill_bottle,
+/obj/item/reagent_containers/syringe,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/ruin)
-"Wm" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue/half/contrasted{
+"XG" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"YW" = (
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/ruin)
-"Zk" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers,
-/obj/item/reagent_containers/syringe,
-/obj/item/reagent_containers/syringe,
-/obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
-	dir = 8
-	},
+/obj/structure/closet/secure_closet/chemical/plumbing,
 /turf/open/floor/iron/white,
 /area/ruin)
 
@@ -309,92 +321,92 @@ aO
 aO
 aO
 aO
-Kl
-fK
-Kl
+ab
+av
+ab
 aO
 "}
 (2,1,1) = {"
 aO
-lA
-KV
-nD
+Ih
+ac
+IQ
 aO
-PC
-Ul
-YW
-Kl
+ar
+aR
+aW
+ab
 "}
 (3,1,1) = {"
 aO
-zs
-yW
-IB
+AP
+ak
+bl
 aO
-Wm
-fT
-jj
-Mo
+pt
+aN
+aQ
+an
 "}
 (4,1,1) = {"
 aO
-xb
-yW
-Um
-pH
-HB
-SS
-ks
-Kl
+XG
+ak
+GR
+aK
+wA
+aH
+aP
+ab
 "}
 (5,1,1) = {"
 aO
-Je
-yW
-qy
+xi
+ak
+ti
 aO
 as
-xz
+az
 aT
 aO
 "}
 (6,1,1) = {"
 aO
-ML
-yW
-yv
-jO
-TQ
-oe
-Zk
+JC
+ak
+aG
+Rt
+Px
+ah
+al
 aO
 "}
 (7,1,1) = {"
 aO
-ss
-yW
-yW
-yW
-yW
-yW
-EI
+Cy
+ak
+ak
+ak
+ak
+ak
+aB
 aO
 "}
 (8,1,1) = {"
 aO
-wv
-SW
-fq
-Po
-mE
-SW
-Mr
+vp
+ao
+FE
+FK
+kt
+ao
+aS
 aO
 "}
 (9,1,1) = {"
 aO
 aO
-px
+aV
 aO
 aO
 aO
