@@ -1,7 +1,5 @@
+/// Anything above a lattice should go here.
 /turf/open/floor
-	//NOTE: Floor code has been refactored, many procs were removed and refactored
-	//- you should use istype() if you want to find out whether a floor has a certain type
-	//- floor_tile is now a path, and not a tile obj
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
 	base_icon_state = "floor"
@@ -15,6 +13,9 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+
 	thermal_conductivity = 0.04
 	heat_capacity = 10000
 	tiled_dirt = TRUE
@@ -22,12 +23,15 @@
 	overfloor_placed = TRUE
 
 	var/icon_plating = "plating"
-	var/floor_tile = null //tile that this floor drops
+	/// Path of the tile that this floor drops
+	var/floor_tile = null
 
 /turf/open/floor/Initialize(mapload)
 	. = ..()
+
 	if(mapload && prob(33))
 		MakeDirty()
+
 	if(is_station_level(z))
 		GLOB.station_turfs += src
 
@@ -67,6 +71,7 @@
 		return
 	T.break_tile()
 
+/// Things seem to rely on this actually returning plating. Override it if you have other baseturfs.
 /turf/open/floor/proc/make_plating()
 	//Remove previous damage overlays
 	for(var/i in damage_overlays)
@@ -102,7 +107,7 @@
 		return TRUE
 
 /turf/open/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
-	if(T.turf_type == type)
+	if(T.turf_type == type && T.turf_dir == dir)
 		return
 	var/obj/item/CB = user.is_holding_tool_quality(TOOL_CROWBAR)
 	if(!CB)
@@ -139,23 +144,23 @@
 
 /turf/open/floor/singularity_pull(S, current_size)
 	..()
-	if(current_size == STAGE_THREE)
-		if(prob(30))
+	var/sheer = FALSE
+	switch(current_size)
+		if(STAGE_THREE)
+			if(prob(30))
+				sheer = TRUE
+		if(STAGE_FOUR)
+			if(prob(50))
+				sheer = TRUE
+		if(STAGE_FIVE to INFINITY)
 			if(floor_tile)
-				new floor_tile(src)
-				make_plating()
-	else if(current_size == STAGE_FOUR)
-		if(prob(50))
-			if(floor_tile)
-				new floor_tile(src)
-				make_plating()
-	else if(current_size >= STAGE_FIVE)
-		if(floor_tile)
-			if(prob(70))
-				new floor_tile(src)
-				make_plating()
-		else if(prob(50))
-			ReplaceWithLattice()
+				if(prob(70))
+					sheer = TRUE
+			else if(prob(50) && (/turf/open/space in baseturfs))
+				ReplaceWithLattice()
+	if(sheer)
+		if(has_tile())
+			remove_tile(null, TRUE, TRUE, TRUE)
 
 /turf/open/floor/narsie_act(force, ignore_mobs, probability = 20)
 	. = ..()

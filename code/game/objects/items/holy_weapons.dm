@@ -2,11 +2,11 @@
 
 /obj/item/clothing/suit/chaplainsuit/armor/templar/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, null, FALSE)
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/leader/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE) //makes the leader hoodie immune without giving the follower hoodies immunity
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, null, FALSE) //makes the leader hoodie immune without giving the follower hoodies immunity
 
 /obj/item/choice_beacon/radial/holy
 	name = "armaments beacon"
@@ -161,7 +161,7 @@
 
 /obj/item/nullrod/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, null, FALSE)
 	AddComponent(/datum/component/effect_remover, \
 	success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
 	success_forcesay = "BEGONE FOUL MAGIKS!!", \
@@ -329,6 +329,7 @@
 	block_level = 1
 	block_power = 30
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 
@@ -448,6 +449,7 @@
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	slot_flags = ITEM_SLOT_BACK
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 
 /obj/item/nullrod/scythe/Initialize(mapload)
@@ -565,6 +567,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT | ISWEAPON
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
 	tool_behaviour = TOOL_SAW
@@ -589,6 +592,7 @@
 	worn_icon_state = "render"
 	hitsound = 'sound/items/bikehorn.ogg'
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 
 /obj/item/nullrod/pride_hammer
@@ -639,6 +643,7 @@
 	throw_range = 7
 	throwforce = 30
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	attack_verb = list("enlightened", "redpilled")
 
 /obj/item/nullrod/armblade
@@ -653,6 +658,7 @@
 	item_flags = ABSTRACT | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 
 /obj/item/nullrod/armblade/Initialize(mapload)
 	. = ..()
@@ -712,6 +718,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	slot_flags = null
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
@@ -745,6 +752,7 @@
 	attack_verb = list("poked", "impaled", "pierced", "jabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 
 /obj/item/nullrod/egyptian
 	name = "egyptian staff"
@@ -785,6 +793,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	armour_penetration = 10
 	sharpness = IS_SHARP_ACCURATE
+	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("stabbed", "poked", "slashed", "clocked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
