@@ -1338,7 +1338,7 @@
 	},
 /obj/item/kirbyplants/random,
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("aiupload")
 	},
 /turf/open/floor/engine,
@@ -2908,7 +2908,7 @@
 /obj/item/circuitboard/machine/telecomms/bus,
 /obj/item/circuitboard/machine/telecomms/broadcaster,
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("ss13","engine")
 	},
 /turf/open/floor/iron/dark,
@@ -3958,7 +3958,7 @@
 "bAc" = (
 /obj/machinery/camera/autoname{
 	c_tag = "Corporate Meeting Room";
-	dir = 5
+	dir = 10
 	},
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable/yellow,
@@ -13273,7 +13273,7 @@
 	},
 /obj/effect/spawner/randomvend/snack,
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("ss13","medbay")
 	},
 /obj/machinery/status_display/evac{
@@ -13531,7 +13531,7 @@
 "gyC" = (
 /obj/machinery/atmospherics/miner/station/carbon_dioxide,
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("ss13","engine")
 	},
 /obj/machinery/atmospherics/pipe/simple/green/hidden{
@@ -13672,7 +13672,7 @@
 	},
 /obj/machinery/light,
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -15173,7 +15173,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("aiupload")
 	},
 /turf/open/floor/engine,
@@ -16972,7 +16972,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/kirbyplants/random,
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","rd")
 	},
 /obj/machinery/firealarm/directional/south,
@@ -21666,7 +21666,7 @@
 	},
 /obj/machinery/camera/autoname{
 	c_tag = "Corporate Meeting Room";
-	dir = 5
+	dir = 10
 	},
 /turf/open/floor/iron/dark,
 /area/teleporter)
@@ -24866,7 +24866,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("aiupload")
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -26445,7 +26445,7 @@
 "nqa" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/machinery/camera/autoname{
-	dir = 6;
+	dir = 9;
 	network = list("ss13","security")
 	},
 /obj/structure/disposalpipe/segment{
@@ -28575,7 +28575,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 10;
+	dir = 5;
 	network = list("ss13","engine")
 	},
 /turf/open/floor/iron,
@@ -28686,7 +28686,7 @@
 	pixel_y = 23
 	},
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("ss13","medbay")
 	},
 /turf/open/floor/iron,
@@ -30356,7 +30356,7 @@
 /area/maintenance/department/security/brig)
 "pug" = (
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("ss13","medbay")
 	},
 /obj/item/radio/intercom{
@@ -31131,7 +31131,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("ss13","medbay")
 	},
 /obj/machinery/firealarm/directional/north,
@@ -32568,7 +32568,7 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/engine{
-	dir = 8;
+	dir = 4;
 	pixel_x = -23
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -36652,7 +36652,7 @@
 	},
 /obj/machinery/camera/autoname{
 	c_tag = "Corporate Meeting Room";
-	dir = 10
+	dir = 5
 	},
 /obj/item/aicard{
 	pixel_x = 6
@@ -36923,7 +36923,7 @@
 /area/asteroid/paradise/surface)
 "sUg" = (
 /obj/machinery/airalarm/engine{
-	dir = 8;
+	dir = 4;
 	pixel_x = -23
 	},
 /obj/machinery/meter,
@@ -38202,7 +38202,7 @@
 	pixel_y = 2
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/fore{
@@ -41210,7 +41210,7 @@
 	},
 /obj/machinery/camera/autoname{
 	c_tag = "Corporate Meeting Room";
-	dir = 5
+	dir = 10
 	},
 /obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/carpet/blue,
@@ -41314,7 +41314,7 @@
 	dir = 10
 	},
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("ss13","rd")
 	},
 /obj/machinery/light{
@@ -48030,7 +48030,7 @@
 	piping_layer = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("ss13","medbay")
 	},
 /obj/machinery/power/apc/auto_name/directional/north,

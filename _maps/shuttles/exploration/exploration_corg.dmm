@@ -13,7 +13,7 @@
 	},
 /obj/machinery/light,
 /obj/machinery/camera/autoname{
-	dir = 10;
+	dir = 5;
 	name = "Exploration Shuttle";
 	network = list("exploration shuttle")
 	},
@@ -37,8 +37,7 @@
 /area/shuttle/exploration)
 "bt" = (
 /obj/machinery/suit_storage_unit/open,
-/obj/machinery/camera/autoname{
-	dir = 8;
+/obj/machinery/camera/autoname/directional/east{
 	name = "Exploration Shuttle";
 	network = list("exploration shuttle")
 	},
@@ -395,7 +394,6 @@
 /obj/machinery/door/firedoor,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/camera/autoname/directional/east{
@@ -484,7 +482,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "vs" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -876,7 +874,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/purple/visible,

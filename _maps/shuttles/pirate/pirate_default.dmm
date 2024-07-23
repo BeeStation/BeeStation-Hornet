@@ -259,7 +259,7 @@
 	},
 /obj/machinery/light,
 /obj/machinery/airalarm/all_access{
-	dir = 8;
+	dir = 4;
 	pixel_x = -24
 	},
 /turf/open/floor/wood/broken,
@@ -1411,7 +1411,8 @@
 	},
 /obj/machinery/shuttle_scrambler,
 /obj/machinery/airalarm/all_access{
-	pixel_y = -24
+	pixel_y = -24;
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
@@ -1728,7 +1729,7 @@
 	pixel_x = 3
 	},
 /obj/machinery/airalarm/all_access{
-	dir = 8;
+	dir = 4;
 	pixel_x = -24
 	},
 /turf/open/floor/plating,
@@ -1764,7 +1765,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/airalarm/all_access{
-	dir = 8;
+	dir = 4;
 	pixel_x = -24
 	},
 /turf/open/floor/iron/tech,
@@ -1809,7 +1810,7 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/all_access{
-	dir = 8;
+	dir = 4;
 	pixel_x = -24
 	},
 /turf/open/floor/pod/dark,

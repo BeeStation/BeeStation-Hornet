@@ -342,7 +342,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Crew Area Hallway East";
-	dir = 5;
+	dir = 10;
 	network = list("mine")
 	},
 /obj/effect/turf_decal/tile/purple,
@@ -2259,7 +2259,7 @@
 "pF" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp External";
-	dir = 5;
+	dir = 10;
 	network = list("labor")
 	},
 /obj/structure/closet/emcloset,
@@ -2910,7 +2910,7 @@
 "uM" = (
 /obj/machinery/camera{
 	c_tag = "Crew Area";
-	dir = 9;
+	dir = 6;
 	network = list("mine")
 	},
 /obj/item/kirbyplants/random,
@@ -3521,7 +3521,7 @@
 /obj/item/plant_analyzer,
 /obj/machinery/camera{
 	c_tag = "Labor Camp Hydroponics";
-	dir = 9;
+	dir = 6;
 	network = list("labor")
 	},
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
@@ -6388,7 +6388,7 @@
 "Vy" = (
 /obj/machinery/camera{
 	c_tag = "Crew Area Hallway West";
-	dir = 5;
+	dir = 10;
 	network = list("mine")
 	},
 /turf/open/floor/iron,

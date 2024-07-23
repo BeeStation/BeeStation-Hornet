@@ -55,7 +55,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/solar/fake,
-/turf/open/floor/iron/airless/dark,
+/turf/open/floor/iron/dark/airless,
 /area/template_noop)
 "j" = (
 /obj/structure/lattice/catwalk,
@@ -228,7 +228,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar/fake,
-/turf/open/floor/iron/airless/dark,
+/turf/open/floor/iron/dark/airless,
 /area/template_noop)
 
 (1,1,1) = {"

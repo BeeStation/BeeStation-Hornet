@@ -292,13 +292,13 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 10
+	dir = 5
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /obj/machinery/airalarm/server{
-	dir = 8;
+	dir = 4;
 	pixel_x = -28
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
@@ -2279,7 +2279,7 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/server{
-	dir = 8;
+	dir = 4;
 	pixel_x = -22
 	},
 /turf/open/floor/engine{
@@ -5662,7 +5662,8 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/engine{
-	pixel_y = -24
+	pixel_y = -24;
+	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -22356,7 +22357,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Recovery Room";
-	dir = 10;
+	dir = 5;
 	name = "medical camera";
 	network = list("ss13","medical")
 	},
@@ -29759,7 +29760,7 @@
 	c_tag = "Virology - Testing pens";
 	name = "virology camera";
 	network = list("ss13","medbay");
-	dir = 10
+	dir = 5
 	},
 /obj/structure/table/glass,
 /obj/item/paper_bin,
@@ -29984,7 +29985,7 @@
 	},
 /obj/structure/table,
 /obj/machinery/camera/autoname{
-	dir = 10
+	dir = 5
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
@@ -30489,7 +30490,7 @@
 	name = "Evidence Closet"
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13", "security")
 	},
 /turf/open/floor/iron/dark,
@@ -45921,7 +45922,7 @@
 /area/engine/break_room)
 "iNX" = (
 /obj/machinery/camera/autoname{
-	dir = 9
+	dir = 6
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
@@ -50030,7 +50031,7 @@
 	c_tag = "Cloning Lab";
 	name = "medical camera";
 	network = list("ss13","medical");
-	dir = 9
+	dir = 6
 	},
 /obj/machinery/firealarm{
 	dir = 1;
@@ -54795,7 +54796,7 @@
 	c_tag = "Medbay Lobby";
 	name = "medical camera";
 	network = list("ss13","medical");
-	dir = 9
+	dir = 6
 	},
 /obj/item/kirbyplants{
 	icon_state = "plant-08"
@@ -57261,7 +57262,7 @@
 /obj/machinery/vending/coffee,
 /obj/machinery/camera/autoname{
 	network = list("ss13", "prison", "security");
-	dir = 6
+	dir = 9
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
@@ -59370,7 +59371,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Recovery Room";
-	dir = 10;
+	dir = 5;
 	name = "medical camera";
 	network = list("ss13","medical")
 	},
@@ -64425,7 +64426,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 9
+	dir = 6
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
@@ -70101,7 +70102,7 @@
 	pixel_x = -32
 	},
 /obj/machinery/camera/autoname{
-	dir = 10
+	dir = 5
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
@@ -72035,7 +72036,7 @@
 /obj/structure/tank_dispenser/oxygen,
 /obj/machinery/camera{
 	c_tag = "Exploration Dock";
-	dir = 9;
+	dir = 6;
 	name = "science camera";
 	network = list("ss13","rd")
 	},
@@ -75517,7 +75518,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 9
+	dir = 6
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
@@ -76006,7 +76007,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/camera/autoname{
-	dir = 10
+	dir = 5
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
@@ -77940,7 +77941,7 @@
 /obj/structure/table/optable,
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13", "security")
 	},
 /obj/item/radio/intercom{
@@ -78990,7 +78991,7 @@
 	c_tag = "Recovery Room";
 	name = "geneticscamera";
 	network = list("ss13","medical");
-	dir = 5
+	dir = 10
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -81904,7 +81905,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Port Quarter Solar";
-	dir = 9;
+	dir = 6;
 	name = "engineering camera";
 	network = list("ss13","engine")
 	},
@@ -83223,7 +83224,7 @@
 	c_tag = "Recovery Room";
 	name = "cloning camera";
 	network = list("ss13","medical");
-	dir = 6
+	dir = 9
 	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/showroomfloor,
@@ -91947,7 +91948,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/camera/autoname{
 	network = list("ss13", "prison");
-	dir = 5
+	dir = 10
 	},
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
