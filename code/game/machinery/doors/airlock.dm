@@ -1667,13 +1667,13 @@
 	return new /datum/wires/airlock(src, wire_security_level)
 
 /obj/machinery/door/airlock/proc/set_door_to_all_access()
-	if(maintenance)
+	if(maintenance && is_station_level(src.z))
 		emergency = TRUE
 		update_icon()
 		wires.ui_update()
 
 /obj/machinery/door/airlock/proc/remove_door_from_all_access()
-	if(maintenance)
+	if(maintenance && is_station_level(src.z))
 		emergency = FALSE
 		update_icon()
 		wires.ui_update()
