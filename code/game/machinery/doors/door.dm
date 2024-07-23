@@ -41,6 +41,7 @@
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/open_speed = 5
+	var/maintenance = FALSE //whether or not the door should be affected by emergency maintenance mode
 
 /obj/machinery/door/examine(mob/user)
 	. = ..()
