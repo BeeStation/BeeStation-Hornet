@@ -31,6 +31,8 @@
 	new /obj/item/storage/lockbox/medal/sci(src)
 	new /obj/item/circuitboard/machine/techfab/department/science(src)
 
+	new /obj/item/card/id/temp/science(src)
+
 	// prioritized items
 	new /obj/item/clothing/neck/cloak/rd(src)
 	new /obj/item/clothing/gloves/color/latex(src)

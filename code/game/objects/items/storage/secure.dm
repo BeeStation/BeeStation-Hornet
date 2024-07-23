@@ -193,9 +193,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe, 32)
 		return
 	return attack_self(user)
 
-/obj/item/storage/secure/safe/HoS
-	name = "head of security's safe"
-
 /**
  * This safe is meant to be damn robust. To break in, you're supposed to get creative, or use acid or an explosion.
  *
@@ -205,32 +202,133 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe, 32)
  * The safe is also weak to explosions, so spending some early TC could allow an antag to blow it upen if they can
  * get access to it.
  */
-/obj/item/storage/secure/safe/caps_spare
-	name = "captain's spare ID safe"
-	desc = "In case of emergency, do not break glass. All Captains and Acting Captains are provided with codes to access this safe. \
+/obj/item/storage/secure/safe/id
+	name ="ID safe"
+	desc = "In case of emergency, do not break glass. \
 It is made out of the same material as the station's Black Box and is designed to resist all conventional weaponry. \
 There appears to be a small amount of surface corrosion. It doesn't look like it could withstand much of an explosion. \
 It remains quite flush against the wall, and there only seems to be enough room to fit something as slim as an ID card."
 	can_hack_open = FALSE
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 70, BIO = 100, RAD = 100, FIRE = 80, ACID = 70);
 	max_integrity = 300
-	color = "#ffdd33"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
-
-/obj/item/storage/secure/safe/caps_spare/Initialize(mapload)
+/obj/item/storage/secure/safe/id/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 1
 	STR.can_hold = typecacheof(list(
 		/obj/item/card/id/))
-	l_code = SSjob.spare_id_safe_code
-	l_set = TRUE
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)
 
-/obj/item/storage/secure/safe/caps_spare/PopulateContents()
+/obj/item/storage/secure/safe/id/caps_spare
+	name = "captain's spare ID safe"
+	desc = "In case of emergency, do not break glass. All Captains and Acting Captains are provided with codes to access this safe. \
+It is made out of the same material as the station's Black Box and is designed to resist all conventional weaponry. \
+There appears to be a small amount of surface corrosion. It doesn't look like it could withstand much of an explosion. \
+It remains quite flush against the wall, and there only seems to be enough room to fit something as slim as an ID card."
+	color = "#ffdd33"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/id/caps_spare, 32)
+
+/obj/item/storage/secure/safe/id/caps_spare/PopulateContents()
 	new /obj/item/card/id/captains_spare(src)
 
-/obj/item/storage/secure/safe/caps_spare/rust_heretic_act()
+/obj/item/storage/secure/safe/id/caps_spare/Initialize(mapload)
+	. = ..()
+	l_code = SSjob.cap_safe_code
+	l_set = TRUE
+
+/obj/item/storage/secure/safe/id/hop
+	name = "head of personnel's spare ID safe"
+	desc = "In case of emergency, do not break glass. All Head of Personnel's are provided with codes to access this safe. \
+It is made out of the same material as the station's Black Box and is designed to resist all conventional weaponry. \
+There appears to be a small amount of surface corrosion. It doesn't look like it could withstand much of an explosion. \
+It remains quite flush against the wall, and there only seems to be enough room to fit something as slim as an ID card."
+	color = "#486091"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/id/hop, 32)
+
+/obj/item/storage/secure/safe/id/hop/PopulateContents()
+	new /obj/item/card/id/head_of_personnel(src)
+
+/obj/item/storage/secure/safe/id/hop/Initialize(mapload)
+	. = ..()
+	l_code = SSjob.
+	l_set = TRUE
+
+/obj/item/storage/secure/safe/id/rd
+	name = "research director's spare ID safe"
+	desc = "In case of emergency, do not break glass. All Research Directors are provided with codes to access this safe. \
+It is made out of the same material as the station's Black Box and is designed to resist all conventional weaponry. \
+There appears to be a small amount of surface corrosion. It doesn't look like it could withstand much of an explosion. \
+It remains quite flush against the wall, and there only seems to be enough room to fit something as slim as an ID card."
+	color = "#D381C9"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/id/rd, 32)
+
+/obj/item/storage/secure/safe/id/rd/PopulateContents()
+	new /obj/item/card/id/research_director(src)
+
+/obj/item/storage/secure/safe/id/rd/Initialize(mapload)
+	. = ..()
+	l_code = SSjob.
+	l_set = TRUE
+
+/obj/item/storage/secure/safe/id/ce
+	name = "chief engineer's spare ID safe"
+	desc = "In case of emergency, do not break glass. All Chief Engineers are provided with codes to access this safe. \
+It is made out of the same material as the station's Black Box and is designed to resist all conventional weaponry. \
+There appears to be a small amount of surface corrosion. It doesn't look like it could withstand much of an explosion. \
+It remains quite flush against the wall, and there only seems to be enough room to fit something as slim as an ID card."
+	color = "#EFB341"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/id/ce, 32)
+
+/obj/item/storage/secure/safe/id/ce/PopulateContents()
+	new /obj/item/card/id/chief_engineer(src)
+
+/obj/item/storage/secure/safe/id/ce/Initialize(mapload)
+	. = ..()
+	l_code = SSjob.
+	l_set = TRUE
+
+/obj/item/storage/secure/safe/id/cmo
+	name = "chief medical officer's spare ID safe"
+	desc = "In case of emergency, do not break glass. All Chief Medical Officers are provided with codes to access this safe. \
+It is made out of the same material as the station's Black Box and is designed to resist all conventional weaponry. \
+There appears to be a small amount of surface corrosion. It doesn't look like it could withstand much of an explosion. \
+It remains quite flush against the wall, and there only seems to be enough room to fit something as slim as an ID card."
+	color = "#52B4E9"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/id/cmo, 32)
+
+/obj/item/storage/secure/safe/id/cmo/PopulateContents()
+	new /obj/item/card/id/chief_medical_officer(src)
+
+/obj/item/storage/secure/safe/id/cmo/Initialize(mapload)
+	. = ..()
+	l_code = SSjob.
+	l_set = TRUE
+
+/obj/item/storage/secure/safe/id/hos
+	name = "head of securitiy's spare ID safe"
+	desc = "In case of emergency, do not break glass. All Head of Securities are provided with codes to access this safe. \
+It is made out of the same material as the station's Black Box and is designed to resist all conventional weaponry. \
+There appears to be a small amount of surface corrosion. It doesn't look like it could withstand much of an explosion. \
+It remains quite flush against the wall, and there only seems to be enough room to fit something as slim as an ID card."
+	color = "#DE3A3A"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/id/hos, 32)
+
+/obj/item/storage/secure/safe/id/hos/PopulateContents()
+	new /obj/item/card/id/job/head_of_security(src)
+
+/obj/item/storage/secure/safe/id/hos/Initialize(mapload)
+	. = ..()
+	l_code = SSjob.
+	l_set = TRUE
+
+
+/obj/item/storage/secure/safe/id/rust_heretic_act()
 	take_damage(damage_amount = 100, damage_type = BRUTE, damage_flag = MELEE, armour_penetration = 100)
 	return TRUE
