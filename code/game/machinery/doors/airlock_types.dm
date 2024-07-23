@@ -144,11 +144,13 @@
 /obj/machinery/door/airlock/maintenance/glass
 	opacity = FALSE
 	glass = TRUE
+	maintenance = TRUE
 
 /obj/machinery/door/airlock/maintenance/external/glass
 	opacity = FALSE
 	glass = TRUE
 	normal_integrity = 200
+	maintenance = TRUE
 
 //////////////////////////////////
 /*

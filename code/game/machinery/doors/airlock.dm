@@ -93,6 +93,7 @@
 	var/list/part_overlays
 	var/panel_attachment = "right"
 	var/note_attachment = "left"
+	var/maintenance = FALSE //whether or not the door should be affected by emergency maintenance mode
 
 	var/cyclelinkeddir = 0
 	var/obj/machinery/door/airlock/cyclelinkedairlock
@@ -1665,3 +1666,14 @@
 /obj/machinery/door/airlock/proc/set_wires(wire_security_level)
 	return new /datum/wires/airlock(src, wire_security_level)
 
+/obj/machinery/door/airlock/proc/set_door_to_all_access()
+	if(maintenance)
+		emergency = TRUE
+		update_icon()
+		wires.ui_update()
+
+/obj/machinery/door/airlock/proc/remove_door_from_all_access()
+	if(maintenance)
+		emergency = FALSE
+		update_icon()
+		wires.ui_update()
