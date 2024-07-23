@@ -373,15 +373,16 @@
 	sentient_artifact = artifact
 	range = sentient_artifact?.target_range
 
-/obj/effect/proc_holder/spell/targeted/artifact_senitent_action/cast(list/targets,mob/user = usr)
-	if(!sentient_artifact)
+/obj/effect/proc_holder/spell/targeted/artifact_senitent_action/cast(list/targets, mob/user = usr)
+	if(!sentient_artifact || sentient_artifact.use_cooldown_timer)
+		if(sentient_artifact?.use_cooldown_timer)
+			to_chat(user, "<span class='warning'>The artifact is still cooling down, wait [timeleft(sentient_artifact.use_cooldown_timer)/10] seconds!</span>")
 		return
 	for(var/atom/M in targets)
 		//We have to check the range ourselves
 		if(get_dist(get_turf(sentient_artifact.parent), get_turf(M)) <= range)
-			sentient_artifact.register_target(M, TRUE)
-	if(length(sentient_artifact.targets))
-		sentient_artifact.trigger(TRUE)
+			sentient_artifact.register_target(M)
+	sentient_artifact.trigger()
 
 /mob/living/simple_animal/shade/sentience
 	desc = "Wait, what the fuck?"
