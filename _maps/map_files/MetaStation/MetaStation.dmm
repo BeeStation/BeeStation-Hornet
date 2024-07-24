@@ -714,12 +714,8 @@
 	},
 /obj/structure/table,
 /obj/item/paper/guides/jobs/security/labor_camp,
-/obj/item/storage/box/prisoner,
-/obj/item/razor{
-	pixel_x = -6
-	},
 /obj/effect/turf_decal/tile/red/half,
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "agu" = (
 /obj/structure/cable/yellow{
@@ -2100,7 +2096,7 @@
 /obj/effect/turf_decal/tile/red/half{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "ath" = (
 /obj/machinery/power/smes{
@@ -11193,7 +11189,7 @@
 /obj/effect/turf_decal/tile/red/half{
 	dir = 1
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "bBb" = (
 /obj/structure/window/reinforced{
@@ -11840,7 +11836,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "bEq" = (
 /obj/structure/light_construct{
@@ -16507,7 +16503,7 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "cjO" = (
 /obj/structure/rack,
@@ -21419,7 +21415,7 @@
 	dir = 1;
 	light_color = "#c1caff"
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "dgz" = (
 /obj/structure/closet/toolcloset,
@@ -24676,7 +24672,7 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "ekG" = (
 /obj/structure/closet/emcloset,
@@ -27177,7 +27173,7 @@
 /obj/effect/turf_decal/tile/red/half{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "fmw" = (
 /obj/structure/disposalpipe/segment,
@@ -29032,7 +29028,7 @@
 /obj/effect/turf_decal/tile/red/half{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "fRz" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -29335,7 +29331,10 @@
 /obj/effect/turf_decal/tile/red/half{
 	dir = 8
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "fVx" = (
 /obj/machinery/disposal/bin,
@@ -29513,7 +29512,7 @@
 /obj/effect/turf_decal/tile/red/half{
 	dir = 8
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "fZJ" = (
 /obj/structure/cable/yellow{
@@ -36861,6 +36860,18 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/patients_rooms)
+"iML" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/smooth_large,
+/area/security/brig)
 "iMM" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -37947,7 +37958,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "jkz" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
@@ -39159,7 +39170,7 @@
 /obj/effect/turf_decal/tile/red/half{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "jLJ" = (
 /obj/effect/turf_decal/bot_white,
@@ -40437,7 +40448,10 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "kiq" = (
 /turf/open/floor/iron/freezer,
@@ -42152,7 +42166,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "kNZ" = (
 /obj/structure/cable/yellow{
@@ -44730,7 +44744,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/half,
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "lND" = (
 /obj/structure/cable/yellow{
@@ -47157,7 +47171,7 @@
 /area/maintenance/aft)
 "mGx" = (
 /obj/effect/turf_decal/tile/red/half,
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "mGT" = (
 /obj/structure/bed/roller,
@@ -51438,7 +51452,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "ojf" = (
 /obj/structure/cable/yellow{
@@ -57088,7 +57102,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "qlB" = (
 /obj/structure/closet/secure_closet/genpop,
@@ -57551,7 +57565,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/tile/red,
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "qwJ" = (
 /obj/machinery/power/apc{
@@ -59901,7 +59915,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "roJ" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
@@ -65062,6 +65076,16 @@
 "tjJ" = (
 /turf/open/floor/iron,
 /area/maintenance/aft)
+"tjL" = (
+/obj/structure/table,
+/obj/item/storage/box/prisoner{
+	pixel_x = 5
+	},
+/obj/item/razor{
+	pixel_x = -6
+	},
+/turf/open/floor/iron/smooth_large,
+/area/security/brig)
 "tjU" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
@@ -65685,7 +65709,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "tsu" = (
 /obj/effect/landmark/xeno_spawn,
@@ -66101,7 +66125,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "tAR" = (
 /obj/structure/cable/yellow{
@@ -66249,7 +66273,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "tEk" = (
 /obj/machinery/door/airlock/security{
@@ -66984,7 +67011,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "tQn" = (
 /obj/structure/cable/yellow{
@@ -68164,7 +68191,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "ujU" = (
 /obj/machinery/door/airlock/atmos/glass{
@@ -68415,7 +68442,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "upm" = (
 /obj/structure/disposalpipe/segment{
@@ -69298,6 +69325,9 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/ai_monitored/security/armory)
+"uHb" = (
+/turf/open/floor/iron/smooth_large,
+/area/security/brig)
 "uHp" = (
 /obj/machinery/light_switch{
 	pixel_x = 23;
@@ -69684,7 +69714,7 @@
 	light_color = "#e8eaff"
 	},
 /obj/effect/turf_decal/tile/red/half,
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "uNT" = (
 /obj/machinery/firealarm{
@@ -72501,7 +72531,7 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "vNA" = (
 /obj/structure/cable/yellow{
@@ -73224,7 +73254,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "wdz" = (
 /obj/structure/table,
@@ -74209,7 +74239,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "wxD" = (
 /obj/structure/lattice/catwalk,
@@ -76400,7 +76430,7 @@
 /obj/effect/turf_decal/tile/red/half{
 	dir = 1
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "xkM" = (
 /obj/structure/disposalpipe/segment,
@@ -76761,7 +76791,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/smooth_large,
 /area/security/brig)
 "xra" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -111580,7 +111610,7 @@ ahx
 ajo
 ajm
 fms
-ryP
+uHb
 fVr
 ahx
 ahx
@@ -111837,7 +111867,7 @@ aaa
 aaa
 bTb
 fRt
-ryP
+uHb
 jkx
 xkL
 bBa
@@ -112096,8 +112126,8 @@ ajm
 jLI
 xqS
 wdw
-lHV
-lHV
+iML
+iML
 tAz
 qwo
 ajm
@@ -112352,9 +112382,9 @@ dWK
 mQl
 qlu
 wxt
-ryP
-ryP
-ryP
+uHb
+uHb
+uHb
 ujQ
 fZH
 ajm
@@ -112609,10 +112639,10 @@ ahx
 ahx
 atg
 vNp
-ryP
-ryP
-ryP
-ryP
+tjL
+uHb
+uHb
+uHb
 tsr
 ajm
 aje
@@ -113898,7 +113928,7 @@ ajm
 emp
 ahU
 ahx
-ryP
+uHb
 ajm
 wdT
 agq
@@ -114155,7 +114185,7 @@ ajm
 ajm
 ajm
 ajm
-ryP
+uHb
 ajm
 dbu
 agq
