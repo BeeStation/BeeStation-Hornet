@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - rscdel: Reverted most recent pirate changes so that a proper discussion can take
+      place before rushing a major balance change to pirates.
