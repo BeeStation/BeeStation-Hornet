@@ -1,5 +1,6 @@
 #define MIMITE_COOLDOWN 60
 #define MIMITE_VENT_COOLDOWN 100
+#define MIMITE_STUCK_THRESHOLD 10
 
 /mob/living/simple_animal/hostile/mimite
 	name = "Mimite"
@@ -68,7 +69,6 @@
 	var/venthunt = TRUE
 	var/mimite_lastmove = null //Updates/Stores position of the mimite while it's moving
 	var/mimite_stuck = 0	//If mimite_lastmove hasn't changed, this will increment until it reaches mimite_stuck_threshold
-	var/mimite_stuck_threshold = 10 //if this == mimite_stuck, it'll force the mimite to stop moving
 	var/attemptingventcrawl = FALSE
 	var/eventongoing = TRUE
 	var/remaining_replications = 4
@@ -293,7 +293,7 @@
 	//Check to see if the mimite is stuck due to things like windows or doors or windowdoors
 	if(mimite_lastmove)
 		if(mimite_lastmove == src.loc)
-			if(mimite_stuck_threshold >= ++mimite_stuck)
+			if(MIMITE_STUCK_THRESHOLD >= ++mimite_stuck)
 				mimite_stuck = 0
 				mimite_lastmove = null
 				return 1
@@ -304,8 +304,11 @@
 	return 0
 
 /mob/living/simple_animal/hostile/mimite/death(gibbed)
-	GLOB.all_mimites -= src
 	new /obj/effect/decal/cleanable/oil(get_turf(src))
+	..()
+
+/mob/living/simple_animal/hostile/mimite/Destroy()
+	GLOB.all_mimites -= src
 	..()
 
 /mob/living/simple_animal/hostile/mimite/crate
@@ -375,3 +378,8 @@
 	minimum_distance = 1
 	melee_queue_distance = 1
 	projectiletype = /obj/projectile/beam/disabler
+
+
+#undef MIMITE_COOLDOWN
+#undef MIMITE_VENT_COOLDOWN
+#undef MIMITE_STUCK_THRESHOLD
