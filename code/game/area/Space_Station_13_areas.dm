@@ -1314,6 +1314,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/checkpoint/customs/auxiliary
 	icon_state = "customs_point_aux"
 
+/area/security/checkpoint/service
+	name = "Security Post - Service"
+
+/area/security/checkpoint/civilian
+	name = "Security Post - Civilian"
+
 /area/security/prison/vip
 	name = "VIP Prison Wing"
 	icon_state = "sec_prison"

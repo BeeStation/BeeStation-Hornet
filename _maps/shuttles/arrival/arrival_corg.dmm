@@ -1,111 +1,24 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/obj/machinery/vending/wallmed{
-	name = "Emergency NanoMed";
-	use_power = 0
-	},
-/turf/closed/wall/mineral/titanium,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "ab" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
-	},
-/obj/structure/sign/directions/security{
-	dir = 1;
-	pixel_x = 33
-	},
-/obj/structure/sign/directions/supply{
-	dir = 4;
-	pixel_x = 33;
-	pixel_y = 8
-	},
-/obj/structure/sign/directions/command{
-	dir = 1;
-	pixel_x = 33;
-	pixel_y = -8
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
-"ac" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
-"ad" = (
-/obj/structure/closet/crate,
-/obj/item/crowbar,
-/obj/item/crowbar,
-/obj/item/crowbar,
-/obj/effect/spawner/lootdrop/glowstick,
-/obj/effect/spawner/lootdrop/glowstick,
-/obj/effect/spawner/lootdrop/glowstick,
-/obj/effect/spawner/lootdrop/glowstick,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
-"ae" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/door/airlock/shuttle{
-	name = "Arrival Shuttle Airlock"
-	},
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"af" = (
-/obj/structure/closet/crate/internals,
-/obj/effect/spawner/lootdrop/glowstick,
-/obj/effect/spawner/lootdrop/glowstick,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
-"ak" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen/red,
-/obj/item/storage/briefcase{
-	pixel_x = 1;
-	pixel_y = 1
-	},
-/obj/item/storage/briefcase{
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/obj/machinery/light{
+/obj/structure/shuttle/engine/propulsion{
 	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
-"al" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
-"am" = (
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/arrival)
-"ao" = (
-/obj/structure/closet/wardrobe/mixed,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
-"ap" = (
-/turf/closed/wall/mineral/plastitanium,
-/area/shuttle/arrival)
-"as" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/machinery/door/airlock/shuttle{
-	name = "Arrival Shuttle Airlock"
+/obj/docking_port/mobile/arrivals{
+	dir = 2;
+	dwidth = 4;
+	height = 13;
+	name = "corg arrivals shuttle";
+	width = 9
 	},
-/turf/open/floor/mineral/titanium/white,
+/turf/open/floor/plating,
 /area/shuttle/arrival)
-"at" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
+"ac" = (
 /obj/structure/sign/directions/security{
 	dir = 1;
 	pixel_x = -33
@@ -120,38 +33,13 @@
 	pixel_x = -33;
 	pixel_y = 8
 	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
-"au" = (
-/obj/machinery/computer/crew{
+/obj/structure/chair/fancy/shuttle,
+/obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
-"av" = (
-/turf/template_noop,
-/area/template_noop)
-"az" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"aA" = (
-/obj/structure/sign/nanotrasen,
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/arrival)
-"aC" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/shuttle/arrival)
-"aD" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
-	},
+"ad" = (
 /obj/structure/sign/directions/medical{
 	dir = 4;
 	pixel_x = 33
@@ -166,44 +54,22 @@
 	pixel_x = 33;
 	pixel_y = 8
 	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
-"aH" = (
-/obj/docking_port/mobile/arrivals{
-	dir = 2;
-	dwidth = 4;
-	height = 13;
-	name = "corg arrivals shuttle";
-	width = 9
+"af" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 25
 	},
-/turf/closed/wall/mineral/plastitanium,
-/area/shuttle/arrival)
-"aL" = (
-/obj/structure/table/reinforced,
-/obj/item/gps,
-/obj/effect/spawner/lootdrop/glowstick,
-/obj/item/storage/firstaid/regular,
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
-"aN" = (
-/obj/machinery/computer{
-	dir = 1;
-	name = "Shuttle computer"
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
-"aO" = (
-/turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/arrival)
-"aQ" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/machinery/light,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"aS" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/pamphlet/centcom/visitor_info{
 	pixel_x = -3;
@@ -214,54 +80,182 @@
 	pixel_x = 3;
 	pixel_y = 1
 	},
-/obj/item/pen/red,
-/obj/item/paicard,
-/obj/item/paicard,
-/obj/item/paicard,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -25
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/arrival)
+"ak" = (
+/obj/structure/sign/nanotrasen,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/arrival)
+"al" = (
+/obj/machinery/computer{
+	dir = 4;
+	name = "Shuttle computer"
 	},
-/obj/machinery/light{
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
+"am" = (
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/arrival)
+"ao" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced/survival_pod,
+/turf/open/floor/plating,
+/area/shuttle/arrival)
+"ap" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/arrival)
+"as" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/machinery/status_display/evac{
+	pixel_y = -32
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
+"at" = (
+/obj/item/crowbar,
+/obj/item/crowbar,
+/obj/item/crowbar,
+/obj/structure/closet/crate/internals,
+/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/lootdrop/glowstick,
+/obj/item/gps,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/arrival)
+"au" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
+"av" = (
+/turf/template_noop,
+/area/template_noop)
+"az" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
+"aA" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/machinery/vending/wallmed{
+	name = "Emergency NanoMed";
+	use_power = 0;
+	pixel_y = -32
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
+"aC" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/arrival)
+"aH" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/arrival)
+"aL" = (
+/obj/structure/chair/fancy/shuttle,
+/obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
-"aT" = (
-/obj/machinery/status_display/evac,
-/turf/closed/wall/mineral/titanium,
+"aN" = (
+/obj/machinery/computer/crew{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
-"aU" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
+"aO" = (
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /obj/machinery/door/airlock/shuttle{
 	name = "Arrival Shuttle Airlock"
 	},
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
+"aQ" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/machinery/light,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
+"aS" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -25
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/obj/item/paicard,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/arrival)
+"aT" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/briefcase{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/item/storage/briefcase{
+	pixel_x = 1;
+	pixel_y = 1
+	},
+/obj/item/storage/firstaid/regular,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "aV" = (
 /obj/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "aW" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 1
-	},
-/turf/open/floor/plating,
+/obj/structure/table/reinforced,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "aX" = (
-/obj/structure/chair/fancy/shuttle,
-/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/shuttle{
+	name = "Arrival Shuttle Airlock"
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
-"aZ" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
+"jV" = (
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_x = 33
 	},
+/obj/structure/sign/directions/supply{
+	dir = 4;
+	pixel_x = 33;
+	pixel_y = 8
+	},
+/obj/structure/sign/directions/command{
+	dir = 1;
+	pixel_x = 33;
+	pixel_y = -8
+	},
+/obj/structure/chair/fancy/shuttle,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/arrival)
+"rd" = (
 /obj/structure/sign/directions/medical{
 	dir = 4;
 	pixel_x = -33
@@ -276,164 +270,101 @@
 	pixel_x = -33;
 	pixel_y = -8
 	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
-"jV" = (
-/turf/template_noop,
-/area/shuttle/arrival)
-"rd" = (
-/obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/plumbing{
-	pixel_x = -3
-	},
-/obj/item/book/manual/wiki/engineering_hacking{
-	pixel_x = 3;
-	pixel_y = 1
-	},
-/obj/item/book/manual/wiki/engineering_guide{
-	pixel_y = 3
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 25
-	},
-/obj/machinery/light{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
+/obj/structure/window/reinforced,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 
 (1,1,1) = {"
 av
 ap
-aO
 am
-aU
+aO
 am
 aV
 am
-aU
 aO
-jV
+ak
 av
 av
 "}
 (2,1,1) = {"
 ap
 ap
-am
 aS
 az
-at
 ac
-aZ
+aa
+rd
 aQ
 am
-aV
 am
-jV
+am
 "}
 (3,1,1) = {"
 aC
+ao
 aW
-aV
-af
 az
-az
-az
-az
-az
-aA
 aL
+aa
+aH
+aA
 am
-am
+al
+aV
 "}
 (4,1,1) = {"
-aC
-aW
-aV
+ab
 ao
+at
 az
-al
-al
-al
 az
-aT
+az
+az
+az
 aX
 au
 aV
 "}
 (5,1,1) = {"
-aH
-ap
+aC
+ao
 aT
-ad
 az
-aT
-aV
+aL
 aa
-az
+aH
 as
-az
+am
 aN
 aV
 "}
 (6,1,1) = {"
-aC
-aW
-aV
-ao
-az
-ac
-ac
-ac
-az
-aT
-aX
-aN
-aV
-"}
-(7,1,1) = {"
-aC
-aW
-aV
+ap
+ap
 af
 az
-az
-az
-az
-az
-aA
-ak
-am
-am
-"}
-(8,1,1) = {"
-ap
-ap
-am
-rd
-az
-ab
-al
-aD
+jV
+aa
+ad
 aQ
 am
-aV
 am
-jV
+am
 "}
-(9,1,1) = {"
+(7,1,1) = {"
 av
 ap
-aO
 am
-ae
+aO
 am
 aV
 am
-ae
 aO
-jV
+ak
 av
 av
 "}
