@@ -75,7 +75,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 
 	if(send_count > 0 && is_freq_listening(signal))
 		traffic++
-
+	use_power(active_power_usage)
 	return send_count
 
 /obj/machinery/telecomms/proc/relay_direct_information(datum/signal/signal, obj/machinery/telecomms/machine)

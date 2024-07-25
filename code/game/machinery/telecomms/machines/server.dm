@@ -11,7 +11,8 @@
 	desc = "A machine used to store data and network statistics."
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 15
+	idle_power_usage = 5
+	active_power_usage = 10
 	circuit = /obj/item/circuitboard/machine/telecomms/server
 	var/list/log_entries = list()
 	var/totaltraffic = 0 // gigabytes (if > 1024, divide by 1024 -> terrabytes)
