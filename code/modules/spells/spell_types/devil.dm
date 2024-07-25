@@ -158,7 +158,7 @@
 		return FALSE
 	fakefire()
 	forceMove(drop_location())
-	client.eye = src
+	client.set_eye(src)
 	visible_message("<span class='warning'><B>[src] appears in a fiery blaze!</B></span>")
 	playsound(get_turf(src), 'sound/magic/exit_blood.ogg', 100, 1, -1)
 	addtimer(CALLBACK(src, PROC_REF(fakefireextinguish)), 15, TIMER_UNIQUE)

@@ -56,47 +56,10 @@
 	var/turning_on = FALSE
 	var/roundstart_smoothing = FALSE
 
-/obj/machinery/light/broken
-	status = LIGHT_BROKEN
-	icon_state = "tube-broken"
-
-// the smaller bulb light fixture
-
-/obj/machinery/light/small
-	icon_state = "bulb"
-	base_state = "bulb"
-	fitting = "bulb"
-	brightness = 6
-	desc = "A small lighting fixture."
-	bulb_colour = "#FFE6CC" //little less cozy, bit more industrial, but still cozy.. -qwerty
-	light_type = /obj/item/light/bulb
-
-/obj/machinery/light/small/broken
-	status = LIGHT_BROKEN
-	icon_state = "bulb-broken"
-
 /obj/machinery/light/Move()
 	if(status != LIGHT_BROKEN)
 		break_light_tube(1)
 	return ..()
-
-/obj/machinery/light/built
-	icon_state = "tube-empty"
-	start_with_cell = FALSE
-
-/obj/machinery/light/built/Initialize(mapload)
-	. = ..()
-	status = LIGHT_EMPTY
-	update(FALSE, TRUE)
-
-/obj/machinery/light/small/built
-	icon_state = "bulb-empty"
-	start_with_cell = FALSE
-
-/obj/machinery/light/small/built/Initialize(mapload)
-	. = ..()
-	status = LIGHT_EMPTY
-	update(FALSE, TRUE)
 
 /obj/machinery/light/proc/store_cell(new_cell)
 	if(cell)
@@ -194,8 +157,10 @@
 	. = ..()
 	if(!on || status != LIGHT_OK)
 		return
+
 	if(on && turning_on)
 		return
+		
 	var/area/local_area = get_area(src)
 	if(emergency_mode || (local_area?.fire))
 		. += mutable_appearance(overlayicon, "[base_state]_emergency")
@@ -288,7 +253,7 @@
 	update()
 
 /obj/machinery/light/proc/broken_sparks(start_only=FALSE)
-	if(!QDELETED(src) && status == LIGHT_BROKEN && has_power() && Master.current_runlevel)
+	if(!QDELETED(src) && status == LIGHT_BROKEN && has_power() && MC_RUNNING())
 		if(!start_only)
 			do_sparks(3, TRUE, src)
 		var/delay = rand(BROKEN_SPARKS_MIN, BROKEN_SPARKS_MAX)

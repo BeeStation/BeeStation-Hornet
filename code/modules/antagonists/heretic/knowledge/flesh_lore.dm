@@ -306,7 +306,7 @@
 		return
 
 	var/mob/living/carbon/human/human_target = target
-	human_target.bleed_rate += 5
+	human_target.add_bleeding(BLEED_DEEP_WOUND)
 
 /datum/heretic_knowledge/summon/stalker
 	name = "Lonely Ritual"

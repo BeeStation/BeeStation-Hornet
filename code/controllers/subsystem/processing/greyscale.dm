@@ -8,7 +8,7 @@ PROCESSING_SUBSYSTEM_DEF(greyscale)
 	var/list/datum/greyscale_layer/layer_types = list()
 	var/list/gags_cache = list()
 
-/datum/controller/subsystem/processing/greyscale/Initialize(start_timeofday)
+/datum/controller/subsystem/processing/greyscale/Initialize()
 	for(var/datum/greyscale_layer/fake_type as anything in subtypesof(/datum/greyscale_layer))
 		layer_types[initial(fake_type.layer_type)] = fake_type
 
@@ -31,7 +31,7 @@ PROCESSING_SUBSYSTEM_DEF(greyscale)
 		job_ids += rustg_iconforge_load_gags_config_async(greyscale_type, config.raw_json_string, config.string_icon_file)
 
 	UNTIL(jobs_completed(job_ids))
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/processing/greyscale/proc/jobs_completed(list/job_ids)
 	for(var/job in job_ids)
