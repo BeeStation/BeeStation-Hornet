@@ -7389,10 +7389,6 @@
 /obj/item/clothing/gloves/color/yellow,
 /obj/structure/table,
 /obj/item/clothing/glasses/meson,
-/obj/machinery/newscaster{
-	pixel_x = 28;
-	pixel_y = 1
-	},
 /obj/machinery/camera/motion{
 	c_tag = "E.V.A. Storage";
 	dir = 9
@@ -7400,6 +7396,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 26
 	},
+/obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron/dark,
 /area/engine/storage)
 "ctV" = (
@@ -45603,10 +45600,13 @@
 /area/crew_quarters/theatre)
 "pyv" = (
 /obj/structure/table/glass,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/obj/item/storage/backpack/duffelbag/med/implant{
+	pixel_y = 10
+	},
 /obj/item/storage/backpack/duffelbag/med/surgery{
 	pixel_y = 4
 	},
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /turf/open/floor/iron/white,
 /area/medical/surgery)
 "pyy" = (
