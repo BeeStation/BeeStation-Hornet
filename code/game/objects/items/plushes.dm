@@ -810,6 +810,13 @@
 	desc = "Hgrgrhrhg cute."
 	icon_state = "flushplush"
 
+/obj/item/toy/plush/shark
+	name = "shark plushie"
+	desc = "A plushie depicting a somewhat cartoonish shark. The tag calls it a 'hákarl', noting that it was made by an obscure furniture manufacturer in old Scandinavia."
+	lefthand_file = 'icons/mob/inhands/plushes_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/plushes_righthand.dmi'
+	icon_state = "blahaj"
+
 /obj/item/toy/plush/flushed/rainbow
 	name = "rainbow flushed plushie"
 	desc = "Hgrgrhrhg cuter."
