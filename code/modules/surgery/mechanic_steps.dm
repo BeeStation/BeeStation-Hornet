@@ -48,6 +48,10 @@
 
 	return TRUE
 
+/datum/surgery_step/mechanic_close/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery, default_display_results)
+	target.cauterise_wounds()
+	return ..()
+
 //prepare electronics
 /datum/surgery_step/prepare_electronics
 	name = "prepare electronics"
