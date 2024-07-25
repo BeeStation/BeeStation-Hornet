@@ -868,6 +868,7 @@
 		/obj/item/toy/plush/moth/snow,
 		/obj/item/toy/plush/moth/whitefly,
 		/obj/item/toy/plush/moth/witchwing
+		/obj/item/toy/plush/shark
 	)
 
 /obj/item/choice_beacon/radial/plushie/generate_options(mob/living/M)
