@@ -11,7 +11,6 @@
 
 /obj/vehicle/ridden/atv/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
 	D.vehicle_move_delay = 1.5
 	D.empable = TRUE
@@ -103,16 +102,4 @@
 
 /obj/vehicle/ridden/atv/Destroy()
 	STOP_PROCESSING(SSobj,src)
-	UnregisterSignal(src, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 	return ..()
-
-/obj/vehicle/ridden/atv/proc/on_emp_act(datum/source, severity)
-	SIGNAL_HANDLER
-
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.emped = TRUE
-	addtimer(CALLBACK(src, PROC_REF(reboot)), 300, TIMER_UNIQUE|TIMER_OVERRIDE) //if a new EMP happens, remove the old timer so it doesn't reactivate early
-
-/obj/vehicle/ridden/atv/proc/reboot()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.emped = FALSE

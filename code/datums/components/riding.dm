@@ -31,6 +31,7 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_BUCKLE, PROC_REF(vehicle_mob_buckle))
 	RegisterSignal(parent, COMSIG_MOVABLE_UNBUCKLE, PROC_REF(vehicle_mob_unbuckle))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(vehicle_moved))
+	RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 	//Calculate the move multiplier speed, to be proportional to mob speed
 	vehicle_move_multiplier = CONFIG_GET(number/movedelay/run_delay) / 1.5
 
@@ -419,3 +420,12 @@
 		var/mob/living/simple_animal/S = parent
 		S.toggle_ai(AI_ON)
 	..()
+
+/datum/component/riding/proc/on_emp_act(datum/source, severity)
+	SIGNAL_HANDLER
+
+	emped = TRUE
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 300, TIMER_UNIQUE|TIMER_OVERRIDE) //if a new EMP happens, remove the old timer so it doesn't reactivate early
+
+/datum/component/riding/proc/reboot()
+	emped = FALSE

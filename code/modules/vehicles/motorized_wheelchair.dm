@@ -13,10 +13,6 @@
 	var/obj/item/stock_parts/cell/power_cell
 	var/low_power_alerted = FALSE
 
-/obj/vehicle/ridden/wheelchair/motorized/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
-
 /obj/vehicle/ridden/wheelchair/motorized/CheckParts(list/parts_list)
 	..()
 	refresh_parts()
@@ -36,7 +32,6 @@
 	return power_cell
 
 /obj/vehicle/ridden/wheelchair/motorized/obj_destruction(damage_flag)
-	UnregisterSignal(src, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/A in contents)
 		A.forceMove(T)
@@ -177,14 +172,3 @@
 		else
 			visible_message("<span class='danger'>[src] crashes into [M], sending [H] flying!</span>")
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
-
-/obj/vehicle/ridden/wheelchair/motorized/proc/on_emp_act(datum/source, severity)
-	SIGNAL_HANDLER
-
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.emped = TRUE
-	addtimer(CALLBACK(src, PROC_REF(reboot)), 300, TIMER_UNIQUE|TIMER_OVERRIDE) //if a new EMP happens, remove the old timer so it doesn't reactivate early
-
-/obj/vehicle/ridden/wheelchair/motorized/proc/reboot()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.emped = FALSE
