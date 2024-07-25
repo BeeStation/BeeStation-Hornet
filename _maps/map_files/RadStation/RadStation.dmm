@@ -35205,7 +35205,7 @@
 /turf/open/floor/iron/dark/telecomms{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
-/area/engine/gravity_generator)
+/area/tcommsat/computer)
 "kYr" = (
 /obj/structure/sign/warning/nosmoking,
 /turf/closed/wall,
@@ -36798,7 +36798,7 @@
 /turf/open/floor/circuit/telecomms/mainframe{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
-/area/engine/gravity_generator)
+/area/tcommsat/computer)
 "lyc" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -41453,7 +41453,7 @@
 /turf/open/floor/iron/dark/telecomms{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
-/area/engine/gravity_generator)
+/area/tcommsat/computer)
 "mVF" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -50014,7 +50014,7 @@
 /turf/open/floor/iron/dark/telecomms{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
-/area/engine/gravity_generator)
+/area/tcommsat/computer)
 "pBt" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
@@ -71015,7 +71015,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/telecomms/hub/preset,
+/obj/machinery/blackbox_recorder,
 /turf/open/floor/circuit/telecomms/mainframe{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
@@ -74714,7 +74714,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/blackbox_recorder,
+/obj/machinery/telecomms/hub/preset,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "xtE" = (
@@ -76092,7 +76092,7 @@
 /turf/open/floor/iron/dark/telecomms{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
-/area/engine/gravity_generator)
+/area/tcommsat/computer)
 "xMx" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
@@ -110734,7 +110734,7 @@ cMI
 iST
 iST
 tHK
-ebF
+iST
 ebF
 ebF
 ebF
@@ -112276,7 +112276,7 @@ cMI
 iST
 iST
 iST
-ebF
+iST
 ebF
 ebF
 ebF
