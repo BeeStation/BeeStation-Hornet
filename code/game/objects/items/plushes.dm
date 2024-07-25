@@ -867,7 +867,7 @@
 		/obj/item/toy/plush/moth/royal,
 		/obj/item/toy/plush/moth/snow,
 		/obj/item/toy/plush/moth/whitefly,
-		/obj/item/toy/plush/moth/witchwing
+		/obj/item/toy/plush/moth/witchwing,
 		/obj/item/toy/plush/shark
 	)
 
