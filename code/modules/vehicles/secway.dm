@@ -10,8 +10,10 @@
 
 /obj/vehicle/ridden/secway/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
 	D.vehicle_move_delay = 1.5
+	D.empable = TRUE
 	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list( 0, 4)))
 
 /obj/vehicle/ridden/secway/obj_break()
@@ -44,6 +46,7 @@
 
 /obj/vehicle/ridden/secway/Destroy()
 	STOP_PROCESSING(SSobj,src)
+	UnregisterSignal(src, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 	return ..()
 
 /obj/vehicle/ridden/secway/bullet_act(obj/projectile/P)
@@ -52,3 +55,14 @@
 			M.bullet_act(P)
 		return TRUE
 	return ..()
+
+/obj/vehicle/ridden/secway/proc/on_emp_act(datum/source, severity)
+	SIGNAL_HANDLER
+
+	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+	D.emped = TRUE
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 300, TIMER_UNIQUE|TIMER_OVERRIDE) //if a new EMP happens, remove the old timer so it doesn't reactivate early
+
+/obj/vehicle/ridden/secway/proc/reboot()
+	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+	D.emped = FALSE

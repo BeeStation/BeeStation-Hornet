@@ -22,6 +22,8 @@
 	var/ride_check_ridden_restrained = FALSE
 
 	var/del_on_unbuckle_all = FALSE
+	var/emped = FALSE
+	var/empable = FALSE
 
 /datum/component/riding/Initialize()
 	if(!ismovable(parent))
@@ -171,6 +173,9 @@
 		return
 	last_vehicle_move = world.time
 
+	if(emped && empable)
+		to_chat(user, "<span class='notice'>\The [AM]'s controls aren't responding!</span>")
+		return
 	if(keycheck(user))
 		var/turf/next = get_step(AM, direction)
 		var/turf/current = get_turf(AM)

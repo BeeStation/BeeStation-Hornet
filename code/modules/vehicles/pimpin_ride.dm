@@ -11,14 +11,17 @@
 /obj/vehicle/ridden/janicart/Initialize(mapload)
 	. = ..()
 	update_icon()
+	RegisterSignal(src, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
 	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 7), TEXT_EAST = list(-12, 7), TEXT_WEST = list( 12, 7)))
+	D.empable = TRUE
 	GLOB.janitor_devices += src
 	if(floorbuffer)
 		AddElement(/datum/element/cleaning)
 
 /obj/vehicle/ridden/janicart/Destroy()
 	GLOB.janitor_devices -= src
+	UnregisterSignal(src, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 	if(mybag)
 		qdel(mybag)
 		mybag = null
@@ -92,6 +95,17 @@
 	if(floorbuffer)
 		autoclean_toggle.toggle_target = null
 		QDEL_NULL(autoclean_toggle)
+
+/obj/vehicle/ridden/janicart/proc/on_emp_act(datum/source, severity)
+	SIGNAL_HANDLER
+
+	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+	D.emped = TRUE
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 300, TIMER_UNIQUE|TIMER_OVERRIDE) //if a new EMP happens, remove the old timer so it doesn't reactivate early
+
+/obj/vehicle/ridden/janicart/proc/reboot()
+	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+	D.emped = FALSE
 
 /obj/vehicle/ridden/janicart/upgraded
 	floorbuffer = TRUE
