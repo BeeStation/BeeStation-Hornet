@@ -2257,7 +2257,6 @@
 /obj/machinery/airalarm{
 	pixel_y = 24
 	},
-/obj/machinery/camera/autoname,
 /obj/machinery/vending/wardrobe/chef_wardrobe,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/freezer,
@@ -4675,9 +4674,8 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "bby" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron/dark,
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
 /area/crew_quarters/bar/atrium)
 "bbz" = (
 /obj/machinery/vending/cola,
@@ -7536,6 +7534,9 @@
 "bzx" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/machinery/camera/autoname{
+	dir = 6
+	},
 /turf/open/floor/iron/dark,
 /area/science/server)
 "bzE" = (
@@ -7688,6 +7689,9 @@
 	},
 /obj/structure/filingcabinet,
 /obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/camera/autoname{
+	dir = 9
+	},
 /turf/open/floor/wood,
 /area/medical/exam_room)
 "bBu" = (
@@ -9121,9 +9125,6 @@
 /turf/closed/wall/r_wall,
 /area/medical/virology)
 "bNh" = (
-/obj/machinery/camera/autoname{
-	dir = 9
-	},
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
 	pixel_x = 30
@@ -13779,6 +13780,15 @@
 /obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
+"cqX" = (
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Access"
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/starboard)
 "crc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -15779,13 +15789,6 @@
 /obj/machinery/atmospherics/pipe/manifold/general/visible,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
-"cFD" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/camera/autoname/directional/south,
-/turf/open/floor/iron,
-/area/hallway/primary/starboard)
 "cFI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -18880,6 +18883,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "dLv" = (
@@ -25669,6 +25673,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
+"gzQ" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Access"
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar/atrium)
 "gzS" = (
 /obj/structure/sign/warning/securearea{
 	pixel_x = -32
@@ -26086,7 +26098,6 @@
 /obj/item/radio/intercom{
 	pixel_y = 25
 	},
-/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "gJg" = (
@@ -26321,6 +26332,9 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Access"
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
 "gPH" = (
@@ -28089,6 +28103,13 @@
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
+"hHr" = (
+/obj/machinery/camera/directional/south,
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Access"
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/starboard)
 "hHC" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -33446,7 +33467,6 @@
 "jMr" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks/beer,
-/obj/machinery/camera/autoname,
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
@@ -38971,7 +38991,6 @@
 /turf/open/floor/plating,
 /area/bridge/meeting_room)
 "mgI" = (
-/obj/machinery/camera/directional/south,
 /turf/open/floor/iron/white/side{
 	dir = 1
 	},
@@ -42428,7 +42447,6 @@
 /obj/effect/turf_decal/tile/dark_blue{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/east,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/cmo)
 "nCY" = (
@@ -44142,9 +44160,6 @@
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
-	},
-/obj/machinery/camera/autoname{
-	dir = 6
 	},
 /turf/open/floor/iron/dark,
 /area/science/server)
@@ -46224,6 +46239,7 @@
 /obj/structure/chair/fancy/sofa/old/right{
 	dir = 4
 	},
+/obj/machinery/camera/autoname/directional/west,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "piD" = (
@@ -47614,6 +47630,7 @@
 /area/science/robotics/lab)
 "pKd" = (
 /obj/structure/closet/secure_closet/freezer/meat,
+/obj/machinery/camera/autoname,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "pKe" = (
@@ -48291,7 +48308,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
-/obj/machinery/camera/autoname/directional/east,
 /obj/structure/chair/stool/bar{
 	dir = 1
 	},
@@ -54059,7 +54075,6 @@
 /area/maintenance/fore)
 "sso" = (
 /obj/machinery/computer/slot_machine,
-/obj/machinery/airalarm/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -54815,9 +54830,6 @@
 /area/maintenance/starboard/fore)
 "sIi" = (
 /obj/structure/table/wood,
-/obj/machinery/camera{
-	c_tag = "Bar - Backroom"
-	},
 /obj/item/gun/ballistic/shotgun/doublebarrel,
 /obj/item/stack/spacecash/c1{
 	pixel_y = 11
@@ -54929,9 +54941,6 @@
 "sJI" = (
 /obj/structure/sign/departments/minsky/research/research{
 	pixel_x = 32
-	},
-/obj/machinery/camera/autoname{
-	dir = 9
 	},
 /obj/effect/spawner/randomvend/cola,
 /turf/open/floor/iron,
@@ -55853,6 +55862,11 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"tcW" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/camera/directional/south,
+/turf/open/floor/iron/checker,
+/area/crew_quarters/bar/atrium)
 "tda" = (
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/door/poddoor/preopen{
@@ -56264,9 +56278,6 @@
 	dir = 4;
 	pixel_x = -24
 	},
-/obj/machinery/camera/autoname{
-	dir = 5
-	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "tjd" = (
@@ -56305,9 +56316,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/fitness)
 "tjo" = (
-/obj/machinery/camera{
-	c_tag = "Bar - Backroom"
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -57195,6 +57203,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "tzr" = (
@@ -58539,7 +58548,6 @@
 	pixel_x = -30
 	},
 /obj/machinery/airalarm/directional/south,
-/obj/machinery/camera/autoname/directional/west,
 /obj/structure/filingcabinet,
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
@@ -59449,6 +59457,9 @@
 	dir = 1
 	},
 /obj/structure/closet/emcloset,
+/obj/machinery/camera/autoname{
+	dir = 9
+	},
 /turf/open/floor/iron,
 /area/maintenance/aft)
 "usv" = (
@@ -61140,6 +61151,12 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
+"vjL" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Access"
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/starboard)
 "vjP" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/wood,
@@ -66583,6 +66600,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Access"
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
 "xxT" = (
@@ -66948,6 +66968,15 @@
 	sortType = 28
 	},
 /turf/closed/wall/r_wall,
+/area/medical/virology)
+"xHq" = (
+/obj/structure/closet/l3closet/virology,
+/obj/item/storage/box/masks,
+/obj/item/storage/box/gloves,
+/obj/machinery/camera/autoname{
+	dir = 5
+	},
+/turf/open/floor/iron/white,
 /area/medical/virology)
 "xHw" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -101862,14 +101891,14 @@ aCr
 pry
 pry
 rcL
-bby
-bby
+gzQ
+gzQ
 aQg
 pry
 pry
-nIK
-nIK
-nIK
+qVS
+qVS
+qVS
 btZ
 btZ
 btZ
@@ -103409,7 +103438,7 @@ rHr
 xKr
 pxU
 pry
-aYV
+wsh
 mNB
 bes
 uwZ
@@ -104437,7 +104466,7 @@ rHr
 xKr
 hAq
 pry
-wsh
+aYV
 qvN
 fHB
 nId
@@ -105466,7 +105495,7 @@ tga
 nYk
 pry
 aYV
-cuf
+xPB
 nEu
 uwZ
 olY
@@ -105722,9 +105751,9 @@ rHr
 gSi
 pry
 pry
-bcs
-xPB
-aYV
+cqX
+vjL
+hHr
 bok
 bok
 bix
@@ -105976,7 +106005,7 @@ aJC
 bgX
 aYJ
 aYJ
-aYJ
+tcW
 pry
 pJk
 aYV
@@ -106530,7 +106559,7 @@ bMa
 cAZ
 cgh
 eHb
-bSQ
+xHq
 tsY
 gZG
 eaM
@@ -108294,7 +108323,7 @@ bal
 bam
 aYV
 aYV
-aYV
+ihb
 xJf
 xtf
 jLS
@@ -109836,7 +109865,7 @@ ggq
 aIp
 aYV
 mNB
-cFD
+sYn
 xJf
 xJf
 xJf
