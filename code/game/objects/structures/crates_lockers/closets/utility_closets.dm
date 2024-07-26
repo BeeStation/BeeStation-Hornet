@@ -17,6 +17,14 @@
 	desc = "It's a storage unit for emergency breath masks and O2 tanks."
 	icon_state = "emergency"
 
+/obj/structure/closet/emcloset/empty
+	name = "emergency closet"
+	desc = "It's a storage unit for emergency breath masks and O2 tanks."
+	icon_state = "emergency"
+
+/obj/structure/closet/emcloset/empty/PopulateContents()
+	return
+
 /obj/structure/closet/emcloset/anchored
 	anchored = TRUE
 
@@ -66,6 +74,14 @@
 	desc = "It's a storage unit for fire-fighting supplies."
 	icon_state = "fire"
 
+/obj/structure/closet/firecloset/empty
+	name = "fire-safety closet"
+	desc = "It's a storage unit for fire-fighting supplies."
+	icon_state = "fire"
+
+/obj/structure/closet/firecloset/empty/PopulateContents()
+	return
+
 /obj/structure/closet/firecloset/PopulateContents()
 	..()
 
@@ -91,6 +107,15 @@
 	desc = "It's a storage unit for tools."
 	icon_state = "eng"
 	icon_door = "eng_tool"
+
+/obj/structure/closet/toolcloset/empty
+	name = "tool closet"
+	desc = "It's a storage unit for tools."
+	icon_state = "eng"
+	icon_door = "eng_tool"
+
+/obj/structure/closet/toolcloset/empty/PopulateContents()
+	return
 
 /obj/structure/closet/toolcloset/PopulateContents()
 	..()
@@ -135,6 +160,15 @@
 	icon_state = "eng"
 	icon_door = "eng_rad"
 
+/obj/structure/closet/radiation/empty
+	name = "radiation suit closet"
+	desc = "It's a storage unit for rad-protective suits."
+	icon_state = "eng"
+	icon_door = "eng_rad"
+
+/obj/structure/closet/radiation/empty/PopulateContents()
+	return
+
 /obj/structure/closet/radiation/PopulateContents()
 	..()
 	new /obj/item/geiger_counter(src)
@@ -152,6 +186,14 @@
 	name = "\improper EOD closet"
 	desc = "It's a storage unit for explosion-protective suits."
 	icon_state = "bomb"
+
+/obj/structure/closet/bombcloset/empty
+	name = "\improper EOD closet"
+	desc = "It's a storage unit for explosion-protective suits."
+	icon_state = "bomb"
+
+/obj/structure/closet/bombcloset/empty/PopulateContents()
+	return
 
 /obj/structure/closet/bombcloset/PopulateContents()
 	..()

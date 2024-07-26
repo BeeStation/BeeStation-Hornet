@@ -19,6 +19,7 @@
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
+	var/divable = TRUE //controls whether someone with skittish trait can enter the closet with CtrlShiftClick
 	var/large = TRUE
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/breakout_time = 1200
@@ -173,7 +174,7 @@
 		. += "<span class='notice'>Alt-click to [locked ? "unlock" : "lock"].</span>"
 	if(isliving(user))
 		var/mob/living/L = user
-		if(HAS_TRAIT(L, TRAIT_SKITTISH))
+		if(divable && HAS_TRAIT(L, TRAIT_SKITTISH))
 			. += "<span class='notice'>Ctrl-Shift-click [src] to jump inside.</span>"
 
 /obj/structure/closet/CanAllowThrough(atom/movable/mover, border_dir)
@@ -523,7 +524,7 @@
 		togglelock(user)
 
 /obj/structure/closet/CtrlShiftClick(mob/living/user)
-	if(!HAS_TRAIT(user, TRAIT_SKITTISH))
+	if(!(divable && HAS_TRAIT(user, TRAIT_SKITTISH)))
 		return ..()
 	if(!user.canUseTopic(src, BE_CLOSE) || !isturf(user.loc))
 		return
