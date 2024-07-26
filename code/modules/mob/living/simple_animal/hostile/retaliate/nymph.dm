@@ -284,3 +284,8 @@
 	"<span class='notice'>You start to squirm in [loc]'s hands...</span>")
 	if(do_after(src, 8 SECONDS, user, NONE, TRUE))
 		release()
+
+/obj/item/clothing/head/mob_holder/nymph/microwave_act(obj/machinery/microwave/M)
+	. = ..()
+	held_mob.adjustFireLoss(50)
+	Destroy()
