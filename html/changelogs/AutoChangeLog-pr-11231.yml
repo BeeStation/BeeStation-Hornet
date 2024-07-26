@@ -1,4 +1,0 @@
-author: Markus Larsson
-delete-after: true
-changes:
-  - bugfix: fixed AI having Syndicate and CentCom comms.
