@@ -203,7 +203,6 @@
 		if(istype(body_part, /obj/item/bodypart/l_arm) || istype(body_part, /obj/item/bodypart/r_arm) || istype(body_part, /obj/item/bodypart/l_leg) || istype(body_part, /obj/item/bodypart/r_leg)) // I'm sorry.
 			for(var/obj/item/organ/nymph_organ/I in body_part)
 				QDEL_NULL(I)
-			body_part.drop_limb()
 			QDEL_NULL(body_part)
 		if(istype(body_part, /obj/item/bodypart/chest))
 			body_part.brute_dam = helpers.brute_damage
@@ -287,5 +286,6 @@
 
 /obj/item/clothing/head/mob_holder/nymph/microwave_act(obj/machinery/microwave/M)
 	. = ..()
+	M.muck()
 	held_mob.adjustFireLoss(50)
 	Destroy()
