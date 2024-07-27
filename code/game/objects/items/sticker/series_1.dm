@@ -29,6 +29,13 @@
 	sticker_flags = STICKER_SERIES_1 | STICKER_WEIGHT_EXOTIC
 	drop_rate = STICKER_WEIGHT_EXOTIC
 
+/obj/item/sticker/series_1/emagged
+	icon_state = "apcemag"
+	sticker_icon_state = "apcemag_sticker"
+	do_outline = FALSE
+	sticker_flags = STICKER_SERIES_1 | STICKER_WEIGHT_EXOTIC
+	drop_rate = STICKER_WEIGHT_EXOTIC
+
 /obj/item/sticker/series_1/sad
 	icon_state = "sad"
 	sticker_icon_state = "sad_sticker"
@@ -40,33 +47,20 @@
 	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_UNCOMMON
 	drop_rate = STICKER_WEIGHT_UNCOMMON
 
-/obj/item/sticker/series_1/pride
-	item_flags = ABSTRACT
+/obj/item/sticker/series_1/dog
+	icon_state = "dog"
+	sticker_icon_state = "dog_sticker"
 	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_UNCOMMON
 	drop_rate = STICKER_WEIGHT_UNCOMMON
 
-/obj/item/sticker/series_1/pride/gay
-	item_flags = NONE
-	icon_state = "gay"
-	sticker_icon_state = "gay_sticker"
+/obj/item/sticker/series_1/cat
+	icon_state = "cat"
+	sticker_icon_state = "cat_sticker"
+	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_UNCOMMON
+	drop_rate = STICKER_WEIGHT_UNCOMMON
 
-/obj/item/sticker/series_1/pride/lesbian
-	item_flags = NONE
-	icon_state = "lesbian"
-	sticker_icon_state = "lesbian_sticker"
-
-/obj/item/sticker/series_1/pride/bi
-	item_flags = NONE
-	icon_state = "bi"
-	sticker_icon_state = "bi_sticker"
-
-/obj/item/sticker/series_1/pride/trans
-	item_flags = NONE
-	icon_state = "trans"
-	sticker_icon_state = "trans_sticker"
-
-//Mime pride?
-/obj/item/sticker/series_1/pride/straight
-	item_flags = NONE
-	icon_state = "straight"
-	sticker_icon_state = "straight_sticker"
+/obj/item/sticker/series_1/carp
+	icon_state = "carp"
+	sticker_icon_state = "carp_sticker"
+	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_UNCOMMON
+	drop_rate = STICKER_WEIGHT_UNCOMMON
