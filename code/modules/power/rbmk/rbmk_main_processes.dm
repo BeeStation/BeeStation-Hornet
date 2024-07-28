@@ -19,7 +19,7 @@
 		atmos_process(delta_time)
 		damage_handler(delta_time)
 		check_alert()
-		soundloop.volume = clamp((20 + (power / 2)), 20, 100)
+		soundloop.volume = clamp((power / 2), 0, 35)
 	update_pipenets()
 	update_appearance()
 
