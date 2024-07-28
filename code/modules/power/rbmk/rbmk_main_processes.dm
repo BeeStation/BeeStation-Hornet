@@ -58,6 +58,7 @@
 	var/radioactivity_spice_multiplier = 1 //Some gasses make the reactor a bit spicy.
 	var/depletion_modifier = 0.035 //How rapidly do your rods decay
 	gas_absorption_effectiveness = gas_absorption_constant
+	last_power_produced = 0
 	//Next up, handle moderators!
 	if(moderator_input.total_moles() >= minimum_coolant_level)
 		var/total_fuel_moles = moderator_input.get_moles(GAS_PLASMA) + (moderator_input.get_moles(GAS_NITROUS)*2)+ (moderator_input.get_moles(GAS_TRITIUM)*10) //n2o is 50% more efficient as fuel than plasma, but is harder to produce
@@ -70,11 +71,6 @@
 			radioactivity_spice_multiplier += moderator_input.get_moles(GAS_TRITIUM) / 5 //Chernobyl 2.
 			if(power >= 20)
 				coolant_output.adjust_moles(GAS_TRITIUM, total_fuel_moles/20) //Shove out tritium into the air when it's fuelled. You need to filter this off, or you're gonna have a bad time.
-			var/turf/T = get_turf(src)
-			var/obj/structure/cable/C = T.get_cable_node()
-			if(C)
-				C.get_connections()
-				C.add_avail(last_power_produced)
 
 		var/total_control_moles = moderator_input.get_moles(GAS_N2) + (moderator_input.get_moles(GAS_CO2)*4) + (moderator_input.get_moles(GAS_PLUOXIUM)*8) //N2 helps you control the reaction at the cost of making it absolutely blast you with rads. Pluoxium has the same effect but without the rads!
 		if(total_control_moles >= minimum_coolant_level)
@@ -133,4 +129,12 @@
 		SEND_SIGNAL(grilled_item, COMSIG_ITEM_GRILLED, grilled_item, delta_time)
 		grill_time += delta_time
 		grilled_item.AddComponent(/datum/component/sizzle)
+
+	if(!last_power_produced)
+		last_power_produced =  150000 //Passively make 150KW if we dont have moderator
+	var/turf/T = get_turf(src)
+	var/obj/structure/cable/C = T.get_cable_node()
+	if(C)
+		C.get_connections()
+		C.add_avail(last_power_produced)
 
