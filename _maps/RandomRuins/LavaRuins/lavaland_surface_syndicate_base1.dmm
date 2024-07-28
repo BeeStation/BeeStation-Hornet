@@ -1463,7 +1463,7 @@
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "gU" = (
 /obj/machinery/airalarm/syndicate{
-	dir = 8;
+	dir = 4;
 	pixel_x = -24
 	},
 /obj/structure/sink{
@@ -3013,7 +3013,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "ly" = (
-/obj/structure/chair/stool/bar/directional/east,
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "lz" = (
@@ -4310,7 +4310,8 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "uo" = (
 /obj/machinery/airalarm/syndicate{
-	pixel_y = -24
+	pixel_y = -24;
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -4368,7 +4369,7 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "vN" = (
 /obj/machinery/airalarm/syndicate{
-	dir = 8;
+	dir = 4;
 	pixel_x = -24
 	},
 /obj/machinery/light/small{
@@ -4434,7 +4435,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "xg" = (
 /obj/machinery/airalarm/syndicate{
-	dir = 8;
+	dir = 4;
 	pixel_x = -24
 	},
 /obj/structure/chair/stool,
@@ -4479,7 +4480,7 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "xG" = (
 /obj/machinery/airalarm/syndicate{
-	dir = 8;
+	dir = 4;
 	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -4861,7 +4862,7 @@
 "FX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/chair/stool/bar/directional/east,
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "Gi" = (
@@ -4963,7 +4964,7 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/syndicate{
-	dir = 8;
+	dir = 4;
 	pixel_x = -24
 	},
 /obj/structure/table,
@@ -5244,7 +5245,7 @@
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "PC" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/chair/stool/bar/directional/east,
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "PJ" = (
@@ -5571,7 +5572,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "WJ" = (
 /obj/machinery/airalarm/syndicate{
-	dir = 8;
+	dir = 4;
 	pixel_x = -24
 	},
 /obj/machinery/light/small{
@@ -5582,7 +5583,7 @@
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "Xd" = (
 /obj/machinery/airalarm/syndicate{
-	dir = 8;
+	dir = 4;
 	pixel_x = -24
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
