@@ -4388,6 +4388,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
+/obj/machinery/camera/autoname/directional/west,
 /turf/open/floor/iron,
 /area/hydroponics)
 "aYR" = (
@@ -7654,10 +7655,6 @@
 /obj/effect/turf_decal/trimline/white/line,
 /obj/effect/turf_decal/trimline/dark_red/line{
 	dir = 1
-	},
-/obj/machinery/camera/autoname{
-	dir = 10;
-	network = list("ss13","security")
 	},
 /turf/open/floor/wood/big,
 /area/maintenance/aft)
@@ -25788,6 +25785,7 @@
 	},
 /obj/machinery/icecream_vat,
 /obj/effect/turf_decal/bot/right,
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "gAq" = (
@@ -47719,7 +47717,6 @@
 /area/science/robotics/lab)
 "pKd" = (
 /obj/structure/closet/secure_closet/freezer/meat,
-/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "pKe" = (
@@ -48361,7 +48358,7 @@
 /obj/structure/grille/broken,
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/machinery/door/airlock/maintenance_hatch{
-	name = "Forbidden Dunking Zone  Airlock";
+	name = "Maintenance Dunking Zone  Airlock";
 	req_access_txt = "12"
 	},
 /turf/open/floor/plating,
