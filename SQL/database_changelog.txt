@@ -13,15 +13,15 @@ In any query remember to add a prefix to the table names if you use one.
 Version 7.3, 30 April 2024, by XeonMations
 Dionae - Species Addition
 
-ALTER TABLE 'SS13_characters'
-	ADD COLUMN IF NOT EXISTS `feature_diona_leaves` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_psyphoza_cap',
-	ADD COLUMN IF NOT EXISTS `feature_diona_thorns` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_diona_leaves',
-	ADD COLUMN IF NOT EXISTS `feature_diona_flowers` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_diona_thorns',
-	ADD COLUMN IF NOT EXISTS `feature_diona_moss` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_diona_flowers',
-	ADD COLUMN IF NOT EXISTS `feature_diona_mushroom` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_diona_moss',
-	ADD COLUMN IF NOT EXISTS `feature_diona_antennae` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_diona_mushroom',
-	ADD COLUMN IF NOT EXISTS `feature_diona_eyes` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_diona_antennae',
-	ADD COLUMN IF NOT EXISTS `feature_diona_pbody` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_diona_eyes';
+ALTER `TABLE SS13_characters`
+	ADD COLUMN IF NOT EXISTS `feature_diona_leaves` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_psyphoza_cap`,
+	ADD COLUMN IF NOT EXISTS `feature_diona_thorns` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_leaves`,
+	ADD COLUMN IF NOT EXISTS `feature_diona_flowers` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_thorns`,
+	ADD COLUMN IF NOT EXISTS `feature_diona_moss` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_flowers`,
+	ADD COLUMN IF NOT EXISTS `feature_diona_mushroom` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_moss`,
+	ADD COLUMN IF NOT EXISTS `feature_diona_antennae` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_mushroom`,
+	ADD COLUMN IF NOT EXISTS `feature_diona_eyes` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_antennae`,
+	ADD COLUMN IF NOT EXISTS `feature_diona_pbody` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_eyes`;
 
 -----------------------------------------------------
 
