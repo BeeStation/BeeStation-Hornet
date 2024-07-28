@@ -29288,7 +29288,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/camera/autoname/directional/north,
+/obj/machinery/camera/autoname/directional/north{
+	network = list("ss13","engine")
+	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "ioR" = (
@@ -33141,7 +33143,9 @@
 /obj/machinery/atmospherics/pipe/manifold/green/visible{
 	dir = 1
 	},
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/autoname/directional/south{
+	network = list("ss13","engine")
+	},
 /turf/open/floor/engine,
 /area/engine/engineering)
 "jYW" = (
@@ -37706,7 +37710,9 @@
 /area/tcommsat/computer)
 "lYs" = (
 /obj/structure/lattice,
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/autoname/directional/east{
+	network = list("ss13", "minisat")
+	},
 /turf/open/space,
 /area/space/nearstation)
 "lYu" = (
@@ -43432,7 +43438,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/camera/autoname/directional/north,
+/obj/machinery/camera/autoname/directional/north{
+	network = list("ss13, prison")
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/prison/shielded)
 "oyM" = (
@@ -43985,7 +43993,9 @@
 	pixel_y = 33
 	},
 /obj/effect/landmark/prisonspawn,
-/obj/machinery/camera/autoname/directional/north,
+/obj/machinery/camera/autoname/directional/north{
+	network = list("ss13, prison")
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "oLE" = (
@@ -51447,7 +51457,9 @@
 	},
 /obj/machinery/firealarm/directional/east,
 /obj/structure/closet/bombcloset/security,
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/autoname/directional/east{
+	network = list("ss13","security")
+	},
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
 "rVI" = (
@@ -55447,7 +55459,9 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/north,
+/obj/machinery/camera/autoname/directional/north{
+	network = list("ss13","engine")
+	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "tCh" = (
@@ -57827,7 +57841,9 @@
 	},
 /obj/item/storage/box/deputy,
 /obj/item/toy/figure/hos,
-/obj/machinery/camera/autoname/directional/north,
+/obj/machinery/camera/autoname/directional/north{
+	network = list("ss13","security")
+	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "uCp" = (
@@ -59875,7 +59891,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname/directional/south{
-	network = list("ss13, engine")
+	network = list("ss13, prison")
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -65384,7 +65400,9 @@
 /area/crew_quarters/heads/hor)
 "xXh" = (
 /obj/structure/lattice,
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/autoname/directional/west{
+	network = list("ss13", "minisat")
+	},
 /turf/open/space,
 /area/space/nearstation)
 "xXr" = (
