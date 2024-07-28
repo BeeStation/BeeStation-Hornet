@@ -181,6 +181,13 @@
 
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
+// ==============
+// This works by summing the total priority of all queued systems, and allocating a proportion of the tick based on the
+// priority of that system.
+// This does not determine execution order or anything like that, it determines the maximum proportion of a tick that
+// a subsystem is allowed to consume relative to other subsystems.
+// Low priority subsystems that shouldn't use much tick should be lower, and ones which you want to allow to run for
+// longer amounts of time should be higher.
 
 #define FIRE_PRIORITY_STAT			10
 #define FIRE_PRIORITY_AMBIENCE		10

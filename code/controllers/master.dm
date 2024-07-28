@@ -660,10 +660,13 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			queue_node_flags = queue_node.flags
 			queue_node_priority = queue_node.queued_priority
 
+			// If we are skipping ticks due to an explosion, only run tickers
 			if(!(queue_node_flags & SS_TICKER) && skip_ticks)
 				queue_node = queue_node.queue_next
 				continue
 
+			// If this is a background node (back of the queue)
+			// then switch the budget to background only
 			if ((queue_node_flags & SS_BACKGROUND))
 				if (!bg_calc)
 					current_tick_budget = queue_priority_count_bg
@@ -677,6 +680,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				bg_calc = FALSE
 
 
+			// Calculate how much tick we have to work with
 			tick_remaining = TICK_LIMIT_RUNNING - TICK_USAGE
 
 			if (queue_node_priority >= 0 && current_tick_budget > 0 && current_tick_budget >= queue_node_priority)
@@ -689,8 +693,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				. = -1
 				tick_precentage = tick_remaining //just because we lost track of priority calculations doesn't mean we can't try to finish off the run, if the error state persists, we don't want to stop ticks from happening
 
+			// It is allowed either 50% of its requested tick, or the requested tick with the overrun removed
+			// This is a very flakey calculation
 			tick_precentage = max(tick_precentage*0.5, tick_precentage-queue_node.tick_overrun)
 
+			// The point at which we should stop processing that thing
 			current_ticklimit = round(TICK_USAGE + tick_precentage)
 
 			ran = TRUE
@@ -700,8 +707,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 			queue_node.state = SS_RUNNING
 
+			// Run the subsystem
 			tick_usage = TICK_USAGE
 			var/state = queue_node.ignite(queue_node_paused)
+			// Determine how much of the tick that we used
+			// This is now very high
 			tick_usage = TICK_USAGE - tick_usage
 
 			if (diagnostic_tick.fired_subsystems[queue_node])
@@ -711,15 +721,19 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 			if (state == SS_RUNNING)
 				state = SS_IDLE
+			// This is now negative
 			current_tick_budget -= queue_node_priority
 
 
 			if (tick_usage < 0)
 				tick_usage = 0
+			// This is now very high
 			queue_node.tick_overrun = max(0, MC_AVG_FAST_UP_SLOW_DOWN(queue_node.tick_overrun, tick_usage-tick_precentage))
 			queue_node.state = state
 
 			if (state == SS_PAUSED)
+				if (ran && TICK_USAGE > TICK_LIMIT_RUNNING)
+					message_admins("The subsystem [queue_node.name] paused after consuming all of the tick, resulting in it firing immediately next tick. Ping me if this continues a bunch and the server freezes at the same time.")
 				queue_node.paused_ticks++
 				queue_node.paused_tick_usage += tick_usage
 				queue_node = queue_node.queue_next
