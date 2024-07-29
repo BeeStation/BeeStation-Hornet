@@ -116,8 +116,11 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /obj/effect/hallucination/singularity_act()
 	return
 
-/obj/effect/hallucination/simple/Initialize(mapload, var/mob/living/carbon/T)
+/obj/effect/hallucination/simple/Initialize(mapload, mob/living/carbon/T)
 	. = ..()
+	if(!T)
+		stack_trace("A hallucination was created with no target")
+		return INITIALIZE_HINT_QDEL
 	target = T
 	current_image = GetImage()
 	if(target.client)
@@ -300,11 +303,11 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 				to_chat(target, "<span class='notice'>[xeno.name] begins climbing into the ventilation system...</span>")
 				stage = XENO_ATTACK_STAGE_FINISH
 			if (XENO_ATTACK_STAGE_LEAP_AT_PUMP to XENO_ATTACK_STAGE_CLIMB)
-				xeno.update_icon("alienh_leap",'icons/mob/alienleap.dmi', -32, -32)
+				xeno.update_icon(ALL, "alienh_leap", 'icons/mob/alienleap.dmi', -32, -32)
 				xeno.throw_at(pump_location, 7, 1, spin = FALSE, diagonals_first = TRUE)
 				stage = XENO_ATTACK_STAGE_CLIMB
 			if (XENO_ATTACK_STAGE_LEAP_AT_TARGET to XENO_ATTACK_STAGE_LEAP_AT_PUMP)
-				xeno.update_icon("alienh_leap",'icons/mob/alienleap.dmi', -32, -32)
+				xeno.update_icon(ALL, "alienh_leap", 'icons/mob/alienleap.dmi', -32, -32)
 				xeno.throw_at(target, 7, 1, spin = FALSE, diagonals_first = TRUE)
 				stage = XENO_ATTACK_STAGE_LEAP_AT_PUMP
 
@@ -754,6 +757,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		count++
 		LAZYADD(airlocks_to_hit, A)
 
+	if(!LAZYLEN(airlocks_to_hit)) //no valid airlocks in sight
+		qdel(src)
+		return
+
 	START_PROCESSING(SSfastprocess, src)
 
 /datum/hallucination/bolts/process(delta_time)
@@ -769,7 +776,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			lock.airlock = next_airlock
 			LAZYADD(locks, lock)
 
-		if (!airlocks_to_hit.len)
+		if (!LAZYLEN(airlocks_to_hit))
 			locking = FALSE
 			next_action = 10 SECONDS
 			return
@@ -1278,13 +1285,13 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/hallucination/danger/lava/show_icon()
-	image = image('icons/turf/floors/lava.dmi',src,"smooth",TURF_LAYER)
+	var/turf/danger_turf = get_turf(src)
+	image = image('icons/turf/floors/lava.dmi', src, "lava-[danger_turf.smoothing_junction || 0]", TURF_LAYER)
 	if(target.client)
 		target.client.images += image
 
 /obj/effect/hallucination/danger/lava/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
-
 	if(AM == target)
 		INVOKE_ASYNC(target, TYPE_PROC_REF(/mob/living/carbon, adjustStaminaLoss), 20)
 		new /datum/hallucination/fire(target)
@@ -1300,13 +1307,13 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/hallucination/danger/chasm/show_icon()
-	image = image('icons/turf/floors/Chasms.dmi',src,"smooth",TURF_LAYER)
+	var/turf/danger_turf = get_turf(src)
+	image = image('icons/turf/floors/chasms.dmi', src, "chasms-[danger_turf.smoothing_junction || 0]", TURF_LAYER)
 	if(target.client)
 		target.client.images += image
 
 /obj/effect/hallucination/danger/chasm/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
-
 	if(AM == target)
 		if(istype(target, /obj/effect/dummy/phased_mob))
 			return
@@ -1341,7 +1348,6 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 /obj/effect/hallucination/danger/anomaly/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
-
 	if(AM == target)
 		new /datum/hallucination/shock(target)
 
