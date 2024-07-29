@@ -116,10 +116,7 @@
 	. = ..()
 
 /mob/living/simple_animal/hostile/retaliate/nymph/attack_animal(mob/living/L)
-	if(is_drone)
-		. = ..()
-		return
-	if(istype(src, /mob/living/simple_animal/hostile/retaliate/nymph) && stat != DEAD)
+	if(istype(L, /mob/living/simple_animal/hostile/retaliate/nymph) && stat != DEAD)
 		var/mob/living/simple_animal/hostile/retaliate/nymph/M = L
 		if(mind == null) // No RRing fellow nymphs
 			M.melee_damage = 25
@@ -130,7 +127,6 @@
 			M.melee_damage = 0
 			. = ..()
 			return
-	melee_damage = 1.5
 	. = ..()
 
 /mob/living/simple_animal/hostile/retaliate/nymph/spawn_gibs()
