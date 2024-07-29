@@ -29,6 +29,7 @@
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = DRONE
 	deathsound = "sound/emotes/diona/death.ogg"
+	species_bitflags = NOT_TRANSMORPHIC
 
 	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
 	mutanttongue = /obj/item/organ/tongue/diona //Dungeon's sprite

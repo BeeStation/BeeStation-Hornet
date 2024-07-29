@@ -127,6 +127,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// What bleed status effect should we apply?
 	var/bleed_effect = STATUS_EFFECT_BLEED
 
+	// Species specific bitflags. Used for things like if the race is unable to become a changeling.
+	var/species_bitflags = NONE
+
 ///////////
 // PROCS //
 ///////////

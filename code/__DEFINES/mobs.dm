@@ -594,3 +594,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 /// Returns whether or not the given mob can succumb
 #define CAN_SUCCUMB(target) (HAS_TRAIT(target, TRAIT_CRITICAL_CONDITION) && !HAS_TRAIT(target, TRAIT_NODEATH))
+
+// Species related bitflags go here.
+
+#define NOT_TRANSMORPHIC (1<<0) // This race can't become a changeling antagonist.
