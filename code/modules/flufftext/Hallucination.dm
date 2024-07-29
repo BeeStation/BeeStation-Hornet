@@ -1115,7 +1115,25 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /datum/hallucination/fake_alert/New(mob/living/carbon/C, forced = TRUE, specific, duration = 150)
 	set waitfor = FALSE
 	..()
-	alert_type = pick("not_enough_oxy","not_enough_tox","not_enough_co2","too_much_oxy","too_much_co2","too_much_tox","newlaw","nutrition","charge","gravity","fire","locked","hacked","temphot","tempcold","pressure")
+	alert_type = pick(
+		"not_enough_oxy",
+		"not_enough_tox",
+		"not_enough_co2",
+		"too_much_oxy",
+		"too_much_co2",
+		"too_much_tox",
+		"newlaw",
+		"nutrition",
+		"charge",
+		"gravity",
+		"fire",
+		"locked",
+		"hacked",
+		"temphot",
+		"tempcold",
+		"pressure",
+	)
+
 	if(specific)
 		alert_type = specific
 	feedback_details += "Type: [alert_type]"
