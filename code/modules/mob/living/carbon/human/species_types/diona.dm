@@ -177,6 +177,9 @@
 	var/list/alive_nymphs = list()
 	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = new(H.loc) //Spawn the player nymph, including this one, should be six total nymphs
 	for(var/obj/item/bodypart/BP as anything in H.bodyparts)
+		if(BP.limb_id != SPECIES_DIONA) //Robot limb? Ignore it.
+			BP.drop_limb()
+			continue
 		if(istype(BP, /obj/item/bodypart/head))
 			nymph.adjustBruteLoss(BP.brute_dam)
 			nymph.adjustFireLoss(BP.burn_dam)
