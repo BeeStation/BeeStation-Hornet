@@ -702,6 +702,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 			ran = TRUE
 
+			var/prev_processed = last_type_processed
+
 			queue_node_paused = (queue_node.state == SS_PAUSED || queue_node.state == SS_PAUSING)
 			last_type_processed = queue_node
 
@@ -732,8 +734,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			queue_node.state = state
 
 			if (state == SS_PAUSED)
-				if (ran && TICK_USAGE > TICK_LIMIT_RUNNING)
-					message_admins("The subsystem [queue_node.name] paused after consuming all of the tick, resulting in it firing immediately next tick. Ping me if this continues a bunch and the server freezes at the same time.")
+				if (ran && TICK_USAGE > TICK_LIMIT_RUNNING && prev_processed == queue_node)
+					message_admins("The subsystem [queue_node.name] is choking out the MC. Ping me if this message spams the chat.")
+					log_world("The subsystem [queue_node.name] is choking out the MC. Ping me if this message spams the chat.")
 				queue_node.paused_ticks++
 				queue_node.paused_tick_usage += tick_usage
 				queue_node = queue_node.queue_next
