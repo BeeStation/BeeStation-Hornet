@@ -47,6 +47,7 @@
 	var/datum/action/nymph/SwitchFrom/switch_ability //The ability to switch back to the parent diona as a drone.
 	var/list/features = list()
 	var/grown_message_sent = FALSE
+	var/time_spent_in_light
 
 /mob/living/simple_animal/hostile/retaliate/nymph/Initialize()
 	. = ..()
@@ -76,6 +77,22 @@
 	if(!is_drone)
 		update_progression()
 	get_stat_tab_status()
+	if(stat != CONSCIOUS)
+		remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
+	if(isturf(loc)) //else, there's considered to be no light
+		var/turf/T = loc
+		light_amount = min(1,T.get_lumcount()) - 0.5
+		if(light_amount > 0.2) //Is there light here?
+			time_spent_in_light++  //If so, how long have we been somewhere with light?
+			if(time_spent_in_light > 5) //More than 5 seconds spent in the light
+				if(stat != CONSCIOUS)
+					remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+					return
+				apply_status_effect(STATUS_EFFECT_PLANTHEALING)
+		else
+			remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+			time_spent_in_light = 0  //No light? Reset the timer.
 
 /mob/living/simple_animal/hostile/retaliate/nymph/handle_environment(datum/gas_mixture/environment)
 	return
@@ -148,9 +165,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/nymph/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	if(isdiona(arrived))
-		if(mind != null) //Does the nymph on the ground have a mind?
-			return // If so, ignore the diona
-		if(stat == DEAD) //Are we dead?
+		if(mind != null || stat == DEAD || is_drone) //Does the nymph on the ground have a mind, dead or a drone?
 			return // If so, ignore the diona
 		var/mob/living/carbon/human/H = arrived
 		var/list/limbs_to_heal = H.get_missing_limbs()
