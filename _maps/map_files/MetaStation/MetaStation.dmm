@@ -62810,12 +62810,11 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "srF" = (
-/obj/effect/spawner/randomvend/snack,
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
-/turf/open/floor/iron/dark,
-/area/hallway/primary/central)
+/turf/closed/wall,
+/area/library)
 "srT" = (
 /obj/item/food/grown/wheat,
 /obj/item/food/grown/watermelon,
