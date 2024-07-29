@@ -31,7 +31,7 @@
 
 /obj/item/seeds/dionapod/harvest(mob/user)
 	var/obj/machinery/hydroponics/parent = src.loc
-	if(CONFIG_GET(flag/revival_pod_plants) && spawn_nymph)
+	if(CONFIG_GET(flag/diona_ghost_spawn) && spawn_nymph)
 		for (var/x in 0 to yield)
 			var/mob/living/simple_animal/hostile/retaliate/nymph/child = new /mob/living/simple_animal/hostile/retaliate/nymph(get_turf(parent))
 			child.is_ghost_spawn = TRUE
