@@ -160,7 +160,7 @@
 			if(body_part.body_zone == healed_limb)
 				body_part.brute_dam = brute_damage
 				body_part.burn_dam = fire_damage
-		balloon_alert(arrived, "[arrived] assimilates [src]!")
+		balloon_alert(arrived, "[arrived] assimilates [src]")
 		QDEL_NULL(src)
 
 /datum/action/nymph/evolve
