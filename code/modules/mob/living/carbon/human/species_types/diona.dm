@@ -24,7 +24,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/diona
 	bodytemp_normal = (BODYTEMP_NORMAL - 22) // Body temperature for dionae is much lower then humans as they are plants, supposed to be 15 celsius
-	speedmod = 1.8 // Dionae are slow.
+	speedmod = 1.2 // Dionae are slow.
 	species_height = SPECIES_HEIGHTS(0, -1, -2) //Naturally tall.
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = DRONE
