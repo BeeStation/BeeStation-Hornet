@@ -150,6 +150,8 @@
 	if(isdiona(arrived))
 		if(mind != null) //Does the nymph on the ground have a mind?
 			return // If so, ignore the diona
+		if(stat == DEAD) //Are we dead?
+			return // If so, ignore the diona
 		var/mob/living/carbon/human/H = arrived
 		var/list/limbs_to_heal = H.get_missing_limbs()
 		if(!LAZYLEN(limbs_to_heal))
