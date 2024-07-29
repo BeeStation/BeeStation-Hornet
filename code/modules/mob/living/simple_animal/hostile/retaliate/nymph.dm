@@ -22,6 +22,7 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	hud_type = /datum/hud/nymph
 	butcher_results = list(/obj/item/food/meat/slab/human/mutant/diona = 4)
+	initial_language_holder = /datum/language_holder/diona
 
 	var/brute_damage = 0
 	var/fire_damage = 0
