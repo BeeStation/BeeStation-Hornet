@@ -45,6 +45,7 @@
 	var/datum/action/nymph/evolve/evolve_ability //The ability to grow up into a diona.
 	var/datum/action/nymph/SwitchFrom/switch_ability //The ability to switch back to the parent diona as a drone.
 	var/list/features = list()
+	var/grown_message_sent = FALSE
 
 /mob/living/simple_animal/hostile/retaliate/nymph/Initialize()
 	. = ..()
@@ -101,12 +102,18 @@
 		. = ..()
 		return
 	if(istype(src, /mob/living/simple_animal/hostile/retaliate/nymph) && stat != DEAD)
+		var/mob/living/simple_animal/hostile/retaliate/nymph/M = L
 		if(mind == null) // No RRing fellow nymphs
-			var/mob/living/simple_animal/hostile/retaliate/nymph/M = L
 			M.melee_damage = 25
 			M.amount_grown += 50
-	. = ..()
+			. = ..()
+			return
+		else
+			M.melee_damage = 0
+			. = ..()
+			return
 	melee_damage = 1.5
+	. = ..()
 
 /mob/living/simple_animal/hostile/retaliate/nymph/spawn_gibs()
 	new /obj/effect/decal/cleanable/insectguts(drop_location())
@@ -134,6 +141,9 @@
 		amount_grown++
 	if(amount_grown > max_grown)
 		amount_grown = max_grown
+	if(!grown_message_sent && amount_grown == max_grown)
+		to_chat(src, "<span class='userdanger'>You feel like you're ready to grow up!</span>")
+		grown_message_sent = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/nymph/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	if(isdiona(arrived))
