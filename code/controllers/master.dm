@@ -55,6 +55,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	/// The type of the last subsystem to be fire()'d.
 	var/last_type_processed
+	var/choking = 0
 
 	var/datum/controller/subsystem/queue_head //!Start of queue linked list
 	var/datum/controller/subsystem/queue_tail //!End of queue linked list (used for appending to the list)
@@ -735,12 +736,18 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 			if (state == SS_PAUSED)
 				if (ran && TICK_USAGE > TICK_LIMIT_RUNNING && prev_processed == queue_node)
-					message_admins("The subsystem [queue_node.name] is choking out the MC. Ping me if this message spams the chat.")
-					log_world("The subsystem [queue_node.name] is choking out the MC. Ping me if this message spams the chat.")
+					choking ++
+					if (choking >= 5)
+						message_admins("The subsystem [queue_node.name] is choking out the MC: TICKS: [choking]. Ping me if this message spams the chat.")
+					log_world("The subsystem [queue_node.name] is choking out the MC. Ping me if this message spams the chat. Choking: [choking]")
+				else
+					choking = 0
 				queue_node.paused_ticks++
 				queue_node.paused_tick_usage += tick_usage
 				queue_node = queue_node.queue_next
 				continue
+
+			choking = 0
 
 			queue_node.ticks = MC_AVERAGE(queue_node.ticks, queue_node.paused_ticks)
 			tick_usage += queue_node.paused_tick_usage
