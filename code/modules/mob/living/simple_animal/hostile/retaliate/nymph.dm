@@ -160,6 +160,7 @@
 			if(body_part.body_zone == healed_limb)
 				body_part.brute_dam = brute_damage
 				body_part.burn_dam = fire_damage
+		balloon_alert(arrived, "[arrived] assimilates [src]!")
 		QDEL_NULL(src)
 
 /datum/action/nymph/evolve
@@ -205,7 +206,7 @@
 
 	src.visible_message(
 		("<span class='warning'>[src] begins to shift and quiver, and after engulfing another nymph, erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea."),
-		("<span class='warning'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients and a friend to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form. Our friends should help with obtaining the rest of our limbs...")
+		("<span class='warning'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients and, along with a friend, surge with growth, splitting into a tangle of at least a dozen new vines. We have attained our gestalt form. Our friends should help with obtaining the rest of our limbs...")
 	)
 
 	var/mob/living/carbon/human/species/diona/adult = new /mob/living/carbon/human/species/diona(src.loc)
