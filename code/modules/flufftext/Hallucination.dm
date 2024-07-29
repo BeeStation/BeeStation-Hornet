@@ -29,9 +29,9 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	if(!hallucination)
 		return
 
-	hallucination--
+	hallucination = max(hallucination - 1, 0)
 
-	//This system used to shit bricks with decimal values. Fuck it.
+	//Probably a superfulous check given the on above, but eh 
 	if(hallucination <= 0)
 		hallucination = 0
 		return
