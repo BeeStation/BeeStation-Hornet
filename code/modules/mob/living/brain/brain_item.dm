@@ -223,6 +223,7 @@
 	name = "diona nymph"
 	desc = "A small mass of roots and plant matter, it looks to be moving."
 	icon_state = "diona_brain"
+	decoy_override = TRUE
 
 /obj/item/organ/brain/diona/Remove(mob/living/carbon/C, special, no_id_transfer, pref_load)
 	if(special)

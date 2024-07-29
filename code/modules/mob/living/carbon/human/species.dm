@@ -361,7 +361,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/mutantorgan in old_species.mutant_organs)
 			var/obj/item/organ/I = C.getorgan(mutantorgan)
 			if(I)
-				I.Remove(C)
+				I.Remove(C, TRUE)
 				QDEL_NULL(I)
 
 	for(var/path in mutant_organs)
