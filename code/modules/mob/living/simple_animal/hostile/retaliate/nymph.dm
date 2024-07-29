@@ -243,6 +243,7 @@
 			body_part.burn_dam = fire_damage
 	adult.update_body()
 	adult.updateappearance()
+	adult.nutrition = NUTRITION_LEVEL_HUNGRY
 	if(!("neutral" in src.faction))
 		adult.faction = src.faction
 	if(old_name)

@@ -61,11 +61,13 @@
 		H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
 	if((H.health <= H.crit_threshold)) //Shit, we're dying! Scatter!
 		split_ability.Trigger(TRUE)
+	if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
+		H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(1,T.get_lumcount()) - 0.5
-		H.adjust_nutrition(light_amount * 10)
+		H.adjust_nutrition(light_amount)
 		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2) //Is there light here?
