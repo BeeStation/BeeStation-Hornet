@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 	hallucination = max(hallucination - 1, 0)
 
-	//Probably a superfulous check given the on above, but eh 
+	//Probably a superfulous check given the on above, but eh
 	if(hallucination <= 0)
 		hallucination = 0
 		return
@@ -140,7 +140,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		if(target.client)
 			target.client.images |= current_image
 
-/obj/effect/hallucination/simple/update_icon(new_state,new_icon,new_px=0,new_py=0)
+/obj/effect/hallucination/simple/update_icon(updates=ALL, new_state, new_icon, new_px=0, new_py=0)
 	image_state = new_state
 	if(new_icon)
 		image_icon = new_icon
@@ -148,6 +148,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		image_icon = initial(image_icon)
 	px = new_px
 	py = new_py
+	. = ..()
 	Show()
 
 /obj/effect/hallucination/simple/Moved(atom/OldLoc, Dir)
@@ -165,10 +166,18 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 #define FAKE_FLOOD_EXPAND_TIME 20
 #define FAKE_FLOOD_MAX_RADIUS 10
 
+/obj/effect/plasma_image_holder
+	icon_state = "nothing"
+	anchored = TRUE
+	layer = FLY_LAYER
+	plane = GAME_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
 /datum/hallucination/fake_flood
 	//Plasma starts flooding from the nearby vent
 	var/turf/center
 	var/list/flood_images = list()
+	var/list/flood_image_holders = list()
 	var/list/turf/flood_turfs = list()
 	var/image_icon = 'icons/effects/atmospherics.dmi'
 	var/image_state = "plasma"
@@ -185,10 +194,12 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		qdel(src)
 		return
 	feedback_details += "Vent Coords: [center.x],[center.y],[center.z]"
-	var/image/plasma_image = image(image_icon,center,image_state,FLY_LAYER)
+	var/obj/effect/plasma_image_holder/pih = new(center)
+	var/image/plasma_image = image(image_icon, pih, image_state, FLY_LAYER)
 	plasma_image.alpha = 50
 	plasma_image.plane = GAME_PLANE
 	flood_images += plasma_image
+	flood_image_holders += pih
 	flood_turfs += center
 	if(target.client)
 		target.client.images |= flood_images
@@ -214,10 +225,12 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			var/turf/T = get_step(FT, dir)
 			if((T in flood_turfs) || !FT.CanAtmosPass(T))
 				continue
-			var/image/new_plasma = image(image_icon,T,image_state,FLY_LAYER)
+			var/obj/effect/plasma_image_holder/pih = new(T)
+			var/image/new_plasma = image(image_icon, pih, image_state, FLY_LAYER)
 			new_plasma.alpha = 50
 			new_plasma.plane = GAME_PLANE
 			flood_images += new_plasma
+			flood_image_holders += pih
 			flood_turfs += T
 	if(target.client)
 		target.client.images |= flood_images
@@ -230,6 +243,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		target.client.images.Remove(flood_images)
 	qdel(flood_images)
 	flood_images = list()
+	qdel(flood_image_holders)
+	flood_image_holders = list()
 	return ..()
 
 /obj/effect/hallucination/simple/xeno
@@ -241,7 +256,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	name = "alien hunter ([rand(1, 1000)])"
 
 /obj/effect/hallucination/simple/xeno/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	update_icon("alienh_pounce")
+	update_icon(ALL, "alienh_pounce")
 	if(hit_atom == target && target.stat!=DEAD)
 		target.Paralyze(100)
 		target.visible_message("<span class='danger'>[target] flails around wildly.</span>","<span class ='userdanger'>[name] pounces on you!</span>")
