@@ -215,6 +215,10 @@
 		to_chat(user, "<span class='danger'>You are not fully grown.</span>")
 		return FALSE
 
+/mob/living/simple_animal/hostile/retaliate/nymph/handle_mutations_and_radiation()
+	if(radiation > 50)
+		heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
+	. = ..()
 
 /mob/living/simple_animal/hostile/retaliate/nymph/verb/evolve(var/mob/living/simple_animal/hostile/retaliate/nymph/helpers)
 	if(istype(loc, /obj/item/clothing/head/mob_holder))
@@ -310,7 +314,7 @@
 
 /obj/item/clothing/head/mob_holder/nymph
 
-/obj/item/clothing/head/mob_holder/nymph/relaymove(mob/user)
+/obj/item/clothing/head/mob_holder/nymph/relaymove(mob/user) // Hold nymph like petulant child...
 	user.visible_message("<span class='notice'>[user] starts to squirm in [loc]'s hands!",
 	"<span class='notice'>You start to squirm in [loc]'s hands...</span>")
 	if(do_after(src, 8 SECONDS, user, NONE, TRUE))
