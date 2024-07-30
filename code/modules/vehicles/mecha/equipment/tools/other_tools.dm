@@ -238,22 +238,22 @@
 	send_byjax(chassis.occupants,"exosuit.browser", "[REF(src)]", get_equip_info())
 
 
-/obj/item/mecha_parts/mecha_equipment/repair_droid/process()
+/obj/item/mecha_parts/mecha_equipment/repair_droid/process(delta_time)
 	if(!chassis)
 		return PROCESS_KILL
-	var/h_boost = health_boost
+	var/h_boost = health_boost * delta_time
 	var/repaired = FALSE
 	if(chassis.internal_damage & MECHA_INT_SHORT_CIRCUIT)
 		h_boost *= -2
-	else if(chassis.internal_damage && prob(15))
+	else if(chassis.internal_damage && DT_PROB(8, delta_time))
 		for(var/int_dam_flag in repairable_damage)
 			if(!(chassis.internal_damage & int_dam_flag))
 				continue
 			chassis.clear_internal_damage(int_dam_flag)
 			repaired = TRUE
 			break
-	if(h_boost<0 || chassis.obj_integrity < chassis.max_integrity)
-		chassis.obj_integrity += min(h_boost, chassis.max_integrity-chassis.obj_integrity)
+	if(h_boost<0 || chassis.get_integrity() < chassis.max_integrity)
+		chassis.repair_damage(h_boost)
 		repaired = TRUE
 	if(repaired)
 		if(!chassis.use_power(energy_drain))
