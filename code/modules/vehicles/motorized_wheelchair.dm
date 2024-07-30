@@ -32,12 +32,10 @@
 
 /obj/vehicle/ridden/wheelchair/motorized/obj_destruction(damage_flag)
 	var/turf/T = get_turf(src)
-	for(var/atom/movable/A in contents)
-		A.forceMove(T)
-		if(isliving(A))
-			var/mob/living/L = A
-			L.update_mobility()
-	..()
+	for(var/c in contents)
+		var/atom/movable/thing = c
+		thing.forceMove(T)
+	return ..()
 
 /obj/vehicle/ridden/wheelchair/motorized/driver_move(mob/living/user, direction)
 	if(istype(user))
@@ -53,7 +51,7 @@
 			canmove = FALSE
 			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
 			return FALSE
-		if(user.get_num_arms() < arms_required)
+		if(user.usable_hands < arms_required)
 			to_chat(user, "<span class='warning'>You don't have enough arms to operate the motor controller!</span>")
 			canmove = FALSE
 			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
@@ -130,11 +128,9 @@
 		new /obj/item/stack/rods(drop_location(), 8)
 		new /obj/item/stack/sheet/iron(drop_location(), 10)
 		var/turf/T = get_turf(src)
-		for(var/atom/movable/A in contents)
-			A.forceMove(T)
-			if(isliving(A))
-				var/mob/living/L = A
-				L.update_mobility()
+		for(var/c in contents)
+			var/atom/movable/thing = c
+			thing.forceMove(T)
 		qdel(src)
 	return TRUE
 
