@@ -187,13 +187,14 @@
 	target.stuttering = 20
 
 	// Shoving
-	var/shove_dir = get_dir(user.loc, target.loc)
-	var/turf/target_shove_turf = get_step(target.loc, shove_dir)
-	var/mob/living/carbon/human/target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
-	if (target_collateral_human && target_shove_turf != get_turf(user))
-		target.Knockdown(0.5 SECONDS)
-		target_collateral_human.Knockdown(0.5 SECONDS)
-	target.Move(target_shove_turf, shove_dir)
+	if(user.a_intent == INTENT_DISARM)
+		var/shove_dir = get_dir(user.loc, target.loc)
+		var/turf/target_shove_turf = get_step(target.loc, shove_dir)
+		var/mob/living/carbon/human/target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
+		if (target_collateral_human && target_shove_turf != get_turf(user))
+			target.Knockdown(0.5 SECONDS)
+			target_collateral_human.Knockdown(0.5 SECONDS)
+		target.Move(target_shove_turf, shove_dir)
 
 	target.do_stun_animation()
 

@@ -34,7 +34,7 @@
 	if(.)
 		return
 	var/mob/living/L = user.mob
-	L.lay_down()
+	L.toggle_resting()
 	return TRUE
 
 /datum/keybinding/living/look_up
@@ -93,7 +93,7 @@
 
 /datum/keybinding/living/primary_species_action/down(client/user)
 	. = ..()
-	if(. || !iscarbon(user.mob)) 
+	if(. || !iscarbon(user.mob))
 		return
 	var/mob/living/carbon/L = user.mob
 	L.dna.species.primary_species_action()
