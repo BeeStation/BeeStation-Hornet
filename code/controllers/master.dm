@@ -89,6 +89,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/list/previous_ticks[10]
 	/// The current head of the circular queue
 	var/circular_queue_head = 1
+	var/last_discord = 0
 
 /datum/controller/master/New()
 	if(!config)
@@ -568,7 +569,10 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 		if (skipped_ticks > 5)
 			message_admins("MC: WARNING: WE HAVE SKIPPED MORE THAN 5 TICKS DUE TO EXPLOSIONS. THIS MEANS THAT ONLY TICKERS HAVE BEEN RUNNING DURING THIS TIME.")
-			log_world("MC: Skipped more than 5 ticks due to explosions. Stalling event possible.");
+			log_world("MC: Skipped more than 5 ticks due to explosions. Stalling event possible.")
+			if (world.time > last_discord + 50)
+				sendadminhelp2ext("<@261837955537043457> The server has had ticks skipped for [skipped_ticks] ticks...")
+				last_discord = world.time
 
 		src.sleep_delta = MC_AVERAGE_FAST(src.sleep_delta, sleep_delta)
 
@@ -748,6 +752,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 					choking ++
 					if (choking >= 5)
 						message_admins("The subsystem [queue_node.name] is choking out the MC: TICKS: [choking]. Ping me if this message spams the chat.")
+						if (world.time > last_discord + 50)
+							sendadminhelp2ext("<@261837955537043457> subsystem [queue_node.name] has consumed all of the tick for [choking] ticks.")
+							last_discord = world.time
 					log_world("The subsystem [queue_node.name] is choking out the MC. Ping me if this message spams the chat. Choking: [choking]")
 				else
 					choking = 0
