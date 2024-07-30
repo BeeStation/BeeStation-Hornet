@@ -1,0 +1,5 @@
+author: rkz, Thunder12345
+delete-after: true
+changes:
+  - rscadd: adds CTF vests, replacing CTF Hardsuits. Same damage reduction & stats.
+  - code_imp: Any item of clothing can now be given an energy shield, not only hardsuits
