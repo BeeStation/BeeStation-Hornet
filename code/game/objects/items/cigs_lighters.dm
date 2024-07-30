@@ -714,7 +714,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 					if(G.max_heat_protection_temperature)
 						prot = (G.max_heat_protection_temperature > 360)
 				else
-					prot = TRUE
+					prot = FALSE
 
 				if(prot || prob(75))
 					user.visible_message("After a few attempts, [user] manages to light [src].", "<span class='notice'>After a few attempts, you manage to light [src].</span>")
