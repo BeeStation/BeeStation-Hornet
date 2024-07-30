@@ -1,0 +1,4 @@
+author: MarkusLarsson421
+delete-after: true
+changes:
+  - bugfix: Removed the skeleton ghost spawn in dorm maintenance.
