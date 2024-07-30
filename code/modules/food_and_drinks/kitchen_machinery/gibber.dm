@@ -57,7 +57,7 @@
 /obj/machinery/gibber/container_resist(mob/living/user)
 	go_out()
 
-/obj/machinery/gibber/relaymove(mob/living/user)
+/obj/machinery/gibber/relaymove(mob/living/user, direction)
 	go_out()
 
 /obj/machinery/gibber/attack_hand(mob/user)

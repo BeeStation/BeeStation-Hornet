@@ -1,0 +1,5 @@
+author: Varo
+delete-after: true
+changes:
+  - bugfix: Clown and mimes now appear in the correct department (service) in the
+      job preferences menu

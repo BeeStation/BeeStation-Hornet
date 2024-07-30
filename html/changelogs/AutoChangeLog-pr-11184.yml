@@ -1,0 +1,13 @@
+author: Geatish
+delete-after: true
+changes:
+  - balance: Gave each shell a size, handheld shells are small (expect for the compact
+      remote which is tiny) the rest are normal size or larger.
+  - bugfix: You can now press the third button on the controller shell by CTRL-clicking.
+  - bugfix: The component printer can now be deconstructed and its printing animation
+      now works, it also no longer auto links to the silo.
+  - bugfix: Printing the compact remote, controller and scanner now gives you the
+      unscrewed variant.
+  - bugfix: The drone shell now uses the correct sprite
+  - balance: The server shell now takes only 6 seconds to screw together, rather than
+      10
