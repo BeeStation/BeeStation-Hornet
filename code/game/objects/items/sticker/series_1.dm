@@ -64,3 +64,43 @@
 	sticker_icon_state = "carp_sticker"
 	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_UNCOMMON
 	drop_rate = STICKER_WEIGHT_UNCOMMON
+
+/obj/item/sticker/series_1/valid
+	icon_state = "valid"
+	sticker_icon_state = "valid_sticker"
+	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_UNCOMMON
+	drop_rate = STICKER_WEIGHT_UNCOMMON
+
+/obj/item/sticker/series_1/salad
+	icon_state = "salad"
+	sticker_icon_state = "salad_sticker"
+	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_UNCOMMON
+	drop_rate = STICKER_WEIGHT_UNCOMMON
+
+/obj/item/sticker/series_1/heart
+	icon_state = "heart"
+	sticker_icon_state = "heart_sticker"
+	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_COMMON
+
+/obj/item/sticker/series_1/eggplant
+	icon_state = "eggplant"
+	sticker_icon_state = "eggplant_sticker"
+	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_UNCOMMON
+	drop_rate = STICKER_WEIGHT_UNCOMMON
+
+/obj/item/sticker/series_1/nuke_disk
+	icon_state = "nucleardisk"
+	sticker_icon_state = "nucleardisk_sticker"
+	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_RARE
+	drop_rate = STICKER_WEIGHT_RARE
+
+
+/obj/item/sticker/series_1/generic
+	icon_state = "generic"
+	sticker_icon_state = "generic_sticker"
+	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_COMMON
+	drop_rate = STICKER_WEIGHT_COMMON
+
+/obj/item/sticker/series_1/generic/Initialize(mapload)
+	tint = "#[random_color()]"
+	return ..()

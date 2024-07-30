@@ -17,6 +17,8 @@
 	var/sticker_icon_state = "happy_sticker"
 	///Do we add an outline?
 	var/do_outline = TRUE
+	///What kind of tint we rocking?
+	var/tint = "#fff"
 	///Sticker flags
 	var/sticker_flags
 	///Drop rate weight, keep this seperate from rarity for joke
@@ -29,6 +31,7 @@
 	. = ..()
 	item_appearance = build_item_appearance()
 	stuck_appearance = build_stuck_appearance()
+	color = tint
 	//Sticker outline
 	if(do_outline)
 		add_filter("sticker_outline", 1, outline_filter(1.3, "#fff", flags = OUTLINE_SHARP))
@@ -92,10 +95,10 @@
 			return
 
 /obj/item/sticker/proc/build_item_appearance()
-	return setup_appearance(mutable_appearance(src.icon, src.icon_state, plane = src.plane))
+	return setup_appearance(mutable_appearance(src.icon, src.icon_state, plane = src.plane, color = tint))
 
 /obj/item/sticker/proc/build_stuck_appearance()
-	return setup_appearance(mutable_appearance(sticker_icon || src.icon, sticker_icon_state || src.icon_state))
+	return setup_appearance(mutable_appearance(sticker_icon || src.icon, sticker_icon_state || src.icon_state, color = tint))
 
 //used to set appearance stuff that gets reset by appearance assigns
 /obj/item/sticker/proc/setup_appearance(_appearance)
