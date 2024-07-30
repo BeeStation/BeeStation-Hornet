@@ -7459,9 +7459,7 @@
 "bBf" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/effect/turf_decal/tile/black/fourcorners,
-/obj/machinery/camera/motion{
-	dir = 5
-	},
+/obj/machinery/camera/motion/directional/west,
 /turf/open/floor/iron/grid/steel,
 /area/ai_monitored/storage/eva)
 "bBi" = (
@@ -32214,15 +32212,13 @@
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 4
 	},
-/obj/machinery/camera/motion{
-	c_tag = "AI Upload Chamber - Port";
-	dir = 10;
-	network = list("aiupload")
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/camera/motion/directional/south{
+	network = list("aiupload")
+	},
 /turf/open/floor/iron/grid/steel,
 /area/ai_monitored/turret_protected/ai_upload)
 "jDW" = (
@@ -57689,11 +57685,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/camera/motion{
-	c_tag = "AI Upload Foyer";
-	dir = 6;
-	network = list("aiupload")
-	},
 /obj/item/kirbyplants/photosynthetic{
 	layer = 3.1
 	},
@@ -57704,6 +57695,9 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/east,
+/obj/machinery/camera/motion/directional/east{
+	network = list("aiupload")
+	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "uyT" = (
