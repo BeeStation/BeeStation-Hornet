@@ -1,5 +1,0 @@
-author: rkz, ninjanomnom
-delete-after: true
-changes:
-  - code_imp: limits calls or changes to obj_integrity var, all must be made through
-      getters or setters
