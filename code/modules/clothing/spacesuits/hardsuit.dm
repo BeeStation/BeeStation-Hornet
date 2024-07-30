@@ -914,81 +914,81 @@
 	supports_variations = DIGITIGRADE_VARIATION
 	armor = list(MELEE = 30,  BULLET = 15, LASER = 30, ENERGY = 40, BOMB = 10, BIO = 100, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 60, BLEED = 70)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	/// How many charges total the shielding has
-	var/max_charges = 3
-	/// How long after we've been shot before we can start recharging.
-	var/recharge_delay = 20 SECONDS
-	/// How quickly the shield recharges each charge once it starts charging
-	var/recharge_rate = 1 SECONDS
-	/// The icon for the shield
-	var/shield_icon = "shield-old"
 
-/obj/item/clothing/suit/space/hardsuit/shielded/Initialize(mapload)
-	. = ..()
-	if(!allowed)
-		allowed = GLOB.advanced_hardsuit_allowed
-
-/obj/item/clothing/suit/space/hardsuit/shielded/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/shielded, max_charges = max_charges, recharge_start_delay = recharge_delay, charge_increment_delay = recharge_rate, shield_icon = shield_icon)
+/obj/item/clothing/suit/space/hardsuit/shielded/setup_shielding()
+	AddComponent(/datum/component/shielded, max_charges = 3, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 1, lose_multiple_charges = FALSE, shield_icon = "shield-old")
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 ///////////////Capture the Flag////////////////////
 
-/obj/item/clothing/suit/space/hardsuit/shielded/ctf
-	name = "white shielded hardsuit"
-	desc = "Standard issue hardsuit for playing capture the flag."
-	icon_state = "ert_medical"
-	item_state = "ert_medical"
-	hardsuit_type = "ert_medical"
+// SHIELDED VEST
+
+/obj/item/clothing/suit/armor/vest/ctf
+	name = "white shielded vest"
+	desc = "Standard issue vest for playing capture the flag."
+	icon = 'icons/mob/clothing/suits/ctf.dmi'
+	worn_icon = 'icons/mob/clothing/suits/ctf.dmi'
+	icon_state = "standard"
 	// Adding TRAIT_NODROP is done when the CTF spawner equips people
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/ctf
-	armor = list(MELEE = 0,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 100, RAD = 100, FIRE = 95, ACID = 95, STAMINA = 0, BLEED = 0)
-	slowdown = 0
-	max_charges = 5
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0) // CTF gear gives no protection outside of the shield
+	allowed = null
+	greyscale_config = /datum/greyscale_config/ctf_standard
+	greyscale_config_worn = /datum/greyscale_config/ctf_standard_worn
+	greyscale_colors = "#ffffff"
 
-/obj/item/clothing/suit/space/hardsuit/shielded/ctf/red
-	name = "red shielded hardsuit"
-	icon_state = "ert_security"
+	///Icon state to be fed into the shielded component
+	var/team_shield_icon = "shield-old"
+
+/obj/item/clothing/suit/armor/vest/ctf/setup_shielding()
+	AddComponent(/datum/component/shielded, max_charges = 150, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 30, lose_multiple_charges = TRUE, shield_icon = team_shield_icon)
+
+// LIGHT SHIELDED VEST
+
+/obj/item/clothing/suit/armor/vest/ctf/light
+	name = "light white shielded vest"
+	desc = "Lightweight vest for playing capture the flag."
+	icon_state = "light"
+	greyscale_config = /datum/greyscale_config/ctf_light
+	greyscale_config_worn = /datum/greyscale_config/ctf_light_worn
+	slowdown = -0.25
+
+/obj/item/clothing/suit/armor/vest/ctf/light/setup_shielding()
+	AddComponent(/datum/component/shielded, max_charges = 30, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 30, lose_multiple_charges = TRUE, shield_icon = team_shield_icon)
+
+// RED TEAM SUITS
+
+// Regular
+/obj/item/clothing/suit/armor/vest/ctf/red
+	name = "red shielded vest"
 	item_state = "ert_security"
-	hardsuit_type = "ert_security"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/ctf/red
-	shield_icon = "shield-red"
+	team_shield_icon = "shield-red"
+	greyscale_colors = COLOR_VIVID_RED
 
-/obj/item/clothing/suit/space/hardsuit/shielded/ctf/blue
-	name = "blue shielded hardsuit"
-	desc = "Standard issue hardsuit for playing capture the flag."
-	icon_state = "ert_command"
+// Light
+/obj/item/clothing/suit/armor/vest/ctf/light/red
+	name = "light red shielded vest"
+	item_state = "ert_security"
+	team_shield_icon = "shield-red"
+	greyscale_colors = COLOR_VIVID_RED
+
+
+// BLUE TEAM SUITS
+
+// Regular
+/obj/item/clothing/suit/armor/vest/ctf/blue
+	name = "blue shielded vest"
 	item_state = "ert_command"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/ctf/blue
+	team_shield_icon = "shield-old"
+	greyscale_colors = COLOR_DARK_CYAN
 
-
-
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/ctf
-	name = "shielded hardsuit helmet"
-	desc = "Standard issue hardsuit helmet for playing capture the flag."
-	icon_state = "hardsuit0-ert_medical"
-	item_state = "hardsuit0-ert_medical"
-	hardsuit_type = "ert_medical"
-	armor = list(MELEE = 0,  BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 50, BIO = 100, RAD = 100, FIRE = 95, ACID = 95, STAMINA = 0, BLEED = 0)
-
-
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/ctf/red
-	icon_state = "hardsuit0-ert_security"
-	item_state = "hardsuit0-ert_security"
-	hardsuit_type = "ert_security"
-
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/ctf/blue
-	name = "shielded hardsuit helmet"
-	desc = "Standard issue hardsuit helmet for playing capture the flag."
-	icon_state = "hardsuit0-ert_commander"
-	item_state = "hardsuit0-ert_commander"
-	hardsuit_type = "ert_commander"
-
-
-
+// Light
+/obj/item/clothing/suit/armor/vest/ctf/light/blue
+	name = "light blue shielded vest"
+	item_state = "ert_command"
+	team_shield_icon = "shield-old"
+	greyscale_colors = COLOR_DARK_CYAN
 
 
 //////Syndicate Version
@@ -1003,7 +1003,6 @@
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
 	slowdown = 0
-	shield_icon = "shield-red"
 	actions_types = list(
 		/datum/action/item_action/toggle_spacesuit,
 		/datum/action/item_action/toggle_helmet,
@@ -1011,6 +1010,9 @@
 		/datum/action/item_action/toggle_beacon_frequency
 	)
 	jetpack = /obj/item/tank/jetpack/suit
+
+/obj/item/clothing/suit/space/hardsuit/shielded/syndi/setup_shielding()
+	AddComponent(/datum/component/shielded, max_charges = 3, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 1, lose_multiple_charges = FALSE, shield_icon = "shield-red")
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/ComponentInitialize()
 	. = ..()
@@ -1063,14 +1065,15 @@
 	icon_state = "deathsquad"
 	item_state = "swat_suit"
 	hardsuit_type = "syndi"
-	max_charges = 4
-	recharge_delay = 1.5 SECONDS
 	armor = list(MELEE = 80,  BULLET = 80, LASER = 50, ENERGY =60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 100, BLEED = 100)
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	jetpack = /obj/item/tank/jetpack/suit
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat
 	dog_fashion = /datum/dog_fashion/back/deathsquad
+
+/obj/item/clothing/suit/space/hardsuit/shielded/swat/setup_shielding()
+	AddComponent(/datum/component/shielded, max_charges = 4, recharge_start_delay = 1.5 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 1, lose_multiple_charges = FALSE, shield_icon = "shield-old")
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat
 	name = "death commando helmet"
@@ -1105,14 +1108,15 @@
 	desc = "A somehow spaceworthy set of armor with outstanding protection against almost everything. Comes in an oddly nostalgic green. "
 	icon_state = "doomguy"
 	item_state = "doomguy"
-	max_charges = 1
-	recharge_delay = 100
 	armor = list(MELEE = 135,  BULLET = 135, LASER = 135, ENERGY = 135, BOMB = 135, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 100, BLEED = 100)
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF | LAVA_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
 	dog_fashion = /datum/dog_fashion/back/deathsquad
+
+/obj/item/clothing/suit/space/hardsuit/shielded/doomguy/setup_shielding()
+	AddComponent(/datum/component/shielded, max_charges = 1, recharge_start_delay = 1 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 1, lose_multiple_charges = FALSE, shield_icon = "shield-old")
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
 	name = "juggernaut helmet"
