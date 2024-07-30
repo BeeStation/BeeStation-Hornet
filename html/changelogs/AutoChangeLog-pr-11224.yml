@@ -1,0 +1,4 @@
+author: XeonMations
+delete-after: true
+changes:
+  - bugfix: Fixed metastation's brig shuttle area not having an exit for prisoners.
