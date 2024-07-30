@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - imageadd: lighting object sprites now have 4 dir states.
