@@ -49,6 +49,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	/// Only run ticker subsystems for the next n ticks.
 	var/skip_ticks = 0
 
+	var/skipped_ticks = 0
+
 	var/make_runtime = 0
 
 	var/initializations_finished_with_no_players_logged_in	//I wonder what this could be?
@@ -560,6 +562,13 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		last_run = world.time
 		if(skip_ticks)
 			skip_ticks--
+			skipped_ticks++
+		else
+			skipped_ticks = 0
+
+		if (skipped_ticks > 5)
+			message_admins("MC: WARNING: WE HAVE SKIPPED MORE THAN 5 TICKS DUE TO EXPLOSIONS. THIS MEANS THAT ONLY TICKERS HAVE BEEN RUNNING DURING THIS TIME.")
+			log_world("MC: Skipped more than 5 ticks due to explosions. Stalling event possible.");
 
 		src.sleep_delta = MC_AVERAGE_FAST(src.sleep_delta, sleep_delta)
 
