@@ -709,7 +709,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				var/prot = FALSE
 				var/mob/living/carbon/human/H = user
 
-				prot = istype(H) && H.gloves ?  TRUE : FALSE
+				prot = istype(H) && H.gloves
 
 				if(prot || prob(75))
 					user.visible_message("After a few attempts, [user] manages to light [src].", "<span class='notice'>After a few attempts, you manage to light [src].</span>")
