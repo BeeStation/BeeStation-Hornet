@@ -72,6 +72,7 @@
 
 /datum/computer_file/program/nuclear_monitor/ui_data()
 	var/list/data = list()
+	data["integrity"] = reactor ? reactor.get_integrity_percent() : 100
 	data["powerData"] = powerData
 	data["kpaData"] = kpaData
 	data["tempInputData"] = tempInputData
@@ -141,6 +142,7 @@
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/ui_data()
 	var/list/data = list()
+	data["integrity"] = get_integrity_percent()
 	data["coolantInput"] = last_coolant_temperature
 	data["coolantOutput"] = last_output_temperature
 	data["power"] = power

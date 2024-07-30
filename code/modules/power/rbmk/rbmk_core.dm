@@ -120,7 +120,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	var/has_reached_emergency = FALSE
 
 	///Integrity of the machine, if reaches 900 the machine will explode. 1 so it doesnt stunlock itself and never change for damage calculations
-	var/critical_threshold_proximity = 1
+	var/critical_threshold_proximity = 0
 	///Store the integrity for calculations
 	var/critical_threshold_proximity_archived = 0
 	///Our "Shit is no longer fucked" message. We send it when critical_threshold_proximity is less then critical_threshold_proximity_archived

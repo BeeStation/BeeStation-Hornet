@@ -10,7 +10,7 @@
 
 #define RBMK_MAX_CRITICALITY 3 //No more criticality than N for now.
 
-#define RBMK_POWER_FLAVOURISER 8000 //To turn those KWs into something usable
+#define RBMK_POWER_FLAVOURISER 800 //To turn those KWs into something usable
 
 #define WARNING_TIME_DELAY 60 //to prevent accent sounds from layering
 #define REACTOR_COUNTDOWN_TIME 30 SECONDS

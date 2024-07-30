@@ -17,9 +17,10 @@ export const NtosGhostRbmkStats = (props, context) => {
         <Section
           title="Legend:"
           buttons={<Button icon="search" onClick={() => act('swap_reactor')} content="Change Reactor" />}>
+          Reactor Integrity (%):
+          <ProgressBar value={data.integrity} minValue={0} maxValue={100} color="orange" />
           Reactor Power (%):
           <ProgressBar value={data.power} minValue={0} maxValue={100} color="yellow" />
-          <br />
           Reactor Pressure (KPA):
           <ProgressBar value={data.kpa} minValue={0} maxValue={8200} color="white">
             {data.kpa} KPA
