@@ -36253,6 +36253,10 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/fore)
 "fvX" = (
+/obj/structure/table,
+/obj/item/storage/box/deputy,
+/obj/item/stack/package_wrap,
+/obj/item/hand_labeler,
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = -30
 	},
@@ -36264,8 +36268,6 @@
 	dir = 4;
 	network = list("ss13", "security")
 	},
-/obj/machinery/rnd/production/techfab/department/security,
-/obj/effect/turf_decal/stripes/box,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "fvY" = (
@@ -63101,7 +63103,6 @@
 	pixel_x = 4;
 	pixel_y = 2
 	},
-/obj/item/hand_labeler,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "oxq" = (
@@ -76820,6 +76821,8 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
+/obj/machinery/rnd/production/techfab/department/security,
+/obj/effect/turf_decal/stripes/box,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "tco" = (

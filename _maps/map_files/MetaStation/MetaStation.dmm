@@ -1908,16 +1908,6 @@
 	pixel_x = 10;
 	pixel_y = 3
 	},
-/obj/item/folder/red{
-	pixel_x = 8
-	},
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen{
-	pixel_x = -3
-	},
 /turf/open/floor/iron/showroomfloor,
 /area/security/warden)
 "apS" = (
@@ -49952,10 +49942,23 @@
 /turf/open/floor/iron,
 /area/hydroponics)
 "nrF" = (
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen{
+	pixel_x = -3
+	},
+/obj/item/folder/red{
+	pixel_x = 8
+	},
+/obj/item/folder/red{
+	pixel_x = 8
+	},
 /obj/machinery/light_switch{
 	pixel_y = -26
 	},
-/obj/machinery/rnd/production/techfab/department/security,
 /turf/open/floor/iron/showroomfloor,
 /area/security/warden)
 "nrS" = (
@@ -55789,6 +55792,11 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/crew_quarters/cryopods)
+"pAX" = (
+/obj/machinery/rnd/production/techfab/department/security,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/turf/open/floor/iron,
+/area/security/main)
 "pBf" = (
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -111125,7 +111133,7 @@ rmt
 vqM
 hih
 vqM
-rWg
+pAX
 aqa
 ajm
 sQx

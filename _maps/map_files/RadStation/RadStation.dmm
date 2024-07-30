@@ -21247,6 +21247,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/rnd/production/techfab/department/security,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -32780,6 +32782,9 @@
 /obj/machinery/airalarm/directional/north,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
+	},
+/obj/effect/turf_decal/loading_area{
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/security/main{
@@ -64277,8 +64282,6 @@
 	color = "#DE3A3A"
 	},
 /obj/machinery/firealarm/directional/east,
-/obj/machinery/rnd/production/techfab/department/security,
-/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "ubo" = (
