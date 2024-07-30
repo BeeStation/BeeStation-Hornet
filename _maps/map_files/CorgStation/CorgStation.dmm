@@ -5889,6 +5889,7 @@
 	dir = 1
 	},
 /obj/structure/table,
+/obj/machinery/camera/autoname/directional/west,
 /turf/open/floor/iron/white,
 /area/quartermaster/exploration_prep)
 "bFD" = (
@@ -31670,13 +31671,6 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
-"kgN" = (
-/obj/effect/landmark/start/exploration,
-/obj/machinery/camera/autoname{
-	dir = 9
-	},
-/turf/open/floor/iron/white,
-/area/quartermaster/exploration_prep)
 "kgX" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -32681,6 +32675,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/machinery/camera/autoname/directional/west,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "kvO" = (
@@ -39787,7 +39782,6 @@
 /turf/closed/wall/r_wall,
 /area/science/lab)
 "mHx" = (
-/obj/machinery/camera/autoname/directional/west,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -30
 	},
@@ -74063,9 +74057,6 @@
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "xRL" = (
-/obj/machinery/camera/autoname{
-	dir = 10
-	},
 /obj/structure/table,
 /obj/item/dest_tagger,
 /obj/item/dest_tagger,
@@ -74074,6 +74065,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 32
 	},
+/obj/machinery/camera/autoname/directional/north,
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
 "xRO" = (
@@ -98447,7 +98439,7 @@ eTb
 iot
 nIR
 bFs
-kgN
+rde
 qCw
 kWB
 iOB
