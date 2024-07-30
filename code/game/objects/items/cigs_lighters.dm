@@ -709,12 +709,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				var/prot = FALSE
 				var/mob/living/carbon/human/H = user
 
-				if(istype(H) && H.gloves)
-					var/obj/item/clothing/gloves/G = H.gloves
-					if(G.max_heat_protection_temperature)
-						prot = (G.max_heat_protection_temperature > 360)
-				else
-					prot = FALSE
+				prot = istype(H) && H.gloves ?  TRUE : FALSE
 
 				if(prot || prob(75))
 					user.visible_message("After a few attempts, [user] manages to light [src].", "<span class='notice'>After a few attempts, you manage to light [src].</span>")
