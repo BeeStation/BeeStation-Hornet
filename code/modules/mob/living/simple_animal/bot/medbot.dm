@@ -680,11 +680,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 					update_icon()
 					soft_reset()
 					return
-				if(H.is_bandaged()) //so you can't stack bleed suppression
-					to_chat(src, "<span class='warning'>[H]'s bleeding is already bandaged!</span>")
-					update_icon()
-					soft_reset()
-					return
 				H.suppress_bloodloss(BLEED_SURFACE) // as good as a improvized medical gauze
 				C.visible_message("<span class='danger'>[src] bandages [patient] with its gauze!</span>", \
 				"<span class='userdanger'>[src] bandages you with its gauze!</span>")
