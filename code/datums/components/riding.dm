@@ -425,7 +425,11 @@
 	SIGNAL_HANDLER
 
 	emped = TRUE
-	addtimer(CALLBACK(src, PROC_REF(reboot)), 300, TIMER_UNIQUE|TIMER_OVERRIDE) //if a new EMP happens, remove the old timer so it doesn't reactivate early
+	var/atom/movable/AM = parent
+	AM.add_emitter(/obj/emitter/fire_smoke, "smoke")
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 300 / severity, TIMER_UNIQUE|TIMER_OVERRIDE) //if a new EMP happens, remove the old timer so it doesn't reactivate early
 
 /datum/component/riding/proc/reboot()
 	emped = FALSE
+	var/atom/movable/AM = parent
+	AM.remove_emitter("smoke")
