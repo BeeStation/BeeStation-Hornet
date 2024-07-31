@@ -116,7 +116,7 @@
 		return FALSE
 	if((check_flags & AB_CHECK_LYING) && isliving(owner))
 		var/mob/living/action_user = owner
-		if(!(action_user.mobility_flags & MOBILITY_STAND))
+		if(action_user.body_position == LYING_DOWN)
 			return FALSE
 	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
 		return FALSE
@@ -295,6 +295,30 @@
 	var/obj/item/clothing/ears/headphones/H = target
 	if(istype(H))
 		H.interact(owner)
+
+/datum/action/item_action/toggle_spacesuit
+	name = "Toggle Suit Thermal Regulator"
+	icon_icon = 'icons/mob/actions/actions_spacesuit.dmi'
+	button_icon_state = "thermal_off"
+
+/datum/action/item_action/toggle_spacesuit/New(Target)
+	. = ..()
+	RegisterSignal(target, COMSIG_SUIT_SPACE_TOGGLE, PROC_REF(toggle))
+
+/datum/action/item_action/toggle_spacesuit/Destroy()
+	UnregisterSignal(target, COMSIG_SUIT_SPACE_TOGGLE)
+	return ..()
+
+/datum/action/item_action/toggle_spacesuit/Trigger()
+	var/obj/item/clothing/suit/space/suit = target
+	if(!istype(suit))
+		return
+	suit.toggle_spacesuit()
+
+/// Toggle the action icon for the space suit thermal regulator
+/datum/action/item_action/toggle_spacesuit/proc/toggle(obj/item/clothing/suit/space/suit)
+	button_icon_state = "thermal_[suit.thermal_on ? "on" : "off"]"
+	UpdateButtonIcon()
 
 /datum/action/item_action/toggle_unfriendly_fire
 	name = "Toggle Friendly Fire \[ON\]"
@@ -518,11 +542,14 @@
 		owner.put_in_hands(target_item)
 		target_item.attack_self(owner)
 		return
+	if(!isliving(owner))
+		to_chat(owner, "<span class='warning'>You lack the necessary living force for this action.</span>")
+		return
+	var/mob/living/living_owner = owner
+	if (living_owner.usable_hands <= 0)
+		to_chat(living_owner, "<span class='warning'>You dont have any usable hands!</span>")
 	else
-		if (owner.get_num_arms() <= 0)
-			to_chat(owner, "<span class='warning'>You don't have any usable hands!</span>")
-		else
-			to_chat(owner, "<span class='warning'>Your hands are full!</span>")
+		to_chat(living_owner, "<span class='warning'>Your hands are full!</span>")
 
 
 ///MGS BOX!
