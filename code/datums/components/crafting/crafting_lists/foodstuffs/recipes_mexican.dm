@@ -1,5 +1,5 @@
 
-// MEXICAN
+/// Mexican Foodstuff crafting
 
 /datum/crafting_recipe/food/burrito
 	name ="Burrito"

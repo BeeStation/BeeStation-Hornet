@@ -1,5 +1,5 @@
 
-///////////////// Booze & Bottles ///////////////////
+/// Booze and bottles crafting
 /// This is the home of drink related tablecrafting recipes, I have opted to only let players bottle fancy boozes to reduce the number of entries.
 
 /datum/crafting_recipe/lizardwine

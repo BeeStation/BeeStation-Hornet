@@ -1,7 +1,6 @@
 
-
-////////////////////////////////////////////////DONUTS////////////////////////////////////////////////
-
+/// Pastry crafting
+/// Donuts Crafting
 /datum/crafting_recipe/food/donut
 	name = "Donut"
 	result = /obj/item/food/donut/plain
@@ -11,7 +10,6 @@
 		/obj/item/food/pastrybase = 1
 	)
 	subcategory = CAT_PASTRY
-
 
 /datum/crafting_recipe/food/donut/chaos
 	name = "Chaos donut"
@@ -111,7 +109,7 @@
 		/obj/item/food/donut/plain = 1
 	)
 
-////////////////////////////////////////////////////JELLY DONUTS///////////////////////////////////////////////////////
+	///Jelly Donuts Crafting
 
 /datum/crafting_recipe/food/donut/jelly/berry
 	name = "Berry Jelly Donut"
@@ -177,7 +175,7 @@
 		/obj/item/food/donut/jelly/plain = 1
 	)
 
-////////////////////////////////////////////////////SLIME  DONUTS///////////////////////////////////////////////////////
+///Slime Donuts Crafting
 
 /datum/crafting_recipe/food/donut/slimejelly/berry
 	name = "Berry Slime Donut"
@@ -243,8 +241,6 @@
 		/obj/item/food/donut/jelly/slimejelly/plain = 1
 	)
 
-////////////////////////////////////////////////WAFFLES AND PANCAKES////////////////////////////////////////////////
-
 /datum/crafting_recipe/food/waffles
 	name = "Waffles"
 	result = /obj/item/food/waffles
@@ -253,7 +249,6 @@
 		/obj/item/food/pastrybase = 2
 	)
 	subcategory = CAT_PASTRY
-
 
 /datum/crafting_recipe/food/soylenviridians
 	name = "Soylent viridians"
@@ -272,7 +267,6 @@
 		/obj/item/food/meat/slab/human = 2
 	)
 	subcategory = CAT_PASTRY
-
 
 /datum/crafting_recipe/food/rofflewaffles
 	name = "Roffle waffles"
@@ -308,8 +302,6 @@
 		/obj/item/food/chocolatebar = 1
 	)
 	subcategory = CAT_PASTRY
-
-////////////////////////////////////////////////DONKPOCCKETS////////////////////////////////////////////////
 
 /datum/crafting_recipe/food/donkpocket
 	name = "Donk-pocket"
@@ -385,8 +377,6 @@
 	)
 	subcategory = CAT_PASTRY
 
-////////////////////////////////////////////////MUFFINS////////////////////////////////////////////////
-
 /datum/crafting_recipe/food/muffin
 	name = "Muffin"
 	result = /obj/item/food/muffin
@@ -427,8 +417,6 @@
 		/obj/item/stack/sheet/cotton/cloth = 1,
 	)
 	subcategory = CAT_PASTRY
-
-////////////////////////////////////////////OTHER////////////////////////////////////////////
 
 /datum/crafting_recipe/food/khachapuri
 	name = "Khachapuri"

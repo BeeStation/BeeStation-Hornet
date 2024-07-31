@@ -1,5 +1,5 @@
 
-////////////////////////////////////////////////BURGERS////////////////////////////////////////////////
+/// Burgers crafting
 
 /datum/crafting_recipe/food/humanburger
 	name = "Human burger"
@@ -18,7 +18,6 @@
 		/obj/item/food/patty/plain = 1,
 		/obj/item/food/bun = 1
 	)
-
 	subcategory = CAT_BURGER
 
 /datum/crafting_recipe/food/corgiburger

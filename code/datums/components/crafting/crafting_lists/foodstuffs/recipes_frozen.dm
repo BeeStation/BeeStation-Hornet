@@ -1,7 +1,5 @@
 
-/////////////////
-//Misc. Frozen.//
-/////////////////
+/// Misc. foodstuff crafting
 
 /datum/crafting_recipe/food/icecreamsandwich
 	name = "Icecream sandwich"

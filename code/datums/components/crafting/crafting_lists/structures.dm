@@ -1,4 +1,6 @@
 
+/// Structures crafting, should always be one_per_turf = TRUE, but it don't warrant it's own sub category yet
+
 /datum/crafting_recipe/personal_locker
 	name = "Personal Locker"
 	result = /obj/structure/closet/secure_closet/personal/empty

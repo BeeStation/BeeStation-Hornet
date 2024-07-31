@@ -1,4 +1,5 @@
-////////////////////////////////////////////////SOUP////////////////////////////////////////////////
+
+/// Soups Crafting
 
 /datum/crafting_recipe/food/oatmeal
 	name = "Oatmeal"
@@ -108,7 +109,6 @@
 		/obj/item/organ/eyes = 1
 	)
 	subcategory = CAT_SOUP
-
 
 /datum/crafting_recipe/food/misosoup
 	name = "Miso soup"

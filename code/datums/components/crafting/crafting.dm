@@ -3,6 +3,7 @@
 		RegisterSignal(parent, COMSIG_MOB_CLIENT_LOGIN, PROC_REF(create_mob_button))
 
 /datum/component/personal_crafting/proc/create_mob_button(mob/user, client/CL)
+	SIGNAL_HANDLER
 	var/datum/hud/H = user.hud_used
 	var/atom/movable/screen/craft/C = new()
 	C.icon = H.ui_style
@@ -12,8 +13,6 @@
 
 /datum/component/personal_crafting
 	var/busy
-	var/viewing_category = 1 //typical powergamer starting on the Weapons tab
-	var/viewing_subcategory = 1
 	var/list/categories = list(
 				CAT_WEAPONRY = list(
 					CAT_WEAPON,
@@ -23,9 +22,6 @@
 					CAT_CLOTHING,
 					CAT_EYEWEAR,
 				),
-				CAT_ROBOT = CAT_NONE,
-				CAT_MISC = CAT_NONE,
-				CAT_PRIMAL = CAT_NONE,
 				CAT_FOOD = list(
 					CAT_BREAD,
 					CAT_BURGER,
@@ -41,15 +37,19 @@
 					CAT_SANDWICH,
 					CAT_SOUP,
 					CAT_SPAGHETTI,
+					CAT_MEXICAN,
 				),
+				CAT_ROBOT = CAT_NONE,
+				CAT_MISC = CAT_NONE,
+				CAT_PRIMAL = CAT_NONE,
+				CAT_STRUCTURE = CAT_NONE,
 				CAT_DRINK = CAT_NONE,
 			)
-
 	var/cur_category = CAT_NONE
 	var/cur_subcategory = CAT_NONE
-	var/datum/action/innate/crafting/button
 	var/display_craftable_only = FALSE
 	var/display_compact = TRUE
+	var/datum/action/innate/crafting/button
 
 /*	This is what procs do:
 	get_environment - gets a list of things accessable for crafting by user

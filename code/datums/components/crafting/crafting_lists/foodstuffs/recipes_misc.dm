@@ -1,5 +1,5 @@
 
-// MISC
+/// Misc. Foodstuff crafting
 
 /datum/crafting_recipe/food/candiedapple
 	name = "Candied apple"
@@ -56,7 +56,7 @@
 		/obj/item/food/meat/bacon = 1,
 		/obj/item/food/grown/cabbage = 1,
 	)
-	category = CAT_MISCFOOD
+	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/cheesyfries
 	name = "Cheesy fries"
@@ -179,4 +179,54 @@
 		/datum/reagent/consumable/caramel = 5,
 		/datum/reagent/drug/happiness = 5,
 		)
+	subcategory = CAT_MISCFOOD
+
+///Easter foods crafting
+
+/datum/crafting_recipe/food/hotcrossbun
+	name = "Hot-Cross Bun"
+	result = /obj/item/food/hotcrossbun
+	reqs = list(
+		/obj/item/food/bread/plain = 1,
+		/datum/reagent/consumable/sugar = 1
+	)
+	subcategory = CAT_MISCFOOD
+
+/datum/crafting_recipe/food/briochecake
+	name = "Brioche cake"
+	result = /obj/item/food/cake/brioche
+	reqs = list(
+		/obj/item/food/cake/plain = 1,
+		/datum/reagent/consumable/sugar = 2
+	)
+	subcategory = CAT_MISCFOOD
+
+/datum/crafting_recipe/food/scotchegg
+	name = "Scotch egg"
+	result = /obj/item/food/scotchegg
+	reqs = list(
+		/datum/reagent/consumable/sodiumchloride = 1,
+		/datum/reagent/consumable/blackpepper = 1,
+		/obj/item/food/boiledegg = 1,
+		/obj/item/food/meatball = 1
+	)
+	subcategory = CAT_MISCFOOD
+
+/datum/crafting_recipe/food/mammi
+	name = "Mammi"
+	result = /obj/item/food/soup/mammi
+	reqs = list(
+		/obj/item/food/bread/plain = 1,
+		/obj/item/food/chocolatebar = 1,
+		/datum/reagent/consumable/milk = 5
+	)
+	subcategory = CAT_MISCFOOD
+
+/datum/crafting_recipe/food/chocolatebunny
+	name = "Chocolate bunny"
+	result = /obj/item/food/chocolatebunny
+	reqs = list(
+		/datum/reagent/consumable/sugar = 2,
+		/obj/item/food/chocolatebar = 1
+	)
 	subcategory = CAT_MISCFOOD

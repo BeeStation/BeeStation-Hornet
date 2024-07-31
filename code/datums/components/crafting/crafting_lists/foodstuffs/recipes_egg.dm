@@ -1,5 +1,5 @@
 
-////////////////////////////////////////////////EGG RECIPE's////////////////////////////////////////////////
+/// Egg stuff crafting
 
 /datum/crafting_recipe/food/friedegg
 	name = "Fried egg"
@@ -57,7 +57,7 @@
 		/obj/item/food/friedegg = 1,
 		/obj/item/food/grown/cabbage = 1,
 	)
-	category = CAT_EGG
+	subcategory = CAT_EGG
 
 /datum/crafting_recipe/food/chawanmushi
 	name = "Chawanmushi"
@@ -68,4 +68,4 @@
 		/obj/item/food/boiledegg = 2,
 		/obj/item/food/grown/mushroom/chanterelle = 1
 	)
-	category = CAT_EGG
+	subcategory = CAT_EGG
