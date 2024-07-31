@@ -33,6 +33,12 @@ export const audioReducer = (state = initialState, action) => {
       meta: payload,
     };
   }
+  if (type === 'audio/playWorldMusic') {
+    return {
+      ...state,
+      meta: payload,
+    };
+  }
   if (type === 'audio/stopMusic') {
     return {
       ...state,

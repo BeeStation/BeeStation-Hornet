@@ -154,7 +154,7 @@
 	// TEMP
 	for (var/client/C in GLOB.clients)
 		C.mob.AddComponent(/datum/component/music_listener, C.tgui_panel)
-		C.tgui_panel.play_world_music(get_turf(src), selection.web_sound_url, 10, 5)
+		C.tgui_panel.play_world_music(get_turf(src), selection.web_sound_url, 10, 5, selection.get_additional_information())
 
 /obj/machinery/jukebox/disco/activate_music()
 	..()

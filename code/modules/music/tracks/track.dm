@@ -6,8 +6,9 @@
 	var/title
 	var/artist
 	var/album
-	var/license
+	var/datum/license/license
 	var/duration = 0
+	var/upload_date = null
 	var/failed = FALSE
 	/// URL of the audio source, if the sound should be fetched from the internet
 	var/url
@@ -53,8 +54,21 @@
 	title = title || data["title"]
 	artist = data["artist"]
 	album = data["album"]
-	duration = data["end_time"] - data["start_time"]
+	duration = text2num(data["end_time"]) - text2num(data["start_time"])
+	upload_date = data["upload_date"]
 	log_world("Successfully loaded internet song: [title] by [artist].")
+
+/datum/audio_track/proc/get_additional_information()
+	return list(
+		"title" = title,
+		"start" = 0,
+		"end" = duration,
+		"duration" = DisplayTimeText(duration * 10),
+		"link" = url,
+		"artist" = artist,
+		"album" = album,
+		"upload_date" = upload_date,
+	)
 
 /datum/audio_track/memo
 	url = "https://www.youtube.com/watch?v=3BdNYhe9xTY"

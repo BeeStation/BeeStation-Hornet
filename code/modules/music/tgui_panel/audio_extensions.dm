@@ -36,9 +36,3 @@
 	payload["y"] = y
 	payload["z"] = z
 	window.send_message("audio/updateListener", payload)
-
-/client/verb/debug_music()
-	set name = "debug music"
-	set category = "PowerfulBacon"
-	mob.AddComponent(/datum/component/music_listener, tgui_panel)
-	tgui_panel.play_world_music(get_turf(mob), tgui_input_text(mob, "give me a song URL"), 15, 5)

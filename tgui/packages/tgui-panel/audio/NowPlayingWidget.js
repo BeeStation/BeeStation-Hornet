@@ -61,6 +61,9 @@ export const NowPlayingWidget = (props, context) => {
                     Uploaded: {date}
                   </Flex.Item>
                 )}
+                <Flex.Item grow={1} color="label">
+                  License: <a href="https://google.com/">[Creative Commons 0]</a>
+                </Flex.Item>
               </Section>
             </Collapsible>
           }
