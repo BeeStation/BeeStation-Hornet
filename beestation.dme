@@ -717,7 +717,7 @@
 #include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_misc.dm"
 #include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_pastry.dm"
 #include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_pie.dm"
-#include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_pizza.dm"5
+#include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_pizza.dm"
 #include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_salad.dm"
 #include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_sandwich.dm"
 #include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_soup.dm"
