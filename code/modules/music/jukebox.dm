@@ -9,8 +9,7 @@
 	var/active = FALSE
 	var/list/rangers = list()
 	var/stop = 0
-	var/list/songs = list()
-	var/datum/track/selection = null
+	var/datum/audio_track/selection = null
 	/// Volume of the songs played
 	var/volume = 100
 
@@ -33,35 +32,12 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_1 = NODECONSTRUCT_1
 
-/datum/track
-	var/song_name = "generic"
-	var/song_path = null
-	var/song_length = 0
-	var/song_beat = 0
-
-/datum/track/New(name, path, length, beat)
-	song_name = name
-	song_path = path
-	song_length = length
-	song_beat = beat
-
 /obj/machinery/jukebox/Initialize(mapload)
 	. = ..()
-	var/list/tracks = flist("config/jukebox_music/sounds/")
-
-	for(var/S in tracks)
-		var/datum/track/T = new()
-		T.song_path = file("config/jukebox_music/sounds/[S]")
-		var/list/L = splittext(S,"+")
-		if(L.len != 3)
-			continue
-		T.song_name = L[1]
-		T.song_length = text2num(L[2])
-		T.song_beat = text2num(L[3])
-		songs |= T
-
-	if(songs.len)
-		selection = pick(songs)
+	if (GLOB.audio_tracks == null)
+		load_tracks()
+	if(length(GLOB.audio_tracks))
+		selection = pick(GLOB.audio_tracks)
 
 /obj/machinery/jukebox/Destroy()
 	dance_over()
@@ -92,7 +68,7 @@
 		to_chat(user,"<span class='warning'>Error: Access Denied.</span>")
 		user.playsound_local(src, 'sound/misc/compiler-failure.ogg', 25, TRUE)
 		return UI_CLOSE
-	if(!songs.len && !isobserver(user))
+	if(!length(GLOB.audio_tracks) && !isobserver(user))
 		to_chat(user,"<span class='warning'>Error: No music tracks have been authorized for your station. Petition Central Command to resolve this issue.</span>")
 		playsound(src, 'sound/misc/compiler-failure.ogg', 25, TRUE)
 		return UI_CLOSE
@@ -108,18 +84,16 @@
 	var/list/data = list()
 	data["active"] = active
 	data["songs"] = list()
-	for(var/datum/track/S in songs)
+	for(var/datum/audio_track/S in GLOB.audio_tracks)
 		var/list/track_data = list(
-			name = S.song_name
+			name = S.title
 		)
 		data["songs"] += list(track_data)
 	data["track_selected"] = null
 	data["track_length"] = null
-	data["track_beat"] = null
 	if(selection)
-		data["track_selected"] = selection.song_name
-		data["track_length"] = DisplayTimeText(selection.song_length)
-		data["track_beat"] = selection.song_beat
+		data["track_selected"] = selection.title
+		data["track_length"] = DisplayTimeText(selection.duration)
 	data["volume"] = volume
 	return data
 
@@ -148,13 +122,12 @@
 				to_chat(usr, "<span class='warning'>Error: You cannot change the song until the current one is over.</span>")
 				return
 			var/list/available = list()
-			for(var/datum/track/S in songs)
-				available[S.song_name] = S
 			var/selected = params["track"]
-			if(QDELETED(src) || !selected || !istype(available[selected], /datum/track))
-				return
-			selection = available[selected]
-			return TRUE
+			for(var/datum/audio_track/S in GLOB.audio_tracks)
+				if (S.title == selected)
+					selection = available[selected]
+					return TRUE
+			return FALSE
 		if("set_volume")
 			var/new_volume = params["volume"]
 			if(new_volume  == "reset")
@@ -171,11 +144,17 @@
 				return TRUE
 
 /obj/machinery/jukebox/proc/activate_music()
+	if (!selection)
+		return
 	active = TRUE
 	update_icon()
 	START_PROCESSING(SSmachines, src)
-	stop = world.time + selection.song_length
+	stop = world.time + selection.duration
 	ui_update()
+	// TEMP
+	for (var/client/C in GLOB.clients)
+		C.mob.AddComponent(/datum/component/music_listener, C.tgui_panel)
+		C.tgui_panel.play_world_music(get_turf(src), selection.web_sound_url, 10, 5)
 
 /obj/machinery/jukebox/disco/activate_music()
 	..()
@@ -269,8 +248,6 @@
 				S.pixel_y = 7
 				S.forceMove(get_turf(src))
 		sleep(7)
-	if(selection.song_name == "Engineering's Ultimate High-Energy Hustle")
-		sleep(280)
 	for(var/obj/reveal in sparkles)
 		reveal.alpha = 255
 	while(active)
@@ -325,9 +302,7 @@
 				continue
 		if(prob(2))  // Unique effects for the dance floor that show up randomly to mix things up
 			INVOKE_ASYNC(src, PROC_REF(hierofunk))
-		sleep(selection.song_beat)
-		if(QDELETED(src))
-			return
+		sleep(10)
 
 #undef DISCO_INFENO_RANGE
 
@@ -464,20 +439,7 @@
 
 /obj/machinery/jukebox/process()
 	if(world.time < stop && active)
-		var/sound/song_played = sound(selection.song_path)
-
-		for(var/mob/L as anything in rangers)
-			if(get_dist(src,L) > 10)
-				rangers -= L
-				if(!L || !L.client)
-					continue
-				L.stop_sound_channel(CHANNEL_JUKEBOX)
-		for(var/mob/M as() in hearers(10,src))
-			if(!M.client || !M.client.prefs.read_player_preference(/datum/preference/toggle/sound_instruments))
-				continue
-			if(!(M in rangers))
-				rangers += M
-				M.playsound_local(get_turf(M), null, volume, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
+		// TODO
 	else if(active)
 		active = FALSE
 		STOP_PROCESSING(SSobj, src)

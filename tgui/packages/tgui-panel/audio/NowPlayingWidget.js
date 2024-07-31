@@ -25,7 +25,7 @@ export const NowPlayingWidget = (props, context) => {
       : upload_date;
 
   return (
-    <Flex align="center">
+    <Flex align="flex-start">
       {(audio.playing && (
         <Flex.Item
           mx={0.5}
@@ -71,13 +71,14 @@ export const NowPlayingWidget = (props, context) => {
         </Flex.Item>
       )}
       {audio.playing && (
-        <Flex.Item mx={0.5} fontSize="0.9em">
+        <Flex.Item mt={0.1} mx={0.5} fontSize="0.9em">
           <Button
-            tooltip="Stop"
-            icon="stop"
+            tooltip="Mute"
+            icon={audio.muted ? "volume-xmark" : "volume-up"}
+            color={audio.muted ? "red" : "green"}
             onClick={() =>
               dispatch({
-                type: 'audio/stopMusic',
+                type: 'audio/muteMusic',
               })
             }
           />

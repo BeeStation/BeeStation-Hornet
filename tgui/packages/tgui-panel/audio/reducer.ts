@@ -7,6 +7,7 @@
 const initialState = {
   visible: false,
   playing: false,
+  muted: false,
   track: null,
 };
 
@@ -15,7 +16,7 @@ export const audioReducer = (state = initialState, action) => {
   if (type === 'audio/playing') {
     return {
       ...state,
-      visible: true,
+      visible: !state.muted,
       playing: true,
     };
   }
@@ -38,6 +39,19 @@ export const audioReducer = (state = initialState, action) => {
       visible: false,
       playing: false,
       meta: null,
+    };
+  }
+  if (type === 'audio/onMute') {
+    return {
+      ...state,
+      muted: true,
+      visible: false,
+    };
+  }
+  if (type === 'audio/onUnmute') {
+    return {
+      ...state,
+      muted: false,
     };
   }
   if (type === 'audio/toggle') {
