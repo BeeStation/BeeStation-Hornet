@@ -18,6 +18,8 @@
 	var/web_sound_url
 
 /datum/audio_track/proc/load()
+	if (audio_file)
+		return
 	// Start by doing a safe setup
 	web_sound_url = url
 	// Attempt to load youtube DLL
