@@ -923,7 +923,20 @@
 	name = "Peacekeeper Borg"
 	desc = "Has universal record in repeatedly failing to uphold the peace since it entered production."
 	icon_state = "borgplush_peace"
-	//'sound/ai/harmalarm.ogg'
+
+	var/sound_alarm = 'sound/ai/harmalarm.ogg'
+	var/recharge_time = 30
+	var/cooldown = FALSE
+
+/obj/item/toy/plush/sillycons/peace/attack_self(mob/user)
+	. = ..()
+	to_chat(user, "<span class='notice'>You pet [src]. D'awww.</span>")
+	if(sound_alarm && !cooldown)
+		audible_message("<font color='red' size='5'>HUMAN HARM</font>")
+		playsound(src, sound_alarm, 25, 1)
+		cooldown = TRUE
+		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), recharge_time)
+
 
 /obj/item/toy/plush/sillycons/medi
 	name = "Mediborg"
@@ -944,6 +957,7 @@
 	var/sound_on = 'sound/items/flashlight_on.ogg'
 	var/sound_off = 'sound/items/flashlight_off.ogg'
 	light_range = 5
+	light_system = MOVABLE_LIGHT
 
 /obj/item/toy/plush/sillycons/engi/syndie
 	name = "Syndicate Sabotour Cyborg"
