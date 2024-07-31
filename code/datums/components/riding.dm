@@ -424,6 +424,8 @@
 /datum/component/riding/proc/on_emp_act(datum/source, severity)
 	SIGNAL_HANDLER
 
+	if(!empable)
+		return
 	emped = TRUE
 	var/atom/movable/AM = parent
 	AM.add_emitter(/obj/emitter/fire_smoke, "smoke")
