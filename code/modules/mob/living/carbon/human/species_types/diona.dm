@@ -74,7 +74,7 @@
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(1,T.get_lumcount()) - 0.5
-		H.adjust_nutrition(light_amount)
+		H.adjust_nutrition(light_amount * 7)
 		if(light_amount > 0.2) //Is there light here?
 			time_spent_in_light++  //If so, how long have we been somewhere with light?
 			if(time_spent_in_light > 5) //More than 5 seconds spent in the light
