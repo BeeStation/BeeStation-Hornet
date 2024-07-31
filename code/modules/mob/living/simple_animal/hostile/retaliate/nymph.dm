@@ -35,26 +35,20 @@
 	var/adult_name = "diona gestalt"
 	var/death_msg = "expires with a pitiful chirrup..."
 
-	var/amount_grown = 0
-	var/max_grown = 250
 	var/time_of_birth
 	var/instance_num
 	var/is_ghost_spawn = FALSE //For if a ghost can become this.
 	var/is_drone = FALSE //Is a remote controlled nymph from a diona.
 	var/drone_parent //The diona which can control the nymph, if there is one
 	var/old_name // The diona nymph's old name.
-	var/datum/action/nymph/evolve/evolve_ability //The ability to grow up into a diona.
 	var/datum/action/nymph/SwitchFrom/switch_ability //The ability to switch back to the parent diona as a drone.
 	var/list/features = list()
-	var/grown_message_sent = FALSE
 	var/time_spent_in_light
+	var/assimilating = FALSE
 
 /mob/living/simple_animal/hostile/retaliate/nymph/Initialize()
 	. = ..()
 	time_of_birth = world.time
-	add_verb(/mob/living/proc/lay_down)
-	evolve_ability = new
-	evolve_ability.Grant(src)
 	instance_num = rand(1, 1000)
 	name = "[initial(name)] ([instance_num])"
 	real_name = name
@@ -68,14 +62,10 @@
 /mob/living/simple_animal/hostile/retaliate/nymph/get_stat_tab_status()
 	var/list/tab_data = ..()
 	tab_data["Health"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
-	if(!is_drone)
-		tab_data["Growth"] = GENERATE_STAT_TEXT("[(round(amount_grown / max_grown * 100))]%")
 	return tab_data
 
 /mob/living/simple_animal/hostile/retaliate/nymph/Life(delta_time, times_fired)
 	. = ..()
-	if(!is_drone)
-		update_progression()
 	get_stat_tab_status()
 	if(stat != CONSCIOUS)
 		remove_status_effect(STATUS_EFFECT_PLANTHEALING)
@@ -98,7 +88,6 @@
 	return
 
 /mob/living/simple_animal/hostile/retaliate/nymph/death(gibbed)
-	evolve_ability.Remove(src)
 	if(is_drone)
 		switch_ability.Remove(src)
 	return ..(gibbed,death_msg)
@@ -117,16 +106,26 @@
 
 /mob/living/simple_animal/hostile/retaliate/nymph/attack_animal(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/retaliate/nymph) && stat != DEAD)
-		var/mob/living/simple_animal/hostile/retaliate/nymph/M = L
+		var/mob/living/simple_animal/hostile/retaliate/nymph/user = L
 		if(mind == null) // No RRing fellow nymphs
-			M.melee_damage = 25
-			M.amount_grown += 50
-			. = ..()
-			return
+			if(user.is_drone)
+				to_chat(user, "<span class='danger'>You can't grow up as a lone nymph drone!")
+				return
+			if(user.assimilating)
+				return
+			user.assimilating = TRUE
+			playsound(user, 'sound/creatures/venus_trap_death.ogg', 25, 1)
+			balloon_alert(user, "[user] starts assimilating [src]")
+			toggle_ai(AI_OFF)
+			if(do_after(user, 30 SECONDS, src))
+				user.evolve(src)
+				return
+			else
+				toggle_ai(AI_ON)
+				user.assimilating = FALSE
+				return
 		else
-			M.melee_damage = 0
-			. = ..()
-			return
+			user.melee_damage = 0
 	. = ..()
 
 /mob/living/simple_animal/hostile/retaliate/nymph/spawn_gibs()
@@ -150,15 +149,6 @@
 	newnymph.unique_name = TRUE
 	to_chat(newnymph, "<span class='boldwarning'>Remember that you have forgotten all of your past lives and are a new person!</span>")
 
-/mob/living/simple_animal/hostile/retaliate/nymph/proc/update_progression()
-	if(amount_grown < max_grown)
-		amount_grown++
-	if(amount_grown > max_grown)
-		amount_grown = max_grown
-	if(!grown_message_sent && amount_grown == max_grown)
-		to_chat(src, "<span class='userdanger'>You feel like you're ready to grow up!</span>")
-		grown_message_sent = TRUE
-
 /mob/living/simple_animal/hostile/retaliate/nymph/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	if(isdiona(arrived))
 		if(mind != null || stat == DEAD || is_drone) //Does the nymph on the ground have a mind, dead or a drone?
@@ -174,42 +164,8 @@
 			if(body_part.body_zone == healed_limb)
 				body_part.brute_dam = brute_damage
 				body_part.burn_dam = fire_damage
-		balloon_alert(arrived, "[arrived] assimilates [src]")
+		balloon_alert(H, "[H] assimilates [src]")
 		QDEL_NULL(src)
-
-/datum/action/nymph/evolve
-	name = "Evolve"
-	desc = "Evolve into your adult form with the help of another nymph."
-	background_icon_state = "bg_default"
-	icon_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "grow"
-
-/datum/action/nymph/evolve/Trigger()
-	. = ..()
-	var/mob/living/simple_animal/hostile/retaliate/nymph/user = owner
-	if(!isnymph(user))
-		return
-	if(user.is_drone)
-		to_chat(user, "<span class='danger'>You can't grow up as a lone nymph drone!")
-		return
-	if(user.movement_type & VENTCRAWLING)
-		to_chat(user, "<span class='danger'>You cannot evolve while in a vent.</span>")
-		return
-	if(user.stat != CONSCIOUS)
-		return
-	if(user.amount_grown >= user.max_grown)
-		if(user.incapacitated()) //something happened to us while we were choosing.
-			return
-		for(var/mob/living/simple_animal/hostile/retaliate/nymph/helpers in view(1,user.loc))
-			if(helpers.mind != null)
-				continue
-			playsound(user, 'sound/creatures/venus_trap_death.ogg', 25, 1)
-			user.evolve(helpers)
-			return TRUE
-		to_chat(user, "<span class='danger'>You don't have any nymphs around you to help you grow up!</span>") // There is no one around to help you.
-	else
-		to_chat(user, "<span class='danger'>You are not fully grown.</span>")
-		return FALSE
 
 /mob/living/simple_animal/hostile/retaliate/nymph/handle_mutations_and_radiation()
 	if(radiation > 50)
@@ -244,6 +200,7 @@
 	adult.update_body()
 	adult.updateappearance()
 	adult.nutrition = NUTRITION_LEVEL_HUNGRY
+	REMOVE_TRAIT(adult, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 	if(!("neutral" in src.faction))
 		adult.faction = src.faction
 	if(old_name)
