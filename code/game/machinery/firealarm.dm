@@ -122,6 +122,7 @@
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
 	if((temperature > T0C + 200 || temperature < BODYTEMP_COLD_DAMAGE_LIMIT) && (last_alarm+FIREALARM_COOLDOWN < world.time) && !(obj_flags & EMAGGED) && detecting && !machine_stat)
 		alarm()
+		try_lock(null, TRUE)
 	..()
 
 /obj/machinery/firealarm/proc/alarm(mob/user)
@@ -142,25 +143,21 @@
 	if(user)
 		log_game("[user] reset a fire alarm at [COORD(src)]")
 
-/obj/machinery/firealarm/proc/lock(mob/user)
-	if(allowed(user))
-		locked = TRUE
-		balloon_alert(user, "Locked")
+/obj/machinery/firealarm/proc/try_lock(mob/user, force_lock = FALSE)
+	if(allowed(user) || !user || force_lock)
+		if(!locked || force_lock)
+			locked = TRUE
+			balloon_alert(user, "Locked")
+		else
+			locked = FALSE
+			balloon_alert(user, "Unlocked")
+		playsound(src, 'sound/machines/beep.ogg', 50, 1)
 	else
 		balloon_alert(user, "Access Denied!")
-
-/obj/machinery/firealarm/proc/unlock(mob/user)
-	if(allowed(user))
-		locked = FALSE
-		balloon_alert(user, "Unlocked")
-	else
-		balloon_alert(user, "Access Denied!")
+		playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
 
 /obj/machinery/firealarm/AltClick(mob/user)
-	if(locked)
-		unlock(user)
-	else
-		lock(user)
+	try_lock(user)
 
 /obj/machinery/firealarm/attack_hand(mob/user)
 	if(buildstage != 2)
@@ -171,6 +168,7 @@
 	if(A.fire)
 		if(locked)
 			balloon_alert(user, "Cover is locked!")
+			playsound(loc, 'sound/effects/glassknock.ogg', 10, FALSE, frequency = 32000)
 			return
 		reset(user)
 	else
