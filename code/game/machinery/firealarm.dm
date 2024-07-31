@@ -28,6 +28,7 @@
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
 	zmm_flags = ZMM_MANGLE_PLANES
+	req_access = null
 
 	light_power = 0
 	light_range = 7
@@ -37,9 +38,12 @@
 	var/buildstage = 2 // 2 = complete, 1 = no wires, 0 = circuit gone
 	var/last_alarm = 0
 	var/area/myarea = null
+	var/locked = FALSE //Are we locked?
 
 /obj/machinery/firealarm/Initialize(mapload, dir, building)
 	. = ..()
+	if (!req_access)
+		req_access = list(ACCESS_ATMOSPHERICS)
 	if(building)
 		buildstage = 0
 		panel_open = TRUE
@@ -138,6 +142,26 @@
 	if(user)
 		log_game("[user] reset a fire alarm at [COORD(src)]")
 
+/obj/machinery/firealarm/proc/lock(mob/user)
+	if(allowed(user))
+		locked = TRUE
+		balloon_alert(user, "Locked")
+	else
+		balloon_alert(user, "Access Denied!")
+
+/obj/machinery/firealarm/proc/unlock(mob/user)
+	if(allowed(user))
+		locked = FALSE
+		balloon_alert(user, "Unlocked")
+	else
+		balloon_alert(user, "Access Denied!")
+
+/obj/machinery/firealarm/AltClick(mob/user)
+	if(locked)
+		unlock(user)
+	else
+		lock(user)
+
 /obj/machinery/firealarm/attack_hand(mob/user)
 	if(buildstage != 2)
 		return ..()
@@ -145,6 +169,9 @@
 	play_click_sound("button")
 	var/area/A = get_area(src)
 	if(A.fire)
+		if(locked)
+			balloon_alert(user, "Cover is locked!")
+			return
 		reset(user)
 	else
 		alarm(user)
