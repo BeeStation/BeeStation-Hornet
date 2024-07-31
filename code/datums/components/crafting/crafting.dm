@@ -19,6 +19,10 @@
 					CAT_WEAPON,
 					CAT_AMMO,
 				),
+				CAT_TAILORING = list(
+					CAT_CLOTHING,
+					CAT_EYEWEAR,
+				),
 				CAT_ROBOT = CAT_NONE,
 				CAT_MISC = CAT_NONE,
 				CAT_PRIMAL = CAT_NONE,
@@ -39,7 +43,6 @@
 					CAT_SPAGHETTI,
 				),
 				CAT_DRINK = CAT_NONE,
-				CAT_CLOTHING = CAT_NONE,
 			)
 
 	var/cur_category = CAT_NONE

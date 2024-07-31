@@ -85,12 +85,7 @@
 	font = CHARCOAL_FONT
 	custom_materials = null
 
-/datum/crafting_recipe/charcoal_stylus
-	name = "Charcoal Stylus"
-	result = /obj/item/pen/charcoal
-	reqs = list(/obj/item/stack/sheet/wood = 1, /datum/reagent/ash = 30)
-	time = 30
-	category = CAT_PRIMAL
+
 
 
 /obj/item/pen/fountain/captain
