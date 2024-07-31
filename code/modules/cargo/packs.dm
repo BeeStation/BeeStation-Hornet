@@ -1803,7 +1803,7 @@
 					/obj/item/reagent_containers/medspray/sterilizine,
 					/obj/item/rollerbed)
 	crate_name = "surgical supplies crate"
-	
+
 /datum/supply_pack/medical/implants
 	name = "Surplus Implants Crate"
 	desc = "Do you want implants, but those R&D folks hasn't learnt how to do their job? Just get started with this crate containing several of our dusty surplus implants. (Surgical tools not included)"
@@ -3137,6 +3137,24 @@
 	for(var/i in 1 to num_contained)
 		plush_nomoth = pick(_temporary_list_plush_nomoth)
 		new plush_nomoth(C)
+
+/datum/supply_pack/costumes_toys/sillycon
+	name = "sillycon Crate"
+	desc = "A crate filled with six silly plushies!"
+	cost = 2000
+	max_supply = 5
+	num_contained = 6
+	contains = list()
+	crate_type = /obj/structure/closet/crate/wooden
+	crate_name = "sillycon plushie crate"
+
+/datum/supply_pack/costumes_toys/sillycon/fill(obj/structure/closet/crate/C)
+	new /obj/item/toy/plush/sillycons/(C)
+	new /obj/item/toy/plush/sillycons/engi(C)
+	new /obj/item/toy/plush/sillycons/engi/syndi(C)
+	new /obj/item/toy/plush/sillycons/medi(C)
+	new /obj/item/toy/plush/sillycons/medi/syndie(C)
+	new /obj/item/toy/plush/sillycons/peace(C)
 
 //////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Wardrobe Resupplies ////////////////////////////////
