@@ -909,6 +909,44 @@
 			item_list[initial(I.name)] = choice
 	return item_list
 
+/obj/item/toy/plush/sillycons
+	name = "Indecisive Cyborg"
+	desc = "This one doesn't seem to have decided what to be yet, please be nice to them."
+	icon_state = "borgplush"
+	attack_verb = list("beeped aggressively", "dwoop", "beep", "beep, beep", "buzzes", "ping")
+	squeak_override = list('sound/machines/buzz-sigh.ogg', 'sound/emotes/dwoop.ogg', 'sound/machines/boop.ogg', 'sound/machines/chime.ogg', )
+
+/obj/item/toy/plush/sillycons/default
+	name = "Cyborg"
+	desc = "Always stays by the AIs side."
+	icon_state = "borgplush_default"
+
+/obj/item/toy/plush/sillycons/peace
+	name = "Peacekeeper Borg"
+	desc = "Has universal record in repeatedly failing to uphold the peace since it entered production."
+	icon_state = "borgplush_peace"
+	//'sound/ai/harmalarm.ogg'
+
+/obj/item/toy/plush/sillycons/medi
+	name = "Mediborg"
+	desc = "Looks cute, might inject you with morphine later."
+	icon_state = "borgplush_medi"
+
+/obj/item/toy/plush/sillycons/medi/syndie
+	name = "Syndicate Mediborg"
+	desc = "Emotionless killing machine."
+	icon_state = "borgplush_syndie_medi"
+
+/obj/item/toy/plush/sillycons/engi
+	name = "Engiborg"
+	desc = "Praised as the best Station Engineer since it entered production."
+	icon_state = "borgplush_engi"
+
+/obj/item/toy/plush/sillycons/engi/syndie
+	name = "Syndicate Sabotour Cyborg"
+	desc = "What evil devious plans does the borgo have?"
+	icon_state = "borgplush_syndie_engi"
+
 /////////////////
 //DONATOR ITEMS//
 /////////////////

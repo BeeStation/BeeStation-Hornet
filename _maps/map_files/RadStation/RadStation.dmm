@@ -2043,6 +2043,11 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"aJx" = (
+/obj/structure/railing,
+/obj/item/toy/plush/sillycons/medi/syndie,
+/turf/open/space/basic,
+/area/ai_monitored/turret_protected/ai)
 "aJB" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -4986,6 +4991,13 @@
 	},
 /turf/open/floor/plating,
 /area/bridge/meeting_room)
+"bJW" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/item/toy/plush/sillycons/engi,
+/turf/open/space/basic,
+/area/ai_monitored/turret_protected/ai)
 "bJY" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -9625,6 +9637,7 @@
 /area/medical/break_room)
 "deN" = (
 /obj/structure/lattice/catwalk,
+/obj/item/toy/plush/sillycons,
 /turf/open/floor/engine/o2,
 /area/ai_monitored/turret_protected/ai)
 "deW" = (
@@ -12995,6 +13008,13 @@
 	},
 /turf/open/space/basic,
 /area/solar/starboard/aft)
+"egq" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/item/toy/plush/sillycons/default,
+/turf/open/space/basic,
+/area/ai_monitored/turret_protected/ai)
 "egv" = (
 /obj/effect/turf_decal/tile/dark_green/half/contrasted,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -14065,6 +14085,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
+/obj/item/toy/plush/sillycons/peace,
 /turf/open/space/basic,
 /area/ai_monitored/turret_protected/ai)
 "eyD" = (
@@ -33059,6 +33080,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/item/toy/plush/sillycons,
 /turf/open/floor/engine/o2,
 /area/ai_monitored/turret_protected/ai)
 "kBx" = (
@@ -35117,6 +35139,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/item/toy/plush/sillycons,
 /turf/open/floor/engine/o2,
 /area/ai_monitored/turret_protected/ai)
 "lhV" = (
@@ -36638,6 +36661,13 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
+"lJa" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/item/toy/plush/sillycons/medi,
+/turf/open/space/basic,
+/area/ai_monitored/turret_protected/ai)
 "lJz" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -55626,6 +55656,7 @@
 /area/ai_monitored/turret_protected/aisat_interior)
 "rwL" = (
 /obj/structure/railing,
+/obj/item/toy/plush/sillycons/engi/syndie,
 /turf/open/space/basic,
 /area/ai_monitored/turret_protected/ai)
 "rwO" = (
@@ -56860,6 +56891,7 @@
 "rQI" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/fans/tiny,
+/obj/item/toy/plush/sillycons,
 /turf/open/floor/engine/o2,
 /area/ai_monitored/turret_protected/ai)
 "rRb" = (
@@ -62532,6 +62564,7 @@
 	pixel_x = -6;
 	pixel_y = -8
 	},
+/obj/item/toy/plush/sillycons,
 /turf/open/floor/engine/o2,
 /area/ai_monitored/turret_protected/ai)
 "tCo" = (
@@ -109279,7 +109312,7 @@ dLf
 uGh
 bwl
 kDi
-qcK
+bJW
 deN
 rQI
 deN
@@ -109793,7 +109826,7 @@ kpk
 uGh
 iXg
 fBU
-uZd
+lJa
 deN
 lhw
 kBs
@@ -110051,9 +110084,9 @@ inb
 uTv
 uTv
 aii
-rwL
+aJx
 ygX
-eyz
+egq
 mTR
 uTv
 uTv
