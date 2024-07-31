@@ -940,10 +940,36 @@
 	desc = "Praised as the best Station Engineer since it entered production."
 	icon_state = "borgplush_engi"
 
+	var/on = FALSE
+	var/sound_on = 'sound/items/flashlight_on.ogg'
+	var/sound_off = 'sound/items/flashlight_off.ogg'
+	light_range = 5
+
 /obj/item/toy/plush/sillycons/engi/syndie
 	name = "Syndicate Sabotour Cyborg"
 	desc = "What evil devious plans does the borgo have?"
 	icon_state = "borgplush_syndie_engi"
+
+	light_range = 7
+
+/obj/item/toy/plush/sillycons/engi/attack_self(mob/user)
+	. = ..()
+	to_chat(user, "<span class='notice'>You toggle [src]'s light. D'awww.</span>")
+	on = !on
+	update_brightness()
+
+/obj/item/toy/plush/sillycons/engi/proc/update_brightness()
+	if(on)
+		icon_state = "[initial(icon_state)]_on"
+		if(sound_on)
+			playsound(src, sound_on, 25, 1)
+	else
+		icon_state = initial(icon_state)
+		if(sound_off)
+			playsound(src, sound_off, 25, 1)
+	set_light_on(on)
+	if(light_system == STATIC_LIGHT)
+		update_light()
 
 /////////////////
 //DONATOR ITEMS//
