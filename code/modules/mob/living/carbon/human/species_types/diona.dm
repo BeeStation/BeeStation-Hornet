@@ -47,20 +47,27 @@
 	species_l_leg = /obj/item/bodypart/l_leg/diona
 	species_r_leg = /obj/item/bodypart/r_leg/diona
 
-	var/datum/action/diona/split/split_ability //All dionae start with this.
+	var/datum/action/diona/split/split_ability //All dionae start with this, this is for splitting apart completely.
+	var/datum/action/diona/partition/partition_ability //All dionae start with this as well, this is for splitting off a nymph from food.
 	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = null
 
 	var/time_spent_in_light
+	var/informed_nymph = FALSE //If the user was informed that they can release a nymph via food.
 
 /datum/species/diona/spec_life(mob/living/carbon/human/H)
 	if(H.fire_stacks < 1)
 		H.adjust_fire_stacks(1) //VERY flammable
-	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
+	if(H.nutrition < NUTRITION_LEVEL_STARVING)
 		H.take_overall_damage(1,0)
 	if(H.stat != CONSCIOUS)
 		H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
 	if((H.health <= H.crit_threshold)) //Shit, we're dying! Scatter!
 		split_ability.Trigger(TRUE)
+	if(H.nutrition > NUTRITION_LEVEL_WELL_FED && !informed_nymph)
+		informed_nymph = TRUE
+		to_chat(H, "<span class='warning'>You feel sufficiently satiated to allow a nymph to split off from your gestalt!")
+	if(partition_ability)
+		partition_ability.UpdateButtonIcon()
 	if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 		H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
@@ -68,8 +75,6 @@
 		var/turf/T = H.loc
 		light_amount = min(1,T.get_lumcount()) - 0.5
 		H.adjust_nutrition(light_amount)
-		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
-			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2) //Is there light here?
 			time_spent_in_light++  //If so, how long have we been somewhere with light?
 			if(time_spent_in_light > 5) //More than 5 seconds spent in the light
@@ -91,8 +96,6 @@
 	var/radiation = H.radiation
 	//Dionae heal and eat radiation for a living.
 	H.adjust_nutrition(radiation * 10)
-	if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
-		H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 	if(radiation > 50)
 		H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
 		H.adjustToxLoss(-2)
@@ -129,12 +132,16 @@
 		QDEL_NULL(appendix)
 	split_ability = new
 	split_ability.Grant(H)
+	partition_ability = new
+	partition_ability.Grant(H)
 	ADD_TRAIT(H, TRAIT_MOBILE, "diona")
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
 	split_ability.Remove(H)
 	QDEL_NULL(split_ability)
+	partition_ability.Remove(H)
+	QDEL_NULL(partition_ability)
 	REMOVE_TRAIT(H, TRAIT_MOBILE, "diona")
 
 /datum/species/diona/random_name(gender, unique, lastname, attempts)
@@ -142,9 +149,11 @@
 	if(unique && attempts < 10 && findname(.))
 		return ..(gender, TRUE, null, ++attempts)
 
+//////////////////////////////////////// Action abilities ///////////////////////////////////////////////
+
 /datum/action/diona/split
 	name = "Split"
-	desc = "Split into your seperate nymphs."
+	desc = "Split into our seperate nymphs."
 	background_icon_state = "bg_default"
 	icon_icon = 'icons/mob/actions/actions_spells.dmi'
 	button_icon_state = "split"
@@ -209,6 +218,30 @@
 		nymph.mind.transfer_to(nymph) //Move the player's mind to the player nymph
 	H.gib(TRUE, TRUE, TRUE)  //Gib the old corpse with nothing left of use
 
+/datum/action/diona/partition
+	name = "Partition"
+	desc = "Allow a nymph to partition from our gestalt self."
+	background_icon_state = "bg_default"
+	icon_icon = 'icons/mob/actions/actions_spells.dmi'
+	button_icon_state = "grow"
+
+/datum/action/diona/partition/Trigger(special)
+	. = ..()
+	if(!IsAvailable())
+		return
+	var/mob/living/carbon/human/H = owner
+	H.nutrition = NUTRITION_LEVEL_STARVING
+	playsound(H, 'sound/creatures/venus_trap_death.ogg', 25, 1)
+	new /mob/living/simple_animal/hostile/retaliate/nymph(H.loc)
+
+/datum/action/diona/partition/IsAvailable()
+	if(..())
+		var/mob/living/carbon/human/H = owner
+		if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
+			return TRUE
+		return FALSE
+
+/////////////////////////////////// Dionae organs down here, special behavior stuffs ///////////////////////////////////////
 /obj/item/organ/nymph_organ
 	name = "diona nymph"
 	desc = "You should not be seeing this, if you are, please contact a coder."
@@ -255,6 +288,8 @@
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_CHEST_NYMPH
 
+
+////////////////////////////////////// Preferences menu stuffs ////////////////////////////////////////////////////////////
 /datum/species/diona/get_species_description()
 	return "Dionae are the equivalent to a shambling mound of bug-like sentient plants \
 	wearing a trenchoat and pretending to be a human. Commonly found basking in the \
