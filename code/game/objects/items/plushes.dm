@@ -909,17 +909,24 @@
 			item_list[initial(I.name)] = choice
 	return item_list
 
-/obj/item/toy/plush/sillycons
-	name = "Indecisive Cyborg"
-	desc = "This one doesn't seem to have decided what to be yet, please be nice to them."
-	icon_state = "borgplush"
-	attack_verb = list("beeped aggressively", "dwoop", "beep", "beep, beep", "buzzes", "ping")
-	squeak_override = list('sound/machines/buzz-sigh.ogg', 'sound/emotes/dwoop.ogg', 'sound/machines/boop.ogg', 'sound/machines/chime.ogg', )
-
-/obj/item/toy/plush/sillycons/default
+/obj/item/toy/plush/sillycons/
 	name = "Cyborg"
 	desc = "Always stays by the AIs side."
 	icon_state = "borgplush_default"
+	attack_verb = list("beeped aggressively", "dwoop", "beep", "beep, beep", "buzzes", "ping")
+	squeak_override = list('sound/machines/buzz-sigh.ogg', 'sound/emotes/dwoop.ogg', 'sound/machines/boop.ogg', 'sound/machines/chime.ogg', )
+
+/obj/effect/spawner/sillycons
+	name = "Indecisive Cyborg"
+	desc = "This one doesn't seem to have decided what to be yet, please be nice to them."
+	icon = 'icons/obj/plushes.dmi'
+	icon_state = "borgplush"
+
+/obj/effect/spawner/sillycons/Initialize(mapload)
+	..()
+	var/random_sillycon = pick(subtypesof(/obj/item/toy/plush/sillycons/))
+	new random_sillycon(loc)
+	return INITIALIZE_HINT_QDEL
 
 /obj/item/toy/plush/sillycons/peace
 	name = "Peacekeeper Borg"
