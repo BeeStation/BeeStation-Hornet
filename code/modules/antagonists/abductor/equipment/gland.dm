@@ -59,6 +59,7 @@
 	to_chat(owner, "<span class='mind_control'>[command]</span>")
 	active_mind_control = TRUE
 	log_admin("[key_name(user)] sent an abductor mind control message to [key_name(owner)]: [command]")
+	deadchat_broadcast("<span class='deadsay'><span class='name'>[user]</span> sent an abductor mind control message to <span class='name'>[owner]</span>: <span class='bold message'>[command]</span></span>", follow_target = owner, turf_target = get_turf(owner), message_type = DEADCHAT_REGULAR)
 	update_gland_hud()
 	var/atom/movable/screen/alert/mind_control/mind_alert = owner.throw_alert("mind_control", /atom/movable/screen/alert/mind_control)
 	mind_alert.command = command
@@ -288,7 +289,7 @@
 /obj/item/organ/heart/gland/egg/activate()
 	owner.visible_message("<span class='alertalien'>[owner] [pick(EGG_LAYING_MESSAGES)]</span>")
 	var/turf/T = owner.drop_location()
-	new /obj/item/reagent_containers/food/snacks/egg/gland(T)
+	new /obj/item/food/egg/gland(T)
 
 /obj/item/organ/heart/gland/electric
 	true_name = "electron accumulator/discharger"

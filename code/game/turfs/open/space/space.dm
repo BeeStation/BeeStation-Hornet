@@ -2,7 +2,10 @@
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"
 	name = "\proper space"
-	intact = 0
+	overfloor_placed = FALSE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
+
+	resistance_flags = INDESTRUCTIBLE
 
 	FASTDMM_PROP(\
 		pipe_astar_cost = 100\
@@ -30,6 +33,7 @@
 	light_power = 0.25
 	fullbright_type = FULLBRIGHT_STARLIGHT
 	bullet_bounce_sound = null
+	vis_flags = VIS_INHERIT_ID //when this be added to vis_contents of something it be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
 
 	z_eventually_space = TRUE
 	vis_flags = VIS_INHERIT_ID	//when this be added to vis_contents of something it be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
@@ -136,10 +140,10 @@
 		else
 			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
 		return
-	if(istype(C, /obj/item/stack/tile/plasteel))
+	if(istype(C, /obj/item/stack/tile/iron))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
-			var/obj/item/stack/tile/plasteel/S = C
+			var/obj/item/stack/tile/iron/S = C
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
@@ -192,9 +196,6 @@
 /turf/open/space/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return
 
-/turf/open/space/singularity_act()
-	return
-
 /turf/open/space/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
 		return 1
@@ -203,10 +204,6 @@
 /turf/open/space/is_transition_turf()
 	if(destination_x || destination_y || destination_z)
 		return 1
-
-
-/turf/open/space/acid_act(acidpwr, acid_volume)
-	return 0
 
 /turf/open/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/space.dmi'

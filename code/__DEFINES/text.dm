@@ -11,6 +11,7 @@
 
 #define SANITIZE_FILENAME(text) (GLOB.filename_forbidden_chars.Replace(text, ""))
 
+#define COLOR_TEXT(color, text) "<font color=\"[color]\">[text]</font>"
 
 /// type of a chat to send discord servers
 #define CHAT_TYPE_OOC "chat_ooc"

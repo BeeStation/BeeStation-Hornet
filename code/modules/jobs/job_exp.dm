@@ -56,6 +56,12 @@ GLOBAL_PROTECT(exp_to_update)
 	for(var/job in typelist["titles"])
 		if(job in explist)
 			amount += explist[job]
+	// Removed job support
+	typelist = GLOB.exp_removed_jobsmap[exptype]
+	if(typelist)
+		for(var/job in typelist["titles"])
+			if(job in explist)
+				amount += explist[job]
 	return amount
 
 /client/proc/get_exp_living(pure_numeric = FALSE)
@@ -92,7 +98,7 @@ GLOBAL_PROTECT(exp_to_update)
 		return -1
 	if(!SSdbcore.Connect())
 		return -1
-	var/datum/DBQuery/exp_read = SSdbcore.NewQuery(
+	var/datum/db_query/exp_read = SSdbcore.NewQuery(
 		"SELECT job, minutes FROM [format_table_name("role_time")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
@@ -105,6 +111,9 @@ GLOBAL_PROTECT(exp_to_update)
 	qdel(exp_read)
 
 	for(var/rtype in SSjob.name_occupations)
+		if(!play_records[rtype])
+			play_records[rtype] = 0
+	for(var/rtype in GLOB.exp_removed_jobs)
 		if(!play_records[rtype])
 			play_records[rtype] = 0
 	for(var/rtype in GLOB.exp_specialmap)
@@ -127,7 +136,7 @@ GLOBAL_PROTECT(exp_to_update)
 	else
 		prefs.db_flags |= newflag
 
-	var/datum/DBQuery/flag_update = SSdbcore.NewQuery(
+	var/datum/db_query/flag_update = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET flags=:flags WHERE ckey=:ckey",
 		list("flags" = "[prefs.db_flags]", "ckey" = ckey)
 	)
@@ -213,7 +222,7 @@ GLOBAL_PROTECT(exp_to_update)
 	if(!SSdbcore.Connect())
 		return FALSE
 
-	var/datum/DBQuery/flags_read = SSdbcore.NewQuery(
+	var/datum/db_query/flags_read = SSdbcore.NewQuery(
 		"SELECT flags FROM [format_table_name("player")] WHERE ckey=:ckey",
 		list("ckey" = ckey)
 	)

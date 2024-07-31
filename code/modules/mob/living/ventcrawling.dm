@@ -12,11 +12,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 	if(stat)
 		to_chat(src, "You must be conscious to do this!")
 		return
-	if(IsStun() || IsParalyzed())
-		to_chat(src, "You can't vent crawl while you're stunned!")
+	if(HAS_TRAIT(src, TRAIT_IMMOBILIZED))
+		to_chat(src, "<span class='warning'>You can't move into the vent!</span>")
 		return
-	if(restrained())
-		to_chat(src, "You can't vent crawl while you're restrained!")
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		to_chat(src, "<span class='warning'>You need to be able to use your hands to ventcrawl!</span>")
 		return
 	if(has_buckled_mobs())
 		to_chat(src, "You can't vent crawl with other creatures on you!")
@@ -35,8 +35,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 
 	if(!vent_found)
 		for(var/obj/machinery/atmospherics/machine in range(1,src))
-			if(is_type_in_typecache(machine, GLOB.ventcrawl_machinery))
-				vent_found = machine
+			if(!is_type_in_typecache(machine, GLOB.ventcrawl_machinery))
+				continue
+			vent_found = machine
 
 			if(!vent_found.can_crawl_through())
 				vent_found = null

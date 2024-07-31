@@ -27,6 +27,9 @@
 	var/icon = 'icons/misc/language.dmi'
 	var/icon_state = "popcorn"
 
+	// get_icon() proc will return a complete string rather than calling a proc every time.
+	var/fast_icon_span
+
 /// Returns TRUE/FALSE based on seeing a language icon is validated to a given hearer in the parameter.
 /datum/language/proc/display_icon(atom/movable/hearer)
  	// ghosts want to know how it is going.
@@ -56,8 +59,10 @@
 	return TRUE
 
 /datum/language/proc/get_icon()
-	var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/chat)
-	return sheet.icon_tag("language-[icon_state]")
+	if(!fast_icon_span)
+		var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet_batched/chat)
+		fast_icon_span = sheet.icon_tag("language-[icon_state]")
+	return fast_icon_span
 
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4, syllable_divisor=2)
 	if(!syllables || !syllables.len)

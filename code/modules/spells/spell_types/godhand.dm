@@ -17,9 +17,11 @@
 	throw_speed = 0
 	var/charges = 1
 
-/obj/item/melee/touch_attack/Initialize(mapload)
+/obj/item/melee/touch_attack/Initialize(mapload, obj/effect/proc_holder/spell/targeted/touch/_spell)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+	if(istype(_spell))
+		attached_spell = _spell
 
 /obj/item/melee/touch_attack/attack(mob/target, mob/living/carbon/user)
 	if(!iscarbon(user)) //Look ma, no hands
@@ -184,9 +186,19 @@
 	user.visible_message("<span class='warning'>[user] is trying to stuff [M]\s body into \the [src]!</span>")
 	if(do_after(user, 25 SECONDS, M))
 		var/name = M.real_name
-		var/obj/item/reagent_containers/food/snacks/pie/cream/body/pie = new(get_turf(M))
+		var/obj/item/food/pie/cream/body/pie = new(get_turf(M))
 		pie.name = "\improper [name] [pie.name]"
 
 		. = ..()
 
 		M.forceMove(pie)
+
+/obj/item/melee/touch_attack/mutation
+	catchphrase = null
+	var/datum/mutation/parent_mutation
+
+/obj/item/melee/touch_attack/mutation/Initialize(_mapload, obj/effect/proc_holder/spell/targeted/touch/_spell, datum/mutation/_parent)
+	. = ..()
+	if(!istype(_parent))
+		return INITIALIZE_HINT_QDEL
+	parent_mutation = _parent

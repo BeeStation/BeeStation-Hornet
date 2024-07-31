@@ -11,8 +11,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/obj/item/implantcase/case = null
 
-/obj/item/implantpad/update_icon()
+/obj/item/implantpad/update_icon_state()
 	icon_state = "implantpad-[!QDELETED(case)]"
+	return ..()
 
 /obj/item/implantpad/examine(mob/user)
 	. = ..()

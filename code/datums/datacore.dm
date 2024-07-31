@@ -175,53 +175,41 @@
 		if(N.new_character)
 			log_manifest(N.ckey,N.new_character.mind,N.new_character)
 		if(ishuman(N.new_character))
-			manifest_inject(N.new_character)
+			manifest_inject(N.new_character, send_signal = FALSE)
 		CHECK_TICK
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /datum/datacore/proc/manifest_modify(name, assignment, hudstate)
 	var/datum/data/record/foundrecord = find_record("name", name, GLOB.data_core.general)
 	if(foundrecord)
 		foundrecord.fields["rank"] = assignment
 		foundrecord.fields["hud"] = hudstate
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /datum/datacore/proc/get_manifest()
 	var/list/manifest_out = list()
-	var/list/dept_list = list(
-		"Command" = DEPT_BITFLAG_COM,
-		"Very Important People" = DEPT_BITFLAG_VIP,
-		"Security" = DEPT_BITFLAG_SEC,
-		"Engineering" = DEPT_BITFLAG_ENG,
-		"Medical" = DEPT_BITFLAG_MED,
-		"Science" = DEPT_BITFLAG_SCI,
-		"Supply" = DEPT_BITFLAG_CAR,
-		"Service" = DEPT_BITFLAG_SRV,
-		"Civilian" = DEPT_BITFLAG_CIV,
-		"Silicon" = DEPT_BITFLAG_SILICON
-	)
+	var/static/list/heads = make_associative(GLOB.command_positions)
+
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		var/name = t.fields["name"]
 		var/rank = t.fields["rank"]
+		var/hud = t.fields["hud"]
 		var/dept_bitflags = t.fields["active_dept"]
 		var/has_department = FALSE
-		for(var/department in dept_list)
-			if(dept_bitflags & dept_list[department])
-				if(!manifest_out[department])
-					manifest_out[department] = list()
-				manifest_out[department] += list(list(
-					"name" = name,
-					"rank" = rank
-				))
-				has_department = TRUE
+		var/entry = list("name" = name, "rank" = rank, "hud" = hud)
+		for(var/department in get_job_departments(dept_bitflags))
+			var/list/department_manifest = manifest_out[department]
+			if(!department_manifest)
+				manifest_out[department] = department_manifest = list()
+			// Append to beginning of list if captain or department head
+			var/put_at_top = hud == JOB_HUD_CAPTAIN || hud == JOB_HUD_ACTINGCAPTAIN || (department != DEPT_COMMAND && heads[rank])
+			department_manifest.Insert(put_at_top, list(entry))
+			has_department = TRUE
 		if(!has_department)
-			if(!manifest_out["Misc"])
-				manifest_out["Misc"] = list()
-			manifest_out["Misc"] += list(list(
-				"name" = name,
-				"rank" = rank
-			))
+			LAZYADDASSOCLIST(manifest_out, "Misc", entry)
 	//Sort the list by 'departments' primarily so command is on top.
 	var/list/sorted_out = list()
-	for(var/department in (dept_list += "Misc"))
+	for(var/department in (assoc_to_keys(GLOB.departments) + "Misc"))
 		if(!isnull(manifest_out[department]))
 			sorted_out[department] = manifest_out[department]
 	return sorted_out
@@ -255,7 +243,7 @@
 	return dat
 
 
-/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H)
+/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H, send_signal = TRUE)
 	set waitfor = FALSE
 	var/static/list/show_directions = list(SOUTH, WEST)
 	if(H.mind && (H.mind.assigned_role != H.mind.special_role))
@@ -340,6 +328,8 @@
 		L.fields["character_appearance"] = character_appearance
 		L.fields["mindref"]		= H.mind
 		locked += L
+	if(send_signal)
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 	return
 
 /**

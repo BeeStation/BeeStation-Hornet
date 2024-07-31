@@ -29,11 +29,16 @@
 
 	var/list/data = list()
 	data["jobPlaytimes"] = list()
+	data["jobRemovedPlaytimes"] = list()
 	data["specialPlaytimes"] = list()
 
 	for (var/job_name in SSjob.name_occupations)
 		var/playtime = play_records[job_name] ? text2num(play_records[job_name]) : 0
 		data["jobPlaytimes"][job_name] = playtime
+
+	for (var/job_name in GLOB.exp_removed_jobs)
+		var/playtime = play_records[job_name] ? text2num(play_records[job_name]) : 0
+		data["jobRemovedPlaytimes"][job_name] = playtime
 
 	for (var/special_name in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])
 		var/playtime = play_records[special_name] ? text2num(play_records[special_name]) : 0

@@ -98,7 +98,8 @@
 	var/alerttooltipstyle = ""
 	var/override_alerts = FALSE //If it is overriding other alerts of the same type
 	var/mob/owner //Alert owner
-
+	/// The thing that this alert is showing
+	var/obj/master
 
 /atom/movable/screen/alert/MouseEntered(location,control,params)
 	if(!QDELETED(src))
@@ -231,7 +232,7 @@ or something covering your eyes."
 		return
 	to_chat(L, "<span class='mind_control'>[command]</span>")
 
-/atom/movable/screen/alert/drunk //Not implemented
+/atom/movable/screen/alert/drunk
 	name = "Drunk"
 	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition. Make sure to act like it."
 	icon_state = "drunk"
@@ -327,6 +328,23 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	if(!offerer.CanReach(taker))
 		balloon_alert(owner, "You moved out of range of [offerer]!")
 		owner.clear_alert("[offerer]")
+
+/// Gives the player the option to succumb while in critical condition
+/atom/movable/screen/alert/succumb
+	name = "Succumb"
+	desc = "Shuffle off this mortal coil."
+	icon_state = "succumb"
+
+/atom/movable/screen/alert/succumb/Click()
+	if (isobserver(usr))
+		return
+	var/mob/living/living_owner = owner
+	var/last_whisper = tgui_input_text(usr, "Do you have any last words?", "Goodnight, Sweet Prince")
+	if (isnull(last_whisper) || !CAN_SUCCUMB(living_owner))
+		return
+	if (length(last_whisper))
+		living_owner.say("#[last_whisper]")
+	living_owner.succumb(whispered = length(last_whisper) > 0)
 
 //ALIENS
 
@@ -498,23 +516,14 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 //GUARDIANS
 
-/atom/movable/screen/alert/cancharge
-	name = "Charge Ready"
-	desc = "You are ready to charge at a location!"
-	icon_state = "guardian_charge"
+/atom/movable/screen/alert/holoparasite
+	icon = 'icons/mob/holoparasite.dmi'
 	alerttooltipstyle = "parasite"
 
-/atom/movable/screen/alert/canstealth
-	name = "Stealth Ready"
-	desc = "You are ready to enter stealth!"
-	icon_state = "guardian_canstealth"
-	alerttooltipstyle = "parasite"
-
-/atom/movable/screen/alert/instealth
-	name = "In Stealth"
-	desc = "You are in stealth and your next attack will do bonus damage!"
-	icon_state = "guardian_instealth"
-	alerttooltipstyle = "parasite"
+/atom/movable/screen/alert/holoparasite/anchored
+	name = "Anchored"
+	desc = "You are anchored to your summoner, and will remain behind them until you manually move!"
+	icon_state = "anchored"
 
 //SILICONS
 
@@ -632,7 +641,7 @@ so as to remain in compliance with the most up-to-date laws."
 		if(NOTIFY_ATTACK)
 			target.attack_ghost(ghost_owner)
 		if(NOTIFY_ORBIT)
-			ghost_owner.ManualFollow(target)
+			ghost_owner.check_orbitable(target)
 
 //OBJECT-BASED
 

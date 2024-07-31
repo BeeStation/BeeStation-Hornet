@@ -7,10 +7,12 @@
 	//We'll spawn everything here
 	var/turf/spawn_at = run_loc_floor_bottom_left
 	var/list/ignore = list(
+		//this is somehow a subtype of /atom/movable, because of its purpose...
+		/image/appearance
 		//Never meant to be created, errors out the ass for mobcode reasons
 		/mob/living/carbon,
 		//Nother template type, doesn't like being created with no seed
-		/obj/item/reagent_containers/food/snacks/grown,
+		/obj/item/food/grown,
 		//And another
 		/obj/item/slimecross/recurring,
 		//This should be obvious
@@ -38,11 +40,9 @@
 	//We can't pass a mind into this
 	ignore += typesof(/obj/item/phylactery)
 	//This expects a seed, we can't pass it
-	ignore += typesof(/obj/item/reagent_containers/food/snacks/grown)
+	ignore += typesof(/obj/item/food/grown)
 	//Nothing to hallucinate if there's nothing to hallicinate
 	ignore += typesof(/obj/effect/hallucination)
-	//These want fried food to take on the shape of, we can't pass that in
-	ignore += typesof(/obj/item/food/deepfryholder)
 	//Can't pass in a thing to glow
 	ignore += typesof(/obj/effect/abstract/eye_lighting)
 	//It wants a lot more context then we have
@@ -79,7 +79,7 @@
 	//Asks for a shuttle that may not exist, let's leave it alone
 	ignore += typesof(/obj/item/pinpointer/shuttle)
 	//This spawns beams as a part of init, which can sleep past an async proc. This hangs a ref, and fucks us. It's only a problem here because the beam sleeps with CHECK_TICK
-	ignore += typesof(/obj/structure/alien/resin/flower_bud_enemy)
+	ignore += typesof(/obj/structure/alien/resin/flower_bud)
 	//Expects a mob to holderize, we have nothing to give
 	ignore += typesof(/obj/item/clothing/head/mob_holder)
 	//Expects a hud, generally created for player occupied mobs. There won't be any and this causes issues for us.
@@ -94,7 +94,7 @@
 			//We change it back to prevent pain, please don't ask
 			spawn_at.ChangeTurf(/turf/open/floor/wood, /turf/baseturf_skipover)
 			if(baseturf_count != length(spawn_at.baseturfs))
-				Fail("[type_path] changed the amount of baseturfs we have [baseturf_count] -> [length(spawn_at.baseturfs)]")
+				TEST_FAIL("[type_path] changed the amount of baseturfs we have [baseturf_count] -> [length(spawn_at.baseturfs)]")
 				baseturf_count = length(spawn_at.baseturfs)
 		else
 			var/atom/creation = new type_path(spawn_at)
@@ -141,7 +141,7 @@
 			break
 
 		if(world.time > start_time + time_needed + 30 MINUTES) //If this gets us gitbanned I'm going to laugh so hard
-			Fail("Something has gone horribly wrong, the garbage queue has been processing for well over 30 minutes. What the hell did you do")
+			TEST_FAIL("Something has gone horribly wrong, the garbage queue has been processing for well over 30 minutes. What the hell did you do")
 			break
 
 		//Immediately fire the gc right after
@@ -154,21 +154,21 @@
 	for(var/path in cache_for_sonic_speed)
 		var/datum/qdel_item/item = cache_for_sonic_speed[path]
 		if(item.failures)
-			Fail("[item.name] hard deleted [item.failures] times out of a total del count of [item.qdels]")
+			TEST_FAIL("[item.name] hard deleted [item.failures] times out of a total del count of [item.qdels]")
 		if(item.no_respect_force)
-			Fail("[item.name] failed to respect force deletion [item.no_respect_force] times out of a total del count of [item.qdels]")
+			TEST_FAIL("[item.name] failed to respect force deletion [item.no_respect_force] times out of a total del count of [item.qdels]")
 		if(item.no_hint)
-			Fail("[item.name] failed to return a qdel hint [item.no_hint] times out of a total del count of [item.qdels]")
+			TEST_FAIL("[item.name] failed to return a qdel hint [item.no_hint] times out of a total del count of [item.qdels]")
 
 	cache_for_sonic_speed = SSatoms.BadInitializeCalls
 	for(var/path in cache_for_sonic_speed)
 		var/fails = cache_for_sonic_speed[path]
 		if(fails & BAD_INIT_NO_HINT)
-			Fail("[path] didn't return an Initialize hint")
+			TEST_FAIL("[path] didn't return an Initialize hint")
 		if(fails & BAD_INIT_QDEL_BEFORE)
-			Fail("[path] qdel'd in New()")
+			TEST_FAIL("[path] qdel'd in New()")
 		if(fails & BAD_INIT_SLEPT)
-			Fail("[path] slept during Initialize()")
+			TEST_FAIL("[path] slept during Initialize()")
 
 	SSticker.delay_end = FALSE
 	//This shouldn't be needed, but let's be polite

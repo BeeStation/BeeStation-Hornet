@@ -54,6 +54,12 @@
 	var/cache_expiration = 2 MINUTES // overlays which go unused for 2 minutes get cleaned up
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE
 
+/obj/effect/overlay/vis/mob_alpha
+	/// this separately exists because "mob_alpha_id" is to reference this single, but "mob_owner_ref" is to reference multiple things to a mob
+	var/mob_owner_ref
+	var/mob_alpha_id
+	var/use_count = 0
+
 /obj/effect/overlay/airlock_part
 	anchored = TRUE
 	plane = FLOAT_PLANE

@@ -10,10 +10,12 @@
 	item_state = "uranium_ore"
 	singular_name = "uranium ore chunk"
 	points = 38
-	materials = list(/datum/material/uranium=MINERAL_MATERIAL_AMOUNT)
+	material_flags = NONE
+	mats_per_unit = list(/datum/material/uranium=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/uranium
 	scan_state = "rock_Uranium"
 	spreadChance = 5
+	merge_type = /obj/item/stack/ore/uranium
 
 STACKSIZE_MACRO(/obj/item/stack/ore/uranium)
 
@@ -26,10 +28,11 @@ STACKSIZE_MACRO(/obj/item/stack/ore/uranium)
 	item_state = "iron_ore"
 	singular_name = "iron ore chunk"
 	points = 2
-	materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/iron
 	scan_state = "rock_Iron"
 	spreadChance = 20
+	merge_type = /obj/item/stack/ore/iron
 
 STACKSIZE_MACRO(/obj/item/stack/ore/iron)
 
@@ -42,9 +45,10 @@ STACKSIZE_MACRO(/obj/item/stack/ore/iron)
 	item_state = "sand"
 	singular_name = "sand pile"
 	points = 2
-	materials = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/glass
 	w_class = WEIGHT_CLASS_TINY
+	merge_type = /obj/item/stack/ore/glass
 
 /obj/item/stack/ore/glass/get_recipes()
 	return GLOB.sand_recipes
@@ -82,8 +86,9 @@ STACKSIZE_MACRO(/obj/item/stack/ore/glass)
 	icon_state = "volcanic_sand"
 	icon_state = "volcanic_sand"
 	singular_name = "volcanic ash pile"
+	merge_type = /obj/item/stack/ore/glass/basalt
 
-STACKSIZE_MACRO(/obj/item/stack/ore/basalt)
+STACKSIZE_MACRO(/obj/item/stack/ore/glass/basalt)
 
 /* Plasma ore */
 
@@ -94,10 +99,11 @@ STACKSIZE_MACRO(/obj/item/stack/ore/basalt)
 	item_state = "plasma_ore"
 	singular_name = "plasma ore chunk"
 	points = 19
-	materials = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/plasma
 	scan_state = "rock_Plasma"
 	spreadChance = 8
+	merge_type = /obj/item/stack/ore/plasma
 
 /obj/item/stack/ore/plasma/welder_act(mob/living/user, obj/item/I)
 	to_chat(user, "<span class='warning'>You can't hit a high enough temperature to smelt [src] properly!</span>")
@@ -114,10 +120,11 @@ STACKSIZE_MACRO(/obj/item/stack/ore/plasma)
 	item_state = "Copper_ore"
 	singular_name = "Copper ore chunk"
 	points = 6
-	materials = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/copper
 	scan_state = "rock_Copper"
 	spreadChance = 5
+	merge_type = /obj/item/stack/ore/copper
 
 STACKSIZE_MACRO(/obj/item/stack/ore/copper)
 
@@ -130,10 +137,11 @@ STACKSIZE_MACRO(/obj/item/stack/ore/copper)
 	item_state = "silver_ore"
 	singular_name = "silver ore chunk"
 	points = 20
-	materials = list(/datum/material/silver=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/silver=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/silver
 	scan_state = "rock_Silver"
 	spreadChance = 5
+	merge_type = /obj/item/stack/ore/silver
 
 STACKSIZE_MACRO(/obj/item/stack/ore/silver)
 
@@ -146,10 +154,11 @@ STACKSIZE_MACRO(/obj/item/stack/ore/silver)
 	icon_state = "gold_ore"
 	singular_name = "gold ore chunk"
 	points = 23
-	materials = list(/datum/material/gold=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/gold=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/gold
 	scan_state = "rock_Gold"
 	spreadChance = 5
+	merge_type = /obj/item/stack/ore/gold
 
 STACKSIZE_MACRO(/obj/item/stack/ore/gold)
 
@@ -162,9 +171,10 @@ STACKSIZE_MACRO(/obj/item/stack/ore/gold)
 	item_state = "diamond_ore"
 	singular_name = "diamond ore chunk"
 	points = 63
-	materials = list(/datum/material/diamond=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/diamond=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/diamond
 	scan_state = "rock_Diamond"
+	merge_type = /obj/item/stack/ore/diamond
 
 STACKSIZE_MACRO(/obj/item/stack/ore/diamond)
 
@@ -177,9 +187,10 @@ STACKSIZE_MACRO(/obj/item/stack/ore/diamond)
 	item_state = "bananium_ore"
 	singular_name = "bananium ore chunk"
 	points = 75
-	materials = list(/datum/material/bananium=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/bananium=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/bananium
 	scan_state = "rock_Bananium"
+	merge_type = /obj/item/stack/ore/bananium
 
 STACKSIZE_MACRO(/obj/item/stack/ore/bananium)
 
@@ -192,10 +203,11 @@ STACKSIZE_MACRO(/obj/item/stack/ore/bananium)
 	item_state = "titanium_ore"
 	singular_name = "titanium ore chunk"
 	points = 38
-	materials = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/titanium
 	scan_state = "rock_Titanium"
 	spreadChance = 5
+	merge_type = /obj/item/stack/ore/titanium
 
 STACKSIZE_MACRO(/obj/item/stack/ore/titanium)
 
@@ -207,5 +219,6 @@ STACKSIZE_MACRO(/obj/item/stack/ore/titanium)
 	icon_state = "slag"
 	item_state = "slag"
 	singular_name = "slag chunk"
+	merge_type = /obj/item/stack/ore/slag
 
 STACKSIZE_MACRO(/obj/item/stack/ore/slag)

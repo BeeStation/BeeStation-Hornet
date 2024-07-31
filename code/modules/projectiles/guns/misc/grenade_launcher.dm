@@ -10,7 +10,7 @@
 	force = 5
 	var/list/grenades = new/list()
 	var/max_grenades = 3
-	materials = list(/datum/material/iron=2000)
+	custom_materials = list(/datum/material/iron=2000)
 	fire_rate = 1.5
 	weapon_weight = WEAPON_MEDIUM
 

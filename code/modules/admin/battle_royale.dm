@@ -1,9 +1,9 @@
 //Global lists so they can be editted by admins
 GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/soap,
-		/obj/item/kitchen/knife,
-		/obj/item/kitchen/knife/combat,
-		/obj/item/kitchen/knife/poison,
+		/obj/item/knife/kitchen,
+		/obj/item/knife/combat,
+		/obj/item/knife/poison,
 		/obj/item/throwing_star,
 		/obj/item/syndie_glue,
 		/obj/item/book_of_babel,
@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/storage/box/lethalshot,
 		/obj/item/storage/box/gorillacubes,
 		/obj/item/storage/box/teargas,
-		/obj/item/storage/box/security/radio,
+		/obj/item/storage/box/survival/security,
 		/obj/item/storage/box/medsprays,
 		/obj/item/storage/toolbox/syndicate,
 		/obj/item/storage/box/syndie_kit/bee_grenades,
@@ -44,9 +44,9 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/clothing/suit/armor/vest/russian_coat,
 		/obj/item/clothing/suit/armor/hos/trenchcoat,
 		/obj/item/clothing/mask/chameleon,
-		/obj/item/clothing/head/centhat,
-		/obj/item/clothing/head/crown,
-		/obj/item/clothing/head/HoS/syndicate,
+		/obj/item/clothing/head/hats/centcom_cap,
+		/obj/item/clothing/head/costume/crown,
+		/obj/item/clothing/head/hats/hos/syndicate,
 		/obj/item/clothing/head/helmet,
 		/obj/item/clothing/head/helmet/clockcult,
 		/obj/item/clothing/head/helmet/space,
@@ -97,8 +97,8 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/energy_katana,
 		/obj/item/clothing/suit/space/hardsuit/shielded/syndi,
 		/obj/item/his_grace,
-		/obj/mecha/combat/marauder/mauler/loaded,
-		/obj/item/guardiancreator/tech,
+		/obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded,
+		/obj/item/holoparasite_creator/tech,
 		/obj/item/mjolnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
 		/obj/item/uplink/nuclear
@@ -206,7 +206,6 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//BR finished? Let people play as borgs/golems again
 	ENABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
 
-	world.update_status()
 	GLOB.battle_royale = null
 
 //Trigger random events and shit, update the world border
@@ -275,7 +274,6 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//Don't let anyone join as posibrains/golems etc
 	DISABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
 
-	world.update_status()
 	if(SSticker.current_state < GAME_STATE_PREGAME)
 		to_chat(world, "<span class=boldannounce>Battle Royale: Waiting for server to be ready...</span>")
 		SSticker.start_immediately = FALSE
@@ -324,7 +322,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall()
-	var/list/participants = pollGhostCandidates("Would you like to partake in BATTLE ROYALE?")
+	var/list/participants = poll_ghost_candidates("Would you like to partake in BATTLE ROYALE?")
 	var/turf/spawn_turf = get_safe_random_station_turfs()
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()
@@ -434,10 +432,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	center_turf = center
 
 /obj/effect/death_wall/proc/decrease_size()
-	var/minx = CLAMP(center_turf.x - current_radius, 1, 255)
-	var/maxx = CLAMP(center_turf.x + current_radius, 1, 255)
-	var/miny = CLAMP(center_turf.y - current_radius, 1, 255)
-	var/maxy = CLAMP(center_turf.y + current_radius, 1, 255)
+	var/minx = clamp(center_turf.x - current_radius, 1, 255)
+	var/maxx = clamp(center_turf.x + current_radius, 1, 255)
+	var/miny = clamp(center_turf.y - current_radius, 1, 255)
+	var/maxy = clamp(center_turf.y + current_radius, 1, 255)
 	if(y == maxy || y == miny)
 		//We have nowhere to move to so are deleted
 		if(x == minx || x == minx + 1 || x == maxx || x == maxx - 1)

@@ -40,7 +40,7 @@
 	..()
 
 // Orbit: literally obrits people like how ghosts do
-/mob/living/simple_animal/revenant/proc/check_orbitable(atom/A)
+/mob/living/simple_animal/revenant/check_orbitable(atom/A)
 	if(revealed)
 		to_chat(src, "<span class='revenwarning'>You can't orbit while you're revealed!</span>")
 		return
@@ -52,10 +52,7 @@
 		return
 	if(notransform || inhibited || !incorporeal_move_check(A))
 		return
-	var/icon/I = icon(A.icon, A.icon_state, A.dir)
-	var/orbitsize = (I.Width()+I.Height())*0.5
-	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
-	orbit(A, orbitsize)
+	..()
 
 /mob/living/simple_animal/revenant/orbit(atom/target)
 	setDir(SOUTH) // reset dir so the right directional sprites show up
@@ -72,7 +69,7 @@
 	if(orbiting)
 		to_chat(src, "<span class='revenwarning'>You can't siphon essence during orbiting!</span>")
 		return
-	if(!target.stat && !target.stam_paralyzed)
+	if(!target.stat && !HAS_TRAIT_FROM(target, TRAIT_INCAPACITATED, STAMINA))
 		to_chat(src, "<span class='revennotice'>[target.p_their(TRUE)] soul is too strong to harvest.</span>")
 		if(prob(10))
 			to_chat(target, "You feel as if you are being watched.")
@@ -100,7 +97,7 @@
 				if(90 to INFINITY)
 					to_chat(src, "<span class='revenbignotice'>Ah, the perfect soul. [target] will yield massive amounts of essence to you.</span>")
 			if(do_after(src, rand(15, 25), target, timed_action_flags = IGNORE_HELD_ITEM)) //how about now
-				if(!target.stat && !target.stam_paralyzed)
+				if(!target.stat && !HAS_TRAIT_FROM(target, TRAIT_INCAPACITATED, STAMINA))
 					to_chat(src, "<span class='revenwarning'>[target.p_theyre(TRUE)] now powerful enough to fight off your draining.</span>")
 					to_chat(target, "<span class='boldannounce'>You feel something tugging across your body before subsiding.</span>")
 					draining = 0
@@ -134,7 +131,9 @@
 					target.visible_message("<span class='warning'>[target] slumps onto the ground.</span>", \
 										   "<span class='revenwarning'>Violets lights, dancing in your vision, getting clo--</span>")
 					drained_mobs.Add(target)
-					target.death(0)
+					if(target.stat != DEAD)
+						target.investigate_log("has died from revenant harvest.", INVESTIGATE_DEATHS)
+					target.death(FALSE)
 				else
 					to_chat(src, "<span class='revenwarning'>[target ? "[target] has":"[target.p_theyve(TRUE)]"] been drawn out of your grasp. The link has been broken.</span>")
 					if(target) //Wait, target is WHERE NOW?
@@ -172,6 +171,7 @@
 
 /obj/effect/proc_holder/spell/self/rev_teleport/cast(mob/living/simple_animal/revenant/user = usr)
 	if(!isrevenant(user))
+		to_chat(user, "<span class='revenwarning'>You are not revenant.</span>")
 		return
 	if(is_station_level(user.z))
 		to_chat(user, "<span class='revenwarning'>Recalling yourself to the station is only available when you're not in the station.</span>")
@@ -205,11 +205,12 @@
 
 /obj/effect/proc_holder/spell/targeted/telepathy/revenant/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/mob/living/M in targets)
-		if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, "<span class='warning'>It appears the target's mind is ironclad! No getting a message in there!</span>")
 			return
 		if(M.anti_magic_check(magic_check, holy_check)) //hear no evil
 			to_chat(user, "<span class='[boldnotice]'>Something is blocking your power into their mind!</span>")
+			return
 
 
 		var/msg = stripped_input(usr, "What do you wish to tell [M]?", null, "")
@@ -277,21 +278,25 @@
 	name = "Report this to a coder"
 	var/reveal = 80 //How long it reveals the revenant in deciseconds
 	var/stun = 20 //How long it stuns the revenant in deciseconds
-	var/locked = TRUE //If it's locked and needs to be unlocked before use
+	var/locked = TRUE //revenant needs to pay essence to learn their ability
 	var/unlock_amount = 100 //How much essence it costs to unlock
 	var/cast_amount = 50 //How much essence it costs to use
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/Initialize(mapload)
 	. = ..()
-	if(locked)
-		name = "[initial(name)] ([unlock_amount]SE)"
+	update_button_info()
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/proc/update_button_info()
+	if(!locked)
+		action.name = "[initial(name)][cast_amount ? " ([cast_amount]E to cast)" : ""]"
 	else
-		name = "[initial(name)] ([cast_amount]E)"
+		action.name = "[initial(name)][unlock_amount ? " ([unlock_amount]SE to learn)" : ""]"
+	action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/can_cast(mob/living/simple_animal/revenant/user = usr)
 	if(charge_counter < charge_max)
 		return FALSE
-	if(!istype(user)) //Badmins, no. Badmins, don't do it.
+	if(!isrevenant(user)) // If you're not a revenant, it works anyway.
 		return TRUE
 	if(user.inhibited)
 		return FALSE
@@ -303,26 +308,29 @@
 	return TRUE
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/proc/attempt_cast(mob/living/simple_animal/revenant/user = usr)
-	if(!istype(user)) //If you're not a revenant, it works. Please, please, please don't give this to a non-revenant.
-		name = "[initial(name)]"
+	// If you're not a revenant, it works anyway.
+	if(!isrevenant(user))
 		if(locked)
-			panel = "Revenant Abilities"
 			locked = FALSE
+			panel = "Revenant Abilities"
+			action.name = "[initial(name)]"
+		action.UpdateButtonIcon()
 		return TRUE
+
+	// actual revenant check
 	if(locked)
 		if (!user.unlock(unlock_amount))
 			charge_counter = charge_max
 			return FALSE
-		name = "[initial(name)] ([cast_amount]E)"
 		to_chat(user, "<span class='revennotice'>You have unlocked [initial(name)]!</span>")
 		panel = "Revenant Abilities"
 		locked = FALSE
 		charge_counter = charge_max
+		update_button_info()
 		return FALSE
 	if(!user.castcheck(-cast_amount))
 		charge_counter = charge_max
 		return FALSE
-	name = "[initial(name)] ([cast_amount]E)"
 	user.reveal(reveal)
 	user.stun(stun)
 	if(action)
@@ -367,7 +375,7 @@
 			continue
 		L.Beam(M,icon_state="purple_lightning", time = 5)
 		if(!M.anti_magic_check(FALSE, TRUE))
-			M.electrocute_act(shock_damage, L, safety=TRUE)
+			M.electrocute_act(shock_damage, L, flags = SHOCK_NOGLOVES)
 		do_sparks(4, FALSE, M)
 		playsound(M, 'sound/machines/defib_zap.ogg', 50, 1, -1)
 
@@ -395,7 +403,7 @@
 
 	if(!isplatingturf(T) && !istype(T, /turf/open/floor/engine/cult) && isfloorturf(T) && prob(15))
 		var/turf/open/floor/floor = T
-		if(floor.intact && floor.floor_tile)
+		if(floor.overfloor_placed && floor.floor_tile)
 			new floor.floor_tile(floor)
 		floor.broken = 0
 		floor.burnt = 0

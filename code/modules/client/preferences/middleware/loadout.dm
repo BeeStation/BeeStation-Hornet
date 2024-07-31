@@ -58,6 +58,7 @@
 		preferences.purchased_gear += TG.id
 		TG.purchase(user.client)
 		user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
+		log_preferences("[preferences?.parent?.ckey]: Purchased loadout gear: [TG.id] ([TG.display_name])")
 		preferences.mark_undatumized_dirty_player()
 		return TRUE
 	else
@@ -69,6 +70,7 @@
 		return
 	if(TG.id in preferences.equipped_gear)
 		preferences.equipped_gear -= TG.id
+		log_preferences("[preferences?.parent?.ckey]: Unequipped loadout gear: [TG.id] ([TG.display_name])")
 		preferences.character_preview_view?.update_body()
 		preferences.mark_undatumized_dirty_character()
 		return TRUE
@@ -85,6 +87,7 @@
 		if((TG.id in preferences.purchased_gear))
 			if(!(TG.subtype_path in type_blacklist) || !(TG.slot in slot_blacklist))
 				preferences.equipped_gear += TG.id
+				log_preferences("[preferences?.parent?.ckey]: Equipped loadout gear: [TG.id] ([TG.display_name])")
 				preferences.character_preview_view?.update_body()
 				preferences.mark_undatumized_dirty_character()
 				return TRUE

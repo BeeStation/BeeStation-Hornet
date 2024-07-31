@@ -27,8 +27,7 @@
 	AddElement(/datum/element/bed_tuckable, 0, 0, 0)
 
 /obj/item/bedsheet/attack(mob/living/M, mob/user)
-	if(!attempt_initiate_surgery(src, M, user))
-		..()
+	attempt_initiate_surgery(src, M, user)
 
 /obj/item/bedsheet/attack_self(mob/user)
 	if(!user.CanReach(src))		//No telekenetic grabbing.
@@ -38,6 +37,8 @@
 	if(layer == initial(layer))
 		layer = ABOVE_MOB_LAYER
 		to_chat(user, "<span class='notice'>You cover yourself with [src].</span>")
+		pixel_x = 0
+		pixel_y = 0
 	else
 		layer = initial(layer)
 		to_chat(user, "<span class='notice'>You smooth [src] out beneath you.</span>")
@@ -256,6 +257,7 @@
 	icon_state = "random_bedsheet"
 	name = "random bedsheet"
 	desc = "If you're reading this description ingame, something has gone wrong! Honk!"
+	item_flags = ABSTRACT
 
 /obj/item/bedsheet/random/Initialize(mapload)
 	..()
@@ -267,6 +269,8 @@
 	icon_state = "random_bedsheet"
 	name = "random dorms bedsheet"
 	desc = "If you're reading this description ingame, something has gone wrong! Honk!"
+	item_flags = ABSTRACT
+	slot_flags = null
 
 /obj/item/bedsheet/dorms/Initialize(mapload)
 	..()
@@ -297,7 +301,7 @@
 	dying_key = DYE_REGISTRY_DOUBLE_BEDSHEET
 
 /obj/item/bedsheet/double/Initialize()
-	..()
+	. = ..()
 	desc += " This one is double."
 
 /obj/item/bedsheet/double/blue
@@ -492,6 +496,7 @@
 	name = "random double bedsheet"
 	icon_state = "random_doublesheet"
 	desc = "If you're reading this description ingame, something has gone wrong twice! Honk!"
+	item_flags = ABSTRACT
 
 /obj/item/bedsheet/double/random/Initialize()
 	..()
@@ -503,6 +508,7 @@
 	name = "random double dorms bedsheet"
 	icon_state = "random_doublesheet"
 	desc = "If you're reading this description ingame, something has gone wrong! Honk!"
+	item_flags = ABSTRACT
 
 /obj/item/bedsheet/double/dorms/Initialize()
 	..()

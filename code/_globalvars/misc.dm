@@ -1,10 +1,7 @@
-GLOBAL_VAR_INIT(fileaccess_timer, 0) //! For FTP requests. (i.e. downloading runtime logs.) However it'd be ok to use for accessing attack logs and such too, which are even laggier.
 
 GLOBAL_VAR_INIT(TAB, "&nbsp;&nbsp;&nbsp;&nbsp;")
 
 GLOBAL_DATUM_INIT(data_core, /datum/datacore, new)
-
-GLOBAL_VAR_INIT(bsa_unlock, FALSE)	//! BSA unlocked by head ID swipes
 
 GLOBAL_LIST_EMPTY(player_details)	//! ckey -> /datum/player_details
 

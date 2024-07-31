@@ -21,7 +21,7 @@
 /obj/item/assembly/timer/proc/manual_suicide(mob/living/user)
 	user.visible_message("<span class='suicide'>[user]'s time is up!</span>")
 	user.adjustOxyLoss(200)
-	user.death(0)
+	user.death(FALSE)
 
 /obj/item/assembly/timer/Initialize(mapload)
 	. = ..()

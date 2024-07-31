@@ -5,7 +5,7 @@
 	icon_state = "seed-banana"
 	species = "banana"
 	plantname = "Banana Tree"
-	product = /obj/item/reagent_containers/food/snacks/grown/banana
+	product = /obj/item/food/grown/banana
 	lifespan = 50
 	endurance = 30
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
@@ -14,31 +14,40 @@
 	mutatelist = list(/obj/item/seeds/banana/mime, /obj/item/seeds/banana/bluespace)
 	reagents_add = list(/datum/reagent/consumable/banana = 0.1, /datum/reagent/potassium = 0.1, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.02)
 
-/obj/item/reagent_containers/food/snacks/grown/banana
+/obj/item/food/grown/banana
 	seed = /obj/item/seeds/banana
 	name = "banana"
 	desc = "It's an excellent prop for a clown."
 	icon_state = "banana"
 	item_state = "banana"
-	trash = /obj/item/grown/bananapeel
-	filling_color = "#FFFF00"
-	bitesize = 5
-	foodtype = FRUIT
+	trash_type = /obj/item/grown/bananapeel
+	bite_consumption_mod = 3
+	foodtypes = FRUIT
 	juice_results = list(/datum/reagent/consumable/banana = 0)
 	distill_reagent = /datum/reagent/consumable/ethanol/bananahonk
+	dying_key = DYE_REGISTRY_BANANA
 
-/obj/item/reagent_containers/food/snacks/grown/banana/suicide_act(mob/user)
+/* Wounds
+/obj/item/food/grown/banana/generate_trash(atom/location)
+	. = ..()
+	var/obj/item/grown/bananapeel/peel = .
+	if(istype(peel))
+		peel.grind_results = list(/datum/reagent/medicine/coagulant/banana_peel = seed.potency * 0.2)
+		peel.juice_results = list(/datum/reagent/medicine/coagulant/banana_peel = seed.potency * 0.2)
+*/
+
+/obj/item/food/grown/banana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is aiming [src] at [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
 	sleep(25)
 	if(!user)
-		return (OXYLOSS)
+		return OXYLOSS
 	user.say("BANG!", forced = /datum/reagent/consumable/banana)
 	sleep(25)
 	if(!user)
-		return (OXYLOSS)
+		return OXYLOSS
 	user.visible_message("<B>[user]</B> laughs so hard they begin to suffocate!")
-	return (OXYLOSS)
+	return OXYLOSS
 
 //Banana Peel
 /obj/item/grown/bananapeel
@@ -53,11 +62,12 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
+	dying_key = DYE_REGISTRY_PEEL
 
-/obj/item/grown/bananapeel/suicide_act(mob/user)
+/obj/item/grown/bananapeel/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is deliberately slipping on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 
 // Mimana - invisible sprites are totally a feature!
@@ -67,19 +77,18 @@
 	icon_state = "seed-mimana"
 	species = "mimana"
 	plantname = "Mimana Tree"
-	product = /obj/item/reagent_containers/food/snacks/grown/banana/mime
+	product = /obj/item/food/grown/banana/mime
 	growthstages = 4
 	mutatelist = list()
 	reagents_add = list(/datum/reagent/consumable/nothing = 0.1, /datum/reagent/toxin/mutetoxin = 0.1, /datum/reagent/consumable/nutriment = 0.02)
 	rarity = 15
 
-/obj/item/reagent_containers/food/snacks/grown/banana/mime
+/obj/item/food/grown/banana/mime
 	seed = /obj/item/seeds/banana/mime
 	name = "mimana"
 	desc = "It's an excellent prop for a mime."
 	icon_state = "mimana"
-	trash = /obj/item/grown/bananapeel/mimanapeel
-	filling_color = "#FFFFEE"
+	trash_type = /obj/item/grown/bananapeel/mimanapeel
 	distill_reagent = /datum/reagent/consumable/ethanol/silencer
 	discovery_points = 300
 
@@ -98,19 +107,18 @@
 	species = "bluespacebanana"
 	icon_grow = "banana-grow"
 	plantname = "Bluespace Banana Tree"
-	product = /obj/item/reagent_containers/food/snacks/grown/banana/bluespace
+	product = /obj/item/food/grown/banana/bluespace
 	mutatelist = list()
 	genes = list(/datum/plant_gene/trait/slip, /datum/plant_gene/trait/teleport, /datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list(/datum/reagent/bluespace = 0.2, /datum/reagent/consumable/banana = 0.1, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.02)
 	rarity = 30
 
-/obj/item/reagent_containers/food/snacks/grown/banana/bluespace
+/obj/item/food/grown/banana/bluespace
 	seed = /obj/item/seeds/banana/bluespace
 	name = "bluespace banana"
 	icon_state = "banana_blue"
 	item_state = "bluespace_peel"
-	trash = /obj/item/grown/bananapeel/bluespace
-	filling_color = "#0000FF"
+	trash_type = /obj/item/grown/bananapeel/bluespace
 	tastes = list("banana" = 1)
 	wine_power = 60
 	wine_flavor = "slippery hypercubes"
@@ -123,7 +131,7 @@
 	icon_state = "banana_peel_blue"
 
 // Other
-/obj/item/grown/bananapeel/specialpeel     //used by /obj/item/clothing/shoes/clown_shoes/banana_shoes
+/obj/item/grown/bananapeel/specialpeel //used by /obj/item/clothing/shoes/clown_shoes/banana_shoes
 	name = "synthesized banana peel"
 	desc = "A synthetic banana peel."
 

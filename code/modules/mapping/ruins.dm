@@ -43,7 +43,7 @@
 					if(clear_below_typecache[thing.type])
 						qdel(thing)
 
-		var/datum/map_generator/map_placer = load(central_turf,centered = TRUE)
+		var/datum/async_map_generator/map_placer = load(central_turf,centered = TRUE)
 		map_placer.on_completion(CALLBACK(src, PROC_REF(after_ruin_generation), central_turf))
 		return map_placer
 

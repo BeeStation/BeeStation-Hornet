@@ -4,9 +4,9 @@
 	desc = "An all-terrain vehicle built for traversing rough terrain with ease. One of the few old-Earth technologies that are still relevant on most planet-bound outposts."
 	icon_state = "atv"
 	max_integrity = 150
-	armor = list(MELEE = 50,  BULLET = 25, LASER = 20, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 0)
+	armor = list(MELEE = 50,  BULLET = 25, LASER = 20, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 0, BLEED = 0)
 	key_type = /obj/item/key
-	integrity_failure = 70
+	integrity_failure = 0.5
 	var/static/mutable_appearance/atvcover
 
 /obj/vehicle/ridden/atv/Initialize(mapload)
@@ -80,7 +80,7 @@
 	return ..()
 
 /obj/vehicle/ridden/atv/process(delta_time)
-	if(obj_integrity >= integrity_failure)
+	if(obj_integrity >= integrity_failure * max_integrity)
 		return PROCESS_KILL
 	if(DT_PROB(10, delta_time))
 		return

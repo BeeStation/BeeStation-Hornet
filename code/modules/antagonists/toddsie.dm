@@ -1,6 +1,7 @@
 /obj/eldritch/narsie/toddsie
 	name = "Todd'Sie's Avatar"
 	icon = 'icons/obj/toddsie.dmi'
+	icon_state = "TODDTHEGOD"
 	desc = "Your mind begins to bubble and ooze as it tries to comprehend what it sees. You realize for some reason you want to buy Skyrim."
 	pixel_x = -236
 	pixel_y = -256
@@ -20,7 +21,8 @@
 	if(A)
 		var/mutable_appearance/alert_overlay = mutable_appearance('icons/effects/cult_effects.dmi', "ghostalertsie")
 		notify_ghosts("Todd'Sie has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action=NOTIFY_ATTACK)
-	INVOKE_ASYNC(src, PROC_REF(narsie_spawn_animation))
+	narsie_spawn_animation()
+
 /obj/eldritch/narsie/toddsie/acquire(atom/food)
 	var/datum/component/singularity/singularity_component = singularity.resolve()
 	if(food == singularity_component?.target)

@@ -82,7 +82,7 @@ const IntroductionSection = () => {
 const FlavorSection = () => {
   return (
     <Stack.Item>
-      <Stack vertical textAlign="center" fontSize="14px" width="45%">
+      <Stack vertical textAlign="center" fontSize="14px" width="100%">
         <Stack.Item>
           <i>
             Another day at a meaningless job. You feel a&nbsp;
@@ -106,7 +106,7 @@ const FlavorSection = () => {
 const GuideSection = () => {
   return (
     <Stack.Item>
-      <Stack vertical fontSize="12px" width="45%">
+      <Stack vertical fontSize="12px" width="100%">
         <Stack.Item>
           - Find reality smashing&nbsp;
           <span style={hereticPurple}>influences</span>

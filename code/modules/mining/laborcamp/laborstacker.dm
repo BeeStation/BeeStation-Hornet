@@ -68,8 +68,8 @@ GLOBAL_LIST(labor_sheet_values)
 		can_go_home = TRUE
 
 	var/obj/item/card/id/I = user.get_idcard(TRUE)
-	if(istype(I, /obj/item/card/id/prisoner))
-		var/obj/item/card/id/prisoner/prisonerID = I
+	if(istype(I, /obj/item/card/id/gulag))
+		var/obj/item/card/id/gulag/prisonerID = I
 		data["id_points"] = prisonerID.points
 		if(prisonerID.points >= prisonerID.goal && !prisonerID.permanent)
 			can_go_home = TRUE
@@ -96,8 +96,8 @@ GLOBAL_LIST(labor_sheet_values)
 	switch(action)
 		if("claim_points")
 			var/obj/item/card/id/I = M.get_idcard(TRUE)
-			if(istype(I, /obj/item/card/id/prisoner))
-				var/obj/item/card/id/prisoner/P = I
+			if(istype(I, /obj/item/card/id/gulag))
+				var/obj/item/card/id/gulag/P = I
 				P.points += stacking_machine.points
 				stacking_machine.points = 0
 				to_chat(M, "<span class='notice'>Points transferred.</span>")
@@ -144,7 +144,9 @@ GLOBAL_LIST(labor_sheet_values)
 /obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/stack/sheet) && user.canUnEquip(I) && user.a_intent == INTENT_HELP)
 		var/obj/item/stack/sheet/inp = I
-		points += inp.point_value * inp.amount
+		process_sheet(inp)
+		visible_message("[user.name] puts \the [I] into \the [src]")
+		return
 	return ..()
 
 /**********************Point Lookup Console**************************/
@@ -163,8 +165,8 @@ GLOBAL_LIST(labor_sheet_values)
 
 /obj/machinery/mineral/labor_points_checker/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
-		if(istype(I, /obj/item/card/id/prisoner))
-			var/obj/item/card/id/prisoner/prisoner_id = I
+		if(istype(I, /obj/item/card/id/gulag))
+			var/obj/item/card/id/gulag/prisoner_id = I
 			to_chat(user, "<span class='notice'><B>ID: [prisoner_id.registered_name]</B></span>")
 			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.points]</span>")
 			to_chat(user, "<span class='notice'>Point Quota: [prisoner_id.goal]</span>")

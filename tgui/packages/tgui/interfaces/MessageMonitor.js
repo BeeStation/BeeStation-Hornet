@@ -97,7 +97,7 @@ Please Wait...`}
           {no_server ? 'NOT FOUND' : server_on ? 'OK' : 'OFFLINE'}
         </Section>
       </Flex.Item>
-      <Flex.Item mt={1} grow={!authenticated ? 1 : null} basis={!authenticated ? '78vh' : null}>
+      <Flex.Item mt={1} grow={!authenticated ? 1 : null} basis={!authenticated ? '78vh' : 'content'}>
         <Section fill={!authenticated}>
           {!authenticated ? (
             <Dimmer

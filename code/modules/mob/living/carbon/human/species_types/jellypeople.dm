@@ -673,7 +673,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 				to_chat(link_host, "<span class='danger'><span class='name'>[link_host]</span> already has another telepathic link, there's not enough room in [link_host.p_their()] mind for more!</span>", type = MESSAGE_TYPE_WARNING)
 			return FALSE
 	var/obj/item/hat = target.get_item_by_slot(ITEM_SLOT_HEAD)
-	if(istype(hat, /obj/item/clothing/head/foilhat))
+	if(istype(hat, /obj/item/clothing/head/costume/foilhat))
 		if(!silent)
 			to_chat(link_host, "<span class='danger'>\The [hat] worn by <span class='name'>[link_host]</span> interferes with your telepathic abilities, preventing you from linking [target.p_them()]!</span>", type = MESSAGE_TYPE_WARNING)
 			to_chat(target_mind, "<span class='danger'><span class='name'>[link_host]</span>'[link_host.p_s()] no-good syndicate mind-slime is blocked by your protective headgear!</span>", type = MESSAGE_TYPE_WARNING)

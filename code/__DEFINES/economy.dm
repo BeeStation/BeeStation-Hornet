@@ -22,7 +22,6 @@
 #define BUDGET_RATIO_TYPE_SINGLE 1 // For Service & Civilian budget
 #define BUDGET_RATIO_TYPE_DOUBLE 2 // and for the rest
 
-
 #define ACCOUNT_CIV_ID "Civilian"
 #define ACCOUNT_CIV_NAME "Civil Budget"
 #define ACCOUNT_SRV_ID "Service"
@@ -72,3 +71,8 @@
 /// used for custom_currency
 #define ACCOUNT_CURRENCY_MINING "mining points"
 #define ACCOUNT_CURRENCY_EXPLO "exploration points"
+
+//These defines are to be used to with the payment component, determines which lines will be used during a transaction. If in doubt, go with clinical.
+#define PAYMENT_CLINICAL "clinical"
+#define PAYMENT_FRIENDLY "friendly"
+#define PAYMENT_ANGRY "angry"

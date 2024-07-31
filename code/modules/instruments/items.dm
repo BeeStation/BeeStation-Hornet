@@ -27,9 +27,9 @@
 /obj/item/instrument/proc/should_stop_playing(mob/user)
 	return user.incapacitated() || !((loc == user) || (isturf(loc) && Adjacent(user)))		// sorry, no more TK playing.
 
-/obj/item/instrument/suicide_act(mob/user)
+/obj/item/instrument/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/instrument/attack_self(mob/user)
 	if(!user.IsAdvancedToolUser())
@@ -41,7 +41,7 @@
 	ui_interact(user)
 
 /obj/item/instrument/ui_interact(mob/living/user)
-	if(!isliving(user) || user.stat || (user.restrained() && !ispAI(user)))
+	if((!isliving(user) || user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) && !ispAI(user))
 		return
 
 	user.set_machine(src)
@@ -239,7 +239,7 @@
 /obj/item/choice_beacon/radial/music
 	name = "instrument delivery beacon"
 	desc = "Summon your tool of art."
-	icon_state = "gangtool-red"
+	icon_state = "gangtool-music"
 	var/static/list/instrument_list
 
 /obj/item/choice_beacon/radial/music/Initialize(mapload)

@@ -5,6 +5,8 @@
 	density = TRUE
 	use_power = NO_POWER_USE
 
+	circuit = /obj/item/circuitboard/machine/generator
+
 	var/obj/machinery/atmospherics/components/binary/circulator/cold_circ
 	var/obj/machinery/atmospherics/components/binary/circulator/hot_circ
 
@@ -19,7 +21,6 @@
 	connect_to_network()
 	SSair.start_processing_machine(src)
 	update_appearance()
-	component_parts = list(new /obj/item/circuitboard/machine/generator)
 
 /obj/machinery/power/generator/examine()
 	. = ..()
@@ -161,11 +162,6 @@
 		return FALSE
 	return TRUE
 
-
-/obj/machinery/power/generator/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/power/generator/proc/find_circs()
 	kill_circs()
 	var/list/circs = list()
@@ -201,7 +197,7 @@
 /obj/machinery/power/generator/wrench_act(mob/living/user, obj/item/I)
 	if(!panel_open)
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	I.play_tool_sound(src)
 	if(!anchored)
 		kill_circs()

@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/mimic
 	name = "crate"
 	desc = "A rectangular steel crate."
-	icon = 'icons/obj/crates.dmi'
+	icon = 'icons/obj/storage/crates.dmi'
 	icon_state = "crate"
 	icon_living = "crate"
 
@@ -123,7 +123,7 @@
 	..()
 	// death of this mob means the destruction of the original stuff of the copied mob.
 	if(istype(original_of_this, /obj/machinery/vending))
-		original_of_this.take_damage(original_of_this.obj_integrity, BRUTE, 0, FALSE)
+		original_of_this.take_damage(original_of_this.max_integrity, BRUTE, 0, FALSE)
 		// currently do this to vending machines only.
 		// because the destruction of stuff (especially items) is annoying.
 
@@ -187,9 +187,9 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 				melee_damage *= 2
 		else if(isitem(O))
 			var/obj/item/I = O
-			health = 15 * I.w_class
+			health = 8 * I.w_class
 			melee_damage = 2 + I.force
-			move_to_delay = 2 * I.w_class + 1
+			move_to_delay = I.w_class + 1
 		maxHealth = health
 		if(user)
 			creator = user

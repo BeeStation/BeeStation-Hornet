@@ -10,7 +10,6 @@
 	if(prob(10))
 		owner.stuttering = max(10, owner.stuttering)
 
-
 /datum/mutation/wacky
 	name = "Wacky"
 	desc = "Effects not tested..."
@@ -35,17 +34,7 @@
 	name = "Mute"
 	desc = "Inherited mutation that completely inhibits the vocal section of the brain."
 	quality = NEGATIVE
-
-/datum/mutation/mute/on_acquiring(mob/living/carbon/owner)
-	if(..())
-		return
-	ADD_TRAIT(owner, TRAIT_MUTE, GENETIC_MUTATION)
-
-/datum/mutation/mute/on_losing(mob/living/carbon/owner)
-	if(..())
-		return
-	REMOVE_TRAIT(owner, TRAIT_MUTE, GENETIC_MUTATION)
-
+	traits = TRAIT_MUTE
 
 /datum/mutation/smile
 	name = "Smile"
@@ -116,16 +105,7 @@
 	name = "Unintelligible"
 	desc = "Hereditary mutation that partially inhibits the vocal center of the brain, resulting in a severe speech disorder."
 	quality = NEGATIVE
-
-/datum/mutation/unintelligible/on_acquiring(mob/living/carbon/owner)
-	if(..())
-		return
-	ADD_TRAIT(owner, TRAIT_UNINTELLIGIBLE_SPEECH, GENETIC_MUTATION)
-
-/datum/mutation/unintelligible/on_losing(mob/living/carbon/owner)
-	if(..())
-		return
-	REMOVE_TRAIT(owner, TRAIT_UNINTELLIGIBLE_SPEECH, GENETIC_MUTATION)
+	traits = TRAIT_UNINTELLIGIBLE_SPEECH
 
 /datum/mutation/swedish
 	name = "Swedish"

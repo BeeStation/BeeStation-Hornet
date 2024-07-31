@@ -112,6 +112,10 @@
 	if (CONFIG_GET(flag/log_attack) && SSticker.current_state != GAME_STATE_FINISHED)
 		WRITE_LOG(GLOB.world_attack_log, "ATTACK: [text]")
 
+/proc/log_econ(text)
+	if (CONFIG_GET(flag/log_econ))
+		WRITE_LOG(GLOB.world_econ_log, "MONEY: [text]")
+
 /proc/log_manifest(ckey, datum/mind/mind,mob/body, latejoin = FALSE)
 	if (CONFIG_GET(flag/log_manifest))
 		var/species = null
@@ -252,6 +256,10 @@
 		entry += "[client.ckey]"
 	entry += ":\n[text]"
 	WRITE_LOG(GLOB.tgui_log, entry)
+
+/proc/log_preferences(text)
+	if(CONFIG_GET(flag/log_preferences))
+		WRITE_LOG(GLOB.prefs_log, text)
 
 /* For logging round startup. */
 /proc/start_log(log)

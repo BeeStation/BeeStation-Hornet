@@ -4,6 +4,14 @@
 	req_access = list(ACCESS_ALL_PERSONAL_LOCKERS)
 	var/registered_name = null
 
+/obj/structure/closet/secure_closet/personal/empty
+	desc = "It's a secure locker for personnel. The first card swiped gains control."
+	name = "personal closet"
+	req_access = list(ACCESS_ALL_PERSONAL_LOCKERS)
+
+/obj/structure/closet/secure_closet/personal/empty/PopulateContents()
+	return
+
 /obj/structure/closet/secure_closet/personal/PopulateContents()
 	..()
 	if(prob(50))

@@ -4,11 +4,13 @@
 #define SENSORS_TRACKING 3
 #define SENSOR_CHANGE_DELAY 1.5 SECONDS
 
+#define MOTH_EATING_CLOTHING_DAMAGE 15
+
 /obj/item/clothing
 	name = "clothing"
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
-	integrity_failure = 80
+	integrity_failure = 0.4
 	var/damaged_clothes = 0 //similar to machine's BROKEN stat and structure's broken var
 	var/flash_protect = 0		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/bang_protect = 0		//what level of sound protection the item has. 1 is the level of a normal bowman.
@@ -22,15 +24,14 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	var/alt_desc = null
-	var/toggle_message = null
-	var/alt_toggle_message = null
-	var/active_sound = null
 	var/cooldown = 0
 	var/envirosealed = FALSE //is it safe for plasmamen
 
 	var/blocks_shove_knockdown = FALSE //Whether wearing the clothing item blocks the ability for shove to knock down.
 
 	var/clothing_flags = NONE
+
+	var/can_be_bloody = TRUE
 
 	//Var modification - PLEASE be careful with this I know who you are and where you live
 	var/list/user_vars_to_edit //VARNAME = VARVALUE eg: "name" = "butts"
@@ -50,12 +51,20 @@
 	var/high_pressure_multiplier = 1
 	var/static/list/high_pressure_multiplier_types = list(MELEE, BULLET, LASER, ENERGY, BOMB)
 
+	/// A lazily initiated "food" version of the clothing for moths
+	var/obj/item/food/clothing/moth_snack
+
 /obj/item/clothing/Initialize(mapload)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
 		actions_types += /datum/action/item_action/toggle_voice_box
 	. = ..()
 	if(ispath(pocket_storage_component_path))
 		LoadComponent(pocket_storage_component_path)
+	if(can_be_bloody && ((body_parts_covered & FEET) || (flags_inv & HIDESHOES)))
+		LoadComponent(/datum/component/bloodysoles)
+
+	if(!icon_state)
+		item_flags |= ABSTRACT
 
 /obj/item/clothing/MouseDrop(atom/over_object)
 	. = ..()
@@ -69,20 +78,48 @@
 		if(M.putItemFromInventoryInHandIfPossible(src, H.held_index))
 			add_fingerprint(usr)
 
-/obj/item/reagent_containers/food/snacks/clothing
+/obj/item/food/clothing // fuck you
 	name = "temporary moth clothing snack item"
-	desc = "If you're reading this it means I messed up. This is related to moths eating clothes and I didn't know a better way to do it than making a new food object."
-	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
+	desc = "If you're reading this it means I messed up. This is related to moths eating clothes and I didn't know a better way to do it than making a new food object." // die
+	bite_consumption = 1
+	// sigh, ok, so it's not ACTUALLY infinite nutrition. this is so you can eat clothes more than...once.
+	// bite_consumption limits how much you actually get, and the take_damage in after eat makes sure you can't abuse this.
+	// ...maybe this was a mistake after all.
+	food_reagents = list(/datum/reagent/consumable/nutriment = INFINITY)
 	tastes = list("dust" = 1, "lint" = 1)
-	foodtype = CLOTH
+	foodtypes = CLOTH
 
-/obj/item/clothing/attack(mob/M, mob/user, def_zone)
-	if(user.a_intent != INTENT_HARM && ismoth(M) && !(clothing_flags & NOTCONSUMABLE) && !(resistance_flags & INDESTRUCTIBLE) && (armor.getRating(MELEE) == 0))
-		var/obj/item/reagent_containers/food/snacks/clothing/clothing_as_food = new
-		clothing_as_food.name = name
-		if(clothing_as_food.attack(M, user, def_zone))
-			take_damage(15, sound_effect=FALSE)
-		qdel(clothing_as_food)
+	/// A weak reference to the clothing that created us
+	var/datum/weakref/clothing
+
+/obj/item/food/clothing/make_edible()
+	AddComponent(/datum/component/edible,\
+		initial_reagents = food_reagents,\
+		food_flags = food_flags,\
+		foodtypes = foodtypes,\
+		volume = max_volume,\
+		eat_time = eat_time,\
+		tastes = tastes,\
+		eatverbs = eatverbs,\
+		bite_consumption = bite_consumption,\
+		microwaved_type = microwaved_type,\
+		junkiness = junkiness,\
+		after_eat = CALLBACK(src, PROC_REF(after_eat)))
+
+/obj/item/food/clothing/proc/after_eat(mob/eater)
+	var/obj/item/clothing/resolved_clothing = clothing.resolve()
+	if (resolved_clothing)
+		resolved_clothing.take_damage(MOTH_EATING_CLOTHING_DAMAGE, sound_effect = FALSE, damage_flag = CONSUME)
+	else
+		qdel(src)
+
+/obj/item/clothing/attack(mob/attacker, mob/user, def_zone)
+	if(user.a_intent != INTENT_HARM && (ismoth(attacker) || ispsyphoza(attacker)) && !(clothing_flags & NOTCONSUMABLE) && !(resistance_flags & INDESTRUCTIBLE) && (armor.getRating(MELEE) == 0))
+		if (isnull(moth_snack))
+			moth_snack = new
+			moth_snack.name = name
+			moth_snack.clothing = WEAKREF(src)
+		moth_snack.attack(attacker, user, def_zone)
 	else
 		return ..()
 
@@ -98,6 +135,7 @@
 
 /obj/item/clothing/Destroy()
 	user_vars_remembered = null //Oh god somebody put REFERENCES in here? not to worry, we'll clean it up
+	QDEL_NULL(moth_snack)
 	return ..()
 
 /obj/item/clothing/dropped(mob/user)
@@ -173,43 +211,51 @@
 	. = ..()
 
 	if(href_list["list_armor"])
+		var/obj/item/clothing/compare_to = null
+		for (var/flag in bitfield_to_list(slot_flags))
+			var/thing = usr.get_item_by_slot(flag)
+			if (istype(thing, /obj/item/clothing))
+				compare_to = thing
+				break
 		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
-		if(armor.bio || armor.bomb || armor.bullet || armor.energy || armor.laser || armor.magic || armor.melee || armor.rad || armor.stamina)
-			readout += "\n<b>ARMOR (I-X)</b>"
-			if(armor.bio)
-				readout += "\nTOXIN [armor_to_protection_class(armor.bio)]"
-			if(armor.bomb)
-				readout += "\nEXPLOSIVE [armor_to_protection_class(armor.bomb)]"
-			if(armor.bullet)
-				readout += "\nBULLET [armor_to_protection_class(armor.bullet)]"
-			if(armor.energy)
-				readout += "\nENERGY [armor_to_protection_class(armor.energy)]"
-			if(armor.laser)
-				readout += "\nLASER [armor_to_protection_class(armor.laser)]"
-			if(armor.magic)
-				readout += "\nMAGIC [armor_to_protection_class(armor.magic)]"
-			if(armor.melee)
-				readout += "\nMELEE [armor_to_protection_class(armor.melee)]"
-			if(armor.rad)
-				readout += "\nRADIATION [armor_to_protection_class(armor.rad)]"
-			if(armor.stamina)
-				readout += "\nSTAMINA [armor_to_protection_class(armor.stamina)]"
+		if(armor.bio || armor.bomb || armor.bullet || armor.energy || armor.laser || armor.magic || armor.melee || armor.rad || armor.stamina || armor.bleed)
+			readout += "<br /><b>ARMOR (I-X)</b>"
+			if(armor.bio || compare_to?.armor?.bio)
+				readout += "<br />TOXIN [armor_to_protection_class(armor.bio, compare_to?.armor?.bio)]"
+			if(armor.bomb || compare_to?.armor?.bomb)
+				readout += "<br />EXPLOSIVE [armor_to_protection_class(armor.bomb, compare_to?.armor?.bomb)]"
+			if(armor.bullet || compare_to?.armor?.bullet)
+				readout += "<br />BULLET [armor_to_protection_class(armor.bullet, compare_to?.armor?.bullet)]"
+			if(armor.energy || compare_to?.armor?.energy)
+				readout += "<br />ENERGY [armor_to_protection_class(armor.energy, compare_to?.armor?.energy)]"
+			if(armor.laser || compare_to?.armor?.laser)
+				readout += "<br />LASER [armor_to_protection_class(armor.laser, compare_to?.armor?.laser)]"
+			if(armor.magic || compare_to?.armor?.magic)
+				readout += "<br />MAGIC [armor_to_protection_class(armor.magic, compare_to?.armor?.magic)]"
+			if(armor.melee || compare_to?.armor?.melee)
+				readout += "<br />MELEE [armor_to_protection_class(armor.melee, compare_to?.armor?.melee)]"
+			if(armor.rad || compare_to?.armor?.rad)
+				readout += "<br />RADIATION [armor_to_protection_class(armor.rad, compare_to?.armor?.rad)]"
+			if(armor.stamina || compare_to?.armor?.stamina)
+				readout += "<br />STAMINA [armor_to_protection_class(armor.stamina, compare_to?.armor?.stamina)]"
+			if(armor.bleed || compare_to?.armor?.bleed)
+				readout += "<br />BLEEDING [armor_to_protection_class(armor.bleed, compare_to?.armor?.bleed)]"
 		if(armor.fire || armor.acid)
-			readout += "\n<b>DURABILITY (I-X)</b>"
-			if(armor.fire)
-				readout += "\nFIRE [armor_to_protection_class(armor.fire)]"
-			if(armor.acid)
-				readout += "\nACID [armor_to_protection_class(armor.acid)]"
+			readout += "<br /><b>DURABILITY (I-X)</b>"
+			if(armor.fire || compare_to?.armor?.fire)
+				readout += "<br />FIRE [armor_to_protection_class(armor.fire, compare_to?.armor?.fire)]"
+			if(armor.acid || compare_to?.armor?.acid)
+				readout += "<br />ACID [armor_to_protection_class(armor.acid, compare_to?.armor?.acid)]"
 		if(flags_cover & HEADCOVERSMOUTH)
-			readout += "\n<b>COVERAGE</b>"
-			readout += "\nIt will block Facehuggers."
+			readout += "<br /><b>COVERAGE</b>"
+			readout += "<br />It will block Facehuggers."
 			/* We dont have the tooltips for this
 			readout += "<span class='tooltip'>Because this item is worn on the head and is covering the mouth, it will block facehugger proboscides, killing them</span>."
 			*/
 
 		readout += "</span>"
 
-		to_chat(usr, "[readout.Join()]")
+		to_chat(usr, EXAMINE_BLOCK("[readout.Join()]"))
 
 /**
  * Rounds armor_value down to the nearest 10, divides it by 10 and then converts it to Roman numerals.
@@ -217,12 +263,21 @@
  * Arguments:
  * * armor_value - Number we're converting
  */
-/obj/item/clothing/proc/armor_to_protection_class(armor_value)
+/obj/item/clothing/proc/armor_to_protection_class(armor_value, compare_value)
 	if (armor_value < 0)
 		. = "-"
-	. += "\Roman[round(abs(armor_value), 10) / 10]"
+	if (armor_value == 0)
+		. += "None"
+	else
+		. += "\Roman[round(abs(armor_value), 10) / 10]"
+	if (!isnull(compare_value))
+		if (armor_value > compare_value)
+			. = "<span class='green'>[.]</span>"
+		else if (armor_value < compare_value)
+			. = "<span class='red'>[.]</span>"
 
 /obj/item/clothing/obj_break(damage_flag)
+	. = ..()
 	if(!damaged_clothes)
 		update_clothes_damaged_state(TRUE)
 	if(ismob(loc)) //It's not important enough to warrant a message if nobody's wearing it
@@ -267,7 +322,7 @@ BLIND     // can't see anything
 
 /proc/generate_female_clothing(index,t_color,icon,type)
 	var/icon/female_clothing_icon	= icon("icon"=icon, "icon_state"=t_color)
-	var/icon/female_s				= icon("icon"='icons/mob/clothing/uniform.dmi', "icon_state"="[(type == FEMALE_UNIFORM_FULL) ? "female_full" : "female_top"]")
+	var/icon/female_s = icon("icon"='icons/mob/clothing/under/masking_helpers.dmi', "icon_state"="[(type == FEMALE_UNIFORM_FULL) ? "female_full" : "female_top"]")
 	female_clothing_icon.Blend(female_s, ICON_MULTIPLY)
 	female_clothing_icon 			= fcopy_rsc(female_clothing_icon)
 	GLOB.female_clothing_icons[index] = female_clothing_icon
@@ -401,9 +456,7 @@ BLIND     // can't see anything
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.head_update(src, forced = TRUE)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 	return TRUE
 
 /obj/item/clothing/proc/visor_toggling() //handles all the actual toggling of flags
@@ -433,13 +486,19 @@ BLIND     // can't see anything
 			return 1
 	return 0
 
-
 /obj/item/clothing/obj_destruction(damage_flag)
 	if(damage_flag == BOMB || damage_flag == MELEE)
 		var/turf/T = get_turf(src)
 		spawn(1) //so the shred survives potential turf change from the explosion.
 			var/obj/effect/decal/cleanable/shreds/Shreds = new(T)
 			Shreds.desc = "The sad remains of what used to be [name]."
+		deconstruct(FALSE)
+	if(damage_flag == CONSUME) //This allows for moths to fully consume clothing, rather than damaging it like other sources like brute
+		var/turf/current_position = get_turf(src)
+		new /obj/effect/decal/cleanable/shreds(current_position, name)
+		if(isliving(loc))
+			var/mob/living/possessing_mob = loc
+			possessing_mob.visible_message("<span class='danger'>[src] is consumed until naught but shreds remains!</span>", "<span class='boldwarning'>[src] falls apart into little bits!</span>")
 		deconstruct(FALSE)
 	else
 		..()
@@ -459,3 +518,5 @@ BLIND     // can't see anything
 #undef SENSORS_VITALS
 #undef SENSORS_TRACKING
 #undef SENSOR_CHANGE_DELAY
+
+#undef MOTH_EATING_CLOTHING_DAMAGE

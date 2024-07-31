@@ -55,7 +55,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "cT" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -100,7 +100,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "ge" = (
 /obj/structure/sign/warning/vacuum{
@@ -133,7 +133,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/emcloset,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "hp" = (
 /obj/structure/lattice/catwalk,
@@ -161,7 +161,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "jv" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -207,9 +207,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "lO" = (
-/obj/structure/chair/comfy/black{
-	dir = 1
-	},
+/obj/structure/chair/stool/directional/west,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "mf" = (
@@ -220,15 +218,9 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "mi" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool/directional/west,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
-	},
-/turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
-"mj" = (
-/obj/structure/chair/comfy/black{
-	dir = 8
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
@@ -265,10 +257,10 @@
 /obj/structure/transit_tube/station/reverse{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "po" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "pz" = (
 /obj/effect/turf_decal/stripes/line{
@@ -285,7 +277,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/emcloset,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "qp" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -295,7 +287,7 @@
 /obj/structure/window/reinforced/spawner{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "qs" = (
 /obj/machinery/power/port_gen/pacman,
@@ -316,7 +308,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Escape Airlock"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "sq" = (
 /obj/structure/closet/crate,
@@ -397,7 +389,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/firecloset/full,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "vQ" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
@@ -425,12 +417,6 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"wl" = (
-/obj/structure/chair/comfy/black{
-	dir = 4
-	},
-/turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
 "wr" = (
 /obj/machinery/advanced_airlock_controller/directional/east,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -441,7 +427,7 @@
 	},
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "wO" = (
 /obj/effect/turf_decal/stripes/line{
@@ -508,7 +494,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered)
 "Ai" = (
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "Ak" = (
 /obj/structure/lattice/catwalk,
@@ -527,7 +513,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "AC" = (
 /turf/closed/wall/mineral/plastitanium,
@@ -536,7 +522,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "By" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
@@ -548,7 +534,7 @@
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Cb" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -579,7 +565,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "Cy" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -600,7 +586,7 @@
 	dir = 5
 	},
 /obj/effect/spawner/lootdrop/glowstick/lit,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Dq" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -609,7 +595,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Du" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -665,7 +651,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Fw" = (
 /turf/closed/wall,
@@ -706,7 +692,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Iw" = (
 /obj/effect/turf_decal/stripes/line,
@@ -736,7 +722,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "IX" = (
 /obj/structure/window/reinforced/spawner{
@@ -746,7 +732,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/caution/stand_clear,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "Jn" = (
 /obj/effect/turf_decal/stripes/line{
@@ -809,7 +795,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Nr" = (
 /obj/structure/lattice/catwalk,
@@ -822,10 +808,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6
 	},
-/turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
-"Nz" = (
-/obj/structure/chair/comfy/black,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Ok" = (
@@ -843,7 +825,7 @@
 /area/ruin/unpowered)
 "Ov" = (
 /obj/effect/abstract/doorway_marker,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Oz" = (
 /obj/effect/turf_decal/stripes/line,
@@ -880,7 +862,7 @@
 /obj/structure/transit_tube/curved/flipped{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "Qr" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -918,7 +900,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 6
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Ri" = (
 /obj/structure/lattice/catwalk,
@@ -939,7 +921,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "RT" = (
 /obj/structure/window/reinforced/spawner{
@@ -948,7 +930,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "RY" = (
 /obj/effect/turf_decal/stripes/line,
@@ -995,7 +977,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/caution/stand_clear,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "Uo" = (
 /obj/structure/cable{
@@ -1014,7 +996,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/lootdrop/ruinloot/basic,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "UN" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on,
@@ -1035,7 +1017,7 @@
 /obj/structure/transit_tube_pod{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "Vo" = (
 /obj/structure/table/wood,
@@ -1048,7 +1030,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/firecloset/full,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "VT" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -1090,10 +1072,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/hidden,
-/turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
-"YT" = (
-/obj/structure/chair/stool,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 
@@ -2451,8 +2429,8 @@ jZ
 jZ
 jZ
 jZ
-YT
-YT
+lO
+lO
 mi
 jZ
 DU
@@ -2623,13 +2601,13 @@ sq
 jZ
 jZ
 jZ
-YT
-YT
-YT
+lO
+lO
+lO
 jZ
 jZ
 jZ
-wl
+jZ
 eq
 vZ
 vZ
@@ -2715,7 +2693,7 @@ jZ
 jZ
 jZ
 jZ
-mj
+jZ
 eq
 vZ
 vZ
@@ -2754,9 +2732,9 @@ zL
 zL
 nz
 nz
-Nz
+jZ
 Vo
-lO
+jZ
 zL
 zL
 zL

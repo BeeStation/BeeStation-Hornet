@@ -20,7 +20,7 @@
 	if(eyes)
 		eyes.applyOrganDamage(rand(6,8))
 	sleep(10)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/origami/paperplane/update_icon()
 	cut_overlays()

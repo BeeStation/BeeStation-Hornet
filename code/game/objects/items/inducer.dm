@@ -106,7 +106,10 @@
 	var/coefficient = 1
 	var/obj/item/organ/stomach/battery/battery
 	if(istype(A, /obj/item/gun/energy))
-		to_chat(user,"Error unable to interface with device")
+		to_chat(user, "<span class='alert'>Error unable to interface with device.</span>")
+		return FALSE
+	if(istype(A, /obj/item/clothing/suit/space))
+		to_chat(user, "<span class='alert'>Error unable to interface with device.</span>")
 		return FALSE
 	if(istype(A, /obj))
 		O = A
@@ -176,13 +179,13 @@
 	if(opened)
 		. += "<span class='notice'>Its battery compartment is open.</span>"
 
-/obj/item/inducer/update_icon()
-	cut_overlays()
+/obj/item/inducer/update_overlays()
+	. = ..()
 	if(opened)
 		if(!cell)
-			add_overlay("inducer-nobat")
+			. += "inducer-nobat"
 		else
-			add_overlay("inducer-bat")
+			. += "inducer-bat"
 
 ///Starts empty for engineering protolathe
 /obj/item/inducer/eng

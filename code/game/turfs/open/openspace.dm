@@ -1,21 +1,27 @@
 /turf/open/openspace
 	name = "open space"
 	desc = "Watch your step!"
-	icon_state = "transparent"
+	icon_state = "invisible"
 	baseturfs = /turf/open/openspace
 	CanAtmosPassVertical = ATMOS_PASS_YES
+	overfloor_placed = FALSE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	allow_z_travel = TRUE
+	resistance_flags = INDESTRUCTIBLE
+	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+	/* PORT WITH JPS IMPROVEMENT PR
+	pathing_pass_method = TURF_PATHING_PASS_PROC
+	*/
+
+	z_flags = Z_MIMIC_BELOW|Z_MIMIC_OVERWRITE
+
+	var/can_cover_up = TRUE
+	var/can_build_on = TRUE
 
 	FASTDMM_PROP(\
 		pipe_astar_cost = 100\
 	)
-
-	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	var/can_cover_up = TRUE
-	var/can_build_on = TRUE
-
-	intact = 0
-	z_flags = Z_MIMIC_BELOW|Z_MIMIC_OVERWRITE
 
 /turf/open/openspace/cold
 	initial_gas_mix = FROZEN_ATMOS
@@ -100,12 +106,12 @@
 		else
 			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
 		return
-	if(istype(C, /obj/item/stack/tile/plasteel))
+	if(istype(C, /obj/item/stack/tile/iron))
 		if(!CanCoverUp())
 			return
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
-			var/obj/item/stack/tile/plasteel/S = C
+			var/obj/item/stack/tile/iron/S = C
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)

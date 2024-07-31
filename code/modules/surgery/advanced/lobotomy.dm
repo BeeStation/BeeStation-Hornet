@@ -13,7 +13,7 @@
 	possible_locs = list(BODY_ZONE_HEAD)
 	requires_bodypart_type = 0
 
-/datum/surgery/advanced/lobotomy/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/advanced/lobotomy/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(!..())
 		return FALSE
 	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
@@ -23,7 +23,7 @@
 
 /datum/surgery_step/lobotomize
 	name = "perform lobotomy"
-	implements = list(TOOL_SCALPEL = 85, /obj/item/melee/transforming/energy/sword = 55, /obj/item/kitchen/knife = 35,
+	implements = list(TOOL_SCALPEL = 85, /obj/item/melee/transforming/energy/sword = 55, /obj/item/knife = 35,
 		/obj/item/shard = 25, /obj/item = 20)
 	time = 100
 	preop_sound = 'sound/surgery/scalpel1.ogg'
@@ -35,12 +35,12 @@
 		return FALSE
 	return TRUE
 
-/datum/surgery_step/lobotomize/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/lobotomize/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You begin to perform a lobotomy on [target]'s brain...</span>",
 		"[user] begins to perform a lobotomy on [target]'s brain.",
 		"[user] begins to perform surgery on [target]'s brain.")
 
-/datum/surgery_step/lobotomize/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/lobotomize/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You succeed in lobotomizing [target].</span>",
 			"[user] successfully lobotomizes [target]!",
 			"[user] completes the surgery on [target]'s brain.")
@@ -61,7 +61,7 @@
 			SWITCH_EMPTY_STATEMENT
 	return TRUE
 
-/datum/surgery_step/lobotomize/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/lobotomize/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
 		display_results(user, target, "<span class='warning'>You remove the wrong part, causing more damage!</span>",

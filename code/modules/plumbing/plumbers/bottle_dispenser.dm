@@ -63,7 +63,7 @@
 		return
 	switch(action)
 		if("change_bottle_size")
-			bottle_size = CLAMP(text2num(params["volume"]), 0, 30)
+			bottle_size = clamp(text2num(params["volume"]), 0, 30)
 			. = TRUE
 		if("change_bottle_name")
 			var/new_name = stripped_input(usr, "Enter a bottle name.", name, bottle_name)

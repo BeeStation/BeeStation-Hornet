@@ -127,7 +127,7 @@
 /datum/outfit/pirate_space_preview
 	name = "Space Pirate (Preview only)"
 	uniform = /obj/item/clothing/under/costume/pirate
-	suit = /obj/item/clothing/suit/space/pirate
+	suit = /obj/item/clothing/suit/costume/pirate
 	head = /obj/item/clothing/head/helmet/space/pirate/bandana
 	glasses = /obj/item/clothing/glasses/eyepatch
 
@@ -180,6 +180,13 @@
 	var/icon/morph_icon = icon('icons/mob/animal.dmi', "morph")
 	morph_icon.Shift(NORTH, 8)
 	return finish_preview_icon(morph_icon)
+
+/datum/role_preference/midround_ghost/prisoner
+	name = "prisoner"
+	description = "You are a Prisoner, sent to the station brig by Nanotrasen. \
+	You have a chance to escape, but be careful, the security officers are on high alert."
+	antag_datum = /datum/antagonist/prisoner
+	preview_outfit = /datum/outfit/prisoner
 
 /datum/role_preference/midround_ghost/fugitive
 	name = "Fugitive"

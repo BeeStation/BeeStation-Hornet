@@ -28,7 +28,7 @@
 	var/anti_magic_source = M.anti_magic_check(holy = TRUE)
 	if(anti_magic_source)
 		M.mob_light(_color = LIGHT_COLOR_HOLY_MAGIC, _range = 2, _duration = 100)
-		var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
+		var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
 		M.add_overlay(forbearance)
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/atom, cut_overlay), forbearance), 100)
 		M.visible_message("<span class='warning'>[M] stares blankly, as a field of energy flows around them.</span>", \
@@ -54,7 +54,7 @@
 			M.Paralyze(150)
 		else
 			to_chat(invoker, "<span class='brass'>[M] seems somewhat resistant to your powers!</span>")
-			M.confused = CLAMP(M.confused, 50, INFINITY)
+			M.confused = clamp(M.confused, 50, INFINITY)
 	if(issilicon(M))
 		var/mob/living/silicon/S = M
 		S.emp_act(EMP_HEAVY)

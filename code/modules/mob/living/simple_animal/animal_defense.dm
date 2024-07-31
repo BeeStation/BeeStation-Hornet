@@ -17,12 +17,12 @@
 			playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			var/shove_dir = get_dir(M, src)
 			if(!Move(get_step(src, shove_dir), shove_dir))
-				log_combat(M, src, "shoved", "failing to move it")
+				log_combat(M, src, "shoved", "disarm", "failing to move it")
 				M.visible_message("<span class='danger'>[M.name] shoves [src]!</span>",
 					"<span class='danger'>You shove [src]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(src))
 				to_chat(src, "<span class='userdanger'>You're shoved by [M.name]!</span>")
 				return TRUE
-			log_combat(M, src, "shoved", "pushing it")
+			log_combat(M, src, "shoved", "disarm", "pushing it")
 			M.visible_message("<span class='danger'>[M.name] shoves [src], pushing [p_them()]!</span>",
 				"<span class='danger'>You shove [src], pushing [p_them()]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(src))
 			to_chat(src, "<span class='userdanger'>You're pushed by [name]!</span>")
@@ -37,7 +37,7 @@
 				"<span class='userdanger'>[M] [response_harm] you!</span>", null, COMBAT_MESSAGE_RANGE)
 			playsound(loc, attacked_sound, 25, 1, -1)
 			attack_threshold_check(M.dna.species.punchdamage)
-			log_combat(M, src, "attacked")
+			log_combat(M, src, "attacked", "harm")
 			updatehealth()
 			return TRUE
 
@@ -72,14 +72,14 @@
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			visible_message("<span class='danger'>[M] [response_disarm] [name]!</span>", \
 					"<span class='userdanger'>[M] [response_disarm] you!</span>", null, COMBAT_MESSAGE_RANGE)
-			log_combat(M, src, "disarmed")
+			log_combat(M, src, "disarmed", "disarm")
 		else
 			var/damage = rand(15, 30)
 			visible_message("<span class='danger'>[M] slashes at [src]!</span>", \
 					"<span class='userdanger'>[M] slashes at you!</span>", null, COMBAT_MESSAGE_RANGE)
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 			attack_threshold_check(damage)
-			log_combat(M, src, "attacked")
+			log_combat(M, src, "attacked", "harm")
 		return 1
 
 /mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L)
@@ -89,6 +89,11 @@
 		. = attack_threshold_check(damage)
 		if(.)
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+
+/mob/living/simple_animal/attack_basic_mob(mob/living/basic/user, list/modifiers)
+	. = ..()
+	if(.)
+		return attack_threshold_check(user.melee_damage, user.melee_damage_type)
 
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -125,6 +130,13 @@
 		return TRUE
 
 /mob/living/simple_animal/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
+	var/bullet_signal = SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, Proj, def_zone)
+	if(bullet_signal & COMSIG_ATOM_BULLET_ACT_FORCE_PIERCE)
+		return BULLET_ACT_FORCE_PIERCE
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_BLOCK)
+		return BULLET_ACT_BLOCK
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_HIT)
+		return BULLET_ACT_HIT
 	apply_damage(Proj.damage, Proj.damage_type)
 	Proj.on_hit(src, 0, piercing_hit)
 	return BULLET_ACT_HIT
@@ -141,6 +153,7 @@
 			if(prob(bomb_armor))
 				adjustBruteLoss(500)
 			else
+				investigate_log("has been gibbed by an explosion.", INVESTIGATE_DEATHS)
 				gib()
 				return
 		if (EXPLODE_HEAVY)

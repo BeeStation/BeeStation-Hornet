@@ -156,8 +156,12 @@
 	if(!istype(M) || M.stat == DEAD || M.notransform || (GODMODE & M.status_flags))
 		return
 
+	if(SEND_SIGNAL(M, COMSIG_LIVING_PRE_WABBAJACKED) & STOP_WABBAJACK)
+		return
+
 	M.notransform = TRUE
-	M.mobility_flags = NONE
+	ADD_TRAIT(M, TRAIT_IMMOBILIZED, MAGIC_TRAIT)
+	ADD_TRAIT(M, TRAIT_HANDS_BLOCKED, MAGIC_TRAIT)
 	M.icon = null
 	M.cut_overlays()
 	M.invisibility = INVISIBILITY_ABSTRACT
@@ -280,6 +284,8 @@
 
 	M.log_message("became [new_mob.real_name]", LOG_ATTACK, color="orange")
 
+	SEND_SIGNAL(M, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
+
 	new_mob.a_intent = INTENT_HARM
 
 	M.wabbajack_act(new_mob)
@@ -290,7 +296,7 @@
 	if(poly_msg)
 		to_chat(new_mob, poly_msg)
 
-	M.transfer_observers_to(new_mob)
+	M.transfer_observers_to(new_mob, TRUE)
 
 	qdel(M)
 	return new_mob
@@ -427,6 +433,8 @@
 	material_drop_amount = 0
 	var/magic_icon = "cursed"
 	var/weakened_icon = "decursed"
+	icon_door = "cursed"
+	var/weakened_icon_door = "decursed"
 
 /obj/structure/closet/decay/Initialize(mapload)
 	. = ..()
@@ -458,6 +466,7 @@
 
 /obj/structure/closet/decay/proc/unmagify()
 	icon_state = weakened_icon
+	icon_door = weakened_icon_door
 	update_icon()
 	addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 
@@ -565,7 +574,7 @@
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		if(M.anti_magic_check() || istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(M.anti_magic_check() || istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			M.visible_message("<span class='warning'>[src] vanishes on contact with [target]!</span>")
 			return BULLET_ACT_BLOCK
 		for(var/x in M.get_traumas())//checks to see if the victim is already going through possession
@@ -589,14 +598,14 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob(poll_message, ban_key, null, 10 SECONDS, M, ignore_category = FALSE)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob(poll_message, ban_key, null, 10 SECONDS, M, ignore_category = FALSE)
 	if(M.stat == DEAD)//boo.
 		return
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(M, "You have been noticed by a ghost, and it has possessed you!")
 		var/oldkey = M.key
-		M.ghostize(0)
+		M.ghostize(FALSE)
 		M.key = C.key
 		trauma.friend.key = oldkey
 		trauma.friend.reset_perspective(null)
@@ -722,5 +731,5 @@
 	damage_type = BURN
 	nodamage = FALSE
 	armour_penetration = 100
-	temperature = 50
+	temperature = -200 // Cools you down greatly per hit
 	armor_flag = MAGIC

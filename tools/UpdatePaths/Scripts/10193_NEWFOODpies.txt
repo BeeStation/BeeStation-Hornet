@@ -1,0 +1,4 @@
+/obj/item/reagent_containers/food/snacks/pie : /obj/item/food/pie{@OLD}
+/obj/item/reagent_containers/food/snacks/pie/@SUBTYPES : /obj/item/food/pie/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/piedough : /obj/item/food/piedough{@OLD}
+/obj/item/reagent_containers/food/snacks/dulcedebatataslice : /obj/item/food/pieslice/dulcedebatata{@OLD}

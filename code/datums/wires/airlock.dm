@@ -23,24 +23,27 @@
 	if (security_level >= AIRLOCK_WIRE_SECURITY_ELITE)
 		wires |= WIRE_ZAP2
 	//Add dud wires
-	if (security_level >= AIRLOCK_WIRE_SECURITY_ADVANCED)
+	if (security_level >= AIRLOCK_WIRE_SECURITY_MAXIMUM)
 		add_duds(2)
-	else if (security_level >= AIRLOCK_WIRE_SECURITY_SIMPLE)
+	else if (security_level >= AIRLOCK_WIRE_SECURITY_ADVANCED)
 		add_duds(1)
 
 	//Add labelled wires
 	if (security_level <= AIRLOCK_WIRE_SECURITY_NONE)
-		//At security level 0, the following wires could be unknowns:
-		//POWER1, BACKUP1, IDSCAN, AI WIRE, LIGHT
+		labelled_wires[WIRE_POWER1] = TRUE
+		labelled_wires[WIRE_BACKUP1] = TRUE
+		labelled_wires[WIRE_LIGHT] = TRUE
 		labelled_wires[WIRE_OPEN] = TRUE
-		labelled_wires[WIRE_BOLTS] = TRUE
-		labelled_wires[WIRE_SHOCK] = TRUE
 	if (security_level <= AIRLOCK_WIRE_SECURITY_SIMPLE)
-		//At security level 1, there are duds and the open, bolt and shock wires are not revealed.
 		labelled_wires[WIRE_SAFETY] = TRUE
 		labelled_wires[WIRE_TIMING] = TRUE
-	if (security_level == AIRLOCK_WIRE_SECURITY_PROTECTED)
+		labelled_wires[WIRE_SHOCK] = TRUE
+		labelled_wires[WIRE_IDSCAN] = TRUE
+	if (security_level <= AIRLOCK_WIRE_SECURITY_PROTECTED)
 		labelled_wires[WIRE_ZAP1] = TRUE
+	if (security_level <= AIRLOCK_WIRE_SECURITY_ADVANCED)
+		labelled_wires[WIRE_BOLTS] = TRUE
+		labelled_wires[WIRE_AI] = TRUE
 	..()
 
 /datum/wires/airlock/interactable(mob/user)
@@ -53,7 +56,7 @@
 	var/list/status = list()
 	status += "The door bolts [A.locked ? "have fallen!" : "look up."]"
 	status += "The test light is [A.hasPower() ? (A.isElectrified() ? "bright and flicking" : "on") : "off"]."
-	status += "The AI connection light is [A.aiControlDisabled || (A.obj_flags & EMAGGED) ? "off" : "on"]."
+	status += "The AI connection light is [A.aiControlDisabled ? "off" : "on"]."
 	status += "The check wiring light is [A.safe ? "off" : "on"]."
 	status += "The timer is powered [A.autoclose ? "on" : "off"]."
 	status += "The speed light is [A.normalspeed ? "on" : "off"]."
@@ -68,15 +71,14 @@
 	if(isliving(usr) && A.hasPower() && A.isElectrified())
 		if (A.shock(usr, 100))
 			return
-	if(A.hasPower()) //Multitool has no effect at all if the door has lost power
+	switch(wire)
+		if(WIRE_POWER1, WIRE_POWER2) // Pulse to lose power, or reset the delay before restoring power if already lost
+			A.loseMainPower()
+		if(WIRE_BACKUP1, WIRE_BACKUP2) // Pulse to lose backup power, or reset the delay before restoring power if already lost
+			A.loseBackupPower()
+	if(A.hasPower()) //Multitool has no effect on other wires if the door has no power
 		switch(wire)
-			if(WIRE_POWER1, WIRE_POWER2) // Pulse to loose power.
-				A.loseMainPower()
-			if(WIRE_BACKUP1, WIRE_BACKUP2) // Pulse to loose backup power.
-				A.loseBackupPower()
-			if(WIRE_OPEN) // Pulse to open door (only works not emagged and ID wire is cut or no access is required).
-				if(A.obj_flags & EMAGGED)
-					return
+			if(WIRE_OPEN) // Pulse to open door
 				if(A.id_scan_hacked() || A.check_access(null))
 					if(A.density)
 						INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, open))
@@ -128,8 +130,6 @@
 
 /datum/wires/airlock/on_cut(wire, mend)
 	var/obj/machinery/door/airlock/A = holder
-	if(isliving(usr) && A.hasPower())
-		A.shock(usr, 100) //Cutting wires directly on powered doors without protection is not advised.
 	switch(wire)
 		if(WIRE_POWER1, WIRE_POWER2) // Cut to loose power, repair all to gain power.
 			if(mend && !is_cut(WIRE_POWER1) && !is_cut(WIRE_POWER2))
@@ -164,6 +164,8 @@
 			else
 				if(A.secondsElectrified != MACHINE_ELECTRIFIED_PERMANENT)
 					A.set_electrified(MACHINE_ELECTRIFIED_PERMANENT, usr)
+			if(isliving(usr))
+				A.shock(usr, 50)
 		if(WIRE_SAFETY) // Cut to disable safeties, mend to re-enable.
 			A.safe = mend
 		if(WIRE_TIMING) // Cut to disable auto-close, mend to re-enable.

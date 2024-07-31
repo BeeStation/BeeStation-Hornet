@@ -31,17 +31,17 @@
 
 /mob/living/proc/give_mind(mob/user)
 	if(key || !playable || stat)
-		return 0
+		return FALSE
 	var/question = alert("Do you want to become [name]?", "[name]", "Yes", "No")
 	if(question != "Yes" || !src || QDELETED(src))
-		return TRUE
+		return FALSE
 	if(key)
 		to_chat(user, "<span class='notice'>Someone else already took [name].</span>")
-		return TRUE
+		return FALSE
 	if(!SSticker.HasRoundStarted())
-		return
+		return FALSE
 	if(!user?.client?.can_take_ghost_spawner(playable_bantype, TRUE, flags_1 & ADMIN_SPAWNED_1))
-		return
+		return FALSE
 	key = user.key
 	log_game("[key_name(src)] took control of [name].")
 	remove_from_spawner_menu()

@@ -60,7 +60,13 @@
 	return BULLET_ACT_HIT
 
 /mob/living/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
-	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	var/bullet_signal = SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	if(bullet_signal & COMSIG_ATOM_BULLET_ACT_FORCE_PIERCE)
+		return BULLET_ACT_FORCE_PIERCE
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_BLOCK)
+		return BULLET_ACT_BLOCK
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_HIT)
+		return BULLET_ACT_HIT
 	var/armor = run_armor_check(def_zone, P.armor_flag, "","",P.armour_penetration)
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
@@ -73,9 +79,9 @@
 
 /obj/item/proc/get_volume_by_throwforce_and_or_w_class()
 		if(throwforce && w_class)
-				return CLAMP((throwforce + w_class) * 5, 30, 100)// Add the item's throwforce to its weight class and multiply by 5, then clamp the value between 30 and 100
+				return clamp((throwforce + (w_class / 2)) * 5, 30, 100)// Add the item's throwforce to its weight class and multiply by 5, then clamp the value between 30 and 100
 		else if(w_class)
-				return CLAMP(w_class * 8, 20, 100) // Multiply the item's weight class by 8, then clamp the value between 20 and 100
+				return clamp(w_class * 4, 20, 100) // Multiply the item's weight class by 8, then clamp the value between 20 and 100
 		else
 				return 0
 
@@ -85,7 +91,7 @@
 		var/zone = ran_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
 		var/dtype = BRUTE
 		var/volume = I.get_volume_by_throwforce_and_or_w_class()
-		var/nosell_hit = SEND_SIGNAL(I, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
+		var/nosell_hit = SEND_SIGNAL(I, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, blocked, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
 		if(nosell_hit)
 			skipcatch = TRUE
 			hitpush = FALSE
@@ -113,7 +119,7 @@
 
 			var/mob/thrown_by = I.thrownby?.resolve()
 			if(thrown_by)
-				log_combat(thrown_by, src, "threw and hit", I)
+				log_combat(thrown_by, src, "threw and hit", I, important = I.force)
 			if(!incapacitated(FALSE, TRUE)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
 				hitpush = FALSE
 		else
@@ -122,39 +128,12 @@
 		playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
 	..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
-
-/mob/living/mech_melee_attack(obj/mecha/M)
-	if(M.occupant.a_intent == INTENT_HARM)
-		M.do_attack_animation(src)
-		if(M.damtype == BRUTE)
-			step_away(src,M,15)
-		switch(M.damtype)
-			if(BRUTE)
-				Knockdown(20)
-				take_overall_damage(rand(M.force/2, M.force))
-				playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
-			if(BURN)
-				take_overall_damage(0, rand(M.force/2, M.force))
-				playsound(src, 'sound/items/welder.ogg', 50, 1)
-			if(TOX)
-				M.mech_toxin_damage(src)
-			else
-				return
-		updatehealth()
-		visible_message("<span class='danger'>[M.name] hits [src]!</span>", \
-						"<span class='userdanger'>[M.name] hits you!</span>", null, COMBAT_MESSAGE_RANGE)
-		log_combat(M.occupant, src, "attacked", M, "(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
-	else
-		step_away(src,M)
-		log_combat(M.occupant, src, "pushed", M)
-		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>", \
-						"<span class='warning'>[M] pushes you out of the way.</span>", null, 5)
-
 /mob/living/fire_act()
 	adjust_fire_stacks(3)
 	IgniteMob()
 
-/mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
+/mob/living/proc/grabbedby(mob/living/user, supress_message = FALSE)
+	. = TRUE
 	if(user == src || anchored || !isturf(user.loc))
 		return FALSE
 	if(!user.pulling || user.pulling != src)
@@ -171,7 +150,7 @@
 	grippedby(user)
 
 //proc to upgrade a simple pull into a more aggressive grab.
-/mob/living/proc/grippedby(mob/living/carbon/user, instant = FALSE)
+/mob/living/proc/grippedby(mob/living/user, instant = FALSE)
 	if(user.grab_state < GRAB_KILL)
 		user.changeNext_move(CLICK_CD_GRABBING)
 		var/sound_to_play = 'sound/weapons/thudswoosh.ogg'
@@ -215,14 +194,12 @@
 				log_combat(user, src, "grabbed", addition="neck grab")
 				visible_message("<span class='danger'>[user] grabs [src] by the neck!</span>",\
 								"<span class='userdanger'>[user] grabs you by the neck!</span>")
-				update_mobility() //we fall down
 				if(!buckled && !density)
 					Move(user.loc)
 			if(GRAB_KILL)
 				log_combat(user, src, "strangled", addition="kill grab")
 				visible_message("<span class='danger'>[user] is strangling [src]!</span>", \
 								"<span class='userdanger'>[user] is strangling you!</span>")
-				update_mobility() //we fall down
 				if(!buckled && !density)
 					Move(user.loc)
 		user.set_pull_offsets(src, grab_state)
@@ -249,6 +226,26 @@
 		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", \
 				"<span class='userdanger'>\The [M.name] glomps you!</span>", null, COMBAT_MESSAGE_RANGE)
 		return TRUE
+
+/mob/living/attack_basic_mob(mob/living/basic/user)
+	if(user.melee_damage == 0)
+		if(user != src)
+			visible_message("<span class='notice'>\The [user] [user.friendly_verb_continuous] [src]!</span>", \
+							"<span class='notice'>\The [user] [user.friendly_verb_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, user)
+			to_chat(user, "<span class='notice'>You [user.friendly_verb_simple] [src]!</span>")
+		return FALSE
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to hurt anyone!</span>")
+		return FALSE
+
+	if(user.attack_sound)
+		playsound(loc, user.attack_sound, 50, TRUE, TRUE)
+	user.do_attack_animation(src)
+	visible_message("<span class='danger'>\The [user] [user.attack_verb_continuous] [src]!", \
+					"<span class='userdanger'>\The [user] [user.attack_verb_continuous] you!", null, COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, "<span class='danger'>You [user.attack_verb_simple] [src]!")
+	log_combat(user, src, "attacked")
+	return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
 	M.face_atom(src)
@@ -345,21 +342,26 @@
 	take_bodypart_damage(acidpwr * min(1, acid_volume * 0.1))
 	return 1
 
-/mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, safety, tesla_shock, illusion, stun)
-	if(tesla_shock && (flags_1 & TESLA_IGNORE_1))
+///As the name suggests, this should be called to apply electric shocks.
+/mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags)
+	shock_damage *= siemens_coeff
+	if((flags & SHOCK_TESLA) && (flags_1 & TESLA_IGNORE_1))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 		return FALSE
-	if(shock_damage > 0)
-		if(!illusion)
-			adjustFireLoss(shock_damage)
-		visible_message(
-			"<span class='danger'>[src] was shocked by \the [source]!</span>", \
-			"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
-			"<span class='italics'>You hear a heavy electrical crack.</span>" \
-		)
-		return shock_damage
+	if(shock_damage < 1)
+		return FALSE
+	if(!(flags & SHOCK_ILLUSION))
+		adjustFireLoss(shock_damage)
+	else
+		adjustStaminaLoss(shock_damage)
+	visible_message(
+		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
+		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
+		"<span class='hear'>You hear a heavy electrical crack.</span>" \
+	)
+	return shock_damage
 
 /mob/living/emp_act(severity)
 	. = ..()
@@ -368,17 +370,19 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
+/*
+ * Singularity acting on every (living)mob will generally lead to a big fat gib, and Mr. Singulo gaining 20 points.
+ * Stuff like clown & engineers with their unique point values are under /mob/living/carbon/human/singularity_act()
+ */
 /mob/living/singularity_act()
-	var/gain = 20
-
 
 	if (client)
 		client.give_award(/datum/award/achievement/misc/singularity_death, client.mob)
 
-
-	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
+	investigate_log("has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
+	investigate_log("has been gibbed by the singularity.", INVESTIGATE_DEATHS)
 	gib()
-	return(gain)
+	return 20 //20 points goes to our lucky winner Mr. Singulo!~
 
 /mob/living/narsie_act()
 	if(status_flags & GODMODE || QDELETED(src))
@@ -394,13 +398,15 @@
 	if(client)
 		makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, src, cultoverride = TRUE)
 	else
-		switch(rand(1, 6))
+		switch(rand(1, 4))
 			if(1)
-				new /mob/living/simple_animal/hostile/construct/armored/hostile(get_turf(src))
+				new /mob/living/simple_animal/hostile/construct/juggernaut/hostile(get_turf(src))
 			if(2)
 				new /mob/living/simple_animal/hostile/construct/wraith/hostile(get_turf(src))
-			if(3 to 6)
-				new /mob/living/simple_animal/hostile/construct/builder/hostile(get_turf(src))
+			if(3)
+				new /mob/living/simple_animal/hostile/construct/artificer/hostile(get_turf(src))
+			if(4)
+				new /mob/living/simple_animal/hostile/construct/proteon/hostile(get_turf(src))
 	spawn_dust()
 	gib()
 	return TRUE
@@ -449,3 +455,150 @@
 
 /mob/living/proc/force_hit_projectile(obj/projectile/projectile)
 	return FALSE
+
+/mob/living/proc/get_weapon_inaccuracy_modifier(atom/target, obj/item/gun/weapon)
+	. = 0
+	if(HAS_TRAIT(src, TRAIT_POOR_AIM)) //nice shootin' tex
+		. += 25
+	// Unwielded weapons
+	if(!weapon.is_wielded && weapon.requires_wielding)
+		. += weapon.spread_unwielded
+	// Nothing to hold onto, slight penalty for flying around in space
+	var/default_speed = get_config_multiplicative_speed() + CONFIG_GET(number/movedelay/run_delay)
+	var/current_speed = cached_multiplicative_slowdown
+	var/move_time = last_move_time
+	// Check for being buckled to mobs and vehicles
+	if (buckled)
+		// If we are on a riding, check that
+		var/datum/component/riding/riding_component = buckled.GetComponent(/datum/component/riding)
+		if (riding_component)
+			current_speed = riding_component.vehicle_move_delay
+			move_time = max(move_time, riding_component.last_vehicle_move)
+		// If we are buckled to a mob, use the speed of the mob we are buckled to instead
+		else if (istype(buckled, /mob))
+			var/mob/buckle_target = buckled
+			current_speed = buckle_target.get_config_multiplicative_speed() + CONFIG_GET(number/movedelay/run_delay)
+			move_time = max(move_time, buckle_target.last_move_time)
+		else
+			// Take the higher value of move time if we don't know what we are buckled to
+			move_time = max(move_time, buckled.last_move_time)
+	// Lower speed is better, so this is reversed
+	var/speed_delta = default_speed - current_speed
+	// Are we holding onto something?
+	var/is_holding = has_gravity(get_turf(src))
+	if (!is_holding)
+		if(locate(/obj/structure/lattice) in range(1, get_turf(src)))
+			is_holding = TRUE
+		else
+			for (var/turf/T as() in RANGE_TURFS(1, src))
+				if (T.density)
+					is_holding = TRUE
+					break
+	// Every 1 faster than default, you get a penalty of 10 accuracy, or 20 if there is no gravity.
+	// If you are moving slower than the default speed, you get a bonus.
+	// This means with the captain's jetpack, the spread cone is 20 degrees.
+	// However, if you aren't moving, this will be 0
+	if (speed_delta > 0)
+		// We haven't moved in 1 second, give us no penalty to aiming
+		if (move_time + 1 SECONDS < world.time)
+			return
+		. += (speed_delta * 10) * (is_holding ? 1 : 2)
+	else
+		// Can only improve up to the maximum improvement, otherwise shotguns gain accuracy when walking
+		// This means walking will improve your accuracy by a total of 12.
+		// This is only really useful if you are using a gun with a shield.
+		. = max(0, . + speed_delta * 8)
+
+/mob/living/proc/is_shove_knockdown_blocked()
+	return FALSE
+
+/// Universal disarm effect, can be used by other components that also want a similar effect to pushback
+/// and stun.
+/mob/living/proc/disarm_effect(mob/living/carbon/user, silent = FALSE)
+	var/turf/target_oldturf = loc
+	var/shove_dir = get_dir(user.loc, target_oldturf)
+	var/turf/target_shove_turf = get_step(loc, shove_dir)
+	var/mob/living/carbon/human/target_collateral_human
+	var/obj/structure/table/target_table
+	var/obj/machinery/disposal/bin/target_disposal_bin
+	var/turf/open/indestructible/sound/pool/target_pool	//This list is getting pretty long, but its better than calling shove_act or something on every atom
+	var/shove_blocked = FALSE //Used to check if a shove is blocked so that if it is knockdown logic can be applied
+
+	//Thank you based whoneedsspace
+	target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
+	if(target_collateral_human)
+		shove_blocked = TRUE
+	else
+		Move(target_shove_turf, shove_dir)
+		if(get_turf(src) == target_oldturf)
+			target_table = locate(/obj/structure/table) in target_shove_turf.contents
+			target_disposal_bin = locate(/obj/machinery/disposal/bin) in target_shove_turf.contents
+			target_pool = istype(target_shove_turf, /turf/open/indestructible/sound/pool) ? target_shove_turf : null
+			shove_blocked = TRUE
+
+	if(IsKnockdown())
+		var/target_held_item = get_active_held_item()
+		if(target_held_item)
+			if (!silent)
+				visible_message("<span class='danger'>[user.name] kicks \the [target_held_item] out of [src]'s hand!</span>",
+								"<span class='danger'>[user.name] kicks \the [target_held_item] out of your hand!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "disarms [target_held_item]", "disarm")
+		else
+			if (!silent)
+				visible_message("<span class='danger'>[user.name] kicks [name] onto [p_their()] side!</span>",
+								"<span class='danger'>[user.name] kicks you onto your side!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "kicks", "disarm", "onto their side (paralyzing)")
+		Paralyze(SHOVE_CHAIN_PARALYZE) //duration slightly shorter than disarm cd
+	if(shove_blocked && !is_shove_knockdown_blocked() && !buckled)
+		var/directional_blocked = FALSE
+		if(shove_dir in GLOB.cardinals) //Directional checks to make sure that we're not shoving through a windoor or something like that
+			var/target_turf = get_turf(src)
+			for(var/obj/O in target_turf)
+				if(O.flags_1 & ON_BORDER_1 && O.dir == shove_dir && O.density)
+					directional_blocked = TRUE
+					break
+			if(target_turf != target_shove_turf) //Make sure that we don't run the exact same check twice on the same tile
+				for(var/obj/O in target_shove_turf)
+					if(O.flags_1 & ON_BORDER_1 && O.dir == turn(shove_dir, 180) && O.density)
+						directional_blocked = TRUE
+						break
+		if((!target_table && !target_collateral_human && !target_disposal_bin && !target_pool && !IsKnockdown()) || directional_blocked)
+			Knockdown(SHOVE_KNOCKDOWN_SOLID)
+			Immobilize(SHOVE_IMMOBILIZE_SOLID)
+			if (!silent)
+				user.visible_message("<span class='danger'>[user.name] shoves [name], knocking [p_them()] down!</span>",
+					"<span class='danger'>You shove [name], knocking [p_them()] down!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "shoved", "disarm", "knocking them down")
+		else if(target_table)
+			Paralyze(SHOVE_KNOCKDOWN_TABLE)
+			if (!silent)
+				user.visible_message("<span class='danger'>[user.name] shoves [name] onto \the [target_table]!</span>",
+					"<span class='danger'>You shove [name] onto \the [target_table]!</span>", null, COMBAT_MESSAGE_RANGE)
+			throw_at(target_table, 1, 1, null, FALSE) //1 speed throws with no spin are basically just forcemoves with a hard collision check
+			log_combat(user, src, "shoved", "disarm", "onto [target_table] (table)")
+		else if(target_collateral_human)
+			Knockdown(SHOVE_KNOCKDOWN_HUMAN)
+			target_collateral_human.Knockdown(SHOVE_KNOCKDOWN_COLLATERAL)
+			if (!silent)
+				user.visible_message("<span class='danger'>[user.name] shoves [name] into [target_collateral_human.name]!</span>",
+					"<span class='danger'>You shove [name] into [target_collateral_human.name]!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "shoved", "disarm", "into [target_collateral_human.name]")
+		else if(target_disposal_bin)
+			Knockdown(SHOVE_KNOCKDOWN_SOLID)
+			forceMove(target_disposal_bin)
+			if (!silent)
+				user.visible_message("<span class='danger'>[user.name] shoves [name] into \the [target_disposal_bin]!</span>",
+					"<span class='danger'>You shove [name] into \the [target_disposal_bin]!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "shoved", "disarm", "into [target_disposal_bin] (disposal bin)")
+		else if(target_pool)
+			Knockdown(SHOVE_KNOCKDOWN_SOLID)
+			forceMove(target_pool)
+			if (!silent)
+				user.visible_message("<span class='danger'>[user.name] shoves [name] into \the [target_pool]!</span>",
+					"<span class='danger'>You shove [name] into \the [target_pool]!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "shoved", "disarm", "into [target_pool] (swimming pool)")
+	else
+		if (!silent)
+			user.visible_message("<span class='danger'>[user.name] shoves [name]!</span>",
+				"<span class='danger'>You shove [name]!</span>", null, COMBAT_MESSAGE_RANGE)
+		log_combat(user, src, "shoved", "disarm")

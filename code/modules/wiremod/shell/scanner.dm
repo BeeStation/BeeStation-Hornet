@@ -5,9 +5,11 @@
  */
 /obj/item/wiremod_scanner
 	name = "scanner"
+	desc = "A handheld device that lets you scan people"
 	icon = 'icons/obj/wiremod.dmi'
 	icon_state = "setup_small"
 	item_state = "electronic"
+	w_class = WEIGHT_CLASS_SMALL
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 
@@ -20,7 +22,7 @@
 	. = ..()
 	AddComponent(/datum/component/shell, list(
 		new /obj/item/circuit_component/wiremod_scanner()
-	), SHELL_CAPACITY_SMALL)
+	), SHELL_CAPACITY_MEDIUM)
 
 /obj/item/circuit_component/wiremod_scanner
 	display_name = "Scanner"

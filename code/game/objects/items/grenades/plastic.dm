@@ -31,7 +31,7 @@
 
 /obj/item/grenade/plastic/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/grenade/plastic/Destroy()
 	qdel(nadeassembly)
@@ -72,7 +72,7 @@
 			density_check = target.density //since turfs getting exploded makes this a bit fucky wucky we need to assert whether we should go directional before that part
 			target.cut_overlay(plastic_overlay)
 			if(!ismob(target) || full_damage_on_mobs)
-				target.ex_act(EXPLODE_HEAVY, target)
+				EX_ACT(target, EXPLODE_HEAVY, target)
 	else
 		location = get_turf(src)
 	if(location)
@@ -106,7 +106,7 @@
 		return
 	var/newtime = input(usr, "Please set the timer.", "Timer", 10) as num
 	if(user.get_active_held_item() == src)
-		newtime = CLAMP(newtime, 10, 60000)
+		newtime = clamp(newtime, 10, 60000)
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
 
@@ -117,6 +117,9 @@
 		return
 	if(ismob(AM) && !can_attach_mob)
 		return
+
+	if(ismob(AM))
+		to_chat(AM, "<span class='userdanger'>[user.name] is trying to plant [name] on you!</span>")
 
 	to_chat(user, "<span class='notice'>You start planting [src]. The timer is set to [det_time]...</span>")
 
@@ -165,7 +168,7 @@
 			message_say = "VIVA LA REVOLUTION!"
 	M.say(message_say, forced="C4 suicide")
 
-/obj/item/grenade/plastic/suicide_act(mob/user)
+/obj/item/grenade/plastic/suicide_act(mob/living/user)
 	message_admins("[ADMIN_LOOKUPFLW(user)] suicided with [src] at [ADMIN_VERBOSEJMP(user)]")
 	log_game("[key_name(user)] suicided with [src] at [AREACOORD(user)]")
 	user.visible_message("<span class='suicide'>[user] activates [src] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!</span>")
@@ -201,7 +204,7 @@
 	target = null
 	return ..()
 
-/obj/item/grenade/plastic/c4/suicide_act(mob/user)
+/obj/item/grenade/plastic/c4/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] activates the [src.name] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!</span>")
 	shout_syndicate_crap(user)
 	target = user

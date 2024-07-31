@@ -39,7 +39,7 @@ GLOBAL_LIST_INIT(summoned_guns, list(
 	/obj/item/gun/energy/plasmacutter/adv,
 	/obj/item/gun/energy/wormhole_projector,
 	/obj/item/gun/ballistic/automatic/wt550,
-	/obj/item/gun/ballistic/shotgun/bulldog,
+	/obj/item/gun/ballistic/shotgun/automatic/bulldog,
 	/obj/item/gun/ballistic/revolver/grenadelauncher,
 	/obj/item/gun/ballistic/revolver/golden,
 	/obj/item/gun/ballistic/sniper_rifle,
@@ -73,8 +73,7 @@ GLOBAL_LIST_INIT(summoned_magic, list(
 	/obj/item/warpwhistle,
 	/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 	/obj/item/immortality_talisman,
-	/obj/item/melee/ghost_sword,
-	/obj/item/stand_arrow))
+	/obj/item/melee/ghost_sword))
 
 GLOBAL_LIST_INIT(summoned_special_magic, list(
 	/obj/item/gun/magic/staff/change,
@@ -98,8 +97,7 @@ GLOBAL_LIST_INIT(summoned_magic_objectives, list(
 	/obj/item/spellbook,
 	/obj/item/storage/belt/wands/full,
 	/obj/item/voodoo,
-	/obj/item/warpwhistle,
-	/obj/item/stand_arrow))
+	/obj/item/warpwhistle))
 
 // If true, it's the probability of triggering "survivor" antag.
 GLOBAL_VAR_INIT(summon_guns_triggered, FALSE)

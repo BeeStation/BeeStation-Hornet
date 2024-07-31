@@ -29,7 +29,7 @@
 	response_disarm = "shoves"
 	response_harm = "hits"
 	speed = 0
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 	maxHealth = 100
 	health = 100
@@ -46,7 +46,7 @@
 	del_on_death = TRUE
 	dodging = TRUE
 	rapid_melee = 2
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	mobchatspan = "syndmob"
 
 ///////////////Melee////////////

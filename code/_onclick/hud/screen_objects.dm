@@ -15,16 +15,23 @@
 	speech_span = SPAN_ROBOT
 	vis_flags = VIS_INHERIT_PLANE
 	appearance_flags = APPEARANCE_UI
-	/// A reference to the object in the slot. Grabs or items, generally.
-	var/obj/master = null
 	/// A reference to the owner HUD, if any.
 	var/datum/hud/hud = null
-
-
-/atom/movable/screen/Destroy()
-	master = null
-	hud = null
-	return ..()
+	/**
+	 * Map name assigned to this object.
+	 * Automatically set by /client/proc/add_obj_to_map.
+	 */
+	var/assigned_map
+	/**
+	 * Mark this object as garbage-collectible after you clean the map
+	 * it was registered on.
+	 *
+	 * This could probably be changed to be a proc, for conditional removal.
+	 * But for now, this works.
+	 */
+	var/del_on_map_removal = TRUE
+	///Can we throw things at this
+	var/can_throw_target = FALSE
 
 /atom/movable/screen/examine(mob/user)
 	return list()
@@ -101,16 +108,6 @@
 	plane = HUD_PLANE
 
 /atom/movable/screen/inventory/Click(location, control, params)
-	// At this point in client Click() code we have passed the 1/10 sec check and little else
-	// We don't even know if it's a middle click
-	if(world.time <= usr.next_move)
-		return TRUE
-
-	if(usr.incapacitated())
-		return TRUE
-	if(ismecha(usr.loc)) // stops inventory actions in a mech
-		return TRUE
-
 	//This is where putting stuff into hands is handled
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
@@ -233,9 +230,14 @@
 	plane = ABOVE_HUD_PLANE
 	icon_state = "backpack_close"
 
+	/// A reference to the object in the slot. Grabs or items, generally.
+	var/datum/component/storage/master = null
+
 /atom/movable/screen/close/Initialize(mapload, new_master)
 	. = ..()
 	master = new_master
+	if (master && !istype(master))
+		CRASH("Attempting to create a backpack close without referencing a storage concrete component.")
 
 /atom/movable/screen/close/Click()
 	var/datum/component/storage/S = master
@@ -251,6 +253,11 @@
 /atom/movable/screen/drop/Click()
 	if(usr.stat == CONSCIOUS)
 		usr.dropItemToGround(usr.get_active_held_item())
+		update_icon()
+
+/atom/movable/screen/drop/disappearing/update_icon_state()
+	icon_state = usr.get_active_held_item() ? "act_drop" : null
+	return ..()
 
 /atom/movable/screen/act_intent
 	name = "intent"
@@ -349,6 +356,11 @@
 		return
 	C.update_action_buttons_icon()
 
+/atom/movable/screen/spacesuit
+	name = "Space suit cell status"
+	icon_state = "spacesuit_0"
+	screen_loc = ui_spacesuit
+
 /atom/movable/screen/mov_intent
 	name = "run/walk toggle"
 	icon = 'icons/mob/screen_midnight.dmi'
@@ -407,7 +419,7 @@
 /atom/movable/screen/rest/Click()
 	if(isliving(usr))
 		var/mob/living/L = usr
-		L.lay_down()
+		L.toggle_resting()
 
 /atom/movable/screen/rest/update_icon_state()
 	var/mob/living/user = hud?.mymob
@@ -425,22 +437,17 @@
 	icon_state = "block"
 	screen_loc = "7,7 to 10,8"
 	plane = HUD_PLANE
+	/// A reference to the object in the slot. Grabs or items, generally.
+	var/datum/component/storage/master = null
 
 /atom/movable/screen/storage/Initialize(mapload, new_master)
 	. = ..()
 	master = new_master
+	if (master && !istype(master))
+		CRASH("Attempting to create a backpack close without referencing a storage concrete component.")
 
-/atom/movable/screen/storage/Click(location, control, params)
-	if(world.time <= usr.next_move)
-		return TRUE
-	if(usr.incapacitated())
-		return TRUE
-	if (ismecha(usr.loc)) // stops inventory actions in a mech
-		return TRUE
-	if(master)
-		var/obj/item/I = usr.get_active_held_item()
-		if(I)
-			master.attackby(null, I, usr, params)
+/atom/movable/screen/storage/attackby(obj/item/W, mob/user, params)
+	master.attackby(src, W, user, params)
 	return TRUE
 
 /atom/movable/screen/throw_catch
@@ -469,7 +476,7 @@
 	var/list/modifiers = params2list(params)
 	var/icon_x = text2num(LAZYACCESS(modifiers, ICON_X))
 	var/icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))
-	var/choice = get_zone_at(icon_x, icon_y)
+	var/choice = get_zone_at(usr, icon_x, icon_y)
 	if (!choice)
 		return 1
 
@@ -485,7 +492,7 @@
 	var/list/modifiers = params2list(params)
 	var/icon_x = text2num(LAZYACCESS(modifiers, ICON_X))
 	var/icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))
-	var/choice = get_zone_at(icon_x, icon_y)
+	var/choice = get_zone_at(usr, icon_x, icon_y)
 
 	if(hovering == choice)
 		return
@@ -512,43 +519,44 @@
 		vis_contents -= hover_overlays_cache[hovering]
 		hovering = null
 
-/atom/movable/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)
+/atom/movable/screen/zone_sel/proc/get_zone_at(mob/user, icon_x, icon_y)
+	var/simple_mode = user.client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) == PREFERENCE_BODYZONE_SIMPLIFIED
 	switch(icon_y)
 		if(1 to 9) //Legs
 			switch(icon_x)
 				if(10 to 15)
-					return BODY_ZONE_R_LEG
+					return simple_mode ? BODY_GROUP_LEGS : BODY_ZONE_R_LEG
 				if(17 to 22)
-					return BODY_ZONE_L_LEG
+					return simple_mode ? BODY_GROUP_LEGS : BODY_ZONE_L_LEG
 		if(10 to 13) //Hands and groin
 			switch(icon_x)
 				if(8 to 11)
-					return BODY_ZONE_R_ARM
+					return simple_mode ? BODY_GROUP_ARMS : BODY_ZONE_R_ARM
 				if(12 to 20)
-					return BODY_ZONE_PRECISE_GROIN
+					return simple_mode ? BODY_GROUP_ARMS : BODY_ZONE_PRECISE_GROIN
 				if(21 to 24)
-					return BODY_ZONE_L_ARM
+					return simple_mode ? BODY_GROUP_ARMS : BODY_ZONE_L_ARM
 		if(14 to 22) //Chest and arms to shoulders
 			switch(icon_x)
 				if(8 to 11)
-					return BODY_ZONE_R_ARM
+					return simple_mode ? BODY_GROUP_ARMS : BODY_ZONE_R_ARM
 				if(12 to 20)
-					return BODY_ZONE_CHEST
+					return simple_mode ? BODY_GROUP_CHEST_HEAD : BODY_ZONE_CHEST
 				if(21 to 24)
-					return BODY_ZONE_L_ARM
+					return simple_mode ? BODY_GROUP_ARMS : BODY_ZONE_L_ARM
 		if(23 to 30) //Head, but we need to check for eye or mouth
 			if(icon_x in 12 to 20)
 				switch(icon_y)
 					if(23 to 24)
 						if(icon_x in 15 to 17)
-							return BODY_ZONE_PRECISE_MOUTH
+							return simple_mode ? BODY_GROUP_CHEST_HEAD : BODY_ZONE_PRECISE_MOUTH
 					if(26) //Eyeline, eyes are on 15 and 17
 						if(icon_x in 14 to 18)
-							return BODY_ZONE_PRECISE_EYES
+							return simple_mode ? BODY_GROUP_CHEST_HEAD : BODY_ZONE_PRECISE_EYES
 					if(25 to 27)
 						if(icon_x in 15 to 17)
-							return BODY_ZONE_PRECISE_EYES
-				return BODY_ZONE_HEAD
+							return simple_mode ? BODY_GROUP_CHEST_HEAD : BODY_ZONE_PRECISE_EYES
+				return simple_mode ? BODY_GROUP_CHEST_HEAD : BODY_ZONE_HEAD
 
 /atom/movable/screen/zone_sel/proc/set_selected_zone(choice, mob/user)
 	if(user != hud?.mymob)
@@ -565,7 +573,7 @@
 	cut_overlay(selecting_appearance)
 	selecting_appearance = mutable_appearance('icons/mob/screen_gen.dmi', "[selecting]")
 	add_overlay(selecting_appearance)
-	hud?.mymob?.zone_selected = selecting
+	hud?.mymob?._set_zone_selected(selecting)
 
 /atom/movable/screen/zone_sel/alien
 	icon = 'icons/mob/screen_alien.dmi'
@@ -575,7 +583,7 @@
 	cut_overlay(selecting_appearance)
 	selecting_appearance = mutable_appearance('icons/mob/screen_alien.dmi', "[selecting]")
 	add_overlay(selecting_appearance)
-	hud?.mymob?.zone_selected = selecting
+	hud?.mymob?._set_zone_selected(selecting)
 
 /atom/movable/screen/zone_sel/robot
 	icon = 'icons/mob/screen_cyborg.dmi'
@@ -631,13 +639,6 @@
 	name = "overmind health"
 	screen_loc = ui_health
 	icon_state = "corehealth"
-
-/atom/movable/screen/healths/guardian
-	name = "summoner health"
-	icon = 'icons/mob/guardian.dmi'
-	icon_state = "base"
-	screen_loc = ui_health
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /atom/movable/screen/healths/clock
 	icon = 'icons/mob/actions.dmi'

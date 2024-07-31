@@ -1,7 +1,7 @@
 /datum/job/deputy
 	title = JOB_NAME_DEPUTY
-	flag = DEPUTY
 	description = "Follow orders and do your best to maintain order on the station while following Space Law."
+	lock_flags = JOB_LOCK_REASON_ABSTRACT
 	department_for_prefs = DEPT_BITFLAG_SEC
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
@@ -15,16 +15,15 @@
 
 	outfit = /datum/outfit/job/deputy
 
-	access = list(ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
-	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
+	base_access = list(ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
+	extra_access = list()
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_EASY)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
-	display_order = JOB_DISPLAY_ORDER_DEPUTY  //see code/__DEFINES/jobs.dm
+	show_in_prefs = FALSE
 
 /datum/outfit/job/deputy
 	name = JOB_NAME_DEPUTY
@@ -43,7 +42,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
-	box = /obj/item/storage/box/survival
+	box = /obj/item/storage/box/survival/normal
 
 /obj/item/card/id/pass/deputy
 	name = "deputy promotion card"

@@ -331,3 +331,20 @@ export const validHex = (value: string, alpha?: boolean): boolean => {
     (!!alpha && length === 8) // '#rrggbbaa' format
   );
 };
+
+// Source for the following luminance and contrast calculation code: https://blog.cristiana.tech/calculating-color-contrast-in-typescript-using-web-content-accessibility-guidelines-wcag
+export const luminance = (rgb: RgbColor): number => {
+  const [r, g, b] = [rgb.r, rgb.g, rgb.b].map((v) => {
+    v /= 255;
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  return r * 0.2126 + g * 0.7152 + b * 0.0722;
+};
+
+export const contrast = (foreground: RgbColor, background: RgbColor): number => {
+  const foreground_luminance = luminance(foreground);
+  const background_luminance = luminance(background);
+  return background_luminance < foreground_luminance
+    ? (background_luminance + 0.05) / (foreground_luminance + 0.05)
+    : (foreground_luminance + 0.05) / (background_luminance + 0.05);
+};

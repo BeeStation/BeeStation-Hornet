@@ -25,8 +25,6 @@
 		to_chat(user, "<span class='notice'>The keycard beeps twice and disconnects the quantum link.</span>")
 		qpad = null
 
-/obj/item/quantum_keycard/update_icon()
-	if(qpad)
-		icon_state = "quantum_keycard_on"
-	else
-		icon_state = initial(icon_state)
+/obj/item/quantum_keycard/update_icon_state()
+	icon_state = qpad ? "quantum_keycard_on" : initial(icon_state)
+	return ..()

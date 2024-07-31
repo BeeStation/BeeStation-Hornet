@@ -156,10 +156,6 @@ Passive gate is similar to the regular pump except:
 	update_icon()
 	ui_update()
 
-/obj/machinery/atmospherics/components/binary/passive_gate/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/atmospherics/components/binary/passive_gate/can_unwrench(mob/user)
 	. = ..()
 	if(. && on)

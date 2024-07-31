@@ -2,7 +2,8 @@
 
 /obj/projectile/bullet/n762
 	name = "7.62x38mmR bullet"
-	damage = 60
+	damage = 55
+	armour_penetration = 12
 
 // .50AE (Desert Eagle)
 
@@ -32,14 +33,14 @@
 
 /obj/projectile/bullet/c38/match/bouncy
 	name = ".38 Bouncy Rubber bullet"
-	damage = 10
-	stamina = 30
-	armour_penetration = -30
-	ricochets_max = 6
+	damage = 7
+	stamina = 27
+	bleed_force = BLEED_SCRATCH
+	ricochets_max = 5
 	ricochet_incidence_leeway = 70
 	ricochet_chance = 130
-	ricochet_decay_damage = 0.8
-	shrapnel_type = NONE
+	ricochet_decay_damage = 0.9
+	armour_penetration = -20
 
 /obj/projectile/bullet/c38/dumdum
 	name = ".38 DumDum bullet"
@@ -66,19 +67,19 @@
 
 /obj/projectile/bullet/c38/hotshot //similar to incendiary bullets, but do not leave a flaming trail
 	name = ".38 Hot Shot bullet"
-	damage = 20
+	damage = 12
 	ricochets_max = 0
 
 /obj/projectile/bullet/c38/hotshot/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(6)
+		M.adjust_fire_stacks(2)
 		M.IgniteMob()
 
 /obj/projectile/bullet/c38/iceblox //see /obj/projectile/temp for the original code
 	name = ".38 Iceblox bullet"
-	damage = 20
+	damage = 15
 	var/temperature = 100
 	ricochets_max = 0
 
@@ -88,12 +89,28 @@
 		var/mob/living/M = target
 		M.adjust_bodytemperature(((100-blocked)/100)*(temperature - M.bodytemperature))
 
+/obj/projectile/bullet/c38/emp
+	name = ".38 BLK_OUT bullet"
+	damage = 8
+	ricochets_max = 0
+
+/obj/projectile/bullet/c38/emp/on_hit(atom/target)
+	. = ..()
+	empulse(target, 0, 2)
+
+/obj/projectile/bullet/c38/improv
+	damage = 25
+	ricochets_max = 1
+	ricochet_chance = 80
+	ricochet_auto_aim_range = 0
+
 /obj/projectile/bullet/c38/mime
 	name = "invisible .38 bullet"
 	icon_state = null
 	damage = 0
 	nodamage = TRUE
 	martial_arts_no_deflect = TRUE
+	bleed_force = 0
 
 /obj/projectile/bullet/c38/mime/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target))
@@ -121,6 +138,10 @@
 /obj/projectile/bullet/a357
 	name = ".357 bullet"
 	damage = 60
+
+/obj/projectile/bullet/a357/improv
+	damage = 50
+	armour_penetration = -10
 
 // admin only really, for ocelot memes
 /obj/projectile/bullet/a357/match

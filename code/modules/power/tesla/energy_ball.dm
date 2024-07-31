@@ -70,7 +70,7 @@
 	for (var/ball in orbiting_balls)
 		if(TICK_CHECK)
 			return
-		var/range = rand(1, CLAMP(orbiting_balls.len, 3, 7))
+		var/range = rand(1, clamp(orbiting_balls.len, 3, 7))
 		//Miniballs don't explode.
 		tesla_zap(ball, range, TESLA_MINI_POWER/7*range, TESLA_ENERGY_MINI_BALL_FLAGS)
 
@@ -147,13 +147,17 @@
 	dust_mobs(AM)
 
 /obj/anomaly/energy_ball/attack_tk(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		to_chat(C, "<span class='userdanger'>That was a shockingly dumb idea.</span>")
-		var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in C.internal_organs
-		C.ghostize(0)
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/jedi = user
+	to_chat(jedi, "<span class='userdanger'>That was a shockingly dumb idea.</span>")
+	var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in jedi.internal_organs
+	jedi.ghostize(jedi)
+	if(rip_u)
 		qdel(rip_u)
-		C.death()
+	jedi.investigate_log("had [jedi.p_their()] brain dusted by touching [src] with telekinesis.", INVESTIGATE_DEATHS)
+	jedi.death()
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/anomaly/energy_ball/proc/dust_mobs(atom/A)
 	if(isliving(A))
@@ -166,6 +170,7 @@
 		if(GR.anchored)
 			return
 	var/mob/living/carbon/C = A
+	C.investigate_log("has been dusted by an energy ball.", INVESTIGATE_DEATHS)
 	C.dust()
 
 //Less intensive energy ball for the orbiting ones.
@@ -304,7 +309,7 @@
 		if(priority == 3)
 			var/mob/living/m = closest_atom
 			var/shock_damage = (tesla_flags & TESLA_MOB_DAMAGE)? (min(round(power/600), 90) + rand(-5, 5)) : 0
-			m.electrocute_act(shock_damage, source, 1, tesla_shock = 1, stun = (tesla_flags & TESLA_MOB_STUN))
+			m.electrocute_act(shock_damage, source, 1, SHOCK_TESLA | ((tesla_flags & TESLA_MOB_STUN) ? NONE : SHOCK_NOSTUN))
 			if(issilicon(m))
 				if((tesla_flags & TESLA_MOB_STUN) && (tesla_flags & TESLA_MOB_DAMAGE))
 					m.emp_act(EMP_LIGHT)

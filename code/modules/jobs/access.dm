@@ -2,10 +2,14 @@
 ///returns TRUE if this mob has sufficient access to use this object.
 ///Note that this will return FALSE when passed null, unless the door doesn't require any access.
 /obj/proc/allowed(mob/accessor)
+	if(!accessor) // early return for null check. This exists because attack_tk() sends null accessor
+		return src.check_access(null)
 	if(SEND_SIGNAL(src, COMSIG_OBJ_ALLOWED, accessor) & COMPONENT_OBJ_ALLOW)
 		return TRUE
 	//check if it doesn't require any access at all
 	if(src.check_access(null))
+		return TRUE
+	if(length(accessor.buckled_mobs) && handle_buckled_access(accessor))
 		return TRUE
 	if(issilicon(accessor))
 		var/mob/living/silicon/S = accessor
@@ -30,6 +34,15 @@
 		if(check_access(A.get_active_held_item()) || check_access(A.access_card))
 			return TRUE
 	return FALSE
+
+/obj/proc/handle_buckled_access(mob/accessor)
+	. = FALSE
+	// check if someone riding on / buckled to them has access
+	for(var/mob/living/buckled in accessor.buckled_mobs)
+		if(accessor == buckled || buckled == src) // just in case to prevent a possible infinite loop scenario (but it won't happen)
+			continue
+		if(allowed(buckled))
+			return TRUE
 
 /obj/item/proc/GetAccess()
 	return list()

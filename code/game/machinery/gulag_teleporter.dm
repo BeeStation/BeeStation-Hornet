@@ -40,10 +40,6 @@ The console is located at computer/gulag_teleporter.dm
 		linked_reclaimer.linked_teleporter = null
 	return ..()
 
-/obj/machinery/gulag_teleporter/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/gulag_teleporter/interact(mob/user)
 	. = ..()
 	if(locked)
@@ -86,7 +82,7 @@ The console is located at computer/gulag_teleporter.dm
 		return
 
 
-/obj/machinery/gulag_teleporter/relaymove(mob/user)
+/obj/machinery/gulag_teleporter/relaymove(mob/living/user, direction)
 	if(user.stat != CONSCIOUS)
 		return
 	if(locked)

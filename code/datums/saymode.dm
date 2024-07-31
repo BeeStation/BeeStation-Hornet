@@ -87,3 +87,14 @@
 		// Nope, no slime link here. Continue normal say() behavior.
 		return TRUE
 	owning_stargazer.slime_chat(user, message)
+
+/datum/saymode/holoparasite
+	key = MODE_KEY_HOLOPARASITE
+	mode = MODE_HOLOPARASITE
+	early = TRUE
+
+/datum/saymode/holoparasite/handle_message(mob/living/user, message, datum/language/_language)
+	. = FALSE
+	if(!istype(user) || !user.mind || !length(message) || (!isholopara(user) && !user.has_holoparasites()))
+		return TRUE
+	user.holoparasite_telepathy(message, sanitize = FALSE) // sanitize = FALSE is used because say() sanitizes the message before passing it to any saymodes, even early saymodes.

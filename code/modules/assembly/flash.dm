@@ -10,7 +10,7 @@
 	icon_state = "flashbulb"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
-	materials = list(/datum/material/iron = 150, /datum/material/glass = 100)
+	custom_materials = list(/datum/material/iron = 150, /datum/material/glass = 100)
 	flags_1 = CONDUCT_1
 	throw_speed = 3
 	throw_range = 7
@@ -83,7 +83,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
-	materials = list(/datum/material/iron = 300, /datum/material/glass = 300)
+	custom_materials = list(/datum/material/iron = 300, /datum/material/glass = 300)
 	light_color = LIGHT_COLOR_WHITE
 	light_system = MOVABLE_LIGHT //Used as a flash here.
 	light_range = FLASH_LIGHT_RANGE
@@ -105,7 +105,7 @@
 
 /obj/item/assembly/flash/Initialize(mapload)
 	. = ..()
-	bulb = new bulb
+	bulb = new bulb(src)
 
 /obj/item/assembly/flash/examine(mob/user)
 	. = ..()
@@ -245,7 +245,7 @@
 		to_chat(M, "<span class='disarm'>[src] emits a blinding light!</span>")
 	if(targeted)
 		//No flash protection, blind and stun
-		if(M.flash_act(1, TRUE))
+		if(M.flash_act(1))
 			if(user)
 				terrible_conversion_proc(M, user)
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
@@ -255,7 +255,7 @@
 				to_chat(M, "<span class='userdanger'>You are blinded by [src]!</span>")
 			//Will be 0 if the user has no stmaina loss, will be 1 if they are in stamcrit
 			var/flash_proportion = CLAMP01(M.getStaminaLoss() / (M.maxHealth - M.crit_threshold))
-			if (!(M.mobility_flags & MOBILITY_STAND))
+			if (M.body_position == LYING_DOWN)
 				flash_proportion = 1
 			if(flash_proportion > 0.4)
 				M.Paralyze(70 * flash_proportion)
@@ -295,7 +295,7 @@
 		log_combat(user, R, "flashed", src)
 		update_icon(1)
 		R.flash_act(affect_silicon = 1, type = /atom/movable/screen/fullscreen/flash/static)
-		if(R.last_flashed + 30 SECONDS < world.time)
+		if(R.last_flashed + FLASHED_COOLDOWN < world.time)
 			R.last_flashed = world.time
 			R.Paralyze(5 SECONDS)
 			user.visible_message("<span class='disarm'>[user] overloads [R]'s sensors with the flash!</span>", "<span class='danger'>You overload [R]'s sensors with the flash!</span>")

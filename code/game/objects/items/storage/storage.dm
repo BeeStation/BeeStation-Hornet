@@ -1,16 +1,18 @@
 /obj/item/storage
 	name = "storage"
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	var/rummage_if_nodrop = TRUE
 	var/component_type = /datum/component/storage/concrete
+	var/empty = FALSE
 
 /obj/item/storage/get_dumping_location(obj/item/storage/source,mob/user)
 	return src
 
 /obj/item/storage/Initialize(mapload)
 	. = ..()
-	PopulateContents()
+	if(!empty)
+		PopulateContents()
 
 /obj/item/storage/ComponentInitialize()
 	AddComponent(component_type)

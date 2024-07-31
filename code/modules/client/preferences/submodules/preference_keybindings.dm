@@ -28,6 +28,7 @@
 		return FALSE
 	if(!islist(hotkeys))
 		return
+	log_preferences("[parent?.ckey]: Set keybind [keybind_name] to [english_list(hotkeys)].")
 	key_bindings[keybind_name] = hotkeys
 	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
 	mark_undatumized_dirty_player()

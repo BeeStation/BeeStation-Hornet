@@ -27,6 +27,7 @@
 /datum/preference_middleware/keybindings/proc/reset_all_keybinds(list/params, mob/user)
 	preferences.set_default_key_bindings(save = TRUE) // this also updates special keybinds
 	preferences.update_static_data(user)
+	log_preferences("[preferences?.parent?.ckey]: Reset all keybinds.")
 	return TRUE
 
 /datum/preference_middleware/keybindings/proc/reset_keybinds_to_defaults(list/params, mob/user)
@@ -85,9 +86,12 @@
 		if (!(keybinding.category in keybindings))
 			keybindings[keybinding.category] = list()
 
+		var/datum/preference/required_type = keybinding.required_pref_type
 		keybindings[keybinding.category][keybinding.name] = list(
 			"name" = keybinding.full_name,
 			"description" = keybinding.description,
+			"pref_key" = required_type && initial(required_type.db_key),
+			"pref_value" = keybinding.required_pref_value,
 		)
 
 	return keybindings

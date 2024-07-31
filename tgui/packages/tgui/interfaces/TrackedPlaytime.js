@@ -9,7 +9,7 @@ const JOB_REPORT_MENU_FAIL_REASON_NO_RECORDS = 2;
 const sortByPlaytime = sortBy(([_, playtime]) => -playtime);
 
 const PlaytimeSection = (props) => {
-  const { playtimes } = props;
+  const { playtimes, removedJobs } = props;
   const sortedPlaytimes = sortByPlaytime(Object.entries(playtimes));
   const mostPlayed = sortedPlaytimes[0][1];
   return (
@@ -24,7 +24,7 @@ const PlaytimeSection = (props) => {
               style={{
                 'vertical-align': 'middle',
               }}>
-              <Box align="right">{jobName}</Box>
+              <Box align="right">{jobName + (removedJobs?.includes(jobName) ? ' (Removed)' : '')}</Box>
             </Table.Cell>
             <Table.Cell>
               <ProgressBar maxValue={mostPlayed} value={playtime}>
@@ -49,7 +49,7 @@ const PlaytimeSection = (props) => {
 
 export const TrackedPlaytime = (props, context) => {
   const { data } = useBackend(context);
-  const { failReason, jobPlaytimes, specialPlaytimes, livingTime, ghostTime } = data;
+  const { failReason, jobPlaytimes = {}, jobRemovedPlaytimes = {}, specialPlaytimes, livingTime, ghostTime } = data;
   return (
     <Window title="Tracked Playtime" width={550} height={650}>
       <Window.Content scrollable>
@@ -66,7 +66,10 @@ export const TrackedPlaytime = (props, context) => {
               />
             </Section>
             <Section title="Jobs">
-              <PlaytimeSection playtimes={jobPlaytimes} />
+              <PlaytimeSection
+                playtimes={{ ...jobPlaytimes, ...jobRemovedPlaytimes }}
+                removedJobs={Object.keys(jobRemovedPlaytimes)}
+              />
             </Section>
             <Section title="Special">
               <PlaytimeSection playtimes={specialPlaytimes} />

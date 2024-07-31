@@ -119,7 +119,7 @@
 			//Check that the uplink has purchased this item (Sales can be refunded as the path relates to the old one)
 			var/hash = purchase_log.hash_purchase(UI, UI.cost)
 			var/datum/uplink_purchase_entry/UPE = purchase_log.purchase_log[hash]
-			if(I.type == path && UI.refundable && I.check_uplink_validity() && UPE?.amount_purchased > 0 && UPE.allow_refund)
+			if(I.type == path && UI.can_be_refunded(I, src) && I.check_uplink_validity() && UPE?.amount_purchased > 0 && UPE.allow_refund)
 				UPE.amount_purchased --
 				if(!UPE.amount_purchased)
 					purchase_log.purchase_log.Remove(hash)
@@ -141,7 +141,7 @@
 	if(user)
 		INVOKE_ASYNC(src, PROC_REF(ui_interact), user)
 	// an unlocked uplink blocks also opening the PDA or headset menu
-	return COMPONENT_NO_INTERACT
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 
 /datum/component/uplink/ui_state(mob/user)
@@ -201,6 +201,8 @@
 				"name" = I.name,
 				"cost" = I.cost,
 				"desc" = I.desc,
+				"is_illegal" = I.illegal_tech,
+				"are_contents_illegal" = I.contents_are_illegal_tech
 			))
 		data["categories"] += list(cat)
 	return data
@@ -314,14 +316,15 @@
 		interact(null, master.loc)
 
 
-/datum/component/uplink/proc/radio_message(datum/source, mob/living/user, message, channel)
+/datum/component/uplink/proc/radio_message(datum/source, mob/living/user, treated_message, channel, list/message_mods)
 	SIGNAL_HANDLER
+	var/message_to_use = message_mods[MODE_UNTREATED_MESSAGE]
 
 	if(channel != RADIO_CHANNEL_UPLINK)
 		return
 
-	if(!findtext(lowertext(message), lowertext(unlock_code)))
-		if(failsafe_code && findtext(lowertext(message), lowertext(failsafe_code)))
+	if(!findtext(lowertext(message_to_use), lowertext(unlock_code)))
+		if(failsafe_code && findtext(lowertext(message_to_use), lowertext(failsafe_code)))
 			failsafe()
 		return
 	locked = FALSE

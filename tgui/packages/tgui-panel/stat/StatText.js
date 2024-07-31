@@ -4,6 +4,7 @@ import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { Divider, Table } from '../../tgui/components';
 import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_BLANK } from './constants';
+import { capitalize } from 'common/string';
 
 export const StatText = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
@@ -19,24 +20,31 @@ export const StatText = (props, context) => {
     <div className="StatBorder">
       <Box>
         {statPanelData
-          ? Object.keys(statPanelData).map(
-            (key) =>
-              !!statPanelData[key] &&
-              ((statPanelData[key].type === STAT_TEXT && <StatTextText title={key} text={statPanelData[key].text} />) ||
-                (statPanelData[key].type === STAT_BUTTON && (
-                  <StatTextButton
-                    title={key}
-                    text={statPanelData[key].text}
-                    action_id={statPanelData[key].action}
-                    params={statPanelData[key].params}
-                  />
-                )) ||
-                (statPanelData[key].type === STAT_ATOM && (
-                  <StatTextAtom atom_ref={key} atom_name={statPanelData[key].text} />
-                )) ||
-                (statPanelData[key].type === STAT_DIVIDER && <StatTextDivider />) ||
-                (statPanelData[key].type === STAT_BLANK && <br />))
-          )
+          ? Object.keys(statPanelData)
+            .filter((x) => x !== null)
+            .sort((a, b) => {
+              return StatTagToPriority(statPanelData[b].tag) - StatTagToPriority(statPanelData[a].tag);
+            })
+            .map(
+              (key) =>
+                !!statPanelData[key] &&
+                ((statPanelData[key].type === STAT_TEXT && <StatTextText title={key} text={statPanelData[key].text} />) ||
+                  (statPanelData[key].type === STAT_BUTTON && (
+                    <StatTextButton
+                      title={key}
+                      text={statPanelData[key].text}
+                      action_id={statPanelData[key].action}
+                      params={statPanelData[key].params}
+                      multirow={statPanelData[key].multirow}
+                      buttons={statPanelData[key].buttons}
+                    />
+                  )) ||
+                  (statPanelData[key].type === STAT_ATOM && (
+                    <StatTextAtom atom_ref={key} atom_name={statPanelData[key].text} atom_tag={statPanelData[key].tag} />
+                  )) ||
+                  (statPanelData[key].type === STAT_DIVIDER && <StatTextDivider />) ||
+                  (statPanelData[key].type === STAT_BLANK && <br />))
+            )
           : 'No data'}
         {Object.keys(verbs).map((verb) => (
           <StatTextVerb key={verb} title={verb} action_id={verbs[verb].action} params={verbs[verb].params} />
@@ -44,6 +52,46 @@ export const StatText = (props, context) => {
       </Box>
     </div>
   );
+};
+
+const StatTagToPriority = (text) => {
+  switch (text) {
+    case 'You':
+      return 11;
+    case 'Human':
+      return 10;
+    case 'Mob':
+      return 9;
+    case 'Structure':
+      return 8;
+    case 'Machinery':
+      return 7;
+    case 'Item':
+      return 6;
+    case 'Turf':
+      return 4;
+  }
+  return 5;
+};
+
+const StatTagToClassName = (text) => {
+  switch (text) {
+    case 'You':
+      return 'StatAtomTag Self';
+    case 'Turf':
+      return 'StatAtomTag Turf';
+    case 'Human':
+      return 'StatAtomTag Human';
+    case 'Mob':
+      return 'StatAtomTag Mob';
+    case 'Structure':
+      return 'StatAtomTag Structure';
+    case 'Machinery':
+      return 'StatAtomTag Machinery';
+    case 'Item':
+      return 'StatAtomTag Item';
+  }
+  return 'StatAtomTag Other';
 };
 
 /*
@@ -61,10 +109,12 @@ export const StatTextText = (props, context) => {
 };
 
 export const StatTextButton = (props, context) => {
-  const { title, text, action_id, params = [] } = props;
+  const { title, text, action_id, params = [], multirow = false, buttons = [] } = props;
   return (
     <Flex.Item mt={1}>
       <Button
+        width="100%"
+        overflowX="hidden"
         onClick={() =>
           Byond.sendMessage('stat/pressed', {
             action_id: action_id,
@@ -72,8 +122,61 @@ export const StatTextButton = (props, context) => {
           })
         }
         color="transparent">
-        <b>{title}: </b>
-        {text}
+        {!multirow ? (
+          <Flex direction="row">
+            <Flex.Item bold>{title}</Flex.Item>
+            {buttons.map((buttonInfo) => (
+              <Flex.Item shrink={1} key={buttonInfo}>
+                <Button
+                  color={buttonInfo['color']}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    Byond.sendMessage('stat/pressed', {
+                      action_id: buttonInfo['action_id'],
+                      params: buttonInfo['params'],
+                    });
+                  }}>
+                  {buttonInfo['title']}
+                </Button>
+              </Flex.Item>
+            ))}
+            <Flex.Item
+              grow={1}
+              ml={1.5}
+              style={{
+                'white-space': 'normal',
+              }}>
+              {text}
+            </Flex.Item>
+          </Flex>
+        ) : (
+          <>
+            <Flex bold direction="row">
+              <Flex.Item grow={1}>{title}</Flex.Item>
+              {buttons.map((buttonInfo) => (
+                <Flex.Item shrink={1} key={buttonInfo}>
+                  <Button
+                    color={buttonInfo['color']}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      Byond.sendMessage('stat/pressed', {
+                        action_id: buttonInfo['action_id'],
+                        params: buttonInfo['params'],
+                      });
+                    }}>
+                    {buttonInfo['title']}
+                  </Button>
+                </Flex.Item>
+              ))}
+            </Flex>
+            <Box
+              style={{
+                'white-space': 'normal',
+              }}>
+              {text}
+            </Box>
+          </>
+        )}
       </Button>
     </Flex.Item>
   );
@@ -86,13 +189,16 @@ const storeAtomRef = (value) => {
 const retrieveAtomRef = () => janky_storage;
 
 export const StatTextAtom = (props, context) => {
-  const { atom_name, atom_ref } = props;
+  const { atom_name, atom_ref, atom_tag } = props;
 
   storeAtomRef(null);
 
   return (
-    <Flex.Item mt={1}>
+    <Flex.Item mt={0.5}>
       <Button
+        pl={0}
+        width="100%"
+        overflowX="hidden"
         draggable
         onDragStart={(e) => {
           // e.dataTransfer.setData("text", atom_ref);
@@ -137,7 +243,14 @@ export const StatTextAtom = (props, context) => {
           })
         }
         color="transparent">
-        {atom_name}
+        <div className="StatAtomElement">
+          <Flex direction="row" wrap="wrap">
+            <Flex.Item basis={6} mr={2}>
+              <div className={StatTagToClassName(atom_tag)}>{atom_tag}</div>
+            </Flex.Item>
+            <Flex.Item grow={1}>{capitalize(atom_name)}</Flex.Item>
+          </Flex>
+        </div>
       </Button>
     </Flex.Item>
   );

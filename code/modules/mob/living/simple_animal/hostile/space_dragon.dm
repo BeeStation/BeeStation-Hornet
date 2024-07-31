@@ -27,7 +27,7 @@
 	health = 350
 	spacewalk = TRUE
 	a_intent = INTENT_HARM
-	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0.5, OXY = 1)
+	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	speed = 0
 	attacktext = "chomps"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
@@ -60,7 +60,7 @@
 	/// A multiplier to how much each use of wing gust should add to the tiredness variable.  Set to 5 if the current rift is destroyed.
 	var/tiredness_mult = 1
 	/// The distance Space Dragon's gust reaches
-	var/gust_distance = 4
+	var/gust_distance = 3
 	/// The amount of tiredness to add to Space Dragon per use of gust
 	var/gust_tiredness = 30
 	/// Determines whether or not Space Dragon is in the middle of using wing gust.  If set to true, prevents him from moving and doing certain actions.
@@ -85,6 +85,7 @@
 	gust.Grant(src)
 	small_sprite = new
 	small_sprite.Grant(src)
+	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/space_dragon/proc/living_revive(source)
 	SIGNAL_HANDLER
@@ -146,8 +147,8 @@
 			is_swallowing = FALSE
 			return
 	. = ..()
-	if(istype(target, /obj/mecha))
-		var/obj/mecha/M = target
+	if(istype(target, /obj/vehicle/sealed/mecha))
+		var/obj/vehicle/sealed/mecha/M = target
 		M.take_damage(50, BRUTE, MELEE, 1)
 
 /mob/living/simple_animal/hostile/space_dragon/Move()
@@ -172,6 +173,23 @@
 /mob/living/simple_animal/hostile/space_dragon/wabbajack_act(mob/living/new_mob)
 	empty_contents()
 	. = ..()
+
+/mob/living/simple_animal/hostile/space_dragon/ex_act(severity, target, origin)
+	set waitfor = FALSE
+	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
+		return
+	// Deal with parent operations
+	contents_explosion(severity, target)
+	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity, target)
+	// Run bomb armour
+	var/bomb_armor = (100 - getarmor(null, BOMB)) / 100
+	switch (severity)
+		if (EXPLODE_DEVASTATE)
+			adjustBruteLoss(180 * bomb_armor)
+		if (EXPLODE_HEAVY)
+			adjustBruteLoss(80 * bomb_armor)
+		if(EXPLODE_LIGHT)
+			adjustBruteLoss(30 * bomb_armor)
 
 /**
   * Allows space dragon to choose its own name.
@@ -303,7 +321,7 @@
 		L.adjustFireLoss(30)
 		to_chat(L, "<span class='userdanger'>You're hit by [src]'s fire breath!</span>")
 	// deals damage to mechs
-	for(var/obj/mecha/M in T.contents)
+	for(var/obj/vehicle/sealed/mecha/M in T.contents)
 		if(M in hit_list)
 			continue
 		hit_list += M
@@ -360,7 +378,7 @@
  */
 /mob/living/simple_animal/hostile/space_dragon/proc/start_carp_speedboost(mob/living/target)
 	target.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 2))
-	target.add_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE, multiplicative_slowdown = -0.5)
+	target.add_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 	addtimer(CALLBACK(src, PROC_REF(end_carp_speedboost), target), 8 SECONDS)
 
 /**
@@ -372,7 +390,7 @@
  */
 /mob/living/simple_animal/hostile/space_dragon/proc/end_carp_speedboost(mob/living/target)
 	target.remove_filter("anger_glow")
-	target.remove_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE)
+	target.remove_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 
 /**
  * Handles wing gust from the windup all the way to the endlag at the end.
@@ -396,13 +414,20 @@
 		overlay.appearance_flags = RESET_COLOR
 		add_overlay(overlay)
 	playsound(src, 'sound/effects/gravhit.ogg', 100, TRUE)
-	for (var/mob/living/candidate in view(gust_distance, src))
-		if(candidate == src || candidate.faction_check_mob(src))
+	var/list/candidates_flung = list()
+	for (var/turf/epicenter in view(1, usr.loc))
+		if(istype(epicenter, /turf/closed)) //Gusts dont go through walls.
 			continue
+		for (var/mob/living/mob in view(gust_distance, epicenter))
+			if(mob == src || mob.faction_check_mob(src))
+				continue
+			candidates_flung |= mob
+
+	for(var/mob/living/candidate in candidates_flung)
 		visible_message("<span class='boldwarning'>[candidate] is knocked back by the gust!</span>")
 		to_chat(candidate, "<span class='userdanger'>You're knocked back by the gust!</span>")
 		var/dir_to_target = get_dir(get_turf(src), get_turf(candidate))
-		var/throwtarget = get_edge_target_turf(target, dir_to_target)
+		var/throwtarget = get_edge_target_turf(candidate, dir_to_target)
 		candidate.safe_throw_at(throwtarget, 10, 1, src)
 		candidate.Paralyze(50)
 	addtimer(CALLBACK(src, PROC_REF(reset_status)), 4 + ((tiredness * tiredness_mult) / 10))
@@ -418,9 +443,10 @@
 	message = treat_message_min(message)
 	log_talk(message, LOG_SAY)
 	var/message_a = say_quote(message)
-	var/rendered = "<font color=\"#44aaff\">Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></font>"
+	var/valid_span_class = "srt_radio carpspeak"
 	if(istype(src, /mob/living/simple_animal/hostile/space_dragon))
-		rendered = "<span class='big'>[rendered]</span>"
+		valid_span_class += " big"
+	var/rendered = "<span class='[valid_span_class]'>Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span>"
 	for(var/mob/S in GLOB.player_list)
 		if(!S.stat && ("carp" in S.faction))
 			to_chat(S, rendered)

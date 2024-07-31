@@ -1,6 +1,5 @@
 /datum/job/exploration_crew
 	title = JOB_NAME_EXPLORATIONCREW
-	flag = EXPLORATION_CREW
 	description = "Go out into space to complete different missions for loads of cash. Find and deliver back research disks for rare technologies."
 	department_for_prefs = DEPT_BITFLAG_SCI
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
@@ -15,10 +14,9 @@
 
 	outfit = /datum/outfit/job/exploration_crew
 
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX,ACCESS_TOX_STORAGE, ACCESS_MECH_SCIENCE, ACCESS_XENOBIOLOGY)
-	minimal_access = list(ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE)
+	base_access = list(ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE)
+	extra_access = list(ACCESS_MAINT_TUNNELS, ACCESS_TOX_STORAGE, ACCESS_XENOBIOLOGY)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_HARD)
@@ -72,9 +70,8 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	uniform = /obj/item/clothing/under/rank/cargo/exploration
 	backpack_contents = list(
-		/obj/item/kitchen/knife/combat/survival=1,\
+		/obj/item/knife/combat/survival=1,\
 		/obj/item/stack/marker_beacon/thirty=1)
-	l_pocket = /obj/item/gps/mining/exploration
 	r_pocket = /obj/item/gun/energy/e_gun/mini/exploration
 
 	backpack = /obj/item/storage/backpack/explorer
@@ -90,7 +87,7 @@
 	r_pocket = /obj/item/modular_computer/tablet/pda/exploration_crew
 
 	backpack_contents = list(
-		/obj/item/kitchen/knife/combat/survival=1,
+		/obj/item/knife/combat/survival=1,
 		/obj/item/stack/marker_beacon/thirty=1,
 		/obj/item/gun/energy/e_gun/mini/exploration=1,
 		/obj/item/grenade/exploration=3,				//Breaching charges for entering ruins
@@ -108,7 +105,7 @@
 	glasses = /obj/item/clothing/glasses/science
 
 	backpack_contents = list(
-		/obj/item/kitchen/knife/combat/survival=1,
+		/obj/item/knife/combat/survival=1,
 		/obj/item/stack/marker_beacon/thirty=1,
 		/obj/item/discovery_scanner=1,
 		/obj/item/sbeacondrop/exploration=1,			//Spawns in a bluespace beacon
@@ -122,7 +119,7 @@
 	name = "Exploration Crew (Medical Doctor)"
 
 	backpack_contents = list(
-		/obj/item/kitchen/knife/combat/survival=1,
+		/obj/item/knife/combat/survival=1,
 		/obj/item/stack/marker_beacon/thirty=1,
 		/obj/item/pinpointer/crew=1,
 		/obj/item/sensor_device=1,

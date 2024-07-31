@@ -9,7 +9,7 @@
 		"security" = list(/area/security),
 		"the cargo bay" = list(/area/quartermaster, /area/cargo),
 		"the bridge" = list(/area/bridge),
-		"the communications relay" = list(/area/comms, /area/server),
+		"the communications relay" = list(/area/comms, /area/server, /area/tcommsat),
 		"the science lab" = list(/area/science),
 		"the research division server room" = list(/area/science/server),
 		// Anywhere monitored by the AI will do

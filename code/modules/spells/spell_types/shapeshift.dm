@@ -22,7 +22,7 @@
 		/mob/living/simple_animal/hostile/carp/ranged/chaos,\
 		/mob/living/simple_animal/bot/ed209,\
 		/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper/wizard,\
-		/mob/living/simple_animal/hostile/construct/armored)
+		/mob/living/simple_animal/hostile/construct/juggernaut)
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/cast(list/targets,mob/user = usr)
 	if(src in user.mob_spell_list)
@@ -138,6 +138,7 @@
 	if(source.revert_on_death)
 		restore(death=TRUE)
 	else
+		shape.investigate_log("has been killed whilst shapeshifted.", INVESTIGATE_DEATHS)
 		shape.death()
 
 /obj/shapeshift_holder/proc/shapeDeath(death=TRUE)

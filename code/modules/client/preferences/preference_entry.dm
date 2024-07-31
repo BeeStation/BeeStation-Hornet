@@ -111,6 +111,9 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// If this requires create_informed_default_value
 	var/informed = FALSE
 
+	/// Disables database writes. This can be useful for a testmerged preference
+	var/disable_serialization = FALSE
+
 /// Called on the saved input when retrieving.
 /// Also called by the value sent from the user through UI. Do not trust it.
 /// Input is the value inside the database, output is to tell other code
@@ -181,9 +184,12 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /datum/preferences/proc/get_preference_holder(datum/preference/preference_entry)
 	RETURN_TYPE(/datum/preferences_holder)
-	if(preference_entry.preference_type == PREFERENCE_CHARACTER)
-		return character_data
-	return player_data
+	switch(preference_entry.preference_type)
+		if(PREFERENCE_CHARACTER)
+			return character_data
+		if(PREFERENCE_PLAYER)
+			return player_data
+	return null
 
 /// Read a /datum/preference type and return its value, only using cached values and queueing any necessary writes.
 /datum/preferences/proc/read_preference(preference_typepath)
@@ -195,6 +201,8 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 		// things running pre-assets-initialization.
 		if (!isnull(Master.current_initializing_subsystem))
 			extra_info = "Info was attempted to be retrieved while [Master.current_initializing_subsystem] was initializing."
+		else if (!MC_RUNNING())
+			extra_info = "Info was attempted to be retrieved before the MC started, but not while it was actively initializing a subsystem"
 
 		CRASH("Preference type `[preference_typepath]` is invalid! [extra_info]")
 	return get_preference_holder(preference_entry).read_preference(src, preference_entry)
@@ -213,8 +221,8 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 		CRASH("Preference type `[preference_typepath]` is invalid! [extra_info]")
 
-	if (preference_entry.preference_type == PREFERENCE_CHARACTER)
-		CRASH("read_player_preference called on PREFERENCE_CHARACTER type preference [preference_typepath].")
+	if (preference_entry.preference_type != PREFERENCE_PLAYER)
+		CRASH("read_player_preference called on [preference_entry.preference_type] type preference [preference_typepath].")
 
 	return player_data.read_preference(src, preference_entry)
 
@@ -232,9 +240,8 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 		CRASH("Preference type `[preference_typepath]` is invalid! [extra_info]")
 
-	if (preference_entry.preference_type == PREFERENCE_PLAYER)
-		CRASH("read_character_preference called on PREFERENCE_PLAYER type preference [preference_typepath].")
-
+	if (preference_entry.preference_type != PREFERENCE_CHARACTER)
+		CRASH("read_character_preference called on [preference_entry.preference_type] type preference [preference_typepath].")
 	return character_data.read_preference(src, preference_entry)
 
 /// Set a /datum/preference entry.
@@ -258,7 +265,11 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	if (!preference.is_accessible(src, ignore_page = !in_menu))
 		return FALSE
 
+	log_preferences("[parent.ckey]: Updating preference [preference.type] TO \"[preference_value]\".")
+
 	write_preference(preference, preference_value)
+
+	log_preferences("[parent.ckey]: Applying updated preference [preference.type].")
 
 	if (preference.preference_type == PREFERENCE_PLAYER)
 		preference.apply_to_client_updated(parent, read_preference(preference.type))
@@ -451,10 +462,10 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	for (var/name in sprite_accessories)
 		var/datum/sprite_accessory/sprite_accessory = sprite_accessories[name]
 		if (istype(sprite_accessory))
-			possible_values[name] = icon(sprite_accessory.icon, sprite_accessory.icon_state)
+			possible_values[name] = uni_icon(sprite_accessory.icon, sprite_accessory.icon_state)
 		else
 			// This means it didn't have an icon state
-			possible_values[name] = icon('icons/mob/landmarks.dmi', "x")
+			possible_values[name] = uni_icon('icons/mob/landmarks.dmi', "x")
 	return possible_values
 
 /// Takes an assoc list of names to /datum/sprite_accessory and returns a value
@@ -473,15 +484,15 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	for (var/name in sprite_accessories)
 		var/datum/sprite_accessory/sprite_accessory = sprite_accessories[name]
 
-		var/icon/final_icon
+		var/datum/universal_icon/final_icon
 
 		for (var/layer in layers)
-			var/icon/icon = icon(sprite_accessory.icon, "m_[body_part]_[sprite_accessory.icon_state]_[layer]")
+			var/datum/universal_icon/icon = uni_icon(sprite_accessory.icon, "m_[body_part]_[sprite_accessory.icon_state]_[layer]")
 
 			if (isnull(final_icon))
 				final_icon = icon
 			else
-				final_icon.Blend(icon, ICON_OVERLAY)
+				final_icon.blend_icon(icon, ICON_OVERLAY)
 
 		possible_values[name] = final_icon
 
@@ -521,7 +532,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 		"step" = step,
 	)
 
-/// A prefernece whose value is always TRUE or FALSE
+/// A preference whose value is always TRUE or FALSE
 /datum/preference/toggle
 	abstract_type = /datum/preference/toggle
 

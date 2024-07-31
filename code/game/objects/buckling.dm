@@ -1,8 +1,8 @@
 /atom/movable
 	/// Whether the atom allows mobs to be buckled to it. Can be ignored in [/atom/movable/proc/buckle_mob()] if force = TRUE
 	var/can_buckle = FALSE
-	//bed-like behaviour, forces mob.lying = buckle_lying if != -1
-	var/buckle_lying = -1
+	/// Bed-like behaviour, forces mob.lying = buckle_lying if not set to [NO_BUCKLE_LYING].
+	var/buckle_lying = NO_BUCKLE_LYING
 	/// Require people to be handcuffed before being able to buckle. eg: pipes
 	var/buckle_requires_restraints = FALSE
 	// The mobs currently buckled to this atom
@@ -29,7 +29,7 @@
 			if(user_unbuckle_mob(buckled_mobs[1],user))
 				return TRUE
 
-/atom/movable/attackby(obj/item/W, mob/user, params)
+/atom/movable/attackby(obj/item/attacking_item, mob/user, params)
 	if(!can_buckle || !istype(attacking_item, /obj/item/riding_offhand) || !user.Adjacent(src))
 		return ..()
 
@@ -108,10 +108,9 @@
 		if (!check_loc && M.loc != loc)
 			M.forceMove(loc)
 
-	M.buckled = src
+	M.set_buckled(src)
 	M.setDir(dir)
 	buckled_mobs |= M
-	M.update_mobility()
 	M.throw_alert("buckled", /atom/movable/screen/alert/restrained/buckled)
 	/*
 	M.set_glide_size(glide_size)
@@ -149,21 +148,16 @@
 	if(!force && !buckled_mob.can_buckle_to)
 		return
 	. = buckled_mob
-	buckled_mob.buckled = null
-	buckled_mob.anchored = initial(buckled_mob.anchored)
-	buckled_mob.update_mobility()
+	buckled_mob.set_buckled(null)
+	buckled_mob.set_anchored(initial(buckled_mob.anchored))
 	buckled_mob.clear_alert("buckled")
-	/*
-	buckled_mob.set_glide_size(DELAY_TO_GLIDE_SIZE(buckled_mob.total_multiplicative_slowdown()))
-	*/
+	//buckled_mob.set_glide_size(DELAY_TO_GLIDE_SIZE(buckled_mob.total_multiplicative_slowdown()))
 	buckled_mobs -= buckled_mob
 	SEND_SIGNAL(src, COMSIG_MOVABLE_UNBUCKLE, buckled_mob, force)
 
 	post_unbuckle_mob(.)
 
-/**
-  * Call [/atom/movable/proc/unbuckle_mob] for all buckled mobs
-  */
+
 /atom/movable/proc/unbuckle_all_mobs(force=FALSE)
 	if(!has_buckled_mobs())
 		return
@@ -214,8 +208,8 @@
 	if(LAZYLEN(buckled_mobs) >= max_buckled_mobs)
 		return FALSE
 
-	// If the buckle requires restraints, make sure the target is actually restrained while ignoring grab restraint.
-	if(buckle_requires_restraints && !target.restrained(TRUE))
+	// If the buckle requires restraints, make sure the target is actually restrained.
+	if(buckle_requires_restraints && !HAS_TRAIT(target, TRAIT_RESTRAINED))
 		return FALSE
 
 	//If buckling is forbidden for the target, cancel
