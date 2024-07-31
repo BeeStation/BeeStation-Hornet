@@ -915,6 +915,9 @@
 	icon_state = "borgplush_default"
 	attack_verb = list("beeped aggressively", "dwoop", "beep", "beep, beep", "buzzes", "ping")
 	squeak_override = list('sound/machines/buzz-sigh.ogg', 'sound/emotes/dwoop.ogg', 'sound/machines/boop.ogg', 'sound/machines/chime.ogg')
+	lefthand_file = 'icons/mob/inhands/plushes_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/plushes_righthand.dmi'
+	layer = 5
 
 /obj/item/toy/plush/sillycons/peace
 	name = "Peacekeeper Borg"
