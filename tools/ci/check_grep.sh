@@ -48,14 +48,12 @@ if grep -P '\td[1-2] =' _maps/**/*.dmm;    then
     echo -e "${RED}ERROR: d1/d2 cable variables detected in maps, please remove them.${NC}"
     st=1
 fi;
-echo -e "${BLUE}Checking for stacked pipes...${NC}"
+echo -e "${BLUE}Checking duplicate structures...${NC}"
 if grep -Pzo '"\w+" = \([^)]*?\n/obj/effect/mapping_helpers/simple_pipes(?<type>[/\w]*),[^)]*?\n/obj/effect/mapping_helpers/simple_pipes\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple idendical simple_pipes mapping helpers on the same tile, please remove them.${NC}"
     st=1
 fi;
-
-echo -e "${BLUE}Checking duplicate structures...${NC}"
 if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/lattice[/\w,\n]*?[^)]*?\n/obj/structure/lattice[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple lattices on the same tile, please remove them.${NC}"
