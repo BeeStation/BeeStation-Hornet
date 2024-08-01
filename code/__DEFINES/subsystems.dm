@@ -136,6 +136,7 @@
 #define INIT_ORDER_INSTRUMENTS		82
 #define INIT_ORDER_GREYSCALE 		81
 #define INIT_ORDER_VIS				80
+#define INIT_ORDER_MUSIC			78 // Performs its loading asynchronously, so will run in the background while other things load.
 #define INIT_ORDER_ACHIEVEMENTS 	77
 #define INIT_ORDER_RESEARCH			75
 #define INIT_ORDER_ORBITS			74 //Other things use the orbital map, so it needs to be made early on.

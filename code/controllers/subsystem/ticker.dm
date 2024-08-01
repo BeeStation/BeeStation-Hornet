@@ -18,7 +18,6 @@ SUBSYSTEM_DEF(ticker)
 	var/hide_mode = FALSE
 	var/datum/game_mode/mode = null
 
-	var/datum/playing_track/login_music		//music played in pregame lobby
 	var/round_end_sound						//music/jingle played when the world reboots
 	var/round_end_sound_sent = TRUE			//If all clients have loaded it
 
@@ -70,11 +69,6 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/Initialize()
 	load_mode()
 
-	// Load all music information asynchronously (it performs shell calls which sleep)
-	var/datum/task/music_loader = load_tracks_async()
-	if (!login_music)
-		music_loader.continue_with(CALLBACK(src, PROC_REF(select_title_music)))
-
 	if(!GLOB.syndicate_code_phrase)
 		GLOB.syndicate_code_phrase	= generate_code_phrase(return_list=TRUE)
 
@@ -98,34 +92,6 @@ SUBSYSTEM_DEF(ticker)
 		gametime_offset = world.timeofday
 
 	return SS_INIT_SUCCESS
-
-/datum/controller/subsystem/ticker/proc/select_title_music(list/audio_tracks)
-	// Something else has set the lobby music already
-	if (login_music)
-		return
-	// Try to load map specific music first
-	var/list/valid_tracks = list()
-	if (LAZYLEN(SSmapping.config.title_music))
-		for (var/datum/audio_track/track in audio_tracks)
-			if (track.title in SSmapping.config.title_music)
-				valid_tracks += track
-		if (length(valid_tracks))
-			var/datum/audio_track/picked = pick(valid_tracks)
-			login_music = picked.play()
-			login_music.play_to_clients() // TEMP
-			return
-	for (var/datum/audio_track/track in audio_tracks)
-		if (!(track.play_flags & TRACK_FLAG_TITLE))
-			continue
-		valid_tracks += track
-	if (length(valid_tracks))
-		var/datum/audio_track/picked = pick(valid_tracks)
-		login_music = picked.play()
-		login_music.play_to_clients() // TEMP
-	else
-		var/datum/audio_track/picked = pick(audio_tracks)
-		login_music = picked.play()
-		login_music.play_to_clients() // TEMP
 
 /datum/controller/subsystem/ticker/fire()
 	switch(current_state)
@@ -546,7 +512,6 @@ SUBSYSTEM_DEF(ticker)
 	hide_mode = SSticker.hide_mode
 	mode = SSticker.mode
 
-	login_music = SSticker.login_music
 	round_end_sound = SSticker.round_end_sound
 
 	minds = SSticker.minds
@@ -715,4 +680,3 @@ SUBSYSTEM_DEF(ticker)
 			round_end_sound = "sound/roundend/[pick(tracks)]"
 
 	SEND_SOUND(world, sound(round_end_sound))
-	rustg_file_append(login_music, "data/last_round_lobby_music.txt")

@@ -84,7 +84,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 
 		if(below_turf && istransparentturf(turf_source))
 			listeners += get_hearers_in_view(maxdistance, below_turf)
-			
+
 	for(var/mob/listening_mob in listeners | SSmobs.dead_players_by_zlevel[source_z])//observers always hear through walls
 		if(get_dist(listening_mob, turf_source) <= maxdistance)
 			listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
@@ -262,10 +262,13 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 
 /client/proc/playtitlemusic(vol = 50)
 	set waitfor = FALSE
+	CRASH("TODO: Not implement")
+	/*
 	UNTIL(SSticker.login_music) //wait for SSticker init to set the login music
 
 	if(prefs?.read_player_preference(/datum/preference/toggle/sound_lobby))
 		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = vol, channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
+	*/
 
 /proc/get_rand_frequency()
 	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.

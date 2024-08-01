@@ -35,7 +35,7 @@
 
 /obj/machinery/jukebox/Initialize(mapload)
 	. = ..()
-	var/datum/task/music_loader = load_tracks_async()
+	var/datum/task/music_loader = SSmusic.load_tracks_async()
 	music_loader.continue_with(CALLBACK(src, PROC_REF(select_random_song)))
 
 /obj/machinery/jukebox/proc/select_random_song(list/songs)
@@ -71,7 +71,7 @@
 		to_chat(user,"<span class='warning'>Error: Access Denied.</span>")
 		user.playsound_local(src, 'sound/misc/compiler-failure.ogg', 25, TRUE)
 		return UI_CLOSE
-	if(!length(GLOB.audio_tracks) && !isobserver(user))
+	if(!length(SSmusic.audio_tracks) && !isobserver(user))
 		to_chat(user,"<span class='warning'>Error: No music tracks have been authorized for your station. Petition Central Command to resolve this issue.</span>")
 		playsound(src, 'sound/misc/compiler-failure.ogg', 25, TRUE)
 		return UI_CLOSE
@@ -87,7 +87,7 @@
 	var/list/data = list()
 	data["active"] = active
 	data["songs"] = list()
-	for(var/datum/audio_track/S in GLOB.audio_tracks)
+	for(var/datum/audio_track/S in SSmusic.audio_tracks)
 		var/list/track_data = list(
 			name = S.title
 		)
@@ -125,7 +125,7 @@
 				to_chat(usr, "<span class='warning'>Error: You cannot change the song until the current one is over.</span>")
 				return
 			var/selected = params["track"]
-			for(var/datum/audio_track/S in GLOB.audio_tracks)
+			for(var/datum/audio_track/S in SSmusic.audio_tracks)
 				if (S.title == selected)
 					selection = S
 					return TRUE

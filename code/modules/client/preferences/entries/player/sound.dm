@@ -41,8 +41,9 @@
 
 /datum/preference/toggle/sound_lobby/apply_to_client(client/client, value)
 	if (value && isnewplayer(client.mob))
-		if(SSticker.login_music)
-			client.playtitlemusic()
+		CRASH("TODO: Not implement")
+		//if(SSmusic.login_music)
+		//	client.playtitlemusic()
 	else
 		client.mob?.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 

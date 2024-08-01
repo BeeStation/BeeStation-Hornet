@@ -71,8 +71,8 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 	// Other setup
 	request_telemetry()
 	// Send verbs
-	if(client)
-		set_verb_infomation(client)
+	set_verb_infomation(client)
+	SSmusic.feed_music(client)
 	addtimer(CALLBACK(src, PROC_REF(on_initialize_timed_out)), 5 SECONDS)
 
 /**
@@ -122,7 +122,7 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 	if (type == "music/declareLength")
 		var/url = payload["url"]
 		var/length = text2num(payload["length"])
-		var/datum/audio_track/track = GLOB.audio_tracks_by_url[url]
+		var/datum/audio_track/track = SSmusic.audio_tracks_by_url[url]
 		if (!track || !length)
 			return
 		track.vote_duration(client, length)
