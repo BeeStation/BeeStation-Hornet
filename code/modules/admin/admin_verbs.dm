@@ -311,6 +311,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			add_verb(GLOB.admin_verbs_sounds)
 			if(CONFIG_GET(string/invoke_youtubedl))
 				add_verb(/client/proc/play_web_sound)
+				add_verb(/client/proc/add_web_music)
 		if(rights & R_SPAWN)
 			add_verb(GLOB.admin_verbs_spawn)
 		reset_badges()
@@ -330,6 +331,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		/client/proc/stealth,
 		GLOB.admin_verbs_poll,
 		GLOB.admin_verbs_sounds,
+		/client/proc/add_web_music,
 		/client/proc/play_web_sound,
 		GLOB.admin_verbs_spawn,
 		/*Debug verbs added by "show debug verbs"*/

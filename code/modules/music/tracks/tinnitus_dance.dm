@@ -1,4 +1,4 @@
-/datum/audio_track/title0
+/datum/audio_track/tinnitus_dance
 	title = "Tinnitus Dance"
 	artist = "Dancefloor is Lava"
 	audio_file = 'sound/music/tinnitus_dance.mp3'

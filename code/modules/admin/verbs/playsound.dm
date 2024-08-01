@@ -55,6 +55,26 @@
 	playsound(get_turf(src.mob), S, 50, 0, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Local Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/add_web_music()
+	set category = "Fun"
+	set name = "Add Jukebox Music"
+	if(!check_rights(R_SOUND))
+		return
+	var/datum/audio_track/track = new()
+	track.play_flags = TRACK_FLAG_JUKEBOX
+	var/web_sound_input = capped_input(usr, "Enter content URL (supported sites only)", "Add Internet Sound via youtube-dl")
+	if (!web_sound_input)
+		return
+	track.url = web_sound_input
+	to_chat(src, "<span class='boldwarning'Loading...</span>")
+	track.load()
+	if (track._failed)
+		to_chat(src, "<span class='boldwarning'>Song-loading failed, see the world log for more details.</span>")
+		return
+	SSmusic.audio_tracks += track
+	SSmusic.audio_tracks_by_url[track._web_sound_url] = track
+	to_chat(src, "<span class='boldwarning'Song loaded successfully!</span>")
+
 /client/proc/play_web_sound()
 	set category = "Fun"
 	set name = "Play Internet Sound"
