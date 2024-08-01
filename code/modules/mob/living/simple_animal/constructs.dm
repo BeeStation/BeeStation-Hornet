@@ -48,11 +48,8 @@
 	mobchatspan = "cultmobsay"
 	discovery_points = 1000
 
-/mob/living/simple_animal/hostile/construct/get_num_legs()
-	return 0
-
-/mob/living/simple_animal/hostile/construct/get_num_arms()
-	return 0
+	usable_legs = 0
+	usable_hands = 0
 
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()

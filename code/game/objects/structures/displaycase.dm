@@ -100,6 +100,7 @@
 	qdel(src)
 
 /obj/structure/displaycase/obj_break(damage_flag)
+	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		set_density(FALSE)
 		broken = TRUE
