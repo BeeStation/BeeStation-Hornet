@@ -81,7 +81,7 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	weight = 16
 
-/datum/xenoartifact_trait/activator/sturdy/New(atom/_parent)
+/datum/xenoartifact_trait/activator/sturdy/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
@@ -91,6 +91,16 @@
 	RegisterSignal(parent?.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
 	RegisterSignal(parent?.parent, COMSIG_ITEM_AFTERATTACK, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_c))
 	RegisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
+
+/datum/xenoartifact_trait/activator/sturdy/remove_parent(datum/source, pensive)
+	if(!parent?.parent)
+		return ..()
+	UnregisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(parent?.parent, COMSIG_MOVABLE_IMPACT)
+	UnregisterSignal(parent?.parent, COMSIG_ITEM_ATTACK_SELF)
+	UnregisterSignal(parent?.parent, COMSIG_ITEM_AFTERATTACK)
+	UnregisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND)
+	return ..()
 
 /datum/xenoartifact_trait/activator/sturdy/translation_type_b(datum/source, atom/item, atom/target)
 	if(check_item_safety(item))
@@ -131,8 +141,6 @@
 
 /datum/xenoartifact_trait/activator/sturdy/timed/New(atom/_parent)
 	. = ..()
-	if(!parent?.parent)
-		return
 	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 	START_PROCESSING(SSobj, src)
 
@@ -148,9 +156,7 @@
 		indicator_hint(searching)
 
 /datum/xenoartifact_trait/activator/sturdy/timed/process(delta_time)
-	if(!searching)
-		return
-	if(search_cooldown_timer)
+	if(!searching || search_cooldown_timer || !parent)
 		return
 	playsound(get_turf(parent?.parent), 'sound/effects/clock_tick.ogg', 60, TRUE)
 	for(var/atom/target in oview(parent.target_range, get_turf(parent?.parent)))
@@ -191,13 +197,21 @@
 	var/search_cooldown = 4 SECONDS
 	var/search_cooldown_timer
 
-/datum/xenoartifact_trait/activator/flammable/New(atom/_parent)
+/datum/xenoartifact_trait/activator/flammable/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
 	RegisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
 	RegisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
 	RegisterSignal(parent?.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+
+/datum/xenoartifact_trait/activator/flammable/remove_parent(datum/source, pensive)
+	if(!parent?.parent)
+		return ..()
+	UnregisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND)
+	UnregisterSignal(parent?.parent, COMSIG_ITEM_ATTACK_SELF)
+	return ..()
 
 /datum/xenoartifact_trait/activator/flammable/translation_type_a(datum/source, atom/target)
 	lit = FALSE
@@ -264,14 +278,14 @@
 	var/datum/radio_frequency/radio_connection
 	//Signal
 	var/datum/signal/signal
+	///Annoying soung
+	var/sound_timer
 
 	///Reference to our particle holder - we need to use holders & vis contents, otherwise shit gets fucky with filters
 	var/atom/movable/artifact_particle_holder/particle_holder
 
 /datum/xenoartifact_trait/activator/signal/New(atom/_parent)
 	. = ..()
-	if(!parent?.parent)
-		return
 	//Code
 	code = rand(0, 100)
 	//Signal
@@ -280,12 +294,21 @@
 	radio_connection = SSradio.add_object(src, FREQ_SIGNALER, "[RADIO_XENOA]_[REF(src)]")
 	radio_connection.add_listener(src)
 
-	setup_generic_item_hint()
-	addtimer(CALLBACK(src, PROC_REF(do_sonar)), 5 SECONDS)
-
 /datum/xenoartifact_trait/minor/signaller/Destroy(force, ...)
 	SSradio.remove_object(src, FREQ_SIGNALER)
 	QDEL_NULL(signal)
+	return ..()
+
+/datum/xenoartifact_trait/activator/signal/register_parent(datum/source)
+	. = ..()
+	if(!parent?.parent)
+		return
+	setup_generic_item_hint()
+	sound_timer = addtimer(CALLBACK(src, PROC_REF(do_sonar)), 5 SECONDS)
+
+/datum/xenoartifact_trait/activator/signal/remove_parent(datum/source, pensive)
+	if(sound_timer)
+		deltimer(sound_timer)
 	return ..()
 
 /datum/xenoartifact_trait/activator/signal/generate_trait_appearance(atom/movable/target)
@@ -339,7 +362,7 @@
 	if(isturf(A.loc))
 		playsound(get_turf(parent?.parent), 'sound/effects/ping.ogg', 60, TRUE)
 	var/rand_time = rand(5, 15) SECONDS
-	addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time / (isturf(A.loc) ? 2 : 1))
+	sound_timer = addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time / (isturf(A.loc) ? 2 : 1))
 
 /*
 	ABSTRACT
@@ -353,11 +376,17 @@
 	///Is the key item a strict type?
 	var/is_strict = FALSE
 
-/datum/xenoartifact_trait/activator/item_key/New(atom/_parent)
+/datum/xenoartifact_trait/activator/item_key/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
 	RegisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
+
+/datum/xenoartifact_trait/activator/item_key/remove_parent(datum/source, pensive)
+	if(!parent?.parent)
+		return ..()
+	UnregisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY)
+	return ..()
 
 /datum/xenoartifact_trait/activator/item_key/translation_type_b(datum/source, atom/item, atom/target)
 	if(is_strict)
@@ -460,11 +489,17 @@
 	weight = 32
 	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
 
-/datum/xenoartifact_trait/activator/weighted/New(atom/_parent)
+/datum/xenoartifact_trait/activator/weighted/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
 	RegisterSignal(parent?.parent, COMSIG_ITEM_EQUIPPED, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
+
+/datum/xenoartifact_trait/activator/weighted/remove_parent(datum/source, pensive)
+	if(!parent?.parent)
+		return ..()
+	UnregisterSignal(parent?.parent, COMSIG_ITEM_EQUIPPED)
+	return ..()
 
 /datum/xenoartifact_trait/activator/weighted/translation_type_d(datum/source, atom/target)
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
@@ -481,11 +516,17 @@
 	weight = -8
 	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
 
-/datum/xenoartifact_trait/activator/pitched/New(atom/_parent)
+/datum/xenoartifact_trait/activator/pitched/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
 	RegisterSignal(parent?.parent, COMSIG_MOVABLE_IMPACT, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+
+/datum/xenoartifact_trait/activator/pitched/remove_parent(datum/source, pensive)
+	if(!parent?.parent)
+		return ..()
+	UnregisterSignal(parent?.parent, COMSIG_MOVABLE_IMPACT)
+	return ..()
 
 /*
 	Hungry
@@ -579,7 +620,7 @@
 	///How many reagents do we get per bite, maximum
 	var/max_bite_reagents = 2
 
-/datum/xenoartifact_trait/activator/edible/New(atom/_parent)
+/datum/xenoartifact_trait/activator/edible/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
@@ -593,12 +634,12 @@
 		bite_consumption = (max_bite_reagents * (parent.trait_strength/100)))
 	RegisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
 
-/datum/xenoartifact_trait/activator/edible/Destroy(force, ...)
-	. = ..()
+/datum/xenoartifact_trait/activator/edible/remove_parent(datum/source, pensive = TRUE)
 	if(!parent?.parent)
-		return
+		return ..()
 	var/datum/component/edible/E = parent.parent.GetComponent(/datum/component/edible)
 	E.RemoveComponent()
+	return ..()
 
 /datum/xenoartifact_trait/activator/edible/translation_type_b(datum/source, atom/item, atom/target)
 	do_hint(target, item)
@@ -632,7 +673,7 @@
 	///How many random reaagents we're rocking with
 	var/random_reagents
 
-/datum/xenoartifact_trait/activator/edible/random/New(atom/_parent)
+/datum/xenoartifact_trait/activator/edible/random/register_parent(datum/source)
 	random_reagents = rand(1, 3)
 	for(var/i in 1 to random_reagents)
 		food_reagents += list(get_random_reagent_id(CHEMICAL_RNG_GENERAL) = 300/random_reagents)
@@ -660,12 +701,18 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	weight = 16
 
-/datum/xenoartifact_trait/activator/examine/New(atom/_parent)
+/datum/xenoartifact_trait/activator/examine/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
 	//Register all the relevant signals we trigger from
 	RegisterSignal(parent?.parent, COMSIG_PARENT_EXAMINE, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+
+/datum/xenoartifact_trait/activator/examine/remove_parent(datum/source, pensive)
+	if(!parent?.parent)
+		return ..()
+	UnregisterSignal(parent?.parent, COMSIG_PARENT_EXAMINE)
+	return ..()
 
 /datum/xenoartifact_trait/activator/examine/translation_type_a(datum/source, atom/target)
 	if(isliving(target))

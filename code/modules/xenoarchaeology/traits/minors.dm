@@ -26,15 +26,15 @@
 	///Reference to our particle holder
 	var/atom/movable/artifact_particle_holder/particle_holder
 
-/datum/xenoartifact_trait/minor/charged/New(atom/_parent)
+/datum/xenoartifact_trait/minor/charged/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
 	parent.trait_strength *= 1.25
 	setup_generic_touch_hint()
 
-/datum/xenoartifact_trait/minor/charged/Destroy(force, ...)
-	if(!parent?.parent)
+/datum/xenoartifact_trait/minor/charged/remove_parent(datum/source, pensive)
+	if(!parent)
 		return ..()
 	parent.trait_strength /= 1.25
 	return ..()
@@ -80,7 +80,7 @@
 	///How many extra charges do we have?
 	var/current_charge
 
-/datum/xenoartifact_trait/minor/capacitive/New()
+/datum/xenoartifact_trait/minor/capacitive/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
@@ -128,7 +128,7 @@
 	var/old_atom_flag
 	var/old_item_flag
 
-/datum/xenoartifact_trait/minor/dense/New(atom/_parent)
+/datum/xenoartifact_trait/minor/dense/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
@@ -144,7 +144,7 @@
 		old_item_flag = A.interaction_flags_item
 		A.interaction_flags_item = INTERACT_ATOM_ATTACK_HAND
 
-/datum/xenoartifact_trait/minor/dense/Destroy(force, ...)
+/datum/xenoartifact_trait/minor/dense/remove_parent(datum/source, pensive)
 	if(!parent?.parent)
 		return ..()
 	var/obj/item/A = parent.parent
@@ -179,7 +179,7 @@
 	var/list/old_verbs
 	var/list/attack_verbs = list("cleaved", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 
-/datum/xenoartifact_trait/minor/sharp/New(atom/_parent)
+/datum/xenoartifact_trait/minor/sharp/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
@@ -195,7 +195,7 @@
 		old_verbs = A.attack_verb
 		A.attack_verb = attack_verbs
 
-/datum/xenoartifact_trait/minor/sharp/Destroy(force, ...)
+/datum/xenoartifact_trait/minor/sharp/remove_parent(datum/source, pensive)
 	if(!parent?.parent)
 		return
 	var/obj/item/A = parent.parent
@@ -222,7 +222,7 @@
 	weight = 15
 	var/atom/movable/artifact_particle_holder/particle_holder
 
-/datum/xenoartifact_trait/minor/cooling/New(atom/_parent)
+/datum/xenoartifact_trait/minor/cooling/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
@@ -263,12 +263,13 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	weight = 30
 	incompatabilities = TRAIT_INCOMPATIBLE_MOB
+	can_pearl = FALSE
 	///Mob who lives inside the artifact, and who we give actions to
 	var/mob/living/simple_animal/shade/sentience/sentience
 	///Mob spawner for ghosts
 	var/obj/effect/mob_spawn/sentient_artifact/mob_spawner
 
-/datum/xenoartifact_trait/minor/sentient/New(atom/_parent)
+/datum/xenoartifact_trait/minor/sentient/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
@@ -490,7 +491,7 @@
 	///Old wearable state
 	var/old_wearable
 
-/datum/xenoartifact_trait/minor/ringed/New(atom/_parent)
+/datum/xenoartifact_trait/minor/ringed/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
@@ -503,7 +504,7 @@
 		RegisterSignal(A, COMSIG_ITEM_EQUIPPED, PROC_REF(equip_action))
 		RegisterSignal(A, COMSIG_ITEM_DROPPED, PROC_REF(drop_action))
 
-/datum/xenoartifact_trait/minor/ringed/Destroy(force, ...)
+/datum/xenoartifact_trait/minor/ringed/remove_parent(datum/source, pensive)
 	if(!parent?.parent)
 		return ..()
 	var/obj/item/A = parent.parent
@@ -587,7 +588,7 @@
 	///Old block upgrade
 	var/old_block_upgrade
 
-/datum/xenoartifact_trait/minor/shielded/New(atom/_parent)
+/datum/xenoartifact_trait/minor/shielded/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
@@ -603,7 +604,7 @@
 		old_block_upgrade = A.block_upgrade_walk
 		A.block_upgrade_walk = 1
 
-/datum/xenoartifact_trait/minor/shielded/Destroy(force, ...)
+/datum/xenoartifact_trait/minor/shielded/remove_parent(datum/source, pensive)
 	if(!parent?.parent)
 		return ..()
 	var/obj/item/A = parent.parent
@@ -632,7 +633,7 @@
 	///Old throw range
 	var/old_throw_range
 
-/datum/xenoartifact_trait/minor/aerodynamic/New(atom/_parent)
+/datum/xenoartifact_trait/minor/aerodynamic/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
@@ -641,7 +642,7 @@
 		old_throw_range = A.throw_range
 		A.throw_range = 9
 
-/datum/xenoartifact_trait/minor/aerodynamic/Destroy(force, ...)
+/datum/xenoartifact_trait/minor/aerodynamic/remove_parent(datum/source, pensive)
 	if(!parent?.parent)
 		return ..()
 	var/atom/movable/A = parent.parent
@@ -679,10 +680,12 @@
 	//Frequency
 	radio_connection = SSradio.add_object(src, FREQ_SIGNALER, "[RADIO_XENOA]_[REF(src)]")
 
+/datum/xenoartifact_trait/minor/signaller/register_parent(datum/source)
+	. = ..()
 	if(!parent?.parent)
 		return
 	setup_generic_item_hint()
-	if(!(locate(/datum/xenoartifact_trait/activator) in parent.artifact_traits[TRAIT_PRIORITY_ACTIVATOR]))
+	if(!(locate(/datum/xenoartifact_trait/activator/signal) in parent.artifact_traits[TRAIT_PRIORITY_ACTIVATOR]))
 		addtimer(CALLBACK(src, PROC_REF(do_sonar)), 2 SECONDS)
 
 /datum/xenoartifact_trait/minor/signaller/Destroy(force, ...)
@@ -748,7 +751,7 @@
 	weight = 10
 	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
 
-/datum/xenoartifact_trait/minor/anchor/New(atom/_parent)
+/datum/xenoartifact_trait/minor/anchor/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
@@ -756,7 +759,7 @@
 	if(ismovable(AM))
 		RegisterSignal(AM, COMSIG_ATOM_TOOL_ACT(TOOL_WRENCH), PROC_REF(toggle_anchor))
 
-/datum/xenoartifact_trait/minor/anchor/Destroy(force, ...)
+/datum/xenoartifact_trait/minor/anchor/remove_parent(datum/source, pensive)
 	if(!parent?.parent)
 		return ..()
 	var/atom/movable/AM = parent.parent
@@ -800,15 +803,18 @@
 	///Refernce to slip component for later cleanup
 	var/datum/component/slippery/slip_comp
 
-/datum/xenoartifact_trait/minor/slippery/New(atom/_parent)
+/datum/xenoartifact_trait/minor/slippery/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
 	var/atom/A = parent.parent
 	slip_comp = A.AddComponent(/datum/component/slippery, 60)
 
-/datum/xenoartifact_trait/minor/slippery/Destroy(force, ...)
-	QDEL_NULL(slip_comp)
+/datum/xenoartifact_trait/minor/slippery/remove_parent(datum/source, pensive)
+	if(!parent?.parent)
+		return ..()
+	slip_comp.RemoveComponent()
+	slip_comp = null
 	return ..()
 
 /datum/xenoartifact_trait/minor/slippery/get_dictionary_hint()
@@ -826,12 +832,13 @@
 	conductivity = 35
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/haunted/instant)
 	incompatabilities = TRAIT_INCOMPATIBLE_MOB
+	can_pearl = FALSE
 	///Refernce to move component for later cleanup
 	var/datum/component/deadchat_control/controller
 	///How long between moves
 	var/move_delay = 8 SECONDS
 
-/datum/xenoartifact_trait/minor/haunted/New(atom/_parent)
+/datum/xenoartifact_trait/minor/haunted/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
@@ -1058,13 +1065,13 @@
 	var/sticky_time = 25 SECONDS
 	var/sticky_timer
 
-/datum/xenoartifact_trait/minor/sticky/Destroy(force, ...)
-	. = ..()
+/datum/xenoartifact_trait/minor/sticky/remove_parent(datum/source, pensive)
 	var/atom/movable/AM = parent?.parent
 	if(!AM)
-		return
+		return ..()
 	REMOVE_TRAIT(AM, TRAIT_NODROP, src)
 	deltimer(sticky_timer)
+	return ..()
 
 /datum/xenoartifact_trait/minor/sticky/trigger(datum/source, _priority, atom/override)
 	. = ..()

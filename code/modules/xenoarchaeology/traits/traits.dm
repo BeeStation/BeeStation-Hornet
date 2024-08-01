@@ -65,6 +65,7 @@
 /datum/xenoartifact_trait/Destroy(force, ...)
 	. = ..()
 	dump_targets()
+	remove_parent(parent, FALSE)
 
 //The reason this is a seperate proc is so we can init the trait and swap its artifact component parent around
 /datum/xenoartifact_trait/proc/register_parent(datum/source)
@@ -90,6 +91,7 @@
 
 	//Detach from current parent
 	if(parent)
+		remove_hints()
 		UnregisterSignal(parent, COMSIG_PARENT_QDELETING)
 		UnregisterSignal(parent, XENOA_TRIGGER)
 		var/atom/A = parent.parent
@@ -187,6 +189,11 @@
 /datum/xenoartifact_trait/proc/setup_generic_touch_hint()
 	RegisterSignal(parent.parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(hint_translation_type_b))
 	RegisterSignal(parent.parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(hint_translation_type_b))
+
+/datum/xenoartifact_trait/proc/remove_hints()
+	UnregisterSignal(parent.parent, COMSIG_ITEM_ATTACK_SELF)
+	UnregisterSignal(parent.parent, COMSIG_ATOM_ATTACK_HAND)
+	UnregisterSignal(parent.parent, COMSIG_PARENT_ATTACKBY)
 
 /datum/xenoartifact_trait/proc/hint_translation_type_a(datum/source, obj/item, mob/living, params)
 	SIGNAL_HANDLER

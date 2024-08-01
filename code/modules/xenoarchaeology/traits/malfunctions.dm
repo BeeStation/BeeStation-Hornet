@@ -276,6 +276,7 @@
 	label_desc = "Expansive Explosive Emmission: A strange malfunction that causes the Artifact to explode."
 	flags = XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	rarity = XENOA_TRAIT_WEIGHT_RARE
+	can_pearl = FALSE
 	///Max explosion stat
 	var/max_explosion = 4
 	///Are we exploding?
@@ -283,7 +284,7 @@
 	///Ref to the exploding effect
 	var/atom/movable/exploding_indicator //We can't use an overlay, becuase it breaks filters, and the overlay filter doesn't animate
 
-/datum/xenoartifact_trait/malfunction/explosion/New(atom/_parent)
+/datum/xenoartifact_trait/malfunction/explosion/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return

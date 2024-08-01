@@ -738,15 +738,15 @@
 	weight = 36
 	conductivity = 36
 
-/datum/xenoartifact_trait/major/shadow_realm/New(atom/_parent)
+/datum/xenoartifact_trait/major/shadow_realm/register_parent(datum/source)
 	. = ..()
 	if(!parent?.parent)
 		return
 	GLOB.destabliization_exits += parent?.parent
 
-/datum/xenoartifact_trait/major/shadow_realm/Destroy(force, ...)
+/datum/xenoartifact_trait/major/shadow_realm/remove_parent(datum/source, pensive)
 	if(!parent?.parent)
-		return
+		return ..()
 	GLOB.destabliization_exits -= parent.parent
 	return ..()
 
