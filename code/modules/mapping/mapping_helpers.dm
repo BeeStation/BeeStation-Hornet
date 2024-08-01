@@ -339,8 +339,19 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	)
 
 /obj/effect/mapping_helpers/simple_pipes/Initialize()
+	check_for_duplicates()
 	preform_layer(piping_layer, pipe_color)
 	qdel(src)
+
+/// Check for duplicate helpers on a single turf
+/obj/effect/mapping_helpers/simple_pipes/proc/check_for_duplicates()
+	var/turf/T = get_turf(src)
+	for(var/obj/effect/mapping_helpers/simple_pipes/found in T.contents)
+		if(found == src)
+			continue
+		if(found.piping_layer != src.piping_layer)
+			continue
+		CRASH("Duplicate simple_pipes mapping helper at [AREACOORD(src)]")
 
 /obj/effect/mapping_helpers/simple_pipes/proc/preform_layer(override_layer, override_color, override_name = null)
 	var/list/connections = list( dir2text(NORTH)  = FALSE, dir2text(SOUTH) = FALSE , dir2text(EAST) = FALSE , dir2text(WEST) = FALSE)
@@ -419,6 +430,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	pipe.piping_layer = override_layer
 	pipe.update_layer()
 	pipe.paint(override_color)
+	// prevents duplicates on the station blueprints mode since the effect is on
+	pipe.obj_flags &= ~ON_BLUEPRINTS
 
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber
 	name = "Simple Supply/Scrubber Pipes"
@@ -427,6 +440,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 
 // Instead of using our current layer, we use
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/Initialize()
+	check_for_duplicates()
 	preform_layer(2, rgb(0, 0, 255), override_name = "air supply pipe")
 	preform_layer(4, rgb(255, 0, 0), override_name = "scrubbers pipe")
 
