@@ -509,7 +509,7 @@
 	STR.max_items = 6
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 	var/static/list/can_hold = typecacheof(list(
-		/obj/item/reagent_containers/food/snacks,
+		/obj/item/food,
 		/obj/item/reagent_containers/food/drinks
 		))
 	STR.can_hold = can_hold
@@ -517,17 +517,17 @@
 	var/rig_snacks
 	while(contents.len <= amount)
 		rig_snacks = pick(list(
-		/obj/item/reagent_containers/food/snacks/candy,
+		/obj/item/food/candy,
 		/obj/item/reagent_containers/food/drinks/dry_ramen,
-		/obj/item/reagent_containers/food/snacks/chips,
-		/obj/item/reagent_containers/food/snacks/sosjerky,
-		/obj/item/reagent_containers/food/snacks/syndicake,
-		/obj/item/reagent_containers/food/snacks/spacetwinkie,
-		/obj/item/reagent_containers/food/snacks/cheesiehonkers,
+		/obj/item/food/chips,
+		/obj/item/food/sosjerky,
+		/obj/item/food/syndicake,
+		/obj/item/food/spacetwinkie,
+		/obj/item/food/cheesiehonkers,
 		/obj/item/food/nachos,
 		/obj/item/food/cheesynachos,
 		/obj/item/food/cubannachos,
-		/obj/item/reagent_containers/food/snacks/nugget,
+		/obj/item/food/nugget,
 		/obj/item/food/spaghetti/pastatomato,
 		/obj/item/food/rofflewaffles,
 		/obj/item/food/donkpocket,
@@ -744,7 +744,7 @@
 	name = "fannypack"
 	desc = "A dorky fannypack for keeping small items in."
 	icon_state = "fannypack_leather"
-	item_state = "fannypack_leather"
+	item_state = null
 	worn_icon_state = "fannypack_leather"
 	dying_key = DYE_REGISTRY_FANNYPACK
 	custom_price = 15
@@ -765,69 +765,58 @@
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
 	icon_state = "fannypack_black"
-	item_state = "fannypack_black"
 	worn_icon_state = "fannypack_black"
 
 /obj/item/storage/belt/fannypack/red
 	name = "red fannypack"
 	icon_state = "fannypack_red"
-	item_state = "fannypack_red"
 	worn_icon_state = "fannypack_red"
 
 /obj/item/storage/belt/fannypack/purple
 	name = "purple fannypack"
 	icon_state = "fannypack_purple"
-	item_state = "fannypack_purple"
 	worn_icon_state = "fannypack_purple"
 
 /obj/item/storage/belt/fannypack/blue
 	name = "blue fannypack"
 	icon_state = "fannypack_blue"
-	item_state = "fannypack_blue"
 	worn_icon_state = "fannypack_blue"
 
 /obj/item/storage/belt/fannypack/orange
 	name = "orange fannypack"
 	icon_state = "fannypack_orange"
-	item_state = "fannypack_orange"
 	worn_icon_state = "fannypack_orange"
 
 /obj/item/storage/belt/fannypack/white
 	name = "white fannypack"
 	icon_state = "fannypack_white"
-	item_state = "fannypack_white"
 	worn_icon_state = "fannypack_white"
 
 /obj/item/storage/belt/fannypack/green
 	name = "green fannypack"
 	icon_state = "fannypack_green"
-	item_state = "fannypack_green"
 	worn_icon_state = "fannypack_green"
 
 /obj/item/storage/belt/fannypack/pink
 	name = "pink fannypack"
 	icon_state = "fannypack_pink"
-	item_state = "fannypack_pink"
 	worn_icon_state = "fannypack_pink"
 
 /obj/item/storage/belt/fannypack/cyan
 	name = "cyan fannypack"
 	icon_state = "fannypack_cyan"
-	item_state = "fannypack_cyan"
 	worn_icon_state = "fannypack_cyan"
 
 /obj/item/storage/belt/fannypack/yellow
 	name = "yellow fannypack"
 	icon_state = "fannypack_yellow"
-	item_state = "fannypack_yellow"
 	worn_icon_state = "fannypack_yellow"
 
 /obj/item/storage/belt/fannypack/bustin
 	name = "exterminator's belt"
 	desc = " "
 	icon_state = "bustinbelt"
-	item_state = "bustinbelt"
-	worn_icon_state = "bustinbelt"
+	worn_icon_state = "fannypack_white"
 
 /obj/item/storage/belt/sabre
 	name = "sabre sheath"

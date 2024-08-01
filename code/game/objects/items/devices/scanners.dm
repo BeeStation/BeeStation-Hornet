@@ -26,6 +26,7 @@ GENE SCANNER
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
+	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	custom_materials = list(/datum/material/iron=150)
@@ -137,6 +138,7 @@ GENE SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
 	item_state = "healthanalyzer"
+	worn_icon_state = "healthanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
@@ -432,6 +434,7 @@ GENE SCANNER
 			mutant = TRUE
 
 		message += "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>"
+		message += "<span class='info'>Core temperature: [round(H.coretemperature-T0C,0.1)] &deg;C ([round(H.coretemperature*1.8-459.67,0.1)] &deg;F)</span>"
 	message += "<span class='info'>Body temperature: [round(M.bodytemperature-T0C,0.1)] &deg;C ([round(M.bodytemperature*1.8-459.67,0.1)] &deg;F)</span>"
 
 	// Time of death
@@ -453,8 +456,10 @@ GENE SCANNER
 		if(blood_id)
 			if(ishuman(C))
 				var/mob/living/carbon/human/H = C
-				if(H.bleed_rate)
-					message += "<span class='alert'><b>Subject is bleeding!</b></span>"
+				if(H.is_bleeding())
+					message += "<span class='alert'><b>Subject is bleeding at a rate of [round(H.get_bleed_rate(), 0.1)]/s!</b></span>"
+				else if (H.is_bandaged())
+					message += "<span class='alert'><b>Subject is bleeding (Bandaged)!</b></span>"
 			var/blood_percent =  round((C.blood_volume / BLOOD_VOLUME_NORMAL)*100)
 			var/blood_type = C.dna.blood_type
 			if(blood_id != /datum/reagent/blood)//special blood substance
@@ -463,12 +468,13 @@ GENE SCANNER
 					blood_type = R.name
 				else
 					blood_type = blood_id
+			var/blood_info = "[blood_type] (Compatible: [jointext(get_safe_blood(blood_type), ", ")])"
 			if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
-				message += "<span class='alert'>Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>"
+				message += "<span class='alert'>Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span> <span class='info'>type: [blood_info]</span>"
 			else if(C.blood_volume <= BLOOD_VOLUME_OKAY)
-				message += "<span class='alert'>Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>"
+				message += "<span class='alert'>Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl,</span> <span class='info'>type: [blood_info]</span>"
 			else
-				message += "<span class='info'>Blood level: [blood_percent] %, [C.blood_volume] cl, type: [blood_type]</span>"
+				message += "<span class='info'>Blood level: [blood_percent] %, [C.blood_volume] cl, type: [blood_info]</span>"
 
 		var/list/cyberimp_detect = list()
 		for(var/obj/item/organ/cyberimp/CI in C.internal_organs)
@@ -730,9 +736,10 @@ GENE SCANNER
 
 /obj/item/analyzer/ranged
 	desc = "A hand-held scanner which uses advanced spectroscopy and infrared readings to analyze gases as a distance. Alt-Click to use the built in barometer function."
-	name = "long-range analyzer"
+	name = "long-range gas analyzer"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "ranged_analyzer"
+	worn_icon_state = "analyzer"
 
 /obj/item/analyzer/ranged/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -857,6 +864,7 @@ GENE SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "nanite_scanner"
 	item_state = "nanite_remote"
+	worn_icon_state = "healthanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	desc = "A hand-held body scanner able to detect nanites and their programming."
@@ -884,6 +892,7 @@ GENE SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gene"
 	item_state = "healthanalyzer"
+	worn_icon_state = "healthanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	desc = "A hand-held scanner for analyzing someones gene sequence on the fly. Hold near a DNA console to update the internal database."
@@ -999,6 +1008,7 @@ GENE SCANNER
 	name = "virus extrapolator"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "extrapolator_scan"
+	worn_icon_state = "healthanalyzer"
 	desc = "A bulky scanning device, used to extract genetic material of potential pathogens."
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
@@ -1207,7 +1217,7 @@ GENE SCANNER
 	if(!target_disease)
 		return
 	using = TRUE
-	if(isolate)
+	if(isolate && CONFIG_GET(flag/isolation_allowed))
 		. = isolate_symptom(user, target, target_disease)
 	else
 		. = isolate_disease(user, target, target_disease)
@@ -1218,6 +1228,8 @@ GENE SCANNER
  */
 /obj/item/extrapolator/proc/isolate_symptom(mob/living/user, atom/target, datum/disease/advance/target_disease)
 	. = FALSE
+	if(!CONFIG_GET(flag/isolation_allowed))
+		return FALSE
 	var/list/symptoms = list()
 	for(var/datum/symptom/symptom in target_disease.symptoms)
 		if(symptom.level <= maximum_level)

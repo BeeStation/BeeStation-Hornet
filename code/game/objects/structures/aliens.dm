@@ -116,7 +116,7 @@
 	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
 	icon = MAP_SWITCH('icons/obj/smooth_structures/alien/weeds1.dmi', 'icons/mob/alien.dmi')
-	icon_state = "weeds1"
+	icon_state = "weeds1-0"
 	base_icon_state = "weeds"
 	transform = MAP_SWITCH(TRANSLATE_MATRIX(-4, -4), matrix())
 	smoothing_flags = SMOOTH_BITMASK
@@ -133,14 +133,17 @@
 /obj/structure/alien/weeds/unit_test
 	icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
 	base_icon_state = "weeds1"
+	icon_state = "weeds1-0"
 
 /obj/structure/alien/weeds/unit_test_two
 	icon = 'icons/obj/smooth_structures/alien/weeds2.dmi'
 	base_icon_state = "weeds2"
+	icon_state = "weeds2-0"
 
 /obj/structure/alien/weeds/unit_test_three
 	icon = 'icons/obj/smooth_structures/alien/weeds3.dmi'
 	base_icon_state = "weeds3"
+	icon_state = "weeds3-0"
 
 #endif //UNIT_TESTS
 
@@ -193,7 +196,7 @@
 	name = "glowing resin"
 	desc = "Blue bioluminescence shines from beneath the surface."
 	icon = MAP_SWITCH('icons/obj/smooth_structures/alien/weednode.dmi', 'icons/mob/alien.dmi')
-	icon_state = "weednode"
+	icon_state = "weednode-0"
 	base_icon_state = "weednode"
 	light_color = LIGHT_COLOR_BLUE
 	light_power = 0.5
@@ -329,6 +332,7 @@
 						break
 
 /obj/structure/alien/egg/obj_break(damage_flag)
+	. = ..()
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(status != BURST)
 			Burst(kill=TRUE)

@@ -33,7 +33,7 @@
 	aggressiveness = 3
 	flags_inv = HIDEFACIALHAIR | HIDEFACE | HIDEEYES | HIDEEARS | HIDEHAIR | HIDESNOUT
 	visor_flags_inv = 0
-	armor = list(MELEE = 10,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 20, ACID = 40, STAMINA = 30)
+	armor = list(MELEE = 10,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 20, ACID = 40, STAMINA = 30, BLEED = 30)
 
 /obj/item/clothing/mask/gas/sechailer/swat/spacepol
 	name = "spacepol mask"
@@ -46,6 +46,7 @@
 	desc = "A set of recognizable pre-recorded messages for cyborgs to use when apprehending criminals."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_idle"
+	slot_flags = null
 	aggressiveness = 1 //Borgs are nicecurity!
 	actions_types = list(/datum/action/item_action/halt)
 

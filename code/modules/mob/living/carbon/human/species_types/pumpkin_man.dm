@@ -110,8 +110,10 @@
 
 /datum/action/item_action/organ_action/pumpkin_head_candy/Trigger()
 	. = ..()
-	if(iscarbon(owner) && !IS_DEAD_OR_INCAP(owner))
-		var/mob/living/carbon/H = owner
+	if(!iscarbon(owner))
+		return
+	var/mob/living/carbon/H = owner
+	if(!IS_DEAD_OR_INCAP(H))
 		//Get candy if we have it
 		var/obj/item/type
 		if(available_candy.len)
@@ -135,7 +137,7 @@
 	var/obj/item/type = pick(/obj/item/food/cookie/sugar/spookyskull,
 		/obj/item/food/cookie/sugar/spookycoffin,
 		/obj/item/food/candy_corn,
-		/obj/item/reagent_containers/food/snacks/candy,
+		/obj/item/food/candy,
 		/obj/item/food/candiedapple,
 		/obj/item/food/chocolatebar)
 	//Make some candy & put it in the list

@@ -4,7 +4,7 @@
 	name = "bugged mob"
 	desc = "Yell at coderbrush."
 	icon = null
-	icon_state = ""
+	icon_state = null
 	slot_flags = NONE
 	clothing_flags = NOTCONSUMABLE
 	var/mob/living/held_mob
@@ -24,6 +24,7 @@
 		righthand_file = rh_icon
 	if(worn_slot_flags)
 		slot_flags = worn_slot_flags
+	item_flags &= ~(ABSTRACT)
 	deposit(M)
 
 /obj/item/clothing/head/mob_holder/Destroy()
@@ -70,6 +71,9 @@
 		to_chat(L, "<span class='warning'>[held_mob] wriggles free!</span>")
 		L.dropItemToGround(src)
 
+	if(attached_wig)
+		unattach_wig()
+
 	held_mob.forceMove(get_turf(held_mob))
 	held_mob.reset_perspective()
 	held_mob.setDir(SOUTH)
@@ -82,7 +86,7 @@
 	releasing = FALSE
 	return TRUE
 
-/obj/item/clothing/head/mob_holder/relaymove(mob/user)
+/obj/item/clothing/head/mob_holder/relaymove(mob/living/user, direction)
 	release()
 
 /obj/item/clothing/head/mob_holder/container_resist()

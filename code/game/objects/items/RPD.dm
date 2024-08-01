@@ -204,6 +204,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	desc = "A device used to rapidly pipe things."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rpd"
+	worn_icon_state = "RPD"
 	flags_1 = CONDUCT_1
 	force = 10
 	throwforce = 10
@@ -212,7 +213,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BELT
 	custom_materials = list(/datum/material/iron=75000, /datum/material/glass=37500)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 	var/datum/effect_system/spark_spread/spark_system
 	var/working = 0
@@ -469,7 +470,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		attack_target = get_turf(attack_target)
 	var/can_make_pipe = (isturf(attack_target) || is_type_in_typecache(attack_target, rpd_whitelist))
 
-	. = FALSE
+	. = TRUE
 
 	if((mode & DESTROY_MODE) && is_type_in_typecache(A, rpd_targets))
 		to_chat(user, "<span class='notice'>You start destroying a pipe...</span>")

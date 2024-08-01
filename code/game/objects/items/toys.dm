@@ -188,6 +188,7 @@
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "revolver"
 	item_state = "gun"
+	worn_icon_state = "gun"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	flags_1 =  CONDUCT_1
@@ -418,6 +419,11 @@
 	block_level = 0
 	item_flags = ISWEAPON
 
+/obj/item/dualsaber/toy/on_wield(obj/item/source, mob/living/carbon/user)
+	. = ..()
+	sharpness = IS_BLUNT
+	bleed_force = 0
+
 /obj/item/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
@@ -446,6 +452,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE //if it some how gets block level, katanas block projectiles for the meme
 	item_flags = ISWEAPON
+	sharpness = IS_SHARP
+	bleed_force = BLEED_SURFACE
 
 /*
  * Snap pops
@@ -852,7 +860,7 @@
 	name = "hand of cards"
 	desc = "A number of cards not in a deck, customarily held in ones hand."
 	icon = 'icons/obj/toy.dmi'
-	icon_state = "none"
+	icon_state = "nothing"
 	w_class = WEIGHT_CLASS_TINY
 	var/list/currenthand = list()
 	var/choice = null
@@ -1059,6 +1067,7 @@
 	card_throw_speed = 6
 	embedding = list("pain_mult" = 1, "embed_chance" = 80, "max_damage_mult" = 8, "fall_chance" = 0, "embed_chance_turf_mod" = 15, "armour_block" = 60) //less painful than throwing stars
 	card_sharpness = IS_SHARP
+	bleed_force = BLEED_SURFACE
 	card_throw_range = 7
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
 	resistance_flags = NONE

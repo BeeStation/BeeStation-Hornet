@@ -47,13 +47,15 @@
 			if(1000 to INFINITY)
 				adjustFireLoss(8)
 
+	. = ..() // interact with body heat after dealing with the hot air
+
 /mob/living/carbon/monkey/handle_environment(datum/gas_mixture/environment)
 	// Run base mob body temperature proc before taking damage
 	// this balances body temp to the enviroment and natural stabilization
 	. = ..()
 
 	if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT && !HAS_TRAIT(src, TRAIT_RESISTHEAT))
-		remove_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD)
+		remove_movespeed_modifier(/datum/movespeed_modifier/monkey_temperature_speedmod)
 		switch(bodytemperature)
 			if(360 to 400)
 				throw_alert("temp", /atom/movable/screen/alert/hot, 1)
@@ -70,7 +72,7 @@
 
 	else if(bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !HAS_TRAIT(src, TRAIT_RESISTCOLD))
 		if(!istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
-			add_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = ((BODYTEMP_COLD_DAMAGE_LIMIT - bodytemperature) / COLD_SLOWDOWN_FACTOR))
+			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/monkey_temperature_speedmod, multiplicative_slowdown = ((BODYTEMP_COLD_DAMAGE_LIMIT - bodytemperature) / COLD_SLOWDOWN_FACTOR))
 			switch(bodytemperature)
 				if(200 to BODYTEMP_COLD_DAMAGE_LIMIT)
 					throw_alert("temp", /atom/movable/screen/alert/cold, 1)
@@ -85,7 +87,7 @@
 			clear_alert("temp")
 
 	else
-		remove_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD)
+		remove_movespeed_modifier(/datum/movespeed_modifier/monkey_temperature_speedmod)
 		clear_alert("temp")
 
 	//Account for massive pressure differences

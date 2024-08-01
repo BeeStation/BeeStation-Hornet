@@ -42,7 +42,7 @@
 	if(data && mix_data)
 		if(data["blood_DNA"] != mix_data["blood_DNA"])
 			data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning if the DNA sample doesn't match.
-		if(data["viruses"] || mix_data["viruses"])
+		if((data["viruses"] || mix_data["viruses"]) && CONFIG_GET(flag/mixvirus_allowed))
 
 			var/list/mix1 = data["viruses"]
 			var/list/mix2 = mix_data["viruses"]
@@ -248,10 +248,12 @@
 
 /datum/reagent/water/holywater/on_mob_metabolize(mob/living/L)
 	..()
-	ADD_TRAIT(L, TRAIT_HOLY, type)
+	L.AddComponent(/datum/component/anti_magic, type, _magic = FALSE, _holy = TRUE)
 
 /datum/reagent/water/holywater/on_mob_end_metabolize(mob/living/L)
-	REMOVE_TRAIT(L, TRAIT_HOLY, type)
+	for (var/datum/component/anti_magic/anti_magic in L.GetComponents(/datum/component/anti_magic))
+		if (anti_magic.source == type)
+			qdel(anti_magic)
 	if(HAS_TRAIT_FROM(L, TRAIT_DEPRESSION, HOLYWATER_TRAIT))
 		REMOVE_TRAIT(L, TRAIT_DEPRESSION, HOLYWATER_TRAIT)
 		to_chat(L, "<span class='notice'>You cheer up, knowing that everything is going to be ok.</span>")
@@ -318,10 +320,16 @@
 		return
 	return ..()
 
+/datum/reagent/fuel/unholywater/on_mob_metabolize(mob/living/L)
+	ADD_TRAIT(L, TRAIT_NO_BLEEDING, type)
+
+/datum/reagent/fuel/unholywater/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_NO_BLEEDING, type)
+
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/carbon/M)
 	if(iscultist(M))
 		M.drowsyness = max(M.drowsyness-5, 0)
-		M.AdjustAllImmobility(-40, FALSE)
+		M.AdjustAllImmobility(-40)
 		M.adjustStaminaLoss(-10, 0)
 		M.adjustToxLoss(-2, 0)
 		M.adjustOxyLoss(-2, 0)
@@ -609,23 +617,10 @@
 	description = "A jellyfying toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	race = /datum/species/oozeling
+	race = list(/datum/species/oozeling/slime,
+					/datum/species/oozeling/luminescent,
+					/datum/species/oozeling/stargazer)
 	taste_description = "grandma's gelatin"
-
-/datum/reagent/mutationtoxin/jelly/on_mob_life(mob/living/carbon/human/H)
-	if(isoozeling(H))
-		to_chat(H, "<span class='warning'>Your body shifts and morphs, turning you into another subspecies!</span>")
-		var/species_type = pick(subtypesof(/datum/species/oozeling))
-		H.set_species(species_type)
-		H.reagents.del_reagent(type)
-		return TRUE
-	if(current_cycle >= cycles_to_turn) //overwrite since we want subtypes of jelly
-		var/datum/species/species_type = pick(subtypesof(race))
-		H.set_species(species_type)
-		H.reagents.del_reagent(type)
-		to_chat(H, "<span class='warning'>You've become \a [initial(species_type.name)]!</span>")
-		return TRUE
-	return ..()
 
 /datum/reagent/mutationtoxin/golem
 	name = "Golem Mutation Toxin"
@@ -642,6 +637,7 @@
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = /datum/species/abductor
 	taste_description = "something out of this world... no, universe!"
+
 /datum/reagent/mutationtoxin/ethereal
 	name = "Ethereal Mutation Toxin"
 	description = "A positively electric toxin."
@@ -857,7 +853,7 @@
 	taste_mult = 0 // apparently tasteless.
 
 /datum/reagent/mercury/on_mob_life(mob/living/carbon/M)
-	if((M.mobility_flags & MOBILITY_MOVE) && !isspaceturf(M.loc))
+	if(!HAS_TRAIT(src, TRAIT_IMMOBILIZED) && !isspaceturf(M.loc))
 		step(M, pick(GLOB.cardinals))
 	if(prob(5))
 		M.emote(pick("twitch","drool","moan"))
@@ -938,7 +934,7 @@
 	taste_description = "metal"
 
 /datum/reagent/lithium/on_mob_life(mob/living/carbon/M)
-	if((M.mobility_flags & MOBILITY_MOVE) && !isspaceturf(M.loc) && isturf(M.loc))
+	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !isspaceturf(M.loc) && isturf(M.loc))
 		step(M, pick(GLOB.cardinals))
 	if(prob(5))
 		M.emote(pick("twitch","drool","moan"))
@@ -1127,16 +1123,18 @@
 	O?.wash(clean_types)
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, reac_volume)
-	if(reac_volume >= 1)
-		T.wash(clean_types)
-		for(var/am in T)
-			var/atom/movable/movable_content
-			if(ismopable(movable_content)) // Mopables will be cleaned anyways by the turf wash
-				continue
-			movable_content.wash(clean_types)
+	if(reac_volume < 1)
+		return
 
-		for(var/mob/living/simple_animal/slime/M in T)
-			M.adjustToxLoss(rand(5,10))
+	T.wash(clean_types)
+	for(var/am in T)
+		var/atom/movable/movable_content = am
+		if(ismopable(movable_content)) // Mopables will be cleaned anyways by the turf wash
+			continue
+		movable_content.wash(clean_types)
+
+	for(var/mob/living/simple_animal/slime/M in T)
+		M.adjustToxLoss(rand(5,10))
 
 /datum/reagent/space_cleaner/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
@@ -1381,10 +1379,10 @@
 
 /datum/reagent/nitryl/on_mob_metabolize(mob/living/L)
 	..()
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
+	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nitryl)
 
 /datum/reagent/nitryl/on_mob_end_metabolize(mob/living/L)
-	L.remove_movespeed_modifier(type)
+	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nitryl)
 	..()
 
 /////////////////////////Colorful Powder////////////////////////////
@@ -1595,7 +1593,7 @@
 	var/carpet_type = /turf/open/floor/carpet
 
 /datum/reagent/carpet/reaction_turf(turf/T, reac_volume)
-	if(isplatingturf(T) || istype(T, /turf/open/floor/plasteel))
+	if(isplatingturf(T) || istype(T, /turf/open/floor/iron))
 		var/turf/open/floor/F = T
 		F.PlaceOnTop(carpet_type, flags = CHANGETURF_INHERIT_AIR)
 	..()
@@ -2168,7 +2166,7 @@
 /datum/reagent/eldritch/on_mob_life(mob/living/carbon/M)
 	if(IS_HERETIC(M))
 		M.drowsyness = max(M.drowsyness-5, 0)
-		M.AdjustAllImmobility(-40, FALSE)
+		M.AdjustAllImmobility(-40)
 		M.adjustStaminaLoss(-10, FALSE)
 		M.adjustToxLoss(-2, FALSE)
 		M.adjustOxyLoss(-2, FALSE)
@@ -2285,3 +2283,19 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	name = "Grasp of the Mansus"
 	description = "The Hand of the Mansus is at your neck."
 	metabolization_rate = 1 * REM
+
+/datum/reagent/eldritchkiss
+	name = "Eldritch Kiss"
+	description = "The lingering touch of eldritch hands pulses through your veins."
+	chem_flags = CHEMICAL_NOT_SYNTH
+	process_flags = ORGANIC | SYNTHETIC //i think this is how this works
+	self_consuming = TRUE //not having a liver will not deny the fairness of the elder gods
+
+/datum/reagent/medicine/eldritchkiss/on_mob_life(mob/living/carbon/M)
+	if(M.health <= 20)
+		M.adjustToxLoss(-4*REM, 0, TRUE) //this makes it heal toxinlovers, i think
+		M.adjustBruteLoss(-4*REM, 0)
+		M.adjustFireLoss(-4*REM, 0)
+		M.adjustOxyLoss(-5*REM, 0)
+		. = 1
+	M.losebreath = 0

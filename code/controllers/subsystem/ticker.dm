@@ -67,7 +67,7 @@ SUBSYSTEM_DEF(ticker)
 	var/fail_counter
 	var/emergency_start = FALSE
 
-/datum/controller/subsystem/ticker/Initialize(timeofday)
+/datum/controller/subsystem/ticker/Initialize()
 	load_mode()
 
 	var/list/byond_sound_formats = list(
@@ -148,7 +148,7 @@ SUBSYSTEM_DEF(ticker)
 	else if(CONFIG_GET(flag/shift_time_realtime))
 		gametime_offset = world.timeofday
 
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/ticker/fire()
 	switch(current_state)
@@ -341,7 +341,7 @@ SUBSYSTEM_DEF(ticker)
 	log_world("Game start took [(world.timeofday - init_start)/10]s")
 	round_start_time = world.time
 	round_start_timeofday = world.timeofday
-	SSdbcore.SetRoundStart()
+	INVOKE_ASYNC(SSdbcore, TYPE_PROC_REF(/datum/controller/subsystem/dbcore, SetRoundStart))
 
 	to_chat(world, "<span class='notice'><B>Welcome to [station_name()], enjoy your stay!</B></span>")
 	SEND_SOUND(world, sound(SSstation.announcer.get_rand_welcome_sound()))

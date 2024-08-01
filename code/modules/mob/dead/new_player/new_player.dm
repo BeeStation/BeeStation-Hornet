@@ -64,7 +64,7 @@
 			var/isadmin = FALSE
 			if(client?.holder)
 				isadmin = TRUE
-			var/datum/DBQuery/query_get_new_polls = SSdbcore.NewQuery({"
+			var/datum/db_query/query_get_new_polls = SSdbcore.NewQuery({"
 				SELECT id FROM [format_table_name("poll_question")]
 				WHERE (adminonly = 0 OR :isadmin = 1)
 				AND Now() BETWEEN starttime AND endtime
@@ -261,12 +261,16 @@
 			return "Your account is not old enough for [jobtitle]."
 		if(JOB_UNAVAILABLE_SLOTFULL)
 			return "[jobtitle] is already filled to capacity."
+		if(JOB_UNAVAILABLE_LOCKED)
+			return "[jobtitle] is locked by the system."
 	return "Error: Unknown job availability."
 
 /mob/dead/new_player/proc/IsJobUnavailable(rank, latejoin = FALSE)
 	var/datum/job/job = SSjob.GetJob(rank)
 	if(!job)
 		return JOB_UNAVAILABLE_GENERIC
+	if(job.lock_flags)
+		return JOB_UNAVAILABLE_LOCKED
 	if((job.current_positions >= job.total_positions) && job.total_positions != -1)
 		if(job.title == JOB_NAME_ASSISTANT)
 			if(isnum_safe(client.player_age) && client.player_age <= 14) //Newbies can always be assistants
@@ -399,7 +403,7 @@
 		"Science" = "#ffddff",
 		"Security" = "#ffdddd"
 	)
-	var/static/list/department_list = list(GLOB.command_positions) + list(GLOB.engineering_positions) + list(GLOB.supply_positions) + list(GLOB.nonhuman_positions - "pAI") + list(GLOB.civilian_positions) + list(GLOB.gimmick_positions) + list(GLOB.medical_positions) + list(GLOB.science_positions) + list(GLOB.security_positions)
+	var/static/list/department_list = list(GLOB.command_positions) + list(GLOB.engineering_positions) + list(GLOB.supply_positions) + list(GLOB.nonhuman_positions - ROLE_PAI) + list(GLOB.civilian_positions) + list(GLOB.gimmick_positions) + list(GLOB.medical_positions) + list(GLOB.science_positions) + list(GLOB.security_positions)
 
 	var/list/dat = list("<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>")
 	if(SSjob.prioritized_jobs.len > 0)

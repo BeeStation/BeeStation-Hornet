@@ -22,7 +22,6 @@
 		"design_disk",
 		"dest_tagger",
 		"destructive_analyzer",
-		"experimentor",
 		"fax",
 		"glasses_prescription",
 		"handlabel",
@@ -155,6 +154,7 @@
 		"screwdriver",
 		"shovel",
 		"spade",
+		"stethoscope",
 		"surgical_drapes",
 		"surgicaldrill",
 		"syringe",
@@ -286,7 +286,7 @@
 		"dish_drive",
 		"fat_sucker",
 		"gibber",
-		"gibber",
+		"griddle",
 		"microwave",
 		"monkey_recycler",
 		"processor",
@@ -450,6 +450,7 @@
 		"rcd_loaded",
 		"rpd_loaded",
 		"weldingmask",
+		"sheetifier"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -1321,7 +1322,7 @@
 		"med_scanner",
 		"posibrain",
 	)
-	design_ids = list("healthanalyzer_advanced")
+	design_ids = list("healthanalyzer_advanced", "extrapolator")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
@@ -2237,7 +2238,6 @@
 	design_ids = list(
 		"blinding_nanites",
 		"hallucination_nanites",
-		"mindshield_nanites",
 		"mute_nanites",
 		"pacifying_nanites",
 		"sleep_nanites",
@@ -2245,6 +2245,22 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 1000)
 	export_price = 5000
+	
+/datum/techweb_node/nanite_cc
+	id = "nanite_cc"
+	tech_tier = 5
+	display_name = "Classified Nanites"
+	description = "Highly confidential nanite programs from CC. Report usage to your nearest administraitor."
+	prereq_ids = list(
+		"nanite_neural",
+		"neural_programming",
+	)
+	design_ids = list(
+		"mindshield_nanites",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 1000)
+	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/nanite_harmonic
 	id = "nanite_harmonic"

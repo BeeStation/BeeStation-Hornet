@@ -206,7 +206,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/yellow
 	colour = "yellow"
-	light_color = LIGHT_COLOR_YELLOW //a good, sickly atmosphere
+	light_color = LIGHT_COLOR_DIM_YELLOW //a good, sickly atmosphere
 	light_power = 0.75
 	uses_process = FALSE
 
@@ -398,7 +398,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/cerulean/Initialize(mapload)
 	. = ..()
-	while(crystals < 3)
+	for (var/i in 1 to 10) // doesn't guarantee 3 but it's a good effort
 		spawn_crystal()
 
 /obj/structure/slime_crystal/cerulean/proc/spawn_crystal()

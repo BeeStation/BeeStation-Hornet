@@ -304,7 +304,7 @@
 	anim_parts = "left=-13,0;right=13,0"
 	normal_integrity = 150
 	damage_deflection = 5
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
 
 /obj/machinery/door/airlock/bronze/seethru
 	assemblytype = /obj/structure/door_assembly/door_assembly_bronze/seethru
@@ -582,7 +582,7 @@
 	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
 	normal_integrity = 150
 	damage_deflection = 5
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
 
 //////////////////////////////////
 /*
@@ -593,7 +593,7 @@
 	name = "large glass airlock"
 	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
-	mask_file = 'icons/obj/doors/airlocks/mask_64x32_airlocks.dmi'
+	mask_file = 'icons/obj/doors/mask_64x32_doors.dmi'
 	mask_x = 16 // byond is consistent and sane
 	anim_parts = "left=-21,0;right=21,0;top=0,29"
 	opacity = FALSE

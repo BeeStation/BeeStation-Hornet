@@ -28,7 +28,7 @@
 	. = ..()
 	for(var/m in buckled_mobs)
 		var/mob/living/buckled_mob = m
-		if(buckled_mob.get_num_legs(FALSE) > 0)
+		if(buckled_mob.num_legs > 0)
 			buckled_mob.pixel_y = 5
 		else
 			buckled_mob.pixel_y = -4
@@ -36,7 +36,7 @@
 /obj/vehicle/ridden/scooter/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!istype(M))
 		return FALSE
-	if(M.get_num_legs() < legs_required && M.get_num_arms() < arms_required)
+	if(M.usable_legs < legs_required && M.usable_hands < arms_required)
 		to_chat(M, "<span class='warning'>You don't think it'd be a good idea trying to ride \the [src]...</span>")
 		return FALSE
 	return ..()
@@ -77,7 +77,7 @@
 		QDEL_NULL(sparks)
 	. = ..()
 
-/obj/vehicle/ridden/scooter/skateboard/relaymove()
+/obj/vehicle/ridden/scooter/skateboard/relaymove(mob/living/user, direction)
 	if (grinding || world.time < next_crash)
 		return FALSE
 	return ..()
@@ -110,7 +110,7 @@
 			unbuckle_mob(H)
 			H.throw_at(throw_target, 3, 2)
 			var/head_slot = H.get_item_by_slot(ITEM_SLOT_HEAD)
-			if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/hardhat)))
+			if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/utility/hardhat)))
 				if(prob(multiplier * 100)) //pro skaters get a 70% chance to not get the brain damage
 					H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
 					H.updatehealth()
@@ -303,7 +303,7 @@
 		H.Paralyze(multiplier * 30)
 		H.adjustStaminaLoss(multiplier * 10)
 		var/head_slot = H.get_item_by_slot(ITEM_SLOT_HEAD)
-		if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/hardhat)))
+		if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/utility/hardhat)))
 			if(prob(multiplier * 100)) //Pro skaters have a 70% chance to not get the brain damage
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
 				H.updatehealth()

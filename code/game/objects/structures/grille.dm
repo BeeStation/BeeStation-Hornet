@@ -10,7 +10,7 @@
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
-	armor = list(MELEE = 50,  BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 50,  BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
 	max_integrity = 50
 	integrity_failure = 0.4
 	var/rods_type = /obj/item/stack/rods
@@ -23,7 +23,7 @@
 		pipe_astar_cost = 1\
 	)
 
-/obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	update_icon()
 
@@ -79,7 +79,7 @@
 			to_chat(user, "<span class='notice'>You construct the window.</span>")
 			log_attack("[key_name(user)] has constructed a window at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			var/obj/structure/window/WD = new the_rcd.window_type(local_turf, user.dir)
-			WD.setAnchored(TRUE)
+			WD.set_anchored(TRUE)
 			return TRUE
 	return FALSE
 
@@ -124,7 +124,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message("<span class='warning'>[user] hits [src].</span>", null, null, COMBAT_MESSAGE_RANGE)
-	log_combat(user, src, "hit")
+	log_combat(user, src, "hit", important = FALSE)
 	if(!shock(user, 70))
 		take_damage(rand(5,10), BRUTE, MELEE, 1)
 
@@ -155,7 +155,7 @@
 	else if((W.tool_behaviour == TOOL_SCREWDRIVER) && (isturf(loc) || anchored))
 		if(!shock(user, 90))
 			W.play_tool_sound(src, 100)
-			setAnchored(!anchored)
+			set_anchored(!anchored)
 			user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
 								 "<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
 			return
@@ -203,7 +203,7 @@
 				else
 					WD = new/obj/structure/window/fulltile(drop_location()) //normal window
 				WD.setDir(dir_to_set)
-				WD.setAnchored(FALSE)
+				WD.set_anchored(FALSE)
 				WD.state = 0
 				ST.use(2)
 				to_chat(user, "<span class='notice'>You place [WD] on [src].</span>")
@@ -238,6 +238,7 @@
 	..()
 
 /obj/structure/grille/obj_break()
+	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		new broken_type(src.loc)
 		var/drop_loc = drop_location()
@@ -296,12 +297,15 @@
 /obj/structure/grille/broken // Pre-broken grilles for map placement
 	icon_state = "brokengrille"
 	density = FALSE
-	obj_integrity = 20
 	broken = TRUE
 	rods_amount = 1
 	rods_broken = FALSE
 	grille_type = /obj/structure/grille
 	broken_type = null
+
+/obj/structure/grille/broken/Initialize(mapload)
+	. = ..()
+	take_damage(max_integrity * 0.6)
 
 /obj/structure/grille/prison //grilles that trigger prison lockdown under some circumstances
 	name = "prison grille"
@@ -316,7 +320,7 @@
 	initialized_device = 1
 
 /obj/structure/grille/prison/Initialize()
-	..()
+	. = ..()
 	if(!initialized_device)
 		setup_device()
 

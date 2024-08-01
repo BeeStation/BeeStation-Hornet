@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 		else
 			health_percent = round((current.health / current.maxHealth) * 100, 0.5)
 		var/stat_text = "[health_percent]%"
-		if(current.InCritical())
+		if(HAS_TRAIT(current, TRAIT_CRITICAL_CONDITION))
 			stat_text += " (!! CRITICAL !!)"
 		.["Summoner Health"] = GENERATE_STAT_TEXT(stat_text)
 	if(!COOLDOWN_FINISHED(src, manifest_cooldown))
@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 
 /mob/living/simple_animal/hostile/holoparasite/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods)
 	var/datum/antagonist/traitor/summoner_traitor = summoner?.has_antag_datum(/datum/antagonist/traitor)
-	if(summoner_traitor?.should_give_codewords)
+	if(summoner_traitor?.has_codewords)
 		raw_message = GLOB.syndicate_code_phrase_regex.Replace(raw_message, "<span class='blue'>$1</span>")
 		raw_message = GLOB.syndicate_code_response_regex.Replace(raw_message, "<span class='red'>$1</span>")
 	return ..()

@@ -33,6 +33,7 @@
 	light_power = 0.25
 	fullbright_type = FULLBRIGHT_STARLIGHT
 	bullet_bounce_sound = null
+	vis_flags = VIS_INHERIT_ID //when this be added to vis_contents of something it be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
 
 	z_eventually_space = TRUE
 	vis_flags = VIS_INHERIT_ID	//when this be added to vis_contents of something it be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
@@ -139,10 +140,10 @@
 		else
 			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
 		return
-	if(istype(C, /obj/item/stack/tile/plasteel))
+	if(istype(C, /obj/item/stack/tile/iron))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
-			var/obj/item/stack/tile/plasteel/S = C
+			var/obj/item/stack/tile/iron/S = C
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)

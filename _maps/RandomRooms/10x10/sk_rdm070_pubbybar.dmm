@@ -1,16 +1,14 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/musician/piano,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "b" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/chair/stool{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
+/obj/structure/chair/stool/directional/west,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "c" = (
 /turf/closed/wall,
@@ -19,10 +17,10 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/turf/open/floor/plasteel/stairs/left,
+/turf/open/floor/iron/stairs/left,
 /area/template_noop)
 "f" = (
-/turf/open/floor/plasteel/stairs/right,
+/turf/open/floor/iron/stairs/right,
 /area/template_noop)
 "g" = (
 /obj/effect/spawner/lootdrop/three_course_meal,
@@ -49,7 +47,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "k" = (
- /obj/machinery/vending/boozeomat/maint,
+/obj/machinery/vending/boozeomat/maint,
 /turf/closed/wall,
 /area/template_noop)
 "l" = (
@@ -159,9 +157,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "B" = (
-/obj/structure/chair/stool{
-	dir = 1
-	},
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/carpet,
 /area/template_noop)
 "C" = (
@@ -191,13 +187,13 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "H" = (
-/turf/open/floor/plasteel/stairs/medium,
+/turf/open/floor/iron/stairs/medium,
 /area/template_noop)
 "I" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/turf/open/floor/plasteel/stairs/right,
+/turf/open/floor/iron/stairs/right,
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance{
@@ -213,20 +209,20 @@
 /obj/structure/light_construct/small{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "M" = (
 /obj/item/clothing/under/rank/civilian/clown/sexy,
 /obj/effect/spawner/lootdrop/clowntrap,
 /obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "N" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /obj/item/stack/spacecash/c10,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "O" = (
 /obj/structure/closet/firecloset,
@@ -252,10 +248,10 @@
 	anchored = 1;
 	name = "pole"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "R" = (
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "S" = (
 /obj/structure/chair{
@@ -267,7 +263,7 @@
 /obj/effect/decal/cleanable/oil{
 	icon_state = "floor6"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "T" = (
 /obj/structure/chair{

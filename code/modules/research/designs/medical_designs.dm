@@ -172,6 +172,16 @@
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/extrapolator
+	name = "Viral Extrapolator"
+	desc = "A multipurpose hand-held device able to detect and extract viral cultures and their properties."
+	id = "extrapolator"
+	build_path = /obj/item/extrapolator
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2500, /datum/material/titanium = 2000, /datum/material/uranium = 1500)
+	category = list("Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
 /datum/design/medspray
 	name = "Medical Spray"
 	desc = "A medical spray bottle, designed for precision application, with an unscrewable cap."
@@ -253,6 +263,16 @@
 	materials = list(/datum/material/iron = 4000, /datum/material/glass = 2000, /datum/material/plasma = 2000, /datum/material/uranium = 3000, /datum/material/titanium = 3000)
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/stethoscope
+	name = "Stethoscope"
+	desc = "A medical tool used for listening to the body. Makes you look competent"
+	id = "stethoscope"
+	build_path = /obj/item/clothing/neck/stethoscope
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 1000, /datum/material/glass = 200)
+	category = list("Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /////////////////////////////////////////
 //////////Cybernetic Implants////////////

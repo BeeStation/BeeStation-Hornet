@@ -10,7 +10,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "paint_sprayer"
 	item_state = "paint_sprayer"
-
+	worn_icon_state = "painter"
 	w_class = WEIGHT_CLASS_SMALL
 
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
@@ -477,7 +477,7 @@
 		render_alpha = text2num(tile_type.rgba_regex.group[2], 16)
 
 	var/datum/universal_icon/colored_icon = uni_icon('icons/turf/decals.dmi', source_decal, dir=source_dir)
-	colored_icon.blend_color("#ffffff" + num2hex(render_alpha * 0.008, 2), ICON_MULTIPLY)
+	colored_icon.blend_color("#ffffff" + num2hex(clamp(render_alpha, 0, 255), 2), ICON_MULTIPLY)
 	if(color == "custom")
 		colored_icon.blend_color("#0e0f0f", ICON_MULTIPLY)
 	else

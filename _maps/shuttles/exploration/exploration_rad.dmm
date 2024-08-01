@@ -4,7 +4,7 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "an" = (
 /obj/structure/toilet{
@@ -25,7 +25,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "bM" = (
 /obj/machinery/vendor/exploration,
@@ -79,7 +79,7 @@
 	pixel_x = 4;
 	pixel_y = -3
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "eN" = (
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
@@ -87,7 +87,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "fB" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/on,
@@ -116,7 +116,7 @@
 "gt" = (
 /obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
 /obj/effect/decal/cleanable/oil,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "gQ" = (
 /obj/structure/chair/fancy/shuttle{
@@ -125,9 +125,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "js" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -171,7 +169,7 @@
 	autoclose = 0.1
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "sk" = (
 /obj/machinery/door/poddoor{
@@ -179,7 +177,7 @@
 	name = "Engine Room Vent"
 	},
 /obj/structure/fans/tiny,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "tu" = (
 /turf/open/floor/mineral/titanium,
@@ -208,9 +206,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
@@ -247,9 +243,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Ai" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Ar" = (
@@ -258,7 +252,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/plasma,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "AX" = (
 /obj/effect/turf_decal/stripes/line{
@@ -376,7 +370,7 @@
 /obj/structure/sign/warning/nosmoking/circle{
 	pixel_y = 25
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Ko" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
@@ -386,7 +380,7 @@
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
 	dir = 8
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "No" = (
 /obj/effect/turf_decal/loading_area{
@@ -407,16 +401,13 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "PL" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/machinery/camera/autoname{
-	dir = 8;
+/obj/machinery/camera/autoname/directional/east{
 	network = list("ss13","sci")
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -436,14 +427,14 @@
 /obj/machinery/door/airlock/shuttle/glass{
 	autoclose = 0.1
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Sb" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/oil/streak,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "SH" = (
 /obj/structure/cable/yellow{
@@ -460,7 +451,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Tw" = (
 /obj/structure/sign/nanotrasen,
@@ -476,7 +467,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "WU" = (
 /obj/machinery/door/poddoor/shutters{
