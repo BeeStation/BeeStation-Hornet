@@ -321,12 +321,15 @@
 
 /obj/item/clothing/head/mob_holder/nymph
 	var/moving_cooldown
+	var/on_head
 
 /obj/item/clothing/head/mob_holder/nymph/relaymove(mob/user) // Hold nymph like petulant child...
 	if(moving_cooldown <= world.time)
 		moving_cooldown = world.time + 50
 		user.visible_message("<span class='notice'>[user] starts to squirm in [loc]'s hands!",
 		"<span class='notice'>You start to squirm in [loc]'s hands...</span>")
+		if(on_head)
+			release()
 		if(do_after(held_mob, 8 SECONDS, user, NONE, TRUE))
 			release()
 
@@ -337,6 +340,11 @@
 	Destroy()
 
 /obj/item/clothing/head/mob_holder/nymph/release()
+	on_head = FALSE
 	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph_mob = held_mob
 	nymph_mob.toggle_ai(AI_ON)
 	. = ..()
+
+/obj/item/clothing/head/mob_holder/nymph/equipped()
+	. = ..()
+	on_head = TRUE
