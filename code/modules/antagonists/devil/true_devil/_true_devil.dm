@@ -19,8 +19,14 @@
 	spacewalk = TRUE
 	mob_size = MOB_SIZE_LARGE
 	held_items = list(null, null)
-	bodyparts = list(/obj/item/bodypart/chest/devil, /obj/item/bodypart/head/devil, /obj/item/bodypart/l_arm/devil,
-					 /obj/item/bodypart/r_arm/devil, /obj/item/bodypart/r_leg/devil, /obj/item/bodypart/l_leg/devil)
+	bodyparts = list(
+		/obj/item/bodypart/chest/devil,
+		/obj/item/bodypart/head/devil,
+		/obj/item/bodypart/l_arm/devil,
+		/obj/item/bodypart/r_arm/devil,
+		/obj/item/bodypart/r_leg/devil,
+		/obj/item/bodypart/l_leg/devil
+	)
 	hud_type = /datum/hud/devil
 	var/ascended = FALSE
 	var/mob/living/oldform
@@ -172,7 +178,7 @@
 				log_combat(M, src, "attacked", M)
 				updatehealth()
 			if ("disarm")
-				if (!(mobility_flags & MOBILITY_STAND) && !ascended) //No stealing the arch devil's pitchfork.
+				if (body_position == LYING_DOWN && !ascended) //No stealing the arch devil's pitchfork.
 					if (prob(5))
 						Unconscious(40)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
