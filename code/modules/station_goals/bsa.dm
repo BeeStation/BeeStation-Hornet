@@ -139,12 +139,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	var/ex_power = 3
 	var/ready
 
-	var/power_used_per_shot = 2000000
+	var/power_used_per_shot = 5000000
 	var/obj/item/stock_parts/cell/cell
 	var/obj/machinery/power/terminal/terminal
 	use_power = NO_POWER_USE
 	idle_power_usage = 50 // when idle
-	active_power_usage = 20000 // amount charged
 
 	pixel_y = -32
 	pixel_x = -192
@@ -154,8 +153,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 	var/sound/select_sound = 'sound/machines/bsa/bsa_charge.ogg'
+	var/select_sound_length = 17 SECONDS
+
 	var/sound/fire_sound = 'sound/machines/bsa/bsa_fire.ogg'
+	var/winding_up = FALSE // if true, sparks will be generated in the bullseye
+
 	var/last_charge_quarter = 0
+
+	var/particles/laser
 
 /obj/machinery/power/bsa/full/wrench_act(mob/living/user, obj/item/I)
 	return FALSE
@@ -196,7 +201,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 
 /obj/machinery/power/bsa/full/Initialize(mapload, cannon_direction = WEST)
 	. = ..()
-	cell = new /obj/item/stock_parts/cell(src, 2000000)
+	cell = new /obj/item/stock_parts/cell(src, 5000000)
 	cell.charge = 0
 	top_layer = top_layer || mutable_appearance(icon, layer = ABOVE_MOB_LAYER)
 	switch(cannon_direction)
@@ -221,6 +226,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	top_layer.icon_state = "top_[dir2text(dir)]"
 
 	var/charge_quarter = FLOOR(cell.percent() / 25, 1)
+	var/charge_sound = 'sound/machines/apc/PowerSwitch_Off.ogg'
 	if(charge_quarter >= 1)
 		add_overlay("[base_battery_icon_state]_25")
 	if(charge_quarter >= 2)
@@ -229,13 +235,31 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 		add_overlay("[base_battery_icon_state]_75")
 	if(charge_quarter >= 4)
 		add_overlay("[base_battery_icon_state]_100")
+		charge_sound = 'sound/machines/apc/PowerUp_001.ogg'
 	if(charge_quarter > last_charge_quarter)
-		playsound(get_turf(src), 'sound/machines/apc/PowerSwitch_Off.ogg', 25, 1)
+		playsound(get_turf(src), charge_sound, 25, 1)
 
 
-/obj/machinery/power/bsa/full/proc/fire(mob/user, turf/bullseye)
+/obj/machinery/power/bsa/full/proc/charge_up(mob/user, turf/bullseye)
 	if(!cell.use(power_used_per_shot))
 		return FALSE
+	var/sound/charge_up = sound(select_sound)
+	playsound(get_turf(src), charge_up, 50, 1)
+	var/timerid = addtimer(CALLBACK(src, PROC_REF(fire), user, bullseye), select_sound_length, TIMER_STOPPABLE)
+	winding_up = TRUE
+	var/list/turfs = spiral_range_turfs(ex_power * 2, bullseye)
+	var/base_cooldown = 2 SECONDS
+	var/cooldown = base_cooldown
+	while(winding_up)
+		if(QDELETED(src))
+			break
+		new /obj/effect/particle_effect/sparks(pick(turfs))
+		cooldown = base_cooldown * ((timeleft(timerid)) / select_sound_length)
+		sleep(cooldown)
+
+/obj/machinery/power/bsa/full/proc/fire(mob/user, turf/bullseye)
+	winding_up = FALSE
+	playsound(get_turf(src), fire_sound, 50, 1, world.maxx)
 	var/turf/point = get_front_turf()
 	var/turf/target = get_target_turf()
 	var/atom/movable/blocker
@@ -254,9 +278,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 			break
 		else
 			SSexplosions.highturf += tile
-	var/sound/charge_up = sound('sound/machines/bsa/bsa_charge.ogg')
-	playsound(get_turf(src), charge_up, 50, 1)
-	spawn(charge_up.len)
+
 	point.Beam(target, icon_state = "bsa_beam", time = 5 SECONDS, maxdistance = world.maxx) //ZZZAP
 	new /obj/effect/temp_visual/bsa_splash(point, dir)
 
@@ -282,11 +304,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	if(cell.percent() >= 100 || terminal.surplus() < 1)
 		return
 	terminal.add_load(idle_power_usage)
-	var/charge = clamp(terminal.surplus(), 0, active_power_usage) * delta_time
+	var/charge = terminal.surplus() * delta_time
 	terminal.add_load(charge)
 	cell.give(charge)
 	update_appearance(UPDATE_OVERLAYS)
 	last_charge_quarter = FLOOR(cell.percent() / 25, 1)
+	ui_update()
 
 /obj/structure/filler
 	name = "big machinery part"
@@ -402,7 +425,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 		notice = "Cannon doesn't have enough charge!"
 		return
 	notice = null
-	cannon.fire(user, get_impact_turf())
+	cannon.charge_up(user, get_impact_turf())
 
 /obj/machinery/computer/bsa_control/proc/deploy(force=FALSE)
 	var/obj/machinery/power/bsa/full/prebuilt = locate() in range(7) //In case of adminspawn
