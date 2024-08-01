@@ -20,9 +20,9 @@
 		for(var/key in extra_data)
 			payload[key] = extra_data[key]
 	if (payload["start"])
-		payload["start"] = payload["start"] + (world.time - track.started_at) * 100
+		payload["start"] = payload["start"] + (world.time - track.started_at) * 0.1
 	else
-		payload["start"] = (world.time - track.started_at) * 100
+		payload["start"] = (world.time - track.started_at) * 0.1
 	if (istype(track.audio.license))
 		payload["license_title"] = track.audio.license.title
 		payload["license_url"] = track.audio.license.legal_text

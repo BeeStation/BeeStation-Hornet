@@ -96,7 +96,7 @@ GENERAL_PROTECT_DATUM(/datum/audio_track)
 	return list(
 		"title" = title,
 		"start" = 0,
-		"end" = duration,
+		"end" = duration * 0.1,
 		"duration" = DisplayTimeText(duration * 10),
 		"link" = url,
 		"artist" = artist,
