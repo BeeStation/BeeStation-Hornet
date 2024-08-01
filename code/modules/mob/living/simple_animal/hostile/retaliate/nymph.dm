@@ -192,7 +192,7 @@
 		heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
 	. = ..()
 
-/mob/living/simple_animal/hostile/retaliate/nymph/verb/evolve(var/mob/living/simple_animal/hostile/retaliate/nymph/nymphs)
+/mob/living/simple_animal/hostile/retaliate/nymph/proc/evolve(var/mob/living/simple_animal/hostile/retaliate/nymph/nymphs)
 	if(istype(loc, /obj/item/clothing/head/mob_holder))
 		var/obj/item/clothing/head/mob_holder/L = loc
 		src.loc = L.loc
