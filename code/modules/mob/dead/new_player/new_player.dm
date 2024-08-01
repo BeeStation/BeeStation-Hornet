@@ -242,7 +242,7 @@
 		observer.real_name = observer.client.prefs.read_character_preference(/datum/preference/name/real_name)
 		observer.name = observer.real_name
 	observer.update_icon()
-	observer.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+	SSmusic.login_music.stop_playing_to(client)
 	QDEL_NULL(mind)
 	qdel(src)
 	return TRUE
@@ -475,8 +475,9 @@
 /mob/dead/new_player/proc/transfer_character()
 	. = new_character
 	if(.)
+		if (client)
+			SSmusic.login_music.stop_playing_to(client)
 		new_character.key = key		//Manually transfer the key to log them in
-		new_character.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 		new_character = null
 		qdel(src)
 

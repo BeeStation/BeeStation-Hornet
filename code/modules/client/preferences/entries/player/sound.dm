@@ -45,7 +45,7 @@
 		//if(SSmusic.login_music)
 		//	client.playtitlemusic()
 	else
-		client.mob?.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+		//client.mob?.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
 /datum/preference/toggle/sound_instruments
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES

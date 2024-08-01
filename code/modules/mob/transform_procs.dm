@@ -507,7 +507,7 @@
 		landmark_loc += loc
 
 	if(client)
-		stop_sound_channel(CHANNEL_LOBBYMUSIC)
+		SSmusic.login_music.stop_playing_to(client)
 
 	if(!transfer_after)
 		mind.active = FALSE
