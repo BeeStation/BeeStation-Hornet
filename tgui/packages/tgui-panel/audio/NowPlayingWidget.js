@@ -19,12 +19,15 @@ export const NowPlayingWidget = (props, context) => {
     artist = audio.meta?.artist || 'Unknown Artist',
     upload_date = audio.meta?.upload_date || 'Unknown Date',
     album = audio.meta?.album || 'Unknown Album',
-    duration = audio.meta?.duration,
+    duration = audio.duration,
     license_name = audio.meta?.license_title || 'Unknown License',
     license_url = audio.meta?.license_url || null,
     date = !isNaN(upload_date)
       ? upload_date?.substring(0, 4) + '-' + upload_date?.substring(4, 6) + '-' + upload_date?.substring(6, 8)
       : upload_date;
+
+  const durationTime = new Date(0);
+  durationTime.setSeconds(duration);
 
   return (
     <Flex align="flex-start">
@@ -46,7 +49,7 @@ export const NowPlayingWidget = (props, context) => {
                   </Flex.Item>
                 )}
                 <Flex.Item grow={1} color="label">
-                  Duration: {duration}
+                  Duration: {durationTime.toTimeString().substring(0, 8)}
                 </Flex.Item>
                 {artist !== 'Song Artist Hidden' && artist !== 'Unknown Artist' && (
                   <Flex.Item grow={1} color="label">

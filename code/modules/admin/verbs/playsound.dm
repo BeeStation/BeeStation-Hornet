@@ -68,7 +68,7 @@
 
 	var/web_sound_input = capped_input(usr, "Enter content URL (supported sites only, leave blank to stop playing)", "Play Internet Sound via youtube-dl")
 	if(istext(web_sound_input))
-		var/web_sound_url = ""
+		var/_web_sound_url = ""
 		var/stop_web_sounds = FALSE
 		var/list/music_extra_data = list()
 		if(length(web_sound_input))
@@ -93,7 +93,7 @@
 					return
 
 				if (data["url"])
-					web_sound_url = data["url"]
+					_web_sound_url = data["url"]
 					var/title = "[data["title"]]"
 					var/webpage_url = title
 					if (data["webpage_url"])
@@ -131,21 +131,21 @@
 		else //pressed ok with blank
 			log_admin("[key_name(src)] stopped web sound")
 			message_admins("[key_name(src)] stopped web sound")
-			web_sound_url = null
+			_web_sound_url = null
 			stop_web_sounds = TRUE
 
-		if(web_sound_url && !findtext(web_sound_url, GLOB.is_http_protocol))
+		if(_web_sound_url && !findtext(_web_sound_url, GLOB.is_http_protocol))
 			to_chat(src, "<span class='boldwarning'>BLOCKED: Content URL not using http(s) protocol</span>")
 			to_chat(src, "<span class='warning'>The media provider returned a content URL that isn't using the HTTP or HTTPS protocol</span>")
 			return
-		if(web_sound_url || stop_web_sounds)
+		if(_web_sound_url || stop_web_sounds)
 			for(var/m in GLOB.player_list)
 				var/mob/M = m
 				var/client/C = M.client
 				if(!C.prefs.read_player_preference(/datum/preference/toggle/sound_midi))
 					continue
 				if(!stop_web_sounds)
-					C.tgui_panel?.play_music(web_sound_url, 0, music_extra_data)
+					C.tgui_panel?.play_music(_web_sound_url, 0, music_extra_data)
 				else
 					C.tgui_panel?.stop_music()
 

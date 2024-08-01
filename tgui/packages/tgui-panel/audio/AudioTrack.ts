@@ -1,6 +1,7 @@
 
 export class AudioTrack {
 
+  uuid: number;
   url: string;
   priority: number;
   created_at: number;
@@ -16,7 +17,9 @@ export class AudioTrack {
   range: number;
   positional_blend: number;
 
-  constructor(url: string, priority: number, options: { pitch?: number, start?: number, end?: number }) {
+  constructor(uuid:number, url: string, priority: number, options: { pitch?: number, start?: number, end?: number }) {
+    // UUID of the track
+    this.uuid = uuid;
     // URL of the track
     this.url = url;
     // Priority of the track

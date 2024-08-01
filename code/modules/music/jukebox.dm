@@ -8,8 +8,9 @@
 	req_access = list(ACCESS_BAR)
 	var/active = FALSE
 	var/list/rangers = list()
-	var/stop = 0
+	var/next_action_at = 0
 	var/datum/audio_track/selection = null
+	var/datum/playing_track/currently_playing = null
 	/// Volume of the songs played
 	var/volume = 100
 
@@ -34,10 +35,12 @@
 
 /obj/machinery/jukebox/Initialize(mapload)
 	. = ..()
-	if (GLOB.audio_tracks == null)
-		load_tracks()
-	if(length(GLOB.audio_tracks))
-		selection = pick(GLOB.audio_tracks)
+	var/datum/task/music_loader = load_tracks_async()
+	music_loader.continue_with(CALLBACK(src, PROC_REF(select_random_song)))
+
+/obj/machinery/jukebox/proc/select_random_song(list/songs)
+	if(length(songs))
+		selection = pick(songs)
 
 /obj/machinery/jukebox/Destroy()
 	dance_over()
@@ -107,15 +110,15 @@
 			if(QDELETED(src))
 				return
 			if(!active)
-				if(stop > world.time)
-					to_chat(usr, "<span class='warning'>Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)].</span>")
+				if(next_action_at > world.time)
+					to_chat(usr, "<span class='warning'>Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(next_action_at-world.time)].</span>")
 					playsound(src, 'sound/misc/compiler-failure.ogg', 50, TRUE)
 					return
 				activate_music()
 				START_PROCESSING(SSobj, src)
 				return TRUE
 			else
-				stop = 0
+				stop_music()
 				return TRUE
 		if("select_track")
 			if(active)
@@ -148,12 +151,45 @@
 	active = TRUE
 	update_icon()
 	START_PROCESSING(SSmachines, src)
-	stop = world.time + selection.duration
+	if (currently_playing)
+		currently_playing.stop_playing_to_clients()
+	currently_playing = selection.play()
 	ui_update()
 	// TEMP
 	for (var/client/C in GLOB.clients)
-		C.mob.AddComponent(/datum/component/music_listener, C.tgui_panel)
-		C.tgui_panel.play_world_music(selection, src, 10, 5)
+		C.tgui_panel.play_world_music(currently_playing, src, 10, 5)
+
+/mob/living/proc/lying_fix()
+	animate(src, transform = null, time = 1, loop = 0)
+	lying_prev = 0
+
+/obj/machinery/jukebox/proc/dance_over()
+	rangers = list()
+
+/obj/machinery/jukebox/process()
+	if (!currently_playing)
+		return PROCESS_KILL
+	if (!currently_playing.audio.duration)
+		return
+	if (currently_playing.started_at + currently_playing.audio.duration > world.time)
+		return
+	stop_music(TRUE)
+
+/obj/machinery/jukebox/proc/stop_music(finished = FALSE)
+	active = FALSE
+	if (!finished)
+		currently_playing.stop_playing_to_clients()
+	currently_playing = null
+	STOP_PROCESSING(SSobj, src)
+	dance_over()
+	playsound(src,'sound/machines/terminal_off.ogg',50,TRUE)
+	update_icon()
+	next_action_at = world.time + 50
+	ui_update()
+
+/**
+ * DISCO JUKEBOX
+ */
 
 /obj/machinery/jukebox/disco/activate_music()
 	..()
@@ -420,34 +456,10 @@
 		sleep(1)
 	M.lying_fix()
 
-/mob/living/proc/lying_fix()
-	animate(src, transform = null, time = 1, loop = 0)
-	lying_prev = 0
-
-/obj/machinery/jukebox/proc/dance_over()
-	for(var/mob/living/L in rangers)
-		if(!L || !L.client)
-			continue
-		L.stop_sound_channel(CHANNEL_JUKEBOX)
-	rangers = list()
-
 /obj/machinery/jukebox/disco/dance_over()
 	..()
 	QDEL_LIST(spotlights)
 	QDEL_LIST(sparkles)
-
-/obj/machinery/jukebox/process()
-	if(world.time < stop && active)
-		// TODO
-	else if(active)
-		active = FALSE
-		STOP_PROCESSING(SSobj, src)
-		dance_over()
-		playsound(src,'sound/machines/terminal_off.ogg',50,TRUE)
-		update_icon()
-		stop = world.time + 100
-		ui_update()
-		return PROCESS_KILL
 
 /obj/machinery/jukebox/disco/process()
 	. = ..()

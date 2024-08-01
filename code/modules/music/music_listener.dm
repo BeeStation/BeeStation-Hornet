@@ -20,6 +20,10 @@
 
 /datum/component/music_listener/proc/parent_moved()
 	SIGNAL_HANDLER
+	// We are no longer needed
+	if (!panel.needs_spatial_audio)
+		qdel(src)
+		return
 	// Update our listener
 	var/atom/movable/parent_atom = parent
 	var/turf/location = get_turf(parent_atom)

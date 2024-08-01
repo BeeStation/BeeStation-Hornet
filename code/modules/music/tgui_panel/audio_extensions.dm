@@ -2,28 +2,35 @@
  * Modularised extensions file for modules/tgui_panel/audio.dm
  */
 
+/datum/tgui_panel/var/needs_spatial_audio = FALSE
+
 /**
  * Play music with a given 3D position in the world
  */
-/datum/tgui_panel/proc/play_world_music(datum/audio_track/track, atom/source, radius, priority = 0)
+/datum/tgui_panel/proc/play_world_music(datum/playing_track/track, atom/source, radius, priority = 0)
 	if(!is_ready())
 		return FALSE
-	if(!track.audio_asset && !findtext(track.web_sound_url, GLOB.is_http_protocol))
+	if(!track.audio._audio_asset && !findtext(track.audio._web_sound_url, GLOB.is_http_protocol))
 		return FALSE
-	if (track.failed)
+	if (track.audio._failed)
 		return FALSE
 	// Transport assets
-	if (track.audio_asset)
-		track.audio_asset.send(client)
+	if (track.audio._audio_asset)
+		track.audio._audio_asset.send(client)
 	var/list/payload = list()
-	var/list/extra_data = track.get_additional_information()
+	var/list/extra_data = track.audio.get_additional_information()
 	if(length(extra_data) > 0)
 		for(var/key in extra_data)
 			payload[key] = extra_data[key]
-	if (istype(track.license))
-		payload["license_title"] = track.license.title
-		payload["license_url"] = track.license.legal_text
-	payload["url"] = track.web_sound_url
+	if (payload["start"])
+		payload["start"] = payload["start"] + (world.time - track.started_at) * 100
+	else
+		payload["start"] = (world.time - track.started_at) * 100
+	if (istype(track.audio.license))
+		payload["license_title"] = track.audio.license.title
+		payload["license_url"] = track.audio.license.legal_text
+	payload["uuid"] = track.uuid
+	payload["url"] = track.audio._web_sound_url
 	payload["priority"] = priority
 	var/turf/location = get_turf(source)
 	if (!location)
@@ -33,7 +40,17 @@
 	payload["z"] = location.z
 	payload["range"] = radius
 	window.send_message("audio/playWorldMusic", payload)
+	needs_spatial_audio = TRUE
+	// Become a music listener
+	client.mob.AddComponent(/datum/component/music_listener, src)
 	return TRUE
+
+/datum/tgui_panel/proc/stop_playing(datum/playing_track/track)
+	if(!is_ready())
+		return
+	var/list/payload = list()
+	payload["uuid"] = track.uuid
+	window.send_message("audio/stopPlaying", payload)
 
 /**
  * Updates the position of our listener.

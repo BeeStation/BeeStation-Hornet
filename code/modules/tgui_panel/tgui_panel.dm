@@ -118,6 +118,16 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 		return TRUE
 	if(cmptext(copytext(type, 1, 5), "stat"))
 		return handle_stat_message(type, payload)
+	// To mitigate exploitation, we use a voting system for audio length
+	if (type == "music/declareLength")
+		var/url = payload["url"]
+		var/length = text2num(payload["length"])
+		var/datum/audio_track/track = GLOB.audio_tracks_by_url[url]
+		if (!track || !length)
+			return
+		track.vote_duration(client, length)
+	if (type == "music/queueEmpty")
+		needs_spatial_audio = FALSE
 
 /**
  * public

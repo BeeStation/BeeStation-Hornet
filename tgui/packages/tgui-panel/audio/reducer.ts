@@ -8,7 +8,7 @@ const initialState = {
   visible: false,
   playing: false,
   muted: false,
-  track: null,
+  duration: 0,
 };
 
 export const audioReducer = (state = initialState, action) => {
@@ -18,6 +18,7 @@ export const audioReducer = (state = initialState, action) => {
       ...state,
       visible: !state.muted,
       playing: true,
+      duration: payload.duration,
     };
   }
   if (type === 'audio/stopped') {
@@ -37,14 +38,6 @@ export const audioReducer = (state = initialState, action) => {
     return {
       ...state,
       meta: payload,
-    };
-  }
-  if (type === 'audio/stopMusic') {
-    return {
-      ...state,
-      visible: false,
-      playing: false,
-      meta: null,
     };
   }
   if (type === 'audio/onMute') {

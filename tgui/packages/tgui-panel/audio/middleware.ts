@@ -4,13 +4,25 @@
  * @license MIT
  */
 
+import { createLogger } from 'tgui/logging';
 import { AudioTrack } from './AudioTrack';
 import { AudioPlayer } from './player';
 
+const logger = createLogger('AudioMiddleware');
+
 export const audioMiddleware = (store) => {
   const player = new AudioPlayer();
-  player.onPlay(() => {
-    store.dispatch({ type: 'audio/playing' });
+  player.onPlay((element: HTMLAudioElement, track: AudioTrack) => {
+    store.dispatch({ type: 'audio/playing', payload: {
+        duration: element.duration,
+      },
+    });
+    // Tell the server about the length of the playing resource
+    Byond.sendMessage('music/declareLength', {
+      url: track.url,
+      length: element.duration,
+    });
+    logger.log("casting vote", track.url, element.duration);
   });
   player.onStop(() => {
     store.dispatch({ type: 'audio/stopped' });
@@ -21,16 +33,19 @@ export const audioMiddleware = (store) => {
   player.onUnmute(() => {
     store.dispatch({ type: 'audio/onUnmute' });
   });
+  player.onQueueEmpty(() => {
+    Byond.sendMessage('music/queueEmpty');
+  });
   return (next) => (action) => {
     const { type, payload } = action;
     if (type === 'audio/playMusic') {
-      const { url, priority, ...options } = payload;
-      player.play(new AudioTrack(url, priority, options));
+      const { uuid, url, priority, ...options } = payload;
+      player.play(new AudioTrack(uuid, url, priority, options));
       return next(action);
     }
     if (type === 'audio/playWorldMusic') {
-      const { url, priority, x, y, z, range, ...options } = payload;
-      let worldTrack = new AudioTrack(url, priority, options);
+      const { uuid, url, priority, x, y, z, range, ...options } = payload;
+      let worldTrack = new AudioTrack(uuid, url, priority, options);
       worldTrack.pos_x = x;
       worldTrack.pos_y = y;
       worldTrack.pos_z = z;
@@ -42,6 +57,11 @@ export const audioMiddleware = (store) => {
     if (type === 'audio/updateListener') {
       const { x, y, z } = payload;
       player.update_listener(x, y, z);
+      return next(action);
+    }
+    if (type === 'audio/stopPlaying') {
+      const { uuid } = payload;
+      player.stopTrack(uuid);
       return next(action);
     }
     if (type === 'audio/stopMusic') {

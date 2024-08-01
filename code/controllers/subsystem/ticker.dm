@@ -18,7 +18,7 @@ SUBSYSTEM_DEF(ticker)
 	var/hide_mode = FALSE
 	var/datum/game_mode/mode = null
 
-	var/login_music							//music played in pregame lobby
+	var/datum/audio_track/login_music							//music played in pregame lobby
 	var/round_end_sound						//music/jingle played when the world reboots
 	var/round_end_sound_sent = TRUE			//If all clients have loaded it
 
@@ -70,61 +70,10 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/Initialize()
 	load_mode()
 
-	var/list/byond_sound_formats = list(
-		"mid"  = TRUE,
-		"midi" = TRUE,
-		"mod"  = TRUE,
-		"it"   = TRUE,
-		"s3m"  = TRUE,
-		"xm"   = TRUE,
-		"oxm"  = TRUE,
-		"wav"  = TRUE,
-		"ogg"  = TRUE,
-		"raw"  = TRUE,
-		"wma"  = TRUE,
-		"aiff" = TRUE
-	)
-
-	var/list/provisional_title_music = flist("[global.config.directory]/title_music/sounds/")
-	var/list/music = list()
-	var/use_rare_music = prob(1)
-
-	for(var/S in provisional_title_music)
-		var/lower = lowertext(S)
-		var/list/L = splittext(lower,"+")
-		switch(L.len)
-			if(3) //rare+MAP+sound.ogg or MAP+rare.sound.ogg -- Rare Map-specific sounds
-				if(use_rare_music)
-					if(L[1] == "rare" && L[2] == SSmapping.config.map_name)
-						music += S
-					else if(L[2] == "rare" && L[1] == SSmapping.config.map_name)
-						music += S
-			if(2) //rare+sound.ogg or MAP+sound.ogg -- Rare sounds or Map-specific sounds
-				if((use_rare_music && L[1] == "rare") || (L[1] == SSmapping.config.map_name))
-					music += S
-			if(1) //sound.ogg -- common sound
-				if(L[1] == "exclude")
-					continue
-				music += S
-
-	var/old_login_music = trim(rustg_file_read("data/last_round_lobby_music.txt"))
-	if(music.len > 1)
-		music -= old_login_music
-
-	for(var/S in music)
-		var/list/L = splittext(S,".")
-		if(L.len >= 2)
-			var/ext = lowertext(L[L.len]) //pick the real extension, no 'honk.ogg.exe' nonsense here
-			if(byond_sound_formats[ext])
-				continue
-		music -= S
-
-	if(!length(music))
-		music = world.file2list(ROUND_START_MUSIC_LIST, "\n")
-		login_music = pick(music)
-	else
-		login_music = "[global.config.directory]/title_music/sounds/[pick(music)]"
-
+	// Load all music information asynchronously (it performs shell calls which sleep)
+	var/datum/task/music_loader = load_tracks_async()
+	if (!login_music)
+		music_loader.continue_with(CALLBACK(src, PROC_REF(select_title_music)))
 
 	if(!GLOB.syndicate_code_phrase)
 		GLOB.syndicate_code_phrase	= generate_code_phrase(return_list=TRUE)
@@ -149,6 +98,28 @@ SUBSYSTEM_DEF(ticker)
 		gametime_offset = world.timeofday
 
 	return SS_INIT_SUCCESS
+
+/datum/controller/subsystem/ticker/proc/select_title_music(list/audio_tracks)
+	// Something else has set the lobby music already
+	if (login_music)
+		return
+	// Try to load map specific music first
+	var/list/valid_tracks = list()
+	if (LAZYLEN(SSmapping.config.title_music))
+		for (var/datum/audio_track/track in audio_tracks)
+			if (track.title in SSmapping.config.title_music)
+				valid_tracks += track
+		if (length(valid_tracks))
+			login_music = pick(valid_tracks)
+			return
+	for (var/datum/audio_track/track in audio_tracks)
+		if (!(track.play_flags & TRACK_FLAG_TITLE))
+			continue
+		valid_tracks += track
+	if (length(valid_tracks))
+		login_music = pick(valid_tracks)
+	else
+		login_music = pick(audio_tracks)
 
 /datum/controller/subsystem/ticker/fire()
 	switch(current_state)
