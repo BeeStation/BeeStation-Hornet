@@ -20,6 +20,8 @@ export const NowPlayingWidget = (props, context) => {
     upload_date = audio.meta?.upload_date || 'Unknown Date',
     album = audio.meta?.album || 'Unknown Album',
     duration = audio.meta?.duration,
+    license_name = audio.meta?.license_title || 'Unknown License',
+    license_url = audio.meta?.license_url || null,
     date = !isNaN(upload_date)
       ? upload_date?.substring(0, 4) + '-' + upload_date?.substring(4, 6) + '-' + upload_date?.substring(6, 8)
       : upload_date;
@@ -40,7 +42,7 @@ export const NowPlayingWidget = (props, context) => {
               <Section>
                 {url !== 'Song Link Hidden' && (
                   <Flex.Item grow={1} color="label">
-                    URL: {url}
+                    URL: <a href={url}>{url}</a>
                   </Flex.Item>
                 )}
                 <Flex.Item grow={1} color="label">
@@ -61,9 +63,16 @@ export const NowPlayingWidget = (props, context) => {
                     Uploaded: {date}
                   </Flex.Item>
                 )}
-                <Flex.Item grow={1} color="label">
-                  License: <a href="https://google.com/">[Creative Commons 0]</a>
-                </Flex.Item>
+                {license_url ? (
+                  <Flex.Item grow={1} color="label">
+                    License: <a href={license_url}>[{license_name}]</a>
+                  </Flex.Item>
+                ) : (
+                  <Flex.Item grow={1} color="label">
+                    License: [{license_name}]
+                  </Flex.Item>
+                )}
+
               </Section>
             </Collapsible>
           }
