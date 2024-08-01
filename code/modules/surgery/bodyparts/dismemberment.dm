@@ -83,7 +83,7 @@
 	SEND_SIGNAL(owner, COMSIG_CARBON_REMOVE_LIMB, src, dismembered)
 	SEND_SIGNAL(src, COMSIG_BODYPART_REMOVED, owner, dismembered)
 	update_limb(TRUE)
-	C.bodyparts -= src
+	C.remove_bodypart(src)
 
 	if(held_index)
 		C.dropItemToGround(owner.get_item_for_held_index(held_index), 1)
@@ -125,7 +125,6 @@
 	C.update_health_hud() //update the healthdoll
 	C.update_body()
 	C.update_hair()
-	C.update_mobility()
 
 	if(!Tsec)	// Tsec = null happens when a "dummy human" used for rendering icons on prefs screen gets its limbs replaced.
 		qdel(src)
@@ -273,8 +272,8 @@
 	SEND_SIGNAL(C, COMSIG_CARBON_ATTACH_LIMB, src, special)
 	SEND_SIGNAL(src, COMSIG_BODYPART_ATTACHED, C, special)
 	moveToNullspace()
-	owner = C
-	C.bodyparts += src
+	set_owner(C)
+	C.add_bodypart(src)
 	if(held_index)
 		if(held_index > C.hand_bodyparts.len)
 			C.hand_bodyparts.len = held_index
@@ -307,7 +306,6 @@
 	C.updatehealth()
 	C.update_body()
 	C.update_hair()
-	C.update_mobility()
 	SEND_SIGNAL(C, COMSIG_CARBON_POST_ATTACH_LIMB, src, special)
 
 

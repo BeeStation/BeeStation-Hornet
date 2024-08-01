@@ -405,6 +405,9 @@
 	armor = list(MELEE = 35,  BULLET = 25, LASER = 25, ENERGY = 30, BOMB = 30, BIO = 20, RAD = 20, FIRE = 90, ACID = 90, STAMINA = 10, BLEED = 80)//Bit less armoured than the Syndicate space suit
 	slowdown = 0.2
 	var/datum/reagent/salbutamol = /datum/reagent/medicine/salbutamol
+	actions_types = list()
+	cell = null
+	show_hud = FALSE
 
 /obj/item/clothing/suit/space/changeling/Initialize(mapload)
 	. = ..()
@@ -413,10 +416,15 @@
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!</span>", "<span class='warning'>We inflate our flesh, creating a spaceproof suit!</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
 	START_PROCESSING(SSobj, src)
 
+// seal the cell door
+/obj/item/clothing/suit/space/changeling/toggle_spacesuit_cell(mob/user)
+	return
+
 /obj/item/clothing/suit/space/changeling/process(delta_time)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.reagents.add_reagent(salbutamol, initial(salbutamol.metabolization_rate) * (delta_time / SSMOBS_DT))
+		H.adjust_bodytemperature(temperature_setting - H.bodytemperature) // force changelings to normal temp step mode played badly
 
 /obj/item/clothing/head/helmet/space/changeling
 	name = "flesh mass"

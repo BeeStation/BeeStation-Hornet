@@ -187,7 +187,7 @@
 
 	return TRUE
 
-/obj/machinery/nanite_chamber/relaymove(mob/user as mob)
+/obj/machinery/nanite_chamber/relaymove(mob/living/user, direction)
 	if(user.stat || locked)
 		if(message_cooldown <= world.time)
 			message_cooldown = world.time + 50
