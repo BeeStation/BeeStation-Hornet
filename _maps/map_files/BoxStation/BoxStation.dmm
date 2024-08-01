@@ -15753,13 +15753,9 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
-/obj/machinery/requests_console{
-	department = "Security";
-	departmentType = 5;
-	pixel_x = -30
-	},
 /obj/machinery/airalarm/directional/south,
 /obj/structure/filingcabinet,
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
 "cUP" = (
@@ -27579,7 +27575,6 @@
 /obj/machinery/recharger{
 	pixel_y = 2
 	},
-/obj/structure/table/wood,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -36357,7 +36352,7 @@
 /obj/structure/chair/fancy/bench{
 	pixel_y = 13
 	},
-/obj/machinery/airalarm/directional/north,
+/obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
 "ldU" = (
@@ -38653,6 +38648,10 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
+"meT" = (
+/obj/structure/extinguisher_cabinet/directional/east,
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "mfk" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
@@ -40000,6 +39999,7 @@
 /obj/structure/chair/fancy/bench{
 	pixel_y = 13
 	},
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
 "mGR" = (
@@ -66388,12 +66388,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
-"xlA" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -27
-	},
-/turf/closed/wall,
-/area/security/checkpoint/medical)
 "xlK" = (
 /obj/machinery/computer/holodeck{
 	dir = 4
@@ -102191,7 +102185,7 @@ aJq
 aJq
 aJq
 aJq
-aJq
+meT
 aJq
 qVS
 aJq
@@ -102705,7 +102699,7 @@ ovM
 lJj
 vET
 cUN
-xlA
+btZ
 rlh
 qlc
 cQw
@@ -102955,7 +102949,7 @@ xLv
 afF
 aYV
 aYV
-aHO
+aYV
 btZ
 eAl
 gxU
@@ -103469,7 +103463,7 @@ cUJ
 sgw
 aYV
 aYV
-ber
+aHO
 btZ
 hUz
 key
@@ -103726,7 +103720,7 @@ xzG
 sgw
 aYV
 nTk
-aYV
+ber
 btZ
 btZ
 btZ
