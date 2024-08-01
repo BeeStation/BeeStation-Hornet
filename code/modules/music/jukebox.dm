@@ -121,11 +121,10 @@
 			if(active)
 				to_chat(usr, "<span class='warning'>Error: You cannot change the song until the current one is over.</span>")
 				return
-			var/list/available = list()
 			var/selected = params["track"]
 			for(var/datum/audio_track/S in GLOB.audio_tracks)
 				if (S.title == selected)
-					selection = available[selected]
+					selection = S
 					return TRUE
 			return FALSE
 		if("set_volume")
@@ -154,7 +153,7 @@
 	// TEMP
 	for (var/client/C in GLOB.clients)
 		C.mob.AddComponent(/datum/component/music_listener, C.tgui_panel)
-		C.tgui_panel.play_world_music(get_turf(src), selection.web_sound_url, 10, 5, selection.get_additional_information())
+		C.tgui_panel.play_world_music(selection, src, 10, 5)
 
 /obj/machinery/jukebox/disco/activate_music()
 	..()

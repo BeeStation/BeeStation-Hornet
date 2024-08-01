@@ -3380,6 +3380,7 @@
 #include "code\modules\multiz\zmimic\mimic_turf.dm"
 #include "code\modules\music\jukebox.dm"
 #include "code\modules\music\music_listener.dm"
+#include "code\modules\music\assets\asset_extensions.dm"
 #include "code\modules\music\licenses\license.dm"
 #include "code\modules\music\licenses\license_cc0.dm"
 #include "code\modules\music\licenses\license_ccby3.dm"
