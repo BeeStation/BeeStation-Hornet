@@ -615,6 +615,7 @@
 	icon_state = "2-4"
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron,
 /area/security/brig)
 "cj" = (
