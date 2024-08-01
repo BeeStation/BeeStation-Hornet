@@ -44,6 +44,8 @@
 #define COLOR_DARK_RED "#A50824"
 #define COLOR_RED_LIGHT "#FF3333"
 #define COLOR_MAROON "#800000"
+#define COLOR_SECURITY_RED "#CB0000"
+#define COLOR_VIVID_RED "#FF3232"
 /// Color used for default blood
 #define COLOR_BLOOD "#CC0000"
 

@@ -604,6 +604,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/toy/plush/gondola,
 		/obj/item/toy/plush/flushed = 2,
 		/obj/item/toy/plush/flushed/rainbow,
+		/obj/item/toy/plush/shark,
 		/obj/item/toy/eightball/haunted,
 		/obj/item/toy/foamblade,
 		/obj/item/toy/katana,

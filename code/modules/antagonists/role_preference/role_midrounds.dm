@@ -127,7 +127,7 @@
 /datum/outfit/pirate_space_preview
 	name = "Space Pirate (Preview only)"
 	uniform = /obj/item/clothing/under/costume/pirate
-	suit = /obj/item/clothing/suit/space/pirate
+	suit = /obj/item/clothing/suit/costume/pirate
 	head = /obj/item/clothing/head/helmet/space/pirate/bandana
 	glasses = /obj/item/clothing/glasses/eyepatch
 

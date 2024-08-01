@@ -44197,8 +44197,7 @@
 	req_access_txt = "16"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/camera/autoname{
-	dir = 5;
+/obj/machinery/camera/autoname/directional/east{
 	network = list("aiupload")
 	},
 /turf/open/floor/circuit,
