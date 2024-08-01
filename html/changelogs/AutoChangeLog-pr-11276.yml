@@ -1,0 +1,5 @@
+author: Aramix
+delete-after: true
+changes:
+  - tweak: Cerulean Pylons will now make a best effort attempt at spawning 3 polycrystals
+      instead of desperately trying to fulfill that as a guarantee
