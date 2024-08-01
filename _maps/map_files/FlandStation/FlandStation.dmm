@@ -5428,7 +5428,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/storage/art)
 "bnQ" = (
@@ -6834,7 +6833,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/cryopods)
 "bHW" = (
@@ -8729,7 +8727,6 @@
 	name = "Tech Storage";
 	req_access_txt = "23"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/techmaint,
 /area/storage/tech)
 "chs" = (
@@ -10422,12 +10419,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/medical)
-"cDQ" = (
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Engineering Escape Pod"
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "cDV" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
@@ -10467,7 +10458,6 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "cEm" = (
@@ -14188,7 +14178,6 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/techmaint,
 /area/engine/break_room)
 "dxD" = (
@@ -16491,7 +16480,6 @@
 /obj/effect/turf_decal/box/corners{
 	dir = 8
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/storage/primary)
 "ebC" = (
@@ -23038,7 +23026,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/techmaint,
 /area/ai_monitored/storage/eva)
 "fJj" = (
@@ -27585,13 +27572,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/prison)
-"gPm" = (
-/obj/effect/turf_decal/tile/purple/opposingcorners,
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Shuttle Construction Escape Pod"
-	},
-/turf/open/floor/iron/white,
-/area/science/lobby)
 "gPr" = (
 /turf/closed/wall/r_wall,
 /area/science/server)
@@ -29488,7 +29468,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/techmaint,
 /area/engine/gravity_generator)
 "hlY" = (
@@ -34984,12 +34963,6 @@
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/ai_upload)
-"iHl" = (
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Shuttle Construction Escape Pod"
-	},
-/turf/open/floor/iron/sepia,
-/area/science/shuttle)
 "iHp" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/delivery,
@@ -38637,9 +38610,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 10
 	},
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Arrivals Escape Pod"
-	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "jCy" = (
@@ -41915,7 +41885,6 @@
 	name = "Exploration Preparation Room";
 	req_access_txt = "49"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "kqA" = (
@@ -43258,13 +43227,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/bridge)
-"kJR" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "kJT" = (
 /obj/effect/turf_decal/trimline/blue/line{
 	dir = 6
@@ -48904,12 +48866,6 @@
 	dir = 10
 	},
 /area/medical/surgery)
-"mfR" = (
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/engine{
-	name = "Holodeck Projector Floor"
-	},
-/area/holodeck/rec_center)
 "mfS" = (
 /obj/effect/turf_decal/guideline/guideline_in_arrow_con/bar{
 	dir = 9
@@ -49122,17 +49078,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
-"miO" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/turret_protected/ai_upload)
 "mjl" = (
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -56087,7 +56032,6 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/techmaint,
 /area/lawoffice)
 "nVu" = (
@@ -58654,9 +58598,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Shuttle Construction Escape Pod"
-	},
 /turf/open/floor/iron/grid/steel,
 /area/teleporter)
 "oGZ" = (
@@ -59534,7 +59475,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/techmaint,
 /area/tcommsat/computer)
 "oRt" = (
@@ -59613,7 +59553,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/techmaint,
 /area/crew_quarters/theatre/backstage)
 "oTd" = (
@@ -60073,10 +60012,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
-"oZX" = (
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron,
-/area/maintenance/disposal)
 "pad" = (
 /obj/machinery/door/airlock/atmos/glass{
 	name = "Atmospherics";
@@ -60848,22 +60783,6 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "pjE" = (
-/obj/machinery/door/airlock{
-	name = "Custodial Closet";
-	req_access_txt = "26"
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Shuttle Construction Escape Pod"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/door/airlock{
 	name = "Custodial Closet";
 	req_access_txt = "26"
@@ -62078,7 +61997,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/quartermaster/office)
 "pyK" = (
@@ -64813,7 +64731,6 @@
 /obj/structure/chair/foldable{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/techmaint,
 /area/maintenance/disposal/incinerator)
 "qlB" = (
@@ -69574,7 +69491,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/construction/mining/aux_base)
 "rwQ" = (
@@ -72339,9 +72255,6 @@
 "sfa" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
-	},
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Command Escape Pod"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/bridge)
@@ -77305,13 +77218,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
-"twh" = (
-/obj/effect/turf_decal/siding/yellow{
-	dir = 4
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron,
-/area/hallway/secondary/exit/departure_lounge)
 "twn" = (
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/turf_decal/bot,
@@ -78414,7 +78320,6 @@
 	pixel_y = -24;
 	req_access_txt = "16"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai)
 "tJL" = (
@@ -84099,17 +84004,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
-"vbE" = (
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron,
-/area/hallway/secondary/entry)
 "vbG" = (
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow{
@@ -86151,7 +86045,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/techmaint,
 /area/security/nuke_storage)
 "vAv" = (
@@ -88562,7 +88455,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/techmaint,
 /area/bridge)
 "wdt" = (
@@ -89858,27 +89750,6 @@
 /turf/closed/wall,
 /area/crew_quarters/dorms)
 "wtB" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/machinery/door/poddoor/preopen{
-	id = "BrigAftWindows";
-	name = "Aft Security Blast door"
-	},
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "AftOuterBrig";
-	name = "Aft Brig Entrance";
-	req_access_txt = "63"
-	},
-/obj/effect/landmark/navigate_destination,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/curtain/directional{
 	dir = 1
@@ -94131,9 +94002,6 @@
 /area/crew_quarters/fitness/recreation)
 "xvf" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Chapel Escape Pod"
-	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
 "xvj" = (
@@ -110594,7 +110462,7 @@ aCf
 pwF
 aCf
 fJj
-iHl
+ddr
 vpU
 rqx
 pBR
@@ -112813,7 +112681,7 @@ nAY
 teO
 hEt
 teO
-twh
+teO
 teO
 rqf
 teO
@@ -116459,7 +116327,7 @@ arQ
 arQ
 arQ
 arQ
-vbE
+arQ
 arQ
 arQ
 uhN
@@ -125402,7 +125270,7 @@ ouP
 jQP
 wsu
 pfS
-kJR
+ihs
 qzp
 ihs
 pfS
@@ -132910,7 +132778,7 @@ sGI
 xiQ
 fUL
 wfp
-gPm
+wfp
 ksj
 jIN
 fit
@@ -148046,7 +147914,7 @@ xYy
 xYy
 xYy
 xYy
-mfR
+xYy
 xYy
 xYy
 xYy
@@ -148875,7 +148743,7 @@ abN
 abN
 vXB
 ylJ
-cDQ
+ylJ
 ylJ
 ylJ
 oBV
@@ -149807,7 +149675,7 @@ vNw
 tvI
 flq
 yjG
-miO
+kkB
 yjG
 lqi
 hcN
@@ -153973,7 +153841,7 @@ wNP
 uQw
 hWk
 stm
-oZX
+hWk
 fzR
 hWk
 rGE

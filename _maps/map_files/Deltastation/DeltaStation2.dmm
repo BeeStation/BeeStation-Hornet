@@ -5860,7 +5860,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/maintenance/disposal)
 "bgK" = (
@@ -24582,12 +24581,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/bar/atrium)
-"fjY" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron/dark,
-/area/security/courtroom)
 "fkg" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -27079,12 +27072,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/locker)
-"fYV" = (
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Security Escape Pod"
-	},
-/turf/open/space/basic,
-/area/space)
 "fYZ" = (
 /obj/structure/bookcase/random,
 /turf/open/floor/iron,
@@ -29631,13 +29618,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
-"gJX" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/carpet/grimy,
-/area/chapel/main)
 "gKc" = (
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Medical";
@@ -30030,11 +30010,6 @@
 "gQW" = (
 /turf/open/floor/carpet/grimy,
 /area/library)
-"gRm" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron,
-/area/science/research)
 "gRq" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -30845,14 +30820,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/courtroom)
-"hct" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron,
-/area/medical/medbay/lobby)
 "hcv" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
@@ -36361,7 +36328,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/gateway)
 "ixI" = (
@@ -37002,7 +36968,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/security/main)
 "iGY" = (
@@ -38945,7 +38910,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/white,
 /area/crew_quarters/cryopods)
 "jjw" = (
@@ -45029,12 +44993,6 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron/white,
 /area/science/mixing)
-"kWv" = (
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/engine{
-	name = "Holodeck Projector Floor"
-	},
-/area/holodeck/rec_center)
 "kWD" = (
 /obj/structure/table,
 /obj/item/dest_tagger,
@@ -46316,9 +46274,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Escape Pod Two"
-	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "lqH" = (
@@ -46811,7 +46766,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/security/prison)
 "lzn" = (
@@ -50268,7 +50222,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/catwalk_floor/iron,
 /area/tcommsat/server)
 "mAi" = (
@@ -57728,7 +57681,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/quartermaster/office)
 "oDR" = (
@@ -58151,13 +58103,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"oIx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron,
-/area/hallway/secondary/exit/departure_lounge)
 "oIE" = (
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_exterior,
 /obj/effect/mapping_helpers/airlock/locked,
@@ -59746,7 +59691,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/storage/tech)
 "pfS" = (
@@ -61222,7 +61166,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/teleporter)
 "pBu" = (
@@ -61938,7 +61881,6 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/storage/tools)
 "pLX" = (
@@ -63577,16 +63519,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
-"qjg" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/landmark/navigate_destination,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/glass/reinforced,
-/area/storage/primary)
 "qji" = (
 /obj/machinery/holopad,
 /obj/effect/landmark/start/cook,
@@ -65174,7 +65106,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/engine/break_room)
 "qGi" = (
@@ -66209,7 +66140,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/ai_monitored/storage/eva)
 "qTU" = (
@@ -68139,11 +68069,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
-"rsY" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron,
-/area/hallway/secondary/entry)
 "rte" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -68867,7 +68792,6 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/security/detectives_office)
 "rCG" = (
@@ -71613,7 +71537,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "spz" = (
@@ -72120,9 +72043,6 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
-	},
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Escape Pod One"
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
@@ -75367,7 +75287,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/engine/gravity_generator)
 "tpY" = (
@@ -80351,7 +80270,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/janitor)
 "uGF" = (
@@ -81019,7 +80937,6 @@
 /area/security/brig)
 "uRV" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/wood{
 	broken = 1
 	},
@@ -81137,7 +81054,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "uTg" = (
@@ -81853,9 +81769,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "AI Sattelite Tube"
-	},
 /turf/open/floor/iron/dark,
 /area/engine/transit_tube)
 "vdb" = (
@@ -82666,7 +82579,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/wood,
 /area/lawoffice)
 "vql" = (
@@ -83997,22 +83909,6 @@
 /turf/open/floor/iron,
 /area/maintenance/port)
 "vHW" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/landmark/navigate_destination,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -86515,7 +86411,6 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/crew_quarters/theatre)
 "wnF" = (
@@ -126634,7 +126529,7 @@ wly
 kZA
 hbH
 cob
-qjg
+nNY
 pez
 viU
 pEE
@@ -128768,7 +128663,7 @@ rjd
 gle
 vAs
 kTN
-gJX
+iMZ
 iMZ
 iMZ
 rFw
@@ -129498,7 +129393,7 @@ uKQ
 nbZ
 iYo
 wSY
-gRm
+ifZ
 jet
 cZi
 pzu
@@ -132231,7 +132126,7 @@ aaa
 aaa
 aaO
 hpV
-rsY
+tFO
 cbt
 alx
 eMR
@@ -133399,7 +133294,7 @@ qYV
 hFu
 qYV
 hFu
-oIx
+qYV
 qYV
 qYV
 qYV
@@ -136437,7 +136332,7 @@ qrV
 icv
 ujX
 icv
-hct
+ujX
 xpn
 lpd
 oTK
@@ -138725,7 +138620,7 @@ fCJ
 dCW
 jmo
 rhi
-fjY
+aFc
 qbe
 rhi
 rhi
@@ -151080,7 +150975,7 @@ cFF
 cFF
 mva
 cFF
-kWv
+cFF
 cFF
 cFF
 cFF
@@ -151283,7 +151178,7 @@ aad
 bNj
 aaa
 aaa
-fYV
+aaa
 bNj
 aaa
 aaa

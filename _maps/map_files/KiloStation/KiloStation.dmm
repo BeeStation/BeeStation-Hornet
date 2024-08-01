@@ -5975,9 +5975,6 @@
 /obj/machinery/door/airlock/external{
 	name = "Cargo Escape Pod"
 	},
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Cargo Escape Pod"
-	},
 /turf/open/floor/iron/dark,
 /area/maintenance/starboard)
 "aRM" = (
@@ -6442,7 +6439,6 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "aXK" = (
@@ -12364,7 +12360,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/construction/mining/aux_base)
 "bTx" = (
@@ -22113,7 +22108,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/engine/break_room)
 "dmX" = (
@@ -23008,17 +23002,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "dzx" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/turf_decal/tile/neutral,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -25076,7 +25059,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/security/detectives_office)
 "ecS" = (
@@ -26270,7 +26252,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/showroomfloor,
 /area/quartermaster/exploration_prep)
 "ewQ" = (
@@ -30695,7 +30676,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/security/nuke_storage)
 "fOQ" = (
@@ -31762,7 +31742,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/maintenance/disposal)
 "gfB" = (
@@ -32883,16 +32862,6 @@
 /area/medical/surgery)
 "gwh" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Medbay"
-	},
-/obj/effect/landmark/navigate_destination,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/airlock/public/glass{
 	name = "Medbay"
@@ -32953,7 +32922,6 @@
 	name = "E.V.A. Storage";
 	req_access_txt = "18"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
 "gwZ" = (
@@ -32964,7 +32932,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/library)
 "gxa" = (
@@ -34059,22 +34026,6 @@
 /area/tcommsat/computer)
 "gOG" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
-	name = "Genetics";
-	req_access_txt = "5; 9; 68"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/landmark/navigate_destination,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -35033,7 +34984,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/quartermaster/office)
 "hem" = (
@@ -35854,24 +35804,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics/cloning)
-"hoH" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/grunge{
-	name = "Morgue";
-	req_access_txt = "5"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/landmark/navigate_destination,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/closed/wall,
-/area/medical/morgue)
 "hoI" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular{
@@ -36269,7 +36201,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/chapel/main)
 "hvK" = (
@@ -38078,7 +38009,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/gateway)
 "hVL" = (
@@ -39547,7 +39477,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/lawoffice)
 "itb" = (
@@ -44615,7 +44544,7 @@
 /area/crew_quarters/fitness/recreation)
 "jQe" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
+	req_one_access_txt = "12;25;26;35;28;22;37;46;38"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -46761,7 +46690,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/storage/primary)
 "kwl" = (
@@ -46900,7 +46828,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/dark/visible,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/maintenance/disposal/incinerator)
 "kxZ" = (
@@ -51039,7 +50966,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "lFo" = (
@@ -51314,19 +51240,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/main)
-"lLe" = (
-/obj/machinery/door/firedoor/heavy,
-/obj/machinery/door/airlock/research{
-	id_tag = "ResearchInt";
-	name = "Research Division";
-	req_one_access_txt = "47"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 4
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron/dark,
-/area/science/research)
 "lLi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -55546,7 +55459,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/janitor)
 "mYc" = (
@@ -56728,9 +56640,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "AI Sattelite Tube"
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/fore)
@@ -59366,7 +59275,6 @@
 	dir = 4
 	},
 /obj/structure/grille/broken,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
@@ -59375,6 +59283,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/central)
 "ofz" = (
@@ -66463,9 +66372,6 @@
 /obj/machinery/door/airlock/external{
 	name = "Science Escape Pod"
 	},
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Science Escape Pod"
-	},
 /turf/open/floor/iron/dark,
 /area/maintenance/starboard)
 "qoo" = (
@@ -68856,7 +68762,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/cryopods)
 "rdJ" = (
@@ -69075,7 +68980,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre)
 "rhr" = (
@@ -69659,6 +69563,10 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/iron/dark,
 /area/maintenance/port/aft)
+"rry" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/maintenance/central)
 "rrz" = (
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
@@ -71860,7 +71768,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "scP" = (
@@ -71915,18 +71822,6 @@
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "sdG" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/effect/landmark/navigate_destination,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -72283,7 +72178,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "sjk" = (
@@ -78540,7 +78434,6 @@
 	id = "robotics_shutters";
 	name = "Robotics Privacy Shutters"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "uiE" = (
@@ -80106,12 +79999,6 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/captain)
-"uEE" = (
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/engine{
-	name = "Holodeck Projector Floor"
-	},
-/area/holodeck/rec_center)
 "uEV" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -80209,7 +80096,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "uGr" = (
@@ -81177,9 +81063,6 @@
 /obj/machinery/door/airlock/external{
 	name = "Medical Escape Pod"
 	},
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Medical Escape Pod"
-	},
 /turf/open/floor/iron/dark,
 /area/maintenance/port)
 "uXt" = (
@@ -81295,16 +81178,6 @@
 	},
 /area/quartermaster/warehouse)
 "vaY" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -83203,7 +83076,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/engine/break_room)
 "vFR" = (
@@ -84587,7 +84459,6 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Courtroom"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
 "wbD" = (
@@ -87578,21 +87449,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"wSE" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/item/pen,
-/obj/item/paper_bin,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/closed/wall/r_wall,
-/area/security/prison)
 "wSH" = (
 /turf/open/floor/plating{
 	burnt = 1
@@ -88252,7 +88108,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/storage/tech)
 "xcV" = (
@@ -90859,7 +90714,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
 "xQw" = (
@@ -90882,14 +90736,6 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"xQF" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Arrivals Dock"
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron/dark,
-/area/hallway/secondary/entry)
 "xQM" = (
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/bot,
@@ -91541,7 +91387,7 @@
 /area/crew_quarters/bar/atrium)
 "xYC" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
+	req_one_access_txt = "12;25;26;35;28;22;37;46"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -107514,7 +107360,7 @@ bJv
 bJv
 bJv
 bJv
-uEE
+bJv
 bJv
 bJv
 bJv
@@ -109070,7 +108916,7 @@ kOk
 nnm
 pYD
 kKy
-wSE
+aav
 aav
 aav
 aav
@@ -114423,7 +114269,7 @@ mFF
 cHs
 tgK
 iAM
-hoH
+aNu
 alS
 ugm
 nUH
@@ -124980,7 +124826,7 @@ agT
 lWG
 ajt
 bic
-aox
+bpq
 apX
 aox
 aox
@@ -125237,7 +125083,7 @@ nmw
 oOf
 saX
 bie
-bpq
+aox
 lfB
 uwF
 hKr
@@ -125494,11 +125340,11 @@ itV
 jkF
 wHT
 bij
-apX
 bqb
+rry
 pmf
+rry
 aIN
-aox
 eIt
 oMg
 apA
@@ -129593,7 +129439,7 @@ xft
 rLh
 aZr
 blK
-lLe
+blK
 aZr
 aYd
 aYK
@@ -133492,7 +133338,7 @@ aWs
 huU
 omf
 deu
-xQF
+diL
 jcU
 ijh
 aiP

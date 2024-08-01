@@ -1152,15 +1152,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/storage)
-"aup" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/fans/tiny,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/engine/o2,
-/area/ai_monitored/turret_protected/ai)
 "auC" = (
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible{
 	dir = 8
@@ -5685,7 +5676,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "bKX" = (
@@ -6596,7 +6586,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "ccW" = (
@@ -8593,13 +8582,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
-"cHb" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron,
-/area/crew_quarters/cafeteria)
 "cHl" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/box,
@@ -9604,32 +9586,6 @@
 	},
 /area/medical/sleeper)
 "cWZ" = (
-/obj/machinery/door/airlock/security{
-	name = "Detective's Office";
-	req_access_txt = "4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/effect/landmark/navigate_destination,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/door/airlock/security{
 	name = "Detective's Office";
 	req_access_txt = "4"
@@ -10896,7 +10852,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/quartermaster/miningdock)
 "dnA" = (
@@ -11383,19 +11338,6 @@
 /obj/effect/turf_decal/siding/wideplating/dark,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
-"dtF" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/carpet/purple,
-/area/chapel/main)
 "dtJ" = (
 /obj/effect/landmark/start/chaplain,
 /obj/machinery/holopad,
@@ -12705,7 +12647,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/sepia,
 /area/quartermaster/office)
 "dPW" = (
@@ -13878,13 +13819,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
-"ekh" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron/dark,
-/area/storage/primary)
 "ekj" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer2,
@@ -15255,7 +15189,6 @@
 	name = "Hydroponics";
 	req_one_access_txt = "35;28"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/hydroponics)
 "eIK" = (
@@ -16274,7 +16207,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/carpet/green,
 /area/security/courtroom)
 "eZx" = (
@@ -17094,7 +17026,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
 "fmu" = (
@@ -18329,7 +18260,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/security/nuke_storage)
 "fEP" = (
@@ -18979,7 +18909,6 @@
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/wood,
 /area/lawoffice)
 "fSc" = (
@@ -19331,7 +19260,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "fYh" = (
@@ -20374,16 +20302,6 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "gqe" = (
-/obj/machinery/holopad{
-	pixel_y = 16
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/navigate_destination,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/bluespace_beacon,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
@@ -31427,17 +31345,6 @@
 	},
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/central)
-"jNC" = (
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
-	alpha = 200;
-	color = "#267878"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron,
-/area/crew_quarters/cryopods)
 "jNF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -31946,7 +31853,6 @@
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "jWo" = (
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/bridge)
 "jWx" = (
@@ -32437,18 +32343,6 @@
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
 "kgb" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/effect/landmark/navigate_destination,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
 	},
@@ -34159,7 +34053,6 @@
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/janitor)
 "kIB" = (
@@ -37503,9 +37396,6 @@
 "lHI" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Arrivals Escape Pod"
-	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
 "lHQ" = (
@@ -41493,7 +41383,6 @@
 /obj/structure/sign/departments/minsky/security/command{
 	pixel_x = 32
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/bridge)
 "mVP" = (
@@ -41959,7 +41848,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "ncZ" = (
@@ -43590,7 +43478,6 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/guideline/guideline_in/purple,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/science/shuttledock)
 "nAV" = (
@@ -44551,7 +44438,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "nTo" = (
@@ -46829,7 +46715,6 @@
 	color = "#439C1E";
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/crew_quarters/cafeteria)
 "oAH" = (
@@ -51619,7 +51504,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/white,
 /area/science/research)
 "pVH" = (
@@ -52613,18 +52497,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"qlT" = (
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	alpha = 200;
-	color = "#267878";
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_in/blue{
-	color = "#267878"
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron,
-/area/crew_quarters/dorms)
 "qmd" = (
 /obj/structure/grille/broken,
 /obj/structure/disposalpipe/segment{
@@ -53503,7 +53375,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/tech/grid,
 /area/engine/gravity_generator)
 "qBY" = (
@@ -54025,35 +53896,6 @@
 /turf/open/floor/iron,
 /area/medical/sleeper)
 "qKe" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/button/door{
-	id = "evashutter";
-	name = "EVA Shutter Control";
-	pixel_y = -31
-	},
-/obj/machinery/door/airlock/command{
-	name = "EVA Storage";
-	req_access = 18;
-	req_access_txt = "18"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/landmark/navigate_destination,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -57817,7 +57659,6 @@
 	id = "Chefwindow";
 	name = "Chef window"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "rZK" = (
@@ -58843,7 +58684,6 @@
 	name = "Tech Storage";
 	req_access_txt = "23"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/storage/tech)
 "snW" = (
@@ -59682,7 +59522,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "sBi" = (
@@ -60001,43 +59840,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "sFo" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "outerbrign";
-	name = "Brig";
-	req_one_access_txt = "63;38"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "brigentrance";
-	name = "Brig Blast door"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -60176,19 +59978,6 @@
 /turf/open/floor/carpet/blue,
 /area/bridge/meeting_room)
 "sHl" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1
-	},
-/obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/effect/landmark/navigate_destination,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
@@ -60969,24 +60758,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/landmark/navigate_destination,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/airlock/security{
-	name = "Court Cell";
-	req_access_txt = "42"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron,
 /area/security/courtroom)
@@ -61705,9 +61476,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
-	},
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Dormitories Escape Pod"
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/dorms)
@@ -63501,20 +63269,6 @@
 /turf/open/floor/iron/dark,
 /area/storage/primary)
 "tMh" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
@@ -63554,12 +63308,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
-"tNS" = (
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron/dark/side{
-	dir = 4
-	},
-/area/hallway/secondary/exit/departure_lounge)
 "tNU" = (
 /obj/machinery/ai_slipper{
 	uses = 10
@@ -64247,7 +63995,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/engine/break_room)
 "tZq" = (
@@ -64425,9 +64172,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 8
-	},
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Science Escape Pod"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
@@ -66464,23 +66208,6 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
-"uIu" = (
-/obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/command{
-	name = "Teleport Access";
-	req_access_txt = "17"
-	},
-/obj/effect/landmark/navigate_destination,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/closed/wall/r_wall,
-/area/teleporter)
 "uIv" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -67578,7 +67305,6 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark/telecomms{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
@@ -67642,18 +67368,6 @@
 /turf/open/floor/iron/white,
 /area/medical/office)
 "vdL" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "Security Escape Pod"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
@@ -68362,7 +68076,6 @@
 	alpha = 180;
 	dir = 8
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/security/brig)
 "vnU" = (
@@ -75685,7 +75398,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/carpet,
 /area/library)
 "xRL" = (
@@ -76508,20 +76220,6 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron,
 /area/hallway/primary/port)
-"ycD" = (
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "ycJ" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
@@ -109841,7 +109539,7 @@ fXw
 dia
 tCh
 kBB
-aup
+lhw
 cNC
 wxk
 ndM
@@ -110404,7 +110102,7 @@ ebF
 ebF
 qBr
 ebF
-uIu
+oOu
 rqD
 avg
 mNT
@@ -110930,7 +110628,7 @@ nCa
 nco
 vyj
 jQl
-ekh
+saE
 eEw
 wuX
 sUB
@@ -111998,7 +111696,7 @@ tgx
 ckp
 mIN
 gIx
-ycD
+ezh
 wqq
 dti
 rFQ
@@ -114276,7 +113974,7 @@ evB
 qgn
 cKP
 vGi
-cHb
+nuj
 oJe
 fxG
 dgW
@@ -115797,7 +115495,7 @@ nKb
 wII
 hgd
 wMi
-dtF
+hIs
 bUS
 tiF
 vtI
@@ -117861,7 +117559,7 @@ fzW
 drQ
 grc
 hqo
-jNC
+gKf
 wxO
 dCY
 chj
@@ -118883,7 +118581,7 @@ oCe
 oCe
 vfF
 cUl
-qlT
+oIx
 uAu
 fzW
 fmK
@@ -120717,7 +120415,7 @@ lZw
 nXU
 lHU
 qjg
-tNS
+xlO
 fSF
 xlO
 isL
