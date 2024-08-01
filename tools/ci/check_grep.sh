@@ -49,13 +49,13 @@ if grep -P '\td[1-2] =' _maps/**/*.dmm;    then
     st=1
 fi;
 echo -e "${BLUE}Checking for stacked pipes...${NC}"
-if grep -Pzo '"\w+" =  \([^)]*?\n/obj/effect/mapping_helpers/simple_pipes(?<type>[/\w]*),[^)]*?\n/obj/effect/mapping_helpers/simple_pipes\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \([^)]*?\n/obj/effect/mapping_helpers/simple_pipes(?<type>[/\w]*),[^)]*?\n/obj/effect/mapping_helpers/simple_pipes\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple idendical simple_pipes mapping helpers on the same tile, please remove them.${NC}"
     st=1
 fi;
 
-echo -e "${BLUE}Checking misc structures...${NC}"
+echo -e "${BLUE}Checking duplicate structures...${NC}"
 if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/lattice[/\w,\n]*?[^)]*?\n/obj/structure/lattice[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple lattices on the same tile, please remove them.${NC}"
@@ -106,6 +106,7 @@ if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/stairs(?<type>[/\w]*),[^)]*?\n/ob
     echo -e "${RED}ERROR: Found multiple identical stairs on the same tile, please remove them.${NC}"
 	st=1
 fi;
+echo -e "${BLUE}Checking for malformed files...${NC}"
 if grep '^/area/.+[\{]' _maps/**/*.dmm;    then
     echo
     echo -e "${RED}ERROR: Variable editted /area path use detected in a map, please replace with a proper area path.${NC}"
@@ -146,6 +147,7 @@ if grep -Pzo '"\w+" = \([^)]*?\n/area/.+?,[^)]*?\n/area/.+?\)' _maps/**/*.dmm; t
     echo -e "${RED}ERROR: Multiple areas detected on the same tile! Please choose only one area!${NC}"
     st=1
 fi;
+echo -e "${BLUE}Checking for things inside of walls...${NC}"
 if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/lattice[/\w,\n]*?[^)]*?\n/turf/closed/wall[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found a lattice stacked with a wall, please remove them.${NC}"
@@ -176,6 +178,7 @@ if grep -Pzo '/obj/machinery/conveyor/inverted[/\w]*?\{\n[^}]*?dir = [1248];[^}]
     echo -e "${RED}ERROR: Found an inverted conveyor belt with a cardinal dir. Please replace it with a normal conveyor belt.${NC}"
     st=1
 fi;
+echo -e "${BLUE}Checking mapping JSON...${NC}"
 if ls _maps/*.json | grep -P "[A-Z]"; then
     echo
     echo -e "${RED}ERROR: Uppercase in a map .JSON file detected, these must be all lowercase.${NC}"
