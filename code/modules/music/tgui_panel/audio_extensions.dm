@@ -4,6 +4,34 @@
 
 /datum/tgui_panel/var/needs_spatial_audio = FALSE
 
+/datum/tgui_panel/proc/play_global_music(datum/playing_track/track, priority = 0)
+	if(!is_ready())
+		return FALSE
+	if(!track.audio._audio_asset && !findtext(track.audio._web_sound_url, GLOB.is_http_protocol))
+		return FALSE
+	if (track.audio._failed)
+		return FALSE
+	// Transport assets
+	if (track.audio._audio_asset)
+		track.audio._audio_asset.send(client)
+	var/list/payload = list()
+	var/list/extra_data = track.audio.get_additional_information()
+	if(length(extra_data) > 0)
+		for(var/key in extra_data)
+			payload[key] = extra_data[key]
+	if (payload["start"])
+		payload["start"] = payload["start"] + (world.time - track.started_at) * 100
+	else
+		payload["start"] = (world.time - track.started_at) * 100
+	if (istype(track.audio.license))
+		payload["license_title"] = track.audio.license.title
+		payload["license_url"] = track.audio.license.legal_text
+	payload["uuid"] = track.uuid
+	payload["url"] = track.audio._web_sound_url
+	payload["priority"] = priority
+	window.send_message("audio/playMusic", payload)
+	return TRUE
+
 /**
  * Play music with a given 3D position in the world
  */

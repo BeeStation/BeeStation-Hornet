@@ -18,7 +18,7 @@ SUBSYSTEM_DEF(ticker)
 	var/hide_mode = FALSE
 	var/datum/game_mode/mode = null
 
-	var/datum/audio_track/login_music							//music played in pregame lobby
+	var/datum/playing_track/login_music		//music played in pregame lobby
 	var/round_end_sound						//music/jingle played when the world reboots
 	var/round_end_sound_sent = TRUE			//If all clients have loaded it
 
@@ -110,16 +110,22 @@ SUBSYSTEM_DEF(ticker)
 			if (track.title in SSmapping.config.title_music)
 				valid_tracks += track
 		if (length(valid_tracks))
-			login_music = pick(valid_tracks)
+			var/datum/audio_track/picked = pick(valid_tracks)
+			login_music = picked.play()
+			login_music.play_to_clients() // TEMP
 			return
 	for (var/datum/audio_track/track in audio_tracks)
 		if (!(track.play_flags & TRACK_FLAG_TITLE))
 			continue
 		valid_tracks += track
 	if (length(valid_tracks))
-		login_music = pick(valid_tracks)
+		var/datum/audio_track/picked = pick(valid_tracks)
+		login_music = picked.play()
+		login_music.play_to_clients() // TEMP
 	else
-		login_music = pick(audio_tracks)
+		var/datum/audio_track/picked = pick(audio_tracks)
+		login_music = picked.play()
+		login_music.play_to_clients() // TEMP
 
 /datum/controller/subsystem/ticker/fire()
 	switch(current_state)

@@ -174,6 +174,7 @@ GENERAL_PROTECT_DATUM(/datum/audio_track)
 
 /datum/audio_track/countdown
 	url = "https://www.youtube.com/watch?v=G2gVAPKlgqA"
+	play_flags = TRACK_FLAG_JUKEBOX
 
 #undef SHELLEO_ERRORLEVEL
 #undef SHELLEO_STDOUT
