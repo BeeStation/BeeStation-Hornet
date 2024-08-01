@@ -19,7 +19,7 @@ GENERAL_PROTECT_DATUM(/datum/audio_track)
 	var/safe_duration = FALSE
 	var/upload_date = null
 	// By default, allow this to play everywhere
-	var/play_flags = ~0
+	var/play_flags = TRACK_FLAG_ALL
 	var/_failed = FALSE
 	/// File of the audio source, if it should be handled over the CDN
 	/// Takes precedence over the URL, which will instead be used to get a link to where
