@@ -9,7 +9,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/west{
+/obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -316,7 +316,7 @@
 /area/shuttle/exploration)
 "aK" = (
 /obj/machinery/camera/preset{
-	dir = 5
+	dir = 10
 	},
 /obj/machinery/vendor/exploration,
 /obj/machinery/button/door{
@@ -456,14 +456,24 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"cO" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+"bi" = (
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"dc" = (
+"bu" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"eG" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -474,298 +484,7 @@
 /obj/structure/closet/crate/secure/weapon/contraband,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"eV" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/caution{
-	dir = 4;
-	pixel_x = -6
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"fw" = (
-/obj/effect/turf_decal/loading_area{
-	dir = 8
-	},
-/obj/item/wrench,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"he" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"hE" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"ih" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/closet/crate/science/mining,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"jH" = (
-/obj/machinery/computer/rdconsole{
-	dir = 8
-	},
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "exploration2";
-	name = "Exploration Shuttle Shutters";
-	pixel_y = -32;
-	pixel_x = 8
-	},
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "exploration";
-	name = "Exploration Shuttle Shutters";
-	pixel_y = -32;
-	pixel_x = -8
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"jJ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
-	},
-/obj/machinery/airalarm/unlocked{
-	pixel_x = 25;
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/exploration)
-"kR" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"lw" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"mz" = (
-/mob/living/simple_animal/chicken/turkey{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"vk" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/exploration)
-"vm" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
-	dir = 1
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/power/port_gen/pacman,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"wz" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 10
-	},
-/turf/open/floor/plating,
-/area/shuttle/exploration)
-"xR" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/plasma,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"yh" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -32;
-	pixel_y = -1
-	},
-/obj/structure/railing,
-/obj/machinery/door/firedoor/border_only,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/large,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"yj" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 4
-	},
-/obj/machinery/light/small,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/auto_name/west{
-	pixel_x = -24
-	},
-/obj/effect/turf_decal/box,
-/obj/machinery/firealarm/directional/south,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 4
-	},
-/obj/machinery/portable_atmospherics/canister/plasma,
-/obj/machinery/light/small,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/auto_name/directional/west{
-	pixel_x = -24
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"zw" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/firealarm/directional/east,
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/exploration)
-"Ai" = (
-/obj/machinery/camera/preset{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/window/eastright{
-	dir = 2
-	},
-/obj/machinery/telecomms/relay/preset/exploration,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"DJ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/door/airlock/shuttle/glass,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"Hi" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"Lh" = (
-/obj/machinery/camera/preset{
-	dir = 8
-	},
-/obj/machinery/newscaster{
-	pixel_x = 32;
-	pixel_y = 1
-	},
-/obj/structure/railing,
-/obj/machinery/door/firedoor/border_only,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/large,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"NH" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"On" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"Pr" = (
+"fa" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -776,30 +495,7 @@
 /obj/structure/closet/crate/science/shuttle,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"Qp" = (
-/obj/machinery/holopad,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"QS" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/effect/turf_decal/bot,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"Rh" = (
+"kB" = (
 /obj/docking_port/mobile{
 	dir = 4;
 	dwidth = 5;
@@ -825,26 +521,209 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
-"Th" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
-	},
+"mu" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
+	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/door/airlock/shuttle/glass,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"UZ" = (
-/obj/effect/turf_decal/caution{
-	dir = 8;
-	pixel_x = 7
+"nr" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/exploration)
+"nP" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"oe" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -32;
+	pixel_y = -1
+	},
+/obj/structure/railing,
+/obj/machinery/door/firedoor/border_only,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/large,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"ow" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"oK" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"pq" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/closet/crate/science/mining,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"Yk" = (
+"pI" = (
+/obj/machinery/camera/preset{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/door/window/eastright{
+	dir = 2
+	},
+/obj/machinery/telecomms/relay/preset/exploration,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/telecomms/relay/preset/exploration,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"uz" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/obj/item/wrench,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"xr" = (
+/mob/living/simple_animal/chicken/turkey{
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
+	health = 200;
+	maxHealth = 200;
+	melee_damage = 5;
+	minbodytemp = 2.7;
+	name = "Tom"
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"yS" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 4
+	},
+/obj/machinery/light/small,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
+/obj/effect/turf_decal/box,
+/obj/machinery/firealarm/directional/south,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 4
+	},
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/machinery/light/small,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/auto_name/directional/west{
+	pixel_x = -24
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"yU" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"zc" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"FE" = (
+/obj/machinery/holopad,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Gm" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"HB" = (
 /obj/machinery/vendor/exploration,
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/camera/preset{
@@ -852,7 +731,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/camera/preset{
@@ -867,14 +745,156 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"Kt" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/machinery/airalarm/unlocked{
+	pixel_x = 25;
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/exploration)
+"KQ" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Lo" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/firealarm/directional/east,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/exploration)
+"ME" = (
+/obj/machinery/computer/rdconsole{
+	dir = 8
+	},
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration2";
+	name = "Exploration Shuttle Shutters";
+	pixel_y = -32;
+	pixel_x = 8
+	},
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration";
+	name = "Exploration Shuttle Shutters";
+	pixel_y = -32;
+	pixel_x = -8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"MW" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"QQ" = (
+/obj/machinery/camera/preset{
+	dir = 8
+	},
+/obj/machinery/newscaster{
+	pixel_x = 32;
+	pixel_y = 1
+	},
+/obj/structure/railing,
+/obj/machinery/door/firedoor/border_only,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/large,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/camera/preset{
+	dir = 6
+	},
+/obj/machinery/newscaster{
+	pixel_x = 32;
+	pixel_y = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"QY" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"RT" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/caution{
+	dir = 4;
+	pixel_x = -6
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"SU" = (
+/obj/effect/turf_decal/caution{
+	dir = 8;
+	pixel_x = 7
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"Uf" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"ZK" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
+/turf/open/floor/plating,
+/area/shuttle/exploration)
 
 (1,1,1) = {"
 as
 aQ
 aR
 at
-wz
-Rh
+ZK
+kB
 az
 az
 az
@@ -886,15 +906,15 @@ as
 (2,1,1) = {"
 aR
 aR
-Yk
+HB
 az
 aq
-hE
-dc
+oK
+eG
 az
-xR
-fw
-yj
+bi
+uz
+yS
 aW
 aI
 "}
@@ -904,12 +924,12 @@ aM
 aw
 aR
 aU
-kR
-On
-yh
-Pr
-eV
-QS
+nP
+bu
+oe
+fa
+RT
+QY
 aL
 ap
 "}
@@ -917,14 +937,14 @@ ap
 aR
 aD
 ae
-DJ
-he
-mz
-Qp
-NH
-lw
-Th
-vm
+mu
+KQ
+xr
+FE
+Gm
+yU
+MW
+zc
 aL
 ap
 "}
@@ -935,24 +955,24 @@ aP
 aR
 ag
 ag
-Hi
-Lh
-ih
-UZ
-cO
+ow
+QQ
+pq
+SU
+Uf
 aL
 ap
 "}
 (6,1,1) = {"
 aR
 aR
-jH
+ME
 az
-jJ
-vk
-zw
+Kt
+nr
+Lo
 az
-Ai
+pI
 ac
 ar
 aW

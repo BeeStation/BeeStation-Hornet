@@ -245,8 +245,8 @@
 	message_param = initial(message_param) // reset
 	if(ishuman(user) && intentional)
 		var/mob/living/carbon/human/H = user
-		if(H.get_num_arms() == 0)
-			if(H.get_num_legs() != 0)
+		if(H.usable_hands == 0)
+			if(H.usable_legs != 0)
 				message_param = "tries to point at %t with a leg, <span class='userdanger'>falling down</span> in the process!"
 				H.Paralyze(20)
 			else
@@ -389,15 +389,15 @@
 	message = null
 	mob_type_blacklist_typecache = /mob/living/brain
 
+/datum/emote/living/custom/can_run_emote(mob/user, status_check, intentional)
+	. = ..() && intentional
+
 /datum/emote/living/custom/proc/check_invalid(mob/user, input)
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
 	if(stop_bad_mime.Find(input, 1, 1))
 		to_chat(user, "<span class='danger'>Invalid emote.</span>")
 		return TRUE
 	return FALSE
-
-/datum/emote/living/custom/can_run_emote(mob/user, status_check, intentional)
-	. = ..() && intentional
 
 /datum/emote/living/custom/run_emote(mob/user, params, type_override = null, intentional = FALSE)
 	if(!can_run_emote(user, TRUE, intentional))
