@@ -47,7 +47,11 @@
 
 //Gibs
 
-#define COMSIG_GIBS_STREAK "gibs_streak"						//! from base of /obj/effect/decal/cleanable/blood/gibs/streak(): (list/directions, list/diseases)
+///from base of /obj/effect/decal/cleanable/blood/gibs/streak(): (list/directions, list/diseases)
+#define COMSIG_GIBS_STREAK "gibs_streak"
+
+/// Called on mobs when they step in blood. (blood_amount, blood_state, list/blood_DNA)
+#define COMSIG_STEP_ON_BLOOD "step_on_blood"
 
 //Diseases
 
@@ -84,7 +88,7 @@
 #define COMSIG_CLOCKWORK_SIGNAL_RECEIVED "clock_received"			//! When anything the trap is attatched to is triggered
 
 ///Subsystem signals
-///From base of datum/controller/subsystem/Initialize: (start_timeofday)
+///From base of datum/controller/subsystem/Initialize
 #define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"
 
 /// a weather event of some kind occured

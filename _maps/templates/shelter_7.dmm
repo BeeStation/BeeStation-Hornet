@@ -9,7 +9,7 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/turf/open/floor/plasteel/vaporwave,
+/turf/open/floor/iron/vaporwave,
 /area/template_noop)
 "e" = (
 /turf/open/floor/light/colour_cycle/dancefloor_a,
@@ -32,17 +32,17 @@
 /area/template_noop)
 "y" = (
 /obj/structure/table/wood/bar,
-/turf/open/floor/plasteel/vaporwave,
+/turf/open/floor/iron/vaporwave,
 /area/template_noop)
 "O" = (
 /turf/open/floor/light/colour_cycle/dancefloor_b,
 /area/template_noop)
 "Q" = (
 /obj/structure/chair/wood,
-/turf/open/floor/plasteel/vaporwave,
+/turf/open/floor/iron/vaporwave,
 /area/template_noop)
 "Y" = (
-/turf/open/floor/plasteel/vaporwave,
+/turf/open/floor/iron/vaporwave,
 /area/template_noop)
 
 (1,1,1) = {"

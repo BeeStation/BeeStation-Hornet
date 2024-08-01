@@ -92,7 +92,7 @@
 /mob/living/simple_animal/bot/cleanbot/process_scan(atom/A)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if(C.stat != DEAD && !(C.mobility_flags & MOBILITY_STAND))
+		if(C.stat != DEAD && C.body_position == LYING_DOWN)
 			return C
 	else if(is_type_in_typecache(A, target_types))
 		return A
@@ -210,8 +210,10 @@
 	target_types = typecacheof(target_types)
 
 /mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
 	if(ismopable(A))
-		anchored = TRUE
+		set_anchored(TRUE)
 		icon_state = "cleanbot-c"
 		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
 		mode = BOT_CLEANING
@@ -333,7 +335,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A)
 	if(istype(A, /obj/effect/decal/cleanable))
-		anchored = TRUE
+		set_anchored(TRUE)
 		icon_state = "larry-c"
 		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
 		mode = BOT_CLEANING

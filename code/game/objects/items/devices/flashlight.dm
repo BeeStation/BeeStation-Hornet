@@ -5,6 +5,7 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight"
 	item_state = "flashlight"
+	worn_icon_state = "flashlight"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -176,6 +177,7 @@
 	desc = "A pen-sized light, used by medical staff. It can also be used to create a hologram to alert people of incoming medical assistance."
 	icon_state = "penlight"
 	item_state = ""
+	worn_icon_state = "pen"
 	flags_1 = CONDUCT_1
 	light_range = 2
 	var/holo_cooldown = 0
@@ -210,6 +212,7 @@
 	desc = "A robust flashlight used by security."
 	icon_state = "seclite"
 	item_state = "seclite"
+	worn_icon_state = "seclite"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	force = 9 // Not as good as a stun baton.
@@ -538,7 +541,7 @@
 
 /obj/item/flashlight/glowstick/yellow
 	name = "yellow glowstick"
-	color = LIGHT_COLOR_YELLOW
+	color = LIGHT_COLOR_DIM_YELLOW
 
 /obj/item/flashlight/glowstick/pink
 	name = "pink glowstick"

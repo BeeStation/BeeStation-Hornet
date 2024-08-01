@@ -72,7 +72,8 @@
 	if(istype(S))
 		// Things that *really should always* happen to the shade when it comes out should go here.
 		S.status_flags &= ~GODMODE
-		S.mobility_flags = MOBILITY_FLAGS_DEFAULT
+		REMOVE_TRAIT(S, TRAIT_IMMOBILIZED, SOULSTONE_TRAIT)
+		REMOVE_TRAIT(S, TRAIT_HANDS_BLOCKED, SOULSTONE_TRAIT)
 		S.cancel_camera()
 		if(theme == THEME_HOLY)
 			S.icon_state = "shade_angelic"
@@ -252,7 +253,7 @@
 			var/mob/living/simple_animal/shade/A = locate() in src
 			if(A)
 				var/construct_class = show_radial_menu(user, src, GLOB.construct_radial_images, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
-				if(!T || !T.loc)
+				if(!T || !T.loc || !construct_class)
 					return
 
 				make_new_construct_from_class(construct_class, theme, A, user, FALSE, T.loc)
@@ -278,6 +279,7 @@
 		if(CONSTRUCT_JUGGERNAUT)
 			if(IS_CULTIST(creator))
 				makeNewConstruct(/mob/living/simple_animal/hostile/construct/juggernaut, target, creator, cultoverride, loc_override) // ignore themes, the actual giving of cult info is in the makeNewConstruct proc
+				return
 			switch(theme)
 				if(THEME_WIZARD)
 					makeNewConstruct(/mob/living/simple_animal/hostile/construct/juggernaut/mystic, target, creator, cultoverride, loc_override)
@@ -288,6 +290,7 @@
 		if(CONSTRUCT_WRAITH)
 			if(IS_CULTIST(creator))
 				makeNewConstruct(/mob/living/simple_animal/hostile/construct/wraith, target, creator, cultoverride, loc_override) // ignore themes, the actual giving of cult info is in the makeNewConstruct proc
+				return
 			switch(theme)
 				if(THEME_WIZARD)
 					makeNewConstruct(/mob/living/simple_animal/hostile/construct/wraith/mystic, target, creator, cultoverride, loc_override)
@@ -298,6 +301,7 @@
 		if(CONSTRUCT_ARTIFICER)
 			if(IS_CULTIST(creator))
 				makeNewConstruct(/mob/living/simple_animal/hostile/construct/artificer, target, creator, cultoverride, loc_override) // ignore themes, the actual giving of cult info is in the makeNewConstruct proc
+				return
 			switch(theme)
 				if(THEME_WIZARD)
 					makeNewConstruct(/mob/living/simple_animal/hostile/construct/artificer/mystic, target, creator, cultoverride, loc_override)
@@ -343,7 +347,8 @@
 	T.dust_animation()
 	var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade(src)
 	S.status_flags |= GODMODE //So they won't die inside the stone somehow
-	S.mobility_flags = NONE //Can't move out of the soul stone
+	ADD_TRAIT(S, TRAIT_IMMOBILIZED, SOULSTONE_TRAIT)
+	ADD_TRAIT(S, TRAIT_HANDS_BLOCKED, SOULSTONE_TRAIT)
 	S.name = "Shade of [T.real_name]"
 	S.real_name = "Shade of [T.real_name]"
 	S.key = shade_controller.key

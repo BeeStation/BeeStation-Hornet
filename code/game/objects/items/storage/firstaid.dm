@@ -15,14 +15,13 @@
 	desc = "It's an emergency medical kit for those serious boo-boos."
 	icon = 'icons/obj/storage/medkit.dmi'
 	icon_state = "firstaid"
+	item_state = "firstaid"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throw_speed = 3
 	throw_range = 7
 	w_class = WEIGHT_CLASS_LARGE
 	var/skin_type = MEDBOT_SKIN_DEFAULT
-	var/empty = FALSE
-	var/damagetype_healed //defines damage type of the medkit. General ones stay null. Used for medibot healing bonuses
 
 /obj/item/storage/firstaid/regular
 	icon_state = "firstaid"
@@ -33,8 +32,6 @@
 	return BRUTELOSS
 
 /obj/item/storage/firstaid/regular/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 1,
 		/obj/item/stack/medical/bruise_pack = 2,
@@ -49,8 +46,6 @@
 	w_class = WEIGHT_CLASS_NORMAL //Intended to be used by ERTs or other uncommon roles
 
 /obj/item/storage/firstaid/compact/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 1,
 		/obj/item/stack/medical/bruise_pack = 2,
@@ -63,6 +58,7 @@
 	name = "doctor's bag"
 	icon_state = "firstaid-surgeryalt"
 	item_state = "firstaid-surgeryalt"
+	worn_icon_state = "firstaid_surgeryalt"
 	desc = "A fancy high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
 	skin_type = null
 	w_class = WEIGHT_CLASS_BULKY
@@ -125,8 +121,6 @@
 		))
 
 /obj/item/storage/firstaid/medical/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 1,
 		/obj/item/stack/medical/bruise_pack = 2,
@@ -146,8 +140,6 @@
 	skin_type = null
 
 /obj/item/storage/firstaid/ancient/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 2,
 		/obj/item/stack/medical/bruise_pack = 3,
@@ -161,7 +153,6 @@
 	desc = "A specialized medical kit for when the toxins lab <i>-spontaneously-</i> burns down."
 	icon_state = "firstaid-burn"
 	item_state = "firstaid-burn"
-	damagetype_healed = BURN
 	skin_type = MEDBOT_SKIN_BURN
 
 /obj/item/storage/firstaid/fire/suicide_act(mob/living/carbon/user)
@@ -173,8 +164,6 @@
 	icon_state = pick("firstaid-burn","firstaid-burnalt")
 
 /obj/item/storage/firstaid/fire/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/reagent_containers/pill/patch/silver_sulf = 4,
 		/obj/item/storage/pill_bottle/kelotane = 1,
@@ -188,7 +177,6 @@
 	desc = "Used to treat toxic blood content and radiation poisoning."
 	icon_state = "firstaid-toxin"
 	item_state = "firstaid-toxin"
-	damagetype_healed = TOX
 	skin_type = MEDBOT_SKIN_TOXIN
 
 /obj/item/storage/firstaid/toxin/suicide_act(mob/living/carbon/user)
@@ -223,8 +211,6 @@
 	return TOXLOSS
 
 /obj/item/storage/firstaid/radbgone/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/reagent_containers/pill/antirad_plus = 2,
 		/obj/item/reagent_containers/pill/antirad = 2,
@@ -243,8 +229,6 @@
 	desc = "A box full of oxygen goodies."
 	icon_state = "firstaid-o2"
 	item_state = "firstaid-o2"
-	damagetype_healed = OXY
-	skin_type = MEDBOT_SKIN_OXY
 
 /obj/item/storage/firstaid/o2/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins hitting [user.p_their()] neck with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -270,7 +254,6 @@
 	desc = "A first aid kit for when you get toolboxed."
 	icon_state = "firstaid-brute"
 	item_state = "firstaid-brute"
-	damagetype_healed = BRUTE
 	skin_type = MEDBOT_SKIN_BRUTE
 
 /obj/item/storage/firstaid/brute/suicide_act(mob/living/carbon/user)

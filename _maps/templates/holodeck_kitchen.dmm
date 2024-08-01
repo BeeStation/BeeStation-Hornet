@@ -96,8 +96,8 @@
 "p" = (
 /obj/structure/window,
 /obj/structure/rack,
-/obj/item/clothing/head/chefhat,
-/obj/item/clothing/head/chefhat,
+/obj/item/clothing/head/utility/chefhat,
+/obj/item/clothing/head/utility/chefhat,
 /obj/item/clothing/suit/apron/chef,
 /obj/item/clothing/suit/apron/chef,
 /obj/item/storage/bag/tray,

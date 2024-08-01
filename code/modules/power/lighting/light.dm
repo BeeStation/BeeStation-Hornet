@@ -56,47 +56,10 @@
 	var/turning_on = FALSE
 	var/roundstart_smoothing = FALSE
 
-/obj/machinery/light/broken
-	status = LIGHT_BROKEN
-	icon_state = "tube-broken"
-
-// the smaller bulb light fixture
-
-/obj/machinery/light/small
-	icon_state = "bulb"
-	base_state = "bulb"
-	fitting = "bulb"
-	brightness = 6
-	desc = "A small lighting fixture."
-	bulb_colour = "#FFE6CC" //little less cozy, bit more industrial, but still cozy.. -qwerty
-	light_type = /obj/item/light/bulb
-
-/obj/machinery/light/small/broken
-	status = LIGHT_BROKEN
-	icon_state = "bulb-broken"
-
 /obj/machinery/light/Move()
 	if(status != LIGHT_BROKEN)
 		break_light_tube(1)
 	return ..()
-
-/obj/machinery/light/built
-	icon_state = "tube-empty"
-	start_with_cell = FALSE
-
-/obj/machinery/light/built/Initialize(mapload)
-	. = ..()
-	status = LIGHT_EMPTY
-	update(FALSE, TRUE)
-
-/obj/machinery/light/small/built
-	icon_state = "bulb-empty"
-	start_with_cell = FALSE
-
-/obj/machinery/light/small/built/Initialize(mapload)
-	. = ..()
-	status = LIGHT_EMPTY
-	update(FALSE, TRUE)
 
 /obj/machinery/light/proc/store_cell(new_cell)
 	if(cell)
@@ -194,8 +157,10 @@
 	. = ..()
 	if(!on || status != LIGHT_OK)
 		return
+
 	if(on && turning_on)
 		return
+		
 	var/area/local_area = get_area(src)
 	if(emergency_mode || (local_area?.fire))
 		. += mutable_appearance(overlayicon, "[base_state]_emergency")
@@ -288,7 +253,7 @@
 	update()
 
 /obj/machinery/light/proc/broken_sparks(start_only=FALSE)
-	if(!QDELETED(src) && status == LIGHT_BROKEN && has_power() && Master.current_runlevel)
+	if(!QDELETED(src) && status == LIGHT_BROKEN && has_power() && MC_RUNNING())
 		if(!start_only)
 			do_sparks(3, TRUE, src)
 		var/delay = rand(BROKEN_SPARKS_MIN, BROKEN_SPARKS_MAX)
@@ -415,7 +380,7 @@
 		newlight.setDir(src.dir)
 		newlight.stage = cur_stage
 		if(!disassembled)
-			newlight.obj_integrity = newlight.max_integrity * 0.5
+			newlight.take_damage(newlight.max_integrity * 0.5, sound_effect=FALSE)
 			if(status != LIGHT_BROKEN)
 				break_light_tube()
 			if(status != LIGHT_EMPTY)
@@ -436,7 +401,7 @@
 			if(prob(12))
 				electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 
-/obj/machinery/light/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+/obj/machinery/light/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(. && !QDELETED(src))
 		if(prob(damage_amount * 5))
@@ -621,8 +586,8 @@
 
 	to_chat(user, "<span class='notice'>You telekinetically remove the light [fitting].</span>")
 	// create a light tube/bulb item and put it in the user's hand
-	var/obj/item/light/L = drop_light_tube()
-	L.attack_tk(user)
+	var/obj/item/light/light_tube = drop_light_tube()
+	return light_tube.attack_tk(user)
 
 
 // break the light and make sparks if was on
