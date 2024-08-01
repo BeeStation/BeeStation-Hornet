@@ -203,6 +203,10 @@
 		if(limb_nymph.stat != DEAD)
 			alive_nymphs += limb_nymph
 
+	var/mob/living/simple_animal/hostile/retaliate/nymph/gambling_nymph = alive_nymphs[rand(1, alive_nymphs)]
+	gambling_nymph.adjustBruteLoss(50) // Ensures atleast one nymph is dead. One that isn't critical..
+	alive_nymphs -= gambling_nymph //Remove it from the alive_nymphs list.
+
 	var/datum/mind/M = H.mind
 	if(nymph.stat == DEAD) //If the head nymph is dead, transfer all consciousness to the next best thing - an alive limb nymph!
 		nymph = pick(alive_nymphs)
