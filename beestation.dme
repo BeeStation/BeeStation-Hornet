@@ -3388,7 +3388,6 @@
 #include "code\modules\music\licenses\license_grandfathered.dm"
 #include "code\modules\music\tgui_panel\audio_extensions.dm"
 #include "code\modules\music\tracks\playing_track.dm"
-#include "code\modules\music\tracks\tinnitus_dance.dm"
 #include "code\modules\music\tracks\title0.dm"
 #include "code\modules\music\tracks\track.dm"
 #include "code\modules\ninja\__ninjaDefines.dm"
