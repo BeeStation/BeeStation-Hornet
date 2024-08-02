@@ -731,11 +731,11 @@
 	name = "Paper Frames"
 	result = /obj/item/stack/sheet/paperframes/five
 	time = 10
-	reqs = list(/obj/item/stack/sheet/wood = 5, /obj/item/paper = 20)
+	reqs = list(/obj/item/stack/sheet/wood = 2, /obj/item/paper = 10)
 	category = CAT_MISC
 
 /datum/crafting_recipe/naturalpaper
-	name = "Hand-Pressed Paper"
+	name = "Hand-Pressed Paper Bundle"
 	time = 30
 	reqs = list(/datum/reagent/water = 50, /obj/item/stack/sheet/wood = 1)
 	tools = list(/obj/item/hatchet)
@@ -1220,6 +1220,17 @@
 				)
 	tools = list(TOOL_WRENCH, TOOL_WIRECUTTER)
 	category = CAT_MISC
+
+/datum/crafting_recipe/personal_locker
+	name = "Personal Locker"
+	result = /obj/structure/closet/secure_closet/personal/empty
+	time = 10 SECONDS
+	reqs = list(/obj/item/stack/sheet/iron = 2,
+				/obj/item/electronics/airlock = 1,
+				/obj/item/stack/cable_coil = 2
+				)
+	tools = list(TOOL_WIRECUTTER, TOOL_SCREWDRIVER)
+	category = CAT_STRUCTURE
 
 /datum/crafting_recipe/shutters
 	name = "Shutters"

@@ -9,6 +9,8 @@
 #define STATUS_EFFECT_REPLACE 2
 /// if it only allows one, and new instances just instead refresh the timer
 #define STATUS_EFFECT_REFRESH 3
+/// call a merge proc to combine 2 status effects
+#define STATUS_EFFECT_MERGE 4
 
 //-------//
 // BUFFS //
@@ -117,6 +119,7 @@
 
 #define STATUS_EFFECT_LING_TRANSFORMATION /datum/status_effect/ling_transformation // transform stung by a changeling
 
+#define STATUS_EFFECT_BLEED /datum/status_effect/bleeding
 
 //---------//
 // NEUTRAL //
