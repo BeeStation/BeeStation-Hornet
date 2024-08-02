@@ -123,14 +123,15 @@ SUBSYSTEM_DEF(music)
 
 /datum/controller/subsystem/music/proc/play_global_music(datum/playing_track/playing)
 	for (var/client/client in GLOB.clients)
-		if (client.personal_lobby_music)
+		// If this is a title music, don't play it to anyone who has skipped title music
+		if ((playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC) && (client.personal_lobby_music || !isnewplayer(client.mob)))
 			continue
 		playing.play_to_client(client)
 	global_audio_tracks += playing
 
 /datum/controller/subsystem/music/proc/feed_music(client/target)
 	for (var/datum/playing_track/playing in global_audio_tracks)
-		if (target.personal_lobby_music && (playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC))
+		if ((playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC) && (target.personal_lobby_music || !isnewplayer(target.mob)))
 			continue
 		playing.play_to_client(target)
 	if (target.personal_lobby_music)
