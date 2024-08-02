@@ -18441,8 +18441,8 @@
 /turf/open/floor/carpet/grimy,
 /area/chapel/main)
 "eNv" = (
-/obj/structure/chair/stool,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "eNy" = (
@@ -23536,10 +23536,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/miningdock)
-"fXw" = (
-/obj/structure/chair/stool,
-/turf/open/floor/carpet,
-/area/crew_quarters/bar/atrium)
 "fXx" = (
 /obj/machinery/vending/wardrobe/viro_wardrobe,
 /obj/effect/turf_decal/stripes/line{
@@ -34737,6 +34733,10 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/security/execution/education)
+"iOH" = (
+/obj/structure/chair/stool/directional/east,
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "iOK" = (
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/iron/sepia,
@@ -35325,7 +35325,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "iVD" = (
@@ -39565,13 +39565,6 @@
 	},
 /turf/open/floor/vault,
 /area/engine/engine_room)
-"kaT" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/chair/stool,
-/turf/open/floor/carpet,
-/area/crew_quarters/bar/atrium)
 "kaU" = (
 /obj/machinery/vending/wallmed{
 	pixel_x = -24
@@ -47873,8 +47866,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/west,
 /obj/effect/landmark/start/assistant,
+/obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "meh" = (
@@ -53484,6 +53477,10 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/apothecary)
+"nDM" = (
+/obj/structure/chair/stool/directional/north,
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "nDQ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -54637,6 +54634,13 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/storage/primary)
+"nVR" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/chair/stool/directional/north,
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "nVS" = (
 /turf/closed/wall/r_wall,
 /area/security/execution/education)
@@ -54899,7 +54903,7 @@
 /area/library)
 "nZF" = (
 /obj/effect/landmark/start/assistant,
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "nZM" = (
@@ -68492,11 +68496,11 @@
 /turf/open/floor/iron/white,
 /area/science/lobby)
 "rDR" = (
-/obj/structure/chair/stool,
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 1
 	},
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "rDU" = (
@@ -75390,8 +75394,8 @@
 /turf/open/floor/iron/techmaint,
 /area/crew_quarters/locker)
 "toR" = (
-/obj/structure/chair/stool,
 /mob/living/carbon/monkey/punpun,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "toW" = (
@@ -76890,7 +76894,6 @@
 /turf/open/floor/iron/dark,
 /area/storage/tech)
 "tJu" = (
-/obj/structure/chair/stool,
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 1
@@ -76898,6 +76901,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "tJz" = (
@@ -77481,9 +77485,9 @@
 /turf/open/floor/iron/techmaint,
 /area/bridge)
 "tPX" = (
-/obj/structure/chair/stool,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/landmark/prisonspawn,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "tPY" = (
@@ -79187,6 +79191,13 @@
 	dir = 4
 	},
 /area/maintenance/department/engine)
+"umZ" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/chair/stool/directional/east,
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "une" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -80415,7 +80426,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "uBw" = (
@@ -80721,7 +80732,6 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "uFP" = (
-/obj/structure/chair/stool,
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 1
@@ -80732,6 +80742,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "uFQ" = (
@@ -83776,8 +83787,8 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "vqq" = (
-/obj/structure/chair/stool/directional/south,
 /obj/effect/landmark/start/assistant,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "vqt" = (
@@ -85113,7 +85124,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "vDc" = (
@@ -91785,7 +91796,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/structure/chair/stool,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "xfs" = (
@@ -92982,13 +92993,13 @@
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
 "xrI" = (
-/obj/structure/chair/stool,
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
 	},
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 4
 	},
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "xrO" = (
@@ -93374,10 +93385,10 @@
 /area/construction)
 "xwv" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/chair/stool,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "xwy" = (
@@ -96979,7 +96990,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/structure/chair/stool,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/cafeteria)
 "yid" = (
@@ -117325,9 +117336,9 @@ dgK
 nuD
 ngw
 mRd
-fXw
-rkv
 lru
+rkv
+nDM
 vAS
 xqJ
 wsI
@@ -117582,9 +117593,9 @@ mRd
 ttX
 tCN
 soU
-kaT
-rDv
 ezI
+rDv
+nVR
 yjx
 eje
 wtt
@@ -117839,7 +117850,7 @@ mRd
 cXO
 kSv
 mRd
-fXw
+lru
 rkv
 vqq
 vAS
@@ -118098,7 +118109,7 @@ mRd
 mRd
 toR
 uJh
-lru
+nDM
 vAS
 wpL
 qvN
@@ -118350,12 +118361,12 @@ ksN
 mse
 sxX
 mRd
-cXO
-kSv
+umZ
+iOH
 mRd
-fXw
-rkv
 lru
+rkv
+nDM
 vAS
 wdj
 sei

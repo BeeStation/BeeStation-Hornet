@@ -5638,12 +5638,10 @@
 /turf/open/floor/iron,
 /area/maintenance/department/engine/atmos)
 "csL" = (
-/obj/structure/chair/stool{
-	pixel_y = 8
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron/dark,
 /area/maintenance/disposal/incinerator)
 "csR" = (
@@ -18427,10 +18425,10 @@
 	name = "-1 Primary Hallway"
 	})
 "jeo" = (
-/obj/structure/chair/stool/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
 "jeF" = (
@@ -29098,10 +29096,10 @@
 /area/engine/engineering)
 "oLK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
 "oLQ" = (

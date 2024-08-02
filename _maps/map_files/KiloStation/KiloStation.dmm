@@ -66074,10 +66074,10 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hop)
 "pwu" = (
-/obj/structure/chair/stool,
 /obj/effect/landmark/start/atmospheric_technician,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "pwJ" = (
@@ -69016,8 +69016,8 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/port/aft)
 "qyJ" = (
-/obj/structure/chair/stool/bar,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/stool/bar/directional/south,
 /turf/open/floor/plating{
 	broken = 1
 	},

@@ -384,10 +384,10 @@
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32
 	},
-/obj/structure/chair/stool/bar,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/structure/chair/stool/bar/directional/south,
 /turf/open/floor/iron,
 /area/engine/engine_room)
 "afb" = (
@@ -17797,10 +17797,10 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/structure/chair/stool,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron,
 /area/medical/break_room)
 "fCS" = (
@@ -22124,11 +22124,11 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "gTm" = (
-/obj/structure/chair/stool/bar,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/stool/bar/directional/south,
 /turf/open/floor/iron,
 /area/engine/engine_room)
 "gTo" = (
@@ -24001,6 +24001,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/qm)
+"hzJ" = (
+/obj/structure/chair/stool/bar/directional/north,
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/cafeteria)
 "hzY" = (
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/iron,
@@ -32399,7 +32404,7 @@
 /turf/open/floor/plating,
 /area/medical/virology)
 "kok" = (
-/obj/structure/chair/stool/bar/directional/south,
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/cafeteria)
 "kor" = (
@@ -33768,9 +33773,8 @@
 /turf/open/floor/iron,
 /area/bridge)
 "kMP" = (
-/obj/structure/chair/stool/bar/directional/south,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/landmark/start/assistant,
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/cafeteria)
 "kNl" = (
@@ -35075,8 +35079,8 @@
 /area/maintenance/disposal)
 "lfZ" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/structure/chair/stool,
 /obj/machinery/airalarm/directional/east,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron,
 /area/medical/break_room)
 "lgh" = (
@@ -52347,6 +52351,10 @@
 /obj/effect/turf_decal/guideline/guideline_in/blue,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
+"quR" = (
+/obj/structure/chair/stool/bar/directional/east,
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/cafeteria)
 "qva" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -58893,11 +58901,6 @@
 /obj/machinery/power/port_gen/pacman,
 /turf/open/floor/iron/tech/grid,
 /area/engine/engineering)
-"syI" = (
-/obj/structure/chair/stool/bar/directional/south,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/cafeteria_red,
-/area/crew_quarters/cafeteria)
 "syO" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/camera/autoname/directional/east{
@@ -58942,9 +58945,9 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "szP" = (
-/obj/structure/chair/stool/bar/directional/south,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/cafeteria)
 "szX" = (
@@ -113716,7 +113719,7 @@ cTn
 tcL
 cxF
 eWK
-syI
+kMP
 bLt
 eyD
 dvY
@@ -114744,9 +114747,9 @@ jDB
 xbr
 swv
 uHQ
-rpK
-rpK
-rpK
+quR
+quR
+quR
 wlr
 bmu
 mWi
@@ -115775,7 +115778,7 @@ oNv
 jDu
 jKx
 qVc
-kok
+hzJ
 bSd
 mWi
 jmw

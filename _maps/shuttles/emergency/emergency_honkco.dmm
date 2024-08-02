@@ -11,7 +11,6 @@
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "aD" = (
-/obj/structure/chair/stool/bar,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -45,11 +44,11 @@
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "bQ" = (
-/obj/structure/chair/stool/bar/directional/south,
 /obj/machinery/light/small,
 /obj/structure/sign/poster/contraband/clown{
 	pixel_y = -32
 	},
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "cH" = (
@@ -58,7 +57,7 @@
 /area/shuttle/escape)
 "dS" = (
 /obj/item/grown/bananapeel,
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "ep" = (
@@ -73,7 +72,7 @@
 /area/shuttle/escape)
 "hz" = (
 /mob/living/simple_animal/hostile/retaliate/clown,
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "hZ" = (
@@ -87,18 +86,18 @@
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "iN" = (
-/obj/structure/chair/stool/bar,
 /mob/living/simple_animal/hostile/retaliate/clown/clownhulk/honcmunculus,
+/obj/structure/chair/stool/bar/directional/south,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "jb" = (
 /obj/item/grown/bananapeel,
-/obj/structure/chair/stool/bar,
 /mob/living/simple_animal/hostile/retaliate/clown/clownhulk/chlown,
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "kc" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "me" = (
@@ -134,7 +133,7 @@
 /area/shuttle/escape)
 "qt" = (
 /mob/living/simple_animal/hostile/retaliate/clown/banana,
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "sh" = (
@@ -193,7 +192,6 @@
 /area/shuttle/escape)
 "vO" = (
 /obj/item/grown/bananapeel,
-/obj/structure/chair/stool/bar,
 /obj/item/grown/bananapeel,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
@@ -203,7 +201,6 @@
 /area/shuttle/escape)
 "xf" = (
 /obj/item/grown/bananapeel,
-/obj/structure/chair/stool/bar,
 /mob/living/simple_animal/hostile/retaliate/clown/mutant/blob,
 /obj/machinery/light/floor{
 	brightness = 15;
@@ -274,7 +271,7 @@
 "Ao" = (
 /mob/living/simple_animal/hostile/retaliate/clown,
 /obj/item/grown/bananapeel,
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar/directional/south,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "AH" = (
@@ -282,7 +279,7 @@
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "AP" = (
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "CN" = (
@@ -362,11 +359,6 @@
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"IC" = (
-/mob/living/simple_animal/hostile/retaliate/clown,
-/obj/structure/chair/stool/bar,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
 "Jp" = (
 /obj/structure/statue/bananium/clown,
 /obj/structure/sign/poster/contraband/clown{
@@ -378,20 +370,7 @@
 /obj/machinery/door/airlock/bananium/glass,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"Mk" = (
-/obj/structure/chair/stool/bar/directional/south,
-/obj/machinery/light/floor{
-	brightness = 15;
-	bulb_colour = "#FFE4CE";
-	bulb_emergency_brightness_mul = 0.25;
-	bulb_vacuum_brightness = 15;
-	nightshift_brightness = 10;
-	nightshift_light_color = "#E6EBFF"
-	},
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
 "NJ" = (
-/obj/structure/chair/stool/bar,
 /obj/machinery/light/floor{
 	brightness = 15;
 	bulb_colour = "#FFE4CE";
@@ -400,6 +379,7 @@
 	nightshift_brightness = 10;
 	nightshift_light_color = "#E6EBFF"
 	},
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "Ok" = (
@@ -477,9 +457,24 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"XB" = (
+"VM" = (
+/obj/item/grown/bananapeel,
 /obj/structure/chair/stool/bar/directional/south,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"Ws" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/sign/poster/contraband/clown{
+	pixel_y = 32
+	},
+/obj/structure/chair/stool/bar/directional/south,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"XB" = (
 /mob/living/simple_animal/hostile/retaliate/clown/longface,
+/obj/structure/chair/stool/bar/directional/south,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "XS" = (
@@ -552,7 +547,7 @@ Qk
 "}
 (5,1,1) = {"
 KA
-tN
+am
 Gz
 Gz
 nv
@@ -571,7 +566,7 @@ xf
 Yc
 vO
 Am
-Mk
+XS
 tN
 bQ
 Qk
@@ -591,9 +586,9 @@ Qk
 "}
 (8,1,1) = {"
 Qk
-aD
+Ws
 Yc
-dS
+VM
 OO
 dS
 sh
@@ -604,7 +599,7 @@ Qk
 "}
 (9,1,1) = {"
 Qk
-aD
+Ws
 gF
 iN
 tN
@@ -617,9 +612,9 @@ Qk
 "}
 (10,1,1) = {"
 Qk
-aD
+Ws
 Yc
-kc
+am
 Yc
 qt
 tN
@@ -630,9 +625,9 @@ Qk
 "}
 (11,1,1) = {"
 Qk
-aD
+Ws
 tN
-kc
+am
 hZ
 kc
 gF
@@ -643,9 +638,9 @@ Qk
 "}
 (12,1,1) = {"
 Qk
-aD
+Ws
 gF
-IC
+yH
 Yc
 dS
 Yc
