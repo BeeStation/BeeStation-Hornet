@@ -130,4 +130,8 @@ SUBSYSTEM_DEF(music)
 
 /datum/controller/subsystem/music/proc/feed_music(client/target)
 	for (var/datum/playing_track/playing in global_audio_tracks)
+		if (target.personal_lobby_music && (playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC))
+			continue
 		playing.play_to_client(target)
+	if (target.personal_lobby_music)
+		target.personal_lobby_music.play_to_client(target)
