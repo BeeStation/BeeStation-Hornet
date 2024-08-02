@@ -12,6 +12,10 @@ SUBSYSTEM_DEF(music)
 	var/last_song_name
 	// Music we are playing in the lobby
 	var/datum/playing_track/login_music
+	// Playlist of login music
+	var/list/login_music_playlist
+	// Current global login song
+	var/current_login_song = 1
 	// Are we currently loading tracks?
 	var/datum/task/loading_tracks = null
 	// List of all audio tracks
@@ -51,44 +55,52 @@ SUBSYSTEM_DEF(music)
 	// Something else has set the lobby music already
 	if (login_music)
 		return
+	var/list/shuffled_tracks = shuffle(audio_tracks)
+	login_music_playlist = list()
 	// Try to load map specific music first
-	var/list/valid_tracks = list()
 	if (LAZYLEN(SSmapping.config.title_music))
-		for (var/datum/audio_track/track in audio_tracks)
+		for (var/datum/audio_track/track in shuffled_tracks)
 			if (track.title in SSmapping.config.title_music)
-				valid_tracks += track
-		if (length(valid_tracks))
-			var/datum/audio_track/picked = pick(valid_tracks)
-			login_music = picked.play()
+				login_music_playlist += track
+		if (length(login_music_playlist))
+			var/datum/audio_track/picked = login_music_playlist[1]
+			login_music = picked.play(PLAYING_FLAG_TITLE_MUSIC)
 			SSmusic.play_global_music(login_music)
 			last_song_name = picked.title
 			rustg_file_write(picked.title, LAST_LOBBY_MUSIC_TXT)
 			return
 	// Search for lobby music that we didn't just play
-	for (var/datum/audio_track/track in audio_tracks)
+	var/last_song
+	for (var/datum/audio_track/track in shuffled_tracks)
 		if (!(track.play_flags & TRACK_FLAG_TITLE))
 			continue
 		if (track.title == last_song_name)
+			last_song = track
 			continue
-		valid_tracks += track
-	// Restart the search but allow for replaying if we run out of songs
-	if (!length(valid_tracks))
-		for (var/datum/audio_track/track in audio_tracks)
-			if (!(track.play_flags & TRACK_FLAG_TITLE))
-				continue
-			valid_tracks += track
-	if (length(valid_tracks))
-		var/datum/audio_track/picked = pick(valid_tracks)
-		login_music = picked.play()
-		SSmusic.play_global_music(login_music)
-		last_song_name = picked.title
-		rustg_file_write(picked.title, LAST_LOBBY_MUSIC_TXT)
-	else
-		var/datum/audio_track/picked = pick(audio_tracks)
-		login_music = picked.play()
-		SSmusic.play_global_music(login_music)
-		last_song_name = picked.title
-		rustg_file_write(picked.title, LAST_LOBBY_MUSIC_TXT)
+		login_music_playlist += track
+	// ONE MORE SONG. ONE MORE SONG.
+	if (last_song)
+		login_music_playlist += last_song
+	if (!length(login_music_playlist))
+		login_music_playlist = shuffled_tracks
+		if (!length(login_music_playlist))
+			CRASH("No music has been loaded, meaning a title-track cannot be played.")
+	var/datum/audio_track/picked = login_music_playlist[1]
+	login_music = picked.play(PLAYING_FLAG_TITLE_MUSIC)
+	SSmusic.play_global_music(login_music)
+	last_song_name = picked.title
+	rustg_file_write(picked.title, LAST_LOBBY_MUSIC_TXT)
+
+/datum/controller/subsystem/music/proc/play_next_lobby_song()
+	login_music?.stop_playing_to_clients()
+	current_login_song ++
+	if (current_login_song > length(login_music_playlist))
+		current_login_song = 1
+	var/datum/audio_track/picked = login_music_playlist[current_login_song]
+	login_music = picked.play(PLAYING_FLAG_TITLE_MUSIC)
+	SSmusic.play_global_music(login_music)
+	last_song_name = picked.title
+	rustg_file_write(picked.title, LAST_LOBBY_MUSIC_TXT)
 
 /datum/controller/subsystem/music/fire(resumed)
 	// Run through our playing audio tracks and cull anyones that we think might be finished
@@ -96,9 +108,7 @@ SUBSYSTEM_DEF(music)
 		index = 1
 	// Check if we need to change the title song
 	if (login_music && login_music.audio.duration && world.time > login_music.started_at + login_music.audio.duration)
-		login_music.stop_playing_to_clients()
-		login_music = null
-		select_title_music(audio_tracks)
+		play_next_lobby_song()
 	// Run through global audio tracks
 	while (index <= length(global_audio_tracks))
 		// Check this song
@@ -112,7 +122,10 @@ SUBSYSTEM_DEF(music)
 			return
 
 /datum/controller/subsystem/music/proc/play_global_music(datum/playing_track/playing)
-	playing.play_to_clients()
+	for (var/client/client in GLOB.clients)
+		if (client.personal_lobby_music)
+			continue
+		playing.play_to_client(client)
 	global_audio_tracks += playing
 
 /datum/controller/subsystem/music/proc/feed_music(client/target)

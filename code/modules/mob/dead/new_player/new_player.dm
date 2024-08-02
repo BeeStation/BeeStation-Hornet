@@ -242,7 +242,10 @@
 		observer.real_name = observer.client.prefs.read_character_preference(/datum/preference/name/real_name)
 		observer.name = observer.real_name
 	observer.update_icon()
-	SSmusic.login_music.stop_playing_to(client)
+	if (client.personal_lobby_music)
+		client.personal_lobby_music.stop_playing_to(client)
+	else
+		SSmusic.login_music.stop_playing_to(client)
 	QDEL_NULL(mind)
 	qdel(src)
 	return TRUE
@@ -476,7 +479,10 @@
 	. = new_character
 	if(.)
 		if (client)
-			SSmusic.login_music.stop_playing_to(client)
+			if (client.personal_lobby_music)
+				client.personal_lobby_music.stop_playing_to(client)
+			else
+				SSmusic.login_music.stop_playing_to(client)
 		new_character.key = key		//Manually transfer the key to log them in
 		new_character = null
 		qdel(src)

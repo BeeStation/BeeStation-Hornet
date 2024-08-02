@@ -1,4 +1,9 @@
 
+export enum PlayingFlags {
+  NONE = 0,
+  TITLE_MUSIC = (1<<0),
+}
+
 export class AudioTrack {
 
   uuid: number;
@@ -16,14 +21,17 @@ export class AudioTrack {
   pos_z: number;
   range: number;
   positional_blend: number;
+  playing_flags: PlayingFlags;
 
-  constructor(uuid:number, url: string, priority: number, options: { pitch?: number, start?: number, end?: number }) {
+  constructor(uuid:number, url: string, priority: number, playing_flags: PlayingFlags, options: { pitch?: number, start?: number, end?: number }) {
     // UUID of the track
     this.uuid = uuid;
     // URL of the track
     this.url = url;
     // Priority of the track
     this.priority = priority;
+    // The flags of the track
+    this.playing_flags = playing_flags;
     // Volume of the track
     this.volume = 1;
     // Time that the track started in milliseconds

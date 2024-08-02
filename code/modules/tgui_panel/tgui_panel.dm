@@ -70,9 +70,6 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 		return
 	// Other setup
 	request_telemetry()
-	// Send verbs
-	set_verb_infomation(client)
-	SSmusic.feed_music(client)
 	addtimer(CALLBACK(src, PROC_REF(on_initialize_timed_out)), 5 SECONDS)
 
 /**
@@ -109,6 +106,10 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 				),
 			),
 		))
+		// Send verbs
+		set_verb_infomation(client)
+		// Send music information
+		SSmusic.feed_music(client)
 		return TRUE
 	if(type == "audio/setAdminMusicVolume")
 		client.admin_music_volume = payload["volume"]
@@ -128,6 +129,27 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 		track.vote_duration(client, length)
 	if (type == "music/queueEmpty")
 		needs_spatial_audio = FALSE
+	if (type == "music/skipLobbyMusic")
+		// Stop playing this song
+		if (client.personal_lobby_music)
+			client.personal_lobby_music.stop_playing_to(client)
+		else
+			SSmusic.login_music.stop_playing_to(client)
+		// Find a new song to play
+		if (!client.personal_lobby_music_index)
+			client.personal_lobby_music_index = SSmusic.current_login_song
+		client.personal_lobby_music_index++
+		if (client.personal_lobby_music_index > length(SSmusic.login_music_playlist))
+			client.personal_lobby_music_index = 1
+		var/datum/audio_track/played_track = SSmusic.login_music_playlist[client.personal_lobby_music_index]
+		client.personal_lobby_music = played_track.play(PLAYING_FLAG_TITLE_MUSIC)
+		client.personal_lobby_music.play_to_client(client)
+	if (type == "music/synchronise")
+		if (client.personal_lobby_music)
+			client.personal_lobby_music.stop_playing_to(client)
+			client.personal_lobby_music = null
+		client.personal_lobby_music_index = 0
+		SSmusic.login_music.play_to_client(client)
 
 /**
  * public

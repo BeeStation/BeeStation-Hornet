@@ -116,3 +116,15 @@
 #define SOUNDTRACK_PLAY_RESPECT 0
 #define SOUNDTRACK_PLAY_ALL 1
 #define SOUNDTRACK_PLAY_ONLYSTATION 2
+
+/// Defines for audio track availability
+
+#define TRACK_FLAG_ALL (~0)
+#define TRACK_FLAG_TITLE (1<<0)
+#define TRACK_FLAG_JUKEBOX (1<<1)
+#define TRACK_FLAG_ROUNDEND (1<<2)
+
+/// Defines for playing track flags
+
+#define PLAYING_FLAG_DEFAULT 0
+#define PLAYING_FLAG_TITLE_MUSIC (1 << 0)

@@ -29,6 +29,7 @@
 	payload["uuid"] = track.uuid
 	payload["url"] = track.audio._web_sound_url
 	payload["priority"] = priority
+	payload["flags"] = track.playing_flags
 	window.send_message("audio/playMusic", payload)
 	return TRUE
 
@@ -67,6 +68,7 @@
 	payload["y"] = location.y
 	payload["z"] = location.z
 	payload["range"] = radius
+	payload["flags"] = track.playing_flags
 	window.send_message("audio/playWorldMusic", payload)
 	needs_spatial_audio = TRUE
 	// Become a music listener

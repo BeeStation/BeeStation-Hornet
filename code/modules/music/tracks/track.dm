@@ -106,9 +106,9 @@ GENERAL_PROTECT_DATUM(/datum/audio_track)
 		"upload_date" = upload_date,
 	)
 
-/datum/audio_track/proc/play()
+/datum/audio_track/proc/play(track_flags = PLAYING_FLAG_DEFAULT)
 	RETURN_TYPE(/datum/playing_track)
-	return new /datum/playing_track(src, world.time)
+	return new /datum/playing_track(src, world.time, track_flags)
 
 /**
  * There is no easy way to get the length of the audio, so when a client starts playing

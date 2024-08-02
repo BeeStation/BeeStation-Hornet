@@ -3,11 +3,13 @@
 	var/uuid
 	var/datum/audio_track/audio
 	var/started_at
+	var/playing_flags = PLAYING_FLAG_DEFAULT
 
-/datum/playing_track/New(datum/audio_track/audio, started_at)
+/datum/playing_track/New(datum/audio_track/audio, started_at, playing_flags)
 	uuid = total_count++
 	src.audio = audio
 	src.started_at = started_at
+	src.playing_flags = playing_flags
 	return ..()
 
 /datum/playing_track/proc/play_to_clients()

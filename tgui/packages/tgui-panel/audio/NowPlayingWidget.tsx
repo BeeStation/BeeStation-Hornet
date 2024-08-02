@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import { PlayingFlags } from './AudioTrack';
 import { toFixed } from 'common/math';
 import { useDispatch, useSelector } from 'common/redux';
 import { Button, Collapsible, Flex, Knob, Section } from 'tgui/components';
@@ -22,6 +23,7 @@ export const NowPlayingWidget = (props, context) => {
     duration = audio.duration,
     license_name = audio.meta?.license_title || 'Unknown License',
     license_url = audio.meta?.license_url || null,
+    playing_flags = audio.meta?.flags || 0,
     date = !isNaN(upload_date)
       ? upload_date?.substring(0, 4) + '-' + upload_date?.substring(4, 6) + '-' + upload_date?.substring(6, 8)
       : upload_date;
@@ -85,8 +87,30 @@ export const NowPlayingWidget = (props, context) => {
           Nothing to play.
         </Flex.Item>
       )}
+      {audio.playing && !!(playing_flags & PlayingFlags.TITLE_MUSIC) && (
+        <>
+          <Flex.Item mt={0.1} mx={0.5} fontSize="0.9em">
+            <Button
+              tooltip="Synchronise with server playlist"
+              icon="rotate"
+              onClick={() =>
+                Byond.sendMessage('music/synchronise')
+              }
+            />
+          </Flex.Item>
+          <Flex.Item mt={0.1} mx={0.5} fontSize="0.9em">
+            <Button
+              tooltip="Skip song"
+              icon="forward"
+              onClick={() =>
+                Byond.sendMessage('music/skipLobbyMusic')
+              }
+            />
+          </Flex.Item>
+        </>
+      )}
       {audio.playing && (
-        <Flex.Item mt={0.1} mx={0.5} fontSize="0.9em">
+        <Flex.Item mt={0.1} mx={0.8} fontSize="0.9em">
           <Button
             tooltip="Mute"
             icon={audio.muted ? "volume-xmark" : "volume-up"}

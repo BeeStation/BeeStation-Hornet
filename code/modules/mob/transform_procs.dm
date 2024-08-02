@@ -507,7 +507,10 @@
 		landmark_loc += loc
 
 	if(client)
-		SSmusic.login_music.stop_playing_to(client)
+		if (client.personal_lobby_music)
+			client.personal_lobby_music.stop_playing_to(client)
+		else
+			SSmusic.login_music.stop_playing_to(client)
 
 	if(!transfer_after)
 		mind.active = FALSE

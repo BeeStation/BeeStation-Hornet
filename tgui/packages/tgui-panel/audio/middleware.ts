@@ -39,13 +39,13 @@ export const audioMiddleware = (store) => {
   return (next) => (action) => {
     const { type, payload } = action;
     if (type === 'audio/playMusic') {
-      const { uuid, url, priority, ...options } = payload;
-      player.play(new AudioTrack(uuid, url, priority, options));
+      const { uuid, url, priority, playing_flags, ...options } = payload;
+      player.play(new AudioTrack(uuid, url, priority, playing_flags, options));
       return next(action);
     }
     if (type === 'audio/playWorldMusic') {
-      const { uuid, url, priority, x, y, z, range, ...options } = payload;
-      let worldTrack = new AudioTrack(uuid, url, priority, options);
+      const { uuid, url, priority, playing_flags, x, y, z, range, ...options } = payload;
+      let worldTrack = new AudioTrack(uuid, url, priority, playing_flags, options);
       worldTrack.pos_x = x;
       worldTrack.pos_y = y;
       worldTrack.pos_z = z;
