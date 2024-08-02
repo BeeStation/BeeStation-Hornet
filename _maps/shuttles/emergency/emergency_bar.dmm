@@ -356,8 +356,8 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "hI" = (
-/obj/structure/chair/stool/bar/directional/west,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "hS" = (
@@ -471,11 +471,8 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "AX" = (
-/obj/structure/chair/stool/bar{
-	can_buckle = 1;
-	name = "buckleable bar stool"
-	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "FR" = (
@@ -813,7 +810,7 @@ Zq
 ox
 ox
 Zw
-ox
+AX
 ox
 FR
 bi
