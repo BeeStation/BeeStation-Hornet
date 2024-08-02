@@ -144,7 +144,8 @@ GLOBAL_LIST_EMPTY(secsets)
 	GLOB.secsets += src
 	//recalculateChannels()
 
-/obj/item/radio/headset/headset_sec/proc/dispatch(mob/user)
+/obj/item/radio/headset/headset_sec/proc/dispatch(mob/living/user)
+
 	if(COOLDOWN_TIMELEFT(src, dispatch_cooldown_timer))
 		to_chat(user, "<span class='warning'>Dispatch radio broadcasting systems are recharging.</span>")
 		balloon_alert(user, "still recharging!")
@@ -183,6 +184,7 @@ GLOBAL_LIST_EMPTY(secsets)
 		sanitized_area_string = "UNKNOWN"
 
 	talk_into(src, "Dispatch, Officer [user.last_name()], [message] at [sanitized_area_string], requesting response.", radio_channel)
+	user.do_alert_animation(user)
 	COOLDOWN_START(src, dispatch_cooldown_timer, dispatch_cooldown)
 	for(var/atom/movable/hailer in GLOB.secsets)
 		if(ismob(hailer.loc))
