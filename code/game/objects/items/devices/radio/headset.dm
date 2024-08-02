@@ -120,6 +120,12 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	COOLDOWN_DECLARE(dispatch_cooldown_timer)
 	var/dispatch_cooldown = 20 SECONDS
 
+/obj/item/radio/headset/headset_sec/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/dispatch))
+		dispatch(user)
+	else
+		to_chat("What else is there, moron?")
+
 GLOBAL_LIST_EMPTY(secsets)
 
 // **** Dispatch ****
@@ -141,7 +147,8 @@ GLOBAL_LIST_EMPTY(secsets)
 
 /obj/item/radio/headset/headset_sec/proc/dispatch(mob/user)
 	if(COOLDOWN_TIMELEFT(src, dispatch_cooldown_timer))
-		to_chat(user, "<span class='notice'>Dispatch radio broadcasting systems are recharging.</span>")
+		to_chat(user, "<span class='warning'>Dispatch radio broadcasting systems are recharging.</span>")
+		balloon_alert("still recharging!")
 		return FALSE
 	var/list/options = list()
 	for(var/option in list(
