@@ -316,12 +316,23 @@
 		update_resting()
 	toggle_ai(AI_OFF)
 	var/obj/item/clothing/head/mob_holder/nymph/holder = new(get_turf(src), src, held_state, head_icon, held_lh, held_rh, worn_slot_flags)
+	if(stat == DEAD && mind)
+		holder.tool_behaviour = TOOL_SEED
 	L.visible_message("<span class='warning'>[L] scoops up [src]!</span>")
 	L.put_in_hands(holder)
 
 /obj/item/clothing/head/mob_holder/nymph
 	var/moving_cooldown
 	var/on_head
+	//Variables for planting a dead nymph into a hydroponics tray
+	tool_behaviour = null
+	fake_seed = null
+
+/obj/item/clothing/head/mob_holder/nymph/Initialize(mapload, mob/living/M, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags)
+	if(M.mind)
+		fake_seed = new /obj/item/seeds/nymph
+		fake_seed.mind = M.mind
+	. = ..()
 
 /obj/item/clothing/head/mob_holder/nymph/relaymove(mob/user) // Hold nymph like petulant child...
 	if(moving_cooldown <= world.time)

@@ -782,12 +782,14 @@
 			reagent_source.update_icon()
 		return 1
 
-	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
+	else if(O.tool_behaviour == TOOL_SEED && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)
 			if(istype(O, /obj/item/seeds/kudzu))
 				investigate_log("had Kudzu planted in it by [key_name(user)] at [AREACOORD(src)]","kudzu")
 			if(!user.transferItemToLoc(O, src))
 				return
+			if(!istype(O, /obj/item/seeds)) //If the given item is supposed to be a seed, but isn't a subtype of a seed, use the item's seed variable instead.
+				O = O.fake_seed
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
 			myseed = O

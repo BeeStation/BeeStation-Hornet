@@ -47,3 +47,29 @@
 			seed_count--
 	parent.update_tray()
 	return result
+
+
+/obj/item/seeds/nymph
+	name = "Dead Nymph"
+	icon_state = "seed-dionapod"
+	species = "diona"
+	plantname = "Dead Nymph"
+	product = /mob/living/simple_animal/hostile/retaliate/nymph
+	lifespan = 50
+	endurance = 8
+	maturation = 8
+	production = 1
+	yield = 1
+	potency = 30
+	growthstages = 3
+	var/volume = 5
+	var/spawn_nymph = FALSE
+	var/list/result = list()
+
+/obj/item/seeds/nymph/harvest(mob/user)
+	var/obj/machinery/hydroponics/parent = src.loc
+	var/mob/living/simple_animal/hostile/retaliate/nymph/child = new /mob/living/simple_animal/hostile/retaliate/nymph(get_turf(parent))
+	mind.transfer_to(child)
+	child.grab_ghost()
+	parent.update_tray()
+	return result
