@@ -220,7 +220,7 @@ SUBSYSTEM_DEF(music)
 
 /datum/controller/subsystem/music/proc/play_global_music(datum/playing_track/playing)
 	for (var/client/client in GLOB.clients)
-		var/hear = !client.prefs?.read_player_preference(/datum/preference/toggle/sound_lobby)
+		var/hear = client.prefs.read_player_preference(/datum/preference/toggle/sound_lobby)
 		// If this is a title music, don't play it to anyone who has skipped title music
 		if ((playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC) && (!hear || client.personal_lobby_music || (!isnewplayer(client.mob) && SSticker.current_state < GAME_STATE_FINISHED)))
 			continue
@@ -235,7 +235,7 @@ SUBSYSTEM_DEF(music)
 
 /datum/controller/subsystem/music/proc/play_spatial_music(datum/playing_track/spatial/playing)
 	for (var/client/client in GLOB.clients)
-		var/hear = !client.prefs?.read_player_preference(/datum/preference/toggle/sound_lobby)
+		var/hear = client.prefs.read_player_preference(/datum/preference/toggle/sound_lobby)
 		// If this is a title music, don't play it to anyone who has skipped title music
 		if ((playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC) && (!hear || client.personal_lobby_music || (!isnewplayer(client.mob) && SSticker.current_state < GAME_STATE_FINISHED)))
 			continue
@@ -244,7 +244,7 @@ SUBSYSTEM_DEF(music)
 
 /datum/controller/subsystem/music/proc/feed_music_async(client/target)
 	DECLARE_ASYNC
-	var/hear = !target.prefs?.read_player_preference(/datum/preference/toggle/sound_lobby)
+	var/hear = target.prefs.read_player_preference(/datum/preference/toggle/sound_lobby)
 	// Global audio
 	for (var/datum/playing_track/playing in global_audio_tracks)
 		if ((playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC) && (!hear || target.personal_lobby_music || !isnewplayer(target.mob)))
