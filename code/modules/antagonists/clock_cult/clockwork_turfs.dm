@@ -497,6 +497,7 @@
 	return
 
 /obj/structure/grille/ratvar/obj_break()
+	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		icon_state = "brokenratvargrille"
 		density = FALSE
