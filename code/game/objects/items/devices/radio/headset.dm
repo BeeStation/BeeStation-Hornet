@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(secsets)
 	var/message = show_radial_menu(user, user, options)
 	if(!message)
 		return FALSE
-	talk_into(src, "Dispatch, [message] at [get_area(user)], requesting response.", radio_channel)
+	talk_into(src, "Dispatch, Officer [user], [message] at [get_area(user)], requesting response.", radio_channel)
 	COOLDOWN_START(src, dispatch_cooldown_timer, dispatch_cooldown)
 	for(var/atom/movable/hailer in GLOB.secsets)
 		if(ismob(hailer.loc))
