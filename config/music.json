@@ -1,25 +1,39 @@
 [
 	{
-		"title":"Tinnitus Dance",
-		"artist":"Dancefloor is Lava",
-		"license":"/datum/license/cc0",
-		"audio_file":"sound/music/tinnitus_dance.mp3",
-		"url":"https://www.chosic.com/download-audio/24969/",
-		"jukebox":1
-	},
-	{
 		"title":"Endless Space",
 		"artist":"Solus",
-		"license":{
-			"title":"CC BY 3.0 (Attribution 3.0 Unported)",
-			"legal_text":"https://creativecommons.org/licenses/by/3.0/legalcode.txt",
-			"url":"https://creativecommons.org/licenses/by/3.0/deed.en",
-			"attribution_required":1
-		},
+		"license":"/datum/license/ccby3",
 		"audio_file":"sound/ambience/title0.mp3",
 		"url":"https://www.newgrounds.com/audio/listen/74946",
 		"jukebox":1,
 		"roundend":1,
+		"lobbymusic":1
+	},
+	{
+		"title":"Flip-Flap",
+		"artist":"X-CEED",
+		"audio_file":"sound/ambience/title1.mp3",
+		"url":"https://aminet.net/package/mods/xceed/Flipflap",
+		"license":"/datum/license/grandfathered",
+		"jukebox":1,
+		"lobbymusic":1
+	},
+	{
+		"title":"Robocop Gameboy Title Remix",
+		"artist":"CBoyardee",
+		"audio_file":"sound/ambience/title2.mp3",
+		"url":"https://archive.org/details/robocop_20160928",
+		"license":"/datum/license/grandfathered",
+		"jukebox":1,
+		"lobbymusic":1
+	},
+	{
+		"title":"Tintin on the Moon Remix",
+		"artist":"Cuboos (Original Artist: Jeroen Tel)",
+		"url":"https://www.youtube.com/watch?v=Hz6KO0gnrS8&t=0s",
+		"license":"/datum/license/grandfathered",
+		"audio_file":"sound/ambience/title3.mp3",
+		"jukebox":1,
 		"lobbymusic":1
 	},
 	{

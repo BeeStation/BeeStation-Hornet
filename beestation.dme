@@ -3385,6 +3385,7 @@
 #include "code\modules\music\licenses\license.dm"
 #include "code\modules\music\licenses\license_cc0.dm"
 #include "code\modules\music\licenses\license_ccby3.dm"
+#include "code\modules\music\licenses\license_grandfathered.dm"
 #include "code\modules\music\tgui_panel\audio_extensions.dm"
 #include "code\modules\music\tracks\playing_track.dm"
 #include "code\modules\music\tracks\tinnitus_dance.dm"
