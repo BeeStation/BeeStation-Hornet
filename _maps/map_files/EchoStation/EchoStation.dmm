@@ -14791,10 +14791,10 @@
 /turf/open/floor/iron/white/side,
 /area/science/misc_lab)
 "hcA" = (
-/obj/structure/chair/stool/directional/west,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/prison,
 /area/security/prison)
 "hcF" = (
@@ -19607,9 +19607,9 @@
 	name = "-2 Primary Hallway"
 	})
 "jJH" = (
-/obj/structure/chair/stool/directional/west,
 /obj/effect/landmark/start/assistant,
 /obj/item/food/fishandchips,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 9
 	},
@@ -33802,7 +33802,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/iron,
 /area/medical/medbay/central)
 "rkR" = (
@@ -45946,11 +45946,11 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine/atmos)
 "xfO" = (
-/obj/structure/chair/stool/directional/west,
 /obj/effect/landmark/start/medical_doctor,
 /obj/structure/disposalpipe/trunk/multiz/down{
 	dir = 8
 	},
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/iron,
 /area/medical/medbay/central)
 "xgv" = (

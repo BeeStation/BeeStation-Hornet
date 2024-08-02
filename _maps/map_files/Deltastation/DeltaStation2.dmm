@@ -93205,13 +93205,6 @@
 	},
 /turf/open/floor/plating,
 /area/medical/genetics)
-"yby" = (
-/obj/structure/chair/stool/directional/west{
-	pixel_x = 7;
-	pixel_y = 6
-	},
-/turf/open/floor/prison,
-/area/security/prison)
 "ybT" = (
 /obj/machinery/deepfryer,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -147905,7 +147898,7 @@ xIe
 aKV
 nZc
 qpA
-yby
+ffS
 aFm
 aFm
 hba

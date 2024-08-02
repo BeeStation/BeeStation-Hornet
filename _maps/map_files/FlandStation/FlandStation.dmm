@@ -29941,7 +29941,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "hGM" = (
@@ -37359,7 +37359,7 @@
 /turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "jzA" = (
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},
@@ -39421,7 +39421,7 @@
 /area/science/storage)
 "jYW" = (
 /obj/effect/landmark/start/assistant,
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},
@@ -40263,7 +40263,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "kjk" = (
@@ -43803,7 +43803,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "lcx" = (
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/west,
 /turf/open/floor/iron/dark/side{
 	dir = 6
 	},

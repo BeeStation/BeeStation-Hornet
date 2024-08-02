@@ -6733,7 +6733,7 @@
 	},
 /area/science/research)
 "clJ" = (
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/wood,
 /area/maintenance/port/aft)
 "cma" = (
@@ -10384,8 +10384,8 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "drZ" = (
-/obj/structure/chair/stool/bar/directional/south,
 /obj/effect/turf_decal/tile/neutral,
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron,
 /area/engine/storage)
 "dst" = (
@@ -10619,10 +10619,10 @@
 /area/security/brig/dock)
 "dvY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
 "dwd" = (
@@ -13044,11 +13044,11 @@
 	},
 /area/science/mixing)
 "ehX" = (
-/obj/structure/chair/stool/bar/directional/south,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	alpha = 180
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron,
 /area/engine/storage)
 "eik" = (
@@ -14068,10 +14068,10 @@
 /turf/open/space/basic,
 /area/ai_monitored/turret_protected/ai)
 "eyD" = (
-/obj/structure/chair/stool/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
 "eyE" = (
@@ -33813,10 +33813,10 @@
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
 "kOb" = (
-/obj/structure/chair/stool/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/wood,
 /area/security/prison)
 "kOe" = (
@@ -38645,10 +38645,10 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/chair/stool/directional/south,
 /obj/effect/turf_decal{
 	dir = 8
 	},
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/prison,
 /area/security/prison)
 "mqZ" = (
@@ -74224,7 +74224,7 @@
 /area/crew_quarters/heads/hop)
 "xvM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/carpet/royalblack,
 /area/library)
 "xvS" = (
@@ -75606,7 +75606,7 @@
 /turf/open/floor/iron,
 /area/science/mixing)
 "xRm" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/wood,
 /area/security/prison)
 "xRL" = (

@@ -19985,13 +19985,13 @@
 /turf/open/floor/iron/white,
 /area/science/explab)
 "gqA" = (
-/obj/structure/chair/stool/directional/south,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/prison,
 /area/security/prison)
 "gqC" = (
@@ -30413,7 +30413,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/prison,
 /area/security/prison)
 "jKi" = (
@@ -36958,16 +36958,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/secondary)
-"lSE" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/structure/chair/stool/directional/south,
-/turf/open/floor/prison,
-/area/security/prison)
 "lSJ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/sign/poster/random{
@@ -114073,7 +114063,7 @@ jeI
 iDM
 alp
 oeE
-lSE
+gqA
 nuU
 nmg
 lVr
@@ -114330,7 +114320,7 @@ sli
 pRe
 uKT
 cpS
-lSE
+gqA
 nuU
 nmg
 dgP
@@ -114587,7 +114577,7 @@ sli
 rZU
 uKT
 xAv
-lSE
+gqA
 nuU
 nmg
 cVp

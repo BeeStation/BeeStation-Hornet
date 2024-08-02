@@ -26403,11 +26403,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/stool/directional/west{
-	pixel_x = 7;
-	pixel_y = 6
-	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/prison,
 /area/security/prison)
 "eWg" = (
@@ -39248,7 +39245,7 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "jME" = (
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/iron/cafeteria{
 	dir = 5
 	},
@@ -42997,12 +42994,12 @@
 /obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
-/obj/structure/chair/stool/directional/west,
 /obj/effect/landmark/start/exploration,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/iron,
 /area/science/shuttledock)
 "liG" = (
@@ -43498,14 +43495,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/stool/directional/west{
-	pixel_x = 7;
-	pixel_y = 6
-	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/prison,
 /area/security/prison)
 "ltF" = (
@@ -61619,11 +61613,11 @@
 /turf/open/floor/iron,
 /area/maintenance/port/fore)
 "rUB" = (
-/obj/structure/chair/stool/directional/west,
 /obj/effect/landmark/start/scientist,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/iron,
 /area/science/mixing)
 "rUK" = (
@@ -66145,7 +66139,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/iron,
 /area/gateway)
 "tBB" = (
@@ -67158,10 +67152,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/stool/directional/west{
-	pixel_x = 7;
-	pixel_y = 6
-	},
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/prison,
 /area/security/prison)
 "tUe" = (
@@ -68231,7 +68222,7 @@
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/iron/cafeteria{
 	dir = 5
 	},
