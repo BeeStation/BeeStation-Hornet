@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(music)
 	flags = SS_BACKGROUND
 	wait = 20 SECONDS
 	init_order = INIT_ORDER_MUSIC
+	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	var/index = 1
 	// Music we are playing in the lobby
 	var/datum/playing_track/login_music
@@ -73,6 +74,12 @@ SUBSYSTEM_DEF(music)
 	// Run through our playing audio tracks and cull anyones that we think might be finished
 	if (!resumed)
 		index = 1
+	// Check if we need to change the title song
+	if (login_music && login_music.audio.duration && world.time > login_music.started_at + login_music.audio.duration)
+		login_music.stop_playing_to_clients()
+		login_music = null
+		select_title_music(audio_tracks)
+	// Run through global audio tracks
 	while (index <= length(global_audio_tracks))
 		// Check this song
 		var/datum/playing_track/playing = global_audio_tracks[index]
