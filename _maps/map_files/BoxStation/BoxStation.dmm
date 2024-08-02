@@ -879,10 +879,8 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "amy" = (
-/obj/structure/chair/stool{
-	pixel_y = 8
-	},
 /obj/machinery/airalarm/directional/west,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
 "amz" = (
@@ -1027,10 +1025,8 @@
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "aoN" = (
-/obj/structure/chair/stool{
-	pixel_y = 8
-	},
 /obj/machinery/airalarm/directional/west,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
 "aoO" = (
@@ -1302,7 +1298,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "atW" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool/directional/west,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "aua" = (
@@ -1717,10 +1713,10 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "azm" = (
-/obj/structure/chair/stool,
 /obj/effect/turf_decal/pool{
 	dir = 1
 	},
+/obj/structure/chair/stool/directional/west,
 /turf/open/floor/iron,
 /area/crew_quarters/fitness)
 "azn" = (
@@ -2384,10 +2380,8 @@
 /turf/open/floor/plating,
 /area/security/checkpoint/auxiliary)
 "aHD" = (
-/obj/structure/chair/stool{
-	pixel_y = 8
-	},
 /obj/effect/landmark/start/assistant,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron,
 /area/storage/primary)
 "aHE" = (
@@ -7092,8 +7086,8 @@
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "bGk" = (
-/obj/structure/chair/stool,
 /obj/effect/landmark/start/scientist,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/iron/white,
 /area/science/mixing)
 "bGn" = (
@@ -7742,10 +7736,10 @@
 /turf/open/floor/plating,
 /area/medical/genetics)
 "bMh" = (
-/obj/structure/chair/stool,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "bMi" = (
@@ -8179,7 +8173,7 @@
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "bOz" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "bOD" = (
@@ -10397,7 +10391,7 @@
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 8
 	},
-/obj/structure/chair/stool,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "caJ" = (
@@ -19137,10 +19131,10 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "emb" = (
-/obj/structure/chair/stool/bar/directional/south,
 /obj/effect/turf_decal/siding/white/corner{
 	dir = 8
 	},
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron/white/corner,
 /area/crew_quarters/kitchen)
 "emv" = (
@@ -22828,7 +22822,7 @@
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room)
 "fPc" = (
-/obj/structure/chair/stool/bar/directional/south,
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron/white/side,
 /area/crew_quarters/kitchen)
 "fPr" = (
@@ -30873,7 +30867,7 @@
 /obj/effect/turf_decal/tile/dark_green/half/contrasted{
 	dir = 4
 	},
-/obj/structure/chair/stool,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron,
 /area/hydroponics)
 "iSm" = (
@@ -31352,13 +31346,13 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "jbP" = (
-/obj/structure/chair/stool,
 /obj/machinery/camera/autoname/directional/west{
 	network = list("ss13, engine")
 	},
 /obj/machinery/light_switch{
 	pixel_x = -28
 	},
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
 "jbW" = (
@@ -35875,6 +35869,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
+"kSn" = (
+/obj/structure/chair/stool/directional/north,
+/turf/open/floor/prison,
+/area/security/prison)
 "kSu" = (
 /obj/structure/table/wood,
 /obj/item/storage/crayons,
@@ -37085,9 +37083,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/cmo)
 "lpZ" = (
-/obj/structure/chair/stool{
-	pixel_y = 8
-	},
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "lqa" = (
@@ -44678,8 +44674,8 @@
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "owj" = (
-/obj/structure/chair/stool,
 /obj/effect/landmark/prisonspawn,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "owl" = (
@@ -45802,7 +45798,7 @@
 /turf/open/floor/iron/dark/side,
 /area/engine/atmos)
 "oWI" = (
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "oWV" = (
@@ -46890,7 +46886,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "ptw" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron/white,
 /area/science/mixing)
 "ptC" = (
@@ -50447,11 +50443,11 @@
 /turf/open/floor/iron,
 /area/hydroponics)
 "qRv" = (
-/obj/structure/chair/stool,
 /obj/effect/landmark/start/janitor,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron,
 /area/janitor)
 "qSv" = (
@@ -55916,10 +55912,10 @@
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room)
 "sVT" = (
-/obj/structure/chair/stool,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
 "sWn" = (
@@ -58451,10 +58447,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
-"tST" = (
-/obj/structure/chair/stool,
-/turf/open/floor/prison,
-/area/security/prison)
 "tTq" = (
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
@@ -59213,11 +59205,11 @@
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
 "ulU" = (
-/obj/structure/chair/stool,
 /obj/effect/landmark/start/scientist,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/iron/white,
 /area/science/lab)
 "ulX" = (
@@ -64189,7 +64181,7 @@
 /turf/open/space,
 /area/solar/port/aft)
 "wnT" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool/directional/east,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
@@ -92660,7 +92652,7 @@ mdH
 yfx
 owj
 uHL
-obR
+kSn
 eAJ
 acd
 acd
@@ -92915,9 +92907,9 @@ tNE
 tNE
 pCb
 yfx
-tST
-gda
 obR
+gda
+kSn
 ugl
 sVh
 muJ
@@ -93172,9 +93164,9 @@ tNE
 tNE
 fuY
 yfx
-tST
-wSz
 obR
+wSz
+kSn
 ugl
 vKc
 muJ
