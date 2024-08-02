@@ -165,7 +165,7 @@
 	START_PROCESSING(SSmachines, src)
 	if (currently_playing)
 		currently_playing.stop_playing_to_clients()
-	currently_playing = selection.play()
+	currently_playing = selection.play(PLAYING_FLAG_JUKEBOX)
 	currently_playing.track_volume = volume * 0.01
 	ui_update()
 	// TEMP

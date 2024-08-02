@@ -26,6 +26,9 @@ SUBSYSTEM_DEF(music)
 	var/list/audio_tracks_by_url
 	// List of audio tracks currently being played globally
 	var/list/global_audio_tracks = list()
+	// List of spatial audio tracks. Sending them to the client is relatively cheap, so we
+	// actually just send them to everyone whether they are playing or not
+	var/list/spatial_audio_tracks = list()
 
 /datum/controller/subsystem/music/Initialize()
 	// Load up the last song we played
@@ -223,10 +226,19 @@ SUBSYSTEM_DEF(music)
 		playing.play_to_client(client)
 	global_audio_tracks += playing
 
-/datum/controller/subsystem/music/proc/feed_music(client/target)
+/datum/controller/subsystem/music/proc/feed_music_async(client/target)
+	DECLARE_ASYNC
+	// Global audio
 	for (var/datum/playing_track/playing in global_audio_tracks)
 		if ((playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC) && (target.personal_lobby_music || !isnewplayer(target.mob)))
 			continue
 		playing.play_to_client(target)
+	// Spatial audio
+	for (var/datum/playing_track/playing in spatial_audio_tracks)
+		if ((playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC) && (target.personal_lobby_music || !isnewplayer(target.mob)))
+			continue
+		playing.play_to_client(target)
+	// Personal lobby music
 	if (target.personal_lobby_music)
 		target.personal_lobby_music.play_to_client(target)
+	ASYNC_FINISH

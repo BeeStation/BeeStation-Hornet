@@ -109,7 +109,7 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 		// Send verbs
 		set_verb_infomation(client)
 		// Send music information
-		SSmusic.feed_music(client)
+		SSmusic.feed_music_async(client)
 		return TRUE
 	if(type == "audio/setAdminMusicVolume")
 		client.admin_music_volume = payload["volume"]
