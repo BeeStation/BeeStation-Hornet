@@ -77,6 +77,11 @@ export const audioMiddleware = (store) => {
       player.setTrackVolume(uuid, volume);
       return next(action);
     }
+    if (type === 'audio/updateMusicPosition') {
+      const { uuid, x, y, z } = payload;
+      player.setTrackPosition(uuid, x, y, z);
+      return next(action);
+    }
     if (type === 'settings/update' || type === 'settings/load') {
       const volume = payload?.adminMusicVolume;
       if (typeof volume === 'number') {

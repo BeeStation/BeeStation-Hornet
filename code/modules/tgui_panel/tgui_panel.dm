@@ -143,13 +143,13 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 			client.personal_lobby_music_index = 1
 		var/datum/audio_track/played_track = SSmusic.login_music_playlist[client.personal_lobby_music_index]
 		client.personal_lobby_music = played_track.play(PLAYING_FLAG_TITLE_MUSIC)
-		client.personal_lobby_music.play_to_client(client)
+		client.personal_lobby_music.internal_play_to_client(client)
 	if (type == "music/synchronise")
 		if (client.personal_lobby_music)
 			client.personal_lobby_music.stop_playing_to(client)
 			client.personal_lobby_music = null
 		client.personal_lobby_music_index = 0
-		SSmusic.login_music.play_to_client(client)
+		SSmusic.login_music.internal_play_to_client(client)
 
 /**
  * public

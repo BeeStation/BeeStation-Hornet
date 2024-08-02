@@ -223,8 +223,16 @@ SUBSYSTEM_DEF(music)
 		// If this is a title music, don't play it to anyone who has skipped title music
 		if ((playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC) && (client.personal_lobby_music || !isnewplayer(client.mob)))
 			continue
-		playing.play_to_client(client)
+		playing.internal_play_to_client(client)
 	global_audio_tracks += playing
+
+/datum/controller/subsystem/music/proc/play_spatial_music(datum/playing_track/spatial/playing)
+	for (var/client/client in GLOB.clients)
+		// If this is a title music, don't play it to anyone who has skipped title music
+		if ((playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC) && (client.personal_lobby_music || !isnewplayer(client.mob)))
+			continue
+		playing.internal_play_to_client(client)
+	spatial_audio_tracks += playing
 
 /datum/controller/subsystem/music/proc/feed_music_async(client/target)
 	DECLARE_ASYNC
@@ -232,13 +240,13 @@ SUBSYSTEM_DEF(music)
 	for (var/datum/playing_track/playing in global_audio_tracks)
 		if ((playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC) && (target.personal_lobby_music || !isnewplayer(target.mob)))
 			continue
-		playing.play_to_client(target)
+		playing.internal_play_to_client(target)
 	// Spatial audio
 	for (var/datum/playing_track/playing in spatial_audio_tracks)
 		if ((playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC) && (target.personal_lobby_music || !isnewplayer(target.mob)))
 			continue
-		playing.play_to_client(target)
+		playing.internal_play_to_client(target)
 	// Personal lobby music
 	if (target.personal_lobby_music)
-		target.personal_lobby_music.play_to_client(target)
+		target.personal_lobby_music.internal_play_to_client(target)
 	ASYNC_FINISH

@@ -273,6 +273,21 @@ export class AudioPlayer {
     }
   }
 
+  setTrackPosition(uuid: number, x: number, y: number, z: number) {
+    logger.log("track position", uuid, x, y, z);
+    for (let track of this.playing_tracks) {
+      if (track.uuid === uuid) {
+        track.pos_x = x;
+        track.pos_y = y;
+        track.pos_z = z;
+        if (track === this.currently_playing) {
+          this.updateVolume();
+        }
+        return;
+      }
+    }
+  }
+
   onPlay(subscriber: (HTMLAudioElement, AudioTrack) => void) {
     if (!this.node) {
       return;

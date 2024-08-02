@@ -114,6 +114,10 @@
 	RETURN_TYPE(/datum/playing_track)
 	return new /datum/playing_track(src, world.time, track_flags)
 
+/datum/audio_track/proc/play_spatial(atom/source, radius, track_flags = PLAYING_FLAG_DEFAULT)
+	RETURN_TYPE(/datum/playing_track/spatial)
+	return new /datum/playing_track/spatial(source, src, world.time, track_flags, radius)
+
 /**
  * There is no easy way to get the length of the audio, so when a client starts playing
  * a sound, they will tell us how long the sound is.

@@ -165,12 +165,10 @@
 	START_PROCESSING(SSmachines, src)
 	if (currently_playing)
 		currently_playing.stop_playing_to_clients()
-	currently_playing = selection.play(PLAYING_FLAG_JUKEBOX)
+	currently_playing = selection.play_spatial(src, 10, PLAYING_FLAG_JUKEBOX)
 	currently_playing.track_volume = volume * 0.01
 	ui_update()
-	// TEMP
-	for (var/client/C in GLOB.clients)
-		C.tgui_panel.play_world_music(currently_playing, src, 10, 5)
+	SSmusic.play_spatial_music(currently_playing)
 
 /mob/living/proc/lying_fix()
 	animate(src, transform = null, time = 1, loop = 0)
