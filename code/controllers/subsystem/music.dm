@@ -1,5 +1,7 @@
 #define LAST_LOBBY_MUSIC_TXT "data/last_round_lobby_music.txt"
 
+//#define GENERATE_JSON
+
 SUBSYSTEM_DEF(music)
 	name = "Music Manager"
 	// Not-critical, worse case scenario is that we send someone a song which
@@ -43,13 +45,105 @@ SUBSYSTEM_DEF(music)
 		ASYNC_RETURN(audio_tracks)
 	audio_tracks = list()
 	audio_tracks_by_url = list()
+	// Check if we are using a config override
+	if (rustg_file_exists("config/music.json"))
+		try
+			load_json_tracks()
+			ASYNC_RETURN(audio_tracks)
+		catch(var/exception/e)
+			log_config("Music.json failed to load.")
+			log_config("[e.file]:[e.line] - [e.name]\n[e.desc]")
+			message_admins("Failed to load music.json config, please contact a server operator.")
+#ifdef GENERATE_JSON
+	var/list/track_list = list()
+#endif
 	for (var/track_type in subtypesof(/datum/audio_track))
 		// Load the default track types
 		var/datum/audio_track/track = new track_type()
 		track.load()
+		if (track._failed)
+			log_runtime("Failed to load track [track.audio_file]/[track.url]")
+			continue
 		audio_tracks += track
 		audio_tracks_by_url[track._web_sound_url] = track
+#ifdef GENERATE_JSON
+		var/list/output_track = list()
+		if (track.title)
+			output_track["title"] = track.title
+		if (track.artist)
+			output_track["artist"] = track.artist
+		if (track.album)
+			output_track["album"] = track.album
+		if (track.license)
+			output_track["license"] = track.license
+		if (track.license)
+			var/list/license_info = list(
+				"title" = track.license.title,
+				"legal_text" = track.license.legal_text,
+				"url" = track.license.url,
+				"attribution_required" = track.license.attribution_required,
+			)
+			output_track["license_alt"] = license_info
+		if (track.duration)
+			output_track["duration"] = track.duration
+		if (track.upload_date)
+			output_track["upload_date"] = track.upload_date
+		if (track.audio_file)
+			output_track["audio_file"] = track.audio_file
+		if (track.url)
+			output_track["url"] = track.url
+		if (track.track_flags & TRACK_FLAG_JUKEBOX)
+			output_track["jukebox"] = TRUE
+		if (track.track_flags & TRACK_FLAG_ROUNDEND)
+			output_track["roundend"] = TRUE
+		if (track.track_flags & TRACK_FLAG_TITLE)
+			output_track["lobbymusic"] = TRUE
+		track_list += list(output_track)
+	message_admins(json_encode(track_list))
+#endif
+	log_world("Successfully loaded [length(audio_tracks)] songs from datums")
 	ASYNC_RETURN(audio_tracks)
+
+/datum/controller/subsystem/music/proc/load_json_tracks()
+	var/full_file = rustg_file_read("config/music.json")
+	var/list/decoded_file = json_decode(full_file)
+	for (var/list/thing in decoded_file)
+		var/datum/audio_track/track = new()
+		track.title = thing["title"]
+		track.artist = thing["artist"]
+		track.album = thing["album"]
+		track.duration = thing["duration"]
+		track.upload_date = thing["upload_date"]
+		track.audio_file = thing["audio_file"]
+		track.url = thing["url"]
+		track.track_flags = 0
+		if (thing["jukebox"])
+			track.track_flags |= TRACK_FLAG_JUKEBOX
+		if (thing["roundend"])
+			track.track_flags |= TRACK_FLAG_ROUNDEND
+		if (thing["lobbymusic"])
+			track.track_flags |= TRACK_FLAG_TITLE
+		if (islist(thing["license"]))
+			var/list/license_information = thing["license"]
+			var/datum/license/license = new()
+			license.title = license_information["title"]
+			license.legal_text = license_information["legal_text"]
+			license.url = license_information["url"]
+			license.attribution_required = license_information["attribution_required"]
+			track.license = license
+		else if (thing["license"])
+			var/path = text2path(thing["license"])
+			if (!ispath(path, /datum/license))
+				log_runtime("Invalid license specified in music.json, path is set to [thing["license"]] which isn't a /datum/license")
+				continue
+			track.license = new path()
+		track.load()
+		if (track._failed)
+			log_runtime("Failed to load track [track.audio_file]/[track.url]")
+			continue
+		audio_tracks += track
+		audio_tracks_by_url[track._web_sound_url] = track
+	log_world("Successfully loaded [length(audio_tracks)] songs from music.json")
 
 /datum/controller/subsystem/music/proc/select_title_music(list/audio_tracks)
 	// Something else has set the lobby music already
@@ -72,7 +166,7 @@ SUBSYSTEM_DEF(music)
 	// Search for lobby music that we didn't just play
 	var/last_song
 	for (var/datum/audio_track/track in shuffled_tracks)
-		if (!(track.play_flags & TRACK_FLAG_TITLE))
+		if (!(track.track_flags & TRACK_FLAG_TITLE))
 			continue
 		if (track.title == last_song_name)
 			last_song = track

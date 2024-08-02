@@ -6,7 +6,11 @@
 
 // Do not unprotect, admins must upload audio through a helper verb instead
 // of directly for safety.
-GENERAL_PROTECT_DATUM(/datum/audio_track)
+/datum/audio_track/vv_edit_var(var_name, var_value)
+	return FALSE
+
+/datum/audio_track/CanProcCall(procname)
+	return FALSE
 
 /datum/audio_track
 	var/title
@@ -21,7 +25,7 @@ GENERAL_PROTECT_DATUM(/datum/audio_track)
 	var/safe_duration = FALSE
 	var/upload_date = null
 	// By default, allow this to play everywhere
-	var/play_flags = TRACK_FLAG_ALL
+	var/track_flags = TRACK_FLAG_ALL
 	var/_failed = FALSE
 	/// File of the audio source, if it should be handled over the CDN
 	/// Takes precedence over the URL, which will instead be used to get a link to where
@@ -40,7 +44,7 @@ GENERAL_PROTECT_DATUM(/datum/audio_track)
 	// Licenses do nothing special, so we won't bother singletoning them.
 	if (ispath(license))
 		license = new license()
-	return ..()
+	. = ..()
 
 // Not a huge fan of this proc, but it does the job.
 /datum/audio_track/proc/load()
@@ -178,7 +182,7 @@ GENERAL_PROTECT_DATUM(/datum/audio_track)
 
 /datum/audio_track/countdown
 	url = "https://www.youtube.com/watch?v=G2gVAPKlgqA"
-	play_flags = TRACK_FLAG_JUKEBOX
+	track_flags = TRACK_FLAG_JUKEBOX
 
 #undef SHELLEO_ERRORLEVEL
 #undef SHELLEO_STDOUT

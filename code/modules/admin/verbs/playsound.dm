@@ -61,7 +61,7 @@
 	if(!check_rights(R_SOUND))
 		return
 	var/datum/audio_track/track = new()
-	track.play_flags = TRACK_FLAG_JUKEBOX
+	track.track_flags = TRACK_FLAG_JUKEBOX
 	var/web_sound_input = capped_input(usr, "Enter content URL (supported sites only)", "Add Internet Sound via youtube-dl")
 	if (!web_sound_input)
 		return
@@ -85,7 +85,7 @@
 	if(!check_rights(R_SOUND))
 		return
 	var/datum/audio_track/track = new()
-	track.play_flags = TRACK_FLAG_TITLE
+	track.track_flags = TRACK_FLAG_TITLE
 	var/web_sound_input = capped_input(usr, "Enter content URL (supported sites only)", "Add Internet Sound via youtube-dl")
 	if (!web_sound_input)
 		return
@@ -109,7 +109,7 @@
 	if(!check_rights(R_SOUND))
 		return
 	var/datum/audio_track/track = new()
-	track.play_flags = TRACK_FLAG_TITLE
+	track.track_flags = TRACK_FLAG_TITLE
 	var/web_sound_input = capped_input(usr, "Enter content URL (supported sites only)", "Add Internet Sound via youtube-dl")
 	if (!web_sound_input)
 		return
