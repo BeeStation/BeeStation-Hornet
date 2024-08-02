@@ -6,7 +6,7 @@
 	name = "crate shelf"
 	desc = "It's a shelf! For storing crates!"
 	icon = 'icons/obj/objects.dmi'
-	icon_state = "shelf_base"
+	icon_state = "shelf"
 	density = TRUE
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER
@@ -27,7 +27,7 @@
 	for(var/i in 1 to (capacity - 1))
 		stack_layer  = ABOVE_MOB_LAYER + (0.02 * i) - 0.01 // Make each shelf piece render above the last, but below the crate that should be on it.
 		stack_offset = DEFAULT_SHELF_VERTICAL_OFFSET * i // Make each shelf piece physically above the last.
-		overlays += image(icon = 'icons/obj/objects.dmi', icon_state = "shelf_stack", layer = stack_layer, pixel_y = stack_offset)
+		overlays += image(icon = 'icons/obj/objects.dmi', icon_state = "shelf", layer = stack_layer, pixel_y = stack_offset)
 	return
 
 /obj/structure/crate_shelf/Destroy()
