@@ -101,6 +101,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	make_syndie()
 
 /obj/item/radio/headset/binary
+
 /obj/item/radio/headset/binary/Initialize(mapload)
 	. = ..()
 	qdel(keyslot)
@@ -113,6 +114,57 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "sec_headset"
 	worn_icon_state = "sec_headset"
 	keyslot = new /obj/item/encryptionkey/headset_sec
+	actions_types = list(/datum/action/item_action/dispatch)
+	var/radio_key = /obj/item/encryptionkey/headset_sec
+	var/radio_channel = RADIO_CHANNEL_SECURITY
+	COOLDOWN_DECLARE(dispatch_cooldown_timer)
+	var/dispatch_cooldown = 20 SECONDS
+
+GLOBAL_LIST_EMPTY(secsets)
+
+// **** Dispatch ****
+
+/datum/action/item_action/dispatch
+	name = "Signal dispatch"
+	desc = "Opens up a quick select wheel for reporting crimes, including your current location, to your fellow security officers."
+	button_icon_state = "dispatch"
+	icon_icon = 'icons/mob/actions/hailer_actions.dmi'
+
+/obj/item/radio/headset/headset_sec/Destroy()
+	GLOB.secsets -= src
+	. = ..()
+
+/obj/item/radio/headset/headset_sec/Initialize(mapload)
+	. = ..()
+	GLOB.secsets += src
+	//recalculateChannels()
+
+/obj/item/radio/headset/headset_sec/proc/dispatch(mob/user)
+	if(COOLDOWN_TIMELEFT(src, dispatch_cooldown_timer))
+		to_chat(user, "<span class='notice'>Dispatch radio broadcasting systems are recharging.</span>")
+		return FALSE
+	var/list/options = list()
+	for(var/option in list(
+		"4 (capital crime)",
+		"0 (infraction)",
+		"1 (misdemeanor)",
+		"2 (offense)",
+		"3 (felony)",
+		))
+		//Hardcoded for each icon, not all crimes need emergency callout for more officers
+		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
+
+	var/message = show_radial_menu(user, user, options)
+	if(!message)
+		return FALSE
+	talk_into(src, "Dispatch, code [message] in progress in [get_area(user)], requesting assistance.", radio_channel)
+	COOLDOWN_START(src, dispatch_cooldown_timer, dispatch_cooldown)
+	for(var/atom/movable/hailer in GLOB.secsets)
+		if(ismob(hailer.loc))
+			//AI slop voiceline, kill as soon as possible
+			//playsound(hailer.loc, "sound/voice/sechailer/dispatch_please_respond.ogg", 100, FALSE)
+			//Tempsound
+			playsound(hailer.loc, "sound/voice/hiss1.ogg", 100, FALSE)
 
 /obj/item/radio/headset/headset_spacepol
 	name = "spacepol radio headset"
