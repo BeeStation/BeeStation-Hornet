@@ -16,7 +16,7 @@ export const NowPlayingWidget = (props, context) => {
     dispatch = useDispatch(context),
     settings = useSettings(context),
     title = audio.track?.options?.title,
-    url = audio.track?.link,
+    url = audio.track?.options?.link,
     artist = audio.track?.options?.artist || 'Unknown Artist',
     upload_date = audio.track?.options?.upload_date || 'Unknown Date',
     album = audio.track?.options?.album || 'Unknown Album',
