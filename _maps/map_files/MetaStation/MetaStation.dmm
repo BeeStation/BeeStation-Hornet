@@ -58886,7 +58886,6 @@
 	dir = 10
 	},
 /obj/structure/chair/stool/directional/north,
-/obj/structure/chair/stool/directional/north,
 /obj/item/restraints/legcuffs/beartrap,
 /turf/open/floor/iron,
 /area/janitor)
