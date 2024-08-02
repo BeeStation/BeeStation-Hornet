@@ -221,7 +221,7 @@ SUBSYSTEM_DEF(music)
 /datum/controller/subsystem/music/proc/play_global_music(datum/playing_track/playing)
 	for (var/client/client in GLOB.clients)
 		// If this is a title music, don't play it to anyone who has skipped title music
-		if ((playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC) && (client.personal_lobby_music || !isnewplayer(client.mob)))
+		if ((playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC) && (client.personal_lobby_music || (!isnewplayer(client.mob) && SSticker.current_state < GAME_STATE_FINISHED)))
 			continue
 		playing.internal_play_to_client(client)
 	global_audio_tracks += playing
@@ -235,7 +235,7 @@ SUBSYSTEM_DEF(music)
 /datum/controller/subsystem/music/proc/play_spatial_music(datum/playing_track/spatial/playing)
 	for (var/client/client in GLOB.clients)
 		// If this is a title music, don't play it to anyone who has skipped title music
-		if ((playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC) && (client.personal_lobby_music || !isnewplayer(client.mob)))
+		if ((playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC) && (client.personal_lobby_music || (!isnewplayer(client.mob) && SSticker.current_state < GAME_STATE_FINISHED)))
 			continue
 		playing.internal_play_to_client(client)
 	spatial_audio_tracks += playing
