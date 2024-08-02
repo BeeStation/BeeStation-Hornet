@@ -8,7 +8,7 @@
 	icon = 'icons/turf/shuttle.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	max_integrity = 500
-	armor = list(MELEE = 100,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0) //default + ignores melee
+	armor = list(MELEE = 100,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0, BLEED = 0) //default + ignores melee
 
 /obj/structure/shuttle/engine
 	name = "engine"

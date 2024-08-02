@@ -225,7 +225,7 @@
 		targets += C
 	if(targets.len>0)
 		var/mob/living/carbon/t = pick(targets)
-		if(t.stat != DEAD && (t.mobility_flags & MOBILITY_STAND) && !t.handcuffed) //we don't shoot people who are dead, cuffed or lying down.
+		if(t.stat != DEAD && t.body_position == STANDING_UP && !t.handcuffed) //we don't shoot people who are dead, cuffed or lying down.
 			shootAt(t)
 	switch(mode)
 
@@ -567,7 +567,7 @@
 	if(!on || !Adjacent(C) || !isturf(C.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
 		return
 	if(!C.handcuffed)
-		C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
+		C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
 		C.update_handcuffed()
 		playsound(src, "law", 50, 0)
 		back_to_idle()

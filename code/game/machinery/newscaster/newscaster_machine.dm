@@ -57,6 +57,8 @@
 	///Text of the currently written bounty
 	var/bounty_text = ""
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
+
 /obj/machinery/newscaster/Initialize(mapload, ndir, building)
 	. = ..()
 	GLOB.allCasters += src
@@ -593,7 +595,7 @@
 	else
 		take_damage(5, BRUTE, MELEE)
 
-/obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	update_icon()
 
@@ -954,6 +956,6 @@
 	icon_state = "newscaster"
 	custom_materials = list(/datum/material/iron=14000, /datum/material/glass=8000)
 	result_path = /obj/machinery/newscaster
-	pixel_shift = -32
+	pixel_shift = 30
 
 #undef ALERT_DELAY

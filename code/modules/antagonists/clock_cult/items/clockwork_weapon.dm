@@ -19,6 +19,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharpness = IS_SHARP_ACCURATE
+	bleed_force = BLEED_CUT
 	max_integrity = 200
 	var/clockwork_hint = ""
 	var/obj/effect/proc_holder/spell/targeted/summon_spear/SS
@@ -154,10 +155,12 @@
 /obj/item/clockwork/weapon/brass_sword/proc/send_message(mob/living/target)
 	to_chat(target, "<span class='brass'>[src] glows, indicating the next attack will disrupt electronics of the target.</span>")
 
+//Clockbow, different pathing
+
 /obj/item/gun/ballistic/bow/clockwork
 	name = "Brass Bow"
 	desc = "A bow made from brass and other components that you can't quite understand. It glows with a deep energy and frabricates arrows by itself."
-	icon_state = "bow_clockwork_unloaded"
+	icon_state = "bow_clockwork"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/clockcult
 	var/recharge_time = 15

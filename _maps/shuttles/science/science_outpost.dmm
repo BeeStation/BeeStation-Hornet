@@ -72,7 +72,7 @@
 /area/shuttle/science)
 "s" = (
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/directional/east,
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "t" = (

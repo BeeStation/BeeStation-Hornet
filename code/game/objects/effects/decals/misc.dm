@@ -55,7 +55,7 @@
 
 			if(!turf_mob.can_inject())
 				continue
-			if(!(turf_mob.mobility_flags & MOBILITY_STAND) && !travelled_max_distance)
+			if(turf_mob.body_position != STANDING_UP && !travelled_max_distance)
 				continue
 
 			lifetime--
@@ -76,4 +76,4 @@
 	desc = "A lightweight support lattice."
 	icon = 'icons/obj/smooth_structures/catwalks/lattice.dmi'
 	icon_state = "lattice-255"
-	density = TRUE
+	density = FALSE

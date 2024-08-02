@@ -98,7 +98,8 @@
 	var/alerttooltipstyle = ""
 	var/override_alerts = FALSE //If it is overriding other alerts of the same type
 	var/mob/owner //Alert owner
-
+	/// The thing that this alert is showing
+	var/obj/master
 
 /atom/movable/screen/alert/MouseEntered(location,control,params)
 	if(!QDELETED(src))
