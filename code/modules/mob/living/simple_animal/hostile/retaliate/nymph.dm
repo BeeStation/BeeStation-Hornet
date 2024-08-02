@@ -30,7 +30,7 @@
 	maxHealth = 50
 	melee_damage = 1.5
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	attack_sound = 'sound/weapons/slash.ogg'
+	attack_sound = 'sound/emotes/diona/hit.ogg'
 	minbodytemp = 2.7
 	var/can_namepick_as_adult = FALSE
 	var/adult_name = "diona gestalt"
