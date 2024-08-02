@@ -10,19 +10,18 @@ import { AudioTrack } from './AudioTrack';
 const logger = createLogger('AudioPlayer');
 
 export class AudioPlayer {
-
   node: HTMLAudioElement;
   playing: boolean;
   volume: number;
   options: {
-    pitch?: number,
-    start?: number,
-    end?: number,
+    pitch?: number;
+    start?: number;
+    end?: number;
   };
   listener: {
-    x: number,
-    y: number,
-    z: number,
+    x: number;
+    y: number;
+    z: number;
   };
   onPlaySubscribers: ((HTMLAudioElement, AudioTrack) => void)[];
   onContinueSubscribers: ((AudioTrack) => void)[];
@@ -30,7 +29,7 @@ export class AudioPlayer {
   onMuteSubscribers: (() => void)[];
   onUnmuteSubscribers: (() => void)[];
   onQueueEmptySubscribers: (() => void)[];
-  currently_playing: AudioTrack|null;
+  currently_playing: AudioTrack | null;
   playing_tracks: AudioTrack[];
   muted: boolean;
   private queueEmpty: boolean;
@@ -41,7 +40,7 @@ export class AudioPlayer {
     if (Byond.IS_LTE_IE9) {
       return;
     }
-    logger.log("starting player");
+    logger.log('starting player');
     // Set up the HTMLAudioElement node
     this.node = document.createElement('audio');
     this.node.style.setProperty('display', 'none');
@@ -132,7 +131,7 @@ export class AudioPlayer {
     if (!this.node) {
       return;
     }
-    logger.log("play");
+    logger.log('play');
     this.playing_tracks.push(track);
     this.updateQueue();
   }
@@ -151,7 +150,7 @@ export class AudioPlayer {
     // Scan for priority levels
     let highestPriority = -Infinity;
     let bestDistance = Infinity;
-    let bestTrack: AudioTrack|null = null;
+    let bestTrack: AudioTrack | null = null;
     for (let track of this.playing_tracks) {
       if (track.priority < highestPriority) {
         continue;
@@ -187,7 +186,7 @@ export class AudioPlayer {
     logger.log('playing', bestTrack.uuid, bestTrack.url, bestTrack.options);
     this.options = {
       pitch: bestTrack.options.pitch,
-      start: (bestTrack.options.start ?? 0) + ((new Date().getTime() - bestTrack.created_at) / 1000.0),
+      start: (bestTrack.options.start ?? 0) + (new Date().getTime() - bestTrack.created_at) / 1000.0,
       end: bestTrack.options.end,
     };
     this.updateVolume();
@@ -195,7 +194,7 @@ export class AudioPlayer {
   }
 
   toggleMute() {
-    logger.log("Toggle mute");
+    logger.log('Toggle mute');
     this.muted = !this.muted;
     this.updateVolume();
     if (this.muted) {
@@ -210,7 +209,7 @@ export class AudioPlayer {
   }
 
   stop() {
-    logger.log("stop");
+    logger.log('stop');
     if (!this.node) {
       return;
     }
@@ -226,7 +225,7 @@ export class AudioPlayer {
   }
 
   stopTrack(uuid: number) {
-    logger.log("stop track", uuid);
+    logger.log('stop track', uuid);
     if (!this.node) {
       return;
     }
@@ -262,7 +261,7 @@ export class AudioPlayer {
   }
 
   setTrackVolume(uuid: number, volume: number) {
-    logger.log("track volume", uuid, volume);
+    logger.log('track volume', uuid, volume);
     for (let track of this.playing_tracks) {
       if (track.uuid === uuid) {
         track.volume = volume;
@@ -275,7 +274,7 @@ export class AudioPlayer {
   }
 
   setTrackPosition(uuid: number, x: number, y: number, z: number) {
-    logger.log("track position", uuid, x, y, z);
+    logger.log('track position', uuid, x, y, z);
     for (let track of this.playing_tracks) {
       if (track.uuid === uuid) {
         track.pos_x = x;
@@ -323,5 +322,4 @@ export class AudioPlayer {
     }
     this.onQueueEmptySubscribers.push(subscriber);
   }
-
 }

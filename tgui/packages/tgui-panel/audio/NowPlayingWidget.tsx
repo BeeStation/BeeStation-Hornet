@@ -77,7 +77,6 @@ export const NowPlayingWidget = (props, context) => {
                     License: [{license_name}]
                   </Flex.Item>
                 )}
-
               </Section>
             </Collapsible>
           }
@@ -93,19 +92,11 @@ export const NowPlayingWidget = (props, context) => {
             <Button
               tooltip="Synchronise with server playlist"
               icon="rotate"
-              onClick={() =>
-                Byond.sendMessage('music/synchronise')
-              }
+              onClick={() => Byond.sendMessage('music/synchronise')}
             />
           </Flex.Item>
           <Flex.Item mt={0.1} mx={0.5} fontSize="0.9em">
-            <Button
-              tooltip="Skip song"
-              icon="forward"
-              onClick={() =>
-                Byond.sendMessage('music/skipLobbyMusic')
-              }
-            />
+            <Button tooltip="Skip song" icon="forward" onClick={() => Byond.sendMessage('music/skipLobbyMusic')} />
           </Flex.Item>
         </>
       )}
@@ -113,8 +104,8 @@ export const NowPlayingWidget = (props, context) => {
         <Flex.Item mt={0.1} mx={0.8} fontSize="0.9em">
           <Button
             tooltip="Mute"
-            icon={audio.muted ? "volume-xmark" : "volume-up"}
-            color={audio.muted ? "red" : "green"}
+            icon={audio.muted ? 'volume-xmark' : 'volume-up'}
+            color={audio.muted ? 'red' : 'green'}
             onClick={() =>
               dispatch({
                 type: 'audio/muteMusic',

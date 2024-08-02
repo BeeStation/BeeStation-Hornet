@@ -1,20 +1,18 @@
-
 export enum PlayingFlags {
   NONE = 0,
-  TITLE_MUSIC = (1<<0),
+  TITLE_MUSIC = 1 << 0,
 }
 
 export class AudioTrack {
-
   uuid: number;
   url: string;
   priority: number;
   created_at: number;
   volume: number;
   options: {
-    pitch?: number,
-    start?: number,
-    end?: number,
+    pitch?: number;
+    start?: number;
+    end?: number;
   };
   pos_x: number;
   pos_y: number;
@@ -23,7 +21,14 @@ export class AudioTrack {
   positional_blend: number;
   playing_flags: PlayingFlags;
 
-  constructor(uuid:number, url: string, priority: number, volume: number, playing_flags: PlayingFlags, options: { pitch?: number, start?: number, end?: number }) {
+  constructor(
+    uuid: number,
+    url: string,
+    priority: number,
+    volume: number,
+    playing_flags: PlayingFlags,
+    options: { pitch?: number; start?: number; end?: number }
+  ) {
     // UUID of the track
     this.uuid = uuid;
     // URL of the track
@@ -72,7 +77,7 @@ export class AudioTrack {
       let dx = listener_x - this.pos_x;
       let dy = listener_y - this.pos_y;
       const distance = Math.sqrt(dx * dx + dy * dy);
-      positionalVolume = Math.max(0, 1 - (distance / this.range));
+      positionalVolume = Math.max(0, 1 - distance / this.range);
     }
     return (positionalVolume * this.positional_blend + (1 - this.positional_blend)) * this.volume;
   }
@@ -96,5 +101,4 @@ export class AudioTrack {
     const distance = Math.sqrt(dx * dx + dy * dy);
     return distance * this.positional_blend;
   }
-
 }

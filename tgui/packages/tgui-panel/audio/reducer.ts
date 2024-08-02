@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { AudioTrack } from "./AudioTrack";
+import { AudioTrack } from './AudioTrack';
 
 const initialState = {
   visible: false,

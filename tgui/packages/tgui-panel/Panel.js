@@ -80,9 +80,9 @@ export const Panel = (props, context) => {
               </Stack.Item>
               <Stack.Item mx={0.5}>
                 <Button
-                  color={audio.muted ? "red" : "grey"}
+                  color={audio.muted ? 'red' : 'grey'}
                   selected={audio.visible}
-                  icon={audio.muted ? "volume-xmark" : "music"}
+                  icon={audio.muted ? 'volume-xmark' : 'music'}
                   tooltip="Music player"
                   tooltipPosition="bottom-start"
                   onClick={() => {

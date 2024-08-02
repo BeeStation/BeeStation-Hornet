@@ -13,7 +13,9 @@ const logger = createLogger('AudioMiddleware');
 export const audioMiddleware = (store) => {
   const player = new AudioPlayer();
   player.onPlay((element: HTMLAudioElement, track: AudioTrack) => {
-    store.dispatch({ type: 'audio/playing', payload: {
+    store.dispatch({
+      type: 'audio/playing',
+      payload: {
         duration: element.duration,
         track: track,
       },
@@ -23,7 +25,7 @@ export const audioMiddleware = (store) => {
       url: track.url,
       length: element.duration,
     });
-    logger.log("casting vote", track.url, element.duration);
+    logger.log('casting vote', track.url, element.duration);
   });
   player.onStop(() => {
     store.dispatch({ type: 'audio/stopped' });
