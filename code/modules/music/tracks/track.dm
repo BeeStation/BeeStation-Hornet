@@ -1,3 +1,5 @@
+//#define DEBUG_NO_ADMINS
+
 #define SHELLEO_ERRORLEVEL 1
 #define SHELLEO_STDOUT 2
 #define SHELLEO_STDERR 3
@@ -124,20 +126,22 @@ GENERAL_PROTECT_DATUM(/datum/audio_track)
 	voted_ckeys[votee.ckey] = duration_vote
 	if (!has_voted)
 		// Re-evaluate our vote
+#ifndef DEBUG_NO_ADMINS
 		// Step 1: An admin's word is final since we can probably trust them
 		for (var/voted_ckey in voted_ckeys)
 			if (is_admin(voted_ckey))
 				duration = voted_ckeys[voted_ckey] * 10
 				safe_duration = TRUE
 				return
+#endif
 		// Step 2: If there is an agreed modal value, then use that
 		var/list/values = list()
 		for (var/voted_ckey in voted_ckeys)
 			var/vote_value = CEILING(voted_ckeys[voted_ckey], 5)
-			if (values[vote_value])
-				values[vote_value] ++
+			if (values["[vote_value]"])
+				values["[vote_value]"] ++
 			else
-				values[vote_value] = 1
+				values["[vote_value]"] = 1
 		var/ambiguous_maximum = FALSE
 		var/agreed_maximum = 0
 		var/votes = 0
@@ -152,7 +156,7 @@ GENERAL_PROTECT_DATUM(/datum/audio_track)
 			votes = vote_count
 			agreed_maximum = vote
 		if (!ambiguous_maximum)
-			duration = agreed_maximum * 10
+			duration = text2num(agreed_maximum) * 10
 			return
 		// Step 3: If we cannot agree, then just tell everything that we have no idea
 		duration = 0
