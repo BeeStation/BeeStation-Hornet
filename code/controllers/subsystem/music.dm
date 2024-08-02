@@ -1,3 +1,5 @@
+#define LAST_LOBBY_MUSIC_TXT "data/last_round_lobby_music.txt"
+
 SUBSYSTEM_DEF(music)
 	name = "Music Manager"
 	// Not-critical, worse case scenario is that we send someone a song which
@@ -7,6 +9,7 @@ SUBSYSTEM_DEF(music)
 	init_order = INIT_ORDER_MUSIC
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	var/index = 1
+	var/last_song_name
 	// Music we are playing in the lobby
 	var/datum/playing_track/login_music
 	// Are we currently loading tracks?
@@ -19,6 +22,8 @@ SUBSYSTEM_DEF(music)
 	var/list/global_audio_tracks = list()
 
 /datum/controller/subsystem/music/Initialize()
+	// Load up the last song we played
+	last_song_name = trim(rustg_file_read(LAST_LOBBY_MUSIC_TXT))
 	// Load all music information asynchronously (it performs shell calls which sleep)
 	var/datum/task/music_loader = load_tracks_async()
 	if (!login_music)
@@ -56,19 +61,34 @@ SUBSYSTEM_DEF(music)
 			var/datum/audio_track/picked = pick(valid_tracks)
 			login_music = picked.play()
 			SSmusic.play_global_music(login_music)
+			last_song_name = picked.title
+			rustg_file_write(picked.title, LAST_LOBBY_MUSIC_TXT)
 			return
+	// Search for lobby music that we didn't just play
 	for (var/datum/audio_track/track in audio_tracks)
 		if (!(track.play_flags & TRACK_FLAG_TITLE))
 			continue
+		if (track.title == last_song_name)
+			continue
 		valid_tracks += track
+	// Restart the search but allow for replaying if we run out of songs
+	if (!length(valid_tracks))
+		for (var/datum/audio_track/track in audio_tracks)
+			if (!(track.play_flags & TRACK_FLAG_TITLE))
+				continue
+			valid_tracks += track
 	if (length(valid_tracks))
 		var/datum/audio_track/picked = pick(valid_tracks)
 		login_music = picked.play()
 		SSmusic.play_global_music(login_music)
+		last_song_name = picked.title
+		rustg_file_write(picked.title, LAST_LOBBY_MUSIC_TXT)
 	else
 		var/datum/audio_track/picked = pick(audio_tracks)
 		login_music = picked.play()
 		SSmusic.play_global_music(login_music)
+		last_song_name = picked.title
+		rustg_file_write(picked.title, LAST_LOBBY_MUSIC_TXT)
 
 /datum/controller/subsystem/music/fire(resumed)
 	// Run through our playing audio tracks and cull anyones that we think might be finished
