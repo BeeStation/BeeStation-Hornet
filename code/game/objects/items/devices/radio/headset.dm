@@ -152,11 +152,10 @@ GLOBAL_LIST_EMPTY(secsets)
 		return FALSE
 	var/list/options = list()
 	for(var/option in list(
-		"4 (capital crime)",
-		"0 (infraction)",
-		"1 (misdemeanor)",
-		"2 (offense)",
-		"3 (felony)",
+		"Requesting Backup",
+		"Detaining Perp",
+		"Awaiting Orders",
+		"Falling Back",
 		))
 		//Hardcoded for each icon, not all crimes need emergency callout for more officers
 		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
@@ -164,7 +163,7 @@ GLOBAL_LIST_EMPTY(secsets)
 	var/message = show_radial_menu(user, user, options)
 	if(!message)
 		return FALSE
-	talk_into(src, "Dispatch, code [message] in progress in [get_area(user)], requesting assistance.", radio_channel)
+	talk_into(src, "Dispatch, [message] at [get_area(user)], requesting response.", radio_channel)
 	COOLDOWN_START(src, dispatch_cooldown_timer, dispatch_cooldown)
 	for(var/atom/movable/hailer in GLOB.secsets)
 		if(ismob(hailer.loc))
