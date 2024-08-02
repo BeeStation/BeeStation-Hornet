@@ -591,10 +591,10 @@
 /obj/structure/closet{
 	name = "mastercraft traditional russian clothes"
 	},
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/costume/ushanka,
+/obj/item/clothing/head/costume/ushanka,
+/obj/item/clothing/head/costume/ushanka,
+/obj/item/clothing/head/costume/ushanka,
 /obj/item/clothing/under/pants/track,
 /obj/item/clothing/under/pants/track,
 /obj/item/clothing/under/pants/track,
@@ -823,7 +823,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east{
+/obj/machinery/power/apc/auto_name/directional/east{
 	cell_type = /obj/item/stock_parts/cell/high/plus;
 	req_access = list(181)
 	},

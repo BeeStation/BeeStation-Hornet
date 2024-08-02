@@ -16,7 +16,6 @@
 	fire_rate = 3
 	automatic = 0
 	weapon_weight = WEAPON_LIGHT
-	equip_time = 1 SECONDS
 
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
@@ -51,6 +50,7 @@
 	wild_spread = TRUE
 	wild_factor = 0.70 //Minimum spread is 70% of spread value
 	equip_time = 0
+	has_weapon_slowdown = FALSE
 
 /obj/item/gun/ballistic/automatic/pistol/der38/twelveshooter //For debugging only, or meme shit
 	name = "palm pistol devastator"
@@ -77,7 +77,6 @@
 	mag_type = /obj/item/ammo_box/magazine/m50
 	can_suppress = FALSE
 	mag_display = TRUE
-	equip_time = 2 SECONDS
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."

@@ -39,7 +39,7 @@
 	key_third_person = "bows"
 	message = "bows"
 	message_param = "bows to %t"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/burp
 	key = "burp"
@@ -57,7 +57,7 @@
 	key = "cross"
 	key_third_person = "crosses"
 	message = "crosses their arms"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/chuckle
 	key = "chuckle"
@@ -73,7 +73,7 @@
 
 /datum/emote/living/collapse/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && isliving(user))
+	if(. && isliving(user) && intentional)
 		var/mob/living/L = user
 		L.Unconscious(40)
 
@@ -81,7 +81,7 @@
 	key = "dance"
 	key_third_person = "dances"
 	message = "dances around happily"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/deathgasp
 	key = "deathgasp"
@@ -94,7 +94,7 @@
 	message_monkey = "lets out a faint chimper as it collapses and stops moving"
 	message_ipc = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off"
 	message_simple =  "stops moving"
-	stat_allowed = UNCONSCIOUS
+	stat_allowed = HARD_CRIT
 
 /datum/emote/living/deathgasp/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/simple_animal/S = user
@@ -121,7 +121,7 @@
 
 /datum/emote/living/faint/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && isliving(user))
+	if(. && isliving(user) && intentional)
 		var/mob/living/L = user
 		L.SetSleeping(200)
 
@@ -129,7 +129,7 @@
 	key = "flap"
 	key_third_person = "flaps"
 	message = "flaps their wings"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 	var/wing_time = 10
 
 /datum/emote/living/flap/run_emote(mob/user, params, type_override, intentional)
@@ -143,7 +143,7 @@
 	key = "aflap"
 	key_third_person = "aflaps"
 	message = "flaps their wings aggressively"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 	wing_time = 5
 
 /datum/emote/living/frown
@@ -191,7 +191,7 @@
 	key = "jump"
 	key_third_person = "jumps"
 	message = "jumps"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/kiss
 	key = "kiss"
@@ -239,14 +239,14 @@
 	key_third_person = "points"
 	message = "points"
 	message_param = "points at %t"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/point/run_emote(mob/user, params, type_override, intentional)
 	message_param = initial(message_param) // reset
-	if(ishuman(user))
+	if(ishuman(user) && intentional)
 		var/mob/living/carbon/human/H = user
-		if(H.get_num_arms() == 0)
-			if(H.get_num_legs() != 0)
+		if(H.usable_hands == 0)
+			if(H.usable_legs != 0)
 				message_param = "tries to point at %t with a leg, <span class='userdanger'>falling down</span> in the process!"
 				H.Paralyze(20)
 			else
@@ -338,7 +338,7 @@
 
 /datum/emote/living/surrender/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && isliving(user))
+	if(. && isliving(user) && intentional)
 		var/mob/living/L = user
 		L.Paralyze(200)
 
@@ -389,15 +389,15 @@
 	message = null
 	mob_type_blacklist_typecache = /mob/living/brain
 
+/datum/emote/living/custom/can_run_emote(mob/user, status_check, intentional)
+	. = ..() && intentional
+
 /datum/emote/living/custom/proc/check_invalid(mob/user, input)
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
 	if(stop_bad_mime.Find(input, 1, 1))
 		to_chat(user, "<span class='danger'>Invalid emote.</span>")
 		return TRUE
 	return FALSE
-
-/datum/emote/living/custom/can_run_emote(mob/user, status_check, intentional)
-	. = ..() && intentional
 
 /datum/emote/living/custom/run_emote(mob/user, params, type_override = null, intentional = FALSE)
 	if(!can_run_emote(user, TRUE, intentional))
@@ -467,61 +467,65 @@
 /datum/emote/living/circle
 	key = "circle"
 	key_third_person = "circles"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/circle/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/obj/item/circlegame/N = new(user)
-	if(user.put_in_hands(N))
-		to_chat(user, "<span class='notice'>You make a circle with your hand.</span>")
-	else
-		qdel(N)
-		to_chat(user, "<span class='warning'>You don't have any free hands to make a circle with.</span>")
+	if(intentional)
+		var/obj/item/circlegame/N = new(user)
+		if(user.put_in_hands(N))
+			to_chat(user, "<span class='notice'>You make a circle with your hand.</span>")
+		else
+			qdel(N)
+			to_chat(user, "<span class='warning'>You don't have any free hands to make a circle with.</span>")
 
 /datum/emote/living/slap
 	key = "slap"
 	key_third_person = "slaps"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/slap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(!.)
 		return
-	var/obj/item/slapper/N = new(user)
-	if(user.put_in_hands(N))
-		to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
-	else
-		to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
+	if(intentional)
+		var/obj/item/slapper/N = new(user)
+		if(user.put_in_hands(N))
+			to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
+		else
+			to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
 
 /datum/emote/living/raisehand
 	key = "highfive"
 	key_third_person = "highfives"
 	message = "raises their hand"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
-/datum/emote/living/raisehand/run_emote(mob/user, params)
+/datum/emote/living/raisehand/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/obj/item/highfive/N = new(user)
-	if(user.put_in_hands(N))
-		to_chat(user, "<span class='notice'>You raise your hand for a high-five.</span>")
-	else
-		qdel(N)
-		to_chat(user, "<span class='warning'>You don't have any free hands to high-five with.</span>")
+	if(intentional)
+		var/obj/item/highfive/N = new(user)
+		if(user.put_in_hands(N))
+			to_chat(user, "<span class='notice'>You raise your hand for a high-five.</span>")
+		else
+			qdel(N)
+			to_chat(user, "<span class='warning'>You don't have any free hands to high-five with.</span>")
 
 /datum/emote/living/fingergun
 	key = "fingergun"
 	key_third_person = "fingerguns"
 	message = "forms their fingers into the shape of a crude gun"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
-/datum/emote/living/fingergun/run_emote(mob/user, params)
+/datum/emote/living/fingergun/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/obj/item/gun/ballistic/revolver/mime/N = new(user)
-	if(user.put_in_hands(N))
-		to_chat(user, "<span class='notice'>You form your fingers into a gun.</span>")
-	else
-		qdel(N)
-		to_chat(user, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")
+	if(intentional)
+		var/obj/item/gun/ballistic/revolver/mime/N = new(user)
+		if(user.put_in_hands(N))
+			to_chat(user, "<span class='notice'>You form your fingers into a gun.</span>")
+		else
+			qdel(N)
+			to_chat(user, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")
 
 /datum/emote/living/click
 	key = "click"
@@ -577,7 +581,7 @@
 	message_ipc = "flashes a thumbs up icon"
 	message_simple = "attempts a thumbs up"
 	message_param = "flashes a thumbs up at %t"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/thumbs_down
 	key = "thumbsdown"
@@ -588,7 +592,7 @@
 	message_ipc = "flashes a thumbs down icon"
 	message_simple = "attempts a thumbs down"
 	message_param = "flashes a thumbs down at %t"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/whistle
 	key="whistle"

@@ -128,34 +128,6 @@
 		playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
 	..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
-
-/mob/living/mech_melee_attack(obj/mecha/M)
-	if(M.occupant.a_intent == INTENT_HARM)
-		M.do_attack_animation(src)
-		if(M.damtype == BRUTE)
-			step_away(src,M,15)
-		switch(M.damtype)
-			if(BRUTE)
-				Knockdown(20)
-				take_overall_damage(rand(M.force/2, M.force))
-				playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
-			if(BURN)
-				take_overall_damage(0, rand(M.force/2, M.force))
-				playsound(src, 'sound/items/welder.ogg', 50, 1)
-			if(TOX)
-				M.mech_toxin_damage(src)
-			else
-				return
-		updatehealth()
-		visible_message("<span class='danger'>[M.name] hits [src]!</span>", \
-						"<span class='userdanger'>[M.name] hits you!</span>", null, COMBAT_MESSAGE_RANGE)
-		log_combat(M.occupant, src, "attacked", M, "(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
-	else
-		step_away(src,M)
-		log_combat(M.occupant, src, "pushed", M, important = FALSE)
-		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>", \
-						"<span class='warning'>[M] pushes you out of the way.</span>", null, 5)
-
 /mob/living/fire_act()
 	adjust_fire_stacks(3)
 	IgniteMob()
@@ -222,14 +194,12 @@
 				log_combat(user, src, "grabbed", addition="neck grab")
 				visible_message("<span class='danger'>[user] grabs [src] by the neck!</span>",\
 								"<span class='userdanger'>[user] grabs you by the neck!</span>")
-				update_mobility() //we fall down
 				if(!buckled && !density)
 					Move(user.loc)
 			if(GRAB_KILL)
 				log_combat(user, src, "strangled", addition="kill grab")
 				visible_message("<span class='danger'>[user] is strangling [src]!</span>", \
 								"<span class='userdanger'>[user] is strangling you!</span>")
-				update_mobility() //we fall down
 				if(!buckled && !density)
 					Move(user.loc)
 		user.set_pull_offsets(src, grab_state)

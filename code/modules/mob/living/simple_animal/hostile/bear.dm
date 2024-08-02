@@ -16,7 +16,7 @@
 	taunt_chance = 25
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/food/meat/slab/bear = 5, /obj/item/clothing/head/bearpelt = 1)
+	butcher_results = list(/obj/item/food/meat/slab/bear = 5, /obj/item/clothing/head/costume/bearpelt = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
@@ -63,7 +63,7 @@
 	icon_living = "combatbear"
 	icon_dead = "combatbear_dead"
 	faction = list("russian")
-	butcher_results = list(/obj/item/food/meat/slab/bear = 5, /obj/item/clothing/head/bearpelt = 1, /obj/item/bear_armor = 1)
+	butcher_results = list(/obj/item/food/meat/slab/bear = 5, /obj/item/clothing/head/costume/bearpelt = 1, /obj/item/bear_armor = 1)
 	melee_damage = 30
 	armour_penetration = 20
 	health = 120
@@ -156,7 +156,7 @@
 /mob/living/simple_animal/hostile/bear/butter/AttackingTarget() //Makes some attacks by the butter bear slip those who dare cross its path.
 	if(isliving(target))
 		var/mob/living/L = target
-		if((L.mobility_flags & MOBILITY_STAND))
+		if((L.body_position == STANDING_UP))
 			L.Knockdown(20)
 			playsound(loc, 'sound/misc/slip.ogg', 15)
 			L.visible_message("<span class='danger'>[L] slips on butter!</span>")

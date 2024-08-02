@@ -1,8 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "am" = (
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
+/obj/structure/chair/stool/bar/directional/south,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "aq" = (
@@ -47,9 +45,7 @@
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "bQ" = (
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
+/obj/structure/chair/stool/bar/directional/south,
 /obj/machinery/light/small,
 /obj/structure/sign/poster/contraband/clown{
 	pixel_y = -32
@@ -77,9 +73,7 @@
 /area/shuttle/escape)
 "hz" = (
 /mob/living/simple_animal/hostile/retaliate/clown,
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "hZ" = (
@@ -228,9 +222,7 @@
 /area/shuttle/escape)
 "yH" = (
 /mob/living/simple_animal/hostile/retaliate/clown,
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
+/obj/structure/chair/stool/bar/directional/south,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "zo" = (
@@ -290,9 +282,7 @@
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "AP" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "CN" = (
@@ -389,9 +379,7 @@
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "Mk" = (
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
+/obj/structure/chair/stool/bar/directional/south,
 /obj/machinery/light/floor{
 	brightness = 15;
 	bulb_colour = "#FFE4CE";
@@ -428,9 +416,7 @@
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "Pl" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /obj/item/grown/bananapeel,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
@@ -492,9 +478,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "XB" = (
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
+/obj/structure/chair/stool/bar/directional/south,
 /mob/living/simple_animal/hostile/retaliate/clown/longface,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)

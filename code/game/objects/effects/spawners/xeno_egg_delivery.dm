@@ -19,7 +19,7 @@
 
 /obj/effect/spawner/xeno_egg_delivery_troll         //We're doing big amount of trolling
 	name = "\"xeno egg\" delivery"
-	icon = 'icons/mob/mask.dmi'
+	icon = 'icons/mob/clothing/mask.dmi'
 	icon_state = "clown"
 	var/announcement_time = 1000
 

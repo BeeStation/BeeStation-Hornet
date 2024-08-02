@@ -75,6 +75,7 @@
 	name = "bus"
 	desc = "GO TO SCHOOL. READ A BOOK."
 	icon = 'icons/obj/bus.dmi'
+	icon_state = null
 	density = TRUE
 	anchored = TRUE
 	deconstructible = FALSE
@@ -104,7 +105,7 @@
 	icon_state = "driverseat"
 
 /obj/structure/fluff/bus/passable/seat/driver/attack_hand(mob/user)
-	playsound(src, 'sound/items/carhorn.ogg', 50, 1)
+	playsound(src, 'sound/items/carhorn.ogg', 50, TRUE)
 	. = ..()
 
 /obj/structure/fluff/paper
@@ -126,6 +127,7 @@
 /obj/structure/fluff/divine
 	name = "Miracle"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
+	icon_state = "error"
 	anchored = TRUE
 	density = TRUE
 
@@ -183,3 +185,10 @@
 
 /obj/structure/fluff/hedge/opaque //useful for mazes and such
 	opacity = TRUE
+
+/obj/structure/fluff/fans
+	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon_state = "fan_tiny"
+	name = "environmental regulation system"
+	desc = "A vent nested into the wall, managing the airflow between the rooms"
+	anchored = TRUE

@@ -63,6 +63,9 @@
 ///Empty ID define
 #define TIMER_ID_NULL -1
 
+/// Used to trigger object removal from a processing list
+#define PROCESS_KILL 26
+
 //! ## Initialization subsystem
 
 ///New should not call Initialize
@@ -97,6 +100,25 @@
     }\
 }
 
+//! ### SS initialization hints
+/**
+ * Negative values incidate a failure or warning of some kind, positive are good.
+ * 0 and 1 are unused so that TRUE and FALSE are guarenteed to be invalid values.
+ */
+
+/// Subsystem failed to initialize entirely. Print a warning, log, and disable firing.
+#define SS_INIT_FAILURE -2
+
+/// The default return value which must be overriden. Will succeed with a warning.
+#define SS_INIT_NONE -1
+
+/// Subsystem initialized sucessfully.
+#define SS_INIT_SUCCESS 2
+
+/// Successful, but don't print anything. Useful if subsystem was disabled.
+#define SS_INIT_NO_NEED 3
+
+//! ### SS initialization load orders
 // Subsystem init_order, from highest priority to lowest priority
 // Subsystems shutdown in the reverse of the order they initialize in
 // The numbers just define the ordering, they are meaningless otherwise.
@@ -152,6 +174,8 @@
 #define INIT_ORDER_EXPLOSIONS		-69
 #define INIT_ORDER_ELEVATOR			-70
 #define INIT_ORDER_BAN_CACHE		-98
+//Near the end, logs the costs of initialize
+#define INIT_ORDER_INIT_PROFILER -99
 #define INIT_ORDER_NATURAL_LIGHT	-120
 #define INIT_ORDER_CHAT				-150 //Should be last to ensure chat remains smooth during init.
 
@@ -282,3 +306,6 @@
 #define SSMACHINES_DT (SSmachines.wait/10)
 #define SSMOBS_DT (SSmobs.wait/10)
 #define SSOBJ_DT (SSobj.wait/10)
+
+/// The timer key used to know how long subsystem initialization takes
+#define SS_INIT_TIMER_KEY "ss_init"

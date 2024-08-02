@@ -28,8 +28,6 @@
 	icon_state = "act_equip"
 
 /atom/movable/screen/human/equip/Click()
-	if(ismecha(usr.loc)) // stops inventory actions in a mech
-		return 1
 	var/mob/living/carbon/human/H = usr
 	H.quick_equip()
 
@@ -312,6 +310,10 @@
 	internals = new /atom/movable/screen/internals()
 	internals.hud = src
 	infodisplay += internals
+
+	spacesuit = new /atom/movable/screen/spacesuit
+	spacesuit.hud = src
+	infodisplay += spacesuit
 
 	healths = new /atom/movable/screen/healths()
 	healths.hud = src

@@ -24,9 +24,6 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	var/alt_desc = null
-	var/toggle_message = null
-	var/alt_toggle_message = null
-	var/active_sound = null
 	var/cooldown = 0
 	var/envirosealed = FALSE //is it safe for plasmamen
 
@@ -65,6 +62,9 @@
 		LoadComponent(pocket_storage_component_path)
 	if(can_be_bloody && ((body_parts_covered & FEET) || (flags_inv & HIDESHOES)))
 		LoadComponent(/datum/component/bloodysoles)
+
+	if(!icon_state)
+		item_flags |= ABSTRACT
 
 /obj/item/clothing/MouseDrop(atom/over_object)
 	. = ..()
@@ -218,7 +218,7 @@
 				compare_to = thing
 				break
 		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
-		if(armor.bio || armor.bomb || armor.bullet || armor.energy || armor.laser || armor.magic || armor.melee || armor.rad || armor.stamina)
+		if(armor.bio || armor.bomb || armor.bullet || armor.energy || armor.laser || armor.magic || armor.melee || armor.rad || armor.stamina || armor.bleed)
 			readout += "<br /><b>ARMOR (I-X)</b>"
 			if(armor.bio || compare_to?.armor?.bio)
 				readout += "<br />TOXIN [armor_to_protection_class(armor.bio, compare_to?.armor?.bio)]"
@@ -238,6 +238,8 @@
 				readout += "<br />RADIATION [armor_to_protection_class(armor.rad, compare_to?.armor?.rad)]"
 			if(armor.stamina || compare_to?.armor?.stamina)
 				readout += "<br />STAMINA [armor_to_protection_class(armor.stamina, compare_to?.armor?.stamina)]"
+			if(armor.bleed || compare_to?.armor?.bleed)
+				readout += "<br />BLEEDING [armor_to_protection_class(armor.bleed, compare_to?.armor?.bleed)]"
 		if(armor.fire || armor.acid)
 			readout += "<br /><b>DURABILITY (I-X)</b>"
 			if(armor.fire || compare_to?.armor?.fire)
@@ -275,6 +277,7 @@
 			. = "<span class='red'>[.]</span>"
 
 /obj/item/clothing/obj_break(damage_flag)
+	. = ..()
 	if(!damaged_clothes)
 		update_clothes_damaged_state(TRUE)
 	if(ismob(loc)) //It's not important enough to warrant a message if nobody's wearing it
@@ -319,7 +322,7 @@ BLIND     // can't see anything
 
 /proc/generate_female_clothing(index,t_color,icon,type)
 	var/icon/female_clothing_icon	= icon("icon"=icon, "icon_state"=t_color)
-	var/icon/female_s				= icon("icon"='icons/mob/clothing/uniform.dmi', "icon_state"="[(type == FEMALE_UNIFORM_FULL) ? "female_full" : "female_top"]")
+	var/icon/female_s = icon("icon"='icons/mob/clothing/under/masking_helpers.dmi', "icon_state"="[(type == FEMALE_UNIFORM_FULL) ? "female_full" : "female_top"]")
 	female_clothing_icon.Blend(female_s, ICON_MULTIPLY)
 	female_clothing_icon 			= fcopy_rsc(female_clothing_icon)
 	GLOB.female_clothing_icons[index] = female_clothing_icon
