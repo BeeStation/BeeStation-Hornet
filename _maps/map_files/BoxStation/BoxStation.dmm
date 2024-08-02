@@ -7015,6 +7015,7 @@
 	id = "barcounter";
 	name = "Bar Counter Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "bEO" = (
@@ -15752,7 +15753,7 @@
 /obj/machinery/newscaster{
 	pixel_y = -32
 	},
-/turf/open/floor/carpet/purple,
+/turf/open/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "cUM" = (
 /obj/structure/disposalpipe/segment{
@@ -15951,7 +15952,7 @@
 /obj/structure/chair/fancy/sofa/old/right{
 	dir = 4
 	},
-/turf/open/floor/carpet/blue,
+/turf/open/floor/carpet/royalblue,
 /area/crew_quarters/bar/atrium)
 "cYD" = (
 /obj/structure/closet/emcloset,
@@ -26154,7 +26155,7 @@
 	dir = 1
 	},
 /obj/item/food/pie/cream,
-/turf/open/floor/carpet/purple,
+/turf/open/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "hcu" = (
 /obj/structure/cable/yellow{
@@ -27142,7 +27143,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/carpet/blue,
+/turf/open/floor/carpet/royalblue,
 /area/crew_quarters/bar/atrium)
 "hxw" = (
 /obj/structure/cable/yellow{
@@ -32181,7 +32182,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
-/turf/open/floor/carpet/purple,
+/turf/open/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "jui" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -38302,7 +38303,7 @@
 /obj/structure/chair/fancy/sofa/old/right{
 	dir = 8
 	},
-/turf/open/floor/carpet/purple,
+/turf/open/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "lSa" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -38823,7 +38824,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
-/turf/open/floor/carpet/purple,
+/turf/open/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "mgQ" = (
 /obj/machinery/door/airlock{
@@ -48160,7 +48161,7 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/turf/open/floor/carpet/blue,
+/turf/open/floor/carpet/royalblue,
 /area/crew_quarters/bar/atrium)
 "pTJ" = (
 /obj/structure/closet/secure_closet/security/sec,
@@ -58326,7 +58327,7 @@
 /obj/structure/chair/fancy/sofa/old/left{
 	dir = 8
 	},
-/turf/open/floor/carpet/blue,
+/turf/open/floor/carpet/royalblue,
 /area/crew_quarters/bar/atrium)
 "tPs" = (
 /obj/structure/cable{
@@ -59645,7 +59646,7 @@
 /obj/structure/chair/fancy/sofa/old/left{
 	dir = 4
 	},
-/turf/open/floor/carpet/blue,
+/turf/open/floor/carpet/royalblue,
 /area/crew_quarters/bar/atrium)
 "uuZ" = (
 /obj/effect/turf_decal/tile/dark_green/half/contrasted{
@@ -62926,7 +62927,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/table/wood,
-/turf/open/floor/carpet/blue,
+/turf/open/floor/carpet/royalblue,
 /area/crew_quarters/bar/atrium)
 "vNE" = (
 /obj/structure/cable/yellow{
@@ -65011,6 +65012,7 @@
 	id = "barcounter";
 	name = "Bar Counter Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "wHU" = (
@@ -67124,7 +67126,7 @@
 	},
 /obj/machinery/camera/directional/south,
 /obj/item/radio/intercom/directional/south,
-/turf/open/floor/carpet/purple,
+/turf/open/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "xAr" = (
 /obj/effect/landmark/start/medical_doctor,
