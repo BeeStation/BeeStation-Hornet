@@ -242,10 +242,10 @@
 		observer.real_name = observer.client.prefs.read_character_preference(/datum/preference/name/real_name)
 		observer.name = observer.real_name
 	observer.update_icon()
-	if (client.personal_lobby_music)
-		client.personal_lobby_music.stop_playing_to(client)
+	if (observer.client.personal_lobby_music)
+		observer.client.personal_lobby_music.stop_playing_to(observer.client)
 	else
-		SSmusic.login_music.stop_playing_to(client)
+		SSmusic.login_music.stop_playing_to(observer.client)
 	QDEL_NULL(mind)
 	qdel(src)
 	return TRUE
