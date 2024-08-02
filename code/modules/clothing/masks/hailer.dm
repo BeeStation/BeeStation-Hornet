@@ -1,6 +1,6 @@
-// **** Dispatch ****
-
 GLOBAL_LIST_EMPTY(sechailers)
+
+// **** Dispatch ****
 
 /datum/action/item_action/dispatch
 	name = "Signal dispatch"
@@ -8,7 +8,27 @@ GLOBAL_LIST_EMPTY(sechailers)
 	button_icon_state = "dispatch"
 	icon_icon = 'icons/mob/actions/hailer_actions.dmi'
 
+// **** Security gas mask ****
+
 /obj/item/clothing/mask/gas/sechailer
+	name = "security gas mask"
+	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device. Plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you tase them. Do not tamper with the device."
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/dispatch)
+	icon_state = "sechailer"
+	item_state = "sechailer"
+	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
+	flags_inv = HIDEFACIALHAIR | HIDEFACE | HIDESNOUT
+	w_class = WEIGHT_CLASS_SMALL
+	visor_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
+	visor_flags_inv = HIDEFACE | HIDESNOUT
+	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
+	visor_flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
+	var/aggressiveness = 2
+	var/cooldown_special
+	var/recent_uses = 0
+	var/broken_hailer = 0
+	var/safety = TRUE
+
 	var/obj/item/radio/radio
 	var/radio_key = /obj/item/encryptionkey/headset_sec
 	var/radio_channel = RADIO_CHANNEL_SECURITY
@@ -42,28 +62,8 @@ GLOBAL_LIST_EMPTY(sechailers)
 	COOLDOWN_START(src, dispatch_cooldown_timer, dispatch_cooldown)
 	for(var/atom/movable/hailer in GLOB.sechailers)
 		if(ismob(hailer.loc))
-			playsound(hailer.loc, "sound/voice/sechailer/dispatch_please_respond.ogg", 100, FALSE)
-
-// **** Security gas mask ****
-
-/obj/item/clothing/mask/gas/sechailer
-	name = "security gas mask"
-	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device. Plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you tase them. Do not tamper with the device."
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/dispatch)
-	icon_state = "sechailer"
-	item_state = "sechailer"
-	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
-	flags_inv = HIDEFACIALHAIR | HIDEFACE | HIDESNOUT
-	w_class = WEIGHT_CLASS_SMALL
-	visor_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
-	visor_flags_inv = HIDEFACE | HIDESNOUT
-	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
-	visor_flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
-	var/aggressiveness = 2
-	var/cooldown_special
-	var/recent_uses = 0
-	var/broken_hailer = 0
-	var/safety = TRUE
+			//AI slop voiceline, kill as soon as possible
+			//playsound(hailer.loc, "sound/voice/sechailer/dispatch_please_respond.ogg", 100, FALSE)
 
 /obj/item/clothing/mask/gas/sechailer/spacepol
 	name = "spacepol mask"
