@@ -115,7 +115,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	worn_icon_state = "sec_headset"
 	keyslot = new /obj/item/encryptionkey/headset_sec
 	actions_types = list(/datum/action/item_action/dispatch)
-	var/radio_key = /obj/item/encryptionkey/headset_sec
 	var/radio_channel = RADIO_CHANNEL_SECURITY
 	COOLDOWN_DECLARE(dispatch_cooldown_timer)
 	var/dispatch_cooldown = 20 SECONDS
@@ -148,7 +147,7 @@ GLOBAL_LIST_EMPTY(secsets)
 /obj/item/radio/headset/headset_sec/proc/dispatch(mob/user)
 	if(COOLDOWN_TIMELEFT(src, dispatch_cooldown_timer))
 		to_chat(user, "<span class='warning'>Dispatch radio broadcasting systems are recharging.</span>")
-		balloon_alert("still recharging!")
+		balloon_alert(user, "still recharging!")
 		return FALSE
 	var/list/options = list()
 	for(var/option in list(
@@ -163,14 +162,34 @@ GLOBAL_LIST_EMPTY(secsets)
 	var/message = show_radial_menu(user, user, options)
 	if(!message)
 		return FALSE
-	talk_into(src, "Dispatch, Officer [user], [message] at [get_area(user)], requesting response.", radio_channel)
+
+	var/area/current_area = get_area(user)
+	var/sanitized_area_string
+	if(!current_area)
+		sanitized_area_string = "NULL"
+	else if(istype(current_area, /area/crew_quarters))
+		sanitized_area_string = "Crew Quarters"
+	else if(istype(current_area, /area/medical))
+		sanitized_area_string = "Medical"
+	else if(istype(current_area, /area/science))
+		sanitized_area_string = "Science"
+	else if(istype(current_area, /area/engineering))
+		sanitized_area_string = "Engineering"
+	else if(istype(current_area, /area/bridge))
+		sanitized_area_string = "Bridge"
+	else if(istype(current_area, /area/security))
+		sanitized_area_string = "Security"
+	else
+		sanitized_area_string = "UNKNOWN"
+
+	talk_into(src, "Dispatch, Officer [user.last_name()], [message] at [sanitized_area_string], requesting response.", radio_channel)
 	COOLDOWN_START(src, dispatch_cooldown_timer, dispatch_cooldown)
 	for(var/atom/movable/hailer in GLOB.secsets)
 		if(ismob(hailer.loc))
 			//AI slop voiceline, kill as soon as possible
 			//playsound(hailer.loc, "sound/voice/sechailer/dispatch_please_respond.ogg", 100, FALSE)
 			//Tempsound
-			playsound(hailer.loc, "sound/voice/hiss1.ogg", 100, FALSE)
+			playsound(hailer.loc, "sound/voice/hiss2.ogg", 100, FALSE)
 
 /obj/item/radio/headset/headset_spacepol
 	name = "spacepol radio headset"
