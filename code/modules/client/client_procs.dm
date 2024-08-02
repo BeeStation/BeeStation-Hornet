@@ -556,7 +556,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/Del()
 	log_access("Logout: [key_name(src)]")
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CLIENT_LOGOUT, src)
 	GLOB.ahelp_tickets.ClientLogout(src)
 	GLOB.mhelp_tickets.ClientLogout(src)
 	GLOB.interviews.client_logout(src)

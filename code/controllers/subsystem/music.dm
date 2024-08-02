@@ -255,4 +255,10 @@ SUBSYSTEM_DEF(music)
 	// Personal lobby music
 	if (target.personal_lobby_music)
 		target.personal_lobby_music.internal_play_to_client(target)
+	// Become a spatial audio listener
+	if (target.tgui_panel?.needs_spatial_audio)
+		target.mob.AddComponent(/datum/component/music_listener, target.tgui_panel)
 	ASYNC_FINISH
+
+/datum/controller/subsystem/music/stat_entry()
+	. = ..("Tracks: [length(audio_tracks)], GlobPlaying: [length(global_audio_tracks)], SpatialPlaying: [length(spatial_audio_tracks)]")

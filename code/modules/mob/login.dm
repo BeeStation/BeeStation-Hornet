@@ -98,6 +98,10 @@
 	//Add the move relay
 	AddComponent(/datum/component/moved_relay)
 
+	// Become a spatial audio listener
+	if (client?.tgui_panel?.needs_spatial_audio)
+		AddComponent(/datum/component/music_listener, client.tgui_panel)
+
 	log_message("Client [key_name(src)] has taken ownership of mob [src]([src.type])", LOG_OWNERSHIP)
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_LOGGED_IN, src)
