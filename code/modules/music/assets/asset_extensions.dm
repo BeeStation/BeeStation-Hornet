@@ -14,5 +14,5 @@
 		stack_trace("Warning: Unsupported file type being loaded into audio. Only MP3 and MP4 are currently supported for streamed music.")
 	var/file_name = copytext(copytext("[audio_file]", 1, extension_pos - 1), divider_pos)
 	audio_name = "[file_name].[extension]"
-	assets[audio_name] = "[audio_file]"
+	assets[audio_name] = file("[audio_file]")
 	..()
