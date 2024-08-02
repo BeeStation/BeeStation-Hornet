@@ -976,7 +976,6 @@
 /area/hallway/primary/fore)
 "anE" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
 	id = "kitchencounter";
 	name = "Kitchen Shutters"
@@ -7009,7 +7008,6 @@
 	id = "barcounter";
 	name = "Bar Counter Shutters"
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "bEO" = (
@@ -7493,12 +7491,11 @@
 /area/science/mixing)
 "bJX" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
+/obj/structure/desk_bell,
 /obj/machinery/door/poddoor/shutters{
 	id = "kitchencounter";
 	name = "Kitchen Shutters"
 	},
-/obj/structure/desk_bell,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "bKa" = (
@@ -17569,12 +17566,11 @@
 /area/maintenance/solars/port/fore)
 "dHQ" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
+/obj/item/storage/box/donkpockets,
 /obj/machinery/door/poddoor/shutters{
 	id = "kitchencounter";
 	name = "Kitchen Shutters"
 	},
-/obj/item/storage/box/donkpockets,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "dHW" = (
@@ -25904,12 +25900,10 @@
 /area/medical/surgery)
 "gWZ" = (
 /obj/machinery/computer/slot_machine,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/machinery/firealarm/directional/west,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "gXf" = (
@@ -30566,7 +30560,6 @@
 /area/security/prison)
 "iLD" = (
 /obj/structure/cable/yellow,
-/obj/machinery/light,
 /obj/machinery/vending/coffee,
 /obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/wood,
@@ -32864,12 +32857,11 @@
 	},
 /area/hallway/secondary/entry)
 "jGI" = (
+/obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	id = "kitchencounter";
 	name = "Kitchen Shutters"
 	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "jGL" = (
@@ -34115,8 +34107,8 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/glass{
-	name = "Hydroponics";
-	req_one_access_txt = "35;28"
+	name = "Kitchen - Hydroponics";
+	req_one_access_txt = "25,28,35"
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
@@ -41303,6 +41295,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/machinery/light,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "nfa" = (
@@ -44089,7 +44082,7 @@
 /area/security/prison)
 "oiq" = (
 /obj/machinery/door/airlock{
-	name = "Kitchen";
+	name = "Bar - Kitchen";
 	req_one_access = "28;25";
 	req_one_access_txt = "25,28,35"
 	},
@@ -53523,7 +53516,6 @@
 "rWW" = (
 /obj/effect/turf_decal/siding/wood/corner,
 /obj/structure/fluff/hedge/opaque,
-/obj/machinery/firealarm/directional/south,
 /obj/effect/turf_decal/siding/wood/corner,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar/atrium)
@@ -54215,6 +54207,10 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
+"sne" = (
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "snr" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/cable/yellow{
@@ -54265,6 +54261,9 @@
 	dir = 9
 	},
 /obj/machinery/airalarm/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "soq" = (
@@ -55341,9 +55340,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "sKJ" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/table/glass,
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "sKX" = (
@@ -57190,6 +57190,7 @@
 /obj/structure/table/wood,
 /obj/item/paicard,
 /obj/machinery/camera/directional/north,
+/obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "tvP" = (
@@ -65004,7 +65005,6 @@
 	id = "barcounter";
 	name = "Bar Counter Shutters"
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "wHU" = (
@@ -107080,7 +107080,7 @@ qey
 anE
 fPc
 vsS
-aVz
+sne
 pWs
 aJI
 aJI
