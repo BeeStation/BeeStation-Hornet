@@ -509,8 +509,9 @@
 	if(client)
 		if (client.personal_lobby_music)
 			client.personal_lobby_music.stop_playing_to(client)
+			client.personal_lobby_music = null
 		else
-			SSmusic.login_music.stop_playing_to(client)
+			SSmusic.login_music?.stop_playing_to(client)
 
 	if(!transfer_after)
 		mind.active = FALSE

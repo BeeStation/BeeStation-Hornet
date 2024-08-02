@@ -245,7 +245,7 @@
 	if (observer.client.personal_lobby_music)
 		observer.client.personal_lobby_music.stop_playing_to(observer.client)
 	else
-		SSmusic.login_music.stop_playing_to(observer.client)
+		SSmusic.login_music?.stop_playing_to(observer.client)
 	QDEL_NULL(mind)
 	qdel(src)
 	return TRUE
@@ -482,7 +482,7 @@
 			if (client.personal_lobby_music)
 				client.personal_lobby_music.stop_playing_to(client)
 			else
-				SSmusic.login_music.stop_playing_to(client)
+				SSmusic.login_music?.stop_playing_to(client)
 		new_character.key = key		//Manually transfer the key to log them in
 		new_character = null
 		qdel(src)

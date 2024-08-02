@@ -134,7 +134,7 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 		if (client.personal_lobby_music)
 			client.personal_lobby_music.stop_playing_to(client)
 		else
-			SSmusic.login_music.stop_playing_to(client)
+			SSmusic.login_music?.stop_playing_to(client)
 		// Find a new song to play
 		if (!client.personal_lobby_music_index)
 			client.personal_lobby_music_index = SSmusic.current_login_song
@@ -149,7 +149,7 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 			client.personal_lobby_music.stop_playing_to(client)
 			client.personal_lobby_music = null
 		client.personal_lobby_music_index = 0
-		SSmusic.login_music.internal_play_to_client(client)
+		SSmusic.login_music?.internal_play_to_client(client)
 
 /**
  * public
