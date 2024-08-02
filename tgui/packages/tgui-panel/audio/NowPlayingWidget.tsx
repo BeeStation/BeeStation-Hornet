@@ -15,15 +15,15 @@ export const NowPlayingWidget = (props, context) => {
   const audio = useSelector(context, selectAudio),
     dispatch = useDispatch(context),
     settings = useSettings(context),
-    title = audio.meta?.title,
-    url = audio.meta?.link,
-    artist = audio.meta?.artist || 'Unknown Artist',
-    upload_date = audio.meta?.upload_date || 'Unknown Date',
-    album = audio.meta?.album || 'Unknown Album',
+    title = audio.track?.options?.title,
+    url = audio.track?.link,
+    artist = audio.track?.options?.artist || 'Unknown Artist',
+    upload_date = audio.track?.options?.upload_date || 'Unknown Date',
+    album = audio.track?.options?.album || 'Unknown Album',
     duration = audio.duration,
-    license_name = audio.meta?.license_title || 'Unknown License',
-    license_url = audio.meta?.license_url || null,
-    playing_flags = audio.meta?.flags || 0,
+    license_name = audio.track?.options?.license_title || 'Unknown License',
+    license_url = audio.track?.options?.license_url || null,
+    playing_flags = audio.track?.options?.flags || 0,
     date = !isNaN(upload_date)
       ? upload_date?.substring(0, 4) + '-' + upload_date?.substring(4, 6) + '-' + upload_date?.substring(6, 8)
       : upload_date;

@@ -15,6 +15,7 @@ export const audioMiddleware = (store) => {
   player.onPlay((element: HTMLAudioElement, track: AudioTrack) => {
     store.dispatch({ type: 'audio/playing', payload: {
         duration: element.duration,
+        track: track,
       },
     });
     // Tell the server about the length of the playing resource

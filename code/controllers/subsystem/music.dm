@@ -226,6 +226,12 @@ SUBSYSTEM_DEF(music)
 		playing.internal_play_to_client(client)
 	global_audio_tracks += playing
 
+/datum/controller/subsystem/music/proc/stop_global_music(datum/playing_track/playing)
+	if (!(playing in global_audio_tracks))
+		return
+	global_audio_tracks -= playing
+	playing.stop_playing_to_clients()
+
 /datum/controller/subsystem/music/proc/play_spatial_music(datum/playing_track/spatial/playing)
 	for (var/client/client in GLOB.clients)
 		// If this is a title music, don't play it to anyone who has skipped title music

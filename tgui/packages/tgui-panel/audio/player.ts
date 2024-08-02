@@ -25,6 +25,7 @@ export class AudioPlayer {
     z: number,
   };
   onPlaySubscribers: ((HTMLAudioElement, AudioTrack) => void)[];
+  onContinueSubscribers: ((AudioTrack) => void)[];
   onStopSubscribers: (() => void)[];
   onMuteSubscribers: (() => void)[];
   onUnmuteSubscribers: (() => void)[];
