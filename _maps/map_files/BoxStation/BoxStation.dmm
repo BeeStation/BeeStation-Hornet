@@ -980,6 +980,7 @@
 	id = "kitchencounter";
 	name = "Kitchen Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "anF" = (
@@ -1800,6 +1801,16 @@
 "aAh" = (
 /turf/closed/wall,
 /area/crew_quarters/toilet)
+"aAi" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	id = "barcounter";
+	name = "Bar Counter Shutters"
+	},
+/obj/item/clothing/head/hats/tophat,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/bar)
 "aAr" = (
 /obj/structure/closet,
 /obj/effect/decal/cleanable/cobweb,
@@ -7008,6 +7019,7 @@
 	id = "barcounter";
 	name = "Bar Counter Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "bEO" = (
@@ -7496,6 +7508,7 @@
 	id = "kitchencounter";
 	name = "Kitchen Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "bKa" = (
@@ -17571,6 +17584,7 @@
 	id = "kitchencounter";
 	name = "Kitchen Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "dHW" = (
@@ -18317,17 +18331,17 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "dWZ" = (
-/obj/machinery/chem_master/condimaster{
-	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
-	name = "HoochMaster Deluxe";
-	pixel_x = -4
-	},
 /obj/machinery/requests_console{
 	department = "Kitchen";
 	departmentType = 2;
 	pixel_y = 30
 	},
 /obj/effect/turf_decal/siding/wood,
+/obj/machinery/chem_master/condimaster{
+	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
+	name = "HoochMaster Deluxe";
+	pixel_x = -4
+	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "dXA" = (
@@ -20939,11 +20953,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "eUW" = (
-/obj/structure/reagent_dispensers/beerkeg,
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 8
 	},
 /obj/machinery/camera/directional/north,
+/obj/machinery/vending/wardrobe/bar_wardrobe,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "eVa" = (
@@ -28021,6 +28035,7 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/power/apc/auto_name/directional/south,
+/obj/item/kirbyplants/random,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "hOL" = (
@@ -32862,6 +32877,7 @@
 	id = "kitchencounter";
 	name = "Kitchen Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "jGL" = (
@@ -34219,6 +34235,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"klh" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	id = "barcounter";
+	name = "Bar Counter Shutters"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/bar)
 "klN" = (
 /obj/effect/turf_decal/tile/dark_blue{
 	dir = 4
@@ -40622,6 +40647,13 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
+"mUb" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Access"
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "mUc" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -43033,8 +43065,8 @@
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
 "nMp" = (
-/obj/machinery/vending/wardrobe/bar_wardrobe,
 /obj/effect/turf_decal/siding/wood,
+/obj/structure/reagent_dispensers/beerkeg,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "nMx" = (
@@ -44346,6 +44378,13 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"oqo" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/dresser,
+/turf/open/floor/wood/big,
+/area/crew_quarters/bar)
 "oqq" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -58232,13 +58271,6 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
-"tNx" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/item/kirbyplants/random,
-/turf/open/floor/wood/big,
-/area/crew_quarters/bar)
 "tNE" = (
 /turf/open/floor/holofloor/plating,
 /area/holodeck/prison)
@@ -62638,7 +62670,6 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/start/bartender,
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
@@ -63988,13 +64019,15 @@
 /turf/open/floor/plating,
 /area/science/nanite)
 "wkZ" = (
-/obj/machinery/food_cart/coffee,
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
 	},
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/bed,
+/obj/item/bedsheet/green,
+/obj/effect/landmark/start/bartender,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "wli" = (
@@ -65005,6 +65038,8 @@
 	id = "barcounter";
 	name = "Bar Counter Shutters"
 	},
+/obj/structure/displaycase/forsale/kitchen,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "wHU" = (
@@ -102458,9 +102493,9 @@ uYZ
 oOG
 sgw
 sgw
-qVS
-qVS
-qVS
+mUb
+mUb
+mUb
 btZ
 btZ
 btZ
@@ -105021,7 +105056,7 @@ aJC
 xhO
 fRF
 pEE
-wHF
+klh
 sZx
 alv
 aEa
@@ -105278,7 +105313,7 @@ aJC
 tvN
 fRF
 vKd
-wHF
+aAi
 sZx
 alv
 aEa
@@ -105787,12 +105822,12 @@ aJC
 aJC
 dWZ
 bWZ
-tNx
+ncd
 gPs
 fRe
 mUk
 nuP
-wHF
+klh
 sZx
 alv
 aEa
@@ -106044,12 +106079,12 @@ ixK
 aJC
 nMp
 bWZ
-ncd
+oqo
 aJC
 dtp
 mUk
 khg
-wHF
+klh
 vFZ
 wFI
 bAH
