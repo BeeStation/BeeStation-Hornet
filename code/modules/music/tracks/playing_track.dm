@@ -4,6 +4,7 @@
 	var/datum/audio_track/audio
 	var/started_at
 	var/playing_flags = PLAYING_FLAG_DEFAULT
+	var/track_volume = 1
 
 /datum/playing_track/New(datum/audio_track/audio, started_at, playing_flags)
 	uuid = total_count++
@@ -27,3 +28,7 @@
 
 /datum/playing_track/proc/stop_playing_to(client/target)
 	target.tgui_panel?.stop_playing(src)
+
+/datum/playing_track/proc/update_volume()
+	for (var/client/C in GLOB.clients)
+		C.tgui_panel?.update_volume(src)

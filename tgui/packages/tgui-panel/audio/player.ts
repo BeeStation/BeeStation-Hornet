@@ -260,6 +260,19 @@ export class AudioPlayer {
     }
   }
 
+  setTrackVolume(uuid: number, volume: number) {
+    logger.log("track volume", uuid, volume);
+    for (let track of this.playing_tracks) {
+      if (track.uuid === uuid) {
+        track.volume = volume;
+        if (track === this.currently_playing) {
+          this.updateVolume();
+        }
+        return;
+      }
+    }
+  }
+
   onPlay(subscriber: (HTMLAudioElement, AudioTrack) => void) {
     if (!this.node) {
       return;

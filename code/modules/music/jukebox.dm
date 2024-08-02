@@ -134,15 +134,27 @@
 			var/new_volume = params["volume"]
 			if(new_volume  == "reset")
 				volume = initial(volume)
+				if (currently_playing)
+					currently_playing.track_volume = volume * 0.01
+					currently_playing.update_volume()
 				return TRUE
 			else if(new_volume == "min")
 				volume = 0
+				if (currently_playing)
+					currently_playing.track_volume = volume * 0.01
+					currently_playing.update_volume()
 				return TRUE
 			else if(new_volume == "max")
 				volume = 100
+				if (currently_playing)
+					currently_playing.track_volume = volume * 0.01
+					currently_playing.update_volume()
 				return TRUE
 			else if(text2num(new_volume) != null)
 				volume = text2num(new_volume)
+				if (currently_playing)
+					currently_playing.track_volume = volume * 0.01
+					currently_playing.update_volume()
 				return TRUE
 
 /obj/machinery/jukebox/proc/activate_music()
@@ -154,6 +166,7 @@
 	if (currently_playing)
 		currently_playing.stop_playing_to_clients()
 	currently_playing = selection.play()
+	currently_playing.track_volume = volume * 0.01
 	ui_update()
 	// TEMP
 	for (var/client/C in GLOB.clients)

@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(music)
 	// Not-critical, worse case scenario is that we send someone a song which
 	// is already finished and they just don't play it
 	flags = SS_BACKGROUND
-	wait = 20 SECONDS
+	wait = 10 SECONDS
 	init_order = INIT_ORDER_MUSIC
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	var/index = 1

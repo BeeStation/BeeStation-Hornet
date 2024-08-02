@@ -39,13 +39,13 @@ export const audioMiddleware = (store) => {
   return (next) => (action) => {
     const { type, payload } = action;
     if (type === 'audio/playMusic') {
-      const { uuid, url, priority, playing_flags, ...options } = payload;
-      player.play(new AudioTrack(uuid, url, priority, playing_flags, options));
+      const { uuid, url, priority, playing_flags, volume, ...options } = payload;
+      player.play(new AudioTrack(uuid, url, priority, volume, playing_flags, options));
       return next(action);
     }
     if (type === 'audio/playWorldMusic') {
-      const { uuid, url, priority, playing_flags, x, y, z, range, ...options } = payload;
-      let worldTrack = new AudioTrack(uuid, url, priority, playing_flags, options);
+      const { uuid, url, priority, playing_flags, x, y, z, range, volume, ...options } = payload;
+      let worldTrack = new AudioTrack(uuid, url, priority, volume, playing_flags, options);
       worldTrack.pos_x = x;
       worldTrack.pos_y = y;
       worldTrack.pos_z = z;
@@ -70,6 +70,11 @@ export const audioMiddleware = (store) => {
     }
     if (type === 'audio/muteMusic') {
       player.toggleMute();
+      return next(action);
+    }
+    if (type === 'audio/updateVolume') {
+      const { uuid, volume } = payload;
+      player.setTrackVolume(uuid, volume);
       return next(action);
     }
     if (type === 'settings/update' || type === 'settings/load') {

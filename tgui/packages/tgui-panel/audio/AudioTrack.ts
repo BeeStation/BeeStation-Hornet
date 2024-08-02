@@ -23,7 +23,7 @@ export class AudioTrack {
   positional_blend: number;
   playing_flags: PlayingFlags;
 
-  constructor(uuid:number, url: string, priority: number, playing_flags: PlayingFlags, options: { pitch?: number, start?: number, end?: number }) {
+  constructor(uuid:number, url: string, priority: number, volume: number, playing_flags: PlayingFlags, options: { pitch?: number, start?: number, end?: number }) {
     // UUID of the track
     this.uuid = uuid;
     // URL of the track
@@ -33,7 +33,7 @@ export class AudioTrack {
     // The flags of the track
     this.playing_flags = playing_flags;
     // Volume of the track
-    this.volume = 1;
+    this.volume = volume;
     // Time that the track started in milliseconds
     this.created_at = new Date().getTime();
     // Additional options to pass to the track
@@ -74,7 +74,7 @@ export class AudioTrack {
       const distance = Math.sqrt(dx * dx + dy * dy);
       positionalVolume = Math.max(0, 1 - (distance / this.range));
     }
-    return positionalVolume * this.positional_blend + this.volume * (1 - this.positional_blend);
+    return (positionalVolume * this.positional_blend + (1 - this.positional_blend)) * this.volume;
   }
 
   /**
