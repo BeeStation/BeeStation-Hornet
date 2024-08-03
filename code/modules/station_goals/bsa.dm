@@ -161,7 +161,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 
 	var/last_charge_quarter = 0
 
-	var/particles/laser
 
 /obj/machinery/power/bsa/full/wrench_act(mob/living/user, obj/item/I)
 	return FALSE
