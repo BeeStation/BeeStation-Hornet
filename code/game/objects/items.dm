@@ -275,7 +275,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B.loc == loc && !(resistance_flags & INDESTRUCTIBLE))
-		qdel(src)
+		obj_destruction(MELEE)
 
 /obj/item/ComponentInitialize()
 	. = ..()
