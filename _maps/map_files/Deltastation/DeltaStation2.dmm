@@ -37004,12 +37004,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/techfloor,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/techfloorgrid{
+	dir = 10
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison/shielded)
@@ -48079,9 +48081,6 @@
 /area/crew_quarters/toilet/restrooms)
 "iQa" = (
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/techfloor{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -48095,6 +48094,9 @@
 	id_tag = "prisonereducation";
 	name = "Solitary Confinement";
 	req_one_access_txt = "1;4"
+	},
+/obj/effect/turf_decal/tile/techfloorgrid{
+	dir = 5
 	},
 /turf/open/floor/iron/dark/side{
 	dir = 1
@@ -53215,6 +53217,12 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
+"kwz" = (
+/obj/effect/turf_decal/tile/techfloorgrid{
+	dir = 5
+	},
+/turf/open/space/basic,
+/area/space)
 "kwD" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -69242,13 +69250,13 @@
 	name = "Solitary Confinement";
 	req_one_access_txt = "1;4"
 	},
-/obj/effect/turf_decal/techfloor{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/locked,
+/obj/effect/turf_decal/tile/techfloorgrid{
+	dir = 9
+	},
 /turf/open/floor/iron/dark,
 /area/security/prison/shielded)
 "pFL" = (
@@ -157344,7 +157352,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+kwz
 aaa
 aaa
 aaa
