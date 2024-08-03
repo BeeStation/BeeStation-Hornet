@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Made hacking easier across the board by lowering the security areas of
-      some areas and revealing more wires.
-  - balance: Cutting wires on airlocks is no longer guaranteed to shock you.
