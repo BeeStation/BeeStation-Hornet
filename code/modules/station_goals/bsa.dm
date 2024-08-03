@@ -141,7 +141,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 
 	var/power_used_per_shot = 5000000
 	var/obj/item/stock_parts/cell/cell
-	var/obj/machinery/power/terminal/terminal
+	var/obj/machinery/power/terminal/invisible/terminal
 	use_power = NO_POWER_USE
 	idle_power_usage = 50 // when idle
 
@@ -149,6 +149,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	pixel_x = -192
 	bound_width = 352
 	bound_x = -192
+	density = TRUE
 	appearance_flags = NONE //Removes default TILE_BOUND
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
@@ -168,6 +169,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 /obj/machinery/power/bsa/full/Destroy()
 	. = ..()
 	QDEL_NULL(cell)
+	QDEL_NULL(terminal)
 
 /obj/machinery/power/bsa/full/proc/get_front_turf()
 	switch(dir)
@@ -196,7 +198,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 /obj/machinery/power/bsa/full/proc/make_terminal(turf/T)
 	// create a terminal object at the same position as original turf loc
 	// wires will attach to this
-	terminal = new /obj/machinery/power/terminal(T)
+	terminal = new /obj/machinery/power/terminal/invisible(T)
 	terminal.master = src
 
 /obj/machinery/power/bsa/full/Initialize(mapload, cannon_direction = WEST)
