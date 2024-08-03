@@ -1,0 +1,6 @@
+author: mystery3525
+delete-after: true
+changes:
+  - bugfix: Oversight which made infrequent runtimes with mining mechs
+  - bugfix: Mining mechs should actually spawn 25% of the time instead of 16% of the
+      time.
