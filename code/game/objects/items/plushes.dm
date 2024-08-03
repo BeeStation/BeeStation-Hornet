@@ -909,7 +909,7 @@
 			item_list[initial(I.name)] = choice
 	return item_list
 
-/obj/item/toy/plush/sillycons/
+/obj/item/toy/plush/sillycons
 	name = "Cyborg"
 	desc = "Always stays by the AIs side."
 	icon_state = "borgplush_default"
