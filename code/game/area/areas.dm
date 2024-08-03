@@ -8,8 +8,10 @@
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
 	layer = AREA_LAYER
-	//Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
+	/// Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
 	plane = BLACKNESS_PLANE
+	/// when multiple areas should have the same name, set this. get_area_navigation_name() proc will use name variable if this is null
+	var/navigation_area_name
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
 
@@ -639,3 +641,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 /area/proc/get_turf_textures()
 	return list()
+
+/// returns a name of the area. some subtype area needs to return different value.
+/area/proc/get_navigation_area_name()
+	return navigation_area_name || name

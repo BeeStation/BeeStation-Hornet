@@ -299,7 +299,7 @@
 			call_mode()
 			return
 		if(BOT_SUMMON)		//Called by PDA
-			bot_summon()
+			summon_step()
 			return
 	return TRUE //Successful completion. Used to prevent child process() continuing if this one is ended early.
 
@@ -797,7 +797,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 				access_card.access = user_access + prev_access //Adds the user's access, if any.
 			mode = BOT_SUMMON
 			speak("Responding.", radio_channel)
-			calc_summon_path()
 
 		if("ejectpai")
 			ejectpairemote(user)
@@ -824,9 +823,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 			return
 		else
 			to_chat(src, "<span class='warning'>Unidentified control sequence received:[command]</span>")
-
-/mob/living/simple_animal/bot/proc/bot_summon() // summoned to PDA
-	summon_step()
 
 // calculates a path to the current destination
 // given an optional turf to avoid
