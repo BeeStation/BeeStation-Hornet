@@ -4,18 +4,9 @@ import { Window } from '../layouts';
 
 export const BluespaceArtillery = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    notice,
-    connected,
-    unlocked,
-    target,
-    charge,
-    max_charge,
-  } = data;
+  const { notice, connected, unlocked, target, charge, max_charge } = data;
   return (
-    <Window
-      width={400}
-      height={280}>
+    <Window width={400} height={280}>
       <Window.Content>
         {!!notice && <NoticeBox>{notice}</NoticeBox>}
         {connected ? (
@@ -27,7 +18,8 @@ export const BluespaceArtillery = (props, context) => {
                   average: [0.2, 0.99],
                   bad: [-Infinity, 0.2],
                 }}
-                value={charge / max_charge} />
+                value={charge / max_charge}
+              />
             </Section>
             <Section
               title="Target"
