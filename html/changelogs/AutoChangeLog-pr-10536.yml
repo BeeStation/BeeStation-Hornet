@@ -1,7 +1,0 @@
-author: rkz, mothblocks, ZephyrTFA, kubisopplay
-delete-after: true
-changes:
-  - tweak: Dead/Catatonic mobs cannot have a split personality anymore.
-  - bugfix: Resolves issues related to split personality shitcode sending clients
-      to lobby.
-  - bugfix: updates verbs on login to prevent weird inheritance of verbs

@@ -1,8 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Chemical factories now use power instead of matter.
-  - rscdel: Removes pill presses and patch dispensors.
-  - tweak: Bottle dispensors no longer produce glass bottles out of nowhere, they
-      now require a bottle to fill.
-  - bugfix: The plumbing RCD can now print bottle fillers.
