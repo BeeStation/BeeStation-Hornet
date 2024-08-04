@@ -20,7 +20,7 @@
 	if(holder)
 		playsound(holder, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
-/obj/item/computer_hardware/hard_drive/role/on_remove(obj/item/modular_computer/remove_from, mob/user)
+/obj/item/computer_hardware/hard_drive/role/on_remove(obj/item/mainboard/remove_from, mob/user)
 	return
 
 /obj/item/computer_hardware/hard_drive/role/Initialize(mapload)

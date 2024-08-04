@@ -53,7 +53,7 @@
 /datum/computer_file/program/radar/ui_data(mob/user)
 	var/list/data = list()
 	// PDAs should not have full radar capabilities
-	data["full_capability"] = !istype(computer, /obj/item/modular_computer/tablet/pda)
+	data["full_capability"] = !istype(computer.physical_holder, /obj/item/modular_computer/tablet/pda)
 	data["selected"] = selected
 	data["objects"] = list()
 	data["scanning"] = (world.time < next_scan)
@@ -134,7 +134,7 @@
 		else if(z_comparison_result_value > 0)
 			pointer_z = "caret-down"
 
-	if(dist > 24 || istype(computer, /obj/item/modular_computer/tablet/pda))
+	if(dist > 24 || istype(computer.physical_holder, /obj/item/modular_computer/tablet/pda))
 		use_rotate = TRUE
 		rotate_angle = round(get_angle(here_turf, target_turf))
 

@@ -1,47 +1,57 @@
-/obj/item/computer_hardware/card_slot
+/obj/item/computer_hardware/id_slot
 	name = "primary RFID card module"	// \improper breaks the find_hardware_by_name proc
 	desc = "A module allowing this computer to read or write data on ID cards. Necessary for some programs to run properly."
 	power_usage = 10 //W
 	icon_state = "card_mini"
 	w_class = WEIGHT_CLASS_TINY
-	device_type = MC_CARD
+	device_type = MC_ID_AUTH
 
+	/// The card within this id slot
 	var/obj/item/card/id/stored_card
-	var/current_identification
-	var/current_job
 
-/obj/item/computer_hardware/card_slot/handle_atom_del(atom/A)
+	/// The current identification
+	var/current_identification
+	/// THe current job
+	var/current_job
+	/// Whether we should auto imprint IDs into our saved_identification and saved_job
+	var/auto_imprint = FALSE
+	/// The cached ID name
+	var/saved_identification
+	/// The cached job name
+	var/saved_job
+
+/obj/item/computer_hardware/id_slot/handle_atom_del(atom/A)
 	if(A == stored_card)
 		try_eject(forced = TRUE)
 	. = ..()
 
-/obj/item/computer_hardware/card_slot/Destroy()
+/obj/item/computer_hardware/id_slot/Destroy()
 	if(stored_card) //If you didn't expect this behavior for some dumb reason, do something different instead of directly destroying the slot
 		QDEL_NULL(stored_card)
 	return ..()
 
-/obj/item/computer_hardware/card_slot/GetAccess()
+/obj/item/computer_hardware/id_slot/GetAccess()
 	var/list/total_access
 	if(stored_card)
 		total_access = stored_card.GetAccess()
-	var/obj/item/computer_hardware/card_slot/card_slot2 = holder?.all_components[MC_CARD2] //Best of both worlds
+	var/obj/item/computer_hardware/id_slot/card_slot2 = holder?.all_components[MC_ID_MODIFY] //Best of both worlds
 	if(card_slot2?.stored_card)
 		total_access |= card_slot2.stored_card.GetAccess()
 	return total_access
 
-/obj/item/computer_hardware/card_slot/GetID()
+/obj/item/computer_hardware/id_slot/GetID()
 	if(stored_card)
 		return stored_card
 	return ..()
 
-/obj/item/computer_hardware/card_slot/RemoveID()
+/obj/item/computer_hardware/id_slot/RemoveID()
 	if(stored_card)
 		. = stored_card
 		if(!try_eject())
 			return null
 		return
 
-/obj/item/computer_hardware/card_slot/try_insert(obj/item/I, mob/living/user = null)
+/obj/item/computer_hardware/id_slot/try_insert(obj/item/I, mob/living/user = null)
 	if(!holder)
 		return FALSE
 
@@ -79,7 +89,7 @@
 	return TRUE
 
 
-/obj/item/computer_hardware/card_slot/try_eject(mob/living/user = null, forced = FALSE)
+/obj/item/computer_hardware/id_slot/try_eject(mob/living/user = null, forced = FALSE)
 	if(!stored_card)
 		to_chat(user, "<span class='warning'>There are no cards in \the [src].</span>")
 		return FALSE
@@ -110,7 +120,7 @@
 	holder?.ui_update()
 	return TRUE
 
-/obj/item/computer_hardware/card_slot/attackby(obj/item/I, mob/living/user)
+/obj/item/computer_hardware/id_slot/attackby(obj/item/I, mob/living/user)
 	if(..())
 		return
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
@@ -124,22 +134,22 @@
 /**
   *Swaps the card_slot hardware between using the dedicated card slot bay on a computer, and using an expansion bay.
 */
-/obj/item/computer_hardware/card_slot/proc/swap_slot()
+/obj/item/computer_hardware/id_slot/proc/swap_slot()
 	expansion_hw = !expansion_hw
 	if(expansion_hw)
-		device_type = MC_CARD2
+		device_type = MC_ID_MODIFY
 		name = "secondary RFID card module"
 	else
-		device_type = MC_CARD
+		device_type = MC_ID_AUTH
 		name = "primary RFID card module"
 
-/obj/item/computer_hardware/card_slot/examine(mob/user)
+/obj/item/computer_hardware/id_slot/examine(mob/user)
 	. = ..()
 	. += "The connector is set to fit into [expansion_hw ? "an expansion bay" : "a computer's primary ID bay"], but can be adjusted with a screwdriver."
 	if(stored_card)
 		. += "There appears to be something loaded in the card slots."
 
-/obj/item/computer_hardware/card_slot/secondary
+/obj/item/computer_hardware/id_slot/secondary
 	name = "secondary RFID card module"
-	device_type = MC_CARD2
+	device_type = MC_ID_MODIFY
 	expansion_hw = TRUE

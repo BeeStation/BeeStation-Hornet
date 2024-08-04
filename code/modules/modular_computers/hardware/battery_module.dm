@@ -4,8 +4,10 @@
 	icon_state = "cell_con"
 	critical = 1
 	malfunction_probability = 1
-	var/obj/item/stock_parts/cell/battery
 	device_type = MC_CELL
+
+	/// The internal battery
+	var/obj/item/stock_parts/cell/battery
 
 /obj/item/computer_hardware/battery/get_cell()
 	return battery
@@ -36,7 +38,7 @@
 		to_chat(user, "<span class='warning'>You try to connect \the [I] to \the [src], but its connectors are occupied.</span>")
 		return FALSE
 
-	if(I.w_class > holder.max_hardware_size)
+	if(I.w_class > holder.max_hardware_w_class)
 		to_chat(user, "<span class='warning'>This power cell is too large for \the [holder]!</span>")
 		return FALSE
 

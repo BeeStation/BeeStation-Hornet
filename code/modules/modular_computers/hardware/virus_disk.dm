@@ -16,16 +16,16 @@
 		to_chat(user, "<span class='notice'>ERROR: Out of charges.</span>")
 		return
 
-	if(target)
+	if(istype(target))
 		to_chat(user, "<span class='notice'>Success!</span>")
 		charges--
-		target.honk_amount = rand(15, 25)
+		target.mainboard?.honks_left = rand(15, 25)
 	else
 		to_chat(user, "<span class='notice'>ERROR: Could not find device.</span>")
 
 /obj/item/computer_hardware/hard_drive/role/virus/clown/process_pre_attack(atom/target, mob/living/user, params)
 	// only run if we're inside a computer
-	if(!istype(loc, /obj/item/modular_computer))
+	if(!istype(loc, /obj/item/mainboard))
 		return ..()
 	if(!ismachinery(target))
 		return TRUE
@@ -63,7 +63,7 @@
 	if(target)
 		to_chat(user, "<span class='notice'>Success!</span>")
 		charges--
-		var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
+		var/obj/item/computer_hardware/hard_drive/drive = target.mainboard?.all_components[MC_HDD]
 		for(var/datum/computer_file/program/messenger/app in drive.stored_files)
 			app.ringer_status = FALSE
 			app.ringtone = ""
@@ -85,7 +85,7 @@
 	charges--
 
 	var/difficulty = 0
-	var/obj/item/computer_hardware/hard_drive/role/disk = target.all_components[MC_HDD_JOB]
+	var/obj/item/computer_hardware/hard_drive/role/disk = target.mainboard?.all_components[MC_HDD_JOB]
 
 	if(disk)
 		difficulty += bit_count(disk.disk_flags & (DISK_MED | DISK_SEC | DISK_POWER | DISK_MANIFEST))

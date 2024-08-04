@@ -65,7 +65,7 @@
 	if(istype(id))
 		. = id.registered_name
 	else if(istype(tablet))
-		var/obj/item/computer_hardware/card_slot/card_slot = tablet.all_components[MC_CARD]
+		var/obj/item/computer_hardware/id_slot/card_slot = tablet.all_components[MC_ID_AUTH]
 		if(card_slot?.stored_card)
 			. = card_slot.stored_card.registered_name
 	if(!.)
@@ -170,7 +170,7 @@
 	for(var/obj/item/found_item in search_through)
 		if(istype(found_item, /obj/item/modular_computer)) // if it's a PDA, we'll find a card
 			var/obj/item/modular_computer/found_PDA = found_item
-			var/obj/item/computer_hardware/card_slot/found_card_slot = found_PDA.all_components[MC_CARD]
+			var/obj/item/computer_hardware/id_slot/found_card_slot = found_PDA.all_components[MC_ID_AUTH]
 			found_item = found_card_slot?.stored_card // swap found_item to the actual ID card we want to add
 			if(!found_item) //Empty ID slot, skip it
 				continue

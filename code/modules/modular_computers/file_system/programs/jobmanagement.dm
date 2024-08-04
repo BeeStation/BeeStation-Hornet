@@ -46,7 +46,7 @@
 	if(..())
 		return
 
-	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
+	var/obj/item/computer_hardware/id_slot/card_slot = computer.all_components[MC_ID_AUTH]
 	var/obj/item/card/id/user_id = card_slot?.stored_card
 
 	if(!user_id || !(ACCESS_CHANGE_IDS in user_id.access))
@@ -98,7 +98,7 @@
 	var/list/data = list()
 
 	var/authed = FALSE
-	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
+	var/obj/item/computer_hardware/id_slot/card_slot = computer.all_components[MC_ID_AUTH]
 	var/obj/item/card/id/user_id = card_slot?.stored_card
 	if(user_id && (ACCESS_CHANGE_IDS in user_id.access))
 		authed = TRUE

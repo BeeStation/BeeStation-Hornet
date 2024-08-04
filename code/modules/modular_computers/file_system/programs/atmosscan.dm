@@ -13,7 +13,8 @@
 	. = ..()
 	if (!.)
 		return
-	if(!computer?.get_modular_computer_part(MC_SENSORS)) //Giving a clue to users why the program is spitting out zeros.
+	var/obj/item/computer_hardware/sensorpackage/sensors = computer.all_components[MC_SENSORS]
+	if(isnull(sensors)) //Giving a clue to users why the program is spitting out zeros.
 		to_chat(user, "<span class='warning'>\The [computer] flashes an error: \"hardware\\sensorpackage\\startup.bin -- file not found\".</span>")
 
 
@@ -21,7 +22,7 @@
 	var/list/data = list()
 	var/list/airlist = list()
 	var/turf/T = get_turf(computer.ui_host())
-	var/obj/item/computer_hardware/sensorpackage/sensors = computer?.get_modular_computer_part(MC_SENSORS)
+	var/obj/item/computer_hardware/sensorpackage/sensors = computer?.all_components[MC_SENSORS]
 	if(T && sensors?.check_functionality())
 		var/datum/gas_mixture/environment = T.return_air()
 		var/pressure = environment.return_pressure()

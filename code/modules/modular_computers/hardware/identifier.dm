@@ -7,7 +7,12 @@
 	expansion_hw = FALSE
 
 /obj/item/computer_hardware/identifier/proc/UpdateDisplay()
-	var/name = holder.saved_identification
-	var/job = holder.saved_job
+	var/obj/item/computer_hardware/id_slot/id_slot = holder.all_components[MC_ID_AUTH]
+	if(!istype(id_slot))
+		return
 
-	holder.name = "PDA-[name] ([job])"
+	var/obj/item/mainboard/physical_holder = holder.physical_holder
+	if(!istype(physical_holder))
+		return
+
+	physical_holder.name = "PDA-[id_slot.saved_identification] ([id_slot.saved_job])"

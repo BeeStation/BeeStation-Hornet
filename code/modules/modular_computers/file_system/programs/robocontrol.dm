@@ -24,7 +24,7 @@
 	var/list/botlist = list()
 	var/list/mulelist = list()
 
-	var/obj/item/computer_hardware/card_slot/card_slot = computer ? computer.all_components[MC_CARD] : null
+	var/obj/item/computer_hardware/id_slot/card_slot = computer ? computer.all_components[MC_ID_AUTH] : null
 	data["have_id_slot"] = !!card_slot
 	if(computer)
 		var/obj/item/card/id/id_card = card_slot ? card_slot.stored_card : ""
@@ -73,10 +73,10 @@
 /datum/computer_file/program/robocontrol/ui_act(action, list/params)
 	if(..())
 		return TRUE
-	var/obj/item/computer_hardware/card_slot/card_slot
+	var/obj/item/computer_hardware/id_slot/card_slot
 	var/obj/item/card/id/id_card
 	if(computer)
-		card_slot = computer.all_components[MC_CARD]
+		card_slot = computer.all_components[MC_ID_AUTH]
 		if(card_slot)
 			id_card = card_slot.stored_card
 

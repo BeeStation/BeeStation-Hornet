@@ -15,17 +15,17 @@
 	. = ..()
 	if(.)
 		return
+	var/obj/item/modular_computer/tablet/tablet = computer.physical_holder
+	if(!istype(tablet))
+		return
 
 	switch(action)
 		if("UpdateNote")
-			var/obj/item/modular_computer/tablet/tablet = computer
-			if(!istype(tablet))
-				return
 			tablet.note = params["newnote"]
 			return TRUE
+
 		if("ShowPaper")
-			var/obj/item/modular_computer/tablet/tablet = computer
-			if(!istype(tablet) || QDELETED(tablet.stored_paper))
+			if(QDELETED(tablet.stored_paper))
 				return
 			tablet.stored_paper.ui_interact(usr)
 			return TRUE
@@ -33,7 +33,7 @@
 
 /datum/computer_file/program/notepad/ui_data(mob/user)
 	var/list/data = list()
-	var/obj/item/modular_computer/tablet/tablet = computer
+	var/obj/item/modular_computer/tablet/tablet = computer.physical_holder
 	if(!istype(tablet))
 		return data
 	data["note"] = tablet.note

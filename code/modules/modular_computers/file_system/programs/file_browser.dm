@@ -18,7 +18,7 @@
 		return
 
 	var/obj/item/computer_hardware/hard_drive/HDD = computer.all_components[MC_HDD]
-	var/obj/item/computer_hardware/hard_drive/RHDD = computer.all_components[MC_SDD]
+	var/obj/item/computer_hardware/hard_drive/portable/RHDD = computer.all_components[MC_R_HDD]
 
 	switch(action)
 		if("PRG_deletefile")
@@ -91,7 +91,7 @@
 	var/list/data = list()
 
 	var/obj/item/computer_hardware/hard_drive/HDD = computer.all_components[MC_HDD]
-	var/obj/item/computer_hardware/hard_drive/portable/RHDD = computer.all_components[MC_SDD]
+	var/obj/item/computer_hardware/hard_drive/portable/RHDD = computer.all_components[MC_R_HDD]
 	if(error)
 		data["error"] = error
 	if(!computer || !HDD)

@@ -31,7 +31,7 @@
 	//For some reason everything was exploding if this was static.
 	var/list/sub_managers
 
-/datum/computer_file/program/card_mod/New(obj/item/modular_computer/comp)
+/datum/computer_file/program/card_mod/New(obj/item/mainboard/comp)
 	. = ..()
 	sub_managers = list(
 		"[ACCESS_HOP]" = list(
@@ -104,8 +104,8 @@
 	if(!computer)
 		return
 
-	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
-	var/obj/item/computer_hardware/card_slot/card_slot2 = computer.all_components[MC_CARD2]
+	var/obj/item/computer_hardware/id_slot/card_slot = computer.all_components[MC_ID_AUTH]
+	var/obj/item/computer_hardware/id_slot/card_slot2 = computer.all_components[MC_ID_MODIFY]
 	var/obj/item/computer_hardware/printer/printer = computer.all_components[MC_PRINT]
 	if(!card_slot || !card_slot2)
 		return
@@ -349,11 +349,11 @@
 
 	data["station_name"] = station_name()
 
-	var/obj/item/computer_hardware/card_slot/card_slot2
+	var/obj/item/computer_hardware/id_slot/card_slot2
 	var/obj/item/computer_hardware/printer/printer
 
 	if(computer)
-		card_slot2 = computer.all_components[MC_CARD2]
+		card_slot2 = computer.all_components[MC_ID_MODIFY]
 		printer = computer.all_components[MC_PRINT]
 		data["have_id_slot"] = !!(card_slot2)
 		data["have_printer"] = !!(printer)

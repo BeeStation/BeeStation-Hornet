@@ -33,7 +33,7 @@
 		var/mob/living/carbon/human/U = user
 		id = U.get_idcard(TRUE)
 	else if(computer)
-		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
+		var/obj/item/computer_hardware/id_slot/card_slot = computer.all_components[MC_ID_AUTH]
 		id = card_slot?.GetID()
 	return id ? id : FALSE
 

@@ -116,7 +116,7 @@
 
 /obj/item/modular_computer/tablet/pda/heads/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/card_slot/secondary)
+	install_component(new /obj/item/computer_hardware/id_slot/secondary)
 
 /obj/item/modular_computer/tablet/pda/heads/head_of_personnel
 	name = "head of personnel PDA"

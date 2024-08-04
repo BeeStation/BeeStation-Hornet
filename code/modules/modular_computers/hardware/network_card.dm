@@ -92,7 +92,7 @@
 	name = "cyborg data link"
 
 /obj/item/computer_hardware/network_card/integrated/get_signal(specific_action = 0)
-	var/obj/item/modular_computer/tablet/integrated/modularInterface = holder
+	var/obj/item/modular_computer/tablet/integrated/modularInterface = holder.physical_holder
 
 	if(!modularInterface || !istype(modularInterface))
 		return FALSE //wrong type of tablet

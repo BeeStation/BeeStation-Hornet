@@ -3,20 +3,13 @@
 	icon = 'icons/obj/modular_tablet.dmi'
 	icon_state = "tablet-red"
 	worn_icon_state = "pda"
-	icon_state_unpowered = "tablet"
-	icon_state_powered = "tablet"
-	icon_state_menu = "menu"
-	hardware_flag = PROGRAM_TABLET
+	var/icon_state_unpowered = "tablet"
+	var/icon_state_powered = "tablet"
+	var/icon_state_menu = "menu"
 	max_hardware_size = 1
 	w_class = WEIGHT_CLASS_SMALL
-	max_bays = 3
-	steel_sheet_cost = 1
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
-	has_light = TRUE //LED flashlight!
-	comp_light_luminosity = 2.3 //Same as the PDA
 	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION
-	can_save_id = TRUE
-	saved_auto_imprint = TRUE
 
 	var/has_variants = TRUE
 	var/finish_color = null
@@ -50,14 +43,6 @@
 		icon_state = "tablet-[finish_color]"
 		icon_state_unpowered = "tablet-[finish_color]"
 		icon_state_powered = "tablet-[finish_color]"
-
-/obj/item/modular_computer/tablet/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	var/obj/item/card/id/inserted_id = GetID() // chain EMP to cards
-	if(inserted_id)
-		inserted_id.emp_act(severity)
 
 /obj/item/modular_computer/tablet/proc/try_scan_paper(obj/target, mob/user)
 	if(!istype(target, /obj/item/paper))
@@ -374,7 +359,7 @@
 	var/init_icon = initial(icon)
 	if(!init_icon)
 		return
-	var/obj/item/computer_hardware/card_slot/card = all_components[MC_CARD]
+	var/obj/item/computer_hardware/id_slot/card = all_components[MC_ID_AUTH]
 	if(card)
 		if(card.stored_card)
 			add_overlay(mutable_appearance(init_icon, "id_overlay"))
@@ -394,7 +379,7 @@
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
 	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
 	install_component(new /obj/item/computer_hardware/network_card)
-	install_component(new /obj/item/computer_hardware/card_slot)
+	install_component(new /obj/item/computer_hardware/id_slot)
 	install_component(new /obj/item/computer_hardware/identifier)
 	install_component(new /obj/item/computer_hardware/sensorpackage)
 

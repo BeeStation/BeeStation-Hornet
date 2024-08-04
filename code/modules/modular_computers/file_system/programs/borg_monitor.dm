@@ -77,7 +77,7 @@
 				to_chat(usr, "<span class='warning'>ERROR: Prohibited word(s) detected in message.</span>")
 				return
 			to_chat(usr, "<br><br><span class='notice'>Message to [R] (as [sender_name]) -- \"[message]\"</span><br>")
-			computer.send_sound()
+			computer.play_success_sound()
 			to_chat(R, "<br><br><span class='notice'>Message from [sender_name] -- \"[message]\"</span><br>")
 			SEND_SOUND(R, 'sound/machines/twobeep_high.ogg')
 			if(R.connected_ai)

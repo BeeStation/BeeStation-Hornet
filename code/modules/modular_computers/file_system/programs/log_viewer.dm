@@ -50,7 +50,7 @@
 		return data
 	var/list/datum/computer_file/data/log_file/data_files = list()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
-	var/obj/item/computer_hardware/hard_drive/ssd = computer.all_components[MC_SDD]
+	var/obj/item/computer_hardware/hard_drive/ssd = computer.all_components[MC_R_HDD]
 	if(hard_drive)
 		for(var/datum/computer_file/data/log_file/file in hard_drive.stored_files)
 			data_files += file

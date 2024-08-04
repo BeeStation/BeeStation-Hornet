@@ -20,7 +20,8 @@
 	if (!.)
 		return
 	set_frequency(signal_frequency)
-	if(!computer?.get_modular_computer_part(MC_SIGNALLER)) //Giving a clue to users why the program is spitting out zeros.
+	var/obj/item/computer_hardware/radio_card/signaller = computer.all_components[MC_SIGNALLER]
+	if(isnull(signaller)) //Giving a clue to users why the program is spitting out zeros.
 		to_chat(user, "<span class='warning'>\The [computer] flashes an error: \"hardware\\signal_hardware\\startup.bin -- file not found\".</span>")
 
 /datum/computer_file/program/signaller/kill_program(forced)
@@ -29,7 +30,7 @@
 
 /datum/computer_file/program/signaller/ui_data(mob/user)
 	var/list/data = list()
-	var/obj/item/computer_hardware/radio_card/sensor = computer?.get_modular_computer_part(MC_SIGNALLER)
+	var/obj/item/computer_hardware/radio_card/sensor = computer.all_components[MC_SIGNALLER]
 	if(sensor?.check_functionality())
 		data["frequency"] = signal_frequency
 		data["code"] = signal_code
@@ -41,7 +42,7 @@
 /datum/computer_file/program/signaller/ui_act(action, list/params)
 	if(..())
 		return TRUE
-	var/obj/item/computer_hardware/radio_card/sensor = computer?.get_modular_computer_part(MC_SIGNALLER)
+	var/obj/item/computer_hardware/radio_card/sensor = computer.all_components[MC_SIGNALLER]
 	if(!(sensor?.check_functionality()))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 100, FALSE)
 		return
@@ -85,7 +86,7 @@
 		return
 	if(signal.data["code"] != signal_code)
 		return
-	var/obj/item/computer_hardware/radio_card/sensor = computer?.get_modular_computer_part(MC_SIGNALLER)
+	var/obj/item/computer_hardware/radio_card/sensor = computer.all_components[MC_SIGNALLER]
 	if(!(sensor?.check_functionality()))
 		return
 	computer.audible_message("[icon2html(computer, hearers(computer))] *beep* *beep* *beep*", null, 1)

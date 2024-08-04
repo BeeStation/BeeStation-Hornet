@@ -19,13 +19,13 @@
 	return ..()
 
 /datum/computer_file/program/borg_self_monitor/on_start(mob/living/user)
-	if(!istype(computer, /obj/item/modular_computer/tablet/integrated))
+	var/obj/item/modular_computer/tablet/integrated/tablet = computer.physical_holder
+	if(isnull(tablet))
 		to_chat(user, "<span class='warning'>A warning flashes across \the [computer]: Device Incompatible.</span>")
 		return FALSE
 	. = ..()
 	if(.)
-		tablet = computer
-		if(tablet.device_theme == THEME_SYNDICATE)
+		if(tablet.mainboard.device_theme == THEME_SYNDICATE)
 			program_icon_state = "command-syndicate"
 		return TRUE
 	return FALSE

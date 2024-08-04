@@ -30,14 +30,14 @@
 	w_class = WEIGHT_CLASS_SMALL // Can't be installed into tablets/PDAs
 
 /obj/item/computer_hardware/recharger/APC/use_power(amount, charging=0)
-	if(ismachinery(holder.physical))
-		var/obj/machinery/M = holder.physical
-		if(M.powered())
-			M.use_power(amount)
+	var/obj/machinery/modular_computer/physical_holder = holder.physical_holder
+	if(istype(physical_holder))
+		if(physical_holder.powered())
+			physical_holder.use_power(amount)
 			return 1
-
-	else
-		var/area/A = get_area(src)
+	else if (!isnull(holder.physical_holder))
+		var/atom/movable/AM = holder.physical_holder
+		var/area/A = get_area(AM)
 		if(!istype(A))
 			return 0
 
@@ -52,30 +52,34 @@
 	icon_state = "charger_wire"
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/computer_hardware/recharger/wired/can_install(obj/item/modular_computer/install_into, mob/living/user = null)
-	if(ismachinery(install_into.physical) && install_into.physical.anchored)
+/obj/item/computer_hardware/recharger/wired/can_install_component(atom/movable/install_into, mob/living/user = null)
+	var/obj/machinery/modular_computer/physical_holder = install_into
+	if(istype(physical_holder) && physical_holder.anchored)
 		return ..()
-	to_chat(user, "<span class='warning'>\The [src] is incompatible with portable computers!</span>")
-	return 0
+	if(user)
+		to_chat(user, "<span class='warning'>\The [src] can only be installed in modular computers!</span>")
+	return FALSE
 
 /obj/item/computer_hardware/recharger/wired/use_power(amount, charging=0)
-	if(ismachinery(holder.physical) && holder.physical.anchored)
-		var/obj/machinery/M = holder.physical
-		var/turf/T = M.loc
-		if(!T || !istype(T))
-			return 0
+	var/obj/machinery/modular_computer/physical_holder = holder.physical_holder
+	if(!istype(physical_holder) || !physical_holder.anchored)
+		return FALSE
 
-		var/obj/structure/cable/C = T.get_cable_node()
-		if(!C || !C.powernet)
-			return 0
+	var/turf/T = physical_holder.loc
+	if(!T || !istype(T))
+		return FALSE
 
-		var/power_in_net = C.powernet.avail-C.powernet.load
+	var/obj/structure/cable/C = T.get_cable_node()
+	if(!C || !C.powernet)
+		return FALSE
 
-		if(power_in_net && power_in_net > amount)
-			C.powernet.load += amount
-			return 1
+	var/power_in_net = C.powernet.avail - C.powernet.load
 
-	return 0
+	if(power_in_net && power_in_net > amount)
+		C.powernet.load += amount
+		return TRUE
+
+	return FALSE
 
 /// This recharger exists only in borg built-in tablets. I would have tied it to the borg's cell but
 /// the program that displays laws should always be usable, and the exceptions were starting to pile.

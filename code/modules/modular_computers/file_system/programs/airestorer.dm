@@ -14,29 +14,26 @@
 	/// Variable dictating if we are in the process of restoring the AI in the inserted intellicard
 	var/restoring = FALSE
 
-/datum/computer_file/program/aidiag/proc/get_ai(cardcheck)
+/datum/computer_file/program/aidiag/proc/get_ai_slot()
+	var/obj/item/computer_hardware/goober/ai/ai_slot = computer.all_components[MC_AI]
+	if(isnull(ai_slot) || !ai_slot.check_functionality())
+		return
 
-	var/obj/item/computer_hardware/ai_slot/ai_slot
+	return ai_slot
 
-	if(computer)
-		ai_slot = computer.all_components[MC_AI]
+/datum/computer_file/program/aidiag/proc/get_ai_card()
+	var/obj/item/computer_hardware/goober/ai/ai_slot = get_ai_slot()
+	return ai_slot?.stored_card
 
-	if(computer && ai_slot && ai_slot.check_functionality())
-		if(cardcheck == 1)
-			return ai_slot
-		if(ai_slot.enabled && ai_slot.stored_card)
-			if(cardcheck == 2)
-				return ai_slot.stored_card
-			if(ai_slot.stored_card.AI)
-				return ai_slot.stored_card.AI
-
-	return
+/datum/computer_file/program/aidiag/proc/get_ai_mob()
+	var/obj/item/aicard/ai_card = get_ai_card()
+	return ai_card?.AI
 
 /datum/computer_file/program/aidiag/ui_act(action, params)
 	if(..())
 		return
 
-	var/mob/living/silicon/ai/A = get_ai()
+	var/mob/living/silicon/ai/A = get_ai_mob()
 	if(!A)
 		restoring = FALSE
 
@@ -47,22 +44,22 @@
 				A.notify_ghost_cloning("Your core files are being restored!", source = computer)
 			return TRUE
 		if("PRG_eject")
-			if(computer.all_components[MC_AI])
-				var/obj/item/computer_hardware/ai_slot/ai_slot = computer.all_components[MC_AI]
-				if(ai_slot?.stored_card)
-					ai_slot.try_eject(usr)
-					return TRUE
+			var/obj/item/computer_hardware/goober/ai/ai_slot = get_ai_slot()
+			if(!istype(ai_slot))
+				return
+
+			if(ai_slot.stored_card)
+				ai_slot.try_eject(usr)
+				return TRUE
 
 /datum/computer_file/program/aidiag/process_tick()
 	. = ..()
 	if(!restoring)	//Put the check here so we don't check for an ai all the time
 		return
-	var/obj/item/aicard/cardhold = get_ai(2)
+	var/obj/item/computer_hardware/goober/ai/ai_slot = get_ai_slot()
+	var/obj/item/aicard/cardhold = get_ai_card()
+	var/mob/living/silicon/ai/A = get_ai_mob()
 
-	var/obj/item/computer_hardware/ai_slot/ai_slot = get_ai(1)
-
-
-	var/mob/living/silicon/ai/A = get_ai()
 	if(!A || !cardhold)
 		restoring = FALSE	// If the AI was removed, stop the restoration sequence.
 		if(ai_slot)
@@ -91,17 +88,16 @@
 
 /datum/computer_file/program/aidiag/ui_data(mob/user)
 	var/list/data = list()
-	var/mob/living/silicon/ai/AI = get_ai()
-
-	var/obj/item/aicard/aicard = get_ai(2)
+	var/mob/living/silicon/ai/AI = get_ai_mob()
+	var/obj/item/aicard/aicard = get_ai_card()
 
 	data["ejectable"] = TRUE
 	data["AI_present"] = FALSE
 	data["error"] = null
-	if(!aicard)
+	if(isnull(aicard))
 		data["error"] = "Please insert an intelliCard."
 	else
-		if(!AI)
+		if(isnull(AI))
 			data["error"] = "No AI located"
 		else
 			var/obj/item/aicard/cardhold = AI.loc

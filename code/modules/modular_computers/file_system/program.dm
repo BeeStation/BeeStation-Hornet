@@ -7,7 +7,7 @@
 	/// List of required access to download or file host the program
 	var/list/transfer_access = list()
 	var/program_state = PROGRAM_STATE_KILLED// PROGRAM_STATE_KILLED or PROGRAM_STATE_BACKGROUND or PROGRAM_STATE_ACTIVE - specifies whether this program is running.
-	var/obj/item/modular_computer/computer	// Device that runs this program.
+	var/obj/item/mainboard/computer			// Device that runs this program.
 	var/filedesc = "Unknown Program"		// User-friendly name of this program.
 	/// Category in the NTDownloader.
 	var/category = PROGRAM_CATEGORY_MISC
@@ -36,11 +36,11 @@
 	/// If this program should process attack_obj calls
 	var/use_attack_obj = FALSE
 
-/datum/computer_file/program/New(obj/item/modular_computer/comp = null)
+/datum/computer_file/program/New(obj/item/mainboard/comp = null)
 	..()
 	if(istype(comp))
 		computer = comp
-	else if(istype(holder?.holder, /obj/item/modular_computer))
+	else if(istype(holder?.holder, /obj/item/mainboard))
 		computer = holder.holder
 
 /datum/computer_file/program/Destroy()
@@ -65,7 +65,7 @@
 // Attempts to create a log in global ntnet datum. Returns 1 on success, 0 on fail.
 /datum/computer_file/program/proc/generate_network_log(text)
 	if(computer)
-		return computer.add_log(text)
+		return computer.send_ntnet_log(text)
 	return 0
 
 /datum/computer_file/program/proc/is_supported_by_hardware(hardware_flag = 0, loud = 0, mob/user = null)
@@ -118,9 +118,9 @@
 
 	if(!length(access))
 		var/obj/item/card/id/access_card
-		var/obj/item/computer_hardware/card_slot/card_slot
+		var/obj/item/computer_hardware/id_slot/card_slot
 		if(computer)
-			card_slot = computer.all_components[MC_CARD]
+			card_slot = computer.all_components[MC_ID_AUTH]
 			access_card = card_slot?.GetID()
 
 		if(!access_card)

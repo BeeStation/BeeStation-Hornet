@@ -118,7 +118,7 @@
 	id = "cardslot"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 600, /datum/material/copper = 100)
-	build_path = /obj/item/computer_hardware/card_slot
+	build_path = /obj/item/computer_hardware/id_slot
 	category = list("Computer Parts")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
@@ -128,7 +128,17 @@
 	id = "aislot"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 600, /datum/material/copper = 100)
-	build_path = /obj/item/computer_hardware/ai_slot
+	build_path = /obj/item/computer_hardware/goober/ai
+	category = list("Computer Parts")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+
+// pAI slot
+/datum/design/aislot
+	name = "Personal Intelligence Slot"
+	id = "paislot"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 600, /datum/material/copper = 100)
+	build_path = /obj/item/computer_hardware/goober/pai
 	category = list("Computer Parts")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
