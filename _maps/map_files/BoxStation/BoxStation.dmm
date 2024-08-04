@@ -384,9 +384,7 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "aeF" = (
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/structure/closet/wardrobe/miner,
 /turf/open/floor/iron,
 /area/quartermaster/miningdock)
@@ -7015,7 +7013,7 @@
 "bwL" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/box,
-/obj/machinery/plumbing/pill_press{
+/obj/machinery/plumbing/output{
 	dir = 4
 	},
 /turf/open/floor/iron/white,
@@ -8910,9 +8908,7 @@
 /area/medical/storage)
 "bNo" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 24
-	},
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "bNq" = (
@@ -12596,9 +12592,7 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 24
-	},
+/obj/machinery/airalarm/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -12614,9 +12608,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/structure/rack,
 /obj/item/storage/toolbox/electrical{
 	pixel_x = -3;
@@ -21636,9 +21628,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron,
 /area/storage/tools)
 "eWJ" = (
@@ -22097,9 +22087,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "fhx" = (
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/structure/table,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -22216,9 +22204,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "fjO" = (
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/item/kirbyplants/random,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/heads/hor)
@@ -22623,9 +22609,7 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 24
-	},
+/obj/machinery/airalarm/directional/north,
 /obj/item/storage/box/monkeycubes{
 	pixel_x = 2;
 	pixel_y = -2
@@ -22712,9 +22696,7 @@
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/hud/health,
 /obj/item/reagent_containers/spray/cleaner,
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 24
-	},
+/obj/machinery/airalarm/directional/north,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
@@ -26134,9 +26116,7 @@
 /turf/open/floor/iron,
 /area/quartermaster/miningdock)
 "gZX" = (
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 24
-	},
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "haa" = (
@@ -33433,9 +33413,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/item/radio/intercom{
 	desc = "Talk through this. It looks like it has been modified to not broadcast.";
 	name = "Prison Intercom (General)";
@@ -35503,9 +35481,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/cryopods)
 "kZn" = (
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/machinery/computer/security/telescreen/vault{
 	pixel_y = 30
 	},
@@ -35604,9 +35580,7 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
 "lbC" = (
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -36305,9 +36279,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "loO" = (
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "loU" = (
@@ -43099,9 +43071,7 @@
 /area/crew_quarters/bar)
 "opX" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -44616,14 +44586,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "paJ" = (
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /obj/structure/closet/secure_closet/engineering_personal,
 /turf/open/floor/iron,
@@ -44779,9 +44745,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "pgi" = (
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -45417,9 +45381,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "ptc" = (
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 24
-	},
+/obj/machinery/airalarm/directional/north,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
@@ -46408,9 +46370,7 @@
 /area/security/main)
 "pOj" = (
 /obj/structure/chair,
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/machinery/camera/autoname/directional/east,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -47452,9 +47412,7 @@
 "qoW" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/effect/turf_decal/tile/black/fourcorners,
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron/grid/steel,
 /area/ai_monitored/storage/eva)
 "qpi" = (
@@ -48134,9 +48092,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "qEH" = (
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/machinery/camera/autoname/directional/east,
 /turf/open/floor/iron,
 /area/hydroponics/garden)
@@ -48991,9 +48947,7 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 4
 	},
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room)
@@ -52276,9 +52230,7 @@
 /area/hallway/primary/central)
 "soZ" = (
 /obj/effect/turf_decal/loading_area,
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/structure/closet/firecloset,
 /turf/open/floor/iron/dark,
 /area/science/nanite)
@@ -53144,9 +53096,7 @@
 /turf/closed/wall/r_wall,
 /area/storage/tech)
 "sHz" = (
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 24
-	},
+/obj/machinery/airalarm/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -54519,9 +54469,7 @@
 /area/medical/chemistry)
 "tiq" = (
 /obj/machinery/hydroponics/constructable,
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron/dark,
 /area/hydroponics)
 "tjb" = (
@@ -54572,9 +54520,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/fitness)
 "tjw" = (
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 24
-	},
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
 "tjy" = (
@@ -59962,9 +59908,7 @@
 	pixel_y = 2
 	},
 /obj/item/reagent_containers/dropper,
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/science/lab)
