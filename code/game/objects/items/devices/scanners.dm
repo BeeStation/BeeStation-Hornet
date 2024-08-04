@@ -462,14 +462,14 @@ GENE SCANNER
 				else if (H.is_bandaged())
 					message += "<span class='alert'><b>Subject is bleeding (Bandaged)!</b></span>"
 			var/blood_percent =  round((C.blood_volume / BLOOD_VOLUME_NORMAL)*100)
-			var/blood_type = C.dna.blood_type
+			var/blood_type = C.dna.blood_type.name
 			if(blood_id != /datum/reagent/blood)//special blood substance
 				var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 				if(R)
 					blood_type = R.name
 				else
 					blood_type = blood_id
-			var/blood_info = "[blood_type] (Compatible: [jointext(get_safe_blood(blood_type), ", ")])"
+			var/blood_info = "[blood_type] (Compatible: [jointext(get_blood_type(blood_type), ", ")])"
 			if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
 				message += "<span class='alert'>Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span> <span class='info'>type: [blood_info]</span>"
 			else if(C.blood_volume <= BLOOD_VOLUME_OKAY)
