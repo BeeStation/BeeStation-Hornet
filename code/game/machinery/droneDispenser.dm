@@ -232,7 +232,7 @@
 	else
 		return ..()
 
-/obj/machinery/drone_dispenser/atom_break(damage_flag)
+/obj/machinery/droneDispenser/atom_break(damage_flag)
 	. = ..()
 	if(!.)
 		return
