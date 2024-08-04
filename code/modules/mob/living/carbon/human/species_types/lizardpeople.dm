@@ -24,6 +24,7 @@
 	deathsound = 'sound/voice/lizard/deathsound.ogg'
 	species_language_holder = /datum/language_holder/lizard
 	digitigrade_customization = DIGITIGRADE_OPTIONAL
+	blush_color = COLOR_BLUSH_TEAL
 
 	// Lizards are coldblooded and can stand a greater temperature range than humans
 	bodytemp_heat_damage_limit = (BODYTEMP_HEAT_DAMAGE_LIMIT + 20) // This puts lizards 10 above lavaland max heat for ash lizards.
@@ -97,3 +98,9 @@
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/lungs/ashwalker
 	digitigrade_customization = DIGITIGRADE_FORCED
+
+/datum/species/lizard/ashwalker/spec_life(mob/living/carbon/human/H)
+	. = ..()
+	H.cauterise_wounds(0.1)
+	if (H.blood_volume < BLOOD_VOLUME_NORMAL && !H.is_bleeding())
+		H.blood_volume += 0.5

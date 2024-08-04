@@ -316,6 +316,10 @@
   * on the item in the slot if the users active hand is empty
   */
 /mob/proc/attack_ui(slot)
+	if(world.time <= usr.next_move)
+		return FALSE
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return FALSE
 	var/obj/item/W = get_active_held_item()
 	if(istype(W))
 		//IF HELD TRY APPLY TO SLOT
@@ -401,7 +405,7 @@
 		)
 
 	for(var/slot in slot_priority)
-		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE, FALSE, FALSE)) //qdel_on_fail = 0; disable_warning = 1; redraw_mob = 1
+		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE, TRUE, FALSE, FALSE)) //qdel_on_fail = FALSE; disable_warning = TRUE; redraw_mob = TRUE;
 			return TRUE
 
 	if(qdel_on_fail)
@@ -434,41 +438,44 @@
 			return B
 
 /**
-  * Reset the attached clients perspective (viewpoint)
-  *
-  * reset_perspective() set eye to common default : mob on turf, loc otherwise
-  * reset_perspective(thing) set the eye to the thing (if it's equal to current default reset to mob perspective)
-  */
-/mob/proc/reset_perspective(atom/A)
-	if(client)
-		if(A)
-			if(ismovable(A))
-				//Set the the thing unless it's us
-				if(A != src)
-					client.perspective = EYE_PERSPECTIVE
-					client.eye = A
-				else
-					client.eye = client.mob
-					client.perspective = MOB_PERSPECTIVE
-			else if(isturf(A))
-				//Set to the turf unless it's our current turf
-				if(A != loc)
-					client.perspective = EYE_PERSPECTIVE
-					client.eye = A
-				else
-					client.eye = client.mob
-					client.perspective = MOB_PERSPECTIVE
-			else
-				//Do nothing
-		else
-			//Reset to common defaults: mob if on turf, otherwise current loc
-			if(isturf(loc))
-				client.eye = client.mob
-				client.perspective = MOB_PERSPECTIVE
-			else
+ * Reset the attached clients perspective (viewpoint)
+ *
+ * reset_perspective(null) set eye to common default : mob on turf, loc otherwise
+ * reset_perspective(thing) set the eye to the thing (if it's equal to current default reset to mob perspective)
+ */
+/mob/proc/reset_perspective(atom/new_eye)
+	SHOULD_CALL_PARENT(TRUE)
+	if(!client)
+		return
+
+	if(new_eye)
+		if(ismovable(new_eye))
+			//Set the the thing unless it's us
+			if(new_eye != src)
 				client.perspective = EYE_PERSPECTIVE
-				client.eye = loc
-		return TRUE
+				client.set_eye(new_eye)
+			else
+				client.set_eye(client.mob)
+				client.perspective = MOB_PERSPECTIVE
+		else if(isturf(new_eye))
+			//Set to the turf unless it's our current turf
+			if(new_eye != loc)
+				client.perspective = EYE_PERSPECTIVE
+				client.set_eye(new_eye)
+			else
+				client.set_eye(client.mob)
+				client.perspective = MOB_PERSPECTIVE
+		else
+			//Do nothing
+	else
+		//Reset to common defaults: mob if on turf, otherwise current loc
+		if(isturf(loc))
+			client.set_eye(client.mob)
+			client.perspective = MOB_PERSPECTIVE
+		else
+			client.perspective = EYE_PERSPECTIVE
+			client.set_eye(loc)
+	return TRUE
 
 /**
   * Examine a mob
@@ -511,7 +518,7 @@
 	//you can only initiate exaimines if you have a hand, it's not disabled, and only as many examines as you have hands
 	/// our active hand, to check if it's disabled/detatched
 	var/obj/item/bodypart/active_hand = has_active_hand()? get_active_hand() : null
-	if(!active_hand || active_hand.is_disabled() || LAZYLEN(do_afters) >= get_num_arms())
+	if(!active_hand || active_hand.bodypart_disabled || LAZYLEN(do_afters) >= usable_hands)
 		to_chat(src, "<span class='warning'>You don't have a free hand to examine this!</span>")
 		return FALSE
 
@@ -896,8 +903,6 @@
 			return pick(protection_sources)
 		else
 			return src
-	if((magic && HAS_TRAIT(src, TRAIT_ANTIMAGIC)) || (holy && HAS_TRAIT(src, TRAIT_HOLY)))
-		return src
 
 ///Return any anti artifact atom on this mob
 /mob/proc/anti_artifact_check(self = FALSE)
@@ -909,7 +914,7 @@
 			return src
 
 /**
-  * Buckle to another mob
+  * Buckle a living mob to this mob
   *
   * You can buckle on mobs if you're next to them since most are dense
   *
@@ -946,14 +951,6 @@
 		if(L.mob_size <= MOB_SIZE_SMALL) //being on top of a small mob doesn't put you very high.
 			return 0
 	return 9
-
-///can the mob be buckled to something by default?
-/mob/proc/can_buckle()
-	return TRUE
-
-///can the mob be unbuckled from something by default?
-/mob/proc/can_unbuckle()
-	return 1
 
 ///Can the mob interact() with an atom?
 /mob/proc/can_interact_with(atom/A, treat_mob_as_adjacent)
@@ -1222,9 +1219,10 @@
 /mob/proc/set_nutrition(var/change) //Seriously fuck you oldcoders.
 	nutrition = max(0, change)
 
-///Set the movement type of the mob and update it's movespeed
-/mob/setMovetype(newval)
+/mob/setMovetype(newval) //Set the movement type of the mob and update it's movespeed
 	. = ..()
+	if(isnull(.))
+		return
 	update_movespeed(FALSE)
 
 /mob/proc/update_equipment_speed_mods()
@@ -1251,6 +1249,7 @@
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat)
 	. = stat
 	stat = new_stat
+	update_action_buttons_icon(TRUE)
 
 /mob/proc/set_active_storage(new_active_storage)
 	if(active_storage)

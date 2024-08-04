@@ -398,7 +398,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/cerulean/Initialize(mapload)
 	. = ..()
-	while(crystals < 3)
+	for (var/i in 1 to 10) // doesn't guarantee 3 but it's a good effort
 		spawn_crystal()
 
 /obj/structure/slime_crystal/cerulean/proc/spawn_crystal()
@@ -448,7 +448,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 	var/list/range_objects = range(3,src)
 
-	for(var/obj/effect/decal/cleanable/trail_holder/TH in range_objects)
+	for(var/obj/effect/decal/cleanable/blood/trail_holder/TH in range_objects)
 		qdel(TH)
 
 		blood_amt++

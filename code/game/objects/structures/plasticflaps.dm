@@ -3,7 +3,7 @@
 	desc = "Heavy duty, airtight, plastic flaps. Definitely can't get past those. No way."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "plasticflaps"
-	armor = list(MELEE = 100,  BULLET = 80, LASER = 80, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 50, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 100,  BULLET = 80, LASER = 80, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 50, ACID = 50, STAMINA = 0, BLEED = 0)
 	density = FALSE
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER
@@ -95,7 +95,7 @@
 		if(istype(living_mover.buckled, /mob/living/simple_animal/bot/mulebot)) // mulebot passenger gets a free pass.
 			return TRUE
 
-		if((living_mover.mobility_flags & MOBILITY_STAND) && !living_mover.ventcrawler && living_mover.mob_size != MOB_SIZE_TINY)	//If your not laying down, or a ventcrawler or a small creature, no pass.
+		if(living_mover.body_position == STANDING_UP && living_mover.mob_size != MOB_SIZE_TINY && !living_mover.ventcrawler)	//If your not laying down, or a ventcrawler or a small creature, no pass.
 			return FALSE
 
 /obj/structure/plasticflaps/deconstruct(disassembled = TRUE)

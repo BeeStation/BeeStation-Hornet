@@ -1,3 +1,8 @@
+/**
+ * TILE STACKS
+ *
+ * Allows us to place a turf on a plating.
+ */
 /obj/item/stack/tile
 	name = "broken tile"
 	singular_name = "broken tile"
@@ -15,10 +20,14 @@
 	material_flags = MATERIAL_EFFECTS
 	/// What type of turf does this tile produce.
 	var/turf_type = null
-	/// Determines certain welder interactions.
-	var/mineralType = null
+	/// What dir will the turf have?
+	var/turf_dir = SOUTH
 	/// Cached associative lazy list to hold the radial options for tile reskinning. See tile_reskinning.dm for more information. Pattern: list[type] -> image
 	var/list/tile_reskin_types
+	/// Cached associative lazy list to hold the radial options for tile dirs. See tile_reskinning.dm for more information.
+	var/list/tile_rotate_dirs
+	/// Allows us to replace the plating we are attacking if our baseturfs are the same.
+	var/replace_plating = FALSE
 
 /obj/item/stack/tile/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
@@ -26,9 +35,16 @@
 	pixel_y = rand(-3, 3) //randomize a little
 	if(tile_reskin_types)
 		tile_reskin_types = tile_reskin_list(tile_reskin_types)
+	if(tile_rotate_dirs)
+		var/list/values = list()
+		for(var/set_dir in tile_rotate_dirs)
+			values += dir2text(set_dir)
+		tile_rotate_dirs = tile_dir_list(values, turf_type)
 
 /obj/item/stack/tile/examine(mob/user)
 	. = ..()
+	if(tile_reskin_types || tile_rotate_dirs)
+		. += "<span class='notice'>Use while in your hand to change what type of [src] you want.</span>"
 	if(throwforce && !is_cyborg) //do not want to divide by zero or show the message to borgs who can't throw
 		var/verb
 		switch(CEILING(MAX_LIVING_HEALTH / throwforce, 1)) //throws to crit a human
@@ -46,55 +62,44 @@
 			return
 		. += "<span class='notice'>Those could work as a [verb] throwing weapon.</span>"
 
-/obj/item/stack/tile/attackby(obj/item/W, mob/user, params)
-	if (W.tool_behaviour == TOOL_WELDER)
-		if(get_amount() < 4)
-			to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
-			return
-
-		if(!mineralType)
-			to_chat(user, "<span class='warning'>You can not reform this!</span>")
-			return
-
-		if(W.use_tool(src, user, 0, volume=40))
-			if(mineralType == "plasma")
-				atmos_spawn_air("plasma=5;TEMP=1000")
-				user.visible_message("<span class='warning'>[user.name] sets the plasma tiles on fire!</span>", \
-									"<span class='warning'>You set the plasma tiles on fire!</span>")
-				qdel(src)
-				return
-
-			if (mineralType == "iron")
-				var/obj/item/stack/sheet/iron/new_item = new(user.loc)
-				user.visible_message("[user.name] shaped [src] into iron with the welding tool.", \
-							 "<span class='notice'>You shaped [src] into iron with the welding tool.</span>", \
-							 "<span class='italics'>You hear welding.</span>")
-				var/obj/item/stack/rods/R = src
-				src = null
-				var/replace = (user.get_inactive_held_item()==R)
-				R.use(4)
-				if (!R && replace)
-					user.put_in_hands(new_item)
-
-			else
-				var/sheet_type = text2path("/obj/item/stack/sheet/mineral/[mineralType]")
-				var/obj/item/stack/sheet/mineral/new_item = new sheet_type(user.loc)
-				user.visible_message("[user.name] shaped [src] into a sheet with the welding tool.", \
-							 "<span class='notice'>You shaped [src] into a sheet with the welding tool.</span>", \
-							 "<span class='italics'>You hear welding.</span>")
-				var/obj/item/stack/rods/R = src
-				src = null
-				var/replace = (user.get_inactive_held_item()==R)
-				R.use(4)
-				if (!R && replace)
-					user.put_in_hands(new_item)
-	else
-		return ..()
-
-/obj/item/stack/tile/proc/place_tile(turf/open/T)
-	if(!turf_type || !use(1))
+/**
+ * Place our tile on a plating, or replace it.
+ *
+ * Arguments:
+ * * target_plating - Instance of the plating we want to place on. Replaced during sucessful executions.
+ * * user - The mob doing the placing.
+ */
+/obj/item/stack/tile/proc/place_tile(turf/open/floor/plating/target_plating, mob/user)
+	var/turf/placed_turf_path = turf_type
+	if(!ispath(placed_turf_path))
 		return
-	. = T.PlaceOnTop(turf_type, flags = CHANGETURF_INHERIT_AIR)
+	if(!istype(target_plating))
+		return
+
+	if(!replace_plating)
+		if(!use(1))
+			return
+		target_plating = target_plating.PlaceOnTop(placed_turf_path, flags = CHANGETURF_INHERIT_AIR)
+		target_plating.setDir(turf_dir)
+		playsound(target_plating, 'sound/weapons/genhit.ogg', 50, TRUE)
+		return target_plating // Most executions should end here.
+
+	// If we and the target tile share the same initial baseturf and they consent, replace em.
+	if(!target_plating.allow_replacement || initial(target_plating.baseturfs) != initial(placed_turf_path.baseturfs))
+		to_chat(user, "<span class='notice'>You cannot place this tile here directly!</span>")
+		return
+	to_chat(user, "<span class='notice'>You begin replacing the floor with the tile...</span>")
+	if(!do_after(user, 3 SECONDS, target_plating))
+		return
+	if(!istype(target_plating))
+		return
+	if(!use(1))
+		return
+
+	target_plating = target_plating.ChangeTurf(placed_turf_path, target_plating.baseturfs, CHANGETURF_INHERIT_AIR)
+	target_plating.setDir(turf_dir)
+	playsound(target_plating, 'sound/weapons/genhit.ogg', 50, TRUE)
+	return target_plating
 
 //Grass
 /obj/item/stack/tile/grass
@@ -105,6 +110,7 @@
 	item_state = "tile-grass"
 	turf_type = /turf/open/floor/grass
 	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/tile/grass
 
 /obj/item/stack/tile/grass/attackby(obj/item/W, mob/user, params)
 	if((W.tool_behaviour == TOOL_SHOVEL) && params)
@@ -127,6 +133,7 @@
 	item_state = "tile-fairygrass"
 	turf_type = /turf/open/floor/grass/fairy
 	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/tile/fairygrass
 	color = "#33CCFF"
 
 /obj/item/stack/tile/fairygrass/white
@@ -134,6 +141,7 @@
 	singular_name = "white fairygrass floor tile"
 	desc = "A patch of odd, glowing white grass."
 	turf_type = /turf/open/floor/grass/fairy/white
+	merge_type = /obj/item/stack/tile/fairygrass/white
 	color = "#FFFFFF"
 
 /obj/item/stack/tile/fairygrass/red
@@ -141,6 +149,7 @@
 	singular_name = "red fairygrass floor tile"
 	desc = "A patch of odd, glowing red grass."
 	turf_type = /turf/open/floor/grass/fairy/red
+	merge_type = /obj/item/stack/tile/fairygrass/red
 	color = "#FF3333"
 
 /obj/item/stack/tile/fairygrass/orange
@@ -148,6 +157,7 @@
 	singular_name = "orange fairygrass floor tile"
 	desc = "A patch of odd, glowing orange grass."
 	turf_type = /turf/open/floor/grass/fairy/orange
+	merge_type = /obj/item/stack/tile/fairygrass/orange
 	color = "#FFA500"
 
 /obj/item/stack/tile/fairygrass/yellow
@@ -155,6 +165,7 @@
 	singular_name = "yellow fairygrass floor tile"
 	desc = "A patch of odd, glowing yellow grass."
 	turf_type = /turf/open/floor/grass/fairy/yellow
+	merge_type = /obj/item/stack/tile/fairygrass/blue
 	color = "#FFFF66"
 
 /obj/item/stack/tile/fairygrass/green
@@ -162,6 +173,7 @@
 	singular_name = "green fairygrass floor tile"
 	desc = "A patch of odd, glowing green grass."
 	turf_type = /turf/open/floor/grass/fairy/green
+	merge_type = /obj/item/stack/tile/fairygrass/blue
 	color = "#99FF99"
 
 /obj/item/stack/tile/fairygrass/blue
@@ -169,12 +181,14 @@
 	singular_name = "blue fairygrass floor tile"
 	desc = "A patch of odd, glowing blue grass."
 	turf_type = /turf/open/floor/grass/fairy/blue
+	merge_type = /obj/item/stack/tile/fairygrass/blue
 
 /obj/item/stack/tile/fairygrass/purple
 	name = "purple fairygrass tile"
 	singular_name = "purple fairygrass floor tile"
 	desc = "A patch of odd, glowing purple grass."
 	turf_type = /turf/open/floor/grass/fairy/purple
+	merge_type = /obj/item/stack/tile/fairygrass/purple
 	color = "#D966FF"
 
 /obj/item/stack/tile/fairygrass/pink
@@ -182,6 +196,7 @@
 	singular_name = "pink fairygrass floor tile"
 	desc = "A patch of odd, glowing pink grass."
 	turf_type = /turf/open/floor/grass/fairy/pink
+	merge_type = /obj/item/stack/tile/fairygrass/pink
 	color = "#FFB3DA"
 
 /obj/item/stack/tile/fairygrass/dark
@@ -189,6 +204,7 @@
 	singular_name = "dark fairygrass floor tile"
 	desc = "A patch of odd, light consuming grass."
 	turf_type = /turf/open/floor/grass/fairy/dark
+	merge_type = /obj/item/stack/tile/fairygrass/dark
 	color = "#410096"
 
 //Wood
@@ -200,6 +216,7 @@
 	item_state = "tile-wood"
 	turf_type = /turf/open/floor/wood
 	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/tile/wood
 
 //Bamboo
 /obj/item/stack/tile/bamboo
@@ -209,6 +226,7 @@
 	icon_state = "tile-bamboo"
 	item_state = "tile-bamboo"
 	turf_type = /turf/open/floor/bamboo
+	merge_type = /obj/item/stack/tile/bamboo
 	resistance_flags = FLAMMABLE
 
 //Basalt
@@ -219,6 +237,7 @@
 	icon_state = "tile_basalt"
 	item_state = "tile-basalt"
 	turf_type = /turf/open/floor/grass/fakebasalt
+	merge_type = /obj/item/stack/tile/basalt
 
 //Carpets
 /obj/item/stack/tile/carpet
@@ -230,6 +249,29 @@
 	turf_type = /turf/open/floor/carpet
 	resistance_flags = FLAMMABLE
 	tableVariant = /obj/structure/table/wood/fancy
+	merge_type = /obj/item/stack/tile/carpet
+	tile_reskin_types = list(
+		/obj/item/stack/tile/carpet,
+		/obj/item/stack/tile/carpet/symbol,
+		/obj/item/stack/tile/carpet/star,
+	)
+
+/obj/item/stack/tile/carpet/symbol
+	name = "symbol carpet"
+	singular_name = "symbol carpet tile"
+	icon_state = "tile-carpet-symbol"
+	desc = "A piece of carpet. This one has a symbol on it."
+	turf_type = /turf/open/floor/carpet/lone
+	merge_type = /obj/item/stack/tile/carpet/symbol
+	tile_rotate_dirs = list(SOUTH, NORTH, EAST, WEST, SOUTHEAST)
+
+/obj/item/stack/tile/carpet/star
+	name = "star carpet"
+	singular_name = "star carpet tile"
+	icon_state = "tile-carpet-star"
+	desc = "A piece of carpet. This one has a star on it."
+	turf_type = /turf/open/floor/carpet/lone/star
+	merge_type = /obj/item/stack/tile/carpet/star
 
 /obj/item/stack/tile/carpet/black
 	name = "black carpet"
@@ -318,12 +360,10 @@
 	merge_type = /obj/item/stack/tile/carpet/grimy
 	turf_type = /turf/open/floor/carpet/grimy
 
-/*
-/obj/item/stack/tile/material/place_tile(turf/open/T)
+/obj/item/stack/tile/material/place_tile(turf/open/target_plating, mob/user)
 	. = ..()
-	var/turf/open/floor/material/F = .
-	F?.set_custom_materials(mats_per_unit)
-*/
+	var/turf/open/floor/material/floor = .
+	floor?.set_custom_materials(mats_per_unit)
 
 /obj/item/stack/tile/eighties
 	name = "retro tile"
@@ -467,6 +507,7 @@
 	icon_state = "tile_bcircuit"
 	item_state = "tile-bcircuit"
 	turf_type = /turf/open/floor/circuit
+	merge_type = /obj/item/stack/tile/circuit
 
 /obj/item/stack/tile/circuit/green
 	name = "green circuit tile"
@@ -475,9 +516,11 @@
 	icon_state = "tile_gcircuit"
 	item_state = "tile-gcircuit"
 	turf_type = /turf/open/floor/circuit/green
+	merge_type = /obj/item/stack/tile/circuit/green
 
 /obj/item/stack/tile/circuit/green/anim
 	turf_type = /turf/open/floor/circuit/green/anim
+	merge_type = /obj/item/stack/tile/circuit/green/anim
 
 /obj/item/stack/tile/circuit/red
 	name = "red circuit tile"
@@ -486,9 +529,11 @@
 	icon_state = "tile_rcircuit"
 	item_state = "tile-rcircuit"
 	turf_type = /turf/open/floor/circuit/red
+	merge_type = /obj/item/stack/tile/circuit/red
 
 /obj/item/stack/tile/circuit/red/anim
 	turf_type = /turf/open/floor/circuit/red/anim
+	merge_type = /obj/item/stack/tile/circuit/red/anim
 
 //Pod floor
 /obj/item/stack/tile/pod
@@ -498,6 +543,12 @@
 	icon_state = "tile_pod"
 	item_state = "tile-pod"
 	turf_type = /turf/open/floor/pod
+	merge_type = /obj/item/stack/tile/pod
+	tile_reskin_types = list(
+		/obj/item/stack/tile/pod,
+		/obj/item/stack/tile/pod/light,
+		/obj/item/stack/tile/pod/dark,
+		)
 
 /obj/item/stack/tile/pod/light
 	name = "light pod floor tile"
@@ -505,6 +556,7 @@
 	desc = "A lightly colored grooved floor tile."
 	icon_state = "tile_podlight"
 	turf_type = /turf/open/floor/pod/light
+	merge_type = /obj/item/stack/tile/pod/light
 
 /obj/item/stack/tile/pod/dark
 	name = "dark pod floor tile"
@@ -512,25 +564,7 @@
 	desc = "A darkly colored grooved floor tile."
 	icon_state = "tile_poddark"
 	turf_type = /turf/open/floor/pod/dark
-
-//Plasteel (normal)
-/obj/item/stack/tile/iron
-	name = "floor tile"
-	singular_name = "floor tile"
-	desc = "The ground you walk on."
-	icon_state = "tile"
-	item_state = "tile"
-	force = 6
-	mats_per_unit = list(/datum/material/iron=500)
-	throwforce = 10
-	flags_1 = CONDUCT_1
-	turf_type = /turf/open/floor/iron
-	mineralType = "iron"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
-	resistance_flags = FIRE_PROOF
-	matter_amount = 1
-	cost = 125
-	source = /datum/robot_energy_storage/metal
+	merge_type = /obj/item/stack/tile/pod/dark
 
 //Monotiles
 
@@ -541,6 +575,7 @@
 	icon_state = "tile"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile
+	merge_type = /obj/item/stack/tile/mono
 
 /obj/item/stack/tile/mono/dark
 	name = "dark mono tile"
@@ -549,6 +584,7 @@
 	icon_state = "tile"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile/dark
+	merge_type = /obj/item/stack/tile/mono/dark
 
 /obj/item/stack/tile/mono/light
 	name = "light mono tile"
@@ -557,6 +593,7 @@
 	icon_state = "tile"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile/light
+	merge_type = /obj/item/stack/tile/mono/light
 
 //Bay grids
 /obj/item/stack/tile/grid
@@ -566,6 +603,7 @@
 	icon_state = "tile_grid"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/iron/grid
+	merge_type = /obj/item/stack/tile/grid
 
 /obj/item/stack/tile/ridge
 	name = "grey ridge tile"
@@ -574,6 +612,7 @@
 	icon_state = "tile_ridged"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/iron/ridged
+	merge_type = /obj/item/stack/tile/ridge
 
 //Techtiles
 /obj/item/stack/tile/techgrey
@@ -583,7 +622,7 @@
 	icon_state = "tile_tech_grey"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/iron/tech
-
+	merge_type = /obj/item/stack/tile/techgrey
 /obj/item/stack/tile/techgrid
 	name = "grid techfloor tile"
 	singular_name = "grid techfloor tile"
@@ -591,6 +630,7 @@
 	icon_state = "tile_tech_grid"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/iron/tech/grid
+	merge_type = /obj/item/stack/tile/techgrid
 
 /obj/item/stack/tile/techmaint
 	name = "dark techfloor tile"
@@ -599,6 +639,36 @@
 	icon_state = "tile_tech_maint"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/iron/techmaint
+	merge_type = /obj/item/stack/tile/techmaint
+
+// Glass floors
+/obj/item/stack/tile/glass
+	name = "glass floor"
+	singular_name = "glass floor tile"
+	desc = "Glass window floors, to let you see... Whatever that is down there."
+	icon_state = "tile_glass"
+	turf_type = /turf/open/floor/glass
+	item_state = "tile-glass"
+	merge_type = /obj/item/stack/tile/glass
+	mats_per_unit = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT * 0.25) // 4 tiles per sheet
+	replace_plating = TRUE
+
+/obj/item/stack/tile/glass/sixty
+	amount = 60
+
+/obj/item/stack/tile/rglass
+	name = "reinforced glass floor"
+	singular_name = "reinforced glass floor tile"
+	desc = "Reinforced glass window floors. These bad boys are 50% stronger than their predecessors!"
+	icon_state = "tile_rglass"
+	item_state = "tile-rglass"
+	turf_type = /turf/open/floor/glass/reinforced
+	merge_type = /obj/item/stack/tile/rglass
+	mats_per_unit = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT * 0.125, /datum/material/glass=MINERAL_MATERIAL_AMOUNT * 0.25) // 4 tiles per sheet
+	replace_plating = TRUE
+
+/obj/item/stack/tile/rglass/sixty
+	amount = 60
 
 /obj/item/stack/tile/dock
 	name = "dock tile"
@@ -607,6 +677,7 @@
 	icon_state = "tile_dock"
 	custom_materials = list(/datum/material/iron=500, /datum/material/plasma=500)
 	turf_type = /turf/open/floor/dock
+	merge_type = /obj/item/stack/tile/dock
 
 /obj/item/stack/tile/drydock
 	name = "dry dock tile"
@@ -615,6 +686,7 @@
 	icon_state = "tile_drydock"
 	custom_materials = list(/datum/material/iron=1000, /datum/material/plasma=1000)
 	turf_type = /turf/open/floor/dock/drydock
+	merge_type = /obj/item/stack/tile/drydock
 
 /obj/item/stack/tile/material
 	name = "floor tile"
@@ -630,3 +702,102 @@
 	. = ..()
 	var/turf/open/floor/material/floor = .
 	floor?.set_custom_materials(mats_per_unit)
+
+// Glass floors
+/obj/item/stack/tile/glass
+	name = "glass floor"
+	singular_name = "glass floor tile"
+	desc = "Glass window floors, to let you see... Whatever that is down there."
+	icon_state = "tile_glass"
+	turf_type = /turf/open/floor/glass
+	merge_type = /obj/item/stack/tile/glass
+	custom_materials = list(/datum/material/glass=500) // 4 tiles per sheet
+
+/obj/item/stack/tile/glass/sixty
+	amount = 60
+
+/obj/item/stack/tile/rglass
+	name = "reinforced glass floor"
+	singular_name = "reinforced glass floor tile"
+	desc = "Reinforced glass window floors. These bad boys are 50% stronger than their predecessors!"
+	icon_state = "tile_rglass"
+	turf_type = /turf/open/floor/glass/reinforced
+	merge_type = /obj/item/stack/tile/rglass
+	custom_materials = list(/datum/material/iron=250, /datum/material/glass=250) // 4 tiles per sheet
+
+/obj/item/stack/tile/rglass/sixty
+	amount = 60
+
+/obj/item/stack/tile/glass/plasma
+	name = "plasma glass floor"
+	singular_name = "plasma glass floor tile"
+	desc = "Plasma glass window floors, for when... Whatever is down there is too scary for normal glass."
+	icon_state = "tile_pglass"
+	turf_type = /turf/open/floor/glass/plasma
+	merge_type = /obj/item/stack/tile/glass/plasma
+	custom_materials = list(/datum/material/plasma =500)
+
+/obj/item/stack/tile/glass/plasma
+	amount = 60
+
+/obj/item/stack/tile/rglass/plasma
+	name = "reinforced plasma glass floor"
+	singular_name = "reinforced plasma glass floor tile"
+	desc = "Reinforced plasma glass window floors, because whatever's downstairs should really stay down there."
+	icon_state = "tile_rpglass"
+	turf_type = /turf/open/floor/glass/reinforced/plasma
+	merge_type = /obj/item/stack/tile/rglass/plasma
+	custom_materials = list(/datum/material/iron = 250, /datum/material/plasma = 250)
+
+/obj/item/stack/tile/rglass/plasma
+	amount = 60
+
+//Catwalk Tiles
+/obj/item/stack/tile/catwalk_tile //This is our base type, sprited to look maintenance-styled
+	name = "catwalk floor"
+	singular_name = "catwalk floor tile"
+	desc = "Flooring that shows its contents underneath. Engineers love it!"
+	icon_state = "maint_catwalk"
+	item_state = "tile-catwalk"
+	turf_type = /turf/open/floor/catwalk_floor
+	merge_type = /obj/item/stack/tile/catwalk_tile //Just to be cleaner, these all stack with eachother
+	tile_reskin_types = list(
+		/obj/item/stack/tile/catwalk_tile,
+		/obj/item/stack/tile/catwalk_tile/iron,
+		/obj/item/stack/tile/catwalk_tile/iron_white,
+		/obj/item/stack/tile/catwalk_tile/iron_dark,
+		/obj/item/stack/tile/catwalk_tile/flat_white,
+		/obj/item/stack/tile/catwalk_tile/titanium,
+		/obj/item/stack/tile/catwalk_tile/iron_smooth //this is the original greenish one
+	)
+
+/obj/item/stack/tile/catwalk_tile/sixty
+	amount = 60
+
+/obj/item/stack/tile/catwalk_tile/iron
+	icon_state = "iron_catwalk"
+	turf_type = /turf/open/floor/catwalk_floor/iron
+
+/obj/item/stack/tile/catwalk_tile/iron_white
+	icon_state = "whiteiron_catwalk"
+	turf_type = /turf/open/floor/catwalk_floor/iron_white
+
+/obj/item/stack/tile/catwalk_tile/iron_dark
+	icon_state = "darkiron_catwalk"
+	turf_type = /turf/open/floor/catwalk_floor/iron_dark
+
+/obj/item/stack/tile/catwalk_tile/flat_white
+	icon_state = "flatwhite_catwalk"
+	turf_type = /turf/open/floor/catwalk_floor/flat_white
+
+/obj/item/stack/tile/catwalk_tile/titanium
+	icon_state = "titanium_catwalk"
+	turf_type = /turf/open/floor/catwalk_floor/titanium
+
+/obj/item/stack/tile/catwalk_tile/titanium/alt
+	icon_state = "titanium_alt_catwalk"
+	turf_type = /turf/open/floor/catwalk_floor/titanium/alt
+
+/obj/item/stack/tile/catwalk_tile/iron_smooth //this is the greenish one
+	icon_state = "smoothiron_catwalk"
+	turf_type = /turf/open/floor/catwalk_floor/iron_smooth

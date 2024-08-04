@@ -1803,6 +1803,14 @@
 					/obj/item/reagent_containers/medspray/sterilizine,
 					/obj/item/rollerbed)
 	crate_name = "surgical supplies crate"
+	
+/datum/supply_pack/medical/implants
+	name = "Surplus Implants Crate"
+	desc = "Do you want implants, but those R&D folks hasn't learnt how to do their job? Just get started with this crate containing several of our dusty surplus implants. (Surgical tools not included)"
+	cost = 1000
+	max_supply = 2
+	contains = list(/obj/item/storage/backpack/duffelbag/med/implant)
+	crate_name = "implant supplies crate"
 
 /datum/supply_pack/medical/salglucanister
 	name = "Heavy-Duty Saline Canister"

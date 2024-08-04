@@ -10,7 +10,7 @@
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman
 	)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 5)
 	slot_flags = ITEM_SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
 	var/move_sound = null
@@ -18,14 +18,19 @@
 	var/mob/listeningTo
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo
 
+/obj/item/clothing/suit/Initialize(mapload)
+	. = ..()
+	setup_shielding()
 
 /obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands)
 		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damaged[blood_overlay_type]", item_layer)
+			. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform", item_layer)
 		if(HAS_BLOOD_DNA(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "[blood_overlay_type]blood", item_layer)
+			var/mutable_appearance/bloody_armor = mutable_appearance('icons/effects/blood.dmi', "[blood_overlay_type]blood", item_layer)
+			bloody_armor.color = get_blood_dna_color(return_blood_DNA())
+			. += bloody_armor
 		var/mob/living/carbon/human/M = loc
 		if(ishuman(M) && M.w_uniform)
 			var/obj/item/clothing/under/U = M.w_uniform
@@ -80,5 +85,14 @@
 /obj/item/clothing/suit/Destroy()
 	listeningTo = null
 	. = ..()
+
+/**
+ * Wrapper proc to apply shielding through AddComponent().
+ * Called in /obj/item/clothing/Initialize().
+ * Override with an AddComponent(/datum/component/shielded, args) call containing the desired shield statistics.
+ * See /datum/component/shielded documentation for a description of the arguments
+ **/
+/obj/item/clothing/suit/proc/setup_shielding()
+	return
 
 #undef FOOTSTEP_COOLDOWN
