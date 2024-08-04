@@ -46,6 +46,8 @@
 #define COLOR_MAROON "#800000"
 #define COLOR_SECURITY_RED "#CB0000"
 #define COLOR_VIVID_RED "#FF3232"
+/// Color used for default blood
+#define COLOR_BLOOD "#CC0000"
 
 #define COLOR_YELLOW "#FFFF00"
 #define COLOR_VIVID_YELLOW "#FBFF23"
@@ -59,6 +61,7 @@
 #define COLOR_CYAN             "#00FFFF"
 #define COLOR_DARK_CYAN	  	   "#00A2FF"
 #define COLOR_TEAL             "#008080"
+#define COLOR_BLUSH_TEAL "#009696"
 #define COLOR_BLUE             "#0000FF"
 #define COLOR_MODERATE_BLUE "#555CC2"
 #define COLOR_BLUE_LIGHT       "#33CCFF"
@@ -231,3 +234,4 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 #define CL_MATRIX_CG 18
 #define CL_MATRIX_CB 19
 #define CL_MATRIX_CA 20
+
