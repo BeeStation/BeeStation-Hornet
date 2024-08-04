@@ -3,7 +3,7 @@
 	desc = "How someone could even fit in there is beyond me."
 	icon_state = "clowncar"
 	max_integrity = 150
-	armor = list(MELEE = 70,  BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0)
+	armor = list(MELEE = 70,  BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0, BLEED = 0)
 	enter_delay = 20
 	max_occupants = 50
 	movedelay = 0.6
@@ -96,11 +96,13 @@
 
 /obj/vehicle/sealed/car/clowncar/proc/restraintarget(mob/living/carbon/C)
 	if(istype(C))
-		if(!C.handcuffed)
-			if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
-				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(C))
-				C.update_handcuffed()
-				to_chat(C, "<span class = 'danger'> Your hands are restrained by the sheer volume of occupants in the car!</span>")
+		// Dont try and apply more handcuffs if already handcuffed, obviously
+		if(C.handcuffed)
+			return
+		if(C.canBeHandcuffed())
+			C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(C))
+			C.update_handcuffed()
+			to_chat(C, "<span class = 'danger'> Your hands are restrained by the sheer volume of occupants in the car!</span>")
 
 /obj/item/restraints/handcuffs/energy/used/clown
 	name = "tangle of limbs"
