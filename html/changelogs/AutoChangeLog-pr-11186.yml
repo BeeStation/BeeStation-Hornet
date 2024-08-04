@@ -1,0 +1,6 @@
+author: rkz, Gandalf2k15, LemonInTheDark, LT3, MrMelbert
+delete-after: true
+changes:
+  - rscadd: Converts security levels into a subystem. Much more easily debugged and
+      cleaner.
+  - code_imp: Datumizes individual levels to easily be added or removed
