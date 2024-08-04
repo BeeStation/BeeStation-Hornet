@@ -944,6 +944,77 @@
 	color = "#[random_short_color()]"
 	return ..()
 
+
+
+///SPECIAL
+
+//Steelgrid
+/obj/effect/turf_decal/tile/steelgrid
+	icon_state = "steelgrid_corner"
+
+/obj/effect/turf_decal/tile/steelgrid/diagonal
+	icon_state = "steelgrid_diagonal"
+
+/obj/effect/turf_decal/tile/steelgrid/anticorner
+	icon_state = "steelgrid_anticorner"
+
+
+//techfloor
+/obj/effect/turf_decal/tile/techfloor
+	icon_state = "techfloor_corner"
+
+/obj/effect/turf_decal/tile/techfloor/diagonal
+	icon_state = "techfloor_diagonal"
+
+/obj/effect/turf_decal/tile/techfloor/anticorner
+	icon_state = "techfloor_anticorner"
+
+
+//techfloorgrid
+/obj/effect/turf_decal/tile/techfloorgrid
+	icon_state = "techfloorgrid_corner"
+
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal
+	icon_state = "techfloorgrid_diagonal"
+
+/obj/effect/turf_decal/tile/techfloorgrid/anticorner
+	icon_state = "techfloorgrid_anticorner"
+
+
+//"Rust"
+
+/obj/effect/turf_decal/tile/monorust
+	icon_state = "mono_rusted1"
+
+/obj/effect/turf_decal/tile/monorust/intensity2
+	icon_state = "mono_rusted2"
+
+/obj/effect/turf_decal/tile/monorust/intensity3
+	icon_state = "mono_rusted3"
+
+
+/obj/effect/turf_decal/tile/cornerrust
+	icon_state = "part_rusted1"
+
+/obj/effect/turf_decal/tile/cornerrust/intensity2
+	icon_state = "part_rusted2"
+
+/obj/effect/turf_decal/tile/cornerrust/intensity3
+	icon_state = "part_rusted3"
+
+
+/obj/effect/turf_decal/tile/colorrust
+	icon_state = "color_rusted"
+
+/obj/effect/turf_decal/tile/colorrust/corner
+	icon_state = "color_rustedcorner"
+
+/obj/effect/turf_decal/tile/colorrust/full
+	icon_state = "color_rustedfull"
+
+/obj/effect/turf_decal/tile/colorrust/cee
+	icon_state = "color_rustedcee"
+
 /// Trimlines
 
 /obj/effect/turf_decal/trimline
