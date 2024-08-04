@@ -58,7 +58,7 @@
 	//Do a gas check first
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/air = T?.return_air()
-	if((air?.get_moles(GAS_TRITIUM) > MOLES_GAS_VISIBLE))
+	if((air?.get_moles(GAS_TRITIUM) < MOLES_GAS_VISIBLE))
 		return
 	for(var/obj/item/I in loc)
 		//TODO: Consider using some fancy math here, or something - Racc : CONSULT, PLAYTEST
