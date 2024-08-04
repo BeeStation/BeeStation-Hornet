@@ -136,6 +136,7 @@
 #define INIT_ORDER_INSTRUMENTS		82
 #define INIT_ORDER_GREYSCALE 		81
 #define INIT_ORDER_VIS				80
+#define INIT_ORDER_SECURITY_LEVEL 79 // We need to load before events so that it has a security level to choose from.
 #define INIT_ORDER_ACHIEVEMENTS 	77
 #define INIT_ORDER_XENOARCHAEOLOGY	76
 #define INIT_ORDER_RESEARCH			75
