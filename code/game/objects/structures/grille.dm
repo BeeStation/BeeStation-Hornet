@@ -3,6 +3,7 @@
 	name = "grille"
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "grille"
+	base_icon_state = "grille"
 	density = TRUE
 	anchored = TRUE
 	flags_1 = CONDUCT_1
@@ -25,21 +26,19 @@
 
 /obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
-	update_icon()
+	update_appearance()
 
-/obj/structure/grille/update_icon()
+/obj/structure/grille/update_appearance(updates)
 	if(QDELETED(src) || broken)
 		return
 
-	var/ratio = obj_integrity / max_integrity
-	ratio = CEILING(ratio*4, 1) * 25
-
+	. = ..()
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH(src)
 
-	if(ratio > 50)
-		return
-	icon_state = "grille50_[rand(0,3)]"
+/obj/structure/grille/update_icon_state()
+	icon_state = "[base_icon_state][((atom_integrity / max_integrity) <= 0.5) ? "50_[rand(0, 3)]" : null]"
+	return ..()
 
 /obj/structure/grille/examine(mob/user)
 	. = ..()
@@ -237,7 +236,7 @@
 		qdel(src)
 	..()
 
-/obj/structure/grille/obj_break()
+/obj/structure/grille/atom_break()
 	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		new broken_type(src.loc)
@@ -333,7 +332,7 @@
 			src.device.activate()
 		..()
 
-/obj/structure/grille/prison/obj_break()
+/obj/structure/grille/prison/atom_break()
 	var/turf/T = get_turf(src)
 	var/obj/structure/cable/C = T.get_cable_node()
 	if(C?.powernet)

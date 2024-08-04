@@ -280,9 +280,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 /obj/item/modular_computer/examine(mob/user)
 	. = ..()
-	if(obj_integrity <= integrity_failure * max_integrity)
+	if(atom_integrity <= integrity_failure * max_integrity)
 		. += "<span class='danger'>It is heavily damaged!</span>"
-	else if(obj_integrity < max_integrity)
+	else if(atom_integrity < max_integrity)
 		. += "<span class='warning'>It is damaged.</span>"
 
 	. += get_modular_computer_parts_examine(user)
@@ -302,7 +302,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(can_store_pai && stored_pai_card)
 		add_overlay(stored_pai_card.pai ? mutable_appearance(init_icon, "pai-overlay") : mutable_appearance(init_icon, "pai-off-overlay"))
 
-	if(obj_integrity <= integrity_failure * max_integrity)
+	if(atom_integrity <= integrity_failure * max_integrity)
 		add_overlay(mutable_appearance(init_icon, "bsod"))
 		add_overlay(mutable_appearance(init_icon, "broken"))
 
@@ -312,7 +312,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			ui_interact(user)
 		return TRUE
 	var/issynth = issilicon(user) // Robots and AIs get different activation messages.
-	if(obj_integrity <= integrity_failure * max_integrity)
+	if(atom_integrity <= integrity_failure * max_integrity)
 		if(issynth)
 			to_chat(user, "<span class='warning'>You send an activation signal to \the [src], but it responds with an error code. It must be damaged.</span>")
 		else
@@ -347,7 +347,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		last_power_usage = 0
 		return 0
 
-	if(obj_integrity <= integrity_failure * max_integrity)
+	if(atom_integrity <= integrity_failure * max_integrity)
 		shutdown_computer()
 		return 0
 
@@ -672,7 +672,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return
 
 	if(attacking_item.tool_behaviour == TOOL_WELDER)
-		if(obj_integrity == max_integrity)
+		if(atom_integrity == max_integrity)
 			to_chat(user, "<span class='warning'>\The [src] does not require repairs.</span>")
 			return
 
@@ -681,7 +681,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 		to_chat(user, "<span class='notice'>You begin repairing damage to \the [src]...</span>")
 		if(attacking_item.use_tool(src, user, 20, volume=50, amount=1))
-			obj_integrity = max_integrity
+			atom_integrity = max_integrity
 			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
 			update_icon()
 		return

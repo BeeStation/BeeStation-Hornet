@@ -128,7 +128,7 @@
 		var/obj/item/stack/sheet/cotton/cloth/C = W
 		C.use(1)
 		update_clothes_damaged_state(FALSE)
-		obj_integrity = max_integrity
+		atom_integrity = max_integrity
 		to_chat(user, "<span class='notice'>You fix the damage on [src] with [C].</span>")
 		return 1
 	return ..()
@@ -276,7 +276,7 @@
 		else if (armor_value < compare_value)
 			. = "<span class='red'>[.]</span>"
 
-/obj/item/clothing/obj_break(damage_flag)
+/obj/item/clothing/atom_break(damage_flag)
 	. = ..()
 	if(!damaged_clothes)
 		update_clothes_damaged_state(TRUE)
@@ -486,7 +486,7 @@ BLIND     // can't see anything
 			return 1
 	return 0
 
-/obj/item/clothing/obj_destruction(damage_flag)
+/obj/item/clothing/atom_destruction(damage_flag)
 	if(damage_flag == BOMB || damage_flag == MELEE)
 		var/turf/T = get_turf(src)
 		spawn(1) //so the shred survives potential turf change from the explosion.

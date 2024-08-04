@@ -135,7 +135,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/extinguisher_cabinet, 29)
 	else
 		icon_state = "extinguisher_empty"
 
-/obj/structure/extinguisher_cabinet/obj_break(damage_flag)
+/obj/structure/extinguisher_cabinet/atom_break(damage_flag)
 	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		broken = 1

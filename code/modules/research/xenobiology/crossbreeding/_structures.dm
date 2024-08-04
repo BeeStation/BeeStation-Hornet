@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(master_crystal)
 		invisibility = INVISIBILITY_MAXIMUM
 		max_integrity = 1000
-		obj_integrity = 1000
+		atom_integrity = 1000
 
 /obj/structure/slime_crystal/Initialize(mapload)
 	. = ..()

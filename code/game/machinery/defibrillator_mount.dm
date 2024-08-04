@@ -31,7 +31,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/defibrillator_mount/loaded, 28)
 		end_processing()
 	. = ..()
 
-/obj/machinery/defibrillator_mount/obj_destruction()
+/obj/machinery/defibrillator_mount/atom_destruction()
 	if(defib)
 		defib.forceMove(get_turf(src))
 		defib.visible_message("<span class='notice'>[defib] falls to the ground from the destroyed wall mount.</span>")

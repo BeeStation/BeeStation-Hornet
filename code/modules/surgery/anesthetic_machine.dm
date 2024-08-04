@@ -103,7 +103,7 @@
 	QDEL_NULL(attached_mask)
 	. = ..()
 
-/obj/machinery/anesthetic_machine/obj_destruction()
+/obj/machinery/anesthetic_machine/atom_destruction()
 	if(mask_out)
 		retract_mask()
 	QDEL_NULL(attached_mask)

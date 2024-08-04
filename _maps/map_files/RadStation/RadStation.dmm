@@ -9438,7 +9438,7 @@
 	icon_state = "leftsecure";
 	layer = 4.1;
 	name = "Tertiary AI Core Access";
-	obj_integrity = 300;
+	atom_integrity = 300;
 	req_access_txt = "16"
 	},
 /turf/open/floor/engine/o2,

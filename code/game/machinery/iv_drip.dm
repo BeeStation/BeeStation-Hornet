@@ -30,7 +30,7 @@
 	QDEL_NULL(beaker)
 	return ..()
 
-/obj/machinery/iv_drip/obj_destruction()
+/obj/machinery/iv_drip/atom_destruction()
 	if(beaker)
 		beaker.forceMove(drop_location())
 		beaker.SplashReagents(drop_location())

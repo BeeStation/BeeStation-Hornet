@@ -33,7 +33,7 @@
 	var/alert_pending = FALSE
 	/// If this program should process attack calls
 	var/use_attack = FALSE
-	/// If this program should process attack_obj calls
+	/// If this program should process attack_atom calls
 	var/use_attack_obj = FALSE
 
 /datum/computer_file/program/New(obj/item/modular_computer/comp = null)
@@ -188,7 +188,7 @@
 
 /// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.
 /// Set use_attack_obj = TRUE to receive proccalls from the parent computer.
-/datum/computer_file/program/proc/attack_obj(obj/target, mob/living/user)
+/datum/computer_file/program/proc/attack_atom(obj/target, mob/living/user)
 	return TRUE
 
 /// Called when the datum/tgui is initialized by the computer

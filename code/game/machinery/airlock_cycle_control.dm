@@ -812,7 +812,7 @@
 	visible_message("<span class='warning'>Sparks fly out of [src]!</span>", "<span class='notice'>You emag [src], disabling its safeties.</span>")
 	playsound(src, "sparks", 50, 1)
 
-/obj/machinery/advanced_airlock_controller/obj_break(damage_flag)
+/obj/machinery/advanced_airlock_controller/atom_break(damage_flag)
 	..()
 	update_icon()
 

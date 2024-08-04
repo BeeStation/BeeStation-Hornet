@@ -55,7 +55,7 @@
 
 /obj/structure/destructible/eldritch_crucible/examine_status(mob/user)
 	if(IS_HERETIC_OR_MONSTER(user) || isobserver(user))
-		return "<span class='notice'>It's at <b>[round(obj_integrity * 100 / max_integrity)]%</b> stability.</span>"
+		return "<span class='notice'>It's at <b>[round(atom_integrity * 100 / max_integrity)]%</b> stability.</span>"
 	return ..()
 
 /obj/structure/destructible/eldritch_crucible/attacked_by(obj/item/weapon, mob/living/user)

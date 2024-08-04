@@ -9,7 +9,7 @@
 	var/tamperproof = 0
 	icon_door = "crate"
 
-/obj/structure/closet/crate/secure/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/structure/closet/crate/secure/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE && damage_amount < 25)
 		return 0
 	. = ..()
