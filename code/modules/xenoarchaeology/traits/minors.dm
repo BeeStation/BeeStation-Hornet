@@ -317,9 +317,10 @@
 	sentience.AddSpell(P)
 	//Display traits to sentience
 	to_chat(sentience, "<span class='notice'>Your traits are: \n</span>")
-	for(var/datum/xenoartifact_trait/T in parent.artifact_traits)
-		to_chat(sentience, "<span class='notice'>[T.label_name]\n</span>")
-		sentience.add_memory(T.label_name)
+	for(var/index in parent.artifact_traits)
+		for(var/datum/xenoartifact_trait/T as() in parent.artifact_traits[index])
+			to_chat(sentience, "<span class='notice'>[T.label_name]\n</span>")
+			sentience.add_memory(T.label_name)
 	playsound(get_turf(parent?.parent), 'sound/items/haunted/ghostitemattack.ogg', 50, TRUE)
 	//Cleanup
 	QDEL_NULL(mob_spawner)
