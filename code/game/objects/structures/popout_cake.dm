@@ -164,7 +164,7 @@
 /datum/action/item_action/pull_string
 	name = "String Tug"
 	desc = "Pull the string and pop out of the cake in a surprising fashion, with confetti and everything!"
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	button_icon_state = "pull_string"
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	var/obj/structure/popout_cake/cake = null

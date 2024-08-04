@@ -61,7 +61,7 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 		D.visible_message("<span class='warning'>[A] cuts [D]'s jugular vein with their claws!</span>", \
 							"<span class='userdanger'>[A] cuts your jugular vein!</span>")
 		D.apply_damage(15, BRUTE, BODY_ZONE_HEAD, def_check)
-		D.bleed_rate = clamp(D.bleed_rate + 20, 0, 30)
+		D.add_bleeding(BLEED_SURFACE)
 		D.apply_status_effect(/datum/status_effect/neck_slice)
 		A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
 		playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)

@@ -34,3 +34,10 @@
 
 	footstep_type = FOOTSTEP_MOB_SHOE
 	hardattacks = TRUE
+
+/mob/living/simple_animal/hostile/faithless/faithful
+	name = "Faithsworn"
+	desc = "A creature made of pure faith from shadowpeople."
+	melee_damage = 20
+	gold_core_spawnable = NO_SPAWN
+	del_on_death = TRUE

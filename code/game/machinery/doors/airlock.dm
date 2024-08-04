@@ -1428,7 +1428,7 @@
 		log_combat(user, src, message, important = FALSE)
 		add_hiddenprint(user)
 
-/obj/machinery/door/airlock/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/machinery/door/airlock/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(obj_integrity < (0.75 * max_integrity))
 		update_icon()
@@ -1451,8 +1451,7 @@
 		A.update_icon()
 
 		if(!disassembled)
-			if(A)
-				A.obj_integrity = A.max_integrity * 0.5
+			A?.update_integrity(A.max_integrity * 0.5)
 		else
 			if(user)
 				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")

@@ -371,14 +371,14 @@
 	desc = "An adorable stuffed toy that resembles a space carp."
 	icon_state = "carpplush"
 	attack_verb = list("bitten", "eaten", "fin slapped")
-	squeak_override = list('sound/weapons/bite.ogg'=1)
+	squeak_override = list('sound/weapons/bite.ogg' = 1)
 
 /obj/item/toy/plush/bubbleplush
 	name = "\improper Bubblegum plushie"
 	desc = "The friendly red demon that gives good miners gifts."
 	icon_state = "bubbleplush"
 	attack_verb = list("rent")
-	squeak_override = list('sound/magic/demon_attack1.ogg'=1)
+	squeak_override = list('sound/magic/demon_attack1.ogg' = 1)
 
 /obj/item/toy/plush/plushvar
 	name = "\improper Ratvar plushie"
@@ -493,12 +493,45 @@
 /obj/item/toy/plush/narplush/hugbox
 	invoker_charges = 0
 
-/obj/item/toy/plush/lizardplushie
+/obj/item/toy/plush/lizard_plushie
 	name = "lizard plushie"
 	desc = "An adorable stuffed toy that resembles a lizardperson."
-	icon_state = "lizardplush"
+	icon_state = "map_plushie_lizard"
+	greyscale_config = /datum/greyscale_config/plush_lizard
 	attack_verb = list("clawed", "hissed", "tail slapped")
 	squeak_override = list('sound/weapons/slash.ogg' = 1)
+
+/obj/item/toy/plush/lizard_plushie/Initialize(mapload)
+	. = ..()
+	if(!greyscale_colors)
+		// Generate a random valid lizard color for our plushie friend
+		var/generated_lizard_color = "#" + random_color()
+		var/temp_hsv = RGBtoHSV(generated_lizard_color)
+
+		// If our color is too dark, use the classic green lizard plush color
+		if(ReadHSV(temp_hsv)[3] < ReadHSV("#7F7F7F")[3])
+			generated_lizard_color = "#66ff33"
+
+		// Set our greyscale colors to the lizard color we made + black eyes
+		set_greyscale(colors = list(generated_lizard_color, "#000000"))
+
+// Preset lizard plushie that uses the original lizard plush green. (Or close to it)
+/obj/item/toy/plush/lizard_plushie/green
+	desc = "An adorable stuffed toy that resembles a green lizardperson. This one fills you with nostalgia and soul."
+	greyscale_colors = "#66ff33#000000"
+
+/obj/item/toy/plush/lizard_plushie/space
+	name = "space lizard plushie"
+	desc = "An adorable stuffed toy that resembles a very determined spacefaring lizardperson. To infinity and beyond, little guy."
+	icon_state = "map_plushie_spacelizard"
+	greyscale_config = /datum/greyscale_config/plush_spacelizard
+	// space lizards can't hit people with their tail, it's stuck in their suit
+	attack_verb = list("claws", "hisses", "bops")
+	//attack_verb_simple = list("claw", "hiss", "bops")
+
+/obj/item/toy/plush/lizard_plushie/space/green
+	desc = "An adorable stuffed toy that resembles a very determined spacefaring green lizardperson. To infinity and beyond, little guy. This one fills you with nostalgia and soul."
+	greyscale_colors = "#66ff33#000000"
 
 /obj/item/toy/plush/snakeplushie
 	name = "snake plushie"
@@ -521,8 +554,7 @@
 	attack_verb = list("blorbled", "slimed", "absorbed")
 	squeak_override = list('sound/effects/blobattack.ogg' = 1)
 	gender = FEMALE	//given all the jokes and drawings, I'm not sure the xenobiologists would make a slimeboy
-	squeak_override = list('sound/effects/blobattack.ogg' = 1)
-/// Most of the following is just stolen from the moth plush code for the slimes
+	/// Most of the following is just stolen from the moth plush code for the slimes
 	var/suicide_count = 0
 
 /obj/item/toy/plush/slimeplushie/suicide_act(mob/living/user)
@@ -593,7 +625,7 @@
 	icon_state = "beeplush"
 	attack_verb = list("stung")
 	gender = FEMALE
-	squeak_override = list('sound/voice/moth/scream_moth.ogg'=1)
+	squeak_override = list('sound/voice/moth/scream_moth.ogg' = 1)
 
 /obj/item/toy/plush/rouny
 	name = "runner plushie"
@@ -607,7 +639,7 @@
 	desc = "An adorable mothperson plushie. It's a huggable bug!"
 	icon_state = "moffplush"
 	attack_verb = list("fluttered", "flapped")
-	squeak_override = list('sound/voice/moth/scream_moth.ogg'=1)
+	squeak_override = list('sound/voice/moth/scream_moth.ogg' = 1)
 ///Used to track how many people killed themselves with item/toy/plush/moth
 	var/suicide_count = 0
 
@@ -758,24 +790,41 @@
 	name = "ghost plushie"
 	desc = "It reminds you of someone important, you just can't make out who."
 	icon_state = "crossedplush"
-	squeak_override = list('sound/items/haunted/ghostitemattack.ogg'=1)
+	squeak_override = list('sound/items/haunted/ghostitemattack.ogg' = 1)
 
 /obj/item/toy/plush/runtime
 	name = "Runtime plushie"
 	desc = "GPLUSH."
 	icon_state = "runtimeplush"
-	squeak_override = list('sound/effects/meow1.ogg'=1)
+	squeak_override = list('sound/effects/meow1.ogg' = 1)
 
 /obj/item/toy/plush/gondola
 	name = "gondola plushie"
 	desc = "The silent walker, in plush form."
 	icon_state = "gondolaplush"
-	squeak_override = list('sound/misc/null.ogg'=1)
+	squeak_override = list('sound/misc/null.ogg' = 1)
 
 /obj/item/toy/plush/flushed
 	name = "flushed plushie"
 	desc = "Hgrgrhrhg cute."
 	icon_state = "flushplush"
+
+/obj/item/toy/plush/shark
+	name = "shark plushie"
+	desc = "A big plushie depicting a rather cartoonish, yet cute shark. The tag calls it a 'søthai', noting that it was made by an obscure furniture manufacturer in Scandinavia."
+	lefthand_file = 'icons/mob/inhands/plushes_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/plushes_righthand.dmi'
+	icon_state = "cuteswedishsharkplush"
+	squeak_override = list('sound/weapons/bite.ogg' = 1)
+
+/obj/item/toy/plush/shark/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_HANDS)
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "big_plush", /datum/mood_event/bigplush, src)
+
+/obj/item/toy/plush/shark/dropped(mob/living/carbon/user)
+	..()
+	SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "big_plush")
 
 /obj/item/toy/plush/flushed/rainbow
 	name = "rainbow flushed plushie"
@@ -790,7 +839,7 @@
 		/obj/item/toy/plush/bubbleplush,
 		/obj/item/toy/plush/carpplushie,
 		/obj/item/toy/plush/snakeplushie,
-		/obj/item/toy/plush/lizardplushie,
+		/obj/item/toy/plush/lizard_plushie,
 		/obj/item/toy/plush/slimeplushie,
 		/obj/item/toy/plush/slimeplushie/pink,
 		/obj/item/toy/plush/slimeplushie/green,
@@ -827,7 +876,8 @@
 		/obj/item/toy/plush/moth/royal,
 		/obj/item/toy/plush/moth/snow,
 		/obj/item/toy/plush/moth/whitefly,
-		/obj/item/toy/plush/moth/witchwing
+		/obj/item/toy/plush/moth/witchwing,
+		/obj/item/toy/plush/shark,
 	)
 
 /obj/item/choice_beacon/radial/plushie/generate_options(mob/living/M)

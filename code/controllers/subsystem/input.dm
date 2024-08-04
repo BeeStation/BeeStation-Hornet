@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(input)
 	name = "Input"
 	wait = 1 //SS_TICKER means this runs every tick
 	init_order = INIT_ORDER_INPUT
+	init_stage = INITSTAGE_EARLY
 	flags = SS_TICKER
 	priority = FIRE_PRIORITY_INPUT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
@@ -18,7 +19,7 @@ SUBSYSTEM_DEF(input)
 
 	refresh_client_macro_sets()
 
-	return ..()
+	return SS_INIT_SUCCESS
 
 // This is for when macro sets are eventualy datumized
 /datum/controller/subsystem/input/proc/setup_default_macro_sets()

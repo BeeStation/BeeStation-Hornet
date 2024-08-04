@@ -95,10 +95,12 @@
 
 /datum/species/golem/adamantine/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	ADD_TRAIT(C, TRAIT_ANTIMAGIC, SPECIES_TRAIT)
+	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = TRUE, _holy = FALSE)
 
 /datum/species/golem/adamantine/on_species_loss(mob/living/carbon/C)
-	REMOVE_TRAIT(C, TRAIT_ANTIMAGIC, SPECIES_TRAIT)
+	for (var/datum/component/anti_magic/anti_magic in C.GetComponents(/datum/component/anti_magic))
+		if (anti_magic.source == SPECIES_TRAIT)
+			qdel(anti_magic)
 	..()
 
 //The suicide bombers of golemkind
@@ -196,10 +198,12 @@
 
 /datum/species/golem/silver/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	ADD_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)
+	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = FALSE, _holy = TRUE)
 
 /datum/species/golem/silver/on_species_loss(mob/living/carbon/C)
-	REMOVE_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)
+	for (var/datum/component/anti_magic/anti_magic in C.GetComponents(/datum/component/anti_magic))
+		if (anti_magic.source == SPECIES_TRAIT)
+			qdel(anti_magic)
 	..()
 
 // Softer and faster, but conductive
@@ -772,10 +776,12 @@
 
 /datum/species/golem/cloth/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	ADD_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)
+	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = FALSE, _holy = TRUE)
 
 /datum/species/golem/cloth/on_species_loss(mob/living/carbon/C)
-	REMOVE_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)
+	for (var/datum/component/anti_magic/anti_magic in C.GetComponents(/datum/component/anti_magic))
+		if (anti_magic.source == SPECIES_TRAIT)
+			qdel(anti_magic)
 	..()
 
 /datum/species/golem/cloth/check_roundstart_eligible()
@@ -852,7 +858,7 @@
 	name = "pile of bandages"
 	desc = "It emits a strange aura, as if there was still life within it..."
 	max_integrity = 50
-	armor = list(MELEE = 90,  BULLET = 90, LASER = 25, ENERGY = 80, BOMB = 50, BIO = 100, FIRE = -50, ACID = -50, STAMINA = 0)
+	armor = list(MELEE = 90,  BULLET = 90, LASER = 25, ENERGY = 80, BOMB = 50, BIO = 100, FIRE = -50, ACID = -50, STAMINA = 0, BLEED = 0)
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "pile_bandages"
 	resistance_flags = FLAMMABLE
