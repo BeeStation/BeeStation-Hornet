@@ -53,6 +53,9 @@
 
 /mob/living/simple_animal/hostile/retaliate/nymph/Initialize()
 	. = ..()
+	GLOB.poi_list |= src
+	LAZYADD(GLOB.mob_spawners["[initial(name)]"], src)
+	SSmobs.update_spawners()
 	time_of_birth = world.time
 	evolve_ability = new
 	evolve_ability.Grant(src)
@@ -96,6 +99,7 @@
 			time_spent_in_light = 0  //No light? Reset the timer.
 
 /mob/living/simple_animal/hostile/retaliate/nymph/death(gibbed)
+	remove_from_spawner_menu()
 	evolve_ability.Remove(src)
 	if(is_drone)
 		switch_ability.Remove(src)
