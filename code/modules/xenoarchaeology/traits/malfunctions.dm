@@ -12,6 +12,7 @@
 	conductivity = 0
 	contribute_calibration = FALSE
 	can_pearl = FALSE
+	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
 
 /datum/xenoartifact_trait/malfunction/trigger(datum/source, _priority, atom/override)
 	. = ..()
