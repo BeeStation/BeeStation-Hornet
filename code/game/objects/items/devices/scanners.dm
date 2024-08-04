@@ -287,6 +287,8 @@ GENE SCANNER
 						healthy = FALSE
 				if(healthy)
 					message += "\t<span class='info'>Healthy.</span>"
+			else
+				message += "\t<span class='alert'>Subject does not have ears.</span>"
 			var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
 			message += "\t<span class='info'><b>==EYE STATUS==</b></span>"
 			if(istype(eyes))
@@ -308,6 +310,9 @@ GENE SCANNER
 					healthy = FALSE
 				if(healthy)
 					message += "\t<span class='info'>Healthy.</span>"
+			else
+				message += "\t<span class='alert'>Subject does not have eyes.</span>"
+
 
 	// Body part damage report
 	if(iscarbon(M))
@@ -343,7 +348,6 @@ GENE SCANNER
 		var/minor_damage
 		var/major_damage
 		var/max_damage
-		var/list/missing_organ_list = list()
 		var/report_organs = FALSE
 
 		//Piece together the lists to be reported
@@ -373,10 +377,7 @@ GENE SCANNER
 				else
 					minor_damage = "\t<span class='info'>Mildly Damaged Organs: "
 					minor_damage += organ.name
-		for(var/obj/item/organ/each_organ as anything in H.dna.species.required_organs) //Start checking against the carbon mob, seeing if there is any organs missing.
-			if(isnull(H.getorgan(each_organ))) //Can we find the given organ in the mob?
-				missing_organ_list += initial(each_organ.name) //If not, add it to the list.
-				report_organs = TRUE
+
 		if(report_organs)	//we either finish the list, or set it to be empty if no organs were reported in that category
 			if(!max_damage)
 				max_damage = "\t<span class='alert'>Non-Functional Organs: </span>"
@@ -393,8 +394,6 @@ GENE SCANNER
 			message += minor_damage
 			message += major_damage
 			message += max_damage
-			if(length(missing_organ_list)) //If we have missing organs, display them in a fancy list.
-				message += "\t<span class='alert'>Missing Organs: [english_list(missing_organ_list)]</span>"
 		//Genetic damage
 		if(advanced && H.has_dna())
 			message += "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>"
