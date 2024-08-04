@@ -2230,7 +2230,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(H.getorgan(/obj/item/organ/wings))
 		if(wings.flight_level >= WINGS_FLYING && H.movement_type & FLYING)
 			flyslip(H)
-	. = stunmod * H.physiology.stun_mod * amount
+	. = max(stunmod + H.physiology.stun_add, 0) * H.physiology.stun_mod * amount
 
 //////////////
 //Space Move//

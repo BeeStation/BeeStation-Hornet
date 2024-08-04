@@ -1,0 +1,8 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Security winter coat is now stronger than the armour vest for energy,
+      laser, heat, and stamina but weaker against melee and projectiles.
+  - balance: Security corporate jacket slowdown reduced.
+  - balance: Security heavy armour vest is now stronger than the armour vest across
+      the board, but has more slowdown.
