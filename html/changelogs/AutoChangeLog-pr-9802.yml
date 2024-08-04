@@ -1,9 +1,0 @@
-author: rkz, Yenwodyah
-delete-after: true
-changes:
-  - code_imp: cleaned up buckling checks, reducing edge cases. Documents buckling
-      code.
-  - balance: removes snowflake code for cyborg buckling. Cyborgs can instantly buckle
-      people on the same tile as them(like obj buckling), but now have the same time
-      to buckle people to things as any other buckling object if buckled from an adjacent
-      tile

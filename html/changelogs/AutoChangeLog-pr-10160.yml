@@ -1,7 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - rscadd: debug orb of the debug outfit now allows you to spacewalk
-  - rscadd: Pseudo-world diver debugging item - that makes a new z level then loads
-      a desired map template onto the z.
-  - rscadd: smooth live debugging objects (wall, table, turf)
