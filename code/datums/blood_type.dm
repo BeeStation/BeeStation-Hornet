@@ -65,6 +65,11 @@
 	blood_color = "#dddeff"
 	compatible_types = list(/datum/blood_type/synthetic)
 
+/datum/blood_type/diona // Blood for dionae
+	name = "Chlorophyll"
+	blood_color = "#086f06"
+	compatible_types = list(/datum/blood_type/diona)
+
 /datum/blood_type/universal
 	name = "U"
 
