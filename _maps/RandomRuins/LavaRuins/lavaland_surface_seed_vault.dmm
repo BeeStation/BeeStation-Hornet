@@ -22,7 +22,7 @@
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "aI" = (
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
 /obj/machinery/button/door{
@@ -246,7 +246,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
 /turf/open/floor/pod,
@@ -457,7 +457,7 @@
 /area/ruin/powered/seedvault)
 "sM" = (
 /obj/item/kirbyplants,
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
 /turf/open/floor/grass,
@@ -1060,7 +1060,7 @@
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "NH" = (
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
 /turf/open/floor/grass,
@@ -1255,7 +1255,7 @@
 "RA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/kirbyplants,
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
 /turf/open/floor/grass,
@@ -1409,7 +1409,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
 /turf/open/floor/pod,
