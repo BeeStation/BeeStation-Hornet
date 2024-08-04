@@ -343,7 +343,6 @@ GENE SCANNER
 		var/minor_damage
 		var/major_damage
 		var/max_damage
-		var/missing_organs
 		var/list/missing_organ_list = list()
 		var/report_organs = FALSE
 
@@ -395,8 +394,7 @@ GENE SCANNER
 			message += major_damage
 			message += max_damage
 			if(length(missing_organ_list)) //If we have missing organs, display them in a fancy list.
-				missing_organs += "\t<span class='alert'>Missing Organs: [english_list(missing_organ_list)]</span>"
-				message += missing_organs
+				message += "\t<span class='alert'>Missing Organs: [english_list(missing_organ_list)]</span>"
 		//Genetic damage
 		if(advanced && H.has_dna())
 			message += "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>"
