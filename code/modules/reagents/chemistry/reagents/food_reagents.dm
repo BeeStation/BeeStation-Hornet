@@ -797,6 +797,14 @@
 		playsound(M, "sparks", 50, 1)
 	return ..()
 
+/datum/reagent/consumable/chlorophyll
+	name = "Liquid Chlorophyll"
+	description = "A plant-specific elixir of life."
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#00df30"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	taste_description = "bitter, dry, broccoli soup"
+
 /datum/reagent/consumable/astrotame
 	name = "Astrotame"
 	description = "A space age artifical sweetener."
