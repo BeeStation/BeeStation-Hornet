@@ -40,7 +40,7 @@
 	var/max_grown = 150
 	var/time_of_birth
 	var/instance_num
-	var/is_ghost_spawn = FALSE //For if a ghost can become this.
+	var/is_ghost_spawn = TRUE //For if a ghost can become this.
 	var/is_drone = FALSE //Is a remote controlled nymph from a diona.
 	var/drone_parent //The diona which can control the nymph, if there is one
 	var/old_name // The diona nymph's old name.
