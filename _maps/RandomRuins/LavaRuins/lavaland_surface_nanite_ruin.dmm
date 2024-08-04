@@ -156,9 +156,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 4
 	},
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
+/obj/machinery/camera/autoname/directional/east,
 /turf/open/floor/iron/dark,
 /area/ruin/powered/nanite_ruin)
 "Ee" = (
@@ -287,7 +285,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/powered/nanite_ruin)
 "Rb" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
