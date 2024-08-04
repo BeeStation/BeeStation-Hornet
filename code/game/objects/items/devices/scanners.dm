@@ -391,13 +391,12 @@ GENE SCANNER
 				minor_damage = "\t<span class='info'>Mildly Damaged Organs: </span>"
 			else
 				minor_damage += "</span>"
-			missing_organs = "\t<span class='alert'>Missing Organs: </span>"
-			if(length(missing_organ_list)) //If we have missing organs, display them in a fancy list.
-				missing_organs += "<span class='alert'>[english_list(missing_organ_list)]</span>"
 			message += minor_damage
 			message += major_damage
 			message += max_damage
-			message += missing_organs
+			if(length(missing_organ_list)) //If we have missing organs, display them in a fancy list.
+				missing_organs += "\t<span class='alert'>Missing Organs: [english_list(missing_organ_list)]</span>"
+				message += missing_organs
 		//Genetic damage
 		if(advanced && H.has_dna())
 			message += "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>"
