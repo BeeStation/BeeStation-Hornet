@@ -1932,8 +1932,6 @@
 "anB" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron/white,
 /area/science/misc_lab/range)
 "anD" = (
@@ -28282,9 +28280,6 @@
 /area/science/misc_lab/range)
 "drC" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /turf/open/floor/iron/white,
 /area/science/misc_lab/range)
 "drP" = (
@@ -52853,6 +52848,10 @@
 /turf/open/floor/iron,
 /area/quartermaster/office)
 "kFK" = (
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/white,
 /area/science/misc_lab/range)
 "kFO" = (
@@ -72920,12 +72919,12 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/door/airlock/research/glass{
-	name = "Research Testing Range";
-	req_one_access_txt = "47"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/airlock/research{
+	req_one_access_txt = "47";
+	name = "Research Testing Range"
 	},
 /turf/open/floor/iron,
 /area/science/misc_lab/range)
@@ -76385,14 +76384,14 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "syU" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/iron/white,
 /area/science/misc_lab/range)
