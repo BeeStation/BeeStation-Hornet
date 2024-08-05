@@ -16763,21 +16763,6 @@
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted,
-/obj/structure/closet/secure_closet/engineering_personal,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/airalarm/directional/east,
-/obj/structure/closet/firecloset,
-/obj/effect/turf_decal/tile/yellow/half/contrasted,
-/obj/machinery/airalarm/directional/east,
-/obj/effect/turf_decal/tile/yellow/half/contrasted,
 /obj/structure/closet/secure_closet/engineering_personal,
 /turf/open/floor/iron,
 /area/engine/engineering)
@@ -20907,9 +20892,7 @@
 /obj/machinery/suit_storage_unit/hos,
 /obj/effect/turf_decal/stripes/end,
 /obj/structure/reagent_dispensers/peppertank/directional/north,
-/turf/open/floor/iron{
-	icon_state = "chapel"
-	},
+/turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "eJm" = (
 /obj/structure/cable/yellow,
@@ -47248,7 +47231,7 @@
 	dir = 9
 	},
 /obj/item/clothing/shoes/sneakers/white,
-/turf/open/floor/carpet/red,
+/turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "qnI" = (
 /obj/effect/turf_decal/tile/brown{
