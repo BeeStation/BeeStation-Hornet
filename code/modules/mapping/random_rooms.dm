@@ -1509,6 +1509,15 @@
 	template_width = 5
 	weight = 2
 
+/datum/map_template/random_room/sk_rdm176
+	name = "Room with spaceproof windows"
+	room_id = "sk_rdm176_spacewindowroom"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm176_spacewindowroom.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 1
+
 //Flandstation Dedicated Random Room
 
 /datum/map_template/random_room/sk_rdm_fln_01
