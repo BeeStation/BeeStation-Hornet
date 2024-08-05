@@ -242,15 +242,16 @@
 			if(isalien(L))
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			var/obj/item/bodypart/B = L.get_bodypart(def_zone)
-			if(B)
-				if(!IS_ORGANIC_LIMB(B)) // So if you hit a robotic, it sparks instead of bloodspatters
-					do_sparks(2, FALSE, target.loc)
-					if(prob(25))
-						new /obj/effect/decal/cleanable/oil(target_loca)
-				else
-					new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir)
-				if(prob(33))
-					L.add_splatter_floor(target_loca)
+			if(B && !IS_ORGANIC_LIMB(B)) // So if you hit a robotic, it sparks instead of bloodspatters
+				do_sparks(2, FALSE, target.loc)
+			else
+				var/splatter_color = null
+				if(iscarbon(L))
+					var/mob/living/carbon/carbon_target = L
+					splatter_color = carbon_target.dna.blood_type.blood_color
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, splatter_color)
+			if(prob(33))
+				L.add_splatter_floor(target_loca)
 		else if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 
@@ -504,12 +505,12 @@
 		if(!L.density)
 			// If you are moving, then bullets will hit you even if you are lying.
 			// This is to counter abuse in space where you can be moving via inertia while lying #11020
-			if (!(L.mobility_flags & MOBILITY_STAND) && L.last_move_time + max(L.inertia_move_delay, CRAWLING_ADD_SLOWDOWN + CONFIG_GET(number/movedelay/run_delay)) > world.time)
+			if ((L.body_position == LYING_DOWN) && L.last_move_time + max(L.inertia_move_delay, CRAWLING_ADD_SLOWDOWN + CONFIG_GET(number/movedelay/run_delay)) > world.time)
 				return TRUE
 			return FALSE
-		if (L.mobility_flags & MOBILITY_STAND)// if you stand, it returns true and you get hit. If you arent standing(i.e. resting), it returns false and you dont get hit. Such stupid code.
+		if(L.body_position != LYING_DOWN)// if you stand, it returns true and you get hit. If you arent standing(i.e. resting), it returns false and you dont get hit. Such stupid code.
 			return TRUE
-		var/stunned = !CHECK_BITFIELD(L.mobility_flags, MOBILITY_USE | MOBILITY_STAND | MOBILITY_MOVE)
+		var/stunned = HAS_TRAIT(L, TRAIT_IMMOBILIZED) && HAS_TRAIT(L, TRAIT_FLOORED) && HAS_TRAIT(L, TRAIT_HANDS_BLOCKED)
 		return !stunned || hit_stunned_targets
 	return TRUE
 

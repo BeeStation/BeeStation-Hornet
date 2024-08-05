@@ -506,6 +506,7 @@
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/cell = 1,
 		/obj/item/stack/cable_coil = 3)
 	needs_anchored = FALSE
 

@@ -167,9 +167,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "v" = (
-/obj/machinery/camera/preset{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -262,7 +259,7 @@
 /area/shuttle/exploration)
 "F" = (
 /obj/machinery/camera/preset{
-	dir = 8
+	dir = 6
 	},
 /obj/machinery/newscaster{
 	pixel_x = 32;

@@ -239,7 +239,7 @@ proc name: get fuel (/obj/item/weapon/weldingtool/proc/get_fuel)
 
 /obj/machinery/atmospherics/components/binary/pump - 14 time(s).
 
-/obj/effect/decal/cleanable/trail_holder - 10 time(s).
+//obj/effect/decal/cleanable/blood/trail_holder - 10 time(s).
 
 /atom/movable/screen/buildmode/bdir - 10 time(s).
 

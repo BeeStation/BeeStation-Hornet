@@ -10,7 +10,6 @@
 	desc = "A thruster for shuttles."
 	density = TRUE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
-	obj_integrity = 250
 	max_integrity = 250
 	icon = 'icons/turf/shuttle.dmi'
 	icon_state = "burst_plasma"
