@@ -952,12 +952,12 @@
 	. = ..()
 	if(sound_alarm && !cooldown)
 		playsound(src, sound_alarm, 25, 1)
-		to_chat(user, "<span class='notice'>[src] injects you with morphine. D'awww.</span>")
+		to_chat(user, "<span class='notice'>D'awww, the [src] injects you with morphine.</span>")
 
 		cooldown = TRUE
 		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), recharge_time)
 	else
-		to_chat(user, "<span class='notice'>[src] is out of morphine. N'awww.</span>")
+		to_chat(user, "<span class='notice'>N'aww, the [src] is out of morphine.</span>")
 
 /obj/item/toy/plush/sillycons/medi/syndie
 	name = "Syndicate Mediborg"
