@@ -1,4 +1,0 @@
-author: Markus Larsson
-delete-after: true
-changes:
-  - bugfix: Fixed insuls not properly spawning in Engineering lockers.
