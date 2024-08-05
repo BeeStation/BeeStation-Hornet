@@ -168,7 +168,7 @@
 	if (length(data["targets"]) > 1)
 		return "Everyone"
 	var/obj/item/modular_computer/target = data["targets"][1]
-	return "[target.saved_identification] ([target.saved_job])"
+	return "[target.mainboard.saved_identification()] ([target.mainboard.saved_job()])"
 
 /datum/signal/subspace/messaging/tablet_msg/proc/format_message(include_photo = FALSE)
 	if (include_photo && logged && data["photo"])
@@ -179,7 +179,7 @@
 	if (!logged)  // Can only go through if a message server logs it
 		return
 	for (var/obj/item/modular_computer/comp in data["targets"])
-		var/obj/item/computer_hardware/hard_drive/drive = comp.all_components[MC_HDD]
+		var/obj/item/computer_hardware/hard_drive/drive = comp.mainboard.all_components[MC_HDD]
 		for(var/datum/computer_file/program/messenger/app in drive.stored_files)
 			app.receive_message(src)
 

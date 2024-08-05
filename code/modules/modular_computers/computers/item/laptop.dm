@@ -16,7 +16,7 @@
 	// No running around with open laptops in hands.
 	item_flags = SLOWS_WHILE_IN_HAND
 
-	screen_on = 0 		// Starts closed
+	var/screen_open = FALSE			// Starts closed
 	var/start_open = TRUE	// unless this var is set to 1
 	var/icon_state_closed = "laptop-closed"
 	var/w_class_open = WEIGHT_CLASS_BULKY
@@ -41,8 +41,8 @@
 		icon_state = icon_state_closed
 
 /obj/item/modular_computer/laptop/attack_self(mob/user)
-	if(!screen_on)
-		try_toggle_open(user)
+	if(!screen_open)
+		return try_toggle_open(user)
 	else
 		return ..()
 
@@ -77,20 +77,20 @@
 
 /obj/item/modular_computer/laptop/proc/try_toggle_open(mob/living/user)
 	if(issilicon(user))
-		return
+		return TRUE
 	if(!isturf(loc) && !ismob(loc)) // No opening it in backpack.
-		return
+		return TRUE
 	if(!user.canUseTopic(src, BE_CLOSE))
-		return
+		return TRUE
 
 	toggle_open(user)
+	return toggle_open(user)
 
 
 /obj/item/modular_computer/laptop/AltClick(mob/user)
-	if(screen_on) // Close it.
-		try_toggle_open(user)
-	else
-		..()
+	if(..() || !screen_on)
+		return TRUE
+	return try_toggle_open(user)
 
 /obj/item/modular_computer/laptop/proc/toggle_open(mob/living/user=null)
 	if(screen_on)
@@ -104,8 +104,7 @@
 
 	screen_on = !screen_on
 	update_icon()
-
-
+	return TRUE
 
 // Laptop frame, starts empty and closed.
 /obj/item/modular_computer/laptop/buildable

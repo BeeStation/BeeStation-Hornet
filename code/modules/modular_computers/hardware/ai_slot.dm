@@ -119,6 +119,17 @@
 		visible_message("<span class='notice'>[stored_card] ejects itself from [src]!</span>")
 		remove_pai()
 
+/// Insert the pAI card
+/obj/item/computer_hardware/goober/pai/proc/insert_pai(mob/user, obj/item/paicard/goober)
+	if(!user.transferItemToLoc(goober, src))
+		return
+	stored_card = goober
+	// If the pAI moves out of the PDA, remove the reference.
+	RegisterSignal(stored_card, COMSIG_MOVABLE_MOVED, PROC_REF(stored_pai_moved))
+	RegisterSignal(stored_card, COMSIG_PARENT_QDELETING, PROC_REF(remove_pai))
+	to_chat(user, "<span class='notice'>You slot \the [goober] into [src].</span>")
+	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+
 /// Set the internal pAI card to null - this is NOT "Ejecting" it.
 /obj/item/computer_hardware/goober/pai/proc/remove_pai()
 	if(!istype(stored_card))

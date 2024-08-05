@@ -15,10 +15,6 @@
 	var/current_job
 	/// Whether we should auto imprint IDs into our saved_identification and saved_job
 	var/auto_imprint = FALSE
-	/// The cached ID name
-	var/saved_identification
-	/// The cached job name
-	var/saved_job
 
 /obj/item/computer_hardware/id_slot/handle_atom_del(atom/A)
 	if(A == stored_card)

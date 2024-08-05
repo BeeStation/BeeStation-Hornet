@@ -41,9 +41,9 @@
 
 	var/obj/item/computer_hardware/network_card/wired/network_card = new()
 
-	mainboard.install_component(network_card)
-	mainboard.install_component(new /obj/item/computer_hardware/recharger/APC)
-	mainboard.install_component(new /obj/item/computer_hardware/hard_drive/super) // Consoles generally have better HDDs due to lower space limitations
+	install_component(network_card)
+	install_component(new /obj/item/computer_hardware/recharger/APC)
+	install_component(new /obj/item/computer_hardware/hard_drive/super) // Consoles generally have better HDDs due to lower space limitations
 
 	var/area/A = get_area(src)
 	// Attempts to set this console's tag according to our area. Since some areas have stuff like "XX - YY" in their names we try to remove that too.

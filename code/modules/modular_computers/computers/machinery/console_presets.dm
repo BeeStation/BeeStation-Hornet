@@ -9,18 +9,17 @@
 	. = ..()
 	if(isnull(mainboard))
 		return
-	mainboard.install_component(new /obj/item/computer_hardware/processor_unit)
+	install_component(new /obj/item/computer_hardware/processor_unit)
 
-	mainboard.install_component(new /obj/item/computer_hardware/id_slot)
+	install_component(new /obj/item/computer_hardware/id_slot)
 	if(_has_second_id_slot)
-		mainboard.install_component(new /obj/item/computer_hardware/id_slot/secondary)
+		install_component(new /obj/item/computer_hardware/id_slot/secondary)
 	if(_has_printer)
-		mainboard.install_component(new /obj/item/computer_hardware/printer)
+		install_component(new /obj/item/computer_hardware/printer)
 	if(_has_battery)
-		mainboard.install_component(new /obj/item/computer_hardware/battery(mainboard, /obj/item/stock_parts/cell/computer/super))
+		install_component(new /obj/item/computer_hardware/battery(mainboard, /obj/item/stock_parts/cell/computer/super))
 	if(_has_ai)
-		mainboard.install_component(new /obj/item/computer_hardware/goober/ai)
-	install_programs()
+		install_component(new /obj/item/computer_hardware/goober/ai)
 
 // Override in child types to install preset-specific programs.
 /obj/machinery/modular_computer/console/preset/proc/install_programs()
@@ -45,8 +44,7 @@
 	desc = "A stationary computer. This one comes preloaded with research programs."
 	_has_ai = TRUE
 
-/obj/machinery/modular_computer/console/preset/research/install_programs()
-	var/obj/item/computer_hardware/hard_drive/hard_drive = mainboard?.all_components[MC_HDD]
+/obj/machinery/modular_computer/console/preset/research/install_programs(obj/item/computer_hardware/hard_drive/hard_drive)
 	hard_drive.store_file(new/datum/computer_file/program/ntnetmonitor())
 	hard_drive.store_file(new/datum/computer_file/program/chatclient())
 	hard_drive.store_file(new/datum/computer_file/program/aidiag())
@@ -60,8 +58,7 @@
 	_has_second_id_slot = TRUE
 	_has_printer = TRUE
 
-/obj/machinery/modular_computer/console/preset/command/install_programs()
-	var/obj/item/computer_hardware/hard_drive/hard_drive = mainboard?.all_components[MC_HDD]
+/obj/machinery/modular_computer/console/preset/command/install_programs(obj/item/computer_hardware/hard_drive/hard_drive)
 	hard_drive.store_file(new/datum/computer_file/program/chatclient())
 	hard_drive.store_file(new/datum/computer_file/program/card_mod())
 
@@ -71,8 +68,7 @@
 	name = "civilian console"
 	desc = "A stationary computer. This one comes preloaded with generic programs."
 
-/obj/machinery/modular_computer/console/preset/civilian/install_programs()
-	var/obj/item/computer_hardware/hard_drive/hard_drive = mainboard?.all_components[MC_HDD]
+/obj/machinery/modular_computer/console/preset/civilian/install_programs(obj/item/computer_hardware/hard_drive/hard_drive)
 	hard_drive.store_file(new/datum/computer_file/program/chatclient())
 
 // curator
@@ -82,6 +78,5 @@
 	desc = "A stationary computer. This one comes preloaded with art programs."
 	_has_printer = TRUE
 
-/obj/machinery/modular_computer/console/preset/curator/install_programs()
-	var/obj/item/computer_hardware/hard_drive/hard_drive = mainboard?.all_components[MC_HDD]
+/obj/machinery/modular_computer/console/preset/curator/install_programs(obj/item/computer_hardware/hard_drive/hard_drive)
 	hard_drive.store_file(new/datum/computer_file/program/portrait_printer())

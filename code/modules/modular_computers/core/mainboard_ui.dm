@@ -1,8 +1,11 @@
 /obj/item/mainboard/interact(mob/user)
+	if(isnull(physical_holder))
+		return FALSE
+
 	if(enabled)
-		ui_interact(user)
+		return ui_interact(user)
 	else
-		turn_on(user)
+		return turn_on(user)
 
 // Operates TGUI
 
@@ -19,7 +22,7 @@
 	if(!enabled || !user.is_literate() || !use_power())
 		if(ui)
 			ui.close()
-		return
+		return FALSE
 
 	// Robots don't really need to see the screen, their wireless connection works as long as computer is on.
 	if(!screen_on && !issilicon(user))
@@ -47,7 +50,7 @@
 			ui = new(user, src, "NtosMain")
 			ui.set_autoupdate(TRUE)
 		ui.open()
-		return
+		return TRUE
 
 	var/old_open_ui = ui.interface
 	if(active_program)
@@ -61,6 +64,7 @@
 		ui.send_assets() // sends any new asset datums from the new UI
 		if(active_program)
 			active_program.on_ui_create(user, ui)
+		return TRUE
 
 
 /obj/item/mainboard/ui_close(mob/user, datum/tgui/tgui)
@@ -155,21 +159,23 @@
 		data["stored_pai_name"] = stored_card?.pai?.name
 
 	var/obj/item/computer_hardware/id_slot/cardholder = all_components[MC_ID_AUTH]
+	var/obj/item/computer_hardware/identifier/id = all_components[MC_IDENTIFY]
+
 	data["cardholder"] = FALSE
 	data["login"] = list()
 	if(cardholder)
 		data["cardholder"] = TRUE
 		data["auto_imprint"] = cardholder.auto_imprint
 
-		var/stored_name = cardholder.saved_identification
-		var/stored_title = cardholder.saved_job
+		var/stored_name = id.saved_identification
+		var/stored_title = id.saved_job
 		if(isnull(stored_name))
 			stored_name = "Unknown"
 		if(isnull(stored_title))
 			stored_title = "Unknown"
 		data["login"] = list(
-			IDName = cardholder.saved_identification,
-			IDJob = cardholder.saved_job,
+			IDName = id.saved_identification,
+			IDJob = id.saved_job,
 		)
 		data["proposed_login"] = list(
 			IDName = cardholder.current_identification,
@@ -273,21 +279,25 @@
 			open_program(usr, program)
 
 		if("PC_toggle_light")
-			return FALSE
-			// return toggle_flashlight()
+			var/obj/item/modular_computer/modpc_item = physical_holder
+			if(isnull(modpc_item))
+				return FALSE
+			return modpc_item.toggle_flashlight()
 
 		if("PC_light_color")
-			return FALSE
-			// var/mob/user = usr
-			// var/new_color
-			// while(!new_color)
-			// 	new_color = tgui_color_picker(user, "Choose a new color for [src]'s flashlight.", "Light Color",light_color)
-			// 	if(!new_color)
-			// 		return
-			// 	if(is_color_dark_with_saturation(new_color, 50) ) //Colors too dark are rejected
-			// 		to_chat(user, "<span class='warning'>That color is too dark! Choose a lighter one.</span>")
-			// 		new_color = null
-			// return set_flashlight_color(new_color)
+			var/obj/item/modular_computer/modpc_item = physical_holder
+			if(isnull(modpc_item))
+				return FALSE
+			var/mob/user = usr
+			var/new_color
+			while(!new_color)
+				new_color = tgui_color_picker(user, "Choose a new color for [src]'s flashlight.", "Light Color",light_color)
+				if(!new_color)
+					return
+				if(is_color_dark_with_saturation(new_color, 50) ) //Colors too dark are rejected
+					to_chat(user, "<span class='warning'>That color is too dark! Choose a lighter one.</span>")
+					new_color = null
+			return modpc_item.set_flashlight_color(new_color)
 
 		if("PC_Eject_Disk")
 			var/param = params["name"]
@@ -334,10 +344,7 @@
 			if(isnull(cardholder) || can_save_id)
 				return TRUE
 
-			cardholder.saved_identification = cardholder.current_identification
-			cardholder.saved_job = cardholder.current_job
-
-			update_id_display()
+			update_id_display(cardholder.current_identification, cardholder.current_job)
 
 			play_processing_sound()
 

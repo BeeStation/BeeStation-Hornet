@@ -97,9 +97,125 @@
 	CRASH("TODO")
 
 // All the interaction procs
-/obj/item/mainboard/ui_interact(mob/user, datum/tgui/ui)
-	if(!enabled || !user.is_literate())
+// click procs
+/obj/item/mainboard/AltClick(mob/user)
+	if(isnull(physical_holder))
+		return FALSE
+	if(issilicon(user) || !user.canUseTopic(physical_holder, BE_CLOSE))
+		return FALSE
+	var/obj/item/computer_hardware/id_slot/slot1 = all_components[MC_ID_AUTH]
+	var/obj/item/computer_hardware/id_slot/slot2 = all_components[MC_ID_MODIFY]
+	if(slot2?.try_eject(user))
+		return slot1?.try_eject(user)
+	return TRUE
 
+// attack procs
+/// When the mainboard's physical parent was used to attack
+/obj/item/mainboard/proc/attack_obj_parent(obj/O, mob/living/user)
+	// Send to programs for processing - this should go LAST
+	// Used to implement the physical scanner.
+	for(var/datum/computer_file/program/thread in (idle_threads + active_program))
+		if(thread.use_attack && !thread.attack(O, user))
+			return
+
+/// When the mainboard itself is attacked
+/obj/item/mainboard/attackby(obj/item/I, mob/living/user, params)
+	// Try to insert items into any of the components
+	for(var/component_name in all_components)
+		var/obj/item/computer_hardware/comp = all_components[component_name]
+		if(comp.try_insert(I, user))
+			ui_update()
+			return
+
+	// Insert new hardware
+	var/obj/item/computer_hardware/inserted_hardware = I
+	if(istype(inserted_hardware)) //&& upgradable)
+		if(install_component(inserted_hardware, user))
+			inserted_hardware.on_inserted(user)
+			ui_update()
+			return
+
+	return ..()
+
+/// When the mainboard's physical parent was attacked and passed it to us
+/obj/item/mainboard/proc/attackby_parent(obj/item/I, mob/user, params)
+	// Check for ID first
+	if(istype(I, /obj/item/card/id) && InsertID(I))
+		return
+
+	// Scan a photo.
+	if(istype(I, /obj/item/photo))
+		var/obj/item/computer_hardware/hard_drive/hdd = all_components[MC_HDD]
+		var/obj/item/photo/pic = I
+		if(hdd)
+			for(var/datum/computer_file/program/messenger/messenger in hdd.stored_files)
+				hdd.saved_image = pic.picture
+				messenger.ProcessPhoto()
+				to_chat(user, "<span class='notice'>You scan \the [pic] into \the [src]'s messenger.</span>")
+				physical_holder.ui_update()
+			return
+
+	// Insert a pAI card
+	if(istype(I, /obj/item/paicard))
+		var/obj/item/computer_hardware/goober/pai/pai_slot = all_components[MC_PAI]
+		if(isnull(pai_slot) || istype(pai_slot.stored_card))
+			to_chat(user, "<span class='notice'>[I] doesnt' fit!</span>")
+			return
+
+		pai_slot.insert_pai(I)
+		physical_holder.update_icon()
+
+	if(iscash(I))
+		var/obj/item/computer_hardware/id_slot/id_slot = all_components[MC_ID_AUTH]
+		// Check to see if we have an ID inside, and a valid input for money
+		if(id_slot?.GetID())
+			var/obj/item/card/id/id = id_slot.GetID()
+			id.attackby(I, user) // If we do, try and put that attacking object in
+			return
+
+	return attackby(I, user, params)
+
+/obj/item/mainboard/proc/attack_ai_parent(mob/user)
+	if(isnull(physical_holder))
+		return FALSE
+	return attack_self(user)
+
+/obj/item/mainboard/proc/attack_ghost_parent(mob/user)
+	if(. || isnull(physical_holder))
+		return FALSE
+	if(enabled)
+		ui_interact(user)
+	else if(IsAdminGhost(user))
+		var/response = alert(user, "This computer is turned off. Would you like to turn it on?", "Admin Override", "Yes", "No")
+		if(response == "Yes")
+			turn_on(user)
+
+/obj/item/mainboard/screwdriver_act(mob/user, obj/item/tool)
+	if(!length(all_components))
+		balloon_alert(user, "no components installed!")
+		return
+	var/list/component_names = list()
+	for(var/h in all_components)
+		var/obj/item/computer_hardware/H = all_components[h]
+		component_names.Add(H.name)
+
+	var/choice = input(user, "Which component do you want to uninstall?", "Computer maintenance", null) as null|anything in sort_list(component_names)
+
+	if(!choice)
+		return
+
+	if(!Adjacent(user))
+		return
+
+	var/obj/item/computer_hardware/H = find_hardware_by_name(choice)
+
+	if(!H)
+		return
+
+	tool.play_tool_sound(user, volume=20)
+	uninstall_component(H, user, TRUE)
+	ui_update()
+	return
 
 // Process currently calls handle_power(), may be expanded in future if more things are added.
 /// Handle all the nessacary functions every tick

@@ -37,7 +37,7 @@
 
 /obj/item/modular_computer/tablet/update_icon()
 	..()
-	if (has_variants && !bypass_state)
+	if (has_variants && !bypass_icon_state)
 		if(!finish_color)
 			finish_color = pick("red","blue","brown","green","black")
 		icon_state = "tablet-[finish_color]"
@@ -77,43 +77,27 @@
 	if(!try_scan_paper(attacking_item, user))
 		return
 
+// Insert Job Disk
 /obj/item/modular_computer/tablet/pre_attack(atom/target, mob/living/user, params)
 	if(try_scan_paper(target, user))
 		return FALSE
-	var/obj/item/computer_hardware/hard_drive/role/job_disk = all_components[MC_HDD_JOB]
-	if(istype(job_disk) && !job_disk.process_pre_attack(target, user, params))
-		return FALSE
 	return ..()
-
-/obj/item/modular_computer/tablet/attack(atom/target, mob/living/user, params)
-	// Send to programs for processing - this should go LAST
-	// Used to implement the physical scanner.
-	for(var/datum/computer_file/program/thread in (idle_threads + active_program))
-		if(thread.use_attack && !thread.attack(target, user, params))
-			return
-	..()
-
-/obj/item/modular_computer/tablet/attack_obj(obj/target, mob/living/user)
-	// Send to programs for processing - this should go LAST
-	// Used to implement the gas scanner.
-	for(var/datum/computer_file/program/thread in (idle_threads + active_program))
-		if(thread.use_attack_obj && !thread.attack_obj(target, user))
-			return
-	..()
 
 // Eject the pen if the ID was not ejected
 /obj/item/modular_computer/tablet/AltClick(mob/user)
 	if(..() || issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
-		return
+		return TRUE
 	remove_pen(user)
+	return TRUE
 
 // Always eject pen with Ctrl+Click
 /obj/item/modular_computer/tablet/CtrlClick(mob/user)
 	..()
 	// We want to allow the user to drag the tablet still
 	if(isturf(loc) || issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
-		return
+		return TRUE
 	remove_pen(user)
+	return TRUE
 
 // Eject Job Disk
 /obj/item/modular_computer/tablet/CtrlShiftClick(mob/user)
@@ -121,9 +105,9 @@
 	// We want to allow the user to drag the tablet still
 	if(isturf(loc) || issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
-	var/obj/item/computer_hardware/hard_drive/role/disk = all_components[MC_HDD_JOB]
-	if(istype(disk))
-		uninstall_component(disk, user, TRUE)
+	var/obj/item/computer_hardware/hard_drive/role/job_disk = mainboard.all_components[MC_HDD_JOB]
+	if(istype(job_disk))
+		mainboard.uninstall_component(job_disk, user, TRUE)
 
 /obj/item/modular_computer/tablet/verb/verb_toggle_light()
 	set name = "Toggle Light"
@@ -164,7 +148,7 @@
 
 	if(current_turf)
 		current_turf.hotspot_expose(700,125)
-		if(istype(all_components[MC_HDD_JOB], /obj/item/computer_hardware/hard_drive/role/virus/syndicate))
+		if(istype(mainboard.all_components[MC_HDD_JOB], /obj/item/computer_hardware/hard_drive/role/virus/syndicate))
 			explosion(current_turf, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, flash_range = 4)
 		else
 			explosion(current_turf, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3)
@@ -183,8 +167,7 @@
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	comp_light_luminosity = 6.3
 	has_variants = FALSE
-	device_theme = THEME_SYNDICATE
-	theme_locked = TRUE
+	syndicate_themed = TRUE
 
 /// Given to Nuke Ops members.
 /obj/item/modular_computer/tablet/nukeops
@@ -193,9 +176,8 @@
 	icon_state_unpowered = "tablet-syndicate"
 	comp_light_luminosity = 6.3
 	has_variants = FALSE
-	device_theme = THEME_SYNDICATE
-	theme_locked = TRUE
 	light_color = COLOR_RED
+	syndicate_themed = TRUE
 
 /obj/item/modular_computer/tablet/nukeops/should_emag(mob/user)
 	if(..())
@@ -251,7 +233,7 @@
 	if(!borgo)
 		return null
 	if(!self_monitoring)
-		var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
+		var/obj/item/computer_hardware/hard_drive/hard_drive = mainboard.all_components[MC_HDD]
 		self_monitoring = hard_drive.find_file_by_name("borg_self_monitor")
 		if(!self_monitoring)
 			stack_trace("Cyborg [borgo] ( [borgo.type] ) was somehow missing their self-management app in their tablet. A new copy has been created.")
@@ -304,90 +286,12 @@
 	icon_state_unpowered = "tablet-silicon-syndicate"
 	icon_state_powered = "tablet-silicon-syndicate"
 	icon_state_menu = "command-syndicate"
-	device_theme = THEME_SYNDICATE
-	theme_locked = TRUE
-
 
 /obj/item/modular_computer/tablet/integrated/syndicate/Initialize()
 	. = ..()
 	if(iscyborg(borgo))
 		var/mob/living/silicon/robot/robo = borgo
 		robo.lamp_color = COLOR_RED //Syndicate likes it red
-
-// Round start tablets
-
-/obj/item/modular_computer/tablet/pda
-	icon = 'icons/obj/pda.dmi'
-	icon_state = "pda"
-	worn_icon_state = "electronic"
-	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-
-	bypass_state = TRUE
-	can_store_pai = TRUE
-
-	var/default_disk = 0
-	/// If the PDA has been picked up / equipped before. This is used to set the user's preference background color / theme.
-	var/equipped = FALSE
-
-/obj/item/modular_computer/tablet/pda/send_sound()
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
-		playsound(src, pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg'), 15, TRUE)
-	else
-		..()
-
-/obj/item/modular_computer/tablet/pda/send_select_sound()
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
-		playsound(src, pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg'), 15, TRUE)
-	else
-		..()
-
-/obj/item/modular_computer/tablet/pda/equipped(mob/user, slot)
-	. = ..()
-	if(equipped || !user.client)
-		return
-	equipped = TRUE
-	if(!user.client.prefs)
-		return
-	var/pref_theme = user.client.prefs.read_character_preference(/datum/preference/choiced/pda_theme)
-	if(!theme_locked && !ignore_theme_pref && (pref_theme in allowed_themes))
-		device_theme = allowed_themes[pref_theme]
-	classic_color = user.client.prefs.read_character_preference(/datum/preference/color/pda_classic_color)
-
-/obj/item/modular_computer/tablet/pda/update_icon()
-	..()
-	var/init_icon = initial(icon)
-	if(!init_icon)
-		return
-	var/obj/item/computer_hardware/id_slot/card = all_components[MC_ID_AUTH]
-	if(card)
-		if(card.stored_card)
-			add_overlay(mutable_appearance(init_icon, "id_overlay"))
-	if(inserted_item)
-		add_overlay(mutable_appearance(init_icon, "insert_overlay"))
-	if(light_on)
-		add_overlay(mutable_appearance(init_icon, "light_overlay"))
-
-
-/obj/item/modular_computer/tablet/pda/attack_ai(mob/user)
-	to_chat(user, "<span class='notice'>It doesn't feel right to snoop around like that...</span>")
-	return // we don't want ais or cyborgs using a private role tablet
-
-/obj/item/modular_computer/tablet/pda/Initialize(mapload)
-	. = ..()
-	install_component(new /obj/item/computer_hardware/hard_drive/small/pda)
-	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
-	install_component(new /obj/item/computer_hardware/network_card)
-	install_component(new /obj/item/computer_hardware/id_slot)
-	install_component(new /obj/item/computer_hardware/identifier)
-	install_component(new /obj/item/computer_hardware/sensorpackage)
-
-	if(default_disk)
-		var/obj/item/computer_hardware/hard_drive/portable/disk = new default_disk(src)
-		install_component(disk)
-
-	if(insert_type)
-		inserted_item = new insert_type(src)
-		// show the inserted item
-		update_icon()
+	// Force syndie theme
+	mainboard.device_theme = THEME_SYNDICATE
+	mainboard.theme_locked = TRUE

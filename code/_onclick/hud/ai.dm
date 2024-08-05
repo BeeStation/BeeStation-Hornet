@@ -55,9 +55,10 @@
 	. = ..()
 	if(. || !robot.modularInterface?.turn_on(robot, open_ui = FALSE))
 		return
-	var/obj/item/computer_hardware/hard_drive/drive = robot.modularInterface.all_components[MC_HDD]
+	var/obj/item/mainboard/mainboard = robot.modularInterface.mainboard
+	var/obj/item/computer_hardware/hard_drive/drive = mainboard.all_components[MC_HDD]
 	for(var/datum/computer_file/program/messenger/app in drive?.stored_files)
-		robot.modularInterface.open_program(robot, app)
+		mainboard.open_program(robot, app)
 		robot.modularInterface.interact(robot)
 		break
 

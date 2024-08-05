@@ -5,57 +5,62 @@
 
 /obj/item/modular_computer/tablet/preset/cheap/Initialize(mapload)
 	. = ..()
-	mainboard.install_component(new /obj/item/computer_hardware/processor_unit/small)
-	mainboard.install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer/micro))
-	mainboard.install_component(new /obj/item/computer_hardware/hard_drive/small)
-	mainboard.install_component(new /obj/item/computer_hardware/network_card)
+	install_component(new /obj/item/computer_hardware/processor_unit/small)
+	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer/micro))
+	install_component(new /obj/item/computer_hardware/hard_drive/small)
+	install_component(new /obj/item/computer_hardware/network_card)
 
 // Alternative version, an average one, for higher ranked positions mostly
 /obj/item/modular_computer/tablet/preset/advanced/Initialize(mapload)
 	. = ..()
-	mainboard.install_component(new /obj/item/computer_hardware/processor_unit/small)
-	mainboard.install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
-	mainboard.install_component(new /obj/item/computer_hardware/hard_drive/small)
-	mainboard.install_component(new /obj/item/computer_hardware/network_card)
-	mainboard.install_component(new /obj/item/computer_hardware/id_slot)
-	mainboard.install_component(new /obj/item/computer_hardware/printer/mini)
+	install_component(new /obj/item/computer_hardware/processor_unit/small)
+	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
+	install_component(new /obj/item/computer_hardware/hard_drive/small)
+	install_component(new /obj/item/computer_hardware/network_card)
+	install_component(new /obj/item/computer_hardware/id_slot)
+	install_component(new /obj/item/computer_hardware/printer/mini)
 
 /obj/item/modular_computer/tablet/preset/advanced/command/Initialize(mapload)
 	. = ..()
-	var/obj/item/computer_hardware/hard_drive/small/hard_drive = find_hardware_by_name("solid state drive")
+	install_component(new /obj/item/computer_hardware/sensorpackage)
+	install_component(new /obj/item/computer_hardware/id_slot/secondary)
+
+/obj/item/modular_computer/tablet/preset/advanced/command/install_programs(obj/item/computer_hardware/hard_drive/hard_drive)
+	. = ..()
 	hard_drive.store_file(new /datum/computer_file/program/budgetorders)
-	mainboard.install_component(new /obj/item/computer_hardware/sensorpackage)
-	mainboard.install_component(new /obj/item/computer_hardware/id_slot/secondary)
 
 /obj/item/modular_computer/tablet/preset/science/Initialize(mapload)
 	. = ..()
-	var/obj/item/computer_hardware/hard_drive/small/hard_drive = new
-	mainboard.install_component(new /obj/item/computer_hardware/processor_unit/small)
-	mainboard.install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
-	mainboard.install_component(hard_drive)
-	mainboard.install_component(new /obj/item/computer_hardware/id_slot)
-	mainboard.install_component(new /obj/item/computer_hardware/network_card)
-	mainboard.install_component(new /obj/item/computer_hardware/radio_card)
+	install_component(new /obj/item/computer_hardware/processor_unit/small)
+	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
+	install_component(new /obj/item/computer_hardware/hard_drive/small)
+	install_component(new /obj/item/computer_hardware/id_slot)
+	install_component(new /obj/item/computer_hardware/network_card)
+	install_component(new /obj/item/computer_hardware/radio_card)
+
+/obj/item/modular_computer/tablet/preset/science/install_programs(obj/item/computer_hardware/hard_drive/hard_drive)
+	. = ..()
 	hard_drive.store_file(new /datum/computer_file/program/signaller)
 
 /obj/item/modular_computer/tablet/preset/cargo/Initialize(mapload)
 	. = ..()
-	var/obj/item/computer_hardware/hard_drive/small/hard_drive = new
-	mainboard.install_component(new /obj/item/computer_hardware/processor_unit/small)
-	mainboard.install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
-	mainboard.install_component(hard_drive)
-	mainboard.install_component(new /obj/item/computer_hardware/id_slot)
-	mainboard.install_component(new /obj/item/computer_hardware/network_card)
-	mainboard.install_component(new /obj/item/computer_hardware/printer/mini)
+	install_component(new /obj/item/computer_hardware/processor_unit/small)
+	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
+	install_component(new /obj/item/computer_hardware/hard_drive/small)
+	install_component(new /obj/item/computer_hardware/id_slot)
+	install_component(new /obj/item/computer_hardware/network_card)
+	install_component(new /obj/item/computer_hardware/printer/mini)
+
+/obj/item/modular_computer/tablet/preset/cargo/install_programs(obj/item/computer_hardware/hard_drive/hard_drive)
+	. = ..()
 	hard_drive.store_file(new /datum/computer_file/program/bounty)
 
 /obj/item/modular_computer/tablet/preset/advanced/atmos/Initialize(mapload) //This will be defunct and will be replaced when NtOS PDAs are done
 	. = ..()
-	mainboard.install_component(new /obj/item/computer_hardware/sensorpackage)
+	install_component(new /obj/item/computer_hardware/sensorpackage)
 
-/obj/item/modular_computer/tablet/preset/advanced/custodial/Initialize(mapload)
+/obj/item/modular_computer/tablet/preset/advanced/custodial/install_programs(obj/item/computer_hardware/hard_drive/hard_drive)
 	. = ..()
-	var/obj/item/computer_hardware/hard_drive/small/hard_drive = find_hardware_by_name("solid state drive")
 	hard_drive.store_file(new /datum/computer_file/program/radar/custodial_locator)
 
 /// Given by the syndicate as part of the contract uplink bundle - loads in the Contractor Uplink.
@@ -64,30 +69,30 @@
 	var/obj/item/computer_hardware/hard_drive/small/syndicate/hard_drive = new
 	var/datum/computer_file/program/contract_uplink/uplink = new
 
-	active_program = uplink
+	mainboard.active_program = uplink
 	uplink.program_state = PROGRAM_STATE_ACTIVE
 	uplink.computer = src
 
 	hard_drive.store_file(uplink)
 
-	mainboard.install_component(new /obj/item/computer_hardware/processor_unit/small)
-	mainboard.install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
-	mainboard.install_component(hard_drive)
-	mainboard.install_component(new /obj/item/computer_hardware/network_card)
-	mainboard.install_component(new /obj/item/computer_hardware/id_slot)
-	mainboard.install_component(new /obj/item/computer_hardware/printer/mini)
+	install_component(new /obj/item/computer_hardware/processor_unit/small)
+	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
+	install_component(hard_drive)
+	install_component(new /obj/item/computer_hardware/network_card)
+	install_component(new /obj/item/computer_hardware/id_slot)
+	install_component(new /obj/item/computer_hardware/printer/mini)
 
 /// Given to Nuke Ops members.
 /obj/item/modular_computer/tablet/nukeops/Initialize(mapload)
 	. = ..()
-	mainboard.install_component(new /obj/item/computer_hardware/processor_unit/small)
-	mainboard.install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
-	mainboard.install_component(new /obj/item/computer_hardware/hard_drive/small/nukeops)
-	mainboard.install_component(new /obj/item/computer_hardware/network_card)
+	install_component(new /obj/item/computer_hardware/processor_unit/small)
+	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
+	install_component(new /obj/item/computer_hardware/hard_drive/small/nukeops)
+	install_component(new /obj/item/computer_hardware/network_card)
 
 //Borg Built-in tablet
 /obj/item/modular_computer/tablet/integrated/Initialize()
 	. = ..()
-	mainboard.install_component(new /obj/item/computer_hardware/processor_unit/small)
-	mainboard.install_component(new /obj/item/computer_hardware/recharger/cyborg)
-	mainboard.install_component(new /obj/item/computer_hardware/network_card/integrated)
+	install_component(new /obj/item/computer_hardware/processor_unit/small)
+	install_component(new /obj/item/computer_hardware/recharger/cyborg)
+	install_component(new /obj/item/computer_hardware/network_card/integrated)

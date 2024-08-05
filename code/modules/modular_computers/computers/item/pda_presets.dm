@@ -8,20 +8,22 @@
 	/// List of victims (of a very funny joke, that everyone loves!). Stores references to mobs.
 	var/list/slip_victims = list()
 	init_ringtone = "honk"
-	device_theme = THEME_NTOS_CLOWN_PINK // Give the clown the best theme
-	ignore_theme_pref = TRUE
 
 /obj/item/modular_computer/tablet/pda/clown/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/slippery, 7 SECONDS, NO_SLIP_WHEN_WALKING, CALLBACK(src, PROC_REF(AfterSlip)), 5 SECONDS)
 
+	mainboard.device_theme = THEME_NTOS_CLOWN_PINK
+	mainboard.ignore_theme_pref = TRUE
+
 /obj/item/modular_computer/tablet/pda/clown/proc/AfterSlip(mob/living/carbon/human/M)
-	if (istype(M) && (M.real_name != saved_identification))
-		slip_victims |= REF(M)
-		var/obj/item/computer_hardware/hard_drive/role/virus/clown/cart = all_components[MC_HDD_JOB]
-		if(istype(cart) && cart.charges < 5)
-			cart.charges++
-			playsound(src,'sound/machines/ping.ogg',30,TRUE)
+	if (isnull(M) || (M.real_name == mainboard.saved_identification()))
+		return
+	slip_victims |= REF(M)
+	var/obj/item/computer_hardware/hard_drive/role/virus/clown/cart = mainboard.all_components[MC_HDD_JOB]
+	if(istype(cart) && cart.charges < 5)
+		cart.charges++
+		playsound(src,'sound/machines/ping.ogg',30,TRUE)
 
 /obj/item/modular_computer/tablet/pda/mime
 	name = "mime PDA"
@@ -31,9 +33,9 @@
 	init_ringer_on = FALSE
 	init_ringtone = "silence"
 
-/obj/item/modular_computer/tablet/pda/mime/Initialize(mapload)
+/obj/item/modular_computer/tablet/pda/mime/install_programs(mapload)
 	. = ..()
-	var/obj/item/computer_hardware/hard_drive/hdd = all_components[MC_HDD]
+	var/obj/item/computer_hardware/hard_drive/hdd = mainboard.all_components[MC_HDD]
 
 	if(hdd)
 		for(var/datum/computer_file/program/messenger/msg in hdd.stored_files)
@@ -192,20 +194,18 @@
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a WGW-XL-NTOS series."
 	note = "Congratulations, your -corrupted- has chosen the Thinktronic 5290 WGW-XL-NTOS Series Personal Data Assistant!"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/virus/syndicate/military
-	saved_identification = "John Doe"
-	saved_job = "Citizen"
 	icon_state = "pda-syndi"
 	messenger_invisible = TRUE
 	detonatable = FALSE
-	device_theme = THEME_SYNDICATE
-	theme_locked = TRUE
+	syndicate_themed = TRUE
 
 /obj/item/modular_computer/tablet/pda/syndicate/Initialize(mapload)
 	. = ..()
-	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
+	var/obj/item/computer_hardware/network_card/network_card = mainboard.all_components[MC_NET]
 	if(istype(network_card))
-		forget_component(network_card)
+		mainboard.forget_component(network_card)
 		install_component(new /obj/item/computer_hardware/network_card/advanced/norelay)
+	mainboard.update_id_display("John Doe", "Citizen")
 
 /obj/item/modular_computer/tablet/pda/chaplain
 	name = "chaplain PDA"

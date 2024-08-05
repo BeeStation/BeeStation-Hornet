@@ -52,12 +52,12 @@
 	var/list/dictionary = list()
 
 	for(var/obj/item/modular_computer/messenger in GetViewableDevices(sort_by_job))
-		var/obj/item/computer_hardware/id_slot/id_slot = messenger.mainboard.all_components[MC_ID_AUTH]
+		var/obj/item/computer_hardware/identifier/id = messenger.mainboard.all_components[MC_IDENTIFY]
 
-		if(istype(id_slot) && !isnull(id_slot.saved_identification) && !isnull(id_slot.saved_job) && !(messenger == computer))
+		if(istype(id) && !isnull(id.saved_identification) && !isnull(id.saved_job) && !(messenger == computer))
 			var/list/data = list()
-			data["name"] = id_slot.saved_identification
-			data["job"] = id_slot.saved_job
+			data["name"] = id.saved_identification
+			data["job"] = id.saved_job
 			data["ref"] = REF(messenger.mainboard)
 
 			//if(data["ref"] != REF(computer)) // you cannot message yourself (despite all my rage)
@@ -79,8 +79,8 @@
 		if(isnull(drive))
 			continue
 
-		var/obj/item/computer_hardware/id_slot/id_slot = mod_pc.mainboard?.all_components[MC_ID_AUTH]
-		if(isnull(id_slot) || isnull(id_slot.saved_identification) || isnull(id_slot.saved_job) || mod_pc.messenger_invisible)
+		var/obj/item/computer_hardware/identifier/id = mod_pc.mainboard.all_components[MC_IDENTIFY]
+		if(isnull(id) || isnull(id.saved_identification) || isnull(id.saved_job) || mod_pc.messenger_invisible)
 			continue
 
 		for(var/datum/computer_file/program/messenger/app in drive.stored_files)
@@ -172,11 +172,8 @@
 			var/obj/item/modular_computer/target = locate(params["ref"])
 			if(!istype(target))
 				return // we don't want tommy sending his messages to nullspace
-			var/obj/item/computer_hardware/id_slot/id_slot = target.mainboard.all_components[MC_ID_AUTH]
-			if(isnull(id_slot))
-				return
 
-			if(!(id_slot.saved_identification == params["name"] && id_slot.saved_job == params["job"]))
+			if(!(target.mainboard.saved_identification() == params["name"] && target.mainboard.saved_job() == params["job"]))
 				to_chat(usr, "<span class='notice'>ERROR: User no longer exists.</span>")
 				return
 
@@ -221,9 +218,7 @@
 /datum/computer_file/program/messenger/ui_data(mob/user)
 	var/list/data = list()
 
-	var/obj/item/computer_hardware/id_slot/id_slot = computer.all_components[MC_ID_AUTH]
-
-	data["owner"] = id_slot?.saved_identification
+	data["owner"] = computer.saved_identification()
 	// Convert the photo object into a file so it can be rendered properly in Show Messages
 	for(var/list/message as() in messages)
 		var/datum/picture/pic = message["photo_obj"]
@@ -280,8 +275,7 @@
 /datum/computer_file/program/messenger/proc/send_message(mob/living/user, list/obj/item/modular_computer/targets, everyone = FALSE, fake_name = null, fake_job = null, multi_delay = 0)
 	if(!targets.len)
 		return FALSE
-	var/obj/item/computer_hardware/id_slot/first_id_slot = targets[1].mainboard.all_components[MC_ID_AUTH]
-	var/target_name = length(targets) == 1 ? first_id_slot.saved_identification : "Everyone"
+	var/target_name = length(targets) == 1 ? targets[1].mainboard.saved_identification() : "Everyone"
 	var/message = msg_input(user, target_name)
 	if(!message)
 		return FALSE
@@ -306,19 +300,19 @@
 	// Send the signal
 	var/list/string_targets = list()
 	for (var/obj/item/modular_computer/comp in targets)
-		var/obj/item/computer_hardware/id_slot/id_slot = comp.mainboard.all_components[MC_ID_AUTH]
-		if (id_slot.saved_identification && id_slot.saved_job)  // != src is checked by the UI
-			string_targets += "[id_slot.saved_identification] ([id_slot.saved_job])"
+		var/saved_identification = comp.mainboard.saved_identification()
+		var/saved_job = comp.mainboard.saved_job()
+		if (saved_identification && saved_job)  // != src is checked by the UI
+			string_targets += "[saved_identification] ([saved_job])"
 
 	if (!string_targets.len)
 		return FALSE
 
-	var/obj/item/computer_hardware/id_slot/id_slot = computer.all_components[MC_ID_AUTH]
 	var/obj/item/computer_hardware/hard_drive/disk = computer.all_components[MC_R_HDD]
 
 	var/datum/signal/subspace/messaging/tablet_msg/signal = new(computer, list(
-		"name" = fake_name || id_slot?.saved_identification,
-		"job" = fake_job || id_slot?.saved_job,
+		"name" = fake_name || computer.saved_identification(),
+		"job" = fake_job || computer.saved_job(),
 		"message" = html_decode(message),
 		"ref" = REF(computer),
 		"targets" = targets,

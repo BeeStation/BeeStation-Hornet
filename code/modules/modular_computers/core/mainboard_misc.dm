@@ -4,7 +4,8 @@
 		if(open_ui)
 			ui_interact(user)
 		return TRUE
-	var/issynth = issilicon(user) // Robots and AIs get different activation messages.
+
+	var/issilicon = issilicon(user) // Robots and AIs get different activation messages.
 	// if(obj_integrity <= integrity_failure * max_integrity)
 	// 	if(issynth)
 	// 		to_chat(user, "<span class='warning'>You send an activation signal to \the [src], but it responds with an error code. It must be damaged.</span>")
@@ -18,13 +19,13 @@
 		recharger.enabled = 1
 
 	if(isnull(all_components[MC_CPU]))
-		if(issynth)
+		if(issilicon)
 			to_chat(user, "<span class='warning'>You send an activation signal to \the [src], but nothing happens.</span>")
 		else
 			to_chat(user, "<span class='warning'>You press the power button, but nothing happens.</span>")
 
 	if(all_components[MC_CPU] && use_power()) // use_power() checks if the PC is powered
-		if(issynth)
+		if(issilicon)
 			to_chat(user, "<span class='notice'>You send an activation signal to \the [src], turning it on.</span>")
 		else
 			to_chat(user, "<span class='notice'>You press the power button and start up \the [src].</span>")
@@ -34,7 +35,7 @@
 			ui_interact(user)
 		return TRUE
 	else // Unpowered
-		if(issynth)
+		if(issilicon)
 			to_chat(user, "<span class='warning'>You send an activation signal to \the [src] but it does not respond.</span>")
 		else
 			to_chat(user, "<span class='warning'>You press the power button but \the [src] does not respond.</span>")
@@ -178,6 +179,16 @@
 
 	return TRUE
 
+/// Helper proc to get just the saved_identification
+/obj/item/mainboard/proc/saved_identification()
+	var/obj/item/computer_hardware/identifier/id = all_components[MC_IDENTIFY]
+	return id?.saved_identification
+
+/// Helper proc to get just the saved_job
+/obj/item/mainboard/proc/saved_job()
+	var/obj/item/computer_hardware/identifier/id = all_components[MC_IDENTIFY]
+	return id?.saved_job
+
 // Network procs
 /// Check the status of NTNet
 /obj/item/mainboard/proc/get_ntnet_status(specific_action = 0)
@@ -194,11 +205,12 @@
 	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
 	return SSnetworks.add_log(text, network_card.GetComponent(/datum/component/ntnet_interface).network, network_card.hardware_id)
 
+
 // id related
-/obj/item/mainboard/proc/update_id_display()
+/obj/item/mainboard/proc/update_id_display(var/saved_identification = null, var/saved_job = null)
 	var/obj/item/computer_hardware/identifier/id = all_components[MC_IDENTIFY]
-	if(id)
-		id.UpdateDisplay()
+	if(istype(id))
+		id.UpdateDisplay(saved_identification, saved_job)
 
 /obj/item/mainboard/proc/on_id_insert()
 	ui_update()
@@ -208,13 +220,11 @@
 	// We shouldn't auto-imprint if ID modification is open.
 	if(isnull(cardholder) || !can_save_id || !cardholder.auto_imprint || istype(active_program, /datum/computer_file/program/card_mod))
 		return
-	if(cardholder.current_identification == cardholder.saved_identification && cardholder.current_job == cardholder.saved_job)
+	if(cardholder.current_identification == saved_identification() && cardholder.current_job == saved_job())
 		return
 	if(!cardholder.current_identification || !cardholder.current_job)
 		return
-	cardholder.saved_identification = cardholder.current_identification
-	cardholder.saved_job = cardholder.current_job
-	update_id_display()
+	update_id_display(cardholder.current_identification, cardholder.current_job)
 	play_processing_sound()
 	addtimer(CALLBACK(src, PROC_REF(play_success_sound)), 1.3 SECONDS)
 

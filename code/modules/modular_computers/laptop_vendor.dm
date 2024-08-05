@@ -55,18 +55,18 @@
 	if(devtype == 1) 		// Laptop, generally cheaper to make it accessible for most station roles
 		var/obj/item/computer_hardware/battery/battery_module = null
 		if(fabricate)
-			fabricated_laptop = new /obj/item/modular_computer/laptop/buildable(src)
-			fabricated_laptop.install_component(new /obj/item/computer_hardware/id_slot)
-			fabricated_laptop.install_component(new /obj/item/computer_hardware/battery)
-			battery_module = fabricated_laptop.all_components[MC_CELL]
+			fabricated_laptop = new (src)
+			fabricated_laptop.mainboard.install_component(new /obj/item/computer_hardware/id_slot)
+			fabricated_laptop.mainboard.install_component(new /obj/item/computer_hardware/battery)
+			battery_module = fabricated_laptop.mainboard.all_components[MC_CELL]
 		total_price = 99
 		switch(dev_cpu)
 			if(1)
 				if(fabricate)
-					fabricated_laptop.install_component(new /obj/item/computer_hardware/processor_unit/small)
+					fabricated_laptop.mainboard.install_component(new /obj/item/computer_hardware/processor_unit/small)
 			if(2)
 				if(fabricate)
-					fabricated_laptop.install_component(new /obj/item/computer_hardware/processor_unit)
+					fabricated_laptop.mainboard.install_component(new /obj/item/computer_hardware/processor_unit)
 				total_price += 299
 		switch(dev_battery)
 			if(1) // Basic(750C)
@@ -83,36 +83,36 @@
 		switch(dev_disk)
 			if(1) // Basic(128GQ)
 				if(fabricate)
-					fabricated_laptop.install_component(new /obj/item/computer_hardware/hard_drive)
+					fabricated_laptop.mainboard.install_component(new /obj/item/computer_hardware/hard_drive)
 			if(2) // Upgraded(256GQ)
 				if(fabricate)
-					fabricated_laptop.install_component(new /obj/item/computer_hardware/hard_drive/advanced)
+					fabricated_laptop.mainboard.install_component(new /obj/item/computer_hardware/hard_drive/advanced)
 				total_price += 99
 			if(3) // Advanced(512GQ)
 				if(fabricate)
-					fabricated_laptop.install_component(new /obj/item/computer_hardware/hard_drive/super)
+					fabricated_laptop.mainboard.install_component(new /obj/item/computer_hardware/hard_drive/super)
 				total_price += 299
 		switch(dev_netcard)
 			if(1) // Basic(Short-Range)
 				if(fabricate)
-					fabricated_laptop.install_component(new /obj/item/computer_hardware/network_card)
+					fabricated_laptop.mainboard.install_component(new /obj/item/computer_hardware/network_card)
 				total_price += 99
 			if(2) // Advanced (Long Range)
 				if(fabricate)
-					fabricated_laptop.install_component(new /obj/item/computer_hardware/network_card/advanced)
+					fabricated_laptop.mainboard.install_component(new /obj/item/computer_hardware/network_card/advanced)
 				total_price += 299
 		if(dev_apc_recharger)
 			total_price += 399
 			if(fabricate)
-				fabricated_laptop.install_component(new /obj/item/computer_hardware/recharger/APC)
+				fabricated_laptop.mainboard.install_component(new /obj/item/computer_hardware/recharger/APC)
 		if(dev_printer)
 			total_price += 99
 			if(fabricate)
-				fabricated_laptop.install_component(new /obj/item/computer_hardware/printer/mini)
+				fabricated_laptop.mainboard.install_component(new /obj/item/computer_hardware/printer/mini)
 		if(dev_card)
 			total_price += 199
 			if(fabricate)
-				fabricated_laptop.install_component(new /obj/item/computer_hardware/id_slot/secondary)
+				fabricated_laptop.mainboard.install_component(new /obj/item/computer_hardware/id_slot/secondary)
 
 		ui_update()
 		return total_price
@@ -120,10 +120,10 @@
 		var/obj/item/computer_hardware/battery/battery_module = null
 		if(fabricate)
 			fabricated_tablet = new(src)
-			fabricated_tablet.install_component(new /obj/item/computer_hardware/battery)
-			fabricated_tablet.install_component(new /obj/item/computer_hardware/processor_unit/small)
-			fabricated_tablet.install_component(new/obj/item/computer_hardware/id_slot)
-			battery_module = fabricated_tablet.all_components[MC_CELL]
+			fabricated_tablet.mainboard.install_component(new /obj/item/computer_hardware/battery)
+			fabricated_tablet.mainboard.install_component(new /obj/item/computer_hardware/processor_unit/small)
+			fabricated_tablet.mainboard.install_component(new/obj/item/computer_hardware/id_slot)
+			battery_module = fabricated_tablet.mainboard.all_components[MC_CELL]
 		total_price = 199
 		switch(dev_battery)
 			if(1) // Basic(300C)

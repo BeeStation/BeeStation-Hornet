@@ -109,6 +109,11 @@
 	set_machine_stat(machine_stat | NOPOWER)
 	update_icon()
 
+/obj/machinery/modular_computer/proc/install_component(obj/item/computer_hardware/install, mob/living/user = null)
+	if(isnull(mainboard))
+		stack_trace("Called install_component() without a mainboard installed.")
+	mainboard.install_component(install, user)
+
 // Modular computers can have battery in them, we handle power in previous proc, so prevent this from messing it up for us.
 /obj/machinery/modular_computer/power_change()
 	if(!isnull(mainboard) && mainboard.use_power()) // If MC_CPU still has a power source, PC wouldn't go offline.
@@ -121,9 +126,9 @@
 	if(!isnull(mainboard))
 		return mainboard.screwdriver_act(user, tool)
 
-/obj/machinery/modular_computer/attackby(var/obj/item/W as obj, mob/user)
+/obj/machinery/modular_computer/attackby(var/obj/item/W as obj, mob/user, params)
 	if(user.a_intent == INTENT_HELP && !isnull(mainboard) && !(flags_1 & NODECONSTRUCT_1))
-		return mainboard.attackby(W, user)
+		return mainboard.attackby_parent(W, user, params)
 	return ..()
 
 
