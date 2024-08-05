@@ -143,7 +143,7 @@
 			. = TRUE
 		update_appearance()
 
-/obj/machinery/disposal/relaymove(mob/living/user, direction)
+/obj/machinery/disposal/relaymove(mob/user)
 	attempt_escape(user)
 
 // resist to escape the bin

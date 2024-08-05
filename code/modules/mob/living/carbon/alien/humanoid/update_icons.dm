@@ -17,7 +17,7 @@
 	else if(leap_on_click)
 		icon_state = "alien[caste]_pounce"
 
-	else if(body_position == LYING_DOWN)
+	else if(!(mobility_flags & MOBILITY_STAND))
 		icon_state = "alien[caste]_sleep"
 	else if(mob_size == MOB_SIZE_LARGE)
 		icon_state = "alien[caste]"

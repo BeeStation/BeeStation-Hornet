@@ -72,8 +72,7 @@
 	if(istype(S))
 		// Things that *really should always* happen to the shade when it comes out should go here.
 		S.status_flags &= ~GODMODE
-		REMOVE_TRAIT(S, TRAIT_IMMOBILIZED, SOULSTONE_TRAIT)
-		REMOVE_TRAIT(S, TRAIT_HANDS_BLOCKED, SOULSTONE_TRAIT)
+		S.mobility_flags = MOBILITY_FLAGS_DEFAULT
 		S.cancel_camera()
 		if(theme == THEME_HOLY)
 			S.icon_state = "shade_angelic"
@@ -347,8 +346,7 @@
 	T.dust_animation()
 	var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade(src)
 	S.status_flags |= GODMODE //So they won't die inside the stone somehow
-	ADD_TRAIT(S, TRAIT_IMMOBILIZED, SOULSTONE_TRAIT)
-	ADD_TRAIT(S, TRAIT_HANDS_BLOCKED, SOULSTONE_TRAIT)
+	S.mobility_flags = NONE //Can't move out of the soul stone
 	S.name = "Shade of [T.real_name]"
 	S.real_name = "Shade of [T.real_name]"
 	S.key = shade_controller.key

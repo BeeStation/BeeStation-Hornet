@@ -10,6 +10,7 @@
 	power_channel = AREA_USAGE_ENVIRON
 	density = TRUE
 	pass_flags_self = PASSTRANSPARENT | PASSGRILLE | PASSSTRUCTURE
+	obj_integrity = 600
 	max_integrity = 600
 	integrity_failure = 0.35
 	//Robust! It'll be tough to break...

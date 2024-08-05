@@ -52,7 +52,7 @@
 		return
 	mobloc = get_turf(target.loc)
 	jaunt_steam(mobloc)
-	ADD_TRAIT(target, TRAIT_IMMOBILIZED, type)
+	target.mobility_flags &= ~MOBILITY_MOVE
 	holder.reappearing = 1
 	play_sound("exit",target)
 	sleep(25 - jaunt_in_time)
@@ -67,7 +67,7 @@
 				if(T)
 					if(target.Move(T))
 						break
-		REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, type)
+		target.mobility_flags |= MOBILITY_MOVE
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/proc/jaunt_steam(mobloc)
 	var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
@@ -99,7 +99,7 @@
 		AM.forceMove(get_turf(src))
 	return ..()
 
-/obj/effect/dummy/phased_mob/spell_jaunt/relaymove(mob/living/user, direction)
+/obj/effect/dummy/phased_mob/spell_jaunt/relaymove(var/mob/user, direction)
 	if ((movedelay > world.time) || reappearing || !direction)
 		return
 	var/turf/newLoc = get_step(src,direction)

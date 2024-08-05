@@ -315,7 +315,6 @@
 	qdel(src)
 
 /obj/structure/closet/obj_break(damage_flag)
-	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		bust_open()
 
@@ -388,7 +387,7 @@
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user)
 	if(!istype(O) || O.anchored || istype(O, /atom/movable/screen))
 		return
-	if(!istype(user) || user.incapacitated() || user.body_position == LYING_DOWN)
+	if(!istype(user) || user.incapacitated() || !(user.mobility_flags & MOBILITY_STAND))
 		return
 	if(!Adjacent(user) || !user.Adjacent(O))
 		return
@@ -426,8 +425,8 @@
 		O.forceMove(T)
 	return TRUE
 
-/obj/structure/closet/relaymove(mob/living/user, direction)
-	if(user.stat || !isturf(loc))
+/obj/structure/closet/relaymove(mob/user)
+	if(user.stat || !isturf(loc) || !isliving(user))
 		return
 	if(locked)
 		if(message_cooldown <= world.time)
@@ -440,12 +439,11 @@
 	. = ..()
 	if(.)
 		return
-	if(user.body_position == LYING_DOWN && get_dist(src, user) > 0)
+	if(!(user.mobility_flags & MOBILITY_STAND) && get_dist(src, user) > 0)
 		return
 
 	if(!toggle(user))
 		togglelock(user)
-
 
 /obj/structure/closet/attack_paw(mob/user)
 	return attack_hand(user)

@@ -8,14 +8,18 @@
 	alert_type = null
 	var/needs_update_stat = FALSE
 
-/datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration)
+/datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration, updating_canmove)
 	if(isnum_safe(set_duration))
 		duration = set_duration
 	. = ..()
-	if(. && (needs_update_stat || issilicon(owner)))
-		owner.update_stat()
+	if(.)
+		if(updating_canmove)
+			owner.update_mobility()
+			if(needs_update_stat || issilicon(owner))
+				owner.update_stat()
 
 /datum/status_effect/incapacitating/on_remove()
+	owner.update_mobility()
 	if(needs_update_stat || issilicon(owner)) //silicons need stat updates in addition to normal canmove updates
 		owner.update_stat()
 	return ..()
@@ -117,7 +121,7 @@
 	var/mob/living/carbon/carbon_owner
 	var/mob/living/carbon/human/human_owner
 
-/datum/status_effect/incapacitating/sleeping/on_creation(mob/living/new_owner)
+/datum/status_effect/incapacitating/sleeping/on_creation(mob/living/new_owner, updating_canmove)
 	. = ..()
 	if(.)
 		if(iscarbon(owner)) //to avoid repeated istypes
@@ -185,7 +189,7 @@
 	if(owner.stat == DEAD)
 		last_dead_time = world.time
 
-/datum/status_effect/grouped/stasis/on_creation(mob/living/new_owner, set_duration)
+/datum/status_effect/grouped/stasis/on_creation(mob/living/new_owner, set_duration, updating_canmove)
 	. = ..()
 	if(.)
 		update_time_of_death()
@@ -197,14 +201,16 @@
 	if(!.)
 		return
 	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	//ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.update_mobility() // TEMPORARY
 
 /datum/status_effect/grouped/stasis/tick()
 	update_time_of_death()
 
 /datum/status_effect/grouped/stasis/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	//REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.update_mobility()
 	update_time_of_death()
 	SEND_SIGNAL(owner, COMSIG_LIVING_EXIT_STASIS)
 	return ..()
@@ -621,7 +627,7 @@
 
 /datum/status_effect/trance/tick()
 	if(stun)
-		owner.Stun(60, TRUE)
+		owner.Stun(60, TRUE, TRUE)
 	owner.dizziness = 20
 
 /datum/status_effect/trance/on_apply()
@@ -751,7 +757,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/dna_melt
 	var/kill_either_way = FALSE //no amount of removing mutations is gonna save you now
 
-/datum/status_effect/dna_melt/on_creation(mob/living/new_owner, set_duration)
+/datum/status_effect/dna_melt/on_creation(mob/living/new_owner, set_duration, updating_canmove)
 	. = ..()
 	to_chat(new_owner, "<span class='boldwarning'>My body can't handle the mutations! I need to get my mutations removed fast!</span>")
 
@@ -775,7 +781,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/go_away
 	var/direction
 
-/datum/status_effect/go_away/on_creation(mob/living/new_owner, set_duration)
+/datum/status_effect/go_away/on_creation(mob/living/new_owner, set_duration, updating_canmove)
 	. = ..()
 	direction = pick(NORTH, SOUTH, EAST, WEST)
 	new_owner.setDir(direction)

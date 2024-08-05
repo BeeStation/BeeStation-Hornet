@@ -9,7 +9,9 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	var/next_ask
 	var/askDelay = 600 //one minute
 	var/searching = FALSE
+	brainmob = null
 	req_access = list(ACCESS_ROBOTICS)
+	mecha = null//This does not appear to be used outside of reference in mecha.dm.
 	braintype = "Android"
 	var/autoping = TRUE //if it pings on creation immediately
 	var/begin_activation_message = "<span class='notice'>You carefully locate the manual activation switch and start the positronic brain's boot process.</span>"
@@ -40,7 +42,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 
 /obj/item/mmi/posibrain/attack_self(mob/user)
 	if(!brainmob)
-		set_brainmob(new /mob/living/brain(src))
+		brainmob = new(src)
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SILICONS))
 		to_chat(user, "<span class='warning'>Central Command has temporarily outlawed posibrain sentience in this sector...</span>")
 		return
@@ -169,7 +171,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 
 /obj/item/mmi/posibrain/Initialize(mapload)
 	. = ..()
-	set_brainmob(new /mob/living/brain(src))
+	brainmob = new(src)
 	var/new_name
 	if(!LAZYLEN(possible_names))
 		new_name = pick(GLOB.posibrain_names)
@@ -181,7 +183,6 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	brainmob.container = src
 	if(autoping)
 		ping_ghosts("created", TRUE)
-
 
 /obj/item/mmi/posibrain/attackby(obj/item/O, mob/user)
 	return

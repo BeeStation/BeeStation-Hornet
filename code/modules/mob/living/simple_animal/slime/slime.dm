@@ -497,15 +497,16 @@
 
 	SStun = world.time + rand(20,60)
 
-	Stun(3)
+	mobility_flags &= ~MOBILITY_MOVE
 	if(user)
 		step_away(src,user,15)
 
-	addtimer(CALLBACK(src, PROC_REF(slime_move), user), 0.3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(slime_move), user), 3)
 
 /mob/living/simple_animal/slime/proc/slime_move(mob/user)
 	if(user)
 		step_away(src,user,15)
+	update_mobility()
 
 /mob/living/simple_animal/slime/pet
 	docile = 1

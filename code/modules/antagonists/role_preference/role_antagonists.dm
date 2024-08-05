@@ -368,7 +368,7 @@
 /datum/outfit/nuclear_operative
 	name = "Nuclear Operative (Preview only)"
 
-	suit = /obj/item/clothing/suit/space/hardsuit/syndipreview
+	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 
 /datum/role_preference/antagonist/wizard

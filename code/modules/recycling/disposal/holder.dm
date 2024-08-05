@@ -135,7 +135,7 @@
 
 
 // called when player tries to move while in a pipe
-/obj/structure/disposalholder/relaymove(mob/living/user, direction)
+/obj/structure/disposalholder/relaymove(mob/user)
 	if(user.incapacitated())
 		return
 	for(var/mob/M as() in hearers(5, get_turf(src)))

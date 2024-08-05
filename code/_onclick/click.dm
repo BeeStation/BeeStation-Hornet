@@ -23,7 +23,8 @@
 /mob/living/changeNext_move(num)
 	var/mod = next_move_modifier
 	var/adj = next_move_adjust
-	for(var/datum/status_effect/S as anything in status_effects)
+	for(var/i in status_effects)
+		var/datum/status_effect/S = i
 		mod *= S.nextmove_modifier()
 		adj += S.nextmove_adjust()
 	next_move = world.time + ((num + adj)*mod)
@@ -40,7 +41,6 @@
 /atom/Click(location,control,params)
 	if(flags_1 & INITIALIZED_1)
 		SEND_SIGNAL(src, COMSIG_CLICK, location, control, params, usr)
-
 		usr.ClickOn(src, params)
 
 /atom/DblClick(location,control,params)

@@ -16,9 +16,6 @@
 		var/obj/item/organ/brain/OB = new(loc) //we create a new brain organ for it.
 		OB.brainmob = src
 		forceMove(OB)
-	if(!container?.mecha) //Unless inside a mecha, brains are rather helpless.
-		ADD_TRAIT(src, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
-		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
 
 
 /mob/living/brain/proc/create_dna()
@@ -37,6 +34,12 @@
 	container = null
 	QDEL_NULL(stored_dna)
 	return ..()
+
+/mob/living/brain/update_mobility()
+	if(in_contents_of(/obj/vehicle/sealed/mecha))
+		mobility_flags = MOBILITY_FLAGS_DEFAULT
+	else
+		mobility_flags = NONE
 
 /mob/living/brain/ex_act() //you cant blow up brainmobs because it makes transfer_to() freak out when borgs blow up.
 	return

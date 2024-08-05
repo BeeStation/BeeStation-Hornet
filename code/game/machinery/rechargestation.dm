@@ -42,7 +42,7 @@
 		process_occupant(delta_time)
 	return 1
 
-/obj/machinery/recharge_station/relaymove(mob/living/user, direction)
+/obj/machinery/recharge_station/relaymove(mob/user)
 	if(user.stat)
 		return
 	open_machine()

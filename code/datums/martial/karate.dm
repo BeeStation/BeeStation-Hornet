@@ -33,7 +33,7 @@
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	if(!can_use(A))
 		return FALSE
-	if(D.body_position == LYING_DOWN)
+	if(!(D.mobility_flags & MOBILITY_STAND))
 		log_combat(A, D, "floor stomped (Karate)", name)
 		D.visible_message("<span class='warning'>[A] stomped [D] in the head!</span>", \
 							"<span class='userdanger'>[A] stomped you in the head!</span>", null, COMBAT_MESSAGE_RANGE)

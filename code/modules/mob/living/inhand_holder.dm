@@ -86,7 +86,7 @@
 	releasing = FALSE
 	return TRUE
 
-/obj/item/clothing/head/mob_holder/relaymove(mob/living/user, direction)
+/obj/item/clothing/head/mob_holder/relaymove(mob/user)
 	release()
 
 /obj/item/clothing/head/mob_holder/container_resist()

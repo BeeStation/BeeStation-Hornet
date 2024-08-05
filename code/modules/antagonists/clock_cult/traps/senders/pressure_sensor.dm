@@ -13,6 +13,7 @@
 	alpha = 60
 	layer = PRESSURE_PLATE_LAYER
 	max_integrity = 5
+	obj_integrity = 5
 
 /datum/component/clockwork_trap/pressure_sensor
 	sends_input = TRUE

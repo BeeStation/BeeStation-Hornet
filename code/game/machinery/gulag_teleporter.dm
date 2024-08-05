@@ -82,7 +82,7 @@ The console is located at computer/gulag_teleporter.dm
 		return
 
 
-/obj/machinery/gulag_teleporter/relaymove(mob/living/user, direction)
+/obj/machinery/gulag_teleporter/relaymove(mob/user)
 	if(user.stat != CONSCIOUS)
 		return
 	if(locked)

@@ -9,7 +9,7 @@
 	anchored = FALSE
 	density = TRUE
 	max_integrity = 100
-	buckle_lying = 0
+	buckle_lying = FALSE
 	layer = ABOVE_MOB_LAYER
 	move_resist = MOVE_FORCE_STRONG
 	var/view_range = 2.5

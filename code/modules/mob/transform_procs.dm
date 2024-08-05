@@ -471,8 +471,6 @@
 	if(notransform)
 		return TRUE
 	notransform = TRUE
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_GENERIC)
 	Paralyze(1, ignore_canstun = TRUE)
 
 	if(delete_items)

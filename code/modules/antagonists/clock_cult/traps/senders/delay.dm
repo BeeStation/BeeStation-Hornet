@@ -11,6 +11,7 @@
 	component_datum = /datum/component/clockwork_trap/delay
 	unwrench_path = /obj/item/wallframe/clocktrap/delay
 	max_integrity = 15
+	obj_integrity = 15
 
 /datum/component/clockwork_trap/delay
 	takes_input = TRUE

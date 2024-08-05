@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 /obj/structure/bodycontainer/update_icon()
 	return
 
-/obj/structure/bodycontainer/relaymove(mob/living/user, direction)
+/obj/structure/bodycontainer/relaymove(mob/user)
 	if(user.stat || !isturf(loc))
 		return
 	if(locked)
@@ -375,7 +375,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		return
 	if(isliving(user))
 		var/mob/living/L = user
-		if(L.body_position == LYING_DOWN)
+		if(!(L.mobility_flags & MOBILITY_STAND))
 			return
 	O.forceMove(src.loc)
 	if (user != O)

@@ -5,11 +5,10 @@
  */
 /obj/item/compact_remote
 	name = "compact remote"
-	desc = "A smaller handheld device with one big button."
 	icon = 'icons/obj/wiremod.dmi'
 	icon_state = "setup_small_simple"
 	item_state = "electronic"
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
 	//worn_icon_state = "electronic"		//remember to change it later lol
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
