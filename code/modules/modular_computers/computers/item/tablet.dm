@@ -3,11 +3,13 @@
 	icon = 'icons/obj/modular_tablet.dmi'
 	icon_state = "tablet-red"
 	worn_icon_state = "pda"
-	var/icon_state_unpowered = "tablet"
-	var/icon_state_powered = "tablet"
-	var/icon_state_menu = "menu"
+	icon_state_unpowered = "tablet"
+	icon_state_powered = "tablet"
+	icon_state_menu = "menu"
+	hardware_flag = PROGRAM_TABLET
 	max_hardware_size = 1
 	w_class = WEIGHT_CLASS_SMALL
+	max_bays = 3
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION
 
@@ -60,7 +62,8 @@
 	return TRUE
 
 /obj/item/modular_computer/tablet/attackby(obj/item/attacking_item, mob/user)
-	. = ..()
+	if(..())
+		return
 
 	if(is_type_in_list(attacking_item, contained_item))
 		if(attacking_item.w_class >= WEIGHT_CLASS_SMALL) // Prevent putting spray cans, pipes, etc (subtypes of pens/crayons)
@@ -214,10 +217,10 @@
 	borgo = null
 	return ..()
 
-/obj/item/modular_computer/tablet/integrated/turn_on(mob/user, open_ui = FALSE)
-	if(borgo?.stat != DEAD)
-		return ..()
-	return FALSE
+/obj/item/modular_computer/tablet/integrated/can_turn_on(mob/user)
+	if(borgo?.stat == DEAD)
+		return FALSE
+	return ..()
 
 /**
   * Returns a ref to the Cyborg Self-Monitoring app, creating the app if need be.

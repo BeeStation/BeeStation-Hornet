@@ -5,6 +5,11 @@
 			ui_interact(user)
 		return TRUE
 
+	var/obj/item/modular_computer/mod_pc = physical_holder
+	if(istype(mod_pc))
+		if(!mod_pc.can_turn_on(user))
+			return FALSE
+
 	var/issilicon = issilicon(user) // Robots and AIs get different activation messages.
 	// if(obj_integrity <= integrity_failure * max_integrity)
 	// 	if(issynth)
@@ -15,30 +20,31 @@
 
 	// If we have a recharger, enable it automatically. Lets computer without a battery work.
 	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
-	if(recharger)
+	if(istype(recharger))
 		recharger.enabled = 1
 
 	if(isnull(all_components[MC_CPU]))
 		if(issilicon)
-			to_chat(user, "<span class='warning'>You send an activation signal to \the [src], but nothing happens.</span>")
+			to_chat(user, "<span class='warning'>You send an activation signal to \the [src.physical_holder], but nothing happens.</span>")
 		else
 			to_chat(user, "<span class='warning'>You press the power button, but nothing happens.</span>")
 
 	if(all_components[MC_CPU] && use_power()) // use_power() checks if the PC is powered
 		if(issilicon)
-			to_chat(user, "<span class='notice'>You send an activation signal to \the [src], turning it on.</span>")
+			to_chat(user, "<span class='notice'>You send an activation signal to \the [src.physical_holder], turning it on.</span>")
 		else
-			to_chat(user, "<span class='notice'>You press the power button and start up \the [src].</span>")
+			to_chat(user, "<span class='notice'>You press the power button and start up \the [src.physical_holder].</span>")
 		enabled = 1
 		update_icon()
 		if(open_ui)
 			ui_interact(user)
 		return TRUE
+
 	else // Unpowered
 		if(issilicon)
-			to_chat(user, "<span class='warning'>You send an activation signal to \the [src] but it does not respond.</span>")
+			to_chat(user, "<span class='warning'>You send an activation signal to \the [src.physical_holder] but it does not respond.</span>")
 		else
-			to_chat(user, "<span class='warning'>You press the power button but \the [src] does not respond.</span>")
+			to_chat(user, "<span class='warning'>You press the power button but \the [src.physical_holder] does not respond.</span>")
 	return FALSE
 
 /// A power-off event
@@ -147,6 +153,12 @@
 		to_chat(user, "<span class='danger'>\The [src]'s screen shows \"Unable to connect to NTNet. Please retry. If problem persists contact your system administrator.\" warning.</span>")
 		return FALSE
 
+	if(!isnull(program.required_hardware) && isnull(all_components[program.required_hardware]))
+		// Missing a required hardware component, such as the signaller package
+		//Giving a clue to users why the program is spitting out zeros.
+		to_chat(user, "<span class='warning'>\The [physical_holder] flashes an error: \"hardware\\[program.required_hardware]\\startup.bin -- file not found\".</span>")
+		return FALSE
+
 	if(!program.on_start(user))
 		return FALSE
 
@@ -162,8 +174,15 @@
 
 /obj/item/mainboard/proc/get_hardware_type()
 	var/obj/item/modular_computer/item = physical_holder
+	if(istype(item))
+		return item.hardware_flag
+
 	var/obj/machinery/modular_computer/machine = physical_holder
-	return item?.hardware_flag || machine?.hardware_flag
+	if(istype(machine))
+		return machine.hardware_flag
+
+	// unknown physical_holder
+	return ~PROGRAM_ALL
 
 /// Check if we can install this mainboard into the device.
 /// Useful for when we install something, and then try to insert it into a tablet

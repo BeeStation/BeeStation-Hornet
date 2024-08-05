@@ -8,6 +8,7 @@
 	tgui_id = "NtosSignaller"
 	program_icon = "satellite-dish"
 	usage_flags = PROGRAM_TABLET | PROGRAM_LAPTOP
+	required_hardware = MC_SIGNALLER
 	///What is the saved signal frequency?
 	var/signal_frequency = FREQ_SIGNALER
 	/// What is the saved signal code?
@@ -20,9 +21,6 @@
 	if (!.)
 		return
 	set_frequency(signal_frequency)
-	var/obj/item/computer_hardware/radio_card/signaller = computer.all_components[MC_SIGNALLER]
-	if(isnull(signaller)) //Giving a clue to users why the program is spitting out zeros.
-		to_chat(user, "<span class='warning'>\The [computer] flashes an error: \"hardware\\signal_hardware\\startup.bin -- file not found\".</span>")
 
 /datum/computer_file/program/signaller/kill_program(forced)
 	. = ..()

@@ -35,6 +35,8 @@
 	var/use_attack = FALSE
 	/// If this program should process attack_obj calls
 	var/use_attack_obj = FALSE
+	/// What hardware is needed for this program to work, if any
+	var/required_hardware = null
 
 /datum/computer_file/program/New(obj/item/mainboard/comp = null)
 	..()

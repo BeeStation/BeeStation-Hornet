@@ -53,7 +53,7 @@
 
 /atom/movable/screen/ai/modpc/Click()
 	. = ..()
-	if(. || !robot.modularInterface?.turn_on(robot, open_ui = FALSE))
+	if(. || !robot.modularInterface.mainboard.turn_on(robot, open_ui = FALSE))
 		return
 	var/obj/item/mainboard/mainboard = robot.modularInterface.mainboard
 	var/obj/item/computer_hardware/hard_drive/drive = mainboard.all_components[MC_HDD]

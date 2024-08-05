@@ -3289,6 +3289,7 @@
 #include "code\modules\mob\living\simple_animal\slime\slime.dm"
 #include "code\modules\mob\living\simple_animal\slime\subtypes.dm"
 #include "code\modules\modular_computers\laptop_vendor.dm"
+#include "code\modules\modular_computers\computers\item\laptop.dm"
 #include "code\modules\modular_computers\computers\item\laptop_presets.dm"
 #include "code\modules\modular_computers\computers\item\modular_computer.dm"
 #include "code\modules\modular_computers\computers\item\pda.dm"

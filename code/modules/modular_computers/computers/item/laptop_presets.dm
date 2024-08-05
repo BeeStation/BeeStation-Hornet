@@ -1,3 +1,5 @@
+/obj/item/modular_computer/laptop/preset
+
 /obj/item/modular_computer/laptop/preset/Initialize(mapload)
 	. = ..()
 	install_component(new /obj/item/computer_hardware/processor_unit/small)

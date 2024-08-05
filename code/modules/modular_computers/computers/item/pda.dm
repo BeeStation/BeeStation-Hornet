@@ -25,20 +25,19 @@
 		mainboard.device_theme = mainboard.allowed_themes[pref_theme]
 	mainboard.classic_color = user.client.prefs.read_character_preference(/datum/preference/color/pda_classic_color)
 
-/obj/item/modular_computer/tablet/pda/update_icon()
-	..()
+/obj/item/modular_computer/tablet/pda/update_overlays()
+	. = ..()
 	var/init_icon = initial(icon)
-	if(!init_icon)
+	if(isnull(init_icon))
 		return
 	var/obj/item/computer_hardware/id_slot/id_slot = mainboard.all_components[MC_ID_AUTH]
 	if(istype(id_slot))
 		if(id_slot.stored_card)
-			add_overlay(mutable_appearance(init_icon, "id_overlay"))
+			. += mutable_appearance(init_icon, "id_overlay")
 	if(inserted_item)
-		add_overlay(mutable_appearance(init_icon, "insert_overlay"))
+		. += mutable_appearance(init_icon, "insert_overlay")
 	if(light_on)
-		add_overlay(mutable_appearance(init_icon, "light_overlay"))
-
+		. +=mutable_appearance(init_icon, "light_overlay")
 
 /obj/item/modular_computer/tablet/pda/attack_ai(mob/user)
 	to_chat(user, "<span class='notice'>It doesn't feel right to snoop around like that...</span>")

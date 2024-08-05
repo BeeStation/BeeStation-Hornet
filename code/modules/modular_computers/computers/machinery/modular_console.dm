@@ -19,6 +19,7 @@
 	light_strength = 2
 	max_integrity = 300
 	integrity_failure = 0.5
+	hardware_flag = PROGRAM_CONSOLE
 	var/console_department = "" // Used in New() to set network tag according to our area.
 
 /obj/machinery/modular_computer/console/buildable/Initialize(mapload)
@@ -55,8 +56,8 @@
 		network_card.identification_string = replacetext(replacetext(replacetext("[console_department] Console", " ", "_"), "-", ""), "__", "_")
 	else
 		network_card.identification_string = "Unknown Console"
-	if(!isnull(mainboard))
-		mainboard.screen_on = 1
+	if(istype(mainboard))
+		mainboard.enabled = 1
 	update_icon()
 
 /obj/machinery/modular_computer/console/Destroy()

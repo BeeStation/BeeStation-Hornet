@@ -8,15 +8,12 @@
 	size = 4
 	tgui_id = "NtosAtmos"
 	program_icon = "thermometer-half"
+	required_hardware = MC_SENSORS
 
 /datum/computer_file/program/atmosscan/on_start(mob/living/user)
 	. = ..()
 	if (!.)
 		return
-	var/obj/item/computer_hardware/sensorpackage/sensors = computer.all_components[MC_SENSORS]
-	if(isnull(sensors)) //Giving a clue to users why the program is spitting out zeros.
-		to_chat(user, "<span class='warning'>\The [computer] flashes an error: \"hardware\\sensorpackage\\startup.bin -- file not found\".</span>")
-
 
 /datum/computer_file/program/atmosscan/ui_data(mob/user)
 	var/list/data = list()

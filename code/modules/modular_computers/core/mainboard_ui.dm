@@ -25,7 +25,7 @@
 		return FALSE
 
 	// Robots don't really need to see the screen, their wireless connection works as long as computer is on.
-	if(!screen_on && !issilicon(user))
+	if(!enabled && !issilicon(user))
 		if(ui)
 			ui.close()
 		return FALSE
@@ -159,7 +159,6 @@
 		data["stored_pai_name"] = stored_card?.pai?.name
 
 	var/obj/item/computer_hardware/id_slot/cardholder = all_components[MC_ID_AUTH]
-	var/obj/item/computer_hardware/identifier/id = all_components[MC_IDENTIFY]
 
 	data["cardholder"] = FALSE
 	data["login"] = list()

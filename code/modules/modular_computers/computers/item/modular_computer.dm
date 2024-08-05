@@ -16,14 +16,20 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	/// Maximal hardware size. Currently, tablets have 1, laptops 2 and consoles 3. Limits what hardware types can be installed.
 	var/max_hardware_size = 0
+	/// Additional bays set aside for expansion
+	var/max_bays = 0
 	/// Hardware flags. TODO: Maybe move this somewhere else?
 	var/hardware_flag = 0
 	/// Whether this modpc should be hidden from messaging TODO: Move this to the messenger app or maybe the network card
 	var/messenger_invisible = FALSE
-	/// If it's bypassing the set icon state
-	var/bypass_icon_state = FALSE
 	/// If we need to override the default themes with the syndicate one
 	var/syndicate_themed = FALSE
+
+	/// If it's bypassing the icon state variables below
+	var/bypass_icon_state = FALSE
+	var/icon_state_unpowered = null
+	var/icon_state_powered = null
+	var/icon_state_menu = "menu"
 
 	/// The ringtone that will be set on initialize
 	var/init_ringtone = "beep"
@@ -46,8 +52,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	SHOULD_CALL_PARENT(TRUE)
 	mainboard = new(src)
 	mainboard.physical_holder = src
-	. = ..()
 	mainboard.max_hardware_w_class = max_hardware_size
+	mainboard.max_bays = max_bays
+	. = ..() // The subtypes Initialize() expect mainboard to exist
 	set_light_color(comp_light_color)
 	set_light_range(comp_light_luminosity)
 	mainboard.update_id_display()
@@ -76,6 +83,30 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(istype(mainboard))
 		. += mainboard.internal_parts_examine(user)
 
+/obj/item/modular_computer/update_icon_state()
+	. = ..()
+	if(bypass_icon_state)
+		return
+	icon_state = mainboard.enabled ? icon_state_powered : icon_state_unpowered
+
+/obj/item/modular_computer/update_overlays()
+	. = ..()
+
+	var/init_icon = initial(icon)
+	if(!init_icon)
+		return
+
+	if(mainboard.enabled)
+		. += mainboard.active_program ? mutable_appearance(init_icon, mainboard.active_program.program_icon_state) : mutable_appearance(init_icon, icon_state_menu)
+
+	var/obj/item/computer_hardware/goober/pai/pai_slot = mainboard.all_components[MC_PAI]
+	if(istype(pai_slot))
+		. += isnull(pai_slot.stored_card) ? mutable_appearance(init_icon, "pai-off-overlay") : mutable_appearance(init_icon, "pai-overlay")
+
+	// if(obj_integrity <= integrity_failure * max_integrity)
+	// 	add_overlay(mutable_appearance(init_icon, "bsod"))
+	// 	add_overlay(mutable_appearance(init_icon, "broken"))
+
 /obj/item/modular_computer/ui_action_click(mob/user, actiontype)
 	if(istype(actiontype, light_action))
 		toggle_flashlight()
@@ -91,6 +122,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/attack_ai(mob/user)
 	if(istype(mainboard))
 		return mainboard.attack_ai_parent(user)
+	return ..()
+
+/obj/item/modular_computer/attackby(obj/item/I, mob/living/user, params)
+	if(istype(mainboard))
+		return mainboard.attackby_parent(I, user, params)
 	return ..()
 
 /obj/item/modular_computer/attack_ghost(mob/dead/observer/user)
@@ -111,7 +147,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(isturf(loc))
 		return attack_self(user)
 
-// Gets IDs/access levels from card slot. Would be useful when/if PDAs would become modular PCs. (They are now!! you are welcome - itsmeow)
+/obj/item/modular_computer/proc/can_turn_on(mob/user)
+	return TRUE
+
+/// Gets IDs/access levels from card slot. Would be useful when/if PDAs would become modular PCs. (They are now!! you are welcome - itsmeow)
 /obj/item/modular_computer/GetAccess()
 	if(istype(mainboard))
 		return mainboard.GetAccess()
@@ -122,24 +161,19 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return mainboard.GetID()
 	return ..()
 
-/obj/item/modular_computer/RemoveID()
+/obj/item/modular_computer/interact(mob/user)
 	if(istype(mainboard))
-		return mainboard.RemoveID()
+		return mainboard.interact(user)
 	return ..()
 
-/obj/item/modular_computer/InsertID(obj/item/inserting_item)
-	if(istype(mainboard))
-		return mainboard.InsertID()
-	return ..()
+/obj/item/modular_computer/proc/install_component(obj/item/computer_hardware/install, mob/living/user = null)
+	if(isnull(mainboard))
+		stack_trace("Called install_component() without a mainboard installed.")
+	mainboard.install_component(install, user)
 
 /obj/item/modular_computer/MouseDrop(obj/over_object, src_location, over_location)
 	if(istype(mainboard))
 		return mainboard.MouseDrop(over_object, src_location, over_location)
-	return ..()
-
-/obj/item/modular_computer/should_emag(mob/user)
-	if(istype(mainboard))
-		return mainboard.should_emag(user)
 	return ..()
 
 /obj/item/modular_computer/on_emag(mob/user)
@@ -147,20 +181,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return mainboard.on_emag(user)
 	return ..()
 
-/obj/item/modular_computer/examine(mob/user)
+/obj/item/modular_computer/should_emag(mob/user)
 	if(istype(mainboard))
-		return mainboard.on_emag(user)
-	. = ..()
-
-/obj/item/modular_computer/proc/turn_on(mob/user, open_ui = TRUE)
-	if(istype(mainboard))
-		return mainboard.turn_on(user, open_ui)
-	return FALSE
-
-/obj/item/modular_computer/proc/install_component(obj/item/computer_hardware/install, mob/living/user = null)
-	if(isnull(mainboard))
-		stack_trace("Called install_component() without a mainboard installed.")
-	mainboard.install_component(install, user)
+		return mainboard.should_emag(user)
+	return ..()
 
 /**
   * Toggles the computer's flashlight, if it has one.

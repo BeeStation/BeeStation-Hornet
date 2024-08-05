@@ -46,7 +46,7 @@
 	if(istype(recharger))
 		recharger.process(delta_time)
 
-	var/power_usage = screen_on ? total_active_power_usage : total_idle_power_usage
+	var/power_usage = enabled ? total_active_power_usage : total_idle_power_usage
 
 	for(var/obj/item/computer_hardware/H in all_components)
 		if(H.enabled)

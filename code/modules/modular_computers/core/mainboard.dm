@@ -49,7 +49,7 @@
 
 	// power-related
 	/// Is an integrated screen on? TODO: Make this into a screen component
-	var/screen_on = FALSE
+	// var/screen_on = FALSE
 	/// The total power usage when the screen is on
 	var/total_active_power_usage = 50
 	/// The total power usage when the screen is off
@@ -87,14 +87,18 @@
 	. += internal_parts_examine(user)
 
 // All the various update procs
-/obj/item/mainboard/update_icon_state()
-	..()
-	CRASH("TODO")
-	// return ..()
+/obj/item/mainboard/update_icon(updates)
+	if(istype(physical_holder))
+		physical_holder.update_icon(updates)
 
-/obj/item/mainboard/update_overlays()
-	. = ..()
-	CRASH("TODO")
+// /obj/item/mainboard/update_icon_state()
+// 	..()
+// 	CRASH("TODO")
+// 	// return ..()
+
+// /obj/item/mainboard/update_overlays()
+// 	. = ..()
+// 	CRASH("TODO")
 
 // All the interaction procs
 // click procs
@@ -105,7 +109,7 @@
 		return FALSE
 	var/obj/item/computer_hardware/id_slot/slot1 = all_components[MC_ID_AUTH]
 	var/obj/item/computer_hardware/id_slot/slot2 = all_components[MC_ID_MODIFY]
-	if(slot2?.try_eject(user))
+	if(!slot2?.try_eject(user))
 		return slot1?.try_eject(user)
 	return TRUE
 
@@ -140,8 +144,16 @@
 /// When the mainboard's physical parent was attacked and passed it to us
 /obj/item/mainboard/proc/attackby_parent(obj/item/I, mob/user, params)
 	// Check for ID first
-	if(istype(I, /obj/item/card/id) && InsertID(I))
-		return
+	if(istype(I, /obj/item/card/id))
+		var/obj/item/computer_hardware/id_slot/slot1 = all_components[MC_ID_AUTH]
+		if(istype(slot1) && slot1.try_insert(I))
+			return TRUE
+
+		var/obj/item/computer_hardware/id_slot/slot2 = all_components[MC_ID_MODIFY]
+		if(istype(slot2) && slot2.try_insert(I))
+			return TRUE
+
+		return FALSE
 
 	// Scan a photo.
 	if(istype(I, /obj/item/photo))
