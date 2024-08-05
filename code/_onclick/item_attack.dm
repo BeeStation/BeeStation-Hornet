@@ -14,12 +14,6 @@
 		return TRUE
 	if(target.attackby(src,user, params))
 		return TRUE
-	if(QDELETED(src))
-		stack_trace("An item got deleted while performing an item attack and did not stop melee_attack_chain.")
-		return TRUE
-	if(QDELETED(target))
-		stack_trace("The target of an item attack got deleted and melee_attack_chain was not stopped.")
-		return TRUE
 	return afterattack(target, user, TRUE, params)
 
 
