@@ -57,6 +57,8 @@
 	aa0_hint_ckey = ckey
 	src.ckey = ckey
 
+TGS_PROTECT_DATUM(/datum/client_data)
+
 /datum/client_data/proc/on_login(client/cli)
 	connection_time = world.time
 	connection_realtime = world.realtime
