@@ -20,7 +20,7 @@
 	var/datum/picture/saved_image
 
 /obj/item/computer_hardware/hard_drive/on_remove(obj/item/mainboard/remove_from, mob/user)
-	remove_from.shutdown_computer()
+	remove_from.turn_off()
 
 /obj/item/computer_hardware/hard_drive/on_install(obj/item/mainboard/install_into, mob/living/user)
 	// We don't want to install again if they remove the drive

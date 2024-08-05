@@ -43,14 +43,13 @@
 				restoring = TRUE
 				A.notify_ghost_cloning("Your core files are being restored!", source = computer)
 			return TRUE
+
 		if("PRG_eject")
 			var/obj/item/computer_hardware/goober/ai/ai_slot = get_ai_slot()
 			if(!istype(ai_slot))
 				return
 
-			if(ai_slot.stored_card)
-				ai_slot.try_eject(usr)
-				return TRUE
+			return ai_slot.try_eject(usr)
 
 /datum/computer_file/program/aidiag/process_tick()
 	. = ..()

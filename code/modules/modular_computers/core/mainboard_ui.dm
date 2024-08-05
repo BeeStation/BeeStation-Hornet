@@ -47,7 +47,7 @@
 			ui = new(user, src, active_program.tgui_id, active_program.filedesc)
 			ui.set_autoupdate(TRUE)
 		else
-			ui = new(user, src, "NtosMain")
+			ui = new(user, src, "NtosMain", physical_holder.name)
 			ui.set_autoupdate(TRUE)
 		ui.open()
 		return TRUE
@@ -58,6 +58,8 @@
 		ui.title = active_program.filedesc
 	else
 		ui.interface = "NtosMain"
+		ui.title = physical_holder.name
+
 	//opened a new UI
 	if(old_open_ui != ui.interface)
 		update_static_data(user, ui) // forces a static UI update for the new UI
@@ -232,7 +234,7 @@
 			return TRUE
 
 		if("PC_shutdown")
-			shutdown_computer()
+			turn_off()
 			return TRUE
 
 		if("PC_minimize")
@@ -309,6 +311,7 @@
 					if(uninstall_component(portable_drive, usr, TRUE))
 						play_disk_sound()
 					return TRUE
+
 				if("job disk")
 					var/obj/item/computer_hardware/hard_drive/role/ssd = all_components[MC_HDD_JOB]
 					if(!ssd)
@@ -316,27 +319,36 @@
 					if(uninstall_component(ssd, usr, TRUE))
 						play_disk_sound()
 					return TRUE
+
 				if("intelliCard")
 					var/obj/item/computer_hardware/goober/ai/intelliholder = all_components[MC_AI]
 					if(!intelliholder)
 						return
 					if(intelliholder.try_eject(user))
 						play_disk_sound()
+					else
+						to_chat(user, "<span class='warning'>There are no cards in \the [intelliholder].</span>")
 					return TRUE
+
 				if("ID")
 					var/obj/item/computer_hardware/id_slot/cardholder = all_components[MC_ID_AUTH]
-					if(!cardholder)
-						return
+					if(isnull(cardholder))
+						return FALSE
 					if(cardholder.try_eject(user))
 						play_disk_sound()
+						return TRUE
+					to_chat(user, "<span class='warning'>There are no cards in \the [cardholder].</span>")
 					return TRUE
+
 				if("secondary RFID card")
 					var/obj/item/computer_hardware/id_slot/cardholder = all_components[MC_ID_MODIFY]
-					if(!cardholder)
-						return
+					if(isnull(cardholder))
+						return FALSE
 					if(cardholder.try_eject(user))
 						play_disk_sound()
-					return TRUE
+						return TRUE
+					to_chat(user, "<span class='warning'>There are no cards in \the [cardholder].</span>")
+					return FALSE
 
 		if("PC_Imprint_ID")
 			var/obj/item/computer_hardware/id_slot/cardholder = all_components[MC_ID_AUTH]

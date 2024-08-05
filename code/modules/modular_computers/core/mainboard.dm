@@ -73,11 +73,6 @@
 		var/obj/item/computer_hardware/component = all_components[port]
 		qdel(component)
 	all_components?.Cut()
-	// if(istype(stored_pai_card)) // This should be handled in the pai card component
-	// 	qdel(stored_pai_card)
-	// 	remove_pai()
-	// if(istype(light_action))
-	// 	QDEL_NULL(light_action)
 	physical_holder = null
 	// remove_messenger() // This should be handled in the messenger app
 	return ..()
@@ -90,15 +85,6 @@
 /obj/item/mainboard/update_icon(updates)
 	if(istype(physical_holder))
 		physical_holder.update_icon(updates)
-
-// /obj/item/mainboard/update_icon_state()
-// 	..()
-// 	CRASH("TODO")
-// 	// return ..()
-
-// /obj/item/mainboard/update_overlays()
-// 	. = ..()
-// 	CRASH("TODO")
 
 // All the interaction procs
 // click procs
@@ -234,10 +220,6 @@
 /obj/item/mainboard/process(delta_time)
 	if(!enabled) // The computer is turned off
 		last_power_usage = 0
-		return 0
-
-	if(obj_integrity <= integrity_failure * max_integrity)
-		shutdown_computer()
 		return 0
 
 	if(active_program && active_program.requires_ntnet && !get_ntnet_status(active_program.requires_ntnet_feature))

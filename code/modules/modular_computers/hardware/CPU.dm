@@ -13,7 +13,7 @@
 	device_type = MC_CPU
 
 /obj/item/computer_hardware/processor_unit/on_remove(obj/item/mainboard/remove_from, mob/user)
-	remove_from.shutdown_computer()
+	remove_from.turn_off()
 
 /obj/item/computer_hardware/processor_unit/small
 	name = "microprocessor"

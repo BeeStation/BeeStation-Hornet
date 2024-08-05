@@ -3299,7 +3299,6 @@
 #include "code\modules\modular_computers\computers\machinery\console.dm"
 #include "code\modules\modular_computers\computers\machinery\console_presets.dm"
 #include "code\modules\modular_computers\computers\machinery\modular_computer.dm"
-#include "code\modules\modular_computers\computers\machinery\modular_console.dm"
 #include "code\modules\modular_computers\core\mainboard.dm"
 #include "code\modules\modular_computers\core\mainboard_components.dm"
 #include "code\modules\modular_computers\core\mainboard_power.dm"

@@ -20,6 +20,7 @@
 		install_component(new /obj/item/computer_hardware/battery(mainboard, /obj/item/stock_parts/cell/computer/super))
 	if(_has_ai)
 		install_component(new /obj/item/computer_hardware/goober/ai)
+	install_programs(mainboard.all_components[MC_HDD])
 
 // Override in child types to install preset-specific programs.
 /obj/machinery/modular_computer/console/preset/proc/install_programs()
@@ -31,8 +32,7 @@
 	name = "engineering console"
 	desc = "A stationary computer. This one comes preloaded with engineering programs."
 
-/obj/machinery/modular_computer/console/preset/engineering/install_programs()
-	var/obj/item/computer_hardware/hard_drive/hard_drive = mainboard?.all_components[MC_HDD]
+/obj/machinery/modular_computer/console/preset/engineering/install_programs(obj/item/computer_hardware/hard_drive/hard_drive)
 	hard_drive.store_file(new/datum/computer_file/program/power_monitor())
 	hard_drive.store_file(new/datum/computer_file/program/alarm_monitor())
 	hard_drive.store_file(new/datum/computer_file/program/supermatter_monitor())

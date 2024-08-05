@@ -33,6 +33,7 @@
 	mainboard = new(src)
 	mainboard.physical_holder = src
 	mainboard.max_hardware_w_class = max_hardware_size
+	mainboard.max_bays = max_bays
 	. = ..()
 
 /obj/machinery/modular_computer/Destroy()
@@ -106,7 +107,7 @@
 	if(mainboard?.enabled) // Shut down the computer
 		visible_message("<span class='danger'>\The [src]'s screen flickers [battery_module ? "\"BATTERY [malfunction ? "MALFUNCTION" : "CRITICAL"]\"" : "\"EXTERNAL POWER LOSS\""] warning as it shuts down unexpectedly.</span>")
 		if(!isnull(mainboard))
-			mainboard.shutdown_computer(0)
+			mainboard.turn_off()
 	set_machine_stat(machine_stat | NOPOWER)
 	update_icon()
 

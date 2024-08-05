@@ -56,8 +56,9 @@
 		network_card.identification_string = replacetext(replacetext(replacetext("[console_department] Console", " ", "_"), "-", ""), "__", "_")
 	else
 		network_card.identification_string = "Unknown Console"
-	if(istype(mainboard))
-		mainboard.enabled = 1
+	if(mapload)
+		if(istype(mainboard))
+			mainboard.turn_on()
 	update_icon()
 
 /obj/machinery/modular_computer/console/Destroy()

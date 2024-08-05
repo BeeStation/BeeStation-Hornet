@@ -80,7 +80,6 @@
 
 /obj/item/computer_hardware/id_slot/try_eject(mob/living/user = null, forced = FALSE)
 	if(!stored_card)
-		to_chat(user, "<span class='warning'>There are no cards in \the [src].</span>")
 		return FALSE
 
 	if(user && !issilicon(user) && in_range(src, user))

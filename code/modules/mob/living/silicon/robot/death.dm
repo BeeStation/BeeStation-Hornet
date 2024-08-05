@@ -18,7 +18,7 @@
 		return
 	if(!gibbed)
 		logevent("FATAL -- SYSTEM HALT")
-		modularInterface.mainboard.shutdown_computer()
+		modularInterface.mainboard.turn_off()
 	. = ..()
 
 	locked = FALSE //unlock cover

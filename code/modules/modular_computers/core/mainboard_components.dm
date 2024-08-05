@@ -58,7 +58,7 @@
 	forget_component(yeet)
 	yeet.on_remove(src, user)
 	if(enabled && !use_power())
-		shutdown_computer()
+		turn_off()
 	update_icon()
 	return TRUE
 

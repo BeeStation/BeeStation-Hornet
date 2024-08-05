@@ -48,13 +48,13 @@
 	return FALSE
 
 /// A power-off event
-/obj/item/mainboard/proc/shutdown_computer(loud = 1)
+/obj/item/mainboard/proc/turn_off(loud = 1)
 	kill_program(forced = TRUE)
 	for(var/datum/computer_file/program/P in idle_threads)
 		P.kill_program(forced = TRUE)
 		idle_threads.Remove(P)
 	if(loud && !isnull(physical_holder))
-		physical_holder.visible_message("<span class='notice'>\The [src] shuts down.</span>")
+		physical_holder.visible_message("<span class='notice'>\The [src.physical_holder] shuts down.</span>", allow_inside_usr = TRUE)
 	enabled = 0
 	update_icon()
 
@@ -102,8 +102,8 @@
 	var/obj/item/computer_hardware/id_slot/first_slot = all_components[MC_ID_AUTH]
 	var/obj/item/computer_hardware/id_slot/second_slot = all_components[MC_ID_MODIFY]
 	var/two_slots = istype(first_slot) && istype(second_slot)
-	if(first_slot || second_slot)
-		if(first_slot?.stored_card || second_slot.stored_card)
+	if(istype(first_slot) || istype(second_slot))
+		if(istype(first_slot?.stored_card) || istype(second_slot?.stored_card))
 			var/obj/item/card/id/first_ID = first_slot?.stored_card
 			var/obj/item/card/id/second_ID = second_slot?.stored_card
 			var/two_cards = istype(first_ID) && istype(second_ID)

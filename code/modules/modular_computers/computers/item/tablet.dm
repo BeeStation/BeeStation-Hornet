@@ -47,16 +47,16 @@
 		icon_state_powered = "tablet-[finish_color]"
 
 /obj/item/modular_computer/tablet/proc/try_scan_paper(obj/target, mob/user)
-	if(!istype(target, /obj/item/paper))
-		return FALSE
 	var/obj/item/paper/paper = target
+	if(isnull(paper))
+		return FALSE
 	if (!paper.default_raw_text)
 		to_chat(user, "<span class='warning'>Unable to scan! Paper is blank.</span>")
 	else
 		// clean up after ourselves
 		if(stored_paper)
 			qdel(stored_paper)
-		stored_paper = paper.copy(src)
+		stored_paper = paper.copy(location = src)
 		to_chat(user, "<span class='notice'>Paper scanned. Saved to PDA's notekeeper.</span>")
 		ui_update()
 	return TRUE

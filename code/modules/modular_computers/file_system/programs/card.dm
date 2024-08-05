@@ -101,7 +101,7 @@
 	if(..())
 		return TRUE
 
-	if(!computer)
+	if(isnull(computer))
 		return
 
 	var/obj/item/computer_hardware/id_slot/card_slot = computer.all_components[MC_ID_AUTH]
@@ -122,10 +122,12 @@
 			if(authenticate(user, user_id_card))
 				playsound(computer, 'sound/machines/terminal_on.ogg', 50, FALSE)
 				return TRUE
+
 		if("PRG_logout")
 			authenticated = FALSE
 			playsound(computer, 'sound/machines/terminal_off.ogg', 50, FALSE)
 			return TRUE
+
 		if("PRG_print")
 			if(!printer)
 				return
@@ -151,6 +153,7 @@
 				playsound(computer, 'sound/machines/terminal_on.ogg', 50, FALSE)
 				computer.visible_message("<span class='notice'>\The [computer] prints out a paper.</span>")
 			return TRUE
+
 		if("PRG_eject")
 			if(!card_slot2)
 				return
@@ -162,6 +165,7 @@
 				if(istype(I, /obj/item/card/id))
 					return card_slot2.try_insert(I, user)
 			return FALSE
+
 		if("PRG_terminate")
 			if(!authenticated)
 				return
@@ -175,6 +179,7 @@
 			log_id("[key_name(usr)] unassigned and stripped all access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
+
 		if("PRG_edit")
 			if(!authenticated || !target_id_card)
 				return
@@ -193,6 +198,7 @@
 			target_id_card.update_label()
 			playsound(computer, "terminal_type", 50, FALSE)
 			return TRUE
+
 		if("PRG_assign")
 			if(!authenticated || !target_id_card)
 				return
@@ -238,6 +244,7 @@
 
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
+
 		if("PRG_access")
 			if(!authenticated)
 				return
@@ -251,6 +258,7 @@
 					log_id("[key_name(usr)] added [get_access_desc(access_type)] to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 				playsound(computer, "terminal_type", 50, FALSE)
 				return TRUE
+
 		if("PRG_grantall")
 			if(!authenticated || minor)
 				return
@@ -258,6 +266,7 @@
 			log_id("[key_name(usr)] granted All Access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
+
 		if("PRG_denyall")
 			if(!authenticated || minor)
 				return
@@ -265,6 +274,7 @@
 			log_id("[key_name(usr)] removed All Access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
+
 		if("PRG_grantregion")
 			if(!authenticated)
 				return
@@ -275,6 +285,7 @@
 			log_id("[key_name(usr)] granted [get_region_accesses_name(region)] regional access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
+
 		if("PRG_denyregion")
 			if(!authenticated)
 				return

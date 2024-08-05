@@ -38,7 +38,7 @@
 		for(var/I in idle_threads)
 			var/datum/computer_file/program/PRG = I
 			PRG.event_powerfailure(1)
-		shutdown_computer(0)
+		turn_off()
 
 // Handles power-related things, such as battery interaction, recharging, shutdown when it's discharged
 /obj/item/mainboard/proc/handle_power(delta_time)
