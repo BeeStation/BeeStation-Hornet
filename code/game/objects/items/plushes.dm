@@ -930,7 +930,6 @@
 
 /obj/item/toy/plush/sillycons/peace/attack_self(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>You pet [src]. D'awww.</span>")
 	if(sound_alarm && !cooldown)
 		audible_message("<font color='red' size='5'>HUMAN HARM</font>")
 		playsound(src, sound_alarm, 25, 1)
