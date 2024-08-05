@@ -29179,12 +29179,10 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "hRz" = (
-/obj/effect/turf_decal/stripes/box,
-/obj/machinery/rnd/production/techfab/department/security,
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
+/obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "hRP" = (
@@ -39398,12 +39396,6 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
-"mnG" = (
-/obj/effect/turf_decal/loading_area{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/security/main)
 "mnP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -39548,11 +39540,10 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "mrB" = (
-/obj/machinery/photocopier{
-	pixel_y = 3
-	},
 /obj/machinery/light,
 /obj/machinery/airalarm/directional/south,
+/obj/machinery/rnd/production/techfab/department/security,
+/obj/effect/turf_decal/stripes/box,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "mso" = (
@@ -96567,7 +96558,7 @@ gos
 tzr
 aEU
 aEU
-mnG
+aEU
 aEU
 eQj
 xTq

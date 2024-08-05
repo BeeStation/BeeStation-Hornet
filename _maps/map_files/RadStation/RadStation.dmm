@@ -13053,8 +13053,6 @@
 	pixel_y = -6;
 	req_access_txt = "3"
 	},
-/obj/machinery/photocopier,
-/obj/effect/turf_decal/bot,
 /obj/item/radio/intercom{
 	desc = "Talk through this. It looks like it has been modified to not broadcast.";
 	freerange = 1;
@@ -13063,6 +13061,8 @@
 	pixel_y = -10;
 	prison_radio = 1
 	},
+/obj/machinery/rnd/production/techfab/department/security,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "efp" = (
@@ -21247,8 +21247,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/rnd/production/techfab/department/security,
-/obj/effect/turf_decal/bot,
+/obj/structure/table,
 /turf/open/floor/iron/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -32782,9 +32781,6 @@
 /obj/machinery/airalarm/directional/north,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
-	},
-/obj/effect/turf_decal/loading_area{
-	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/security/main{
