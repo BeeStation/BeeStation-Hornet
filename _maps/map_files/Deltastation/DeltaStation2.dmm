@@ -26344,7 +26344,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
-/area/hallway/primary/aft)
+/area/maintenance/aft)
 "dbu" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -29063,9 +29063,8 @@
 /turf/closed/wall,
 /area/crew_quarters/heads/hor)
 "dxX" = (
-/obj/structure/cable/white,
 /obj/structure/cable/yellow{
-	icon_state = "1-4"
+	icon_state = "0-4"
 	},
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
@@ -29643,6 +29642,9 @@
 	pixel_x = 26
 	},
 /obj/effect/turf_decal/tile/purple,
+/obj/effect/spawner/sillycons{
+	pixel_x = 8
+	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/hor)
 "dCn" = (
@@ -32005,7 +32007,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/area/maintenance/aft)
 "dTY" = (
 /obj/structure/sign/warning/nosmoking,
 /turf/closed/wall,
@@ -33506,7 +33508,7 @@
 	},
 /obj/machinery/door/airlock/research/glass{
 	name = "Shuttle dock";
-	req_one_access = "47"
+	req_one_access_txt = "47"
 	},
 /turf/open/floor/iron,
 /area/science/shuttledock)
@@ -38548,7 +38550,7 @@
 	req_access_txt = "5"
 	},
 /turf/open/floor/iron/white,
-/area/medical/surgery)
+/area/maintenance/starboard/aft)
 "fOK" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Access"
@@ -47576,10 +47578,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/door/airlock/command{
-	name = "Research Director's Quarters";
-	req_access_txt = "30"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -47965,7 +47963,7 @@
 	name = "isolation shutters"
 	},
 /turf/open/floor/iron,
-/area/medical/virology)
+/area/maintenance/aft)
 "iXX" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -70507,6 +70505,9 @@
 	},
 /obj/item/pen,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/spawner/sillycons{
+	pixel_x = 8
+	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "qAS" = (
@@ -72921,7 +72922,7 @@
 	},
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Testing Range";
-	req_one_access = "47"
+	req_one_access_txt = "47"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -81197,7 +81198,7 @@
 	name = "isolation shutters"
 	},
 /turf/open/floor/iron,
-/area/medical/surgery)
+/area/maintenance/starboard/aft)
 "uit" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
