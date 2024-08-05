@@ -122,8 +122,6 @@
 
 	/// The atom that this mob is currently buckled to
 	var/atom/movable/buckled = null//Living
-	/// The movable atom that we are currently in the process of buckling to, but haven't buckled with yet.
-	var/atom/movable/buckling
 
 	//Hands
 	///What hand is the active hand
