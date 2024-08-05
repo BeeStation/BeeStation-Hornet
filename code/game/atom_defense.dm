@@ -8,7 +8,7 @@
 		CRASH("[src] taking damage while having <= 0 integrity")
 	if(sound_effect)
 		play_attack_sound(damage_amount, damage_type, damage_flag)
-	if((resistance_flags & INDESTRUCTIBLE) || integrity <= 0)
+	if((resistance_flags & INDESTRUCTIBLE))
 		return
 	damage_amount = run_atom_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration)
 	if(damage_amount < DAMAGE_PRECISION)

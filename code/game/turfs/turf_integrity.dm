@@ -9,16 +9,14 @@
 	var/can_hit = TRUE
 	/// Has armour been generated yet?
 	var/armor_generated
-	/// The armour of the turf. Capable of being null for optimisation purposes
-	var/datum/armor/armor
 	/// The integrity that the turf starts at, defaulting to max_integrity
 	var/integrity
 	/// The maximum integrity that the turf has
-	var/max_integrity = 450
+	max_integrity = 450
 	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
-	var/resistance_flags = NONE
+	resistance_flags = NONE
 	/// If damage is less than this value for melee attacks, it will deal 0 damage
-	var/damage_deflection = 5
+	damage_deflection = 5
 
 /turf/examine(mob/user)
 	. = ..()
@@ -56,7 +54,9 @@
 	else
 		armor = armour_val
 
-/turf/proc/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/turf/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+	if(QDELETED(src))
+		CRASH("[src] taking damage after deletion")
 	if(sound_effect)
 		play_attack_sound(damage_amount, damage_type, damage_flag)
 	if((resistance_flags & INDESTRUCTIBLE) || integrity <= 0)
@@ -75,7 +75,9 @@
 		after_damage(damage_amount, damage_type, damage_flag)
 
 //returns the damage value of the attack after processing the obj's various armor protections
-/turf/proc/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
+/turf/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
+	if(!uses_integrity)
+		CRASH("/atom/proc/run_atom_armor was called on [src] without being implemented as a type that uses integrity!")
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
 	switch(damage_type)
@@ -91,17 +93,6 @@
 	if(armor_protection) //Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
 		armor_protection = clamp(armor_protection - armour_penetration, min(armor_protection, 0), 100)
 	return round(damage_amount * (100 - armor_protection)*0.01, DAMAGE_PRECISION)
-
-//the sound played when the obj is damaged.
-/turf/proc/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
-	switch(damage_type)
-		if(BRUTE)
-			if(damage_amount)
-				playsound(src, 'sound/weapons/smash.ogg', 50, 1)
-			else
-				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
-		if(BURN)
-			playsound(src, 'sound/items/welder.ogg', 100, 1)
 
 /turf/proc/after_damage(damage_amount, damage_type, damage_flag)
 	return
@@ -269,11 +260,6 @@
 	if (!..())
 		return
 	take_damage(400, BRUTE, MELEE, 0, get_dir(src, B))
-
-/turf/proc/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0) //used by attack_alien, attack_animal, and attack_slime
-	user.do_attack_animation(src)
-	user.changeNext_move(CLICK_CD_MELEE)
-	return take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armor_penetration)
 
 /turf/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if (!can_hit)
