@@ -6,7 +6,7 @@
 	light_color = LIGHT_COLOR_CYAN
 	products = list(/obj/item/sticker_gacha/series_1 = 15)
 	refill_canister = /obj/item/vending_refill/sticker
-	default_price = 8
+	default_price = 35
 	extra_price = 50
 	dept_req_for_free = ACCOUNT_VIP_BITFLAG
 

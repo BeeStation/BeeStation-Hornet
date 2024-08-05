@@ -45,7 +45,7 @@
 		return
 	//Move to our target
 	forceMove(target)
-	layer = target.layer+0.01
+	layer = target.layer+0.001
 	target.vis_contents += src
 	//Update state
 	sticker_state = STICKER_STATE_STUCK
@@ -58,17 +58,30 @@
 	pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
 
 /obj/item/sticker/attack_hand(mob/user)
-	unstick()
-	if(user.a_intent != INTENT_HELP)
+	if(user.a_intent != INTENT_HELP && sticker_state == STICKER_STATE_STUCK)
 		var/atom/A = loc
 		A.attack_hand(user)
+		if(prob(33)) //We have a 1/3 chance of falling off
+			unstick()
+			forceMove(get_turf(user))
+		return
+	unstick()
 	return ..()
+
+/obj/item/sticker/attack_alien(mob/user)
+	if(user.a_intent != INTENT_HELP && sticker_state == STICKER_STATE_STUCK)
+		var/atom/A = loc
+		A.attack_alien(user)
+	return attack_hand(user) //can be picked up by aliens
 
 /obj/item/sticker/attackby(obj/item/I, mob/living/user, params)
 	//If we're stuck to something, pass the attack to our loc
 	if(sticker_state == STICKER_STATE_STUCK)
 		var/atom/A = loc
 		A.attackby(I, user, params)
+		if(prob(33)) //We have a 1/3 chance of falling off
+			unstick()
+			forceMove(get_turf(user))
 		return
 	return ..()
 
@@ -109,7 +122,13 @@
 	return MA
 
 /obj/item/sticker/proc/can_stick(atom/target)
-	return ismovable(target) || iswallturf(target) ? TRUE : FALSE
+	if(istype(target, /obj/item/sticker))
+		return FALSE
+	if(ismovable(target))
+		return TRUE
+	if(iswallturf(target))
+		return TRUE
+	return FALSE
 
 /obj/item/sticker/proc/unstick(atom/override)
 	if(sticker_state != STICKER_STATE_STUCK)
