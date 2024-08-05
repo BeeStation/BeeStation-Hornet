@@ -1,0 +1,4 @@
+author: Aramix
+delete-after: true
+changes:
+  - bugfix: Monkies no longer teleport at will when trying to kill you
