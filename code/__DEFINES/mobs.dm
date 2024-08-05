@@ -85,10 +85,6 @@
 #define BODYTYPE_DIGITIGRADE	(1<<4) //Cancer
 #define NUMBER_OF_BODYTYPES	5 //KEEP THIS UPDATED OR SHIT WILL BREAK
 
-#define BODYPART_NOT_DISABLED 0
-#define BODYPART_DISABLED_DAMAGE 1
-#define BODYPART_DISABLED_PARALYSIS 2
-
 #define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human_parts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
 
@@ -318,6 +314,10 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define SENTIENCE_BOSS 5
 
 //Mob AI Status
+#define POWER_RESTORATION_OFF 0
+#define POWER_RESTORATION_START 1
+#define POWER_RESTORATION_SEARCH_APC 2
+#define POWER_RESTORATION_APC_FOUND 3
 
 //Hostile simple animals
 //If you add a new status, be sure to add a list for it to the simple_animals global in _globalvars/lists/mobs.dm
@@ -594,3 +594,12 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 /// Returns whether or not the given mob can succumb
 #define CAN_SUCCUMB(target) (HAS_TRAIT(target, TRAIT_CRITICAL_CONDITION) && !HAS_TRAIT(target, TRAIT_NODEATH))
+
+/// Possible value of [/atom/movable/buckle_lying]. If set to a different (positive-or-zero) value than this, the buckling thing will force a lying angle on the buckled.
+#define NO_BUCKLE_LYING -1
+
+// Body position defines.
+/// Mob is standing up, usually associated with lying_angle value of 0.
+#define STANDING_UP 0
+/// Mob is lying down, usually associated with lying_angle values of 90 or 270.
+#define LYING_DOWN 1

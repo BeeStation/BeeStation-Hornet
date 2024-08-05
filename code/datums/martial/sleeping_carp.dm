@@ -98,7 +98,7 @@
 
 /datum/martial_art/the_sleeping_carp/proc/elbowDrop(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
-	if(!(D.mobility_flags & MOBILITY_STAND))
+	if(D.body_position == LYING_DOWN)
 		log_combat(A, D, "elbow dropped (Sleeping Carp)", name)
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		D.visible_message("<span class='warning'>[A] elbow drops [D]!</span>", \

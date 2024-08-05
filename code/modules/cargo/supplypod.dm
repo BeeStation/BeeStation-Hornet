@@ -11,6 +11,7 @@
 	allow_dense = TRUE
 	delivery_icon = null
 	can_weld_shut = FALSE
+	divable = FALSE
 	armor = list(MELEE = 30,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0, BLEED = 0)
 	anchored = TRUE //So it cant slide around after landing
 	anchorable = FALSE

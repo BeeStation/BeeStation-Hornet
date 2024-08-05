@@ -1,4 +1,6 @@
-#define MIMITE_COOLDOWN 80
+#define MIMITE_COOLDOWN 60
+#define MIMITE_VENT_COOLDOWN 100
+#define MIMITE_STUCK_THRESHOLD 10
 
 /mob/living/simple_animal/hostile/mimite
 	name = "Mimite"
@@ -14,13 +16,12 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	deathmessage = "splatters into a pile of black gunk!"
 	del_on_death = TRUE
-
 	response_help = "touches"
 	response_disarm = "pushes"
 	response_harm = "hits"
 	speed = 3
-	maxHealth = 75
-	health = 75
+	maxHealth = 50
+	health = 50
 	gender = NEUTER
 	mob_biotypes = list(MOB_INORGANIC)
 	wander = FALSE
@@ -66,19 +67,25 @@
 	var/travelling_in_vent = 0
 	var/replicate = TRUE
 	var/venthunt = TRUE
+	var/mimite_lastmove = null //Updates/Stores position of the mimite while it's moving
+	var/mimite_stuck = 0	//If mimite_lastmove hasn't changed, this will increment until it reaches mimite_stuck_threshold
+	var/attemptingventcrawl = FALSE
+	var/eventongoing = TRUE
+	var/remaining_replications = 4
 
 /mob/living/simple_animal/hostile/mimite/Initialize()
 	. = ..()
 	AddElement(/datum/element/point_of_interest)
+	GLOB.all_mimites += src
 	var/image/I = image(icon = 'icons/mob/hud.dmi', icon_state = "hudcultist", layer = DATA_HUD_PLANE, loc = src)
 	I.alpha = 200
 	I.appearance_flags = RESET_ALPHA
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/mimites, "hudcultist", I)
 
 /mob/living/simple_animal/hostile/mimite/examine(mob/user)
-	if(morphed)
+	if(morphed && replicate && venthunt)
 		. = form.examine(user)
-		if(get_dist(user,src)<=2)
+		if(get_dist(user,src)<=4)
 			. += "<span class='warning'>It doesn't look quite right...</span>"
 	else
 		. = ..()
@@ -179,6 +186,8 @@
 			if(LAZYLEN(things) >= 1)
 				var/atom/movable/T = pick(things)
 				assume(T)
+			else
+				approachvent()
 
 /mob/living/simple_animal/hostile/mimite/can_track(mob/living/user)
 	if(morphed)
@@ -194,7 +203,7 @@
 /mob/living/simple_animal/hostile/mimite/attack_hand(mob/living/carbon/human/M)
 	if(morphed)
 		M.Knockdown(40)
-		M.reagents.add_reagent(/datum/reagent/toxin/morphvenom/mimite, 10)
+		M.reagents.add_reagent(/datum/reagent/toxin/morphvenom/mimite, 5)
 		to_chat(M, "<span class='userdanger'>[src] bites you!</span>")
 		visible_message("<span class='danger'>[src] violently bites [M]!</span>",\
 				"<span class='userdanger'>You ambush [M]!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -203,73 +212,103 @@
 		..()
 
 /mob/living/simple_animal/hostile/mimite/Life()
-	..()
-	if(QDELETED(entry_vent))
-		entry_vent = null
+	. = ..()
 	if(isturf(loc) && replicate)
-		mimite_growth += rand(0,2)
-		if(mimite_growth >= 250)
+		mimite_growth += rand(1,6)
+		if(mimite_growth >= 350 && remaining_replications)
 			if(!grow_as)
-				grow_as = pick(/mob/living/simple_animal/hostile/mimite, /mob/living/simple_animal/hostile/mimite/crate, /mob/living/simple_animal/hostile/mimite/ranged)
+				grow_as = pick_weight(list(/mob/living/simple_animal/hostile/mimite = 50, /mob/living/simple_animal/hostile/mimite/ranged = 45, /mob/living/simple_animal/hostile/mimite/crate = 5))
 			var/mob/living/simple_animal/hostile/mimite/S = new grow_as(src.loc)
-			playsound(S.loc, 'sound/effects/meatslap.ogg', 20, TRUE)
+			remaining_replications--
+			S.remaining_replications = remaining_replications
+			playsound(S.loc, 'sound/effects/meatslap.ogg', 60, TRUE)
 			mimite_growth = 0
+			approachvent()
 	if(AIStatus == AI_STATUS_OFF || client)
 		return
-	if(venthunt)
-		if(travelling_in_vent)
-			if(isturf(loc))
-				travelling_in_vent = 0
+	if(venthunt && !attemptingventcrawl && mimite_time <= world.time && prob(25))
+		approachvent()
+	if(attemptingventcrawl && entry_vent)
+		SSmove_manager.move_to(src, entry_vent, 1)
+		tryventcrawl()
+	if(isStuck())
+		SSmove_manager.stop_looping(src)
+
+/mob/living/simple_animal/hostile/mimite/proc/approachvent()
+	for(var/obj/machinery/atmospherics/components/unary/vent_pump/v in view(6,src))
+		if(!v.welded)
+			entry_vent = v
+			SSmove_manager.move_to(src, entry_vent, 1)
+			break
+	tryventcrawl()
+
+/mob/living/simple_animal/hostile/mimite/proc/tryventcrawl()
+	attemptingventcrawl = TRUE
+	mimite_time = world.time + MIMITE_VENT_COOLDOWN
+	if(QDELETED(entry_vent))
+		entry_vent = null
+	if(travelling_in_vent)
+		if(isturf(loc))
+			travelling_in_vent = 0
+			entry_vent = null
+			attemptingventcrawl = FALSE
+	else if(entry_vent)
+		if(get_dist(src, entry_vent) <= 3)
+			var/list/vents = list()
+			var/datum/pipeline/entry_vent_parent = entry_vent.parents[1]
+			for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in entry_vent_parent.other_atmosmch)
+				vents.Add(temp_vent)
+			if(!vents.len)
 				entry_vent = null
-		else if(entry_vent)
-			if(get_dist(src, entry_vent) <= 3)
-				var/list/vents = list()
-				var/datum/pipeline/entry_vent_parent = entry_vent.parents[1]
-				for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in entry_vent_parent.other_atmosmch)
-					vents.Add(temp_vent)
-				if(!vents.len)
+				attemptingventcrawl = FALSE
+				return
+			var/obj/machinery/atmospherics/components/unary/vent_pump/exit_vent = pick(vents)
+			var/travel_time = round(get_dist(loc, exit_vent.loc) * 2)
+			travelling_in_vent = 1
+			spawn(travel_time)
+				if(!exit_vent || exit_vent.welded)
+					forceMove(entry_vent)
 					entry_vent = null
+					attemptingventcrawl = FALSE
+					travelling_in_vent = 0
 					return
-				var/obj/machinery/atmospherics/components/unary/vent_pump/exit_vent = pick(vents)
-				if(prob(50))
+				else
 					visible_message("<B>[src] scrambles into the ventilation ducts!</B>", \
-									"<span class='italics'>You hear something scampering through the ventilation ducts.</span>")
+					"<span class='italics'>You hear something scampering through the ventilation ducts.</span>")
+					forceMove(exit_vent.loc)
+					entry_vent = null
+					attemptingventcrawl = FALSE
+					travelling_in_vent = 0
+					var/area/new_area = get_area(loc)
+					if(new_area)
+						new_area.Entered(src)
+					SSmove_manager.move_away(src, exit_vent, 4)
+	else
+		entry_vent = null
+		attemptingventcrawl = FALSE
+		travelling_in_vent = 0
+		return
 
-				spawn(rand(20,60))
-					forceMove(exit_vent)
-					var/travel_time = round(get_dist(loc, exit_vent.loc) / 2)
-					spawn(travel_time)
-
-						if(!exit_vent || exit_vent.welded)
-							forceMove(entry_vent)
-							entry_vent = null
-							return
-
-						if(prob(50))
-							audible_message("<span class='italics'>You hear something scampering through the ventilation ducts.</span>")
-						sleep(travel_time)
-
-						if(!exit_vent || exit_vent.welded)
-							forceMove(entry_vent)
-							entry_vent = null
-							return
-						forceMove(exit_vent.loc)
-						entry_vent = null
-						var/area/new_area = get_area(loc)
-						if(new_area)
-							new_area.Entered(src)
-						SSmove_manager.move_away(src, exit_vent, 4)
-		//=================
-		else if(prob(1))
-			//ventcrawl!
-			for(var/obj/machinery/atmospherics/components/unary/vent_pump/v in view(6,src))
-				if(!v.welded)
-					entry_vent = v
-					SSmove_manager.move_to(src, entry_vent, 1)
-					break
+/mob/living/simple_animal/hostile/mimite/proc/isStuck()
+	//Check to see if the mimite is stuck due to things like windows or doors or windowdoors
+	if(mimite_lastmove)
+		if(mimite_lastmove == src.loc)
+			if(MIMITE_STUCK_THRESHOLD >= ++mimite_stuck)
+				mimite_stuck = 0
+				mimite_lastmove = null
+				return 1
+		else
+			mimite_lastmove = null
+	else
+		mimite_lastmove = src.loc
+	return 0
 
 /mob/living/simple_animal/hostile/mimite/death(gibbed)
 	new /obj/effect/decal/cleanable/oil(get_turf(src))
+	..()
+
+/mob/living/simple_animal/hostile/mimite/Destroy()
+	GLOB.all_mimites -= src
 	..()
 
 /mob/living/simple_animal/hostile/mimite/crate
@@ -285,7 +324,6 @@
 	melee_damage = 15
 	speed = 4
 	move_to_delay = 4
-	replicate = FALSE
 	venthunt = FALSE
 	morphed = TRUE
 
@@ -315,8 +353,8 @@
 	morphed = FALSE
 	vision_range = 9
 	aggro_vision_range = 9
-	M.Knockdown(60)
-	M.reagents.add_reagent(/datum/reagent/toxin/morphvenom/mimite, 15)
+	M.Knockdown(20)
+	M.reagents.add_reagent(/datum/reagent/toxin/morphvenom/mimite, 10)
 	to_chat(M, "<span class='userdanger'>[src] bites you!</span>")
 	visible_message("<span class='danger'>[src] violently bites [M]!</span>",\
 			"<span class='userdanger'>You ambush [M]!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -340,3 +378,8 @@
 	minimum_distance = 1
 	melee_queue_distance = 1
 	projectiletype = /obj/projectile/beam/disabler
+
+
+#undef MIMITE_COOLDOWN
+#undef MIMITE_VENT_COOLDOWN
+#undef MIMITE_STUCK_THRESHOLD

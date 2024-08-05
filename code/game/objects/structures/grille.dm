@@ -238,6 +238,7 @@
 	..()
 
 /obj/structure/grille/obj_break()
+	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		new broken_type(src.loc)
 		var/drop_loc = drop_location()
@@ -296,12 +297,15 @@
 /obj/structure/grille/broken // Pre-broken grilles for map placement
 	icon_state = "brokengrille"
 	density = FALSE
-	obj_integrity = 20
 	broken = TRUE
 	rods_amount = 1
 	rods_broken = FALSE
 	grille_type = /obj/structure/grille
 	broken_type = null
+
+/obj/structure/grille/broken/Initialize(mapload)
+	. = ..()
+	take_damage(max_integrity * 0.6)
 
 /obj/structure/grille/prison //grilles that trigger prison lockdown under some circumstances
 	name = "prison grille"

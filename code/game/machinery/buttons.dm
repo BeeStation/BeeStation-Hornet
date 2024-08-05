@@ -23,10 +23,8 @@
 	. = ..()
 	if(built)
 		setDir(ndir)
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
-		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 		panel_open = TRUE
-		update_icon()
+		update_appearance()
 
 
 	if(!built && !device && device_type)
@@ -43,26 +41,30 @@
 			board.accesses = req_one_access
 
 
-/obj/machinery/button/update_icon()
-	cut_overlays()
+/obj/machinery/button/update_icon_state()
 	if(panel_open)
 		icon_state = "button-open"
-		if(device)
-			add_overlay("button-device")
-		if(board)
-			add_overlay("button-board")
+		return ..()
+	if(machine_stat & (NOPOWER|BROKEN))
+		icon_state = "[skin]-p"
+		return ..()
+	icon_state = skin
+	return ..()
 
-	else
-		if(machine_stat & (NOPOWER|BROKEN))
-			icon_state = "[skin]-p"
-		else
-			icon_state = skin
+/obj/machinery/button/update_overlays()
+	. = ..()
+	if(!panel_open)
+		return
+	if(device)
+		. += "button-device"
+	if(board)
+		. += "button-board"
 
 /obj/machinery/button/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(panel_open || allowed(user))
 			default_deconstruction_screwdriver(user, "button-open", "[skin]",W)
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, "<span class='danger'>Maintenance Access Denied.</span>")
 			flick("[skin]-denied", src)
@@ -96,7 +98,7 @@
 				playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 				qdel(src)
 
-		update_icon()
+		update_appearance()
 		return
 
 	if(user.a_intent != INTENT_HARM && !(W.item_flags & NOBLUDGEON))
@@ -147,7 +149,7 @@
 				req_access = list()
 				req_one_access = list()
 				board = null
-			update_icon()
+			update_appearance()
 			to_chat(user, "<span class='notice'>You remove electronics from the button frame.</span>")
 
 		else
@@ -175,7 +177,7 @@
 	if(device)
 		device.pulsed()
 
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 15)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance)), 15)
 
 
 /obj/machinery/button/door
@@ -184,6 +186,8 @@
 	var/normaldoorcontrol = FALSE
 	var/specialfunctions = OPEN // Bitflag, see assembly file
 	var/sync_doors = TRUE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 
 /obj/machinery/button/door/indestructible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -285,3 +289,4 @@
 	icon_state = "button"
 	result_path = /obj/machinery/button
 	custom_materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
+	pixel_shift = 24

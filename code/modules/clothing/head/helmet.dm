@@ -316,7 +316,7 @@
 	item_state = "rus_ushanka"
 	body_parts_covered = HEAD
 	cold_protection = HEAD
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	armor = list(MELEE = 25,  BULLET = 20, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 50, RAD = 20, FIRE = -10, ACID = 50, STAMINA = 20, BLEED = 15)
 
 /obj/item/clothing/head/helmet/outlaw
