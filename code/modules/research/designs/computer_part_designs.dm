@@ -133,7 +133,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 // pAI slot
-/datum/design/aislot
+/datum/design/paislot
 	name = "Personal Intelligence Slot"
 	id = "paislot"
 	build_type = PROTOLATHE

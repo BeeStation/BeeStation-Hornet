@@ -212,7 +212,7 @@
 
 /mob/living/silicon/pai/LateInitialize()
 	. = ..()
-	modularInterface.saved_identification = name
+	modularInterface.mainboard.update_id_display(name)
 
 /mob/living/silicon/pai/make_laws()
 	laws = new /datum/ai_laws/pai()

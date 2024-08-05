@@ -204,7 +204,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(worn)
 				if(istype(worn, /obj/item/modular_computer/tablet/pda))
 					var/obj/item/modular_computer/tablet/pda/PDA = worn
-					var/obj/item/computer_hardware/id_slot/card = PDA.all_components[MC_ID_AUTH]
+					var/obj/item/computer_hardware/id_slot/card = PDA.mainboard.all_components[MC_ID_AUTH]
 					qdel(card.stored_card)
 					if(card)
 						card.try_insert(id, H)

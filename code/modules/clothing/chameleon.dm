@@ -287,18 +287,14 @@
 				if(istype(current_holder, /obj/item/modular_computer))
 					var/obj/item/modular_computer/comp = current_holder
 					if(comp)
-						comp.saved_identification = ID.registered_name
-						comp.saved_job = ID.assignment
-						comp.update_id_display()
+						comp.mainboard.update_id_display(ID.registered_name, ID.assignment)
 
 			update_mob_hud(item_holder)
 		if(istype(target, /obj/item/modular_computer))
 			var/obj/item/modular_computer/comp = target
 			var/obj/item/card/id/id = comp.GetID()
 			if(id)
-				comp.saved_identification = id.registered_name
-				comp.saved_job = id.assignment
-				comp.update_id_display()
+				comp.mainboard.update_id_display(id.registered_name, id.assignment)
 			keepname = TRUE // do not change PDA name unnecesarily
 			update_mob_hud(item_holder)
 	if(!keepname)

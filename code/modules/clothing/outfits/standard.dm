@@ -224,8 +224,7 @@
 	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/grenade/plastic/x4, null, TRUE, TRUE)
 
 	var/obj/item/modular_computer/tablet/pda/heads/pda = H.belt
-	pda.saved_identification = H.real_name
-	pda.saved_job = "Reaper"
+	pda.mainboard.update_id_display(H.real_name, "Reaper")
 
 	var/obj/item/card/id/syndicate/W = H.wear_id
 	W.access = get_all_accesses()

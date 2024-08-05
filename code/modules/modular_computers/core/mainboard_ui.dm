@@ -167,15 +167,15 @@
 		data["cardholder"] = TRUE
 		data["auto_imprint"] = cardholder.auto_imprint
 
-		var/stored_name = id.saved_identification
-		var/stored_title = id.saved_job
+		var/stored_name = saved_identification()
+		var/stored_title = saved_job()
 		if(isnull(stored_name))
 			stored_name = "Unknown"
 		if(isnull(stored_title))
 			stored_title = "Unknown"
 		data["login"] = list(
-			IDName = id.saved_identification,
-			IDJob = id.saved_job,
+			IDName = stored_name,
+			IDJob = stored_title,
 		)
 		data["proposed_login"] = list(
 			IDName = cardholder.current_identification,

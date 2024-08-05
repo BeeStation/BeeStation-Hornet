@@ -425,11 +425,7 @@
 
 	var/obj/item/modular_computer/tablet/pda/PDA = H.get_item_by_slot(pda_slot)
 	if(istype(PDA))
-		var/obj/item/mainboard/mainbord = PDA.mainboard
-		var/obj/item/computer_hardware/id_slot/id_slot = mainbord.all_components[MC_ID_AUTH]
-		id_slot.saved_identification = C.registered_name
-		id_slot.saved_job = C.assignment
-		mainbord.update_id_display()
+		PDA.mainboard.update_id_display(C.registered_name, C.assignment)
 
 /datum/outfit/job/get_chameleon_disguise_info()
 	var/list/types = ..()

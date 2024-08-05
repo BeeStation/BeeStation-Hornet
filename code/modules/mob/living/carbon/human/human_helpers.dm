@@ -11,10 +11,10 @@
 		. = id.assignment
 	else
 		var/obj/item/modular_computer/pda = wear_id
-		if(istype(pda))
-			. = pda.saved_job
-		else
+		if(isnull(pda))
 			return if_no_id
+		. = pda.mainboard.saved_job()
+
 	if(!.)
 		return if_no_job
 
@@ -26,7 +26,7 @@
 		return id.registered_name
 	var/obj/item/modular_computer/pda = wear_id
 	if(istype(pda))
-		return pda.saved_identification
+		return pda.mainboard.saved_identification()
 	return if_no_id
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a separate proc as it'll be useful elsewhere
@@ -65,7 +65,7 @@
 	if(istype(id))
 		. = id.registered_name
 	else if(istype(tablet))
-		var/obj/item/computer_hardware/id_slot/card_slot = tablet.all_components[MC_ID_AUTH]
+		var/obj/item/computer_hardware/id_slot/card_slot = tablet.mainboard.all_components[MC_ID_AUTH]
 		if(card_slot?.stored_card)
 			. = card_slot.stored_card.registered_name
 	if(!.)
@@ -170,7 +170,7 @@
 	for(var/obj/item/found_item in search_through)
 		if(istype(found_item, /obj/item/modular_computer)) // if it's a PDA, we'll find a card
 			var/obj/item/modular_computer/found_PDA = found_item
-			var/obj/item/computer_hardware/id_slot/found_card_slot = found_PDA.all_components[MC_ID_AUTH]
+			var/obj/item/computer_hardware/id_slot/found_card_slot = found_PDA.mainboard.all_components[MC_ID_AUTH]
 			found_item = found_card_slot?.stored_card // swap found_item to the actual ID card we want to add
 			if(!found_item) //Empty ID slot, skip it
 				continue

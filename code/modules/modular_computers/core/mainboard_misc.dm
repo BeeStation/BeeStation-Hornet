@@ -283,3 +283,9 @@
 	var/obj/machinery/modular_computer/MC = physical_holder
 	if(istype(MC))
 		playsound(MC, sound, vol, vary)
+		return
+
+	var/obj/item/modular_computer/tablet/integrated/modular_interface = physical_holder
+	if(istype(modular_interface))
+		playsound(modular_interface.borgo, sound, vol, vary)
+

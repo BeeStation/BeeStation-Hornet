@@ -197,12 +197,12 @@
  */
 /mob/living/silicon/robot/proc/set_modularInterface_theme()
 	if(istype(module, /obj/item/robot_module/syndicate) || emagged)
-		modularInterface.device_theme = THEME_SYNDICATE
+		modularInterface.mainboard.device_theme = THEME_SYNDICATE
 		modularInterface.icon_state = "tablet-silicon-syndicate"
 		modularInterface.icon_state_powered = "tablet-silicon-syndicate"
 		modularInterface.icon_state_unpowered = "tablet-silicon-syndicate"
 	else
-		modularInterface.device_theme = THEME_NTOS
+		modularInterface.mainboard.device_theme = THEME_NTOS
 		modularInterface.icon_state = "tablet-silicon"
 		modularInterface.icon_state_powered = "tablet-silicon"
 		modularInterface.icon_state_unpowered = "tablet-silicon"
@@ -887,8 +887,7 @@
 /mob/living/silicon/robot/modules/syndicate/create_modularInterface()
 	if(!modularInterface)
 		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
-		modularInterface.saved_identification = real_name
-		modularInterface.saved_job = "Cyborg"
+		modularInterface.mainboard.update_id_display(real_name, "Cyborg")
 	return ..()
 
 /mob/living/silicon/robot/modules/syndicate/proc/show_playstyle()
@@ -1048,7 +1047,7 @@
 		notify_ai(RENAME, oldname, newname)
 	if(!QDELETED(builtInCamera))
 		builtInCamera.c_tag = real_name
-		modularInterface.saved_identification = real_name
+		modularInterface.mainboard.update_id_display(real_name)
 	custom_name = newname
 
 

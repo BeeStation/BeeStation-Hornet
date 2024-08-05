@@ -43,9 +43,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/obj/item/mainboard/mainboard = null
 
 /obj/item/modular_computer/Initialize(mapload)
-	. = ..()
+	SHOULD_CALL_PARENT(TRUE)
 	mainboard = new(src)
 	mainboard.physical_holder = src
+	. = ..()
 	mainboard.max_hardware_w_class = max_hardware_size
 	set_light_color(comp_light_color)
 	set_light_range(comp_light_luminosity)

@@ -12,7 +12,7 @@
 	var/saved_job
 
 /obj/item/computer_hardware/identifier/proc/UpdateDisplay(var/change_identification = null, var/change_job = null)
-	if(!isnull(saved_identification))
+	if(!isnull(change_identification))
 		saved_identification = change_identification
 	if(!isnull(change_job))
 		saved_job = change_job

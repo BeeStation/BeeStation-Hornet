@@ -77,7 +77,7 @@
 	for(var/canvas_type in typesof(/obj/item/canvas))
 		printed_canvas = canvas_type
 		if(initial(printed_canvas.width) == art_width && initial(printed_canvas.height) == art_height)
-			printed_canvas = new canvas_type(get_turf(computer.physical))
+			printed_canvas = new canvas_type(get_turf(computer.physical_holder))
 			break
 	printed_canvas.fill_grid_from_icon(art_icon)
 	printed_canvas.generated_icon = art_icon

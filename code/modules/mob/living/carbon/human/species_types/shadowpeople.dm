@@ -296,8 +296,8 @@
 /obj/item/modular_computer/tablet/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	if(light_range && light_power > 0 && light_on)
 		// Only the queen of Beetania can save our IDs from this infernal nightmare
-		var/obj/item/computer_hardware/id_slot/card_slot2 = all_components[MC_ID_MODIFY]
-		var/obj/item/computer_hardware/id_slot/card_slot = all_components[MC_ID_AUTH]
+		var/obj/item/computer_hardware/id_slot/card_slot2 = mainboard.all_components[MC_ID_MODIFY]
+		var/obj/item/computer_hardware/id_slot/card_slot = mainboard.all_components[MC_ID_AUTH]
 		card_slot2?.try_eject()
 		card_slot?.try_eject()
 	..()

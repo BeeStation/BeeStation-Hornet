@@ -29,9 +29,9 @@
 	var/obj/item/mainboard/mainboard = null
 
 /obj/machinery/modular_computer/Initialize(mapload)
-	. = ..()
 	mainboard = new(src)
 	mainboard.physical_holder = src
+	. = ..()
 	mainboard.max_hardware_w_class = max_hardware_size
 
 /obj/machinery/modular_computer/Destroy()
