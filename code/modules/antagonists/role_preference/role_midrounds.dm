@@ -127,7 +127,7 @@
 /datum/outfit/pirate_space_preview
 	name = "Space Pirate (Preview only)"
 	uniform = /obj/item/clothing/under/costume/pirate
-	suit = /obj/item/clothing/suit/space/pirate
+	suit = /obj/item/clothing/suit/costume/pirate
 	head = /obj/item/clothing/head/helmet/space/pirate/bandana
 	glasses = /obj/item/clothing/glasses/eyepatch
 
@@ -283,7 +283,7 @@
 	victim_dummy.update_hair()
 
 	var/icon/obsessed_icon = render_preview_outfit(/datum/outfit/obsessed)
-	obsessed_icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
+	//obsessed_icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
 
 	var/icon/final_icon = finish_preview_icon(obsessed_icon)
 

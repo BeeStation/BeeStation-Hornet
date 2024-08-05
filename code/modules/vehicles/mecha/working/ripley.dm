@@ -139,10 +139,6 @@
 
 /obj/vehicle/sealed/mecha/working/ripley/mining/Initialize(mapload)
 	. = ..()
-	take_damage(125) // Low starting health
-
-/obj/vehicle/sealed/mecha/working/ripley/mining/Initialize(mapload)
-	. = ..()
 	if(cell)
 		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
 	if(prob(70)) //Maybe add a drill
@@ -160,6 +156,9 @@
 	//Attach hydraulic clamp
 	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new
 	HC.attach(src)
+
+	take_damage(max_integrity * 0.5, sound_effect=FALSE) //Low starting health
+
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src)
 

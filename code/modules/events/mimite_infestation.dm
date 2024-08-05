@@ -58,7 +58,7 @@
 
 
 /datum/round_event/mimite_infestation/end()
-	if(LAZYLEN(GLOB.all_mimites) >= 1) //If they're still around at the end of 60 min, turn of replication permanently
+	if(length(GLOB.all_mimites)) //If they're still around at the end of 60 min, turn of replication permanently
 		for(var/mob/living/simple_animal/hostile/mimite/M in GLOB.all_mimites)
 			M.eventongoing = FALSE
 	else

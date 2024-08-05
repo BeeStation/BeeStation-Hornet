@@ -85,16 +85,24 @@
 	var/not_handled = FALSE //Added in case we make this type path deeper one day
 	switch(slot)
 		if(ITEM_SLOT_BELT)
+			if(belt)
+				return
 			belt = I
 			update_inv_belt()
 		if(ITEM_SLOT_ID)
+			if(wear_id)
+				return
 			wear_id = I
 			sec_hud_set_ID()
 			update_inv_wear_id()
 		if(ITEM_SLOT_EARS)
+			if(ears)
+				return
 			ears = I
 			update_inv_ears()
 		if(ITEM_SLOT_EYES)
+			if(glasses)
+				return
 			glasses = I
 			var/obj/item/clothing/glasses/G = I
 			if(G.glass_colour_type)
@@ -108,22 +116,31 @@
 				update_sight()
 			update_inv_glasses()
 		if(ITEM_SLOT_GLOVES)
+			if(gloves)
+				return
 			gloves = I
 			update_inv_gloves()
 		if(ITEM_SLOT_FEET)
+			if(shoes)
+				return
 			shoes = I
 			update_inv_shoes()
 		if(ITEM_SLOT_OCLOTHING)
+			if(wear_suit)
+				return
+
 			wear_suit = I
+
 			if(I.flags_inv & HIDEJUMPSUIT)
 				update_inv_w_uniform()
 			if(wear_suit.breakouttime) //when equipping a straightjacket
 				ADD_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
-				ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, SUIT_TRAIT)
 				stop_pulling() //can't pull if restrained
 				update_action_buttons_icon() //certain action buttons will no longer be usable.
 			update_inv_wear_suit()
 		if(ITEM_SLOT_ICLOTHING)
+			if(w_uniform)
+				return
 			w_uniform = I
 			update_suit_sensors()
 			update_inv_w_uniform()
@@ -134,6 +151,8 @@
 			r_store = I
 			update_inv_pockets()
 		if(ITEM_SLOT_SUITSTORE)
+			if(s_store)
+				return
 			s_store = I
 			update_inv_s_store()
 		else
@@ -167,7 +186,6 @@
 			dropItemToGround(s_store, TRUE) //It makes no sense for your suit storage to stay on you if you drop your suit.
 		if(wear_suit.breakouttime) //when unequipping a straightjacket
 			REMOVE_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
-			REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, SUIT_TRAIT)
 			drop_all_held_items() //suit is restraining
 			update_action_buttons_icon() //certain action buttons may be usable again.
 		wear_suit = null
