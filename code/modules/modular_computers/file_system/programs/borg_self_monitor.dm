@@ -20,7 +20,7 @@
 
 /datum/computer_file/program/borg_self_monitor/on_start(mob/living/user)
 	var/obj/item/modular_computer/tablet/integrated/tablet = computer.physical_holder
-	if(isnull(tablet))
+	if(!istype(tablet))
 		to_chat(user, "<span class='warning'>A warning flashes across \the [computer]: Device Incompatible.</span>")
 		return FALSE
 	. = ..()

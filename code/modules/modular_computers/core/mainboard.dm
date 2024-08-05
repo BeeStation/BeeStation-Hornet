@@ -99,6 +99,18 @@
 		return slot1?.try_eject(user)
 	return TRUE
 
+/obj/item/mainboard/proc/GetAccess_parent()
+	var/obj/item/computer_hardware/id_slot/id_slot = all_components[MC_ID_AUTH]
+	if(!istype(id_slot))
+		return
+	. = id_slot.GetAccess_parent()
+
+/obj/item/mainboard/proc/GetID_parent()
+	var/obj/item/computer_hardware/id_slot/id_slot = all_components[MC_ID_AUTH]
+	if(!istype(id_slot))
+		return
+	. = id_slot.GetID_parent()
+
 // attack procs
 /// When the mainboard's physical parent was used to attack
 /obj/item/mainboard/proc/attack_obj_parent(obj/O, mob/living/user)
@@ -156,7 +168,7 @@
 	// Insert a pAI card
 	if(istype(I, /obj/item/paicard))
 		var/obj/item/computer_hardware/goober/pai/pai_slot = all_components[MC_PAI]
-		if(isnull(pai_slot) || istype(pai_slot.stored_card))
+		if(!istype(pai_slot) || istype(pai_slot.stored_card))
 			to_chat(user, "<span class='notice'>[I] doesnt' fit!</span>")
 			return
 
@@ -166,8 +178,8 @@
 	if(iscash(I))
 		var/obj/item/computer_hardware/id_slot/id_slot = all_components[MC_ID_AUTH]
 		// Check to see if we have an ID inside, and a valid input for money
-		if(id_slot?.GetID())
-			var/obj/item/card/id/id = id_slot.GetID()
+		var/obj/item/card/id/id = id_slot?.GetID_parent()
+		if(istype(id))
 			id.attackby(I, user) // If we do, try and put that attacking object in
 			return
 

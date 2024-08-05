@@ -76,11 +76,11 @@
 
 	for(var/obj/item/modular_computer/mod_pc in sort_list(GLOB.TabletMessengers, sortmode))
 		var/obj/item/computer_hardware/hard_drive/drive = mod_pc.mainboard?.all_components[MC_HDD]
-		if(isnull(drive))
+		if(!istype(drive))
 			continue
 
 		var/obj/item/computer_hardware/identifier/id = mod_pc.mainboard.all_components[MC_IDENTIFY]
-		if(isnull(id) || isnull(id.saved_identification) || isnull(id.saved_job) || mod_pc.messenger_invisible)
+		if(!istype(id) || isnull(id.saved_identification) || isnull(id.saved_job) || mod_pc.messenger_invisible)
 			continue
 
 		for(var/datum/computer_file/program/messenger/app in drive.stored_files)

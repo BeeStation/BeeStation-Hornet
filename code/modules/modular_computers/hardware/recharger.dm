@@ -35,7 +35,7 @@
 		if(physical_holder.powered())
 			physical_holder.use_power(amount)
 			return 1
-	else if (!isnull(holder.physical_holder))
+	else if (istype(holder.physical_holder))
 		var/atom/movable/AM = holder.physical_holder
 		var/area/A = get_area(AM)
 		if(!istype(A))

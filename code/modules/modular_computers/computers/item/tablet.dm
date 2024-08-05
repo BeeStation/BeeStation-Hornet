@@ -48,7 +48,7 @@
 
 /obj/item/modular_computer/tablet/proc/try_scan_paper(obj/target, mob/user)
 	var/obj/item/paper/paper = target
-	if(isnull(paper))
+	if(!istype(paper))
 		return FALSE
 	if (!paper.default_raw_text)
 		to_chat(user, "<span class='warning'>Unable to scan! Paper is blank.</span>")

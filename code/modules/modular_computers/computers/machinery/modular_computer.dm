@@ -54,7 +54,7 @@
 
 /obj/machinery/modular_computer/should_emag(mob/user)
 	if(isnull(mainboard))
-		to_chat(user, "<span class='warning'>You'd need to turn the [src] on first.</span>")
+		to_chat(user, "<span class='warning'>You swipe your card, but nothing seems to happen.</span>")
 		return FALSE
 	return mainboard.should_emag(user)
 
@@ -66,7 +66,7 @@
 	cut_overlays()
 	icon_state = icon_state_powered
 
-	if(isnull(mainboard) || !mainboard.enabled)
+	if(!istype(mainboard) || !mainboard.enabled)
 		if (!(machine_stat & NOPOWER) && (mainboard && mainboard.use_power()))
 			add_overlay(screen_icon_screensaver)
 		else
@@ -83,20 +83,20 @@
 	// 	add_overlay("broken")
 
 /obj/machinery/modular_computer/AltClick(mob/user)
-	if(!isnull(mainboard))
+	if(istype(mainboard))
 		mainboard.AltClick(user)
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 // On-click handling. Turns on the computer if it's off and opens the GUI.
 /obj/machinery/modular_computer/interact(mob/user)
-	if(!isnull(mainboard))
+	if(istype(mainboard))
 		return mainboard.interact(user) // CPU is an item, that's why we route attack_hand to attack_self
 	else
 		return ..()
 
 // Process currently calls handle_power(), may be expanded in future if more things are added.
 /obj/machinery/modular_computer/process(delta_time)
-	if(!isnull(mainboard))
+	if(istype(mainboard))
 		// Keep names in sync.
 		mainboard.name = name
 		mainboard.process(delta_time)
@@ -106,7 +106,7 @@
 	var/obj/item/computer_hardware/battery/battery_module = mainboard?.all_components[MC_CELL]
 	if(mainboard?.enabled) // Shut down the computer
 		visible_message("<span class='danger'>\The [src]'s screen flickers [battery_module ? "\"BATTERY [malfunction ? "MALFUNCTION" : "CRITICAL"]\"" : "\"EXTERNAL POWER LOSS\""] warning as it shuts down unexpectedly.</span>")
-		if(!isnull(mainboard))
+		if(istype(mainboard))
 			mainboard.turn_off()
 	set_machine_stat(machine_stat | NOPOWER)
 	update_icon()
@@ -118,18 +118,18 @@
 
 // Modular computers can have battery in them, we handle power in previous proc, so prevent this from messing it up for us.
 /obj/machinery/modular_computer/power_change()
-	if(!isnull(mainboard) && mainboard.use_power()) // If MC_CPU still has a power source, PC wouldn't go offline.
+	if(istype(mainboard) && mainboard.use_power()) // If MC_CPU still has a power source, PC wouldn't go offline.
 		set_machine_stat(machine_stat & ~NOPOWER)
 		update_icon()
 		return
 	. = ..()
 
 /obj/machinery/modular_computer/screwdriver_act(mob/user, obj/item/tool)
-	if(!isnull(mainboard))
+	if(istype(mainboard))
 		return mainboard.screwdriver_act(user, tool)
 
 /obj/machinery/modular_computer/attackby(var/obj/item/W as obj, mob/user, params)
-	if(user.a_intent == INTENT_HELP && !isnull(mainboard) && !(flags_1 & NODECONSTRUCT_1))
+	if(user.a_intent == INTENT_HELP && istype(mainboard) && !(flags_1 & NODECONSTRUCT_1))
 		return mainboard.attackby_parent(W, user, params)
 	return ..()
 
@@ -137,7 +137,7 @@
 // Stronger explosions cause serious damage to internal components
 // Minor explosions are mostly mitigitated by casing.
 /obj/machinery/modular_computer/ex_act(severity)
-	if(!isnull(mainboard))
+	if(istype(mainboard))
 		switch(severity)
 			if(EXPLODE_DEVASTATE)
 				SSexplosions.high_mov_atom += mainboard
@@ -152,12 +152,12 @@
 	. = ..()
 	if(. & EMP_PROTECT_CONTENTS)
 		return
-	if(!isnull(mainboard))
+	if(istype(mainboard))
 		mainboard.emp_act(severity)
 
 // "Stun" weapons can cause minor damage to components (short-circuits?)
 // "Burn" damage is equally strong against internal components and exterior casing
 // "Brute" damage mostly damages the casing.
 /obj/machinery/modular_computer/bullet_act(obj/projectile/Proj)
-	if(!isnull(mainboard))
+	if(istype(mainboard))
 		mainboard.bullet_act(Proj)

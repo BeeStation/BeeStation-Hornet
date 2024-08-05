@@ -123,7 +123,7 @@
 		var/obj/item/computer_hardware/id_slot/card_slot
 		if(computer)
 			card_slot = computer.all_components[MC_ID_AUTH]
-			access_card = card_slot?.GetID()
+			access_card = card_slot?.GetID_parent()
 
 		if(!access_card)
 			if(loud)

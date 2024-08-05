@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	var/obj/item/computer_hardware/goober/pai/pai_slot = mainboard.all_components[MC_PAI]
 	if(istype(pai_slot))
-		. += isnull(pai_slot.stored_card) ? mutable_appearance(init_icon, "pai-off-overlay") : mutable_appearance(init_icon, "pai-overlay")
+		. += istype(pai_slot.stored_card) ? mutable_appearance(init_icon, "pai-overlay") : mutable_appearance(init_icon, "pai-off-overlay")
 
 	// if(obj_integrity <= integrity_failure * max_integrity)
 	// 	add_overlay(mutable_appearance(init_icon, "bsod"))
@@ -153,12 +153,12 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /// Gets IDs/access levels from card slot. Would be useful when/if PDAs would become modular PCs. (They are now!! you are welcome - itsmeow)
 /obj/item/modular_computer/GetAccess()
 	if(istype(mainboard))
-		return mainboard.GetAccess()
+		return mainboard.GetAccess_parent()
 	return ..()
 
 /obj/item/modular_computer/GetID()
 	if(istype(mainboard))
-		return mainboard.GetID()
+		return mainboard.GetID_parent()
 	return ..()
 
 /obj/item/modular_computer/interact(mob/user)

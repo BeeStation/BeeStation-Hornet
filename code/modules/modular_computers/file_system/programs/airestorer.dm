@@ -16,7 +16,7 @@
 
 /datum/computer_file/program/aidiag/proc/get_ai_slot()
 	var/obj/item/computer_hardware/goober/ai/ai_slot = computer.all_components[MC_AI]
-	if(isnull(ai_slot) || !ai_slot.check_functionality())
+	if(!istype(ai_slot) || !ai_slot.check_functionality())
 		return
 
 	return ai_slot
@@ -86,31 +86,31 @@
 
 
 /datum/computer_file/program/aidiag/ui_data(mob/user)
-	var/list/data = list()
-	var/mob/living/silicon/ai/AI = get_ai_mob()
+	. = list()
 	var/obj/item/aicard/aicard = get_ai_card()
 
-	data["ejectable"] = TRUE
-	data["AI_present"] = FALSE
-	data["error"] = null
-	if(isnull(aicard))
-		data["error"] = "Please insert an intelliCard."
-	else
-		if(isnull(AI))
-			data["error"] = "No AI located"
-		else
-			var/obj/item/aicard/cardhold = AI.loc
-			if(cardhold.flush)
-				data["error"] = "Flush in progress"
-			else
-				data["AI_present"] = TRUE
-				data["name"] = AI.name
-				data["restoring"] = restoring
-				data["health"] = (AI.health + 100) / 2
-				data["isDead"] = AI.stat == DEAD
-				data["laws"] = AI.laws.get_law_list(include_zeroth = 1)
+	.["ejectable"] = TRUE
+	.["AI_present"] = FALSE
+	.["error"] = null
+	if(!istype(aicard))
+		.["error"] = "Please insert an intelliCard."
+		return
 
-	return data
+	var/mob/living/silicon/ai/AI = get_ai_mob()
+	if(!istype(AI))
+		.["error"] = "No AI located"
+
+	if(aicard.flush)
+		.["error"] = "Flush in progress"
+		return
+
+	.["AI_present"] = TRUE
+	.["name"] = AI.name
+	.["restoring"] = restoring
+	.["health"] = (AI.health + 100) / 2
+	.["isDead"] = AI.stat == DEAD
+	.["laws"] = AI.laws.get_law_list(include_zeroth = 1)
+
 
 /datum/computer_file/program/aidiag/kill_program(forced)
 	restoring = FALSE

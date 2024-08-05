@@ -26,19 +26,17 @@
 		QDEL_NULL(stored_card)
 	return ..()
 
-/obj/item/computer_hardware/id_slot/GetAccess()
-	var/list/total_access
+/obj/item/computer_hardware/id_slot/proc/GetAccess_parent()
+	. = list()
 	if(stored_card)
-		total_access = stored_card.GetAccess()
-	var/obj/item/computer_hardware/id_slot/card_slot2 = holder?.all_components[MC_ID_MODIFY] //Best of both worlds
-	if(card_slot2?.stored_card)
-		total_access |= card_slot2.stored_card.GetAccess()
-	return total_access
+		. = stored_card.GetAccess()
+	var/obj/item/computer_hardware/id_slot/secondary/id_slot = holder?.all_components[MC_ID_MODIFY] //Best of both worlds
+	if(istype(id_slot?.stored_card))
+		. |= id_slot.stored_card.GetAccess()
 
-/obj/item/computer_hardware/id_slot/GetID()
+/obj/item/computer_hardware/id_slot/proc/GetID_parent()
 	if(stored_card)
 		return stored_card
-	return ..()
 
 /obj/item/computer_hardware/id_slot/try_insert(obj/item/I, mob/living/user = null)
 	if(!holder)

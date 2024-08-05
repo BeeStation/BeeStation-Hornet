@@ -1,7 +1,7 @@
 /// Turn on the computer
 /obj/item/mainboard/proc/turn_on(mob/user, open_ui = TRUE)
 	if(enabled)
-		if(open_ui)
+		if(open_ui && istype(user))
 			ui_interact(user)
 		return TRUE
 
@@ -28,24 +28,32 @@
 			to_chat(user, "<span class='warning'>You send an activation signal to \the [src.physical_holder], but nothing happens.</span>")
 		else
 			to_chat(user, "<span class='warning'>You press the power button, but nothing happens.</span>")
+		return FALSE // No CPU dummy
 
-	if(all_components[MC_CPU] && use_power()) // use_power() checks if the PC is powered
+	if(!use_power()) // use_power() checks if the PC is powered
 		if(issilicon)
-			to_chat(user, "<span class='notice'>You send an activation signal to \the [src.physical_holder], turning it on.</span>")
-		else
-			to_chat(user, "<span class='notice'>You press the power button and start up \the [src.physical_holder].</span>")
-		enabled = 1
-		update_icon()
-		if(open_ui)
-			ui_interact(user)
-		return TRUE
-
-	else // Unpowered
-		if(issilicon)
-			to_chat(user, "<span class='warning'>You send an activation signal to \the [src.physical_holder] but it does not respond.</span>")
+			to_chat(user, "<span class='warning'>You send an activation signal to \the [src.physical_holder], but it does not respond.</span>")
 		else
 			to_chat(user, "<span class='warning'>You press the power button but \the [src.physical_holder] does not respond.</span>")
-	return FALSE
+		return FALSE // Unpowered
+
+	if(isnull(all_components[MC_HDD]))
+		if(issilicon)
+			to_chat(user, "<span class='warning'>You send an activation signal to \the [src.physical_holder], but it replies \"Select boot device\".")
+		else
+			to_chat(user, "<span class='warning'>You press the power button but \the [src.physical_holder] all you can see on the screen is \"Select boot device\".")
+		return FALSE // No boot device
+
+	if(issilicon)
+		to_chat(user, "<span class='notice'>You send an activation signal to \the [src.physical_holder], turning it on.</span>")
+	else
+		to_chat(user, "<span class='notice'>You press the power button and start up \the [src.physical_holder].</span>")
+
+	enabled = 1
+	update_icon()
+	if(open_ui && istype(user))
+		ui_interact(user)
+	return TRUE
 
 /// A power-off event
 /obj/item/mainboard/proc/turn_off(loud = 1)
@@ -53,7 +61,7 @@
 	for(var/datum/computer_file/program/P in idle_threads)
 		P.kill_program(forced = TRUE)
 		idle_threads.Remove(P)
-	if(loud && !isnull(physical_holder))
+	if(loud && istype(physical_holder))
 		physical_holder.visible_message("<span class='notice'>\The [src.physical_holder] shuts down.</span>", allow_inside_usr = TRUE)
 	enabled = 0
 	update_icon()
@@ -189,7 +197,7 @@
 /obj/item/mainboard/proc/can_install_mainboard(atom/movable/install_into, mob/user = null)
 	var/obj/item/modular_computer/item = install_into
 	var/obj/machinery/modular_computer/machine = install_into
-	if(isnull(item) && isnull(machine))
+	if(!istype(item) && !istype(machine))
 		return FALSE
 
 	for(var/obj/item/computer_hardware/comp in all_components)
@@ -237,7 +245,7 @@
 
 	// handle autoimprinting if we can
 	// We shouldn't auto-imprint if ID modification is open.
-	if(isnull(cardholder) || !can_save_id || !cardholder.auto_imprint || istype(active_program, /datum/computer_file/program/card_mod))
+	if(!istype(cardholder) || !can_save_id || !cardholder.auto_imprint || istype(active_program, /datum/computer_file/program/card_mod))
 		return
 	if(cardholder.current_identification == saved_identification() && cardholder.current_job == saved_job())
 		return

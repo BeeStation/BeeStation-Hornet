@@ -17,7 +17,7 @@
 	mainboard.ignore_theme_pref = TRUE
 
 /obj/item/modular_computer/tablet/pda/clown/proc/AfterSlip(mob/living/carbon/human/M)
-	if (isnull(M) || (M.real_name == mainboard.saved_identification()))
+	if (!istype(M) || (M.real_name == mainboard.saved_identification()))
 		return
 	slip_victims |= REF(M)
 	var/obj/item/computer_hardware/hard_drive/role/virus/clown/cart = mainboard.all_components[MC_HDD_JOB]

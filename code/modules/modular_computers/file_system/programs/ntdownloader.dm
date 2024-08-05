@@ -134,13 +134,13 @@
 
 /datum/computer_file/program/ntnetdownload/ui_data(mob/user)
 	var/obj/item/computer_hardware/id_slot/card_slot = computer.all_components[MC_ID_AUTH]
-	var/list/access = card_slot?.GetAccess()
+	var/list/access = card_slot?.GetAccess_parent()
 
 	var/list/data = list()
 
 	data["downloading"] = !!downloaded_file
 	data["error"] = downloaderror || FALSE
-	data["id_inserted"] = !!card_slot?.GetID()
+	data["id_inserted"] = !!card_slot?.GetID_parent()
 
 	// Download running. Wait please..
 	if(downloaded_file)

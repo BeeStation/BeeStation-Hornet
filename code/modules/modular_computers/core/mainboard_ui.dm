@@ -157,7 +157,7 @@
 	var/obj/item/computer_hardware/goober/pai/pai_slot = all_components[MC_PAI]
 	if(istype(pai_slot))
 		var/obj/item/paicard/stored_card = pai_slot.stored_card
-		data["stored_pai"] = isnull(stored_card)
+		data["stored_pai"] = !istype(stored_card)
 		data["stored_pai_name"] = stored_card?.pai?.name
 
 	var/obj/item/computer_hardware/id_slot/cardholder = all_components[MC_ID_AUTH]
@@ -281,13 +281,13 @@
 
 		if("PC_toggle_light")
 			var/obj/item/modular_computer/modpc_item = physical_holder
-			if(isnull(modpc_item))
+			if(!istype(modpc_item))
 				return FALSE
 			return modpc_item.toggle_flashlight()
 
 		if("PC_light_color")
 			var/obj/item/modular_computer/modpc_item = physical_holder
-			if(isnull(modpc_item))
+			if(!istype(modpc_item))
 				return FALSE
 			var/mob/user = usr
 			var/new_color
@@ -332,7 +332,7 @@
 
 				if("ID")
 					var/obj/item/computer_hardware/id_slot/cardholder = all_components[MC_ID_AUTH]
-					if(isnull(cardholder))
+					if(!istype(cardholder))
 						return FALSE
 					if(cardholder.try_eject(user))
 						play_disk_sound()
@@ -342,7 +342,7 @@
 
 				if("secondary RFID card")
 					var/obj/item/computer_hardware/id_slot/cardholder = all_components[MC_ID_MODIFY]
-					if(isnull(cardholder))
+					if(!istype(cardholder))
 						return FALSE
 					if(cardholder.try_eject(user))
 						play_disk_sound()
@@ -352,7 +352,7 @@
 
 		if("PC_Imprint_ID")
 			var/obj/item/computer_hardware/id_slot/cardholder = all_components[MC_ID_AUTH]
-			if(isnull(cardholder) || can_save_id)
+			if(!istype(cardholder) || can_save_id)
 				return TRUE
 
 			update_id_display(cardholder.current_identification, cardholder.current_job)
@@ -364,7 +364,7 @@
 
 		if("PC_Toggle_Auto_Imprint")
 			var/obj/item/computer_hardware/id_slot/cardholder = all_components[MC_ID_AUTH]
-			if(isnull(cardholder))
+			if(!istype(cardholder))
 				return TRUE
 
 			cardholder.auto_imprint = !cardholder.auto_imprint

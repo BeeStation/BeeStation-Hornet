@@ -34,7 +34,7 @@
 		id = U.get_idcard(TRUE)
 	else if(computer)
 		var/obj/item/computer_hardware/id_slot/card_slot = computer.all_components[MC_ID_AUTH]
-		id = card_slot?.GetID()
+		id = card_slot?.GetID_parent()
 	return id ? id : FALSE
 
 /datum/computer_file/program/budgetorders/proc/is_visible_pack(mob/user, var/contraband)
@@ -62,7 +62,7 @@
 			can_approve_requests = FALSE
 	else
 		requestonly = TRUE
-	if(isnull(buyer))
+	if(!istype(buyer))
 		buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	else if(SSeconomy.is_nonstation_account(buyer))
 		buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
@@ -213,7 +213,7 @@
 				if(!istype(id_card))
 					computer.say("No ID card detected.")
 					return
-				var/access = id_card.GetAccess()
+				var/list/access = id_card.GetAccess()
 				if(!(computer.obj_flags & EMAGGED) && pack.access_budget && !(pack.access_budget in access))
 					computer.say("Insufficient access on [id_card].")
 					return

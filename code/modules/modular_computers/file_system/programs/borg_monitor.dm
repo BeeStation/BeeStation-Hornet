@@ -24,7 +24,7 @@
 /datum/computer_file/program/borg_monitor/ui_data(mob/user)
 	var/list/data = list()
 
-	// Syndicate version doesn't require an ID - so we use this proc instead of computer.GetID()
+	// Syndicate version doesn't require an ID - so we use this proc instead of computer.GetID_parent()
 	data["card"] = !!get_id_name()
 
 	data["cyborgs"] = list()
@@ -99,7 +99,7 @@
 
 ///Gets the ID's name, if one is inserted into the device. This is a separate proc solely to be overridden by the syndicate version of the app.
 /datum/computer_file/program/borg_monitor/proc/get_id_name()
-	var/obj/item/card/id/ID = computer.GetID()
+	var/obj/item/card/id/ID = computer.GetID_parent()
 	if(!istype(ID))
 		return emagged ? "STDERR:UNDF" : FALSE
 	return ID.registered_name
