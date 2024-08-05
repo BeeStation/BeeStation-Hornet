@@ -486,9 +486,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return
 
 	//If the item is in a storage item, take it out
-	if(loc.GetComponent(/datum/component/storage))
-		if(SEND_SIGNAL(loc, COMSIG_TRY_STORAGE_TAKE, src, user, TRUE)) // this calls 'remove_from_storage()' proc
-			return
+	if(SEND_SIGNAL(loc, COMSIG_TRY_STORAGE_TAKE, src, user, TRUE)) // this calls 'remove_from_storage()' proc
+		return
 
 	if(QDELETED(src)) //moving it out of the storage to the floor destroyed it.
 		return
