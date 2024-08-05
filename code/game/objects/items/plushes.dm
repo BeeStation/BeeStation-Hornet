@@ -925,7 +925,7 @@
 	icon_state = "borgplush_peace"
 
 	var/sound_alarm = 'sound/ai/harmalarm.ogg'
-	var/recharge_time = 30
+	var/recharge_time = 60
 	var/cooldown = FALSE
 
 /obj/item/toy/plush/sillycons/peace/attack_self(mob/user)
@@ -934,6 +934,7 @@
 	if(sound_alarm && !cooldown)
 		audible_message("<font color='red' size='5'>HUMAN HARM</font>")
 		playsound(src, sound_alarm, 25, 1)
+
 		cooldown = TRUE
 		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), recharge_time)
 
@@ -942,6 +943,21 @@
 	name = "Mediborg"
 	desc = "Looks cute, might inject you with morphine later."
 	icon_state = "borgplush_medi"
+
+	var/sound_alarm = 'sound/items/hypospray.ogg'
+	var/recharge_time = 60
+	var/cooldown = FALSE
+
+/obj/item/toy/plush/sillycons/medi/attack_self(mob/user)
+	. = ..()
+	if(sound_alarm && !cooldown)
+		playsound(src, sound_alarm, 25, 1)
+		to_chat(user, "<span class='notice'>[src] injects you with morphine. D'awww.</span>")
+
+		cooldown = TRUE
+		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), recharge_time)
+	else
+		to_chat(user, "<span class='notice'>[src] is out of morphine. N'awww.</span>")
 
 /obj/item/toy/plush/sillycons/medi/syndie
 	name = "Syndicate Mediborg"
