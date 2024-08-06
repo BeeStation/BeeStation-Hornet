@@ -245,7 +245,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	changesource_flags = MIRROR_BADMIN
-	mutant_brain = /obj/item/organ/brain/tumor
+	mutantbrain = /obj/item/organ/brain/tumor
 	mutanttongue = /obj/item/organ/tongue/teratoma
 
 	species_chest = /obj/item/bodypart/chest/monkey/teratoma
