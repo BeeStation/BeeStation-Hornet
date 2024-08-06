@@ -55,7 +55,8 @@
 
 //Diseases
 
-#define COMSIG_DISEASE_END "disease_end" 						//from the base of /datum/disease/advance/Destroy(): (GetDiseaseID)
+//from the base of /datum/disease/advance/Destroy(): (GetDiseaseID)
+#define COMSIG_DISEASE_END "disease_end"
 
 //Mood
 
@@ -90,6 +91,9 @@
 ///Subsystem signals
 ///From base of datum/controller/subsystem/Initialize
 #define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"
+
+///from SSsecurity_level when the security level changes : (new_level)
+#define COMSIG_SECURITY_LEVEL_CHANGED "security_level_changed"
 
 /// a weather event of some kind occured
 #define COMSIG_WEATHER_TELEGRAPH(event_type) "!weather_telegraph [event_type]"

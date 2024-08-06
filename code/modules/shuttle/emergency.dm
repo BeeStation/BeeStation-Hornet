@@ -320,16 +320,10 @@
 	. = ..()
 
 /obj/docking_port/mobile/emergency/request(obj/docking_port/stationary/S, area/signalOrigin, reason, redAlert, set_coefficient=null)
-	if(!isnum_safe(set_coefficient))
-		var/security_num = seclevel2num(get_security_level())
-		switch(security_num)
-			if(SEC_LEVEL_GREEN)
-				set_coefficient = 2
-			if(SEC_LEVEL_BLUE)
-				set_coefficient = 1
-			else
-				set_coefficient = 0.5
-	var/call_time = SSshuttle.emergencyCallTime * set_coefficient * engine_coeff
+	if(!isnum(set_coefficient))
+		set_coefficient = SSsecurity_level.current_security_level.shuttle_call_time_mod
+	alert_coeff = set_coefficient
+	var/call_time = SSshuttle.emergencyCallTime * alert_coeff * engine_coeff
 	switch(mode)
 		// The shuttle can not normally be called while "recalling", so
 		// if this proc is called, it's via admin fiat
@@ -587,7 +581,7 @@
 	var/obj/machinery/computer/shuttle_flight/C = getControlConsole()
 	if(!istype(C, /obj/machinery/computer/shuttle_flight/pod))
 		return ..()
-	if(GLOB.security_level >= SEC_LEVEL_RED || (C && (C.obj_flags & EMAGGED)))
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED || (C && (C.obj_flags & EMAGGED)))
 		if(launch_status == UNLAUNCHED)
 			launch_status = EARLY_LAUNCHED
 			return ..()
@@ -619,11 +613,7 @@
 
 /obj/machinery/computer/shuttle_flight/pod/Initialize()
 	. = ..()
-	RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, PROC_REF(handle_alert))
-
-/obj/machinery/computer/shuttle_flight/pod/proc/handle_alert(datum/source, new_alert)
-	SIGNAL_HANDLER
-	admin_controlled = (new_alert < SEC_LEVEL_RED) // admin_controlled is FALSE if its red or delta
+	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(check_lock))
 
 /obj/machinery/computer/shuttle_flight/pod/update_icon()
 	return
@@ -636,6 +626,20 @@
 	. = ..()
 	if(recall_docking_port_id == initial(recall_docking_port_id) || override)
 		recall_docking_port_id = "pod_lavaland[idnum]"
+
+/**
+ * Signal handler for checking if we should lock or unlock escape pods accordingly to a newly set security level
+ *
+ * Arguments:
+ * * source The datum source of the signal
+ * * new_level The new security level that is in effect
+ */
+/obj/machinery/computer/shuttle_flight/pod/proc/check_lock(datum/source, new_level)
+	SIGNAL_HANDLER
+
+	if(obj_flags & EMAGGED)
+		return
+	admin_controlled = (new_level < SEC_LEVEL_RED)
 
 /obj/docking_port/stationary/random
 	name = "escape pod"
@@ -728,7 +732,7 @@
 /obj/item/storage/pod/can_interact(mob/user)
 	if(!..())
 		return FALSE
-	if(GLOB.security_level >= SEC_LEVEL_RED || unlocked)
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED || unlocked)
 		return TRUE
 	to_chat(user, "The storage unit will only unlock during a Red or Delta security alert.")
 

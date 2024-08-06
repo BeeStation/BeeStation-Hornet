@@ -22,5 +22,5 @@
 	flick("[icon_state]-punch", src)
 	playsound(loc, pick(hit_sounds), 25, TRUE, -1)
 	SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "exercise", /datum/mood_event/exercise)
-	user.apply_status_effect(STATUS_EFFECT_EXERCISED)
+	user.apply_status_effect(STATUS_EFFECT_EXERCISED, 1)
 
