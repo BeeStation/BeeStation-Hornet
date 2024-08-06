@@ -475,6 +475,9 @@ Class Procs:
 	return _try_interact(user)
 
 /obj/machinery/attack_ai(mob/user)
+	. = ..()
+	if(.)
+		return
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
 		return FALSE
 	if(iscyborg(user))// For some reason attack_robot doesn't work

@@ -45,10 +45,10 @@
 			return TRUE
 
 /obj/item/proc/GetAccess()
-	return list()
+	. = SEND_SIGNAL(src, COMSIG_ITEM_GET_ACCESS) || list()
 
 /obj/item/proc/GetID()
-	return null
+	. = SEND_SIGNAL(src, COMSIG_ITEM_GET_ID)
 
 /obj/item/proc/RemoveID()
 	return null
