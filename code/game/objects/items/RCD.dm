@@ -1029,7 +1029,8 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	/obj/machinery/plumbing/disposer = 10,
 	/obj/machinery/plumbing/filter = 5,
 	/obj/machinery/plumbing/grinder_chemical = 30,
-	/obj/machinery/plumbing/splitter = 5
+	/obj/machinery/plumbing/splitter = 5,
+	/obj/machinery/plumbing/bottle_dispenser = 20,
 )
 
 /obj/item/construction/plumbing/attack_self(mob/user)

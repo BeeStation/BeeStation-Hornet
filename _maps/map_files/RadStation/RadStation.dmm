@@ -56125,9 +56125,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -67374,9 +67372,7 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/box/corners,
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron/techmaint,
 /area/gateway)
 "vjz" = (
@@ -75110,9 +75106,6 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "xIb" = (
-/obj/machinery/plumbing/pill_press{
-	dir = 4
-	},
 /obj/effect/turf_decal/box,
 /obj/machinery/door/window/westleft{
 	dir = 1;
@@ -75125,6 +75118,9 @@
 	name = "plumbing factory duct access";
 	red_alert_access = 1;
 	req_one_access_txt = "5;33"
+	},
+/obj/machinery/plumbing/output{
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/medical/chemistry)
