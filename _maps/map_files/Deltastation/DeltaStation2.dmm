@@ -81836,15 +81836,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"utb" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 8
-	},
-/turf/open/floor/iron/smooth,
-/area/tcommsat/server)
 "utc" = (
 /obj/item/beacon,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -133213,7 +133204,7 @@ bUI
 bXa
 cSI
 cSI
-utb
+mUm
 ceA
 vCq
 dzh
