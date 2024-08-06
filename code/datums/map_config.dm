@@ -49,7 +49,7 @@
 	//======
 
 	/// We'll use lavaland planet (or sort) as long as it's allowed. TRUE by default, but becomes FALSE by json map config.
-	var/use_minetype = TRUE
+	var/use_minetype = TRUE // to make it FALSE, set ("use_minetype": "false") in map json file
 	///Type of the mining level to use
 	var/minetype = "lavaland"
 	/// which planet will be the sun of this solar system. If null, lavaland becomes the sun.
