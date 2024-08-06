@@ -462,6 +462,9 @@ Class Procs:
 		user.visible_message("<span class='danger'>[user] smashes [src] with [user.p_their()] paws[damage ? "." : ", without leaving a mark!"]</span>", null, null, COMBAT_MESSAGE_RANGE)
 
 /obj/machinery/attack_robot(mob/user)
+	. = ..()
+	if(.)
+		return
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
 		return FALSE
 	if(Adjacent(user) && can_buckle && has_buckled_mobs()) //so that borgs (but not AIs, sadly (perhaps in a future PR?)) can unbuckle people from machines
