@@ -1,0 +1,5 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - rscdel: Reverts grayscaled blood and species specific colors for them. They will
+      return at a later date
