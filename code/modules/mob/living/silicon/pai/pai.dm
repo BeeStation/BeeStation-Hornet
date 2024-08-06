@@ -14,6 +14,7 @@
 	layer = BELOW_MOB_LAYER
 	can_be_held = TRUE
 	radio = /obj/item/radio/headset/silicon/pai
+	can_buckle_to = FALSE
 	move_force = 0
 	pull_force = 0
 	move_resist = 0
@@ -107,12 +108,6 @@
 	var/silent = FALSE
 	var/atom/movable/screen/ai/modpc/interface_button
 
-
-/mob/living/silicon/pai/can_unbuckle()
-	return FALSE
-
-/mob/living/silicon/pai/can_buckle()
-	return FALSE
 
 /mob/living/silicon/pai/handle_atom_del(atom/A)
 	if(A == hacking_cable)
@@ -219,7 +214,9 @@
 	return TRUE
 
 /mob/living/silicon/pai/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
 	mind.assigned_role = JOB_NAME_PAI
 	notes_assets.send(client)
