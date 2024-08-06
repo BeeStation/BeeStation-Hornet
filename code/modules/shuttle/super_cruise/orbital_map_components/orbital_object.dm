@@ -77,7 +77,7 @@
 	var/datum/orbital_map/map = SSorbits.orbital_maps[src.orbital_map_index]
 	map.add_body(src)
 	// Sets the centre of the universe. If not specified, Lavaland planet will become so (check lavaland subtype)
-	if(src.orbital_map_index == PRIMARY_ORBITAL_MAP && SSmapping.map_adjustment?.central_orbit == type)
+	if(src.orbital_map_index == PRIMARY_ORBITAL_MAP && SSmapping.config.central_orbit == type)
 		map.center = src
 
 	//If orbits has already setup, then post map setup

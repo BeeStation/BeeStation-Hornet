@@ -6,8 +6,6 @@
 
 /datum/map_adjustment/EchoStation
 	map_file_name = "EchoStation.dmm"
-	no_lavaland = TRUE
-	central_orbit = /datum/orbital_object/z_linked/station
 	blacklisted_jobs = list(
 		JOB_NAME_ATMOSPHERICTECHNICIAN,
 		JOB_NAME_BARTENDER,

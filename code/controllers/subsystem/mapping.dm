@@ -330,7 +330,7 @@ SUBSYSTEM_DEF(mapping)
 		LAZYADD(SSzclear.free_levels, add_new_zlevel("Empty Area [space_levels_so_far]", ZTRAITS_SPACE, orbital_body_type = null))
 
 	// load mining
-	if(SSmapping.map_adjustment ? !SSmapping.map_adjustment.no_lavaland : TRUE) // as long as it's allowed
+	if(SSmapping.config.use_minetype) // as long as it's allowed
 		if(config.minetype == "lavaland")
 			LoadGroup(FailedZs, "Lavaland", "map_files/Mining", "Lavaland.dmm", default_traits = ZTRAITS_LAVALAND, orbital_body_type = /datum/orbital_object/z_linked/lavaland)
 		else if (!isnull(config.minetype))
