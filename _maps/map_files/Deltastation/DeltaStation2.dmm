@@ -29637,9 +29637,6 @@
 	pixel_x = 26
 	},
 /obj/effect/turf_decal/tile/purple,
-/obj/effect/spawner/sillycons{
-	pixel_x = 8
-	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/hor)
 "dCn" = (
@@ -70504,9 +70501,6 @@
 	},
 /obj/item/pen,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/sillycons{
-	pixel_x = 8
-	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "qAS" = (
