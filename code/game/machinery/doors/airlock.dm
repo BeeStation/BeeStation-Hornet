@@ -442,7 +442,7 @@
 				cyclelinkedairlock.delayed_close_requested = TRUE
 			else
 				addtimer(CALLBACK(cyclelinkedairlock, PROC_REF(close)), 2)
-	if(locked && allowed(user) && aac)
+	if(locked && aac && allowed(user))
 		aac.request_from_door(src)
 		return
 	..()
