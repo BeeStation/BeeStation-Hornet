@@ -26,6 +26,9 @@
 
 	var/has_cooldown_timer = FALSE
 
+	///All mobs that are sharing our action button.
+	var/list/sharers = list()
+
 /datum/action/New(Target)
 	link_to(Target)
 	button = new
@@ -156,6 +159,27 @@
 /datum/action/proc/OnUpdatedIcon()
 	SIGNAL_HANDLER
 	UpdateButtonIcon()
+
+//Adds our action button to the screen of another player
+/datum/action/proc/Share(mob/freeloader)
+	if(!freeloader.client)
+		return
+	sharers += WEAKREF(freeloader)
+	freeloader.client.screen += button
+	freeloader.actions += src
+	freeloader.update_action_buttons()
+
+//Removes our action button from the screen of another player
+/datum/action/proc/Unshare(mob/freeloader)
+	if(!freeloader.client)
+		return
+	for(var/freeloader_reference in sharers)
+		if(IS_WEAKREF_OF(freeloader, freeloader_reference))
+			sharers -= freeloader_reference
+			break
+	freeloader.client.screen -= button
+	freeloader.actions -= src
+	freeloader.update_action_buttons()
 
 //Presets for item actions
 /datum/action/item_action

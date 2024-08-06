@@ -26,12 +26,13 @@
 	set_unremovable_circuit_components(unremovable_circuit_components)
 
 /datum/component/shell/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attack_by))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_GHOST, PROC_REF(on_attack_ghost))
-	if(!(shell_flags & SHELL_FLAG_CIRCUIT_FIXED))
-		RegisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER), PROC_REF(on_screwdriver_act))
+	if(!(shell_flags & SHELL_FLAG_CIRCUIT_UNMODIFIABLE))
 		RegisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_MULTITOOL), PROC_REF(on_multitool_act))
+		RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attack_by))
+	if(!(shell_flags & SHELL_FLAG_CIRCUIT_UNREMOVABLE))
+		RegisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER), PROC_REF(on_screwdriver_act))
 		RegisterSignal(parent, COMSIG_OBJ_DECONSTRUCT, PROC_REF(on_object_deconstruct))
 	if(shell_flags & SHELL_FLAG_REQUIRE_ANCHOR)
 		RegisterSignal(parent, COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH, PROC_REF(on_unfasten))
@@ -92,6 +93,10 @@
 
 /datum/component/shell/proc/on_object_deconstruct()
 	SIGNAL_HANDLER
+	if(!attached_circuit)
+		return
+	if(shell_flags & SHELL_FLAG_CIRCUIT_UNREMOVABLE)
+		return
 	remove_circuit()
 
 /datum/component/shell/proc/on_attack_ghost(datum/source, mob/dead/observer/ghost)
@@ -139,7 +144,7 @@
 	if(attached_circuit)
 		if(attached_circuit.owner_id && item == attached_circuit.owner_id.resolve())
 			set_locked(!locked)
-			source.balloon_alert(attacker, "[locked? "locked" : "unlocked"] [source]")
+			source.balloon_alert(attacker, "[locked ? "locked" : "unlocked"] [source]")
 			return COMPONENT_NO_AFTERATTACK
 
 		if(!attached_circuit.owner_id && istype(item, /obj/item/card/id))
@@ -243,7 +248,10 @@
 		return
 	locked = FALSE
 	attached_circuit = circuitboard
-	RegisterSignal(circuitboard, COMSIG_MOVABLE_MOVED, PROC_REF(on_circuit_moved))
+	if(!(shell_flags & SHELL_FLAG_CIRCUIT_UNREMOVABLE))
+		RegisterSignal(circuitboard, COMSIG_MOVABLE_MOVED, PROC_REF(on_circuit_moved))
+	//if(shell_flags & SHELL_FLAG_REQUIRE_ANCHOR)
+	//	RegisterSignal(circuitboard, COMSIG_CIRCUIT_PRE_POWER_USAGE, PROEC_REF(override_power_usage))
 	RegisterSignal(circuitboard, COMSIG_PARENT_QDELETING, PROC_REF(on_circuit_delete))
 	for(var/obj/item/circuit_component/to_add as anything in unremovable_circuit_components)
 		to_add.forceMove(attached_circuit)
@@ -255,10 +263,13 @@
 	attached_circuit.set_locked(FALSE)
 
 	if(shell_flags & SHELL_FLAG_REQUIRE_ANCHOR)
-		on_unfasten(parent_atom, parent_atom.anchored)
+		attached_circuit.on = parent_atom.anchored
 
-	if(circuitboard.loc != parent_atom)
+	if((shell_flags & SHELL_FLAG_CIRCUIT_UNREMOVABLE))
+		circuitboard.moveToNullspace()
+	else if(circuitboard.loc != parent_atom)
 		circuitboard.forceMove(parent_atom)
+	attached_circuit.set_shell(parent_atom)
 
 /**
  * Removes the circuit from the component. Doesn't do any checks to see for an existing circuit so that should be done beforehand.
@@ -294,3 +305,22 @@
 
 	usb_cable.attached_circuit = attached_circuit
 	return COMSIG_USB_CABLE_CONNECTED_TO_CIRCUIT
+
+/**
+ * Determines if a user is authorized to see the existance of this shell. Returns false if they are not
+ *
+ * Arguments:
+ * * user - The user to check if they are authorized
+ */
+/datum/component/shell/proc/is_authorized(mob/user)
+	if((shell_flags & SHELL_FLAG_CIRCUIT_UNREMOVABLE) && (shell_flags & SHELL_FLAG_CIRCUIT_UNMODIFIABLE))
+		return FALSE
+
+	/*
+	if(attached_circuit?.admin_only)
+		if(check_rights_for(user.client, R_VAREDIT))
+			return TRUE
+		return FALSE
+	*/
+
+	return TRUE

@@ -113,6 +113,7 @@
 #include "merge_type.dm"
 #include "metabolizing.dm"
 #include "missing_icons.dm"
+#include "modsuit.dm"
 #include "ntnetwork_tests.dm"
 #include "preference_species.dm"
 #include "projectiles.dm"

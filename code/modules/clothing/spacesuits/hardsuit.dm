@@ -414,29 +414,6 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/exploration
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 
-//Cybersun Hardsuit
-//A kind of side-grade to the explorer suit, sacrificing burn protection for brute. If you can kill the guy inside it, anyways.
-/obj/item/clothing/head/helmet/space/hardsuit/cybersun
-	name = "Cybersun hardsuit helmet"
-	desc = "A bulbous red helmet designed for scavenging in hazardous, low pressure environments. Has dual floodlights, and a 360 Degree view."
-	icon_state = "hardsuit0-cybersun"
-	item_state = "death_commando_mask"
-	hardsuit_type = "cybersun"
-	armor = list(MELEE = 30,  BULLET = 35, LASER = 15, ENERGY = 15, BOMB = 60, BIO = 100, RAD = 55, FIRE = 30, ACID = 60, STAMINA = 15, BLEED = 70)
-	strip_delay = 600
-
-/obj/item/clothing/suit/space/hardsuit/cybersun
-	icon_state = "cybersun"
-	name = "Cybersun hardsuit"
-	desc = "A bulky, protective suit designed to protect against the perils facing Cybersun Employed Engineers, Researchers, and more as they head from the safety of \
-		more stable employment to the dangers of Nanotrasen Controlled Deep Space. Designed to get the job done despite on-site hazards in derelicts, laser armor was \
-		sacrificed in favor of more effective blunt armor plates and radiation shielding."
-	armor = list(MELEE = 30,  BULLET = 35, LASER = 15, ENERGY = 15, BOMB = 60, BIO = 100, RAD = 55, FIRE = 30, ACID = 60, STAMINA = 15, BLEED = 70)
-	hardsuit_type = "cybersun"
-	item_state = "death_commando_mask"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/cybersun
-	jetpack = /obj/item/tank/jetpack/suit
-
 	//Syndicate hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	name = "blood-red hardsuit helmet"
@@ -694,7 +671,8 @@
 	hardsuit_type = "medical"
 	flash_protect = 0
 	armor = list(MELEE = 30,  BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 10, BIO = 100, RAD = 60, FIRE = 60, ACID = 75, STAMINA = 20, BLEED = 70)
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS | HEADINTERNALS
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
+	clothing_traits = list(TRAIT_REAGENT_SCANNER)
 
 /obj/item/clothing/suit/space/hardsuit/medical
 	icon_state = "hardsuit-medical"
@@ -726,7 +704,8 @@
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	armor = list(MELEE = 30,  BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 100, BIO = 100, RAD = 60, FIRE = 60, ACID = 80, STAMINA = 30, BLEED = 70)
 	var/obj/machinery/doppler_array/integrated/bomb_radar
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS | HEADINTERNALS
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
+	clothing_traits = list(TRAIT_REAGENT_SCANNER)
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet_light,
 		/datum/action/item_action/toggle_research_scanner

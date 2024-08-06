@@ -31,6 +31,8 @@
 		"Cybernetics",
 		"Implants",
 		"Control Interfaces",
+		"MOD Construction",
+		"MOD Modules",
 		"Misc"
 	)
 

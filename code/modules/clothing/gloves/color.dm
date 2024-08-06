@@ -211,6 +211,10 @@
 	if(ishuman(loc))
 		REMOVE_TRAIT(loc, carrytrait, CLOTHING_TRAIT)
 
+#define NITRILE_GLOVES_MULTIPLIER 0.5
+///multiplies the time of do_mob by NITRILE_GLOVES_MULTIPLIER if the user has the TRAIT_FASTMED
+#define CHEM_INTERACT_DELAY(delay, user) HAS_TRAIT(user, TRAIT_FASTMED) ? (delay * NITRILE_GLOVES_MULTIPLIER) : delay
+
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
 	desc = "Pricy sterile gloves that are stronger than latex. Transfers intimate paramedic knowledge into the user via nanochips."

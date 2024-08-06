@@ -1221,6 +1221,18 @@
 	tools = list(TOOL_WRENCH, TOOL_WIRECUTTER)
 	category = CAT_MISC
 
+/datum/crafting_recipe/mod_core
+	name = "MOD core"
+	result = /obj/item/mod/construction/core
+	tools = list(TOOL_SCREWDRIVER)
+	time = 10 SECONDS
+	reqs = list(/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/rods = 2,
+				/obj/item/stack/sheet/glass = 1,
+				/obj/item/organ/heart = 1
+				)
+	category = CAT_MISC
+
 /datum/crafting_recipe/personal_locker
 	name = "Personal Locker"
 	result = /obj/structure/closet/secure_closet/personal/empty

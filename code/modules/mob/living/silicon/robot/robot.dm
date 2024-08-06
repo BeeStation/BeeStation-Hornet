@@ -69,7 +69,6 @@
 	var/datum/station_alert/alert_control
 
 	var/speed = 0 // VTEC speed boost.
-	var/magpulse = FALSE // Magboot-like effect.
 	var/ionpulse = FALSE // Jetpack-like effect.
 	var/ionpulse_on = FALSE // Jetpack-like effect.
 	var/datum/effect_system/trail_follow/ion/ion_trail // Ionpulse effect.
@@ -1113,7 +1112,6 @@
 
 	hat_offset = module.hat_offset
 
-	magpulse = module.magpulsing
 	updatename()
 
 

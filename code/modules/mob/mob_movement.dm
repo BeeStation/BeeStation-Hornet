@@ -347,11 +347,15 @@
 			continue
 		return rebound
 
+/mob/has_gravity()
+	return mob_negates_gravity() || ..()
+
 /**
-  * Does this mob ignore gravity
-  */
+ * Does this mob ignore gravity
+ */
 /mob/proc/mob_negates_gravity()
-	return FALSE
+	var/turf/turf = get_turf(src)
+	return !isgroundlessturf(turf) && HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY)
 
 /mob/newtonian_move(direction, instant = FALSE)
 	. = ..()

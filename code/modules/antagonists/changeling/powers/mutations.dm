@@ -473,7 +473,7 @@
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
-	blocks_shove_knockdown = TRUE
+	clothing_flags = BLOCKS_SHOVE_KNOCKDOWN
 	slowdown = 0.2
 
 /obj/item/clothing/suit/armor/changeling/Initialize(mapload)

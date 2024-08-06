@@ -241,28 +241,6 @@
 
 	return FALSE
 
-/mob/living/carbon/human/can_see_reagents()
-	. = ..()
-	if(.) //No need to run through all of this if it's already true.
-		return
-	if(isclothing(glasses) && (glasses.clothing_flags & SCAN_REAGENTS))
-		return TRUE
-	if(isclothing(head) && (head.clothing_flags & SCAN_REAGENTS))
-		return TRUE
-	if(isclothing(wear_mask) && (wear_mask.clothing_flags & SCAN_REAGENTS))
-		return TRUE
-
-/mob/living/carbon/human/can_see_boozepower()
-	. = ..()
-	if(.)
-		return
-	if(isclothing(glasses) && (glasses.clothing_flags & SCAN_BOOZEPOWER))
-		return TRUE
-	if(isclothing(head) && (head.clothing_flags & SCAN_BOOZEPOWER))
-		return TRUE
-	if(isclothing(wear_mask) && (wear_mask.clothing_flags & SCAN_BOOZEPOWER))
-		return TRUE
-
 ///copies over clothing preferences like underwear to another human
 /mob/living/carbon/human/proc/copy_clothing_prefs(mob/living/carbon/human/destination)
 	destination.underwear = underwear

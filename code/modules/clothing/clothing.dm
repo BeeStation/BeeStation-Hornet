@@ -27,8 +27,6 @@
 	var/cooldown = 0
 	var/envirosealed = FALSE //is it safe for plasmamen
 
-	var/blocks_shove_knockdown = FALSE //Whether wearing the clothing item blocks the ability for shove to knock down.
-
 	var/clothing_flags = NONE
 
 	/// What items can be consumed to repair this clothing (must by an /obj/item/stack)
@@ -41,6 +39,9 @@
 	var/list/user_vars_remembered //Auto built by the above + dropped() + equipped()
 
 	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
+
+	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
+	var/list/clothing_traits
 
 	var/pocket_storage_component_path
 
@@ -254,6 +255,8 @@
 	if(!istype(user))
 		return
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+	for(var/trait in clothing_traits)
+		REMOVE_TRAIT(user, trait, "[CLOTHING_TRAIT] [REF(src)]")
 
 	if(LAZYLEN(user_vars_remembered))
 		for(var/variable in user_vars_remembered)
@@ -269,8 +272,9 @@
 	if(slot_flags & slot) //Was equipped to a valid slot for this item?
 		if(iscarbon(user) && LAZYLEN(zones_disabled))
 			RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(bristle))
-
-		if(LAZYLEN(user_vars_to_edit))
+		for(var/trait in clothing_traits)
+			ADD_TRAIT(user, trait, "[CLOTHING_TRAIT] [REF(src)]")
+		if (LAZYLEN(user_vars_to_edit))
 			for(var/variable in user_vars_to_edit)
 				if(variable in user.vars)
 					LAZYSET(user_vars_remembered, variable, user.vars[variable])

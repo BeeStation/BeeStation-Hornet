@@ -27,6 +27,20 @@
 	QDEL_NULL(ion_trail)
 	return ..()
 
+/obj/item/tank/jetpack/item_action_slot_check(slot)
+	if(slot == ITEM_SLOT_BACK)
+		return TRUE
+
+/obj/item/tank/jetpack/equipped(mob/user, slot, initial)
+	. = ..()
+	if(on && slot != ITEM_SLOT_BACK)
+		turn_off(user)
+
+/obj/item/tank/jetpack/dropped(mob/user, silent)
+	. = ..()
+	if(on)
+		turn_off(user)
+
 /obj/item/tank/jetpack/populate_gas()
 	if(gas_type)
 		air_contents.set_moles(gas_type, ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)))
@@ -78,6 +92,7 @@
 /obj/item/tank/jetpack/proc/on_user_add()
 	RegisterSignal(known_user, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
 	RegisterSignal(known_user, COMSIG_PARENT_QDELETING, PROC_REF(lose_known_user))
+	RegisterSignal(known_user, COMSIG_MOVABLE_SPACEMOVE, PROC_REF(spacemove_react))
 
 /// Resets our current user, preventing them from using the jetpack.
 /obj/item/tank/jetpack/proc/lose_known_user()
@@ -90,6 +105,7 @@
 	known_user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 	UnregisterSignal(known_user, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(known_user, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(known_user, COMSIG_MOVABLE_SPACEMOVE)
 
 /obj/item/tank/jetpack/proc/turn_on(mob/user)
 	if(!known_user)
@@ -114,10 +130,27 @@
 
 /obj/item/tank/jetpack/proc/move_react(mob/user)
 	SIGNAL_HANDLER
-	if(on)
-		allow_thrust(THRUST_REQUIREMENT_SPACEMOVE, user)
-		// Update speed according to pressure
-		JETPACK_SPEED_CHECK(known_user, MOVESPEED_ID_JETPACK, -1, full_speed)
+	if(!on)//If jet dont work, it dont work
+		return
+	if(!user || !user.client)//Don't allow jet self using
+		return
+	if(!isturf(user.loc))//You can't use jet in nowhere or from mecha/closet
+		return
+	if(!(user.movement_type & FLOATING) || user.buckled)//You don't want use jet in gravity or while buckled.
+		return
+	if(user.pulledby)//You don't must use jet if someone pull you
+		return
+	if(user.throwing)//You don't must use jet if you thrown
+		return
+	allow_thrust(THRUST_REQUIREMENT_SPACEMOVE, user)
+	// Update speed according to pressure
+	JETPACK_SPEED_CHECK(known_user, MOVESPEED_ID_JETPACK, -1, full_speed)
+
+/obj/item/tank/jetpack/proc/spacemove_react(mob/user, movement_dir)
+	SIGNAL_HANDLER
+
+	if(on && (movement_dir || stabilizers))
+		return COMSIG_MOVABLE_STOP_SPACEMOVE
 
 /obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user, use_fuel = TRUE)
 	if(!on || !known_user)

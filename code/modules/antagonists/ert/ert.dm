@@ -12,7 +12,7 @@
 	name = "Emergency Response Officer"
 	var/datum/team/ert/ert_team
 	var/leader = FALSE
-	var/datum/outfit/outfit = /datum/outfit/ert/security
+	var/datum/outfit/outfit = /datum/outfit/centcom/ert/security
 	var/datum/outfit/plasmaman_outfit = /datum/outfit/plasmaman/ert
 	var/role = JOB_NAME_SECURITYOFFICER
 	var/list/name_source
@@ -58,28 +58,28 @@
 /datum/antagonist/ert/security // kinda handled by the base template but here for completion
 
 /datum/antagonist/ert/security/red
-	outfit = /datum/outfit/ert/security/alert
+	outfit = /datum/outfit/centcom/ert/security/alert
 
 /datum/antagonist/ert/engineer
 	role = "Engineer"
-	outfit = /datum/outfit/ert/engineer
+	outfit = /datum/outfit/centcom/ert/engineer
 
 /datum/antagonist/ert/engineer/red
-	outfit = /datum/outfit/ert/engineer/alert
+	outfit = /datum/outfit/centcom/ert/engineer/alert
 
 /datum/antagonist/ert/medic
 	role = JOB_CENTCOM_MEDICAL_DOCTOR
-	outfit = /datum/outfit/ert/medic
+	outfit = /datum/outfit/centcom/ert/medic
 
 /datum/antagonist/ert/medic/red
-	outfit = /datum/outfit/ert/medic/alert
+	outfit = /datum/outfit/centcom/ert/medic/alert
 
 /datum/antagonist/ert/commander
 	role = "Commander"
-	outfit = /datum/outfit/ert/commander
+	outfit = /datum/outfit/centcom/ert/commander
 
 /datum/antagonist/ert/commander/red
-	outfit = /datum/outfit/ert/commander/alert
+	outfit = /datum/outfit/centcom/ert/commander/alert
 
 /datum/antagonist/ert/deathsquad
 	name = "Deathsquad Trooper"
@@ -88,14 +88,14 @@
 	plasmaman_outfit = /datum/outfit/plasmaman/death_commando
 
 /datum/antagonist/ert/medic/inquisitor
-	outfit = /datum/outfit/ert/medic/inquisitor
+	outfit = /datum/outfit/centcom/ert/medic/inquisitor
 
 /datum/antagonist/ert/medic/inquisitor/on_gain()
 	. = ..()
 	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/security/inquisitor
-	outfit = /datum/outfit/ert/security/inquisitor
+	outfit = /datum/outfit/centcom/ert/security/inquisitor
 
 /datum/antagonist/ert/security/inquisitor/on_gain()
 	. = ..()
@@ -103,17 +103,17 @@
 
 /datum/antagonist/ert/chaplain
 	role = JOB_NAME_CHAPLAIN
-	outfit = /datum/outfit/ert/chaplain
+	outfit = /datum/outfit/centcom/ert/chaplain
 
 /datum/antagonist/ert/chaplain/inquisitor
-	outfit = /datum/outfit/ert/chaplain/inquisitor
+	outfit = /datum/outfit/centcom/ert/chaplain/inquisitor
 
 /datum/antagonist/ert/chaplain/on_gain()
 	. = ..()
 	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/commander/inquisitor
-	outfit = /datum/outfit/ert/commander/inquisitor
+	outfit = /datum/outfit/centcom/ert/commander/inquisitor
 
 /datum/antagonist/ert/commander/inquisitor/on_gain()
 	. = ..()
@@ -121,15 +121,15 @@
 
 /datum/antagonist/ert/janitor
 	role = JOB_NAME_JANITOR
-	outfit = /datum/outfit/ert/janitor
+	outfit = /datum/outfit/centcom/ert/janitor
 
 /datum/antagonist/ert/janitor/heavy
 	role = "Heavy Duty Janitor"
-	outfit = /datum/outfit/ert/janitor/heavy
+	outfit = /datum/outfit/centcom/ert/janitor/heavy
 
 /datum/antagonist/ert/kudzu
 	role = "Weed Whacker"
-	outfit = /datum/outfit/ert/kudzu
+	outfit = /datum/outfit/centcom/ert/kudzu
 
 /datum/antagonist/ert/deathsquad/leader
 	name = "Deathsquad Officer"
