@@ -138,3 +138,4 @@
 	name = "crate shelf parts"
 	desc = "Parts of a shelf."
 	construction_type = /obj/structure/crate_shelf
+	icon_state = "crate_shelf"
