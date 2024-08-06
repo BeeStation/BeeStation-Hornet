@@ -52,6 +52,7 @@
 	var/use_minetype = TRUE
 	///Type of the mining level to use
 	var/minetype = "lavaland"
+	/// which planet will be the sun of this solar system. If null, lavaland becomes the sun.
 	var/central_orbit
 
 	/// Is this station considered a planet for the supercruise map
