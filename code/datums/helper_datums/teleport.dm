@@ -17,6 +17,7 @@
 		/obj/effect/mob_spawn,
 		/obj/effect/warp_cube,
 		/obj/effect/extraction_holder,
+		/obj/effect/anomaly,
 	))
 	if(delete_atoms[teleatom.type])
 		qdel(teleatom)

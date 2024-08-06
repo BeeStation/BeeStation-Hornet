@@ -19,25 +19,36 @@ Contents:
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/stock_parts/cell)
 	slowdown = 1
 	resistance_flags = LAVA_PROOF | ACID_PROOF
-	armor = list(MELEE = 60,  BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 100, ACID = 100, STAMINA = 60)
+	armor = list(MELEE = 60,  BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 100, ACID = 100, STAMINA = 60, BLEED = 60)
 	strip_delay = 12
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	cell = null
+	show_hud = FALSE
+	actions_types = list(
+		/datum/action/item_action/initialize_ninja_suit,
+		/datum/action/item_action/ninjasmoke,
+		/datum/action/item_action/ninjaboost,
+		/datum/action/item_action/ninjapulse,
+		/datum/action/item_action/ninjastar,
+		/datum/action/item_action/ninjanet,
+		/datum/action/item_action/ninja_sword_recall,
+		/datum/action/item_action/ninja_stealth,
+		/datum/action/item_action/toggle_glove
+	)
 
-	actions_types = list(/datum/action/item_action/initialize_ninja_suit, /datum/action/item_action/ninjasmoke, /datum/action/item_action/ninjaboost, /datum/action/item_action/ninjapulse, /datum/action/item_action/ninjastar, /datum/action/item_action/ninjanet, /datum/action/item_action/ninja_sword_recall, /datum/action/item_action/ninja_stealth, /datum/action/item_action/toggle_glove)
-
-		//Important parts of the suit.
+	//Important parts of the suit.
 	var/mob/living/carbon/human/affecting = null
-	var/obj/item/stock_parts/cell/cell
 	var/datum/effect_system/spark_spread/spark_system
 	var/datum/techweb/stored_research
 	var/obj/item/disk/tech_disk/t_disk//To copy design onto disk.
 	var/obj/item/energy_katana/energyKatana //For teleporting the katana back to the ninja (It's an ability)
 
-		//Other articles of ninja gear worn together, used to easily reference them after initializing.
+	//Other articles of ninja gear worn together, used to easily reference them after initializing.
 	var/obj/item/clothing/head/helmet/space/space_ninja/n_hood
 	var/obj/item/clothing/shoes/space_ninja/n_shoes
 	var/obj/item/clothing/gloves/space_ninja/n_gloves
 
-		//Main function variables.
+	//Main function variables.
 	var/s_initialized = 0//Suit starts off.
 	var/s_coold = 0//If the suit is on cooldown. Can be used to attach different cooldowns to abilities. Ticks down every second based on suit ntick().
 	var/s_cost = 2.5//Base energy cost each ntick.
@@ -55,9 +66,14 @@ Contents:
 	var/s_bombs = 10//Number of smoke bombs.
 	var/a_boost = 3//Number of adrenaline boosters.
 
-
-/obj/item/clothing/suit/space/space_ninja/get_cell()
-	return cell
+/obj/item/clothing/suit/space/space_ninja/examine(mob/user)
+	. = .()
+	if(s_initialized)
+		if(user == affecting)
+			. += "All systems operational. Current energy capacity: <B>[display_energy(cell.charge)]</B>.\n"+\
+			"The CLOAK-tech device is <B>[stealth?"active":"inactive"]</B>.\n"+\
+			"There are <B>[s_bombs]</B> smoke bomb\s remaining.\n"+\
+			"There are <B>[a_boost]</B> adrenaline booster\s remaining."
 
 /obj/item/clothing/suit/space/space_ninja/Initialize(mapload)
 	. = ..()
@@ -75,6 +91,17 @@ Contents:
 	cell.charge = 9000
 	cell.name = "black power cell"
 	cell.icon_state = "bscell"
+
+// seal the cell in the ninja outfit
+/obj/item/clothing/suit/space/space_ninja/toggle_spacesuit_cell(mob/user)
+	return
+
+// Space Suit temperature regulation and power usage
+/obj/item/clothing/suit/space/space_ninja/process()
+	var/mob/living/carbon/human/user = src.loc
+	if(!user || !ishuman(user) || !(user.wear_suit == src))
+		return
+	user.adjust_bodytemperature(BODYTEMP_NORMAL - user.bodytemperature)
 
 /obj/item/clothing/suit/space/space_ninja/Destroy()
 	QDEL_NULL(spark_system)
@@ -166,16 +193,6 @@ Contents:
 		REMOVE_TRAIT(n_gloves, TRAIT_NODROP, NINJA_SUIT_TRAIT)
 		n_gloves.candrain = FALSE
 		n_gloves.draining = FALSE
-
-
-/obj/item/clothing/suit/space/space_ninja/examine(mob/user)
-	. = .()
-	if(s_initialized)
-		if(user == affecting)
-			. += "All systems operational. Current energy capacity: <B>[display_energy(cell.charge)]</B>.\n"+\
-			"The CLOAK-tech device is <B>[stealth?"active":"inactive"]</B>.\n"+\
-			"There are <B>[s_bombs]</B> smoke bomb\s remaining.\n"+\
-			"There are <B>[a_boost]</B> adrenaline booster\s remaining."
 
 /obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/initialize_ninja_suit))

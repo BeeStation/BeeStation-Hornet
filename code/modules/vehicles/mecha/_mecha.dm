@@ -890,7 +890,6 @@
 	AI.cancel_camera()
 	AI.controlled_mech = src
 	AI.remote_control = src
-	AI.mobility_flags = ALL //Much easier than adding AI checks! Be sure to set this back to 0 if you decide to allow an AI to leave a mech somehow.
 	to_chat(AI, AI.can_dominate_mechs ? "<span class='announce'>Takeover of [name] complete! You are now loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" :\
 		"<span class='notice'>You have been uploaded to a mech's onboard computer.</span>")
 	to_chat(AI, "<span class='reallybig boldnotice'>Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions.</span>")
@@ -1039,12 +1038,11 @@
 		return FALSE
 
 
-	brain_obj.mecha = src
+	brain_obj.set_mecha(src)
 	add_occupant(brain_mob)//Note this forcemoves the brain into the mech to allow relaymove
 	mecha_flags |= SILICON_PILOT
 	brain_mob.reset_perspective(src)
 	brain_mob.remote_control = src
-	brain_mob.update_mobility()
 	brain_mob.update_mouse_pointer()
 	setDir(dir_in)
 	log_message("[brain_obj] moved in as pilot.", LOG_MECHA)
@@ -1112,9 +1110,8 @@
 				L.forceMove(mmi)
 				L.reset_perspective()
 				remove_occupant(L)
-			mmi.mecha = null
+			mmi.set_mecha(null)
 			mmi.update_appearance()
-			L.mobility_flags = NONE
 		setDir(dir_in)
 	return ..()
 

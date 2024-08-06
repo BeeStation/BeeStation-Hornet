@@ -5,7 +5,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	permeability_coefficient = 0.9
 	slot_flags = ITEM_SLOT_ICLOTHING
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 10)
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	var/fitted = FEMALE_UNIFORM_FULL // For use in alternate clothing styles for women
@@ -26,7 +26,9 @@
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform", item_layer +  0.0002)
 		if(HAS_BLOOD_DNA(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "uniformblood", item_layer +  0.0002)
+			var/mutable_appearance/bloody_uniform = mutable_appearance('icons/effects/blood.dmi', "uniformblood", item_layer + 0.0002)
+			bloody_uniform.color = get_blood_dna_color(return_blood_DNA())
+			. += bloody_uniform
 		if(accessory_overlay)
 			accessory_overlay.layer = item_layer +  0.0001
 			. += accessory_overlay

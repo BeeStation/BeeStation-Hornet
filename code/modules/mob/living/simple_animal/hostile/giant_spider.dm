@@ -95,7 +95,9 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	SSmove_manager.stop_looping(src) // Just in case the AI's doing anything when we give them the mind
 	GLOB.spidermobs[src] = TRUE
 

@@ -19,9 +19,7 @@
 /area/template_noop)
 "m" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "u" = (
@@ -47,8 +45,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "z" = (
-/obj/machinery/airalarm{
-	dir = 1;
+/obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
 /obj/structure/table/wood,
@@ -69,10 +66,8 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "E" = (
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "F" = (
@@ -110,9 +105,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "J" = (
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
+/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "K" = (

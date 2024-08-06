@@ -3,17 +3,17 @@
 	desc = "Contains blood used for transfusion. Must be attached to an IV drip."
 	icon = 'icons/obj/bloodpack.dmi'
 	icon_state = "bloodpack"
-	volume = 200
-	var/blood_type = null
+	volume = 400
+	var/datum/blood_type/blood_type = null
 	var/unique_blood = null
 	var/labelled = 0
 	reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE
-	fill_icon_thresholds = list(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
+	fill_icon_thresholds = list(10, 40, 60, 80, 100, 120, 140, 160, 180, 200)
 
 /obj/item/reagent_containers/blood/Initialize(mapload)
 	. = ..()
 	if(blood_type != null)
-		reagents.add_reagent(unique_blood ? unique_blood : /datum/reagent/blood, 200, list("viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"resistances"=null,"trace_chem"=null))
+		reagents.add_reagent(unique_blood ? unique_blood : /datum/reagent/blood, 400, list("viruses"=null,"blood_DNA"=null,"blood_type"=get_blood_type(blood_type),"resistances"=null,"trace_chem"=null))
 		update_icon()
 
 /obj/item/reagent_containers/blood/examine(mob/user)
@@ -39,7 +39,7 @@
 /obj/item/reagent_containers/blood/proc/update_pack_name()
 	if(!labelled)
 		if(blood_type)
-			name = "blood pack - [blood_type]"
+			name = "blood pack[blood_type ? " - [unique_blood ? blood_type : blood_type.name]" : null]"
 		else
 			name = "blood pack"
 
@@ -48,7 +48,7 @@
 
 /obj/item/reagent_containers/blood/random/Initialize(mapload)
 	icon_state = "bloodpack"
-	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-", "L")
+	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-", "L", "E", "Coolant")
 	return ..()
 
 /obj/item/reagent_containers/blood/APlus
@@ -71,6 +71,12 @@
 
 /obj/item/reagent_containers/blood/lizard
 	blood_type = "L"
+
+/obj/item/reagent_containers/blood/ethereal
+	blood_type = "E"
+
+/obj/item/reagent_containers/blood/synthetic
+	blood_type = "Coolant"
 
 /obj/item/reagent_containers/blood/ethereal
 	labelled = 1
