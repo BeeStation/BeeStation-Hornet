@@ -268,9 +268,9 @@
 		O.drop_limb(1)
 
 /obj/item/bodypart/proc/attach_limb(mob/living/carbon/C, special, is_creating = FALSE)
-	if(SEND_SIGNAL(C, COMSIG_CARBON_ATTACH_LIMB, src, special) & COMPONENT_NO_ATTACH)
-		return FALSE
-	. = TRUE
+	//if(SEND_SIGNAL(C, COMSIG_CARBON_ATTACH_LIMB, src, special) & COMPONENT_NO_ATTACH)
+	//	return FALSE
+	//. = TRUE
 	SEND_SIGNAL(src, COMSIG_BODYPART_ATTACHED, C, special)
 	moveToNullspace()
 	set_owner(C)
@@ -288,8 +288,7 @@
 		C.update_inv_gloves()
 
 	if(special) //non conventional limb attachment
-		for(var/X in C.surgeries) //if we had an ongoing surgery to attach a new limb, we stop it.
-			var/datum/surgery/S = X
+		for(var/datum/surgery/S as anything in C.surgeries) //if we had an ongoing surgery to attach a new limb, we stop it.
 			var/surgery_zone = check_zone(S.location)
 			if(surgery_zone == body_zone)
 				C.surgeries -= S
@@ -368,14 +367,14 @@
 
 //Regenerates all limbs. Returns amount of limbs regenerated
 /mob/living/proc/regenerate_limbs(noheal = FALSE, list/excluded_zones = list())
-	return 0
+	SEND_SIGNAL(src, COMSIG_LIVING_REGENERATE_LIMBS, noheal, excluded_zones)
 
 /mob/living/carbon/regenerate_limbs(noheal = FALSE, list/excluded_zones = list())
 	var/list/zone_list = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	if(length(excluded_zones))
 		zone_list -= excluded_zones
-	for(var/Z in zone_list)
-		. += regenerate_limb(Z, noheal)
+	for(var/limb_zone in zone_list)
+		. += regenerate_limb(limb_zone, noheal)
 
 /mob/living/proc/regenerate_limb(limb_zone, noheal)
 	return
