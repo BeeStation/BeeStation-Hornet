@@ -13584,11 +13584,6 @@
 /obj/machinery/power/supermatter_crystal/engine,
 /turf/open/floor/engine,
 /area/engine/supermatter)
-"cAo" = (
-/obj/effect/landmark/start/paramedic,
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "cAq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -25791,10 +25786,10 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "gVW" = (
@@ -46102,9 +46097,9 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/toilet)
 "pkq" = (
-/obj/structure/table,
 /obj/item/storage/firstaid/regular,
 /obj/machinery/camera/autoname/directional/north,
+/obj/structure/table,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "pks" = (
@@ -49135,6 +49130,7 @@
 "qti" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/chair/fancy/corp,
+/obj/effect/landmark/start/paramedic,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "qtv" = (
@@ -51021,6 +51017,7 @@
 	},
 /obj/structure/chair/fancy/corp,
 /obj/item/radio/intercom/directional/north,
+/obj/effect/landmark/start/paramedic,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "rea" = (
@@ -62810,11 +62807,11 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "vKs" = (
-/obj/structure/table,
 /obj/item/stack/medical/gauze,
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/ointment,
 /obj/effect/turf_decal/tile/blue,
+/obj/structure/table,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "vKw" = (
@@ -105616,7 +105613,7 @@ rpN
 iQT
 vKs
 xTz
-cAo
+qjW
 xTz
 ppL
 uwZ
