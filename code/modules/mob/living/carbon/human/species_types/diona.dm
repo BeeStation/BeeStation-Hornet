@@ -19,7 +19,7 @@
 	brutemod = 0.8
 	staminamod = 0.7
 	meat = /obj/item/food/meat/slab/human/mutant/diona
-	exotic_bloodtype = "Chlorophyll"
+	exotic_blood = /datum/reagent/consumable/chlorophyll
 	species_gibs = null //Someone please make this like, xeno gibs or something in the future. I cant be bothered to fuck around with gib code right now.
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/diona

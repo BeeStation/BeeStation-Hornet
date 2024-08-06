@@ -331,8 +331,8 @@
 	//Variables for planting a dead nymph into a hydroponics tray
 	tool_behaviour = null
 	fake_seed = null
-	grind_results = list(/datum/blood_type/diona = 20)
-	juice_results = list(/datum/blood_type/diona = 20)
+	grind_results = list(/datum/reagent/consumable/chlorophyll = 20)
+	juice_results = list(/datum/reagent/consumable/chlorophyll = 20)
 
 /obj/item/clothing/head/mob_holder/nymph/Initialize(mapload, mob/living/M, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags)
 	if(M.mind)
