@@ -105,8 +105,7 @@
 		return
 	if(istype(H))
 		color = H.hair_color
-		H.dna.species.mutant_bodyparts |= "ears"
-		H.dna.features["ears"] = "Cat"
+		H.dna.features["ears"] = H.dna.species.mutant_bodyparts["ears"] = "Cat"
 		H.update_body()
 
 /obj/item/organ/ears/cat/Remove(mob/living/carbon/human/H, special = 0, pref_load = FALSE)

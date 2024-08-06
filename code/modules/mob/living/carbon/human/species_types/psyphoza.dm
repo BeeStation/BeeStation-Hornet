@@ -18,8 +18,7 @@
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 	mutanttongue = /obj/item/organ/tongue/psyphoza
 
-	mutant_bodyparts = list("psyphoza_cap")
-	default_features = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = "fff")
+	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = "fff")
 	hair_color = "fixedmutcolor"
 
 	species_chest = /obj/item/bodypart/chest/psyphoza

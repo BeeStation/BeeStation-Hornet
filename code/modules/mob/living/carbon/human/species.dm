@@ -33,10 +33,20 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/list/no_equip = list()	// slots the race can't equip stuff to
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
 	var/species_language_holder = /datum/language_holder
-	var/list/default_features = list("body_size" = "Normal") // Default mutant bodyparts for this species. Don't forget to set one for every mutant bodypart you allow this species to have.
-	var/list/forced_features = list()	// A list of features forced on characters
-	var/list/mutant_bodyparts = list() 	// Visible CURRENT bodyparts that are unique to a species. DO NOT USE THIS AS A LIST OF ALL POSSIBLE BODYPARTS AS IT WILL FUCK SHIT UP! Changes to this list for non-species specific bodyparts (ie cat ears and tails) should be assigned at organ level if possible. Layer hiding is handled by handle_mutant_bodyparts() below.
+	/**
+	  * Visible CURRENT bodyparts that are unique to a species.
+	  * DO NOT USE THIS AS A LIST OF ALL POSSIBLE BODYPARTS AS IT WILL FUCK
+	  * SHIT UP! Changes to this list for non-species specific bodyparts (ie
+	  * cat ears and tails) should be assigned at organ level if possible.
+	  * Assoc values are defaults for given bodyparts, also modified by aforementioned organs.
+	  * They also allow for faster '[]' list access versus 'in'. Other than that, they are useless right now.
+	  * Layer hiding is handled by [/datum/species/proc/handle_mutant_bodyparts] below.
+	  */
+	var/list/mutant_bodyparts = list()
 	var/list/mutant_organs = list()		//Internal organs that are unique to this race.
+
+	var/list/forced_features = list()	// A list of features forced on characters
+
 	var/speedmod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
 	var/armor = 0		// overall defense for the race... or less defense, if it's negative.
 	var/brutemod = 1	// multiplier for brute damage
@@ -111,8 +121,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/organ/stomach/mutantstomach = /obj/item/organ/stomach
 	///Replaces default appendix with a different organ.
 	var/obj/item/organ/appendix/mutantappendix = /obj/item/organ/appendix
-	///Replaces default wings with a different organ.
-	var/obj/item/organ/wings/mutantwings = /obj/item/organ/wings
+	///Replaces default wings with a different organ. (There should be no default wings, only those on moths & apids, thus null)
+	var/obj/item/organ/wings/mutantwings = null
 	//only an honorary mutantthing because not an organ and not loaded in the same way, you've been warned to do your research
 	var/obj/item/mutanthands
 	var/override_float = FALSE
@@ -272,7 +282,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		ORGAN_SLOT_WINGS = mutantwings
 	)
 
-	for(var/slot in list(
+	var/list/slot_organs = list(
 		ORGAN_SLOT_BRAIN,
 		ORGAN_SLOT_HEART,
 		ORGAN_SLOT_LUNGS,
@@ -283,7 +293,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		ORGAN_SLOT_LIVER,
 		ORGAN_SLOT_STOMACH,
 		ORGAN_SLOT_WINGS
-	))
+	)
+
+	//if theres no added wing type, we want to avoid adding a null
+	if(isnull(mutantwings))
+		slot_organs -= ORGAN_SLOT_WINGS
+
+	for(var/slot in slot_organs)
 
 		var/obj/item/organ/oldorgan = C.getorganslot(slot) //used in removing
 		var/obj/item/organ/neworgan = slot_mutantorgans[slot] //used in adding
@@ -334,7 +350,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				current_organ.before_organ_replacement(replacement)
 			// organ.Insert will qdel any current organs in that slot, so we don't need to.
 			replacement.Insert(C, TRUE, FALSE)
-			required_organs |= I.type
+			required_organs |= replacement.type
 
 /datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
 	new_species ||= C.dna.species //If no new species is provided, assume its src.
@@ -804,83 +820,83 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/obj/item/bodypart/head/HD = H.get_bodypart(BODY_ZONE_HEAD)
 
-	if("tail_lizard" in mutant_bodyparts)
+	if(mutant_bodyparts["tail_lizard"])
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "tail_lizard"
 
-	if("waggingtail_lizard" in mutant_bodyparts)
+	if(mutant_bodyparts["waggingtail_lizard"])
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "waggingtail_lizard"
-		else if ("tail_lizard" in mutant_bodyparts)
+		else if (mutant_bodyparts["tail_lizard"])
 			bodyparts_to_add -= "waggingtail_lizard"
 
-	if("tail_human" in mutant_bodyparts)
+	if(mutant_bodyparts["tail_human"])
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "tail_human"
 
 
-	if("waggingtail_human" in mutant_bodyparts)
+	if(mutant_bodyparts["waggingtail_human"])
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "waggingtail_human"
-		else if ("tail_human" in mutant_bodyparts)
+		else if (mutant_bodyparts["tail_human"])
 			bodyparts_to_add -= "waggingtail_human"
 
-	if("spines" in mutant_bodyparts)
+	if(mutant_bodyparts["spines"])
 		if(!H.dna.features["spines"] || H.dna.features["spines"] == "None" || H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "spines"
 
-	if("waggingspines" in mutant_bodyparts)
+	if(mutant_bodyparts["waggingspines"])
 		if(!H.dna.features["spines"] || H.dna.features["spines"] == "None" || H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "waggingspines"
-		else if ("tail" in mutant_bodyparts)
+		else if (mutant_bodyparts["tail"])
 			bodyparts_to_add -= "waggingspines"
 
-	if("snout" in mutant_bodyparts) //Take a closer look at that snout!
+	if(mutant_bodyparts["snout"]) //Take a closer look at that snout!
 		if((H.wear_mask?.flags_inv & HIDESNOUT) || (H.head?.flags_inv & HIDESNOUT) || !HD)
 			bodyparts_to_add -= "snout"
 
-	if("frills" in mutant_bodyparts)
+	if(mutant_bodyparts["frills"])
 		if(!H.dna.features["frills"] || H.dna.features["frills"] == "None" || (H.head?.flags_inv & HIDEEARS) || !HD)
 			bodyparts_to_add -= "frills"
 
-	if("horns" in mutant_bodyparts)
+	if(mutant_bodyparts["horns"])
 		if(!H.dna.features["horns"] || H.dna.features["horns"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "horns"
 
-	if("ears" in mutant_bodyparts)
+	if(mutant_bodyparts["ears"])
 		if(!H.dna.features["ears"] || H.dna.features["ears"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "ears"
 
-	if("wings" in mutant_bodyparts)
+	if(mutant_bodyparts["wings"])
 		if(!H.dna.features["wings"] || H.dna.features["wings"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
 			bodyparts_to_add -= "wings"
 
-	if("wings_open" in mutant_bodyparts)
+	if(mutant_bodyparts["wings_open"])
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception)))
 			bodyparts_to_add -= "wings_open"
-		else if ("wings" in mutant_bodyparts)
+		else if (mutant_bodyparts["wings"])
 			bodyparts_to_add -= "wings_open"
 
-	if("moth_antennae" in mutant_bodyparts)
+	if(mutant_bodyparts["moth_antennae"])
 		if(!H.dna.features["moth_antennae"] || H.dna.features["moth_antennae"] == "None" || !HD)
 			bodyparts_to_add -= "moth_antennae"
 
-	if("ipc_screen" in mutant_bodyparts)
+	if(mutant_bodyparts["ipc_screen"])
 		if(!H.dna.features["ipc_screen"] || H.dna.features["ipc_screen"] == "None" || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
 			bodyparts_to_add -= "ipc_screen"
 
-	if("ipc_antenna" in mutant_bodyparts)
+	if(mutant_bodyparts["ipc_antenna"])
 		if(!H.dna.features["ipc_antenna"] || H.dna.features["ipc_antenna"] == "None" || (H.head?.flags_inv & HIDEEARS) || !HD)
 			bodyparts_to_add -= "ipc_antenna"
 
-	if("apid_antenna" in mutant_bodyparts)
+	if(mutant_bodyparts["apid_antenna"])
 		if(!H.dna.features["apid_antenna"] || H.dna.features["apid_antenna"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "apid_antenna"
 
-	if("apid_headstripe" in mutant_bodyparts)
+	if(mutant_bodyparts["apid_headstripe"])
 		if(!H.dna.features["apid_headstripe"] || H.dna.features["apid_headstripe"] == "None" || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
 			bodyparts_to_add -= "apid_headstripe"
-	if("psyphoza_cap" in mutant_bodyparts)
+	if(mutant_bodyparts["psyphoza_cap"])
 		if(!H.dna.features["psyphoza_cap"] || H.dna.features["psyphoza_cap"] == "None" || !HD)
 			bodyparts_to_add -= "psyphoza_cap"
 
@@ -2290,7 +2306,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		H.setMovetype(H.movement_type | FLYING)
 		override_float = TRUE
 		H.pass_flags |= PASSTABLE
-		if(("wings" in H.dna.species.mutant_bodyparts) || ("moth_wings" in H.dna.species.mutant_bodyparts))
+		if((H.dna.species.mutant_bodyparts["wings"]) || (H.dna.species.mutant_bodyparts["moth_wings"]))
 			H.Togglewings()
 	else
 		stunmod *= 0.5
@@ -2298,7 +2314,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		H.setMovetype(H.movement_type & ~FLYING)
 		override_float = FALSE
 		H.pass_flags &= ~PASSTABLE
-		if(("wingsopen" in H.dna.species.mutant_bodyparts) || ("moth_wingsopen" in H.dna.species.mutant_bodyparts))
+		if((H.dna.species.mutant_bodyparts["wingsopen"]) || (H.dna.species.mutant_bodyparts["moth_wingsopen"]))
 			H.Togglewings()
 		if(isturf(H.loc))
 			var/turf/T = H.loc
