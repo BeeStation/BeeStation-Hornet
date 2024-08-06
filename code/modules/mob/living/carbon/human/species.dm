@@ -278,11 +278,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					brain.Remove(C,TRUE, TRUE) //brain argument used so it doesn't cause any... sudden death.
 					QDEL_NULL(brain)
 			oldorgan.Remove(C,TRUE)
+			required_organs -= oldorgan
 			QDEL_NULL(oldorgan)
 
 		if(!oldorgan && should_have && !(initial(neworgan.zone) in excluded_zones))
 			used_neworgan = TRUE
 			neworgan.Insert(C)
+			required_organs |= neworgan
 
 		if(!used_neworgan)
 			qdel(neworgan)
