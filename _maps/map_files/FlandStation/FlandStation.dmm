@@ -37670,15 +37670,6 @@
 /obj/structure/chair/wood/normal,
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
-"jDQ" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/turf/open/floor/iron/grid/steel,
-/area/science/xenobiology)
 "jEa" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -131526,7 +131517,7 @@ aZB
 dBq
 iQp
 swU
-jDQ
+rcR
 sYZ
 nrL
 nrL
