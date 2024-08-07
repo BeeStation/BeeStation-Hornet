@@ -54,8 +54,7 @@
 
 /obj/machinery/firealarm/proc/handle_alert(datum/source, new_alert)
 	SIGNAL_HANDLER
-	if(is_station_level(z))
-		update_appearance()
+	update_appearance()
 
 /obj/machinery/firealarm/Destroy()
 	myarea.firereset(src)
@@ -81,20 +80,26 @@
 		. += emissive_appearance(icon, "fire_[SEC_LEVEL_GREEN]", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
-	if(!detecting || !A.fire) //If this is false, leave the green light missing. A good hint to anyone paying attention.
-		. += "fire_off"
-		. += mutable_appearance(icon, "fire_off")
-		. += emissive_appearance(icon, "fire_off", layer, alpha = 255)
-		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
-	else if(obj_flags & EMAGGED)
+	if(obj_flags & EMAGGED)
 		. += "fire_emagged"
 		. += mutable_appearance(icon, "fire_emagged")
 		. += emissive_appearance(icon, "fire_emagged", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
-	else
+		return //If it's emagged, don't do anything else for overlays.
+	if(locked)
+		. += "fire_locked"
+		. += mutable_appearance(icon, "fire_locked", layer + 1) //If we are locked, overlay that over the fire_off
+		. += emissive_appearance(icon, "fire_locked", layer, alpha = 255)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+	if(detecting && A.fire)
 		. += "fire_on"
-		. += mutable_appearance(icon, "fire_on")
+		. += mutable_appearance(icon, "fire_on", layer + 2) //If we are locked and there is a fire, overlay the fire detection overlay ontop of the locked one.
 		. += emissive_appearance(icon, "fire_on", layer, alpha = 255)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+	else
+		. += "fire_off"
+		. += mutable_appearance(icon, "fire_off")
+		. += emissive_appearance(icon, "fire_off", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/firealarm/emp_act(severity)
@@ -132,6 +137,7 @@
 	var/area/A = get_area(src)
 	A.firealert(src)
 	playsound(loc, 'goon/sound/machinery/FireAlarm.ogg', 75)
+	update_appearance()
 	if(user)
 		log_game("[user] triggered a fire alarm at [COORD(src)]")
 
@@ -140,6 +146,7 @@
 		return
 	var/area/A = get_area(src)
 	A.firereset(src)
+	update_appearance()
 	if(user)
 		log_game("[user] reset a fire alarm at [COORD(src)]")
 
@@ -155,6 +162,7 @@
 	else
 		balloon_alert(user, "Access Denied!")
 		playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
+	update_appearance()
 
 /obj/machinery/firealarm/AltClick(mob/user)
 	try_lock(user)
