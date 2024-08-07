@@ -480,6 +480,7 @@ Class Procs:
 /obj/machinery/attack_ai(mob/user)
 	if(iscyborg(user))
 		CRASH("A cyborg just tried to run attack_ai().") // They should not be running the same procs anymore.
+	. = ..()
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
 		return FALSE
 
