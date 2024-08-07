@@ -7,16 +7,16 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/pod_1)
+/area/shuttle/escape_pod/pod_1)
 "e" = (
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/closed/wall/mineral/titanium,
-/area/shuttle/pod_1)
+/area/shuttle/escape_pod/pod_1)
 "h" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/pod_1)
+/area/shuttle/escape_pod/pod_1)
 "m" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Shuttle Airlock"
@@ -32,10 +32,10 @@
 	width = 5
 	},
 /turf/open/floor/mineral/titanium/white,
-/area/shuttle/pod_1)
+/area/shuttle/escape_pod/pod_1)
 "p" = (
 /turf/open/floor/mineral/titanium/white,
-/area/shuttle/pod_1)
+/area/shuttle/escape_pod/pod_1)
 "w" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
@@ -47,7 +47,7 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/pod_1)
+/area/shuttle/escape_pod/pod_1)
 "y" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
@@ -59,7 +59,7 @@
 	pixel_x = -32
 	},
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/pod_1)
+/area/shuttle/escape_pod/pod_1)
 "D" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
@@ -71,7 +71,7 @@
 	dir = 9
 	},
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/pod_1)
+/area/shuttle/escape_pod/pod_1)
 "E" = (
 /turf/closed/wall/mineral/titanium,
 /area/template_noop)
@@ -85,10 +85,10 @@
 	shuttleId = "tram_corg"
 	},
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/pod_1)
+/area/shuttle/escape_pod/pod_1)
 "K" = (
 /turf/closed/wall/mineral/titanium,
-/area/shuttle/pod_1)
+/area/shuttle/escape_pod/pod_1)
 "M" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
@@ -100,12 +100,12 @@
 	dir = 5
 	},
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/pod_1)
+/area/shuttle/escape_pod/pod_1)
 "S" = (
 /obj/structure/grille,
 /obj/structure/window/shuttle,
 /turf/open/floor/plating,
-/area/shuttle/pod_1)
+/area/shuttle/escape_pod/pod_1)
 "W" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
@@ -114,7 +114,7 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/pod_1)
+/area/shuttle/escape_pod/pod_1)
 
 (1,1,1) = {"
 E
