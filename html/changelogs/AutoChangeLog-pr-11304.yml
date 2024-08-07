@@ -1,0 +1,6 @@
+author: mystery3525
+delete-after: true
+changes:
+  - bugfix: A pipe that was on top of another pipe in Fland Xenobio
+  - bugfix: A runtime with helmet of justice
+  - code_imp: Micro optimizes airlock access code with boolean short-circuiting
