@@ -158,7 +158,7 @@
 			var/mob/living/carbon/human/H = user
 			if(H.dna.species.grab_sound)
 				sound_to_play = H.dna.species.grab_sound
-		playsound(src.loc, sound_to_play, 50, 1, -1)
+		playsound(src.loc, sound_to_play, 50, TRUE, -1)
 
 		if(user.grab_state) //only the first upgrade is instantaneous
 			var/old_grab_state = user.grab_state
@@ -172,12 +172,12 @@
 				if(GRAB_NECK)
 					log_combat(user, src, "attempted to strangle", addition="kill grab")
 			if(!do_after(user, grab_upgrade_time, src))
-				return 0
+				return FALSE
 			if(!user.pulling || user.pulling != src || user.grab_state != old_grab_state)
-				return 0
+				return FALSE
 			if(user.a_intent != INTENT_GRAB)
 				to_chat(user, "<span class='notice'>You must be on grab intent to upgrade your grab further!</span>")
-				return 0
+				return FALSE
 		user.setGrabState(user.grab_state + 1)
 		switch(user.grab_state)
 			if(GRAB_AGGRESSIVE)
@@ -198,7 +198,6 @@
 				visible_message("<span class='danger'>[user] grabs [src] by the neck!</span>",\
 								"<span class='userdanger'>[user] grabs you by the neck!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, user)
 				to_chat(user, "<span class='danger'>You grab [src] by the neck!</span>")
-				update_mobility() //we fall down
 				if(!buckled && !density)
 					Move(user.loc)
 			if(GRAB_KILL)
@@ -206,11 +205,10 @@
 				visible_message("<span class='danger'>[user] is strangling [src]!</span>", \
 								"<span class='userdanger'>[user] is strangling you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, user)
 				to_chat(user, "<span class='danger'>You're strangling [src]!</span>")
-				update_mobility() //we fall down
 				if(!buckled && !density)
 					Move(user.loc)
 		user.set_pull_offsets(src, grab_state)
-		return 1
+		return TRUE
 
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)

@@ -373,7 +373,7 @@
 	icon_state = "carpplush"
 	attack_verb_continuous = list("bites", "eats", "fin slaps")
 	attack_verb_simple = list("bite", "eat", "fin slap")
-	squeak_override = list('sound/weapons/bite.ogg'=1)
+	squeak_override = list('sound/weapons/bite.ogg' = 1)
 
 /obj/item/toy/plush/bubbleplush
 	name = "\improper Bubblegum plushie"
@@ -381,7 +381,7 @@
 	icon_state = "bubbleplush"
 	attack_verb_continuous = list("rents")
 	attack_verb_simple = list("rent")
-	squeak_override = list('sound/magic/demon_attack1.ogg'=1)
+	squeak_override = list('sound/magic/demon_attack1.ogg' = 1)
 
 /obj/item/toy/plush/plushvar
 	name = "\improper Ratvar plushie"
@@ -561,8 +561,7 @@
 	attack_verb_simple = list("blorble", "slime", "absorb")
 	squeak_override = list('sound/effects/blobattack.ogg' = 1)
 	gender = FEMALE	//given all the jokes and drawings, I'm not sure the xenobiologists would make a slimeboy
-	squeak_override = list('sound/effects/blobattack.ogg' = 1)
-/// Most of the following is just stolen from the moth plush code for the slimes
+	/// Most of the following is just stolen from the moth plush code for the slimes
 	var/suicide_count = 0
 
 /obj/item/toy/plush/slimeplushie/suicide_act(mob/living/user)
@@ -634,7 +633,7 @@
 	attack_verb_continuous = list("stings")
 	attack_verb_simple = list("sting")
 	gender = FEMALE
-	squeak_override = list('sound/voice/moth/scream_moth.ogg'=1)
+	squeak_override = list('sound/voice/moth/scream_moth.ogg' = 1)
 
 /obj/item/toy/plush/rouny
 	name = "runner plushie"
@@ -650,7 +649,7 @@
 	icon_state = "moffplush"
 	attack_verb_continuous = list("flutters", "flaps")
 	attack_verb_simple = list("flutter", "flap")
-	squeak_override = list('sound/voice/moth/scream_moth.ogg'=1)
+	squeak_override = list('sound/voice/moth/scream_moth.ogg' = 1)
 ///Used to track how many people killed themselves with item/toy/plush/moth
 	var/suicide_count = 0
 
@@ -801,24 +800,41 @@
 	name = "ghost plushie"
 	desc = "It reminds you of someone important, you just can't make out who."
 	icon_state = "crossedplush"
-	squeak_override = list('sound/items/haunted/ghostitemattack.ogg'=1)
+	squeak_override = list('sound/items/haunted/ghostitemattack.ogg' = 1)
 
 /obj/item/toy/plush/runtime
 	name = "Runtime plushie"
 	desc = "GPLUSH."
 	icon_state = "runtimeplush"
-	squeak_override = list('sound/effects/meow1.ogg'=1)
+	squeak_override = list('sound/effects/meow1.ogg' = 1)
 
 /obj/item/toy/plush/gondola
 	name = "gondola plushie"
 	desc = "The silent walker, in plush form."
 	icon_state = "gondolaplush"
-	squeak_override = list('sound/misc/null.ogg'=1)
+	squeak_override = list('sound/misc/null.ogg' = 1)
 
 /obj/item/toy/plush/flushed
 	name = "flushed plushie"
 	desc = "Hgrgrhrhg cute."
 	icon_state = "flushplush"
+
+/obj/item/toy/plush/shark
+	name = "shark plushie"
+	desc = "A big plushie depicting a rather cartoonish, yet cute shark. The tag calls it a 'søthai', noting that it was made by an obscure furniture manufacturer in Scandinavia."
+	lefthand_file = 'icons/mob/inhands/plushes_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/plushes_righthand.dmi'
+	icon_state = "cuteswedishsharkplush"
+	squeak_override = list('sound/weapons/bite.ogg' = 1)
+
+/obj/item/toy/plush/shark/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_HANDS)
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "big_plush", /datum/mood_event/bigplush, src)
+
+/obj/item/toy/plush/shark/dropped(mob/living/carbon/user)
+	..()
+	SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "big_plush")
 
 /obj/item/toy/plush/flushed/rainbow
 	name = "rainbow flushed plushie"
@@ -870,7 +886,8 @@
 		/obj/item/toy/plush/moth/royal,
 		/obj/item/toy/plush/moth/snow,
 		/obj/item/toy/plush/moth/whitefly,
-		/obj/item/toy/plush/moth/witchwing
+		/obj/item/toy/plush/moth/witchwing,
+		/obj/item/toy/plush/shark,
 	)
 
 /obj/item/choice_beacon/radial/plushie/generate_options(mob/living/M)
