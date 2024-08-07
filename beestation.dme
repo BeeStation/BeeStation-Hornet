@@ -1221,6 +1221,7 @@
 #include "code\game\objects\effects\icons.dm"
 #include "code\game\objects\effects\info.dm"
 #include "code\game\objects\effects\landmarks.dm"
+#include "code\game\objects\effects\lighting.dm"
 #include "code\game\objects\effects\mainttraps.dm"
 #include "code\game\objects\effects\mines.dm"
 #include "code\game\objects\effects\misc.dm"
