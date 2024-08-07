@@ -204,10 +204,6 @@ GLOBAL_LIST_EMPTY(secsets)
 	else if(istype(current_area, /area/shuttle))
 		sanitized_area_string = "Shuttle (Unidentifiable)"
 
-
-	else if(istype(current_area, /area/security/checkpoint))
-		sanitized_area_string = "Security Checkpoint"
-
 	//Departments
 	else if(istype(current_area, /area/medical))
 		sanitized_area_string = "Medical"
@@ -223,6 +219,10 @@ GLOBAL_LIST_EMPTY(secsets)
 		sanitized_area_string = "Cargo"
 	else if(istype(current_area, /area/cargo))
 		sanitized_area_string = "Cargo"
+
+	//Dont get too specific here. Brig and Command may be a fortress, but theres even areas the all-seeing sec doesnt always have a grasp on.
+	else if(istype(current_area, /area/security/checkpoint))
+		sanitized_area_string = "Security Checkpoint"
 
 	//Hallways? Which hallway? We start getting pretty vague with this. Thats intentional.
 	else if(istype(current_area, /area/hallway))
