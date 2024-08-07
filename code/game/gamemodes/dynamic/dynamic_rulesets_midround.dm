@@ -973,3 +973,49 @@
 	. = ..()
 	// Set their job in addition to their antag role to be a space ninja for logging purposes
 	new_character.mind.assigned_role = ROLE_NINJA
+
+//////////////////////////////////////////////
+//                                          //
+//          LOOSE CLOWN (GHOST)             //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/from_ghosts/clownloose
+	name = "Loose Clown"
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
+	role_preference = /datum/role_preference/midround_ghost/clownloose
+	required_type = /mob/dead/observer
+	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	required_enemies = list(3,0,1,0,0,0,0,0,0,0)
+	required_candidates = 1
+	weight = 2
+	cost = 5
+	minimum_players = 20
+	repeatable = FALSE
+	var/list/spawn_locs
+
+/datum/dynamic_ruleset/midround/from_ghosts/clownloose/acceptable(population=0, threat=0)
+	if (!SSmapping.empty_space)
+		return FALSE
+	return ..()
+
+/datum/dynamic_ruleset/midround/from_ghosts/clownloose/ready(forced = FALSE)
+	if(!..())
+		return FALSE
+	spawn_locs = list()
+	for(var/obj/effect/landmark/start/assistant/C in GLOB.landmarks_list)
+		if(isturf(C.loc))
+			spawn_locs += C.loc
+	if(!length(spawn_locs))
+		log_game("DYNAMIC: [ruletype] ruleset [name] ready() failed due to no valid spawn locations.")
+		return FALSE
+	return TRUE
+
+/datum/dynamic_ruleset/midround/from_ghosts/clownloose/review_applications()
+	var/turf/landing_turf = pick(spawn_locs)
+	var/result = spawn_clownloose(landing_turf, candidates, list())
+	if(result == NOT_ENOUGH_PLAYERS)
+		message_admins("Not enough players volunteered for the ruleset [name] - [candidates.len] out of [required_candidates].")
+		log_game("DYNAMIC: Not enough players volunteered for the ruleset [name] - [candidates.len] out of [required_candidates].")
+		return FALSE
+	return TRUE

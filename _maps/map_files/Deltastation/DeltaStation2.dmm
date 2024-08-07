@@ -23510,6 +23510,12 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
+"cIm" = (
+/obj/structure/chair,
+/obj/effect/turf_decal/bot,
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/iron,
+/area/hallway/secondary/exit/departure_lounge)
 "cIp" = (
 /obj/structure/closet/emcloset/anchored,
 /obj/effect/decal/cleanable/dirt,
@@ -56293,6 +56299,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/effect/landmark/clownloose_spawn,
 /turf/open/floor/iron{
 	heat_capacity = 1e+006
 	},
@@ -67952,6 +67959,12 @@
 	},
 /turf/closed/wall,
 /area/security/courtroom)
+"pJe" = (
+/obj/structure/chair/stool/directional/west,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/iron,
+/area/crew_quarters/fitness/recreation)
 "pJi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -87451,6 +87464,16 @@
 /obj/machinery/light/small,
 /turf/open/floor/iron/smooth,
 /area/tcommsat/server)
+"wll" = (
+/obj/structure/sign/warning/pods{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/effect/landmark/clownloose_spawn,
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "wls" = (
 /obj/structure/chair{
 	dir = 1
@@ -131241,7 +131264,7 @@ vpZ
 vpZ
 dXL
 dYE
-dZo
+cIm
 vpZ
 sOR
 eeb
@@ -134674,7 +134697,7 @@ aaa
 xZM
 abE
 aaO
-aca
+wll
 abC
 abC
 adb
@@ -147643,7 +147666,7 @@ uXr
 fPq
 gsU
 uXr
-uXr
+pJe
 ddw
 cuM
 aaa
