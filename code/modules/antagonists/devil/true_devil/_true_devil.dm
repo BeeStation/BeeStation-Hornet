@@ -58,7 +58,9 @@
 	real_name = name
 
 /mob/living/carbon/true_devil/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	var/datum/antagonist/devil/devilinfo = mind.has_antag_datum(/datum/antagonist/devil)
 	devilinfo.greet()
 	mind.announce_objectives()
@@ -178,7 +180,7 @@
 				log_combat(M, src, "attacked", M)
 				updatehealth()
 			if ("disarm")
-				if (!(mobility_flags & MOBILITY_STAND) && !ascended) //No stealing the arch devil's pitchfork.
+				if (body_position == LYING_DOWN && !ascended) //No stealing the arch devil's pitchfork.
 					if (prob(5))
 						Unconscious(40)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
