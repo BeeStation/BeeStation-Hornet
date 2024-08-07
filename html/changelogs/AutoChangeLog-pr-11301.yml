@@ -1,0 +1,5 @@
+author: DarnTheMarn
+delete-after: true
+changes:
+  - tweak: Moved the security techfab to the warden office
+  - balance: Security techfab is now inaccessible to security officers and detectives
