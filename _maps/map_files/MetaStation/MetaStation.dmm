@@ -1758,9 +1758,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/photocopier{
-	pixel_y = 3
-	},
+/obj/machinery/rnd/production/techfab/department/security,
 /turf/open/floor/iron/showroomfloor,
 /area/security/warden)
 "aqa" = (
@@ -28923,13 +28921,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
-"fPI" = (
-/obj/machinery/rnd/production/techfab/department/security,
-/obj/effect/turf_decal/tile/red/anticorner,
-/turf/open/floor/iron/dark/smooth_corner{
-	dir = 1
-	},
-/area/security/main)
 "fPP" = (
 /obj/machinery/door/airlock/maintenance{
 	req_one_access_txt = "12;27;37"
@@ -111362,7 +111353,7 @@ hPH
 kqh
 jgG
 kqh
-fPI
+itu
 aqa
 ajm
 dEQ
