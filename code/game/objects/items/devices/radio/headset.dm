@@ -166,10 +166,30 @@ GLOBAL_LIST_EMPTY(secsets)
 
 	var/area/current_area = get_area(user)
 	var/sanitized_area_string
+
 	if(!current_area)
-		sanitized_area_string = "NULL"
+		sanitized_area_string = null
+
+	//We can be super specific for heads quarters. Good tracking or something.
+	else if(istype(current_area, /area/crew_quarters/heads/captain))
+		sanitized_area_string = "Captain's Quarters"
+	else if(istype(current_area, /area/crew_quarters/heads/chief))
+		sanitized_area_string = "CE's Quarters"
+	else if(istype(current_area, /area/crew_quarters/heads/cmo))
+		sanitized_area_string = "CMO's Quarters"
+	else if(istype(current_area, /area/crew_quarters/heads/hop))
+		sanitized_area_string = "HOP's Quarters"
+	else if(istype(current_area, /area/crew_quarters/heads/hos))
+		sanitized_area_string = "HOS's Quarters"
+	else if(istype(current_area, /area/crew_quarters/heads/hor))
+		sanitized_area_string = "RD's Quarters"
 	else if(istype(current_area, /area/crew_quarters))
 		sanitized_area_string = "Crew Quarters"
+
+	else if(istype(current_area, /area/security/checkpoint))
+		sanitized_area_string = "Security Checkpoint"
+
+	//Departments
 	else if(istype(current_area, /area/medical))
 		sanitized_area_string = "Medical"
 	else if(istype(current_area, /area/science))
@@ -180,10 +200,24 @@ GLOBAL_LIST_EMPTY(secsets)
 		sanitized_area_string = "Bridge"
 	else if(istype(current_area, /area/security))
 		sanitized_area_string = "Security"
-	else
-		sanitized_area_string = "UNKNOWN"
+	else if(istype(current_area, /area/cargo))
+		sanitized_area_string = "Cargo"
+	else if(istype(current_area, /area/cargo))
+		sanitized_area_string = "Cargo"
 
-	talk_into(src, "Dispatch, Officer [user.last_name()], [message] at [sanitized_area_string], requesting response.", radio_channel)
+	//Hallways? Which hallway? We start getting pretty vague with this. Thats intentional.
+	else if(istype(current_area, /area/hallway))
+		sanitized_area_string = "Station Hallway"
+	//Ending with the most vague place of all
+	else if(istype(current_area, /area/maintenance))
+		sanitized_area_string = "Maintenance"
+	else
+		sanitized_area_string = null
+
+	if(isnull(sanitized_area_string))
+		talk_into(src, "Dispatch, Officer [user.last_name()], [message]. Currently at unchartered location, unable to pinpoint.", radio_channel)
+	else
+		talk_into(src, "Dispatch, Officer [user.last_name()], [message] at [sanitized_area_string], requesting response.", radio_channel)
 	user.do_alert_animation(user)
 	COOLDOWN_START(src, dispatch_cooldown_timer, dispatch_cooldown)
 	for(var/atom/movable/hailer in GLOB.secsets)
