@@ -50,11 +50,7 @@
 	update_appearance()
 	myarea = get_area(src)
 	LAZYADD(myarea.firealarms, src)
-	RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, PROC_REF(handle_alert))
-
-/obj/machinery/firealarm/proc/handle_alert(datum/source, new_alert)
-	SIGNAL_HANDLER
-	update_appearance()
+	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(check_security_level))
 
 /obj/machinery/firealarm/Destroy()
 	myarea.firereset(src)
@@ -70,9 +66,9 @@
 
 	. += "fire_overlay"
 	if(is_station_level(z))
-		. += "fire_[GLOB.security_level]"
-		. += mutable_appearance(icon, "fire_[GLOB.security_level]")
-		. += emissive_appearance(icon, "fire_[GLOB.security_level]", layer, alpha = 255)
+		. += "fire_[SSsecurity_level.get_current_level_as_number()]"
+		. += mutable_appearance(icon, "fire_[SSsecurity_level.get_current_level_as_number()]")
+		. += emissive_appearance(icon, "fire_[SSsecurity_level.get_current_level_as_number()]", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else
 		. += "fire_[SEC_LEVEL_GREEN]"
@@ -129,6 +125,19 @@
 		alarm()
 		try_lock(null, TRUE)
 	..()
+
+/**
+ * Signal handler for checking if we should update fire alarm appearance accordingly to a newly set security level
+ *
+ * Arguments:
+ * * source The datum source of the signal
+ * * new_level The new security level that is in effect
+ */
+/obj/machinery/firealarm/proc/check_security_level(datum/source, new_level)
+	SIGNAL_HANDLER
+
+	if(is_station_level(z))
+		update_appearance()
 
 /obj/machinery/firealarm/proc/alarm(mob/user)
 	if(!is_operational || (last_alarm+FIREALARM_COOLDOWN > world.time))
