@@ -901,6 +901,8 @@
 		. += display_parts(user, TRUE)
 	if(return_blood_DNA())
 		. += "<span class='warning'>It's smeared with blood!</span>"
+	if(!is_operational && (machine_stat & (NOPOWER)))
+		. += "<span class='warning'>It's currently unpowered!</span>"
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()
