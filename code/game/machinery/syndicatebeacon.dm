@@ -45,6 +45,8 @@
 /obj/machinery/power/singularity_beacon/attack_ai(mob/user)
 	return
 
+/obj/machinery/power/singularity_beacon/attack_robot(mob/user)
+	return
 
 /obj/machinery/power/singularity_beacon/attack_hand(mob/user)
 	. = ..()

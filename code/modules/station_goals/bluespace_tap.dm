@@ -365,6 +365,9 @@
 /obj/machinery/power/bluespace_tap/attack_ai(mob/user)
 	ui_interact(user)
 
+/obj/machinery/power/bluespace_tap/attack_robot(mob/user)
+	ui_interact(user)
+
 /**
   * Produces the product with the desired key and increases product cost accordingly
   */

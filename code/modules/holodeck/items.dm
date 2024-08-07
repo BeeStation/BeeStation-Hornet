@@ -161,6 +161,10 @@
 	to_chat(user, "The station AI is not to interact with these devices.")
 	return
 
+/obj/machinery/readybutton/attack_robot(mob/user as mob)
+	to_chat(user, "The station AI is not to interact with these devices.")
+	return
+
 /obj/machinery/readybutton/attack_paw(mob/user as mob)
 	to_chat(user, "<span class='warning'>You are too primitive to use this device!</span>")
 	return

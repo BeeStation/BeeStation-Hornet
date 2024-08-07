@@ -54,6 +54,11 @@
 
 #define COMSIG_ITEM_ATTACK_EFFECT "item_effect_attacked"
 
+///from the base of obj/item/proc/GetAccess(): ()
+#define COMSIG_ITEM_GET_ACCESS "item_get_access"
+///from the base of obj/item/proc/GetID(): ()
+#define COMSIG_ITEM_GET_ID "item_get_id"
+
 //////////////////////////////
 
 // /obj/effect/mine signals
