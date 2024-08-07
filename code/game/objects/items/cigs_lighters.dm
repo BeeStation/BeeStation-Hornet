@@ -706,15 +706,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				user.visible_message("Without even breaking stride, [user] flips open and lights [src] in one smooth movement.", "<span class='notice'>Without even breaking stride, you flip open and light [src] in one smooth movement.</span>")
 				playsound(src.loc, 'sound/items/zippo_on.ogg', 100, 1)
 			else
-				var/prot = FALSE
 				var/mob/living/carbon/human/H = user
 
-				if(istype(H) && H.gloves)
-					var/obj/item/clothing/gloves/G = H.gloves
-					if(G.max_heat_protection_temperature)
-						prot = (G.max_heat_protection_temperature > 360)
-				else
-					prot = TRUE
+				var/prot = !istype(H) || H.gloves
 
 				if(prot || prob(75))
 					user.visible_message("After a few attempts, [user] manages to light [src].", "<span class='notice'>After a few attempts, you manage to light [src].</span>")
