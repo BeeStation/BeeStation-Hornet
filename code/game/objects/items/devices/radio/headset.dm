@@ -186,6 +186,25 @@ GLOBAL_LIST_EMPTY(secsets)
 	else if(istype(current_area, /area/crew_quarters))
 		sanitized_area_string = "Crew Quarters"
 
+	//Secondmost clear tracking. Shuttles. Our shuttles can track in hyperspace, Im pretty sure the headset can figure out where its at.
+	else if(istype(current_area, /area/shuttle/arrival))
+		sanitized_area_string = "Shuttle (Arrivals)"
+	else if(istype(current_area, /area/shuttle/mining))
+		sanitized_area_string = "Shuttle (Mining)"
+	else if(istype(current_area, /area/shuttle/science))
+		sanitized_area_string = "Shuttle (Science)"
+	else if(istype(current_area, /area/shuttle/exploration))
+		sanitized_area_string = "Shuttle (Exploration)"
+	else if(istype(current_area, /area/shuttle/labor))
+		sanitized_area_string = "Shuttle (Labor)"
+	else if(istype(current_area, /area/shuttle/supply))
+		sanitized_area_string = "Shuttle (Supply)"
+	else if(istype(current_area, /area/shuttle/escape))
+		sanitized_area_string = "Shuttle (Escape)"
+	else if(istype(current_area, /area/shuttle))
+		sanitized_area_string = "Shuttle (Unidentifiable)"
+
+
 	else if(istype(current_area, /area/security/checkpoint))
 		sanitized_area_string = "Security Checkpoint"
 
