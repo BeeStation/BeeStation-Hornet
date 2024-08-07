@@ -1,7 +1,0 @@
-author: rkz, azarak, TemporalOroboros, Rohesie, Couls, ShizCalev, TastyFish
-delete-after: true
-changes:
-  - rscadd: Adds directional lighting system in 2024!
-  - rscadd: adds directional lighting to cyborg lights, flashlights, and gunlights
-  - refactor: refactors glow effects to be less terrible. Includes ethereal glow,
-      and also the glowy/antiglowy mutation.
