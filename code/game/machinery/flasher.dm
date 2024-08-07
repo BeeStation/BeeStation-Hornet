@@ -92,6 +92,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/flasher, 26)
 	if (anchored)
 		return flash()
 
+/obj/machinery/flasher/attack_robot()
+
 /obj/machinery/flasher/eminence_act(mob/living/simple_animal/eminence/eminence)
 	. = ..()
 	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")

@@ -110,6 +110,9 @@
 	to_chat(user, "<span class='notice'>You send a disposal transmission signal to [src].</span>")
 	do_the_dishes(TRUE)
 
+/obj/machinery/dish_drive/attack_robot(mob/user)
+	attack_ai(user)
+
 /obj/machinery/dish_drive/AltClick(mob/living/user)
 	if(user.canUseTopic(src, !issilicon(user)))
 		do_the_dishes(TRUE)
