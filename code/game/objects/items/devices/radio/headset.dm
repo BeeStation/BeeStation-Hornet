@@ -123,7 +123,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	if(istype(action, /datum/action/item_action/dispatch))
 		dispatch(user)
 	else
-		to_chat("What else is there, moron?")
+		CRASH("Unimplemented UI action was somehow activated on [src]")
 
 GLOBAL_LIST_EMPTY(secsets)
 
