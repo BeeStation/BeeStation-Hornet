@@ -117,7 +117,7 @@
 	// Send to programs for processing - this should go LAST
 	// Used to implement the physical scanner.
 	for(var/datum/computer_file/program/thread in (idle_threads + active_program))
-		if(thread.use_attack && !thread.attack(O, user))
+		if(thread.use_attack_obj && thread.attack_obj(O, user))
 			return
 
 /// When the mainboard itself is attacked

@@ -183,15 +183,15 @@
 		generate_network_log("Connection to [network_destination] closed.")
 	return 1
 
-/// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.
+/// Return FALSE if nothing was processed. Return TRUE to prevent further actions running.
 /// Set use_attack = TRUE to receive proccalls from the parent computer.
 /datum/computer_file/program/proc/attack(atom/target, mob/living/user, params)
-	return TRUE
+	return FALSE
 
-/// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.
+/// Return FALSE if nothing was processed. Return TRUE to prevent further actions running.
 /// Set use_attack_obj = TRUE to receive proccalls from the parent computer.
 /datum/computer_file/program/proc/attack_obj(obj/target, mob/living/user)
-	return TRUE
+	return FALSE
 
 /// Called when the datum/tgui is initialized by the computer
 /datum/computer_file/program/proc/on_ui_create(mob/user, datum/tgui/ui)
