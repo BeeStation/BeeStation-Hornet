@@ -96,11 +96,13 @@
 
 /obj/vehicle/sealed/car/clowncar/proc/restraintarget(mob/living/carbon/C)
 	if(istype(C))
-		if(!C.handcuffed)
-			if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
-				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(C))
-				C.update_handcuffed()
-				to_chat(C, "<span class = 'danger'> Your hands are restrained by the sheer volume of occupants in the car!</span>")
+		// Dont try and apply more handcuffs if already handcuffed, obviously
+		if(C.handcuffed)
+			return
+		if(C.canBeHandcuffed())
+			C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(C))
+			C.update_handcuffed()
+			to_chat(C, "<span class = 'danger'> Your hands are restrained by the sheer volume of occupants in the car!</span>")
 
 /obj/item/restraints/handcuffs/energy/used/clown
 	name = "tangle of limbs"
