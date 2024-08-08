@@ -297,37 +297,6 @@
 			var/armor_block = run_armor_check(affecting, MELEE)
 			apply_damage(damage, BRUTE, affecting, armor_block)
 
-/mob/living/carbon/human/attack_basic_mob(mob/living/basic/user)
-	. = ..()
-	if(!.)
-		return
-	if(check_shields(user, user.melee_damage, "the [user.name]", MELEE_ATTACK, user.armour_penetration))
-		return FALSE
-	var/dam_zone = dismembering_strike(user, pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-	if(!dam_zone) //Dismemberment successful
-		return TRUE
-	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
-	if(!affecting)
-		affecting = get_bodypart(BODY_ZONE_CHEST)
-	var/armor = run_armor_check(affecting, MELEE, armour_penetration = user.armour_penetration)
-	apply_damage(user.melee_damage, user.melee_damage_type, affecting, armor)
-
-/mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
-	. = ..()
-	if(.)
-		var/damage = M.melee_damage
-		if(check_shields(M, damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))
-			return FALSE
-		var/dam_zone = dismembering_strike(M, pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-		if(!dam_zone) //Dismemberment successful
-			return TRUE
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
-		if(!affecting)
-			affecting = get_bodypart(BODY_ZONE_CHEST)
-		var/armor = run_armor_check(affecting, MELEE, armour_penetration = M.armour_penetration)
-		apply_damage(damage, M.melee_damage_type, affecting, armor)
-
-
 /mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
 		var/damage = 20
@@ -678,6 +647,9 @@
 		missing -= LB.body_zone
 		if(LB.is_pseudopart) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades
 			continue
+		var/self_aware = FALSE
+		if(HAS_TRAIT(src, TRAIT_SELF_AWARE))
+			self_aware = TRUE
 		var/limb_max_damage = LB.max_damage
 		var/status = ""
 		var/brutedamage = LB.brute_dam
@@ -715,7 +687,14 @@
 		var/no_damage
 		if(status == "OK" || status == "no damage")
 			no_damage = TRUE
-		to_chat(src, "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name] [HAS_TRAIT(src, TRAIT_SELF_AWARE) ? "has" : "is"] [status].</span>")
+		var/isdisabled = " "
+		if(LB.bodypart_disabled)
+			isdisabled = " is disabled "
+			if(no_damage)
+				isdisabled += " but otherwise "
+			else
+				isdisabled += " and "
+		to_chat(src, "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name][isdisabled][self_aware ? " has " : " is "][status].</span>")
 
 		for(var/obj/item/I in LB.embedded_objects)
 			if(I.isEmbedHarmless())
@@ -726,8 +705,10 @@
 	for(var/t in missing)
 		to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")
 
-	if(bleed_rate)
+	if(is_bleeding())
 		to_chat(src, "<span class='danger'>You are [bleed_msg]!</span>")
+	else if (is_bandaged())
+		to_chat(src, "<span class='danger'>Your [bleed_msg] is bandaged!</span>")
 	if(getStaminaLoss())
 		if(getStaminaLoss() > 30)
 			to_chat(src, "<span class='info'>You're completely exhausted.</span>")
@@ -874,3 +855,13 @@
 	ADD_TRAIT(src, TRAIT_NOBLOCK, type)
 	stoplag(50)
 	REMOVE_TRAIT(src, TRAIT_NOBLOCK, type)
+
+/mob/living/carbon/human/attack_basic_mob(mob/living/basic/user)
+	if(user.melee_damage != 0 && !HAS_TRAIT(user, TRAIT_PACIFISM) && check_shields(user, user.melee_damage, "the [user.name]", MELEE_ATTACK, user.armour_penetration))
+		return FALSE
+	return ..()
+
+/mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
+	if(M.melee_damage != 0 && !HAS_TRAIT(M, TRAIT_PACIFISM) && check_shields(M, M.melee_damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))
+		return FALSE
+	return ..()

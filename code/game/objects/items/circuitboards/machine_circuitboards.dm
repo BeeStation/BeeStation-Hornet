@@ -506,6 +506,7 @@
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/cell = 1,
 		/obj/item/stack/cable_coil = 3)
 	needs_anchored = FALSE
 
@@ -860,14 +861,6 @@
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stock_parts/micro_laser = 1)
 
-/obj/item/circuitboard/machine/experimentor
-	name = "E.X.P.E.R.I-MENTOR (Machine Board)"
-	icon_state = "science"
-	build_path = /obj/machinery/rnd/experimentor
-	req_components = list(
-		/obj/item/stock_parts/scanning_module = 1,
-		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/stock_parts/micro_laser = 2)
 
 /obj/item/circuitboard/machine/mech_recharger
 	name = "mechbay recharger (Machine Board)"

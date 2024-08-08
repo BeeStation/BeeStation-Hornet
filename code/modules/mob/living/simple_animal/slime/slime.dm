@@ -497,25 +497,18 @@
 
 	SStun = world.time + rand(20,60)
 
-	mobility_flags &= ~MOBILITY_MOVE
+	Stun(3)
 	if(user)
 		step_away(src,user,15)
 
-	addtimer(CALLBACK(src, PROC_REF(slime_move), user), 3)
+	addtimer(CALLBACK(src, PROC_REF(slime_move), user), 0.3 SECONDS)
 
 /mob/living/simple_animal/slime/proc/slime_move(mob/user)
 	if(user)
 		step_away(src,user,15)
-	update_mobility()
 
 /mob/living/simple_animal/slime/pet
 	docile = 1
-
-/mob/living/simple_animal/slime/can_unbuckle()
-	return 0
-
-/mob/living/simple_animal/slime/can_buckle()
-	return 0
 
 /mob/living/simple_animal/slime/get_mob_buckling_height(mob/seat)
 	if(..())

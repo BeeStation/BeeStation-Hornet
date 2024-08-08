@@ -125,9 +125,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "js" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -208,9 +206,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
@@ -247,9 +243,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Ai" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Ar" = (
@@ -407,16 +401,13 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "PL" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/machinery/camera/autoname{
-	dir = 8;
+/obj/machinery/camera/autoname/directional/east{
 	network = list("ss13","sci")
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
