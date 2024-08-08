@@ -81,6 +81,7 @@
 
 /datum/xenoartifact_trait/minor/sharp/on_init(obj/item/xenoartifact/X)
 	X.sharpness = IS_SHARP_ACCURATE
+	X.bleed_force = BLEED_CUT
 	X.force = X.charge_req*0.12
 	X.attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	X.attack_weight = 2
@@ -222,12 +223,12 @@
 
 /datum/xenoartifact_trait/minor/delicate/on_init(obj/item/xenoartifact/X)
 	X.max_integrity = pick(200, 300, 500, 800, 1000)
-	X.obj_integrity = X.max_integrity
+	X.update_integrity(X.max_integrity)
 	X.alpha = X.alpha * 0.55
 
 /datum/xenoartifact_trait/minor/delicate/activate(obj/item/xenoartifact/X, atom/user)
-	if(X.obj_integrity > 0)
-		X.obj_integrity -= 100
+	if(X.get_integrity() > 0)
+		X.update_integrity(-100)
 		X.visible_message("<span class='danger'>The [X.name] cracks!</span>", "<span class='danger'>The [X.name] cracks!</span>")
 	else
 		X.visible_message("<span class='danger'>The [X.name] shatters!</span>", "<span class='danger'>The [X.name] shatters!</span>")

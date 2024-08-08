@@ -40,7 +40,7 @@
 	new /obj/item/clothing/neck/cloak/cap(src)
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/storage/belt/sabre(src)
-	new /obj/item/gun/energy/e_gun/mini/heads(src)
+	new /obj/item/gun/ballistic/automatic/pistol/service/captain(src)
 
 /obj/item/storage/box/suitbox/cap
 	name = "compression box of captain outfits"
@@ -90,7 +90,7 @@
 	new /obj/item/clothing/glasses/sunglasses/advanced(src)
 	new /obj/item/clothing/suit/armor/vest/alt(src)
 	new /obj/item/megaphone/command(src)
-	new /obj/item/gun/energy/e_gun/mini/heads(src)
+	new /obj/item/gun/ballistic/automatic/pistol/service/hop(src)
 
 
 /obj/item/storage/box/suitbox/hop
@@ -115,10 +115,8 @@
 	new /obj/item/blood_filter(src)
 	new /obj/item/radio/headset/headset_medsec(src)
 	new	/obj/item/storage/firstaid/regular(src)
-	new	/obj/item/storage/firstaid/fire(src)
-	new	/obj/item/storage/firstaid/toxin(src)
-	new	/obj/item/storage/firstaid/o2(src)
-	new	/obj/item/storage/firstaid/brute(src)
+	new /obj/item/storage/pill_bottle/charcoal(src)
+	new /obj/item/storage/pill_bottle/kelotane(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/under/rank/brig_physician(src)
@@ -169,6 +167,7 @@
 	new /obj/item/clothing/suit/armor/hos/trenchcoat(src)
 	new /obj/item/shield/riot/tele(src)
 	new /obj/item/storage/belt/security/full(src)
+	new /obj/item/gun/ballistic/automatic/pistol/service/hos(src)
 
 /obj/item/storage/box/suitbox/hos
 	name = "compression box of head of security outfits"

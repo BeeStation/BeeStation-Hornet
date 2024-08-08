@@ -40,6 +40,8 @@
 #define LASER "laser"
 /// Involves a melee attack or a thrown object.
 #define MELEE "melee"
+/// Bleed prevention
+#define BLEED "bleed"
 
 /*
 /// Involved in checking the likelihood of applying a wound to a mob.
