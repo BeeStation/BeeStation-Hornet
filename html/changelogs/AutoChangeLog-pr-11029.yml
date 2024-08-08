@@ -1,4 +1,0 @@
-author: rkz, Johnfulpwillard
-delete-after: true
-changes:
-  - code_imp: removes an unused armor flag. Not player-facing
