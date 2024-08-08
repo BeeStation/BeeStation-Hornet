@@ -234,7 +234,7 @@
 		STOP_PROCESSING(SSobj, src)
 		return
 	var/mob/living/carbon/ex_patient = patient
-	if(!M)
+	if(!ex_patient)
 		return
 	if(ex_patient.health > 0)
 		ex_patient.adjustOxyLoss(-0.5 * delta_time)
@@ -243,8 +243,8 @@
 	ex_patient.AdjustParalyzed(-40 * delta_time)
 	ex_patient.AdjustImmobilized(-40 * delta_time)
 	ex_patient.AdjustUnconscious(-40 * delta_time)
-	if(M.reagents.get_reagent_amount(/datum/reagent/medicine/epinephrine) < 5)
-		M.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 5)
+	if(ex_patient.reagents.get_reagent_amount(/datum/reagent/medicine/epinephrine) < 5)
+		ex_patient.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 5)
 	chassis.use_power(energy_drain)
 	update_equip_info()
 
