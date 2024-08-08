@@ -1,0 +1,6 @@
+author: Pigeonverde322, timothymtorres, TheBonded
+delete-after: true
+changes:
+  - code_imp: Improved nightvision code
+  - tweak: Mobs can no longer read in the dark unless they have some type of night
+      vision.
