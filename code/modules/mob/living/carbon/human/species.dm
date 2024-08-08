@@ -89,6 +89,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/organ/lungs/mutantlungs = null
 	var/breathid = "o2"
 
+	var/list/required_organs = list()
 	var/obj/item/organ/brain/mutant_brain = /obj/item/organ/brain
 	var/obj/item/organ/heart/mutant_heart = /obj/item/organ/heart
 	var/obj/item/organ/eyes/mutanteyes = /obj/item/organ/eyes
@@ -258,13 +259,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(heart && (!should_have_heart || replace_current))
 		heart.Remove(C,1)
+		required_organs -= /obj/item/organ/heart
 		QDEL_NULL(heart)
 	if(should_have_heart && !heart)
 		heart = new mutant_heart()
 		heart.Insert(C)
+		required_organs |= /obj/item/organ/heart
 
 	if(lungs && (!should_have_lungs || replace_current))
 		lungs.Remove(C,1)
+		required_organs -= /obj/item/organ/lungs
 		QDEL_NULL(lungs)
 	if(should_have_lungs && !lungs)
 		if(mutantlungs)
@@ -272,9 +276,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else
 			lungs = new()
 		lungs.Insert(C)
+		required_organs |= /obj/item/organ/lungs
 
 	if(liver && (!should_have_liver || replace_current))
 		liver.Remove(C,1)
+		required_organs -= /obj/item/organ/liver
 		QDEL_NULL(liver)
 	if(should_have_liver && !liver)
 		if(mutantliver)
@@ -282,9 +288,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else
 			liver = new()
 		liver.Insert(C)
+		required_organs |= /obj/item/organ/liver
 
 	if(stomach && (!should_have_stomach || replace_current))
 		stomach.Remove(C,1)
+		required_organs -= /obj/item/organ/stomach
 		QDEL_NULL(stomach)
 	if(should_have_stomach && !stomach)
 		if(mutantstomach)
@@ -292,16 +300,20 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else
 			stomach = new()
 		stomach.Insert(C)
+		required_organs |= /obj/item/organ/stomach
 
 	if(appendix && (!should_have_appendix || replace_current))
 		appendix.Remove(C,1)
+		required_organs -= /obj/item/organ/appendix
 		QDEL_NULL(appendix)
 	if(should_have_appendix && !appendix)
 		appendix = new()
 		appendix.Insert(C)
+		required_organs |= /obj/item/organ/appendix
 
 	if(tail && (!should_have_tail || replace_current))
 		tail.Remove(C,1)
+		required_organs -= /obj/item/organ/tail
 		QDEL_NULL(tail)
 	if(should_have_tail && !tail)
 		tail = new mutanttail()
@@ -311,9 +323,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			lizard_tail.spines = C.dna.features["spines"]
 			tail = lizard_tail
 		tail.Insert(C)
+		required_organs |= /obj/item/organ/tail
 
 	if(wings && (!should_have_wings || replace_current))
 		wings.Remove(C,1)
+		required_organs -= /obj/item/organ/wings
 		QDEL_NULL(wings)
 	if(should_have_wings && !wings)
 		wings = new mutantwings()
@@ -323,47 +337,58 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(locate(/datum/mutation/strongwings) in C.dna.mutations)
 				wings.flight_level = WINGS_FLYING
 		wings.Insert(C)
+		required_organs |= /obj/item/organ/wings
 
 	if(C.get_bodypart(BODY_ZONE_HEAD))
 		if(brain && (replace_current || !should_have_brain))
 			if(!brain.decoy_override)//Just keep it if it's fake
 				brain.Remove(C,TRUE,TRUE)
+				required_organs -= /obj/item/organ/brain
 				QDEL_NULL(brain)
 		if(should_have_brain && !brain)
 			brain = new mutant_brain()
 			brain.Insert(C, TRUE, TRUE)
+			required_organs |= /obj/item/organ/brain
 
 		if(eyes && (replace_current || !should_have_eyes))
 			eyes.Remove(C,1)
+			required_organs -= /obj/item/organ/eyes
 			QDEL_NULL(eyes)
 		if(should_have_eyes && !eyes)
 			eyes = new mutanteyes
 			eyes.Insert(C)
+			required_organs |= /obj/item/organ/eyes
 
 		if(ears && (replace_current || !should_have_ears))
 			ears.Remove(C,1)
+			required_organs -= /obj/item/organ/ears
 			QDEL_NULL(ears)
 		if(should_have_ears && !ears)
 			ears = new mutantears
 			ears.Insert(C)
+			required_organs |= /obj/item/organ/ears
 
 		if(tongue && (replace_current || !should_have_tongue))
 			tongue.Remove(C,1)
+			required_organs -= /obj/item/organ/tongue
 			QDEL_NULL(tongue)
 		if(should_have_tongue && !tongue)
 			tongue = new mutanttongue
 			tongue.Insert(C)
+			required_organs |= /obj/item/organ/tongue
 
 	if(old_species)
 		for(var/mutantorgan in old_species.mutant_organs)
 			var/obj/item/organ/I = C.getorgan(mutantorgan)
 			if(I)
 				I.Remove(C)
+				required_organs -= I.type
 				QDEL_NULL(I)
 
 	for(var/path in mutant_organs)
 		var/obj/item/organ/I = new path()
 		I.Insert(C)
+		required_organs |= I.type
 
 /datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
 	new_species ||= C.dna.species //If no new species is provided, assume its src.
@@ -806,7 +831,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				else
 					standing += mutable_appearance(undershirt.icon, undershirt.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 
-		if(H.socks && H.get_num_legs(FALSE) >= 2 && !(H.dna.species.bodytype & BODYTYPE_DIGITIGRADE) && !(NOSOCKS in species_traits))
+		if(H.socks && H.num_legs >= 2 && !(H.dna.species.bodytype & BODYTYPE_DIGITIGRADE) && !(NOSOCKS in species_traits))
 			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[H.socks]
 			if(socks)
 				standing += mutable_appearance(socks.icon, socks.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
@@ -1113,8 +1138,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(I.species_restricted & H.dna?.species.bodyflag)
 		to_chat(H, "<span class='warning'>Your species cannot wear this item!</span>")
 		return FALSE
-	var/num_arms = H.get_num_arms(FALSE)
-	var/num_legs = H.get_num_legs(FALSE)
 
 	switch(slot)
 		if(ITEM_SLOT_HANDS)
@@ -1152,7 +1175,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 			if( !(I.slot_flags & ITEM_SLOT_GLOVES) )
 				return FALSE
-			if(num_arms < 2)
+			if(H.num_hands < 2)
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_FEET)
@@ -1160,7 +1183,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 			if( !(I.slot_flags & ITEM_SLOT_FEET) )
 				return FALSE
-			if(num_legs < 2)
+			if(H.num_legs < 2)
 				return FALSE
 			if((bodytype & BODYTYPE_DIGITIGRADE) && !(I.supports_variations & DIGITIGRADE_VARIATION))
 				if(!disable_warning)
@@ -1279,7 +1302,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 			if(!istype(I, /obj/item/restraints/handcuffs))
 				return FALSE
-			if(num_arms < 2)
+			if(H.num_legs < 2)
 				return FALSE
 			return TRUE
 		if(ITEM_SLOT_LEGCUFFED)
@@ -1287,7 +1310,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 			if(!istype(I, /obj/item/restraints/legcuffs))
 				return FALSE
-			if(num_legs < 2)
+			if(H.num_legs < 2)
 				return FALSE
 			return TRUE
 		if(ITEM_SLOT_BACKPACK)
@@ -1538,11 +1561,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(!((target.health < 0 || HAS_TRAIT(target, TRAIT_FAKEDEATH)) && !(target.mobility_flags & MOBILITY_STAND)))
+	if(target.body_position == STANDING_UP || (target.health >= 0 && !HAS_TRAIT(target, TRAIT_FAKEDEATH)))
 		target.help_shake_act(user)
 		if(target != user)
 			log_combat(user, target, "shaken")
-		return 1
+		return TRUE
 	else
 		var/we_breathe = !HAS_TRAIT(user, TRAIT_NOBREATH)
 		var/we_lung = user.getorganslot(ORGAN_SLOT_LUNGS)
@@ -1563,7 +1586,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return TRUE
 	else
 		//Steal them shoes
-		if(!(target.mobility_flags & MOBILITY_STAND) && (user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG)) && user.a_intent == INTENT_GRAB && target.shoes)
+		if(target.body_position == LYING_DOWN && (user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG)) && user.a_intent == INTENT_GRAB && target.shoes)
 			if(HAS_TRAIT(target.shoes, TRAIT_NODROP))
 				target.grabbedby(user)
 				return TRUE
@@ -1591,7 +1614,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	else
 
 		var/atk_verb = user.dna.species.attack_verb
-		if(!(target.mobility_flags & MOBILITY_STAND))
+		if(target.body_position == LYING_DOWN)
 			atk_verb = ATTACK_EFFECT_KICK
 
 		switch(atk_verb)//this code is really stupid but some genius apparently made "claw" and "slash" two attack types but also the same one so it's needed i guess
@@ -1950,7 +1973,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		// Get the changes to the skin from the core temp
 		var/core_skin_diff = humi.coretemperature - humi.bodytemperature
 		// change rate of 0.08 to reflect temp back in to the core at the same rate as core to skin
-		var/core_skin_change = (1 + thermal_protection) * get_temp_change_amount(core_skin_diff, 0.08)
+		var/core_skin_change = (1 + thermal_protection) * get_temp_change_amount(core_skin_diff, 0.09)
 
 		// We do not want to over shoot after using protection
 		if(core_skin_diff > 0)
@@ -2232,7 +2255,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(H.getorgan(/obj/item/organ/wings))
 		if(wings.flight_level >= WINGS_FLYING && H.movement_type & FLYING)
 			flyslip(H)
-	. = stunmod * H.physiology.stun_mod * amount
+	. = max(stunmod + H.physiology.stun_add, 0) * H.physiology.stun_mod * amount
 
 //////////////
 //Space Move//
@@ -2279,7 +2302,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
 	if(!H.getorgan(/obj/item/organ/wings))
 		return FALSE
-	if(H.stat || !(H.mobility_flags & MOBILITY_STAND))
+	if(H.stat || H.body_position == LYING_DOWN)
 		return FALSE
 	var/turf/T = get_turf(H)
 	if(!T)
@@ -2321,7 +2344,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		H.setMovetype(H.movement_type | FLYING)
 		override_float = TRUE
 		H.pass_flags |= PASSTABLE
-		H.update_mobility()
 		if(("wings" in H.dna.species.mutant_bodyparts) || ("moth_wings" in H.dna.species.mutant_bodyparts))
 			H.Togglewings()
 	else

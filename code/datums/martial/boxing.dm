@@ -44,7 +44,7 @@
 			D.SetSleeping(100)
 			D.force_say(A)
 			log_combat(A, D, "knocked out (boxing) ", name)
-		else if(!(D.mobility_flags & MOBILITY_STAND))
+		else if(D.body_position == LYING_DOWN)
 			D.force_say(A)
 	return TRUE
 

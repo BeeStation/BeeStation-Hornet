@@ -277,6 +277,7 @@
 			. = "<span class='red'>[.]</span>"
 
 /obj/item/clothing/obj_break(damage_flag)
+	. = ..()
 	if(!damaged_clothes)
 		update_clothes_damaged_state(TRUE)
 	if(ismob(loc)) //It's not important enough to warrant a message if nobody's wearing it
