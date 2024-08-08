@@ -17,9 +17,16 @@
 	var/beating = 1
 	var/icon_base = "heart"
 	attack_verb = list("beat", "thumped")
-	var/beat = BEAT_NONE//is this mob having a heatbeat sound played? if so, which?
-	var/failed = FALSE		//to prevent constantly running failing code
-	var/operated = FALSE	//whether the heart's been operated on to fix some of its damages
+	//is this mob having a heatbeat sound played? if so, which?
+	var/beat = BEAT_NONE
+	//to prevent constantly running failing code
+	var/failed = FALSE
+	//whether the heart's been operated on to fix some of its damages
+	var/operated = FALSE
+	///Color of the heart, is set by the species on gain
+	//var/ethereal_color = "#9c3030"
+
+
 
 /obj/item/organ/heart/update_icon()
 	if(beating)

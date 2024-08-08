@@ -25,8 +25,7 @@
 	spacewalk = TRUE
 	sight = SEE_SELF
 	throwforce = 0
-
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	response_help   = "passes through"
 	response_disarm = "swings through"
@@ -115,7 +114,9 @@
 	name = built_name
 
 /mob/living/simple_animal/revenant/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	to_chat(src, "<span class='deadsay'><span class='big bold'>You are a revenant.</span></span>")
 	to_chat(src, "<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
 	to_chat(src, "<b>You are not dead, not alive, but somewhere in between. You are capable of limited interaction with both worlds.</b>")

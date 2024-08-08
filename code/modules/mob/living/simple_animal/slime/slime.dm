@@ -29,7 +29,7 @@
 	healable = 0
 	gender = NEUTER
 
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 
 	verb_say = "blorbles"
 	verb_ask = "inquisitively blorbles"
@@ -509,12 +509,6 @@
 
 /mob/living/simple_animal/slime/pet
 	docile = 1
-
-/mob/living/simple_animal/slime/can_unbuckle()
-	return 0
-
-/mob/living/simple_animal/slime/can_buckle()
-	return 0
 
 /mob/living/simple_animal/slime/get_mob_buckling_height(mob/seat)
 	if(..())

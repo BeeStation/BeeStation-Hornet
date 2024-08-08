@@ -914,7 +914,7 @@
 			return src
 
 /**
-  * Buckle to another mob
+  * Buckle a living mob to this mob
   *
   * You can buckle on mobs if you're next to them since most are dense
   *
@@ -951,14 +951,6 @@
 		if(L.mob_size <= MOB_SIZE_SMALL) //being on top of a small mob doesn't put you very high.
 			return 0
 	return 9
-
-///can the mob be buckled to something by default?
-/mob/proc/can_buckle()
-	return TRUE
-
-///can the mob be unbuckled from something by default?
-/mob/proc/can_unbuckle()
-	return 1
 
 ///Can the mob interact() with an atom?
 /mob/proc/can_interact_with(atom/A, treat_mob_as_adjacent)
@@ -1116,18 +1108,43 @@
 			client.mouse_pointer_icon = E.mouse_pointer
 
 
-///This mob is abile to read books
+/// This mob can read
 /mob/proc/is_literate()
 	return FALSE
+
+/**
+ * Checks if there is enough light where the mob is located
+ *
+ * Args:
+ *  light_amount (optional) - A decimal amount between 1.0 through 0.0 (default is 0.2)
+**/
+/mob/proc/has_light_nearby(light_amount = LIGHTING_TILE_IS_DARK)
+	var/turf/mob_location = get_turf(src)
+	return mob_location.get_lumcount() > light_amount
+
+/**
+ * Can this mob see in the dark
+ *
+ * This checks all traits, glasses, and robotic eyeball implants to see if the mob can see in the dark
+ * this does NOT check if the mob is missing it's eyeballs. Also see_in_dark is a BYOND mob var (that defaults to 2)
+**/
+/mob/proc/has_nightvision()
+	return see_in_dark >= NIGHTVISION_FOV_RANGE
 
 ///Can this mob read (is literate and not blind)
 /mob/proc/can_read(obj/O)
 	if(is_blind())
-		to_chat(src, "<span class='warning'>As you are trying to read [O], you suddenly feel very stupid!</span>")
-		return
+		to_chat(src, "<span class='warning'You are blind and can't read anything!</span>")
+		return FALSE
+		//to_chat(src, "<span class='warning'>As you are trying to read [O], you suddenly feel very stupid!</span>")
 	if(!is_literate())
-		to_chat(src, "<span class='notice'>You try to read [O], but can't comprehend any of it.</span>")
-		return
+		to_chat(src, "<span class='warning'>You try to read [O], but can't comprehend any of it.</span>")
+		return FALSE
+
+	if(!has_light_nearby() && !has_nightvision())
+		to_chat(src, "<span class='warning'>It's too dark in here to read!</span>")
+		return FALSE
+
 	return TRUE
 
 ///Can this mob hold items

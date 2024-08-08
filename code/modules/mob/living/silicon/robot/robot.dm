@@ -7,12 +7,22 @@
 	health = 200
 	bubble_icon = "robot"
 	designation = "Default" //used for displaying the prefix & getting the current module of cyborg
-	has_limbs = 1
+	has_limbs = TRUE
 	hud_type = /datum/hud/robot
+
 	radio = /obj/item/radio/borg
+
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
-	light_system = MOVABLE_LIGHT
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_on = FALSE
+
+	//AI shell
+	var/shell = FALSE
+	var/deployed = FALSE
+	var/mob/living/silicon/ai/mainframe = null
+	var/datum/action/innate/undeployment/undeployment_action = new
+
+// ------------------------------------------ Parts
 	var/custom_name = ""
 	var/braintype = "Cyborg"
 	var/obj/item/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
@@ -20,10 +30,6 @@
 	///The last time this mob was flashed. Used for flash cooldowns
 	var/last_flashed = 0
 
-	var/shell = FALSE
-	var/deployed = FALSE
-	var/mob/living/silicon/ai/mainframe = null
-	var/datum/action/innate/undeployment/undeployment_action = new
 
 	var/obj/item/clockwork/clockwork_slab/internal_clock_slab = null
 	var/ratvar = FALSE
@@ -976,7 +982,7 @@
 		return
 	if(stat == DEAD)
 		sight = (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_in_dark = 8
+		see_in_dark = NIGHTVISION_FOV_RANGE
 		see_invisible = SEE_INVISIBLE_OBSERVER
 		return
 
@@ -1003,12 +1009,12 @@
 	if(sight_mode & BORGXRAY)
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		see_invisible = SEE_INVISIBLE_LIVING
-		see_in_dark = 8
+		see_in_dark = NIGHTVISION_FOV_RANGE
 
 	if(sight_mode & BORGTHERM)
 		sight |= SEE_MOBS
 		see_invisible = min(see_invisible, SEE_INVISIBLE_LIVING)
-		see_in_dark = 8
+		see_in_dark = NIGHTVISION_FOV_RANGE
 
 	if(see_override)
 		see_invisible = see_override
@@ -1229,9 +1235,9 @@
 	cell = null
 
 /mob/living/silicon/robot/mouse_buckle_handling(mob/living/M, mob/living/user)
+	//Don't try buckling on INTENT_HARM so that silicons can search people's inventories without loading them
 	if(can_buckle && istype(M) && !(M in buckled_mobs) && ((user!=src)||(a_intent != INTENT_HARM)))
-		if(buckle_mob(M))
-			return TRUE
+		return user_buckle_mob(M, user, check_loc = FALSE)
 
 /mob/living/silicon/robot/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!is_type_in_typecache(M, can_ride_typecache))
