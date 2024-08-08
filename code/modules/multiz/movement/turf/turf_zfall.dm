@@ -54,6 +54,7 @@
 		return FALSE
 	if(from_zfall) // if this is a >1 level fall
 		addtimer(CALLBACK(src, PROC_REF(zFall_Finish), A, levels, force, old_loc, from_zfall), 0.2 SECONDS) // This is the delay between falling zlevels. Otherwise zfalls would be instant to the client, which does not look great.
+		return TRUE
 	else
 		return zFall_Move(A, levels, old_loc, target)
 
