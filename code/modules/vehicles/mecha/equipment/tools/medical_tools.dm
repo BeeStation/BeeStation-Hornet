@@ -224,7 +224,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/container_resist(mob/living/user)
 	go_out()
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/process()
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/process(delta_time)
 	. = ..()
 	if(.)
 		return
@@ -233,16 +233,16 @@
 		to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)]<span class='warning'>[src] deactivated - no power.</span>")
 		STOP_PROCESSING(SSobj, src)
 		return
-	var/mob/living/carbon/M = patient
+	var/mob/living/carbon/ex_patient = patient
 	if(!M)
 		return
-	if(M.health > 0)
-		M.adjustOxyLoss(-1)
-	M.AdjustStun(-80)
-	M.AdjustKnockdown(-80)
-	M.AdjustParalyzed(-80)
-	M.AdjustImmobilized(-80)
-	M.AdjustUnconscious(-80)
+	if(ex_patient.health > 0)
+		ex_patient.adjustOxyLoss(-0.5 * delta_time)
+	ex_patient.AdjustStun(-40 * delta_time)
+	ex_patient.AdjustKnockdown(-40 * delta_time)
+	ex_patient.AdjustParalyzed(-40 * delta_time)
+	ex_patient.AdjustImmobilized(-40 * delta_time)
+	ex_patient.AdjustUnconscious(-40 * delta_time)
 	if(M.reagents.get_reagent_amount(/datum/reagent/medicine/epinephrine) < 5)
 		M.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 5)
 	chassis.use_power(energy_drain)
@@ -477,7 +477,7 @@
 	return
 
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/process()
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/process(delta_time)
 	. = ..()
 	if(.)
 		return
@@ -485,7 +485,7 @@
 		to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)]<span class='alert'>Reagent processing stopped.</span>")
 		log_message("Reagent processing stopped.", LOG_MECHA)
 		return PROCESS_KILL
-	var/amount = synth_speed / LAZYLEN(processed_reagents)
+	var/amount = delta_time * synth_speed / LAZYLEN(processed_reagents)
 	for(var/reagent in processed_reagents)
 		reagents.add_reagent(reagent,amount)
 		chassis.use_power(energy_drain)
@@ -515,15 +515,14 @@
 	QDEL_NULL(medigun)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/process()
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/process(deltatime)
 	. = ..()
 	if(.)
 		return
-	medigun.process()
+	medigun.process(SSOBJ_DT)
 
 /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/action(mob/source, atom/movable/target, params)
 	medigun.process_fire(target, loc)
-
 
 /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/detach()
 	STOP_PROCESSING(SSobj, src)
