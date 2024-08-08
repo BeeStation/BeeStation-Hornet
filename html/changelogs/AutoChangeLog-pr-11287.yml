@@ -1,7 +1,0 @@
-author: mystery3525
-delete-after: true
-changes:
-  - rscadd: AIs can now change their internal camera capture size with "AI Commands"
-      > "Adjust Camera Zoom"
-  - rscadd: Cyborgs can change their internal camera capture size in the Actions Menu
-      on their internal PDA app
