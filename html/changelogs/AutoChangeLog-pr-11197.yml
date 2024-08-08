@@ -1,5 +1,0 @@
-author: SunShine214
-delete-after: true
-changes:
-  - balance: Changed repairing other IPC's to have delay.
-  - bugfix: Fixed repairing an IPC with a welder that is off being possible.

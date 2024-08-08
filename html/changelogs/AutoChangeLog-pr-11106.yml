@@ -1,8 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Replaces PTSDs with service pistols, a less-lethal officer's pistol that
-      fires rounds which burn and disable a target simultaneously. It has 10 shots
-      and is reloaded via a magazine that can be recharged.
-  - bugfix: Fixes weapon rechargers not showing the charge amount of inserted rechargable
-      magazines.
