@@ -535,7 +535,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			var/obj/item/clothing/CH = H.head
 			if (CS.clothing_flags & CH.clothing_flags & THICKMATERIAL)
 				return FALSE // Skip over them if they have no exposed flesh.
-		if(H.is_bleeding()&&!H.is_bandaged())
+		if(H.is_bleeding())
 			return TRUE
 
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
