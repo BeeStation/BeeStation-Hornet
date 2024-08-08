@@ -1054,7 +1054,6 @@
 /mob/living/silicon/ai/zMove(dir, feedback = FALSE, feedback_to = src)
 	. = eyeobj.zMove(dir, feedback, feedback_to)
 
-
 /// Proc to hook behavior to the changes of the value of [aiRestorePowerRoutine].
 /mob/living/silicon/ai/proc/setAiRestorePowerRoutine(new_value)
 	if(new_value == aiRestorePowerRoutine)
@@ -1073,3 +1072,16 @@
 
 /mob/living/silicon/on_handsblocked_end()
 	return // AIs have no hands
+
+/mob/living/silicon/ai/verb/change_photo_camera_radius()
+	set category = "AI Commands"
+	set name = "Adjust Camera Zoom"
+	set desc = "Change the zoom of your builtin camera."
+
+	if(incapacitated())
+		return
+	if(isnull(aicamera))
+		to_chat(usr, "<span class='warning'>You don't have a built-in camera!</span>")
+		return
+
+	aicamera.adjust_zoom(src)
