@@ -7033,6 +7033,15 @@
 /obj/machinery/meter,
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
+"cqV" = (
+/obj/machinery/firealarm/directional/south,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/telecomms{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
+/area/tcommsat/computer)
 "cqW" = (
 /obj/machinery/light{
 	dir = 4
@@ -14195,6 +14204,18 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/iron/white,
 /area/science/research)
+"eAA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
+	dir = 8;
+	initialize_directions = 8
+	},
+/turf/open/floor/circuit/telecomms/mainframe{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
+/area/tcommsat/computer)
 "eAC" = (
 /turf/closed/wall,
 /area/security/checkpoint/medical)
@@ -34417,20 +34438,6 @@
 	dir = 8
 	},
 /area/hallway/primary/central)
-"kYm" = (
-/obj/item/radio/intercom{
-	pixel_y = -35
-	},
-/obj/machinery/atmospherics/components/unary/portables_connector{
-	dir = 1
-	},
-/obj/machinery/airalarm/directional/south,
-/obj/machinery/portable_atmospherics/canister/plasma,
-/obj/effect/mapping_helpers/atmos_auto_connect,
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
-/area/engine/gravity_generator)
 "kYr" = (
 /obj/structure/sign/warning/nosmoking,
 /turf/closed/wall,
@@ -36083,18 +36090,6 @@
 	dir = 1
 	},
 /area/science/research)
-"lxG" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
-	dir = 8;
-	initialize_directions = 8
-	},
-/turf/open/floor/circuit/telecomms/mainframe{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
-/area/engine/gravity_generator)
 "lyc" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -43941,6 +43936,16 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
+"nTp" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/telecomms/hub/preset,
+/turf/open/floor/circuit/green/telecomms/mainframe,
+/area/tcommsat/server)
 "nTI" = (
 /obj/structure/chair/wood/wings,
 /turf/open/floor/carpet/green,
@@ -44165,28 +44170,6 @@
 "nXU" = (
 /turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
-"nXV" = (
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/aimodule_harmful,
-/obj/effect/spawner/lootdrop/aimodule_harmful,
-/obj/effect/spawner/lootdrop/aimodule_harmful,
-/obj/structure/window/reinforced/spawner/east{
-	dir = 8
-	},
-/obj/machinery/door/window/brigdoor/northright{
-	dir = 2;
-	name = "Security Boards";
-	req_access_txt = "16"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/camera/autoname/directional/east{
-	network = list("aiupload")
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai_upload)
 "nYc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -48451,6 +48434,28 @@
 /obj/machinery/advanced_airlock_controller/directional/north,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"plH" = (
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/aimodule_harmful,
+/obj/effect/spawner/lootdrop/aimodule_harmful,
+/obj/effect/spawner/lootdrop/aimodule_harmful,
+/obj/structure/window/reinforced/spawner/east{
+	dir = 8
+	},
+/obj/machinery/door/window/brigdoor/northright{
+	dir = 2;
+	name = "Security Boards";
+	req_access_txt = "16"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/camera/autoname/directional/east{
+	network = list("aiupload")
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai_upload)
 "plT" = (
 /obj/machinery/airalarm/directional/west,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -48874,6 +48879,15 @@
 	},
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
+"psP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/blackbox_recorder,
+/turf/open/floor/circuit/telecomms/mainframe{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
+/area/tcommsat/computer)
 "psU" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/light{
@@ -49390,15 +49404,6 @@
 	dir = 1
 	},
 /area/hallway/primary/central)
-"pBi" = (
-/obj/machinery/firealarm/directional/south,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
-/area/engine/gravity_generator)
 "pBt" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
@@ -51580,6 +51585,20 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating,
 /area/vacant_room/commissary/commissary1)
+"qjt" = (
+/obj/item/radio/intercom{
+	pixel_y = -35
+	},
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/south,
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/mapping_helpers/atmos_auto_connect,
+/turf/open/floor/iron/dark/telecomms{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
+/area/tcommsat/computer)
 "qjH" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/curtain/directional{
@@ -52409,32 +52428,25 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
-"qvV" = (
-/obj/machinery/power/apc/auto_name/directional/south,
-/obj/machinery/light_switch/tcomms{
-	pixel_x = 12;
-	pixel_y = -21
-	},
-/obj/machinery/light_switch{
-	name = "Control Room light switch";
-	pixel_x = -10;
-	pixel_y = -21
-	},
-/obj/machinery/light,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
-/area/engine/gravity_generator)
 "qwL" = (
 /obj/structure/sign/poster/random,
 /turf/closed/wall,
 /area/gateway)
+"qwX" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -33
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 5
+	},
+/obj/machinery/space_heater,
+/turf/open/floor/iron/dark/telecomms{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
+/area/tcommsat/computer)
 "qwZ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/landmark/blobstart,
@@ -70281,15 +70293,6 @@
 "wfM" = (
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"wfO" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/telecomms/hub/preset,
-/turf/open/floor/circuit/telecomms/mainframe{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
-/area/tcommsat/computer)
 "wfX" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/guideline/guideline_half_edge/blue{
@@ -70663,6 +70666,28 @@
 /obj/structure/table/wood,
 /turf/open/floor/carpet/green,
 /area/hallway/secondary/exit/departure_lounge)
+"wmK" = (
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/light_switch/tcomms{
+	pixel_x = 12;
+	pixel_y = -21
+	},
+/obj/machinery/light_switch{
+	name = "Control Room light switch";
+	pixel_x = -10;
+	pixel_y = -21
+	},
+/obj/machinery/light,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/telecomms{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
+/area/tcommsat/computer)
 "wng" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -74009,16 +74034,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"xtz" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/blackbox_recorder,
-/turf/open/floor/circuit/green/telecomms/mainframe,
-/area/tcommsat/server)
 "xtE" = (
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -75339,21 +75354,6 @@
 	},
 /turf/open/floor/engine,
 /area/security/nuke_storage)
-"xMj" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -33
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/general/hidden{
-	dir = 5
-	},
-/obj/machinery/space_heater,
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
-/area/engine/gravity_generator)
 "xMx" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
@@ -110049,7 +110049,7 @@ eyz
 mTR
 uTv
 uTv
-nXV
+plH
 cLD
 ogV
 buw
@@ -110088,7 +110088,7 @@ cMI
 iST
 iST
 tHK
-ebF
+iST
 ebF
 ebF
 ebF
@@ -110345,7 +110345,7 @@ eSO
 qgB
 jeN
 ief
-kYm
+qjt
 ebF
 aSY
 cSN
@@ -110602,7 +110602,7 @@ xCR
 cSZ
 oaZ
 jHW
-pBi
+cqV
 ebF
 iUV
 eId
@@ -110859,7 +110859,7 @@ pYb
 iwO
 ghe
 kAi
-qvV
+wmK
 ebF
 oVd
 bsT
@@ -111116,7 +111116,7 @@ rEu
 qVF
 omg
 aWq
-xMj
+qwX
 ebF
 bsT
 sYx
@@ -111369,11 +111369,11 @@ uSx
 rEW
 cJD
 kPu
-xtz
+nTp
 hoG
 oDI
-wfO
-lxG
+psP
+eAA
 ebF
 tqN
 bHa
@@ -111630,7 +111630,7 @@ cMI
 iST
 iST
 iST
-ebF
+iST
 ebF
 ebF
 ebF

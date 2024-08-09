@@ -16,8 +16,15 @@
 #define COMSIG_MACHINERY_POWER_RESTORED "machinery_power_restored"
 ///from /obj/machinery/set_occupant(atom/movable/O): (new_occupant)
 #define COMSIG_MACHINERY_SET_OCCUPANT "machinery_set_occupant"
+///from /obj/machinery/proc/use_power(): (power_used)
+#define COMSIG_MACHINERY_POWER_USED "machinery_power_used"
 
 // /obj/machinery/atmospherics/components/unary/cryo_cell signals
 
 /// from /obj/machinery/atmospherics/components/unary/cryo_cell/set_on(bool): (on)
 #define COMSIG_CRYO_SET_ON "cryo_set_on"
+
+// /datum/component/server signals
+
+// from //datum/component/server/proc/overheated(is_overheated): (is_overheated)
+#define COMSIG_MACHINERY_OVERHEAT_CHANGE "machinery_overheated"
