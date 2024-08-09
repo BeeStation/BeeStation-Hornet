@@ -3,6 +3,10 @@
 // All signals send the source datum of the signal as the first argument
 
 // /mob/living/carbon signals
+///Called when a carbon becomes addicted (source = what addiction datum, addicted_mind = mind of the addicted carbon)
+#define COMSIG_CARBON_GAIN_ADDICTION "carbon_gain_addiction"
+///Called when a carbon is no longer addicted (source = what addiction datum was lost, addicted_mind = mind of the freed carbon)
+#define COMSIG_CARBON_LOSE_ADDICTION "carbon_lose_addiction"
 
 ///from base of mob/living/carbon/soundbang_act(): (list(intensity))
 #define COMSIG_CARBON_SOUNDBANG "carbon_soundbang"

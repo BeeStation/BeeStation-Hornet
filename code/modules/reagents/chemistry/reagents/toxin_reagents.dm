@@ -195,6 +195,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 0
 	taste_description = "sourness"
+	addiction_types = list(/datum/addiction/hallucinogens = 18) //7.2 per 2 seconds
 
 /datum/reagent/toxin/mindbreaker/on_mob_life(mob/living/carbon/M)
 	if(!M.has_quirk(/datum/quirk/insanity))
@@ -480,6 +481,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	toxpwr = 0
+	addiction_types = list(/datum/addiction/opioids = 25)
 
 /datum/reagent/toxin/fentanyl/on_mob_life(mob/living/carbon/M)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3*REM, 150)
@@ -604,13 +606,21 @@
 
 /datum/reagent/toxin/sodium_thiopental
 	name = "Sodium Thiopental"
-	description = "Sodium Thiopental induces heavy weakness in its target as well as unconsciousness."
+	description = "Sodium Thiopental induces heavy weakness in its target as well as unconsciousness. It can be used to treat Seizure Disorders."
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = "#6496FA"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	toxpwr = 0
+
+/datum/reagent/medicine/sodium_thiopental/on_mob_add(mob/living/L, amount)
+	. = ..()
+	ADD_TRAIT(L, TRAIT_ANTICONVULSANT, name)
+
+/datum/reagent/medicine/sodium_thiopental/on_mob_delete(mob/living/L)
+	. = ..()
+	REMOVE_TRAIT(L, TRAIT_ANTICONVULSANT, name)
 
 /datum/reagent/toxin/sodium_thiopental/on_mob_life(mob/living/carbon/M)
 	if(current_cycle >= 10)

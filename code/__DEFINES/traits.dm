@@ -265,6 +265,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BARMASTER			"bar_master" // always can identify reagents
 #define TRAIT_HIVE_BURNT		 "hive-burnt"
 #define TRAIT_MOTH_BURNT		"moth_burnt"
+/// From anti-convulsant medication against seizures.
+#define TRAIT_ANTICONVULSANT "anticonvulsant"
+#define TRAIT_BLOODSHOT_EYES "bloodshot_eyes"
 #define TRAIT_SPECIAL_TRAUMA_BOOST "special_trauma_boost" ///Increases chance of getting special traumas, makes them harder to cure
 #define TRAIT_METALANGUAGE_KEY_ALLOWED "metalanguage_key_allowed" // you can use language key for metalanguage (,`) and but also you see lang icon
 #define TRAIT_HYPERSPACED "hyperspaced" // Sanity trait to keep track of when we're in hyperspace and add the appropriate element if we werent
