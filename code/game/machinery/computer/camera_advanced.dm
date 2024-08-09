@@ -79,14 +79,15 @@
 		eyeobj.visible_icon = TRUE
 		eyeobj.invisibility = INVISIBILITY_OBSERVER
 		if(current_user) // indent is correct: do not transfer ghosts unless it's revealed
-			current_user.transfer_observers_to(eyeobj)
+			current_user.transfer_observers_to(eyeobj, temporary = TRUE)
 
 /obj/machinery/computer/camera_advanced/proc/ConcealCameraMob()
 	if(reveal_camera_mob && eyeobj)
 		eyeobj.visible_icon = FALSE
 		eyeobj.invisibility = INVISIBILITY_ABSTRACT
 	if(current_user && eyeobj) // indent is correct: transfer ghosts when nobody uses
-		eyeobj.transfer_observers_to(current_user)
+		eyeobj.return_observers() // send ghosts back to their original orbit
+		eyeobj.transfer_observers_to(current_user) // if a ghost started observing an eye at first, the return proc won't work.
 
 /obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
 	if(off_action)
@@ -110,7 +111,7 @@
 		actions += move_down_action
 
 /obj/machinery/proc/remove_eye_control(mob/living/user)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // this should be stated at parent
 	CRASH("[type] does not implement ai eye handling")
 
 /obj/machinery/computer/camera_advanced/remove_eye_control(mob/living/user)
@@ -120,11 +121,10 @@
 		var/datum/action/A = V
 		A.Remove(user)
 	actions.Cut()
-	for(var/V in eyeobj.visibleCameraChunks)
-		var/datum/camerachunk/C = V
-		C.remove(eyeobj)
+	for(var/datum/camerachunk/camerachunk as anything in eyeobj.visibleCameraChunks)
+		camerachunk.remove(eyeobj)
+	user.reset_perspective()
 	if(user.client)
-		user.reset_perspective(null)
 		if(eyeobj.visible_icon && user.client)
 			user.client.images -= eyeobj.user_image
 		user.client.view_size.unsupress()
@@ -182,9 +182,9 @@
 		CreateEye()
 
 	if(!eyeobj.eye_initialized)
-		var/camera_location
+		var/turf/camera_location
 		var/turf/myturf = get_turf(src)
-		if(eyeobj.use_static != FALSE)
+		if(eyeobj.use_static) // I don't honestly get what this code means. Feel free to nuke....
 			if((!z_lock.len || (myturf.z in z_lock)) && GLOB.cameranet.checkTurfVis(myturf))
 				camera_location = myturf
 			else
@@ -200,15 +200,16 @@
 			if(z_lock.len && !(myturf.z in z_lock))
 				camera_location = locate(round(world.maxx/2), round(world.maxy/2), z_lock[1])
 
-		if(camera_location)
+
+		if(isturf(camera_location))
 			eyeobj.eye_initialized = TRUE
-			give_eye_control(L)
-			eyeobj.setLoc(camera_location)
-		else
-			user.unset_machine()
-	else
-		give_eye_control(L)
-		eyeobj.setLoc(eyeobj.loc)
+			eyeobj.abstract_move(camera_location)
+
+	if(!eyeobj.eye_initialized)
+		user.unset_machine()
+		CRASH("Failed to initialize eyeobj.")
+
+	give_eye_control(L)
 
 /obj/machinery/computer/camera_advanced/proc/start_observe(mob/user)
 	if(!user.client || !eyeobj)
@@ -228,17 +229,23 @@
 		user.reset_perspective(eyeobj)
 		if(should_supress_view_changes)
 			user.client.view_size.supress()
+		for(var/datum/camerachunk/camerachunk as anything in eyeobj.visibleCameraChunks)
+			camerachunk.single_add(eyeobj, user.client)
+		user.transfer_observers_to(eyeobj, temporary = TRUE)
 	RegisterSignals(user, list(COMSIG_MOB_LOGOUT, COMSIG_MOVABLE_MOVED), PROC_REF(stop_observe))
 
 /obj/machinery/computer/camera_advanced/proc/stop_observe(mob/user)
 	SIGNAL_HANDLER
 
 	camera_observers -= user
+	user.reset_perspective()
 	if(user.client)
+		for(var/datum/camerachunk/camerachunk as anything in eyeobj.visibleCameraChunks)
+			camerachunk.single_remove(eyeobj, user.client)
+		user.client.view_size.unsupress()
 		if(camera_sprite_for_observers)
 			user.client.images -= camera_sprite_for_observers
-		user.reset_perspective()
-		user.client.view_size.unsupress()
+		eyeobj.return_observers(user) // return my ghosts back, leaving others there.
 	UnregisterSignal(user, list(COMSIG_MOB_LOGOUT, COMSIG_MOVABLE_MOVED))
 
 /obj/machinery/computer/camera_advanced/proc/shoo_all_observers()
@@ -252,6 +259,8 @@
 	return //AIs would need to disable their own camera procs to use the console safely. Bugs happen otherwise.
 
 /obj/machinery/computer/camera_advanced/proc/give_eye_control(mob/user)
+	if(!user.client)
+		return
 	GrantActions(user)
 	current_user = user
 	eyeobj.eye_user = user
@@ -259,9 +268,9 @@
 	RevealCameraMob()
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
-	eyeobj.setLoc(eyeobj.loc)
 	if(should_supress_view_changes )
 		user.client.view_size.supress()
+	eyeobj.setLoc(get_turf(eyeobj)) // This forcefully puts camera noise. I hate this exists here, but necessary.
 
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(remove_eye_control))
 
@@ -308,10 +317,11 @@
 		if(use_static)
 			GLOB.cameranet.visibility(src, GetViewerClient(), null, use_static)
 
-		if(visible_icon && eye_user.client)
-			eye_user.client.images -= user_image
-			user_image = image(icon,loc,icon_state,FLY_LAYER)
-			eye_user.client.images += user_image
+		if(visible_icon)
+			if(!user_image)
+				user_image = image(icon, src, icon_state, FLY_LAYER)
+			if(eye_user.client)
+				eye_user.client.images |= user_image
 
 /mob/camera/ai_eye/remote/relaymove(mob/living/user, direction)
 	if(direction == UP || direction == DOWN)

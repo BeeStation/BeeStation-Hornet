@@ -31,9 +31,7 @@
 		return FALSE
 	forceMove(get_turf(card))
 	card.forceMove(src)
-	if(client)
-		client.perspective = EYE_PERSPECTIVE
-		client.set_eye(src)
+	reset_perspective()
 	set_light_on(FALSE)
 	icon_state = "[chassis]"
 	held_state = "[chassis]"
@@ -58,9 +56,7 @@
 	if(istype(loc, /obj/item/clothing/head/mob_holder))
 		var/obj/item/clothing/head/mob_holder/MH = loc
 		MH.release()
-	if(client)
-		client.perspective = EYE_PERSPECTIVE
-		client.set_eye(card)
+	reset_perspective(card)
 	var/turf/T = drop_location()
 	card.forceMove(T)
 	forceMove(card)

@@ -27,24 +27,43 @@
 	var/z = 0
 
 /// Add an AI eye to the chunk, then update if changed.
-/datum/camerachunk/proc/add(mob/camera/ai_eye/eye)
+/datum/camerachunk/proc/add(mob/camera/ai_eye/eye, list/clients = null)
 	eye.visibleCameraChunks += src
 	seenby += eye
 	if(changed)
 		update()
 
-	var/client/client = eye.GetViewerClient()
-	if(client && eye.use_static)
-		client.images += active_static_images
+	if(eye.use_static)
+		if(clients)
+			for(var/client/each_client as anything in clients)
+				each_client.images += active_static_images
+		else
+			var/client/viewer_client = eye.GetViewerClient() // this can return null
+			if(viewer_client)
+				viewer_client.images += active_static_images
+
+/// Same as add() proc, but for those who got the eye as its observer. (see camera_advanced code)
+/datum/camerachunk/proc/single_add(mob/camera/ai_eye/eye, client/late_client)
+	if((eye in seenby) && late_client && eye.use_static)
+		late_client.images += active_static_images
 
 /// Remove an AI eye from the chunk
-/datum/camerachunk/proc/remove(mob/camera/ai_eye/eye, remove_static_with_last_chunk = TRUE)
+/datum/camerachunk/proc/remove(mob/camera/ai_eye/eye, list/clients = null)
 	eye.visibleCameraChunks -= src
 	seenby -= eye
 
-	var/client/client = eye.GetViewerClient()
-	if(client && eye.use_static)
-		client.images -= active_static_images
+	if(eye.use_static)
+		if(clients)
+			for(var/client/each_client as anything in clients)
+				each_client.images -= active_static_images
+		else
+			var/client/viewer_client = eye.GetViewerClient() // this can return null
+			if(viewer_client)
+				viewer_client.images -= active_static_images
+
+/datum/camerachunk/proc/single_remove(mob/camera/ai_eye/eye, client/late_client)
+	if(late_client && eye.use_static)
+		late_client.images -= active_static_images
 
 /// Called when a chunk has changed. I.E: A wall was deleted.
 /datum/camerachunk/proc/visibilityChanged(turf/loc)
@@ -84,11 +103,8 @@
 	var/list/newly_obscured_turfs = visibleTurfs - updated_visible_turfs
 
 	for(var/mob/camera/ai_eye/client_eye as anything in seenby)
-		var/client/client = client_eye.ai?.client || client_eye.client
-		if(!client)
-			continue
-
-		client.images -= active_static_images
+		for(var/client/each_client as anything in client_eye.eye_users)
+			each_client.images -= active_static_images
 
 	for(var/turf/visible_turf as anything in newly_visible_turfs)
 		var/image/static_image_to_deallocate = obscuredTurfs[visible_turf]
@@ -121,11 +137,8 @@
 	changed = FALSE
 
 	for(var/mob/camera/ai_eye/client_eye as anything in seenby)
-		var/client/client = client_eye.ai?.client || client_eye.client
-		if(!client)
-			continue
-
-		client.images += active_static_images
+		for(var/client/each_client as anything in client_eye.eye_users)
+			each_client.images += active_static_images
 
 /// Create a new camera chunk, since the chunks are made as they are needed.
 /datum/camerachunk/New(x, y, z)

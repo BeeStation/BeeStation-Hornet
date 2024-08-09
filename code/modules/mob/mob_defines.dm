@@ -72,6 +72,8 @@
 	  */
 	var/notransform = null	//Carbon
 
+	/// used for /client/eye variable. Saving which eye this mob is supposed to use when a client is attached to this mob.
+	var/atom/real_eye
 	/// Is the mob blind
 	var/eye_blind = 0		//Carbon
 	/// Does the mob have blurry sight

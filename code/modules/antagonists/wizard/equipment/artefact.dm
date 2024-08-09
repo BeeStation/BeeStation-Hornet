@@ -353,7 +353,7 @@
 
 /obj/item/voodoo/check_eye(mob/user)
 	if(loc != user)
-		user.reset_perspective(null)
+		user.reset_perspective()
 		user.unset_machine()
 
 /obj/item/voodoo/attack_self(mob/user)
@@ -388,7 +388,7 @@
 				user.set_machine(src)
 				user.reset_perspective(target)
 				spawn(100)
-					user.reset_perspective(null)
+					user.reset_perspective()
 					user.unset_machine()
 			if(BODY_ZONE_R_LEG,BODY_ZONE_L_LEG)
 				to_chat(user, "<span class='notice'>You move the doll's legs around.</span>")

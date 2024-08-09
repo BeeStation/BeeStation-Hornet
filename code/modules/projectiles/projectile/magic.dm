@@ -604,7 +604,6 @@
 		M.ghostize(FALSE)
 		M.key = C.key
 		trauma.friend.key = oldkey
-		trauma.friend.reset_perspective(null)
 		trauma.friend.Show()
 		trauma.friend_initialized = TRUE
 	else
