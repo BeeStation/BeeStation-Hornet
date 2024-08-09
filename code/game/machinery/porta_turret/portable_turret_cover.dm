@@ -30,6 +30,9 @@
 
 	return parent_turret.attack_ai(user)
 
+/obj/machinery/porta_turret_cover/attack_robot(mob/user)
+	return attack_ai(user)
+
 
 /obj/machinery/porta_turret_cover/attack_hand(mob/user)
 	. = ..()

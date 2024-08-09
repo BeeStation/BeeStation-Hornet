@@ -785,6 +785,9 @@
 
 	ui_interact(user)
 
+/obj/machinery/door/airlock/attack_robot(mob/user)
+	attack_robot(user)
+
 /obj/machinery/door/airlock/proc/hack(mob/user)
 	set waitfor = 0
 	if(!aiHacking)

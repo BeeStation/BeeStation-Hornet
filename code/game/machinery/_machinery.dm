@@ -462,6 +462,11 @@ Class Procs:
 		user.visible_message("<span class='danger'>[user] smashes [src] with [user.p_their()] paws[damage ? "." : ", without leaving a mark!"]</span>", null, null, COMBAT_MESSAGE_RANGE)
 
 /obj/machinery/attack_robot(mob/user)
+	if(isAI(user))
+		CRASH("An AI just tried to run attack_robot().") // They should not be running the same procs anymore.
+	. = ..()
+	if(.)
+		return
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
 		return FALSE
 	if(Adjacent(user) && can_buckle && has_buckled_mobs()) //so that borgs (but not AIs, sadly (perhaps in a future PR?)) can unbuckle people from machines
@@ -475,12 +480,15 @@ Class Procs:
 	return _try_interact(user)
 
 /obj/machinery/attack_ai(mob/user)
+	if(iscyborg(user))
+		CRASH("A cyborg just tried to run attack_ai().") // They should not be running the same procs anymore.
+	. = ..()
+	if(.)
+		return
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
 		return FALSE
-	if(iscyborg(user))// For some reason attack_robot doesn't work
-		return attack_robot(user)
-	else
-		return _try_interact(user)
+
+	return _try_interact(user)
 
 /obj/machinery/_try_interact(mob/user)
 	if((interaction_flags_machine & INTERACT_MACHINE_WIRES_IF_OPEN) && panel_open && (attempt_wire_interaction(user) == WIRE_INTERACTION_BLOCK))
