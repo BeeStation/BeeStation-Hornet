@@ -8,6 +8,8 @@
 		//ADMIN THINGS//
 		////////////////
 
+	/// a datum to hold client data that we want to keep even if client is gone
+	var/datum/client_data/data
 	/// If this client has been fully initialized or not
 	var/fully_created = FALSE
 
@@ -21,10 +23,6 @@
 	/// Whether the client has ai interacting as a ghost enabled or not
 	var/AI_Interact		= 0
 
-	/// Used to cache this client's bans to save on DB queries
-	var/ban_cache = null
-	///If we are currently building this client's ban cache, this var stores the timeofday we started at
-	var/ban_cache_start = 0
 	/// Contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message	= ""
 	/// How many messages sent in the last 10 seconds
@@ -62,17 +60,6 @@
 		//things that require the database//
 		////////////////////////////////////
 
-	/// Used to determine how old the account is - in days.
-	var/player_age = -1
-	/// Date that this account was first seen in the server
-	var/player_join_date = null
-	var/related_accounts_ip = "Requires database"	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this ip
-	var/related_accounts_cid = "Requires database"	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this computer id
-	/// Date of byond account creation in ISO 8601 format
-	var/account_join_date = null
-	/// Age of byond account in days
-	var/account_age = -1
-
 	preload_rsc = PRELOAD_RSC
 
 	var/atom/movable/screen/click_catcher/void
@@ -87,15 +74,6 @@
 
 	/// Datum that controls the displaying and hiding of tooltips
 	var/datum/tooltip/tooltips
-
-	var/lastping = 0
-	var/avgping = 0
-	/// world.time they connected
-	var/connection_time
-	/// world.realtime they connected
-	var/connection_realtime
-	/// world.timeofday they connected
-	var/connection_timeofday
 
 	var/inprefs = FALSE
 	var/list/topiclimiter
@@ -121,9 +99,6 @@
 
 	/// rate limiting for the crew manifest
 	COOLDOWN_DECLARE(crew_manifest_delay)
-
-	//Tick when ghost roles are useable again
-	var/next_ghost_role_tick = 0
 
 	/// If the client is currently under the restrictions of the interview system
 	var/interviewee = FALSE
