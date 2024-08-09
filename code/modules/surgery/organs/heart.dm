@@ -23,6 +23,10 @@
 	var/failed = FALSE
 	//whether the heart's been operated on to fix some of its damages
 	var/operated = FALSE
+	///Color of the heart, is set by the species on gain
+	//var/ethereal_color = "#9c3030"
+
+
 
 /obj/item/organ/heart/update_icon()
 	if(beating)
