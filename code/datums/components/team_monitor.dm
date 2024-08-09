@@ -447,7 +447,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 		UnregisterSignal(updating, COMSIG_MOVABLE_MOVED)
 
 	//Goodbye, it was a good life
-	remove_from_huds()
+	remove_atom_from_huds()
 
 	//Remove from the global network
 	if(team_frequency)
@@ -503,7 +503,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	if((updating || always_update) && visible)
 		add_to_huds()
 	else
-		remove_from_huds()
+		remove_atom_from_huds()
 
 //===========
 // Position Updating
@@ -526,7 +526,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 //===========
 
 //Remove ourselves from other tracking components
-/datum/component/tracking_beacon/proc/remove_from_huds()
+/datum/component/tracking_beacon/proc/remove_atom_from_huds()
 	if(!team_frequency)
 		return
 	for(var/datum/component/team_monitor/team_monitor as() in get_all_watchers_on_frequency(team_frequency, team_freq_key, global_signal))

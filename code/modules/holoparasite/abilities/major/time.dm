@@ -69,7 +69,7 @@
 	immune = _immune
 	for(var/mob/mob in GLOB.mob_list)
 		if(mobShouldSee(mob))
-			add_hud_to(mob)
+			show_to(mob)
 			mob.reload_huds()
 
 /datum/atom_hud/alternate_appearance/basic/decoy/mobShouldSee(mob/mob)

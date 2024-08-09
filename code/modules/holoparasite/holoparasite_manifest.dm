@@ -52,7 +52,7 @@
 	SEND_SIGNAL(src, COMSIG_HOLOPARA_PRE_RECALL, forced)
 	remove_filter("holopara_manifest")
 	tracking_beacon.toggle_visibility(FALSE)
-	tracking_beacon.remove_from_huds()
+	tracking_beacon.remove_atom_from_huds()
 	new /obj/effect/temp_visual/holoparasite/phase/out(loc)
 	playsound(loc, 'sound/creatures/holopara_summon.ogg', vol = 45, extrarange = HOLOPARA_RECALL_SOUND_EXTRARANGE, frequency = -1)
 	forceMove(summoner.current)

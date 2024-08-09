@@ -21,3 +21,7 @@
 	for (var/item in src) // Notify contents of Z-transition. This can be overridden IF we know the items contents do not care.
 		var/atom/movable/AM = item
 		AM.onTransitZ(old_z,new_z)
+	for(var/client/each_client as anything in eye_users)
+		if(each_client.mob == src)
+			continue
+		SEND_SIGNAL(each_client, COMSIG_CLIENT_EYE_Z_CHANGED, old_z, new_z)

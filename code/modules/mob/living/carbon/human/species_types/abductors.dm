@@ -17,12 +17,12 @@
 /datum/species/abductor/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
 	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	abductor_hud.add_hud_to(C)
+	abductor_hud.show_to(C)
 
 /datum/species/abductor/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	abductor_hud.remove_hud_from(C)
+	abductor_hud.hide_from(C)
 
 /datum/species/abductor/get_species_description()
 	return "Silent, but deadly. It's not known where they really come from, but they seem to have shown up regardless."

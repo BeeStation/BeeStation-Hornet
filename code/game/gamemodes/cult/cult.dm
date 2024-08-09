@@ -3,7 +3,7 @@
 /datum/game_mode
 	var/list/datum/mind/cult = list()
 
-/proc/iscultist(mob/living/M)
+/proc/iscultist(mob/living/M) // NOTE: should be converted into IS_CULTIST() macro
 	return M?.mind?.has_antag_datum(/datum/antagonist/cult)
 
 /datum/team/cult/proc/is_sacrifice_target(datum/mind/mind)

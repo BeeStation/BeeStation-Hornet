@@ -9,6 +9,8 @@
 
 #define isdatum(thing) (istype(thing, /datum))
 
+#define isclient(thing) (istype(thing, /client))
+
 #define isweakref(D) (istype(D, /datum/weakref))
 
 #define isimage(thing) (istype(thing, /image))

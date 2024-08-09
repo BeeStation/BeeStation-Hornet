@@ -44,8 +44,7 @@
 	image_rotation = add_input_port("Overlay Rotation", PORT_TYPE_NUMBER)
 
 /obj/item/circuit_component/object_overlay/Destroy()
-	for(var/active_overlay in active_overlays)
-		QDEL_NULL(active_overlay)
+	QDEL_LIST_ASSOC_VAL(active_overlays)
 	return ..()
 
 /obj/item/circuit_component/object_overlay/populate_options()
@@ -80,56 +79,52 @@
 	var/mob/living/owner = bci.owner
 	var/atom/target_atom = target.value
 
-	if(!owner || !istype(owner) || !owner.client || !target_atom)
+	if(!istype(owner) || !owner.client || isnull(target_atom))
 		return
 
 	if(COMPONENT_TRIGGERED_BY(signal_on, port))
 		show_to_owner(target_atom, owner)
 
-	if(COMPONENT_TRIGGERED_BY(signal_off, port) && (target_atom in active_overlays))
-		QDEL_NULL(active_overlays[target_atom])
-		active_overlays.Remove(target_atom)
-
-	// Clear all overlays
-	if(COMPONENT_TRIGGERED_BY(signal_all_off, port))
-		for(var/active_overlay in active_overlays)
-			QDEL_NULL(active_overlays[active_overlay])
-		active_overlays.Cut()
+	var/datum/atom_hud/existing_overlay = active_overlays[REF(target_atom)]
+	if(COMPONENT_TRIGGERED_BY(signal_off, port) && !isnull(existing_overlay))
+		qdel(existing_overlay)
+		active_overlays -= REF(target_atom)
 
 /obj/item/circuit_component/object_overlay/proc/show_to_owner(atom/target_atom, mob/living/owner)
-	if(LAZYLEN(active_overlays) >= OBJECT_OVERLAY_LIMIT)
+	if(length(active_overlays) >= OBJECT_OVERLAY_LIMIT)
 		return
 
-	if(active_overlays[target_atom])
-		QDEL_NULL(active_overlays[target_atom])
+	var/datum/atom_hud/existing_overlay = active_overlays[REF(target_atom)]
+	if(!isnull(existing_overlay))
+		qdel(existing_overlay)
 
 	var/image/cool_overlay = image(icon = 'icons/mob/screen_bci.dmi', loc = target_atom, icon_state = options_map[object_overlay_options.value], layer = RIPPLE_LAYER)
 
-	if(image_pixel_x.value)
+	if(image_pixel_x.value != null)
 		cool_overlay.pixel_x = image_pixel_x.value
 
-	if(image_pixel_y.value)
+	if(image_pixel_y.value != null)
 		cool_overlay.pixel_y = image_pixel_y.value
 
-	if(image_rotation.value)
+	if(image_rotation.value != null)
 		var/matrix/turn_matrix = cool_overlay.transform
 		turn_matrix.Turn(image_rotation.value)
 		cool_overlay.transform = turn_matrix
 
-	var/alt_appearance = WEAKREF(target_atom.add_alt_appearance(
+	var/datum/atom_hud/alternate_appearance/basic/one_person/alt_appearance = target_atom.add_alt_appearance(
 		/datum/atom_hud/alternate_appearance/basic/one_person,
 		"object_overlay_[REF(src)]",
 		cool_overlay,
+		null,
 		owner,
-	))
+	)
+	alt_appearance.show_to(owner)
 
-	active_overlays[target_atom] = alt_appearance
+	active_overlays[REF(target_atom)] = alt_appearance
 
 /obj/item/circuit_component/object_overlay/proc/on_organ_removed(datum/source, mob/living/carbon/owner)
 	SIGNAL_HANDLER
 
-	for(var/active_overlay in active_overlays)
-		QDEL_NULL(active_overlays[active_overlay])
-	active_overlays.Cut()
+	QDEL_LIST_ASSOC_VAL(active_overlays)
 
 #undef OBJECT_OVERLAY_LIMIT
