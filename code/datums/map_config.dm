@@ -25,9 +25,6 @@
 	var/space_ruin_levels = 4	//Keep this low, as new ones are created dynamically when needed.
 	var/space_empty_levels = 1
 
-	///Type of the mining level to use
-	var/minetype = "lavaland"
-
 	///Does the map allow custom shuttles to be purchased
 	var/allow_custom_shuttles = TRUE
 	///Default list of json shuttles. Not all shuttles use this system; most use the template variable.
@@ -50,6 +47,13 @@
 	//======
 	// planetary Settings
 	//======
+
+	/// We'll use lavaland planet (or sort) as long as it's allowed. TRUE by default, but becomes FALSE by json map config.
+	var/use_minetype = TRUE // to make it FALSE, set ("use_minetype": "false") in map json file
+	///Type of the mining level to use
+	var/minetype = "lavaland"
+	/// which planet will be the sun of this solar system. If null, lavaland becomes the sun.
+	var/central_orbit
 
 	/// Is this station considered a planet for the supercruise map
 	var/planetary_station = FALSE
@@ -117,6 +121,14 @@
 		if (!fexists("_maps/[map_path]/[map_file]"))
 			log_world("Map file ([map_path]/[map_file]) does not exist!")
 			return
+
+		// we find a map adjustment for that station
+		for(var/datum/map_adjustment/each_adjust as anything in subtypesof(/datum/map_adjustment))
+			if(initial(each_adjust.map_file_name) != map_file)
+				continue
+			SSmapping.map_adjustment = new each_adjust() // we use this later
+			break
+
 	// "map_file": ["Lower.dmm", "Upper.dmm"]
 	else if (islist(map_file))
 		for (var/file in map_file)
@@ -163,16 +175,26 @@
 		log_world("map_config space_empty_levels is not a number!")
 		return
 
-	if ("minetype" in json)
+	use_minetype = (json["use_minetype"] == "false") ? FALSE : TRUE // // "false" in json is just a string...
+	if(json["minetype"])
 		minetype = json["minetype"]
+		if(!use_minetype)
+			log_world("use_minetype is FALSE, and it means we're not supposed to use minetype([minetype]), but it's defined. Sets use_minetype = TRUE automatically.")
+			use_minetype = TRUE
 
-	if("map_link" in json)
+	if(json["map_link"])
 		map_link = json["map_link"]
 	else
 		log_world("map_link missing from json!")
 
 	starlight_mode = json["starlight"] || STARLIGHT_MODE_STARLIGHT
 	cycle_colours = json["starlight_colours"] || null
+
+	var/temp_central_orbit = json["central_orbit"]
+	if(temp_central_orbit)
+		central_orbit = text2path(temp_central_orbit)
+		if(!central_orbit)
+			log_world("central_orbit is given as '[temp_central_orbit]', but it's not a correct path.")
 
 	allow_custom_shuttles = json["allow_custom_shuttles"] != FALSE
 	allow_night_lighting = json["allow_night_lighting"] != FALSE
