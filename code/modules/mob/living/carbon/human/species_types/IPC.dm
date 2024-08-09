@@ -4,8 +4,27 @@
 	id = SPECIES_IPC
 	bodyflag = FLAG_IPC
 	sexes = FALSE
-	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH, MUTCOLORS)
-	inherent_traits = list(TRAIT_BLOOD_COOLANT,TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_EASYDISMEMBER,TRAIT_POWERHUNGRY,TRAIT_XENO_IMMUNE, TRAIT_TOXIMMUNE)
+	species_traits = list(
+		TRAIT_BLOOD_COOLANT,
+		NOTRANSSTING,
+		NOEYESPRITES,
+		NO_DNA_COPY,
+		NOZOMBIE,
+		MUTCOLORS,
+		REVIVESBYHEALING,
+		NOHUSK,
+		NOMOUTH,
+	)
+	inherent_traits = list(
+		TRAIT_RESISTCOLD,
+		TRAIT_NOBREATH,
+		TRAIT_RADIMMUNE,
+		TRAIT_LIMBATTACHMENT,
+		TRAIT_EASYDISMEMBER,
+		TRAIT_POWERHUNGRY,
+		TRAIT_XENO_IMMUNE,
+		TRAIT_TOXIMMUNE
+	)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutant_brain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
@@ -44,8 +63,7 @@
 	species_l_leg = /obj/item/bodypart/l_leg/ipc
 	species_r_leg = /obj/item/bodypart/r_leg/ipc
 
-	exotic_blood = /datum/reagent/oil
-	blood_color = "#000000"
+	exotic_bloodtype = "Coolant"
 	bleed_effect = /datum/status_effect/bleeding/robotic
 
 	var/saved_screen //for saving the screen when they die

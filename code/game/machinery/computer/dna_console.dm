@@ -1166,7 +1166,7 @@
 				"label" = "Slot [buffer_index]:[scanner_occupant.real_name]",
 				"UI" = scanner_occupant.dna.uni_identity,
 				"UE" = scanner_occupant.dna.unique_enzymes,
-				"blood_type" = scanner_occupant.dna.blood_type
+				"blood_type" = scanner_occupant.dna.blood_type.name
 			)
 
 			return

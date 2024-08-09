@@ -237,6 +237,8 @@
 		return TRUE
 	if(!allow_exotic_faxes)
 		return FALSE
+	if(item?.GetComponent(/datum/component/xenoartifact))
+		return FALSE
 	return is_type_in_list(item, exotic_types)
 
 /obj/machinery/fax/ui_interact(mob/user, datum/tgui/ui)

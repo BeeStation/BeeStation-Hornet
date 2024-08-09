@@ -49,6 +49,9 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 				sold = E.sell_object(thing, report, dry_run, allowed_categories , apply_elastic)
 				report.exported_atoms += " [thing.name]"
 				break
+
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_ATOM_SOLD, thing, sold)
+
 		if(!dry_run && (sold || delete_unsold))
 			if(ismob(thing))
 				thing.investigate_log("deleted through cargo export",INVESTIGATE_CARGO)
@@ -77,6 +80,9 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 				sold = E.sell_object(thing, report, dry_run, allowed_categories , apply_elastic)
 				report.exported_atoms += " [thing.name]"
 				break
+
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_ATOM_SOLD, thing, sold)
+
 		if(!dry_run && (sold || delete_unsold))
 			if(ismob(thing))
 				thing.investigate_log("deleted through cargo export",INVESTIGATE_CARGO)

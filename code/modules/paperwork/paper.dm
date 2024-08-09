@@ -326,7 +326,7 @@
 		return UI_CLOSE
 	if(camera_holder && can_show_to_mob_through_camera(user) || request_state)
 		return UI_UPDATE
-	if(!in_range(user,src))
+	if(!in_range(user, src))
 		return UI_CLOSE
 	if(user.incapacitated(TRUE, TRUE) || (isobserver(user) && !IsAdminGhost(user)))
 		return UI_UPDATE
@@ -334,7 +334,7 @@
 	// .. or if you cannot read
 	if(!user.can_read(src))
 		return UI_CLOSE
-	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/item/clipboard))
+	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/item/clipboard) || in_contents_of(/obj/item/sticker/sticky_note))
 		return UI_INTERACTIVE
 	return ..()
 

@@ -600,6 +600,15 @@
 	},
 /turf/open/floor/iron,
 /area/mine/eva)
+"eI" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/camera/directional/west,
+/turf/open/floor/iron,
+/area/mine/science)
 "eK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
@@ -923,6 +932,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/wood,
 /area/mine/living_quarters)
+"gC" = (
+/obj/structure/chair/foldable,
+/obj/machinery/camera/directional/north,
+/turf/open/floor/iron/dark,
+/area/mine/science)
 "gD" = (
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance,
 /obj/item/reagent_containers/food/condiment/sugar,
@@ -2680,6 +2694,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/science)
+"sX" = (
+/obj/structure/closet/crate/science,
+/obj/machinery/camera/directional/west,
+/turf/open/floor/iron,
+/area/mine/science)
 "ta" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -2694,10 +2713,6 @@
 	pixel_y = 28;
 	req_access_txt = "2"
 	},
-/turf/open/floor/iron,
-/area/mine/science)
-"tk" = (
-/obj/machinery/camera/directional/north,
 /turf/open/floor/iron,
 /area/mine/science)
 "tm" = (
@@ -3195,11 +3210,6 @@
 "wS" = (
 /turf/closed/wall,
 /area/mine/eva)
-"wV" = (
-/obj/effect/decal/cleanable/greenglow/filled,
-/obj/machinery/camera/directional/north,
-/turf/open/floor/carpet/royalblue,
-/area/mine/science)
 "wW" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -3255,15 +3265,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/living_quarters)
-"xw" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/camera/directional/west,
-/turf/open/floor/iron,
-/area/mine/science)
 "xy" = (
 /obj/machinery/photocopier,
 /obj/machinery/airalarm/directional/east{
@@ -4565,11 +4566,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"HG" = (
-/obj/structure/closet/crate/science,
-/obj/machinery/camera/directional/west,
-/turf/open/floor/iron,
-/area/mine/science)
 "HR" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -5304,11 +5300,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/carpet/blue,
 /area/mine/living_quarters)
-"NB" = (
-/obj/structure/chair/foldable,
-/obj/machinery/camera/directional/north,
-/turf/open/floor/iron/dark,
-/area/mine/science)
 "ND" = (
 /turf/closed/wall/r_wall,
 /area/mine/production)
@@ -5383,6 +5374,10 @@
 "Od" = (
 /obj/structure/closet/crate/critter,
 /turf/open/floor/iron/dark,
+/area/mine/science)
+"Of" = (
+/obj/machinery/camera/directional/north,
+/turf/open/floor/iron,
 /area/mine/science)
 "Oh" = (
 /obj/machinery/atmospherics/components/unary/tank/air{
@@ -5924,6 +5919,11 @@
 	},
 /turf/open/floor/iron,
 /area/mine/science)
+"So" = (
+/obj/effect/decal/cleanable/greenglow/filled,
+/obj/machinery/camera/directional/north,
+/turf/open/floor/carpet/royalblue,
+/area/mine/science)
 "Ss" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/computer/secure_data{
@@ -6159,13 +6159,6 @@
 /obj/structure/closet/crate/science,
 /turf/open/floor/iron,
 /area/mine/science)
-"Ub" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/janitorialcart,
-/obj/item/mop,
-/obj/machinery/camera/directional/north,
-/turf/open/floor/engine,
-/area/mine/science)
 "Un" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "mining_internal";
@@ -6351,6 +6344,13 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Vl" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/janitorialcart,
+/obj/item/mop,
+/obj/machinery/camera/directional/north,
+/turf/open/floor/engine,
+/area/mine/science)
 "Vq" = (
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/structure/barricade/wooden/crude,
@@ -48194,7 +48194,7 @@ rf
 rf
 mp
 Sn
-HG
+sX
 uP
 jh
 Zd
@@ -48711,7 +48711,7 @@ xA
 aJ
 Zg
 jo
-xw
+eI
 Sx
 Jm
 HT
@@ -48721,7 +48721,7 @@ Lc
 im
 FJ
 jh
-tk
+Of
 im
 xL
 BL
@@ -50253,7 +50253,7 @@ jh
 PL
 jh
 lv
-wV
+So
 sb
 SZ
 sb
@@ -50773,7 +50773,7 @@ tS
 nw
 aZ
 lv
-tk
+Of
 Jo
 Xb
 mp
@@ -51034,7 +51034,7 @@ Pk
 zv
 RX
 jh
-Ub
+Vl
 qd
 JK
 YW
@@ -51277,7 +51277,7 @@ mp
 rL
 BC
 jh
-NB
+gC
 eg
 Od
 mp

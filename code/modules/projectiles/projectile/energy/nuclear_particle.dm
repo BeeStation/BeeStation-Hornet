@@ -52,6 +52,33 @@
 			name = "impossibly strong nuclear particle"
 			damage = 30
 
+//TODO: Consider adding an atmos requirement - Racc : CONSULT, PLAYTEST
+/obj/projectile/energy/nuclear_particle/scan_moved_turf()
+	. = ..()
+	//Do a gas check first
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/air = T?.return_air()
+	if((air?.get_moles(GAS_TRITIUM) < MOLES_GAS_VISIBLE))
+		return
+	for(var/obj/item/I in loc)
+		//TODO: Consider using some fancy math here, or something - Racc : CONSULT, PLAYTEST
+		if(!prob(33))
+			continue
+		//Proceed with artifact logic
+		var/datum/component/xenoartifact/X = I.GetComponent(/datum/component/xenoartifact)
+		if(X)
+			continue
+		//Check for any pearls attached to the item first
+		var/trait_list = list()
+		for(var/obj/item/sticker/trait_pearl/P in I.contents)
+			trait_list += P.stored_trait
+			qdel(P)
+		//Make the item an artifact
+		I.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/pearl, length(trait_list) ? trait_list : null, TRUE, FALSE)
+		playsound(I, 'sound/magic/staff_change.ogg', 50, TRUE)
+		qdel(src)
+		break
+
 /atom/proc/fire_nuclear_particle(angle = rand(0,360), customize = FALSE, custompower = 1e12) //used by fusion to fire random nuclear particles. Fires one particle in a random direction.
 	var/obj/projectile/energy/nuclear_particle/P = new /obj/projectile/energy/nuclear_particle(src)
 	if(customize)

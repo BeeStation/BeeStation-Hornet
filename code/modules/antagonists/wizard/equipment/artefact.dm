@@ -168,7 +168,7 @@
 		if(ismob(A))
 			to_chat(A, "<span class='warning'>There is no way out of this place...</span>")
 		return
-	var/atom/return_thing = pick(GLOB.destabliization_exits)
+	var/atom/return_thing = pick(GLOB.destabliization_exits) || pick(get_safe_random_station_turfs())
 	var/turf/T = get_turf(return_thing)
 	if(!T)
 		return
