@@ -149,7 +149,7 @@
 	if(client || key || ckey)
 		to_chat(user, "<span class='warning'>\The [src] already has a player.")
 		return
-	if(!is_ghost_spawn)
+	if(!is_ghost_spawn || stat == DEAD)
 		to_chat(user, "<span class='warning'>\The [src] is not possessable!")
 		return
 	var/control_ask = alert("Do you wish to take control of \the [src]", "Chirp Time?", "Yes", "No")
