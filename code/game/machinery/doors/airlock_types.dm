@@ -25,11 +25,13 @@
 	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_mai
 	normal_integrity = 250
+	maintenance = TRUE
 
 /obj/machinery/door/airlock/maintenance/external
 	name = "external airlock access"
 	icon = 'icons/obj/doors/airlocks/station/maintenanceexternal.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_extmai
+	maintenance = TRUE
 
 /obj/machinery/door/airlock/mining
 	name = "mining airlock"
@@ -142,11 +144,13 @@
 /obj/machinery/door/airlock/maintenance/glass
 	opacity = FALSE
 	glass = TRUE
+	maintenance = TRUE
 
 /obj/machinery/door/airlock/maintenance/external/glass
 	opacity = FALSE
 	glass = TRUE
 	normal_integrity = 200
+	maintenance = TRUE
 
 //////////////////////////////////
 /*
@@ -428,6 +432,7 @@
 	note_attachment = "ul"
 	panel_attachment = "dr"
 	allow_repaint = FALSE
+	maintenance = TRUE
 
 //////////////////////////////////
 /*
