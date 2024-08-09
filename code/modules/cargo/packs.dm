@@ -1803,7 +1803,7 @@
 					/obj/item/reagent_containers/medspray/sterilizine,
 					/obj/item/rollerbed)
 	crate_name = "surgical supplies crate"
-	
+
 /datum/supply_pack/medical/implants
 	name = "Surplus Implants Crate"
 	desc = "Do you want implants, but those R&D folks hasn't learnt how to do their job? Just get started with this crate containing several of our dusty surplus implants. (Surgical tools not included)"
@@ -2802,6 +2802,13 @@
 					/mob/living/simple_animal/hostile/retaliate/poison/snake,
 					/mob/living/simple_animal/hostile/retaliate/poison/snake)
 	crate_name = "snake crate"
+
+/datum/supply_pack/critter/capybara
+	name = "Capybara Crate"
+	desc = "Coconut doggy"
+	cost = 10000
+	contains = list(/mob/living/simple_animal/pet/dog/corgi/capybara)
+	crate_name = "capybara crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Costumes & Toys /////////////////////////////////
