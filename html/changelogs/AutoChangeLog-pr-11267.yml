@@ -1,6 +1,0 @@
-author: TsunamiAnt
-delete-after: true
-changes:
-  - tweak: Changed the vox guide around a bit to make sound effects better sorted
-  - soundadd: added a new vox chime to enhance vox announcements
-  - soundadd: added two new vox alarm sounds
