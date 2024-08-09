@@ -208,11 +208,15 @@
 		cb.InvokeAsync()
 	LAZYCLEARLIST(round_end_events)
 
+	// Play a new song from the beginning
+	SSmusic.play_next_lobby_song()
+
 	for(var/client/C in GLOB.clients)
 		if(C)
 
 			C?.process_endround_metacoin()
-			C?.playtitlemusic(40)
+			if (SSmusic.login_music)
+				C?.tgui_panel?.play_global_music(SSmusic.login_music)
 
 			if(CONFIG_GET(flag/allow_crew_objectives))
 				var/mob/M = C?.mob
