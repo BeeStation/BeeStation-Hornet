@@ -8,6 +8,7 @@
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
 		/obj/item/melee/baton,
+		/obj/item/melee/tonfa,
 		/obj/item/restraints/handcuffs,
 		/obj/item/tank/internals,
 		/obj/item/knife/combat

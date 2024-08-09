@@ -186,6 +186,7 @@
 		/obj/effect/spawner/mail/donut = 20,
 		/obj/effect/spawner/mail/rdonut = 15,
 		/obj/item/melee/baton = 1,
+		/obj/item/melee/tonfa,
 	)
 
 //DETECTIVE
