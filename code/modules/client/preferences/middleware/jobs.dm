@@ -40,7 +40,7 @@
 	var/list/departments = list()
 	var/list/jobs = list()
 
-	for (var/datum/job/job as anything in SSjob.occupations)
+	for (var/datum/job/job as anything in SSjob.all_occupations)
 		if(!job.show_in_prefs)
 			continue
 		if(job.lock_flags & ~JOB_LOCK_REASON_MAP) // anything but map reason shouldn't be visible
@@ -55,7 +55,7 @@
 			stack_trace("[job] does not have a description set, yet is a joinable occupation!")
 			continue
 
-		var/department_name = GLOB.dept_bitflag_to_name["[department_flag]"]
+		var/department_name = SSdepartment.department_bitflag_to_name["[department_flag]"]
 		if (isnull(departments[department_name]))
 			var/department_head_jobname = job.department_head_for_prefs || job.department_head
 			if(islist(department_head_jobname) && length(department_head_jobname))
@@ -104,7 +104,7 @@
 	var/list/job_days_left = list()
 	var/list/job_required_experience = list()
 
-	for (var/datum/job/job as anything in SSjob.occupations)
+	for (var/datum/job/job as anything in SSjob.all_occupations)
 		if(!job.show_in_prefs)
 			continue
 		var/required_playtime_remaining = job.required_playtime_remaining(user.client)
@@ -130,7 +130,7 @@
 /datum/preference_middleware/jobs/proc/get_job_bans(mob/user)
 	var/list/data = list()
 
-	for (var/datum/job/job as anything in SSjob.occupations)
+	for (var/datum/job/job as anything in SSjob.all_occupations)
 		if (is_banned_from(user.client?.ckey, job.title))
 			data += job.title
 

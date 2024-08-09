@@ -1,9 +1,9 @@
 /datum/job/gimmick //gimmick var must be set to true for all gimmick jobs BUT the parent
 	title = JOB_NAME_GIMMICK
 	description = "Use your unique position to provide a service or entertain the crew."
-	department_for_prefs = DEPT_BITFLAG_ASSISTANT
+	department_for_prefs = DEPT_BITFLAG_CIV
 	show_in_prefs = TRUE
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 0
 	spawn_positions = 0
 	supervisors = "no one"
@@ -13,6 +13,7 @@
 	base_access = list(ACCESS_MAINT_TUNNELS)
 	extra_access = list()
 
+	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT)
@@ -41,9 +42,9 @@
 	base_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_SRV
-	bank_account_department = ACCOUNT_SRV_BITFLAG
-	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_ASSISTANT)
+	departments = DEPT_BITFLAG_CIV
+	bank_account_department = ACCOUNT_CIV_BITFLAG
+	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT)
 
 	rpg_title = "Scissorhands"
 
@@ -74,9 +75,9 @@
 	base_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_SRV
-	bank_account_department = ACCOUNT_SRV_BITFLAG
-	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
+	departments = DEPT_BITFLAG_CIV
+	bank_account_department = ACCOUNT_CIV_BITFLAG
+	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT)
 
 	rpg_title = "Master Illusionist"
 	species_outfits = list(

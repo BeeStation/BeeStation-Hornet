@@ -267,7 +267,7 @@
 
 /mob/dead/new_player/proc/IsJobUnavailable(rank, latejoin = FALSE)
 	var/datum/job/job = SSjob.GetJob(rank)
-	if(!job)
+	if(!(job.job_flags & JOB_NEW_PLAYER_JOINABLE))
 		return JOB_UNAVAILABLE_GENERIC
 	if(job.lock_flags)
 		return JOB_UNAVAILABLE_LOCKED
@@ -275,8 +275,8 @@
 		if(job.title == JOB_NAME_ASSISTANT)
 			if(isnum_safe(client.player_age) && client.player_age <= 14) //Newbies can always be assistants
 				return JOB_AVAILABLE
-			for(var/datum/job/J in SSjob.occupations)
-				if(J && J.current_positions < J.total_positions && J.title != job.title)
+			for(var/datum/job/J in SSjob.joinable_occupations)
+				if(J && J.current_positions < J.total_positions && J != job)
 					return JOB_UNAVAILABLE_SLOTFULL
 		else
 			return JOB_UNAVAILABLE_SLOTFULL
@@ -319,12 +319,12 @@
 
 	SSjob.AssignRole(src, rank, 1)
 
+	var/datum/job/job = SSjob.GetJob(rank)
+
 	var/mob/living/character = create_character(TRUE)	//creates the human and transfers vars and mind
-	var/equip = SSjob.EquipRank(character, rank, TRUE)
+	var/equip = SSjob.EquipRank(character, job, character.client, TRUE)
 	if(isliving(equip))	//Borgs get borged in the equip, so we need to make sure we handle the new mob.
 		character = equip
-
-	var/datum/job/job = SSjob.GetJob(rank)
 
 	if(job && !job.override_latejoin_spawn(character))
 		SSjob.SendToLateJoin(character)
@@ -344,9 +344,9 @@
 	if(humanc)	//These procs all expect humans
 		GLOB.data_core.manifest_inject(humanc)
 		if(SSshuttle.arrivals)
-			SSshuttle.arrivals.QueueAnnounce(humanc, rank)
+			SSshuttle.arrivals.QueueAnnounce(humanc, job.title)
 		else
-			AnnounceArrival(humanc, rank)
+			AnnounceArrival(humanc, job.title)
 		AddEmploymentContract(humanc)
 		if(GLOB.highlander)
 			to_chat(humanc, "<span class='userdanger'><i>THERE CAN BE ONLY ONE!!!</i></span>")
@@ -359,7 +359,7 @@
 		if(GLOB.curse_of_madness_triggered)
 			give_madness(humanc, GLOB.curse_of_madness_triggered)
 
-		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREWMEMBER_JOINED, humanc, rank)
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREWMEMBER_JOINED, humanc, job.title)
 
 	GLOB.joined_player_list += character.ckey
 
@@ -392,19 +392,6 @@
 */
 
 /mob/dead/new_player/proc/LateChoices()
-	var/static/list/department_order = list( // department order and its dept color
-		"Command" = "#ddddff",
-		"Engineering" = "#ffeeaa",
-		"Supply"= "#d7b088",
-		"Silicon" = "#ccffcc",
-		"Civilian"= "#bbe291",
-		"Gimmick" = "#dddddd",
-		"Medical" = "#c1e1ec",
-		"Science" = "#ffddff",
-		"Security" = "#ffdddd"
-	)
-	var/static/list/department_list = list(GLOB.command_positions) + list(GLOB.engineering_positions) + list(GLOB.supply_positions) + list(GLOB.nonhuman_positions - ROLE_PAI) + list(GLOB.civilian_positions) + list(GLOB.gimmick_positions) + list(GLOB.medical_positions) + list(GLOB.science_positions) + list(GLOB.security_positions)
-
 	var/list/dat = list("<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>")
 	if(SSjob.prioritized_jobs.len > 0)
 		dat+="<div class='priority' style='text-align:center'>Jobs in Green have been prioritized by the Head of Personnel.<br>Please consider joining the game as that role.</div>"
@@ -420,16 +407,16 @@
 			SSjob.prioritized_jobs -= prioritized_job
 	dat += "<table><tr><td valign='top'>"
 	var/column_counter = 0
-	for(var/list/category in department_list)
-		var/cat_color = department_order[department_order[column_counter+1]] // color from `department_order`
+	for(var/list/category in SSdepartment.all_station_departments_list)
+		var/cat_color = SSdepartment.department_order[SSdepartment.department_order[column_counter+1]] // color from `department_order`
 		dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
-		dat += "<legend align='center' style='color: [cat_color]'>[department_order[column_counter+1]]</legend>"
+		dat += "<legend align='center' style='color: [cat_color]'>[SSdepartment.department_order[column_counter+1]]</legend>"
 		var/list/dept_dat = list()
 		for(var/job in category)
 			var/datum/job/job_datum = SSjob.name_occupations[job]
 			if(job_datum && IsJobUnavailable(job_datum.title, TRUE) == JOB_AVAILABLE)
 				var/command_bold = ""
-				if(job in GLOB.command_positions)
+				if(job in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND))
 					command_bold = " command"
 				if(job_datum in SSjob.prioritized_jobs)
 					dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'><span class='priority'>[job_datum.title] ([job_datum.current_positions])</span></a>"
@@ -454,20 +441,17 @@
 	spawning = TRUE
 	close_spawn_windows()
 
-	var/mob/living/carbon/human/H = new(loc)
+	var/mob/living/spawning_mob = mind.assigned_role.get_spawn_mob(client, loc)
 
-	H.apply_prefs_job(client, SSjob.GetJob(mind.assigned_role))
-	if(QDELETED(src) || !client)
-		return // Disconnected while checking for the appearance ban.
 	if(mind)
 		if(transfer_after)
 			mind.late_joiner = TRUE
 		mind.active = 0					//we wish to transfer the key manually
-		mind.transfer_to(H)					//won't transfer key since the mind is not active
+		mind.transfer_to(spawning_mob)					//won't transfer key since the mind is not active
 
-	H.name = real_name
+	spawning_mob.name = real_name
 
-	. = H
+	. = spawning_mob
 	new_character = .
 	if(transfer_after)
 		transfer_character()

@@ -221,7 +221,7 @@
 	var/obj/item/card/id/W = H.wear_id
 	if(W)
 		if(id_access)
-			for(var/datum/job/J in SSjob.occupations)
+			for(var/datum/job/J in SSjob.all_occupations)
 				if(J.title == id_access)
 					W.access = J.get_access()
 					break

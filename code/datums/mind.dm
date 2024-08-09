@@ -40,7 +40,7 @@
 	var/memory
 	var/list/quirks = list()
 
-	var/assigned_role
+	var/datum/job/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
@@ -830,12 +830,12 @@
 //AI
 /mob/living/silicon/ai/mind_initialize()
 	..()
-	mind.assigned_role = JOB_NAME_AI
+	mind.assigned_role = /datum/job/ai
 
 //BORG
 /mob/living/silicon/robot/mind_initialize()
 	..()
-	mind.assigned_role = JOB_NAME_CYBORG
+	mind.assigned_role = /datum/job/cyborg
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()
