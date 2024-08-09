@@ -78,7 +78,6 @@
 	is_animating_door = FALSE
 	vis_contents -= door_obj
 	update_icon()
-	COMPILE_OVERLAYS(src)
 
 /obj/structure/closet/crate/get_door_transform(crateanim_1, crateanim_2)
 	var/matrix/M = matrix()
@@ -301,13 +300,11 @@
 	dense_when_open = FALSE
 	///Becomes TRUE when the crate is being closed to ensure the compression sequence completes as expected.
 	var/closing = FALSE
+	door_anim_time = 0
 
 /obj/structure/closet/crate/capsule/update_icon()
 	cut_overlays()
 	icon_state = "capsule[opened ? "_open" : "_close"]"
-
-/obj/structure/closet/crate/capsule/animate_door(closing)
-	return FALSE
 
 /obj/structure/closet/crate/capsule/insertion_allowed(atom/movable/AM)
 	if(!isitem(AM))

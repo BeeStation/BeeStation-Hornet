@@ -153,7 +153,7 @@
 		//1 is the lowest value found in monitors.dmi
 		pressure_bars = 1
 	else
-		pressure_bars = round(pressure / maxpressure * 5 + 0.01)
+		pressure_bars = min(round(pressure / maxpressure * 5 + 0.01), 5)
 
 	var/new_overlays_hash = "[pressure_bars]-[cyclestate]-[buildstage]-[panel_open]-[machine_stat]-[shorted]-[locked]-[vis_target]"
 	if(use_hash && new_overlays_hash == overlays_hash)
@@ -177,7 +177,8 @@
 		return
 
 	var/is_exterior_pressure = (cyclestate == AIRLOCK_CYCLESTATE_OUTCLOSING || cyclestate == AIRLOCK_CYCLESTATE_OUTOPENING || cyclestate == AIRLOCK_CYCLESTATE_OUTOPEN)
-	add_overlay("aac_[is_exterior_pressure ? "ext" : "int"]p_[pressure_bars]")
+	if(pressure_bars > 0) // 0 means no overlay. no need this.
+		add_overlay("aac_[is_exterior_pressure ? "ext" : "int"]p_[pressure_bars]")
 	add_overlay("aac_cyclestate_[cyclestate]")
 	if(obj_flags & EMAGGED)
 		add_overlay("aac_emagged")

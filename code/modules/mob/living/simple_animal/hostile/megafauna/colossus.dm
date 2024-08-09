@@ -806,6 +806,9 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/mob/living/simple_animal/holder_animal
+	door_anim_time = 0
+	has_opened_overlay = FALSE
+	has_closed_overlay = FALSE
 
 /obj/structure/closet/stasis/process()
 	if(holder_animal)
