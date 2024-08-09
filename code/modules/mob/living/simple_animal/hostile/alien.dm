@@ -7,9 +7,6 @@
 	icon_dead = "alienh_dead"
 	icon_gib = "syndicate_gib"
 	gender = FEMALE
-	response_help = "pokes"
-	response_disarm = "shoves"
-	response_harm = "hits"
 	speed = 0
 	butcher_results = list(/obj/item/food/meat/slab/xeno = 4,
 							/obj/item/stack/sheet/animalhide/xeno = 1)
@@ -17,7 +14,8 @@
 	health = 125
 	obj_damage = 60
 	melee_damage = 25
-	attacktext = "slashes"
+	attack_verb_continuous = "slashes"
+	attack_verb_simple = "slash"
 	speak_emote = list("hisses")
 	bubble_icon = "alien"
 	a_intent = INTENT_HARM
@@ -158,7 +156,8 @@
 	name = "lusty xenomorph maid"
 	melee_damage = 0
 	a_intent = INTENT_HELP
-	friendly = "caresses"
+	friendly_verb_continuous = "caresses"
+	friendly_verb_simple = "caress"
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	gold_core_spawnable = HOSTILE_SPAWN

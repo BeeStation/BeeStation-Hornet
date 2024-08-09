@@ -211,7 +211,8 @@
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	custom_materials = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
-	attack_verb = list("stabbed", "slashed", "sliced", "cut")
+	attack_verb_continuous = list("stabs", "slashes", "slices", "cuts")
+	attack_verb_simple = list("stab", "slash", "slice", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 100,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100, STAMINA = 0, BLEED = 0)

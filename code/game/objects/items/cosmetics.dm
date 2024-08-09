@@ -255,7 +255,8 @@
 	throw_speed = 3
 	throw_range = 6
 	hitsound = 'sound/weapons/genhit.ogg'
-	attack_verb = list("stubbed", "poked")
+	attack_verb_continuous = list("stubs", "pokes")
+	attack_verb_simple = list("stub", "poke")
 	extended = 0
 	var/extended_force = 10
 	var/extended_throwforce = 7
@@ -273,7 +274,8 @@
 		w_class = WEIGHT_CLASS_SMALL //if it becomes normal you can decapitate a guy with a straight razor
 		throwforce = extended_throwforce
 		icon_state = extended_icon_state
-		attack_verb = list("slashed", "stabbed", "sliced", "slit", "shaved", "diced", "cut")
+		attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+		attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		sharpness = IS_SHARP
 		bleed_force = BLEED_SURFACE
@@ -283,7 +285,8 @@
 		w_class = WEIGHT_CLASS_TINY
 		throwforce = initial(throwforce)
 		icon_state = initial(icon_state)
-		attack_verb = list("stubbed", "poked")
+		attack_verb_continuous = list("stubs", "pokes")
+		attack_verb_simple = list("stub", "poke")
 		hitsound = 'sound/weapons/genhit.ogg'
 		sharpness = IS_BLUNT
 		bleed_force = 0

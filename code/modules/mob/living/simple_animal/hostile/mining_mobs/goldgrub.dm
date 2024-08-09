@@ -12,11 +12,13 @@
 	vision_range = 2
 	aggro_vision_range = 9
 	move_to_delay = 5
-	friendly = "harmlessly rolls into"
+	friendly_verb_continuous = "harmlessly rolls into"
+	friendly_verb_simple = "harmlessly roll into"
 	maxHealth = 23
 	health = 23
 	melee_damage = 0
-	attacktext = "barrels into"
+	attack_verb_continuous = "barrels into"
+	attack_verb_simple = "barrel into"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HELP
 	speak_emote = list("screeches")

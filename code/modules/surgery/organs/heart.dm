@@ -16,7 +16,8 @@
 	// Heart attack code is in code/modules/mob/living/carbon/human/life.dm
 	var/beating = 1
 	var/icon_base = "heart"
-	attack_verb = list("beat", "thumped")
+	attack_verb_continuous = list("beats", "thumps")
+	attack_verb_simple = list("beat", "thump")
 	//is this mob having a heatbeat sound played? if so, which?
 	var/beat = BEAT_NONE
 	//to prevent constantly running failing code

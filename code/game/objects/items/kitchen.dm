@@ -26,7 +26,8 @@
 	throw_range = 5
 	custom_materials = list(/datum/material/iron=80)
 	flags_1 = CONDUCT_1
-	attack_verb = list("attacked", "stabbed", "poked")
+	attack_verb_continuous = list("attacks", "stabs", "pokes")
+	attack_verb_simple = list("attack", "stab", "poke")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0, BLEED = 0)
 	var/datum/reagent/forkload //used to eat omelette
@@ -84,7 +85,8 @@
 	throw_range = 7
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 1.5)
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "whacks")
+	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "whack")
 	custom_price = 20
 	tool_behaviour = TOOL_ROLLINGPIN
 

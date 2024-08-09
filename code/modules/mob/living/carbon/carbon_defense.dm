@@ -116,6 +116,43 @@
 				playsound(get_turf(src), I.get_dismember_sound(), 80, 1)
 		return TRUE //successful attack
 
+/mob/living/carbon/send_item_attack_message(obj/item/I, mob/living/user, hit_area, obj/item/bodypart/hit_bodypart)
+	if(!I.force && !length(I.attack_verb_simple) && !length(I.attack_verb_continuous))
+		return
+	var/message_verb_continuous = length(I.attack_verb_continuous) ? "[pick(I.attack_verb_continuous)]" : "attacks"
+	var/message_verb_simple = length(I.attack_verb_simple) ? "[pick(I.attack_verb_simple)]" : "attack"
+
+	var/extra_wound_details = ""
+	/*
+	if(I.damtype == BRUTE && hit_bodypart.can_dismember())
+		var/mangled_state = hit_bodypart.get_mangled_state()
+		var/bio_state = get_biological_state()
+		if(mangled_state == BODYPART_MANGLED_BOTH)
+			extra_wound_details = ", threatening to sever it entirely"
+		else if((mangled_state == BODYPART_MANGLED_FLESH && I.get_sharpness()) || (mangled_state & BODYPART_MANGLED_BONE && bio_state == BIO_JUST_BONE))
+			extra_wound_details = ", [I.get_sharpness() == SHARP_EDGED ? "slicing" : "piercing"] through to the bone"
+		else if((mangled_state == BODYPART_MANGLED_BONE && I.get_sharpness()) || (mangled_state & BODYPART_MANGLED_FLESH && bio_state == BIO_JUST_FLESH))
+			extra_wound_details = ", [I.get_sharpness() == SHARP_EDGED ? "slicing" : "piercing"] at the remaining tissue"
+	*/
+
+	var/message_hit_area = ""
+	if(hit_area)
+		message_hit_area = " in the [hit_area]"
+	var/attack_message_spectator = "[src] [message_verb_continuous][message_hit_area] with [I][extra_wound_details]!"
+	var/attack_message_victim = "You're [message_verb_continuous][message_hit_area] with [I][extra_wound_details]!"
+	var/attack_message_attacker = "You [message_verb_simple] [src][message_hit_area] with [I]!"
+	if(user in viewers(src, null))
+		attack_message_spectator = "[user] [message_verb_continuous] [src][message_hit_area] with [I][extra_wound_details]!"
+		attack_message_victim = "[user] [message_verb_continuous] you[message_hit_area] with [I][extra_wound_details]!"
+	if(user == src)
+		attack_message_victim = "You [message_verb_simple] yourself[message_hit_area] with [I][extra_wound_details]!"
+	visible_message("<span class='danger'>[attack_message_spectator]</span>",\
+		"<span class='userdanger'>[attack_message_victim]</span>", null, COMBAT_MESSAGE_RANGE, user)
+	if(user != src)
+		to_chat(user, "<span class='danger'>[attack_message_attacker]</span>")
+	return TRUE
+
+
 /mob/living/carbon/attack_drone(mob/living/simple_animal/drone/user)
 	return //so we don't call the carbon's attack_hand().
 
