@@ -46,6 +46,9 @@
 		if(G.return_temperature() > T20C)
 			G.set_temperature(max(G.return_temperature()/2,T20C))
 		T.air_update_turf()
+	var/obj/effect/simple_fire/simple_fire = locate() in T
+	if (simple_fire)
+		qdel(simple_fire)
 
 /obj/effect/particle_effect/foam/firefighting/kill_foam()
 	STOP_PROCESSING(SSfastprocess, src)
@@ -335,6 +338,8 @@
 			var/datum/gas_mixture/G = O.air
 			G.set_temperature(293.15)
 			for(var/obj/effect/hotspot/H in O)
+				qdel(H)
+			for(var/obj/effect/simple_fire/H in O)
 				qdel(H)
 			for(var/I in G.get_gases())
 				if(I == GAS_O2 || I == GAS_N2)
