@@ -330,7 +330,7 @@
 				fine = min(fine, maxFine)
 
 				var/datum/data/crime/crime = GLOB.data_core.createCrimeEntry(t1, "", allowed_access, station_time_timestamp(), fine)
-				for (var/obj/item/modular_computer/tablet in GLOB.TabletMessengers)
+				for (var/obj/item/modular_computer/tablet in GLOB.ModPCMessengers)
 					if(tablet.mainboard.saved_identification() == target_record.fields["name"])
 						var/message = "You have been fined [fine] credits for '[t1]'. Fines may be paid at security."
 						var/datum/signal/subspace/messaging/tablet_msg/signal = new(src, list(

@@ -3299,6 +3299,7 @@
 #include "code\modules\modular_computers\computers\item\pda_presets.dm"
 #include "code\modules\modular_computers\computers\item\tablet.dm"
 #include "code\modules\modular_computers\computers\item\tablet_presets.dm"
+#include "code\modules\modular_computers\computers\item\tablet_silicon.dm"
 #include "code\modules\modular_computers\computers\machinery\console.dm"
 #include "code\modules\modular_computers\computers\machinery\console_presets.dm"
 #include "code\modules\modular_computers\computers\machinery\modular_computer.dm"

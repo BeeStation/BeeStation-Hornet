@@ -13,6 +13,8 @@
 	tgui_id = "NtosCyborgSelfMonitor"
 	///A typed reference to the computer, specifying the borg tablet type
 	var/obj/item/modular_computer/tablet/integrated/tablet
+	///IC log that borgs can view in their personal management app
+	var/list/borglog = list()
 
 /datum/computer_file/program/borg_self_monitor/Destroy()
 	tablet = null
@@ -34,7 +36,7 @@
 	var/list/data = list()
 	if(!iscyborg(user))
 		return data
-	var/mob/living/silicon/robot/borgo = tablet.borgo
+	var/mob/living/silicon/robot/borgo = computer.physical_holder.loc
 
 	data["name"] = borgo.name
 	data["designation"] = borgo.designation //Borgo module type
@@ -79,7 +81,7 @@
 	var/mob/living/silicon/robot/borgo = user
 
 	data["Laws"] = borgo.laws.get_law_list(TRUE, TRUE, FALSE)
-	data["borgLog"] = tablet.borglog
+	data["borgLog"] = borglog
 	data["borgUpgrades"] = borgo.upgrades
 	return data
 
@@ -115,6 +117,7 @@
 
 		if("toggleSensors")
 			borgo.toggle_sensors()
+			return TRUE
 
 		if("viewImage")
 			if(borgo.connected_ai)

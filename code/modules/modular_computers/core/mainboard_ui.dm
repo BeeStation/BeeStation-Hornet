@@ -164,7 +164,7 @@
 
 	data["cardholder"] = FALSE
 	data["login"] = list()
-	if(cardholder)
+	if(istype(cardholder))
 		data["cardholder"] = TRUE
 		data["auto_imprint"] = cardholder.auto_imprint
 

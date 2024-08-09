@@ -62,9 +62,9 @@ export const NtosCyborgSelfMonitorContent = (_, context) => {
             <Flex.Item width="30%">
               <Section title="Configuration" fill>
                 <LabeledList>
-                  <LabeledList.Item label="Unit">{borgName.slice(0, 17)}</LabeledList.Item>
+                  <LabeledList.Item label="Unit">{borgName.slice(0, 30)}</LabeledList.Item>
                   <LabeledList.Item label="Type">{borgType}</LabeledList.Item>
-                  <LabeledList.Item label="AI">{masterAI.slice(0, 17)}</LabeledList.Item>
+                  <LabeledList.Item label="AI">{masterAI.slice(0, 30)}</LabeledList.Item>
                 </LabeledList>
               </Section>
             </Flex.Item>

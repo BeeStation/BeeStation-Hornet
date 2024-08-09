@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(ModPCMessengers) // a list of all active messengers, similar to GLOB.PDAs (used primarily with ntmessenger.dm)
+
 #define PDA_SPAM_DELAY 1 MINUTES
 /datum/computer_file/program/messenger
 	filename = "nt_messenger"
@@ -74,7 +76,7 @@
 	else
 		sortmode = GLOBAL_PROC_REF(cmp_pdaname_asc)
 
-	for(var/obj/item/modular_computer/mod_pc in sort_list(GLOB.TabletMessengers, sortmode))
+	for(var/obj/item/modular_computer/mod_pc in sort_list(GLOB.ModPCMessengers, sortmode))
 		var/obj/item/computer_hardware/hard_drive/drive = mod_pc.mainboard?.all_components[MC_HDD]
 		if(!istype(drive))
 			continue

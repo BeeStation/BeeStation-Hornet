@@ -87,28 +87,31 @@
 	internal_id_card.access |= access_list
 
 /mob/living/silicon/proc/create_modularInterface()
-	var/list/components = list()
-	var/job = JOB_NAME_CYBORG
-	if(iscyborg(src))
-		components += /obj/item/computer_hardware/hard_drive/small/pda/robot
-	if(isAI(src))
-		job = JOB_NAME_AI
-		components += /obj/item/computer_hardware/hard_drive/small/pda/ai
-	if(ispAI(src))
-		job = JOB_NAME_PAI
-		components += /obj/item/computer_hardware/hard_drive/small/pda/ai
+
+/mob/living/silicon/robot/create_modularInterface()
 	if(!modularInterface)
-		modularInterface = new /obj/item/modular_computer/tablet/integrated(src, components)
+		modularInterface = new /obj/item/modular_computer/tablet/integrated/cyborg(src)
+		modularInterface.mainboard.update_id_display(real_name || name, JOB_NAME_CYBORG)
 	modularInterface.layer = ABOVE_HUD_PLANE
 	modularInterface.plane = ABOVE_HUD_PLANE
-	modularInterface.mainboard.update_id_display(real_name || name, job)
 
-/mob/living/silicon/robot/model/syndicate/create_modularInterface()
+/mob/living/silicon/robot/modules/syndicate/create_modularInterface()
 	if(!modularInterface)
-		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
+		modularInterface = new /obj/item/modular_computer/tablet/integrated/cyborg/syndicate(src)
 		modularInterface.mainboard.update_id_display(real_name, JOB_NAME_CYBORG)
 	return ..()
 
+/mob/living/silicon/ai/create_modularInterface()
+	if(!modularInterface)
+		modularInterface = new /obj/item/modular_computer/tablet/integrated/ai(src)
+		modularInterface.mainboard.update_id_display(real_name, JOB_NAME_AI)
+	return ..()
+
+/mob/living/silicon/pai/create_modularInterface()
+	if(!modularInterface)
+		modularInterface = new /obj/item/modular_computer/tablet/integrated/pai(src)
+		modularInterface.mainboard.update_id_display(real_name, JOB_NAME_PAI)
+	return ..()
 
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud
@@ -501,12 +504,16 @@
 	if(!modularInterface)
 		stack_trace("Silicon [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
 		create_modularInterface()
-	var/mob/living/silicon/robot/robo = modularInterface.borgo
-	if(istype(robo))
-		modularInterface.borglog += "[station_time_timestamp()] - [string]"
-	var/datum/computer_file/program/borg_self_monitor/program = modularInterface.get_self_monitoring()
+	var/mob/living/silicon/robot/robo = src
+	if(!istype(robo))
+		CRASH("Called logevent() from a non-cyborg src [src] ( [src?.type] )")
+	var/obj/item/modular_computer/tablet/integrated/cyborg/borg_tablet = modularInterface
+	if(!istype(borg_tablet))
+		CRASH("Called logevent() with an invalid borg_tablet [borg_tablet] ( [borg_tablet?.type] ) ")
+	var/datum/computer_file/program/borg_self_monitor/program = borg_tablet.get_self_monitoring()
 	if(program)
 		program.force_full_update()
+		program.borglog += "[station_time_timestamp()] - [string]"
 
 /// Same as the normal character name replacement, but updates the contents of the modular interface.
 /mob/living/silicon/fully_replace_character_name(oldname, newname)

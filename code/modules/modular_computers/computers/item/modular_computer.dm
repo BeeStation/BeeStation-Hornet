@@ -1,5 +1,3 @@
-GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar to GLOB.PDAs (used primarily with ntmessenger.dm)
-
 // This is the base type that does all the hardware stuff.
 // Other types expand it - tablets use a direct subtypes, and
 // consoles and laptops use "procssor" item that is held inside machinery piece

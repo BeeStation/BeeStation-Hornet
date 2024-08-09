@@ -884,24 +884,12 @@
 	create_access_card(get_all_syndicate_access())
 	addtimer(CALLBACK(src, PROC_REF(show_playstyle)), 5)
 
-/mob/living/silicon/robot/modules/syndicate/create_modularInterface()
-	if(!modularInterface)
-		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
-		modularInterface.mainboard.update_id_display(real_name, "Cyborg")
-	return ..()
-
 /mob/living/silicon/robot/modules/syndicate/proc/show_playstyle()
 	if(playstyle_string)
 		to_chat(src, playstyle_string)
 
 /mob/living/silicon/robot/modules/syndicate/ResetModule()
 	return
-
-
-/mob/living/silicon/robot/modules/syndicate/create_modularInterface()
-	if(!modularInterface)
-		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
-	return ..()
 
 /mob/living/silicon/robot/modules/syndicate/medical
 	icon_state = "synd_medical"
