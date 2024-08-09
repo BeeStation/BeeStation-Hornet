@@ -9,6 +9,6 @@
 /obj/item/modular_computer/laptop/preset/civillian
 	desc = "A low-end laptop often used for personal recreation."
 
-/obj/item/modular_computer/laptop/preset/civillian/install_software(obj/item/computer_hardware/hard_drive/hard_drive)
+/obj/item/modular_computer/laptop/preset/civillian/install_modpc_software(obj/item/computer_hardware/hard_drive/hard_drive)
 	. = ..()
 	hard_drive.store_file(new/datum/computer_file/program/chatclient())

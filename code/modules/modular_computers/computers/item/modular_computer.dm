@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// The main item that handles most ModPC logic while this type only handles power and other specific things.
 	var/obj/item/mainboard/mainboard = null
 
-	/// Hardware components we want to add by Initialize()
+	/// A list of hardware components we want to add by ComponentInitialize()
 	var/list/obj/item/computer_hardware/install_components
 	/// The internal cell type we also want to add
 	var/obj/item/stock_parts/install_cell
@@ -69,9 +69,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	SHOULD_CALL_PARENT(TRUE) // just incase we forget somehow
 	. = ..()
 
-	AddComponent(/datum/component/modular_computer_integration, null, TRUE, CALLBACK(src, PROC_REF(install_hardware)), CALLBACK(src, PROC_REF(install_software)), max_hardware_size, max_bays)
+	AddComponent(/datum/component/modular_computer_integration, null, TRUE, CALLBACK(src, PROC_REF(install_modpc_hardware)), CALLBACK(src, PROC_REF(install_modpc_software)), max_hardware_size, max_bays)
 
-/obj/item/modular_computer/proc/install_hardware(obj/item/mainboard/MB)
+/obj/item/modular_computer/proc/install_modpc_hardware(obj/item/mainboard/MB)
 	SHOULD_CALL_PARENT(TRUE) // should always prevent forgetting hardware unless we explicity require it
 
 	if(!isnull(install_cell))
@@ -85,7 +85,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		MB.device_theme = THEME_SYNDICATE
 		MB.theme_locked = TRUE
 
-/obj/item/modular_computer/proc/install_software(obj/item/computer_hardware/hard_drive/hard_drive)
+/obj/item/modular_computer/proc/install_modpc_software(obj/item/computer_hardware/hard_drive/hard_drive)
 	SHOULD_CALL_PARENT(TRUE) // should always prevent missing software
 	return
 

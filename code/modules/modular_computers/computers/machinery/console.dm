@@ -37,7 +37,7 @@
 	QUEUE_SMOOTH(src)
 	QUEUE_SMOOTH_NEIGHBORS(src)
 
-/obj/machinery/modular_computer/console/install_hardware(obj/item/mainboard/MB)
+/obj/machinery/modular_computer/console/install_modpc_hardware(obj/item/mainboard/MB)
 	if(isnull(install_components))
 		install_components = list()
 

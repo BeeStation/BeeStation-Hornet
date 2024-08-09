@@ -238,7 +238,7 @@
 		return FALSE
 	return ..()
 
-/obj/item/modular_computer/tablet/integrated/install_software(obj/item/computer_hardware/hard_drive/hard_drive)
+/obj/item/modular_computer/tablet/integrated/install_modpc_software(obj/item/computer_hardware/hard_drive/hard_drive)
 	. = ..()
 	self_monitoring = new (hard_drive)
 	hard_drive.store_file(self_monitoring)

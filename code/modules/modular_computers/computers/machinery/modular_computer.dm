@@ -28,7 +28,7 @@
 
 	/// The main backbone that handles most ModPC logic while this type only handles power and other specific things.
 	var/obj/item/mainboard/mainboard = null
-	/// A list of component types to install
+	/// A list of hardware components we want to add by ComponentInitialize()
 	var/list/obj/item/computer_hardware/install_components = null
 
 // /obj/machinery/modular_computer/Initialize(mapload)
@@ -42,15 +42,15 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	. = ..()
-	AddComponent(/datum/component/modular_computer_integration, null, TRUE, CALLBACK(src, PROC_REF(install_hardware)), CALLBACK(src, PROC_REF(install_software)), max_hardware_size, max_bays)
+	AddComponent(/datum/component/modular_computer_integration, null, TRUE, CALLBACK(src, PROC_REF(install_modpc_hardware)), CALLBACK(src, PROC_REF(install_modpc_software)), max_hardware_size, max_bays)
 
-/obj/machinery/modular_computer/proc/install_hardware(obj/item/mainboard/MB)
+/obj/machinery/modular_computer/proc/install_modpc_hardware(obj/item/mainboard/MB)
 	SHOULD_CALL_PARENT(TRUE) // should always prevent forgetting hardware unless we explicity require it
 
 	for(var/T in install_components)
 		MB.install_component(new T)
 
-/obj/machinery/modular_computer/proc/install_software(obj/item/computer_hardware/hard_drive/hard_drive)
+/obj/machinery/modular_computer/proc/install_modpc_software(obj/item/computer_hardware/hard_drive/hard_drive)
 	SHOULD_CALL_PARENT(TRUE) // should always prevent missing software
 	return
 

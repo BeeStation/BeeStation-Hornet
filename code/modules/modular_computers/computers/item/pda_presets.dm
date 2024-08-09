@@ -14,7 +14,7 @@
 	. = ..()
 	AddComponent(/datum/component/slippery, 7 SECONDS, NO_SLIP_WHEN_WALKING, CALLBACK(src, PROC_REF(AfterSlip)), 5 SECONDS)
 
-/obj/item/modular_computer/tablet/pda/clown/install_hardware(obj/item/mainboard/MB)
+/obj/item/modular_computer/tablet/pda/clown/install_modpc_hardware(obj/item/mainboard/MB)
 	. = ..()
 	MB.device_theme = THEME_NTOS_CLOWN_PINK
 	MB.ignore_theme_pref = TRUE
@@ -36,7 +36,7 @@
 	init_ringer_on = FALSE
 	init_ringtone = "silence"
 
-/obj/item/modular_computer/tablet/pda/mime/install_software(obj/item/computer_hardware/hard_drive/hard_drive)
+/obj/item/modular_computer/tablet/pda/mime/install_modpc_software(obj/item/computer_hardware/hard_drive/hard_drive)
 	. = ..()
 
 	for(var/datum/computer_file/program/messenger/msg in hard_drive.stored_files)
@@ -190,7 +190,7 @@
 	detonatable = FALSE
 	syndicate_themed = TRUE
 
-/obj/item/modular_computer/tablet/pda/syndicate/install_hardware(obj/item/mainboard/MB)
+/obj/item/modular_computer/tablet/pda/syndicate/install_modpc_hardware(obj/item/mainboard/MB)
 	. = ..()
 	var/obj/item/computer_hardware/network_card/network_card = MB.all_components[MC_NET]
 	if(istype(network_card))

@@ -62,7 +62,7 @@
 	to_chat(user, "<span class='notice'>It doesn't feel right to snoop around like that...</span>")
 	return // we don't want ais or cyborgs using a private role tablet
 
-/obj/item/modular_computer/tablet/pda/install_hardware(obj/item/mainboard/MB)
+/obj/item/modular_computer/tablet/pda/install_modpc_hardware(obj/item/mainboard/MB)
 	. = ..()
 	if(default_disk)
 		MB.install_component(new default_disk(src))
