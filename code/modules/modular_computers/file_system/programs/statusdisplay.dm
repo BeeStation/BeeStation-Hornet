@@ -9,7 +9,7 @@
 	extended_desc = "An app used to change the message on the station status displays."
 	tgui_id = "NtosStatus"
 
-	usage_flags = PROGRAM_ALL
+	usage_flags = PROGRAM_HARDWARE_ALL
 	available_on_ntnet = FALSE
 
 	var/upper_text = ""

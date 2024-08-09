@@ -8,7 +8,7 @@
 	icon_state_unpowered = "laptop-off"
 	icon_state_menu = "menu"
 
-	hardware_flag = PROGRAM_LAPTOP
+	hardware_flag = PROGRAM_HARDWARE_LAPTOP
 	max_hardware_size = 2
 	w_class = WEIGHT_CLASS_NORMAL
 	max_bays = 4

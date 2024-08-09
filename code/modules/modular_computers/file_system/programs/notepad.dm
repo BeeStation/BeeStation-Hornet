@@ -9,7 +9,7 @@
 	available_on_ntnet = FALSE
 	tgui_id = "NtosNotepad"
 	program_icon = "book"
-	usage_flags = PROGRAM_TABLET
+	usage_flags = PROGRAM_HARDWARE_TABLET
 
 /datum/computer_file/program/notepad/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()

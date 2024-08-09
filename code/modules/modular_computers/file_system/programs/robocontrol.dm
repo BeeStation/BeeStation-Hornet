@@ -7,6 +7,7 @@
 	extended_desc = "A remote controller used for giving basic commands to non-sentient robots."
 	requires_ntnet = TRUE
 	network_destination = "robotics control network"
+	usage_flags = PROGRAM_HARDWARE_CONSOLE | PROGRAM_HARDWARE_LAPTOP | PROGRAM_HARDWARE_TABLET
 	size = 12
 	tgui_id = "NtosRoboControl"
 	program_icon = "robot"

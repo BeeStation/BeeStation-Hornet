@@ -190,7 +190,7 @@
 		return machine.hardware_flag
 
 	// unknown physical_holder
-	return ~PROGRAM_ALL
+	return ~PROGRAM_HARDWARE_ALL
 
 /// Check if we can install this mainboard into the device.
 /// Useful for when we install something, and then try to insert it into a tablet

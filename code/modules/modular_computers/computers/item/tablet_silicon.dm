@@ -8,6 +8,7 @@
 	has_light = FALSE //tablet light button actually enables/disables the borg lamp
 	comp_light_luminosity = 0
 	has_variants = FALSE
+	hardware_flag = PROGRAM_HARDWARE_SILICON
 
 	install_components = list(
 		/obj/item/computer_hardware/hard_drive/small,

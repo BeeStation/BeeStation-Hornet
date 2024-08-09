@@ -8,7 +8,7 @@
 	extended_desc = "This program allows access to standard security camera networks."
 	requires_ntnet = TRUE
 	transfer_access = list(ACCESS_SECURITY)
-	usage_flags = PROGRAM_CONSOLE | PROGRAM_LAPTOP
+	usage_flags = PROGRAM_HARDWARE_CONSOLE | PROGRAM_HARDWARE_LAPTOP
 	size = 5
 	tgui_id = "NtosSecurEye"
 	program_icon = "eye"

@@ -14,6 +14,7 @@
 	extended_desc = "Program for programming employee ID cards to access parts of the station."
 	transfer_access = list(ACCESS_HEADS)
 	requires_ntnet = 0
+	usage_flags = PROGRAM_HARDWARE_CONSOLE | PROGRAM_HARDWARE_LAPTOP | PROGRAM_HARDWARE_TABLET
 	size = 8
 	tgui_id = "NtosCard"
 	program_icon = "id-card"

@@ -8,7 +8,7 @@
 	extended_desc = "This program connects to sensors around the station to provide information about electrical systems"
 	ui_header = "power_norm.gif"
 	transfer_access = list(ACCESS_ENGINE)
-	usage_flags = PROGRAM_CONSOLE
+	usage_flags = PROGRAM_HARDWARE_CONSOLE
 	requires_ntnet = 0
 	network_destination = "power monitoring system"
 	size = 9

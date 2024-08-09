@@ -98,6 +98,9 @@
 
 	computer.alert_call(pinged, "You have been pinged in [title] by [pinger.username]!", 'sound/machines/ping.ogg')
 
+/datum/ntnet_conversation/proc/password_was_set(datum/computer_file/program/chatclient/op)
+	add_status_message("[op.username] has set the channel password to ****.")
+
 /datum/ntnet_conversation/proc/changeop(datum/computer_file/program/chatclient/newop)
 	if(istype(newop))
 		operator = newop

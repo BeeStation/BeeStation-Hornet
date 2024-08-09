@@ -10,6 +10,7 @@ export const NtosNetDownloader = (props, context) => {
   const {
     disk_size,
     disk_used,
+    show_incompatible,
     downloadcompletion,
     downloading,
     downloadname,
@@ -65,6 +66,11 @@ export const NtosNetDownloader = (props, context) => {
               </ProgressBar>
             </LabeledList.Item>
           </LabeledList>
+          <Button.Checkbox
+            content="Show Incompatable"
+            checked={show_incompatible}
+            onClick={() => act('PRG_toggle_show_incompatible')}
+          />
         </Section>
         <Stack>
           <Stack.Item minWidth="105px" shrink={0} basis={0}>
@@ -77,9 +83,11 @@ export const NtosNetDownloader = (props, context) => {
             </Tabs>
           </Stack.Item>
           <Stack.Item grow={1} basis={0}>
-            {items?.map((program) => (
-              <Program key={program.filename} program={program} />
-            ))}
+            {items
+              ?.filter((program) => !!program.compatible || show_incompatible)
+              .map((program) => (
+                <Program key={program.filename} program={program} />
+              ))}
           </Stack.Item>
         </Stack>
       </NtosWindow.Content>

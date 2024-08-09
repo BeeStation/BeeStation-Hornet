@@ -8,6 +8,7 @@
 	requires_ntnet = TRUE
 	transfer_access = list(ACCESS_ROBOTICS)
 	network_destination = "cyborg remote monitoring"
+	usage_flags = (~PROGRAM_HARDWARE_SILICON)
 	size = 5
 	tgui_id = "NtosCyborgRemoteMonitor"
 	program_icon = "project-diagram"

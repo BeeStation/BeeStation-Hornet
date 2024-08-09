@@ -162,6 +162,8 @@
 				return
 
 			channel.password = new_password
+			channel.password_was_set()
+
 			return TRUE
 		if("PRG_mute_user")
 			if(!authed)

@@ -31,6 +31,7 @@
 		PROGRAM_CATEGORY_SUPL,
 		PROGRAM_CATEGORY_MISC,
 	)
+	var/show_incompatible = FALSE
 
 /datum/computer_file/program/ntnetdownload/on_start()
 	. = ..()
@@ -130,6 +131,9 @@
 				downloaded_file = null
 				downloaderror = ""
 			return 1
+		if("PRG_toggle_show_incompatible")
+			show_incompatible = !show_incompatible
+			return TRUE
 	return 0
 
 /datum/computer_file/program/ntnetdownload/ui_data(mob/user)
@@ -141,6 +145,7 @@
 	data["downloading"] = !!downloaded_file
 	data["error"] = downloaderror || FALSE
 	data["id_inserted"] = !!card_slot?.GetID_parent()
+	data["show_incompatible"] = show_incompatible
 
 	// Download running. Wait please..
 	if(downloaded_file)
@@ -182,9 +187,11 @@
 /datum/computer_file/program/ntnetdownload/proc/check_compatibility(datum/computer_file/program/P)
 	var/hardflag = computer.get_hardware_type()
 
-	if(P?.is_supported_by_hardware(hardflag,0))
-		return TRUE
-	return FALSE
+	if(!P?.is_supported_by_hardware(hardflag, 0))
+		return FALSE // Program in-general is not supported on this platform
+	if(!isnull(P.required_hardware) && isnull(computer.all_components[P.required_hardware]))
+		return FALSE // Missing required hardware
+	return TRUE
 
 /datum/computer_file/program/ntnetdownload/kill_program(forced)
 	abort_file_download()
