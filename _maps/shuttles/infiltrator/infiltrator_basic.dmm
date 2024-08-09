@@ -34,7 +34,8 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/bridge)
 "ai" = (
-/obj/effect/turf_decal/bot_white,
+/obj/item/toy/plush/sillycons/engi/syndie,
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/bridge)
 "aj" = (

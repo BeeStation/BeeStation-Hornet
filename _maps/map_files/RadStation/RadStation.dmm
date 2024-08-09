@@ -7739,6 +7739,7 @@
 /obj/machinery/camera/autoname/directional/west{
 	network = list("ss13","rd")
 	},
+/obj/effect/spawner/sillycons,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "czL" = (
@@ -62522,7 +62523,7 @@
 	pixel_y = 52
 	},
 /obj/structure/fans/tiny,
-/obj/item/toy/plush/opa{
+/obj/item/toy/plush/sillycons/peace{
 	pixel_x = -6;
 	pixel_y = -8
 	},

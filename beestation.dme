@@ -1269,6 +1269,7 @@
 #include "code\game\objects\effects\spawners\gibspawner.dm"
 #include "code\game\objects\effects\spawners\lootdrop.dm"
 #include "code\game\objects\effects\spawners\mailspawner.dm"
+#include "code\game\objects\effects\spawners\plushies.dm"
 #include "code\game\objects\effects\spawners\roomspawner.dm"
 #include "code\game\objects\effects\spawners\structure.dm"
 #include "code\game\objects\effects\spawners\traps.dm"

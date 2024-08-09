@@ -5049,6 +5049,7 @@
 /area/syndicate_mothership/control)
 "vv" = (
 /obj/structure/table/wood,
+/obj/item/toy/plush/sillycons/medi/syndie,
 /turf/open/floor/wood,
 /area/syndicate_mothership/control)
 "vw" = (

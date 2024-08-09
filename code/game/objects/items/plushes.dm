@@ -909,6 +909,97 @@
 			item_list[initial(I.name)] = choice
 	return item_list
 
+/obj/item/toy/plush/sillycons
+	name = "Cyborg"
+	desc = "Always stays by the AIs side."
+	icon_state = "borgplush_default"
+	attack_verb = list("beeped aggressively", "dwoop", "beep", "beep, beep", "buzzes", "ping")
+	squeak_override = list('sound/machines/buzz-sigh.ogg', 'sound/emotes/dwoop.ogg', 'sound/machines/boop.ogg', 'sound/machines/chime.ogg')
+	lefthand_file = 'icons/mob/inhands/plushes_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/plushes_righthand.dmi'
+	layer = 5
+
+/obj/item/toy/plush/sillycons/peace
+	name = "Peacekeeper Borg"
+	desc = "Has universal record in repeatedly failing to uphold the peace since it entered production."
+	icon_state = "borgplush_peace"
+
+	var/sound_alarm = 'sound/ai/harmalarm.ogg'
+	var/recharge_time = 60
+	var/cooldown = FALSE
+
+/obj/item/toy/plush/sillycons/peace/attack_self(mob/user)
+	. = ..()
+	if(sound_alarm && !cooldown)
+		audible_message("<font color='red' size='5'>HUMAN HARM</font>")
+		playsound(src, sound_alarm, 25, 1)
+
+		cooldown = TRUE
+		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), recharge_time)
+
+
+/obj/item/toy/plush/sillycons/medi
+	name = "Mediborg"
+	desc = "Looks cute, might inject you with morphine later."
+	icon_state = "borgplush_medi"
+
+	var/sound_alarm = 'sound/items/hypospray.ogg'
+	var/recharge_time = 60
+	var/cooldown = FALSE
+
+/obj/item/toy/plush/sillycons/medi/attack_self(mob/user)
+	. = ..()
+	if(sound_alarm && !cooldown)
+		playsound(src, sound_alarm, 25, 1)
+		to_chat(user, "<span class='notice'>D'awww, the [src] injects you with morphine.</span>")
+
+		cooldown = TRUE
+		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), recharge_time)
+	else
+		to_chat(user, "<span class='notice'>N'aww, the [src] is out of morphine.</span>")
+
+/obj/item/toy/plush/sillycons/medi/syndie
+	name = "Syndicate Mediborg"
+	desc = "Emotionless killing machine."
+	icon_state = "borgplush_syndie_medi"
+
+/obj/item/toy/plush/sillycons/engi
+	name = "Engiborg"
+	desc = "Praised as the best Station Engineer since it entered production."
+	icon_state = "borgplush_engi"
+
+	var/on = FALSE
+	var/sound_on = 'sound/items/flashlight_on.ogg'
+	var/sound_off = 'sound/items/flashlight_off.ogg'
+	light_range = 5
+	light_system = MOVABLE_LIGHT
+
+/obj/item/toy/plush/sillycons/engi/syndie
+	name = "Syndicate Sabotour Cyborg"
+	desc = "What evil devious plans does the borgo have?"
+	icon_state = "borgplush_syndie_engi"
+
+	light_range = 7
+
+/obj/item/toy/plush/sillycons/engi/attack_self(mob/user)
+	. = ..()
+	to_chat(user, "<span class='notice'>You toggle [src]'s light. D'awww.</span>")
+	on = !on
+	update_brightness()
+
+/obj/item/toy/plush/sillycons/engi/proc/update_brightness()
+	if(on)
+		icon_state = "[initial(icon_state)]_on"
+		if(sound_on)
+			playsound(src, sound_on, 25, 1)
+	else
+		icon_state = initial(icon_state)
+		if(sound_off)
+			playsound(src, sound_off, 25, 1)
+	set_light_on(on)
+	if(light_system == STATIC_LIGHT)
+		update_light()
+
 /////////////////
 //DONATOR ITEMS//
 /////////////////

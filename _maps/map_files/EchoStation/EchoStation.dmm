@@ -21775,6 +21775,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
+/obj/item/toy/plush/sillycons/engi,
 /turf/open/floor/iron,
 /area/science/misc_lab)
 "kLF" = (
@@ -26831,9 +26832,8 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/item/toy/plush/lizard_plushie{
+/obj/effect/spawner/sillycons{
 	layer = 5;
-	pixel_x = 1;
 	pixel_y = 14
 	},
 /turf/open/floor/circuit/red,

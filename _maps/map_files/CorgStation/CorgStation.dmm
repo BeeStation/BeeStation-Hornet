@@ -46658,11 +46658,10 @@
 /turf/open/floor/iron,
 /area/science/lab)
 "oXf" = (
-/obj/structure/chair/fancy/comfy{
-	dir = 8
-	},
 /obj/machinery/airalarm/directional/north,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
+/obj/structure/chair/fancy/comfy,
+/obj/effect/spawner/sillycons,
 /turf/open/floor/iron,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "oXn" = (
@@ -56433,9 +56432,6 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "sjh" = (
-/obj/structure/chair/fancy/comfy{
-	dir = 8
-	},
 /obj/machinery/light_switch{
 	pixel_x = 26
 	},
@@ -70389,6 +70385,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/structure/chair/fancy/comfy,
 /turf/open/floor/iron,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "wJp" = (
