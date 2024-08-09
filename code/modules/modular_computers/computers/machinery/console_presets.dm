@@ -5,26 +5,22 @@
 	var/_has_battery = FALSE
 	var/_has_ai = FALSE
 
-/obj/machinery/modular_computer/console/preset/Initialize(mapload)
-	. = ..()
-	if(isnull(mainboard))
-		return
-	install_component(new /obj/item/computer_hardware/processor_unit)
+/obj/machinery/modular_computer/console/preset/install_hardware(obj/item/mainboard/MB)
+	if(isnull(install_components))
+		install_components = list()
 
-	install_component(new /obj/item/computer_hardware/id_slot)
+	install_components |= /obj/item/computer_hardware/processor_unit
+	install_components |= /obj/item/computer_hardware/id_slot
 	if(_has_second_id_slot)
-		install_component(new /obj/item/computer_hardware/id_slot/secondary)
+		install_components |= /obj/item/computer_hardware/id_slot/secondary
 	if(_has_printer)
-		install_component(new /obj/item/computer_hardware/printer)
+		install_components |= /obj/item/computer_hardware/printer
 	if(_has_battery)
-		install_component(new /obj/item/computer_hardware/battery(mainboard, /obj/item/stock_parts/cell/computer/super))
+		MB.install_component(new /obj/item/computer_hardware/battery(MB, /obj/item/stock_parts/cell/computer/super))
 	if(_has_ai)
-		install_component(new /obj/item/computer_hardware/goober/ai)
-	install_programs(mainboard.all_components[MC_HDD])
+		install_components |= /obj/item/computer_hardware/goober/ai
 
-// Override in child types to install preset-specific programs.
-/obj/machinery/modular_computer/console/preset/proc/install_programs()
-	return
+	. = ..()
 
 // ===== ENGINEERING CONSOLE =====
 /obj/machinery/modular_computer/console/preset/engineering
@@ -32,7 +28,8 @@
 	name = "engineering console"
 	desc = "A stationary computer. This one comes preloaded with engineering programs."
 
-/obj/machinery/modular_computer/console/preset/engineering/install_programs(obj/item/computer_hardware/hard_drive/hard_drive)
+/obj/machinery/modular_computer/console/preset/engineering/install_software(obj/item/computer_hardware/hard_drive/hard_drive)
+	. = ..()
 	hard_drive.store_file(new/datum/computer_file/program/power_monitor())
 	hard_drive.store_file(new/datum/computer_file/program/alarm_monitor())
 	hard_drive.store_file(new/datum/computer_file/program/supermatter_monitor())
@@ -44,7 +41,8 @@
 	desc = "A stationary computer. This one comes preloaded with research programs."
 	_has_ai = TRUE
 
-/obj/machinery/modular_computer/console/preset/research/install_programs(obj/item/computer_hardware/hard_drive/hard_drive)
+/obj/machinery/modular_computer/console/preset/research/install_software(obj/item/computer_hardware/hard_drive/hard_drive)
+	. = ..()
 	hard_drive.store_file(new/datum/computer_file/program/ntnetmonitor())
 	hard_drive.store_file(new/datum/computer_file/program/chatclient())
 	hard_drive.store_file(new/datum/computer_file/program/aidiag())
@@ -58,7 +56,8 @@
 	_has_second_id_slot = TRUE
 	_has_printer = TRUE
 
-/obj/machinery/modular_computer/console/preset/command/install_programs(obj/item/computer_hardware/hard_drive/hard_drive)
+/obj/machinery/modular_computer/console/preset/command/install_software(obj/item/computer_hardware/hard_drive/hard_drive)
+	. = ..()
 	hard_drive.store_file(new/datum/computer_file/program/chatclient())
 	hard_drive.store_file(new/datum/computer_file/program/card_mod())
 
@@ -68,7 +67,8 @@
 	name = "civilian console"
 	desc = "A stationary computer. This one comes preloaded with generic programs."
 
-/obj/machinery/modular_computer/console/preset/civilian/install_programs(obj/item/computer_hardware/hard_drive/hard_drive)
+/obj/machinery/modular_computer/console/preset/civilian/install_software(obj/item/computer_hardware/hard_drive/hard_drive)
+	. = ..()
 	hard_drive.store_file(new/datum/computer_file/program/chatclient())
 
 // curator
@@ -78,5 +78,6 @@
 	desc = "A stationary computer. This one comes preloaded with art programs."
 	_has_printer = TRUE
 
-/obj/machinery/modular_computer/console/preset/curator/install_programs(obj/item/computer_hardware/hard_drive/hard_drive)
+/obj/machinery/modular_computer/console/preset/curator/install_software(obj/item/computer_hardware/hard_drive/hard_drive)
+	. = ..()
 	hard_drive.store_file(new/datum/computer_file/program/portrait_printer())

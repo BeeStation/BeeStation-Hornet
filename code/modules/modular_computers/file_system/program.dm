@@ -185,7 +185,7 @@
 
 /// Return FALSE if nothing was processed. Return TRUE to prevent further actions running.
 /// Set use_attack = TRUE to receive proccalls from the parent computer.
-/datum/computer_file/program/proc/attack(atom/target, mob/living/user, params)
+/datum/computer_file/program/proc/attack(mob/target, mob/living/user, params)
 	return FALSE
 
 /// Return FALSE if nothing was processed. Return TRUE to prevent further actions running.

@@ -13,6 +13,25 @@
 	/// If the PDA has been picked up / equipped before. This is used to set the user's preference background color / theme.
 	var/equipped = FALSE
 
+	install_components = list(
+		/obj/item/computer_hardware/hard_drive/small/pda,
+		/obj/item/computer_hardware/processor_unit/small,
+		/obj/item/computer_hardware/network_card,
+		/obj/item/computer_hardware/id_slot,
+		/obj/item/computer_hardware/goober/pai,
+		/obj/item/computer_hardware/identifier,
+		/obj/item/computer_hardware/sensorpackage
+	)
+	install_cell = /obj/item/stock_parts/cell/computer
+
+	/// Additional hardware for PDAs
+	var/list/obj/item/computer_hardware/pda_components
+
+/obj/item/modular_computer/tablet/pda/Initialize(mapload, list/obj/item/computer_hardware/install_components)
+	if(!isnull(pda_components))
+		src.install_components |= pda_components
+	. = ..()
+
 /obj/item/modular_computer/tablet/pda/equipped(mob/user, slot)
 	. = ..()
 	if(equipped || !user.client)
@@ -43,20 +62,10 @@
 	to_chat(user, "<span class='notice'>It doesn't feel right to snoop around like that...</span>")
 	return // we don't want ais or cyborgs using a private role tablet
 
-/obj/item/modular_computer/tablet/pda/Initialize(mapload)
+/obj/item/modular_computer/tablet/pda/install_hardware(obj/item/mainboard/MB)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/hard_drive/small/pda)
-	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
-	install_component(new /obj/item/computer_hardware/network_card)
-	install_component(new /obj/item/computer_hardware/id_slot)
-	install_component(new /obj/item/computer_hardware/goober/pai)
-	install_component(new /obj/item/computer_hardware/identifier)
-	install_component(new /obj/item/computer_hardware/sensorpackage)
-
 	if(default_disk)
-		var/obj/item/computer_hardware/hard_drive/portable/disk = new default_disk(src)
-		install_component(disk)
+		MB.install_component(new default_disk(src))
 
 	if(insert_type)
 		inserted_item = new insert_type(src)

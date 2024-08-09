@@ -301,7 +301,7 @@
 	. = ..()
 	if(.)
 		return
-	robot.modularInterface?.interact(robot)
+	robot.modularInterface.attack_robot(robot) // this is HACKY SHITCODE but we can't implement signals for .interact()
 
 /atom/movable/screen/robot/alerts
 	name = "Alert Panel"

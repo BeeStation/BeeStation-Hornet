@@ -50,6 +50,18 @@
 	to_chat(user, "NT-NFS File Table Status: [stored_files.len]/999")
 	to_chat(user, "Storage capacity: [used_capacity]/[max_capacity]GQ")
 
+/obj/item/computer_hardware/hard_drive/try_insert(obj/item/I, mob/living/user)
+	var/obj/item/photo/pic = I
+	if(!istype(pic))
+		return FALSE
+
+	for(var/datum/computer_file/program/messenger/messenger in stored_files)
+		saved_image = pic.picture
+		messenger.ProcessPhoto()
+		to_chat(user, "<span class='notice'>You scan \the [pic] into \the [src]'s messenger.</span>")
+		INVOKE_ASYNC(holder, TYPE_PROC_REF(/datum, ui_update)) // physical_holder.ui_update()
+	return TRUE
+
 // Use this proc to add file to the drive. Returns 1 on success and 0 on failure. Contains necessary sanity checks.
 /obj/item/computer_hardware/hard_drive/proc/store_file(var/datum/computer_file/F)
 	if(!F || !istype(F))

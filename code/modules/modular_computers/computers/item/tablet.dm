@@ -13,6 +13,13 @@
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION
 
+	install_components = list(
+		/obj/item/computer_hardware/hard_drive/small,
+		/obj/item/computer_hardware/processor_unit/small,
+		/obj/item/computer_hardware/network_card
+	)
+	install_cell = /obj/item/stock_parts/cell/computer
+
 	var/has_variants = TRUE
 	var/finish_color = null
 
@@ -197,6 +204,14 @@
 	has_light = FALSE //tablet light button actually enables/disables the borg lamp
 	comp_light_luminosity = 0
 	has_variants = FALSE
+
+	install_components = list(
+		/obj/item/computer_hardware/hard_drive/small,
+		/obj/item/computer_hardware/processor_unit/small,
+		/obj/item/computer_hardware/network_card/integrated,
+		/obj/item/computer_hardware/recharger/cyborg
+	)
+
 	///Ref to the silicon we're installed in. Set by the borg during our creation.
 	var/mob/living/silicon/borgo
 	///Ref to the Cyborg Self-Monitoring app. Important enough to borgs to deserve a ref.
@@ -215,12 +230,18 @@
 
 /obj/item/modular_computer/tablet/integrated/Destroy()
 	borgo = null
+	self_monitoring = null
 	return ..()
 
 /obj/item/modular_computer/tablet/integrated/can_turn_on(mob/user)
 	if(borgo?.stat == DEAD)
 		return FALSE
 	return ..()
+
+/obj/item/modular_computer/tablet/integrated/install_software(obj/item/computer_hardware/hard_drive/hard_drive)
+	. = ..()
+	self_monitoring = new (hard_drive)
+	hard_drive.store_file(self_monitoring)
 
 /**
   * Returns a ref to the Cyborg Self-Monitoring app, creating the app if need be.
@@ -235,10 +256,10 @@
 /obj/item/modular_computer/tablet/integrated/proc/get_self_monitoring()
 	if(!borgo)
 		return null
-	if(!self_monitoring)
+	if(isnull(self_monitoring))
 		var/obj/item/computer_hardware/hard_drive/hard_drive = mainboard.all_components[MC_HDD]
 		self_monitoring = hard_drive.find_file_by_name("borg_self_monitor")
-		if(!self_monitoring)
+		if(isnull(self_monitoring))
 			stack_trace("Cyborg [borgo] ( [borgo.type] ) was somehow missing their self-management app in their tablet. A new copy has been created.")
 			self_monitoring = new(hard_drive)
 			if(!hard_drive.store_file(self_monitoring))
@@ -281,12 +302,10 @@
 	icon_state_unpowered = "tablet-silicon-syndicate"
 	icon_state_powered = "tablet-silicon-syndicate"
 	icon_state_menu = "command-syndicate"
+	syndicate_themed = TRUE
 
 /obj/item/modular_computer/tablet/integrated/syndicate/Initialize()
 	. = ..()
 	if(iscyborg(borgo))
 		var/mob/living/silicon/robot/robo = borgo
 		robo.lamp_color = COLOR_RED //Syndicate likes it red
-	// Force syndie theme
-	mainboard.device_theme = THEME_SYNDICATE
-	mainboard.theme_locked = TRUE

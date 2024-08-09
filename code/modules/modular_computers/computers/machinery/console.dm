@@ -36,15 +36,16 @@
 	. = ..()
 	QUEUE_SMOOTH(src)
 	QUEUE_SMOOTH_NEIGHBORS(src)
-	var/obj/item/computer_hardware/battery/battery_module = mainboard.all_components[MC_CELL]
-	if(battery_module)
-		qdel(battery_module)
+
+/obj/machinery/modular_computer/console/install_hardware(obj/item/mainboard/MB)
+	if(isnull(install_components))
+		install_components = list()
 
 	var/obj/item/computer_hardware/network_card/wired/network_card = new()
 
-	install_component(network_card)
-	install_component(new /obj/item/computer_hardware/recharger/APC)
-	install_component(new /obj/item/computer_hardware/hard_drive/super) // Consoles generally have better HDDs due to lower space limitations
+	MB.install_component(network_card)
+	install_components |= /obj/item/computer_hardware/recharger/APC
+	install_components |= /obj/item/computer_hardware/hard_drive/super // Consoles generally have better HDDs due to lower space limitations
 
 	var/area/A = get_area(src)
 	// Attempts to set this console's tag according to our area. Since some areas have stuff like "XX - YY" in their names we try to remove that too.
@@ -56,9 +57,9 @@
 		network_card.identification_string = replacetext(replacetext(replacetext("[console_department] Console", " ", "_"), "-", ""), "__", "_")
 	else
 		network_card.identification_string = "Unknown Console"
-	if(mapload)
-		if(istype(mainboard))
-			mainboard.turn_on()
+	. = ..()
+	if(istype(mainboard))
+		mainboard.turn_on()
 	update_icon()
 
 /obj/machinery/modular_computer/console/Destroy()

@@ -81,7 +81,7 @@
 		return FALSE
 
 	if(user && !issilicon(user) && in_range(src, user))
-		user.put_in_hands(stored_card)
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), stored_card) // user.put_in_hands(stored_card)
 	else
 		stored_card.forceMove(drop_location())
 	stored_card = null

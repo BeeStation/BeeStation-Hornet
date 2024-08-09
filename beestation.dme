@@ -3304,6 +3304,7 @@
 #include "code\modules\modular_computers\computers\machinery\modular_computer.dm"
 #include "code\modules\modular_computers\core\mainboard.dm"
 #include "code\modules\modular_computers\core\mainboard_components.dm"
+#include "code\modules\modular_computers\core\mainboard_integration.dm"
 #include "code\modules\modular_computers\core\mainboard_power.dm"
 #include "code\modules\modular_computers\core\mainboard_ui.dm"
 #include "code\modules\modular_computers\core\mainboard_misc.dm"

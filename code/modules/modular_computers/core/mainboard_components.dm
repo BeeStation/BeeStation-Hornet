@@ -52,6 +52,7 @@
 	to_chat(user, "<span class='notice'>You remove \the [yeet] from \the [src].</span>")
 
 	if(put_in_hands)
+		// INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), yeet)
 		user.put_in_hands(yeet)
 	else
 		yeet.forceMove(get_turf(src))

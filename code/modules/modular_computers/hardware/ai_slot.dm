@@ -23,20 +23,19 @@
 	if(!holder)
 		return FALSE
 
-	if(stored_card)
+	if(!isnull(stored_card))
 		to_chat(user, "<span class='warning'>You try to insert \the [I] into \the [src], but the slot is occupied.</span>")
 		return FALSE
 	if(user && !user.transferItemToLoc(I, src))
 		return FALSE
 
 	stored_card = I
-	insert_stored_card(stored_card)
-	to_chat(user, "<span class='notice'>You insert \the [I] into \the [src].</span>")
+	post_insert(stored_card, user)
 
 	return TRUE
 
-/obj/item/computer_hardware/goober/proc/insert_stored_card(obj/item/stored_card)
-	return
+/obj/item/computer_hardware/goober/proc/post_insert(obj/item/stored_card, mob/living/user)
+	to_chat(user, "<span class='notice'>You insert \the [stored_card] into \the [src].</span>")
 
 /obj/item/computer_hardware/goober/try_eject(mob/living/user = null, forced = FALSE)
 	if(!stored_card)
@@ -109,26 +108,19 @@
 
 	return ..()
 
-/obj/item/computer_hardware/goober/pai/insert_stored_card(obj/item/stored_card)
+/obj/item/computer_hardware/goober/pai/post_insert(obj/item/stored_card, mob/living/user)
+	// If the pAI moves out of the PDA, remove the reference.
 	RegisterSignal(stored_card, COMSIG_MOVABLE_MOVED, PROC_REF(stored_pai_moved))
 	RegisterSignal(stored_card, COMSIG_PARENT_QDELETING, PROC_REF(remove_pai))
+	to_chat(user, "<span class='notice'>You slot \the [stored_card] into [src].</span>")
+	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+	holder.update_icon()
 
 /// Handle when the pAI moves to exit the component
 /obj/item/computer_hardware/goober/pai/proc/stored_pai_moved()
 	if(istype(stored_card) && stored_card.loc != src)
 		visible_message("<span class='notice'>[stored_card] ejects itself from [src]!</span>")
 		remove_pai()
-
-/// Insert the pAI card
-/obj/item/computer_hardware/goober/pai/proc/insert_pai(mob/user, obj/item/paicard/goober)
-	if(!user.transferItemToLoc(goober, src))
-		return
-	stored_card = goober
-	// If the pAI moves out of the PDA, remove the reference.
-	RegisterSignal(stored_card, COMSIG_MOVABLE_MOVED, PROC_REF(stored_pai_moved))
-	RegisterSignal(stored_card, COMSIG_PARENT_QDELETING, PROC_REF(remove_pai))
-	to_chat(user, "<span class='notice'>You slot \the [goober] into [src].</span>")
-	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 
 /// Set the internal pAI card to null - this is NOT "Ejecting" it.
 /obj/item/computer_hardware/goober/pai/proc/remove_pai()
@@ -137,4 +129,5 @@
 	UnregisterSignal(stored_card, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(stored_card, COMSIG_PARENT_QDELETING)
 	stored_card = null
+	holder.update_icon()
 

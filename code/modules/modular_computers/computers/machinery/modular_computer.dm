@@ -28,78 +28,79 @@
 
 	/// The main backbone that handles most ModPC logic while this type only handles power and other specific things.
 	var/obj/item/mainboard/mainboard = null
+	/// A list of component types to install
+	var/list/obj/item/computer_hardware/install_components = null
 
-/obj/machinery/modular_computer/Initialize(mapload)
-	mainboard = new(src)
-	mainboard.physical_holder = src
-	mainboard.max_hardware_w_class = max_hardware_size
-	mainboard.max_bays = max_bays
+// /obj/machinery/modular_computer/Initialize(mapload)
+// 	mainboard = new(src)
+// 	mainboard.physical_holder = src
+// 	mainboard.max_hardware_w_class = max_hardware_size
+// 	mainboard.max_bays = max_bays
+// 	. = ..()
+
+/obj/machinery/modular_computer/ComponentInitialize()
+	SHOULD_CALL_PARENT(TRUE)
+
 	. = ..()
+	AddComponent(/datum/component/modular_computer_integration, null, TRUE, CALLBACK(src, PROC_REF(install_hardware)), CALLBACK(src, PROC_REF(install_software)), max_hardware_size, max_bays)
 
-/obj/machinery/modular_computer/Destroy()
-	QDEL_NULL(mainboard)
-	return ..()
+/obj/machinery/modular_computer/proc/install_hardware(obj/item/mainboard/MB)
+	SHOULD_CALL_PARENT(TRUE) // should always prevent forgetting hardware unless we explicity require it
 
-/obj/machinery/modular_computer/examine(mob/user)
+	for(var/T in install_components)
+		MB.install_component(new T)
+
+/obj/machinery/modular_computer/proc/install_software(obj/item/computer_hardware/hard_drive/hard_drive)
+	SHOULD_CALL_PARENT(TRUE) // should always prevent missing software
+	return
+
+// /obj/machinery/modular_computer/Destroy()
+// 	. = ..()
+
+// /obj/machinery/modular_computer/examine(mob/user)
+// 	. = ..()
+// 	if(istype(mainboard))
+// 		. += mainboard.internal_parts_examine()
+
+// /obj/machinery/modular_computer/attack_ghost(mob/dead/observer/user)
+// 	. = ..()
+// 	if(.)
+// 		return
+// 	if(mainboard)
+// 		mainboard.attack_ghost(user)
+
+// /obj/machinery/modular_computer/should_emag(mob/user)
+// 	if(isnull(mainboard))
+// 		to_chat(user, "<span class='warning'>You swipe your card, but nothing seems to happen.</span>")
+// 		return FALSE
+// 	return mainboard.should_emag(user)
+
+// /obj/machinery/modular_computer/on_emag(mob/user)
+// 	..()
+// 	return mainboard.on_emag(user)
+
+/obj/machinery/modular_computer/update_icon_state()
 	. = ..()
-	if(istype(mainboard))
-		. += mainboard.internal_parts_examine()
-
-/obj/machinery/modular_computer/attack_ghost(mob/dead/observer/user)
-	. = ..()
-	if(.)
+	if(!istype(mainboard) || !mainboard.enabled || !mainboard.use_power())
+		icon_state = icon_state_unpowered
 		return
-	if(mainboard)
-		mainboard.attack_ghost(user)
 
-/obj/machinery/modular_computer/should_emag(mob/user)
-	if(isnull(mainboard))
-		to_chat(user, "<span class='warning'>You swipe your card, but nothing seems to happen.</span>")
-		return FALSE
-	return mainboard.should_emag(user)
-
-/obj/machinery/modular_computer/on_emag(mob/user)
-	..()
-	return mainboard.on_emag(user)
-
-/obj/machinery/modular_computer/update_icon()
-	cut_overlays()
 	icon_state = icon_state_powered
 
+/obj/machinery/modular_computer/update_overlays()
+	. = ..()
+
 	if(!istype(mainboard) || !mainboard.enabled)
-		if (!(machine_stat & NOPOWER) && (mainboard && mainboard.use_power()))
-			add_overlay(screen_icon_screensaver)
-		else
-			icon_state = icon_state_unpowered
-	else
-		if(mainboard.active_program)
-			add_overlay(mainboard.active_program.program_icon_state ? mainboard.active_program.program_icon_state : screen_icon_state_menu)
-		else
-			add_overlay(screen_icon_state_menu)
+		return
 
-	// TODO: Move integrity to the physical_holder
-	// if(cpu && cpu.get_integrity() <= cpu.integrity_failure * cpu.max_integrity)
-	// 	add_overlay("bsod")
-	// 	add_overlay("broken")
+	if (!(machine_stat & NOPOWER) && (mainboard && mainboard.use_power()))
+		. += screen_icon_screensaver
 
-/obj/machinery/modular_computer/AltClick(mob/user)
-	if(istype(mainboard))
-		mainboard.AltClick(user)
+	if(isnull(mainboard.active_program) || isnull(mainboard.active_program.program_icon_state))
+		. += screen_icon_state_menu
+		return
 
-//ATTACK HAND IGNORING PARENT RETURN VALUE
-// On-click handling. Turns on the computer if it's off and opens the GUI.
-/obj/machinery/modular_computer/interact(mob/user)
-	if(istype(mainboard))
-		return mainboard.interact(user) // CPU is an item, that's why we route attack_hand to attack_self
-	else
-		return ..()
-
-// Process currently calls handle_power(), may be expanded in future if more things are added.
-/obj/machinery/modular_computer/process(delta_time)
-	if(istype(mainboard))
-		// Keep names in sync.
-		mainboard.name = name
-		mainboard.process(delta_time)
+	. += mainboard.active_program.program_icon_state
 
 // Used in following function to reduce copypaste
 /obj/machinery/modular_computer/proc/power_failure(malfunction = 0)
@@ -111,11 +112,6 @@
 	set_machine_stat(machine_stat | NOPOWER)
 	update_icon()
 
-/obj/machinery/modular_computer/proc/install_component(obj/item/computer_hardware/install, mob/living/user = null)
-	if(isnull(mainboard))
-		stack_trace("Called install_component() without a mainboard installed.")
-	mainboard.install_component(install, user)
-
 // Modular computers can have battery in them, we handle power in previous proc, so prevent this from messing it up for us.
 /obj/machinery/modular_computer/power_change()
 	if(istype(mainboard) && mainboard.use_power()) // If MC_CPU still has a power source, PC wouldn't go offline.
@@ -124,40 +120,32 @@
 		return
 	. = ..()
 
-/obj/machinery/modular_computer/screwdriver_act(mob/user, obj/item/tool)
-	if(istype(mainboard))
-		return mainboard.screwdriver_act(user, tool)
-
-/obj/machinery/modular_computer/attackby(var/obj/item/W as obj, mob/user, params)
-	if(user.a_intent == INTENT_HELP && istype(mainboard) && !(flags_1 & NODECONSTRUCT_1))
-		return mainboard.attackby_parent(W, user, params)
-	return ..()
 
 
 // Stronger explosions cause serious damage to internal components
 // Minor explosions are mostly mitigitated by casing.
-/obj/machinery/modular_computer/ex_act(severity)
-	if(istype(mainboard))
-		switch(severity)
-			if(EXPLODE_DEVASTATE)
-				SSexplosions.high_mov_atom += mainboard
-			if(EXPLODE_HEAVY)
-				SSexplosions.med_mov_atom += mainboard
-			if(EXPLODE_LIGHT)
-				SSexplosions.low_mov_atom += mainboard
-	..()
+// /obj/machinery/modular_computer/ex_act(severity)
+// 	if(istype(mainboard))
+// 		switch(severity)
+// 			if(EXPLODE_DEVASTATE)
+// 				SSexplosions.high_mov_atom += mainboard
+// 			if(EXPLODE_HEAVY)
+// 				SSexplosions.med_mov_atom += mainboard
+// 			if(EXPLODE_LIGHT)
+// 				SSexplosions.low_mov_atom += mainboard
+// 	..()
 
 // EMPs are similar to explosions, but don't cause physical damage to the casing. Instead they screw up the components
-/obj/machinery/modular_computer/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_CONTENTS)
-		return
-	if(istype(mainboard))
-		mainboard.emp_act(severity)
+// /obj/machinery/modular_computer/emp_act(severity)
+// 	. = ..()
+// 	if(. & EMP_PROTECT_CONTENTS)
+// 		return
+// 	if(istype(mainboard))
+// 		mainboard.emp_act(severity)
 
 // "Stun" weapons can cause minor damage to components (short-circuits?)
 // "Burn" damage is equally strong against internal components and exterior casing
 // "Brute" damage mostly damages the casing.
-/obj/machinery/modular_computer/bullet_act(obj/projectile/Proj)
-	if(istype(mainboard))
-		mainboard.bullet_act(Proj)
+// /obj/machinery/modular_computer/bullet_act(obj/projectile/Proj)
+// 	if(istype(mainboard))
+// 		mainboard.bullet_act(Proj)

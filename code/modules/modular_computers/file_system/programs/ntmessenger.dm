@@ -79,7 +79,7 @@
 		if(!istype(drive))
 			continue
 
-		var/obj/item/computer_hardware/identifier/id = mod_pc.mainboard.all_components[MC_IDENTIFY]
+		var/obj/item/computer_hardware/identifier/id = mod_pc.mainboard?.all_components[MC_IDENTIFY]
 		if(!istype(id) || isnull(id.saved_identification) || isnull(id.saved_job) || mod_pc.messenger_invisible)
 			continue
 
@@ -173,11 +173,15 @@
 			if(!istype(target))
 				return // we don't want tommy sending his messages to nullspace
 
-			if(!(target.mainboard.saved_identification() == params["name"] && target.mainboard.saved_job() == params["job"]))
+			var/obj/item/mainboard/target_MB = target.mainboard
+			if(!istype(target_MB))
+				return
+
+			if(!(target_MB.saved_identification() == params["name"] && target_MB.saved_job() == params["job"]))
 				to_chat(usr, "<span class='notice'>ERROR: User no longer exists.</span>")
 				return
 
-			var/obj/item/computer_hardware/hard_drive/drive = target.mainboard.all_components[MC_HDD]
+			var/obj/item/computer_hardware/hard_drive/drive = target_MB.all_components[MC_HDD]
 
 			for(var/datum/computer_file/program/messenger/app in drive.stored_files)
 				if(!app.sending_and_receiving && !sending_virus)

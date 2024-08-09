@@ -87,19 +87,20 @@
 	internal_id_card.access |= access_list
 
 /mob/living/silicon/proc/create_modularInterface()
-	if(!modularInterface)
-		modularInterface = new /obj/item/modular_computer/tablet/integrated(src)
-	modularInterface.layer = ABOVE_HUD_PLANE
-	modularInterface.plane = ABOVE_HUD_PLANE
+	var/list/components = list()
 	var/job = JOB_NAME_CYBORG
 	if(iscyborg(src))
-		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/pda/robot)
+		components += /obj/item/computer_hardware/hard_drive/small/pda/robot
 	if(isAI(src))
 		job = JOB_NAME_AI
-		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
+		components += /obj/item/computer_hardware/hard_drive/small/pda/ai
 	if(ispAI(src))
 		job = JOB_NAME_PAI
-		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
+		components += /obj/item/computer_hardware/hard_drive/small/pda/ai
+	if(!modularInterface)
+		modularInterface = new /obj/item/modular_computer/tablet/integrated(src, components)
+	modularInterface.layer = ABOVE_HUD_PLANE
+	modularInterface.plane = ABOVE_HUD_PLANE
 	modularInterface.mainboard.update_id_display(real_name || name, job)
 
 /mob/living/silicon/robot/model/syndicate/create_modularInterface()

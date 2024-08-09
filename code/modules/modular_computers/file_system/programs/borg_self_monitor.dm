@@ -19,13 +19,13 @@
 	return ..()
 
 /datum/computer_file/program/borg_self_monitor/on_start(mob/living/user)
-	var/obj/item/modular_computer/tablet/integrated/tablet = computer.physical_holder
+	tablet = computer.physical_holder
 	if(!istype(tablet))
 		to_chat(user, "<span class='warning'>A warning flashes across \the [computer]: Device Incompatible.</span>")
 		return FALSE
 	. = ..()
 	if(.)
-		if(tablet.mainboard.device_theme == THEME_SYNDICATE)
+		if(computer.device_theme == THEME_SYNDICATE)
 			program_icon_state = "command-syndicate"
 		return TRUE
 	return FALSE
@@ -132,6 +132,7 @@
 		if("lampIntensity")
 			borgo.lamp_intensity = clamp(text2num(params["ref"]), 1, 5)
 			borgo.toggle_headlamp(FALSE, TRUE)
+			return TRUE
 
 		if("selfDestruct")
 			if(borgo.stat || borgo.lockcharge) //No detonation while stunned or locked down

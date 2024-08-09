@@ -2,10 +2,10 @@
 /obj/item/mainboard/proc/turn_on(mob/user, open_ui = TRUE)
 	if(enabled)
 		if(open_ui && istype(user))
-			ui_interact(user)
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/datum, ui_interact), user) // ui_interact(user)
 		return TRUE
 
-	var/obj/item/modular_computer/mod_pc = physical_holder
+	var/obj/item/modular_computer/mod_pc = loc
 	if(istype(mod_pc))
 		if(!mod_pc.can_turn_on(user))
 			return FALSE
@@ -52,7 +52,7 @@
 	enabled = 1
 	update_icon()
 	if(open_ui && istype(user))
-		ui_interact(user)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/datum, ui_interact), user) // ui_interact(user)
 	return TRUE
 
 /// A power-off event
@@ -76,7 +76,7 @@
 	if(update)
 		var/mob/user = usr
 		if(user && istype(user))
-			ui_interact(user) // Re-open the UI on this computer. It should show the main screen now.
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/datum, ui_interact), user) // ui_interact(user) // Re-open the UI on this computer. It should show the main screen now.
 		update_icon()
 
 /// Return an Examine-friendly list of all the internal components

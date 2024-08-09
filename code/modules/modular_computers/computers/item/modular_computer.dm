@@ -48,40 +48,46 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// The main item that handles most ModPC logic while this type only handles power and other specific things.
 	var/obj/item/mainboard/mainboard = null
 
-/obj/item/modular_computer/Initialize(mapload)
-	SHOULD_CALL_PARENT(TRUE)
-	mainboard = new(src)
-	mainboard.physical_holder = src
-	mainboard.max_hardware_w_class = max_hardware_size
-	mainboard.max_bays = max_bays
-	. = ..() // The subtypes Initialize() expect mainboard to exist
+	/// Hardware components we want to add by Initialize()
+	var/list/obj/item/computer_hardware/install_components
+	/// The internal cell type we also want to add
+	var/obj/item/stock_parts/install_cell
+
+/obj/item/modular_computer/Initialize(mapload, list/obj/item/computer_hardware/override_hardware, obj/item/stock_parts/override_cell)
+	. = ..()
+	if(!isnull(override_hardware))
+		src.install_components = override_hardware
+	if(!isnull(override_cell))
+		src.install_cell = override_cell.type
 	set_light_color(comp_light_color)
 	set_light_range(comp_light_luminosity)
-	mainboard.update_id_display()
 	if(has_light)
 		light_action = new(src)
-	if(syndicate_themed)
-		// Force syndie theme
-		mainboard.device_theme = THEME_SYNDICATE
-		mainboard.theme_locked = TRUE
 	update_icon()
-	return INITIALIZE_HINT_LATELOAD
 
-/obj/item/modular_computer/LateInitialize()
+/obj/item/modular_computer/ComponentInitialize()
+	SHOULD_CALL_PARENT(TRUE) // just incase we forget somehow
 	. = ..()
-	install_programs(mainboard.all_components[MC_HDD])
 
-/obj/item/modular_computer/proc/install_programs(obj/item/computer_hardware/hard_drive/hard_drive)
+	AddComponent(/datum/component/modular_computer_integration, null, TRUE, CALLBACK(src, PROC_REF(install_hardware)), CALLBACK(src, PROC_REF(install_software)), max_hardware_size, max_bays)
+
+/obj/item/modular_computer/proc/install_hardware(obj/item/mainboard/MB)
+	SHOULD_CALL_PARENT(TRUE) // should always prevent forgetting hardware unless we explicity require it
+
+	if(!isnull(install_cell))
+		MB.install_component(new /obj/item/computer_hardware/battery(MB, install_cell))
+
+	for(var/T in install_components)
+		MB.install_component(new T)
+
+	MB.update_id_display()
+	if(syndicate_themed)
+		MB.device_theme = THEME_SYNDICATE
+		MB.theme_locked = TRUE
+
+/obj/item/modular_computer/proc/install_software(obj/item/computer_hardware/hard_drive/hard_drive)
+	SHOULD_CALL_PARENT(TRUE) // should always prevent missing software
 	return
-
-/obj/item/modular_computer/Destroy()
-	QDEL_NULL(mainboard)
-	return ..()
-
-/obj/item/modular_computer/examine(mob/user)
-	. = ..()
-	if(istype(mainboard))
-		. += mainboard.internal_parts_examine(user)
 
 /obj/item/modular_computer/update_icon_state()
 	. = ..()
@@ -113,78 +119,34 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	else
 		..()
 
-// Big TODO: Make all of this into a component that responds to signals
-
-/obj/item/modular_computer/AltClick(mob/user)
-	if(istype(mainboard))
-		return mainboard.AltClick(user)
-
-/obj/item/modular_computer/attack_ai(mob/user)
-	if(istype(mainboard))
-		return mainboard.attack_ai_parent(user)
-	return ..()
-
-/obj/item/modular_computer/attackby(obj/item/I, mob/living/user, params)
-	if(istype(mainboard))
-		return mainboard.attackby_parent(I, user, params)
-	return ..()
-
-/obj/item/modular_computer/attack_ghost(mob/dead/observer/user)
-	if(istype(mainboard))
-		return mainboard.attack_ghost_parent(user)
-	return ..()
-
-// this computer was used to attack an object
-/obj/item/modular_computer/attack_obj(obj/O, mob/living/user)
-	if(istype(mainboard))
-		return mainboard.attack_obj_parent(O, user)
-	return ..()
-
-/obj/item/modular_computer/attack_hand(mob/user)
-	. = ..()
-	if(.)
+/obj/item/modular_computer/GetAccess()
+	var/obj/item/computer_hardware/id_slot/id_slot = mainboard.all_components[MC_ID_AUTH]
+	if(!istype(id_slot))
 		return
-	if(isturf(loc))
-		return attack_self(user)
+
+	return id_slot.GetAccess_parent()
+
+/obj/item/modular_computer/GetID()
+	var/obj/item/computer_hardware/id_slot/id_slot = mainboard.all_components[MC_ID_AUTH]
+	if(!istype(id_slot))
+		return
+
+	return id_slot.GetID_parent()
+
+// Big TODO: Make all of this into a component that responds to signals
 
 /obj/item/modular_computer/proc/can_turn_on(mob/user)
 	return TRUE
 
-/// Gets IDs/access levels from card slot. Would be useful when/if PDAs would become modular PCs. (They are now!! you are welcome - itsmeow)
-/obj/item/modular_computer/GetAccess()
-	if(istype(mainboard))
-		return mainboard.GetAccess_parent()
-	return ..()
+// /obj/item/modular_computer/on_emag(mob/user)
+// 	if(istype(mainboard))
+// 		return mainboard.on_emag(user)
+// 	return ..()
 
-/obj/item/modular_computer/GetID()
-	if(istype(mainboard))
-		return mainboard.GetID_parent()
-	return ..()
-
-/obj/item/modular_computer/interact(mob/user)
-	if(istype(mainboard))
-		return mainboard.interact(user)
-	return ..()
-
-/obj/item/modular_computer/proc/install_component(obj/item/computer_hardware/install, mob/living/user = null)
-	if(isnull(mainboard))
-		stack_trace("Called install_component() without a mainboard installed.")
-	mainboard.install_component(install, user)
-
-/obj/item/modular_computer/MouseDrop(obj/over_object, src_location, over_location)
-	if(istype(mainboard))
-		return mainboard.MouseDrop(over_object, src_location, over_location)
-	return ..()
-
-/obj/item/modular_computer/on_emag(mob/user)
-	if(istype(mainboard))
-		return mainboard.on_emag(user)
-	return ..()
-
-/obj/item/modular_computer/should_emag(mob/user)
-	if(istype(mainboard))
-		return mainboard.should_emag(user)
-	return ..()
+// /obj/item/modular_computer/should_emag(mob/user)
+// 	if(istype(mainboard))
+// 		return mainboard.should_emag(user)
+// 	return ..()
 
 /**
   * Toggles the computer's flashlight, if it has one.

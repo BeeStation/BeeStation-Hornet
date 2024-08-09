@@ -554,7 +554,7 @@
 			stack_trace("Cyborg [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
 			create_modularInterface()
 		var/obj/item/computer_hardware/hard_drive/portable/floppy = W
-		if(modularInterface.install_component(floppy, user))
+		if(modularInterface.mainboard.install_component(floppy, user))
 			return
 	else
 		return ..()
