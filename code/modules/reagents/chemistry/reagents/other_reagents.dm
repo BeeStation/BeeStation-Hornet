@@ -560,7 +560,6 @@
 						/datum/species/fly,
 						/datum/species/moth,
 						/datum/species/apid,
-						/datum/species/pod,
 						/datum/species/oozeling,
 						/datum/species/abductor,
 						/datum/species/skeleton)
@@ -604,12 +603,12 @@
 	race = /datum/species/apid
 	taste_description = "honey"
 
-/datum/reagent/mutationtoxin/pod
-	name = "Podperson Mutation Toxin"
+/datum/reagent/mutationtoxin/diona //Admin only, besides maint pills because funny
+	name = "Diona Mutation Toxin"
 	description = "A vegetalizing toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	race = /datum/species/pod
+	chem_flags = CHEMICAL_RNG_FUN
+	race = /datum/species/diona
 	taste_description = "flowers"
 
 /datum/reagent/mutationtoxin/jelly

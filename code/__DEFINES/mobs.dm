@@ -603,3 +603,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define STANDING_UP 0
 /// Mob is lying down, usually associated with lying_angle values of 90 or 270.
 #define LYING_DOWN 1
+
+// Species related bitflags go here.
+#define NOT_TRANSMORPHIC (1<<0) // This race can't become a changeling antagonist.

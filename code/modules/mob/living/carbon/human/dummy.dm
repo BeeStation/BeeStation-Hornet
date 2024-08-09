@@ -60,6 +60,14 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	dna.features["ipc_antenna"] = "None"
 	dna.features["ipc_chassis"] = "Morpheus Cyberkinetics (Custom)"
 	dna.features["psyphoza_cap"] = "Portobello"
+	dna.features["diona_leaves"] = "None"
+	dna.features["diona_thorns"] = "None"
+	dna.features["diona_flowers"] = "None"
+	dna.features["diona_moss"] = "None"
+	dna.features["diona_mushroom"] = "None"
+	dna.features["diona_antennae"] = "None"
+	dna.features["diona_eyes"] = "None"
+	dna.features["diona_pbody"] = "None"
 
 //Inefficient pooling/caching way.
 GLOBAL_LIST_EMPTY(human_dummy_list)

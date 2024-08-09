@@ -2211,8 +2211,8 @@
 /obj/item/food/meat/slab/xeno,
 /obj/item/food/meat/slab/human/mutant/lizard,
 /obj/item/food/meat/slab/human/mutant/lizard,
-/obj/item/food/meat/slab/human/mutant/plant,
-/obj/item/food/meat/slab/human/mutant/plant,
+/obj/item/food/meat/slab/human/mutant/diona,
+/obj/item/food/meat/slab/human/mutant/diona,
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/hotel/bar)
 "hv" = (
@@ -2230,8 +2230,8 @@
 /obj/item/food/meat/slab/xeno,
 /obj/item/food/meat/slab/human/mutant/lizard,
 /obj/item/food/meat/slab/human/mutant/lizard,
-/obj/item/food/meat/slab/human/mutant/plant,
-/obj/item/food/meat/slab/human/mutant/plant,
+/obj/item/food/meat/slab/human/mutant/diona,
+/obj/item/food/meat/slab/human/mutant/diona,
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/hotel/bar)
 "hw" = (

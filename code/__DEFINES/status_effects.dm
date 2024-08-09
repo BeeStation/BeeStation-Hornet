@@ -47,6 +47,8 @@
 
 #define STATUS_EFFECT_ANTIMAGIC /datum/status_effect/antimagic //! grants antimagic (and reapplies if lost) for the duration
 
+#define STATUS_EFFECT_PLANTHEALING /datum/status_effect/planthealing //! Grants the user healing at a given amount, used for diona health regeneration.
+
 //---------//
 // DEBUFFS //
 //---------//
