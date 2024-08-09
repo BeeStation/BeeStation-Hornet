@@ -224,3 +224,21 @@
 	..()
 	for(var/i in 1 to 8)
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
+
+/*
+ * Golem Mining Locker
+ */
+/obj/structure/closet/golem_mining
+	name = "mining equipment"
+
+/obj/structure/closet/golem_mining/PopulateContents()
+	..()
+
+	new /obj/item/shovel(src)
+	new /obj/item/storage/bag/ore(src)
+	new /obj/item/storage/bag/ore(src)
+	new /obj/item/pickaxe(src)
+	new /obj/item/flashlight/lantern(src)
+	new /obj/item/mining_scanner(src)
+	new /obj/item/card/id/golem(src)
+	new /obj/item/stack/marker_beacon/ten(src)
