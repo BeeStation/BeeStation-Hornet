@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	for(var/obj/effect/portal/wormhole/clockcult/CC in GLOB.all_wormholes)
 		qdel(CC)
 	SSshuttle.clearHostileEnvironment(src)
-	set_security_level(SEC_LEVEL_RED)
+	SSsecurity_level.set_level(SEC_LEVEL_RED)
 	addtimer(CALLBACK(src, PROC_REF(clockies_win)), 300)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/clockies_win()
@@ -134,7 +134,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/announce_gateway()
 	set_dynamic_high_impact_event("clockwork ark has opened")
 	activated = TRUE
-	set_security_level(SEC_LEVEL_DELTA)
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	mass_recall(TRUE)
 	var/grace_time = GLOB.narsie_breaching ? 0 : 1800
 	addtimer(CALLBACK(src, PROC_REF(begin_assault)), grace_time)

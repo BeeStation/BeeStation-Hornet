@@ -222,6 +222,13 @@
 	merge_type = /obj/item/stack/tile/iron/checker
 	tile_rotate_dirs = list(SOUTH, NORTH)
 
+/obj/item/stack/tile/iron/checker/other
+	name = "alternate checker tile"
+	singular_name = "alternate checker floor tile"
+	icon_state = "tile_checker"
+	turf_type = /turf/open/floor/iron/checker/other
+	merge_type = /obj/item/stack/tile/iron/checker/other
+
 /obj/item/stack/tile/iron/dark/textured
 	name = "dark textured tile"
 	singular_name = "dark textured floor tile"
