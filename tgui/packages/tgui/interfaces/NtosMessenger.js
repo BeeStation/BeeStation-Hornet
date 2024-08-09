@@ -128,7 +128,6 @@ const ContactsScreen = (props, context) => {
             <Button icon="bell" content="Set Ringtone" onClick={() => act('PDA_ringSet')} />
             <Button icon="comment" content="View Messages" onClick={() => act('PDA_viewMessages')} />
             <Button icon="sort" content={`Sort by: ${sortByJob ? 'Job' : 'Name'}`} onClick={() => act('PDA_changeSortStyle')} />
-            {!!isSilicon && <Button icon="camera" content="Attach Photo" onClick={() => act('PDA_selectPhoto')} />}
             {!!virus_attach && (
               <Button
                 icon="bug"
@@ -138,6 +137,12 @@ const ContactsScreen = (props, context) => {
               />
             )}
           </Box>
+          {!!isSilicon && (
+            <Box>
+              <Button icon="camera" content="View Photos" onClick={() => act('PDA_viewPhotos')} />
+              <Button icon="camera" content="Attach Photo" onClick={() => act('PDA_selectPhoto')} />
+            </Box>
+          )}
         </Section>
       </Stack>
       {!!photo && (

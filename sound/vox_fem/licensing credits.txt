@@ -1,0 +1,13 @@
+//for crossed <3
+
+Attributions:
+
+"soundalarm1" was titled "Permission to panic - Sound Effect (mp3) ID:23624" by user "freesman" on:
+https://directory.audio/sound-effects/alarms/23624-permission-to-panic
+It was licensed as "Attribution"
+It was changed to feature only a single alarm cycle with added reverb and normalizing.
+
+"soundalarm2" was titled "Danger security alarm - Sound Effect (mp3) ID:21709" by user "freesman" on:
+https://directory.audio/sound-effects/alarms/21709-danger-security-alarm
+It was licensed as "Attribution"
+It was changed to feature only a single alarm cycle with added reverb and normalizing.
