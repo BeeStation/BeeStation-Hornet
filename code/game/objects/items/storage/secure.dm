@@ -156,6 +156,31 @@
 	for(var/i in 1 to STR.max_items - 2)
 		new /obj/item/stack/spacecash/c1000(src)
 
+//Contains more space cash.
+/obj/item/storage/secure/briefcase/syndie/plus
+	item_flags = ISWEAPON
+
+/obj/item/storage/secure/briefcase/syndie/plus/PopulateContents()
+	..()
+	for(var/i in 1 to 10)
+		new /obj/item/stack/spacecash/c1000(src)
+
+/obj/item/storage/secure/briefcase/syndie/plus/proc/calc_damage()
+	var/power = 0
+	for (var/obj/item/stack/spacecash/c1000 in GetAllContents())
+		power += c1000.amount
+	//Only counts the amount of 1000 credit spacecash in the briefcase, it should count all money.
+	force = 8 + power / 2
+	throwforce = 11 + power
+
+/obj/item/storage/secure/briefcase/syndie/plus/attack(mob/target, mob/living/user)
+	calc_damage()
+	..()
+
+/obj/item/storage/secure/briefcase/syndie/plus/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	calc_damage()
+	..()
+
 
 // -----------------------------
 //        Secure Safe

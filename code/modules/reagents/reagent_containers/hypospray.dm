@@ -267,3 +267,12 @@
 	volume = 10
 	amount_per_transfer_from_this = 10
 	list_reagents = list(/datum/reagent/mutationtoxin/shadow = 10)
+
+/obj/item/reagent_containers/hypospray/medipen/plasma_species_mutator
+	name = "Plasma Man mutator autoinjector"
+	desc = "Become one with the fire, and change your race to a Plasma Man today!"
+	icon_state = "syndipen"
+	item_state = "tbpen"
+	volume = 10
+	amount_per_transfer_from_this = 10
+	list_reagents = list(/datum/reagent/mutationtoxin/plasma = 10)

@@ -422,6 +422,29 @@
 	new /obj/item/reagent_containers/glass/bottle/amanitin(src)
 	new /obj/item/reagent_containers/syringe(src)
 
+/obj/item/storage/box/syndie_kit/detonators
+	name = "Detonators"
+
+/obj/item/storage/box/syndie_kit/detonators/PopulateContents()
+	var/list/many = list(
+		/obj/item/assembly/timer, 
+		/obj/item/assembly/prox_sensor,
+		/obj/item/assembly/signaler)
+	for(var/assembly in many)
+		for(var/i in 1 to 7)
+			new assembly(src)
+
+	var/list/few = list(
+		/obj/item/assembly/mousetrap,
+		/obj/item/assembly/voice)
+	for(var/assembly in few)
+		for(var/i in 1 to 2)
+			new assembly(src)
+
+	/obj/item/assembly/health
+	/obj/item/assembly/igniter
+	/obj/item/assembly/infra
+
 /obj/item/storage/box/syndie_kit/nuke
 	name = "box"
 
@@ -508,7 +531,11 @@
 
 /obj/item/storage/box/syndie_kit/ez_clean/PopulateContents()
 	for(var/i in 1 to 3)
-		new/obj/item/grenade/chem_grenade/ez_clean(src)
+		new /obj/item/grenade/chem_grenade/ez_clean(src)
+
+/obj/item/storage/box/syndie_kit/ez_mess/PopulateContents()
+	for(var/i in 1 to 3)
+		new /obj/item/grenade/chem_grenade/ez_mess(src)
 
 /obj/item/storage/box/hug/reverse_revolver/PopulateContents()
 	new /obj/item/gun/ballistic/revolver/reverse(src)
