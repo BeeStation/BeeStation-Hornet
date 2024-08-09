@@ -217,6 +217,11 @@
 	using.screen_loc = ui_borg_language_menu
 	static_inventory += using
 
+// Navigation
+	using = new /atom/movable/screen/navigate
+	using.screen_loc = ui_navigate_menu
+	static_inventory += using
+
 // Host Monitor
 	using = new /atom/movable/screen/pai/host_monitor()
 	using.screen_loc = ui_pai_host_monitor
