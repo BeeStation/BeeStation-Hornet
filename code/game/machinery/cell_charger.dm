@@ -106,6 +106,9 @@
 /obj/machinery/cell_charger/attack_ai(mob/user)
 	return
 
+/obj/machinery/cell_charger/attack_robot(mob/user)
+	return
+
 /obj/machinery/cell_charger/emp_act(severity)
 	. = ..()
 

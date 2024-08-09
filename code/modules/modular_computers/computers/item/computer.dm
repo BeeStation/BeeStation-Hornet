@@ -238,6 +238,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/attack_ai(mob/user)
 	return attack_self(user)
 
+/obj/item/modular_computer/attack_robot(mob/living/user)
+	return attack_self(user)
+
 /obj/item/modular_computer/attack_ghost(mob/dead/observer/user)
 	. = ..()
 	if(.)

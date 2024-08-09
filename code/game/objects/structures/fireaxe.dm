@@ -135,6 +135,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 	toggle_lock(user)
 	return
 
+/obj/structure/fireaxecabinet/attack_robot(mob/user)
+	toggle_lock(user)
+	return
+
 /obj/structure/fireaxecabinet/attack_tk(mob/user)
 	. = COMPONENT_CANCEL_ATTACK_CHAIN
 	if(locked)

@@ -119,8 +119,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/sparker, 26)
 /obj/machinery/sparker/attack_ai()
 	if (anchored)
 		return ignite()
-	else
-		return
+
+/obj/machinery/sparker/attack_robot()
+	return attack_ai()
 
 /obj/machinery/sparker/proc/ignite()
 	if (!(powered()))
