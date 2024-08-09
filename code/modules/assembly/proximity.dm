@@ -4,13 +4,14 @@
 	icon_state = "prox"
 	custom_materials = list(/datum/material/iron=800, /datum/material/glass=200)
 	attachable = TRUE
-
-
+	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	var/scanning = FALSE
 	var/timing = FALSE
 	var/time = 20
 	var/sensitivity = 0
 	var/hearing_range = 3
+	///Proximity monitor associated with this atom, needed for it to work after this rework
 
 /obj/item/assembly/prox_sensor/Initialize(mapload)
 	. = ..()
@@ -19,6 +20,7 @@
 
 /obj/item/assembly/prox_sensor/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(proximity_monitor)
 	. = ..()
 
 /obj/item/assembly/prox_sensor/examine(mob/user)
@@ -35,12 +37,35 @@
 	update_icon()
 	return TRUE
 
+/obj/item/assembly/prox_sensor/dropped()
+	. = ..()
+	// Pick the first valid object in this list:
+	// Wiring datum's owner
+	// assembly holder's attached object
+	// assembly holder itself
+	// us
+	proximity_monitor?.SetHost(connected?.holder || holder?.master || holder || src, src)
+
+/obj/item/assembly/prox_sensor/on_attach()
+	. = ..()
+	// Pick the first valid object in this list:
+	// Wiring datum's owner
+	// assembly holder's attached object
+	// assembly holder itself
+	// us
+	proximity_monitor.SetHost(connected?.holder || holder?.master || holder || src, src)
+
 /obj/item/assembly/prox_sensor/on_detach()
 	. = ..()
 	if(!.)
 		return
 	else
-		proximity_monitor.SetHost(src,src)
+		// Pick the first valid object in this list:
+		// Wiring datum's owner
+		// assembly holder's attached object
+		// assembly holder itself
+		// us
+		proximity_monitor.SetHost(connected?.holder || holder?.master || holder || src, src)
 
 /obj/item/assembly/prox_sensor/toggle_secure()
 	secured = !secured
@@ -64,10 +89,11 @@
 /obj/item/assembly/prox_sensor/proc/sense()
 	if(!scanning || !secured || next_activate > world.time)
 		return FALSE
+	next_activate = world.time + 30
 	pulse(FALSE)
 	audible_message("[icon2html(src, hearers(src))] *beep* *beep* *beep*", null, hearing_range)
 	playsound(get_turf(src), 'sound/machines/triple_beep.ogg', ASSEMBLY_BEEP_VOLUME, TRUE)
-	next_activate = world.time + 30
+
 	return TRUE
 
 /obj/item/assembly/prox_sensor/process(delta_time)

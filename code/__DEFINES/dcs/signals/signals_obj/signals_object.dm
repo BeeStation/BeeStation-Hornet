@@ -32,3 +32,5 @@
 ///Called when a payment component changes value
 #define COMSIG_OBJ_ATTEMPT_CHARGE_CHANGE "obj_attempt_simple_charge_change"
 
+///from /obj/item/assembly/proc/pulsed(mob/pulser)
+#define COMSIG_ASSEMBLY_PULSED "assembly_pulsed"

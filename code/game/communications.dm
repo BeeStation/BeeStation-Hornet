@@ -178,10 +178,13 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 	if (!filter)
 		filter = "_default"
 
+	var/datum/weakref/new_listener = WEAKREF(device)
+	if(isnull(new_listener))
+		CRASH("null, non-datum, or qdeleted device")
 	var/list/devices_line = devices[filter]
 	if(!devices_line)
 		devices[filter] = devices_line = list()
-	devices_line += WEAKREF(device)
+	devices_line += new_listener
 
 
 /datum/radio_frequency/proc/remove_listener(obj/device)
@@ -198,11 +201,21 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 	return
 
 /datum/signal
+	/// The source of this signal.
 	var/obj/source
+	/// The frequency on which this signal was emitted.
 	var/frequency = 0
+	/// The method through which this signal was transmitted.
+	/// See all of the `TRANSMISSION_X` in `code/__DEFINES/radio.dm` for
+	/// all of the possible options.
 	var/transmission_method
+	/// The data carried through this signal. Defaults to `null`, otherwise it's
+	/// an associative list of (string, any).
 	var/list/data
+	/// Logging data, used for logging purposes. Makes sense, right?
+	var/logging_data
 
-/datum/signal/New(data, transmission_method = TRANSMISSION_RADIO)
+/datum/signal/New(data, transmission_method = TRANSMISSION_RADIO, logging_data = null)
 	src.data = data || list()
 	src.transmission_method = transmission_method
+	src.logging_data = logging_data
