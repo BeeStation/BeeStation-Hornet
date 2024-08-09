@@ -254,4 +254,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/sm_waste_input
 	name = "supermatter waste input injector"
 	id = ATMOS_GAS_MONITOR_INPUT_SM_WASTE
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/lavaland_input
+	name = "lavaland input injector"
+	id = ATMOS_GAS_MONITOR_INPUT_LAVALAND
 

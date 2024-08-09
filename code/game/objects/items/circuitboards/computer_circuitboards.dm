@@ -130,6 +130,10 @@
 	name = "toxins waste control (Computer Board)"
 	build_path = /obj/machinery/computer/atmos_control/tank/toxins_waste_tank
 
+/obj/item/circuitboard/computer/atmos_control/tank/lavaland
+	name = "lavaland gas miner control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/tank/lavaland
+
 /obj/item/circuitboard/computer/auxillary_base
 	name = "auxillary base management console (Computer Board)"
 	icon_state = "engineering"

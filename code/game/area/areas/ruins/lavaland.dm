@@ -99,3 +99,7 @@
 /area/ruin/unpowered/ash_walkers
 	icon_state = "red"
 	ambient_buzz = 'sound/ambience/magma.ogg'
+
+
+/area/ruin/unpowered/gas_miner
+	name = "Atmospherics Gas Miner"

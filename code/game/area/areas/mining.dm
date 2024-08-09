@@ -55,8 +55,11 @@
 	name = "Abandoned Mining Station"
 
 /area/mine/living_quarters
-	name = "Mining Station Port Wing"
+	name = "Mining Station Living Quarters"
 	icon_state = "mining_living"
+
+/area/mine/port_wing
+	name = "Mining Station Port Wing"
 
 /area/mine/eva
 	name = "Mining Station EVA"
@@ -110,10 +113,23 @@
 /area/mine/science/robotics
 	name = "Outpost Robotics"
 
+/area/mine/atmospherics
+	name = "Atmospherics"
 
+/area/mine/atmospherics/incinerator
+	name = "Incinerator"
 
+/area/mine/atmospherics/gas_miner_one
+	name = "Gas Miner One"
 
+/area/mine/atmospherics/gas_miner_two
+	name = "Gas Miner Two"
 
+/area/mine/atmospherics/gas_miner_three
+	name = "Gas Miner Three"
+
+/area/mine/chemistry
+	name = "Chemistry"
 
 /**********************Lavaland Areas**************************/
 

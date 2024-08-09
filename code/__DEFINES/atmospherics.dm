@@ -286,6 +286,10 @@
 #define ATMOS_GAS_MONITOR_OUTPUT_TOXINS_WASTE "toxins_waste_out"
 #define ATMOS_GAS_MONITOR_SENSOR_TOXINS_WASTE "toxins_waste_sense"
 
+#define ATMOS_GAS_MONITOR_INPUT_LAVALAND_WASTE "lavaland_in"
+#define ATMOS_GAS_MONITOR_OUTPUT_LAVALAND_WASTE "lavaland_out"
+#define ATMOS_GAS_MONITOR_SENSOR_LAVALAND_WASTE "lavaland_sense"
+
 //AIRLOCK CONTROLLER TAGS
 
 //RnD toxins burn chamber
