@@ -537,14 +537,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return
 	attack_paw(A)
 
-/obj/item/attack_ai(mob/user)
+/obj/item/attack_robot(mob/living/user)
 	. = ..()
 	if(.)
 		return
 	if(istype(src.loc, /obj/item/robot_module))
 		//If the item is part of a cyborg module, equip it
-		if(!iscyborg(user))
-			return
 		var/mob/living/silicon/robot/R = user
 		if(!R.low_power_mode) //can't equip modules with an empty cell.
 			R.activate_module(src)
