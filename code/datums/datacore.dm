@@ -188,7 +188,7 @@
 
 /datum/datacore/proc/get_manifest()
 	var/list/manifest_out = list()
-	var/static/list/heads = make_associative(GLOB.command_positions)
+	var/static/list/heads = make_associative(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND))
 
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		var/name = t.fields["name"]
@@ -202,14 +202,14 @@
 			if(!department_manifest)
 				manifest_out[department] = department_manifest = list()
 			// Append to beginning of list if captain or department head
-			var/put_at_top = hud == JOB_HUD_CAPTAIN || hud == JOB_HUD_ACTINGCAPTAIN || (department != DEPT_COMMAND && heads[rank])
+			var/put_at_top = hud == JOB_HUD_CAPTAIN || hud == JOB_HUD_ACTINGCAPTAIN || (department != DEPARTMENT_COMMAND && heads[rank])
 			department_manifest.Insert(put_at_top, list(entry))
 			has_department = TRUE
 		if(!has_department)
 			LAZYADDASSOCLIST(manifest_out, "Misc", entry)
 	//Sort the list by 'departments' primarily so command is on top.
 	var/list/sorted_out = list()
-	for(var/department in (assoc_to_keys(GLOB.departments) + "Misc"))
+	for(var/department in (assoc_to_keys(SSdepartment.departments) + "Misc"))
 		if(!isnull(manifest_out[department]))
 			sorted_out[department] = manifest_out[department]
 	return sorted_out
