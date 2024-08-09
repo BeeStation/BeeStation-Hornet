@@ -1,4 +1,3 @@
-
 // **** Security gas mask ****
 
 /obj/item/clothing/mask/gas/sechailer
@@ -17,7 +16,7 @@
 	var/aggressiveness = 2
 	var/cooldown_special
 	var/recent_uses = 0
-	var/broken_hailer = 0
+	var/broken_hailer = FALSE
 	var/safety = TRUE
 
 /obj/item/clothing/mask/gas/sechailer/spacepol

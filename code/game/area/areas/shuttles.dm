@@ -149,21 +149,21 @@
 	name = "Arrival Shuttle"
 	area_flags = UNIQUE_AREA// SSjob refers to this area for latejoiners
 
-/area/shuttle/pod_1
+/area/shuttle/escape_pod
+	name = "Escape Pod"
+	area_flags = BLOBS_ALLOWED
+
+/area/shuttle/escape_pod/pod_1
 	name = "Escape Pod One"
-	area_flags = BLOBS_ALLOWED
 
-/area/shuttle/pod_2
+/area/shuttle/escape_pod/pod_2
 	name = "Escape Pod Two"
-	area_flags = BLOBS_ALLOWED
 
-/area/shuttle/pod_3
+/area/shuttle/escape_pod/pod_3
 	name = "Escape Pod Three"
-	area_flags = BLOBS_ALLOWED
 
-/area/shuttle/pod_4
+/area/shuttle/escape_pod/pod_4
 	name = "Escape Pod Four"
-	area_flags = BLOBS_ALLOWED
 
 /area/shuttle/mining
 	name = "Mining Shuttle"
