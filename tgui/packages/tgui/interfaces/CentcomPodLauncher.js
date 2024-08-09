@@ -219,6 +219,7 @@ const STYLES = [
   { title: 'Invisible' },
   { title: 'Gondola' },
   { title: 'Seethrough' },
+  { title: 'Drop Pod' },
 ];
 
 const BAYS = [{ title: '1' }, { title: '2' }, { title: '3' }, { title: '4' }, { title: 'ERT' }];
