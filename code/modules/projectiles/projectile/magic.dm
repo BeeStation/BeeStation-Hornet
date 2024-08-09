@@ -5,7 +5,7 @@
 	damage_type = OXY
 	nodamage = TRUE
 	armour_penetration = 100
-	armor_flag = MAGIC
+	armor_flag = NONE
 	martial_arts_no_deflect = TRUE
 
 /obj/projectile/magic/death
@@ -351,7 +351,6 @@
 	icon_state = "lavastaff"
 	damage = 15
 	damage_type = BURN
-	armor_flag = MAGIC
 	dismemberment = 50
 	nodamage = FALSE
 	martial_arts_no_deflect = FALSE
@@ -371,8 +370,6 @@
 	damage = 20
 	damage_type = BURN
 	nodamage = FALSE
-	armour_penetration = 0
-	armor_flag = MAGIC
 	hitsound = 'sound/weapons/barragespellhit.ogg'
 	martial_arts_no_deflect = FALSE
 
@@ -390,7 +387,6 @@
 	name = "locker bolt"
 	icon_state = "locker"
 	nodamage = TRUE
-	armor_flag = MAGIC
 	martial_arts_no_deflect = FALSE
 	var/weld = TRUE
 	var/created = FALSE //prevents creation of more then one locker if it has multiple hits
@@ -637,7 +633,6 @@
 	damage_type = BURN
 	nodamage = FALSE
 	speed = 0.3
-	armor_flag = MAGIC
 
 	var/tesla_power = 20000
 	var/tesla_range = 15
@@ -732,4 +727,3 @@
 	nodamage = FALSE
 	armour_penetration = 100
 	temperature = -200 // Cools you down greatly per hit
-	armor_flag = MAGIC

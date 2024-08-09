@@ -24,7 +24,7 @@
 	stat_attack = HARD_CRIT
 	attack_same = 1
 	gold_core_spawnable = HOSTILE_SPAWN
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	deathmessage = "falls lifeless."
 	del_on_death = TRUE
 	loot = list(/obj/item/organ/heart)
