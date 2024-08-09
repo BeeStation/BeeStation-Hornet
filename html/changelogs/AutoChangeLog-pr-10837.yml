@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes database queries having unnecessary delays, resulting in the player
-      panel taking a long time to open.
