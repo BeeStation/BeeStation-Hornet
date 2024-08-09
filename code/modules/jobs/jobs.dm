@@ -151,6 +151,7 @@ GLOBAL_LIST_INIT(security_lightup_areas,	\
 GLOBAL_LIST_INIT(nonhuman_positions, list(
 	JOB_NAME_AI,
 	JOB_NAME_CYBORG,
+	JOB_NAME_POSIBRAIN,
 	ROLE_PAI
 ))
 

@@ -128,6 +128,7 @@
 // Silicon
 #define JOB_NAME_AI     "AI"
 #define JOB_NAME_CYBORG "Cyborg"
+#define JOB_NAME_POSIBRAIN "Positronic Brain"
 #define JOB_NAME_PAI    "Personal AI"
 
 // ERTs
