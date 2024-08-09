@@ -57,7 +57,7 @@
 				A.post_alert(0)
 			A.update_icon()
 
-/datum/wires/airalarm/on_cut(wire, mend)
+/datum/wires/airalarm/on_cut(wire, mob/user, mend)
 	var/obj/machinery/airalarm/A = holder
 	switch(wire)
 		if(WIRE_POWER) // Short out forever.

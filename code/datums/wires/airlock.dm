@@ -128,7 +128,7 @@
 	wires.ui_update()
 	ui_update()
 
-/datum/wires/airlock/on_cut(wire, mend)
+/datum/wires/airlock/on_cut(wire, mob/user, mend)
 	var/obj/machinery/door/airlock/A = holder
 	switch(wire)
 		if(WIRE_POWER1, WIRE_POWER2) // Cut to loose power, repair all to gain power.
@@ -136,8 +136,8 @@
 				A.regainMainPower()
 			else
 				A.loseMainPower()
-			if(isliving(usr))
-				A.shock(usr, 50)
+			if(isliving(user))
+				A.shock(user, 50)
 		if(WIRE_BACKUP1, WIRE_BACKUP2) // Cut to loose backup power, repair all to gain backup power.
 			if(mend && !is_cut(WIRE_BACKUP1) && !is_cut(WIRE_BACKUP2))
 				A.regainBackupPower()
@@ -160,12 +160,12 @@
 		if(WIRE_SHOCK) // Cut to shock the door, mend to unshock.
 			if(mend)
 				if(A.secondsElectrified)
-					A.set_electrified(MACHINE_NOT_ELECTRIFIED, usr)
+					A.set_electrified(MACHINE_NOT_ELECTRIFIED, user)
 			else
 				if(A.secondsElectrified != MACHINE_ELECTRIFIED_PERMANENT)
-					A.set_electrified(MACHINE_ELECTRIFIED_PERMANENT, usr)
-			if(isliving(usr))
-				A.shock(usr, 50)
+					A.set_electrified(MACHINE_ELECTRIFIED_PERMANENT, user)
+			if(isliving(user))
+				A.shock(user, 50)
 		if(WIRE_SAFETY) // Cut to disable safeties, mend to re-enable.
 			A.safe = mend
 		if(WIRE_TIMING) // Cut to disable auto-close, mend to re-enable.

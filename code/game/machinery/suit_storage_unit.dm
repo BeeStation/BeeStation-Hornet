@@ -434,7 +434,7 @@
 			if(storage)
 				storage.take_damage(burn_damage * 10, BURN, FIRE)
 			// The wires get damaged too.
-			wires.cut_all()
+			wires.cut_all(null)
 		if(!toasted) //Special toast check to prevent a double finishing message.
 			if(mob_occupant)
 				visible_message("<span class='warning'>[src]'s door slides open, barraging you with the nauseating smell of charred flesh.</span>")

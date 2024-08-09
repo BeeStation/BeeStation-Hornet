@@ -146,8 +146,8 @@
 	bleed_force = BLEED_SURFACE
 
 /obj/projectile/bullet/shotgun_breaching/on_hit(atom/target)
-	if(istype(target, /obj/structure/window) || istype(target, /obj/structure/grille) || istype(target, /obj/machinery/door) || istype(target, /obj/structure/door_assembly))
+	if(isstructure(target) || ismachinery(target))
 		damage = 500 //one shot to break a window or grille, or 3 shots to breach an airlock door
 	if (isturf(target))
-		damage = 300
+		damage = 700
 	..()

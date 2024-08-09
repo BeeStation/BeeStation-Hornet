@@ -20,7 +20,7 @@
 		if(WIRE_ACTIVATE)
 			M.cook()
 
-/datum/wires/microwave/on_cut(wire, mend)
+/datum/wires/microwave/on_cut(wire, mob/user, mend)
 	var/obj/machinery/microwave/M = holder
 	switch(wire)
 		if(WIRE_ACTIVATE)

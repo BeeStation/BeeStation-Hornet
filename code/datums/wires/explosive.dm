@@ -8,7 +8,7 @@
 /datum/wires/explosive/on_pulse(index)
 	explode()
 
-/datum/wires/explosive/on_cut(index, mend)
+/datum/wires/explosive/on_cut(index, mob/user, mend)
 	explode()
 
 /datum/wires/explosive/proc/explode()
@@ -104,7 +104,7 @@
 		else // Boom
 			explode()
 
-/datum/wires/explosive/pizza/on_cut(wire, mend)
+/datum/wires/explosive/pizza/on_cut(wire, mob/user, mend)
 	var/obj/item/pizzabox/P = holder
 	switch(wire)
 		if(WIRE_DISARM) // Disarm and untrap the box.

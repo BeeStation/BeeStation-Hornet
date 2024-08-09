@@ -38,6 +38,7 @@
 	pixel_z = -8
 	layer = LARGE_MOB_LAYER
 	max_integrity = 600
+	maximum_damage = 30
 	/// when this gets at this hp, it will run away! oh no!
 	var/next_health_to_teleport
 	var/mob/living/carbon/human/bogdanoff
