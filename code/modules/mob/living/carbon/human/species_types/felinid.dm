@@ -5,12 +5,11 @@
 	bodyflag = FLAG_FELINID
 	examine_limb_id = SPECIES_HUMAN
 
-	mutant_bodyparts = list("ears", "tail_human")
-	default_features = list("mcolor" = "FFF", "wings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list("tail_human" = "Cat", "ears" = "Cat", "wings" = "None", "body_size" = "Normal")
 	forced_features = list("tail_human" = "Cat", "ears" = "Cat")
 
 	mutantears = /obj/item/organ/ears/cat
-	mutanttail = /obj/item/organ/tail/cat
+	mutant_organs = list(/obj/item/organ/tail/cat)
 	mutanttongue = /obj/item/organ/tongue/cat
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
@@ -49,36 +48,8 @@
 			var/obj/item/organ/tail/cat/tail = new
 			tail.Insert(H, drop_if_replaced = FALSE, pref_load = pref_load)
 		else
-			mutanttail = null
+			mutant_organs = list()
 	return ..()
-
-/datum/species/human/felinid/on_species_loss(mob/living/carbon/H, datum/species/new_species, pref_load)
-	var/obj/item/organ/ears/cat/ears = H.getorgan(/obj/item/organ/ears/cat)
-	var/obj/item/organ/tail/cat/tail = H.getorgan(/obj/item/organ/tail/cat)
-
-	if(ears)
-		var/obj/item/organ/ears/new_ears
-		if(new_species?.mutantears)
-			// Roundstart cat ears override new_species.mutantears, reset it here.
-			new_species.mutantears = initial(new_species.mutantears)
-			if(new_species.mutantears)
-				new_ears = new new_species.mutantears
-		if(!new_ears)
-			// Go with default ears
-			new_ears = new /obj/item/organ/ears
-		new_ears.Insert(H, drop_if_replaced = FALSE, pref_load = pref_load)
-
-	if(tail)
-		var/obj/item/organ/tail/new_tail
-		if(new_species && new_species.mutanttail)
-			// Roundstart cat tail overrides new_species.mutanttail, reset it here.
-			new_species.mutanttail = initial(new_species.mutanttail)
-			if(new_species.mutanttail)
-				new_tail = new new_species.mutanttail
-		if(new_tail)
-			new_tail.Insert(H, drop_if_replaced = FALSE, pref_load = pref_load)
-		else
-			tail.Remove(H, pref_load = pref_load)
 
 /datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
 	if(istype(chem, /datum/reagent/consumable/cocoa))

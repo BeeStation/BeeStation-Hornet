@@ -14,12 +14,11 @@
 
 	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,-2), OFFSET_EARS = list(0,-3), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-2), OFFSET_HEAD = list(0,-2), OFFSET_FACE = list(0,-2), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
 
-	mutant_brain = /obj/item/organ/brain/psyphoza
+	mutantbrain = /obj/item/organ/brain/psyphoza
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 	mutanttongue = /obj/item/organ/tongue/psyphoza
 
-	mutant_bodyparts = list("psyphoza_cap")
-	default_features = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = "fff")
+	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = "fff")
 	hair_color = "fixedmutcolor"
 
 	species_chest = /obj/item/bodypart/chest/psyphoza

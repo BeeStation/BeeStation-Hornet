@@ -28,9 +28,9 @@
 		H.update_body()
 		return
 	if(istype(H))
-		if(!("tail_human" in H.dna.species.mutant_bodyparts))
-			H.dna.species.mutant_bodyparts |= "tail_human"
-			H.dna.features["tail_human"] = tail_type
+		var/default_part = H.dna.species.mutant_bodyparts["tail_human"]
+		if(!default_part || default_part == "None")
+			H.dna.features["tail_human"] = H.dna.species.mutant_bodyparts["tail_human"] = tail_type
 			H.update_body()
 
 /obj/item/organ/tail/cat/Remove(mob/living/carbon/human/H,  special = 0, pref_load = FALSE)
@@ -48,7 +48,7 @@
 /obj/item/organ/tail/cat/is_wagging(mob/living/carbon/human/H)
 	if(!H?.dna?.species)
 		return FALSE
-	return ("waggingtail_human" in H.dna.species.mutant_bodyparts)
+	return (H.dna.species.mutant_bodyparts["waggingtail_human"])
 
 /obj/item/organ/tail/cat/set_wagging(mob/living/carbon/human/H, wagging = FALSE)
 	. = FALSE
@@ -75,14 +75,39 @@
 	..()
 	if(istype(H))
 		// Checks here are necessary so it wouldn't overwrite the tail of a lizard it spawned in
-		if(!("tail_lizard" in H.dna.species.mutant_bodyparts))
-			H.dna.features["tail_lizard"] = tail_type
-			H.dna.species.mutant_bodyparts |= "tail_lizard"
+		var/default_part = H.dna.species.mutant_bodyparts["tail_lizard"]
+		if(!default_part || default_part == "None")
+			H.dna.features["tail_lizard"] = H.dna.species.mutant_bodyparts["tail_lizard"] = tail_type
 
-		if(!("spines" in H.dna.species.mutant_bodyparts))
-			H.dna.features["spines"] = spines
-			H.dna.species.mutant_bodyparts |= "spines"
+		default_part = H.dna.species.mutant_bodyparts["spines"]
+		if(!default_part || default_part == "None")
+			H.dna.features["spines"] = H.dna.species.mutant_bodyparts["spines"] = spines
 		H.update_body()
+
+/datum/species/lizard/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	var/real_tail_type = C.dna.features["tail_lizard"]
+	var/real_spines = C.dna.features["spines"]
+
+	. = ..()
+
+	// Special handler for loading preferences. If we're doing it from a preference load, we'll want
+	// to make sure we give the appropriate lizard tail AFTER we call the parent proc, as the parent
+	// proc will overwrite the lizard tail. Species code at its finest.
+	if(pref_load)
+		C.dna.features["tail_lizard"] = real_tail_type
+		C.dna.features["spines"] = real_spines
+
+		var/obj/item/organ/tail/lizard/new_tail = new /obj/item/organ/tail/lizard()
+
+		new_tail.tail_type = C.dna.features["tail_lizard"]
+		C.dna.species.mutant_bodyparts |= "tail_lizard"
+
+		new_tail.spines = C.dna.features["spines"]
+		C.dna.species.mutant_bodyparts |= "spines"
+
+		// organ.Insert will qdel any existing organs in the same slot, so
+		// we don't need to manage that.
+		new_tail.Insert(C, TRUE, FALSE)
 
 /obj/item/organ/tail/lizard/Remove(mob/living/carbon/human/H, special = 0, pref_load = FALSE)
 	..()
@@ -94,10 +119,20 @@
 		spines = H.dna.features["spines"]
 		H.update_body()
 
+/obj/item/organ/tail/lizard/before_organ_replacement(obj/item/organ/replacement)
+	. = ..()
+	var/obj/item/organ/tail/lizard/new_tail = replacement
+
+	if(!istype(new_tail))
+		return
+
+	new_tail.tail_type = tail_type
+	new_tail.spines = spines
+
 /obj/item/organ/tail/lizard/is_wagging(mob/living/carbon/human/H)
 	if(!H?.dna?.species)
 		return FALSE
-	return ("waggingtail_lizard" in H.dna.species.mutant_bodyparts)
+	return (H.dna.species.mutant_bodyparts["waggingtail_lizard"])
 
 /obj/item/organ/tail/lizard/set_wagging(mob/living/carbon/human/H, wagging = FALSE)
 	. = FALSE
