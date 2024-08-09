@@ -1,7 +1,7 @@
 import { toFixed } from 'common/math';
 import { toTitleCase } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { AnimatedNumber, Box, Button, Dimmer, Flex, Icon, LabeledList, ProgressBar, Section, Stack } from '../components';
+import { AnimatedNumber, Box, Button, Dimmer, Icon, LabeledList, ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 const RecipeOptions = (_props, context) => {
@@ -92,7 +92,7 @@ const RecipeButton = (props, context) => {
     <Button
       icon={deletingRecipes ? 'trash' : 'tint'}
       width="129.5px"
-      lineHeight="21px"
+      lineHeight={1.75}
       content={recipe.name}
       color={!!deletingRecipes && 'red'}
       onClick={() => {
@@ -107,6 +107,7 @@ const RecipeButton = (props, context) => {
 export const ChemDispenser = (_props, context) => {
   const { act, data } = useBackend(context);
   const recording = !!data.recordingRecipe;
+  const { recipeReagents = [] } = data;
   const [clearingRecipes] = useLocalState(context, 'clearingRecipes', false);
   // TODO: Change how this piece of shit is built on server side
   // It has to be a list, not a fucking OBJECT!
@@ -131,12 +132,28 @@ export const ChemDispenser = (_props, context) => {
         <Section
           title="Status"
           buttons={
-            recording && (
-              <Box inline mx={1} color="red">
-                <Icon name="circle" mr={1} />
-                Recording
-              </Box>
-            )
+            <>
+              {recording && (
+                <Box inline mx={1} color="red">
+                  <Icon name="circle" mr={1} />
+                  Recording
+                </Box>
+              )}
+              <Button
+                icon="book"
+                disabled={!data.isBeakerLoaded || !data.canReagentLookup}
+                content={'Reaction search'}
+                tooltip={
+                  !data.canReagentLookup
+                    ? 'You cannot lookup reagents on a Drinks Dispenser!'
+                    : data.isBeakerLoaded
+                      ? 'Look up recipes and reagents!'
+                      : 'Please insert a beaker!'
+                }
+                tooltipPosition="bottom-start"
+                onClick={() => act('reaction_lookup')}
+              />
+            </>
           }>
           <LabeledList>
             <LabeledList.Item label="Energy">
@@ -173,7 +190,7 @@ export const ChemDispenser = (_props, context) => {
                 key={chemical.id}
                 icon="tint"
                 width="129.5px"
-                lineHeight="21px"
+                lineHeight={1.75}
                 content={chemical.title}
                 onClick={() =>
                   act('dispense', {

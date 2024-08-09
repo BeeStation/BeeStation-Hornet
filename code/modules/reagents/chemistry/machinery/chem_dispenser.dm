@@ -84,6 +84,9 @@
 
 	var/list/saved_recipes = list()
 
+	//Whether the chem lookup button is usable or not on chem dispensers & subtypes. Defaults to TRUE
+	var/can_reagent_lookup = TRUE
+
 /obj/machinery/chem_dispenser/Initialize(mapload)
 	. = ..()
 	dispensable_reagents = sort_list(dispensable_reagents, GLOBAL_PROC_REF(cmp_reagents_asc))
@@ -168,13 +171,16 @@
 		cut_overlays()
 
 
-/obj/machinery/chem_dispenser/ui_state(mob/user)
-	return GLOB.default_state
+/obj/machinery/chem_dispenser/ui_static_data(mob/user)
+	var/list/data = list()
+	data["canReagentLookup"] = can_reagent_lookup
+	return data
 
 /obj/machinery/chem_dispenser/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ChemDispenser")
+
 		if(user.hallucinating())
 			ui.set_autoupdate(FALSE) //to not ruin the immersion by constantly changing the fake chemicals
 			//Seems like a pretty bad way to do it, but I think a better one would deserve a wider refactor including at least sleeper
@@ -210,6 +216,7 @@
 	var/is_hallucinating = FALSE
 	if(user.hallucinating())
 		is_hallucinating = TRUE
+
 	for(var/re in dispensable_reagents)
 		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
@@ -221,6 +228,12 @@
 	data["recipes"] = saved_recipes
 
 	data["recordingRecipe"] = recording_recipe
+	data["recipeReagents"] = list()
+	if(beaker?.reagents.ui_reaction_id)
+		var/datum/chemical_reaction/reaction = get_chemical_reaction(beaker.reagents.ui_reaction_id)
+		for(var/_reagent in reaction.required_reagents)
+			var/datum/reagent/reagent = find_reagent_object_from_type(_reagent)
+			data["recipeReagents"] += ckey(reagent.name)
 	return data
 
 /obj/machinery/chem_dispenser/ui_act(action, params)
@@ -252,6 +265,7 @@
 			if(!recording_recipe)
 				var/reagent = GLOB.name2reagent[reagent_name]
 				if(beaker && dispensable_reagents.Find(reagent))
+
 					var/datum/reagents/R = beaker.reagents
 					var/free = R.maximum_volume - R.total_volume
 					var/actual = min(amount, (cell.charge * powerefficiency)*10, free)
@@ -275,6 +289,7 @@
 		if("dispense_recipe")
 			if(QDELETED(cell))
 				return
+
 			var/list/chemicals_to_dispense = saved_recipes[params["recipe"]]
 			if(!LAZYLEN(chemicals_to_dispense))
 				return
@@ -286,6 +301,7 @@
 				if(!recording_recipe)
 					if(!beaker)
 						return
+
 					var/datum/reagents/R = beaker.reagents
 					var/free = R.maximum_volume - R.total_volume
 					var/actual = min(dispense_amount, (cell.charge * powerefficiency)*10, free)
@@ -311,10 +327,10 @@
 			recording_recipe = list()
 			. = TRUE
 		if("save_recording")
-			var/name = stripped_input(usr,"Name","What do you want to name this recipe?", "Recipe", MAX_NAME_LEN)
+			var/name = tgui_input_text(usr, "What do you want to name this recipe?", "Recipe Name", MAX_NAME_LEN)
 			if(!usr.canUseTopic(src, !issilicon(usr)))
 				return
-			if(saved_recipes[name] && alert("\"[name]\" already exists, do you want to overwrite it?",, "Yes", "No") != "Yes")
+			if(saved_recipes[name] && tgui_alert(usr, "\"[name]\" already exists, do you want to overwrite it?",, list("Yes", "No")) == "No")
 				return
 			if(name && recording_recipe)
 				for(var/reagent in recording_recipe)
@@ -330,6 +346,15 @@
 		if("cancel_recording")
 			recording_recipe = null
 			. = TRUE
+
+		if("reaction_lookup")
+			//drink dispensers shouldnt be able to look up reagents
+			//UI should have stopped this from happening, sanity check incase it somehow got bypassed
+			if(!can_reagent_lookup)
+				to_chat(usr, "<span class ='danger'>This dispenser does not support reagent lookup!</span>")
+				message_admins("[ADMIN_LOOKUPFLW(usr)] has bypassed a UI check on [src], but was stopped by a code check. This should not have happened and something has gone wrong.")
+			else if(beaker)
+				beaker.reagents.ui_interact(usr)
 
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I))
@@ -487,6 +512,7 @@
 		/datum/reagent/toxin/mindbreaker,
 		/datum/reagent/toxin/staminatoxin
 	)
+	can_reagent_lookup = FALSE
 
 /obj/machinery/chem_dispenser/drinks/fullupgrade //fully upgraded stock parts, emagged
 	desc = "Contains a large reservoir of soft drinks. This model has had its safeties shorted out."
