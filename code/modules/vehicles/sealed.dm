@@ -122,12 +122,13 @@
 
 /obj/vehicle/sealed/proc/DumpSpecificMobs(flag, randomstep = TRUE)
 	for(var/i in occupants)
-		if((occupants[i] & flag))
-			mob_exit(i, null, randomstep)
-			if(iscarbon(i))
-				var/mob/living/carbon/C = i
-				C.Paralyze(40)
-				C.uncuff()
+		if(!(occupants[i] & flag))
+			continue
+		mob_exit(i, null, randomstep)
+		if(iscarbon(i))
+			var/mob/living/carbon/C = i
+			C.Paralyze(40)
+			C.uncuff()
 
 
 /obj/vehicle/sealed/AllowDrop()
