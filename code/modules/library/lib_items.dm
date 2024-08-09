@@ -141,8 +141,6 @@
 		return
 	if(!istype(user))
 		return
-	if(!length(contents))
-		return
 	if(load_random_books)
 		create_random_books(books_to_load, src, FALSE, random_category)
 		load_random_books = FALSE
