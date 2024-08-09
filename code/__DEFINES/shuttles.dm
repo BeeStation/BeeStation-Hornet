@@ -39,7 +39,7 @@
 
 #define SHUTTLE_TRANSIT_BORDER 16
 
-#define PARALLAX_LOOP_TIME 25
+#define PARALLAX_LOOP_TIME 24 // using even number is recommended because of tick count
 #define HYPERSPACE_END_TIME 5
 
 #define HYPERSPACE_WARMUP 1
