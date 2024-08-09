@@ -100,6 +100,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/nymph/death(gibbed)
 	remove_from_spawner_menu()
+	GLOB.poi_list -= src
 	evolve_ability.Remove(src)
 	if(is_drone)
 		switch_ability.Remove(src)
@@ -217,7 +218,7 @@
 		if(istype(body_part, /obj/item/bodypart/l_arm) || istype(body_part, /obj/item/bodypart/r_arm) || istype(body_part, /obj/item/bodypart/l_leg) || istype(body_part, /obj/item/bodypart/r_leg)) // I'm sorry.
 			for(var/obj/item/organ/nymph_organ/I in body_part)
 				QDEL_NULL(I)
-			QDEL_NULL(body_part)
+			adult.remove_bodypart(body_part)
 		if(istype(body_part, /obj/item/bodypart/chest))
 			body_part.brute_dam = helpers.brute_damage
 			body_part.burn_dam = helpers.fire_damage
