@@ -4467,10 +4467,10 @@ proc name: New (/obj/effect/hallucination/whispers/New)
   usr: null
   src: the whispers (/obj/effect/hallucination/whispers)
   call stack:
-the whispers (/obj/effect/hallucination/whispers): New(the plating (103,105,1) (/turf/simulated/floor/plating), the monkey (525) (/mob/living/carbon/monkey))
-the monkey (525) (/mob/living/carbon/monkey): hallucinate("whispers")
-the monkey (525) (/mob/living/carbon/monkey): handle hallucinations()
-the monkey (525) (/mob/living/carbon/monkey): handle status effects()
+the whispers (/obj/effect/hallucination/whispers): New(the plating (103,105,1) (/turf/simulated/floor/plating), the monkey (525) (/mob/living/carbon/human/species/monkey))
+the monkey (525) (/mob/living/carbon/human/species/monkey): hallucinate("whispers")
+the monkey (525) (/mob/living/carbon/human/species/monkey): handle hallucinations()
+the monkey (525) (/mob/living/carbon/human/species/monkey): handle status effects()
 Tue Oct 06 06:07:02 2015
 runtime error: Cannot execute null.Enter().
 proc name: spread (/obj/effect/spacevine/proc/spread)

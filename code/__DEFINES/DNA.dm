@@ -3,60 +3,60 @@
 #define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
 
 // Defines copying names of mutations in all cases, make sure to change this if you change mutation's type
-#define HULK		/datum/mutation/hulk
-#define XRAY		/datum/mutation/thermal/x_ray
-#define SPACEMUT	/datum/mutation/space_adaptation
-#define TK			/datum/mutation/telekinesis
-#define NERVOUS		/datum/mutation/nervousness
-#define EPILEPSY	/datum/mutation/epilepsy
-#define MUTATE		/datum/mutation/bad_dna
-#define COUGH		/datum/mutation/cough
-#define DWARFISM	/datum/mutation/dwarfism
-#define GIGANTISM	/datum/mutation/gigantism
-#define CLOWNMUT	/datum/mutation/clumsy
-#define TOURETTES	/datum/mutation/tourettes
-#define DEAFMUT		/datum/mutation/deaf
-#define BLINDMUT	/datum/mutation/blind
-#define RACEMUT		/datum/mutation/race
-#define BADSIGHT	/datum/mutation/nearsight
-#define LASEREYES	/datum/mutation/laser_eyes
-#define CHAMELEON	/datum/mutation/chameleon
-#define WACKY		/datum/mutation/wacky
-#define MUT_MUTE	/datum/mutation/mute
-#define SMILE		/datum/mutation/smile
-#define STONER		/datum/mutation/stoner
-#define UNINTELLIGIBLE		/datum/mutation/unintelligible
-#define SWEDISH		/datum/mutation/swedish
-#define CHAV		/datum/mutation/chav
-#define ELVIS		/datum/mutation/elvis
-#define RADIOACTIVE	/datum/mutation/radioactive
-#define GLOWY		/datum/mutation/glow
-#define ANTIGLOWY	/datum/mutation/glow/anti
-#define TELEPATHY	/datum/mutation/telepathy
-#define FIREBREATH	/datum/mutation/firebreath
-#define VOID		/datum/mutation/void
-#define STRONG    	/datum/mutation/strong
-#define FIRESWEAT	/datum/mutation/fire
-#define THERMAL		/datum/mutation/thermal
-#define ANTENNA		/datum/mutation/antenna
-#define PARANOIA	/datum/mutation/paranoia
-#define INSULATED	/datum/mutation/insulated
-#define SHOCKTOUCH	/datum/mutation/shock
-#define OLFACTION	/datum/mutation/olfaction
-#define ACIDFLESH	/datum/mutation/acidflesh
-#define BADBLINK	/datum/mutation/badblink
-#define SPASTIC		/datum/mutation/spastic
-#define EXTRASTUN	/datum/mutation/extrastun
-#define GELADIKINESIS		/datum/mutation/geladikinesis
-#define CRYOKINESIS /datum/mutation/cryokinesis
-#define CLUWNEMUT   /datum/mutation/cluwne
-#define WAXSALIVA   /datum/mutation/wax_saliva
-#define STRONGWINGS /datum/mutation/strongwings
-#define CATCLAWS    /datum/mutation/catclaws
-#define OVERLOAD    /datum/mutation/overload
-#define ACIDOOZE    /datum/mutation/acidooze
-#define MEDIEVAL    /datum/mutation/medieval
-#define SPORES      /datum/mutation/spores
+#define HULK		/datum/mutation/human/hulk
+#define XRAY		/datum/mutation/human/thermal/x_ray
+#define SPACEMUT	/datum/mutation/human/space_adaptation
+#define TK			/datum/mutation/human/telekinesis
+#define NERVOUS		/datum/mutation/human/nervousness
+#define EPILEPSY	/datum/mutation/human/epilepsy
+#define MUTATE		/datum/mutation/human/bad_dna
+#define COUGH		/datum/mutation/human/cough
+#define DWARFISM	/datum/mutation/human/dwarfism
+#define GIGANTISM	/datum/mutation/human/gigantism
+#define CLOWNMUT	/datum/mutation/human/clumsy
+#define TOURETTES	/datum/mutation/human/tourettes
+#define DEAFMUT		/datum/mutation/human/deaf
+#define BLINDMUT	/datum/mutation/human/blind
+#define RACEMUT		/datum/mutation/human/race
+#define BADSIGHT	/datum/mutation/human/nearsight
+#define LASEREYES	/datum/mutation/human/laser_eyes
+#define CHAMELEON	/datum/mutation/human/chameleon
+#define WACKY		/datum/mutation/human/wacky
+#define MUT_MUTE	/datum/mutation/human/mute
+#define SMILE		/datum/mutation/human/smile
+#define STONER		/datum/mutation/human/stoner
+#define UNINTELLIGIBLE		/datum/mutation/human/unintelligible
+#define SWEDISH		/datum/mutation/human/swedish
+#define CHAV		/datum/mutation/human/chav
+#define ELVIS		/datum/mutation/human/elvis
+#define RADIOACTIVE	/datum/mutation/human/radioactive
+#define GLOWY		/datum/mutation/human/glow
+#define ANTIGLOWY	/datum/mutation/human/glow/anti
+#define TELEPATHY	/datum/mutation/human/telepathy
+#define FIREBREATH	/datum/mutation/human/firebreath
+#define VOID		/datum/mutation/human/void
+#define STRONG    	/datum/mutation/human/strong
+#define FIRESWEAT	/datum/mutation/human/fire
+#define THERMAL		/datum/mutation/human/thermal
+#define ANTENNA		/datum/mutation/human/antenna
+#define PARANOIA	/datum/mutation/human/paranoia
+#define INSULATED	/datum/mutation/human/insulated
+#define SHOCKTOUCH	/datum/mutation/human/shock
+#define OLFACTION	/datum/mutation/human/olfaction
+#define ACIDFLESH	/datum/mutation/human/acidflesh
+#define BADBLINK	/datum/mutation/human/badblink
+#define SPASTIC		/datum/mutation/human/spastic
+#define EXTRASTUN	/datum/mutation/human/extrastun
+#define GELADIKINESIS		/datum/mutation/human/geladikinesis
+#define CRYOKINESIS /datum/mutation/human/cryokinesis
+#define CLUWNEMUT   /datum/mutation/human/cluwne
+#define WAXSALIVA   /datum/mutation/human/wax_saliva
+#define STRONGWINGS /datum/mutation/human/strongwings
+#define CATCLAWS    /datum/mutation/human/catclaws
+#define OVERLOAD    /datum/mutation/human/overload
+#define ACIDOOZE    /datum/mutation/human/acidooze
+#define MEDIEVAL    /datum/mutation/human/medieval
+#define SPORES      /datum/mutation/human/spores
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"
@@ -94,17 +94,6 @@
 #define DNA_MUTATION_BLOCKS			8
 #define DNA_UNIQUE_ENZYMES_LEN		32
 
-//Transformation proc stuff
-#define TR_KEEPITEMS	(1<<0)
-#define TR_KEEPVIRUS	(1<<1)
-#define TR_KEEPDAMAGE	(1<<2)
-#define TR_HASHNAME		(1<<3)	// hashing names (e.g. monkey(e34f)) (only in monkeyize)
-#define TR_KEEPIMPLANTS	(1<<4)
-#define TR_KEEPSE		(1<<5)	// changelings shouldn't edit the DNA's SE when turning into a monkey
-#define TR_DEFAULTMSG	(1<<6)
-#define TR_KEEPORGANS	(1<<8)
-#define TR_KEEPAI 		(1<<9)
-
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
 
@@ -139,6 +128,10 @@
 // #define HAS_BONE 24 [add if we ever port TGs wound system]
 /// If we have a limb-specific overlay sprite
 #define HAS_MARKINGS 25
+/// Do not draw blood overlay
+#define NOBLOODOVERLAY 26
+///No augments, for monkeys in specific because they will turn into fucking freakazoids https://cdn.discordapp.com/attachments/326831214667235328/791313258912153640/102707682-fa7cad80-4294-11eb-8f13-8c689468aeb0.png
+#define NOAUGMENTS 27
 
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"

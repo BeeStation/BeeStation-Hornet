@@ -28,7 +28,7 @@
 		to_chat(usr, "<span class='warning'>You fail at creating a tumor. Perhaps you should try again later?</span>")
 		c.chem_charges += chemical_cost				//If it fails we want to refund the chemicals
 		return FALSE
-	var/mob/living/carbon/monkey/tumor/T = new /mob/living/carbon/monkey/tumor(A)
+	var/mob/living/carbon/human/species/monkey/tumor/T = new /mob/living/carbon/human/species/monkey/tumor(A)
 	var/mob/dead/observer/C = pick(candidates)
 	T.key = C.key
 	var/datum/antagonist/teratoma/D = new

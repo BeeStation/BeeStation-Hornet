@@ -23,7 +23,6 @@
 	response_harm   = "squishes"
 	friendly = "pinches"
 	a_intent = INTENT_HELP
-	ventcrawler = VENTCRAWLER_ALWAYS
 	gold_core_spawnable = FRIENDLY_SPAWN
 	stat_attack = HARD_CRIT
 	gender = NEUTER
@@ -43,6 +42,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	if(wanted_objects.len)
 		AddComponent(/datum/component/udder, /obj/item/udder/gutlunch, CALLBACK(src, PROC_REF(regenerate_icons)), CALLBACK(src, PROC_REF(regenerate_icons)))
 

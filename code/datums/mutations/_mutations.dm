@@ -1,57 +1,98 @@
 /datum/mutation
-	var/name = "mutation"
+	var/name
+
+/datum/mutation/human
+	name = "mutation"
+	/// Description of the mutation
 	var/desc = "A mutation."
+	/// Is this mutation currently locked?
 	var/locked
+	/// Quality of the mutation
 	var/quality
+	/// Visual indicators upon the character of the owner of this mutation
 	var/static/list/visual_indicators = list()
+	/// The path of action we grant to our user on mutation gain
 	var/obj/effect/proc_holder/spell/power
 	/// A list of traits to apply to the user whenever this mutation is active.
 	var/list/traits
-	var/layer_used = MUTATIONS_LAYER //which mutation layer to use
-	var/list/species_allowed = list() //to restrict mutation to only certain species
-	var/list/mobtypes_allowed = list() //to restrict mutation to only certain mobs
-	var/health_req //minimum health required to acquire the mutation
-	var/limb_req //required limbs to acquire this mutation
+	/// which mutation layer to use
+	var/layer_used = MUTATIONS_LAYER
+	/// To restrict mutation to only certain species
+	var/list/species_allowed = list()
+	/// To restrict mutation to only certain mobs
+	var/list/mobtypes_allowed = list()
+	/// Minimum health required to acquire the mutation
+	var/health_req
+	/// Required limbs to acquire this mutation
+	var/limb_req
+	/// The owner of this mutation's DNA
 	var/datum/dna/dna
+	/// Owner of this mutation
 	var/mob/living/carbon/owner
-	var/instability = 0 //instability the holder gets when the mutation is not native
-	var/blocks = 4 //Amount of those big blocks with gene sequences
-	var/difficulty = 8 //Amount of missing sequences. Sometimes it removes an entire pair for 2 points
-	var/timed = FALSE   //Boolean to easily check if we're going to self-destruct
-	var/alias           //'Mutation #49', decided every round to get some form of distinction between undiscovered mutations
-	var/scrambled = FALSE //Wheter we can read it if it's active. To avoid cheesing with mutagen
-	var/class           //Decides player accesibility, sorta
-	var/list/conflicts //any mutations that might conflict. put mutation typepath defines in here. make sure to enter it both ways (so that A conflicts with B, and B with A)
-	var/allow_transfer  //Do we transfer upon cloning?
+	/// Instability the holder gets when the mutation is not native
+	var/instability = 0
+	/// Amount of those big blocks with gene sequences
+	var/blocks = 4
+	/// Amount of missing sequences. Sometimes it removes an entire pair for 2 points
+	var/difficulty = 8
+	//Boolean to easily check if we're going to self-destruct
+	var/timed = FALSE
+	/// 'Mutation #49', decided every round to get some form of distinction between undiscovered mutations
+	var/alias
+	/// Whether we can read it if it's active. To avoid cheesing with mutagen
+	var/scrambled = FALSE
+	/// The class of mutation (MUT_NORMAL, MUT_EXTRA, MUT_OTHER)
+	var/class
+	/**
+	 * any mutations that might conflict.
+	 * put mutation typepath defines in here.
+	 * make sure to enter it both ways (so that A conflicts with B, and B with A)
+	 */
+	var/list/conflicts
+	//Do we transfer upon cloning?
+	var/allow_transfer
 	//MUT_NORMAL - A mutation that can be activated and deactived by completing a sequence
 	//MUT_EXTRA - A mutation that is in the mutations tab, and can be given and taken away through though the DNA console. Has a 0 before it's name in the mutation section of the dna console
 	//MUT_OTHER Cannot be interacted with by players through normal means. I.E. wizards mutate
-	var/list/valid_chrom_list = list() //List of strings of valid chromosomes this mutation can accept.
 
-
-	var/can_chromosome = CHROMOSOME_NONE //can we take chromosomes? 0: CHROMOSOME_NEVER never,  1:CHROMOSOME_NONE yeah, 2: CHROMOSOME_USED no, already have one
-	var/chromosome_name   //purely cosmetic
-	var/modified = FALSE  //ugly but we really don't want chromosomes and on_acquiring to overlap and apply double the powers
+	/**
+	 * can we take chromosomes?
+	 * 0: CHROMOSOME_NEVER never
+	 * 1: CHROMOSOME_NONE yeah
+	 * 2: CHROMOSOME_USED no, already have one
+	 */
+	var/can_chromosome = CHROMOSOME_NONE
+	/// Name of the chromosome
+	var/chromosome_name
+	/// Has the chromosome been modified
+	var/modified = FALSE //ugly but we really don't want chromosomes and on_acquiring to overlap and apply double the powers
+	/// Is this mutation mutadone proof
 	var/mutadone_proof = FALSE
 
 	//Chromosome stuff - set to -1 to prevent people from changing it. Example: It'd be a waste to decrease cooldown on mutism
-	var/stabilizer_coeff = 1 //genetic stability coeff
-	var/synchronizer_coeff = -1 //makes the mutation hurt the user less
-	var/power_coeff = -1 //boosts mutation strength
-	var/energy_coeff = -1 //lowers mutation cooldown
+	/// genetic stability coeff
+	var/stabilizer_coeff = 1
+	/// Makes the mutation hurt the user less
+	var/synchronizer_coeff = -1
+	/// Boosts mutation strength
+	var/power_coeff = -1
+	/// Lowers mutation cooldown
+	var/energy_coeff = -1
+	/// List of strings of valid chromosomes this mutation can accept.
+	var/list/valid_chrom_list = list()
 
-/datum/mutation/New(class_ = MUT_OTHER, timer, datum/mutation/copymut)
+/datum/mutation/human/New(class_ = MUT_OTHER, timer, datum/mutation/copymut)
 	. = ..()
 	class = class_
 	if(timer)
 		addtimer(CALLBACK(src, PROC_REF(remove)), timer)
 		timed = TRUE
-	if(copymut && istype(copymut, /datum/mutation))
+	if(copymut && istype(copymut, /datum/mutation/human))
 		copy_mutation(copymut)
 	if(traits && !islist(traits))
 		traits = list(traits)
 
-/datum/mutation/proc/on_acquiring(mob/living/carbon/C)
+/datum/mutation/human/proc/on_acquiring(mob/living/carbon/C)
 	if(!istype(C) || C.stat == DEAD || !C.has_dna() || (src in C.dna.mutations))
 		return TRUE
 	if(length(mobtypes_allowed) && !mobtypes_allowed.Find(C.type))
@@ -62,7 +103,7 @@
 		return TRUE
 	if(limb_req && !C.get_bodypart(limb_req))
 		return TRUE
-	for(var/datum/mutation/M as() in C.dna.mutations)//check for conflicting powers
+	for(var/datum/mutation/human/M as() in C.dna.mutations)//check for conflicting powers
 		if(!(M.type in conflicts) && !(type in M.conflicts))
 			continue
 		to_chat(C, "<span class='warning'>You feel your genes resisting something.</span>")
@@ -87,23 +128,23 @@
 	for(var/trait in traits)
 		ADD_TRAIT(C, trait, "[type]")
 
-/datum/mutation/proc/get_visual_indicator()
+/datum/mutation/human/proc/get_visual_indicator()
 	return
 
-/datum/mutation/proc/on_attack_hand(atom/target, proximity)
+/datum/mutation/human/proc/on_attack_hand(atom/target, proximity)
 	return
 
-/datum/mutation/proc/on_ranged_attack(atom/target)
+/datum/mutation/human/proc/on_ranged_attack(atom/target)
 	return
 
-/datum/mutation/proc/on_move(new_loc)
+/datum/mutation/human/proc/on_move(new_loc)
 	SIGNAL_HANDLER
 	return
 
-/datum/mutation/proc/on_life()
+/datum/mutation/human/proc/on_life()
 	return
 
-/datum/mutation/proc/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/proc/on_losing(mob/living/carbon/owner)
 	if(istype(owner) && (owner.dna.mutations.Remove(src)))
 		if(length(visual_indicators))
 			var/list/mut_overlay = list()
@@ -124,7 +165,7 @@
 /mob/living/carbon/proc/update_mutations_overlay()
 	if(!has_dna())
 		return
-	for(var/datum/mutation/CM as() in dna.mutations)
+	for(var/datum/mutation/human/CM as() in dna.mutations)
 		if(length(CM.mobtypes_allowed) && !CM.mobtypes_allowed.Find(src.type))
 			dna.force_lose(CM)
 			continue
@@ -144,14 +185,14 @@
 				overlays_standing[CM.layer_used] = mut_overlay
 				apply_overlay(CM.layer_used)
 
-/datum/mutation/proc/modify() //called when a genome is applied so we can properly update some stats without having to remove and reapply the mutation from someone
+/datum/mutation/human/proc/modify() //called when a genome is applied so we can properly update some stats without having to remove and reapply the mutation from someone
 	if(modified || !power || !owner)
 		return
 	power.charge_max *= GET_MUTATION_ENERGY(src)
 	power.charge_counter *= GET_MUTATION_ENERGY(src)
 	modified = TRUE
 
-/datum/mutation/proc/copy_mutation(datum/mutation/HM)
+/datum/mutation/human/proc/copy_mutation(datum/mutation/human/HM)
 	if(!istype(HM))
 		return
 	chromosome_name = HM.chromosome_name
@@ -163,7 +204,7 @@
 	can_chromosome = HM.can_chromosome
 	valid_chrom_list = HM.valid_chrom_list
 
-/datum/mutation/proc/remove_chromosome()
+/datum/mutation/human/proc/remove_chromosome()
 	stabilizer_coeff = initial(stabilizer_coeff)
 	synchronizer_coeff = initial(synchronizer_coeff)
 	power_coeff = initial(power_coeff)
@@ -172,13 +213,13 @@
 	can_chromosome = initial(can_chromosome)
 	chromosome_name = null
 
-/datum/mutation/proc/remove()
+/datum/mutation/human/proc/remove()
 	if(dna)
 		dna.force_lose(src)
 	else
 		qdel(src)
 
-/datum/mutation/proc/grant_spell()
+/datum/mutation/human/proc/grant_spell()
 	if(!ispath(power) || !owner)
 		return FALSE
 
@@ -193,7 +234,7 @@
 
 // Runs through all the coefficients and uses this to determine which chromosomes the
 // mutation can take. Stores these as text strings in a list.
-/datum/mutation/proc/update_valid_chromosome_list()
+/datum/mutation/human/proc/update_valid_chromosome_list()
 	valid_chrom_list.Cut()
 
 	if(can_chromosome == CHROMOSOME_NEVER)

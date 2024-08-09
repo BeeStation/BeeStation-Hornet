@@ -533,14 +533,6 @@
 	icon_state = "damaged4"
 	},
 /area/awaymission/research/interior)
-"ct" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/regular,
-/obj/machinery/airalarm/directional/west{
-	pixel_x = -32
-	},
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/gateway)
 "cu" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -946,12 +938,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/research/interior/security)
-"eT" = (
-/obj/machinery/airalarm/directional/west{
-	pixel_x = -32
-	},
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/secure)
 "eU" = (
 /obj/item/paper/crumpled/awaymissions/research/sensitive_info,
 /turf/open/floor/iron/dark,
@@ -1552,13 +1538,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/research/interior/dorm)
-"iZ" = (
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior/medbay)
 "je" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -1995,18 +1974,6 @@
 	},
 /turf/open/floor/wood,
 /area/awaymission/research/interior/dorm)
-"lN" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 32
-	},
-/turf/open/floor/iron/yellowsiding{
-	dir = 4
-	},
-/area/awaymission/research/interior/dorm)
 "lO" = (
 /obj/machinery/button/door{
 	id = "Dorm6";
@@ -2243,15 +2210,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/escapepods)
-"mX" = (
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior/escapepods)
 "mY" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -2485,6 +2443,19 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
+"qk" = (
+/obj/structure/table,
+/obj/item/reagent_containers/peppercloud_deployer,
+/obj/machinery/button/door{
+	id = "cryopodg1";
+	name = "panic lockdown button"
+	},
+/obj/machinery/airalarm/directional/south{
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/genetics)
 "qo" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
@@ -2584,6 +2555,15 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
+"rO" = (
+/obj/machinery/airalarm/directional/east{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior/escapepods)
 "rR" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -2665,6 +2645,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/cryo)
+"td" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/research/interior/genetics)
 "te" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -2909,6 +2897,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
+"xw" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/regular,
+/obj/machinery/airalarm/directional/west{
+	pixel_x = -32
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/gateway)
 "xA" = (
 /obj/machinery/door/window/southright{
 	name = "Cell Door";
@@ -2957,14 +2953,6 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
-"ym" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/mob/living/carbon/monkey,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/research/interior/genetics)
 "ys" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/electrical,
@@ -2974,6 +2962,19 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
+"yz" = (
+/obj/structure/table,
+/obj/item/reagent_containers/peppercloud_deployer,
+/obj/machinery/button/door{
+	id = "cryopodg2";
+	name = "panic lockdown button"
+	},
+/obj/machinery/airalarm/directional/north{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/genetics)
 "yD" = (
 /obj/machinery/light{
 	dir = 8
@@ -3178,6 +3179,16 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/escapepods)
+"Bu" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/airalarm/directional/west{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted,
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior/engineering)
 "Bw" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
@@ -3360,15 +3371,6 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
-"DK" = (
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior/cryo)
 "DQ" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
@@ -3401,15 +3403,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/cryo)
-"Ex" = (
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior/security)
 "Ez" = (
 /obj/machinery/door/window/westright,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -3454,11 +3447,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
-"ET" = (
-/mob/living/carbon/monkey,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/research/interior/genetics)
 "EU" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
@@ -3676,6 +3664,15 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
+"Ix" = (
+/obj/machinery/airalarm/directional/north{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior/cryo)
 "IM" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Engine Room";
@@ -3746,6 +3743,14 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
+"Jx" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/research/interior/genetics)
 "JK" = (
 /obj/structure/chair/fancy/comfy,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -3797,15 +3802,6 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/medbay)
-"Kf" = (
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior)
 "Kp" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -3967,6 +3963,11 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/medbay)
+"Mn" = (
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/research/interior/genetics)
 "Mu" = (
 /obj/machinery/light{
 	dir = 8
@@ -3987,16 +3988,6 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/research/interior/genetics)
-"MG" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/airalarm/directional/west{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted,
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior/engineering)
 "MH" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -4023,14 +4014,6 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/cryo)
-"Ne" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/mob/living/carbon/monkey,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/research/interior/genetics)
 "Ns" = (
 /obj/item/ammo_casing/c45,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
@@ -4044,6 +4027,18 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
+"NM" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/machinery/airalarm/directional/east{
+	pixel_x = 32
+	},
+/turf/open/floor/iron/yellowsiding{
+	dir = 4
+	},
+/area/awaymission/research/interior/dorm)
 "NV" = (
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
@@ -4058,6 +4053,12 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
+"OF" = (
+/obj/machinery/airalarm/directional/west{
+	pixel_x = -32
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/secure)
 "OH" = (
 /obj/machinery/door/airlock/medical{
 	name = "Medical Storage"
@@ -4109,6 +4110,15 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/cryo)
+"Qd" = (
+/obj/machinery/airalarm/directional/north{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior)
 "Qi" = (
 /obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -4376,6 +4386,13 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
+"Ud" = (
+/obj/machinery/airalarm/directional/north{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/blue,
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior/medbay)
 "Uf" = (
 /obj/item/screwdriver,
 /obj/item/stack/cable_coil{
@@ -4386,19 +4403,6 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
-"Ui" = (
-/obj/structure/table,
-/obj/item/reagent_containers/peppercloud_deployer,
-/obj/machinery/button/door{
-	id = "cryopodg1";
-	name = "panic lockdown button"
-	},
-/obj/machinery/airalarm/directional/south{
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/genetics)
 "Uk" = (
 /obj/item/stack/sheet/plasteel,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -4497,6 +4501,15 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior/security)
+"VC" = (
+/obj/machinery/airalarm/directional/north{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/security)
 "VK" = (
@@ -4751,19 +4764,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
-"ZQ" = (
-/obj/structure/table,
-/obj/item/reagent_containers/peppercloud_deployer,
-/obj/machinery/button/door{
-	id = "cryopodg2";
-	name = "panic lockdown button"
-	},
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/genetics)
 "ZZ" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
@@ -29563,7 +29563,7 @@ cQ
 cQ
 cQ
 dc
-eT
+OF
 dK
 gh
 dK
@@ -32639,7 +32639,7 @@ bl
 bQ
 bQ
 ci
-ct
+xw
 bl
 bl
 ji
@@ -36753,10 +36753,10 @@ aH
 cm
 cw
 cx
-ET
+Mn
 Fq
 Mu
-ET
+Mn
 ea
 oP
 fc
@@ -37011,11 +37011,11 @@ cd
 cx
 cx
 oT
-ym
+td
 ss
 ss
 ea
-DK
+Ix
 fe
 Wi
 Go
@@ -37523,7 +37523,7 @@ ji
 aH
 cd
 cx
-ZQ
+yz
 HB
 HB
 AU
@@ -38055,7 +38055,7 @@ HB
 AU
 SP
 HB
-Ui
+qk
 cx
 cd
 id
@@ -38565,7 +38565,7 @@ oP
 fd
 Wi
 ea
-Ne
+Jx
 Rb
 Rb
 Ez
@@ -38825,7 +38825,7 @@ ea
 Fq
 Kd
 Fq
-ET
+Mn
 cx
 cm
 cw
@@ -41371,7 +41371,7 @@ at
 aD
 ar
 aQ
-MG
+Bu
 yj
 bE
 ar
@@ -41411,7 +41411,7 @@ kV
 lc
 lp
 lp
-lN
+NM
 lU
 lU
 lY
@@ -42154,7 +42154,7 @@ cp
 UA
 cp
 cp
-Kf
+Qd
 Pp
 eJ
 eJ
@@ -43226,7 +43226,7 @@ Ib
 Ib
 xe
 Ib
-mX
+rO
 mb
 aa
 aa
@@ -46027,7 +46027,7 @@ ji
 aH
 aO
 iW
-iZ
+Ud
 FA
 Kx
 ow
@@ -48067,7 +48067,7 @@ An
 LS
 FG
 do
-Ex
+VC
 uj
 rl
 Fz

@@ -49,7 +49,7 @@ In all, this is a lot like the monkey code. /N
 /mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L)
 	return attack_alien(L)
 
-/mob/living/carbon/alien/attack_paw(mob/living/carbon/monkey/M)
+/mob/living/carbon/alien/attack_paw(mob/living/carbon/human/M)
 	if(!..())
 		return
 	if(stat != DEAD)

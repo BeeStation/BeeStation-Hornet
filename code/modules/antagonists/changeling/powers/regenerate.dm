@@ -93,7 +93,6 @@
 	response_help  = "pokes"
 	response_disarm = "shoos"
 	response_harm   = "steps on"
-	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
@@ -106,3 +105,7 @@
 	poison_per_bite = 4
 	poison_type = /datum/reagent/toxin/staminatoxin
 	discovery_points = 1000
+
+/mob/living/simple_animal/hostile/poison/limbsnake/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)

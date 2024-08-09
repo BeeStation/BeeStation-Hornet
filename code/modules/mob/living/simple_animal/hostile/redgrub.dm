@@ -17,7 +17,6 @@
 	response_disarm = "pokes"
 	response_harm   = "squishes"
 	density = FALSE
-	ventcrawler = VENTCRAWLER_ALWAYS
 	faction = list("hostile")
 	attack_sound = 'sound/effects/blobattack.ogg'
 	pass_flags = PASSTABLE | PASSMOB
@@ -34,6 +33,10 @@
 	var/hibernating = FALSE //if they dont aggro, they hibernate until they do. They will allow themselves to be killed, butchered, or eaten.
 	var/hibernationcounter = 0
 	var/list/grub_diseases = list()
+
+/mob/living/simple_animal/hostile/redgrub/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/redgrub/proc/isslimetarget(var/mob/living/M)
 	if(isoozeling(M))

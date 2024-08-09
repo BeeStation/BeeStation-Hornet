@@ -16,7 +16,6 @@
 	response_harm   = "stomps"
 	stop_automated_movement = 1
 	friendly = "pinches"
-	ventcrawler = VENTCRAWLER_ALWAYS
 	var/obj/item/inventory_head
 	var/obj/item/inventory_mask
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -27,6 +26,10 @@
 	worn_slot_flags = ITEM_SLOT_HEAD
 	head_icon = 'icons/mob/pets_held.dmi'
 	held_state = "crab"
+
+/mob/living/simple_animal/crab/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/crab/Life()
 	..()
