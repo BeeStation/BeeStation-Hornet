@@ -345,7 +345,7 @@
 
 /obj/vehicle/sealed/mecha/examine(mob/user)
 	. = ..()
-	var/integrity = obj_integrity*100/max_integrity
+	var/integrity = atom_integrity*100/max_integrity
 	switch(integrity)
 		if(85 to 100)
 			. += "It's fully intact."
@@ -453,7 +453,7 @@
 					else
 						occupant.throw_alert("charge", /atom/movable/screen/alert/emptycell)
 
-			var/integrity = obj_integrity/max_integrity*100
+			var/integrity = atom_integrity/max_integrity*100
 			switch(integrity)
 				if(30 to 45)
 					occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 1)
@@ -753,7 +753,7 @@
 	if(!islist(possible_int_damage) || !length(possible_int_damage))
 		return
 	if(prob(20))
-		if(ignore_threshold || obj_integrity*100/max_integrity < internal_damage_threshold)
+		if(ignore_threshold || atom_integrity*100/max_integrity < internal_damage_threshold)
 			for(var/T in possible_int_damage)
 				if(internal_damage & T)
 					possible_int_damage -= T
@@ -761,7 +761,7 @@
 			if(int_dam_flag)
 				setInternalDamage(int_dam_flag)
 	if(prob(5))
-		if(ignore_threshold || obj_integrity*100/max_integrity < internal_damage_threshold)
+		if(ignore_threshold || atom_integrity*100/max_integrity < internal_damage_threshold)
 			if(LAZYLEN(equipment))
 				var/obj/item/mecha_parts/mecha_equipment/ME = safepick(equipment)
 				qdel(ME)
@@ -971,7 +971,7 @@
 	visible_message("<span class='notice'>[M] starts to climb into [name].</span>")
 
 	if(do_after(M, enter_delay, target = src))
-		if(obj_integrity <= 0)
+		if(atom_integrity <= 0)
 			to_chat(M, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
 		else if(LAZYLEN(occupants) >= max_occupants)
 			to_chat(M, "<span class='danger'>[occupants[occupants.len]] was faster! Try better next time, loser.</span>")//get the last one that hopped in

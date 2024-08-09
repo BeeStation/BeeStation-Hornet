@@ -374,7 +374,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
-	if(. && obj_integrity > 0) //damage received
+	if(. && atom_integrity > 0) //damage received
 		if(prob(30))
 			spark_system.start()
 		if(on && !attacked && !(obj_flags & EMAGGED))
@@ -387,7 +387,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 /obj/machinery/porta_turret/deconstruct(disassembled = TRUE)
 	qdel(src)
 
-/obj/machinery/porta_turret/obj_break(damage_flag)
+/obj/machinery/porta_turret/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		power_change()

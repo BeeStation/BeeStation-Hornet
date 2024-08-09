@@ -59,7 +59,7 @@
 			add_overlay(dominator_overlay)
 		else
 			icon_state = "dominator"
-		if(obj_integrity/max_integrity < 0.66)
+		if(atom_integrity/max_integrity < 0.66)
 			add_overlay("damage")
 	else
 		icon_state = "dominator-broken"
@@ -76,7 +76,7 @@
 			to_chat(user, "<span class='notice'>Hostile Takeover of [station_name()] successful. Have a great day.</span>")
 	else
 		to_chat(user, "<span class='notice'>System on standby.</span>")
-	to_chat(user, "<span class='danger'>System Integrity: [round((obj_integrity/max_integrity)*100,1)]%</span>")
+	to_chat(user, "<span class='danger'>System Integrity: [round((atom_integrity/max_integrity)*100,1)]%</span>")
 
 /obj/machinery/dominator/process()
 	if(gang && gang.domination_time != NOT_DOMINATING)
@@ -123,7 +123,7 @@
 /obj/machinery/dominator/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	. = ..()
 	if(.)
-		if(obj_integrity/max_integrity > 0.66)
+		if(atom_integrity/max_integrity > 0.66)
 			if(prob(damage_amount*2))
 				spark_system.start()
 		else if(!(stat & BROKEN))
@@ -131,7 +131,7 @@
 			update_icon()
 
 
-/obj/machinery/dominator/obj_break(damage_flag)
+/obj/machinery/dominator/atom_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags_1 & NODECONSTRUCT_1))
 		set_broken()
 

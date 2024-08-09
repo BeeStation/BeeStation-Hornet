@@ -229,7 +229,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
 	if(!panel_open)
 		return FALSE
 	toggle_cam(user, 1)
-	obj_integrity = max_integrity //this is a pretty simplistic way to heal the camera, but there's no reason for this to be complex.
+	atom_integrity = max_integrity //this is a pretty simplistic way to heal the camera, but there's no reason for this to be complex.
 	I.play_tool_sound(src)
 	return TRUE
 
@@ -373,12 +373,12 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
 
 	return ..()
 
-/obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/machinery/camera/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE && damage_amount < 12 && !(machine_stat & BROKEN))
 		return 0
 	. = ..()
 
-/obj/machinery/camera/obj_break(damage_flag)
+/obj/machinery/camera/atom_break(damage_flag)
 	if(!status)
 		return
 	. = ..()

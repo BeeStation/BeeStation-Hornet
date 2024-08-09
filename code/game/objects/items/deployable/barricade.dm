@@ -54,13 +54,13 @@
 
 /obj/structure/barricade/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM && bar_material == METAL)
-		if(obj_integrity < max_integrity)
+		if(atom_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=0))
 				return
 
 			to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
 			if(I.use_tool(src, user, 40, volume=40))
-				obj_integrity = clamp(obj_integrity + 20, 0, max_integrity)
+				atom_integrity = clamp(atom_integrity + 20, 0, max_integrity)
 
 	else if(I.GetID() && initial(locked_down))
 		if(allowed(user))
@@ -92,7 +92,7 @@
 	if(over_object == usr && Adjacent(usr))
 		if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
 			return
-		if(!pickup_damaged && obj_integrity < max_integrity)
+		if(!pickup_damaged && atom_integrity < max_integrity)
 			to_chat(usr, "<span class='warning'>[src] is damaged! You'll have to repair it before you can relocate it.</span>")
 			return
 		if(locked_down)
@@ -104,9 +104,9 @@
 
 			//If the barricade is made of parts, some of them are damaged when the barricade is damaged so we set how many are being returned here
 			if(initial(drop_amount) > 1)
-				drop_amount = round(drop_amount * (obj_integrity/max_integrity))
+				drop_amount = round(drop_amount * (atom_integrity/max_integrity))
 			//If we are only picking up one item at most, it has a chance to fall apart based on damage the barricade accrued. Will always succeed if pickup_damaged is false.
-			else if(!prob(round((obj_integrity/max_integrity), 0.01) * 100))
+			else if(!prob(round((atom_integrity/max_integrity), 0.01) * 100))
 				usr.visible_message("<span class='notice'>[usr] tries to pick up [src] but it falls apart!</span>", "<span class='notice'>[src] is too damaged and falls apart!</span>")
 				qdel(src)
 				return

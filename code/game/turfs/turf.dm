@@ -140,6 +140,15 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		set_custom_materials(temp_list)
 
 	ComponentInitialize()
+
+	if(uses_integrity)
+		atom_integrity = max_integrity
+
+		if (islist(armor))
+			armor = getArmor(arglist(armor))
+		else if (!armor)
+			armor = getArmor()
+
 	if(isopenturf(src))
 		var/turf/open/O = src
 		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()) && !O.planetary_atmos)

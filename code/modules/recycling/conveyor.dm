@@ -174,7 +174,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	if(machine_stat & NOPOWER)
 		set_operating(FALSE)
 		return FALSE
-		
+
 	if(!operating) //If we're on, start conveying so moveloops on our tile can be refreshed if they stopped for some reason
 		return
 	for(var/atom/movable/movable in get_turf(src))
@@ -269,7 +269,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor)
 // make the conveyor broken
 // also propagate inoperability to any connected conveyor with the same ID
 /obj/machinery/conveyor/proc/broken()
-	set_machine_stat(machine_stat | BROKEN)
+	atom_break()
 	update()
 
 	var/obj/machinery/conveyor/C = locate() in get_step(src, dir)

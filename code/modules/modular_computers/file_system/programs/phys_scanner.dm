@@ -76,7 +76,7 @@
 				return FALSE
 	return ..()
 
-/datum/computer_file/program/phys_scanner/attack_obj(obj/target, mob/living/user)
+/datum/computer_file/program/phys_scanner/attack_atom(obj/target, mob/living/user)
 	switch(current_mode)
 		if(DISK_ATMOS)
 			var/scan_result = atmosanalyzer_scan(user, target, silent = TRUE, to_chat = FALSE)

@@ -21,20 +21,20 @@
 
 /obj/structure/blob/shield/update_name(updates)
 	. = ..()
-	name = "[(obj_integrity < (max_integrity * 0.5)) ? "weakened " : null][initial(name)]"
+	name = "[(atom_integrity < (max_integrity * 0.5)) ? "weakened " : null][initial(name)]"
 
 /obj/structure/blob/shield/update_desc(updates)
 	. = ..()
-	desc = (obj_integrity < (max_integrity * 0.5)) ? "[damaged_desc]" : initial(desc)
+	desc = (atom_integrity < (max_integrity * 0.5)) ? "[damaged_desc]" : initial(desc)
 
 /obj/structure/blob/shield/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
-	if(. && obj_integrity > 0)
-		atmosblock = obj_integrity < (max_integrity * 0.5)
+	if(. && atom_integrity > 0)
+		atmosblock = atom_integrity < (max_integrity * 0.5)
 		air_update_turf(TRUE)
 
 /obj/structure/blob/shield/update_icon_state()
-	icon_state = "[initial(icon_state)][(obj_integrity < (max_integrity * 0.5)) ? "_damaged" : null]"
+	icon_state = "[initial(icon_state)][(atom_integrity < (max_integrity * 0.5)) ? "_damaged" : null]"
 	return ..()
 
 /obj/structure/blob/shield/reflective
