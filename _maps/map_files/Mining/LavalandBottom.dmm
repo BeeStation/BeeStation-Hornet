@@ -2267,13 +2267,6 @@
 	},
 /turf/open/floor/plating,
 /area/mine/production)
-"mz" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "mB" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
@@ -38752,8 +38745,8 @@ uD
 kd
 DN
 aT
-EH
-Kb
+Zd
+Zd
 Zd
 Zd
 RR
@@ -39009,8 +39002,8 @@ vV
 jU
 Rl
 jw
-Wu
-Mw
+Bq
+Kb
 Zd
 Zd
 RR
@@ -39266,7 +39259,7 @@ CF
 uF
 DN
 aT
-mz
+Wu
 Mw
 Zd
 Zd
@@ -39524,7 +39517,7 @@ AE
 eU
 ta
 uW
-Mw
+PV
 VV
 Yo
 Yo
@@ -39780,7 +39773,7 @@ OO
 nM
 OO
 jw
-EH
+Bq
 hQ
 Cu
 ql
