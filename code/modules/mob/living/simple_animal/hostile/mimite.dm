@@ -9,7 +9,6 @@
 	icon_state = "mimite"
 	icon_living = "mimite"
 	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_ALWAYS
 	a_intent = INTENT_HARM
 	melee_damage = 10
 	see_in_dark = 8
@@ -75,6 +74,7 @@
 
 /mob/living/simple_animal/hostile/mimite/Initialize()
 	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	AddElement(/datum/element/point_of_interest)
 	GLOB.all_mimites += src
 	var/image/I = image(icon = 'icons/mob/hud.dmi', icon_state = "hudcultist", layer = DATA_HUD_PLANE, loc = src)
