@@ -95,7 +95,7 @@
 	. = FALSE
 	var/radiation = H.radiation
 	//Dionae heal and eat radiation for a living.
-	H.adjust_nutrition(radiation * 10)
+	H.adjust_nutrition(clamp(radiation, 0, 7))
 	if(radiation > 50)
 		H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
 		H.adjustToxLoss(-2)
