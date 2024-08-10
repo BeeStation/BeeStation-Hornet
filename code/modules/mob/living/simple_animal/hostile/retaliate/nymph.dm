@@ -218,7 +218,7 @@
 		if(istype(body_part, /obj/item/bodypart/l_arm) || istype(body_part, /obj/item/bodypart/r_arm) || istype(body_part, /obj/item/bodypart/l_leg) || istype(body_part, /obj/item/bodypart/r_leg)) // I'm sorry.
 			for(var/obj/item/organ/nymph_organ/I in body_part)
 				QDEL_NULL(I)
-			adult.remove_bodypart(body_part)
+			body_part.drop_limb(TRUE)
 		if(istype(body_part, /obj/item/bodypart/chest))
 			body_part.brute_dam = helpers.brute_damage
 			body_part.burn_dam = helpers.fire_damage
