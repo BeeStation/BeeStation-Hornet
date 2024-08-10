@@ -45,7 +45,7 @@
 		if(!isbook(I))
 			continue
 		I.forceMove(src)
-	update_appearance()
+	update_icon_state()
 
 /obj/structure/bookcase/examine(mob/user)
 	. = ..()
