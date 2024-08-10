@@ -213,7 +213,7 @@
 		helpers = nymphs
 	var/mob/living/carbon/human/species/diona/adult = new /mob/living/carbon/human/species/diona(src.loc)
 	adult.set_species(SPECIES_DIONA)
-	adult.dna.features = src.features
+
 	for(var/obj/item/bodypart/body_part in adult.bodyparts) //No limbs for you, small diona.
 		if(istype(body_part, /obj/item/bodypart/l_arm) || istype(body_part, /obj/item/bodypart/r_arm) || istype(body_part, /obj/item/bodypart/l_leg) || istype(body_part, /obj/item/bodypart/r_leg)) // I'm sorry.
 			for(var/obj/item/organ/nymph_organ/I in body_part)
@@ -225,20 +225,23 @@
 		if(istype(body_part, /obj/item/bodypart/head))
 			body_part.brute_dam = brute_damage
 			body_part.burn_dam = fire_damage
-	adult.update_body()
-	adult.updateappearance()
-	adult.nutrition = NUTRITION_LEVEL_HUNGRY
-	REMOVE_TRAIT(adult, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 	if(!("neutral" in src.faction))
 		adult.faction = src.faction
 	if(old_name)
-		adult.real_name = src.old_name
+		adult.real_name = old_name
+		adult.dna.features = features
 	else
 		adult.fully_replace_character_name(name, adult.dna.species.random_name(gender))
+		adult.dna.features["mcolor"] = sanitize_hexcolor(RANDOM_COLOUR)
 	if(mind)
 		mind.transfer_to(adult)
 	else
 		adult.key = src.key
+
+	adult.update_body()
+	adult.updateappearance()
+	adult.nutrition = NUTRITION_LEVEL_HUNGRY
+	REMOVE_TRAIT(adult, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 	QDEL_NULL(helpers)
 	qdel(src)
 
