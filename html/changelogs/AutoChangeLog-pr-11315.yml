@@ -1,8 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - balance: 'Service pistol has modestly improved stats: 12 shots up from 10, 10%
-      more burn damage, and an extra magazine is now available in all head lockers.'
-  - tweak: Adjusted service pistol magazine sprite to accommodate increased capacity.
-  - tweak: Box of flashbangs has been removed from HoS locker to make room for the
-      extra magazine.
