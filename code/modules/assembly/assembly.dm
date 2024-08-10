@@ -138,9 +138,6 @@
 	interact(user)
 	return TRUE
 
-/obj/item/assembly/interact(mob/user)
-	return ui_interact(user)
-
 /obj/item/assembly/ui_host(mob/user)
 	if(holder)
 		return holder
