@@ -207,7 +207,7 @@
 	)
 
 	var/mob/living/simple_animal/hostile/retaliate/nymph/helpers
-	if(!helpers)
+	if(!nymphs)
 		helpers = new /mob/living/simple_animal/hostile/retaliate/nymph(src.loc)
 	else
 		helpers = nymphs
