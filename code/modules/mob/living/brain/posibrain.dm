@@ -2,14 +2,28 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 
 GLOBAL_LIST_EMPTY(on_station_posis)
 
-/datum/job/cyborg/posibrain
+/datum/job/posibrain
 	title = JOB_NAME_POSIBRAIN
+	description = "Follow your AI's interpretation of your laws above all else, or your own interpretation if not connected to an AI. Choose one of many modules with different tools, ask robotics for maintenance and upgrades."
+	department_for_prefs = DEPT_BITFLAG_SILICON
+	department_head_for_prefs = JOB_NAME_AI
+	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
+	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0
 	supervisors = "your laws" //No AI yet as you are just a cube
+	selection_color = "#ddffdd"
+	minimal_player_age = 21
+	exp_requirements = 120
+	exp_type = EXP_TYPE_CREW
+	random_spawns_possible = FALSE
+
+	display_order = JOB_DISPLAY_ORDER_CYBORG
+	departments = DEPT_BITFLAG_SILICON
+
 	show_in_prefs = FALSE //No reason to show in preferences
 
-/datum/job/cyborg/posibrain/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
+/datum/job/posibrain/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
 
 	var/obj/item/mmi/posibrain/P = pick(GLOB.on_station_posis)
 
@@ -28,7 +42,10 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	qdel(H)
 	return P
 
-/datum/job/cyborg/posibrain/proc/check_add_posi_slot(obj/item/mmi/posibrain/pb)
+/datum/job/posibrain/radio_help_message(mob/M)
+	to_chat(M, "<b>Prefix your message with :b to speak with other cyborgs and AI.</b>")
+
+/datum/job/posibrain/proc/check_add_posi_slot(obj/item/mmi/posibrain/pb)
 	var/turf/currentturf = get_turf(pb)
 	if( is_station_level(currentturf.z) )
 		GLOB.on_station_posis |= pb
@@ -38,7 +55,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	current_positions = 0
 	total_positions = length(GLOB.on_station_posis)
 
-/datum/job/cyborg/posibrain/proc/remove_posi_slot(obj/item/mmi/posibrain/pb)
+/datum/job/posibrain/proc/remove_posi_slot(obj/item/mmi/posibrain/pb)
 	GLOB.on_station_posis -= pb
 
 	//Update Job Quantities
@@ -143,9 +160,9 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 		return FALSE
 	if(is_occupied() || QDELETED(brainmob) || QDELETED(src) || QDELETED(user))
 		return FALSE
-	if(user.ckey in GLOB.posi_key_list)
+	/*if(user.ckey in GLOB.posi_key_list)
 		to_chat(user, "<span class='warning'>Positronic brain spawns limited to 1 per round.</span>")
-		return FALSE
+		return FALSE*/
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SILICONS))
 		to_chat(user, "<span class='warning'>Central Command has temporarily outlawed posibrain sentience in this sector...</span>")
 		return FALSE
@@ -161,7 +178,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	if(transfer_personality(user))
 		GLOB.posi_key_list += ckey
 
-	var/datum/job/cyborg/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
 	pj.remove_posi_slot(src)
 
 	return TRUE
@@ -235,7 +252,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	brainmob.container = src
 
 	//If we are on the station level, add it to the list of available posibrains.
-	var/datum/job/cyborg/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
 	pj.check_add_posi_slot(src)
 
 	if(autoping)
@@ -267,7 +284,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 		//No need to track occupied Posis
 		return
 
-	var/datum/job/cyborg/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
 
 	//Posi was on station, now is not on station
 	if(is_station_level(new_z))
@@ -280,6 +297,6 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 		//No need to track occupied Posis
 		return ..()
 
-	var/datum/job/cyborg/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
 	pj.remove_posi_slot(src)
 	return ..()
