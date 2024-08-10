@@ -122,6 +122,9 @@
 		H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
 
 /datum/species/diona/spec_death(gibbed, mob/living/carbon/human/H)
+	if(gibbed)
+		QDEL_NULL(H)
+		return
 	split_ability.Trigger(TRUE)
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
@@ -181,13 +184,16 @@
 		return TRUE
 
 /datum/action/diona/split/proc/fakeDeath(gibbed, mob/living/carbon/H)
-	if(Activated)
+	if(Activated || gibbed)
 		return
 	Activated = TRUE
 	H.death() //Ha ha, we're totally dead right now
 	addtimer(CALLBACK(src, PROC_REF(split), gibbed, H), 5 SECONDS, TIMER_DELETE_ME) //Or are we?
 
 /datum/action/diona/split/proc/split(gibbed, mob/living/carbon/human/H)
+	if(gibbed)
+		H.gib(TRUE, TRUE, TRUE)  //Gib the corpse with nothing left of use. After all the nymphs are ALL dead.
+		return
 	var/list/alive_nymphs = list()
 	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = new(H.loc) //Spawn the player nymph, including this one, should be six total nymphs
 	for(var/obj/item/bodypart/BP as anything in H.bodyparts)
