@@ -57,6 +57,8 @@
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_GHOST, PROC_REF(on_attack_ghost))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_general))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_ROBOT, PROC_REF(on_attack_general))
+	RegisterSignal(parent, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
+	RegisterSignal(parent, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
 	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(on_AltClick))
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
@@ -96,6 +98,8 @@
 		COMSIG_ATOM_ATTACK_GHOST,
 		COMSIG_ATOM_ATTACK_HAND,
 		COMSIG_ATOM_ATTACK_ROBOT,
+		COMSIG_ATOM_ON_EMAG,
+		COMSIG_ATOM_SHOULD_EMAG,
 		COMSIG_CLICK_ALT,
 		COMSIG_PARENT_ATTACKBY,
 		COMSIG_PARENT_EXAMINE
@@ -177,12 +181,6 @@
 		if(thread.use_attack_obj && thread.attack_obj(O, user))
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/// When the mainboard's parent is attacked by an AI/cyborg
-// /datum/component/modular_computer_integration/proc/on_attack_silicon(datum/source, mob/user)
-// 	SIGNAL_HANDLER
-
-// 	// return on_attack
-
 /// When the mainboard's parent is attacked
 /datum/component/modular_computer_integration/proc/on_attackby(datum/source, obj/item/I, mob/living/user, params)
 	SIGNAL_HANDLER
@@ -216,21 +214,6 @@
 
 	return FALSE
 
-	// // Try to insert items into any of the components
-	// for(var/component_name in MB.all_components)
-	// 	var/obj/item/computer_hardware/comp = MB.all_components[component_name]
-	// 	if(comp.try_insert(I, user))
-	// 		INVOKE_ASYNC(MB, TYPE_PROC_REF(/obj/item/mainboard, ui_update))
-	// 		return
-
-	// // Insert new hardware
-	// var/obj/item/computer_hardware/inserted_hardware = I
-	// if(istype(inserted_hardware)) //&& upgradable)
-	// 	if(MB.install_component(inserted_hardware, user))
-	// 		inserted_hardware.on_inserted(user)
-	// 		INVOKE_ASYNC(MB, TYPE_PROC_REF(/obj/item/mainboard, ui_update))
-	// 		return
-
 /datum/component/modular_computer_integration/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
@@ -247,3 +230,20 @@
 
 	var/atom/movable/AM = parent
 	AM.update_icon()
+
+/// Return TRUE if we shouldn't be able to emag the mainboard's parent
+/datum/component/modular_computer_integration/proc/should_emag(datum/source, mob/user)
+	SIGNAL_HANDLER
+
+	if(!MB.enabled)
+		to_chat(user, "<span class='warning'>Nothing happens. You'd need to turn \the [parent] on first.</span>")
+		return TRUE
+	return FALSE
+
+/// When the mainboard's parent is emagged
+/datum/component/modular_computer_integration/proc/on_emag(datum/source, mob/user)
+	SIGNAL_HANDLER
+
+	MB.emag_act_parent(user)
+	return TRUE
+

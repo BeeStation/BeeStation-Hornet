@@ -193,6 +193,8 @@
 			var/background_running = FALSE
 			if(prog in idle_threads)
 				background_running = TRUE
+			if(prog.program_hidden && !background_running)
+				continue // Allows us to hide programs from being made avalible at runtime
 
 			data["disk_programs"] += list(list("name" = prog.filename, "desc" = prog.filedesc, "running" = background_running, "icon" = prog.program_icon, "alert" = prog.alert_pending))
 
@@ -212,6 +214,8 @@
 		var/background_running = FALSE
 		if(P in idle_threads)
 			background_running = TRUE
+		if(P.program_hidden && !background_running)
+			continue // Allows us to hide programs from being made avalible at runtime
 
 		data["programs"] += list(list("name" = P.filename, "desc" = P.filedesc, "running" = background_running, "icon" = P.program_icon, "alert" = P.alert_pending))
 
@@ -276,8 +280,11 @@
 			if(!program || !istype(program)) // Program not found or it's not executable program.
 				to_chat(usr, "<span class='danger'>\The [src]'s screen shows \"I/O ERROR - Unable to run program\" warning.</span>")
 				return
+			if(program.program_hidden) // You can't open a program that is supposed to be invisible
+				log_href_exploit(usr, " tried to open program [program?.filename] ( [program?.type] ), that don't have access to.")
+				return
 			program.computer = src
-			open_program(usr, program)
+			return open_program(usr, program)
 
 		if("PC_toggle_light")
 			var/obj/item/modular_computer/modpc_item = physical_holder

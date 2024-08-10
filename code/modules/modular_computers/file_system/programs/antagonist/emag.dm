@@ -1,5 +1,5 @@
 /datum/computer_file/program/emag_console
-	filename = "emag_console"
+	filename = "crypto_breaker"
 	filedesc = "Crypto-breaker"
 	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "hostile"
@@ -19,3 +19,4 @@
 	if(computer)
 		computer.device_theme = THEME_SYNDICATE
 		computer.allowed_themes = GLOB.ntos_device_themes_emagged
+	program_hidden = TRUE // hide this from the console as the deed is already done

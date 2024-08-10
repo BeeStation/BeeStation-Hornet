@@ -11,6 +11,8 @@
 	var/filedesc = "Unknown Program"		// User-friendly name of this program.
 	/// Category in the NTDownloader.
 	var/category = PROGRAM_CATEGORY_MISC
+	/// Whether this program is hidden from the main UI. Used to hide the Crypo-Breaker after its done doing its thing
+	var/program_hidden = FALSE
 	var/extended_desc = "N/A"				// Short description of this program's function.
 	var/program_icon_state = null			// Program-specific screen icon state
 	var/requires_ntnet = 0					// Set to 1 for program to require nonstop NTNet connection to run. If NTNet connection is lost program crashes.
@@ -127,7 +129,7 @@
 
 		if(!access_card)
 			if(loud)
-				to_chat(user, "<span class='danger'>\The [computer] flashes an \"RFID Error - Unable to scan ID\" warning.</span>")
+				to_chat(user, "<span class='danger'>\The [computer?.physical_holder] flashes an \"RFID Error - Unable to scan ID\" warning.</span>")
 			return FALSE
 		access = access_card.GetAccess()
 
@@ -135,7 +137,7 @@
 		if(singular_access in access)//For loop checks every individual access entry in the access list. If the user's ID has access to any entry, then we're good.
 			return TRUE
 	if(loud)
-		to_chat(user, "<span class='danger'>\The [computer] flashes an \"Access Denied\" warning.</span>")
+		to_chat(user, "<span class='danger'>\The [computer?.physical_holder] flashes an \"Access Denied\" warning.</span>")
 	return FALSE
 
 /**

@@ -110,6 +110,27 @@
 
 	return ..()
 
+/obj/item/mainboard/proc/emag_act_parent(mob/user)
+	var/nothing_happened = TRUE
+	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
+	for(var/datum/computer_file/program/app in drive.stored_files)
+		if(!istype(app))
+			continue
+		if(app.run_emag())
+			nothing_happened = FALSE
+
+	if(nothing_happened)
+		to_chat(user, "<span class='notice'>You swipe \the [physical_holder]. A console window fills the screen, but it quickly closes itself after only a few lines are written to it.</span>")
+		return FALSE
+
+	var/datum/computer_file/program/emag_console/emag_console = new(src)
+	emag_console.computer = src
+	emag_console.program_state = PROGRAM_STATE_ACTIVE
+	drive.store_file(emag_console)
+	active_program = emag_console
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/datum, ui_interact), user)
+	update_icon()
+
 /obj/item/mainboard/screwdriver_act(mob/user, obj/item/tool)
 	if(!length(all_components))
 		balloon_alert(user, "no components installed!")
