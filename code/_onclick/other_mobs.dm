@@ -85,7 +85,8 @@
 	else
 		add_fingerprint(user)
 	if(interaction_flags_atom & INTERACT_ATOM_UI_INTERACT)
-		return ui_interact(user)
+		ui_interact(user)
+		return TRUE
 	return FALSE
 
 /mob/living/carbon/RangedAttack(atom/A, mouseparams)

@@ -432,7 +432,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_INTERACT, user))
 		. = TRUE
 	add_fingerprint(user)
-	return ui_interact(user)
+	ui_interact(user)
 
 /obj/item/ui_act(action, params)
 	add_fingerprint(usr)
