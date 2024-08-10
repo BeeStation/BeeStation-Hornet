@@ -29,3 +29,6 @@
 #define COMSIG_ATOM_ATTACK_PAW "atom_attack_paw"
 ///from base of atom/attack_robot(): (mob/user)
 #define COMSIG_ATOM_ATTACK_ROBOT "atom_attack_robot"
+
+///from base of atom/interact(): (mob/user)
+#define COMSIG_ATOM_INTERACT "atom_interact"
