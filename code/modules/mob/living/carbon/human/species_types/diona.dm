@@ -155,6 +155,15 @@
 	if(unique && attempts < 10 && findname(.))
 		return ..(gender, TRUE, null, ++attempts)
 
+/datum/species/diona/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	. = ..()
+	if(. && target != user && target.on_fire)
+		user.balloon_alert(user, "[user] you hug [target]")
+		target.visible_message("<span class='warning'>[user] catches fire from hugging [target]!</span>", "<span class='boldnotice'>[user] catches fire hugging you!</span>", "<span class='italics'>You hear a fire crackling.</span>")
+		user.fire_stacks = target.fire_stacks
+		if(user.fire_stacks > 0)
+			user.IgniteMob()
+
 //////////////////////////////////////// Action abilities ///////////////////////////////////////////////
 
 /datum/action/diona/split
