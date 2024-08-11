@@ -39,6 +39,7 @@
 	new /obj/item/door_remote/research_director(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/gun/ballistic/automatic/pistol/service/rd(src)
+	new /obj/item/ammo_box/magazine/recharge/service(src)
 
 /obj/item/storage/box/suitbox/rd
 	name = "compression box of research director outfits"
