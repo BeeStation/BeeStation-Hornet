@@ -43,8 +43,8 @@
 	if(ispath(device))
 		device = new device(src)
 		ADD_TRAIT(device, TRAIT_NODROP, MOD_TRAIT)
-		RegisterSignal(device, COMSIG_PARENT_PREQDELETED, .proc/on_device_deletion)
-		RegisterSignal(src, COMSIG_ATOM_EXITED, .proc/on_exit)
+		RegisterSignal(device, COMSIG_PARENT_PREQDELETED, PROC_REF(on_device_deletion))
+		RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 
 /obj/item/mod/module/Destroy()
 	mod?.uninstall(src)
@@ -110,7 +110,7 @@
 		if(device)
 			if(mod.wearer.put_in_hands(device))
 				balloon_alert(mod.wearer, "[device] extended")
-				RegisterSignal(mod.wearer, COMSIG_ATOM_EXITED, .proc/on_exit)
+				RegisterSignal(mod.wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 			else
 				balloon_alert(mod.wearer, "can't extend [device]!")
 				return
@@ -146,7 +146,7 @@
 	if(!check_power(use_power_cost))
 		return FALSE
 	COOLDOWN_START(src, cooldown_timer, cooldown_time)
-	addtimer(CALLBACK(mod.wearer, /mob.proc/update_inv_back), cooldown_time)
+	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/mob, update_inv_back)), cooldown_time)
 	mod.wearer.update_inv_back()
 	return TRUE
 
@@ -249,4 +249,4 @@
 			mod.selected_module.used_signal = COMSIG_MOB_MIDDLECLICKON
 		if(ALT_CLICK)
 			mod.selected_module.used_signal = COMSIG_MOB_ALTCLICKON
-	RegisterSignal(mod.wearer, mod.selected_module.used_signal, /obj/item/mod/module.proc/on_special_click)
+	RegisterSignal(mod.wearer, mod.selected_module.used_signal, TYPE_PROC_REF(/obj/item/mod/module, on_special_click))

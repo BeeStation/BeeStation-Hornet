@@ -123,8 +123,8 @@
 
 /datum/component/shielded/proc/set_wearer(mob/user)
 	wearer = user
-	RegisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS, .proc/on_update_overlays)
-	RegisterSignal(wearer, COMSIG_PARENT_QDELETING, .proc/lost_wearer)
+	RegisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
+	RegisterSignal(wearer, COMSIG_PARENT_QDELETING, PROC_REF(lost_wearer))
 	if(current_charges)
 		wearer.update_appearance(UPDATE_ICON)
 

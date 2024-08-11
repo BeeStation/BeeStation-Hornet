@@ -241,10 +241,10 @@
 	if(!.)
 		return
 	if(bumpoff)
-		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, .proc/unstealth)
-	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, .proc/on_unarmed_attack)
-	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, .proc/on_bullet_act)
-	RegisterSignal(mod.wearer, list(COMSIG_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_ATTACK_PAW, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED), .proc/unstealth)
+		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, PROC_REF(unstealth))
+	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
+	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
+	RegisterSignals(mod.wearer, list(COMSIG_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_ATTACK_PAW, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED), PROC_REF(unstealth))
 	animate(mod.wearer, alpha = stealth_alpha, time = 1.5 SECONDS)
 	drain_power(use_power_cost)
 
@@ -326,9 +326,9 @@
 	if(!.)
 		return
 	ion_trail.start()
-	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, .proc/move_react)
-	RegisterSignal(mod.wearer, COMSIG_MOVABLE_PRE_MOVE, .proc/pre_move_react)
-	RegisterSignal(mod.wearer, COMSIG_MOVABLE_SPACEMOVE, .proc/spacemove_react)
+	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
+	RegisterSignal(mod.wearer, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(pre_move_react))
+	RegisterSignal(mod.wearer, COMSIG_MOVABLE_SPACEMOVE, PROC_REF(spacemove_react))
 	if(full_speed)
 		mod.wearer.add_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 
@@ -499,7 +499,7 @@
 	var/obj/projectile/tether = new /obj/projectile/tether(mod.wearer.loc)
 	tether.preparePixelProjectile(target, mod.wearer)
 	tether.firer = mod.wearer
-	INVOKE_ASYNC(tether, /obj/projectile.proc/fire)
+	INVOKE_ASYNC(tether, TYPE_PROC_REF(/obj/projectile, fire))
 	drain_power(use_power_cost)
 
 /obj/projectile/tether
@@ -568,7 +568,7 @@
 /obj/item/mod/module/rad_protection/on_suit_activation()
 	AddComponent(/datum/component/geiger_sound)
 	ADD_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, MOD_TRAIT)
-	RegisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION, .proc/on_pre_potential_irradiation)
+	RegisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation))
 	for(var/obj/item/part in mod.mod_parts)
 		ADD_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, MOD_TRAIT)
 
@@ -713,7 +713,7 @@
 	if(!.)
 		return
 	mod.wearer.research_scanner++
-	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, .proc/sense_explosion)
+	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(sense_explosion))
 
 /obj/item/mod/module/reagent_scanner/advanced/on_deactivation()
 	. = ..()
@@ -847,7 +847,7 @@
 	incompatible_modules = list(/obj/item/mod/module/longfall)
 
 /obj/item/mod/module/longfall/on_suit_activation()
-	RegisterSignal(mod.wearer, COMSIG_LIVING_Z_IMPACT, .proc/z_impact_react)
+	RegisterSignal(mod.wearer, COMSIG_LIVING_Z_IMPACT, PROC_REF(z_impact_react))
 
 /obj/item/mod/module/longfall/on_suit_deactivation()
 	UnregisterSignal(mod.wearer, COMSIG_LIVING_Z_IMPACT)
@@ -976,7 +976,7 @@
 /obj/item/circuit_component/mod/register_shell(atom/movable/shell)
 	if(istype(shell, /obj/item/mod/module))
 		attached_module = shell
-	RegisterSignal(attached_module, COMSIG_MOVABLE_MOVED, .proc/on_move)
+	RegisterSignal(attached_module, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
 /obj/item/circuit_component/mod/unregister_shell(atom/movable/shell)
 	UnregisterSignal(attached_module, COMSIG_MOVABLE_MOVED)
@@ -988,15 +988,15 @@
 		if(potential_module.name == module_to_select.value)
 			module = potential_module
 	if(COMPONENT_TRIGGERED_BY(toggle_suit, port))
-		INVOKE_ASYNC(attached_module.mod, /obj/item/mod/control.proc/toggle_activate, attached_module.mod.wearer)
+		INVOKE_ASYNC(attached_module.mod, TYPE_PROC_REF(/obj/item/mod/control, toggle_activate), attached_module.mod.wearer)
 	if(module && COMPONENT_TRIGGERED_BY(select_module, port))
-		INVOKE_ASYNC(module, /obj/item/mod/module.proc/on_select)
+		INVOKE_ASYNC(module, TYPE_PROC_REF(/obj/item/mod/module, on_select))
 
 /obj/item/circuit_component/mod/proc/on_move(atom/movable/source, atom/old_loc, dir, forced)
 	SIGNAL_HANDLER
 	if(istype(source.loc, /obj/item/mod/control))
-		RegisterSignal(source.loc, COMSIG_MOD_MODULE_SELECTED, .proc/on_module_select)
-		RegisterSignal(source.loc, COMSIG_ITEM_EQUIPPED, .proc/equip_check)
+		RegisterSignal(source.loc, COMSIG_MOD_MODULE_SELECTED, PROC_REF(on_module_select))
+		RegisterSignal(source.loc, COMSIG_ITEM_EQUIPPED, PROC_REF(equip_check))
 		equip_check()
 	else if(istype(old_loc, /obj/item/mod/control))
 		UnregisterSignal(old_loc, list(COMSIG_MOD_MODULE_SELECTED, COMSIG_ITEM_EQUIPPED))
@@ -1095,7 +1095,7 @@
 	. = ..()
 	if(!.)
 		return
-	RegisterSignal(mod.wearer, COMSIG_MOVABLE_BUMP, .proc/bump_mine)
+	RegisterSignal(mod.wearer, COMSIG_MOVABLE_BUMP, PROC_REF(bump_mine))
 
 /obj/item/mod/module/drill/on_deactivation()
 	. = ..()
@@ -1136,7 +1136,7 @@
 	var/list/ores = list()
 
 /obj/item/mod/module/orebag/on_equip()
-	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, .proc/ore_pickup)
+	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(ore_pickup))
 
 /obj/item/mod/module/orebag/on_unequip()
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
@@ -1145,7 +1145,7 @@
 	SIGNAL_HANDLER
 
 	for(var/obj/item/stack/ore/ore in get_turf(mod.wearer))
-		INVOKE_ASYNC(src, .proc/move_ore, ore)
+		INVOKE_ASYNC(src, PROC_REF(move_ore), ore)
 		playsound(src, "rustle", 50, TRUE)
 
 /obj/item/mod/module/orebag/proc/move_ore(obj/item/stack/ore)
@@ -1244,7 +1244,7 @@
 	projectile.preparePixelProjectile(target, mod.wearer)
 	projectile.firer = mod.wearer
 	playsound(src, 'sound/mecha/hydraulic.ogg', 25, TRUE)
-	INVOKE_ASYNC(projectile, /obj/projectile.proc/fire)
+	INVOKE_ASYNC(projectile, TYPE_PROC_REF(/obj/projectile, fire))
 	drain_power(use_power_cost)
 
 /obj/projectile/organ
@@ -1411,7 +1411,7 @@
 	//ADD_TRAIT(module.mod, TRAIT_MOVE_FLYING, MOD_TRAIT)
 	animate(module.mod, 0.2 SECONDS, pixel_x = base_pixel_y, pixel_y = base_pixel_y)
 	module.mod.add_overlay(jet_icon)
-	RegisterSignal(module.mod, COMSIG_MOVABLE_MOVED, .proc/on_move)
+	RegisterSignal(module.mod, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	balloon_alert(imp_in, "suit recalled")
 	return TRUE
 
@@ -1473,10 +1473,10 @@
 	var/dna = null
 
 /obj/item/mod/module/dna_lock/on_install()
-	RegisterSignal(mod, COMSIG_MOD_ACTIVATE, .proc/on_mod_activation)
-	RegisterSignal(mod, COMSIG_ATOM_EMP_ACT, .proc/on_emp)
-	RegisterSignal(mod, COMSIG_ATOM_SHOULD_EMAG, .proc/should_emag)
-	RegisterSignal(mod, COMSIG_ATOM_ON_EMAG, .proc/on_emag)
+	RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(on_mod_activation))
+	RegisterSignal(mod, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
+	RegisterSignal(mod, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
+	RegisterSignal(mod, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 
 /obj/item/mod/module/dna_lock/on_uninstall()
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
@@ -1615,7 +1615,7 @@
 /obj/item/mod/module/energy_shield/on_suit_activation()
 	mod.AddComponent(/datum/component/shielded, max_charges = max_charges, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
 	charge_recovery = charge_recovery, lose_multiple_charges = lose_multiple_charges, recharge_path = recharge_path, starting_charges = charges, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
-	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, .proc/shield_reaction)
+	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
 
 /obj/item/mod/module/energy_shield/on_suit_deactivation()
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
