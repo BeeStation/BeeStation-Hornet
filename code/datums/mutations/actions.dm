@@ -334,7 +334,7 @@
 			drone = nymph
 			S.drone = nymph
 	else if(has_drone)
-		if(drone.stat == DEAD)
+		if(drone.stat == DEAD || QDELETED(drone))
 			to_chat(C, "You can't seem to find the psychic link with your nymph.")
 			has_drone = FALSE
 		else
@@ -345,7 +345,7 @@
 
 
 /obj/effect/proc_holder/spell/self/drone/proc/SwitchTo(mob/living/simple_animal/hostile/retaliate/nymph/drone, mob/living/carbon/M)
-	if(drone.stat == DEAD) //sanity check
+	if(drone.stat == DEAD || QDELETED(drone)) //sanity check
 		return
 	var/datum/mind/C = M.mind
 	if(M.stat == CONSCIOUS)

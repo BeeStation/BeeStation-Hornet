@@ -99,6 +99,8 @@
 	GLOB.poi_list -= src
 	evolve_ability.Remove(src)
 	if(is_drone)
+		if(mind)
+			switch_ability.Trigger(drone_parent, TRUE) //If we have someone conscious in the drone, throw them out.
 		switch_ability.Remove(src)
 	return ..(gibbed,death_msg)
 
@@ -146,7 +148,7 @@
 	if(client || key || ckey)
 		to_chat(user, "<span class='warning'>\The [src] already has a player.")
 		return
-	if(!is_ghost_spawn || stat == DEAD)
+	if(!is_ghost_spawn || stat == DEAD || is_drone)
 		to_chat(user, "<span class='warning'>\The [src] is not possessable!")
 		return
 	var/control_ask = tgui_alert(usr, "Do you wish to take control of \the [src]", "Chirp Time?", list("Yes", "No"))
@@ -282,15 +284,23 @@
 	icon_icon = 'icons/mob/actions/actions_spells.dmi'
 	button_icon_state = "return"
 
-/datum/action/nymph/SwitchFrom/Trigger(DroneParent)
+/datum/action/nymph/SwitchFrom/Trigger(drone_parent, forced)
 	. = ..()
 	var/mob/living/simple_animal/hostile/retaliate/nymph/user = owner
+	var/mob/living/carbon/human/drone_diona = drone_parent
+	if(forced)
+		SwitchFrom(user, drone_parent)
 	if(!isnymph(user))
 		return
 	if(user.movement_type & VENTCRAWLING)
 		to_chat(user, "<span class='danger'>You cannot switch while in a vent.</span>")
 		return
-	SwitchFrom(user, DroneParent)
+	if(QDELETED(drone_diona)) // FUCK SOMETHING HAPPENED TO THE MAIN DIONA, ABORT ABORT ABORT
+		user.is_drone = FALSE //We're not a drone anymore!!!! Panic!
+		to_chat(user, "<span class='danger'>You feel like your gestalt is gone! Something must have gone wrong...</span>")
+		user.switch_ability.Remove(user)
+		return
+	SwitchFrom(user, drone_parent)
 
 /datum/action/nymph/SwitchFrom/proc/SwitchFrom(mob/living/simple_animal/hostile/retaliate/nymph/user, mob/living/carbon/M)
 	var/datum/mind/C = user.mind

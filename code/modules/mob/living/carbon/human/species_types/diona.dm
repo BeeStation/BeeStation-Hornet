@@ -125,6 +125,8 @@
 	if(gibbed)
 		QDEL_NULL(H)
 		return
+	if(drone)
+		drone = null
 	split_ability.Trigger(TRUE)
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
@@ -146,6 +148,8 @@
 	partition_ability.Remove(H)
 	QDEL_NULL(partition_ability)
 	REMOVE_TRAIT(H, TRAIT_MOBILE, "diona")
+	if(drone)
+		drone = null
 	for(var/status_effect as anything in H.status_effects)
 		if(status_effect == STATUS_EFFECT_PLANTHEALING)
 			H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
