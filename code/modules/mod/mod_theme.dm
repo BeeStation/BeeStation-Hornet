@@ -14,7 +14,7 @@
 	/// Default skin of the MOD.
 	var/default_skin = "standard"
 	/// Armor shared across the MOD pieces.
-	var/armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 25, ACID = 25, WOUND = 10)
+	var/armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 25, ACID = 25, BLEED = 10)
 	/// Resistance flags shared across the MOD pieces.
 	var/resistance_flags = NONE
 	/// Max heat protection shared across the MOD pieces.
@@ -92,7 +92,7 @@
 	name = "engineering"
 	desc = "An engineer-fit suit with heat and shock resistance. Nakamura Engineering's classic."
 	default_skin = "engineering"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, FIRE = 100, ACID = 25, WOUND = 10)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, FIRE = 100, ACID = 25, BLEED = 10)
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -128,7 +128,7 @@
 	name = "atmospheric"
 	desc = "An atmospheric-resistant suit by Nakamura Engineering, offering extreme heat resistance compared to the engineer suit."
 	default_skin = "atmospheric"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, FIRE = 100, ACID = 75, WOUND = 10)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, FIRE = 100, ACID = 75, BLEED = 10)
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown_inactive = 1.5
@@ -164,7 +164,7 @@
 	name = "advanced"
 	desc = "An advanced version of Nakamura Engineering's classic suit, shining with a white, acid and fire resistant polish."
 	default_skin = "advanced"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 100, ACID = 90, WOUND = 10)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 100, ACID = 90, BLEED = 10)
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -201,7 +201,7 @@
 	name = "mining"
 	desc = "A high-power Nanotrasen mining suit, supporting more complexity at a bigger drain."
 	default_skin = "mining"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 100, ACID = 75, WOUND = 15)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 100, ACID = 75, BLEED = 15)
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	cell_drain = DEFAULT_CELL_DRAIN * 2
@@ -236,7 +236,7 @@
 	name = "medical"
 	desc = "A lightweight suit by DeForest Medical Corporation, allows for easier movement."
 	default_skin = "medical"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, FIRE = 60, ACID = 75, WOUND = 10)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, FIRE = 60, ACID = 75, BLEED = 10)
 	cell_drain = DEFAULT_CELL_DRAIN * 1.5
 	slowdown_inactive = 1
 	slowdown_active = 0.5
@@ -293,7 +293,7 @@
 	name = "rescue"
 	desc = "An advanced version of DeForest Medical Corporation's medical suit, designed for quick rescue of bodies from the most dangerous environments."
 	default_skin = "rescue"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, FIRE = 100, ACID = 100, WOUND = 10)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, FIRE = 100, ACID = 100, BLEED = 10)
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	cell_drain = DEFAULT_CELL_DRAIN * 1.5
@@ -330,7 +330,7 @@
 	name = "research"
 	desc = "A private military EOD suit by Aussec Armory, intended for explosive research. Bulky, but expansive."
 	default_skin = "research"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100, WOUND = 15)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100, BLEED = 15)
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
@@ -366,7 +366,7 @@
 	name = "security"
 	desc = "An Apadyne Technologies security suit, offering shock protection and quicker speed, at the cost of carrying capacity."
 	default_skin = "security"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, FIRE = 75, ACID = 75, WOUND = 20)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, FIRE = 75, ACID = 75, BLEED = 20)
 	siemens_coefficient = 0
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 5
 	slowdown_inactive = 1
@@ -402,7 +402,7 @@
 	name = "safeguard"
 	desc = "An Apadyne Technologies advanced security suit, offering greater speed and fire protection than the standard security model."
 	default_skin = "safeguard"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, 	BOMB = 25, BIO = 100, FIRE = 100, ACID = 95, WOUND = 25)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, 	BOMB = 25, BIO = 100, FIRE = 100, ACID = 95, BLEED = 25)
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -438,7 +438,7 @@
 	name = "magnate"
 	desc = "A fancy, very protective suit for Nanotrasen's captains. Shock, fire and acid-proof while also having a large capacity and high speed."
 	default_skin = "magnate"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100, WOUND = 20)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100, BLEED = 20)
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -475,7 +475,7 @@
 	name = "cosmohonk"
 	desc = "A suit by Honk Ltd. Protects against low humor environments. Most of the tech went to lower the power cost."
 	default_skin = "cosmohonk"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, FIRE = 60, ACID = 30, WOUND = 5)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, FIRE = 60, ACID = 30, BLEED = 5)
 	cell_drain = DEFAULT_CELL_DRAIN * 0.25
 	slowdown_inactive = 1.75
 	slowdown_active = 1.25
@@ -509,7 +509,7 @@
 	name = "syndicate"
 	desc = "A suit designed by Gorlex Marauders, offering armor ruled illegal in most of Spinward Stellar."
 	default_skin = "syndicate"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 35, BIO = 100, FIRE = 50, ACID = 90, WOUND = 25)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 35, BIO = 100, FIRE = 50, ACID = 90, BLEED = 25)
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	slowdown_inactive = 1
@@ -546,7 +546,7 @@
 	name = "elite"
 	desc = "An elite suit upgraded by Cybersun Industries, offering upgraded armor values."
 	default_skin = "elite"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 55, BIO = 100, FIRE = 100, ACID = 100, WOUND = 25)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 55, BIO = 100, FIRE = 100, ACID = 100, BLEED = 25)
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -584,7 +584,7 @@
 	name = "enchanted"
 	desc = "The Wizard Federation's relatively low-tech MODsuit. Is very protective, though."
 	default_skin = "enchanted"
-	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 50, BOMB = 35, BIO = 100, FIRE = 100, ACID = 100, WOUND = 30)
+	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 50, BOMB = 35, BIO = 100, FIRE = 100, ACID = 100, BLEED = 30)
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -622,7 +622,7 @@
 	name = "prototype"
 	desc = "A prototype modular suit powered by locomotives. While it is comfortable and has a big capacity, it remains very bulky and power-inefficient."
 	default_skin = "prototype"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 100, ACID = 75, WOUND = 5)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 100, ACID = 75, BLEED = 5)
 	resistance_flags = FIRE_PROOF
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 10
 	slowdown_inactive = 2.5
@@ -658,7 +658,7 @@
 	name = "responsory"
 	desc = "A high-speed rescue suit by Nanotrasen, intended for its' emergency response teams."
 	default_skin = "responsory"
-	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 50, BIO = 100, FIRE = 100, ACID = 90, WOUND = 15)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 50, BIO = 100, FIRE = 100, ACID = 90, BLEED = 15)
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -716,7 +716,7 @@
 	name = "apocryphal"
 	desc = "A high-tech, only technically legal, armored suit created by a collaboration effort between Nanotrasen and Apadyne Technologies."
 	default_skin = "apocryphal"
-	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100, WOUND = 25)
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100, BLEED = 25)
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -751,7 +751,7 @@
 	name = "corporate"
 	desc = "A fancy, high-tech suit for Nanotrasen's high ranking officers."
 	default_skin = "corporate"
-	armor = list(MELEE = 35, BULLET = 40, LASER = 40, ENERGY = 50, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100, WOUND = 15)
+	armor = list(MELEE = 35, BULLET = 40, LASER = 40, ENERGY = 50, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100, BLEED = 15)
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -787,7 +787,7 @@
 	name = "debug"
 	desc = "Strangely nostalgic."
 	default_skin = "debug"
-	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100, WOUND = 0)
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100, BLEED = 0)
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	complexity_max = 50
@@ -824,7 +824,7 @@
 	name = "administrative"
 	desc = "A suit made of adminium. Who comes up with these stupid mineral names?"
 	default_skin = "debug"
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100, WOUND = 100)
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100, BLEED = 100)
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	complexity_max = 1000
