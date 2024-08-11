@@ -154,29 +154,27 @@
 ///Seals or unseals the given part
 /obj/item/mod/control/proc/seal_part(obj/item/clothing/part, seal)
 	if(seal)
+		part.icon_state = "[skin]-[part.base_icon_state]-sealed"
 		part.clothing_flags |= part.visor_flags
 		part.flags_inv |= part.visor_flags_inv
 		part.flags_cover |= part.visor_flags_cover
 		part.heat_protection = initial(part.heat_protection)
 		part.cold_protection = initial(part.cold_protection)
 	else
+		part.icon_state = "[skin]-[part.base_icon_state]"
 		part.flags_cover &= ~part.visor_flags_cover
 		part.flags_inv &= ~part.visor_flags_inv
 		part.clothing_flags &= ~part.visor_flags
 		part.heat_protection = NONE
 		part.cold_protection = NONE
 	if(part == boots)
-		boots.icon_state = "[skin]-boots[seal ? "-sealed" : ""]"
 		wearer.update_inv_shoes()
 	if(part == gauntlets)
-		gauntlets.icon_state = "[skin]-gauntlets[seal ? "-sealed" : ""]"
 		wearer.update_inv_gloves()
 	if(part == chestplate)
-		chestplate.icon_state = "[skin]-chestplate[seal ? "-sealed" : ""]"
 		wearer.update_inv_wear_suit()
 		wearer.update_inv_w_uniform()
 	if(part == helmet)
-		helmet.icon_state = "[skin]-helmet[seal ? "-sealed" : ""]"
 		if(seal)
 			helmet.alternate_worn_layer = null
 		else

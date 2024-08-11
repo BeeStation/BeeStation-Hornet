@@ -9,8 +9,9 @@
 /obj/item/mod/control
 	name = "MOD control unit"
 	desc = "The control unit of a Modular Outerwear Device, a powered, back-mounted suit that protects against various environments."
-	icon_state = "control"
+	icon_state = "standard-control"
 	item_state = "mod_control"
+	base_icon_state = "control"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	strip_delay = 10 SECONDS
@@ -373,6 +374,10 @@
 		if(!length(module_icons))
 			continue
 		. += module_icons
+
+/obj/item/mod/control/update_icon_state()
+	icon_state = "[skin]-[base_icon_state][active ? "-sealed" : ""]"
+	return ..()
 
 /obj/item/mod/control/proc/set_wearer(mob/user)
 	wearer = user
