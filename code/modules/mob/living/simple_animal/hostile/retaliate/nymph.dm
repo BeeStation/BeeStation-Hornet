@@ -287,7 +287,7 @@
 /datum/action/nymph/SwitchFrom/Trigger(drone_parent, forced)
 	. = ..()
 	var/mob/living/simple_animal/hostile/retaliate/nymph/user = owner
-	var/mob/living/carbon/human/drone_diona = drone_parent
+	var/mob/living/carbon/human/drone_diona = user.drone_parent
 	if(forced)
 		SwitchFrom(user, drone_parent)
 	if(!isnymph(user))
