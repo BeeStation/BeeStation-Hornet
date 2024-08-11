@@ -51,7 +51,7 @@
 	var/assimilating = FALSE
 	var/grown_message_sent = FALSE
 
-/mob/living/simple_animal/hostile/retaliate/nymph/Initialize()
+/mob/living/simple_animal/hostile/retaliate/nymph/Initialize(mapload)
 	. = ..()
 	time_of_birth = world.time
 	evolve_ability = new
@@ -150,7 +150,7 @@
 	if(!is_ghost_spawn || stat == DEAD)
 		to_chat(user, "<span class='warning'>\The [src] is not possessable!")
 		return
-	var/control_ask = alert("Do you wish to take control of \the [src]", "Chirp Time?", "Yes", "No")
+	var/control_ask = tgui_alert(usr, "Do you wish to take control of \the [src]", "Chirp Time?", list("Yes", "No"))
 	if(control_ask == "No" || !src || QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(QDELETED(src) || QDELETED(user) || !user.client)
@@ -199,7 +199,7 @@
 		qdel(L)
 
 	src.visible_message(
-		("<span class='warning'>[src] begins to shift and quiver, and after engulfing another nymph, erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea."),
+		("<span class='warning'>[src] begins to shift and quiver, and after engulfing another nymph, erupts in a shower of shed bark as it splits into a tangle of a new diona gestalt.</span>"),
 		("<span class='warning'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients and, along with a friend, surge with growth, splitting into a tangle of at least a dozen new vines. We have attained our gestalt form. Our friends should help with obtaining the rest of our limbs...")
 	)
 

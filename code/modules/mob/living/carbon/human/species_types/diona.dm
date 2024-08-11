@@ -175,7 +175,7 @@
 		return TRUE
 	if(user.incapacitated(ignore_restraints = TRUE)) //Are we incapacitated right now?
 		return FALSE
-	if(alert("Are we sure we wish to kill ourselves and split into seperated nymphs?",,"Yes", "No") != "Yes")
+	if(tgui_alert(usr, "Are we sure we wish to devolve ourselves and split into separated nymphs?",,list("Yes", "No")) != "Yes")
 		return FALSE
 	if(do_after(user, 8 SECONDS, user, IGNORE_RESTRAINED, TRUE))
 		if(user.incapacitated(ignore_restraints = TRUE)) //Second check incase the ability was activated RIGHT as we were being cuffed, and thus now in cuffs when this triggers
