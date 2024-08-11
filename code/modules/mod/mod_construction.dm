@@ -30,7 +30,7 @@
 
 /obj/item/mod/construction/broken_core
 	name = "broken MOD core"
-	icon_state = "mod-core-broken"
+	icon_state = "mod-core"
 	desc = "An internal power source for a Modular Outerwear Device. You don't seem to be able to source any power from this one, though."
 
 /obj/item/mod/construction/broken_core/examine(mob/user)
@@ -44,35 +44,35 @@
 	new /obj/item/mod/construction/core(drop_location())
 	qdel(src)
 
-/obj/item/mod/construction/armor
-	name = "MOD armor plates"
-	desc = "Armor plates used to finish a MOD."
-	icon_state = "standard-armor"
+/obj/item/mod/construction/plating
+	name = "MOD external plating"
+	desc = "External plating used to finish a MOD control unit."
+	icon_state = "standard-plating"
 	var/datum/mod_theme/theme = /datum/mod_theme
 
-/obj/item/mod/construction/armor/Initialize(mapload)
+/obj/item/mod/construction/plating/Initialize(mapload)
 	. = ..()
 	var/datum/mod_theme/used_theme = GLOB.mod_themes[theme]
-	name = "MOD [used_theme.name] armor plates"
+	name = "MOD [used_theme.name] external plating"
 	desc = "[desc] [used_theme.desc]"
-	icon_state = "[used_theme.default_skin]-armor"
+	icon_state = "[used_theme.default_skin]-plating"
 
-/obj/item/mod/construction/armor/engineering
+/obj/item/mod/construction/plating/civilian
+	theme = /datum/mod_theme/civilian
+
+/obj/item/mod/construction/plating/engineering
 	theme = /datum/mod_theme/engineering
 
-/obj/item/mod/construction/armor/atmospheric
+/obj/item/mod/construction/plating/atmospheric
 	theme = /datum/mod_theme/atmospheric
 
-/obj/item/mod/construction/armor/mining
-	theme = /datum/mod_theme/mining
-
-/obj/item/mod/construction/armor/medical
+/obj/item/mod/construction/plating/medical
 	theme = /datum/mod_theme/medical
 
-/obj/item/mod/construction/armor/security
+/obj/item/mod/construction/plating/security
 	theme = /datum/mod_theme/security
 
-/obj/item/mod/construction/armor/cosmohonk
+/obj/item/mod/construction/plating/cosmohonk
 	theme = /datum/mod_theme/cosmohonk
 
 /obj/item/mod/paint
@@ -123,7 +123,7 @@
 		if(WRENCHED_ASSEMBLY_STEP)
 			display_text = "The assembly seems <b>loose</b>..."
 		if(SCREWED_ASSEMBLY_STEP)
-			display_text = "All it's missing is <b>external armor</b>..."
+			display_text = "All it's missing is <b>external plating</b>..."
 	. += "<span class='notice'>[display_text]</span>"
 
 /obj/item/mod/construction/shell/attackby(obj/item/part, mob/user, params)
@@ -228,13 +228,13 @@
 					balloon_alert(user, "assembly unsecured")
 					step = BOOTS_STEP
 		if(SCREWED_ASSEMBLY_STEP)
-			if(istype(part, /obj/item/mod/construction/armor)) //Construct
-				var/obj/item/mod/construction/armor/external_armor = part
+			if(istype(part, /obj/item/mod/construction/plating)) //Construct
+				var/obj/item/mod/construction/plating/external_plating = part
 				if(!user.transferItemToLoc(part, src))
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 				balloon_alert(user, "suit finished")
-				var/obj/item/modsuit = new /obj/item/mod/control(drop_location(), external_armor.theme)
+				var/obj/item/modsuit = new /obj/item/mod/control(drop_location(), external_plating.theme)
 				qdel(src)
 				user.put_in_hands(modsuit)
 			else if(part.tool_behaviour == TOOL_SCREWDRIVER) //Construct
