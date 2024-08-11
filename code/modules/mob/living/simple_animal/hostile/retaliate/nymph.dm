@@ -33,7 +33,6 @@
 	attack_sound = 'sound/emotes/diona/hit.ogg'
 	minbodytemp = 2.7
 	var/can_namepick_as_adult = FALSE
-	var/adult_name = "diona gestalt"
 	var/death_msg = "expires with a pitiful chirrup..."
 
 	var/amount_grown = 0
@@ -241,6 +240,11 @@
 	REMOVE_TRAIT(adult, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 	QDEL_NULL(helpers)
 	qdel(src)
+
+/mob/living/simple_animal/hostile/retaliate/nymph/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced)
+	if(!can_speak())
+		emote("chitter")
+	. = ..()
 
 /datum/action/nymph/evolve
 	name = "Evolve"
