@@ -1,5 +1,6 @@
 /obj/item/mod/construction
 	desc = "A part used in MOD construction."
+	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	item_state = "rack_parts"
 
 /obj/item/mod/construction/helmet

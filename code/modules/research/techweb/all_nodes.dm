@@ -1892,7 +1892,7 @@
 	design_ids = list(
 		"mod_armor_atmospheric",
 		"mod_jetpack",
-		"mod_rad_protection",
+		//"mod_rad_protection",
 		"mod_emp_shield",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3500)
@@ -2384,7 +2384,7 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 1000)
 	export_price = 5000
-	
+
 /datum/techweb_node/nanite_cc
 	id = "nanite_cc"
 	tech_tier = 5

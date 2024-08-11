@@ -1,5 +1,6 @@
 /obj/item/mod/module
 	name = "MOD module"
+	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	icon_state = "module"
 	/// If it can be removed
 	var/removable = TRUE
@@ -27,6 +28,8 @@
 	var/overlay_state_active
 	/// Overlay given to the user when the module is used, lasts until cooldown finishes
 	var/overlay_state_use
+	/// Icon file for the overlay.
+	var/overlay_icon_file = 'icons/mob/clothing/modsuit/mod_modules.dmi'
 	/// What modules are we incompatible with?
 	var/list/incompatible_modules = list()
 	/// Cooldown after use
@@ -239,7 +242,7 @@
 		used_overlay = overlay_state_inactive
 	else
 		return
-	var/mutable_appearance/module_icon = mutable_appearance('icons/mob/clothing/mod.dmi', used_overlay, layer = standing.layer + 0.1)
+	var/mutable_appearance/module_icon = mutable_appearance(overlay_icon_file, used_overlay, layer = standing.layer + 0.1)
 	. += module_icon
 
 /// Updates the signal used by active modules to be activated
