@@ -29,7 +29,7 @@
 /datum/disease/revblight/stage_act()
 	..()
 	affected_mob.adjustStaminaLoss(1) //Provides gradual exhaustion, but mostly to prevent regeneration and set an upper limit on disease duration to about five minutes
-	if(!(affected_mob.mobility_flags & MOBILITY_STAND))
+	if(affected_mob.body_position == LYING_DOWN)
 		if(HAS_TRAIT_FROM(affected_mob, TRAIT_INCAPACITATED, STAMINA) && !finalstage)
 			stage = 5
 		if(!startresting || restingat != get_turf(affected_mob))

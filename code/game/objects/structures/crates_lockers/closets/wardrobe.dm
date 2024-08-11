@@ -3,6 +3,14 @@
 	desc = "It's a storage unit for standard-issue Nanotrasen attire."
 	icon_door = "blue"
 
+/obj/structure/closet/wardrobe/empty
+	name = "wardrobe"
+	desc = "It's a storage unit for standard-issue Nanotrasen attire."
+	icon_door = "blue"
+
+/obj/structure/closet/wardrobe/empty/PopulateContents()
+	return
+
 /obj/structure/closet/wardrobe/PopulateContents()
 	..()
 	for(var/i in 1 to 3)

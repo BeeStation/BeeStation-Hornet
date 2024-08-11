@@ -53,7 +53,7 @@
 	req_access = list(ACCESS_ATMOSPHERICS)
 	max_integrity = 250
 	integrity_failure = 0.2
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
 
@@ -821,7 +821,7 @@
 		new /obj/item/stack/sheet/iron(loc, 2)
 		var/obj/item/I = new /obj/item/electronics/advanced_airlock_controller(loc)
 		if(!disassembled)
-			I.obj_integrity = I.max_integrity * 0.5
+			I.take_damage(I.max_integrity * 0.5, sound_effect = FALSE)
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 

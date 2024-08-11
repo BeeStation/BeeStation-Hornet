@@ -53,7 +53,7 @@
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	if(!can_use(A))
 		return FALSE
-	if(D.mobility_flags & MOBILITY_STAND)
+	if(D.body_position == STANDING_UP)
 		D.visible_message("<span class='warning'>[A] slams [D] into the ground!</span>", \
 						  	"<span class='userdanger'>[A] slams you into the ground!</span>")
 		playsound(get_turf(A), 'sound/weapons/slam.ogg', 50, 1, -1)
@@ -155,7 +155,7 @@
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("CQC'd", "Big Bossed")
 	var/bonus_damage = 13
-	if(!(D.mobility_flags & MOBILITY_STAND))
+	if(D.body_position == LYING_DOWN)
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
 	D.apply_damage(bonus_damage, BRUTE, blocked = def_check)

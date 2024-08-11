@@ -25,6 +25,8 @@
 #define COMSIG_LIVING_DEATH "living_death"
 /// from base of mob/living/updatehealth(): ()
 #define COMSIG_LIVING_UPDATE_HEALTH "living_update_health"
+/// Called when a living mob has its resting updated: (resting_state)
+#define COMSIG_LIVING_RESTING_UPDATED "resting_updated"
 
 /// from /datum/component/singularity/proc/can_move(), as well as /obj/anomaly/energy_ball/proc/can_move()
 /// if a callback returns `SINGULARITY_TRY_MOVE_BLOCK`, then the singularity will not move to that turf
@@ -37,13 +39,20 @@
 #define COMSIG_LIVING_HANDLE_BREATHING "living_handle_breathing"
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
-#define COMSIG_LIVING_STATUS_STUN "living_stun"					//! from base of mob/living/Stun() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"		//! from base of mob/living/Knockdown() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"			//! from base of mob/living/Paralyze() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"		//! from base of mob/living/Immobilize() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"	//! from base of mob/living/Unconscious() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"			//! from base of mob/living/Sleeping() (amount, update, ignore)
-	#define COMPONENT_NO_STUN 1			//For all of them
+
+///from base of mob/living/Stun() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_STUN "living_stun"
+///from base of mob/living/Knockdown() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"
+///from base of mob/living/Paralyze() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"
+///from base of mob/living/Immobilize() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"
+///from base of mob/living/Unconscious() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"
+///from base of mob/living/Sleeping() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
+	#define COMPONENT_NO_STUN (1<<0)		//For all of them
 
 #define COMSIG_LIVING_ENTER_STASIS	"living_enter_stasis"		//! sent when a mob is put into stasis.
 #define COMSIG_LIVING_EXIT_STASIS	"living_exit_stasis"		//! sent when a mob exits stasis.

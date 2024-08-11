@@ -379,7 +379,7 @@
 	icon_state_on = "protoemitter_+a"
 	icon_state_underpowered = "protoemitter_+u"
 	can_buckle = TRUE
-	buckle_lying = FALSE
+	buckle_lying = 0
 	///Sets the view size for the user
 	var/view_range = 4.5
 	///Grants the buckled mob the action button
