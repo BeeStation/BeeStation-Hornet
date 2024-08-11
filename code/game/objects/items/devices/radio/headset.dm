@@ -99,6 +99,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	make_syndie()
 
 /obj/item/radio/headset/binary
+
 /obj/item/radio/headset/binary/Initialize(mapload)
 	. = ..()
 	qdel(keyslot)

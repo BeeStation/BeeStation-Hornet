@@ -112,9 +112,9 @@
 	command = initial(command)
 
 	if(keyslot)
-		for(var/ch_name in keyslot.channels)
-			if(!(ch_name in channels))
-				channels[ch_name] = keyslot.channels[ch_name]
+		for(var/channel_name in keyslot.channels)
+			if(!(channel_name in channels))
+				channels[channel_name] = keyslot.channels[channel_name]
 
 		if(keyslot.translate_binary)
 			translate_binary = TRUE
@@ -138,10 +138,17 @@
 	syndie = FALSE
 	independent = FALSE
 
+///goes through all radio channels we should be listening for and readds them to the global list
+/obj/item/radio/proc/readd_listening_radio_channels()
+	for(var/channel_name in channels)
+		add_radio(src, GLOB.radiochannels[channel_name])
+
+	add_radio(src, FREQ_COMMON)
+
 /obj/item/radio/proc/make_syndie() // Turns normal radios into Syndicate radios!
 	qdel(keyslot)
 	keyslot = new /obj/item/encryptionkey/syndicate
-	syndie = 1
+	syndie = TRUE
 	recalculateChannels()
 	ui_update()
 
@@ -202,8 +209,7 @@
 		should_be_listening = listening
 
 	if(listening && on)
-		recalculateChannels()
-		add_radio(src, frequency)
+		readd_listening_radio_channels()
 	else if(!listening)
 		remove_radio_all(src)
 
