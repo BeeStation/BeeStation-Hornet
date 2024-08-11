@@ -19,6 +19,8 @@
 		"beaker",
 		"bucket",
 		"circuit_imprinter",
+		"conveyor_belt",
+		"conveyor_switch",
 		"design_disk",
 		"dest_tagger",
 		"destructive_analyzer",
@@ -96,7 +98,6 @@
 	display_name = "Mechanical Exosuits"
 	description = "Mechanized exosuits that are several magnitudes stronger and more powerful than the average human."
 	design_ids = list(
-		"firefighter_chassis",
 		"mech_hydraulic_clamp",
 		"mech_recharger",
 		"mecha_tracking",
@@ -1472,6 +1473,7 @@
 		"rangemod",
 		"superresonator",
 		"triggermod",
+		"mecha_kineticgun",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -1848,6 +1850,24 @@
 		"odysseus_right_arm",
 		"odysseus_right_leg",
 		"odysseus_torso",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+
+/datum/techweb_node/clarke
+	id = "mecha_clarke"
+	tech_tier = 2
+	display_name = "EXOSUIT: Clarke"
+	description = "Clarke exosuit designs"
+	prereq_ids = list("engineering")
+	design_ids = list(
+		"clarke_chassis",
+		"clarke_torso",
+		"clarke_head",
+		"clarke_left_arm",
+		"clarke_right_arm",
+		"clarke_main",
+		"clarke_peri"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
