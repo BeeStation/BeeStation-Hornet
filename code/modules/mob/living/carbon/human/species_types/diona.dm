@@ -250,12 +250,14 @@
 	background_icon_state = "bg_default"
 	icon_icon = 'icons/mob/actions/actions_spells.dmi'
 	button_icon_state = "grow"
+	var/ability_partition_cooldown
 
 /datum/action/diona/partition/Trigger(special)
 	. = ..()
 	if(!IsAvailable())
 		return
 	var/mob/living/carbon/human/H = owner
+	ability_partition_cooldown = world.time + 5 MINUTES
 	H.nutrition = NUTRITION_LEVEL_STARVING
 	playsound(H, 'sound/creatures/venus_trap_death.ogg', 25, 1)
 	new /mob/living/simple_animal/hostile/retaliate/nymph(H.loc)
@@ -263,7 +265,7 @@
 /datum/action/diona/partition/IsAvailable()
 	if(..())
 		var/mob/living/carbon/human/H = owner
-		if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
+		if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && (ability_partition_cooldown <= world.time))
 			return TRUE
 		return FALSE
 
