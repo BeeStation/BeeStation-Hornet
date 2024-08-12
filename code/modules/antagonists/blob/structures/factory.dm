@@ -4,7 +4,7 @@
 	icon_state = "blob_factory"
 	desc = "A thick spire of tendrils."
 	max_integrity = 200
-	maximum_damage = 40
+	max_hit_damage = 40
 	health_regen = 1
 	point_return = 25
 	resistance_flags = LAVA_PROOF

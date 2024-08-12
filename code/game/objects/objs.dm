@@ -21,7 +21,7 @@
 	/// Damage under this value will be completely ignored
 	var/damage_deflection = 0
 	/// Maximum damage that can be taken in a single hit
-	var/maximum_damage = null
+	var/max_hit_damage = null
 
 	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
 	var/resistance_flags = NONE
