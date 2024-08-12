@@ -74,7 +74,7 @@
 	hitsound = null
 	embedding = null
 	light_color = COLOR_YELLOW
-	sword_color_icon = "bananium"
+	sword_color_icon = "yellow"
 	active_heat = 0
 	/// Cooldown for making a trombone noise for failing to make a bananium desword
 	COOLDOWN_DECLARE(next_trombone_allowed)

@@ -251,6 +251,7 @@
 		"blue" = LIGHT_COLOR_LIGHT_CYAN,
 		"green" = LIGHT_COLOR_GREEN,
 		"purple" = LIGHT_COLOR_LAVENDER,
+		"yellow" = COLOR_YELLOW,
 		)
 	/// Whether this saber has beel multitooled.
 	var/hacked = FALSE
@@ -300,7 +301,6 @@
 	force = 0
 	throwforce = 0
 	sword_color_icon = "yellow"
-	light_color = "#ffff00"
 
 	active_force = 22
 	active_throwforce = 16

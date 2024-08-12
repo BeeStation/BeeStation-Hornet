@@ -46,7 +46,7 @@
 /obj/item/powertool/hand_drill
 	name = "hand drill"
 	desc = "A simple powered hand drill. It's fitted with a screw bit."
-	icon_state = "drill_screw"
+	icon_state = "drill"
 	item_state = "drill"
 	worn_icon_state = "drill"
 
@@ -54,6 +54,8 @@
 	throwforce = 8
 	throw_speed = 2
 	throw_range = 3//it's heavier than a screw driver/wrench, so it does more damage, but can't be thrown as far
+	attack_verb_continuous = list("drills", "screws", "jabs", "whacks")
+	attack_verb_simple = list("drill", "screw", "jab", "whack")
 	hitsound = 'sound/items/drill_hit.ogg'
 	usesound = 'sound/items/drill_use.ogg'
 
@@ -75,7 +77,7 @@
 	name = "jaws of life"
 	desc = "A set of jaws of life, compressed through the magic of science. It's fitted with a prying head."
 	usesound = 'sound/items/jaws_pry.ogg'
-	icon_state = "jaws_pry"
+	icon_state = "jaws"
 	item_state = "jawsoflife"
 	worn_icon_state = "jawsoflife"
 
