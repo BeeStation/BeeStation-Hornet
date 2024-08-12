@@ -146,7 +146,7 @@
 		throw_speed_on = throw_speed, \
 		sharpness_on = sharpness, \
 		w_class_on = active_w_class)
-	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, .proc/on_transform)
+	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /obj/item/melee/energy/axe/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] swings [src] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")

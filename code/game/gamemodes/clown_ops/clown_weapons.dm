@@ -86,7 +86,7 @@
 		attack_verb_continuous_on = list("slips"), \
 		attack_verb_simple_on = list("slip"), \
 		clumsy_check = FALSE)
-	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, .proc/on_transform)
+	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /obj/item/melee/energy/sword/bananium/on_transform(obj/item/source, mob/user, active)
 	. = ..()
