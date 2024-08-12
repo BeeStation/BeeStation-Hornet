@@ -229,19 +229,15 @@
 	gambling_nymph.adjustBruteLoss(50) // Aw dangit.
 	alive_nymphs -= gambling_nymph //Remove it from the alive_nymphs list.
 
-	var/datum/mind/M = H.mind
 	if(nymph.stat == DEAD) //If the head nymph is dead, transfer all consciousness to the next best thing - an alive limb nymph!
 		nymph = pick(alive_nymphs)
 	for(var/obj/item/I in H.contents) //Drop the player's items on the ground
 		H.dropItemToGround(I, TRUE)
 		I.pixel_x = rand(-10, 10)
 		I.pixel_y = rand(-10, 10)
-	nymph.mind = M
 	nymph.old_name = H.real_name
 	nymph.features = H.dna.features
-	if(nymph.mind)
-		nymph.mind.active = 1
-		nymph.mind.transfer_to(nymph) //Move the player's mind to the player nymph
+	H.mind.transfer_to(nymph) //Move the player's mind to the player nymph
 	H.gib(TRUE, TRUE, TRUE)  //Gib the old corpse with nothing left of use
 
 /datum/action/diona/partition
