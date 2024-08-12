@@ -88,7 +88,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
-/obj/structure/alien/resin/wall/BlockThermalConductivity()
+/obj/structure/alien/resin/wall/BlockSuperconductivity()
 	return 1
 
 /obj/structure/alien/resin/membrane

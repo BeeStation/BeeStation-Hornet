@@ -664,7 +664,7 @@ GENE SCANNER
 
 			for(var/id in air_contents.gases)
 				var/gas_concentration = air_contents.gases[id][MOLES]/total_moles
-				message += "<span class='notice'>[GLOB.gas_data.names[id]]: [round(gas_concentration*100, 0.01)] % ([round(air_contents.gases[id][MOLES], 0.01)] mol)</span>"
+				message += "<span class='notice'>[[air_contents.gases[id][GAS_META][META_GAS_NAME]]]: [round(gas_concentration*100, 0.01)] % ([round(air_contents.gases[id][MOLES], 0.01)] mol)</span>"
 			message += "<span class='notice'>Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)</span>"
 
 		else
@@ -727,7 +727,7 @@ GENE SCANNER
 			if(id in GLOB.hardcoded_gases)
 				continue
 			var/gas_concentration = environment.gases[id][MOLES]/total_moles
-			message += "<span class='alert'>[gases[id][GAS_META][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(environment.gases[id][MOLES], 0.01)] mol)</span>"
+			message += "<span class='alert'>[environment.gases[id][GAS_META][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(environment.gases[id][MOLES], 0.01)] mol)</span>"
 		message += "<span class='info'>Temperature: [round(environment.return_temperature()-T0C, 0.01)] &deg;C ([round(environment.return_temperature(), 0.01)] K)</span>"
 	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
 
