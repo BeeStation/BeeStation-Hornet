@@ -1,6 +1,9 @@
 #define CRYOMOBS 'icons/obj/cryo_mobs.dmi'
 #define CRYO_MULTIPLY_FACTOR 1.5 // Multiply factor is used with efficiency to multiply Tx quantity and how much extra is transfered to occupant magically.
 #define CRYO_TX_QTY 0.4 // Tx quantity is how much volume should be removed from the cell's beaker - multiplied by delta_time
+#define CRYO_MIN_GAS_MOLES 5
+#define MAX_TEMPERATURE 4000
+
 
 /obj/machinery/atmospherics/components/unary/cryo_cell
 	name = "cryo cell"
@@ -233,45 +236,33 @@
 
 	var/datum/gas_mixture/air1 = airs[1]
 
-	if(!nodes[1] || !airs[1] || !air1.gases.len || air1.gases[/datum/gas/oxygen][MOLES] < CRYO_MIN_GAS_MOLES) // Turn off if the machine won't work.
-		var/msg = "Insufficient cryogenic gas, shutting down."
+	if(!nodes[1] || !airs[1] || air1.gases[/datum/gas/oxygen][MOLES] < 5) // Turn off if the machine won't work due to not having enough moles to operate.
+		on = FALSE
+		update_icon()
+		var/msg = "Aborting. Not enough gas present to operate."
 		radio.talk_into(src, msg, radio_channel)
-		set_on(FALSE)
 		return
 
 	if(occupant)
 		var/mob/living/mob_occupant = occupant
 		var/cold_protection = 0
-		var/temperature_delta = air1.temperature - mob_occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
+		var/temperature_delta = air1.return_temperature() - mob_occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
 
 		if(ishuman(mob_occupant))
 			var/mob/living/carbon/human/H = mob_occupant
-			cold_protection = H.get_cold_protection(air1.temperature)
+			cold_protection = H.get_cold_protection(air1.return_temperature())
 
 		if(abs(temperature_delta) > 1)
 			var/air_heat_capacity = air1.heat_capacity()
 
 			var/heat = ((1 - cold_protection) * 0.1 + conduction_coefficient) * temperature_delta * (air_heat_capacity * heat_capacity / (air_heat_capacity + heat_capacity))
 
-			air1.temperature = clamp(air1.temperature - heat / air_heat_capacity, TCMB, MAX_TEMPERATURE)
+			air1.temperature = max(air1.return_temperature() - heat / air_heat_capacity, TCMB)
 			mob_occupant.adjust_bodytemperature(heat / heat_capacity, TCMB)
 
-			//lets have the core temp match the body temp in humans
-			if(ishuman(mob_occupant))
-				var/mob/living/carbon/human/humi = mob_occupant
-				humi.adjust_coretemperature(humi.bodytemperature - humi.coretemperature)
+		air1.gases[/datum/gas/oxygen][MOLES] =  max(0,air1.gases[/datum/gas/oxygen][MOLES] - 0.5 / efficiency) // Magically consume gas? Why not, we run on cryo magic.
 
-		if(consume_gas) // Transferring reagent costs us extra gas
-			air1.gases[/datum/gas/oxygen][MOLES] -= max(0, 2 / efficiency + 1 / efficiency) // Magically consume gas? Why not, we run on cryo magic.
-			consume_gas = FALSE
-		if(!consume_gas)
-			air1.gases[/datum/gas/oxygen][MOLES] -= max(0, 2 / efficiency)
-		air1.garbage_collect()
-
-		if(air1.temperature > 2000)
-			take_damage(clamp((air1.temperature)/200, 10, 20), BURN)
-
-		update_parents()
+	update_parents()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/open_machine(drop = FALSE)
 	if(!state_open && !panel_open)
@@ -493,3 +484,5 @@
 #undef CRYOMOBS
 #undef CRYO_MULTIPLY_FACTOR
 #undef CRYO_TX_QTY
+#undef CRYO_MIN_GAS_MOLES
+#undef MAX_TEMPERATURE

@@ -293,7 +293,7 @@
 			continue
 		cur_tlv = TLV[gas_id]
 		data["environment_data"] += list(list(
-								"name" = GLOB.gas_data.names[gas_id],
+								"name" = GLOB.meta_gas_info[gas_id][META_GAS_NAME],
 								"value" = environment.gases[gas_id][MOLES] / total_moles * 100,
 								"unit" = "%",
 								"danger_level" = cur_tlv.get_danger_level(environment.gases[gas_id][MOLES] * partial_pressure)
@@ -363,11 +363,11 @@
 		thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "max1", "selected" = selected.max1))
 		thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "max2", "selected" = selected.max2))
 
-		for(var/gas_id in GLOB.gas_data.names)
+		for(var/gas_id in subtypesof(/datum/gas))
 			if(!(gas_id in TLV)) // We're not interested in this gas, it seems.
 				continue
 			selected = TLV[gas_id]
-			thresholds += list(list("name" = GLOB.gas_data.names[gas_id], "settings" = list()))
+			thresholds += list(list("name" = GLOB.meta_gas_info[gas_id][META_GAS_NAME], "settings" = list()))
 			thresholds[thresholds.len]["settings"] += list(list("env" = gas_id, "val" = "min2", "selected" = selected.min2))
 			thresholds[thresholds.len]["settings"] += list(list("env" = gas_id, "val" = "min1", "selected" = selected.min1))
 			thresholds[thresholds.len]["settings"] += list(list("env" = gas_id, "val" = "max1", "selected" = selected.max1))
@@ -896,8 +896,8 @@
 			"Temperature" = "temperature"
 		)
 
-		for(var/gas_id in GLOB.gas_data.ids)
-			component_options[GLOB.gas_data.names[gas_id]] = gas_id
+		for(var/gas in subtypesof(/datum/gas))
+			component_options[GLOB.meta_gas_info[gas][META_GAS_NAME]] = GLOB.meta_gas_info[gas][META_GAS_ID]
 
 	air_alarm_options = add_option_port("Air Alarm Options", component_options)
 	options_map = component_options

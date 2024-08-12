@@ -22,7 +22,7 @@
 	if(gas_type)
 		air_contents.gases[gas_type][MOLES] = AIR_CONTENTS
 
-		name = "[name] ([GLOB.gas_data.names[gas_type]])"
+		name = "[name] ([GLOB.meta_gas_info[gas_type][META_GAS_NAME]])"
 	setPipingLayer(piping_layer)
 
 

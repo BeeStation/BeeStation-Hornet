@@ -132,7 +132,6 @@
 		GM = new
 	. = ..()
 	air = GM
-	update_air_ref(2)
 	return
 
 /turf/open/floor/plating/beach

@@ -84,6 +84,7 @@
 #define MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION		(T20C+80)
 #define MINIMUM_TEMPERATURE_START_SUPERCONDUCTION	(T20C+400)
 
+
 //HEAT TRANSFER COEFFICIENTS
 //Must be between 0 and 1. Values closer to 1 equalize temperature faster
 //Should not exceed 0.4 else strange heat flow occur
@@ -580,3 +581,4 @@ GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
 #define TURFS_CAN_SHARE(T1, T2) (LAZYACCESS(T2.atmos_adjacent_turfs, T1) || LAZYLEN(T1.atmos_adjacent_turfs & T2.atmos_adjacent_turfs))
 //Use this to see if a turf is fully blocked or not, think windows or firelocks. Fails with 1x1 non full tile windows, but it's not worth the cost.
 #define TURF_SHARES(T) (LAZYLEN(T.atmos_adjacent_turfs))
+

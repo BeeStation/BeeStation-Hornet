@@ -101,10 +101,10 @@
 		if(!attached_can.holding)
 			var/list/danger = list()
 			for(var/id in attached_can.air_contents.gases)
-				if(!(GLOB.gas_data.flags[id] & GAS_FLAG_DANGEROUS))
+				if(!(GLOB.meta_gas_info[id][META_GAS_DANGER]))
 					continue
-				if(attached_can.air_contents.gases[id][MOLES] > (GLOB.gas_data.visibility[id] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
-					danger[GLOB.gas_data.names[id]] = attached_can.air_contents.gases[id][MOLES] //ex. "plasma" = 20
+				if(attached_can.air_contents.gases[id][MOLES] > (GLOB.meta_gas_info[id][META_GAS_MOLES_VISIBLE] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
+					danger[GLOB.meta_gas_info[id][META_GAS_NAME]] = attached_can.air_contents.gases[id][MOLES] //ex. "plasma" = 20
 
 			if(danger.len && attached_can.valve_open)
 				message_admins("[parent.get_creator_admin()]'s circuit opened a canister that contains the following at [ADMIN_VERBOSEJMP(attached_can)]:")
@@ -274,8 +274,7 @@
 	if(gas_type)
 		if(starter_temp)
 			air_contents.temperature = (starter_temp)
-		if(!air_contents.return_volume())
-			CRASH("Auxtools is failing somehow! Gas with pointer [air_contents._extools_pointer_gasmixture] is not valid.")
+
 		air_contents.gases[gas_type][MOLES] = (maximum_pressure * filled* air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
 
 /obj/machinery/portable_atmospherics/canister/air/create_gas()
@@ -534,10 +533,10 @@
 		if(!holding)
 			var/list/danger = list()
 			for(var/id in air_contents.gases)
-				if(!(GLOB.gas_data.flags[id] & GAS_FLAG_DANGEROUS))
+				if(!(GLOB.meta_gas_info[id][META_GAS_DANGER]))
 					continue
-				if(air_contents.gases[id][MOLES] > (GLOB.gas_data.visibility[id] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
-					danger[GLOB.gas_data.names[id]] = air_contents.gases[id][MOLES] //ex. "plasma" = 20
+				if(air_contents.gases[id][MOLES] > (GLOB.meta_gas_info[id][META_GAS_MOLES_VISIBLE] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
+					danger[GLOB.meta_gas_info[id][META_GAS_NAME]] = air_contents.gases[id][MOLES] //ex. "plasma" = 20
 
 			if(danger.len && user)
 				message_admins("[ADMIN_LOOKUPFLW(user)] opened a canister that contains the following at [ADMIN_VERBOSEJMP(src)]:")

@@ -558,3 +558,13 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 
 		return TRUE
 	return FALSE
+
+/datum/gas_mixture/proc/scrub_into(datum/gas_mixture/target, ratio, list/gases)
+	for (var/gas in gases)
+		transfer_ratio_to(target, ratio)
+
+/datum/gas_mixture/proc/transfer_to(datum/gas_mixture/receiver, var/moles)
+	return receiver.merge(remove(moles))
+
+/datum/gas_mixture/proc/transfer_ratio_to(datum/gas_mixture/receiver, var/ratio)
+	return receiver.merge(remove_ratio(ratio))

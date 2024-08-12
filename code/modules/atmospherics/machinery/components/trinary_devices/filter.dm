@@ -138,8 +138,8 @@
 
 	data["filter_types"] = list()
 	data["filter_types"] += list(list("name" = "Nothing", "id" = "", "selected" = !filter_type))
-	for(var/id in GLOB.gas_data.ids)
-		data["filter_types"] += list(list("name" = GLOB.gas_data.names[id], "id" = id, "selected" = (id == filter_type)))
+	for(var/id in subtypesof(/datum/gas))
+		data["filter_types"] += list(list("name" = GLOB.meta_gas_info[id][META_GAS_NAME], "id" = id, "selected" = (id == filter_type)))
 
 	return data
 
