@@ -33,7 +33,7 @@
 	if(lengths > lengths_for_bonus)
 		var/mob/living/L = parent
 		SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "exercise", /datum/mood_event/exercise)
-		L.apply_status_effect(STATUS_EFFECT_EXERCISED) //Swimming is really good excercise!
+		L.apply_status_effect(STATUS_EFFECT_EXERCISED, 20) //Swimming is really good excercise!
 		lengths = 0
 
 //Damn edge cases
@@ -120,7 +120,7 @@
 	var/obj/item/pool/helditem = victim.get_active_held_item()
 	if(istype(helditem) && ISWIELDED(helditem))
 		return
-	return ((!(victim.mobility_flags & MOBILITY_STAND)) && (!HAS_TRAIT(victim, TRAIT_NOBREATH)))
+	return ((victim.body_position == LYING_DOWN) && (!HAS_TRAIT(victim, TRAIT_NOBREATH)))
 
 /datum/component/swimming/proc/drown(mob/living/victim)
 	if(victim.losebreath < 1)

@@ -48,11 +48,11 @@
 /turf/open/floor/carpet/purple,
 /area/template_noop)
 "ld" = (
-/obj/effect/mob_spawn/human/skeleton/alive,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/remains/human,
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "mB" = (

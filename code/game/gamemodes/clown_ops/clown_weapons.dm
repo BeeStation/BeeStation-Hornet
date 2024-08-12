@@ -67,11 +67,13 @@
 	name = "bananium sword"
 	desc = "An elegant weapon, for a more civilized age."
 	force = 0
+	bleed_force = 0
+	bleed_force_on = 0
 	throwforce = 0
 	force_on = 0
 	throwforce_on = 0
 	hitsound = null
-	attack_verb_on = list("slipped")
+	attack_verb_on = list("slips")
 	clumsy_check = FALSE
 	sharpness = IS_BLUNT
 	sword_color = "yellow"

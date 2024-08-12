@@ -268,7 +268,7 @@
 /turf/open/floor/eighties,
 /area/template_noop)
 "Nh" = (
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 4;
 	name = "doormat"
 	},
