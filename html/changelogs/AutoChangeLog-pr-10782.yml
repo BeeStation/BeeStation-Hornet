@@ -1,5 +1,0 @@
-author: rkz, Fikou, Kapu, Ryll/Shaps, ShizCalev
-delete-after: true
-changes:
-  - rscadd: repair damaged clothes using cloth or its respective medium.
-  - balance: catastrophically damaged clothes will no longer send active sensors.

@@ -1,5 +1,0 @@
-author: rkz, Ryll/Shaps, KingofKosmos, Ghommie
-delete-after: true
-changes:
-  - rscadd: personalized combat messages. Expect much more "you attack player" than
-      "playername attacks player"
