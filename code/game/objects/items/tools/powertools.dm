@@ -10,12 +10,36 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	toolspeed = 0.7
+	//Forgot to set your tool?
+	var/tool_act_off = TOOL_BIKEHORN
+	var/tool_act_on = TOOL_BIKEHORN
+	var/action_off = "honk1"
+	var/action_on = "honk2"
+	var/powertool_hitsound = 'sound/vox_fem/honk.ogg'
 
-/obj/item/powertool/attack_self(mob/user)
-	toggle_mode(user)
+/obj/item/powertool/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/transforming, \
+		force_on = force, \
+		throwforce_on = throwforce, \
+		hitsound_on = hitsound, \
+		w_class_on = w_class, \
+		clumsy_check = FALSE)
+	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
-/obj/item/powertool/proc/toggle_mode(mob/user)
-	return
+/*
+ * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
+ *
+ * Toggles between crowbar and wirecutters and gives feedback to the user.
+ */
+/obj/item/powertool/proc/on_transform(obj/item/source, mob/user, active)
+	SIGNAL_HANDLER
+
+	tool_behaviour = (active ? tool_act_off : tool_act_on)
+	balloon_alert(user, "attached [active ? "[action_off]" : "[action_on]"]")
+	playsound(user ? user : src, 'sound/items/change_jaws.ogg', 50, TRUE)
+	hitsound = powertool_hitsound
+	return COMPONENT_NO_DEFAULT_MESSAGE
 
 //Hand Drill
 
@@ -30,40 +54,13 @@
 	throwforce = 8
 	throw_speed = 2
 	throw_range = 3//it's heavier than a screw driver/wrench, so it does more damage, but can't be thrown as far
-
 	hitsound = 'sound/items/drill_hit.ogg'
-
-	tool_behaviour = TOOL_SCREWDRIVER
 	usesound = 'sound/items/drill_use.ogg'
 
-/obj/item/powertool/hand_drill/toggle_mode(mob/user)
-	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
-	if(tool_behaviour == TOOL_SCREWDRIVER)
-		balloon_alert(user, "You attach the bolt driver bit.")
-		become_wrench()
-	else
-		balloon_alert(user, "You attach the screw driver bit.")
-		become_screwdriver()
-
-/obj/item/powertool/hand_drill/proc/become_wrench()
-	icon_state = "drill_bolt"
-	tool_behaviour = TOOL_WRENCH
-
-	hitsound = null
-
-	attack_verb_continuous = list("attacks", "bashes", "batters", "bludgeons", "whacks")
-	attack_verb_simple = list("attack", "bash", "batter", "bludgeon", "whack")
-	throw_range = 7
-
-/obj/item/powertool/hand_drill/proc/become_screwdriver()
-	icon_state = "drill_screw"
-	tool_behaviour = TOOL_SCREWDRIVER
-
-	hitsound = 'sound/items/drill_hit.ogg'
-
-	attack_verb_continuous = list("drills", "screws", "jabs", "whacks")
-	attack_verb_simple = list("drill", "screw", "jab", "whack")
-	throw_range = 3
+	tool_act_off = TOOL_SCREWDRIVER
+	tool_act_on = TOOL_WRENCH
+	action_off = "screw driver"
+	action_on = "bolt driver"
 
 /obj/item/powertool/hand_drill/suicide_act(mob/living/user)
 	if(tool_behaviour == TOOL_SCREWDRIVER)
@@ -71,18 +68,6 @@
 	else
 		user.visible_message("<span class='suicide'>[user] is pressing [src] against [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
-
-/obj/item/powertool/hand_drill/attack(mob/living/M, mob/living/user)
-	if(!istype(M) || tool_behaviour != TOOL_SCREWDRIVER)
-		return ..()
-	if(!user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && !user.is_zone_selected(BODY_ZONE_HEAD, simplified_probability = 40))
-		return ..()
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm [M]!</span>")
-		return
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		M = user
-	return eyestab(M,user)
 
 //Jaws of life
 
@@ -94,50 +79,18 @@
 	item_state = "jawsoflife"
 	worn_icon_state = "jawsoflife"
 
-	tool_behaviour = TOOL_CROWBAR
-
 	force = 15
 	throwforce = 7
 	attack_verb_continuous = list("attacks", "bashes", "batters", "bludgeons", "whacks")
 	attack_verb_simple = list("attack", "bash", "batter", "bludgeon", "whack")
 
+	tool_act_off = TOOL_CROWBAR
+	tool_act_on = TOOL_WIRECUTTER
+	action_off = "prying jaws"
+	action_on = "cutting jaws"
+
 /obj/item/powertool/jaws_of_life/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_DOOR_PRYER, TRAIT_JAWS_OF_LIFE)
-
-/obj/item/powertool/jaws_of_life/toggle_mode(mob/user)
-	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
-	if(tool_behaviour == TOOL_CROWBAR)
-		balloon_alert(user, "You attach the cutting jaws.")
-		become_wirecutters()
-	else
-		balloon_alert(user, "You attach the prying jaws.")
-		become_crowbar()
-
-/obj/item/powertool/jaws_of_life/proc/become_wirecutters()
-	icon_state = "jaws_cutter"
-	tool_behaviour = TOOL_WIRECUTTER
-
-	usesound = 'sound/items/jaws_cut.ogg'
-
-	attack_verb_continuous = list("pinches", "nips")
-	attack_verb_simple = list("pinch", "nip")
-	force = 6
-	throw_speed = 3
-
-	REMOVE_TRAIT(src, TRAIT_DOOR_PRYER, TRAIT_JAWS_OF_LIFE)
-
-/obj/item/powertool/jaws_of_life/proc/become_crowbar()
-	icon_state = "jaws_pry"
-	tool_behaviour = TOOL_CROWBAR
-
-	usesound = 'sound/items/jaws_pry.ogg'
-
-	attack_verb_continuous = list("attacks", "bashes", "batters", "bludgeons", "whacks")
-	attack_verb_simple = list("attack", "bash", "batter", "bludgeon", "whack")
-	force = 15
-	throw_speed = 2
-
 	ADD_TRAIT(src, TRAIT_DOOR_PRYER, TRAIT_JAWS_OF_LIFE)
 
 /obj/item/powertool/jaws_of_life/suicide_act(mob/living/user)

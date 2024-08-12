@@ -9,7 +9,7 @@
 	var/damtype = BRUTE
 	var/force = 0
 	/// How much bleeding damage do we cause, see __DEFINES/mobs.dm
-	var/bleed_force = 0
+	var/bleed_force = NONE
 
 	var/datum/armor/armor
 	/// The integrity the object starts at. Defaults to max_integrity.

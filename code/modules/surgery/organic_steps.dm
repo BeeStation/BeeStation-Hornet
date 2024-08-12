@@ -2,7 +2,7 @@
 //make incision
 /datum/surgery_step/incise
 	name = "make incision"
-	implements = list(TOOL_SCALPEL = 100, /obj/item/melee/transforming/energy/sword = 75, /obj/item/knife = 65,
+	implements = list(TOOL_SCALPEL = 100, /obj/item/melee/energy/sword = 75, /obj/item/knife = 65,
 		/obj/item/shard = 45, /obj/item = 30) // 30% success with any sharp item.
 	time = 16
 	preop_sound = 'sound/surgery/scalpel1.ogg'

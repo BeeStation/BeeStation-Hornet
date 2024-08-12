@@ -1812,15 +1812,15 @@
 /turf/open/floor/pod,
 /area/shuttle/pirate)
 "SJ" = (
-/obj/item/melee/transforming/energy/sword/pirate{
+/obj/item/melee/energy/sword/pirate{
 	pixel_x = -2;
 	pixel_y = 13
 	},
-/obj/item/melee/transforming/energy/sword/pirate{
+/obj/item/melee/energy/sword/pirate{
 	pixel_x = -2;
 	pixel_y = 10
 	},
-/obj/item/melee/transforming/energy/sword/pirate{
+/obj/item/melee/energy/sword/pirate{
 	pixel_x = -2;
 	pixel_y = 7
 	},

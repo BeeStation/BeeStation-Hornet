@@ -22,7 +22,7 @@
 //95% chance of success to be consistent with most organ-repairing surgeries.
 /datum/surgery_step/gastrectomy
 	name = "remove lower duodenum"
-	implements = list(TOOL_SCALPEL = 95, /obj/item/melee/transforming/energy/sword = 65, /obj/item/knife = 45,
+	implements = list(TOOL_SCALPEL = 95, /obj/item/melee/energy/sword = 65, /obj/item/knife = 45,
 		/obj/item/shard = 35)
 	time = 52
 
