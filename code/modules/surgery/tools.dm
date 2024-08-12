@@ -83,6 +83,44 @@
 	attack_verb_continuous = list("burns")
 	attack_verb_simple = list("burn")
 
+/obj/item/cautery/advanced
+	name = "searing tool"
+	desc = "It projects a high power laser used for medical applications."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "e_cautery"
+	hitsound = 'sound/items/welder.ogg'
+	w_class = WEIGHT_CLASS_NORMAL
+	toolspeed = 0.7
+	light_system = MOVABLE_LIGHT
+	light_range = 1
+	light_color = COLOR_SOFT_RED
+
+/obj/item/cautery/advanced/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/transforming, \
+		force_on = force, \
+		throwforce_on = throwforce, \
+		hitsound_on = hitsound, \
+		w_class_on = w_class, \
+		clumsy_check = FALSE)
+	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, .proc/on_transform)
+
+/*
+ * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
+ *
+ * Toggles between drill and cautery and gives feedback to the user.
+ */
+/obj/item/cautery/advanced/proc/on_transform(obj/item/source, mob/user, active)
+	SIGNAL_HANDLER
+
+	tool_behaviour = (active ? TOOL_DRILL : TOOL_CAUTERY)
+	balloon_alert(user, "lenses set to [active ? "drill" : "mend"]")
+	playsound(user ? user : src, 'sound/weapons/tap.ogg', 50, TRUE)
+	return COMPONENT_NO_DEFAULT_MESSAGE
+
+/obj/item/cautery/advanced/examine()
+	. = ..()
+	. += "It's set to [tool_behaviour == TOOL_CAUTERY ? "mending" : "drilling"] mode."
 
 /obj/item/blood_filter
 	name = "blood filter"
@@ -430,42 +468,3 @@
 /obj/item/retractor/advanced/examine()
 	. = ..()
 	. += " It resembles a retractor[tool_behaviour == TOOL_RETRACTOR ? "retractor" : "hemostat"]."
-
-/obj/item/surgicaldrill/advanced
-	name = "searing tool"
-	desc = "It projects a high power laser used for medical application."
-	icon = 'icons/obj/surgery.dmi'
-	icon_state = "surgicaldrill"
-	hitsound = 'sound/items/welder.ogg'
-	toolspeed = 0.7
-	w_class = WEIGHT_CLASS_SMALL
-	light_system = MOVABLE_LIGHT
-	light_range = 1
-	light_color = LIGHT_COLOR_RED
-
-/obj/item/surgicaldrill/advanced/Initialize()
-	. = ..()
-	AddComponent(/datum/component/transforming, \
-		force_on = force, \
-		throwforce_on = throwforce, \
-		hitsound_on = hitsound, \
-		w_class_on = w_class, \
-		clumsy_check = FALSE)
-	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
-
-/*
- * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
- *
- * Toggles between drill and cautery and gives feedback to the user.
- */
-/obj/item/surgicaldrill/advanced/proc/on_transform(obj/item/source, mob/user, active)
-	SIGNAL_HANDLER
-
-	tool_behaviour = (active ? TOOL_DRILL : TOOL_CAUTERY)
-	balloon_alert(user, "lenses set to [active ? "drill" : "mend"]")
-	playsound(user ? user : src, 'sound/weapons/tap.ogg', 50, TRUE)
-	return COMPONENT_NO_DEFAULT_MESSAGE
-
-/obj/item/surgicaldrill/advanced/examine()
-	. = ..()
-	. += " It's set to [tool_behaviour == TOOL_DRILL ? "drilling" : "mending"] mode."
