@@ -407,16 +407,17 @@
 			SSjob.prioritized_jobs -= prioritized_job
 	dat += "<table><tr><td valign='top'>"
 	var/column_counter = 0
-	for(var/datum/department_group/each_dept in SSdepartment.get_departments_by_pref_order())
-		var/cat_color = each_dept.dept_colour
+	for(var/datum/department_group/each_dept as anything in SSdepartment.sorted_department_for_latejoin)
+		var/dept_name = each_dept.pref_category_name
+		var/cat_color = each_dept.dept_colour || "#ff46c7" // failsafe colour
 		dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
-		dat += "<legend align='center' style='color: [cat_color]'>[each_dept.dept_name]</legend>"
+		dat += "<legend align='center' style='color: [cat_color]'>[dept_name]</legend>"
 		var/list/valid_jobs = list()
 		for(var/job in each_dept.jobs)
 			var/datum/job/job_datum = SSjob.name_occupations[job]
 			if(job_datum && IsJobUnavailable(job_datum.title, TRUE) == JOB_AVAILABLE)
 				var/command_bold = ""
-				if(each_dept.dept_id == DEPARTMENT_COMMAND || (job in each_dept.leaders))
+				if(each_dept.dept_id == DEPT_NAME_COMMAND || (job in each_dept.leaders))
 					command_bold = " command"
 				if(job_datum in SSjob.prioritized_jobs)
 					valid_jobs += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'><span class='priority'>[job_datum.title] ([job_datum.current_positions])</span></a>"

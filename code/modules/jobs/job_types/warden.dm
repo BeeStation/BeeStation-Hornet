@@ -1,7 +1,7 @@
 /datum/job/warden
 	title = JOB_NAME_WARDEN
 	description = "Oversee prisoners in the brig and guard the armory. Hand out equipment when necessary and ensure it is returned after threats have been contained."
-	department_for_prefs = DEPT_BITFLAG_SEC
+	department_for_prefs = DEPT_NAME_SECURITY
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"

@@ -1,7 +1,7 @@
 /datum/job/chaplain
 	title = JOB_NAME_CHAPLAIN
 	description = "Tend to the spiritual well-being of the crew, conduct rites and rituals in your Chapel, exorcise evil spirits and other supernatural beings."
-	department_for_prefs = DEPT_BITFLAG_CIV
+	department_for_prefs = DEPT_NAME_CIVILIAN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"

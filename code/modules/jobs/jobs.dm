@@ -86,18 +86,8 @@ GLOBAL_LIST_INIT(exp_removed_jobsmap, list(
 ))
 GLOBAL_PROTECT(exp_removed_jobsmap)
 
-GLOBAL_LIST_INIT(exp_jobsmap, list(
-	EXP_TYPE_CREW = list("titles" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND) | SSdepartment.get_jobs_by_dept_id(DEPARTMENT_ENGINEERING) | SSdepartment.get_jobs_by_dept_id(DEPARTMENT_MEDICAL) | SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SCIENCE) | SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CARGO) | SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY) | SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CIVILIAN) | SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SILICON)), // crew positions
-	EXP_TYPE_COMMAND = list("titles" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_COMMAND)),
-	EXP_TYPE_ENGINEERING = list("titles" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_ENGINEERING)),
-	EXP_TYPE_MEDICAL = list("titles" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_MEDICAL)),
-	EXP_TYPE_SCIENCE = list("titles" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SCIENCE)),
-	EXP_TYPE_SUPPLY = list("titles" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CARGO)),
-	EXP_TYPE_SECURITY = list("titles" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY)),
-	EXP_TYPE_SILICON = list("titles" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SILICON)),
-	EXP_TYPE_SERVICE = list("titles" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_CIVILIAN))
-))
-
+// DO NOT INITIALIZE HERE. department subsystem initializes this.
+GLOBAL_LIST_EMPTY(exp_jobsmap)
 GLOBAL_LIST_INIT(exp_specialmap, list(
 	EXP_TYPE_LIVING = list(), // all living mobs
 	EXP_TYPE_ANTAG = list(),

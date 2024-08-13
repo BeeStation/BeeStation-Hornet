@@ -1,7 +1,7 @@
 /datum/job/roboticist
 	title = JOB_NAME_ROBOTICIST
 	description = "Create bots and utility mechs for helping out around the station. Construct war machines by the request of the Captain or Head of Security. Make new Cyborgs, give augmentations and implants to crew members."
-	department_for_prefs = DEPT_BITFLAG_SCI
+	department_for_prefs = DEPT_NAME_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	faction = "Station"
 	total_positions = 2

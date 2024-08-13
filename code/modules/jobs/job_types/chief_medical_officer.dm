@@ -3,7 +3,7 @@
 	description = "Oversee paramedics, doctors, chemists, geneticists and the virologist. \
 	Ensure doctors and paramedicts are treating people in a timely manner, request medicine and other concoctions from chemists, \
 	and ensure geneticists and the virologist are following appropriate safety precautions while performing their research."
-	department_for_prefs = DEPT_BITFLAG_MED
+	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
