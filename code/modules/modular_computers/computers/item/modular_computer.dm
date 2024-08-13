@@ -6,7 +6,7 @@
 	desc = "A small portable microcomputer."
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "laptop"
-	light_system = MOVABLE_LIGHT
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 3
 	light_power = 0.6
 	light_color = "#FFFFFF"
