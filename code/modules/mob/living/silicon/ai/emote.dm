@@ -14,8 +14,7 @@
 	var/mob/living/silicon/ai/ai = user
 	var/turf/ai_turf = get_turf(ai)
 
-	for(var/_display in GLOB.ai_status_displays)
-		var/obj/machinery/status_display/ai/ai_display = _display
+	for(var/obj/machinery/status_display/ai/ai_display as anything in GLOB.ai_status_displays)
 		var/turf/display_turf = get_turf(ai_display)
 
 		// Derelict AIs can't affect station displays.

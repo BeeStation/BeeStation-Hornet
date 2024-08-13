@@ -26,6 +26,9 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"ag" = (
+/turf/open/floor/iron/airless,
+/area/ruin/unpowered)
 "ai" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
@@ -54,6 +57,12 @@
 /obj/item/stack/rods,
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered)
+"an" = (
+/obj/machinery/light/broken{
+	dir = 8
+	},
+/turf/open/floor/iron/airless,
+/area/ruin/unpowered)
 "ao" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating/airless{
@@ -66,6 +75,28 @@
 /area/ruin/unpowered)
 "as" = (
 /obj/item/stack/sheet/iron,
+/turf/open/floor/plating/airless{
+	broken = 1
+	},
+/area/ruin/unpowered)
+"at" = (
+/obj/item/stack/rods,
+/turf/open/floor/iron/airless,
+/area/ruin/unpowered)
+"av" = (
+/obj/effect/decal/remains/human,
+/turf/open/floor/iron/airless,
+/area/ruin/unpowered)
+"aw" = (
+/obj/item/stack/sheet/iron,
+/turf/open/floor/iron/airless,
+/area/ruin/unpowered)
+"ax" = (
+/mob/living/simple_animal/hostile/retaliate/ghost,
+/turf/open/floor/iron/airless,
+/area/ruin/unpowered)
+"ay" = (
+/obj/item/stack/tile/iron,
 /turf/open/floor/plating/airless{
 	broken = 1
 	},
@@ -86,6 +117,10 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"aC" = (
+/obj/machinery/light/broken,
+/turf/open/floor/iron/airless,
+/area/ruin/unpowered)
 "aE" = (
 /obj/structure/door_assembly/door_assembly_mhatch{
 	name = "broken airlock"
@@ -102,6 +137,10 @@
 /turf/open/floor/plating/airless{
 	broken = 1
 	},
+/area/ruin/unpowered)
+"aQ" = (
+/obj/item/stack/tile/iron,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "aU" = (
 /obj/structure/table/wood,
@@ -121,13 +160,6 @@
 /turf/template_noop,
 /area/space/nearstation)
 "be" = (
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
-/area/ruin/unpowered)
-"bi" = (
-/obj/item/stack/sheet/iron,
-/obj/item/clothing/head/chefhat,
 /turf/open/floor/plating/airless{
 	broken = 1
 	},
@@ -204,6 +236,13 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/ruin/unpowered)
+"by" = (
+/obj/structure/fluff/broken_flooring{
+	icon_state = "pile";
+	dir = 4
+	},
+/turf/open/floor/iron/airless,
+/area/ruin/unpowered)
 "bz" = (
 /obj/structure/lattice,
 /obj/structure/fluff/broken_flooring{
@@ -225,6 +264,13 @@
 	dir = 1
 	},
 /turf/template_noop,
+/area/ruin/unpowered)
+"bD" = (
+/obj/structure/fluff/broken_flooring{
+	icon_state = "singular";
+	dir = 4
+	},
+/turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "bE" = (
 /obj/structure/lattice,
@@ -265,91 +311,67 @@
 	},
 /turf/template_noop,
 /area/ruin/unpowered)
-"cU" = (
-/mob/living/simple_animal/hostile/retaliate/ghost,
-/turf/open/floor/iron/airless/cafeteria,
-/area/ruin/unpowered)
-"di" = (
-/obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/machinery/light/broken{
-	dir = 1
-	},
-/turf/open/floor/iron/airless/cafeteria,
-/area/ruin/unpowered)
-"dr" = (
-/obj/machinery/light/broken,
-/turf/open/floor/iron/airless,
-/area/ruin/unpowered)
-"dE" = (
-/mob/living/simple_animal/hostile/retaliate/ghost,
-/turf/open/floor/iron/airless,
-/area/ruin/unpowered)
-"gQ" = (
-/obj/structure/table,
-/obj/machinery/microwave,
-/turf/open/floor/iron/airless/cafeteria,
-/area/ruin/unpowered)
-"gT" = (
-/obj/item/food/donkpocket,
-/turf/open/floor/iron/airless/cafeteria,
-/area/ruin/unpowered)
-"jg" = (
+"cI" = (
+/obj/structure/table/wood,
 /obj/item/plate,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron/airless,
-/area/ruin/unpowered)
-"kh" = (
-/turf/open/floor/iron/airless/cafeteria,
-/area/ruin/unpowered)
-"le" = (
-/turf/open/floor/iron/airless,
-/area/ruin/unpowered)
-"lg" = (
-/obj/structure/fluff/broken_flooring{
-	icon_state = "pile";
-	dir = 4
-	},
-/turf/open/floor/iron/airless,
-/area/ruin/unpowered)
-"lN" = (
-/obj/structure/table,
-/turf/open/floor/iron/airless/cafeteria,
-/area/ruin/unpowered)
-"nx" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron/airless,
-/area/ruin/unpowered)
-"pY" = (
-/obj/structure/fluff/broken_flooring{
-	icon_state = "singular";
-	dir = 4
-	},
-/turf/open/floor/iron/airless,
-/area/ruin/unpowered)
-"rT" = (
-/obj/item/chair/stool/bar,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron/airless,
-/area/ruin/unpowered)
-"sh" = (
-/obj/item/stack/tile/iron,
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered)
-"sO" = (
-/obj/item/stack/tile/iron,
 /turf/open/floor/plating/airless{
 	broken = 1
 	},
 /area/ruin/unpowered)
-"ta" = (
-/obj/item/stack/sheet/iron,
+"hu" = (
+/obj/structure/table_frame,
+/turf/open/floor/iron/cafeteria/airless,
+/area/ruin/unpowered)
+"if" = (
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/obj/machinery/light/broken{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria/airless,
+/area/ruin/unpowered)
+"ig" = (
+/obj/structure/chair/stool/bar,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/airless,
 /area/ruin/unpowered)
-"uI" = (
-/obj/machinery/light/broken{
-	dir = 8
+"iD" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/turf/open/floor/iron/cafeteria/airless,
+/area/ruin/unpowered)
+"kZ" = (
+/obj/item/plate,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron/airless,
+/area/ruin/unpowered)
+"mz" = (
+/obj/item/stack/sheet/iron,
+/obj/item/clothing/head/utility/chefhat,
+/turf/open/floor/plating/airless{
+	broken = 1
 	},
+/area/ruin/unpowered)
+"nf" = (
+/obj/item/plate,
+/obj/effect/decal/remains/human,
+/turf/open/floor/iron/cafeteria/airless,
+/area/ruin/unpowered)
+"pc" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron/airless,
+/area/ruin/unpowered)
+"qL" = (
+/obj/structure/table,
+/obj/machinery/microwave,
+/turf/open/floor/iron/cafeteria/airless,
+/area/ruin/unpowered)
+"rr" = (
+/obj/structure/table,
+/turf/open/floor/iron/cafeteria/airless,
+/area/ruin/unpowered)
+"vo" = (
+/obj/item/kitchen/fork,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "vS" = (
@@ -359,74 +381,52 @@
 	broken = 1
 	},
 /area/ruin/unpowered)
-"xv" = (
-/obj/structure/table,
-/obj/item/shard,
-/turf/open/floor/iron/airless/cafeteria,
+"yC" = (
+/turf/open/floor/iron/cafeteria/airless,
 /area/ruin/unpowered)
-"ED" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
-/turf/open/floor/iron/airless/cafeteria,
-/area/ruin/unpowered)
-"Ft" = (
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron/airless,
-/area/ruin/unpowered)
-"FI" = (
-/obj/machinery/door/airlock/public/glass,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron/airless,
-/area/ruin/unpowered)
-"KZ" = (
+"GI" = (
 /obj/machinery/light/broken{
 	dir = 8
 	},
 /obj/structure/table_frame,
-/turf/open/floor/iron/airless/cafeteria,
+/turf/open/floor/iron/cafeteria/airless,
 /area/ruin/unpowered)
-"Mn" = (
-/obj/structure/table/wood,
-/obj/item/plate,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
-/area/ruin/unpowered)
-"Rq" = (
-/obj/item/stack/rods,
-/turf/open/floor/iron/airless,
-/area/ruin/unpowered)
-"Sh" = (
-/obj/structure/door_assembly/door_assembly_public{
-	name = "broken airlock"
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron/airless,
-/area/ruin/unpowered)
-"Tb" = (
-/obj/effect/decal/remains/human,
-/turf/open/floor/iron/airless,
-/area/ruin/unpowered)
-"TP" = (
-/obj/item/plate,
-/obj/effect/decal/remains/human,
-/turf/open/floor/iron/airless/cafeteria,
-/area/ruin/unpowered)
-"Vd" = (
-/obj/structure/table,
-/obj/item/storage/box/drinkingglasses,
-/turf/open/floor/iron/airless/cafeteria,
-/area/ruin/unpowered)
-"Vy" = (
-/obj/structure/table_frame,
-/turf/open/floor/iron/airless/cafeteria,
-/area/ruin/unpowered)
-"Xy" = (
+"QT" = (
 /obj/item/chair,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/airless,
 /area/ruin/unpowered)
-"Zr" = (
-/obj/item/kitchen/fork,
+"Rs" = (
+/obj/item/chair/stool/bar,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron/airless,
+/area/ruin/unpowered)
+"Sc" = (
+/mob/living/simple_animal/hostile/retaliate/ghost,
+/turf/open/floor/iron/cafeteria/airless,
+/area/ruin/unpowered)
+"SR" = (
+/obj/structure/table,
+/obj/item/shard,
+/turf/open/floor/iron/cafeteria/airless,
+/area/ruin/unpowered)
+"UK" = (
+/obj/structure/table,
+/obj/item/storage/box/drinkingglasses,
+/turf/open/floor/iron/cafeteria/airless,
+/area/ruin/unpowered)
+"VU" = (
+/obj/item/food/donkpocket,
+/turf/open/floor/iron/cafeteria/airless,
+/area/ruin/unpowered)
+"WX" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron/airless,
+/area/ruin/unpowered)
+"Yq" = (
+/obj/structure/door_assembly/door_assembly_public{
+	name = "broken airlock"
+	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/airless,
 /area/ruin/unpowered)
@@ -507,9 +507,9 @@ aa
 aa
 ac
 be
-ta
-le
-le
+aw
+ag
+ag
 be
 bH
 aa
@@ -530,9 +530,9 @@ aa
 aa
 bw
 bl
-le
-le
-le
+ag
+ag
+ag
 be
 be
 be
@@ -553,9 +553,9 @@ aa
 ac
 be
 be
-Rq
-pY
-le
+at
+bD
+ag
 ai
 ai
 ai
@@ -564,7 +564,7 @@ be
 as
 bl
 be
-sO
+ay
 be
 ac
 aa
@@ -576,12 +576,12 @@ ac
 ac
 be
 ai
-ta
-le
-le
+aw
+ag
+ag
 aE
 aH
-sh
+aQ
 aH
 be
 be
@@ -599,9 +599,9 @@ ac
 be
 am
 ai
-le
-le
-le
+ag
+ag
+ag
 ai
 ai
 ai
@@ -622,15 +622,15 @@ ac
 be
 be
 ai
-Tb
-le
-dr
+av
+ag
+aC
 ai
-gQ
-kh
-lN
-lN
-KZ
+qL
+yC
+rr
+rr
+GI
 be
 be
 br
@@ -645,17 +645,17 @@ aa
 be
 be
 bl
-le
-ta
-le
+ag
+aw
+ag
 ai
-Vd
-kh
-kh
-kh
-bi
+UK
+yC
+yC
+yC
+mz
 be
-sO
+ay
 bl
 ac
 ac
@@ -668,15 +668,15 @@ bw
 as
 ai
 ai
-le
-dE
-le
+ag
+ax
+ag
 ai
-di
-kh
-kh
-cU
-TP
+if
+yC
+yC
+Sc
+nf
 as
 be
 bl
@@ -687,21 +687,21 @@ ab
 (12,1,1) = {"
 ab
 ac
-le
-le
-uI
-le
-le
-le
-le
+ag
+ag
+an
+ag
+ag
+ag
+ag
 ai
-ED
-kh
-kh
-gT
-kh
-kh
-kh
+iD
+yC
+yC
+VU
+yC
+yC
+yC
 ai
 ac
 ac
@@ -710,20 +710,20 @@ ac
 (13,1,1) = {"
 ac
 bt
-le
-lg
-le
-le
-le
-le
-le
+ag
+by
+ag
+ag
+ag
+ag
+ag
 ai
 ai
-Vy
-lN
-xv
-kh
-Vy
+hu
+rr
+SR
+yC
+hu
 ai
 ai
 ac
@@ -733,21 +733,21 @@ ac
 (14,1,1) = {"
 aa
 bu
-le
-le
-le
-le
-le
-le
-le
+ag
+ag
+ag
+ag
+ag
+ag
+ag
 ai
-Ft
-Ft
-rT
-nx
-Ft
-rT
-Ft
+WX
+WX
+Rs
+ig
+WX
+Rs
+WX
 ai
 ac
 ac
@@ -760,15 +760,15 @@ bl
 ai
 ai
 ai
-le
-le
-le
-FI
-jg
-Zr
+ag
+ag
+ag
+pc
+kZ
+vo
 be
-Ft
-Zr
+WX
+vo
 as
 be
 ai
@@ -783,11 +783,11 @@ be
 be
 ao
 ai
-le
-le
-le
-Sh
-Xy
+ag
+ag
+ag
+Yq
+QT
 bI
 ac
 be
@@ -806,13 +806,13 @@ bx
 ak
 be
 ai
-le
-le
-le
+ag
+ag
+ag
 ai
-Ft
+WX
 aU
-sO
+ay
 be
 bk
 bm
@@ -829,11 +829,11 @@ ae
 be
 be
 bl
-le
-le
-dr
+ag
+ag
+aC
 ai
-Ft
+WX
 be
 be
 be
@@ -852,9 +852,9 @@ aa
 bz
 be
 ai
-le
-le
-le
+ag
+ag
+ag
 ai
 aP
 be
@@ -875,12 +875,12 @@ aa
 ac
 be
 ai
-le
-le
-le
+ag
+ag
+ag
 ai
 be
-Mn
+cI
 vS
 be
 ac
@@ -898,9 +898,9 @@ aa
 aa
 as
 ar
-le
-le
-le
+ag
+ag
+ag
 ai
 as
 be
@@ -921,9 +921,9 @@ aa
 aa
 ac
 be
-ta
-Rq
-le
+aw
+at
+ag
 ai
 ai
 ai

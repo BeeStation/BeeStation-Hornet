@@ -16,9 +16,10 @@
 	throw_speed = 3
 	throw_range = 6
 	custom_materials = list(/datum/material/iron=12000)
-	attack_verb = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
-	//attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
+	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = IS_SHARP_ACCURATE
+	bleed_force = BLEED_CUT
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/bayonet = FALSE //Can this be attached to a gun?
 	//wound_bonus = 5
@@ -66,7 +67,8 @@
 	force = 15
 	throwforce = 10
 	custom_materials = list(/datum/material/iron=18000)
-	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	attack_verb_continuous = list("cleaves", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("cleave", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_price = 60
 
@@ -115,7 +117,8 @@
 	embedding = list("pain_mult" = 4, "embed_chance" = 65, "fall_chance" = 10, "ignore_throwspeed_threshold" = TRUE, "armour_block" = 60)
 	force = 20
 	throwforce = 20
-	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "cut")
+	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "cuts")
+	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "cut")
 	bayonet = TRUE
 
 /obj/item/knife/combat/survival
@@ -155,8 +158,9 @@
 	force = 8
 	throwforce = 12//fuck git
 	custom_materials = list()
-	attack_verb = list("shanked", "shivved")
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	attack_verb_continuous = list("shanks", "shivs")
+	attack_verb_simple = list("shank", "shiv")
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
 
 // Shank - Makeshift weapon that can embed on throw
 /obj/item/knife/shank
@@ -172,7 +176,8 @@
 	throw_speed = 5 //yeets
 	armour_penetration = 10 //spear has 10 armour pen, I think its fitting another glass tipped item should have it too
 	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 40, "embedded_fall_chance" = 5, "armour_block" = 30) // Incentive to disengage/stop chasing when stuck
-	attack_verb = list("stuck", "shanked")
+	attack_verb_continuous = list("sticks", "shanks")
+	attack_verb_simple = list("stuck", "shank")
 
 /obj/item/knife/shank/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the shank! It looks like [user.p_theyre()] trying to commit suicide.</span>")

@@ -60,8 +60,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isplatingturf(A) (istype(A, /turf/open/floor/plating))
 
-// Temporary, but the code needs a way to differentiate if transparent turfs are added in the future.
-#define istransparentturf(A) (istype(A, /turf/open/openspace))
+#define istransparentturf(A) (TURF_IS_MIMICKING(A))
 
 #define isopenspace(A) (istype(A, /turf/open/openspace))
 
@@ -173,6 +172,10 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define iscogscarab(A) (istype(A, /mob/living/simple_animal/drone/cogscarab))
 
+#define isfaithless(A) (istype(A, /mob/living/simple_animal/hostile/faithless))
+
+#define ismimite(A) (istype(A, /mob/living/simple_animal/hostile/mimite))
+
 //Misc mobs
 #define isobserver(A) (istype(A, /mob/dead/observer))
 
@@ -205,7 +208,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
-#define ismecha(A) (istype(A, /obj/mecha))
+#define ismecha(A) (istype(A, /obj/vehicle/sealed/mecha))
 
 #define ismopable(A) (A && (A.layer <= HIGH_SIGIL_LAYER)) //If something can be cleaned by floor-cleaning devices such as mops or clean bots
 

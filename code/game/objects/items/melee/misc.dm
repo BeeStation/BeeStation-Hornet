@@ -14,6 +14,7 @@
 	desc = "A tool used by great men to placate the frothing masses."
 	icon_state = "chain"
 	item_state = "chain"
+	worn_icon_state = "whip"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -21,7 +22,8 @@
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
+	attack_verb_continuous = list("flogs", "whips", "lashes", "disciplines")
+	attack_verb_simple = list("flog", "whip", "lash", "discipline")
 	hitsound = 'sound/weapons/chainhit.ogg'
 	custom_materials = list(/datum/material/iron = 1000)
 
@@ -42,8 +44,10 @@
 	force = 20
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 
 /obj/item/melee/synthetic_arm_blade/Initialize(mapload)
 	. = ..()
@@ -67,7 +71,9 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 75
 	sharpness = IS_SHARP
-	attack_verb = list("slashed", "cut")
+	bleed_force = BLEED_CUT
+	attack_verb_continuous = list("slashes", "cuts")
+	attack_verb_simple = list("slash", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	custom_materials = list(/datum/material/iron = 1000)
 
@@ -161,6 +167,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "baton"
 	item_state = "classic_baton"
+	worn_icon_state = "classic_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
@@ -348,11 +355,11 @@
 	force = 8
 	throwforce = 7
 	cooldown = 0
-	stamina_damage = 25 // 4 hits to stamcrit
+	stamina_damage = 30 // 4 hits to stamcrit < that was a lie
 	stun_animation = TRUE
-	/// Per-mob sleep cooldowns.
+	/// Per-mob paralyze cooldowns.
 	/// [mob] = [world.time where the cooldown ends]
-	var/static/list/sleep_cooldowns = list()
+	var/static/list/paralyze_cooldowns = list()
 	/// Per-mob trip cooldowns.
 	/// [mob] = [world.time where the cooldown ends]
 	var/static/list/trip_cooldowns = list()
@@ -412,21 +419,21 @@
 			target.visible_message(desc["visiblestun"], desc["localstun"])
 
 		else if(user.is_zone_selected(BODY_ZONE_HEAD) || user.is_zone_selected(BODY_ZONE_PRECISE_EYES) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
-			target.apply_damage(18, STAMINA, BODY_ZONE_HEAD, def_check) // 90 : 5 = 18 , 5 hits to KnockOut
+			target.apply_damage(stamina_damage*0.8, STAMINA, BODY_ZONE_HEAD, def_check) // 90 : 5 = 18 , 5 hits to KnockOut
 
-			if(target.staminaloss > 89 && !target.has_status_effect(STATUS_EFFECT_SLEEPING) && (!sleep_cooldowns[target] || COOLDOWN_FINISHED(src, sleep_cooldowns[target])))
+			if(target.staminaloss > 89 && !target.has_status_effect(STATUS_EFFECT_PARALYZED) && (!paralyze_cooldowns[target] || COOLDOWN_FINISHED(src, paralyze_cooldowns[target])))
 				T.force_say(user)
-				target.balloon_alert_to_viewers("Knock-Out!")
-				if(!target.has_status_effect(STATUS_EFFECT_SLEEPING))
-					target.Sleeping(80)
+				target.balloon_alert_to_viewers("Knock-Down!")
+				if(!target.has_status_effect(STATUS_EFFECT_PARALYZED))
+					target.Paralyze(80)
 					target.setStaminaLoss(0)
 					playsound(usr.loc, "sound/machines/bellsound.ogg", 15, 1)
-					log_combat(user, target, "Knocked-Out", src)
+					log_combat(user, target, "Knocked-Down", src)
 				if(CHECK_BITFIELD(target.mobility_flags, MOBILITY_STAND)) //this is here so the "falls" message doesn't appear if the target is already on the floor
-					target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls unconscious.","falls limp like a bag of bricks.","falls to the ground, unresponsive.","lays down on the ground for a little nap.","got [T.p_their()] dome rung in."))]</span>")
+					target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls limp like a bag of bricks.","falls to the ground, unresponsive.","lays down on the ground.","got [T.p_their()] dome rung in."))]</span>")
 				else
-					target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls unconscious.","falls into a deep sleep.","was sent to dreamland.","closes [T.p_their()] and prepares for a little nap."))]</span>")
-				COOLDOWN_START(src, sleep_cooldowns[target], 16 SECONDS)
+					target.visible_message("<span class='emote'><b>[T]</b> [pick(list("goes limp.","falls flat."))]</span>")
+				COOLDOWN_START(src, paralyze_cooldowns[target], 16 SECONDS)
 			else
 				log_combat(user, target, "stunned", src)
 				target.visible_message(desc["visiblestun"], desc["localstun"])
@@ -435,13 +442,13 @@
 			log_combat(user, target, "stunned", src)
 			target.visible_message(desc["visibleleg"], desc["localleg"])
 			if (Rl.get_staminaloss() < 26 && Ra.get_staminaloss() < 26 && La.get_staminaloss() < 26)
-				target.apply_damage(25, STAMINA, BODY_ZONE_L_LEG, def_check)
+				target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_L_LEG, def_check)
 			else
-				target.apply_damage(10, STAMINA, BODY_ZONE_L_LEG, def_check)
+				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_L_LEG, def_check)
 			if (Ll.get_staminaloss() == 50)
-				target.apply_damage(10, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_CHEST, def_check)
 			else
-				target.apply_damage(5, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_CHEST, def_check)
 
 			if(Ll.get_staminaloss() == 50 && CHECK_BITFIELD(target.mobility_flags, MOBILITY_STAND) && (!trip_cooldowns[target] || COOLDOWN_FINISHED(src, trip_cooldowns[target])))
 				target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls down.","falls face first into the floor.","gets viciously tripped.","got clumsy."))]</span>")
@@ -456,13 +463,13 @@
 			log_combat(user, target, "stunned", src)
 			target.visible_message(desc["visibleleg"], desc["localleg"])
 			if (Ll.get_staminaloss() < 26 && Ra.get_staminaloss() < 26 && La.get_staminaloss() < 26)
-				target.apply_damage(25, STAMINA, BODY_ZONE_R_LEG, def_check)
+				target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_R_LEG, def_check)
 			else
-				target.apply_damage(10, STAMINA, BODY_ZONE_R_LEG, def_check)
+				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_R_LEG, def_check)
 			if (Rl.get_staminaloss() == 50)
-				target.apply_damage(10, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_CHEST, def_check)
 			else
-				target.apply_damage(5, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_CHEST, def_check)
 
 			if(Rl.get_staminaloss() == 50 && CHECK_BITFIELD(target.mobility_flags, MOBILITY_STAND) && (!trip_cooldowns[target] || COOLDOWN_FINISHED(src, trip_cooldowns[target])))
 				target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls down.","falls face first into the floor.","gets viciously tripped.","got clumsy."))]</span>")
@@ -481,13 +488,13 @@
 				log_combat(user, target, "disarmed", src)
 				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
 			if (Ra.get_staminaloss() < 26 && Ll.get_staminaloss() < 26 && Rl.get_staminaloss() < 26)
-				target.apply_damage(20, STAMINA, BODY_ZONE_L_ARM, def_check)
+				target.apply_damage(stamina_damage*0.8, STAMINA, BODY_ZONE_L_ARM, def_check)
 			else
-				target.apply_damage(5, STAMINA, BODY_ZONE_L_ARM, def_check)
+				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_L_ARM, def_check)
 			if (La.get_staminaloss() == 50)
-				target.apply_damage(10, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_CHEST, def_check)
 			else
-				target.apply_damage(4, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_CHEST, def_check)
 
 		else if(user.is_zone_selected(BODY_ZONE_R_ARM))
 			if(!Ra.get_staminaloss() == 50)
@@ -497,13 +504,13 @@
 				log_combat(user, target, "disarmed", src)
 				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
 			if (La.get_staminaloss() < 26 && Ll.get_staminaloss() < 26 && Rl.get_staminaloss() < 26)
-				target.apply_damage(20, STAMINA, BODY_ZONE_R_ARM, def_check)
+				target.apply_damage(stamina_damage*0.8, STAMINA, BODY_ZONE_R_ARM, def_check)
 			else
-				target.apply_damage(5, STAMINA, BODY_ZONE_R_ARM, def_check)
+				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_R_ARM, def_check)
 			if (Ra.get_staminaloss() == 50)
-				target.apply_damage(10, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_CHEST, def_check)
 			else
-				target.apply_damage(4, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_CHEST, def_check)
 
 		add_fingerprint(user)
 
@@ -571,7 +578,8 @@
 		item_state = on_item_state
 		w_class = weight_class_on
 		force = force_on
-		attack_verb = list("smacked", "struck", "cracked", "beaten")
+		attack_verb_continuous = list("smacks", "strikes", "cracks", "beats")
+		attack_verb_simple = list("smack", "strike", "crack", "beat")
 	else
 		to_chat(user, desc["local_off"])
 		icon_state = off_icon_state
@@ -579,7 +587,8 @@
 		slot_flags = ITEM_SLOT_BELT
 		w_class = WEIGHT_CLASS_SMALL
 		force = force_off
-		attack_verb = list("hit", "poked")
+		attack_verb_continuous = list("hits", "pokes")
+		attack_verb_simple = list("hit", "poke")
 
 	playsound(src.loc, on_sound, 50, 1)
 	add_fingerprint(user)
@@ -632,7 +641,8 @@
 		item_state = on_item_state
 		w_class = weight_class_on
 		force = force_on
-		attack_verb = list("smacked", "struck", "cracked", "beaten")
+		attack_verb_continuous = list("smacks", "strikes", "cracks", "beats")
+		attack_verb_simple = list("smack", "strike", "crack", "beat")
 	else
 		to_chat(user, desc["local_off"])
 		icon_state = off_icon_state
@@ -640,7 +650,8 @@
 		slot_flags = ITEM_SLOT_BELT
 		w_class = WEIGHT_CLASS_SMALL
 		force = force_off
-		attack_verb = list("hit", "poked")
+		attack_verb_continuous = list("hits", "pokes")
+		attack_verb_simple = list("hit", "poke")
 
 	playsound(src.loc, on_sound, 50, TRUE)
 	add_fingerprint(user)
@@ -884,11 +895,13 @@
 	item_state = "chain"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+	worn_icon_state = "whip"
 	slot_flags = ITEM_SLOT_BELT
 	force = 0.001 //"Some attack noises shit"
 	reach = 3
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
+	attack_verb_continuous = list("flogs", "whips", "lashes", "disciplines")
+	attack_verb_simple = list("flog", "whip", "lash", "discipline")
 	hitsound = 'sound/weapons/whip.ogg'
 
 /obj/item/melee/curator_whip/attack(mob/living/target, mob/living/user)
@@ -935,12 +948,14 @@
 	name = "advanced roasting stick"
 	desc = "A telescopic roasting stick with a miniature shield generator designed to ensure entry into various high-tech shielded cooking ovens and firepits."
 	icon_state = "roastingstick_0"
-	item_state = "null"
+	item_state = null
+	worn_icon_state = "tele_baton"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
 	force = 0
-	attack_verb = list("hit", "poked")
+	attack_verb_continuous = list("hits", "pokes")
+	attack_verb_simple = list("hit", "poke")
 	var/obj/item/food/sausage/held_sausage
 	var/static/list/ovens
 	var/on = FALSE
@@ -1045,13 +1060,15 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "telebaton_1"
 	item_state = "nullrod"
+	worn_icon_state = "tele_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
 	force = 0
 	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("repelled")
+	attack_verb_continuous = list("repells")
+	attack_verb_simple = list("repell")
 	var/cooldown = 0
 	var/knockbackpower = 6
 

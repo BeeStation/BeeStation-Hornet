@@ -1,4 +1,4 @@
-/obj/item/clothing/head/monkey_sentience_helmet
+/obj/item/clothing/head/helmet/monkey_sentience_helmet
 	name = "Monkey mind-magnification helmet"
 	desc = "This helmet rapidly stimulates a monkey's mind to increase brain function, and in turn enables critical thinking skills."
 
@@ -10,18 +10,18 @@
 	COOLDOWN_DECLARE(message_cooldown) //It'll get annoying quick when someone tries to remove their own helmet 20 times a second
 	var/datum/mind/magnification = null ///A reference to the mind we govern
 
-/obj/item/clothing/head/monkey_sentience_helmet/update_icon()
+/obj/item/clothing/head/helmet/monkey_sentience_helmet/update_icon()
 	. = ..()
 	compile_monkey_icon()
 	if(ismob(loc))
 		var/mob/mob = loc
 		mob.update_inv_head()
 
-/obj/item/clothing/head/monkey_sentience_helmet/update_icon_state()
+/obj/item/clothing/head/helmet/monkey_sentience_helmet/update_icon_state()
 	. = ..()
 	icon_state = "[base_icon_state][magnification ? "_active" : ""]"
 
-/obj/item/clothing/head/monkey_sentience_helmet/equipped(mob/user, slot)
+/obj/item/clothing/head/helmet/monkey_sentience_helmet/equipped(mob/user, slot)
 	. = ..()
 	if(slot != ITEM_SLOT_HEAD)
 		return
@@ -35,7 +35,7 @@
 		return
 	INVOKE_ASYNC(src, PROC_REF(poll), user)
 
-/obj/item/clothing/head/monkey_sentience_helmet/proc/poll(mob/living/carbon/monkey/user) //At this point, we can assume we're given a monkey, since this'll put them in the body anyways
+/obj/item/clothing/head/helmet/monkey_sentience_helmet/proc/poll(mob/living/carbon/monkey/user) //At this point, we can assume we're given a monkey, since this'll put them in the body anyways
 	if (user.stat) //Checks if the monkey is dead.
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE) //If so, buzz and do not poll ghosts
 		return
@@ -71,15 +71,15 @@
 	to_chat(user, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life; if you lose it, your sentience goes with it! Your helmet also strongly compels you to assist Nanotrasen and you should always act with the best interests of the station in mind.</span>")
 
 
-/obj/item/clothing/head/monkey_sentience_helmet/Destroy()
+/obj/item/clothing/head/helmet/monkey_sentience_helmet/Destroy()
 	disconnect()
 	. = ..()
 
-/obj/item/clothing/head/monkey_sentience_helmet/on_mob_death(mob/living/L, gibbed)
+/obj/item/clothing/head/helmet/monkey_sentience_helmet/on_mob_death(mob/living/L, gibbed)
 	if(magnification.current == L)
 		disconnect()
 
-/obj/item/clothing/head/monkey_sentience_helmet/proc/disconnect(datum/mind/signaller, mob/old_mob, mob/new_mob)
+/obj/item/clothing/head/helmet/monkey_sentience_helmet/proc/disconnect(datum/mind/signaller, mob/old_mob, mob/new_mob)
 	SIGNAL_HANDLER
 	if(!magnification)
 		return
@@ -106,7 +106,7 @@
 		update_icon()
 		monkey.visible_message("<span class='warning'>[src] powers down!</span>")
 
-/obj/item/clothing/head/monkey_sentience_helmet/attack_paw(mob/user)
+/obj/item/clothing/head/helmet/monkey_sentience_helmet/attack_paw(mob/user)
 	//Typecasting to monkey just to see if we're on the user's head
 	if (!istype(user, /mob/living/carbon/monkey))
 		return ..()
@@ -128,6 +128,6 @@
 		return ..()
 	return
 
-/obj/item/clothing/head/monkey_sentience_helmet/dropped(mob/user)
+/obj/item/clothing/head/helmet/monkey_sentience_helmet/dropped(mob/user)
 	. = ..()
 	disconnect()

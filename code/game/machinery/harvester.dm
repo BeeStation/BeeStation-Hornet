@@ -27,6 +27,8 @@
 	var/max_time = 40
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
 		max_time -= L.rating
+		if(L.rating >= 2)
+			allow_clothing = TRUE
 	interval = max(max_time,1)
 
 /obj/machinery/harvester/update_icon_state()
@@ -101,22 +103,13 @@
 	update_appearance()
 	if(!harvesting || state_open || !powered() || !occupant || !iscarbon(occupant))
 		return
-	playsound(src, 'sound/machines/juicer.ogg', 20, 1)
+	playsound(src, 'sound/machines/beeplaser.ogg', 20, 1)
 	var/mob/living/carbon/C = occupant
 	if(!LAZYLEN(operation_order)) //The list is empty, so we're done here
 		end_harvesting()
 		return
-	var/turf/target
-	for(var/adir in list(EAST,NORTH,SOUTH,WEST))
-		var/turf/T = get_step(src,adir)
-		if(!T)
-			continue
-		if(istype(T, /turf/closed))
-			continue
-		target = T
-		break
-	if(!target)
-		target = get_turf(src)
+	var/turf/target = get_turf(src)
+
 	for(var/obj/item/bodypart/BP in operation_order) //first we do non-essential limbs
 		BP.drop_limb()
 		C.emote("scream")
@@ -157,6 +150,12 @@
 		return TRUE
 	if(default_deconstruction_crowbar(I))
 		return TRUE
+	return ..()
+
+/obj/machinery/harvester/wrench_act(mob/living/user, obj/item/I)
+	if(default_change_direction_wrench(user, I))
+		return TRUE
+	return ..()
 
 /obj/machinery/harvester/default_pry_open(obj/item/I) //wew
 	. = !(state_open || panel_open || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR //We removed is_operational here
@@ -183,7 +182,7 @@
 	if (!state_open && gone == occupant)
 		container_resist(gone)
 
-/obj/machinery/harvester/relaymove(mob/user)
+/obj/machinery/harvester/relaymove(mob/living/user, direction)
 	if (!state_open)
 		container_resist(user)
 
@@ -197,3 +196,5 @@
 		. += "<span class='notice'>Alt-click [src] to start harvesting.</span>"
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Harvest speed at <b>[interval*0.1]</b> seconds per organ.</span>"
+	if(allow_clothing)
+		. += "<span class='notice'>harvester has been upgraded to process inorganic materials.</span>"
