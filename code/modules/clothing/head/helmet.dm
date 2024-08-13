@@ -149,7 +149,7 @@
 
 /obj/item/clothing/head/helmet/toggleable/justice/Initialize(mapload)
 	. = ..()
-	weewooloop = new(list(src), FALSE, FALSE)
+	weewooloop = new(src, FALSE, FALSE)
 
 /obj/item/clothing/head/helmet/toggleable/justice/Destroy()
 	QDEL_NULL(weewooloop)

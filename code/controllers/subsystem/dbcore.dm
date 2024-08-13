@@ -136,8 +136,14 @@ SUBSYSTEM_DEF(dbcore)
 		return
 	query.job_id = rustg_sql_query_async(connection, query.sql, json_encode(query.arguments))
 
-/datum/controller/subsystem/dbcore/proc/queue_query(datum/db_query/query)
+/datum/controller/subsystem/dbcore/proc/run_or_queue_query(datum/db_query/query)
 	if(IsAdminAdvancedProcCall())
+		return
+	// If we can immediately run the query, then do it
+	// We need no standby queries, since we should not be jumping the queue if there
+	// are others waiting.
+	if (length(queries_active) < max_concurrent_queries && length(queries_standby) == 0)
+		create_active_query(query)
 		return
 	queries_standby_num++
 	queries_standby |= query
@@ -492,7 +498,7 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 		if(!MC_RUNNING(SSdbcore.init_stage))
 			SSdbcore.run_query_sync(src)
 		else
-			SSdbcore.queue_query(src)
+			SSdbcore.run_or_queue_query(src)
 		sync()
 	else
 		var/job_result_str = rustg_sql_query_blocking(connection, sql, json_encode(arguments))
@@ -512,12 +518,11 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 
 /// Sleeps until execution of the query has finished.
 /datum/db_query/proc/sync()
-	while(status < DB_QUERY_FINISHED)
-		stoplag()
+	UNTIL(process())
 
 /datum/db_query/process(delta_time)
 	if(status >= DB_QUERY_FINISHED)
-		return
+		return TRUE
 
 	status = DB_QUERY_STARTED
 	var/job_result = rustg_sql_check_query(job_id)
