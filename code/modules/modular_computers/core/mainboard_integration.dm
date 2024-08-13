@@ -55,10 +55,10 @@
 	// Register the signals
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_AI, PROC_REF(on_attack_general))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_GHOST, PROC_REF(on_attack_ghost))
-	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_general))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_ROBOT, PROC_REF(on_attack_general))
 	RegisterSignal(parent, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 	RegisterSignal(parent, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
+	RegisterSignal(parent, COMSIG_ATOM_INTERACT, PROC_REF(on_attack_general))
 	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(on_AltClick))
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
@@ -155,11 +155,22 @@
 	if(MB.enabled)
 		INVOKE_ASYNC(MB, TYPE_PROC_REF(/datum, ui_interact), ghost)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
-	// TODO: Fix this to make it ASYNC
-	// if(IsAdminGhost(ghost))
-	// 	var/response = alert(ghost, "This computer is turned off. Would you like to turn it on?", "Admin Override", "Yes", "No")
-	// 	if(response == "Yes")
-	// 		MB.turn_on(ghost)
+	if(IsAdminGhost(ghost))
+		INVOKE_ASYNC(
+			GLOBAL_PROC,
+			GLOBAL_PROC_REF(tgui_alert_async),
+			ghost,
+			"This computer is turned off. Would you like to turn it on?",
+			"Badmin Override",
+			list("Yes", "No"),
+			CALLBACK(src, PROC_REF(after_admin_attack_ghost)),
+			30 SECONDS
+		)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/datum/component/modular_computer_integration/proc/after_admin_attack_ghost(choice)
+	if(choice == "Yes")
+		MB.turn_on(usr)
 
 /// When the mawinboard's parent was attacked by silicons, or unarmed hands
 /datum/component/modular_computer_integration/proc/on_attack_general(datum/source, mob/user)
@@ -212,6 +223,13 @@
 			ui_update()
 			return TRUE
 
+	// Try to insert new hardware
+	if(istype(I, /obj/item/computer_hardware))
+		var/obj/item/computer_hardware/hardware = I
+		if(MB.install_component(hardware, user))
+			ui_update()
+			return TRUE
+
 	return FALSE
 
 /datum/component/modular_computer_integration/proc/on_examine(datum/source, mob/user, list/examine_list)
@@ -223,6 +241,7 @@
 	SIGNAL_HANDLER
 
 	MB.screwdriver_act(user, I)
+	return COMPONENT_BLOCK_TOOL_ATTACK
 
 /// This one passes events the opposite direction to whatever our parent is
 /datum/component/modular_computer_integration/proc/self_update_icon(datum/source)

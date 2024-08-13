@@ -141,23 +141,19 @@
 		component_names.Add(H.name)
 
 	INVOKE_ASYNC(
-		src,
+		GLOBAL_PROC,
 		GLOBAL_PROC_REF(tgui_input_list_async),
 		user,
 		"Which component do you want to uinstall?",
 		"Computer maintenance",
 		component_names,
 		null,
-		PROC_REF(after_screwdriver_act),
+		CALLBACK(src, PROC_REF(after_screwdriver_act)),
 		30 SECONDS
 	)
 
-	// var/choice1 = tgui_input_list_async()
-
-	// var/choice = input(user, "Which component do you want to uninstall?", "Computer maintenance", null) as null|anything in sort_list(component_names)
-
 /obj/item/mainboard/proc/after_screwdriver_act(choice)
-	var/mob/user = src
+	var/mob/user = usr
 
 	if(!istype(user) || !choice || !physical_holder.Adjacent(user))
 		return

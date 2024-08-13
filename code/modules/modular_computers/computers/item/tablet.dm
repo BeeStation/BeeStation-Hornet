@@ -95,7 +95,8 @@
 
 // Eject the pen if the ID was not ejected
 /obj/item/modular_computer/tablet/AltClick(mob/user)
-	if(..() || issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
+	. = ..()
+	if(. & COMPONENT_CANCEL_ATTACK_CHAIN || issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
 		return TRUE
 	remove_pen(user)
 	return TRUE

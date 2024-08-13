@@ -1,12 +1,3 @@
-/obj/item/mainboard/interact(mob/user)
-	if(isnull(physical_holder))
-		return FALSE
-
-	if(enabled)
-		return ui_interact(user)
-	else
-		return turn_on(user)
-
 // Operates TGUI
 
 /obj/item/mainboard/ui_state(mob/user)
