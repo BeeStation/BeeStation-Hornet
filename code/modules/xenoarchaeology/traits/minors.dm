@@ -192,8 +192,8 @@
 		old_force = A.force
 		A.force = max_force * (parent.trait_strength/100)
 		//Verbs
-		old_verbs = A.attack_verb
-		A.attack_verb = attack_verbs
+		old_verbs = A.attack_verb_simple
+		A.attack_verb_simple = attack_verbs
 
 /datum/xenoartifact_trait/minor/sharp/remove_parent(datum/source, pensive)
 	if(!parent?.parent)
@@ -202,7 +202,7 @@
 	if(isitem(A))
 		A.sharpness = old_sharp
 		A.force = old_force
-		A.attack_verb = old_verbs
+		A.attack_verb_simple = old_verbs
 	return ..()
 
 /datum/xenoartifact_trait/minor/sharp/get_dictionary_hint()
