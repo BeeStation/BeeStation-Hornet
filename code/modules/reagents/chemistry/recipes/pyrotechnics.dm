@@ -267,7 +267,7 @@
 	var/range = created_volume/3
 	if(isatom(holder.my_atom))
 		var/atom/A = holder.my_atom
-		A.flash_lighting_fx(_range = (range + 2))
+		A.flash_lighting_fx(range = (range + 2))
 	for(var/mob/living/carbon/C in hearers(range, location))
 		if(C.flash_act())
 			if(get_dist(C, location) < 4)
@@ -288,7 +288,7 @@
 	var/range = created_volume/10
 	if(isatom(holder.my_atom))
 		var/atom/A = holder.my_atom
-		A.flash_lighting_fx(_range = (range + 2))
+		A.flash_lighting_fx(range = (range + 2))
 	for(var/mob/living/carbon/C in hearers(range, location))
 		if(C.flash_act())
 			if(get_dist(C, location) < 4)

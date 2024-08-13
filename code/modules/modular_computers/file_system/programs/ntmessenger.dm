@@ -200,6 +200,14 @@ GLOBAL_LIST_EMPTY(ModPCMessengers) // a list of all active messengers, similar t
 			holder.saved_image = null
 			photo_path = null
 			return TRUE
+		if("PDA_viewPhotos")
+			if(!issilicon(usr))
+				return
+			var/mob/living/silicon/user = usr
+			var/obj/item/camera/siliconcam/aicamera = user.aicamera
+			if(isnull(aicamera))
+				return
+			aicamera.viewpictures(user)
 		if("PDA_selectPhoto")
 			if(!issilicon(usr))
 				return

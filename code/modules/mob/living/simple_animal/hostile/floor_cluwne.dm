@@ -17,7 +17,6 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	maxHealth = 250
 	health = 250
 	speed = -1
-	attacktext = "attacks"
 	attack_sound = 'sound/items/bikehorn.ogg'
 	del_on_death = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSTRANSPARENT | PASSBLOB//it's practically a ghost when unmanifested (under the floor)
