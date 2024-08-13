@@ -240,7 +240,8 @@
 	search_objects = 1
 	a_intent = INTENT_HARM
 	attack_sound = 'sound/weapons/cqchit2.ogg'
-	attacktext = "punches"
+	attack_verb_continuous = "punches"
+	attack_verb_simple = "punch"
 	robust_searching = 1
 	melee_damage = 12
 	speed = 0
@@ -253,9 +254,6 @@
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 10
 	loot = list(/obj/effect/mob_spawn/human/corpse/nanotrasensoldier)
-	response_help = "pokes"
-	response_disarm = "shoves"
-	response_harm = "hits"
 	var/cooldown = 0
 
 /mob/living/simple_animal/hostile/factory/death(gibbed)
@@ -356,7 +354,8 @@
 	maxHealth = 250
 	melee_damage = 20
 	rapid_melee = 3
-	attacktext = "hits"
+	attack_verb_continuous = "hits"
+	attack_verb_simple = "hit"
 	attack_sound = 'sound/weapons/genhit3.ogg'
 	projectilesound = 'sound/weapons/sniper_shot.ogg'
 	speak_chance = 2
@@ -392,13 +391,11 @@
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "psycho"
 	icon_living = "psycho"
-	attacktext = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	turns_per_move = 0
 	del_on_death = TRUE
-	response_help = "pokes"
-	response_disarm = "touches"
-	response_harm = "hits"
 	speak_chance = 5
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak = list("I'm not mad!","What insanity?","Kill")
@@ -459,7 +456,6 @@
 /mob/living/simple_animal/hostile/psycho/muzzle
 	icon_state = "psychomuzzle"
 	icon_living = "psychomuzzle"
-	attacktext = "headbutts"
 	attack_sound = null
 	speak_chance = 0
 	melee_damage = 9
@@ -507,7 +503,6 @@
 	move_to_delay = 2
 	melee_damage = 15
 	attack_sound = null
-	attacktext = "headbutts"
 	loot = list(/obj/effect/mob_spawn/human/corpse/psychost/trap)
 	var/cooldown = 0
 	var/static/list/idle_sounds
@@ -567,7 +562,8 @@
 	speak_chance = 0
 	speak = null
 	aggro_vision_range = 9
-	attacktext = "hits"
+	attack_verb_continuous = "hits"
+	attack_verb_simple = "hit"
 	attack_sound = 'sound/weapons/genhit3.ogg'
 	retreat_distance = 2
 	melee_queue_distance = 1

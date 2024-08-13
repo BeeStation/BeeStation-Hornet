@@ -49,7 +49,7 @@
 				bloody_mask.color = get_blood_dna_color(return_blood_DNA())
 				. += bloody_mask
 
-/obj/item/clothing/mask/update_clothes_damaged_state(damaging = TRUE)
+/obj/item/clothing/mask/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc

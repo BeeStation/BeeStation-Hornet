@@ -145,7 +145,7 @@
 			bloody_helmet.color = get_blood_dna_color(return_blood_DNA())
 			. += bloody_helmet
 
-/obj/item/clothing/head/update_clothes_damaged_state(damaging = TRUE)
+/obj/item/clothing/head/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc

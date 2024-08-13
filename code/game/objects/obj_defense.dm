@@ -159,8 +159,8 @@
 
 /obj/attack_animal(mob/living/simple_animal/M)
 	if(!M.melee_damage && !M.obj_damage)
-		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, emote), "custom", null, "[M.friendly] [src].")
-		return 0
+		M.emote("custom", message = "[M.friendly_verb_continuous] [src].")
+		return FALSE
 	else
 		var/play_soundeffect = 1
 		if(M.environment_smash)
@@ -296,6 +296,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 //what happens when the obj's integrity reaches zero.
 /obj/proc/obj_destruction(damage_flag)
+
 	if(damage_flag == ACID)
 		acid_melt()
 	else if(damage_flag == FIRE)
