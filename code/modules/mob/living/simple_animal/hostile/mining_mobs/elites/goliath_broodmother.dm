@@ -29,7 +29,6 @@
 	health = 400
 	melee_damage = 30
 	armour_penetration = 30
-	attacktext = "beats down on"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	speed = 2
@@ -167,7 +166,8 @@
 	maxHealth = 15
 	health = 15
 	melee_damage = 5
-	attacktext = "bashes against"
+	attack_verb_continuous = "bashes against"
+	attack_verb_simple = "bash against"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	speed = 2

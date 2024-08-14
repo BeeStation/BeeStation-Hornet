@@ -1,5 +1,5 @@
 /obj/machinery/modular_fabricator/exosuit_fab
-	icon = 'icons/obj/robotics.dmi'
+	icon = 'icons/obj/robotics.dmi' //Previously known as "/obj/machinery/mecha_part_fabricator", before modular_fabricator refactor of 2021
 	icon_state = "fab-idle"
 	name = "exosuit fabricator"
 	desc = "An advanced machine containing many internal robotic arms which fabricate components for robots and exosuits."
@@ -19,8 +19,8 @@
 	categories = list(
 		"Cyborg",
 		"Ripley",
-		"Firefighter",
 		"Odysseus",
+		"Clarke",
 		"Gygax",
 		"Durand",
 		"H.O.N.K",

@@ -248,14 +248,6 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
-"ba" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/toy/prize/honk,
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
 "bb" = (
 /obj/machinery/light{
 	dir = 4
@@ -521,14 +513,6 @@
 "cd" = (
 /obj/item/food/grilled_cheese_sandwich,
 /obj/structure/table/wood/fancy/blue,
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
-"ce" = (
-/obj/item/toy/figure/janitor,
-/obj/structure/chair/wood/wings{
-	dir = 8
-	},
-/obj/item/toy/plush/lizard_plushie,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cf" = (
@@ -990,6 +974,14 @@
 /obj/item/toy/plush/snakeplushie,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
+"EZ" = (
+/obj/item/toy/figure/janitor,
+/obj/structure/chair/wood/wings{
+	dir = 8
+	},
+/obj/item/toy/plush/lizard_plushie,
+/turf/open/floor/iron/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
 "KA" = (
 /obj/structure/chair/stool/bar,
 /obj/item/toy/figure/engineer,
@@ -1003,6 +995,14 @@
 "Lk" = (
 /obj/item/food/fishandchips,
 /obj/structure/table/wood/fancy/blue,
+/turf/open/floor/iron/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
+"Nd" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/toy/mecha/honk,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "Pv" = (
@@ -1140,7 +1140,7 @@ ae
 am
 aF
 ag
-ba
+Nd
 bj
 bw
 bL
@@ -1816,7 +1816,7 @@ bn
 bv
 ae
 bV
-ce
+EZ
 dC
 cp
 bb

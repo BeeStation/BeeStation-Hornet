@@ -2,6 +2,7 @@
   * Run when a client is put in this mob or reconnets to byond and their client was on this mob
   *
   * Things it does:
+  * * call set_eye() to manually manage atom/list/eye_users
   * * Adds player to player_list
   * * sets lastKnownIP
   * * sets computer_id
@@ -20,35 +21,49 @@
   * * grant any actions the mob has to the client
   * * calls [auto_deadmin_on_login](mob.html#proc/auto_deadmin_on_login)
   * * send signal COMSIG_MOB_CLIENT_LOGIN
+  * * client can be deleted mid-execution of this proc, chiefly on parent calls, with lag
   * * attaches the ash listener element so clients can hear weather
   */
 /mob/Login()
+	if(!client)
+		return FALSE
+	// set_eye() is important here, because your eye doesn't know if you're using them as your eye
+	// FALSE when weakref doesn't exist, to prevent using their current eye
+	client.set_eye(client.eye, client.eye_weakref?.resolve() || FALSE)
 	add_to_player_list()
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
 	log_access("Mob Login: [key_name(src)] was assigned to a [type]")
 	world.update_status()
-	client.screen = list()				//remove hud items just in case
+	client.screen = list() //remove hud items just in case
 	client.images = list()
 
 	if(!hud_used)
-		create_mob_hud()
+		create_mob_hud() // creating a hud will add it to the client's screen, which can process a disconnect
+		if(!client)
+			return FALSE
+
 	if(hud_used)
-		hud_used.show_hud(hud_used.hud_version)
+		hud_used.show_hud(hud_used.hud_version) // see above, this can process a disconnect
+		if(!client)
+			return FALSE
 		hud_used.update_ui_style(ui_style2icon(client.prefs?.read_player_preference(/datum/preference/choiced/ui_style)))
 
 	next_move = 1
 
 	..()
 
-	if (client && key != client.key)
+	if(!client)
+		return FALSE
+
+	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
+
+	if (key != client.key)
 		key = client.key
 	reset_perspective(loc)
 
 	if(loc)
 		loc.on_log(TRUE)
-
-	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
 
 	//readd this mob's HUDs (antag, med, etc)
 	reload_huds()
@@ -96,10 +111,12 @@
 
 	log_message("Client [key_name(src)] has taken ownership of mob [src]([src.type])", LOG_OWNERSHIP)
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_LOGGED_IN, src)
 
 	AddElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
 
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_LOGGED_IN, src)
+
+	return TRUE
 
 /**
   * Checks if the attached client is an admin and may deadmin them

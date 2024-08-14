@@ -24,7 +24,7 @@
 	opacity = FALSE
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0, STAMINA = 0, CONSUME = 0, BLEED = 0)
 	var/state = BOOKCASE_UNANCHORED
 	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/book, /obj/item/codex_cicatrix) //Things allowed in the bookcase
 	/// When enabled, books_to_load number of random books will be generated for this bookcase when first interacted with.
@@ -224,7 +224,8 @@
 	item_flags = ISWEAPON
 	drop_sound = 'sound/items/handling/book_drop.ogg'
 	pickup_sound =  'sound/items/handling/book_pickup.ogg'
-	attack_verb = list("bashed", "whacked", "educated")
+	attack_verb_continuous = list("bashes", "whacks", "educates")
+	attack_verb_simple = list("bash", "whack", "educate")
 	resistance_flags = FLAMMABLE
 	var/dat				//Actual page content
 	var/due_date = 0	//Game time in 1/10th seconds

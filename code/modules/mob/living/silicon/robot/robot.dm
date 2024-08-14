@@ -7,12 +7,22 @@
 	health = 200
 	bubble_icon = "robot"
 	designation = "Default" //used for displaying the prefix & getting the current module of cyborg
-	has_limbs = 1
+	has_limbs = TRUE
 	hud_type = /datum/hud/robot
+
 	radio = /obj/item/radio/borg
+
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
-	light_system = MOVABLE_LIGHT
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_on = FALSE
+
+	//AI shell
+	var/shell = FALSE
+	var/deployed = FALSE
+	var/mob/living/silicon/ai/mainframe = null
+	var/datum/action/innate/undeployment/undeployment_action = new
+
+// ------------------------------------------ Parts
 	var/custom_name = ""
 	var/braintype = "Cyborg"
 	var/obj/item/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
@@ -20,10 +30,6 @@
 	///The last time this mob was flashed. Used for flash cooldowns
 	var/last_flashed = 0
 
-	var/shell = FALSE
-	var/deployed = FALSE
-	var/mob/living/silicon/ai/mainframe = null
-	var/datum/action/innate/undeployment/undeployment_action = new
 
 	var/obj/item/clockwork/clockwork_slab/internal_clock_slab = null
 	var/ratvar = FALSE
@@ -164,7 +170,7 @@
 		mmi.brain.organ_flags |= ORGAN_FROZEN
 		mmi.brain.name = "[real_name]'s brain"
 		mmi.name = "[initial(mmi.name)]: [real_name]"
-		mmi.brainmob = new(mmi)
+		mmi.set_brainmob(new /mob/living/brain(mmi))
 		mmi.brainmob.name = src.real_name
 		mmi.brainmob.real_name = src.real_name
 		mmi.brainmob.container = mmi
@@ -617,7 +623,7 @@
 	if(stat != DEAD && !(IsUnconscious() || low_power_mode)) //Not dead, not stunned.
 		if(!eye_lights)
 			eye_lights = new()
-		if(last_flashed && last_flashed + 30 SECONDS >= world.time) //We want to make sure last_flashed isn't zero because otherwise roundstart borgs blink for 30 seconds
+		if(last_flashed && last_flashed + FLASHED_COOLDOWN >= world.time) //We want to make sure last_flashed isn't zero because otherwise roundstart borgs blink for 30 seconds
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_fl"
 		else if(lamp_enabled)
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_l"
@@ -707,7 +713,6 @@
 			ADD_TRAIT(src, TRAIT_IMMOBILIZED, LOCKED_BORG_TRAIT)
 	else if(.)
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LOCKED_BORG_TRAIT)
-	update_mobility()
 	logevent("System lockdown [lockcharge?"triggered":"released"].")
 
 
@@ -977,7 +982,7 @@
 		return
 	if(stat == DEAD)
 		sight = (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_in_dark = 8
+		see_in_dark = NIGHTVISION_FOV_RANGE
 		see_invisible = SEE_INVISIBLE_OBSERVER
 		return
 
@@ -1004,12 +1009,12 @@
 	if(sight_mode & BORGXRAY)
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		see_invisible = SEE_INVISIBLE_LIVING
-		see_in_dark = 8
+		see_in_dark = NIGHTVISION_FOV_RANGE
 
 	if(sight_mode & BORGTHERM)
 		sight |= SEE_MOBS
 		see_invisible = min(see_invisible, SEE_INVISIBLE_LIVING)
-		see_in_dark = 8
+		see_in_dark = NIGHTVISION_FOV_RANGE
 
 	if(see_override)
 		see_invisible = see_override
@@ -1027,7 +1032,6 @@
 			set_stat(UNCONSCIOUS)
 		else
 			set_stat(CONSCIOUS)
-	update_mobility()
 	diag_hud_set_status()
 	diag_hud_set_health()
 	diag_hud_set_aishell()
@@ -1231,9 +1235,9 @@
 	cell = null
 
 /mob/living/silicon/robot/mouse_buckle_handling(mob/living/M, mob/living/user)
+	//Don't try buckling on INTENT_HARM so that silicons can search people's inventories without loading them
 	if(can_buckle && istype(M) && !(M in buckled_mobs) && ((user!=src)||(a_intent != INTENT_HARM)))
-		if(buckle_mob(M))
-			return TRUE
+		return user_buckle_mob(M, user, check_loc = FALSE)
 
 /mob/living/silicon/robot/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!is_type_in_typecache(M, can_ride_typecache))
@@ -1256,7 +1260,7 @@
 			M.visible_message("<span class='boldwarning'>Unfortunately, [M] just can't seem to hold onto [src]!</span>")
 			return
 	if(iscarbon(M) && (!riding_datum.equip_buckle_inhands(M, 1)))
-		if (M.get_num_arms() <= 0)
+		if(M.usable_hands == 0)
 			M.visible_message("<span class='boldwarning'>[M] can't climb onto [src] because [M.p_they()] don't have any usable arms!</span>")
 		else
 			M.visible_message("<span class='boldwarning'>[M] can't climb onto [src] because [M.p_their()] hands are full!</span>")

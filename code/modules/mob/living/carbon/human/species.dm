@@ -89,6 +89,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/organ/lungs/mutantlungs = null
 	var/breathid = "o2"
 
+	var/list/required_organs = list()
 	var/obj/item/organ/brain/mutant_brain = /obj/item/organ/brain
 	var/obj/item/organ/heart/mutant_heart = /obj/item/organ/heart
 	var/obj/item/organ/eyes/mutanteyes = /obj/item/organ/eyes
@@ -123,6 +124,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	///List of possible heights
 	var/list/species_height = SPECIES_HEIGHTS(BODY_SIZE_SHORT, BODY_SIZE_NORMAL, BODY_SIZE_TALL)
+
+	/// What bleed status effect should we apply?
+	var/bleed_effect = STATUS_EFFECT_BLEED
 
 ///////////
 // PROCS //
@@ -255,13 +259,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(heart && (!should_have_heart || replace_current))
 		heart.Remove(C,1)
+		required_organs -= /obj/item/organ/heart
 		QDEL_NULL(heart)
 	if(should_have_heart && !heart)
 		heart = new mutant_heart()
 		heart.Insert(C)
+		required_organs |= /obj/item/organ/heart
 
 	if(lungs && (!should_have_lungs || replace_current))
 		lungs.Remove(C,1)
+		required_organs -= /obj/item/organ/lungs
 		QDEL_NULL(lungs)
 	if(should_have_lungs && !lungs)
 		if(mutantlungs)
@@ -269,9 +276,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else
 			lungs = new()
 		lungs.Insert(C)
+		required_organs |= /obj/item/organ/lungs
 
 	if(liver && (!should_have_liver || replace_current))
 		liver.Remove(C,1)
+		required_organs -= /obj/item/organ/liver
 		QDEL_NULL(liver)
 	if(should_have_liver && !liver)
 		if(mutantliver)
@@ -279,9 +288,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else
 			liver = new()
 		liver.Insert(C)
+		required_organs |= /obj/item/organ/liver
 
 	if(stomach && (!should_have_stomach || replace_current))
 		stomach.Remove(C,1)
+		required_organs -= /obj/item/organ/stomach
 		QDEL_NULL(stomach)
 	if(should_have_stomach && !stomach)
 		if(mutantstomach)
@@ -289,16 +300,20 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else
 			stomach = new()
 		stomach.Insert(C)
+		required_organs |= /obj/item/organ/stomach
 
 	if(appendix && (!should_have_appendix || replace_current))
 		appendix.Remove(C,1)
+		required_organs -= /obj/item/organ/appendix
 		QDEL_NULL(appendix)
 	if(should_have_appendix && !appendix)
 		appendix = new()
 		appendix.Insert(C)
+		required_organs |= /obj/item/organ/appendix
 
 	if(tail && (!should_have_tail || replace_current))
 		tail.Remove(C,1)
+		required_organs -= /obj/item/organ/tail
 		QDEL_NULL(tail)
 	if(should_have_tail && !tail)
 		tail = new mutanttail()
@@ -308,9 +323,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			lizard_tail.spines = C.dna.features["spines"]
 			tail = lizard_tail
 		tail.Insert(C)
+		required_organs |= /obj/item/organ/tail
 
 	if(wings && (!should_have_wings || replace_current))
 		wings.Remove(C,1)
+		required_organs -= /obj/item/organ/wings
 		QDEL_NULL(wings)
 	if(should_have_wings && !wings)
 		wings = new mutantwings()
@@ -320,47 +337,58 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(locate(/datum/mutation/strongwings) in C.dna.mutations)
 				wings.flight_level = WINGS_FLYING
 		wings.Insert(C)
+		required_organs |= /obj/item/organ/wings
 
 	if(C.get_bodypart(BODY_ZONE_HEAD))
 		if(brain && (replace_current || !should_have_brain))
 			if(!brain.decoy_override)//Just keep it if it's fake
 				brain.Remove(C,TRUE,TRUE)
+				required_organs -= /obj/item/organ/brain
 				QDEL_NULL(brain)
 		if(should_have_brain && !brain)
 			brain = new mutant_brain()
 			brain.Insert(C, TRUE, TRUE)
+			required_organs |= /obj/item/organ/brain
 
 		if(eyes && (replace_current || !should_have_eyes))
 			eyes.Remove(C,1)
+			required_organs -= /obj/item/organ/eyes
 			QDEL_NULL(eyes)
 		if(should_have_eyes && !eyes)
 			eyes = new mutanteyes
 			eyes.Insert(C)
+			required_organs |= /obj/item/organ/eyes
 
 		if(ears && (replace_current || !should_have_ears))
 			ears.Remove(C,1)
+			required_organs -= /obj/item/organ/ears
 			QDEL_NULL(ears)
 		if(should_have_ears && !ears)
 			ears = new mutantears
 			ears.Insert(C)
+			required_organs |= /obj/item/organ/ears
 
 		if(tongue && (replace_current || !should_have_tongue))
 			tongue.Remove(C,1)
+			required_organs -= /obj/item/organ/tongue
 			QDEL_NULL(tongue)
 		if(should_have_tongue && !tongue)
 			tongue = new mutanttongue
 			tongue.Insert(C)
+			required_organs |= /obj/item/organ/tongue
 
 	if(old_species)
 		for(var/mutantorgan in old_species.mutant_organs)
 			var/obj/item/organ/I = C.getorgan(mutantorgan)
 			if(I)
 				I.Remove(C)
+				required_organs -= I.type
 				QDEL_NULL(I)
 
 	for(var/path in mutant_organs)
 		var/obj/item/organ/I = new path()
 		I.Insert(C)
+		required_organs |= I.type
 
 /datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
 	new_species ||= C.dna.species //If no new species is provided, assume its src.
@@ -803,7 +831,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				else
 					standing += mutable_appearance(undershirt.icon, undershirt.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 
-		if(H.socks && H.get_num_legs(FALSE) >= 2 && !(H.dna.species.bodytype & BODYTYPE_DIGITIGRADE) && !(NOSOCKS in species_traits))
+		if(H.socks && H.num_legs >= 2 && !(H.dna.species.bodytype & BODYTYPE_DIGITIGRADE) && !(NOSOCKS in species_traits))
 			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[H.socks]
 			if(socks)
 				standing += mutable_appearance(socks.icon, socks.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
@@ -1110,8 +1138,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(I.species_restricted & H.dna?.species.bodyflag)
 		to_chat(H, "<span class='warning'>Your species cannot wear this item!</span>")
 		return FALSE
-	var/num_arms = H.get_num_arms(FALSE)
-	var/num_legs = H.get_num_legs(FALSE)
 
 	switch(slot)
 		if(ITEM_SLOT_HANDS)
@@ -1149,7 +1175,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 			if( !(I.slot_flags & ITEM_SLOT_GLOVES) )
 				return FALSE
-			if(num_arms < 2)
+			if(H.num_hands < 2)
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_FEET)
@@ -1157,7 +1183,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 			if( !(I.slot_flags & ITEM_SLOT_FEET) )
 				return FALSE
-			if(num_legs < 2)
+			if(H.num_legs < 2)
 				return FALSE
 			if((bodytype & BODYTYPE_DIGITIGRADE) && !(I.supports_variations & DIGITIGRADE_VARIATION))
 				if(!disable_warning)
@@ -1276,7 +1302,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 			if(!istype(I, /obj/item/restraints/handcuffs))
 				return FALSE
-			if(num_arms < 2)
+			if(H.num_legs < 2)
 				return FALSE
 			return TRUE
 		if(ITEM_SLOT_LEGCUFFED)
@@ -1284,7 +1310,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 			if(!istype(I, /obj/item/restraints/legcuffs))
 				return FALSE
-			if(num_legs < 2)
+			if(H.num_legs < 2)
 				return FALSE
 			return TRUE
 		if(ITEM_SLOT_BACKPACK)
@@ -1494,6 +1520,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			to_chat(H, "<span class='danger'>Your hair starts to fall out in clumps.</span>")
 			addtimer(CALLBACK(src, PROC_REF(go_bald), H), 50)
 
+
+/datum/species/proc/handle_blood(mob/living/carbon/human/H)
+	return FALSE
+
 /datum/species/proc/go_bald(mob/living/carbon/human/H)
 	if(QDELETED(H))	//may be called from a timer
 		return
@@ -1531,11 +1561,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(!((target.health < 0 || HAS_TRAIT(target, TRAIT_FAKEDEATH)) && !(target.mobility_flags & MOBILITY_STAND)))
+	if(target.body_position == STANDING_UP || (target.health >= 0 && !HAS_TRAIT(target, TRAIT_FAKEDEATH)))
 		target.help_shake_act(user)
 		if(target != user)
 			log_combat(user, target, "shaken")
-		return 1
+		return TRUE
 	else
 		var/we_breathe = !HAS_TRAIT(user, TRAIT_NOBREATH)
 		var/we_lung = user.getorganslot(ORGAN_SLOT_LUNGS)
@@ -1549,25 +1579,28 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>", \
-							"<span class='userdanger'>You block [user]'s grab attempt!</span>")
+		target.visible_message("<span class='warning'>[target] blocks [user]'s grab!</span>", \
+						"<span class='userdanger'>You block [user]'s grab!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, "<span class='warning'>Your grab at [target] was blocked!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.grab_act(user,target))
 		return TRUE
 	else
 		//Steal them shoes
-		if(!(target.mobility_flags & MOBILITY_STAND) && (user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG)) && user.a_intent == INTENT_GRAB && target.shoes)
+		if(target.body_position == LYING_DOWN && (user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG)) && user.a_intent == INTENT_GRAB && target.shoes)
 			if(HAS_TRAIT(target.shoes, TRAIT_NODROP))
 				target.grabbedby(user)
 				return TRUE
-			user.visible_message("<span class='warning'>[user] starts stealing [target]'s shoes!</span>",
-								"<span class='warning'>You start stealing [target]'s shoes!</span>")
 			var/obj/item/I = target.shoes
+			user.visible_message("<span class='warning'>[user] starts stealing [target]'s [I.name]!</span>",
+							"<span class='danger'>You start stealing [target]'s [I.name]...</span>", null, null, target)
+			to_chat(target, "<span class='userdanger'>[user] starts stealing your [I.name]!</span>")
 			if(do_after(user, I.strip_delay, target))
 				target.dropItemToGround(I, TRUE)
 				user.put_in_hands(I)
-				user.visible_message("<span class='warning'>[user] stole your [I]!</span>",
-									"<span class='warning'>You steal [target]'s [I]!</span>")
+				user.visible_message("<span class='warning'>[user] stole [target]'s [I.name]!</span>",
+								"<span class='notice'>You stole [target]'s [I.name]!</span>", null, null, target)
+				to_chat(target, "<span class='userdanger'>[user] stole your [I.name]!</span>")
 		target.grabbedby(user)
 		return TRUE
 
@@ -1577,14 +1610,15 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>", \
-							"<span class='userdanger'>You block [user]'s attack!</span>")
+						"<span class='userdanger'>You block [user]'s attack!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, "<span class='warning'>Your attack at [target] was blocked!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user,target))
 		return TRUE
 	else
 
 		var/atk_verb = user.dna.species.attack_verb
-		if(!(target.mobility_flags & MOBILITY_STAND))
+		if(target.body_position == LYING_DOWN)
 			atk_verb = ATTACK_EFFECT_KICK
 
 		switch(atk_verb)//this code is really stupid but some genius apparently made "claw" and "slash" two attack types but also the same one so it's needed i guess
@@ -1603,8 +1637,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, 1, -1)
-			target.visible_message("<span class='danger'>[user]'s [atk_verb] misses [target]!</span>",\
-			"<span class='userdanger'>[user]'s [atk_verb] misses you!</span>", null, COMBAT_MESSAGE_RANGE)
+			target.visible_message("<span class='danger'>[user]'s [atk_verb] misses [target]!</span>", \
+							"<span class='danger'>You avoid [user]'s [atk_verb]!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, user)
+			to_chat(user, "<span class='warning'>Your [atk_verb] misses [target]!</span>")
 			log_combat(user, target, "attempted to punch")
 			return FALSE
 
@@ -1613,7 +1648,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 
 		target.visible_message("<span class='danger'>[user] [atk_verb]ed [target]!</span>", \
-					"<span class='userdanger'>[user] [atk_verb]ed you!</span>", null, COMBAT_MESSAGE_RANGE)
+						"<span class='userdanger'>You're [atk_verb]ed by [user]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, "<span class='danger'>You [atk_verb] [target]!</span>")
 
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
@@ -1639,8 +1675,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/disarm(mob/living/carbon/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s shoving attempt!</span>", \
-							"<span class='userdanger'>You block [user]'s shoving attempt!</span>")
+		target.visible_message("<span class='warning'>[user]'s shove is blocked by [target]!</span>", \
+						"<span class='danger'>You block [user]'s shove!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, "<span class='warning'>Your shove at [target] was blocked!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user,target))
 		return TRUE
@@ -1651,13 +1688,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(user.loc == target.loc)
 		return FALSE
 	else
-		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
-		playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-
-		if(target.w_uniform)
-			target.w_uniform.add_fingerprint(user)
-		SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, user.get_combat_bodyzone(target))
-		target.disarm_effect(user)
+		user.disarm(target)
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	return
@@ -1675,7 +1706,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		log_combat(M, H, "attempted to touch")
 		H.visible_message("<span class='warning'>[M] attempts to touch [H]!</span>", \
-						"<span class='userdanger'>[M] attempts to touch you!</span>")
+						"<span class='danger'>[M] attempts to touch you!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, M)
+		to_chat(M, "<span class='warning'>You attempt to touch [H]!</span>")
 		return 0
 	SEND_SIGNAL(M, COMSIG_MOB_ATTACK_HAND, M, H, attacker_style)
 	SEND_SIGNAL(H, COMSIG_MOB_HAND_ATTACKED, H, M, attacker_style)
@@ -1715,6 +1747,34 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/weakness = H.check_weakness(I, user)
 	apply_damage(I.force * weakness, I.damtype, def_zone, armor_block, H)
 
+	if (I.bleed_force)
+		var/armour_block = user.run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
+		var/hit_amount = (100 - armour_block) / 100
+		H.add_bleeding(I.bleed_force * hit_amount)
+		if(IS_ORGANIC_LIMB(affecting))
+			I.add_mob_blood(H)	//Make the weapon bloody, not the person.
+			if(get_dist(user, H) <= 1)	//people with TK won't get smeared with blood
+				user.add_mob_blood(H)
+			switch(hit_area)
+				if(BODY_ZONE_HEAD)
+					if(H.wear_mask)
+						H.wear_mask.add_mob_blood(H)
+						H.update_inv_wear_mask()
+					if(H.head)
+						H.head.add_mob_blood(H)
+						H.update_inv_head()
+					if(H.glasses && prob(33))
+						H.glasses.add_mob_blood(H)
+						H.update_inv_glasses()
+
+				if(BODY_ZONE_CHEST)
+					if(H.wear_suit)
+						H.wear_suit.add_mob_blood(H)
+						H.update_inv_wear_suit()
+					if(H.w_uniform)
+						H.w_uniform.add_mob_blood(H)
+						H.update_inv_w_uniform()
+
 	H.send_item_attack_message(I, user, hit_area)
 
 	if(!I.force)
@@ -1732,48 +1792,17 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			I.add_mob_blood(H)
 			playsound(get_turf(H), I.get_dismember_sound(), 80, 1)
 
-	var/bloody = 0
-	if((I.damtype == BRUTE) && (I.force >= max(10, armor_block) || I.is_sharp()))
-		if(IS_ORGANIC_LIMB(affecting))
-			I.add_mob_blood(H)	//Make the weapon bloody, not the person.
-			if(prob(I.force * 2))	//blood spatter!
-				bloody = 1
-				var/turf/location = H.loc
-				if(istype(location))
-					H.add_splatter_floor(location)
-				if(get_dist(user, H) <= 1)	//people with TK won't get smeared with blood
-					user.add_mob_blood(H)
-
-		switch(hit_area)
-			if(BODY_ZONE_HEAD)
-				if(!I.is_sharp())
-					if(H.mind && H.stat == CONSCIOUS && H != user && (H.health - (I.force * I.attack_weight)) <= 0) // rev deconversion through blunt trauma.
-						var/datum/antagonist/rev/rev = H.mind.has_antag_datum(/datum/antagonist/rev)
-						if(rev)
-							rev.remove_revolutionary(FALSE, user)
-
-				if(bloody)	//Apply blood
-					if(H.wear_mask)
-						H.wear_mask.add_mob_blood(H)
-						H.update_inv_wear_mask()
-					if(H.head)
-						H.head.add_mob_blood(H)
-						H.update_inv_head()
-					if(H.glasses && prob(33))
-						H.glasses.add_mob_blood(H)
-						H.update_inv_glasses()
-
-			if(BODY_ZONE_CHEST)
-				if(bloody)
-					if(H.wear_suit)
-						H.wear_suit.add_mob_blood(H)
-						H.update_inv_wear_suit()
-					if(H.w_uniform)
-						H.w_uniform.add_mob_blood(H)
-						H.update_inv_w_uniform()
-
+	if(I.damtype == BRUTE && (I.force >= max(10, armor_block) && hit_area == BODY_ZONE_HEAD))
+		if(!I.is_sharp() && H.mind && H.stat == CONSCIOUS && H != user && (H.health - (I.force * I.attack_weight)) <= 0) // rev deconversion through blunt trauma.
+			var/datum/antagonist/rev/rev = H.mind.has_antag_datum(/datum/antagonist/rev)
+			if(rev)
+				rev.remove_revolutionary(FALSE, user)
 		if(Iforce > 10 || Iforce >= 5 && prob(33))
 			H.force_say(user)
+	else if (I.damtype == BURN && H.is_bleeding())
+		H.cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(I.force / 3))
+		to_chat(user, "<span class='userdanger'>The heat from [I] cauterizes your bleeding!</span>")
+		playsound(src, 'sound/surgery/cautery2.ogg', 70)
 	return TRUE
 
 /datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE)
@@ -1952,7 +1981,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		// Get the changes to the skin from the core temp
 		var/core_skin_diff = humi.coretemperature - humi.bodytemperature
 		// change rate of 0.08 to reflect temp back in to the core at the same rate as core to skin
-		var/core_skin_change = (1 + thermal_protection) * get_temp_change_amount(core_skin_diff, 0.08)
+		var/core_skin_change = (1 + thermal_protection) * get_temp_change_amount(core_skin_diff, 0.09)
 
 		// We do not want to over shoot after using protection
 		if(core_skin_diff > 0)
@@ -2234,7 +2263,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(H.getorgan(/obj/item/organ/wings))
 		if(wings.flight_level >= WINGS_FLYING && H.movement_type & FLYING)
 			flyslip(H)
-	. = stunmod * H.physiology.stun_mod * amount
+	. = max(stunmod + H.physiology.stun_add, 0) * H.physiology.stun_mod * amount
 
 //////////////
 //Space Move//
@@ -2281,7 +2310,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
 	if(!H.getorgan(/obj/item/organ/wings))
 		return FALSE
-	if(H.stat || !(H.mobility_flags & MOBILITY_STAND))
+	if(H.stat || H.body_position == LYING_DOWN)
 		return FALSE
 	var/turf/T = get_turf(H)
 	if(!T)
@@ -2323,7 +2352,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		H.setMovetype(H.movement_type | FLYING)
 		override_float = TRUE
 		H.pass_flags |= PASSTABLE
-		H.update_mobility()
 		if(("wings" in H.dna.species.mutant_bodyparts) || ("moth_wings" in H.dna.species.mutant_bodyparts))
 			H.Togglewings()
 	else

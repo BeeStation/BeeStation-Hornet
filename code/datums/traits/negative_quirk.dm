@@ -29,7 +29,7 @@
 
 /datum/quirk/blooddeficiency/on_process(delta_time)
 	var/mob/living/carbon/human/H = quirk_target
-	if(NOBLOOD in H.dna.species.species_traits) //can't lose blood if your species doesn't have any
+	if((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD)) //can't lose blood if your species doesn't have any
 		return
 	else if(H.blood_volume > (BLOOD_VOLUME_SAFE - 25)) // just barely survivable without treatment
 		H.blood_volume -= 0.275 * delta_time
@@ -141,7 +141,7 @@
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/heirloom_type
 
-	if(is_species(H, /datum/species/moth) && prob(50))
+	if((ismoth(H)) && prob(50))
 		heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
 	else
 		switch(quirk_holder.assigned_role)
@@ -189,7 +189,7 @@
 			if(JOB_NAME_SCIENTIST)
 				heirloom_type = pick(typesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random)
 			if(JOB_NAME_ROBOTICIST)
-				heirloom_type = pick(subtypesof(/obj/item/toy/prize)) //look at this nerd
+				heirloom_type = pick(subtypesof(/obj/item/toy/mecha)) //look at this nerd
 			//Medical
 			if(JOB_NAME_CHIEFMEDICALOFFICER)
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
@@ -346,7 +346,7 @@
 	if(H.dna.species.id in list("shadow", "nightmare"))
 		return //we're tied with the dark, so we don't get scared of it; don't cleanse outright to avoid cheese
 	var/turf/T = get_turf(quirk_target)
-	if(T.get_lumcount() <= 0.2)
+	if(T.get_lumcount() <= LIGHTING_TILE_IS_DARK)
 		if(quirk_target.m_intent == MOVE_INTENT_RUN)
 			to_chat(quirk_target, "<span class='warning'>Easy, easy, take it slow... you're in the dark...</span>")
 			quirk_target.toggle_move_intent()
@@ -595,7 +595,7 @@
 /datum/quirk/junkie/smoker/on_spawn()
     drug_container_type = read_choice_preference(/datum/preference/choiced/quirk/smoker_cigarettes)
     if(!drug_container_type)
-        drug_container_type = pick(GLOB.smoker_cigarettes) 
+        drug_container_type = pick(GLOB.smoker_cigarettes)
     . = ..()
 
 /datum/quirk/junkie/smoker/announce_drugs()

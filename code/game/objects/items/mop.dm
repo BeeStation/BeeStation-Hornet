@@ -11,7 +11,8 @@
 	throw_speed = 3
 	throw_range = 7
 	w_class = WEIGHT_CLASS_LARGE
-	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
+	attack_verb_continuous = list("mops", "bashes", "bludgeons", "whacks")
+	attack_verb_simple = list("mop", "bash", "bludgeon", "whack")
 	resistance_flags = FLAMMABLE
 	var/mopping = 0
 	var/mopcount = 0
@@ -122,6 +123,8 @@
 	force = 10
 	throwforce = 18
 	throw_speed = 4
-	attack_verb = list("mopped", "stabbed", "shanked", "jousted")
+	attack_verb_continuous = list("mops", "stabs", "shanks", "jousts")
+	attack_verb_simple = list("mop", "stab", "shank", "joust")
 	sharpness = IS_SHARP
+	bleed_force = BLEED_SURFACE
 	embedding = list("armour_block" = 40)

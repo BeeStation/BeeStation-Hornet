@@ -1,7 +1,7 @@
 /datum/job/clown
 	title = JOB_NAME_CLOWN
 	description = "Be the life and soul of the station. Entertain the crew with your hilarious jokes and silly antics, including slipping, pie-ing and honking around. Remember your job is to keep things funny for others, not just yourself."
-	department_for_prefs = DEPT_BITFLAG_CIV
+	department_for_prefs = DEPT_BITFLAG_SRV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"

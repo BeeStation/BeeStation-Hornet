@@ -15,7 +15,7 @@
 	)
 
 /obj/structure/lattice/catwalk/over
-	layer = CATWALK_LAYER
+	layer = CATWALK_LATTICE
 	plane = GAME_PLANE
 
 /obj/structure/lattice/catwalk/ratvar_act()

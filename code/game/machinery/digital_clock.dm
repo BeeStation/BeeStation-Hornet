@@ -7,7 +7,6 @@
 	verb_ask = "bloops"
 	verb_exclaim = "blares"
 	max_integrity = 250
-	obj_integrity = 250
 	density = FALSE
 	layer = ABOVE_WINDOW_LAYER
 	var/station_minutes
