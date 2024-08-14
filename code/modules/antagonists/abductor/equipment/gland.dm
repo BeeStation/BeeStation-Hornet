@@ -146,9 +146,8 @@
 	to_chat(owner, "<span class='warning'>You feel nauseated!</span>")
 	owner.vomit(20)
 
-	var/mob/living/simple_animal/slime/Slime = new(get_turf(owner), "grey")
-	Slime.set_friends(list(owner))
-	Slime.set_leader(owner)
+	var/mob/living/basic/slime/Slime = new(get_turf(owner))
+	SEND_SIGNAL(Slime, COMSIG_FRIENDSHIP_CHANGE, owner, 110)
 
 /obj/item/organ/heart/gland/mindshock
 	true_name = "neural crosstalk uninhibitor"

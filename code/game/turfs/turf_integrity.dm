@@ -273,7 +273,7 @@
 		return
 	take_damage(400, BRUTE, MELEE, 0, get_dir(src, B))
 
-/turf/proc/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0) //used by attack_alien, attack_animal, and attack_slime
+/turf/proc/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0) //used by attack_alien, attack_animal
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
 	return take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armor_penetration)
@@ -304,16 +304,6 @@
 			. = attack_generic(M, M.melee_damage, M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration)
 		if(. && !play_soundeffect)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
-
-/turf/attack_slime(mob/living/simple_animal/slime/M)
-	if (!can_hit)
-		return
-	if(!M.is_adult)
-		return
-	var/damage = 4
-	if(M.transformeffects & SLIME_EFFECT_RED)
-		damage = 10
-	attack_generic(M, damage, MELEE, 1)
 
 //====================================
 // Mechs

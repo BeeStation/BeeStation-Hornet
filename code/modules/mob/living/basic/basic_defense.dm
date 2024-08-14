@@ -111,15 +111,6 @@
 		// var/damage = rand(user.melee_damage_lower, user.melee_damage_upper) // We don't have melee_damage_lower and melee_damage_upper, kept to make this easier to understand and drop-in in the future
 		return attack_threshold_check(user.melee_damage, user.melee_damage_type)
 
-/mob/living/basic/attack_slime(mob/living/simple_animal/slime/M)
-	if(..()) //successful slime attack
-		var/damage = 20
-		if(M.is_adult)
-			damage = 30
-		if(M.transformeffects & SLIME_EFFECT_RED)
-			damage *= 1.1
-		return attack_threshold_check(damage)
-
 /mob/living/basic/attack_drone(mob/living/simple_animal/drone/M)
 	if(M.a_intent == INTENT_HARM) //No kicking dogs even as a rogue drone. Use a weapon.
 		return

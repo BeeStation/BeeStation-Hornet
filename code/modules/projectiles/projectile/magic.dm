@@ -208,7 +208,7 @@
 				Robot.clear_zeroth_law(0)
 
 		if("slime")
-			new_mob = new /mob/living/simple_animal/slime/random(M.loc)
+			new_mob = new /mob/living/basic/slime/random(M.loc)
 
 		if("xeno")
 			var/Xe

@@ -534,7 +534,7 @@
 				if(posttransformoutfit && istype(newmob))
 					newmob.equipOutfit(posttransformoutfit)
 			if("slime")
-				M.change_mob_type( /mob/living/simple_animal/slime , null, null, delmob )
+				M.change_mob_type( /mob/living/basic/slime , null, null, delmob )
 			if("monkey")
 				M.change_mob_type( /mob/living/carbon/monkey , null, null, delmob )
 			if("robot")

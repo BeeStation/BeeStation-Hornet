@@ -94,7 +94,7 @@
 	output = /obj/item/food/roastparsnip
 
 /datum/food_processor_process/mob/slime
-	input = /mob/living/simple_animal/slime
+	input = /mob/living/basic/slime
 	output = null
 	required_machine = /obj/machinery/processor/slime
 

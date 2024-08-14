@@ -136,7 +136,7 @@
 			return
 	take_damage(400, BRUTE, MELEE, 0, get_dir(src, B))
 
-/obj/proc/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0) //used by attack_alien, attack_animal, and attack_slime
+/obj/proc/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0) //used by attack_alien, attack_animal
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
 	return take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armor_penetration)
@@ -182,14 +182,6 @@
 /obj/proc/collision_damage(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
 	take_damage(amt, BRUTE)
-
-/obj/attack_slime(mob/living/simple_animal/slime/M)
-	if(!M.is_adult)
-		return
-	var/damage = rand(15)
-	if(M.transformeffects & SLIME_EFFECT_RED)
-		damage *= 1.1
-	attack_generic(M, damage, MELEE, 1)
 
 /obj/singularity_act()
 	SSexplosions.high_mov_atom += src

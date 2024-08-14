@@ -176,14 +176,14 @@
 /obj/machinery/processor/slime/interact(mob/user)
 	. = ..()
 	if(sbacklogged)
-		for(var/mob/living/simple_animal/slime/AM in ohearers(1,src)) //fallback in case slimes got placed while processor was active triggers only after processing!!!!
+		for(var/mob/living/basic/slime/AM in ohearers(1,src)) //fallback in case slimes got placed while processor was active triggers only after processing!!!!
 			if(AM.stat == DEAD)
 				visible_message("[AM] is sucked into [src].")
 				AM.forceMove(src)
 		sbacklogged = FALSE
 
 /obj/machinery/processor/slime/HasProximity(mob/AM)
-	if(!sbacklogged && istype(AM, /mob/living/simple_animal/slime) && AM.stat == DEAD)
+	if(!sbacklogged && istype(AM, /mob/living/basic/slime) && AM.stat == DEAD)
 		if(processing)
 			sbacklogged = TRUE
 		else
@@ -191,7 +191,7 @@
 			AM.forceMove(src)
 
 /obj/machinery/processor/slime/process_food(datum/food_processor_process/recipe, atom/movable/what)
-	var/mob/living/simple_animal/slime/S = what
+	var/mob/living/basic/slime/S = what
 	if (istype(S))
 		var/C = S.cores
 		for(var/i in 1 to (C+rating_amount-1))

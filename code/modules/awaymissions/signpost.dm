@@ -46,9 +46,6 @@
 	if (Adjacent(user))
 		return interact(user)
 
-/obj/structure/signpost/attack_slime(mob/user)
-	return interact(user)
-
 /obj/structure/signpost/attack_animal(mob/user)
 	return interact(user)
 

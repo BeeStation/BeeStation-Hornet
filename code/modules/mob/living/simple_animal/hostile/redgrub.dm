@@ -185,30 +185,6 @@
 		meat.AddComponent(/datum/component/infective, grub_diseases)
 	return ..()
 
-/mob/living/simple_animal/hostile/redgrub/attack_slime(mob/living/simple_animal/slime/M)//this is pretty unlikely to happen in game.
-	if(!SSticker.HasRoundStarted()) //since i need to skip simple_animal/attack slime
-		to_chat(M, "You cannot attack people before the game has started.")
-		return
-
-	if(M.buckled)
-		if(M in buckled_mobs)
-			M.Feedstop()
-		return // can't attack while eating!
-
-	if(HAS_TRAIT(M, TRAIT_PACIFISM))
-		to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
-		return FALSE
-	var/datum/status_effect/slimegrub/status = M.has_status_effect(STATUS_EFFECT_SLIMEGRUB)
-	if(status)
-		status.diseases += grub_diseases
-		status.deathcounter -= (40 * growthstage)
-		status.spawnbonus += 1
-	else
-		var/datum/status_effect/slimegrub/newstatus = M.apply_status_effect(STATUS_EFFECT_SLIMEGRUB)
-		newstatus.diseases += grub_diseases
-	M.visible_message("<span class='warning'>[M] swallows [src] whole!</span>", "<span class='userdanger'>[src] burrows into your cytoplasm when you bite it!</span>")
-	qdel(src)
-
 /mob/living/simple_animal/hostile/redgrub/environment_temperature_is_safe(datum/gas_mixture/environment)
 	if(isliving(loc))
 		var/mob/living/L = loc

@@ -176,19 +176,6 @@
 /atom/proc/attack_larva(mob/user)
 	return
 
-
-/*
-	Slimes
-	Nothing happening here
-*/
-/mob/living/simple_animal/slime/UnarmedAttack(atom/A)
-	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-		return
-	A.attack_slime(src)
-
-/atom/proc/attack_slime(mob/user)
-	return
-
 /*
 	Drones
 */

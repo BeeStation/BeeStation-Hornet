@@ -389,7 +389,7 @@
 	S.DisperseTarget(src)
 	return TRUE
 
-/mob/living/simple_animal/slime/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/mob/living/basic/slime/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This biological resource is somehow resisting our bluespace transceiver. Aborting.</span>")
 	return FALSE
 

@@ -2,7 +2,7 @@
 /* EMOTE DATUMS */
 /datum/emote/living
 	mob_type_allowed_typecache = /mob/living
-	mob_type_blacklist_typecache = list(/mob/living/simple_animal/slime, /mob/living/brain)
+	mob_type_blacklist_typecache = list(/mob/living/basic/slime, /mob/living/brain)
 
 /// The time it takes for the blush visual to be removed
 #define BLUSH_DURATION 5.2 SECONDS

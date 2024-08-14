@@ -264,12 +264,12 @@
 	qdel(src)
 
 /obj/effect/mob_spawn/slime
-	mob_type = 	/mob/living/simple_animal/slime
+	mob_type = 	/mob/living/basic/slime
 	var/mobcolour = "grey"
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "grey baby slime" //sets the icon in the map editor
 
-/obj/effect/mob_spawn/slime/equip(mob/living/simple_animal/slime/S)
+/obj/effect/mob_spawn/slime/equip(mob/living/basic/slime/S)
 	S.colour = mobcolour
 
 /obj/effect/mob_spawn/facehugger/create(ckey) //Creates a squashed facehugger

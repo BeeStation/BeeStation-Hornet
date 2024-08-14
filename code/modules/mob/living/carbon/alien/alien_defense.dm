@@ -100,18 +100,6 @@ In all, this is a lot like the monkey code. /N
 		if(STAMINA)
 			adjustStaminaLoss(damage)
 
-/mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M)
-	if(!..())
-		return //gotta be a successful slime attack
-	var/damage = rand(20)
-	if(M.is_adult)
-		damage = rand(30)
-	if(M.transformeffects & SLIME_EFFECT_RED)
-		damage *= 1.1
-	adjustBruteLoss(damage)
-	log_combat(M, src, "attacked", M)
-	updatehealth()
-
 /mob/living/carbon/alien/ex_act(severity, target, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
 		return

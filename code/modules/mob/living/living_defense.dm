@@ -210,29 +210,6 @@
 		user.set_pull_offsets(src, grab_state)
 		return TRUE
 
-
-/mob/living/attack_slime(mob/living/simple_animal/slime/M)
-	if(!SSticker.HasRoundStarted())
-		to_chat(M, "You cannot attack people before the game has started.")
-		return
-
-	if(M.buckled)
-		if(M in buckled_mobs)
-			M.Feedstop()
-		return // can't attack while eating!
-
-	if(HAS_TRAIT(M, TRAIT_PACIFISM))
-		to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
-		return FALSE
-
-	if(stat != DEAD)
-		log_combat(M, src, "attacked")
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", \
-						"<span class='userdanger'>\The [M.name] glomps you!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, M)
-		to_chat(M, "<span class='danger'>You glomp [src]!</span>")
-		return TRUE
-
 /mob/living/attack_basic_mob(mob/living/basic/user)
 	if(user.melee_damage == 0)
 		if(user != src)
