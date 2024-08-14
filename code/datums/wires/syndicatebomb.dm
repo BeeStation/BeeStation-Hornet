@@ -78,7 +78,7 @@
 				B.detonation_timer += 10 SECONDS
 				delayed_hesitate = TRUE
 
-/datum/wires/syndicatebomb/on_cut(wire, mend)
+/datum/wires/syndicatebomb/on_cut(wire, mob/user, mend)
 	var/obj/machinery/syndicatebomb/B = holder
 	switch(wire)
 		if(WIRE_BOOM)
