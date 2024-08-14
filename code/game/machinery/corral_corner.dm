@@ -187,3 +187,12 @@
 	if(pass_info.xenofauna_or_slime)
 		return FALSE
 	return TRUE //anything expect slimes can astar pass
+
+/obj/item/circuitboard/machine/corral_corner
+	name = "Corral Corner (Machine Board)"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	build_path = /obj/machinery/corral_corner
+	req_components = list(
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/manipulator = 1)
+	needs_anchored = TRUE
