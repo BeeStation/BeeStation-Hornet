@@ -3616,17 +3616,6 @@
 /obj/structure/railing,
 /turf/open/openspace,
 /area/maintenance/department/crew_quarters/bar)
-"bsL" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/structure/window/reinforced,
-/obj/machinery/rnd/production/techfab/department/security,
-/obj/machinery/camera/autoname/directional/west{
-	network = list("ss13","security")
-	},
-/turf/open/floor/iron,
-/area/security/brig)
 "btw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall,
@@ -4880,6 +4869,17 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/turret_protected/aisat_interior)
+"bZy" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/window/reinforced,
+/obj/machinery/camera/autoname/directional/west{
+	network = list("ss13","security")
+	},
+/obj/structure/table,
+/turf/open/floor/iron,
+/area/security/brig)
 "bZH" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
@@ -12872,6 +12872,29 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"giR" = (
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 4;
+	icon_state = "rightsecure";
+	name = "Primary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "AI Core shutters";
+	name = "AI Core Shutter"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light_switch{
+	pixel_x = 6;
+	pixel_y = 24
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/engine,
+/area/ai_monitored/turret_protected/ai)
 "giS" = (
 /turf/open/floor/plating/asteroid/planetary,
 /area/engine/atmos)
@@ -22478,29 +22501,6 @@
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
-"lgQ" = (
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 4;
-	icon_state = "rightsecure";
-	name = "Primary AI Core Access";
-	atom_integrity = 300;
-	req_access_txt = "16"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "AI Core shutters";
-	name = "AI Core Shutter"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/light_switch{
-	pixel_x = 6;
-	pixel_y = 24
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/engine,
-/area/ai_monitored/turret_protected/ai)
 "lhc" = (
 /obj/structure/railing{
 	dir = 8
@@ -24747,21 +24747,6 @@
 	},
 /turf/closed/wall,
 /area/medical/storage)
-"mtH" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	alpha = 180;
-	dir = 4
-	},
-/obj/machinery/photocopier,
-/obj/effect/turf_decal/bot,
-/obj/machinery/newscaster{
-	pixel_y = 33
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/security/warden)
 "mtK" = (
 /obj/structure/table/reinforced,
 /obj/item/computer_hardware/hard_drive/role/engineering{
@@ -27800,6 +27785,20 @@
 	},
 /turf/open/floor/plating/beach/water,
 /area/asteroid/paradise/surface/water)
+"ohO" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 4
+	},
+/obj/machinery/newscaster{
+	pixel_y = 33
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/rnd/production/techfab/department/security,
+/turf/open/floor/iron/dark,
+/area/security/warden)
 "oiG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -33125,6 +33124,32 @@
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/maintenance/department/eva)
+"qVo" = (
+/obj/machinery/door/window{
+	base_state = "leftsecure";
+	dir = 8;
+	icon_state = "leftsecure";
+	name = "Primary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "AI Core shutters";
+	name = "AI Core Shutter"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/turretid{
+	control_area = "/area/ai_monitored/turret_protected/ai";
+	icon_state = "control_stun";
+	name = "AI Chamber turret control";
+	pixel_x = -1;
+	pixel_y = 29
+	},
+/turf/open/floor/engine,
+/area/ai_monitored/turret_protected/ai)
 "qVs" = (
 /obj/structure/sign/warning/nosmoking/circle,
 /turf/closed/wall/r_wall/rust,
@@ -40831,32 +40856,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
-"uwJ" = (
-/obj/machinery/door/window{
-	base_state = "leftsecure";
-	dir = 8;
-	icon_state = "leftsecure";
-	name = "Primary AI Core Access";
-	atom_integrity = 300;
-	req_access_txt = "16"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "AI Core shutters";
-	name = "AI Core Shutter"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai";
-	icon_state = "control_stun";
-	name = "AI Chamber turret control";
-	pixel_x = -1;
-	pixel_y = 29
-	},
-/turf/open/floor/engine,
-/area/ai_monitored/turret_protected/ai)
 "uwN" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -191497,7 +191496,7 @@ vwd
 pjU
 aOI
 xpM
-bsL
+bZy
 rEh
 oMQ
 tQX
@@ -192529,7 +192528,7 @@ jlT
 dkt
 axB
 wQG
-mtH
+ohO
 uVd
 wgi
 tRD
@@ -193785,7 +193784,7 @@ fdh
 hbs
 aEi
 aEi
-uwJ
+qVo
 aEi
 ceR
 gMP
@@ -194299,7 +194298,7 @@ fdh
 fdh
 aEi
 aEi
-lgQ
+giR
 aEi
 aYp
 fHo

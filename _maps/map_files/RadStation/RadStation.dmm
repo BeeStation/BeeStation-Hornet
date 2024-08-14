@@ -9431,18 +9431,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room)
-"dcd" = (
-/obj/effect/landmark/start/ai/secondary,
-/obj/machinery/door/window{
-	base_state = "leftsecure";
-	icon_state = "leftsecure";
-	layer = 4.1;
-	name = "Tertiary AI Core Access";
-	atom_integrity = 300;
-	req_access_txt = "16"
-	},
-/turf/open/floor/engine/o2,
-/area/ai_monitored/turret_protected/ai)
 "dcf" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/newscaster{
@@ -16613,27 +16601,6 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
-"fkq" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -5;
-	pixel_y = 4
-	},
-/obj/item/pen/red{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/item/folder/red{
-	pixel_x = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/dark,
-/area/security/warden)
 "fkr" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
 	alpha = 180
@@ -20959,17 +20926,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating/rust,
 /area/maintenance/port/aft)
-"gAR" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/rnd/production/techfab/department/security,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/dark,
-/area/security/main{
-	name = "Security Locker Room"
-	})
 "gAU" = (
 /obj/machinery/vendor/mining,
 /obj/machinery/light{
@@ -22959,6 +22915,16 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/cryo)
+"hgN" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/table,
+/turf/open/floor/iron/dark,
+/area/security/main{
+	name = "Security Locker Room"
+	})
 "hhn" = (
 /obj/effect/spawner/room/tenxfive,
 /turf/open/floor/plating,
@@ -23519,6 +23485,18 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
+"hrO" = (
+/obj/effect/landmark/start/ai/secondary,
+/obj/machinery/door/window{
+	base_state = "leftsecure";
+	icon_state = "leftsecure";
+	layer = 4.1;
+	name = "Tertiary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/turf/open/floor/engine/o2,
+/area/ai_monitored/turret_protected/ai)
 "hrP" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
@@ -27028,6 +27006,16 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
+"iCA" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/rnd/production/techfab/department/security,
+/turf/open/floor/iron/dark,
+/area/security/warden)
 "iCJ" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 4
@@ -32444,18 +32432,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
-"kpc" = (
-/obj/machinery/airalarm/directional/north,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/obj/effect/turf_decal/loading_area{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/security/main{
-	name = "Security Locker Room"
-	})
 "kpf" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall/r_wall,
@@ -44956,6 +44932,18 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass/no_border,
 /area/hallway/secondary/exit/departure_lounge)
+"okk" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "okF" = (
 /obj/machinery/chem_master,
 /obj/item/reagent_containers/glass/beaker/large,
@@ -50730,22 +50718,6 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/maintenance/starboard/aft)
-"pVy" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/airalarm/directional/south,
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -4;
-	pixel_y = -1
-	},
-/obj/item/firing_pin/off_station{
-	pixel_y = 11
-	},
-/turf/open/floor/iron/dark,
-/area/security/warden)
 "pVF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -56121,20 +56093,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/hydroponics)
-"rCP" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "rCR" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -65877,6 +65835,14 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
+"uIC" = (
+/obj/machinery/gateway{
+	dir = 6
+	},
+/obj/effect/turf_decal/box/corners,
+/obj/machinery/airalarm/directional/east,
+/turf/open/floor/iron/techmaint,
+/area/gateway)
 "uIH" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -67369,16 +67335,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
-"vjx" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
-/obj/effect/turf_decal/box/corners,
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
-/turf/open/floor/iron/techmaint,
-/area/gateway)
 "vjz" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -67954,6 +67910,33 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron/white,
 /area/science/research)
+"vsC" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/airalarm/directional/south,
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -4;
+	pixel_y = -1
+	},
+/obj/item/firing_pin/off_station{
+	pixel_y = 11
+	},
+/obj/item/folder/red{
+	pixel_x = 8
+	},
+/obj/item/paper_bin{
+	pixel_x = -5;
+	pixel_y = 4
+	},
+/obj/item/pen/red{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
 "vtv" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -71989,6 +71972,25 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/office)
+"wLr" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/door/window/westleft{
+	dir = 1;
+	name = "plumbing factory duct access";
+	red_alert_access = 1;
+	req_one_access_txt = "5;33"
+	},
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	name = "plumbing factory duct access";
+	red_alert_access = 1;
+	req_one_access_txt = "5;33"
+	},
+/obj/machinery/plumbing/output{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/medical/chemistry)
 "wLF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2
@@ -73823,6 +73825,15 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/engine/engine_room)
+"xpY" = (
+/obj/machinery/airalarm/directional/north,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/main{
+	name = "Security Locker Room"
+	})
 "xqc" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	alpha = 180;
@@ -75109,25 +75120,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
-"xIb" = (
-/obj/machinery/plumbing/pill_press{
-	dir = 4
-	},
-/obj/effect/turf_decal/box,
-/obj/machinery/door/window/westleft{
-	dir = 1;
-	name = "plumbing factory duct access";
-	red_alert_access = 1;
-	req_one_access_txt = "5;33"
-	},
-/obj/machinery/door/window/westleft{
-	dir = 2;
-	name = "plumbing factory duct access";
-	red_alert_access = 1;
-	req_one_access_txt = "5;33"
-	},
-/turf/open/floor/iron/dark,
-/area/medical/chemistry)
 "xIe" = (
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/disposalpipe/segment{
@@ -99847,7 +99839,7 @@ kHp
 ctt
 ppA
 lvd
-rCP
+okk
 bsk
 oBB
 spv
@@ -102432,7 +102424,7 @@ utF
 hkB
 naW
 lbX
-vjx
+uIC
 hmr
 dfb
 uKi
@@ -103153,7 +103145,7 @@ uYx
 uYx
 uYx
 uYx
-gAR
+hgN
 ipy
 oXo
 oxr
@@ -103410,7 +103402,7 @@ dMH
 pHx
 oMO
 uYx
-kpc
+xpY
 oXo
 oXo
 nlY
@@ -105472,7 +105464,7 @@ uaZ
 bKr
 tfC
 oWD
-fkq
+iCA
 cej
 mYF
 aTX
@@ -105729,7 +105721,7 @@ qLO
 xNd
 nFk
 bDs
-pVy
+vsC
 ifC
 cmw
 wkK
@@ -108764,7 +108756,7 @@ xze
 uuQ
 uuQ
 uTv
-dcd
+hrO
 ahL
 vsb
 ycm
@@ -110306,7 +110298,7 @@ iVd
 uuQ
 uuQ
 uTv
-dcd
+hrO
 ahL
 mhA
 aoX
@@ -117605,7 +117597,7 @@ mCQ
 mCQ
 cgc
 csY
-xIb
+wLr
 jRT
 lYY
 gRA

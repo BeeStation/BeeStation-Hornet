@@ -79,6 +79,10 @@
 		damage_overlays -= i
 	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
+///For when the floor is placed under heavy load. Calls break_tile(), but exists to be overridden by floor types that should resist crushing force.
+/turf/open/floor/proc/crush()
+	break_tile()
+
 /turf/open/floor/ChangeTurf(path, new_baseturf, flags)
 	if(!isfloorturf(src))
 		return ..() //fucking turfs switch the fucking src of the fucking running procs
