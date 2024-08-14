@@ -98,8 +98,6 @@
 #define REACTION_TAG_CHEMICAL (1<<19)
 /// This reaction is produces a product that affects plants
 #define REACTION_TAG_PLANT (1<<20)
-/// This reaction is produces a product that affects plants
-#define REACTION_TAG_COMPETITIVE (1<<21)
 
 /*	<pill sprite size standard>
 		Since sprite asset code crops the pill image, you are required to make a pill image within [11,10,21,20] squared area.

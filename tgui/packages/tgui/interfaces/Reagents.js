@@ -34,7 +34,6 @@ export const Reagents = (props, context) => {
     { flag: bitflags.UNIQUE, icon: 'puzzle-piece' },
     { flag: bitflags.CHEMICAL, icon: 'flask' },
     { flag: bitflags.PLANT, icon: 'seedling' },
-    { flag: bitflags.COMPETITIVE, icon: 'recycle' },
   ];
 
   const [page, setPage] = useLocalState(context, 'page', 1);
@@ -317,15 +316,6 @@ const TagBox = (props, context) => {
             setPage(1);
           }}>
           Dangerous
-        </Button>
-        <Button
-          icon="recycle"
-          color={selectedBitflags & bitflags.COMPETITIVE ? 'green' : 'red'}
-          onClick={() => {
-            act('toggle_tag_competitive');
-            setPage(1);
-          }}>
-          Competitive
         </Button>
       </LabeledList.Item>
     </LabeledList>

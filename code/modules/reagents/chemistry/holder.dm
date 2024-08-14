@@ -357,7 +357,6 @@
 	data["bitflags"]["UNIQUE"] = REACTION_TAG_UNIQUE
 	data["bitflags"]["CHEMICAL"] = REACTION_TAG_CHEMICAL
 	data["bitflags"]["PLANT"] = REACTION_TAG_PLANT
-	data["bitflags"]["COMPETITIVE"] = REACTION_TAG_COMPETITIVE
 
 	return data
 
@@ -487,9 +486,11 @@
 		if("toggle_tag_plant")
 			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_PLANT
 			return TRUE
-		if("toggle_tag_competitive")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_COMPETITIVE
+		/* Future tags follow this
+		if("toggle_tag_x")
+			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_X
 			return TRUE
+		*/
 		if("update_ui")
 			return TRUE
 
