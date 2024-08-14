@@ -15,7 +15,7 @@
 
 	pass_flags = PASSTABLE | PASSGRILLE
 	gender = NEUTER
-	faction = list(FACTION_SLIME)
+	faction = list("slime")
 
 	melee_damage_lower = 5
 	melee_damage_upper = 15
@@ -165,7 +165,7 @@
 
 /mob/living/basic/slime/mob_try_pickup(mob/living/user, instant)
 	if(!SEND_SIGNAL(src, COMSIG_FRIENDSHIP_CHECK_LEVEL, user, FRIENDSHIP_FRIEND))
-		to_chat(user, span_notice("[src] doesn't trust you enough to let you pick them up"))
+		to_chat(user, "<span class = 'notice'>[src] doesn't trust you enough to let you pick them up</span>")
 		balloon_alert(user, "not enough trust!")
 		return FALSE
 	. = ..()
@@ -174,15 +174,15 @@
 	. = ..()
 	if(SEND_SIGNAL(src, COMSIG_FRIENDSHIP_CHECK_LEVEL, user, FRIENDSHIP_FRIEND))
 		if(SEND_SIGNAL(src, COMSIG_FRIENDSHIP_CHECK_LEVEL, user, FRIENDSHIP_BESTFRIEND))
-			. += span_notice("You are one of [src]'s best friends!")
+			. += "<span class = 'notice'>You are one of [src]'s best friends!</span>"
 		else
-			. += span_notice("You are one of [src]'s friends.")
+			. += "<span class = 'notice'>You are one of [src]'s friends.</span>"
 	if(check_secretion())
 		switch(ooze_production)
 			if(-INFINITY to 10)
-				. += span_notice("It's secreting some ooze.")
+				. += "<span class = 'notice'>It's secreting some ooze.</span>"
 			if(10 to 40)
-				. += span_notice("It's secreting a lot of ooze.")
+				. += "<span class = 'notice'>It's secreting a lot of ooze.</span>"
 			if(40 to INFINITY)
 				. += span_boldnotice("It's overflowing with ooze!")
 
@@ -352,7 +352,7 @@
 	ai_controller.set_ai_status(AI_STATUS_OFF)
 	slime_flags |= SPLITTING_SLIME
 
-	visible_message(span_notice("[name] starts to flatten, it looks to be splitting."))
+	visible_message("<span class = 'notice'>[name] starts to flatten, it looks to be splitting.</span>")
 	balloon_alert_to_viewers("splitting...")
 
 	addtimer(CALLBACK(src, PROC_REF(finish_splitting)), 15 SECONDS)
@@ -377,7 +377,7 @@
 		return FALSE
 
 	ai_controller.set_ai_status(AI_STATUS_OFF)
-	visible_message(span_notice("[name] starts to undulate, it looks to be mutating."))
+	visible_message("<span class = 'notice'>[name] starts to undulate, it looks to be mutating.</span>")
 	balloon_alert_to_viewers("mutating...")
 	slime_flags |= MUTATING_SLIME
 

@@ -603,3 +603,8 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define STANDING_UP 0
 /// Mob is lying down, usually associated with lying_angle values of 90 or 270.
 #define LYING_DOWN 1
+
+/// Default minimum body temperature mobs can exist in before taking damage
+#define NPC_DEFAULT_MIN_TEMP 250
+/// Default maximum body temperature mobs can exist in before taking damage
+#define NPC_DEFAULT_MAX_TEMP 350

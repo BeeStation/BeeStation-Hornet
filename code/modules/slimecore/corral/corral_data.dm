@@ -32,10 +32,10 @@
 			managed_slimes |= slime
 			RegisterSignal(slime, COMSIG_ATOM_SUCKED, PROC_REF(remove_cause_sucked))
 			RegisterSignal(slime, COMSIG_LIVING_DEATH, PROC_REF(remove_cause_sucked))
-			RegisterSignals(slime, list(COMSIG_PREQDELETED, COMSIG_QDELETING), PROC_REF(try_remove))
+			RegisterSignals(slime, list(COMSIG_PARENT_PREQDELETED, COMSIG_PARENT_QDELETING), PROC_REF(try_remove))
 
 	for(var/obj/machinery/corral_corner/corner as anything in corral_corners)
-		RegisterSignal(corner, COMSIG_QDELETING, PROC_REF(start_break))
+		RegisterSignal(corner, COMSIG_PARENT_QDELETING, PROC_REF(start_break))
 
 /datum/corral_data/Destroy(force, ...)
 	QDEL_LIST(corral_connectors)
@@ -46,7 +46,7 @@
 
 	for(var/obj/machinery/corral_corner/corner as anything in corral_corners)
 		corner.connected_data = null
-		UnregisterSignal(corner, COMSIG_QDELETING)
+		UnregisterSignal(corner, COMSIG_PARENT_QDELETING)
 		corral_corners -= corner
 	corral_corners = null
 
@@ -77,7 +77,7 @@
 
 	RegisterSignal(arrived, COMSIG_ATOM_SUCKED, PROC_REF(remove_cause_sucked))
 	RegisterSignal(arrived, COMSIG_LIVING_DEATH, PROC_REF(remove_cause_sucked))
-	RegisterSignals(arrived, list(COMSIG_PREQDELETED, COMSIG_QDELETING), PROC_REF(try_remove))
+	RegisterSignals(arrived, list(COMSIG_PARENT_PREQDELETED, COMSIG_PARENT_QDELETING), PROC_REF(try_remove))
 	managed_slimes |= arrived
 	for(var/datum/corral_upgrade/upgrade as anything in corral_upgrades)
 		upgrade.on_slime_entered(arrived, src)
@@ -93,7 +93,7 @@
 
 	UnregisterSignal(gone, COMSIG_ATOM_SUCKED)
 	UnregisterSignal(gone, COMSIG_LIVING_DEATH)
-	UnregisterSignal(gone, list(COMSIG_PREQDELETED, COMSIG_QDELETING))
+	UnregisterSignal(gone, list(COMSIG_PARENT_PREQDELETED, COMSIG_PARENT_QDELETING))
 	managed_slimes -= gone
 	for(var/datum/corral_upgrade/upgrade as anything in corral_upgrades)
 		upgrade.on_slime_exited(gone)
@@ -103,7 +103,7 @@
 
 	UnregisterSignal(gone, COMSIG_ATOM_SUCKED)
 	UnregisterSignal(gone, COMSIG_LIVING_DEATH)
-	UnregisterSignal(gone, list(COMSIG_PREQDELETED, COMSIG_QDELETING))
+	UnregisterSignal(gone, list(COMSIG_PARENT_PREQDELETED, COMSIG_PARENT_QDELETING))
 	managed_slimes -= gone
 	for(var/datum/corral_upgrade/upgrade as anything in corral_upgrades)
 		upgrade.on_slime_exited(gone)
@@ -121,7 +121,7 @@
 				continue
 			UnregisterSignal(slime, COMSIG_ATOM_SUCKED)
 			UnregisterSignal(slime, COMSIG_LIVING_DEATH)
-			UnregisterSignal(slime, list(COMSIG_PREQDELETED, COMSIG_QDELETING))
+			UnregisterSignal(slime, list(COMSIG_PARENT_PREQDELETED, COMSIG_PARENT_QDELETING))
 			for(var/datum/corral_upgrade/upgrade as anything in corral_upgrades)
 				upgrade.on_slime_exited(slime)
 

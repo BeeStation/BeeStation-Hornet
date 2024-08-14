@@ -270,3 +270,126 @@ multiple modular subtrees with behaviors
 		if(iter_behavior.required_distance < minimum_distance)
 			minimum_distance = iter_behavior.required_distance
 	return minimum_distance
+
+
+/// Used for above to track all the keys that have registered a signal
+#define TRAIT_AI_TRACKING "tracked_by_ai"
+
+
+/**
+ * Used to manage references to datum by AI controllers
+ *
+ * * tracked_datum - something being added to an ai blackboard
+ * * key - the associated key
+ */
+#define TRACK_AI_DATUM_TARGET(tracked_datum, key) do { \
+	if(isweakref(tracked_datum)) { \
+		var/datum/weakref/_bad_weakref = tracked_datum; \
+		stack_trace("Weakref (Actual datum: [_bad_weakref.resolve()]) found in ai datum blackboard! \
+			This is an outdated method of ai reference handling, please remove it."); \
+	}; \
+	else if(isdatum(tracked_datum)) { \
+		var/datum/_tracked_datum = tracked_datum; \
+		if(!HAS_TRAIT_FROM(_tracked_datum, TRAIT_AI_TRACKING, "[REF(src)]_[key]")) { \
+			RegisterSignal(_tracked_datum, COMSIG_PARENT_QDELETING, PROC_REF(sig_remove_from_blackboard), override = TRUE); \
+			ADD_TRAIT(_tracked_datum, TRAIT_AI_TRACKING, "[REF(src)]_[key]"); \
+		}; \
+	}; \
+} while(FALSE)
+
+/**
+ * Used to clear previously set reference handing by AI controllers
+ *
+ * * tracked_datum - something being removed from an ai blackboard
+ * * key - the associated key
+ */
+#define CLEAR_AI_DATUM_TARGET(tracked_datum, key) do { \
+	if(isdatum(tracked_datum)) { \
+		var/datum/_tracked_datum = tracked_datum; \
+		REMOVE_TRAIT(_tracked_datum, TRAIT_AI_TRACKING, "[REF(src)]_[key]"); \
+		if(!HAS_TRAIT(_tracked_datum, TRAIT_AI_TRACKING)) { \
+			UnregisterSignal(_tracked_datum, COMSIG_PARENT_QDELETING); \
+		}; \
+	}; \
+} while(FALSE)
+
+/**
+ * Sets the key to the passed "thing".
+ *
+ * * key - A blackboard key
+ * * thing - a value to set the blackboard key to.
+ */
+/datum/ai_controller/proc/set_blackboard_key(key, thing)
+	// Assume it is an error when trying to set a value overtop a list
+	if(islist(blackboard[key]))
+		CRASH("set_blackboard_key attempting to set a blackboard value to key [key] when it's a list!")
+	// Don't do anything if it's already got this value
+	if (blackboard[key] == thing)
+		return
+
+	// Clear existing values
+	if(!isnull(blackboard[key]))
+		clear_blackboard_key(key)
+
+	TRACK_AI_DATUM_TARGET(thing, key)
+	blackboard[key] = thing
+	post_blackboard_key_set(key)
+
+
+/**
+ * Clears the passed key, resetting it to null
+ *
+ * Not intended for use with list keys - use [proc/remove_thing_from_blackboard_key] if you are removing a value from a list at a key
+ *
+ * * key - A blackboard key
+ */
+/datum/ai_controller/proc/clear_blackboard_key(key)
+	if(isnull(blackboard[key]))
+		return
+	CLEAR_AI_DATUM_TARGET(blackboard[key], key)
+	blackboard[key] = null
+	if(isnull(pawn))
+		return
+	SEND_SIGNAL(pawn, COMSIG_AI_BLACKBOARD_KEY_CLEARED(key))
+
+/**
+ * Called after we set a blackboard key, forwards signal information.
+ */
+/datum/ai_controller/proc/post_blackboard_key_set(key)
+	if (isnull(pawn))
+		return
+	SEND_SIGNAL(pawn, COMSIG_AI_BLACKBOARD_KEY_SET(key))
+
+/// Signal proc to go through every key and remove the datum from all keys it finds
+/datum/ai_controller/proc/sig_remove_from_blackboard(datum/source)
+	SIGNAL_HANDLER
+
+	var/list/list/remove_queue = list(blackboard)
+	var/index = 1
+	while(index <= length(remove_queue))
+		var/list/next_to_clear = remove_queue[index]
+		for(var/inner_value in next_to_clear)
+			var/associated_value = next_to_clear[inner_value]
+			// We are a lists of lists, add the next value to the queue so we can handle references in there
+			// (But we only need to bother checking the list if it's not empty.)
+			if(islist(inner_value) && length(inner_value))
+				UNTYPED_LIST_ADD(remove_queue, inner_value)
+
+			// We found the value that's been deleted. Clear it out from this list
+			else if(inner_value == source)
+				next_to_clear -= inner_value
+
+			// We are an assoc lists of lists, the list at the next value so we can handle references in there
+			// (But again, we only need to bother checking the list if it's not empty.)
+			if(islist(associated_value) && length(associated_value))
+				UNTYPED_LIST_ADD(remove_queue, associated_value)
+
+			// We found the value that's been deleted, it was an assoc value. Clear it out entirely
+			else if(associated_value == source)
+				next_to_clear -= inner_value
+				SEND_SIGNAL(pawn, COMSIG_AI_BLACKBOARD_KEY_CLEARED(inner_value))
+
+		index += 1
+
+
+#undef TRAIT_AI_TRACKING

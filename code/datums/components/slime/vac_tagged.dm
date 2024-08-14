@@ -9,13 +9,13 @@
 	creator = WEAKREF(creator_mob)
 
 /datum/component/vac_tagged/Destroy(force, silent)
-	UnregisterSignal(parent, list(COMSIG_MOB_FED_ON, COMSIG_QDELETING))
+	UnregisterSignal(parent, list(COMSIG_MOB_FED_ON, COMSIG_PARENT_QDELETING))
 	. = ..()
 
 /datum/component/vac_tagged/RegisterWithParent()
 	. = ..()
 	RegisterSignal(parent, COMSIG_MOB_FED_ON, PROC_REF(on_fed_on))
-	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(on_deleting))
+	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(on_deleting))
 
 /datum/component/vac_tagged/proc/on_deleting()
 	qdel(src)

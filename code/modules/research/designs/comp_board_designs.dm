@@ -46,14 +46,6 @@
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/board/xenobiocamera
-	name = "Computer Design (Xenobiology Console)"
-	desc = "Allows for the construction of circuit boards used to build xenobiology camera computers."
-	id = "xenobioconsole"
-	build_path = /obj/item/circuitboard/computer/xenobiology
-	category = list("Computer Boards")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
-
 /datum/design/board/aiupload
 	name = "Computer Design (AI Upload)"
 	desc = "Allows for the construction of circuit boards used to build an AI Upload Console."

@@ -71,9 +71,9 @@ GLOBAL_LIST_EMPTY_TYPED(ooze_suckers, /obj/machinery/plumbing/ooze_sucker)
 
 /obj/machinery/plumbing/ooze_sucker/examine(mob/user)
 	. = ..()
-	. += span_notice("It's currently turned [turned_on ? "ON" : "OFF"]. Right-click to toggle.")
+	. += "<span class = 'notice'>It's currently turned [turned_on ? "ON" : "OFF"]. Right-click to toggle.</span>"
 	if(length(upgrade_disks))
-		. += span_notice("Ctrl-click to remove an installed upgrade.")
+		. += "<span class = 'notice'>Ctrl-click to remove an installed upgrade.</span>"
 	for(var/obj/item/disk/sucker_upgrade/upgrade as anything in upgrade_disks)
 		. += span_notice(upgrade.notice)
 
@@ -109,7 +109,7 @@ GLOBAL_LIST_EMPTY_TYPED(ooze_suckers, /obj/machinery/plumbing/ooze_sucker)
 
 	add_upgrade(upgrade)
 
-	to_chat(user, span_notice("You install a [upgrade.upgrade_type] upgrade into [src]."))
+	to_chat(user, "<span class = 'notice'>You install a [upgrade.upgrade_type] upgrade into [src].</span>")
 	playsound(user, 'sound/machines/click.ogg', 30, TRUE)
 
 /obj/machinery/plumbing/ooze_sucker/proc/add_upgrade(obj/item/disk/sucker_upgrade/upgrade)
@@ -135,12 +135,12 @@ GLOBAL_LIST_EMPTY_TYPED(ooze_suckers, /obj/machinery/plumbing/ooze_sucker)
 /obj/machinery/plumbing/ooze_sucker/create_reagents(max_vol, flags)
 	. = ..()
 	RegisterSignals(reagents, list(COMSIG_REAGENTS_REM_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_CLEAR_REAGENTS, COMSIG_REAGENTS_REACTED), PROC_REF(on_reagent_change))
-	RegisterSignal(reagents, COMSIG_QDELETING, PROC_REF(on_reagents_del))
+	RegisterSignal(reagents, COMSIG_PARENT_QDELETING, PROC_REF(on_reagents_del))
 
 /// Handles properly detaching signal hooks.
 /obj/machinery/plumbing/ooze_sucker/proc/on_reagents_del(datum/reagents/reagents)
 	SIGNAL_HANDLER
-	UnregisterSignal(reagents, list(COMSIG_REAGENTS_REM_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_CLEAR_REAGENTS, COMSIG_REAGENTS_REACTED, COMSIG_QDELETING))
+	UnregisterSignal(reagents, list(COMSIG_REAGENTS_REM_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_CLEAR_REAGENTS, COMSIG_REAGENTS_REACTED, COMSIG_PARENT_QDELETING))
 	return NONE
 
 /// Handles ensuring power usage becomes idle when reagents are full.
@@ -250,7 +250,7 @@ GLOBAL_LIST_EMPTY_TYPED(ooze_suckers, /obj/machinery/plumbing/ooze_sucker)
 	remove_upgrade(upgrade_disk)
 	user.put_in_hands(upgrade_disk)
 
-	to_chat(user, span_notice("You remove \the [upgrade] upgrade from [src]."))
+	to_chat(user, "<span class = 'notice'>You remove \the [upgrade] upgrade from [src].</span>")
 	playsound(user, 'sound/machines/click.ogg', 30, TRUE)
 
 /obj/machinery/plumbing/ooze_sucker/attack_hand_secondary(mob/user, list/modifiers)

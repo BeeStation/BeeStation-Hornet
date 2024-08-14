@@ -1803,7 +1803,7 @@
 					/obj/item/reagent_containers/medspray/sterilizine,
 					/obj/item/rollerbed)
 	crate_name = "surgical supplies crate"
-	
+
 /datum/supply_pack/medical/implants
 	name = "Surplus Implants Crate"
 	desc = "Do you want implants, but those R&D folks hasn't learnt how to do their job? Just get started with this crate containing several of our dusty surplus implants. (Surgical tools not included)"
@@ -2045,10 +2045,7 @@
 	access_budget = ACCESS_XENOBIOLOGY
 	contains = list(/obj/item/slime_extract/grey,
 					/obj/item/slime_extract/grey,
-					/obj/item/reagent_containers/syringe/plasma,
-					/obj/item/circuitboard/computer/xenobiology,
-					/obj/item/circuitboard/machine/monkey_recycler,
-					/obj/item/circuitboard/machine/processor/slime)
+					/obj/item/reagent_containers/syringe/plasma)
 	crate_name = "xenobiology starter crate"
 	crate_type = /obj/structure/closet/crate/secure/science
 

@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(biomass_unlocks, list())
 /obj/machinery/biomass_recycler/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += span_notice("The status display reads: Recycles <b>[cube_production]</b> biomass units per unit inserted.")
+		. += "<span class = 'notice'>The status display reads: Recycles <b>[cube_production]</b> biomass units per unit inserted.</span>"
 
 /obj/machinery/biomass_recycler/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -45,14 +45,14 @@ GLOBAL_LIST_INIT(biomass_unlocks, list())
 			stored_matter += biomass.amount
 			qdel(biomass)
 		if(total_biomass > 0)
-			to_chat(user, span_notice("You dump [total_biomass] cube\s of biomass from [item] into [src]."))
+			to_chat(user, "<span class = 'notice'>You dump [total_biomass] cube\s of biomass from [item] into [src].</span>")
 			user.balloon_alert_to_viewers("inserted biomass")
 		return
 	else if(HAS_TRAIT(item, TRAIT_NODROP))
 		return
 	else if(istype(item, /obj/item/stack/biomass))
 		var/obj/item/stack/biomass/biomass = item
-		to_chat(user, span_notice("You insert [biomass.amount] cube\s of biomass into [src]."))
+		to_chat(user, "<span class = 'notice'>You insert [biomass.amount] cube\s of biomass into [src].</span>")
 		user.balloon_alert_to_viewers("inserted biomass")
 		stored_matter += biomass.amount
 		qdel(biomass)
@@ -84,24 +84,24 @@ GLOBAL_LIST_INIT(biomass_unlocks, list())
 	if(!istype(target))
 		return
 	if(target.stat == CONSCIOUS)
-		to_chat(user, span_warning("[target] is struggling far too much to put it in the recycler."))
+		to_chat(user, "<span class = 'warning'>[target] is struggling far too much to put it in the recycler.</span>")
 		return
 	if(target.buckled || target.has_buckled_mobs())
-		to_chat(user, span_warning("[target] is attached to something."))
+		to_chat(user, "<span class = 'warning'>[target] is attached to something.</span>")
 		return
 
 	recycle(target, user, recycable_type)
 
 /obj/machinery/biomass_recycler/proc/recycle(atom/movable/target, mob/living/user, recycable_type)
 	qdel(target)
-	to_chat(user, span_notice("You stuff [target] into the machine."))
+	to_chat(user, "<span class = 'notice'>You stuff [target] into the machine.</span>")
 	playsound(src.loc, 'sound/machines/juicer.ogg', 50, TRUE)
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
 	use_power(active_power_usage)
 	stored_matter += cube_production * recyclable_types[recycable_type]
 	addtimer(VARSET_CALLBACK(src, pixel_x, base_pixel_x))
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, span_notice("The machine now has [stored_matter] unit\s of biomass stored.")))
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, "<span class = 'notice'>The machine now has [stored_matter] unit\s of biomass stored.</span>"))
 
 /obj/machinery/biomass_recycler/interact(mob/user)
 	var/list/items = list()
@@ -125,15 +125,15 @@ GLOBAL_LIST_INIT(biomass_unlocks, list())
 
 	var/spawn_type = item_names[pick]
 	if(stored_matter < printable_types[spawn_type])
-		to_chat(user, span_warning("[src] does not have enough stored biomass for that! It currently has [stored_matter] out of [printable_types[spawn_type]] unit\s required."))
+		to_chat(user, "<span class = 'warning'>[src] does not have enough stored biomass for that! It currently has [stored_matter] out of [printable_types[spawn_type]] unit\s required.</span>")
 		balloon_alert(user, "not enough biomass")
 		return
 
 	var/spawned = new spawn_type(user.loc)
-	to_chat(user, span_notice("The machine hisses loudly as it condenses the biomass. After a moment, it dispenses a brand new [spawned]."))
+	to_chat(user, "<span class = 'notice'>The machine hisses loudly as it condenses the biomass. After a moment, it dispenses a brand new [spawned].</span>")
 	playsound(src.loc, 'sound/machines/hiss.ogg', 50, TRUE)
 	stored_matter -= printable_types[spawn_type]
-	to_chat(user, span_notice("The machine's display flashes that it has [stored_matter] unit\s of biomass left."))
+	to_chat(user, "<span class = 'notice'>The machine's display flashes that it has [stored_matter] unit\s of biomass left.</span>")
 
 /obj/item/stack/biomass
 	name = "biomass cubes"
@@ -161,7 +161,7 @@ GLOBAL_LIST_INIT(biomass_unlocks, list())
 	. = ..()
 	if(istype(target, /obj/machinery/biomass_recycler))
 		var/obj/machinery/biomass_recycler/recycler = target
-		to_chat(user, span_notice("You install [src] into [recycler]."))
+		to_chat(user, "<span class = 'notice'>You install [src] into [recycler].</span>")
 		playsound(user, 'sound/machines/click.ogg', 30, TRUE)
 
 		for(var/print_type in printable_types)

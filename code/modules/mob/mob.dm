@@ -921,7 +921,7 @@
   * Turns you to face the other mob too
   */
 /mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
-	if(M.buckled && !force)
+	if(M.buckled && (LAZYLEN(buckled_mobs) >= max_buckled_mobs) && !force)
 		return FALSE
 	var/turf/T = get_turf(src)
 	if(M.loc != T)

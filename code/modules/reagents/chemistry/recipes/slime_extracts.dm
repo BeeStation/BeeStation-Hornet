@@ -24,7 +24,7 @@
 	required_other = TRUE
 
 /datum/chemical_reaction/slime/slimespawn/on_reaction(datum/reagents/holder)
-	var/mob/living/basic/slime/S = new(get_turf(holder.my_atom), "grey")
+	var/mob/living/basic/slime/S = new(get_turf(holder.my_atom), /datum/slime_color/grey)
 	S.visible_message("<span class='danger'>Infused with plasma, the core begins to quiver and grow, and a new baby slime emerges from it!</span>")
 	..()
 
@@ -45,7 +45,7 @@
 
 /datum/chemical_reaction/slime/slimemonkey/on_reaction(datum/reagents/holder)
 	for(var/i in 1 to 3)
-		new /obj/item/food/monkeycube(get_turf(holder.my_atom))
+		new /obj/item/stack/biomass(get_turf(holder.my_atom))
 	..()
 
 //Green
@@ -361,12 +361,12 @@
 
 /datum/chemical_reaction/slime/slimebloodlust/on_reaction(datum/reagents/holder)
 	for(var/mob/living/basic/slime/slime in viewers(get_turf(holder.my_atom)))
-		if(slime.docile) //Undoes docility, but doesn't make rabid.
+		if(slime.has_slime_trait(/datum/slime_trait/docility)) //Undoes docility, but doesn't make rabid.
 			slime.visible_message("<span class='danger'>[slime] forgets its training, becoming wild once again!</span>")
-			slime.docile = FALSE
+			slime.remove_trait(/datum/slime_trait/docility)
 			slime.update_name()
 			continue
-		slime.rabid = 1
+		ADD_TRAIT(slime, TRAIT_SLIME_RABID, "bloodlust")
 		slime.visible_message("<span class='danger'>The [slime] is driven into a frenzy!</span>")
 	..()
 

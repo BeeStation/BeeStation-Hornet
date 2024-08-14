@@ -593,7 +593,6 @@
 		var/list/babies = list()
 		for(var/i in 1 to number)
 			var/mob/living/basic/slime/M = new/mob/living/basic/slime(loc)
-			M.set_nutrition(round(nutrition/number))
 			step_away(M,src)
 			babies += M
 		new_slime = pick(babies)

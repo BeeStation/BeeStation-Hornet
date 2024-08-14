@@ -61,12 +61,12 @@
 	target.unbuckle_all_mobs(force = TRUE)
 	if(target.buckle_mob(basic_mob, TRUE, loc_check))
 		basic_mob.layer = target.layer + 0.1
-		target.visible_message(span_danger("[basic_mob] latches onto [target]!"), \
-						span_userdanger("[basic_mob] latches onto [target]!"))
+		target.visible_message("<span class = 'danger'>[basic_mob] latches onto [target]!</span>", \
+						"<span class = 'danger'>[basic_mob] latches onto [target]!</span>")
 		ADD_TRAIT(target, TRAIT_LATCH_FEEDERED, "latch_feeding")
 		return TRUE
 	else
-		to_chat(basic_mob, span_notice("You failed to latch onto [target]."))
+		to_chat(basic_mob, ("<span class = 'notice'>You failed to latch onto [target].</span>"))
 		if(init)
 			return FALSE
 		else
@@ -83,8 +83,8 @@
 			"I am not satisified", "I can not feed from this subject", \
 			"I do not feel nourished", "This subject is not food")]!</span>")
 		if(!silent)
-			basic_mob.visible_message(span_warning("[basic_mob] lets go of [basic_mob.buckled]!"), \
-							span_notice("<i>I stopped feeding.</i>"))
+			basic_mob.visible_message("<span class = 'warning'>[basic_mob] lets go of [basic_mob.buckled]!</span>", \
+							"<span class = 'notice'><i>I stopped feeding.</i></span>")
 
 	REMOVE_TRAIT(target, TRAIT_LATCH_FEEDERED, "latch_feeding")
 	basic_mob.layer = initial(basic_mob.layer)
@@ -114,9 +114,9 @@
 
 	if(!check_and_replace || (check_and_replace && !check_and_replace.Invoke()))
 		if(iscarbon(living_target))
-			living_target.apply_damage(damage_amount, damage_type, spread_damage = TRUE)
+			living_target.apply_damage(damage_amount, damage_type)
 		else
-			living_target.apply_damage(damage_amount, BRUTE, spread_damage = TRUE)
+			living_target.apply_damage(damage_amount, BRUTE)
 
 	if(!QDELETED(parent)) // ??? I was getting runtimes for no parent but IDK how
 		SEND_SIGNAL(parent, COMSIG_MOB_FEED, target, hunger_restore)

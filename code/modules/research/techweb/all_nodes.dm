@@ -289,10 +289,15 @@
 		"gibber",
 		"griddle",
 		"microwave",
-		"monkey_recycler",
 		"processor",
 		"reagentgrinder",
 		"smartfridge",
+		"biomass_recycler",
+		"corral_corner",
+		"slime_extract_requestor",
+		"slime_market_pad",
+		"slime_market",
+		"slimevac",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -525,7 +530,6 @@
 		"bluespace_crystal",
 		"dragnetbeacon",
 		"telesci_gps",
-		"xenobioconsole",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -2265,7 +2269,7 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 1000)
 	export_price = 5000
-	
+
 /datum/techweb_node/nanite_cc
 	id = "nanite_cc"
 	tech_tier = 5

@@ -86,7 +86,7 @@
 /obj/machinery/plumbing/ooze_compressor/create_reagents(max_vol, flags)
 	. = ..()
 	RegisterSignals(reagents, list(COMSIG_REAGENTS_REM_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_CLEAR_REAGENTS, COMSIG_REAGENTS_REACTED), PROC_REF(on_reagent_change))
-	RegisterSignal(reagents, COMSIG_QDELETING, PROC_REF(on_reagents_del))
+	RegisterSignal(reagents, COMSIG_PARENT_QDELETING, PROC_REF(on_reagents_del))
 
 /obj/machinery/plumbing/ooze_compressor/update_icon_state()
 	. = ..()
@@ -102,7 +102,7 @@
 			if(listed_reagent.type != reagent)
 				continue
 			reagent_volume = listed_reagent.volume
-		. += span_notice("[reagent_volume] out of [current_recipe.required_oozes[reagent]] units of [initial(reagent.name)].")
+		. += "<span class = 'notice'>[reagent_volume] out of [current_recipe.required_oozes[reagent]] units of [initial(reagent.name)].</span>"
 		reagent_volume = 0
 
 /obj/machinery/plumbing/ooze_compressor/update_overlays()
@@ -144,7 +144,7 @@
 /// Handles properly detaching signal hooks.
 /obj/machinery/plumbing/ooze_compressor/proc/on_reagents_del(datum/reagents/reagents)
 	SIGNAL_HANDLER
-	UnregisterSignal(reagents, list(COMSIG_REAGENTS_REM_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_CLEAR_REAGENTS, COMSIG_REAGENTS_REACTED, COMSIG_QDELETING))
+	UnregisterSignal(reagents, list(COMSIG_REAGENTS_REM_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_CLEAR_REAGENTS, COMSIG_REAGENTS_REACTED, COMSIG_PARENT_QDELETING))
 	return NONE
 
 /// Handles stopping the emptying process when the chamber empties.
@@ -218,7 +218,7 @@
 	if(anchored && can_interact(user))
 		repeat_recipe = !repeat_recipe
 		balloon_alert_to_viewers("[repeat_recipe ? "enabled" : "disabled"] repeating")
-		visible_message(span_notice("[user] presses a button turning the repeat recipe system [repeat_recipe ? span_green("on") : span_red("off")]"))
+		visible_message("<span class = 'notice'>[user] presses a button turning the repeat recipe system [repeat_recipe ? span_green("on") : span_red("off")]</span>")
 	return ..()
 
 /obj/machinery/plumbing/ooze_compressor/proc/change_recipe(mob/user, cross_breed = FALSE)

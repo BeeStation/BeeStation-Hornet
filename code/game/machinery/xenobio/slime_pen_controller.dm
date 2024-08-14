@@ -179,7 +179,7 @@ GLOBAL_LIST_EMPTY_TYPED(slime_pen_controllers, /obj/machinery/slime_pen_controll
 	if(!QDELETED(linked_sucker))
 		linked_sucker.toggle_state()
 		balloon_alert_to_viewers("[linked_sucker.turned_on ? "enabled" : "disabled"] ooze sucker")
-		visible_message(span_notice("[user] fiddles with the [src], [linked_sucker.turned_on ? "enabling" : "disabling"] the pens ooze sucker."))
+		visible_message("<span class = 'notice'>[user] fiddles with the [src], [linked_sucker.turned_on ? "enabling" : "disabling"] the pens ooze sucker.</span>")
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/slime_pen_controller/multitool_act(mob/living/user, obj/item/multitool/multitool)
@@ -189,14 +189,14 @@ GLOBAL_LIST_EMPTY_TYPED(slime_pen_controllers, /obj/machinery/slime_pen_controll
 	if(!istype(pad) || !pad.connected_data)
 		return
 	if(linked_data)
-		UnregisterSignal(linked_data, COMSIG_QDELETING)
+		UnregisterSignal(linked_data, COMSIG_PARENT_QDELETING)
 	linked_data = pad.connected_data
-	RegisterSignal(linked_data, COMSIG_QDELETING, PROC_REF(clear_data))
+	RegisterSignal(linked_data, COMSIG_PARENT_QDELETING, PROC_REF(clear_data))
 	balloon_alert_to_viewers("linked pen")
 	pad.balloon_alert_to_viewers("linked to controller")
-	to_chat(user, span_notice("You link the [pad] to the [src]."))
+	to_chat(user, "<span class = 'notice'>You link the [pad] to the [src].</span>")
 	return TRUE
 
 /obj/machinery/slime_pen_controller/proc/clear_data()
-	UnregisterSignal(linked_data, COMSIG_QDELETING)
+	UnregisterSignal(linked_data, COMSIG_PARENT_QDELETING)
 	linked_data = null

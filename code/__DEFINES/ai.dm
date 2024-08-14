@@ -185,3 +185,6 @@
 #define BB_BASIC_MOB_CURRENT_TARGET "BB_basic_current_target"
 #define BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION "BB_basic_current_target_hiding_location"
 #define BB_TARGETTING_DATUM "targetting_datum"
+
+/// Flag to set on if you want your mob to STOP running away
+#define BB_BASIC_MOB_STOP_FLEEING "BB_basic_stop_fleeing"

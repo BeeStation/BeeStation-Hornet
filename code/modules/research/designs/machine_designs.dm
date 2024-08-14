@@ -386,14 +386,6 @@
 	category = list ("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
-/datum/design/board/monkey_recycler
-	name = "Machine Design (Monkey Recycler Board)"
-	desc = "The circuit board for a monkey recycler."
-	id = "monkey_recycler"
-	build_path = /obj/item/circuitboard/machine/monkey_recycler
-	category = list ("Misc. Machinery")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SERVICE
-
 /datum/design/board/seed_extractor
 	name = "Machine Design (Seed Extractor Board)"
 	desc = "The circuit board for a seed extractor."

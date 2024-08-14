@@ -61,7 +61,7 @@ GLOBAL_DATUM(default_slime_market, /obj/machinery/computer/slime_market)
 				return
 			pad.console = src
 			request_pad = pad
-			to_chat(user, span_notice("You link the [pad] to the [src]."))
+			to_chat(user, "<span class = 'notice'>You link the [pad] to the [src].</span>")
 	. = ..()
 
 /obj/machinery/computer/slime_market/ui_assets(mob/user)

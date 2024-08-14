@@ -85,7 +85,19 @@
 	///Sentience type, for slime potions. SHOULD BE AN ELEMENT BUT I DONT CARE ABOUT IT FOR NOW
 	var/sentience_type = SENTIENCE_ORGANIC
 
+	///Leaving something at 0 means it's off - has no maximum.
+	var/list/habitable_atmos = list("min_oxy" = 5, "max_oxy" = 0, "min_plas" = 0, "max_plas" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+	///This damage is taken when atmos doesn't fit all the requirements above. Set to 0 to avoid adding the atmos_requirements element.
+	var/unsuitable_atmos_damage = 1
 
+	///Minimal body temperature without receiving damage
+	var/minimum_survivable_temperature = NPC_DEFAULT_MIN_TEMP
+	///Maximal body temperature without receiving damage
+	var/maximum_survivable_temperature = NPC_DEFAULT_MAX_TEMP
+	///This damage is taken when the body temp is too cold. Set both this and unsuitable_heat_damage to 0 to avoid adding the basic_body_temp_sensitive element.
+	var/unsuitable_cold_damage = 1
+	///This damage is taken when the body temp is too hot. Set both this and unsuitable_cold_damage to 0 to avoid adding the basic_body_temp_sensitive element.
+	var/unsuitable_heat_damage = 1
 
 /mob/living/basic/Initialize(mapload)
 	. = ..()

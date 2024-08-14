@@ -74,13 +74,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 	else
 		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
 
-/mob/living/basic/slime/handle_ventcrawl(atom/A)
-	if(buckled)
-		to_chat(src, "<i>I can't vent crawl while feeding...</i>")
-		return
-	..()
-
-
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
 	if(!istype(starting_machine) || !starting_machine.can_see_pipes())
 		return

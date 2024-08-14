@@ -32,11 +32,11 @@
 /obj/machinery/slime_extract_requestor/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	if(!console)
-		to_chat(user, span_warning("[src] does not have a console linked to it!"))
+		to_chat(user, "<span class = 'warning'>[src] does not have a console linked to it!</span>")
 		return
 	var/obj/item/card/id/card = user.get_idcard(TRUE)
 	if(!card)
-		to_chat(user, span_warning("Unable to locate an ID card!"))
+		to_chat(user, "<span class = 'warning'>Unable to locate an ID card!</span>")
 		return
 
 	if(check_in_requests(card))
@@ -55,7 +55,7 @@
 		return
 	var/obj/item/multitool/multitool = tool
 	multitool.buffer = src
-	to_chat(user, span_notice("You save the data in the [multitool.name]'s buffer."))
+	to_chat(user, "<span class = 'notice'>You save the data in the [multitool.name]'s buffer.</span>")
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/slime_extract_requestor/proc/check_in_requests(obj/item/card/id/card)
@@ -138,10 +138,10 @@
 	var/ready_for_pickup = FALSE
 
 /datum/extract_request_data/proc/on_creation()
-	RegisterSignal(host_card, COMSIG_QDELETING, PROC_REF(end_request_qdeleted))
+	RegisterSignal(host_card, COMSIG_PARENT_QDELETING, PROC_REF(end_request_qdeleted))
 
 /datum/extract_request_data/Destroy(force, ...)
-	UnregisterSignal(host_card, COMSIG_QDELETING)
+	UnregisterSignal(host_card, COMSIG_PARENT_QDELETING)
 	host_card = null
 	linked_console = null
 	QDEL_LIST(radial_data)

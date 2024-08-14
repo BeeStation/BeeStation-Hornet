@@ -959,14 +959,6 @@
 	build_path = /obj/item/modular_computer/tablet
 	category = list("initial","Misc")
 
-/datum/design/slime_scanner
-	name = "Slime Scanner"
-	id = "slime_scanner"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 300, /datum/material/glass = 200)
-	build_path = /obj/item/slime_scanner
-	category = list("initial", "Misc")
-
 /datum/design/pet_carrier
 	name = "Pet Carrier"
 	id = "pet_carrier"

@@ -15,15 +15,15 @@
 /obj/item/slime_mutation_syringe/examine(mob/user)
 	. = ..()
 	if(uses)
-		. += span_notice("It has <b>[uses]</b> uses left.")
+		. += "<span class = 'notice'>It has <b>[uses]</b> uses left.</span>"
 	else
-		. += span_warning("It has been completely used up.")
+		. += "<span class = 'warning'>It has been completely used up.</span>"
 
 /obj/item/slime_mutation_syringe/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!uses)
 		user.balloon_alert(user, "used up")
-		to_chat(user, span_warning("[src] has been completely used up!"))
+		to_chat(user, "<span class = 'warning'>[src] has been completely used up!</span>")
 		return
 	if(!istype(target, /mob/living/basic/slime))
 		return
@@ -36,7 +36,7 @@
 	uses--
 	update_icon_state()
 	user.balloon_alert_to_viewers("injected mutator")
-	to_chat(user, span_notice("You inject [target] with [src]."))
+	to_chat(user, "<span class = 'notice'>You inject [target] with [src].</span>")
 	on_inject(slime)
 	if(uses <= 0)
 		ADD_TRAIT(src, TRAIT_TRASH_ITEM, INNATE_TRAIT)

@@ -18,7 +18,7 @@
 		return
 
 	living_pawn.balloon_alert_to_viewers("cleaned")
-	living_pawn.visible_message(span_notice("[living_pawn] dissolves \the [target]."))
+	living_pawn.visible_message("<span class = 'notice'>[living_pawn] dissolves \the [target].</span>")
 	SEND_SIGNAL(living_pawn, COMSIG_MOB_FEED, target, 20)
 	qdel(target) // Sent to the shadow realm to never be seen again
 	finish_action(controller, TRUE, target_key)

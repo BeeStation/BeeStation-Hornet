@@ -50,4 +50,6 @@
 	var/list/reagent_list = list()
 	reagent_list |= reagent_id
 	reagent_list[reagent_id] = amount
-	parent_turf.add_liquid_list(reagent_list, FALSE, T20C)
+	for(reagent_id in reagent_list)
+		for(amount)
+			new reagent_id(parent_turf)

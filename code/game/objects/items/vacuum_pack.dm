@@ -69,7 +69,7 @@
 /obj/item/vacuum_pack/multitool_act(mob/living/user, obj/item/tool)
 	. = ..()
 	modified = !modified
-	to_chat(user, span_notice("You turn the safety switch on [src] [modified ? "off" : "on"]."))
+	to_chat(user, "<span class = 'notice'>You turn the safety switch on [src] [modified ? "off" : "on"].</span>")
 
 /obj/item/vacuum_pack/process(delta_time)
 	if(!(VACUUM_PACK_UPGRADE_HEALING in upgrades))
@@ -81,10 +81,10 @@
 /obj/item/vacuum_pack/examine(mob/user)
 	. = ..()
 	if(LAZYLEN(stored))
-		. += span_notice("It has [LAZYLEN(stored)] creatures stored in it.")
+		. += "<span class = 'notice'>It has [LAZYLEN(stored)] creatures stored in it.</span>"
 	if(LAZYLEN(upgrades))
 		for(var/upgrade in upgrades)
-			. += span_notice("It has \a [upgrade] upgrade installed.")
+			. += "<span class = 'notice'>It has \a [upgrade] upgrade installed.</span>"
 
 /obj/item/vacuum_pack/attackby(obj/item/item, mob/living/user, params)
 	if(item == nozzle)
@@ -98,16 +98,16 @@
 		var/obj/item/disk/vacuum_upgrade/upgrade = item
 
 		if(illegal)
-			to_chat(user, span_warning("[src] has no slot to insert [upgrade] into!"))
+			to_chat(user, "<span class = 'warning'>[src] has no slot to insert [upgrade] into!</span>")
 			return
 
 		if(upgrade.upgrade_type in upgrades)
-			to_chat(user, span_warning("[src] already has a [upgrade.upgrade_type] upgrade!"))
+			to_chat(user, "<span class = 'warning'>[src] already has a [upgrade.upgrade_type] upgrade!</span>")
 			return
 
 		upgrades += upgrade.upgrade_type
 		upgrade.on_upgrade(src)
-		to_chat(user, span_notice("You install a [upgrade.upgrade_type] upgrade into [src]."))
+		to_chat(user, "<span class = 'notice'>You install a [upgrade.upgrade_type] upgrade into [src].</span>")
 		playsound(user, 'sound/machines/click.ogg', 30, TRUE)
 		qdel(upgrade)
 		return
@@ -122,7 +122,7 @@
 		return
 
 	if(user.get_item_by_slot(user.getBackSlot()) != src && check_backpack)
-		to_chat(user, span_warning("[src] must be worn properly to use!"))
+		to_chat(user, "<span class = 'warning'>[src] must be worn properly to use!</span>")
 		return
 
 	if(user.incapacitated())
@@ -133,7 +133,7 @@
 
 	if(nozzle in src)
 		if(!user.put_in_hands(nozzle))
-			to_chat(user, span_warning("You need a free hand to hold [nozzle]!"))
+			to_chat(user, "<span class = 'warning'>You need a free hand to hold [nozzle]!</span>")
 			return
 		else
 			playsound(user, 'sound/mecha/mechmove03.ogg', 75, TRUE)
@@ -197,14 +197,14 @@
 /obj/item/vacuum_nozzle/examine(mob/user)
 	. = ..()
 	if (!pack.illegal)
-		. += span_notice("Activate to change firing modes. Currently set to [pack.give_choice ? "selective" : "indiscriminate"].")
+		. += "<span class = 'notice'>Activate to change firing modes. Currently set to [pack.give_choice ? "selective" : "indiscriminate"].</span>"
 	else
-		. += span_notice("It's selection mechanism is hotwired to fire indiscriminately.")
+		. += "<span class = 'notice'>It's selection mechanism is hotwired to fire indiscriminately.</span>"
 
 /obj/item/vacuum_nozzle/doMove(atom/destination)
 	if(destination && (destination != pack.loc || !ismob(destination)))
 		if (loc != pack)
-			to_chat(pack.loc, span_notice("[src] snaps back onto [pack]."))
+			to_chat(pack.loc, "<span class = 'notice'>[src] snaps back onto [pack].</span>")
 		destination = pack
 	. = ..()
 
@@ -214,8 +214,8 @@
 		pack.give_choice = !pack.give_choice
 		var/mode_desc = pack.give_choice ? "selectively" : "indiscriminately"
 		visible_message(
-			span_notice("[user] switches the [pack] to fire [mode_desc]."),
-			span_notice("You switch the [pack] to fire [mode_desc]."),
+			"<span class = 'notice'>[user] switches the [pack] to fire [mode_desc].</span>",
+			"<span class = 'notice'>You switch the [pack] to fire [mode_desc].</span>",
 			span_hear("You hear a click.")
 		)
 
@@ -228,11 +228,11 @@
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	if(!(VACUUM_PACK_UPGRADE_BIOMASS in pack.upgrades))
-		to_chat(user, span_warning("[pack] does not posess a required upgrade!"))
+		to_chat(user, "<span class = 'warning'>[pack] does not posess a required upgrade!</span>")
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	if(!pack.linked)
-		to_chat(user, span_warning("[pack] is not linked to a biomass recycler!"))
+		to_chat(user, "<span class = 'warning'>[pack] is not linked to a biomass recycler!</span>")
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	var/list/items = list()
@@ -256,7 +256,7 @@
 
 	var/spawn_type = item_names[pick]
 	if(pack.linked.stored_matter < pack.linked.vacuum_printable_types[spawn_type])
-		to_chat(user, span_warning("[pack.linked] does not have enough stored biomass for that! It currently has [pack.linked.stored_matter] out of [pack.linked.vacuum_printable_types[spawn_type]] unit\s required."))
+		to_chat(user, "<span class = 'warning'>[pack.linked] does not have enough stored biomass for that! It currently has [pack.linked.stored_matter] out of [pack.linked.vacuum_printable_types[spawn_type]] unit\s required.</span>")
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	var/atom/movable/spawned = new spawn_type(user.loc)
@@ -273,7 +273,7 @@
 		spawned.pass_flags |= PASSMOB
 		spawned.throw_at(target, min(get_dist(user, target), (pack.illegal ? 5 : 11)), 1, user, gentle = TRUE) //Gentle so eggs have 50% instead of 12.5% to spawn a chick
 
-	user.visible_message(span_warning("[user] shoots [spawned] out their [src]!"), span_notice("You fabricate and shoot [spawned] out of your [src]."))
+	user.visible_message("<span class = 'warning'>[user] shoots [spawned] out their [src]!"), "<span class = 'notice'>You fabricate and shoot [spawned] out of your [src].</span></span>"
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/vacuum_nozzle/afterattack(atom/movable/target, mob/user, proximity, params)
@@ -287,10 +287,10 @@
 
 	if(istype(target, /obj/machinery/biomass_recycler) && target.Adjacent(user))
 		if(!(VACUUM_PACK_UPGRADE_BIOMASS in pack.upgrades))
-			to_chat(user, span_warning("[pack] does not posess a required upgrade!"))
+			to_chat(user, "<span class = 'warning'>[pack] does not posess a required upgrade!</span>")
 			return
 		pack.linked = target
-		to_chat(user, span_notice("You link [pack] to [target]."))
+		to_chat(user, "<span class = 'notice'>You link [pack] to [target].</span>")
 		return
 
 	if(pack.linked)
@@ -307,15 +307,15 @@
 
 		if(can_recycle && (!is_type_in_typecache(target, pack.storable_objects) || target_stat != CONSCIOUS))
 			if(!(VACUUM_PACK_UPGRADE_BIOMASS in pack.upgrades))
-				to_chat(user, span_warning("[pack] does not posess a required upgrade!"))
+				to_chat(user, "<span class = 'warning'>[pack] does not posess a required upgrade!</span>")
 				return
 
 			if(!pack.linked)
-				to_chat(user, span_warning("[pack] is not linked to a biomass recycler!"))
+				to_chat(user, "<span class = 'warning'>[pack] is not linked to a biomass recycler!</span>")
 				return
 
 			if(target_stat == CONSCIOUS)
-				to_chat(user, span_warning("[target] is struggling far too much for you to suck it in!"))
+				to_chat(user, "<span class = 'warning'>[target] is struggling far too much for you to suck it in!</span>")
 				return
 
 			if(isliving(target))
@@ -333,7 +333,7 @@
 			animation_matrix.Translate((user.x - target.x) * 32, (user.y - target.y) * 32)
 			animate(target, alpha = 0, time = 8, easing = QUAD_EASING|EASE_IN, transform = animation_matrix, flags = ANIMATION_PARALLEL)
 			sleep(8)
-			user.visible_message(span_warning("[user] sucks [target] into their [pack]!"), span_notice("You successfully suck [target] into your [src] and recycle it."))
+			user.visible_message("<span class = 'warning'>[user] sucks [target] into their [pack]!"), "<span class = 'notice'>You successfully suck [target] into your [src] and recycle it.</span></span>"
 			qdel(target)
 			playsound(user, 'sound/machines/juicer.ogg', 50, TRUE)
 			pack.linked.use_power(500)
@@ -342,25 +342,25 @@
 
 	if(is_type_in_typecache(target, pack.storable_objects))
 		if(get_dist(user, target) > pack.range)
-			to_chat(user, span_warning("[target] is too far away!"))
+			to_chat(user, "<span class = 'warning'>[target] is too far away!</span>")
 			return
 
 		if(!(target in view(user, pack.range)))
-			to_chat(user, span_warning("You can't reach [target]!"))
+			to_chat(user, "<span class = 'warning'>You can't reach [target]!</span>")
 			return
 
 		if(target.anchored || target.move_resist > MOVE_FORCE_STRONG)
-			to_chat(user, span_warning("You can't manage to suck [target] in!"))
+			to_chat(user, "<span class = 'warning'>You can't manage to suck [target] in!</span>")
 			return
 
 		if(isslime(target))
 			var/mob/living/basic/slime/slime = target
 			if(HAS_TRAIT(slime, TRAIT_SLIME_RABID) && !pack.illegal && !(VACUUM_PACK_UPGRADE_PACIFY in pack.upgrades))
-				to_chat(user, span_warning("[slime] is wiggling far too much for you to suck it in!"))
+				to_chat(user, "<span class = 'warning'>[slime] is wiggling far too much for you to suck it in!</span>")
 				return
 
 		if(LAZYLEN(pack.stored) >= pack.capacity)
-			to_chat(user, span_warning("[pack] is already filled to the brim!"))
+			to_chat(user, "<span class = 'warning'>[pack] is already filled to the brim!</span>")
 			return
 
 		if(!do_after(user, pack.speed, target, timed_action_flags = IGNORE_TARGET_LOC_CHANGE|IGNORE_USER_LOC_CHANGE, extra_checks = CALLBACK(src, .proc/suck_checks, target, user)))
@@ -373,7 +373,7 @@
 		return
 
 	if(LAZYLEN(pack.stored) == 0)
-		to_chat(user, span_warning("[pack] is empty!"))
+		to_chat(user, "<span class = 'warning'>[pack] is empty!</span>")
 		return
 
 	var/mob/living/spewed
@@ -427,7 +427,7 @@
 
 
 	pack.stored -= spewed
-	user.visible_message(span_warning("[user] shoots [spewed] out their [src]!"), span_notice("You shoot [spewed] out of your [src]."))
+	user.visible_message("<span class = 'warning'>[user] shoots [spewed] out their [src]!"), "<span class = 'notice'>You shoot [spewed] out of your [src].</span></span>"
 
 /obj/item/vacuum_nozzle/proc/suck_checks(atom/movable/target, mob/user)
 	if(get_dist(user, target) > pack.range)
@@ -468,7 +468,7 @@
 		ADD_TRAIT(slime, TRAIT_SLIME_STASIS, "vacuum_pack_stasis")
 	SEND_SIGNAL(target, COMSIG_ATOM_SUCKED)
 	if(!silent)
-		user.visible_message(span_warning("[user] sucks [target] into their [pack]!"), span_notice("You successfully suck [target] into your [src]."))
+		user.visible_message("<span class = 'warning'>[user] sucks [target] into their [pack]!"), "<span class = 'notice'>You successfully suck [target] into your [src].</span></span>"
 	var/mob/living/basic/slime/slime = target
 	slime.slime_flags |= STORED_SLIME
 	if(slime.ai_controller)
@@ -476,7 +476,7 @@
 		slime.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, null)
 
 /obj/item/vacuum_nozzle/proc/start_busting(mob/living/basic/revenant/revenant, mob/living/user)
-	revenant.visible_message(span_warning("[user] starts sucking [revenant] into their [src]!"), span_userdanger("You are being sucked into [user]'s [src]!"))
+	revenant.visible_message("<span class = 'warning'>[user] starts sucking [revenant] into their [src]!"), span_userdanger("You are being sucked into [user]'s [src]!</span>")
 	pack.ghost_busting = revenant
 	pack.ghost_buster = user
 	pack.busting_beam = user.Beam(revenant, icon_state="drain_life")

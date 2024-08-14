@@ -32,6 +32,5 @@
 	ADD_TRAIT(pyro, TRAIT_SLIME_RABID, "pyro")
 	pyro.maximum_survivable_temperature = INFINITY
 	pyro.apply_temperature_requirements()
-	pyro.rabid = TRUE
 	pyro.flavor_text = FLAVOR_TEXT_EVIL
 	pyro.set_playable(ROLE_PYRO_SLIME)

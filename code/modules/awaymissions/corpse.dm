@@ -268,9 +268,10 @@
 	var/mobcolour = "grey"
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "grey baby slime" //sets the icon in the map editor
+	var/slime_species = /datum/slime_color/grey
 
 /obj/effect/mob_spawn/slime/equip(mob/living/basic/slime/S)
-	S.colour = mobcolour
+	S.change_color(slime_species)
 
 /obj/effect/mob_spawn/facehugger/create(ckey) //Creates a squashed facehugger
 	var/obj/item/clothing/mask/facehugger/O = new(src.loc) //variable O is a new facehugger at the location of the landmark

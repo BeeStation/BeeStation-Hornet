@@ -93,7 +93,3 @@
 
 /datum/component/generic_mob_hunger/proc/remove_hunger_trait(trait)
 	REMOVE_TRAIT(parent, trait, "hunger_trait")
-
-/obj/effect/overlay/happiness_overlay/hunger
-	full_icon = "full_hunger"
-	empty_icon = "empty_hunger"

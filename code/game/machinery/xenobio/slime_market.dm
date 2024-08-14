@@ -14,7 +14,7 @@
 /obj/machinery/slime_market_pad/examine(mob/user)
 	. = ..()
 	if(!panel_open)
-		. += span_notice("The panel is <i>screwed</i> in.")
+		. += "<span class = 'notice'>The panel is <i>screwed</i> in.</span>"
 
 /obj/machinery/slime_market_pad/update_overlays()
 	. = ..()
@@ -46,18 +46,18 @@
 	if(. || !can_interact(user))
 		return
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, item))
-		user.visible_message(span_notice("\The [user] [panel_open ? "opens" : "closes"] the hatch on \the [src]."), span_notice("You [panel_open ? "open" : "close"] the hatch on \the [src]."))
+		user.visible_message("<span class = 'notice'>\The [user] [panel_open ? "opens" : "closes"] the hatch on \the [src]."), span_notice("You [panel_open ? "open" : "close"] the hatch on \the [src].</span>")
 		update_appearance()
 		return TRUE
 	if(default_unfasten_wrench(user, item) || default_deconstruction_crowbar(item))
 		return TRUE
 	if(QDELETED(console))
-		to_chat(user, span_warning("[src] does not have a console linked to it!"))
+		to_chat(user, "<span class = 'warning'>[src] does not have a console linked to it!</span>")
 		return
 	if(istype(item, /obj/item/slime_extract))
 		var/obj/item/slime_extract/extract = item
 		if(extract.tier == 0)
-			to_chat(user, span_warning("[src] doesn't seem to accept this extract!"))
+			to_chat(user, "<span class = 'warning'>[src] doesn't seem to accept this extract!</span>")
 			return
 		flick("[base_icon_state]_vend", src)
 		sell_extract(extract)
@@ -99,7 +99,7 @@
 	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || !can_interact(user))
 		return
 	if(QDELETED(console))
-		to_chat(user, span_warning("[src] does not have a console linked to it!"))
+		to_chat(user, "<span class = 'warning'>[src] does not have a console linked to it!</span>")
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	if(istype(item, /obj/item/storage/bag/xeno))
@@ -115,11 +115,11 @@
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	if(QDELETED(console.request_pad))
-		to_chat(user, span_warning("[console] does not have a request_pad linked to it!"))
+		to_chat(user, "<span class = 'warning'>[console] does not have a request_pad linked to it!</span>")
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	if(!length(console.request_pad.current_requests))
-		to_chat(user, span_warning("There are no current extract requests!"))
+		to_chat(user, "<span class = 'warning'>There are no current extract requests!</span>")
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	if(istype(item, /obj/item/slime_extract))
