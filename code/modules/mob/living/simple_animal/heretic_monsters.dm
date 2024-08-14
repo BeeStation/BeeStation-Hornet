@@ -6,9 +6,12 @@
 	gender = NEUTER
 	mob_biotypes = NONE
 	attack_sound = 'sound/weapons/punch1.ogg'
-	response_help = "thinks better of touching"
-	response_disarm = "flails at"
-	response_harm = "reaps"
+	response_help_continuous = "thinks better of touching"
+	response_help_simple = "think better of touching"
+	response_disarm_continuous = "flails at"
+	response_disarm_simple = "flail at"
+	response_harm_continuous = "reaps"
+	response_harm_simple = "reap"
 	speak_emote = list("screams")
 	speak_chance = 1
 	speed = 0
