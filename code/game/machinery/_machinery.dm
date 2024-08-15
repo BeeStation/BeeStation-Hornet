@@ -166,6 +166,14 @@ Class Procs:
 
 	return INITIALIZE_HINT_LATELOAD
 
+/obj/machinery/computer/can_interact(mob/user)
+	var/mob/living/living_user = user
+	if(ismonkey(living_user))
+		to_chat(src, "<span class='warning'>You do not have the dexterity for this!</span>")
+	else
+		. = ..()
+
+
 /obj/machinery/proc/set_occupant(atom/movable/new_occupant)
 	SHOULD_CALL_PARENT(TRUE)
 
