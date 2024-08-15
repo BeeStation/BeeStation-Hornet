@@ -200,6 +200,8 @@
 /obj/machinery/firealarm/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 
+	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer/tablet/pda)) // trying to unlock the cover with an ID card
+		try_lock(user)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER && buildstage == 2)
 		W.play_tool_sound(src)
 		panel_open = !panel_open
