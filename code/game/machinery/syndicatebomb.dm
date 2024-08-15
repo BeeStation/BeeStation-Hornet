@@ -109,6 +109,7 @@
 		try_detonate(TRUE)
 
 /obj/machinery/syndicatebomb/examine(mob/user)
+	balloon_alert(user, "[seconds_remaining()]")
 	. = ..()
 	. += {"A digital display on it reads "[seconds_remaining()]"."}
 
