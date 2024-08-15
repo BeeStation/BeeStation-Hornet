@@ -1,5 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - rscadd: Gave fire alarms a toggleable lock. (Requires atmospherics access)
-  - balance: Fire alarms now lock themselves when they detect a fire.
