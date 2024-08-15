@@ -173,7 +173,6 @@
 #define INIT_ORDER_MINOR_MAPPING	-40
 #define INIT_ORDER_PATH				-50
 #define INIT_ORDER_EXPLOSIONS		-69
-#define INIT_ORDER_ELEVATOR			-70
 #define INIT_ORDER_BAN_CACHE		-98
 //Near the end, logs the costs of initialize
 #define INIT_ORDER_INIT_PROFILER -99

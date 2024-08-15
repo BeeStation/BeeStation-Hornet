@@ -9,13 +9,14 @@ SUBSYSTEM_DEF(natural_light_cycle)
 	. = ..()
 	if (SSmapping.config.starlight_mode != STARLIGHT_MODE_CYCLE)
 		flags |= SS_NO_FIRE
-		return
+		return SS_INIT_NO_NEED
 	cycle_colours = SSmapping.config.cycle_colours
 	if (!islist(cycle_colours) || !length(cycle_colours))
 		to_chat(world, "<span class='boldannounce'>WARNING: Starlight is set to cycle, yet the colours that are set to be cycled is undefined.</span>");
 		log_world("WARNING: Starlight is set to cycle, yet the colours that are set to be cycled is undefined.")
 		flags |= SS_NO_FIRE
-		return SS_INIT_SUCCESS
+		return SS_INIT_FAILURE
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/natural_light_cycle/fire(resumed)
 	var/time = station_time()
