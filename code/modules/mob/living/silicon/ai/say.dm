@@ -82,7 +82,7 @@
 	<LI>You can only say 30 words for every announcement.</LI>
 	<LI>Do not use punctuation as you would normally, if you want a pause you can use the full stop and comma characters by separating them with spaces, like so: 'Alpha . Test , Bravo'.</LI>
 	<LI>Numbers are in word format, e.g. eight, sixty, etc </LI>
-	<LI>Sound effects begin with an 's' before the actual word, e.g. scensor</LI>
+	<LI>Sound effects begin with 'sound' before the actual word, e.g. soundcensor. They're all at the top of the list.</LI>
 	<LI>Use Ctrl+F to see if a word exists in the list.</LI></UL><HR>
 	"}
 

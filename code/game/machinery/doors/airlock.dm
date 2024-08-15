@@ -442,7 +442,7 @@
 				cyclelinkedairlock.delayed_close_requested = TRUE
 			else
 				addtimer(CALLBACK(cyclelinkedairlock, PROC_REF(close)), 2)
-	if(locked && allowed(user) && aac)
+	if(locked && aac && allowed(user))
 		aac.request_from_door(src)
 		return
 	..()
@@ -843,7 +843,7 @@
 /obj/machinery/door/airlock/attack_hand(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_AIRLOCK_TOUCHED, user) & COMPONENT_PREVENT_OPEN)
 		. = TRUE
-	else if(locked && allowed(user) && aac)
+	else if(locked && aac && allowed(user))
 		aac.request_from_door(src)
 		. = TRUE
 	else
@@ -1406,7 +1406,7 @@
 /obj/machinery/door/airlock/proc/on_break()
 	if(!panel_open)
 		panel_open = TRUE
-	wires.cut_all()
+	wires.cut_all(null)
 
 /obj/machinery/door/airlock/proc/set_electrified(seconds, mob/user)
 	secondsElectrified = seconds
@@ -1451,8 +1451,7 @@
 		A.update_icon()
 
 		if(!disassembled)
-			if(A)
-				A.obj_integrity = A.max_integrity * 0.5
+			A?.update_integrity(A.max_integrity * 0.5)
 		else
 			if(user)
 				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")

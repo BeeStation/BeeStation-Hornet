@@ -6,6 +6,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	clockwork_desc = "Nezbere's magnum opus: a hulking clockwork machine capable of combining bluespace and steam power to summon Ratvar. Once activated, \
 	its instability will cause one-way bluespace rifts to open across the station to the City of Cogs, so be prepared to defend it at all costs."
 	max_integrity = 1000
+	max_hit_damage = 25
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "clockwork_gateway_components"
 	pixel_x = -32
@@ -88,7 +89,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	for(var/obj/effect/portal/wormhole/clockcult/CC in GLOB.all_wormholes)
 		qdel(CC)
 	SSshuttle.clearHostileEnvironment(src)
-	set_security_level(SEC_LEVEL_RED)
+	SSsecurity_level.set_level(SEC_LEVEL_RED)
 	addtimer(CALLBACK(src, PROC_REF(clockies_win)), 300)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/clockies_win()
@@ -134,7 +135,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/announce_gateway()
 	set_dynamic_high_impact_event("clockwork ark has opened")
 	activated = TRUE
-	set_security_level(SEC_LEVEL_DELTA)
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	mass_recall(TRUE)
 	var/grace_time = GLOB.narsie_breaching ? 0 : 1800
 	addtimer(CALLBACK(src, PROC_REF(begin_assault)), grace_time)

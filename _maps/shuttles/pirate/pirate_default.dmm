@@ -477,7 +477,7 @@
 /obj/effect/mob_spawn/human/pirate/captain{
 	dir = 1
 	},
-/obj/effect/turf_decal/techfloor,
+/obj/effect/turf_decal/edges/techfloor,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -1531,7 +1531,7 @@
 /obj/effect/mob_spawn/human/pirate{
 	dir = 1
 	},
-/obj/effect/turf_decal/techfloor,
+/obj/effect/turf_decal/edges/techfloor,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -2152,8 +2152,8 @@
 	charge = 1e+006
 	},
 /obj/structure/cable/yellow,
-/obj/effect/turf_decal/techfloor,
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
 /obj/machinery/light/small,
@@ -2210,8 +2210,8 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/effect/turf_decal/techfloor,
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
 /obj/machinery/firealarm{
