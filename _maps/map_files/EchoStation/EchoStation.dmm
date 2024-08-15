@@ -5629,6 +5629,15 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
+"cpW" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = -32
+	},
+/turf/open/floor/iron,
+/area/security/brig)
 "cqs" = (
 /obj/machinery/holopad,
 /obj/structure/cable/yellow{
@@ -10138,6 +10147,12 @@
 	})
 "eMA" = (
 /obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/structure/railing/corner{
 	dir = 1
 	},
 /turf/open/floor/glass/reinforced,
@@ -16538,6 +16553,12 @@
 	pixel_y = -12;
 	pixel_x = -6
 	},
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/open/openspace,
 /area/hallway/primary/central{
 	name = "-2 Primary Hallway"
@@ -16785,6 +16806,10 @@
 /obj/machinery/ai_slipper{
 	uses = 10
 	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/structure/railing/corner,
 /turf/open/floor/iron/dark/side,
 /area/hallway/primary/central{
 	name = "-2 Primary Hallway"
@@ -16954,15 +16979,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
-"hZu" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/lattice,
-/turf/open/openspace,
-/area/hallway/primary/central{
-	name = "-2 Primary Hallway"
-	})
 "hZv" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
@@ -18388,10 +18404,7 @@
 /area/engine/engineering)
 "iPI" = (
 /obj/machinery/computer/card,
-/obj/item/storage/secure/safe{
-	pixel_x = 5;
-	pixel_y = 32
-	},
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "iPK" = (
@@ -23276,7 +23289,6 @@
 	})
 "lmb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -23286,6 +23298,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "lmC" = (
@@ -24667,6 +24680,12 @@
 /area/medical/surgery)
 "lYl" = (
 /obj/structure/lattice/catwalk/over,
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/open/openspace,
 /area/hallway/primary/central{
 	name = "-2 Primary Hallway"
@@ -26162,14 +26181,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine/atmos)
-"mMz" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/openspace,
-/area/hallway/primary/central{
-	name = "-2 Primary Hallway"
-	})
 "mMZ" = (
 /obj/machinery/atmospherics/components/binary/valve,
 /obj/machinery/button/ignition/incinerator/toxmix{
@@ -38117,7 +38128,6 @@
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "sXp" = (
-/obj/machinery/airalarm/directional/east,
 /mob/living/simple_animal/pet/dog/corgi/Ian{
 	density = 0;
 	dir = 1;
@@ -38125,6 +38135,9 @@
 	},
 /obj/item/toy/plush/ian,
 /obj/structure/bed/dogbed/ian,
+/obj/item/storage/secure/safe{
+	pixel_x = 38
+	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "sXB" = (
@@ -41950,6 +41963,9 @@
 	},
 /obj/machinery/computer/communications{
 	dir = 4
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = 32
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
@@ -45827,15 +45843,6 @@
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/iron,
 /area/maintenance/department/engine)
-"wwz" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/structure/lattice,
-/turf/open/openspace,
-/area/hallway/primary/central{
-	name = "-2 Primary Hallway"
-	})
 "wwE" = (
 /turf/closed/wall/r_wall,
 /area/hallway/primary/fore{
@@ -129682,13 +129689,13 @@ gyy
 gak
 iyn
 jzj
-hZu
-wPp
-wPp
-hZu
-wPp
-wPp
-hZu
+qRu
+rId
+rId
+qRu
+rId
+rId
+qRu
 guB
 rIe
 rIe
@@ -130196,13 +130203,13 @@ gyy
 gak
 iyn
 jzj
-wwz
-mMz
-mMz
-wwz
-mMz
-mMz
-wwz
+qRu
+rId
+rId
+qRu
+rId
+rId
+qRu
 guB
 rIe
 rIe
@@ -192164,7 +192171,7 @@ fLS
 qDJ
 jEu
 nyO
-bHH
+cpW
 vqE
 vqE
 vqE
