@@ -254,7 +254,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	while(winding_up)
 		if(QDELETED(src))
 			break
-		new /obj/effect/particle_effect/sparks(pick(turfs))
+		new /obj/effect/particle_effect/sparks/shield(pick(turfs))
 		cooldown = base_cooldown * ((timeleft(timerid)) / select_sound_length)
 		sleep(cooldown)
 
