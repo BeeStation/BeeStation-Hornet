@@ -406,7 +406,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	name = "morgue tray"
 	desc = "Apply corpse before closing."
 	icon_state = "morguet"
-	pass_flags_self = PASSTABLE
+	pass_flags_self = PASSTABLE|LETPASSTHROW
 
 /obj/structure/tray/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
