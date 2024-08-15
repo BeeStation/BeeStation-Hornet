@@ -1,0 +1,5 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: adds missing step() hook in cardboard box relaymove. Boxes (and traitor
+      stealth implant boxes) will now move when the player moves.
