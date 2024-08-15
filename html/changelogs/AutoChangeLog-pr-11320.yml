@@ -1,0 +1,4 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: you can buckle to stuff from adjacent turfs again
