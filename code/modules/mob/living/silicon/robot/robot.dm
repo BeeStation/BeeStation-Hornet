@@ -982,7 +982,7 @@
 		return
 	if(stat == DEAD)
 		sight = (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_in_dark = 8
+		see_in_dark = NIGHTVISION_FOV_RANGE
 		see_invisible = SEE_INVISIBLE_OBSERVER
 		return
 
@@ -1009,12 +1009,12 @@
 	if(sight_mode & BORGXRAY)
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		see_invisible = SEE_INVISIBLE_LIVING
-		see_in_dark = 8
+		see_in_dark = NIGHTVISION_FOV_RANGE
 
 	if(sight_mode & BORGTHERM)
 		sight |= SEE_MOBS
 		see_invisible = min(see_invisible, SEE_INVISIBLE_LIVING)
-		see_in_dark = 8
+		see_in_dark = NIGHTVISION_FOV_RANGE
 
 	if(see_override)
 		see_invisible = see_override
