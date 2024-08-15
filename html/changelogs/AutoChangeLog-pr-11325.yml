@@ -1,4 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - rscadd: Examining a syndicate bomb now shows a balloon popup with the time remaining
