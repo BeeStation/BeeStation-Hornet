@@ -144,6 +144,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	var/obj/machinery/power/terminal/invisible/terminal
 	use_power = NO_POWER_USE
 	idle_power_usage = 50 // when idle
+	active_power_usage = INFINITY // how much you can charge at once
+	var/charge_efficiency = 0.6 // 60% of power is stored in the cell
 
 	pixel_y = -32
 	pixel_x = -192
@@ -160,6 +162,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	var/winding_up = FALSE // if true, sparks will be generated in the bullseye
 
 	var/last_charge_quarter = 0
+
 
 
 /obj/machinery/power/bsa/full/wrench_act(mob/living/user, obj/item/I)
@@ -305,9 +308,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	if(cell.percent() >= 100 || terminal.surplus() < 1)
 		return
 	terminal.add_load(idle_power_usage)
-	var/charge = terminal.surplus() * delta_time
+	var/charge = clamp(terminal.surplus() * delta_time, 0, active_power_usage)
 	terminal.add_load(charge)
-	cell.give(charge)
+	cell.give(charge * charge_efficiency)
 	update_appearance(UPDATE_OVERLAYS)
 	last_charge_quarter = FLOOR(cell.percent() / 25, 1)
 	ui_update()
