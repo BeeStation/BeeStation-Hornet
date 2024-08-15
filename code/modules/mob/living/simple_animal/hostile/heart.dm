@@ -23,7 +23,6 @@
 	density = FALSE
 	attack_verb_continuous = "beats"
 	attack_verb_simple = "beat"
-	attacktext = "beats"
 	attack_sound = 'sound/effects/singlebeat.ogg'
 	stat_attack = HARD_CRIT
 	attack_same = 1
