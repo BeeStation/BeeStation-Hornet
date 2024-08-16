@@ -1,0 +1,4 @@
+author: rkz, Kylerace, LemonInTheDark, Tastyfish, Mat05usz
+delete-after: true
+changes:
+  - code_imp: Adds new subsystem to optimize radio and searching areas
