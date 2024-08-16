@@ -192,7 +192,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	..()
 	for(var/mob in  GLOB.player_list)
 		if(mobShouldSee(mob))
-			add_hud_to(mob)
+			show_to(mob)
 
 /datum/atom_hud/alternate_appearance/basic/mimites/mobShouldSee(mob/M)
 	return ismimite(M) || isobserver(M)
