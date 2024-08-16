@@ -189,7 +189,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		// radios don't pick up whispers very well
 		radio_message = stars(radio_message)
 		spans |= SPAN_ITALICS
-	var/radio_return = radio(radio_message, message_mods, spans, language)
+	var/radio_return = radio(radio_message, message_mods, spans, language)//roughly 27% of living/say()'s total cost
 	if(radio_return & ITALICS)
 		spans |= SPAN_ITALICS
 	if(radio_return & REDUCE_RANGE)
@@ -213,7 +213,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(pressure < ONE_ATMOSPHERE*0.4) //Thin air, let's italicise the message
 		spans |= SPAN_ITALICS
 
-	send_speech(message, message_range, src, bubble_type, spans, language, message_mods)
+	send_speech(message, message_range, src, bubble_type, spans, language, message_mods)//roughly 58% of living/say()'s total cost
 
 	if(succumbed)
 		succumb(TRUE)
@@ -263,7 +263,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(!M.client || !client) //client is so that ghosts don't have to listen to mice
 			listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
 			continue
-		if(get_dist(M, src) > 7 || M.get_virtual_z_level() != get_virtual_z_level()) //they're out of range of normal hearing
+		if(M.get_virtual_z_level() != get_virtual_z_level() || get_dist(M, src) > 7 ) //they're out of range of normal hearing
 			if(M.client?.prefs && eavesdrop_range && !M.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostwhisper)) //they're whispering and we have hearing whispers at any range off
 				listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
 				continue
@@ -282,7 +282,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/list/show_overhead_message_to = list()
 	var/list/show_overhead_message_to_eavesdrop = list()
 	var/rendered = compose_message(src, message_language, message, , spans, message_mods)
-	for(var/atom/movable/AM as() in listening)
+	for(var/atom/movable/AM as anything in listening)
+		if(!AM)
+			stack_trace("somehow theres a null returned from get_hearers_in_view() in send_speech!")
+			continue
 		if(eavesdrop_range && get_dist(source, AM) > message_range && !(the_dead[AM]))
 			if(ismob(AM))
 				var/mob/M = AM
@@ -382,7 +385,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 /mob/living/proc/radio(message, list/message_mods = list(), list/spans, language)
 	var/obj/item/implant/radio/imp = locate() in src
-	if(imp && imp.radio.on)
+	if(imp?.radio.is_on())
 		if(message_mods[MODE_HEADSET])
 			imp.radio.talk_into(src, message, , spans, language, message_mods)
 			return ITALICS | REDUCE_RANGE
