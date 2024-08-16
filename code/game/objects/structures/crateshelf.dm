@@ -1,6 +1,6 @@
 #define DEFAULT_SHELF_CAPACITY 3 // Default capacity of the shelf
 #define DEFAULT_SHELF_USE_DELAY 1 SECONDS // Default interaction delay of the shelf
-#define DEFAULT_SHELF_VERTICAL_OFFSET 15 // Vertical pixel offset of shelving-related things. Set to 10 by default due to this leaving more of the crate on-screen to be clicked.
+#define DEFAULT_SHELF_VERTICAL_OFFSET 17 // Vertical pixel offset of shelving-related things. Set to 10 by default due to this leaving more of the crate on-screen to be clicked.
 
 /obj/structure/crate_shelf
 	name = "crate shelf"
