@@ -1,0 +1,6 @@
+author: Sarchutar
+delete-after: true
+changes:
+  - bugfix: ability to close morgues when adjacent without having to click on the
+      tray
+  - bugfix: cyborgs can now close morgues by clicking on the tray
