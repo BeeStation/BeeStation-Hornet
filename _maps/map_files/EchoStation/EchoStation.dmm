@@ -3572,13 +3572,13 @@
 /turf/open/floor/plating,
 /area/storage/tech)
 "brs" = (
-/obj/machinery/telecomms/hub/preset,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /obj/machinery/airalarm/directional/north,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/machinery/blackbox_recorder,
 /turf/open/floor/circuit/telecomms/mainframe{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
@@ -29302,10 +29302,10 @@
 /area/hydroponics)
 "oOM" = (
 /obj/structure/cable,
-/obj/machinery/blackbox_recorder,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/telecomms/hub/preset,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "oOS" = (
