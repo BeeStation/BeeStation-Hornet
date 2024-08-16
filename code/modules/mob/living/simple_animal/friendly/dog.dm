@@ -749,3 +749,37 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	mob_size = MOB_SIZE_SMALL
 	collar_type = "puppy"
 	worn_slot_flags = ITEM_SLOT_HEAD
+
+/mob/living/simple_animal/pet/dog/corgi/capybara
+	name = "\improper capybara"
+	real_name = "capybara"
+	desc = "It's a capybara."
+	icon_state = "capybara"
+	icon_living = "capybara"
+	icon_dead = "capybara_dead"
+	held_state = null
+	can_be_held = FALSE
+	butcher_results = list()
+	childtype = list()
+
+	animal_species = /mob/living/simple_animal/pet/dog
+
+/mob/living/simple_animal/pet/dog/corgi/capybara/update_corgi_fluff()
+	// First, change back to defaults
+	name = real_name
+	desc = initial(desc)
+	// BYOND/DM doesn't support the use of initial on lists.
+	speak = list("Bark!", "Squee!", "Squee.")
+	speak_emote = list("barks", "squeaks")
+	emote_hear = list("barks!", "squees!", "squeaks!", "yaps.", "squeaks.")
+	emote_see = list("shakes its head.", "medidates on peace.", "looks to be in peace.", "shivers.")
+	desc = initial(desc)
+	set_light(0)
+
+	if(inventory_head && inventory_head.dog_fashion)
+		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
+		DF.apply(src)
+
+	if(inventory_back && inventory_back.dog_fashion)
+		var/datum/dog_fashion/DF = new inventory_back.dog_fashion(src)
+		DF.apply(src)
