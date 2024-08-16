@@ -55,7 +55,7 @@
 
 			if(!turf_mob.can_inject())
 				continue
-			if(!(turf_mob.mobility_flags & MOBILITY_STAND) && !travelled_max_distance)
+			if(turf_mob.body_position != STANDING_UP && !travelled_max_distance)
 				continue
 
 			lifetime--

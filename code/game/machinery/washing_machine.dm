@@ -365,7 +365,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		new /obj/item/restraints/handcuffs(loc)
 	..()
 
-/obj/machinery/washing_machine/relaymove(mob/user)
+/obj/machinery/washing_machine/relaymove(mob/living/user, direction)
 	container_resist(user)
 
 /obj/machinery/washing_machine/container_resist(mob/living/user)

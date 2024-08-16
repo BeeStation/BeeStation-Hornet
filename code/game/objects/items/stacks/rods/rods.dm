@@ -13,7 +13,8 @@
 	mats_per_unit = list(/datum/material/iron=1000)
 	max_amount = 50
 	merge_type = /obj/item/stack/rods
-	attack_verb = list("hit", "bludgeoned", "whacked")
+	attack_verb_continuous = list("hits", "bludgeons", "whacks")
+	attack_verb_simple = list("hit", "bludgeon", "whack")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	embedding = list()
 	novariants = TRUE

@@ -40,4 +40,4 @@
 
 /datum/ai_planning_subtree/random_speech/mothroach
 	speech_chance = 2
-	emote_hear = list("flutters.", "flaps its wings.", "flaps its wings agressively!")
+	emote_hear = list("flutters.", "flaps its wings.", "flaps its wings aggressively!")
