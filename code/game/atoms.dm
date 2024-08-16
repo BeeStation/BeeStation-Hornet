@@ -862,7 +862,7 @@
 /mob/living/proc/get_blood_dna_list()
 	if(get_blood_id() != /datum/reagent/blood)
 		return
-	return list("ANIMAL DNA" = get_blood_type("Y-"))
+	return list("ANIMAL DNA" = "Y-")
 
 ///Get the mobs dna list
 /mob/living/carbon/get_blood_dna_list()
@@ -876,10 +876,10 @@
 	return blood_dna
 
 /mob/living/carbon/alien/get_blood_dna_list()
-	return list("UNKNOWN DNA" = get_blood_type("X"))
+	return list("UNKNOWN DNA" = "X*")
 
 /mob/living/silicon/get_blood_dna_list()
-	return list("SYNTHETIC COOLANT" = get_blood_type("Coolant"))
+	return list("MOTOR OIL" = "SAE 5W-30") //just a little flavor text.
 
 ///to add a mob's dna info into an object's blood_dna list.
 /atom/proc/transfer_mob_blood_dna(mob/living/L)

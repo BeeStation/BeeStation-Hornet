@@ -197,7 +197,7 @@
 		return FALSE
 
 	// If we're checking the loc, make sure the target is on the thing we're bucking them to.
-	if(check_loc && target.loc != loc)
+	if(check_loc && !target.Adjacent(src))
 		return FALSE
 
 	// Make sure the target isn't already buckled to something.
