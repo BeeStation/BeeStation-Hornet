@@ -1,5 +1,0 @@
-author: Spockye
-delete-after: true
-changes:
-  - bugfix: Remakes the escape pod shuttle
-  - rscadd: Ports Capybaras from Shiptest
