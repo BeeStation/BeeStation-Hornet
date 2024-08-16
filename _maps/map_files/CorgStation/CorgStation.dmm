@@ -56389,13 +56389,11 @@
 /turf/open/floor/iron,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "sim" = (
-/obj/structure/table,
-/obj/item/melee/baton/loaded,
-/obj/item/restraints/handcuffs,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/machinery/rnd/production/techfab/department/security,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "siu" = (
@@ -59287,6 +59285,7 @@
 	dir = 1;
 	pixel_y = 24
 	},
+/obj/item/melee/baton/loaded,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "tgl" = (
@@ -70507,7 +70506,6 @@
 /area/maintenance/starboard/secondary)
 "wKV" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/rnd/production/techfab/department/security,
 /obj/machinery/light,
 /obj/machinery/light_switch{
 	pixel_x = -8;

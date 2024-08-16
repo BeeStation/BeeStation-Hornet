@@ -216,9 +216,9 @@
 			qdel(src)
 		if(2)
 			for(var/i = 1; i < 3; i++)
-				wires.cut_random()
+				wires.cut_random(null)
 		if(3)
-			wires.cut_random()
+			wires.cut_random(null)
 
 
 /mob/living/simple_animal/bot/mulebot/bullet_act(obj/projectile/Proj)
@@ -228,7 +228,7 @@
 			unload(0)
 		if(prob(25))
 			visible_message("<span class='danger'>Something shorts out inside [src]!</span>")
-			wires.cut_random()
+			wires.cut_random(null)
 
 /mob/living/simple_animal/bot/mulebot/interact(mob/user)
 	if(open && !isAI(user))

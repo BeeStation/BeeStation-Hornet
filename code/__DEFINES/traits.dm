@@ -247,6 +247,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BEEFRIEND 		"beefriend"
 #define TRAIT_MEDICAL_HUD		"med_hud"
 #define TRAIT_SECURITY_HUD		"sec_hud"
+#define TRAIT_DIAGNOSTIC_HUD "diag_hud"
 #define TRAIT_MEDIBOTCOMINGTHROUGH "medbot" //Is a medbot healing you
 #define TRAIT_PASSTABLE			"passtable"
 #define TRAIT_BLUSHING 			"blushing"
@@ -259,7 +260,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ALWAYS_STUBS      "always_stubs_toe" //you will always stub your toe on tables, even if you're wearing shoes
 #define TRAIT_NAIVE				"naive" //All dead people will appear as sleeping.
 #define TRAIT_DROPS_ITEMS_ON_DEATH "drops_items_on_death" //used for battle royale
-#define TRAIT_DRINKSBLOOD "drinks_blood"
+#define TRAIT_DRINKSBLOOD		"drinks_blood"
 #define TRAIT_MINDSWAPPED		"mindswapped"
 #define TRAIT_SOMMELIER			"sommelier"  // shows different booze power flavor texts
 #define TRAIT_BARMASTER			"bar_master" // always can identify reagents
@@ -289,6 +290,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///Used for managing KEEP_TOGETHER in [appearance_flags]
 #define TRAIT_KEEP_TOGETHER "keep-together"
 
+//important_recursive_contents traits
+/*
+ * Used for movables that need to be updated, via COMSIG_ENTER_AREA and COMSIG_EXIT_AREA, when transitioning areas.
+ * Use [/atom/movable/proc/become_area_sensitive(trait_source)] to properly enable it. How you remove it isn't as important.
+ */
+#define TRAIT_AREA_SENSITIVE "area-sensitive"
+///every hearing sensitive atom has this trait
 #define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
 
 // item traits

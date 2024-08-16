@@ -149,11 +149,11 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
-		if(!shock(user, 100))
+		if(!shock(user, 100 * W.siemens_coefficient))
 			W.play_tool_sound(src, 100)
 			deconstruct()
 	else if((W.tool_behaviour == TOOL_SCREWDRIVER) && (isturf(loc) || anchored))
-		if(!shock(user, 90))
+		if(!shock(user, 90 * W.siemens_coefficient))
 			W.play_tool_sound(src, 100)
 			set_anchored(!anchored)
 			user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
@@ -161,7 +161,7 @@
 			return
 	else if(istype(W, /obj/item/stack/rods) && broken)
 		var/obj/item/stack/rods/R = W
-		if(!shock(user, 90))
+		if(!shock(user, 90 * W.siemens_coefficient))
 			user.visible_message("<span class='notice'>[user] rebuilds the broken grille.</span>", \
 								 "<span class='notice'>You rebuild the broken grille.</span>")
 			new grille_type(src.loc)
@@ -210,7 +210,7 @@
 			return
 //window placing end
 
-	else if(istype(W, /obj/item/shard) || !shock(user, 70))
+	else if(istype(W, /obj/item/shard) || !shock(user, 70 * W.siemens_coefficient))
 		return ..()
 
 /obj/structure/grille/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

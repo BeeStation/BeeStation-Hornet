@@ -1,16 +1,13 @@
 #define LINKIFY_READY(string, value) "<a href='byond://?src=[REF(src)];ready=[value]'>[string]</a>"
 
 /mob/dead/new_player
-	var/ready = 0
-	var/spawning = 0//Referenced when you want to delete the new_player later on in the code.
-
 	flags_1 = NONE
-
 	invisibility = INVISIBILITY_ABSTRACT
-
 	density = FALSE
 	stat = DEAD
 
+	var/ready = 0
+	var/spawning = 0//Referenced when you want to delete the new_player later on in the code.
 	var/mob/living/new_character	//for instant transfer once the round is set up
 	///Used to make sure someone doesn't get spammed with messages if they're ineligible for roles.
 	var/ineligible_for_roles = FALSE
@@ -555,3 +552,5 @@
 					+ "\nThis is only required once and only for the duration that the panic bunker is active.</span>" \
 					+ "\n<span class='boldwarning'>If the interview interface is not open, use the Open Interview verb in the top right.</span>")
 
+/mob/dead/new_player/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+	return

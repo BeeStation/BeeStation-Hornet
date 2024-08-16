@@ -2,9 +2,12 @@
 
 /mob/living/simple_animal/pet/dog
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "bops"
+	response_disarm_simple = "bop"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
 	speak_emote = list("barks", "woofs")
 	speak_language = /datum/language/metalanguage
@@ -367,9 +370,12 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	desc = "It's the HoP's beloved corgi."
 	var/turns_since_scan = 0
 	var/obj/movement_target
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "bops"
+	response_disarm_simple = "bop"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 	var/age = 0
@@ -660,9 +666,12 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	icon_state = "lisa"
 	icon_living = "lisa"
 	icon_dead = "lisa_dead"
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "bops"
+	response_disarm_simple = "bop"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
 	held_state = "lisa"
 	worn_slot_flags = ITEM_SLOT_HEAD
 	var/turns_since_scan = 0
@@ -740,3 +749,37 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	mob_size = MOB_SIZE_SMALL
 	collar_type = "puppy"
 	worn_slot_flags = ITEM_SLOT_HEAD
+
+/mob/living/simple_animal/pet/dog/corgi/capybara
+	name = "\improper capybara"
+	real_name = "capybara"
+	desc = "It's a capybara."
+	icon_state = "capybara"
+	icon_living = "capybara"
+	icon_dead = "capybara_dead"
+	held_state = null
+	can_be_held = FALSE
+	butcher_results = list()
+	childtype = list()
+
+	animal_species = /mob/living/simple_animal/pet/dog
+
+/mob/living/simple_animal/pet/dog/corgi/capybara/update_corgi_fluff()
+	// First, change back to defaults
+	name = real_name
+	desc = initial(desc)
+	// BYOND/DM doesn't support the use of initial on lists.
+	speak = list("Bark!", "Squee!", "Squee.")
+	speak_emote = list("barks", "squeaks")
+	emote_hear = list("barks!", "squees!", "squeaks!", "yaps.", "squeaks.")
+	emote_see = list("shakes its head.", "medidates on peace.", "looks to be in peace.", "shivers.")
+	desc = initial(desc)
+	set_light(0)
+
+	if(inventory_head && inventory_head.dog_fashion)
+		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
+		DF.apply(src)
+
+	if(inventory_back && inventory_back.dog_fashion)
+		var/datum/dog_fashion/DF = new inventory_back.dog_fashion(src)
+		DF.apply(src)
