@@ -14,13 +14,17 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/food/meat/slab = 4)
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
 	faction = list("neutral")
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	attack_same = 1
-	attacktext = "kicks"
+	attack_verb_continuous = "kicks"
+	attack_verb_simple = "kick"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 40
 	maxHealth = 40
@@ -113,10 +117,14 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/food/meat/slab = 6)
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
-	attacktext = "kicks"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
+	attack_verb_continuous = "kicks"
+	attack_verb_simple = "kick"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
 	maxHealth = 50
@@ -180,10 +188,14 @@
 	speak_chance = 2
 	turns_per_move = 2
 	butcher_results = list(/obj/item/food/meat/slab/chicken = 1)
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
-	attacktext = "kicks"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
+	attack_verb_continuous = "kicks"
+	attack_verb_simple = "kick"
 	health = 3
 	maxHealth = 3
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -243,10 +255,14 @@
 	butcher_results = list(/obj/item/food/meat/slab/chicken = 2)
 	var/egg_type = /obj/item/food/egg
 	var/food_type = /obj/item/food/grown/wheat
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
-	attacktext = "kicks"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
+	attack_verb_continuous = "kicks"
+	attack_verb_simple = "kick"
 	health = 15
 	maxHealth = 15
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -343,7 +359,8 @@
 	health = 15
 	maxHealth = 15
 	egg_type = null
-	attacktext = "pecks"
+	attack_verb_continuous = "pecks"
+	attack_verb_simple = "peck"
 	attack_sound = 'sound/creatures/turkey.ogg'
 	ventcrawler = VENTCRAWLER_ALWAYS
 	icon_prefix = "turkey"

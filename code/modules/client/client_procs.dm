@@ -555,6 +555,14 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 //////////////
 
 /client/Del()
+	if(!gc_destroyed)
+		Destroy() //Clean up signals and timers.
+	return ..()
+
+/client/Destroy()
+	GLOB.clients -= src
+	GLOB.directory -= ckey
+	GLOB.mentors -= src
 	log_access("Logout: [key_name(src)]")
 	GLOB.ahelp_tickets.ClientLogout(src)
 	GLOB.mhelp_tickets.ClientLogout(src)
@@ -586,14 +594,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		var/atom/eye_thing = eye
 		LAZYREMOVE(eye_thing.eye_users, src)
 	GLOB.requests.client_logout(src)
-	GLOB.directory -= ckey
-	GLOB.clients -= src
-	GLOB.mentors -= src
+
 	SSambience.remove_ambience_client(src)
 	Master.UpdateTickRate()
-	return ..()
-
-/client/Destroy()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
@@ -985,7 +988,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(isatom(new_eye))
 		LAZYADD(new_eye.eye_users, src)
 
-	// SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye) // use this when you want a thing from TG
+	// SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye) // use this when you want a thing from TG //This is from planecube pr, dragon, we most certainly dont want from that pr
 
 
 /client/proc/add_verbs_from_config()

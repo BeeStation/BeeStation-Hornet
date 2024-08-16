@@ -29,6 +29,9 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	"é" = 1, "è" = 1, "ç" = 1, "à" = 1, "ù" = 1,
 	// Scrolling support
 	"ScrollUp" = 1, "ScrollDown" = 1,
+	// CTRLKeys and ShiftKeys support to declutter logs
+	"CtrlW" = 1, "CtrlA" = 1, "CtrlS" = 1, "CtrlD" = 1, "CtrlNorth" = 1, "CtrlWest" = 1, "CtrlSouth" = 1, "CtrlEast" = 1,
+	"ShiftW" = 1, "ShiftA" = 1, "ShiftS" = 1, "ShiftD" = 1, "ShiftNorth" = 1, "ShiftWest" = 1, "ShiftSouth" = 1, "ShiftEast" = 1,
 ))
 
 /proc/input_sanity_check(client/C, key)

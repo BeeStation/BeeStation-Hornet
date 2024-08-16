@@ -9,18 +9,24 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/storage/box/fakesyndiesuit = 2,
 		/obj/item/storage/crayons = 2,
 		/obj/item/toy/spinningtoy = 2,
-		/obj/item/toy/prize/ripley = 1,
-		/obj/item/toy/prize/fireripley = 1,
-		/obj/item/toy/prize/deathripley = 1,
-		/obj/item/toy/prize/gygax = 1,
-		/obj/item/toy/prize/durand = 1,
-		/obj/item/toy/prize/honk = 1,
-		/obj/item/toy/prize/marauder = 1,
-		/obj/item/toy/prize/seraph = 1,
-		/obj/item/toy/prize/mauler = 1,
-		/obj/item/toy/prize/odysseus = 1,
-		/obj/item/toy/prize/phazon = 1,
-		/obj/item/toy/prize/reticence = 1,
+		/obj/item/toy/mecha/ripley = 1,
+		/obj/item/toy/mecha/ripleymkii = 1,
+		/obj/item/toy/mecha/hauler = 1,
+		/obj/item/toy/mecha/clarke = 1,
+		/obj/item/toy/mecha/odysseus = 1,
+		/obj/item/toy/mecha/gygax = 1,
+		/obj/item/toy/mecha/durand = 1,
+		//obj/item/toy/mecha/savannahivanov = 1,
+		/obj/item/toy/mecha/phazon = 1,
+		/obj/item/toy/mecha/honk = 1,
+		/obj/item/toy/mecha/darkgygax = 1,
+		/obj/item/toy/mecha/mauler = 1,
+		/obj/item/toy/mecha/darkhonk = 1,
+		/obj/item/toy/mecha/deathripley = 1,
+		/obj/item/toy/mecha/reticence = 1,
+		/obj/item/toy/mecha/marauder = 1,
+		/obj/item/toy/mecha/seraph = 1,
+		/obj/item/toy/mecha/firefighter = 1,
 		/obj/item/toy/cards/deck = 2,
 		/obj/item/toy/nuke = 2,
 		/obj/item/toy/minimeteor = 2,
@@ -408,7 +414,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 /obj/machinery/computer/arcade/orion_trail/Initialize(mapload)
 	. = ..()
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
+	Radio.set_listening(FALSE)
 
 /obj/machinery/computer/arcade/orion_trail/kobayashi
 	name = "Kobayashi Maru control computer"

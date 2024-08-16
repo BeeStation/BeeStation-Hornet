@@ -18,30 +18,49 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	icon = 'icons/obj/machines/telecomms.dmi'
 	critical_machine = TRUE
 	light_color = LIGHT_COLOR_CYAN
-
 	network_id = __NETWORK_SERVER
+	/// /// list of machines this machine is linked to
+	var/list/links = list()
+	/**
+	 * associative lazylist list of the telecomms_type of linked telecomms machines and a list of said machines.
+	 * eg list(telecomms_type1 = list(everything linked to us with that type), telecomms_type2 = list(everything linked to us with THAT type)...)
+	 */
+	var/list/links_by_telecomms_type
+	/// value increases as traffic increases
+	var/traffic = 0
+	/// how much traffic to lose per second (50 gigabytes/second * netspeed)
+	var/netspeed = 2.5
+	/// list of text/number values to link with
+	var/list/autolinkers = list()
+	/// identification string
+	var/id = "NULL"
+	/// the relevant type path of this telecomms machine eg /obj/machinery/telecomms/server but not server/preset. used for links_by_telecomms_type
+	var/telecomms_type = null
+	/// the network of the machinery
+	var/network = "NULL"
 
-	var/list/links = list() // list of machines this machine is linked to
-	var/traffic = 0 // value increases as traffic increases
-	var/netspeed = 2.5 // how much traffic to lose per second (50 gigabytes/second * netspeed)
-	var/list/autolinkers = list() // list of text/number values to link with
-	var/id = "NULL" // identification string
-	var/network = "NULL" // the network of the machinery
-
-	var/list/freq_listening = list() // list of frequencies to tune into: if none, will listen to all
+	// list of frequencies to tune into: if none, will listen to all
+	var/list/freq_listening = list()
 
 	var/on = TRUE
-	var/toggled = TRUE 	// Is it toggled on
-	var/long_range_link = FALSE  // Can you link it across Z levels or on the otherside of the map? (Relay & Hub)
-	var/hide = FALSE  // Is it a hidden machine?
+	/// Is it toggled on
+	var/toggled = TRUE
+	/// Can you link it across Z levels or on the otherside of the map? (Relay & Hub)
+	var/long_range_link = FALSE
+	/// Is it a hidden machine?
+	var/hide = FALSE
+
 	var/datum/component/server/server_component
 
-
+/// relay signal to all linked machinery that are of type [filter]. If signal has been sent [amount] times, stop sending
 /obj/machinery/telecomms/proc/relay_information(datum/signal/subspace/signal, filter, copysig, amount = 20)
-	// relay signal to all linked machinery that are of type [filter]. If signal has been sent [amount] times, stop sending
 
 	if(!on)
 		return
+
+	if(!filter || !ispath(filter, /obj/machinery/telecomms))
+		CRASH("null or non /obj/machinery/telecomms typepath given as the filter argument! given typepath: [filter]")
+
 	var/send_count = 0
 	// Apply some lag based on traffic rates
 	var/netlag = round(traffic / 50)
@@ -54,24 +73,23 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	signal.data["slow"] += throttling
 
 	// Loop through all linked machines and send the signal or copy.
-	for(var/obj/machinery/telecomms/machine in links)
-		if(filter && !istype( machine, filter ))
-			continue
-		if(!machine.on)
+
+	for(var/obj/machinery/telecomms/filtered_machine in links_by_telecomms_type?[filter])
+		if(!filtered_machine.on)
 			continue
 		if(amount && send_count >= amount)
 			break
-		if(get_virtual_z_level() != machine.loc.get_virtual_z_level() && !long_range_link && !machine.long_range_link)
+		if(get_virtual_z_level() != filtered_machine.loc.get_virtual_z_level() && !long_range_link && !filtered_machine.long_range_link)
 			continue
 
 		send_count++
-		if(machine.is_freq_listening(signal))
-			machine.traffic++
+		if(filtered_machine.is_freq_listening(signal))
+			filtered_machine.traffic++
 
 		if(copysig)
-			machine.receive_information(signal.copy(), src)
+			filtered_machine.receive_information(signal.copy(), src)
 		else
-			machine.receive_information(signal, src)
+			filtered_machine.receive_information(signal, src)
 
 	if(send_count > 0 && is_freq_listening(signal))
 		traffic++
@@ -82,12 +100,13 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	// send signal directly to a machine
 	machine.receive_information(signal, src)
 
+///receive information from linked machinery
 /obj/machinery/telecomms/proc/receive_information(datum/signal/signal, obj/machinery/telecomms/machine_from)
-	// receive information from linked machinery
+	return
 
 /obj/machinery/telecomms/proc/is_freq_listening(datum/signal/signal)
 	// return TRUE if found, FALSE if not found
-	return signal && (!freq_listening.len || (signal.frequency in freq_listening))
+	return signal && (!length(freq_listening) || (signal.frequency in freq_listening))
 
 /obj/machinery/telecomms/Initialize(mapload)
 	. = ..()
@@ -102,14 +121,14 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	..()
 	for(var/obj/machinery/telecomms/telecomms_machine in GLOB.telecomms_list)
 		if (long_range_link || IN_GIVEN_RANGE(src, telecomms_machine, 20))
-			add_link(telecomms_machine)
+			add_automatic_link(telecomms_machine)
 
 /obj/machinery/telecomms/Destroy()
 	UnregisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE)
 	server_component = null
 	GLOB.telecomms_list -= src
 	for(var/obj/machinery/telecomms/comm in GLOB.telecomms_list)
-		comm.links -= src
+		remove_link(comm)
 	links = list()
 	return ..()
 
@@ -123,7 +142,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	return server_component.overheated_temp
 
 // Used in auto linking
-/obj/machinery/telecomms/proc/add_link(obj/machinery/telecomms/T)
+/obj/machinery/telecomms/proc/add_automatic_link(obj/machinery/telecomms/T)
 	var/turf/position = get_turf(src)
 	var/turf/T_position = get_turf(T)
 	var/same_zlevel = FALSE
@@ -131,11 +150,12 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 		if(position.get_virtual_z_level() == T_position.get_virtual_z_level())
 			same_zlevel = TRUE
 	if(same_zlevel || (long_range_link && T.long_range_link))
-		if(src != T)
-			for(var/x in autolinkers)
-				if(x in T.autolinkers)
-					links |= T
-					T.links |= src
+		if(src == T)
+			return
+		for(var/autolinker_id in autolinkers)
+			if(autolinker_id in T.autolinkers)
+				add_new_link(T)
+				return
 
 /obj/machinery/telecomms/proc/update_network()
 	if(!network || network == "NULL")

@@ -28,6 +28,7 @@
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
 	zmm_flags = ZMM_MANGLE_PLANES
+	req_access = null
 
 	light_power = 0
 	light_range = 7
@@ -37,21 +38,19 @@
 	var/buildstage = 2 // 2 = complete, 1 = no wires, 0 = circuit gone
 	var/last_alarm = 0
 	var/area/myarea = null
+	var/locked = FALSE //Are we locked?
 
 /obj/machinery/firealarm/Initialize(mapload, dir, building)
 	. = ..()
+	if (!req_access)
+		req_access = list(ACCESS_ATMOSPHERICS)
 	if(building)
 		buildstage = 0
 		panel_open = TRUE
 	update_appearance()
 	myarea = get_area(src)
 	LAZYADD(myarea.firealarms, src)
-	RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, PROC_REF(handle_alert))
-
-/obj/machinery/firealarm/proc/handle_alert(datum/source, new_alert)
-	SIGNAL_HANDLER
-	if(is_station_level(z))
-		update_appearance()
+	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(check_security_level))
 
 /obj/machinery/firealarm/Destroy()
 	myarea.firereset(src)
@@ -67,9 +66,9 @@
 
 	. += "fire_overlay"
 	if(is_station_level(z))
-		. += "fire_[GLOB.security_level]"
-		. += mutable_appearance(icon, "fire_[GLOB.security_level]")
-		. += emissive_appearance(icon, "fire_[GLOB.security_level]", layer, alpha = 255)
+		. += "fire_[SSsecurity_level.get_current_level_as_number()]"
+		. += mutable_appearance(icon, "fire_[SSsecurity_level.get_current_level_as_number()]")
+		. += emissive_appearance(icon, "fire_[SSsecurity_level.get_current_level_as_number()]", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else
 		. += "fire_[SEC_LEVEL_GREEN]"
@@ -77,20 +76,26 @@
 		. += emissive_appearance(icon, "fire_[SEC_LEVEL_GREEN]", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
-	if(!detecting || !A.fire) //If this is false, leave the green light missing. A good hint to anyone paying attention.
-		. += "fire_off"
-		. += mutable_appearance(icon, "fire_off")
-		. += emissive_appearance(icon, "fire_off", layer, alpha = 255)
-		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
-	else if(obj_flags & EMAGGED)
+	if(obj_flags & EMAGGED)
 		. += "fire_emagged"
 		. += mutable_appearance(icon, "fire_emagged")
 		. += emissive_appearance(icon, "fire_emagged", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
-	else
+		return //If it's emagged, don't do anything else for overlays.
+	if(locked)
+		. += "fire_locked"
+		. += mutable_appearance(icon, "fire_locked", layer + 1) //If we are locked, overlay that over the fire_off
+		. += emissive_appearance(icon, "fire_locked", layer, alpha = 255)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+	if(detecting && A.fire)
 		. += "fire_on"
-		. += mutable_appearance(icon, "fire_on")
+		. += mutable_appearance(icon, "fire_on", layer + 2) //If we are locked and there is a fire, overlay the fire detection overlay ontop of the locked one.
 		. += emissive_appearance(icon, "fire_on", layer, alpha = 255)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+	else
+		. += "fire_off"
+		. += mutable_appearance(icon, "fire_off")
+		. += emissive_appearance(icon, "fire_off", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/firealarm/emp_act(severity)
@@ -118,7 +123,21 @@
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
 	if((temperature > T0C + 200 || temperature < BODYTEMP_COLD_DAMAGE_LIMIT) && (last_alarm+FIREALARM_COOLDOWN < world.time) && !(obj_flags & EMAGGED) && detecting && !machine_stat)
 		alarm()
+		try_lock(null, TRUE)
 	..()
+
+/**
+ * Signal handler for checking if we should update fire alarm appearance accordingly to a newly set security level
+ *
+ * Arguments:
+ * * source The datum source of the signal
+ * * new_level The new security level that is in effect
+ */
+/obj/machinery/firealarm/proc/check_security_level(datum/source, new_level)
+	SIGNAL_HANDLER
+
+	if(is_station_level(z))
+		update_appearance()
 
 /obj/machinery/firealarm/proc/alarm(mob/user)
 	if(!is_operational || (last_alarm+FIREALARM_COOLDOWN > world.time))
@@ -127,6 +146,7 @@
 	var/area/A = get_area(src)
 	A.firealert(src)
 	playsound(loc, 'goon/sound/machinery/FireAlarm.ogg', 75)
+	update_appearance()
 	if(user)
 		log_game("[user] triggered a fire alarm at [COORD(src)]")
 
@@ -135,8 +155,26 @@
 		return
 	var/area/A = get_area(src)
 	A.firereset(src)
+	update_appearance()
 	if(user)
 		log_game("[user] reset a fire alarm at [COORD(src)]")
+
+/obj/machinery/firealarm/proc/try_lock(mob/user, force_lock = FALSE)
+	if(allowed(user) || !user || force_lock)
+		if(!locked || force_lock)
+			locked = TRUE
+			balloon_alert(user, "Locked")
+		else
+			locked = FALSE
+			balloon_alert(user, "Unlocked")
+		playsound(src, 'sound/machines/beep.ogg', 50, 1)
+	else
+		balloon_alert(user, "Access Denied!")
+		playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
+	update_appearance()
+
+/obj/machinery/firealarm/AltClick(mob/user)
+	try_lock(user)
 
 /obj/machinery/firealarm/attack_hand(mob/user)
 	if(buildstage != 2)
@@ -145,6 +183,10 @@
 	play_click_sound("button")
 	var/area/A = get_area(src)
 	if(A.fire)
+		if(locked)
+			balloon_alert(user, "Cover is locked!")
+			playsound(loc, 'sound/effects/glassknock.ogg', 10, FALSE, frequency = 32000)
+			return
 		reset(user)
 	else
 		alarm(user)
@@ -158,6 +200,8 @@
 /obj/machinery/firealarm/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 
+	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer/tablet/pda)) // trying to unlock the cover with an ID card
+		try_lock(user)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER && buildstage == 2)
 		W.play_tool_sound(src)
 		panel_open = !panel_open

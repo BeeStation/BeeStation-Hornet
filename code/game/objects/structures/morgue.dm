@@ -350,6 +350,11 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	else
 		to_chat(user, "<span class='warning'>That's not connected to anything!</span>")
 
+/obj/structure/tray/attack_robot(mob/user)
+	if(!user.Adjacent(src))
+		return
+	return attack_hand(user)
+
 /obj/structure/tray/attackby(obj/P, mob/user, params)
 	if(!istype(P, /obj/item/riding_offhand))
 		return ..()
@@ -390,6 +395,10 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	desc = "Apply body before burning."
 	icon_state = "cremat"
 
+/obj/structure/tray/c_tray/attack_robot(mob/user) //copied behaviour from /obj/structure/bodycontainer/crematorium
+	to_chat(user, "<span class='warning'>[src] is locked against you.</span>")
+	return
+
 /*
  * Morgue tray
  */
@@ -397,7 +406,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	name = "morgue tray"
 	desc = "Apply corpse before closing."
 	icon_state = "morguet"
-	pass_flags_self = PASSTABLE
+	pass_flags_self = PASSTABLE|LETPASSTHROW
 
 /obj/structure/tray/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
