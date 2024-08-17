@@ -397,7 +397,7 @@
 	to_chat(wearer, "<span class='notice'>[severity > 1 ? "Light" : "Strong"] electromagnetic pulse detected!</span>")
 	if(. & EMP_PROTECT_CONTENTS)
 		return
-	selected_module.on_deactivation()
+	selected_module?.on_deactivation()
 	wearer.apply_damage(10 / severity, BURN)
 	to_chat(wearer, "<span class='danger'>You feel [src] heat up from the EMP, burning you slightly.</span>")
 	if(wearer.stat < UNCONSCIOUS && prob(10))
