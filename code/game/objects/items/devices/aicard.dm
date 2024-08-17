@@ -34,13 +34,14 @@
 		target.transfer_ai(AI_TRANS_FROM_CARD, user, AI, src)
 		if(!AI)
 			log_combat(user, our_ai, "uploaded", src, "to [target].", important = FALSE)
+			update_appearance()
 			return TRUE
 	else //No AI on the card, therefore the user wants to download one.
 		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
 		if(AI)
 			log_combat(user, AI, "carded", src, important = FALSE)
+			update_appearance()
 			return TRUE
-	update_appearance() //Whatever happened, update the card's state (icon, name) to match.
 	return ..()
 
 /obj/item/aicard/update_icon_state()

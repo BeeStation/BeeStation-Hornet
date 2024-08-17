@@ -512,6 +512,8 @@
 	range = 10
 	hitsound = 'sound/weapons/batonextend.ogg'
 	hitsound_wall = 'sound/weapons/batonextend.ogg'
+	suppressed = SUPPRESSED_VERY
+	hit_threshhold = LATTICE_LAYER
 	var/line
 
 /obj/projectile/tether/fire(setAngle)
@@ -760,6 +762,11 @@
 	balloon_alert(mod.wearer, "[dispensed] dispensed")
 	playsound(src, 'sound/machines/click.ogg', 100, TRUE)
 	drain_power(use_power_cost)
+
+/obj/item/mod/module/clamp/on_uninstall()
+	for(var/atom/movable/crate as anything in stored_crates)
+		crate.forceMove(drop_location())
+		stored_crates -= crate
 
 /obj/item/mod/module/gps
 	name = "MOD internal GPS module"
@@ -1164,7 +1171,7 @@
 	if(!.)
 		return
 	for(var/obj/item/ore as anything in ores)
-		ore.forceMove(mod.drop_location())
+		ore.forceMove(drop_location())
 		ores -= ore
 	drain_power(use_power_cost)
 
