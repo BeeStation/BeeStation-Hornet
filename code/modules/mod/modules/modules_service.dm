@@ -1,9 +1,7 @@
 //Service modules for MODsuits
 
-//Bike Horn
-
+///Bike Horn - Plays a bike horn sound.
 /obj/item/mod/module/bikehorn
-	name = "MOD bike horn module"
 	desc = "A shoulder-mounted piece of heavy sonic artillery, this module uses the finest femto-manipulator technology to \
 		precisely deliver an almost lethal squeeze to... a bike horn, producing a significantly memorable sound."
 	icon_state = "bikehorn"
@@ -20,8 +18,7 @@
 	playsound(src, 'sound/items/bikehorn.ogg', 100, FALSE)
 	drain_power(use_power_cost)
 
-//Microwave Beam
-
+///Microwave Beam - Microwaves items instantly.
 /obj/item/mod/module/microwave_beam
 	name = "MOD microwave beam module"
 	desc = "An oddly domestic device, this module is installed into the user's palm, \
@@ -57,8 +54,7 @@
 	spark_effect_two.start()
 	drain_power(use_power_cost)
 
-//Waddle
-
+//Waddle - Makes you waddle and squeak.
 /obj/item/mod/module/waddle
 	name = "MOD waddle module"
 	desc = "Some of the most primitive technology in use by HonkCo. This module works off an automatic intention system, \

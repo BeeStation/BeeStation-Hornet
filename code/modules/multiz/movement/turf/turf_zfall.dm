@@ -49,13 +49,16 @@
 /// Checks if we can start a zfall and then performs the zfall
 /// This function is recursive via zFall_Move -> attempt_z_impact -> zFall
 /turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE, old_loc = null, from_zfall = FALSE)
-	var/turf/target = get_step_multiz(src, DOWN)
+	var/direction = DOWN
+	if(A.has_gravity() == NEGATIVE_GRAVITY)
+		direction = UP
+	var/turf/target = get_step_multiz(src, direction)
 	if(!can_start_zFall(A, target, force, from_zfall))
 		return FALSE
 	if(from_zfall) // if this is a >1 level fall
 		sleep(2) // This is the delay between falling zlevels. Otherwise zfalls would be instant to the client, which does not look great.
 		var/turf/new_turf = get_turf(A) // make sure we didn't move onto a solid turf, if we did this will perform a zimpact via the caller
-		target = get_step_multiz(new_turf, DOWN)
+		target = get_step_multiz(new_turf, direction)
 		if(!new_turf.can_start_zFall(A, target, force, from_zfall))
 			new_turf.do_z_impact(A, levels - 1)
 			return TRUE // skip parent zimpact - do a zimpact on new turf, the turf below us is solid

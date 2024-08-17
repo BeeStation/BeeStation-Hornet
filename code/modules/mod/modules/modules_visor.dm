@@ -1,7 +1,6 @@
 //Visor modules for MODsuits
 
-//Base Visor
-
+///Base Visor - Adds a specific HUD and traits to you.
 /obj/item/mod/module/visor
 	name = "MOD visor module"
 	desc = "A heads-up display installed into the visor of the suit. They say these also let you see behind you."
@@ -10,7 +9,9 @@
 	active_power_cost = DEFAULT_CELL_DRAIN*0.3
 	incompatible_modules = list(/obj/item/mod/module/visor)
 	cooldown_time = 0.5 SECONDS
+	/// The HUD type given by the visor.
 	var/hud_type
+	/// The traits given by the visor.
 	var/list/visor_traits = list()
 
 /obj/item/mod/module/visor/on_activation()

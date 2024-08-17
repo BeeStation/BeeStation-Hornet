@@ -933,22 +933,41 @@
 /mob/living/proc/get_visible_name()
 	return name
 
-/mob/living/update_gravity(has_gravity, override)
+/mob/living/update_gravity(gravity, override)
 	. = ..()
 	if(!SSticker.HasRoundStarted())
 		return
-	if(has_gravity)
-		if(has_gravity == 1)
+	if(!SSticker.HasRoundStarted())
+		return
+	//var/was_weightless = alerts["gravity"] && istype(alerts["gravity"], /atom/movable/screen/alert/weightless)
+	var/was_negative = alerts["gravity"] && istype(alerts["gravity"], /atom/movable/screen/alert/negative)
+	switch(gravity)
+		if(NEGATIVE_GRAVITY_RANGE)
+			throw_alert("gravity", /atom/movable/screen/alert/negative)
+			if(!was_negative)
+				var/matrix/flipped_matrix = transform
+				flipped_matrix.b = -flipped_matrix.b
+				flipped_matrix.e = -flipped_matrix.e
+				animate(src, transform = flipped_matrix, pixel_y = pixel_y+4, time = 0.5 SECONDS, easing = EASE_OUT)
+				base_pixel_y += 4
+		if(WEIGHTLESS_RANGE)
+			throw_alert("gravity", /atom/movable/screen/alert/weightless)
+			//if(!was_weightless)
+			//	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, NO_GRAVITY_TRAIT)
+		if(STANDARD_GRAVITY_RANGE)
 			clear_alert("gravity")
-		else
-			if(has_gravity >= GRAVITY_DAMAGE_TRESHOLD)
-				throw_alert("gravity", /atom/movable/screen/alert/veryhighgravity)
-			else
-				throw_alert("gravity", /atom/movable/screen/alert/highgravity)
-	else
-		throw_alert("gravity", /atom/movable/screen/alert/weightless)
-	if(!override && !is_flying())
-		float(!has_gravity)
+		if(HIGH_GRAVITY_RANGE)
+			throw_alert("gravity", /atom/movable/screen/alert/highgravity)
+		if(CRUSHING_GRAVITY_RANGE)
+			throw_alert("gravity", /atom/movable/screen/alert/veryhighgravity)
+	//if(!(gravity in WEIGHTLESS_RANGE) && was_weightless)
+	//	REMOVE_TRAIT(src, TRAIT_MOVE_FLOATING, NO_GRAVITY_TRAIT)
+	if(!(gravity in NEGATIVE_GRAVITY_RANGE) && was_negative)
+		var/matrix/flipped_matrix = transform
+		flipped_matrix.b = -flipped_matrix.b
+		flipped_matrix.e = -flipped_matrix.e
+		animate(src, transform = flipped_matrix, pixel_y = pixel_y-4, time = 0.5 SECONDS, easing = EASE_OUT)
+		base_pixel_y -= 4
 
 /mob/living/float(on)
 	if(throwing)

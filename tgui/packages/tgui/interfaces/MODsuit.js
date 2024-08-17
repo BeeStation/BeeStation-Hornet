@@ -93,7 +93,7 @@ const ConfigureDataEntry = (props, context) => {
 };
 
 const RadCounter = (props, context) => {
-  const { active, userradiated, usertoxins, threatlevel } = props;
+  const { active, userradiated, usertoxins, usermaxtoxins, threatlevel } = props;
   return (
     <Stack fill textAlign="center">
       <Stack.Item grow>
@@ -104,7 +104,7 @@ const RadCounter = (props, context) => {
       <Stack.Item grow>
         <Section title="Toxins Level">
           <ProgressBar
-            value={active ? usertoxins / 100 : 0}
+            value={active ? usertoxins / usermaxtoxins : 0}
             ranges={{
               good: [-Infinity, 0.2],
               average: [0.2, 0.5],
@@ -123,8 +123,90 @@ const RadCounter = (props, context) => {
   );
 };
 
+const HealthAnalyzer = (props, context) => {
+  const {
+    active,
+    userhealth,
+    usermaxhealth,
+    userbrute,
+    userburn,
+    usertoxin,
+    useroxy,
+  } = props;
+  return (
+    <>
+      <Section title="Health">
+        <ProgressBar
+          value={active ? userhealth / usermaxhealth : 0}
+          ranges={{
+            good: [0.5, Infinity],
+            average: [0.2, 0.5],
+            bad: [-Infinity, 0.2],
+          }} >
+          <AnimatedNumber value={userhealth} />
+        </ProgressBar>
+      </Section>
+      <Stack fill textAlign="center">
+        <Stack.Item grow>
+          <Section title="Brute">
+            <ProgressBar
+              value={active ? userbrute / usermaxhealth : 0}
+              ranges={{
+                good: [-Infinity, 0.2],
+                average: [0.2, 0.5],
+                bad: [0.5, Infinity],
+              }} >
+              <AnimatedNumber value={userbrute} />
+            </ProgressBar>
+          </Section>
+        </Stack.Item>
+        <Stack.Item grow>
+          <Section title="Burn">
+            <ProgressBar
+              value={active ? userburn / usermaxhealth : 0}
+              ranges={{
+                good: [-Infinity, 0.2],
+                average: [0.2, 0.5],
+                bad: [0.5, Infinity],
+              }} >
+              <AnimatedNumber value={userburn} />
+            </ProgressBar>
+          </Section>
+        </Stack.Item>
+        <Stack.Item grow>
+          <Section title="Toxin">
+            <ProgressBar
+              value={active ? usertoxin / usermaxhealth : 0}
+              ranges={{
+                good: [-Infinity, 0.2],
+                average: [0.2, 0.5],
+                bad: [0.5, Infinity],
+              }} >
+              <AnimatedNumber value={usertoxin} />
+            </ProgressBar>
+          </Section>
+        </Stack.Item>
+        <Stack.Item grow>
+          <Section title="Suffocation">
+            <ProgressBar
+              value={active ? useroxy / usermaxhealth : 0}
+              ranges={{
+                good: [-Infinity, 0.2],
+                average: [0.2, 0.5],
+                bad: [0.5, Infinity],
+              }} >
+              <AnimatedNumber value={useroxy} />
+            </ProgressBar>
+          </Section>
+        </Stack.Item>
+      </Stack>
+    </>
+  );
+};
+
 const ID2MODULE = {
   rad_counter: RadCounter,
+  health_analyzer: HealthAnalyzer,
 };
 
 const LockedInterface = () => (
