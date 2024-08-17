@@ -26,12 +26,7 @@ export const OutfitManager = (props, context) => {
                 tooltipPosition="left"
                 onClick={() => act('copy')}
               />
-              <Button
-                icon="plus"
-                tooltip="Create a new outfit"
-                tooltipPosition="left"
-                onClick={() => act('new')}
-              />
+              <Button icon="plus" tooltip="Create a new outfit" tooltipPosition="left" onClick={() => act('new')} />
             </>
           }>
           <Stack vertical>

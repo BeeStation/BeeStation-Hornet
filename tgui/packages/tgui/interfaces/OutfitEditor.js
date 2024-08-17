@@ -57,9 +57,7 @@ export const OutfitEditor = (props, context) => {
                   color={!saveable && 'bad'}
                   icon={saveable ? 'save' : 'trash-alt'}
                   tooltip={
-                    saveable
-                      ? 'Save this outfit to the custom outfit list'
-                      : 'Remove this outfit from the custom outfit list'
+                    saveable ? 'Save this outfit to the custom outfit list' : 'Remove this outfit from the custom outfit list'
                   }
                   tooltipPosition="bottom-start"
                   onClick={() => act(saveable ? 'save' : 'delete')}
@@ -83,11 +81,7 @@ export const OutfitEditor = (props, context) => {
               <OutfitSlot name="Gloves" icon="mitten" slot="gloves" />
             </Stack>
             <Stack mb={2}>
-              <OutfitSlot
-                name="Suit Storage"
-                icon="briefcase-medical"
-                slot="suit_store"
-              />
+              <OutfitSlot name="Suit Storage" icon="briefcase-medical" slot="suit_store" />
               <OutfitSlot name="Back" icon="shopping-bag" slot="back" />
               <OutfitSlot name="ID" icon="id-card-o" slot="id" />
             </Stack>
@@ -98,18 +92,8 @@ export const OutfitEditor = (props, context) => {
             </Stack>
             <Stack mb={2}>
               <OutfitSlot name="Shoes" icon="socks" slot="shoes" />
-              <OutfitSlot
-                name="Left Pocket"
-                icon="envelope-open-o"
-                iconRot={180}
-                slot="l_pocket"
-              />
-              <OutfitSlot
-                name="Right Pocket"
-                icon="envelope-open-o"
-                iconRot={180}
-                slot="r_pocket"
-              />
+              <OutfitSlot name="Left Pocket" icon="envelope-open-o" iconRot={180} slot="l_pocket" />
+              <OutfitSlot name="Right Pocket" icon="envelope-open-o" iconRot={180} slot="r_pocket" />
             </Stack>
           </Box>
         </Section>
