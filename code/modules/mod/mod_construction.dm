@@ -7,17 +7,33 @@
 	name = "MOD helmet"
 	icon_state = "helmet"
 
+/obj/item/mod/construction/helmet/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You could insert it into a <b>MOD shell</b>...</span>"
+
 /obj/item/mod/construction/chestplate
 	name = "MOD chestplate"
 	icon_state = "chestplate"
+
+/obj/item/mod/construction/chestplate/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You could insert it into a <b>MOD shell</b>...</span>"
 
 /obj/item/mod/construction/gauntlets
 	name = "MOD gauntlets"
 	icon_state = "gauntlets"
 
+/obj/item/mod/construction/gauntlets/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You could insert these into a <b>MOD shell</b>...</span>"
+
 /obj/item/mod/construction/boots
 	name = "MOD boots"
 	icon_state = "boots"
+
+/obj/item/mod/construction/boots/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You could insert these into a <b>MOD shell</b>...</span>"
 
 /obj/item/mod/construction/core
 	name = "MOD core"
