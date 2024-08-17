@@ -352,11 +352,19 @@ const ModuleSection = (props, context) => {
                           />
                           <Button
                             onClick={() => setConfigureState(module.ref)}
-                            selected={configureState === module.ref}
                             icon="cog"
+                            selected={configureState === module.ref}
                             tooltip="Configure"
                             tooltipPosition="left"
                             disabled={module.configuration_data.length === 0}
+                          />
+                          <Button
+                            onClick={() => act('pin', { "ref": module.ref })}
+                            icon="thumbtack"
+                            selected={module.pinned}
+                            tooltip="Pin"
+                            tooltipPosition="left"
+                            disabled={!module.module_type}
                           />
                         </Table.Cell>
                       </Table.Row>

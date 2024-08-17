@@ -181,6 +181,7 @@
 			helmet.alternate_worn_layer = helmet.alternate_layer
 		wearer.update_inv_head()
 		wearer.update_inv_wear_mask()
+		wearer.update_inv_glasses()
 		wearer.update_hair()
 
 /// Finishes the suit's activation, starts processing
