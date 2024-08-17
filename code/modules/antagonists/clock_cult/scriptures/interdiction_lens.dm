@@ -81,7 +81,7 @@
 		flick("interdiction_lens_recharged", src)
 		if(istype(dampening_field))
 			QDEL_NULL(dampening_field)
-		dampening_field = make_field(/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork, list("current_range" = INTERDICTION_LENS_RANGE, "host" = src, "projector" = internal_dampener))
+		dampening_field = new(src, INTERDICTION_LENS_RANGE, TRUE)
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/depowered()
 	if(processing)
@@ -101,10 +101,7 @@
 
 //Dampening field
 /datum/proximity_monitor/advanced/peaceborg_dampener/clockwork
-	name = "\improper Reality Distortion Field"
 
-/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork/setup_edge_turf(turf/T)
-	edge_turfs[T] = new /obj/effect/abstract/proximity_checker/advanced/field_edge(T, src)
 
 /datum/proximity_monitor/advanced/peaceborg_dampener/clockwork/capture_projectile(obj/projectile/P, track_projectile = TRUE)
 	if(P in tracked)
