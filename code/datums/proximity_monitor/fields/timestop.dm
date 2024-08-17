@@ -27,13 +27,13 @@
 	for(var/A in immune_atoms)
 		immune[A] = TRUE
 	for(var/mob/living/L in GLOB.player_list)
-		if(locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in L.mind.spell_list) //People who can stop time are immune to its effects
+		if(locate(/obj/effect/proc_holder/spell/aoe_turf/timestop) in L.mind.spell_list) //People who can stop time are immune to its effects
 			immune[L] = TRUE
 	for(var/mob/living/simple_animal/hostile/holoparasite/G in GLOB.holoparasites)
 		if(G?.summoner?.current)
-			if(((locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in G.summoner.spell_list) || (locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in G.summoner.current.mob_spell_list))) //It would only make sense that a person's stand would also be immune.
+			if(((locate(/obj/effect/proc_holder/spell/aoe_turf/timestop) in G.summoner.spell_list) || (locate(/obj/effect/proc_holder/spell/aoe_turf/timestop) in G.summoner.current.mob_spell_list))) //It would only make sense that a person's stand would also be immune.
 				immune[G] = TRUE
-			if(((locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in G.mind.spell_list) || (locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in G.mob_spell_list))) //It would only make sense that a person's stand would also be immune.
+			if(((locate(/obj/effect/proc_holder/spell/aoe_turf/timestop) in G.mind.spell_list) || (locate(/obj/effect/proc_holder/spell/aoe_turf/timestop) in G.mob_spell_list))) //It would only make sense that a person's stand would also be immune.
 				immune[G.summoner.current] = TRUE
 				for(var/mob/living/simple_animal/hostile/holoparasite/GG in GLOB.holoparasites)
 					if(G.summoner == GG.summoner)
@@ -49,32 +49,38 @@
 /obj/effect/timestop/proc/timestop()
 	target = get_turf(src)
 	playsound(src, 'sound/magic/timeparadox2.ogg', 75, 1, -1)
-	chronofield = make_field(/datum/proximity_monitor/advanced/timestop, list("current_range" = freezerange, "host" = src, "immune" = immune, "check_anti_magic" = check_anti_magic, "check_holy" = check_holy))
+	chronofield = new (src, freezerange, TRUE, immune, check_anti_magic, check_holy)
 	QDEL_IN(src, duration)
 
-/obj/effect/timestop/wizard
+/obj/effect/timestop/magic
 	check_anti_magic = TRUE
-	duration = 100
 
 /datum/proximity_monitor/advanced/timestop
-	name = "chronofield"
-	setup_field_turfs = TRUE
-	field_shape = FIELD_SHAPE_RADIUS_SQUARE
-	requires_processing = TRUE
 	var/list/immune = list()
 	var/list/frozen_things = list()
 	var/list/frozen_mobs = list() //cached separately for processing
+	var/list/frozen_structures = list() //Also machinery, and only frozen aestethically
+	var/list/frozen_turfs = list() //Only aesthetically
 	var/check_anti_magic = FALSE
 	var/check_holy = FALSE
 
 	var/static/list/global_frozen_atoms = list()
 
+/datum/proximity_monitor/advanced/timestop/New(atom/_host, range, _ignore_if_not_on_turf = TRUE, list/immune, check_anti_magic, check_holy)
+	..()
+	src.immune = immune
+	src.check_anti_magic = check_anti_magic
+	src.check_holy = check_holy
+	recalculate_field()
+	START_PROCESSING(SSfastprocess, src)
+
 /datum/proximity_monitor/advanced/timestop/Destroy()
 	unfreeze_all()
+	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
-/datum/proximity_monitor/advanced/timestop/field_turf_crossed(atom/movable/AM)
-	freeze_atom(AM)
+/datum/proximity_monitor/advanced/timestop/field_turf_crossed(atom/movable/movable, turf/location)
+	freeze_atom(movable)
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_atom(atom/movable/A)
 	if(immune[A] || global_frozen_atoms[A] || !istype(A))
@@ -86,6 +92,8 @@
 		freeze_projectile(A)
 	else if(istype(A, /obj/vehicle/sealed/mecha))
 		freeze_mecha(A)
+	else if((ismachinery(A) && !istype(A, /obj/machinery/light)) || isstructure(A)) //Special exception for light fixtures since recoloring causes them to change light
+		freeze_structure(A)
 	else
 		frozen = FALSE
 	if(A.throwing)
@@ -106,6 +114,8 @@
 /datum/proximity_monitor/advanced/timestop/proc/unfreeze_all()
 	for(var/i in frozen_things)
 		unfreeze_atom(i)
+	for(var/T in frozen_turfs)
+		unfreeze_turf(T)
 
 /datum/proximity_monitor/advanced/timestop/proc/unfreeze_atom(atom/movable/A)
 	SIGNAL_HANDLER
@@ -143,15 +153,30 @@
 	if(T)
 		T.paused = FALSE
 
+/datum/proximity_monitor/advanced/timestop/proc/freeze_turf(turf/T)
+	into_the_negative_zone(T)
+	frozen_turfs += T
+
+/datum/proximity_monitor/advanced/timestop/proc/unfreeze_turf(turf/T)
+	escape_the_negative_zone(T)
+
+/datum/proximity_monitor/advanced/timestop/proc/freeze_structure(obj/O)
+	into_the_negative_zone(O)
+	frozen_structures += O
+
+/datum/proximity_monitor/advanced/timestop/proc/unfreeze_structure(obj/O)
+	escape_the_negative_zone(O)
+
 /datum/proximity_monitor/advanced/timestop/process()
 	for(var/i in frozen_mobs)
 		var/mob/living/m = i
 		m.Stun(20, ignore_canstun = TRUE)
 
 /datum/proximity_monitor/advanced/timestop/setup_field_turf(turf/T)
+	. = ..()
 	for(var/i in T.contents)
 		freeze_atom(i)
-	return ..()
+	freeze_turf(T)
 
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_projectile(obj/projectile/P)
