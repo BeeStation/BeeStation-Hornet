@@ -62,8 +62,8 @@
 #define RADIO_KEY_UPLINK "d"
 #define RADIO_TOKEN_UPLINK ":d"
 
-#define MIN_FREE_FREQ 1201 // -------------------------------------------------
-// Frequencies are always odd numbers and range from 1201 to 1599.
+#define MIN_FREE_FREQ 1339 // -------------------------------------------------
+// Frequencies are always odd numbers and range from 1339 to 1599.
 
 #define FREQ_SYNDICATE 1213  //!  Nuke op comms frequency, dark brown
 #define FREQ_UPLINK 1214   //!  Dummy channel for headset uplink
@@ -128,3 +128,6 @@
 #define REQ_DEP_TYPE_ASSISTANCE 	(1<<0)
 #define REQ_DEP_TYPE_SUPPLIES 		(1<<1)
 #define REQ_DEP_TYPE_INFORMATION 	(1<<2)
+
+///give this to can_receive to specify that there is no restriction on what z level this signal is sent to
+#define RADIO_NO_Z_LEVEL_RESTRICTION 0

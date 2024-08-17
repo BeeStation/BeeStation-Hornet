@@ -19,8 +19,11 @@
 	var/ride_check_rider_incapacitated = FALSE
 	var/ride_check_rider_restrained = FALSE
 	var/ride_check_ridden_incapacitated = FALSE
+	var/ride_check_ridden_restrained = FALSE
 
 	var/del_on_unbuckle_all = FALSE
+	var/emped = FALSE
+	var/empable = FALSE
 
 /datum/component/riding/Initialize()
 	if(!ismovable(parent))
@@ -28,6 +31,7 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_BUCKLE, PROC_REF(vehicle_mob_buckle))
 	RegisterSignal(parent, COMSIG_MOVABLE_UNBUCKLE, PROC_REF(vehicle_mob_unbuckle))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(vehicle_moved))
+	RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 	//Calculate the move multiplier speed, to be proportional to mob speed
 	vehicle_move_multiplier = CONFIG_GET(number/movedelay/run_delay) / 1.5
 
@@ -71,7 +75,10 @@
 /datum/component/riding/proc/ride_check(mob/living/M)
 	var/atom/movable/AM = parent
 	var/mob/AMM = AM
-	if((ride_check_rider_restrained && M.restrained(TRUE)) || (ride_check_rider_incapacitated && M.incapacitated(FALSE, TRUE)) || (ride_check_ridden_incapacitated && istype(AMM) && AMM.incapacitated(FALSE, TRUE)))
+	var/kick_us_off
+	if((ride_check_rider_restrained && HAS_TRAIT(M, TRAIT_RESTRAINED)) || (ride_check_rider_incapacitated && M.incapacitated(TRUE, TRUE)))
+		kick_us_off = TRUE
+	if(kick_us_off || (istype(AMM) && ((ride_check_ridden_restrained && HAS_TRAIT(AMM, TRAIT_RESTRAINED)) || (ride_check_ridden_incapacitated && AMM.incapacitated(TRUE, TRUE)))))
 		M.visible_message("<span class='warning'>[M] falls off of [AM]!</span>", \
 						"<span class='warning'>You fall off of [AM]!</span>")
 		AM.unbuckle_mob(M)
@@ -167,13 +174,16 @@
 		return
 	last_vehicle_move = world.time
 
+	if(emped && empable)
+		to_chat(user, "<span class='notice'>\The [AM]'s controls aren't responding!</span>")
+		return
 	if(keycheck(user))
 		var/turf/next = get_step(AM, direction)
 		var/turf/current = get_turf(AM)
 		if(!istype(next) || !istype(current))
 			return	//not happening.
 		if(!turf_check(next, current))
-			to_chat(user, "Your \the [AM] can not go onto [next]!")
+			to_chat(user, "\The [AM] cannot go onto [next]!")
 			return
 		if(!Process_Spacemove(direction) || !isturf(AM.loc))
 			return
@@ -203,7 +213,7 @@
 	return override_allow_spacemove || AM.has_gravity()
 
 /datum/component/riding/proc/account_limbs(mob/living/M)
-	if(M.get_num_legs() < 2 && !slowed)
+	if(M.usable_legs < 2 && !slowed)
 		vehicle_move_delay = vehicle_move_delay + slowvalue
 		slowed = TRUE
 	else if(slowed)
@@ -220,13 +230,13 @@
 
 /datum/component/riding/human/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
 	var/mob/living/carbon/human/H = parent
-	H.remove_movespeed_modifier(MOVESPEED_ID_HUMAN_CARRYING)
+	H.remove_movespeed_modifier(/datum/movespeed_modifier/human_carry)
 	. = ..()
 
 /datum/component/riding/human/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
 	. = ..()
 	var/mob/living/carbon/human/H = parent
-	H.add_movespeed_modifier(MOVESPEED_ID_HUMAN_CARRYING, multiplicative_slowdown = HUMAN_CARRY_SLOWDOWN)
+	H.add_movespeed_modifier(/datum/movespeed_modifier/human_carry)
 
 /datum/component/riding/human/proc/on_host_unarmed_melee(atom/target)
 	SIGNAL_HANDLER
@@ -285,7 +295,7 @@
 			return
 	if(iscarbon(user))
 		var/mob/living/carbon/carbonuser = user
-		if(!carbonuser.get_num_arms())
+		if(!carbonuser.usable_hands)
 			Unbuckle(user)
 			to_chat(user, "<span class='userdanger'>You can't grab onto [AM] with no hands!</span>")
 			return
@@ -410,3 +420,18 @@
 		var/mob/living/simple_animal/S = parent
 		S.toggle_ai(AI_ON)
 	..()
+
+/datum/component/riding/proc/on_emp_act(datum/source, severity)
+	SIGNAL_HANDLER
+
+	if(!empable)
+		return
+	emped = TRUE
+	var/atom/movable/AM = parent
+	AM.add_emitter(/obj/emitter/fire_smoke, "smoke")
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 300 / severity, TIMER_UNIQUE|TIMER_OVERRIDE) //if a new EMP happens, remove the old timer so it doesn't reactivate early
+
+/datum/component/riding/proc/reboot()
+	emped = FALSE
+	var/atom/movable/AM = parent
+	AM.remove_emitter("smoke")

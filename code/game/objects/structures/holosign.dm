@@ -6,7 +6,7 @@
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	max_integrity = 1
-	armor = list(MELEE = 0,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20, STAMINA = 0, BLEED = 0)
 	layer = BELOW_OBJ_LAYER
 	var/obj/item/holosign_creator/projector
 

@@ -136,7 +136,7 @@
 	if(pain_stam_pct && HAS_TRAIT_FROM(victim, TRAIT_INCAPACITATED, STAMINA)) //if it's a less-lethal embed, give them a break if they're already stamcritted
 		pain_chance_current *= 0.2
 		damage *= 0.5
-	else if(victim.mobility_flags & ~MOBILITY_STAND)
+	else if(victim.body_position == LYING_DOWN)
 		pain_chance_current *= 0.2
 
 	if(harmful && prob(pain_chance_current))
@@ -164,7 +164,7 @@
 
 	var/mob/living/carbon/victim = parent
 	var/chance = jostle_chance
-	if(victim.m_intent == MOVE_INTENT_WALK || !(victim.mobility_flags & MOBILITY_STAND))
+	if(victim.m_intent == MOVE_INTENT_WALK || victim.body_position == LYING_DOWN)
 		chance *= 0.5
 
 	if(harmful && prob(chance))
@@ -251,7 +251,7 @@
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(pluckOut), user, 1, 2, "pulling out")
-	return COMPONENT_NO_ATTACK_HAND
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/embedded/proc/checkRemoval(mob/living/carbon/victim, obj/item/I, mob/user)
 	SIGNAL_HANDLER

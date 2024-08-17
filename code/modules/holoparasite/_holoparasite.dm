@@ -8,9 +8,12 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	gender = NEUTER
 	mob_biotypes = list(MOB_INORGANIC)
 	bubble_icon = "guardian"
-	response_help  = "passes through"
-	response_disarm = "flails at"
-	response_harm   = "punches"
+	response_help_continuous = "passes through"
+	response_help_simple = "pass through"
+	response_disarm_continuous = "flails at"
+	response_disarm_simple = "flail at"
+	response_harm_continuous = "punches"
+	response_harm_simple = "punch"
 	icon = 'icons/mob/holoparasite.dmi'
 	icon_state = "magicOrange"
 	icon_living = "magicOrange"
@@ -27,7 +30,8 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	attacktext = "punches"
+	attack_verb_continuous = "punches"
+	attack_verb_simple = "punch"
 	maxHealth = INFINITY // The spirit itself is invincible
 	health = INFINITY
 	healable = FALSE // Don't bruise pack the holopara!
@@ -140,6 +144,8 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	if(mind && key && key != mind.key) // Ooh, new player!
 		first_time_show_popup = mind.has_antag_datum(/datum/antagonist/holoparasite)
 	. = ..()
+	if(!. || !client)
+		return FALSE
 	if(mind)
 		mind.name = "[real_name]"
 	if(QDELETED(summoner?.current))
@@ -187,7 +193,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 		else
 			health_percent = round((current.health / current.maxHealth) * 100, 0.5)
 		var/stat_text = "[health_percent]%"
-		if(current.InCritical())
+		if(HAS_TRAIT(current, TRAIT_CRITICAL_CONDITION))
 			stat_text += " (!! CRITICAL !!)"
 		.["Summoner Health"] = GENERATE_STAT_TEXT(stat_text)
 	if(!COOLDOWN_FINISHED(src, manifest_cooldown))
@@ -213,7 +219,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 
 /mob/living/simple_animal/hostile/holoparasite/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods)
 	var/datum/antagonist/traitor/summoner_traitor = summoner?.has_antag_datum(/datum/antagonist/traitor)
-	if(summoner_traitor?.should_give_codewords)
+	if(summoner_traitor?.has_codewords)
 		raw_message = GLOB.syndicate_code_phrase_regex.Replace(raw_message, "<span class='blue'>$1</span>")
 		raw_message = GLOB.syndicate_code_response_regex.Replace(raw_message, "<span class='red'>$1</span>")
 	return ..()

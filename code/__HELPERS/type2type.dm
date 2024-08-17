@@ -86,8 +86,9 @@
 			return NORTH
 
 /// Converts an angle to a cardinal ss13 direction bitmask
-/proc/angle2dir_cardinal(angle)
-	switch(SIMPLIFY_DEGREES(round(angle, 0.1)))
+/proc/angle2dir_cardinal(degree)
+	degree = SIMPLIFY_DEGREES(degree)
+	switch(round(degree, 0.1))
 		if(315.5 to 360, 0 to 45.5)
 			return NORTH
 		if(45.6 to 135.5)
@@ -173,6 +174,22 @@
 	if(!.)
 		. = "NONE"
 	return .
+
+/// For finding out what body parts a body zone covers, the inverse of the below basically
+/proc/body_zone2cover_flags(def_zone)
+	switch(def_zone)
+		if(BODY_ZONE_CHEST)
+			return CHEST|GROIN
+		if(BODY_ZONE_HEAD)
+			return HEAD
+		if(BODY_ZONE_L_ARM)
+			return ARM_LEFT|HAND_LEFT
+		if(BODY_ZONE_R_ARM)
+			return ARM_RIGHT|HAND_RIGHT
+		if(BODY_ZONE_L_LEG)
+			return LEG_LEFT|FOOT_LEFT
+		if(BODY_ZONE_R_LEG)
+			return LEG_RIGHT|FOOT_RIGHT
 
 /// Converts an RGB color to an HSL color
 /proc/rgb2hsl(red, green, blue)

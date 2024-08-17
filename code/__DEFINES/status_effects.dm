@@ -9,6 +9,8 @@
 #define STATUS_EFFECT_REPLACE 2
 /// if it only allows one, and new instances just instead refresh the timer
 #define STATUS_EFFECT_REFRESH 3
+/// call a merge proc to combine 2 status effects
+#define STATUS_EFFECT_MERGE 4
 
 //-------//
 // BUFFS //
@@ -31,7 +33,7 @@
 
 #define STATUS_EFFECT_FLESHMEND /datum/status_effect/fleshmend //! Very fast healing; suppressed by fire, and heals less fire damage
 
-#define STATUS_EFFECT_CHANGELING_CAMO /datum/status_effect/changeling/camoflague //! Makes you slowly invisible over time, taking damage, being bumped, moving or burning removes the effect.
+#define STATUS_EFFECT_CHANGELING_CAMO /datum/status_effect/changeling/camouflage //! Makes you slowly invisible over time, taking damage, being bumped, moving or burning removes the effect.
 
 #define STATUS_EFFECT_CHANGELING_MINDSHIELD /datum/status_effect/changeling/mindshield //! Causes you to appear to have a mindshield to security HUDs.
 
@@ -117,6 +119,7 @@
 
 #define STATUS_EFFECT_LING_TRANSFORMATION /datum/status_effect/ling_transformation // transform stung by a changeling
 
+#define STATUS_EFFECT_BLEED /datum/status_effect/bleeding
 
 //---------//
 // NEUTRAL //

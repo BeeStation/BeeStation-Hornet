@@ -17,7 +17,7 @@
 		if(low_power_mode)
 			if(cell?.charge)
 				low_power_mode = FALSE
-				remove_movespeed_modifier(MOVESPEED_ID_NO_POWERCELL) //Cyborg speed restored when cell is replaced
+				remove_movespeed_modifier(/datum/movespeed_modifier/nopowercell) //Cyborg speed restored when cell is replaced
 		else if(stat == CONSCIOUS)
 			use_power()
 
@@ -30,7 +30,7 @@
 	else
 		uneq_all()
 		low_power_mode = TRUE
-		add_movespeed_modifier(MOVESPEED_ID_NO_POWERCELL, override = TRUE, multiplicative_slowdown = 1.5, blacklisted_movetypes = FLOATING) //Cyborg is greatly slowed with no cell charge
+		add_movespeed_modifier(/datum/movespeed_modifier/nopowercell) //Cyborg is greatly slowed with no cell charge
 		toggle_headlamp(TRUE)
 	diag_hud_set_borgcell()
 
@@ -97,12 +97,4 @@
 		add_overlay(fire_overlay)
 	else
 		cut_overlay(fire_overlay)
-
-/mob/living/silicon/robot/update_mobility()
-	if(HAS_TRAIT(src, TRAIT_IMMOBILIZED))
-		mobility_flags &= ~MOBILITY_MOVE
-	else
-		mobility_flags = MOBILITY_FLAGS_DEFAULT
-	update_transform()
-	update_action_buttons_icon()
 

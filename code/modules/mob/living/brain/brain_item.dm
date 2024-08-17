@@ -8,7 +8,8 @@
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_BRAIN
 	organ_flags = ORGAN_VITAL|ORGAN_EDIBLE
-	attack_verb = list("attacked", "slapped", "whacked")
+	attack_verb_continuous = list("attacks", "slaps", "whacks")
+	attack_verb_simple = list("attack", "slap", "whack")
 
 	///The brain's organ variables are significantly more different than the other organs, with half the decay rate for balance reasons, and twice the maxHealth
 	decay_factor = STANDARD_ORGAN_DECAY	/ 2		//30 minutes of decaying to result in a fully damaged brain, since a fast decay rate would be unfun gameplay-wise
@@ -67,7 +68,11 @@
 		BT.owner = null
 
 	if((!gc_destroyed || (owner && !owner.gc_destroyed)) && !no_id_transfer)
-		transfer_identity(C)
+		if(C.mind)
+			transfer_identity(C)
+			if(C.mind.current)
+				C.mind.transfer_to(brainmob)
+		to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a brain.</span>")
 	C.update_hair()
 
 /obj/item/organ/brain/setOrganDamage(d)
@@ -79,8 +84,6 @@
 /obj/item/organ/brain/proc/transfer_identity(mob/living/L)
 	name = "[L.name]'s brain"
 	if(brainmob || decoy_override)
-		return
-	if (!L.mind)
 		return
 	brainmob = new(src)
 	brainmob.name = L.real_name
@@ -97,9 +100,6 @@
 		var/obj/item/organ/zombie_infection/ZI = L.getorganslot(ORGAN_SLOT_ZOMBIE)
 		if(ZI)
 			brainmob.set_species(ZI.old_species)	//For if the brain is cloned
-	if(L.mind?.current)
-		L.mind.transfer_to(brainmob)
-	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a brain.</span>")
 
 /obj/item/organ/brain/attackby(obj/item/O, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -136,7 +136,7 @@
 	if(suicided)
 		. += "<span class='info'>It's started turning slightly grey. They must not have been able to handle the stress of it all.</span>"
 	else if(brainmob)
-		if(brainmob.get_ghost(FALSE, TRUE))
+		if(!brainmob.soul_departed())
 			if(brain_death || brainmob.health <= HEALTH_THRESHOLD_DEAD)
 				. += "<span class='info'>It's lifeless and severely damaged.</span>"
 			else if(organ_flags & ORGAN_FAILING)

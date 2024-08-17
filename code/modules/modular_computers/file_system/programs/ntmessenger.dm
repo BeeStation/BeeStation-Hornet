@@ -94,7 +94,7 @@
 
 /datum/computer_file/program/messenger/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/chat),
+		get_asset_datum(/datum/asset/spritesheet_batched/chat),
 	)
 
 /datum/computer_file/program/messenger/ui_static_data(mob/user)
@@ -186,6 +186,14 @@
 			computer.saved_image = null
 			photo_path = null
 			return TRUE
+		if("PDA_viewPhotos")
+			if(!issilicon(usr))
+				return
+			var/mob/living/silicon/user = usr
+			var/obj/item/camera/siliconcam/aicamera = user.aicamera
+			if(isnull(aicamera))
+				return
+			aicamera.viewpictures(user)
 		if("PDA_selectPhoto")
 			if(!issilicon(usr))
 				return

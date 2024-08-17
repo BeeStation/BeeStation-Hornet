@@ -338,6 +338,7 @@
 	var/datum/objective/heretic_research/research_objective = new()
 	research_objective.owner = owner
 	objectives += research_objective
+	log_objective(owner, research_objective.explanation_text)
 
 	var/num_heads = 0
 	for(var/mob/player in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
@@ -351,11 +352,13 @@
 		sac_objective.target_amount += 2
 		sac_objective.update_explanation_text()
 	objectives += sac_objective
+	log_objective(owner, sac_objective.explanation_text)
 	// Give command sacrifice objective (if there's at least 2 command staff)
 	if(num_heads >= 2)
 		var/datum/objective/major_sacrifice/other_sac_objective = new()
 		other_sac_objective.owner = owner
 		objectives += other_sac_objective
+		log_objective(owner, other_sac_objective.explanation_text)
 
 /**
  * Add [target] as a sacrifice target for the heretic.
@@ -392,7 +395,7 @@
 		var/datum/mind/possible_target = player.mind
 		if(!include_current_targets && (WEAKREF(possible_target) in sac_targets))
 			continue
-		if(possible_target == src)
+		if(possible_target == owner)
 			continue
 		if(!SSjob.name_occupations[possible_target.assigned_role])
 			continue
@@ -401,7 +404,7 @@
 			continue
 		if(possible_target in target_blacklist)
 			continue
-		if(player.stat == DEAD || player.InFullCritical())
+		if(player.stat >= HARD_CRIT) //Hardcrit or worse (like being dead lmao)
 			continue
 		. += possible_target
 
@@ -697,7 +700,7 @@
 
 /datum/objective/major_sacrifice/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
-	return completed || length(heretic_datum?.high_value_sacrifices) >= target_amount
+	return completed || (heretic_datum?.high_value_sacrifices >= target_amount)
 
 /// Heretic's research objective. "Research" is heretic knowledge nodes (You start with some).
 /datum/objective/heretic_research

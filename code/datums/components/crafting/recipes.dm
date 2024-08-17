@@ -166,7 +166,7 @@
 				/obj/item/bodypart/r_leg/robot = 1,
 				/obj/item/stack/sheet/iron = 1,
 				/obj/item/stack/cable_coil = 1,
-				/obj/item/gun/energy/e_gun/dragnet = 1,
+				/obj/item/gun/energy/disabler = 1,
 				/obj/item/stock_parts/cell = 1,
 				/obj/item/assembly/prox_sensor = 1)
 	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
@@ -206,7 +206,7 @@
 	name = "Floorbot"
 	result = /mob/living/simple_animal/bot/floorbot
 	reqs = list(/obj/item/storage/toolbox = 1,
-				/obj/item/stack/tile/plasteel = 10,
+				/obj/item/stack/tile/iron = 10,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/bodypart/r_arm/robot = 1)
 	time = 40
@@ -238,7 +238,7 @@
 	reqs = list(/obj/item/extinguisher = 1,
 				/obj/item/bodypart/r_arm/robot = 1,
 				/obj/item/assembly/prox_sensor = 1,
-				/obj/item/clothing/head/hardhat/red = 1)
+				/obj/item/clothing/head/utility/hardhat/red = 1)
 	time = 40
 	category = CAT_ROBOT
 
@@ -644,21 +644,21 @@
 
 /datum/crafting_recipe/lizardhat
 	name = "Lizard Cloche Hat"
-	result = /obj/item/clothing/head/lizard
+	result = /obj/item/clothing/head/costume/lizard
 	time = 10
 	reqs = list(/obj/item/organ/tail/lizard = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/lizardhat_alternate
 	name = "Lizard Cloche Hat"
-	result = /obj/item/clothing/head/lizard
+	result = /obj/item/clothing/head/costume/lizard
 	time = 10
 	reqs = list(/obj/item/stack/sheet/animalhide/lizard = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/kittyears
 	name = "Kitty Ears"
-	result = /obj/item/clothing/head/kitty/genuine
+	result = /obj/item/clothing/head/costume/kitty/genuine
 	time = 10
 	reqs = list(/obj/item/organ/tail/cat = 1,
 				/obj/item/organ/ears/cat = 1)
@@ -731,11 +731,11 @@
 	name = "Paper Frames"
 	result = /obj/item/stack/sheet/paperframes/five
 	time = 10
-	reqs = list(/obj/item/stack/sheet/wood = 5, /obj/item/paper = 20)
+	reqs = list(/obj/item/stack/sheet/wood = 2, /obj/item/paper = 10)
 	category = CAT_MISC
 
 /datum/crafting_recipe/naturalpaper
-	name = "Hand-Pressed Paper"
+	name = "Hand-Pressed Paper Bundle"
 	time = 30
 	reqs = list(/datum/reagent/water = 50, /obj/item/stack/sheet/wood = 1)
 	tools = list(/obj/item/hatchet)
@@ -1014,7 +1014,7 @@
 	result = /obj/item/pressure_plate
 	time = 5
 	reqs = list(/obj/item/stack/sheet/iron = 1,
-				  /obj/item/stack/tile/plasteel = 1,
+				  /obj/item/stack/tile/iron = 1,
 				  /obj/item/stack/cable_coil = 2,
 				  /obj/item/assembly/igniter = 1)
 	category = CAT_MISC
@@ -1220,6 +1220,17 @@
 				)
 	tools = list(TOOL_WRENCH, TOOL_WIRECUTTER)
 	category = CAT_MISC
+
+/datum/crafting_recipe/personal_locker
+	name = "Personal Locker"
+	result = /obj/structure/closet/secure_closet/personal/empty
+	time = 10 SECONDS
+	reqs = list(/obj/item/stack/sheet/iron = 2,
+				/obj/item/electronics/airlock = 1,
+				/obj/item/stack/cable_coil = 2
+				)
+	tools = list(TOOL_WIRECUTTER, TOOL_SCREWDRIVER)
+	category = CAT_STRUCTURE
 
 /datum/crafting_recipe/shutters
 	name = "Shutters"

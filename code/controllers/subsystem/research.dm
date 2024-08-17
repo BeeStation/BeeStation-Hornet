@@ -20,7 +20,7 @@ SUBSYSTEM_DEF(research)
 	var/list/techweb_boost_items = list()		//associative double-layer path = list(id = list(point_type = point_discount))
 	var/list/techweb_nodes_hidden = list()		//Node ids that should be hidden by default.
 	var/list/techweb_point_items = list(		//path = list(point type = value)
-		/obj/item/assembly/signaler/anomaly = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+		/obj/item/assembly/signaler/anomaly = list(TECHWEB_POINT_TYPE_GENERIC = 10000, TECHWEB_POINT_TYPE_DISCOVERY = 5000)
 	)
 	var/list/point_types = list()				//typecache style type = TRUE list
 	//----------------------------------------------
@@ -44,14 +44,13 @@ SUBSYSTEM_DEF(research)
 	// 2) Scientists using their shuttle to go to ruins
 	// 3) Giving miners a scanner
 	// 4) Scanning station pets
-	// 5) Using the experimentor on maint devices
 	// (probably more added since this comment was written.)
 	science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, 2500)
 	admin_tech = new /datum/techweb/admin
 	autosort_categories()
 	error_design = new
 	error_node = new
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/research/fire()
 	var/list/bitcoins = list()

@@ -18,11 +18,15 @@
 	speak_emote = list("hisses")
 	health = 20
 	maxHealth = 20
-	attacktext = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
 	melee_damage = 6
-	response_help  = "pets"
-	response_disarm = "shoos"
-	response_harm   = "steps on"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "shoos"
+	response_disarm_simple = "shoo"
+	response_harm_continuous = "steps on"
+	response_harm_simple = "step on"
 	faction = list("hostile")
 	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
@@ -39,6 +43,11 @@
 	worn_slot_flags = ITEM_SLOT_HEAD
 	head_icon = 'icons/mob/pets_held.dmi'
 	held_state = "snake"
+
+
+/mob/living/simple_animal/hostile/retaliate/poison/snake/Initialize(mapload)
+	AddComponent(/datum/component/udder, /obj/item/udder/venom, reagent_produced_typepath = /datum/reagent/toxin/venom)
+	. = ..()
 
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)

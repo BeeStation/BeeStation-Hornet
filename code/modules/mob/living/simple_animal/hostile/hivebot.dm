@@ -15,7 +15,8 @@
 	maxHealth = 15
 	healable = 0
 	melee_damage = 3
-	attacktext = "claws"
+	attack_verb_continuous = "claws"
+	attack_verb_simple = "claw"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	projectilesound = 'sound/weapons/gunshot.ogg'
 	projectiletype = /obj/projectile/hivebotbullet
@@ -28,7 +29,7 @@
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 	hardattacks = TRUE
 
 /mob/living/simple_animal/hostile/hivebot/Initialize(mapload)

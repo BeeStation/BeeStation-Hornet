@@ -78,7 +78,7 @@
 				B.detonation_timer += 10 SECONDS
 				delayed_hesitate = TRUE
 
-/datum/wires/syndicatebomb/on_cut(wire, mend)
+/datum/wires/syndicatebomb/on_cut(wire, mob/user, mend)
 	var/obj/machinery/syndicatebomb/B = holder
 	switch(wire)
 		if(WIRE_BOOM)
@@ -90,7 +90,7 @@
 			if(!mend && B.anchored)
 				holder.visible_message("<span class='notice'>[icon2html(B, viewers(holder))] The bolts lift out of the ground!</span>")
 				playsound(B, 'sound/effects/stealthoff.ogg', 30, 1)
-				B.anchored = FALSE
+				B.set_anchored(FALSE)
 		if(WIRE_PROCEED)
 			if(!mend && B.active)
 				holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] An alarm sounds! It's go-</span>")

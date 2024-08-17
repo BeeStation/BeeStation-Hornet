@@ -127,7 +127,6 @@
 /datum/status_effect/wish_granters_gift/on_remove()
 	owner.revive(full_heal = TRUE, admin_revive = TRUE)
 	owner.visible_message("<span class='warning'>[owner] appears to wake from the dead, having healed all wounds!</span>", "<span class='notice'>You have regenerated.</span>")
-	owner.update_mobility()
 
 /atom/movable/screen/alert/status_effect/wish_granters_gift
 	name = "Wish Granter's Immortality"
@@ -370,12 +369,12 @@
 	return TRUE
 
 //Changeling invisibility
-/datum/status_effect/changeling/camoflague
+/datum/status_effect/changeling/camouflage
 	id = "changelingcamo"
-	alert_type = /atom/movable/screen/alert/status_effect/changeling_camoflague
+	alert_type = /atom/movable/screen/alert/status_effect/changeling_camouflage
 	tick_interval = 5
 
-/datum/status_effect/changeling/camoflague/tick()
+/datum/status_effect/changeling/camouflage/tick()
 	if(!..())
 		return
 	if(owner.on_fire)
@@ -383,7 +382,7 @@
 		return
 	owner.alpha = max(owner.alpha - 20, 0)
 
-/datum/status_effect/changeling/camoflague/on_apply()
+/datum/status_effect/changeling/camouflage/on_apply()
 	if(!..())
 		return FALSE
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(slight_increase))
@@ -392,18 +391,18 @@
 	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(slight_increase))
 	return TRUE
 
-/datum/status_effect/changeling/camoflague/on_remove()
+/datum/status_effect/changeling/camouflage/on_remove()
 	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMGE, COMSIG_ATOM_BUMPED))
 	owner.alpha = 255
 
-/datum/status_effect/changeling/camoflague/proc/slight_increase()
+/datum/status_effect/changeling/camouflage/proc/slight_increase()
 	owner.alpha = min(owner.alpha + 15, 255)
 
-/datum/status_effect/changeling/camoflague/proc/large_increase()
+/datum/status_effect/changeling/camouflage/proc/large_increase()
 	owner.alpha = min(owner.alpha + 50, 255)
 
-/atom/movable/screen/alert/status_effect/changeling_camoflague
-	name = "Camoflague"
+/atom/movable/screen/alert/status_effect/changeling_camouflage
+	name = "Camouflage"
 	desc = "We have adapted our skin to refract light around us."
 	icon_state = "changeling_camo"
 
@@ -432,20 +431,6 @@
 	name = "Fake Mindshield"
 	desc = "We are emitting a signal, causing us to appear as mindshielded to security HUDs."
 	icon_state = "changeling_mindshield"
-
-/datum/status_effect/exercised
-	id = "Exercised"
-	duration = 1200
-	alert_type = null
-
-/datum/status_effect/exercised/on_creation(mob/living/new_owner, ...)
-	. = ..()
-	STOP_PROCESSING(SSfastprocess, src)
-	START_PROCESSING(SSprocessing, src) //this lasts 20 minutes, so SSfastprocess isn't needed.
-
-/datum/status_effect/exercised/Destroy()
-	. = ..()
-	STOP_PROCESSING(SSprocessing, src)
 
 //Hippocratic Oath: Applied when the Rod of Asclepius is activated.
 /datum/status_effect/hippocraticOath
@@ -548,6 +533,7 @@
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /atom/movable/screen/alert/status_effect/regenerative_core
 	var/power = 1
+	var/duration_mod = 1
 	var/alreadyinfected = FALSE
 
 /datum/status_effect/regenerative_core/on_apply()
@@ -557,10 +543,11 @@
 		alreadyinfected = TRUE
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
 	ADD_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
-	if(owner.z == 5)
-		power = 2
-	owner.adjustBruteLoss(-50 * power)
-	owner.adjustFireLoss(-50 * power)
+	if(is_mining_level(owner.z))
+		power = 5
+		duration_mod = 2
+	owner.adjustBruteLoss(-20 * power)
+	owner.adjustFireLoss(-20 * power)
 	owner.cure_nearsighted()
 	owner.ExtinguishMob()
 	owner.fire_stacks = 0
@@ -568,8 +555,11 @@
 	owner.set_blurriness(0)
 	owner.restore_blood()
 	owner.bodytemperature = owner.get_body_temp_normal()
+	if(istype(owner, /mob/living/carbon/human))
+		var/mob/living/carbon/human/humi = owner
+		humi.coretemperature = humi.get_body_temp_normal()
 	owner.restoreEars()
-	duration = rand(150, 450) * power
+	duration = rand(150, 450) * duration_mod
 	return TRUE
 
 /datum/status_effect/regenerative_core/on_remove()
@@ -598,13 +588,15 @@
 
 /datum/status_effect/antimagic/on_apply()
 	owner.visible_message("<span class='notice'>[owner] is coated with a dull aura!</span>")
-	ADD_TRAIT(owner, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
+	owner.AddComponent(/datum/component/anti_magic, MAGIC_TRAIT, _magic = TRUE, _holy = FALSE)
 	//glowing wings overlay
 	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, 0)
 	return ..()
 
 /datum/status_effect/antimagic/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
+	for (var/datum/component/anti_magic/anti_magic in owner.GetComponents(/datum/component/anti_magic))
+		if (anti_magic.source == MAGIC_TRAIT)
+			qdel(anti_magic)
 	owner.visible_message("<span class='warning'>[owner]'s dull aura fades away...</span>")
 
 /datum/status_effect/crucible_soul

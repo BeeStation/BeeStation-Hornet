@@ -2,18 +2,16 @@
 #define HAS_BLOOD_DNA(thing) (length(thing.GetComponent(/datum/component/forensics)?.blood_DNA))
 
 //Bloody shoes/footprints
-/// Maximum possible value
-#define MAX_SHOE_BLOODINESS 100
-/// Amount the default alpha
-#define BLOODY_FOOTPRINT_BASE_ALPHA 150
-/// Amount gained in each step
-#define BLOOD_GAIN_PER_STEP 100
-/// Amount lost in each step
-#define BLOOD_LOSS_PER_STEP 5
-/// Amount lost in spread
-#define BLOOD_LOSS_IN_SPREAD 20
-/// Amount in each decal
-#define BLOOD_AMOUNT_PER_DECAL 20
+/// Minimum alpha of footprints
+#define BLOODY_FOOTPRINT_BASE_ALPHA 20
+/// How much blood a regular blood splatter contains
+#define BLOOD_AMOUNT_PER_DECAL 50
+/// How much blood an item can have stuck on it
+#define BLOOD_ITEM_MAX 200
+/// How much blood a blood decal can contain
+#define BLOOD_POOL_MAX 300
+/// How much blood a footprint need to at least contain
+#define BLOOD_FOOTPRINTS_MIN 5
 
 //Bloody shoe blood states
 /// Red blood

@@ -242,7 +242,7 @@
 
 	data["map_name"] = SSmapping.config?.map_name || "Loading..."
 
-	data["security_level"] = get_security_level()
+	data["security_level"] = SSsecurity_level.get_current_level_as_text()
 	data["round_duration"] = SSticker?.round_start_timeofday ? round((world.timeofday - SSticker.round_start_timeofday)/10) : 0
 	// Amount of world's ticks in seconds, useful for calculating round duration
 
@@ -293,7 +293,7 @@
 		data = null
 		return
 
-	var/datum/DBQuery/query_ckey_lookup = SSdbcore.NewQuery(
+	var/datum/db_query/query_ckey_lookup = SSdbcore.NewQuery(
 		"SELECT ckey FROM [format_table_name("player")] WHERE uuid = :uuid",
 		list("uuid" = uuid)
 	)
@@ -344,7 +344,7 @@
 		data = null
 		return
 
-	var/datum/DBQuery/query_get_metacoins = SSdbcore.NewQuery(
+	var/datum/db_query/query_get_metacoins = SSdbcore.NewQuery(
 		"SELECT metacoins FROM [format_table_name("player")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
@@ -381,7 +381,7 @@
 		data = null
 		return
 
-	var/datum/DBQuery/query_metacoins = SSdbcore.NewQuery(
+	var/datum/db_query/query_metacoins = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET metacoins = metacoins + :amount WHERE ckey = :ckey",
 		list("amount" = amount, "ckey" = ckey)
 	)

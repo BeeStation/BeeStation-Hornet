@@ -59,7 +59,7 @@
 								"<span class='notice'>You start climbing onto [climbed_thing]...</span>")
 	var/adjusted_climb_time = climb_time
 	var/adjusted_climb_stun = climb_stun
-	if(user.restrained()) //climbing takes twice as long without help from the hands.
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //climbing takes twice as long without help from the hands.
 		adjusted_climb_time *= 2
 	if(isalien(user))
 		adjusted_climb_time *= 0.25 //aliens are terrifyingly fast
@@ -73,7 +73,7 @@
 		if(do_climb(climbed_thing, user, params))
 			user.visible_message("<span class='warning'>[user] climbs onto [climbed_thing].</span>", \
 								"<span class='notice'>You climb onto [climbed_thing].</span>")
-			log_combat(user, climbed_thing, "climbed onto")
+			log_combat(user, climbed_thing, "climbed onto", important = FALSE)
 			if(climb_stun)
 				user.Stun(climb_stun)
 		else

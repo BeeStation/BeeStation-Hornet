@@ -15,7 +15,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 "af" = (
-/turf/open/floor/plasteel/checker,
+/turf/open/floor/iron/checker,
 /area/ruin/space/has_grav/powered)
 "ag" = (
 /turf/open/floor/holofloor/beach,
@@ -75,7 +75,7 @@
 /area/ruin/space/has_grav/powered)
 "au" = (
 /obj/machinery/hydroponics,
-/turf/open/floor/plasteel/checker,
+/turf/open/floor/iron/checker,
 /area/ruin/space/has_grav/powered)
 "av" = (
 /obj/structure/flora/junglebush,
@@ -86,7 +86,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 "ax" = (
-/obj/item/reagent_containers/food/snacks/nugget/dog,
+/obj/item/food/nugget/dog,
 /turf/open/floor/grass,
 /area/ruin/space/has_grav/powered)
 "ay" = (
@@ -95,11 +95,11 @@
 /area/ruin/space/has_grav/powered)
 "az" = (
 /mob/living/simple_animal/pet/dog/corgi/chef,
-/turf/open/floor/plasteel/checker,
+/turf/open/floor/iron/checker,
 /area/ruin/space/has_grav/powered)
 "aA" = (
 /obj/machinery/grill,
-/turf/open/floor/plasteel/checker,
+/turf/open/floor/iron/checker,
 /area/ruin/space/has_grav/powered)
 "aB" = (
 /obj/item/toy/plush/snakeplushie,
@@ -126,7 +126,7 @@
 /turf/open/floor/grass,
 /area/ruin/space/has_grav/powered)
 "aH" = (
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizard_plushie,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 "aI" = (
@@ -147,17 +147,17 @@
 /area/ruin/space/has_grav/powered)
 "aM" = (
 /obj/structure/closet/secure_closet/freezer,
-/obj/item/reagent_containers/food/snacks/nugget/dog,
-/obj/item/reagent_containers/food/snacks/nugget/dog,
-/obj/item/reagent_containers/food/snacks/nugget/dog,
-/obj/item/reagent_containers/food/snacks/nugget/dog,
-/obj/item/reagent_containers/food/snacks/nugget/dog,
-/turf/open/floor/plasteel/checker,
+/obj/item/food/nugget/dog,
+/obj/item/food/nugget/dog,
+/obj/item/food/nugget/dog,
+/obj/item/food/nugget/dog,
+/obj/item/food/nugget/dog,
+/turf/open/floor/iron/checker,
 /area/ruin/space/has_grav/powered)
 "aN" = (
 /obj/structure/closet/crate/wooden,
 /obj/item/stack/sheet/mineral/coal/ten,
-/turf/open/floor/plasteel/checker,
+/turf/open/floor/iron/checker,
 /area/ruin/space/has_grav/powered)
 "aO" = (
 /obj/effect/overlay/coconut,
@@ -195,7 +195,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plasteel/checker,
+/turf/open/floor/iron/checker,
 /area/ruin/space/has_grav/powered)
 "aW" = (
 /obj/machinery/light{
@@ -219,7 +219,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/open/floor/plasteel/checker,
+/turf/open/floor/iron/checker,
 /area/ruin/space/has_grav/powered)
 "ba" = (
 /obj/machinery/portable_atmospherics/canister/air,
@@ -252,7 +252,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 "bh" = (
-/obj/item/reagent_containers/food/snacks/nugget/dog,
+/obj/item/food/nugget/dog,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 

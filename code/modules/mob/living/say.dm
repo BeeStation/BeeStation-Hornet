@@ -75,8 +75,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	return new_msg
 
 /mob/living/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced)
-	var/static/list/crit_allowed_modes = list(WHISPER_MODE = TRUE, MODE_ALIEN = TRUE)
-	var/static/list/unconscious_allowed_modes = list(MODE_ALIEN = TRUE)
 
 	var/ic_blocked = FALSE
 	if(client && !forced && CHAT_FILTER_CHECK(message))
@@ -99,39 +97,30 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/original_message = message
 	message = get_message_mods(message, message_mods)
 	var/datum/saymode/saymode = SSradio.saymodes[message_mods[RADIO_KEY]]
-	var/in_critical = InCritical()
 
 	if(!message)
 		return
 
 	message = check_for_custom_say_emote(message, message_mods)
 
-	if(stat == DEAD)
-		say_dead(original_message)
-		return
+	switch(stat)
+		if(SOFT_CRIT)
+			message_mods[WHISPER_MODE] = MODE_WHISPER
+		if(UNCONSCIOUS)
+			if(!(message_mods[MODE_ALIEN]))
+				return
+		if(HARD_CRIT)
+			if(!(message_mods[WHISPER_MODE] || message_mods[MODE_ALIEN]))
+				return
+		if(DEAD)
+			say_dead(original_message)
+			return
 
 	if(saymode && saymode.early && !saymode.handle_message(src, message, language))
 		return
 
 	if(is_muted(original_message, ignore_spam, forced) || check_emote(original_message, forced))
 		return
-
-	if(in_critical) //There are cheaper ways to do this, but they're less flexible, and this isn't ran all that often
-		var/end = TRUE
-		for(var/index in message_mods)
-			if(crit_allowed_modes[index])
-				end = FALSE
-				break
-		if(end)
-			return
-	else if(stat == UNCONSCIOUS)
-		var/end = TRUE
-		for(var/index in message_mods)
-			if(unconscious_allowed_modes[index])
-				end = FALSE
-				break
-		if(end)
-			return
 
 	if(!language) // get_message_mods() proc finds a language key, and add the language to LANGUAGE_EXTENSION
 		language = message_mods[LANGUAGE_EXTENSION]
@@ -155,15 +144,12 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		log_message(message_mods[MODE_CUSTOM_SAY_EMOTE], LOG_RADIO_EMOTE)
 
 	if(!message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
-		var/fullcrit = InFullCritical()
-		if((in_critical && !fullcrit) || message_mods[WHISPER_MODE] == MODE_WHISPER)
+		if(message_mods[WHISPER_MODE] == MODE_WHISPER)
 			if(saymode || message_mods[RADIO_EXTENSION]) //no radio while in crit
 				saymode = null
 				message_mods -= RADIO_EXTENSION
 			message_range = 1
-			message_mods[WHISPER_MODE] = MODE_WHISPER
-			log_talk(message, LOG_WHISPER, custom_say_emote = message_mods[MODE_CUSTOM_SAY_EMOTE])
-			if(fullcrit)
+			if(stat == HARD_CRIT)
 				var/health_diff = round(-HEALTH_THRESHOLD_DEAD + health)
 				// If we cut our message short, abruptly end it with a-..
 				var/message_len = length_char(message)
@@ -203,7 +189,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		// radios don't pick up whispers very well
 		radio_message = stars(radio_message)
 		spans |= SPAN_ITALICS
-	var/radio_return = radio(radio_message, message_mods, spans, language)
+	var/radio_return = radio(radio_message, message_mods, spans, language)//roughly 27% of living/say()'s total cost
 	if(radio_return & ITALICS)
 		spans |= SPAN_ITALICS
 	if(radio_return & REDUCE_RANGE)
@@ -227,7 +213,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(pressure < ONE_ATMOSPHERE*0.4) //Thin air, let's italicise the message
 		spans |= SPAN_ITALICS
 
-	send_speech(message, message_range, src, bubble_type, spans, language, message_mods)
+	send_speech(message, message_range, src, bubble_type, spans, language, message_mods)//roughly 58% of living/say()'s total cost
 
 	if(succumbed)
 		succumb(TRUE)
@@ -277,7 +263,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(!M.client || !client) //client is so that ghosts don't have to listen to mice
 			listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
 			continue
-		if(get_dist(M, src) > 7 || M.get_virtual_z_level() != get_virtual_z_level()) //they're out of range of normal hearing
+		if(M.get_virtual_z_level() != get_virtual_z_level() || get_dist(M, src) > 7 ) //they're out of range of normal hearing
 			if(M.client?.prefs && eavesdrop_range && !M.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostwhisper)) //they're whispering and we have hearing whispers at any range off
 				listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
 				continue
@@ -296,7 +282,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/list/show_overhead_message_to = list()
 	var/list/show_overhead_message_to_eavesdrop = list()
 	var/rendered = compose_message(src, message_language, message, , spans, message_mods)
-	for(var/atom/movable/AM as() in listening)
+	for(var/atom/movable/AM as anything in listening)
+		if(!AM)
+			stack_trace("somehow theres a null returned from get_hearers_in_view() in send_speech!")
+			continue
 		if(eavesdrop_range && get_dist(source, AM) > message_range && !(the_dead[AM]))
 			if(ismob(AM))
 				var/mob/M = AM
@@ -396,7 +385,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 /mob/living/proc/radio(message, list/message_mods = list(), list/spans, language)
 	var/obj/item/implant/radio/imp = locate() in src
-	if(imp && imp.radio.on)
+	if(imp?.radio.is_on())
 		if(message_mods[MODE_HEADSET])
 			imp.radio.talk_into(src, message, , spans, language, message_mods)
 			return ITALICS | REDUCE_RANGE

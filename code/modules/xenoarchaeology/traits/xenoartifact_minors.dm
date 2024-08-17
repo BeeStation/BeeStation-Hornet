@@ -81,8 +81,10 @@
 
 /datum/xenoartifact_trait/minor/sharp/on_init(obj/item/xenoartifact/X)
 	X.sharpness = IS_SHARP_ACCURATE
+	X.bleed_force = BLEED_CUT
 	X.force = X.charge_req*0.12
-	X.attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	X.attack_verb_continuous = list("cleaves", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	X.attack_verb_simple = list("cleave", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	X.attack_weight = 2
 	X.armour_penetration = 5
 
@@ -150,7 +152,7 @@
 	man.status_flags |= GODMODE
 	log_game("[key_name_admin(man)] took control of the sentient [X]. [X] located at [AREACOORD(X)]")
 	man.forceMove(X)
-	man.anchored = TRUE
+	man.set_anchored(TRUE)
 	var/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/xeno_senitent_action(,X)
 	man.AddSpell(P)
 	//show little guy his traits
@@ -222,12 +224,12 @@
 
 /datum/xenoartifact_trait/minor/delicate/on_init(obj/item/xenoartifact/X)
 	X.max_integrity = pick(200, 300, 500, 800, 1000)
-	X.obj_integrity = X.max_integrity
+	X.update_integrity(X.max_integrity)
 	X.alpha = X.alpha * 0.55
 
 /datum/xenoartifact_trait/minor/delicate/activate(obj/item/xenoartifact/X, atom/user)
-	if(X.obj_integrity > 0)
-		X.obj_integrity -= 100
+	if(X.get_integrity() > 0)
+		X.update_integrity(-100)
 		X.visible_message("<span class='danger'>The [X.name] cracks!</span>", "<span class='danger'>The [X.name] cracks!</span>")
 	else
 		X.visible_message("<span class='danger'>The [X.name] shatters!</span>", "<span class='danger'>The [X.name] shatters!</span>")
@@ -361,7 +363,7 @@
 		var/mob/living/holder = X.loc
 		holder.dropItemToGround(X)
 	X.visible_message("<span class='danger'>The [X.name] buckles to the floor!</span>")
-	X.setAnchored(TRUE)
+	X.set_anchored(TRUE)
 	X.density = TRUE
 
 /datum/xenoartifact_trait/minor/anchor/on_item(obj/item/xenoartifact/X, atom/user, obj/item/item)
@@ -370,7 +372,7 @@
 		if(isliving(X.loc))
 			var/mob/living/holder = X.loc
 			holder.dropItemToGround(X)
-		X.setAnchored(!X.anchored)
+		X.set_anchored(!X.anchored)
 		if(!X.get_trait(/datum/xenoartifact_trait/minor/dense))
 			X.density = !X.density
 		return TRUE

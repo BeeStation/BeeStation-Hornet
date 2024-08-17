@@ -309,7 +309,7 @@
 	plural_form = null
 	id = SPECIES_LUMINESCENT
 	var/glow_intensity = LUMINESCENT_DEFAULT_GLOW
-	var/obj/effect/dummy/luminescent_glow/glow
+	var/obj/effect/dummy/lighting_obj/moblight/glow
 	var/obj/item/slime_extract/current_extract
 	var/datum/action/innate/integrate_extract/integrate_extract
 	var/datum/action/innate/use_extract/extract_minor
@@ -319,7 +319,7 @@
 	examine_limb_id = SPECIES_OOZELING
 
 //Species datums don't normally implement destroy, but JELLIES SUCK ASS OUT OF A STEEL STRAW
-/datum/species/oozeling/luminescent/Destroy(force, ...)
+/datum/species/oozeling/luminescent/Destroy(force)
 	current_extract = null
 	QDEL_NULL(glow)
 	QDEL_NULL(integrate_extract)
@@ -327,9 +327,25 @@
 	QDEL_NULL(extract_minor)
 	return ..()
 
+/datum/species/oozeling/luminescent/on_species_gain(mob/living/carbon/new_jellyperson, datum/species/old_species)
+	..()
+	glow = new_jellyperson.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
+	update_glow(new_jellyperson)
+	integrate_extract = new(src)
+	integrate_extract.Grant(new_jellyperson)
+	extract_minor = new(src)
+	extract_minor.Grant(new_jellyperson)
+	extract_major = new(src)
+	extract_major.Grant(new_jellyperson)
+
+/datum/species/oozeling/luminescent/proc/update_slime_actions()
+	integrate_extract.update_name()
+	integrate_extract.UpdateButtonIcon()
+	extract_minor.UpdateButtonIcon()
+	extract_major.UpdateButtonIcon()
 
 /datum/species/oozeling/luminescent/on_species_loss(mob/living/carbon/C)
-	..()
+	. = ..()
 	if(current_extract)
 		current_extract.forceMove(C.drop_location())
 		current_extract = null
@@ -338,42 +354,11 @@
 	QDEL_NULL(extract_major)
 	QDEL_NULL(extract_minor)
 
-/datum/species/oozeling/luminescent/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	..()
-	glow = new(C)
-	update_glow(C)
-	integrate_extract = new(src)
-	integrate_extract.Grant(C)
-	extract_minor = new(src)
-	extract_minor.Grant(C)
-	extract_major = new(src)
-	extract_major.Grant(C)
-
-/datum/species/oozeling/luminescent/proc/update_slime_actions()
-	integrate_extract.update_name()
-	integrate_extract.UpdateButtonIcon()
-	extract_minor.UpdateButtonIcon()
-	extract_major.UpdateButtonIcon()
-
-/datum/species/oozeling/luminescent/proc/update_glow(mob/living/carbon/C, intensity)
+/// Updates the glow of our internal glow object
+/datum/species/oozeling/luminescent/proc/update_glow(mob/living/carbon/human/glowie, intensity)
 	if(intensity)
 		glow_intensity = intensity
-	glow.set_light(glow_intensity, glow_intensity, C.dna.features["mcolor"])
-
-/obj/effect/dummy/luminescent_glow
-	name = "luminescent glow"
-	desc = "Tell a coder if you're seeing this."
-	icon_state = "nothing"
-	light_color = "#FFFFFF"
-	light_range = LUMINESCENT_DEFAULT_GLOW
-	light_system = MOVABLE_LIGHT
-	light_power = 2.5
-
-/obj/effect/dummy/luminescent_glow/Initialize(mapload)
-	. = ..()
-	if(!isliving(loc))
-		return INITIALIZE_HINT_QDEL
-
+	glow.set_light_range_power_color(glow_intensity, glow_intensity, glowie.dna.features["mcolor"])
 
 /datum/action/innate/integrate_extract
 	name = "Integrate Extract"
@@ -673,7 +658,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 				to_chat(link_host, "<span class='danger'><span class='name'>[link_host]</span> already has another telepathic link, there's not enough room in [link_host.p_their()] mind for more!</span>", type = MESSAGE_TYPE_WARNING)
 			return FALSE
 	var/obj/item/hat = target.get_item_by_slot(ITEM_SLOT_HEAD)
-	if(istype(hat, /obj/item/clothing/head/foilhat))
+	if(istype(hat, /obj/item/clothing/head/costume/foilhat))
 		if(!silent)
 			to_chat(link_host, "<span class='danger'>\The [hat] worn by <span class='name'>[link_host]</span> interferes with your telepathic abilities, preventing you from linking [target.p_them()]!</span>", type = MESSAGE_TYPE_WARNING)
 			to_chat(target_mind, "<span class='danger'><span class='name'>[link_host]</span>'[link_host.p_s()] no-good syndicate mind-slime is blocked by your protective headgear!</span>", type = MESSAGE_TYPE_WARNING)

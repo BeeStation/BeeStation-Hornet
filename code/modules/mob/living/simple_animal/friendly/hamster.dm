@@ -1,8 +1,11 @@
 /mob/living/simple_animal/pet/hamster
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "bites"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "bops"
+	response_disarm_simple = "bop"
+	response_harm_continuous = "bites"
+	response_harm_simple = "bite"
 	speak = list("Squeak", "SQUEAK!")
 	speak_emote = list("squeak", "hisses", "squeals")
 	speak_language = /datum/language/metalanguage
@@ -12,7 +15,7 @@
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 3
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 	density = FALSE
 	pass_flags = PASSMOB

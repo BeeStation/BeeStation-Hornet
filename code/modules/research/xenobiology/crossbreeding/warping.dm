@@ -23,7 +23,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	name = "warped rune"
 	desc = "An unstable rune born of the depths of bluespace"
 	icon = 'icons/obj/slimecrossing.dmi'
-	icon_state = "greyspace_rune"
+	icon_state = "rune_grey"
 	move_resist = INFINITY //here to avoid the rune being moved since it only sets it's turf once when it's drawn. doesn't include admin fuckery.
 	anchored = TRUE
 	layer = MID_TURF_LAYER
@@ -379,7 +379,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/item/storage/backpack/holding/bluespace
 	name = "warped rune"
 	anchored = TRUE
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 100)
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 100, BLEED = 0)
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
@@ -464,8 +464,8 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	holotile.name = "[holo_host.name] (Hologram)"
 	holotile.add_atom_colour("#77abff", FIXED_COLOUR_PRIORITY)
 	holotile.copy_overlays(holo_host, TRUE)
-	holotile.anchored = TRUE
-	holotile.density = FALSE
+	holotile.set_anchored(TRUE)
+	holotile.set_density(FALSE)
 
 	//the code that follows is basically the code that changeling use to get people's last spoken sentences with a few tweaks.
 	recent_speech = list() //resets the list from its previous sentences
@@ -594,15 +594,17 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/toy/plush/bubbleplush,
 		/obj/item/toy/plush/plushvar,
 		/obj/item/toy/plush/narplush,
-		/obj/item/toy/plush/lizardplushie,
+		/obj/item/toy/plush/lizard_plushie,
 		/obj/item/toy/plush/snakeplushie,
 		/obj/item/toy/plush/nukeplushie,
-		/obj/item/toy/plush/slimeplushie,
+		/obj/item/toy/plush/slimeplushie/random,
 		/obj/item/toy/plush/awakenedplushie,
 		/obj/item/toy/plush/beeplushie,
 		/obj/item/toy/plush/moth/random,
 		/obj/item/toy/plush/gondola,
 		/obj/item/toy/plush/flushed = 2,
+		/obj/item/toy/plush/flushed/rainbow,
+		/obj/item/toy/plush/shark,
 		/obj/item/toy/eightball/haunted,
 		/obj/item/toy/foamblade,
 		/obj/item/toy/katana,
@@ -630,7 +632,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	)
 
 	var/static/list/uncommon_items = list(
-		/obj/item/clothing/head/speedwagon/cursed,
+		/obj/item/clothing/head/costume/speedwagon/cursed,
 		/obj/item/clothing/suit/space/hardsuit/ancient,
 		/obj/item/gun/energy/laser/retro/old,
 		/obj/item/storage/toolbox/mechanical/old,
@@ -808,7 +810,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 /area/warped_room
 	name = "warped room"
 	icon_state = "yellow"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	has_gravity = TRUE
 	teleport_restriction = TELEPORT_ALLOW_NONE
