@@ -12,6 +12,7 @@
 		/obj/item/mod/module/visor/rave,
 		/obj/item/mod/module/tanner,
 		/obj/item/mod/module/balloon,
+		/obj/item/mod/module/paper_dispenser,
 	)
 
 /obj/effect/spawner/random/mod/maint/Initialize(mapload)

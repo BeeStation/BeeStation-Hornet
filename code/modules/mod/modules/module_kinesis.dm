@@ -189,7 +189,7 @@
 	//var/damage_self = TRUE
 	var/damage = 8
 	if(source.density)
-		damage_self = FALSE
+	//	damage_self = FALSE
 		damage = 15
 	if(isliving(hit_atom))
 		var/mob/living/living_atom = hit_atom

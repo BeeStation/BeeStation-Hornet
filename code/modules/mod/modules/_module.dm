@@ -127,7 +127,7 @@
 			if(mod.wearer.put_in_hands(device))
 				balloon_alert(mod.wearer, "[device] extended")
 				RegisterSignal(mod.wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
-			eelse
+			else
 				balloon_alert(mod.wearer, "can't extend [device]!")
 				mod.wearer.transferItemToLoc(device, src, force = TRUE)
 				return
