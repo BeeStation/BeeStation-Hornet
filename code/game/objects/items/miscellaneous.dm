@@ -508,7 +508,6 @@
 		/mob/living/simple_animal/pet/cat/space,
 		/mob/living/simple_animal/pet/cat/breadcat,
 		/mob/living/simple_animal/pet/cat/halal,
-		/mob/living/carbon/monkey,
 		/mob/living/simple_animal/pet/dog/corgi/capybara,
 		/mob/living/simple_animal/mouse,
 		/mob/living/simple_animal/pet/hamster,
@@ -516,13 +515,11 @@
 		/mob/living/simple_animal/cow,
 		/mob/living/simple_animal/chicken,
 		/mob/living/simple_animal/chick,
-		/mob/living/simple_animal/hostile/retaliate/goat,
 		/mob/living/simple_animal/hostile/retaliate/frog,
 		/mob/living/basic/mothroach,
 		/mob/living/simple_animal/crab,
 		/mob/living/simple_animal/hostile/retaliate/goose,
 		/mob/living/simple_animal/parrot,
-		/mob/living/simple_animal/hostile/retaliate/clown/lube,
 	)
 
 /obj/item/choice_beacon/radial/pets/generate_options(mob/living/M)
