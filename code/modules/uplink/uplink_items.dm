@@ -1723,6 +1723,15 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 8
 	purchasable_from = (UPLINK_INCURSION | UPLINK_TRAITORS)
 
+/datum/uplink_item/suits/paint
+	name = "MODsuit Funny Paint Kit"
+	desc = "A highly advanced piece of technology that will change the theme \
+			of your MODsuit. Highly recommended by clowns."
+	item = /obj/item/mod/paint
+	cost = 0
+	limited_stock = 1 // they're infinite usage so we don't need millions floating around
+	purchasable_from = UPLINK_CLOWN_OPS // right now, only intended to let clown ops use honkerative modsuit, but could be made available to all uplinks if we get different suit variations.
+
 /datum/uplink_item/device_tools/magboots
 	name = "Blood-Red Magboots"
 	desc = "A pair of magnetic boots with a Syndicate paintjob that assist with freer movement in space or on-station \
