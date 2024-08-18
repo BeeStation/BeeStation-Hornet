@@ -508,6 +508,7 @@
 		/mob/living/simple_animal/pet/cat/space,
 		/mob/living/simple_animal/pet/cat/breadcat,
 		/mob/living/simple_animal/pet/cat/halal,
+		/mob/living/carbon/monkey,
 		/mob/living/simple_animal/pet/dog/corgi/capybara,
 		/mob/living/simple_animal/mouse,
 		/mob/living/simple_animal/pet/hamster,
