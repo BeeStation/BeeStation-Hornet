@@ -285,14 +285,12 @@
 
 /// Pins the module to the user's action buttons
 /obj/item/mod/module/proc/pin(mob/user)
-	var/datum/action/item_action/mod/pinned_module/action = pinned_to[user]
+	var/datum/action/item_action/mod/pinned_module/action = pinned_to[REF(user)]
 	if(action)
 		qdel(action)
-		pinned_to[user] = null
 	else
 		action = new(mod, src, user)
 		action.Grant(user)
-		pinned_to[user] = action
 
 ///Anomaly Locked - Causes the module to not function without an anomaly.
 /obj/item/mod/module/anomaly_locked
