@@ -664,7 +664,7 @@ GENE SCANNER
 
 			for(var/id in air_contents.gases)
 				var/gas_concentration = air_contents.gases[id][MOLES]/total_moles
-				message += "<span class='notice'>[[air_contents.gases[id][GAS_META][META_GAS_NAME]]]: [round(gas_concentration*100, 0.01)] % ([round(air_contents.gases[id][MOLES], 0.01)] mol)</span>"
+				message += "<span class='notice'>[air_contents.gases[id][GAS_META][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(air_contents.gases[id][MOLES], 0.01)] mol)</span>"
 			message += "<span class='notice'>Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)</span>"
 
 		else

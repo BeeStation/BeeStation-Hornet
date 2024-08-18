@@ -64,9 +64,8 @@
 		return
 	var/datum/gas_mixture/input_air = airs[1]
 	var/datum/gas_mixture/output_air = airs[2]
-	var/datum/gas_mixture/output_pipenet_air = parents[2].air
 
-	if(input_air.pump_gas_to(output_air, target_pressure, output_pipenet_air = output_pipenet_air))
+	if(input_air.pump_gas_to(output_air, target_pressure))
 		update_parents()
 
 /obj/machinery/atmospherics/components/binary/pump/proc/set_on(active)

@@ -139,6 +139,8 @@
 ///AI Camera Static
 #define CAMERA_STATIC_PLANE 200
 
+#define HIGH_GAME_PLANE 300
+
 ///Popup Chat Messages
 #define RUNECHAT_PLANE 650
 /// Plane for balloon text (text that fades up)
