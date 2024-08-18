@@ -61,9 +61,9 @@
 	. = ..()
 	if(cell)
 		install_cell(cell)
-	RegisterSignal(mod, COMSIG_PARENT_EXAMINE, .proc/on_examine)
-	RegisterSignal(mod, COMSIG_ATOM_ATTACK_HAND, .proc/on_attack_hand)
-	RegisterSignal(mod, COMSIG_PARENT_ATTACKBY, .proc/on_attackby)
+	RegisterSignal(mod, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(mod, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
+	RegisterSignal(mod, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
 
 /obj/item/mod/core/standard/uninstall()
 	if(!QDELETED(cell))
@@ -116,7 +116,7 @@
 /obj/item/mod/core/standard/proc/install_cell(new_cell)
 	cell = new_cell
 	cell.forceMove(src)
-	RegisterSignal(src, COMSIG_ATOM_EXITED, .proc/on_exit)
+	RegisterSignal(src, COMSIG_ATOM_EXITED,  PROC_REF(on_exit))
 
 /obj/item/mod/core/standard/proc/uninstall_cell()
 	if(!cell)
@@ -144,7 +144,7 @@
 	if(mod.seconds_electrified && charge_amount() && mod.shock(user))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	if(mod.open && mod.loc == user)
-		INVOKE_ASYNC(src, .proc/mod_uninstall_cell, user)
+		INVOKE_ASYNC(src,  PROC_REF(mod_uninstall_cell), user)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	return NONE
 

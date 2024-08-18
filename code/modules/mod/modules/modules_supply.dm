@@ -94,7 +94,7 @@
 	. = ..()
 	if(!.)
 		return
-	RegisterSignal(mod.wearer, COMSIG_MOVABLE_BUMP, .proc/bump_mine)
+	RegisterSignal(mod.wearer, COMSIG_MOVABLE_BUMP, PROC_REF(bump_mine))
 
 /obj/item/mod/module/drill/on_deactivation()
 	. = ..()
@@ -143,7 +143,7 @@
 	var/list/ores = list()
 
 /obj/item/mod/module/orebag/on_equip()
-	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, .proc/ore_pickup)
+	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(ore_pickup))
 
 /obj/item/mod/module/orebag/on_unequip()
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
@@ -152,7 +152,7 @@
 	SIGNAL_HANDLER
 
 	for(var/obj/item/stack/ore/ore in get_turf(mod.wearer))
-		INVOKE_ASYNC(src, .proc/move_ore, ore)
+		INVOKE_ASYNC(src, PROC_REF(move_ore), ore)
 		playsound(src, "rustle", 50, TRUE)
 
 /obj/item/mod/module/orebag/proc/move_ore(obj/item/stack/ore)

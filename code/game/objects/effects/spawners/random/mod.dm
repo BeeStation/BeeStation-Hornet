@@ -1,9 +1,10 @@
 /obj/effect/spawner/random/mod
 	name = "MOD module spawner"
 	desc = "Modularize this, please."
+/*
 	icon_state = "circuit"
 
-/*
+
 /obj/effect/spawner/random/mod/maint
 	name = "maint MOD module spawner"
 	loot = list(
