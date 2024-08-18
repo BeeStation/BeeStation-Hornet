@@ -246,16 +246,18 @@
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
-	if(pulling)
-		if(ismob(pulling?.pulledby))
-			pulling.pulledby.log_message("has stopped pulling [key_name(pulling)]", LOG_ATTACK)
-		if(ismob(pulling))
-			pulling.log_message("has stopped being pulled by [key_name(pulling.pulledby)]", LOG_ATTACK)
-		pulling.set_pulledby(null)
-		var/mob/living/ex_pulled = pulling
-		setGrabState(GRAB_PASSIVE)
-		pulling = null
-		SEND_SIGNAL(ex_pulled, COMSIG_MOVABLE_NO_LONGER_PULLED)
+	if(!pulling)
+		return
+	if(ismob(pulling?.pulledby))
+		pulling.pulledby.log_message("has stopped pulling [key_name(pulling)]", LOG_ATTACK)
+	if(ismob(pulling))
+		pulling.log_message("has stopped being pulled by [key_name(pulling.pulledby)]", LOG_ATTACK)
+	pulling.set_pulledby(null)
+	setGrabState(GRAB_PASSIVE)
+	var/mob/living/old_pulling = pulling
+	pulling = null
+	SEND_SIGNAL(old_pulling, COMSIG_ATOM_NO_LONGER_PULLED, src)
+	SEND_SIGNAL(src, COMSIG_ATOM_NO_LONGER_PULLING, old_pulling)
 
 ///Reports the event of the change in value of the pulledby variable.
 /atom/movable/proc/set_pulledby(new_pulledby)
@@ -680,7 +682,7 @@
 /atom/movable/proc/Process_Spacemove(movement_dir = 0)
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir) & COMSIG_MOVABLE_STOP_SPACEMOVE)
 		return TRUE
-		
+
 	if(has_gravity(src))
 		return 1
 

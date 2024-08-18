@@ -46,7 +46,7 @@
 			clothing_part.clothing_flags &= ~STOPSPRESSUREDAMAGE
 			spaceproofed[clothing_part] = TRUE
 
-/obj/item/mod/module/armor_booster/on_deactivation()
+/obj/item/mod/module/armor_booster/on_deactivation(display_message = TRUE)
 	. = ..()
 	if(!.)
 		return

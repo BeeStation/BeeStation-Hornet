@@ -1241,6 +1241,17 @@
 	build_path = /obj/item/mod/module/signlang_radio
 */
 
+//MODsuit bepis modules
+
+/datum/design/module/disposal
+	name = "MOD Module: Disposal Connector"
+	id = "mod_disposal"
+	materials = list(/datum/material/iron = 2500, /datum/material/titanium = 1000)
+	build_path = /obj/item/mod/module/disposal_connector
+	department_type = MODULE_SUPPLY
+
+//MODsuit anomalock modules
+
 /datum/design/module/mod_antigrav
 	name = "MOD Module: Anti-Gravity"
 	id = "mod_antigrav"

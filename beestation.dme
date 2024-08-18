@@ -207,6 +207,7 @@
 #include "code\__DEFINES\dcs\signals\signals_turf.dm"
 #include "code\__DEFINES\dcs\signals\signals_atom\signals_atom.dm"
 #include "code\__DEFINES\dcs\signals\signals_atom\signals_atom_attack.dm"
+#include "code\__DEFINES\dcs\signals\signals_atom\signals_atom_movement.dm"
 #include "code\__DEFINES\dcs\signals\signals_datum\signals_circuit.dm"
 #include "code\__DEFINES\dcs\signals\signals_datum\signals_datum.dm"
 #include "code\__DEFINES\dcs\signals\signals_datum\signals_moveloop.dm"

@@ -61,6 +61,9 @@
 	/// How fast it charges cells in a suit
 	var/charge_rate = 250
 
+/obj/machinery/suit_storage_unit/industrial/loader
+	mod_type = /obj/item/mod/control/pre_equipped/loader
+
 /obj/machinery/suit_storage_unit/Initialize(mapload)
 	. = ..()
 	interaction_flags_machine |= INTERACT_MACHINE_OFFLINE

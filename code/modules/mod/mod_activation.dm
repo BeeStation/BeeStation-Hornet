@@ -140,7 +140,7 @@
 	for(var/obj/item/mod/module/module as anything in modules)
 		if(!module.active)
 			continue
-		module.on_deactivation()
+		module.on_deactivation(display_message = FALSE)
 	activating = TRUE
 	to_chat(wearer, "<span class='notice'>MODsuit [active ? "shutting down" : "starting up"].</span>")
 	if(do_after(wearer, activation_step_time, wearer, MOD_ACTIVATION_STEP_FLAGS))
