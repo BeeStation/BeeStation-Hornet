@@ -292,3 +292,18 @@
 		"hands" = ITEM_SLOT_HANDS,
 	)
 	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
+
+/datum/quirk/petlover
+	name = "Pet Lover"
+	desc = "You love the company of you animal friends so much. You start with a pet delivery beacon."
+	icon = "heart"
+	value = 1
+	mob_trait = TRAIT_PETLOVER
+	gain_text = "<span class='notice'>You can't wait to pet some adorable critters!.</span>"
+	lose_text = "<span class='danger'>You don't feel that passion for pets anymore.</span>"
+
+/datum/quirk/petlover/on_spawn()
+	var/mob/living/carbon/human/Z = quirk_target
+	Z.equip_to_slot_or_del(new /obj/item/choice_beacon/radial/pets(Z), ITEM_SLOT_BACKPACK)
+	Z.equip_to_slot_or_del(new /obj/item/pet_carrier(Z), ITEM_SLOT_HANDS)
+	Z.equip_to_slot_or_del(new /obj/item/clothing/neck/petcollar(Z), ITEM_SLOT_BACKPACK)

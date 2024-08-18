@@ -487,3 +487,68 @@
 
 /obj/item/choice_beacon/janicart/generate_display_names()
 	return list("janitor cart" = /obj/vehicle/ridden/janicart/upgraded/keyless)
+
+/obj/item/choice_beacon/radial/pets
+	name = "Pets delivery beacon"
+	desc = "Summon your new friend!"
+	icon_state = "gangtool-pets"
+	var/static/list/pets_list = list( //havent included snake because the poison and foxes because the captain gets one because his status
+		/mob/living/simple_animal/pet/dog/corgi,
+		/mob/living/simple_animal/pet/dog/corgi/exoticcorgi,
+		/mob/living/simple_animal/pet/dog/corgi/cardigan,
+		/mob/living/simple_animal/pet/dog/bullterrier,
+		/mob/living/simple_animal/pet/dog/corgi/puppy,
+		/mob/living/simple_animal/pet/dog/corgi/puppy/cardigan,
+		/mob/living/simple_animal/pet/dog/corgi/puppy/void,
+		/mob/living/simple_animal/pet/dog/corgi/puppy/slime,
+		/mob/living/simple_animal/pet/dog/pug,
+		/mob/living/simple_animal/pet/cat,
+		/mob/living/simple_animal/pet/cat/kitten,
+		/mob/living/simple_animal/pet/cat/original,
+		/mob/living/simple_animal/pet/cat/space,
+		/mob/living/simple_animal/pet/cat/breadcat,
+		/mob/living/simple_animal/pet/cat/halal,
+		/mob/living/simple_animal/pet/dog/corgi/capybara,
+		/mob/living/simple_animal/mouse,
+		/mob/living/simple_animal/pet/hamster,
+		/mob/living/simple_animal/pet/penguin/baby,
+		/mob/living/simple_animal/cow,
+		/mob/living/simple_animal/chicken,
+		/mob/living/simple_animal/chick,
+		/mob/living/simple_animal/hostile/retaliate/goat,
+		/mob/living/simple_animal/hostile/retaliate/frog,
+		/mob/living/basic/mothroach,
+		/mob/living/simple_animal/crab,
+		/mob/living/simple_animal/hostile/retaliate/goose,
+		/mob/living/simple_animal/parrot,
+		/mob/living/simple_animal/hostile/retaliate/clown/lube,
+	)
+
+/obj/item/choice_beacon/radial/pets/generate_options(mob/living/M)
+	var/list/item_list = generate_item_list()
+	if(!length(item_list))
+		return
+	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE)
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+		for(var/V in pets_list)
+			var/atom/A = V
+			if(initial(A.name) == choice)
+				spawn_option(A,M)
+				uses--
+				if(!uses)
+					qdel(src)
+				else
+					balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
+					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+				return
+
+/obj/item/choice_beacon/radial/pets/generate_item_list()
+	var/static/list/item_list
+	if(!item_list)
+		item_list = list()
+		for(var/obj/item/toy/plush/I as() in pets_list)
+			var/image/pets_icon = image(initial(I.icon), initial(I.icon_state))
+			var/datum/radial_menu_choice/choice = new
+			choice.image = pets_icon
+			item_list[initial(I.name)] = choice
+	return item_list
