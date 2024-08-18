@@ -271,19 +271,19 @@
 /datum/outfit/centcom/commander
 	name = JOB_CENTCOM_COMMANDER
 
+	id = /obj/item/card/id/centcom
 	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/armor/centcom_formal
-	shoes = /obj/item/clothing/shoes/combat/swat
-	gloves = /obj/item/clothing/gloves/combat
+	back = /obj/item/storage/backpack/satchel/leather
+	belt = /obj/item/gun/ballistic/revolver/mateba
 	ears = /obj/item/radio/headset/headset_cent/commander
 	glasses = /obj/item/clothing/glasses/eyepatch
-	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
+	gloves = /obj/item/clothing/gloves/combat
 	head = /obj/item/clothing/head/hats/centcom_cap
-	belt = /obj/item/gun/ballistic/revolver/mateba
-	r_pocket = /obj/item/lighter
+	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
+	shoes = /obj/item/clothing/shoes/combat/swat
 	l_pocket = /obj/item/ammo_box/a357
-	back = /obj/item/storage/backpack/satchel/leather
-	id = /obj/item/card/id/centcom
+	r_pocket = /obj/item/lighter
 
 /datum/outfit/centcom/commander/plasmaman
 	name = "CentCom Commander Plasmaman"
@@ -306,6 +306,16 @@
 	W.assignment = JOB_CENTCOM_COMMANDER
 	W.registered_name = H.real_name
 	W.update_label()
+
+/datum/outfit/centcom/commander/mod
+	name = "CentCom Commander (MODsuit)"
+
+	suit_store = /obj/item/tank/internals/oxygen
+	suit = null
+	head = null
+	mask = /obj/item/clothing/mask/gas/sechailer
+	back = /obj/item/mod/control/pre_equipped/corporate
+	internals_slot = ITEM_SLOT_SUITSTORE
 
 /datum/outfit/admiral
 	name = JOB_CENTCOM_ADMIRAL
