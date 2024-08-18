@@ -451,11 +451,15 @@
 /datum/outfit/chrono_agent
 	name = "Timeline Eradication Agent"
 	uniform = /obj/item/clothing/under/color/white
-	suit = /obj/item/clothing/suit/space/chronos
-	back = /obj/item/chrono_eraser
-	head = /obj/item/clothing/head/helmet/space/chronos
-	mask = /obj/item/clothing/mask/breath
 	suit_store = /obj/item/tank/internals/oxygen
+	mask = /obj/item/clothing/mask/breath
+	back = /obj/item/mod/control/pre_equipped/timeline
+
+/datum/outfit/chrono_agent/post_equip(mob/living/carbon/human/agent, visualsOnly)
+	. = ..()
+	var/obj/item/mod/control/pre_equipped/timeline = agent.back
+	var/obj/item/mod/module/eradication_lock/lock = locate(/obj/item/mod/module/eradication_lock) in timeline.modules
+	lock.true_owner_ckey = agent.ckey
 
 /datum/outfit/joker
 	name = "Joker"
