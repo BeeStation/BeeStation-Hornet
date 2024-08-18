@@ -163,6 +163,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 
 	var/last_charge_quarter = 0
 
+	var/firing = FALSE
+
 
 
 /obj/machinery/power/bsa/full/wrench_act(mob/living/user, obj/item/I)
@@ -247,6 +249,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 /obj/machinery/power/bsa/full/proc/charge_up(mob/user, turf/bullseye)
 	if(!cell.use(power_used_per_shot))
 		return FALSE
+	firing = TRUE
 	var/sound/charge_up = sound(select_sound)
 	playsound(get_turf(src), charge_up, 50, 1, pressure_affected = FALSE)
 	var/timerid = addtimer(CALLBACK(src, PROC_REF(fire), user, bullseye), select_sound_length, TIMER_STOPPABLE)
@@ -298,6 +301,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	else
 		message_admins("[ADMIN_LOOKUPFLW(user)] has launched an artillery strike targeting [ADMIN_VERBOSEJMP(bullseye)] but it was blocked by [blocker] at [ADMIN_VERBOSEJMP(target)].")
 		log_game("[key_name(user)] has launched an artillery strike targeting [AREACOORD(bullseye)] but it was blocked by [blocker] at [AREACOORD(target)].")
+	firing = FALSE
 
 
 /obj/machinery/power/bsa/full/proc/reload()
@@ -345,7 +349,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	var/datum/weakref/cannon_ref
 	var/notice
 	var/datum/target
-	var/area_aim = FALSE //should also show areas for targeting
 
 
 /obj/machinery/computer/bsa_control/ui_state(mob/user)
@@ -356,6 +359,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	if(!ui)
 		ui = new(user, src, "BluespaceArtillery")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 		//Missing updates for: target GPS name changes
 
 /obj/machinery/computer/bsa_control/ui_data()
@@ -367,8 +371,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	data["unlocked"] = GLOB.bsa_unlock
 	data["charge"] = cannon ? cannon.cell.charge : 0
 	data["max_charge"] = cannon ? cannon.cell.maxcharge : 0
+	data["targets"] = get_available_targets()
 	if(!QDELETED(target))
-		data["target"] = get_target_name()
+		data["target"] = list(REF(target), get_target_name())
 	else
 		data["target"] = null
 		target = null
@@ -384,31 +389,19 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 		if("fire")
 			fire(usr)
 			. = TRUE
-		if("recalibrate")
-			calibrate(usr)
+		if("set_target")
+			target = locate(params["target"])
 			. = TRUE
 	if(.)
 		update_icon()
 
-/obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
-	if(!GLOB.bsa_unlock)
-		return
+/obj/machinery/computer/bsa_control/proc/get_available_targets()
 	var/list/targets = list()
 	// Find all active GPS
 	for(var/datum/component/gps/G in GLOB.GPS_list)
 		if(G.tracking)
-			targets[G.gpstag] = G
-
-	if(area_aim)
-		targets += GLOB.teleportlocs
-	var/victim = tgui_input_list(user, "Select target", "Artillery Targeting", targets)
-	if(isnull(victim))
-		return
-	if(isnull(targets[victim]))
-		return
-	target = targets[victim]
-	var/datum/component/gps/log_target = target
-	log_game("[key_name(user)] has aimed the bluespace artillery strike (BSA) at [get_area_name(log_target.parent)].")
+			targets[REF(G)] = G.gpstag
+	return targets
 
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
@@ -436,6 +429,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 		return
 	if(cannon.cell.percent() < 100)
 		notice = "Cannon doesn't have enough charge!"
+		return
+	if(cannon.firing)
+		notice = "Cannon is already firing!"
 		return
 	notice = null
 	cannon.charge_up(user, get_impact_turf())
