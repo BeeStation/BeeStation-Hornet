@@ -80,3 +80,9 @@
 	falloff_exponent = 5
 	falloff_distance = 3
 	volume = 150
+
+
+/datum/looping_sound/gravgen/kinesis
+	volume = 20
+	falloff_distance = 2
+	falloff_exponent = 5

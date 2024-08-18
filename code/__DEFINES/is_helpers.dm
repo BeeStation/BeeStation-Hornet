@@ -208,6 +208,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
+#define isvehicle(A) (istype(A, /obj/vehicle))
+
 #define ismecha(A) (istype(A, /obj/vehicle/sealed/mecha))
 
 #define ismopable(A) (A && (A.layer <= HIGH_SIGIL_LAYER)) //If something can be cleaned by floor-cleaning devices such as mops or clean bots

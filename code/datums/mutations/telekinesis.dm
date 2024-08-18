@@ -17,13 +17,3 @@
 
 /datum/mutation/telekinesis/on_ranged_attack(atom/target)
 	target.attack_tk(owner)
-
-/datum/mutation/telekinesis/mod
-	name = "Kinesis"
-	desc = "A modification that allows the wearer of a MODsuit to interact with objects through thought with the kinesis module."
-	locked = TRUE
-	limb_req = null
-	instability = 0
-
-/datum/mutation/telekinesis/mod/get_visual_indicator()
-	return
