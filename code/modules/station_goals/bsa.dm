@@ -344,7 +344,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 
 	var/datum/weakref/cannon_ref
 	var/notice
-	var/target
+	var/datum/target
 	var/area_aim = FALSE //should also show areas for targeting
 
 
@@ -367,10 +367,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	data["unlocked"] = GLOB.bsa_unlock
 	data["charge"] = cannon ? cannon.cell.charge : 0
 	data["max_charge"] = cannon ? cannon.cell.maxcharge : 0
-	if(target)
+	if(!QDELETED(target))
 		data["target"] = get_target_name()
 	else
 		data["target"] = null
+		target = null
 	return data
 
 /obj/machinery/computer/bsa_control/ui_act(action, params)
@@ -427,6 +428,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
 	var/obj/machinery/power/bsa/full/cannon = cannon_ref?.resolve()
+	if(QDELETED(target))
+		notice = "Target lost!"
+		return
 	if(!cannon)
 		notice = "No Cannon Exists!"
 		return
@@ -435,6 +439,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 		return
 	notice = null
 	cannon.charge_up(user, get_impact_turf())
+	ui_update()
 
 /obj/machinery/computer/bsa_control/proc/deploy(force=FALSE)
 	var/obj/machinery/power/bsa/full/prebuilt = locate() in range(7) //In case of adminspawn
