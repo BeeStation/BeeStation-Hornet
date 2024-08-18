@@ -295,7 +295,7 @@
 
 /datum/quirk/petlover
 	name = "Pet Lover"
-	desc = "You love the company of you animal friends so much. You start with a pet delivery beacon."
+	desc = "You love the company a pet. You start with a pet delivery beacon."
 	icon = "dog"
 	value = 1
 	mob_trait = TRAIT_PETLOVER
