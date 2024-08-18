@@ -241,14 +241,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 		add_overlay("[base_battery_icon_state]_100")
 		charge_sound = 'sound/machines/apc/PowerUp_001.ogg'
 	if(charge_quarter > last_charge_quarter)
-		playsound(get_turf(src), charge_sound, 25, 1)
+		playsound(get_turf(src), charge_sound, 25, TRUE)
 
 
 /obj/machinery/power/bsa/full/proc/charge_up(mob/user, turf/bullseye)
 	if(!cell.use(power_used_per_shot))
 		return FALSE
 	var/sound/charge_up = sound(select_sound)
-	playsound(get_turf(src), charge_up, 50, 1)
+	playsound(get_turf(src), charge_up, 50, 1, pressure_affected = FALSE)
 	var/timerid = addtimer(CALLBACK(src, PROC_REF(fire), user, bullseye), select_sound_length, TIMER_STOPPABLE)
 	winding_up = TRUE
 	var/list/turfs = spiral_range_turfs(ex_power * 2, bullseye)
@@ -263,7 +263,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 
 /obj/machinery/power/bsa/full/proc/fire(mob/user, turf/bullseye)
 	winding_up = FALSE
-	playsound(get_turf(src), fire_sound, 50, 1, world.maxx)
+	playsound(get_turf(src), fire_sound, 100, 1, world.maxx, pressure_affected = FALSE, ignore_walls = TRUE)
+	for(var/mob/M in GLOB.mob_living_list)
+		if(M.get_virtual_z_level() != get_virtual_z_level())
+			continue
+		shake_camera(M, 15, 1)
+
 	var/turf/point = get_front_turf()
 	var/turf/target = get_target_turf()
 	var/atom/movable/blocker
