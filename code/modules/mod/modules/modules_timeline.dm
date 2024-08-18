@@ -12,11 +12,10 @@
 			out to be a good deterrent."
 	icon_state = "eradicationlock"
 	module_type = MODULE_USABLE
-	complexity = 2
-	use_power_cost = DEFAULT_CELL_DRAIN * 3
+	removable = FALSE
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 3
 	incompatible_modules = list(/obj/item/mod/module/eradication_lock, /obj/item/mod/module/dna_lock)
 	cooldown_time = 0.5 SECONDS
-	removable = FALSE //copy paste this comment - no timeline modules should be removable
 	/// The ckey we lock with, to allow all alternate versions of the user, huhehuehe
 	var/true_owner_ckey
 
@@ -62,11 +61,10 @@
 			safety reasons while preparing a rewind."
 	icon_state = "rewinder"
 	module_type = MODULE_USABLE
-	complexity = 1
-	use_power_cost = DEFAULT_CELL_DRAIN * 5
+	removable = FALSE
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/rewinder)
 	cooldown_time = 20 SECONDS
-	removable = FALSE //copy paste this comment - no timeline modules should be removable
 
 /obj/item/mod/module/rewinder/on_use()
 	. = ..()
@@ -76,7 +74,7 @@
 	playsound(src, 'sound/items/modsuit/time_anchor_set.ogg', 50, TRUE)
 	//stops all mods from triggering during rewinding
 	for(var/obj/item/mod/module/module as anything in mod.modules)
-		RegisterSignal(module, COMSIG_MOD_MODULE_TRIGGERED, .proc/on_module_triggered)
+		RegisterSignal(module, COMSIG_MODULE_TRIGGERED, .proc/on_module_triggered)
 	mod.wearer.AddComponent(/datum/component/dejavu/timeline, 1, 10 SECONDS)
 	RegisterSignal(mod, COMSIG_MOD_ACTIVATE, .proc/on_activate_block)
 	addtimer(CALLBACK(src, .proc/unblock_suit_activation), 10 SECONDS)
@@ -84,7 +82,7 @@
 ///unregisters the modsuit deactivation blocking signal, after dejavu functionality finishes.
 /obj/item/mod/module/rewinder/proc/unblock_suit_activation()
 	for(var/obj/item/mod/module/module as anything in mod.modules)
-		UnregisterSignal(module, COMSIG_MOD_MODULE_TRIGGERED)
+		UnregisterSignal(module, COMSIG_MODULE_TRIGGERED)
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 
 ///Signal fired when wearer attempts to activate/deactivate suits
@@ -107,11 +105,10 @@
 			module has a hefty cooldown period to avoid reality errors."
 	icon_state = "timestop"
 	module_type = MODULE_USABLE
-	complexity = 3
-	use_power_cost = DEFAULT_CELL_DRAIN * 5
+	removable = FALSE
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/timestopper)
 	cooldown_time = 60 SECONDS
-	removable = FALSE //copy paste this comment - no timeline modules should be removable
 	///the current timestop in progress
 	var/obj/effect/timestop/channelled/timestop
 
@@ -124,7 +121,7 @@
 		return
 	//stops all mods from triggering during timestop- including timestop itself
 	for(var/obj/item/mod/module/module as anything in mod.modules)
-		RegisterSignal(module, COMSIG_MOD_MODULE_TRIGGERED, .proc/on_module_triggered)
+		RegisterSignal(module, COMSIG_MODULE_TRIGGERED, .proc/on_module_triggered)
 	timestop = new /obj/effect/timestop/channelled(get_turf(mod.wearer), 2, INFINITY, list(mod.wearer))
 	RegisterSignal(timestop, COMSIG_PARENT_QDELETING, .proc/unblock_suit_activation)
 
@@ -132,7 +129,7 @@
 /obj/item/mod/module/timestopper/proc/unblock_suit_activation(datum/source)
 	SIGNAL_HANDLER
 	for(var/obj/item/mod/module/module as anything in mod.modules)
-		UnregisterSignal(module, COMSIG_MOD_MODULE_TRIGGERED)
+		UnregisterSignal(module, COMSIG_MODULE_TRIGGERED)
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 	timestop = null
@@ -155,12 +152,11 @@
 	desc = "A module used to traverse timelines, phasing the user in and out of the stream of events."
 	icon_state = "timeline_jumper"
 	module_type = MODULE_USABLE
-	complexity = 2
-	use_power_cost = DEFAULT_CELL_DRAIN * 5
+	removable = FALSE
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/timeline_jumper)
 	cooldown_time = 5 SECONDS
 	allowed_in_phaseout = TRUE
-	removable = FALSE //copy paste this comment - no timeline modules should be removable
 	///the dummy for phasing from this module, the wearer is phased out while this exists.
 	var/obj/effect/dummy/phased_mob/chrono/phased_mob
 
@@ -206,11 +202,10 @@
 			timestream. They never are, they never were, they never will be."
 	icon_state = "chronogun"
 	module_type = MODULE_ACTIVE
-	complexity = 3
-	use_power_cost = DEFAULT_CELL_DRAIN * 5
+	removable = FALSE
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/tem)
 	cooldown_time = 0.5 SECONDS
-	removable = FALSE //copy paste this comment - no timeline modules should be removable
 	///reference to the chrono field being controlled by this module
 	var/obj/structure/chrono_field/field = null
 	///where the chronofield maker was when the field went up

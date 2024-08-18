@@ -53,7 +53,7 @@
 	if(isnull(toggle_target))
 		toggle_target = M
 
-/datum/action/cleaning_toggle/Trigger()
+/datum/action/cleaning_toggle/Trigger(trigger_flags)
 	. = ..()
 	if(!toggle_target)
 		log_runtime("Floor Cleaning Toggle action triggered without a target.")

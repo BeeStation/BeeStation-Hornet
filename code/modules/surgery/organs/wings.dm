@@ -181,7 +181,7 @@
 	var/recharging_rate = 100
 	var/recharging_time = 0
 
-/datum/action/item_action/organ_action/use/bee_dash/Trigger()
+/datum/action/item_action/organ_action/use/bee_dash/Trigger(trigger_flags)
 	var/mob/living/carbon/L = owner
 	var/obj/item/organ/wings/bee/wings = locate(/obj/item/organ/wings/bee) in L.internal_organs
 	var/jumpdistance = wings.jumpdist

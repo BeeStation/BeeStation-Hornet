@@ -202,7 +202,7 @@
 /datum/action/item_action/update_linkedsurgery
 	name = "Update Surgical Implant"
 
-/datum/action/item_action/update_linkedsurgery/Trigger()
+/datum/action/item_action/update_linkedsurgery/Trigger(trigger_flags)
 	if(istype(target, /obj/item/organ/cyberimp/brain/linkedsurgery))
 		var/obj/item/organ/cyberimp/brain/linkedsurgery/I = target
 		var/old_surgeries_amount = length(I.advanced_surgeries)

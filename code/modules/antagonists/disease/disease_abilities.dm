@@ -168,7 +168,7 @@ new /datum/disease_ability/symptom/powerful/youth
 	desc = "Force the host you are following to cough with extra force, spreading your infection to those within two meters of your host even if your transmissibility is low.<br>Cooldown: 10 seconds"
 	cooldown_time = 100
 
-/datum/action/cooldown/disease_cough/Trigger()
+/datum/action/cooldown/disease_cough/Trigger(trigger_flags)
 	if(!..())
 		return FALSE
 	var/mob/camera/disease/D = owner
@@ -202,7 +202,7 @@ new /datum/disease_ability/symptom/powerful/youth
 	desc = "Force the host you are following to sneeze with extra force, spreading your infection to any victims in a 4 meter cone in front of your host even if your transmissibility is low.<br>Cooldown: 20 seconds"
 	cooldown_time = 200
 
-/datum/action/cooldown/disease_sneeze/Trigger()
+/datum/action/cooldown/disease_sneeze/Trigger(trigger_flags)
 	if(!..())
 		return FALSE
 	var/mob/camera/disease/D = owner
@@ -240,7 +240,7 @@ new /datum/disease_ability/symptom/powerful/youth
 	desc = "Cause the host you are following to excrete an infective substance from their pores, causing all objects touching their skin to transmit your infection to anyone who touches them for the next 30 seconds.<br>Cooldown: 40 seconds"
 	cooldown_time = 400
 
-/datum/action/cooldown/disease_infect/Trigger()
+/datum/action/cooldown/disease_infect/Trigger(trigger_flags)
 	if(!..())
 		return FALSE
 	var/mob/camera/disease/D = owner

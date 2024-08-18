@@ -555,6 +555,12 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	desc = "Your blood's electric charge is running low, find a source of charge for your blood. Use a recharging station found in robotics or the dormitory bathrooms, or eat some Ethereal-friendly food."
 	icon_state = "etherealcharge"
 
+//MODsuit unique
+/atom/movable/screen/alert/nocore
+	name = "Missing Core"
+	desc = "Unit has no core. No modules available until a core is reinstalled. Robotics may provide assistance."
+	icon_state = "no_cell"
+
 //Need to cover all use cases - emag, illegal upgrade module, malf AI hack, traitor cyborg
 /atom/movable/screen/alert/hacked
 	name = "Hacked"

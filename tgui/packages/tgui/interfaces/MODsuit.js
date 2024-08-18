@@ -311,7 +311,7 @@ const ParametersSection = (props, context) => {
 
 const HardwareSection = (props, context) => {
   const { act, data } = useBackend(context);
-  const { active, control, helmet, chestplate, gauntlets, boots, cell, charge } = data;
+  const { active, control, helmet, chestplate, gauntlets, boots, core, charge } = data;
   return (
     <Section title="Hardware">
       <Collapsible title="Parts">
@@ -323,11 +323,11 @@ const HardwareSection = (props, context) => {
           <LabeledList.Item label="Boots">{boots || 'None'}</LabeledList.Item>
         </LabeledList>
       </Collapsible>
-      <Collapsible title="Cell">
-        {(cell && (
+      <Collapsible title="Core">
+        {(core && (
           <LabeledList>
-            <LabeledList.Item label="Cell Type">{cell}</LabeledList.Item>
-            <LabeledList.Item label="Cell Charge">
+            <LabeledList.Item label="Core Type">{core}</LabeledList.Item>
+            <LabeledList.Item label="Core Charge">
               <ProgressBar
                 value={charge / 100}
                 content={charge + '%'}
@@ -341,7 +341,7 @@ const HardwareSection = (props, context) => {
           </LabeledList>
         )) || (
           <Box color="bad" textAlign="center">
-            No Cell Detected
+            No Core Detected
           </Box>
         )}
       </Collapsible>

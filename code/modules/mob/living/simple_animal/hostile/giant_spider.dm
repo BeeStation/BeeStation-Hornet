@@ -723,7 +723,7 @@
 /datum/action/innate/spider/comm/IsAvailable()
 	return ..() && istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 
-/datum/action/innate/spider/comm/Trigger()
+/datum/action/innate/spider/comm/Trigger(trigger_flags)
 	var/input = stripped_input(owner, "Input a command for your children to follow.", "Command", "")
 	if(QDELETED(src) || !input || !IsAvailable())
 		return FALSE

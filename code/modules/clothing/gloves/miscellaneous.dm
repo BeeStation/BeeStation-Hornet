@@ -139,7 +139,7 @@
 /datum/action/item_action/artifact_pincher_mode
 	name = "Toggle Safety"
 
-/datum/action/item_action/artifact_pincher_mode/Trigger()
+/datum/action/item_action/artifact_pincher_mode/Trigger(trigger_flags)
 	var/obj/item/clothing/gloves/artifact_pinchers/pinchy = target
 	if(istype(pinchy))
 		pinchy.safety = !pinchy.safety

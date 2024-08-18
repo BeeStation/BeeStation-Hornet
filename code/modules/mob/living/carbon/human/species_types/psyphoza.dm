@@ -199,7 +199,7 @@
 		return FALSE
 	return ..()
 
-/datum/action/item_action/organ_action/psychic_highlight/Trigger()
+/datum/action/item_action/organ_action/psychic_highlight/Trigger(trigger_flags)
 	. = ..()
 	if(has_cooldown_timer || !owner || !check_head())
 		return
@@ -433,7 +433,7 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_visual/Trigger()
+/datum/action/change_psychic_visual/Trigger(trigger_flags)
 	. = ..()
 	if(!psychic_overlay)
 		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
@@ -462,7 +462,7 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_auto/Trigger()
+/datum/action/change_psychic_auto/Trigger(trigger_flags)
 	. = ..()
 	psychic_action?.auto_sense = !psychic_action?.auto_sense
 	UpdateButtonIcon()
@@ -498,7 +498,7 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_texture/Trigger()
+/datum/action/change_psychic_texture/Trigger(trigger_flags)
 	. = ..()
 	psychic_overlay = psychic_overlay || owner?.screens["psychic_highlight"]
 	psychic_overlay?.cycle_textures()

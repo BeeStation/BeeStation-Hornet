@@ -24,7 +24,7 @@
 /datum/action/item_action/displayDetectiveScanResults
 	name = "Display Forensic Scanner Results"
 
-/datum/action/item_action/displayDetectiveScanResults/Trigger()
+/datum/action/item_action/displayDetectiveScanResults/Trigger(trigger_flags)
 	var/obj/item/detective_scanner/scanner = target
 	if(istype(scanner))
 		scanner.displayDetectiveScanResults(usr)

@@ -137,7 +137,7 @@
 	name = "Toggle Perspective"
 	desc = "Switch between seeing normally from your head, or blindly from your body."
 
-/datum/action/item_action/organ_action/dullahan/Trigger()
+/datum/action/item_action/organ_action/dullahan/Trigger(trigger_flags)
 	. = ..()
 	var/obj/item/organ/eyes/dullahan/DE = target
 	if(DE.tint)

@@ -94,7 +94,7 @@
 	button_icon_state = "mech_search_ruins"
 	COOLDOWN_DECLARE(search_cooldown)
 
-/datum/action/vehicle/sealed/mecha/mech_search_ruins/Trigger()
+/datum/action/vehicle/sealed/mecha/mech_search_ruins/Trigger(trigger_flags)
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 	if(!COOLDOWN_FINISHED(src, search_cooldown))

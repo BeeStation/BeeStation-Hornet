@@ -1,12 +1,3 @@
-// Checks to see if the mob is able to use their hands, or if they are blocked by cuffs or stuns
-#define AB_CHECK_HANDS_BLOCKED (1<<0)
-// Checks to see if the mob is incapacitated by stuns or paralysis effects
-#define AB_CHECK_INCAPACITATED (1<<1)
-// Checks to see if the mob is standing
-#define AB_CHECK_LYING (1<<2)
-// Checks to see if the mob in concious
-#define AB_CHECK_CONSCIOUS (1<<3)
-
 /datum/action
 	var/name = "Generic Action"
 	var/desc = null
@@ -103,7 +94,7 @@
 	button.locked = FALSE
 	button.id = null
 
-/datum/action/proc/Trigger()
+/datum/action/proc/Trigger(trigger_flags)
 	if(!IsAvailable())
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_ACTION_TRIGGER, src) & COMPONENT_ACTION_BLOCK_TRIGGER)
@@ -200,7 +191,7 @@
 	UNSETEMPTY(I.actions)
 	return ..()
 
-/datum/action/item_action/Trigger()
+/datum/action/item_action/Trigger(trigger_flags)
 	. = ..()
 	if(!..())
 		return FALSE
@@ -229,7 +220,7 @@
 /datum/action/item_action/toggle_light
 	name = "Toggle Light"
 
-/datum/action/item_action/toggle_light/Trigger()
+/datum/action/item_action/toggle_light/Trigger(trigger_flags)
 	if(istype(target, /obj/item/modular_computer))
 		var/obj/item/modular_computer/mc = target
 		mc.toggle_flashlight()
@@ -298,7 +289,7 @@
 /datum/action/item_action/toggle_welding_screen
 	name = "Toggle Welding Screen"
 
-/datum/action/item_action/toggle_welding_screen/Trigger()
+/datum/action/item_action/toggle_welding_screen/Trigger(trigger_flags)
 	var/obj/item/clothing/head/utility/hardhat/welding/H = target
 	if(istype(H))
 		H.toggle_welding_screen(owner)
@@ -306,7 +297,7 @@
 /datum/action/item_action/toggle_welding_screen/plasmaman
 	name = "Toggle Welding Screen"
 
-/datum/action/item_action/toggle_welding_screen/plasmaman/Trigger()
+/datum/action/item_action/toggle_welding_screen/plasmaman/Trigger(trigger_flags)
 	var/obj/item/clothing/head/helmet/space/plasmaman/H = target
 	if(istype(H))
 		H.toggle_welding_screen(owner)
@@ -315,7 +306,7 @@
 	name = "Open Music Menu"
 	desc = "UNTZ UNTZ UNTZ"
 
-/datum/action/item_action/toggle_headphones/Trigger()
+/datum/action/item_action/toggle_headphones/Trigger(trigger_flags)
 	var/obj/item/clothing/ears/headphones/H = target
 	if(istype(H))
 		H.interact(owner)
@@ -333,7 +324,7 @@
 	UnregisterSignal(target, COMSIG_SUIT_SPACE_TOGGLE)
 	return ..()
 
-/datum/action/item_action/toggle_spacesuit/Trigger()
+/datum/action/item_action/toggle_spacesuit/Trigger(trigger_flags)
 	var/obj/item/clothing/suit/space/suit = target
 	if(!istype(suit))
 		return
@@ -350,7 +341,7 @@
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	button_icon_state = "vortex_ff_on"
 
-/datum/action/item_action/toggle_unfriendly_fire/Trigger()
+/datum/action/item_action/toggle_unfriendly_fire/Trigger(trigger_flags)
 	if(..())
 		UpdateButtonIcon()
 
@@ -434,7 +425,7 @@
 /datum/action/item_action/nano_picket_sign
 	name = "Retext Nano Picket Sign"
 
-/datum/action/item_action/nano_picket_sign/Trigger()
+/datum/action/item_action/nano_picket_sign/Trigger(trigger_flags)
 	if(!istype(target, /obj/item/picket_sign))
 		return
 	var/obj/item/picket_sign/sign = target
@@ -490,7 +481,7 @@
 	button_icon_state = "scan_mode"
 	var/active = FALSE
 
-/datum/action/item_action/toggle_research_scanner/Trigger()
+/datum/action/item_action/toggle_research_scanner/Trigger(trigger_flags)
 	if(IsAvailable())
 		active = !active
 		if(active)
@@ -510,7 +501,7 @@
 	name = "Use Instrument"
 	desc = "Use the instrument specified"
 
-/datum/action/item_action/instrument/Trigger()
+/datum/action/item_action/instrument/Trigger(trigger_flags)
 	if(istype(target, /obj/item/instrument))
 		var/obj/item/instrument/I = target
 		I.interact(usr)
@@ -556,7 +547,7 @@
 	button.screen_loc = "6:157,4:-2"
 	button.moved = "6:157,4:-2"
 
-/datum/action/item_action/cult_dagger/Trigger()
+/datum/action/item_action/cult_dagger/Trigger(trigger_flags)
 	for(var/obj/item/melee/cultblade/dagger/held_item in owner.held_items) // In case we were already holding a dagger
 		held_item.attack_self(owner)
 		return
@@ -589,7 +580,7 @@
 	COOLDOWN_DECLARE(box_cooldown)
 
 ///Handles opening and closing the box.
-/datum/action/item_action/agent_box/Trigger()
+/datum/action/item_action/agent_box/Trigger(trigger_flags)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -612,7 +603,7 @@
 /datum/action/item_action/portaseeder_dissolve
 	name = "Activate Seed Extractor"
 
-/datum/action/item_action/portaseeder_dissolve/Trigger()
+/datum/action/item_action/portaseeder_dissolve/Trigger(trigger_flags)
 	var/obj/item/storage/bag/plants/portaseeder/H = target
 	H.dissolve_contents()
 
@@ -637,7 +628,7 @@
 	S?.action = null
 	return ..()
 
-/datum/action/spell_action/Trigger()
+/datum/action/spell_action/Trigger(trigger_flags)
 	if(!..())
 		return FALSE
 	if(target)
@@ -677,7 +668,7 @@
 	check_flags = NONE
 	var/active = 0
 
-/datum/action/innate/Trigger()
+/datum/action/innate/Trigger(trigger_flags)
 	if(!..())
 		return 0
 	if(!active)
@@ -757,7 +748,7 @@
 	button_icon_state = "language_menu"
 	check_flags = NONE
 
-/datum/action/language_menu/Trigger()
+/datum/action/language_menu/Trigger(trigger_flags)
 	if(!..())
 		return FALSE
 	if(ismob(owner))
@@ -814,7 +805,7 @@
 	icon_icon = 'icons/mob/carp.dmi'
 	button_icon_state = "carp"
 
-/datum/action/small_sprite/space_dragon/Trigger()
+/datum/action/small_sprite/space_dragon/Trigger(trigger_flags)
 	..()
 	if(small) // parent call already reversed this. Effectively !small
 		owner.cut_overlays() // remove the overlays. can't be done with signals, unfortunately
@@ -822,7 +813,7 @@
 		var/mob/living/simple_animal/hostile/space_dragon/D = owner
 		D.update_dragon_overlay() // restore overlays
 
-/datum/action/small_sprite/Trigger()
+/datum/action/small_sprite/Trigger(trigger_flags)
 	..()
 	if(!small)
 		var/image/I = image(icon = small_icon, icon_state = small_icon_state, loc = owner)
