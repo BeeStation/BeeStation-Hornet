@@ -244,6 +244,10 @@
 	QDEL_NULL(helpers)
 	qdel(src)
 
+/mob/living/simple_animal/hostile/retaliate/nymph/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced)
+	if(!..())
+		emote("chitter")
+
 /datum/action/nymph/evolve
 	name = "Evolve"
 	desc = "Evolve into your adult form with the help of another nymph."

@@ -120,7 +120,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		return
 
 	if(is_muted(original_message, ignore_spam, forced) || check_emote(original_message, forced))
-		return
+		return TRUE
 
 	if(!language) // get_message_mods() proc finds a language key, and add the language to LANGUAGE_EXTENSION
 		language = message_mods[LANGUAGE_EXTENSION]
