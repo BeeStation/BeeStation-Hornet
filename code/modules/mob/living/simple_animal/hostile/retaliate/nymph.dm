@@ -236,6 +236,7 @@
 	else
 		adult.key = src.key
 
+	adult.dna.update_dna_identity()
 	adult.update_body()
 	adult.updateappearance()
 	adult.nutrition = NUTRITION_LEVEL_HUNGRY
