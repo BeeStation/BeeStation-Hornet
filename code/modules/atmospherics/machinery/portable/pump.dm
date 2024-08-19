@@ -84,8 +84,10 @@
 		investigate_log("a portable pump was set to [attached_pump.target_pressure] kPa by [parent.get_creator()].", INVESTIGATE_ATMOS)
 
 /obj/machinery/portable_atmospherics/pump/Destroy()
-	var/turf/local_turf = get_turf(src)
-	local_turf.assume_air(air_contents)
+	var/turf/T = get_turf(src)
+	T.assume_air(air_contents)
+	air_update_turf(FALSE, FALSE)
+	QDEL_NULL(pump)
 	return ..()
 
 /obj/machinery/portable_atmospherics/pump/update_icon()
@@ -103,15 +105,15 @@
 		pump.airs[2] = null
 		return
 
-	var/turf/local_turf = get_turf(src)
-	var/datum/gas_mixture/sending
-	var/datum/gas_mixture/receiving
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/temp_air_contents = return_air()
+	var/datum/gas_mixture/temp_holding_air_contents = holding_return_air()
 	if(direction == PUMP_OUT) // Hook up the internal pump.
-		sending = (holding ? holding.return_air() : air_contents)
-		receiving = (holding ? air_contents : local_turf.return_air())
+		pump.airs[1] = holding ? temp_holding_air_contents : temp_air_contents
+		pump.airs[2] = holding ? temp_air_contents : T.return_air()
 	else
-		sending = (holding ? air_contents : local_turf.return_air())
-		receiving = (holding ? holding.return_air() : air_contents)
+		pump.airs[1] = holding ? temp_air_contents : T.return_air()
+		pump.airs[2] = holding ? temp_holding_air_contents : temp_air_contents
 
 	pump.process_atmos() // Pump gas.
 	if(!holding)

@@ -47,7 +47,7 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/update_icon_nopipes()
 	cut_overlays()
 	if(showpipe)
-		var/image/cap = get_pipe_image(icon, "dpvent_cap", dir, pipe_color, piping_layer = piping_layer)
+		var/image/cap = get_pipe_image(icon, "dpvent_cap", dir, piping_layer = piping_layer)
 		add_overlay(cap)
 
 	if(welded)
@@ -108,20 +108,12 @@
 
 	//Radio remote control
 
-/**
- * Called in atmos_init(), used to change or remove the radio frequency from the component
- * Arguments:
- * * -new_frequency: the frequency that should be used for the radio to attach to the component, use 0 to remove the radio
- */
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)
 		radio_connection = SSradio.add_object(src, frequency, filter = RADIO_ATMOSIA)
 
-/**
- * Called in atmos_init(), send the component status to the radio device connected
- */
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/proc/broadcast_status()
 	if(!radio_connection)
 		return

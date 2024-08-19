@@ -23,11 +23,9 @@
 	..()
 
 	for(var/i in 1 to device_type)
-		if(airs[i])
-			continue
-		var/datum/gas_mixture/component_mixture = new
-		component_mixture.volume = 200
-		airs[i] = component_mixture
+		var/datum/gas_mixture/A = new
+		A.volume = 200
+		airs[i] = A
 
 /obj/machinery/atmospherics/components/Initialize()
 	. = ..()
@@ -95,8 +93,8 @@
 
 /obj/machinery/atmospherics/components/nullify_node(i)
 	if(parents[i])
-		nullify_pipenet(parents[i])
-	airs[i] = null
+		nullifyPipenet(parents[i])
+	QDEL_NULL(airs[i])
 	return ..()
 
 /obj/machinery/atmospherics/components/on_construction()
@@ -122,9 +120,9 @@
  * Arguments:
  * * -reference: the pipeline the component is attached to
  */
-/obj/machinery/atmospherics/components/proc/nullify_pipenet(datum/pipeline/reference)
+/obj/machinery/atmospherics/components/proc/nullifyPipenet(datum/pipeline/reference)
 	if(!reference)
-		CRASH("nullify_pipenet(null) called by [type] on [COORD(src)]")
+		CRASH("nullifyPipenet(null) called by [type] on [COORD(src)]")
 
 	for (var/i in 1 to parents.len)
 		if (parents[i] == reference)
@@ -143,10 +141,10 @@
 
 	if(!length(reference.other_atmos_machines) && !length(reference.members))
 		if(QDESTROYING(reference))
-			CRASH("nullify_pipenet() called on qdeleting [reference]")
+			CRASH("nullifyPipenet() called on qdeleting [reference]")
 		qdel(reference)
 
-/obj/machinery/atmospherics/components/return_pipenet_airs(datum/pipeline/reference)
+/obj/machinery/atmospherics/components/return_pipenetAirs(datum/pipeline/reference)
 	var/list/returned_air = list()
 
 	for (var/i in 1 to parents.len)
@@ -159,11 +157,11 @@
 		return list(nodes[parents.Find(reference)])
 	return ..()
 
-/obj/machinery/atmospherics/components/set_pipenet(datum/pipeline/reference, obj/machinery/atmospherics/target_component)
-	parents[nodes.Find(target_component)] = reference
+/obj/machinery/atmospherics/components/set_pipenet(datum/pipeline/reference, obj/machinery/atmospherics/A)
+	parents[nodes.Find(A)] = reference
 
-/obj/machinery/atmospherics/components/return_pipenet(obj/machinery/atmospherics/target_component = nodes[1]) //returns parents[1] if called without argument
-	return parents[nodes.Find(target_component)]
+/obj/machinery/atmospherics/components/return_pipenet(obj/machinery/atmospherics/A = nodes[1]) //returns parents[1] if called without argument
+	return parents[nodes.Find(A)]
 
 /obj/machinery/atmospherics/components/replace_pipenet(datum/pipeline/Old, datum/pipeline/New)
 	parents[parents.Find(Old)] = New
@@ -171,11 +169,11 @@
 /obj/machinery/atmospherics/components/unsafe_pressure_release(mob/user, pressures)
 	. = ..()
 
-	var/turf/current_turf = get_turf(src)
-	if(!current_turf)
+	var/turf/T = get_turf(src)
+	if(!T)
 		return
 	//Remove the gas from airs and assume it
-	var/datum/gas_mixture/environment = current_turf.return_air()
+	var/datum/gas_mixture/environment = T.return_air()
 	var/lost = null
 	var/times_lost = 0
 	for(var/i in 1 to device_type)
@@ -191,7 +189,8 @@
 			to_release = air.remove(shared_loss)
 			continue
 		to_release.merge(air.remove(shared_loss))
-	current_turf.assume_air(to_release)
+	T.assume_air(to_release)
+	air_update_turf(FALSE, FALSE)
 
 // Helpers
 
@@ -217,11 +216,6 @@
 	. = list()
 	for(var/i in 1 to device_type)
 		. += return_pipenet(nodes[i])
-
-/// When this machine is in a pipenet that is reconciling airs, this proc can add airs to the calculation.
-/// Can be either a list of airs or a single air mix.
-/obj/machinery/atmospherics/components/proc/return_airs_for_reconcilation(datum/pipeline/requester)
-	return list()
 
 // UI Stuff
 

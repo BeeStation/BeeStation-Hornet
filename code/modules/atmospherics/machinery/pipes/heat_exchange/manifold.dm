@@ -35,7 +35,9 @@
 	//Add non-broken pieces
 	for(var/i in 1 to device_type)
 		if(nodes[i])
-			. += get_pipe_image(icon, "pipe-[piping_layer]", get_dir(src, nodes[i]))
+			add_overlay( get_pipe_image(icon, "pipe-[piping_layer]", get_dir(src, nodes[i])) )
+
+	update_layer()
 
 /obj/machinery/atmospherics/pipe/heat_exchanging/manifold/layer2
 	piping_layer = 2

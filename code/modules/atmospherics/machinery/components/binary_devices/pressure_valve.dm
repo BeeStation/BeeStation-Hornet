@@ -66,22 +66,12 @@
 		is_gas_flowing = FALSE
 	update_icon_nopipes()
 
-//Radio remote control
-
-/**
- * Called in atmos_init(), used to change or remove the radio frequency from the component
- * Arguments:
- * * -new_frequency: the frequency that should be used for the radio to attach to the component, use 0 to remove the radio
- */
 /obj/machinery/atmospherics/components/binary/pressure_valve/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)
 		radio_connection = SSradio.add_object(src, frequency, filter = RADIO_ATMOSIA)
 
-/**
- * Called in atmos_init(), send the component status to the radio device connected
- */
 /obj/machinery/atmospherics/components/binary/pressure_valve/proc/broadcast_status()
 	if(!radio_connection)
 		return

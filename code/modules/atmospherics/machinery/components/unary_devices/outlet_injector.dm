@@ -8,18 +8,15 @@
 	can_unwrench = TRUE
 	shift_underlay_only = FALSE
 	hide = TRUE
-	layer = GAS_SCRUBBER_LAYER
-	pipe_state = "injector"
+
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF //really helpful in building gas chambers for xenomorphs
 
-	///Variable used for radio frequency injection
-	var/injecting = FALSE
-	///Rate of operation of the device
+	var/injecting = 0
+
 	var/volume_rate = 50
 
-	///Frequency id for connecting to the NTNet
 	var/frequency = 0
-	///Reference to the radio datum
+	var/id = null
 	var/datum/radio_frequency/radio_connection
 
 	interacts_with_air = TRUE
@@ -53,7 +50,7 @@
 	cut_overlays()
 	if(showpipe)
 		// everything is already shifted so don't shift the cap
-		add_overlay(get_pipe_image(icon, "inje_cap", initialize_directions, pipe_color))
+		add_overlay(get_pipe_image(icon, "inje_cap", initialize_directions))
 
 	if(!nodes[1] || !on || !is_operational)
 		icon_state = "inje_off"

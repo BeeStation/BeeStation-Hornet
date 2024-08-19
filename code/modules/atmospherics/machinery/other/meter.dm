@@ -68,16 +68,16 @@
 		return 0
 
 	var/env_pressure = environment.return_pressure()
-	if(env_pressure <= 0.15 * ONE_ATMOSPHERE)
+	if(env_pressure <= 0.15*ONE_ATMOSPHERE)
 		icon_state = "meter0"
-	else if(env_pressure <= 1.8 * ONE_ATMOSPHERE)
-		var/val = round(env_pressure / (ONE_ATMOSPHERE * 0.3) + 0.5)
+	else if(env_pressure <= 1.8*ONE_ATMOSPHERE)
+		var/val = round(env_pressure/(ONE_ATMOSPHERE*0.3) + 0.5)
 		icon_state = "meter1_[val]"
-	else if(env_pressure <= 30 * ONE_ATMOSPHERE)
-		var/val = round(env_pressure / (ONE_ATMOSPHERE * 5) - 0.35) + 1
+	else if(env_pressure <= 30*ONE_ATMOSPHERE)
+		var/val = round(env_pressure/(ONE_ATMOSPHERE*5)-0.35) + 1
 		icon_state = "meter2_[val]"
-	else if(env_pressure <= 59 * ONE_ATMOSPHERE)
-		var/val = round(env_pressure / (ONE_ATMOSPHERE * 5) - 6) + 1
+	else if(env_pressure <= 59*ONE_ATMOSPHERE)
+		var/val = round(env_pressure/(ONE_ATMOSPHERE*5) - 6) + 1
 		icon_state = "meter3_[val]"
 	else
 		icon_state = "meter4"
@@ -110,10 +110,9 @@
 	. = ..()
 	. += status()
 
-/obj/machinery/meter/wrench_act(mob/user, obj/item/wrench)
-	..()
-	to_chat(user, ("<span class='notice'>You begin to unfasten \the [src]...</span>"))
-	if (wrench.use_tool(src, user, 40, volume=50))
+/obj/machinery/meter/wrench_act(mob/user, obj/item/I)
+	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
+	if (I.use_tool(src, user, 40, volume=50))
 		user.visible_message(
 			"[user] unfastens \the [src].",
 			"<span class='notice'>You unfasten \the [src].</span>",

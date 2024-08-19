@@ -91,7 +91,7 @@
 	if(!t_loc)
 		return
 	var/list/newsmokes = list()
-	for(var/turf/T in t_loc.get_atmos_adjacent_turfs())
+	for(var/turf/T in t_loc.GetAtmosAdjacentTurfs(!circle))
 		var/obj/effect/particle_effect/smoke/foundsmoke = locate() in T //Don't spread smoke where there's already smoke!
 		if(foundsmoke)
 			continue

@@ -64,7 +64,7 @@
 	..()
 	if(process)
 		SSair.start_processing_machine(src)
-	set_init_directions(init_dir)
+	set_init_directions()
 
 /obj/machinery/atmospherics/Destroy()
 	for(var/i in 1 to device_type)
@@ -96,31 +96,19 @@
 /obj/machinery/atmospherics/proc/get_rebuild_targets()
 	return
 
-/**
- * Called on destroy(mostly deconstruction) and when moving nodes around, disconnect the nodes from the network
- * Arguments:
- * * i - is the current iteration of the node, based on the device_type (from 1 to 4)
- */
 /obj/machinery/atmospherics/proc/nullify_node(i)
-	if(!nodes[i])
-		return
-	var/obj/machinery/atmospherics/node_machine = nodes[i]
-	node_machine.disconnect(src)
-	nodes[i] = null
+	if(nodes[i])
+		var/obj/machinery/atmospherics/N = nodes[i]
+		N.disconnect(src)
+		nodes[i] = null
 
-/**
- * Getter for node_connects
- *
- * Return a list of the nodes that can connect to other machines, get called by atmos_init()
- */
 /obj/machinery/atmospherics/proc/get_node_connects()
 	var/list/node_connects = list()
 	node_connects.len = device_type
 
-	var/init_directions = get_init_directions()
 	for(var/i in 1 to device_type)
 		for(var/D in GLOB.cardinals)
-			if(D & init_directions)
+			if(D & get_init_directions())
 				if(D in node_connects)
 					continue
 				node_connects[i] = D
@@ -134,13 +122,7 @@
 		if(WEST)
 			setDir(EAST)
 
-/**
- * Initialize for atmos devices
- *
- * initialize the nodes for each pipe/device, this is called just after the air controller sets up turfs
- * Arguments:
- * * list/node_connects - a list of the nodes on the device that can make a connection to other machines
- */
+//this is called just after the air controller sets up turfs
 /obj/machinery/atmospherics/proc/atmos_init(list/node_connects)
 	if(!node_connects) //for pipes where order of nodes doesn't matter
 		node_connects = get_node_connects()
@@ -152,76 +134,25 @@
 				break
 	update_icon()
 
-/**
- * setter for pipe layers
- *
- * Set the layer of the pipe that the device has to a new_layer
- * Arguments:
- * * new_layer - the layer at which we want the piping_layer to be (1 to 5)
- */
 /obj/machinery/atmospherics/proc/set_piping_layer(new_layer)
 	piping_layer = (pipe_flags & PIPING_DEFAULT_LAYER_ONLY) ? PIPING_LAYER_DEFAULT : new_layer
 	update_icon()
 
-/obj/machinery/atmospherics/update_icon()
-	layer = initial(layer) + piping_layer / 1000
-	return ..()
-
-/**
- * Check if a node can actually exists by connecting to another machine
- * called on atmos_init()
- * Arguments:
- * * obj/machinery/atmospherics/target - the machine we are connecting to
- * * iteration - the current node we are checking (from 1 to 4)
- */
 /obj/machinery/atmospherics/proc/can_be_node(obj/machinery/atmospherics/target, iteration)
 	return connection_check(target, piping_layer)
 
-/**
- * Find a connecting /obj/machinery/atmospherics in specified direction, called by relaymove()
- * used by ventcrawling mobs to check if they can move inside a pipe in a specific direction
- * Arguments:
- * * direction - the direction we are checking against
- * * prompted_layer - the piping_layer we are inside
- */
+//Find a connecting /obj/machinery/atmospherics in specified direction
 /obj/machinery/atmospherics/proc/find_connecting(direction, prompted_layer)
 	for(var/obj/machinery/atmospherics/target in get_step_multiz(src, direction))
 		if(target.initialize_directions & get_dir(target,src) && !istype(target, /obj/machinery/atmospherics/pipe/multiz))
 			if(connection_check(target, prompted_layer))
 				return target
 
-/**
- * Check the connection between two nodes
- *
- * Check if our machine and the target machine are connectable by both calling isConnectable and by checking that the directions and piping_layer are compatible
- * called by can_be_node() (for building a network) and find_connecting() (for ventcrawling)
- * Arguments:
- * * obj/machinery/atmospherics/target - the machinery we want to connect to
- * * given_layer - the piping_layer we are checking
- */
 /obj/machinery/atmospherics/proc/connection_check(obj/machinery/atmospherics/target, given_layer)
-	if(is_connectable(target, given_layer) && target.is_connectable(src, given_layer) && check_init_directions(target))
+	if(is_connectable(target, given_layer) && target.is_connectable(src, given_layer) && (target.initialize_directions & get_dir(target,src) || istype(target, /obj/machinery/atmospherics/pipe/multiz)))
 		return TRUE
 	return FALSE
 
-/**
- * check if the initialized direction are the same on both sides (or if is a multiz adapter)
- * returns TRUE or FALSE if the connection is possible or not
- * Arguments:
- * * obj/machinery/atmospherics/target - the machinery we want to connect to
- */
-/obj/machinery/atmospherics/proc/check_init_directions(obj/machinery/atmospherics/target)
-	if((initialize_directions & get_dir(src, target) && target.initialize_directions & get_dir(target,src)) || istype(target, /obj/machinery/atmospherics/pipe/multiz))
-		return TRUE
-	return FALSE
-
-/**
- * check if the piping layer and color are the same on both sides (grey can connect to all colors)
- * returns TRUE or FALSE if the connection is possible or not
- * Arguments:
- * * obj/machinery/atmospherics/target - the machinery we want to connect to
- * * given_layer - the piping_layer we are connecting to
- */
 /obj/machinery/atmospherics/proc/is_connectable(obj/machinery/atmospherics/target, given_layer)
 	if(isnull(given_layer))
 		given_layer = piping_layer
@@ -229,55 +160,27 @@
 		return TRUE
 	return FALSE
 
-/**
- * Called on construction and when expanding the datum_pipeline, returns the nodes of the device
- */
 /obj/machinery/atmospherics/proc/pipeline_expansion()
 	return nodes
 
-/**
- * Set the initial directions of the device (NORTH || SOUTH || EAST || WEST), called on New()
- */
-/obj/machinery/atmospherics/proc/set_init_directions(init_dir)
+/obj/machinery/atmospherics/proc/set_init_directions()
 	return
 
-/**
- * Getter of initial directions
- */
 /obj/machinery/atmospherics/proc/get_init_directions()
 	return initialize_directions
 
-/**
- * Called by add_member() in datum_pipeline.dm, returns the parent network the device is connected to
- */
 /obj/machinery/atmospherics/proc/return_pipenet()
 	return
 
-/**
- * Called by add_machinery_member() in datum_pipeline.dm, returns a list of gas_mixtures and assigns them into other_airs (by addMachineryMember) to allow pressure redistribution for the machineries.
- */
-/obj/machinery/atmospherics/proc/return_pipenet_airs()
+/obj/machinery/atmospherics/proc/return_pipenetAir()
 	return
 
-/**
- * Called by build_pipeline() and add_member() in datum_pipeline.dm, set the network the device is connected to, to the datum pipeline it has reference
- */
 /obj/machinery/atmospherics/proc/set_pipenet()
 	return
 
-/**
- * Similar to set_pipenet() but instead of setting a network to a pipeline, it replaces the old pipeline with a new one, called by Merge() in datum_pipeline.dm
- */
 /obj/machinery/atmospherics/proc/replace_pipenet()
 	return
 
-/**
- * Disconnects the nodes
- *
- * Called by nullify_node(), it disconnects two nodes by removing the reference id from the node itself that called this proc
- * Arguments:
- * * obj/machinery/atmospherics/reference - the machinery we are removing from the node connection
- */
 /obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
 	if(istype(reference, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/P = reference
@@ -364,31 +267,27 @@
 			. = stored
 	..()
 
-/**
- * Getter for piping layer shifted, pipe colored overlays
- *
- * Creates the image for the pipe underlay that all components use, called by get_pipe_underlay() in components_base.dm
- * Arguments:
- * * iconfile  - path of the iconstate we are using (ex: 'icons/obj/atmospherics/components/thermomachine.dmi')
- * * iconstate - the image we are using inside the file
- * * direction - the direction of our device
- * * color - the color (in hex value, like #559900) that the pipe should have
- * * piping_layer - the piping_layer the device is in, used inside PIPING_LAYER_SHIFT
- * * trinary - if TRUE we also use PIPING_FORWARD_SHIFT on layer 1 and 5 for trinary devices (filters and mixers)
- */
-/obj/machinery/atmospherics/proc/get_pipe_image(iconfile, iconstate, direction, color = COLOR_VERY_LIGHT_GRAY, piping_layer = 3, trinary = FALSE)
-	var/image/pipe_overlay = image(iconfile, iconstate, dir = direction)
-	pipe_overlay.color = color
-	PIPING_LAYER_SHIFT(pipe_overlay, piping_layer)
-	if(trinary == TRUE && (piping_layer == 1 || piping_layer == 5))
-		PIPING_FORWARD_SHIFT(pipe_overlay, piping_layer, 2)
-	return pipe_overlay
+/obj/machinery/atmospherics/proc/get_pipe_image(iconset, iconstate, direction, col=rgb(255,255,255), piping_layer=3, trinary = FALSE)
+
+	//Add identifiers for the iconset
+	if(iconsetids[iconset] == null)
+		iconsetids[iconset] = num2text(iconsetids.len + 1)
+
+	//Generate a unique identifier for this image combination
+	var/identifier = iconsetids[iconset] + "_[iconstate]_[direction]_[col]_[piping_layer]"
+
+	if((!(. = pipeimages[identifier])))
+		var/image/pipe_overlay
+		pipe_overlay = . = pipeimages[identifier] = image(iconset, iconstate, dir = direction)
+		pipe_overlay.color = col
+		PIPING_LAYER_SHIFT(pipe_overlay, piping_layer)
+		if(trinary && (piping_layer == 1 || piping_layer == 5))
+			PIPING_FORWARD_SHIFT(pipe_overlay, piping_layer, 2)
 
 /obj/machinery/atmospherics/on_construction(obj_color, set_layer)
 	if(can_unwrench)
 		add_atom_colour(obj_color, FIXED_COLOUR_PRIORITY)
 		pipe_color = obj_color
-	update_name()
 	set_piping_layer(set_layer)
 	atmos_init()
 	var/list/nodes = pipeline_expansion()

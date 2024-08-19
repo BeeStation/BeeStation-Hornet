@@ -30,16 +30,11 @@
 	return ..()
 
 /obj/machinery/atmospherics/pipe/layer_manifold/Destroy()
-	nullify_all_nodes()
+	nullifyAllNodes()
 	return ..()
 
-/obj/machinery/atmospherics/pipe/layer_manifold/update_pipe_icon()
-	return
-
-/obj/machinery/atmospherics/pipe/layer_manifold/proc/nullify_all_nodes()
-	for(var/obj/machinery/atmospherics/node in nodes)
-		node.disconnect(src)
-		SSair.add_to_rebuild_queue(node)
+/obj/machinery/atmospherics/pipe/layer_manifold/proc/nullifyAllNodes()
+	var/list/obj/machinery/atmospherics/needs_nullifying = get_all_connected_nodes()
 	front_nodes = null
 	back_nodes = null
 	nodes = list()
@@ -60,17 +55,14 @@
 	for(var/node in back_nodes)
 		add_attached_images(node)
 
-/obj/machinery/atmospherics/pipe/layer_manifold/proc/get_attached_images(obj/machinery/atmospherics/machine_check)
-	if(!machine_check)
+/obj/machinery/atmospherics/pipe/layer_manifold/proc/add_attached_images(obj/machinery/atmospherics/A)
+	if(!A)
 		return
-
-	. = list()
-
-	if(istype(machine_check, /obj/machinery/atmospherics/pipe/layer_manifold))
+	if(istype(A, /obj/machinery/atmospherics/pipe/layer_manifold))
 		for(var/i in PIPING_LAYER_MIN to PIPING_LAYER_MAX)
-			. += get_attached_image(get_dir(src, machine_check), i, COLOR_VERY_LIGHT_GRAY)
-		return
-	. += get_attached_image(get_dir(src, machine_check), machine_check.piping_layer, machine_check.pipe_color)
+			add_attached_image(get_dir(src, A), i)
+			return
+	add_attached_image(get_dir(src, A), A.piping_layer, A.pipe_color)
 
 /obj/machinery/atmospherics/pipe/layer_manifold/proc/add_attached_image(p_dir, p_layer, p_color = null)
 	var/image/I
@@ -113,7 +105,7 @@
 
 /obj/machinery/atmospherics/pipe/layer_manifold/atmos_init()
 	normalize_cardinal_directions()
-	find_all_connections()
+	findAllConnections()
 
 /obj/machinery/atmospherics/pipe/layer_manifold/set_piping_layer()
 	piping_layer = PIPING_LAYER_DEFAULT
@@ -123,13 +115,14 @@
 
 /obj/machinery/atmospherics/pipe/layer_manifold/disconnect(obj/machinery/atmospherics/reference)
 	if(istype(reference, /obj/machinery/atmospherics/pipe))
-		var/obj/machinery/atmospherics/pipe/pipe_reference = reference
-		pipe_reference.destroy_network()
-	while(reference in nodes)
-		var/i = nodes.Find(reference)
-		nodes[i] = null
-		i = front_nodes.Find(reference)
-		if(i)
+		var/obj/machinery/atmospherics/pipe/P = reference
+		P.destroy_network()
+	while(reference in get_all_connected_nodes())
+		if(reference in nodes)
+			var/i = nodes.Find(reference)
+			nodes[i] = null
+		if(reference in front_nodes)
+			var/i = front_nodes.Find(reference)
 			front_nodes[i] = null
 		if(reference in back_nodes)
 			var/i = back_nodes.Find(reference)

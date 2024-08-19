@@ -279,8 +279,8 @@ All ShuttleMove procs go here
 				A.add_member(src)
 		SSair.add_to_rebuild_queue(src)
 	else
-		// atmos_init() calls update_appearance(), so we don't need to call it
-		update_appearance()
+		// atmos_init() calls update_icon(), so we don't need to call it
+		update_icon()
 
 /obj/machinery/navbeacon/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
 	. = ..()

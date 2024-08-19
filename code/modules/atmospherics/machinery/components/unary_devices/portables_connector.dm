@@ -14,13 +14,12 @@
 	pipe_flags = PIPING_ONE_PER_TURF
 	pipe_state = "connector"
 
-	///Reference to the connected device
 	var/obj/machinery/portable_atmospherics/connected_device
 
 	var/obj/machinery/atmospherics/components/unary/portables_connector/connect_to
 
 /obj/machinery/atmospherics/components/unary/portables_connector/New()
-	. = ..()
+	..()
 	var/datum/gas_mixture/air_contents = airs[1]
 	air_contents.volume = 0
 
@@ -32,20 +31,13 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/update_icon_nopipes()
 	icon_state = "connector"
 	if(showpipe)
-		cut_overlays()
-		var/image/cap = get_pipe_image(icon, "connector_cap", initialize_directions, pipe_color)
+		var/image/cap = get_pipe_image(icon, "connector_cap", initialize_directions)
 		add_overlay(cap)
 
 /obj/machinery/atmospherics/components/unary/portables_connector/process_atmos()
 	if(!connected_device)
 		return
 	update_parents()
-
-/obj/machinery/atmospherics/components/unary/portables_connector/return_airs_for_reconcilation(datum/pipeline/requester)
-	. = ..()
-	if(!connected_device)
-		return
-	. += connected_device.return_air()
 
 /obj/machinery/atmospherics/components/unary/portables_connector/can_unwrench(mob/user)
 	. = ..()
