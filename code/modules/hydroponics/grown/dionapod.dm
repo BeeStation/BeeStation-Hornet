@@ -15,36 +15,23 @@
 	potency = 30
 	growthstages = 3
 	var/volume = 5
-	var/spawn_nymph = FALSE
 	var/list/result = list()
-
-/obj/item/seeds/dionapod/Initialize(mapload)
-	. = ..()
-	create_reagents(volume, INJECTABLE|DRAWABLE)
-
-/obj/item/seeds/dionapod/on_reagent_change(changetype)
-	if(changetype == ADD_REAGENT)
-		if(reagents.has_reagent(/datum/reagent/blood))
-			spawn_nymph = TRUE
-	if(!reagents.has_reagent(/datum/reagent/blood))
-		spawn_nymph = FALSE
 
 /obj/item/seeds/dionapod/harvest(mob/user)
 	var/obj/machinery/hydroponics/parent = src.loc
-	if(CONFIG_GET(flag/diona_ghost_spawn) && spawn_nymph)
-		for (var/x in 0 to yield)
+	if(CONFIG_GET(flag/diona_ghost_spawn))
+		for (var/x in 0 to getYield())
 			var/mob/living/simple_animal/hostile/retaliate/nymph/child = new /mob/living/simple_animal/hostile/retaliate/nymph(get_turf(parent))
 			child.is_ghost_spawn = TRUE
-	else
-		var/seed_count = 1
-		if(prob(getYield() * 20))
-			seed_count++
-		var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc //needed for TK
-		while(seed_count)
-			var/obj/item/seeds/dionapod/harvestseeds = src.Copy()
-			result.Add(harvestseeds)
-			harvestseeds.forceMove(output_loc)
-			seed_count--
+	var/seed_count = 1
+	if(prob(getYield() * 20))
+		seed_count++
+	var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc //needed for TK
+	while(seed_count)
+		var/obj/item/seeds/dionapod/harvestseeds = src.Copy()
+		result.Add(harvestseeds)
+		harvestseeds.forceMove(output_loc)
+		seed_count--
 	parent.update_tray()
 	return result
 
@@ -63,7 +50,6 @@
 	potency = 30
 	growthstages = 3
 	var/volume = 5
-	var/spawn_nymph = FALSE
 	var/list/result = list()
 
 /obj/item/seeds/nymph/harvest(mob/user)
