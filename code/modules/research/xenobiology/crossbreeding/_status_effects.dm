@@ -938,6 +938,7 @@
 	var/obj/item/slimecross/stabilized/gold/linked = linked_extract
 	if(QDELETED(familiar))
 		familiar = new linked.mob_type(get_turf(owner.loc))
+		familiar.a_intent = "help"
 		familiar.name = linked.mob_name
 		familiar.del_on_death = TRUE
 		familiar.copy_languages(owner, LANGUAGE_MASTER)
