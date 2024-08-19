@@ -1502,7 +1502,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			Due to budget cuts, the shoes don't provide protection against slipping."
 	item = /obj/item/storage/box/syndie_kit/chameleon
 	cost = 2
-	purchasable_from = ~UPLINK_NUKE_OPS
 
 /datum/uplink_item/stealthy_tools/chameleon_proj
 	name = "Chameleon Projector"
