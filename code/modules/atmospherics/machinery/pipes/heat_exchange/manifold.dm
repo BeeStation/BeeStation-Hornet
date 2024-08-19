@@ -22,7 +22,7 @@
 	center = mutable_appearance(icon, "manifold_center")
 	return ..()
 
-/obj/machinery/atmospherics/pipe/heat_exchanging/manifold/SetInitDirections()
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold/set_init_directions()
 	initialize_directions = ALL_CARDINALS
 	initialize_directions &= ~dir
 
@@ -35,7 +35,7 @@
 	//Add non-broken pieces
 	for(var/i in 1 to device_type)
 		if(nodes[i])
-			add_overlay( getpipeimage(icon, "pipe-[piping_layer]", get_dir(src, nodes[i])) )
+			add_overlay( get_pipe_image(icon, "pipe-[piping_layer]", get_dir(src, nodes[i])) )
 
 	update_layer()
 

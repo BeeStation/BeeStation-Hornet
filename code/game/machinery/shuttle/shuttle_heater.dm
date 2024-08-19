@@ -36,7 +36,7 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater/New()
 	. = ..()
 	GLOB.custom_shuttle_machines += src
-	SetInitDirections()
+	set_init_directions()
 	update_adjacent_engines()
 	updateGasStats()
 
@@ -47,13 +47,13 @@
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/on_construction()
 	..(dir, dir)
-	SetInitDirections()
+	set_init_directions()
 	update_adjacent_engines()
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/default_change_direction_wrench(mob/user, obj/item/I)
 	if(!..())
 		return FALSE
-	SetInitDirections()
+	set_init_directions()
 	var/obj/machinery/atmospherics/node = nodes[1]
 	if(node)
 		node.disconnect(src)
@@ -62,11 +62,11 @@
 		return
 	nullifyPipenet(parents[1])
 
-	atmosinit()
+	atmos_init()
 	node = nodes[1]
 	if(node)
-		node.atmosinit()
-		node.addMember(src)
+		node.atmos_init()
+		node.add_member(src)
 	build_network()
 	return TRUE
 

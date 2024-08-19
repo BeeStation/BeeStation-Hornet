@@ -56,16 +56,16 @@
 /obj/machinery/atmospherics/components/unary/plasma_refiner/default_change_direction_wrench(mob/user, obj/item/I)
 	. = ..()
 	if(.)
-		SetInitDirections()
+		set_init_directions()
 		var/obj/machinery/atmospherics/node = nodes[1]
 		if(node)
 			node.disconnect(src)
 			nodes[1] = null
 		if(parents[1])
 			nullifyPipenet(parents[1])
-		atmosinit()
+		atmos_init()
 		node = nodes[1]
 		if(node)
-			node.atmosinit()
-			node.addMember(src)
+			node.atmos_init()
+			node.add_member(src)
 		SSair.add_to_rebuild_queue(src)

@@ -13,7 +13,7 @@
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	max_integrity = 350
 	armor = list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70, STAMINA = 0)
-	CanAtmosPass = ATMOS_PASS_DENSITY
+	can_atmos_pass = ATMOS_PASS_DENSITY
 	flags_1 = PREVENT_CLICK_UNDER_1
 	ricochet_chance_mod = 0.8
 	damage_deflection = 10
@@ -209,7 +209,7 @@
 	var/max_moles = min_moles
 	// okay this is a bit hacky. First, we set density to 0 and recalculate our adjacent turfs
 	density = FALSE
-	T.ImmediateCalculateAdjacentTurfs()
+	T.immediate_calculate_adjacent_turfs()
 	// then we use those adjacent turfs to figure out what the difference between the lowest and highest pressures we'd be holding is
 	for(var/turf/open/T2 in T.atmos_adjacent_turfs)
 		if((flags_1 & ON_BORDER_1) && get_dir(src, T2) != dir)
@@ -220,7 +220,7 @@
 		if(moles > max_moles)
 			max_moles = moles
 	density = TRUE
-	T.ImmediateCalculateAdjacentTurfs() // alright lets put it back
+	T.immediate_calculate_adjacent_turfs() // alright lets put it back
 	return max_moles - min_moles > 20
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
@@ -397,7 +397,7 @@
 	if(!glass && GLOB.cameranet)
 		GLOB.cameranet.updateVisibility(src, 0)
 
-/obj/machinery/door/BlockSuperconductivity() // All non-glass airlocks block heat, this is intended.
+/obj/machinery/door/block_superconductivity() // All non-glass airlocks block heat, this is intended.
 	if(opacity || heat_proof)
 		return 1
 	return 0

@@ -1,23 +1,23 @@
-/atom/var/CanAtmosPass = ATMOS_PASS_YES
-/atom/var/CanAtmosPassVertical = ATMOS_PASS_YES
+/atom/var/can_atmos_pass = ATMOS_PASS_YES
+/atom/var/can_atmos_passVertical = ATMOS_PASS_YES
 
-/atom/proc/CanAtmosPass(turf/T)
-	switch (CanAtmosPass)
+/atom/proc/can_atmos_pass(turf/T)
+	switch (can_atmos_pass)
 		if (ATMOS_PASS_PROC)
 			return ATMOS_PASS_YES
 		if (ATMOS_PASS_DENSITY)
 			return !density
 		else
-			return CanAtmosPass
+			return can_atmos_pass
 
-/turf/CanAtmosPass = ATMOS_PASS_NO
-/turf/CanAtmosPassVertical = ATMOS_PASS_NO
+/turf/can_atmos_pass = ATMOS_PASS_NO
+/turf/can_atmos_passVertical = ATMOS_PASS_NO
 
-/turf/open/CanAtmosPass = ATMOS_PASS_PROC
-/turf/open/CanAtmosPassVertical = ATMOS_PASS_PROC
+/turf/open/can_atmos_pass = ATMOS_PASS_PROC
+/turf/open/can_atmos_passVertical = ATMOS_PASS_PROC
 
 //Do NOT use this to see if 2 turfs are connected, it mutates state, and we cache that info anyhow. Use TURFS_CAN_SHARE or TURF_SHARES depending on your usecase
-/turf/open/CanAtmosPass(turf/T, vertical = FALSE)
+/turf/open/can_atmos_pass(turf/T, vertical = FALSE)
 	var/dir = vertical? get_dir_multiz(src, T) : get_dir(src, T)
 	var/opp = REVERSE_DIR(dir)
 	var/R = FALSE
@@ -31,7 +31,7 @@
 		var/turf/other = (O.loc == src ? T : src)
 		if(!(vertical? (CANVERTICALATMOSPASS(O, other)) : (CANATMOSPASS(O, other))))
 			R = TRUE
-			if(O.BlockSuperconductivity()) 	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
+			if(O.block_superconductivity()) 	//the direction and open/closed are already checked on can_atmos_pass() so there are no arguments
 				atmos_supeconductivity |= dir
 				T.atmos_supeconductivity |= opp
 				return FALSE						//no need to keep going, we got all we asked
@@ -41,10 +41,10 @@
 
 	return !R
 
-/atom/movable/proc/BlockSuperconductivity() // objects that block air and don't let superconductivity act. Only firelocks atm.
+/atom/movable/proc/block_superconductivity() // objects that block air and don't let superconductivity act. Only firelocks atm.
 	return FALSE
 
-/turf/proc/ImmediateCalculateAdjacentTurfs()
+/turf/proc/immediate_calculate_adjacent_turfs()
 	var/canpass = CANATMOSPASS(src, src)
 	var/canvpass = CANVERTICALATMOSPASS(src, src)
 	for(var/direction in GLOB.cardinals_multiz)
@@ -78,23 +78,23 @@
 	if (!alldir)
 		return adjacent_turfs
 
-	var/turf/curloc = src
+	var/turf/current_location = src
 
 	for (var/direction in GLOB.diagonals_multiz)
-		var/matchingDirections = 0
-		var/turf/S = get_step_multiz(curloc, direction)
+		var/matching_directions = 0
+		var/turf/S = get_step_multiz(current_location, direction)
 		if(!S)
 			continue
 
-		for (var/checkDirection in GLOB.cardinals_multiz)
-			var/turf/checkTurf = get_step(S, checkDirection)
+		for (var/check_direction in GLOB.cardinals_multiz)
+			var/turf/checkTurf = get_step(S, check_direction)
 			if(!S.atmos_adjacent_turfs || !S.atmos_adjacent_turfs[checkTurf])
 				continue
 
 			if (adjacent_turfs[checkTurf])
-				matchingDirections++
+				matching_directions++
 
-			if (matchingDirections >= 2)
+			if (matching_directions >= 2)
 				adjacent_turfs += S
 				break
 
@@ -115,7 +115,7 @@
 */
 /turf/air_update_turf(update = FALSE, remove = FALSE)
 	if(update)
-		ImmediateCalculateAdjacentTurfs()
+		immediate_calculate_adjacent_turfs()
 	if(remove)
 		SSair.remove_from_active(src)
 	else

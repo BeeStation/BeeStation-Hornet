@@ -28,7 +28,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	CanAtmosPass = 3;
+	can_atmos_pass = 3;
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,

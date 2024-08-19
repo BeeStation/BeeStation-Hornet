@@ -32,7 +32,7 @@
 		icon_state = "he0"
 	PIPING_LAYER_SHIFT(src, piping_layer)
 
-/obj/machinery/atmospherics/components/unary/heat_exchanger/atmosinit()
+/obj/machinery/atmospherics/components/unary/heat_exchanger/atmos_init()
 	var/obj/machinery/atmospherics/components/unary/heat_exchanger/partner = partner_ref?.resolve()
 	if(!partner)
 		partner_ref = null

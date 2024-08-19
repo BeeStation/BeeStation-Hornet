@@ -11,7 +11,7 @@
 	can_be_unanchored = TRUE
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100, STAMINA = 0)
-	CanAtmosPass = ATMOS_PASS_PROC
+	can_atmos_pass = ATMOS_PASS_PROC
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	rad_flags = RAD_PROTECT_CONTENTS
 	pass_flags_self = PASSTRANSPARENT
@@ -334,7 +334,7 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/structure/window/CanAtmosPass(turf/T)
+/obj/structure/window/can_atmos_pass(turf/T)
 	if(!anchored || !density)
 		return TRUE
 	return !(fulltile || dir == get_dir(loc, T))
@@ -680,7 +680,7 @@
 	glass_type = /obj/item/stack/sheet/paperframes
 	heat_resistance = 233
 	decon_speed = 10
-	CanAtmosPass = ATMOS_PASS_YES
+	can_atmos_pass = ATMOS_PASS_YES
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 	breaksound = 'sound/items/poster_ripped.ogg'

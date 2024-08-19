@@ -130,8 +130,8 @@
 	icon_state = "plating"
 	floor_tile = null
 	var/obj/effect/clockwork/overlay/floor/bloodcult/realappearance
-	CanAtmosPass = ATMOS_PASS_NO
-	CanAtmosPassVertical =	ATMOS_PASS_NO
+	can_atmos_pass = ATMOS_PASS_NO
+	can_atmos_passVertical =	ATMOS_PASS_NO
 
 
 /turf/open/floor/engine/cult/Initialize(mapload)

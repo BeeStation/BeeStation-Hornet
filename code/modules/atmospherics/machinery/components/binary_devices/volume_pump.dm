@@ -131,7 +131,7 @@
 	data["max_rate"] = round(MAX_TRANSFER_RATE)
 	return data
 
-/obj/machinery/atmospherics/components/binary/volume_pump/atmosinit()
+/obj/machinery/atmospherics/components/binary/volume_pump/atmos_init()
 	..()
 
 	set_frequency(frequency)

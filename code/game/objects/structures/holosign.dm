@@ -91,7 +91,7 @@
 	icon_state = "holo_firelock"
 	density = FALSE
 	anchored = TRUE
-	CanAtmosPass = ATMOS_PASS_NO
+	can_atmos_pass = ATMOS_PASS_NO
 	alpha = 150
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_LIGHT_INSULATION

@@ -47,7 +47,7 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/update_icon_nopipes()
 	cut_overlays()
 	if(showpipe)
-		var/image/cap = getpipeimage(icon, "dpvent_cap", dir, piping_layer = piping_layer)
+		var/image/cap = get_pipe_image(icon, "dpvent_cap", dir, piping_layer = piping_layer)
 		add_overlay(cap)
 
 	if(welded)
@@ -131,7 +131,7 @@
 	))
 	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/atmosinit()
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/atmos_init()
 	..()
 	if(frequency)
 		set_frequency(frequency)

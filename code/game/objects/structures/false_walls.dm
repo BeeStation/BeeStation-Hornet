@@ -16,7 +16,7 @@
 	opacity = TRUE
 	max_integrity = 100
 	can_be_unanchored = FALSE
-	CanAtmosPass = ATMOS_PASS_DENSITY
+	can_atmos_pass = ATMOS_PASS_DENSITY
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
 	var/mineral = /obj/item/stack/sheet/iron

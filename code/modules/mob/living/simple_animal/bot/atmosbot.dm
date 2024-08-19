@@ -265,7 +265,7 @@
 	for(var/obj/structure/holosign/barrier/atmos/A in target_turf)
 		blocked = TRUE
 		break
-	if(!target_turf.CanAtmosPass(target_turf) || blocked)
+	if(!target_turf.can_atmos_pass(target_turf) || blocked)
 		//Pressumable from being inside a holobarrier, move somewhere nearby
 		var/turf/open/floor/floor_turf = pick(view(3, src))
 		if(floor_turf && istype(floor_turf))
@@ -292,7 +292,7 @@
 		for(var/obj/structure/holosign/barrier/atmos/A in checking_turf)
 			blocked = TRUE
 			break
-		if(blocked || !checking_turf.CanAtmosPass(checking_turf))
+		if(blocked || !checking_turf.can_atmos_pass(checking_turf))
 			continue
 		var/datum/gas_mixture/current_air = checking_turf.return_air()
 		if (!current_air)
@@ -301,7 +301,7 @@
 		//Add adjacent turfs
 		for(var/direction in list(NORTH, SOUTH, EAST, WEST))
 			var/turf/adjacent_turf = get_step(checking_turf, direction)
-			if(adjacent_turf in checked_turfs || !adjacent_turf.CanAtmosPass(adjacent_turf))
+			if(adjacent_turf in checked_turfs || !adjacent_turf.can_atmos_pass(adjacent_turf))
 				continue
 			var/datum/gas_mixture/checking_air = checking_turf.return_air()
 			if (!checking_air)

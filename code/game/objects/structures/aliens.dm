@@ -63,7 +63,7 @@
 	anchored = TRUE
 	max_integrity = 200
 	var/resintype = null
-	CanAtmosPass = ATMOS_PASS_DENSITY
+	can_atmos_pass = ATMOS_PASS_DENSITY
 
 
 /obj/structure/alien/resin/Initialize(mapload)
@@ -88,7 +88,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
-/obj/structure/alien/resin/wall/BlockSuperconductivity()
+/obj/structure/alien/resin/wall/block_superconductivity()
 	return 1
 
 /obj/structure/alien/resin/membrane

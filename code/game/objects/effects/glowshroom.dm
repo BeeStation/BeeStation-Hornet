@@ -96,7 +96,7 @@
 			for(var/turf/open/floor/earth in view(3,src))
 				if(is_type_in_typecache(earth, blacklisted_glowshroom_turfs))
 					continue
-				if(!ownturf.CanAtmosPass(earth))
+				if(!ownturf.can_atmos_pass(earth))
 					continue
 				if(spreadsIntoAdjacent || !locate(/obj/structure/glowshroom) in view(1,earth))
 					possibleLocs += earth

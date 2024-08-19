@@ -26,7 +26,7 @@
 	if(hide)
 		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE) //if changing this, change the subtypes RemoveElements too, because thats how bespoke works
 
-/obj/machinery/atmospherics/pipe/nullifyNode(i)
+/obj/machinery/atmospherics/pipe/nullify_node(i)
 	var/obj/machinery/atmospherics/oldN = nodes[i]
 	..()
 	if(oldN)
@@ -70,10 +70,10 @@
 	else
 		return ..()
 
-/obj/machinery/atmospherics/pipe/returnPipenet()
+/obj/machinery/atmospherics/pipe/return_pipenet()
 	return parent
 
-/obj/machinery/atmospherics/pipe/setPipenet(datum/pipeline/P)
+/obj/machinery/atmospherics/pipe/set_pipenet(datum/pipeline/P)
 	parent = P
 
 /obj/machinery/atmospherics/pipe/Destroy()
@@ -100,7 +100,7 @@
 			var/obj/machinery/atmospherics/N = nodes[i]
 			N.update_icon()
 
-/obj/machinery/atmospherics/pipe/returnPipenets()
+/obj/machinery/atmospherics/pipe/return_pipenets()
 	. = list(parent)
 
 /obj/machinery/atmospherics/pipe/paint(paint_color)

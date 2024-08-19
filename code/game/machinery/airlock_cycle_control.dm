@@ -549,7 +549,7 @@
 	for(var/I = 1; I <= turfs.len; I++)
 		var/turf/open/T = turfs[I]
 		if(assume_roles)
-			T.ImmediateCalculateAdjacentTurfs()
+			T.immediate_calculate_adjacent_turfs()
 		for(var/turf/open/T2 in T.atmos_adjacent_turfs)
 			if(get_dist(initial_turf, T2) > 5)
 				config_error_str = "Airlock too big"

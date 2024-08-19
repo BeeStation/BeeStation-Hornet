@@ -23,7 +23,7 @@
 		air_contents.gases[gas_type][MOLES] = AIR_CONTENTS
 
 		name = "[name] ([GLOB.meta_gas_info[gas_type][META_GAS_NAME]])"
-	setPipingLayer(piping_layer)
+	set_piping_layer(piping_layer)
 
 
 /obj/machinery/atmospherics/components/unary/tank/air

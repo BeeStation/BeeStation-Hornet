@@ -85,13 +85,13 @@
  */
 /obj/machinery/atmospherics/components/proc/get_pipe_underlay(state, dir, color = null)
 	if(color)
-		. = getpipeimage('icons/obj/atmospherics/components/binary_devices.dmi', state, dir, color, piping_layer = shift_underlay_only ? piping_layer : 3)
+		. = get_pipe_image('icons/obj/atmospherics/components/binary_devices.dmi', state, dir, color, piping_layer = shift_underlay_only ? piping_layer : 3)
 	else
-		. = getpipeimage('icons/obj/atmospherics/components/binary_devices.dmi', state, dir, piping_layer = shift_underlay_only ? piping_layer : 3)
+		. = get_pipe_image('icons/obj/atmospherics/components/binary_devices.dmi', state, dir, piping_layer = shift_underlay_only ? piping_layer : 3)
 
 // Pipenet stuff; housekeeping
 
-/obj/machinery/atmospherics/components/nullifyNode(i)
+/obj/machinery/atmospherics/components/nullify_node(i)
 	if(parents[i])
 		nullifyPipenet(parents[i])
 	QDEL_NULL(airs[i])
@@ -116,7 +116,7 @@
 	return to_return
 
 /**
- * Called by nullifyNode(), used to remove the pipeline the component is attached to
+ * Called by nullify_node(), used to remove the pipeline the component is attached to
  * Arguments:
  * * -reference: the pipeline the component is attached to
  */
@@ -129,7 +129,7 @@
 			reference.other_airs -= airs[i] // Disconnects from the pipeline side
 			parents[i] = null // Disconnects from the machinery side.
 
-	reference.other_atmosmch -= src
+	reference.other_atmos_machines -= src
 
 	/**
 	 *  We explicitly qdel pipeline when this particular pipeline
@@ -139,12 +139,12 @@
 	 * again every time they are qdeleted.
 	 */
 
-	if(!length(reference.other_atmosmch) && !length(reference.members))
+	if(!length(reference.other_atmos_machines) && !length(reference.members))
 		if(QDESTROYING(reference))
 			CRASH("nullifyPipenet() called on qdeleting [reference]")
 		qdel(reference)
 
-/obj/machinery/atmospherics/components/returnPipenetAirs(datum/pipeline/reference)
+/obj/machinery/atmospherics/components/return_pipenetAirs(datum/pipeline/reference)
 	var/list/returned_air = list()
 
 	for (var/i in 1 to parents.len)
@@ -157,13 +157,13 @@
 		return list(nodes[parents.Find(reference)])
 	return ..()
 
-/obj/machinery/atmospherics/components/setPipenet(datum/pipeline/reference, obj/machinery/atmospherics/A)
+/obj/machinery/atmospherics/components/set_pipenet(datum/pipeline/reference, obj/machinery/atmospherics/A)
 	parents[nodes.Find(A)] = reference
 
-/obj/machinery/atmospherics/components/returnPipenet(obj/machinery/atmospherics/A = nodes[1]) //returns parents[1] if called without argument
+/obj/machinery/atmospherics/components/return_pipenet(obj/machinery/atmospherics/A = nodes[1]) //returns parents[1] if called without argument
 	return parents[nodes.Find(A)]
 
-/obj/machinery/atmospherics/components/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
+/obj/machinery/atmospherics/components/replace_pipenet(datum/pipeline/Old, datum/pipeline/New)
 	parents[parents.Find(Old)] = New
 
 /obj/machinery/atmospherics/components/unsafe_pressure_release(mob/user, pressures)
@@ -212,10 +212,10 @@
 		else
 			parent.update = TRUE
 
-/obj/machinery/atmospherics/components/returnPipenets()
+/obj/machinery/atmospherics/components/return_pipenets()
 	. = list()
 	for(var/i in 1 to device_type)
-		. += returnPipenet(nodes[i])
+		. += return_pipenet(nodes[i])
 
 // UI Stuff
 
