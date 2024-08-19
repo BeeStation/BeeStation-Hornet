@@ -152,7 +152,7 @@
 		to_chat(user, "<span class='warning'>\The [src] is not possessable!")
 		return
 	var/control_ask = tgui_alert(usr, "Do you wish to take control of \the [src]", "Chirp Time?", list("Yes", "No"))
-	if(control_ask == "No" || !src || QDELETED(src) || QDELETED(user))
+	if(control_ask != "Yes" || !src || QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(QDELETED(src) || QDELETED(user) || !user.client)
 		return
