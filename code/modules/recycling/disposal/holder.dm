@@ -28,7 +28,7 @@
 /obj/structure/disposalholder/proc/init(obj/machinery/disposal/D)
 	if(!istype(D))
 		return //Why check for things that don't exist?
-	gas = D.air_contents// transfer gas resv. into holder object
+	gas = D.return_air()// transfer gas resv. into holder object
 
 	//Check for any living mobs trigger hasmob.
 	//hasmob effects whether the package goes to cargo or its tagged destination.

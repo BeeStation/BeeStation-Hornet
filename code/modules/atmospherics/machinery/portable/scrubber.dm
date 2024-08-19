@@ -29,15 +29,16 @@
 		add_overlay("scrubber-connector")
 
 /obj/machinery/portable_atmospherics/scrubber/process_atmos()
-	..()
+	. = ..()
 	if(!on)
 		return
 
 	if(holding)
-		scrub(holding.air_contents)
+		scrub(holding.return_air())
 	else
 		var/turf/T = get_turf(src)
 		scrub(T.return_air())
+
 
 /obj/machinery/portable_atmospherics/scrubber/proc/scrub(var/datum/gas_mixture/mixture)
 	if(air_contents.return_pressure() >= overpressure_m * ONE_ATMOSPHERE)
@@ -54,6 +55,8 @@
 	if(is_operational)
 		if(prob(50 / severity))
 			on = !on
+			if(on)
+				SSair.start_processing_machine(src)
 		update_appearance()
 
 
@@ -81,7 +84,8 @@
 	if(holding)
 		data["holding"] = list()
 		data["holding"]["name"] = holding.name
-		data["holding"]["pressure"] = round(holding.air_contents.return_pressure())
+		var/datum/gas_mixture/holding_mix = holding.return_air()
+		data["holding"]["pressure"] = round(holding_mix.return_pressure())
 	else
 		data["holding"] = null
 	return data
@@ -102,6 +106,8 @@
 	switch(action)
 		if("power")
 			on = !on
+			if(on)
+				SSair.start_processing_machine(src)
 			. = TRUE
 		if("eject")
 			if(holding)
@@ -137,14 +143,18 @@
 		on = FALSE
 		update_icon()
 	use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
-	if(!on)
-		return
 
-	..()
+	if(!on)
+		return ..()
+
+	excited = TRUE
+
 	if(!holding)
 		var/turf/T = get_turf(src)
 		for(var/turf/AT in T.GetAtmosAdjacentTurfs(alldir = TRUE))
 			scrub(AT.return_air())
+
+	return ..()
 
 /obj/machinery/portable_atmospherics/scrubber/huge/attackby(obj/item/W, mob/user)
 	if(default_unfasten_wrench(user, W))

@@ -58,11 +58,6 @@
 /datum/gas_reaction/proc/react(datum/gas_mixture/air, atom/location)
 	return NO_REACTION
 
-/datum/gas_reaction/nobliumsupression
-	priority = INFINITY
-	name = "Hyper-Noblium Reaction Suppression"
-	id = "nobstop"
-
 /datum/gas_reaction/nobliumsupression/init_reqs()
 	requirements = list(/datum/gas/hypernoblium = REACTION_OPPRESSION_THRESHOLD)
 
@@ -71,7 +66,7 @@
 
 //water vapor: puts out fires?
 /datum/gas_reaction/water_vapor
-	priority = PRIORITY_POST_FORMATION
+	priority_group = PRIORITY_POST_FORMATION
 	name = "Water Vapor"
 	id = "vapor"
 

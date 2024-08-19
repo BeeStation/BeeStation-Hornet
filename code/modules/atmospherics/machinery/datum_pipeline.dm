@@ -32,11 +32,10 @@
 	return ..()
 
 /datum/pipeline/process()
-	if(building)
+	if(!update || building)
 		return
-	if(update)
-		update = FALSE
-		reconcile_air()
+
+	reconcile_air()
 	update = air.react(src)
 
 ///Preps a pipeline for rebuilding, insterts it into the rebuild queue
@@ -266,7 +265,7 @@
 			else if (istype(atmosmch, /obj/machinery/atmospherics/components/unary/portables_connector))
 				var/obj/machinery/atmospherics/components/unary/portables_connector/considered_connector = atmosmch
 				if(considered_connector.connected_device)
-					gas_mixture_list += considered_connector.connected_device.air_contents
+					gas_mixture_list += considered_connector.connected_device.return_air()
 
 	var/total_thermal_energy = 0
 	var/total_heat_capacity = 0
@@ -293,7 +292,7 @@
 	total_gas_mixture.temperature = total_heat_capacity ? (total_thermal_energy / total_heat_capacity) : 0
 
 	total_gas_mixture.garbage_collect()
-	
+
 	if(total_gas_mixture.volume > 0)
 		//Update individual gas_mixtures by volume ratio
 		for(var/mixture in gas_mixture_list)

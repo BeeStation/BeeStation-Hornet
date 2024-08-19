@@ -296,8 +296,10 @@ SUBSYSTEM_DEF(air)
 	while(currentrun.len)
 		var/obj/machinery/M = currentrun[currentrun.len]
 		currentrun.len--
-		if(!M || (M.process_atmos() == PROCESS_KILL))
-			atmos_machinery.Remove(M)
+		if(!M)
+			atmos_machinery -= M
+		if(M.process_atmos() == PROCESS_KILL)
+			stop_processing_machine(M)
 		if(MC_TICK_CHECK)
 			return
 
@@ -655,7 +657,9 @@ GLOBAL_LIST_EMPTY(colored_images)
  * * machine - The machine to start processing. Can be any /obj/machinery.
  */
 /datum/controller/subsystem/air/proc/start_processing_machine(obj/machinery/machine)
-	atmos_machinery += machine
+	if(machine.atmos_processing)
+		return
+	machine.atmos_processing = TRUE
 
 /**
  * Removes a given machine to the processing system for SSAIR_ATMOSMACHINERY processing.
@@ -668,6 +672,9 @@ GLOBAL_LIST_EMPTY(colored_images)
  * * machine - The machine to stop processing.
  */
 /datum/controller/subsystem/air/proc/stop_processing_machine(obj/machinery/machine)
+	if(!machine.atmos_processing)
+		return
+	machine.atmos_processing = FALSE
 	atmos_machinery -= machine
 
 	// If we're currently processing atmos machines, there's a chance this machine is in

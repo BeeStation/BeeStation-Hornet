@@ -100,11 +100,12 @@
 		logmsg = "Valve was <b>toggled</b> by [parent.get_creator_admin()]'s circuit, starting a transfer into \the [attached_can.holding || "air"].<br>"
 		if(!attached_can.holding)
 			var/list/danger = list()
-			for(var/id in attached_can.air_contents.gases)
+			var/datum/gas_mixture/attached_can_air = attached_can.return_air()
+			for(var/id in attached_can_air.gases)
 				if(!(GLOB.meta_gas_info[id][META_GAS_DANGER]))
 					continue
-				if(attached_can.air_contents.gases[id][MOLES] > (GLOB.meta_gas_info[id][META_GAS_MOLES_VISIBLE] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
-					danger[GLOB.meta_gas_info[id][META_GAS_NAME]] = attached_can.air_contents.gases[id][MOLES] //ex. "plasma" = 20
+				if(attached_can_air.gases[id][MOLES] > (GLOB.meta_gas_info[id][META_GAS_MOLES_VISIBLE] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
+					danger[GLOB.meta_gas_info[id][META_GAS_NAME]] = attached_can_air.gases[id][MOLES] //ex. "plasma" = 20
 
 			if(danger.len && attached_can.valve_open)
 				message_admins("[parent.get_creator_admin()]'s circuit opened a canister that contains the following at [ADMIN_VERBOSEJMP(attached_can)]:")
@@ -272,15 +273,18 @@
 
 /obj/machinery/portable_atmospherics/canister/proc/create_gas()
 	if(gas_type)
+		air_contents.add_gas(gas_type)
 		if(starter_temp)
 			air_contents.temperature = (starter_temp)
-
 		air_contents.gases[gas_type][MOLES] = (maximum_pressure * filled* air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
+		SSair.start_processing_machine(src)
 
 /obj/machinery/portable_atmospherics/canister/air/create_gas()
+	air_contents.add_gases(/datum/gas/oxygen, /datum/gas/nitrogen)
 	air_contents.temperature = (starter_temp)
 	air_contents.gases[/datum/gas/oxygen][MOLES] = (O2STANDARD * maximum_pressure * filled * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
 	air_contents.gases[/datum/gas/nitrogen][MOLES] = (N2STANDARD * maximum_pressure * filled * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
+	SSair.start_processing_machine(src)
 
 /obj/machinery/portable_atmospherics/canister/update_icon()
 	. = ..()
@@ -314,7 +318,7 @@
 		return
 
 /obj/machinery/portable_atmospherics/canister/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
-	return exposed_temperature > temperature_resistance * mode
+	return exposed_temperature > temperature_resistance
 
 /obj/machinery/portable_atmospherics/canister/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	take_damage(5, BURN, 0)
@@ -380,7 +384,6 @@
 		user.investigate_log("started a transfer into [holding].", INVESTIGATE_ATMOS)
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
-	..()
 	if(machine_stat & BROKEN)
 		return PROCESS_KILL
 	if(timing && valve_timer < world.time)
@@ -390,11 +393,13 @@
 	// Handle gas transfer.
 	if(valve_open)
 		var/turf/T = get_turf(src)
-		var/datum/gas_mixture/target_air = holding ? holding.air_contents : T.return_air()
+		var/datum/gas_mixture/target_air = holding ? holding.return_air() : T.return_air()
 
 		if(air_contents.release_gas_to(target_air, release_pressure) && !holding)
 			air_update_turf(FALSE, FALSE)
 	update_icon()
+
+	return ..()
 
 /obj/machinery/portable_atmospherics/canister/ui_status(mob/user)
 	. = ..()
@@ -433,9 +438,10 @@
 
 	data["hasHoldingTank"] = holding ? 1 : 0
 	if (holding)
+		var/datum/gas_mixture/holding_mix = holding.return_air()
 		data["holdingTank"] = list()
 		data["holdingTank"]["name"] = holding.name
-		data["holdingTank"]["tankPressure"] = round(holding.air_contents.return_pressure())
+		data["holdingTank"]["tankPressure"] = round(holding.holding_mix.return_pressure())
 	return data
 
 /obj/machinery/portable_atmospherics/canister/ui_act(action, params)
@@ -517,6 +523,7 @@
 		if("eject")
 			if(holding)
 				if(valve_open)
+					SSair.start_processing_machine(src)
 					message_admins("[ADMIN_LOOKUPFLW(usr)] removed [holding] from [src] with valve still open at [ADMIN_VERBOSEJMP(src)] releasing contents into the <span class='boldannounce'>air</span>.")
 					usr.investigate_log(" removed the [holding], leaving the valve open and transferring into the <span class='boldannounce'>air</span>.", INVESTIGATE_ATMOS)
 				replace_tank(usr, FALSE)

@@ -38,7 +38,7 @@ Now then, into the breach.
  The air controller is, at its core, quite simple, yet it is absolutely fundamental to the atmospheric system. The air controller is the clock which triggers all continuous actions within the atmos system, such as vents distributing air or gas moving between tiles. The actions taken by the air controller are quite simple, and will be enumerated here. Much of the substance of the air ticker is due to the game's master controller, whose intricacies I will not delve into for this document. I will however go into more detail about how SSAir in particular works in Chapter 6. In any case, this is a simplified list of the air controller's actions in a single tick:
 1. Rebuild Pipenets
     - Runs each time SSAir processes, sometimes out of order. It ensures that no pipeline sit unresolved or unbuilt
-    - Processes the `rebuild_queue` list into the `expansion_queue` list, and then builds a full pipeline piecemeal. We do a ton of fenagling here to reduce overrun 
+    - Processes the `rebuild_queue` list into the `expansion_queue` list, and then builds a full pipeline piecemeal. We do a ton of fenagling here to reduce overrun
 2. Pipenets
     - Updates the internal gasmixes of attached pipe machinery, and reacts the gases in a pipeline
 	- Calls `process()` on each `/datum/pipenet` in the `networks` list
@@ -390,6 +390,14 @@ This is for the oddballs, the one offs, the half useless things. Things that are
 #### Portable
 
 These are the atmos machines you can move around. They interface with connectors to talk to pipelines, and can contain tanks. Not a whole lot more to discuss here.
+
+## 9. A word on processing
+
+You may have noticed that a large portion of the optimizations we do are focused around not checking to see if we need to do work.
+
+This is essentially what active turfs are built around, and it's a somewhat unfinished project. There's still quite a few things in atmos, mostly machinery, that check each fire to see if they should be doing work. There's a general pattern to solving this sort of thing by the way, centralize the ways a bit of outside code can interact with a "thing", and then when the outside code does something that might warrant processing, start processing.
+
+This attitude needs to be applied to a few large targets, and you may see it crop up when reading through the code. Keep this in mind, and make sure to respect the rules that describe how to work with the object, or things will go to shit.
 
 ## Appendix A - Glossary
 

@@ -335,9 +335,13 @@
 /obj/item/tank/jetpack/combustion/populate_gas()
 	var/moles_full = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 	var/ideal_o2_percent = (1 / PLASMA_OXYGEN_FULLBURN) * 2
-	air_contents.gases[/datum/gas/plasma][MOLES] = moles_full * (1 - ideal_o2_percent
-)
-	air_contents.gases[/datum/gas/oxygen][MOLES] = moles_full * ideal_o2_percent
+	var/datum/gas_mixture/temp_air_contents = return_air()
+
+	temp_air_contents.assert_gas(/datum/gas/plasma)
+	temp_air_contents.gases[/datum/gas/plasma][MOLES] = moles_full * (1 - ideal_o2_percent)
+
+	temp_air_contents.assert_gas(/datum/gas/oxygen)
+	temp_air_contents.gases[/datum/gas/oxygen][MOLES] = moles_full * ideal_o2_percent
 
 
 /obj/item/tank/jetpack/combustion/allow_thrust(num, mob/living/user, use_fuel = TRUE)
@@ -348,16 +352,17 @@
 		return
 
 	var/potential_energy = 0
+	var/datum/gas_mixture/our_mix = return_air()
 	// Minified version of plasmafire burn reaction, with a "controlled" burnrate adjustment due to the high energy output of the reaction
 	// Also produces no waste products (CO2/Trit)
 	var/oxygen_burn_rate = (OXYGEN_BURN_RATE_BASE - 1)
 	var/plasma_burn_rate = 0
-	if(air_contents.gases[/datum/gas/oxygen][MOLES] > air_contents.gases[/datum/gas/plasma][MOLES]*PLASMA_OXYGEN_FULLBURN)
-		plasma_burn_rate = air_contents.gases[/datum/gas/plasma][MOLES]/PLASMA_BURN_RATE_DELTA
+	if(our_mix.gases[/datum/gas/oxygen][MOLES] > our_mix.gases[/datum/gas/plasma][MOLES]*PLASMA_OXYGEN_FULLBURN)
+		plasma_burn_rate = our_mix.gases[/datum/gas/plasma][MOLES]/PLASMA_BURN_RATE_DELTA
 	else
-		plasma_burn_rate = (air_contents.gases[/datum/gas/oxygen][MOLES]/PLASMA_OXYGEN_FULLBURN)/PLASMA_BURN_RATE_DELTA
+		plasma_burn_rate = (our_mix.gases[/datum/gas/oxygen][MOLES]/PLASMA_OXYGEN_FULLBURN)/PLASMA_BURN_RATE_DELTA
 	if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
-		plasma_burn_rate = min(plasma_burn_rate,air_contents.gases[/datum/gas/plasma][MOLES],air_contents.gases[/datum/gas/oxygen][MOLES]/oxygen_burn_rate) //Ensures matter is conserved properly
+		plasma_burn_rate = min(plasma_burn_rate,our_mix.gases[/datum/gas/plasma][MOLES],our_mix.gases[/datum/gas/oxygen][MOLES]/oxygen_burn_rate) //Ensures matter is conserved properly
 		potential_energy = FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 
 	// Normalize thrust volume to joules
@@ -371,9 +376,10 @@
 
 	// Consume
 	if(use_fuel)
-		air_contents.gases[/datum/gas/plasma][MOLES] = QUANTIZE(air_contents.gases[/datum/gas/plasma][MOLES] - plasma_burn_rate
+		var/datum/gas_mixture/our_mix = return_air()
+		our_mix.gases[/datum/gas/plasma][MOLES] = QUANTIZE(our_mix.gases[/datum/gas/plasma][MOLES] - plasma_burn_rate
 )
-		air_contents.gases[/datum/gas/oxygen][MOLES] = QUANTIZE(air_contents.gases[/datum/gas/oxygen][MOLES] - (plasma_burn_rate * oxygen_burn_rate
+		our_mix.gases[/datum/gas/oxygen][MOLES] = QUANTIZE(our_mix.gases[/datum/gas/oxygen][MOLES] - (plasma_burn_rate * oxygen_burn_rate
 ))
 	update_fade(15)
 	update_lifespan(4)
@@ -434,7 +440,7 @@
 		return
 	var/mob/living/carbon/human/H = user
 	tank = H.s_store
-	air_contents = tank.air_contents
+	air_contents = tank.return_air()
 	RegisterSignals(tank, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING), PROC_REF(on_tank_drop))
 	START_PROCESSING(SSobj, src)
 	..()

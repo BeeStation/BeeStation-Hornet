@@ -955,10 +955,11 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/amount = input(usr, "Choose the amount of moles.", "Choose the amount.", 0) as num
 	var/temp = input(usr, "Choose the temperature (Kelvin).", "Choose the temp (K).", 0) as num
 
+	var/datum/gas_mixture/C_air = C.return_air()
 
-	C.air_contents.gases[gas_to_add][MOLES] = amount
+	C_air.gases[gas_to_add][MOLES] = amount
 
-	C.air_contents.temperature = (temp)
+	C_air.temperature = (temp)
 	C.update_icon()
 
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp].</span>")

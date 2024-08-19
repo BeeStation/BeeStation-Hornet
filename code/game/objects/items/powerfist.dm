@@ -29,7 +29,7 @@
 		return
 	if(tank)
 		. += "<span class='notice'>[icon2html(tank, user)] It has \a [tank] mounted onto it.</span>"
-		. += "<span class='notice'>Its pressure gauge reads [round(tank.air_contents.total_moles(), 0.01)] mol at [round(tank.air_contents.return_pressure(),0.01)] kPa.</span>"
+		. += "<span class='notice'>Its pressure gauge reads [round(tank.return_air().total_moles(), 0.01)] mol at [round(tank.air_contents.return_pressure(),0.01)] kPa.</span>"
 
 
 /obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
@@ -77,7 +77,7 @@
 	if(!tank)
 		to_chat(user, "<span class='warning'>\The [src] can't operate without a source of gas!</span>")
 		return
-	var/datum/gas_mixture/gasused = tank.air_contents.remove(gasperfist * fisto_setting)
+	var/datum/gas_mixture/gasused = tank.remove_air(gasperfist * fisto_setting)
 	var/turf/T = get_turf(src)
 	if(!T)
 		return

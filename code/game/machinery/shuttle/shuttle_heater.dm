@@ -100,7 +100,7 @@
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/proc/consumeFuel(var/amount)
 	var/datum/gas_mixture/air_contents = airs[1]
-	air_contents.remove(amount)
+	remove_air(amount)
 	return
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/attackby(obj/item/I, mob/living/user, params)

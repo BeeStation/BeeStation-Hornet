@@ -171,10 +171,10 @@
 	return giver.transfer_ratio_to(air_contents, ratio)
 
 /obj/structure/transit_tube_pod/remove_air(amount)
-	return air_contents.remove(amount)
+	return remove_air(amount)
 
 /obj/structure/transit_tube_pod/remove_air_ratio(ratio)
-	return air_contents.remove_ratio(ratio)
+	return remove_air_ratio(ratio)
 
 /obj/structure/transit_tube_pod/transfer_air(datum/gas_mixture/taker, moles)
 	return air_contents.transfer_to(taker, moles)

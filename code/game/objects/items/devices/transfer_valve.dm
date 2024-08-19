@@ -128,24 +128,34 @@
 
 /obj/item/transfer_valve/proc/merge_gases(datum/gas_mixture/target, change_volume = TRUE)
 	var/target_self = FALSE
-	if(!target || (target == tank_one.air_contents))
-		target = tank_two.air_contents
-	if(target == tank_two.air_contents)
+	var/datum/gas_mixture/mix_one = tank_one.return_air()
+	var/datum/gas_mixture/mix_two = tank_two.return_air()
+	if(!target || (target == mix_one))
+		target = mix_two
+	if(target == mix_two)
 		target_self = TRUE
 	if(change_volume)
 		if(!target_self)
-			target.volume = target.return_volume() + tank_two.air_contents.return_volume()
-		target.volume = target.return_volume() + tank_one.air_contents.return_volume()
-	tank_one.air_contents.transfer_ratio_to(target, 1)
+			target.volume += tank_two.volume
+		target.volume += mix_one.volume
+	var/datum/gas_mixture/temp
+	temp = mix_one.remove_ratio(1)
+	target.merge(temp)
 	if(!target_self)
-		tank_two.air_contents.transfer_ratio_to(target, 1)
+		temp = mix_two.remove_ratio(1)
+		target.merge(temp)
 
 /obj/item/transfer_valve/proc/split_gases()
 	if (!valve_open || !tank_one || !tank_two)
 		return
-	var/ratio1 = tank_one.air_contents.return_volume()/tank_two.air_contents.return_volume()
-	tank_two.air_contents.transfer_ratio_to(tank_one.air_contents, ratio1)
-	tank_two.air_contents.volume = tank_two.air_contents.return_volume() - tank_one.air_contents.return_volume()
+	var/datum/gas_mixture/mix_one = tank_one.return_air()
+	var/datum/gas_mixture/mix_two = tank_two.return_air()
+
+	var/volume_ratio = mix_one.volume/mix_two.volume
+	var/datum/gas_mixture/temp
+	temp = mix_two.remove_ratio(volume_ratio)
+	mix_one.merge(temp)
+	mix_two.volume -= mix_one.volume
 
 	/*
 	Exadv1: I know this isn't how it's going to work, but this was just to check

@@ -16,14 +16,19 @@
 /obj/effect/spawner/newbomb/Initialize(mapload)
 	. = ..()
 	var/obj/item/transfer_valve/V = new(src.loc)
-	var/obj/item/tank/internals/plasma/PT = new(V)
-	var/obj/item/tank/internals/oxygen/OT = new(V)
+	var/obj/item/tank/internals/plasma/plasma_tank = new(V)
+	var/obj/item/tank/internals/oxygen/oxygen_tank = new(V)
 
-	PT.air_contents.gases[/datum/gas/plasma][MOLES] = pressure_p*PT.volume/(R_IDEAL_GAS_EQUATION*CELSIUS_TO_KELVIN(temp_p))
-	PT.air_contents.temperature = CELSIUS_TO_KELVIN(temp_p)
+	var/datum/gas_mixture/plasma_mix = plasma_tank.return_air()
+	var/datum/gas_mixture/oxygen_mix = oxygen_tank.return_air()
 
-	OT.air_contents.gases[/datum/gas/oxygen][MOLES] = pressure_o*OT.volume/(R_IDEAL_GAS_EQUATION*CELSIUS_TO_KELVIN(temp_o))
-	OT.air_contents.temperature = CELSIUS_TO_KELVIN(temp_o)
+	plasma_mix.assert_gas(/datum/gas/plasma)
+	plasma_mix.gases[/datum/gas/plasma][MOLES] = pressure_p*plasma_mix.volume/(R_IDEAL_GAS_EQUATION*CELSIUS_TO_KELVIN(temp_p))
+	plasma_mix.temperature = CELSIUS_TO_KELVIN(temp_p)
+
+	oxygen_mix.assert_gas(/datum/gas/oxygen)
+	oxygen_mix.gases[/datum/gas/oxygen][MOLES] = pressure_o*oxygen_mix.volume/(R_IDEAL_GAS_EQUATION*CELSIUS_TO_KELVIN(temp_o))
+	oxygen_mix.temperature = CELSIUS_TO_KELVIN(temp_o)
 
 	V.tank_one = PT
 	V.tank_two = OT
