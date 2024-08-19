@@ -27,8 +27,6 @@
 	///Color of the heart, is set by the species on gain
 	//var/ethereal_color = "#9c3030"
 
-
-
 /obj/item/organ/heart/update_icon()
 	if(beating)
 		icon_state = "[icon_base]-on"
@@ -188,17 +186,7 @@
 	var/rid = /datum/reagent/medicine/epinephrine
 	var/ramount = 10
 
-/obj/item/organ/heart/cybernetic/ipc //this sucks
-	name = "coolant pump"
-	desc = "A small pump powered by the IPC's internal systems for circulating coolant."
-	status = ORGAN_ROBOTIC
-
-/obj/item/organ/heart/cybernetic/ipc/emp_act()
-	. = ..()
-	to_chat(owner, "<span class='warning'>Alert: Cybernetic heart failed one heartbeat</span>")
-	addtimer(CALLBACK(src, PROC_REF(Restart)), 10 SECONDS)
-
-/obj/item/organ/heart/cybernetic/emp_act(severity)
+/obj/item/organ/heart/cybernetic/emp_act()
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
@@ -211,7 +199,6 @@
 		used_dose()
 
 /obj/item/organ/heart/cybernetic/proc/used_dose()
-	owner.reagents.add_reagent(rid, ramount)
 	dose_available = FALSE
 
 /obj/item/organ/heart/cybernetic/upgraded
@@ -222,6 +209,15 @@
 /obj/item/organ/heart/cybernetic/upgraded/used_dose()
 	. = ..()
 	addtimer(VARSET_CALLBACK(src, dose_available, TRUE), 5 MINUTES)
+
+/obj/item/organ/heart/cybernetic/ipc
+	desc = "An electronic device that appears to mimic the functions of an organic heart."
+	dose_available = FALSE
+
+/obj/item/organ/heart/cybernetic/ipc/emp_act()
+	. = ..()
+	to_chat(owner, "<span class='warning'>Alert: Cybernetic heart failed one heartbeat</span>")
+	addtimer(CALLBACK(src, PROC_REF(Restart)), 10 SECONDS)
 
 /obj/item/organ/heart/freedom
 	name = "heart of freedom"
