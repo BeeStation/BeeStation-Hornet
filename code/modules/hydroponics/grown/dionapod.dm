@@ -20,9 +20,8 @@
 /obj/item/seeds/dionapod/harvest(mob/user)
 	var/obj/machinery/hydroponics/parent = src.loc
 	if(CONFIG_GET(flag/diona_ghost_spawn))
-		for (var/x in 0 to getYield())
-			var/mob/living/simple_animal/hostile/retaliate/nymph/child = new /mob/living/simple_animal/hostile/retaliate/nymph(get_turf(parent))
-			child.is_ghost_spawn = TRUE
+		var/mob/living/simple_animal/hostile/retaliate/nymph/child = new /mob/living/simple_animal/hostile/retaliate/nymph(get_turf(parent))
+		child.is_ghost_spawn = TRUE
 	var/seed_count = 1
 	if(prob(getYield() * 20))
 		seed_count++
