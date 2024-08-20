@@ -609,19 +609,6 @@
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"kJ" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command/glass{
-	name = "Cockpit";
-	req_access_txt = "19"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "escape_cockpit_windows";
-	name = "Cockpit Blast Door"
-	},
-,
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
 "lj" = (
 /obj/effect/turf_decal/tile/blue/anticorner_ramp{
 	dir = 4
@@ -3031,7 +3018,7 @@ Dk
 GI
 Dx
 bQ
-kJ
+wE
 ez
 YD
 nb
