@@ -10711,11 +10711,11 @@
 	dir = 1;
 	name = "Gas to Filter"
 	},
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/engine{
-	dir = 4;
+	dir = 8;
 	pixel_x = -23
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "ccB" = (
