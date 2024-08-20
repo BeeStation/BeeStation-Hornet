@@ -219,6 +219,7 @@
 		if(isAI(occupant))
 			occupant.gib() //No wreck, no AI to recover
 		else
+			occupant.Stun(2 SECONDS)
 			occupant.Knockdown(destruction_knockdown_duration)
 			occupant.throwing = TRUE //This is somewhat hacky, but is the best option available to avoid chasm detection for the split second between the next two lines
 			occupant.forceMove(loc)
