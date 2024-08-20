@@ -39,6 +39,7 @@
 	new /obj/item/storage/box/suitbox/ce_tools(src)
 	new /obj/item/clothing/glasses/meson/engine(src)
 	new /obj/item/gun/ballistic/automatic/pistol/service/ce(src)
+	new /obj/item/ammo_box/magazine/recharge/service(src)
 
 /obj/item/storage/box/suitbox/ce_tools
 	name = "compression box of chief engineer tools"
