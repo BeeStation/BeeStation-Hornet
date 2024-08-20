@@ -1,4 +1,4 @@
-//#define LOWMEMORYMODE //uncomment this to load centcom and runtime station and thats it.
+#define LOWMEMORYMODE //uncomment this to load centcom and runtime station and thats it.
 
 // uncomment this for a map you need to use
 // #define FORCE_MAP "corgstation"
