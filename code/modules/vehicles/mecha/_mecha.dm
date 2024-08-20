@@ -212,14 +212,20 @@
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 	update_step_speed()
 
-/obj/vehicle/sealed/mecha/Destroy()
+//separate proc so that the ejection mechanism can be easily triggered by other things, such as admins
+/obj/vehicle/sealed/mecha/proc/Eject()
 	for(var/M in occupants)
 		var/mob/living/occupant = M
 		if(isAI(occupant))
 			occupant.gib() //No wreck, no AI to recover
 		else
-			occupant.forceMove(loc)
 			occupant.SetSleeping(destruction_sleep_duration)
+			occupant.throwing = TRUE //This is somewhat hacky, but is the best option available to avoid chasm detection for the split second between the next two lines
+			occupant.forceMove(loc)
+			occupant.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(5, 8),rand(5, 8)) //resets the variable above.
+			to_chat(occupant, "<span class='userdanger'>You are forcefully ejected from the mech!</span>")
+/obj/vehicle/sealed/mecha/Destroy()
+	Eject()
 	if(LAZYLEN(equipment))
 		for(var/E in equipment)
 			var/obj/item/mecha_parts/mecha_equipment/equip = E
