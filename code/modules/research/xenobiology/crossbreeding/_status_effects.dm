@@ -939,8 +939,9 @@
 	if(QDELETED(familiar))
 		familiar = new linked.mob_type(get_turf(owner.loc))
 		familiar.a_intent = "help"
-		ADD_TRAIT(familiar, TRAIT_PACIFISM, "stabilized gold")
+		ADD_TRAIT(familiar, TRAIT_PACIFISM, "stabilizedgold")
 		familiar.melee_damage = 0
+		familiar.remove_verb(/mob/living/simple_animal/parrot/proc/toggle_mode) // just in case
 		familiar.name = linked.mob_name
 		familiar.del_on_death = TRUE
 		familiar.copy_languages(owner, LANGUAGE_MASTER)
