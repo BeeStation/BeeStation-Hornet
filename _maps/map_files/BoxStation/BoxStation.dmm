@@ -19246,7 +19246,6 @@
 /turf/open/floor/iron,
 /area/science/explab)
 "eqQ" = (
-/obj/structure/closet/crate/wooden/toy,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -21862,6 +21861,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/directional/south,
+/obj/structure/closet/crate/wooden/toy,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
 "fsG" = (
@@ -24466,12 +24466,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"gve" = (
-/obj/item/radio/intercom{
-	pixel_y = -29
-	},
-/turf/closed/wall,
-/area/crew_quarters/theatre/backstage)
 "gwm" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -27023,15 +27017,10 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	dir = 2;
-	icon_state = "left";
-	name = "Holodeck Controls"
-	},
 /obj/structure/window/reinforced/tinted{
 	dir = 4
 	},
+/obj/structure/window/reinforced,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
 "hCs" = (
@@ -28346,9 +28335,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple/opposingcorners,
-/obj/machinery/light_switch{
-	pixel_x = 28
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -28366,6 +28352,10 @@
 	pixel_y = 1
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/light_switch/directional/east,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
 "ibG" = (
@@ -31866,13 +31856,10 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/obj/machinery/door/window/eastright{
-	name = "Theatre Stage";
-	dir = 2
-	},
 /obj/structure/window/reinforced/tinted{
 	dir = 8
 	},
+/obj/structure/window/reinforced,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
 "juV" = (
@@ -32284,9 +32271,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple/opposingcorners,
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/vending/autodrobe,
 /obj/machinery/airalarm/directional/east,
 /obj/structure/disposalpipe/segment{
@@ -41976,15 +41960,12 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple/opposingcorners,
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
 /obj/structure/closet/secure_closet/freezer/cream_pie,
 /obj/item/food/pie/cream,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
 "nxf" = (
@@ -60831,6 +60812,13 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"uXa" = (
+/obj/machinery/door/window/eastright{
+	name = "Theatre Stage";
+	dir = 2
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/theatre/backstage)
 "uXd" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -63567,7 +63555,12 @@
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "wcY" = (
-/obj/structure/window/reinforced,
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	dir = 2;
+	icon_state = "left";
+	name = "Holodeck Controls"
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
 "wdc" = (
@@ -68758,7 +68751,10 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/west,
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
 "yhi" = (
@@ -103779,9 +103775,9 @@ qOk
 azn
 tvL
 poS
-gve
+uIu
 roi
-wcY
+uXa
 mxz
 iaY
 jAG
