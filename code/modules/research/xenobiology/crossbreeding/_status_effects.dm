@@ -934,11 +934,16 @@
 	colour = "gold"
 	var/mob/living/simple_animal/familiar
 
+/datum/status_effect/stabilized/gold/proc/on_attack()
+	SIGNAL_HANDLER
+	return COMPONENT_HOSTILE_NO_ATTACK
+
 /datum/status_effect/stabilized/gold/tick()
 	var/obj/item/slimecross/stabilized/gold/linked = linked_extract
 	if(QDELETED(familiar))
 		familiar = new linked.mob_type(get_turf(owner.loc))
 		familiar.a_intent = "help"
+		RegisterSignal(familiar, COMSIG_HOSTILE_ATTACKINGTARGET, PROC_REF(on_attack))
 		familiar.name = linked.mob_name
 		familiar.del_on_death = TRUE
 		familiar.copy_languages(owner, LANGUAGE_MASTER)
