@@ -1406,7 +1406,7 @@
 /obj/machinery/door/airlock/proc/on_break()
 	if(!panel_open)
 		panel_open = TRUE
-	wires.cut_all()
+	wires.cut_all(null)
 
 /obj/machinery/door/airlock/proc/set_electrified(seconds, mob/user)
 	secondsElectrified = seconds
