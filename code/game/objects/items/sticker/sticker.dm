@@ -74,6 +74,12 @@
 		A.attack_alien(user)
 	return attack_hand(user) //can be picked up by aliens
 
+/obj/item/sticker/attack_animal(mob/living/simple_animal/M)
+	if(M.a_intent != INTENT_HELP && sticker_state == STICKER_STATE_STUCK)
+		var/atom/A = loc
+		A.attack_animal(M)
+	return attack_hand(M)
+
 /obj/item/sticker/attackby(obj/item/I, mob/living/user, params)
 	//If we're stuck to something, pass the attack to our loc
 	if(sticker_state == STICKER_STATE_STUCK)
