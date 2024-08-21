@@ -294,6 +294,7 @@
 				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 					return
 				if(check_martial_counter(H, user))
+					log_combat(user, target, "attampted to attack", src, "(blocked by martial arts)")
 					return
 
 			var/list/desc = get_stun_description(target, user)
@@ -534,6 +535,7 @@
 				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 					return
 				if(check_martial_counter(H, user))
+					log_combat(user, target, "attampted to attack", src, "(blocked by martial arts)")
 					return
 
 			var/list/desc = get_stun_description(target, user)
@@ -926,6 +928,14 @@
 	/// Stamina damage dealt
 	var/stamina_force = 25
 
+// #11200 Review - TEMP: Hacky code to deal with force string for this item.
+/obj/item/melee/tonfa/openTip(location, control, params, user)
+	if (user.a_intent != INTENT_HARM)
+		force = non_harm_force
+	else
+		force = initial(force)
+	return ..()
+
 /obj/item/melee/tonfa/attack(mob/living/target, mob/living/user)
 	var/target_zone = user.get_combat_bodyzone(target)
 	var/armour_level = target.getarmor(target_zone, STAMINA, penetration = armour_penetration - 15)
@@ -935,6 +945,8 @@
 		to_chat(user, "<span class ='danger'>You hit yourself over the head.</span>")
 		user.adjustStaminaLoss(stamina_force)
 
+		// Deal full damage
+		force = initial(force)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
@@ -957,6 +969,7 @@
 		if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 			return
 		if(check_martial_counter(H, user))
+			log_combat(user, target, "attampted to attack", src, "(blocked by martial arts)")
 			return
 
 		var/mob/living/carbon/human/T = target
@@ -984,8 +997,6 @@
 		else
 			// 4-5 hits on an unarmoured target
 			target.apply_damage(stamina_force, STAMINA, target_zone, armour_level)
-
-		add_fingerprint(user)
 
 		if(!iscarbon(user))
 			target.LAssailant = null
