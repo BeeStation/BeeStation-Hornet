@@ -9,11 +9,14 @@ NC="\033[0m" # No Color
 
 st=0
 
+
+echo -e "${BLUE}Checking for proc name violations...${NC}"
+
 # Check for inconsistent capitalisation
 # Allows full capitalisation within sections (proc/get_RGB)
 # Allows full capitalisation (proc/REF)
 # Disallows inconsistent capitalisation (proc/Ref, prof/ReF)
-regex_path_name = "^\s*(?:\/\w+)*\/?proc\/((?:[a-z]+[A-Z]+[a-z]*_|[a-z]*[A-Z]+[a-z]+_|[A-Z]+[a-z]+[A-Z]+_)+\w*|\w*_(?:[a-z]+[A-Z]+[a-z]*|[a-z]*[A-Z]+[a-z]+|[A-Z]+[a-z]+[A-Z]+)|[a-z]+[A-Z]+[a-z]*|[a-z]*[A-Z]+[a-z]+|[A-Z]+[a-z]+[A-Z]+)+\("
+regex_path_name="^\s*(?:\/\w+)*\/?proc\/((?:[a-z]+[A-Z]+[a-z]*_|[a-z]*[A-Z]+[a-z]+_|[A-Z]+[a-z]+[A-Z]+_)+\w*|\w*_(?:[a-z]+[A-Z]+[a-z]*|[a-z]*[A-Z]+[a-z]+|[A-Z]+[a-z]+[A-Z]+)|[a-z]+[A-Z]+[a-z]*|[a-z]*[A-Z]+[a-z]+|[A-Z]+[a-z]+[A-Z]+)+\("
 
 for code in code/**/*.dm
 do
