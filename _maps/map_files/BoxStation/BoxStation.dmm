@@ -6961,14 +6961,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/nuke_storage)
-"bEa" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#596479";
-	dir = 1
-	},
-/obj/machinery/airalarm/directional/east,
-/turf/open/floor/wood,
-/area/medical/break_room)
 "bEc" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -20871,11 +20863,6 @@
 /obj/machinery/camera/directional/north,
 /turf/open/floor/engine/vacuum,
 /area/engine/atmos)
-"eVf" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/machinery/airalarm/directional/south,
-/turf/open/floor/iron/dark,
-/area/medical/surgery)
 "eVB" = (
 /obj/structure/sign/departments/minsky/engineering/atmospherics{
 	pixel_y = -32
@@ -21973,10 +21960,6 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
-"fwi" = (
-/obj/machinery/airalarm/directional/east,
-/turf/closed/wall,
-/area/hydroponics)
 "fwk" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -22874,7 +22857,6 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "fPV" = (
-/obj/machinery/camera/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -25618,6 +25600,9 @@
 	},
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/camera/autoname/directional/north,
+/obj/structure/sign/departments/minsky/security/security{
+	pixel_y = 32
+	},
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "gWw" = (
@@ -31573,6 +31558,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/white,
 /area/medical/surgery)
 "jnZ" = (
@@ -32123,10 +32109,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
-"jzd" = (
-/obj/machinery/airalarm/directional/north,
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "jze" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -41967,10 +41949,6 @@
 	},
 /obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/dark,
-/area/crew_quarters/theatre/backstage)
-"nxf" = (
-/obj/machinery/airalarm/directional/north,
-/turf/closed/wall,
 /area/crew_quarters/theatre/backstage)
 "nxj" = (
 /obj/structure/cable/yellow{
@@ -51872,13 +51850,6 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
 /turf/open/floor/iron,
 /area/engine/engineering)
-"ruA" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/airalarm/directional/east,
-/turf/open/floor/iron,
-/area/hallway/primary/central)
 "ruF" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -52739,7 +52710,6 @@
 "rNE" = (
 /obj/machinery/vending/wardrobe/chem_wardrobe,
 /obj/machinery/airalarm/directional/east,
-/obj/machinery/camera/autoname/directional/east,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
@@ -99184,7 +99154,7 @@ klN
 hKs
 jfm
 bzs
-jzd
+bAw
 bAw
 bAw
 bAw
@@ -102264,7 +102234,7 @@ taa
 aJq
 rNK
 qgK
-ruA
+aRt
 cjx
 gUu
 cBD
@@ -103776,7 +103746,7 @@ mxz
 iaY
 jAG
 rEu
-nxf
+uIu
 cza
 qsQ
 ssq
@@ -106640,7 +106610,7 @@ vec
 hHc
 fBk
 uLX
-eVf
+ttZ
 gWM
 uqn
 uqn
@@ -107675,7 +107645,7 @@ fZd
 tax
 dlc
 gCq
-bEa
+gdI
 bNd
 kyC
 pST
@@ -110722,7 +110692,7 @@ aIp
 aIp
 aIp
 aIp
-fwi
+aIp
 aIp
 aIp
 aIp
