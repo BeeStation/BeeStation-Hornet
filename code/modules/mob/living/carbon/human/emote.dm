@@ -364,3 +364,4 @@
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
 	sound = 'sound/emotes/diona/cricket.ogg'
+	sound_volume = 30
