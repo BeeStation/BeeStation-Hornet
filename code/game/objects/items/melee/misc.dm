@@ -510,10 +510,6 @@
 
 		add_fingerprint(user)
 
-		if(!iscarbon(user))
-			target.LAssailant = null
-		else
-			target.LAssailant = WEAKREF(user)
 		COOLDOWN_START(src, cooldown_check, cooldown)
 
 //Telescopic Baton
