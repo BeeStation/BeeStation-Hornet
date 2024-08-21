@@ -208,6 +208,9 @@
 	//Prexisting check
 	if((target in targets) && !force)
 		return
+	//Mob check, so we don't tag ghosts or camera
+	if((iscameramob(target) || isobserver(target)) && !force)
+		return
 	//Regular target follow through
 	create_beam(target)
 	targets += target
