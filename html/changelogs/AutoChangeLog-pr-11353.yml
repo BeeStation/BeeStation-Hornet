@@ -1,0 +1,4 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: FastDMM2 is usable once again for map editing
