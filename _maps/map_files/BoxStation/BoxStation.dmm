@@ -60736,8 +60736,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "Atmospherics External Airlock";
-	req_access_txt = "13";
-	pixel_x = 2
+	req_access_txt = "13"
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
