@@ -579,13 +579,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/shuttle/escape)
-"bS" = (
-/obj/machinery/vending/wallmed{
-	name = "Emergency NanoMed";
-	use_power = 0
-	},
-/turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/escape)
 "bU" = (
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -680,7 +673,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "bY" = (
-/obj/structure/chair/fancy/corp,
 /turf/open/floor/iron/dark/corner,
 /area/shuttle/escape)
 "ca" = (
@@ -987,6 +979,11 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
+"ON" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/template_noop)
 "OQ" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
@@ -1077,6 +1074,9 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
+"WQ" = (
+/turf/closed/wall/mineral/titanium,
+/area/template_noop)
 "Xm" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Cargo Bay Airlock"
@@ -1471,11 +1471,11 @@ ad
 (22,1,1) = {"
 rl
 cO
-bV
-bN
-bS
-aT
-ar
+BK
+Kk
+Kk
+Kk
+Ui
 cO
 Xm
 bp
@@ -1487,13 +1487,13 @@ Li
 "}
 (23,1,1) = {"
 ad
+LY
+LY
+LY
 cO
-BK
-Kk
-Kk
-Kk
-Ui
-cO
+LY
+LY
+LY
 Xm
 bp
 be
@@ -1520,14 +1520,14 @@ bR
 ad
 "}
 (25,1,1) = {"
-ad
-ad
-Li
-Li
-ad
-Li
-Li
-ad
+WQ
+WQ
+ON
+ON
+WQ
+ON
+ON
+WQ
 ad
 ad
 Li
