@@ -37428,7 +37428,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/engine/atmos)
 "lUH" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -44861,7 +44861,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/engine/atmos)
 "pnh" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
@@ -56800,6 +56800,10 @@
 "ufU" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance{
+	name = "Atmospherics Maintenance";
+	req_access_txt = "24"
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
