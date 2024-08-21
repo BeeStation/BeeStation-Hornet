@@ -327,10 +327,6 @@
 
 			add_fingerprint(user)
 
-			if(!iscarbon(user))
-				target.LAssailant = null
-			else
-				target.LAssailant = WEAKREF(user)
 			cooldown_check = world.time + cooldown
 		else
 			var/wait_desc = get_wait_description()
@@ -743,10 +739,6 @@
 
 			target.visible_message(desc["visible"], desc["local"])
 
-			if(!iscarbon(user))
-				target.LAssailant = null
-			else
-				target.LAssailant = user
 			cooldown_check = world.time + cooldown
 		else
 			var/wait_desc = get_wait_description()
@@ -1084,10 +1076,5 @@
 		var/throw_dir = get_dir(user,target)
 		var/turf/throw_at = get_ranged_target_turf(target, throw_dir, knockbackpower)
 		target.throw_at(throw_at, throw_range, 3)
-
-		if(!iscarbon(user))
-			target.LAssailant = null
-		else
-			target.LAssailant = user
 
 		cooldown = world.time + 15

@@ -324,10 +324,6 @@
 				M.visible_message("<span class='warning'>[src] grabs [M] [(is_zone_selected(BODY_ZONE_L_ARM) || is_zone_selected(BODY_ZONE_R_ARM))? "by their hands":"passively"]!</span>", \
 								"<span class='warning'>[src] grabs you [(is_zone_selected(BODY_ZONE_L_ARM) || is_zone_selected(BODY_ZONE_R_ARM))? "by your hands":"passively"]!</span>", null, null, src) //Message sent to area, Message sent to grabbee
 				to_chat(src, "<span class='notice'>You grab [M] [(is_zone_selected(BODY_ZONE_L_ARM) || is_zone_selected(BODY_ZONE_R_ARM))? "by their hands":"passively"]!</span>") //Message sent to grabber
-		if(!iscarbon(src))
-			M.LAssailant = null
-		else
-			M.LAssailant = WEAKREF(usr)
 		if(isliving(M))
 			var/mob/living/L = M
 			//Share diseases that are spread by touch
