@@ -247,12 +247,17 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/item/tank/internals/plasma/full,
-/obj/item/tank/internals/plasma/full,
-/obj/machinery/power/port_gen/pacman/super,
-/obj/item/tank/internals/plasma/full,
 /obj/effect/turf_decal/stripes{
 	dir = 1
+	},
+/obj/machinery/power/port_gen/pacman,
+/obj/item/stack/sheet/mineral/plasma/twenty{
+	pixel_x = 0;
+	pixel_y = 5
+	},
+/obj/item/wrench{
+	pixel_x = 0;
+	pixel_y = -5
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -794,7 +799,7 @@ ji
 UA
 "}
 (5,1,1) = {"
-Wb
+iY
 aj
 Ug
 my
@@ -819,7 +824,7 @@ ji
 UA
 "}
 (6,1,1) = {"
-Wb
+iY
 gu
 mR
 dO
@@ -869,7 +874,7 @@ ji
 UA
 "}
 (8,1,1) = {"
-iY
+Yy
 Rg
 TP
 dO
