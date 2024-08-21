@@ -644,9 +644,9 @@
 /datum/map_template/shuttle/emergency/ragecage
 	suffix = "ragecage"
 	name = "THE RAGE CAGE"
-	description = "WE ARE RAGING, WE ARE CAGING.Comes with brig, medbay and comman area."
-	admin_notes = "It's a normal shuttle but it has a rage cage with baseball bats in the middle powered by a PACMAN, plasma tanks included."
-	credit_cost = 10000
+	description = "WE ARE RAGING! WE ARE CAGING! TIME TO UNLEASH ALL THE STRESS GENERATED DURING THE SHIFT! Comes with a Brig, Medbay and Cockpit included."
+	admin_notes = "It's a normal shuttle but it has a rage cage with baseball bats in the middle powered by a PACMAN, plasma included."
+	credit_cost = 7500
 
 /datum/map_template/shuttle/emergency/zeta/prerequisites_met()
 	if(SHUTTLE_UNLOCK_ALIENTECH in SSshuttle.shuttle_purchase_requirements_met)
