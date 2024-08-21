@@ -143,6 +143,9 @@
 /mob/living/simple_animal/eminence/med_hud_set_health()
 	return
 
+/mob/living/simple_animal/eminence/med_hud_set_status()
+	return
+
 /mob/living/simple_animal/eminence/update_health_hud()
 	return
 
