@@ -48,6 +48,7 @@ jobs:
           find . -name "*.php" -print0 | xargs -0 -n1 php -l
           find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python ./tools/json_verifier.py
           bash tools/ci/check_grep.sh
+          bash tools/ci/check_path_names.sh
           tools/build/build --ci lint tgui-test
           tools/bootstrap/python -m dmi.test
           tools/bootstrap/python -m mapmerge2.dmm_test
