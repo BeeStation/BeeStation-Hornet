@@ -16807,6 +16807,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/machinery/door/airlock/maintenance/glass{
+	name = "Atmospherics External Airlock";
+	req_access_txt = "24"
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "cZt" = (
@@ -60732,7 +60736,8 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "Atmospherics External Airlock";
-	req_access_txt = "24"
+	req_access_txt = "13";
+	pixel_x = 2
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
