@@ -929,8 +929,8 @@
 	var/stamina_force = 25
 
 // #11200 Review - TEMP: Hacky code to deal with force string for this item.
-/obj/item/melee/tonfa/openTip(location, control, params, user)
-	if (user.a_intent != INTENT_HARM)
+/obj/item/melee/tonfa/openTip(location, control, params, mob/user)
+	if (user != null && user.a_intent != INTENT_HARM)
 		force = non_harm_force
 	else
 		force = initial(force)
@@ -998,8 +998,4 @@
 			// 4-5 hits on an unarmoured target
 			target.apply_damage(stamina_force, STAMINA, target_zone, armour_level)
 
-		if(!iscarbon(user))
-			target.LAssailant = null
-		else
-			target.LAssailant = WEAKREF(user)
 	return ..()
