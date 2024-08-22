@@ -40,25 +40,60 @@
 	result = /obj/item/food/sashimi
 	subcategory = CAT_SEAFOOD
 
-/datum/crafting_recipe/food/vegetariansushiroll
+/datum/crafting_recipe/food/vegetarian_sushi_roll
 	name ="Vegetarian sushi roll"
 	reqs = list(
 		/obj/item/food/seaweed_sheet = 1,
 		/obj/item/food/salad/boiledrice = 1,
 		/obj/item/food/grown/carrot = 1,
-		/obj/item/food/grown/potato = 1
+		/obj/item/food/grown/cabbage = 1
 	)
 	result = /obj/item/food/sushi_roll/vegetarian
 	subcategory = CAT_SEAFOOD
 
-/datum/crafting_recipe/food/spicyfiletsushiroll
+/datum/crafting_recipe/food/spicy_filet_sushi_roll
 	name ="Spicy filet sushi roll"
 	reqs = list(
 		/obj/item/food/seaweed_sheet = 1,
 		/obj/item/food/salad/boiledrice = 1,
-		/obj/item/food/fishmeat = 1,
+		/obj/item/food/fishmeat/carp = 1,
 		/obj/item/food/grown/chili = 1,
 		/obj/item/food/grown/onion = 1
 	)
 	result = /obj/item/food/sushi_roll/spicyfilet
+	subcategory = CAT_SEAFOOD
+
+/datum/crafting_recipe/food/futomaki_sushi_roll
+	name ="Futomaki sushi roll"
+	reqs = list(
+		/obj/item/food/seaweed_sheet = 1,
+		/obj/item/food/salad/boiledrice = 1,
+		/obj/item/food/boiledegg = 1,
+		/obj/item/food/fishmeat/carp = 1,
+		/obj/item/food/grown/cabbage = 1,
+	)
+	result = /obj/item/food/sushi_roll/futomaki
+	subcategory = CAT_SEAFOOD
+
+/datum/crafting_recipe/food/philadelphia_sushi_roll
+	name ="Philadelphia sushi roll"
+	reqs = list(
+		/obj/item/food/seaweed_sheet = 1,
+		/obj/item/food/salad/boiledrice = 1,
+		/obj/item/food/cheese/wedge = 1,
+		/obj/item/food/fishmeat/carp = 1,
+		/obj/item/food/grown/cabbage = 1,
+	)
+	result = /obj/item/food/sushi_roll/philadelphia
+	subcategory = CAT_SEAFOOD
+
+/datum/crafting_recipe/food/nigiri_sushi
+	name ="Nigiri sushi"
+	reqs = list(
+		/obj/item/food/seaweed_sheet = 1,
+		/obj/item/food/salad/boiledrice = 1,
+		/obj/item/food/fishmeat = 1,
+		/datum/reagent/consumable/soysauce = 2
+	)
+	result = /obj/item/food/nigiri_sushi
 	subcategory = CAT_SEAFOOD

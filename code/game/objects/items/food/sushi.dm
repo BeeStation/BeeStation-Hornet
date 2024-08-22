@@ -8,7 +8,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = 4,
 		)
 	tastes = list("sushi" = 1)
-	foodtypes = VEGETABLES | GRAIN
+	foodtypes = VEGETABLES
 	w_class = WEIGHT_CLASS_NORMAL
 	var/obj/item/food/sushi_slice/slice_type /// type is spawned 4 at a time and replaces this cake when processed by cutting tool
 	var/yield = 4 /// yield of sliced sushi, default is 4
@@ -23,11 +23,11 @@
 	icon = 'icons/obj/food/sushi.dmi'
 	icon_state = "ERROR"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
 		)
 	tastes = list("sushi" = 1)
-	foodtypes = VEGETABLES | GRAIN
+	foodtypes = VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/seaweed_sheet
@@ -64,9 +64,10 @@
 		/datum/reagent/consumable/nutriment = 12,
 		/datum/reagent/consumable/nutriment/protein = 4,
 		/datum/reagent/consumable/capsaicin = 4,
-		/datum/reagent/consumable/nutriment/vitamin = 4)
+		/datum/reagent/consumable/nutriment/vitamin = 4,
+		)
 	tastes = list("boiled rice" = 4, "fish" = 2, "spicyness" = 2)
-	foodtypes = VEGETABLES | MEAT | GRAIN
+	foodtypes = VEGETABLES | MEAT
 	slice_type = /obj/item/food/sushi_slice/spicyfilet
 
 /obj/item/food/sushi_slice/spicyfilet
@@ -74,9 +75,75 @@
 	desc = "A roll of tasty, spicy sushi made with fish and vegetables."
 	icon_state = "spicyfiletslice"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/nutriment/protein = 1,
 		/datum/reagent/consumable/capsaicin = 1,
-		/datum/reagent/consumable/nutriment/vitamin = 1)
+		/datum/reagent/consumable/nutriment/vitamin = 1,
+		)
 	tastes = list("boiled rice" = 4, "fish" = 2, "spicyness" = 2)
-	foodtypes = VEGETABLES | MEAT | GRAIN
+	foodtypes = VEGETABLES | MEAT
+
+/obj/item/food/sushi_roll/futomaki
+	name = "futomaki sushi roll"
+	desc = "A roll of futomaki sushi, made of boiled egg, fish, and cucumber. Sliceable"
+	icon_state = "futomaki_sushi_roll"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 12,
+		/datum/reagent/consumable/nutriment/protein = 8,
+		/datum/reagent/consumable/nutriment/vitamin = 4,
+	)
+	tastes = list("boiled rice" = 4, "fish" = 5, "egg" = 3, "dried seaweed" = 2)
+	foodtypes = VEGETABLES | MEAT
+	slice_type = /obj/item/food/sushi_slice/futomaki
+
+/obj/item/food/sushi_slice/futomaki
+	name = "futomaki sushi slice"
+	desc = "A slice of futomaki sushi, made of boiled egg, fish, and cucumber."
+	icon_state = "futomaki_sushi_slice"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment/protein = 2,
+		/datum/reagent/consumable/nutriment/vitamin = 1,
+	)
+	tastes = list("boiled rice" = 4, "fish" = 5, "egg" = 3, "dried seaweed" = 2, "cucumber" = 2)
+	foodtypes = VEGETABLES | MEAT
+
+/obj/item/food/sushi_roll/philadelphia
+	name = "Philadelphia sushi roll"
+	desc = "A roll of Philadelphia sushi, made of cheese, fish, and cucumber. Sliceable"
+	icon_state = "philadelphia_sushi_roll"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 12,
+		/datum/reagent/consumable/nutriment/protein = 8,
+		/datum/reagent/consumable/nutriment/vitamin = 8,
+	)
+	tastes = list("boiled rice" = 4, "fish" = 5, "creamy cheese" = 3, "dried seaweed" = 2, "cucumber" = 2)
+	foodtypes = VEGETABLES | MEAT | DAIRY
+	slice_type = /obj/item/food/sushi_slice/philadelphia
+
+/obj/item/food/sushi_slice/philadelphia
+	name = "Philadelphia sushi slice"
+	desc = "A roll of Philadelphia sushi, made of cheese, fish, and cucumber."
+	icon_state = "philadelphia_sushi_slice"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment/protein = 2,
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+	)
+	tastes = list("boiled rice" = 4, "fish" = 5, "creamy cheese" = 3, "dried seaweed" = 2, "cucumber" = 2)
+	foodtypes = VEGETABLES | MEAT | DAIRY
+
+/obj/item/food/nigiri_sushi
+	name = "nigiri sushi"
+	desc = "A simple nigiri of fish atop a packed rice ball with a seaweed wrapping and a side of soy sauce."
+	icon = 'icons/obj/food/sushi.dmi'
+	icon_state = "nigiri_sushi"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/consumable/nutriment/protein = 2,
+		)
+	tastes = list("boiled rice" = 4, "fish filet" = 2, "soy sauce" = 2)
+	foodtypes = VEGETABLES | MEAT
+	w_class = WEIGHT_CLASS_SMALL
+
