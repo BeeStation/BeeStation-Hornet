@@ -368,3 +368,10 @@
 			message = replacetextEx(message,regex(capitalize(key),"g"), "[capitalize(value)]")
 			message = replacetextEx(message,regex(key,"g"), "[value]")
 	speech_args[SPEECH_MESSAGE] = trim(message)
+
+/obj/item/clothing/mask/supervillain
+	name = "SUPER VILLAIN MASK"
+	desc = "ALL CAPS when you spell the man's name."
+	icon_state = "VILLAIN"
+	item_state = "VILLAIN"
+	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
