@@ -25,7 +25,7 @@ find code/ -type f -name "*.dm" | while IFS= read -r file; do
     matches=$(grep -Po "$regex_path_name" "$file" || true)
 
     if [[ -n "$matches" ]]; then
-        echo -e "${RED}Violation found in file: $file${NC}"
+        echo -e "${RED}ERROR: Non-snake case proc found in file: $file${NC}"
         echo "$matches"
         st=1
     fi
