@@ -8,7 +8,8 @@ static string ToSnakeCase(string name)
 static bool UpdateFile(string filePath, string oldName, string newName)
 {
 	var text = File.ReadAllText(filePath);
-	var updated = Regex.Replace(text, $@"\b{Regex.Escape(oldName)}\(", $"{newName}(", RegexOptions.Multiline);
+	var updated = Regex.Replace(text, $@"[^/]{Regex.Escape(oldName)}\(", $"{newName}(", RegexOptions.Multiline);
+	updated = Regex.Replace(text, $@"_REF\({Regex.Escape(oldName)}\)", @$"REF\({newName}\)", RegexOptions.Multiline);
 	if (updated == text)
 		return false;
 	File.WriteAllText(filePath, updated);
@@ -43,8 +44,11 @@ foreach (var file in files)
 		var funcName = match.Groups[1].Value;
 
 		// Fine... you get the right to live
-		if (funcName == "Initialize" || funcName == "Destroy" || funcName == "Entered" || funcName == "Exited" || funcName == "Animate")
+		if (funcName == "Initialize" || funcName == "Destroy" || funcName == "Entered" || funcName == "Exited" || funcName == "Animate" || funcName == "Replace" || funcName == "Execute")
+		{
+			skippedFunctionNames.Add(funcName);
 			continue;
+		}
 
 		if (!string.IsNullOrEmpty(funcName) && funcName.Length >= minFunctionNameLength)
 		{
