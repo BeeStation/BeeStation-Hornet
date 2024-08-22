@@ -223,7 +223,7 @@
 			occupant.Knockdown(destruction_knockdown_duration)
 			occupant.throwing = TRUE //This is somewhat hacky, but is the best option available to avoid chasm detection for the split second between the next two lines
 			occupant.forceMove(get_turf(loc))
-			occupant.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(5, 8),rand(5, 8)) //resets the throwing variable above.
+			occupant.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(5, 8),rand(5, 8)) //resets the throwing variable above. Random values are independant on purpose to give variance to damage on wallslams and the distance the occupant is ejected.
 			occupant.visible_message("<span class='userdanger'>[occupant] is forcefully ejected from the mech!</span>", "<span class='userdanger'>You are forcefully ejected from the mech!</span>", null, COMBAT_MESSAGE_RANGE)
 			playsound(src, 'sound/machines/scanbuzz.ogg', 60, FALSE)
 			playsound(src, 'sound/vehicles/carcannon1.ogg', 150, TRUE)
