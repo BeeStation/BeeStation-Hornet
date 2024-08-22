@@ -1450,6 +1450,7 @@
 #include "code\game\objects\items\food\snacks.dm"
 #include "code\game\objects\items\food\soup.dm"
 #include "code\game\objects\items\food\spaghetti.dm"
+#include "code\game\objects\items\food\sushi.dm"
 #include "code\game\objects\items\food\sweets.dm"
 #include "code\game\objects\items\food\vegetables.dm"
 #include "code\game\objects\items\grenades\_grenade.dm"
