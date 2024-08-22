@@ -64,14 +64,14 @@
 
 /obj/item/food/sushi_roll/vegetarian
 	name = "vegetarian sushi roll"
-	desc = "A roll of simple vegetarian sushi with rice, carrots, and potatoes. Sliceable into pieces!"
+	desc = "A roll of simple vegetarian sushi with rice, carrots, and cabbage. Sliceable into pieces!"
 	icon_state = "vegetariansushiroll"
 	tastes = list("boiled rice" = 4, "carrots" = 2, "potato" = 2)
 	slice_type = /obj/item/food/sushi_slice/vegetarian
 
 /obj/item/food/sushi_slice/vegetarian
 	name = "vegetarian sushi slice"
-	desc = "A roll of simple vegetarian sushi with rice, carrots, and potatoes."
+	desc = "A roll of simple vegetarian sushi with rice, carrots, and cabbage."
 	icon_state = "vegetariansushislice"
 	tastes = list("boiled rice" = 4, "carrots" = 2, "potato" = 2)
 
