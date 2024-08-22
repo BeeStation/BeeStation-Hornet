@@ -173,6 +173,7 @@
 	)
 	result = /obj/item/food/pingles
 	subcategory = CAT_MISCFOOD
+
 /datum/crafting_recipe/food/swirl_lollipop
 	name = "swirl lollipop"
 	reqs = list(
@@ -181,4 +182,13 @@
 		/datum/reagent/drug/happiness = 5,
 		)
 	result = /obj/item/food/swirl_lollipop
+	subcategory = CAT_MISCFOOD
+
+/datum/crafting_recipe/food/onigiri
+	name = "Onigiri"
+	reqs = list(
+		/obj/item/food/salad/boiledrice = 1,
+		/obj/item/food/seaweed_sheet = 1,
+	)
+	result = /obj/item/food/onigiri
 	subcategory = CAT_MISCFOOD

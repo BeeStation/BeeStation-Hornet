@@ -104,7 +104,7 @@
 
 /obj/item/food/sushi_roll/futomaki
 	name = "futomaki sushi roll"
-	desc = "A roll of futomaki sushi, made of boiled egg, fish, and cucumber. Sliceable"
+	desc = "A roll of futomaki sushi, made of boiled egg, fish, and cabbage. Sliceable"
 	icon_state = "futomaki_sushi_roll"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 12,
@@ -117,39 +117,39 @@
 
 /obj/item/food/sushi_slice/futomaki
 	name = "futomaki sushi slice"
-	desc = "A slice of futomaki sushi, made of boiled egg, fish, and cucumber."
+	desc = "A slice of futomaki sushi, made of boiled egg, fish, and cabbage."
 	icon_state = "futomaki_sushi_slice"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
 	)
-	tastes = list("boiled rice" = 4, "fish" = 5, "egg" = 3, "dried seaweed" = 2, "cucumber" = 2)
+	tastes = list("boiled rice" = 4, "fish" = 5, "egg" = 3, "dried seaweed" = 2, "cabbage" = 2)
 	foodtypes = VEGETABLES | MEAT
 
 /obj/item/food/sushi_roll/philadelphia
 	name = "Philadelphia sushi roll"
-	desc = "A roll of Philadelphia sushi, made of cheese, fish, and cucumber. Sliceable"
+	desc = "A roll of Philadelphia sushi, made of cheese, fish, and cabbage. Sliceable"
 	icon_state = "philadelphia_sushi_roll"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 12,
 		/datum/reagent/consumable/nutriment/protein = 8,
 		/datum/reagent/consumable/nutriment/vitamin = 8,
 	)
-	tastes = list("boiled rice" = 4, "fish" = 5, "creamy cheese" = 3, "dried seaweed" = 2, "cucumber" = 2)
+	tastes = list("boiled rice" = 4, "fish" = 5, "creamy cheese" = 3, "dried seaweed" = 2, "cabbage" = 2)
 	foodtypes = VEGETABLES | MEAT | DAIRY
 	slice_type = /obj/item/food/sushi_slice/philadelphia
 
 /obj/item/food/sushi_slice/philadelphia
 	name = "Philadelphia sushi slice"
-	desc = "A roll of Philadelphia sushi, made of cheese, fish, and cucumber."
+	desc = "A roll of Philadelphia sushi, made of cheese, fish, and cabbage."
 	icon_state = "philadelphia_sushi_slice"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/consumable/nutriment/vitamin = 2,
 	)
-	tastes = list("boiled rice" = 4, "fish" = 5, "creamy cheese" = 3, "dried seaweed" = 2, "cucumber" = 2)
+	tastes = list("boiled rice" = 4, "fish" = 5, "creamy cheese" = 3, "dried seaweed" = 2, "cabbage" = 2)
 	foodtypes = VEGETABLES | MEAT | DAIRY
 
 /obj/item/food/nigiri_sushi
