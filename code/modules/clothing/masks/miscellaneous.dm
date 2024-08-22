@@ -369,7 +369,7 @@
 			message = replacetextEx(message,regex(key,"g"), "[value]")
 	speech_args[SPEECH_MESSAGE] = trim(message)
 
-/obj/item/clothing/mask/supervillain
+/obj/item/clothing/mask/supervillain // https://www.youtube.com/watch?v=gSJeHDlhYls
 	name = "SUPER VILLAIN MASK"
 	desc = "ALL CAPS when you spell the man's name."
 	icon_state = "VILLAIN"
