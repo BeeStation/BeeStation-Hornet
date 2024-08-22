@@ -21,7 +21,10 @@ regex_path_name="^\s*(?:\/\w+)*\/?proc\/((?:[a-z]+[A-Z]+[a-z]*_|[a-z]*[A-Z]+[a-z
 for code in code/**/*.dm
 do
 	if [[ code =~ "LINT_PATHNAME_IGNORE"]]
-    if [[ code =~ $regex_path_name]] # If it starts with brackets it's a list
+	then
+		continue
+	fi
+	if [[ code =~ $regex_path_name]] # If it starts with brackets it's a list
     then
 		echo "The proc ${BASH_REMATCH[1]} contains upper-case letters when it should use snake_case."
 		st=1
