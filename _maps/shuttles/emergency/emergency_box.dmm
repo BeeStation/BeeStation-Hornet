@@ -580,7 +580,6 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/structure/table,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/open/floor/iron/white,
