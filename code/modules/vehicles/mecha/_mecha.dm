@@ -222,7 +222,7 @@
 			occupant.Stun(2 SECONDS)
 			occupant.Knockdown(destruction_knockdown_duration)
 			occupant.throwing = TRUE //This is somewhat hacky, but is the best option available to avoid chasm detection for the split second between the next two lines
-			occupant.forceMove(loc)
+			occupant.forceMove(get_turf(loc))
 			occupant.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(5, 8),rand(5, 8)) //resets the throwing variable above.
 			occupant.visible_message("<span class='userdanger'>[occupant] is forcefully ejected from the mech!</span>", "<span class='userdanger'>You are forcefully ejected from the mech!</span>", null, COMBAT_MESSAGE_RANGE)
 			playsound(src, 'sound/machines/scanbuzz.ogg', 60, FALSE)
