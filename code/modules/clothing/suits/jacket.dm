@@ -109,7 +109,7 @@
 	icon_state = "aristo_blue"
 	item_state = "aristo_blue"
 
-/obj/item/clothing/suit/jacket/underground_serpents// https://www.youtube.com/watch?v=S0ximxe4XtU&
+/obj/item/clothing/suit/jacket/underground_serpents//https://www.youtube.com/watch?v=S0ximxe4XtU&
 	name = "underground serpents jacket"
 	desc = "Underground Serpents Rule! We are the Undeground Serpents. That's us, and we rule!"
 	icon_state = "underground_serpents_jacket"
