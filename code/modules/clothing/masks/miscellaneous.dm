@@ -370,7 +370,7 @@
 	speech_args[SPEECH_MESSAGE] = trim(message)
 
 /obj/item/clothing/mask/supervillain//https://www.youtube.com/watch?v=gSJeHDlhYls
-	name = "SUPER VILLAIN masK"
+	name = "SUPER VILLAIN mask"
 	desc = "ALL CAPS when you spell the man's name."
 	icon_state = "VILLAIN"
 	item_state = "VILLAIN"
