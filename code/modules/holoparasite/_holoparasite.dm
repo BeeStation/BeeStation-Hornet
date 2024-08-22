@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	light_on = FALSE
 	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
-	movement_type = FLYING // Immunity to chasms and landmines, etc.
+	is_flying_animal = TRUE // Immunity to chasms and landmines, etc.
 	attack_sound = "punch"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0

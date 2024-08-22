@@ -44,7 +44,7 @@
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
-	movement_type = FLYING
+	is_flying_animal = TRUE
 	gold_core_spawnable = HOSTILE_SPAWN
 	search_objects = 1 //have to find those plant trays!
 	ventcrawler = VENTCRAWLER_ALWAYS
