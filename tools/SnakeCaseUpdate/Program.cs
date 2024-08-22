@@ -37,7 +37,7 @@ foreach (var file in files)
 		var funcName = match.Groups[1].Value;
 
 		// Fine... you get the right to live
-		if (funcName == "Initialize")
+		if (funcName == "Initialize" || funcName == "Destroy" || funcName == "Entered" || funcName == "Exited" || funcName == "Animate")
 			continue;
 
 		if (!string.IsNullOrEmpty(funcName) && funcName.Length >= minFunctionNameLength)

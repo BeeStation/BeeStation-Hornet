@@ -1,3 +1,5 @@
+// LINT_PATHNAME_IGNORE
+
 // tgstation-server DMAPI
 // The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in IETF RFC 2119.
 

@@ -1,3 +1,5 @@
+// LINT_PATHNAME_IGNORE
+
 SUBSYSTEM_DEF(dbcore)
 	name = "Database"
 	flags = SS_TICKER
