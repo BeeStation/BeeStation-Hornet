@@ -119,6 +119,8 @@
 		container_resist(user)
 
 /obj/item/pet_carrier/container_resist(mob/living/user)
+	if(world.time < user.last_special)
+		return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
 	if(user.mob_size <= MOB_SIZE_SMALL)
@@ -170,13 +172,14 @@
 	user.visible_message("<span class='notice'>[user] starts loading [target] into [src].</span>", \
 	"<span class='notice'>You start loading [target] into [src]...</span>", null, null, target)
 	to_chat(target, "<span class='userdanger'>[user] starts loading you into [user.p_their()] [name]!</span>")
-	if(!do_after(user, 3 SECONDS, target))
-		return
 	if(target in occupants)
 		return
 	if(pet_carrier_full(src)) //Run the checks again, just in case
 		to_chat(user, "<span class='warning'>[src] is already carrying too much!</span>")
 		return
+	if(target.mob_size >= MOB_SIZE_HUMAN) // If the mob is small or smaller, no need for a do_after.
+		if(!do_after(user, 3 SECONDS, target)) // If the mob is small or smaller, no need for a do_after.
+			return
 	user.visible_message("<span class='notice'>[user] loads [target] into [src]!</span>", \
 	"<span class='notice'>You load [target] into [src].</span>", null, null, target)
 	to_chat(target, "<span class='userdanger'>[user] loads you into [user.p_their()] [name]!</span>")
