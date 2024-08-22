@@ -13,7 +13,7 @@ static void UpdateFile(string filePath, string oldName, string newName)
 		return;
 	Console.WriteLine($"Updated {oldName} to {newName} in {filePath}");
 
-	//File.WriteAllText(filePath, updated);
+	File.WriteAllText(filePath, updated);
 }
 
 string basePath = "../../../../../code";
@@ -36,6 +36,10 @@ foreach (var file in files)
 	{
 		var funcName = match.Groups[1].Value;
 
+		// Fine... you get the right to live
+		if (funcName == "Initialize")
+			continue;
+
 		if (!string.IsNullOrEmpty(funcName) && funcName.Length >= minFunctionNameLength)
 		{
 			string snakeCaseName = ToSnakeCase(funcName);
@@ -44,14 +48,9 @@ foreach (var file in files)
 			Console.WriteLine($"Updating function {funcName} to {snakeCaseName} in {file}");
 			Console.ResetColor();
 
-			// Update function name in the definition
-			UpdateFile(file, funcName, snakeCaseName);
-
 			// Update function references in the entire codebase
 			foreach (var refFile in files)
 			{
-				if (refFile == file) continue; // Skip the file being updated
-
 				UpdateFile(refFile, funcName, snakeCaseName);
 			}
 		}
