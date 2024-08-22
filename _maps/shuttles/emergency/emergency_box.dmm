@@ -436,6 +436,12 @@
 /obj/item/radio/intercom/directional/east,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"lq" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/wood/big,
+/area/shuttle/escape)
 "lO" = (
 /obj/structure/extinguisher_cabinet{
 	dir = 4;
@@ -1225,6 +1231,12 @@
 /obj/machinery/vending/boozeomat,
 /turf/open/floor/wood/big,
 /area/shuttle/escape)
+"WV" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/wood/big,
+/area/shuttle/escape)
 "Zt" = (
 /obj/structure/closet,
 /obj/effect/turf_decal/delivery,
@@ -1692,7 +1704,7 @@ bl
 uC
 Lg
 yF
-at
+WV
 at
 nY
 ah
@@ -1902,7 +1914,7 @@ kA
 uC
 az
 aq
-at
+lq
 at
 ah
 ah
