@@ -794,9 +794,6 @@
 "jb" = (
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
-"kd" = (
-/turf/template_noop,
-/area/shuttle/escape)
 "mw" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/structure/chair/fancy/corp,
@@ -979,11 +976,6 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
-"ON" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/template_noop)
 "OQ" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
@@ -998,7 +990,7 @@
 	name = "Escape Shuttle Infirmary"
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/mineral/titanium/white,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "PV" = (
 /obj/effect/turf_decal/tile/blue{
@@ -1019,6 +1011,11 @@
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
 /turf/open/floor/iron/dark/side,
+/area/shuttle/escape)
+"Ro" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/open/floor/grass,
 /area/shuttle/escape)
 "RM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1074,9 +1071,6 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
-"WQ" = (
-/turf/closed/wall/mineral/titanium,
-/area/template_noop)
 "Xm" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Cargo Bay Airlock"
@@ -1105,6 +1099,11 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
+"ZP" = (
+/obj/structure/chair/fancy/shuttle,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/carpet/grimy,
+/area/shuttle/escape)
 "ZQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -1112,8 +1111,8 @@
 /area/shuttle/escape)
 
 (1,1,1) = {"
-kd
-kd
+aa
+aa
 rY
 aQ
 au
@@ -1129,7 +1128,7 @@ aa
 aa
 "}
 (2,1,1) = {"
-kd
+aa
 ad
 ay
 ay
@@ -1320,7 +1319,7 @@ ad
 uD
 bV
 bN
-aE
+Ro
 aT
 ar
 aS
@@ -1351,7 +1350,7 @@ ad
 "}
 (15,1,1) = {"
 ag
-aT
+ZP
 bV
 bN
 aE
@@ -1520,14 +1519,14 @@ bR
 ad
 "}
 (25,1,1) = {"
-WQ
-WQ
-ON
-ON
-WQ
-ON
-ON
-WQ
+ad
+ad
+Li
+Li
+ad
+Li
+Li
+ad
 ad
 ad
 Li
