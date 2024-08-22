@@ -160,9 +160,9 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 		return FALSE
 	if(is_occupied() || QDELETED(brainmob) || QDELETED(src) || QDELETED(user))
 		return FALSE
-	/*if(user.ckey in GLOB.posi_key_list)
+	if(user.ckey in GLOB.posi_key_list)
 		to_chat(user, "<span class='warning'>Positronic brain spawns limited to 1 per round.</span>")
-		return FALSE*/
+		return FALSE
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SILICONS))
 		to_chat(user, "<span class='warning'>Central Command has temporarily outlawed posibrain sentience in this sector...</span>")
 		return FALSE
