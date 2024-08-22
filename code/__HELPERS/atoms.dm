@@ -132,7 +132,7 @@
 		return FALSE
 	if(isliving(source))
 		var/mob/living/source_mob = source
-		if(source_mob.mobility_flags & MOBILITY_STAND)
+		if(source_mob.body_position == LYING_DOWN)
 			return FALSE
 	var/goal_dir = get_dir(source, target)
 	var/clockwise_source_dir = turn(source.dir, -45)

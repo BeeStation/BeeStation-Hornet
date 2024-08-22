@@ -3621,10 +3621,10 @@
 	dir = 6
 	},
 /obj/structure/window/reinforced,
-/obj/machinery/rnd/production/techfab/department/security,
 /obj/machinery/camera/autoname/directional/west{
 	network = list("ss13","security")
 	},
+/obj/structure/table,
 /turf/open/floor/iron,
 /area/security/brig)
 "btw" = (
@@ -24752,14 +24752,13 @@
 	alpha = 180;
 	dir = 4
 	},
-/obj/machinery/photocopier,
-/obj/effect/turf_decal/bot,
 /obj/machinery/newscaster{
 	pixel_y = 33
 	},
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/rnd/production/techfab/department/security,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "mtK" = (

@@ -55,10 +55,9 @@ Striking a noncultist, however, will tear their flesh."}
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "rended")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "rend")
 	force = 23
-	/// Force dealt to people that have holy protection, including from holding bibles
-	var/holy_force = 16
 
 /obj/item/melee/cultblade/Initialize(mapload)
 	. = ..()
@@ -324,7 +323,7 @@ Striking a noncultist, however, will tear their flesh."}
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/cursetime = 1800
 		var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
-		var/security_num = seclevel2num(get_security_level())
+		var/security_num = SSsecurity_level.get_current_level_as_number()
 		var/set_coefficient = 1
 		switch(security_num)
 			if(SEC_LEVEL_GREEN)
@@ -476,7 +475,8 @@ Striking a noncultist, however, will tear their flesh."}
 	throw_speed = 2
 	armour_penetration = 30
 	block_upgrade_walk = 1
-	attack_verb = list("attacked", "impaled", "stabbed", "tore", "gored")
+	attack_verb_continuous = list("attacks", "impales", "stabs", "tears", "lacerates", "gores")
+	attack_verb_simple = list("attack", "impale", "stab", "tear", "lacerate", "gore")
 	sharpness = IS_SHARP
 	bleed_force = BLEED_CUT
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -739,7 +739,8 @@ Striking a noncultist, however, will tear their flesh."}
 	max_integrity = 50
 	w_class = WEIGHT_CLASS_BULKY
 	block_flags = BLOCKING_PROJECTILE
-	attack_verb = list("bumped", "prodded")
+	attack_verb_continuous = list("bumps", "prods")
+	attack_verb_simple = list("bump", "prod")
 	hitsound = 'sound/weapons/smash.ogg'
 	var/illusions = 4
 

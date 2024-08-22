@@ -13,6 +13,11 @@
 	var/mob/living/split_personality/owner_backseat
 
 /datum/brain_trauma/severe/split_personality/on_gain()
+	var/mob/living/M = owner
+	//Dead and braindead people dont get a second voice
+	if(M.stat == DEAD || !M.client)
+		qdel(src)
+		return
 	..()
 	make_backseats()
 	get_ghost()
@@ -28,9 +33,6 @@
 
 /datum/brain_trauma/severe/split_personality/proc/get_ghost()
 	set waitfor = FALSE
-	if(owner.stat == DEAD || !owner.mind)
-		qdel(src)
-		return
 	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [owner]'s split personality?", ROLE_SPLIT_PERSONALITY, null, 7.5 SECONDS, stranger_backseat)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
@@ -43,7 +45,7 @@
 /datum/brain_trauma/severe/split_personality/on_life()
 	if(owner.stat == DEAD)
 		if(current_controller != OWNER)
-			switch_personalities()
+			switch_personalities(TRUE)
 		qdel(src)
 	else if(prob(3))
 		switch_personalities()
@@ -51,30 +53,27 @@
 
 /datum/brain_trauma/severe/split_personality/on_lose()
 	if(current_controller != OWNER) //it would be funny to cure a guy only to be left with the other personality, but it seems too cruel
-		switch_personalities()
+		switch_personalities(TRUE)
 	QDEL_NULL(stranger_backseat)
 	QDEL_NULL(owner_backseat)
 	..()
 
-/datum/brain_trauma/severe/split_personality/Destroy()
-	if(stranger_backseat)
-		QDEL_NULL(stranger_backseat)
-	if(owner_backseat)
-		QDEL_NULL(owner_backseat)
-	return ..()
 
-/datum/brain_trauma/severe/split_personality/proc/switch_personalities()
+/datum/brain_trauma/severe/split_personality/proc/switch_personalities(reset_to_owner = FALSE)
 	if(QDELETED(owner) || owner.stat == DEAD || QDELETED(stranger_backseat) || QDELETED(owner_backseat))
 		return
 
 	var/mob/living/split_personality/current_backseat
-	var/mob/living/split_personality/free_backseat
-	if(current_controller == OWNER)
-		current_backseat = stranger_backseat
-		free_backseat = owner_backseat
-	else
+	var/mob/living/split_personality/new_backseat
+	if(current_controller == STRANGER || reset_to_owner)
 		current_backseat = owner_backseat
-		free_backseat = stranger_backseat
+		new_backseat = stranger_backseat
+	else
+		current_backseat = stranger_backseat
+		new_backseat = owner_backseat
+
+	if(!current_backseat.client) //Make sure we never switch to a logged off mob.
+		return
 
 	log_game("[key_name(current_backseat)] assumed control of [key_name(owner)] due to [src]. (Original owner: [current_controller == OWNER ? owner.key : current_backseat.key])")
 	to_chat(owner, "<span class='userdanger'>You feel your control being taken away... your other personality is in charge now!</span>")
@@ -87,18 +86,21 @@
 	owner.computer_id = null
 	owner.lastKnownIP = null
 
-	free_backseat.ckey = owner.ckey
+	new_backseat.ckey = owner.ckey
 
-	free_backseat.name = owner.name
+	new_backseat.name = owner.name
 
 	if(owner.mind)
-		free_backseat.mind = owner.mind
+		new_backseat.mind = owner.mind
 
-	if(!free_backseat.computer_id)
-		free_backseat.computer_id = h2b_id
+	if(!new_backseat.computer_id)
+		new_backseat.computer_id = h2b_id
 
-	if(!free_backseat.lastKnownIP)
-		free_backseat.lastKnownIP = h2b_ip
+	if(!new_backseat.lastKnownIP)
+		new_backseat.lastKnownIP = h2b_ip
+
+	if(reset_to_owner && new_backseat.mind)
+		new_backseat.ghostize(FALSE)
 
 	//Backseat to body
 
@@ -149,7 +151,9 @@
 	..()
 
 /mob/living/split_personality/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	to_chat(src, "<span class='notice'>As a split personality, you cannot do anything but observe. However, you will eventually gain control of your body, switching places with the current personality.</span>")
 	to_chat(src, "<span class='warning'><b>Do not commit suicide or put the body in a deadly position. Behave like you care about it as much as the owner.</b></span>")
 
@@ -207,8 +211,9 @@
 	return //no random switching
 
 /datum/brain_trauma/severe/split_personality/brainwashing/handle_hearing(datum/source, list/hearing_args)
-	if(HAS_TRAIT(owner, TRAIT_DEAF) || owner == hearing_args[HEARING_SPEAKER])
+	if(!owner.can_hear() || owner == hearing_args[HEARING_SPEAKER])
 		return
+
 	var/message = hearing_args[HEARING_RAW_MESSAGE]
 	if(findtext(message, codeword))
 		hearing_args[HEARING_RAW_MESSAGE] = replacetext(message, codeword, "<span class='warning'>[codeword]</span>")
@@ -225,7 +230,9 @@
 	var/codeword
 
 /mob/living/split_personality/traitor/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	to_chat(src, "<span class='notice'>As a brainwashed personality, you cannot do anything yet but observe. However, you may gain control of your body if you hear the special codeword, switching places with the current personality.</span>")
 	to_chat(src, "<span class='notice'>Your activation codeword is: <b>[codeword]</b></span>")
 	if(objective)
