@@ -38,8 +38,8 @@
 		SIGNAL_REMOVETRAIT(TRAIT_NODEATH),
 	), PROC_REF(update_succumb_action))
 
-	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_ENABLED, .proc/on_movement_type_flag_enabled)
-	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_DISABLED, .proc/on_movement_type_flag_disabled)
+	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_ENABLED, PROC_REF(on_movement_type_flag_enabled))
+	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_DISABLED, PROC_REF(on_movement_type_flag_disabled))
 
 ///Called when TRAIT_KNOCKEDOUT is added to the mob.
 /mob/living/proc/on_knockedout_trait_gain(datum/source)
