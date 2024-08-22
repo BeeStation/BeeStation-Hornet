@@ -485,7 +485,7 @@
 "pt" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig";
-	req_access_txt = s
+	req_access_txt = "2"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/dark_red{
