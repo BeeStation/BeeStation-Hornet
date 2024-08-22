@@ -32,7 +32,7 @@
 
 /obj/item/food/seaweed_sheet
 	name = "seaweed sheet"
-	desc = "A dried sheet of seaweed used for making sushi."
+	desc = "A dried sheet of seaweed used for making sushi. Use an ingredient on it to start making custom sushi!"
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "seaweed_sheet"
 	food_reagents = list(
@@ -42,6 +42,25 @@
 	tastes = list("seaweed" = 1)
 	foodtypes = VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/seaweed_sheet/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/sushi_roll/empty, CUSTOM_INGREDIENT_ICON_FILL, max_ingredients = 6)
+
+/obj/item/food/sushi_roll/empty //for custom sushi creation
+	name = "sushi"
+	desc = "A roll of customized sushi."
+	icon_state = "vegetariansushiroll"
+	tastes = list()
+	foodtypes = NONE
+	slice_type = /obj/item/food/sushi_slice/empty
+
+/obj/item/food/sushi_slice/empty
+	name = "sushi slice"
+	desc = "A slice of customized sushi."
+	icon_state = "vegetariansushislice"
+	tastes = list()
+	foodtypes = NONE
 
 /obj/item/food/sushi_roll/vegetarian
 	name = "vegetarian sushi roll"
