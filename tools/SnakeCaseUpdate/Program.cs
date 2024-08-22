@@ -8,8 +8,7 @@ static string ToSnakeCase(string name)
 static bool UpdateFile(string filePath, string oldName, string newName)
 {
 	var text = File.ReadAllText(filePath);
-	var updated = Regex.Replace(text, $@"[^/]{Regex.Escape(oldName)}\(", $"{newName}(", RegexOptions.Multiline);
-	updated = Regex.Replace(text, $@"_REF\({Regex.Escape(oldName)}\)", @$"REF\({newName}\)", RegexOptions.Multiline);
+	var updated = Regex.Replace(text, $@"([^/]|_REF\(){Regex.Escape(oldName)}[()]", $"$1{newName}(", RegexOptions.Multiline);
 	if (updated == text)
 		return false;
 	File.WriteAllText(filePath, updated);
