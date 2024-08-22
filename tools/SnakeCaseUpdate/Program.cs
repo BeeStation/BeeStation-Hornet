@@ -5,15 +5,14 @@ static string ToSnakeCase(string name)
 	return Regex.Replace(name, "([a-z])([A-Z])", "$1_$2").ToLower();
 }
 
-static void UpdateFile(string filePath, string oldName, string newName)
+static bool UpdateFile(string filePath, string oldName, string newName)
 {
 	var text = File.ReadAllText(filePath);
 	var updated = Regex.Replace(text, $@"\b{Regex.Escape(oldName)}\(", $"{newName}(", RegexOptions.Multiline);
 	if (updated == text)
-		return;
-	Console.WriteLine($"Updated {oldName} to {newName} in {filePath}");
-
+		return false;
 	File.WriteAllText(filePath, updated);
+	return true;
 }
 
 string basePath = "../../../../../code";
@@ -22,6 +21,13 @@ string ignoreString = "LINT_PATHNAME_IGNORE";
 int minFunctionNameLength = 7;
 
 var files = Directory.EnumerateFiles(basePath, "*.dm", SearchOption.AllDirectories);
+
+Dictionary<string, string> updatedFunctionNames = new Dictionary<string, string>();
+
+List<string> skippedFunctionNames = new List<string>();
+
+
+Console.ForegroundColor = ConsoleColor.Yellow;
 
 foreach (var file in files)
 {
@@ -43,22 +49,32 @@ foreach (var file in files)
 		if (!string.IsNullOrEmpty(funcName) && funcName.Length >= minFunctionNameLength)
 		{
 			string snakeCaseName = ToSnakeCase(funcName);
-
-			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine($"Updating function {funcName} to {snakeCaseName} in {file}");
-			Console.ResetColor();
-
-			// Update function references in the entire codebase
-			foreach (var refFile in files)
-			{
-				UpdateFile(refFile, funcName, snakeCaseName);
-			}
+			updatedFunctionNames.TryAdd(funcName, snakeCaseName);
+			Console.WriteLine($"Renaming {funcName} to {snakeCaseName}");
 		}
 		else
 		{
-			Console.ForegroundColor = ConsoleColor.Red;
-			Console.WriteLine($"Skipped {funcName}");
-			Console.ResetColor();
+			skippedFunctionNames.Add(funcName);
 		}
 	}
 }
+
+Console.ForegroundColor = ConsoleColor.Green;
+Parallel.ForEach(files, (file, _, _) => {
+	int updates = 0;
+	foreach (var update in updatedFunctionNames)
+	{
+		updates += UpdateFile(file, update.Key, update.Value) ? 1 : 0;
+	}
+	if (updates > 0)
+		Console.WriteLine($"Updating {file}, applied {updates} updates...");
+});
+Console.ResetColor();
+
+Console.ForegroundColor = ConsoleColor.Red;
+Console.WriteLine($"Skipped the following function names due to being too short to reliably rename:");
+foreach (var skipped in skippedFunctionNames)
+{
+	Console.WriteLine(skipped);
+}
+Console.ResetColor();
