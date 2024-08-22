@@ -1,5 +1,0 @@
-author: Dejaku51
-delete-after: true
-changes:
-  - code_imp: Zfall and Elevator controller doesn't init anymore
-  - bugfix: Natural Light Cycle subsystem inits correctly
