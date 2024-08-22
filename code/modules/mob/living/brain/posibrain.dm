@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 
 		to_chat(NP, "<span class='warning'>Failed to Late Join as a Posibrain. Look higher in chat for the reason.</span>")
 		qdel(H)
-		return NP
+		return FALSE
 
 	qdel(H)
 	return P
