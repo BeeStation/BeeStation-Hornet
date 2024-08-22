@@ -1,3 +1,5 @@
+// LINT_PATHNAME_IGNORE
+
 /datum/tgs_version/New(raw_parameter)
 	..()
 	src.raw_parameter = raw_parameter

@@ -1,3 +1,5 @@
+// LINT_PATHNAME_IGNORE
+
 /datum/tgs_event_handler/impl
 	var/datum/timedevent/reattach_timer
 
