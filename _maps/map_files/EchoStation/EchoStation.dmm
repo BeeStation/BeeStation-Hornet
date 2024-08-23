@@ -22573,7 +22573,7 @@
 "kTN" = (
 /obj/machinery/door/airlock{
 	name = "Service Hall";
-	req_one_access_txt = "12;22;25;26;28;35;37;38;46"
+	req_one_access_txt = "22;25;26;28;35;37;38;46"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/structure/cable/yellow{
@@ -30468,9 +30468,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "oRp" = (
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
 /obj/effect/decal/cleanable/oil,
 /obj/machinery/food_cart,
 /turf/open/floor/plating,
@@ -44113,7 +44110,7 @@
 "vBm" = (
 /obj/machinery/door/airlock{
 	name = "Service Hall";
-	req_one_access_txt = "12;22;25;26;28;35;37;38;46"
+	req_one_access_txt = "22;25;26;28;35;37;38;46"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
