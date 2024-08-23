@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - code_imp: Cleans up the code by removing LAssailant from mobs. Attacking something
-      that a slime is feeding on will no longer cause it to become your friend.
