@@ -132,9 +132,10 @@
 /datum/crafting_recipe/food/ricepudding
 	name = "Rice pudding"
 	reqs = list(
+		/obj/item/reagent_containers/glass/bowl = 1,
 		/datum/reagent/consumable/milk = 5,
 		/datum/reagent/consumable/sugar = 5,
-		/obj/item/food/salad/boiledrice = 1
+		/obj/item/food/boiledrice = 1
 	)
 	result = /obj/item/food/salad/ricepudding
 	subcategory = CAT_MISCFOOD
@@ -187,7 +188,7 @@
 /datum/crafting_recipe/food/onigiri
 	name = "Onigiri"
 	reqs = list(
-		/obj/item/food/salad/boiledrice = 1,
+		/obj/item/food/boiledrice = 1,
 		/obj/item/food/seaweed_sheet = 1,
 	)
 	result = /obj/item/food/onigiri

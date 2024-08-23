@@ -44,7 +44,7 @@
 	name ="Vegetarian sushi roll"
 	reqs = list(
 		/obj/item/food/seaweed_sheet = 1,
-		/obj/item/food/salad/boiledrice = 1,
+		/obj/item/food/boiledrice = 1,
 		/obj/item/food/grown/carrot = 1,
 		/obj/item/food/grown/cabbage = 1
 	)
@@ -55,7 +55,7 @@
 	name ="Spicy filet sushi roll"
 	reqs = list(
 		/obj/item/food/seaweed_sheet = 1,
-		/obj/item/food/salad/boiledrice = 1,
+		/obj/item/food/boiledrice = 1,
 		/obj/item/food/fishmeat/carp = 1,
 		/obj/item/food/grown/chili = 1,
 		/obj/item/food/grown/onion = 1
@@ -67,7 +67,7 @@
 	name ="Futomaki sushi roll"
 	reqs = list(
 		/obj/item/food/seaweed_sheet = 1,
-		/obj/item/food/salad/boiledrice = 1,
+		/obj/item/food/boiledrice = 1,
 		/obj/item/food/boiledegg = 1,
 		/obj/item/food/fishmeat/carp = 1,
 		/obj/item/food/grown/cabbage = 1,
@@ -79,7 +79,7 @@
 	name ="Philadelphia sushi roll"
 	reqs = list(
 		/obj/item/food/seaweed_sheet = 1,
-		/obj/item/food/salad/boiledrice = 1,
+		/obj/item/food/boiledrice = 1,
 		/obj/item/food/cheese/wedge = 1,
 		/obj/item/food/fishmeat/carp = 1,
 		/obj/item/food/grown/cabbage = 1,
@@ -91,7 +91,7 @@
 	name ="Nigiri sushi"
 	reqs = list(
 		/obj/item/food/seaweed_sheet = 1,
-		/obj/item/food/salad/boiledrice = 1,
+		/obj/item/food/boiledrice = 1,
 		/obj/item/food/fishmeat/carp = 1,
 		/datum/reagent/consumable/soysauce = 2
 	)

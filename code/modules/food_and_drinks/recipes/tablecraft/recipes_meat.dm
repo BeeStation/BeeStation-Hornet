@@ -174,7 +174,8 @@
 /datum/crafting_recipe/food/ricepork
 	name = "Rice and Pork"
 	reqs = list(
-		/obj/item/food/salad/boiledrice = 1,
+		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/food/boiledrice = 1,
 		/obj/item/food/meat/cutlet = 2
 	)
 	result = /obj/item/food/salad/ricepork
