@@ -90,13 +90,9 @@
 /obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
-	START_PROCESSING(SSobj, src)
-
-/obj/item/clothing/suit/space/hostile_environment/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
 
 /obj/item/clothing/suit/space/hostile_environment/process(delta_time)
+	. = ..()
 	var/mob/living/carbon/C = loc
 	if(istype(C) && DT_PROB(1, delta_time)) //cursed by bubblegum
 		if(DT_PROB(7.5, delta_time))

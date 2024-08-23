@@ -7,8 +7,14 @@
 	limb_destroyer = TRUE
 	hud_type = /datum/hud/alien
 	deathsound = 'sound/voice/hiss6.ogg'
-	bodyparts = list(/obj/item/bodypart/chest/alien, /obj/item/bodypart/head/alien, /obj/item/bodypart/l_arm/alien,
-					/obj/item/bodypart/r_arm/alien, /obj/item/bodypart/r_leg/alien, /obj/item/bodypart/l_leg/alien)
+	bodyparts = list(
+		/obj/item/bodypart/chest/alien,
+		/obj/item/bodypart/head/alien,
+		/obj/item/bodypart/l_arm/alien,
+		/obj/item/bodypart/r_arm/alien,
+		/obj/item/bodypart/r_leg/alien,
+		/obj/item/bodypart/l_leg/alien,
+		)
 	var/caste = ""
 	var/alt_icon = 'icons/mob/alienleap.dmi' //used to switch between the two alien icon files.
 	var/leap_on_click = FALSE

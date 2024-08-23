@@ -424,7 +424,7 @@
 			continue
 		if(isstructure(atm))
 			var/obj/structure/S = atm
-			S.obj_integrity = S.max_integrity
+			S.repair_damage(S.max_integrity - S.get_integrity())
 		else if(!is_type_in_typecache(atm, ctf_object_typecache))
 			qdel(atm)
 
@@ -568,7 +568,7 @@
 	name = "CTF"
 	ears = /obj/item/radio/headset
 	uniform = /obj/item/clothing/under/syndicate
-	suit = /obj/item/clothing/suit/space/hardsuit/shielded/ctf
+	suit = /obj/item/clothing/suit/armor/vest/ctf
 	toggle_helmet = FALSE // see the whites of their eyes
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
@@ -601,7 +601,7 @@
 	shoes = /obj/item/clothing/shoes/jackboots/fast
 
 /datum/outfit/ctf/red
-	suit = /obj/item/clothing/suit/space/hardsuit/shielded/ctf/red
+	suit = /obj/item/clothing/suit/armor/vest/ctf/red
 	r_hand = /obj/item/gun/ballistic/automatic/laser/ctf/red
 	l_pocket = /obj/item/ammo_box/magazine/recharge/ctf/red
 	r_pocket = /obj/item/ammo_box/magazine/recharge/ctf/red
@@ -611,7 +611,7 @@
 	shoes = /obj/item/clothing/shoes/jackboots/fast
 
 /datum/outfit/ctf/blue
-	suit = /obj/item/clothing/suit/space/hardsuit/shielded/ctf/blue
+	suit = /obj/item/clothing/suit/armor/vest/ctf/blue
 	r_hand = /obj/item/gun/ballistic/automatic/laser/ctf/blue
 	l_pocket = /obj/item/ammo_box/magazine/recharge/ctf/blue
 	r_pocket = /obj/item/ammo_box/magazine/recharge/ctf/blue

@@ -14,7 +14,7 @@
 	sight = SEE_SELF
 	throwforce = 0
 
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	unsuitable_atmos_damage = 0
 	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -101,6 +101,8 @@
 
 /mob/living/simple_animal/eminence/Login()
 	. = ..()
+	if(!. || !client)
+		return FALSE
 	var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(src, silent=TRUE)
 	S.prefix = CLOCKCULT_PREFIX_EMINENCE
 	to_chat(src, "<span class='large_brass'>You are the Eminence!</span>")
@@ -330,4 +332,8 @@
 	canhear_range = 0
 	radio_silent = TRUE
 	prison_radio = TRUE
-	broadcasting = TRUE
+
+
+/obj/item/radio/borg/eminence/Initialize(mapload)
+	. = ..()
+	set_broadcasting(TRUE)

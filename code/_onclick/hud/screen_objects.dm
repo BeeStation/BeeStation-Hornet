@@ -17,6 +17,21 @@
 	appearance_flags = APPEARANCE_UI
 	/// A reference to the owner HUD, if any.
 	var/datum/hud/hud = null
+	/**
+	 * Map name assigned to this object.
+	 * Automatically set by /client/proc/add_obj_to_map.
+	 */
+	var/assigned_map
+	/**
+	 * Mark this object as garbage-collectible after you clean the map
+	 * it was registered on.
+	 *
+	 * This could probably be changed to be a proc, for conditional removal.
+	 * But for now, this works.
+	 */
+	var/del_on_map_removal = TRUE
+	///Can we throw things at this
+	var/can_throw_target = FALSE
 
 /atom/movable/screen/examine(mob/user)
 	return list()
@@ -341,6 +356,11 @@
 		return
 	C.update_action_buttons_icon()
 
+/atom/movable/screen/spacesuit
+	name = "Space suit cell status"
+	icon_state = "spacesuit_0"
+	screen_loc = ui_spacesuit
+
 /atom/movable/screen/mov_intent
 	name = "run/walk toggle"
 	icon = 'icons/mob/screen_midnight.dmi'
@@ -399,7 +419,7 @@
 /atom/movable/screen/rest/Click()
 	if(isliving(usr))
 		var/mob/living/L = usr
-		L.lay_down()
+		L.toggle_resting()
 
 /atom/movable/screen/rest/update_icon_state()
 	var/mob/living/user = hud?.mymob

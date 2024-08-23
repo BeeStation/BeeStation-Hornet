@@ -290,9 +290,6 @@ Class Procs:
 			continue
 
 		movable_atom.forceMove(this_turf)
-		if(isliving(movable_atom))
-			var/mob/living/living_mob = movable_atom
-			living_mob.update_mobility()
 
 		if(occupant == movable_atom)
 			occupant = null
@@ -549,7 +546,7 @@ Class Procs:
 	. = new_frame
 	new_frame.set_anchored(TRUE)
 	if(!disassembled)
-		new_frame.obj_integrity = new_frame.max_integrity * 0.5 //the frame is already half broken
+		new_frame.update_integrity(new_frame.max_integrity * 0.5) //the frame is already half broken
 	transfer_fingerprints_to(new_frame)
 
 /obj/machinery/obj_break(damage_flag)

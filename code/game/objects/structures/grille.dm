@@ -149,11 +149,11 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
-		if(!shock(user, 100))
+		if(!shock(user, 100 * W.siemens_coefficient))
 			W.play_tool_sound(src, 100)
 			deconstruct()
 	else if((W.tool_behaviour == TOOL_SCREWDRIVER) && (isturf(loc) || anchored))
-		if(!shock(user, 90))
+		if(!shock(user, 90 * W.siemens_coefficient))
 			W.play_tool_sound(src, 100)
 			set_anchored(!anchored)
 			user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
@@ -161,7 +161,7 @@
 			return
 	else if(istype(W, /obj/item/stack/rods) && broken)
 		var/obj/item/stack/rods/R = W
-		if(!shock(user, 90))
+		if(!shock(user, 90 * W.siemens_coefficient))
 			user.visible_message("<span class='notice'>[user] rebuilds the broken grille.</span>", \
 								 "<span class='notice'>You rebuild the broken grille.</span>")
 			new grille_type(src.loc)
@@ -210,7 +210,7 @@
 			return
 //window placing end
 
-	else if(istype(W, /obj/item/shard) || !shock(user, 70))
+	else if(istype(W, /obj/item/shard) || !shock(user, 70 * W.siemens_coefficient))
 		return ..()
 
 /obj/structure/grille/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -238,6 +238,7 @@
 	..()
 
 /obj/structure/grille/obj_break()
+	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		new broken_type(src.loc)
 		var/drop_loc = drop_location()
@@ -296,12 +297,15 @@
 /obj/structure/grille/broken // Pre-broken grilles for map placement
 	icon_state = "brokengrille"
 	density = FALSE
-	obj_integrity = 20
 	broken = TRUE
 	rods_amount = 1
 	rods_broken = FALSE
 	grille_type = /obj/structure/grille
 	broken_type = null
+
+/obj/structure/grille/broken/Initialize(mapload)
+	. = ..()
+	take_damage(max_integrity * 0.6)
 
 /obj/structure/grille/prison //grilles that trigger prison lockdown under some circumstances
 	name = "prison grille"
