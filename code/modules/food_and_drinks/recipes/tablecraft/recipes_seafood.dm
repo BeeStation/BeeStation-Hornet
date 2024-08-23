@@ -92,7 +92,7 @@
 	reqs = list(
 		/obj/item/food/seaweed_sheet = 1,
 		/obj/item/food/salad/boiledrice = 1,
-		/obj/item/food/fishmeat = 1,
+		/obj/item/food/fishmeat/carp = 1,
 		/datum/reagent/consumable/soysauce = 2
 	)
 	result = /obj/item/food/nigiri_sushi
