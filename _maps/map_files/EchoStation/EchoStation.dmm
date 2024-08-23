@@ -3477,6 +3477,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
 /turf/open/floor/iron/white/side{
 	dir = 1
 	},
@@ -4478,6 +4481,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/ai_slipper{
+	uses = 10
 	},
 /turf/open/floor/iron,
 /area/security/brig)
@@ -5774,6 +5780,12 @@
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
+"ctk" = (
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "cto" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -9479,6 +9491,9 @@
 	network = list("ss13","rd")
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/hor)
 "eAc" = (
@@ -10144,6 +10159,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
+"ePf" = (
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
+/turf/open/floor/iron/tech,
+/area/engine/atmos)
 "ePt" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -12273,6 +12294,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/cafeteria)
 "fQo" = (
@@ -19804,6 +19828,14 @@
 	},
 /turf/open/floor/wood,
 /area/chapel/main)
+"jEa" = (
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "jEr" = (
 /obj/machinery/light{
 	dir = 4
@@ -21021,6 +21053,10 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/patients_rooms)
+"kdO" = (
+/obj/structure/sink/puddle,
+/turf/open/floor/plating/grass,
+/area/asteroid/paradise/surface)
 "kef" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -21793,6 +21829,10 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/security/brig)
+"kyp" = (
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradise/surface/grass)
 "kyr" = (
 /obj/machinery/door/window/brigdoor/northright{
 	id = "Cell 1";
@@ -22711,6 +22751,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
 /turf/open/floor/iron/dark,
 /area/engineering/hallway{
 	name = "Engineering Viewing Platform"
@@ -23211,6 +23254,10 @@
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"ljz" = (
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/beach/sand,
+/area/asteroid/paradise/surface/sand)
 "ljQ" = (
 /turf/closed/wall,
 /area/maintenance/department/eva)
@@ -24968,6 +25015,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/maintenance/department/bridge)
+"mgu" = (
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/grass,
+/area/asteroid/paradise/surface/grass)
 "mgK" = (
 /obj/structure/railing,
 /turf/open/openspace,
@@ -25233,6 +25284,16 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
 /area/crew_quarters/dorms)
+"moC" = (
+/obj/effect/turf_decal/siding/yellow,
+/obj/effect/turf_decal/trimline/yellow/warning,
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
+/turf/open/floor/iron/dark,
+/area/engineering/hallway{
+	name = "Engineering Viewing Platform"
+	})
 "moQ" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -25787,6 +25848,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/machinery/ai_slipper{
+	uses = 10
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
@@ -26659,6 +26723,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/machinery/ai_slipper{
+	uses = 10
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
@@ -38036,6 +38103,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/dark,
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central{
 	name = "-2 Primary Hallway"
@@ -38683,6 +38753,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/ai_slipper{
+	uses = 10
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -41557,6 +41630,12 @@
 /obj/effect/landmark/start/scientist,
 /turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
+"ulq" = (
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
+/turf/open/floor/iron,
+/area/science/mixing)
 "uma" = (
 /obj/structure/railing{
 	dir = 8
@@ -41574,6 +41653,9 @@
 /obj/effect/decal/cleanable/generic,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/ai_slipper{
+	uses = 10
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
@@ -44073,6 +44155,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
 "vzo" = (
@@ -45604,6 +45689,9 @@
 "wov" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/ai_slipper{
+	uses = 10
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/fitness/recreation)
@@ -47239,7 +47327,11 @@
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 8
 	},
-/obj/structure/signpost,
+/obj/structure/no_effect_signpost{
+	name = "Echo station";
+	pixel_x = -4;
+	pixel_y = 3
+	},
 /turf/open/floor/plating/grass,
 /area/asteroid/paradise/surface)
 "xfd" = (
@@ -58998,7 +59090,7 @@ drz
 igh
 nzj
 raX
-tRy
+ePf
 hfq
 fUi
 drz
@@ -64377,7 +64469,7 @@ rFo
 gWa
 eWh
 nFm
-rLR
+jEa
 oTq
 sQq
 xPV
@@ -64398,7 +64490,7 @@ xvc
 vuh
 lAM
 pCa
-dbm
+ctk
 kZz
 ghT
 amX
@@ -125823,13 +125915,13 @@ wjm
 scX
 eHd
 sPE
-rqF
-rqF
-rqF
-rqF
-rqF
-rqF
-rqF
+tHO
+tHO
+tHO
+tHO
+tHO
+tHO
+tHO
 vqI
 vqI
 vqI
@@ -129935,7 +130027,7 @@ kBd
 iUt
 uOa
 iYB
-hYe
+moC
 uOa
 uOa
 uOa
@@ -137107,7 +137199,7 @@ vqI
 vqI
 aqu
 kHD
-lEj
+ulq
 xku
 ubG
 uSG
@@ -250479,7 +250571,7 @@ lWr
 lyK
 uDA
 uDA
-yli
+mgu
 yli
 yli
 yli
@@ -250712,7 +250804,7 @@ uDA
 uDA
 uDA
 uDA
-uDA
+ljz
 yli
 yli
 yli
@@ -251720,7 +251812,7 @@ yli
 yli
 yli
 yli
-yli
+mgu
 yli
 yli
 yli
@@ -252758,7 +252850,7 @@ qCg
 qCg
 xwM
 yli
-kxS
+kyp
 kxS
 kxS
 qCg
@@ -252992,7 +253084,7 @@ dTC
 sTa
 nVI
 vMa
-wVV
+kdO
 kWT
 yli
 yli
@@ -254329,7 +254421,7 @@ qCg
 kxS
 kxS
 kxS
-kxS
+kyp
 yli
 yli
 sNi
@@ -255654,7 +255746,7 @@ yli
 yli
 yli
 yli
-yli
+mgu
 yli
 yli
 yli
@@ -258145,7 +258237,7 @@ dvc
 dvc
 dvc
 dvc
-yli
+mgu
 dvc
 dvc
 dvc
@@ -264393,7 +264485,7 @@ kxS
 kxS
 kxS
 kxS
-kxS
+kyp
 kxS
 kxS
 kxS
@@ -267124,7 +267216,7 @@ sNi
 yet
 xwM
 uDA
-kxS
+kyp
 dvc
 dvc
 dvc
@@ -269207,7 +269299,7 @@ sNi
 sNi
 yli
 yli
-yli
+mgu
 kxS
 kxS
 kxS
@@ -271016,7 +271108,7 @@ kxS
 kxS
 kxS
 kxS
-kxS
+kyp
 kxS
 kxS
 kxS
@@ -272268,7 +272360,7 @@ gpg
 uDA
 yli
 yli
-yli
+mgu
 yli
 yli
 yli
@@ -273636,7 +273728,7 @@ yli
 yli
 yli
 yli
-yli
+mgu
 yli
 yli
 yli
