@@ -114,10 +114,10 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 
 /// Resets the air of our testing room to its default
 /datum/unit_test/proc/restore_atmos()
-	//var/area/working_area = run_loc_floor_bottom_left.loc
-	//var/list/turf/to_restore = working_area.get_contained_turfs()
-	//for(var/turf/open/restore in to_restore)
-	//	restore.Initalize_Atmos()
+	var/area/working_area = run_loc_floor_bottom_left.loc
+	var/list/turf/to_restore = working_area.get_contained_turfs()
+	for(var/turf/open/restore in to_restore)
+		restore.Initalize_Atmos()
 
 /datum/unit_test/proc/test_screenshot(name, icon/icon)
 	if (!istype(icon))
