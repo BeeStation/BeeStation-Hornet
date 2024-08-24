@@ -24,7 +24,7 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 
 /proc/focused_tests()
 	var/list/focused_tests = list()
-	for (var/datum/unit_test/unit_test as anything in subtypesof(/datum/unit_test))
+	for (var/datum/unit_test/unit_test as anything in subtypesof(/datum/unit_test) - /datum/unit_test/map_test)
 		if (initial(unit_test.focus))
 			focused_tests += unit_test
 
