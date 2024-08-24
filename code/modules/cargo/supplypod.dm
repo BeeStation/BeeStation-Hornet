@@ -541,6 +541,8 @@
 		verticle_offset = initial(verticle_offset)
 	pixel_y = verticle_offset
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone_effect)
+
 /obj/effect/pod_landingzone_effect
 	name = ""
 	desc = ""
@@ -552,6 +554,8 @@
 	. = ..()
 	transform = matrix() * 1.5
 	animate(src, transform = matrix()*0.01, time = pod.delays[POD_TRANSIT]+pod.delays[POD_FALLING])
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone)
 
 /obj/effect/pod_landingzone //This is the object that forceMoves the supplypod to it's location
 	name = "Landing Zone Indicator"

@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SELF(/obj)
+
 /obj
 	animate_movement = SLIDE_STEPS
 	speech_span = SPAN_ROBOT

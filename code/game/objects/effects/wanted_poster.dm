@@ -7,6 +7,8 @@
 
 */
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster/wanted)
+
 /obj/item/poster/wanted
 	icon_state = "rolled_poster"
 	var/postHeaderText = "WANTED" // MAX 7 Characters

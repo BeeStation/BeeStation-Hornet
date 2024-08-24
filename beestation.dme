@@ -290,6 +290,7 @@
 #include "code\__HELPERS\stoplag.dm"
 #include "code\__HELPERS\string_assoc_lists.dm"
 #include "code\__HELPERS\string_lists.dm"
+#include "code\__HELPERS\test_helpers.dm"
 #include "code\__HELPERS\text.dm"
 #include "code\__HELPERS\time.dm"
 #include "code\__HELPERS\turfs.dm"

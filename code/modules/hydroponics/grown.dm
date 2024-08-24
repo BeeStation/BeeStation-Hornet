@@ -3,6 +3,8 @@
 // Data from the seeds carry over to these grown foods
 // ***********************************************************
 
+CREATION_TEST_IGNORE_SELF(/obj/item/food/grown)
+
 // Base type. Subtypes are found in /grown dir. Lavaland-based subtypes can be found in mining/ash_flora.dm
 /obj/item/food/grown
 	icon = 'icons/obj/hydroponics/harvest.dmi'

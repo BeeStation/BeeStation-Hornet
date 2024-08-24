@@ -710,8 +710,7 @@ so as to remain in compliance with the most up-to-date laws."
 			reorganize_alerts(M)
 	return 1
 
-/mob
-	var/list/alerts = list() // contains /atom/movable/screen/alert only // On /mob so clientless mobs will throw alerts properly
+/mob/var/list/alerts = list() // contains /atom/movable/screen/alert only // On /mob so clientless mobs will throw alerts properly
 
 /atom/movable/screen/alert/Click(location, control, params)
 	if(!usr || !usr.client)

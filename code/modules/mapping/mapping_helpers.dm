@@ -1,6 +1,6 @@
 //Landmarks and other helpers which speed up the mapping process and reduce the number of unique instances/subtypes of items/turf/ect
 
-
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/baseturf_helper)
 
 /obj/effect/baseturf_helper //Set the baseturfs of every turf in the /area/ it is placed.
 	name = "baseturf editor"
@@ -87,6 +87,7 @@
 	name = "lavaland baseturf editor"
 	baseturf = /turf/open/lava/smooth/lava_land_surface
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 
 /obj/effect/mapping_helpers
 	icon = 'icons/effects/mapping_helpers.dmi'

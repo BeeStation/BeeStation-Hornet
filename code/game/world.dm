@@ -163,7 +163,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
 	GLOB.prefs_log = "[GLOB.log_directory]/preferences.log"
 
-#ifdef UNIT_TESTS
+#if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
 	GLOB.test_log = file("[GLOB.log_directory]/tests.log")
 	start_log(GLOB.test_log)
 #endif
