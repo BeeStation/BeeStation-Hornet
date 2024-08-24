@@ -8,7 +8,7 @@
 	var/turf/spawn_at = run_loc_floor_bottom_left
 	var/list/ignore = list(
 		//this is somehow a subtype of /atom/movable, because of its purpose...
-		/image/appearance
+		/image/appearance,
 		//Never meant to be created, errors out the ass for mobcode reasons
 		/mob/living/carbon,
 		//Nother template type, doesn't like being created with no seed
@@ -25,7 +25,6 @@
 		/mob/dview,
 		//Xenobio basetypes
 		/obj/item/slimecross/gentle,
-
 	)
 	//This turf existing is an error in and of itself
 	ignore += typesof(/turf/baseturf_skipover)
