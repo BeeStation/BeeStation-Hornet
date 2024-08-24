@@ -220,12 +220,6 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 
 	qdel(test)
 
-/// Builds (and returns) a list of atoms that we shouldn't initialize in generic testing, like Create and Destroy.
-/// It is appreciated to add the reason why the atom shouldn't be initialized if you add it to this list.
-/datum/unit_test/proc/build_list_of_uncreatables()
-	RETURN_TYPE(/list)
-	return list()
-
 /proc/RunUnitTests()
 	CHECK_TICK
 

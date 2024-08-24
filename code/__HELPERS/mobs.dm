@@ -614,8 +614,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	. = view(range, GLOB.dview_mob)
 	GLOB.dview_mob.loc = null
 
-CREATION_TEST_IGNORE_SELF(/mob/dview)
-
 /mob/dview
 	name = "INTERNAL DVIEW MOB"
 	invisibility = 101
