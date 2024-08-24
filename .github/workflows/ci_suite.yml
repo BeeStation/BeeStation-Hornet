@@ -85,7 +85,7 @@ jobs:
           bash tools/ci/install_spaceman_dmm.sh dreamchecker
           bash tools/ci/install_ripgrep.sh
           tools/bootstrap/python -c ''
-      - name: Give Linters A Go
+      - name: Setup linters
         id: linter-setup
         run: ':'
       - name: Run Grep Checks
