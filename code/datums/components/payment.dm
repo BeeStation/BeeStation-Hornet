@@ -24,6 +24,8 @@
 		)
 	)
 
+CREATION_TEST_IGNORE_SUBTYPES(/datum/component/payment)
+
 /datum/component/payment/Initialize(_cost, _target, _style = PAYMENT_CLINICAL)
 	if(istext(_target))
 		target_acc = SSeconomy.get_budget_account(ACCOUNT_CIV_ID)

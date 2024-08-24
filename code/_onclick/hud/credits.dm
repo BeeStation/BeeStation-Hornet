@@ -60,6 +60,8 @@ GLOBAL_LIST(end_titles)
 	plane = SPLASHSCREEN_PLANE
 	var/matrix/target
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/credit)
+
 /atom/movable/screen/credit/Initialize(mapload, credited)
 	. = ..()
 	maptext = MAPTEXT("<font face='Verdana'>[credited]</font>")
@@ -85,6 +87,8 @@ GLOBAL_LIST(end_titles)
 /atom/movable/screen/credit/title_card
 	icon = 'icons/title_cards.dmi'
 	screen_loc = "4,1"
+
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/credit/title_card)
 
 /atom/movable/screen/credit/title_card/Initialize(mapload, credited, title_icon_state)
 	icon_state = title_icon_state

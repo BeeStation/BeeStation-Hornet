@@ -11,6 +11,8 @@
 	var/deadchat_mode
 	var/input_cooldown
 
+CREATION_TEST_IGNORE_SUBTYPES(/datum/component/deadchat_control)
+
 /datum/component/deadchat_control/Initialize(_deadchat_mode, _inputs, _input_cooldown = 12 SECONDS)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE

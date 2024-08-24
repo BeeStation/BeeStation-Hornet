@@ -230,6 +230,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	var/closed = TRUE
 	var/obj/item/storage/briefcase/launchpad/briefcase
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
+
 /obj/machinery/launchpad/briefcase/Initialize(mapload, briefcase)
     . = ..()
     if(!briefcase)
@@ -333,6 +335,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	var/sending = TRUE
 	//A weakref to our linked pad
 	var/datum/weakref/pad
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/launchpad_remote)
 
 /obj/item/launchpad_remote/Initialize(mapload, pad) //remote spawns linked to the briefcase pad
 	. = ..()

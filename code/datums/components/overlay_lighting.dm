@@ -73,6 +73,8 @@
 	///Cast range for the directional cast (how far away the atom is moved)
 	var/cast_range = 2
 
+CREATION_TEST_IGNORE_SUBTYPES(/datum/component/overlay_lighting)
+
 /datum/component/overlay_lighting/Initialize(_range, _power, _color, starts_on, is_directional)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE

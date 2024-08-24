@@ -452,6 +452,8 @@
 	/// Debug mode will simply yoink the user into the newly created holoparasite when enabled.
 	var/debug_mode = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
+
 /obj/item/holoparasite_creator/Initialize(mapload, datum/holoparasite_theme/theme_override)
 	. = ..()
 	builder = new(src, theme_override || theme, max_points, max_level, uses, debug_mode)

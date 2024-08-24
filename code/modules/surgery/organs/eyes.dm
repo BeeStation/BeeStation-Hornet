@@ -377,6 +377,8 @@
 	var/obj/item/organ/eyes/robotic/glow/parent
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
+
 /obj/effect/abstract/eye_lighting/Initialize(mapload, light_object_range, light_object_power, current_color_string, light_flags)
 	. = ..()
 	parent = loc

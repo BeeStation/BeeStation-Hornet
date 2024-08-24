@@ -141,6 +141,8 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	gold_core_spawnable = NO_SPAWN
 	var/obj/original_of_this = null
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/mimic/copy)
+
 /mob/living/simple_animal/hostile/mimic/copy/Initialize(mapload, obj/original, mob/living/creator, destroy_original = 0, no_googlies = FALSE)
 	. = ..()
 	if (no_googlies)

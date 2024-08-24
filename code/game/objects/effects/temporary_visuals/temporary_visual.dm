@@ -28,6 +28,8 @@
 /obj/effect/temp_visual/dir_setting
 	randomdir = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting)
+
 /obj/effect/temp_visual/dir_setting/Initialize(mapload, set_dir)
 	if(set_dir)
 		setDir(set_dir)

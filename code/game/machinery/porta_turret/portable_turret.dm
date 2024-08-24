@@ -874,6 +874,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	/// List of all linked turrets
 	var/list/turrets = list()
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/turretid)
+
 /obj/machinery/turretid/Initialize(mapload, ndir = 0, built = 0)
 	. = ..()
 	if(built)

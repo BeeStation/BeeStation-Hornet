@@ -194,6 +194,8 @@
 /atom/movable/screen/holoparasite/snare
 	var/datum/holoparasite_ability/lesser/snare/ability
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/snare)
+
 /atom/movable/screen/holoparasite/snare/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/snare/_ability)
 	. = ..()
 	if(!istype(_ability))
@@ -248,6 +250,8 @@
 	alpha = 100
 	/// A reference to the holoparasite ability that created this snare.
 	var/datum/holoparasite_ability/lesser/snare/ability
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/snare)
 
 /obj/effect/snare/Initialize(mapload, datum/holoparasite_ability/lesser/snare/_ability)
 	. = ..()

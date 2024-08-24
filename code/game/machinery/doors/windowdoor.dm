@@ -25,6 +25,8 @@
 	var/rods = 2
 	var/cable = 1
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
+
 /obj/machinery/door/window/Initialize(mapload, set_dir, unres_sides)
 	. = ..()
 	if(set_dir)

@@ -42,6 +42,8 @@
 	var/spawn_amt_left = 20
 	var/spawn_fast = 0
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
+
 /obj/effect/rend/Initialize(mapload, var/spawn_type, var/spawn_amt, var/desc, var/spawn_fast)
 	. = ..()
 	src.spawn_path = spawn_type

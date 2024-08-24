@@ -17,6 +17,8 @@
 	throw_speed = 0
 	var/charges = 1
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/touch_attack)
+
 /obj/item/melee/touch_attack/Initialize(mapload, obj/effect/proc_holder/spell/targeted/touch/_spell)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
@@ -196,6 +198,8 @@
 /obj/item/melee/touch_attack/mutation
 	catchphrase = null
 	var/datum/mutation/parent_mutation
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/touch_attack/mutation)
 
 /obj/item/melee/touch_attack/mutation/Initialize(_mapload, obj/effect/proc_holder/spell/targeted/touch/_spell, datum/mutation/_parent)
 	. = ..()

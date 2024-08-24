@@ -9,6 +9,8 @@
 	///The timer id of our current start delay, if it exists
 	var/timerid
 
+CREATION_TEST_IGNORE_SUBTYPES(/datum/component/area_sound_manager)
+
 /datum/component/area_sound_manager/Initialize(area_loop_pairs, change_on, remove_on, acceptable_zs)
 	if(!ismovable(parent))
 		return

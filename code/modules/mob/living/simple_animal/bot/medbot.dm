@@ -113,6 +113,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		return
 	name = t
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
+
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
 	skin = new_skin

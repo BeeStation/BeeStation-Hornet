@@ -214,6 +214,8 @@
 	accent_overlay_states = list("telepathy-accent")
 	var/datum/holoparasite_ability/lesser/telepathy/ability
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/telepathy)
+
 /atom/movable/screen/holoparasite/telepathy/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/telepathy/_ability)
 	. = ..()
 	if(!istype(_ability))

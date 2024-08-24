@@ -96,6 +96,8 @@
 /obj/item/paper/record_printout
 	name = "paper - Log Recording"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
+
 /obj/item/paper/record_printout/Initialize(mapload, datum/data/tachyon_record/record)
 	. = ..()
 

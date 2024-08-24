@@ -28,6 +28,8 @@
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
+
 /obj/anomaly/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	. = ..()
 	energy = starting_energy

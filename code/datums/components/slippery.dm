@@ -14,6 +14,8 @@
 	var/datum/weakref/holder_connect_loc_behalf
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/datum/component/slippery)
+
 /datum/component/slippery/Initialize(_knockdown, _lube_flags = NONE, datum/callback/_callback, _paralyze, _force_drop = FALSE)
 	knockdown_time = max(_knockdown, 0)
 	paralyze_time = max(_paralyze, 0)

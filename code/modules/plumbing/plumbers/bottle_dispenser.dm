@@ -8,6 +8,8 @@
 	. = ..()
 	. += "<span class='notice'>Use an open container on it to fill it up!</span>"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/bottle_dispenser)
+
 /obj/machinery/plumbing/bottle_dispenser/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_demand, bolt)

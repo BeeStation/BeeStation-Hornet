@@ -82,6 +82,8 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 	var/remove_speed = 15
 	var/picked_color
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/marker_beacon)
+
 /obj/structure/marker_beacon/Initialize(mapload, set_color)
 	. = ..()
 	picked_color = set_color

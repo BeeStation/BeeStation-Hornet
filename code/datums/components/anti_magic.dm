@@ -11,6 +11,8 @@
 	var/static/identifier_current = 0
 	var/identifier
 
+CREATION_TEST_IGNORE_SUBTYPES(/datum/component/anti_magic)
+
 /datum/component/anti_magic/Initialize(_source, _magic = FALSE, _holy = FALSE, _charges, _blocks_self = TRUE, datum/callback/_reaction, datum/callback/_expire, _allowed_slots)
 	// Random enough that it will never conflict, and avoids having a static variable
 	identifier = identifier_current++

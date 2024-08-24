@@ -175,6 +175,8 @@
 	action_background_icon_state = "bg_spell"
 	var/obj/item/xenoartifact/xeno
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/proc_holder/spell/targeted/xeno_senitent_action)
+
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action/Initialize(mapload, var/obj/item/xenoartifact/Z)
 	. = ..()
 	xeno = Z
@@ -202,6 +204,8 @@
 	banType = ROLE_SENTIENT_XENOARTIFACT
 	invisibility = 101
 	var/obj/item/xenoartifact/artifact
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/sentient_artifact)
 
 /obj/effect/mob_spawn/sentient_artifact/Initialize(mapload, var/obj/item/xenoartifact/Z)
 	if(!Z)

@@ -23,6 +23,8 @@
 	var/turn_angle = 0
 	var/obj/machinery/power/solar_control/control = null
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
+
 /obj/machinery/power/solar/Initialize(mapload, obj/item/solar_assembly/S)
 	. = ..()
 	Make(S)

@@ -49,6 +49,8 @@
 	/// A reference to the action button itself
 	var/datum/action/innate/bci_action/bci_action
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
+
 /obj/item/circuit_component/bci_action/Initialize(mapload, default_icon)
 	. = ..()
 

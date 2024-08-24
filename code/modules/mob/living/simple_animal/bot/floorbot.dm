@@ -40,6 +40,8 @@
 	var/toolbox = /obj/item/storage/toolbox/mechanical
 	var/toolbox_color = ""
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/floorbot)
+
 /mob/living/simple_animal/bot/floorbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
 	toolbox_color = new_toolbox_color

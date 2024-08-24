@@ -104,6 +104,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /obj/effect/hallucination/singularity_act()
 	return
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple)
+
 /obj/effect/hallucination/simple/Initialize(mapload, var/mob/living/carbon/T)
 	. = ..()
 	target = T
@@ -225,6 +227,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	image_icon = 'icons/mob/alien.dmi'
 	image_state = "alienh_pounce"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple/xeno)
+
 /obj/effect/hallucination/simple/xeno/Initialize(mapload, mob/living/carbon/T)
 	. = ..()
 	name = "alien hunter ([rand(1, 1000)])"
@@ -267,6 +271,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /obj/effect/hallucination/simple/clown
 	image_icon = 'icons/mob/animal.dmi'
 	image_state = "clown"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple/clown)
 
 /obj/effect/hallucination/simple/clown/Initialize(mapload, mob/living/carbon/T, duration)
 	..(loc, T)
@@ -1070,6 +1076,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	if(image && target.client)
 		target.client.images -= image
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/danger)
+
 /obj/effect/hallucination/danger/Initialize(mapload, _target)
 	. = ..()
 	target = _target
@@ -1082,6 +1090,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 /obj/effect/hallucination/danger/lava
 	name = "lava"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/danger/lava)
 
 /obj/effect/hallucination/danger/lava/Initialize(mapload, _target)
 	. = ..()
@@ -1104,6 +1114,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 /obj/effect/hallucination/danger/chasm
 	name = "chasm"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/danger/chasm)
 
 /obj/effect/hallucination/danger/chasm/Initialize(mapload, _target)
 	. = ..()

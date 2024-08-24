@@ -304,6 +304,8 @@
 /atom/movable/screen/holoparasite/explosive
 	var/datum/holoparasite_ability/major/explosive/ability
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/explosive)
+
 /atom/movable/screen/holoparasite/explosive/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/explosive/_ability)
 	. = ..()
 	if(!istype(_ability))

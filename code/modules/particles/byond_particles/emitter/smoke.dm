@@ -11,6 +11,8 @@
 	particles = new/particles/smoke
 	layer = OBJ_LAYER
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/emitter/flare_smoke)
+
 /obj/emitter/flare_smoke/Initialize(mapload, time, _color)
 	. = ..()
 	add_filter("blur", 1, list(type="blur", size=1.5))

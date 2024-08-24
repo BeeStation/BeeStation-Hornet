@@ -490,6 +490,8 @@
 	var/vanish_description = "vanishes from reality"
 	var/can_destroy = TRUE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
+
 /obj/effect/immortality_talisman/Initialize(mapload, mob/new_user)
 	. = ..()
 	if(new_user)
@@ -555,6 +557,8 @@
 	STR.max_combined_w_class = 60
 	STR.max_items = 21
 	new /obj/item/shared_storage/blue(drop_location(), STR)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 /obj/item/shared_storage/blue/Initialize(mapload, datum/component/storage/concrete/master)
 	. = ..()

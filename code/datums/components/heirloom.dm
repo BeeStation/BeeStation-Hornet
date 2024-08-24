@@ -2,6 +2,8 @@
 	var/datum/mind/owner
 	var/family_name
 
+CREATION_TEST_IGNORE_SUBTYPES(/datum/component/heirloom)
+
 /datum/component/heirloom/Initialize(new_owner, new_family_name)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE

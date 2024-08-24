@@ -896,6 +896,8 @@
 	pre_noise = FALSE
 	post_noise = TRUE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/toy/crayon/spraycan/gang)
+
 /obj/item/toy/crayon/spraycan/gang/Initialize(mapload, loc, datum/team/gang/G)
 	.=..()
 	if(G)

@@ -352,6 +352,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/max_stage = 5
 	var/datum/weakref/pylon
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
+
 /obj/structure/cerulean_slime_crystal/Initialize(mapload, obj/structure/slime_crystal/cerulean/master_pylon)
 	. = ..()
 	if(istype(master_pylon))

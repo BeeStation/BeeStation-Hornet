@@ -23,6 +23,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster/wanted)
 	postHeaderText = "MISSING" // MAX 7 Characters
 	postHeaderColor = "#0000FF"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster/wanted)
+
 /obj/item/poster/wanted/Initialize(mapload, icon/person_icon, wanted_name, description, headerText)
 	. = ..(mapload, new /obj/structure/sign/poster/wanted(src, person_icon, wanted_name, description, headerText, postHeaderColor, background, postName, postDesc))
 	name = "[postName] ([wanted_name])"
@@ -35,6 +37,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster/wanted)
 	var/postDesc
 	var/posterHeaderText
 	var/posterHeaderColor
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/poster/wanted)
 
 /obj/structure/sign/poster/wanted/Initialize(mapload, icon/person_icon, person_name, description, postHeaderText, postHeaderColor, background, pname, pdesc)
 	. = ..()

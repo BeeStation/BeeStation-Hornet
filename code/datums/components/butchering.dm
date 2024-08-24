@@ -12,6 +12,8 @@
 	/// Whether or not this component is compatible with blunt tools.
 	var/can_be_blunt = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/datum/component/butchering)
+
 /datum/component/butchering/Initialize(_speed, _effectiveness, _bonus_modifier, _butcher_sound, disabled, _can_be_blunt)
 	if(_speed)
 		speed = _speed

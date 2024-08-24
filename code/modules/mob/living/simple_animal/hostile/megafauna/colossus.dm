@@ -299,6 +299,8 @@ Difficulty: Very Hard
 	duration = 8
 	var/target
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/at_shield)
+
 /obj/effect/temp_visual/at_shield/Initialize(mapload, new_target)
 	. = ..()
 	target = new_target

@@ -10,6 +10,8 @@
 	max_integrity = 100
 	z_flags = Z_BLOCK_OUT_DOWN
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
+
 /obj/structure/ladder/Initialize(mapload, obj/structure/ladder/up, obj/structure/ladder/down)
 	..()
 	if (up)

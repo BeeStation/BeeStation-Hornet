@@ -403,6 +403,8 @@
 /obj/item/showpiece_dummy
 	name = "Cheap replica"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/showpiece_dummy)
+
 /obj/item/showpiece_dummy/Initialize(mapload, path)
 	. = ..()
 	var/obj/item/I = path

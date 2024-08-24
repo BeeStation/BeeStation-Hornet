@@ -416,6 +416,8 @@
 	var/obj/machinery/shieldwallgen/gen_primary
 	var/obj/machinery/shieldwallgen/gen_secondary
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
+
 /obj/machinery/shieldwall/Initialize(mapload, obj/machinery/shieldwallgen/first_gen, obj/machinery/shieldwallgen/second_gen)
 	. = ..()
 	gen_primary = first_gen

@@ -6,6 +6,8 @@
 	var/point_reward = 0
 	var/datum/callback/get_discover_id
 
+CREATION_TEST_IGNORE_SUBTYPES(/datum/component/discoverable)
+
 /datum/component/discoverable/Initialize(point_reward, unique = FALSE, get_discover_id)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE

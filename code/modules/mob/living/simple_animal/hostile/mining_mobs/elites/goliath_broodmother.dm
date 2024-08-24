@@ -209,6 +209,8 @@
 		deltimer(timerid)
 		timerid = addtimer(CALLBACK(src, PROC_REF(retract)), 10, TIMER_STOPPABLE)
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/goliath_tentacle/broodmother/patch)
+
 /obj/effect/temp_visual/goliath_tentacle/broodmother/patch/Initialize(mapload, new_spawner)
 	. = ..()
 	var/tentacle_locs = spiral_range_turfs(1, get_turf(src))

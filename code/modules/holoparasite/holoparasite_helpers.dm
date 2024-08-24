@@ -2,6 +2,8 @@
 	/// A typecache of objects that the holoparasite where, if the holoparasite's summoner is inside of one of these objects, the holoparasite will not be allowed to manifest.
 	var/static/list/no_manifest_locs
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
+
 /mob/living/simple_animal/hostile/holoparasite/Initialize(_mapload, _key, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/mind/_summoner, datum/holoparasite_stats/_stats)
 	. = ..()
 	if(!no_manifest_locs)

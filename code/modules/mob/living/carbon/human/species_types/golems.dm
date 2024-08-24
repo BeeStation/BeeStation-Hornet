@@ -866,6 +866,8 @@
 	var/revive_time = 900
 	var/mob/living/carbon/human/cloth_golem
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
+
 /obj/structure/cloth_pile/Initialize(mapload, mob/living/carbon/human/H)
 	. = ..()
 	if(!QDELETED(H) && is_species(H, /datum/species/golem/cloth))

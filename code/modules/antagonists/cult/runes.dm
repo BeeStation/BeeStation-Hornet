@@ -73,6 +73,8 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 
 	var/allow_ghosts = TRUE	//Allow ghost cultists (from spirit realm rune) to activate this rune.
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune)
+
 /obj/effect/rune/Initialize(mapload, set_keyword)
 	. = ..()
 	if(set_keyword)
@@ -199,6 +201,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	invocation = "Ra'sha yoka!"
 	invoke_damage = 30
 	can_be_scribed = FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 
 /obj/effect/rune/malformed/Initialize(mapload, set_keyword)
 	. = ..()
@@ -384,6 +388,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/listkey
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/teleport)
+
 /obj/effect/rune/teleport/Initialize(mapload, set_keyword)
 	. = ..()
 	var/area/A = get_area(src)
@@ -512,6 +518,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	allow_ghosts = FALSE
 	no_scribe_boost = TRUE
 	var/used = FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 
 /obj/effect/rune/narsie/Initialize(mapload, set_keyword)
 	. = ..()
@@ -669,6 +677,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	var/datum/timedevent/density_timer
 	var/recharging = FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 
 /obj/effect/rune/wall/Initialize(mapload, set_keyword)
 	. = ..()

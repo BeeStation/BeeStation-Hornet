@@ -203,6 +203,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	terminal = new /obj/machinery/power/terminal/invisible(T)
 	terminal.master = src
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
+
 /obj/machinery/power/bsa/full/Initialize(mapload, cannon_direction = WEST)
 	. = ..()
 	cell = new /obj/item/stock_parts/cell(src, 5000000)

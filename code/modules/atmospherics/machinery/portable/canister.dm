@@ -257,6 +257,8 @@
 	if(href_list[VV_HK_MODIFY_CANISTER_GAS])
 		usr.client.modify_canister_gas(src)
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
+
 /obj/machinery/portable_atmospherics/canister/Initialize(mapload, datum/gas_mixture/existing_mixture)
 	. = ..()
 	if(existing_mixture)

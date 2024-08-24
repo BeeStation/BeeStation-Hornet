@@ -26,6 +26,8 @@
 	user.visible_message("<span class='suicide'>[user] begins to stuff \the [src] down [user.p_their()] throat! It looks like [user.p_theyre()] trying to commit suicide!</span>")//it looks like theyre ur mum
 	return BRUTELOSS
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
+
 /obj/item/stack/rods/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
 	if(QDELETED(src)) // we can be deleted during merge, check before doing stuff

@@ -370,6 +370,8 @@
 	icon_state = "power_mod"
 	desc = "Central processing unit for the prisoner interface."
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
+
 /obj/machinery/genpop_interface/Initialize(mapload, nbuild)
 	. = ..()
 	update_icon()
@@ -695,6 +697,8 @@ GLOBAL_LIST_EMPTY(prisoner_ids)
 	var/sentence = 0 //'ard time innit.
 	var/crime = null //What you in for mate?
 	var/atom/assigned_locker = null //Where's our stuff then guv?
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/card/id/prisoner)
 
 /obj/item/card/id/prisoner/Initialize(mapload, _sentence, _crime, _name)
 	. = ..()

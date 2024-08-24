@@ -141,6 +141,8 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	var/lifetime = DEFAULT_METEOR_LIFETIME
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
+
 /obj/effect/meteor/Initialize(mapload, target)
 	. = ..()
 	z_original = z
@@ -435,6 +437,8 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	var/falltime = 2 SECONDS
 	var/prefalltime = 8 SECONDS
 	layer = METEOR_LAYER
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/falling_meteor)
 
 /obj/effect/falling_meteor/Initialize(mapload, meteor_type)
 	. = ..()

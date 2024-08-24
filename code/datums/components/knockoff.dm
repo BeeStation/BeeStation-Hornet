@@ -4,6 +4,8 @@
 	var/list/target_zones //Aiming for these zones will cause the knockoff, null means all zones allowed
 	var/list/slots_knockoffable //Can be only knocked off from these slots, null means all slots allowed
 
+CREATION_TEST_IGNORE_SUBTYPES(/datum/component/knockoff)
+
 /datum/component/knockoff/Initialize(knockoff_chance,zone_override,slots_knockoffable)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE

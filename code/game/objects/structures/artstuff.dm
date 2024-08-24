@@ -258,6 +258,8 @@
 	var/desc_with_canvas
 	var/persistence_id
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/painting)
+
 /obj/structure/sign/painting/Initialize(mapload, dir, building)
 	. = ..()
 	SSpersistence.painting_frames += src

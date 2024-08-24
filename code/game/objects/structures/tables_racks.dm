@@ -39,6 +39,8 @@
 	max_integrity = 100
 	integrity_failure = 0.33
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
+
 /obj/structure/table/Initialize(mapload, _buildstack)
 	. = ..()
 	if(_buildstack)

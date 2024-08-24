@@ -72,6 +72,8 @@
 	// Last time we spoke
 	var/last_speech
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
+
 /mob/living/simple_animal/bot/atmosbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)

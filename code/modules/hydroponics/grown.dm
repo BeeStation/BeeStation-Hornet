@@ -37,6 +37,8 @@ CREATION_TEST_IGNORE_SELF(/obj/item/food/grown)
 	//Amount of discovery points given for scanning
 	var/discovery_points = 0
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
+
 /obj/item/food/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	if(!tastes)
 		tastes = list("[name]" = 1) //This happens first else the component already inits

@@ -345,6 +345,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/mob/living/carbon/human/activator = null
 	var/mob/living/simple_animal/hostile/asteroid/elite/ourelite = null
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/elite_tumor_wall)
+
 /obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
 	. = ..()
 	QUEUE_SMOOTH_NEIGHBORS(src)

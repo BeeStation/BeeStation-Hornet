@@ -29,6 +29,8 @@
 	///How long does it take to apply on yourself?
 	var/self_delay = 2 SECONDS
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
+
 /obj/item/stack/medical/Initialize(mapload, new_amount, merge, mob/user)
 	. = ..()
 	if(reagent)

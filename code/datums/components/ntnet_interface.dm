@@ -56,6 +56,8 @@
  * * network_name - Fully qualified network id of the network we are joining
  * * network_tag - The objects id_tag.  Used for finding the device at mapload time
  */
+CREATION_TEST_IGNORE_SUBTYPES(/datum/component/ntnet_interface)
+
 /datum/component/ntnet_interface/Initialize(network_name, network_tag = null)
 	if(network_name == null || !istext(network_name))
 		log_telecomms("ntnet_interface/Initialize: Bad network '[network_name]' for '[parent]', going to limbo it")

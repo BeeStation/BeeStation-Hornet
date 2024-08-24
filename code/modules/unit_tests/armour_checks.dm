@@ -75,6 +75,8 @@
 	slot_flags = ALL
 	body_parts_covered = ALL
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/suit/test_vest)
+
 /obj/item/clothing/suit/test_vest/Initialize(mapload, armour_values)
 	armor = armour_values
 	. = ..()

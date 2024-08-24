@@ -17,6 +17,8 @@
 	var/mob/living/silicon/ai/AI //AIs to be salvaged
 	var/list/parts
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mecha_wreckage)
+
 /obj/structure/mecha_wreckage/Initialize(mapload, mob/living/silicon/ai/AI_pilot)
 	. = ..()
 	if(parts)

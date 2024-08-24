@@ -231,6 +231,8 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/turf/delegate
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/openspace/turf_mimic)
+
 /atom/movable/openspace/turf_mimic/Initialize(mapload, ...)
 	. = ..()
 	ASSERT(isturf(loc))

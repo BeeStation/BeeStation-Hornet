@@ -117,6 +117,8 @@
 	var/static/list/mutable_appearance/timer_fraction_overlays
 	COOLDOWN_DECLARE(timer)
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite)
+
 /atom/movable/screen/holoparasite/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner)
 	. = ..()
 	if(!istype(_owner))

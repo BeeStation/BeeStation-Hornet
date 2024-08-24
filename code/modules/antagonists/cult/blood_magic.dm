@@ -357,6 +357,8 @@
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
 	var/datum/action/innate/cult/blood_spell/source
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
+
 /obj/item/melee/blood_magic/Initialize(mapload, var/spell)
 	. = ..()
 	if(!istype(spell, /datum/action/innate/cult/blood_spell))

@@ -40,6 +40,8 @@
 	var/area/myarea = null
 	var/locked = FALSE //Are we locked?
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
+
 /obj/machinery/firealarm/Initialize(mapload, dir, building)
 	. = ..()
 	if (!req_access)

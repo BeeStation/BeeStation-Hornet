@@ -39,6 +39,8 @@
 	var/header_text_color = "#2CF"
 
 //makes it go on the wall when built
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/status_display)
+
 /obj/machinery/status_display/Initialize(mapload, ndir, building)
 	. = ..()
 	update_appearance()
@@ -215,6 +217,8 @@
 		// p q r s t u v w x y z { | } ~
 		5, 5, 5, 5, 4, 5, 4, 6, 4, 4, 4, 3, 2, 3, 4,
 	)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/overlay/status_display_text)
 
 /obj/effect/overlay/status_display_text/Initialize(mapload, yoffset, line, text_color, header_text_color)
 	. = ..()
