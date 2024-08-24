@@ -127,7 +127,7 @@ type CrewConsoleData = {
   link_allowed: BooleanLike;
 };
 
-const CrewTable = (context) => {
+const CrewTable = (props, context) => {
   const { data } = useBackend<CrewConsoleData>(context);
   const { sensors } = data;
 
