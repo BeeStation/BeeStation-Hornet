@@ -4101,7 +4101,7 @@
 #include "code\modules\tgui_panel\telemetry.dm"
 #include "code\modules\tgui_panel\tgui_panel.dm"
 #include "code\modules\tooltip\tooltip.dm"
-#include "code\modules\unit_tests\_unit_tests.dm"
+#include "code\modules\unit_tests\_DEFINES\_unit_tests.dm"
 #include "code\modules\unit_tests\mapping\check_active_turfs.dm"
 #include "code\modules\unit_tests\mapping\check_area_apc.dm"
 #include "code\modules\unit_tests\mapping\check_camera_attachment.dm"
