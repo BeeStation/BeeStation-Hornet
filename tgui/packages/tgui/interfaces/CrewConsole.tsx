@@ -128,7 +128,7 @@ type CrewConsoleData = {
 };
 
 const CrewTable = (context) => {
-  const { data } = useBackend<CrewConsoleData>(CrewTable);
+  const { data } = useBackend<CrewConsoleData>(context);
   const { sensors } = data;
 
   const [sortAsc, setSortAsc] = useLocalState<boolean>(context, 'sortAsc', true);
