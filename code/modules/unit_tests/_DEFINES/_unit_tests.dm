@@ -133,10 +133,18 @@
 #include "../random_ruin_mapsize.dm"
 #include "../walls_have_sheets.dm"
 #include "../worn_icons.dm"
+#include "../worn_icons.dm"
 
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
 #include "../find_reference_sanity.dm"
 #endif
+
+#include "../mapping/check_active_turfs.dm"
+#include "../mapping/check_area_apc.dm"
+#include "../mapping/check_camera_attachment.dm"
+#include "../mapping/check_disposals.dm"
+#include "../mapping/check_light_attachment.dm"
+#include "../mapping/map_test.dm"
 
 #undef TEST_ASSERT
 #undef TEST_ASSERT_EQUAL
