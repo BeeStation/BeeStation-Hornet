@@ -1,38 +1,60 @@
 /datum/unit_test/map_test/Run()
 	var/list/failures
 	var/list/areas = list()
+	var/list/turfs = list()
+	// Check turfs
 	for (var/z in 1 to world.maxz)
 		if (!is_station_level(z))
 			continue
 		for (var/x in 1 to world.maxx)
 			for (var/y in 1 to world.maxy)
 				var/turf/tile = locate(x, y, z)
+				turfs += tile
 				areas[tile.loc] = TRUE
-				var/result = check_tile(tile, x == 1 || x == world.maxx || y == 1 || y == world.maxy)
+				var/result = check_turf(tile, x == 1 || x == world.maxx || y == 1 || y == world.maxy)
 				if (result)
-					LAZYADD(failures, result)
+					LAZYADD(failures, "([x], [y], [z]): [result]")
+	// Check areas
 	for (var/area/A in areas)
 		var/result = check_area(A)
 		if (result)
-			LAZYADD(failures, result)
-	if (LAZYLEN(failures))
-		TEST_FAIL(jointext(failures, "\n"))
+			LAZYADD(failures, "([A.type]): [result]")
+	// Check Zs
 	for (var/z in 1 to world.maxz)
 		if (!is_station_level(z))
 			continue
 		var/result = check_z_level(z)
 		if (result)
 			LAZYADD(failures, result)
+	// Get things we want to specifically test for
+	var/list/targets = collect_targets(turfs)
+	for (var/target in targets)
+		var/result = check_target(target)
+		if (result)
+			LAZYADD(failures, result)
+	// Full map general checks
+	var/result = check_map()
+	if (result)
+		LAZYADD(failures, result)
+	// Fail if necessary
+	if (LAZYLEN(failures))
+		TEST_FAIL(jointext(failures, "\n"))
 
 /// Return a string if failed, return null otherwise
-/datum/unit_test/map_test/proc/check_tile(turf/T, is_map_border)
+/datum/unit_test/map_test/proc/check_turf(turf/check_turf, is_map_border)
 
 /// Return a string if failed, return null otherwise
-/datum/unit_test/map_test/proc/check_area(area/T)
+/datum/unit_test/map_test/proc/check_map(turf/check_turf, is_map_border)
+
+/// Return a string if failed, return null otherwise
+/datum/unit_test/map_test/proc/check_area(area/check_area)
 
 /// Return a string if failed, return null otherwise
 /datum/unit_test/map_test/proc/check_z_level(z_value)
 
-/datum/unit_test/map_test/test/check_tile(turf/T, is_map_border)
-	if (istype(T, /turf/closed/wall))
-		return "[T.type] detected"
+/// Returns a list of things that you want to specifically check
+/datum/unit_test/map_test/proc/collect_targets(list/turfs)
+	return list()
+
+/// Return a string if failed, return null otherwise
+/datum/unit_test/map_test/proc/check_target(atom/target)

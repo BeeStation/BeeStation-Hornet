@@ -312,6 +312,43 @@ GLOBAL_LIST_INIT(TAGGERLOCATIONS, list(
 	"Detective's Office",
 ))
 
+#if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
+
+GLOBAL_LIST_INIT(tagger_destination_areas, list(
+	"Disposals" = list(/area/maintenance/disposal),
+	"Cargo Bay"  = list(/area/quartermaster),
+	"QM Office" = list(/area/quartermaster/qm, /area/quartermaster/qm_bedroom),
+	"Engineering" = list(/area/engine, /area/engineering),
+	"CE Office" = list(/area/crew_quarters/heads/chief),
+	"Atmospherics" = list(/area/engine/atmos, /area/engine/atmospherics_engine),
+	"Security" = list(/area/security),
+	"HoS Office" = list(/area/crew_quarters/heads/hos),
+	"Medbay" = list(/area/medical),
+	"CMO Office" = list(/area/crew_quarters/heads/cmo),
+	"Chemistry" = list(/area/medical/chemistry),
+	"Research" = list(/area/science),
+	"RD Office" = list(/area/crew_quarters/heads/hor),
+	"Robotics" = list(/area/science/robotics),
+	"HoP Office" = list(/area/crew_quarters/heads/hop),
+	"Library" = list(/area/library),
+	"Chapel" = list(/area/chapel),
+	"Theatre" = list(/area/crew_quarters/theatre),
+	"Bar" = list(/area/crew_quarters/bar),
+	"Kitchen" = list(/area/crew_quarters/kitchen),
+	"Hydroponics" = list(/area/hydroponics),
+	"Janitor Closet" = list(/area/janitor),
+	"Genetics" = list(/area/medical/genetics),
+	"Testing Range" = list(/area/science/misc_lab, /area/science/test_area, /area/science/mixing),
+	"Toxins" = list(/area/science/misc_lab, /area/science/test_area, /area/science/mixing),
+	"Dormitories" = list(/area/crew_quarters/dorms, /area/commons/dorms),
+	"Virology" = list(/area/medical/virology),
+	"Xenobiology" = list(/area/science/xenobiology),
+	"Law Office" = list(/area/lawoffice),
+	"Detective's Office" = list(/area/security/detectives_office),
+))
+
+#endif
+
 GLOBAL_LIST_INIT(station_prefixes, world.file2list("strings/station_prefixes.txt") + "")
 
 GLOBAL_LIST_INIT(station_names, world.file2list("strings/station_names.txt") + "")
