@@ -1,0 +1,9 @@
+author: PatienceStPim
+delete-after: true
+changes:
+  - rscadd: Sushi & Seafood crafting tab
+  - rscadd: Seaweed sheets added to biogenerator
+  - imageadd: Sprites for sushi
+  - balance: Uncooked rice is now made from mixing 10 units rice/water in any container,
+      no longer requiring a bowl to do so. Recipes that previously used bowls of rice
+      now need boiled rice and a bowl, instead.
