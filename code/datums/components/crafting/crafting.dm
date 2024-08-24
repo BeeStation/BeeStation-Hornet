@@ -35,6 +35,7 @@
 					CAT_PIZZA,
 					CAT_SALAD,
 					CAT_SANDWICH,
+					CAT_SEAFOOD,
 					CAT_SOUP,
 					CAT_SPAGHETTI,
 				),

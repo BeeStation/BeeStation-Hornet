@@ -17,7 +17,8 @@
 	throw_speed = 2
 	throw_range = 4
 	custom_materials = list(/datum/material/iron=13000)
-	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
+	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
+	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
 	hitsound = "swing_hit"
 	sharpness = IS_SHARP
 	bleed_force = BLEED_DEEP_WOUND
@@ -89,7 +90,8 @@
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	force_on = 40
 	w_class = WEIGHT_CLASS_HUGE
-	attack_verb = list("sawed", "shred", "rended", "gutted", "eviscerated")
+	attack_verb_continuous = list("saws", "shreds", "rends", "guts", "eviscerates")
+	attack_verb_simple = list("saw", "shred", "rend", "gut", "eviscerate")
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	block_power = 50
 	armour_penetration = 50
