@@ -44,13 +44,13 @@
 /datum/unit_test/map_test/proc/check_turf(turf/check_turf, is_map_border)
 
 /// Return a string if failed, return null otherwise
-/datum/unit_test/map_test/proc/check_map(turf/check_turf, is_map_border)
-
-/// Return a string if failed, return null otherwise
 /datum/unit_test/map_test/proc/check_area(area/check_area)
 
 /// Return a string if failed, return null otherwise
 /datum/unit_test/map_test/proc/check_z_level(z_value)
+
+/// Return a string if failed, return null otherwise
+/datum/unit_test/map_test/proc/check_map()
 
 /// Returns a list of things that you want to specifically check
 /datum/unit_test/map_test/proc/collect_targets(list/turfs)
