@@ -7,8 +7,6 @@
 	var/datum/move_loop/move/drifting_loop
 	var/block_inputs_until
 
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/drift)
-
 /datum/component/drift/Initialize(direction, instant = FALSE)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE

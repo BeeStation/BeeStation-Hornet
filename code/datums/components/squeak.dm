@@ -25,8 +25,6 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(play_squeak_crossed),
 	)
 
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/squeak)
-
 /datum/component/squeak/Initialize(custom_sounds, volume_override, chance_override, step_delay_override, use_delay_override, extrarange, falloff_exponent, fallof_distance)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE

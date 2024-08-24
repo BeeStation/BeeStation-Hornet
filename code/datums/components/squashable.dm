@@ -13,8 +13,6 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/squashable)
-
 /datum/component/squashable/Initialize(squash_chance, squash_damage, squash_flags, squash_callback)
 	. = ..()
 	if(!isliving(parent))

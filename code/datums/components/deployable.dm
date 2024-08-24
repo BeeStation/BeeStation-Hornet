@@ -19,8 +19,6 @@
 	/// The atom parent of this
 	VAR_PRIVATE/obj/item/item_parent
 
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/deployable)
-
 /datum/component/deployable/Initialize(deployed_object, consumed = TRUE, time_to_deploy = 0 SECONDS, ignores_mob_density = TRUE, dense_deployment = FALSE, empty_icon = null, loaded = FALSE, reload_type = null)
 	. = ..()
 	if (!isitem(parent))

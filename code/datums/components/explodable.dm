@@ -11,8 +11,6 @@
 	/// For items, lets us determine where things should be hit.
 	var/equipped_slot
 
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/explodable)
-
 /datum/component/explodable/Initialize(devastation_range, heavy_impact_range, light_impact_range, flash_range, uncapped = FALSE, delete_after = EXPLODABLE_DELETE_PARENT)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE

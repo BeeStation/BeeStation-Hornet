@@ -20,8 +20,6 @@
 	var/datum/callback/can_target_callback
 	var/aiming_params
 
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/lockon_aiming)
-
 /datum/component/lockon_aiming/Initialize(range, list/typecache, amount, list/immune, datum/callback/when_locked, icon, icon_state, datum/callback/target_callback)
 	if(!ismob(parent))
 		return COMPONENT_INCOMPATIBLE

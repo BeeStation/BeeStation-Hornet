@@ -18,8 +18,6 @@ handles linking back and forth.
 	///Flags used when converting inserted materials into their component materials.
 	var/mat_container_flags = NONE
 
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/remote_materials)
-
 /datum/component/remote_materials/Initialize(category, mapload, allow_standalone = TRUE, force_connect = FALSE, mat_container_flags=NONE)
 	if (!isatom(parent))
 		return COMPONENT_INCOMPATIBLE

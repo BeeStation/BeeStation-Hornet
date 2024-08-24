@@ -6,8 +6,6 @@
 	var/living_parent = FALSE
 	var/speed
 
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/convey)
-
 /datum/component/convey/Initialize(direction, speed, start_delay)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE

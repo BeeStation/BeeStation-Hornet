@@ -211,8 +211,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 // Please don't stuff random bullshit here,
 // 	Make a subsystem, give it the SS_NO_FIRE flag, and do your work in it's Initialize()
-CREATION_TEST_IGNORE_SUBTYPES(/datum/controller/master)
-
 /datum/controller/master/Initialize(delay, init_sss, tgs_prime)
 	set waitfor = 0
 

@@ -16,8 +16,6 @@
 	add_blood_decal()
 	return ..()
 
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/forensics)
-
 /datum/component/forensics/Initialize(new_fingerprints, new_hiddenprints, new_blood_DNA, new_fibers, new_souls)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE

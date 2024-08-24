@@ -5,8 +5,6 @@
 	var/datum/armor/added_armor = list(MELEE = 10)
 	var/upgrade_name
 
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/armor_plate)
-
 /datum/component/armor_plate/Initialize(_maxamount,obj/item/_upgrade_item,datum/armor/_added_armor)
 	if(!isobj(parent))
 		return COMPONENT_INCOMPATIBLE

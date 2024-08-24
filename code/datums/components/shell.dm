@@ -16,8 +16,6 @@
 
 	var/locked = FALSE
 
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/shell)
-
 /datum/component/shell/Initialize(unremovable_circuit_components, capacity, shell_flags)
 	. = ..()
 	if(!ismovable(parent))

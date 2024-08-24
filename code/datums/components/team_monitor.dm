@@ -96,8 +96,6 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	/// If we can track beacons within the same zgroup (e.g. on a multiz station)
 	var/multiz = TRUE
 
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/team_monitor)
-
 /datum/component/team_monitor/Initialize(frequency_key, frequency, _attached_beacon, _multiz = TRUE)
 	multiz = _multiz
 	team_freq_key = frequency_key
@@ -335,8 +333,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/datum/component/team_monitor)
 // Worn version, hides when dequipped
 // ============
 
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/team_monitor/worn)
-
 /datum/component/team_monitor/worn/Initialize(frequency_key, frequency, _attached_beacon)
 	var/obj/item/clothing/item = parent
 	if(!istype(item))
@@ -402,8 +398,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/datum/component/team_monitor/worn)
 	var/always_update = FALSE
 	/// Global signal?
 	var/global_signal = FALSE
-
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/tracking_beacon)
 
 /datum/component/tracking_beacon/Initialize(_frequency_key, _frequency, _attached_monitor, _visible = TRUE, _colour = "#ffffff", _global = FALSE, _always_update = FALSE, _z_diff_colour = "#808080")
 	. = ..()

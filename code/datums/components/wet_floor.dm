@@ -22,8 +22,6 @@
 		for(var/i in WF.time_left_list)
 			add_wet(text2num(i), WF.time_left_list[i])
 
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/wet_floor)
-
 /datum/component/wet_floor/Initialize(strength, duration_minimum, duration_add, duration_maximum, _permanent = FALSE)
 	if(!isopenturf(parent))
 		return COMPONENT_INCOMPATIBLE

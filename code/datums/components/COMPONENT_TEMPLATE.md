@@ -9,8 +9,6 @@ See _component.dm for detailed explanations
 	//dupe_mode = COMPONENT_DUPE_ALLOWED    // code/__DEFINES/dcs/flags.dm
 	var/myvar
 
-CREATION_TEST_IGNORE_SUBTYPES(/datum/component/mycomponent)
-
 /datum/component/mycomponent/Initialize(myargone, myargtwo)
 	if(myargone)
 		myvar = myargone
