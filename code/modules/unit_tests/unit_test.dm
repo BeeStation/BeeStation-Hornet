@@ -220,6 +220,17 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 
 	qdel(test)
 
+/*
+
+SEE test_helpers.dm for the redefinition of this proc.
+We use a modular approach to adding things to the ignore list, but unfortunately
+that means the proc needs to be defined prior to everything else.
+
+/datum/unit_test/proc/build_list_of_uncreatables()
+	RETURN_TYPE(/list)
+	return list()
+*/
+
 /proc/RunUnitTests()
 	CHECK_TICK
 
