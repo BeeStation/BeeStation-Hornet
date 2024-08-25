@@ -1,6 +1,0 @@
-author: Ghommie, XeonMations
-delete-after: true
-changes:
-  - refactor: Refactored movetypes.
-  - bugfix: Jitteriness, melee attack animations and resting/standing up should no
-      longer momentarily disable the floating movetype
