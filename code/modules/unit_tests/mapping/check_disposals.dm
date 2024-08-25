@@ -50,7 +50,7 @@
 
 /datum/unit_test/map_test/check_disposals/proc/traverse_loop(obj/structure/disposalholder/holder, obj/structure/disposalpipe/start)
 	// First check to ensure that we end up somewhere
-	var/obj/structure/disposalpipe/current = holder
+	var/obj/structure/disposalpipe/current = start
 	while (current)
 		holder.current_pipe = current
 		var/turf/T = get_step(current, current.nextdir(holder))
