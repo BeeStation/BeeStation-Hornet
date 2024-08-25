@@ -27,6 +27,7 @@
 	// Abuse byonds variables to get out (We can use pointers as an out variable in 515)
 	if (failure_reason)
 		failures += failure_reason
+		failure_reason = null
 	// This is fine, we probably are a bin that leads to space or something
 	if (!is_sorting_network)
 		return failures
@@ -38,11 +39,12 @@
 	var/i = 0
 	for (var/sort_code in GLOB.TAGGERLOCATIONS)
 		i++
+		holder = new /obj/structure/disposalholder()
 		holder.destinationTag = i
-		holder.unsorted = TRUE
 		var/atom/destination = traverse_loop(holder, target.trunk, TRUE)
 		if (failure_reason)
 			failures += failure_reason
+			failure_reason = null
 			continue
 		var/arrived = FALSE
 		for (var/valid_destination in GLOB.tagger_destination_areas[sort_code])
