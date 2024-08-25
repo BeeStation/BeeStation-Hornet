@@ -34,9 +34,11 @@
 	failure_reason = null
 	// Since we have filters, lets make sure this is a proper, fully connected and fully functioning loop
 	// We should be able to enter the loop at any point from an input gate to get to our destination
+	var/i = 0
 	for (var/sort_code in GLOB.TAGGERLOCATIONS)
+		i++
 		holder.destinationTag = sort_code
-		var/obj/structure/disposaloutlet/destination = traverse_loop(holder, target.trunk, sort_code)
+		var/obj/structure/disposaloutlet/destination = traverse_loop(holder, target.trunk, i)
 		if (failure_reason)
 			continue
 		var/arrived = FALSE
@@ -45,7 +47,7 @@
 				arrived = TRUE
 				break
 		if (!arrived)
-			failures += "Disposal track starting at [COORD(target)] does not end up in the correct destination. Expected [sort_code], got [get_area(destination)] at [COORD(destination)]"
+			failures += "Disposal track starting at [COORD(target)] does not end up in the correct destination. Expected [sort_code] (i), got [get_area(destination)] at [COORD(destination)]"
 	return failures
 
 /datum/unit_test/map_test/check_disposals/proc/traverse_loop(obj/structure/disposalholder/holder, obj/structure/disposalpipe/start, run_id)
