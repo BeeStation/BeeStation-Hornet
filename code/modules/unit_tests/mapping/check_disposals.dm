@@ -64,13 +64,16 @@
 		// Detect ending back at an input
 		if (locate(/obj/machinery/disposal) in T)
 			failure_reason = "Disposal loop starting at [COORD(start)] leads to an input node at [COORD(T)] but should lead to an outlet"
+			return
 		if (locate(/obj/structure/disposalpipe/sorting))
 			is_sorting_network = TRUE
 		// End detection
 		if (current == null)
 			failure_reason = "Disposal network starting at [COORD(start)] has a pipe with no output at [COORD(T)] but should lead to an outlet"
+			return
 		// Loop detection
 		if (current._traversed == run_id)
 			failure_reason = "Disposal network starting at [COORD(start)] contains a loop at [COORD(T)] which is not allowed"
+			return
 		current._traversed = run_id
 		holder.last_pipe = current
