@@ -325,7 +325,7 @@ GLOBAL_LIST_INIT(tagger_destination_areas, list(
 	"HoS Office" = list(/area/crew_quarters/heads/hos),
 	"Medbay" = list(/area/medical),
 	"CMO Office" = list(/area/crew_quarters/heads/cmo),
-	"Chemistry" = list(/area/medical/chemistry),
+	"Chemistry" = list(/area/medical/chemistry, /area/medical/apothecary),
 	"Research" = list(/area/science),
 	"RD Office" = list(/area/crew_quarters/heads/hor),
 	"Robotics" = list(/area/science/robotics),
