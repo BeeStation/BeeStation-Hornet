@@ -23,7 +23,7 @@
 		return "[target.name] not attached to a trunk"
 	// Create a terrible disposal holder object
 	var/obj/structure/disposalholder/holder = new()
-	traverse_loop(holder, target.trunk, run_id++)
+	traverse_loop(holder, target.trunk, run_id++, FALSE)
 	// Abuse byonds variables to get out (We can use pointers as an out variable in 515)
 	if (failure_reason)
 		failures += failure_reason
@@ -39,7 +39,7 @@
 	for (var/sort_code in GLOB.TAGGERLOCATIONS)
 		i++
 		holder.destinationTag = i
-		var/obj/structure/disposaloutlet/destination = traverse_loop(holder, target.trunk, run_id++)
+		var/obj/structure/disposaloutlet/destination = traverse_loop(holder, target.trunk, run_id++, TRUE)
 		if (failure_reason)
 			failures += failure_reason
 			continue
@@ -52,7 +52,7 @@
 			failures += "Disposal track starting at [COORD(target)] does not end up in the correct destination. Expected [sort_code] ([i]), got [get_area(destination)] at [COORD(destination)]"
 	return failures
 
-/datum/unit_test/map_test/check_disposals/proc/traverse_loop(obj/structure/disposalholder/holder, obj/structure/disposalpipe/start, run_id)
+/datum/unit_test/map_test/check_disposals/proc/traverse_loop(obj/structure/disposalholder/holder, obj/structure/disposalpipe/start, run_id, allow_inputs)
 	// First check to ensure that we end up somewhere
 	var/obj/structure/disposalpipe/current = start
 	holder.current_pipe = current
@@ -75,7 +75,8 @@
 			return locate(/obj/structure/disposaloutlet)
 		// Detect ending back at an input
 		if (locate(/obj/machinery/disposal) in T)
-			failure_reason = "Disposal loop starting at [COORD(start)] leads to an input node at [COORD(T)] but should lead to an outlet.  Holder was traversing [dir2text(holder.dir)] and was last at [COORD(holder.last_pipe)]."
+			if (!allow_inputs)
+				failure_reason = "Disposal loop starting at [COORD(start)] leads to an input node at [COORD(T)] but should lead to an outlet.  Holder was traversing [dir2text(holder.dir)] and was last at [COORD(holder.last_pipe)]."
 			return
 		if (locate(/obj/structure/disposalpipe/sorting) in T)
 			is_sorting_network = TRUE
