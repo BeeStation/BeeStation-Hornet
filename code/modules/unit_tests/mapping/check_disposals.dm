@@ -39,7 +39,7 @@
 	for (var/sort_code in GLOB.TAGGERLOCATIONS)
 		i++
 		holder.destinationTag = i
-		var/obj/structure/disposaloutlet/destination = traverse_loop(holder, target.trunk, run_id++, TRUE)
+		var/atom/destination = traverse_loop(holder, target.trunk, run_id++, TRUE)
 		if (failure_reason)
 			failures += failure_reason
 			continue
@@ -77,7 +77,7 @@
 		if (locate(/obj/machinery/disposal) in T)
 			if (!allow_inputs)
 				failure_reason = "Disposal loop starting at [COORD(start)] leads to an input node at [COORD(T)] but should lead to an outlet.  Holder was traversing [dir2text(holder.dir)] and was last at [COORD(holder.last_pipe)]."
-			return
+			return current
 		if (locate(/obj/structure/disposalpipe/sorting) in T)
 			is_sorting_network = TRUE
 		// Loop detection
