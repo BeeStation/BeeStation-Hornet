@@ -67,7 +67,7 @@
 		current = holder.findpipe(T)
 		// End detection
 		if (current == null)
-			failure_reason = "Disposal network starting at [COORD(start)] has a pipe with no output at [COORD(T)] but should lead to an outlet. Holder was traversing [dir2text(holder.dir)] and was last at [COORD(holder.current_pipe)]."
+			failure_reason = "Disposal network starting at [COORD(start)] has a pipe with no output at [COORD(T)] but should lead to an outlet. Holder was traversing [dir2text(holder.dir)] and was last at [COORD(holder.current_pipe)]. Sort code was [holder.destinationTag]."
 			return
 		// Set our direction
 		holder.dir = get_dir(holder.current_pipe, current)
@@ -83,12 +83,12 @@
 		// Detect ending back at an input
 		if (locate(/obj/machinery/disposal) in T)
 			if (!allow_inputs)
-				failure_reason = "Disposal loop starting at [COORD(start)] leads to an input node at [COORD(T)] but should lead to an outlet.  Holder was traversing [dir2text(holder.dir)] and was last at [COORD(holder.last_pipe)]."
+				failure_reason = "Disposal loop starting at [COORD(start)] leads to an input node at [COORD(T)] but should lead to an outlet.  Holder was traversing [dir2text(holder.dir)] and was last at [COORD(holder.last_pipe)]. Sort code was [holder.destinationTag]."
 			return current
 		if (locate(/obj/structure/disposalpipe/sorting) in T)
 			is_sorting_network = TRUE
 		// Loop detection
 		if (current._traversed == run_id)
-			failure_reason = "Disposal network starting at [COORD(start)] contains a loop at [COORD(T)] which is not allowed. Holder was traversing [dir2text(holder.dir)] and was last at [COORD(holder.last_pipe)]."
+			failure_reason = "Disposal network starting at [COORD(start)] contains a loop at [COORD(T)] which is not allowed. Holder was traversing [dir2text(holder.dir)] and was last at [COORD(holder.last_pipe)]. Sort code was [holder.destinationTag]."
 			return
 		current._traversed = run_id
