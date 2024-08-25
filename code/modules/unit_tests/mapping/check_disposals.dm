@@ -22,7 +22,7 @@
 		return "[target.name] not attached to a trunk"
 	// Create a terrible disposal holder object
 	var/obj/structure/disposalholder/holder = new()
-	traverse_loop(holder, target.trunk)
+	traverse_loop(holder, target.trunk, "default")
 	// Abuse byonds variables to get out (We can use pointers as an out variable in 515)
 	if (failure_reason)
 		failures += failure_reason
@@ -36,7 +36,7 @@
 	// We should be able to enter the loop at any point from an input gate to get to our destination
 	for (var/sort_code in GLOB.TAGGERLOCATIONS)
 		holder.destinationTag = sort_code
-		var/obj/structure/disposaloutlet/destination = traverse_loop(holder, target.trunk)
+		var/obj/structure/disposaloutlet/destination = traverse_loop(holder, target.trunk, sort_code)
 		if (failure_reason)
 			return failure_reason
 		var/arrived = FALSE
@@ -48,13 +48,16 @@
 			failures += "Disposal track starting at [COORD(target)] does not end up in the correct destination. Expected [sort_code], got [get_area(destination)] at [COORD(destination)]"
 	return failures
 
-/datum/unit_test/map_test/check_disposals/proc/traverse_loop(obj/structure/disposalholder/holder, obj/structure/disposalpipe/start)
+/datum/unit_test/map_test/check_disposals/proc/traverse_loop(obj/structure/disposalholder/holder, obj/structure/disposalpipe/start, run_id)
 	// First check to ensure that we end up somewhere
 	var/obj/structure/disposalpipe/current = start
 	while (current)
 		holder.current_pipe = current
 		var/turf/T = get_step(current, current.nextdir(holder))
 		current = locate(/obj/structure/disposalpipe) in T
+		if (holder.current_pipe == current)
+			failure_reason = "Pipenet for some reason returned own pipe as the next direction when traversing a [current.type] at [COORD(current)]."
+			return
 		// Found a valid ending
 		if (locate(/obj/structure/disposaloutlet) in T)
 			return locate(/obj/structure/disposaloutlet)
@@ -67,7 +70,7 @@
 		if (current == null)
 			failure_reason = "Disposal network starting at [COORD(start)] has a pipe with no output at [COORD(T)] but should lead to an outlet"
 		// Loop detection
-		if (current._traversed == 1)
+		if (current._traversed == run_id)
 			failure_reason = "Disposal network starting at [COORD(start)] contains a loop at [COORD(T)] which is not allowed"
-		current._traversed = 1
+		current._traversed = run_id
 		holder.last_pipe = current
