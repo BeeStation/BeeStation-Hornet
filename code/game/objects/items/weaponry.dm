@@ -947,16 +947,17 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/club
 	name = "Billy club"
-	desc = "Used to bash heads and break down defenses."
+	desc = "A club designed for breaching enclosed spaces, with an insulated handle-guard to prevent shocks."
 	icon_state = "billyclub"
 	item_state = "classic_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	force = 10
+	force = 12
 	throwforce = 5
 	attack_verb_continuous = list("clubs", "bludgeons")
 	attack_verb_simple = list("club", "bludgeon")
 	item_flags = ISWEAPON
+	siemens_coefficient = 0
 	var/breakforce = 30
 	var/stamforce = 15
 
@@ -970,17 +971,21 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 			H.apply_damage(stamforce, STAMINA, blocked = def_check)
 	return ..()
 
-/obj/item/club/afterattack(atom/A, mob/user, proximity)
-	. = ..()
-	if(!proximity)
-		return
-	if(istype(A, /obj/structure/window) || istype(A, /obj/machinery/door/window)\
-		|| istype(A, /obj/structure/windoor_assembly) || istype(A, /obj/structure/table/glass)) //Bonus damage to windows, windoors, and windoor assemblies
-		var/obj/W = A
-		W.take_damage(30, BRUTE, MELEE, 0)
-	else if(istype(A, /obj/structure/grille)) //Bonus damage to grilles
-		var/obj/structure/grille/G = A
-		G.take_damage(20, BRUTE, MELEE, 0)
+/obj/item/club/pre_attack(atom/A, mob/living/user, params)
+	force = initial(force)
+	armour_penetration = initial(armour_penetration)
+	if(isstructure(A) || ismachinery(A) || isturf(A))
+		force *= 4
+		armour_penetration += 50
+		// To prevent unnecessary force string calculation (we want this to be treated
+		// as if it wasn't changed)
+		last_force_string_check = force
+	return ..()
+
+/obj/item/club/set_force_string()
+	// If we do need to calculate the new force string, make sure we are using the original force
+	force = initial(force)
+	return ..()
 
 /obj/item/club/tailclub
 	name = "tail club"

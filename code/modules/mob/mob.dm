@@ -36,8 +36,7 @@
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
 	if(observers?.len)
-		for(var/M in observers)
-			var/mob/dead/observe = M
+		for(var/mob/dead/observe as anything in observers)
 			observe.reset_perspective(null)
 	qdel(hud_used)
 	for(var/cc in client_colours)
@@ -445,18 +444,24 @@
  */
 /mob/proc/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(TRUE)
+	/*
+	*In the future, this signal may need to be moved to the end of the proc, after the eye has been given a chance to fully updated.
+	*No issues atm, but if one occurs, try that solution first
+	*/
+	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 	if(!client)
 		return
 
 	if(new_eye)
 		if(ismovable(new_eye))
-			//Set the the thing unless it's us
+			//Set the new eye unless it's us
 			if(new_eye != src)
 				client.perspective = EYE_PERSPECTIVE
 				client.set_eye(new_eye)
 			else
 				client.set_eye(client.mob)
 				client.perspective = MOB_PERSPECTIVE
+
 		else if(isturf(new_eye))
 			//Set to the turf unless it's our current turf
 			if(new_eye != loc)
@@ -466,7 +471,7 @@
 				client.set_eye(client.mob)
 				client.perspective = MOB_PERSPECTIVE
 		else
-			//Do nothing
+			return TRUE //no setting eye to stupid things like areas or whatever
 	else
 		//Reset to common defaults: mob if on turf, otherwise current loc
 		if(isturf(loc))

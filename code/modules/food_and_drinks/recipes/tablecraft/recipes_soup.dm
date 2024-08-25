@@ -250,10 +250,11 @@
 /datum/crafting_recipe/food/bisque
 	name = "Bisque"
 	reqs = list(
+		/obj/item/reagent_containers/glass/bowl = 1,
 		/datum/reagent/water = 10,
 		/obj/item/reagent_containers/glass/bowl = 1,
 		/obj/item/food/meat/crab = 1,
-		/obj/item/food/salad/boiledrice = 1
+		/obj/item/food/boiledrice = 1
 	)
 	result = /obj/item/food/soup/bisque
 	subcategory = CAT_SOUP
