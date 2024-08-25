@@ -76,7 +76,7 @@
 		if (locate(/obj/machinery/disposal) in T)
 			failure_reason = "Disposal loop starting at [COORD(start)] leads to an input node at [COORD(T)] but should lead to an outlet.  Holder was traversing [dir2text(holder.dir)] and was last at [COORD(holder.last_pipe)]."
 			return
-		if (locate(/obj/structure/disposalpipe/sorting))
+		if (locate(/obj/structure/disposalpipe/sorting) in T)
 			is_sorting_network = TRUE
 		// Loop detection
 		if (current._traversed == run_id)
