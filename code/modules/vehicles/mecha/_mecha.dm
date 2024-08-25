@@ -127,8 +127,8 @@
 
 	///TIme taken to leave the mech
 	var/exit_delay = 2 SECONDS
-	///Time you get slept for if you get forcible ejected by the mech exploding
-	var/destruction_sleep_duration = 2 SECONDS
+	///Time you get knocked down for if you get forcible ejected by the mech exploding
+	var/destruction_knockdown_duration = 4 SECONDS
 	///Whether outside viewers can see the pilot inside
 	var/enclosed = TRUE
 	///In case theres a different iconstate for AI/MMI pilot(currently only used for ripley)
@@ -212,14 +212,24 @@
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 	update_step_speed()
 
-/obj/vehicle/sealed/mecha/Destroy()
+//separate proc so that the ejection mechanism can be easily triggered by other things, such as admins
+/obj/vehicle/sealed/mecha/proc/Eject()
 	for(var/M in occupants)
 		var/mob/living/occupant = M
 		if(isAI(occupant))
 			occupant.gib() //No wreck, no AI to recover
 		else
-			occupant.forceMove(loc)
-			occupant.SetSleeping(destruction_sleep_duration)
+			occupant.Stun(2 SECONDS)
+			occupant.Knockdown(destruction_knockdown_duration)
+			occupant.throwing = TRUE //This is somewhat hacky, but is the best option available to avoid chasm detection for the split second between the next two lines
+			occupant.forceMove(get_turf(loc))
+			occupant.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(5, 8),rand(5, 8)) //resets the throwing variable above. Random values are independant on purpose to give variance to damage on wallslams and the distance the occupant is ejected.
+			occupant.visible_message("<span class='userdanger'>[occupant] is forcefully ejected from the mech!</span>", "<span class='userdanger'>You are forcefully ejected from the mech!</span>", null, COMBAT_MESSAGE_RANGE)
+			playsound(src, 'sound/machines/scanbuzz.ogg', 60, FALSE)
+			playsound(src, 'sound/vehicles/carcannon1.ogg', 150, TRUE)
+
+/obj/vehicle/sealed/mecha/Destroy()
+	Eject()
 	if(LAZYLEN(equipment))
 		for(var/E in equipment)
 			var/obj/item/mecha_parts/mecha_equipment/equip = E

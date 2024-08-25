@@ -57,10 +57,39 @@
 		<div class="commit sansserif">
 
 			<h2 class="date">25 August 2024</h2>
+			<h3 class="author">Ghommie, XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Refactored movetypes.</li>
+				<li class="bugfix">Jitteriness, melee attack animations and resting/standing up should no longer momentarily disable the floating movetype</li>
+			</ul>
 			<h3 class="author">HowToLoLu updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">Eminences no longer attempt to update a non-existent health hud</li>
 				<li class="code_imp">Changed a few stack traces in hud code to crashes for less obfuscated runtimes</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds a dispoal pipe that filters items which haven't been sorted but need to be sorted.</li>
+				<li class="tweak">Tweaks the code of the disposal pipe filtering so that items not entering from the input will not be sorted.</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Mechs now fling their occupants in a random direction upon destruction, including when a mech falls down a chasm.</li>
+				<li class="code_imp">Mechs now have an Eject() proc that can be called directly without destroying the mech.</li>
+				<li class="bugfix">Mechs can no longer continue walking around when falling into a chasm</li>
+				<li class="tweak">Mechs no longer put pilots to sleep when breaking, instead stunning the pilot and knocking them down for a time dependant on the type of mech.</li>
+			</ul>
+			<h3 class="author">XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed an early exit condition for book cases, potentially fixing them</li>
+			</ul>
+			<h3 class="author">rkz, Dennok, rdragan, Ghilker, Mothblocks, Cacogen, ZephyrTFA updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">adds deconstruction scan to RCDs. Allows you to see roundstart walls.</li>
+				<li class="balance">roundstart walls cost less mats to build</li>
+				<li class="bugfix">RCDs will automatically complete girders instead of building a new wall</li>
+				<li class="bugfix">RCDs will automatically grilles instead of building new grilles</li>
+				<li class="bugfix">fixes Silo link message</li>
 			</ul>
 			<h3 class="author">rkz, kapu updated:</h3>
 			<ul class="changes bgimages16">
