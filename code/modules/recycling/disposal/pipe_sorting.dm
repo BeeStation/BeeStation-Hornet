@@ -103,7 +103,7 @@
 	initialize_dirs = DISP_DIR_RIGHT | DISP_DIR_FLIP
 
 /obj/structure/disposalpipe/sorting/unsorted/check_sorting(obj/structure/disposalholder/H)
-	return H.unsorted
+	return H.unsorted && (H.destinationTag || H.tomail)
 
 /obj/structure/disposalpipe/sorting/unsorted/flip
 	icon_state = "pipe-j2s"
