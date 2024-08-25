@@ -1,0 +1,6 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: Eminences no longer attempt to update a non-existent health hud
+  - code_imp: Changed a few stack traces in hud code to crashes for less obfuscated
+      runtimes
