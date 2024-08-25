@@ -742,6 +742,14 @@
 	result = /obj/item/paper_bin/bundlenatural
 	category = CAT_MISC
 
+/datum/crafting_recipe/brush
+	name = "Calligraphy Brush"
+	time = 30
+	reqs = list(/obj/item/stack/sheet/wood = 1, /obj/item/stack/sheet/cotton/cloth = 1)
+	tools = list(/obj/item/wirecutters)
+	result = /obj/item/pen/brush
+	category = CAT_MISC
+
 /datum/crafting_recipe/toysword
 	name = "Toy Sword"
 	reqs = list(/obj/item/light/bulb = 1, /obj/item/stack/cable_coil = 1, /obj/item/stack/sheet/plastic = 4)
