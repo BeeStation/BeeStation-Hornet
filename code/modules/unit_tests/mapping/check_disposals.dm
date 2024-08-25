@@ -80,7 +80,7 @@
 			has_looped = TRUE
 		// Found a valid ending
 		if (locate(/obj/structure/disposaloutlet) in T)
-			return locate(/obj/structure/disposaloutlet)
+			return locate(/obj/structure/disposaloutlet) in T
 		// Detect ending back at an input
 		if (locate(/obj/machinery/disposal) in T)
 			if (!allow_inputs)
