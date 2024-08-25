@@ -56,7 +56,7 @@
 		var/turf/T = get_step(current, current.nextdir(holder))
 		current = locate(/obj/structure/disposalpipe) in T
 		if (holder.current_pipe == current)
-			failure_reason = "Pipenet for some reason returned own pipe as the next direction when traversing a [current.type] at [COORD(current)]."
+			failure_reason = "Disposal loop starting at [COORD(start)] eventually ends up leading to itself with type [current.type] at [COORD(current)]."
 			return
 		// Found a valid ending
 		if (locate(/obj/structure/disposaloutlet) in T)

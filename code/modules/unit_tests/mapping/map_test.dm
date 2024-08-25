@@ -37,8 +37,8 @@
 	if (result)
 		LAZYADD(failures, result)
 	// Fail if necessary
-	if (LAZYLEN(failures))
-		TEST_FAIL(jointext(failures, "\n"))
+	for (var/failure in failures)
+		TEST_FAIL(failure)
 
 /// Return a string if failed, return null otherwise
 /datum/unit_test/map_test/proc/check_turf(turf/check_turf, is_map_border)
