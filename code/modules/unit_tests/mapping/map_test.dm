@@ -12,13 +12,19 @@
 				turfs += tile
 				areas[tile.loc] = TRUE
 				var/result = check_turf(tile, x == 1 || x == world.maxx || y == 1 || y == world.maxy)
-				if (result)
+				if (islist(result))
+					for (var/msg in result)
+						LAZYADD(failures, "([x], [y], [z]): [msg]")
+				else if (result)
 					LAZYADD(failures, "([x], [y], [z]): [result]")
 	// Check areas
 	for (var/area/A in areas)
 		var/result = check_area(A)
-		if (result)
-			LAZYADD(failures, "([A.type]): [result]")
+		if (islist(result))
+			for (var/msg in result)
+				LAZYADD(failures, "([A.type]): [msg]")
+		else if (result)
+			LAZYADD(failures,  "([A.type]): [result]")
 	// Check Zs
 	for (var/z in 1 to world.maxz)
 		if (!is_station_level(z))
