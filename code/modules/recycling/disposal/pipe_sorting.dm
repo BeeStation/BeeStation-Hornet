@@ -16,7 +16,9 @@
 			H.unsorted = FALSE
 			// exit through sortdirection
 			return sortdir
-
+	// If we are entering backwards, continue onwards
+	if (H.dir == turn(input_direction, 180))
+		return H.dir
 	// go with the flow to positive direction
 	return dir
 
