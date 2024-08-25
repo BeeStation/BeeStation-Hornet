@@ -1513,13 +1513,6 @@
 	dir = 1
 	},
 /area/hallway/secondary/entry)
-"axe" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "axj" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Firefighting Equipment";
@@ -13726,10 +13719,12 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "csm" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 10
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -17110,8 +17105,11 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "dfl" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/reagent_dispensers/fueltank,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "dfs" = (
@@ -20207,13 +20205,6 @@
 /obj/machinery/gateway/centerstation,
 /turf/open/floor/engine,
 /area/gateway)
-"euG" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "euJ" = (
 /obj/machinery/camera/directional/north,
 /obj/effect/turf_decal/tile/blue{
@@ -21240,7 +21231,9 @@
 /area/medical/surgery)
 "ePA" = (
 /obj/machinery/light/small,
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "ePJ" = (
@@ -29296,10 +29289,10 @@
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
 "ioE" = (
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "ioN" = (
@@ -39173,12 +39166,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/storage/tech)
-"mGS" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/turf/closed/wall,
-/area/maintenance/starboard/aft)
 "mHx" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
@@ -47652,13 +47639,6 @@
 /obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /turf/open/floor/plating,
 /area/maintenance/port)
-"qrL" = (
-/obj/structure/closet/emcloset,
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "qrR" = (
 /obj/effect/turf_decal/pool/corner{
 	dir = 1
@@ -56036,9 +56016,6 @@
 "tIO" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	name = "Waste Out"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -65212,10 +65189,10 @@
 /turf/open/floor/iron,
 /area/quartermaster/miningdock)
 "xPe" = (
+/obj/machinery/atmospherics/pipe/simple,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "xPk" = (
@@ -105744,7 +105721,7 @@ cko
 clH
 pnq
 ePA
-mGS
+cNW
 cNW
 aaf
 aaf
@@ -105999,9 +105976,9 @@ cko
 cnG
 cko
 rzf
-cnG
 rVB
 cvO
+cOe
 gqm
 aaa
 aaa
@@ -106256,7 +106233,7 @@ cko
 cnG
 cko
 csm
-euG
+xPe
 xPe
 tIO
 fjl
@@ -106512,10 +106489,10 @@ cOe
 cOe
 cOe
 wLJ
-cOe
 mto
-axe
+mab
 nyK
+cOe
 cOT
 aoV
 aoV
@@ -106770,9 +106747,9 @@ cko
 cnG
 cko
 dfl
-mab
+jUc
 ioE
-cvO
+cOe
 cOT
 aaa
 aaa
@@ -107026,10 +107003,10 @@ cnG
 cnG
 hZj
 cko
-cnG
 jUc
-mAe
-qrL
+cOe
+cvO
+cdu
 cNW
 aaa
 aaa
