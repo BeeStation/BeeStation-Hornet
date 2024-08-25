@@ -51,15 +51,20 @@
 /datum/unit_test/map_test/check_disposals/proc/traverse_loop(obj/structure/disposalholder/holder, obj/structure/disposalpipe/start, run_id)
 	// First check to ensure that we end up somewhere
 	var/obj/structure/disposalpipe/current = start
+	holder.current_pipe = current
+	holder.dir = current.dir
 	while (current)
-		if (holder.last_pipe)
-			holder.dir = get_dir(holder.last_pipe, current)
-		else
-			holder.dir = current.dir
-		holder.current_pipe = current
 		// Account for disposals shitcode
 		var/turf/T = get_step(current, istype(current, /obj/structure/disposalpipe/trunk) ? current.dir : current.nextdir(holder))
-		current = locate(/obj/structure/disposalpipe) in T
+		current = holder.findpipe(T)
+		// End detection
+		if (current == null)
+			failure_reason = "Disposal network starting at [COORD(start)] has a pipe with no output at [COORD(T)] but should lead to an outlet"
+			return
+		// Set our direction
+		holder.dir = get_step(holder.current_pipe, current)
+		holder.last_pipe = current
+		holder.current_pipe = current
 		// Found a valid ending
 		if (locate(/obj/structure/disposaloutlet) in T)
 			return locate(/obj/structure/disposaloutlet)
@@ -69,13 +74,8 @@
 			return
 		if (locate(/obj/structure/disposalpipe/sorting))
 			is_sorting_network = TRUE
-		// End detection
-		if (current == null)
-			failure_reason = "Disposal network starting at [COORD(start)] has a pipe with no output at [COORD(T)] but should lead to an outlet"
-			return
 		// Loop detection
 		if (current._traversed == run_id)
-			failure_reason = "Disposal network starting at [COORD(start)] contains a loop at [COORD(T)] which is not allowed"
+			failure_reason = "Disposal network starting at [COORD(start)] contains a loop at [COORD(T)] which is not allowed. Holder was traversing [dir2text(holder.dir)]."
 			return
 		current._traversed = run_id
-		holder.last_pipe = current
