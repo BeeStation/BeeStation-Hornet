@@ -10,7 +10,7 @@
 	var/sortdir = dpdir & ~(dir | turn(dir, 180))
 	var/input_direction = dir
 	// probably came from the negdir
-	if(H.dir != input_direction)
+	if(H.dir == input_direction)
 		// if destination matches filtered type...
 		if(check_sorting(H))
 			H.unsorted = FALSE
