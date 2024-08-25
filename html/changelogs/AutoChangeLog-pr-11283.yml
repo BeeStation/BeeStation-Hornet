@@ -1,0 +1,8 @@
+author: rkz, Dennok, rdragan, Ghilker, Mothblocks, Cacogen, ZephyrTFA
+delete-after: true
+changes:
+  - rscadd: adds deconstruction scan to RCDs. Allows you to see roundstart walls.
+  - balance: roundstart walls cost less mats to build
+  - bugfix: RCDs will automatically complete girders instead of building a new wall
+  - bugfix: RCDs will automatically grilles instead of building new grilles
+  - bugfix: fixes Silo link message
