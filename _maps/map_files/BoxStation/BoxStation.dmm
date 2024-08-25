@@ -5241,9 +5241,6 @@
 /area/engine/gravity_generator)
 "bgZ" = (
 /obj/machinery/stasis,
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -5253,6 +5250,9 @@
 /obj/machinery/sleeper,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
@@ -6540,12 +6540,10 @@
 "bqR" = (
 /obj/structure/table/glass,
 /obj/item/storage/backpack/duffelbag/med/surgery,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
 "bqS" = (
@@ -10619,14 +10617,6 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/engine/atmos)
-"bWU" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/side{
-	dir = 4
-	},
 /area/engine/atmos)
 "bWX" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -19448,9 +19438,6 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "ede" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -19688,6 +19675,7 @@
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 1
 	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron,
 /area/quartermaster/qm)
 "eiC" = (
@@ -20209,9 +20197,6 @@
 "etZ" = (
 /obj/structure/table/glass,
 /obj/item/storage/belt/medical,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/item/storage/box/medipens,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -22857,6 +22842,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet)
 "fBh" = (
@@ -24455,12 +24441,10 @@
 /area/maintenance/starboard/aft)
 "gkL" = (
 /obj/machinery/washing_machine,
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet)
 "gkT" = (
@@ -31719,16 +31703,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
-"jsS" = (
-/obj/structure/chair,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/hallway/secondary/exit)
 "jsT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -32891,6 +32865,9 @@
 /area/engine/atmos)
 "jRJ" = (
 /obj/machinery/vending/boozeomat,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "jSj" = (
@@ -33076,9 +33053,6 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "jVS" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
 	},
@@ -35163,9 +35137,6 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -37136,12 +37107,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"lFf" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/iron/cafeteria_red,
-/area/crew_quarters/bar)
 "lFJ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -39213,12 +39178,6 @@
 	dir = 5
 	},
 /turf/closed/wall,
-/area/maintenance/starboard/aft)
-"mHc" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "mHx" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -42452,6 +42411,9 @@
 	pixel_x = -4;
 	pixel_y = -3
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
 "nYz" = (
@@ -45578,7 +45540,6 @@
 	pixel_y = -24
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/light,
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/beaker/cryoxadone,
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
@@ -46489,9 +46450,6 @@
 /obj/structure/bed/roller,
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 23
-	},
-/obj/machinery/light{
-	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -48025,9 +47983,6 @@
 "qyT" = (
 /obj/machinery/computer/cargo{
 	dir = 4
-	},
-/obj/machinery/light{
-	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 1
@@ -54735,15 +54690,6 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
-"thV" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/medical/sleeper)
 "thW" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -56847,6 +56793,9 @@
 	},
 /obj/machinery/light_switch{
 	pixel_x = -28
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
@@ -63867,12 +63816,6 @@
 /obj/structure/flora/grass/jungle/b,
 /turf/open/floor/grass,
 /area/hallway/secondary/command)
-"xkV" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/closed/wall,
-/area/maintenance/starboard/aft)
 "xli" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -101151,7 +101094,7 @@ bSM
 bTV
 bUT
 fUA
-bWU
+fYS
 sYl
 bYT
 bZK
@@ -101379,7 +101322,7 @@ aNl
 blh
 ueA
 blh
-thV
+blh
 oiT
 blh
 blh
@@ -103162,7 +103105,7 @@ kYi
 ixC
 aOO
 kAz
-lFf
+fRF
 wRy
 fRF
 fRF
@@ -106561,7 +106504,7 @@ nZo
 ouW
 dPe
 bNd
-mHc
+cOe
 cOe
 ahO
 iBQ
@@ -114779,7 +114722,7 @@ kdn
 sei
 hNK
 cNW
-xkV
+cNW
 cNW
 cNW
 cNW
@@ -116266,7 +116209,7 @@ aaa
 aaa
 aaf
 aNa
-jsS
+aOd
 aPq
 aPq
 ffm
