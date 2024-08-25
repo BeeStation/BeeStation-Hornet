@@ -8134,7 +8134,6 @@
 	dir = 1
 	},
 /obj/item/kirbyplants/random,
-/obj/machinery/camera/directional/north,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "bIm" = (
@@ -8564,7 +8563,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/preset/toxins{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/plating{
 	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=293.15";
@@ -15569,6 +15568,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible{
 	dir = 1
+	},
+/obj/machinery/camera/autoname/directional/north{
+	network = list("ss13","engine")
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -24642,6 +24644,12 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
+"goV" = (
+/obj/machinery/camera/directional/north{
+	network = list("ss13","rd")
+	},
+/turf/open/floor/engine,
+/area/science/explab)
 "goW" = (
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/plating,
@@ -39731,6 +39739,13 @@
 	},
 /turf/open/floor/iron,
 /area/medical/genetics)
+"mUT" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/machinery/camera/directional/south,
+/turf/open/floor/iron/white/corner,
+/area/hallway/secondary/entry)
 "mUU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -41727,8 +41742,7 @@
 /turf/open/floor/wood,
 /area/library)
 "nJp" = (
-/obj/machinery/camera/autoname/directional/east,
-/obj/effect/turf_decal/tile/dark_blue/half/contrasted,
+/obj/machinery/camera/directional/east,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "nJq" = (
@@ -50083,6 +50097,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/camera/autoname/directional/north,
 /turf/open/floor/iron/white/corner{
 	dir = 1
 	},
@@ -51435,12 +51450,13 @@
 /turf/open/floor/iron,
 /area/science/explab)
 "rRQ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
 	},
-/obj/machinery/camera/directional/north,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/camera/autoname/directional/west,
 /turf/open/floor/iron,
-/area/hallway/primary/port)
+/area/hallway/primary/central)
 "rRU" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -54204,7 +54220,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/camera/autoname/directional/east,
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},
@@ -55683,9 +55698,6 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/north{
-	network = list("ss13","engine")
-	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "tCh" = (
@@ -56909,12 +56921,12 @@
 /turf/open/floor/iron/dark,
 /area/science/nanite)
 "ubL" = (
-/obj/machinery/camera/autoname/directional/east,
-/obj/machinery/camera/autoname/directional/east,
-/turf/open/floor/iron/white/side{
-	dir = 9
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/area/science/research)
+/obj/machinery/camera/directional/south,
+/turf/open/floor/iron,
+/area/hallway/primary/port)
 "ubO" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -60945,15 +60957,14 @@
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "vTI" = (
-/obj/machinery/camera/directional/north,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
 	},
-/obj/effect/turf_decal/trimline/dark_blue/filled/line{
+/obj/machinery/camera/autoname/directional/north,
+/turf/open/floor/iron/white/corner{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
-/area/hallway/primary/central)
+/area/hallway/secondary/entry)
 "vUe" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -62118,7 +62129,6 @@
 "wti" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/item/kirbyplants/random,
-/obj/machinery/camera/autoname/directional/south,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "wts" = (
@@ -64145,9 +64155,6 @@
 	},
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 4
-	},
-/obj/machinery/camera/directional/north{
-	network = list("ss13","rd")
 	},
 /turf/open/floor/iron,
 /area/science/explab)
@@ -78251,7 +78258,7 @@ aaa
 asE
 aPt
 jdt
-aRY
+mUT
 arB
 arB
 arB
@@ -78259,7 +78266,7 @@ tAH
 rQX
 rQX
 arB
-awZ
+vTI
 tlO
 azB
 rQX
@@ -85958,7 +85965,7 @@ aBR
 aBR
 aLJ
 aLE
-aOl
+ubL
 aPA
 aQW
 aQW
@@ -86470,7 +86477,7 @@ aBa
 aBa
 aaf
 aKt
-rRQ
+aLN
 bDe
 aOl
 aPF
@@ -90855,7 +90862,7 @@ gMk
 gMk
 bbV
 qnI
-qnI
+rRQ
 qnI
 efv
 qnI
@@ -91369,7 +91376,7 @@ nbZ
 nbZ
 sEj
 aYl
-nJp
+aYl
 aYl
 aYl
 sEj
@@ -98556,7 +98563,7 @@ dgB
 aaa
 aaa
 dgB
-vTI
+cAx
 sAB
 urY
 aZV
@@ -99585,7 +99592,7 @@ aRt
 aJq
 aJq
 aJq
-aJq
+nJp
 aJq
 qVS
 aJq
@@ -112726,7 +112733,7 @@ bBD
 tRP
 bBD
 bBD
-ubL
+vZt
 bBD
 bBD
 xiZ
@@ -112996,7 +113003,7 @@ xLe
 tIE
 fQv
 tIA
-sei
+goV
 sei
 sei
 hNK
