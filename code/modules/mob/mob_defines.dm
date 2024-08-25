@@ -160,9 +160,6 @@
 	/// Can this mob enter shuttles
 	var/move_on_shuttle = 1
 
-	///A weakref to the last mob/living/carbon to push/drag/grab this mob (exclusively used by slimes friend recognition)
-	var/datum/weakref/LAssailant = null
-
 	/**
 	  * construct spells and mime spells.
 	  *
