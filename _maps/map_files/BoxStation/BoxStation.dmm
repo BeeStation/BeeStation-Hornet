@@ -5203,7 +5203,9 @@
 /turf/open/floor/iron,
 /area/quartermaster/office)
 "bgB" = (
-/obj/structure/disposalpipe/sorting/unsorted,
+/obj/structure/disposalpipe/sorting/unsorted/flip{
+	dir = 1
+	},
 /turf/closed/wall,
 /area/quartermaster/sorting)
 "bgF" = (
@@ -16482,12 +16484,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
-"cQx" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/maintenance/port)
 "cQz" = (
 /obj/structure/table/optable,
 /obj/effect/turf_decal/tile/blue,
@@ -30794,6 +30790,18 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
+"iVk" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/airlock/maintenance{
+	id_tag = "commissarydoor";
+	req_one_access_txt = "12;63;48;50"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plating,
+/area/maintenance/port)
 "iVN" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
@@ -34319,6 +34327,12 @@
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/science/server)
+"kzn" = (
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/open/floor/plating,
+/area/maintenance/port)
 "kzD" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/firedoor,
@@ -36212,18 +36226,6 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
-"lnm" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1
-	},
-/obj/structure/barricade/wooden/crude,
-/obj/machinery/door/airlock/maintenance{
-	id_tag = "commissarydoor";
-	req_one_access_txt = "12;63;48;50"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/turf/open/floor/plating,
-/area/maintenance/port)
 "lnp" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -38770,12 +38772,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
-"mwS" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/turf/open/floor/plating,
-/area/maintenance/port)
 "mxi" = (
 /obj/structure/grille,
 /turf/open/floor/plating,
@@ -62265,6 +62261,12 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
+"wvP" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/maintenance/port)
 "wvY" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
@@ -88280,10 +88282,10 @@ cCF
 elS
 fkv
 prx
-cQx
-lnm
+wvP
+iVk
 bdW
-mwS
+kzn
 aZE
 bgz
 biT
