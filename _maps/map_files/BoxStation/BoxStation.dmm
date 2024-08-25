@@ -10624,9 +10624,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 4
-	},
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},
@@ -12000,9 +11997,6 @@
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
 "ceB" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 6
 	},
@@ -23760,7 +23754,6 @@
 /turf/open/floor/iron,
 /area/science/storage)
 "fUY" = (
-/obj/machinery/light/small,
 /obj/machinery/advanced_airlock_controller{
 	pixel_y = 24
 	},
@@ -23770,6 +23763,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/catwalk_floor,
 /area/hallway/secondary/exit)
 "fVk" = (
@@ -29210,9 +29204,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "imi" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/machinery/advanced_airlock_controller{
 	dir = 1;
 	pixel_y = -24
@@ -29223,6 +29214,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/catwalk_floor,
 /area/hallway/secondary/exit)
 "imn" = (
@@ -35394,6 +35386,9 @@
 /area/chapel/office)
 "kUw" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},
@@ -41788,6 +41783,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
 	dir = 8
 	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
@@ -56786,7 +56782,6 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "tYh" = (
-/obj/machinery/light,
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1;
 	name = "N2 Outlet Pump"
@@ -62075,9 +62070,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "wrE" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
 	},
