@@ -5,7 +5,7 @@
 	for (var/obj/object in check_turf)
 		if (!isstructure(object) && !ismachinery(object))
 			continue
-		var/hash = "[object.type][object.dir]"
+		var/hash = "[object.type][object.dir][object.pixel_x][object.pixel_y]"
 		if (istype(object, /obj/structure/cable))
 			var/obj/structure/cable/cable = object
 			hash = "[hash][min(cable.d1, cable.d2)][max(cable.d1, cable.d2)]"
