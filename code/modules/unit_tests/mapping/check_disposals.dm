@@ -52,12 +52,14 @@
 	// First check to ensure that we end up somewhere
 	var/obj/structure/disposalpipe/current = start
 	while (current)
+		if (holder.last_pipe)
+			holder.dir = get_dir(holder.last_pipe, current)
+		else
+			holder.dir = current.dir
 		holder.current_pipe = current
-		var/turf/T = get_step(current, current.nextdir(holder))
+		// Account for disposals shitcode
+		var/turf/T = get_step(current, istype(current, /obj/structure/disposalpipe/trunk) ? current.dir : current.nextdir(holder))
 		current = locate(/obj/structure/disposalpipe) in T
-		if (holder.current_pipe == current)
-			failure_reason = "Disposal loop starting at [COORD(start)] eventually ends up leading to itself with type [current.type] at [COORD(current)]."
-			return
 		// Found a valid ending
 		if (locate(/obj/structure/disposaloutlet) in T)
 			return locate(/obj/structure/disposaloutlet)
