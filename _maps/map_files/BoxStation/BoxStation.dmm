@@ -4847,6 +4847,9 @@
 /obj/item/clothing/head/soft/rainbow,
 /obj/item/clothing/shoes/sneakers/rainbow,
 /obj/item/clothing/under/color/rainbow,
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/maintenance/port)
 "bee" = (
@@ -5200,7 +5203,7 @@
 /turf/open/floor/iron,
 /area/quartermaster/office)
 "bgB" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/sorting/unsorted,
 /turf/closed/wall,
 /area/quartermaster/sorting)
 "bgF" = (
@@ -16479,6 +16482,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
+"cQx" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/maintenance/port)
 "cQz" = (
 /obj/structure/table/optable,
 /obj/effect/turf_decal/tile/blue,
@@ -22226,15 +22235,15 @@
 /turf/open/floor/iron/grid/steel,
 /area/gateway)
 "fkv" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
@@ -36203,6 +36212,18 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
+"lnm" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/airlock/maintenance{
+	id_tag = "commissarydoor";
+	req_one_access_txt = "12;63;48;50"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plating,
+/area/maintenance/port)
 "lnp" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -38749,6 +38770,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
+"mwS" = (
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/open/floor/plating,
+/area/maintenance/port)
 "mxi" = (
 /obj/structure/grille,
 /turf/open/floor/plating,
@@ -45404,6 +45431,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
@@ -88250,10 +88280,10 @@ cCF
 elS
 fkv
 prx
-aSg
-aPz
+cQx
+lnm
 bdW
-aSg
+mwS
 aZE
 bgz
 biT
