@@ -35,7 +35,7 @@ export const SimpleBot = (_, context) => {
   const access = (!locked || can_hack);
 
   return (
-    <Window width={450} height={300}>
+    <Window width={450} height={320}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>

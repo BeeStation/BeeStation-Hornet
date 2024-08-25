@@ -106,7 +106,7 @@
 
 /mob/living/simple_animal/bot/secbot/ui_data(mob/user)
 	var/list/data = ..()
-	if (!locked || issilicon(user) || IsAdminGhost(user))
+	if(!locked || issilicon(user) || IsAdminGhost(user))
 		data["custom_controls"]["check_id"] = idcheck
 		data["custom_controls"]["check_weapons"] = weaponscheck
 		data["custom_controls"]["check_warrants"] = check_records
