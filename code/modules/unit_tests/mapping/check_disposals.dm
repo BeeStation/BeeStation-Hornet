@@ -3,6 +3,7 @@
 /datum/unit_test/map_test/check_disposals
 	var/failure_reason
 	var/is_sorting_network
+	var/run_id = 1
 
 // Find all entries into the disposal system
 /datum/unit_test/map_test/check_disposals/collect_targets(list/turfs)
@@ -22,7 +23,7 @@
 		return "[target.name] not attached to a trunk"
 	// Create a terrible disposal holder object
 	var/obj/structure/disposalholder/holder = new()
-	traverse_loop(holder, target.trunk, "default")
+	traverse_loop(holder, target.trunk, run_id++)
 	// Abuse byonds variables to get out (We can use pointers as an out variable in 515)
 	if (failure_reason)
 		failures += failure_reason
@@ -38,7 +39,7 @@
 	for (var/sort_code in GLOB.TAGGERLOCATIONS)
 		i++
 		holder.destinationTag = i
-		var/obj/structure/disposaloutlet/destination = traverse_loop(holder, target.trunk, i)
+		var/obj/structure/disposaloutlet/destination = traverse_loop(holder, target.trunk, run_id++)
 		if (failure_reason)
 			continue
 		var/arrived = FALSE
