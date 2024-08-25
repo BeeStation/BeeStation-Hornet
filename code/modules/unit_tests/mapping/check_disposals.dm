@@ -23,7 +23,7 @@
 		return "[target.name] not attached to a trunk"
 	// Create a terrible disposal holder object
 	var/obj/structure/disposalholder/holder = new()
-	traverse_loop(holder, target.trunk, run_id++, FALSE)
+	traverse_loop(holder, target.trunk, FALSE)
 	// Abuse byonds variables to get out (We can use pointers as an out variable in 515)
 	if (failure_reason)
 		failures += failure_reason
@@ -39,7 +39,7 @@
 	for (var/sort_code in GLOB.TAGGERLOCATIONS)
 		i++
 		holder.destinationTag = i
-		var/atom/destination = traverse_loop(holder, target.trunk, run_id++, TRUE)
+		var/atom/destination = traverse_loop(holder, target.trunk, TRUE)
 		if (failure_reason)
 			failures += failure_reason
 			continue
@@ -52,11 +52,14 @@
 			failures += "Disposal track starting at [COORD(target)] does not end up in the correct destination. Expected [sort_code] ([i]), got [get_area(destination)] at [COORD(destination)]"
 	return failures
 
-/datum/unit_test/map_test/check_disposals/proc/traverse_loop(obj/structure/disposalholder/holder, obj/structure/disposalpipe/start, run_id, allow_inputs)
+/datum/unit_test/map_test/check_disposals/proc/traverse_loop(obj/structure/disposalholder/holder, obj/structure/disposalpipe/start, allow_inputs)
+	// Increment run ID
+	run_id++
 	// First check to ensure that we end up somewhere
 	var/obj/structure/disposalpipe/current = start
 	holder.current_pipe = current
 	holder.dir = current.dir || SOUTH
+	var/has_looped = FALSE
 	while (current)
 		// Account for disposals shitcode
 		holder.dir = istype(current, /obj/structure/disposalpipe/trunk) ? (current.dir || SOUTH) : current.nextdir(holder)
@@ -70,6 +73,10 @@
 		holder.dir = get_dir(holder.current_pipe, current)
 		holder.last_pipe = holder.current_pipe
 		holder.current_pipe = current
+		// If we have re-entered the loop at the unsorting pip, increment run ID as we will have a different behaviour next time we loop around
+		if (!has_looped && !holder.unsorted)
+			run_id ++
+			has_looped = TRUE
 		// Found a valid ending
 		if (locate(/obj/structure/disposaloutlet) in T)
 			return locate(/obj/structure/disposaloutlet)
