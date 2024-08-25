@@ -103,7 +103,7 @@
 /obj/structure/disposalpipe/sorting/unsorted
 	name = "unsorted sorting disposal pipe"
 	desc = "An underfloor disposal pipe which sorts sorted and unsorted objects. Objects passing through it become sorted."
-	flip_type = /obj/structure/disposalpipe/sorting/wrap/flip
+	flip_type = /obj/structure/disposalpipe/sorting/unsorted/flip
 	initialize_dirs = DISP_DIR_RIGHT | DISP_DIR_FLIP
 
 /obj/structure/disposalpipe/sorting/unsorted/check_sorting(obj/structure/disposalholder/H)
