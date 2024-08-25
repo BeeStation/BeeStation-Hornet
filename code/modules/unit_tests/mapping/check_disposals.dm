@@ -39,6 +39,7 @@
 	for (var/sort_code in GLOB.TAGGERLOCATIONS)
 		i++
 		holder.destinationTag = i
+		holder.unsorted = TRUE
 		var/atom/destination = traverse_loop(holder, target.trunk, TRUE)
 		if (failure_reason)
 			failures += failure_reason
