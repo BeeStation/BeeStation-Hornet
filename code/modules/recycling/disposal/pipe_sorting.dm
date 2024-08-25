@@ -8,10 +8,14 @@
 
 /obj/structure/disposalpipe/sorting/nextdir(obj/structure/disposalholder/H)
 	var/sortdir = dpdir & ~(dir | turn(dir, 180))
-	if(H.dir != sortdir)		// probably came from the negdir
-		if(check_sorting(H))	// if destination matches filtered type...
+	var/input_direction = dir
+	// probably came from the negdir
+	if(H.dir != input_direction)
+		// if destination matches filtered type...
+		if(check_sorting(H))
 			H.unsorted = FALSE
-			return sortdir		// exit through sortdirection
+			// exit through sortdirection
+			return sortdir
 
 	// go with the flow to positive direction
 	return dir
