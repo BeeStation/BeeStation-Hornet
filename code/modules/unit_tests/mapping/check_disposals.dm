@@ -41,6 +41,7 @@
 		holder.destinationTag = i
 		var/obj/structure/disposaloutlet/destination = traverse_loop(holder, target.trunk, run_id++)
 		if (failure_reason)
+			failures += failure_reason
 			continue
 		var/arrived = FALSE
 		for (var/valid_destination in GLOB.tagger_destination_areas[sort_code])
