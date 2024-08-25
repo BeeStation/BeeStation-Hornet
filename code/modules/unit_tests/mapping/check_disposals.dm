@@ -69,8 +69,6 @@
 		if (current == null)
 			failure_reason = "Disposal network starting at [COORD(start)] has a pipe with no output at [COORD(T)] but should lead to an outlet. Holder was traversing [dir2text(holder.dir)] and was last at [COORD(holder.current_pipe)]. Sort code was [holder.destinationTag]."
 			return
-		// Set our direction
-		holder.dir = get_dir(holder.current_pipe, current)
 		holder.last_pipe = holder.current_pipe
 		holder.current_pipe = current
 		// If we have re-entered the loop at the unsorting pip, increment run ID as we will have a different behaviour next time we loop around
