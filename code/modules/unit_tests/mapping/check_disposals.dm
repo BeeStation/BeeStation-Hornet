@@ -55,7 +55,8 @@
 	holder.dir = current.dir || SOUTH
 	while (current)
 		// Account for disposals shitcode
-		var/turf/T = get_step(current, istype(current, /obj/structure/disposalpipe/trunk) ? (current.dir || SOUTH) : current.nextdir(holder))
+		holder.dir = istype(current, /obj/structure/disposalpipe/trunk) ? (current.dir || SOUTH) : current.nextdir(holder)
+		var/turf/T = get_step(current, holder.dir)
 		current = holder.findpipe(T)
 		// End detection
 		if (current == null)
