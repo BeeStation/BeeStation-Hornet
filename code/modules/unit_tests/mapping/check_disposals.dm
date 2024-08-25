@@ -22,7 +22,7 @@
 		return "[target.name] not attached to a trunk"
 	// Create a terrible disposal holder object
 	var/obj/structure/disposalholder/holder = new()
-	traverse_loop(target.trunk, holder)
+	traverse_loop(holder, target.trunk)
 	// Abuse byonds variables to get out (We can use pointers as an out variable in 515)
 	if (failure_reason)
 		failures += failure_reason
@@ -36,7 +36,7 @@
 	// We should be able to enter the loop at any point from an input gate to get to our destination
 	for (var/sort_code in GLOB.TAGGERLOCATIONS)
 		holder.destinationTag = sort_code
-		var/obj/structure/disposaloutlet/destination = traverse_loop(target.trunk, holder)
+		var/obj/structure/disposaloutlet/destination = traverse_loop(holder, target.trunk)
 		if (failure_reason)
 			return failure_reason
 		var/arrived = FALSE
