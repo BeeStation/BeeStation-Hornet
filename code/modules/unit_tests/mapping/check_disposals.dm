@@ -8,7 +8,7 @@
 /datum/unit_test/map_test/check_disposals/collect_targets(list/turfs)
 	var/located = list()
 	for (var/turf/check_turf in turfs)
-		var/found = locate(/obj/machinery/disposal)
+		var/found = locate(/obj/machinery/disposal) in check_turf
 		if (found)
 			located += found
 	return located
@@ -38,7 +38,7 @@
 		holder.destinationTag = sort_code
 		var/obj/structure/disposaloutlet/destination = traverse_loop(holder, target.trunk, sort_code)
 		if (failure_reason)
-			return failure_reason
+			continue
 		var/arrived = FALSE
 		for (var/valid_destination in GLOB.tagger_destination_areas[sort_code])
 			if (istype(get_area(destination), valid_destination))
