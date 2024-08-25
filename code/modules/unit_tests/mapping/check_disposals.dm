@@ -52,17 +52,17 @@
 	// First check to ensure that we end up somewhere
 	var/obj/structure/disposalpipe/current = start
 	holder.current_pipe = current
-	holder.dir = current.dir
+	holder.dir = current.dir || SOUTH
 	while (current)
 		// Account for disposals shitcode
-		var/turf/T = get_step(current, istype(current, /obj/structure/disposalpipe/trunk) ? current.dir : current.nextdir(holder))
+		var/turf/T = get_step(current, istype(current, /obj/structure/disposalpipe/trunk) ? (current.dir || SOUTH) : current.nextdir(holder))
 		current = holder.findpipe(T)
 		// End detection
 		if (current == null)
 			failure_reason = "Disposal network starting at [COORD(start)] has a pipe with no output at [COORD(T)] but should lead to an outlet"
 			return
 		// Set our direction
-		holder.dir = get_step(holder.current_pipe, current)
+		holder.dir = get_dir(holder.current_pipe, current)
 		holder.last_pipe = current
 		holder.current_pipe = current
 		// Found a valid ending
