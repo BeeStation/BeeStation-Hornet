@@ -368,8 +368,8 @@
 	ask_mod = "quivers"
 	yell_mod = "shrieks"
 	exclaim_mod = "ripples"
-	disliked_food = MEAT | DAIRY | FRUIT | GRAIN | CLOTH
-	liked_food = VEGETABLES
+	disliked_food = DAIRY | FRUIT | GRAIN | CLOTH | VEGETABLES
+	liked_food = MEAT | RAW
 
 /obj/item/organ/tongue/diona/pumpkin
 	modifies_speech = TRUE
