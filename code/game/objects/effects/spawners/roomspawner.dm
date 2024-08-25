@@ -45,7 +45,8 @@
 			var/turf/current = locate(x, y, T.z)
 			for (var/obj/placed_object in current)
 				// Temporary hacky check to see if we contain a directional mapping helper
-				if (!findtext(placed_object.type, "/directional"))
+				// I know its a normal variable, but this is explicitly accessed through reflection
+				if (!initial(placed_object._reflection_is_directional))
 					continue
 				// Check to see if we correctly placed ourselves on a wall
 				if (!isclosedturf(get_step(placed_object, placed_object.dir)))
