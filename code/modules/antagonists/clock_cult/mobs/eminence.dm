@@ -140,6 +140,12 @@
 	tab_data["Cogs Available"] = GENERATE_STAT_TEXT("[cogs] Cogs")
 	return tab_data
 
+/mob/living/simple_animal/eminence/med_hud_set_health()
+	return
+
+/mob/living/simple_animal/eminence/med_hud_set_status()
+	return
+
 /mob/living/simple_animal/eminence/update_health_hud()
 	return
 
