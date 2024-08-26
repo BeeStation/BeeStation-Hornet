@@ -9729,6 +9729,7 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 5
 	},
+/obj/item/card/id/job/station_engineer/access,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "eEo" = (
@@ -21412,13 +21413,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
-"koY" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/item/card/id/job/station_engineer/access,
-/turf/open/floor/iron,
-/area/engine/engineering)
 "kpC" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/railing,
@@ -65255,7 +65249,7 @@ sjD
 rIZ
 pHp
 cmT
-koY
+wWC
 kQJ
 fap
 eEl
