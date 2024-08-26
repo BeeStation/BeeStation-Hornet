@@ -245,11 +245,11 @@ GLOBAL_VAR(clockcult_eminence)
 					prefix = "Cogwatcher"
 				else if(role in JOB_NAME_CLOWN)
 					prefix = "Clonker"
-				else if((role in GLOB.civilian_positions) || (role in GLOB.gimmick_positions))
+				else if((role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN)) || (role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_UNASSIGNED)))
 					prefix = "Cogworker"
-				else if(role in GLOB.security_positions)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
 					prefix = "Warrior"
-				else if(role in GLOB.nonhuman_positions)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON))
 					prefix = "CPU"
 			//Fallthrough is default of "Clockbrother"
 		hierophant_message += "<b>[prefix] [sender.name]</b> transmits, \"[msg]\""
