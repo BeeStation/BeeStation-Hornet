@@ -146,7 +146,7 @@
 /datum/proximity_monitor/advanced/timestop/process()
 	for(var/i in frozen_mobs)
 		var/mob/living/m = i
-		m.Stun(20, 1, 1)
+		m.Stun(20, ignore_canstun = TRUE)
 
 /datum/proximity_monitor/advanced/timestop/setup_field_turf(turf/T)
 	for(var/i in T.contents)
@@ -165,7 +165,7 @@
 	if(L.anti_magic_check(check_anti_magic, check_holy))
 		immune += L
 		return
-	L.Stun(20, 1, 1)
+	L.Stun(20, ignore_canstun = TRUE)
 	SSmove_manager.stop_looping(src) //stops them mid pathing even if they're stunimmune //This is really dumb
 	if(isanimal(L))
 		var/mob/living/simple_animal/S = L
@@ -175,7 +175,7 @@
 		H.LoseTarget()
 
 /datum/proximity_monitor/advanced/timestop/proc/unfreeze_mob(mob/living/L)
-	L.AdjustStun(-20, 1, 1)
+	L.AdjustStun(-20, ignore_canstun = TRUE)
 	frozen_mobs -= L
 	if(isanimal(L))
 		var/mob/living/simple_animal/S = L

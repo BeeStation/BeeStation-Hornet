@@ -57,7 +57,7 @@
 		normalize_cardinal_directions()
 	nodes = new(device_type)
 	if (!armor)
-		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70, STAMINA = 0)
+		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70, STAMINA = 0, BLEED = 0)
 	..()
 	if(process)
 		SSair.start_processing_machine(src)
@@ -249,7 +249,7 @@
 			var/obj/item/pipe/stored = new construction_type(loc, null, dir, src)
 			stored.setPipingLayer(piping_layer)
 			if(!disassembled)
-				stored.obj_integrity = stored.max_integrity * 0.5
+				stored.take_damage(stored.max_integrity * 0.5, sound_effect=FALSE)
 			transfer_fingerprints_to(stored)
 			. = stored
 	..()

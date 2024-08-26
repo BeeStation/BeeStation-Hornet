@@ -13,14 +13,14 @@
 
 /obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
 	. = ..()
-	if((slot == ITEM_SLOT_GLOVES) && (user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY)))
+	if((slot == ITEM_SLOT_GLOVES) && (user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY)))
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
 
 /obj/item/clothing/gloves/color/black/dropped(mob/living/carbon/user)
 	..()
 	if(user.gloves != src)
 		return
-	if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY))
+	if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_black_gloves")
 
 /obj/item/clothing/gloves/color/yellow/equipped(mob/user, slot)
@@ -28,7 +28,7 @@
 	if(slot == ITEM_SLOT_GLOVES)
 		if(user.mind?.assigned_role == JOB_NAME_ASSISTANT)
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "assistant_insulated_gloves", /datum/mood_event/assistant_insulated_gloves)
-		if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY))
+		if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_insulated_gloves", /datum/mood_event/sec_insulated_gloves)
 
 /obj/item/clothing/gloves/color/yellow/dropped(mob/living/carbon/user)
@@ -37,7 +37,7 @@
 		return
 	if(user.mind?.assigned_role == JOB_NAME_ASSISTANT)
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "assistant_insulated_gloves")
-	if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_SECURITY))
+	if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_insulated_gloves")
 
 
@@ -178,7 +178,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 50, STAMINA = 0, BLEED = 0)
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"

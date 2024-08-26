@@ -27,7 +27,8 @@
 	maxHealth = 400
 	health = 400
 	melee_damage = 15
-	attacktext = "smashes into the side of"
+	attack_verb_continuous = "smashes into"
+	attack_verb_simple = "smash into"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	throw_message = "merely dinks off of the"
 	speed = 4

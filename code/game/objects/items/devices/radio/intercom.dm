@@ -14,8 +14,6 @@
 
 /obj/item/radio/intercom/Initialize(mapload, ndir, building)
 	. = ..()
-	if(building)
-		setDir(ndir)
 	var/area/current_area = get_area(src)
 	if(!current_area)
 		return
@@ -159,12 +157,16 @@
 	desc = "A ready-to-go intercom. Just slap it on a wall and screw it in!"
 	icon_state = "intercom"
 	result_path = /obj/item/radio/intercom/unscrewed
-	pixel_shift = 29
-	inverse = TRUE
+	pixel_shift = 26
 	custom_materials = list(/datum/material/iron = 75, /datum/material/glass = 25)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom, 26)
 
 /obj/item/radio/intercom/chapel
 	name = "Confessional intercom"
 	anonymize = TRUE
 	frequency = 1481
 	broadcasting = TRUE
+
+//MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/prison, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/chapel, 26)

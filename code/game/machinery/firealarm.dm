@@ -11,6 +11,7 @@
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "fire_bitem"
 	result_path = /obj/machinery/firealarm
+	pixel_shift = 26
 
 /obj/machinery/firealarm
 	name = "fire alarm"
@@ -19,7 +20,7 @@
 	icon_state = "fire0"
 	max_integrity = 250
 	integrity_failure = 0.4
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0, BLEED = 0)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
@@ -37,40 +38,15 @@
 	var/last_alarm = 0
 	var/area/myarea = null
 
-/obj/machinery/firealarm/directional/north
-	dir = SOUTH
-	pixel_y = 24
-
-/obj/machinery/firealarm/directional/south
-	dir = NORTH
-	pixel_y = -24
-
-/obj/machinery/firealarm/directional/east
-	dir = WEST
-	pixel_x = 24
-
-/obj/machinery/firealarm/directional/west
-	dir = EAST
-	pixel_x = -24
-
 /obj/machinery/firealarm/Initialize(mapload, dir, building)
 	. = ..()
-	if(dir)
-		src.setDir(dir)
 	if(building)
 		buildstage = 0
 		panel_open = TRUE
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
-		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 	update_appearance()
 	myarea = get_area(src)
 	LAZYADD(myarea.firealarms, src)
-	RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, PROC_REF(handle_alert))
-
-/obj/machinery/firealarm/proc/handle_alert(datum/source, new_alert)
-	SIGNAL_HANDLER
-	if(is_station_level(z))
-		update_appearance()
+	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(check_security_level))
 
 /obj/machinery/firealarm/Destroy()
 	myarea.firereset(src)
@@ -86,9 +62,9 @@
 
 	. += "fire_overlay"
 	if(is_station_level(z))
-		. += "fire_[GLOB.security_level]"
-		. += mutable_appearance(icon, "fire_[GLOB.security_level]")
-		. += emissive_appearance(icon, "fire_[GLOB.security_level]", layer, alpha = 255)
+		. += "fire_[SSsecurity_level.get_current_level_as_number()]"
+		. += mutable_appearance(icon, "fire_[SSsecurity_level.get_current_level_as_number()]")
+		. += emissive_appearance(icon, "fire_[SSsecurity_level.get_current_level_as_number()]", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else
 		. += "fire_[SEC_LEVEL_GREEN]"
@@ -138,6 +114,19 @@
 	if((temperature > T0C + 200 || temperature < BODYTEMP_COLD_DAMAGE_LIMIT) && (last_alarm+FIREALARM_COOLDOWN < world.time) && !(obj_flags & EMAGGED) && detecting && !machine_stat)
 		alarm()
 	..()
+
+/**
+ * Signal handler for checking if we should update fire alarm appearance accordingly to a newly set security level
+ *
+ * Arguments:
+ * * source The datum source of the signal
+ * * new_level The new security level that is in effect
+ */
+/obj/machinery/firealarm/proc/check_security_level(datum/source, new_level)
+	SIGNAL_HANDLER
+
+	if(is_station_level(z))
+		update_appearance()
 
 /obj/machinery/firealarm/proc/alarm(mob/user)
 	if(!is_operational || (last_alarm+FIREALARM_COOLDOWN > world.time))
@@ -279,6 +268,8 @@
 
 	return ..()
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26)
+
 /obj/machinery/firealarm/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if((buildstage == 0) && (the_rcd.upgrade & RCD_UPGRADE_SIMPLE_CIRCUITS))
 		return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 20, "cost" = 1)
@@ -319,7 +310,7 @@
 		if(!(machine_stat & BROKEN))
 			var/obj/item/I = new /obj/item/electronics/firealarm(loc)
 			if(!disassembled)
-				I.obj_integrity = I.max_integrity * 0.5
+				I.update_integrity(I.max_integrity * 0.5)
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 

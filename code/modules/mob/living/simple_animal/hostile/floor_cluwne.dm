@@ -17,7 +17,6 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	maxHealth = 250
 	health = 250
 	speed = -1
-	attacktext = "attacks"
 	attack_sound = 'sound/items/bikehorn.ogg'
 	del_on_death = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSTRANSPARENT | PASSBLOB//it's practically a ghost when unmanifested (under the floor)
@@ -192,14 +191,12 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Manifest()//handles disappearing and appearance anim
 	if(manifested)
 		mobility_flags &= ~MOBILITY_MOVE
-		update_mobility()
 		cluwnehole = new(src.loc)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Appear)), MANIFEST_DELAY)
 	else
 		invisibility = INVISIBILITY_SPIRIT
 		density = FALSE
 		mobility_flags |= MOBILITY_MOVE
-		update_mobility()
 		if(cluwnehole)
 			qdel(cluwnehole)
 

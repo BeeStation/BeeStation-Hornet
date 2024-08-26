@@ -59,9 +59,8 @@
 	if(gloves && !(obscured & ITEM_SLOT_GLOVES) && !(gloves.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_has] [gloves.get_examine_string(user)] on [t_his] hands."
 	else if(FR && length(FR.blood_DNA))
-		var/hand_number = get_num_arms(FALSE)
-		if(hand_number)
-			. += "<span class='warning'>[t_He] [t_has] [hand_number > 1 ? "" : "a"] blood-stained hand[hand_number > 1 ? "s" : ""]!</span>"
+		if(num_hands)
+			. += "<span class='warning'>[t_He] [t_has] [num_hands > 1 ? "" : "a"] blood-stained hand[num_hands > 1 ? "s" : ""]!</span>"
 
 	//belt
 	if(belt && !(belt.item_flags & EXAMINE_SKIP))
@@ -136,7 +135,7 @@
 	var/list/disabled = list()
 
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		if(BP.disabled)
+		if(BP.bodypart_disabled)
 			disabled += BP
 		missing -= BP.body_zone
 		for(var/obj/item/I in BP.embedded_objects)
@@ -146,13 +145,17 @@
 				msg += "<B>[t_He] [t_has] [icon2html(I, user)] \a [I] embedded in [t_his] [BP.name]!</B>\n"
 
 	for(var/X in disabled)
-		var/obj/item/bodypart/BP = X
+		var/obj/item/bodypart/body_part = X
 		var/damage_text
-		if(!(BP.get_damage(include_stamina = FALSE) >= BP.max_damage)) //Stamina is disabling the limb
+		/*
+		if(HAS_TRAIT(body_part, TRAIT_DISABLED_BY_WOUND))
+			continue // skip if it's disabled by a wound (cuz we'll be able to see the bone sticking out!)
+		*/
+		if(!(body_part.get_damage(include_stamina = FALSE) >= body_part.max_damage)) //we don't care if it's stamcritted
 			damage_text = "limp and lifeless"
 		else
-			damage_text = (BP.brute_dam >= BP.burn_dam) ? BP.heavy_brute_msg : BP.heavy_burn_msg
-		msg += "<B>[capitalize(t_his)] [BP.name] is [damage_text]!</B>\n"
+			damage_text = (body_part.brute_dam >= body_part.burn_dam) ? body_part.heavy_brute_msg : body_part.heavy_burn_msg
+		msg += "<B>[capitalize(t_his)] [body_part.name] is [damage_text]!</B>\n"
 
 	//stores missing limbs
 	var/l_limbs_missing = 0
@@ -188,6 +191,17 @@
 	brute_msg = brute_msg ? brute_msg : "bruising"
 	burn_msg = burn_msg ? burn_msg : "burns"
 	bleed_msg = bleed_msg ? bleed_msg : "bleeding"
+
+	if (is_bleeding())
+		switch (get_bleed_rate())
+			if (BLEED_DEEP_WOUND to INFINITY)
+				msg += "<span class='warning'>[src] is [bleed_msg] extremely quickly.</span>\n"
+			if (BLEED_RATE_MINOR to BLEED_DEEP_WOUND)
+				msg += "<span class='warning'>[src] is [bleed_msg] at a significant rate.</span>\n"
+			else
+				msg += "<span class='warning'>[src] has some minor [bleed_msg] which look like it will stop soon.</span>\n"
+	else if (is_bandaged())
+		msg += "[src] is [bleed_msg], but it is covered.\n"
 
 	if(!(user == src && src.hal_screwyhud == SCREWYHUD_HEALTHY)) //fake healthy
 		if(temp)
@@ -243,14 +257,6 @@
 
 	if(blood_volume < BLOOD_VOLUME_SAFE)
 		msg += "[t_He] appear[p_s()] faint.\n"
-
-	if(bleedsuppress)
-		msg += "[t_He] [t_is] bandaged with something.\n"
-	else if(bleed_rate)
-		if(reagents.has_reagent(/datum/reagent/toxin/heparin, needs_metabolizing = TRUE))
-			msg += "<b>[t_He] [t_is] [bleed_msg] uncontrollably!</b>\n"
-		else
-			msg += "<B>[t_He] [t_is] [bleed_msg]!</B>\n"
 
 	if(reagents.has_reagent(/datum/reagent/teslium, needs_metabolizing = TRUE))
 		msg += "[t_He] [t_is] emitting a gentle blue glow!\n"

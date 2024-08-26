@@ -229,15 +229,15 @@ GLOBAL_VAR(clockcult_eminence)
 			if(CLOCKCULT_PREFIX_RECRUIT)
 				var/datum/job/role = sender.mind?.assigned_role
 				//Ew, this could be done better with a dictionary list, but this isn't much slower
-				if(role.departments && DEPT_BITFLAG_COM)
+				if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 					prefix = "High Priest"
-				else if(role.departments && DEPARTMENT_ENGINEERING)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING))
 					prefix = "Cogturner"
-				else if(role.departments && DEPARTMENT_MEDICAL)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL))
 					prefix = "Rejuvinator"
-				else if(role.departments && DEPARTMENT_SCIENCE)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE))
 					prefix = "Calculator"
-				else if(role.departments && DEPARTMENT_CARGO)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO))
 					prefix = "Pathfinder"
 				else if(role in JOB_NAME_ASSISTANT)
 					prefix = "Helper"
@@ -245,11 +245,11 @@ GLOBAL_VAR(clockcult_eminence)
 					prefix = "Cogwatcher"
 				else if(role in JOB_NAME_CLOWN)
 					prefix = "Clonker"
-				else if((role.departments && DEPARTMENT_CIVILIAN))
+				else if((role in GLOB.civilian_positions) || (role in GLOB.gimmick_positions))
 					prefix = "Cogworker"
-				else if(role.departments && DEPARTMENT_SECURITY)
+				else if(role in GLOB.security_positions)
 					prefix = "Warrior"
-				else if(role.departments && DEPARTMENT_SILICON)
+				else if(role in GLOB.nonhuman_positions)
 					prefix = "CPU"
 			//Fallthrough is default of "Clockbrother"
 		hierophant_message += "<b>[prefix] [sender.name]</b> transmits, \"[msg]\""

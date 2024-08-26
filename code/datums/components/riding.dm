@@ -22,6 +22,8 @@
 	var/ride_check_ridden_restrained = FALSE
 
 	var/del_on_unbuckle_all = FALSE
+	var/emped = FALSE
+	var/empable = FALSE
 
 /datum/component/riding/Initialize()
 	if(!ismovable(parent))
@@ -29,6 +31,7 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_BUCKLE, PROC_REF(vehicle_mob_buckle))
 	RegisterSignal(parent, COMSIG_MOVABLE_UNBUCKLE, PROC_REF(vehicle_mob_unbuckle))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(vehicle_moved))
+	RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 	//Calculate the move multiplier speed, to be proportional to mob speed
 	vehicle_move_multiplier = CONFIG_GET(number/movedelay/run_delay) / 1.5
 
@@ -171,6 +174,9 @@
 		return
 	last_vehicle_move = world.time
 
+	if(emped && empable)
+		to_chat(user, "<span class='notice'>\The [AM]'s controls aren't responding!</span>")
+		return
 	if(keycheck(user))
 		var/turf/next = get_step(AM, direction)
 		var/turf/current = get_turf(AM)
@@ -207,7 +213,7 @@
 	return override_allow_spacemove || AM.has_gravity()
 
 /datum/component/riding/proc/account_limbs(mob/living/M)
-	if(M.get_num_legs() < 2 && !slowed)
+	if(M.usable_legs < 2 && !slowed)
 		vehicle_move_delay = vehicle_move_delay + slowvalue
 		slowed = TRUE
 	else if(slowed)
@@ -289,7 +295,7 @@
 			return
 	if(iscarbon(user))
 		var/mob/living/carbon/carbonuser = user
-		if(!carbonuser.get_num_arms())
+		if(!carbonuser.usable_hands)
 			Unbuckle(user)
 			to_chat(user, "<span class='userdanger'>You can't grab onto [AM] with no hands!</span>")
 			return
@@ -414,3 +420,18 @@
 		var/mob/living/simple_animal/S = parent
 		S.toggle_ai(AI_ON)
 	..()
+
+/datum/component/riding/proc/on_emp_act(datum/source, severity)
+	SIGNAL_HANDLER
+
+	if(!empable)
+		return
+	emped = TRUE
+	var/atom/movable/AM = parent
+	AM.add_emitter(/obj/emitter/fire_smoke, "smoke")
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 300 / severity, TIMER_UNIQUE|TIMER_OVERRIDE) //if a new EMP happens, remove the old timer so it doesn't reactivate early
+
+/datum/component/riding/proc/reboot()
+	emped = FALSE
+	var/atom/movable/AM = parent
+	AM.remove_emitter("smoke")

@@ -1,7 +1,7 @@
 /datum/job/detective
 	title = JOB_NAME_DETECTIVE
 	description = "Investigate crimes, solve murder mysteries, report your findings to the rest of Security."
-	department_for_prefs = DEPT_BITFLAG_SEC
+	department_for_prefs = DEPT_NAME_SECURITY
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"

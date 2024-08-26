@@ -255,10 +255,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/depsec/Initialize(mapload)
 	. = ..()
-	GLOB.department_security_spawns += src
+	GLOB.DEPT_NAME_SECURITY_spawns += src
 
 /obj/effect/landmark/start/depsec/Destroy()
-	GLOB.department_security_spawns -= src
+	GLOB.DEPT_NAME_SECURITY_spawns -= src
 	return ..()
 
 /obj/effect/landmark/start/depsec/supply

@@ -1,7 +1,7 @@
 /datum/job/security_officer
 	title = JOB_NAME_SECURITYOFFICER
 	description = "Follow Space Law, patrol the station, arrest criminals and bring them to the Brig."
-	department_for_prefs = DEPT_BITFLAG_SEC
+	department_for_prefs = DEPT_NAME_SECURITY
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			if(!on_dummy)
 				dep_access = dept_access_supply
 				destination = /area/security/checkpoint/supply
-				spawn_point = locate(/obj/effect/landmark/start/depsec/supply) in GLOB.department_security_spawns
+				spawn_point = locate(/obj/effect/landmark/start/depsec/supply) in GLOB.DEPT_NAME_SECURITY_spawns
 				minimal_lightup_areas |= GLOB.supply_lightup_areas
 		if(SEC_DEPT_MEDICAL)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/med
@@ -82,7 +82,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			if(!on_dummy)
 				dep_access = dept_access_medical
 				destination = /area/security/checkpoint/medical
-				spawn_point = locate(/obj/effect/landmark/start/depsec/medical) in GLOB.department_security_spawns
+				spawn_point = locate(/obj/effect/landmark/start/depsec/medical) in GLOB.DEPT_NAME_SECURITY_spawns
 				minimal_lightup_areas |= GLOB.medical_lightup_areas
 		if(SEC_DEPT_SCIENCE)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/sci
@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			if(!on_dummy)
 				dep_access = dept_access_science
 				destination = /area/security/checkpoint/science
-				spawn_point = locate(/obj/effect/landmark/start/depsec/science) in GLOB.department_security_spawns
+				spawn_point = locate(/obj/effect/landmark/start/depsec/science) in GLOB.DEPT_NAME_SECURITY_spawns
 				minimal_lightup_areas |= GLOB.science_lightup_areas
 		if(SEC_DEPT_ENGINEERING)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/engi
@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			if(!on_dummy)
 				dep_access = dept_access_engineering
 				destination = /area/security/checkpoint/engineering
-				spawn_point = locate(/obj/effect/landmark/start/depsec/engineering) in GLOB.department_security_spawns
+				spawn_point = locate(/obj/effect/landmark/start/depsec/engineering) in GLOB.DEPT_NAME_SECURITY_spawns
 				minimal_lightup_areas |= GLOB.engineering_lightup_areas
 
 	if(accessory)

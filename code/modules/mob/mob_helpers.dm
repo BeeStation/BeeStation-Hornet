@@ -453,11 +453,19 @@
 			dam = 1
 		else
 			dam = 0
-		if((brute_heal > 0 && affecting.brute_dam > 0) || (burn_heal > 0 && affecting.burn_dam > 0))
+		if((brute_heal > 0 && (affecting.brute_dam > 0 || (H.is_bleeding() && H.has_mechanical_bleeding()))) || (burn_heal > 0 && affecting.burn_dam > 0))
 			if(affecting.heal_damage(brute_heal, burn_heal, 0, BODYTYPE_ROBOTIC))
 				H.update_damage_overlays()
-			user.visible_message("[user] has fixed some of the [dam ? "dents on" : "burnt wires in"] [H]'s [parse_zone(affecting.body_zone)].", \
-			"<span class='notice'>You fix some of the [dam ? "dents on" : "burnt wires in"] [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)].</span>")
+			if (brute_heal > 0 && H.is_bleeding() && H.has_mechanical_bleeding())
+				H.cauterise_wounds(0.4)
+				user.visible_message("[user] has fixed some of the dents on [H]'s [parse_zone(affecting.body_zone)], reducing [H.p_their()] leaking to [H.get_bleed_rate_string()].")
+			else
+				user.visible_message("[user] has fixed some of the [dam ? "dents on" : "burnt wires in"] [H]'s [parse_zone(affecting.body_zone)].", \
+					"<span class='notice'>You fix some of the [dam ? "dents on" : "burnt wires in"] [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)].</span>")
+			if((affecting.brute_dam <= 0 && brute_heal) && ((!H.is_bleeding()) && H.has_mechanical_bleeding()))
+				return FALSE //successful heal, but the target is at full health. Returns false to signal you can stop healing now
+			if(affecting.burn_dam <=0 && burn_heal)
+				return FALSE //same as above, but checking for burn damage instead
 			return TRUE //successful heal
 		else
 			to_chat(user, "<span class='warning'>[affecting] is already in good condition!</span>")

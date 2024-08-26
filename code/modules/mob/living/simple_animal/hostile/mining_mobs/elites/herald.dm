@@ -27,7 +27,8 @@
 	maxHealth = 400
 	health = 400
 	melee_damage = 20
-	attacktext = "preaches to"
+	attack_verb_continuous = "preaches to"
+	attack_verb_simple = "preach to"
 	attack_sound = 'sound/magic/clockwork/ratvar_attack.ogg'
 	throw_message = "doesn't affect the purity of"
 	speed = 4

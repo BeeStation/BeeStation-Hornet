@@ -130,10 +130,15 @@
 /// The temperature the blue icon is displayed.
 #define BODYTEMP_COLD_WARNING_3 (BODYTEMP_COLD_DAMAGE_LIMIT - 150) //120k
 
-#define SPACE_HELM_MIN_TEMP_PROTECT			2.0		//! what min_cold_protection_temperature is set to for space-helmet quality headwear. MUST NOT BE 0.
-#define SPACE_HELM_MAX_TEMP_PROTECT			1500	//! Thermal insulation works both ways /Malkevin
-#define SPACE_SUIT_MIN_TEMP_PROTECT			2.0		//! what min_cold_protection_temperature is set to for space-suit quality jumpsuits or suits. MUST NOT BE 0.
-#define SPACE_SUIT_MAX_TEMP_PROTECT			1500
+/// what min_cold_protection_temperature is set to for space-helmet quality headwear. MUST NOT BE 0.
+#define SPACE_HELM_MIN_TEMP_PROTECT 2.0
+/// Thermal insulation works both ways /Malkevin
+#define SPACE_HELM_MAX_TEMP_PROTECT 1500
+/// what min_cold_protection_temperature is set to for space-suit quality jumpsuits or suits. MUST NOT BE 0.
+#define SPACE_SUIT_MIN_TEMP_PROTECT 2.0
+/// The min cold protection of a space suit without the heater active
+#define SPACE_SUIT_MIN_TEMP_PROTECT_OFF 72
+#define SPACE_SUIT_MAX_TEMP_PROTECT 1500
 
 #define FIRE_SUIT_MIN_TEMP_PROTECT			60		//! Cold protection for firesuits
 #define FIRE_SUIT_MAX_TEMP_PROTECT			30000	//! what max_heat_protection_temperature is set to for firesuit quality suits. MUST NOT BE 0.
