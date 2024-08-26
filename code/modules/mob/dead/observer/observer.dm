@@ -16,6 +16,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	invisibility = INVISIBILITY_SPIRIT
 	hud_type = /datum/hud/ghost
+	movement_type = FLYING | FLOATING
 	light_system = MOVABLE_LIGHT
 	light_range = 1
 	light_power = 2
@@ -452,7 +453,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/check_orbitable(atom/movable/target_original)
 	var/atom/movable/target = target_original.get_orbitable()
-	if (!istype(target))
+	if (!istype(target) || target_original.orbit_datum?.parent == target_original)
 		return
 
 	var/icon/I = icon(target.icon,target.icon_state,target.dir)
@@ -478,14 +479,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/orbit()
 	setDir(2)//reset dir so the right directional sprites show up
-	REMOVE_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 	return ..()
 
 /mob/dead/observer/stop_orbit(datum/component/orbiter/orbits)
 	. = ..()
 	//restart our floating animation after orbit is done.
 	pixel_y = base_pixel_y
-	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = "Ghost"

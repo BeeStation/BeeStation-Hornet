@@ -13,6 +13,7 @@
 	faction = list("mining", "boss")
 	weather_immunities = list("lava","ash")
 	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	stat_attack = HARD_CRIT

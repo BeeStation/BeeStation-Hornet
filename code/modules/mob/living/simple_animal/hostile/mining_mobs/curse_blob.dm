@@ -7,6 +7,7 @@
 	icon_aggro = "curseblob"
 	mob_biotypes = list(MOB_SPIRIT)
 	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	move_to_delay = 5
 	vision_range = 20
 	aggro_vision_range = 20
