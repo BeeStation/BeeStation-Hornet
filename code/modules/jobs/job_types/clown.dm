@@ -1,10 +1,10 @@
 /datum/job/clown
 	title = JOB_NAME_CLOWN
 	description = "Be the life and soul of the station. Entertain the crew with your hilarious jokes and silly antics, including slipping, pie-ing and honking around. Remember your job is to keep things funny for others, not just yourself."
-	department_for_prefs = DEPT_NAME_SERVICE
+	department_for_prefs = DEPT_BITFLAG_SRV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = FACTION_STATION
+	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#dddddd"
@@ -14,7 +14,6 @@
 	base_access = list(ACCESS_THEATRE)
 	extra_access = list()
 
-	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
