@@ -101,9 +101,9 @@
 	if(to_be_destroyed && exposed_temperature >= max_fire_temperature_sustained)
 		max_fire_temperature_sustained = min(exposed_temperature, max_fire_temperature_sustained + heat_capacity / 4) //Ramp up to 100% yeah?
 	if(to_be_destroyed && !changing_turf)
-		burn()
+		turf_burn()
 
-/turf/proc/burn()
+/turf/proc/turf_burn()
 	burn_tile()
 	var/chance_of_deletion
 	if (heat_capacity) //beware of division by zero
@@ -116,7 +116,7 @@
 	else
 		to_be_destroyed = FALSE
 
-/turf/open/burn()
+/turf/open/turf_burn()
 	if(!active_hotspot) //Might not even be needed since excited groups are no longer cringe
 		..()
 

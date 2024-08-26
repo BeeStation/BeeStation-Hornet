@@ -42,7 +42,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	/// Used for analyzer feedback - not initialized until its used
 	var/list/analyzer_results
 	/// Whether to call garbage_collect() on the sharer during shares, used for immutable mixtures
-	var/gc_share = FALSE 
+	var/gc_share = FALSE
 
 /datum/gas_mixture/New(volume)
 	gases = new
@@ -109,11 +109,6 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 /datum/gas_mixture/proc/total_moles()
 	var/cached_gases = gases
 	TOTAL_MOLES(cached_gases, .)
-
-/// Calculate moles for a specific gas in the mixture
-/datum/gas_mixture/proc/total_moles_specific(gas_id)
-	var/cached_gases = gases
-	TOTAL_MOLES_SPECIFIC(cached_gases, gas_id, .)
 
 /// Checks to see if gas amount exists in mixture.
 /// Do NOT use this in code where performance matters!

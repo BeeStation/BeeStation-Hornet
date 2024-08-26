@@ -27,6 +27,7 @@
 	var/mob/living/carbon/breathing_mob = null
 	///Used by process() to track if there's a reason to process each tick
 	var/excited = TRUE
+	var/leaking = FALSE
 
 /obj/item/tank/dropped(mob/living/user, silent)
 	. = ..()
@@ -262,13 +263,12 @@
 	//Allow for reactions
 	excited = (excited | air_contents.react(src))
 	excited = (excited | handle_tolerances(delta_time))
-	excited = (excited | leaking)
 
 	if(!excited)
 		STOP_PROCESSING(SSobj, src)
 	excited = FALSE
 
-	if(QDELETED(src) || !leaking || !air_contents)
+	if(QDELETED(src) || !air_contents)
 		return
 	var/atom/location = loc
 	if(!location)
@@ -335,10 +335,7 @@
 /// Handles the tank springing a leak.
 /obj/item/tank/obj_break(damage_flag)
 	. = ..()
-	if(leaking)
-		return
 
-	leaking = TRUE
 	START_PROCESSING(SSobj, src)
 
 	if(obj_integrity < 0) // So we don't play the alerts while we are exploding or rupturing.
