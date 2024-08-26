@@ -3672,13 +3672,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall,
 /area/maintenance/department/engine)
-"bty" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/structure/frame/computer{
-	anchored = 1
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/asteroid/paradise/surface)
 "btG" = (
 /obj/machinery/light_switch{
 	pixel_x = 25;
@@ -5273,28 +5266,6 @@
 /obj/structure/closet/firecloset/full,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/maint)
-"cjb" = (
-/obj/machinery/light/small,
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/storage/box/lights/mixed{
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil{
-	pixel_x = 3;
-	pixel_y = -7
-	},
-/obj/item/electronics/airlock,
-/obj/item/electronics/airlock,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/iron/tech,
-/area/asteroid/paradise)
 "cjj" = (
 /obj/effect/turf_decal/siding/white/corner{
 	alpha = 100;
@@ -5561,10 +5532,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/teleporter)
-"coy" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/asteroid/paradise/surface)
 "coF" = (
 /obj/structure/closet/crate/hydroponics{
 	req_access_txt = "35;28"
@@ -5839,12 +5806,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall,
 /area/crew_quarters/heads/chief)
-"cwc" = (
-/obj/machinery/shuttle/engine/plasma{
-	dir = 1
-	},
-/turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradise/surface)
 "cwz" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -7292,12 +7253,6 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
-"dlw" = (
-/obj/machinery/door/airlock/external/glass{
-	autoclose = 0.1
-	},
-/turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradise/surface)
 "dme" = (
 /obj/structure/railing{
 	dir = 4
@@ -7822,17 +7777,6 @@
 "dCr" = (
 /turf/open/floor/plating/beach/coastline_t,
 /area/asteroid/paradise/surface/sand)
-"dCw" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/closet/crate/science{
-	name = "extended shuttle construction kit";
-	req_one_access_txt = "19;32"
-	},
-/turf/open/floor/mineral/titanium,
-/area/asteroid/paradise/surface)
 "dCL" = (
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /obj/effect/turf_decal/bot,
@@ -9876,12 +9820,6 @@
 /area/engineering/hallway{
 	name = "Engineering Viewing Platform"
 	})
-"eGc" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/asteroid/paradise)
 "eGr" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -10057,10 +9995,6 @@
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
-"eKt" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/mineral/titanium,
-/area/asteroid/paradise/surface)
 "eKX" = (
 /turf/closed/wall,
 /area/chapel/office)
@@ -11172,12 +11106,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
-"fju" = (
-/obj/machinery/firealarm/directional/south,
-/obj/machinery/portable_atmospherics/pump,
-/obj/effect/turf_decal/box,
-/turf/open/floor/iron/tech,
-/area/asteroid/paradise)
 "fkk" = (
 /obj/item/trash/semki,
 /turf/open/floor/plating/beach/sand,
@@ -11544,10 +11472,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/prison)
-"fuO" = (
-/obj/structure/sign/nanotrasen,
-/turf/closed/wall/mineral/titanium/nodiagonal,
-/area/asteroid/paradise/surface)
 "fuQ" = (
 /obj/structure/fence/corner{
 	dir = 5
@@ -14980,13 +14904,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/iron,
 /area/security/brig)
-"gXd" = (
-/obj/structure/closet/crate/science,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/asteroid/paradise/surface)
 "gXg" = (
 /obj/machinery/computer/bounty,
 /obj/effect/turf_decal/stripes/line,
@@ -16290,11 +16207,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/engine)
-"hCx" = (
-/obj/structure/flora/rock/pile,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/asteroid/paradise)
 "hCL" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -17095,10 +17007,6 @@
 	name = "Port Solar Array"
 	},
 /turf/open/floor/iron/solarpanel,
-/area/asteroid/paradise/surface)
-"ial" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/dirt/planetary,
 /area/asteroid/paradise/surface)
 "iao" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -19375,9 +19283,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
-"jqW" = (
-/turf/closed/wall/mineral/plastitanium,
-/area/asteroid/paradise/surface)
 "jqY" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -1
@@ -22224,11 +22129,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall,
 /area/maintenance/department/bridge)
-"kFv" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/mineral/titanium,
-/area/asteroid/paradise/surface)
 "kGr" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -22471,9 +22371,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/misc_lab)
-"kLl" = (
-/turf/open/floor/mineral/titanium,
-/area/asteroid/paradise/surface)
 "kLU" = (
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -22506,9 +22403,6 @@
 /area/hallway/primary/aft{
 	name = "-3 Primary Hallway"
 	})
-"kNb" = (
-/turf/open/floor/mineral/plastitanium,
-/area/asteroid/paradise/surface)
 "kNj" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -23960,18 +23854,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/patients_rooms)
-"lzi" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "exploration";
-	name = "Exploration Shuttle Shutters";
-	pixel_y = 24
-	},
-/turf/open/floor/mineral/titanium,
-/area/asteroid/paradise/surface)
 "lzp" = (
 /obj/structure/railing{
 	dir = 4
@@ -24644,15 +24526,6 @@
 /obj/effect/landmark/start/captain,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain/private)
-"lRf" = (
-/obj/machinery/atmospherics/components/unary/shuttle/heater{
-	dir = 1
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
-/turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradise/surface)
 "lRg" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/grille_or_trash,
@@ -25381,13 +25254,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/dorms)
-"mmJ" = (
-/obj/structure/flora/ausbushes/ywflowers,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 8
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/asteroid/paradise)
 "mni" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/basalt/planetary,
@@ -25410,11 +25276,6 @@
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
-"mon" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/mineral/plastitanium,
-/area/asteroid/paradise/surface)
 "moy" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 8
@@ -26134,18 +25995,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room)
-"mFT" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4{
-	dir = 9
-	},
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/asteroid/paradise)
 "mGM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/grille_or_trash,
@@ -26160,13 +26009,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/bridge)
-"mGS" = (
-/obj/structure/flora/rock/pile,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 8
-	},
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/asteroid/paradise)
 "mHA" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/stripes/corner,
@@ -26228,17 +26070,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
-"mIF" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4{
-	dir = 8
-	},
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/asteroid/paradise)
 "mIN" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -26668,10 +26499,6 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating/asteroid/planetary,
 /area/asteroid/paradise)
-"mUP" = (
-/obj/machinery/door/airlock/shuttle,
-/turf/open/floor/mineral/titanium,
-/area/asteroid/paradise/surface)
 "mVg" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/asteroid/planetary,
@@ -27010,13 +26837,6 @@
 /obj/effect/landmark/start/security_officer,
 /turf/open/floor/iron/dark,
 /area/security/brig)
-"ndX" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/turf_decal/sand/plating,
-/obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/plating/asteroid/planetary,
-/area/asteroid/paradise)
 "ned" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -27089,15 +26909,6 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/asteroid/paradise/surface)
-"ngK" = (
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Engineering Foyer";
-	req_one_access_txt = "32"
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron/tech,
-/area/asteroid/paradise)
 "ngO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/multiz/layer4{
@@ -28356,13 +28167,6 @@
 /obj/structure/railing,
 /turf/open/openspace,
 /area/ai_monitored/turret_protected/aisat/maint)
-"nNY" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/loading_area{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium,
-/area/asteroid/paradise/surface)
 "nOn" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -28442,10 +28246,6 @@
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/atmos)
-"nQC" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/mineral/plastitanium,
-/area/asteroid/paradise/surface)
 "nQI" = (
 /obj/structure/fence{
 	dir = 8
@@ -28929,11 +28729,6 @@
 /area/hallway/primary/aft{
 	name = "-3 Primary Hallway"
 	})
-"ofC" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/mineral/plastitanium,
-/area/asteroid/paradise/surface)
 "ofE" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/railing,
@@ -29387,13 +29182,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/bar)
-"oqm" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -32;
-	pixel_y = -1
-	},
-/turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradise/surface)
 "oqn" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 32;
@@ -29584,18 +29372,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
-"otu" = (
-/mob/living/simple_animal/chicken/turkey{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/asteroid/paradise/surface)
 "otW" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/holopad,
@@ -31476,21 +31252,10 @@
 /area/hallway/primary/aft{
 	name = "-3 Primary Hallway"
 	})
-"pqD" = (
-/obj/structure/sign/warning/radiation/rad_area,
-/turf/closed/wall/r_wall/rust,
-/area/asteroid/paradise)
 "pqE" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/crew_quarters/cafeteria)
-"prd" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/mineral/plastitanium,
-/area/asteroid/paradise/surface)
 "psm" = (
 /obj/effect/spawner/lootdrop/aimodule_neutral,
 /obj/effect/spawner/lootdrop/aimodule_neutral,
@@ -31534,14 +31299,6 @@
 /area/hallway/primary/central{
 	name = "-2 Primary Hallway"
 	})
-"psK" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 1
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/pump,
-/turf/open/floor/iron/tech,
-/area/asteroid/paradise)
 "psS" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -32737,18 +32494,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/surgery)
-"pVR" = (
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Engineering Foyer";
-	req_one_access_txt = "32"
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 8
-	},
-/turf/open/floor/iron/tech,
-/area/asteroid/paradise)
 "pVY" = (
 /turf/closed/wall,
 /area/engine/engineering)
@@ -33313,11 +33058,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
-"qjq" = (
-/obj/structure/flora/grass/jungle/b,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/asteroid/paradise)
 "qjF" = (
 /obj/structure/railing{
 	dir = 8
@@ -37105,9 +36845,6 @@
 	},
 /turf/open/indestructible/sound/pool,
 /area/crew_quarters/fitness/recreation)
-"sgR" = (
-/turf/open/space/basic,
-/area/asteroid/paradise/surface)
 "sho" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -37465,11 +37202,6 @@
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
-"sqh" = (
-/obj/machinery/light/small/broken/directional/west,
-/obj/structure/frame,
-/turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradise/surface)
 "sqm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4,
@@ -38021,10 +37753,6 @@
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
-"sHG" = (
-/obj/machinery/light/small/broken/directional/east,
-/turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradise/surface)
 "sHI" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -39512,11 +39240,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"tpB" = (
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/iron/tech,
-/area/asteroid/paradise)
 "tpD" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -40638,10 +40361,6 @@
 /obj/machinery/telecomms/server/presets/engineering,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
-"tMK" = (
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/mineral/plastitanium,
-/area/asteroid/paradise/surface)
 "tNh" = (
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating,
@@ -41507,12 +41226,6 @@
 /obj/machinery/smartfridge/chemistry/preloaded,
 /turf/closed/wall,
 /area/medical/apothecary)
-"ueT" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
-/turf/open/floor/mineral/titanium,
-/area/asteroid/paradise/surface)
 "ueV" = (
 /turf/closed/wall,
 /area/quartermaster/qm)
@@ -43718,13 +43431,6 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
-"viX" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 8
-	},
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/asteroid/paradise)
 "vjc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -44187,12 +43893,6 @@
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
-"vuq" = (
-/obj/machinery/atmospherics/components/unary/plasma_refiner{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium,
-/area/asteroid/paradise/surface)
 "vuE" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 5
@@ -44455,10 +44155,6 @@
 /obj/effect/turf_decal/delivery/red,
 /turf/open/floor/iron/dark,
 /area/security/prison)
-"vBT" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/tech,
-/area/asteroid/paradise)
 "vDt" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
@@ -44886,12 +44582,6 @@
 /area/hallway/primary/aft{
 	name = "-3 Primary Hallway"
 	})
-"vRk" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
-	dir = 1
-	},
-/turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradise/surface)
 "vRv" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/guides/recycler,
@@ -45796,10 +45486,6 @@
 	},
 /turf/open/openspace,
 /area/engine/atmos)
-"wjA" = (
-/obj/structure/girder,
-/turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradise/surface)
 "wjR" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/grid/steel,
@@ -46254,11 +45940,6 @@
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
-"wyw" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/structure/flora/grass/jungle,
-/turf/open/floor/plating/asteroid/planetary,
-/area/asteroid/paradise)
 "wyz" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -46521,13 +46202,6 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
-"wEe" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/turf_decal/sand/plating,
-/obj/structure/flora/rock/pile,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4,
-/turf/open/floor/plating/asteroid/planetary,
-/area/asteroid/paradise)
 "wEs" = (
 /obj/item/radio/intercom{
 	dir = 1;
@@ -46599,13 +46273,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
-"wFM" = (
-/obj/structure/flora/junglebush/c,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 8
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/asteroid/paradise)
 "wFO" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/effect/decal/cleanable/dirt,
@@ -48810,10 +48477,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/engine/engineering)
-"xGU" = (
-/obj/structure/flora/junglebush/large,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/asteroid/paradise)
 "xHy" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -49115,9 +48778,6 @@
 "xNL" = (
 /obj/structure/chair/stool/directional/west,
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradise/surface)
-"xOo" = (
-/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/asteroid/paradise/surface)
 "xOI" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -49779,13 +49439,6 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/asteroid/paradise/surface)
-"yeM" = (
-/obj/structure/flora/rock/pile,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/mineral/titanium,
 /area/asteroid/paradise/surface)
 "yeS" = (
 /obj/structure/stairs{
@@ -63553,11 +63206,11 @@ jsp
 jsp
 jsp
 vqI
-mVg
-xGU
-xTD
-mIF
-sXg
+vqI
+vqI
+vqI
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -63810,11 +63463,11 @@ jsp
 jsp
 jsp
 vqI
-wEe
-qjq
-hCx
-mFT
-sLz
+vqI
+vqI
+vqI
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -64067,11 +63720,11 @@ jsp
 jsp
 jsp
 vqI
-lCB
-mVg
-cEk
-mGS
-blO
+vqI
+vqI
+vqI
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -64324,12 +63977,12 @@ jsp
 jsp
 jsp
 vqI
-pqD
-oJl
-blO
-viX
-xqU
-hJN
+vqI
+vqI
+vqI
+vqI
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -64581,12 +64234,12 @@ jsp
 jsp
 jsp
 vqI
-tpB
-lCB
-hJN
-wFM
-ozj
-cEk
+vqI
+vqI
+vqI
+vqI
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -64838,12 +64491,12 @@ jsp
 jsp
 jsp
 vqI
-vBT
-ngK
-ndX
-viX
-xqU
-fPc
+vqI
+vqI
+vqI
+vqI
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -65095,12 +64748,12 @@ jsp
 jsp
 jsp
 vqI
-cjb
-lCB
-eGc
-mmJ
-ycy
-xqU
+vqI
+vqI
+vqI
+vqI
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -65352,12 +65005,12 @@ jsp
 jsp
 jsp
 vqI
-psK
-oJl
-cFP
-pVR
-wyw
-sLz
+vqI
+vqI
+vqI
+vqI
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -65609,11 +65262,11 @@ jsp
 jsp
 jsp
 vqI
-fju
-oJl
-cEk
-gNq
-ccl
+vqI
+vqI
+vqI
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -256504,17 +256157,17 @@ dvc
 dvc
 dvc
 dvc
-rxi
-rxi
-rxi
-rxi
-xOo
-lzi
-ueT
-kLl
-sgR
-sgR
-rxi
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
 dvc
 dvc
 dvc
@@ -256761,17 +256414,17 @@ dvc
 dvc
 dvc
 dvc
-rxi
-rxi
-kNb
-mUP
-sqh
-nNY
-rxi
-wjA
-sgR
-sgR
-rxi
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
 dvc
 dvc
 dvc
@@ -257018,17 +256671,17 @@ dvc
 dvc
 dvc
 dvc
-coy
-wjA
-ial
-xOo
-tMK
-rxi
-eKt
-dCw
-sgR
-sgR
-cwc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
 dvc
 dvc
 dvc
@@ -257275,17 +256928,17 @@ dvc
 dvc
 dvc
 dvc
-coy
-nQC
-prd
-oqm
-ial
-ial
-ial
-kFv
-vRk
-lRf
-rxi
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
 dvc
 dvc
 dvc
@@ -257532,17 +257185,17 @@ dvc
 dvc
 dvc
 dvc
-coy
-bty
-ofC
-ial
-ial
-otu
-rxi
-gXd
-vuq
-kNb
-rxi
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
 dvc
 dvc
 dvc
@@ -257789,17 +257442,17 @@ dvc
 dvc
 dvc
 dvc
-coy
-xOo
-rxi
-rxi
-sHG
-mon
-yeM
-ial
-mon
-jqW
-rxi
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
 dvc
 dvc
 yli
@@ -258046,17 +257699,17 @@ kxS
 dvc
 dvc
 dvc
-rxi
-wjA
-xOo
-rxi
-fuO
-dlw
-xOo
-xOo
-rxi
-rxi
-rxi
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
+dvc
 dvc
 dvc
 yli
