@@ -501,8 +501,8 @@
 	icon_state = "random_tape"
 
 /obj/item/tape/random/Initialize(mapload)
-	icon_state = "tape_[pick("white", "blue", "red", "yellow", "purple", "greyscale")]"
+	icon_state = "tape_[pick("white", "blue", "red", "yellow", "purple", "tape_greyscale")]"
 	. = ..()
 
 /obj/item/tape/dyed
-	icon_state = "greyscale"
+	icon_state = "tape_greyscale"
