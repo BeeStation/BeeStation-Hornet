@@ -532,6 +532,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_PHASING		"move_phasing"
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM		"no-floating-animation"
+/// Trait given to an atom/movable when they orbit something.
+#define ORBITING_TRAIT "orbiting"
 
 #define VENTCRAWLING_TRAIT "ventcrawling"
 #define SPECIES_FLIGHT_TRAIT "species-flight"
