@@ -9794,8 +9794,7 @@
 	},
 /obj/structure/table,
 /obj/item/card/id/job/station_engineer{
-	pixel_x = 5;
-	pixel_y = 0
+	pixel_x = 5
 	},
 /obj/item/pipe_dispenser{
 	pixel_y = 7
