@@ -441,7 +441,7 @@
 		var/datum/gas_mixture/holding_mix = holding.return_air()
 		data["holdingTank"] = list()
 		data["holdingTank"]["name"] = holding.name
-		data["holdingTank"]["tankPressure"] = round(holding.holding_mix.return_pressure())
+		data["holdingTank"]["tankPressure"] = round(holding_mix.return_pressure())
 	return data
 
 /obj/machinery/portable_atmospherics/canister/ui_act(action, params)

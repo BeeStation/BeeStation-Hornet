@@ -624,7 +624,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if(Rad.anchored)
 			if(!Rad.loaded_tank)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
-				Plasma.return_air().gases[/datum/gas/plasma][MOLES] = 70
+				var/datum/gas_mixture/plasma_air = Plasma.return_air()
+				plasma_air.gases[/datum/gas/plasma][MOLES] = 70
 
 				Rad.drainratio = 0
 				Rad.loaded_tank = Plasma
