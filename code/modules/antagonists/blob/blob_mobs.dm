@@ -108,6 +108,7 @@
 	attack_verb_simple = "hit"
 	attack_sound = 'sound/weapons/genhit1.ogg'
 	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	del_on_death = TRUE
 	deathmessage = "explodes into a cloud of gas!"
 	gold_core_spawnable = HOSTILE_SPAWN

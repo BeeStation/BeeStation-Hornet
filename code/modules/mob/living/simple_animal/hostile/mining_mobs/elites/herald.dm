@@ -196,6 +196,7 @@
 	deathmessage = "shatters violently!"
 	deathsound = 'sound/effects/glassbr1.ogg'
 	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	del_on_death = TRUE
 	is_mirror = TRUE
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/my_master = null
