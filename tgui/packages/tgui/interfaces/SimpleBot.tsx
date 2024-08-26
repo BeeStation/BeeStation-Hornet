@@ -1,7 +1,8 @@
 import { multiline } from '../../common/string';
 import { useBackend } from '../backend';
-import { Button, Icon, LabeledControls, NoticeBox, Section, Slider, Stack, Tooltip } from '../components';
+import { Button, Icon, LabeledControls, NoticeBox, Section, Slider, Stack, Tooltip, Flex } from '../components';
 import { Window } from '../layouts';
+import { getGasLabel } from '../constants';
 
 type SimpleBotContext = {
   can_hack: number;
@@ -204,6 +205,13 @@ const ControlsDisplay = (_, context) => {
   return (
     <LabeledControls wrap>
       {Object.entries(custom_controls).map((control) => {
+        if (control[0] === "scrub_gasses") {
+          return (
+            <ControlHelper
+              key={control[0]}
+              control={control} />
+          );
+        }
         return (
           <LabeledControls.Item
             pb={2}
@@ -241,6 +249,12 @@ const ControlHelper = (props, context) => {
     return <FloorbotTiles control={control} />;
   } else if (control[0] === 'line_mode') {
     return <FloorbotLine control={control} />;
+  } else if (control[0] === 'breach_pressure') {
+    return <AtmosbotBreachPressure control={control} />;
+  } else if (control[0] === 'ideal_temperature') {
+    return <AtmosbotTargetTemperature control={control} />;
+  } else if (control[0] === 'scrub_gasses') {
+    return <AtmosbotScrubbedGasses control={control} />;
   } else {
     /** Control is a boolean of some type */
     return (
@@ -369,5 +383,70 @@ const FloorbotLine = (props, context) => {
         {control[1] ? control[1].toString().charAt(0).toUpperCase() : ''}
       </Icon>
     </Tooltip>
+  );
+};
+
+/** Slider button for atmosbot breach pressure detection thresholds */
+const AtmosbotBreachPressure = (props, context) => {
+  const { act } = useBackend<SimpleBotContext>(context);
+  const { control } = props;
+
+  return (
+    <Tooltip content="Adjusts the pressure to scan for breaches at.">
+      <Slider
+        minValue={0}
+        maxValue={100}
+        step={5}
+        unit="kPa"
+        value={control[1]}
+        onChange={(_, value) => act(control[0], { pressure: value })}
+      />
+    </Tooltip>
+  );
+};
+
+/** Slider button for atmosbot target temperature */
+const AtmosbotTargetTemperature = (props, context) => {
+  const { act } = useBackend<SimpleBotContext>(context);
+  const { control } = props;
+  const [T0C, T20C] = [273.15, 293.15];
+
+  return (
+    <Tooltip content="Adjusts the target temperature.">
+      <Slider
+        minValue={T0C}
+        maxValue={T20C + 20}
+        step={1}
+        unit="K"
+        value={control[1]}
+        onChange={(_, value) => act(control[0], { temperature: value })}
+      />
+    </Tooltip>
+  );
+};
+
+const AtmosbotScrubbedGasses = (props, context) => {
+  const { act } = useBackend<SimpleBotContext>(context);
+  const { control } = props;
+  const gasses = Object.entries(control[1]);
+
+  return (
+    <Flex wrap>
+      <Section title="Scrubbed gasses">
+          {gasses.map((gas) => {
+            const gas_id = gas[0];
+            const enabled = gas[1];
+            return (
+              <Button
+                key={gas_id}
+                icon={enabled ? 'check-square-o' : 'square-o'}
+                content={getGasLabel(gas_id)}
+                selected={enabled}
+                onClick={() => act(control[0], { id: gas_id })}
+              />
+            );
+          })}
+      </Section>
+    </Flex>
   );
 };

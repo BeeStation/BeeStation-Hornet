@@ -217,10 +217,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 				if(old_eff < efficiency)
 					speak("Surgical research data found! Efficiency increased by [round(efficiency/old_eff*100)]%!")
 					window_name = "Automatic Medical Unit v[efficiency]"
-
-	update_controls()
 	return
-
 
 /mob/living/simple_animal/bot/medbot/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/reagent_containers))
