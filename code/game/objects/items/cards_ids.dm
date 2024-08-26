@@ -404,8 +404,11 @@
 
 /obj/item/card/id/job/Initialize()
 	. = ..()
-	var/datum/job/J = SSjob.GetJob(assignment)
-	access = J.get_access()
+	if(assignment != null){
+		var/datum/job/J = SSjob.GetJob(assignment)
+		access = J.get_access()
+	}
+
 
 /*
 /// Called on COMSIG_ATOM_UPDATED_ICON. Updates the visuals of the wallet this card is in.
