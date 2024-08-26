@@ -453,7 +453,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/check_orbitable(atom/movable/target_original)
 	var/atom/movable/target = target_original.get_orbitable()
-	if (!istype(target) || target_original.orbit_datum?.parent == target_original)
+	if (!istype(target) || orbiting?.parent == target_original)
 		return
 
 	var/icon/I = icon(target.icon,target.icon_state,target.dir)
