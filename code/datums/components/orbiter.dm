@@ -24,7 +24,10 @@
 	if(ismovable(target))
 		tracker = new(target, CALLBACK(src, PROC_REF(move_react)))
 
+	RegisterSignal(parent, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, .proc/orbiter_glide_size_update)
+
 /datum/component/orbiter/UnregisterFromParent()
+	UnregisterSignal(parent, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE)
 	var/atom/target = parent
 	target.orbit_datum = null
 	QDEL_NULL(tracker)
@@ -65,9 +68,11 @@
 			orbiter.orbiting.end_orbit(orbiter)
 	current_orbiters[orbiter] = TRUE
 	orbiter.orbiting = src
+
 	RegisterSignal(orbiter, COMSIG_MOVABLE_MOVED, PROC_REF(orbiter_move_react))
-	RegisterSignal(parent, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, PROC_REF(orbiter_glide_size_update))
+
 	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_BEGIN, orbiter)
+
 	var/matrix/initial_transform = matrix(orbiter.transform)
 	current_orbiters[orbiter] = initial_transform
 
@@ -100,7 +105,6 @@
 	if(!current_orbiters[orbiter])
 		return
 	UnregisterSignal(orbiter, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(parent, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE)
 	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
 	orbiter.SpinAnimation(0, 0)
 	if(istype(current_orbiters[orbiter],/matrix)) //This is ugly.
