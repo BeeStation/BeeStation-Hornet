@@ -863,8 +863,7 @@
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "aoY" = (
-/obj/structure/lattice/catwalk/over,
-/turf/open/openspace,
+/turf/open/floor/glass/reinforced/plasma,
 /area/asteroid/paradise/surface)
 "apg" = (
 /obj/machinery/light{
@@ -19741,6 +19740,12 @@
 /area/tcommsat/computer)
 "jBP" = (
 /obj/item/toy/plush/flushed,
+/obj/machinery/door/firedoor/border_only/closed{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only/closed{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
 "jCv" = (
@@ -20308,6 +20313,7 @@
 /obj/structure/sign/warning/securearea{
 	pixel_x = -32
 	},
+/mob/living/silicon/robot/shell,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -20552,10 +20558,6 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
-"jUv" = (
-/obj/structure/lattice/catwalk/over,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/science/mixing/chamber)
 "jUw" = (
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
@@ -23810,14 +23812,7 @@
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "lyT" = (
-/obj/structure/lattice/catwalk/over,
-/obj/machinery/button/door{
-	id = "EmergancyescapeShutter";
-	name = "Emergancy escape Shutters";
-	pixel_y = 32;
-	req_one_access_txt = "7;29;12"
-	},
-/turf/open/floor/plating/asteroid/basalt/planetary,
+/turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
 "lyU" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -29910,7 +29905,6 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/item/robot_suit/prebuilt,
 /turf/open/floor/iron,
 /area/science/robotics)
 "oEv" = (
@@ -30870,9 +30864,6 @@
 	pixel_x = 1;
 	pixel_y = 29
 	},
-/obj/item/borg/upgrade/ai{
-	pixel_x = 2
-	},
 /turf/open/floor/iron/dark,
 /area/science/robotics)
 "oZT" = (
@@ -31655,13 +31646,6 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/iron/techmaint/planetary,
 /area/asteroid/paradise/surface)
-"pyQ" = (
-/obj/machinery/door/poddoor/incinerator_toxmix{
-	id = "EmergancyescapeShutter";
-	name = "Emergancy escape Shutters"
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/science/central)
 "pyW" = (
 /obj/structure/sign/warning/fire,
 /turf/closed/wall/r_wall,
@@ -33779,10 +33763,7 @@
 /turf/open/floor/wood,
 /area/asteroid/paradise/surface)
 "qBi" = (
-/obj/machinery/door/poddoor/incinerator_toxmix{
-	id = "EmergancyescapeShutter";
-	name = "Emergancy escape Shutters"
-	},
+/obj/structure/holosign/barrier/atmos/robust,
 /turf/open/floor/plating,
 /area/science/mixing/chamber)
 "qBw" = (
@@ -34031,7 +34012,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
 "qMA" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
 "qMI" = (
@@ -123241,7 +123222,7 @@ kQw
 fnQ
 fnQ
 xJz
-sHr
+kQw
 fnQ
 fnQ
 fnQ
@@ -135325,7 +135306,7 @@ qLe
 olN
 olN
 olN
-pyQ
+rZM
 nFR
 dou
 bOR
@@ -136353,7 +136334,7 @@ olN
 olN
 olN
 cae
-jUv
+lyT
 aKf
 aBF
 aFj
@@ -136610,7 +136591,7 @@ vqI
 vqI
 vqI
 cae
-jUv
+lyT
 aLf
 aej
 amV
