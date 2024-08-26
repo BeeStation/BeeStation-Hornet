@@ -139,6 +139,8 @@
 	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
 	RegisterSignal(src, COMSIG_MACHINERY_BROKEN, PROC_REF(on_break))
 
+	register_context()
+
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/door/airlock/LateInitialize()
@@ -1664,3 +1666,11 @@
 /obj/machinery/door/airlock/proc/set_wires(wire_security_level)
 	return new /datum/wires/airlock(src, wire_security_level)
 
+/obj/machinery/door/airlock/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+	..()
+	if (req_access || req_one_access)
+		context.add_access_context("Access Required", TRUE)
+	context.add_left_click_action("Open", (lights && locked) ? "(Bolted)" : null, !lights || !locked)
+	context.add_left_click_item_action("[panel_open ? "Close" : "Open"] Maintenance Panel", /obj/item/screwdriver)
+	if (panel_open)
+		context.add_left_click_item_action("Hack Maintenance Panel", /obj/item/multitool)

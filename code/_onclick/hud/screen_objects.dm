@@ -11,6 +11,7 @@
 	name = ""
 	icon = 'icons/mob/screen_gen.dmi'
 	plane = HUD_PLANE
+	layer = HUD_LAYER
 	animate_movement = SLIDE_STEPS
 	speech_span = SPAN_ROBOT
 	vis_flags = VIS_INHERIT_PLANE
