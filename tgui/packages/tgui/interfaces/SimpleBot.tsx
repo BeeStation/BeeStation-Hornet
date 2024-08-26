@@ -33,7 +33,7 @@ type Controls = {
 export const SimpleBot = (_, context) => {
   const { data } = useBackend<SimpleBotContext>(context);
   const { can_hack, locked } = data;
-  const access = (!locked || can_hack);
+  const access = !locked || can_hack;
 
   return (
     <Window width={450} height={320}>
@@ -41,9 +41,7 @@ export const SimpleBot = (_, context) => {
         <Stack fill vertical>
           <Stack.Item>
             <Section title="Settings" buttons={<TabDisplay />}>
-              {!access
-                ? (<NoticeBox>Locked!</NoticeBox>)
-                : (<SettingsDisplay />)}
+              {!access ? <NoticeBox>Locked!</NoticeBox> : <SettingsDisplay />}
             </Section>
           </Stack.Item>
           {access && (
@@ -93,11 +91,7 @@ const HackButton = (_, context) => {
       icon={emagged ? 'bug' : 'lock'}
       onClick={() => act('hack')}
       selected={!emagged}
-      tooltip={
-        !emagged
-          ? 'Unlocks the safety protocols.'
-          : 'Resets the bot operating system.'
-      }>
+      tooltip={!emagged ? 'Unlocks the safety protocols.' : 'Resets the bot operating system.'}>
       {emagged ? 'Malfunctional' : 'Safety Lock'}
     </Button>
   );
@@ -110,10 +104,7 @@ const PaiButton = (_, context) => {
 
   if (!card_inserted) {
     return (
-      <Button
-        color="transparent"
-        icon="robot"
-        tooltip={multiline`Insert an active PAI card to control this device.`}>
+      <Button color="transparent" icon="robot" tooltip={multiline`Insert an active PAI card to control this device.`}>
         No PAI Inserted
       </Button>
     );
@@ -136,59 +127,28 @@ const SettingsDisplay = (_, context) => {
   const { settings } = data;
   const { airplane_mode, patrol_station, power, booting, maintenance_lock } = settings;
 
-  const color = power ? 'good' : (booting ? 'bad' : 'gray');
+  const color = power ? 'good' : booting ? 'bad' : 'gray';
 
   return (
     <LabeledControls>
       <LabeledControls.Item label="Power">
         <Tooltip content={`Powers ${power ? 'off' : 'on'} the bot.`}>
-          <Icon
-            size={2}
-            name="power-off"
-            color={color}
-            onClick={() => act('power')}
-          />
+          <Icon size={2} name="power-off" color={color} onClick={() => act('power')} />
         </Tooltip>
       </LabeledControls.Item>
       <LabeledControls.Item label="Remote Control">
-        <Tooltip
-          content={`${
-            airplane_mode ? 'Disables' : 'Enables'
-          } remote access via PDA app.`}>
-          <Icon
-            size={2}
-            name="wifi"
-            color={airplane_mode ? 'yellow' : 'gray'}
-            onClick={() => act('airplane')}
-          />
+        <Tooltip content={`${airplane_mode ? 'Disables' : 'Enables'} remote access via PDA app.`}>
+          <Icon size={2} name="wifi" color={airplane_mode ? 'yellow' : 'gray'} onClick={() => act('airplane')} />
         </Tooltip>
       </LabeledControls.Item>
       <LabeledControls.Item label="Patrol Station">
-        <Tooltip
-          content={`${
-            patrol_station ? 'Disables' : 'Enables'
-          } automatic station patrol.`}>
-          <Icon
-            size={2}
-            name="map-signs"
-            color={patrol_station ? 'good' : 'gray'}
-            onClick={() => act('patrol')}
-          />
+        <Tooltip content={`${patrol_station ? 'Disables' : 'Enables'} automatic station patrol.`}>
+          <Icon size={2} name="map-signs" color={patrol_station ? 'good' : 'gray'} onClick={() => act('patrol')} />
         </Tooltip>
       </LabeledControls.Item>
       <LabeledControls.Item label="Maintenance Lock">
-        <Tooltip
-          content={
-            maintenance_lock
-              ? 'Opens the maintenance hatch for repairs.'
-              : 'Closes the maintenance hatch.'
-          }>
-          <Icon
-            size={2}
-            name="toolbox"
-            color={maintenance_lock ? 'yellow' : 'gray'}
-            onClick={() => act('maintenance')}
-          />
+        <Tooltip content={maintenance_lock ? 'Opens the maintenance hatch for repairs.' : 'Closes the maintenance hatch.'}>
+          <Icon size={2} name="toolbox" color={maintenance_lock ? 'yellow' : 'gray'} onClick={() => act('maintenance')} />
         </Tooltip>
       </LabeledControls.Item>
     </LabeledControls>
@@ -205,21 +165,14 @@ const ControlsDisplay = (_, context) => {
   return (
     <LabeledControls wrap>
       {Object.entries(custom_controls).map((control) => {
-        if (control[0] === "scrub_gasses") {
-          return (
-            <ControlHelper
-              key={control[0]}
-              control={control} />
-          );
+        if (control[0] === 'scrub_gasses') {
+          return <ControlHelper key={control[0]} control={control} />;
         }
         return (
           <LabeledControls.Item
             pb={2}
             key={control[0]}
-            label={control[0]
-              .replace('_', ' ')
-              .replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
-                letter.toUpperCase())}>
+            label={control[0].replace('_', ' ').replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toUpperCase())}>
             <ControlHelper control={control} />
           </LabeledControls.Item>
         );
@@ -276,14 +229,13 @@ const MedbotSync = (props, context) => {
 
   return (
     <Tooltip
-      content={multiline`Synchronize surgical data with research network.
-       Currently at: ` + efficiency + `% efficiency.`}>
-      <Icon
-        color="purple"
-        name="cloud-download-alt"
-        size={2}
-        onClick={() => act('sync_tech')}
-      />
+      content={
+        multiline`Synchronize surgical data with research network.
+       Currently at: ` +
+        efficiency +
+        `% efficiency.`
+      }>
+      <Icon color="purple" name="cloud-download-alt" size={2} onClick={() => act('sync_tech')} />
     </Tooltip>
   );
 };
@@ -380,7 +332,12 @@ const FloorbotLine = (props, context) => {
         onClick={() => act('line_mode')}
         size={!control[1] ? 2 : 1.5}>
         {' '}
-        {control[1] ? control[1].toString().charAt(0).toUpperCase() : ''}
+        {control[1]
+          ? control[1]
+            .toString()
+            .charAt(0)
+            .toUpperCase()
+          : ''}
       </Icon>
     </Tooltip>
   );
@@ -433,19 +390,19 @@ const AtmosbotScrubbedGasses = (props, context) => {
   return (
     <Flex wrap>
       <Section title="Scrubbed gasses">
-          {gasses.map((gas) => {
-            const gas_id = gas[0];
-            const enabled = gas[1];
-            return (
-              <Button
-                key={gas_id}
-                icon={enabled ? 'check-square-o' : 'square-o'}
-                content={getGasLabel(gas_id)}
-                selected={enabled}
-                onClick={() => act(control[0], { id: gas_id })}
-              />
-            );
-          })}
+        {gasses.map((gas) => {
+          const gas_id = gas[0];
+          const enabled = gas[1];
+          return (
+            <Button
+              key={gas_id}
+              icon={enabled ? 'check-square-o' : 'square-o'}
+              content={getGasLabel(gas_id)}
+              selected={enabled}
+              onClick={() => act(control[0], { id: gas_id })}
+            />
+          );
+        })}
       </Section>
     </Flex>
   );
