@@ -26,6 +26,8 @@
 #define META_GAS_BREATH_REAGENT 9
 ///Defines the gas to which this gas is a result of breathing
 #define META_GAS_BREATH_RESULTS 10
+///Reagents applied when the gas passes its dangerous threshold
+#define META_GAS_BREATH_REAGENT_DANGEROUS 11
 
 
 //ATMOS
