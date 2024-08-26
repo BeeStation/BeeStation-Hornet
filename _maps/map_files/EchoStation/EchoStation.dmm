@@ -862,7 +862,8 @@
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "aoY" = (
-/turf/open/floor/catwalk_floor,
+/obj/structure/lattice/catwalk/over,
+/turf/open/openspace,
 /area/asteroid/paradise/surface)
 "apg" = (
 /obj/machinery/light{
@@ -8798,6 +8799,11 @@
 "ehJ" = (
 /turf/open/openspace,
 /area/maintenance/department/chapel)
+"eij" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk/over,
+/turf/closed/mineral/random/air,
+/area/asteroid/paradise)
 "eit" = (
 /obj/structure/toilet{
 	pixel_x = -1;
@@ -9713,9 +9719,6 @@
 	dir = 10
 	},
 /obj/structure/table,
-/obj/item/card/id/job/station_engineer{
-	pixel_x = 5
-	},
 /obj/item/pipe_dispenser{
 	pixel_y = 7
 	},
@@ -17746,10 +17749,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/dock/drydock,
 /area/quartermaster/storage)
-"ixU" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradise/surface)
 "iya" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/closed/mineral/random/air,
@@ -21413,6 +21412,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
+"koY" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/item/card/id/job/station_engineer/access,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "kpC" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/railing,
@@ -23089,6 +23095,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
+"lfu" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk/over,
+/turf/open/openspace,
+/area/asteroid/paradise/surface)
 "lfw" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -46911,7 +46922,8 @@
 	dir = 4
 	},
 /obj/machinery/power/apc/auto_name/directional/west{
-	pixel_x = -24
+	pixel_x = -24;
+	cell_type = /obj/item/stock_parts/cell/hyper
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -65243,7 +65255,7 @@ sjD
 rIZ
 pHp
 cmT
-wWC
+koY
 kQJ
 fap
 eEl
@@ -133132,7 +133144,7 @@ vqI
 vqI
 vqI
 vqI
-vqI
+eij
 vqI
 vqI
 vqI
@@ -256190,9 +256202,9 @@ cPg
 ceq
 cHR
 rxi
-kxS
-kxS
-kxS
+rxi
+rxi
+rxi
 rxi
 kxS
 kxS
@@ -256447,10 +256459,10 @@ xAa
 kxS
 kxS
 rxi
+rxi
 kxS
-kxS
-kxS
-kxS
+rxi
+rxi
 rxi
 rxi
 rxi
@@ -256701,15 +256713,15 @@ kxS
 kxS
 kxS
 hgC
-kxS
-kxS
-kxS
 rxi
 rxi
 rxi
 rxi
 rxi
-kxS
+rxi
+rxi
+rxi
+rxi
 rxi
 kxS
 seY
@@ -256959,7 +256971,7 @@ kxS
 rxi
 rxi
 rxi
-kxS
+rxi
 rxi
 rxi
 rxi
@@ -257215,15 +257227,15 @@ kxS
 kxS
 rxi
 kxS
-kxS
-kxS
 rxi
 rxi
 rxi
 rxi
 kxS
 rxi
-kxS
+rxi
+rxi
+rxi
 rxi
 rxi
 upA
@@ -257472,16 +257484,16 @@ kxS
 kxS
 rxi
 rxi
-kxS
-kxS
+rxi
+rxi
+rxi
+rxi
+rxi
 kxS
 rxi
 kxS
-kxS
-kxS
-kxS
 rxi
-ixU
+rxi
 rxi
 nIC
 jfF
@@ -257731,14 +257743,14 @@ rxi
 rxi
 kxS
 rxi
-kxS
-kxS
-kxS
 rxi
 rxi
-kxS
 rxi
-kxS
+rxi
+rxi
+rxi
+rxi
+rxi
 rxi
 gnb
 hJJ
@@ -257756,7 +257768,7 @@ yli
 yli
 dAb
 qSH
-aoY
+lfu
 aoY
 aoY
 vcy
@@ -257988,11 +258000,11 @@ rxi
 rxi
 kxS
 kxS
-kxS
 rxi
 rxi
 rxi
-kxS
+rxi
+rxi
 rxi
 rxi
 kxS
@@ -258014,7 +258026,7 @@ dAb
 dAb
 vZe
 aoY
-aoY
+lfu
 aoY
 ykS
 dAb
@@ -258247,9 +258259,9 @@ ceq
 rxi
 kxS
 kxS
-kxS
-kxS
-kxS
+rxi
+rxi
+rxi
 rxi
 rxi
 kkG
@@ -258272,7 +258284,7 @@ dAb
 cZp
 aoY
 aoY
-aoY
+lfu
 msV
 kiz
 dAb
