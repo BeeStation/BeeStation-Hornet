@@ -8799,10 +8799,6 @@
 "ehJ" = (
 /turf/open/openspace,
 /area/maintenance/department/chapel)
-"eij" = (
-/obj/structure/lattice/catwalk/over,
-/turf/closed/mineral/random/air,
-/area/asteroid/paradise)
 "eit" = (
 /obj/structure/toilet{
 	pixel_x = -1;
@@ -23107,11 +23103,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
-"lfu" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/lattice/catwalk/over,
-/turf/open/openspace,
-/area/asteroid/paradise/surface)
 "lfw" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -133156,7 +133147,7 @@ vqI
 vqI
 vqI
 vqI
-eij
+vqI
 vqI
 vqI
 vqI
@@ -257780,7 +257771,7 @@ yli
 yli
 dAb
 qSH
-lfu
+aoY
 aoY
 aoY
 vcy
@@ -258038,7 +258029,7 @@ dAb
 dAb
 vZe
 aoY
-lfu
+aoY
 aoY
 ykS
 dAb
@@ -258296,7 +258287,7 @@ dAb
 cZp
 aoY
 aoY
-lfu
+aoY
 msV
 kiz
 dAb
