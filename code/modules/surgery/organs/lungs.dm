@@ -21,7 +21,7 @@
 	//Breath damage
 	//These thresholds are checked against what amounts to total_mix_pressure * (gas_type_mols/total_mols)
 
-	var/gas_breathed = BREATH_OXY // can be a gas instead of a breathing class
+	var/breathing_class = BREATH_OXY // can be a gas instead of a breathing class
 	var/safe_breath_min = 16
 	var/safe_breath_max = 50
 	var/safe_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
@@ -91,9 +91,9 @@
 	LAZYNULL(thrown_alerts)
 
 /obj/item/organ/lungs/proc/populate_gas_info()
-	gas_min[gas_breathed] = safe_breath_min
-	gas_max[gas_breathed] = safe_breath_max
-	gas_damage[gas_breathed] = list(
+	gas_min[breathing_class] = safe_breath_min
+	gas_max[breathing_class] = safe_breath_max
+	gas_damage[breathing_class] = list(
 		min = safe_breath_dam_min,
 		max = safe_breath_dam_max,
 		damage_type = safe_damage_type
@@ -142,14 +142,14 @@
 		H.failed_last_breath = TRUE
 		var/alert_category
 		var/alert_type
-		if(ispath(gas_breathed))
-			var/datum/gas_breathed/class = GLOB.gas_data.breathing_classes[gas_breathed]
+		if(ispath(breathing_class))
+			var/datum/breathing_class/class = GLOB.gas_data.breathing_classes[breathing_class]
 			alert_category = class.low_alert_category
 			alert_type = class.low_alert_datum
 		else
-			var/list/alert = GLOB.meta_gas_info[gas_breathed][META_GAS_BREATH_ALERT_INFO]
-			if(alert)
-				var/list/alert = breath_alert_info[gas_breathed]["not_enough_alert"]
+			var/list/breath_alert_info = GLOB.gas_data.breath_alert_info
+			if(breathing_class in breath_alert_info)
+				var/list/alert = breath_alert_info[breathing_class]["not_enough_alert"]
 				alert_category = alert["alert_category"]
 				alert_type = alert["alert_type"]
 		throw_alert_for(H, alert_category, alert_type)
@@ -174,7 +174,7 @@
 		var/alert_category = null
 		var/alert_type = null
 		if(ispath(entry))
-			var/datum/gas_breathed/class = breathing_classes[entry]
+			var/datum/breathing_class/class = breathing_classes[entry]
 			var/list/gases = class.gases
 			var/list/products = class.products
 			alert_category = class.low_alert_category
@@ -213,16 +213,16 @@
 	var/list/danger_reagents = GLOB.gas_data.breath_reagents_dangerous
 	for(var/entry in gas_max)
 		var/found_pp = 0
-		var/datum/gas_breathed/gas_breathed = entry
+		var/datum/breathing_class/breathing_class = entry
 		var/datum/reagent/danger_reagent = null
 		var/alert_category = null
 		var/alert_type = null
-		if(ispath(gas_breathed))
-			gas_breathed = breathing_classes[gas_breathed]
-			alert_category = gas_breathed.high_alert_category
-			alert_type = gas_breathed.high_alert_datum
-			danger_reagent = gas_breathed.danger_reagent
-			found_pp = gas_breathed.get_effective_pp(breath)
+		if(ispath(breathing_class))
+			breathing_class = breathing_classes[breathing_class]
+			alert_category = breathing_class.high_alert_category
+			alert_type = breathing_class.high_alert_datum
+			danger_reagent = breathing_class.danger_reagent
+			found_pp = breathing_class.get_effective_pp(breath)
 		else
 			danger_reagent = danger_reagents[entry]
 			if(entry in breath_alert_info)
@@ -366,7 +366,7 @@
 	desc = "A spongy rib-shaped mass for filtering plasma from the air."
 	icon_state = "lungs-plasma"
 
-	gas_breathed = BREATH_PLASMA
+	breathing_class = BREATH_PLASMA
 
 /obj/item/organ/lungs/plasmaman/populate_gas_info()
 	..()
