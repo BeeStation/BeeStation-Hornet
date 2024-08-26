@@ -9724,20 +9724,6 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 5
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/structure/table,
-/obj/item/pipe_dispenser{
-	pixel_y = 7
-	},
-/obj/item/pipe_dispenser{
-	pixel_x = 1;
-	pixel_y = 12
-	},
-/obj/machinery/atmospherics/pipe/simple/cyan/visible{
-	dir = 5
-	},
 /obj/item/card/id/job/station_engineer,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
