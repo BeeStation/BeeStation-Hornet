@@ -8801,7 +8801,6 @@
 /area/maintenance/department/chapel)
 "eij" = (
 /obj/structure/lattice/catwalk/over,
-/obj/structure/lattice/catwalk/over,
 /turf/closed/mineral/random/air,
 /area/asteroid/paradise)
 "eit" = (
