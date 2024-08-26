@@ -53,6 +53,8 @@
 
 /obj/item/taperecorder/AltClick(mob/user)
 	. = ..()
+	if(!can_interact(user))
+		return
 	play()
 
 /obj/item/taperecorder/proc/update_available_icons()
@@ -259,7 +261,7 @@
 	for(var/i = 1, used <= max, sleep(playsleepseconds))
 		if(!mytape)
 			break
-		if(playing == 0)
+		if(playing == FALSE)
 			break
 		if(mytape.storedinfo.len < i)
 			balloon_alert(usr, "recording ended")
@@ -474,6 +476,15 @@
 		icon_state = "[initial_icon_state]_reverse"
 	else if(icon_state == "[initial_icon_state]_reverse") //so flipping doesn't overwrite an unexpected icon_state (e.g. an admin's)
 		icon_state = initial_icon_state
+
+/obj/item/tape/attackby(obj/item/tool, mob/user, params)
+	if(unspooled && (istype(tool, /obj/item/pen)))
+		balloon_alert(user, "respooling tape...")
+		if(!tool.use_tool(src, user, 12 SECONDS))
+			balloon_alert(user, "respooling failed!")
+			return FALSE
+		balloon_alert(user, "tape respooled")
+		respool()
 
 /obj/item/tape/screwdriver_act(mob/living/user, obj/item/tool)
 	if(!unspooled)
