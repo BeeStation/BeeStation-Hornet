@@ -59,6 +59,16 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 /datum/gas/nitrogen
 	id = "n2"
 	specific_heat = 20
+		breath_alert_info = list(
+		not_enough_alert = list(
+			alert_category = "not_enough_nitro",
+			alert_type = /atom/movable/screen/alert/not_enough_nitro
+		),
+		too_much_alert = list(
+			alert_category = "too_much_nitro",
+			alert_type = /atom/movable/screen/alert/too_much_nitro
+		)
+	)
 	name = "Nitrogen"
 	rarity = 1000
 
@@ -66,6 +76,18 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	id = "co2"
 	specific_heat = 30
 	name = "Carbon Dioxide"
+	breath_results = GAS_O2
+	breath_alert_info = list(
+		not_enough_alert = list(
+			alert_category = "not_enough_co2",
+			alert_type = /atom/movable/screen/alert/not_enough_co2
+		),
+		too_much_alert = list(
+			alert_category = "too_much_co2",
+			alert_type = /atom/movable/screen/alert/too_much_co2
+		)
+	)
+	fusion_power = 3
 	rarity = 700
 
 /datum/gas/plasma
@@ -84,6 +106,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "water_vapor"
 	moles_visible = MOLES_GAS_VISIBLE
 	fusion_power = 8
+	breath_reagent = /datum/reagent/water
 	rarity = 500
 
 /datum/gas/hypernoblium
@@ -102,7 +125,6 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	name = "Nitrous Oxide"
 	gas_overlay = "nitrous_oxide"
 	moles_visible = MOLES_GAS_VISIBLE * 2
-	fusion_power = 10
 	dangerous = TRUE
 	rarity = 600
 
@@ -112,6 +134,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	name = "Nitryl"
 	gas_overlay = "nitryl"
 	moles_visible = MOLES_GAS_VISIBLE
+	fusion_power = 15
 	dangerous = TRUE
 	rarity = 100
 
@@ -122,7 +145,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "tritium"
 	moles_visible = MOLES_GAS_VISIBLE
 	dangerous = TRUE
-	fusion_power = 5
+	fusion_power = 1
 	rarity = 300
 
 /datum/gas/bz
@@ -144,7 +167,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	id = "pluox"
 	specific_heat = 80
 	name = "Pluoxium"
-	fusion_power = -10
+	fusion_power = 10
 	rarity = 200
 
 /obj/effect/overlay/gas
