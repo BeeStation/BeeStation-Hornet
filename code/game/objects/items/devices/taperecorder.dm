@@ -36,7 +36,7 @@
 	. = ..()
 	if(starting_tape_type)
 		mytape = new starting_tape_type(src)
-	soundloop = new(list(src))
+	soundloop = new(src, FALSE)
 	update_icon()
 	become_hearing_sensitive()
 
@@ -75,6 +75,7 @@
 		soundloop.start()
 
 /obj/item/taperecorder/Destroy()
+	QDEL_NULL(soundloop)
 	QDEL_NULL(mytape)
 	return ..()
 
@@ -262,6 +263,7 @@
 			break
 		if(mytape.storedinfo.len < i)
 			balloon_alert(usr, "recording ended")
+			sleep(1 SECONDS)
 			break
 		say("[mytape.storedinfo[i]]")
 		if(mytape.storedinfo.len < i + 1)
