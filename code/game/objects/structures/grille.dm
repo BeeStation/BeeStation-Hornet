@@ -1,3 +1,6 @@
+/// Max number of unanchored items that will be moved from a tile when attempting to add a window to a grille.
+#define CLEAR_TILE_MOVE_LIMIT 20
+
 /obj/structure/grille
 	desc = "A flimsy framework of iron rods."
 	name = "grille"
@@ -16,8 +19,6 @@
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	var/rods_broken = TRUE
-	var/grille_type = null
-	var/broken_type = /obj/structure/grille/broken
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	FASTDMM_PROP(\
 		pipe_astar_cost = 1\
@@ -53,9 +54,17 @@
 		if(RCD_DECONSTRUCT)
 			return list("mode" = RCD_DECONSTRUCT, "delay" = 20, "cost" = 5)
 		if(RCD_WINDOWGRILLE)
+			var/cost = 8
+			var/delay = 2 SECONDS
+
 			if(the_rcd.window_glass == RCD_WINDOW_REINFORCED)
-				return list("mode" = RCD_WINDOWGRILLE, "delay" = 40, "cost" = 12)
-			return list("mode" = RCD_WINDOWGRILLE, "delay" = 20, "cost" = 8)
+				delay = 4 SECONDS
+				cost = 12
+
+			return rcd_result_with_memory(
+				list("mode" = RCD_WINDOWGRILLE, "delay" = delay, "cost" = cost),
+				get_turf(src), RCD_MEMORY_WINDOWGRILLE,
+			)
 	return FALSE
 
 /obj/structure/grille/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
@@ -69,6 +78,12 @@
 			if(!isturf(loc))
 				return FALSE
 			var/turf/local_turf = loc
+
+			if(repair_grille())
+				to_chat(user, "<span class='notice'>You rebuild the broken grille.</span>")
+
+			if(!clear_tile(user))
+				return FALSE
 
 			if(!ispath(the_rcd.window_type, /obj/structure/window))
 				CRASH("Invalid window path type in RCD: [the_rcd.window_type]")
@@ -89,6 +104,29 @@
 	else
 		new /obj/structure/grille/ratvar(src.loc)
 	qdel(src)
+
+/obj/structure/grille/proc/clear_tile(mob/user)
+	var/at_users_feet = get_turf(user)
+
+	var/unanchored_items_on_tile
+	var/obj/item/last_item_moved
+	for(var/obj/item/item_to_move in loc.contents)
+		if(!item_to_move.anchored)
+			if(unanchored_items_on_tile <= CLEAR_TILE_MOVE_LIMIT)
+				item_to_move.forceMove(at_users_feet)
+				last_item_moved = item_to_move
+			unanchored_items_on_tile++
+
+	if(!unanchored_items_on_tile)
+		return TRUE
+
+	to_chat(user, "<span class='notice'>You move [unanchored_items_on_tile == 1 ? "[last_item_moved]" : "some things"] out of the way.</span>")
+
+	if(unanchored_items_on_tile - CLEAR_TILE_MOVE_LIMIT > 0)
+		to_chat(user, "<span class ='warning'>There's still too much stuff in the way!</span>")
+		return FALSE
+
+	return TRUE
 
 /obj/structure/grille/Bumped(atom/movable/AM)
 	if(!ismob(AM))
@@ -164,9 +202,8 @@
 		if(!shock(user, 90 * W.siemens_coefficient))
 			user.visible_message("<span class='notice'>[user] rebuilds the broken grille.</span>", \
 								 "<span class='notice'>You rebuild the broken grille.</span>")
-			new grille_type(src.loc)
+			repair_grille()
 			R.use(1)
-			qdel(src)
 			return
 
 //window placing begin
@@ -183,11 +220,15 @@
 			for(var/obj/structure/window/WINDOW in loc)
 				to_chat(user, "<span class='warning'>There is already a window there!</span>")
 				return
+			if(!clear_tile(user))
+				return
 			to_chat(user, "<span class='notice'>You start placing the window...</span>")
 			if(do_after(user,20, target = src))
 				if(!src.loc || !anchored) //Grille broken or unanchored while waiting
 					return
 				for(var/obj/structure/window/WINDOW in loc) //Another window already installed on grille
+					return
+				if(!clear_tile(user))
 					return
 				var/obj/structure/window/WD
 				if(istype(W, /obj/item/stack/sheet/plasmarglass))
@@ -240,15 +281,29 @@
 /obj/structure/grille/obj_break()
 	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
-		new broken_type(src.loc)
+		icon_state = "brokengrille"
+		density = FALSE
+		obj_integrity = 20
+		broken = TRUE
+		rods_amount = 1
+		rods_broken = FALSE
 		var/drop_loc = drop_location()
 		var/obj/R = new rods_type(drop_loc, rods_broken)
 		if(QDELETED(R)) // the rods merged with something on the tile
 			R = locate(rods_type) in drop_loc
 		if(R)
 			transfer_fingerprints_to(R)
-		qdel(src)
 
+/obj/structure/grille/proc/repair_grille()
+	if(broken)
+		icon_state = "grille"
+		density = TRUE
+		obj_integrity = max_integrity
+		broken = FALSE
+		rods_amount = 2
+		rods_broken = TRUE
+		return TRUE
+	return FALSE
 
 // shock user with probability prb (if all connections & power are working)
 // returns 1 if shocked, 0 otherwise
@@ -300,8 +355,6 @@
 	broken = TRUE
 	rods_amount = 1
 	rods_broken = FALSE
-	grille_type = /obj/structure/grille
-	broken_type = null
 
 /obj/structure/grille/broken/Initialize(mapload)
 	. = ..()
