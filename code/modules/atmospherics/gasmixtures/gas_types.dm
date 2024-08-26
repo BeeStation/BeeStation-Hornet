@@ -20,6 +20,10 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 		gas_info[META_GAS_FUSION_POWER] = initial(gas.fusion_power)
 		gas_info[META_GAS_DANGER] = initial(gas.dangerous)
 		gas_info[META_GAS_ID] = initial(gas.id)
+		gas_info[META_GAS_BREATH_ALERT_INFO] = intial(gas.breath_alert_info)
+		gas_info[META_GAS_BREATH_REAGENT] = initial(gas.breath_reagent)
+		gas_info[META_GAS_BREATH_RESULTS] = initial(gas.breath_results)
+
 		.[gas_path] = gas_info
 
 /proc/gas_id2path(id)
@@ -49,6 +53,9 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	var/dangerous = FALSE //currently used by canisters
 	var/fusion_power = 0 //How much the gas accelerates a fusion reaction
 	var/rarity = 0 // relative rarity compared to other gases, used when setting up the reactions list.
+	var/list/breath_alert_info = null
+	var/breath_reagent = null
+	var/breath_results = null
 
 /datum/gas/oxygen
 	id = "o2"
@@ -59,7 +66,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 /datum/gas/nitrogen
 	id = "n2"
 	specific_heat = 20
-		breath_alert_info = list(
+	breath_alert_info = list(
 		not_enough_alert = list(
 			alert_category = "not_enough_nitro",
 			alert_type = /atom/movable/screen/alert/not_enough_nitro
@@ -76,7 +83,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	id = "co2"
 	specific_heat = 30
 	name = "Carbon Dioxide"
-	breath_results = GAS_O2
+	breath_results = /datum/gas/oxygen
 	breath_alert_info = list(
 		not_enough_alert = list(
 			alert_category = "not_enough_co2",

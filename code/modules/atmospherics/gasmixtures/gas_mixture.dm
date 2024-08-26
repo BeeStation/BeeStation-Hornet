@@ -462,7 +462,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	if(!length(cached_gases))
 		return
 
-	var/lis/maximum = list()
+	var/list/maximum = list()
 	var/list/pre_formation = list()
 	var/list/mid_formation = list()
 	var/list/post_formation = list()

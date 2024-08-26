@@ -313,7 +313,7 @@
 							: 4 ** (temperature_scale-FUSION_BASE_TEMPSCALE) / FUSION_SLOPE_DIVISOR)
 	var/gas_power = 0
 	for (var/gas_id in air.gases)
-		gas_power += (GLOB.gas_data.fusion_powers[gas_id]*air.gases[gas_id][MOLES])
+		gas_power += (GLOB.meta_gas_info[gas_id][META_GAS_FUSION_POWER]*air.gases[gas_id][MOLES])
 	var/instability = MODULUS((gas_power*INSTABILITY_GAS_POWER_FACTOR),toroidal_size) //Instability effects how chaotic the behavior of the reaction is
 	cached_scan_results[id] = instability//used for analyzer feedback
 

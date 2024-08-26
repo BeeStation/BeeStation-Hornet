@@ -20,6 +20,14 @@
 #define META_GAS_ID 6
 ///Power of the gas when used in the current iteration of fusion
 #define META_GAS_FUSION_POWER 7
+///Defines the alert that should jump out if the quantity of a gas affects to a point it's too much or not enough
+#define META_GAS_BREATH_ALERT_INFO 8
+///Defines the reagents applied on breathing the gas
+#define META_GAS_BREATH_REAGENT 9
+///Defines the gas to which this gas is a result of breathing
+#define META_GAS_BREATH_RESULTS 10
+
+
 //ATMOS
 //stuff you should probably leave well alone!
 /// kPa*L/(K*mol)

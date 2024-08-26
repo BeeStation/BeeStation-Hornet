@@ -41,3 +41,12 @@
 	low_alert_datum = /atom/movable/screen/alert/not_enough_tox
 	high_alert_category = "too_much_tox"
 	high_alert_datum = /atom/movable/screen/alert/too_much_tox
+
+/proc/breathing_class_list()
+	var/list/breathing_classes = list()
+	for(var/breathing_class_path in subtypesof(/datum/breathing_class))
+		var/datum/breathing_class/class = new breathing_class_path
+		breathing_classes[breathing_class_path] = class
+	return breathing_classes
+
+GLOBAL_LIST_INIT(breathing_class_info, breathing_class_list())
