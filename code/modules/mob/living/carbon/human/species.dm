@@ -2275,12 +2275,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/datum/gas_mixture/current = H.loc.return_air()
 			if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
 				return TRUE
-	if(H.movement_type & FLYING|FLOATING)
+	if(H.movement_type & (FLYING|FLOATING))
 		return TRUE
 	return FALSE
 
 /datum/species/proc/negates_gravity(mob/living/carbon/human/H)
-	if(H.movement_type & FLYING|FLOATING)
+	if(H.movement_type & (FLYING|FLOATING))
 		return TRUE
 	return FALSE
 

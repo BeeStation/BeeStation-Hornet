@@ -1,6 +1,6 @@
 /mob/living/carbon/slip(knockdown_amount, obj/O, lube, paralyze, force_drop)
 
-	if(movement_type & FLYING|FLOATING)
+	if(movement_type & (FLYING|FLOATING))
 		return FALSE
 	if((lube & NO_SLIP_ON_CATWALK) && (locate(/obj/structure/lattice/catwalk) in get_turf(src)))
 		return FALSE
