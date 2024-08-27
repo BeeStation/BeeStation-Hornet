@@ -24,7 +24,7 @@
 
 /// Called when a client mouses over this atom
 /atom/proc/on_mouse_enter(client/client)
-	var/screentip_message = "<span class='big'>[MAPTEXT(CENTER(capitalize(name)))]</span>"
+	var/screentip_message = "<span class='big' style='line-height: 0.5'>[MAPTEXT(CENTER(capitalize(name)))]</span>"
 	client.screentip_context.context_message = screentip_message
 	add_context_self(client.screentip_context, client.mob, client.mob.get_active_held_item())
 	client.mob.hud_used.screentip.maptext = client.screentip_context.context_message

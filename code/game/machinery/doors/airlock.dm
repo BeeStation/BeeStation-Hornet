@@ -1670,7 +1670,7 @@
 	..()
 	if (req_access || req_one_access)
 		context.add_access_context("Access Required", TRUE)
-	context.add_left_click_action("Open", (lights && locked) ? "(Bolted)" : null, !lights || !locked)
+	context.add_left_click_action("Open", (lights && locked) ? "Bolted" : null, !lights || !locked)
 	context.add_left_click_item_action("[panel_open ? "Close" : "Open"] Maintenance Panel", /obj/item/screwdriver)
 	if (panel_open)
 		context.add_left_click_item_action("Hack Maintenance Panel", /obj/item/multitool)
