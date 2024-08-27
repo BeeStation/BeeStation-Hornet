@@ -64,7 +64,7 @@
 
 	if(isliving(AM))
 		var/mob/living/L = AM
-		if(L.movement_type & FLYING)
+		if(L.movement_type & FLOATING|FLYING)
 			return
 		if(L.m_intent != MOVE_INTENT_WALK && prob(40))
 			var/acid_used = min(acid_level*0.05, 20)
