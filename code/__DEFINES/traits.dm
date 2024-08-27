@@ -247,6 +247,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BEEFRIEND 		"beefriend"
 #define TRAIT_MEDICAL_HUD		"med_hud"
 #define TRAIT_SECURITY_HUD		"sec_hud"
+#define TRAIT_DIAGNOSTIC_HUD "diag_hud"
 #define TRAIT_MEDIBOTCOMINGTHROUGH "medbot" //Is a medbot healing you
 #define TRAIT_PASSTABLE			"passtable"
 #define TRAIT_BLUSHING 			"blushing"
@@ -289,6 +290,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///Used for managing KEEP_TOGETHER in [appearance_flags]
 #define TRAIT_KEEP_TOGETHER "keep-together"
 
+//important_recursive_contents traits
+/*
+ * Used for movables that need to be updated, via COMSIG_ENTER_AREA and COMSIG_EXIT_AREA, when transitioning areas.
+ * Use [/atom/movable/proc/become_area_sensitive(trait_source)] to properly enable it. How you remove it isn't as important.
+ */
+#define TRAIT_AREA_SENSITIVE "area-sensitive"
+///every hearing sensitive atom has this trait
 #define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
 
 // item traits
@@ -515,3 +523,20 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Trait for psyphoza, flag for examine logic
 #define TRAIT_PSYCHIC_SENSE "psychic_sense"
+
+///Movement type traits for movables. See elements/movetype_handler.dm
+#define TRAIT_MOVE_GROUND		"move_ground"
+#define TRAIT_MOVE_FLYING		"move_flying"
+#define TRAIT_MOVE_VENTCRAWLING	"move_ventcrawling"
+#define TRAIT_MOVE_FLOATING		"move_floating"
+#define TRAIT_MOVE_PHASING		"move_phasing"
+/// Disables the floating animation. See above.
+#define TRAIT_NO_FLOATING_ANIM		"no-floating-animation"
+/// Trait given to an atom/movable when they orbit something.
+#define ORBITING_TRAIT "orbiting"
+
+#define VENTCRAWLING_TRAIT "ventcrawling"
+#define SPECIES_FLIGHT_TRAIT "species-flight"
+#define NO_GRAVITY_TRAIT "no-gravity"
+#define LIFECANDLE_TRAIT "lifecandle"
+#define LEAPER_BUBBLE_TRAIT "leaper-bubble"

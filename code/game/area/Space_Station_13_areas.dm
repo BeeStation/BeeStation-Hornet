@@ -1208,7 +1208,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/security/brig/medbay
 	name = "Brig Bay"
-
+	
+/area/security/brig/aft
+	name = "Brig Aft"
 
 /area/security/courtroom
 	name = "Courtroom"
@@ -1461,6 +1463,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
 	color_correction = /datum/client_colour/area_color/cold_ish
+	
+/area/science/aft
+	name = "Science Aft"
 
 /area/science/lobby
 	name = "\improper Science Lobby"

@@ -840,13 +840,16 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/level = input("Select security level to change to","Set Security Level") as null|anything in list("green","blue","red","delta")
-	if(level)
-		set_security_level(level)
+	var/level = tgui_input_list(usr, "Select Security Level:", "Set Security Level", SSsecurity_level.available_levels)
 
-		log_admin("[key_name(usr)] changed the security level to [level]")
-		message_admins("[key_name_admin(usr)] changed the security level to [level]")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Security Level [capitalize(level)]") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	if(!level)
+		return
+
+	SSsecurity_level.set_level(level)
+
+	log_admin("[key_name(usr)] changed the security level to [level]")
+	message_admins("[key_name_admin(usr)] changed the security level to [level]")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Security Level [capitalize(level)]") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_nuke(obj/machinery/nuclearbomb/N in GLOB.nuke_list)
 	set name = "Toggle Nuke"
@@ -1210,6 +1213,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/source = "adminabuse"
 	switch(add_or_remove)
 		if("Add") //Not doing source choosing here intentionally to make this bit faster to use, you can always vv it.
+			if(GLOB.movement_type_trait_to_flag[chosen_trait]) //include the required element.
+				D.AddElement(/datum/element/movetype_handler)
 			ADD_TRAIT(D,chosen_trait,source)
 		if("Remove")
 			var/specific = input("All or specific source ?", "Trait Remove/Add") as null|anything in list("All","Specific")

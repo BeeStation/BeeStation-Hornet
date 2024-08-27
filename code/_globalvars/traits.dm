@@ -110,6 +110,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_BEEFRIEND" = TRAIT_BEEFRIEND,
 		"TRAIT_MEDICAL_HUD" = TRAIT_MEDICAL_HUD,
 		"TRAIT_SECURITY_HUD" = TRAIT_SECURITY_HUD,
+		"TRAIT_DIAGNOSTIC_HUD" = TRAIT_DIAGNOSTIC_HUD,
 		"TRAIT_MEDIBOTCOMINGTHROUGH" = TRAIT_MEDIBOTCOMINGTHROUGH,
 		"TRAIT_PASSTABLE" = TRAIT_PASSTABLE,
 		"TRAIT_BLUSHING" = TRAIT_BLUSHING,
@@ -138,6 +139,13 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_DOOR_PRYER" = TRAIT_DOOR_PRYER,
 		"TRAIT_FISH_SAFE_STORAGE" = TRAIT_FISH_SAFE_STORAGE,
 		"TRAIT_FISH_CASE_COMPATIBILE" = TRAIT_FISH_CASE_COMPATIBILE
+		),
+	/atom/movable = list(
+		"TRAIT_MOVE_GROUND" = TRAIT_MOVE_GROUND,
+		"TRAIT_MOVE_FLYING" = TRAIT_MOVE_FLYING,
+		"TRAIT_MOVE_VENTCRAWLING" = TRAIT_MOVE_VENTCRAWLING,
+		"TRAIT_MOVE_FLOATING" = TRAIT_MOVE_FLOATING,
+		"TRAIT_MOVE_PHASING" = TRAIT_MOVE_PHASING
 		)
 	))
 
@@ -150,3 +158,25 @@ GLOBAL_LIST(trait_name_map)
 		for(var/tname in GLOB.traits_by_type[key])
 			var/val = GLOB.traits_by_type[key][tname]
 			.[val] = tname
+
+
+GLOBAL_LIST_INIT(movement_type_trait_to_flag, list(
+	TRAIT_MOVE_GROUND = GROUND,
+	TRAIT_MOVE_FLYING = FLYING,
+	TRAIT_MOVE_VENTCRAWLING = VENTCRAWLING,
+	TRAIT_MOVE_FLOATING = FLOATING,
+	TRAIT_MOVE_PHASING = PHASING
+	))
+
+GLOBAL_LIST_INIT(movement_type_addtrait_signals, set_movement_type_addtrait_signals())
+GLOBAL_LIST_INIT(movement_type_removetrait_signals, set_movement_type_removetrait_signals())
+
+/proc/set_movement_type_addtrait_signals(signal_prefix)
+	. = list()
+	for(var/trait in GLOB.movement_type_trait_to_flag)
+		. += SIGNAL_ADDTRAIT(trait)
+
+/proc/set_movement_type_removetrait_signals(signal_prefix)
+	. = list()
+	for(var/trait in GLOB.movement_type_trait_to_flag)
+		. += SIGNAL_REMOVETRAIT(trait)

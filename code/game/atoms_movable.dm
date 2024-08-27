@@ -38,8 +38,13 @@
 	var/datum/movement_packet/move_packet
 	var/list/acted_explosions	//for explosion dodging
 	var/datum/forced_movement/force_moving = null	//handled soley by forced_movement.dm
-	///In case you have multiple types, you automatically use the most useful one. IE: Skating on ice, flippers on water, flying over chasm/space, etc. Should only be changed through setMovetype()
+	/**
+	  * In case you have multiple types, you automatically use the most useful one.
+	  * IE: Skating on ice, flippers on water, flying over chasm/space, etc.
+	  * I reccomend you use the movetype_handler system and not modify this directly, especially for living mobs.
+	  */
 	var/movement_type = GROUND
+
 	var/atom/movable/pulling
 	var/grab_state = 0
 	var/throwforce = 0
@@ -56,6 +61,9 @@
 	 * do NOT add channels to this for little reason as it can add considerable memory usage.
 	 */
 	var/list/important_recursive_contents
+	///contains every client mob corresponding to every client eye in this container. lazily updated by SSparallax and is sparse:
+	///only the last container of a client eye has this list assuming no movement since SSparallax's last fire
+	var/list/client_mobs_in_contents
 	///Lazylist to keep track on the sources of illumination.
 	var/list/affected_dynamic_lights
 	///Highest-intensity light affecting us, which determines our visibility.
@@ -80,17 +88,75 @@
 			update_appearance(UPDATE_OVERLAYS)
 	if(opacity)
 		AddElement(/datum/element/light_blocking)
+	switch(light_system)
+		if(MOVABLE_LIGHT)
+			AddComponent(/datum/component/overlay_lighting)
+		if(MOVABLE_LIGHT_DIRECTIONAL)
+			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE)
 
-	QDEL_NULL(em_block)
-
-	if(pulling)
-		stop_pulling()
-	if(light_system == MOVABLE_LIGHT)
-		AddComponent(/datum/component/overlay_lighting)
 	if(isturf(loc))
 		var/turf/T = loc
 		T.update_above() // Z-Mimic
 
+
+/atom/movable/Destroy(force)
+	QDEL_NULL(proximity_monitor)
+	QDEL_NULL(language_holder)
+	QDEL_NULL(em_block)
+	if(bound_overlay)
+		QDEL_NULL(bound_overlay)
+
+	unbuckle_all_mobs(force = TRUE)
+
+	if(loc)
+		//Restore air flow if we were blocking it (movables with ATMOS_PASS_PROC will need to do this manually if necessary)
+		if(((CanAtmosPass == ATMOS_PASS_DENSITY && density) || CanAtmosPass == ATMOS_PASS_NO) && isturf(loc))
+			CanAtmosPass = ATMOS_PASS_YES
+			air_update_turf(TRUE)
+		loc.handle_atom_del(src)
+
+	if(opacity)
+		RemoveElement(/datum/element/light_blocking)
+
+	invisibility = INVISIBILITY_ABSTRACT
+
+	if(pulledby)
+		pulledby.stop_pulling()
+	if(pulling)
+		stop_pulling()
+
+	if(orbiting)
+		orbiting.end_orbit(src)
+		orbiting = null
+
+	if(move_packet)
+		if(!QDELETED(move_packet))
+			qdel(move_packet)
+		move_packet = null
+
+	if(important_recursive_contents && (important_recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS] || important_recursive_contents[RECURSIVE_CONTENTS_HEARING_SENSITIVE]))
+		SSspatial_grid.force_remove_from_cell(src)
+
+	LAZYCLEARLIST(client_mobs_in_contents)
+
+	. = ..()
+
+	for(var/movable_content in contents)
+		qdel(movable_content)
+
+	moveToNullspace()
+
+	//This absolutely must be after moveToNullspace()
+	//We rely on Entered and Exited to manage this list, and the copy of this list that is on any /atom/movable "Containers"
+	//If we clear this before the nullspace move, a ref to this object will be hung in any of its movable containers
+	LAZYCLEARLIST(important_recursive_contents)
+
+
+	vis_locs = null //clears this atom out of all viscontents
+
+	// Checking length(vis_contents) before cutting has significant speed benefits
+	if (length(vis_contents))
+		vis_contents.Cut()
 
 /atom/movable/proc/update_emissive_block()
 	if(!blocks_emissive)
@@ -438,6 +504,7 @@
 //Called after a successful Move(). By this point, we've alrefady moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
+
 	if(OldLoc)
 		var/turf/old_turf = get_turf(OldLoc)
 		var/turf/new_turf = get_turf(src)
@@ -465,62 +532,24 @@
 		else	// Not a turf, so we need to destroy immediately instead of waiting for the destruction timer to proc.
 			qdel(bound_overlay)
 
+	var/turf/old_turf = get_turf(OldLoc)
+	var/turf/new_turf = get_turf(src)
+
+	if(HAS_SPATIAL_GRID_CONTENTS(src))
+		if(old_turf && new_turf && (old_turf.z != new_turf.z \
+			|| ROUND_UP(old_turf.x / SPATIAL_GRID_CELLSIZE) != ROUND_UP(new_turf.x / SPATIAL_GRID_CELLSIZE) \
+			|| ROUND_UP(old_turf.y / SPATIAL_GRID_CELLSIZE) != ROUND_UP(new_turf.y / SPATIAL_GRID_CELLSIZE)))
+
+			SSspatial_grid.exit_cell(src, old_turf)
+			SSspatial_grid.enter_cell(src, new_turf)
+
+		else if(old_turf && !new_turf)
+			SSspatial_grid.exit_cell(src, old_turf)
+
+		else if(new_turf && !old_turf)
+			SSspatial_grid.enter_cell(src, new_turf)
+
 	return TRUE
-
-/atom/movable/Destroy(force)
-	QDEL_NULL(proximity_monitor)
-	QDEL_NULL(language_holder)
-	QDEL_NULL(em_block)
-	if(bound_overlay)
-		QDEL_NULL(bound_overlay)
-
-	unbuckle_all_mobs(force = TRUE)
-
-	if(loc)
-		//Restore air flow if we were blocking it (movables with ATMOS_PASS_PROC will need to do this manually if necessary)
-		if(((CanAtmosPass == ATMOS_PASS_DENSITY && density) || CanAtmosPass == ATMOS_PASS_NO) && isturf(loc))
-			CanAtmosPass = ATMOS_PASS_YES
-			air_update_turf(TRUE)
-		loc.handle_atom_del(src)
-
-	if(opacity)
-		RemoveElement(/datum/element/light_blocking)
-
-	invisibility = INVISIBILITY_ABSTRACT
-
-	if(pulledby)
-		pulledby.stop_pulling()
-	if(pulling)
-		stop_pulling()
-
-	if(orbiting)
-		orbiting.end_orbit(src)
-		orbiting = null
-
-	if(move_packet)
-		if(!QDELETED(move_packet))
-			qdel(move_packet)
-		move_packet = null
-/*
-	LAZYCLEARLIST(client_mobs_in_contents)
-*/
-	. = ..()
-
-	for(var/movable_content in contents)
-		qdel(movable_content)
-
-	moveToNullspace()
-
-	//This absolutely must be after moveToNullspace()
-	//We rely on Entered and Exited to manage this list, and the copy of this list that is on any /atom/movable "Containers"
-	//If we clear this before the nullspace move, a ref to this object will be hung in any of its movable containers
-	LAZYCLEARLIST(important_recursive_contents)
-
-	vis_locs = null //clears this atom out of all viscontents
-
-	// Checking length(vis_contents) before cutting has significant speed benefits
-	if (length(vis_contents))
-		vis_contents.Cut()
 
 // Make sure you know what you're doing if you call this, this is intended to only be called by byond directly.
 // You probably want CanPass()
@@ -640,14 +669,6 @@
 				old_area.Exited(src, null)
 
 	Moved(oldloc, NONE, TRUE)
-
-///Proc to modify the movement_type and hook behavior associated with it changing.
-/atom/movable/proc/setMovetype(newval)
-	if(movement_type == newval)
-		return
-	. = movement_type
-	movement_type = newval
-
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
 //And when an object or action applies a force on src, see newtonian_move() below
@@ -884,8 +905,8 @@
 
 	var/matrix/initial_transform = matrix(transform)
 	var/matrix/rotated_transform = transform.Turn(rand(13,17) * turn_dir)
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN)
-	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform=initial_transform, time = 2, easing=SINE_EASING)
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
+	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform=initial_transform, time = 2, easing=SINE_EASING, flags = ANIMATION_PARALLEL)
 
 /atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
 	var/image/I
@@ -984,17 +1005,6 @@
 	acted_explosions += ex_id
 	return TRUE
 
-//TODO: Better floating
-/atom/movable/proc/float(on)
-	if(throwing)
-		return
-	if(on && !(movement_type & FLOATING))
-		animate(src, pixel_y = 2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
-		animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
-		setMovetype(movement_type | FLOATING)
-	else if (!on && (movement_type & FLOATING))
-		animate(src, pixel_y = base_pixel_y, time = 10)
-		setMovetype(movement_type & ~FLOATING)
 /* 	Language procs
 *	Unless you are doing something very specific, these are the ones you want to use.
 */
@@ -1198,23 +1208,9 @@
 /atom/movable/proc/get_spawner_flavour_text()
 	return desc
 
-/atom/movable/proc/on_hearing_sensitive_trait_loss()
-	SIGNAL_HANDLER
-
-	UnregisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_HEARING_SENSITIVE))
-	for(var/atom/movable/location as anything in get_nested_locs(src) + src)
-		LAZYREMOVEASSOC(location.important_recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE, src)
-
-///allows this movable to hear and adds itself to the important_recursive_contents list of itself and every movable loc its in
-/atom/movable/proc/become_hearing_sensitive(trait_source = TRAIT_GENERIC)
-	if(!HAS_TRAIT(src, TRAIT_HEARING_SENSITIVE))
-		RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_HEARING_SENSITIVE), PROC_REF(on_hearing_sensitive_trait_loss))
-		for(var/atom/movable/location as anything in get_nested_locs(src) + src)
-			LAZYADDASSOCLIST(location.important_recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE, src)
-	ADD_TRAIT(src, TRAIT_HEARING_SENSITIVE, trait_source)
-
 /atom/movable/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
+
 	if(LAZYLEN(arrived.important_recursive_contents))
 		var/list/nested_locs = get_nested_locs(src) + src
 		for(var/channel in arrived.important_recursive_contents)
@@ -1223,8 +1219,89 @@
 
 /atom/movable/Exited(atom/movable/gone, direction)
 	. = ..()
+
 	if(LAZYLEN(gone.important_recursive_contents))
 		var/list/nested_locs = get_nested_locs(src) + src
 		for(var/channel in gone.important_recursive_contents)
 			for(var/atom/movable/location as anything in nested_locs)
 				LAZYREMOVEASSOC(location.important_recursive_contents, channel, gone.important_recursive_contents[channel])
+
+///allows this movable to hear and adds itself to the important_recursive_contents list of itself and every movable loc its in
+/atom/movable/proc/become_hearing_sensitive(trait_source = TRAIT_GENERIC)
+	if(!HAS_TRAIT(src, TRAIT_HEARING_SENSITIVE))
+		for(var/atom/movable/location as anything in get_nested_locs(src) + src)
+			LAZYADDASSOCLIST(location.important_recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE, src)
+
+		var/turf/our_turf = get_turf(src)
+		if(our_turf && SSspatial_grid.initialized)
+			SSspatial_grid.enter_cell(src, our_turf)
+
+		else if(our_turf && !SSspatial_grid.initialized)//SSspatial_grid isnt init'd yet, add ourselves to the queue
+			SSspatial_grid.enter_pre_init_queue(src, RECURSIVE_CONTENTS_HEARING_SENSITIVE)
+
+	ADD_TRAIT(src, TRAIT_HEARING_SENSITIVE, trait_source)
+
+/**
+ * removes the hearing sensitivity channel from the important_recursive_contents list of this and all nested locs containing us if there are no more sources of the trait left
+ * since RECURSIVE_CONTENTS_HEARING_SENSITIVE is also a spatial grid content type, removes us from the spatial grid if the trait is removed
+ *
+ * * trait_source - trait source define or ALL, if ALL, force removes hearing sensitivity. if a trait source define, removes hearing sensitivity only if the trait is removed
+ */
+/atom/movable/proc/lose_hearing_sensitivity(trait_source = TRAIT_GENERIC)
+	if(!HAS_TRAIT(src, TRAIT_HEARING_SENSITIVE))
+		return
+	REMOVE_TRAIT(src, TRAIT_HEARING_SENSITIVE, trait_source)
+	if(HAS_TRAIT(src, TRAIT_HEARING_SENSITIVE))
+		return
+
+	var/turf/our_turf = get_turf(src)
+	if(our_turf && SSspatial_grid.initialized)
+		SSspatial_grid.exit_cell(src, our_turf)
+	else if(our_turf && !SSspatial_grid.initialized)
+		SSspatial_grid.remove_from_pre_init_queue(src, RECURSIVE_CONTENTS_HEARING_SENSITIVE)
+
+	for(var/atom/movable/location as anything in get_nested_locs(src) + src)
+		LAZYREMOVEASSOC(location.important_recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE, src)
+
+///allows this movable to know when it has "entered" another area no matter how many movable atoms its stuffed into, uses important_recursive_contents
+/atom/movable/proc/become_area_sensitive(trait_source = TRAIT_GENERIC)
+	if(!HAS_TRAIT(src, TRAIT_AREA_SENSITIVE))
+		for(var/atom/movable/location as anything in get_nested_locs(src) + src)
+			LAZYADDASSOCLIST(location.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE, src)
+	ADD_TRAIT(src, TRAIT_AREA_SENSITIVE, trait_source)
+
+///removes the area sensitive channel from the important_recursive_contents list of this and all nested locs containing us if there are no more source of the trait left
+/atom/movable/proc/lose_area_sensitivity(trait_source = TRAIT_GENERIC)
+	if(!HAS_TRAIT(src, TRAIT_AREA_SENSITIVE))
+		return
+	REMOVE_TRAIT(src, TRAIT_AREA_SENSITIVE, trait_source)
+	if(HAS_TRAIT(src, TRAIT_AREA_SENSITIVE))
+		return
+
+	for(var/atom/movable/location as anything in get_nested_locs(src) + src)
+		LAZYREMOVEASSOC(location.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE, src)
+
+///propogates ourselves through our nested contents, similar to other important_recursive_contents procs
+///main difference is that client contents need to possibly duplicate recursive contents for the clients mob AND its eye
+/mob/proc/enable_client_mobs_in_contents()
+	var/turf/our_turf = get_turf(src)
+
+	if(our_turf && SSspatial_grid.initialized)
+		SSspatial_grid.enter_cell(src, our_turf, RECURSIVE_CONTENTS_CLIENT_MOBS)
+	else if(our_turf && !SSspatial_grid.initialized)
+		SSspatial_grid.enter_pre_init_queue(src, RECURSIVE_CONTENTS_CLIENT_MOBS)
+
+	for(var/atom/movable/movable_loc as anything in get_nested_locs(src) + src)
+		LAZYORASSOCLIST(movable_loc.important_recursive_contents, RECURSIVE_CONTENTS_CLIENT_MOBS, src)
+
+///Clears the clients channel of this mob
+/mob/proc/clear_important_client_contents()
+	var/turf/our_turf = get_turf(src)
+
+	if(our_turf && SSspatial_grid.initialized)
+		SSspatial_grid.exit_cell(src, our_turf, RECURSIVE_CONTENTS_CLIENT_MOBS)
+	else if(our_turf && !SSspatial_grid.initialized)
+		SSspatial_grid.remove_from_pre_init_queue(src, RECURSIVE_CONTENTS_CLIENT_MOBS)
+
+	for(var/atom/movable/movable_loc as anything in get_nested_locs(src) + src)
+		LAZYREMOVEASSOC(movable_loc.important_recursive_contents, RECURSIVE_CONTENTS_CLIENT_MOBS, src)

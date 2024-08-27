@@ -462,6 +462,10 @@
 			else
 				user.visible_message("[user] has fixed some of the [dam ? "dents on" : "burnt wires in"] [H]'s [parse_zone(affecting.body_zone)].", \
 					"<span class='notice'>You fix some of the [dam ? "dents on" : "burnt wires in"] [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)].</span>")
+			if((affecting.brute_dam <= 0 && brute_heal) && ((!H.is_bleeding()) && H.has_mechanical_bleeding()))
+				return FALSE //successful heal, but the target is at full health. Returns false to signal you can stop healing now
+			if(affecting.burn_dam <=0 && burn_heal)
+				return FALSE //same as above, but checking for burn damage instead
 			return TRUE //successful heal
 		else
 			to_chat(user, "<span class='warning'>[affecting] is already in good condition!</span>")
@@ -515,13 +519,6 @@
 		to_chat(M, "There were no ghosts willing to take control.")
 		message_admins("No ghosts were willing to take control of [ADMIN_LOOKUPFLW(M)])")
 		return FALSE
-
-///Is the mob a flying mob
-/mob/proc/is_flying(mob/M = src)
-	if(M.movement_type & FLYING)
-		return 1
-	else
-		return 0
 
 ///Clicks a random nearby mob with the source from this mob
 /mob/proc/click_random_mob()
