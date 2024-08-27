@@ -110,6 +110,11 @@
 	floor_tile = /obj/item/stack/tile/iron/dark_corner
 
 /turf/open/floor/iron/checker
+	icon_state = "blackwhite"
+	base_icon_state = "blackwhite"
+	floor_tile = /obj/item/stack/tile/iron/checker
+
+/turf/open/floor/iron/checker/other
 	icon_state = "checker"
 	base_icon_state = "checker"
 	floor_tile = /obj/item/stack/tile/iron/checker

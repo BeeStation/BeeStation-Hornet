@@ -130,7 +130,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/clothing/under/rank/captain/parade, /obj/item/clothing/under/rank/security/head_of_security/parade, /obj/item/clothing/under/rank/security/head_of_security/parade/female,
 			/obj/item/clothing/head/helmet/abductor, /obj/item/clothing/suit/armor/abductor/vest, /obj/item/abductor/baton,
 			/obj/item/storage/belt/military/abductor, /obj/item/gun/energy/alien, /obj/item/abductor/silencer,
-			/obj/item/abductor/gizmo, /obj/item/clothing/under/rank/centcom/officer,
+			/obj/item/abductor/gizmo, /obj/item/clothing/under/rank/centcom/official,
 			/obj/item/clothing/suit/space/hardsuit/ert, /obj/item/clothing/suit/space/hardsuit/ert/sec,
 			/obj/item/clothing/suit/space/hardsuit/ert/engi, /obj/item/clothing/suit/space/hardsuit/ert/med,
 			/obj/item/clothing/suit/space/hardsuit/deathsquad, /obj/item/clothing/head/helmet/space/hardsuit/deathsquad,
@@ -154,7 +154,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/clothing/under/rank/captain,  /obj/item/clothing/under/rank/civilian/head_of_personnel,
 			/obj/item/clothing/under/rank/security/head_of_security, /obj/item/clothing/under/rank/rnd/research_director,
 			/obj/item/clothing/under/rank/medical/chief_medical_officer, /obj/item/clothing/under/rank/engineering/chief_engineer,
-			/obj/item/clothing/under/rank/centcom/officer, /obj/item/clothing/under/rank/centcom/commander,
+			/obj/item/clothing/under/rank/centcom/official, /obj/item/clothing/under/rank/centcom/commander,
 			/obj/item/melee/classic_baton/police/telescopic, /obj/item/card/id/silver, /obj/item/card/id/gold,
 			/obj/item/card/id/captains_spare, /obj/item/card/id/centcom, /obj/machinery/door/airlock/command)),
 
@@ -240,4 +240,4 @@ SUBSYSTEM_DEF(traumas)
 						  "anime" = typecacheof(list(/datum/species/human/felinid))
 						 )
 
-	return ..()
+	return SS_INIT_SUCCESS

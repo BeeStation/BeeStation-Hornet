@@ -31,3 +31,4 @@
 	ricochet_decay_chance = 0.8
 	ricochet_decay_damage = 0.85
 	armour_penetration = -15
+	bleed_force = BLEED_SCRATCH

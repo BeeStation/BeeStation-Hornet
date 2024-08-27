@@ -127,6 +127,41 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 
+/obj/item/clothing/under/costume/yukata
+	name = "black yukata"
+	desc = "A comfortable black cotton yukata inspired by traditional designs, perfect for a non-formal setting."
+	icon_state = "yukata1"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+
+/obj/item/clothing/under/costume/yukata/green
+	name = "green yukata"
+	desc = "A comfortable green cotton yukata inspired by traditional designs, perfect for a non-formal setting."
+	icon_state = "yukata2"
+
+/obj/item/clothing/under/costume/yukata/white
+	name = "white yukata"
+	desc = "A comfortable white cotton yukata inspired by traditional designs, perfect for a non-formal setting."
+	icon_state = "yukata3"
+
+/obj/item/clothing/under/costume/kimono
+	name = "black kimono"
+	desc = "A luxurious black silk kimono with traditional flair, ideal for elegant festive occasions."
+	icon_state = "kimono1"
+	item_state = "yukata1"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+
+/obj/item/clothing/under/costume/kimono/red
+	name = "red kimono"
+	desc = "A luxurious red silk kimono with traditional flair, ideal for elegant festive occasions."
+	icon_state = "kimono2"
+
+/obj/item/clothing/under/costume/kimono/purple
+	name = "purple kimono"
+	desc = "A luxurious purple silk kimono with traditional flair, ideal for elegant festive occasions."
+	icon_state = "kimono3"
+
 /obj/item/clothing/under/costume/kamishimo
 	name = "kamishimo"
 	desc = "A traditional ancient Earth Japanese Kamishimo."
@@ -257,7 +292,7 @@
 	item_state = null
 	worn_icon = 'icons/mob/clothing/under/security.dmi'
 	alt_covers_chest = TRUE
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30, STAMINA = 10)
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30, STAMINA = 10, BLEED = 15)
 	strip_delay = 50
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS

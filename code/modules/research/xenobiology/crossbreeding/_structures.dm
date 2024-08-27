@@ -398,7 +398,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/cerulean/Initialize(mapload)
 	. = ..()
-	while(crystals < 3)
+	for (var/i in 1 to 10) // doesn't guarantee 3 but it's a good effort
 		spawn_crystal()
 
 /obj/structure/slime_crystal/cerulean/proc/spawn_crystal()
