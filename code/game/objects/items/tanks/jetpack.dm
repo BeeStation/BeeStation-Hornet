@@ -376,11 +376,8 @@
 
 	// Consume
 	if(use_fuel)
-		var/datum/gas_mixture/our_mix = return_air()
-		our_mix.gases[/datum/gas/plasma][MOLES] = QUANTIZE(our_mix.gases[/datum/gas/plasma][MOLES] - plasma_burn_rate
-)
-		our_mix.gases[/datum/gas/oxygen][MOLES] = QUANTIZE(our_mix.gases[/datum/gas/oxygen][MOLES] - (plasma_burn_rate * oxygen_burn_rate
-))
+		our_mix.gases[/datum/gas/plasma][MOLES] = QUANTIZE(our_mix.gases[/datum/gas/plasma][MOLES] - plasma_burn_rate)
+		our_mix.gases[/datum/gas/oxygen][MOLES] = QUANTIZE(our_mix.gases[/datum/gas/oxygen][MOLES] - (plasma_burn_rate * oxygen_burn_rate))
 	update_fade(15)
 	update_lifespan(4)
 

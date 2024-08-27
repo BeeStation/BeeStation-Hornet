@@ -107,7 +107,7 @@
 
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/temp_air_contents = return_air()
-	var/datum/gas_mixture/temp_holding_air_contents = holding_return_air()
+	var/datum/gas_mixture/temp_holding_air_contents = holding.return_air()
 	if(direction == PUMP_OUT) // Hook up the internal pump.
 		pump.airs[1] = holding ? temp_holding_air_contents : temp_air_contents
 		pump.airs[2] = holding ? temp_air_contents : T.return_air()

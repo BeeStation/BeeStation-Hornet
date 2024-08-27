@@ -121,7 +121,7 @@
 
 /datum/pipeline/proc/add_machinery_member(obj/machinery/atmospherics/components/considered_component)
 	other_atmos_machines |= considered_component
-	var/list/returned_airs = considered_component.return_pipenetAirs(src)
+	var/list/returned_airs = considered_component.return_pipenet_airs(src)
 	if (!length(returned_airs) || (null in returned_airs))
 		stack_trace("add_machinery_member: Nonexistent (empty list) or null machinery gasmix added to pipeline datum from [considered_component] \
 		which is of type [considered_component.type]. Nearby: ([considered_component.x], [considered_component.y], [considered_component.z])")
@@ -241,9 +241,8 @@
 
 /datum/pipeline/proc/return_air()
 	. = other_airs + air
-	if(null in .)
+	if(list_clear_nulls(.))
 		stack_trace("[src] has one or more null gas mixtures, which may cause bugs. Null mixtures will not be considered in reconcile_air().")
-		return removeNullsFromList(.)
 
 /datum/pipeline/proc/reconcile_air()
 	var/list/datum/gas_mixture/gas_mixture_list = list()

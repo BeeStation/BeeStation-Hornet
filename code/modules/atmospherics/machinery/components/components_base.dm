@@ -144,7 +144,7 @@
 			CRASH("nullifyPipenet() called on qdeleting [reference]")
 		qdel(reference)
 
-/obj/machinery/atmospherics/components/return_pipenetAirs(datum/pipeline/reference)
+/obj/machinery/atmospherics/components/return_pipenet_airs(datum/pipeline/reference)
 	var/list/returned_air = list()
 
 	for (var/i in 1 to parents.len)

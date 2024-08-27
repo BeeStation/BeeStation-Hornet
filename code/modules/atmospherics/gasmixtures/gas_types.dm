@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 		gas_info[META_GAS_FUSION_POWER] = initial(gas.fusion_power)
 		gas_info[META_GAS_DANGER] = initial(gas.dangerous)
 		gas_info[META_GAS_ID] = initial(gas.id)
-		gas_info[META_GAS_BREATH_ALERT_INFO] = intial(gas.breath_alert_info)
+		gas_info[META_GAS_BREATH_ALERT_INFO] = gas.breath_alert_info
 		gas_info[META_GAS_BREATH_REAGENT] = initial(gas.breath_reagent)
 		gas_info[META_GAS_BREATH_RESULTS] = initial(gas.breath_results)
 		gas_info[META_GAS_BREATH_REAGENT_DANGEROUS] = initial(gas.breath_reagent_dangerous)
@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	var/dangerous = FALSE //currently used by canisters
 	var/fusion_power = 0 //How much the gas accelerates a fusion reaction
 	var/rarity = 0 // relative rarity compared to other gases, used when setting up the reactions list.
-	var/list/breath_alert_info = list()
+	var/list/breath_alert_info = null
 	var/breath_reagent = null
 	var/breath_results = null
 	var/breath_reagent_dangerous = null
