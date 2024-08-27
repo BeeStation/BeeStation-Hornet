@@ -6,6 +6,7 @@
 	var/attack_cooldown = 0
 	var/attack_cooldown_time = 20 //How long, in deciseconds, the cooldown of attacks is
 
+
 /mob/living/simple_animal/slime/Life()
 	set invisibility = 0
 	if(notransform)
@@ -144,10 +145,6 @@
 	if(M.stat == DEAD)
 		if(client)
 			to_chat(src, "<i>This subject does not have a strong enough life energy anymore...</i>")
-		else if(!rabid && !attacked)
-			var/mob/last_to_hurt = M.LAssailant?.resolve()
-			if(last_to_hurt && last_to_hurt != M && prob(50))
-				add_friendship(last_to_hurt, 1)
 		//we go rabid after finishing to feed on a human with a client.
 		if(M.client && ishuman(M))
 			rabid = 1

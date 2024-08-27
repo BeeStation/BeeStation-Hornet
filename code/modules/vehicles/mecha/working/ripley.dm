@@ -59,7 +59,7 @@
 	return ..()
 
 /obj/vehicle/sealed/mecha/working/ripley/mk2
-	desc = "Autonomous Power Loader Unit MK-II. This prototype Ripley is refitted with a pressurized cabin, trading its prior speed for atmospheric protection"
+	desc = "Autonomous Power Loader Unit MK-II. This prototype Ripley is refitted with a pressurized cabin, trading its prior speed for atmospheric protection and armor."
 	name = "\improper APLU MK-II \"Ripley\""
 	icon_state = "ripleymkii"
 	base_icon_state = "ripleymkii"
@@ -79,26 +79,6 @@
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_toggle_lights)
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_view_stats)
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/strafe)
-
-/obj/vehicle/sealed/mecha/working/ripley/firefighter
-	desc = "Autonomous Power Loader Unit MK-III. This model is refitted with a pressurized cabin and additional hazard protection."
-	name = "\improper APLU MK-III \"Firefighter\""
-	icon_state = "firefighter"
-	base_icon_state = "firefighter"
-	max_temperature = 65000
-	max_integrity = 250
-	fast_pressure_step_in = 2 //step_in while in low pressure conditions
-	slow_pressure_step_in = 4 //step_in while in normal pressure conditions
-	movedelay = 4
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	rad_flags = RAD_PROTECT_CONTENTS
-	lights_power = 7
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, BIO = 0, RAD = 70, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
-	max_equip = 5 // More armor, less tools
-	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
-	enclosed = TRUE
-	enter_delay = 40
-	silicon_icon_state = null
 
 
 /obj/vehicle/sealed/mecha/working/ripley/deathripley

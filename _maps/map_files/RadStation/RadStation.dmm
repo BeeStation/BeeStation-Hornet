@@ -16617,21 +16617,10 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -5;
-	pixel_y = 4
-	},
-/obj/item/pen/red{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/item/folder/red{
-	pixel_x = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/rnd/production/techfab/department/security,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "fkr" = (
@@ -20964,8 +20953,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/rnd/production/techfab/department/security,
-/obj/effect/turf_decal/bot,
+/obj/structure/table,
 /turf/open/floor/iron/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -32448,9 +32436,6 @@
 /obj/machinery/airalarm/directional/north,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
-	},
-/obj/effect/turf_decal/loading_area{
-	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/security/main{
@@ -50743,6 +50728,17 @@
 	},
 /obj/item/firing_pin/off_station{
 	pixel_y = 11
+	},
+/obj/item/folder/red{
+	pixel_x = 8
+	},
+/obj/item/paper_bin{
+	pixel_x = -5;
+	pixel_y = 4
+	},
+/obj/item/pen/red{
+	pixel_x = -5;
+	pixel_y = 5
 	},
 /turf/open/floor/iron/dark,
 /area/security/warden)
