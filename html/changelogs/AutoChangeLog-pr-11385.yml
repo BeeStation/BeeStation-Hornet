@@ -1,4 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - bugfix: Ghosts can now orbit the same person another ghost is orbiting.
