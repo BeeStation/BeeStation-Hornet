@@ -242,7 +242,7 @@
 
 	data["map_name"] = SSmapping.config?.map_name || "Loading..."
 
-	data["security_level"] = get_security_level()
+	data["security_level"] = SSsecurity_level.get_current_level_as_text()
 	data["round_duration"] = SSticker?.round_start_timeofday ? round((world.timeofday - SSticker.round_start_timeofday)/10) : 0
 	// Amount of world's ticks in seconds, useful for calculating round duration
 

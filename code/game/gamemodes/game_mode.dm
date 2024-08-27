@@ -396,8 +396,8 @@
 
 	print_command_report(intercepttext, "Central Command Status Summary", announce=FALSE)
 	priority_announce("A summary has been copied and printed to all communications consoles.", "Enemy communication intercepted. Security level elevated.", ANNOUNCER_INTERCEPT)
-	if(GLOB.security_level < SEC_LEVEL_BLUE)
-		set_security_level(SEC_LEVEL_BLUE)
+	if(SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_BLUE)
+		SSsecurity_level.set_level(SEC_LEVEL_BLUE)
 
 
 /*

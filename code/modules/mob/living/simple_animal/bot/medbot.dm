@@ -10,8 +10,9 @@ GLOBAL_VAR(medibot_unique_id_gen)
 #define MEDBOT_PANIC_AAAA	70
 #define MEDBOT_PANIC_ENDING	90
 #define MEDBOT_PANIC_END	100
-#define MEDIBOT_TREAT_INJECT "inject"
-#define MEDIBOT_TREAT_SUCK "suck"
+#define MEDBOT_TREAT_INJECT "inject"
+#define MEDBOT_TREAT_SUCK "suck"
+#define MEDBOT_TREAT_BANDAGE "bandage"
 
 
 /mob/living/simple_animal/bot/medbot
@@ -530,9 +531,12 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			var/obj/item/clothing/CH = H.head
 			if (CS.clothing_flags & CH.clothing_flags & THICKMATERIAL)
 				return FALSE // Skip over them if they have no exposed flesh.
+		if(H.is_bleeding())
+			return TRUE
 
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
 		declare(C)
+
 
 	if(!reagent_glass?.reagents.total_volume) // no beaker, we can't do that
 		return FALSE
@@ -611,10 +615,15 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		var/treat_behaviour // what this medibot will do?
 
 		if(emagged)
-			treat_behaviour = MEDIBOT_TREAT_SUCK // Emagged! Time to drain everybody.
+			treat_behaviour = MEDBOT_TREAT_SUCK // Emagged! Time to drain everybody.
+
+		if(!treat_behaviour && ishuman(C))
+			var/mob/living/carbon/human/H = C
+			if(H.is_bleeding())
+				treat_behaviour = MEDBOT_TREAT_BANDAGE
 
 		if(!treat_behaviour && reagent_glass?.reagents.total_volume) //have a beaker with something?
-			treat_behaviour = MEDIBOT_TREAT_INJECT
+			treat_behaviour = MEDBOT_TREAT_INJECT
 
 			for(var/datum/reagent/each_beaker_reagent in reagent_glass.reagents.reagent_list)
 				if(C.reagents.has_reagent(each_beaker_reagent.type)) // they have the chems inside them already
@@ -631,19 +640,21 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			bot_reset()
 			return
 
-
-		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", "<span class='userdanger'>[src] is trying to inject you!</span>")
-		if( get_dist(src, patient) > 1 || \
+		var/tool_action = "inject"
+		if(treat_behaviour == MEDBOT_TREAT_BANDAGE)
+			tool_action = "bandage"
+		C.visible_message("<span class='danger'>[src] is trying to [tool_action] [patient]!</span>", "<span class='userdanger'>[src] is trying to [tool_action] you!</span>")
+		if(get_dist(src, patient) > 1 || \
 				!do_after(src, 2 SECONDS, patient) ||\
 				!assess_patient(patient) || \
 				!on) //are they near us? did they move away? are they still hurt? are we stil on?
-			visible_message("[src] retracts its syringe.")
+			visible_message("[src] retracts its tools.")
 			update_icon()
 			soft_reset()
 			return
 
 		switch(treat_behaviour)
-			if(MEDIBOT_TREAT_INJECT)
+			if(MEDBOT_TREAT_INJECT)
 				if(reagent_glass?.reagents.total_volume)
 					var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
 					var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
@@ -656,15 +667,27 @@ GLOBAL_VAR(medibot_unique_id_gen)
 						speak(message,radio_channel)
 						playsound(src, messagevoice[message], 50)
 						COOLDOWN_START(src, declare_cooldown, 10 SECONDS)
-			if(MEDIBOT_TREAT_SUCK)
+					C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
+					"<span class='userdanger'>[src] injects you with its syringe!</span>")
+			if(MEDBOT_TREAT_BANDAGE)
+				var/mob/living/carbon/human/H = C
+				if(!H.is_bleeding())
+					to_chat(src, "<span class='warning'>[H] isn't bleeding!</span>")
+					update_icon()
+					soft_reset()
+					return
+				H.suppress_bloodloss(BLEED_SURFACE) // as good as a improvized medical gauze
+				C.visible_message("<span class='danger'>[src] bandages [patient] with its gauze!</span>", \
+				"<span class='userdanger'>[src] bandages you with its gauze!</span>")
+			if(MEDBOT_TREAT_SUCK)
 				if(patient.transfer_blood_to(reagent_glass, injection_amount))
 					patient.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
 						"<span class='userdanger'>[src] is trying to inject you!</span>")
 					log_combat(src, patient, "drained of blood")
 				else
 					to_chat(src, "<span class='warning'>You are unable to draw any blood from [patient]!</span>")
-		C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
-			"<span class='userdanger'>[src] injects you with its syringe!</span>")
+				C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
+				"<span class='userdanger'>[src] injects you with its syringe!</span>")
 		update_icon()
 		soft_reset()
 		return

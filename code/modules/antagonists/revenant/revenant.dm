@@ -25,22 +25,24 @@
 	spacewalk = TRUE
 	sight = SEE_SELF
 	throwforce = 0
-
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	response_help   = "passes through"
-	response_disarm = "swings through"
-	response_harm   = "punches through"
+	response_help_continuous = "passes through"
+	response_help_simple = "pass through"
+	response_disarm_continuous = "swings through"
+	response_disarm_simple = "swing through"
+	response_harm_continuous = "punches through"
+	response_harm_simple = "punch through"
 	unsuitable_atmos_damage = 0
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) //I don't know how you'd apply those, but revenants no-sell them anyway.
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	friendly = "touches"
+	friendly_verb_continuous = "touches"
+	friendly_verb_simple = "touch"
 	status_flags = 0
 	wander = FALSE
 	density = FALSE
-	movement_type = FLYING
 	move_resist = MOVE_FORCE_OVERPOWERING
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSMOB
@@ -84,6 +86,8 @@
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 	grant_all_languages(TRUE, FALSE, FALSE, LANGUAGE_REVENANT) // rev can understand every langauge
 	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
+	AddElement(/datum/element/movetype_handler)
+	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 
 /mob/living/simple_animal/revenant/onTransitZ(old_z, new_z)
 	. = ..()
@@ -115,7 +119,9 @@
 	name = built_name
 
 /mob/living/simple_animal/revenant/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	to_chat(src, "<span class='deadsay'><span class='big bold'>You are a revenant.</span></span>")
 	to_chat(src, "<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
 	to_chat(src, "<b>You are not dead, not alive, but somewhere in between. You are capable of limited interaction with both worlds.</b>")
@@ -411,8 +417,7 @@
 
 /mob/living/simple_animal/revenant/stop_orbit(datum/component/orbiter/orbits)
 	// reset the simple_flying animation
-	animate(src, pixel_y = 2, time = 1 SECONDS, loop = -1, flags = ANIMATION_RELATIVE)
-	animate(pixel_y = -2, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
+	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 	return ..()
 
 /// Incorporeal move check: blocked by holy-watered tiles and salt piles.

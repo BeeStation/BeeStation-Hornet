@@ -258,13 +258,11 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "F" = (
-/obj/machinery/camera/preset{
-	dir = 6
-	},
 /obj/machinery/newscaster{
 	pixel_x = 32;
 	pixel_y = 1
 	},
+/obj/machinery/camera/autoname/directional/east,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "G" = (
