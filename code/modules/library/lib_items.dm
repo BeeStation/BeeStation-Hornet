@@ -45,7 +45,7 @@
 		if(!isbook(I))
 			continue
 		I.forceMove(src)
-	update_appearance()
+	update_icon_state()
 
 /obj/structure/bookcase/examine(mob/user)
 	. = ..()
@@ -141,8 +141,6 @@
 		return
 	if(!istype(user))
 		return
-	if(!length(contents))
-		return
 	if(load_random_books)
 		create_random_books(books_to_load, src, FALSE, random_category)
 		load_random_books = FALSE
@@ -224,7 +222,8 @@
 	item_flags = ISWEAPON
 	drop_sound = 'sound/items/handling/book_drop.ogg'
 	pickup_sound =  'sound/items/handling/book_pickup.ogg'
-	attack_verb = list("bashed", "whacked", "educated")
+	attack_verb_continuous = list("bashes", "whacks", "educates")
+	attack_verb_simple = list("bash", "whack", "educate")
 	resistance_flags = FLAMMABLE
 	var/dat				//Actual page content
 	var/due_date = 0	//Game time in 1/10th seconds
