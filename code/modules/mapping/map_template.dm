@@ -150,7 +150,7 @@
 							locate(min(T.x+width, world.maxx), min(T.y+height, world.maxy), T.z))
 	for(var/L in border)
 		var/turf/turf_to_disable = L
-		turf_to_disable.ImmediateDisableAdjacency()
+		turf_to_disable.immediate_disable_adjacency()
 
 	// Accept cached maps, but don't save them automatically - we don't want
 	// ruins clogging up memory for the whole round.

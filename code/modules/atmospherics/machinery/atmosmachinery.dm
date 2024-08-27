@@ -97,10 +97,11 @@
 	return
 
 /obj/machinery/atmospherics/proc/nullify_node(i)
-	if(nodes[i])
-		var/obj/machinery/atmospherics/N = nodes[i]
-		N.disconnect(src)
-		nodes[i] = null
+	if(!nodes[i])
+		return
+	var/obj/machinery/atmospherics/node_machine = nodes[i]
+	node_machine.disconnect(src)
+	nodes[i] = null
 
 /obj/machinery/atmospherics/proc/get_node_connects()
 	var/list/node_connects = list()

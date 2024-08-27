@@ -1,5 +1,5 @@
 /atom/var/can_atmos_pass = ATMOS_PASS_YES
-/atom/var/can_atmos_passVertical = ATMOS_PASS_YES
+/atom/var/can_atmos_pass_vertical = ATMOS_PASS_YES
 
 /atom/proc/can_atmos_pass(turf/T)
 	switch (can_atmos_pass)
@@ -11,10 +11,10 @@
 			return can_atmos_pass
 
 /turf/can_atmos_pass = ATMOS_PASS_NO
-/turf/can_atmos_passVertical = ATMOS_PASS_NO
+/turf/can_atmos_pass_vertical = ATMOS_PASS_NO
 
 /turf/open/can_atmos_pass = ATMOS_PASS_PROC
-/turf/open/can_atmos_passVertical = ATMOS_PASS_PROC
+/turf/open/can_atmos_pass_vertical = ATMOS_PASS_PROC
 
 //Do NOT use this to see if 2 turfs are connected, it mutates state, and we cache that info anyhow. Use TURFS_CAN_SHARE or TURF_SHARES depending on your usecase
 /turf/open/can_atmos_pass(turf/T, vertical = FALSE)
@@ -82,27 +82,29 @@
 
 	for (var/direction in GLOB.diagonals_multiz)
 		var/matching_directions = 0
-		var/turf/S = get_step_multiz(current_location, direction)
-		if(!S)
+		var/turf/checked_turf = get_step_multiz(current_location, direction)
+		if(!checked_turf)
 			continue
 
 		for (var/check_direction in GLOB.cardinals_multiz)
-			var/turf/checkTurf = get_step(S, check_direction)
-			if(!S.atmos_adjacent_turfs || !S.atmos_adjacent_turfs[checkTurf])
+			var/turf/secondary_turf = get_step(checked_turf, check_direction)
+			if(!checked_turf.atmos_adjacent_turfs || !checked_turf.atmos_adjacent_turfs[secondary_turf])
 				continue
 
 			if (adjacent_turfs[checkTurf])
 				matching_directions++
 
 			if (matching_directions >= 2)
-				adjacent_turfs += S
+				adjacent_turfs += checked_turf
 				break
 
 	return adjacent_turfs
 
 /atom/proc/air_update_turf(update = FALSE, remove = FALSE)
-	var/turf/T = get_turf(loc)
-	T.air_update_turf(update, remove)
+	var/turf/local_turf = get_turf(loc)
+	if(!local_turf)
+		return
+	local_turf.air_update_turf(update, remove)
 
 /**
  * A helper proc for dealing with atmos changes
@@ -121,29 +123,29 @@
 	else
 		SSair.add_to_active(src)
 
-/atom/movable/proc/move_update_air(turf/T)
-	if(isturf(T))
-		T.air_update_turf(TRUE, FALSE) //You're empty now
+/atom/movable/proc/move_update_air(turf/target_turf)
+	if(isturf(target_turf))
+		target_turf.air_update_turf(TRUE, FALSE) //You're empty now
 	air_update_turf(TRUE, TRUE) //You aren't
 
 /atom/proc/atmos_spawn_air(text) //because a lot of people loves to copy paste awful code lets just make an easy proc to spawn your plasma fires
-	var/turf/open/T = get_turf(src)
-	if(!istype(T))
+	var/turf/open/local_turf = get_turf(src)
+	if(!istype(local_turf))
 		return
-	T.atmos_spawn_air(text)
+	local_turf.atmos_spawn_air(text)
 
 /turf/open/atmos_spawn_air(text)
 	if(!text || !air)
 		return
 
-	var/datum/gas_mixture/G = new
-	G.parse_gas_string(text)
+	var/datum/gas_mixture/turf_mixture = new
+	turf_mixture.parse_gas_string(text)
 
-	air.merge(G)
+	air.merge(turf_mixture)
 	archive()
 	SSair.add_to_active(src)
 
-/turf/proc/ImmediateDisableAdjacency(disable_adjacent = TRUE)
+/turf/proc/immediate_disable_adjacency(disable_adjacent = TRUE)
 	if(SSair.thread_running())
 		SSadjacent_air.disable_queue[src] = disable_adjacent
 		return

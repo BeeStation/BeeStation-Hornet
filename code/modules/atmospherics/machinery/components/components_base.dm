@@ -23,9 +23,9 @@
 	..()
 
 	for(var/i in 1 to device_type)
-		var/datum/gas_mixture/A = new
-		A.volume = 200
-		airs[i] = A
+		var/datum/gas_mixture/component_mixture = new
+		component_mixture.volume = 200
+		airs[i] = component_mixture
 
 /obj/machinery/atmospherics/components/Initialize()
 	. = ..()
@@ -157,11 +157,11 @@
 		return list(nodes[parents.Find(reference)])
 	return ..()
 
-/obj/machinery/atmospherics/components/set_pipenet(datum/pipeline/reference, obj/machinery/atmospherics/A)
-	parents[nodes.Find(A)] = reference
+/obj/machinery/atmospherics/components/set_pipenet(datum/pipeline/reference, obj/machinery/target_component)
+	parents[nodes.Find(target_component)] = reference
 
-/obj/machinery/atmospherics/components/return_pipenet(obj/machinery/atmospherics/A = nodes[1]) //returns parents[1] if called without argument
-	return parents[nodes.Find(A)]
+/obj/machinery/atmospherics/components/return_pipenet(obj/machinery/atmospherics/target_component = nodes[1]) //returns parents[1] if called without argument
+	return parents[nodes.Find(target_component)]
 
 /obj/machinery/atmospherics/components/replace_pipenet(datum/pipeline/Old, datum/pipeline/New)
 	parents[parents.Find(Old)] = New

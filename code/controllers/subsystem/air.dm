@@ -121,7 +121,7 @@ SUBSYSTEM_DEF(air)
 
 	while(length(pause_processing))
 		var/turf/T = pause_processing[length(pause_processing)]
-		T.ImmediateDisableAdjacency()
+		T.immediate_disable_adjacency()
 		//Goodbye
 		pause_processing.len --
 		//We overran this tick, stop processing
