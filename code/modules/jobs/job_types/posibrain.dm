@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 
 	if(!P.activate(H)) //If we failed to activate a posi, kick them back to the lobby.
 		to_chat(H, "<span class='warning'>Failed to Late Join as a Posibrain. Look higher in chat for the reason.</span>")
-		return null
+		return FALSE //Returning False is considered a failure, rather than null or a mob, which is a success.
 
 	qdel(H)
 	return P
