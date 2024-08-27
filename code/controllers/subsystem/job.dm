@@ -560,7 +560,7 @@ SUBSYSTEM_DEF(job)
 			var/mob/dead/new_player/NP = new()
 			NP.ckey = M.client.ckey
 			qdel(M)
-			to_chat(M, "Error equiping [rank]. Returning to lobby, report this to coders.</b>")
+			to_chat(M, "Error equipping [rank]. Returning to lobby.</b>")
 			return null
 		SSpersistence.antag_rep_change[M.client.ckey] += job.GetAntagRep()
 
