@@ -143,7 +143,7 @@
 		if(open)	//You do not require access to close a case, only to open it.
 			to_chat(user, "<span class='notice'>You close [src].</span>")
 			toggle_lock(user)
-		else if(security_level_locked > GLOB.security_level || !allowed(user))
+		else if(security_level_locked > SSsecurity_level.get_current_level_as_number() || !allowed(user))
 			to_chat(user, "<span class='alert'>Access denied.</span>")
 		else
 			to_chat(user, "<span class='notice'>You open [src].</span>")

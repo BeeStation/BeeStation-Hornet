@@ -60,7 +60,8 @@
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=50)
-	attack_verb = list("slashed", "sliced", "cut", "clawed")
+	attack_verb_continuous = list("slashes", "slices", "cuts", "claws")
+	attack_verb_simple = list("slash", "slice", "cut", "claw")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/cultivator/suicide_act(mob/living/user)
@@ -83,7 +84,8 @@
 	throw_speed = 3
 	throw_range = 4
 	custom_materials = list(/datum/material/iron = 15000)
-	attack_verb = list("chopped", "tore", "cut")
+	attack_verb_continuous = list("chops", "tears", "lacerates", "cuts")
+	attack_verb_simple = list("chop", "tear", "lacerate", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	bleed_force = BLEED_CUT
@@ -112,7 +114,8 @@
 	flags_1 = CONDUCT_1
 	armour_penetration = 20
 	slot_flags = ITEM_SLOT_BACK
-	attack_verb = list("chopped", "sliced", "cut", "reaped")
+	attack_verb_continuous = list("chops", "slices", "cuts", "reaps")
+	attack_verb_simple = list("chop", "slice", "cut", "reap")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/swiping = FALSE
 

@@ -66,13 +66,14 @@
 				R.visible_message("[R]'s module servos twitch.", "Your module display flickers.")
 	ui_update()
 
-/datum/wires/robot/on_cut(wire, mend)
+/datum/wires/robot/on_cut(wire, mob/user, mend)
 	var/mob/living/silicon/robot/R = holder
 	switch(wire)
 		if(WIRE_AI) // Cut the AI wire to reset AI control.
 			if(!mend)
 				R.notify_ai(DISCONNECT)
-				log_combat(usr, R, "cut AI wire on cyborg[R.connected_ai ? " and disconnected from [ADMIN_LOOKUP(R.connected_ai)]": ""]", important = FALSE)
+				if (user)
+					log_combat(user, R, "cut AI wire on cyborg[R.connected_ai ? " and disconnected from [ADMIN_LOOKUP(R.connected_ai)]": ""]", important = FALSE)
 				if(R.shell)
 					R.undeploy()
 				R.connected_ai = null
@@ -81,24 +82,29 @@
 			if(mend)
 				if(!R.emagged)
 					R.lawupdate = TRUE
-					log_combat(usr, R, "enabled lawsync via wire", important = FALSE)
+					if (user)
+						log_combat(user, R, "enabled lawsync via wire", important = FALSE)
 			else if(!R.deployed) //AI shells must always have the same laws as the AI
 				R.lawupdate = FALSE
-				log_combat(usr, R, "disabled lawsync via wire")
+				if (user)
+					log_combat(user, R, "disabled lawsync via wire")
 			R.logevent("Lawsync Module fault [mend?"cleared":"detected"]")
 		if (WIRE_CAMERA) // Disable the camera.
 			if(!QDELETED(R.builtInCamera) && !R.scrambledcodes)
 				R.builtInCamera.status = mend
-				R.builtInCamera.toggle_cam(usr, FALSE)
+				R.builtInCamera.toggle_cam(user, FALSE)
 				R.visible_message("[R]'s camera lens focuses loudly.", "Your camera lens focuses loudly.")
 				R.logevent("Camera Module fault [mend?"cleared":"detected"]")
-				log_combat(usr, R, "[mend ? "enabled" : "disabled"] cyborg camera via wire")
+				if (user)
+					log_combat(user, R, "[mend ? "enabled" : "disabled"] cyborg camera via wire")
 		if(WIRE_LOCKDOWN) // Simple lockdown.
 			R.SetLockdown(!mend)
 			R.logevent("Motor Controller fault [mend?"cleared":"detected"]")
-			log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] via wire", important = FALSE)
+			if (user)
+				log_combat(user, R, "[!R.lockcharge ? "locked down" : "released"] via wire", important = FALSE)
 		if(WIRE_RESET_MODULE)
 			if(R.has_module() && !mend)
 				R.ResetModule()
-				log_combat(usr, R, "reset the cyborg module via wire", important = FALSE)
+				if (user)
+					log_combat(user, R, "reset the cyborg module via wire", important = FALSE)
 	ui_update()

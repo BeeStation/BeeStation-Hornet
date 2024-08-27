@@ -149,7 +149,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	AddElement(/datum/element/point_of_interest)
 	radio = new(src)
 	radio.keyslot = new radio_key
-	radio.listening = 0
+	radio.set_listening(FALSE)
 	radio.recalculateChannels()
 	distort = new(src)
 	add_emitter(/obj/emitter/sparkle, "supermatter_sparkle")
@@ -673,9 +673,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /obj/machinery/power/supermatter_crystal/attack_animal(mob/living/simple_animal/S)
 	var/murder
 	if(!S.melee_damage)
-		murder = S.friendly
+		murder = S.friendly_verb_continuous
 	else
-		murder = S.attacktext
+		murder = S.attack_verb_continuous
 	dust_mob(S, \
 	"<span class='danger'>[S] unwisely [murder] [src], and [S.p_their()] body burns brilliantly before flashing into ash!</span>", \
 	"<span class='userdanger'>You unwisely touch [src], and your vision glows brightly as your body crumbles to dust. Oops.</span>", \

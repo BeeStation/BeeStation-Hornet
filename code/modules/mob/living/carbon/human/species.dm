@@ -89,6 +89,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/organ/lungs/mutantlungs = null
 	var/breathid = "o2"
 
+	var/list/required_organs = list()
 	var/obj/item/organ/brain/mutant_brain = /obj/item/organ/brain
 	var/obj/item/organ/heart/mutant_heart = /obj/item/organ/heart
 	var/obj/item/organ/eyes/mutanteyes = /obj/item/organ/eyes
@@ -100,7 +101,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/obj/item/organ/liver/mutantliver
 	var/obj/item/organ/stomach/mutantstomach
-	var/override_float = FALSE
 
 	//Bitflag that controls what in game ways can select this species as a spawnable source
 	//Think magic mirror and pride mirror, slime extract, ERT etc, see defines
@@ -258,13 +258,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(heart && (!should_have_heart || replace_current))
 		heart.Remove(C,1)
+		required_organs -= /obj/item/organ/heart
 		QDEL_NULL(heart)
 	if(should_have_heart && !heart)
 		heart = new mutant_heart()
 		heart.Insert(C)
+		required_organs |= /obj/item/organ/heart
 
 	if(lungs && (!should_have_lungs || replace_current))
 		lungs.Remove(C,1)
+		required_organs -= /obj/item/organ/lungs
 		QDEL_NULL(lungs)
 	if(should_have_lungs && !lungs)
 		if(mutantlungs)
@@ -272,9 +275,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else
 			lungs = new()
 		lungs.Insert(C)
+		required_organs |= /obj/item/organ/lungs
 
 	if(liver && (!should_have_liver || replace_current))
 		liver.Remove(C,1)
+		required_organs -= /obj/item/organ/liver
 		QDEL_NULL(liver)
 	if(should_have_liver && !liver)
 		if(mutantliver)
@@ -282,9 +287,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else
 			liver = new()
 		liver.Insert(C)
+		required_organs |= /obj/item/organ/liver
 
 	if(stomach && (!should_have_stomach || replace_current))
 		stomach.Remove(C,1)
+		required_organs -= /obj/item/organ/stomach
 		QDEL_NULL(stomach)
 	if(should_have_stomach && !stomach)
 		if(mutantstomach)
@@ -292,16 +299,20 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else
 			stomach = new()
 		stomach.Insert(C)
+		required_organs |= /obj/item/organ/stomach
 
 	if(appendix && (!should_have_appendix || replace_current))
 		appendix.Remove(C,1)
+		required_organs -= /obj/item/organ/appendix
 		QDEL_NULL(appendix)
 	if(should_have_appendix && !appendix)
 		appendix = new()
 		appendix.Insert(C)
+		required_organs |= /obj/item/organ/appendix
 
 	if(tail && (!should_have_tail || replace_current))
 		tail.Remove(C,1)
+		required_organs -= /obj/item/organ/tail
 		QDEL_NULL(tail)
 	if(should_have_tail && !tail)
 		tail = new mutanttail()
@@ -311,9 +322,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			lizard_tail.spines = C.dna.features["spines"]
 			tail = lizard_tail
 		tail.Insert(C)
+		required_organs |= /obj/item/organ/tail
 
 	if(wings && (!should_have_wings || replace_current))
 		wings.Remove(C,1)
+		required_organs -= /obj/item/organ/wings
 		QDEL_NULL(wings)
 	if(should_have_wings && !wings)
 		wings = new mutantwings()
@@ -323,47 +336,58 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(locate(/datum/mutation/strongwings) in C.dna.mutations)
 				wings.flight_level = WINGS_FLYING
 		wings.Insert(C)
+		required_organs |= /obj/item/organ/wings
 
 	if(C.get_bodypart(BODY_ZONE_HEAD))
 		if(brain && (replace_current || !should_have_brain))
 			if(!brain.decoy_override)//Just keep it if it's fake
 				brain.Remove(C,TRUE,TRUE)
+				required_organs -= /obj/item/organ/brain
 				QDEL_NULL(brain)
 		if(should_have_brain && !brain)
 			brain = new mutant_brain()
 			brain.Insert(C, TRUE, TRUE)
+			required_organs |= /obj/item/organ/brain
 
 		if(eyes && (replace_current || !should_have_eyes))
 			eyes.Remove(C,1)
+			required_organs -= /obj/item/organ/eyes
 			QDEL_NULL(eyes)
 		if(should_have_eyes && !eyes)
 			eyes = new mutanteyes
 			eyes.Insert(C)
+			required_organs |= /obj/item/organ/eyes
 
 		if(ears && (replace_current || !should_have_ears))
 			ears.Remove(C,1)
+			required_organs -= /obj/item/organ/ears
 			QDEL_NULL(ears)
 		if(should_have_ears && !ears)
 			ears = new mutantears
 			ears.Insert(C)
+			required_organs |= /obj/item/organ/ears
 
 		if(tongue && (replace_current || !should_have_tongue))
 			tongue.Remove(C,1)
+			required_organs -= /obj/item/organ/tongue
 			QDEL_NULL(tongue)
 		if(should_have_tongue && !tongue)
 			tongue = new mutanttongue
 			tongue.Insert(C)
+			required_organs |= /obj/item/organ/tongue
 
 	if(old_species)
 		for(var/mutantorgan in old_species.mutant_organs)
 			var/obj/item/organ/I = C.getorgan(mutantorgan)
 			if(I)
 				I.Remove(C)
+				required_organs -= I.type
 				QDEL_NULL(I)
 
 	for(var/path in mutant_organs)
 		var/obj/item/organ/I = new path()
 		I.Insert(C)
+		required_organs |= I.type
 
 /datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
 	new_species ||= C.dna.species //If no new species is provided, assume its src.
@@ -1554,8 +1578,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>", \
-							"<span class='userdanger'>You block [user]'s grab attempt!</span>")
+		target.visible_message("<span class='warning'>[target] blocks [user]'s grab!</span>", \
+						"<span class='userdanger'>You block [user]'s grab!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, "<span class='warning'>Your grab at [target] was blocked!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.grab_act(user,target))
 		return TRUE
@@ -1565,14 +1590,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(HAS_TRAIT(target.shoes, TRAIT_NODROP))
 				target.grabbedby(user)
 				return TRUE
-			user.visible_message("<span class='warning'>[user] starts stealing [target]'s shoes!</span>",
-								"<span class='warning'>You start stealing [target]'s shoes!</span>")
 			var/obj/item/I = target.shoes
+			user.visible_message("<span class='warning'>[user] starts stealing [target]'s [I.name]!</span>",
+							"<span class='danger'>You start stealing [target]'s [I.name]...</span>", null, null, target)
+			to_chat(target, "<span class='userdanger'>[user] starts stealing your [I.name]!</span>")
 			if(do_after(user, I.strip_delay, target))
 				target.dropItemToGround(I, TRUE)
 				user.put_in_hands(I)
-				user.visible_message("<span class='warning'>[user] stole your [I]!</span>",
-									"<span class='warning'>You steal [target]'s [I]!</span>")
+				user.visible_message("<span class='warning'>[user] stole [target]'s [I.name]!</span>",
+								"<span class='notice'>You stole [target]'s [I.name]!</span>", null, null, target)
+				to_chat(target, "<span class='userdanger'>[user] stole your [I.name]!</span>")
 		target.grabbedby(user)
 		return TRUE
 
@@ -1582,7 +1609,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>", \
-							"<span class='userdanger'>You block [user]'s attack!</span>")
+						"<span class='userdanger'>You block [user]'s attack!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, "<span class='warning'>Your attack at [target] was blocked!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user,target))
 		return TRUE
@@ -1608,8 +1636,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, 1, -1)
-			target.visible_message("<span class='danger'>[user]'s [atk_verb] misses [target]!</span>",\
-			"<span class='userdanger'>[user]'s [atk_verb] misses you!</span>", null, COMBAT_MESSAGE_RANGE)
+			target.visible_message("<span class='danger'>[user]'s [atk_verb] misses [target]!</span>", \
+							"<span class='danger'>You avoid [user]'s [atk_verb]!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, user)
+			to_chat(user, "<span class='warning'>Your [atk_verb] misses [target]!</span>")
 			log_combat(user, target, "attempted to punch")
 			return FALSE
 
@@ -1618,7 +1647,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 
 		target.visible_message("<span class='danger'>[user] [atk_verb]ed [target]!</span>", \
-					"<span class='userdanger'>[user] [atk_verb]ed you!</span>", null, COMBAT_MESSAGE_RANGE)
+						"<span class='userdanger'>You're [atk_verb]ed by [user]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, "<span class='danger'>You [atk_verb] [target]!</span>")
 
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
@@ -1644,8 +1674,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/disarm(mob/living/carbon/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s shoving attempt!</span>", \
-							"<span class='userdanger'>You block [user]'s shoving attempt!</span>")
+		target.visible_message("<span class='warning'>[user]'s shove is blocked by [target]!</span>", \
+						"<span class='danger'>You block [user]'s shove!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, "<span class='warning'>Your shove at [target] was blocked!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user,target))
 		return TRUE
@@ -1674,7 +1705,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		log_combat(M, H, "attempted to touch")
 		H.visible_message("<span class='warning'>[M] attempts to touch [H]!</span>", \
-						"<span class='userdanger'>[M] attempts to touch you!</span>")
+						"<span class='danger'>[M] attempts to touch you!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, M)
+		to_chat(M, "<span class='warning'>You attempt to touch [H]!</span>")
 		return 0
 	SEND_SIGNAL(M, COMSIG_MOB_ATTACK_HAND, M, H, attacker_style)
 	SEND_SIGNAL(H, COMSIG_MOB_HAND_ATTACKED, H, M, attacker_style)
@@ -2230,7 +2262,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(H.getorgan(/obj/item/organ/wings))
 		if(wings.flight_level >= WINGS_FLYING && H.movement_type & FLYING)
 			flyslip(H)
-	. = stunmod * H.physiology.stun_mod * amount
+	. = max(stunmod + H.physiology.stun_add, 0) * H.physiology.stun_mod * amount
 
 //////////////
 //Space Move//
@@ -2313,19 +2345,17 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 //UNSAFE PROC, should only be called through the Activate or other sources that check for CanFly
 /datum/species/proc/toggle_flight(mob/living/carbon/human/H)
-	if(!(H.movement_type & FLYING))
+	if(!HAS_TRAIT_FROM(H, TRAIT_MOVE_FLYING, SPECIES_FLIGHT_TRAIT))
 		stunmod *= 2
 		speedmod -= 0.35
-		H.setMovetype(H.movement_type | FLYING)
-		override_float = TRUE
+		ADD_TRAIT(H, TRAIT_MOVE_FLYING, SPECIES_FLIGHT_TRAIT)
 		H.pass_flags |= PASSTABLE
 		if(("wings" in H.dna.species.mutant_bodyparts) || ("moth_wings" in H.dna.species.mutant_bodyparts))
 			H.Togglewings()
 	else
 		stunmod *= 0.5
 		speedmod += 0.35
-		H.setMovetype(H.movement_type & ~FLYING)
-		override_float = FALSE
+		REMOVE_TRAIT(H, TRAIT_MOVE_FLYING, SPECIES_FLIGHT_TRAIT)
 		H.pass_flags &= ~PASSTABLE
 		if(("wingsopen" in H.dna.species.mutant_bodyparts) || ("moth_wingsopen" in H.dna.species.mutant_bodyparts))
 			H.Togglewings()

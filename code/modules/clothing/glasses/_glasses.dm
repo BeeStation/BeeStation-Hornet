@@ -31,7 +31,7 @@
 /obj/item/clothing/glasses/examine(mob/user)
 	. = ..()
 	if(glass_colour_type && ishuman(user))
-		. += "<span class='notice'>Alt-click to toggle its colors.</span>"
+		. += "<span class='notice'>Alt-click to toggle [p_their()] colors.</span>"
 
 /obj/item/clothing/glasses/update_overlays()
 	. = ..()
@@ -120,7 +120,8 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb_continuous = list("slices")
+	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	bleed_force = BLEED_SURFACE
@@ -221,7 +222,8 @@
 	force = 10
 	throwforce = 20
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb_continuous = list("slices")
+	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	bleed_force = BLEED_SURFACE
@@ -305,7 +307,8 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb_continuous = list("slices")
+	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	bleed_force = BLEED_SURFACE
@@ -326,7 +329,8 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb_continuous = list("slices")
+	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	bleed_force = BLEED_SURFACE
@@ -538,7 +542,7 @@
 	clothing_flags = SCAN_REAGENTS | SCAN_BOOZEPOWER
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	vision_correction = 1  // why should the eye of a god have bad vision? 
+	vision_correction = 1  // why should the eye of a god have bad vision?
 
 /obj/item/clothing/glasses/godeye/Initialize(mapload)
 	. = ..()

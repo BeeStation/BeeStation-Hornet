@@ -88,14 +88,23 @@
 #define RCD_FURNISHING (1<<6)
 #define RCD_LADDER (1<<7)
 
-#define RCD_UPGRADE_FRAMES (1<<0)
-#define RCD_UPGRADE_SIMPLE_CIRCUITS	(1<<1)
-#define RCD_UPGRADE_SILO_LINK (1<<2)
-#define RCD_UPGRADE_FURNISHING (1<<3)
+#define RCD_UPGRADE_FRAMES 0
+#define RCD_UPGRADE_SIMPLE_CIRCUITS	1
+#define RCD_UPGRADE_SILO_LINK 2
+#define RCD_UPGRADE_FURNISHING 3
+
+#define RPD_UPGRADE_UNWRENCH 0
 
 #define RCD_WINDOW_FULLTILE "full tile"
 #define RCD_WINDOW_DIRECTIONAL "directional"
 #define RCD_WINDOW_NORMAL "glass"
 #define RCD_WINDOW_REINFORCED "reinforced glass"
 
-#define RPD_UPGRADE_UNWRENCH (1<<0)
+#define RCD_MEMORY_WALL 1
+#define RCD_MEMORY_WINDOWGRILLE 2
+
+// How much faster to use the RCD when on a tile with memory
+#define RCD_MEMORY_SPEED_BUFF 5
+
+/// How much less resources the RCD uses when reconstructing
+#define RCD_MEMORY_COST_BUFF 8
