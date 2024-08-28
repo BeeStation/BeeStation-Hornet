@@ -143,10 +143,16 @@
 
 /datum/weather/proc/can_weather_act(mob/living/act_on) //Can this weather impact a mob?
 	var/turf/mob_turf = get_turf(act_on)
-	if(mob_turf && !(mob_turf.z in impacted_z_levels))
+
+	if(!mob_turf)
 		return
+
+	if(!(mob_turf.z in impacted_z_levels))
+		return
+
 	if(immunity_type in act_on.weather_immunities)
 		return
+
 	if(!(get_area(act_on) in impacted_areas))
 		return
 	return TRUE

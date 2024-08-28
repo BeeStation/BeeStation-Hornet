@@ -561,6 +561,15 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	desc = "Unit has no core. No modules available until a core is reinstalled. Robotics may provide assistance."
 	icon_state = "no_cell"
 
+/atom/movable/screen/alert/emptycell/plasma
+	name = "Out of Power"
+	desc = "Unit's plasma core has no charge remaining. No modules available until plasma core is recharged. \
+		Unit can be refilled through plasma ore."
+
+/atom/movable/screen/alert/lowcell/plasma
+	name = "Low Charge"
+	desc = "Unit's plasma core is running low. Unit can be refilled through plasma ore."
+
 //Need to cover all use cases - emag, illegal upgrade module, malf AI hack, traitor cyborg
 /atom/movable/screen/alert/hacked
 	name = "Hacked"

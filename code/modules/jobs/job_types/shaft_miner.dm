@@ -82,5 +82,5 @@
 
 	back = /obj/item/mod/control/pre_equipped/mining
 	suit = null
-	mask = /obj/item/clothing/mask/breath
+	mask = /obj/item/clothing/mask/gas/explorer
 

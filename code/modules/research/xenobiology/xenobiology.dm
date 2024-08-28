@@ -916,7 +916,7 @@
 	. = ..()
 	if(!proximity)
 		return
-	if(SEND_SIGNAL(thingy, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_SUCCESSFUL)
+	if(SEND_SIGNAL(thingy, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_STOP)
 		return
 	if(isitem(thingy))
 		var/obj/item/item = thingy
