@@ -1,4 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - bugfix: Fixed simplemobs being able to interact with machinery via CTRL, ALT clicks.
