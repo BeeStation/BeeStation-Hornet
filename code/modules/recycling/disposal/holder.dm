@@ -16,6 +16,7 @@
 	var/destinationTag = NONE	// changes if contains a delivery container
 	var/tomail = FALSE			// contains wrapped package
 	var/hasmob = FALSE			// contains a mob
+	var/unsorted = TRUE			// have we been sorted yet?
 
 /obj/structure/disposalholder/Destroy()
 	QDEL_NULL(gas)
