@@ -513,31 +513,31 @@
 		/mob/living/simple_animal/parrot,
 	)
 
-/obj/item/choice_beacon/radial/pets/generate_options(mob/living/M)
+/obj/item/choice_beacon/radial/pets/generate_options(mob/living/target)
 	var/list/item_list = generate_item_list()
 	if(!length(item_list))
 		return
-	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE)
-	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+	var/choice = show_radial_menu(target, src, item_list, radius = 36, require_near = TRUE)
+	if(!QDELETED(src) && !(isnull(choice)) && !target.incapacitated() && in_range(target,src))
 		for(var/V in pets_list)
 			var/atom/A = V
 			if(initial(A.name) == choice)
-				spawn_option(A,M)
+				spawn_option(A,target)
 				uses--
 				if(!uses)
 					qdel(src)
 				else
-					balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
-					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+					balloon_alert(target, "[uses] use[uses > 1 ? "s" : ""] remaining")
+					to_chat(target, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
 				return
 
 /obj/item/choice_beacon/radial/pets/generate_item_list()
 	var/static/list/item_list
 	if(!item_list)
 		item_list = list()
-		for(var/obj/item/toy/plush/I as() in pets_list)
-			var/image/pets_icon = image(initial(I.icon), initial(I.icon_state))
+		for(var/mob/living/simple_animal/pet/friend as() in pets_list)
+			var/image/pets_icon = image(initial(friend.icon), initial(friend.icon_state))
 			var/datum/radial_menu_choice/choice = new
 			choice.image = pets_icon
-			item_list[initial(I.name)] = choice
+			item_list[initial(friend.name)] = choice
 	return item_list
