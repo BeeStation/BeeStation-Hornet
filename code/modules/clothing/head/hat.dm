@@ -40,6 +40,7 @@
 /obj/item/clothing/head/costume/plague
 	name = "plague doctor's hat"
 	desc = "These were once used by plague doctors. They're pretty much useless."
+	item_state = "that"
 	icon_state = "plaguedoctor"
 	clothing_flags = THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT
 	permeability_coefficient = 0.01
