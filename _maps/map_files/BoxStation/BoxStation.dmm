@@ -9249,9 +9249,6 @@
 /obj/machinery/camera/autoname/directional/north{
 	network = list("ss13, prison")
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -46465,9 +46462,6 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/directional/south{
-	pixel_y = -24
-	},
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/dark,
 /area/medical/surgery)
@@ -51358,6 +51352,14 @@
 /obj/machinery/power/apc/auto_name/directional/west,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
+"rhu" = (
+/obj/machinery/atmospherics/pipe/simple/orange/visible{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/side{
+	dir = 4
+	},
+/area/engine/atmos)
 "rhC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -59640,13 +59642,6 @@
 	pixel_y = -31;
 	pixel_x = -31
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "uoc" = (
@@ -61701,6 +61696,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/item/radio/intercom/directional/east,
 /turf/open/floor/iron/dark,
 /area/medical/surgery)
 "vkC" = (
@@ -104128,7 +104124,7 @@ bSM
 bTV
 bUT
 fUA
-fYS
+rhu
 gum
 bYT
 bZK
