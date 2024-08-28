@@ -304,6 +304,6 @@
 
 /datum/quirk/petlover/on_spawn()
 	var/mob/living/carbon/human/target = quirk_target
-	Z.equip_to_slot_or_del(new /obj/item/choice_beacon/radial/pets(target), ITEM_SLOT_BACKPACK)
-	Z.equip_to_slot_or_del(new /obj/item/pet_carrier(target), ITEM_SLOT_HANDS)
-	Z.equip_to_slot_or_del(new /obj/item/clothing/neck/petcollar(target), ITEM_SLOT_BACKPACK)
+	target.equip_to_slot_or_del(new /obj/item/choice_beacon/radial/pets(target), ITEM_SLOT_BACKPACK)
+	target.equip_to_slot_or_del(new /obj/item/pet_carrier(target), ITEM_SLOT_HANDS)
+	target.equip_to_slot_or_del(new /obj/item/clothing/neck/petcollar(target), ITEM_SLOT_BACKPACK)
