@@ -159,7 +159,11 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot/ui_data(mob/user)
 	var/list/data = ..()
 	if(!locked || issilicon(user) || IsAdminGhost(user))
-		data["custom_controls"]["beaker"] = reagent_glass
+		data["custom_controls"]["container"] = list(
+			"reagent_glass" = reagent_glass,
+			"total_volume" = reagent_glass?.reagents.total_volume,
+			"maximum_volume" = reagent_glass?.reagents.maximum_volume
+		)
 		data["custom_controls"]["heal_threshold"] = heal_threshold
 		data["custom_controls"]["injection_amount"] = injection_amount
 		data["custom_controls"]["speaker"] = !shut_up

@@ -196,7 +196,7 @@ const ControlHelper = (props, context) => {
   } else if (control[0] === 'injection_amount') {
     /** Control is a threshold - this is medbot specific */
     return <MedbotInjectionThreshold control={control} />;
-  } else if (control[0] === 'beaker') {
+  } else if (control[0] === 'container') {
     return <MedbotBeaker control={control} />;
   } else if (control[0] === 'tile_stack') {
     return <FloorbotTiles control={control} />;
@@ -291,14 +291,19 @@ const MedbotInjectionThreshold = (props, context) => {
 const MedbotBeaker = (props, context) => {
   const { act } = useBackend<SimpleBotContext>(context);
   const { control } = props;
+  const [reagent_glass, total_volume, maximum_volume] = [
+    control[1]['reagent_glass'],
+    control[1]['total_volume'],
+    control[1]['maximum_volume'],
+  ];
 
   return (
     <Button
-      disabled={!control[1]}
-      icon={control[1] ? 'eject' : ''}
+      disabled={!reagent_glass}
+      icon={reagent_glass ? 'eject' : ''}
       onClick={() => act('eject')}
-      tooltip="Beaker contained in the bot.">
-      {control[1] ? `${control[1]}` : 'Empty'}
+      tooltip="Container contained in the bot.">
+      {reagent_glass ? `${reagent_glass} [${total_volume}/${maximum_volume}]` : 'Empty'}
     </Button>
   );
 };
@@ -307,14 +312,15 @@ const MedbotBeaker = (props, context) => {
 const FloorbotTiles = (props, context) => {
   const { act } = useBackend<SimpleBotContext>(context);
   const { control } = props;
+  const [tilestack, amount, max_amount] = [control[1]['tilestack'], control[1]['amount'], control[1]['max_amount']];
 
   return (
     <Button
-      disabled={!control[1]}
-      icon={control[1] ? 'eject' : ''}
+      disabled={!tilestack}
+      icon={tilestack ? 'eject' : ''}
       onClick={() => act('eject_tiles')}
-      tooltip="Number of floor tiles contained in the bot.">
-      {control[1] ? `${control[1]}` : 'Empty'}
+      tooltip="Floor tiles contained in the bot.">
+      {tilestack ? `${tilestack} [${amount}/${max_amount}]` : 'Empty'}
     </Button>
   );
 };
