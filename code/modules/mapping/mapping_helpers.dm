@@ -331,6 +331,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/pipe_color = ""
 	var/hide = FALSE
 
+	FASTDMM_PROP(\
+		pipe_type = PIPE_TYPE_AUTO,\
+		pipe_interference_group = "atmos-[piping_layer]"\
+	)
+
 	var/list/pipe_types = list(
 		/obj/machinery/atmospherics/pipe/simple/general/visible,
 		/obj/machinery/atmospherics/pipe/simple/general/visible,
