@@ -54,36 +54,33 @@
 	return FALSE
 
 /turf/proc/immediate_calculate_adjacent_turfs()
-	LAZYINITLIST(src.atmos_adjacent_turfs)
-	var/list/atmos_adjacent_turfs = src.atmos_adjacent_turfs
+	//Basic optimization, if we can't share why bother asking other people ya feel?
 	var/canpass = CANATMOSPASS(src, src, FALSE)
 	for(var/direction in GLOB.cardinals_multiz)
 		var/turf/current_turf = get_step_multiz(src, direction)
 		if(!isopenturf(current_turf)) // not interested in you brother
 			continue
-
 		//Can you and me form a deeper relationship, or is this just a passing wind
 		// (direction & (UP | DOWN)) is just "is this vertical" by the by
 		if(canpass && CANATMOSPASS(current_turf, src, (direction & (UP|DOWN))) && !(blocks_air || current_turf.blocks_air))
+			LAZYINITLIST(atmos_adjacent_turfs)
 			LAZYINITLIST(current_turf.atmos_adjacent_turfs)
 			atmos_adjacent_turfs[current_turf] = TRUE
 			current_turf.atmos_adjacent_turfs[src] = TRUE
 		else
-			atmos_adjacent_turfs -= current_turf
+			if (atmos_adjacent_turfs)
+				atmos_adjacent_turfs -= current_turf
 			if (current_turf.atmos_adjacent_turfs)
 				current_turf.atmos_adjacent_turfs -= src
 			UNSETEMPTY(current_turf.atmos_adjacent_turfs)
-		SEND_SIGNAL(current_turf, COMSIG_TURF_CALCULATED_ADJACENT_ATMOS)
-
 	UNSETEMPTY(atmos_adjacent_turfs)
 	src.atmos_adjacent_turfs = atmos_adjacent_turfs
-	SEND_SIGNAL(src, COMSIG_TURF_CALCULATED_ADJACENT_ATMOS)
-	rebuild_atmos_smoothing()
+
 
 //returns a list of adjacent turfs that can share air with this one.
 //alldir includes adjacent diagonal tiles that can share
 //	air with both of the related adjacent cardinal tiles
-/turf/proc/GetAtmosAdjacentTurfs(alldir = 0)
+/turf/proc/get_atmos_adjacent_turfs(alldir = 0)
 	var/adjacent_turfs
 	if (atmos_adjacent_turfs)
 		adjacent_turfs = atmos_adjacent_turfs.Copy()
@@ -106,7 +103,7 @@
 			if(!checked_turf.atmos_adjacent_turfs || !checked_turf.atmos_adjacent_turfs[secondary_turf])
 				continue
 
-			if (adjacent_turfs[checkTurf])
+			if (adjacent_turfs[secondary_turf])
 				matching_directions++
 
 			if (matching_directions >= 2)
@@ -172,5 +169,4 @@
 			if (T.atmos_adjacent_turfs)
 				T.atmos_adjacent_turfs -= src
 			UNSETEMPTY(T.atmos_adjacent_turfs)
-			T.__update_auxtools_turf_adjacency_info(isspaceturf(T.get_z_base_turf()), -1)
 	LAZYCLEARLIST(atmos_adjacent_turfs)

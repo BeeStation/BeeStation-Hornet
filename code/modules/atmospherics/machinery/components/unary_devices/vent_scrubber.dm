@@ -178,7 +178,7 @@
 	adjacent_turfs.Cut()
 	var/turf/T = get_turf(src)
 	if(istype(T))
-		adjacent_turfs = T.GetAtmosAdjacentTurfs(alldir = 1)
+		adjacent_turfs = T.get_atmos_adjacent_turfs(alldir = 1)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/receive_signal(datum/signal/signal)
 	if(!is_operational || !signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))

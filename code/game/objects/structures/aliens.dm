@@ -185,7 +185,7 @@
 		qdel(src)
 		return FALSE
 
-	for(var/turf/T in U.GetAtmosAdjacentTurfs())
+	for(var/turf/T in U.get_atmos_adjacent_turfs())
 		if((locate(/obj/structure/alien/weeds) in T))
 			continue
 

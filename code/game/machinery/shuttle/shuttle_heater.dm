@@ -67,7 +67,6 @@
 	if(node)
 		node.atmos_init()
 		node.add_member(src)
-	build_network()
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/RefreshParts()
