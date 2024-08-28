@@ -108,25 +108,33 @@
 #define CAT_STRUCTURE "Structures"
 
 
-// rcd buildtype defines
-// these aren't even used as bitflags so who even knows why they are treated like them
-#define RCD_FLOORWALL (1<<0)
-#define RCD_AIRLOCK (1<<1)
-#define RCD_DECONSTRUCT (1<<2)
-#define RCD_WINDOWGRILLE (1<<3)
-#define RCD_MACHINE (1<<4)
-#define RCD_COMPUTER (1<<5)
-#define RCD_FURNISHING (1<<6)
-#define RCD_LADDER (1<<7)
+//rcd modes
+#define RCD_FLOORWALL 0
+#define RCD_AIRLOCK 1
+#define RCD_DECONSTRUCT 2
+#define RCD_WINDOWGRILLE 3
+#define RCD_MACHINE 4
+#define RCD_COMPUTER 5
+#define RCD_FURNISHING 6
+#define RCD_LADDER 7
 
-#define RCD_UPGRADE_FRAMES (1<<0)
-#define RCD_UPGRADE_SIMPLE_CIRCUITS	(1<<1)
-#define RCD_UPGRADE_SILO_LINK (1<<2)
-#define RCD_UPGRADE_FURNISHING (1<<3)
+#define RCD_UPGRADE_FRAMES 0
+#define RCD_UPGRADE_SIMPLE_CIRCUITS	1
+#define RCD_UPGRADE_SILO_LINK 2
+#define RCD_UPGRADE_FURNISHING 3
+
+#define RPD_UPGRADE_UNWRENCH 0
 
 #define RCD_WINDOW_FULLTILE "full tile"
 #define RCD_WINDOW_DIRECTIONAL "directional"
 #define RCD_WINDOW_NORMAL "glass"
 #define RCD_WINDOW_REINFORCED "reinforced glass"
 
-#define RPD_UPGRADE_UNWRENCH (1<<0)
+#define RCD_MEMORY_WALL 1
+#define RCD_MEMORY_WINDOWGRILLE 2
+
+// How much faster to use the RCD when on a tile with memory
+#define RCD_MEMORY_SPEED_BUFF 5
+
+/// How much less resources the RCD uses when reconstructing
+#define RCD_MEMORY_COST_BUFF 8
