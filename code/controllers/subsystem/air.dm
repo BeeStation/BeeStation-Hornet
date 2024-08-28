@@ -55,6 +55,9 @@ SUBSYSTEM_DEF(air)
 	var/list/pausing_z_levels = list()
 	var/list/pause_processing = list()
 
+	///The last time the subsystem completely processed
+	var/last_complete_process = 0
+
 
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
@@ -239,6 +242,7 @@ SUBSYSTEM_DEF(air)
 		resumed = FALSE
 
 	currentpart = SSAIR_PIPENETS
+	last_complete_process = world.time
 	SStgui.update_uis(SSair) //Lightning fast debugging motherfucker
 
 
