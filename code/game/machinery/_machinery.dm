@@ -360,7 +360,7 @@ Class Procs:
 /obj/machinery/can_interact(mob/user)
 	var/silicon = issilicon(user)
 	var/admin_ghost = IsAdminGhost(user)
-	var/living = isliving(user)
+	var/living = ishuman(user) // /mob/living/carbon/HUMANS, not /mob/living.
 
 	if((machine_stat & (NOPOWER|BROKEN)) && !(interaction_flags_machine & INTERACT_MACHINE_OFFLINE)) // Check if the machine is broken, and if we can still interact with it if so
 		return FALSE
