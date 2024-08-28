@@ -29,6 +29,12 @@
 	permeability_coefficient = 0.9
 	strip_delay = 5
 
+/obj/item/clothing/shoes/sandal/alt
+	desc = "A pair of shiny black wooden sandals."
+	name = "black sandals"
+	icon_state = "blacksandals"
+	item_state = "blacksandals"
+
 /obj/item/clothing/shoes/sandal/magic
 	name = "magical sandals"
 	desc = "A pair of sandals imbued with magic."

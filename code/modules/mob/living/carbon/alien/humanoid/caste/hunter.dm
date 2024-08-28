@@ -87,8 +87,3 @@
 		if(leaping) //check that toggles out of leaping mode if the alien gets hit or otherwise interrupted
 			leaping = FALSE
 			update_icons()
-
-/mob/living/carbon/alien/humanoid/float(on)
-	if(leaping)
-		return
-	return ..()

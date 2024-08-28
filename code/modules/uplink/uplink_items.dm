@@ -2492,7 +2492,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/storage/backpack/duffelbag/clown/syndie
 
 /datum/uplink_item/badass/surprise_cake
-	name = "Rigged towering cake"
+	name = "Rigged Towering Cake"
 	desc = "For hosting a surprise birthday party for the Captain, with a flashy surprise."
 	item = /obj/structure/popout_cake/nukeop
 	cost = 4
