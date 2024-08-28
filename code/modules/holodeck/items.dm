@@ -20,7 +20,6 @@
 	active_throwforce = 0
 	active_sharpness = NONE
 	active_heat = 0
-	bleedforce_on = 0
 
 /obj/item/melee/energy/sword/holographic/Initialize(mapload)
 	. = ..()
