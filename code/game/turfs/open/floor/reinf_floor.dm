@@ -131,7 +131,6 @@
 	floor_tile = null
 	var/obj/effect/clockwork/overlay/floor/bloodcult/realappearance
 	can_atmos_pass = ATMOS_PASS_NO
-	can_atmos_pass_vertical =	ATMOS_PASS_NO
 
 
 /turf/open/floor/engine/cult/Initialize(mapload)

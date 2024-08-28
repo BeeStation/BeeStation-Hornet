@@ -650,6 +650,24 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	stack_trace("Newton's Approximation for pressure failed after [ATMOS_PRESSURE_APPROXIMATION_ITERATIONS] iterations. A: [a]. B: [b]. C:[c]. Current value: [solution]. Expected lower limit: [lower_limit]. Expected upper limit: [upper_limit].")
 	return FALSE
 
+/datum/gas_mixture/proc/remove_specific_ratio(gas_id, ratio)
+	if(ratio <= 0)
+		return null
+	ratio = min(ratio, 1)
+
+	var/list/cached_gases = gases
+	var/datum/gas_mixture/removed = new type
+	var/list/removed_gases = removed.gases //accessing datum vars is slower than proc vars
+
+	removed.temperature = temperature
+	ADD_GAS(gas_id, removed.gases)
+	removed_gases[gas_id][MOLES] = QUANTIZE(cached_gases[gas_id][MOLES] * ratio)
+	cached_gases[gas_id][MOLES] -= removed_gases[gas_id][MOLES]
+
+	garbage_collect(list(gas_id))
+
+	return removed
+
 /// Pumps gas from src to output_air. Amount depends on target_pressure
 /datum/gas_mixture/proc/pump_gas_to(datum/gas_mixture/output_air, target_pressure, specific_gas = null)
 	var/temperature_delta = abs(temperature - output_air.temperature)
@@ -693,3 +711,13 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 
 	output_air.merge(removed)
 	return TRUE
+
+/datum/gas_mixture/proc/scrub_into(datum/gas_mixture/target, ratio, list/gases)
+	for (var/gas in gases)
+		transfer_ratio_to(target, ratio)
+
+/datum/gas_mixture/proc/transfer_to(datum/gas_mixture/receiver, var/moles)
+	return receiver.merge(remove(moles))
+
+/datum/gas_mixture/proc/transfer_ratio_to(datum/gas_mixture/receiver, var/ratio)
+	return receiver.merge(remove_ratio(ratio))
