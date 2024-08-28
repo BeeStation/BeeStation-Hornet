@@ -110,12 +110,6 @@
 "ax" = (
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
-"ay" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/escape)
 "az" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall/mineral/titanium,
@@ -216,12 +210,6 @@
 /area/shuttle/escape)
 "aP" = (
 /turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"aQ" = (
-/obj/structure/shuttle/engine/large{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "aR" = (
 /obj/machinery/holopad,
@@ -707,22 +695,11 @@
 /area/shuttle/escape)
 "cW" = (
 /obj/structure/table,
-/obj/item/scalpel{
-	pixel_y = 12
-	},
-/obj/item/circular_saw,
-/obj/item/retractor{
-	pixel_x = 4
-	},
-/obj/item/hemostat{
-	pixel_x = -4
-	},
-/obj/item/clothing/gloves/color/latex,
-/obj/item/clothing/mask/surgical,
-/obj/item/surgicaldrill,
-/obj/item/cautery,
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 8
+	},
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
@@ -832,9 +809,6 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
-"rY" = (
-/turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "sb" = (
 /obj/structure/sink{
@@ -975,15 +949,6 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
-"OQ" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8
-	},
-/obj/structure/shuttle/engine/large{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/escape)
 "PE" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
@@ -1111,9 +1076,9 @@
 
 (1,1,1) = {"
 aa
-aa
-rY
-aQ
+ad
+au
+au
 au
 au
 au
@@ -1121,16 +1086,16 @@ ad
 au
 au
 au
-rY
-OQ
-aa
+au
+au
+ad
 aa
 "}
 (2,1,1) = {"
 aa
 ad
-ay
-ay
+av
+av
 av
 av
 av
@@ -1138,8 +1103,8 @@ ad
 av
 av
 av
-ay
-ay
+av
+av
 ad
 aa
 "}

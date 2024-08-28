@@ -619,13 +619,6 @@
 	admin_notes = "Comes with turrets that will target anything without the neutral faction (nuke ops, xenos etc, but not pets)."
 	credit_cost = 30000
 
-/datum/map_template/shuttle/emergency/ultraraven
-	suffix = "ultraraven"
-	name = "CentCom Emergency Ultra Raven Cruiser"
-	description = "This is the shuttle you need for any extreme alert situation. The high prices is there for a reason, comes with a fully equiped medbay and armory integrated, more than enough to survive the situation while you get to CentCom"
-	admin_notes = "Comes with turrets that will target anything without the neutral faction (nuke ops, xenos etc, but not pets). It is basically made for when you have a Red Alert situation and you have more corpses than guns avaiable"
-	credit_cost = 120000
-
 /datum/map_template/shuttle/emergency/zeta
 	suffix = "zeta"
 	name = "Tr%nPo2r& Z3TA"
@@ -634,19 +627,14 @@
 	admin_notes = "Has an on-board experimental cloner that creates copies of its user, alien surgery tools, and a void core that provides unlimited power."
 	credit_cost = 8000
 
-/datum/map_template/shuttle/emergency/casino
-	suffix = "casino"
-	name = "The Emergency Casino"
-	description = "Makes you feel like Space Vegas. Comes fully equiped."
-	admin_notes = "It's a normal shuttle but full of slot machines and made out of gold."
-	credit_cost = 5000
-
 /datum/map_template/shuttle/emergency/ragecage
 	suffix = "ragecage"
 	name = "THE RAGE CAGE"
-	description = "WE ARE RAGING! WE ARE CAGING! TIME TO UNLEASH ALL THE STRESS GENERATED DURING THE SHIFT! Comes with a Brig, Medbay and Cockpit included."
+	description = "An abandoned underground electrified fight arena turned into a shuttle. Comes with a Brig, Medbay and Cockpit included."
 	admin_notes = "It's a normal shuttle but it has a rage cage with baseball bats in the middle powered by a PACMAN, plasma included."
 	credit_cost = 7500
+	danger_level = SHUTTLE_DANGER_SUBPAR
+
 
 /datum/map_template/shuttle/emergency/zeta/prerequisites_met()
 	if(SHUTTLE_UNLOCK_ALIENTECH in SSshuttle.shuttle_purchase_requirements_met)
