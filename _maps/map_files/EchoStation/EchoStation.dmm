@@ -715,9 +715,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/hallway/primary/central{
 	name = "-2 Primary Hallway"
@@ -19242,7 +19240,7 @@
 /area/asteroid/paradise)
 "jpc" = (
 /obj/structure/disposalpipe/junction/flip{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/iron/dark/side{
 	dir = 8
@@ -28581,9 +28579,6 @@
 	pixel_x = -32
 	},
 /obj/machinery/camera/autoname/directional/west,
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
 /turf/open/floor/iron/dark/side{
 	dir = 9
 	},
@@ -36835,6 +36830,9 @@
 /obj/effect/turf_decal/siding/dark/corner,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
 	},
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/central{
