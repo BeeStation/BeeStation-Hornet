@@ -98,7 +98,6 @@
 	return moles >= required
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/proc/consumeFuel(var/amount)
-	var/datum/gas_mixture/air_contents = airs[1]
 	remove_air(amount)
 	return
 

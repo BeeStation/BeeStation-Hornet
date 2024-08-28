@@ -78,15 +78,24 @@
 	requirements = list(/datum/gas/water_vapor = MOLES_GAS_VISIBLE)
 
 /datum/gas_reaction/water_vapor/react(datum/gas_mixture/air, datum/holder)
-	var/turf/open/location = isturf(holder) ? holder : null
 	. = NO_REACTION
-	if (air.temperature <= WATER_VAPOR_FREEZE)
-		if(location?.freon_gas_act())
-			. = REACTING
-	else if(air.temperature <= T20C + 10)
-		if(location?.water_vapor_gas_act())
-			air.gases[/datum/gas/water_vapor][MOLES] -= MOLES_GAS_VISIBLE
-			. = REACTING
+	if(!isturf(holder))
+		return
+
+	var/turf/open/location = holder
+	var/consumed = 0
+	switch(air.temperature)
+		if(-INFINITY to WATER_VAPOR_DEPOSITION_POINT)
+			if(location?.freeze_turf())
+				consumed = MOLES_GAS_VISIBLE
+		if(WATER_VAPOR_DEPOSITION_POINT to WATER_VAPOR_CONDENSATION_POINT)
+			location.water_vapor_gas_act()
+			consumed = MOLES_GAS_VISIBLE
+
+	if(consumed)
+		air.gases[/datum/gas/water_vapor][MOLES] -= consumed
+		SET_REACTION_RESULTS(consumed)
+		. = REACTING
 
 //tritium combustion: combustion of oxygen and tritium (treated as hydrocarbons). creates hotspots. exothermic
 /datum/gas_reaction/nitrous_decomp
@@ -158,7 +167,7 @@
 		ASSERT_GAS(/datum/gas/water_vapor, air) //oxygen+more-or-less hydrogen=H2O
 		cached_gases[/datum/gas/water_vapor][MOLES] += burned_fuel / TRITIUM_BURN_OXY_FACTOR
 
-		energy_released += (FIRE_HYDROGEN_ENERGY_WEAK * burned_fuel)
+		energy_released += (FIRE_HYDROGEN_ENERGY_RELEASED * burned_fuel)
 		cached_results["fire"] += burned_fuel
 
 	else
@@ -279,7 +288,7 @@
 
 /datum/gas_reaction/fusion
 	exclude = FALSE
-	priority = 2
+	priority_group = PRIORITY_POST_FORMATION
 	name = "Plasmic Fusion"
 	id = "fusion"
 
@@ -512,7 +521,7 @@
 		return REACTING
 
 /datum/gas_reaction/stim_ball
-	priority = 7
+	priority_group = PRIORITY_POST_FORMATION
 	name ="Stimulum Energy Ball"
 	id = "stimball"
 
