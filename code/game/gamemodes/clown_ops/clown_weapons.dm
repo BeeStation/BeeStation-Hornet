@@ -82,7 +82,7 @@
 /obj/item/melee/energy/sword/bananium/make_transformable()
 	AddComponent(/datum/component/transforming, \
 		throw_speed_on = 4, \
-		bleedforce_on = NONE, \
+		bleedforce_on = 0, \
 		attack_verb_continuous_on = list("slips"), \
 		attack_verb_simple_on = list("slip"), \
 		clumsy_check = FALSE)

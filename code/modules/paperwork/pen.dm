@@ -245,6 +245,7 @@
 		force_on = 18, \
 		throwforce_on = 35, \
 		throw_speed_on = 4, \
+		bleedforce_on = BLEED_CUT, \
 		sharpness_on = IS_SHARP, \
 		w_class_on = WEIGHT_CLASS_NORMAL)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))

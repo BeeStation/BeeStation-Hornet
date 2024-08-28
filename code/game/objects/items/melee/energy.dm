@@ -22,7 +22,7 @@
 	/// Throwforce while active.
 	var/active_throwforce = 20
 	/// Force while active.
-	var/active_bleedforce = NONE
+	var/active_bleedforce = 0
 	/// Sharpness while active.
 	var/active_sharpness = IS_SHARP
 	/// Hitsound played attacking while active.

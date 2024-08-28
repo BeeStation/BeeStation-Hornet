@@ -13,12 +13,14 @@
 	damtype = STAMINA
 	throw_speed = 2
 	throwforce = 0
+	bleed_force = 0
 	embedding = null
 	sword_color_icon = null
 
 	active_throwforce = 0
 	active_sharpness = NONE
 	active_heat = 0
+	bleedforce_on = 0
 
 /obj/item/melee/energy/sword/holographic/Initialize(mapload)
 	. = ..()
