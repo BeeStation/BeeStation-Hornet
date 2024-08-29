@@ -30726,6 +30726,7 @@
 	id = "BrigFlashAft";
 	pixel_y = 25
 	},
+/obj/machinery/rnd/production/techfab/department/security,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "hPW" = (
@@ -37670,15 +37671,6 @@
 /obj/structure/chair/wood/normal,
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
-"jDQ" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/turf/open/floor/iron/grid/steel,
-/area/science/xenobiology)
 "jEa" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -46753,10 +46745,10 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
 "lOm" = (
-/obj/machinery/rnd/production/techfab/department/security,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/techmaint,
 /area/security/brig)
 "lOq" = (
@@ -131526,7 +131518,7 @@ aZB
 dBq
 iQp
 swU
-jDQ
+rcR
 sYZ
 nrL
 nrL

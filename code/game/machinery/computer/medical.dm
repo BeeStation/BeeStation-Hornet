@@ -579,8 +579,7 @@
 					if(3)
 						R.fields["age"] = rand(AGE_MIN, AGE_MAX)
 					if(4)
-						var/datum/blood_type/blood = random_blood_type()
-						R.fields["blood_type"] = blood.name
+						R.fields["blood_type"] = random_blood_type()
 					if(5)
 						R.fields["p_stat"] = pick("*Unconscious*", "Active", "Physically Unfit")
 					if(6)
