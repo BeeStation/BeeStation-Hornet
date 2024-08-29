@@ -1,0 +1,7 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - rscadd: thermal mechanics for tcomms
+  - bugfix: thermal mechanics for RnD servers
+  - bugfix: upgrading RnD servers
+  - tweak: upgrading RnD servers now makes it use less power and produce less heat
