@@ -1,3 +1,5 @@
+#define SPARK_COOLDOWN_TIME 10 SECONDS
+
 // Server component
 // will generate a heat based on the power usage of the machine
 // use only with /obj/machinery
@@ -18,7 +20,6 @@
 	// if it sparks when overheated
 	var/sparks = TRUE
 	COOLDOWN_DECLARE(spark_cooldown)
-	var/sparks_cooldown_time = 10 SECONDS
 
 /datum/component/server/Initialize()
 	if(!ismachinery(parent)) // currently only compatible with machinery
@@ -38,7 +39,7 @@
 /datum/component/server/proc/overheated(is_overheated)
 	if(is_overheated && sparks && COOLDOWN_FINISHED(src, spark_cooldown))
 		do_sparks(5, FALSE, parent)
-		COOLDOWN_START(src, spark_cooldown, sparks_cooldown_time)
+		COOLDOWN_START(src, spark_cooldown, SPARK_COOLDOWN_TIME)
 
 	SEND_SIGNAL(parent, COMSIG_MACHINERY_OVERHEAT_CHANGE, is_overheated)
 
@@ -67,3 +68,5 @@
 	var/datum/gas_mixture/environment = turf.return_air()
 
 	temperature = environment.temperature_share(null, OPEN_HEAT_TRANSFER_COEFFICIENT, temperature, heat_capacity)
+
+#undef SPARK_COOLDOWN_TIME
