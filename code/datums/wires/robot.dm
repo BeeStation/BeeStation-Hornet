@@ -61,7 +61,7 @@
 			R.SetLockdown(!R.lockcharge) // Toggle
 			log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] via pulse", important = FALSE)
 		if(WIRE_RESET_MODULE)
-			if(R.has_module() && !mend)
+			if(R.has_module())
 				R.ResetModule()
 				if (user)
 					log_combat(user, R, "reset the cyborg module via wire", important = FALSE)
