@@ -41,7 +41,6 @@
 		do_sparks(5, FALSE, parent)
 		COOLDOWN_START(src, spark_cooldown, SPARK_COOLDOWN_TIME)
 
-	SEND_SIGNAL(parent, COMSIG_MACHINERY_OVERHEAT_CHANGE, is_overheated)
 
 /datum/component/server/process(delta_time)
 	var/obj/machinery/parent_machine = parent
