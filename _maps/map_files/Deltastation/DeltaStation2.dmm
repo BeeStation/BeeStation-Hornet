@@ -1932,8 +1932,6 @@
 "anB" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron/white,
 /area/science/misc_lab/range)
 "anD" = (
@@ -26344,7 +26342,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
-/area/hallway/primary/aft)
+/area/maintenance/aft)
 "dbu" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -28282,9 +28280,6 @@
 /area/science/misc_lab/range)
 "drC" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /turf/open/floor/iron/white,
 /area/science/misc_lab/range)
 "drP" = (
@@ -29063,9 +29058,8 @@
 /turf/closed/wall,
 /area/crew_quarters/heads/hor)
 "dxX" = (
-/obj/structure/cable/white,
 /obj/structure/cable/yellow{
-	icon_state = "1-4"
+	icon_state = "0-4"
 	},
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
@@ -32005,7 +31999,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/area/maintenance/aft)
 "dTY" = (
 /obj/structure/sign/warning/nosmoking,
 /turf/closed/wall,
@@ -33506,7 +33500,7 @@
 	},
 /obj/machinery/door/airlock/research/glass{
 	name = "Shuttle dock";
-	req_one_access = "47"
+	req_one_access_txt = "47"
 	},
 /turf/open/floor/iron,
 /area/science/shuttledock)
@@ -35689,11 +35683,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/stripes/box,
-/obj/machinery/rnd/production/techfab/department/security,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
+/obj/structure/table/reinforced,
 /turf/open/floor/iron,
 /area/security/main)
 "eQK" = (
@@ -38548,7 +38541,7 @@
 	req_access_txt = "5"
 	},
 /turf/open/floor/iron/white,
-/area/medical/surgery)
+/area/maintenance/starboard/aft)
 "fOK" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Access"
@@ -47576,10 +47569,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/door/airlock/command{
-	name = "Research Director's Quarters";
-	req_access_txt = "30"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -47965,7 +47954,7 @@
 	name = "isolation shutters"
 	},
 /turf/open/floor/iron,
-/area/medical/virology)
+/area/maintenance/aft)
 "iXX" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -52855,6 +52844,10 @@
 /turf/open/floor/iron,
 /area/quartermaster/office)
 "kFK" = (
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/white,
 /area/science/misc_lab/range)
 "kFO" = (
@@ -63084,11 +63077,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"nWG" = (
-/obj/effect/turf_decal/loading_area,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/security/main)
 "nWQ" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -72919,12 +72907,12 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/door/airlock/research/glass{
-	name = "Research Testing Range";
-	req_one_access = "47"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/airlock/research{
+	req_one_access_txt = "47";
+	name = "Research Testing Range"
 	},
 /turf/open/floor/iron,
 /area/science/misc_lab/range)
@@ -74714,20 +74702,17 @@
 /turf/open/floor/iron/dark,
 /area/chapel/office)
 "rUM" = (
-/obj/structure/table/reinforced,
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
-/obj/item/clipboard,
-/obj/item/toy/figure/warden,
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/mask/gas/sechailer,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
+/obj/machinery/rnd/production/techfab/department/security,
+/obj/effect/turf_decal/stripes/box,
 /turf/open/floor/iron,
 /area/security/warden)
 "rUZ" = (
@@ -76384,14 +76369,14 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "syU" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/iron/white,
 /area/science/misc_lab/range)
@@ -81197,7 +81182,7 @@
 	name = "isolation shutters"
 	},
 /turf/open/floor/iron,
-/area/medical/surgery)
+/area/maintenance/starboard/aft)
 "uit" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -81842,15 +81827,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"utb" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 8
-	},
-/turf/open/floor/iron/smooth,
-/area/tcommsat/server)
 "utc" = (
 /obj/item/beacon,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -89051,6 +89027,7 @@
 	dir = 4;
 	name = "Warden's Desk"
 	},
+/obj/item/toy/figure/warden,
 /turf/open/floor/iron,
 /area/security/warden)
 "wKK" = (
@@ -133219,7 +133196,7 @@ bUI
 bXa
 cSI
 cSI
-utb
+mUm
 ceA
 vCq
 dzh
@@ -147072,7 +147049,7 @@ bgZ
 aaa
 bhe
 eQF
-nWG
+frY
 frY
 jjc
 kRr

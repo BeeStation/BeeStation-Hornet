@@ -16,7 +16,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	invisibility = INVISIBILITY_SPIRIT
 	hud_type = /datum/hud/ghost
-	movement_type = GROUND | FLYING
+	movement_type = FLYING | FLOATING
 	light_system = MOVABLE_LIGHT
 	light_range = 1
 	light_power = 2
@@ -135,9 +135,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 		remove_verb(/mob/dead/observer/verb/boo)
 		remove_verb(/mob/dead/observer/verb/possess)
 
-	animate(src, pixel_y = 2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
-	animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
-
 	add_to_dead_mob_list()
 
 	for(var/v in GLOB.active_alternate_appearances)
@@ -153,6 +150,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	data_huds_on = 1
 
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
+	AddElement(/datum/element/movetype_handler)
+	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 
 /mob/dead/observer/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost!"
@@ -454,7 +453,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/check_orbitable(atom/movable/target_original)
 	var/atom/movable/target = target_original.get_orbitable()
-	if (!istype(target))
+	if (!istype(target) || orbiting?.parent == target_original)
 		return
 
 	var/icon/I = icon(target.icon,target.icon_state,target.dir)
@@ -486,8 +485,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	. = ..()
 	//restart our floating animation after orbit is done.
 	pixel_y = base_pixel_y
-	animate(src, pixel_y = base_pixel_y + 2, time = 1 SECONDS, loop = -1)
-	animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = "Ghost"
@@ -823,6 +820,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return IsAdminGhost(usr)
 
 /mob/dead/observer/is_literate()
+	return TRUE
+
+/mob/dead/observer/can_read(obj/O)
 	return TRUE
 
 /mob/dead/observer/vv_edit_var(var_name, var_value)

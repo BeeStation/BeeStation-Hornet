@@ -21,8 +21,8 @@
 		resize = RESIZE_DEFAULT_SIZE
 
 	if(changed)
+		SEND_SIGNAL(src, COMSIG_PAUSE_FLOATING_ANIM, 0.3 SECONDS)
 		animate(src, transform = ntransform, time = (lying_prev == 0 || lying_angle == 0) ? 2 : 0, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
-		setMovetype(movement_type & ~FLOATING)  // If we were without gravity, the bouncing animation got stopped, so we make sure we restart it in next life().
 	UPDATE_OO_IF_PRESENT
 
 /mob/living/carbon
@@ -96,15 +96,10 @@
 	var/mutable_appearance/damage_overlay = mutable_appearance('icons/mob/dam_mob.dmi', "blank", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER))
 	overlays_standing[DAMAGE_LAYER] = damage_overlay
 
-	for(var/obj/item/bodypart/BP as anything in bodyparts)
+	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(BP.dmg_overlay_type && !BP.is_husked)
 			if(BP.brutestate)
-				var/image/brute_overlay = image('icons/mob/dam_mob.dmi', "[BP.dmg_overlay_type]_[BP.body_zone]_[BP.brutestate]0")
-				if(BP.use_damage_color && !(NOBLOOD in src.dna.species.species_traits))
-					//Set damage_color to species blood color
-					BP.damage_color = src.dna.blood_type.blood_color
-					brute_overlay.color = BP.damage_color
-				damage_overlay.add_overlay(brute_overlay)
+				damage_overlay.add_overlay("[BP.dmg_overlay_type]_[BP.body_zone]_[BP.brutestate]0")	//we're adding icon_states of the base image as overlays
 			if(BP.burnstate)
 				damage_overlay.add_overlay("[BP.dmg_overlay_type]_[BP.body_zone]_0[BP.burnstate]")
 
@@ -212,7 +207,6 @@
 //Clothing layer is the layer that clothing would usually appear on
 /obj/item/proc/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
-
 
 /mob/living/carbon/update_body()
 	update_body_parts()

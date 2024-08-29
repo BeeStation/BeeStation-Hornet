@@ -18,8 +18,14 @@
 	var/mob/dead/selected = pick_n_take(candidates)
 
 	var/list/spawn_locs = list()
-	for(var/obj/effect/landmark/carpspawn/L in GLOB.landmarks_list)
-		spawn_locs += L.loc
+	if(!spawn_locs.len) //try the new lone_ops spawner first
+		for(var/obj/effect/landmark/loneops/L in GLOB.landmarks_list)
+			if(isturf(L.loc))
+				spawn_locs += L.loc
+	if(!spawn_locs.len) //If we can't find any valid spawnpoints, try the carp spawns
+		for(var/obj/effect/landmark/carpspawn/L in GLOB.landmarks_list)
+			if(isturf(L.loc))
+				spawn_locs += L.loc
 	if(!spawn_locs.len)
 		return MAP_ERROR
 

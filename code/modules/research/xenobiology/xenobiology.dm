@@ -264,9 +264,9 @@
 				to_chat(user, "<span class='notice'>You start glowing brighter.</span>")
 				return 60 SECONDS
 			else
-				var/obj/effect/dummy/luminescent_glow/glowth = new(user) //copied from glowy mutation, copied from luminescents
-				glowth.set_light(2.5, 2.5, user.dna.features["mcolor"]) //Weaker than regular luminescents
-				QDEL_IN(glowth, 600)
+				var/obj/effect/dummy/lighting_obj/moblight/glow = new(user) //copied from glowy mutation, copied from luminescents
+				glow.set_light(2.5, 2.5, user.dna.features["mcolor"]) //Weaker than regular luminescents
+				QDEL_IN(glow, 600)
 				return 60 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)

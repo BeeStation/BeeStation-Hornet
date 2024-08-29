@@ -10,7 +10,8 @@
 	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON
-	attack_verb = list("attacked", "impaled", "pierced")
+	attack_verb_continuous = list("attacks", "impales", "pierces")
+	attack_verb_simple = list("attack", "impale", "pierce")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	bleed_force = BLEED_CUT
