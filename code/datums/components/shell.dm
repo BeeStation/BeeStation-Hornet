@@ -14,7 +14,18 @@
 	/// A list of components that cannot be removed
 	var/list/obj/item/circuit_component/unremovable_circuit_components
 
+	/// Whether the shell is locked or not
 	var/locked = FALSE
+
+	// The variables below are used only for anchored shells
+	/// The amount of power used in the last minute
+	var/power_used_in_minute = 0
+
+	/// The cooldown time to reset the power_used_in_minute to 0
+	COOLDOWN_DECLARE(power_used_cooldown)
+
+	/// The maximum power that the shell can use in a minute before entering overheating and destroying itself.
+	var/max_power_use_in_minute = 20000
 
 /datum/component/shell/Initialize(unremovable_circuit_components, capacity, shell_flags, starting_circuit)
 	. = ..()
@@ -38,7 +49,7 @@
 		RegisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER), PROC_REF(on_screwdriver_act))
 		RegisterSignal(parent, COMSIG_OBJ_DECONSTRUCT, PROC_REF(on_object_deconstruct))
 	if(shell_flags & SHELL_FLAG_REQUIRE_ANCHOR)
-		RegisterSignal(parent, COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH, PROC_REF(on_unfasten))
+		RegisterSignal(parent, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_set_anchored))
 	RegisterSignal(parent, COMSIG_ATOM_USB_CABLE_TRY_ATTACH, PROC_REF(on_atom_usb_cable_try_attach))
 	RegisterSignal(parent, COMSIG_MOVABLE_CIRCUIT_LOADED, PROC_REF(on_load))
 
@@ -81,7 +92,7 @@
 		COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER),
 		COMSIG_ATOM_TOOL_ACT(TOOL_MULTITOOL),
 		COMSIG_OBJ_DECONSTRUCT,
-		COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH,
+		COMSIG_MOVABLE_SET_ANCHORED,
 		COMSIG_PARENT_EXAMINE,
 		COMSIG_ATOM_ATTACK_GHOST,
 		COMSIG_ATOM_USB_CABLE_TRY_ATTACH,
@@ -107,7 +118,7 @@
 	if(attached_circuit)
 		INVOKE_ASYNC(attached_circuit, TYPE_PROC_REF(/datum, ui_interact), ghost)
 
-/datum/component/shell/proc/on_examine(datum/source, mob/user, list/examine_text)
+/datum/component/shell/proc/on_examine(atom/movable/source, mob/user, list/examine_text)
 	SIGNAL_HANDLER
 	if(!attached_circuit)
 		examine_text += "<span class='notice'>There is no integrated circuit attached.</span>"
@@ -121,15 +132,21 @@
 	if (shell_flags & SHELL_FLAG_USB_PORT)
 		examine_text += "<span class='notice'>There is a <b>USB port</b> on the front.</span>"
 
+	if(shell_flags & SHELL_FLAG_REQUIRE_ANCHOR)
+		examine_text +=  "<span class='notice'>The shell does not require a battery to function and will draw from the area's APC whenever possible.</span>"
+		if(!source.anchored)
+			examine_text +=  "<span class='danger'><b>The integrated circuit is non-functional whilst the shell is unanchored.</b></span>"
+
 /**
- * Called when the shell is wrenched.
+ * Called when the shell is anchored.
  *
  * Only applies if the shell has SHELL_FLAG_REQUIRE_ANCHOR.
  * Disables the integrated circuit if unanchored, otherwise enable the circuit.
  */
-/datum/component/shell/proc/on_unfasten(atom/source, anchored)
+/datum/component/shell/proc/on_set_anchored(atom/movable/source, previous_value)
 	SIGNAL_HANDLER
-	attached_circuit?.set_on(anchored)
+	attached_circuit?.on = source.anchored
+
 /**
  * Called when an item hits the parent. This is the method to add the circuitboard to the component.
  */
@@ -242,6 +259,24 @@
 		source.balloon_alert(user, "it's at maximum capacity!")
 		return COMPONENT_CANCEL_ADD_COMPONENT
 
+/datum/component/shell/proc/override_power_usage(datum/source, power_to_use)
+	SIGNAL_HANDLER
+	if(COOLDOWN_FINISHED(src, power_used_cooldown))
+		power_used_in_minute = 0
+
+	var/area/location = get_area(parent)
+	if(!location.powered(AREA_USAGE_EQUIP))
+		return
+
+	if(power_used_in_minute > max_power_use_in_minute)
+		explosion(parent, light_impact_range = 1)
+		remove_circuit()
+		return
+	location.use_power(power_to_use, AREA_USAGE_EQUIP)
+	power_used_in_minute += power_to_use
+	COOLDOWN_START(src, power_used_cooldown, 1 MINUTES)
+	return COMPONENT_OVERRIDE_POWER_USAGE
+
 /**
  * Attaches a circuit to the parent. Doesn't do any checks to see for any existing circuits so that should be done beforehand.
  */
@@ -253,8 +288,8 @@
 	attached_circuit = circuitboard
 	if(!(shell_flags & SHELL_FLAG_CIRCUIT_UNREMOVABLE))
 		RegisterSignal(circuitboard, COMSIG_MOVABLE_MOVED, PROC_REF(on_circuit_moved))
-	//if(shell_flags & SHELL_FLAG_REQUIRE_ANCHOR)
-	//	RegisterSignal(circuitboard, COMSIG_CIRCUIT_PRE_POWER_USAGE, PROEC_REF(override_power_usage))
+	if(shell_flags & SHELL_FLAG_REQUIRE_ANCHOR)
+		RegisterSignal(circuitboard, COMSIG_CIRCUIT_PRE_POWER_USAGE, PROC_REF(override_power_usage))
 	RegisterSignal(circuitboard, COMSIG_PARENT_QDELETING, PROC_REF(on_circuit_delete))
 	for(var/obj/item/circuit_component/to_add as anything in unremovable_circuit_components)
 		to_add.forceMove(attached_circuit)
@@ -284,6 +319,7 @@
 		COMSIG_MOVABLE_MOVED,
 		COMSIG_PARENT_QDELETING,
 		COMSIG_CIRCUIT_ADD_COMPONENT_MANUALLY,
+		COMSIG_CIRCUIT_PRE_POWER_USAGE,
 	))
 	if(attached_circuit.loc == parent)
 		var/atom/parent_atom = parent
