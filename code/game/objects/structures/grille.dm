@@ -281,8 +281,8 @@
 	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		icon_state = "brokengrille"
-		density = FALSE
-		obj_integrity = 20
+		set_density(FALSE)
+		atom_integrity = 20
 		broken = TRUE
 		rods_amount = 1
 		rods_broken = FALSE
@@ -296,8 +296,8 @@
 /obj/structure/grille/proc/repair_grille()
 	if(broken)
 		icon_state = "grille"
-		density = TRUE
-		obj_integrity = max_integrity
+		set_density(TRUE)
+		atom_integrity = max_integrity
 		broken = FALSE
 		rods_amount = 2
 		rods_broken = TRUE
