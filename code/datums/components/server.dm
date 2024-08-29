@@ -44,7 +44,8 @@
 
 /datum/component/server/process(delta_time)
 	var/obj/machinery/parent_machine = parent
-	calculate_temperature()
+	if(!calculate_temperature())
+		return
 	if(temperature > overheated_temp)
 		if(!(parent_machine.machine_stat & OVERHEATED))
 			overheated(TRUE)
