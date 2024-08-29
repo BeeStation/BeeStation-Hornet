@@ -25,13 +25,14 @@
 	. = ..()
 	create_reagents(volume, OPENCONTAINER)
 	noz = make_noz()
+	RegisterSignal(noz, COMSIG_MOVABLE_MOVED, PROC_REF(noz_move))
 	update_icon()
 
 /obj/item/watertank/ui_action_click(mob/user)
 	toggle_mister(user)
 
 /obj/item/watertank/item_action_slot_check(slot, mob/user)
-	if(slot == user.getBackSlot() || slot == ITEM_SLOT_SUITSTORE)
+	if(slot == user.getBackSlot())
 		return 1
 
 /obj/item/watertank/on_reagent_change(changetype)
@@ -83,7 +84,7 @@
 /obj/item/watertank/proc/toggle_mister(mob/living/user)
 	if(!istype(user))
 		return
-	if(user.get_item_by_slot(user.getBackSlot()) != src && user.get_item_by_slot(ITEM_SLOT_SUITSTORE) != src)
+	if(user.get_item_by_slot(user.getBackSlot()) != src)
 		to_chat(user, "<span class='warning'>The watertank must be worn properly to use!</span>")
 		return
 	if(user.incapacitated())
@@ -91,6 +92,7 @@
 
 	if(QDELETED(noz))
 		noz = make_noz()
+		RegisterSignal(noz, COMSIG_MOVABLE_MOVED, PROC_REF(noz_move))
 	if(noz in src)
 		//Detach the nozzle into the user's hands
 		if(!user.put_in_hands(noz))
@@ -109,6 +111,12 @@
 /obj/item/watertank/proc/make_noz()
 	update_icon()
 	return new /obj/item/reagent_containers/spray/mister(src)
+
+/obj/item/watertank/proc/noz_move(atom/movable/mover, atom/oldloc, direction)
+	if(mover.loc == src || mover.loc == loc)
+		return
+	balloon_alert(loc, "nozzle snaps back")
+	mover.forceMove(src)
 
 /obj/item/watertank/equipped(mob/user, slot)
 	..()
@@ -141,10 +149,10 @@
 		update_icon()
 	return ..()
 
-/obj/item/watertank/attackby(obj/item/W, mob/user, params)
-	if(W == noz)
+/obj/item/watertank/attackby(obj/item/attacking_item, mob/user, params)
+	if(attacking_item == noz)
 		remove_noz()
-		return 1
+		return TRUE
 	else
 		return ..()
 
@@ -176,20 +184,12 @@
 /obj/item/reagent_containers/spray/mister/Initialize(mapload)
 	. = ..()
 	tank = loc
-	if(!istype(tank))
+	if(!tank?.reagents)
 		return INITIALIZE_HINT_QDEL
 	reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
 
 /obj/item/reagent_containers/spray/mister/attack_self()
 	return
-
-/obj/item/reagent_containers/spray/mister/doMove(atom/destination)
-	if(destination && (destination != tank?.loc || !ismob(destination)))
-		if (loc != tank)
-			to_chat(tank.loc, "<span class='notice'>The mister snaps back onto the watertank.</span>")
-		destination = tank
-		tank.update_icon()
-	..()
 
 /obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity)
 	if(target.loc == loc) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it
@@ -478,14 +478,8 @@
 	tank = null
 	return ..()
 
-/obj/item/extinguisher/mini/nozzle/doMove(atom/destination)
-	if(destination && (destination != tank.loc || !ismob(destination)))
-		if(loc != tank)
-			to_chat(tank.loc, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
-		destination = tank
-	..()
-
 /obj/item/extinguisher/mini/nozzle/attack_self(mob/user)
+	//var/uses_pack = istype(tank, /obj/item/watertank/atmos)
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			nozzle_mode = RESIN_LAUNCHER
@@ -550,10 +544,11 @@
 
 	if(nozzle_mode == RESIN_FOAM)
 		if(!Adj|| !isturf(target))
+			balloon_alert(user, "too far!")
 			return
 		for(var/S in target)
 			if(istype(S, /obj/effect/particle_effect/foam/metal/resin) || istype(S, /obj/structure/foamedmetal/resin))
-				to_chat(user, "<span class='warning'>There's already resin here!</span>")
+				balloon_alert(user, "already has resin!")
 				return
 		if(resin_synthesis_cooldown < max_foam)
 			if(toggled)
@@ -720,37 +715,3 @@
 	reagents.trans_to(user,used_amount,multiplier=usage_ratio)
 	update_icon()
 	user.update_inv_back() //for overlays update
-
-//Operator backpack spray
-/obj/item/watertank/op
-	name = "backpack water tank"
-	desc = "A New Russian backpack spray for systematic cleansing of carbon lifeforms."
-	icon_state = "waterbackpackop"
-	item_state = "waterbackpackop"
-	w_class = WEIGHT_CLASS_NORMAL
-	volume = 2000
-	slowdown = 0
-
-/obj/item/watertank/op/Initialize(mapload)
-	. = ..()
-	reagents.add_reagent(/datum/reagent/toxin/mutagen,350)
-	reagents.add_reagent(/datum/reagent/napalm,125)
-	reagents.add_reagent(/datum/reagent/fuel,125)
-	reagents.add_reagent(/datum/reagent/clf3,300)
-	reagents.add_reagent(/datum/reagent/cryptobiolin,350)
-	reagents.add_reagent(/datum/reagent/toxin/plasma,250)
-	reagents.add_reagent(/datum/reagent/consumable/condensedcapsaicin,500)
-
-/obj/item/reagent_containers/spray/mister/op
-	desc = "A mister nozzle attached to several extended water tanks. It suspiciously has a compressor in the system and is labelled entirely in New Cyrillic."
-	icon = 'icons/obj/hydroponics/equipment.dmi'
-	icon_state = "misterop"
-	item_state = "misterop"
-	lefthand_file = 'icons/mob/inhands/equipment/mister_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/mister_righthand.dmi'
-	w_class = WEIGHT_CLASS_BULKY
-	amount_per_transfer_from_this = 100
-	possible_transfer_amounts = list(75,100,150)
-
-/obj/item/watertank/op/make_noz()
-	return new /obj/item/reagent_containers/spray/mister/op(src)

@@ -1877,6 +1877,7 @@
 		"mod_magboot",
 		"mod_tether",
 		"mod_constructor",
+		"mod_mister_atmos",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 

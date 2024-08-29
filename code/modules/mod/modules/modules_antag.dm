@@ -234,3 +234,30 @@
 
 /obj/item/mod/module/noslip/on_suit_deactivation()
 	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, MOD_TRAIT)
+
+///Flamethrower - Launches fire across the area.
+/obj/item/mod/module/flamethrower
+	name = "MOD flamethrower module"
+	desc = "A custom-manufactured flamethrower, used to burn through your path. Burn well."
+	icon_state = "flamethrower"
+	module_type = MODULE_ACTIVE
+	complexity = 3
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 3
+	incompatible_modules = list(/obj/item/mod/module/flamethrower)
+	cooldown_time = 2.5 SECONDS
+	overlay_state_inactive = "module_flamethrower"
+	overlay_state_active = "module_flamethrower_on"
+
+/obj/item/mod/module/flamethrower/on_select_use(atom/target)
+	. = ..()
+	if(!.)
+		return
+	var/obj/projectile/flame = new /obj/projectile/bullet/incendiary/backblast/flamethrower(mod.wearer.loc)
+	flame.preparePixelProjectile(target, mod.wearer)
+	flame.firer = mod.wearer
+	playsound(src, 'sound/items/modsuit/flamethrower.ogg', 75, TRUE)
+	INVOKE_ASYNC(flame, /obj/projectile.proc/fire)
+	drain_power(use_power_cost)
+
+/obj/projectile/bullet/incendiary/backblast/flamethrower
+	range = 6

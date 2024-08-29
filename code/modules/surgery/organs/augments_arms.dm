@@ -165,6 +165,7 @@
 	if(hand != host.hand_bodyparts[host.active_hand_index])
 		return //wrong hand
 	Retract()
+	return COMSIG_KB_ACTIVATED
 
 /obj/item/organ/cyberimp/arm/emp_act(severity)
 	. = ..()
