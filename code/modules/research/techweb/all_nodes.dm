@@ -808,8 +808,10 @@
 	design_ids = list(
 		"assembly_shell",
 		"bot_shell",
+		"comp_mod_action",
 		"controller_shell",
 		"door_shell",
+		"module_shell",
 		"money_bot_shell",
 		"scanner_gate_shell",
 		"scanner_shell",
