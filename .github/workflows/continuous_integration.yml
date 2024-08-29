@@ -107,9 +107,6 @@ jobs:
           sudo apt update || true
           sudo apt install libssl1.1:i386
           bash tools/ci/install_rust_g.sh
-      - name: Install auxmos
-        run: |
-          bash tools/ci/install_auxmos.sh
       - name: Compile Tests
         run: |
           source $HOME/BYOND/byond/bin/byondsetup

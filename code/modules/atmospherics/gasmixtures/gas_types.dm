@@ -5,7 +5,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 /proc/meta_gas_list()
 	. = subtypesof(/datum/gas)
 	for(var/gas_path in .)
-		var/list/gas_info = new(7)
+		var/list/gas_info = new(11)
 		var/datum/gas/gas = gas_path
 
 		gas_info[META_GAS_SPECIFIC_HEAT] = initial(gas.specific_heat)
@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 		gas_info[META_GAS_FUSION_POWER] = initial(gas.fusion_power)
 		gas_info[META_GAS_DANGER] = initial(gas.dangerous)
 		gas_info[META_GAS_ID] = initial(gas.id)
-		gas_info[META_GAS_BREATH_ALERT_INFO] = gas.breath_alert_info
+		gas_info[META_GAS_BREATH_ALERT_INFO] = initial(gas.breath_alert_info)
 		gas_info[META_GAS_BREATH_REAGENT] = initial(gas.breath_reagent)
 		gas_info[META_GAS_BREATH_RESULTS] = initial(gas.breath_results)
 		gas_info[META_GAS_BREATH_REAGENT_DANGEROUS] = initial(gas.breath_reagent_dangerous)

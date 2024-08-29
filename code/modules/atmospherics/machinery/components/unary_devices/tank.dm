@@ -33,8 +33,9 @@
 /obj/machinery/atmospherics/components/unary/tank/air/New()
 	..()
 	var/datum/gas_mixture/air_contents = airs[1]
+	air_contents.assert_gas(/datum/gas/oxygen)
 	air_contents.gases[/datum/gas/oxygen][MOLES] = AIR_CONTENTS * 0.2
-
+	air_contents.assert_gas(/datum/gas/nitrogen)
 	air_contents.gases[/datum/gas/nitrogen][MOLES] = AIR_CONTENTS * 0.8
 
 
