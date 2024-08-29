@@ -17,7 +17,7 @@
 	friendly_verb_continuous = "nudges"
 	friendly_verb_simple = "nudge"
 	density = FALSE
-	movement_type = FLYING
+	is_flying_animal = TRUE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)

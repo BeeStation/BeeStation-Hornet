@@ -45,7 +45,7 @@
 		if(!isbook(I))
 			continue
 		I.forceMove(src)
-	update_appearance()
+	update_icon_state()
 
 /obj/structure/bookcase/examine(mob/user)
 	. = ..()
@@ -140,8 +140,6 @@
 	if(.)
 		return
 	if(!istype(user))
-		return
-	if(!length(contents))
 		return
 	if(load_random_books)
 		create_random_books(books_to_load, src, FALSE, random_category)

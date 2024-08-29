@@ -246,7 +246,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 		if(X.monkeys >= 1)
 			var/mob/living/carbon/human/species/monkey/food = new /mob/living/carbon/human/species/monkey(remote_eye.loc, TRUE, owner)
 			if (!QDELETED(food))
-				food.LAssailant = WEAKREF(C)
 				X.monkeys--
 				X.monkeys = round(X.monkeys, 0.1)		//Prevents rounding errors
 				to_chat(owner, "[X] now has [X.monkeys] monkeys stored.")
@@ -452,7 +451,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 		if(X.monkeys >= 1)
 			var/mob/living/carbon/human/species/monkey/food = new /mob/living/carbon/human/species/monkey(T, TRUE, C)
 			if (!QDELETED(food))
-				food.LAssailant = WEAKREF(C)
 				X.monkeys--
 				X.monkeys = round(X.monkeys, 0.1)		//Prevents rounding errors
 				to_chat(C, "[X] now has [X.monkeys] monkeys stored.")

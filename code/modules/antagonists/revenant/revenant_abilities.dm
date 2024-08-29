@@ -56,6 +56,7 @@
 
 /mob/living/simple_animal/revenant/orbit(atom/target)
 	setDir(SOUTH) // reset dir so the right directional sprites show up
+	REMOVE_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 	return ..()
 
 
