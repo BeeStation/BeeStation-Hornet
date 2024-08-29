@@ -313,7 +313,7 @@
 		the user being able to run at greater speeds for much longer distances and times than an unsuited equivalent. \
 		A lot of people would say loading cargo is a dull job. You could not disagree more."
 	default_skin = "loader"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 10, FIRE = 25, ACID = 25, WOUND = 5)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 10, FIRE = 25, ACID = 25, BLEED = 5)
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	permeability_coefficient = 0.5

@@ -258,7 +258,7 @@
 
 /obj/item/mod/core/plasma/install(obj/item/mod/control/mod_unit)
 	. = ..()
-	RegisterSignal(mod, COMSIG_PARENT_ATTACKBY, .proc/on_attackby)
+	RegisterSignal(mod, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
 
 /obj/item/mod/core/plasma/uninstall()
 	UnregisterSignal(mod, COMSIG_PARENT_ATTACKBY)

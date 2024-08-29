@@ -382,7 +382,7 @@
 /obj/item/mod/module/ash_accretion/on_suit_activation()
 	mod.wearer.weather_immunities += "ash"
 	mod.wearer.weather_immunities += "snow"
-	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, .proc/on_move)
+	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
 /obj/item/mod/module/ash_accretion/on_suit_deactivation()
 	mod.wearer.weather_immunities -= "ash"
@@ -475,7 +475,7 @@
 	mod.wearer.RemoveElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 	mod.wearer.AddElement(/datum/element/footstep, FOOTSTEP_OBJ_ROBOT, 1, -6, sound_vary = TRUE)
 	mod.wearer.add_movespeed_modifier(/datum/movespeed_modifier/sphere)
-	RegisterSignal(mod.wearer, COMSIG_MOB_STATCHANGE, .proc/on_statchange)
+	RegisterSignal(mod.wearer, COMSIG_MOB_STATCHANGE, PROC_REF(on_statchange))
 
 /obj/item/mod/module/sphere_transform/on_deactivation(display_message = TRUE)
 	. = ..()
@@ -484,7 +484,7 @@
 	playsound(src, 'sound/items/modsuit/ballout.ogg', 100)
 	mod.wearer.base_pixel_y = 0
 	animate(mod.wearer, animate_time, pixel_y = mod.wearer.base_pixel_y)
-	addtimer(CALLBACK(mod.wearer, /atom.proc/remove_filter, list("mod_ball", "mod_blur", "mod_outline")), animate_time)
+	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/atom, remove_filter), list("mod_ball", "mod_blur", "mod_outline")), animate_time)
 	mod.wearer.weather_immunities -= "lava"
 	REMOVE_TRAIT(mod.wearer, TRAIT_HANDS_BLOCKED, MOD_TRAIT)
 	REMOVE_TRAIT(mod.wearer, TRAIT_FORCED_STANDING, MOD_TRAIT)
@@ -510,7 +510,7 @@
 	bomb.preparePixelProjectile(target, mod.wearer)
 	bomb.firer = mod.wearer
 	playsound(src, 'sound/weapons/grenadelaunch.ogg', 75, TRUE)
-	INVOKE_ASYNC(bomb, /obj/projectile.proc/fire)
+	INVOKE_ASYNC(bomb, TYPE_PROC_REF(/obj/projectile, fire))
 	drain_power(use_power_cost)
 
 /obj/item/mod/module/sphere_transform/on_active_process(delta_time)
@@ -573,11 +573,11 @@
 		explosion_image.pixel_x = -32
 		explosion_image.pixel_y = -32
 		explosion_image.plane = ABOVE_GAME_PLANE
-	addtimer(CALLBACK(src, .proc/prime), prime_time)
+	addtimer(CALLBACK(src, PROC_REF(prime)), prime_time)
 
 /obj/structure/mining_bomb/proc/prime()
 	add_overlay(explosion_image)
-	addtimer(CALLBACK(src, .proc/boom), explosion_time)
+	addtimer(CALLBACK(src, PROC_REF(boom)), explosion_time)
 
 /obj/structure/mining_bomb/proc/boom()
 	visible_message("<span class='danger'>[src] explodes!</span>")
