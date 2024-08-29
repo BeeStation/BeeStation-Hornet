@@ -4,7 +4,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/gloves/color/white,
-/obj/item/clothing/head/rabbitears,
+/obj/item/clothing/head/costume/rabbitears,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (

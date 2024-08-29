@@ -23,7 +23,6 @@
 	if (myturf.lighting_object)
 		qdel(myturf.lighting_object, force = TRUE)
 	myturf.lighting_object = src
-	myturf.luminosity = 0
 
 	additive_underlay = mutable_appearance(LIGHTING_ICON, "light", FLOAT_LAYER, LIGHTING_PLANE_ADDITIVE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM)
 	additive_underlay.blend_mode = BLEND_ADD
@@ -40,7 +39,6 @@
 			stack_trace("A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
 		if (isturf(myturf))
 			myturf.lighting_object = null
-			myturf.luminosity = initial(myturf.luminosity)
 			myturf.underlays -= additive_underlay
 		myturf = null
 
@@ -148,6 +146,8 @@
 	else
 		myturf.underlays -= additive_underlay
 
+	// Use luminosity directly because we are the lighting object
+	// and not the turf
 	luminosity = set_luminosity
 
 	if (myturf.above)

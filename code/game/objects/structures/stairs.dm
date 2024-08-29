@@ -3,7 +3,7 @@
 #define STAIR_TERMINATOR_YES 2
 
 // dir determines the direction of travel to go upwards
-// stairs require /turf/open/openspace as the tile above them to work, unless your stairs have 'force_open_above' set to TRUE
+// stairs require /turf/open/transparentopenspace as the tile above them to work, unless your stairs have 'force_open_above' set to TRUE
 // multiple stair objects can be chained together; the Z level transition will happen on the final stair object in the chain
 
 /obj/structure/stairs

@@ -297,8 +297,7 @@
 		storm.telegraph()
 
 	storm.area_type = source_area.type
-	storm.impacted_areas = list(source_area)
-	storm.update_areas()
+	storm.update_areas(list(source_area))
 
 /**
  * Signal proc for [COMSIG_MOB_DEATH].

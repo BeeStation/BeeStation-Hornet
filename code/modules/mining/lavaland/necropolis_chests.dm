@@ -28,15 +28,6 @@
 	to_chat(user, "<span class='notice'>You disable the magic lock with the [item].</span>")
 	return TRUE
 
-
-/obj/effect/spawner/mail/maintloot
-	name = "\improper Random maintenance loot spawner"
-
-/obj/effect/spawner/mail/maintloot/Initialize()
-	var/static/list/mail_maintloot = pick(GLOB.maintenance_loot)
-	new mail_maintloot(loc)
-	return ..()
-
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
@@ -149,6 +140,7 @@
 	desc = "A mysterious pendant. An inscription on it says: \"Certain death tomorrow means certain life today.\""
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "memento_mori"
+	worn_icon_state = "memento"
 	actions_types = list(/datum/action/item_action/hands_free/memento_mori)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/mob/living/carbon/human/active_owner
@@ -395,9 +387,6 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	anchored = TRUE
 
-/obj/effect/warp_cube/ex_act(severity, target)
-	return
-
 //Meat Hook
 /obj/item/gun/magic/hook
 	name = "meat hook"
@@ -418,7 +407,6 @@
 	desc = "A hook."
 	projectile_type = /obj/projectile/hook
 	caliber = "hook"
-	icon_state = "hook"
 
 /obj/projectile/hook
 	name = "hook"
@@ -430,6 +418,7 @@
 	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
 	knockdown = 30
+	bleed_force = BLEED_SURFACE
 	var/chain
 
 /obj/projectile/hook/fire(setAngle)
@@ -480,7 +469,7 @@
 
 /obj/item/immortality_talisman/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE)
 
 /datum/action/item_action/immortality
 	name = "Immortality"
@@ -532,9 +521,6 @@
 /obj/effect/immortality_talisman/attackby()
 	return
 
-/obj/effect/immortality_talisman/ex_act()
-	return
-
 /obj/effect/immortality_talisman/singularity_pull()
 	return
 
@@ -552,9 +538,10 @@
 /obj/item/shared_storage
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
-	icon = 'icons/obj/storage/crates.dmi'
-	icon_state = "cultpack"
-	slot_flags = ITEM_SLOT_BACK
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "paradox_bag"
+	worn_icon_state = "paradoxbag"
+	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/item/shared_storage/red
@@ -651,7 +638,7 @@
 				C.emote("scream")
 		if(holycheck)
 			to_chat(C, "<span class='notice'>You feel blessed!</span>")
-			ADD_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)
+			C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = FALSE, _holy = TRUE)
 	..()
 
 
@@ -668,7 +655,7 @@
 	to_chat(user, "<span class='notice'>You unfold the ladder. It extends much farther than you were expecting.</span>")
 	var/last_ladder = null
 	for(var/i in 1 to world.maxz)
-		if(is_centcom_level(i) || is_reserved_level(i) || is_reebe(i) || is_away_level(i))
+		if(is_centcom_level(i) || is_reserved_level(i) || is_reebe(i) || is_away_level(i) || is_debug_level(i))
 			continue
 		var/turf/T2 = locate(ladder_x, ladder_y, i)
 		last_ladder = new /obj/structure/ladder/unbreakable/jacob(T2, null, last_ladder)
@@ -716,13 +703,15 @@
 	inhand_y_dimension = 64
 	icon_state = "cleaving_saw"
 	icon_state_on = "cleaving_saw_open"
+	worn_icon_state = "cleaving_saw"
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb_off = list("attacked", "sawed", "sliced", "tore", "ripped", "diced", "cut")
-	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
+	attack_verb_off = list("attacks", "saws", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_on = list("cleaves", "swipes", "slashes", "chops")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	hitsound_on = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	faction_bonus_force = 45
 	nemesis_factions = list("mining", "boss")
 	var/transform_cooldown
@@ -816,6 +805,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1
@@ -824,7 +814,8 @@
 	block_power = 20
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	hitsound = 'sound/effects/ghost2.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "rended")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "rend")
 	var/summon_cooldown = 0
 	var/list/mob/dead/observer/spirits
 
@@ -1123,7 +1114,8 @@
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 5 //Melee attacks also invoke a 15 burn damage AoE, for a total of 20 damage
-	attack_verb = list("clubbed", "beat", "pummeled")
+	attack_verb_continuous = list("clubs", "beats", "pummels")
+	attack_verb_simple = list("club", "beat", "pummel")
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	actions_types = list(/datum/action/item_action/vortex_recall, /datum/action/item_action/toggle_unfriendly_fire)
 	var/power = 15 //Damage of the magic tiles

@@ -128,6 +128,7 @@
 	name = "shamrock"
 	desc = "Luck of the irish."
 	icon_state = "shamrock"
+	worn_icon_state = "geranium"
 	slot_flags = ITEM_SLOT_HEAD
 	bite_consumption_mod = 3
 	can_distill = FALSE

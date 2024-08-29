@@ -69,6 +69,7 @@
 
 	if(cult_team.blood_target && cult_team.blood_target_image && current.client)
 		current.client.images += cult_team.blood_target_image
+	current.update_alt_appearances()
 
 /datum/antagonist/cult/proc/equip_cultist(metal=TRUE)
 	var/mob/living/carbon/C = owner.current
@@ -175,6 +176,7 @@
 		owner.current.log_message("has renounced the cult of Nar'Sie!", LOG_ATTACK, color="#960000")
 	if(cult_team.blood_target && cult_team.blood_target_image && owner.current.client)
 		owner.current.client.images -= cult_team.blood_target_image
+	owner.current.update_alt_appearances()
 	. = ..()
 
 /datum/antagonist/cult/admin_add(datum/mind/new_owner,mob/admin)
@@ -293,7 +295,7 @@
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		var/istate = pick("halo1","halo2","halo3","halo4","halo5","halo6")
 		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
-		new_halo_overlay.overlays.Add(emissive_appearance('icons/effects/32x64.dmi', istate, CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER), 160))
+		new_halo_overlay.overlays.Add(emissive_appearance('icons/effects/32x64.dmi', istate, CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER), 160, filters = H.filters))
 		ADD_LUM_SOURCE(H, LUM_SOURCE_HOLY)
 		H.overlays_standing[HALO_LAYER] = new_halo_overlay
 		H.apply_overlay(HALO_LAYER)

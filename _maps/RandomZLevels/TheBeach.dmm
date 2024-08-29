@@ -123,9 +123,9 @@
 	desc = "Now this is what island exploration is all about.";
 	name = "Treasure Chest"
 	},
-/obj/item/clothing/head/pirate,
+/obj/item/clothing/head/costume/pirate,
 /obj/item/clothing/glasses/eyepatch,
-/obj/item/clothing/suit/pirate,
+/obj/item/clothing/suit/costume/pirate,
 /obj/item/melee/sabre{
 	desc = "This isn't real however it can trick someone into thinking you have something real..";
 	force = 0;

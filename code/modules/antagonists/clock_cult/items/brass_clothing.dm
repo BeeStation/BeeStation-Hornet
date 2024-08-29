@@ -3,7 +3,9 @@
 	desc = "A strong, brass suit worn by the soldiers of the Ratvarian armies."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass"
-	armor = list(MELEE = 50,  BULLET = 60, LASER = 30, ENERGY = 80, BOMB = 80, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 60)
+	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
+	worn_icon_state = "clockwork_cuirass"
+	armor = list(MELEE = 50,  BULLET = 60, LASER = 30, ENERGY = 80, BOMB = 80, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 60, BLEED = 60)
 	slowdown = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
@@ -33,18 +35,18 @@
 /obj/item/clothing/suit/clockwork/speed
 	name = "robes of divinity"
 	desc = "A shiny suit, glowing with a vibrant energy. The wearer will be able to move quickly across battlefields, but will be able to withstand less damage before falling."
-	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass_speed"
+	worn_icon_state = "clockwork_cuirass_speed"
 	slowdown = -0.3
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 40,  BULLET = 40, LASER = 10, ENERGY = -20, BOMB = 60, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 30)
+	armor = list(MELEE = 40,  BULLET = 40, LASER = 10, ENERGY = -20, BOMB = 60, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 30, BLEED = 40)
 
 /obj/item/clothing/suit/clockwork/cloak
 	name = "shrouding cloak"
 	desc = "A faltering cloak that bends light around it, distorting the user's appearance, making it hard to see them with the naked eye. However, it provides very little protection."
-	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cloak"
-	armor = list(MELEE = 10,  BULLET = 60, LASER = 40, ENERGY = 20, BOMB = 40, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 20)
+	worn_icon_state = "clockwork_cloak"
+	armor = list(MELEE = 10,  BULLET = 60, LASER = 40, ENERGY = 20, BOMB = 40, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 20, BLEED = 20)
 	slowdown = 0.4
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/shroud_active = FALSE
@@ -73,6 +75,7 @@
 	name = "base clock glasses"
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass"
+	worn_icon_state = "wraith_specs"
 
 /obj/item/clothing/glasses/clockwork/equipped(mob/user, slot)
 	. = ..()
@@ -140,7 +143,7 @@
 	desc = "A strong, brass helmet worn by the soldiers of the Ratvarian armies. Includes an integrated light-dimmer for flash protection, as well as occult-grade muffling for factory based environments."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_helmet"
-	armor = list(MELEE = 50,  BULLET = 60, LASER = 30, ENERGY = 80, BOMB = 80, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 60)
+	armor = list(MELEE = 50,  BULLET = 60, LASER = 30, ENERGY = 80, BOMB = 80, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 60, BLEED = 60)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
 	flash_protect = 1
@@ -165,4 +168,4 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 0, BLEED = 0, BLEED = 20)

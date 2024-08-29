@@ -25,7 +25,6 @@
 //port:					5  items,  5 spots 0 extra (08/08/2014)
 
 GLOBAL_LIST_INIT(maintenance_loot, list(
-	"" = 3,
 	/obj/effect/spawner/lootdrop/gloves = 8,
 	/obj/effect/spawner/lootdrop/glowstick = 4,
 	/obj/item/airlock_painter = 1,
@@ -45,11 +44,11 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/clothing/gloves/color/fyellow = 1,
 	/obj/item/clothing/head/cone = 1,
 	/obj/item/clothing/head/cone = 2,
-	/obj/item/clothing/head/hardhat = 1,
-	/obj/item/clothing/head/hardhat/red = 1,
-	/obj/item/clothing/head/that = 1,
-	/obj/item/clothing/head/ushanka = 1,
-	/obj/item/clothing/head/welding = 1,
+	/obj/item/clothing/head/utility/hardhat = 1,
+	/obj/item/clothing/head/utility/hardhat/red = 1,
+	/obj/item/clothing/head/hats/tophat = 1,
+	/obj/item/clothing/head/costume/ushanka = 1,
+	/obj/item/clothing/head/utility/welding = 1,
 	/obj/item/clothing/mask/gas/old = 15,		//greytide
 	/obj/item/clothing/shoes/laceup = 1,
 	/obj/item/clothing/suit/hazardvest = 1,
@@ -81,7 +80,6 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/reagent_containers/pill/floorpill = 4,
 	/obj/item/reagent_containers/spray/pestspray = 1,
 	/obj/item/reagent_containers/syringe/used = 4,
-	/obj/item/relic = 3,
 	/obj/item/screwdriver = 3,
 	/obj/item/stack/cable_coil/random = 4,
 	/obj/item/stack/cable_coil/random/five = 6,

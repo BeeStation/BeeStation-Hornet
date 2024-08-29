@@ -297,10 +297,10 @@
 /area/ruin/powered/golem_ship)
 "aW" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/bandana,
-/obj/item/clothing/head/bandana,
-/obj/item/clothing/head/bandana,
-/obj/item/clothing/head/crown,
+/obj/item/clothing/head/costume/pirate/bandana,
+/obj/item/clothing/head/costume/pirate/bandana,
+/obj/item/clothing/head/costume/pirate/bandana,
+/obj/item/clothing/head/costume/crown,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 "aX" = (

@@ -6,8 +6,6 @@
 	item_state = "wheelys"
 	greyscale_colors = "#545454#ffffff"
 	greyscale_config = /datum/greyscale_config/sneakers_wheelys
-	worn_x_dimension = 64
-	worn_y_dimension = 64
 	actions_types = list(/datum/action/item_action/wheelys)
 	///False means wheels are not popped out
 	var/wheelToggle = FALSE

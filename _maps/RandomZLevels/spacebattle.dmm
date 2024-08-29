@@ -773,16 +773,6 @@
 /obj/item/stack/rods,
 /turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
-"dK" = (
-/obj/mecha/medical/odysseus,
-/turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
-"dL" = (
-/obj/mecha/working/ripley/firefighter{
-	ruin_mecha = 1
-	},
-/turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
 "dM" = (
 /obj/structure/closet/crate{
 	name = "Gold Crate"
@@ -2003,20 +1993,9 @@
 "jk" = (
 /turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
-"jm" = (
-/turf/open/floor/iron/rockvault/alien,
-/area/awaymission/spacebattle/secret)
 "jn" = (
 /turf/closed/wall/mineral/plasma,
 /area/awaymission/spacebattle/secret)
-"jo" = (
-/obj/item/clothing/suit/space/hardsuit/wizard,
-/turf/open/floor/iron/rockvault/alien,
-/area/awaymission/spacebattle/secret)
-"jp" = (
-/obj/mecha/combat/gygax,
-/turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
 "jq" = (
 /obj/structure/closet/crate{
 	name = "Gold Crate"
@@ -2047,12 +2026,6 @@
 "jv" = (
 /mob/living/simple_animal/hostile/nanotrasen/ranged,
 /turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
-"jz" = (
-/mob/living/simple_animal/hostile/syndicate/mecha_pilot{
-	spawn_mecha_type = /obj/mecha/combat/gygax/dark/loaded
-	},
-/turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
 "jA" = (
 /mob/living/simple_animal/hostile/nanotrasen/ranged/smg,
@@ -2151,18 +2124,6 @@
 /area/awaymission/spacebattle/cruiser)
 "jU" = (
 /mob/living/simple_animal/hostile/syndicate/ranged/smg/space,
-/turf/open/floor/iron/airless,
-/area/awaymission/spacebattle/cruiser)
-"jV" = (
-/mob/living/simple_animal/hostile/syndicate/mecha_pilot{
-	spawn_mecha_type = /obj/mecha/combat/gygax/dark/loaded
-	},
-/turf/open/floor/plating/airless,
-/area/awaymission/spacebattle/cruiser)
-"jW" = (
-/mob/living/simple_animal/hostile/syndicate/mecha_pilot{
-	spawn_mecha_type = /obj/mecha/combat/gygax/dark/loaded
-	},
 /turf/open/floor/iron/airless,
 /area/awaymission/spacebattle/cruiser)
 "jX" = (
@@ -2439,6 +2400,10 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
+"pS" = (
+/obj/vehicle/sealed/mecha/combat/gygax,
+/turf/open/floor/plating,
+/area/awaymission/spacebattle/cruiser)
 "qg" = (
 /obj/machinery/computer/crew{
 	dir = 8
@@ -2485,6 +2450,12 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
+"wc" = (
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot{
+	spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/gygax/dark/loaded
+	},
+/turf/open/floor/plating/airless,
+/area/awaymission/spacebattle/cruiser)
 "xd" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -2495,6 +2466,10 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
+/area/awaymission/spacebattle/cruiser)
+"xq" = (
+/obj/vehicle/sealed/mecha/medical/odysseus,
+/turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "xx" = (
 /obj/structure/table/reinforced,
@@ -2613,12 +2588,19 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
+"IS" = (
+/obj/item/clothing/suit/space/hardsuit/wizard,
+/turf/open/floor/vault/alien,
+/area/awaymission/spacebattle/secret)
 "JP" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
+"Ls" = (
+/turf/open/floor/vault/alien,
+/area/awaymission/spacebattle/secret)
 "NZ" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
@@ -2636,6 +2618,12 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
+"PV" = (
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot{
+	spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/gygax/dark/loaded
+	},
+/turf/open/floor/iron/airless,
+/area/awaymission/spacebattle/cruiser)
 "Qt" = (
 /obj/structure/chair{
 	dir = 1
@@ -2647,6 +2635,12 @@
 /obj/structure/chair,
 /obj/effect/landmark/awaystart,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/awaymission/spacebattle/cruiser)
+"Rz" = (
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot{
+	spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/gygax/dark/loaded
+	},
 /turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
 "RG" = (
@@ -27771,8 +27765,8 @@ cc
 cc
 cc
 bT
-dK
-jp
+xq
+pS
 cK
 cK
 cK
@@ -28028,8 +28022,8 @@ cc
 cA
 cc
 bT
-dL
-dL
+cK
+cK
 cK
 cK
 cK
@@ -33446,7 +33440,7 @@ cc
 cc
 cc
 cc
-jz
+Rz
 cc
 cc
 cc
@@ -39862,7 +39856,7 @@ fA
 fU
 gh
 cZ
-jV
+wc
 cZ
 cZ
 hh
@@ -45773,7 +45767,7 @@ ab
 ab
 bT
 jS
-jW
+PV
 jS
 cZ
 ke
@@ -51675,7 +51669,7 @@ cn
 cp
 cn
 cc
-jz
+Rz
 cc
 cc
 cc
@@ -64385,15 +64379,15 @@ jk
 jk
 aa
 jn
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
 jn
 aa
 aa
@@ -64642,15 +64636,15 @@ jk
 jk
 aa
 jn
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
 jn
 aa
 aa
@@ -64899,15 +64893,15 @@ jk
 jk
 aa
 jn
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
 jn
 aa
 aa
@@ -65156,15 +65150,15 @@ jk
 jk
 aa
 jn
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
 jn
 aa
 aa
@@ -65413,15 +65407,15 @@ jk
 jk
 aa
 jn
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
 jn
 aa
 aa
@@ -65670,15 +65664,15 @@ jk
 jk
 aa
 jn
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
 jn
 aa
 aa
@@ -65927,15 +65921,15 @@ jk
 aa
 aa
 jn
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
 jn
 aa
 aa
@@ -66184,15 +66178,15 @@ aa
 aa
 aa
 jn
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
 jn
 aa
 aa
@@ -66441,15 +66435,15 @@ aa
 aa
 aa
 jn
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
 jn
 aa
 aa
@@ -66698,15 +66692,15 @@ aa
 aa
 aa
 jn
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
+Ls
 jn
 aa
 aa
@@ -66955,15 +66949,15 @@ aa
 aa
 aa
 jn
-jm
-jm
-jm
-jm
-jo
-jm
-jm
-jm
-jm
+Ls
+Ls
+Ls
+Ls
+IS
+Ls
+Ls
+Ls
+Ls
 jn
 aa
 aa

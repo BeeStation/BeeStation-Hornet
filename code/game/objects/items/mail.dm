@@ -321,11 +321,13 @@
 /obj/item/paper/fluff/junkmail_redpill
 	name = "smudged paper"
 	icon_state = "scrap"
+	show_written_words = FALSE
 	var/nuclear_option_odds = 0.1
 
 /obj/item/paper/fluff/nice_argument
 	name = "RE: Nice Argument..."
 	icon_state = "paper"
+	show_written_words = FALSE
 
 /obj/item/paper/fluff/nice_argument/Initialize()
 	. = ..()

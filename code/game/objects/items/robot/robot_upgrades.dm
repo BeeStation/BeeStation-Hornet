@@ -820,7 +820,7 @@
 /obj/item/borg/upgrade/speciality/kitchen
 	name = "Cook Speciality"
 	desc = "A service cyborg upgrade allowing for basic food handling."
-	hat = /obj/item/clothing/head/chefhat
+	hat = /obj/item/clothing/head/utility/chefhat
 	addmodules = list (
 		/obj/item/knife/kitchen,
 		/obj/item/kitchen/rollingpin,
@@ -835,7 +835,7 @@
 /obj/item/borg/upgrade/speciality/botany
 	name = "Botany Speciality"
 	desc = "A service cyborg upgrade allowing for plant tending and manipulation."
-	hat = /obj/item/clothing/head/rice_hat
+	hat = /obj/item/clothing/head/costume/rice_hat
 	addmodules = list (
 		/obj/item/storage/bag/plants/portaseeder,
 		/obj/item/cultivator,
@@ -850,7 +850,7 @@
 /obj/item/borg/upgrade/speciality/casino
 	name = "Gambler Speciality"
 	desc = "It's not crew harm if they do it themselves!"
-	hat = /obj/item/clothing/head/rabbitears
+	hat = /obj/item/clothing/head/costume/rabbitears
 	addmodules = list (
 		/obj/item/gobbler,
 		/obj/item/storage/pill_bottle/dice_cup/cyborg,

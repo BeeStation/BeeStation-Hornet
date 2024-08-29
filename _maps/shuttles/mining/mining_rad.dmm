@@ -10,8 +10,7 @@
 	pixel_x = 1;
 	pixel_y = 2
 	},
-/obj/machinery/camera/autoname{
-	dir = 4;
+/obj/machinery/camera/autoname/directional/west{
 	network = list("ss13","cargo")
 	},
 /turf/open/floor/iron/tech/grid,

@@ -85,8 +85,12 @@
 
 //#define LOWMEMORYMODE
 #ifdef LOWMEMORYMODE
-#warn WARNING: Compiling with LOWMEMORYMODE.
-#define FORCE_MAP "runtimestation"
+	#warn WARNING: Compiling with LOWMEMORYMODE.
+	#ifdef FORCE_MAP
+	#warn WARNING: FORCE_MAP is already defined.
+	#else
+	#define FORCE_MAP "runtimestation"
+	#endif
 #endif
 
 //TODO Remove the SDMM check when it supports 1568

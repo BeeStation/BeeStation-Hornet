@@ -329,7 +329,7 @@
 	desc = "A pair of thin metallic membranes."
 	flight_level = WINGS_FLIGHTLESS
 	wing_type = "Clockwork"
-	icon_state = "clockwork"
+	icon_state = "clockwings"
 	basewings = "moth_wings"
 	canopen = FALSE
 

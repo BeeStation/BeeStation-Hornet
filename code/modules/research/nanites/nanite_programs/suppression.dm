@@ -134,10 +134,6 @@
 	trigger_cost = 3
 	trigger_cooldown = 20
 	rogue_types = list(/datum/nanite_program/brain_misfire, /datum/nanite_program/brain_decay)
-	var/static/list/blacklist = list(
-		"*surrender",
-		"*collapse"
-	)
 
 /datum/nanite_program/comm/speech/register_extra_settings()
 	. = ..()
@@ -155,8 +151,6 @@
 	if(!comm_message)
 		var/datum/nanite_extra_setting/sentence = extra_settings[NES_SENTENCE]
 		sent_message = sentence.get_value()
-	if(sent_message in blacklist)
-		return
 	to_chat(host_mob, "<span class='warning'>You feel compelled to speak...</span>")
 	host_mob.say(sent_message, forced = "nanite speech")
 

@@ -29,7 +29,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "k" = (
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizard_plushie,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "m" = (

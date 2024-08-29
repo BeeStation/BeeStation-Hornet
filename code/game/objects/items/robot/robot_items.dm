@@ -76,7 +76,7 @@
 					user.do_attack_animation(M, ATTACK_EFFECT_BOOP)
 					playsound(loc, 'sound/weapons/tap.ogg', 50, 1, -1)
 				else if(ishuman(M))
-					if(!(user.mobility_flags & MOBILITY_STAND))
+					if(user.body_position == LYING_DOWN)
 						user.visible_message("<span class='notice'>[user] shakes [M] trying to get [M.p_them()] up!</span>", \
 										"<span class='notice'>You shake [M] trying to get [M.p_them()] up!</span>")
 					else
@@ -91,7 +91,7 @@
 		if(1)
 			if(M.health >= 0)
 				if(ishuman(M))
-					if(!(M.mobility_flags & MOBILITY_STAND))
+					if(M.body_position == LYING_DOWN)
 						user.visible_message("<span class='notice'>[user] shakes [M] trying to get [M.p_them()] up!</span>", \
 										"<span class='notice'>You shake [M] trying to get [M.p_them()] up!</span>")
 					else if(user.is_zone_selected(BODY_ZONE_HEAD, precise_only = TRUE))
@@ -114,7 +114,6 @@
 						M.electrocute_act(5, "[user]", flags = SHOCK_NOGLOVES)
 						user.visible_message("<span class='userdanger'>[user] electrocutes [M] with [user.p_their()] touch!</span>", \
 							"<span class='danger'>You electrocute [M] with your touch!</span>")
-						M.update_mobility()
 					else
 						if(!iscyborg(M))
 							M.adjustFireLoss(10)
@@ -592,6 +591,7 @@
 	icon_state = "gumball"
 	ammo_type = /obj/item/food/gumball/cyborg
 	nodamage = TRUE
+	bleed_force = 0
 
 /obj/projectile/bullet/reusable/gumball/handle_drop()
 	if(!dropped)
@@ -612,6 +612,7 @@
 	ammo_type = /obj/item/food/lollipop/cyborg
 	var/color2 = rgb(0, 0, 0)
 	nodamage = TRUE
+	bleed_force = 0
 
 /obj/projectile/bullet/reusable/lollipop/Initialize(mapload)
 	. = ..()
@@ -635,7 +636,8 @@
 	name = "\improper Hyperkinetic Dampening projector"
 	desc = "A device that projects a dampening field that weakens kinetic energy above a certain threshold. <span class='boldnotice'>Projects a field that drains power per second while active, that will weaken and slow damaging projectiles inside its field.</span> Still being a prototype, it tends to induce a charge on ungrounded metallic surfaces."
 	icon = 'icons/obj/device.dmi'
-	icon_state = "shield"
+	icon_state = "shield0"
+	base_icon_state = "shield"
 	var/maxenergy = 1500
 	var/energy = 1500
 	/// Recharging rate in energy per second
@@ -688,7 +690,7 @@
 	to_chat(user, "<span class='boldnotice'>You [active? "activate":"deactivate"] [src].</span>")
 
 /obj/item/borg/projectile_dampen/update_icon_state()
-	icon_state = "[initial(icon_state)][active]"
+	icon_state = "[base_icon_state][active]"
 	return ..()
 
 /obj/item/borg/projectile_dampen/proc/activate_field()
@@ -701,7 +703,8 @@
 	active = TRUE
 
 /obj/item/borg/projectile_dampen/proc/deactivate_field()
-	QDEL_NULL(dampening_field)
+	if(istype(dampening_field))
+		QDEL_NULL(dampening_field)
 	visible_message("<span class='warning'>\The [src] shuts off!</span>")
 	for(var/P in tracked)
 		restore_projectile(P)

@@ -721,8 +721,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!holder)
 		return
 	var/list/names = list()
-	for(var/i in GLOB.ruin_landmarks)
-		var/obj/effect/landmark/ruin/ruin_landmark = i
+	for(var/obj/effect/landmark/ruin/ruin_landmark as anything in GLOB.ruin_landmarks)
 		var/datum/map_template/ruin/template = ruin_landmark.ruin_template
 
 		var/count = 1
@@ -1030,6 +1029,72 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 /proc/cmp_timer_data(list/a, list/b)
 	return b["count"] - a["count"]
+
+#ifdef TESTING
+/client/proc/check_missing_sprites()
+	set category = "Debug"
+	set name = "Debug Worn Item Sprites"
+	set desc = "We're cancelling the Spritemageddon. (This will create a LOT of runtimes! Don't use on a live server!)"
+	var/actual_file_name
+	for(var/test_obj in subtypesof(/obj/item))
+		var/obj/item/sprite = new test_obj
+		if(!sprite.slot_flags || (sprite.item_flags & ABSTRACT))
+			continue
+		//Is there an explicit worn_icon to pick against the worn_icon_state? Easy street expected behavior.
+		if(sprite.worn_icon)
+			if(!(sprite.icon_state in icon_states(sprite.worn_icon)))
+				to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Slot Flags are [sprite.slot_flags].</span>")
+		else if(sprite.worn_icon_state)
+			if(sprite.slot_flags & ITEM_SLOT_MASK)
+				actual_file_name = 'icons/mob/clothing/mask.dmi'
+				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Mask slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_NECK)
+				actual_file_name = 'icons/mob/clothing/neck.dmi'
+				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Neck slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_BACK)
+				actual_file_name = 'icons/mob/clothing/back.dmi'
+				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Back slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_HEAD)
+				actual_file_name = 'icons/mob/clothing/head/default.dmi'
+				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Head slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_BELT)
+				actual_file_name = 'icons/mob/clothing/belt.dmi'
+				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Belt slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_SUITSTORE)
+				actual_file_name = 'icons/mob/clothing/belt_mirror.dmi'
+				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Suit Storage slot.</span>")
+		else if(sprite.icon_state)
+			if(sprite.slot_flags & ITEM_SLOT_MASK)
+				actual_file_name = 'icons/mob/clothing/mask.dmi'
+				if(!(sprite.icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Mask slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_NECK)
+				actual_file_name = 'icons/mob/clothing/neck.dmi'
+				if(!(sprite.icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Neck slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_BACK)
+				actual_file_name = 'icons/mob/clothing/back.dmi'
+				if(!(sprite.icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Back slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_HEAD)
+				actual_file_name = 'icons/mob/clothing/head/default.dmi'
+				if(!(sprite.icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Head slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_BELT)
+				actual_file_name = 'icons/mob/clothing/belt.dmi'
+				if(!(sprite.icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Belt slot.</span>")
+			if(sprite.slot_flags & ITEM_SLOT_SUITSTORE)
+				actual_file_name = 'icons/mob/clothing/belt_mirror.dmi'
+				if(!(sprite.icon_state in icon_states(actual_file_name)))
+					to_chat(src, "<span class='warning'>ERROR sprites for [sprite.type]. Suit Storage slot.</span>")
+#endif
 
 /*
  * Test Luminosity Changes vs Dview

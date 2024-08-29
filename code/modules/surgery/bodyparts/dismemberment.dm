@@ -27,9 +27,7 @@
 	drop_limb()
 
 	C.update_equipment_speed_mods() // Update in case speed affecting item unequipped by dismemberment
-	var/turf/location = C.loc
-	if(istype(location))
-		C.add_splatter_floor(location)
+	C.add_bleeding(BLEED_CRITICAL)
 
 	if(QDELETED(src)) //Could have dropped into lava/explosion/chasm/whatever
 		return TRUE
@@ -60,9 +58,8 @@
 	if(HAS_TRAIT(C, TRAIT_NODISMEMBER))
 		return FALSE
 	. = list()
-	var/organ_spilled = 0
 	var/turf/T = get_turf(C)
-	C.add_splatter_floor(T)
+	C.add_bleeding(BLEED_CRITICAL)
 	playsound(get_turf(C), 'sound/misc/splort.ogg', 80, 1)
 	for(var/X in C.internal_organs)
 		var/obj/item/organ/O = X
@@ -71,18 +68,11 @@
 			continue
 		O.Remove(C)
 		O.forceMove(T)
-		organ_spilled = 1
 		. += X
 	if(cavity_item)
 		cavity_item.forceMove(T)
 		. += cavity_item
 		cavity_item = null
-		organ_spilled = 1
-
-	if(organ_spilled)
-		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
-
-
 
 //limb removal. The "special" argument is used for swapping a limb with a new one without the effects of losing a limb kicking in.
 /obj/item/bodypart/proc/drop_limb(special, dismembered)
@@ -93,7 +83,7 @@
 	SEND_SIGNAL(owner, COMSIG_CARBON_REMOVE_LIMB, src, dismembered)
 	SEND_SIGNAL(src, COMSIG_BODYPART_REMOVED, owner, dismembered)
 	update_limb(TRUE)
-	C.bodyparts -= src
+	C.remove_bodypart(src)
 
 	if(held_index)
 		C.dropItemToGround(owner.get_item_for_held_index(held_index), 1)
@@ -135,7 +125,6 @@
 	C.update_health_hud() //update the healthdoll
 	C.update_body()
 	C.update_hair()
-	C.update_mobility()
 
 	if(!Tsec)	// Tsec = null happens when a "dummy human" used for rendering icons on prefs screen gets its limbs replaced.
 		qdel(src)
@@ -188,7 +177,7 @@
 		if(C.handcuffed)
 			C.handcuffed.forceMove(drop_location())
 			C.handcuffed.dropped(C)
-			C.handcuffed = null
+			C.set_handcuffed(null)
 			C.update_handcuffed()
 		if(C.hud_used)
 			var/atom/movable/screen/inventory/hand/R = C.hud_used.hand_slots["[held_index]"]
@@ -206,7 +195,7 @@
 		if(C.handcuffed)
 			C.handcuffed.forceMove(drop_location())
 			C.handcuffed.dropped(C)
-			C.handcuffed = null
+			C.set_handcuffed(null)
 			C.update_handcuffed()
 		if(C.hud_used)
 			var/atom/movable/screen/inventory/hand/L = C.hud_used.hand_slots["[held_index]"]
@@ -283,8 +272,8 @@
 	SEND_SIGNAL(C, COMSIG_CARBON_ATTACH_LIMB, src, special)
 	SEND_SIGNAL(src, COMSIG_BODYPART_ATTACHED, C, special)
 	moveToNullspace()
-	owner = C
-	C.bodyparts += src
+	set_owner(C)
+	C.add_bodypart(src)
 	if(held_index)
 		if(held_index > C.hand_bodyparts.len)
 			C.hand_bodyparts.len = held_index
@@ -317,7 +306,6 @@
 	C.updatehealth()
 	C.update_body()
 	C.update_hair()
-	C.update_mobility()
 	SEND_SIGNAL(C, COMSIG_CARBON_POST_ATTACH_LIMB, src, special)
 
 

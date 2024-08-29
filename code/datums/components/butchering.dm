@@ -34,16 +34,16 @@
 	if(user.a_intent == INTENT_HARM && M.stat == DEAD && (M.butcher_results || M.guaranteed_butcher_results)) //can we butcher it?
 		if(butchering_enabled && (can_be_blunt || source.is_sharp()))
 			INVOKE_ASYNC(src, PROC_REF(startButcher), source, M, user)
-			return COMPONENT_ITEM_NO_ATTACK
+			return COMPONENT_CANCEL_ATTACK_CHAIN
 	if(user.a_intent == INTENT_GRAB && ishuman(M) && source.is_sharp())
 		var/mob/living/carbon/human/H = M
 		if(H.has_status_effect(/datum/status_effect/neck_slice))
 			user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", 1, \
 							"<span class='danger'>Their neck has already been already cut, you can't make the bleeding any worse!")
-			return COMPONENT_ITEM_NO_ATTACK
+			return COMPONENT_CANCEL_ATTACK_CHAIN
 		if((H.health <= H.crit_threshold || (user.pulling == H && user.grab_state >= GRAB_NECK) || H.IsSleeping())) // Only sleeping, neck grabbed, or crit, can be sliced.
 			INVOKE_ASYNC(src, PROC_REF(startNeckSlice), source, H, user)
-			return COMPONENT_ITEM_NO_ATTACK
+			return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/butchering/proc/startButcher(obj/item/source, mob/living/M, mob/living/user)
 	to_chat(user, "<span class='notice'>You begin to butcher [M]...</span>")
@@ -71,7 +71,7 @@
 		H.visible_message("<span class='danger'>[user] slits [H]'s throat!</span>", \
 					"<span class='userdanger'>[user] slits your throat...</span>")
 		H.apply_damage(item_force, BRUTE, BODY_ZONE_HEAD)
-		H.bleed_rate = clamp(H.bleed_rate + 20, 0, 30)
+		H.add_bleeding(BLEED_CRITICAL)
 		H.apply_status_effect(/datum/status_effect/neck_slice)
 
 /datum/component/butchering/proc/Butcher(mob/living/butcher, mob/living/meat)

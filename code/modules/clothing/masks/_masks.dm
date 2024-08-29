@@ -47,7 +47,7 @@
 			if(HAS_BLOOD_DNA(src))
 				. += mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
 
-/obj/item/clothing/mask/update_clothes_damaged_state(damaging = TRUE)
+/obj/item/clothing/mask/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
@@ -93,8 +93,8 @@
 		return
 
 	//Start with two sides
-	var/icon/main = icon('icons/mob/mask.dmi', icon_state) //This takes the icon and uses the worn version of the icon
-	var/icon/sub = icon('icons/mob/mask.dmi', icon_state)
+	var/icon/main = icon('icons/mob/clothing/mask.dmi', icon_state) //This takes the icon and uses the worn version of the icon
+	var/icon/sub = icon('icons/mob/clothing/mask.dmi', icon_state)
 
 	//merge the sub side with the main, after masking off the middle pixel line
 	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_right") //masking
@@ -105,7 +105,7 @@
 	main.Blend(sub, ICON_OVERLAY)
 
 	//Flip it facing west, due to a spriting quirk
-	sub = icon('icons/mob/mask.dmi', icon_state, dir = EAST)
+	sub = icon('icons/mob/clothing/mask.dmi', icon_state, dir = EAST)
 	main.Insert(sub, dir = EAST)
 	sub.Flip(WEST)
 	main.Insert(sub, dir = WEST)

@@ -13,7 +13,8 @@
 	move_to_delay = 2 SECONDS
 	ranged = 1
 	ranged_cooldown_time = 80
-	friendly = "wails at"
+	friendly_verb_continuous = "wails at"
+	friendly_verb_simple = "wail at"
 	speak_emote = list("bellows")
 	vision_range = 4
 	speed = 3
@@ -21,7 +22,8 @@
 	health = 150
 	obj_damage = 100
 	melee_damage = 25
-	attacktext = "pulverizes"
+	attack_verb_continuous = "pulverizes"
+	attack_verb_simple = "pulverize"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	vision_range = 5
@@ -95,7 +97,7 @@
 	butcher_results = list(/obj/item/food/meat/slab/goliath = 2, /obj/item/stack/sheet/bone = 2)
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/goliath_hide = 1)
 	loot = list()
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize(mapload)

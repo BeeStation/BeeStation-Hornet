@@ -7,10 +7,10 @@
 	name = "pirate outfits"
 	},
 /obj/item/clothing/head/collectable/pirate,
-/obj/item/clothing/suit/pirate,
+/obj/item/clothing/suit/costume/pirate,
 /obj/item/clothing/under/costume/pirate,
 /obj/item/clothing/shoes/jackboots,
-/obj/item/clothing/head/bandana,
+/obj/item/clothing/head/costume/pirate/bandana,
 /turf/open/floor/iron/dark/side{
 	dir = 5
 	},
@@ -268,10 +268,10 @@
 	name = "pirate outfits"
 	},
 /obj/item/clothing/head/collectable/pirate,
-/obj/item/clothing/suit/pirate,
+/obj/item/clothing/suit/costume/pirate,
 /obj/item/clothing/under/costume/pirate,
 /obj/item/clothing/shoes/jackboots,
-/obj/item/clothing/head/bandana,
+/obj/item/clothing/head/costume/pirate/bandana,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -575,7 +575,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/airalarm/all_access{
-	dir = 8;
+	dir = 4;
 	pixel_x = 24
 	},
 /turf/open/floor/plating,
@@ -588,7 +588,8 @@
 "DY" = (
 /obj/structure/closet/crate/secure/loot,
 /obj/machinery/airalarm/all_access{
-	pixel_y = 24
+	pixel_y = 24;
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/caravan/pirate)
@@ -707,7 +708,8 @@
 "JA" = (
 /obj/structure/table,
 /obj/machinery/airalarm/all_access{
-	pixel_y = 24
+	pixel_y = 24;
+	dir = 1
 	},
 /obj/item/ammo_box/a40mm,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,

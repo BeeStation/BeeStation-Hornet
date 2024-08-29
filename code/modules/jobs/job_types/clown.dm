@@ -1,8 +1,7 @@
 /datum/job/clown
 	title = JOB_NAME_CLOWN
-	flag = CLOWN
 	description = "Be the life and soul of the station. Entertain the crew with your hilarious jokes and silly antics, including slipping, pie-ing and honking around. Remember your job is to keep things funny for others, not just yourself."
-	department_for_prefs = DEPT_BITFLAG_CIV
+	department_for_prefs = DEPT_BITFLAG_SRV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
@@ -12,10 +11,9 @@
 
 	outfit = /datum/outfit/job/clown
 
-	access = list(ACCESS_THEATRE)
-	minimal_access = list(ACCESS_THEATRE)
+	base_access = list(ACCESS_THEATRE)
+	extra_access = list()
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)

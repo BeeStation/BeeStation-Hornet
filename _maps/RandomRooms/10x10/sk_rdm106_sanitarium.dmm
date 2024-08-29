@@ -251,7 +251,7 @@
 /obj/item/gun/syringe,
 /obj/item/storage/box/syringes,
 /obj/item/restraints/handcuffs,
-/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/jacket/straight_jacket,
 /obj/item/clothing/mask/muzzle,
 /obj/item/clothing/glasses/blindfold,
 /obj/item/clothing/head/helmet{

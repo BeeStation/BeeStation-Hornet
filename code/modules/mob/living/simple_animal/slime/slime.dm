@@ -12,9 +12,12 @@
 
 	icon_living = "grey baby slime"
 	icon_dead = "grey baby slime dead"
-	response_help  = "pets"
-	response_disarm = "shoos"
-	response_harm   = "stomps on"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "shoos"
+	response_disarm_simple = "shoo"
+	response_harm_continuous = "stomps on"
+	response_harm_simple = "stomp on"
 	emote_see = list("jiggles", "bounces in place")
 	speak_emote = list("blorbles")
 	bubble_icon = "slime"
@@ -29,7 +32,7 @@
 	healable = 0
 	gender = NEUTER
 
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 
 	verb_say = "blorbles"
 	verb_ask = "inquisitively blorbles"
@@ -250,10 +253,11 @@
 		else
 			tab_data["Slime Status"] = GENERATE_STAT_TEXT("You can evolve!")
 
-	if(stat == UNCONSCIOUS)
-		tab_data["Unconscious"] = GENERATE_STAT_TEXT("You are knocked out by high levels of BZ!")
-	else
-		tab_data["Power Level"] = GENERATE_STAT_TEXT("[powerlevel]")
+	switch(stat)
+		if(HARD_CRIT, UNCONSCIOUS)
+			tab_data["Unconscious"] = GENERATE_STAT_TEXT("You are knocked out by high levels of BZ!")
+		else
+			tab_data["Power Level"] = GENERATE_STAT_TEXT("[powerlevel]")
 	return tab_data
 
 /mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
@@ -453,7 +457,7 @@
 	if (stat == DEAD)
 		. += "<span class='deadsay'>It is limp and unresponsive.</span>"
 	else
-		if (stat == UNCONSCIOUS) // Slime stasis
+		if (stat == UNCONSCIOUS || stat == HARD_CRIT) // Slime stasis
 			. += "<span class='deadsay'>It appears to be alive but unresponsive.</span>"
 		if (getBruteLoss())
 			. += "<span class='warning'>"
@@ -496,25 +500,18 @@
 
 	SStun = world.time + rand(20,60)
 
-	mobility_flags &= ~MOBILITY_MOVE
+	Stun(3)
 	if(user)
 		step_away(src,user,15)
 
-	addtimer(CALLBACK(src, PROC_REF(slime_move), user), 3)
+	addtimer(CALLBACK(src, PROC_REF(slime_move), user), 0.3 SECONDS)
 
 /mob/living/simple_animal/slime/proc/slime_move(mob/user)
 	if(user)
 		step_away(src,user,15)
-	update_mobility()
 
 /mob/living/simple_animal/slime/pet
 	docile = 1
-
-/mob/living/simple_animal/slime/can_unbuckle()
-	return 0
-
-/mob/living/simple_animal/slime/can_buckle()
-	return 0
 
 /mob/living/simple_animal/slime/get_mob_buckling_height(mob/seat)
 	if(..())

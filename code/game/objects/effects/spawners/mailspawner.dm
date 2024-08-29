@@ -10,8 +10,8 @@
 	name = "\improper Random maintenance loot spawner"
 
 /obj/effect/spawner/mail/maintloot/Initialize()
-	var/static/list/mail_maintloot = pick(GLOB.maintenance_loot)
-	new mail_maintloot(loc)
+	var/picked_item = pick_weight(GLOB.maintenance_loot)
+	new picked_item(loc)
 	return ..()
 
 /obj/effect/spawner/mail/organminor

@@ -27,7 +27,7 @@
 	anchored = FALSE
 	density = TRUE
 	max_integrity = 500
-	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 80, STAMINA = 0)
+	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 80, STAMINA = 0, BLEED = 0)
 
 	var/obj/machinery/particle_accelerator/control_box/master = null
 	var/construction_state = PA_CONSTRUCTION_UNSECURED

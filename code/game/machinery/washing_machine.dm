@@ -113,13 +113,13 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_WHITE = /obj/item/clothing/head/soft,
 		DYE_RAINBOW = /obj/item/clothing/head/soft/rainbow,
 		DYE_MIME = /obj/item/clothing/head/beret,
-		DYE_CLOWN = /obj/item/clothing/head/kitty,
+		DYE_CLOWN = /obj/item/clothing/head/costume/kitty,
 		DYE_QM = /obj/item/clothing/head/soft/cargo,
-		DYE_LAW = /obj/item/clothing/head/bowler,
-		DYE_CAPTAIN = /obj/item/clothing/head/caphat,
-		DYE_HOP = /obj/item/clothing/head/hopcap,
-		DYE_HOS = /obj/item/clothing/head/HoS,
-		DYE_CE = /obj/item/clothing/head/hardhat/white,
+		DYE_LAW = /obj/item/clothing/head/hats/bowler,
+		DYE_CAPTAIN = /obj/item/clothing/head/hats/caphat,
+		DYE_HOP = /obj/item/clothing/head/hats/hopcap,
+		DYE_HOS = /obj/item/clothing/head/hats/hos,
+		DYE_CE = /obj/item/clothing/head/utility/hardhat/white,
 		DYE_RD = /obj/item/clothing/head/soft/purple,
 		DYE_CMO = /obj/item/clothing/head/soft,
 		DYE_DENIED = /obj/item/clothing/head/soft/denied,
@@ -133,7 +133,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_QM = /obj/item/clothing/head/beret/supply,
 		DYE_LAW = /obj/item/clothing/head/beret/black,
 		DYE_CAPTAIN = /obj/item/clothing/head/beret/captain,
-		DYE_HOS = /obj/item/clothing/head/HoS/beret,
+		DYE_HOS = /obj/item/clothing/head/hats/hos/beret,
 		DYE_CE = /obj/item/clothing/head/beret/ce,
 		DYE_RD = /obj/item/clothing/head/beret/sci,
 		DYE_CMO = /obj/item/clothing/head/beret/cmo,
@@ -365,7 +365,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		new /obj/item/restraints/handcuffs(loc)
 	..()
 
-/obj/machinery/washing_machine/relaymove(mob/user)
+/obj/machinery/washing_machine/relaymove(mob/living/user, direction)
 	container_resist(user)
 
 /obj/machinery/washing_machine/container_resist(mob/living/user)

@@ -143,6 +143,7 @@
 	icon_state = "candlebox5"
 	base_icon_state = "candlebox"
 	item_state = "candlebox5"
+	worn_icon_state = "cigpack"
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 2
 	spawn_type = /obj/item/candle
@@ -168,6 +169,7 @@
 	icon_state = "cig"
 	item_state = "cigpacket"
 	base_icon_state = "cig"
+	worn_icon_state = "cigpack"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0
 	slot_flags = ITEM_SLOT_BELT

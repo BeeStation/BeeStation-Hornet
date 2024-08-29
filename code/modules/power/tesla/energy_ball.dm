@@ -147,14 +147,17 @@
 	dust_mobs(AM)
 
 /obj/anomaly/energy_ball/attack_tk(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		to_chat(C, "<span class='userdanger'>That was a shockingly dumb idea.</span>")
-		var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in C.internal_organs
-		C.ghostize(FALSE)
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/jedi = user
+	to_chat(jedi, "<span class='userdanger'>That was a shockingly dumb idea.</span>")
+	var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in jedi.internal_organs
+	jedi.ghostize(jedi)
+	if(rip_u)
 		qdel(rip_u)
-		C.investigate_log("had [C.p_their()] brain dusted by touching [src] with telekinesis.", INVESTIGATE_DEATHS)
-		C.death()
+	jedi.investigate_log("had [jedi.p_their()] brain dusted by touching [src] with telekinesis.", INVESTIGATE_DEATHS)
+	jedi.death()
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/anomaly/energy_ball/proc/dust_mobs(atom/A)
 	if(isliving(A))

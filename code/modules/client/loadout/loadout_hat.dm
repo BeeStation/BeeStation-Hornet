@@ -8,19 +8,19 @@
 
 /datum/gear/hat/hhat_yellow
 	display_name = "hardhat, yellow"
-	path = /obj/item/clothing/head/hardhat
+	path = /obj/item/clothing/head/utility/hardhat
 	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 	cost = 2500
 
 /datum/gear/hat/hhat_orange
 	display_name = "hardhat, orange"
-	path = /obj/item/clothing/head/hardhat/orange
+	path = /obj/item/clothing/head/utility/hardhat/orange
 	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 	cost = 2500
 
 /datum/gear/hat/hhat_blue
 	display_name = "hardhat, blue"
-	path = /obj/item/clothing/head/hardhat/dblue
+	path = /obj/item/clothing/head/utility/hardhat/dblue
 	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 	cost = 2500
 
@@ -28,7 +28,7 @@
 
 /datum/gear/hat/that
 	display_name = "tophat"
-	path = /obj/item/clothing/head/that
+	path = /obj/item/clothing/head/hats/tophat
 
 /datum/gear/hat/red_beret
 	display_name = "red beret"
@@ -41,11 +41,11 @@
 
 /datum/gear/hat/bowler
 	display_name = "bowler hat"
-	path = /obj/item/clothing/head/bowler
+	path = /obj/item/clothing/head/hats/bowler
 
 /datum/gear/hat/ushanka
 	display_name = "space ushanka"
-	path = /obj/item/clothing/head/ushanka
+	path = /obj/item/clothing/head/costume/ushanka
 
 /datum/gear/hat/flatcap
 	display_name = "flatcap"
@@ -62,11 +62,11 @@
 
 /datum/gear/hat/sombrero
 	display_name = "sombrero"
-	path = /obj/item/clothing/head/sombrero
+	path = /obj/item/clothing/head/costume/sombrero
 
 /datum/gear/hat/sombrero/green
 	display_name = "green sombrero"
-	path = /obj/item/clothing/head/sombrero/green
+	path = /obj/item/clothing/head/costume/sombrero/green
 
 /datum/gear/hat/wig
 	display_name = "wig"
@@ -187,34 +187,34 @@
 
 /datum/gear/hat/speedwagon
 	display_name = "extremely masculine hat"
-	path = /obj/item/clothing/head/speedwagon
+	path = /obj/item/clothing/head/costume/speedwagon
 	cost = 25000
 
 /datum/gear/hat/speedwagon_xl
 	display_name = "extremely elongated masculine hat"
-	path = /obj/item/clothing/head/speedwagon/cursed
+	path = /obj/item/clothing/head/costume/speedwagon/cursed
 	cost = 100000
 
 /datum/gear/hat/delinquent
 	display_name = "delinquent hat"
-	path = /obj/item/clothing/head/delinquent
+	path = /obj/item/clothing/head/costume/delinquent
 	cost = 5000
 
 /datum/gear/hat/cueball
 	display_name = "cubeball helmet"
-	path = /obj/item/clothing/head/cueball
+	path = /obj/item/clothing/head/costume/cueball
 	cost = 5000
 
 /datum/gear/hat/piratehat
 	display_name = "pirate hat"
 	description = "Yarr. Comes with one free pirate speak manual."
-	path = /obj/item/clothing/head/pirate
+	path = /obj/item/clothing/head/costume/pirate
 	cost = 5000
 
 //CHAPLAIN HATS
 
 /datum/gear/hat/blackbishop
 	display_name = "black bishop mitre"
-	path = /obj/item/clothing/head/bishopmitre/black
+	path = /obj/item/clothing/head/chaplain/bishopmitre/black
 	cost = 5000
 	allowed_roles = list(JOB_NAME_CHAPLAIN)

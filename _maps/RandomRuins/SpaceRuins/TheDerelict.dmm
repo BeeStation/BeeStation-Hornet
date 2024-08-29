@@ -944,7 +944,7 @@
 /area/ruin/space/derelict/bridge/access)
 "de" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/space/nearstation)
 "df" = (
 /obj/structure/cable/yellow{
@@ -977,7 +977,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/gravity_generator)
 "dj" = (
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/space/nearstation)
 "dk" = (
 /obj/item/stack/cable_coil/cut/red,
@@ -2270,11 +2270,11 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/derelict/medical/chapel)
 "hI" = (
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "hJ" = (
 /obj/item/bot_assembly/medbot,
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "hK" = (
 /obj/structure/closet,
@@ -2349,11 +2349,11 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "hW" = (
 /obj/item/stack/medical/bruise_pack,
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "hX" = (
 /turf/open/floor/iron/airless{
@@ -2512,7 +2512,7 @@
 /obj/machinery/sleeper{
 	dir = 4
 	},
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "iB" = (
 /obj/structure/table,
@@ -2521,11 +2521,11 @@
 	},
 /obj/structure/window/reinforced,
 /obj/item/reagent_containers/glass/beaker,
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "iC" = (
 /obj/structure/window/reinforced,
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "iD" = (
 /obj/structure/window/reinforced,
@@ -2533,7 +2533,7 @@
 /area/ruin/unpowered/no_grav)
 "iE" = (
 /obj/structure/window/reinforced,
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/unpowered/no_grav)
 "iF" = (
 /obj/structure/cable/yellow{
@@ -2578,7 +2578,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "iM" = (
 /obj/item/stack/medical/bruise_pack,
@@ -2671,11 +2671,11 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "iZ" = (
 /obj/item/cigbutt,
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "ja" = (
 /obj/machinery/door/airlock/public/glass{
@@ -2702,7 +2702,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "jg" = (
 /obj/structure/cable/yellow{
@@ -2711,19 +2711,19 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "jh" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "ji" = (
 /obj/item/stack/cable_coil/cut/yellow{
 	amount = 2
 	},
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "jj" = (
 /obj/item/stack/cable_coil/cut/yellow{
@@ -2745,7 +2745,7 @@
 	lootcount = 2;
 	name = "2maintenance loot spawner"
 	},
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "jm" = (
 /obj/structure/window/reinforced{
@@ -2767,7 +2767,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "jp" = (
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/unpowered/no_grav)
 "jr" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
@@ -2823,22 +2823,22 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "jA" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/structure/bed,
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "jB" = (
 /obj/item/stack/medical/ointment,
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "jC" = (
 /obj/structure/bed,
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "jD" = (
 /obj/item/stack/cable_coil/cut/yellow{
@@ -2852,7 +2852,7 @@
 /obj/machinery/door/airlock/medical{
 	name = "Medical"
 	},
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "jF" = (
 /obj/structure/window/reinforced{
@@ -2901,11 +2901,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "jO" = (
 /obj/machinery/door/window/southright,
-/turf/open/floor/iron/airless/white,
+/turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "jP" = (
 /obj/structure/cable/yellow{

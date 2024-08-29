@@ -58,7 +58,7 @@
 /datum/component/deployable/proc/on_attack_self(datum/source, mob/user)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(try_deploy), user, user.loc)
-	return COMPONENT_NO_INTERACT
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/deployable/proc/on_afterattack(datum/source, atom/movable/target, mob/user, proximity_flag, params)
 	SIGNAL_HANDLER

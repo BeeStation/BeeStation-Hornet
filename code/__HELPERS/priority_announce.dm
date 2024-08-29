@@ -75,7 +75,20 @@
 
 	SScommunications.send_message(M)
 
-/proc/minor_announce(message, title = "Attention:", alert, from, html_encode = TRUE)
+/**
+ * Sends a minor annoucement to players.
+ * Minor announcements are large text, with the title in red and message in white.
+ * Only mobs that can hear can see the announcements.
+ *
+ * message - the message contents of the announcement.
+ * title - the title of the announcement, which is often "who sent it".
+ * alert - whether this announcement is an alert, or just a notice. Only changes the sound that is played by default.
+ * from - who sent the announcement, in the case of communications consoles or the like.
+ * html_encode - if TRUE, we will html encode our title and message before sending it, to prevent player input abuse.
+ * players - optional, a list mobs to send the announcement to. If unset, sends to all players.
+ * sound_override - optional, use the passed sound file instead of the default notice sounds.
+ */
+/proc/minor_announce(message, title = "Attention:", alert, from, html_encode = TRUE, list/players, sound_override)
 	if(!message)
 		return
 
@@ -83,16 +96,21 @@
 		title = html_encode(title)
 		message = html_encode(message)
 
-	for(var/mob/M in GLOB.player_list)
-		if(!isnewplayer(M) && M.can_hear())
-			var/complete_msg = "<meta charset='UTF-8'><span class='big bold'><font color = red>[title]</font color><BR>[message]</span><BR>"
-			if(from)
-				complete_msg += "<span class='alert'>-[from]</span>"
-			to_chat(M, complete_msg)
-			if(M.client.prefs.read_player_preference(/datum/preference/toggle/sound_announcements))
-				if(alert)
-					SEND_SOUND(M, sound('sound/misc/notice1.ogg'))
-				else
-					SEND_SOUND(M, sound('sound/misc/notice2.ogg'))
+	if(!players)
+		players = GLOB.player_list
+
+	for(var/mob/target in players)
+		if(isnewplayer(target))
+			continue
+		if(!target.can_hear())
+			continue
+
+		var/complete_msg = "<meta charset='UTF-8'><span class='big bold'><font color = red>[title]</font color><BR>[message]</span><BR>"
+		if(from)
+			complete_msg += "<span class='alert'>-[from]</span>"
+		to_chat(target, complete_msg)
+		if(target.client.prefs.read_player_preference(/datum/preference/toggle/sound_announcements))
+			var/sound_to_play = sound_override || (alert ? 'sound/misc/notice1.ogg' : 'sound/misc/notice2.ogg')
+			SEND_SOUND(target, sound(sound_to_play))
 
 #undef DEFAULT_ALERT

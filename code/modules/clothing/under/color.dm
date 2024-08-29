@@ -5,10 +5,11 @@
 	greyscale_config_inhand_left = /datum/greyscale_config/jumpsuit_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/jumpsuit_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/jumpsuit_worn
+	icon = 'icons/obj/clothing/under/color.dmi'
 	icon_state = "jumpsuit"
 	item_state = "jumpsuit"
 	worn_icon_state = "jumpsuit"
-	worn_icon = 'icons/mob/clothing/uniform.dmi'
+	worn_icon = 'icons/mob/clothing/under/color.dmi'
 	supports_variations = DIGITIGRADE_VARIATION
 
 /obj/item/clothing/under/color/jumpskirt
@@ -221,13 +222,13 @@
 	name = "durathread jumpsuit"
 	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
 	greyscale_colors = "#8291a1"
-	armor = list(MELEE = 10, BULLET = 15, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20)
+	armor = list(MELEE = 10, BULLET = 15, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20, BLEED = 30)
 
 /obj/item/clothing/under/color/jumpskirt/durathread
 	name = "durathread jumpskirt"
 	desc = "A jumpskirt made from durathread, its resilient fibres provide some protection to the wearer."
 	greyscale_colors = "#8291a1"
-	armor = list(MELEE = 10, BULLET = 15, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20)
+	armor = list(MELEE = 10, BULLET = 15, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20, BLEED = 30)
 
 /obj/item/clothing/under/color/rainbow
 	name = "rainbow jumpsuit"

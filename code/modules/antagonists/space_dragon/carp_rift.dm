@@ -60,8 +60,9 @@
 /obj/structure/carp_rift
 	name = "carp rift"
 	desc = "A rift akin to the ones space carp use to travel long distances."
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
 	max_integrity = 300
+	max_hit_damage = 50
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
 	light_color = LIGHT_COLOR_PURPLE
@@ -89,12 +90,6 @@
 /obj/structure/carp_rift/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	AddComponent( \
-		/datum/component/gravity_aura, \
-		range = 15, \
-		requires_visibility = FALSE, \
-		gravity_strength = 1, \
-	)
 
 /obj/structure/carp_rift/examine(mob/user)
 	. = ..()

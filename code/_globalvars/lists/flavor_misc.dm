@@ -349,6 +349,22 @@ GLOBAL_LIST_INIT(admiral_messages, list(
 
 GLOBAL_LIST_INIT(junkmail_messages, world.file2list("strings/junkmail.txt"))
 
+// All valid inputs to status display post_status
+GLOBAL_LIST_INIT(status_display_approved_pictures, list(
+	"blank",
+	"shuttle",
+	"default",
+	"biohazard",
+	"lockdown",
+	"redalert",
+))
+
+// Members of status_display_approved_pictures that are actually states and not alert values
+GLOBAL_LIST_INIT(status_display_state_pictures, list(
+	"blank",
+	"shuttle",
+))
+
 GLOBAL_LIST_INIT(pAI_faces_list, list(
 	"Angry" = "angry",
 	"Cat" = "cat",
@@ -381,7 +397,11 @@ GLOBAL_LIST_INIT(smoker_cigarettes, list(
 	/obj/item/storage/fancy/cigarettes/cigpack_uplift,
 	/obj/item/storage/fancy/cigarettes/cigpack_robust,
 	/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-	/obj/item/storage/fancy/cigarettes/cigpack_carp
+	/obj/item/storage/fancy/cigarettes/cigpack_carp,
+	/obj/item/storage/fancy/cigarettes/dromedaryco,
+	/obj/item/storage/fancy/cigarettes/cigars,
+	/obj/item/storage/fancy/cigarettes/cigars/cohiba,
+	/obj/item/storage/fancy/cigarettes/cigars/havana
 ))
 
 GLOBAL_LIST_INIT(alcoholic_bottles, list(

@@ -145,6 +145,8 @@
 /mob/living/simple_animal/bot/honkbot/UnarmedAttack(atom/A)
 	if(!on)
 		return
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if (emagged <= 1)

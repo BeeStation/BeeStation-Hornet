@@ -261,7 +261,7 @@
 			return TRUE
 		if(SOFT_CRIT)
 			to_chat(src, "You can't commit suicide while in a critical condition!")
-		if(UNCONSCIOUS)
+		if(UNCONSCIOUS, HARD_CRIT)
 			to_chat(src, "You need to be conscious to commit suicide!")
 		if(DEAD)
 			to_chat(src, "You're already dead!")

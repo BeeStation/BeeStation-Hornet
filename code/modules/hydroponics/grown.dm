@@ -6,6 +6,8 @@
 // Base type. Subtypes are found in /grown dir. Lavaland-based subtypes can be found in mining/ash_flora.dm
 /obj/item/food/grown
 	icon = 'icons/obj/hydroponics/harvest.dmi'
+	icon_state = "berrypile"
+	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
 	name = "fresh produce" //fix naming bug
 	max_volume = 100
 	w_class = WEIGHT_CLASS_SMALL

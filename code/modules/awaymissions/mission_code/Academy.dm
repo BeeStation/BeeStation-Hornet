@@ -353,7 +353,7 @@
 	name = "Butler"
 	uniform = /obj/item/clothing/under/suit/black_really
 	shoes = /obj/item/clothing/shoes/laceup
-	head = /obj/item/clothing/head/bowler
+	head = /obj/item/clothing/head/hats/bowler
 	glasses = /obj/item/clothing/glasses/monocle
 	gloves = /obj/item/clothing/gloves/color/white
 
