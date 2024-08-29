@@ -3866,6 +3866,7 @@
 #include "code\modules\shuttle\bluespace_shuttle_pod\pod_computer.dm"
 #include "code\modules\shuttle\bluespace_shuttle_pod\shuttle_capsule.dm"
 #include "code\modules\shuttle\bluespace_shuttle_pod\traitor_shuttle.dm"
+#include "code\modules\shuttle\bluespace_shuttle_pod\emergency_pod.dm"
 #include "code\modules\shuttle\shuttle_creation\shuttle_creator.dm"
 #include "code\modules\shuttle\shuttle_creation\shuttle_creator_actions.dm"
 #include "code\modules\shuttle\shuttle_creation\shuttle_creator_console.dm"

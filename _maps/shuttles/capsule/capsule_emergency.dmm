@@ -1,0 +1,91 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/shuttle/engine/plasma{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/pod_shuttle/emergency_pod)
+"k" = (
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/pod_shuttle/emergency_pod)
+"l" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 6
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/pod_shuttle/emergency_pod)
+"v" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 10
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/pod_shuttle/emergency_pod)
+"B" = (
+/obj/machinery/computer/shuttle_flight/custom_shuttle/bluespace_pod{
+	name = "emergency pod flight controller"
+	},
+/turf/open/floor/mineral/titanium/white/airless,
+/area/shuttle/pod_shuttle/emergency_pod)
+"E" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/item/storage/pod{
+	pixel_x = 32
+	},
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
+/turf/open/floor/mineral/titanium/white/airless,
+/area/shuttle/pod_shuttle/emergency_pod)
+"F" = (
+/obj/machinery/door/airlock/shuttle,
+/obj/docking_port/mobile{
+	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/mineral/titanium/white/airless,
+/area/shuttle/pod_shuttle/emergency_pod)
+"J" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/pod_shuttle/emergency_pod)
+"T" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/titanium/white/airless,
+/area/shuttle/pod_shuttle/emergency_pod)
+"X" = (
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/pod_shuttle/emergency_pod)
+
+(1,1,1) = {"
+X
+X
+l
+k
+a
+"}
+(2,1,1) = {"
+J
+B
+E
+T
+F
+"}
+(3,1,1) = {"
+X
+X
+v
+k
+a
+"}
