@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Gibtonite flashes again, so miners can better time the deactivation of
+      it with a scanner.
