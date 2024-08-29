@@ -25,7 +25,7 @@
 /obj/item/mod/module/circuit/on_install()
 	if(!shell?.attached_circuit)
 		return
-	RegisterSignal(shell?.attached_circuit, COMSIG_CIRCUIT_PRE_POWER_USAGE, .proc/override_power_usage)
+	RegisterSignal(shell?.attached_circuit, COMSIG_CIRCUIT_PRE_POWER_USAGE, PROC_REF(override_power_usage))
 
 /obj/item/mod/module/circuit/on_uninstall(deleting = FALSE)
 	if(!shell?.attached_circuit)
@@ -111,7 +111,7 @@
 	. = ..()
 	if(istype(shell, /obj/item/mod/module))
 		attached_module = shell
-	RegisterSignal(attached_module, COMSIG_MOVABLE_MOVED, .proc/on_move)
+	RegisterSignal(attached_module, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
 /obj/item/circuit_component/mod_adapter_core/unregister_shell(atom/movable/shell)
 	UnregisterSignal(attached_module, COMSIG_MOVABLE_MOVED)
@@ -126,15 +126,15 @@
 		if(potential_module.name == module_to_select.value)
 			module = potential_module
 	if(COMPONENT_TRIGGERED_BY(toggle_suit, port))
-		INVOKE_ASYNC(attached_module.mod, /obj/item/mod/control.proc/toggle_activate, attached_module.mod.wearer)
+		INVOKE_ASYNC(attached_module.mod, TYPE_PROC_REF(/obj/item/mod/control, toggle_activate), attached_module.mod.wearer)
 	if(attached_module.mod.active && module && COMPONENT_TRIGGERED_BY(select_module, port))
-		INVOKE_ASYNC(module, /obj/item/mod/module.proc/on_select)
+		INVOKE_ASYNC(module, TYPE_PROC_REF(/obj/item/mod/module, on_select))
 
 /obj/item/circuit_component/mod_adapter_core/proc/on_move(atom/movable/source, atom/old_loc, dir, forced)
 	SIGNAL_HANDLER
 	if(istype(source.loc, /obj/item/mod/control))
-		RegisterSignal(source.loc, COMSIG_MOD_MODULE_SELECTED, .proc/on_module_select)
-		RegisterSignal(source.loc, COMSIG_ITEM_EQUIPPED, .proc/equip_check)
+		RegisterSignal(source.loc, COMSIG_MOD_MODULE_SELECTED, PROC_REF(on_module_select))
+		RegisterSignal(source.loc, COMSIG_ITEM_EQUIPPED, PROC_REF(equip_check))
 		equip_check()
 	else if(istype(old_loc, /obj/item/mod/control))
 		UnregisterSignal(old_loc, list(COMSIG_MOD_MODULE_SELECTED, COMSIG_ITEM_EQUIPPED))
