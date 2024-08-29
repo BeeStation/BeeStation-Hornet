@@ -445,8 +445,8 @@
 
 /obj/item/mod/control/proc/set_wearer(mob/user)
 	wearer = user
+	SEND_SIGNAL(src, COMSIG_MOD_WEARER_SET, wearer)
 	RegisterSignal(wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
-	RegisterSignal(wearer, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(on_borg_charge))
 	RegisterSignal(src, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(on_unequip))
 	update_charge_alert()
 	for(var/obj/item/mod/module/module as anything in modules)
@@ -456,8 +456,9 @@
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.on_unequip()
 	UnregisterSignal(wearer, list(COMSIG_ATOM_EXITED, COMSIG_PROCESS_BORGCHARGER_OCCUPANT))
-	UnregisterSignal(src, )
+	UnregisterSignal(src, COMSIG_ITEM_PRE_UNEQUIP)
 	wearer.clear_alert("mod_charge")
+	SEND_SIGNAL(src, COMSIG_MOD_WEARER_UNSET, wearer)
 	wearer = null
 
 /obj/item/mod/control/proc/on_unequip()
@@ -542,7 +543,7 @@
 		return FALSE
 	do_sparks(5, TRUE, src)
 	var/check_range = TRUE
-	return electrocute_mob(user, get_cell(), src, 0.7, check_range)
+	return electrocute_mob(user, get_charge_source(), src, 0.7, check_range)
 
 /obj/item/mod/control/proc/install(module, mob/user)
 	var/obj/item/mod/module/new_module = module
@@ -657,15 +658,6 @@
 		if(active)
 			INVOKE_ASYNC(src, PROC_REF(toggle_activate), wearer, TRUE)
 		return
-
-/obj/item/mod/control/proc/on_borg_charge(datum/source, amount)
-	SIGNAL_HANDLER
-
-	update_charge_alert()
-	var/obj/item/stock_parts/cell/cell = get_cell()
-	if(!cell)
-		return
-	cell.give(amount)
 
 /obj/item/mod/control/proc/on_potion(atom/movable/source, obj/item/slimepotion/speed/speed_potion, mob/living/user)
 	SIGNAL_HANDLER
