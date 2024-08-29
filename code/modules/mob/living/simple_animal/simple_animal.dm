@@ -235,10 +235,11 @@
 	if(isturf(loc) && isopenturf(loc))
 		var/turf/open/ST = loc
 		if(ST.air)
+			ST.air.assert_gases(/datum/gas/plasma,/datum/gas/nitrogen, /datum/gas/oxygen, /datum/gas/carbon_dioxide)
 			var/tox = ST.air.gases[/datum/gas/plasma][MOLES]
-			var/oxy = ST.air.gases[/datum/gas/oxygen][MOLES]
-			var/n2  = ST.air.gases[/datum/gas/nitrogen][MOLES]
-			var/co2 = ST.air.gases[/datum/gas/carbon_dioxide][MOLES]
+			var/oxy = ST.air.gases[/datum/gas/oxygen]?[MOLES]
+			var/n2  = ST.air.gases[/datum/gas/nitrogen]?[MOLES]
+			var/co2 = ST.air.gases[/datum/gas/carbon_dioxide]?[MOLES]
 
 			if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 				. = FALSE
