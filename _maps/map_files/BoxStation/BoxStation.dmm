@@ -30970,23 +30970,6 @@
 /obj/structure/plasticflaps/opaque,
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
-"jdl" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 4
-	},
-/turf/closed/wall,
-/area/maintenance/starboard/aft)
 "jdn" = (
 /obj/structure/closet/lasertag/red,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
@@ -112845,7 +112828,7 @@ wWY
 mtt
 uLo
 avX
-jdl
+cNW
 eFc
 cNW
 cNW
