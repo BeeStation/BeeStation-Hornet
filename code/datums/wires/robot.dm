@@ -60,10 +60,11 @@
 		if(WIRE_LOCKDOWN)
 			R.SetLockdown(!R.lockcharge) // Toggle
 			log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] via pulse", important = FALSE)
-
 		if(WIRE_RESET_MODULE)
-			if(R.has_module())
-				R.visible_message("[R]'s module servos twitch.", "Your module display flickers.")
+			if(R.has_module() && !mend)
+				R.ResetModule()
+				if (user)
+					log_combat(user, R, "reset the cyborg module via wire", important = FALSE)
 	ui_update()
 
 /datum/wires/robot/on_cut(wire, mob/user, mend)
