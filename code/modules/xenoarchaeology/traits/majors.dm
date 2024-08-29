@@ -725,6 +725,12 @@
 	. = ..()
 	return list(XENOA_TRAIT_HINT_RANDOMISED)
 
+/datum/xenoartifact_trait/major/gas/do_hint(mob/user, atom/item)
+	if(istype(item, /obj/item/analyzer))
+		to_chat(user, "<span class='warning'>[item] detects [initial(choosen_target.name)] exchanging into [initial(choosen_exchange.name)]\
+		 at a rate of [max_moles] moles!</span>")
+		return ..()
+
 /*
 	Destabilizing
 	Send the target to the shadow realm
