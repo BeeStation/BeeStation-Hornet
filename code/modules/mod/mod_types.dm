@@ -108,9 +108,9 @@
 	applied_cell = /obj/item/stock_parts/cell/high/plus
 	initial_modules = list(
 		/obj/item/mod/module/storage,
+		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/holster,
-		//obj/item/mod/module/mister/security,
+		//obj/item/mod/module/pepper_shoulders,
 	)
 
 /obj/item/mod/control/pre_equipped/safeguard
@@ -118,10 +118,10 @@
 	applied_cell = /obj/item/stock_parts/cell/super
 	initial_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
+		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack,
-		/obj/item/mod/module/holster,
-		//obj/item/mod/module/mister/security,
+		//obj/item/mod/module/pepper_shoulders,
 	)
 
 /obj/item/mod/control/pre_equipped/magnate
@@ -130,8 +130,8 @@
 	initial_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
 		//obj/item/mod/module/hat_stabilizer,
+		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack/advanced,
-		/obj/item/mod/module/holster,
 		/obj/item/mod/module/pathfinder,
 	)
 
@@ -139,6 +139,7 @@
 	theme = /datum/mod_theme/cosmohonk
 	initial_modules = list(
 		/obj/item/mod/module/storage,
+		/obj/item/mod/module/waddle,
 		/obj/item/mod/module/bikehorn,
 	)
 
@@ -147,11 +148,11 @@
 	applied_cell = /obj/item/stock_parts/cell/super
 	initial_modules = list(
 		/obj/item/mod/module/storage/syndicate,
+		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/pathfinder,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/dna_lock,
-		/obj/item/mod/module/holster,
 	)
 
 /obj/item/mod/control/pre_equipped/nuclear
@@ -159,10 +160,9 @@
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	initial_modules = list(
 		/obj/item/mod/module/storage/syndicate,
+		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/holster,
-		/obj/item/mod/module/injector,
 	)
 
 /obj/item/mod/control/pre_equipped/elite
@@ -171,20 +171,19 @@
 	initial_modules = list(
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/holster,
-		/obj/item/mod/module/injector,
 	)
 
 /obj/item/mod/control/pre_equipped/elite/flamethrower
 	initial_modules = list(
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/thermal_regulator,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/holster,
 		/obj/item/mod/module/flamethrower,
 	)
 
@@ -215,8 +214,8 @@
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/holster,
 	)
 	/// The insignia type, insignias show what sort of member of the ERT you're dealing with.
 	var/insignia_type = /obj/item/mod/module/insignia
@@ -263,8 +262,8 @@
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/holster,
 	)
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
@@ -290,8 +289,8 @@
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
-		/obj/item/mod/module/holster,
 	)
 
 /obj/item/mod/control/pre_equipped/corporate
@@ -300,7 +299,7 @@
 	initial_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		//obj/item/mod/module/hat_stabilizer,
-		/obj/item/mod/module/holster,
+		/obj/item/mod/module/magnetic_harness,
 	)
 
 /obj/item/mod/control/pre_equipped/chrono

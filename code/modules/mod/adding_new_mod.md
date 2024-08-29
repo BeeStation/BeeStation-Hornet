@@ -29,7 +29,7 @@ For people that want to see additional stuff, we add an extended description wit
 ```
 
 Next we want to set the statistics, you can view them all in the theme file, so let's just grab our relevant ones, armor, charge and capacity and set them to what we establilished. \
-Currently crew MODsuits should be unarmored in combat relevant stats.
+Currently crew MODsuits should be lightly armored in combat relevant stats.
 
 ```dm
 /datum/mod_theme/psychological
@@ -40,7 +40,7 @@ Currently crew MODsuits should be unarmored in combat relevant stats.
 		for operating at lower power levels, keeping people sane. As consequence, the capacity \
 		of the suit has decreased, not being able to fit many modules at all."
 	default_skin = "psychological"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 10, ACID = 75, BLEED = 5)
+	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 100, FIRE = 10, ACID = 75, BLEED = 5)
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 7
 	charge_drain = DEFAULT_CHARGE_DRAIN * 0.5
 ```

@@ -940,6 +940,12 @@
 	slowdown_active = 0.25
 	ui_theme = "wizard"
 	inbuilt_modules = list(/obj/item/mod/module/anti_magic/wizard)
+	allowed_suit_storage = list(
+		/obj/item/tank/internals,
+		/obj/item/teleportation_scroll,
+		//obj/item/highfrequencyblade/wizard,
+		/obj/item/gun/magic,
+	)
 	skins = list(
 		"enchanted" = list(
 			HELMET_LAYER = null,

@@ -28,7 +28,9 @@
 /obj/item/mod/module/armor_booster/on_suit_activation()
 	mod.helmet.flash_protect = FLASH_PROTECTION_WELDER
 
-/obj/item/mod/module/armor_booster/on_suit_deactivation()
+/obj/item/mod/module/armor_booster/on_suit_deactivation(deleting = FALSE)
+	if(deleting)
+		return
 	mod.helmet.flash_protect = initial(mod.helmet.flash_protect)
 
 /obj/item/mod/module/armor_booster/on_activation()
@@ -48,11 +50,12 @@
 			clothing_part.clothing_flags &= ~STOPSPRESSUREDAMAGE
 			spaceproofed[clothing_part] = TRUE
 
-/obj/item/mod/module/armor_booster/on_deactivation(display_message = TRUE)
+/obj/item/mod/module/armor_booster/on_deactivation(display_message = TRUE, deleting = FALSE)
 	. = ..()
 	if(!.)
 		return
-	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	if(!deleting)
+		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	mod.slowdown -= added_slowdown
 	mod.wearer.update_equipment_speed_mods()
 	var/list/parts = mod.mod_parts + mod
@@ -113,7 +116,7 @@
 	charge_recovery = charge_recovery, lose_multiple_charges = lose_multiple_charges, recharge_path = recharge_path, starting_charges = charges, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS,  PROC_REF(shield_reaction))
 
-/obj/item/mod/module/energy_shield/on_suit_deactivation()
+/obj/item/mod/module/energy_shield/on_suit_deactivation(deleting = FALSE)
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
 	charges = shield.current_charges
 	qdel(shield)
@@ -157,7 +160,7 @@
 	mod.wearer.AddComponent(/datum/component/anti_magic, MOD_TRAIT, _magic = TRUE, _holy = FALSE)
 	mod.wearer.AddComponent(/datum/component/anti_magic, MOD_TRAIT, _magic = FALSE, _holy = TRUE)
 
-/obj/item/mod/module/anti_magic/on_suit_deactivation()
+/obj/item/mod/module/anti_magic/on_suit_deactivation(deleting = FALSE)
 	for (var/datum/component/anti_magic/anti_magic in mod.wearer.GetComponents(/datum/component/anti_magic))
 		if (anti_magic.source == MOD_TRAIT)
 			qdel(anti_magic)
@@ -176,7 +179,7 @@
 /obj/item/mod/module/anti_magic/wizard/on_suit_activation()
 	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC_NO_SELFBLOCK, MOD_TRAIT)
 
-/obj/item/mod/module/anti_magic/wizard/on_suit_deactivation()
+/obj/item/mod/module/anti_magic/wizard/on_suit_deactivation(deleting = FALSE)
 	REMOVE_TRAIT(mod.wearer, TRAIT_ANTIMAGIC_NO_SELFBLOCK, MOD_TRAIT)
 
 ///Insignia - Gives you a skin specific stripe.
@@ -233,7 +236,7 @@
 /obj/item/mod/module/noslip/on_suit_activation()
 	ADD_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, MOD_TRAIT)
 
-/obj/item/mod/module/noslip/on_suit_deactivation()
+/obj/item/mod/module/noslip/on_suit_deactivation(deleting = FALSE)
 	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, MOD_TRAIT)
 
 ///Flamethrower - Launches fire across the area.

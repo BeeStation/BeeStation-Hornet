@@ -23,7 +23,7 @@
 	RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(on_mod_activation))
 	RegisterSignal(mod, COMSIG_MOD_MODULE_REMOVAL, PROC_REF(on_mod_removal))
 
-/obj/item/mod/module/eradication_lock/on_uninstall()
+/obj/item/mod/module/eradication_lock/on_uninstall(deleting = FALSE)
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 	UnregisterSignal(mod, COMSIG_MOD_MODULE_REMOVAL)
 
@@ -186,7 +186,7 @@
 /obj/item/mod/module/timeline_jumper/proc/on_activate_block(datum/source, user)
 	SIGNAL_HANDLER
 	//has to be a to_chat because you're phased out.
-	to_chat(user, "<span class='boldwarning'>Deactivating your suit while inbetween timelines would be a very bad idea.</span>")
+	to_chat(user, "<span class='warning'>Deactivating your suit while inbetween timelines would be a very bad idea.</span>")
 	return MOD_CANCEL_ACTIVATE
 
 ///special subtype for phased mobs.
@@ -219,16 +219,17 @@
 	if(field)
 		field_disconnect(field)
 	//fire projectile
-	var/obj/projectile/energy/chrono_beam/projectile = new /obj/projectile/energy/chrono_beam(get_turf(src))
+	var/obj/projectile/energy/chrono_beam/chrono_beam = new /obj/projectile/energy/chrono_beam(get_turf(src))
+	chrono_beam.tem_weakref = WEAKREF(src)
+	chrono_beam.preparePixelProjectile(target, mod.wearer)
+	chrono_beam.firer = mod.wearer
 	playsound(src, 'sound/items/modsuit/time_anchor_set.ogg', 50, TRUE)
-	projectile.tem_weakref = WEAKREF(src)
-	projectile.firer = mod.wearer
-	projectile.fired_from = src
-	projectile.fire(get_angle(mod.wearer, target), target)
+	INVOKE_ASYNC(chrono_beam, /obj/projectile.proc/fire)
 
-/obj/item/mod/module/tem/on_uninstall()
-	if(field)
-		field_disconnect(field)
+/obj/item/mod/module/tem/on_uninstall(deleting = FALSE)
+	if(!field)
+		return
+	field_disconnect(field)
 
 /**
  * ### field_connect
@@ -242,14 +243,14 @@
 /obj/item/mod/module/tem/proc/field_connect(obj/structure/chrono_field/field)
 	if(field.tem)
 		if(field.captured)
-			to_chat(mod.wearer, "<span class='alert'><b>FAIL: <i>[field.captured]</i> already has an existing connection.</b></span>")
+			balloon_alert(mod.wearer, "already has connection!")
 		field_disconnect(field)
 		return
 	startpos = get_turf(mod.wearer)
 	src.field = field
 	field.tem = src
 	if(field.captured)
-		to_chat(mod.wearer, "<span class='notice'>Connection established with target: <b>[field.captured]</b></span>")
+		balloon_alert(mod.wearer, "connection estabilished")
 
 /**
  * ### field_disconnect
@@ -264,7 +265,7 @@
 		if(field.tem == src)
 			field.tem = null
 		if(field.captured)
-			to_chat(mod.wearer, "<span class='alert'>Disconnected from target: <b>[field.captured]</b></span>")
+			balloon_alert(mod.wearer, "connection lost!")
 	field = null
 	startpos = null
 
@@ -314,7 +315,7 @@
 	///linked module. while this exists, the field will progress towards eradication. while it isn't, the field progresses away until it disappears. see attached for a special case
 	var/obj/item/mod/module/tem/tem
 	///time in seconds before someone is eradicated, assuming progress isn't interrupted
-	var/timetokill = 30
+	var/timetokill = 3 SECONDS
 	///the eradication appearance
 	var/mutable_appearance/mob_underlay
 	///the actual frame the animation is at in eradication, only changing when the progress towards eradication progresses enough to move to the next frame.
@@ -369,15 +370,15 @@
 			freed_movable.forceMove(drop_location())
 		qdel(src)
 	else if(timetokill <= 0)
-		to_chat(captured, "<span class='boldnotice'>As the last essence of your being is erased from time, you are taken back to your most enjoyable memory. You feel happy...</span>")
-		var/mob/dead/observer/ghost = captured.ghostize(1)
+		to_chat(captured, "<span class='notice'>As the last essence of your being is erased from time, you are taken back to your most enjoyable memory. You feel happy...</span>")
+		var/mob/dead/observer/ghost = captured.ghostize(can_reenter_corpse = TRUE)
 		if(captured.mind)
 			if(ghost)
 				ghost.mind = null
 		qdel(captured)
 		qdel(src)
 	else
-		captured.Unconscious(80)
+		captured.Unconscious(8 SECONDS)
 		if(captured.loc != src)
 			captured.forceMove(src)
 		update_appearance()

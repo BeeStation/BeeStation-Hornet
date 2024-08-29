@@ -73,7 +73,9 @@
 	if(is_clown_job(mod.wearer.mind?.assigned_role))
 		SEND_SIGNAL(mod.wearer, COMSIG_ADD_MOOD_EVENT, "clownshoes", /datum/mood_event/clownshoes)
 
-/obj/item/mod/module/waddle/on_suit_deactivation()
+/obj/item/mod/module/waddle/on_suit_deactivation(deleting = FALSE)
+	if(!deleting)
+		qdel(mod.boots.GetComponent(/datum/component/squeak))
 	qdel(mod.boots.GetComponent(/datum/component/squeak))
 	mod.wearer.RemoveElement(/datum/component/waddling)
 	if(is_clown_job(mod.wearer.mind?.assigned_role))
