@@ -721,7 +721,7 @@
 	air.adjust_moles(input_id, -moles)
 	air.adjust_moles(output_id, moles)
 
-/datum/xenoartifact_trait/makor/gas/get_dictionary_hint()
+/datum/xenoartifact_trait/major/gas/get_dictionary_hint()
 	. = ..()
 	return list(XENOA_TRAIT_HINT_RANDOMISED)
 
