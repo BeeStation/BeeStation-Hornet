@@ -84,14 +84,14 @@ export const MODpaint = (props, context) => {
       width={600}
       height={365}>
       <Window.Content>
-        <Stack fill>
+         <Stack fill>
           <Stack.Item fill width="30%">
             {[0, 1, 2].map((row) => (
-              <Section key={key}
+              <Section key={row}
                 title={`${displayText(prefixes[row])} turns to:`}>
-                {[0, 1, 2].map((col, key) => (
+                {[0, 1, 2].map((col) => (
                   <Flex
-                    key={key}>
+                    key={col}>
                     <Flex.Item align="left" width="30%">
                       <Box
                         inline
