@@ -20,7 +20,7 @@
 	failure_reason = null
 	is_sorting_network = FALSE
 	if (!target.trunk)
-		return "[target.name] not attached to a trunk"
+		return "[target.name] not attached to a trunk at [COORD(target)]."
 	// Create a terrible disposal holder object
 	var/obj/structure/disposalholder/holder = new()
 	traverse_loop(holder, target.trunk, FALSE)

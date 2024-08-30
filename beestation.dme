@@ -4102,6 +4102,7 @@
 #include "code\modules\tgui_panel\tgui_panel.dm"
 #include "code\modules\tooltip\tooltip.dm"
 #include "code\modules\unit_tests\_DEFINES\_unit_tests.dm"
+#include "code\modules\unit_tests\mapping\check_wallthing_attachment.dm"
 #include "code\modules\uplink\uplink_devices.dm"
 #include "code\modules\uplink\uplink_items.dm"
 #include "code\modules\uplink\uplink_purchase_log.dm"
