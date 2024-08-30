@@ -17,6 +17,7 @@
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = ISWEAPON
+	var/give_job_access = FALSE
 
 	var/list/files = list()
 
@@ -402,13 +403,24 @@
 /obj/item/card/id/RemoveID()
 	return src
 
-/obj/item/card/id/job/Initialize()
+/obj/item/card/id/job/Initialize(mapload)
 	. = ..()
-	if(assignment != null){
-		var/datum/job/J = SSjob.GetJob(assignment)
-		access = J.get_access()
+	//ensure it has an assignment, it is meant to get the access and a mapper isn't trying to give it custom access
+	if(assignment != null && give_job_access && access_txt == null){
+		give_access(assignment)
 	}
 
+/obj/item/card/id/proc/give_access(A)
+	//if admin leaves it as null, set it to the default assignment
+	if(A == null){A = assignment}
+	//if a default assignment is still null, do nothing
+	if(A != null){
+		var/datum/job/J = SSjob.GetJob(A)
+		if(J != null){
+			access = J.get_access()
+		}
+
+	}
 
 /*
 /// Called on COMSIG_ATOM_UPDATED_ICON. Updates the visuals of the wallet this card is in.
