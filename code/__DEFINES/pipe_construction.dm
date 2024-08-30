@@ -153,7 +153,7 @@ MAPPING_HELPER_SORT(detective_office, 30)
 #if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
 
 GLOBAL_LIST_INIT(tagger_destination_areas, list(
-	"Disposals" = list(/area/maintenance/disposal),
+	"Disposals" = list(/area/maintenance/disposal, /area/quartermaster/sorting),
 	"Cargo Bay"  = list(/area/quartermaster),
 	"QM Office" = list(/area/quartermaster/qm, /area/quartermaster/qm_bedroom),
 	"Engineering" = list(/area/engine, /area/engineering),
