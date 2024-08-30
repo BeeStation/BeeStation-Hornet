@@ -262,7 +262,8 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "Kx" = (
-/obj/machinery/recharge_station,
+/mob/living/silicon/robot,
+/obj/machinery/recharge_station/closed,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "KU" = (
@@ -385,11 +386,7 @@
 /area/ruin/unpowered)
 "ZS" = (
 /obj/effect/turf_decal/bot_red,
-/mob/living/simple_animal/bot/secbot{
-	emagged = 1;
-	faction = list("silicon","turret");
-	name = "Officer Buzzsky"
-	},
+/mob/living/simple_animal/bot/secbot/derelict,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 

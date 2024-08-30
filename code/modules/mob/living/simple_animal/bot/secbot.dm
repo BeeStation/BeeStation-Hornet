@@ -51,6 +51,10 @@
 	resize = 0.8
 	update_transform()
 
+/mob/living/simple_animal/bot/secbot/derelict
+	name = "Officer Buzzsky"
+	emagged = 2
+	faction = list("silicon","turret")
 
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
 	var/atom/Tsec = drop_location()

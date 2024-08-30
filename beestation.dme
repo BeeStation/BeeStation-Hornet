@@ -3899,6 +3899,7 @@
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\objective_types\nuke_ruin.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\objective_types\recover_blackbox.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\objective_types\vip_extraction.dm"
+#include "code\modules\shuttle\super_cruise\orbital_poi_generator\objective_types\silicon.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\asteroid_generator.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\mapping.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\ruin_generator.dm"
