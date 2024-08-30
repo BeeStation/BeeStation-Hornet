@@ -156,7 +156,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/default_module
-	name = "Core Module Design (Default)"
+	name = "Core Module Design (Crewsimov)"
 	desc = "Allows for the construction of a Default AI Core Module."
 	id = "default_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/diamond = 2000, /datum/material/copper = 300)
