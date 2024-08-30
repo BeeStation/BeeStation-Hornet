@@ -382,7 +382,7 @@
 		build_static_information()
 
 	Radio = new/obj/item/radio(src)
-	Radio.listening = 0
+	Radio.set_listening(FALSE)
 	Radio.set_frequency(FREQ_SECURITY)
 
 /obj/machinery/genpop_interface/proc/build_static_information()

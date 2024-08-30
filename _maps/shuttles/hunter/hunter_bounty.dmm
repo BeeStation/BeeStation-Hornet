@@ -20,7 +20,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "aw" = (
-/obj/effect/turf_decal/techfloor/corners{
+/obj/effect/turf_decal/edges/techfloor/corners{
 	dir = 8
 	},
 /obj/structure/reagent_dispensers/watertank,
@@ -67,14 +67,14 @@
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 10
 	},
-/obj/effect/turf_decal/techfloor/corners{
+/obj/effect/turf_decal/edges/techfloor/corners{
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "bc" = (
-/obj/effect/turf_decal/techfloor,
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
 /obj/structure/guncase{
@@ -96,7 +96,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "ca" = (
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
 /obj/structure/chair/fancy/shuttle{
@@ -112,7 +112,7 @@
 /obj/machinery/computer/camera_advanced/bounty_hunter{
 	dir = 8
 	},
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 4
 	},
 /turf/open/floor/iron/tech,
@@ -220,7 +220,7 @@
 	dir = 2;
 	layer = 4.1
 	},
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
@@ -288,13 +288,13 @@
 /obj/machinery/computer/shuttle_flight/hunter{
 	dir = 8
 	},
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 4
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "ls" = (
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 5
 	},
 /obj/item/trash/candy,
@@ -364,7 +364,7 @@
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/shuttle/hunter)
 "nL" = (
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
 /turf/open/floor/iron/tech,
@@ -405,7 +405,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "pC" = (
-/obj/effect/turf_decal/techfloor,
+/obj/effect/turf_decal/edges/techfloor,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -478,7 +478,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "ri" = (
-/obj/effect/turf_decal/techfloor,
+/obj/effect/turf_decal/edges/techfloor,
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "rB" = (
@@ -493,7 +493,7 @@
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 6
 	},
-/obj/effect/turf_decal/techfloor/corners,
+/obj/effect/turf_decal/edges/techfloor/corners,
 /obj/effect/decal/cleanable/dirt/dust,
 /mob/living/simple_animal/pet/fox{
 	dir = 8
@@ -502,7 +502,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "sc" = (
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
 /obj/structure/sign/poster/official/anniversary_vintage_reprint{
@@ -512,7 +512,7 @@
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "sS" = (
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
 /obj/structure/reagent_dispensers/fueltank,
@@ -528,7 +528,7 @@
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "sZ" = (
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -549,7 +549,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -706,7 +706,7 @@
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "GG" = (
-/obj/effect/turf_decal/techfloor,
+/obj/effect/turf_decal/edges/techfloor,
 /obj/effect/turf_decal/caution,
 /obj/effect/decal/cleanable/glass{
 	pixel_x = -9;
@@ -777,7 +777,7 @@
 /area/shuttle/hunter)
 "Ko" = (
 /obj/structure/railing/corner,
-/obj/effect/turf_decal/techfloor,
+/obj/effect/turf_decal/edges/techfloor,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
@@ -786,7 +786,7 @@
 /area/shuttle/hunter)
 "Lr" = (
 /obj/structure/rack,
-/obj/effect/turf_decal/techfloor,
+/obj/effect/turf_decal/edges/techfloor,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -870,8 +870,8 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "Nn" = (
-/obj/effect/turf_decal/techfloor,
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
 /obj/structure/rack,
@@ -928,7 +928,7 @@
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
 	},
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 4
 	},
 /obj/machinery/cell_charger,
@@ -952,7 +952,7 @@
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "Su" = (
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/oil,
@@ -971,10 +971,10 @@
 /obj/machinery/computer/crew{
 	dir = 8
 	},
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 4
 	},
 /turf/open/floor/iron/tech,
@@ -991,7 +991,7 @@
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "VG" = (
-/obj/effect/turf_decal/techfloor,
+/obj/effect/turf_decal/edges/techfloor,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
@@ -1027,7 +1027,7 @@
 /area/shuttle/hunter)
 "XH" = (
 /obj/structure/railing/corner,
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
 /turf/open/floor/iron/tech,
@@ -1040,7 +1040,7 @@
 	dir = 8;
 	layer = 4.1
 	},
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
 /obj/item/flashlight/lamp{
@@ -1073,7 +1073,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "YJ" = (
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
 /turf/open/floor/iron/tech,

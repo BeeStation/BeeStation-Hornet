@@ -8,9 +8,12 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	gender = NEUTER
 	mob_biotypes = list(MOB_INORGANIC)
 	bubble_icon = "guardian"
-	response_help  = "passes through"
-	response_disarm = "flails at"
-	response_harm   = "punches"
+	response_help_continuous = "passes through"
+	response_help_simple = "pass through"
+	response_disarm_continuous = "flails at"
+	response_disarm_simple = "flail at"
+	response_harm_continuous = "punches"
+	response_harm_simple = "punch"
 	icon = 'icons/mob/holoparasite.dmi'
 	icon_state = "magicOrange"
 	icon_living = "magicOrange"
@@ -22,12 +25,14 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	light_on = FALSE
 	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
-	movement_type = FLYING // Immunity to chasms and landmines, etc.
+	is_flying_animal = TRUE // Immunity to chasms and landmines, etc.
+	no_flying_animation = TRUE
 	attack_sound = "punch"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	attacktext = "punches"
+	attack_verb_continuous = "punches"
+	attack_verb_simple = "punch"
 	maxHealth = INFINITY // The spirit itself is invincible
 	health = INFINITY
 	healable = FALSE // Don't bruise pack the holopara!
@@ -140,6 +145,8 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	if(mind && key && key != mind.key) // Ooh, new player!
 		first_time_show_popup = mind.has_antag_datum(/datum/antagonist/holoparasite)
 	. = ..()
+	if(!. || !client)
+		return FALSE
 	if(mind)
 		mind.name = "[real_name]"
 	if(QDELETED(summoner?.current))

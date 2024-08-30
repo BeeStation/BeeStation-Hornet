@@ -13,12 +13,16 @@
 	healable = 0
 	speak_emote = list("hisses")
 	emote_hear = list("wails.","screeches.")
-	response_help  = "puts their hand through"
-	response_disarm = "flails at"
-	response_harm   = "punches"
+	response_help_continuous = "puts their hand through"
+	response_help_simple = "put your hand through"
+	response_disarm_continuous = "flails at"
+	response_disarm_simple = "flail at"
+	response_harm_continuous = "punches"
+	response_harm_simple = "punch"
 	speak_chance = 1
 	melee_damage = 5
-	attacktext = "metaphysically strikes"
+	attack_verb_continuous = "metaphysically strikes"
+	attack_verb_simple = "metaphysically strike"
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -26,7 +30,7 @@
 	status_flags = 0
 	faction = list("cult")
 	status_flags = CANPUSH
-	movement_type = FLYING
+	is_flying_animal = TRUE
 	loot = list(/obj/item/ectoplasm)
 	del_on_death = TRUE
 	initial_language_holder = /datum/language_holder/construct

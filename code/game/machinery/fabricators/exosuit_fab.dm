@@ -19,8 +19,8 @@
 	categories = list(
 		"Cyborg",
 		"Ripley",
-		"Firefighter",
 		"Odysseus",
+		"Clarke",
 		"Gygax",
 		"Durand",
 		"H.O.N.K",

@@ -17,7 +17,8 @@
 
 	var/siemens_coeff = 1 	// resistance to shocks
 
-	var/stun_mod = 1      	// % stun modifier
+	var/stun_add = 0		// % additive stun increaser
+	var/stun_mod = 1      	// % multiplicitive stun multiplayer, applied after additive is applied
 	var/bleed_mod = 1     	// % bleeding modifier
 	var/datum/armor/armor 	// internal armor datum
 

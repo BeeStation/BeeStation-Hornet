@@ -218,7 +218,7 @@
 	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
 		changeNext_move(CLICK_CD_BREAKOUT)
 		last_special = world.time + CLICK_CD_BREAKOUT
-		var/buckle_cd = 600
+		var/buckle_cd = 60 SECONDS
 		if(handcuffed)
 			var/obj/item/restraints/O = src.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
 			buckle_cd = O.breakouttime
@@ -509,9 +509,10 @@
 
 /mob/living/carbon/update_stamina(extend_stam_crit = FALSE)
 	var/stam = getStaminaLoss()
-	if(stam >= DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !stat && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
+	if(stam >= DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
 		if(!stat)
-			enter_stamcrit()
+			if(extend_stam_crit && !HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
+				enter_stamcrit()
 	else if(HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
 		REMOVE_TRAIT(src, TRAIT_INCAPACITATED, STAMINA)
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
@@ -525,7 +526,7 @@
 		return
 	if(stat == DEAD)
 		sight = (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_in_dark = 8
+		see_in_dark = NIGHTVISION_FOV_RANGE
 		see_invisible = SEE_INVISIBLE_OBSERVER
 		return
 
@@ -908,7 +909,6 @@
 ///Proc to hook behavior on bodypart removals.
 /mob/living/carbon/proc/remove_bodypart(obj/item/bodypart/old_bodypart)
 	bodyparts -= old_bodypart
-
 	switch(old_bodypart.body_part)
 		if(LEG_LEFT, LEG_RIGHT)
 			set_num_legs(num_legs - 1)
@@ -942,43 +942,51 @@
 	if(href_list[VV_HK_MODIFY_BODYPART])
 		if(!check_rights(R_SPAWN))
 			return
-		var/edit_action = input(usr, "What would you like to do?","Modify Body Part") as null|anything in list("add","remove", "augment")
+		var/edit_action = input(usr, "What would you like to do?","Modify Body Part") as null|anything in list("replace","remove")
 		if(!edit_action)
 			return
 		var/list/limb_list = list()
-		if(edit_action == "remove" || edit_action == "augment")
-			for(var/obj/item/bodypart/B in bodyparts)
+		if(edit_action == "remove")
+			for(var/obj/item/bodypart/B as anything in bodyparts)
 				limb_list += B.body_zone
-			if(edit_action == "remove")
 				limb_list -= BODY_ZONE_CHEST
 		else
-			limb_list = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-			for(var/obj/item/bodypart/B in bodyparts)
-				limb_list -= B.body_zone
-		var/result = input(usr, "Please choose which body part to [edit_action]","[capitalize(edit_action)] Body Part") as null|anything in limb_list
+			limb_list = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_CHEST)
+		var/result = input(usr, "Please choose which bodypart to [edit_action]","[capitalize(edit_action)] Bodypart") as null|anything in sort_list(limb_list)
 		if(result)
 			var/obj/item/bodypart/BP = get_bodypart(result)
+			var/list/limbtypes = list()
+			switch(result)
+				if(BODY_ZONE_CHEST)
+					limbtypes = typesof(/obj/item/bodypart/chest)
+				if(BODY_ZONE_R_ARM)
+					limbtypes = typesof(/obj/item/bodypart/r_arm)
+				if(BODY_ZONE_L_ARM)
+					limbtypes = typesof(/obj/item/bodypart/l_arm)
+				if(BODY_ZONE_HEAD)
+					limbtypes = typesof(/obj/item/bodypart/head)
+				if(BODY_ZONE_L_LEG)
+					limbtypes = typesof(/obj/item/bodypart/l_leg)
+				if(BODY_ZONE_R_LEG)
+					limbtypes = typesof(/obj/item/bodypart/r_leg)
 			switch(edit_action)
 				if("remove")
 					if(BP)
-						BP.drop_limb()
+						BP.drop_limb(special = TRUE)
+						admin_ticket_log("[key_name_admin(usr)] has removed [src]'s [parse_zone(BP.body_zone)]")
 					else
-						to_chat(usr, "[src] doesn't have such bodypart.")
-				if("add")
-					if(BP)
-						to_chat(usr, "[src] already has such bodypart.")
+						to_chat(usr, "<span class='boldwarning'>[src] doesn't have such bodypart.</span>")
+						admin_ticket_log("[key_name_admin(usr)] has attempted to modify the bodyparts of [src]")
+				if("replace")
+					var/limb2add = input(usr, "Select a bodypart type to add", "Add/Replace Bodypart") as null|anything in sort_list(limbtypes)
+					var/obj/item/bodypart/new_bp = new limb2add()
+
+					if(new_bp.replace_limb(src, special = TRUE))
+						admin_ticket_log("[key_name_admin(usr)] has replaced [src]'s [BP.type] with [new_bp.type]")
+						qdel(BP)
 					else
-						if(!regenerate_limb(result))
-							to_chat(usr, "[src] cannot have such bodypart.")
-				if("augment")
-					if(ishuman(src))
-						if(BP)
-							BP.change_bodypart_status(BODYTYPE_ROBOTIC, TRUE, TRUE)
-						else
-							to_chat(usr, "[src] doesn't have such bodypart.")
-					else
-						to_chat(usr, "Only humans can be augmented.")
-		admin_ticket_log("[key_name_admin(usr)] has modified the bodyparts of [src]")
+						to_chat(usr, "Failed to replace bodypart! They might be incompatible.")
+						admin_ticket_log("[key_name_admin(usr)] has attempted to modify the bodyparts of [src]")
 
 	if(href_list[VV_HK_MAKE_AI])
 		if(!check_rights(R_SPAWN))

@@ -59,6 +59,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///the holodeck can load onto this turf if TRUE
 	var/holodeck_compatible = FALSE
 
+	/// If this turf contained an RCD'able object (or IS one, for walls)
+	/// but is now destroyed, this will preserve the value.
+	/// See __DEFINES/construction.dm for RCD_MEMORY_*.
+	var/rcd_memory
+
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
@@ -198,7 +203,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/attack_hand(mob/user)
 	// Show a zmove radial when clicked
 	if(get_turf(user) == src)
-		if(!user.has_gravity(src) || (user.movement_type & FLYING))
+		if(!user.has_gravity(src) || (user.movement_type & (FLOATING|FLYING)))
 			show_zmove_radial(user)
 			return
 		else if(allow_z_travel)

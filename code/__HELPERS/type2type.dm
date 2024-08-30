@@ -175,6 +175,22 @@
 		. = "NONE"
 	return .
 
+/// For finding out what body parts a body zone covers, the inverse of the below basically
+/proc/body_zone2cover_flags(def_zone)
+	switch(def_zone)
+		if(BODY_ZONE_CHEST)
+			return CHEST|GROIN
+		if(BODY_ZONE_HEAD)
+			return HEAD
+		if(BODY_ZONE_L_ARM)
+			return ARM_LEFT|HAND_LEFT
+		if(BODY_ZONE_R_ARM)
+			return ARM_RIGHT|HAND_RIGHT
+		if(BODY_ZONE_L_LEG)
+			return LEG_LEFT|FOOT_LEFT
+		if(BODY_ZONE_R_LEG)
+			return LEG_RIGHT|FOOT_RIGHT
+
 /// Converts an RGB color to an HSL color
 /proc/rgb2hsl(red, green, blue)
 	red /= 255;green /= 255;blue /= 255;
