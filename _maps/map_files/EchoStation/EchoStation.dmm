@@ -753,9 +753,9 @@
 /obj/item/computer_hardware/hard_drive/role/quartermaster{
 	pixel_y = 6
 	},
-/obj/item/card/id/job/shaft_miner,
 /obj/effect/turf_decal/bot,
 /obj/item/clothing/glasses/welding,
+/obj/item/card/id/job/shaft_miner,
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
 "aoo" = (
