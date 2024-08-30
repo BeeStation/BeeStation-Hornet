@@ -747,6 +747,14 @@
 	build_path = /obj/item/ammo_box/foambox
 	category = list("initial", "Misc")
 
+/datum/design/id_card
+	name = "Blank ID"
+	id = "id_card"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 500, /datum/material/copper = 500)
+	build_path = /obj/item/card/id
+	category = list("initial", "Misc")
+
 //hacked autolathe recipes
 /datum/design/flamethrower
 	name = "Flamethrower"

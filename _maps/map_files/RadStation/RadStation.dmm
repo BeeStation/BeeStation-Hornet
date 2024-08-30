@@ -30076,9 +30076,9 @@
 /area/medical/genetics/cloning)
 "jBT" = (
 /obj/structure/closet/secure_closet/quartermaster,
-/obj/item/card/id/job/shaft_miner,
-/obj/item/card/id/job/shaft_miner,
-/obj/item/card/id/job/shaft_miner,
+/obj/item/card/id/job/shaft_miner{
+	give_job_access = 1
+	},
 /obj/effect/turf_decal/bot,
 /obj/item/computer_hardware/hard_drive/role/quartermaster{
 	pixel_y = 6
@@ -30094,6 +30094,12 @@
 	},
 /obj/item/gps/mining{
 	gpstag = "QM"
+	},
+/obj/item/card/id/job/shaft_miner{
+	give_job_access = 1
+	},
+/obj/item/card/id/job/shaft_miner{
+	give_job_access = 1
 	},
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
@@ -47640,7 +47646,9 @@
 /area/quartermaster/office)
 "oZI" = (
 /obj/structure/closet/wardrobe/miner,
-/obj/item/card/id/job/shaft_miner,
+/obj/item/card/id/job/shaft_miner{
+	give_job_access = 1
+	},
 /obj/item/clothing/suit/hooded/wintercoat/miner,
 /turf/open/floor/iron,
 /area/quartermaster/miningdock)

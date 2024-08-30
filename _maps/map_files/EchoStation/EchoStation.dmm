@@ -10732,8 +10732,8 @@
 	pixel_x = 2
 	},
 /obj/item/card/id/job/atmospheric_technician{
-	access = list(11);
-	pixel_y = -5
+	pixel_y = -5;
+	give_job_access = 1
 	},
 /obj/item/clothing/glasses/meson/engine{
 	pixel_y = -6
@@ -26140,7 +26140,6 @@
 "mIY" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/effect/turf_decal/bot,
-/obj/item/card/id/job/shaft_miner,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -26152,6 +26151,9 @@
 	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/item/card/id/job/shaft_miner{
+	give_job_access = 1
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
@@ -34632,12 +34634,14 @@
 "qZA" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/effect/turf_decal/bot,
-/obj/item/card/id/job/shaft_miner,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/obj/item/card/id/job/shaft_miner{
+	give_job_access = 1
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
