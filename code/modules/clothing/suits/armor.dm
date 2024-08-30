@@ -42,10 +42,12 @@
 
 /obj/item/clothing/suit/armor/vest/blueshirt
 	name = "large armor vest"
-	desc = "A large, yet comfortable piece of armor, protecting you from some threats. Type H-L"
+	desc = "A type H-L armored vest which provides greater protection than its I-A counterpart, at the cost of being bulkier."
 	icon_state = "blueshift"
 	item_state = null
 	custom_premium_price = 600
+	armor = list(MELEE = 40,  BULLET = 40, LASER = 40, ENERGY = 45, BOMB = 30, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 40)
+	slowdown = 0.14
 
 /obj/item/clothing/suit/armor/vest/corporate
 	name = "corporate Jacket"
@@ -54,6 +56,7 @@
 	item_state = "secjacket"
 	body_parts_covered = CHEST|ARMS
 	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 35, BOMB = 20, BIO = 0, RAD = 0, FIRE = 45, ACID = 45, STAMINA = 30, BLEED = 20)
+	slowdown = 0.02
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored greatcoat"

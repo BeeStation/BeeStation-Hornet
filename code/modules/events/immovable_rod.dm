@@ -132,7 +132,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	else if (isobj(clong))
 		if(clong.density)
 			var/obj/hit_obj = clong
-			hit_obj.take_damage(hit_obj.obj_integrity, armour_penetration = 100)
+			hit_obj.take_damage(hit_obj.get_integrity(), armour_penetration = 100)
 	else if(isliving(clong))
 		penetrate(clong)
 	else if(istype(clong, type))

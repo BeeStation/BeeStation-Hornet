@@ -44,7 +44,8 @@
 /datum/crafting_recipe/food/eggbowl
 	name = "Egg bowl"
 	reqs = list(
-		/obj/item/food/salad/boiledrice = 1,
+		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/food/boiledrice = 1,
 		/obj/item/food/boiledegg = 1,
 		/obj/item/food/grown/carrot = 1,
 		/obj/item/food/grown/corn = 1

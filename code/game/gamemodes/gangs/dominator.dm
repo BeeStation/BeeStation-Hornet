@@ -11,6 +11,7 @@
 	anchored = TRUE
 	layer = HIGH_OBJ_LAYER
 	max_integrity = 300
+	max_hit_damage = 30
 	integrity_failure = 0.33
 	move_resist = INFINITY
 	armor = list(MELEE = 20,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 10, ACID = 70, STAMINA = 0, BLEED = 0)
@@ -224,7 +225,7 @@
 				priority_announce("All hostile activity within station systems has ceased.","Network Alert", SSstation.announcer.get_rand_alert_sound())
 
 			if(get_security_level() == "delta")
-				set_security_level("red")
+				SSsecurity_level.set_level(SEC_LEVEL_RED)
 
 		SSshuttle.clearHostileEnvironment(src)
 		gang.message_gangtools("Hostile takeover cancelled: Dominator is no longer operational.[gang.dom_attempts ? " You have [gang.dom_attempts] attempt remaining." : " The station network will have likely blocked any more attempts by us."]",1,1)

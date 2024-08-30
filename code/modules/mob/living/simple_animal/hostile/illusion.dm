@@ -9,7 +9,8 @@
 	mob_biotypes = list()
 	melee_damage = 5
 	a_intent = INTENT_HARM
-	attacktext = "gores"
+	attack_verb_continuous = "gores"
+	attack_verb_simple = "gore"
 	maxHealth = 100
 	health = 100
 	speed = 0

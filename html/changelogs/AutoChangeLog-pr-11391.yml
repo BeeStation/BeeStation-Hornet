@@ -1,0 +1,5 @@
+author: XeonMations
+delete-after: true
+changes:
+  - bugfix: Fixed revenants being able to fall down z levels
+  - bugfix: Certain FLYING checks now also check for FLOATING movetypes.
