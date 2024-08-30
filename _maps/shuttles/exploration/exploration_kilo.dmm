@@ -118,7 +118,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/machinery/light,
 /obj/machinery/airalarm/unlocked{
-	dir = 8;
+	dir = 4;
 	pixel_x = 25
 	},
 /obj/effect/turf_decal/bot,
@@ -298,7 +298,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "Ah" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/effect/turf_decal/loading_area,
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/structure/cable/yellow,
@@ -307,7 +307,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/power/apc/auto_name/directional/east,

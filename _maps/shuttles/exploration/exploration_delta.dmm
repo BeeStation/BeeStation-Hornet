@@ -92,7 +92,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -103,7 +103,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -276,7 +275,6 @@
 /obj/machinery/vendor/exploration,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/airalarm/directional/north{
@@ -488,8 +486,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "UU" = (
-/obj/structure/chair/stool{
-	dir = 1;
+/obj/structure/chair/stool/directional/south{
 	pixel_y = 4
 	},
 /turf/open/floor/mineral/titanium,

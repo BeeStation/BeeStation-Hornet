@@ -85,9 +85,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "cq" = (
-/obj/machinery/camera{
-	dir = 1
-	},
+/obj/machinery/camera/directional/south,
 /turf/template_noop,
 /area/template_noop)
 "cE" = (
@@ -318,7 +316,7 @@
 /area/shuttle/exploration)
 "lU" = (
 /obj/machinery/camera{
-	dir = 5
+	dir = 10
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -337,9 +335,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "mL" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -713,7 +709,7 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/camera{
-	dir = 9
+	dir = 6
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -816,7 +812,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/north{
+/obj/machinery/power/apc/auto_name/directional/north{
 	cell_type = /obj/item/stock_parts/cell/high
 	},
 /obj/structure/cable/yellow{
@@ -826,7 +822,6 @@
 /obj/item/stack/sheet/mineral/plasma/ten,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -1031,9 +1026,7 @@
 /area/shuttle/exploration)
 "Sp" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Tf" = (
