@@ -5694,6 +5694,9 @@
 /turf/open/floor/plating,
 /area/security/warden)
 "crG" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/science/robotics)
 "crS" = (
@@ -8135,32 +8138,6 @@
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "dNx" = (
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -2;
-	pixel_y = 5
-	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -2;
-	pixel_y = 5
-	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -2;
-	pixel_y = 5
-	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/plasteel{
-	amount = 15;
-	pixel_x = 2
-	},
-/obj/item/stack/sheet/mineral/plasma/fifty{
-	amount = 5
-	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = 2;
-	pixel_y = 3
-	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/table,
 /obj/machinery/requests_console{
@@ -8174,6 +8151,15 @@
 	pixel_x = 1;
 	pixel_y = 29
 	},
+/obj/item/borg/upgrade/rename{
+	pixel_x = -1;
+	pixel_y = 8
+	},
+/obj/item/borg/upgrade/rename{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/obj/item/storage/belt/utility,
 /turf/open/floor/iron/dark,
 /area/science/robotics)
 "dNK" = (
@@ -8991,7 +8977,7 @@
 "enN" = (
 /obj/effect/turf_decal/siding/white,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/recharge_station,
+/obj/item/kirbyplants/random,
 /obj/structure/railing{
 	layer = 4
 	},
@@ -9081,12 +9067,6 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
-"epb" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/closed/mineral/random/air,
-/area/engine/atmos)
 "epj" = (
 /obj/machinery/stasis{
 	dir = 8
@@ -12801,15 +12781,9 @@
 	name = "-3 Primary Hallway"
 	})
 "fZv" = (
-/obj/structure/table/reinforced,
-/obj/item/mmi{
-	pixel_x = 2;
-	pixel_y = 3
+/obj/structure/bodycontainer/morgue{
+	dir = 2
 	},
-/obj/item/mmi{
-	pixel_y = 11
-	},
-/obj/item/storage/backpack/duffelbag/sec/surgery,
 /turf/open/floor/iron/white,
 /area/science/robotics)
 "fZy" = (
@@ -16099,6 +16073,44 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/structure/closet/crate/science{
+	desc = "A science full of materials crate.";
+	name = "science materials crate"
+	},
+/obj/item/stack/sheet/iron/fifty{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/item/stack/sheet/iron/fifty{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/iron/fifty{
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/iron/fifty{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/item/stack/sheet/iron/fifty{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 15;
+	pixel_x = 2
+	},
+/obj/item/stack/sheet/mineral/plasma/fifty{
+	amount = 5
+	},
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = -1;
+	pixel_y = 1
+	},
 /turf/open/floor/mech_bay_recharge_floor,
 /area/science/robotics)
 "hvK" = (
@@ -18771,9 +18783,6 @@
 "iWs" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/vending/wardrobe/robo_wardrobe,
-/obj/machinery/camera/directional/north{
-	network = list("ss13","rd")
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -19738,10 +19747,10 @@
 /area/engine/engineering)
 "jxw" = (
 /obj/effect/turf_decal/siding/white,
-/obj/item/kirbyplants/random,
 /obj/structure/railing{
 	layer = 4
 	},
+/obj/machinery/recharge_station,
 /turf/open/floor/iron,
 /area/science/robotics)
 "jxW" = (
@@ -20549,28 +20558,19 @@
 "jOI" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/table,
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/obj/item/storage/belt/utility,
 /obj/item/clothing/glasses/welding{
 	pixel_x = 2;
 	pixel_y = -1
-	},
-/obj/item/clothing/head/utility/welding{
-	pixel_x = -2;
-	pixel_y = 3
 	},
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
+	},
+/obj/item/clothing/head/utility/welding{
+	pixel_x = -2;
+	pixel_y = 3
 	},
 /turf/open/floor/iron/dark,
 /area/science/robotics)
@@ -20843,19 +20843,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/item/borg/upgrade/rename{
-	pixel_x = -1;
-	pixel_y = 8
-	},
-/obj/item/borg/upgrade/rename{
-	pixel_x = 3;
-	pixel_y = 2
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/toolbox/electrical,
 /turf/open/floor/iron/dark,
 /area/science/robotics)
 "jXs" = (
@@ -22671,6 +22658,24 @@
 /obj/structure/ladder,
 /turf/open/floor/pod/dark,
 /area/maintenance/department/engine)
+"kRM" = (
+/obj/structure/table/reinforced,
+/obj/item/mmi{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/obj/item/mmi{
+	pixel_y = 11
+	},
+/obj/item/storage/backpack/duffelbag/sec/surgery,
+/obj/machinery/requests_console{
+	department = "Robotics Lab";
+	name = "Robotics RC";
+	pixel_x = 32;
+	receive_ore_updates = 1
+	},
+/turf/open/floor/iron/white,
+/area/science/robotics)
 "kSi" = (
 /obj/structure/railing{
 	dir = 10
@@ -22758,8 +22763,13 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/machinery/aug_manipulator,
 /obj/effect/turf_decal/bot,
+/obj/structure/filingcabinet/filingcabinet{
+	pixel_x = -7
+	},
+/obj/structure/filingcabinet/filingcabinet{
+	pixel_x = 7
+	},
 /turf/open/floor/iron/dark,
 /area/science/robotics)
 "kVh" = (
@@ -23410,15 +23420,7 @@
 /turf/closed/wall,
 /area/maintenance/department/eva)
 "lku" = (
-/obj/structure/bodycontainer/morgue{
-	dir = 2
-	},
-/obj/machinery/requests_console{
-	department = "Robotics Lab";
-	name = "Robotics RC";
-	pixel_x = 32;
-	receive_ore_updates = 1
-	},
+/obj/machinery/aug_manipulator,
 /turf/open/floor/iron/white,
 /area/science/robotics)
 "lkw" = (
@@ -26601,10 +26603,10 @@
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "mRz" = (
-/obj/structure/reagent_dispensers/water_cooler,
 /obj/structure/railing{
 	dir = 9
 	},
+/obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/iron/dark/side{
 	dir = 9
 	},
@@ -28400,6 +28402,10 @@
 /obj/structure/railing,
 /turf/open/openspace,
 /area/ai_monitored/turret_protected/aisat/maint)
+"nOm" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/white,
+/area/science/robotics)
 "nOn" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -31985,6 +31991,9 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
+	},
+/obj/machinery/camera/directional/north{
+	network = list("ss13","rd")
 	},
 /turf/open/floor/iron/dark,
 /area/science/robotics)
@@ -47353,12 +47362,12 @@
 /turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
 "xiD" = (
-/obj/structure/railing,
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
+/obj/structure/railing,
 /turf/open/floor/iron/dark/side{
 	dir = 10
 	},
@@ -47389,13 +47398,13 @@
 /obj/structure/railing/corner,
 /obj/structure/railing/corner,
 /obj/machinery/firealarm/directional/south,
-/obj/structure/filingcabinet/filingcabinet{
-	pixel_x = -7
-	},
-/obj/structure/filingcabinet/filingcabinet{
-	pixel_x = 7
-	},
 /obj/structure/railing/corner,
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/toolbox/electrical,
 /turf/open/floor/iron/dark,
 /area/science/robotics)
 "xiY" = (
@@ -60093,7 +60102,7 @@ lEu
 bod
 vHR
 sfR
-epb
+jOo
 jOo
 jRB
 vgG
@@ -197568,7 +197577,7 @@ gXD
 ohi
 fZv
 eVJ
-eVJ
+nOm
 crG
 rJc
 cpg
@@ -197824,7 +197833,7 @@ ise
 ise
 ohi
 lku
-eVJ
+kRM
 ohi
 iWs
 xiY
