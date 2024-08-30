@@ -1,5 +1,4 @@
 /datum/unit_test/map_test/wall_attachment/check_turf(turf/check_turf, is_map_border)
-	var/found = FALSE
 	for (var/obj/placed_object in check_turf)
 		// Temporary hacky check to see if we contain a directional mapping helper
 		// I know its a normal variable, but this is explicitly accessed through reflection

@@ -1,6 +1,5 @@
 /datum/unit_test/map_test/check_multiple_objects/check_turf(turf/check_turf, is_map_border)
 	var/result = list()
-	var/found = FALSE
 	var/types = list()
 	for (var/obj/object in check_turf)
 		if (!isstructure(object) && !ismachinery(object))
