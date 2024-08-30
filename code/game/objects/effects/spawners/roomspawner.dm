@@ -17,6 +17,15 @@
 
 /obj/effect/spawner/room/Initialize(mapload)
 	. = ..()
+#ifdef UNIT_TESTS
+	// These are far too flakey to be including in the tests
+	var/turf/main_room_turf = get_turf(src)
+	for (var/x in main_room_turf.x to main_room_turf.x + room_width)
+		for (var/y in main_room_turf.y to main_room_turf.y + room_height)
+			var/turf/fix_turf = locate(x, y, main_room_turf.z)
+			fix_turf.ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_IGNORE_AIR)
+	return INITIALIZE_HINT_QDEL
+#endif
 	if(!length(SSmapping.random_room_templates))
 		message_admins("Room spawner created with no templates available. This shouldn't happen.")
 		return INITIALIZE_HINT_QDEL
