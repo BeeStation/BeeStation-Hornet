@@ -14,10 +14,6 @@
 	var/recharge_speed
 	var/repairs
 
-/obj/machinery/recharge_station/closed
-	density = TRUE
-	state_open = FALSE
-
 /obj/machinery/recharge_station/Initialize(mapload)
 	. = ..()
 	update_icon()

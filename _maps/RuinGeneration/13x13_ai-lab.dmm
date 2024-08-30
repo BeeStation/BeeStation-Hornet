@@ -262,8 +262,8 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "Kx" = (
-/obj/machinery/recharge_station/closed,
 /mob/living/silicon/robot/derelict,
+/obj/machinery/recharge_station,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "KU" = (

@@ -26,7 +26,7 @@
 	. = ..()
 	update_icon()
 
-/obj/item/robot_suit/prebuilt/Initialize()
+/obj/item/robot_suit/prebuilt/Initialize(mapload)
 	. = ..()
 	l_arm = new(src)
 	r_arm = new(src)
