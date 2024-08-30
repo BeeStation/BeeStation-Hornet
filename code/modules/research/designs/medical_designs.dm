@@ -64,6 +64,7 @@
 
 /datum/design/blood_pack
 	name = "Blood Pack"
+	desc = "An empty pack for blood transfusions"
 	id = "blood_pack"
 	build_type = PROTOLATHE
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
