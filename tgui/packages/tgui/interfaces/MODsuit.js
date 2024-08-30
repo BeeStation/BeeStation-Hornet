@@ -124,15 +124,7 @@ const RadCounter = (props, context) => {
 };
 
 const HealthAnalyzer = (props, context) => {
-  const {
-    active,
-    userhealth,
-    usermaxhealth,
-    userbrute,
-    userburn,
-    usertoxin,
-    useroxy,
-  } = props;
+  const { active, userhealth, usermaxhealth, userbrute, userburn, usertoxin, useroxy } = props;
   return (
     <>
       <Section title="Health">
@@ -142,7 +134,7 @@ const HealthAnalyzer = (props, context) => {
             good: [0.5, Infinity],
             average: [0.2, 0.5],
             bad: [-Infinity, 0.2],
-          }} >
+          }}>
           <AnimatedNumber value={userhealth} />
         </ProgressBar>
       </Section>
@@ -155,7 +147,7 @@ const HealthAnalyzer = (props, context) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }} >
+              }}>
               <AnimatedNumber value={userbrute} />
             </ProgressBar>
           </Section>
@@ -168,7 +160,7 @@ const HealthAnalyzer = (props, context) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }} >
+              }}>
               <AnimatedNumber value={userburn} />
             </ProgressBar>
           </Section>
@@ -181,7 +173,7 @@ const HealthAnalyzer = (props, context) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }} >
+              }}>
               <AnimatedNumber value={usertoxin} />
             </ProgressBar>
           </Section>
@@ -194,7 +186,7 @@ const HealthAnalyzer = (props, context) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }} >
+              }}>
               <AnimatedNumber value={useroxy} />
             </ProgressBar>
           </Section>
@@ -441,7 +433,7 @@ const ModuleSection = (props, context) => {
                             disabled={module.configuration_data.length === 0}
                           />
                           <Button
-                            onClick={() => act('pin', { "ref": module.ref })}
+                            onClick={() => act('pin', { 'ref': module.ref })}
                             icon="thumbtack"
                             selected={module.pinned}
                             tooltip="Pin"
