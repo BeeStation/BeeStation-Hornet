@@ -12,8 +12,10 @@
 
 /obj/effect/spawner/room/New(loc, ...)
 	. = ..()
+#ifndef UNIT_TESTS
 	if(!isnull(SSmapping.random_room_spawners))
 		SSmapping.random_room_spawners += src
+#endif
 
 /obj/effect/spawner/room/Initialize(mapload)
 	. = ..()
@@ -25,7 +27,7 @@
 			var/turf/fix_turf = locate(x, y, main_room_turf.z)
 			fix_turf.ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_IGNORE_AIR)
 	return INITIALIZE_HINT_QDEL
-#endif
+#else
 	if(!length(SSmapping.random_room_templates))
 		message_admins("Room spawner created with no templates available. This shouldn't happen.")
 		return INITIALIZE_HINT_QDEL
@@ -46,6 +48,7 @@
 			template.spawned = TRUE
 		var/datum/async_map_generator/map_place/generator = template.load(get_turf(src), centered = template.centerspawner)
 		generator.on_completion(CALLBACK(src, PROC_REF(after_place)))
+#endif
 
 /obj/effect/spawner/room/proc/after_place(datum/async_map_generator/map_place/generator, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, ...)
 	// Scan through the room and remove any wall fixtures that were not placed correctly
