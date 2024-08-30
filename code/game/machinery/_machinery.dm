@@ -596,10 +596,12 @@ Class Procs:
 		if(!panel_open)
 			panel_open = TRUE
 			icon_state = icon_state_open
+			set_machine_stat(machine_stat & MAINT)
 			to_chat(user, "<span class='notice'>You open the maintenance hatch of [src].</span>")
 		else
 			panel_open = FALSE
 			icon_state = icon_state_closed
+			set_machine_stat(machine_stat & ~MAINT)
 			to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
 		return 1
 	return 0
