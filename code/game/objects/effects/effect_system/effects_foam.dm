@@ -44,10 +44,10 @@
 	if(hotspot && istype(T) && T.air)
 		qdel(hotspot)
 		var/datum/gas_mixture/G = T.air
-		var/plas_amt = min(30,G.gases[/datum/gas/plasma][MOLES]) //Absorb some plasma
-		G.gases[/datum/gas/plasma][MOLES] += -plas_amt
+		var/plas_amt = min(30,GET_MOLES(/datum/gas/plasma, G)) //Absorb some plasma
+		REMOVE_MOLES(/datum/gas/plasma, G, plas_amt)
 		absorbed_plasma += plas_amt
-		if(G.return_temperature() > T20C)
+		if(G.temperature > T20C)
 			G.temperature = max(G.return_temperature()/2,T20C)
 		T.air_update_turf(FALSE, FALSE)
 
@@ -342,7 +342,7 @@
 			for(var/I in G.gases)
 				if(I == /datum/gas/oxygen || I == /datum/gas/nitrogen)
 					continue
-				G.gases[I][MOLES] = 0
+				SET_MOLES(I , G, 0)
 
 		for(var/obj/machinery/atmospherics/components/unary/U in O)
 			if(!U.welded)

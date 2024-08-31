@@ -404,12 +404,12 @@ Turf and target are separate in case you want to teleport some distance from a t
 		if(id in GLOB.hardcoded_gases)
 			continue
 		return FALSE
-	if(air.gases[/datum/gas/oxygen][MOLES] < 16 || air.gases[/datum/gas/plasma][MOLES] || air.gases[/datum/gas/carbon_dioxide][MOLES] >= 10)
+	if(GET_MOLES(/datum/gas/oxygen, air) < 16 || air.gases[/datum/gas/plasma][MOLES] || GET_MOLES(/datum/gas/carbon_dioxide, air) >= 10)
 		return FALSE
-	var/temperature = air.return_temperature()
+	var/temperature = air.temperature
 	if(temperature <= 270 || temperature >= 360)
 		return FALSE
-	var/pressure = air.return_pressure()
+	var/pressure = air.pressure
 	if(pressure <= 20 || pressure >= 550)
 		return FALSE
 	return TRUE

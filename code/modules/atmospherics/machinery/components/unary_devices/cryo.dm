@@ -236,7 +236,7 @@
 
 	var/datum/gas_mixture/air1 = airs[1]
 
-	if(!nodes[1] || !airs[1] || air1.gases[/datum/gas/oxygen][MOLES] < 5) // Turn off if the machine won't work due to not having enough moles to operate.
+	if(!nodes[1] || !airs[1] || GET_MOLES(/datum/gas/oxygen, air1) < 5) // Turn off if the machine won't work due to not having enough moles to operate.
 		on = FALSE
 		update_icon()
 		var/msg = "Aborting. Not enough gas present to operate."
@@ -260,7 +260,7 @@
 			air1.temperature = max(air1.return_temperature() - heat / air_heat_capacity, TCMB)
 			mob_occupant.adjust_bodytemperature(heat / heat_capacity, TCMB)
 
-		air1.gases[/datum/gas/oxygen][MOLES] =  max(0,air1.gases[/datum/gas/oxygen][MOLES] - 0.5 / efficiency) // Magically consume gas? Why not, we run on cryo magic.
+		SET_MOLES(/datum/gas/oxygen, air1, max(0,GET_MOLES(/datum/gas/oxygen, air1) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.
 
 	update_parents()
 

@@ -22,12 +22,10 @@
 	var/datum/gas_mixture/plasma_mix = plasma_tank.return_air()
 	var/datum/gas_mixture/oxygen_mix = oxygen_tank.return_air()
 
-	plasma_mix.assert_gas(/datum/gas/plasma)
-	plasma_mix.gases[/datum/gas/plasma][MOLES] = pressure_p*plasma_mix.volume/(R_IDEAL_GAS_EQUATION*CELSIUS_TO_KELVIN(temp_p))
+	SET_MOLES(plasma_mix, /datum/gas/plasma, pressure_p*plasma_mix.volume/(R_IDEAL_GAS_EQUATION*CELSIUS_TO_KELVIN(temp_p)))
 	plasma_mix.temperature = CELSIUS_TO_KELVIN(temp_p)
 
-	oxygen_mix.assert_gas(/datum/gas/oxygen)
-	oxygen_mix.gases[/datum/gas/oxygen][MOLES] = pressure_o*oxygen_mix.volume/(R_IDEAL_GAS_EQUATION*CELSIUS_TO_KELVIN(temp_o))
+	SET_MOLES(oxygen_mix, /datum/gas/oxygen, pressure_o*oxygen_mix.volume/(R_IDEAL_GAS_EQUATION*CELSIUS_TO_KELVIN(temp_o)))
 	oxygen_mix.temperature = CELSIUS_TO_KELVIN(temp_o)
 
 	V.tank_one = plasma_tank

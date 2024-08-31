@@ -125,10 +125,8 @@
 	if(burned_fuel)
 		energy_released += (N2O_DECOMPOSITION_ENERGY_RELEASED * burned_fuel)
 
-		ASSERT_GAS(/datum/gas/oxygen, air)
-		cached_gases[/datum/gas/oxygen][MOLES] += burned_fuel * 0.5
-		ASSERT_GAS(/datum/gas/nitrogen, air)
-		cached_gases[/datum/gas/nitrogen][MOLES] += burned_fuel
+		ADD_MOLES(/datum/gas/oxygen, burned_fuel * 0.5)
+		ADD_MOLES(/datum/gas/nitrogen, burned_fuel)
 
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
@@ -164,8 +162,7 @@
 		burned_fuel = cached_gases[/datum/gas/oxygen][MOLES] / TRITIUM_BURN_OXY_FACTOR
 		cached_gases[/datum/gas/tritium][MOLES] -= burned_fuel
 
-		ASSERT_GAS(/datum/gas/water_vapor, air) //oxygen+more-or-less hydrogen=H2O
-		cached_gases[/datum/gas/water_vapor][MOLES] += burned_fuel / TRITIUM_BURN_OXY_FACTOR
+		ADD_MOLES(/datum/gas/water_vapor, air, burned_fuel/TRITIUM_BURN_OXY_FACTOR)
 
 		energy_released += (FIRE_HYDROGEN_ENERGY_RELEASED * burned_fuel)
 		cached_results["fire"] += burned_fuel
@@ -176,8 +173,7 @@
 		cached_gases[/datum/gas/tritium][MOLES] -= burned_fuel / TRITIUM_BURN_TRIT_FACTOR
 		cached_gases[/datum/gas/oxygen][MOLES] -= burned_fuel
 
-		ASSERT_GAS(/datum/gas/water_vapor, air) //oxygen+more-or-less hydrogen=H2O
-		cached_gases[/datum/gas/water_vapor][MOLES] += burned_fuel / TRITIUM_BURN_TRIT_FACTOR
+		ADD_MOLES(/datum/gas/water_vapor, air, burned_fuel/TRITIUM_BURN_OXY_FACTOR)
 
 		energy_released += (FIRE_HYDROGEN_ENERGY_RELEASED * burned_fuel)
 		cached_results["fire"] += burned_fuel * 10
@@ -257,13 +253,10 @@
 			cached_gases[/datum/gas/plasma][MOLES] = QUANTIZE(cached_gases[/datum/gas/plasma][MOLES] - plasma_burn_rate)
 			cached_gases[/datum/gas/oxygen][MOLES] = QUANTIZE(cached_gases[/datum/gas/oxygen][MOLES] - (plasma_burn_rate * oxygen_burn_rate))
 			if (super_saturation)
-				ASSERT_GAS(/datum/gas/tritium, air)
-				cached_gases[/datum/gas/tritium][MOLES] += plasma_burn_rate
+				ADD_MOLES(/datum/gas/tritium, air, plasma_burn_rate)
 			else
-				ASSERT_GAS(/datum/gas/carbon_dioxide,air)
-				ASSERT_GAS(/datum/gas/water_vapor,air)
-				cached_gases[/datum/gas/carbon_dioxide][MOLES] += plasma_burn_rate * 0.75
-				cached_gases[/datum/gas/water_vapor][MOLES] += plasma_burn_rate * 0.25
+				ADD_MOLES(/datum/gas/carbon_dioxide, air, plasma_burn_rate*0.75)
+				ADD_MOLES(/datum/gas/water_vapor, air, plasma_burn_rate*0.25)
 
 			energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 
@@ -311,10 +304,10 @@
 	var/list/cached_scan_results = air.analyzer_results
 	var/thermal_energy = air.thermal_energy()
 	var/reaction_energy = 0 //Reaction energy can be negative or positive, for both exothermic and endothermic reactions.
-	var/initial_plasma = air.gases[/datum/gas/plasma][MOLES]
-	var/initial_carbon = air.gases[/datum/gas/carbon_dioxide][MOLES]
-	var/scale_factor = max(air.return_volume() / FUSION_SCALE_DIVISOR, FUSION_MINIMAL_SCALE)
-	var/temperature_scale = log(10, air.return_temperature())
+	var/initial_plasma = GET_MOLES(/datum/gas/plasma, air)
+	var/initial_carbon = GET_MOLES(/datum/gas/carbon_dioxide, air)
+	var/scale_factor = max(air.volume / FUSION_SCALE_DIVISOR, FUSION_MINIMAL_SCALE)
+	var/temperature_scale = log(10, air.temperature)
 	//The size of the phase space hypertorus
 	var/toroidal_size = 	TOROID_CALCULATED_THRESHOLD \
 							+ (temperature_scale <= FUSION_BASE_TEMPSCALE ? \
@@ -322,7 +315,7 @@
 							: 4 ** (temperature_scale-FUSION_BASE_TEMPSCALE) / FUSION_SLOPE_DIVISOR)
 	var/gas_power = 0
 	for (var/gas_id in air.gases)
-		gas_power += (GLOB.meta_gas_info[gas_id][META_GAS_FUSION_POWER]*air.gases[gas_id][MOLES])
+		gas_power += (GLOB.meta_gas_info[gas_id][META_GAS_FUSION_POWER]*GET_MOLES(gas_id, air))
 	var/instability = MODULUS((gas_power*INSTABILITY_GAS_POWER_FACTOR),toroidal_size) //Instability effects how chaotic the behavior of the reaction is
 	cached_scan_results[id] = instability//used for analyzer feedback
 
@@ -333,9 +326,9 @@
 	plasma = MODULUS(plasma - (instability*sin(TODEGREES(carbon))), toroidal_size)
 	carbon = MODULUS(carbon - plasma, toroidal_size)
 
-	air.gases[/datum/gas/plasma][MOLES] = plasma*scale_factor + FUSION_MOLE_THRESHOLD
+	SET_MOLES(/datum/gas/plasma, air, plasma*scale_factor + FUSION_MOLE_THRESHOLD)
 //Scales the gases back up
-	air.gases[/datum/gas/carbon_dioxide][MOLES] = carbon*scale_factor + FUSION_MOLE_THRESHOLD
+	SET_MOLES(/datum/gas/carbon_dioxide, air, carbon*scale_factor + FUSION_MOLE_THRESHOLD)
 
 	var/delta_plasma = min(initial_plasma - air.gases[/datum/gas/plasma][MOLES], toroidal_size * scale_factor * 1.5)
 
@@ -357,19 +350,19 @@
 		thermal_energy = middle_energy * 10 ** log(FUSION_ENERGY_TRANSLATION_EXPONENT, (thermal_energy + bowdlerized_reaction_energy) / middle_energy)
 
 	//The reason why you should set up a tritium production line.
-	air.gases[/datum/gas/tritium][MOLES] += -FUSION_TRITIUM_MOLES_USED
+	REMOVE_MOLES(/datum/gas/tritium, air, FUSION_TRITIUM_MOLES_USED)
 
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
 	var/standard_waste_gas_output = scale_factor * (FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED)
 	if(delta_plasma > 0)
-		air.gases[/datum/gas/water_vapor][MOLES] += standard_waste_gas_output
+		ADD_MOLES(/datum/gas/water_vapor, air, standard_waste_gas_output)
 	else
-		air.gases[/datum/gas/bz][MOLES] += standard_waste_gas_output
-	air.gases[/datum/gas/oxygen][MOLES] += standard_waste_gas_output //Oxygen is a bit touchy subject
+		ADD_MOLES(/datum/gas/bz, air, standard_waste_gas_output)
+	ADD_MOLES(/datum/gas/oxygen, air, standard_waste_gas_output) //Oxygen is a bit touchy subject
 
 	if(reaction_energy)
 		if(location)
-			var/standard_energy = 400 * air.gases[/datum/gas/plasma][MOLES] * air.return_temperature() //Prevents putting meaningless waste gases to achieve high rads.
+			var/standard_energy = 400 * GET_MOLES(/datum/gas/plasma, air) * air.temperature //Prevents putting meaningless waste gases to achieve high rads.
 			if(prob(PERCENT(((PARTICLE_CHANCE_CONSTANT)/(reaction_energy-PARTICLE_CHANCE_CONSTANT)) + 1))) //Asymptopically approaches 100% as the energy of the reaction goes up.
 				location.fire_nuclear_particle(customize = TRUE, custompower = standard_energy)
 			radiation_pulse(location, max(2000 * 3 ** (log(10,standard_energy) - FUSION_RAD_MIDPOINT), 0))
@@ -405,15 +398,13 @@
 	var/old_heat_capacity = air.heat_capacity()
 	var/heat_efficency = min(temperature / (FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 8), cached_gases[/datum/gas/oxygen][MOLES], cached_gases[/datum/gas/nitrogen][MOLES], cached_gases[/datum/gas/bz][MOLES] * INVERSE(0.05))
 	var/energy_used = heat_efficency * NITRYL_FORMATION_ENERGY
-	ASSERT_GAS(/datum/gas/nitryl, air)
 	if ((cached_gases[/datum/gas/oxygen][MOLES] - heat_efficency < 0 ) || (cached_gases[/datum/gas/nitrogen][MOLES] - heat_efficency < 0) || (cached_gases[/datum/gas/bz][MOLES] - heat_efficency * 0.05 < 0)) //Shouldn't produce gas from nothing.
 		return NO_REACTION
 
-	ASSERT_GAS(/datum/gas/nitryl, air)
 	cached_gases[/datum/gas/oxygen][MOLES] -= heat_efficency
 	cached_gases[/datum/gas/nitrogen][MOLES] -= heat_efficency
 	cached_gases[/datum/gas/bz][MOLES] -= heat_efficency * 0.05 //bz gets consumed to balance the nitryl production and not make it too common and/or easy
-	cached_gases[/datum/gas/nitryl][MOLES] += heat_efficency
+	ADD_MOLES(/datum/gas/nitryl, air, heat_efficiency)
 
 	if(energy_used > 0)
 		var/new_heat_capacity = air.heat_capacity()
@@ -442,12 +433,10 @@
 	if ((cached_gases[/datum/gas/nitrous_oxide][MOLES] - reaction_efficency < 0 )|| (cached_gases[/datum/gas/plasma][MOLES] - (2 * reaction_efficency) < 0) || energy_released <= 0) //Shouldn't produce gas from nothing.
 		return NO_REACTION
 
-	ASSERT_GAS(/datum/gas/bz, air)
-	cached_gases[/datum/gas/bz][MOLES] += reaction_efficency * 2.5
+	ADD_MOLES(/datum/gas/bz, air, reaction_efficency * 2.5)
 	if(reaction_efficency == cached_gases[/datum/gas/nitrous_oxide][MOLES])
-		ASSERT_GAS(/datum/gas/oxygen, air)
 		cached_gases[/datum/gas/bz][MOLES] -= min(pressure, 0.5)
-		cached_gases[/datum/gas/oxygen][MOLES] += min(pressure, 0.5)
+		ADD_MOLES(/datum/gas/oxygen, air, min(pressure, 0.5))
 	cached_gases[/datum/gas/nitrous_oxide][MOLES] -= reaction_efficency
 	cached_gases[/datum/gas/plasma][MOLES]  -= 2 * reaction_efficency
 
@@ -475,12 +464,11 @@
 	var/old_heat_capacity = air.heat_capacity()
 	var/heat_scale = min(air.temperature/STIMULUM_HEAT_SCALE, cached_gases[/datum/gas/tritium][MOLES], cached_gases[/datum/gas/plasma][MOLES], cached_gases[/datum/gas/nitryl][MOLES])
 	var/stim_energy_change = heat_scale + STIMULUM_FIRST_RISE * (heat_scale ** 2) - STIMULUM_FIRST_DROP * (heat_scale ** 3) + STIMULUM_SECOND_RISE * (heat_scale ** 4) - STIMULUM_ABSOLUTE_DROP * (heat_scale ** 5)
-	ASSERT_GAS(/datum/gas/stimulum, air)
 	if ((cached_gases[/datum/gas/tritium][MOLES] - heat_scale < 0 ) || (cached_gases[/datum/gas/nitryl][MOLES] - heat_scale < 0)) //Shouldn't produce gas from nothing.
 		return NO_REACTION
 	cached_gases[/datum/gas/tritium][MOLES] -= heat_scale
 	cached_gases[/datum/gas/nitryl][MOLES] -= heat_scale
-	cached_gases[/datum/gas/stimulum][MOLES] += heat_scale * 0.75
+	ADD_GAS(/datum/gas/stimulum, air, heat_scale*0.75)
 
 	if(stim_energy_change)
 		var/new_heat_capacity = air.heat_capacity()

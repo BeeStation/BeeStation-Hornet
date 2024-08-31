@@ -667,8 +667,8 @@ GENE SCANNER
 			message += "<span class='notice'>Pressure: [round(pressure,0.01)] kPa</span>"
 
 			for(var/id in air_contents.gases)
-				var/gas_concentration = air_contents.gases[id][MOLES]/total_moles
-				message += "<span class='notice'>[air_contents.gases[id][GAS_META][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(air_contents.gases[id][MOLES], 0.01)] mol)</span>"
+				var/gas_concentration = GET_MOLES(id,air_contents)/total_moles
+				message += "<span class='notice'>[air_contents.gases[id][GAS_META][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(GET_MOLES(id, air_contents), 0.01)] mol)</span>"
 			message += "<span class='notice'>Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)</span>"
 
 		else
@@ -702,37 +702,37 @@ GENE SCANNER
 	else
 		message += "<span class='alert'>Pressure: [round(pressure, 0.01)] kPa</span>"
 	if(total_moles)
-		var/o2_concentration = environment.gases[/datum/gas/oxygen][MOLES]/total_moles
-		var/n2_concentration = environment.gases[/datum/gas/nitrogen][MOLES]/total_moles
-		var/co2_concentration = environment.gases[/datum/gas/carbon_dioxide][MOLES]/total_moles
-		var/plasma_concentration = environment.gases[/datum/gas/plasma][MOLES]/total_moles
+		var/o2_concentration = GET_MOLES(/datum/gas/oxygen, environment)/total_moles
+		var/n2_concentration = GET_MOLES(/datum/gas/nitrogen, environment)/total_moles
+		var/co2_concentration = GET_MOLES(/datum/gas/carbon_dioxide, environment)/total_moles
+		var/plasma_concentration =
 
 		if(abs(n2_concentration - N2STANDARD) < 20)
-			message += "<span class='info'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.gases[/datum/gas/nitrogen][MOLES], 0.01)] mol)</span>"
+			message += "<span class='info'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(n2_concentration*total_moles, 0.01)] mol)</span>"
 		else
-			message += "<span class='alert'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.gases[/datum/gas/nitrogen][MOLES], 0.01)] mol)</span>"
+			message += "<span class='alert'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(n2_concentration*total_moles, 0.01)] mol)</span>"
 
 		if(abs(o2_concentration - O2STANDARD) < 2)
-			message += "<span class='info'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.gases[/datum/gas/oxygen][MOLES], 0.01)] mol)</span>"
+			message += "<span class='info'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(o2_concentration*total_moles, 0.01)] mol)</span>"
 		else
-			message += "<span class='alert'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.gases[/datum/gas/oxygen][MOLES], 0.01)] mol)</span>"
+			message += "<span class='alert'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(o2_concentration*total_moles, 0.01)] mol)</span>"
 
 		if(co2_concentration > 0.01)
-			message += "<span class='alert'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.gases[/datum/gas/carbon_dioxide][MOLES], 0.01)] mol)</span>"
+			message += "<span class='alert'>CO2: [round(co2_concentration*100, 0.01)] % ([round(co2_concentration*total_moles, 0.01)] mol)</span>"
 		else
-			message += "<span class='info'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.gases[/datum/gas/carbon_dioxide][MOLES], 0.01)] mol)</span>"
+			message += "<span class='info'>CO2: [round(co2_concentration*100, 0.01)] % ([round(co2_concentration*total_moles, 0.01)] mol)</span>"
 
 		if(plasma_concentration > 0.005)
-			message += "<span class='alert'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.gases[/datum/gas/plasma][MOLES], 0.01)] mol)</span>"
+			message += "<span class='alert'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(plasma_concentration*total_moles, 0.01)] mol)</span>"
 		else
-			message += "<span class='info'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.gases[/datum/gas/plasma][MOLES], 0.01)] mol)</span>"
+			message += "<span class='info'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(plasma_concentration*total_moles, 0.01)] mol)</span>"
 
 		for(var/id in environment.gases)
 			if(id in GLOB.hardcoded_gases)
 				continue
-			var/gas_concentration = environment.gases[id][MOLES]/total_moles
-			message += "<span class='alert'>[environment.gases[id][GAS_META][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(environment.gases[id][MOLES], 0.01)] mol)</span>"
-		message += "<span class='info'>Temperature: [round(environment.return_temperature()-T0C, 0.01)] &deg;C ([round(environment.return_temperature(), 0.01)] K)</span>"
+			var/gas_concentration = GET_MOLES(id, environment)/total_moles
+			message += "<span class='alert'>[environment.gases[id][GAS_META][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(gas_concentration*total_moles, 0.01)] mol)</span>"
+		message += "<span class='info'>Temperature: [round(environment.temperature-T0C, 0.01)] &deg;C ([round(environment.temperature, 0.01)] K)</span>"
 	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
 
 /obj/item/analyzer/ranged

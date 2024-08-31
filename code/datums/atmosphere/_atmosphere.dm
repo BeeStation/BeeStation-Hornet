@@ -25,13 +25,13 @@
 	var/datum/gas_mixture/gasmix = new
 	gasmix.temperature = rand(minimum_temp, maximum_temp)
 	for(var/i in base_gases)
-		gasmix.gases[i][MOLES] = base_gases[i]
+		SET_MOLES(gasmix, i, base_gases[i])
 
 
 	// Now let the random choices begin
 	var/datum/gas/gastype
 	var/amount
-	while(gasmix.return_pressure() < target_pressure)
+	while(gasmix.pressure < target_pressure)
 		if(!prob(restricted_chance))
 			gastype = pick(normal_gases)
 			amount = normal_gases[gastype]
@@ -45,16 +45,16 @@
 		amount *= pressure_scalar		// If we pick a really small target pressure we want roughly the same mix but less of it all
 		amount = CEILING(amount, 0.1)
 
-		gasmix.gases[gastype][MOLES] = gasmix.gases[gastype][MOLES] + amount
+		ADD_MOLES(gastype, gasmix, amount)
 
 	// That last one put us over the limit, remove some of it
-	while(gasmix.return_pressure() > target_pressure)
-		gasmix.gases[gastype][MOLES] =  gasmix.gases[gastype][MOLES] - (gasmix.gases[gastype][MOLES] * 0.1)
-	gasmix.gases[gastype][MOLES] = FLOOR(gasmix.gases[gastype][MOLES], 0.1)
+	while(gasmix.pressure > target_pressure)
+		SET_MOLES(gastype, gasmix, GET_MOLES(gastype, gasmix) * 0.9)
+	SET_MOLES(gastype, gasmix, FLOOR(GET_MOLES(gastype,gasmix), 0.1))
 
 	// Now finally lets make that string
 	var/list/gas_string_builder = list()
 	for(var/i in gasmix.gases)
-		gas_string_builder += "[gasmix.gases[i][GAS_META][META_GAS_ID]]=[gasmix.gases[i][MOLES]]"
+		gas_string_builder += "[gasmix.gases[i][GAS_META][META_GAS_ID]]=[GET_MOLES(i, gasmix)]"
 	gas_string_builder += "TEMP=[gasmix.return_temperature()]"
 	gas_string = gas_string_builder.Join(";")

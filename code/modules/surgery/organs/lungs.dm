@@ -245,7 +245,7 @@
 			mole_adjustments[gas] = (gas in mole_adjustments) ? mole_adjustments[gas] - breath.gases[gas][MOLES] : -breath.gases[gas][MOLES]
 
 	for(var/gas in mole_adjustments)
-		breath.gases[gas][MOLES] += mole_adjustments[gas]
+		ADD_MOLES(breath, gas, mole_adjustments[gas])
 
 	if(breath)	// If there's some other shit in the air lets deal with it here.
 

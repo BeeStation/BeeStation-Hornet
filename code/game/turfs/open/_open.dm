@@ -284,10 +284,9 @@
 	. = ..()
 	if (air.gases[/datum/gas/carbon_dioxide] && air.gases[/datum/gas/oxygen])
 		pulse_strength = min(pulse_strength,air.gases[/datum/gas/carbon_dioxide][MOLES]*1000,air.gases[/datum/gas/oxygen][MOLES]*2000) //Ensures matter is conserved properly
-		air.gases[/datum/gas/carbon_dioxide][MOLES] = max(air.gases[/datum/gas/carbon_dioxide][MOLES]-(pulse_strength/1000),0)
-		air.gases[/datum/gas/oxygen][MOLES] = max(air.gases[/datum/gas/oxygen][MOLES]-(pulse_strength/2000),0)
-		ASSERT_GAS(/datum/gas/pluoxium, air)
-		air.gases[/datum/gas/pluoxium][MOLES] += pulse_strength/4000
+		REMOVE_MOLES(/datum/gas/carbon_dioxide, air, air.gases[/datum/gas/carbon_dioxide][MOLES]-(pulse_strength/1000))
+		REMOVE_MOLES(/datum/gas/oxygen, air, air.gases[/datum/gas/oxygen][MOLES]-(pulse_strength/2000))
+		ADD_MOLES(/datum/gas/pluoxium, air, pulse_strength/4000)
 
 /turf/open/proc/break_tile(force, allow_base)
 	LAZYINITLIST(damage_overlays)

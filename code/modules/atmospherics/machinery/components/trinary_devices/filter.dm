@@ -103,8 +103,7 @@
 		var/datum/gas_mixture/filtered_out = new
 
 		filtered_out.temperature = removed.temperature
-		filtered_out.add_gas(filter_type)
-		filtered_out.gases[filter_type][MOLES] = removed.gases[filter_type][MOLES]
+		SET_MOLES(filter_type, filtered_out, removed.gases[filter_type][MOLES])
 
 		removed.gases[filter_type][MOLES] = 0
 		removed.garbage_collect()

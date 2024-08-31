@@ -20,7 +20,7 @@
 	air_contents.volume = volume
 	air_contents.temperature = (T20C)
 	if(gas_type)
-		air_contents.gases[gas_type][MOLES] = AIR_CONTENTS
+		SET_MOLES(gas_type, air_contents, AIR_CONTENTS)
 
 		name = "[name] ([GLOB.meta_gas_info[gas_type][META_GAS_NAME]])"
 	set_piping_layer(piping_layer)
@@ -33,10 +33,8 @@
 /obj/machinery/atmospherics/components/unary/tank/air/New()
 	..()
 	var/datum/gas_mixture/air_contents = airs[1]
-	air_contents.assert_gas(/datum/gas/oxygen)
-	air_contents.gases[/datum/gas/oxygen][MOLES] = AIR_CONTENTS * 0.2
-	air_contents.assert_gas(/datum/gas/nitrogen)
-	air_contents.gases[/datum/gas/nitrogen][MOLES] = AIR_CONTENTS * 0.8
+	SET_MOLES(air_contents, /datum/gas/oxygen, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
+	SET_MOLES(air_contents, /datum/gas/nitrogen, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
 
 
 /obj/machinery/atmospherics/components/unary/tank/carbon_dioxide

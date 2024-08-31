@@ -74,3 +74,17 @@ GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
 #define TURF_SHARES(T) (LAZYLEN(T.atmos_adjacent_turfs))
 /// Rounding
 #define QUANTIZE(variable) (round((variable), (MOLAR_ACCURACY)))
+
+// Macros to access moles. Used instead of listmos only when nullchecking is necessary.
+
+///Gets the moles of a specific gas in a gas mixture.
+#define GET_MOLES(gas, gas_mixture) (gas_mixture.gases[gas] ? gas_mixture.gases[gas][MOLES] : 0)
+
+///Adds moles to a specific gas in a gas mixture, asserts the gas is present.
+#define ADD_MOLES(gas, gas_mixture, moles) (ASSERT_GAS(gas, gas_mixture); gas_mixture.gases[gas][MOLES] += moles)
+
+///Removes moles from a specific gas in a gas mixture, asserts the gas is present.
+#define REMOVE_MOLES(gas, gas_mixture, moles) (ASSERT_GAS(gas, gas_mixture); max(gas_mixture.gases[gas][MOLES] -= moles, 0))
+
+///Sets the moles of a specific gas in a gas mixture, asserts the gas is present.
+#define SET_MOLES(gas, gas_mixture, moles) (ASSERT_GAS(gas, gas_mixture); gas_mixture.gases[gas][MOLES] = moles)

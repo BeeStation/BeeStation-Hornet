@@ -625,7 +625,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(!Rad.loaded_tank)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
 				var/datum/gas_mixture/plasma_air = Plasma.return_air()
-				plasma_air.gases[/datum/gas/plasma][MOLES] = 70
+				SET_MOLES(/datum/gas/plasma, plasma_air, 70)
 
 				Rad.drainratio = 0
 				Rad.loaded_tank = Plasma
@@ -957,7 +957,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	var/datum/gas_mixture/C_air = C.return_air()
 
-	C_air.gases[gas_to_add][MOLES] = amount
+	SET_MOLES(gas_to_add, C_air, amount)
 
 	C_air.temperature = (temp)
 	C.update_icon()

@@ -45,12 +45,10 @@
 	if(!ST.air && (atmos_requirements["min_oxy"] || atmos_requirements["min_tox"] || atmos_requirements["min_n2"] || atmos_requirements["min_co2"]))
 		return FALSE
 
-	ST.air.assert_gases(/datum/gas/plasma, /datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/carbon_dioxide)
-
-	var/plas = ST.air.gases[/datum/gas/plasma][MOLES]
-	var/oxy = ST.air.gases[/datum/gas/oxygen][MOLES]
-	var/n2  = ST.air.gases[/datum/gas/nitrogen][MOLES]
-	var/co2 = ST.air.gases[/datum/gas/carbon_dioxide][MOLES]
+	var/plas = GET_MOLES(/datum/gas/plasma, ST.air)
+	var/oxy = GET_MOLES(/datum/gas/oxygen, ST.air)
+	var/n2  = GET_MOLES(/datum/gas/nitrogen, ST.air)
+	var/co2 = GET_MOLES(/datum/gas/carbon_dioxide, ST.air)
 
 	. = TRUE
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])

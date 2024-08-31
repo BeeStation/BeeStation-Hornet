@@ -13,10 +13,8 @@
 
 /obj/structure/transit_tube_pod/Initialize(mapload)
 	. = ..()
-	air_contents.assert_gas(/datum/gas/oxygen)
-	air_contents.gases[/datum/gas/oxygen][MOLES] = MOLES_O2STANDARD
-	air_contents.assert_gas(/datum/gas/nitrogen)
-	air_contents.gases[/datum/gas/nitrogen][MOLES] = MOLES_N2STANDARD
+	SET_MOLES(air_contents, /datum/gas/oxygen, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
+	SET_MOLES(air_contents, /datum/gas/nitrogen, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
 
 	air_contents.temperature = T20C
 
