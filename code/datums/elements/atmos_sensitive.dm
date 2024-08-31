@@ -11,7 +11,7 @@
 	var/atom/to_track = target
 	if(isopenturf(to_track.loc))
 		to_track.RegisterSignal(to_track.loc, COMSIG_TURF_EXPOSE, /atom/proc/check_atmos_process)
-	RegisterSignal(to_track, COMSIG_MOVABLE_MOVED, .proc/handle_move)
+	RegisterSignal(to_track, COMSIG_MOVABLE_MOVED, PROC_REF(handle_move))
 	return ..()
 
 /datum/element/atmos_sensitive/Detach(datum/source, force)
