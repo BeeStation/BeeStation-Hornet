@@ -24319,7 +24319,6 @@
 	dir = 1
 	},
 /obj/item/kirbyplants/random,
-/obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron,
 /area/security/brig)
 "cZX" = (
@@ -27944,17 +27943,16 @@
 /turf/open/floor/iron/telecomms,
 /area/tcommsat/server)
 "dCR" = (
-/obj/item/radio/intercom{
-	pixel_x = -30
-	},
-/obj/machinery/airalarm/directional/west{
-	pixel_x = -23
-	},
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/rnd/production/techfab/department/security,
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Common Channel";
+	pixel_x = -28
+	},
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "dDb" = (
@@ -30199,6 +30197,7 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "dSZ" = (
@@ -72313,12 +72312,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
-"qZg" = (
-/obj/item/radio/intercom{
-	pixel_y = -26
-	},
-/turf/open/floor/prison,
-/area/security/prison)
 "qZl" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -79516,10 +79509,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/light_switch{
-	pixel_x = -22;
-	pixel_y = 26
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
@@ -86454,6 +86443,7 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
+/obj/machinery/firealarm/directional/east,
 /turf/open/floor/iron,
 /area/security/brig)
 "vtt" = (
@@ -95201,6 +95191,10 @@
 	},
 /obj/structure/chair/office{
 	dir = 1
+	},
+/obj/machinery/light_switch{
+	pixel_x = 24;
+	pixel_y = 8
 	},
 /turf/open/floor/iron/dark,
 /area/security/warden)
@@ -146504,7 +146498,7 @@ wkM
 wkM
 jBo
 fEe
-qZg
+nZc
 nZc
 nZc
 nZc
