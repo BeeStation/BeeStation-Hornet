@@ -38,7 +38,7 @@
 		else
 			gastype = pick(restricted_gases)
 			amount = restricted_gases[gastype]
-			if(gasmix.gases[gastype][MOLES])
+			if(GET_MOLES(gastype, gasmix))
 				continue
 
 		amount *= rand(50, 200) / 100	// Randomly modifes the amount from half to double the base for some variety

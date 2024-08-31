@@ -236,8 +236,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/turf/open/open_turf = T
 	var/datum/gas_mixture/air = open_turf.return_air()
 
-	if(air.gases[/datum/gas/plasma][MOLES] > 15)
-		air.gases[/datum/gas/plasma][MOLES] += -15
+	if(GET_MOLES(/datum/gas/plasma, air) > 15)
+		air.adjust_moles(/datum/gas/plasma, -15)
 		new /obj/item/stack/sheet/mineral/plasma(open_turf)
 
 /obj/structure/slime_crystal/darkpurple/Destroy()

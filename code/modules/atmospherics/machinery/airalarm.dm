@@ -281,7 +281,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
 								"name" = GLOB.meta_gas_info[gas_id][META_GAS_NAME],
 								"value" = environment.gases[gas_id][MOLES] / total_moles * 100,
 								"unit" = "%",
-								"danger_level" = cur_tlv.get_danger_level(environment.gases[gas_id][MOLES] * partial_pressure)
+								"danger_level" = cur_tlv.get_danger_level(GET_MOLES(gas_id, environment) * partial_pressure)
 		))
 
 	if(!locked || user.has_unlimited_silicon_privilege)
@@ -681,7 +681,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
 		if(!(gas_id in TLV)) // We're not interested in this gas, it seems.
 			continue
 		cur_tlv = TLV[gas_id]
-		gas_dangerlevel = max(gas_dangerlevel, cur_tlv.get_danger_level(environment.gases[gas_id][MOLES] * partial_pressure))
+		gas_dangerlevel = max(gas_dangerlevel, cur_tlv.get_danger_level(GET_MOLES(gas_id, environment) * partial_pressure))
 
 	var/old_danger_level = danger_level
 	danger_level = max(pressure_dangerlevel, temperature_dangerlevel, gas_dangerlevel)
@@ -936,7 +936,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
 		pressure.set_output(round(environment.return_pressure()))
 		temperature.set_output(round(environment.return_temperature()))
 		if(ispath(options_map[current_option]))
-			gas_amount.set_output(round(environment.gases[current_option][MOLES]))
+			gas_amount.set_output(round(GET_MOLES(current_option, environment)))
 		return
 
 	var/datum/tlv/settings = connected_alarm.TLV[options_map[current_option]]

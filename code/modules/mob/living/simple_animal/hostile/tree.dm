@@ -49,7 +49,7 @@
 	if(isopenturf(loc))
 		var/turf/open/T = src.loc
 		if(T.air)
-			var/co2 = T.air.gases[/datum/gas/carbon_dioxide][MOLES]
+			var/co2 = T.GET_MOLES(/datum/gas/carbon_dioxide, air)
 			if(co2 > 0)
 				if(prob(25))
 					var/amt = min(co2, 9)

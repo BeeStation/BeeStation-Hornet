@@ -416,7 +416,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/datum/gas_mixture/air = T.return_air()
 	var/input_id = initial(input.id)
 	var/output_id = initial(output.id)
-	var/moles = min(air.gases[input_id][MOLES], 5)
+	var/moles = min(GET_MOLES(input_id, air), 5)
 	if(moles)
 		air.gases[input_id][MOLES] += -moles
 		air.gases[output_id][MOLES] += moles

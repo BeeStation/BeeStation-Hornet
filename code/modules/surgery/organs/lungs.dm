@@ -156,7 +156,7 @@
 
 	#define PP_MOLES(X) ((X / total_moles) * pressure)
 
-	#define PP(air, gas) PP_MOLES(air.gases[gas][MOLES])
+	#define PP(air, gas) PP_MOLES(GET_MOLES(gas, air))
 
 	var/gas_breathed = 0
 
@@ -189,7 +189,7 @@
 					for(var/product in products)
 						mole_adjustments[product] = (product in mole_adjustments) ? mole_adjustments[product] + to_add : to_add
 		else
-			required_moles = breath.gases[entry][MOLES]
+			required_moles = GET_MOLES(entry, breath)
 			required_pp = PP_MOLES(required_moles)
 			var/list/alert = GLOB.meta_gas_info[entry][META_GAS_BREATH_ALERT_INFO]?["not_enough_alert"]
 			if(alert)

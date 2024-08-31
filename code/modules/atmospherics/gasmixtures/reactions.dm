@@ -530,16 +530,16 @@
 		location = get_turf(pick(pipenet.members))
 	else
 		location = get_turf(holder)
-	var/ball_shot_angle = 180*cos(air.gases[/datum/gas/water_vapor][MOLES]/air.gases[/datum/gas/nitryl][MOLES])+180
-	var/stim_used = min(STIM_BALL_GAS_AMOUNT/air.gases[/datum/gas/plasma][MOLES],air.gases[/datum/gas/stimulum][MOLES])
-	var/pluox_used = min(STIM_BALL_GAS_AMOUNT/air.gases[/datum/gas/plasma][MOLES],air.gases[/datum/gas/pluoxium][MOLES])
+	var/ball_shot_angle = 180*cos(GET_MOLES(/datum/gas/water_vapor, air)/GET_MOLES(/datum/gas/nitryl, air))+180
+	var/stim_used = min(STIM_BALL_GAS_AMOUNT/GET_MOLES(/datum/gas/plasma, air),GET_MOLES(/datum/gas/stimulum, air))
+	var/pluox_used = min(STIM_BALL_GAS_AMOUNT/GET_MOLES(/datum/gas/plasma, air),GET_MOLES(/datum/gas/pluoxium, air))
 	var/energy_released = stim_used*STIMULUM_HEAT_SCALE//Stimulum has a lot of stored energy, and breaking it up releases some of it
 	location.fire_nuclear_particle(ball_shot_angle)
-	air.gases[/datum/gas/carbon_dioxide][MOLES] += 4*pluox_used
-	air.gases[/datum/gas/nitrogen][MOLES] += 8*stim_used
-	air.gases[/datum/gas/pluoxium][MOLES] += -pluox_used
-	air.gases[/datum/gas/stimulum][MOLES] += -stim_used
-	air.gases[/datum/gas/plasma][MOLES] += max(-air.gases[/datum/gas/plasma][MOLES]/2,-30)
+	ADD_MOLES(/datum/gas/carbon_dioxide, air, 4*pluox_used)
+	ADD_MOLES(/datum/gas/nitrogen, air, 8*stim_used)
+	REMOVE_MOLES(/datum/gas/pluoxium, air, pluox_used)
+	REMOVE_MOLES(/datum/gas/stimulum, air, stim_used)
+	REMOVE_MOLES(/datum/gas/plasma], air, min(GET_MOLES(/datum/gas/plasma, air)/2,30))
 	if(energy_released)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)

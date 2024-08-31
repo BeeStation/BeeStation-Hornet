@@ -35,7 +35,7 @@
 
 /obj/machinery/atmospherics/components/unary/plasma_refiner/AltClick(mob/living/user)
 	var/datum/gas_mixture/air_contents = airs[1]
-	var/plasmoles = air_contents.gases[/datum/gas/plasma][MOLES]
+	var/plasmoles = GET_MOLES(/datum/gas/plasma, air_contents)
 	if(!air_contents)
 		return
 	if(plasmoles >= 100)

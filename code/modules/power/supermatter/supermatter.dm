@@ -224,8 +224,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		data["SM_moles"] = air.total_moles()
 		for(var/gasid in air.gases)
 			gasdata.Add(list(list(
-			"name"= air.gases[gasid][GAS_META][META_GAS_NAME],
-			"amount" = round(100*air.gases[gasid][MOLES]/air.total_moles(),0.01))))
+			"name"= GLOB.gas_data.names[gasid],
+			"amount" = round(100*GET_MOLES(gasid, air)/air.total_moles(),0.01))))
 	else
 		for(var/gasid in air.gases)
 			gasdata.Add(list(list(
@@ -457,15 +457,15 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		//Can cause an overestimation of mol count, should stabalize things though.
 		//Prevents huge bursts of gas/heat when a large amount of something is introduced
 		//They range between 0 and 1
-		plasmacomp += clamp(max(removed.gases[/datum/gas/plasma][MOLES]/combined_gas, 0) - plasmacomp, -1, gas_change_rate)
-		o2comp += clamp(max(removed.gases[/datum/gas/oxygen][MOLES]/combined_gas, 0) - o2comp, -1, gas_change_rate)
-		co2comp += clamp(max(removed.gases[/datum/gas/carbon_dioxide][MOLES]/combined_gas, 0) - co2comp, -1, gas_change_rate)
-		pluoxiumcomp += clamp(max(removed.gases[/datum/gas/pluoxium][MOLES]/combined_gas, 0) - pluoxiumcomp, -1, gas_change_rate)
-		tritiumcomp += clamp(max(removed.gases[/datum/gas/tritium][MOLES]/combined_gas, 0) - tritiumcomp, -1, gas_change_rate)
-		bzcomp += clamp(max(removed.gases[/datum/gas/bz][MOLES]/combined_gas, 0) - bzcomp, -1, gas_change_rate)
+		plasmacomp += clamp(max(GET_MOLES(/datum/gas/plasma, removed)/combined_gas, 0) - plasmacomp, -1, gas_change_rate)
+		o2comp += clamp(max(GET_MOLES(/datum/gas/oxygen, removed)/combined_gas, 0) - o2comp, -1, gas_change_rate)
+		co2comp += clamp(max(GET_MOLES(/datum/gas/carbon_dioxide, removed)/combined_gas, 0) - co2comp, -1, gas_change_rate)
+		pluoxiumcomp += clamp(max(GET_MOLES(GAS_PLUOXIUM, removed)/combined_gas, 0) - pluoxiumcomp, -1, gas_change_rate)
+		tritiumcomp += clamp(max(GET_MOLES(/datum/gas/tritium, removed)/combined_gas, 0) - tritiumcomp, -1, gas_change_rate)
+		bzcomp += clamp(max(GET_MOLES(/datum/gas/bz, removed)/combined_gas, 0) - bzcomp, -1, gas_change_rate)
 
-		n2ocomp += clamp(max(removed.gases[/datum/gas/nitrous_oxide][MOLES]/combined_gas, 0) - n2ocomp, -1, gas_change_rate)
-		n2comp += clamp(max(removed.gases[/datum/gas/nitrogen][MOLES]/combined_gas, 0) - n2comp, -1, gas_change_rate)
+		n2ocomp += clamp(max(GET_MOLES(/datum/gas/nitrous_oxide, removed)/combined_gas, 0) - n2ocomp, -1, gas_change_rate)
+		n2comp += clamp(max(GET_MOLES(/datum/gas/nitrogen, removed)/combined_gas, 0) - n2comp, -1, gas_change_rate)
 
 		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + tritiumcomp + bzcomp - pluoxiumcomp - n2comp, 0), 1)
 
