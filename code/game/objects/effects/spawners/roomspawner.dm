@@ -22,8 +22,8 @@
 #ifdef UNIT_TESTS
 	// These are far too flakey to be including in the tests
 	var/turf/main_room_turf = get_turf(src)
-	for (var/x in main_room_turf.x to main_room_turf.x + room_width)
-		for (var/y in main_room_turf.y to main_room_turf.y + room_height)
+	for (var/x in main_room_turf.x to main_room_turf.x + room_width - 1)
+		for (var/y in main_room_turf.y to main_room_turf.y + room_height - 1)
 			var/turf/fix_turf = locate(x, y, main_room_turf.z)
 			fix_turf.ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_IGNORE_AIR)
 	return INITIALIZE_HINT_QDEL
@@ -52,8 +52,8 @@
 
 /obj/effect/spawner/room/proc/after_place(datum/async_map_generator/map_place/generator, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, ...)
 	// Scan through the room and remove any wall fixtures that were not placed correctly
-	for (var/x in T.x to T.x + room_width)
-		for (var/y in T.y to T.y + room_height)
+	for (var/x in T.x to T.x + room_width - 1)
+		for (var/y in T.y to T.y + room_height - 1)
 			var/turf/current = locate(x, y, T.z)
 			for (var/obj/placed_object in current)
 				// Temporary hacky check to see if we contain a directional mapping helper
