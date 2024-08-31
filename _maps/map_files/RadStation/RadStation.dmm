@@ -20542,7 +20542,7 @@
 /area/science/xenobiology)
 "gtD" = (
 /obj/machinery/cryopod{
-	desc = "Suited for Cyborgs and Humanoids, the pod is a safe place for personnel affected by the Space Sleep Disorder to get some rest. If you think that this the easy way out, Nanotransen will address your situation in a later date...";
+	desc = "Suited for Cyborgs and Humanoids, the pod is a safe place for personnel affected by the Space Sleep Disorder to get some rest. If you think that this the easy way out, Nanotrasen will address your situation in a later date...";
 	name = "Jail cryogenic freezer"
 	},
 /obj/machinery/computer/cryopod{
