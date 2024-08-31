@@ -194,9 +194,9 @@
 			if(JOB_NAME_CHIEFMEDICALOFFICER)
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen)
 			if(JOB_NAME_MEDICALDOCTOR)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen)
+				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen, /obj/item/scalpel)
 			if(JOB_NAME_PARAMEDIC)
-				heirloom_type = pick(/obj/item/flashlight/pen)
+				heirloom_type = pick(/obj/item/flashlight/pen, /obj/item/sensor_device)
 			if(JOB_NAME_CHEMIST)
 				heirloom_type = /obj/item/reagent_containers/glass/chem_heirloom
 			if(JOB_NAME_VIROLOGIST)
