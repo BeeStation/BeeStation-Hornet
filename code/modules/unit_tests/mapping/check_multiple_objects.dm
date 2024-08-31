@@ -8,6 +8,13 @@
 		if (istype(object, /obj/structure/cable))
 			var/obj/structure/cable/cable = object
 			hash = "[hash][min(cable.d1, cable.d2)][max(cable.d1, cable.d2)]"
+		if (istype(object, /obj/machinery/atmospherics))
+			var/obj/machinery/atmospherics/atmosmachine = object
+			// 2 atmosmachines should never be on the same turf with the same layer
+			// unless they are crossing
+			hash = "/obj/machinery/atmospherics/[atmosmachine.piping_layer]"
+			if (atmosmachine.device_type == BINARY)
+				hash = "[hash][atmosmachine.dir <= 2 ? 1 : 0]"
 		if (types[hash])
 			result += "Multiple objects of type [object.type] detected on the same tile, with the same direction."
 		else
