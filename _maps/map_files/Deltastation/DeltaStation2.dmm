@@ -46143,17 +46143,6 @@
 	},
 /turf/open/floor/iron/large,
 /area/security/courtroom)
-"iAO" = (
-/obj/machinery/computer/operating{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
-/turf/open/floor/iron/white,
-/area/security/brig/medbay)
 "iAV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/blobstart,
@@ -50727,11 +50716,9 @@
 "kdd" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/window/reinforced,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 1
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig/medbay)
@@ -51738,6 +51725,9 @@
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "ksd" = (
@@ -54066,14 +54056,16 @@
 /area/maintenance/disposal)
 "lkg" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 1
 	},
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/auto_name/directional/west,
 /turf/open/floor/iron/dark,
 /area/security/brig/medbay)
 "lkj" = (
@@ -59613,14 +59605,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"mXW" = (
-/obj/structure/bodycontainer/morgue{
-	dir = 2
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/security/brig/medbay)
 "mXY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -63336,7 +63320,10 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 4
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig/medbay)
@@ -64246,6 +64233,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
+"otP" = (
+/obj/machinery/computer/operating{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/turf/open/floor/iron/white,
+/area/security/brig/medbay)
 "otY" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -64826,6 +64820,9 @@
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "oDO" = (
@@ -67693,15 +67690,10 @@
 /area/medical/medbay/aft)
 "pDa" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/camera/autoname{
-	dir = 10;
-	network = list("ss13","security")
-	},
-/obj/machinery/power/apc/auto_name/directional/west,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "pDc" = (
@@ -74388,6 +74380,7 @@
 /area/engine/gravity_generator)
 "rEq" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/landmark/start/brig_physician,
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "rED" = (
@@ -95635,6 +95628,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/maintenance/aft)
+"yfc" = (
+/obj/structure/bodycontainer/morgue,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/tech,
+/area/security/brig/medbay)
 "yfd" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -148574,7 +148572,7 @@ lfo
 sKR
 iGS
 sjv
-tDm
+yfc
 tNF
 tNF
 tNF
@@ -149088,10 +149086,10 @@ thD
 dSZ
 pBM
 sjv
-mXW
+tDm
 kdd
+otP
 eUF
-iAO
 tmj
 rEq
 lUj
