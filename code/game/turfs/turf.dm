@@ -35,9 +35,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 	/// Whether the turf blocks atmos from passing through it or not
 	var/blocks_air = FALSE
-	// If this turf should initialize atmos adjacent turfs or not
-	// Optimization, not for setting outside of initialize
-	var/init_air = TRUE
+
 
 	flags_1 = CAN_BE_DIRTY_1
 
