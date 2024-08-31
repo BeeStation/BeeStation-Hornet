@@ -156,7 +156,7 @@
 	if (isobj(target))
 		var/obj/hit_structure = target
 		hit_structure.take_damage(120)
-		if (hit_structure.obj_integrity > 0)
+		if (hit_structure.get_integrity() > 0)
 			qdel(src)
 	if (isliving(target))
 		var/mob/living/hit_mob = target

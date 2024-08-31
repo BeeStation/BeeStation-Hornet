@@ -276,9 +276,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "aX" = (
-/obj/structure/chair/stool{
-	dir = 8
-	},
+/obj/structure/chair/stool/directional/west,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "aY" = (

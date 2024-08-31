@@ -16,6 +16,7 @@
 	var/destinationTag = NONE	// changes if contains a delivery container
 	var/tomail = FALSE			// contains wrapped package
 	var/hasmob = FALSE			// contains a mob
+	var/unsorted = TRUE			// have we been sorted yet?
 
 /obj/structure/disposalholder/Destroy()
 	QDEL_NULL(gas)
@@ -135,7 +136,7 @@
 
 
 // called when player tries to move while in a pipe
-/obj/structure/disposalholder/relaymove(mob/user)
+/obj/structure/disposalholder/relaymove(mob/living/user, direction)
 	if(user.incapacitated())
 		return
 	for(var/mob/M as() in hearers(5, get_turf(src)))

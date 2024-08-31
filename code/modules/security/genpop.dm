@@ -10,7 +10,6 @@
 	power_channel = AREA_USAGE_ENVIRON
 	density = TRUE
 	pass_flags_self = PASSTRANSPARENT | PASSGRILLE | PASSSTRUCTURE
-	obj_integrity = 600
 	max_integrity = 600
 	integrity_failure = 0.35
 	//Robust! It'll be tough to break...
@@ -364,7 +363,6 @@
 	icon = 'icons/obj/machines/genpop_display.dmi'
 	icon_state = "frame"
 	pixel_shift = 32
-	inverse = 1
 	result_path = /obj/machinery/genpop_interface
 
 /obj/item/electronics/genpop_interface
@@ -384,7 +382,7 @@
 		build_static_information()
 
 	Radio = new/obj/item/radio(src)
-	Radio.listening = 0
+	Radio.set_listening(FALSE)
 	Radio.set_frequency(FREQ_SECURITY)
 
 /obj/machinery/genpop_interface/proc/build_static_information()

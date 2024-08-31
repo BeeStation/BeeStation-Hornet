@@ -558,7 +558,9 @@ SUBSYSTEM_DEF(explosions)
 				new /obj/effect/hotspot(T) //Mostly for ambience!
 		cost_flameturf = MC_AVERAGE(cost_flameturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
-		if (low_turf.len || med_turf.len || high_turf.len)
+		// If a significant amount of turfs change, then we will run lighter for the rest of the tick
+		// because maptick is going to have an unexpected increase.
+		if (low_turf.len + med_turf.len + high_turf.len > 10)
 			Master.laggy_byond_map_update_incoming()
 
 	if(currentpart == SSEXPLOSIONS_MOVABLES)

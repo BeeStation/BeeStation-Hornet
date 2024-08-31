@@ -8,16 +8,20 @@
 
 	var/damtype = BRUTE
 	var/force = 0
+	/// How much bleeding damage do we cause, see __DEFINES/mobs.dm
+	var/bleed_force = 0
 
 	var/datum/armor/armor
 	/// The integrity the object starts at. Defaults to max_integrity.
-	var/obj_integrity
+	VAR_PRIVATE/obj_integrity //defaults to max_integrity
 	/// The maximum integrity the object can have.
 	var/max_integrity = 500
 	/// The object will break once obj_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior, otherwise is a percentage of at what point the obj breaks. 0.5 being 50%
 	var/integrity_failure = 0
-	///Damage under this value will be completely ignored
+	/// Damage under this value will be completely ignored
 	var/damage_deflection = 0
+	/// Maximum damage that can be taken in a single hit
+	var/max_hit_damage = null
 
 	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
 	var/resistance_flags = NONE
@@ -70,8 +74,7 @@
 		armor = getArmor()
 	else if (!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
-	if(obj_integrity == null)
-		obj_integrity = max_integrity
+	obj_integrity = max_integrity
 
 	. = ..() //Do this after, else mat datums is mad.
 

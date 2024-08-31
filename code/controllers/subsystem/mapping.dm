@@ -54,19 +54,17 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/space_level/empty_space
 	var/num_of_res_levels = 1
 
-//dlete dis once #39770 is resolved
-/datum/controller/subsystem/mapping/proc/HACK_LoadMapConfig()
-	if(!config)
+/datum/controller/subsystem/mapping/PreInit()
+	..()
 #ifdef FORCE_MAP
-		config = load_map_config(FORCE_MAP, MAP_DIRECTORY)
+	config = load_map_config(FORCE_MAP, MAP_DIRECTORY)
 #else
-		config = load_map_config(error_if_missing = FALSE)
+	config = load_map_config(error_if_missing = FALSE)
 #endif
 
-/datum/controller/subsystem/mapping/Initialize(timeofday)
-	HACK_LoadMapConfig()
+/datum/controller/subsystem/mapping/Initialize()
 	if(initialized)
-		return
+		return SS_INIT_SUCCESS
 	if(config.defaulted)
 		var/old_config = config
 		config = global.config.defaultmap
@@ -115,7 +113,7 @@ SUBSYSTEM_DEF(mapping)
 	generate_station_area_list()
 	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE))
 	initialize_reserved_level(transit.z_value)
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/mapping/fire(resumed)
 	// Cache for sonic speed

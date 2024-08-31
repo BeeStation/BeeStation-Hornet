@@ -87,15 +87,25 @@ SUBSYSTEM_DEF(air)
 	msg += "AT/MS:[round((cost ? active_turfs.len/cost : 0),0.1)]"
 	return ..()
 
+<<<<<<< HEAD
 
 /datum/controller/subsystem/air/Initialize(timeofday)
+=======
+/datum/controller/subsystem/air/Initialize()
+>>>>>>> fd55feafac6ca89c963096d2b2cd9129d5d27d0b
 	map_loading = FALSE
 	gas_reactions = init_gas_reactions()
 	setup_allturfs()
 	setup_atmos_machinery()
 	setup_pipenets()
+<<<<<<< HEAD
 	setup_turf_visuals()
 	return ..()
+=======
+	gas_reactions = init_gas_reactions()
+	auxtools_update_reactions()
+	return SS_INIT_SUCCESS
+>>>>>>> fd55feafac6ca89c963096d2b2cd9129d5d27d0b
 
 
 /datum/controller/subsystem/air/fire(resumed = FALSE)

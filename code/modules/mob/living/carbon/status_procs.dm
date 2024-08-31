@@ -16,7 +16,7 @@
 	ADD_TRAIT(src, TRAIT_INCAPACITATED, STAMINA)
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
 	ADD_TRAIT(src, TRAIT_FLOORED, STAMINA)
-	update_mobility()
+
 
 /mob/living/carbon/adjust_drugginess(amount)
 	druggy = max(druggy+amount, 0)

@@ -34,7 +34,7 @@
 	if(isturf(loc))
 		if(ismob(AM) && grounded)
 			var/mob/MM = AM
-			if(!(MM.movement_type & FLYING))
+			if(!(MM.movement_type & (FLOATING|FLYING)))
 				if(TrapEffect(AM))
 					if(!reusable)
 						qdel(src)

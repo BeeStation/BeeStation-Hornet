@@ -86,8 +86,8 @@
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	resistance_flags = INDESTRUCTIBLE
-	can_atmos_pass = ATMOS_PASS_DENSITY
-	armor = list(MELEE = 0,  BULLET = 25, LASER = 50, ENERGY = 50, BOMB = 25, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
+	CanAtmosPass = ATMOS_PASS_DENSITY
+	armor = list(MELEE = 0,  BULLET = 25, LASER = 50, ENERGY = 50, BOMB = 25, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
 	var/obj/item/forcefield_projector/generator
 
 /obj/structure/projected_forcefield/Initialize(mapload, obj/item/forcefield_projector/origin)

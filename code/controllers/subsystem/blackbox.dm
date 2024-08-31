@@ -19,13 +19,13 @@ SUBSYSTEM_DEF(blackbox)
 /datum/controller/subsystem/blackbox/Initialize()
 	triggertime = world.time
 	if(CONFIG_GET(flag/limited_feedback))
-		return ..()
+		return SS_INIT_NO_NEED
 	record_feedback("amount", "random_seed", Master.random_seed)
 	record_feedback("amount", "dm_version", DM_VERSION)
 	record_feedback("amount", "dm_build", DM_BUILD)
 	record_feedback("amount", "byond_version", world.byond_version)
 	record_feedback("amount", "byond_build", world.byond_build)
-	. = ..()
+	return SS_INIT_SUCCESS
 
 //poll population
 /datum/controller/subsystem/blackbox/fire()

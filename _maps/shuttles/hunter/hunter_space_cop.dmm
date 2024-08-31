@@ -338,7 +338,7 @@
 	pixel_x = 8;
 	pixel_y = -3
 	},
-/obj/machinery/power/apc/auto_name/east{
+/obj/machinery/power/apc/auto_name/directional/east{
 	cell_type = /obj/item/stock_parts/cell/high/plus;
 	req_access = list(181)
 	},

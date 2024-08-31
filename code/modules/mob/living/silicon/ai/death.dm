@@ -46,7 +46,7 @@
 
 /mob/living/silicon/ai/proc/ShutOffDoomsdayDevice()
 	if(nuking)
-		set_security_level("red")
+		SSsecurity_level.set_level(SEC_LEVEL_RED)
 		nuking = FALSE
 		for(var/obj/item/pinpointer/nuke/P in GLOB.pinpointer_list)
 			P.switch_mode_to(TRACK_NUKE_DISK) //Party's over, back to work, everyone

@@ -7,9 +7,6 @@
 
 	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, delta_time, times_fired)
 
-	if((movement_type & FLYING) && !(movement_type & FLOATING))	//TODO: Better floating
-		float(on = TRUE)
-
 	if (notransform)
 		return
 	if(!loc)

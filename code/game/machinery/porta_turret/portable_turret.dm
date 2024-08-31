@@ -39,7 +39,7 @@
 	//the turret's health
 	max_integrity = 160
 	integrity_failure = 0.5
-	armor = list(MELEE = 50, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 30, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
+	armor = list(MELEE = 50, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 30, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0, BLEED = 0)
 
 	//if the turret's behaviour control access is locked
 	var/locked = TRUE
@@ -762,7 +762,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	lethal_projectile = /obj/projectile/bullet/p50/penetrator/shuttle
 	lethal_projectile_sound = 'sound/weapons/gunshot_smg.ogg'
 	stun_projectile_sound = 'sound/weapons/gunshot_smg.ogg'
-	armor = list(MELEE = 50,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 80, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
+	armor = list(MELEE = 50,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 80, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0, BLEED = 0)
 
 /obj/machinery/porta_turret/syndicate/shuttle/target(atom/movable/target)
 	if(target)
@@ -877,10 +877,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 /obj/machinery/turretid/Initialize(mapload, ndir = 0, built = 0)
 	. = ..()
 	if(built)
-		setDir(ndir)
 		locked = FALSE
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
-		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 	power_change() //Checks power and initial settings
 
 /obj/machinery/turretid/Destroy()
@@ -1044,6 +1041,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 	icon_state = "apc"
 	result_path = /obj/machinery/turretid
 	custom_materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
+	pixel_shift = 29
 
 /obj/item/gun/proc/get_turret_properties()
 	. = list()

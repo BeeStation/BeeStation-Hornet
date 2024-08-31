@@ -10,9 +10,15 @@
 	paintable = TRUE
 
 	//Buckling
-	can_buckle = TRUE
-	buckle_requires_restraints = TRUE
-	buckle_lying = -1
+	can_buckle = 1
+	buckle_requires_restraints = 1
+	buckle_lying = NO_BUCKLE_LYING
+
+	FASTDMM_PROP(\
+		set_instance_vars(\
+			icon_state = INSTANCE_VAR_DEFAULT\
+		),\
+	)
 
 /obj/machinery/atmospherics/pipe/New()
 	add_atom_colour(pipe_color, FIXED_COLOUR_PRIORITY)

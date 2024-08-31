@@ -3,7 +3,7 @@
 	hitsound_on = 'sound/weapons/blade1.ogg'
 	heat = 3500
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 	light_system = MOVABLE_LIGHT
 	light_range = 3
@@ -80,7 +80,7 @@
 	w_class_on = WEIGHT_CLASS_HUGE
 	flags_1 = CONDUCT_1
 	armour_penetration = 100
-	attack_verb_off = list("attacked", "chopped", "cleaved", "tore", "cut")
+	attack_verb_off = list("attacks", "chops", "cleaves", "tears", "lacerates", "cuts")
 	attack_verb_on = list()
 	light_color = "#40ceff"
 
@@ -98,10 +98,11 @@
 	throwforce = 5
 	throwforce_on = 35	//Does a lot of damage on throw, but will embed
 	hitsound = "swing_hit" //it starts deactivated
-	attack_verb_off = list("tapped", "poked")
+	attack_verb_off = list("taps", "pokes")
 	throw_speed = 3
 	throw_range = 5
 	sharpness = IS_SHARP
+	bleed_force_on = BLEED_DEEP_WOUND
 	embedding = list("embed_chance" = 200, "armour_block" = 60, "max_pain_mult" = 15)
 	armour_penetration = 35
 	block_level = 1
@@ -134,6 +135,7 @@
 	sword_color = null //stops icon from breaking when turned on.
 	w_class = WEIGHT_CLASS_NORMAL
 	sharpness = IS_SHARP
+	bleed_force_on = BLEED_DEEP_WOUND
 	light_color = "#40ceff"
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.7 //faster as a saw
@@ -164,6 +166,7 @@
 	hitcost = 75 //Costs more than a standard cyborg esword
 	w_class = WEIGHT_CLASS_NORMAL
 	sharpness = IS_SHARP
+	bleed_force_on = BLEED_DEEP_WOUND
 	light_color = "#40ceff"
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.7 //faster as a saw
@@ -261,6 +264,7 @@
 	w_class = WEIGHT_CLASS_BULKY//So you can't hide it in your pocket or some such.
 	var/datum/effect_system/spark_spread/spark_system
 	sharpness = IS_SHARP
+	bleed_force_on = BLEED_DEEP_WOUND
 
 //Most of the other special functions are handled in their own files. aka special snowflake code so kewl
 /obj/item/melee/transforming/energy/blade/Initialize(mapload)

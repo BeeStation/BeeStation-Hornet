@@ -113,6 +113,15 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
+"iq" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/camera/directional/north{
+	network = list("evac")
+	},
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
 "iw" = (
 /obj/structure/grille,
 /obj/effect/spawner/structure/window/shuttle,
@@ -186,6 +195,21 @@
 /area/shuttle/escape)
 "nL" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/escape)
+"oh" = (
+/obj/machinery/flasher{
+	id = "tinyflash";
+	pixel_y = 27
+	},
+/obj/structure/chair/fancy/shuttle,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/camera/directional/north{
+	network = list("evac")
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "pJ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -350,19 +374,6 @@
 "xX" = (
 /turf/template_noop,
 /area/shuttle/escape)
-"yn" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/camera/autoname{
-	dir = 4;
-	network = list("evac")
-	},
-/turf/open/floor/circuit/green{
-	luminosity = 2
-	},
-/area/shuttle/escape)
 "zE" = (
 /obj/structure/chair/office/light,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -376,13 +387,6 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/palebush,
 /turf/open/floor/grass/no_border,
-/area/shuttle/escape)
-"zZ" = (
-/obj/machinery/door/airlock/security{
-	req_access_txt = "2"
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Ae" = (
 /obj/effect/turf_decal/bot,
@@ -440,25 +444,6 @@
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"CJ" = (
-/obj/structure/table/reinforced,
-/obj/item/restraints/handcuffs{
-	pixel_x = 4;
-	pixel_y = 7
-	},
-/obj/machinery/recharger,
-/obj/item/restraints/handcuffs{
-	pixel_y = 2
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/camera/autoname{
-	dir = 8;
-	network = list("evac")
-	},
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
 "CU" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/chair/fancy/shuttle{
@@ -472,20 +457,23 @@
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
-"EX" = (
-/obj/machinery/flasher{
-	id = "tinyflash";
-	pixel_y = 27
+"Ho" = (
+/obj/structure/table/reinforced,
+/obj/item/restraints/handcuffs{
+	pixel_x = 4;
+	pixel_y = 7
 	},
-/obj/structure/chair/fancy/shuttle,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
+/obj/machinery/recharger,
+/obj/item/restraints/handcuffs{
+	pixel_y = 2
 	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/camera/autoname{
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/camera/autoname/directional/east{
 	network = list("evac")
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "HD" = (
 /turf/open/floor/mineral/plastitanium,
@@ -607,20 +595,23 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
+"Pw" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/camera/autoname/directional/west{
+	network = list("evac")
+	},
+/turf/open/floor/circuit/green{
+	luminosity = 2
+	},
+/area/shuttle/escape)
 "QY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
-"Rc" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/machinery/camera/autoname{
-	network = list("evac")
-	},
-/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "TN" = (
 /obj/structure/closet/emcloset,
@@ -656,6 +647,13 @@
 /area/shuttle/escape)
 "Vn" = (
 /turf/closed/wall/mineral/plastitanium,
+/area/shuttle/escape)
+"Xn" = (
+/obj/machinery/door/airlock/security{
+	req_one_access_txt = "2;19"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Ys" = (
 /obj/structure/shuttle/engine/large,
@@ -742,10 +740,10 @@ rc
 "}
 (4,1,1) = {"
 Kb
-CJ
+Ho
 UW
 Co
-zZ
+Xn
 gy
 gy
 gy
@@ -764,7 +762,7 @@ hG
 iw
 qI
 wR
-EX
+oh
 qq
 qq
 qq
@@ -778,7 +776,7 @@ xX
 "}
 (6,1,1) = {"
 Kb
-yn
+Pw
 HD
 vN
 nL
@@ -805,7 +803,7 @@ HD
 HD
 hT
 hG
-Rc
+iq
 LR
 xB
 xQ

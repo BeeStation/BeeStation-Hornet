@@ -493,6 +493,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	//Load the TGUI stat in case of TGUI subsystem not ready (startup)
 	mob.UpdateMobStat(TRUE)
+	fully_created = TRUE
 
 /client/proc/time_to_redirect()
 	var/redirect_address = CONFIG_GET(string/redirect_address)
@@ -554,6 +555,14 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 //////////////
 
 /client/Del()
+	if(!gc_destroyed)
+		Destroy() //Clean up signals and timers.
+	return ..()
+
+/client/Destroy()
+	GLOB.clients -= src
+	GLOB.directory -= ckey
+	GLOB.mentors -= src
 	log_access("Logout: [key_name(src)]")
 	GLOB.ahelp_tickets.ClientLogout(src)
 	GLOB.mhelp_tickets.ClientLogout(src)
@@ -581,15 +590,13 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 			send2tgs("Server", "[cheesy_message] (No admins online)")
 
+	if(isatom(eye)) // admeme vv failproof. eye must be atom
+		var/atom/eye_thing = eye
+		LAZYREMOVE(eye_thing.eye_users, src)
 	GLOB.requests.client_logout(src)
-	GLOB.directory -= ckey
-	GLOB.clients -= src
-	GLOB.mentors -= src
+
 	SSambience.remove_ambience_client(src)
 	Master.UpdateTickRate()
-	return ..()
-
-/client/Destroy()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
@@ -966,6 +973,24 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	..()
 
+/// Sets client eye to 1st param.
+/// * WARN: Do not change old_eye. Check client/var/eye_weakref
+/client/proc/set_eye(atom/new_eye, atom/old_eye = src.eye)
+	if(new_eye == old_eye)
+		return
+
+	if(isatom(old_eye)) // admeme vv failproof. /datum can't be their eyes
+		LAZYREMOVE(old_eye.eye_users, src)
+
+	eye = new_eye
+	eye_weakref = WEAKREF(eye)
+
+	if(isatom(new_eye))
+		LAZYADD(new_eye.eye_users, src)
+
+	// SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye) // use this when you want a thing from TG //This is from planecube pr, dragon, we most certainly dont want from that pr
+
+
 /client/proc/add_verbs_from_config()
 	if (interviewee)
 		return
@@ -1045,8 +1070,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if (isliving(mob))
 		var/mob/living/M = mob
 		M.update_damage_hud()
-	if (prefs?.read_player_preference(/datum/preference/toggle/auto_fit_viewport))
-		addtimer(CALLBACK(src,.verb/fit_viewport,10)) //Delayed to avoid wingets from Login calls.
+	attempt_auto_fit_viewport()
 
 /client/proc/generate_clickcatcher()
 	if(!void)

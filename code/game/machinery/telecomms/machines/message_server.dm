@@ -14,7 +14,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
-	armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
+	armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0, BLEED = 0)
 	var/obj/item/stored
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
@@ -73,10 +73,11 @@
 	icon_state = "message_server"
 	name = "Messaging Server"
 	desc = "A machine that processes and routes PDA and request console messages."
+	telecomms_type = /obj/machinery/telecomms/message_server
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
-	active_power_usage = 100
+	active_power_usage = 40
 	circuit = /obj/item/circuitboard/machine/telecomms/message_server
 
 	var/list/datum/data_tablet_msg/modular_msgs = list()

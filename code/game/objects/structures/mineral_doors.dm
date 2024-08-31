@@ -11,8 +11,8 @@
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
 	max_integrity = 200
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 50, STAMINA = 0)
-	can_atmos_pass = ATMOS_PASS_DENSITY
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 50, STAMINA = 0, BLEED = 0)
+	CanAtmosPass = ATMOS_PASS_DENSITY
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
 

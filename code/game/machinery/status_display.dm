@@ -288,6 +288,8 @@
 	var/friendc = FALSE      // track if Friend Computer mode
 	var/last_picture  // For when Friend Computer mode is undone
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/status_display/evac, 32)
+
 /obj/machinery/status_display/evac/Initialize(mapload)
 	. = ..()
 	// register for radio system
@@ -436,6 +438,8 @@
 		AI_EMOTION_BLUE_GLOW = "ai_sal",
 		AI_EMOTION_RED_GLOW = "ai_hal",
 	)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/status_display/ai, 32)
 
 /obj/machinery/status_display/ai/Initialize(mapload)
 	. = ..()

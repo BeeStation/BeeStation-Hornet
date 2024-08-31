@@ -39,8 +39,10 @@
 						  /obj/item/stack/ore/plasma, /obj/item/stack/ore/uranium, /obj/item/stack/ore/iron,
 						  /obj/item/stack/ore/bananium, /obj/item/stack/ore/titanium)
 	// Response verbs
-	response_help = "pets"
-	attacktext = "drills"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	attack_verb_continuous = "drills"
+	attack_verb_simple = "drill"
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	speak_emote = list("states")
 	// Light handling
