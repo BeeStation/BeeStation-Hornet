@@ -25,13 +25,13 @@
 	var/datum/gas_mixture/gasmix = new
 	gasmix.temperature = rand(minimum_temp, maximum_temp)
 	for(var/i in base_gases)
-		SET_MOLES(gasmix, i, base_gases[i])
+		SET_MOLES(i, gasmix, base_gases[i])
 
 
 	// Now let the random choices begin
 	var/datum/gas/gastype
 	var/amount
-	while(gasmix.pressure < target_pressure)
+	while(gasmix.return_pressure() < target_pressure)
 		if(!prob(restricted_chance))
 			gastype = pick(normal_gases)
 			amount = normal_gases[gastype]
@@ -45,10 +45,10 @@
 		amount *= pressure_scalar		// If we pick a really small target pressure we want roughly the same mix but less of it all
 		amount = CEILING(amount, 0.1)
 
-		ADD_MOLES(gastype, gasmix, amount)
+		ADJUST_MOLES(gastype, gasmix, amount)
 
 	// That last one put us over the limit, remove some of it
-	while(gasmix.pressure > target_pressure)
+	while(gasmix.return_pressure() > target_pressure)
 		SET_MOLES(gastype, gasmix, GET_MOLES(gastype, gasmix) * 0.9)
 	SET_MOLES(gastype, gasmix, FLOOR(GET_MOLES(gastype,gasmix), 0.1))
 

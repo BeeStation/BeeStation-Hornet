@@ -100,8 +100,8 @@
 		if(transformeffects & SLIME_EFFECT_DARK_PURPLE)
 			var/amt = is_adult ? 30 : 15
 			var/plas_amt = min(amt,GET_MOLES(/datum/gas/plasma, environment))
-			environment.adjust_moles(/datum/gas/plasma, -plas_amt)
-			environment.adjust_moles(/datum/gas/oxygen, plas_amt)
+			ADJUST_MOLES(/datum/gas/plasma, environment, -plas_amt)
+			ADJUST_MOLES(/datum/gas/oxygen, environment, plas_amt)
 			adjustBruteLoss(plas_amt ? -2 : 0)
 
 		switch(stat)

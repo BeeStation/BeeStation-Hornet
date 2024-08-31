@@ -338,8 +338,8 @@
 	cabin_air = new
 	cabin_air.temperature = (T20C)
 	cabin_air.volume = 200
-	SET_MOLES(cabin_air, /datum/gas/oxygen, O2STANDARD*cabin_air.volume/(R_IDEAL_GAS_EQUATION*cabin_air.temperature))
-	SET_MOLES(cabin_air, /datum/gas/nitrogen, N2STANDARD*cabin_air.volume/(R_IDEAL_GAS_EQUATION*cabin_air.temperature))
+	SET_MOLES(/datum/gas/oxygen, cabin_air, O2STANDARD*cabin_air.volume/(R_IDEAL_GAS_EQUATION*cabin_air.temperature))
+	SET_MOLES(/datum/gas/nitrogen, cabin_air, N2STANDARD*cabin_air.volume/(R_IDEAL_GAS_EQUATION*cabin_air.temperature))
 	return cabin_air
 
 /obj/vehicle/sealed/mecha/proc/add_radio()

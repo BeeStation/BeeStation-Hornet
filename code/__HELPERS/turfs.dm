@@ -409,7 +409,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/temperature = air.temperature
 	if(temperature <= 270 || temperature >= 360)
 		return FALSE
-	var/pressure = air.pressure
+	var/pressure = air.return_pressure()
 	if(pressure <= 20 || pressure >= 550)
 		return FALSE
 	return TRUE

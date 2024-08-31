@@ -51,21 +51,21 @@
 		return
 	var/datum/gas_mixture/loaded_tank_air = loaded_tank.return_air()
 	if(!bitcoinmining)
-		if(loaded_tank.GET_MOLES(/datum/gas/plasma, air_contents) < 0.0001)
+		if(GET_MOLES(/datum/gas/plasma, loaded_tank.air_contents) < 0.0001)
 			investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_ENGINES)
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
 			var/msg = "Plasma depleted, recommend replacing tank."
 			radio.talk_into(src, msg, RADIO_CHANNEL_ENGINEERING)
 			eject()
 		else
-			var/gasdrained = min(powerproduction_drain*drainratio*delta_time,loaded_tank.GET_MOLES(/datum/gas/plasma, air_contents))
-			loaded_tank.air_contents.adjust_moles(/datum/gas/plasma, -gasdrained)
-			loaded_tank.air_contents.adjust_moles(/datum/gas/tritium, gasdrained)
+			var/gasdrained = min(powerproduction_drain*drainratio*delta_time,GET_MOLES(/datum/gas/plasma, loaded_tank.air_contents))
+			ADJUST_MOLES(/datum/gas/plasma, loaded_tank.air_contents, -gasdrained)
+			ADJUST_MOLES(/datum/gas/tritium, loaded_tank.air_contents, gasdrained)
 			var/power_produced = RAD_COLLECTOR_OUTPUT
 			add_avail(power_produced)
 			stored_energy-=power_produced
 	else if(is_station_level(z) && SSresearch.science_tech)
-		if(!loaded_tank.GET_MOLES(/datum/gas/tritium, air_contents) || !loaded_tank.GET_MOLES(/datum/gas/oxygen, air_contents))
+		if(!GET_MOLES(/datum/gas/tritium, loaded_tank.air_contents) || !GET_MOLES(/datum/gas/oxygen, loaded_tank.air_contents))
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
 			eject()
 		else
@@ -87,7 +87,9 @@
 			toggle_power()
 			user.visible_message("[user.name] turns the [src.name] [active? "on":"off"].", \
 			"<span class='notice'>You turn the [src.name] [active? "on":"off"].</span>")
-			var/fuel = loaded_tank?.GET_MOLES(/datum/gas/plasma, air_contents)
+			var/fuel = 0
+			if(loaded_tank)
+				fuel = GET_MOLES(/datum/gas/plasma, loaded_tank.air_contents)
 			investigate_log("turned [active?"<font color='green'>on</font>":"<font color='red'>off</font>"] by [key_name(user)]. [loaded_tank?"Fuel: [round(fuel/0.29)]%":"<font color='red'>It is empty</font>"].", INVESTIGATE_ENGINES)
 			return
 		else

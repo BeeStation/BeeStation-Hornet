@@ -705,7 +705,7 @@ GENE SCANNER
 		var/o2_concentration = GET_MOLES(/datum/gas/oxygen, environment)/total_moles
 		var/n2_concentration = GET_MOLES(/datum/gas/nitrogen, environment)/total_moles
 		var/co2_concentration = GET_MOLES(/datum/gas/carbon_dioxide, environment)/total_moles
-		var/plasma_concentration =
+		var/plasma_concentration = GET_MOLES(/datum/gas/plasma, environment)/total_moles
 
 		if(abs(n2_concentration - N2STANDARD) < 20)
 			message += "<span class='info'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(n2_concentration*total_moles, 0.01)] mol)</span>"

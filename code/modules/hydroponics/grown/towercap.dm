@@ -246,7 +246,7 @@
 	if(isopenturf(loc))
 		var/turf/open/O = loc
 		if(O.air)
-			if(O.GET_MOLES(/datum/gas/oxygen, air) > 13)
+			if(GET_MOLES(/datum/gas/oxygen, O.air) > 13)
 				return TRUE
 	return FALSE
 

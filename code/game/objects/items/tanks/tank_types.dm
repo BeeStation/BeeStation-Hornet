@@ -30,7 +30,7 @@
 
 
 /obj/item/tank/internals/oxygen/populate_gas()
-	SET_MOLES(air_contents, /datum/gas/oxygen, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
+	SET_MOLES(/datum/gas/oxygen, air_contents, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
 
 /obj/item/tank/internals/oxygen/yellow
 	desc = "A tank of oxygen, this one is yellow."
@@ -56,8 +56,8 @@
 	force = 10
 
 /obj/item/tank/internals/anesthetic/populate_gas()
-	SET_MOLES(air_contents, /datum/gas/oxygen, 3*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
-	SET_MOLES(air_contents, /datum/gas/nitrous_oxide, 3*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
+	SET_MOLES(/datum/gas/oxygen, air_contents, 3*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
+	SET_MOLES(/datum/gas/nitrous_oxide, air_contents, 3*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
 
 /*
  * Air
@@ -71,8 +71,8 @@
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/tank/internals/air/populate_gas()
-	SET_MOLES(air_contents, /datum/gas/oxygen, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
-	SET_MOLES(air_contents, /datum/gas/nitrogen, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
+	SET_MOLES(/datum/gas/oxygen, air_contents, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
+	SET_MOLES(/datum/gas/nitrogen, air_contents, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
 
 /*
  * Plasma
@@ -87,7 +87,7 @@
 
 
 /obj/item/tank/internals/plasma/populate_gas()
-	SET_MOLES(air_contents, /datum/gas/plasma, 10*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	SET_MOLES(/datum/gas/plasma, air_contents, 10*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/plasma/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/flamethrower))
@@ -103,7 +103,7 @@
 		return ..()
 
 /obj/item/tank/internals/plasma/full/populate_gas()
-	SET_MOLES(air_contents, /datum/gas/plasma, 10*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	SET_MOLES(/datum/gas/plasma, air_contents, 10*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/plasma/empty/populate_gas()
 	return
@@ -143,7 +143,7 @@
 	w_class = WEIGHT_CLASS_SMALL //thanks i forgot this
 
 /obj/item/tank/internals/plasmaman/belt/full/populate_gas()
-	SET_MOLES(air_contents, /datum/gas/plasma, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	SET_MOLES(/datum/gas/plasma, air_contents, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/plasmaman/belt/empty/populate_gas()
 	return
@@ -170,7 +170,7 @@
 
 
 /obj/item/tank/internals/emergency_oxygen/populate_gas()
-	SET_MOLES(air_contents, /datum/gas/oxygen, 0.5*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	SET_MOLES(/datum/gas/oxygen, air_contents, 0.5*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/emergency_oxygen/empty/populate_gas()
 	return

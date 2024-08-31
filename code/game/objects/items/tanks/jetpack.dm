@@ -29,7 +29,7 @@
 
 /obj/item/tank/jetpack/populate_gas()
 	if(gas_type)
-		SET_MOLES(air_contents, gas_type, ((6 * ONE_ATMOSPHERE * volume / (R_IDEAL_GAS_EQUATION * T20C))))
+		SET_MOLES(gas_type, air_contents, ((6 * ONE_ATMOSPHERE * volume / (R_IDEAL_GAS_EQUATION * T20C))))
 
 /obj/item/tank/jetpack/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/toggle_jetpack))
@@ -337,8 +337,8 @@
 	var/ideal_o2_percent = (1 / PLASMA_OXYGEN_FULLBURN) * 2
 	var/datum/gas_mixture/temp_air_contents = return_air()
 
-	SET_MOLES(temp_air_contents, /datum/gas/plasma, moles_full*(1-ideal_o2_percent))
-	SET_MOLES(temp_air_contents, /datum/gas/oxygen, moles_full*ideal_o2_percent)
+	SET_MOLES(/datum/gas/plasma, temp_air_contents, moles_full*(1-ideal_o2_percent))
+	SET_MOLES(/datum/gas/oxygen, temp_air_contents, moles_full*ideal_o2_percent)
 
 
 /obj/item/tank/jetpack/combustion/allow_thrust(num, mob/living/user, use_fuel = TRUE)

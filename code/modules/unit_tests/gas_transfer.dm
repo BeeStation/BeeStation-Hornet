@@ -9,8 +9,8 @@
 		first_mix.volume = 200
 		second_mix.volume = 200
 
-		SET_MOLES(first_mix, /datum/gas/hypernoblium, tempNmoles)
-		SET_MOLES(second_mix, /datum/gas/tritium, 200)
+		SET_MOLES(/datum/gas/hypernoblium, first_mix, tempNmoles)
+		SET_MOLES(/datum/gas/tritium, second_mix, 200)
 
 		first_mix.temperature = tempNmoles
 		second_mix.temperature = T20C
