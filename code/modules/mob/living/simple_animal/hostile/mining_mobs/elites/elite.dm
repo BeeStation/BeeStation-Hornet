@@ -307,14 +307,26 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
+	var/using = FALSE
 
 /obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()
 	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite) && proximity_flag)
 		var/mob/living/simple_animal/hostile/asteroid/elite/E = target
-		if(E.stat != DEAD || E.sentience_type != SENTIENCE_BOSS || !E.key)
-			user.visible_message("<span class='notice'>It appears [E] is unable to be revived right now.  Perhaps try again later.</span>")
+		if(E.stat != DEAD || E.sentience_type != SENTIENCE_BOSS)
+			user.visible_message("<span class='notice'>[E] does not respond to [src].</span>")
 			return
+		if(!E.key && !using)
+			using = TRUE
+			user.visible_message("<span class='notice'>[E] stirs briefly...</span>")
+			var/list/candidates = poll_candidates_for_mob("Do you want to take over as [E] (Lavaland Elite), silent servant of [user]?", ROLE_SENTIENCE, null, 5 SECONDS, E)
+			if(length(candidates))
+				var/mob/dead/observer/C = pick(candidates)
+				E.key = C.key
+		 	else
+				user.visible_message("<span class='notice'>It appears [E] is unable to be revived right now.  Perhaps try again later.</span>")
+				using = FALSE
+				return
 		E.faction = list("neutral")
 		E.revive(full_heal = TRUE, admin_revive = TRUE)
 		user.visible_message("<span class='notice'>[user] stabs [E] with [src], reviving it.</span>")
