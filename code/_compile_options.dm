@@ -138,7 +138,7 @@
 #define CBT
 #endif
 
-#if defined(OPENDREAM)
+#if defined(OPENDREAM) && !defined(CIBUILDING)
 #error Compiling BeeStation in OpenDream is unsupported due to BeeStation's dependence on the auxtools DLL to function.
 #elif !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(FASTDMM)
 #warn Building with Dream Maker is no longer supported and will result in missing interface files.
