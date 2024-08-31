@@ -3,7 +3,7 @@
 	if (check_area.apc && check_area.always_unpowered)
 		return "APC found in an always unpowered area"
 	// If you have power then I guess you pass
-	if (check_area.powered(AREA_USAGE_ENVIRON))
+	if (check_area.area_flags & REMOTE_APC)
 		return
 	// Otherwise, make sure we need power
 	if (!check_area.apc && !check_area.always_unpowered)
