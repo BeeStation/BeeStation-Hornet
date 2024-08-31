@@ -177,6 +177,8 @@
 			alert_category = class.low_alert_category
 			alert_type = class.low_alert_datum
 			for(var/gas in gases)
+				if (!(gas in breath.gases))
+					continue
 				var/moles = breath.gases[gas][MOLES]
 				var/multiplier = gases[gas]
 				mole_adjustments[gas] = (gas in mole_adjustments) ? mole_adjustments[gas] - moles : -moles
