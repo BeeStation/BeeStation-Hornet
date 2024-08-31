@@ -10,6 +10,8 @@ GREEN="\033[0;32m"
 BLUE="\033[0;34m"
 NC="\033[0m" # No Color
 
+HINT_REMOVE="please remove them. (Hint: Find out which area they are in!)${NC}"
+
 st=0
 
 # check for ripgrep
