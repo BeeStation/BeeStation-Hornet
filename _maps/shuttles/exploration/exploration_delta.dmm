@@ -141,6 +141,7 @@
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 9
 	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "le" = (
@@ -465,6 +466,11 @@
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
+"TT" = (
+/obj/machinery/suit_storage_unit/open,
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "Ux" = (
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
@@ -536,7 +542,7 @@ UU
 mQ
 lF
 so
-lF
+TT
 Ax
 pd
 go

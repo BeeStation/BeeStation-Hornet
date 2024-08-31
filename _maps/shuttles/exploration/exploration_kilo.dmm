@@ -21,9 +21,6 @@
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/machinery/light,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -32
-	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "dM" = (
@@ -642,6 +639,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/railing,
 /obj/machinery/door/firedoor/border_only,
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "XK" = (
