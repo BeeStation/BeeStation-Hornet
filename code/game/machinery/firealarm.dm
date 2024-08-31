@@ -50,7 +50,7 @@
 	update_appearance()
 	myarea = get_area(src)
 	LAZYADD(myarea.firealarms, src)
-	RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, PROC_REF(handle_alert))
+	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(check_security_level))
 
 /obj/machinery/firealarm/ComponentInitialize()
 	. = ..()
