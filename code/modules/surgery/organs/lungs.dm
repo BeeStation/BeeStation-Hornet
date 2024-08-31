@@ -215,15 +215,15 @@
 		var/datum/reagent/danger_reagent = null
 		var/alert_category = null
 		var/alert_type = null
-		if(ispath(breathing_class))
+		if(istype(breathing_class, /datum/breathing_class))
 			breathing_class = breathing_classes[breathing_class]
 			alert_category = breathing_class.high_alert_category
 			alert_type = breathing_class.high_alert_datum
 			danger_reagent = breathing_class.danger_reagent
 			found_pp = breathing_class.get_effective_pp(breath)
 		else
-			danger_reagent = GLOB.meta_gas_info[entry][META_GAS_BREATH_REAGENT_DANGEROUS]
-			var/list/alert = GLOB.meta_gas_info[entry][META_GAS_BREATH_ALERT_INFO]?["too_much_alert"]
+			danger_reagent = GLOB.meta_gas_info[breathing_class][META_GAS_BREATH_REAGENT_DANGEROUS]
+			var/list/alert = GLOB.meta_gas_info[breathing_class][META_GAS_BREATH_ALERT_INFO]?["too_much_alert"]
 			if(alert)
 				alert_category = alert["alert_category"]
 				alert_type = alert["alert_type"]
