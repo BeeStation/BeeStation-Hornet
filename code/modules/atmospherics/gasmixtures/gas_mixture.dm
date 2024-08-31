@@ -262,8 +262,8 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 
 	return copy
 
-	///Copies variables from sample, moles multiplicated by partial
-	///Returns: 1 if we are mutable, 0 otherwise
+///Copies variables from sample, moles multiplicated by partial
+///Returns: TRUE if we are mutable, FALSE otherwise
 /datum/gas_mixture/proc/copy_from(datum/gas_mixture/sample, partial = 1)
 	var/list/cached_gases = gases //accessing datum vars is slower than proc vars
 	var/list/sample_gases = sample.gases
@@ -329,9 +329,11 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 		gases[path][MOLES] = text2num(gas[id])
 	return 1
 
-	///Performs air sharing calculations between two gas_mixtures assuming only 1 boundary length
-	///Returns: amount of gas exchanged (+ if sharer received)
-/datum/gas_mixture/proc/share(datum/gas_mixture/sharer, atmos_adjacent_turfs = 4)
+/// Performs air sharing calculations between two gas_mixtures
+/// share() is communitive, which means A.share(B) needs to be the same as B.share(A)
+/// If we don't retain this, we will get negative moles. Don't do it
+/// Returns: amount of gas exchanged (+ if sharer received)
+/datum/gas_mixture/proc/share(datum/gas_mixture/sharer, our_coeff, sharer_coeff)
 	var/list/cached_gases = gases
 	var/list/sharer_gases = sharer.gases
 
@@ -430,25 +432,22 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 /datum/gas_mixture/proc/compare(datum/gas_mixture/sample)
 	var/list/sample_gases = sample.gases //accessing datum vars is slower than proc vars
 	var/list/cached_gases = gases
+	var/moles_sum = 0
 
 	for(var/id in cached_gases | sample_gases) // compare gases from either mixture
-		var/gas_moles = cached_gases[id]
-		gas_moles = gas_moles ? gas_moles[MOLES] : 0
-		var/sample_moles = sample_gases[id]
-		sample_moles = sample_moles ? sample_moles[MOLES] : 0
-		var/delta = abs(gas_moles - sample_moles)
-		if(delta > MINIMUM_MOLES_DELTA_TO_MOVE && \
-			delta > gas_moles * MINIMUM_AIR_RATIO_TO_MOVE)
-			return id
+		// Yes this is actually fast. I too hate it here
+		var/gas_moles = cached_gases[id]?[MOLES] || 0
+		var/sample_moles = sample_gases[id]?[MOLES] || 0
+		// Brief explanation. We are much more likely to not pass this first check then pass the first and fail the second
+		// Because of this, double calculating the delta is FASTER then inserting it into a var
+		if(abs(gas_moles - sample_moles) > MINIMUM_MOLES_DELTA_TO_MOVE)
+			if(abs(gas_moles - sample_moles) > gas_moles * MINIMUM_AIR_RATIO_TO_MOVE)
+				return id
+		// similarly, we will rarely get cut off, so this is cheaper then doing it later
+		moles_sum += gas_moles
 
-	var/our_moles
-	TOTAL_MOLES(cached_gases, our_moles)
-	if(our_moles > MINIMUM_MOLES_DELTA_TO_MOVE) //Don't consider temp if there's not enough mols
-		var/temp = temperature
-		var/sample_temp = sample.temperature
-
-		var/temperature_delta = abs(temp - sample_temp)
-		if(temperature_delta > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
+	if(moles_sum > MINIMUM_MOLES_DELTA_TO_MOVE) //Don't consider temp if there's not enough mols
+		if(abs(temperature - sample.temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
 			return "temp"
 
 	return ""

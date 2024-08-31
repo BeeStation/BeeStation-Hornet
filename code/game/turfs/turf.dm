@@ -35,6 +35,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 	/// Whether the turf blocks atmos from passing through it or not
 	var/blocks_air = FALSE
+	// If this turf should initialize atmos adjacent turfs or not
+	// Optimization, not for setting outside of initialize
+	var/init_air = TRUE
 
 	flags_1 = CAN_BE_DIRTY_1
 
@@ -151,11 +154,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 	return INITIALIZE_HINT_NORMAL
 
-/turf/return_temperature()
-
-
 /// Initializes our adjacent turfs. If you want to avoid this, do not override it, instead set init_air to FALSE
-/turf/proc/Initalize_Atmos(times_fired)
+/turf/proc/Initalize_Atmos(time)
 	CALCULATE_ADJACENT_TURFS(src, NORMAL_TURF)
 
 /turf/Destroy(force)
