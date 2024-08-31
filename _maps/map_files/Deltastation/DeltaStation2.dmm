@@ -13682,24 +13682,13 @@
 /turf/closed/wall/r_wall,
 /area/engine/gravity_generator)
 "bGh" = (
-/obj/machinery/power/apc/auto_name/directional/north,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
 /obj/machinery/power/apc/auto_name/directional/north,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
 /turf/open/floor/iron/white,
 /area/science/shuttledock)
 "bGl" = (
@@ -19465,10 +19454,9 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
-/obj/effect/mapping_helpers/atmos_auto_connect,
 /obj/machinery/airalarm/server{
-	pixel_x = -22;
-	dir = 4
+	pixel_x = -24;
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/tcommsat/server)
@@ -24140,13 +24128,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/airlock/external,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
@@ -25605,10 +25587,6 @@
 	dir = 6
 	},
 /obj/effect/spawner/structure/window/reinforced,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /turf/closed/wall,
 /area/science/shuttledock)
 "cWm" = (
@@ -29778,10 +29756,6 @@
 "dCw" = (
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/effect/spawner/structure/window/reinforced,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /turf/closed/wall,
 /area/science/shuttledock)
 "dCy" = (
@@ -45054,9 +45028,13 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/tcommsat/server)
 "hVM" = (
+/obj/machinery/computer/shuttle_flight/science{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/purple,
 /turf/open/floor/iron/white,
 /area/science/shuttledock)
 "hVQ" = (
@@ -45406,6 +45384,13 @@
 	dir = 1
 	},
 /area/hallway/secondary/entry)
+"ibb" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/iron/white,
+/area/science/shuttledock)
 "ibc" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -46736,7 +46721,6 @@
 /area/medical/break_room)
 "ixI" = (
 /obj/machinery/conveyor{
-	dir = 1;
 	id = "SciLoad"
 	},
 /obj/structure/plasticflaps/opaque,
@@ -53844,18 +53828,6 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/vendor/exploration,
-/obj/machinery/camera/autoname/directional/east,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 26
 	},
 /turf/open/floor/iron,
 /area/quartermaster/exploration_prep)
@@ -66718,14 +66690,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/airlock/external,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/iron/techmaint,
 /area/science/shuttledock)
@@ -68075,6 +68040,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/quartermaster/qm)
+"pIa" = (
+/obj/machinery/conveyor{
+	id = "SciLoad"
+	},
+/turf/open/floor/plating,
+/area/science/shuttledock)
 "pIb" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -72704,7 +72675,6 @@
 /turf/open/floor/iron/dark,
 /area/gateway)
 "rjk" = (
-/obj/machinery/advanced_airlock_controller/directional/east,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer4{
 	dir = 1
 	},
@@ -72717,21 +72687,9 @@
 /obj/machinery/atmospherics/components/binary/volume_pump/on/layer2{
 	name = "Station to Shuttle"
 	},
-/obj/effect/turf_decal/stripes/closeup,
-/obj/effect/turf_decal/delivery,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/lattice/catwalk/over,
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer4{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/advanced_airlock_controller/directional/west,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/advanced_airlock_controller/directional/east,
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "rjo" = (
@@ -72967,10 +72925,6 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/closet/crate/bin{
 	pixel_y = 9
 	},
@@ -72979,14 +72933,6 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/trash/cheesie,
-/obj/machinery/camera/directional/north,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/wood/corner{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/wood,
 /area/quartermaster/exploration_prep)
 "ron" = (
@@ -76303,7 +76249,6 @@
 /area/engine/break_room)
 "suz" = (
 /obj/machinery/conveyor{
-	dir = 1;
 	id = "SciLoad"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -76792,18 +76737,6 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/camera/directional/east{
-	c_tag = "Telecomms - Cooling Room";
-	name = "telecomms camera";
-	network = list("ss13","tcomms")
-	},
-/obj/effect/turf_decal/delivery,
-/obj/structure/table,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/iron,
 /area/tcommsat/server)
 "sCM" = (
@@ -79124,23 +79057,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
-"trS" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "SciLoad"
-	},
-/obj/structure/plasticflaps/opaque,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/airlock/external,
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/floor/iron/techmaint,
-/area/science/shuttledock)
 "trV" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -80468,15 +80384,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
-"tSe" = (
-/obj/machinery/computer/shuttle_flight/science{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/science/shuttledock)
 "tSx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -82501,16 +82408,6 @@
 	id = "SciLoad"
 	},
 /obj/structure/plasticflaps/opaque,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/airlock/external,
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/layer_manifold,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
 /turf/open/floor/iron/techmaint,
 /area/science/shuttledock)
 "uAN" = (
@@ -83033,26 +82930,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/explab)
-"uIE" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "SciLoad"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/advanced_airlock_controller/directional/west,
-/obj/structure/lattice/catwalk/over,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer4{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plating,
-/area/science/shuttledock)
 "uIK" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -87570,19 +87447,6 @@
 /obj/machinery/light{
 	dir = 4;
 	light_color = "#e8eaff"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
-/obj/machinery/camera/autoname{
-	dir = 9
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
 	},
 /turf/open/floor/wood,
 /area/quartermaster/exploration_prep)
@@ -118889,10 +118753,10 @@ amT
 saw
 lJW
 kcF
-hVM
-sMH
-aad
-sMH
+ibb
+eaf
+aJD
+eaf
 aaa
 aaa
 aaa
@@ -120175,8 +120039,8 @@ saw
 ulh
 veO
 ttI
-trS
-uIE
+uAD
+eAA
 uAD
 aaa
 aaa
@@ -120433,7 +120297,7 @@ bGh
 ueo
 suz
 ixI
-eAA
+pIa
 ixI
 aaa
 aaa
@@ -120947,8 +120811,8 @@ vVS
 kNi
 sif
 hVM
-tSe
 sMH
+aaa
 aaa
 aaa
 aaa
@@ -121203,9 +121067,9 @@ saw
 qAC
 sze
 dYl
-wNF
 wZk
 sMH
+aaa
 aaa
 aaa
 aaa
@@ -122638,7 +122502,7 @@ aFN
 aFN
 aFN
 aFN
-aFN
+eHD
 eHD
 alf
 alf

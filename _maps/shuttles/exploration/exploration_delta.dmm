@@ -9,9 +9,12 @@
 /turf/template_noop,
 /area/shuttle/exploration)
 "cx" = (
-/obj/machinery/airalarm/unlocked{
-	dir = 1;
-	pixel_y = -25
+/obj/item/radio/intercom{
+	frequency = 1361;
+	name = "Exploration Intercom";
+	freerange = 1;
+	freqlock = 1;
+	pixel_y = -28
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -41,9 +44,6 @@
 "gl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/plasma,
@@ -92,32 +92,22 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/auto_name/directional/east,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
-	},
+/obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ir" = (
+/obj/item/radio/intercom{
+	frequency = 1361;
+	name = "Exploration Intercom";
+	freerange = 1;
+	freqlock = 1;
+	pixel_y = -28
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "jq" = (
@@ -142,14 +132,15 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ld" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 9
 	},
-/obj/structure/tank_dispenser/oxygen,
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "le" = (
@@ -182,10 +173,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "nk" = (
-/obj/item/radio/intercom{
-	frequency = 1453;
-	pixel_y = -30
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -230,16 +217,11 @@
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "pd" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
-/obj/machinery/atmospherics/components/unary/tank/air{
-	dir = 1;
-	initialize_directions = 1;
-	piping_layer = 2
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/plating,
 /area/shuttle/exploration)
 "po" = (
 /obj/machinery/computer/crew,
@@ -273,17 +255,6 @@
 	dir = 4
 	},
 /obj/machinery/vendor/exploration,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 23
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "so" = (
@@ -361,6 +332,16 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/item/radio/intercom{
+	frequency = 1361;
+	name = "Exploration Intercom";
+	freerange = 1;
+	freqlock = 1;
+	pixel_y = 22
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "DV" = (
@@ -390,13 +371,25 @@
 "Hf" = (
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"IW" = (
-/obj/item/radio/intercom{
-	frequency = 1453;
-	pixel_y = 24
+"HT" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
 	},
+/obj/machinery/airalarm/directional/east{
+	locked = 0
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"IW" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
+	},
+/obj/item/radio/intercom{
+	frequency = 1361;
+	name = "Exploration Intercom";
+	freerange = 1;
+	freqlock = 1;
+	pixel_y = 22
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -434,10 +427,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/power/port_gen/pacman,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "PT" = (
@@ -452,12 +442,10 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Rk" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 1
 	},
+/obj/structure/window/reinforced/survival_pod,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "RQ" = (
@@ -496,10 +484,16 @@
 /area/shuttle/exploration)
 "VG" = (
 /obj/structure/table,
-/obj/item/gps/mining/exploration,
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/item/radio{
+	pixel_y = 11;
+	pixel_x = -2
+	},
+/obj/item/gps/mining/exploration{
+	pixel_x = 4
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -630,7 +624,7 @@ oC
 AX
 qb
 VG
-sT
+HT
 es
 pW
 Ax

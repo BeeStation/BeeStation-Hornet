@@ -17,9 +17,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -75,10 +77,6 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
-	},
-/obj/machinery/airalarm/unlocked{
-	dir = 4;
-	pixel_x = -25
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -164,6 +162,13 @@
 /area/shuttle/exploration)
 "fx" = (
 /obj/structure/table,
+/obj/item/radio{
+	pixel_y = 16
+	},
+/obj/item/radio{
+	pixel_x = -4;
+	pixel_y = 10
+	},
 /obj/item/gps/mining/exploration{
 	pixel_y = 4;
 	pixel_x = 4
@@ -308,14 +313,16 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "kE" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "kU" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/firealarm/directional/west,
-/obj/machinery/airalarm/unlocked{
-	dir = 1;
-	pixel_y = -25
+/obj/machinery/airalarm/directional/south{
+	locked = 0
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -458,9 +465,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "uW" = (
@@ -508,28 +512,11 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/camera/autoname/directional/east{
-	name = "Exploration Shuttle";
-	network = list("exploration shuttle")
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "wA" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/components/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector{
 	dir = 4
 	},
 /turf/template_noop,
@@ -550,7 +537,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "xm" = (
@@ -613,7 +602,6 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/exploration)
 "AB" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
@@ -623,18 +611,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/atmospherics/pipe/simple/purple/visible,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/machinery/power/apc/auto_name/directional/east{
-	locked = 0
-	},
-/obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Bu" = (
@@ -713,6 +690,9 @@
 	id = "ExploIFuckedUp";
 	name = "Vent Engine Room";
 	pixel_x = -25
+	},
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
@@ -828,7 +808,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced/survival_pod{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
@@ -950,9 +930,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "PL" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -32
-	},
 /obj/machinery/light,
 /obj/machinery/camera/autoname{
 	dir = 5;
@@ -1131,7 +1108,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/firealarm/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Wg" = (
@@ -1165,9 +1141,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/simple/purple/visible,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Wl" = (

@@ -34,6 +34,13 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/closet/crate/secure/weapon/contraband,
 /obj/effect/turf_decal/bot,
+/obj/item/radio/intercom{
+	frequency = 1361;
+	name = "Exploration Intercom";
+	freerange = 1;
+	freqlock = 1;
+	pixel_x = 28
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ev" = (
@@ -301,20 +308,12 @@
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/effect/turf_decal/loading_area,
 /obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/effect/turf_decal/loading_area,
-/obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "AE" = (
@@ -415,6 +414,20 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"JO" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/railing,
+/obj/machinery/door/firedoor/border_only,
+/obj/item/radio/intercom{
+	frequency = 1361;
+	name = "Exploration Intercom";
+	freerange = 1;
+	freqlock = 1;
+	pixel_x = 28
+	},
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "Kh" = (
 /obj/structure/chair/fancy/shuttle,
@@ -745,7 +758,7 @@ oS
 hV
 TH
 pY
-WO
+JO
 KD
 Md
 RR

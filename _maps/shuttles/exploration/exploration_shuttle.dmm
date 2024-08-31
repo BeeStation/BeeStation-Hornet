@@ -32,6 +32,13 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/tank_dispenser/oxygen,
 /obj/effect/turf_decal/bot,
+/obj/item/radio/intercom{
+	frequency = 1361;
+	name = "Exploration Intercom";
+	freerange = 1;
+	freqlock = 1;
+	pixel_y = 21
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ar" = (
@@ -43,6 +50,13 @@
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/delivery,
+/obj/item/radio/intercom{
+	frequency = 1361;
+	name = "Exploration Intercom";
+	freerange = 1;
+	freqlock = 1;
+	pixel_y = -28
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "as" = (
@@ -77,6 +91,14 @@
 "aD" = (
 /obj/structure/table,
 /obj/machinery/recharger,
+/obj/item/radio{
+	pixel_x = 10;
+	pixel_y = 14
+	},
+/obj/item/radio{
+	pixel_x = 7;
+	pixel_y = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aH" = (
@@ -126,6 +148,20 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration";
+	name = "Exploration Shuttle Shutters";
+	pixel_y = -25;
+	pixel_x = 24
+	},
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration2";
+	name = "Exploration Shuttle Shutters";
+	pixel_y = -25;
+	pixel_x = 41
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aQ" = (
@@ -155,9 +191,8 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/machinery/airalarm/unlocked{
-	pixel_x = 25;
-	dir = 4
+/obj/machinery/airalarm/directional/east{
+	locked = 0
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
@@ -216,20 +251,6 @@
 /obj/machinery/computer/rdconsole{
 	dir = 8
 	},
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "exploration2";
-	name = "Exploration Shuttle Shutters";
-	pixel_y = -32;
-	pixel_x = 8
-	},
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "exploration";
-	name = "Exploration Shuttle Shutters";
-	pixel_y = -32;
-	pixel_x = -8
-	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "tC" = (
@@ -271,33 +292,25 @@
 	pixel_x = -32;
 	pixel_y = -1
 	},
-/obj/structure/railing,
 /obj/machinery/door/firedoor/border_only,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate/large,
+/obj/structure/railing,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "wp" = (
 /obj/machinery/vendor/exploration,
-/obj/machinery/firealarm/directional/south,
 /obj/machinery/camera/preset{
 	dir = 5
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/camera/preset{
-	dir = 5
-	},
-/obj/machinery/vendor/exploration,
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "exploration";
-	name = "Exploration Shuttle Shutters";
-	pixel_y = -32
+/obj/item/radio/intercom{
+	frequency = 1361;
+	name = "Exploration Intercom";
+	freerange = 1;
+	freqlock = 1;
+	pixel_y = -27
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -345,19 +358,10 @@
 	},
 /obj/effect/turf_decal/box,
 /obj/machinery/firealarm/directional/south,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
-/obj/machinery/light/small,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
 /obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
 	},
@@ -440,9 +444,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "SW" = (
-/obj/machinery/camera/preset{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -454,15 +455,6 @@
 	dir = 2
 	},
 /obj/machinery/telecomms/relay/preset/exploration,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/telecomms/relay/preset/exploration,
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Tt" = (
@@ -477,39 +469,21 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "WX" = (
-/obj/machinery/camera/preset{
-	dir = 8
-	},
 /obj/machinery/newscaster{
 	pixel_x = 32;
 	pixel_y = 1
 	},
-/obj/structure/railing,
 /obj/machinery/door/firedoor/border_only,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate/large,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/camera/preset{
-	dir = 9
-	},
-/obj/machinery/newscaster{
-	pixel_x = 32;
-	pixel_y = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/newscaster{
 	pixel_x = 32;
 	pixel_y = 1
 	},
 /obj/machinery/camera/autoname/directional/east,
+/obj/structure/railing,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Xv" = (
