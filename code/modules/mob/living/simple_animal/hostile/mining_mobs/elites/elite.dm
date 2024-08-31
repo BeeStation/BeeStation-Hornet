@@ -317,13 +317,13 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			user.visible_message("<span class='notice'>[E] does not respond to [src].</span>")
 			return
 		if(!E.key && !using)
-			using = TRUE
+			using = TRUE //No ghost poll spam please.
 			user.visible_message("<span class='notice'>[E] stirs briefly...</span>")
-			var/list/candidates = poll_candidates_for_mob("Do you want to take over as [E] (Lavaland Elite), silent servant of [user]?", ROLE_SENTIENCE, null, 5 SECONDS, E)
+			var/list/candidates = poll_candidates_for_mob("Do you want to take over as [E] (Lavaland Elite), silent servant of [user]?", ROLE_SENTIENCE, null, 15 SECONDS, E)
 			if(length(candidates))
 				var/mob/dead/observer/C = pick(candidates)
 				E.key = C.key
-		 	else
+			else
 				user.visible_message("<span class='notice'>It appears [E] is unable to be revived right now.  Perhaps try again later.</span>")
 				using = FALSE
 				return
