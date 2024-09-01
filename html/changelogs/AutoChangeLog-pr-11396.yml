@@ -1,5 +1,0 @@
-author: rkz
-delete-after: true
-changes:
-  - tweak: 15 base stamina damage is dealt every time a failed jump is attempted on
-      a multi-z map
