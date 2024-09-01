@@ -40,6 +40,12 @@
 /obj/machinery/status_display/evac,
 /turf/open/floor/iron,
 /area/space)
+"aM" = (
+/obj/effect/turf_decal/tile/steelgrid/anticorner{
+	dir = 4
+	},
+/turf/open/floor/iron/tech/grid,
+/area/space)
 "aR" = (
 /obj/machinery/door/airlock/atmos/glass{
 	req_access_txt = "24"
@@ -50,6 +56,12 @@
 /obj/effect/landmark/start/atmospheric_technician,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
+"aY" = (
+/obj/effect/turf_decal/tile/steelgrid{
+	dir = 5
+	},
+/turf/open/floor/iron/tech/grid,
+/area/space)
 "aZ" = (
 /obj/structure/sign/poster/random,
 /turf/open/floor/iron/dark,
@@ -602,6 +614,10 @@
 "oa" = (
 /turf/open/floor/carpet/green,
 /area/lawoffice)
+"oh" = (
+/obj/effect/turf_decal/tile/steelgrid/anticorner,
+/turf/open/floor/iron/tech/grid,
+/area/space)
 "oq" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters";
@@ -992,6 +1008,12 @@
 /obj/item/book/manual/hydroponics_pod_people,
 /turf/open/floor/grass/no_border,
 /area/hydroponics)
+"xO" = (
+/obj/effect/turf_decal/tile/steelgrid{
+	dir = 6
+	},
+/turf/open/floor/iron/tech/grid,
+/area/space)
 "xS" = (
 /obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/carpet/royalblue,
@@ -1040,6 +1062,12 @@
 /obj/effect/landmark/blobstart,
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating,
+/area/space)
+"zB" = (
+/obj/effect/turf_decal/tile/steelgrid/anticorner{
+	dir = 1
+	},
+/turf/open/floor/iron/tech/grid,
 /area/space)
 "zK" = (
 /obj/machinery/vending/wardrobe/robo_wardrobe,
@@ -1359,6 +1387,12 @@
 /obj/item/toy/plush/moth/royal,
 /turf/open/floor/iron,
 /area/space)
+"JH" = (
+/obj/effect/turf_decal/tile/steelgrid{
+	dir = 10
+	},
+/turf/open/floor/iron/tech/grid,
+/area/space)
 "JM" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /mob/living/simple_animal/pet/dog/pug{
@@ -1412,7 +1446,7 @@
 /area/crew_quarters/heads/hor)
 "Kq" = (
 /obj/item/toy/plush/moth/brown,
-/turf/open/floor/iron,
+/turf/open/floor/iron/tech/grid,
 /area/space)
 "Kr" = (
 /obj/machinery/suit_storage_unit/hos,
@@ -1884,6 +1918,12 @@
 /obj/item/toy/plush/moth/deadhead,
 /turf/open/floor/iron/grid/steel,
 /area/space)
+"Uo" = (
+/obj/effect/turf_decal/tile/steelgrid/anticorner{
+	dir = 8
+	},
+/turf/open/floor/iron/tech/grid,
+/area/space)
 "Up" = (
 /mob/living/simple_animal/hostile/carp/lia,
 /mob/living/simple_animal/bot/secbot{
@@ -1914,6 +1954,12 @@
 /obj/structure/closet/secure_closet/CMO,
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
+"UJ" = (
+/obj/effect/turf_decal/tile/steelgrid{
+	dir = 9
+	},
+/turf/open/floor/iron/tech/grid,
+/area/space)
 "UQ" = (
 /obj/machinery/suit_storage_unit/mining,
 /turf/open/floor/iron/sepia,
@@ -2551,9 +2597,9 @@ tB
 XF
 XF
 XF
-Qk
-Qk
-Qk
+zB
+UJ
+Uo
 XF
 XF
 XF
@@ -2571,9 +2617,9 @@ SQ
 XF
 uN
 XF
-Qk
+aY
 Kq
-Qk
+JH
 XF
 rs
 XF
@@ -2591,9 +2637,9 @@ NH
 XF
 XF
 XF
-Qk
-Qk
-Qk
+aM
+xO
+oh
 XF
 XF
 XF

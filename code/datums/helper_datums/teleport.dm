@@ -157,6 +157,65 @@
 		// DING! You have passed the gauntlet, and are "probably" safe.
 		return F
 
+/// Checks if a given turf is a "safe" location
+/proc/is_safe_turf(turf/random_location, extended_safety_checks = FALSE, dense_atoms = FALSE, no_teleport = FALSE)
+	. = FALSE
+	if(!isfloorturf(random_location))
+		return
+	var/turf/open/floor/floor_turf = random_location
+	//var/area/destination_area = floor_turf.loc
+
+	if(no_teleport)
+		return
+
+	var/datum/gas_mixture/floor_gas_mixture = floor_turf.air
+	if(!floor_gas_mixture)
+		return
+
+	var/list/gases_to_check = list(/datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/carbon_dioxide, /datum/gas/plasma)
+	var/trace_gases
+	for(var/id in floor_gas_mixture.get_gases())
+		if(id in gases_to_check)
+			continue
+		trace_gases = TRUE
+		break
+
+	// Can most things breathe?
+	if(trace_gases)
+		return
+	if(!(floor_gas_mixture.get_gases(/datum/gas/oxygen) && floor_gas_mixture.get_gases(/datum/gas/oxygen) >= 16))
+		return
+	if(floor_gas_mixture.get_gases(/datum/gas/plasma))
+		return
+	if(floor_gas_mixture.get_gases(/datum/gas/carbon_dioxide) && floor_gas_mixture.get_gases(/datum/gas/carbon_dioxide) >= 10)
+		return
+
+	// Aim for goldilocks temperatures and pressure
+	if((floor_gas_mixture.return_temperature() <= 270) || (floor_gas_mixture.return_temperature() >= 360))
+		return
+	var/pressure = floor_gas_mixture.return_pressure()
+	if((pressure <= 20) || (pressure >= 550))
+		return
+
+	if(extended_safety_checks)
+		if(islava(floor_turf)) //chasms aren't /floor, and so are pre-filtered
+			var/turf/open/lava/lava_turf = floor_turf // Cyberboss: okay, this makes no sense and I don't understand the above comment, but I'm too lazy to check history to see what it's supposed to do right now
+			if(!lava_turf.is_safe())
+				return
+
+	// Check that we're not warping onto a table or window
+	if(!dense_atoms)
+		var/density_found = FALSE
+		for(var/atom/movable/found_movable in floor_turf)
+			if(found_movable.density)
+				density_found = TRUE
+				break
+		if(density_found)
+			return
+
+	// DING! You have passed the gauntlet, and are "probably" safe.
+	return TRUE
+
 /proc/get_teleport_turfs(turf/center, precision = 0)
 	if(!precision)
 		return list(center)
