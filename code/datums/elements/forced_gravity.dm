@@ -11,11 +11,12 @@
 
 	src.gravity = gravity
 	src.ignore_space = ignore_space
-	ADD_TRAIT(target, TRAIT_FORCED_GRAVITY, REF(src))
 
 	RegisterSignal(target, COMSIG_ATOM_HAS_GRAVITY, PROC_REF(gravity_check), override = can_override)
 	if(isturf(target))
 		RegisterSignal(target, COMSIG_TURF_HAS_GRAVITY, PROC_REF(turf_gravity_check), override = can_override)
+
+	ADD_TRAIT(target, TRAIT_FORCED_GRAVITY, REF(src))
 
 /datum/element/forced_gravity/Detach(datum/source, force)
 	. = ..()
