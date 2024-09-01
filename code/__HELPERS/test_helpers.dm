@@ -28,8 +28,8 @@ CREATION_TEST_IGNORE_SELF(/mob/dview)
 
 #else
 
-#define CREATION_TEST_IGNORE_SELF(path)
+#define CREATION_TEST_IGNORE_SELF(path) ;
 
-#define CREATION_TEST_IGNORE_SUBTYPES(path)
+#define CREATION_TEST_IGNORE_SUBTYPES(path) ;
 
 #endif
