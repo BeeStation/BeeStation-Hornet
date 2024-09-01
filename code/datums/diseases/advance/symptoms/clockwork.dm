@@ -16,8 +16,8 @@
 	var/replacebody = FALSE
 	var/robustbits = FALSE
 	threshold_desc = "<b>Stage Speed 4:</b>The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
-                      <b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
-                      <b>Stage Speed 12:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
+						<b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
+						<b>Stage Speed 12:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
 
 /datum/symptom/robotic_adaptation/OnAdd(datum/disease/advance/A)
 	A.infectable_biotypes |= MOB_ROBOTIC
@@ -32,8 +32,8 @@
 		severity += 1 //at this stage, even one EMP will hurt, a lot.
 	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
 		threshold_desc = "<b>Always:</b>The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
-                      <b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
-                      <b>Stage Speed 6:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
+						<b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
+						<b>Stage Speed 6:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
 
 
 /datum/symptom/robotic_adaptation/Start(datum/disease/advance/A)

@@ -593,10 +593,10 @@
 	process = TRUE
 
 /datum/quirk/junkie/smoker/on_spawn()
-    drug_container_type = read_choice_preference(/datum/preference/choiced/quirk/smoker_cigarettes)
-    if(!drug_container_type)
-        drug_container_type = pick(GLOB.smoker_cigarettes)
-    . = ..()
+	drug_container_type = read_choice_preference(/datum/preference/choiced/quirk/smoker_cigarettes)
+	if(!drug_container_type)
+		drug_container_type = pick(GLOB.smoker_cigarettes)
+	. = ..()
 
 /datum/quirk/junkie/smoker/announce_drugs()
 	to_chat(quirk_target, "<span class='boldnotice'>There is a [initial(drug_container_type.name)] [where_drug], and a lighter [where_accessory]. Make sure you get your favorite brand when you run out.</span>")
@@ -626,7 +626,7 @@
 	var/drink_types = list(/obj/item/reagent_containers/food/drinks/bottle/ale,
 					/obj/item/reagent_containers/food/drinks/bottle/beer,
 					/obj/item/reagent_containers/food/drinks/bottle/gin,
-		            /obj/item/reagent_containers/food/drinks/bottle/whiskey,
+					/obj/item/reagent_containers/food/drinks/bottle/whiskey,
 					/obj/item/reagent_containers/food/drinks/bottle/vodka,
 					/obj/item/reagent_containers/food/drinks/bottle/rum,
 					/obj/item/reagent_containers/food/drinks/bottle/applejack)

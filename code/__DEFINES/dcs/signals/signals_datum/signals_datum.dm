@@ -71,7 +71,7 @@
 
 // /datum/component/two_handed signals
 #define COMSIG_TWOHANDED_WIELD "twohanded_wield"              //from base of datum/component/two_handed/proc/wield(mob/living/carbon/user): (/mob/user)
-      #define COMPONENT_TWOHANDED_BLOCK_WIELD 1
+		#define COMPONENT_TWOHANDED_BLOCK_WIELD 1
 #define COMSIG_TWOHANDED_UNWIELD "twohanded_unwield"          //from base of datum/component/two_handed/proc/unwield(mob/living/carbon/user): (/mob/user)
 
 // /datum/action signals

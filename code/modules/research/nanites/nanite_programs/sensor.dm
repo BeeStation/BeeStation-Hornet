@@ -273,10 +273,10 @@
 	var/list/static/allowed_species = list()
 
 /datum/nanite_program/sensor/species/New()
-    if(!length(allowed_species))
-        for(var/id in get_selectable_species())
-            allowed_species[id] = GLOB.species_list[id]
-    . = ..()
+	if(!length(allowed_species))
+		for(var/id in get_selectable_species())
+			allowed_species[id] = GLOB.species_list[id]
+	. = ..()
 
 
 /datum/nanite_program/sensor/species/register_extra_settings()

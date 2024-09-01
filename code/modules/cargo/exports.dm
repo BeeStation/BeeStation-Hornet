@@ -6,7 +6,7 @@
 
 /* The rule in figuring out item export cost:
  Export cost of goods in the shipping crate must be always equal or lower than:
-  packcage cost - crate cost - manifest cost
+	packcage cost - crate cost - manifest cost
  Crate cost is 500cr for a regular plasteel crate and 100cr for a large wooden one. Manifest cost is always 200cr.
  This is to avoid easy cargo points dupes.
 

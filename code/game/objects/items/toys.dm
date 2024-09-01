@@ -950,22 +950,22 @@
 		return ..()
 
 /obj/item/toy/cards/deck/MouseDrop(atom/over_object)
-    . = ..()
-    var/mob/living/M = usr
-    if(!istype(M) || !(M.mobility_flags & MOBILITY_PICKUP))
-        return
-    if(Adjacent(usr))
-        if(over_object == M && loc != M)
-            M.put_in_hands(src)
-            to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
+	. = ..()
+	var/mob/living/M = usr
+	if(!istype(M) || !(M.mobility_flags & MOBILITY_PICKUP))
+		return
+	if(Adjacent(usr))
+		if(over_object == M && loc != M)
+			M.put_in_hands(src)
+			to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
 
-        else if(istype(over_object, /atom/movable/screen/inventory/hand))
-            var/atom/movable/screen/inventory/hand/H = over_object
-            if(M.putItemFromInventoryInHandIfPossible(src, H.held_index))
-                to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
+		else if(istype(over_object, /atom/movable/screen/inventory/hand))
+			var/atom/movable/screen/inventory/hand/H = over_object
+			if(M.putItemFromInventoryInHandIfPossible(src, H.held_index))
+				to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
 
-    else
-        to_chat(usr, "<span class='warning'>You can't reach it from here!</span>")
+	else
+		to_chat(usr, "<span class='warning'>You can't reach it from here!</span>")
 
 
 

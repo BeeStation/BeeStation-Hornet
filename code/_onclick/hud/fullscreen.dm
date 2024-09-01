@@ -111,9 +111,9 @@
 	plane = FULLSCREEN_PLANE
 
 /atom/movable/screen/fullscreen/law_change
-    icon_state = "law_change"
-    layer = BLIND_LAYER
-    plane = FULLSCREEN_PLANE
+	icon_state = "law_change"
+	layer = BLIND_LAYER
+	plane = FULLSCREEN_PLANE
 
 /atom/movable/screen/fullscreen/curse
 	icon_state = "curse"

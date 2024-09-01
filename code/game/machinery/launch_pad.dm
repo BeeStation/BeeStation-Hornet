@@ -233,11 +233,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
 
 /obj/machinery/launchpad/briefcase/Initialize(mapload, briefcase)
-    . = ..()
-    if(!briefcase)
-        log_game("[src] has been spawned without a briefcase.")
-        return INITIALIZE_HINT_QDEL
-    src.briefcase = briefcase
+	. = ..()
+	if(!briefcase)
+		log_game("[src] has been spawned without a briefcase.")
+		return INITIALIZE_HINT_QDEL
+	src.briefcase = briefcase
 
 /obj/machinery/launchpad/briefcase/Destroy()
 	if(!QDELETED(briefcase))

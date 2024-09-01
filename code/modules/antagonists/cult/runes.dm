@@ -643,7 +643,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 	SEND_SOUND(mob_to_revive, 'sound/ambience/antag/bloodcult.ogg')
 	to_chat(mob_to_revive, "<span class='cultlarge'>\"PASNAR SAVRAE YAM'TOTH. Arise.\"</span>")
 	mob_to_revive.visible_message("<span class='warning'>[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes.</span>", \
-								  "<span class='cultlarge'>You awaken suddenly from the void. You're alive!</span>")
+									"<span class='cultlarge'>You awaken suddenly from the void. You're alive!</span>")
 	rune_in_use = FALSE
 
 /obj/effect/rune/raise_dead/proc/validness_checks(mob/living/target_mob, mob/living/user)
@@ -800,7 +800,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		log_game("Summon Cultist rune failed - target in away mission")
 		return
 	cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
-									  "<span class='cult italic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
+										"<span class='cult italic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
 	..()
 	if(do_teleport(cultist_to_summon, get_turf(src), no_effects = TRUE, channel = TELEPORT_CHANNEL_CULT))
 		visible_message("<span class='warning'>A foggy shape materializes atop [src] and solidifes into [cultist_to_summon]!</span>")
@@ -949,7 +949,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		ghosts--
 		if(new_human)
 			new_human.visible_message("<span class='warning'>[new_human] suddenly dissolves into bones and ashes.</span>", \
-									  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
+										"<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
 			for(var/obj/I in new_human)
 				new_human.dropItemToGround(I, TRUE)
 			new_human.dust()

@@ -61,9 +61,9 @@
 									 "tradewind stabilizer","radiated XML cable","registry fluid tank","open-source debunker")
 
 		var/list/faux_problems = list("won't be able to tune their bootstrap projector","will constantly remix their binary pool"+\
-									  " even though the BMX calibrator is working","will start leaking their XSS coolant",\
-									  "can't tell if their ethernet detour is moving or not", "won't be able to reseed enough"+\
-									  " kernels to function properly","can't start their neurotube console")
+										" even though the BMX calibrator is working","will start leaking their XSS coolant",\
+										"can't tell if their ethernet detour is moving or not", "won't be able to reseed enough"+\
+										" kernels to function properly","can't start their neurotube console")
 
 		to_chat(user, "<span class='warning'>You can't seem to find the [pick(faux_gadgets)]! Without it, [src] [pick(faux_problems)].</span>")
 		return

@@ -380,7 +380,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 /obj/anomaly/singularity/proc/combust_mobs()
 	for(var/mob/living/carbon/C in urange(20, src, 1))
 		C.visible_message("<span class='warning'>[C]'s skin bursts into flame!</span>", \
-						  "<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>")
+							"<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>")
 		C.adjust_fire_stacks(5)
 		C.IgniteMob()
 	return
