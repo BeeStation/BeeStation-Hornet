@@ -108,3 +108,9 @@
 
 ///How far away blind people can see visible messages from
 #define BLIND_TEXT_DIST 2
+
+// Emote flags
+
+#define EMOTE_AUDIBLE (1<<0)
+#define EMOTE_ANIMATED (1<<1)
+

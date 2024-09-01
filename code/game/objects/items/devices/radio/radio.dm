@@ -575,3 +575,5 @@
 /obj/item/radio/off/Initialize()
 	. = ..()
 	set_listening(FALSE)
+
+#undef FREQ_LISTENING

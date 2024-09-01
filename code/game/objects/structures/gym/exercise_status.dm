@@ -63,3 +63,8 @@
 	name = "Exercised"
 	desc = "You have worked out recently, making you stronger and more resistant to being brought down by stunning weapons."
 	icon_state = "weights"
+
+#undef EXERCISE_INCREMENT
+#undef EXERCISE_LIMIT
+#undef EXERCISE_STEP
+#undef EXERCISE_VISUAL_DELTA

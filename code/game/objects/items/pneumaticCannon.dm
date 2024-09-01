@@ -2,6 +2,7 @@
 #define PCANNON_FIREALL 1
 #define PCANNON_FILO 2
 #define PCANNON_FIFO 3
+
 /obj/item/pneumatic_cannon
 	name = "pneumatic cannon"
 	desc = "A gas-powered cannon that can fire any object loaded into it."
@@ -344,3 +345,7 @@
 /obj/item/storage/backpack/magspear_quiver/PopulateContents()
 	for(var/i in 1 to 30)
 		new /obj/item/throwing_star/magspear(src)
+
+#undef PCANNON_FIREALL
+#undef PCANNON_FILO
+#undef PCANNON_FIFO

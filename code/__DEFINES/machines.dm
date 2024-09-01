@@ -176,3 +176,17 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 	"redalert",
 	"shuttle",
 ))
+
+// Holopad defines
+// ---------------------------------------------------
+
+#define HOLOPAD_MAX_DIAL_TIME 200
+
+#define HOLORECORD_DELAY	"delay"
+#define HOLORECORD_SAY		"say"
+#define HOLORECORD_SOUND	"sound"
+#define HOLORECORD_LANGUAGE	"lang"
+#define HOLORECORD_PRESET	"preset"
+#define HOLORECORD_RENAME "rename"
+
+#define HOLORECORD_MAX_LENGTH 200

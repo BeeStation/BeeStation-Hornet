@@ -244,3 +244,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 
 /obj/item/stack/medical/gauze/adv/one
 	amount = 1
+
+#undef REAGENT_AMOUNT_PER_ITEM

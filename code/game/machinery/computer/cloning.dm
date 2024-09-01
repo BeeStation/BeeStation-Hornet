@@ -658,3 +658,5 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	circuit = /obj/item/circuitboard/computer/cloning/prototype
 	clonepod_type = /obj/machinery/clonepod/experimental
 	experimental = TRUE
+
+#undef AUTOCLONING_MINIMAL_LEVEL

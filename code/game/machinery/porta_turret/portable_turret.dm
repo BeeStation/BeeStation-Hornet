@@ -1169,3 +1169,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 			if(istype(P, /obj/projectile/beam/lasertag/bluetag))
 				toggle_on(FALSE)
 				addtimer(CALLBACK(src, PROC_REF(toggle_on), TRUE), 10 SECONDS)
+
+#undef TURRET_STUN
+#undef TURRET_LETHAL
+
+#undef POPUP_ANIM_TIME
+#undef POPDOWN_ANIM_TIME

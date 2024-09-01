@@ -510,3 +510,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 		user.sight = 0
 		user.see_in_dark = 2
 	return 1
+
+#undef CAMERA_UPGRADE_XRAY
+#undef CAMERA_UPGRADE_EMP_PROOF
+#undef CAMERA_UPGRADE_MOTION

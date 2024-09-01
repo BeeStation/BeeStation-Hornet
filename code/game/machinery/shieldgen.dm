@@ -212,6 +212,7 @@
 
 #define ACTIVE_SETUPFIELDS 1
 #define ACTIVE_HASFIELDS 2
+
 /obj/machinery/shieldwallgen
 	name = "shield wall generator"
 	desc = "A shield generator."
@@ -401,6 +402,9 @@
 	locked = FALSE
 	playsound(src, "sparks", 100, 1)
 	to_chat(user, "<span class='warning'>You short out the access controller.</span>")
+
+#undef ACTIVE_SETUPFIELDS
+#undef ACTIVE_HASFIELDS
 
 //////////////Containment Field START
 /obj/machinery/shieldwall

@@ -483,3 +483,5 @@ GLOBAL_VAR(restart_counter)
 	var/init_result = LIBCALL(library, "init")("block")
 	if (init_result != "0")
 		CRASH("Error initializing byond-tracy: [init_result]")
+
+#undef RESTART_COUNTER_PATH

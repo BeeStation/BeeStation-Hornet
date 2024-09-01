@@ -399,3 +399,5 @@
 /obj/structure/grille/prison/Destroy()
 	QDEL_NULL(device)
 	return ..()
+
+#undef CLEAR_TILE_MOVE_LIMIT
