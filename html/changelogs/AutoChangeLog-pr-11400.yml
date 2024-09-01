@@ -1,0 +1,5 @@
+author: MarkusLarsson421
+delete-after: true
+changes:
+  - bugfix: Fixed so that Efficiency Law board can be printed.
+  - tweak: Changed the name of the Crewsimov board from "Default" to "Crewsimov".
