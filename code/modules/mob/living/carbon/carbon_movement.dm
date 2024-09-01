@@ -1,6 +1,6 @@
 /mob/living/carbon/slip(knockdown_amount, obj/O, lube, paralyze, force_drop)
 
-	if(movement_type & (FLYING|FLOATING))
+	if(movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return FALSE
 	if((lube & NO_SLIP_ON_CATWALK) && (locate(/obj/structure/lattice/catwalk) in get_turf(src)))
 		return FALSE
@@ -57,7 +57,6 @@
 			ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 
 /mob/living/carbon/on_movement_type_flag_enabled(datum/source, flag, old_movement_type)
-	var/old_movetype = movement_type
 	. = ..()
 	if(movement_type & (FLYING | FLOATING) && !(old_movement_type & (FLYING | FLOATING)))
 		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)

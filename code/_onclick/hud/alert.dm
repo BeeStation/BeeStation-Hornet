@@ -248,6 +248,11 @@ If you're feeling frisky, examine yourself and click the underlined item to pull
 		var/mob/living/carbon/M = usr
 		return M.help_shake_act(M)
 
+/atom/movable/screen/alert/negative
+	name = "Negative Gravity"
+	desc = "You're getting pulled upwards. While you won't have to worry about falling down anymore, you may accidentally fall upwards!"
+	icon_state = "negative"
+
 /atom/movable/screen/alert/weightless
 	name = "Weightless"
 	desc = "Gravity has ceased affecting you, and you're floating around aimlessly. You'll need something large and heavy, like a \
