@@ -237,3 +237,9 @@
 	to_chat(usr, "<span class='notice'>Consecutive CQC</span>: Disarm Disarm Harm. Mainly offensive move, huge damage and decent stamina damage.")
 
 	to_chat(usr, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")
+
+#undef SLAM_COMBO
+#undef KICK_COMBO
+#undef RESTRAIN_COMBO
+#undef PRESSURE_COMBO
+#undef CONSECUTIVE_COMBO

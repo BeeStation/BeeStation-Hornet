@@ -35,3 +35,5 @@
 			last_taste_text = text_output
 
 #undef DEFAULT_TASTE_SENSITIVITY
+
+#undef NO_TASTE_SENSITIVITY

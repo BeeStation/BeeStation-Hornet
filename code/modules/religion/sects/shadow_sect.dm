@@ -407,3 +407,5 @@
 			faithful.AddComponent(/datum/component/dark_favor, faithful)
 			faithful.set_light(2, -2, DARKNESS_INVERSE_COLOR)
 		playsound(obs, 'sound/hallucinations/wail.ogg', 50, TRUE)
+
+#undef DARKNESS_INVERSE_COLOR

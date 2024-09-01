@@ -1,7 +1,6 @@
 #define TARGET_CLOSEST 1
 #define TARGET_RANDOM 2
 
-
 /obj/effect/proc_holder
 	var/panel = "Debug"//What panel the proc holder needs to go on.
 	var/active = FALSE //Used by toggle based abilities.

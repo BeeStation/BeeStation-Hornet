@@ -362,3 +362,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/elite_tumor_wall)
 	. = ..()
 	if(mover == ourelite || mover == activator)
 		return FALSE
+
+#undef TUMOR_INACTIVE
+#undef TUMOR_ACTIVE
+#undef TUMOR_PASSIVE

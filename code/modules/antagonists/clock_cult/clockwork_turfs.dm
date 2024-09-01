@@ -608,3 +608,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window/reinforced/clockwork)
 
 /obj/structure/window/reinforced/clockwork/fulltile/unanchored
 	anchored = FALSE
+
+#undef COGWALL_DECON_TOOLS
+#undef COGWALL_START_DECON_MESSAGES
+#undef COGWALL_END_DECON_MESSAGES
+#undef COGWALL_START_RECON_MESSAGES
+#undef COGWALL_END_RECON_MESSAGES

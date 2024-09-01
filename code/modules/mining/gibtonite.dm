@@ -99,3 +99,7 @@
 			if(GIBTONITE_QUALITY_LOW)
 				explosion(src,0,1,3,adminlog = notify_admins)
 		qdel(src)
+
+#undef GIBTONITE_QUALITY_HIGH
+#undef GIBTONITE_QUALITY_MEDIUM
+#undef GIBTONITE_QUALITY_LOW

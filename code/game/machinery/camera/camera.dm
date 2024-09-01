@@ -1,7 +1,3 @@
-#define CAMERA_UPGRADE_XRAY 1
-#define CAMERA_UPGRADE_EMP_PROOF 2
-#define CAMERA_UPGRADE_MOTION 4
-
 /obj/machinery/camera
 	name = "security camera"
 	desc = "A wireless camera used to monitor rooms. It is powered by a long-life internal battery."
@@ -510,7 +506,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 		user.sight = 0
 		user.see_in_dark = 2
 	return 1
-
-#undef CAMERA_UPGRADE_XRAY
-#undef CAMERA_UPGRADE_EMP_PROOF
-#undef CAMERA_UPGRADE_MOTION

@@ -904,3 +904,5 @@ SUBSYSTEM_DEF(shuttle)
 	preview_shuttle = loaded_shuttle_reference.value
 	if(loaded_shuttle)
 		user.forceMove(get_turf(loaded_shuttle))
+
+#undef MAX_TRANSIT_REQUEST_RETRIES

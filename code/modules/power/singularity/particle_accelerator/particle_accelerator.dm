@@ -14,10 +14,6 @@
  * PE|PE|PE
  *
 */
-#define PA_CONSTRUCTION_UNSECURED  0
-#define PA_CONSTRUCTION_UNWIRED    1
-#define PA_CONSTRUCTION_PANEL_OPEN 2
-#define PA_CONSTRUCTION_COMPLETE   3
 
 /obj/structure/particle_accelerator
 	name = "Particle Accelerator"

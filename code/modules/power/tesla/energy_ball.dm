@@ -322,3 +322,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 			var/obj/o = closest_atom
 			o.tesla_act(power, tesla_flags, shocked_targets)
 #undef TESLA_MAX_BALLS
+
+#undef TESLA_DEFAULT_POWER
+#undef TESLA_MINI_POWER

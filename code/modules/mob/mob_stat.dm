@@ -496,3 +496,5 @@
 
 #undef MAX_ITEMS_TO_READ
 #undef MAX_ICONS_PER_TILE
+
+#undef STAT_PANEL_TAG

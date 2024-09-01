@@ -493,3 +493,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal/deliveryChute)
 
 /obj/machinery/disposal/deliveryChute/newHolderDestination(obj/structure/disposalholder/H)
 	H.destinationTag = 1
+
+#undef SEND_PRESSURE

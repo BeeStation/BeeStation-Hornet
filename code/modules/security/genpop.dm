@@ -663,7 +663,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 				say("Prisoner has already served their time! Please apply another charge to sentence them with!")
 				return
 			if(value && isnum(value))
-				id.sentence = clamp(id.sentence + value , 0 , MAX_TIMER)
+				id.sentence = clamp(id.sentence + value , 0 , SENTENCE_MAX_TIMER)
 
 		if("release")
 			var/obj/item/card/id/prisoner/id = locate(params["id"]) in GLOB.prisoner_ids
@@ -740,5 +740,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/card/id/prisoner)
 		if(isliving(loc))
 			to_chat(loc, "<span class='boldnotice'>You have served your sentence! You may now exit prison through the turnstiles and collect your belongings.</span>")
 		return PROCESS_KILL
-
-#undef MAX_TIMER

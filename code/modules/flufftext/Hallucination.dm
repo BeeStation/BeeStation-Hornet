@@ -1337,3 +1337,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/danger/chasm)
 	H.preparePixelProjectile(target, start)
 	H.fire()
 	qdel(src)
+
+#undef HAL_LINES_FILE
+#undef FAKE_FLOOD_EXPAND_TIME
+#undef FAKE_FLOOD_MAX_RADIUS

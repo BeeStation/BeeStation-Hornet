@@ -299,3 +299,5 @@
 	holder.appearance = parent.parent
 	holder.transform = base_transform()
 	holder.dir = WEST
+
+#undef AQUARIUM_MAX_BREEDING_POPULATION

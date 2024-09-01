@@ -442,3 +442,5 @@
 
 /datum/team/cult/is_gamemode_hero()
 	return SSticker.mode.name == "cult"
+
+#undef SUMMON_POSSIBILITIES

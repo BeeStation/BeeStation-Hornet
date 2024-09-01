@@ -196,3 +196,5 @@
 		vomit.vomitCoefficient = 1
 		vomit.vomitTimeBonus = 0
 	return TRUE
+
+#undef GOOSE_SATIATED

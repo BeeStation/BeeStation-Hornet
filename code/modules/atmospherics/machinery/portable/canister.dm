@@ -549,3 +549,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 			logmsg = "Valve was <b>closed</b> by [key_name(user)], stopping the transfer into \the [holding || "air"].<br>"
 	investigate_log(logmsg, INVESTIGATE_ATMOS)
 	release_log += logmsg
+
+#undef CAN_DEFAULT_RELEASE_PRESSURE

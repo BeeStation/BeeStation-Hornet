@@ -105,3 +105,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/credit/title_card)
 		contribs.Cut(21)
 
 	return contribs
+
+#undef CREDIT_ROLL_SPEED
+#undef CREDIT_SPAWN_SPEED
+#undef CREDIT_ANIMATE_HEIGHT
+#undef CREDIT_EASE_DURATION

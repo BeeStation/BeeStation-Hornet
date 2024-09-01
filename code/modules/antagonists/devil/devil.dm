@@ -574,3 +574,14 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	ban = randomdevilban()
 	banish = randomdevilbanish()
 	ascendable = prob(25)
+
+#undef BLOOD_THRESHOLD
+#undef TRUE_THRESHOLD
+#undef ARCH_THRESHOLD
+#undef BASIC_DEVIL
+#undef BLOOD_LIZARD
+#undef TRUE_DEVIL
+#undef ARCH_DEVIL
+#undef LOSS_PER_DEATH
+#undef SOULVALUE
+#undef DEVILRESURRECTTIME

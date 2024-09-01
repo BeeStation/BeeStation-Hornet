@@ -1310,3 +1310,6 @@
 	output += "</form>"
 	panel.set_content(jointext(output, ""))
 	panel.open()
+
+#undef MAX_ADMINBANS_PER_ADMIN
+#undef MAX_ADMINBANS_PER_HEADMIN

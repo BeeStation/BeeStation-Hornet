@@ -337,3 +337,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 	setDir(angle2dir(rotation+dir2angle(dir))) // No parentcall, rest of the rotate code breaks the pixel offset.
 
 #undef BASE_BEAR_DIVISOR
+
+#undef LUXURY_MESSAGE_COOLDOWN

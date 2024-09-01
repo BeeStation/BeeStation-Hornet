@@ -1,10 +1,14 @@
-/atom/movable
-	/// The mimic (if any) that's *directly* copying us.
-	var/tmp/atom/movable/openspace/mimic/bound_overlay
-	/// General MultiZ flags, not entirely related to zmimic but better than using obj_flags
-	var/z_flags = NONE
-	/// Movable-level Z-Mimic flags. This uses ZMM_* flags, not ZM_* flags.
-	var/zmm_flags = NONE
+/// The multiplication factor for openturf shadower darkness. Lighting will be multiplied by this.
+#define SHADOWER_DARKENING_FACTOR 0.8
+/// The above, but as an RGB string for lighting-less turfs.
+#define SHADOWER_DARKENING_COLOR "#CCCCCC"
+
+/// The mimic (if any) that's *directly* copying us.
+/atom/movable/var/tmp/atom/movable/openspace/mimic/bound_overlay
+/// General MultiZ flags, not entirely related to zmimic but better than using obj_flags
+/atom/movable/var/z_flags = NONE
+/// Movable-level Z-Mimic flags. This uses ZMM_* flags, not ZM_* flags.
+/atom/movable/var/zmm_flags = NONE
 
 /atom/movable/setDir(ndir)
 	. = ..()
@@ -248,3 +252,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/openspace/turf_mimic)
 /atom/movable/openspace/turf_mimic/examine(mob/examiner)
 	SHOULD_CALL_PARENT(FALSE)
 	. = delegate.examine(examiner)
+
+#undef SHADOWER_DARKENING_FACTOR
+#undef SHADOWER_DARKENING_COLOR

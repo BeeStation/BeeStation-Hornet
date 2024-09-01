@@ -59,3 +59,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers/glass/chem_heirloom)
 	. = ..()
 	LAZYREMOVE(SSticker.round_end_events, roundend_callback)
 	roundend_callback = null
+
+#undef CHEM_H_VOL

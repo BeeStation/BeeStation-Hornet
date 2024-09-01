@@ -368,3 +368,5 @@
 		name = "Nuke Auth. Disk",
 		)
 	objects += list(nukeinfo)
+
+#undef SCAN_COOLDOWN

@@ -229,3 +229,10 @@
 		return
 	set_command_mode(speaker, command)
 
+
+#undef TAMED_COMMAND_FOLLOW
+#undef TAMED_COMMAND_STOP
+#undef TAMED_COMMAND_WANDER
+#undef TAMED_COMMAND_ATTACK
+#undef ANGER_THRESHOLD_ATTACK
+#undef ANGER_RESET_TIME

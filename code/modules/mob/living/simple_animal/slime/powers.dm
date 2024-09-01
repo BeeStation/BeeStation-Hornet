@@ -277,3 +277,6 @@
 	var/power = rand(1,powerlevel)
 	do_teleport(src, get_turf(src), power, asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
 	powerlevel -= power
+
+#undef NO_GROWTH_NEEDED
+#undef GROWTH_NEEDED

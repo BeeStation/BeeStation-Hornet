@@ -1089,3 +1089,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 		return
 
 	aicamera.adjust_zoom(src)
+
+#undef CALL_BOT_COOLDOWN

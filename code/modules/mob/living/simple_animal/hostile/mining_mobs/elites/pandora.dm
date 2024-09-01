@@ -189,3 +189,8 @@
 	var/mob/living/L = user
 	if(L && L.mind)
 		SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "hope_lavaland")
+
+#undef SINGULAR_SHOT
+#undef MAGIC_BOX
+#undef PANDORA_TELEPORT
+#undef AOE_SQUARES

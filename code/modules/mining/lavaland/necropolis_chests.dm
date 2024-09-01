@@ -1391,3 +1391,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "skeleton_key"
 	w_class = WEIGHT_CLASS_SMALL
+
+#undef HIEROPHANT_CLUB_CARDINAL_DAMAGE
