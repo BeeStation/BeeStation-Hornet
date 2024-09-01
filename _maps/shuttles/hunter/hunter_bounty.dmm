@@ -370,6 +370,7 @@
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "nY" = (
+/obj/structure/lattice/catwalk/over,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
