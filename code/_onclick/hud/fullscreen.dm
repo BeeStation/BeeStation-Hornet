@@ -59,6 +59,7 @@
 				client.screen |= screen
 			else
 				client.screen -= screen
+
 /atom/movable/screen/fullscreen
 	icon = 'icons/mob/screen_full.dmi'
 	icon_state = "default"
