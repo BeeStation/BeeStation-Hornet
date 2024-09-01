@@ -1,5 +1,0 @@
-author: Penwin0
-delete-after: true
-changes:
-  - bugfix: Plague Doctor hat no longer covers the face and doesn't look like a biohood
-      when held.
