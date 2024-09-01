@@ -241,7 +241,7 @@
 	update_appearance()
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 
-obj/item/restraints/legcuffs/beartrap/proc/trap_stepped_on(datum/source, atom/movable/entering, ...)
+/obj/item/restraints/legcuffs/beartrap/proc/trap_stepped_on(datum/source, atom/movable/entering, ...)
 	SIGNAL_HANDLER
 
 	spring_trap(entering)
