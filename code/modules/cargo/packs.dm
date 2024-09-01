@@ -3264,7 +3264,8 @@
 					/obj/item/canvas/twentythree_twentythree,
 					/obj/item/canvas/twentythree_twentythree,
 					/obj/item/toy/crayon/rainbow,
-					/obj/item/toy/crayon/rainbow)
+					/obj/item/toy/crayon/rainbow,
+					/obj/item/vending_refill/sticker)
 	crate_name = "art supply crate"
 	crate_type = /obj/structure/closet/crate/wooden
 
