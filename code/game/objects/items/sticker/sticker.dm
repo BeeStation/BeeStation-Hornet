@@ -130,6 +130,9 @@
 /obj/item/sticker/proc/can_stick(atom/target)
 	if(istype(target, /obj/item/sticker))
 		return FALSE
+	if(istype(target, /atom/movable/screen))
+		return FALSE
+	//If you want to add MORE stuff to the denial list, swap it to a type list
 	if(ismovable(target))
 		return TRUE
 	if(iswallturf(target))

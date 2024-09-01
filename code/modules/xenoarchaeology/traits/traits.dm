@@ -242,6 +242,8 @@
 	if(!parent.calibrated)
 		return
 	var/atom/A = parent.parent
+	if(!isturf(A?.loc))
+		return
 	if(A.x % (weight || A.x || 1) != 0 || A.y % (conductivity || A.y || 1) != 0)
 		return
 	INVOKE_ASYNC(src, PROC_REF(pry_action), user, I)
