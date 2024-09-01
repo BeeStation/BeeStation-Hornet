@@ -327,7 +327,7 @@
 /obj/item/borg/upgrade/modkit/damage
 	name = "damage increase"
 	desc = "Increases the damage of kinetic accelerator when installed."
-	modifier = 10
+	modifier = 5
 
 /obj/item/borg/upgrade/modkit/damage/modify_projectile(obj/projectile/kinetic/K)
 	K.damage += modifier
@@ -410,13 +410,15 @@
 /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
 	name = "offensive mining explosion"
 	desc = "Causes the kinetic accelerator to destroy rock and damage mobs in an AoE."
-	maximum_of_type = 3
-	modifier = 0.25
+	maximum_of_type = 2
+	modifier = 0.40
 
 /obj/item/borg/upgrade/modkit/aoe/mobs
 	name = "offensive explosion"
 	desc = "Causes the kinetic accelerator to damage mobs in an AoE."
-	modifier = 0.2
+	maximum_of_type = 2
+	modifier = 0.40
+	denied_type = /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
 
 //Minebot passthrough
 /obj/item/borg/upgrade/modkit/minebot_passthrough
