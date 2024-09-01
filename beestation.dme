@@ -2106,7 +2106,6 @@
 #include "code\modules\antagonists\obsessed\objectives\protect.dm"
 #include "code\modules\antagonists\obsessed\objectives\spend_time.dm"
 #include "code\modules\antagonists\obsessed\objectives\steal_heirloom.dm"
-#include "code\modules\antagonists\official\official.dm"
 #include "code\modules\antagonists\pirate\pirate.dm"
 #include "code\modules\antagonists\prisoner\prisoner.dm"
 #include "code\modules\antagonists\revenant\revenant.dm"
