@@ -193,13 +193,13 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		return
 	switch(broken_state)
 		if(GRAV_NEEDS_SCREWDRIVER)
-			. += span_notice("The entire frame is barely holding together, the <b>screws</b> need to be refastened.")
+			. += "<span class='notice'>The entire frame is barely holding together, the <b>screws</b> need to be refastened.</span>"
 		if(GRAV_NEEDS_WELDING)
-			. += span_notice("There's lots of broken seals on the framework, it could use some <b>welding</b>.")
+			. += "<span class='notice'>There's lots of broken seals on the framework, it could use some <b>welding</b>.</span>"
 		if(GRAV_NEEDS_PLASTEEL)
-			. += span_notice("Some of this damaged plating needs full replacement. <b>10 plasteel</> should be enough.")
+			. += "<span class='notice'>Some of this damaged plating needs full replacement. <b>10 plasteel</> should be enough.</span>"
 		if(GRAV_NEEDS_WRENCH)
-			. += span_notice("The new plating just needs to be <b>bolted</b> into place now.")
+			. += "<span class='notice'>The new plating just needs to be <b>bolted</b> into place now.</span>"
 
 // Fixing the gravity generator.
 /obj/machinery/gravity_generator/main/attackby(obj/item/I, mob/user, params)
