@@ -31,9 +31,11 @@ on_github = os.getenv("GITHUB_ACTIONS") == "true"
 # Add directories as string here to automatically be exempt in case you have a non-complaint file name.
 excluded_files = [
     #  Wildcard directories, all files are expected to be exempt.
-    "code/__DEFINES/*.dm",
+    "**/__DEFINES/*.dm",
     "code/__HELPERS/*.dm",
     "code/_globalvars/*.dm",
+    # Allow for full modularisation of components
+    "code/datums/components/*.dm",
     # TGS files come from another repository so lets not worry about them.
     "code/modules/tgs/**/*.dm",
 ]
