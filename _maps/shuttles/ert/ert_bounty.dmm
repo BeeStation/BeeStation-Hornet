@@ -470,7 +470,7 @@
 	dwidth = 11;
 	height = 16;
 	name = "Deep Space";
-	shuttle_id = "pirate_home";
+	id = "huntership_home";
 	width = 17
 	},
 /obj/docking_port/mobile{
@@ -480,7 +480,7 @@
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
 	name = "hunter shuttle";
 	rechargeTime = 1800;
-	shuttle_id = "huntership";
+	id = "huntership";
 	width = 15
 	},
 /obj/structure/fans/tiny,
