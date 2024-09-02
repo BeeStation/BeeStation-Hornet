@@ -281,7 +281,7 @@
 		//gas transfer
 		for(var/giver_id in giver_gases)
 			var/giver_gas_data = giver_gases[giver_id]
-			ADJUST_MOLES(giver_id, total_gas_mixture, giver_gas_data[MOLES])
+			ADD_MOLES(giver_id, total_gas_mixture, giver_gas_data[MOLES])
 			total_heat_capacity += giver_gas_data[MOLES] * giver_gas_data[GAS_META][META_GAS_SPECIFIC_HEAT]
 
 		total_thermal_energy += THERMAL_ENERGY(gas_mixture)

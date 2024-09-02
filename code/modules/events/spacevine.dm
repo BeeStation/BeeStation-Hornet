@@ -241,7 +241,7 @@
 	var/turf/open/floor/T = holder.loc
 	if(istype(T))
 		var/datum/gas_mixture/GM = T.air
-		ADJUST_MOLES(/datum/gas/carbon_dioxide, GM, GET_MOLES(/datum/gas/carbon_dioxide, GM) - severity * holder.energy)
+		REMOVE_MOLES(/datum/gas/carbon_dioxide, GM, severity * holder.energy - GET_MOLES(/datum/gas/carbon_dioxide, GM))
 
 /datum/spacevine_mutation/plasma_eater
 	name = "toxins consuming"

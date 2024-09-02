@@ -291,14 +291,14 @@
 		if (gas_breathed > gas_stimulation_min)
 			H.reagents.add_reagent(/datum/reagent/nitryl,1)
 
-		SAFE_REMOVE_MOLES(/datum/gas/nitryl, breath, gas_breathed)
+		REMOVE_MOLES(/datum/gas/nitryl, breath, gas_breathed)
 
 	// Stimulum
 		gas_breathed = PP(breath,/datum/gas/stimulum)
 		if (gas_breathed > gas_stimulation_min)
 			var/existing = H.reagents.get_reagent_amount(/datum/reagent/stimulum)
 			H.reagents.add_reagent(/datum/reagent/stimulum, max(0, 5 - existing))
-		SAFE_REMOVE_MOLES(/datum/gas/stimulum, breath, gas_breathed)
+		REMOVE_MOLES(/datum/gas/stimulum, breath, gas_breathed)
 
 		handle_breath_temperature(breath, H)
 	return TRUE

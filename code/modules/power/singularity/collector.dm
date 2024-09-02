@@ -59,8 +59,8 @@
 			eject()
 		else
 			var/gasdrained = min(powerproduction_drain*drainratio*delta_time,GET_MOLES(/datum/gas/plasma, loaded_tank.air_contents))
-			ADJUST_MOLES(/datum/gas/plasma, loaded_tank.air_contents, -gasdrained)
-			ADJUST_MOLES(/datum/gas/tritium, loaded_tank.air_contents, gasdrained)
+			REMOVE_MOLES(/datum/gas/plasma, loaded_tank.air_contents, gasdrained)
+			ADD_MOLES(/datum/gas/tritium, loaded_tank.air_contents, gasdrained)
 			var/power_produced = RAD_COLLECTOR_OUTPUT
 			add_avail(power_produced)
 			stored_energy-=power_produced

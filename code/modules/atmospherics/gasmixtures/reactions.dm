@@ -125,8 +125,8 @@
 	if(burned_fuel)
 		energy_released += (N2O_DECOMPOSITION_ENERGY_RELEASED * burned_fuel)
 
-		ADJUST_MOLES(/datum/gas/oxygen, air, burned_fuel * 0.5)
-		ADJUST_MOLES(/datum/gas/nitrogen, air, burned_fuel)
+		ADD_MOLES(/datum/gas/oxygen, air, burned_fuel * 0.5)
+		ADD_MOLES(/datum/gas/nitrogen, air, burned_fuel)
 
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
@@ -162,7 +162,7 @@
 		burned_fuel = cached_gases[/datum/gas/oxygen][MOLES] / TRITIUM_BURN_OXY_FACTOR
 		cached_gases[/datum/gas/tritium][MOLES] -= burned_fuel
 
-		ADJUST_MOLES(/datum/gas/water_vapor, air, burned_fuel/TRITIUM_BURN_OXY_FACTOR)
+		ADD_MOLES(/datum/gas/water_vapor, air, burned_fuel/TRITIUM_BURN_OXY_FACTOR)
 
 		energy_released += (FIRE_HYDROGEN_ENERGY_RELEASED * burned_fuel)
 		cached_results["fire"] += burned_fuel
@@ -173,7 +173,7 @@
 		cached_gases[/datum/gas/tritium][MOLES] -= burned_fuel / TRITIUM_BURN_TRIT_FACTOR
 		cached_gases[/datum/gas/oxygen][MOLES] -= burned_fuel
 
-		ADJUST_MOLES(/datum/gas/water_vapor, air, burned_fuel/TRITIUM_BURN_OXY_FACTOR)
+		ADD_MOLES(/datum/gas/water_vapor, air, burned_fuel/TRITIUM_BURN_OXY_FACTOR)
 
 		energy_released += (FIRE_HYDROGEN_ENERGY_RELEASED * burned_fuel)
 		cached_results["fire"] += burned_fuel * 10
@@ -253,10 +253,10 @@
 			cached_gases[/datum/gas/plasma][MOLES] = QUANTIZE(cached_gases[/datum/gas/plasma][MOLES] - plasma_burn_rate)
 			cached_gases[/datum/gas/oxygen][MOLES] = QUANTIZE(cached_gases[/datum/gas/oxygen][MOLES] - (plasma_burn_rate * oxygen_burn_rate))
 			if (super_saturation)
-				ADJUST_MOLES(/datum/gas/tritium, air, plasma_burn_rate)
+				ADD_MOLES(/datum/gas/tritium, air, plasma_burn_rate)
 			else
-				ADJUST_MOLES(/datum/gas/carbon_dioxide, air, plasma_burn_rate*0.75)
-				ADJUST_MOLES(/datum/gas/water_vapor, air, plasma_burn_rate*0.25)
+				ADD_MOLES(/datum/gas/carbon_dioxide, air, plasma_burn_rate*0.75)
+				ADD_MOLES(/datum/gas/water_vapor, air, plasma_burn_rate*0.25)
 
 			energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 
@@ -350,15 +350,15 @@
 		thermal_energy = middle_energy * 10 ** log(FUSION_ENERGY_TRANSLATION_EXPONENT, (thermal_energy + bowdlerized_reaction_energy) / middle_energy)
 
 	//The reason why you should set up a tritium production line.
-	ADJUST_MOLES(/datum/gas/tritium, air, -FUSION_TRITIUM_MOLES_USED)
+	REMOVE_MOLES(/datum/gas/tritium, air, FUSION_TRITIUM_MOLES_USED)
 
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
 	var/standard_waste_gas_output = scale_factor * (FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED)
 	if(delta_plasma > 0)
-		ADJUST_MOLES(/datum/gas/water_vapor, air, standard_waste_gas_output)
+		ADD_MOLES(/datum/gas/water_vapor, air, standard_waste_gas_output)
 	else
-		ADJUST_MOLES(/datum/gas/bz, air, standard_waste_gas_output)
-	ADJUST_MOLES(/datum/gas/oxygen, air, standard_waste_gas_output) //Oxygen is a bit touchy subject
+		ADD_MOLES(/datum/gas/bz, air, standard_waste_gas_output)
+	ADD_MOLES(/datum/gas/oxygen, air, standard_waste_gas_output) //Oxygen is a bit touchy subject
 
 	if(reaction_energy)
 		if(location)
@@ -404,7 +404,7 @@
 	cached_gases[/datum/gas/oxygen][MOLES] -= heat_efficiency
 	cached_gases[/datum/gas/nitrogen][MOLES] -= heat_efficiency
 	cached_gases[/datum/gas/bz][MOLES] -= heat_efficiency * 0.05 //bz gets consumed to balance the nitryl production and not make it too common and/or easy
-	ADJUST_MOLES(/datum/gas/nitryl, air, heat_efficiency)
+	ADD_MOLES(/datum/gas/nitryl, air, heat_efficiency)
 
 	if(energy_used > 0)
 		var/new_heat_capacity = air.heat_capacity()
@@ -433,10 +433,10 @@
 	if ((cached_gases[/datum/gas/nitrous_oxide][MOLES] - reaction_efficency < 0 )|| (cached_gases[/datum/gas/plasma][MOLES] - (2 * reaction_efficency) < 0) || energy_released <= 0) //Shouldn't produce gas from nothing.
 		return NO_REACTION
 
-	ADJUST_MOLES(/datum/gas/bz, air, reaction_efficency * 2.5)
+	ADD_MOLES(/datum/gas/bz, air, reaction_efficency * 2.5)
 	if(reaction_efficency == cached_gases[/datum/gas/nitrous_oxide][MOLES])
-		cached_gases[/datum/gas/bz][MOLES] -= min(pressure, 0.5)
-		ADJUST_MOLES(/datum/gas/oxygen, air, min(pressure, 0.5))
+		REMOVE_MOLES(/datum/gas/bz, air, min(pressure, 0.5))
+		ADD_MOLES(/datum/gas/oxygen, air, min(pressure, 0.5))
 	cached_gases[/datum/gas/nitrous_oxide][MOLES] -= reaction_efficency
 	cached_gases[/datum/gas/plasma][MOLES]  -= 2 * reaction_efficency
 
@@ -468,7 +468,7 @@
 		return NO_REACTION
 	cached_gases[/datum/gas/tritium][MOLES] -= heat_scale
 	cached_gases[/datum/gas/nitryl][MOLES] -= heat_scale
-	ADJUST_MOLES(/datum/gas/stimulum, air, heat_scale*0.75)
+	ADD_MOLES(/datum/gas/stimulum, air, heat_scale*0.75)
 
 	if(stim_energy_change)
 		var/new_heat_capacity = air.heat_capacity()
@@ -535,11 +535,11 @@
 	var/pluox_used = min(STIM_BALL_GAS_AMOUNT/GET_MOLES(/datum/gas/plasma, air),GET_MOLES(/datum/gas/pluoxium, air))
 	var/energy_released = stim_used*STIMULUM_HEAT_SCALE//Stimulum has a lot of stored energy, and breaking it up releases some of it
 	location.fire_nuclear_particle(ball_shot_angle)
-	ADJUST_MOLES(/datum/gas/carbon_dioxide, air, 4*pluox_used)
-	ADJUST_MOLES(/datum/gas/nitrogen, air, 8*stim_used)
-	ADJUST_MOLES(/datum/gas/pluoxium, air, -pluox_used)
-	ADJUST_MOLES(/datum/gas/stimulum, air, -stim_used)
-	ADJUST_MOLES(/datum/gas/plasma, air, -min(GET_MOLES(/datum/gas/plasma, air)/2,30))
+	ADD_MOLES(/datum/gas/carbon_dioxide, air, 4*pluox_used)
+	ADD_MOLES(/datum/gas/nitrogen, air, 8*stim_used)
+	REMOVE_MOLES(/datum/gas/pluoxium, air, pluox_used)
+	REMOVE_MOLES(/datum/gas/stimulum, air, stim_used)
+	REMOVE_MOLES(/datum/gas/plasma, air, min(GET_MOLES(/datum/gas/plasma, air)/2,30))
 	if(energy_released)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)

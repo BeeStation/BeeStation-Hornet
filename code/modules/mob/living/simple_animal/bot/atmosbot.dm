@@ -230,7 +230,7 @@
 		for(var/G in gasses)
 			if(gasses[G])
 				var/moles_in_atmos = GET_MOLES(G, environment)
-				ADJUST_MOLES(G, environment, -min(moles_in_atmos, ATMOSBOT_MAX_SCRUB_CHANGE))
+				REMOVE_MOLES(G, environment, min(moles_in_atmos, ATMOSBOT_MAX_SCRUB_CHANGE))
 
 /mob/living/simple_animal/bot/atmosbot/proc/deploy_holobarrier()
 	if(deployed_holobarrier)
