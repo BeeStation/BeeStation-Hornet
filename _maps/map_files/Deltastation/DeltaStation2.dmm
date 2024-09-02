@@ -30210,7 +30210,7 @@
 /obj/structure/chair/fancy/bench{
 	dir = 8
 	},
-/turf/closed/wall,
+/turf/open/floor/iron/techmaint,
 /area/security/prison/shielded)
 "dTm" = (
 /obj/structure/table/reinforced,
