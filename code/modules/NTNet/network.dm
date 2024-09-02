@@ -112,10 +112,11 @@
 		var/list/devices = list()
 		var/list/queue = list(src) // add ourselves
 		while(queue.len)
-			var/datum/ntnet/net = queue[queue.len--]
+			var/datum/ntnet/net = queue[queue.len]
+			queue.Remove(net)
 			if(net.children.len > 0)
 				for(var/net_id in net.children)
-					queue += networks[net_id]
+					queue += net.children[net_id]
 			devices += net.linked_devices
 		return devices
 
