@@ -259,7 +259,7 @@
 		if(findtext(hearing_args[HEARING_RAW_MESSAGE], sentence.get_value()))
 			send_code()
 	else
-		if(lowertext(hearing_args[HEARING_RAW_MESSAGE]) == lowertext(sentence.get_value()))
+		if(LOWER_TEXT(hearing_args[HEARING_RAW_MESSAGE]) == lowertext(sentence.get_value()))
 			send_code()
 
 /datum/nanite_program/sensor/species

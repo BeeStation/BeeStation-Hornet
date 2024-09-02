@@ -186,9 +186,9 @@
 	return avoid_assoc_duplicate_keys("[custom_name] @ [snare_area.name]", snare_names)
 
 /datum/holoparasite_ability/lesser/snare/proc/get_snare_by_name(name_to_find)
-	name_to_find = trim(lowertext(name_to_find), MAX_NAME_LEN)
+	name_to_find = trim(LOWER_TEXT(name_to_find), MAX_NAME_LEN)
 	for(var/obj/effect/snare/snare as() in snares)
-		if(lowertext(snare.name) == name_to_find)
+		if(LOWER_TEXT(snare.name) == name_to_find)
 			return snare
 
 /atom/movable/screen/holoparasite/snare

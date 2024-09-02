@@ -74,7 +74,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 	. = ..()
 	for(var/i in network)
 		network -= i
-		network += lowertext(i)
+		network += LOWER_TEXT(i)
 	var/obj/structure/camera_assembly/assembly
 	if(CA)
 		assembly = CA

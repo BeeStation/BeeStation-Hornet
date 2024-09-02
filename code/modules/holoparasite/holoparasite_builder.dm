@@ -357,7 +357,7 @@
 		return FALSE
 	waiting = TRUE
 	theme.display_message(user, HOLOPARA_MESSAGE_USE)
-	user.balloon_alert(user, "attempting to summon [lowertext(theme.name)]", show_in_chat = FALSE)
+	user.balloon_alert(user, "attempting to summon [LOWER_TEXT(theme.name)]", show_in_chat = FALSE)
 	var/tldr_stats = saved_stats.tldr()
 	user.log_message("is attempting to summon a holoparasite ([theme.name]), with the following stats: [tldr_stats]", LOG_GAME)
 	message_admins("[ADMIN_LOOKUPFLW(user)] is attempting to summon a holoparasite ([theme.name]), with the following stats: [tldr_stats]")
@@ -374,7 +374,7 @@
 	waiting = FALSE
 	if(!length(candidates))
 		theme.display_message(user, HOLOPARA_MESSAGE_FAILED)
-		user.balloon_alert(user, "failed to summon [lowertext(theme.name)]", show_in_chat = FALSE)
+		user.balloon_alert(user, "failed to summon [LOWER_TEXT(theme.name)]", show_in_chat = FALSE)
 		return FALSE
 	uses--
 	var/mob/dead/observer/candidate = pick(candidates)
@@ -385,7 +385,7 @@
 	user.log_message("summoned [key_name(holoparasite)], a holoparasite ([theme.name]), with the following stats: [tldr_stats]", LOG_GAME)
 	message_admins("[ADMIN_LOOKUPFLW(user)] has summoned [ADMIN_LOOKUPFLW(holoparasite)], a holoparasite ([theme.name]), with the following stats: [tldr_stats]")
 	theme.display_message(user, HOLOPARA_MESSAGE_SUCCESS, holoparasite)
-	user.balloon_alert(user, "successfully summoned [lowertext(theme.name)]", show_in_chat = FALSE)
+	user.balloon_alert(user, "successfully summoned [LOWER_TEXT(theme.name)]", show_in_chat = FALSE)
 	record_to_blackbox()
 
 /**

@@ -58,7 +58,7 @@
 	if(binary)
 		channels += "use [MODE_TOKEN_BINARY] for [MODE_BINARY]"
 	for(var/channel in radio.channels)
-		channels += "use [GLOB.channel_tokens[channel]] for [lowertext(channel)]"
+		channels += "use [GLOB.channel_tokens[channel]] for [LOWER_TEXT(channel)]"
 	text += "<span class='holoparasite'>[english_list(channels)]</span>"
 	return text.Join("\n")
 
