@@ -1203,3 +1203,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 /obj/docking_port/mobile/emergency/on_emergency_dock()
 	return
+
+#ifdef TESTING
+#undef DOCKING_PORT_HIGHLIGHT
+#endif

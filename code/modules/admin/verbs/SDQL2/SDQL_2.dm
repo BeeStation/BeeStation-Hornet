@@ -1181,3 +1181,5 @@ GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 	for(var/datum/SDQL2_query/query as anything in GLOB.sdql2_queries)
 		if(query.id == id)
 			return query
+
+#undef SDQL_qdel_datum

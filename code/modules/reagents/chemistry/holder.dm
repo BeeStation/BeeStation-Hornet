@@ -940,7 +940,7 @@
 
 	 *--- How to add a new random reagent category ---*
 		1. add a new flag at 'code\__DEFINES\reagents.dm' and `var/list/chem_defines` below
-			i.e.) `#define CHEMICAL_SOMETHING_NEW (1<10)`
+			i.e.) `define CHEMICAL_SOMETHING_NEW (1<10)`
 		2. add a new static variable which is corresponding to the new flag.
 			i.e.) `var/static/list/random_reagents_xx = list() // CHEMICAL_SOMETHING_NEW`
 		3. add the new static variable to the 'random_reagent' list
