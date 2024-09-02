@@ -82020,7 +82020,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/bodypart/l_leg/robot{
+/obj/item/bodypart/leg/left/robot{
 	pixel_x = -6
 	},
 /obj/item/bodypart/l_arm/robot{

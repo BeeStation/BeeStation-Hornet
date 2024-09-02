@@ -65576,7 +65576,7 @@
 "oRq" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/blue,
-/obj/item/bodypart/l_leg/robot,
+/obj/item/bodypart/leg/left/robot,
 /obj/item/bodypart/r_leg/robot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,

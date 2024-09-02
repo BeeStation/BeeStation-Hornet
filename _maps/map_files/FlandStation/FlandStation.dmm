@@ -70083,7 +70083,7 @@
 	pixel_x = 5;
 	pixel_y = -7
 	},
-/obj/item/bodypart/l_leg/robot{
+/obj/item/bodypart/leg/left/robot{
 	pixel_x = -4;
 	pixel_y = -7
 	},
