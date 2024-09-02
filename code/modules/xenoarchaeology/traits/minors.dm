@@ -989,6 +989,8 @@
 /datum/xenoartifact_trait/minor/bleed/fun
 	label_name = "Bleeding Δ"
 	label_desc = "Bleeding Δ: The artifact's design seems to incorporate bleeding elements. This will cause the artifact to bleed when triggered."
+	conductivity = 15
+	flags = XENOA_MISC_TRAIT | XENOA_HIDE_TRAIT //Delete this line when the blood changes come back
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/bleed)
 	blood_splat = /obj/effect/decal/cleanable/blood/fun
 	blood_tracks = /obj/effect/decal/cleanable/blood/tracks/fun

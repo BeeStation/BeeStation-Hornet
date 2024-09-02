@@ -6182,6 +6182,7 @@
 /area/chapel/office)
 "bxD" = (
 /obj/structure/lattice/catwalk/over,
+/obj/machinery/xenoarchaeology_machine/calibrator/tutorial,
 /turf/open/floor/plating,
 /area/science/explab)
 "bxS" = (
@@ -42317,6 +42318,7 @@
 /obj/machinery/camera/autoname/directional/east{
 	network = list("ss13","rd")
 	},
+/obj/machinery/xenoarchaeology_machine/scale,
 /turf/open/floor/plating,
 /area/science/explab)
 "kKy" = (
@@ -70517,6 +70519,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/xenoarchaeology_machine/conductor,
 /turf/open/floor/plating,
 /area/science/explab)
 "saM" = (

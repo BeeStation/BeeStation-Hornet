@@ -71,7 +71,7 @@
 	instability_step = 0.5
 	texture_icon_states = list("texture-bananium1", "texture-bananium2", "texture-bananium3")
 	mask_icon_states = list("mask-bananium1", "mask-bananium2", "mask-bananium3")
-	custom_price = 500
+	custom_price = 600
 	trait_flags = XENOA_BANANIUM_TRAIT
 	label_icon = "circle"
 

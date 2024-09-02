@@ -191,7 +191,7 @@
 	label_desc = "Barreled Δ: The artifact seems to contain projectile components. Triggering these components will produce an unsafe projectile."
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
-	possible_projectiles = list(/obj/projectile/beam/laser, /obj/projectile/bullet, /obj/projectile/energy/tesla)
+	possible_projectiles = list(/obj/projectile/beam/laser, /obj/projectile/bullet/c38, /obj/projectile/energy/tesla)
 	conductivity = 3
 
 /datum/xenoartifact_trait/major/projectile/unsafe/get_dictionary_hint()
