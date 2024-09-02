@@ -300,23 +300,6 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 		ASSERT_GAS_IN_LIST(id, cached_gases)
 		cached_gases[id][MOLES] = sample_gases[id][MOLES] * partial
 
-	return 1
-
-
-///Copies variables from sample, moles multiplicated by partial
-///Returns: TRUE if we are mutable, FALSE otherwise
-/datum/gas_mixture/proc/copy_from_ratio(datum/gas_mixture/sample, partial = 1)
-	var/list/cached_gases = gases //accessing datum vars is slower than proc vars
-	var/list/sample_gases = sample.gases
-
-	//remove all gases not in the sample
-	cached_gases &= sample_gases
-
-	temperature = sample.temperature
-	for(var/id in sample_gases)
-		ASSERT_GAS_IN_LIST(id, cached_gases)
-		cached_gases[id][MOLES] = sample_gases[id][MOLES] * partial
-
 	return TRUE
 
 	///Copies all gas info from the turf into the gas list along with temperature
