@@ -37,7 +37,16 @@
 		"lobbymusic":1
 	},
 	{
+		"comment": "Note that this song will not be available if YT-DLP is unavailable on the host device, and this exists for example and should be removed.",
+		"title": "Countdown",
+		"artist": "qwertyquerty",
 		"url":"https://www.youtube.com/watch?v=G2gVAPKlgqA",
+		"license": {
+			"title": "AGPL-3.0",
+			"legal_text": "https://raw.githubusercontent.com/BeeStation/BeeStation-Hornet/master/GPLv3.txt",
+			"url": "https://www.gnu.org/licenses/agpl-3.0.en.html",
+			"attribution_required": true
+		},
 		"jukebox":1
 	}
 ]
