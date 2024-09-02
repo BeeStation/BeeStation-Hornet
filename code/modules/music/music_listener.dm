@@ -15,12 +15,17 @@
 /datum/component/music_listener/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(parent_moved))
 	RegisterSignal(parent, COMSIG_MOB_LOGOUT, PROC_REF(parent_logout))
+	RegisterSignal(parent, SIGNAL_ADDTRAIT(TRAIT_DEAF), PROC_REF(lose_hearing))
+	RegisterSignal(parent, SIGNAL_REMOVETRAIT(TRAIT_DEAF), PROC_REF(gain_hearing))
+	panel.set_can_hear(!HAS_TRAIT(parent, TRAIT_DEAF))
 	// Send over initial positional data
 	parent_moved()
 
 /datum/component/music_listener/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(parent, COMSIG_MOB_LOGOUT)
+	UnregisterSignal(parent, SIGNAL_ADDTRAIT(TRAIT_DEAF))
+	UnregisterSignal(parent, SIGNAL_REMOVETRAIT(TRAIT_DEAF))
 
 /datum/component/music_listener/proc/parent_moved()
 	SIGNAL_HANDLER
@@ -39,3 +44,11 @@
 /datum/component/music_listener/proc/parent_logout()
 	SIGNAL_HANDLER
 	qdel(src)
+
+/datum/component/music_listener/proc/lose_hearing()
+	SIGNAL_HANDLER
+	panel.set_can_hear(FALSE)
+
+/datum/component/music_listener/proc/gain_hearing()
+	SIGNAL_HANDLER
+	panel.set_can_hear(TRUE)

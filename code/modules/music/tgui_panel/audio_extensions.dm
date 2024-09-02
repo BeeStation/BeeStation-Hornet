@@ -122,3 +122,14 @@
 	payload["y"] = y
 	payload["z"] = z
 	window.send_message("audio/updateListener", payload)
+
+/**
+ * Sets a flag on the TGUI panel to determine if the player is capable of
+ * hearing spatial audio
+ */
+/datum/tgui_panel/proc/set_can_hear(can_hear)
+	if(!is_ready())
+		return
+	var/list/payload = list()
+	payload["can_hear"] = can_hear
+	window.send_message("audio/setCanHear", payload)

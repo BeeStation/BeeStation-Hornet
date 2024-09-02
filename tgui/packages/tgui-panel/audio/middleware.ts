@@ -59,7 +59,12 @@ export const audioMiddleware = (store) => {
     }
     if (type === 'audio/updateListener') {
       const { x, y, z } = payload;
-      player.update_listener(x, y, z);
+      player.updateListener(x, y, z);
+      return next(action);
+    }
+    if (type === 'audio/setCanHear') {
+      const { can_hear } = payload;
+      player.setCanHearWorld(can_hear);
       return next(action);
     }
     if (type === 'audio/stopPlaying') {

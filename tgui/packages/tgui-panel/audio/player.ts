@@ -23,6 +23,7 @@ export class AudioPlayer {
     y: number;
     z: number;
   };
+  canHearWorld: boolean;
   onPlaySubscribers: ((HTMLAudioElement, AudioTrack) => void)[];
   onContinueSubscribers: ((AudioTrack) => void)[];
   onStopSubscribers: (() => void)[];
@@ -56,6 +57,7 @@ export class AudioPlayer {
     this.onQueueEmptySubscribers = [];
     this.currently_playing = null;
     this.muted = false;
+    this.canHearWorld = true;
     // Setup the listener's position to be (0, 0, 0)
     this.listener = {
       x: 0,
@@ -112,7 +114,7 @@ export class AudioPlayer {
     clearInterval(this.playbackInterval);
   }
 
-  update_listener(x, y, z) {
+  updateListener(x, y, z) {
     this.listener = {
       x: x,
       y: y,
@@ -120,6 +122,11 @@ export class AudioPlayer {
     };
     // re-scan the queue to resolve any distance based songs
     this.updateQueue();
+  }
+
+  setCanHearWorld(new_value) {
+    this.canHearWorld = new_value;
+    this.updateVolume();
   }
 
   /**
@@ -256,7 +263,7 @@ export class AudioPlayer {
       return;
     }
     if (this.currently_playing !== null) {
-      this.node.volume = this.volume * this.currently_playing.updateVolume(this.listener.x, this.listener.y, this.listener.z);
+      this.node.volume = this.volume * this.currently_playing.updateVolume(this.listener.x, this.listener.y, this.listener.z) * ((this.canHearWorld || this.currently_playing.positional_blend === 0) ? 1 : 0);
     }
   }
 

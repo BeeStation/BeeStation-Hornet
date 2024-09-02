@@ -261,6 +261,7 @@ SUBSYSTEM_DEF(music)
 	// Become a spatial audio listener
 	if (target.tgui_panel?.needs_spatial_audio)
 		target.mob.AddComponent(/datum/component/music_listener, target.tgui_panel)
+		target.tgui_panel.set_can_hear(!HAS_TRAIT(target.mob, TRAIT_DEAF))
 	ASYNC_FINISH
 
 /datum/controller/subsystem/music/stat_entry()
