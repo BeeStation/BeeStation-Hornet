@@ -263,7 +263,10 @@ export class AudioPlayer {
       return;
     }
     if (this.currently_playing !== null) {
-      this.node.volume = this.volume * this.currently_playing.updateVolume(this.listener.x, this.listener.y, this.listener.z) * ((this.canHearWorld || this.currently_playing.positional_blend === 0) ? 1 : 0);
+      this.node.volume =
+        this.volume *
+        this.currently_playing.updateVolume(this.listener.x, this.listener.y, this.listener.z) *
+        (this.canHearWorld || this.currently_playing.positional_blend === 0 ? 1 : 0);
     }
   }
 
