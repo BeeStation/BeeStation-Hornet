@@ -1067,6 +1067,7 @@
 	weight = 15
 	conductivity = 10
 	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
+	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
 	///Max force we can use, aka how far we throw things
 	var/max_force = 7
 

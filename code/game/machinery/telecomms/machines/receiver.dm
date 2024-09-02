@@ -13,7 +13,8 @@
 	telecomms_type = /obj/machinery/telecomms/receiver
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 30
+	idle_power_usage = 5
+	active_power_usage = 20
 	circuit = /obj/item/circuitboard/machine/telecomms/receiver
 
 /obj/machinery/telecomms/receiver/receive_signal(datum/signal/subspace/signal)
