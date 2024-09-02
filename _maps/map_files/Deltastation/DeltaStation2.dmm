@@ -63601,9 +63601,6 @@
 /area/engine/atmos)
 "oiE" = (
 /obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
 /area/security/brig)
@@ -77097,11 +77094,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
-"suR" = (
-/obj/effect/spawner/structure/window/reinforced/tinted,
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/security/brig)
 "suT" = (
 /obj/structure/chair/office,
 /turf/open/floor/carpet/grimy,
@@ -147298,7 +147290,7 @@ bgZ
 bgZ
 fqd
 oiE
-suR
+bgZ
 bgZ
 clw
 aaX
