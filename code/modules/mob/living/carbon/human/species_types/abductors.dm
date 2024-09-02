@@ -11,8 +11,8 @@
 	species_head = /obj/item/bodypart/head/abductor
 	species_l_arm = /obj/item/bodypart/l_arm/abductor
 	species_r_arm = /obj/item/bodypart/r_arm/abductor
-	species_l_leg = /obj/item/bodypart/l_leg/abductor
-	species_r_leg = /obj/item/bodypart/r_leg/abductor
+	species_l_leg = /obj/item/bodypart/leg/left/abductor
+	species_r_leg = /obj/item/bodypart/leg/right/abductor
 
 /datum/species/abductor/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()

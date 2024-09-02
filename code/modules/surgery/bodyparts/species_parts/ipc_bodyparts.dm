@@ -59,7 +59,7 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
-/obj/item/bodypart/l_leg/ipc
+/obj/item/bodypart/leg/left/ipc
 	static_icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	limb_id = "synth"
@@ -74,7 +74,7 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
-/obj/item/bodypart/r_leg/ipc
+/obj/item/bodypart/leg/right/ipc
 	static_icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	limb_id = "synth"

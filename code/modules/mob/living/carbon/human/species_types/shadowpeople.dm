@@ -19,8 +19,8 @@
 	species_head = /obj/item/bodypart/head/shadow
 	species_l_arm = /obj/item/bodypart/l_arm/shadow
 	species_r_arm = /obj/item/bodypart/r_arm/shadow
-	species_l_leg = /obj/item/bodypart/l_leg/shadow
-	species_r_leg = /obj/item/bodypart/r_leg/shadow
+	species_l_leg = /obj/item/bodypart/leg/left/shadow
+	species_r_leg = /obj/item/bodypart/leg/right/shadow
 
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H)

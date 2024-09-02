@@ -20,12 +20,12 @@
 	limb_id = SPECIES_ETHEREAL
 	uses_mutcolor = TRUE
 
-/obj/item/bodypart/l_leg/ethereal
+/obj/item/bodypart/leg/left/ethereal
 	icon = 'icons/mob/species/ethereal/bodyparts.dmi'
 	limb_id = SPECIES_ETHEREAL
 	uses_mutcolor = TRUE
 
-/obj/item/bodypart/r_leg/ethereal
+/obj/item/bodypart/leg/right/ethereal
 	icon = 'icons/mob/species/ethereal/bodyparts.dmi'
 	limb_id = SPECIES_ETHEREAL
 	uses_mutcolor = TRUE

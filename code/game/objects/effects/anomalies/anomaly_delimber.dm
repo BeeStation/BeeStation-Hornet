@@ -2,8 +2,8 @@
 #define ANOMALY_BIOSCRAMBLER_ZONES list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 #define ANOMALY_BIOSCRAMBLER_ZONE_CHEST typesof(/obj/item/bodypart/chest)
 #define ANOMALY_BIOSCRAMBLER_ZONE_HEAD typesof(/obj/item/bodypart/head)
-#define ANOMALY_BIOSCRAMBLER_ZONE_L_LEG typesof(/obj/item/bodypart/l_leg)
-#define ANOMALY_BIOSCRAMBLER_ZONE_R_LEG typesof(/obj/item/bodypart/r_leg)
+#define ANOMALY_BIOSCRAMBLER_ZONE_L_LEG typesof(/obj/item/bodypart/leg/left)
+#define ANOMALY_BIOSCRAMBLER_ZONE_R_LEG typesof(/obj/item/bodypart/leg/right)
 #define ANOMALY_BIOSCRAMBLER_ZONE_L_ARM typesof(/obj/item/bodypart/l_arm)
 #define ANOMALY_BIOSCRAMBLER_ZONE_R_ARM typesof(/obj/item/bodypart/r_arm)
 

@@ -35,8 +35,8 @@
 	species_head = /obj/item/bodypart/head/plasmaman
 	species_l_arm = /obj/item/bodypart/l_arm/plasmaman
 	species_r_arm = /obj/item/bodypart/r_arm/plasmaman
-	species_l_leg = /obj/item/bodypart/l_leg/plasmaman
-	species_r_leg = /obj/item/bodypart/r_leg/plasmaman
+	species_l_leg = /obj/item/bodypart/leg/left/plasmaman
+	species_r_leg = /obj/item/bodypart/leg/right/plasmaman
 
 /datum/species/plasmaman/spec_life(mob/living/carbon/human/H)
 	var/atmos_sealed = FALSE

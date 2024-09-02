@@ -24,8 +24,8 @@
 		/obj/item/bodypart/head/devil,
 		/obj/item/bodypart/l_arm/devil,
 		/obj/item/bodypart/r_arm/devil,
-		/obj/item/bodypart/r_leg/devil,
-		/obj/item/bodypart/l_leg/devil
+		/obj/item/bodypart/leg/right/devil,
+		/obj/item/bodypart/leg/left/devil
 	)
 	hud_type = /datum/hud/devil
 	var/ascended = FALSE

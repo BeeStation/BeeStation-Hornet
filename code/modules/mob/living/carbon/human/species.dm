@@ -115,8 +115,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/bodypart/species_head = /obj/item/bodypart/head
 	var/obj/item/bodypart/species_l_arm = /obj/item/bodypart/l_arm
 	var/obj/item/bodypart/species_r_arm = /obj/item/bodypart/r_arm
-	var/obj/item/bodypart/species_r_leg = /obj/item/bodypart/r_leg
-	var/obj/item/bodypart/species_l_leg = /obj/item/bodypart/l_leg
+	var/obj/item/bodypart/species_r_leg = /obj/item/bodypart/leg/right
+	var/obj/item/bodypart/species_l_leg = /obj/item/bodypart/leg/left
 
 	/// if false, having no tongue makes you unable to speak
 	var/speak_no_tongue = TRUE
@@ -394,8 +394,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//Note for future: Potentionally add a new C.dna.species() to build a template species for more accurate limb replacement
 
 	if((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL && C.dna.features["legs"] == "Digitigrade Legs") || new_species.digitigrade_customization == DIGITIGRADE_FORCED)
-		new_species.species_r_leg = /obj/item/bodypart/r_leg/digitigrade
-		new_species.species_l_leg = /obj/item/bodypart/l_leg/digitigrade
+		new_species.species_r_leg = /obj/item/bodypart/leg/right/digitigrade
+		new_species.species_l_leg = /obj/item/bodypart/leg/left/digitigrade
 
 	for(var/obj/item/bodypart/old_part as() in C.bodyparts)
 		if(old_part.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES)
@@ -423,12 +423,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 			if(BODY_ZONE_L_LEG)
-				var/obj/item/bodypart/l_leg/new_part = new new_species.species_l_leg()
+				var/obj/item/bodypart/leg/left/new_part = new new_species.species_l_leg()
 				new_part.replace_limb(C, TRUE, is_creating = TRUE)
 				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 			if(BODY_ZONE_R_LEG)
-				var/obj/item/bodypart/r_leg/new_part = new new_species.species_r_leg()
+				var/obj/item/bodypart/leg/right/new_part = new new_species.species_r_leg()
 				new_part.replace_limb(C, TRUE, is_creating = TRUE)
 				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
@@ -775,8 +775,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		var/obj/item/bodypart/chest/chest = H.get_bodypart(BODY_ZONE_CHEST)
 		var/obj/item/bodypart/r_arm/right_arm = H.get_bodypart(BODY_ZONE_R_ARM)
 		var/obj/item/bodypart/l_arm/left_arm = H.get_bodypart(BODY_ZONE_L_ARM)
-		var/obj/item/bodypart/r_leg/right_leg = H.get_bodypart(BODY_ZONE_R_LEG)
-		var/obj/item/bodypart/l_leg/left_leg = H.get_bodypart(BODY_ZONE_L_LEG)
+		var/obj/item/bodypart/leg/right/right_leg = H.get_bodypart(BODY_ZONE_R_LEG)
+		var/obj/item/bodypart/leg/left/left_leg = H.get_bodypart(BODY_ZONE_L_LEG)
 		var/datum/sprite_accessory/markings = GLOB.moth_markings_list[H.dna.features["moth_markings"]]
 		var/markings_icon_state = markings.icon_state
 		if(ismoth(H) && HAS_TRAIT(H, TRAIT_MOTH_BURNT))
@@ -850,7 +850,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.remove_overlay(BODY_ADJ_LAYER)
 	H.remove_overlay(BODY_FRONT_LAYER)
 
-	REMOVE_LUM_SOURCE(H, LUM_SOURCE_MUTANT_BODYPART)
+	//REMOVE_LUM_SOURCE(H, LUM_SOURCE_MUTANT_BODYPART)
 
 	if(!mutant_bodyparts)
 		return

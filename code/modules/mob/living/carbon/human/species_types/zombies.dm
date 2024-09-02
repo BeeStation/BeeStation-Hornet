@@ -18,8 +18,8 @@
 	species_head = /obj/item/bodypart/head/zombie
 	species_l_arm = /obj/item/bodypart/l_arm/zombie
 	species_r_arm = /obj/item/bodypart/r_arm/zombie
-	species_l_leg = /obj/item/bodypart/l_leg/zombie
-	species_r_leg = /obj/item/bodypart/r_leg/zombie
+	species_l_leg = /obj/item/bodypart/leg/left/zombie
+	species_r_leg = /obj/item/bodypart/leg/right/zombie
 
 	bodytemp_normal = T0C // They have no natural body heat, the environment regulates body temp
 	bodytemp_heat_damage_limit = FIRE_MINIMUM_TEMPERATURE_TO_EXIST // Take damage at fire temp
@@ -122,8 +122,8 @@
 	species_head = /obj/item/bodypart/head/zombie
 	species_l_arm = /obj/item/bodypart/l_arm/zombie
 	species_r_arm = /obj/item/bodypart/r_arm/zombie
-	species_l_leg = /obj/item/bodypart/l_leg/zombie
-	species_r_leg = /obj/item/bodypart/r_leg/zombie
+	species_l_leg = /obj/item/bodypart/leg/left/zombie
+	species_r_leg = /obj/item/bodypart/leg/right/zombie
 
 /datum/species/human/krokodil_addict/replace_body(mob/living/carbon/C, datum/species/new_species)
 	..()

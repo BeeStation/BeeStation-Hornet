@@ -201,7 +201,7 @@
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_L_LEG)
-					var/obj/item/bodypart/l_leg/robot/clockwork/B = new()
+					var/obj/item/bodypart/leg/left/robot/clockwork/B = new()
 					if(robustbits)
 						B.brute_reduction = 3
 						B.burn_reduction = 2
@@ -210,7 +210,7 @@
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_R_LEG)
-					var/obj/item/bodypart/r_leg/robot/clockwork/B = new()
+					var/obj/item/bodypart/leg/right/robot/clockwork/B = new()
 					if(robustbits)
 						B.brute_reduction = 3
 						B.burn_reduction = 2
@@ -376,14 +376,14 @@
 	brute_reduction = 0
 	burn_reduction = 0
 
-/obj/item/bodypart/l_leg/robot/clockwork
+/obj/item/bodypart/leg/left/robot/clockwork
 	name = "clockwork left leg"
 	desc = "An odd metal leg full of intricate mechanisms."
 	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
-/obj/item/bodypart/r_leg/robot/clockwork
+/obj/item/bodypart/leg/right/robot/clockwork
 	name = "clockwork right leg"
 	desc = "An odd metal leg full of intricate mechanisms."
 	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'

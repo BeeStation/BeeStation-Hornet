@@ -20,12 +20,12 @@
 	limb_id = SPECIES_PLASMAMAN
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/l_leg/plasmaman
+/obj/item/bodypart/leg/left/plasmaman
 	static_icon = 'icons/mob/species/plasmaman/bodyparts.dmi'
 	limb_id = SPECIES_PLASMAMAN
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/r_leg/plasmaman
+/obj/item/bodypart/leg/right/plasmaman
 	static_icon = 'icons/mob/species/plasmaman/bodyparts.dmi'
 	limb_id = SPECIES_PLASMAMAN
 	should_draw_greyscale = FALSE

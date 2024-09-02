@@ -491,12 +491,16 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define CALCULATE_MOB_OVERLAY_LAYER(_layer) (FLOAT_LAYER - (_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
 
 // Mob Overlays Indexes
+
 /// KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
-#define TOTAL_LAYERS 29
-/// Mutations layer - Tk headglows, cold resistance glow, etc
-#define MUTATIONS_LAYER 29
-/// Certain mutantrace features (tail when looking south) that must appear behind the body parts
-#define BODY_BEHIND_LAYER 28
+#define TOTAL_LAYERS 30
+
+/// mutations. Tk headglows, cold resistance glow, etc
+#define MUTATIONS_LAYER 30
+/// certain mutantrace features (tail when looking south) that must appear behind the body parts
+#define BODY_BEHIND_LAYER 29
+/// Layer for bodyparts that should appear behind every other bodypart - Mostly, legs when facing WEST or EAST
+#define BODYPARTS_LOW_LAYER 28
 /// Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
 #define BODYPARTS_LAYER 27
 /// certain mutantrace features (snout, body markings) that must appear above the body parts
@@ -512,7 +516,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 /// lmao at the idiot who put both ids and hands on the same layer
 #define ID_LAYER 21
 /// Hands body part layer (or is this for the arm? not sure...)
-#define HANDS_PART_LAYER 20
+#define BODYPARTS_HIGH_LAYER 20
 /// Gloves layer
 #define GLOVES_LAYER 19
 /// Shoes layer

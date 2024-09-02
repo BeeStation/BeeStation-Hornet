@@ -19,8 +19,8 @@
 		/obj/item/bodypart/head/monkey,
 		/obj/item/bodypart/l_arm/monkey,
 		/obj/item/bodypart/r_arm/monkey,
-		/obj/item/bodypart/r_leg/monkey,
-		/obj/item/bodypart/l_leg/monkey
+		/obj/item/bodypart/leg/right/monkey,
+		/obj/item/bodypart/leg/left/monkey
 	)
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
@@ -230,7 +230,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	butcher_results = list(/obj/effect/spawner/lootdrop/teratoma/minor = 5, /obj/effect/spawner/lootdrop/teratoma/major = 1)
 	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
 	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
-					/obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
+					/obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/leg/right/monkey/teratoma, /obj/item/bodypart/leg/left/monkey/teratoma)
 	ai_controller = null
 
 /datum/dna/tumor
@@ -252,8 +252,8 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	species_head = /obj/item/bodypart/head/monkey/teratoma
 	species_l_arm = /obj/item/bodypart/l_arm/monkey/teratoma
 	species_r_arm = /obj/item/bodypart/r_arm/monkey/teratoma
-	species_l_leg = /obj/item/bodypart/l_leg/monkey/teratoma
-	species_r_leg = /obj/item/bodypart/r_leg/monkey/teratoma
+	species_l_leg = /obj/item/bodypart/leg/left/monkey/teratoma
+	species_r_leg = /obj/item/bodypart/leg/right/monkey/teratoma
 
 /obj/item/organ/brain/tumor
 	name = "teratoma brain"

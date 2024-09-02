@@ -19,8 +19,8 @@
 	species_head = /obj/item/bodypart/head/skeleton
 	species_l_arm = /obj/item/bodypart/l_arm/skeleton
 	species_r_arm = /obj/item/bodypart/r_arm/skeleton
-	species_l_leg = /obj/item/bodypart/l_leg/skeleton
-	species_r_leg = /obj/item/bodypart/r_leg/skeleton
+	species_l_leg = /obj/item/bodypart/leg/left/skeleton
+	species_r_leg = /obj/item/bodypart/leg/right/skeleton
 
 /datum/species/skeleton/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])

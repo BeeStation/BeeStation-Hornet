@@ -21,8 +21,8 @@
 	species_head = /obj/item/bodypart/head/pod
 	species_l_arm = /obj/item/bodypart/l_arm/pod
 	species_r_arm = /obj/item/bodypart/r_arm/pod
-	species_l_leg = /obj/item/bodypart/l_leg/pod
-	species_r_leg = /obj/item/bodypart/r_leg/pod
+	species_l_leg = /obj/item/bodypart/leg/left/pod
+	species_r_leg = /obj/item/bodypart/leg/right/pod
 	mutanttongue = /obj/item/organ/tongue/podperson
 
 /datum/species/pod/spec_life(mob/living/carbon/human/H)
