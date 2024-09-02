@@ -112,7 +112,7 @@
 		var/list/devices = list()
 		var/list/queue = list(src) // add ourselves
 		while(queue.len)
-			var/datum/ntnet/net = queue[queue.len--]
+			var/datum/ntnet/net = queue[queue.len--] //error in echo! index out of bound
 			if(net.children.len > 0)
 				for(var/net_id in net.children)
 					queue += networks[net_id]
