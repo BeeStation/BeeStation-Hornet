@@ -8,6 +8,9 @@
 	dog_fashion = null
 	unscrewed = FALSE
 	layer = ABOVE_WINDOW_LAYER
+	freqlock = TRUE
+	//whhether or not the intercom should automatically set its frequency to that of the departments (if there is one)
+	var/department_freq = TRUE
 
 /obj/item/radio/intercom/unscrewed
 	unscrewed = TRUE
@@ -17,6 +20,11 @@
 	var/area/current_area = get_area(src)
 	if(!current_area)
 		return
+	if(freerange || frequency = FREQ_COMMON)
+		freqlock = FALSE
+	if(department_freq)
+		frequency = current_area.freq
+
 	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(AreaPowerCheck))
 
 /obj/item/radio/intercom/examine(mob/user)
