@@ -209,8 +209,8 @@
 		oxygen_used = GET_MOLES(/datum/gas/oxygen, breath)
 		clear_alert("not_enough_oxy")
 
-	ADD_MOLES(breath, /datum/gas/carbon_dioxide, oxygen_used)
-	REMOVE_MOLES(breath, /datum/gas/oxygen, oxygen_used)
+	ADD_MOLES(/datum/gas/carbon_dioxide, breath, oxygen_used)
+	REMOVE_MOLES(/datum/gas/oxygen, breath, oxygen_used)
 
 	//CARBON DIOXIDE
 	if(CO2_partialpressure > safe_co2_max)
