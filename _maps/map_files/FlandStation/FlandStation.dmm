@@ -35575,8 +35575,8 @@
 /obj/item/bodypart/l_arm/robot{
 	pixel_x = -6
 	},
-/obj/item/bodypart/r_leg/robot,
-/obj/item/bodypart/r_leg/robot,
+/obj/item/bodypart/leg/right/robot,
+/obj/item/bodypart/leg/right/robot,
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "jad" = (
@@ -70079,7 +70079,7 @@
 /obj/item/bodypart/r_arm/robot{
 	pixel_x = 4
 	},
-/obj/item/bodypart/r_leg/robot{
+/obj/item/bodypart/leg/right/robot{
 	pixel_x = 5;
 	pixel_y = -7
 	},
