@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
 ///Removes moles while making sure it doesn't go under 0.
 #define SAFE_REMOVE_MOLES(gas, gas_mixture, moles)\
 	ASSERT_GAS(gas, gas_mixture);\
-	max(gas_mixture.gases[gas][MOLES] -= moles, 0);
+	gas_mixture.gases[gas][MOLES] -= max(moles, 0);
 
 ///Sets the moles of a specific gas in a gas mixture, asserts the gas is present.
 #define SET_MOLES(gas, gas_mixture, moles)\

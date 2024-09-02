@@ -30,7 +30,7 @@
 	var/list/gas_min = list()
 	var/list/gas_max = list(
 		/datum/gas/carbon_dioxide = 30, // Yes it's an arbitrary value who cares?
-		/datum/gas/plasma = MOLES_GAS_VISIBLE
+		/datum/breathing_class/plasma = MOLES_GAS_VISIBLE
 	)
 	var/list/gas_damage = list(
 		"default" = list(
@@ -170,8 +170,8 @@
 		var/safe_min = gas_min[entry]
 		var/alert_category = null
 		var/alert_type = null
-		if(ispath(entry))
-			var/datum/breathing_class/class = breathing_classes[entry]
+		var/datum/breathing_class/class = breathing_classes[entry]
+		if(class)
 			var/list/gases = class.gases
 			var/list/products = class.products
 			alert_category = class.low_alert_category
@@ -211,19 +211,18 @@
 			clear_alert_for(H, alert_category)
 	for(var/entry in gas_max)
 		var/found_pp = 0
-		var/datum/breathing_class/breathing_class = entry
+		var/datum/breathing_class/breathing_class = breathing_classes[entry]
 		var/datum/reagent/danger_reagent = null
 		var/alert_category = null
 		var/alert_type = null
-		if(istype(breathing_class, /datum/breathing_class))
-			breathing_class = breathing_classes[breathing_class]
+		if(breathing_class)
 			alert_category = breathing_class.high_alert_category
 			alert_type = breathing_class.high_alert_datum
 			danger_reagent = breathing_class.danger_reagent
 			found_pp = breathing_class.get_effective_pp(breath)
 		else
-			danger_reagent = GLOB.meta_gas_info[breathing_class][META_GAS_BREATH_REAGENT_DANGEROUS]
-			var/list/alert = GLOB.meta_gas_info[breathing_class][META_GAS_BREATH_ALERT_INFO]?["too_much_alert"]
+			danger_reagent = GLOB.meta_gas_info[entry][META_GAS_BREATH_REAGENT_DANGEROUS]
+			var/list/alert = GLOB.meta_gas_info[entry][META_GAS_BREATH_ALERT_INFO]?["too_much_alert"]
 			if(alert)
 				alert_category = alert["alert_category"]
 				alert_type = alert["alert_type"]
@@ -292,14 +291,14 @@
 		if (gas_breathed > gas_stimulation_min)
 			H.reagents.add_reagent(/datum/reagent/nitryl,1)
 
-		breath.gases[/datum/gas/nitryl][MOLES] += -gas_breathed
+		SAFE_REMOVE_MOLES(/datum/gas/nitryl, breath, gas_breathed)
 
 	// Stimulum
 		gas_breathed = PP(breath,/datum/gas/stimulum)
 		if (gas_breathed > gas_stimulation_min)
 			var/existing = H.reagents.get_reagent_amount(/datum/reagent/stimulum)
 			H.reagents.add_reagent(/datum/reagent/stimulum, max(0, 5 - existing))
-		breath.gases[/datum/gas/stimulum][MOLES] += -gas_breathed
+		SAFE_REMOVE_MOLES(/datum/gas/stimulum, breath, gas_breathed)
 
 		handle_breath_temperature(breath, H)
 	return TRUE
@@ -370,7 +369,7 @@
 
 /obj/item/organ/lungs/plasmaman/populate_gas_info()
 	..()
-	gas_max -= /datum/gas/plasma
+	gas_max -= /datum/breathing_class/plasma
 
 /obj/item/organ/lungs/slime
 	name = "vacuole"
