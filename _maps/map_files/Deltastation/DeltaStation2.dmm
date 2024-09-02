@@ -54825,6 +54825,11 @@
 	dir = 1
 	},
 /area/engine/atmos)
+"lwK" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/sign/departments/minsky/medical/medical2,
+/turf/open/floor/plating,
+/area/medical/medbay/lobby)
 "lwT" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -85611,6 +85616,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/science/nanite)
+"vgz" = (
+/obj/structure/sign/departments/minsky/medical/medical2,
+/turf/closed/wall,
+/area/security/brig/medbay)
 "vgB" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -135746,7 +135755,7 @@ tLM
 jUF
 nqa
 nsr
-dGo
+lwK
 dYe
 xdx
 tNX
@@ -148310,7 +148319,7 @@ aaz
 tNF
 sMU
 nXU
-tNF
+vgz
 sXL
 lXi
 txd
@@ -149852,7 +149861,7 @@ tNF
 tNF
 hNU
 igR
-tNF
+vgz
 bpa
 aZx
 oAB
