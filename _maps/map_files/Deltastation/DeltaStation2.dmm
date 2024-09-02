@@ -38838,12 +38838,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
-"gqe" = (
-/obj/machinery/airalarm/directional/south{
-	pixel_y = -22
-	},
-/turf/closed/wall/r_wall,
-/area/security/prison/shielded)
 "gqp" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "brigfront";
@@ -39061,6 +39055,7 @@
 /obj/structure/chair/fancy/bench/right{
 	dir = 1
 	},
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "gsS" = (
@@ -148310,7 +148305,7 @@ sQN
 sjv
 sjv
 sjv
-gqe
+sjv
 sjv
 sjv
 nAX
