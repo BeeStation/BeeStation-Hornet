@@ -53,22 +53,22 @@ COLOR MANAGEMENT AND HSV
 
 RGB isn't the only way to represent color. Sometimes it's more useful to work with a model called HSV, which stands for hue, saturation, and value.
 
-    * The hue of a color describes where it is along the color wheel. It goes from red to yellow to green to
+	* The hue of a color describes where it is along the color wheel. It goes from red to yellow to green to
 	cyan to blue to magenta and back to red.
-    * The saturation of a color is how much color is in it. A color with low saturation will be more gray,
+	* The saturation of a color is how much color is in it. A color with low saturation will be more gray,
 	and with no saturation at all it is a shade of gray.
-    * The value of a color determines how bright it is. A high-value color is vivid, moderate value is dark,
+	* The value of a color determines how bright it is. A high-value color is vivid, moderate value is dark,
 	and no value at all is black.
 
 Just as BYOND uses "#rrggbb" to represent RGB values, a similar format is used for HSV: "#hhhssvv". The hue is three
 hex digits because it ranges from 0 to 0x5FF.
 
-    * 0 to 0xFF - red to yellow
-    * 0x100 to 0x1FF - yellow to green
-    * 0x200 to 0x2FF - green to cyan
-    * 0x300 to 0x3FF - cyan to blue
-    * 0x400 to 0x4FF - blue to magenta
-    * 0x500 to 0x5FF - magenta to red
+	* 0 to 0xFF - red to yellow
+	* 0x100 to 0x1FF - yellow to green
+	* 0x200 to 0x2FF - green to cyan
+	* 0x300 to 0x3FF - cyan to blue
+	* 0x400 to 0x4FF - blue to magenta
+	* 0x500 to 0x5FF - magenta to red
 
 Knowing this, you can figure out that red is "#000ffff" in HSV format, which is hue 0 (red), saturation 255 (as colorful as possible),
 value 255 (as bright as possible). Green is "#200ffff" and blue is "#400ffff".

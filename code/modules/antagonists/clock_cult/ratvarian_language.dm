@@ -23,8 +23,8 @@ List of nuances:
 - Where the WORD "to" appears, it is linked to the following word by a hyphen, i.e; "to-use"
 - Where the WORD "my" appears, it is linked to the following word by a hyphen, i.e; "my-light"
 - Although "Ratvar" translates to "Engine" in English, the word "Ratvar" is used regardless of language as it is a proper noun.
- - The same rule applies to Ratvar's four generals: Nezbere (Armorer), Sevtug (Fright), Nzcrentr (Amperage), and Inath-neq (Vangu-Ard), although these words can be used in proper context if one is
-   not referring to the four generals and simply using the words themselves.
+- The same rule applies to Ratvar's four generals: Nezbere (Armorer), Sevtug (Fright), Nzcrentr (Amperage), and Inath-neq (Vangu-Ard), although these words can be used in proper context if one is
+	not referring to the four generals and simply using the words themselves.
 */
 
 //Regexes used to alter english to ratvarian style

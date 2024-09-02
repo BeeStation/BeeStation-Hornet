@@ -450,9 +450,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact/maint)
 /datum/component/xenoartifact_pricing/proc/update_price(datum/source, f_price)
 	price = f_price
 
- ///Objective version for exploration
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact/objective)
 
+//Objective version for exploration
 /obj/item/xenoartifact/objective/Initialize(mapload, difficulty)
 	traits += new /datum/xenoartifact_trait/special/objective
 	. = ..()

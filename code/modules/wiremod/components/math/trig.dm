@@ -5,7 +5,7 @@
  * Does trig stuff
  */
 
- //Generic class for other trig components
+//Generic class for other trig components
 /obj/item/circuit_component/trig
 	display_name = "Generic Trigonometry"
 	desc = "A useless component that all trigonometric based components are built off of."

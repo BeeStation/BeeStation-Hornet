@@ -234,7 +234,7 @@ fi;
 
 section "whitespace issues"
 part "space indentation"
-if $grep '(^ {2})|(^ [^ * ])|(^    +)' $code_files; then
+if $grep '(^ {2}[^*])|(^ [^ * ])|(^    +)' $code_files; then
 	echo
     echo -e "${RED}ERROR: Space indentation detected, please use tab indentation.${NC}"
     st=1

@@ -12,20 +12,20 @@
 			one device may listen several frequencies, but not same frequency twice.
 		new_frequency - see possibly frequencies below;
 		filter - thing for optimization. Optional, but recommended.
-                 All filters should be consolidated in this file, see defines later.
-                 Device without listening filter will receive all signals (on specified frequency).
-                 Device with filter will receive any signals sent without filter.
-                 Device with filter will not receive any signals sent with different filter.
+	             All filters should be consolidated in this file, see defines later.
+	             Device without listening filter will receive all signals (on specified frequency).
+	             Device with filter will receive any signals sent without filter.
+	             Device with filter will not receive any signals sent with different filter.
 		returns:
-       Reference to frequency object.
+	   Reference to frequency object.
 
 	remove_object (obj/device, old_frequency)
 		Obliviously, after calling this proc, device will not receive any signals on old_frequency.
 		Other frequencies will left unaffected.
 
-   return_frequency(var/frequency as num)
+	return_frequency(var/frequency as num)
 		returns:
-       Reference to frequency object. Use it if you need to send and do not need to listen.
+		Reference to frequency object. Use it if you need to send and do not need to listen.
 
 	radio_frequency is a global object maintaining list of devices that listening specific frequency.
 	procs:
