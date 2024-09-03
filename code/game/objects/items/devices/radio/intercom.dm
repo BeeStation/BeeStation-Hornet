@@ -24,7 +24,9 @@
 	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(AreaPowerCheck))
 
 /obj/item/radio/intercom/Initialize(mapload)
-	if(freerange || frequency = FREQ_COMMON)
+	. = ..()
+	var/area/current_area = get_area(src)
+	if(freerange || frequency == FREQ_COMMON)
 		freqlock = FALSE
 	if(department_freq)
 		frequency = current_area.freq
