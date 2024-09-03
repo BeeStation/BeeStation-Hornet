@@ -1,0 +1,5 @@
+author: Geatish
+delete-after: true
+changes:
+  - tweak: Empty blood packs can now be printed from the med lathe
+  - bugfix: health analyzer is no longer printable from a hacked autolathe
