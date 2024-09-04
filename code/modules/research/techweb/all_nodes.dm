@@ -252,6 +252,7 @@
 		"pandemic",
 		"sleeper",
 		"soda_dispenser",
+		"blood_pack",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -986,6 +987,7 @@
 		"asimov_module",
 		"borg_ai_control",
 		"corporate_module",
+		"maintain_module",
 		"default_module",
 		"freeform_module",
 		"freeformcore_module",
