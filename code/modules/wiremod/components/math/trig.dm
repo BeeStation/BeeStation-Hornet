@@ -79,7 +79,7 @@
 //Performs Secant, Cosecant, and Cotangent
 /obj/item/circuit_component/trig/adv_trig
 	display_name = "Advanced Trigonometry"
-	desc = "Following outstanding advancements in the field of Mathematics, NanoTrasen scientist have discovered how to take the reciprical of trignometric functions"
+	desc = "Following outstanding advancements in the field of Mathematics, Nanotrasen scientist have discovered how to take the reciprical of trignometric functions"
 
 
 /obj/item/circuit_component/trig/adv_trig/populate_options()
