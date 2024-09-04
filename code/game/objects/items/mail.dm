@@ -224,10 +224,10 @@
 						))
 
 	var/static/list/junk_names = list(
-		/obj/item/paper/pamphlet/gateway = "[initial(name)] for [pick(GLOB.adjectives)] adventurers",
-		/obj/item/paper/pamphlet/violent_video_games = "[initial(name)] for the truth about the arcade centcom doesn't want to hear",
-		/obj/item/paper/fluff/junkmail_redpill = "[initial(name)] for those feeling [pick(GLOB.adjectives)] working at Nanotrasen",
-		/obj/item/paper/fluff/nice_argument = "[initial(name)] with INCREDIBLY IMPORTANT ARTIFACT- DELIVER TO SCIENCE DIVISION. HANDLE WITH CARE.",
+		/obj/item/paper/pamphlet/gateway = "mail for [pick(GLOB.adjectives)] adventurers",
+		/obj/item/paper/pamphlet/violent_video_games = "mail for the truth about the arcade centcom doesn't want to hear",
+		/obj/item/paper/fluff/junkmail_redpill = "mail for those feeling [pick(GLOB.adjectives)] working at Nanotrasen",
+		/obj/item/paper/fluff/nice_argument = "mail with INCREDIBLY IMPORTANT ARTIFACT- DELIVER TO SCIENCE DIVISION. HANDLE WITH CARE.",
 	)
 
 	//better spam mail names instead of being "IMPORTANT MAIL", courtesy of Monkestation

@@ -1133,7 +1133,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(response.errored || response.status_code != 200 || response.body == "[]")
 		return
 
-	bans = json_decode(response["body"])
+	bans = json_decode(response.body)
 	for(var/list/ban in bans)
 		var/list/ban_attributes = ban["banAttributes"]
 		if(ban_attributes["BeeStationGlobal"])
