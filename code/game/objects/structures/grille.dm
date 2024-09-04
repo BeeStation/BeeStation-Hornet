@@ -372,7 +372,7 @@
 	device.id = id
 	initialized_device = 1
 
-/obj/structure/grille/prison/Initialize()
+/obj/structure/grille/prison/Initialize(mapload)
 	. = ..()
 	if(!initialized_device)
 		setup_device()

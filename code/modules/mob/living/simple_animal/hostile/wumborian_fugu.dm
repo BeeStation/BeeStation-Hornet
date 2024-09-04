@@ -125,7 +125,7 @@
 	var/list/datum/disease/fugu_diseases = list()
 	var/list/banned_mobs = list(/mob/living/simple_animal/hostile/holoparasite)
 
-/obj/item/fugu_gland/Initialize()
+/obj/item/fugu_gland/Initialize(mapload)
 	. = ..()
 	fugu_diseases += new /datum/disease/advance/random(rand(1, 6), 4 + (rand(1, 5)), guaranteed_symptoms = list(/datum/symptom/growth))
 

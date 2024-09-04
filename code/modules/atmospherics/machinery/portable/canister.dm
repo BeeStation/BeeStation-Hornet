@@ -54,7 +54,7 @@
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 	)
 
-/obj/machinery/portable_atmospherics/canister/Initialize()
+/obj/machinery/portable_atmospherics/canister/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/usb_port, list(/obj/item/circuit_component/canister_valve))
 

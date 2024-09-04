@@ -542,7 +542,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
 	name = "debug preset holoparasite injector"
 	max_points = 99
 
-/obj/item/holoparasite_creator/debug/preset/Initialize()
+/obj/item/holoparasite_creator/debug/preset/Initialize(mapload)
 	. = ..()
 	builder.holopara_name = "Radiosonde Castle"
 	builder.notes = "Debug Testing Holoparasite"

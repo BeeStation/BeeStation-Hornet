@@ -216,7 +216,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/telepathy)
 
-/atom/movable/screen/holoparasite/telepathy/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/telepathy/_ability)
+/atom/movable/screen/holoparasite/telepathy/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/telepathy/_ability)
 	. = ..()
 	if(!istype(_ability))
 		CRASH("Tried to make telepad holoparasite HUD without proper reference to telepathy ability")

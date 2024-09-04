@@ -4,7 +4,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 
-/mob/living/simple_animal/hostile/holoparasite/Initialize(_mapload, _key, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/mind/_summoner, datum/holoparasite_stats/_stats)
+/mob/living/simple_animal/hostile/holoparasite/Initialize(mapload, _key, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/mind/_summoner, datum/holoparasite_stats/_stats)
 	. = ..()
 	if(!no_manifest_locs)
 		no_manifest_locs = typecacheof(list(/obj/effect, /obj/machinery/clonepod)) - typecacheof(list(/obj/effect/abstract/sync_holder, /obj/effect/dummy))

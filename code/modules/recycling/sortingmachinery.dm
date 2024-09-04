@@ -8,7 +8,7 @@
 	var/giftwrapped = FALSE
 	var/sortTag = 0
 
-/obj/structure/big_delivery/Initialize()
+/obj/structure/big_delivery/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 

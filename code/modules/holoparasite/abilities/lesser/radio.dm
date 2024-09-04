@@ -69,7 +69,7 @@
 	subspace_transmission = TRUE
 	radio_silent = TRUE
 
-/obj/item/radio/holoparasite/Initialize()
+/obj/item/radio/holoparasite/Initialize(mapload)
 	. = ..()
 	keyslot = new /obj/item/encryptionkey/holoparasite
 

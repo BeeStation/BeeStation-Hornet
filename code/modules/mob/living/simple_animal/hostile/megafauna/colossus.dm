@@ -58,7 +58,7 @@ Difficulty: Very Hard
 	small_sprite_type = /datum/action/small_sprite/megafauna/colossus
 	var/invulnerable_finale = FALSE
 
-/mob/living/simple_animal/hostile/megafauna/colossus/Initialize()
+/mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT) //we don't want this guy to float, messes up his animations.
 

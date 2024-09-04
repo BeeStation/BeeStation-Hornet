@@ -197,7 +197,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	var/max_wash_capacity = 5
 	var/datum/looping_sound/washing_machine/soundloop
 
-/obj/machinery/washing_machine/Initialize()
+/obj/machinery/washing_machine/Initialize(mapload)
 	. = ..()
 	soundloop = new(src,  FALSE)
 

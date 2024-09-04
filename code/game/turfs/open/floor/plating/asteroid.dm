@@ -90,7 +90,7 @@
 /turf/open/floor/plating/asteroid/planetary
 	var/static/datum/gas_mixture/immutable/planetary/GM
 
-/turf/open/floor/plating/asteroid/planetary/Initialize()
+/turf/open/floor/plating/asteroid/planetary/Initialize(mapload)
 	if(!GM)
 		GM = new
 	. = ..()
@@ -148,7 +148,7 @@
 	resistance_flags = INDESTRUCTIBLE
 	var/static/datum/gas_mixture/immutable/planetary/GM
 
-/turf/open/floor/plating/asteroid/basalt/planetary/Initialize()
+/turf/open/floor/plating/asteroid/basalt/planetary/Initialize(mapload)
 	if(!GM)
 		GM = new
 	. = ..()

@@ -127,7 +127,7 @@
 	resistance_flags = INDESTRUCTIBLE
 	var/static/datum/gas_mixture/immutable/planetary/GM
 
-/turf/open/floor/plating/grass/Initialize()
+/turf/open/floor/plating/grass/Initialize(mapload)
 	if(!GM)
 		GM = new
 	. = ..()

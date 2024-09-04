@@ -119,7 +119,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite)
 
-/atom/movable/screen/holoparasite/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner)
+/atom/movable/screen/holoparasite/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner)
 	. = ..()
 	if(!istype(_owner))
 		CRASH("Tried to create a holoparasite HUD element without a parent holoparasite!")

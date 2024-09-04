@@ -232,7 +232,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/teleport)
 
-/atom/movable/screen/holoparasite/teleport/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/teleport/_ability)
+/atom/movable/screen/holoparasite/teleport/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/teleport/_ability)
 	. = ..()
 	if(!istype(_ability))
 		CRASH("Tried to make telepad holoparasite HUD without proper reference to telepad ability")

@@ -306,7 +306,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/explosive)
 
-/atom/movable/screen/holoparasite/explosive/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/explosive/_ability)
+/atom/movable/screen/holoparasite/explosive/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/explosive/_ability)
 	. = ..()
 	if(!istype(_ability))
 		CRASH("Tried to make explosive holoparasite HUD without proper reference to explosive ability")

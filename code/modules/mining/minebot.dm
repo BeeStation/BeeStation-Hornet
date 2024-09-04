@@ -656,7 +656,7 @@
 	desc = "Allows a sentient minebot to carry and administer a medipen."
 	var/obj/item/reagent_containers/hypospray/medipen/stored_medipen
 
-/obj/item/minebot_upgrade/medical/Initialize()
+/obj/item/minebot_upgrade/medical/Initialize(mapload)
 	. = ..()
 	stored_medipen = new /obj/item/reagent_containers/hypospray/medipen(src)
 

@@ -196,7 +196,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/snare)
 
-/atom/movable/screen/holoparasite/snare/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/snare/_ability)
+/atom/movable/screen/holoparasite/snare/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/snare/_ability)
 	. = ..()
 	if(!istype(_ability))
 		CRASH("Tried to make snare holoparasite HUD without proper reference to snare ability")

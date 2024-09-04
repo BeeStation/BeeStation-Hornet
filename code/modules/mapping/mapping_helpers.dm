@@ -344,7 +344,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 		/obj/machinery/atmospherics/pipe/manifold4w/general/visible
 	)
 
-/obj/effect/mapping_helpers/simple_pipes/Initialize()
+/obj/effect/mapping_helpers/simple_pipes/Initialize(mapload)
 	preform_layer(piping_layer, pipe_color)
 	qdel(src)
 
@@ -434,7 +434,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	color = rgb(128, 0, 128) // purple in-between pipe
 
 // Instead of using our current layer, we use
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/Initialize()
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/Initialize(mapload)
 	preform_layer(2, rgb(0, 0, 255), override_name = "air supply pipe")
 	preform_layer(4, rgb(255, 0, 0), override_name = "scrubbers pipe")
 

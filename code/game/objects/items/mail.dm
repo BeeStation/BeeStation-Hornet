@@ -91,7 +91,7 @@
 	. += "\n[msg]"
 
 
-/obj/item/mail/Initialize()
+/obj/item/mail/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 	AddElement(/datum/element/item_scaling, 0.75, 1)
@@ -254,7 +254,7 @@
 		disposal_holder.destinationTag = sort_tag
 
 // Subtype that's always junkmail
-/obj/item/mail/junkmail/Initialize()
+/obj/item/mail/junkmail/Initialize(mapload)
 	. = ..()
 	junk_mail()
 
@@ -304,7 +304,7 @@
 	update_icon()
 
 /// Crate for mail that automatically depletes the economy subsystem's pending mail counter.
-/obj/structure/closet/crate/mail/economy/Initialize()
+/obj/structure/closet/crate/mail/economy/Initialize(mapload)
 	. = ..()
 	populate(SSeconomy.mail_waiting)
 	SSeconomy.mail_waiting = 0
@@ -314,7 +314,7 @@
 	name = "brimming mail crate"
 	desc = "A certified post crate from CentCom. Looks stuffed to the gills."
 
-/obj/structure/closet/crate/mail/full/Initialize()
+/obj/structure/closet/crate/mail/full/Initialize(mapload)
 	. = ..()
 	populate(null)
 
@@ -329,12 +329,12 @@
 	icon_state = "paper"
 	show_written_words = FALSE
 
-/obj/item/paper/fluff/nice_argument/Initialize()
+/obj/item/paper/fluff/nice_argument/Initialize(mapload)
 	. = ..()
 	var/station_name = station_name()
 	add_raw_text("Nice argument, however there's a <i>small detail</i>...<br>IP: '[rand(0,10)].[rand(0,255)].[rand(0,255)].[rand(0,255)]'<br> Station name: '[station_name]'<br>")
 
-/obj/item/paper/fluff/junkmail_redpill/Initialize()
+/obj/item/paper/fluff/junkmail_redpill/Initialize(mapload)
 	// 1 in 1000 chance of getting 2 random nuke code characters.
 	if(!prob(nuclear_option_odds))
 		add_raw_text("<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[random_code(4)]...'")
@@ -363,6 +363,6 @@
 	icon_state = "paper_spam"
 	color = "#FFCCFF"
 
-/obj/item/paper/fluff/junkmail_generic/Initialize()
+/obj/item/paper/fluff/junkmail_generic/Initialize(mapload)
 	default_raw_text = pick(GLOB.junkmail_messages)
 	return ..()

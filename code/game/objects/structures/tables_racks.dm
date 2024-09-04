@@ -568,7 +568,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	var/mob/living/carbon/human/patient = null
 	var/obj/machinery/computer/operating/computer = null
 
-/obj/structure/table/optable/Initialize()
+/obj/structure/table/optable/Initialize(mapload)
 	. = ..()
 	initial_link()
 
