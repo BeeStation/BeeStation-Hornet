@@ -214,11 +214,9 @@
 "js" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-10";
-	layer = 3.9
 	},
 /obj/structure/railing{
 	dir = 2;
-	layer = 4.1
 	},
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
@@ -318,7 +316,6 @@
 "mn" = (
 /obj/structure/railing{
 	dir = 6;
-	layer = 4.1
 	},
 /obj/item/trash/sosjerky{
 	anchored = 1;
@@ -332,12 +329,10 @@
 /obj/item/cigbutt{
 	anchored = 1;
 	color = "#808080";
-	layer = 2;
 	pixel_x = -4;
 	pixel_y = 11
 	},
 /obj/structure/lattice{
-	layer = 3;
 	color = "#808080"
 	},
 /turf/open/floor/plating/elevatorshaft{
@@ -347,7 +342,6 @@
 "ms" = (
 /obj/structure/railing{
 	dir = 2;
-	layer = 4.1
 	},
 /turf/open/floor/iron/stairs{
 	icon = 'icons/obj/stairs.dmi';
@@ -518,7 +512,6 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/structure/railing{
 	dir = 2;
-	layer = 4.1
 	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/sign/warning/nosmoking{
@@ -666,14 +659,12 @@
 "Gx" = (
 /obj/structure/railing{
 	dir = 10;
-	layer = 4.1
 	},
 /obj/effect/decal/cleanable/leaper_sludge{
 	color = "#808080"
 	},
 /obj/item/trash/energybar{
 	color = "#808080";
-	layer = 2;
 	pixel_x = -2;
 	pixel_y = 4
 	},
@@ -681,13 +672,11 @@
 /obj/item/cigbutt{
 	anchored = 1;
 	color = "#808080";
-	layer = 2;
 	pixel_x = -4;
 	pixel_y = 1
 	},
 /obj/effect/decal/cleanable/plasma,
 /obj/structure/lattice{
-	layer = 3;
 	color = "#808080"
 	},
 /turf/open/floor/plating/elevatorshaft{
@@ -1038,7 +1027,6 @@
 	},
 /obj/structure/railing{
 	dir = 8;
-	layer = 4.1
 	},
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 8

@@ -2624,7 +2624,6 @@
 "aTm" = (
 /obj/structure/railing{
 	dir = 8;
-	layer = 4
 	},
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
@@ -5297,9 +5296,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
-/obj/structure/railing{
-	layer = 3
-	},
+/obj/structure/railing,
 /obj/effect/turf_decal/siding/white,
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet/green,
@@ -7447,9 +7444,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/structure/chair/fancy/bench{
-	layer = 2.5
-	},
+/obj/structure/chair/fancy/bench,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
@@ -9002,9 +8997,7 @@
 /obj/effect/turf_decal/siding/white,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/recharge_station,
-/obj/structure/railing{
-	layer = 4
-	},
+/obj/structure/railing,
 /turf/open/floor/iron,
 /area/science/robotics)
 "eog" = (
@@ -9890,7 +9883,6 @@
 	pixel_y = 4
 	},
 /obj/item/taperecorder{
-	layer = 2.9;
 	pixel_x = 7;
 	pixel_y = 4
 	},
@@ -10456,7 +10448,6 @@
 "eWf" = (
 /obj/structure/railing{
 	dir = 6;
-	layer = 4
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 6
@@ -11379,7 +11370,6 @@
 "ftK" = (
 /obj/structure/railing{
 	dir = 10;
-	layer = 4
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
@@ -12432,7 +12422,6 @@
 "fSJ" = (
 /obj/machinery/shower{
 	dir = 8;
-	layer = 4;
 	name = "emergency shower";
 	pixel_y = -3
 	},
@@ -12881,7 +12870,6 @@
 	pixel_y = 8
 	},
 /obj/item/pinpointer/nuke{
-	layer = 6;
 	pixel_y = 5
 	},
 /turf/open/floor/carpet/blue,
@@ -13127,7 +13115,6 @@
 	},
 /obj/structure/holohoop{
 	dir = 4;
-	layer = 3
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
@@ -13265,7 +13252,6 @@
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 10;
-	layer = 2
 	},
 /turf/open/floor/carpet/green,
 /area/vacant_room/office)
@@ -14644,7 +14630,6 @@
 	})
 "gQK" = (
 /obj/machinery/shower{
-	layer = 4;
 	name = "emergency shower";
 	pixel_y = 12
 	},
@@ -15401,7 +15386,6 @@
 	},
 /obj/structure/railing{
 	dir = 6;
-	layer = 4
 	},
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron/dark,
@@ -16303,7 +16287,6 @@
 /obj/structure/closet/firecloset/full,
 /obj/structure/railing{
 	dir = 10;
-	layer = 4
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central{
@@ -16563,9 +16546,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/structure/chair/fancy/bench{
-	layer = 2.5
-	},
+/obj/structure/chair/fancy/bench,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
@@ -17835,9 +17816,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/structure/chair/fancy/bench{
-	layer = 2.5
-	},
+/obj/structure/chair/fancy/bench,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -19307,9 +19286,7 @@
 	pixel_y = 2
 	},
 /obj/effect/turf_decal/siding/white,
-/obj/structure/railing{
-	layer = 3
-	},
+/obj/structure/railing,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
 "jrH" = (
@@ -19541,9 +19518,7 @@
 "jxw" = (
 /obj/effect/turf_decal/siding/white,
 /obj/item/kirbyplants/random,
-/obj/structure/railing{
-	layer = 4
-	},
+/obj/structure/railing,
 /turf/open/floor/iron,
 /area/science/robotics)
 "jxW" = (
@@ -19570,7 +19545,6 @@
 "jyb" = (
 /obj/machinery/computer/security/wooden_tv{
 	desc = "Welcome to KOZU 5... your number one source for weather, news, and entertainment. And now, the weather forecast for tomorrow...";
-	layer = 3;
 	name = "Budget TV";
 	network = list("public");
 	pixel_x = 2;
@@ -20895,9 +20869,7 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/siding/white,
-/obj/structure/railing{
-	layer = 3
-	},
+/obj/structure/railing,
 /obj/item/radio/intercom{
 	dir = 1;
 	pixel_x = 29;
@@ -21292,7 +21264,6 @@
 	density = 1;
 	icon = 'icons/effects/effects.dmi';
 	icon_state = "m_shield";
-	layer = 5;
 	max_integrity = 1e+007
 	},
 /turf/open/floor/plating/asteroid/planetary,
@@ -23054,7 +23025,6 @@
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/mineral/ore_redemption{
 	input_dir = 2;
-	layer = 2.5
 	},
 /obj/item/food/donkpocket/pizza{
 	pixel_x = 10;
@@ -23663,7 +23633,6 @@
 "lvL" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/machinery/door/window/northleft{
 	dir = 8;
@@ -24585,9 +24554,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
 "lSA" = (
-/obj/structure/railing{
-	layer = 3
-	},
+/obj/structure/railing,
 /obj/structure/closet/bombcloset,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
@@ -25788,7 +25755,6 @@
 	pixel_y = 32
 	},
 /obj/machinery/shower{
-	layer = 4;
 	name = "emergency shower";
 	pixel_y = 7
 	},
@@ -26072,7 +26038,6 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/computer/security/wooden_tv{
-	layer = 3;
 	pixel_x = 2;
 	pixel_y = 8
 	},
@@ -27719,7 +27684,6 @@
 	icon_state = "0-8"
 	},
 /obj/item/toy/plush/lizard_plushie{
-	layer = 5;
 	pixel_x = 1;
 	pixel_y = 14
 	},
@@ -29254,12 +29218,10 @@
 	pixel_y = 8
 	},
 /obj/item/clothing/head/helmet/alt{
-	layer = 3.00001;
 	pixel_x = 6;
 	pixel_y = 4
 	},
 /obj/item/clothing/head/helmet/alt{
-	layer = 3.00001;
 	pixel_y = 1
 	},
 /obj/effect/turf_decal/bot,
@@ -37108,7 +37070,6 @@
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/suit/tan,
 /obj/item/reagent_containers/food/drinks/bottle/champagne{
-	layer = 5;
 	pixel_x = 6;
 	pixel_y = 10
 	},
@@ -39598,7 +39559,6 @@
 	density = 1;
 	icon = 'icons/effects/effects.dmi';
 	icon_state = "m_shield";
-	layer = 5;
 	max_integrity = 1e+007
 	},
 /turf/open/floor/plating/asteroid/basalt/planetary,
@@ -39817,7 +39777,6 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6;
-	layer = 2
 	},
 /turf/open/floor/carpet/green,
 /area/vacant_room/office)
@@ -40631,9 +40590,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/chem_dispenser{
-	layer = 2.7
-	},
+/obj/machinery/chem_dispenser,
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -44903,7 +44860,6 @@
 	output_direction = 1
 	},
 /obj/machinery/ecto_sniffer{
-	layer = 4;
 	pixel_x = 2;
 	pixel_y = 7
 	},
@@ -47945,7 +47901,6 @@
 	},
 /obj/structure/holohoop{
 	dir = 8;
-	layer = 3
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
@@ -49436,7 +49391,6 @@
 	density = 1;
 	icon = 'icons/effects/effects.dmi';
 	icon_state = "m_shield";
-	layer = 5;
 	max_integrity = 1e+007
 	},
 /turf/open/floor/plating/asteroid/basalt/planetary,
@@ -49572,7 +49526,6 @@
 	density = 1;
 	icon = 'icons/effects/effects.dmi';
 	icon_state = "m_shield";
-	layer = 5;
 	max_integrity = 1e+007
 	},
 /turf/open/floor/plating/asteroid/basalt/planetary,

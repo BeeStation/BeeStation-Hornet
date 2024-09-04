@@ -341,7 +341,6 @@
 "X" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4

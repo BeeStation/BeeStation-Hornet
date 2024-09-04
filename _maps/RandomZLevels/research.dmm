@@ -1998,7 +1998,6 @@
 "lN" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/machinery/airalarm/directional/east{
 	pixel_x = 32
@@ -2197,7 +2196,6 @@
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /turf/open/floor/grass,
 /area/awaymission/research/interior/escapepods)
@@ -2206,7 +2204,6 @@
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /turf/open/floor/grass,
 /area/awaymission/research/interior/escapepods)
@@ -2215,7 +2212,6 @@
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /turf/open/floor/grass,
 /area/awaymission/research/interior/escapepods)

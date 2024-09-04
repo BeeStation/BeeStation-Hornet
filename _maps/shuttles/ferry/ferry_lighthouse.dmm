@@ -223,7 +223,6 @@
 /obj/machinery/conveyor{
 	dir = 1;
 	id = "garbage";
-	layer = 2.5
 	},
 /turf/open/floor/wood,
 /area/shuttle/transport)

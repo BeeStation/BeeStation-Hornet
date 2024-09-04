@@ -913,7 +913,6 @@
 "cQ" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "awaysyndie";
-	layer = 3.1;
 	name = "mining conveyor"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -1510,7 +1509,6 @@
 /obj/machinery/door/poddoor{
 	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
 	id = "Awaybiohazard";
-	layer = 2.9;
 	name = "Acid-Proof biohazard containment door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
@@ -2944,7 +2942,6 @@
 "hu" = (
 /obj/machinery/door/poddoor{
 	id = "AwayRD";
-	layer = 2.9;
 	name = "privacy shutter"
 	},
 /obj/effect/spawner/structure/window/reinforced,
@@ -3114,7 +3111,6 @@
 /obj/machinery/door/poddoor{
 	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
 	id = "Awaybiohazard";
-	layer = 2.9;
 	name = "Acid-Proof biohazard containment door"
 	},
 /obj/effect/turf_decal/delivery,
@@ -5482,7 +5478,6 @@
 	},
 /obj/effect/decal/remains/human{
 	desc = "They look like human remains. The skeleton is laid out on its side and there seems to have been no sign of struggle.";
-	layer = 4.1
 	},
 /turf/open/floor/carpet{
 	heat_capacity = 1e+006
@@ -6718,7 +6713,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/structure/table,
 /obj/structure/bedsheetbin,

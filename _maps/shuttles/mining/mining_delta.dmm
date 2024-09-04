@@ -250,7 +250,6 @@
 /obj/structure/shuttle/engine/propulsion/burst,
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,

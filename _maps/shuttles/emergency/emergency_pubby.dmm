@@ -81,7 +81,6 @@
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 2.9
 	},
 /obj/machinery/light{
 	dir = 1
@@ -126,7 +125,6 @@
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 2.9
 	},
 /obj/structure/table,
 /obj/item/food/canned/beans{
@@ -233,14 +231,12 @@
 "bB" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bC" = (
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 2.9
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -278,7 +274,6 @@
 /obj/item/storage/firstaid/regular,
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/machinery/vending/wallmed/lite{
 	pixel_y = 30
@@ -403,7 +398,6 @@
 "xt" = (
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 2.9
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)

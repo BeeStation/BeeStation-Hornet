@@ -198,7 +198,6 @@
 "abL" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 1
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
@@ -363,7 +362,6 @@
 "aeh" = (
 /obj/structure/table/wood,
 /obj/item/toy/figure/curator{
-	layer = 4;
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -1225,7 +1223,6 @@
 "auq" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -2950,11 +2947,9 @@
 "aXE" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/machinery/vending/snack/orange,
 /obj/effect/turf_decal/bot,
@@ -3141,7 +3136,6 @@
 	},
 /obj/machinery/shower{
 	dir = 8;
-	layer = 4;
 	name = "emergency shower";
 	pixel_y = 6
 	},
@@ -3797,9 +3791,7 @@
 /turf/open/floor/iron/white/side,
 /area/science/research)
 "bnW" = (
-/obj/structure/window/reinforced{
-	layer = 2
-	},
+/obj/structure/window/reinforced,
 /obj/effect/landmark/start/randommaint/psychiatrist,
 /obj/structure/chair/office/light{
 	dir = 1
@@ -5651,7 +5643,6 @@
 /obj/item/kirbyplants/random,
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 3
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_prep)
@@ -6093,9 +6084,7 @@
 /area/engine/atmospherics_engine)
 "ccG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood{
-	layer = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/structure/table/wood,
 /turf/open/floor/carpet/green,
 /area/hallway/secondary/exit/departure_lounge)
@@ -8788,7 +8777,6 @@
 /obj/machinery/vending/wardrobe/cargo_wardrobe,
 /obj/structure/railing{
 	dir = 8;
-	layer = 3.1
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/office)
@@ -9445,7 +9433,6 @@
 /obj/machinery/door/window{
 	base_state = "leftsecure";
 	icon_state = "leftsecure";
-	layer = 4.1;
 	name = "Tertiary AI Core Access";
 	obj_integrity = 300;
 	req_access_txt = "16"
@@ -11455,7 +11442,6 @@
 "dHF" = (
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 1
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
@@ -12804,7 +12790,6 @@
 "edP" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -13104,7 +13089,6 @@
 	pixel_y = 1
 	},
 /obj/machinery/ecto_sniffer{
-	layer = 4;
 	pixel_x = 2;
 	pixel_y = 7
 	},
@@ -13462,7 +13446,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 3
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
@@ -13704,7 +13687,6 @@
 	icon_state = "0-4"
 	},
 /obj/item/taperecorder{
-	layer = 2.9;
 	pixel_x = -5;
 	pixel_y = 4
 	},
@@ -14684,7 +14666,6 @@
 "eId" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 3
 	},
 /obj/machinery/holopad,
 /turf/open/floor/iron/tech/grid,
@@ -14752,7 +14733,6 @@
 	pixel_y = 8
 	},
 /obj/item/pinpointer/nuke{
-	layer = 6;
 	pixel_y = 5
 	},
 /obj/structure/extinguisher_cabinet{
@@ -15482,7 +15462,6 @@
 "eTH" = (
 /obj/structure/railing{
 	dir = 6;
-	layer = 3.1
 	},
 /obj/structure/chair/fancy/comfy{
 	color = "#596479";
@@ -15516,7 +15495,6 @@
 /obj/structure/closet/bombcloset,
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 3
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
@@ -16216,7 +16194,6 @@
 "feg" = (
 /obj/structure/railing{
 	dir = 10;
-	layer = 3.1
 	},
 /obj/structure/chair/fancy/comfy{
 	buildstackamount = 0;
@@ -16266,7 +16243,6 @@
 	dir = 1
 	},
 /obj/machinery/shower{
-	layer = 4;
 	name = "emergency shower";
 	pixel_y = 12
 	},
@@ -16861,7 +16837,6 @@
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1;
-	layer = 1
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = -32;
@@ -17685,9 +17660,7 @@
 /area/medical/office)
 "fAw" = (
 /obj/effect/spawner/structure/window,
-/obj/structure/barricade/wooden/crude{
-	layer = 4
-	},
+/obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating,
 /area/library)
 "fAH" = (
@@ -18104,7 +18077,6 @@
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1;
-	layer = 1
 	},
 /obj/machinery/door/window{
 	dir = 1;
@@ -18313,9 +18285,7 @@
 /turf/open/floor/iron/sepia,
 /area/quartermaster/office)
 "fLW" = (
-/obj/structure/railing{
-	layer = 3.1
-	},
+/obj/structure/railing,
 /obj/structure/chair/fancy/comfy{
 	color = "#596479";
 	dir = 1
@@ -18833,7 +18803,6 @@
 "fSM" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/bot,
@@ -20201,9 +20170,7 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/obj/structure/barricade/wooden/crude{
-	layer = 4
-	},
+/obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "gnE" = (
@@ -20991,7 +20958,6 @@
 	pixel_y = 35
 	},
 /obj/structure/sink{
-	layer = 4;
 	pixel_y = 25
 	},
 /turf/open/floor/iron/white,
@@ -21660,7 +21626,6 @@
 "gLm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ash/large{
-	layer = 4;
 	pixel_x = -3;
 	pixel_y = -8
 	},
@@ -21673,7 +21638,6 @@
 "gLp" = (
 /obj/structure/table/wood,
 /obj/item/kirbyplants/random{
-	layer = 3;
 	pixel_y = 18
 	},
 /obj/item/candle/infinite{
@@ -22384,7 +22348,6 @@
 "gWq" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 3
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
@@ -22522,12 +22485,10 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9;
 	pixel_y = 3
 	},
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/effect/turf_decal/stripes/box,
 /obj/structure/window/reinforced,
@@ -25218,7 +25179,6 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
@@ -25283,7 +25243,6 @@
 /obj/effect/turf_decal/tile/black/fourcorners,
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 3
 	},
 /obj/structure/weightmachine/weightlifter,
 /obj/effect/turf_decal/bot_white,
@@ -25340,7 +25299,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 3
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -25802,7 +25760,6 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/shower{
 	dir = 1;
-	layer = 4;
 	name = "emergency shower"
 	},
 /obj/effect/turf_decal/loading_area/white{
@@ -25993,9 +25950,7 @@
 	name = "Vacant Office A";
 	req_access_txt = "12"
 	},
-/obj/structure/barricade/wooden/crude{
-	layer = 4
-	},
+/obj/structure/barricade/wooden/crude,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -26096,7 +26051,6 @@
 "ilD" = (
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
@@ -27415,7 +27369,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/machinery/light/floor{
 	brightness = 15;
@@ -27988,7 +27941,6 @@
 "iUV" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 3
 	},
 /obj/structure/table,
 /obj/item/paper/guides/jobs/engi/gravity_gen,
@@ -29058,7 +29010,6 @@
 /obj/effect/turf_decal/siding/wood/end,
 /obj/structure/railing{
 	dir = 10;
-	layer = 3.2
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
@@ -29104,7 +29055,6 @@
 "jlZ" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 1
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
@@ -29313,11 +29263,9 @@
 "jpI" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/machinery/light/floor{
 	brightness = 15;
@@ -29848,7 +29796,6 @@
 	pixel_y = -2
 	},
 /obj/machinery/door/window/northright{
-	layer = 3.1;
 	name = "Jetpack Storage";
 	req_access_txt = "19"
 	},
@@ -30582,7 +30529,6 @@
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1;
-	layer = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -30736,7 +30682,6 @@
 "jMm" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced{
 	dir = 8;
@@ -30935,11 +30880,9 @@
 "jPF" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
@@ -32286,7 +32229,6 @@
 "kma" = (
 /obj/structure/railing{
 	dir = 10;
-	layer = 3.1
 	},
 /obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -32903,7 +32845,6 @@
 "kxr" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
@@ -33368,7 +33309,6 @@
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9;
 	pixel_y = 3
 	},
 /obj/structure/desk_bell{
@@ -33425,7 +33365,6 @@
 /obj/structure/curtain,
 /obj/machinery/shower{
 	dir = 8;
-	layer = 4;
 	name = "emergency shower";
 	pixel_x = -5;
 	pixel_y = -5
@@ -35216,7 +35155,6 @@
 /obj/structure/closet/crate/rcd,
 /obj/machinery/door/window/northleft{
 	dir = 2;
-	layer = 3.1;
 	name = "RCD Storage";
 	req_access_txt = "19"
 	},
@@ -36448,7 +36386,6 @@
 /area/engine/atmos)
 "lEN" = (
 /obj/machinery/shower{
-	layer = 4;
 	name = "emergency shower";
 	pixel_y = 12
 	},
@@ -36458,7 +36395,6 @@
 "lFd" = (
 /obj/machinery/shower{
 	dir = 8;
-	layer = 4
 	},
 /obj/effect/turf_decal/delivery,
 /obj/item/bikehorn/rubberducky,
@@ -37169,9 +37105,7 @@
 /turf/open/floor/wood,
 /area/maintenance/port/aft)
 "lUJ" = (
-/obj/machinery/chem_dispenser{
-	layer = 2.7
-	},
+/obj/machinery/chem_dispenser,
 /obj/effect/turf_decal/bot,
 /obj/machinery/newscaster{
 	pixel_x = -32
@@ -37475,7 +37409,6 @@
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1;
-	layer = 1
 	},
 /obj/structure/table/wood{
 	pixel_y = -6
@@ -38542,7 +38475,6 @@
 "mqc" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/structure/chair/fancy/comfy{
 	color = "#596479";
@@ -39365,7 +39297,6 @@
 "mCL" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced{
 	dir = 8;
@@ -39538,7 +39469,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 3
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_prep)
@@ -41543,7 +41473,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 1
 	},
 /turf/open/floor/iron/dark,
 /area/security/prison{
@@ -41686,7 +41615,6 @@
 /obj/machinery/smartfridge/chemistry/virology/preloaded,
 /obj/machinery/button/door{
 	id = "quarantineshutters";
-	layer = 4;
 	name = "Quarantine Lockdown";
 	pixel_x = 27;
 	pixel_y = 8;
@@ -43259,7 +43187,6 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/railing{
 	dir = 8;
-	layer = 3.1
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/office)
@@ -43597,7 +43524,6 @@
 "nOh" = (
 /obj/structure/railing{
 	dir = 9;
-	layer = 3.1
 	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
@@ -44081,7 +44007,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 3
 	},
 /obj/item/radio/intercom{
 	dir = 1;
@@ -44197,7 +44122,6 @@
 /obj/structure/curtain,
 /obj/machinery/shower{
 	dir = 8;
-	layer = 4;
 	name = "emergency shower";
 	pixel_x = -5;
 	pixel_y = -5
@@ -44240,7 +44164,6 @@
 "nZj" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 3
 	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/light{
@@ -44281,7 +44204,6 @@
 "oaw" = (
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 1
 	},
 /obj/effect/decal/cleanable/xenoblood/xsplatter,
 /turf/open/floor/engine,
@@ -44540,7 +44462,6 @@
 	icon = 'icons/obj/airlock_machines.dmi';
 	icon_state = "airlock_control_standby";
 	id = "chapelgun";
-	layer = 4;
 	name = "Mass Driver Controller";
 	pixel_y = 32
 	},
@@ -44831,7 +44752,6 @@
 "oiV" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-18";
-	layer = 3;
 	pixel_x = 16;
 	pixel_y = -4
 	},
@@ -44906,7 +44826,6 @@
 "ojN" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 3
 	},
 /obj/machinery/suit_storage_unit/exploration,
 /turf/open/floor/iron/dark,
@@ -45077,7 +44996,6 @@
 "onv" = (
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 1
 	},
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/engine,
@@ -45873,9 +45791,7 @@
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
 "oBk" = (
-/obj/item/kirbyplants/random{
-	layer = 3.3
-	},
+/obj/item/kirbyplants/random,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/camera/autoname/directional/west{
 	network = list("ss13","medbay");
@@ -47186,7 +47102,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 3
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_prep)
@@ -47826,11 +47741,9 @@
 "pbg" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -48034,7 +47947,6 @@
 	pixel_y = 4
 	},
 /obj/item/taperecorder{
-	layer = 2.9;
 	pixel_x = -15;
 	pixel_y = 4
 	},
@@ -48377,7 +48289,6 @@
 "pkX" = (
 /obj/machinery/button/door{
 	id = "Bountydoors";
-	layer = 4;
 	name = "Bounty glass doors";
 	normaldoorcontrol = 1;
 	pixel_x = 1;
@@ -48389,7 +48300,6 @@
 	},
 /obj/machinery/button/door{
 	id = "QMLoaddoor2";
-	layer = 4;
 	name = "Loading Doors";
 	pixel_x = 1;
 	pixel_y = -37;
@@ -48542,7 +48452,6 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 1
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -48624,7 +48533,6 @@
 "poD" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced{
 	dir = 8;
@@ -48825,7 +48733,6 @@
 "prq" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4;
-	layer = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
@@ -48899,7 +48806,6 @@
 	},
 /obj/machinery/button/door{
 	id = "QMLoaddoor2";
-	layer = 4;
 	name = "Loading Doors";
 	pixel_x = -25;
 	pixel_y = 4;
@@ -48907,7 +48813,6 @@
 	},
 /obj/machinery/button/door{
 	id = "QMLoaddoor";
-	layer = 4;
 	name = "Loading Doors";
 	pixel_x = -25;
 	pixel_y = -5;
@@ -49059,11 +48964,9 @@
 "pvw" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/firecloset/full,
@@ -50188,9 +50091,7 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/obj/structure/barricade/wooden/crude{
-	layer = 4
-	},
+/obj/structure/barricade/wooden/crude,
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
@@ -50672,7 +50573,6 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron/dark/smooth_large,
@@ -51143,12 +51043,8 @@
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
 "qat" = (
-/obj/structure/window/reinforced{
-	layer = 2
-	},
-/obj/effect/turf_decal/siding/wood{
-	layer = 1
-	},
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/siding/wood,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -51156,9 +51052,7 @@
 /area/medical/exam_room)
 "qaG" = (
 /obj/machinery/door/firedoor,
-/obj/structure/barricade/wooden/crude{
-	layer = 4
-	},
+/obj/structure/barricade/wooden/crude,
 /turf/open/floor/iron/techmaint,
 /area/maintenance/port/central)
 "qaP" = (
@@ -51549,7 +51443,6 @@
 "qin" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 3
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
@@ -52672,7 +52565,6 @@
 	dir = 8
 	},
 /obj/item/book/manual/wiki/security_space_law{
-	layer = 4;
 	pixel_y = -1
 	},
 /obj/structure/filingcabinet/employment{
@@ -52773,7 +52665,6 @@
 "qBZ" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced,
 /obj/machinery/light/floor{
@@ -53110,7 +53001,6 @@
 	},
 /obj/machinery/button/door{
 	id = "Bountydoors";
-	layer = 4;
 	name = "Bounty glass doors";
 	normaldoorcontrol = 1;
 	pixel_y = 38;
@@ -53124,7 +53014,6 @@
 	},
 /obj/machinery/button/door{
 	id = "QMLoaddoor2";
-	layer = 4;
 	name = "Loading Doors";
 	pixel_y = 28;
 	req_access_txt = "31"
@@ -53611,7 +53500,6 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/machinery/vending/cola,
 /turf/open/floor/iron/dark/smooth_large,
@@ -55336,7 +55224,6 @@
 "rqw" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4;
-	layer = 2
 	},
 /obj/structure/chair/wood/normal,
 /turf/open/floor/carpet/green,
@@ -57456,7 +57343,6 @@
 "sal" = (
 /obj/structure/railing{
 	dir = 1;
-	layer = 3.1
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/office)
@@ -58602,7 +58488,6 @@
 	},
 /obj/machinery/button/door{
 	id = "quarantineshutters";
-	layer = 4;
 	name = "Quarantine Lockdown";
 	pixel_x = -25;
 	req_access_txt = "39"
@@ -58638,7 +58523,6 @@
 "suS" = (
 /obj/machinery/mineral/ore_redemption{
 	input_dir = 2;
-	layer = 2.5;
 	output_dir = 1
 	},
 /obj/machinery/door/window/westright{
@@ -58998,7 +58882,6 @@
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1;
-	layer = 1
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -59038,9 +58921,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/structure/window,
-/obj/structure/barricade/wooden/crude{
-	layer = 4
-	},
+/obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating,
 /area/library)
 "sCn" = (
@@ -59421,7 +59302,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 3
 	},
 /turf/open/floor/iron/tech/grid,
 /area/engine/gravity_generator)
@@ -59673,7 +59553,6 @@
 "sMe" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced{
 	dir = 8;
@@ -60376,7 +60255,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 3
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -65628,7 +65506,6 @@
 "uEB" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
@@ -66518,7 +66395,6 @@
 "uTu" = (
 /obj/structure/railing{
 	dir = 8;
-	layer = 3.1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -66780,7 +66656,6 @@
 "uXK" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 3
 	},
 /mob/living/carbon/monkey,
 /turf/open/floor/vault,
@@ -67252,9 +67127,7 @@
 "vhf" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood{
-	layer = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/structure/table/wood,
 /turf/open/floor/carpet/green,
 /area/hallway/secondary/exit/departure_lounge)
@@ -68661,7 +68534,6 @@
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1;
-	layer = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
@@ -68752,9 +68624,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/security)
 "vGZ" = (
-/obj/structure/window/reinforced{
-	layer = 2
-	},
+/obj/structure/window/reinforced,
 /turf/open/floor/wood,
 /area/medical/exam_room)
 "vHd" = (
@@ -69049,7 +68919,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 3
 	},
 /obj/item/toy/plush/slimeplushie/green,
 /turf/open/floor/iron/grid/steel,
@@ -69075,9 +68944,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/hydroponics)
 "vMG" = (
-/obj/structure/railing{
-	layer = 3.1
-	},
+/obj/structure/railing,
 /obj/structure/chair/fancy/comfy{
 	buildstackamount = 0;
 	color = "#742925";
@@ -69357,12 +69224,10 @@
 	pixel_y = 7
 	},
 /obj/item/clothing/head/helmet/alt{
-	layer = 3.00001;
 	pixel_x = 6;
 	pixel_y = 4
 	},
 /obj/item/clothing/head/helmet/alt{
-	layer = 3.00001;
 	pixel_y = 1
 	},
 /obj/machinery/light,
@@ -70402,9 +70267,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/obj/machinery/chem_dispenser{
-	layer = 2.7
-	},
+/obj/machinery/chem_dispenser,
 /turf/open/floor/iron,
 /area/medical/apothecary)
 "wiy" = (
@@ -70872,7 +70735,6 @@
 "wqB" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/champagne{
-	layer = 5;
 	pixel_x = 6;
 	pixel_y = 10
 	},
@@ -71167,7 +71029,6 @@
 /obj/structure/curtain,
 /obj/machinery/shower{
 	dir = 8;
-	layer = 4;
 	name = "emergency shower";
 	pixel_x = -5;
 	pixel_y = -5
@@ -71181,7 +71042,6 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 1
 	},
 /obj/machinery/camera/autoname/directional/south{
 	network = list("ss13","engine")
@@ -71625,7 +71485,6 @@
 "wFD" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/iron/dark/smooth_large,
@@ -72156,7 +72015,6 @@
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1;
-	layer = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -73007,7 +72865,6 @@
 "xdj" = (
 /obj/structure/railing{
 	dir = 6;
-	layer = 3.1
 	},
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 6
@@ -73281,7 +73138,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 3
 	},
 /turf/open/floor/iron,
 /area/medical/genetics)
@@ -73370,7 +73226,6 @@
 "xjE" = (
 /obj/structure/table/wood,
 /obj/item/kirbyplants/random{
-	layer = 3;
 	pixel_y = 18
 	},
 /obj/item/candle/infinite{
@@ -73508,7 +73363,6 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9;
 	pixel_x = 3
 	},
 /obj/machinery/door/window/eastleft{
@@ -73863,9 +73717,7 @@
 /turf/open/floor/catwalk_floor,
 /area/maintenance/starboard/aft)
 "xqx" = (
-/obj/effect/decal/cleanable/cobweb{
-	layer = 5
-	},
+/obj/effect/decal/cleanable/cobweb,
 /obj/structure/closet/secure_closet/personal,
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissary2)
@@ -74429,7 +74281,6 @@
 /obj/effect/turf_decal/bot_white,
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 3
 	},
 /obj/structure/weightmachine,
 /turf/open/floor/prison,
@@ -75417,7 +75268,6 @@
 "xNG" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
@@ -75471,17 +75321,14 @@
 "xPh" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 1
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
 /obj/item/storage/box/monkeycubes{
-	layer = 3.1;
 	pixel_x = -4;
 	pixel_y = 8
 	},
 /obj/item/storage/box/monkeycubes{
-	layer = 3.1;
 	pixel_x = 2
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -76194,7 +76041,6 @@
 "ybD" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced,
 /turf/open/floor/iron/dark/smooth_large,

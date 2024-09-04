@@ -9,7 +9,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 1
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium,

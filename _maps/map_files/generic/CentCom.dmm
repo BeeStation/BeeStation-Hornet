@@ -2550,14 +2550,12 @@
 "jy" = (
 /obj/machinery/button/door/indestructible{
 	id = "XCCQMLoaddoor";
-	layer = 4;
 	name = "Loading Doors";
 	pixel_x = -27;
 	pixel_y = -5
 	},
 /obj/machinery/button/door/indestructible{
 	id = "XCCQMLoaddoor2";
-	layer = 4;
 	name = "Loading Doors";
 	pixel_x = -27;
 	pixel_y = 5
@@ -3150,7 +3148,6 @@
 "mi" = (
 /obj/structure/railing{
 	dir = 6;
-	layer = 3.1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/dark{
@@ -3186,7 +3183,6 @@
 "mq" = (
 /obj/structure/railing{
 	dir = 10;
-	layer = 3.1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/dark{
@@ -3315,7 +3311,6 @@
 /obj/machinery/recharger,
 /obj/machinery/button/door/indestructible{
 	id = "XCCsecdepartment";
-	layer = 3;
 	name = "CC Security Checkpoint Control";
 	pixel_x = 24;
 	pixel_y = 24
@@ -3604,7 +3599,6 @@
 "om" = (
 /obj/structure/railing{
 	dir = 4;
-	layer = 4.1
 	},
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
@@ -6030,7 +6024,6 @@
 	},
 /obj/machinery/button/door/indestructible{
 	id = "XCCcustoms1";
-	layer = 3;
 	name = "CC Emergency Docks Control";
 	pixel_x = 24;
 	pixel_y = 24
@@ -8951,7 +8944,6 @@
 "Ii" = (
 /obj/structure/railing{
 	dir = 4;
-	layer = 4.1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/dark{
@@ -9613,7 +9605,6 @@
 "Ks" = (
 /obj/structure/railing{
 	dir = 8;
-	layer = 4.1
 	},
 /obj/structure/table/reinforced,
 /obj/item/folder/red{
@@ -9813,14 +9804,12 @@
 	},
 /obj/machinery/button/door/indestructible{
 	id = "XCCcustoms1";
-	layer = 3.5;
 	name = "CC Customs 1 Control";
 	pixel_x = 8;
 	pixel_y = -24
 	},
 /obj/machinery/button/door/indestructible{
 	id = "XCCcustoms2";
-	layer = 3.5;
 	name = "CC Customs 2 Control";
 	pixel_x = -8;
 	pixel_y = -24
@@ -11667,7 +11656,6 @@
 "Sk" = (
 /obj/structure/railing{
 	dir = 8;
-	layer = 4.1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/dark{

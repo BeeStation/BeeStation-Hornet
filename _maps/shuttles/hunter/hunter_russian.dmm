@@ -414,7 +414,6 @@
 /obj/machinery/vending/sovietsoda,
 /obj/structure/railing{
 	dir = 4;
-	layer = 4.1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -459,7 +458,6 @@
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/railing{
 	dir = 4;
-	layer = 4.1
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
@@ -572,7 +570,6 @@
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/railing{
 	dir = 8;
-	layer = 4.1
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
@@ -586,7 +583,6 @@
 "Ck" = (
 /obj/structure/railing{
 	dir = 2;
-	layer = 3.1
 	},
 /obj/structure/closet{
 	name = "mastercraft traditional russian clothes"
@@ -664,7 +660,6 @@
 	},
 /obj/structure/railing{
 	dir = 4;
-	layer = 4.1
 	},
 /mob/living/simple_animal/bot/medbot{
 	name = "\improper Doctor Nikolay"
@@ -675,11 +670,9 @@
 "Hl" = (
 /obj/structure/railing{
 	dir = 8;
-	layer = 3.1
 	},
 /obj/structure/railing{
 	dir = 4;
-	layer = 3.1
 	},
 /turf/open/floor/iron/stairs,
 /area/shuttle/hunter)
@@ -848,7 +841,6 @@
 /obj/machinery/atmospherics/pipe/simple/purple/visible,
 /obj/structure/railing{
 	dir = 1;
-	layer = 3.1
 	},
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 1
@@ -900,7 +892,6 @@
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/railing{
 	dir = 4;
-	layer = 4.1
 	},
 /obj/machinery/airalarm/directional/south{
 	req_access = null;
@@ -953,7 +944,6 @@
 	},
 /obj/structure/railing{
 	dir = 4;
-	layer = 4.1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood{
@@ -1024,7 +1014,6 @@
 "Uo" = (
 /obj/structure/railing{
 	dir = 2;
-	layer = 3.1
 	},
 /obj/structure/dresser,
 /turf/open/floor/mineral/plastitanium,

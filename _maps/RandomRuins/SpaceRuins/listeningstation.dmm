@@ -197,7 +197,6 @@
 "aC" = (
 /obj/structure/rack{
 	dir = 8;
-	layer = 2.9
 	},
 /obj/item/mining_scanner,
 /obj/item/pickaxe,

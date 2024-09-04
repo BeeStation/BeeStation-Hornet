@@ -205,7 +205,6 @@
 "hO" = (
 /obj/structure/railing{
 	dir = 9;
-	layer = 4.1
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
@@ -275,7 +274,6 @@
 "jT" = (
 /obj/structure/railing{
 	dir = 8;
-	layer = 4.1
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
@@ -695,7 +693,6 @@
 "sS" = (
 /obj/structure/rack{
 	dir = 8;
-	layer = 2.9
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -920,7 +917,6 @@
 "zL" = (
 /obj/structure/railing{
 	dir = 8;
-	layer = 4.1
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
@@ -1051,7 +1047,6 @@
 	},
 /obj/structure/sign/departments/cargo{
 	pixel_y = 32;
-	layer = 2.8
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -1647,7 +1642,6 @@
 "Py" = (
 /obj/structure/rack{
 	dir = 8;
-	layer = 2.9
 	},
 /obj/item/restraints/legcuffs/bola/tactical,
 /obj/item/restraints/legcuffs/bola{
@@ -1689,7 +1683,6 @@
 "QI" = (
 /obj/structure/rack{
 	dir = 8;
-	layer = 2.9
 	},
 /obj/item/ammo_box/magazine/m12g/breacher{
 	pixel_x = -7;
@@ -2226,7 +2219,6 @@
 	},
 /obj/structure/railing{
 	dir = 8;
-	layer = 4.1
 	},
 /obj/structure/table_frame/wood,
 /obj/item/restraints/handcuffs/cable/white,

@@ -1353,7 +1353,6 @@
 	pixel_y = 14
 	},
 /obj/item/reagent_containers/food/condiment/enzyme{
-	layer = 5;
 	pixel_x = -5;
 	pixel_y = 6
 	},

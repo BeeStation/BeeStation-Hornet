@@ -79,7 +79,6 @@
 "l" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 1
 	},
 /obj/machinery/door/window/southleft{
 	name = "Gulag";
@@ -255,7 +254,6 @@
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,

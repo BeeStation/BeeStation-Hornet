@@ -1201,7 +1201,6 @@
 	base_state = "right";
 	dir = 4;
 	icon_state = "right";
-	layer = 3
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -4843,7 +4842,6 @@
 "aNE" = (
 /obj/machinery/button/door{
 	id = "QMLoaddoor";
-	layer = 4;
 	name = "Loading Doors";
 	pixel_x = -27;
 	pixel_y = -5;
@@ -4851,7 +4849,6 @@
 	},
 /obj/machinery/button/door{
 	id = "QMLoaddoor2";
-	layer = 4;
 	name = "Loading Doors";
 	pixel_x = -27;
 	pixel_y = 5;
@@ -4944,7 +4941,6 @@
 	},
 /obj/machinery/door/window/westleft{
 	dir = 2;
-	layer = 3.1;
 	name = "Cyborg Upload Console Window";
 	req_access_txt = "16"
 	},
@@ -4969,7 +4965,6 @@
 	base_state = "right";
 	dir = 2;
 	icon_state = "right";
-	layer = 3.1;
 	name = "Upload Console Window";
 	req_access_txt = "16"
 	},
@@ -6291,7 +6286,6 @@
 "aVk" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -7029,7 +7023,6 @@
 	base_state = "rightsecure";
 	dir = 4;
 	icon_state = "rightsecure";
-	layer = 4.1;
 	name = "Secondary AI Core Access";
 	obj_integrity = 300;
 	pixel_x = 4;
@@ -7062,7 +7055,6 @@
 	base_state = "leftsecure";
 	dir = 8;
 	icon_state = "leftsecure";
-	layer = 4.1;
 	name = "Tertiary AI Core Access";
 	obj_integrity = 300;
 	pixel_x = -3;
@@ -8066,7 +8058,6 @@
 "bgn" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /turf/open/space,
 /area/space/nearstation)
@@ -8076,7 +8067,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /turf/open/space,
 /area/space/nearstation)
@@ -9898,7 +9888,6 @@
 "bsj" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -11151,7 +11140,6 @@
 "bBb" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/structure/lattice,
 /turf/open/space,
@@ -12470,7 +12458,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/structure/lattice,
 /turf/open/space,
@@ -13243,7 +13230,6 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/showcase/machinery/cloning_pod{
-	layer = 4;
 	pixel_x = 2;
 	pixel_y = 5
 	},
@@ -13264,7 +13250,6 @@
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/showcase/machinery/implanter{
-	layer = 2.7;
 	pixel_y = 4
 	},
 /turf/open/floor/carpet/blue,
@@ -16823,7 +16808,6 @@
 	},
 /obj/machinery/button/door{
 	id = "SecJusticeChamber";
-	layer = 4;
 	name = "Justice Vent Control";
 	pixel_x = -36;
 	pixel_y = 26;
@@ -18409,7 +18393,6 @@
 "cBv" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 1
 	},
 /obj/item/kirbyplants/random,
 /obj/item/radio/intercom{
@@ -19312,9 +19295,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "cMU" = (
-/obj/machinery/status_display/evac{
-	layer = 4
-	},
+/obj/machinery/status_display/evac,
 /turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
 "cMZ" = (
@@ -20337,7 +20318,6 @@
 "cVw" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -25934,7 +25914,6 @@
 	},
 /obj/machinery/shower{
 	dir = 8;
-	layer = 4;
 	name = "emergency shower";
 	pixel_y = 6
 	},
@@ -26609,15 +26588,12 @@
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
-/obj/item/kirbyplants/random{
-	layer = 3.1
-	},
+/obj/item/kirbyplants/random,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/structure/railing{
 	dir = 6;
-	layer = 3.2
 	},
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 9
@@ -29200,7 +29176,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 3
 	},
 /obj/structure/curtain,
 /turf/open/floor/iron/grid/steel,
@@ -34637,7 +34612,6 @@
 "hYo" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -38957,7 +38931,6 @@
 /obj/structure/rack,
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/item/clothing/suit/hazardvest,
 /obj/item/clothing/suit/hazardvest,
@@ -39940,7 +39913,6 @@
 "kaX" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -41875,9 +41847,7 @@
 /obj/item/reagent_containers/glass/beaker{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/condiment/enzyme{
-	layer = 5
-	},
+/obj/item/reagent_containers/food/condiment/enzyme,
 /obj/item/food/mint,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
@@ -43291,7 +43261,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 2.9
 	},
 /obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/iron{
@@ -43854,7 +43823,6 @@
 "lzs" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -45004,7 +44972,6 @@
 "lTw" = (
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 3
 	},
 /obj/structure/closet/secure_closet/brig_physician,
 /obj/effect/turf_decal/tile/red/half{
@@ -46924,17 +46891,14 @@
 "mDQ" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 1
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
 /obj/item/storage/box/monkeycubes{
-	layer = 3.1;
 	pixel_x = -4;
 	pixel_y = 8
 	},
 /obj/item/storage/box/monkeycubes{
-	layer = 3.1;
 	pixel_x = 2
 	},
 /obj/structure/extinguisher_cabinet{
@@ -47018,7 +46982,6 @@
 "mFp" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -47123,7 +47086,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 3
 	},
 /obj/structure/curtain,
 /turf/open/floor/iron/grid/steel,
@@ -47394,7 +47356,6 @@
 "mLT" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -50253,7 +50214,6 @@
 	pixel_y = 32
 	},
 /obj/structure/sink{
-	layer = 4;
 	pixel_y = 22
 	},
 /turf/open/floor/iron,
@@ -51338,7 +51298,6 @@
 	},
 /obj/structure/railing{
 	dir = 4;
-	layer = 3.2
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/department/science/xenobiology)
@@ -51437,7 +51396,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -54700,7 +54658,6 @@
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the test chamber.";
 	dir = 8;
-	layer = 4;
 	name = "Test Chamber Telescreen";
 	network = list("toxins");
 	pixel_x = 30
@@ -55574,7 +55531,6 @@
 "pKU" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -58145,7 +58101,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/shower{
-	layer = 4;
 	name = "emergency shower";
 	pixel_y = 7
 	},
@@ -62341,7 +62296,6 @@
 "shs" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -71948,7 +71902,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
@@ -76175,7 +76128,6 @@
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -78211,7 +78163,6 @@
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass,
@@ -78291,7 +78242,6 @@
 "xRy" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 1
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
@@ -78528,7 +78478,6 @@
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the test chamber.";
 	dir = 8;
-	layer = 4;
 	name = "Test Chamber Telescreen";
 	network = list("toxins");
 	pixel_x = 30
@@ -79475,7 +79424,6 @@
 	dir = 1
 	},
 /obj/structure/sink{
-	layer = 4;
 	pixel_y = 22
 	},
 /obj/structure/mirror{

@@ -3795,7 +3795,6 @@
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/dock)
@@ -3918,7 +3917,6 @@
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -4031,7 +4029,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /obj/item/gps{
 	gpstag = "Twin-Nexus Hotel Retreat";

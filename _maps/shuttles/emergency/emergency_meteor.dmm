@@ -8,7 +8,6 @@
 "c" = (
 /obj/structure/window/reinforced{
 	dir = 1;
-	layer = 2.9
 	},
 /turf/open/floor/plating/asteroid,
 /area/shuttle/escape/meteor)

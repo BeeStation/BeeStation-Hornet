@@ -667,9 +667,7 @@
 /turf/open/floor/engine,
 /area/engine/engine_room)
 "afT" = (
-/obj/machinery/nuclearbomb/selfdestruct{
-	layer = 2
-	},
+/obj/machinery/nuclearbomb/selfdestruct,
 /turf/open/floor/iron/dark,
 /area/security/nuke_storage)
 "agb" = (
@@ -4638,9 +4636,7 @@
 /area/lawoffice)
 "bhx" = (
 /obj/item/bedsheet/medical,
-/obj/structure/curtain{
-	layer = 4.5
-	},
+/obj/structure/curtain,
 /obj/structure/bed,
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
@@ -8114,9 +8110,7 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "cpR" = (
-/obj/structure/curtain{
-	layer = 4.5
-	},
+/obj/structure/curtain,
 /obj/item/bedsheet/medical,
 /obj/structure/bed,
 /obj/structure/cable/yellow{
@@ -9414,12 +9408,8 @@
 	},
 /obj/structure/table,
 /obj/item/folder/white,
-/obj/item/pen{
-	layer = 3.1
-	},
-/obj/item/clothing/neck/stethoscope{
-	layer = 3.2
-	},
+/obj/item/pen,
+/obj/item/clothing/neck/stethoscope,
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "cQx" = (
@@ -15766,9 +15756,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "eZw" = (
-/obj/machinery/chem_dispenser{
-	layer = 2.7
-	},
+/obj/machinery/chem_dispenser,
 /obj/structure/window/reinforced,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
@@ -19172,11 +19160,9 @@
 "gfM" = (
 /obj/structure/table,
 /obj/item/storage/box/monkeycubes{
-	layer = 3.1;
 	pixel_x = 2
 	},
 /obj/item/storage/box/monkeycubes{
-	layer = 3.1;
 	pixel_x = -4;
 	pixel_y = 8
 	},
@@ -19313,7 +19299,6 @@
 	pixel_y = 4
 	},
 /obj/item/taperecorder{
-	layer = 2.9;
 	pixel_x = -15;
 	pixel_y = 4
 	},
@@ -26486,9 +26471,7 @@
 /turf/open/floor/iron,
 /area/science/lab)
 "ivu" = (
-/obj/structure/railing{
-	layer = 3.1
-	},
+/obj/structure/railing,
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass,
 /area/hallway/primary/starboard)
@@ -30740,9 +30723,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "jRT" = (
-/obj/effect/turf_decal/siding/wood{
-	layer = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/item/screwdriver,
 /obj/item/stack/cable_coil/random/five,
 /obj/item/wrench,
@@ -35036,7 +35017,6 @@
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the test chamber.";
 	dir = 8;
-	layer = 4;
 	name = "Test Chamber Telescreen";
 	network = list("toxins");
 	pixel_x = -32
@@ -35738,7 +35718,6 @@
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the test chamber.";
 	dir = 8;
-	layer = 4;
 	name = "Test Chamber Telescreen";
 	network = list("toxins");
 	pixel_x = -32
@@ -39403,9 +39382,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "mCY" = (
-/obj/structure/railing{
-	layer = 3.1
-	},
+/obj/structure/railing,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/grass,
@@ -41054,12 +41031,8 @@
 "nfs" = (
 /obj/structure/table,
 /obj/item/folder/white,
-/obj/item/pen{
-	layer = 3.1
-	},
-/obj/item/clothing/neck/stethoscope{
-	layer = 3.2
-	},
+/obj/item/pen,
+/obj/item/clothing/neck/stethoscope,
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "nfv" = (
@@ -48400,7 +48373,6 @@
 "pFx" = (
 /obj/structure/railing{
 	dir = 6;
-	layer = 3.1
 	},
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/grass,
@@ -60773,9 +60745,7 @@
 /turf/open/floor/iron,
 /area/hydroponics)
 "tIG" = (
-/obj/machinery/chem_dispenser{
-	layer = 2.7
-	},
+/obj/machinery/chem_dispenser,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},
@@ -64537,7 +64507,6 @@
 "uRy" = (
 /obj/structure/railing{
 	dir = 10;
-	layer = 3.1
 	},
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/grass,
@@ -67842,9 +67811,7 @@
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "vSy" = (
-/obj/structure/curtain{
-	layer = 4.5
-	},
+/obj/structure/curtain,
 /obj/item/bedsheet/medical,
 /obj/structure/bed,
 /turf/open/floor/iron/white,
@@ -73134,9 +73101,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/science)
 "xIx" = (
-/obj/structure/railing{
-	layer = 3.1
-	},
+/obj/structure/railing,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass,

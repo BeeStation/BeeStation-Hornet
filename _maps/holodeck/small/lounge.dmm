@@ -4,7 +4,6 @@
 	base_state = "right";
 	dir = 4;
 	icon_state = "right";
-	layer = 3
 	},
 /turf/open/floor/holofloor{
 	dir = 9;
@@ -28,7 +27,6 @@
 /obj/structure/table/wood/bar,
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /obj/item/reagent_containers/food/drinks/shaker{
 	pixel_x = 4
@@ -60,7 +58,6 @@
 "j" = (
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /turf/open/floor/holofloor{
 	dir = 9;
@@ -71,7 +68,6 @@
 /obj/structure/chair/stool/bar,
 /obj/structure/window/reinforced{
 	dir = 4;
-	layer = 2.9
 	},
 /turf/open/floor/holofloor{
 	dir = 9;
@@ -158,7 +154,6 @@
 "C" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
-	layer = 3.3;
 	pixel_x = -6;
 	pixel_y = 13
 	},

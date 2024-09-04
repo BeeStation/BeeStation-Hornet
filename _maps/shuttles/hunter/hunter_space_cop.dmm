@@ -377,7 +377,6 @@
 /obj/item/newspaper,
 /obj/structure/railing{
 	dir = 4;
-	layer = 3.1
 	},
 /obj/item/stamp{
 	pixel_x = -8;
@@ -762,7 +761,6 @@
 	},
 /obj/structure/railing{
 	dir = 2;
-	layer = 4.1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/grid/steel,
@@ -773,7 +771,6 @@
 "zM" = (
 /obj/structure/railing{
 	dir = 4;
-	layer = 3.1
 	},
 /obj/machinery/computer/crew{
 	dir = 8
@@ -803,7 +800,6 @@
 /obj/effect/turf_decal/box/corners,
 /obj/structure/railing{
 	dir = 2;
-	layer = 4.1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -1128,7 +1124,6 @@
 /obj/structure/railing{
 	color = "#A47449";
 	dir = 8;
-	layer = 3.1
 	},
 /obj/effect/mob_spawn/human/fugitive_hunter{
 	dir = 1
@@ -1138,7 +1133,6 @@
 "OU" = (
 /obj/structure/railing{
 	dir = 2;
-	layer = 4.1
 	},
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/iron/tech/grid,
@@ -1163,7 +1157,6 @@
 	},
 /obj/structure/railing{
 	dir = 2;
-	layer = 4.1
 	},
 /obj/effect/turf_decal/siding/dark,
 /obj/effect/turf_decal/delivery/white,
@@ -1200,7 +1193,6 @@
 /obj/structure/railing{
 	color = "#A47449";
 	dir = 8;
-	layer = 3.1
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/bot/left,
