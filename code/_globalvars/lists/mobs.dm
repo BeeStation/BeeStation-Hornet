@@ -52,7 +52,7 @@ GLOBAL_LIST_EMPTY(mob_config_movespeed_type_lookup)
 
 GLOBAL_LIST_EMPTY(emote_list)
 
-GLOBAL_LIST_EMPTY(posi_key_list)
+GLOBAL_LIST_EMPTY(cyborg_name_list)
 
 GLOBAL_LIST_INIT(construct_radial_images, list(
 	CONSTRUCT_JUGGERNAUT = image(icon = 'icons/mob/cult.dmi', icon_state = "juggernaut"),

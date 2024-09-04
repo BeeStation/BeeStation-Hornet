@@ -775,6 +775,18 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		return TRUE
 	return FALSE
 
+//// Special handler for cyborg naming to ensure no cyborgs ever take a name that has already been used. Prevents "respawning" when the same player takes two posibrains.
+/mob/proc/apply_cyborg_name(preference_type, client/C)
+
+	//This name has already been taken, refuse to pass it on and return false
+	if(preference_type in GLOB.cyborg_name_list)
+		to_chat(C.mob, "<span class='warning'>Cyborg name randomized. Cyborg name already used this round by another character.</span>")
+		return FALSE
+
+	//Name is original, add it to the list to prevent it from being used again.
+	GLOB.cyborg_name_list += preference_type
+	return apply_pref_name(preference_type, C)
+
 /proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)
 		if("view")
