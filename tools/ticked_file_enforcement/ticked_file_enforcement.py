@@ -71,8 +71,6 @@ if len(scannable_files) == 0:
     sys.exit(1)
 
 for code_file in scannable_files:
-    dm_path = ""
-
     dm_path = os.path.relpath(code_file, os.path.dirname(file_reference)).replace('/', '\\')
 
     included = f"#include \"{dm_path}\"" in lines

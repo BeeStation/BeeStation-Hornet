@@ -3,6 +3,8 @@
 
 #if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
 
+// BEGIN_INCLUDE
+
 #include "__DEFINES/test_defines.dm"
 
 #include "achievement_validation.dm"
@@ -66,6 +68,8 @@
 #include "mapping/check_light_attachment.dm"
 #include "mapping/check_multiple_objects.dm"
 #include "mapping/map_test.dm"
+
+// END_INCLUDE
 
 #undef TEST_ASSERT
 #undef TEST_ASSERT_EQUAL
