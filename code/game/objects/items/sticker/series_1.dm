@@ -26,14 +26,14 @@
 	icon_state = "c4"
 	sticker_icon_state = "c4_sticker"
 	do_outline = FALSE
-	sticker_flags = STICKER_SERIES_1 | STICKER_WEIGHT_EXOTIC
+	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_EXOTIC
 	drop_rate = STICKER_WEIGHT_EXOTIC
 
 /obj/item/sticker/series_1/emagged
 	icon_state = "apcemag"
 	sticker_icon_state = "apcemag_sticker"
 	do_outline = FALSE
-	sticker_flags = STICKER_SERIES_1 | STICKER_WEIGHT_EXOTIC
+	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_EXOTIC
 	drop_rate = STICKER_WEIGHT_EXOTIC
 
 /obj/item/sticker/series_1/sad
@@ -100,7 +100,27 @@
 	sticker_icon_state = "generic_sticker"
 	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_COMMON
 	drop_rate = STICKER_WEIGHT_COMMON
+	///What random color we rocking with?
+	var/random_color
+	///Ref to our color overlay
+	var/mutable_appearance/color_overlay
 
 /obj/item/sticker/series_1/generic/Initialize(mapload)
-	tint = "#[random_color()]"
-	return ..()
+	random_color = "#[random_color()]"
+	. = ..()
+	update_appearance()
+
+/obj/item/sticker/series_1/generic/setup_appearance(_appearance)
+	. = ..()
+	var/mutable_appearance/base = .
+	color_overlay = new()
+	color_overlay.appearance = base.appearance
+	color_overlay.color = random_color
+	base.add_overlay(color_overlay)
+
+/obj/item/sticker/series_1/eye
+	icon_state = "eye"
+	sticker_icon_state = "eye_sticker"
+	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_UNCOMMON
+	drop_rate = STICKER_WEIGHT_UNCOMMON
+	do_outline = FALSE
