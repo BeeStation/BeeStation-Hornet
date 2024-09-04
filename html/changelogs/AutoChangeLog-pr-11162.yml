@@ -1,0 +1,5 @@
+author: Programs-The-Station, Rukofamicom
+delete-after: true
+changes:
+  - rscadd: You can now Latejoin directly as an on-station posibrain.
+  - rscadd: Due to Job-code, Positronic Brain is now a job.
