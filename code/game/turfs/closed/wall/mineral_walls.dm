@@ -35,7 +35,6 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_SILVER_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SILVER_WALLS)
-	custom_materials = list(/datum/material/silver = 4000)
 	max_integrity = 600
 
 /turf/closed/wall/mineral/copper
