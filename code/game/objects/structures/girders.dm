@@ -322,11 +322,12 @@
 /obj/structure/girder/displaced
 	name = "displaced girder"
 	desc = "A large structural frame made out of iron; It requires a layer of materials before it can be considered a wall. This one has unachored from the ground."
-	icon = 'icons/obj/smooth_structures/girders/displaced_girder.dmi'
-	icon_state = "displaced_girder-0"
-	base_icon_state = "displaced_girder"
-	smoothing_groups = list(SMOOTH_GROUP_DISPLACED_GIRDER) //can't have smooth itself with normal girders do we?
-	canSmoothWith = list(SMOOTH_GROUP_DISPLACED_GIRDER)
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "displaced_girder"
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	anchored = FALSE
 	state = GIRDER_DISPLACED
 	girderpasschance = 25
@@ -343,16 +344,17 @@
 	girderpasschance = 0
 	max_integrity = 350
 
-//////////////////////////////////////////// cult girder //////////////////////////////////////////////
-
+//////////////////////////////////////////// cult girders //////////////////////////////////////////////
+///they will get a proper smoothing icon later :D, but not today, courier pigeon's word! 4/09/24
 /obj/structure/girder/cult
 	name = "runed girder"
 	desc = "Framework made of a strange and shockingly cold metal. It doesn't seem to have any bolts."
-	icon = 'icons/obj/smooth_structures/girders/bloodcult_girder.dmi'
-	icon_state = "bloodcult_girder-0"
-	base_icon_state = "bloodcult_girder"
-	smoothing_groups = list(SMOOTH_GROUP_BLOOD_GIRDER) //can't have smooth itself with normal (and clock cult) girders do we?
-	canSmoothWith = list(SMOOTH_GROUP_BLOOD_GIRDER)
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "bloodcult_girder"
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	can_displace = FALSE
 
 /obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
@@ -442,11 +444,12 @@
 /obj/structure/girder/bronze
 	name = "wall gear"
 	desc = "A girder made out of sturdy bronze, made to resemble a gear."
-	icon = 'icons/obj/smooth_structures/girders/clockcult_girder.dmi'
-	icon_state = "clockcult_girder-0"
-	base_icon_state = "clockcult_girder"
-	smoothing_groups = list(SMOOTH_GROUP_CLOCK_GRIDER) //can't have smooth itself with normal (and blood cult) girders do we?
-	canSmoothWith = list(SMOOTH_GROUP_CLOCK_GRIDER)
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "clockcult_girder"
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	can_displace = FALSE
 
 /obj/structure/girder/bronze/attackby(obj/item/W, mob/living/user, params)

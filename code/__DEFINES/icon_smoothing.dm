@@ -104,9 +104,10 @@ DEFINE_BITFIELD(smoothing_flags, list(
 
 #define SMOOTH_GROUP_LATTICE S_OBJ(30)					///obj/structure/lattice
 #define SMOOTH_GROUP_GIRDER	S_OBJ(31)					///obj/structure/girder
-#define SMOOTH_GROUP_DISPLACED_GIRDER S_OBJ(32)			///obj/structure/girder/displaced
-#define SMOOTH_GROUP_BLOOD_GIRDER S_OBJ(33)				///obj/structure/girder/displaced
-#define SMOOTH_GROUP_CLOCK_GRIDER S_OBJ(34)				///obj/structure/girder/bronze
+//their icon will be implemented in a future update
+//#define SMOOTH_GROUP_BLOOD_GIRDER S_OBJ(32)				///obj/structure/girder/cult
+//#define SMOOTH_GROUP_CLOCK_GRIDER S_OBJ(33)				///obj/structure/girder/bronze
+
 #define SMOOTH_GROUP_AIRLOCK S_OBJ(40)					///obj/machinery/door/airlock
 #define SMOOTH_GROUP_TABLES S_OBJ(50)					///obj/structure/table
 #define SMOOTH_GROUP_WOOD_TABLES S_OBJ(51)				///obj/structure/table/wood
