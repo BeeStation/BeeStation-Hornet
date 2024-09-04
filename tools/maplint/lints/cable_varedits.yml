@@ -1,3 +1,5 @@
+# We are not currently using smart wires
+disabled: true
 /obj/structure/cable:
   banned_variables: true
 

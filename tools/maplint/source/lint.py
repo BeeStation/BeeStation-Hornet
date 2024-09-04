@@ -219,12 +219,16 @@ class Rules:
 class Lint:
     help: Optional[str] = None
     rules: dict[TypepathExtra, Rules]
+    disabled: bool = False
 
     def __init__(self, data):
         expect(isinstance(data, dict), "Lint must be a dictionary.")
 
         if "help" in data:
             self.help = data.pop("help")
+
+        if "disabled" in data:
+            self.disabled = data.pop("disabled")
 
         expect(isinstance(self.help, str) or self.help is None, "Lint help must be a string.")
 
@@ -234,6 +238,9 @@ class Lint:
             self.rules[TypepathExtra(typepath)] = Rules(rules)
 
     def run(self, map_data: DMM) -> list[MaplintError]:
+        if self.disabled:
+            return list()
+
         all_failures: list[MaplintError] = []
         (width, height) = map_data.size()
 
