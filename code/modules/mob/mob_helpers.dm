@@ -283,7 +283,7 @@
 	if(!istext(msg))
 		msg = "[msg]"
 	for(var/mob/M as anything in GLOB.mob_list)
-		if(LOWER_TEXT(M.real_name) == lowertext(msg))
+		if(LOWER_TEXT(M.real_name) == LOWER_TEXT(msg))
 			return M
 	return FALSE
 
