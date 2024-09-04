@@ -129,7 +129,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		valid = TRUE
 
 	if (!valid)
-		to_chat("<span class='warning'>[message]</span>")
+		to_chat(user, "<span class='warning'>[message]</span>")
 		C.balloon_alert(user, message)
 		return
 

@@ -159,7 +159,7 @@
 			to_chat(user, "<span class='danger'>Access Denied, User not authorized to override alarms or pressure checks.</span>")
 			playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
 			return
-	to_chat("<span class='warning'>You try to pull the card reader. Nothing happens.</span>")
+	to_chat(user, "<span class='warning'>You try to pull the card reader. Nothing happens.</span>")
 
 /obj/machinery/door/firedoor/proc/log_opening(obj/item/card/id/I, mob/user, safe)
 	var/safestate = "UNK_STATE:"

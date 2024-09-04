@@ -352,7 +352,7 @@
 		return FALSE
 	calc_points()
 	if(points < 0)
-		to_chat("<span class='danger'>You don't have enough points for a [theme.name] like that!</span>")
+		to_chat(user, "<span class='danger'>You don't have enough points for a [theme.name] like that!</span>")
 		user.balloon_alert(user, "failed, not enough points", show_in_chat = FALSE)
 		return FALSE
 	waiting = TRUE
