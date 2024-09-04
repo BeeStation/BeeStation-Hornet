@@ -23,14 +23,14 @@ if command -v rg >/dev/null 2>&1; then
 	fi
 	code_files="code/**/**.dm"
 	map_files="_maps/**/**.dmm"
-	shuttle_map_files="_maps/shuttles/**.dmm"
+	shuttle_map_files="_maps/shuttles/**/**.dmm"
 	code_x_515="code/**/!(__byond_version_compat).dm"
 else
 	pcre2_support=0
 	grep=grep
 	code_files="-r --include=code/**/**.dm"
 	map_files="-r --include=_maps/**/**.dmm"
-	shuttle_map_files="-r --include=_maps/shuttles/**.dmm"
+	shuttle_map_files="-r --include=_maps/shuttles/**/**.dmm"
 	code_x_515="-r --include=code/**/!(__byond_version_compat).dm"
 fi
 
