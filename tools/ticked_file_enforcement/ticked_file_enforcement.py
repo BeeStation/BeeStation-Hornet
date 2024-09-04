@@ -22,7 +22,6 @@ schema = json.load(sys.stdin)
 file_reference = schema["file"]
 file_reference_basename = os.path.basename(file_reference)
 scannable_directory = schema["scannable_directory"]
-subdirectories = schema["subdirectories"]
 FORBIDDEN_INCLUDES = schema["forbidden_includes"]
 excluded_files = schema["excluded_files"]
 
@@ -74,10 +73,7 @@ if len(scannable_files) == 0:
 for code_file in scannable_files:
     dm_path = ""
 
-    if subdirectories is True:
-        dm_path = code_file.replace('/', '\\')
-    else:
-        dm_path = os.path.basename(code_file)
+    dm_path = os.path.relpath(code_file, os.path.dirname(file_reference))
 
     included = f"#include \"{dm_path}\"" in lines
 
