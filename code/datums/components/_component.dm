@@ -332,6 +332,8 @@
 			component = components[1]
 		else if (istype(components, /datum/component))
 			component = components
+	if (component == null)
+		return null
 	if(component.type == c_type)
 		return component
 	return null
