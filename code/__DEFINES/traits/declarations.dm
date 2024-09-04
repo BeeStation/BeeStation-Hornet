@@ -1,3 +1,9 @@
+// This file contains all of the "static" define strings that tie to a trait.
+// WARNING: The sections here actually matter in this file as it's tested by CI. Please do not toy with the sections."
+
+
+// BEGIN TRAIT DEFINES
+
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
@@ -285,3 +291,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_PHASING		"move_phasing"
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM		"no-floating-animation"
+
+// END TRAIT DEFINES
