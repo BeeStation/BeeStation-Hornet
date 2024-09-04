@@ -15,11 +15,11 @@
 /datum/ignore_type/proc/add_ignores(list/target)
 	return
 
-#define CREATION_TEST_IGNORE_SELF(path)/datum/ignore_type/##path/add_ignores(list/target) {\
+#define CREATION_TEST_IGNORE_SELF(path) /datum/ignore_type##path/add_ignores(list/target) {\
 	target += path;\
 }
 
-#define CREATION_TEST_IGNORE_SUBTYPES(path)/datum/ignore_type/##path/add_ignores(list/target) {\
+#define CREATION_TEST_IGNORE_SUBTYPES(path) /datum/ignore_type##path/add_ignores(list/target) {\
 	target += typesof(path);\
 }
 
