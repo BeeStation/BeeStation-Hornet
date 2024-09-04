@@ -68,7 +68,7 @@
 			switch(O.slot) //i hate doing it this way, but the cleaner way runtimes and does not work
 				if(ORGAN_SLOT_BRAIN)
 					O.name = "enigmatic gearbox"
-					O.desc ="An engineer would call this inconcievable wonder of gears and metal a 'black box'"
+					O.desc ="An engineer would call this inconceivable wonder of gears and metal a 'black box'"
 					O.icon_state = "brain-clock"
 					O.status = ORGAN_ROBOTIC
 					O.organ_flags = ORGAN_SYNTHETIC
@@ -288,7 +288,7 @@
 
 /obj/item/organ/brain/clockwork
 	name = "enigmatic gearbox"
-	desc ="An engineer would call this inconcievable wonder of gears and metal a 'black box'"
+	desc ="An engineer would call this inconceivable wonder of gears and metal a 'black box'"
 	icon_state = "brain-clock"
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
