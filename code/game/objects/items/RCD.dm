@@ -49,11 +49,11 @@ RLD
 
 /obj/item/construction/examine(mob/user)
 	. = ..()
-	. += "\A [src]. It currently holds [matter]/[max_matter] matter-units."
+	. += "It currently holds [matter]/[max_matter] matter-units."
 	if(upgrade & RCD_UPGRADE_SILO_LINK)
-		. += "\A [src]. Remote storage link state: [silo_link ? "[silo_mats.on_hold() ? "ON HOLD" : "ON"]" : "OFF"]."
-		if(silo_link && !silo_mats.on_hold() && silo_mats.mat_container)
-			. += "\A [src]. Remote connection have iron in equivalent to [silo_mats.mat_container.get_material_amount(/datum/material/iron)/500] rcd units." // 1 matter for 1 floortile, as 4 tiles are produced from 1 iron
+		. += "Remote storage link state: [silo_link ? "[silo_mats.on_hold() ? "ON HOLD" : "ON"]" : "OFF"]."
+		if(silo_link && silo_mats.mat_container && !silo_mats.on_hold())
+			. += "Remote connection has iron in equivalent to [silo_mats.mat_container.get_material_amount(/datum/material/iron)/500] RCD unit\s." //1 matter for 1 floor tile, as 4 tiles are produced from 1 metal
 
 /obj/item/construction/Destroy()
 	QDEL_NULL(spark_system)
@@ -137,13 +137,16 @@ RLD
 				to_chat(user, no_ammo_message)
 			return FALSE
 		matter -= amount
-		update_icon()
+		update_appearance()
 		return TRUE
 	else
 		var/list/matlist = list(SSmaterials.GetMaterialRef(/datum/material/iron) = 500)
 		if(silo_mats.on_hold())
 			if(user)
 				to_chat(user, "Mineral access is on hold, please contact the quartermaster.")
+			return FALSE
+		if(!silo_mats.mat_container)
+			to_chat(user, "<span class='alert'>No silo link detected. Connect to silo via multitool.</span>")
 			return FALSE
 		if(!silo_mats.mat_container?.has_materials(matlist, amount))
 			if(user)
@@ -155,7 +158,7 @@ RLD
 		return TRUE
 
 /obj/item/construction/proc/checkResource(amount, mob/user)
-	if(!silo_mats || !silo_link)
+	if(!silo_link || !silo_mats || !silo_mats.mat_container)
 		. = matter >= amount
 	else
 		if(silo_mats.on_hold())
@@ -191,6 +194,10 @@ RLD
 		return FALSE
 	return TRUE
 
+#define RCD_DESTRUCTIVE_SCAN_RANGE 10
+#define RCD_HOLOGRAM_FADE_TIME (15 SECONDS)
+#define RCD_DESTRUCTIVE_SCAN_COOLDOWN (RCD_HOLOGRAM_FADE_TIME + 1 SECONDS)
+
 /obj/item/construction/rcd
 	name = "rapid-construction-device (RCD)"
 	icon = 'icons/obj/tools.dmi'
@@ -203,6 +210,7 @@ RLD
 	slot_flags = ITEM_SLOT_BELT
 	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON
 	has_ammobar = TRUE
+	actions_types = list(/datum/action/item_action/rcd_scan)
 	var/mode = RCD_FLOORWALL
 	var/ranged = FALSE
 	var/computer_dir = 1
@@ -219,6 +227,84 @@ RLD
 	var/canRturf = FALSE //Variable for R walls to deconstruct them
 	/// Integrated airlock electronics for setting access to a newly built airlocks
 	var/obj/item/electronics/airlock/airlock_electronics
+
+	COOLDOWN_DECLARE(destructive_scan_cooldown)
+
+GLOBAL_VAR_INIT(icon_holographic_wall, init_holographic_wall())
+GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
+
+// `initial` does not work here. Neither does instantiating a wall/whatever
+// and referencing that. I don't know why.
+/proc/init_holographic_wall()
+	return getHologramIcon(
+		icon('icons/turf/walls/wall.dmi', "wall-0"),
+		opacity = 1,
+	)
+
+/proc/init_holographic_window()
+	var/icon/grille_icon = icon('icons/obj/structures.dmi', "grille")
+	var/icon/window_icon = icon('icons/obj/smooth_structures/windows/window.dmi', "window-0")
+
+	grille_icon.Blend(window_icon, ICON_OVERLAY)
+
+	return getHologramIcon(grille_icon)
+
+/obj/item/construction/rcd/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/openspace_item_click_handler)
+
+/obj/item/construction/rcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	if(proximity_flag)
+		mode = RCD_FLOORWALL
+		rcd_create(target, user)
+
+/obj/item/construction/rcd/ui_action_click(mob/user, actiontype)
+	if (!COOLDOWN_FINISHED(src, destructive_scan_cooldown))
+		to_chat(user, "<span class='warning'>[src] lets out a low buzz.</span>")
+		return
+
+	COOLDOWN_START(src, destructive_scan_cooldown, RCD_DESTRUCTIVE_SCAN_COOLDOWN)
+
+	playsound(src, 'sound/items/rcdscan.ogg', 50, vary = TRUE, pressure_affected = FALSE)
+
+	var/turf/source_turf = get_turf(src)
+	for (var/turf/open/surrounding_turf in RANGE_TURFS(RCD_DESTRUCTIVE_SCAN_RANGE, source_turf))
+		var/rcd_memory = surrounding_turf.rcd_memory
+		if (!rcd_memory)
+			continue
+
+		var/skip_to_next_turf = FALSE
+
+		for (var/atom/content_of_turf as anything in surrounding_turf.contents)
+			if (content_of_turf.density)
+				skip_to_next_turf = TRUE
+				break
+
+		if (skip_to_next_turf)
+			continue
+
+		var/hologram_icon
+		switch (rcd_memory)
+			if (RCD_MEMORY_WALL)
+				hologram_icon = GLOB.icon_holographic_wall
+			if (RCD_MEMORY_WINDOWGRILLE)
+				hologram_icon = GLOB.icon_holographic_window
+
+		var/obj/effect/rcd_hologram/hologram = new (surrounding_turf)
+		hologram.icon = hologram_icon
+		animate(hologram, alpha = 0, time = RCD_HOLOGRAM_FADE_TIME, easing = CIRCULAR_EASING | EASE_IN)
+
+/obj/effect/rcd_hologram
+	name = "hologram"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/rcd_hologram/Initialize(mapload)
+	. = ..()
+	QDEL_IN(src, RCD_HOLOGRAM_FADE_TIME)
+
+#undef RCD_DESTRUCTIVE_SCAN_COOLDOWN
+#undef RCD_DESTRUCTIVE_SCAN_RANGE
+#undef RCD_HOLOGRAM_FADE_TIME
 
 /obj/item/construction/rcd/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] sets the RCD to 'Wall' and points it down [user.p_their()] throat! It looks like [user.p_theyre()] trying to commit suicide..</span>")
@@ -277,6 +363,9 @@ RLD
 
 /obj/item/construction/rcd/proc/toggle_silo_link(mob/user)
 	if(silo_mats)
+		if(!silo_mats.mat_container)
+			to_chat(user, "<span class='alert'>No silo link detected. Connect to silo via multitool.</span>")
+			return FALSE
 		silo_link = !silo_link
 		to_chat(user, "<span class='notice'>You change \the [src]'s storage link state: [silo_link ? "ON" : "OFF"].</span>")
 	else
@@ -490,21 +579,36 @@ RLD
 			furnish_delay = 20
 
 /obj/item/construction/rcd/proc/rcd_create(atom/A, mob/user)
+	//does this atom allow for rcd actions?
 	var/list/rcd_results = A.rcd_vals(user, src)
 	if(!rcd_results)
 		return FALSE
+	//start animation & check resource for the action
 	var/delay = rcd_results["delay"] * delay_mod
 	var/obj/effect/constructing_effect/rcd_effect = new(get_turf(A), delay, src.mode)
-	if(checkResource(rcd_results["cost"], user))
-		if(do_after(user, delay, target = A))
-			if(checkResource(rcd_results["cost"], user))
-				if(A.rcd_act(user, src, rcd_results["mode"]))
-					rcd_effect.end_animation()
-					useResource(rcd_results["cost"], user)
-					activate()
-					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-					return TRUE
-	qdel(rcd_effect)
+	if(!checkResource(rcd_results["cost"], user))
+		qdel(rcd_effect)
+		return FALSE
+	if(rcd_results["mode"] == RCD_MACHINE || rcd_results["mode"] == RCD_COMPUTER || rcd_results["mode"] == RCD_FURNISHING)
+		var/turf/target_turf = get_turf(A)
+		if(target_turf.is_blocked_turf(exclude_mobs = TRUE))
+			playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
+			qdel(rcd_effect)
+			return FALSE
+	if(!do_after(user, delay, target = A))
+		qdel(rcd_effect)
+		return FALSE
+	if(!checkResource(rcd_results["cost"], user))
+		qdel(rcd_effect)
+		return FALSE
+	if(!A.rcd_act(user, src, rcd_results["mode"]))
+		qdel(rcd_effect)
+		return FALSE
+	rcd_effect.end_animation()
+	useResource(rcd_results["cost"], user)
+	activate()
+	playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
+	return TRUE
 
 /obj/item/construction/rcd/Initialize(mapload)
 	. = ..()
@@ -512,17 +616,11 @@ RLD
 	airlock_electronics.name = "Access Control"
 	airlock_electronics.holder = src
 	GLOB.rcd_list += src
-	AddElement(/datum/element/openspace_item_click_handler)
 
 /obj/item/construction/rcd/Destroy()
 	QDEL_NULL(airlock_electronics)
 	GLOB.rcd_list -= src
 	. = ..()
-
-/obj/item/construction/rcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
-	if(proximity_flag)
-		mode = RCD_FLOORWALL
-		rcd_create(target, user)
 
 /obj/item/construction/rcd/attack_self(mob/user)
 	..()
@@ -636,7 +734,7 @@ RLD
 
 /obj/item/construction/rcd/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/item/construction/rcd/borg
 	no_ammo_message = "<span class='warning'>Insufficient charge.</span>"
@@ -802,7 +900,7 @@ RLD
 				if(checkResource(deconcost, user))
 					to_chat(user, "<span class='notice'>You start deconstructing [A]...</span>")
 					user.Beam(A,icon_state="nzcrentrs_power", time = 15)
-					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+					playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
 					if(do_after(user, decondelay, target = A))
 						if(!useResource(deconcost, user))
 							return 0
@@ -817,7 +915,7 @@ RLD
 					to_chat(user, "<span class='notice'>You start building a wall light...</span>")
 					user.Beam(A,icon_state="nzcrentrs_power", time = 15)
 					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-					playsound(src.loc, 'sound/effects/light_flicker.ogg', 50, 0)
+					playsound(src.loc, 'sound/effects/light_flicker.ogg', 50, FALSE)
 					if(do_after(user, floordelay, target = A))
 						if(!istype(W))
 							return FALSE
@@ -831,7 +929,7 @@ RLD
 								candidates += C
 						if(!candidates.len)
 							to_chat(user, "<span class='warning'>Valid target not found...</span>")
-							playsound(src.loc, 'sound/misc/compiler-failure.ogg', 30, 1)
+							playsound(src.loc, 'sound/misc/compiler-failure.ogg', 30, TRUE)
 							return FALSE
 						for(var/turf/open/O in candidates)
 							if(istype(O))
@@ -862,8 +960,8 @@ RLD
 				if(checkResource(floorcost, user))
 					to_chat(user, "<span class='notice'>You start building a floor light...</span>")
 					user.Beam(A,icon_state="nzcrentrs_power", time = 15)
-					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-					playsound(src.loc, 'sound/effects/light_flicker.ogg', 50, 1)
+					playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
+					playsound(loc, 'sound/effects/light_flicker.ogg', 50, TRUE)
 					if(do_after(user, floordelay, target = A))
 						if(!istype(F))
 							return 0
@@ -917,7 +1015,6 @@ RLD
 /obj/item/construction/plumbing/Initialize(mapload)
 	. = ..()
 	set_plumbing_designs()
-
 
 ///Set the list of designs this plumbing rcd can make
 /obj/item/construction/plumbing/proc/set_plumbing_designs()
@@ -1014,6 +1111,10 @@ RLD
 /obj/item/rcd_upgrade/furnishing
 	desc = "It contains the design for chairs, stools, tables, and glass tables."
 	upgrade = RCD_UPGRADE_FURNISHING
+
+/datum/action/item_action/rcd_scan
+	name = "Destruction Scan"
+	desc = "Scans the surrounding area for destruction. Scanned structures will rebuild significantly faster."
 
 #undef GLOW_MODE
 #undef LIGHT_MODE

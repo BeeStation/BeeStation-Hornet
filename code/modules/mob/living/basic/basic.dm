@@ -140,7 +140,6 @@
 	icon = initial(icon)
 	icon_state = icon_living
 	density = initial(density)
-	setMovetype(initial(movement_type))
 
 /mob/living/basic/proc/melee_attack(atom/target)
 	src.face_atom(target)

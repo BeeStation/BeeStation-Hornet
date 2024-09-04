@@ -223,9 +223,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1
 	},
-/turf/open/floor/iron{
-	dir = 2
-	},
+/turf/open/floor/iron,
 /area/engine/atmos)
 "aO" = (
 /obj/machinery/atmospherics/components/binary/pump/on,
@@ -328,9 +326,7 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
-/obj/effect/turf_decal/bot{
-	dir = 2
-	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bc" = (
@@ -338,9 +334,7 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister,
-/obj/effect/turf_decal/bot{
-	dir = 2
-	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bd" = (
@@ -1259,7 +1253,6 @@
 /turf/closed/wall,
 /area/quartermaster/storage)
 "ez" = (
-/obj/machinery/camera/autoname/directional/east,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -1478,7 +1471,6 @@
 /area/hallway/primary/central)
 "fe" = (
 /obj/machinery/button/door{
-	dir = 2;
 	id = "cargounload";
 	layer = 4;
 	name = "Loading Doors";
@@ -1518,7 +1510,6 @@
 /area/quartermaster/storage)
 "fi" = (
 /obj/docking_port/stationary{
-	dir = 1;
 	dwidth = 1;
 	height = 4;
 	roundstart_template = /datum/map_template/shuttle/escape_pod/default;
@@ -1559,7 +1550,6 @@
 /area/quartermaster/storage)
 "fp" = (
 /obj/docking_port/stationary{
-	dheight = 0;
 	dir = 2;
 	dwidth = 9;
 	height = 25;
@@ -1701,9 +1691,7 @@
 /turf/open/floor/iron,
 /area/storage/primary)
 "fF" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1922,15 +1910,11 @@
 	pixel_x = 32;
 	pixel_y = -7
 	},
+/obj/machinery/camera/autoname/directional/east,
 /turf/open/floor/plating,
 /area/storage/primary)
 "gh" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/computer/shuttle_flight/mining{
-	dir = 2
-	},
+/obj/machinery/computer/shuttle_flight/mining,
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
 "gi" = (
@@ -2138,6 +2122,14 @@
 	},
 /turf/open/floor/iron,
 /area/medical/chemistry)
+"hP" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/light/directional/east,
+/turf/open/floor/iron,
+/area/quartermaster/miningoffice)
 "ii" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -4541,7 +4533,7 @@ aa
 aa
 em
 gi
-go
+hP
 go
 gp
 ei

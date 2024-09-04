@@ -35,6 +35,7 @@ SUBSYSTEM_DEF(job)
 		JOB_NAME_AI,
 		JOB_NAME_ASSISTANT,
 		JOB_NAME_CYBORG,
+		JOB_NAME_POSIBRAIN,
 		JOB_NAME_CAPTAIN,
 		JOB_NAME_HEADOFPERSONNEL,
 		JOB_NAME_HEADOFSECURITY,
@@ -553,7 +554,14 @@ SUBSYSTEM_DEF(job)
 				newplayer.new_character = living_mob
 			else
 				M = living_mob
-
+		else
+			if(!isnull(new_mob)) //Detect fail condition on equip
+			//if equip() is somehow able to fail, send them back to lobby
+				var/mob/dead/new_player/NP = new()
+				NP.ckey = M.client.ckey
+				qdel(M)
+				to_chat(M, "Error equipping [rank]. Returning to lobby.</b>")
+				return null
 		SSpersistence.antag_rep_change[M.client.ckey] += job.GetAntagRep()
 
 		if(M.client.holder)
