@@ -341,7 +341,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/floorbot)
 		playsound(src, 'sound/effects/whistlereset.ogg', 50, TRUE)
 		return
 	if(isspaceturf(target_turf))
-		 //Must be a hull breach or in line mode to continue.
+		//Must be a hull breach or in line mode to continue.
 		if(!is_hull_breach(target_turf) && !targetdirection)
 			target = null
 			return

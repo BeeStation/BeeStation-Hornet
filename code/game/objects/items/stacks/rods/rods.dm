@@ -60,8 +60,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 		if(W.use_tool(src, user, 0, volume=40))
 			var/obj/item/stack/sheet/iron/new_item = new(usr.loc)
 			user.visible_message("[user.name] shaped [src] into iron with [W].", \
-						 "<span class='notice'>You shape [src] into iron with [W].</span>", \
-						 "<span class='italics'>You hear welding.</span>")
+						"<span class='notice'>You shape [src] into iron with [W].</span>", \
+						"<span class='italics'>You hear welding.</span>")
 			var/obj/item/stack/rods/R = src
 			src = null
 			var/replace = (user.get_inactive_held_item()==R)

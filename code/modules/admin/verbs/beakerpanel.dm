@@ -103,7 +103,7 @@
 					}
 
 					.remove-reagent {
-					 background-color: #d03000;
+						background-color: #d03000;
 					}
 
 					.container-control {
@@ -266,11 +266,11 @@
 		<i class="fas fa-bomb"></i>&nbsp;Spawn grenade
 			</button>
 			<label for="grenade-type">Grenade type: </label>
-		 <select id="grenade-type">
-			 <option value="normal">Normal</option>
-		 </select>
-		 <div class="grenade-data normal">
-		 </div>
+			<select id="grenade-type">
+				<option value="normal">Normal</option>
+			</select>
+			<div class="grenade-data normal">
+			</div>
 			<br />
 <small>note: beakers recommended, other containers may have issues</small>
 		</div>
@@ -301,7 +301,7 @@
 				</button>
 
 			</div>
-				 <ul>
+				<ul>
 				<li>
 
 				<select class="select-new-reagent"></select><div class="reagent-div"><input style="width: 50%" type="text" name="newreagent" value="40" />&nbsp;&nbsp;<button class="add-reagent">

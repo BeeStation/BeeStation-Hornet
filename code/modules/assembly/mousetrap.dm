@@ -95,7 +95,7 @@
 				which_hand = BODY_ZONE_PRECISE_R_HAND
 			triggered(user, which_hand)
 			user.visible_message("<span class='warning'>[user] accidentally sets off [src], breaking their fingers.</span>", \
-								 "<span class='warning'>You accidentally trigger [src]!</span>")
+								"<span class='warning'>You accidentally trigger [src]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You disarm [src].</span>")
 	armed = !armed
@@ -112,7 +112,7 @@
 				which_hand = BODY_ZONE_PRECISE_R_HAND
 			triggered(user, which_hand)
 			user.visible_message("<span class='warning'>[user] accidentally sets off [src], breaking their fingers.</span>", \
-								 "<span class='warning'>You accidentally trigger [src]!</span>")
+								"<span class='warning'>You accidentally trigger [src]!</span>")
 			return
 	return ..()
 

@@ -705,9 +705,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	UnregisterSignal(user, COMSIG_MOVABLE_BUMP)
 
 /obj/item/clothing/gloves/concussive_gauntlets/proc/rocksmash(mob/living/carbon/human/user, atom/rocks, proximity)
-    if(!ismineralturf(rocks))
-        return
-    rocks.attackby(src, user)
+	if(!ismineralturf(rocks))
+		return
+	rocks.attackby(src, user)
 
 ///Bosses
 

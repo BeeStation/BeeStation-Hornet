@@ -238,6 +238,6 @@ SUBSYSTEM_DEF(traumas)
 							"aliens" = typecacheof(list(/datum/species/abductor, /datum/species/pod,
 							/datum/species/shadow)),
 							"anime" = typecacheof(list(/datum/species/human/felinid))
-						 )
+						)
 
 	return SS_INIT_SUCCESS

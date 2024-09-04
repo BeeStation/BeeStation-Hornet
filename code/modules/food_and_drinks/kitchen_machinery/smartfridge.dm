@@ -117,10 +117,10 @@
 			if(loaded)
 				if(contents.len >= max_n_of_items)
 					user.visible_message("[user] loads \the [src] with \the [O].", \
-									 "<span class='notice'>You fill \the [src] with \the [O].</span>")
+									"<span class='notice'>You fill \the [src] with \the [O].</span>")
 				else
 					user.visible_message("[user] loads \the [src] with \the [O].", \
-										 "<span class='notice'>You load \the [src] with \the [O].</span>")
+									"<span class='notice'>You load \the [src] with \the [O].</span>")
 				if(O.contents.len > 0)
 					to_chat(user, "<span class='warning'>Some items are refused.</span>")
 				if (visible_contents)
@@ -137,7 +137,7 @@
 				if(accept_check(I))
 					load(I)
 					user.visible_message("[user] inserts \the [I] into \the [src].", \
-									 "<span class='notice'>You insert \the [I] into \the [src].</span>")
+									"<span class='notice'>You insert \the [I] into \the [src].</span>")
 					O.cut_overlays()
 					O.icon_state = "evidenceobj"
 					O.desc = "A container for holding body parts."
