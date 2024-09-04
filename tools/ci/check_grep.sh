@@ -374,7 +374,7 @@ if [ $missing_txt_lines -gt 0 ]; then
 fi;
 
 number_prefix_lines=$(find tools/UpdatePaths/Scripts -type f | wc -l)
-valid_number_prefix_lines=$(find tools/UpdatePaths/Scripts -type f | $grep -P "\d+_(.+)" | wc -l)
+valid_number_prefix_lines=$(find tools/UpdatePaths/Scripts -type f | $grep -P "(?:tg_)?\d+_(.+)" | wc -l)
 if [ $valid_number_prefix_lines -ne $number_prefix_lines ]; then
     echo
     echo -e "${RED}ERROR: Detected an UpdatePaths File that doesn't start with the PR number! Please add the proper number prefix!${NC}"
