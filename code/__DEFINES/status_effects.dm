@@ -154,9 +154,3 @@
 
 #define STATUS_EFFECT_OFFERING /datum/status_effect/offering // you are offering up an item to people
 
-//---------//
-//  Trait  //
-//---------//
-
-#define TRAIT_STATUS_EFFECT(effect_id) "[effect_id]-trait"
-
