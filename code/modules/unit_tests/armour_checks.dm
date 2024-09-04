@@ -2,7 +2,7 @@
 
 /datum/unit_test/armour_checks/Run()
 	var/turf/spawn_loc = run_loc_floor_bottom_left
-	var/mob/living/carbon/human/test_dummy = new(spawn_loc)
+	var/mob/living/carbon/human/consistent/test_dummy = new(spawn_loc)
 	// Test without armour
 	TEST_ASSERT_EQUAL(STANDARDISE_ARMOUR(0), round(test_dummy.run_armor_check(), 1), "Mob with no armour returned an armour value.")
 	// Give the mob some armour
