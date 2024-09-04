@@ -33,34 +33,6 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	randomize_human(src)
 	dna.initialize_dna(skip_index = TRUE) //Skip stuff that requires full round init.
 
-/// Provides a dummy that is consistently bald, white, naked, etc.
-/mob/living/carbon/human/dummy/consistent
-
-/mob/living/carbon/human/dummy/consistent/setup_human_dna()
-	create_dna(src)
-	dna.initialize_dna(skip_index = TRUE)
-	dna.features["body_markings"] = "None"
-	dna.features["ears"] = "Cat"
-	dna.features["ethcolor"] = GLOB.color_list_ethereal["Cyan"]
-	dna.features["frills"] = "None"
-	dna.features["horns"] = "None"
-	dna.features["mcolor"] = "4c4"
-	dna.features["moth_antennae"] = "Plain"
-	dna.features["moth_markings"] = "None"
-	dna.features["moth_wings"] = "Plain"
-	dna.features["snout"] = "Round"
-	dna.features["spines"] = "None"
-	dna.features["tail_human"] = "Cat"
-	dna.features["tail_lizard"] = "Smooth"
-	dna.features["apid_stripes"] = "thick"
-	dna.features["apid_headstripes"] = "thick"
-	dna.features["apid_antenna"] = "curled"
-	dna.features["insect_type"] = "fly"
-	dna.features["ipc_screen"] = "BSOD"
-	dna.features["ipc_antenna"] = "None"
-	dna.features["ipc_chassis"] = "Morpheus Cyberkinetics (Custom)"
-	dna.features["psyphoza_cap"] = "Portobello"
-
 //Inefficient pooling/caching way.
 GLOBAL_LIST_EMPTY(human_dummy_list)
 GLOBAL_LIST_EMPTY(dummy_mob_list)
@@ -97,3 +69,54 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 
 /mob/living/carbon/human/dummy/remove_from_alive_mob_list()
 	return
+
+/// Takes in an accessory list and returns the first entry from that list, ensuring that we dont return SPRITE_ACCESSORY_NONE in the process.
+/proc/get_consistent_feature_entry(list/accessory_feature_list)
+	var/consistent_entry = (accessory_feature_list- SPRITE_ACCESSORY_NONE)[1]
+	ASSERT(!isnull(consistent_entry))
+	return consistent_entry
+
+/proc/create_consistent_human_dna(mob/living/carbon/human/target)
+	target.dna.features["mcolor"] = COLOR_VIBRANT_LIME
+	target.dna.features["ethcolor"] = COLOR_WHITE
+	target.dna.features["lizard_markings"] = get_consistent_feature_entry(SSaccessories.lizard_markings_list)
+	target.dna.features["ears"] = get_consistent_feature_entry(SSaccessories.ears_list)
+	target.dna.features["frills"] = get_consistent_feature_entry(SSaccessories.frills_list)
+	target.dna.features["horns"] = get_consistent_feature_entry(SSaccessories.horns_list)
+	target.dna.features["moth_antennae"] = get_consistent_feature_entry(SSaccessories.moth_antennae_list)
+	target.dna.features["moth_markings"] = get_consistent_feature_entry(SSaccessories.moth_markings_list)
+	target.dna.features["moth_wings"] = get_consistent_feature_entry(SSaccessories.moth_wings_list)
+	target.dna.features["snout"] = get_consistent_feature_entry(SSaccessories.snouts_list)
+	target.dna.features["spines"] = get_consistent_feature_entry(SSaccessories.spines_list)
+	target.dna.features["tail_cat"] = get_consistent_feature_entry(SSaccessories.tails_list_human) // it's a lie
+	target.dna.features["tail_lizard"] = get_consistent_feature_entry(SSaccessories.tails_list_lizard)
+	target.dna.features["tail_monkey"] = get_consistent_feature_entry(SSaccessories.tails_list_monkey)
+	target.dna.features["pod_hair"] = get_consistent_feature_entry(SSaccessories.pod_hair_list)
+	target.dna.initialize_dna(create_mutation_blocks = FALSE, randomize_features = FALSE)
+	// UF and UI are nondeterministic, even though the features are the same some blocks will randomize slightly
+	// In practice this doesn't matter, but this is for the sake of 100%(ish) consistency
+	var/static/consistent_UF
+	var/static/consistent_UI
+	if(isnull(consistent_UF) || isnull(consistent_UI))
+		consistent_UF = target.dna.unique_features
+		consistent_UI = target.dna.unique_identity
+	else
+		target.dna.unique_features = consistent_UF
+		target.dna.unique_identity = consistent_UI
+
+/// Provides a dummy that is consistently bald, white, naked, etc.
+/mob/living/carbon/human/dummy/consistent
+
+/mob/living/carbon/human/dummy/consistent/setup_human_dna()
+	create_consistent_human_dna(src)
+
+/// Provides a dummy for unit_tests that functions like a normal human, but with a standardized appearance
+/// Copies the stock dna setup from the dummy/consistent type
+/mob/living/carbon/human/consistent
+
+/mob/living/carbon/human/consistent/setup_human_dna()
+	create_consistent_human_dna(src)
+	fully_replace_character_name(real_name, "John Doe")
+
+/mob/living/carbon/human/consistent/domutcheck()
+	return // We skipped adding any mutations so this runtimes
