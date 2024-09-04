@@ -1760,7 +1760,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /datum/uplink_item/device_tools/syndicate_teleporter
 	name = "Experimental Syndicate Jaunter"
 	desc = "The Syndicate jaunter is a handheld device that jaunts the user 4-8 meters forward. \
-		Anyone caught in the wake of the jaunter will be knocked off their feet and recieve minor damage. \
+		Anyone caught in the wake of the jaunter will be knocked off their feet and receive minor damage. \
 		Due to the Syndicate's more limited research of teleportation technologies, it is incapable of phasing the user \
 		through solid matter nor is it capable of teleporting them across longer ranges."
 	item = /obj/item/teleporter

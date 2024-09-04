@@ -183,7 +183,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	else
 		if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 			to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/computer/cloning/AltClick(mob/user)
 	. = ..()

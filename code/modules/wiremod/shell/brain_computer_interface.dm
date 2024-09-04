@@ -15,11 +15,11 @@
 		new /obj/item/circuit_component/bci_core,
 	), SHELL_CAPACITY_SMALL)
 
-/obj/item/organ/cyberimp/bci/Insert(mob/living/carbon/reciever, special, drop_if_replaced)
+/obj/item/organ/cyberimp/bci/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
 	. = ..()
 
 	// Organs are put in nullspace, but this breaks circuit interactions
-	forceMove(reciever)
+	forceMove(receiver)
 
 /obj/item/organ/cyberimp/bci/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced)
 	if (owner)

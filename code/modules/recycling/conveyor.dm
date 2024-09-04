@@ -261,7 +261,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor)
 	id = cswitch.id
 	LAZYADD(GLOB.conveyors_by_id[id], src)
 	to_chat(user, "<span class='notice'>You link [src] to [cswitch].</span>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 // attack with hand, move pulled object onto conveyor
 /obj/machinery/conveyor/attack_hand(mob/user)
@@ -414,7 +414,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You store [src] in [buffer_parent]'s buffer.</span>")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/conveyor_switch/screwdriver_act(mob/living/user, obj/item/I)

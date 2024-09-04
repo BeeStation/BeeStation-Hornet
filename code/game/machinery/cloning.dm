@@ -421,7 +421,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
 	else
 		return NONE
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/W, mob/user, params)

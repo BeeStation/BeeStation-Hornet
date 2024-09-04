@@ -237,7 +237,7 @@
  * This is to only return false if flow of execution should be stopped because something bad has happened (e.g. no power)
  * Returning no value in input_received() is not an issue because it means flow of execution will continue even if the component failed to execute properly.
  *
- * Return value indicates whether or not a circuit part can recieve input
+ * Return value indicates whether or not a circuit part can receive input
  * Arguments:
  * * port - Can be null. The port that sent the input
  */
