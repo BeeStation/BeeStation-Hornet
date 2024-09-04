@@ -1,5 +1,5 @@
 {
-	"file": "code/modules/unit_tests/__DEFINES/_unit_tests.dm",
+	"file": "code/modules/unit_tests/_unit_tests.dm",
 	"scannable_directory": "code/modules/unit_tests/",
 	"subdirectories": true,
 	"excluded_files": [
