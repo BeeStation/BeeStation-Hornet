@@ -18234,7 +18234,6 @@
 "dTf" = (
 /obj/machinery/door/airlock{
 	name = "Bar - Kitchen";
-	req_one_access = "28;25";
 	req_one_access_txt = "25,28,35"
 	},
 /obj/effect/turf_decal/delivery,
@@ -33322,6 +33321,19 @@
 	},
 /turf/open/floor/engine/light,
 /area/engine/engineering)
+"jOE" = (
+/obj/machinery/hydroponics/constructable,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/door/airlock{
+	name = "Bar - Kitchen";
+	req_one_access = "28;25";
+	req_one_access_txt = "25,28,35"
+	},
+/turf/open/floor/iron/grid/steel,
+/area/hydroponics)
 "jOR" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -36250,10 +36262,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
-"kSi" = (
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
 "kSk" = (
 /turf/open/floor/iron,
 /area/crew_quarters/fitness)
@@ -107401,7 +107409,7 @@ psd
 eML
 gzG
 fRe
-kSi
+aVz
 pOB
 aJI
 aJI
@@ -110228,7 +110236,7 @@ nVY
 kAh
 hOj
 hOj
-nVY
+jOE
 maS
 oHH
 aIP
