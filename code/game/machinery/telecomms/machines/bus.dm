@@ -15,7 +15,8 @@
 	telecomms_type = /obj/machinery/telecomms/bus
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 50
+	idle_power_usage = 10
+	active_power_usage = 50
 	netspeed = 40
 	circuit = /obj/item/circuitboard/machine/telecomms/bus
 	var/change_frequency = 0
