@@ -267,9 +267,7 @@
 /obj/effect/landmark/start/warden,
 /obj/effect/landmark/start/security_officer,
 /turf/open/floor/iron,
-/area/security/main{
-	name = "Security Locker Room"
-	})
+/area/security/main)
 "fK" = (
 /obj/machinery/holopad,
 /turf/open/floor/iron,

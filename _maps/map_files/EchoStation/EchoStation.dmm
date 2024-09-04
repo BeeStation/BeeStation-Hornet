@@ -346,7 +346,7 @@
 /obj/structure/desk_bell/speed_demon,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hopshutter";
-	name = "privacy shutters"
+	name = "Privacy Shutters"
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
@@ -44152,7 +44152,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hopshutter";
-	name = "privacy shutters"
+	name = "Privacy Shutters"
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hop)

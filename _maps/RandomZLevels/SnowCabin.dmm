@@ -375,7 +375,7 @@
 /area/awaymission/cabin)
 "bg" = (
 /obj/machinery/door/window/westleft{
-	name = "manager's desk"
+	name = "Manager's Desk"
 	},
 /turf/open/floor/carpet,
 /area/awaymission/cabin)
@@ -1381,7 +1381,7 @@
 "eq" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "garage_cabin";
-	name = "garage door"
+	name = "Garage Door"
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating/snowed/temperatre,
@@ -1860,11 +1860,7 @@
 	},
 /area/awaymission/cabin/caves/mountain)
 "fZ" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/fulltile{
-	desc = "Enjoy the view.";
-	name = "window"
-	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/awaymission/cabin/caves/mountain)
 "gb" = (
@@ -2182,13 +2178,12 @@
 /obj/structure/sign/warning/fire{
 	pixel_y = 32
 	},
-/obj/machinery/space_heater,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 "hg" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "janitor closet"
+	name = "Janitor Closet"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -2298,7 +2293,7 @@
 /area/awaymission/cabin)
 "hy" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "heater storage"
+	name = "Heater Storage"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,

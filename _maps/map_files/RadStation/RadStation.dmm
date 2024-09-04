@@ -897,7 +897,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hopshutter";
-	name = "privacy shutters"
+	name = "Privacy Shutters"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -12716,7 +12716,7 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hopshutter";
-	name = "privacy shutters"
+	name = "Privacy Shutters"
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -22084,7 +22084,7 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hopshutter";
-	name = "privacy shutters"
+	name = "Privacy Shutters"
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hop)
@@ -30615,7 +30615,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hopshutter";
-	name = "privacy shutters"
+	name = "Privacy Shutters"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
@@ -40644,7 +40644,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hopshutter";
-	name = "privacy shutters"
+	name = "Privacy Shutters"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -54584,7 +54584,7 @@
 /obj/structure/desk_bell/speed_demon,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hopshutter";
-	name = "privacy shutters"
+	name = "Privacy Shutters"
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
@@ -67004,7 +67004,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hopshutter";
-	name = "privacy shutters"
+	name = "Privacy Shutters"
 	},
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";

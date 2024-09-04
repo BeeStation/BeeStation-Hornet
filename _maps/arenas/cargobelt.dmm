@@ -1,7 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "d" = (
 /obj/machinery/conveyor/auto,
-/obj/machinery/conveyor/auto,
 /turf/open/indestructible,
 /area/tdome/arena)
 "e" = (

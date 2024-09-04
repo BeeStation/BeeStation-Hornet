@@ -9746,7 +9746,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "ceprivacy";
-	name = "privacy shutter"
+	name = "Privacy Shutter"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -10342,7 +10342,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "ceprivacy";
-	name = "privacy shutter"
+	name = "Privacy Shutter"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution/stand_clear,
@@ -12578,7 +12578,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "ceprivacy";
-	name = "privacy shutter"
+	name = "Privacy Shutter"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -15235,7 +15235,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "hop";
-	name = "privacy shutters"
+	name = "Privacy Shutters"
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
@@ -21275,7 +21275,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "hop";
-	name = "privacy shutters"
+	name = "Privacy Shutters"
 	},
 /obj/item/pen{
 	pixel_x = 6;
@@ -28163,7 +28163,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "ceprivacy";
-	name = "privacy shutter"
+	name = "Privacy Shutter"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -42004,7 +42004,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "ceprivacy";
-	name = "privacy shutter"
+	name = "Privacy Shutter"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution/stand_clear,
@@ -50870,7 +50870,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "ceprivacy";
-	name = "privacy shutter"
+	name = "Privacy Shutter"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -54221,7 +54221,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "hop";
-	name = "privacy shutters"
+	name = "Privacy Shutters"
 	},
 /obj/structure/desk_bell,
 /turf/open/floor/iron,

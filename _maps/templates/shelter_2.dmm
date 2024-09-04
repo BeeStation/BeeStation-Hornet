@@ -185,7 +185,7 @@
 /area/survivalpod)
 "B" = (
 /obj/structure/chair/fancy/comfy{
-	color = "#666666" ;
+	color = "#666666";
 	dir = 1
 	},
 /turf/open/floor/carpet/black,

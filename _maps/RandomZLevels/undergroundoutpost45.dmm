@@ -789,8 +789,7 @@
 /area/awaymission/undergroundoutpost45/central)
 "cM" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 5;
-
+	dir = 5
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006
@@ -4209,7 +4208,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "UO45_rdprivacy";
-	name = "privacy shutters"
+	name = "Privacy Shutters"
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006
@@ -4219,7 +4218,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "UO45_rdprivacy";
-	name = "privacy shutters"
+	name = "Privacy Shutters"
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006
@@ -5255,7 +5254,7 @@
 	req_access_txt = "201"
 	},
 /obj/machinery/button/door{
-	desc = "A remote control-switch that controls the privacy shutters.";
+	desc = "A remote control-switch that controls the Privacy Shutters.";
 	id = "UO45_rdprivacy";
 	name = "Privacy Shutter Control";
 	pixel_y = -2;
@@ -10512,7 +10511,7 @@
 	network = list("uo45")
 	},
 /obj/machinery/button/door{
-	desc = "A remote control-switch for the security privacy shutters.";
+	desc = "A remote control-switch for the security Privacy Shutters.";
 	id = "UO45_EngineeringOffice";
 	name = "Privacy Shutters";
 	pixel_x = -24;
