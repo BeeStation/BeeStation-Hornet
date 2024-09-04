@@ -85,7 +85,7 @@
 /area/shuttle/pod_1)
 "E" = (
 /turf/closed/wall/mineral/titanium,
-/area/template_noop)
+/area/shuttle/pod_1)
 "I" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/computer/shuttle_flight{

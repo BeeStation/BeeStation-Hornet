@@ -279,7 +279,7 @@
 	dir = 5
 	},
 /turf/template_noop,
-/area/template_noop)
+/area/shuttle/exploration)
 "py" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims{
