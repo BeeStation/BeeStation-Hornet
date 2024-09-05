@@ -41,7 +41,7 @@ def print_error(message: str, filename: str, line_number: int, github_error_styl
     if github_error_style:
         print(f"::error file={filename},line={line_number},title=DMM Linter::{message}")
     else:
-        print(red(f"- Error parsing {filename} (line {line_number}): {message}"))
+        print(red(f"{filename}:{line_number}\tParsing Error: {message}"))
 
 def print_maplint_error(error: MaplintError, github_error_style: bool):
     print_error(
