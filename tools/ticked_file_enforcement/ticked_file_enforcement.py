@@ -56,7 +56,7 @@ with open(file_reference, 'r') as file:
             continue
 
         # Skip empty lines
-        if len(line) == 0:
+        if "include" not in line:
             continue
 
         lines.append(line)
