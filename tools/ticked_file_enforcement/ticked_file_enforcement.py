@@ -55,6 +55,10 @@ with open(file_reference, 'r') as file:
         elif not reading:
             continue
 
+        # Skip empty lines
+        if len(line) == 0:
+            continue
+
         lines.append(line)
 
 offset = total - len(lines)
