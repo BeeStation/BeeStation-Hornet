@@ -227,7 +227,7 @@
 /area/shuttle/abandoned)
 "jR" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Power unit"
+	name = "Power Unit"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt,

@@ -872,7 +872,7 @@
 "uo" = (
 /obj/machinery/door/poddoor{
 	id = "AIwindows";
-	name = "AI View Blast door"
+	name = "AI View Blast Door"
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)

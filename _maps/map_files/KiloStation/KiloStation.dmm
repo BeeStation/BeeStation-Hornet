@@ -1694,7 +1694,7 @@
 /area/maintenance/port)
 "ahI" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "command maintenance";
+	name = "command Maintenance";
 	req_one_access_txt = "19;63"
 	},
 /obj/structure/disposalpipe/segment,
@@ -2137,7 +2137,7 @@
 "akb" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "transittube";
-	name = "Transit Tube Blast door"
+	name = "Transit Tube Blast Door"
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -2246,7 +2246,7 @@
 /area/solar/port/fore)
 "akI" = (
 /obj/machinery/door/airlock/maintenance/external{
-	name = "exploration maintenance access";
+	name = "exploration Maintenance Access";
 	req_one_access_txt = "49"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -2283,7 +2283,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/maintenance/external{
-	name = "mass driver intersection";
+	name = "mass Driver Intersection";
 	req_access_txt = "12"
 	},
 /obj/structure/cable/yellow{
@@ -2323,7 +2323,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/airlock/research/glass{
-	name = "exploration shuttle dock";
+	name = "exploration Shuttle Dock";
 	req_one_access_txt = "49"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -2339,7 +2339,7 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/maintenance/external{
-	name = "mass driver intersection";
+	name = "mass Driver Intersection";
 	req_access_txt = "12"
 	},
 /obj/structure/cable/yellow{
@@ -2563,7 +2563,7 @@
 /area/science/xenobiology)
 "amh" = (
 /obj/machinery/door/airlock/maintenance/external{
-	name = "transit intersection";
+	name = "transit Intersection";
 	req_access_txt = "12"
 	},
 /obj/structure/sign/warning/vacuum/external{
@@ -2654,7 +2654,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/airlock/public/glass{
-	name = "visitation area"
+	name = "visitation Area"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
@@ -2742,7 +2742,7 @@
 /area/maintenance/port/fore)
 "ank" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "chapel maintenance";
+	name = "chapel Maintenance";
 	req_one_access_txt = "22"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -5163,7 +5163,7 @@
 /area/engine/engineering)
 "azL" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "mech bay maintenance";
+	name = "mech Bay Maintenance";
 	req_access_txt = "29"
 	},
 /obj/structure/disposalpipe/segment,
@@ -7114,7 +7114,7 @@
 "aLC" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge blast";
-	name = "Bridge Blast door"
+	name = "Bridge Blast Door"
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/open/floor/iron/dark,
@@ -7453,7 +7453,7 @@
 /area/security/prison)
 "aOy" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "bar maintenance";
+	name = "bar Maintenance";
 	req_access_txt = "25"
 	},
 /turf/open/floor/iron/dark,
@@ -7828,7 +7828,7 @@
 /area/hallway/primary/fore)
 "aSQ" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "backstage maintenance";
+	name = "backstage Maintenance";
 	req_access_txt = "46"
 	},
 /obj/structure/disposalpipe/segment{
@@ -7884,7 +7884,7 @@
 /area/space/nearstation)
 "aTf" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "crematorium maintenance";
+	name = "crematorium Maintenance";
 	req_one_access_txt = "27"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -7904,7 +7904,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "brigfrontdoor";
-	name = "Aft Security Blast door"
+	name = "Aft Security Blast Door"
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig/aft)
@@ -8961,7 +8961,7 @@
 /area/science/xenobiology)
 "bbs" = (
 /obj/machinery/door/airlock/maintenance/external{
-	name = "mass driver intersection";
+	name = "mass Driver Intersection";
 	req_access_txt = "12"
 	},
 /obj/structure/cable/yellow{
@@ -9712,7 +9712,7 @@
 /area/maintenance/port)
 "bgr" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "research lab maintenance";
+	name = "research Lab Maintenance";
 	req_one_access_txt = "7;29"
 	},
 /obj/structure/cable/yellow{
@@ -9851,7 +9851,7 @@
 /area/maintenance/central)
 "bhd" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "kitchen maintenance";
+	name = "kitchen Maintenance";
 	req_access_txt = "28"
 	},
 /obj/structure/fans/tiny/invisible,
@@ -9871,7 +9871,7 @@
 /area/maintenance/starboard)
 "bhh" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "mining dock maintenance";
+	name = "mining Dock Maintenance";
 	req_access_txt = "48"
 	},
 /obj/structure/cable/yellow{
@@ -10123,7 +10123,7 @@
 /area/maintenance/central)
 "biq" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "cargo maintenance";
+	name = "cargo Maintenance";
 	req_one_access_txt = "31;48"
 	},
 /obj/structure/cable/yellow{
@@ -10585,7 +10585,7 @@
 /area/quartermaster/storage)
 "blc" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "kitchen maintenance";
+	name = "kitchen Maintenance";
 	req_access_txt = "28"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -11557,7 +11557,7 @@
 "bpU" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge blast";
-	name = "Bridge Blast door"
+	name = "Bridge Blast Door"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/caution/stand_clear,
@@ -12900,7 +12900,7 @@
 /area/chapel/main)
 "byi" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "hydroponics maintenance";
+	name = "hydroponics Maintenance";
 	req_access_txt = "35"
 	},
 /turf/open/floor/iron/dark,
@@ -14564,7 +14564,7 @@
 	},
 /obj/machinery/door/poddoor{
 	id = "freight_port";
-	name = "Freight Bay Blast door"
+	name = "Freight Bay Blast Door"
 	},
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
@@ -15343,7 +15343,7 @@
 /area/crew_quarters/locker)
 "bKz" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "command maintenance";
+	name = "command Maintenance";
 	req_one_access_txt = "17;19"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -15476,7 +15476,7 @@
 /area/crew_quarters/fitness/recreation)
 "bLe" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "cargo maintenance";
+	name = "cargo Maintenance";
 	req_one_access_txt = "31;48"
 	},
 /obj/structure/cable/yellow{
@@ -15787,7 +15787,7 @@
 /area/hallway/primary/starboard)
 "bNF" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "security maintenance";
+	name = "security Maintenance";
 	req_access_txt = "4"
 	},
 /turf/open/floor/iron/dark,
@@ -16006,7 +16006,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "Disposal Exit";
-	name = "disposal exit vent"
+	name = "disposal Exit Vent"
 	},
 /obj/structure/sign/warning/deathsposal{
 	pixel_x = -32
@@ -16211,7 +16211,7 @@
 /area/hallway/primary/aft)
 "bQl" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "security maintenance";
+	name = "security Maintenance";
 	req_access_txt = "12;63"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -16733,7 +16733,7 @@
 "bTb" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge blast";
-	name = "Bridge Blast door"
+	name = "Bridge Blast Door"
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/structure/cable/yellow{
@@ -19308,7 +19308,7 @@
 /area/maintenance/aft)
 "cgD" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "e.v.a. maintenance";
+	name = "e.v.a. Maintenance";
 	req_access_txt = "18"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -20735,7 +20735,7 @@
 /area/security/prison)
 "cnk" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "supermatter maintenance";
+	name = "supermatter Maintenance";
 	req_one_access_txt = "10"
 	},
 /obj/structure/cable/yellow{
@@ -20848,7 +20848,7 @@
 /area/maintenance/solars/port/aft)
 "coh" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "atmospherics maintenance";
+	name = "atmospherics Maintenance";
 	req_access_txt = "24"
 	},
 /obj/structure/disposalpipe/segment,
@@ -22399,7 +22399,7 @@
 "cvP" = (
 /obj/machinery/door/poddoor{
 	id = "trash";
-	name = "disposal bay door"
+	name = "disposal Bay Door"
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/iron/dark,
@@ -24238,7 +24238,7 @@
 	},
 /obj/machinery/door/poddoor{
 	id = "freight_port";
-	name = "Freight Bay Blast door"
+	name = "Freight Bay Blast Door"
 	},
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
@@ -24412,7 +24412,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	req_one_access_txt = "47";
-	name = "science aft maintenance access"
+	name = "science Aft Maintenance Access"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -24602,7 +24602,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "brigfrontdoor";
-	name = "Front Security Blast door"
+	name = "Front Security Blast Door"
 	},
 /turf/open/floor/iron/dark,
 /area/security/prison)
@@ -24938,7 +24938,7 @@
 /area/chapel/main)
 "cHl" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "chapel maintenance";
+	name = "chapel Maintenance";
 	req_one_access_txt = "22"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -26545,7 +26545,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge blast";
-	name = "Bridge Blast door"
+	name = "Bridge Blast Door"
 	},
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
@@ -26557,7 +26557,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge blast";
-	name = "Bridge Blast door"
+	name = "Bridge Blast Door"
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
@@ -29539,7 +29539,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/public/glass{
-	name = "visitation area"
+	name = "visitation Area"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -30471,7 +30471,7 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/maintenance{
 	desc = "It opens and closes. You have a terrible feeling about this room...";
-	name = "Brig closet"
+	name = "Brig Closet"
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -30623,7 +30623,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /turf/open/floor/plating,
 /area/security/prison)
@@ -34123,7 +34123,7 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/maintenance/external{
-	name = "construction zone";
+	name = "construction Zone";
 	req_access_txt = "32;47;48;37"
 	},
 /turf/open/floor/iron/dark,
@@ -34911,7 +34911,7 @@
 "fya" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/structure/cable/yellow{
@@ -37332,7 +37332,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /turf/open/floor/plating,
 /area/security/prison)
@@ -37657,7 +37657,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/poddoor/shutters{
 	id = "explorerstorage";
-	name = "Exploration storage shutter"
+	name = "Exploration Storage Shutter"
 	},
 /turf/open/floor/iron,
 /area/quartermaster/exploration_dock)
@@ -38055,7 +38055,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -38395,7 +38395,7 @@
 "gJj" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "transittube";
-	name = "Transit Tube Blast door"
+	name = "Transit Tube Blast Door"
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -41841,7 +41841,7 @@
 "hNj" = (
 /obj/machinery/door/airlock/maintenance{
 	req_one_access_txt = "47";
-	name = "science aft maintenance access"
+	name = "science Aft Maintenance Access"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -47919,7 +47919,7 @@
 "jKY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	name = "prison processing";
+	name = "prison Processing";
 	req_access_txt = "2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -48263,7 +48263,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/poddoor/shutters{
 	id = "explorerstorage";
-	name = "Exploration storage shutter"
+	name = "Exploration Storage Shutter"
 	},
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/old,
@@ -48562,7 +48562,7 @@
 "jWg" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
-	name = "isolation shutters"
+	name = "Isolation Shutters"
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
@@ -49286,7 +49286,7 @@
 "kiE" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "transittube";
-	name = "Transit Tube Blast door"
+	name = "Transit Tube Blast Door"
 	},
 /obj/machinery/airalarm/directional/east{
 	pixel_x = 24
@@ -50806,7 +50806,7 @@
 "kGN" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -52116,7 +52116,7 @@
 /area/hallway/primary/aft)
 "lfu" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "brig maintenance";
+	name = "brig Maintenance";
 	req_one_access_txt = "63"
 	},
 /obj/structure/sign/directions/evac{
@@ -52155,7 +52155,7 @@
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/poddoor/preopen{
 	id = "brigfrontdoor";
-	name = "Aft Security Blast door"
+	name = "Aft Security Blast Door"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -52217,7 +52217,7 @@
 /area/maintenance/starboard/aft)
 "lgC" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "bar maintenance";
+	name = "bar Maintenance";
 	req_access_txt = "25"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -54152,7 +54152,7 @@
 	},
 /obj/machinery/door/window/brigdoor/eastright{
 	req_one_access_txt = "1";
-	name = "evidence access"
+	name = "evidence Access"
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -56620,7 +56620,7 @@
 /area/hallway/primary/port)
 "mCT" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "genetics maintenance";
+	name = "genetics Maintenance";
 	req_access_txt = "9"
 	},
 /obj/structure/disposalpipe/segment{
@@ -58417,7 +58417,7 @@
 "nkG" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -63437,7 +63437,7 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
-	name = "isolation shutters"
+	name = "Isolation Shutters"
 	},
 /obj/machinery/door/airlock/virology{
 	name = "Virology Lab";
@@ -67009,7 +67009,7 @@
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
 	id_tag = "prisonereducation";
-	name = "Prison access";
+	name = "Prison Access";
 	req_access_txt = "2"
 	},
 /obj/machinery/door/firedoor,
@@ -67309,7 +67309,7 @@
 /area/security/brig/aft)
 "qcN" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "hydroponics maintenance";
+	name = "hydroponics Maintenance";
 	req_access_txt = "35"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -69436,7 +69436,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "hosspace";
-	name = "Space Blast door"
+	name = "Space Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -69498,7 +69498,7 @@
 /area/science/aft)
 "qSN" = (
 /obj/machinery/door/airlock/maintenance/external{
-	name = "construction zone";
+	name = "construction Zone";
 	req_access_txt = "32;47;48;37"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -71799,7 +71799,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "hosspace";
-	name = "Space Blast door"
+	name = "Space Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -72266,7 +72266,7 @@
 /area/science/xenobiology)
 "rOd" = (
 /obj/machinery/door/airlock/security{
-	name = "EVA room";
+	name = "EVA Room";
 	req_access_txt = "1"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -72797,7 +72797,7 @@
 "rWi" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/structure/cable/yellow{
@@ -74551,7 +74551,7 @@
 "sBW" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "brigfrontdoor";
-	name = "Front Security Blast door"
+	name = "Front Security Blast Door"
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/turf_decal/stripes/line{
@@ -74979,7 +74979,7 @@
 "sJP" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/structure/cable/yellow{
@@ -75057,7 +75057,7 @@
 "sLj" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/structure/cable/yellow{
@@ -75707,7 +75707,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -75969,7 +75969,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
@@ -78055,7 +78055,7 @@
 /area/hallway/primary/aft)
 "tKG" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "morgue maintenance";
+	name = "morgue Maintenance";
 	req_access_txt = "5;6;22"
 	},
 /obj/structure/disposalpipe/segment,
@@ -78723,7 +78723,7 @@
 "uag" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/structure/cable/yellow{
@@ -80375,7 +80375,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "hosspace";
-	name = "Space Blast door"
+	name = "Space Blast Door"
 	},
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
@@ -81103,7 +81103,7 @@
 "uOr" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "brigfrontdoor";
-	name = "Front Security Blast door"
+	name = "Front Security Blast Door"
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/turf_decal/stripes/line{
@@ -83386,7 +83386,7 @@
 "vDC" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "brigfrontdoor";
-	name = "Front Security Blast door"
+	name = "Front Security Blast Door"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -84919,7 +84919,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -86718,7 +86718,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -89823,7 +89823,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
@@ -89930,7 +89930,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,

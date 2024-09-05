@@ -1870,7 +1870,7 @@
 "azF" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced/prison,
@@ -2313,7 +2313,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor{
 	id = "hosprivacy";
-	name = "HoS Privacy Blast door"
+	name = "HoS Privacy Blast Door"
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
@@ -2541,7 +2541,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id = "brigsidedoor";
-	name = "Front Security Blast door"
+	name = "Front Security Blast Door"
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -2712,7 +2712,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor{
 	id = "hosprivacy";
-	name = "HoS Privacy Blast door"
+	name = "HoS Privacy Blast Door"
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
@@ -2907,7 +2907,7 @@
 	base_state = "left";
 	dir = 1;
 	icon_state = "left";
-	name = "Armour storage";
+	name = "Armour Storage";
 	req_one_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -4038,7 +4038,7 @@
 "aUY" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "medpriv1";
-	name = "privacy door"
+	name = "privacy Door"
 	},
 /obj/effect/spawner/structure/window,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -5610,7 +5610,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Medbay break room maintenance";
+	name = "Medbay Break Room Maintenance";
 	req_access_txt = "5"
 	},
 /turf/open/floor/iron/techmaint,
@@ -6233,7 +6233,7 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/door/poddoor/preopen{
 	id = "BrigForeWindows";
-	name = "Fore Security Blast door"
+	name = "Fore Security Blast Door"
 	},
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "ForeOuterBrig";
@@ -6990,7 +6990,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/window/southright{
 	dir = 1;
-	name = "Armour storage";
+	name = "Armour Storage";
 	req_one_access_txt = "1;4"
 	},
 /obj/structure/window/reinforced{
@@ -7206,7 +7206,7 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "bPg" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Transfer cell";
+	name = "Transfer Cell";
 	req_one_access_txt = "1;4"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -7999,7 +7999,7 @@
 "bZS" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgedoors";
-	name = "Bridge Access Blast door"
+	name = "Bridge Access Blast Door"
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/turf_decal/siding/thinplating_new/dark,
@@ -9465,7 +9465,7 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "cargo maintenance";
+	name = "cargo Maintenance";
 	req_one_access_txt = "31;48;47"
 	},
 /obj/effect/turf_decal/stripes/closeup{
@@ -10569,7 +10569,7 @@
 	},
 /obj/item/storage/box/syringes,
 /obj/machinery/door/window/southright{
-	name = "Miscellaneous medical Supplies";
+	name = "Miscellaneous Medical Supplies";
 	req_access_txt = "5"
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -10623,7 +10623,7 @@
 "cLT" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgedoors";
-	name = "Bridge Access Blast door"
+	name = "Bridge Access Blast Door"
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -11426,7 +11426,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgewindows";
-	name = "Bridge View Blast door"
+	name = "Bridge View Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -11551,7 +11551,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgewindows";
-	name = "Bridge View Blast door"
+	name = "Bridge View Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -11560,7 +11560,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
-	name = "isolation shutters"
+	name = "Isolation Shutters"
 	},
 /turf/open/floor/plating,
 /area/medical/virology)
@@ -12940,7 +12940,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "rndlabint";
-	name = "Internal research shutters"
+	name = "Internal Research Shutters"
 	},
 /turf/open/floor/plating,
 /area/science/lab)
@@ -13562,7 +13562,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/public/glass{
-	name = "Escape pod"
+	name = "Escape Pod"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -13600,7 +13600,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgewindows";
-	name = "Bridge View Blast door"
+	name = "Bridge View Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -13620,7 +13620,7 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
-	name = "isolation shutters"
+	name = "Isolation Shutters"
 	},
 /turf/open/floor/iron/techmaint,
 /area/medical/virology)
@@ -14003,7 +14003,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgewindows";
-	name = "Bridge View Blast door"
+	name = "Bridge View Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -14132,7 +14132,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgewindows";
-	name = "Bridge View Blast door"
+	name = "Bridge View Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -14223,7 +14223,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgewindows";
-	name = "Bridge View Blast door"
+	name = "Bridge View Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -14967,7 +14967,7 @@
 /obj/item/disk/nuclear/fake/obvious,
 /obj/machinery/door/window/westleft{
 	dir = 2;
-	name = "Museum Showcase door";
+	name = "Museum Showcase Door";
 	req_access_txt = "37"
 	},
 /turf/open/floor/iron/dark,
@@ -15531,7 +15531,7 @@
 "eaP" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgewindows";
-	name = "Bridge View Blast door"
+	name = "Bridge View Blast Door"
 	},
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
@@ -16869,7 +16869,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgewindows";
-	name = "Bridge View Blast door"
+	name = "Bridge View Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -16947,7 +16947,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgewindows";
-	name = "Bridge View Blast door"
+	name = "Bridge View Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -17442,7 +17442,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgedoors";
-	name = "Bridge Access Blast door"
+	name = "Bridge Access Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -17467,7 +17467,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgedoors";
-	name = "Bridge Access Blast door"
+	name = "Bridge Access Blast Door"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/bridge)
@@ -17499,7 +17499,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgedoors";
-	name = "Bridge Access Blast door"
+	name = "Bridge Access Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -17882,7 +17882,7 @@
 	},
 /obj/machinery/door/window/westright{
 	dir = 2;
-	name = "Museum Showcase door";
+	name = "Museum Showcase Door";
 	req_access_txt = "37"
 	},
 /turf/open/floor/iron/dark,
@@ -17912,7 +17912,7 @@
 /area/science/xenobiology)
 "eIN" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Conference room maintenance";
+	name = "Conference Room Maintenance";
 	req_access_txt = "19"
 	},
 /obj/effect/turf_decal/stripes/closeup{
@@ -17920,7 +17920,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgedoors";
-	name = "Bridge Access Blast door"
+	name = "Bridge Access Blast Door"
 	},
 /turf/open/floor/iron/techmaint,
 /area/bridge/meeting_room/council)
@@ -18406,7 +18406,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
-	name = "isolation shutters"
+	name = "Isolation Shutters"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -18817,7 +18817,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -20473,7 +20473,7 @@
 	base_state = "left";
 	dir = 1;
 	icon_state = "left";
-	name = "Disabler storage";
+	name = "Disabler Storage";
 	req_one_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -21040,7 +21040,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgedoors";
-	name = "Bridge Access Blast door"
+	name = "Bridge Access Blast Door"
 	},
 /turf/open/floor/iron/techmaint,
 /area/bridge/meeting_room/council)
@@ -21406,7 +21406,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "cargo maintenance";
+	name = "cargo Maintenance";
 	req_one_access_txt = "31;48"
 	},
 /obj/effect/turf_decal/stripes/closeup{
@@ -22514,7 +22514,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/door/poddoor{
 	id = "hosprivacy";
-	name = "HoS Privacy Blast door"
+	name = "HoS Privacy Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -24059,7 +24059,7 @@
 	},
 /obj/machinery/door/poddoor{
 	id = "hosprivacy";
-	name = "HoS Privacy Blast door"
+	name = "HoS Privacy Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -24104,7 +24104,7 @@
 	base_state = "right";
 	dir = 4;
 	icon_state = "right";
-	name = "Secure Creature Pen shield holder";
+	name = "Secure Creature Pen Shield Holder";
 	obj_integrity = 300
 	},
 /obj/structure/window/reinforced{
@@ -25642,7 +25642,7 @@
 	base_state = "leftsecure";
 	dir = 4;
 	icon_state = "leftsecure";
-	name = "Secure Creature Pen shield holder";
+	name = "Secure Creature Pen Shield Holder";
 	obj_integrity = 300;
 	req_access_txt = "47"
 	},
@@ -25873,7 +25873,7 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external/glass{
-	name = "Labour Shuttle airlock";
+	name = "Labour Shuttle Airlock";
 	req_access_txt = "63"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -26690,7 +26690,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgedoors";
-	name = "Bridge Access Blast door"
+	name = "Bridge Access Blast Door"
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
@@ -28142,7 +28142,7 @@
 "hgy" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgedoors";
-	name = "Bridge Access Blast door"
+	name = "Bridge Access Blast Door"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/siding/thinplating_new/dark,
@@ -28348,7 +28348,7 @@
 /obj/effect/turf_decal/stripes/end,
 /obj/effect/turf_decal/stripes/red/end,
 /obj/machinery/door/airlock/external/glass{
-	name = "Labour Shuttle airlock";
+	name = "Labour Shuttle Airlock";
 	req_access_txt = "63"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
@@ -28716,7 +28716,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
@@ -29441,7 +29441,7 @@
 /area/science/explab)
 "hzt" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "cargo maintenance";
+	name = "cargo Maintenance";
 	req_one_access_txt = "31;48"
 	},
 /obj/structure/cable/yellow{
@@ -29681,7 +29681,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "brigsidedoor";
-	name = "Front Security Blast door"
+	name = "Front Security Blast Door"
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/window/reinforced{
@@ -30478,7 +30478,7 @@
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/window/southright{
-	name = "Weapons storage";
+	name = "Weapons Storage";
 	req_one_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -31341,7 +31341,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "rndlabint";
-	name = "Internal research shutters"
+	name = "Internal Research Shutters"
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/lab)
@@ -31503,7 +31503,7 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/external{
-	name = "Labour Shuttle airlock"
+	name = "Labour Shuttle Airlock"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden,
@@ -32907,7 +32907,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgedoors";
-	name = "Bridge Access Blast door"
+	name = "Bridge Access Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -33531,7 +33531,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
@@ -33545,7 +33545,7 @@
 /area/maintenance/department/security/brig)
 "iyP" = (
 /obj/machinery/door/airlock/hatch{
-	name = "AI maintenance chamber";
+	name = "AI Maintenance Chamber";
 	req_one_access_txt = "32;19"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -33693,7 +33693,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
@@ -34040,7 +34040,7 @@
 "iFO" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "telelab";
-	name = "test chamber blast door"
+	name = "test Chamber Blast Door"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
@@ -34481,7 +34481,7 @@
 	},
 /obj/machinery/door/poddoor{
 	id = "hosprivacy";
-	name = "HoS Privacy Blast door"
+	name = "HoS Privacy Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -34864,7 +34864,7 @@
 /area/science/shuttle)
 "iPP" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "e.v.a. maintenance";
+	name = "e.v.a. Maintenance";
 	req_access_txt = "18"
 	},
 /obj/machinery/door/firedoor,
@@ -35223,7 +35223,7 @@
 /obj/machinery/door/window/southright{
 	base_state = "left";
 	icon_state = "left";
-	name = "Weapons storage";
+	name = "Weapons Storage";
 	req_one_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -36033,7 +36033,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
-	name = "Gambling den"
+	name = "Gambling Den"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron/grid/steel,
@@ -36369,7 +36369,7 @@
 	dir = 4
 	},
 /obj/machinery/door/window/southright{
-	name = "Balistic Weapons storage";
+	name = "Balistic Weapons Storage";
 	req_one_access_txt = "1;4"
 	},
 /obj/item/ammo_box/magazine/wt550m9/rubber{
@@ -36636,7 +36636,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/poddoor/preopen{
 	id = "BrigAftWindows";
-	name = "Aft Security Blast door"
+	name = "Aft Security Blast Door"
 	},
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "AftOuterBrig";
@@ -36860,7 +36860,7 @@
 "jrF" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgedoors";
-	name = "Bridge Access Blast door"
+	name = "Bridge Access Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -37201,7 +37201,7 @@
 "jxF" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/machinery/door/window/southright{
-	name = "Sign door";
+	name = "Sign Door";
 	req_one_access = "25"
 	},
 /obj/machinery/camera/directional/north{
@@ -38511,7 +38511,7 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/external/glass{
-	name = "Labour Shuttle airlock";
+	name = "Labour Shuttle Airlock";
 	req_access_txt = "63"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
@@ -39178,7 +39178,7 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/external{
-	name = "Labour Shuttle airlock"
+	name = "Labour Shuttle Airlock"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/iron/techmaint,
@@ -39311,7 +39311,7 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/external{
-	name = "Labour Shuttle airlock"
+	name = "Labour Shuttle Airlock"
 	},
 /turf/open/floor/iron/techmaint,
 /area/security/execution/transfer)
@@ -39630,7 +39630,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgewindows";
-	name = "Bridge View Blast door"
+	name = "Bridge View Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -40078,7 +40078,7 @@
 /obj/effect/turf_decal/stripes/red/end,
 /obj/effect/mapping_helpers/airlock/unres,
 /obj/machinery/door/airlock/external{
-	name = "Labour Shuttle airlock"
+	name = "Labour Shuttle Airlock"
 	},
 /turf/open/floor/iron/techmaint,
 /area/hallway/secondary/entry)
@@ -40541,7 +40541,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/poddoor/preopen{
 	id = "BrigAftWindows";
-	name = "Aft Security Blast door"
+	name = "Aft Security Blast Door"
 	},
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "AftOuterBrig";
@@ -40576,7 +40576,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "BrigForeWindows";
-	name = "Fore Security Blast door"
+	name = "Fore Security Blast Door"
 	},
 /turf/open/floor/plating,
 /area/security/main)
@@ -41968,7 +41968,7 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/external/glass{
-	name = "Labour Shuttle airlock";
+	name = "Labour Shuttle Airlock";
 	req_access_txt = "63"
 	},
 /turf/open/floor/iron/techmaint,
@@ -42032,7 +42032,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "mixwindows";
-	name = "Toxin Mix Chamber Blast door"
+	name = "Toxin Mix Chamber Blast Door"
 	},
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/engine,
@@ -43134,7 +43134,7 @@
 /area/medical/morgue)
 "kWo" = (
 /obj/machinery/door/airlock/engineering/glass{
-	name = "Engineering locker room";
+	name = "Engineering Locker Room";
 	req_access_txt = "32"
 	},
 /obj/structure/cable/yellow{
@@ -45012,7 +45012,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgedoors";
-	name = "Bridge Access Blast door"
+	name = "Bridge Access Blast Door"
 	},
 /turf/open/floor/iron/techmaint,
 /area/bridge)
@@ -46107,7 +46107,7 @@
 /obj/structure/window/reinforced,
 /obj/machinery/door/window/southright{
 	dir = 8;
-	name = "Firing pins storage";
+	name = "Firing Pins Storage";
 	req_one_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -46188,7 +46188,7 @@
 "lGs" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "mixwindows";
-	name = "Toxin Mix Chamber Blast door"
+	name = "Toxin Mix Chamber Blast Door"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -46506,7 +46506,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/external{
-	name = "Labour Shuttle airlock"
+	name = "Labour Shuttle Airlock"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
@@ -47979,7 +47979,7 @@
 /obj/machinery/door/window/southright{
 	base_state = "left";
 	icon_state = "left";
-	name = "Balistic Weapons storage";
+	name = "Balistic Weapons Storage";
 	req_one_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -48019,7 +48019,7 @@
 "mho" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "mixwindows";
-	name = "Toxin Mix Chamber Blast door"
+	name = "Toxin Mix Chamber Blast Door"
 	},
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/engine,
@@ -48186,7 +48186,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -50358,7 +50358,7 @@
 "mNq" = (
 /obj/structure/table,
 /obj/machinery/door/window/southleft{
-	name = "Miscellaneous medical Supplies";
+	name = "Miscellaneous Medical Supplies";
 	req_access_txt = "5"
 	},
 /obj/item/reagent_containers/spray/cleaner{
@@ -51551,7 +51551,7 @@
 "neP" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "telelab";
-	name = "test chamber blast door"
+	name = "test Chamber Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/engine,
@@ -53810,7 +53810,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id = "brigsidedoorn";
-	name = "Fore Security Blast door"
+	name = "Fore Security Blast Door"
 	},
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/restraints/handcuffs,
@@ -54762,7 +54762,7 @@
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /obj/machinery/door/poddoor/preopen{
 	id = "hosprivacy";
-	name = "HoS Privacy Blast door"
+	name = "HoS Privacy Blast Door"
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/toilet/restrooms)
@@ -55751,7 +55751,7 @@
 "omg" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/structure/cable/yellow{
@@ -56538,7 +56538,7 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
-	name = "isolation shutters"
+	name = "Isolation Shutters"
 	},
 /turf/open/floor/iron/grid,
 /area/medical/virology)
@@ -56900,7 +56900,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -57231,7 +57231,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/highsecurity{
-	name = "radiation shelter"
+	name = "radiation Shelter"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -58103,7 +58103,7 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Medbay central maintenance";
+	name = "Medbay Central Maintenance";
 	req_access_txt = "5"
 	},
 /turf/open/floor/iron/techmaint,
@@ -58508,7 +58508,7 @@
 /obj/machinery/door/window/southright{
 	base_state = "left";
 	icon_state = "left";
-	name = "Sign door";
+	name = "Sign Door";
 	req_one_access = "25"
 	},
 /turf/open/floor/grass/no_border,
@@ -58545,7 +58545,7 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "science access";
+	name = "science Access";
 	req_access_txt = "47"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -59672,7 +59672,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/window/southright{
 	dir = 1;
-	name = "Armour storage";
+	name = "Armour Storage";
 	req_one_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -60186,7 +60186,7 @@
 /obj/effect/turf_decal/stripes/red/end,
 /obj/effect/mapping_helpers/airlock/unres,
 /obj/machinery/door/airlock/external/glass{
-	name = "Labour Shuttle airlock";
+	name = "Labour Shuttle Airlock";
 	req_access_txt = "63"
 	},
 /turf/open/floor/iron/techmaint,
@@ -64374,7 +64374,7 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/maintenance{
 	desc = "It opens and closes. You have a terrible feeling about this room...";
-	name = "Brig closet"
+	name = "Brig Closet"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
@@ -65032,7 +65032,7 @@
 "qJB" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "BrigForeWindows";
-	name = "Fore Security Blast door"
+	name = "Fore Security Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -66016,7 +66016,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/preopen{
 	id = "testlab";
-	name = "test chamber blast door"
+	name = "test Chamber Blast Door"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/engine,
@@ -66720,7 +66720,7 @@
 	base_state = "left";
 	dir = 4;
 	icon_state = "left";
-	name = "Implants storage";
+	name = "Implants Storage";
 	req_one_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -67879,7 +67879,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "rndlabext";
-	name = "External research shutters"
+	name = "External Research Shutters"
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/lab)
@@ -68328,7 +68328,7 @@
 "rBT" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Biohazard";
-	name = "biohazard containment door"
+	name = "biohazard Containment Door"
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/grid/steel,
@@ -68440,7 +68440,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /turf/open/floor/plating,
 /area/security/prison/shielded)
@@ -70376,7 +70376,7 @@
 "sao" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "testlab";
-	name = "test chamber blast door"
+	name = "test Chamber Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -71199,7 +71199,7 @@
 "skP" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Biohazard";
-	name = "biohazard containment door"
+	name = "biohazard Containment Door"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -72904,7 +72904,7 @@
 /area/maintenance/port/central)
 "sGH" = (
 /obj/machinery/door/airlock/engineering/glass{
-	name = "Engineering locker room";
+	name = "Engineering Locker Room";
 	req_access_txt = "32"
 	},
 /obj/machinery/door/firedoor,
@@ -73205,7 +73205,7 @@
 	},
 /obj/machinery/door/poddoor{
 	id = "hosprivacy";
-	name = "HoS Privacy Blast door"
+	name = "HoS Privacy Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -74768,7 +74768,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "corporate_privacy";
-	name = "showroom shutters"
+	name = "showroom Shutters"
 	},
 /turf/open/floor/plating,
 /area/bridge/showroom/corporate)
@@ -75827,7 +75827,7 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/door/poddoor/preopen{
 	id = "BrigForeWindows";
-	name = "Fore Security Blast door"
+	name = "Fore Security Blast Door"
 	},
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "ForeOuterBrig";
@@ -76333,7 +76333,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "brigsidedoorn";
-	name = "Fore Security Blast door"
+	name = "Fore Security Blast Door"
 	},
 /obj/item/paper_bin,
 /obj/item/pen,
@@ -77122,7 +77122,7 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/external/glass{
-	name = "Labour Shuttle airlock";
+	name = "Labour Shuttle Airlock";
 	req_access_txt = "63"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -77276,7 +77276,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "Biohazard";
-	name = "biohazard containment door"
+	name = "biohazard Containment Door"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -79486,7 +79486,7 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/external/glass{
-	name = "Labour Shuttle airlock";
+	name = "Labour Shuttle Airlock";
 	req_access_txt = "63"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -79604,7 +79604,7 @@
 /area/crew_quarters/dorms)
 "uta" = (
 /obj/machinery/door/airlock{
-	name = "Cyborg Recharging station"
+	name = "Cyborg Recharging Station"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -81870,7 +81870,7 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "rndlabext";
-	name = "External research shutters"
+	name = "External Research Shutters"
 	},
 /obj/machinery/door/firedoor,
 /obj/item/paper_bin,
@@ -82166,7 +82166,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "rndlabext";
-	name = "External research shutters"
+	name = "External Research Shutters"
 	},
 /turf/open/floor/plating,
 /area/science/lab)
@@ -83284,7 +83284,7 @@
 	},
 /obj/item/clothing/suit/armor/laserproof,
 /obj/machinery/door/window/southright{
-	name = "EMP storage";
+	name = "EMP Storage";
 	req_one_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -84251,7 +84251,7 @@
 "vuT" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/structure/cable/yellow{
@@ -86282,7 +86282,7 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "robotics_shutters";
-	name = "robotics shutters"
+	name = "robotics Shutters"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -86525,7 +86525,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id = "brigsidedoor";
-	name = "Front Security Blast door"
+	name = "Front Security Blast Door"
 	},
 /obj/machinery/door/window/brigdoor/westright{
 	name = "Warden's Desk";
@@ -86736,7 +86736,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/curtain/directional{
 	dir = 8
@@ -88321,7 +88321,7 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/external{
-	name = "Labour Shuttle airlock"
+	name = "Labour Shuttle Airlock"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden,
@@ -88584,7 +88584,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
-	name = "Gambling den"
+	name = "Gambling Den"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/grid/steel,
@@ -88924,7 +88924,7 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "robotics_shutters";
-	name = "robotics shutters"
+	name = "robotics Shutters"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -89060,7 +89060,7 @@
 /obj/effect/spawner/structure/window,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "robotics_shutters";
-	name = "robotics shutters"
+	name = "robotics Shutters"
 	},
 /turf/open/floor/plating,
 /area/science/robotics/lab)
@@ -90364,7 +90364,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
-	name = "isolation shutters"
+	name = "Isolation Shutters"
 	},
 /obj/structure/desk_bell{
 	pixel_x = 8;
@@ -90655,7 +90655,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "robotics_shutters";
-	name = "robotics shutters"
+	name = "robotics Shutters"
 	},
 /turf/open/floor/plating,
 /area/science/robotics/lab)
@@ -90865,7 +90865,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/poddoor/preopen{
 	id = "Biohazard";
-	name = "biohazard containment door"
+	name = "biohazard Containment Door"
 	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment,
@@ -90877,7 +90877,7 @@
 "wWH" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Biohazard";
-	name = "biohazard containment door"
+	name = "biohazard Containment Door"
 	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment,
@@ -91632,7 +91632,7 @@
 /area/crew_quarters/theatre/backstage)
 "xek" = (
 /obj/machinery/door/airlock/maintenance/glass{
-	name = "Sanitation closet";
+	name = "Sanitation Closet";
 	req_access_txt = "47"
 	},
 /obj/machinery/door/firedoor,
@@ -91874,7 +91874,7 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "rndlabext";
-	name = "External research shutters"
+	name = "External Research Shutters"
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/desk_bell{
@@ -92545,7 +92545,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -92833,7 +92833,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgewindows";
-	name = "Bridge View Blast door"
+	name = "Bridge View Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -94247,7 +94247,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "BrigForeWindows";
-	name = "Fore Security Blast door"
+	name = "Fore Security Blast Door"
 	},
 /turf/open/floor/plating,
 /area/security/main)
@@ -94463,7 +94463,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/external/glass{
-	name = "Labour Shuttle airlock";
+	name = "Labour Shuttle Airlock";
 	req_access_txt = "63"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold{
@@ -95042,7 +95042,7 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "xLY" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "hydroponics maintenance";
+	name = "hydroponics Maintenance";
 	req_access_txt = "35"
 	},
 /obj/effect/turf_decal/stripes/closeup,
@@ -95382,7 +95382,7 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
-	name = "Prison blast door"
+	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -96712,7 +96712,7 @@
 "yej" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "qm_warehouse";
-	name = "warehouse shutters"
+	name = "warehouse Shutters"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
@@ -96800,7 +96800,7 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
-	name = "Labour Shuttle airlock"
+	name = "Labour Shuttle Airlock"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8

@@ -3605,7 +3605,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id = "UO45_biohazard";
-	name = "biohazard containment door"
+	name = "biohazard Containment Door"
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron{
@@ -4637,7 +4637,7 @@
 "nh" = (
 /obj/machinery/door/poddoor{
 	id = "UO45_Secure Storage";
-	name = "secure storage"
+	name = "secure Storage"
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006
@@ -6904,7 +6904,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "UO45_Engineering";
-	name = "engineering security door"
+	name = "engineering Security Door"
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006
@@ -7261,7 +7261,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "UO45_Engineering";
-	name = "engineering security door"
+	name = "engineering Security Door"
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006
@@ -8106,7 +8106,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id = "UO45_Engineering";
-	name = "engineering security door"
+	name = "engineering Security Door"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -8123,7 +8123,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "UO45_Engineering";
-	name = "engineering security door"
+	name = "engineering Security Door"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9
@@ -8140,7 +8140,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "UO45_Engineering";
-	name = "engineering security door"
+	name = "engineering Security Door"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/delivery,

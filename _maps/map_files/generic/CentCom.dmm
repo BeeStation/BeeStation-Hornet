@@ -2781,7 +2781,7 @@
 "kv" = (
 /obj/machinery/door/poddoor/shuttledock{
 	checkdir = 1;
-	name = "syndicate blast door";
+	name = "syndicate Blast Door";
 	turftype = /turf/open/floor/plating/asteroid/snow
 	},
 /turf/open/floor/plating,
@@ -5209,7 +5209,7 @@
 "ud" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "nukeop_ready";
-	name = "shuttle dock"
+	name = "shuttle Dock"
 	},
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
