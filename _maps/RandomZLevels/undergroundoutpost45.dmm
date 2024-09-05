@@ -2380,8 +2380,7 @@
 "hV" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4;
-
+	dir = 4
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006

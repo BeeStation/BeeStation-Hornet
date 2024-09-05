@@ -323,7 +323,7 @@
 /area/storage/tech)
 "aeb" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/turf/open/floor/iron,
 /area/hydroponics)
 "aep" = (
 /obj/structure/lattice,
@@ -5698,7 +5698,7 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/effect/loot_jobscale/medical/first_aid_kit,
 /obj/structure/window/reinforced{
-	dir = 1;
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/medical/storage)
@@ -6581,7 +6581,10 @@
 /area/engine/atmos)
 "bFp" = (
 /obj/machinery/smartfridge/organ,
-/turf/closed/wall/r_wall,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/iron/dark/side{
+	dir = 10
+	},
 /area/medical/surgery)
 "bFI" = (
 /obj/machinery/door/airlock{
@@ -10459,7 +10462,7 @@
 /area/engine/atmos)
 "cKn" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall/r_wall,
+/turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "cKA" = (
 /obj/vehicle/ridden/wheelchair{
@@ -17096,9 +17099,6 @@
 "ezG" = (
 /obj/effect/landmark/start/librarian,
 /obj/structure/chair/office,
-/obj/structure/chair/office{
-	dir = 8
-	},
 /turf/open/floor/iron/dark,
 /area/library)
 "ezI" = (
@@ -25346,6 +25346,10 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"gwS" = (
+/obj/machinery/smartfridge/chemistry/preloaded,
+/turf/open/floor/iron/white,
+/area/medical/apothecary)
 "gwV" = (
 /turf/closed/wall,
 /area/science/server)
@@ -44241,7 +44245,7 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/effect/loot_jobscale/medical/medkits,
 /obj/structure/window/reinforced{
-	dir = 1;
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/medical/storage)
@@ -56472,12 +56476,6 @@
 /obj/structure/table/optable{
 	name = "Robotics Operating Table"
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
-/obj/structure/table/optable{
-	name = "Robotics Operating Table"
-	},
 /turf/open/floor/iron/white/side{
 	dir = 1
 	},
@@ -64037,7 +64035,9 @@
 /area/storage/art)
 "qAE" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/turf/open/floor/iron/dark/side{
+	dir = 10
+	},
 /area/crew_quarters/kitchen)
 "qAN" = (
 /obj/structure/table/reinforced,
@@ -73996,7 +73996,7 @@
 /area/crew_quarters/bar)
 "sYZ" = (
 /obj/machinery/smartfridge/extract/preloaded,
-/turf/closed/wall,
+/turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
 "sZm" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
@@ -125851,7 +125851,7 @@ iLD
 xXA
 kXx
 vhU
-iyB
+gwS
 vbH
 maD
 vhU
