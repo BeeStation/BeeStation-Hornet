@@ -173,8 +173,26 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Used for limbs.
 #define TRAIT_DISABLED_BY_WOUND "disabled-by-wound"
 
+/// Can use the nuclear device's UI, regardless of a lack of hands
+#define TRAIT_CAN_USE_NUKE "can_use_nuke"
+
+///Mob is being tracked on glob suit sensors list
+#define TRACKED_SENSORS_TRAIT "tracked_sensors"
+///Mob is tracked by suit sensors, and on glob suit sensors list
+#define TRAIT_SUIT_SENSORS "suit_sensors"
+///Mob is tracked by nanites, and on glob suit sensors list
+#define TRAIT_NANITE_SENSORS "nanite_sensors"
+
+/// Trait for psyphoza, flag for examine logic
+#define TRAIT_PSYCHIC_SENSE "psychic_sense"
+
+/**
+ * Atom Traits
+ */
 ///Used for managing KEEP_TOGETHER in [appearance_flags]
 #define TRAIT_KEEP_TOGETHER "keep-together"
+/// Buckling yourself to objects with this trait won't immobilize you
+#define TRAIT_NO_IMMOBILIZE "no_immobilize"
 
 //important_recursive_contents traits
 /*
@@ -185,7 +203,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///every hearing sensitive atom has this trait
 #define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
 
-// item traits
+/**
+ * Item Traits
+ */
 #define TRAIT_NODROP            "nodrop"
 #define TRAIT_NO_STORAGE_INSERT	"no_storage_insert" //cannot be inserted in a storage.
 #define TRAIT_SPRAYPAINTED		"spraypainted"
@@ -207,8 +227,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_LIVING_HEART "living_heart"
 /// Prevents stripping this equipment
 #define TRAIT_NO_STRIP "no_strip"
-/// Buckling yourself to objects with this trait won't immobilize you
-#define TRAIT_NO_IMMOBILIZE "no_immobilize"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
@@ -269,19 +287,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Trait applied when the MMI component is added to an [/obj/item/integrated_circuit]
 #define TRAIT_COMPONENT_MMI "component_mmi"
-
-/// Can use the nuclear device's UI, regardless of a lack of hands
-#define TRAIT_CAN_USE_NUKE "can_use_nuke"
-
-///Mob is being tracked on glob suit sensors list
-#define TRACKED_SENSORS_TRAIT "tracked_sensors"
-///Mob is tracked by suit sensors, and on glob suit sensors list
-#define TRAIT_SUIT_SENSORS "suit_sensors"
-///Mob is tracked by nanites, and on glob suit sensors list
-#define TRAIT_NANITE_SENSORS "nanite_sensors"
-
-/// Trait for psyphoza, flag for examine logic
-#define TRAIT_PSYCHIC_SENSE "psychic_sense"
 
 ///Movement type traits for movables. See elements/movetype_handler.dm
 #define TRAIT_MOVE_GROUND		"move_ground"
