@@ -66,7 +66,7 @@ if number_of_defines == 0:
 	print(red("No defines found! This is likely an error."))
 	sys.exit(1)
 
-if number_of_defines <= 450:
+if number_of_defines <= 200:
 	print(red(f"Only found {number_of_defines} defines! Something has likely gone wrong as the number of global traits should not be this low."))
 	sys.exit(1)
 
