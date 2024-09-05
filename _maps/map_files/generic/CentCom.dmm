@@ -8832,7 +8832,7 @@
 "HN" = (
 /obj/machinery/smartfridge,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/closed/indestructible/hotelwall,
+/turf/open/floor/iron/white,
 /area/centcom/holding)
 "HO" = (
 /obj/structure/table/reinforced,
