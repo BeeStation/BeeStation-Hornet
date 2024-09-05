@@ -1,0 +1,10 @@
+author: Varo, Bombyy, PigeonVerde
+delete-after: true
+changes:
+  - tweak: 'BoxStation: Reworked the service area and maintenance'
+  - tweak: 'BoxStation: Reworked the medbay area and maintenance'
+  - rscadd: 'BoxStation: a room for the psychiatrist in medbay'
+  - tweak: 'BoxStation: fixed chaplain backroom having a weird shape'
+  - rscadd: 'BoxStation: Added a new area, apc and air alarm for the captain room'
+  - bugfix: 'BoxStation: Fixes floating cameras and doble pipes and cables errors'
+  - bugfix: 'BoxStation: Fixes stools directions and types'
