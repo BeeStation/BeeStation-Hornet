@@ -123,9 +123,6 @@ jobs:
       - name: Check File Directories
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: bash tools/ci/check_filedirs.sh beestation.dme
-      - name: Check Changelogs
-        if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: bash tools/ci/check_changelogs.sh
       - name: Check Miscellaneous Files
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: bash tools/ci/check_misc.sh
