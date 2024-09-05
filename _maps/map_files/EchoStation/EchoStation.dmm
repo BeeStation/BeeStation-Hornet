@@ -5863,33 +5863,6 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/service)
 "cBo" = (
-/obj/machinery/power/apc/auto_name/directional/south{
-	pixel_y = -24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/light,
-/obj/machinery/camera/autoname{
-	dir = 5
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -5972,33 +5945,6 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "cCH" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
-	piping_layer = 4
-	},
-/obj/machinery/camera/autoname{
-	dir = 9;
-	network = list("ss13","medbay")
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/vending/wallmed{
-	pixel_x = -32
-	},
-/obj/machinery/power/apc/auto_name/directional/north{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/railing/corner{
 	dir = 8
 	},
@@ -6577,39 +6523,6 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "cRT" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
-	dir = 4
-	},
-/obj/machinery/power/apc/auto_name/directional/north{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/item/paper/pamphlet/centcom/visitor_info{
-	default_raw_text = "<b> XCC-P5831 Visitor Information </b><br>\ntGreetings, visitor, to  XCC-P5831! As you may know, this outpost was once \ntused as Nanotrasen's CENTRAL COMMAND STATION, organizing and coordinating company \ntprojects across the vastness of space. <br>\ntSince the completion of the much more efficient CC-A5831 on March 8, 2553, XCC-P5831 no longer \ntacts as NT's base of operations but still plays a very important role its corporate affairs; \ntserving as a supply and repair depot, as well as being host to its most important legal proceedings\nt and the thrilling pay-per-view broadcasts of <i>PLASTEEL CHEF</i> and <i>THUNDERDOME LIVE</i>.<br> \ntWe hope you enjoy your stay!";
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/obj/item/paper/pamphlet/centcom/visitor_info{
-	default_raw_text = "<b> XCC-P5831 Visitor Information </b><br>\ntGreetings, visitor, to  XCC-P5831! As you may know, this outpost was once \ntused as Nanotrasen's CENTRAL COMMAND STATION, organizing and coordinating company \ntprojects across the vastness of space. <br>\ntSince the completion of the much more efficient CC-A5831 on March 8, 2553, XCC-P5831 no longer \ntacts as NT's base of operations but still plays a very important role its corporate affairs; \ntserving as a supply and repair depot, as well as being host to its most important legal proceedings\nt and the thrilling pay-per-view broadcasts of <i>PLASTEEL CHEF</i> and <i>THUNDERDOME LIVE</i>.<br> \ntWe hope you enjoy your stay!";
-	pixel_x = 1;
-	pixel_y = 4
-	},
-/obj/item/paper/pamphlet/centcom/visitor_info{
-	default_raw_text = "<b> XCC-P5831 Visitor Information </b><br>\ntGreetings, visitor, to  XCC-P5831! As you may know, this outpost was once \ntused as Nanotrasen's CENTRAL COMMAND STATION, organizing and coordinating company \ntprojects across the vastness of space. <br>\ntSince the completion of the much more efficient CC-A5831 on March 8, 2553, XCC-P5831 no longer \ntacts as NT's base of operations but still plays a very important role its corporate affairs; \ntserving as a supply and repair depot, as well as being host to its most important legal proceedings\nt and the thrilling pay-per-view broadcasts of <i>PLASTEEL CHEF</i> and <i>THUNDERDOME LIVE</i>.<br> \ntWe hope you enjoy your stay!";
-	pixel_x = 7;
-	pixel_y = 2
-	},
-/obj/machinery/camera/autoname{
-	dir = 6
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
@@ -9913,26 +9826,6 @@
 	},
 /area/science/research)
 "eDU" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/railing/corner,
 /obj/effect/turf_decal/siding/white{
 	dir = 4
@@ -14379,8 +14272,7 @@
 /obj/effect/decal/cleanable/oil,
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/siding/wood{
-	dir = 6;
-	
+	dir = 6
 	},
 /turf/open/floor/carpet/green,
 /area/vacant_room/office)
@@ -15435,8 +15327,7 @@
 	},
 /obj/structure/closet/firecloset/full,
 /obj/structure/railing{
-	dir = 10;
-	
+	dir = 10
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central{
@@ -16665,20 +16556,11 @@
 	name = "-2 Primary Hallway"
 	})
 "hMW" = (
-/obj/machinery/firealarm/directional/north,
-/obj/machinery/camera/directional/north{
-	network = list("ss13","medbay")
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/camera/autoname/directional/north{
@@ -18869,26 +18751,6 @@
 /turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
 "jcn" = (
-/obj/machinery/camera/autoname{
-	c_tag = "Corporate Meeting Room";
-	dir = 5
-	},
-/obj/machinery/power/apc/auto_name/directional/south{
-	pixel_y = -24
-	},
-/obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
@@ -24672,8 +24534,7 @@
 /area/crew_quarters/fitness/recreation)
 "lZb" = (
 /obj/structure/railing{
-	dir = 6;
-	
+	dir = 6
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 6
@@ -28744,7 +28605,6 @@
 /area/science/lab)
 "oiK" = (
 /obj/machinery/airalarm/directional/north{
-	dir = 1;
 	pixel_y = -23
 	},
 /mob/living/simple_animal/bot/mulebot{
@@ -31258,9 +31118,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_x = 5;
@@ -31305,8 +31163,7 @@
 "ptZ" = (
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/mineral/ore_redemption{
-	input_dir = 2;
-	
+	input_dir = 2
 	},
 /obj/item/food/donkpocket/pizza{
 	pixel_x = 10;
@@ -36278,8 +36135,7 @@
 /area/quartermaster/storage)
 "rNY" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/machinery/door/window/northleft{
 	dir = 8;
@@ -40452,8 +40308,7 @@
 	dir = 4
 	},
 /obj/structure/holohoop{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
@@ -40567,8 +40422,7 @@
 /area/security/brig)
 "tOI" = (
 /obj/structure/railing{
-	dir = 10;
-	
+	dir = 10
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
@@ -40957,8 +40811,7 @@
 	dir = 6
 	},
 /obj/structure/railing{
-	dir = 6;
-	
+	dir = 6
 	},
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron/dark,
@@ -45644,7 +45497,6 @@
 /area/science/explab)
 "wki" = (
 /obj/machinery/firealarm/directional/west{
-	dir = 8;
 	pixel_x = 27
 	},
 /obj/machinery/bookbinder,
@@ -47016,43 +46868,6 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/obj/machinery/power/apc/auto_name/directional/north{
-	pixel_y = 24
-	},
-/obj/machinery/camera/directional/north{
-	network = list("ss13","security")
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "garbage"
-	},
-/obj/item/trash/tray{
-	pixel_x = 11
-	},
-/obj/item/trash/semki{
-	pixel_x = 12;
-	pixel_y = 4
-	},
-/obj/item/trash/can/food/peaches/maint{
-	pixel_x = -7;
-	pixel_y = 7
-	},
-/obj/item/trash/candle{
-	pixel_x = -4;
-	pixel_y = -3
-	},
-/obj/item/trash/can{
-	pixel_x = 1;
-	pixel_y = 5
-	},
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/machinery/camera/autoname/directional/north{
 	network = list("ss13","security")
@@ -47227,8 +47042,7 @@
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 10;
-	
+	dir = 10
 	},
 /turf/open/floor/carpet/green,
 /area/vacant_room/office)
@@ -47602,8 +47416,7 @@
 /area/asteroid/paradise)
 "xhS" = (
 /obj/structure/railing{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
@@ -48096,9 +47909,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "xtQ" = (
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 4
 	},
@@ -48351,8 +48162,7 @@
 	dir = 8
 	},
 /obj/structure/holohoop{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
