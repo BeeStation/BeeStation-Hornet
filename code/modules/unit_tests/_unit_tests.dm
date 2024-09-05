@@ -3,9 +3,10 @@
 
 #if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
 
-// BEGIN_INCLUDE
-
+// Outside here to satisfy ticked file enforcement while still providing defines
 #include "__DEFINES\test_defines.dm"
+
+// BEGIN_INCLUDE
 
 #include "achievement_validation.dm"
 #include "anchored_mobs.dm"
@@ -65,6 +66,10 @@
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
 #include "find_reference_sanity.dm"
 #endif
+
+/*
+#include "__DEFINES\test_defines.dm"
+*/
 
 #include "mapping\check_active_turfs.dm"
 #include "mapping\check_area_apc.dm"
