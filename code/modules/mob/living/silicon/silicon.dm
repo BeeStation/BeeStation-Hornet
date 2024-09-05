@@ -302,11 +302,14 @@
 	say("[radiomod] Current Active Laws:", ignore_spam = TRUE, forced = "state laws")
 	S.client?.silicon_spam_grace()
 
+	var/total_time = 0
+
 	for(var/law_index = 1 to length(laws_to_state))
 		var/law = laws_to_state[law_index]
-		addtimer(CALLBACK(src, PROC_REF(state_singular_law), S, law), 1 SECONDS * law_index)
+		total_time += rand(10,30)
+		addtimer(CALLBACK(src, PROC_REF(state_singular_law), S, law), total_time)
 
-	addtimer(CALLBACK(src, PROC_REF(finished_stating_laws), S, total_laws_count), 1 SECONDS * (length(laws_to_state) + 1))
+	addtimer(CALLBACK(src, PROC_REF(finished_stating_laws), S, total_laws_count), total_time)
 
 
 /mob/living/silicon/proc/finished_stating_laws(mob/living/silicon/silicon, total_laws_count)
