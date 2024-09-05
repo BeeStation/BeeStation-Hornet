@@ -158,12 +158,19 @@ export const DreamMaker = async (dmeFile, options = {}) => {
     const major = Number(version[1]);
     const minor = Number(version[2]);
     if(major < requiredMajorVersion || major == requiredMajorVersion && minor < requiredMinorVersion){
-      Juke.logger.error(`${requiredMajorVersion}.${requiredMinorVersion} or later DM version required. Version ${major}.${minor} found at: ${dmPath}`)
-      throw new Juke.ExitCode(1);
+      // Beestation Edit: Support 514 compilation
+      if (major === 515)
+      {
+        Juke.logger.error(`${requiredMajorVersion}.${requiredMinorVersion} or later DM version required. Version ${major}.${minor} found at: ${dmPath}`)
+        throw new Juke.ExitCode(1);
+      }
+      Juke.logger.log(`Version ${major}.${minor} found at: ${dmPath}, switching to legacy compilation mode.`);
+      return false;
     }
+    return true;
   }
 
-  await testDmVersion(dmPath);
+  const safeCompilation = await testDmVersion(dmPath);
   testOutputFile(`${dmeBaseName}.dmb`);
   testOutputFile(`${dmeBaseName}.rsc`);
 
@@ -186,11 +193,35 @@ export const DreamMaker = async (dmeFile, options = {}) => {
   }
   // Compile
   const { defines } = options;
-  if (defines && defines.length > 0) {
-    Juke.logger.info('Using defines:', defines.join(', '));
+  if (!safeCompilation) {
+    if (defines && defines.length > 0) {
+      Juke.logger.info('Using defines:', defines.join(', '));
+      try {
+        const injectedContent = defines
+          .map(x => `#define ${x}\n`)
+          .join('');
+        fs.writeFileSync(`${dmeBaseName}.m.dme`, injectedContent);
+        const dmeContent = fs.readFileSync(`${dmeBaseName}.dme`);
+        fs.appendFileSync(`${dmeBaseName}.m.dme`, dmeContent);
+        await Juke.exec(dmPath, [`${dmeBaseName}.m.dme`]);
+        fs.writeFileSync(`${dmeBaseName}.dmb`, fs.readFileSync(`${dmeBaseName}.m.dmb`));
+        fs.writeFileSync(`${dmeBaseName}.rsc`, fs.readFileSync(`${dmeBaseName}.m.rsc`));
+      }
+      finally {
+        Juke.rm(`${dmeBaseName}.m.*`);
+      }
+    }
+    else {
+      await runWithWarningChecks(dmPath, [dmeFile]);
+    }
   }
-
-  await runWithWarningChecks(dmPath, [...defines.map(def => `-D${def}`), dmeFile]);
+  else
+  {
+    if (defines && defines.length > 0) {
+      Juke.logger.info('Using defines:', defines.join(', '));
+    }
+    await runWithWarningChecks(dmPath, [...defines.map(def => `-D${def}`), dmeFile]);
+  }
 };
 
 
