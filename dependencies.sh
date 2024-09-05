@@ -27,7 +27,7 @@ export AUXMOS_VERSION=2.2.2
 export PYTHON_VERSION=3.11.2
 
 #hypnagogic repo
-export CUTTER_REPO=BeeStation/hypnagogic
+export CUTTER_REPO=spacestation13/hypnagogic
 
 #hypnagogic git tag
 export CUTTER_VERSION=v4.0.0
