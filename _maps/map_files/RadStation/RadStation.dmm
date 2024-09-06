@@ -730,9 +730,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/security/main{
-	name = "Security Viewing Hall"
-	})
+/area/security/main)
 "alT" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/effect/spawner/lootdrop/ruinloot/medical,

@@ -2105,9 +2105,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/security/prison{
-	name = "Prison Showers"
-	})
+/area/security/prison)
 "ajT" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/closed/wall,
