@@ -500,9 +500,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		power = clamp((removed.return_temperature() * temp_factor / T0C) * gasmix_power_ratio + power, 0, SUPERMATTER_MAXIMUM_ENERGY) //Total laser power plus an overload
 
-		if(prob(50))
-			last_rads = power * max(0, power_transmission_bonus * (1 + (tritiumcomp * TRITIUM_RADIOACTIVITY_MODIFIER) + (pluoxiumcomp * PLUOXIUM_RADIOACTIVITY_MODIFIER) + (bzcomp * BZ_RADIOACTIVITY_MODIFIER))) // Rad Modifiers BZ(500%), Tritium(300%), and Pluoxium(-200%)
-			radiation_pulse(src, last_rads)
+		emit_radiation()
 		if(bzcomp >= 0.4 && prob(30 * bzcomp))
 			src.fire_nuclear_particle()		// Start to emit radballs at a maximum of 30% chance per tick
 
@@ -734,14 +732,14 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			user.visible_message("<span class='danger'>A hideous sound echoes as [W] is ashed out on contact with \the [src]. That didn't seem like a good idea...</span>")
 			playsound(src, 'sound/effects/supermatter.ogg', 150, 1)
 			Consume(W)
-			radiation_pulse(src, 150, 4)
+			radiation_pulse(src, max_range = 3, threshold = 0.1, chance = 50)
 			return ..()
 		else
 			cig.light()
 			user.visible_message("<span class='danger'>As [user] lights \their [W] on \the [src], silence fills the room...</span>",\
 				"<span class='danger'>Time seems to slow to a crawl as you touch \the [src] with \the [W].</span>\n<span class='notice'>\The [W] flashes alight with an eerie energy as you nonchalantly lift your hand away from \the [src]. Damn.</span>")
 			playsound(src, 'sound/effects/supermatter.ogg', 50, 1)
-			radiation_pulse(src, 50, 3)
+			radiation_pulse(src, max_range = 1, threshold = 0, chance = 100)
 			return
 	if(istype(W, /obj/item/scalpel/supermatter))
 		var/obj/item/scalpel/supermatter/scalpel = W
@@ -764,7 +762,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		Consume(W)
 		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
 
-		radiation_pulse(src, 150, 4)
+		radiation_pulse(src, max_range = 3, threshold = 0.1, chance = 50)
 
 /obj/machinery/power/supermatter_crystal/wrench_act(mob/user, obj/item/tool)
 	if (moveable)
@@ -825,14 +823,18 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		matter_power += 200
 
 	//Some poor sod got eaten, go ahead and irradiate people nearby.
-	radiation_pulse(src, 3000, 2, TRUE)
+	radiation_pulse(src, max_range = 6, threshold = 0.3, chance = 30)
 	for(var/mob/living/L in range(10))
 		investigate_log("has irradiated [key_name(L)] after consuming [AM].", INVESTIGATE_ENGINES)
+		if (HAS_TRAIT(near_mob, TRAIT_RADIMMUNE) || issilicon(near_mob))
+			continue
+		if(ishuman(near_mob) && SSradiation.wearing_rad_protected_clothing(near_mob))
+			continue
 		if(L in viewers(get_turf(src)))
 			L.show_message("<span class='danger'>As \the [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,\
-				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", MSG_AUDIBLE)
+				"<span class='danger'>The unearthly ringing subsides and you find your skin covered in new radiation burns.</span>", MSG_AUDIBLE)
 		else
-			L.show_message("<span class='italics'>You hear an unearthly ringing and notice your skin is covered in fresh radiation burns.</span>", MSG_AUDIBLE)
+			L.show_message("<span class='italics'>An unearthly ringing and fills your ears, and you find your skin covered in new radiation burns.</span>", MSG_AUDIBLE)
 
 /obj/machinery/power/supermatter_crystal/proc/disengage_field()
 	if(QDELETED(src))

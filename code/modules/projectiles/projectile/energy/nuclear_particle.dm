@@ -5,7 +5,6 @@
 	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE
 	damage = 10
 	damage_type = TOX
-	irradiate = 2500 //enough to knockdown and induce vomiting
 	speed = 0.4
 	hitsound = 'sound/weapons/emitter2.ogg'
 	impact_type = /obj/effect/projectile/impact/xray
@@ -51,6 +50,12 @@
 		if(30000 to INFINITY)
 			name = "impossibly strong nuclear particle"
 			damage = 30
+
+/obj/projectile/energy/nuclear_particle/on_hit(atom/target, blocked, pierce_hit)
+	if (ishuman(target))
+		radiation_pulse(target, max_range = 0, threshold = RAD_FULL_INSULATION)
+
+	..()
 
 /atom/proc/fire_nuclear_particle(angle = rand(0,360), customize = FALSE, custompower = 1e12) //used by fusion to fire random nuclear particles. Fires one particle in a random direction.
 	var/obj/projectile/energy/nuclear_particle/P = new /obj/projectile/energy/nuclear_particle(src)

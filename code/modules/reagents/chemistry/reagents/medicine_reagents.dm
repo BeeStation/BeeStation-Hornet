@@ -565,27 +565,43 @@
 
 /datum/reagent/medicine/potass_iodide
 	name = "Potassium Iodide"
-	description = "Efficiently restores low radiation damage."
+	description = "Heals low toxin damage while the patient is irradiated, and will halt the damaging effects of radiation."
 	reagent_state = LIQUID
 	color = "#BAA15D"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 
+/datum/reagent/medicine/potass_iodide/on_mob_metabolize(mob/living/L)
+	. = ..()
+	ADD_TRAIT(L, TRAIT_HALT_RADIATION_EFFECTS, "[type]")
+
+/datum/reagent/medicine/potass_iodide/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_HALT_RADIATION_EFFECTS, "[type]")
+	return ..()
+
 /datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/carbon/M)
-	if(M.radiation > 0)
-		M.radiation -= min(M.radiation, 8)
+	if (HAS_TRAIT(M, TRAIT_IRRADIATED))
+		M.adjustToxLoss(-1 * REM * delta_time)
+
 	..()
 
 /datum/reagent/medicine/pen_acid
 	name = "Pentetic Acid"
-	description = "Reduces massive amounts of radiation and toxin damage while purging other chemicals from the body."
+	description = "Reduces massive amounts of toxin damage while purging other chemicals from the body."
 	reagent_state = LIQUID
 	color = "#E6FFF0"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 
+/datum/reagent/medicine/pen_acid/on_mob_metabolize(mob/living/L)
+	. = ..()
+	ADD_TRAIT(L, TRAIT_HALT_RADIATION_EFFECTS, "[type]")
+
+/datum/reagent/medicine/pen_acid/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_HALT_RADIATION_EFFECTS, "[type]")
+	return ..()
+
 /datum/reagent/medicine/pen_acid/on_mob_life(mob/living/carbon/M)
-	M.radiation -= max(M.radiation-RAD_MOB_SAFE, 0)/50
 	M.adjustToxLoss(-2*REM, 0)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)

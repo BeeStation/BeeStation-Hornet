@@ -47,8 +47,8 @@
 				//Hilariously enough, running into a closet should make you get hit the hardest.
 				var/mob/living/carbon/human/H = mob
 				H.hallucination += max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)) ) )
-			var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(L, src) + 1) )
-			L.rad_act(rads)
+			if (get_dist(victim, src) <= DETONATION_RADIATION_RANGE)
+				SSradiation.irradiate(victim)
 
 	for(var/mob/M in GLOB.player_list)
 		if(M.get_virtual_z_level() == supermatter_z)
