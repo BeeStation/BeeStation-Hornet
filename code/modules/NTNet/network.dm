@@ -113,7 +113,7 @@
 		var/list/queue = list(src) // add ourselves
 		while(queue.len)
 			var/datum/ntnet/net = queue[queue.len]
-			queue.Remove(net)
+			queue.len--
 			if(net.children.len > 0)
 				for(var/net_id in net.children)
 					queue += net.children[net_id]
