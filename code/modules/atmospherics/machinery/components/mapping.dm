@@ -76,6 +76,7 @@
 
 HELPER_TRINARY_INVERTABLE(/obj/machinery/atmospherics/components/trinary/mixer/airmix, "mixer_on", N2STANDARD, O2STANDARD)
 
+HELPER_TRINARY(/obj/machinery/atmospherics/components/trinary/filter/atmos, "filter_on")
 HELPER_TRINARY(/obj/machinery/atmospherics/components/trinary/filter/atmos/n2, "filter_on")
 HELPER_TRINARY(/obj/machinery/atmospherics/components/trinary/filter/atmos/o2, "filter_on")
 HELPER_TRINARY(/obj/machinery/atmospherics/components/trinary/filter/atmos/co2, "filter_on")
