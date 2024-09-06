@@ -65357,7 +65357,7 @@
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /obj/effect/turf_decal/stripes/corner,
-/obj/structure/disposalpipe/sorting/mail/destination/xenobiology/flip{
+/obj/structure/disposalpipe/sorting/mail/destination/virology/flip{
 	dir = 1
 	},
 /turf/open/floor/iron/showroomfloor,
@@ -90973,8 +90973,8 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/structure/disposalpipe/sorting/mail/destination/testing_range{
-	dir = 1
+/obj/structure/disposalpipe/sorting/mail/destination/testing_range/flip{
+	dir = 2
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/research)
