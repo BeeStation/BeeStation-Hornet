@@ -50,6 +50,11 @@
 	var/BZ_brain_damage_min = 1
 	var/gas_stimulation_min = 0.002 //Nitryl and Stimulum
 
+	var/tritium_irradiation_moles_min = 1
+	var/tritium_irradiation_moles_max = 15
+	var/tritium_irradiation_probability_min = 10
+	var/tritium_irradiation_probability_max = 60
+
 	var/cold_message = "your face freezing and an icicle forming"
 	var/cold_level_1_threshold = 260
 	var/cold_level_2_threshold = 200
@@ -277,6 +282,27 @@
 		else if(bz_pp > BZ_trip_balls_min)
 			H.hallucination += 5
 			H.reagents.add_reagent(/datum/reagent/metabolite/bz,1)
+
+	// Tritium
+		var/trit_pp = PP(breath,GAS_TRITIUM)
+		if (trit_pp > 50)
+			breather.radiation += trit_pp/2 //If you're breathing in half an atmosphere of radioactive gas, you fucked up.
+		else
+			breather.radiation += trit_pp/10
+		// If you're breathing in half an atmosphere of radioactive gas, you fucked up.
+		if (trit_pp > tritium_irradiation_moles_min && SSradiation.can_irradiate_basic(breather))
+			var/lerp_scale = min(tritium_irradiation_moles_max, trit_pp - tritium_irradiation_moles_min) / (tritium_irradiation_moles_max - tritium_irradiation_moles_min)
+			var/chance = LERP(tritium_irradiation_probability_min, tritium_irradiation_probability_max, lerp_scale)
+			if (prob(chance))
+				breather.AddComponent(/datum/component/irradiated)
+
+		gas_breathed = PP(breath,GAS_TRITIUM)
+
+		if (trit_pp > 0)
+			var/ratio = gas_breathed * 15
+			breather.adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
+
+		breath.adjust_moles(GAS_TRITIUM, -gas_breathed)
 
 	// Nitryl
 		var/nitryl_pp = PP(breath,GAS_NITRYL)

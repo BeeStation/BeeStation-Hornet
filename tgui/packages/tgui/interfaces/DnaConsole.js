@@ -55,8 +55,8 @@ const MUT_COLORS = {
   4: 'average',
 };
 
-const RADIATION_STRENGTH_MAX = 15;
-const RADIATION_DURATION_MAX = 30;
+const PULSE_STRENGTH_MAX = 15;
+const PULSE_DURATION_MAX = 30;
 
 /**
  * The following predicate tests if two mutations are functionally
@@ -69,16 +69,16 @@ const isSameMutation = (a, b) => {
 
 export const DnaConsole = (props, context) => {
   const { data, act } = useBackend(context);
-  const { isPulsingRads, radPulseSeconds } = data;
+  const { isPulsing, timeToPulse } = data;
   const { consoleMode } = data.view;
   return (
     <Window title="DNA Console" width={539} height={710} resizable>
-      {!!isPulsingRads && (
+      {!!isPulsing && (
         <Dimmer fontSize="14px" textAlign="center">
           <Icon mr={1} name="spinner" spin />
-          Radiation pulse in progress...
+          Pulse in progress...
           <Box mt={1} />
-          {radPulseSeconds}s
+          {timeToPulse}s
         </Dimmer>
       )}
       <Window.Content scrollable>
@@ -104,7 +104,7 @@ const DnaScannerButtons = (props, context) => {
   const { data, act } = useBackend(context);
   const {
     hasDelayedAction,
-    isPulsingRads,
+    isPulsing,
     isScannerConnected,
     isScrambleReady,
     isViableSubject,
@@ -120,7 +120,7 @@ const DnaScannerButtons = (props, context) => {
     <Fragment>
       {!!hasDelayedAction && <Button content="Cancel Delayed Action" onClick={() => act('cancel_delay')} />}
       {!!isViableSubject && (
-        <Button disabled={!isScrambleReady || isPulsingRads} onClick={() => act('scramble_dna')}>
+        <Button disabled={!isScrambleReady || isPulsing} onClick={() => act('scramble_dna')}>
           Scramble DNA
           {!isScrambleReady && ` (${scrambleSeconds}s)`}
         </Button>
@@ -183,7 +183,7 @@ const SubjectStatus = (props, context) => {
 
 const DnaScannerContent = (props, context) => {
   const { data, act } = useBackend(context);
-  const { subjectName, isScannerConnected, isViableSubject, subjectHealth, subjectRads, subjectStatus } = data;
+  const { subjectName, isScannerConnected, isViableSubject, subjectHealth, subjectDamage, subjectStatus } = data;
   if (!isScannerConnected) {
     return <Box color="bad">DNA Scanner is not connected.</Box>;
   }
@@ -211,9 +211,9 @@ const DnaScannerContent = (props, context) => {
           {subjectHealth}%
         </ProgressBar>
       </LabeledList.Item>
-      <LabeledList.Item label="Radiation">
+      <LabeledList.Item label="Genetic Damage">
         <ProgressBar
-          value={subjectRads}
+          value={subjectDamage}
           minValue={0}
           maxValue={100}
           ranges={{
@@ -222,7 +222,7 @@ const DnaScannerContent = (props, context) => {
             good: [0, 30],
             olive: [-Infinity, 0],
           }}>
-          {subjectRads}%
+          {subjectDamage}%
         </ProgressBar>
       </LabeledList.Item>
     </LabeledList>
@@ -974,13 +974,13 @@ const DnaConsoleEnzymes = (props, context) => {
     <Fragment>
       <Flex spacing={1} mb={1}>
         <Flex.Item width="155px">
-          <RadiationEmitterSettings />
+          <PulseSettings />
         </Flex.Item>
         <Flex.Item width="140px">
-          <RadiationEmitterProbs />
+          <PulseEmitterProbs />
         </Flex.Item>
         <Flex.Item grow={1} basis={0}>
-          <RadiationEmitterPulseBoard />
+          <PulseBoard />
         </Flex.Item>
       </Flex>
       <GeneticMakeupBuffers />
@@ -988,20 +988,20 @@ const DnaConsoleEnzymes = (props, context) => {
   );
 };
 
-const RadiationEmitterSettings = (props, context) => {
+const PulseSettings = (props, context) => {
   const { data, act } = useBackend(context);
-  const { radStrength, radDuration } = data;
+  const { pulseStrength, pulseDuration } = data;
   return (
-    <Section title="Radiation Emitter" minHeight="100%">
+    <Section title="Emitter Configuration" minHeight="100%">
       <LabeledList>
         <LabeledList.Item label="Output level">
           <NumberInput
             animated
             width="32px"
             stepPixelSize={10}
-            value={radStrength}
+            value={pulseStrength}
             minValue={1}
-            maxValue={RADIATION_STRENGTH_MAX}
+            maxValue={PULSE_STRENGTH_MAX}
             onDrag={(e, value) =>
               act('set_pulse_strength', {
                 val: value,
@@ -1014,9 +1014,9 @@ const RadiationEmitterSettings = (props, context) => {
             animated
             width="32px"
             stepPixelSize={10}
-            value={radDuration}
+            value={pulseDuration}
             minValue={1}
-            maxValue={RADIATION_DURATION_MAX}
+            maxValue={PULSE_DURATION_MAX}
             onDrag={(e, value) =>
               act('set_pulse_duration', {
                 val: value,
@@ -1029,7 +1029,7 @@ const RadiationEmitterSettings = (props, context) => {
   );
 };
 
-const RadiationEmitterProbs = (props, context) => {
+const PulseEmitterProbs = (props, context) => {
   const { data } = useBackend(context);
   const { stdDevAcc, stdDevStr } = data;
   return (
@@ -1049,7 +1049,7 @@ const RadiationEmitterProbs = (props, context) => {
   );
 };
 
-const RadiationEmitterPulseBoard = (props, context) => {
+const PulseBoard = (props, context) => {
   const { data, act } = useBackend(context);
   const { subjectUNI = [] } = data;
   // Build blocks of buttons of unique enzymes

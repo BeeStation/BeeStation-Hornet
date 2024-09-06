@@ -1010,11 +1010,12 @@
 	color = "#B8B8C0" // rgb: 184, 184, 192
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "the inside of a reactor"
-	var/irradiation_level = 1
 	process_flags = ORGANIC | SYNTHETIC
+	/// How much tox damage to deal per tick
+	var/tox_damage = 0.5
 
 /datum/reagent/uranium/on_mob_life(mob/living/carbon/M)
-	M.apply_effect(irradiation_level/M.metabolism_efficiency,EFFECT_IRRADIATE,0)
+	M.adjustToxLoss(tox_damage * delta_time * REM)
 	..()
 
 /datum/reagent/uranium/reaction_turf(turf/T, reac_volume)
@@ -1033,7 +1034,7 @@
 	color = "#C7C7C7" // rgb: 199,199,199
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "the colour blue and regret"
-	irradiation_level = 2*REM
+	tox_damage = 1*REM
 	process_flags = ORGANIC | SYNTHETIC
 
 
