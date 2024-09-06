@@ -15,17 +15,17 @@
 			// unless they are crossing
 			hash = "/obj/machinery/atmospherics/[atmosmachine.piping_layer]/[atmosmachine.dir]"
 			if (atmosmachine.dir & 1)
-				violated = types["atmosmachine_1"]
-				types["atmosmachine_1"] = 1
+				violated = types["atmosmachine_1_[atmosmachine.piping_layer]"]
+				types["atmosmachine_1_[atmosmachine.piping_layer]"] = 1
 			if (atmosmachine.dir & 2)
-				violated = types["atmosmachine_2"]
-				types["atmosmachine_2"] = 1
+				violated = types["atmosmachine_2_[atmosmachine.piping_layer]"]
+				types["atmosmachine_2_[atmosmachine.piping_layer]"] = 1
 			if (atmosmachine.dir & 4)
-				violated = types["atmosmachine_4"]
-				types["atmosmachine_4"] = 1
+				violated = types["atmosmachine_4_[atmosmachine.piping_layer]"]
+				types["atmosmachine_4_[atmosmachine.piping_layer]"] = 1
 			if (atmosmachine.dir & 8)
-				violated = types["atmosmachine_8"]
-				types["atmosmachine_8"] = 1
+				violated = types["atmosmachine_8_[atmosmachine.piping_layer]"]
+				types["atmosmachine_8_[atmosmachine.piping_layer]"] = 1
 		violated = violated || types[hash]
 		if (violated)
 			result += "Multiple objects of type [object.type] detected on the same tile, with the same direction."
