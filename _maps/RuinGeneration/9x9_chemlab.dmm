@@ -119,7 +119,7 @@
 /area/ruin)
 "aT" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
-/turf/closed/wall,
+/turf/open/floor/iron/white,
 /area/ruin)
 "aV" = (
 /obj/effect/abstract/doorway_marker{
