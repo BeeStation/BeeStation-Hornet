@@ -16075,9 +16075,6 @@
 "bPT" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/flora/grass/jungle,
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
@@ -16445,9 +16442,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/caution/stand_clear,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/machinery/advanced_airlock_controller{
 	pixel_y = -24
 	},
@@ -16457,6 +16451,7 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
 	dir = 4
 	},
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "bRU" = (
@@ -16993,7 +16988,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/caution/stand_clear,
-/obj/machinery/light/small,
 /obj/machinery/advanced_airlock_controller{
 	pixel_y = 24
 	},
@@ -17003,6 +16997,7 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
 	dir = 4
 	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "bUI" = (
@@ -17570,7 +17565,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/caution/stand_clear,
-/obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/advanced_airlock_controller{
 	pixel_y = 24
@@ -17581,6 +17575,7 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
 	dir = 4
 	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "bYD" = (
@@ -35862,10 +35857,8 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/landmark/xeno_spawn,
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -40485,16 +40478,17 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "hvl" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/turf_decal/caution,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/power/apc/auto_name/directional/north{
+	areastring = "/area/engine/supermatter"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/showroomfloor,
-/area/science/explab)
+/area/science/shuttledock)
 "hwo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -43435,9 +43429,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
@@ -45290,9 +45281,6 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/ore_box,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/machinery/advanced_airlock_controller{
 	dir = 8;
 	pixel_x = -24
@@ -45300,6 +45288,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/dark,
 /area/quartermaster/miningoffice)
 "jaO" = (
@@ -50496,7 +50485,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/light/small,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -50509,6 +50497,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -53317,7 +53306,6 @@
 "lAr" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small,
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/item/wrench,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -53997,9 +53985,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/corner,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
 /turf/open/floor/iron,
 /area/security/main)
 "lLA" = (
@@ -54461,18 +54446,6 @@
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall/rust,
 /area/maintenance/solars/starboard/fore)
-"lTB" = (
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
-	},
-/obj/machinery/power/apc/auto_name/directional/north{
-	areastring = "/area/engine/supermatter"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/science/shuttledock)
 "lTR" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
@@ -55596,7 +55569,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
@@ -62483,9 +62455,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
@@ -68871,7 +68840,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/checkpoint/medical)
 "qKk" = (
@@ -89114,7 +89082,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/checkpoint/medical)
 "xsl" = (
@@ -90309,7 +90276,6 @@
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer2{
 	name = "Atmospherics Cutoff Valve"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -132900,7 +132866,7 @@ aaa
 aaa
 acm
 gCl
-hvl
+swn
 wRZ
 lmA
 whj
@@ -140381,7 +140347,7 @@ aaa
 cmU
 aeU
 ktS
-lTB
+hvl
 viB
 ktS
 ktS
