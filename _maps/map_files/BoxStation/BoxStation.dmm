@@ -7263,7 +7263,6 @@
 /turf/open/floor/iron,
 /area/quartermaster/qm)
 "bFu" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
@@ -13054,8 +13053,6 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "csm" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 10
 	},
@@ -17651,6 +17648,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/camera/autoname/directional/south,
 /turf/open/floor/iron,
 /area/crew_quarters/fitness)
 "dIs" = (
@@ -17987,13 +17985,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
-"dOL" = (
-/obj/structure/bodycontainer/morgue,
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/turf/open/floor/iron/dark,
-/area/medical/morgue)
 "dOV" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration{
 	dir = 8
@@ -19072,8 +19063,8 @@
 /turf/open/floor/iron,
 /area/maintenance/aft)
 "eke" = (
-/obj/structure/disposalpipe/junction/flip{
-	dir = 1
+/obj/structure/disposalpipe/segment{
+	dir = 9
 	},
 /turf/closed/wall,
 /area/maintenance/aft)
@@ -19543,9 +19534,6 @@
 /turf/open/floor/engine,
 /area/gateway)
 "euG" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/simple,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -19697,13 +19685,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/sorting/mail{
-	dir = 8;
-	name = "Genie";
-	sortType = 23
-	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/obj/structure/disposalpipe/sorting/mail/destination/medbay{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "exD" = (
@@ -22270,9 +22256,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 1
-	},
 /obj/machinery/power/apc/auto_name/directional/west,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
@@ -24707,9 +24690,6 @@
 "gwz" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
@@ -34726,9 +34706,6 @@
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
 "ksf" = (
-/obj/structure/disposalpipe/sorting/mail{
-	sortType = 10
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -34741,6 +34718,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/disposalpipe/sorting/mail/destination/cmo_office,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "ksm" = (
@@ -36516,8 +36494,7 @@
 	},
 /obj/structure/bed/roller,
 /obj/machinery/camera{
-	c_tag = "Security - Medbay";
-	dir = 5
+	c_tag = "Security - Medbay"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -39651,12 +39628,6 @@
 /obj/item/pen,
 /turf/open/floor/iron/dark,
 /area/security/main)
-"mto" = (
-/obj/structure/disposalpipe/junction/yjunction{
-	dir = 2
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "mtr" = (
 /obj/structure/table,
 /obj/machinery/fax/sec,
@@ -50969,7 +50940,6 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "ren" = (
-/obj/machinery/camera/autoname/directional/south,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -53411,9 +53381,11 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "rXI" = (
-/obj/structure/disposalpipe/junction,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "rYh" = (
@@ -64255,13 +64227,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
-"wlI" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 2
-	},
-/obj/machinery/disposal/bin,
-/turf/open/floor/iron/dark,
-/area/medical/morgue)
 "wlO" = (
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/siding/wood,
@@ -66337,6 +66302,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/wood,
 /area/medical/break_room)
 "xft" = (
@@ -102348,9 +102314,9 @@ aRt
 aJq
 aJq
 aJq
+aJq
+aJq
 cJr
-aJq
-aJq
 qVS
 bcp
 aJq
@@ -102881,9 +102847,9 @@ gmx
 rsU
 aAW
 cBD
-wlI
+obY
 fzt
-dOL
+bDL
 ajG
 bDL
 cBD
@@ -109086,12 +109052,12 @@ xBK
 lbh
 fsl
 eke
-cko
+cNW
 bFu
-cko
-cko
-cnG
-cko
+cNW
+cNW
+cOe
+cNW
 csm
 euG
 xPe
@@ -109350,7 +109316,7 @@ cOe
 cOe
 wLJ
 cOe
-mto
+mAe
 axe
 nyK
 cOT

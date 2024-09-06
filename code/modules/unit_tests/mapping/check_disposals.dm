@@ -18,7 +18,7 @@
 /datum/unit_test/map_test/check_disposals/check_target(obj/machinery/disposal/target)
 	var/list/failures = list()
 	failure_reason = null
-	is_sorting_network = FALSE
+	is_sorting_network = null
 	if (!target.trunk)
 		return "[target.name] not attached to a trunk at [COORD(target)]."
 	// Create a terrible disposal holder object
@@ -52,7 +52,7 @@
 				arrived = TRUE
 				break
 		if (!arrived)
-			failures += "Disposal track starting at [COORD(target)] does not end up in the correct destination. Expected [sort_code] ([i]), got [get_area(destination)] at [COORD(destination)]"
+			failures += "Disposal track starting at [COORD(target)] does not end up in the correct destination. Expected [sort_code] ([i]), got [get_area(destination)] at [COORD(destination)]. [is_sorting_network]"
 	return failures
 
 /datum/unit_test/map_test/check_disposals/proc/traverse_loop(obj/structure/disposalholder/holder, obj/structure/disposalpipe/start, allow_inputs)
@@ -86,8 +86,8 @@
 			if (!allow_inputs)
 				failure_reason = "Disposal loop starting at [COORD(start)] leads to an input node at [COORD(T)] but should lead to an outlet.  Holder was traversing [dir2text(holder.dir)] and was last at [COORD(holder.last_pipe)]. Sort code was [holder.destinationTag]."
 			return current
-		if (locate(/obj/structure/disposalpipe/sorting) in T)
-			is_sorting_network = TRUE
+		if (!is_sorting_network && locate(/obj/structure/disposalpipe/sorting) in T)
+			is_sorting_network = "This network requires sorting all mail correctly as it contains a sorting pipe at [COORD(T)]."
 		// Loop detection
 		if (current._traversed == run_id)
 			failure_reason = "Disposal network starting at [COORD(start)] contains a loop at [COORD(T)] which is not allowed. Holder was traversing [dir2text(holder.dir)] and was last at [COORD(holder.last_pipe)]. Sort code was [holder.destinationTag]."
