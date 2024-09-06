@@ -5933,12 +5933,10 @@
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/thermomachine/heater{
-	piping_layer = 4
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/layer_4,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "cEk" = (
@@ -9158,9 +9156,7 @@
 /turf/open/floor/plating/grass,
 /area/asteroid/paradise/surface)
 "etV" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/nitrogen_input{
-	piping_layer = 4
-	},
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/nitrogen_input/layer4,
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "euN" = (
@@ -12275,11 +12271,6 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/thermomachine/heater/on{
-	dir = 1;
-	initialize_directions = 1;
-	piping_layer = 4
-	},
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
@@ -12287,6 +12278,9 @@
 	dir = 8
 	},
 /obj/machinery/light,
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer_4{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "fUP" = (
@@ -22719,12 +22713,10 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "lrW" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrogen_output{
-	piping_layer = 2
-	},
 /obj/machinery/camera/autoname/directional/north{
 	network = list("ss13","engine")
 	},
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrogen_output/layer2,
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "lsj" = (
@@ -30553,9 +30545,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/oxygen_input{
-	piping_layer = 4
-	},
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/oxygen_input/layer4,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "pvC" = (
@@ -38717,7 +38707,7 @@
 /area/hydroponics)
 "tuT" = (
 /obj/machinery/air_sensor/atmos/air_tank,
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden/layer2,
+/obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "tuV" = (
@@ -48120,9 +48110,7 @@
 /area/asteroid/paradise)
 "xUB" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/oxygen_output{
-	piping_layer = 2
-	},
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/oxygen_output/layer2,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "xVa" = (
