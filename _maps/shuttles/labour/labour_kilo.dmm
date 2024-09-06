@@ -162,9 +162,6 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "J" = (

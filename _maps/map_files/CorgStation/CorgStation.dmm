@@ -30529,7 +30529,7 @@
 /area/hallway/primary/aft)
 "jNy" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "jNE" = (
 /turf/closed/wall/r_wall,
@@ -74366,10 +74366,6 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/storage/tools)
-"yco" = (
-/obj/machinery/smartfridge/chemistry/preloaded,
-/turf/closed/wall,
-/area/medical/chemistry)
 "ycp" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -116684,7 +116680,7 @@ pra
 wSu
 ttB
 ojQ
-yco
+aJa
 gOi
 khD
 fyI
