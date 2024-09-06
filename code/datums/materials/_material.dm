@@ -29,7 +29,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 	var/value_per_unit = 0
 	/*
 	///Armor modifiers, multiplies an items normal armor vars by these amounts.
-	var/armor_modifiers = list("melee" = 1, "bullet" = 1, "laser" = 1, "energy" = 1, "bomb" = 1, "bio" = 1, "rad" = 1, "fire" = 1, "acid" = 1)
+	var/armor_modifiers = list("melee" = 1, "bullet" = 1, "laser" = 1, "energy" = 1, "bomb" = 1, "bio" = 1, "fire" = 1, "acid" = 1)
 	///How beautiful is this material per unit
 	var/beauty_modifier = 0
 	*/
@@ -41,7 +41,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 	var/texture_layer_icon_state
 	///a cached icon for the texture filter
 	var/cached_texture_filter_icon
-	
+
 
 /datum/material/New()
 	. = ..()

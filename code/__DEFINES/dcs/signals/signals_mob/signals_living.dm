@@ -23,6 +23,9 @@
 #define COMSIG_LIVING_LIFE "living_life"
 ///from base of mob/living/death(): (gibbed, was_dead_before)
 #define COMSIG_LIVING_DEATH "living_death"
+/// from /proc/healthscan(): (list/scan_results, advanced, mob/user, mode)
+/// Consumers are allowed to mutate the scan_results list to add extra information
+#define COMSIG_LIVING_HEALTHSCAN "living_healthscan"
 /// from base of mob/living/updatehealth(): ()
 #define COMSIG_LIVING_UPDATE_HEALTH "living_update_health"
 /// Called when a living mob has its resting updated: (resting_state)

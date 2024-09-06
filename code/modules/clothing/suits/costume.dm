@@ -216,7 +216,7 @@
 	desc = "You broke the rules of the duel, and drew your gun before High Noon. This poncho will rest on your shoulders eternally, just like your shame."
 	icon_state = "ponchoshame_alt"
 	item_state = "ponchoshame_alt"
-	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 30, BIO = 30, RAD = 20, FIRE = 0, ACID = 30, STAMINA = 35)
+	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 30, BIO = 30, FIRE = 0, ACID = 30, STAMINA = 35)
 	body_parts_covered = CHEST|GROIN
 	allowed = list(/obj/item/gun/ballistic/shotgun/lever_action, /obj/item/gun/ballistic/rifle/leveraction, /obj/item/gun/ballistic/revolver)
 
@@ -249,7 +249,7 @@
 	icon_state = "carp_suit"
 	item_state = "space_suit_syndicate"
 	slowdown = 0	//Space carp magic, never stop believing
-	armor = list(MELEE = 20,  BULLET = 10, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 75, FIRE = 60, ACID = 75, STAMINA = 40)
+	armor = list(MELEE = 20,  BULLET = 10, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, FIRE = 60, ACID = 75, STAMINA = 40)
 	allowed = list(
 		/obj/item/tank/internals,
 		/obj/item/pneumatic_cannon/speargun,
@@ -349,7 +349,7 @@
 	desc = "A big and clanky suit made of bronze that offers no protection and looks very unfashionable. Nice."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass_old"
-	armor = list(MELEE = 5,  BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20, STAMINA = 30)
+	armor = list(MELEE = 5,  BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 10, BIO = 0,  FIRE = 20, ACID = 20, STAMINA = 30)
 
 /obj/item/clothing/suit/costume/joker
 	name = "comedian coat"

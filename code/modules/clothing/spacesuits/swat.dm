@@ -12,7 +12,7 @@
 		/obj/item/tank/internals,
 		/obj/item/knife/combat
 	)
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 90, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 60)
+	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 90, FIRE = 100, ACID = 100, STAMINA = 60)
 	strip_delay = 120
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')

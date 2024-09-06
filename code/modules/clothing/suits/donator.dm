@@ -37,6 +37,6 @@
 	icon_state = "softshell"
 	item_state = "softshell"
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/t_scanner, /obj/item/radio)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 30, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 30,  FIRE = 0, ACID = 0, STAMINA = 0)
 	toggle_noun = "zipper"
 	body_parts_covered = CHEST|GROIN|ARMS
