@@ -94,7 +94,7 @@ def update_path(dmm_data, replacement_string, verbose=False):
                     return [match.group(0)]
             else:
                 if old_path_props[filter_prop] == "@ANY":
-                    continue
+                   continue
                 elif old_props[filter_prop] != old_path_props[filter_prop] or old_path_props[filter_prop] == "@UNSET":
                     return [match.group(0)] #does not match current filter, skip the change.
         if verbose:
@@ -108,8 +108,8 @@ def update_path(dmm_data, replacement_string, verbose=False):
                     print("Deleting match : {0}".format(match.group(0)))
                 return [None]
             elif new_path.endswith("/@SUBTYPES"):
-                path_start = new_path[ :-len("/@SUBTYPES")]
-                out = path_start + match.group("subtype")
+                path_start = new_path[:-len("/@SUBTYPES")]
+                out = path_start + match.group('subtype')
             else:
                 out = new_path
 
@@ -127,8 +127,6 @@ def update_path(dmm_data, replacement_string, verbose=False):
                     out_props[prop_name] = old_props[params[1]] if len(params) > 1 else old_props[prop_name]
                     continue
                 out_props[prop_name] = prop_value
-            # For some reason, pop() leaves None values in the dict.
-            out_props = {k:v for (k,v) in out_props.items() if k != "" and k is not None}
             if out_props:
                 out += props_to_string(out_props)
             out_paths.append(out)
@@ -148,7 +146,7 @@ def update_path(dmm_data, replacement_string, verbose=False):
     keys = list(dmm_data.dictionary.keys())
     for definition_key in keys:
         def_value = dmm_data.dictionary[definition_key]
-        new_value = tuple(y for x in def_value for y in get_result(x) if y is not None)
+        new_value = tuple(y for x in def_value for y in get_result(x) if y != None)
         if new_value != def_value:
             dmm_data.overwrite_key(definition_key, new_value, bad_keys)
             modified_keys.append(definition_key)
