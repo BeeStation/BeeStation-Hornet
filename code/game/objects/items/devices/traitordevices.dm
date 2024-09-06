@@ -83,6 +83,10 @@ effective or pretty fucking useless.
 		..()
 	if(!irradiate)
 		return
+	var/mob/living/carbon/human/human_target = M
+	if(istype(human_target) && !used && SSradiation.wearing_rad_protected_clothing(human_target)) //intentionally not checking for TRAIT_RADIMMUNE here so that tatortot can still fuck up and waste their cooldown.
+		to_chat(user, span_warning("[M]'s clothing is fully protecting [M.p_them()] from irradiation!"))
+		return
 	if(!used)
 		log_combat(user, M, "irradiated", src)
 		var/cooldown = get_cooldown()
@@ -95,8 +99,8 @@ effective or pretty fucking useless.
 			if(M)
 				if(intensity >= 5)
 					M.apply_effect(round(intensity/0.075), EFFECT_UNCONSCIOUS)
-	else
-		to_chat(user, "<span class='warning'>The radioactive microlaser is still recharging.</span>")
+		return
+	to_chat(user, span_warning("The radioactive microlaser is still recharging."))
 
 /obj/item/healthanalyzer/rad_laser/proc/handle_cooldown(cooldown)
 	spawn(cooldown)
