@@ -4,6 +4,7 @@
 	var/failure_reason
 	var/is_sorting_network
 	var/run_id = 1
+	var/list/blocked_report_strings = list()
 
 // Find all entries into the disposal system
 /datum/unit_test/map_test/check_disposals/collect_targets(list/turfs)
@@ -36,6 +37,7 @@
 	// Since we have filters, lets make sure this is a proper, fully connected and fully functioning loop
 	// We should be able to enter the loop at any point from an input gate to get to our destination
 	var/i = 0
+	var/failure_string = ""
 	for (var/sort_code in GLOB.TAGGERLOCATIONS)
 		i++
 		holder = new /obj/structure/disposalholder()
@@ -52,6 +54,12 @@
 				break
 		if (!arrived)
 			failures += "Disposal track starting at [COORD(target)] does not end up in the correct destination. Expected [sort_code] ([i]), got [get_area(destination)] at [COORD(destination)]. [is_sorting_network]"
+			failure_string += "-[sort_code]-"
+	if (failure_string)
+		if (failure_string in blocked_report_strings)
+			failures = "Disposal track starting at [COORD(target)] also fails to reach the following locations: [failure_string]"
+		else
+			blocked_report_strings += failure_string
 	return failures
 
 /datum/unit_test/map_test/check_disposals/proc/traverse_loop(obj/structure/disposalholder/holder, obj/structure/disposalpipe/start, allow_inputs)
