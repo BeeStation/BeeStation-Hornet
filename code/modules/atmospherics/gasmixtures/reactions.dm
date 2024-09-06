@@ -143,7 +143,7 @@
 
 /proc/radiation_burn(turf/open/location, energy_released)
 	if(istype(location) && prob(10))
-		radiation_pulse(location, max_range = energy_released/TRITIUM_BURN_RADIOACTIVITY_FACTOR, threshold = RAD_MEDIUM_INSULATION, chance = (DEFAULT_RADIATION_CHANCE / 3))
+		radiation_pulse(location, max_range = min(sqrt(burned_fuel * effect_scale / TRITIUM_OXYBURN_MULTIPLIER) / TRITIUM_RADIATION_RANGE_DIVISOR, GAS_REACTION_MAXIMUM_RADIATION_PULSE_RANGE), threshold = TRITIUM_RADIATION_THRESHOLD_BASE * INVERSE(TRITIUM_RADIATION_THRESHOLD_BASE + (burned_fuel * effect_scale / TRITIUM_OXYBURN_MULTIPLIER)))
 
 /datum/gas_reaction/tritfire/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0

@@ -7,7 +7,7 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineering/chief_engineer
-	desc = "It's a high visibility jumpsuit given to those engineers insane enough to achieve the rank of \"Chief Engineer\". It has minor radiation shielding."
+	desc = "It's a high visibility jumpsuit given to those engineers insane enough to achieve the rank of \"Chief Engineer\". Made from fire resistant materials."
 	name = "chief engineer's jumpsuit"
 	icon_state = "chiefengineer"
 	item_state = "gy_suit"	//TODO replace it
@@ -16,7 +16,7 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineering/chief_engineer/skirt
-	desc = "It's a high visibility jumpskirt given to those engineers insane enough to achieve the rank of \"Chief Engineer\". It has very minor radiation shielding."
+	desc = "It's a high visibility jumpskirt given to those engineers insane enough to achieve the rank of \"Chief Engineer\". Made from fire resistant materials."
 	name = "chief engineer's jumpskirt"
 	icon_state = "chiefengineer_skirt"
 	item_state = "gy_suit"
@@ -46,7 +46,7 @@
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/engineering/engineer
-	desc = "It's an orange high visibility jumpsuit worn by engineers. It has minor radiation shielding."
+	desc = "It's an orange high visibility jumpsuit worn by engineers. Made from fire resistant materials."
 	name = "engineer's jumpsuit"
 	icon_state = "engine"
 	item_state = "engi_suit"
@@ -55,13 +55,13 @@
 
 /obj/item/clothing/under/rank/engineering/engineer/hazard
 	name = "engineer's hazard jumpsuit"
-	desc = "A high visibility jumpsuit made from heat and radiation resistant materials."
+	desc = "A high visibility jumpsuit. Made from fire resistant materials."
 	icon_state = "hazard"
 	item_state = "syndicate-orange"
 	alt_covers_chest = TRUE
 
 /obj/item/clothing/under/rank/engineering/engineer/skirt
-	desc = "It's an orange high visibility jumpskirt worn by engineers. It has minor radiation shielding."
+	desc = "It's an orange high visibility jumpskirt worn by engineers. Made from fire resistant materials."
 	name = "engineer's jumpskirt"
 	icon_state = "engine_skirt"
 	item_state = "engi_suit"

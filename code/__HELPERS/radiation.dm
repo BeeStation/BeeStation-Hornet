@@ -15,6 +15,10 @@
 /// You can also pass in a minimum exposure time. If this is set, then this radiation pulse
 /// will not irradiate the source unless they have been around *any* radioactive source for that
 /// period of time.
+/// The chance to get irradiated diminishes over range, and from objects that block radiation.
+/// Assuming there is nothing in the way, the chance will determine what the chance is to get irradiated from half of max_range.
+/// Example: If chance is equal to 30%, and max_range is equal to 8,
+/// then the chance for a thing to get irradiated is 30% if they are 4 turfs away from the pulse source.
 /proc/radiation_pulse(atom/source, max_range, threshold, chance = DEFAULT_RADIATION_CHANCE, minimum_exposure_time = 0)
 	if(!SSradiation.can_fire)
 		return
@@ -25,6 +29,7 @@
 	pulse_information.threshold = threshold
 	pulse_information.chance = chance
 	pulse_information.minimum_exposure_time = minimum_exposure_time
+	pulse_information.turfs_to_process = RANGE_TURFS(max_range, source)
 
 	SSradiation.processing += pulse_information
 
@@ -36,6 +41,7 @@
 	var/threshold
 	var/chance
 	var/minimum_exposure_time
+	var/list/turfs_to_process
 
 #define MEDIUM_RADIATION_THRESHOLD_RANGE 0.5
 #define EXTREME_RADIATION_CHANCE 30

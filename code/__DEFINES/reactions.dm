@@ -57,3 +57,6 @@
 #define FUSION_RAD_MIDPOINT					15		//! If you decrease this by one, the fusion rads will *triple* and vice versa
 #define FUSION_MIDDLE_ENERGY_REFERENCE		1e6		//! This number is deceptively dangerous; sort of tied to TOROID_CALCULATED_THRESHOLD
 #define FUSION_BUFFER_DIVISOR				1		//! Increase this to cull unrobust fusions faster
+
+/// Maximum range a radiation pulse is allowed to be from a gas reaction.
+#define GAS_REACTION_MAXIMUM_RADIATION_PULSE_RANGE 20
