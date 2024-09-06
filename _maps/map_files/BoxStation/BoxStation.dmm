@@ -1624,6 +1624,12 @@
 	dir = 1
 	},
 /area/hallway/secondary/entry)
+"axe" = (
+/obj/effect/turf_decal/tile/techfloorgrid{
+	dir = 9
+	},
+/turf/open/floor/iron/tech,
+/area/crew_quarters/fitness)
 "axj" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Firefighting Equipment";
@@ -1903,12 +1909,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"aAI" = (
-/obj/effect/turf_decal/tile/techfloorgrid{
-	dir = 9
-	},
-/turf/open/floor/iron/tech,
-/area/crew_quarters/fitness)
 "aAM" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
@@ -11551,6 +11551,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/portable_atmospherics/canister/bz,
 /turf/open/floor/iron,
 /area/science/xenobiology)
 "cgz" = (
@@ -17969,14 +17970,12 @@
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "dOL" = (
-/obj/machinery/light/small{
-	dir = 1
+/obj/structure/disposalpipe/sorting/mail/destination/xenobiology/flip{
+	dir = 4
 	},
-/obj/effect/turf_decal/tile/techfloorgrid{
-	dir = 9
-	},
-/turf/open/floor/iron/tech,
-/area/crew_quarters/fitness)
+/obj/effect/turf_decal/loading_area,
+/turf/open/floor/iron/white,
+/area/science/xenobiology)
 "dOV" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration{
 	dir = 8
@@ -21616,12 +21615,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/disposalpipe/junction/flip{
-	dir = 2
-	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/structure/disposalpipe/sorting/mail/destination/xenobiology/flip,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "fkt" = (
@@ -37112,7 +37109,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/structure/disposalpipe/sorting/mail/destination/xenobiology/flip,
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "lmr" = (
@@ -61551,7 +61550,10 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/bz,
+/obj/structure/disposalpipe/trunk{
+	dir = 2
+	},
+/obj/structure/disposaloutlet,
 /turf/open/floor/iron,
 /area/science/xenobiology)
 "vmi" = (
@@ -64175,6 +64177,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
+"wlI" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/techfloorgrid{
+	dir = 9
+	},
+/turf/open/floor/iron/tech,
+/area/crew_quarters/fitness)
 "wlO" = (
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/siding/wood,
@@ -67576,13 +67587,6 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/grass,
 /area/hallway/secondary/command)
-"xGT" = (
-/obj/structure/disposalpipe/sorting/mail/flip{
-	dir = 8;
-	sortType = 28
-	},
-/turf/closed/wall/r_wall,
-/area/medical/virology)
 "xHj" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/trimline/yellow/filled/warning{
@@ -108152,10 +108156,10 @@ aaa
 gXs
 aaa
 arj
-dOL
+wlI
 dKn
 xlK
-aAI
+axe
 jBO
 arj
 jGU
@@ -110542,7 +110546,7 @@ bNd
 bNd
 bNd
 bNd
-xGT
+ciH
 lmn
 kqw
 qVp
@@ -113091,7 +113095,7 @@ bDb
 bJN
 bJN
 vmb
-bPD
+dOL
 bMi
 bMi
 rTA
