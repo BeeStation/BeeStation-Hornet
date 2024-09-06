@@ -2849,6 +2849,10 @@
 	},
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
+"aJa" = (
+/obj/machinery/smartfridge/chemistry/preloaded,
+/turf/open/floor/iron/white,
+/area/medical/chemistry)
 "aJg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -36774,7 +36778,7 @@
 /area/maintenance/port/central)
 "lQY" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall/r_wall,
+/turf/open/floor/iron/white,
 /area/medical/virology)
 "lRk" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
@@ -44365,8 +44369,7 @@
 /turf/open/floor/plating,
 /area/bridge)
 "olj" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/tinted/fulltile,
+/obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/iron/dark,
 /area/chapel/office)
 "olI" = (
@@ -48372,7 +48375,7 @@
 /area/crew_quarters/fitness/recreation)
 "pFx" = (
 /obj/structure/railing{
-	dir = 6;
+	dir = 6
 	},
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/grass,
@@ -55060,6 +55063,10 @@
 	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
+"rPt" = (
+/obj/machinery/smartfridge,
+/turf/open/floor/iron,
+/area/crew_quarters/kitchen)
 "rPB" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/turf_decal/bot,
@@ -59270,7 +59277,7 @@
 /area/maintenance/starboard/secondary)
 "tiJ" = (
 /obj/machinery/smartfridge/organ,
-/turf/closed/wall,
+/turf/open/floor/iron/white,
 /area/medical/surgery)
 "tiU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -62588,7 +62595,7 @@
 /area/security/warden)
 "umy" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/turf/open/floor/iron,
 /area/hydroponics)
 "umK" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
@@ -64506,7 +64513,7 @@
 /area/tcommsat/computer)
 "uRy" = (
 /obj/structure/railing{
-	dir = 10;
+	dir = 10
 	},
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/grass,
@@ -110016,7 +110023,7 @@ lYk
 kKu
 qyp
 djh
-jNy
+rPt
 cyL
 uuV
 uir
@@ -115132,7 +115139,7 @@ wSu
 wSu
 ttB
 psS
-yco
+aJa
 lBm
 vib
 wSu
