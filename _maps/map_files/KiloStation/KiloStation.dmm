@@ -7708,7 +7708,7 @@
 /area/tcommsat/computer)
 "aRn" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
-/turf/closed/wall,
+/turf/open/floor/iron/dark,
 /area/medical/chemistry)
 "aRI" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -10830,7 +10830,7 @@
 /area/crew_quarters/bar/atrium)
 "bmA" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "bmF" = (
 /obj/machinery/status_display/evac,
