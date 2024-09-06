@@ -279,6 +279,21 @@
 		))
 	STR.can_hold = can_hold
 
+/obj/item/storage/belt/medical/cmo
+	name = "Chief Medical Officer's toolbelt"
+	desc = "Can hold various medical equipment."
+	icon_state = "medicalbelt_cmo"
+	item_state = "medicalbelt_cmo"
+	worn_icon_state = "medicalbelt_cmo"
+	content_overlays = TRUE
+
+/obj/item/storage/belt/medical/cmo/full/PopulateContents()
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/surgical_drapes(src)
+	new /obj/item/scalpel/advanced(src)
+	new /obj/item/retractor/advanced(src)
+	new /obj/item/surgicaldrill/advanced(src)
+
 /obj/item/storage/belt/medical/ert
 	name = "emergency response medical belt"
 	desc = "A belt containing field surgical supplies for use by medical response teams."

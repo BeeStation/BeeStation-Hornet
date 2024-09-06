@@ -55,15 +55,15 @@
 	jobtype = /datum/job/chief_medical_officer
 
 	id = /obj/item/card/id/job/chief_medical_officer
-	belt = /obj/item/modular_computer/tablet/pda/heads/chief_medical_officer
+	belt = /obj/item/storage/belt/medical/cmo/full
 	l_pocket = /obj/item/pinpointer/crew
-	r_pocket = /obj/item/flashlight/pen
+	r_pocket = /obj/item/modular_computer/tablet/pda/heads/chief_medical_officer
 	ears = /obj/item/radio/headset/heads/cmo
 	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	suit = /obj/item/clothing/suit/toggle/labcoat/cmo
 	suit_store = /obj/item/storage/firstaid/medical
-	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1)
+	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1, /obj/item/flashlight/pen=1)
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
