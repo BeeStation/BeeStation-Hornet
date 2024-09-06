@@ -2238,6 +2238,13 @@
 /obj/item/storage/toolbox/syndicate,
 /turf/open/floor/iron,
 /area/storage/primary)
+"nA" = (
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "nG" = (
 /obj/structure/closet/secure_closet/RD{
 	locked = 0
@@ -2264,6 +2271,16 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
+"pv" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "pC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -2534,6 +2551,13 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"El" = (
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "EG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2543,6 +2567,24 @@
 	},
 /turf/open/floor/iron,
 /area/construction)
+"EM" = (
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/power/apc{
+	dir = 1;
+	pixel_y = 23
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
+"EP" = (
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "ES" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -2751,6 +2793,13 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/iron,
 /area/engine/engineering)
+"VC" = (
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "VF" = (
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /obj/machinery/camera/directional/north,
@@ -2842,6 +2891,14 @@
 	},
 /turf/open/floor/iron,
 /area/bridge)
+"YU" = (
+/obj/machinery/door/airlock,
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "ZD" = (
 /obj/machinery/suit_storage_unit/ce,
 /turf/open/floor/iron,
@@ -5922,18 +5979,18 @@ ei
 ei
 ei
 ei
-eB
-eL
-eL
-eL
-eL
-eL
-eL
-eL
-eL
-eL
-eL
-eL
+pv
+VC
+VC
+VC
+VC
+VC
+VC
+VC
+VC
+VC
+VC
+EP
 eL
 eL
 ge
@@ -6025,7 +6082,7 @@ eh
 eh
 eh
 eh
-eL
+El
 eh
 eh
 ge
@@ -6117,7 +6174,7 @@ cN
 cN
 cN
 cN
-fI
+YU
 ge
 ge
 ge
@@ -6209,7 +6266,7 @@ dy
 dm
 dM
 cN
-Tt
+nA
 vm
 fg
 aa
@@ -6301,7 +6358,7 @@ dn
 dn
 dL
 cN
-Tt
+nA
 vm
 fg
 aa
@@ -6393,7 +6450,7 @@ dn
 dn
 dL
 ef
-Tt
+nA
 vm
 fg
 aa
@@ -6485,7 +6542,7 @@ dn
 dn
 dL
 ef
-Tt
+nA
 vm
 fg
 aa
@@ -6577,7 +6634,7 @@ dn
 dn
 dL
 cN
-Tt
+nA
 vm
 fg
 aa
@@ -6669,7 +6726,7 @@ dn
 dn
 dL
 cN
-Tt
+EM
 vm
 fg
 aa

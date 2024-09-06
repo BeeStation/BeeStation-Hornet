@@ -5,6 +5,7 @@
 		if (!isstructure(object) && !ismachinery(object))
 			continue
 		var/hash = "[object.type][object.dir][object.pixel_x][object.pixel_y]"
+		var/violated = FALSE
 		if (istype(object, /obj/structure/cable))
 			var/obj/structure/cable/cable = object
 			hash = "[hash][min(cable.d1, cable.d2)][max(cable.d1, cable.d2)]"
@@ -12,10 +13,21 @@
 			var/obj/machinery/atmospherics/atmosmachine = object
 			// 2 atmosmachines should never be on the same turf with the same layer
 			// unless they are crossing
-			hash = "/obj/machinery/atmospherics/[atmosmachine.piping_layer]"
-			if (atmosmachine.device_type == BINARY)
-				hash = "[hash][atmosmachine.dir <= 2 ? 1 : 0]"
-		if (types[hash])
+			hash = "/obj/machinery/atmospherics/[atmosmachine.piping_layer]/[atmosmachine.dir]"
+			if (atmosmachine.dir & 1)
+				violated = types["atmosmachine_1"]
+				types["atmosmachine_1"] = 1
+			if (atmosmachine.dir & 2)
+				violated = types["atmosmachine_2"]
+				types["atmosmachine_2"] = 1
+			if (atmosmachine.dir & 4)
+				violated = types["atmosmachine_4"]
+				types["atmosmachine_4"] = 1
+			if (atmosmachine.dir & 8)
+				violated = types["atmosmachine_8"]
+				types["atmosmachine_8"] = 1
+		violated = violated || types[hash]
+		if (violated)
 			result += "Multiple objects of type [object.type] detected on the same tile, with the same direction."
 		else
 			types[hash] = 1

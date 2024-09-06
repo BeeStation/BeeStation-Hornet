@@ -6463,7 +6463,7 @@
 	c_tag = "Medbay Lobby";
 	name = "medical camera";
 	network = list("ss13","medical");
-	dir = 9
+	dir = 1
 	},
 /obj/item/kirbyplants{
 	icon_state = "plant-08"
@@ -9975,6 +9975,9 @@
 "bhL" = (
 /obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/delivery,
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/sorting)
 "bhN" = (
@@ -11815,9 +11818,6 @@
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/open/floor/iron/dark,
 /area/medical/medbay/central)
 "brz" = (
@@ -15867,9 +15867,6 @@
 /area/maintenance/starboard/aft)
 "bOl" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -15882,6 +15879,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
+	},
+/obj/structure/disposalpipe/junction/flip{
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -15903,6 +15903,9 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mailroom";
 	req_access_txt = "50"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/sorting)
@@ -18111,7 +18114,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/preset/toxins{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/engine/vacuum,
 /area/science/test_area)
@@ -23126,6 +23129,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/engine,
 /area/engine/engineering)
 "czt" = (
@@ -25947,6 +25953,12 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
+	},
+/obj/machinery/power/apc/auto_name/directional/north{
+	areastring = "/area/engine/supermatter"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -29092,9 +29104,6 @@
 	pixel_y = 6
 	},
 /obj/structure/table,
-/obj/machinery/camera/autoname{
-	dir = 10
-	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
@@ -32012,11 +32021,6 @@
 	pixel_x = 24;
 	pixel_y = 24
 	},
-/obj/machinery/camera/directional/south{
-	c_tag = "AI Chamber Core";
-	name = "core camera";
-	network = list("aicore")
-	},
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai)
 "eAT" = (
@@ -33326,6 +33330,9 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
@@ -34686,9 +34693,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /obj/effect/turf_decal/tile/yellow,
+/obj/structure/disposalpipe/sorting/unsorted/flip{
+	dir = 2
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "fwE" = (
@@ -35311,6 +35320,7 @@
 /obj/machinery/vending/wallmed/lite{
 	pixel_y = 26
 	},
+/obj/machinery/camera/autoname/directional/north,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "fGT" = (
@@ -36371,6 +36381,12 @@
 /obj/structure/sink{
 	dir = 4;
 	pixel_x = 11
+	},
+/obj/machinery/camera{
+	c_tag = "Recovery Room";
+	name = "cloning camera";
+	network = list("ss13","medical");
+	dir = 4
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics/cloning)
@@ -37726,7 +37742,6 @@
 /area/maintenance/starboard/aft)
 "gxd" = (
 /obj/machinery/power/apc{
-	areastring = "/area/hallway/primary/port";
 	dir = 8;
 	name = "Cryopod Room APC";
 	pixel_x = -24
@@ -42280,9 +42295,6 @@
 /area/science/research)
 "hYV" = (
 /obj/structure/table,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/item/clipboard,
 /obj/item/airlock_painter{
 	pixel_x = -4;
@@ -43043,9 +43055,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/camera/autoname{
-	dir = 9
-	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
@@ -43499,6 +43508,9 @@
 /obj/effect/turf_decal/tile/dark/opposingcorners,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark,
 /area/medical/medbay/lobby)
@@ -44289,6 +44301,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/lobby)
@@ -45606,6 +45621,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
@@ -47168,9 +47186,6 @@
 "jBB" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
-	},
-/obj/machinery/light/small{
-	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -48838,7 +48853,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 10
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -50917,10 +50932,6 @@
 	},
 /obj/structure/table/optable,
 /obj/effect/turf_decal/bot,
-/obj/machinery/camera/autoname{
-	dir = 5;
-	network = list("ss13", "security")
-	},
 /obj/item/radio/intercom{
 	pixel_y = -25
 	},
@@ -51684,6 +51695,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
 "lda" = (
@@ -52196,7 +52210,6 @@
 	},
 /area/maintenance/port/aft)
 "lig" = (
-/obj/machinery/light/small,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
@@ -54448,6 +54461,18 @@
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall/rust,
 /area/maintenance/solars/starboard/fore)
+"lTB" = (
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/power/apc/auto_name/directional/north{
+	areastring = "/area/engine/supermatter"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/science/shuttledock)
 "lTR" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
@@ -55269,6 +55294,9 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron,
 /area/security/brig/aft)
 "mgy" = (
@@ -56035,6 +56063,12 @@
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Cloning Lab";
+	name = "medical camera";
+	network = list("ss13","medical");
+	dir = 1
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
@@ -58160,6 +58194,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/engine/break_room)
 "nkb" = (
@@ -58414,6 +58451,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/sorting)
@@ -59968,10 +60008,7 @@
 /obj/structure/closet{
 	name = "Evidence Closet"
 	},
-/obj/machinery/camera/autoname{
-	dir = 5;
-	network = list("ss13", "security")
-	},
+/obj/machinery/camera/autoname/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/brig/aft)
 "nQJ" = (
@@ -63158,12 +63195,6 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/camera{
-	c_tag = "Cloning Lab";
-	name = "medical camera";
-	network = list("ss13","medical");
-	dir = 9
-	},
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = 24
@@ -63601,7 +63632,7 @@
 /area/maintenance/port/aft)
 "oZp" = (
 /obj/machinery/camera/autoname{
-	dir = 9
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
@@ -68500,6 +68531,15 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
+/obj/machinery/power/apc/highcap/ten_k{
+	areastring = "/area/security/brig";
+	dir = 1;
+	name = "Brig APC";
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron,
 /area/security/brig/aft)
 "qEy" = (
@@ -71599,6 +71639,9 @@
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 1
 	},
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/explab)
 "rHR" = (
@@ -71732,7 +71775,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/camera/autoname{
-	dir = 10
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
@@ -71868,6 +71911,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
+/obj/machinery/camera/autoname/directional/west,
 /turf/open/floor/iron,
 /area/quartermaster/exploration_dock)
 "rME" = (
@@ -72068,6 +72112,11 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Recovery Room";
+	name = "geneticscamera";
+	network = list("ss13","medical")
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics)
@@ -72331,6 +72380,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
 "rTA" = (
@@ -73686,6 +73738,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/camera/autoname,
 /turf/open/floor/iron/showroomfloor,
 /area/science/shuttledock)
 "srP" = (
@@ -75547,12 +75600,6 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/camera{
-	c_tag = "Recovery Room";
-	name = "geneticscamera";
-	network = list("ss13","medical");
-	dir = 5
-	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
@@ -77250,10 +77297,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/vending/coffee,
-/obj/machinery/camera/autoname{
-	network = list("ss13", "prison", "security");
-	dir = 6
-	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "tzZ" = (
@@ -78280,6 +78323,9 @@
 	},
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/regular,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/medical/medbay/central)
 "tWa" = (
@@ -78359,12 +78405,6 @@
 	pixel_y = 6
 	},
 /obj/item/crowbar,
-/obj/machinery/camera{
-	c_tag = "Recovery Room";
-	name = "cloning camera";
-	network = list("ss13","medical");
-	dir = 6
-	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics/cloning)
@@ -79774,6 +79814,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/fore)
@@ -81846,6 +81889,9 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/shuttledock)
 "viZ" = (
@@ -82523,7 +82569,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Recovery Room";
-	dir = 10;
+	dir = 8;
 	name = "medical camera";
 	network = list("ss13","medical")
 	},
@@ -85759,6 +85805,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/machinery/camera/autoname{
+	network = list("ss13", "prison", "security")
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "wsH" = (
@@ -87838,6 +87887,10 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/dark,
 /area/medical/medbay/lobby)
 "wXN" = (
@@ -89343,8 +89396,7 @@
 /obj/machinery/airalarm/directional/south,
 /obj/structure/table/reinforced,
 /obj/machinery/camera/autoname{
-	network = list("ss13", "prison");
-	dir = 5
+	network = list("ss13", "prison")
 	},
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
@@ -91140,6 +91192,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
 "ycS" = (
@@ -91853,7 +91908,6 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/west,
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
@@ -140327,7 +140381,7 @@ aaa
 cmU
 aeU
 ktS
-tnd
+lTB
 viB
 ktS
 ktS

@@ -39,7 +39,6 @@
 /area/engine/gravity_generator)
 "al" = (
 /obj/machinery/airalarm/directional/north{
-	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
 	},
@@ -69,7 +68,6 @@
 /area/space/nearstation)
 "ap" = (
 /obj/machinery/airalarm/directional/north{
-	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
 	},
@@ -99,7 +97,6 @@
 	charge = 5e+006
 	},
 /obj/machinery/airalarm/directional/north{
-	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
 	},
@@ -240,12 +237,8 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
-/obj/effect/turf_decal/bot{
-	dir = 2
-	},
-/turf/open/floor/iron{
-	dir = 2
-	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
 /area/engine/atmos)
 "aO" = (
 /obj/machinery/atmospherics/components/binary/pump{
@@ -343,12 +336,8 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister,
-/obj/effect/turf_decal/bot{
-	dir = 2
-	},
-/turf/open/floor/iron{
-	dir = 2
-	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
 /area/engine/atmos)
 "bc" = (
 /obj/machinery/atmospherics/components/binary/pump{
@@ -507,7 +496,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/airalarm/directional/north{
-	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
 	},
@@ -535,7 +523,6 @@
 /area/hallway/primary/central)
 "bG" = (
 /obj/machinery/airalarm/directional/north{
-	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
 	},
@@ -617,7 +604,6 @@
 /area/hallway/primary/central)
 "bU" = (
 /obj/machinery/airalarm/directional/north{
-	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
 	},
@@ -954,7 +940,6 @@
 /area/storage/primary)
 "cW" = (
 /obj/machinery/airalarm/directional/north{
-	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
 	},
@@ -964,6 +949,9 @@
 	pixel_x = -25
 	},
 /obj/effect/turf_decal/stripes/corner,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron,
 /area/construction)
 "cX" = (
@@ -986,7 +974,6 @@
 /area/construction)
 "da" = (
 /obj/machinery/airalarm/directional/north{
-	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
 	},
@@ -1247,10 +1234,18 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "dX" = (
-/turf/open/floor/iron{
-	dir = 2
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 4
 	},
-/area/engine/atmos)
+/obj/machinery/power/apc{
+	dir = 8;
+	pixel_x = -25
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron,
+/area/construction)
 "dY" = (
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -1545,6 +1540,18 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"id" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/iron,
+/area/construction)
 "ik" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -1630,6 +1637,12 @@
 	},
 /turf/open/floor/iron,
 /area/construction)
+"tk" = (
+/obj/structure/cable{
+	icon_state = "8-16"
+	},
+/turf/open/floor/plating,
+/area/construction)
 "ty" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1661,6 +1674,12 @@
 	},
 /turf/open/floor/iron,
 /area/construction)
+"wA" = (
+/obj/structure/cable{
+	icon_state = "8-32"
+	},
+/turf/open/openspace,
+/area/security)
 "xK" = (
 /obj/machinery/door/airlock,
 /obj/structure/cable{
@@ -1870,6 +1889,13 @@
 	},
 /turf/open/floor/plating,
 /area/construction)
+"Ou" = (
+/obj/machinery/power/apc{
+	dir = 8;
+	pixel_x = -25
+	},
+/turf/open/space,
+/area/space/nearstation)
 "OE" = (
 /obj/structure/elevator_segment/primary,
 /obj/effect/turf_decal/plaque,
@@ -2719,7 +2745,7 @@ bO
 bO
 cO
 cW
-dm
+id
 dy
 dy
 dy
@@ -2773,7 +2799,7 @@ bN
 bN
 cP
 cX
-dn
+tk
 dn
 dn
 dn
@@ -3975,7 +4001,7 @@ dk
 cS
 af
 ad
-ac
+Ou
 ab
 aa
 aa
@@ -5528,7 +5554,7 @@ bE
 bE
 cN
 es
-eI
+dX
 eI
 eI
 eI
@@ -5582,7 +5608,7 @@ bE
 bE
 cN
 eu
-au
+wA
 au
 au
 au
@@ -5623,8 +5649,8 @@ af
 ah
 aw
 aw
-dX
-dX
+dY
+dY
 dY
 dY
 bE
