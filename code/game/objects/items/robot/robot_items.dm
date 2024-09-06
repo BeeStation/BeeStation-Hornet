@@ -979,8 +979,8 @@
 	. = ..()
 
 /obj/item/borg/apparatus/container/extra
-	name = "secondary beaker storage apparatus"
-	desc = "A supplementary beaker storage apparatus."
+	name = "container storage apparatus"
+	desc = "A supplementary container storage apparatus."
 
 ////////////////////
 //engi part holder//
