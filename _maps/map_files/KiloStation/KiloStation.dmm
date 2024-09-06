@@ -1522,6 +1522,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/caution/stand_clear,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "agA" = (
@@ -21027,6 +21028,9 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "cpI" = (
@@ -27960,21 +27964,6 @@
 	burnt = 1
 	},
 /area/maintenance/port/aft)
-"djE" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/science/xenobiology)
 "dkc" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	color = "#439C1E"
@@ -28662,6 +28651,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/xenobiology)
 "dxm" = (
@@ -34243,6 +34233,9 @@
 	color = "#439C1E"
 	},
 /obj/machinery/vending/medical,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "foR" = (
@@ -43357,6 +43350,10 @@
 	dir = 4;
 	color = "#439C1E"
 	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/structure/disposaloutlet,
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "iuE" = (
@@ -48429,6 +48426,9 @@
 	},
 /obj/structure/desk_bell{
 	pixel_x = -8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/medical/virology)
@@ -60777,6 +60777,9 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/xenobiology)
 "oaY" = (
@@ -62013,6 +62016,9 @@
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
@@ -64516,7 +64522,9 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
 "plS" = (
@@ -65968,6 +65976,9 @@
 	},
 /obj/structure/closet/l3closet/virology,
 /obj/machinery/firealarm/directional/north,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "pIA" = (
@@ -72466,6 +72477,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/xenobiology)
 "rUM" = (
@@ -82549,9 +82561,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 2
-	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/xenobiology)
 "vtG" = (
@@ -83032,6 +83042,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/xenobiology)
 "vAb" = (
@@ -84736,6 +84747,12 @@
 	name = "euthanization chamber freezer"
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
+	dir = 4
+	},
+/obj/structure/disposaloutlet{
+	dir = 4
+	},
+/obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -91882,7 +91899,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/obj/structure/disposalpipe/junction/flip{
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/open/floor/iron/showroomfloor,
@@ -129350,7 +129367,7 @@ vzU
 agz
 dxi
 rUd
-djE
+nJt
 bZM
 nJt
 uZV
