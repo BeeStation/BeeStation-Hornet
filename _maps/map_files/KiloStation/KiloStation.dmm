@@ -6799,10 +6799,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "aJb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -10426,10 +10423,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bki" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -10466,10 +10460,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bky" = (
 /mob/living/simple_animal/butterfly,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -16048,10 +16039,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bPO" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hop";
@@ -16067,10 +16055,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bPQ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/flora/grass/jungle,
@@ -16081,10 +16066,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bPR" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/flora/ausbushes/palebush,
@@ -16092,10 +16074,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bPT" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/flora/grass/jungle,
@@ -16106,10 +16085,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bPU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -16141,10 +16117,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bPY" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light{
@@ -16154,10 +16127,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bPZ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -16165,10 +16135,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bQa" = (
 /obj/structure/sign/warning/docking,
 /turf/closed/wall,
@@ -16355,10 +16322,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bRa" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
@@ -16413,10 +16377,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/airless,
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bRx" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
@@ -16541,10 +16502,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bSe" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
@@ -16864,10 +16822,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bTV" = (
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/stripes/line{
@@ -16879,10 +16834,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bTZ" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall,
@@ -16899,26 +16851,17 @@
 "bUj" = (
 /obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall,
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bUn" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bUo" = (
 /obj/structure/sign/warning,
 /turf/closed/wall,
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bUp" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -16938,10 +16881,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bUv" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/computer/station_alert,
@@ -16978,10 +16918,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bUB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -16994,10 +16931,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bUC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -17009,10 +16943,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bUD" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -17024,10 +16955,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bUE" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -17038,10 +16966,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bUF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -17051,10 +16976,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bUG" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/marker_beacon{
@@ -17111,10 +17033,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bUL" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
@@ -17132,10 +17051,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bUO" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 8
@@ -17143,10 +17059,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "bUQ" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/sand/plating,
@@ -18496,9 +18409,7 @@
 	},
 /obj/item/bedsheet/brown,
 /turf/open/floor/prison,
-/area/security/prison{
-	name = "Prison Dorms"
-	})
+/area/security/prison)
 "cdS" = (
 /obj/structure/sign/warning/securearea,
 /obj/item/multitool,
@@ -18718,9 +18629,7 @@
 	},
 /obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
-/area/security/prison{
-	name = "Prison Dorms"
-	})
+/area/security/prison)
 "cev" = (
 /obj/structure/transit_tube/diagonal/topleft,
 /obj/structure/lattice,
@@ -19658,10 +19567,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "cid" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -20331,10 +20237,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "cln" = (
 /obj/machinery/camera/directional/west{
 	c_tag = "Atmospherics Tank - Plasma";
@@ -21044,10 +20947,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "cpb" = (
 /obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall,
@@ -21479,10 +21379,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "crH" = (
 /obj/machinery/mech_bay_recharge_port,
 /obj/effect/turf_decal/stripes/corner{
@@ -21507,10 +21404,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "crK" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 1
@@ -21518,10 +21412,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "crP" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -21811,10 +21702,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "ctA" = (
 /turf/closed/wall/rust,
 /area/maintenance/solars/port/fore)
@@ -21895,10 +21783,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "ctV" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -21923,10 +21808,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "cua" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -22089,10 +21971,7 @@
 /turf/open/floor/plating/asteroid/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "cuS" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -22626,10 +22505,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "cwv" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -29471,9 +29347,7 @@
 /area/medical/medbay/central)
 "dIW" = (
 /turf/closed/wall/r_wall,
-/area/security/prison{
-	name = "Prison Dorms"
-	})
+/area/security/prison)
 "dJh" = (
 /obj/effect/turf_decal/tile/dark/half{
 	dir = 1
@@ -30211,10 +30085,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "dWK" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
@@ -30759,9 +30630,7 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/freezer,
-/area/security/prison{
-	name = "Prison Toilet"
-	})
+/area/security/prison)
 "eeb" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -31348,9 +31217,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/freezer,
-/area/security/prison{
-	name = "Prison Showers"
-	})
+/area/security/prison)
 "emQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -35819,9 +35686,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
-/area/security/prison{
-	name = "Prison Dorms"
-	})
+/area/security/prison)
 "fMC" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
@@ -36511,9 +36376,7 @@
 "fXw" = (
 /obj/structure/sign/poster/official/work_for_a_future,
 /turf/closed/wall/r_wall,
-/area/security/prison{
-	name = "Prison Dorms"
-	})
+/area/security/prison)
 "fXx" = (
 /obj/machinery/vending/tool,
 /obj/effect/turf_decal/bot,
@@ -36654,10 +36517,7 @@
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "fZO" = (
 /obj/machinery/power/apc{
 	areastring = "/area/science/research";
@@ -38527,9 +38387,7 @@
 "gLj" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/prison,
-/area/security/prison{
-	name = "Prison Dorms"
-	})
+/area/security/prison)
 "gLn" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -39138,9 +38996,7 @@
 	pixel_x = -32
 	},
 /turf/open/floor/noslip/white,
-/area/security/prison{
-	name = "Prison Showers"
-	})
+/area/security/prison)
 "gVy" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
@@ -39610,10 +39466,7 @@
 	},
 /obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/plating/airless,
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "heK" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 5
@@ -40930,9 +40783,7 @@
 	name = "Cell 1"
 	},
 /turf/open/floor/iron/dark,
-/area/security/prison{
-	name = "Prison Showers"
-	})
+/area/security/prison)
 "hzJ" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/firedoor,
@@ -44377,9 +44228,7 @@
 	},
 /obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
-/area/security/prison{
-	name = "Prison Dorms"
-	})
+/area/security/prison)
 "iIt" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/tile/neutral{
@@ -45329,9 +45178,7 @@
 /obj/structure/table/wood,
 /obj/item/clothing/neck/tie/red,
 /turf/open/floor/prison,
-/area/security/prison{
-	name = "Prison Dorms"
-	})
+/area/security/prison)
 "iXy" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -46666,9 +46513,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/freezer,
-/area/security/prison{
-	name = "Prison Showers"
-	})
+/area/security/prison)
 "jse" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -53720,9 +53565,7 @@
 /area/hallway/primary/port)
 "lDt" = (
 /turf/closed/wall,
-/area/security/prison{
-	name = "Prison Showers"
-	})
+/area/security/prison)
 "lDu" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -55604,10 +55447,7 @@
 /area/crew_quarters/fitness/recreation)
 "mjb" = (
 /turf/closed/mineral/random/labormineral,
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "mjt" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -56019,9 +55859,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison,
-/area/security/prison{
-	name = "Prison Dorms"
-	})
+/area/security/prison)
 "mqm" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -59703,9 +59541,7 @@
 /area/storage/tech)
 "nJB" = (
 /turf/closed/wall,
-/area/security/prison{
-	name = "Prison Dorms"
-	})
+/area/security/prison)
 "nJS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -60075,9 +59911,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/prison,
-/area/security/prison{
-	name = "Prison Dorms"
-	})
+/area/security/prison)
 "nPe" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
@@ -61336,9 +61170,7 @@
 /area/bridge)
 "ogW" = (
 /turf/closed/wall/r_wall,
-/area/security/prison{
-	name = "Prison Toilet"
-	})
+/area/security/prison)
 "ohH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -61625,9 +61457,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/freezer,
-/area/security/prison{
-	name = "Prison Toilet"
-	})
+/area/security/prison)
 "omL" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -62974,9 +62804,7 @@
 	},
 /obj/item/bedsheet/dorms,
 /turf/open/floor/prison,
-/area/security/prison{
-	name = "Prison Dorms"
-	})
+/area/security/prison)
 "oJl" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -64909,9 +64737,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/noslip/white,
-/area/security/prison{
-	name = "Prison Showers"
-	})
+/area/security/prison)
 "poY" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -65862,9 +65688,7 @@
 /area/space/nearstation)
 "pCT" = (
 /turf/closed/wall/r_wall,
-/area/security/prison{
-	name = "Prison Garden"
-	})
+/area/security/prison)
 "pCU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -70574,9 +70398,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/freezer,
-/area/security/prison{
-	name = "Prison Showers"
-	})
+/area/security/prison)
 "rjg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -72091,9 +71913,7 @@
 	},
 /obj/item/soap/nanotrasen,
 /turf/open/floor/noslip/white,
-/area/security/prison{
-	name = "Prison Showers"
-	})
+/area/security/prison)
 "rLs" = (
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/holopad,
@@ -74864,9 +74684,7 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "sIN" = (
 /turf/closed/wall/r_wall/rust,
-/area/security/prison{
-	name = "Prison Garden"
-	})
+/area/security/prison)
 "sIO" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -77174,10 +76992,7 @@
 /area/maintenance/port)
 "ttv" = (
 /turf/closed/wall,
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "ttx" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/cable/yellow{
@@ -77393,9 +77208,7 @@
 /obj/effect/spawner/structure/window,
 /obj/structure/curtain/directional,
 /turf/open/floor/plating,
-/area/security/prison{
-	name = "Prison Dorms"
-	})
+/area/security/prison)
 "txO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -80330,9 +80143,7 @@
 "uAM" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/r_wall,
-/area/security/prison{
-	name = "Prison Garden"
-	})
+/area/security/prison)
 "uAQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -80607,9 +80418,7 @@
 	},
 /obj/item/bedsheet/brown,
 /turf/open/floor/prison,
-/area/security/prison{
-	name = "Prison Dorms"
-	})
+/area/security/prison)
 "uFY" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/crayons,
@@ -81111,10 +80920,7 @@
 /area/security/brig)
 "uON" = (
 /turf/closed/wall/rust,
-/area/docking/arrival{
-	lighting_colour_bulb = "#ffdbb4";
-	lighting_colour_tube = "#ffce99"
-	})
+/area/docking/arrival)
 "uOX" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -84923,9 +84729,7 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/plating,
-/area/security/prison{
-	name = "Prison Garden"
-	})
+/area/security/prison)
 "wbz" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -86726,9 +86530,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
-/area/security/prison{
-	name = "Prison Garden"
-	})
+/area/security/prison)
 "wCM" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -87451,9 +87253,7 @@
 /area/medical/virology)
 "wMz" = (
 /turf/closed/wall,
-/area/security/prison{
-	name = "Prison Toilet"
-	})
+/area/security/prison)
 "wMJ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -89932,9 +89732,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
-/area/security/prison{
-	name = "Prison Garden"
-	})
+/area/security/prison)
 "xCZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/box/lights/mixed,
