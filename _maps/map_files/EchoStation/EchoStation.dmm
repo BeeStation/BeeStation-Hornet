@@ -2395,8 +2395,7 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 4;
-	piping_layer = 1
+	dir = 4
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/atmos)
@@ -3856,8 +3855,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 4;
-	piping_layer = 1
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
@@ -5376,8 +5374,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 4;
-	piping_layer = 1
+	dir = 4
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/atmos)
@@ -13030,8 +13027,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 9;
-	piping_layer = 1
+	dir = 9
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engineering)
@@ -16322,8 +16318,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 4;
-	piping_layer = 1
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
@@ -22827,8 +22822,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 4;
-	piping_layer = 1
+	dir = 4
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/atmos)
@@ -26463,8 +26457,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 4;
-	piping_layer = 1
+	dir = 4
 	},
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
@@ -33830,8 +33823,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 4;
-	piping_layer = 1
+	dir = 4
 	},
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
@@ -33979,8 +33971,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 4;
-	piping_layer = 1
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
@@ -35183,9 +35174,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 1
 	},
 /obj/structure/window/plasma/reinforced{
 	dir = 1
@@ -48252,8 +48240,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 4;
-	piping_layer = 1
+	dir = 4
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/atmos)
