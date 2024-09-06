@@ -222,7 +222,7 @@
 "bb" = (
 /obj/machinery/conveyor{
 	dir = 1;
-	id = "garbage";
+	id = "garbage"
 	},
 /turf/open/floor/wood,
 /area/shuttle/transport)

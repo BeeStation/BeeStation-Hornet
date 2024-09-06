@@ -8,7 +8,7 @@
 	req_one_access_txt = "63;42;38"
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
+	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium,

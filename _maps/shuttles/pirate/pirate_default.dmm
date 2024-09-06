@@ -204,7 +204,7 @@
 /area/shuttle/pirate)
 "hO" = (
 /obj/structure/railing{
-	dir = 9;
+	dir = 9
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
@@ -273,7 +273,7 @@
 /area/shuttle/pirate)
 "jT" = (
 /obj/structure/railing{
-	dir = 8;
+	dir = 8
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
@@ -692,7 +692,7 @@
 /area/shuttle/pirate)
 "sS" = (
 /obj/structure/rack{
-	dir = 8;
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -916,7 +916,7 @@
 /area/shuttle/pirate)
 "zL" = (
 /obj/structure/railing{
-	dir = 8;
+	dir = 8
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
@@ -1046,7 +1046,7 @@
 	pixel_x = 10
 	},
 /obj/structure/sign/departments/cargo{
-	pixel_y = 32;
+	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -1641,7 +1641,7 @@
 /area/shuttle/pirate)
 "Py" = (
 /obj/structure/rack{
-	dir = 8;
+	dir = 8
 	},
 /obj/item/restraints/legcuffs/bola/tactical,
 /obj/item/restraints/legcuffs/bola{
@@ -1682,7 +1682,7 @@
 /area/shuttle/pirate)
 "QI" = (
 /obj/structure/rack{
-	dir = 8;
+	dir = 8
 	},
 /obj/item/ammo_box/magazine/m12g/breacher{
 	pixel_x = -7;
@@ -2218,7 +2218,7 @@
 	dir = 8
 	},
 /obj/structure/railing{
-	dir = 8;
+	dir = 8
 	},
 /obj/structure/table_frame/wood,
 /obj/item/restraints/handcuffs/cable/white,

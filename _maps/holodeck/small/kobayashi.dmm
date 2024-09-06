@@ -96,7 +96,7 @@
 /obj/item/clothing/under/trek/engsec,
 /obj/item/clothing/under/trek/engsec,
 /obj/structure/window/reinforced{
-	dir = 4;
+	dir = 4
 	},
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
@@ -234,7 +234,7 @@
 /area/template_noop)
 "X" = (
 /obj/structure/window/reinforced{
-	dir = 4;
+	dir = 4
 	},
 /turf/open/floor/holofloor/plating,
 /area/template_noop)

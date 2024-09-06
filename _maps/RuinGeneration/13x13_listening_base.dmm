@@ -347,7 +347,7 @@
 /area/ruin/space/has_grav/listeningstation)
 "sQ" = (
 /obj/structure/rack{
-	dir = 8;
+	dir = 8
 	},
 /obj/item/mining_scanner,
 /obj/item/pickaxe,

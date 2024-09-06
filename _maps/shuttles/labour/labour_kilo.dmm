@@ -87,7 +87,7 @@
 	req_one_access_txt = "63;42;38"
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)

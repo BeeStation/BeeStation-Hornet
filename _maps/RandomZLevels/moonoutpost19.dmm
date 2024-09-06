@@ -5477,7 +5477,7 @@
 	specialfunctions = 4
 	},
 /obj/effect/decal/remains/human{
-	desc = "They look like human remains. The skeleton is laid out on its side and there seems to have been no sign of struggle.";
+	desc = "They look like human remains. The skeleton is laid out on its side and there seems to have been no sign of struggle."
 	},
 /turf/open/floor/carpet{
 	heat_capacity = 1e+006
@@ -6712,7 +6712,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
+	dir = 4
 	},
 /obj/structure/table,
 /obj/structure/bedsheetbin,

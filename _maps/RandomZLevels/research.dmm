@@ -1997,7 +1997,7 @@
 /area/awaymission/research/interior/dorm)
 "lN" = (
 /obj/structure/window/reinforced{
-	dir = 1;
+	dir = 1
 	},
 /obj/machinery/airalarm/directional/east{
 	pixel_x = 32
@@ -2195,7 +2195,7 @@
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
+	dir = 1
 	},
 /turf/open/floor/grass,
 /area/awaymission/research/interior/escapepods)
@@ -2203,7 +2203,7 @@
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
+	dir = 1
 	},
 /turf/open/floor/grass,
 /area/awaymission/research/interior/escapepods)
@@ -2211,7 +2211,7 @@
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
+	dir = 1
 	},
 /turf/open/floor/grass,
 /area/awaymission/research/interior/escapepods)

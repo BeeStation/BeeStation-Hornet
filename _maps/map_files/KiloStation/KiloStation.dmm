@@ -21941,7 +21941,7 @@
 /obj/effect/spawner/randomarcade,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
+	dir = 1
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -35055,7 +35055,7 @@
 /area/maintenance/port/fore)
 "fCh" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
+	dir = 1
 	},
 /obj/item/radio/intercom{
 	freerange = 1;
@@ -36185,7 +36185,7 @@
 "fUL" = (
 /obj/structure/table,
 /obj/structure/window/reinforced{
-	dir = 1;
+	dir = 1
 	},
 /obj/machinery/light,
 /obj/machinery/reagentgrinder{
@@ -43537,7 +43537,7 @@
 /area/medical/medbay/lobby)
 "iyU" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
+	dir = 1
 	},
 /obj/item/kirbyplants/random,
 /obj/machinery/camera/directional/north{
@@ -89178,7 +89178,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
+	dir = 1
 	},
 /obj/machinery/light{
 	dir = 1
@@ -89427,7 +89427,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
+	dir = 1
 	},
 /obj/machinery/light{
 	dir = 1
@@ -91726,7 +91726,7 @@
 "yjg" = (
 /obj/structure/bookcase/manuals,
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/security/prison)
@@ -91741,7 +91741,7 @@
 /area/maintenance/aft)
 "yju" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/security/prison)
