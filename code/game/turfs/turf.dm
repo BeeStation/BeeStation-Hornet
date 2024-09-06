@@ -212,7 +212,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/attack_hand(mob/user)
 	// Show a zmove radial when clicked
 	if(get_turf(user) == src)
-		if(!user.has_gravity(src) || (user.movement_type & FLYING))
+		if(!user.has_gravity(src) || (user.movement_type & (FLOATING|FLYING)))
 			show_zmove_radial(user)
 			return
 		else if(allow_z_travel)
