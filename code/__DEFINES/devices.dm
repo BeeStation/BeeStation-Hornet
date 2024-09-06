@@ -1,6 +1,5 @@
 // Role disk defines
 
-#define DISK_POWER (1<<0)
 #define DISK_ATMOS (1<<1)
 #define DISK_MED (1<<2)
 #define DISK_CHEM (1<<3)

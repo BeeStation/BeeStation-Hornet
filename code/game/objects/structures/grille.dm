@@ -19,7 +19,6 @@
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	var/rods_broken = TRUE
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	FASTDMM_PROP(\
 		pipe_astar_cost = 1\
 	)

@@ -133,8 +133,7 @@
 		INVOKE_ASYNC(src, PROC_REF(wash_atom), AM)
 
 /obj/machinery/shower/proc/wash_atom(atom/A)
-	A.wash(CLEAN_RAD | CLEAN_TYPE_WEAK) // Clean radiation non-instantly
-	A.wash(CLEAN_WASH)
+	A.wash(CLEAN_RAD | CLEAN_WASH)
 	SEND_SIGNAL(A, COMSIG_ADD_MOOD_EVENT, "shower", /datum/mood_event/nice_shower)
 	reagents.reaction(A, TOUCH, reaction_volume)
 

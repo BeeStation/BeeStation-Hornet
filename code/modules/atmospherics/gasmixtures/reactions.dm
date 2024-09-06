@@ -143,7 +143,7 @@
 
 /proc/radiation_burn(turf/open/location, energy_released)
 	if(istype(location) && prob(10))
-		radiation_pulse(location, energy_released/TRITIUM_BURN_RADIOACTIVITY_FACTOR)
+		radiation_pulse(location, max_range = energy_released/TRITIUM_BURN_RADIOACTIVITY_FACTOR, threshold = RAD_MEDIUM_INSULATION, chance = (DEFAULT_RADIATION_CHANCE / 3))
 
 /datum/gas_reaction/tritfire/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
@@ -167,7 +167,7 @@
 	if(burned_fuel)
 		energy_released += (FIRE_HYDROGEN_ENERGY_RELEASED * burned_fuel)
 		if(location && prob(10) && burned_fuel > TRITIUM_MINIMUM_RADIATION_ENERGY) //woah there let's not crash the server
-			radiation_pulse(location, energy_released/TRITIUM_BURN_RADIOACTIVITY_FACTOR)
+			radiation_burn(location, energy_released/TRITIUM_BURN_RADIOACTIVITY_FACTOR)
 
 		//oxygen+more-or-less hydrogen=H2O
 		air.adjust_moles(GAS_H2O, burned_fuel )// Yogs -- Conservation of Mass
@@ -426,7 +426,7 @@
 			var/standard_energy = 400 * air.get_moles(GAS_PLASMA) * air.return_temperature() //Prevents putting meaningless waste gases to achieve high rads.
 			if(prob(PERCENT(((PARTICLE_CHANCE_CONSTANT)/(reaction_energy-PARTICLE_CHANCE_CONSTANT)) + 1))) //Asymptopically approaches 100% as the energy of the reaction goes up.
 				location.fire_nuclear_particle(customize = TRUE, custompower = standard_energy)
-			radiation_pulse(location, max(2000 * 3 ** (log(10,standard_energy) - FUSION_RAD_MIDPOINT), 0))
+			radiation_burn(location, max(2000 * 3 ** (log(10,standard_energy) - FUSION_RAD_MIDPOINT), 0))
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 			air.set_temperature(clamp(thermal_energy/new_heat_capacity, TCMB, INFINITY))

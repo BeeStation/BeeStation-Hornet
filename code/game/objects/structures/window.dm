@@ -12,8 +12,6 @@
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0,  FIRE = 80, ACID = 100, STAMINA = 0, BLEED = 0)
 	CanAtmosPass = ATMOS_PASS_PROC
-	rad_insulation = RAD_VERY_LIGHT_INSULATION
-	rad_flags = RAD_PROTECT_CONTENTS
 	pass_flags_self = PASSTRANSPARENT
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	var/ini_dir = null

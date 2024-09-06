@@ -216,6 +216,8 @@ GENE SCANNER
 
 	message += "<span class='info'>Analyzing results for [M]:\n\tOverall status: [mob_status]</span>"
 
+	SEND_SIGNAL(M, COMSIG_LIVING_HEALTHSCAN, message, advanced, user, mode)
+
 	// Damage descriptions
 	if(brute_loss > 10)
 		message += "\t<span class='alert'>[brute_loss > 50 ? "Severe" : "Minor"] tissue damage detected.</span>"
@@ -256,10 +258,8 @@ GENE SCANNER
 	if(advanced)
 		message += "\t<span class='info'>Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.</span>"
 
-	if(M.radiation)
-		message += "\t<span class='alert'>Subject is irradiated.</span>"
-		if(advanced)
-			message += "\t<span class='info'>Radiation Level: [M.radiation]%.</span>"
+	if(HAS_TRAIT(M, TRAIT_IRRADIATED))
+		render_list += "<span class='alert ml-1'>Subject is irradiated. Supply toxin healing.</span>\n"
 
 	if(advanced && M.hallucinating())
 		message += "\t<span class='info'>Subject is hallucinating.</span>"
