@@ -752,7 +752,7 @@
 /obj/item/borg/upgrade/beaker_app/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
-		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
+		var/obj/item/borg/apparatus/container/extra/E = locate() in R.module.modules
 		if(E)
 			to_chat(user, "<span class='warning'>This unit has no room for additional beaker storage.</span>")
 			return FALSE
@@ -764,7 +764,7 @@
 /obj/item/borg/upgrade/beaker_app/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
-		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
+		var/obj/item/borg/apparatus/container/extra/E = locate() in R.module.modules
 		if (E)
 			R.module.remove_module(E, TRUE)
 

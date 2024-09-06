@@ -271,7 +271,7 @@
 		/obj/item/borg/charger,
 		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/reagent_containers/borghypo,
-		/obj/item/borg/apparatus/beaker,
+		/obj/item/borg/apparatus/container,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/surgical_drapes,
@@ -521,7 +521,7 @@
 		/obj/item/instrument/piano_synth,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/lighter,
-		/obj/item/borg/apparatus/beaker/service,
+		/obj/item/borg/apparatus/container/service,
 		/obj/item/reagent_containers/borghypo/borgshaker)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/borgshaker/hacked)
 	ratvar_modules = list(
