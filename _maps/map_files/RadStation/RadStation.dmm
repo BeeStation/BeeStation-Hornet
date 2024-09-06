@@ -4145,9 +4145,6 @@
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted{
 	alpha = 180
 	},
-/obj/structure/disposalpipe/sorting/mail{
-	name = "Security"
-	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
 	},
@@ -4156,6 +4153,9 @@
 	},
 /obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
@@ -72291,12 +72291,14 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
-/obj/structure/disposalpipe/junction,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
