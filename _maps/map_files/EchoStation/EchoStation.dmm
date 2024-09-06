@@ -6348,14 +6348,12 @@
 /turf/closed/wall/r_wall,
 /area/bridge)
 "cRh" = (
-/obj/machinery/atmospherics/components/trinary/mixer{
-	dir = 4;
-	name = "plasma mixer";
-	piping_layer = 4
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/trinary/mixer/layer4{
 	dir = 4
 	},
 /turf/open/floor/iron/tech,
@@ -6421,10 +6419,6 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/fore)
 "cSx" = (
-/obj/machinery/atmospherics/components/trinary/filter/atmos/n2{
-	dir = 8;
-	piping_layer = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/yellow/visible/layer2{
 	dir = 4
 	},
@@ -6435,6 +6429,9 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
+	},
+/obj/machinery/atmospherics/components/trinary/filter/atmos/n2/layer4{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -35191,13 +35188,6 @@
 /turf/open/floor/plating,
 /area/security/brig)
 "rIP" = (
-/obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped{
-	dir = 8;
-	node1_concentration = 0.21;
-	node2_concentration = 0.79;
-	on = 0;
-	piping_layer = 2
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -35209,6 +35199,9 @@
 	},
 /obj/structure/window/plasma/reinforced{
 	dir = 1
+	},
+/obj/machinery/atmospherics/components/trinary/mixer/airmix/layer2/flipped{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -40436,10 +40429,6 @@
 "uik" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/components/trinary/filter/atmos/o2{
-	dir = 8;
-	piping_layer = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/yellow/visible/layer2{
 	dir = 5
 	},
@@ -40448,6 +40437,9 @@
 	},
 /obj/structure/window/plasma/reinforced{
 	dir = 1
+	},
+/obj/machinery/atmospherics/components/trinary/filter/atmos/o2/layer4{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
