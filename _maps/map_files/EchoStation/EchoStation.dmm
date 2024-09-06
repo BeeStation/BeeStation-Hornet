@@ -15035,9 +15035,6 @@
 "hhu" = (
 /turf/closed/wall,
 /area/crew_quarters/cafeteria)
-"hhH" = (
-/turf/open/floor/engine/light,
-/area/holodeck/small)
 "hib" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -18780,7 +18777,7 @@
 /area/crew_quarters/cafeteria)
 "jrU" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/turf/open/floor/iron/grid/steel,
 /area/hydroponics)
 "jsb" = (
 /obj/machinery/atmospherics/components/trinary/mixer/flipped{
@@ -25059,7 +25056,7 @@
 /area/engineering/hallway)
 "mBs" = (
 /obj/machinery/smartfridge/sci,
-/turf/closed/wall,
+/turf/open/floor/iron/white,
 /area/science/robotics)
 "mBS" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -26824,7 +26821,7 @@
 /area/maintenance/department/crew_quarters/dorms)
 "nAw" = (
 /obj/machinery/smartfridge/organ,
-/turf/closed/wall,
+/turf/open/floor/iron/dark,
 /area/medical/morgue)
 "nAy" = (
 /obj/machinery/meter,
@@ -27293,7 +27290,7 @@
 /area/security/brig)
 "nKL" = (
 /obj/machinery/smartfridge/chemistry,
-/turf/closed/wall,
+/turf/open/floor/iron/white,
 /area/medical/apothecary)
 "nKV" = (
 /obj/effect/turf_decal/siding/white{
@@ -36688,7 +36685,7 @@
 /area/hallway/primary/central)
 "swh" = (
 /obj/machinery/smartfridge/food,
-/turf/closed/wall,
+/turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/kitchen)
 "swj" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -40321,7 +40318,7 @@
 /area/medical/patients_rooms)
 "ueO" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
-/turf/closed/wall,
+/turf/open/floor/iron/white,
 /area/medical/apothecary)
 "ueV" = (
 /turf/closed/wall,
@@ -45758,7 +45755,7 @@
 /obj/machinery/smartfridge{
 	name = "Bulk storage"
 	},
-/turf/closed/wall,
+/turf/open/floor/iron/grid/steel,
 /area/hydroponics)
 "wQY" = (
 /obj/structure/sign/departments/minsky/supply/cargo,
@@ -63285,7 +63282,7 @@ xQN
 wLe
 wLe
 wLe
-hhH
+wLe
 wLe
 lCP
 niw
