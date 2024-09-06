@@ -373,7 +373,7 @@
 	if(!active)
 		if(world.time > last_event+30)
 			active = 1
-			radiation_pulse(H, 50)
+			radiation_pulse(H, max_range = 1, threshold = RAD_VERY_LIGHT_INSULATION, chance = 3)
 			last_event = world.time
 			active = null
 	..()

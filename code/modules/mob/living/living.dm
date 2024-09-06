@@ -706,7 +706,6 @@
 	SetImmobilized(0, FALSE)
 	SetParalyzed(0, FALSE)
 	SetSleeping(0, FALSE)
-	radiation = 0
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
 	bodytemperature = get_body_temp_normal(apply_change=FALSE)
 	set_blindness(0)
@@ -1149,21 +1148,6 @@
 
 	for(var/holopara in holoparasites())
 		to_chat(holopara, "<span class='holoparasite'>Your summoner has changed form!</span>")
-
-/mob/living/rad_act(amount)
-	. = ..()
-
-	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE))
-		return
-
-	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
-
-	var/blocked = getarmor(null, RAD)
-
-	if(amount > RAD_BURN_THRESHOLD)
-		apply_damage((amount-RAD_BURN_THRESHOLD)/RAD_BURN_THRESHOLD, BURN, null, blocked)
-
-	apply_effect((amount*RAD_MOB_COEFFICIENT)/max(1, (radiation**2)*RAD_OVERDOSE_REDUCTION), EFFECT_IRRADIATE, blocked)
 
 /mob/living/anti_magic_check(magic = TRUE, holy = FALSE, major = TRUE, self = FALSE)
 	. = ..()

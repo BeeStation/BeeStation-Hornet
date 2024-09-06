@@ -1490,31 +1490,32 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)
 	return 0
 
-/datum/species/proc/handle_mutations_and_radiation(mob/living/carbon/human/H)
-	. = FALSE
-	var/radiation = H.radiation
-
-	if(HAS_TRAIT(H, TRAIT_RADIMMUNE))
-		radiation = 0
-		return TRUE
-
-	if(radiation > RAD_MOB_KNOCKDOWN && prob(RAD_MOB_KNOCKDOWN_PROB))
+/**
+ * Species based handling for irradiation
+ *
+ * Arguments:
+ * - [source][/mob/living/carbon/human]: The mob requesting handling
+ * - time_since_irradiated: The amount of time since the mob was first irradiated
+ * - delta_time: The amount of time that has passed since the last tick
+ */
+/datum/species/proc/handle_radiation(mob/living/carbon/human/source, time_since_irradiated, delta_time)
+	if(time_since_irradiated > RAD_MOB_KNOCKDOWN && DT_PROB(RAD_MOB_KNOCKDOWN_PROB, delta_time))
 		if(!H.IsParalyzed())
 			H.emote("collapse")
 		H.Paralyze(RAD_MOB_KNOCKDOWN_AMOUNT)
 		to_chat(H, "<span class='danger'>You feel weak.</span>")
 
-	if(radiation > RAD_MOB_VOMIT && prob(RAD_MOB_VOMIT_PROB))
+	if(time_since_irradiated > RAD_MOB_VOMIT && prob(RAD_MOB_VOMIT_PROB))
 		H.vomit(10, TRUE)
 
-	if(radiation > RAD_MOB_MUTATE)
+	if(time_since_irradiated > RAD_MOB_MUTATE)
 		if(prob(1))
 			to_chat(H, "<span class='danger'>You mutate!</span>")
 			H.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
 			H.emote("gasp")
 			H.domutcheck()
 
-	if(radiation > RAD_MOB_HAIRLOSS)
+	if(time_since_irradiated > RAD_MOB_HAIRLOSS)
 		if(prob(15) && !(H.hair_style == "Bald") && (HAIR in species_traits) && !HAS_TRAIT(H, TRAIT_NOHAIRLOSS))
 			to_chat(H, "<span class='danger'>Your hair starts to fall out in clumps.</span>")
 			addtimer(CALLBACK(src, PROC_REF(go_bald), H), 50)
