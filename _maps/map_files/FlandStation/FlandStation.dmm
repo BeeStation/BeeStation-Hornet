@@ -33349,7 +33349,7 @@
 /area/hallway/primary/central)
 "iyB" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
-/turf/closed/wall,
+/turf/open/floor/iron,
 /area/medical/apothecary)
 "iyG" = (
 /obj/effect/spawner/structure/window/reinforced/prison,

@@ -1636,7 +1636,9 @@
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "fL" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/turf/open/floor/iron{
+	heat_capacity = 1e+006
+	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "fM" = (
 /obj/structure/table/reinforced,
@@ -3960,7 +3962,6 @@
 	locked = 0;
 	name = "UO45 Research Division APC";
 	pixel_y = -23;
-	req_access = null;
 	start_charge = 100
 	},
 /obj/structure/disposalpipe/segment{
@@ -4419,7 +4420,6 @@
 	locked = 0;
 	name = "UO45 Gateway APC";
 	pixel_y = -23;
-	req_access = null;
 	start_charge = 100
 	},
 /obj/machinery/light/small,
@@ -6485,7 +6485,6 @@
 	dir = 8;
 	name = "UO45 Engineering APC";
 	pixel_x = -25;
-	req_access = null;
 	req_access_txt = "201";
 	start_charge = 100
 	},
@@ -6935,7 +6934,6 @@
 	locked = 0;
 	name = "UO45 Mining APC";
 	pixel_y = -23;
-	req_access = null;
 	start_charge = 100
 	},
 /obj/machinery/light/small,
@@ -7494,7 +7492,7 @@
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /obj/structure/window/reinforced{
-	dir = 4;
+	dir = 4
 	},
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/effect/turf_decal/tile/red{
@@ -10614,7 +10612,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
+	dir = 4
 	},
 /obj/structure/closet/secure_closet/engineering_personal{
 	req_access = null;
@@ -11669,7 +11667,6 @@
 	locked = 0;
 	name = "Hydroponics APC";
 	pixel_y = -23;
-	req_access = null;
 	start_charge = 100
 	},
 /obj/structure/cable{
@@ -12603,7 +12600,6 @@
 	locked = 0;
 	name = "UO45 Bar APC";
 	pixel_y = 23;
-	req_access = null;
 	start_charge = 100
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,

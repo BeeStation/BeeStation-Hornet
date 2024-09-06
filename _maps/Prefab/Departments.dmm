@@ -74,6 +74,10 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/space)
+"bD" = (
+/obj/machinery/gibber,
+/turf/open/floor/iron/freezer,
+/area/space)
 "bE" = (
 /obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/wood,
@@ -309,6 +313,14 @@
 "hm" = (
 /obj/item/toy/plush/moth/bluespace,
 /turf/open/floor/iron,
+/area/space)
+"hs" = (
+/obj/machinery/reagentgrinder{
+	pixel_x = -1;
+	pixel_y = 7
+	},
+/obj/structure/table/reinforced,
+/turf/open/floor/iron/freezer,
 /area/space)
 "hz" = (
 /obj/machinery/conveyor_switch/oneway{
@@ -975,6 +987,10 @@
 /obj/machinery/fax/eng,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/chief)
+"zb" = (
+/obj/machinery/processor,
+/turf/open/floor/iron/freezer,
+/area/space)
 "zv" = (
 /obj/effect/landmark/start/quartermaster,
 /turf/open/floor/carpet/orange,
@@ -1042,9 +1058,6 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "Bo" = (
-/obj/structure/closet,
-/obj/structure/closet/firecloset/full,
-/obj/structure/closet/emcloset,
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/space)
@@ -1205,6 +1218,10 @@
 	},
 /turf/open/floor/iron,
 /area/janitor)
+"Fr" = (
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom,
+/turf/open/floor/iron/freezer,
+/area/space)
 "Ft" = (
 /obj/structure/disposalpipe/sorting/mail/destination/bar,
 /turf/open/floor/iron/cafeteria_red,
@@ -1299,7 +1316,7 @@
 /turf/open/floor/iron/dark,
 /area/space)
 "Jo" = (
-/obj/item/toy/plush/moth/royal,
+/obj/structure/closet,
 /turf/open/floor/iron,
 /area/space)
 "JM" = (
@@ -1311,9 +1328,7 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "JN" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
+/obj/machinery/griddle,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
 "JV" = (
@@ -1324,6 +1339,10 @@
 /obj/structure/closet/l3closet/virology,
 /turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
+"JZ" = (
+/obj/structure/closet/firecloset/full,
+/turf/open/floor/iron,
+/area/space)
 "Kb" = (
 /obj/item/book/codex_gigas,
 /turf/open/floor/carpet/royalblack,
@@ -1398,9 +1417,7 @@
 /turf/open/floor/carpet/purple,
 /area/chapel/office)
 "LC" = (
-/obj/structure/closet/secure_closet/freezer/meat,
-/obj/structure/closet/secure_closet/freezer/kitchen,
-/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/structure/sink/kitchen,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
 "LH" = (
@@ -1472,6 +1489,10 @@
 /obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
+"MS" = (
+/obj/structure/closet/emcloset,
+/turf/open/floor/iron,
+/area/space)
 "Nb" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/machinery/vending/wardrobe/chem_wardrobe,
@@ -1518,6 +1539,10 @@
 "Os" = (
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
+"Ov" = (
+/obj/structure/kitchenspike,
+/turf/open/floor/iron/freezer,
+/area/space)
 "Oz" = (
 /turf/open/floor/grass/no_border,
 /area/hydroponics)
@@ -1668,8 +1693,13 @@
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
 "Rq" = (
+/obj/machinery/deepfryer,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
+"RA" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/turf/open/floor/iron/freezer,
+/area/space)
 "RB" = (
 /obj/machinery/door/airlock/research{
 	name = "Exploration Preparation Room";
@@ -1796,6 +1826,10 @@
 /obj/item/toy/plush/moth/deadhead,
 /turf/open/floor/iron/grid/steel,
 /area/space)
+"Uo" = (
+/obj/structure/closet/secure_closet/freezer/meat,
+/turf/open/floor/iron/freezer,
+/area/space)
 "Up" = (
 /mob/living/simple_animal/hostile/carp/lia,
 /mob/living/simple_animal/bot/secbot{
@@ -1903,8 +1937,10 @@
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "Wu" = (
-/obj/item/toy/plush/moth/firewatch,
-/turf/open/floor/iron/dark,
+/mob/living/simple_animal/hostile/retaliate/goat{
+	name = "Pete"
+	},
+/turf/open/floor/iron/freezer,
 /area/space)
 "Wx" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
@@ -2002,6 +2038,10 @@
 /obj/effect/landmark/start/head_of_personnel,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
+"Zh" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/turf/open/floor/iron/freezer,
+/area/space)
 "Zj" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/structure/reagent_dispensers/watertank,
@@ -2015,6 +2055,11 @@
 /area/medical/apothecary)
 "ZA" = (
 /obj/item/book/manual/wiki/cooking_to_serve_man,
+/obj/machinery/microwave{
+	desc = "Cooks and boils stuff, somehow.";
+	pixel_x = -3;
+	pixel_y = 5
+	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
 "ZB" = (
@@ -2409,12 +2454,12 @@ XF
 Qk
 Qk
 Qk
-XF
-XF
-XF
+zb
+Fr
+Zh
 Qk
 Qk
-Qk
+MS
 "}
 (20,1,1) = {"
 ZA
@@ -2429,12 +2474,12 @@ XF
 Qk
 ST
 Qk
-XF
+bD
 Wu
-XF
+RA
 Qk
-Jo
 Qk
+JZ
 "}
 (21,1,1) = {"
 eJ
@@ -2449,12 +2494,12 @@ XF
 Qk
 Qk
 Qk
-XF
-XF
-XF
+Ov
+hs
+Uo
 Qk
 Qk
-Qk
+Jo
 "}
 (22,1,1) = {"
 dc
