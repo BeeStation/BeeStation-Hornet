@@ -49066,16 +49066,14 @@
 	},
 /area/hallway/primary/central)
 "pEs" = (
-/obj/structure/disposalpipe/sorting/mail/flip{
-	dir = 4;
-	name = "disposals";
-	sortTypes = list(0,1)
-	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
 /obj/effect/turf_decal/guideline/guideline_in/purple{
 	dir = 1
+	},
+/obj/structure/disposalpipe/sorting/mail/destination/disposals/flip{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
