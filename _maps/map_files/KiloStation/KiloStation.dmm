@@ -29345,9 +29345,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
-"dIW" = (
-/turf/closed/wall/r_wall,
-/area/security/prison)
 "dJh" = (
 /obj/effect/turf_decal/tile/dark/half{
 	dir = 1
@@ -59539,9 +59536,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/storage/tech)
-"nJB" = (
-/turf/closed/wall,
-/area/security/prison)
 "nJS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -61168,9 +61162,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
-"ogW" = (
-/turf/closed/wall/r_wall,
-/area/security/prison)
 "ohH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -61721,10 +61712,6 @@
 /obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/iron,
 /area/vacant_room/commissary)
-"orr" = (
-/obj/effect/turf_decal/siding/wood,
-/turf/open/floor/wood,
-/area/security/prison)
 "orv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
@@ -65686,9 +65673,6 @@
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
-"pCT" = (
-/turf/closed/wall/r_wall,
-/area/security/prison)
 "pCU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -74682,9 +74666,6 @@
 	luminosity = 2
 	},
 /area/ai_monitored/turret_protected/ai_upload)
-"sIN" = (
-/turf/closed/wall/r_wall/rust,
-/area/security/prison)
 "sIO" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -84719,17 +84700,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
 /area/chapel/main)
-"wbq" = (
-/obj/effect/spawner/structure/window/reinforced/prison,
-/obj/machinery/door/poddoor/preopen{
-	id = "Prisongate";
-	name = "Prison Blast Door"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating,
-/area/security/prison)
 "wbz" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -87251,9 +87221,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
-"wMz" = (
-/turf/closed/wall,
-/area/security/prison)
 "wMJ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -89679,9 +89646,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
-"xBC" = (
-/turf/closed/wall,
-/area/security/prison)
 "xBV" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
@@ -108634,12 +108598,12 @@ awD
 bKN
 nQP
 lNO
-pCT
-pCT
-wbq
+aav
+aav
+gCu
 wCt
 xCB
-pCT
+aav
 aav
 aav
 aav
@@ -108891,7 +108855,7 @@ awD
 aer
 rfb
 vGx
-sIN
+aat
 qvH
 qvH
 qvH
@@ -109405,7 +109369,7 @@ cWc
 ldS
 fiR
 hul
-pCT
+aav
 qvH
 qvH
 qvH
@@ -112747,7 +112711,7 @@ cPW
 vIy
 sZf
 aav
-wMz
+lDt
 lDt
 lDt
 lDt
@@ -113003,7 +112967,7 @@ bKk
 cPX
 oYn
 dCd
-ogW
+aav
 edU
 lDt
 pou
@@ -113260,7 +113224,7 @@ boW
 cBW
 cBv
 kqj
-ogW
+aav
 omE
 hzI
 jrQ
@@ -113268,7 +113232,7 @@ emF
 rjd
 lDt
 yjg
-orr
+mmJ
 gUd
 tEI
 aat
@@ -113517,8 +113481,8 @@ brb
 cBW
 cBy
 fHy
-ogW
-wMz
+aav
+lDt
 lDt
 lDt
 lDt
@@ -113774,7 +113738,7 @@ bsR
 bIV
 csN
 elv
-dIW
+aav
 gLj
 cer
 nON
@@ -114031,7 +113995,7 @@ buH
 bLu
 cBw
 elv
-dIW
+aav
 oIQ
 iWQ
 cdQ
@@ -114288,11 +114252,11 @@ buY
 bIV
 ajd
 kiL
-dIW
-nJB
-nJB
-nJB
-nJB
+aav
+lDt
+lDt
+lDt
+lDt
 gre
 eNr
 lFx
@@ -114545,17 +114509,17 @@ bIV
 bIV
 ljR
 gCf
-dIW
+aav
 gLj
 iIj
 nON
 fMu
 qBN
 gxo
-xBC
-xBC
+lDt
+lDt
 dKa
-xBC
+lDt
 aav
 paw
 fcN
@@ -114809,7 +114773,7 @@ cdQ
 txv
 hrY
 sUX
-xBC
+lDt
 dRC
 nze
 hNc
@@ -115059,8 +115023,8 @@ dFd
 bLu
 ouT
 tHj
-dIW
-dIW
+aav
+aav
 dku
 dku
 dku
@@ -115325,7 +115289,7 @@ ieY
 kTD
 dku
 ppu
-xBC
+lDt
 ppu
 aav
 fcZ

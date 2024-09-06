@@ -94,9 +94,6 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
-"K" = (
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/pod_1)
 "M" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
@@ -126,11 +123,11 @@
 
 (1,1,1) = {"
 E
-K
+E
 S
-K
+E
 S
-K
+E
 e
 "}
 (2,1,1) = {"
@@ -140,7 +137,7 @@ p
 M
 c
 y
-K
+E
 "}
 (3,1,1) = {"
 S
@@ -158,14 +155,14 @@ p
 D
 W
 w
-K
+E
 "}
 (5,1,1) = {"
 E
-K
+E
 S
-K
+E
 S
-K
+E
 e
 "}
