@@ -47,7 +47,8 @@
 #define UNIT_TEST_SKIPPED 2
 
 #define TEST_PRE 0
-#define TEST_DEFAULT 1
+#define TEST_MAPPING 1
+#define TEST_DEFAULT 2
 /// After most test steps, used for tests that run long so shorter issues can be noticed faster
 #define TEST_LONGER 10
 /// This must be the one of last tests to run due to the inherent nature of the test iterating every single tangible atom in the game and qdeleting all of them (while taking long sleeps to make sure the garbage collector fires properly) taking a large amount of time.

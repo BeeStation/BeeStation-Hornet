@@ -1,3 +1,6 @@
+/datum/unit_test/map_test
+	priority = TEST_MAPPING
+
 /datum/unit_test/map_test/Run()
 	var/list/failures
 	var/list/areas = list()

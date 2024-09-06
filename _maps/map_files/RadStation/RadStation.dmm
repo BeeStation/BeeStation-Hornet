@@ -15311,11 +15311,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/junction/flip{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/security/main)
