@@ -1465,8 +1465,7 @@
 	},
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 4;
-	name = "Mix to SM";
-	piping_layer = 1
+	name = "Mix to SM"
 	},
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
@@ -5828,9 +5827,6 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
-	piping_layer = 4
-	},
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/machinery/light/small{
 	dir = 1
@@ -5844,6 +5840,7 @@
 /obj/machinery/camera/autoname/directional/north{
 	network = list("ss13","medbay")
 	},
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_4,
 /turf/open/floor/iron/grid/steel,
 /area/medical/medbay/central)
 "cDv" = (
@@ -9192,9 +9189,8 @@
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/junction/flip,
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 6;
-	piping_layer = 1
+/obj/machinery/atmospherics/pipe/simple/orange/visible{
+	dir = 6
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
@@ -11615,9 +11611,8 @@
 /turf/open/floor/carpet,
 /area/asteroid/paradise/surface)
 "fDC" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/carbon_output{
-	dir = 4;
-	piping_layer = 4
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/carbon_output/layer4{
+	dir = 4
 	},
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
@@ -12410,9 +12405,7 @@
 /turf/open/floor/iron,
 /area/janitor)
 "fWy" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/air_input{
-	piping_layer = 2
-	},
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/air_input/layer2,
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "fWA" = (
@@ -13187,7 +13180,7 @@
 	},
 /obj/item/beacon,
 /obj/effect/turf_decal/box,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "gnc" = (
@@ -15574,9 +15567,7 @@
 /area/asteroid/paradise/surface)
 "hyo" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/simple/general/hidden/layer2{
-	dir = 9
-	},
+/obj/effect/mapping_helpers/simple_pipes/general/visible,
 /turf/open/floor/iron/grid/steel,
 /area/medical/medbay/central)
 "hyx" = (
@@ -23278,9 +23269,8 @@
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
 "lFQ" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste{
-	dir = 4;
-	piping_layer = 4
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste/layer4{
+	dir = 4
 	},
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
@@ -31283,10 +31273,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/general/visible{
-	dir = 4;
-	piping_layer = 1
-	},
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "pOn" = (
@@ -32202,8 +32188,7 @@
 /area/hallway/primary/central)
 "qjI" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/plasma_output{
-	dir = 1;
-	piping_layer = 4
+	dir = 1
 	},
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
@@ -37984,8 +37969,7 @@
 	},
 /obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 1;
-	initialize_directions = 1;
-	piping_layer = 2
+	initialize_directions = 1
 	},
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/engine,
@@ -41334,9 +41318,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hop)
 "uFe" = (
-/obj/machinery/atmospherics/components/binary/valve/layer2{
-	dir = 1
-	},
+/obj/machinery/atmospherics/components/binary/valve,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "uFv" = (
@@ -42675,8 +42657,7 @@
 /area/tcommsat/computer)
 "vnD" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrous_output{
-	dir = 1;
-	piping_layer = 4
+	dir = 1
 	},
 /obj/machinery/camera/autoname/directional/south{
 	network = list("ss13","engine")
@@ -43123,8 +43104,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/general/visible{
-	dir = 4;
-	piping_layer = 1
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
@@ -43346,10 +43326,6 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/general/visible{
-	dir = 4;
-	piping_layer = 1
 	},
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
@@ -43657,13 +43633,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden/layer4,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	name = "Connector Port (Air Supply)"
-	},
-/obj/machinery/atmospherics/pipe/simple/general/hidden/layer2{
-	dir = 6
-	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/effect/mapping_helpers/simple_pipes/general/visible,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2,
 /turf/open/floor/iron/grid/steel,
 /area/medical/medbay/central)
 "vQL" = (
@@ -47147,9 +47119,7 @@
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "xyG" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/air_output{
-	piping_layer = 2
-	},
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/air_output,
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "xyS" = (
@@ -47568,9 +47538,7 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
 "xIF" = (
-/obj/machinery/atmospherics/components/unary/cryo_cell{
-	piping_layer = 2
-	},
+/obj/machinery/atmospherics/components/unary/cryo_cell,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},

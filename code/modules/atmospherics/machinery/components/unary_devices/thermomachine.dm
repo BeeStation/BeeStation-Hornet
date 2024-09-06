@@ -281,6 +281,7 @@
 QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/heater)
 QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/heater/on)
 QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/on)
+QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/freezer)
 QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on)
 QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom)
 
