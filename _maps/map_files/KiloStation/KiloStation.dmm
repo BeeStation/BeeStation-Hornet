@@ -27331,8 +27331,8 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "cWF" = (
+/obj/structure/chair/stool/directional/south,
 /obj/effect/turf_decal/siding/wood,
-/obj/structure/chair/stool/directional/north,
 /turf/open/floor/wood,
 /area/security/prison)
 "cWK" = (
@@ -54817,11 +54817,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "lVh" = (
+/obj/structure/chair/stool/directional/south,
 /obj/item/trash/energybar{
 	pixel_x = 10;
 	pixel_y = 7
 	},
-/obj/structure/chair/stool/directional/north,
 /turf/open/floor/wood,
 /area/security/prison)
 "lVu" = (
@@ -58760,10 +58760,6 @@
 	broken = 1
 	},
 /area/maintenance/starboard/fore)
-"nqE" = (
-/obj/structure/chair/stool/directional/east,
-/turf/open/floor/wood,
-/area/security/prison)
 "nqK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -67927,11 +67923,11 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
+/obj/structure/chair/stool/bar/directional/west,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/theatre)
 "qoP" = (
@@ -78694,8 +78690,8 @@
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/heads/cmo)
 "tZf" = (
+/obj/structure/chair/stool/bar,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool/bar/directional/south,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -82707,10 +82703,10 @@
 /turf/open/floor/iron/showroomfloor,
 /area/maintenance/port/aft)
 "vru" = (
+/obj/structure/chair/stool,
 /obj/effect/landmark/start/atmospheric_technician,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "vrE" = (
@@ -83409,11 +83405,11 @@
 	},
 /area/maintenance/starboard/fore)
 "vDh" = (
+/obj/structure/chair/stool/bar/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -111194,9 +111190,9 @@ cBy
 pLS
 aav
 fCh
-nqE
-nqE
-nqE
+bKs
+bKs
+bKs
 mmJ
 qHm
 uOX

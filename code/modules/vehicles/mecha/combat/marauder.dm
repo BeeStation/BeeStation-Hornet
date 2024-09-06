@@ -74,7 +74,7 @@
 	internals_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/mauler
 	max_equip = 6
-	destruction_sleep_duration = 20
+	destruction_knockdown_duration = 2 SECONDS //Syndi mechs get reduced knockdown
 
 /obj/vehicle/sealed/mecha/combat/marauder/mauler/Initialize(mapload)
 	. = ..()

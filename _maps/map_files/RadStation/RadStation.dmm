@@ -361,10 +361,10 @@
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/auxiliary)
 "aed" = (
+/obj/structure/chair/stool/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
-/obj/structure/chair/stool/directional/east,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
 "aeh" = (
@@ -1917,11 +1917,6 @@
 /area/security/main{
 	name = "Security Break Room"
 	})
-"aGx" = (
-/obj/structure/chair/stool/bar/directional/north,
-/obj/effect/landmark/start/assistant,
-/turf/open/floor/iron/cafeteria_red,
-/area/crew_quarters/cafeteria)
 "aGA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/splatter,
@@ -10413,7 +10408,7 @@
 /turf/open/floor/plating,
 /area/storage/primary)
 "dtd" = (
-/obj/structure/chair/stool/directional/east,
+/obj/structure/chair/stool/directional/west,
 /turf/open/floor/wood,
 /area/security/prison)
 "dtl" = (
@@ -12510,7 +12505,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "dXN" = (
-/obj/structure/chair/stool/bar/directional/north,
+/obj/structure/chair/stool/bar/directional/south,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/cafeteria)
 "dXS" = (
@@ -13047,8 +13042,9 @@
 	},
 /area/science/mixing)
 "eij" = (
+/obj/structure/chair/stool/bar/directional/south,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/chair/stool/bar/directional/north,
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/cafeteria)
 "eik" = (
@@ -13935,10 +13931,10 @@
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32
 	},
+/obj/structure/chair/stool/bar,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/south,
 /turf/open/floor/iron,
 /area/engine/engine_room)
 "ewf" = (
@@ -15021,8 +15017,8 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "eNG" = (
+/obj/structure/chair/stool/bar/directional/south,
 /obj/effect/turf_decal/tile/neutral,
-/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron,
 /area/engine/storage)
 "eNH" = (
@@ -17881,10 +17877,10 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "fEM" = (
+/obj/structure/chair/stool/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/structure/chair/stool/directional/east,
 /turf/open/floor/wood,
 /area/security/prison)
 "fET" = (
@@ -21143,10 +21139,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"gEe" = (
-/obj/structure/chair/stool/bar/directional/east,
-/turf/open/floor/iron/cafeteria_red,
-/area/crew_quarters/cafeteria)
 "gEo" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -26105,10 +26097,10 @@
 /area/quartermaster/storage)
 "imm" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/stool/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
-/obj/structure/chair/stool/directional/east,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
 "imo" = (
@@ -27211,6 +27203,11 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"iHD" = (
+/obj/structure/chair/stool/bar/directional/south,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/cafeteria)
 "iHF" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 10
@@ -31282,11 +31279,11 @@
 /turf/closed/wall,
 /area/maintenance/department/medical/morgue)
 "jVt" = (
+/obj/structure/chair/stool/bar,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool/bar/directional/south,
 /turf/open/floor/iron,
 /area/engine/engine_room)
 "jVx" = (
@@ -34428,7 +34425,7 @@
 /turf/open/floor/iron/dark/telecomms{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
-/area/engine/gravity_generator)
+/area/tcommsat/computer)
 "kYr" = (
 /obj/structure/sign/warning/nosmoking,
 /turf/closed/wall,
@@ -36086,7 +36083,7 @@
 /turf/open/floor/circuit/telecomms/mainframe{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
-/area/engine/gravity_generator)
+/area/tcommsat/computer)
 "lyc" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -48454,8 +48451,8 @@
 /area/hallway/secondary/entry)
 "plA" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/structure/chair/stool,
 /obj/machinery/airalarm/directional/east,
-/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron,
 /area/medical/break_room)
 "plT" = (
@@ -49405,7 +49402,7 @@
 /turf/open/floor/iron/dark/telecomms{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
-/area/engine/gravity_generator)
+/area/tcommsat/computer)
 "pBt" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
@@ -51118,11 +51115,11 @@
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
 "qam" = (
+/obj/structure/chair/stool/bar/directional/south,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	alpha = 180
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron,
 /area/engine/storage)
 "qat" = (
@@ -52418,7 +52415,7 @@
 /turf/open/floor/iron/dark/telecomms{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
-/area/engine/gravity_generator)
+/area/tcommsat/computer)
 "qwL" = (
 /obj/structure/sign/poster/random,
 /turf/closed/wall,
@@ -52859,7 +52856,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/security)
 "qDT" = (
-/obj/structure/chair/stool/bar/directional/east,
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/wood,
 /area/maintenance/port/aft)
 "qDZ" = (
@@ -56694,10 +56691,10 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
+/obj/structure/chair/stool,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron,
 /area/medical/break_room)
 "rNZ" = (
@@ -62882,7 +62879,7 @@
 /area/hallway/primary/fore)
 "tJd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool/directional/north,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/carpet/royalblack,
 /area/library)
 "tJf" = (
@@ -68073,10 +68070,10 @@
 /obj/structure/railing{
 	dir = 8
 	},
+/obj/structure/chair/stool/directional/south,
 /obj/effect/turf_decal{
 	dir = 8
 	},
-/obj/structure/chair/stool/directional/north,
 /turf/open/floor/prison,
 /area/security/prison)
 "vwR" = (
@@ -70291,7 +70288,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/telecomms/hub/preset,
+/obj/machinery/blackbox_recorder,
 /turf/open/floor/circuit/telecomms/mainframe{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
@@ -73576,9 +73573,9 @@
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "xnh" = (
+/obj/structure/chair/stool/bar/directional/south,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/cafeteria)
 "xnB" = (
@@ -74028,7 +74025,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/blackbox_recorder,
+/obj/machinery/telecomms/hub/preset,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "xtE" = (
@@ -75360,7 +75357,7 @@
 /turf/open/floor/iron/dark/telecomms{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
-/area/engine/gravity_generator)
+/area/tcommsat/computer)
 "xMx" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
@@ -110091,7 +110088,7 @@ cMI
 iST
 iST
 tHK
-ebF
+iST
 ebF
 ebF
 ebF
@@ -111633,7 +111630,7 @@ cMI
 iST
 iST
 iST
-ebF
+iST
 ebF
 ebF
 ebF
@@ -113711,7 +113708,7 @@ cTn
 tcL
 cxF
 eWK
-eij
+iHD
 bLt
 aed
 imm
@@ -114739,9 +114736,9 @@ jDB
 xbr
 swv
 uHQ
-gEe
-gEe
-gEe
+rpK
+rpK
+rpK
 wlr
 bmu
 mWi
@@ -115770,7 +115767,7 @@ oNv
 jDu
 jKx
 qVc
-aGx
+dXN
 bSd
 mWi
 jmw

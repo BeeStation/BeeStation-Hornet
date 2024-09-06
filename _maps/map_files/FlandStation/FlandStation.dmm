@@ -862,7 +862,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "alR" = (
@@ -1849,13 +1849,13 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "azo" = (
+/obj/structure/chair/stool,
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
 	},
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 4
 	},
-/obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "azz" = (
@@ -2045,7 +2045,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/cafeteria)
 "aBM" = (
@@ -6015,7 +6015,7 @@
 /area/tcommsat/computer)
 "buS" = (
 /obj/effect/landmark/start/assistant,
-/obj/structure/chair/stool/directional/east,
+/obj/structure/chair/stool/directional/west,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "buU" = (
@@ -6395,10 +6395,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/checkpoint/medical)
-"bBc" = (
-/obj/structure/chair/stool/directional/north,
-/turf/open/floor/carpet,
-/area/crew_quarters/bar/atrium)
 "bBi" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle{
 	dir = 4
@@ -8718,8 +8714,8 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "ckk" = (
+/obj/structure/chair/stool,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "ckp" = (
@@ -15914,6 +15910,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/library/lounge)
 "efE" = (
+/obj/structure/chair/stool,
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 1
@@ -15921,7 +15918,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "efM" = (
@@ -16845,6 +16841,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "etw" = (
+/obj/structure/chair/stool,
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 1
@@ -16855,7 +16852,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "etB" = (
@@ -32146,7 +32142,7 @@
 	},
 /area/teleporter)
 "ihI" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron/dark/side{
 	dir = 6
 	},
@@ -33047,7 +33043,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/obj/structure/chair/stool/directional/north,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "itO" = (
@@ -33635,7 +33631,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "iyS" = (
@@ -37177,7 +37173,7 @@
 /area/crew_quarters/heads/captain)
 "jwj" = (
 /obj/effect/landmark/start/assistant,
-/obj/structure/chair/stool/bar/directional/east,
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},
@@ -40562,11 +40558,11 @@
 /turf/open/floor/vault,
 /area/engine/engine_room)
 "knq" = (
+/obj/structure/chair/stool,
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 1
 	},
-/obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "knt" = (
@@ -45139,10 +45135,10 @@
 /area/science/robotics/lab)
 "lqS" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/chair/stool,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "lrd" = (
@@ -45877,7 +45873,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/east,
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "lzU" = (
@@ -46400,13 +46396,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
-"lIi" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/chair/stool/directional/north,
-/turf/open/floor/carpet,
-/area/crew_quarters/bar/atrium)
 "lIn" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
@@ -46684,6 +46673,13 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/bridge/meeting_room/council)
+"lMs" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/chair/stool,
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "lMw" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 6
@@ -60436,8 +60432,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/structure/chair/stool/bar/directional/west,
 /obj/effect/landmark/start/assistant,
-/obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "pAd" = (
@@ -61007,7 +61003,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/chair/stool/directional/east,
+/obj/structure/chair/stool/directional/west,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "pHF" = (
@@ -68457,8 +68453,8 @@
 /turf/open/space,
 /area/solar/starboard/fore)
 "rCq" = (
+/obj/structure/chair/stool,
 /mob/living/carbon/monkey/punpun,
-/obj/structure/chair/stool/directional/south,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "rCE" = (
@@ -75617,6 +75613,10 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass,
 /area/hydroponics/garden)
+"tqx" = (
+/obj/structure/chair/stool,
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "tqy" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -78801,9 +78801,9 @@
 /turf/open/floor/grass,
 /area/hydroponics/garden)
 "uhM" = (
+/obj/structure/chair/stool,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/landmark/prisonspawn,
-/obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "uhU" = (
@@ -80867,13 +80867,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/aft)
-"uGM" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/chair/stool/directional/east,
-/turf/open/floor/carpet,
-/area/crew_quarters/bar/atrium)
 "uGP" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 5
@@ -81105,7 +81098,7 @@
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "uJw" = (
-/obj/structure/chair/stool/bar/directional/east,
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},
@@ -84778,8 +84771,8 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "vyA" = (
+/obj/structure/chair/stool/directional/south,
 /obj/effect/landmark/start/assistant,
-/obj/structure/chair/stool/directional/north,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "vyB" = (
@@ -88187,7 +88180,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
-/obj/structure/chair/stool/directional/north,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "woN" = (
@@ -97123,10 +97116,6 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/storage)
-"yiX" = (
-/obj/structure/chair/stool/directional/east,
-/turf/open/floor/carpet,
-/area/crew_quarters/bar/atrium)
 "yiY" = (
 /obj/effect/turf_decal/trimline/blue/line{
 	dir = 8
@@ -117328,9 +117317,9 @@ dgK
 nuD
 ngw
 mRd
-lru
+tqx
 rkv
-bBc
+lru
 vAS
 xqJ
 wsI
@@ -117585,9 +117574,9 @@ mRd
 ttX
 tCN
 soU
-ezI
+lMs
 rDv
-lIi
+ezI
 yjx
 eje
 wtt
@@ -117842,7 +117831,7 @@ mRd
 cXO
 kSv
 mRd
-lru
+tqx
 rkv
 vyA
 vAS
@@ -118101,7 +118090,7 @@ mRd
 mRd
 rCq
 uJh
-bBc
+lru
 vAS
 wpL
 qvN
@@ -118353,12 +118342,12 @@ ksN
 mse
 sxX
 mRd
-uGM
-yiX
+cXO
+kSv
 mRd
-lru
+tqx
 rkv
-bBc
+lru
 vAS
 wdj
 sei

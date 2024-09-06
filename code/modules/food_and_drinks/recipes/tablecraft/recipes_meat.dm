@@ -50,47 +50,6 @@
 	result = /obj/item/food/kebab/fiesta
 	subcategory = CAT_MEAT
 
-////////////////////////////////////////////////FISH////////////////////////////////////////////////
-
-/datum/crafting_recipe/food/cubancarp
-	name = "Cuban carp"
-	reqs = list(
-		/datum/reagent/consumable/flour = 5,
-		/obj/item/food/grown/chili = 1,
-		/obj/item/food/fishmeat/carp = 1
-	)
-	result = /obj/item/food/cubancarp
-	subcategory = CAT_MEAT
-
-/datum/crafting_recipe/food/fishandchips
-	name = "Fish and chips"
-	reqs = list(
-		/obj/item/food/fries = 1,
-		/obj/item/food/fishmeat/carp = 1
-	)
-	result = /obj/item/food/fishandchips
-	subcategory = CAT_MEAT
-
-/datum/crafting_recipe/food/fishfingers
-	name = "Fish fingers"
-	reqs = list(
-		/datum/reagent/consumable/flour = 5,
-		/obj/item/food/bun = 1,
-		/obj/item/food/fishmeat/carp = 1
-	)
-	result = /obj/item/food/fishfingers
-	subcategory = CAT_MEAT
-
-/datum/crafting_recipe/food/sashimi
-	name = "Sashimi"
-	reqs = list(
-		/datum/reagent/consumable/soysauce = 5,
-		/obj/item/food/spidereggs = 1,
-		/obj/item/food/fishmeat/carp = 1
-	)
-	result = /obj/item/food/sashimi
-	subcategory = CAT_MEAT
-
 ////////////////////////////////////////////////MR SPIDER////////////////////////////////////////////////
 
 /datum/crafting_recipe/food/spidereggsham
@@ -215,7 +174,8 @@
 /datum/crafting_recipe/food/ricepork
 	name = "Rice and Pork"
 	reqs = list(
-		/obj/item/food/salad/boiledrice = 1,
+		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/food/boiledrice = 1,
 		/obj/item/food/meat/cutlet = 2
 	)
 	result = /obj/item/food/salad/ricepork
