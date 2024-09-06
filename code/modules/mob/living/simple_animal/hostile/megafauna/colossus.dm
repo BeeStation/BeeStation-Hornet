@@ -350,6 +350,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	pixel_y = -4
 	use_power = NO_POWER_USE
+	opacity = FALSE
 	var/memory_saved = FALSE
 	var/list/stored_items = list()
 	var/list/blacklist = list()

@@ -12,6 +12,7 @@
 	idle_power_usage = 5
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/smartfridge
+	opacity = TRUE
 
 	var/tgui_theme = null // default theme as null is Nanotrasen theme.
 
@@ -288,6 +289,7 @@
 	use_power = NO_POWER_USE
 	visible_contents = FALSE
 	has_emissive = FALSE
+	opacity = FALSE
 	var/drying = FALSE
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
@@ -565,6 +567,7 @@
 	icon_state = "disktoaster"
 	pass_flags = PASSTABLE
 	visible_contents = FALSE
+	opacity = FALSE
 
 /obj/machinery/smartfridge/disks/accept_check(obj/item/O)
 	if(istype(O, /obj/item/disk/))
