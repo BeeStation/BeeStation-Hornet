@@ -23,8 +23,7 @@
 		return "[target.name] not attached to a trunk at [COORD(target)]."
 	// Create a terrible disposal holder object
 	var/obj/structure/disposalholder/holder = new()
-	traverse_loop(holder, target.trunk, FALSE)
-	// Abuse byonds variables to get out (We can use pointers as an out variable in 515)
+	traverse_loop(holder, target.trunk, TRUE)
 	if (failure_reason)
 		failures += failure_reason
 		failure_reason = null
