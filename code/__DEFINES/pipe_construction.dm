@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(tagger_destination_areas, list(
 	"Genetics" = list(/area/medical/genetics),
 	"Testing Range" = list(/area/science/misc_lab, /area/science/test_area, /area/science/mixing),
 	"Toxins" = list(/area/science/misc_lab, /area/science/test_area, /area/science/mixing),
-	"Dormitories" = list(/area/crew_quarters/dorms, /area/commons/dorms),
+	"Dormitories" = list(/area/crew_quarters/dorms, /area/commons/dorms, /area/crew_quarters/fitness),
 	"Virology" = list(/area/medical/virology),
 	"Xenobiology" = list(/area/science/xenobiology),
 	"Law Office" = list(/area/lawoffice),
