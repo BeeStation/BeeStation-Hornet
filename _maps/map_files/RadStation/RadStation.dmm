@@ -1791,7 +1791,7 @@
 /area/security/prison)
 "aEE" = (
 /obj/machinery/smartfridge/chemistry,
-/turf/closed/wall,
+/turf/open/floor/iron,
 /area/medical/apothecary)
 "aEI" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -8563,7 +8563,8 @@
 /obj/machinery/smartfridge{
 	name = "Bulk storage"
 	},
-/turf/closed/wall,
+/obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
+/turf/open/floor/iron,
 /area/hydroponics)
 "cOL" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -13719,7 +13720,7 @@
 /area/quartermaster/exploration_prep)
 "eus" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "euH" = (
 /obj/machinery/light,
@@ -18959,7 +18960,7 @@
 /area/hallway/primary/port)
 "fZk" = (
 /obj/machinery/smartfridge/sci,
-/turf/closed/wall,
+/turf/open/floor/iron,
 /area/science/robotics)
 "fZt" = (
 /obj/structure/table,
@@ -19302,7 +19303,6 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "gee" = (
-/obj/structure/closet/crate/freezer/blood,
 /obj/item/rollerbed,
 /obj/item/rollerbed{
 	pixel_x = 4;
@@ -19317,6 +19317,7 @@
 	pixel_y = 8
 	},
 /obj/item/clothing/mask/muzzle,
+/obj/item/reagent_containers/blood/OPlus,
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "geq" = (
@@ -20788,7 +20789,7 @@
 /area/crew_quarters/heads/captain/private)
 "gBm" = (
 /obj/machinery/smartfridge/food,
-/turf/closed/wall,
+/turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "gBo" = (
 /obj/structure/disposalpipe/segment{
@@ -21810,12 +21811,6 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 1
-	},
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "gQP" = (
@@ -22202,7 +22197,7 @@
 /area/crew_quarters/heads/captain)
 "gXJ" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
-/turf/closed/wall,
+/turf/open/floor/iron,
 /area/medical/apothecary)
 "gYa" = (
 /obj/machinery/photocopier,
@@ -25096,7 +25091,7 @@
 /area/security/main)
 "hYg" = (
 /obj/machinery/smartfridge/extract/preloaded,
-/turf/closed/wall/r_wall,
+/turf/open/floor/iron/white,
 /area/science/xenobiology)
 "hYo" = (
 /obj/machinery/space_heater,
@@ -34607,9 +34602,6 @@
 	pixel_x = -5;
 	pixel_y = 5
 	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/light_switch{
 	pixel_x = 21;
 	pixel_y = 22
@@ -35642,6 +35634,9 @@
 /obj/machinery/chem_heater{
 	pixel_y = 1
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/medical/apothecary)
 "lwI" = (
@@ -36518,7 +36513,7 @@
 /area/engine/engine_room)
 "lOL" = (
 /obj/machinery/smartfridge/drinks,
-/turf/closed/wall,
+/turf/open/floor/iron/cafeteria,
 /area/maintenance/port/aft)
 "lOQ" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -40894,6 +40889,12 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/light{
+	bulb_colour = "#22bfa2";
+	bulb_vacuum_colour = "#22bfa2";
+	dir = 4;
+	nightshift_light_color = "#22bfa2"
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
@@ -47946,9 +47947,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/guideline/guideline_in/blue,
-/obj/machinery/light{
-	dir = 8
-	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "pmb" = (
@@ -53949,7 +53947,7 @@
 	initial_contents = list(/obj/item/stock_parts/capacitor = 2, /obj/item/stock_parts/manipulator = 2, /obj/item/stock_parts/micro_laser = 2, /obj/item/stock_parts/matter_bin = 2, /obj/item/stock_parts/scanning_module = 2);
 	name = "Science vender"
 	},
-/turf/closed/wall,
+/turf/open/floor/iron,
 /area/engine/storage)
 "rdS" = (
 /obj/structure/disposalpipe/segment{
@@ -56757,7 +56755,7 @@
 	initial_contents = list(/obj/item/stock_parts/capacitor = 2, /obj/item/stock_parts/manipulator = 2, /obj/item/stock_parts/micro_laser = 2, /obj/item/stock_parts/matter_bin = 2, /obj/item/stock_parts/scanning_module = 2);
 	name = "Science vender"
 	},
-/turf/closed/wall,
+/turf/open/floor/iron,
 /area/science/lab)
 "saf" = (
 /obj/effect/spawner/structure/window,
@@ -65571,7 +65569,6 @@
 /obj/effect/turf_decal/stripes{
 	dir = 1
 	},
-/obj/machinery/light,
 /turf/open/floor/iron,
 /area/medical/medbay/lobby)
 "uPJ" = (
@@ -70833,7 +70830,7 @@
 /area/engine/atmos)
 "wFR" = (
 /obj/machinery/smartfridge/organ,
-/turf/closed/wall,
+/turf/open/floor/iron/dark,
 /area/medical/morgue)
 "wFT" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
