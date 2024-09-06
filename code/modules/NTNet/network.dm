@@ -114,6 +114,8 @@
 		while(queue.len)
 			var/datum/ntnet/net = queue[queue.len]
 			queue.len--
+			if (net == null)
+				continue
 			if(net.children.len > 0)
 				for(var/net_id in net.children)
 					queue += networks[net_id]
