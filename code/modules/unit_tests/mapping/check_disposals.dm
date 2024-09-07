@@ -40,6 +40,8 @@
 	var/failure_string = ""
 	for (var/sort_code in GLOB.TAGGERLOCATIONS)
 		i++
+		if (sort_code in GLOB.disabled_tagger_locations)
+			continue
 		holder = new /obj/structure/disposalholder()
 		holder.destinationTag = i
 		var/atom/destination = traverse_loop(holder, target.trunk, TRUE)

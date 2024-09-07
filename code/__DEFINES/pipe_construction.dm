@@ -75,6 +75,8 @@
 //If you don't want to fuck up disposals, add to this list, and don't change the order.
 //If you insist on changing the order, you'll have to change every sort junction to reflect the new order. --Pete
 
+GLOBAL_LIST_INIT(disabled_tagger_locations, list())
+
 GLOBAL_LIST_INIT(TAGGERLOCATIONS, list(
 	"Disposals",
 	"Cargo Bay",
