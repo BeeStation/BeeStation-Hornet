@@ -186,6 +186,7 @@ Borg Shaker
 
 	reagent_ids = list(
 			//Non-alcoholic
+			/datum/reagent/water,
 			/datum/reagent/consumable/coffee,
 			/datum/reagent/consumable/tea,
 			/datum/reagent/consumable/space_cola,
