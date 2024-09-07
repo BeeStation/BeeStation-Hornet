@@ -8,9 +8,6 @@
 	dog_fashion = null
 	unscrewed = FALSE
 	layer = ABOVE_WINDOW_LAYER
-	freqlock = TRUE
-	//whhether or not the intercom should automatically set its frequency to that of the departments (if there is one)
-	var/department_freq = TRUE
 
 /obj/item/radio/intercom/unscrewed
 	unscrewed = TRUE
@@ -28,8 +25,41 @@
 	var/area/current_area = get_area(src)
 	if(freerange || frequency == FREQ_COMMON)
 		freqlock = FALSE
-	if(department_freq)
-		frequency = current_area.freq
+
+/obj/item/radio/intercom/department
+	var/department_freq = FREQ_COMMON
+
+/obj/item/radio/intercom/department/Initialize(mapload)
+	. = ..()
+	freqlock = TRUE
+	frequency = department_freq
+
+/obj/item/radio/intercom/department/medbay
+	department_freq = FREQ_MEDICAL
+
+/obj/item/radio/intercom/department/security
+	department_freq = FREQ_SECURITY
+
+/obj/item/radio/intercom/department/engineering
+	department_freq = FREQ_ENGINEERING
+
+/obj/item/radio/intercom/department/supply
+	department_freq = FREQ_SUPPLY
+
+/obj/item/radio/intercom/department/service
+	department_freq = FREQ_SERVICE
+
+/obj/item/radio/intercom/department/science
+	department_freq = FREQ_SCIENCE
+
+/obj/item/radio/intercom/department/exploration
+	department_freq = FREQ_EXPLORATION
+
+/obj/item/radio/intercom/department/syndicate
+	department_freq = FREQ_SYNDICATE
+
+/obj/item/radio/intercom/department/centcom
+	department_freq = FREQ_CENTCOM
 
 /obj/item/radio/intercom/examine(mob/user)
 	. = ..()

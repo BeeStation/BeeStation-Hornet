@@ -136,7 +136,6 @@
 
 	///The areas specific color correction
 	var/color_correction = /datum/client_colour/area_color
-	var/freq = FREQ_COMMON
 
 /**
   * A list of teleport locations

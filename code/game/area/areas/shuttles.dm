@@ -70,7 +70,6 @@
 	ambience_index = AMBIENCE_DANGER
 	canSmoothWithAreas = /area/shuttle/syndicate
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
-	freq = FREQ_SYNDICATE
 
 /area/shuttle/syndicate/bridge
 	name = "Syndicate Infiltrator Control"
@@ -95,7 +94,6 @@
 	name = "Pirate Shuttle"
 	requires_power = TRUE
 	canSmoothWithAreas = /area/shuttle/pirate
-	freq = FREQ_SYNDICATE
 
 ////////////////////////////Bounty Hunter Shuttles////////////////////////////
 
@@ -169,7 +167,6 @@
 
 /area/shuttle/mining
 	name = "Mining Shuttle"
-	freq = FREQ_SUPPLY
 
 /area/shuttle/mining/large
 	name = "Mining Shuttle"
@@ -178,20 +175,16 @@
 /area/shuttle/science
 	name = "Science Shuttle"
 	requires_power = TRUE
-	freq = FREQ_SCIENCE
 
 /area/shuttle/exploration
 	name = "Exploration Shuttle"
 	requires_power = TRUE
-	freq = FREQ_EXPLORATION
 
 /area/shuttle/labor
 	name = "Labor Camp Shuttle"
-	freq = FREQ_SECURITY
 
 /area/shuttle/supply
 	name = "Supply Shuttle"
-	freq = FREQ_SUPPLY
 
 /area/shuttle/escape
 	name = "Emergency Shuttle"
@@ -213,11 +206,9 @@
 
 /area/shuttle/transport
 	name = "Transport Shuttle"
-	freq = FREQ_CENTCOM
 
 /area/shuttle/assault_pod
 	name = "Steel Rain"
-	freq = FREQ_SYNDICATE
 
 /area/shuttle/sbc_starfury
 	name = "SBC Starfury"

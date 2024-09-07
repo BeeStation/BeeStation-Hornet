@@ -555,10 +555,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/crew_quarters
 	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
-	freq = FREQ_SERVICE
-
-/area/crew_quarters/heads
-	freq = FREQ_COMMAND
 
 /area/crew_quarters/heads/captain
 	name = "Captain's Office"
@@ -1053,7 +1049,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#d5f2ff"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	color_correction = /datum/client_colour/area_color/cold_ish
-	freq = FREQ_MEDICAL
 
 /area/medical/medbay/zone2
 	name = "Medbay"
@@ -1191,7 +1186,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#ffdfca"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	color_correction = /datum/client_colour/area_color/warm_ish
-	freq = FREQ_SECURITY
 
 /area/security/get_turf_textures()
 	return GLOB.turf_texture_hallway
@@ -1231,7 +1225,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER)  // JUSTICE!
 	mood_job_reverse = TRUE
 	mood_message = "<span class='warning'>I'm trapped here with little hope of escape!\n</span>"
-	freq = FREQ_COMMON
 
 /area/security/prison/shielded
 	name = "Prison Wing Shielded area"
@@ -1359,7 +1352,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	color_correction = /datum/client_colour/area_color/warm_yellow
-	freq = FREQ_SUPPLY
 
 /area/quartermaster/get_turf_textures()
 	return GLOB.turf_texture_hallway
@@ -1388,7 +1380,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "cargo_lobby"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	color_correction = /datum/client_colour/area_color/warm_yellow
-	freq = FREQ_SUPPLY
 
 /area/quartermaster/qm
 	name = "Quartermaster's Office"
@@ -1415,7 +1406,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/quartermaster/exploration_prep
 	name = "Exploration Preparation Room"
 	icon_state = "mining"
-	freq = FREQ_EXPLORATION
 
 /area/quartermaster/exploration_dock
 	name = "Exploration Dock"
@@ -1473,7 +1463,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
 	color_correction = /datum/client_colour/area_color/cold_ish
-	freq = FREQ_SCIENCE
 
 /area/science/aft
 	name = "Science Aft"
@@ -1622,7 +1611,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambience_index = AMBIENCE_ENGI
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
-	freq = FREQ_ENGINEERING
 
 /area/construction/mining/aux_base
 	name = "Auxiliary Base Construction"
@@ -1695,7 +1683,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/ai_monitored/turret_protected
 	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg')
-	freq = FREQ_AI_PRIVATE
 
 
 /area/ai_monitored/turret_protected/ai_upload
@@ -1768,7 +1755,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 											'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg', 'sound/ambience/ambimystery.ogg')
 	network_root_id = STATION_NETWORK_ROOT	// They should of unpluged the router before they left
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
-	freq = FREQ_ENGINEERING
 
 /area/tcommsat/computer
 	name = "Telecomms Control Room"
