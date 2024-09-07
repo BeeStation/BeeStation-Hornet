@@ -33218,19 +33218,6 @@
 	},
 /turf/open/floor/engine/light,
 /area/engine/engineering)
-"jOE" = (
-/obj/machinery/hydroponics/constructable,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/airlock{
-	name = "Bar - Kitchen";
-	req_one_access = "28;25";
-	req_one_access_txt = "25,28,35"
-	},
-/turf/open/floor/iron/grid/steel,
-/area/hydroponics)
 "jOR" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -109979,7 +109966,7 @@ nVY
 kAh
 hOj
 hOj
-jOE
+nVY
 maS
 oHH
 aIP
