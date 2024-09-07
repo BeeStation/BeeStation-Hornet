@@ -56134,8 +56134,8 @@
 /turf/open/floor/plating,
 /area/security/prison)
 "pXq" = (
-/obj/structure/disposalpipe/junction{
-	dir = 4
+/obj/structure/disposalpipe/junction/flip{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/engine/break_room)
