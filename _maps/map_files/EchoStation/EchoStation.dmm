@@ -8680,13 +8680,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
-"egW" = (
-/obj/effect/spawner/structure/window,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/science/mixing)
 "eha" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -9095,13 +9088,6 @@
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/kitchen/coldroom)
-"eqs" = (
-/obj/effect/spawner/structure/window,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/chapel/main)
 "eqG" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -16726,6 +16712,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
 "idf" = (
@@ -18387,6 +18376,13 @@
 /obj/machinery/camera/autoname/directional/south,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
+"jcs" = (
+/obj/effect/spawner/structure/window,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/science/mixing)
 "jcz" = (
 /obj/machinery/light{
 	dir = 4
@@ -19912,24 +19908,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/bridge/meeting_room)
-"jTl" = (
-/obj/effect/turf_decal/tile/blue/half{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/turf/open/floor/iron/white,
-/area/medical/medbay/central)
 "jTq" = (
 /obj/machinery/space_heater,
 /turf/open/floor/pod/dark,
@@ -20594,6 +20572,19 @@
 	},
 /turf/open/floor/iron,
 /area/science/lab)
+"klF" = (
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
 "klI" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/effect/turf_decal/siding/wood{
@@ -23325,6 +23316,13 @@
 /obj/item/storage/box/syringes,
 /turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
+"lFq" = (
+/obj/effect/spawner/structure/window,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/chapel/main)
 "lFC" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -27903,8 +27901,11 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
-/obj/structure/disposalpipe/sorting/unsorted{
-	dir = 1
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
@@ -32103,6 +32104,11 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
+"qgq" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible,
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron/tech,
+/area/science/mixing)
 "qgB" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood{
@@ -33823,11 +33829,6 @@
 /obj/structure/girder,
 /turf/open/floor/plating,
 /area/library/abandoned)
-"rae" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible,
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/iron/tech,
-/area/science/mixing)
 "ran" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/cigarettes/cigpack_carp{
@@ -34573,6 +34574,9 @@
 	pixel_x = 7;
 	pixel_y = 2
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/sorting)
 "rpH" = (
@@ -35053,6 +35057,24 @@
 /obj/structure/frame,
 /turf/open/floor/mineral/plastitanium,
 /area/asteroid/paradise/surface)
+"rDe" = (
+/obj/effect/turf_decal/tile/blue/half{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/turf/open/floor/iron/white,
+/area/medical/medbay/central)
 "rDh" = (
 /obj/machinery/computer/card,
 /obj/item/radio/intercom{
@@ -38344,10 +38366,6 @@
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
-"tky" = (
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/iron,
-/area/maintenance/department/engine/atmos)
 "tkD" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -38734,6 +38752,10 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/medical/central)
+"tsL" = (
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron,
+/area/maintenance/department/engine/atmos)
 "tsU" = (
 /obj/machinery/porta_turret/ai{
 	dir = 4
@@ -42889,11 +42911,11 @@
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
 "vpE" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/sorting/unsorted/flip{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
@@ -48760,19 +48782,6 @@
 /obj/structure/window/plasma/reinforced,
 /turf/open/floor/iron,
 /area/engine/engineering)
-"yhy" = (
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/turf/open/floor/iron/dark,
-/area/security/brig)
 "yib" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -125896,7 +125905,7 @@ uRz
 sff
 sls
 efm
-tky
+tsL
 jVt
 vgG
 eyN
@@ -130750,7 +130759,7 @@ sSJ
 sSJ
 sSJ
 siO
-eqs
+lFq
 pNI
 pNI
 sSJ
@@ -133847,7 +133856,7 @@ qPC
 aAV
 plG
 tEl
-egW
+jcs
 hgB
 aqu
 uEs
@@ -134876,7 +134885,7 @@ aAV
 hrt
 vvz
 cEZ
-rae
+qgq
 lnY
 aqu
 wVx
@@ -191917,7 +191926,7 @@ iEq
 erZ
 mcZ
 dWn
-jTl
+rDe
 lCL
 dGt
 oFa
@@ -192965,7 +192974,7 @@ eee
 xtX
 bSK
 lLT
-yhy
+klF
 oKL
 wQG
 qxp
