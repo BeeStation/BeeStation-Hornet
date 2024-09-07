@@ -213,7 +213,6 @@ Borg Shaker
 			/datum/reagent/consumable/ethanol/vodka,
 			/datum/reagent/consumable/ethanol/whiskey,
 			/datum/reagent/consumable/ethanol/wine,
-			/datum/reagent/consumable/ethanol/sake,
 			//Other stuff for mixing
 			/datum/reagent/consumable/ice,
 			/datum/reagent/consumable/sodawater,
