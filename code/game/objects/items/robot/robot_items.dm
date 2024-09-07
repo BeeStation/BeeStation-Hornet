@@ -932,6 +932,7 @@
 	desc = "A special apparatus for carrying containers without spilling the contents. It can also synthesize new beakers!"
 	icon_state = "borg_beaker_apparatus"
 	storable = list(/obj/item/reagent_containers/glass)
+	var/defaultcontainer = /obj/item/reagent_containers/glass/beaker
 
 /obj/item/borg/apparatus/container/Destroy()
 	if(stored)
@@ -972,9 +973,11 @@
 
 /obj/item/borg/apparatus/container/attack_self(mob/living/silicon/robot/user)
 	if(!stored)
-		var/obj/item/reagent_containers/glass/beaker/newbeaker = new(src)
-		stored = newbeaker
-		to_chat(user, "<span class='notice'>You synthesize a new [newbeaker]!</span>")
+		var/newcontainer = new defaultcontainer(src)
+		stored = newcontainer
+		to_chat(user, "<span class='notice'>You synthesize a new [newcontainer]!</span>")
+		playsound(src, 'sound/machines/click.ogg', 10, 1)
+		update_icon()
 		return
 	if(stored && !user.client?.keys_held["Alt"] && user.a_intent != "help")
 		var/obj/item/reagent_containers/C = stored
@@ -1046,6 +1049,8 @@
 	/obj/item/reagent_containers/glass/bottle,
 	/obj/item/reagent_containers/glass/bucket
 	)
+	defaultcontainer = /obj/item/reagent_containers/food/drinks/drinkingglass
+
 
 /obj/item/borg/apparatus/container/service/examine()
 	. = ..()
@@ -1053,11 +1058,3 @@
 	if(!istype(stored, /obj/item/reagent_containers/glass))
 		. += "You are currently holding [stored]."
 		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
-
-/obj/item/borg/apparatus/container/service/attack_self(mob/living/silicon/robot/user)
-	if(!stored)
-		var/obj/item/reagent_containers/glass/newglass = new(src)
-		stored = newglass
-		to_chat(user, "<span class='notice'>You synthesize a new [newglass]!</span>")
-		return
-	. = ..()
