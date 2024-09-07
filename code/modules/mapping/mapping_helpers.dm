@@ -457,10 +457,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	late = TRUE
 	var/color_correction = /datum/client_colour/area_color/cold
 
-/obj/effect/mapping_helpers/color_correction/Initialize(mapload)
-	. = ..()
+/obj/effect/mapping_helpers/color_correction/LateInitialize()
 	var/area/A = get_area(get_turf(src))
 	A.color_correction = color_correction
+	qdel(src)
 
 //Make any turf non-slip
 /obj/effect/mapping_helpers/make_non_slip
@@ -471,10 +471,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/grip_visual = TRUE
 
 /obj/effect/mapping_helpers/make_non_slip/LateInitialize()
-	. = ..()
 	var/turf/open/T = get_turf(src)
 	if(isopenturf(T))
 		T?.make_traction(grip_visual)
+	qdel(src)
 
 //Change this areas turf texture
 /obj/effect/mapping_helpers/tile_breaker
@@ -486,6 +486,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/turf/open/floor/T = get_turf(src)
 	if(istype(T, /turf/open/floor))
 		T.break_tile()
+	qdel(src)
 
 //Virology helper- if virologist is enabled, set airlocks to virology access, set
 /obj/effect/mapping_helpers/virology
