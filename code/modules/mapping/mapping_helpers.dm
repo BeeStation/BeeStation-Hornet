@@ -454,6 +454,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 /obj/effect/mapping_helpers/color_correction
 	name = "color correction helper"
 	icon_state = "color_correction"
+	late = TRUE
 	var/color_correction = /datum/client_colour/area_color/cold
 
 /obj/effect/mapping_helpers/color_correction/Initialize(mapload)
@@ -465,10 +466,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 /obj/effect/mapping_helpers/make_non_slip
 	name = "non slip helper"
 	icon_state = "no_slip"
+	late = TRUE
 	///Do we add the grippy visual
 	var/grip_visual = TRUE
 
-/obj/effect/mapping_helpers/make_non_slip/Initialize(mapload)
+/obj/effect/mapping_helpers/make_non_slip/LateInitialize()
 	. = ..()
 	var/turf/open/T = get_turf(src)
 	if(isopenturf(T))
@@ -478,9 +480,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 /obj/effect/mapping_helpers/tile_breaker
 	name = "area turf texture helper"
 	icon_state = "tile_breaker"
+	late = TRUE
 
-/obj/effect/mapping_helpers/tile_breaker/Initialize(mapload)
-	. = ..()
+/obj/effect/mapping_helpers/tile_breaker/LateInitialize()
 	var/turf/open/floor/T = get_turf(src)
 	if(istype(T, /turf/open/floor))
 		T.break_tile()
