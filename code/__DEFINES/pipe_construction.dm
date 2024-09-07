@@ -173,7 +173,7 @@ GLOBAL_LIST_INIT(tagger_destination_areas, list(
 	"Library" = list(/area/library),
 	"Chapel" = list(/area/chapel),
 	"Theatre" = list(/area/crew_quarters/theatre),
-	"Bar" = list(/area/crew_quarters/bar),
+	"Bar" = list(/area/crew_quarters/bar, /area/crew_quarters/cafeteria),
 	"Kitchen" = list(/area/crew_quarters/kitchen),
 	"Hydroponics" = list(/area/hydroponics),
 	"Janitor Closet" = list(/area/janitor),
