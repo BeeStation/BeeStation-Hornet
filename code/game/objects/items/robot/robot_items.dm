@@ -929,7 +929,7 @@
 
 /obj/item/borg/apparatus/container
 	name = "container storage apparatus"
-	desc = "A special apparatus for carrying containers without spilling the contents."
+	desc = "A special apparatus for carrying containers without spilling the contents. It can also synthesize new beakers!"
 	icon_state = "borg_beaker_apparatus"
 	storable = list(/obj/item/reagent_containers/glass)
 
@@ -971,6 +971,11 @@
 	. += arm
 
 /obj/item/borg/apparatus/container/attack_self(mob/living/silicon/robot/user)
+	if(!stored)
+		var/obj/item/reagent_containers/glass/beaker/newbeaker = new(src)
+		stored = newbeaker
+		to_chat(user, "<span class='notice'>You synthesize a new [newbeaker]!</span>")
+		return
 	if(stored && !user.client?.keys_held["Alt"] && user.a_intent != "help")
 		var/obj/item/reagent_containers/C = stored
 		C.SplashReagents(get_turf(user))
@@ -1029,7 +1034,7 @@
 
 /obj/item/borg/apparatus/container/service
 	name = "versatile service grasper"
-	desc = "Specially designed for carrying glasses, food and seeds."
+	desc = "Specially designed for carrying glasses, food and seeds. It can also synthesize glasses for drinks!"
 	storable = list(/obj/item/reagent_containers/food,
 	/obj/item/reagent_containers/glass,
 	/obj/item/seeds,
@@ -1048,3 +1053,11 @@
 	if(!istype(stored, /obj/item/reagent_containers/glass))
 		. += "You are currently holding [stored]."
 		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
+
+/obj/item/borg/apparatus/container/service/attack_self(mob/living/silicon/robot/user)
+	if(!stored)
+		var/obj/item/reagent_containers/glass/newglass = new(src)
+		stored = newglass
+		to_chat(user, "<span class='notice'>You synthesize a new [newglass]!</span>")
+		return
+	. = ..()
