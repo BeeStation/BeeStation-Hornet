@@ -222,7 +222,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 		qdel(hint_holder)
 		//Generate material availability
 		var/list/materials = list(XENOA_BLUESPACE, XENOA_PLASMA, XENOA_URANIUM, XENOA_BANANIUM, XENOA_PEARL)
-		SSxenoarchaeology.labeler_tooltip_stats["[initial(T.label_name)]"] += list("availability" = list())
+		SSxenoarchaeology.labeler_tooltip_stats["[initial(T.label_name)]"]["availability"] = list()
 		for(var/datum/xenoartifact_material/M as() in materials)
 			if(initial(M.trait_flags) & initial(T.flags))
 				SSxenoarchaeology.labeler_tooltip_stats["[initial(T.label_name)]"]["availability"] += list(list("color" = initial(M.material_color), "icon" = initial(M.label_icon)))
