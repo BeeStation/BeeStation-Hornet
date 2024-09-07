@@ -227,15 +227,15 @@ SUBSYSTEM_DEF(xenoarchaeology)
 			if(initial(M.trait_flags) & initial(T.flags))
 				SSxenoarchaeology.labeler_tooltip_stats["[initial(T.label_name)]"]["availability"] += list(list("color" = initial(M.material_color), "icon" = initial(M.label_icon)))
 		//Sort trait into list
-		if(ispath(T, /datum/xenoartifact_trait/activator) && T != /datum/xenoartifact_trait/activator)
+		if(ispath(T, /datum/xenoartifact_trait/activator) && (T != /datum/xenoartifact_trait/activator))
 			activators += initial(T.label_name)
 			continue
-		if(ispath(T, /datum/xenoartifact_trait/minor) && T != /datum/xenoartifact_trait/minor)
+		if(ispath(T, /datum/xenoartifact_trait/minor) && (T != /datum/xenoartifact_trait/minor))
 			minors += initial(T.label_name)
 			continue
-		if(ispath(T, /datum/xenoartifact_trait/major) && T != /datum/xenoartifact_trait/major)
+		if(ispath(T, /datum/xenoartifact_trait/major) && (T != /datum/xenoartifact_trait/major))
 			majors += initial(T.label_name)
 			continue
-		if(ispath(T, /datum/xenoartifact_trait/malfunction) && T != /datum/xenoartifact_trait/malfunction)
+		if(ispath(T, /datum/xenoartifact_trait/malfunction) && (T != /datum/xenoartifact_trait/malfunction))
 			malfunctions += initial(T.label_name)
 			continue
