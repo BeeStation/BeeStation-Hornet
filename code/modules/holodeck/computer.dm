@@ -360,11 +360,12 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 /obj/machinery/computer/holodeck/proc/emergency_shutdown()
 #ifdef UNIT_TESTS
 	return
-#endif
+#else
 	last_program = program
 	active = FALSE
 	load_program(offline_program, TRUE)
 	ui_update()
+#endif
 
 ///returns TRUE if all floors of the holodeck are present, returns FALSE if any are broken or removed
 /obj/machinery/computer/holodeck/proc/floorcheck()

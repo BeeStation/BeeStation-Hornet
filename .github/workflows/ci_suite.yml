@@ -219,7 +219,7 @@ jobs:
   check_alternate_tests:
     if: ( !contains(github.event.head_commit.message, '[ci skip]') && needs.collect_data.outputs.alternate_tests != '[]' )
     name: Check Alternate Tests
-    needs: [run_alternate_tests]
+    needs: [run_alternate_tests, collect_data]
     runs-on: ubuntu-22.04
     timeout-minutes: 5
     steps:
