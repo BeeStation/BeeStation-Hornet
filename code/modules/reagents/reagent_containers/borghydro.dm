@@ -192,6 +192,12 @@ Borg Shaker
 			/datum/reagent/consumable/dr_gibb,
 			/datum/reagent/consumable/spacemountainwind,
 			/datum/reagent/consumable/space_up,
+			//Fruit Juice
+			/datum/reagent/consumable/banana,
+			/datum/reagent/consumable/lemonjuice,
+			/datum/reagent/consumable/limejuice,
+			/datum/reagent/consumable/orangejuice,
+			/datum/reagent/consumable/tomatojuice,
 			//Alcoholic
 			/datum/reagent/consumable/ethanol/absinthe,
 			/datum/reagent/consumable/ethanol/ale,
@@ -208,19 +214,14 @@ Borg Shaker
 			/datum/reagent/consumable/ethanol/whiskey,
 			/datum/reagent/consumable/ethanol/wine,
 			/datum/reagent/consumable/ethanol/sake,
-			//Fruit Juice
-			/datum/reagent/consumable/banana,
-			/datum/reagent/consumable/lemonjuice,
-			/datum/reagent/consumable/limejuice,
-			/datum/reagent/consumable/orangejuice,
-			/datum/reagent/consumable/tomatojuice,
 			//Other stuff for mixing
 			/datum/reagent/consumable/ice,
 			/datum/reagent/consumable/sodawater,
 			/datum/reagent/consumable/tonic,
 			/datum/reagent/consumable/grenadine,
 			/datum/reagent/consumable/cream,
-			/datum/reagent/consumable/milk)
+			/datum/reagent/consumable/milk,
+			/datum/reagent/consumable/sugar)
 
 /obj/item/reagent_containers/borghypo/borgshaker/attack(mob/M, mob/user)
 	return //Can't inject stuff with a shaker, can we? //not with that attitude
