@@ -112,7 +112,8 @@
 	dir = 6
 	},
 /obj/structure/disposalpipe/segment,
-/turf/open/floor/iron)
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "adG" = (
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/basalt/planetary,
@@ -19738,9 +19739,6 @@
 /obj/item/clothing/head/utility/welding{
 	pixel_x = -2;
 	pixel_y = 3
-	},
-/obj/machinery/light{
-	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
