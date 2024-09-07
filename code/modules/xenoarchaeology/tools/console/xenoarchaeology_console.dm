@@ -215,15 +215,15 @@
 				bonus -= 1
 				attempted_bonus = TRUE
 	//Calculate success rate
-	var/success_rate = score / (max_score || 1)
-	var/bonus_rate = max(1, 2*(bonus/(max_bonus||1)))
+	var/success_rate = score / (max(max_score, 1))
+	var/bonus_rate = max(1, 2*(bonus/max(max_score, 1)))
 	//Rewards
 		//Research Points
 	var/rnd_reward = max(0, (artifact.custom_price*artifact_component.artifact_type.rnd_rate)*success_rate) * bonus_rate
 		//Discovery Points
 	var/dp_reward = max(0, (artifact.custom_price*artifact_component.artifact_type.dp_rate)*success_rate) * bonus_rate
 		//Money //TODO: Check if this is sufficient - Racc : PLAYTEST
-	var/monetary_reward = ((artifact.custom_price * success_rate * 1.5)^1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate
+	var/monetary_reward = floor(((artifact.custom_price * success_rate * 1.5)^1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate)
 	//Alloctae
 	if(is_main_console)
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)
