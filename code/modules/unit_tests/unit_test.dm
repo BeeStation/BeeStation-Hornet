@@ -234,6 +234,8 @@ that means the proc needs to be defined prior to everything else.
 /proc/RunUnitTests()
 	CHECK_TICK
 
+	to_chat(world, "<span class='boldannounce'>Starting unit tests run...</span>")
+
 	var/list/tests_to_run = subtypesof(/datum/unit_test)
 	var/list/focused_tests = list()
 	for (var/_test_to_run in tests_to_run)
