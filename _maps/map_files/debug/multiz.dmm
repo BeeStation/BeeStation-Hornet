@@ -1653,7 +1653,7 @@
 /turf/open/floor/iron,
 /area/construction)
 "tY" = (
-/obj/structure/disposalpipe/trunk/multiz,
+/obj/structure/disposalpipe/multiz,
 /turf/open/floor/plating,
 /area/storage/primary)
 "ux" = (
@@ -2010,7 +2010,7 @@
 /turf/open/floor/iron,
 /area/security)
 "YL" = (
-/obj/structure/disposalpipe/trunk/multiz/down,
+/obj/structure/disposalpipe/multiz/down,
 /turf/open/floor/iron,
 /area/storage/primary)
 

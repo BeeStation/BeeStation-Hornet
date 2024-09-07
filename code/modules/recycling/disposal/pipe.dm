@@ -48,6 +48,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
 		expel(H, get_turf(src), 0)
 	return ..()
 
+/obj/structure/disposalpipe/proc/can_enter_from_dir(dir)
+	if(dir & dpdir)
+		return TRUE
+	return FALSE
+
 // returns the direction of the next pipe object, given the entrance dir
 // by default, returns the bitmask of remaining directions
 /obj/structure/disposalpipe/proc/nextdir(obj/structure/disposalholder/H)

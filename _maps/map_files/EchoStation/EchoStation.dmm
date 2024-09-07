@@ -5001,7 +5001,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/disposalpipe/trunk/multiz/down{
+/obj/structure/disposalpipe/multiz/down{
 	dir = 8
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
@@ -6195,7 +6195,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/structure/disposalpipe/trunk/multiz{
+/obj/structure/disposalpipe/multiz{
 	dir = 8
 	},
 /turf/open/floor/carpet/royalblue,
@@ -6438,7 +6438,7 @@
 /area/engine/engineering)
 "cTe" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/disposalpipe/trunk/multiz/down{
+/obj/structure/disposalpipe/multiz/down{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -7315,7 +7315,7 @@
 	},
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/bot,
-/obj/structure/disposalpipe/trunk/multiz{
+/obj/structure/disposalpipe/multiz{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -8902,7 +8902,7 @@
 	},
 /obj/machinery/photocopier,
 /obj/effect/turf_decal/bot,
-/obj/structure/disposalpipe/trunk/multiz{
+/obj/structure/disposalpipe/multiz{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -9025,7 +9025,7 @@
 	freq = 1400;
 	location = "Kitchen"
 	},
-/obj/structure/disposalpipe/trunk/multiz{
+/obj/structure/disposalpipe/multiz{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -9637,7 +9637,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
-/obj/structure/disposalpipe/trunk/multiz{
+/obj/structure/disposalpipe/multiz{
 	dir = 2
 	},
 /turf/open/floor/iron/white/side,
@@ -10193,7 +10193,7 @@
 	},
 /area/bridge)
 "eUh" = (
-/obj/structure/disposalpipe/trunk/multiz/down{
+/obj/structure/disposalpipe/multiz/down{
 	dir = 4
 	},
 /turf/open/openspace,
@@ -11058,7 +11058,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/firealarm/directional/north,
 /obj/item/toy/spinningtoy,
-/obj/structure/disposalpipe/trunk/multiz{
+/obj/structure/disposalpipe/multiz{
 	dir = 2
 	},
 /turf/open/floor/iron,
@@ -12247,7 +12247,7 @@
 	name = "Medbay Storage RC";
 	pixel_y = 29
 	},
-/obj/structure/disposalpipe/trunk/multiz{
+/obj/structure/disposalpipe/multiz{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -15486,7 +15486,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/disposalpipe/trunk/multiz/down{
+/obj/structure/disposalpipe/multiz/down{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -16855,7 +16855,7 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "ihK" = (
-/obj/structure/disposalpipe/trunk/multiz/down{
+/obj/structure/disposalpipe/multiz/down{
 	dir = 8
 	},
 /turf/open/openspace,
@@ -18011,7 +18011,7 @@
 	pixel_y = 34
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/disposalpipe/trunk/multiz{
+/obj/structure/disposalpipe/multiz{
 	dir = 4
 	},
 /obj/item/kirbyplants/random,
@@ -18176,7 +18176,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/firealarm/directional/west,
-/obj/structure/disposalpipe/trunk/multiz{
+/obj/structure/disposalpipe/multiz{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -19222,7 +19222,7 @@
 	dir = 1
 	},
 /obj/item/kirbyplants/random,
-/obj/structure/disposalpipe/trunk/multiz/down{
+/obj/structure/disposalpipe/multiz/down{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -19953,7 +19953,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/trunk/multiz/down{
+/obj/structure/disposalpipe/multiz/down{
 	dir = 8
 	},
 /turf/open/floor/iron,
@@ -21966,7 +21966,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/disposalpipe/trunk/multiz{
+/obj/structure/disposalpipe/multiz{
 	dir = 2
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -22483,7 +22483,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/disposalpipe/trunk/multiz/down{
+/obj/structure/disposalpipe/multiz/down{
 	dir = 4
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
@@ -31128,7 +31128,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/structure/disposalpipe/trunk/multiz/down{
+/obj/structure/disposalpipe/multiz/down{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
@@ -35459,7 +35459,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/structure/disposalpipe/trunk/multiz{
+/obj/structure/disposalpipe/multiz{
 	dir = 8
 	},
 /turf/open/floor/iron,
@@ -35606,7 +35606,7 @@
 	pixel_x = -33;
 	pixel_y = -36
 	},
-/obj/structure/disposalpipe/trunk/multiz/down{
+/obj/structure/disposalpipe/multiz/down{
 	dir = 4
 	},
 /obj/structure/rack,
@@ -43402,7 +43402,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/disposalpipe/trunk/multiz{
+/obj/structure/disposalpipe/multiz{
 	dir = 4
 	},
 /turf/open/floor/carpet/royalblue,
@@ -45602,7 +45602,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/disposalpipe/trunk/multiz/down{
+/obj/structure/disposalpipe/multiz/down{
 	dir = 2
 	},
 /turf/open/floor/iron/white/side,
@@ -46321,7 +46321,7 @@
 "xfO" = (
 /obj/structure/chair/stool/directional/west,
 /obj/effect/landmark/start/medical_doctor,
-/obj/structure/disposalpipe/trunk/multiz/down{
+/obj/structure/disposalpipe/multiz/down{
 	dir = 8
 	},
 /turf/open/floor/iron,
