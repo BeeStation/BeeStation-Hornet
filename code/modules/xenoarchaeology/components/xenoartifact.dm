@@ -138,7 +138,7 @@
 		playsound(get_turf(parent), 'sound/magic/blink.ogg', 50, TRUE)
 	//Trait triggers
 	for(var/i in SSxenoarchaeology.xenoartifact_trait_priorities)
-		SEND_SIGNAL(src, XENOA_TRIGGER, i)
+		SEND_SIGNAL(src, COMSIG_XENOA_TRIGGER, i)
 	//Malfunctions
 	if(!calibrated)
 		handle_malfunctions()
@@ -316,7 +316,7 @@
 	//Disable artifact
 	cooldown_override = TRUE
 
-	SEND_SIGNAL(src, XENOA_CALCIFIED)
+	SEND_SIGNAL(src, COMSIG_XENOA_CALCIFIED)
 
 //Calibrates. Does the opposite of calcify
 /datum/component/xenoartifact/proc/calibrate()

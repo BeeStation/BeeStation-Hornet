@@ -274,7 +274,7 @@
 	if(!parent?.parent)
 		return
 	//Register a signal to KILL!
-	RegisterSignal(parent, XENOA_CALCIFIED, PROC_REF(suicide))
+	RegisterSignal(parent, COMSIG_XENOA_CALCIFIED, PROC_REF(suicide))
 	//Setup ghost canidates and mob spawners
 	if(SSticker.HasRoundStarted())
 		INVOKE_ASYNC(src, PROC_REF(get_canidate))

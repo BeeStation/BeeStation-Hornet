@@ -13,7 +13,8 @@
 	///List of selected traits we'll put on the label
 	var/list/label_traits = list()
 	///List of possible trait filters
-	var/list/trait_filters = list(list("icon" = "eye", "desc" = "Traits that can appear in the material description."),
+	var/list/trait_filters = list(
+	list("icon" = "eye", "desc" = "Traits that can appear in the material description."),
 	list("icon" = "hand-sparkles", "desc" = "Traits that can be detected by 'feeling' the artifact."),
 	list("icon" = "wrench", "desc" = "Traits that can be triggered with specific items."),
 	list("icon" = "search", "desc" = "Traits that can be detected with specific items."),
@@ -33,8 +34,8 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
 	//Fill enabled filters with all filters
-	for(var/i in trait_filters)
-		enabled_trait_filters += i["icon"]
+	for(var/filter in trait_filters)
+		enabled_trait_filters += filter["icon"]
 
 /obj/item/xenoarchaeology_labeler/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -82,8 +83,8 @@
 			var/trait_key = params["trait_name"]
 			//TODO: Make sure this doesn't have crazy overhead - Racc
 			var/list/focus = list(SSxenoarchaeology.labeler_traits.activators, SSxenoarchaeology.labeler_traits.minors, SSxenoarchaeology.labeler_traits.majors, SSxenoarchaeology.labeler_traits.malfunctions)
-			for(var/list/i as() in focus)
-				if(!(trait_key in i))
+			for(var/list/foci as() in focus)
+				if(!(trait_key in foci))
 					continue
 				//Selected traits
 				if(trait_key in selected_traits)
@@ -209,8 +210,8 @@
 	traits = _traits.Copy()
 	if(length(traits))
 		examine_override = "Traits:"
-		for(var/datum/xenoartifact_trait/T as() in traits)
-			examine_override = "[examine_override]\n	- [initial(T.label_name)]"
+		for(var/datum/xenoartifact_trait/trait_datum as() in traits)
+			examine_override = "[examine_override]\n	- [initial(trait_datum.label_name)]"
 	//Setup a random appearance
 	icon_state = "sticker_[pick(list("star", "box", "tri", "round"))]"
 	sticker_icon_state = "[icon_state]_small"
@@ -234,12 +235,12 @@
 		old_custom_price = target.custom_price
 		//Build list of artifact's traits
 		var/list/artifact_traits = list()
-		for(var/i in artifact.artifact_traits)
-			for(var/datum/xenoartifact_trait/T as() in artifact.artifact_traits[i])
-				artifact_traits += T
+		for(var/trait in artifact.artifact_traits)
+			for(var/datum/xenoartifact_trait/trait_datum as() in artifact.artifact_traits[trait])
+				artifact_traits += trait_datum
 		//Compare them to ours
-		for(var/datum/xenoartifact_trait/T as() in traits)
-			if(locate(T) in artifact_traits)
+		for(var/datum/xenoartifact_trait/trait_datum as() in traits)
+			if(locate(trait_datum) in artifact_traits)
 				target.custom_price *= XENOA_LABEL_REWARD
 			else
 				target.custom_price *= XENOA_LABEL_PUNISHMENT

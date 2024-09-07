@@ -43,7 +43,7 @@
 	if(X)
 		if(X.calibrated)
 			sound_in = 'sound/machines/click.ogg'
-			RegisterSignal(X, XENOA_TRIGGER, PROC_REF(catch_activation))
+			RegisterSignal(X, COMSIG_XENOA_TRIGGER, PROC_REF(catch_activation))
 		else
 			say("Error: [target] needs to be calibrated.")
 	else

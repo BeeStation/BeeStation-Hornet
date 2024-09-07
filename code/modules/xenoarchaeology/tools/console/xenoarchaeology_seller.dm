@@ -38,27 +38,27 @@
 	return new stock_type()
 
 ///Get the price of an atom, persumably our stock, based on our selling personality
-/datum/rnd_lister/proc/get_price(atom/A)
+/datum/rnd_lister/proc/get_price(atom/listing)
 	switch(personality)
 		if(SELLER_PERSONALITY_GENEROUS)
-			return A.custom_price * 0.8
+			return listing.custom_price * 0.8
 		if(SELLER_PERSONALITY_NORMAL)
-			return A.custom_price
+			return listing.custom_price
 		if(SELLER_PERSONALITY_STINGY)
-			return A.custom_price * 1.5
+			return listing.custom_price * 1.5
 		else
 			return 0 //FOR FREE!
 
-/datum/rnd_lister/proc/buy_stock(atom/A)
+/datum/rnd_lister/proc/buy_stock(atom/listing)
 	//Remove stock and prepare to replace it
-	current_stock -= A
+	current_stock -= listing
 	addtimer(CALLBACK(src, PROC_REF(replenish_stock)), restock_time)
-	return A
+	return listing
 
 /datum/rnd_lister/proc/replenish_stock(amount = 1)
 	for(var/i in 1 to amount)
-		var/atom/A = get_new_stock()
-		current_stock += A
+		var/atom/listing = get_new_stock()
+		current_stock += listing
 
 /*
 	Artifact sellers

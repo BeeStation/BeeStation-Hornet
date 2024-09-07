@@ -73,7 +73,7 @@
 	var/atom/movable/AM = parent.parent
 	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(remove_parent))
 	//Setup trigger signals
-	RegisterSignal(parent, XENOA_TRIGGER, PROC_REF(trigger))
+	RegisterSignal(parent, COMSIG_XENOA_TRIGGER, PROC_REF(trigger))
 	//If we need to setup signals for pearl stuff
 	if(can_pearl)
 		RegisterSignal(AM, COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER), PROC_REF(catch_pearl_tool))
@@ -93,7 +93,7 @@
 	if(parent)
 		remove_hints()
 		UnregisterSignal(parent, COMSIG_PARENT_QDELETING)
-		UnregisterSignal(parent, XENOA_TRIGGER)
+		UnregisterSignal(parent, COMSIG_XENOA_TRIGGER)
 		var/atom/A = parent.parent
 		parent.target_range -= extra_target_range
 		A.custom_price -= extra_value

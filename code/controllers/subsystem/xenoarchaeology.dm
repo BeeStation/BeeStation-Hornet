@@ -45,6 +45,13 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	xenoa_seller_names = world.file2list("strings/names/science_seller.txt")
 	xenoa_seller_dialogue = world.file2list("strings/science_dialogue.txt")
 	xenoa_artifact_names = world.file2list("strings/names/artifact_sentience.txt")
+	//in a rare case where that the game failed to get these texts
+	if(!length(xenoa_seller_names))
+		xenoa_seller_names = list("Brock Enn")
+	if(!length(xenoa_seller_dialogue))
+		xenoa_seller_dialogue = list("Something isn't right!")
+	if(!length(xenoa_artifact_names))
+		xenoa_artifact_names = list("Brock Enn")
 
 	//Dirty unwashed masses
 	xenoa_all_traits = compile_artifact_weights(/datum/xenoartifact_trait)
@@ -59,18 +66,18 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	labeler_traits = new()
 	labeler_traits.compile_artifact_whitelist(/datum/xenoartifact_material)
 	labeler_traits_filter = list()
-	for(var/datum/xenoartifact_trait/T as() in xenoa_all_traits)
-		T = new T() //Instantiate so we can access a PROC
-		var/list/hints = T.get_dictionary_hint()
-		for(var/i in hints)
-			if(!labeler_traits_filter[i["icon"]])
-				labeler_traits_filter[i["icon"]] = list()
-			labeler_traits_filter[i["icon"]] += list("[initial(T.label_name)]")
-		QDEL_NULL(T)
+	for(var/datum/xenoartifact_trait/trait as anything in xenoa_all_traits)
+		trait = new trait() //Instantiate so we can access a PROC
+		var/list/hints = trait.get_dictionary_hint()
+		for(var/each_hint in hints)
+			if(!labeler_traits_filter[each_hint["icon"]])
+				labeler_traits_filter[each_hint["icon"]] = list()
+			labeler_traits_filter[each_hint["icon"]] += list("[initial(trait.label_name)]")
+		QDEL_NULL(trait)
 
 	//Populate traits by material
 	material_traits = list()
-	for(var/datum/xenoartifact_material/material_index as() in typesof(/datum/xenoartifact_material))
+	for(var/datum/xenoartifact_material/material_index as anything in typesof(/datum/xenoartifact_material))
 		if(SSxenoarchaeology.material_traits[initial(material_index.material_parent)])
 			continue
 		var/datum/xenoa_material_traits/material = new()
@@ -99,19 +106,19 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	labeler_tooltip_stats = SSxenoarchaeology.labeler_tooltip_stats
 	labeler_traits_filter = SSxenoarchaeology.labeler_traits_filter
 
-/datum/controller/subsystem/xenoarchaeology/proc/register_console(var/obj/machinery/computer/xenoarchaeology_console/new_console)
+/datum/controller/subsystem/xenoarchaeology/proc/register_console(obj/machinery/computer/xenoarchaeology_console/new_console)
 	if(main_console)
-		main_console.main_console = FALSE
+		main_console.is_main_console = FALSE
 		UnregisterSignal(main_console, COMSIG_PARENT_QDELETING)
 	main_console = new_console
-	main_console.main_console = TRUE
+	main_console.is_main_console = TRUE
 	RegisterSignal(main_console, COMSIG_PARENT_QDELETING, PROC_REF(catch_console))
 
 /datum/controller/subsystem/xenoarchaeology/proc/catch_console(datum/source)
 	SIGNAL_HANDLER
 
 	main_console = null
-	SEND_SIGNAL(src, XENOA_NEW_CONSOLE)
+	SEND_SIGNAL(src, COMSIG_XENOA_NEW_CONSOLE)
 
 ///Proc used to compile trait weights into a list
 /datum/controller/subsystem/xenoarchaeology/proc/compile_artifact_weights(path, keyed = FALSE)
@@ -119,24 +126,24 @@ SUBSYSTEM_DEF(xenoarchaeology)
 		return
 	var/list/temp = subtypesof(path)
 	var/list/weighted = list()
-	for(var/datum/xenoartifact_trait/T as() in temp)
-		if(initial(T.flags) & XENOA_HIDE_TRAIT)
+	for(var/datum/xenoartifact_trait/trait as anything in temp)
+		if(initial(trait.flags) & XENOA_HIDE_TRAIT)
 			continue
 		//Filter out abstract types
-		if(T == /datum/xenoartifact_trait/activator || T == /datum/xenoartifact_trait/minor || T == /datum/xenoartifact_trait/major || T == /datum/xenoartifact_trait/malfunction)
+		if(trait == /datum/xenoartifact_trait/activator || trait == /datum/xenoartifact_trait/minor || trait == /datum/xenoartifact_trait/major || trait == /datum/xenoartifact_trait/malfunction)
 			continue
 		if(keyed)
-			weighted += list(initial(T.label_name) = (T))
+			weighted[initial(trait.label_name)] = (trait)
 		else
-			weighted += list((T) = initial(T.rarity)) //The (T) will not work if it is T
+			weighted[(trait)] = initial(trait.rarity) //The (trait) will not work if it is trait
 	return weighted
 
 ///Compile a list of traits from a given compatability flag/s
 /datum/controller/subsystem/xenoarchaeology/proc/compile_artifact_compatibilties(flags)
 	var/list/output = list()
-	for(var/datum/xenoartifact_trait/T as() in xenoa_all_traits)
-		if(initial(T.incompatabilities) & flags)
-			output += T
+	for(var/datum/xenoartifact_trait/trait as anything in xenoa_all_traits)
+		if(initial(trait.incompatabilities) & flags)
+			output += trait
 	return output
 
 ///Get a trait incompatability list based on the passed type
@@ -156,18 +163,19 @@ SUBSYSTEM_DEF(xenoarchaeology)
 ///Proc for labeler baking
 /datum/controller/subsystem/xenoarchaeology/proc/get_trait_list_stats(list/trait_type)
 	var/list/temp = list()
-	for(var/datum/xenoartifact_trait/T as() in trait_type)
+	for(var/datum/xenoartifact_trait/trait as anything in trait_type)
+		var/name = initial(trait.label_name)
 		//generate tool tips
-		temp += list(initial(T.label_name))
-		var/datum/xenoartifact_trait/hint_holder = new T()
-		labeler_tooltip_stats["[initial(T.label_name)]"] = list("weight" = initial(T.weight), "conductivity" = initial(T.conductivity), "alt_name" = initial(T.alt_label_name), "desc" = initial(T.label_desc), "hints" = hint_holder.get_dictionary_hint())
+		temp += list(name)
+		var/datum/xenoartifact_trait/hint_holder = new trait()
+		labeler_tooltip_stats["[name]"] = list("weight" = initial(trait.weight), "conductivity" = initial(trait.conductivity), "alt_name" = initial(trait.alt_label_name), "desc" = initial(trait.label_desc), "hints" = hint_holder.get_dictionary_hint())
 		qdel(hint_holder)
 		//Generate material availability
 		var/list/materials = list(XENOA_BLUESPACE, XENOA_PLASMA, XENOA_URANIUM, XENOA_BANANIUM, XENOA_PEARL)
-		labeler_tooltip_stats["[initial(T.label_name)]"]["availability"] = list())
-		for(var/datum/xenoartifact_material/M as() in materials)
-			if(initial(M.trait_flags) & initial(T.flags))
-				labeler_tooltip_stats["[initial(T.label_name)]"]["availability"] += list(list("color" = initial(M.material_color), "icon" = initial(M.label_icon)))
+		labeler_tooltip_stats["[name]"]["availability"] = list()
+		for(var/datum/xenoartifact_material/M as anything in materials)
+			if(initial(M.trait_flags) & initial(trait.flags))
+				labeler_tooltip_stats["[name]"]["availability"] += list(list("color" = initial(M.material_color), "icon" = initial(M.label_icon)))
 	return temp
 
 /*
@@ -186,23 +194,23 @@ SUBSYSTEM_DEF(xenoarchaeology)
 
 ///Populate our trait lists from a given material path
 /datum/xenoa_material_traits/proc/compile_artifact_whitelist(datum/xenoartifact_material/material)
-	for(var/datum/xenoartifact_trait/T as() in SSxenoarchaeology.xenoa_all_traits)
-		if(initial(T.flags) & XENOA_HIDE_TRAIT)
+	for(var/datum/xenoartifact_trait/trait as anything in SSxenoarchaeology.xenoa_all_traits)
+		if(initial(trait.flags) & XENOA_HIDE_TRAIT)
 			continue
-		if(!(initial(T.flags) & initial(material.trait_flags)))
+		if(!(initial(trait.flags) & initial(material.trait_flags)))
 			continue
 		//Sort trait into list
-		if(ispath(T, /datum/xenoartifact_trait/activator))
-			activators[T] = initial(T.rarity)
+		if(ispath(trait, /datum/xenoartifact_trait/activator))
+			activators[trait] = initial(trait.rarity)
 			continue
-		if(ispath(T, /datum/xenoartifact_trait/minor))
-			minors[T] = initial(T.rarity)
+		if(ispath(trait, /datum/xenoartifact_trait/minor))
+			minors[trait] = initial(trait.rarity)
 			continue
-		if(ispath(T, /datum/xenoartifact_trait/major))
-			majors[T] = initial(T.rarity)
+		if(ispath(trait, /datum/xenoartifact_trait/major))
+			majors[trait] = initial(trait.rarity)
 			continue
-		if(ispath(T, /datum/xenoartifact_trait/malfunction))
-			malfunctions[T] = initial(T.rarity)
+		if(ispath(trait, /datum/xenoartifact_trait/malfunction))
+			malfunctions[trait] = initial(trait.rarity)
 			continue
 	compiled = TRUE
 
@@ -210,32 +218,33 @@ SUBSYSTEM_DEF(xenoarchaeology)
 /datum/xenoa_material_traits/stats
 
 /datum/xenoa_material_traits/stats/compile_artifact_whitelist(datum/xenoartifact_material/material)
-	for(var/datum/xenoartifact_trait/T as() in SSxenoarchaeology.xenoa_all_traits)
-		if(initial(T.flags) & XENOA_HIDE_TRAIT)
+	for(var/datum/xenoartifact_trait/trait as anything in SSxenoarchaeology.xenoa_all_traits)
+		if(initial(trait.flags) & XENOA_HIDE_TRAIT)
 			continue
-		if(!(initial(T.flags) & initial(material.trait_flags)))
+		if(!(initial(trait.flags) & initial(material.trait_flags)))
 			continue
 		//We're gonna be nice an populate labeler_tooltip_stats while we're at it, because we're nice
 		//generate tool tips
-		var/datum/xenoartifact_trait/hint_holder = new T() //Instantiate so we can access a PROC
-		SSxenoarchaeology.labeler_tooltip_stats["[initial(T.label_name)]"] = list("weight" = initial(T.weight), "conductivity" = initial(T.conductivity), "alt_name" = initial(T.alt_label_name), "desc" = initial(T.label_desc), "hints" = hint_holder.get_dictionary_hint())
+		var/datum/xenoartifact_trait/hint_holder = new trait() //Instantiate so we can access a PROC
+		var/name = initial(trait.label_name)
+		SSxenoarchaeology.labeler_tooltip_stats["[name]"] = list("weight" = initial(trait.weight), "conductivity" = initial(trait.conductivity), "alt_name" = initial(trait.alt_label_name), "desc" = initial(trait.label_desc), "hints" = hint_holder.get_dictionary_hint())
 		qdel(hint_holder)
 		//Generate material availability
 		var/list/materials = list(XENOA_BLUESPACE, XENOA_PLASMA, XENOA_URANIUM, XENOA_BANANIUM, XENOA_PEARL)
-		SSxenoarchaeology.labeler_tooltip_stats["[initial(T.label_name)]"]["availability"] = list()
-		for(var/datum/xenoartifact_material/M as() in materials)
-			if(initial(M.trait_flags) & initial(T.flags))
-				SSxenoarchaeology.labeler_tooltip_stats["[initial(T.label_name)]"]["availability"] += list(list("color" = initial(M.material_color), "icon" = initial(M.label_icon)))
+		SSxenoarchaeology.labeler_tooltip_stats["[name]"]["availability"] = list()
+		for(var/datum/xenoartifact_material/M as anything in materials)
+			if(initial(M.trait_flags) & initial(trait.flags))
+				SSxenoarchaeology.labeler_tooltip_stats["[name]"]["availability"] += list(list("color" = initial(M.material_color), "icon" = initial(M.label_icon)))
 		//Sort trait into list
-		if(ispath(T, /datum/xenoartifact_trait/activator) && (T != /datum/xenoartifact_trait/activator))
-			activators += initial(T.label_name)
+		if(ispath(trait, /datum/xenoartifact_trait/activator) && (trait != /datum/xenoartifact_trait/activator))
+			activators += name
 			continue
-		if(ispath(T, /datum/xenoartifact_trait/minor) && (T != /datum/xenoartifact_trait/minor))
-			minors += initial(T.label_name)
+		if(ispath(trait, /datum/xenoartifact_trait/minor) && (trait != /datum/xenoartifact_trait/minor))
+			minors += name
 			continue
-		if(ispath(T, /datum/xenoartifact_trait/major) && (T != /datum/xenoartifact_trait/major))
-			majors += initial(T.label_name)
+		if(ispath(trait, /datum/xenoartifact_trait/major) && (trait != /datum/xenoartifact_trait/major))
+			majors += name
 			continue
-		if(ispath(T, /datum/xenoartifact_trait/malfunction) && (T != /datum/xenoartifact_trait/malfunction))
-			malfunctions += initial(T.label_name)
+		if(ispath(trait, /datum/xenoartifact_trait/malfunction) && (trait != /datum/xenoartifact_trait/malfunction))
+			malfunctions += name
 			continue

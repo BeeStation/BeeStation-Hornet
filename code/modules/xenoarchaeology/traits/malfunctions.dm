@@ -297,7 +297,7 @@
 	//Get it nearby so we can render it later
 	A.vis_contents += exploding_indicator
 	//Register a signal to cancel the process
-	RegisterSignal(parent, XENOA_CALCIFIED, PROC_REF(cancel_explosion))
+	RegisterSignal(parent, COMSIG_XENOA_CALCIFIED, PROC_REF(cancel_explosion))
 
 /datum/xenoartifact_trait/malfunction/explosion/Destroy(force, ...)
 	. = ..()
@@ -334,7 +334,7 @@
 	A.remove_filter("explosion_indicator")
 	A.remove_filter("wave_effect")
 	deltimer(exploding)
-	UnregisterSignal(parent, XENOA_CALCIFIED)
+	UnregisterSignal(parent, COMSIG_XENOA_CALCIFIED)
 
 /*
 	Mass Hallucinatory Injection

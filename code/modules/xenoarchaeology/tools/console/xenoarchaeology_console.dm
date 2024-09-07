@@ -36,21 +36,21 @@
 	var/list/history = list()
 
 	///Is this console the main character?
-	var/main_console = FALSE
+	var/is_main_console = FALSE
 
 /obj/machinery/computer/xenoarchaeology_console/Initialize()
 	. = ..()
 	//Link up with SS to see if we're the choosen one
 	if(!SSxenoarchaeology.main_console)
 		SSxenoarchaeology.register_console(src)
-	RegisterSignal(SSxenoarchaeology, XENOA_NEW_CONSOLE, PROC_REF(be_the_guy))
+	RegisterSignal(SSxenoarchaeology, COMSIG_XENOA_NEW_CONSOLE, PROC_REF(be_the_guy))
 	//Link relevant stuff
 	linked_techweb = SSresearch.science_tech
 	budget = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
 	var/list/new_sellers = sellers.Copy()
 	sellers = list()
-	for(var/datum/rnd_lister/S as() in new_sellers)
-		sellers += new S()
+	for(var/datum/rnd_lister/seller as anything in new_sellers)
+		sellers += new seller()
 	//Radio setup
 	radio = new /obj/item/radio/headset/headset_sci(src)
 	//Look for sold artifacts
@@ -73,14 +73,14 @@
 
 	//Seller data
 	data["sellers"] = list()
-	for(var/datum/rnd_lister/seller as() in sellers)
+	for(var/datum/rnd_lister/seller as anything in sellers)
 		var/list/stock = list()
-		for(var/atom/A as() in seller.current_stock)
-			stock += list(list("name" = A?.name, "description" = A?.desc, "id" = REF(A), "cost" = seller.get_price(A) || 0))
+		for(var/atom/listing as anything in seller.current_stock)
+			stock += list(list("name" = listing?.name, "description" = listing?.desc, "id" = REF(listing), "cost" = seller.get_price(listing) || 0))
 		data["sellers"] += list(list("name" = seller.name, "dialogue" = seller.dialogue, "stock" = stock, "id" = REF(seller)))
 	//Cash available
-	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
-	data["money"] = D.account_balance
+	var/datum/bank_account/account = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+	data["money"] = account.account_balance
 	//Audio
 	data["purchase_radio"] = radio_purchase_notice
 	data["solved_radio"] = radio_solved_notice
@@ -118,8 +118,8 @@
 			if(!(locate(params["item_id"]) in seller.current_stock))
 				return
 			//If we got no cash
-			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
-			if(seller.get_price(locate(params["item_id"])) > D.account_balance)
+			var/datum/bank_account/account = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
+			if(seller.get_price(locate(params["item_id"])) > account.account_balance)
 				say("Insufficient funds!")
 				return
 			//Annouce it
@@ -151,7 +151,7 @@
 					SSsupply.shoppinglist -= current_order
 					console_orders -= current_order
 					qdel(current_order)
-					current_order = new /datum/supply_order(current_pack, name, rank, ckey, "Research Material Requisition", D)
+					current_order = new /datum/supply_order(current_pack, name, rank, ckey, "Research Material Requisition", account)
 					SSsupply.shoppinglist += current_order
 					console_orders[current_order] = current_pack
 					ui_update()
@@ -165,7 +165,7 @@
 			current_pack?.current_supply = max(1, current_pack.current_supply) //Don't worry about it :^)
 			current_pack.cost += seller?.get_price(locate(params["item_id"]))
 			current_pack.contains += seller?.buy_stock(locate(params["item_id"]))
-			current_order = new /datum/supply_order(current_pack, name, rank, ckey, "Research Material Requisition", D)
+			current_order = new /datum/supply_order(current_pack, name, rank, ckey, "Research Material Requisition", account)
 			current_order.generateRequisition(get_turf(src))
 			SSsupply.shoppinglist += current_order
 			console_orders[current_order] = current_pack
@@ -177,15 +177,15 @@
 
 	ui_update()
 
-/obj/machinery/computer/xenoarchaeology_console/proc/check_sold(datum/source, atom/movable/AM, sold)
+/obj/machinery/computer/xenoarchaeology_console/proc/check_sold(datum/source, atom/movable/_label, sold)
 	SIGNAL_HANDLER
 
-	var/obj/item/sticker/xenoartifact_label/L = AM
-	if(!istype(L))
+	var/obj/item/sticker/xenoartifact_label/label = _label
+	if(!istype(label))
 		return
-	var/atom/artifact = L.loc
-	var/datum/component/xenoartifact/X = artifact?.GetComponent(/datum/component/xenoartifact)
-	if(!X || !artifact)
+	var/atom/artifact = label.loc
+	var/datum/component/xenoartifact/artifact_component = artifact?.GetComponent(/datum/component/xenoartifact)
+	if(!artifact_component || !artifact)
 		return
 	//Grab values to calculate success
 	var/score = 0
@@ -194,22 +194,22 @@
 	var/max_bonus = 0
 	var/attempted_bonus = FALSE
 	var/list/traits_by_type = list()
-	for(var/i in X.artifact_traits) //By priority
-		for(var/datum/xenoartifact_trait/T in X.artifact_traits[i]) //By trait in priorty
-			traits_by_type += list(T.type)
-			if(T.contribute_calibration)
+	for(var/trait in artifact_component.artifact_traits) //By priority
+		for(var/datum/xenoartifact_trait/trait_datum in artifact_component.artifact_traits[trait]) //By trait in priorty
+			traits_by_type += list(trait_datum.type)
+			if(trait_datum.contribute_calibration)
 				max_score += 1
 			else
 				max_bonus += 1
-	for(var/datum/xenoartifact_trait/T as() in L.traits)
-		if((T in traits_by_type))
-			if(initial(T.contribute_calibration))
+	for(var/datum/xenoartifact_trait/trait_datum as anything in label.traits)
+		if((trait_datum in traits_by_type))
+			if(initial(trait_datum.contribute_calibration))
 				score += 1
 			else
 				bonus += 1
 				attempted_bonus = TRUE
 		else
-			if(initial(T.contribute_calibration))
+			if(initial(trait_datum.contribute_calibration))
 				score -= 1
 			else
 				bonus -= 1
@@ -219,13 +219,13 @@
 	var/bonus_rate = max(1, 2*(bonus/(max_bonus||1)))
 	//Rewards
 		//Research Points
-	var/rnd_reward = max(0, (artifact.custom_price*X.artifact_type.rnd_rate)*success_rate) * bonus_rate
+	var/rnd_reward = max(0, (artifact.custom_price*artifact_component.artifact_type.rnd_rate)*success_rate) * bonus_rate
 		//Discovery Points
-	var/dp_reward = max(0, (artifact.custom_price*X.artifact_type.dp_rate)*success_rate) * bonus_rate
+	var/dp_reward = max(0, (artifact.custom_price*artifact_component.artifact_type.dp_rate)*success_rate) * bonus_rate
 		//Money //TODO: Check if this is sufficient - Racc : PLAYTEST
 	var/monetary_reward = ((artifact.custom_price * success_rate * 1.5)^1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate
 	//Alloctae
-	if(main_console)
+	if(is_main_console)
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, dp_reward)
 		budget.adjust_money(monetary_reward)
@@ -239,11 +239,11 @@
 		if(0.9 to INFINITY)
 			success_type = "incredible discovery"
 		else
-			success_type = prob(1) ? "scientific failure." : "who let the clown in?"
+			success_type = prob(1/100) ? "scientific failure." : "who let the clown in?"
 	if(radio_solved_notice)
 		radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
 		[attempted_bonus ? "with a bonus achieved of [100 * (bonus / (max_bonus||1))]%, " : ""]\
-		at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of $[monetary_reward].",\
+		at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of [monetary_reward] credits.",\
 	RADIO_CHANNEL_SCIENCE)
 	history += list("[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
 	at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of [monetary_reward] credits.")
@@ -251,7 +251,7 @@
 /obj/machinery/computer/xenoarchaeology_console/proc/be_the_guy(datum/source)
 	SIGNAL_HANDLER
 
-	if(!SSxenoarchaeology.main_console && !main_console)
+	if(!SSxenoarchaeology.main_console && !is_main_console)
 		SSxenoarchaeology.register_console(src)
 
 //Circuitboard for this console
