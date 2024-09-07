@@ -924,7 +924,7 @@
 	w_class = WEIGHT_CLASS_LARGE
 	hitsound = 'sound/effects/woodhit.ogg'
 	/// Damage dealt while on help intent
-	var/non_harm_force = 4
+	var/non_harm_force = 3
 	/// Stamina damage dealt
 	var/stamina_force = 25
 
