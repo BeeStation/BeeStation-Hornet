@@ -246,7 +246,7 @@
 		at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of $[monetary_reward].",\
 	RADIO_CHANNEL_SCIENCE)
 	history += list("[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
-	at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of $[monetary_reward].")
+	at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of [monetary_reward] credits.")
 
 /obj/machinery/computer/xenoarchaeology_console/proc/be_the_guy(datum/source)
 	SIGNAL_HANDLER
