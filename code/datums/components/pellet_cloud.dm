@@ -46,9 +46,6 @@
 
 
 /datum/component/pellet_cloud/Initialize(projectile_type=/obj/item/shrapnel, magnitude=5)
-	if(!isammocasing(parent) && !isgrenade(parent) && !islandmine(parent))
-		return COMPONENT_INCOMPATIBLE
-
 	if(magnitude < 1)
 		stack_trace("Invalid magnitude [magnitude] < 1 on pellet_cloud, parent: [parent]")
 		magnitude = 1
@@ -59,6 +56,9 @@
 		num_pellets = magnitude
 	else if(isgrenade(parent) || islandmine(parent))
 		radius = magnitude
+	else
+		radius = magnitude
+		create_blast_pellets(null, null)
 
 /datum/component/pellet_cloud/Destroy(force, silent)
 	pellets = null

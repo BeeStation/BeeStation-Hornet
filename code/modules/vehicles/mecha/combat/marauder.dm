@@ -6,7 +6,7 @@
 	movedelay = 5
 	max_integrity = 500
 	deflect_chance = 25
-	armor = list(MELEE = 50,  BULLET = 55, LASER = 40, ENERGY = 30, BOMB = 30, BIO = 0, RAD = 60, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 50,  BULLET = 55, LASER = 40, ENERGY = 30, BOMB = 30, BIO = 0, RAD = 60, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
 	max_temperature = 60000
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	operation_req_access = list(ACCESS_CENT_SPECOPS)
@@ -74,7 +74,7 @@
 	internals_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/mauler
 	max_equip = 6
-	destruction_sleep_duration = 20
+	destruction_knockdown_duration = 2 SECONDS //Syndi mechs get reduced knockdown
 
 /obj/vehicle/sealed/mecha/combat/marauder/mauler/Initialize(mapload)
 	. = ..()

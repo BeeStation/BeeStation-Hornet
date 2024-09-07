@@ -349,6 +349,9 @@
 			if(prob(20))
 				to_chat(H, "<span class='warning'>You feel [hot_message] in your [name]!</span>")
 
+	// The air you breathe out should match your body temperature
+	breath.set_temperature(H.bodytemperature)
+
 /obj/item/organ/lungs/on_life()
 	..()
 	if((!failed) && ((organ_flags & ORGAN_FAILING)))

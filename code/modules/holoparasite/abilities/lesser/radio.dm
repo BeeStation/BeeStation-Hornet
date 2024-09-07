@@ -34,7 +34,7 @@
 		binary = TRUE
 		radio.keyslot.translate_binary = TRUE
 	if(!can_talk)
-		radio.wires.cut(WIRE_TX)
+		radio.wires.cut(WIRE_TX, null)
 	radio.recalculateChannels()
 	generate_regex()
 

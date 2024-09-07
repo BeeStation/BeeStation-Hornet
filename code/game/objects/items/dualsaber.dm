@@ -19,14 +19,15 @@
 	item_flags = ISWEAPON
 	var/saber_color = "green"
 	light_color = "#00ff00"//green
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	block_level = 2
 	block_upgrade_walk = 1
 	block_power = 70
 	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 	light_system = MOVABLE_LIGHT
 	light_range = 6
@@ -71,6 +72,7 @@
 			to_chat(user, "<span class='warning'>You lack the grace to wield this!</span>")
 			return COMPONENT_TWOHANDED_BLOCK_WIELD
 	sharpness = IS_SHARP
+	bleed_force = BLEED_DEEP_WOUND
 	w_class = w_class_on
 	hitsound = 'sound/weapons/blade1.ogg'
 	START_PROCESSING(SSobj, src)
@@ -83,6 +85,7 @@
 
 	sharpness = initial(sharpness)
 	w_class = initial(w_class)
+	bleed_force = initial(bleed_force)
 	hitsound = "swing_hit"
 	STOP_PROCESSING(SSobj, src)
 	set_light_on(FALSE)

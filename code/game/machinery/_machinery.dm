@@ -147,7 +147,7 @@ Class Procs:
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
-		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
+		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0, BLEED = 0)
 	. = ..()
 	GLOB.machines += src
 
@@ -290,9 +290,6 @@ Class Procs:
 			continue
 
 		movable_atom.forceMove(this_turf)
-		if(isliving(movable_atom))
-			var/mob/living/living_mob = movable_atom
-			living_mob.update_mobility()
 
 		if(occupant == movable_atom)
 			occupant = null
@@ -363,7 +360,7 @@ Class Procs:
 /obj/machinery/can_interact(mob/user)
 	var/silicon = issilicon(user)
 	var/admin_ghost = IsAdminGhost(user)
-	var/living = isliving(user)
+	var/living = ishuman(user) // /mob/living/carbon/HUMANS, not /mob/living.
 
 	if((machine_stat & (NOPOWER|BROKEN)) && !(interaction_flags_machine & INTERACT_MACHINE_OFFLINE)) // Check if the machine is broken, and if we can still interact with it if so
 		return FALSE
@@ -549,7 +546,7 @@ Class Procs:
 	. = new_frame
 	new_frame.set_anchored(TRUE)
 	if(!disassembled)
-		new_frame.obj_integrity = new_frame.max_integrity * 0.5 //the frame is already half broken
+		new_frame.update_integrity(new_frame.max_integrity * 0.5) //the frame is already half broken
 	transfer_fingerprints_to(new_frame)
 
 /obj/machinery/obj_break(damage_flag)
@@ -591,10 +588,12 @@ Class Procs:
 		if(!panel_open)
 			panel_open = TRUE
 			icon_state = icon_state_open
+			set_machine_stat(machine_stat & MAINT)
 			to_chat(user, "<span class='notice'>You open the maintenance hatch of [src].</span>")
 		else
 			panel_open = FALSE
 			icon_state = icon_state_closed
+			set_machine_stat(machine_stat & ~MAINT)
 			to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
 		return 1
 	return 0

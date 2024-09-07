@@ -22,7 +22,8 @@
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
+	attack_verb_continuous = list("flogs", "whips", "lashes", "disciplines")
+	attack_verb_simple = list("flog", "whip", "lash", "discipline")
 	hitsound = 'sound/weapons/chainhit.ogg'
 	custom_materials = list(/datum/material/iron = 1000)
 
@@ -43,8 +44,10 @@
 	force = 20
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 
 /obj/item/melee/synthetic_arm_blade/Initialize(mapload)
 	. = ..()
@@ -68,7 +71,9 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 75
 	sharpness = IS_SHARP
-	attack_verb = list("slashed", "cut")
+	bleed_force = BLEED_CUT
+	attack_verb_continuous = list("slashes", "cuts")
+	attack_verb_simple = list("slash", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	custom_materials = list(/datum/material/iron = 1000)
 
@@ -323,10 +328,6 @@
 
 			add_fingerprint(user)
 
-			if(!iscarbon(user))
-				target.LAssailant = null
-			else
-				target.LAssailant = WEAKREF(user)
 			cooldown_check = world.time + cooldown
 		else
 			var/wait_desc = get_wait_description()
@@ -398,7 +399,8 @@
 		item_state = on_item_state
 		w_class = weight_class_on
 		force = force_on
-		attack_verb = list("smacked", "struck", "cracked", "beaten")
+		attack_verb_continuous = list("smacks", "strikes", "cracks", "beats")
+		attack_verb_simple = list("smack", "strike", "crack", "beat")
 	else
 		to_chat(user, desc["local_off"])
 		icon_state = off_icon_state
@@ -406,7 +408,8 @@
 		slot_flags = ITEM_SLOT_BELT
 		w_class = WEIGHT_CLASS_SMALL
 		force = force_off
-		attack_verb = list("hit", "poked")
+		attack_verb_continuous = list("hits", "pokes")
+		attack_verb_simple = list("hit", "poke")
 
 	playsound(src.loc, on_sound, 50, 1)
 	add_fingerprint(user)
@@ -459,7 +462,8 @@
 		item_state = on_item_state
 		w_class = weight_class_on
 		force = force_on
-		attack_verb = list("smacked", "struck", "cracked", "beaten")
+		attack_verb_continuous = list("smacks", "strikes", "cracks", "beats")
+		attack_verb_simple = list("smack", "strike", "crack", "beat")
 	else
 		to_chat(user, desc["local_off"])
 		icon_state = off_icon_state
@@ -467,7 +471,8 @@
 		slot_flags = ITEM_SLOT_BELT
 		w_class = WEIGHT_CLASS_SMALL
 		force = force_off
-		attack_verb = list("hit", "poked")
+		attack_verb_continuous = list("hits", "pokes")
+		attack_verb_simple = list("hit", "poke")
 
 	playsound(src.loc, on_sound, 50, TRUE)
 	add_fingerprint(user)
@@ -560,10 +565,6 @@
 
 			target.visible_message(desc["visible"], desc["local"])
 
-			if(!iscarbon(user))
-				target.LAssailant = null
-			else
-				target.LAssailant = user
 			cooldown_check = world.time + cooldown
 		else
 			var/wait_desc = get_wait_description()
@@ -717,7 +718,8 @@
 	force = 0.001 //"Some attack noises shit"
 	reach = 3
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
+	attack_verb_continuous = list("flogs", "whips", "lashes", "disciplines")
+	attack_verb_simple = list("flog", "whip", "lash", "discipline")
 	hitsound = 'sound/weapons/whip.ogg'
 
 /obj/item/melee/curator_whip/attack(mob/living/target, mob/living/user)
@@ -770,7 +772,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
 	force = 0
-	attack_verb = list("hit", "poked")
+	attack_verb_continuous = list("hits", "pokes")
+	attack_verb_simple = list("hit", "poke")
 	var/obj/item/food/sausage/held_sausage
 	var/static/list/ovens
 	var/on = FALSE
@@ -882,7 +885,8 @@
 	force = 0
 	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("repelled")
+	attack_verb_continuous = list("repells")
+	attack_verb_simple = list("repell")
 	var/cooldown = 0
 	var/knockbackpower = 6
 
@@ -898,11 +902,6 @@
 		var/throw_dir = get_dir(user,target)
 		var/turf/throw_at = get_ranged_target_turf(target, throw_dir, knockbackpower)
 		target.throw_at(throw_at, throw_range, 3)
-
-		if(!iscarbon(user))
-			target.LAssailant = null
-		else
-			target.LAssailant = user
 
 		cooldown = world.time + 15
 

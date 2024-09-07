@@ -7,7 +7,7 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 400
 	deflect_chance = 20
-	armor = list(MELEE = 40,  BULLET = 35, LASER = 15, ENERGY = 10, BOMB = 20, BIO = 0, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 40,  BULLET = 35, LASER = 15, ENERGY = 10, BOMB = 20, BIO = 0, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
 	max_temperature = 30000
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand
@@ -140,7 +140,6 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 	invisibility = INVISIBILITY_MAXIMUM //no showing on right-click
 	pixel_y = 4
 	max_integrity = 10000
-	obj_integrity = 10000
 	anchored = TRUE
 	light_system = MOVABLE_LIGHT
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE

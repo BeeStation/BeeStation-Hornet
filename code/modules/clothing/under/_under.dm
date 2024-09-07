@@ -5,7 +5,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	permeability_coefficient = 0.9
 	slot_flags = ITEM_SLOT_ICLOTHING
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 10)
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	var/fitted = FEMALE_UNIFORM_FULL // For use in alternate clothing styles for women
@@ -42,14 +42,16 @@
 	if(!attach_accessory(I, user))
 		return ..()
 
-/obj/item/clothing/under/update_clothes_damaged_state(damaging = TRUE)
+/obj/item/clothing/under/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_inv_w_uniform()
-	if(has_sensor > NO_SENSORS)
+	if(damaged_state == CLOTHING_SHREDDED && has_sensor > NO_SENSORS)
 		has_sensor = BROKEN_SENSORS
-		update_sensors(NO_SENSORS)
+	else if(damaged_state == CLOTHING_PRISTINE && has_sensor == BROKEN_SENSORS)
+		has_sensor = HAS_SENSORS
+	update_sensors(NO_SENSORS)
 
 /obj/item/clothing/under/Initialize(mapload)
 	. = ..()

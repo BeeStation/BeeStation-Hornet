@@ -127,8 +127,8 @@
 
 	///TIme taken to leave the mech
 	var/exit_delay = 2 SECONDS
-	///Time you get slept for if you get forcible ejected by the mech exploding
-	var/destruction_sleep_duration = 2 SECONDS
+	///Time you get knocked down for if you get forcible ejected by the mech exploding
+	var/destruction_knockdown_duration = 4 SECONDS
 	///Whether outside viewers can see the pilot inside
 	var/enclosed = TRUE
 	///In case theres a different iconstate for AI/MMI pilot(currently only used for ripley)
@@ -212,14 +212,24 @@
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 	update_step_speed()
 
-/obj/vehicle/sealed/mecha/Destroy()
+//separate proc so that the ejection mechanism can be easily triggered by other things, such as admins
+/obj/vehicle/sealed/mecha/proc/Eject()
 	for(var/M in occupants)
 		var/mob/living/occupant = M
 		if(isAI(occupant))
 			occupant.gib() //No wreck, no AI to recover
 		else
-			occupant.forceMove(loc)
-			occupant.SetSleeping(destruction_sleep_duration)
+			occupant.Stun(2 SECONDS)
+			occupant.Knockdown(destruction_knockdown_duration)
+			occupant.throwing = TRUE //This is somewhat hacky, but is the best option available to avoid chasm detection for the split second between the next two lines
+			occupant.forceMove(get_turf(loc))
+			occupant.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(5, 8),rand(5, 8)) //resets the throwing variable above. Random values are independant on purpose to give variance to damage on wallslams and the distance the occupant is ejected.
+			occupant.visible_message("<span class='userdanger'>[occupant] is forcefully ejected from the mech!</span>", "<span class='userdanger'>You are forcefully ejected from the mech!</span>", null, COMBAT_MESSAGE_RANGE)
+			playsound(src, 'sound/machines/scanbuzz.ogg', 60, FALSE)
+			playsound(src, 'sound/vehicles/carcannon1.ogg', 150, TRUE)
+
+/obj/vehicle/sealed/mecha/Destroy()
+	Eject()
 	if(LAZYLEN(equipment))
 		for(var/E in equipment)
 			var/obj/item/mecha_parts/mecha_equipment/equip = E
@@ -548,7 +558,7 @@
 	if(src == target)
 		return
 	var/dir_to_target = get_dir(src,target)
-	if(dir_to_target && !(dir_to_target & dir))//wrong direction
+	if(!(mecha_flags & OMNIDIRECTIONAL_ATTACKS) && dir_to_target && !(dir_to_target & dir))//wrong direction
 		return
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
 		target = pick(view(3,target))
@@ -890,7 +900,6 @@
 	AI.cancel_camera()
 	AI.controlled_mech = src
 	AI.remote_control = src
-	AI.mobility_flags = ALL //Much easier than adding AI checks! Be sure to set this back to 0 if you decide to allow an AI to leave a mech somehow.
 	to_chat(AI, AI.can_dominate_mechs ? "<span class='announce'>Takeover of [name] complete! You are now loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" :\
 		"<span class='notice'>You have been uploaded to a mech's onboard computer.</span>")
 	to_chat(AI, "<span class='reallybig boldnotice'>Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions.</span>")
@@ -1039,12 +1048,11 @@
 		return FALSE
 
 
-	brain_obj.mecha = src
+	brain_obj.set_mecha(src)
 	add_occupant(brain_mob)//Note this forcemoves the brain into the mech to allow relaymove
 	mecha_flags |= SILICON_PILOT
 	brain_mob.reset_perspective(src)
 	brain_mob.remote_control = src
-	brain_mob.update_mobility()
 	brain_mob.update_mouse_pointer()
 	setDir(dir_in)
 	log_message("[brain_obj] moved in as pilot.", LOG_MECHA)
@@ -1112,9 +1120,8 @@
 				L.forceMove(mmi)
 				L.reset_perspective()
 				remove_occupant(L)
-			mmi.mecha = null
+			mmi.set_mecha(null)
 			mmi.update_appearance()
-			L.mobility_flags = NONE
 		setDir(dir_in)
 	return ..()
 

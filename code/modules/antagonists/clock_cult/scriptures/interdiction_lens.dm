@@ -20,7 +20,6 @@
 	anchored = TRUE
 	break_message = "<span class='warning'>The interdiction lens breaks into multiple fragments, which gently float to the ground.</span>"
 	max_integrity = 150
-	obj_integrity = 150
 	minimum_power = 5
 	var/enabled = FALSE			//Misnomer - Whether we want to be enabled or not, processing would be if we are enabled
 	var/processing = FALSE

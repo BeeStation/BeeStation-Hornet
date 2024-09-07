@@ -15,7 +15,7 @@
 	maxbodytemp = 360
 	unique_name = 1
 	a_intent = INTENT_HARM
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	initial_language_holder = /datum/language_holder/empty
 	var/mob/camera/blob/overmind = null
@@ -104,9 +104,11 @@
 	melee_damage = 4
 	obj_damage = 20
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	attacktext = "hits"
+	attack_verb_continuous = "hits"
+	attack_verb_simple = "hit"
 	attack_sound = 'sound/weapons/genhit1.ogg'
-	movement_type = FLYING
+	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	del_on_death = TRUE
 	deathmessage = "explodes into a cloud of gas!"
 	gold_core_spawnable = HOSTILE_SPAWN
@@ -241,7 +243,8 @@
 	damage_coeff = list(BRUTE = 0.5, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	melee_damage = 20
 	obj_damage = 60
-	attacktext = "slams"
+	attack_verb_continuous = "slams"
+	attack_verb_simple = "slam"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	verb_say = "gurgles"
 	verb_ask = "demands"
@@ -306,10 +309,10 @@
 	..()
 	if(overmind) //if we have an overmind, we're doing chemical reactions instead of pure damage
 		melee_damage = 4
-		attacktext = overmind.blobstrain.blobbernaut_message
+		attack_verb_continuous = overmind.blobstrain.blobbernaut_message
 	else
 		melee_damage = initial(melee_damage)
-		attacktext = initial(attacktext)
+		attack_verb_continuous = overmind.blobstrain.blobbernaut_message
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
 	..(gibbed)

@@ -1221,6 +1221,17 @@
 	tools = list(TOOL_WRENCH, TOOL_WIRECUTTER)
 	category = CAT_MISC
 
+/datum/crafting_recipe/personal_locker
+	name = "Personal Locker"
+	result = /obj/structure/closet/secure_closet/personal/empty
+	time = 10 SECONDS
+	reqs = list(/obj/item/stack/sheet/iron = 2,
+				/obj/item/electronics/airlock = 1,
+				/obj/item/stack/cable_coil = 2
+				)
+	tools = list(TOOL_WIRECUTTER, TOOL_SCREWDRIVER)
+	category = CAT_STRUCTURE
+
 /datum/crafting_recipe/shutters
 	name = "Shutters"
 	reqs = list(/obj/item/stack/sheet/plasteel = 5,

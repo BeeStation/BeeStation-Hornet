@@ -81,12 +81,16 @@
 
 /obj/structure/leaper_bubble/Initialize(mapload)
 	. = ..()
-	float(on = TRUE)
 	QDEL_IN(src, 100)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/leaper_bubble/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/movetype_handler)
+	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, LEAPER_BUBBLE_TRAIT)
 
 /obj/structure/leaper_bubble/Destroy()
 	new /obj/effect/temp_visual/leaper_projectile_impact(get_turf(src))
