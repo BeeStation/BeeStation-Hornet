@@ -249,7 +249,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/piratepad)
 DEFINE_BUFFER_HANDLER(/obj/machinery/piratepad)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You register [src] in [buffer_parent]'s buffer.</span>")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/computer/piratepad_control
@@ -276,7 +276,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 		to_chat(user, "<span class='notice'>You link [src] with [buffer] in [buffer_parent] buffer.</span>")
 		set_pad(buffer)
 		ui_update()
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/computer/piratepad_control/LateInitialize()

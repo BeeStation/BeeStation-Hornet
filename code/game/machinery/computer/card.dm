@@ -897,7 +897,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				say("Insufficient access to create a new bank account.")
 				return
 			var/datum/bank_account/B = SSeconomy.get_budget_account(initial(target_paycheck))
-			switch(alert("Would you like to open a new bank account?\nIt will cost 1,000 credits in [lowertext(initial(target_paycheck))] budget.","Open a new account","Yes","No"))
+			switch(alert("Would you like to open a new bank account?\nIt will cost 1,000 credits in [LOWER_TEXT(initial(target_paycheck))] budget.","Open a new account","Yes","No"))
 				if("No")
 					return
 				if("Yes")

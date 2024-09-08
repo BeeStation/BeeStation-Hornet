@@ -14,6 +14,8 @@
 	//blocks_emissive = EMISSIVE_BLOCK_NONE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/dummy/lighting_obj)
+
 /obj/effect/dummy/lighting_obj/Initialize(mapload, range, power, color, duration)
 	. = ..()
 	if(!isnull(range))
@@ -27,6 +29,8 @@
 
 /obj/effect/dummy/lighting_obj/moblight
 	name = "mob"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/dummy/lighting_obj/moblight)
 
 /obj/effect/dummy/lighting_obj/moblight/Initialize(mapload, range, power, color, duration)
 	. = ..()

@@ -94,6 +94,8 @@
 	to_chat(src, "<span class='notice'>You are absolutely loyal to your friend, no matter what.</span>")
 	to_chat(src, "<span class='notice'>You cannot directly influence the world around you, but you can see what [owner] cannot.</span>")
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
+
 /mob/camera/imaginary_friend/Initialize(mapload, _trauma)
 	. = ..()
 

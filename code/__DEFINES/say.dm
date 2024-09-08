@@ -27,7 +27,7 @@
 #define MODE_KEY_BINARY "b"
 #define MODE_TOKEN_BINARY ":b"
 
- #define WHISPER_MODE "the type of whisper"
+#define WHISPER_MODE "the type of whisper"
 #define MODE_WHISPER "whisper"
 #define MODE_WHISPER_CRIT "whispercrit"
 
@@ -108,3 +108,9 @@
 
 ///How far away blind people can see visible messages from
 #define BLIND_TEXT_DIST 2
+
+// Emote flags
+
+#define EMOTE_AUDIBLE (1<<0)
+#define EMOTE_ANIMATED (1<<1)
+

@@ -107,6 +107,8 @@
 	var/obj/effect/overlay/holo_pad_hologram/ai_hologram
 	var/obj/machinery/holopad/current_holopad
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
+
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	default_access_list = get_all_accesses()
 	. = ..()
@@ -1038,6 +1040,8 @@
 /mob/living/silicon/ai/resist()
 	return
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
+
 /mob/living/silicon/ai/spawned/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	if(!target_ai)
 		target_ai = src //cheat! just give... ourselves as the spawned AI, because that's technically correct
@@ -1085,3 +1089,5 @@
 		return
 
 	aicamera.adjust_zoom(src)
+
+#undef CALL_BOT_COOLDOWN

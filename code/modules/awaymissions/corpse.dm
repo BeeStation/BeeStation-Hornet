@@ -2,6 +2,8 @@
 
 //To do: Allow corpses to appear mangled, bloody, etc. Allow customizing the bodies appearance (they're all bald and white right now).
 
+CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
+
 /obj/effect/mob_spawn
 	name = "Unknown"
 	density = TRUE

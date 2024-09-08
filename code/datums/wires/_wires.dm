@@ -33,7 +33,7 @@
 	var/list/wire_to_colors = list() // Dictionary of colors to wire.
 	var/list/assemblies = list() // List of attached assemblies.
 	var/randomize = 0 // If every instance of these wires should be random.
-					  // Prevents wires from showing up in station blueprints
+						// Prevents wires from showing up in station blueprints
 	var/list/labelled_wires = list() // Associative List of wires that have labels. Key = wire, Value = Bool (Revealed) [To be refactored into skills]
 
 /datum/wires/New(atom/holder)

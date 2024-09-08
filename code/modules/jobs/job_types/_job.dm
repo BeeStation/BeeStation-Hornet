@@ -254,7 +254,7 @@
 		if(!rep_value)
 			rep_value = 0
 		return rep_value
-	. = CONFIG_GET(keyed_list/antag_rep)[lowertext(title)]
+	. = CONFIG_GET(keyed_list/antag_rep)[LOWER_TEXT(title)]
 	if(. == null)
 		return antag_rep
 

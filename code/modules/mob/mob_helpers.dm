@@ -83,7 +83,7 @@
 	for(var/i = 1, i <= leng, i += length(rawchar))
 		rawchar = newletter = phrase[i]
 		if(rand(1, 3) == 3)
-			var/lowerletter = lowertext(newletter)
+			var/lowerletter = LOWER_TEXT(newletter)
 			if(lowerletter == "o")
 				newletter = "u"
 			else if(lowerletter == "s")
@@ -121,7 +121,7 @@
 	for(var/i = 1, i <= leng, i += length(rawchar))
 		rawchar = newletter = phrase[i]
 		if(rand(1, 2) == 2)
-			var/lowerletter = lowertext(newletter)
+			var/lowerletter = LOWER_TEXT(newletter)
 			if(lowerletter == "o")
 				newletter = "u"
 			else if(lowerletter == "t")
@@ -165,7 +165,7 @@
 	for(var/i = 1, i <= leng, i += length(rawchar))
 		rawchar = newletter = phrase[i]
 		if(rand(1, 2) == 2)
-			var/lowerletter = lowertext(newletter)
+			var/lowerletter = LOWER_TEXT(newletter)
 			if(lowerletter == "o")
 				newletter = "u"
 			else if(lowerletter == "t")
@@ -209,7 +209,7 @@
 	var/rawchar
 	for(var/i = 1, i <= leng, i += length(rawchar))
 		rawchar = newletter = phrase[i]
-		if(prob(80) && !(lowertext(newletter) in list("a", "e", "i", "o", "u", " ")))
+		if(prob(80) && !(LOWER_TEXT(newletter) in list("a", "e", "i", "o", "u", " ")))
 			if(prob(10))
 				newletter = "[newletter]-[newletter]-[newletter]-[newletter]"
 			else if(prob(20))
@@ -283,7 +283,7 @@
 	if(!istext(msg))
 		msg = "[msg]"
 	for(var/mob/M as anything in GLOB.mob_list)
-		if(lowertext(M.real_name) == lowertext(msg))
+		if(LOWER_TEXT(M.real_name) == LOWER_TEXT(msg))
 			return M
 	return FALSE
 

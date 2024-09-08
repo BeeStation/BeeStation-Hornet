@@ -52,6 +52,8 @@
 
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/synthesizer)
+
 /obj/machinery/plumbing/synthesizer/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_supply, bolt)

@@ -196,3 +196,5 @@
 
 	round_credits += ..()
 	return round_credits
+
+#undef FLUKEOPS_TIME_DELAY
