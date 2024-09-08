@@ -153,6 +153,9 @@
 	door_anim_time = 5
 	door_hinge = 5
 
+/obj/structure/closet/crate/coffin/opened
+	opened = TRUE
+
 /obj/structure/closet/crate/internals
 	desc = "An internals crate."
 	name = "internals crate"
