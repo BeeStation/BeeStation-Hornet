@@ -999,3 +999,5 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		return TRUE
 
 #undef HALLUCINATION_RANGE
+
+#undef CRITICAL_TEMPERATURE

@@ -54,7 +54,7 @@
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 	)
 
-/obj/machinery/portable_atmospherics/canister/Initialize()
+/obj/machinery/portable_atmospherics/canister/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/usb_port, list(/obj/item/circuit_component/canister_valve))
 
@@ -256,6 +256,8 @@
 	. = ..()
 	if(href_list[VV_HK_MODIFY_CANISTER_GAS])
 		usr.client.modify_canister_gas(src)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 
 /obj/machinery/portable_atmospherics/canister/Initialize(mapload, datum/gas_mixture/existing_mixture)
 	. = ..()
@@ -547,3 +549,5 @@
 			logmsg = "Valve was <b>closed</b> by [key_name(user)], stopping the transfer into \the [holding || "air"].<br>"
 	investigate_log(logmsg, INVESTIGATE_ATMOS)
 	release_log += logmsg
+
+#undef CAN_DEFAULT_RELEASE_PRESSURE

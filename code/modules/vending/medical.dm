@@ -10,7 +10,7 @@
 					/obj/item/reagent_containers/medspray = 6,
 					/obj/item/storage/pill_bottle = 6,
 					/obj/item/reagent_containers/glass/bottle = 10,
-				    /obj/item/reagent_containers/spray/cleaner = 1,
+					/obj/item/reagent_containers/spray/cleaner = 1,
 					/obj/item/stack/medical/gauze = 8,
 					/obj/item/reagent_containers/hypospray/medipen = 8,
 					/obj/item/reagent_containers/hypospray/medipen/dexalin = 8,
@@ -23,8 +23,8 @@
 					/obj/item/reagent_containers/glass/bottle/toxin = 4,
 					/obj/item/reagent_containers/medspray/sterilizine = 4)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/chloralhydrate = 1,
-		              /obj/item/storage/box/hug/medical = 1,
-					  /obj/item/reagent_containers/glass/bottle/random_virus = 1)
+						/obj/item/storage/box/hug/medical = 1,
+						/obj/item/reagent_containers/glass/bottle/random_virus = 1)
 	premium = list(/obj/item/storage/firstaid/regular = 3,
 				   /obj/item/storage/belt/medical = 3,
 				   /obj/item/sensor_device = 2,

@@ -258,6 +258,7 @@
 	max_n_of_items = 10
 	pixel_y = -4
 	flags_1 = NODECONSTRUCT_1
+	opacity = FALSE
 	var/empty = FALSE
 
 /obj/machinery/smartfridge/survival_pod/update_icon()

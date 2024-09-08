@@ -316,6 +316,8 @@
 	color = list(1,0,0,0, 0,1,0,0.8, 0,0,1,0.933, 0,0,0,0, 0,0,0,0)
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/chronos_target)
+
 /atom/movable/screen/chronos_target/Initialize(mapload, mob/living/carbon/human/user)
 	if(user)
 		vis_contents += user

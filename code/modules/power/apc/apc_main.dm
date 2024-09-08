@@ -30,7 +30,7 @@
 			pixel_y = dir == NORTH ? 24 : (dir == SOUTH ? -24 : INSTANCE_VAR_DEFAULT)\
 		),\
 		dir_amount = 4\
-    )
+	)
 
 	var/lon_range = 2
 	var/area/area

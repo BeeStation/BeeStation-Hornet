@@ -66,3 +66,5 @@
 	. = ..()
 
 #undef OCULAR_WARDEN_PLACE_RANGE
+
+#undef OCULAR_WARDEN_RANGE

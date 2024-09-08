@@ -13,6 +13,8 @@
 	var/datum/picture/picture
 	var/scribble		//Scribble on the back.
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/photo)
+
 /obj/item/photo/Initialize(mapload, datum/picture/P, datum_name = TRUE, datum_desc = TRUE)
 	set_picture(P, datum_name, datum_desc, TRUE)
 	return ..()

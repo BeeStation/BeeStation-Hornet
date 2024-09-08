@@ -157,6 +157,15 @@
 	for(var/i in 1 to STR.max_items - 2)
 		new /obj/item/stack/spacecash/c1000(src)
 
+/obj/item/storage/secure/briefcase/hitman/PopulateContents()
+	..()
+	new /obj/item/clothing/suit/armor/vest(src)
+	new /obj/item/gun/ballistic/automatic/pistol(src)
+	new /obj/item/suppressor(src)
+	new /obj/item/melee/classic_baton/police/telescopic(src)
+	new /obj/item/clothing/mask/balaclava(src)
+	new /obj/item/bodybag(src)
+	new /obj/item/soap/nanotrasen(src)
 
 // -----------------------------
 //        Secure Safe

@@ -405,3 +405,6 @@
 
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5
+
+#undef SOURCE_PORTAL
+#undef DESTINATION_PORTAL

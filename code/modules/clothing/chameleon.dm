@@ -1076,3 +1076,5 @@
 			log_game("[key_name(user)] has locked the disguise of the chameleon necktie ([name]) with [W]")
 			return
 	. = ..()
+
+#undef EMP_RANDOMISE_TIME

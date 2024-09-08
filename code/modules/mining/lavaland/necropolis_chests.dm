@@ -490,6 +490,8 @@
 	var/vanish_description = "vanishes from reality"
 	var/can_destroy = TRUE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
+
 /obj/effect/immortality_talisman/Initialize(mapload, mob/new_user)
 	. = ..()
 	if(new_user)
@@ -555,6 +557,8 @@
 	STR.max_combined_w_class = 60
 	STR.max_items = 21
 	new /obj/item/shared_storage/blue(drop_location(), STR)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 /obj/item/shared_storage/blue/Initialize(mapload, datum/component/storage/concrete/master)
 	. = ..()
@@ -701,9 +705,9 @@
 	UnregisterSignal(user, COMSIG_MOVABLE_BUMP)
 
 /obj/item/clothing/gloves/concussive_gauntlets/proc/rocksmash(mob/living/carbon/human/user, atom/rocks, proximity)
-    if(!ismineralturf(rocks))
-        return
-    rocks.attackby(src, user)
+	if(!ismineralturf(rocks))
+		return
+	rocks.attackby(src, user)
 
 ///Bosses
 
@@ -1426,3 +1430,5 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "skeleton_key"
 	w_class = WEIGHT_CLASS_SMALL
+
+#undef HIEROPHANT_CLUB_CARDINAL_DAMAGE

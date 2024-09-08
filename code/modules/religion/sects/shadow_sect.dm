@@ -24,9 +24,9 @@
 	var/faithful_used = FALSE
 
 /datum/religion_sect/shadow_sect/is_available(mob/user)
-    if(isshadow(user))
-        return TRUE
-    return FALSE
+	if(isshadow(user))
+		return TRUE
+	return FALSE
 
 //Shadow sect doesn't heal
 /datum/religion_sect/shadow_sect/sect_bless(mob/living/blessed, mob/living/user)
@@ -407,3 +407,5 @@
 			faithful.AddComponent(/datum/component/dark_favor, faithful)
 			faithful.set_light(2, -2, DARKNESS_INVERSE_COLOR)
 		playsound(obs, 'sound/hallucinations/wail.ogg', 50, TRUE)
+
+#undef DARKNESS_INVERSE_COLOR

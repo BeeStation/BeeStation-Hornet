@@ -212,6 +212,8 @@
   * * /turf/Initialize
   * * /turf/open/space/Initialize
   */
+CREATION_TEST_IGNORE_SUBTYPES(/atom)
+
 /atom/proc/Initialize(mapload, ...)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")

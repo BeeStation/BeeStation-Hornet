@@ -168,3 +168,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "multitool"
 	toolspeed = 0.1
+
+#undef PROXIMITY_NONE
+#undef PROXIMITY_ON_SCREEN
+#undef PROXIMITY_NEAR

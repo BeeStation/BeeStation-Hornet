@@ -65,6 +65,8 @@
 	icon_state = "spearbomb0"
 	var/obj/item/grenade/explosive = null
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
+
 /obj/item/spear/explosive/Initialize(mapload, obj/item/grenade/G)
 	. = ..()
 	set_explosive(G)
