@@ -3,7 +3,7 @@
 	animate(pixel_y = -2, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
 
 /**
- * An element that enables and disables movetype bitflags whenever the relative  traits are added or removed.
+ * An element that enables and disables movetype bitflags whenever the relative traits are added or removed.
  * It also handles the +2/-2 pixel y anim loop typical of mobs possessing the FLYING or FLOATING movetypes.
  * This element is necessary for the TRAIT_MOVE_ traits to work correctly, so make sure to attach this element
  * before adding them to non-living movables.
@@ -49,7 +49,8 @@
 	var/flag = GLOB.movement_type_trait_to_flag[trait]
 	if(source.movement_type & flag)
 		return
-	var/old_state = source.movement_type
+	if(!(source.movement_type & (FLOATING|FLYING)) && (trait == TRAIT_MOVE_FLYING || trait == TRAIT_MOVE_FLOATING) && !paused_floating_anim_atoms[source] && !HAS_TRAIT(source, TRAIT_NO_FLOATING_ANIM))
+		DO_FLOATING_ANIM(source)
 	source.movement_type |= flag
 	if(!(old_state & (FLOATING|FLYING)) && (source.movement_type & (FLOATING|FLYING)) && !paused_floating_anim_atoms[source] && !HAS_TRAIT(source, TRAIT_NO_FLOATING_ANIM))
 		DO_FLOATING_ANIM(source)
