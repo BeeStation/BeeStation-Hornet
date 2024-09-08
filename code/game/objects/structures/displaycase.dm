@@ -214,7 +214,7 @@
 		add_fingerprint(user)
 		return
 	else
-	    //prevents remote "kicks" with TK
+		//prevents remote "kicks" with TK
 		if (!Adjacent(user))
 			return
 		if (user.a_intent == INTENT_HELP)
@@ -402,6 +402,8 @@
 
 /obj/item/showpiece_dummy
 	name = "Cheap replica"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/showpiece_dummy)
 
 /obj/item/showpiece_dummy/Initialize(mapload, path)
 	. = ..()

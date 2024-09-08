@@ -193,15 +193,6 @@
 /obj/effect/spawner/lootdrop/ruinloot/important,
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
-"BT" = (
-/obj/machinery/door/airlock/highsecurity,
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "AI Core shutters";
-	name = "AI core shutters"
-	},
-/turf/open/floor/circuit/red,
-/area/ruin/unpowered)
 "CO" = (
 /obj/structure/table/reinforced,
 /obj/item/lighter,
@@ -233,6 +224,21 @@
 	name = "AI Chamber Turret"
 	},
 /turf/open/floor/pod/dark,
+/area/ruin/unpowered)
+"Ja" = (
+/obj/machinery/door/airlock/grunge{
+	name = "AI Research Room"
+	},
+/turf/open/floor/iron/tech/grid,
+/area/ruin/unpowered)
+"Jq" = (
+/obj/machinery/door/airlock/highsecurity,
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "AI Core shutters";
+	name = "AI Core Shutters"
+	},
+/turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "JD" = (
 /obj/structure/table/reinforced,
@@ -335,7 +341,7 @@
 "SV" = (
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
-"WV" = (
+"UM" = (
 /obj/machinery/light{
 	dir = 4
 	},
@@ -350,12 +356,6 @@
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
 /turf/open/floor/carpet/black,
-/area/ruin/unpowered)
-"WX" = (
-/obj/machinery/door/airlock/grunge{
-	name = "AI research room"
-	},
-/turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "Xd" = (
 /obj/effect/turf_decal/caution/stand_clear,
@@ -430,7 +430,7 @@ SV
 SV
 SV
 SV
-WX
+Ja
 RT
 SV
 tV
@@ -505,7 +505,7 @@ NP
 Ib
 Xd
 tO
-BT
+Jq
 qg
 SV
 iT
@@ -538,7 +538,7 @@ tO
 KU
 za
 SV
-WV
+UM
 Lx
 nN
 JS

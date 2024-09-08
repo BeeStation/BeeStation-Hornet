@@ -598,6 +598,8 @@
 	for(var/i in 1 to 4)
 		. += new /obj/item/clockwork/alloy_shards/medium/gear_bit(location)
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window/reinforced/clockwork)
+
 /obj/structure/window/reinforced/clockwork/Initialize(mapload, direct)
 	made_glow = TRUE
 	new /obj/effect/temp_visual/ratvar/window(get_turf(src))
@@ -606,3 +608,9 @@
 
 /obj/structure/window/reinforced/clockwork/fulltile/unanchored
 	anchored = FALSE
+
+#undef COGWALL_DECON_TOOLS
+#undef COGWALL_START_DECON_MESSAGES
+#undef COGWALL_END_DECON_MESSAGES
+#undef COGWALL_START_RECON_MESSAGES
+#undef COGWALL_END_RECON_MESSAGES

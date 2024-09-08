@@ -17,6 +17,8 @@
 	var/sun_angle = 0		// sun angle as set by sun datum
 	var/obj/machinery/power/solar_control/control = null
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/tracker)
+
 /obj/machinery/power/tracker/Initialize(mapload, obj/item/solar_assembly/S)
 	. = ..()
 	Make(S)

@@ -219,10 +219,10 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		var/obj/item/stock_parts/cell/cell = I
 		//Punishment for greed
 		if(cell.charge == cell.maxcharge)
-			to_chat("<span class = 'danger'> You try to charge the cell, but it is already fully energized. You are not sure if this was a good idea...")
+			to_chat("<span class = 'danger'> You try to charge the cell, but it is already fully energized. You are not sure if this was a good idea...</span>")
 			cell.explode()
 			return
-		to_chat("<span class = 'notice'> You charged the [I.name] on [name]!")
+		to_chat(user, "<span class='notice'>You charged the [I.name] on [name]!</span>")
 		cell.give(cell.maxcharge)
 		return
 	return ..()
@@ -351,6 +351,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/stage = 0
 	var/max_stage = 5
 	var/datum/weakref/pylon
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 
 /obj/structure/cerulean_slime_crystal/Initialize(mapload, obj/structure/slime_crystal/cerulean/master_pylon)
 	. = ..()

@@ -189,7 +189,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 			send_data["efficiency"] = get_efficiency()
 			send_data["overheated"] = (machine_stat & OVERHEATED)
 
-			ntnet_send(send_data, data["sender_id"])
+			ntnet_send(send_data, data.data["sender_id"])
 
 /obj/machinery/telecomms/update_icon()
 	if(on)

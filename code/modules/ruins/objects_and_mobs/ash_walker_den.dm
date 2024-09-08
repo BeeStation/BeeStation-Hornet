@@ -72,3 +72,5 @@
 		new /obj/effect/mob_spawn/human/ash_walker(get_step(loc, pick(GLOB.alldirs)), ashies)
 		visible_message("<span class='danger'>One of the eggs swells to an unnatural size and tumbles free. It's ready to hatch!</span>")
 		meat_counter -= ASH_WALKER_SPAWN_THRESHOLD
+
+#undef ASH_WALKER_SPAWN_THRESHOLD

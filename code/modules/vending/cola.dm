@@ -6,7 +6,7 @@
 	product_slogans = "Robust Softdrinks: More robust than a toolbox to the head!"
 	product_ads = "Refreshing!;Hope you're thirsty!;Over 1 million drinks sold!;Thirsty? Why not cola?;Please, have a drink!;Drink up!;The best drinks in space."
 	products = list(/obj/item/reagent_containers/food/drinks/soda_cans/cola = 10,
-		            /obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind = 10,
+					/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind = 10,
 					/obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb = 10,
 					/obj/item/reagent_containers/food/drinks/soda_cans/starkist = 10,
 					/obj/item/reagent_containers/food/drinks/soda_cans/space_up = 10,
@@ -14,7 +14,7 @@
 					/obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime = 10,
 					/obj/item/reagent_containers/glass/waterbottle = 10)
 	contraband = list(/obj/item/reagent_containers/food/drinks/soda_cans/thirteenloko = 6,
-		              /obj/item/reagent_containers/food/drinks/soda_cans/shamblers = 6)
+						/obj/item/reagent_containers/food/drinks/soda_cans/shamblers = 6)
 	premium = list(/obj/item/reagent_containers/food/drinks/drinkingglass/filled/nuka_cola = 1,
 		           /obj/item/reagent_containers/food/drinks/soda_cans/air = 1,
 		           /obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy = 1,

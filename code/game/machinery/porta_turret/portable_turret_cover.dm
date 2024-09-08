@@ -71,7 +71,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/porta_turret_cover)
 DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret_cover)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, parent_turret))
 		to_chat(user, "<span class='notice'>You add [parent_turret] to multitool buffer.</span>")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/porta_turret_cover/attacked_by(obj/item/I, mob/user)

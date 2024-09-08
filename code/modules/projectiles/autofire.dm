@@ -124,3 +124,5 @@ Everything else should be handled for you. Good luck soldier.
 	. = ..()
 	if(burst_size <= 1) //Don't let them autofire with bursts. That would just be awful.
 		autofire_component?.set_target(over_object)
+
+#undef COMSIG_AUTOFIRE_END

@@ -1,6 +1,3 @@
-#define SOLAR_MAX_DIST 40
-#define SOLARGENRATE 1500
-
 /obj/machinery/power/solar
 	name = "solar panel"
 	desc = "A solar panel. Generates electricity when in contact with sunlight."
@@ -22,6 +19,8 @@
 	var/ndir = SOUTH // target dir
 	var/turn_angle = 0
 	var/obj/machinery/power/solar_control/control = null
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 
 /obj/machinery/power/solar/Initialize(mapload, obj/item/solar_assembly/S)
 	. = ..()
