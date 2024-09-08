@@ -4485,6 +4485,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/bar)
+"bSW" = (
+/obj/item/pickaxe,
+/turf/open/floor/plating/asteroid/basalt/planetary,
+/area/asteroid/paradise)
 "bSX" = (
 /obj/machinery/computer/prisoner/management,
 /obj/machinery/power/apc/auto_name/directional/north{
@@ -69408,7 +69412,7 @@ mUB
 klh
 wsA
 vqI
-sLz
+bSW
 cEk
 nve
 nve
