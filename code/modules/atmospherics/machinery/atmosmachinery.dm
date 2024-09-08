@@ -42,7 +42,6 @@
 	var/on = FALSE
 	/// whether it can be painted
 	var/paintable = FALSE
-	var/process = FALSE
 
 /obj/machinery/atmospherics/examine(mob/user)
 	. = ..()
@@ -57,10 +56,11 @@
 	if(pipe_flags & PIPING_CARDINAL_AUTONORMALIZE)
 		normalize_cardinal_directions()
 	nodes = new(device_type)
-	src.process = process
 	if (!armor)
 		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70, STAMINA = 0, BLEED = 0)
 	..()
+	if(process)
+		SSair.start_processing_machine(src)
 	SetInitDirections()
 
 /obj/machinery/atmospherics/Destroy()
@@ -119,9 +119,6 @@
 			if(can_be_node(target, i))
 				nodes[i] = target
 				break
-
-	if(process)
-		SSair.start_processing_machine(src)
 	update_icon()
 
 /obj/machinery/atmospherics/proc/setPipingLayer(new_layer)
