@@ -51835,9 +51835,7 @@
 /area/crew_quarters/bar/atrium)
 "ruY" = (
 /obj/machinery/light,
-/obj/machinery/camera/autoname{
-	dir = 1
-	},
+/obj/machinery/camera/autoname/directional/south,
 /turf/open/floor/engine,
 /area/science/misc_lab)
 "rvd" = (
