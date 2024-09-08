@@ -42,6 +42,7 @@
 	var/on = FALSE
 	/// whether it can be painted
 	var/paintable = FALSE
+	var/process = FALSE
 
 /obj/machinery/atmospherics/examine(mob/user)
 	. = ..()
@@ -56,11 +57,10 @@
 	if(pipe_flags & PIPING_CARDINAL_AUTONORMALIZE)
 		normalize_cardinal_directions()
 	nodes = new(device_type)
+	src.process = process
 	if (!armor)
 		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70, STAMINA = 0, BLEED = 0)
 	..()
-	if(process)
-		SSair.start_processing_machine(src)
 	SetInitDirections()
 
 /obj/machinery/atmospherics/Destroy()
@@ -75,6 +75,11 @@
 
 	return ..()
 	//return QDEL_HINT_FINDREFERENCE
+
+/obj/machinery/atmospherics/atmosinit(list/node_connects)
+	. = ..()
+	if(process)
+		SSair.start_processing_machine(src)
 
 /obj/machinery/atmospherics/proc/destroy_network()
 	return
