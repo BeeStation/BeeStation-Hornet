@@ -181,7 +181,7 @@
 /obj/effect/spawner/structure/window/shuttle,
 /obj/machinery/door/poddoor/preopen{
 	id = "hunter_police_bridge";
-	name = "Bridge View Blast door"
+	name = "Bridge View Blast Door"
 	},
 /turf/open/floor/plating,
 /area/shuttle/hunter)
@@ -376,8 +376,7 @@
 	},
 /obj/item/newspaper,
 /obj/structure/railing{
-	dir = 4;
-	layer = 3.1
+	dir = 4
 	},
 /obj/item/stamp{
 	pixel_x = -8;
@@ -761,8 +760,7 @@
 	dir = 8
 	},
 /obj/structure/railing{
-	dir = 2;
-	layer = 4.1
+	dir = 2
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/grid/steel,
@@ -772,8 +770,7 @@
 /area/shuttle/hunter)
 "zM" = (
 /obj/structure/railing{
-	dir = 4;
-	layer = 3.1
+	dir = 4
 	},
 /obj/machinery/computer/crew{
 	dir = 8
@@ -802,8 +799,7 @@
 "BT" = (
 /obj/effect/turf_decal/box/corners,
 /obj/structure/railing{
-	dir = 2;
-	layer = 4.1
+	dir = 2
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -1127,8 +1123,7 @@
 /obj/effect/turf_decal/bot/left,
 /obj/structure/railing{
 	color = "#A47449";
-	dir = 8;
-	layer = 3.1
+	dir = 8
 	},
 /obj/effect/mob_spawn/human/fugitive_hunter{
 	dir = 1
@@ -1137,8 +1132,7 @@
 /area/shuttle/hunter)
 "OU" = (
 /obj/structure/railing{
-	dir = 2;
-	layer = 4.1
+	dir = 2
 	},
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/iron/tech/grid,
@@ -1162,8 +1156,7 @@
 	dir = 8
 	},
 /obj/structure/railing{
-	dir = 2;
-	layer = 4.1
+	dir = 2
 	},
 /obj/effect/turf_decal/siding/dark,
 /obj/effect/turf_decal/delivery/white,
@@ -1199,8 +1192,7 @@
 	},
 /obj/structure/railing{
 	color = "#A47449";
-	dir = 8;
-	layer = 3.1
+	dir = 8
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/bot/left,

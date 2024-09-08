@@ -10,6 +10,8 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	/turf/open/floor/dock/drydock
 )))
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
+
 //NORTH default dir
 /obj/docking_port
 	invisibility = INVISIBILITY_ABSTRACT
@@ -262,6 +264,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	. = ..()
 
 /obj/docking_port/stationary/proc/load_roundstart()
+	DECLARE_ASYNC
 	if(json_key)
 		var/sid = SSmapping.config.shuttles[json_key]
 		roundstart_template = SSmapping.shuttle_templates[sid]
@@ -275,7 +278,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			CRASH("Invalid path ([roundstart_template]) passed to docking port.")
 
 	if(roundstart_template)
-		SSshuttle.action_load(roundstart_template, src)
+		var/datum/async_map_generator/shuttle_loader = SSshuttle.action_load(roundstart_template, src)
+		UNTIL(shuttle_loader.completed)
+	ASYNC_FINISH
 
 /obj/docking_port/stationary/transit
 	name = "In Transit"
@@ -1201,3 +1206,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 /obj/docking_port/mobile/emergency/on_emergency_dock()
 	return
+
+#ifdef TESTING
+#undef DOCKING_PORT_HIGHLIGHT
+#endif

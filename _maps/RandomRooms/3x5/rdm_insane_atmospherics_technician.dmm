@@ -7,7 +7,6 @@
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/shower{
 	dir = 8;
-	layer = 4;
 	name = "emergency shower";
 	pixel_y = 6
 	},
