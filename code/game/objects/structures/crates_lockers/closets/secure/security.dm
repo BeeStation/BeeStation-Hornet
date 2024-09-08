@@ -40,7 +40,8 @@
 	new /obj/item/clothing/neck/cloak/cap(src)
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/storage/belt/sabre(src)
-	new /obj/item/gun/energy/e_gun/mini/heads(src)
+	new /obj/item/gun/ballistic/automatic/pistol/service/captain(src)
+	new /obj/item/ammo_box/magazine/recharge/service(src)
 
 /obj/item/storage/box/suitbox/cap
 	name = "compression box of captain outfits"
@@ -90,8 +91,8 @@
 	new /obj/item/clothing/glasses/sunglasses/advanced(src)
 	new /obj/item/clothing/suit/armor/vest/alt(src)
 	new /obj/item/megaphone/command(src)
-	new /obj/item/gun/energy/e_gun/mini/heads(src)
-
+	new /obj/item/gun/ballistic/automatic/pistol/service/hop(src)
+	new /obj/item/ammo_box/magazine/recharge/service(src)
 
 /obj/item/storage/box/suitbox/hop
 	name = "compression box of head of personnel outfits"
@@ -152,7 +153,6 @@
 	new /obj/item/storage/box/command_keys(src)
 	new /obj/item/megaphone/sec(src)
 	new /obj/item/computer_hardware/hard_drive/role/hos(src)
-	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/storage/box/deputy(src)
 	new /obj/item/storage/lockbox/medal/sec(src)
 	new /obj/item/storage/lockbox/loyalty(src)
@@ -167,6 +167,8 @@
 	new /obj/item/clothing/suit/armor/hos/trenchcoat(src)
 	new /obj/item/shield/riot/tele(src)
 	new /obj/item/storage/belt/security/full(src)
+	new /obj/item/gun/ballistic/automatic/pistol/service/hos(src)
+	new /obj/item/ammo_box/magazine/recharge/service(src)
 
 /obj/item/storage/box/suitbox/hos
 	name = "compression box of head of security outfits"

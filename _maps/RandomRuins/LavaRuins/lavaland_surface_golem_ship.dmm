@@ -19,10 +19,6 @@
 "af" = (
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
-"ag" = (
-/obj/structure/frame/machine,
-/turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
 "ah" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -35,42 +31,12 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
-"aj" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/oil,
-/obj/effect/decal/cleanable/cobweb,
-/obj/structure/table/reinforced,
-/obj/item/storage/bag/plants,
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"ak" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/golem_mining,
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
 "an" = (
 /obj/structure/statue/gold/rd,
 /obj/machinery/light/broken{
 	dir = 1;
 	icon_state = "tube-broken"
 	},
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"ar" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/table/reinforced,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/gibs/up,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/item/areaeditor/blueprints{
-	desc = "Use to build new structures in the wastes.";
-	name = "land claim"
-	},
-/obj/item/disk/design_disk/golem_shell,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "as" = (
@@ -85,14 +51,6 @@
 /obj/machinery/door/airlock/survival_pod,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/pod,
-/area/ruin/powered/golem_ship)
-"au" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/oil,
-/obj/machinery/shower{
-	pixel_y = 12
-	},
-/turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 "av" = (
 /obj/effect/decal/cleanable/glass,
@@ -111,16 +69,6 @@
 /area/ruin/powered/golem_ship)
 "ay" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
-"az" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8;
-	icon_state = "pwindow"
-	},
-/obj/machinery/atmospherics/components/unary/shuttle/heater{
-	dir = 8
-	},
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 "aA" = (
@@ -166,86 +114,21 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
-"aK" = (
-/obj/machinery/door/airlock/survival_pod,
-/turf/open/floor/pod,
-/area/ruin/powered/golem_ship)
 "aL" = (
-/turf/open/floor/pod,
-/area/ruin/powered/golem_ship)
-"aM" = (
-/obj/machinery/door/airlock/survival_pod/glass,
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
 "aN" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
-"aO" = (
-/obj/effect/decal/cleanable/shreds,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
 "aP" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
-"aQ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/reinforced,
-/obj/item/stack/sheet/cotton/cloth/five,
-/obj/item/knife/combat/survival,
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"aR" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/fire,
-/obj/item/storage/firstaid/fire{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"aS" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/firecloset,
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"aT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/reinforced,
-/obj/item/bedsheet/rd/royal_cape{
-	layer = 3;
-	pixel_x = 5;
-	pixel_y = 9
-	},
-/obj/item/book/manual/wiki/research_and_development{
-	name = "Sacred Text of the Liberator";
-	pixel_x = -5;
-	pixel_y = 3
-	},
-/turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "aU" = (
 /obj/machinery/light/small{
 	dir = 8;
 	icon_state = "bulb"
-	},
-/turf/open/floor/pod,
-/area/ruin/powered/golem_ship)
-"aV" = (
-/obj/machinery/light/small{
-	dir = 4;
-	icon_state = "bulb"
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 22
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
@@ -263,19 +146,6 @@
 /obj/item/storage/bag/trash,
 /obj/item/soap/nanotrasen,
 /obj/item/soap/nanotrasen,
-/turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
-"aZ" = (
-/obj/machinery/power/port_gen/pacman,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
-"ba" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/built,
-/obj/structure/cable,
-/obj/structure/frame/machine,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 "bb" = (
@@ -356,52 +226,6 @@
 	},
 /turf/template_noop,
 /area/ruin/powered/golem_ship)
-"br" = (
-/obj/effect/decal/cleanable/vomit/old,
-/turf/open/floor/carpet/purple,
-/area/ruin/powered/golem_ship)
-"bs" = (
-/obj/structure/chair/office{
-	dir = 1;
-	icon_state = "officechair_dark"
-	},
-/obj/machinery/light{
-	dir = 4;
-	icon_state = "tube"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/carpet/purple,
-/area/ruin/powered/golem_ship)
-"bt" = (
-/obj/effect/mob_spawn/human/golem/adamantine,
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/carpet/purple,
-/area/ruin/powered/golem_ship)
-"bu" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/effect/mob_spawn/human/golem/adamantine,
-/turf/open/floor/carpet/purple,
-/area/ruin/powered/golem_ship)
-"bv" = (
-/obj/effect/decal/cleanable/glass,
-/obj/machinery/light/broken{
-	dir = 8;
-	icon_state = "tube-broken"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"bx" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/glass,
-/obj/structure/table/reinforced,
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
 "by" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/purple,
@@ -421,17 +245,6 @@
 	icon_state = "tracks"
 	},
 /turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"bD" = (
-/obj/machinery/door/airlock/survival_pod,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 8;
-	icon_state = "tracks"
-	},
-/turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
 "bE" = (
 /obj/machinery/light/small{
@@ -457,29 +270,12 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
-"bG" = (
-/obj/machinery/computer/shuttle_flight{
-	dir = 4;
-	icon_state = "computer-0"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
 "bH" = (
 /obj/structure/chair/office{
 	dir = 8;
 	icon_state = "officechair_dark"
 	},
 /turf/open/floor/carpet/purple,
-/area/ruin/powered/golem_ship)
-"bL" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old,
-/obj/structure/table/reinforced,
-/obj/item/scalpel,
-/obj/item/retractor,
-/obj/item/hemostat,
-/turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "bM" = (
 /obj/structure/extinguisher_cabinet{
@@ -488,19 +284,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
-"bN" = (
-/obj/effect/decal/cleanable/glass,
-/obj/structure/table/reinforced,
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
 "bO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
-/turf/open/floor/carpet/purple,
-/area/ruin/powered/golem_ship)
-"bQ" = (
-/obj/item/resonator,
-/obj/effect/decal/cleanable/shreds,
 /turf/open/floor/carpet/purple,
 /area/ruin/powered/golem_ship)
 "bR" = (
@@ -521,13 +307,6 @@
 /obj/item/resonator/upgraded,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
-"bV" = (
-/obj/machinery/door/airlock/survival_pod,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
-/turf/open/floor/pod,
-/area/ruin/powered/golem_ship)
 "bW" = (
 /obj/effect/decal/cleanable/vomit/old,
 /obj/machinery/light/small/broken,
@@ -540,15 +319,6 @@
 	dir = 8
 	},
 /turf/open/floor/pod,
-/area/ruin/powered/golem_ship)
-"bY" = (
-/obj/structure/chair/office,
-/obj/effect/decal/cleanable/glass,
-/obj/machinery/light/broken{
-	dir = 4;
-	icon_state = "tube-broken"
-	},
-/turf/open/floor/carpet/purple,
 /area/ruin/powered/golem_ship)
 "bZ" = (
 /obj/item/resonator,
@@ -603,12 +373,6 @@
 	},
 /turf/template_noop,
 /area/ruin/powered/golem_ship)
-"cj" = (
-/obj/machinery/door/airlock/survival_pod,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/turf/open/floor/pod,
-/area/ruin/powered/golem_ship)
 "cl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/oil,
@@ -635,36 +399,6 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
-"cq" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/reagent_dispensers/watertank,
-/turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
-"cr" = (
-/obj/machinery/light/broken{
-	dir = 1;
-	icon_state = "tube-broken"
-	},
-/obj/structure/reagent_dispensers/watertank,
-/turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
-"ct" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/belt/utility,
-/obj/item/storage/box/lights/mixed,
-/turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
-"cu" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/broken{
-	dir = 1;
-	icon_state = "tube-broken"
-	},
-/obj/structure/reagent_dispensers/fueltank,
-/turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
 "cv" = (
 /obj/structure/rack,
 /obj/item/shovel/spade,
@@ -686,17 +420,6 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/pod,
-/area/ruin/powered/golem_ship)
-"cA" = (
-/obj/structure/table/reinforced,
-/obj/machinery/light/built,
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"cB" = (
-/obj/structure/table/reinforced,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/reagentgrinder,
-/turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "cE" = (
 /obj/machinery/light,
@@ -741,43 +464,67 @@
 	},
 /turf/template_noop,
 /area/ruin/powered/golem_ship)
-"cT" = (
-/obj/effect/decal/cleanable/dirt,
+"cM" = (
 /obj/structure/chair/stool,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
-"eo" = (
-/obj/structure/window/shuttle/survival_pod/spawner,
+"dx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
-"gg" = (
+"ey" = (
+/obj/machinery/light/broken{
+	dir = 1;
+	icon_state = "tube-broken"
+	},
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plating,
+/area/ruin/powered/golem_ship)
+"eS" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/mob_spawn/human/golem/adamantine,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/carpet/purple,
+/area/ruin/powered/golem_ship)
+"fd" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil/red,
+/turf/open/floor/plating,
+/area/ruin/powered/golem_ship)
+"gM" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	icon_state = "pwindow"
+	},
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/ruin/powered/golem_ship)
+"hx" = (
 /obj/effect/decal/cleanable/oil,
 /obj/structure/cable{
-	icon_state = "2-4"
+	icon_state = "2-8"
 	},
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
-"gm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old,
-/obj/item/crowbar,
-/turf/open/floor/pod,
-/area/ruin/powered/golem_ship)
-"gw" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/reinforced,
-/obj/item/circular_saw,
-/obj/item/cautery,
-/obj/item/surgicaldrill,
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"iN" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/structure/cable{
-	icon_state = "4-8"
+"hY" = (
+/obj/machinery/door/airlock/survival_pod,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
 	},
 /turf/open/floor/pod,
+/area/ruin/powered/golem_ship)
+"iG" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/oil,
+/obj/machinery/shower{
+	pixel_y = 12
+	},
+/turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 "jC" = (
 /obj/effect/decal/cleanable/dirt,
@@ -788,82 +535,69 @@
 	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
-"jK" = (
-/obj/effect/spawner/randomarcade{
-	dir = 1
-	},
-/turf/open/floor/pod/dark,
+"jQ" = (
+/obj/structure/frame/machine,
+/turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
-"jN" = (
-/obj/effect/decal/cleanable/oil,
+"kd" = (
+/obj/item/storage/toolbox/mechanical,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
-"kb" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/emcloset,
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"kO" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
-"kT" = (
+"ku" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid/brute,
-/obj/item/storage/firstaid/brute{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"lx" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"mn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/drip,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/machinery/reagentgrinder,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
-"se" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"sA" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
-"ti" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/auto_name/directional/west,
-/obj/effect/mapping_helpers/apc/discharged,
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"uc" = (
+"kI" = (
 /obj/structure/frame/machine,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
-"xx" = (
+"kL" = (
+/obj/machinery/door/airlock/survival_pod/glass,
+/turf/open/floor/pod,
+/area/ruin/powered/golem_ship)
+"lS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/golem_mining,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/reinforced,
+/obj/item/bedsheet/rd/royal_cape{
+	pixel_x = 5;
+	pixel_y = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"lZ" = (
+/obj/machinery/light/small{
+	dir = 4;
+	icon_state = "bulb"
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 22
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/pod,
+/area/ruin/powered/golem_ship)
+"mp" = (
+/obj/effect/decal/cleanable/glass,
+/obj/structure/table/reinforced,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"mx" = (
 /obj/machinery/door/airlock/survival_pod,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1;
@@ -871,16 +605,44 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
-"zp" = (
+"nP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/cable_coil/red,
-/turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
-"zy" = (
-/obj/machinery/computer/operating,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
-"CX" = (
+"pE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/oil,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating,
+/area/ruin/powered/golem_ship)
+"rs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/obj/structure/table/reinforced,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"rF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/emcloset,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"rN" = (
+/obj/machinery/door/airlock/survival_pod,
+/turf/open/floor/pod,
+/area/ruin/powered/golem_ship)
+"tc" = (
+/obj/machinery/power/port_gen/pacman,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable,
+/turf/open/floor/plating,
+/area/ruin/powered/golem_ship)
+"tl" = (
 /obj/machinery/door/airlock/survival_pod,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1;
@@ -891,56 +653,183 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
-"Ec" = (
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/mob_spawn/human/golem/adamantine,
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/carpet/purple,
-/area/ruin/powered/golem_ship)
-"Es" = (
-/obj/item/stack/sheet/mineral/plasma/five,
-/turf/open/floor/pod,
-/area/ruin/powered/golem_ship)
-"HR" = (
-/obj/structure/chair/stool,
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"JJ" = (
-/obj/item/storage/toolbox/mechanical,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
-"JV" = (
+"tW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/resonator,
 /turf/open/floor/carpet/purple,
 /area/ruin/powered/golem_ship)
-"KR" = (
+"um" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/belt/utility,
+/obj/item/storage/box/lights/mixed,
+/turf/open/floor/plating,
+/area/ruin/powered/golem_ship)
+"vb" = (
+/obj/effect/spawner/randomarcade{
+	dir = 1
+	},
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"vR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/auto_name/directional/west,
+/obj/effect/mapping_helpers/apc/discharged,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"wd" = (
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
-"Qs" = (
+"xz" = (
+/obj/effect/decal/cleanable/glass,
+/obj/machinery/light/broken{
+	dir = 8;
+	icon_state = "tube-broken"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"zi" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"zn" = (
+/obj/effect/decal/cleanable/shreds,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/ruin/powered/golem_ship)
+"zX" = (
+/obj/structure/chair/office{
+	dir = 1;
+	icon_state = "officechair_dark"
+	},
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube"
+	},
 /obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/purple,
+/area/ruin/powered/golem_ship)
+"Ae" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/firecloset,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"Az" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/crowbar,
+/turf/open/floor/pod,
+/area/ruin/powered/golem_ship)
+"AX" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/gibs/up,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/item/areaeditor/blueprints{
+	desc = "Use to build new structures in the wastes.";
+	name = "land claim"
+	},
+/obj/item/disk/design_disk/golem_shell,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"Bm" = (
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/carpet/purple,
+/area/ruin/powered/golem_ship)
+"Dz" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/brute,
+/obj/item/storage/firstaid/brute{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"GY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/obj/item/bedsheet/rd/royal_cape{
+	layer = 3;
+	pixel_x = 5;
+	pixel_y = 9
+	},
+/obj/item/book/manual/wiki/research_and_development{
+	name = "Sacred Text of the Liberator";
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"Hg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/broken{
+	dir = 1;
+	icon_state = "tube-broken"
+	},
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/ruin/powered/golem_ship)
+"Hj" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light/built,
+/obj/structure/cable,
 /obj/structure/frame/machine,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
-"Rr" = (
+"HR" = (
+/obj/machinery/door/airlock/survival_pod,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/turf/open/floor/pod,
+/area/ruin/powered/golem_ship)
+"If" = (
+/obj/item/stack/sheet/mineral/plasma/five,
+/turf/open/floor/pod,
+/area/ruin/powered/golem_ship)
+"In" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/cotton/cloth/five,
+/obj/item/knife/combat/survival,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"Ko" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/ruin/powered/golem_ship)
+"Li" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/drip,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"Lk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/randomarcade{
 	dir = 1
 	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
-"TF" = (
+"Mq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid,
@@ -950,15 +839,142 @@
 	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
-"UI" = (
+"ME" = (
+/obj/structure/window/shuttle/survival_pod/spawner,
+/turf/open/floor/plating,
+/area/ruin/powered/golem_ship)
+"MP" = (
+/obj/machinery/computer/shuttle_flight{
+	dir = 4;
+	icon_state = "computer-0"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"MW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/stool,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"MY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/table/reinforced,
+/obj/item/scalpel,
+/obj/item/retractor,
+/obj/item/hemostat,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"Nd" = (
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/pod,
+/area/ruin/powered/golem_ship)
+"Nr" = (
+/obj/item/resonator,
+/obj/effect/decal/cleanable/shreds,
+/turf/open/floor/carpet/purple,
+/area/ruin/powered/golem_ship)
+"On" = (
+/obj/effect/mob_spawn/human/golem/adamantine,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/carpet/purple,
+/area/ruin/powered/golem_ship)
+"OU" = (
 /obj/machinery/door/airlock/survival_pod,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
-"VW" = (
+"Pt" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/table/reinforced,
+/obj/item/storage/bag/plants,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"RJ" = (
+/obj/structure/chair/office,
+/obj/effect/decal/cleanable/glass,
+/obj/machinery/light/broken{
+	dir = 4;
+	icon_state = "tube-broken"
+	},
+/turf/open/floor/carpet/purple,
+/area/ruin/powered/golem_ship)
+"SO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/mob_spawn/human/golem/adamantine,
+/turf/open/floor/carpet/purple,
+/area/ruin/powered/golem_ship)
+"SW" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/turf/open/floor/plating,
+/area/ruin/powered/golem_ship)
+"TC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/fire,
+/obj/item/storage/firstaid/fire{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"TV" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light/built,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"Us" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/obj/item/circular_saw,
+/obj/item/cautery,
+/obj/item/surgicaldrill,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"Xo" = (
+/obj/machinery/computer/operating,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"XQ" = (
+/obj/machinery/door/airlock/survival_pod,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8;
+	icon_state = "tracks"
+	},
+/turf/open/floor/pod,
+/area/ruin/powered/golem_ship)
+"YT" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/ruin/powered/golem_ship)
+"ZH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/golem_mining,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"ZI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/frame/machine,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 
@@ -986,9 +1002,9 @@ aa
 (2,1,1) = {"
 aa
 ab
-aj
+Pt
 aB
-aQ
+In
 ab
 aa
 aa
@@ -998,63 +1014,63 @@ aa
 aa
 aa
 ab
-uc
-uc
-cA
+kI
+kI
+TV
 ab
 aa
 "}
 (3,1,1) = {"
 aa
-eo
-ak
+ME
+ZH
 aC
-aR
+TC
 ab
 bd
-eo
-eo
-eo
-eo
-eo
+ME
+ME
+ME
+ME
+ME
 cd
 ab
 cl
 cx
-cB
-eo
+ku
+ME
 aa
 "}
 (4,1,1) = {"
 aa
-eo
-ak
+ME
+ZH
 aD
-kT
+Dz
 ab
 ad
-eo
-bx
-bG
-bN
-eo
+ME
+rs
+MP
+mp
+ME
 ad
 ab
 bo
 aL
 aB
-eo
+ME
 aa
 "}
 (5,1,1) = {"
 aa
-eo
-ak
+ME
+ZH
 aG
-TF
+Mq
 ab
 be
-br
+Bm
 by
 bH
 bO
@@ -1064,7 +1080,7 @@ ab
 cn
 aL
 bj
-eo
+ME
 aa
 "}
 (6,1,1) = {"
@@ -1072,17 +1088,17 @@ aa
 ad
 an
 aH
-aS
+Ae
 ab
 bf
-bs
+zX
 aC
 aL
 bT
-bY
+RJ
 ce
 ab
-gw
+Us
 aL
 cE
 ad
@@ -1090,83 +1106,83 @@ aa
 "}
 (7,1,1) = {"
 aa
-eo
-ak
+ME
+ZH
 aI
-kb
+rF
 ab
 ab
 ab
 ab
-aM
+kL
 ab
 ab
 ab
 ab
-bL
+MY
 aJ
 bj
-eo
+ME
 aa
 "}
 (8,1,1) = {"
 aa
-eo
-ak
+ME
+ZH
 aD
-HR
-jK
+cM
+vb
 ab
-Ec
+eS
 bZ
 aL
-bQ
-bt
+Nr
+On
 ab
 cw
 bj
 cy
 bj
-eo
+ME
 aa
 "}
 (9,1,1) = {"
 aa
-eo
-ak
+ME
+lS
 aJ
-cT
-Rr
+MW
+Lk
 ab
-bu
-JV
-gm
+SO
+tW
+Az
 bZ
 cf
 ab
-zy
+Xo
 bo
 aL
 cl
-eo
+ME
 aa
 "}
 (10,1,1) = {"
 aa
 ab
-ar
+AX
 aB
-aT
+GY
 ab
 ab
 ab
 ab
-aM
+kL
 ab
 ab
 ab
 ab
-se
+nP
 aB
 cF
 ab
@@ -1176,19 +1192,19 @@ aa
 aa
 ab
 ab
-aK
+rN
 ab
 ab
-gg
-bv
-ti
+pE
+xz
+vR
 aB
 aB
 ca
 af
 ab
 ab
-aK
+rN
 ab
 ab
 aa
@@ -1199,15 +1215,15 @@ ae
 as
 aL
 aU
-xx
-lx
+mx
+zi
 aJ
 bA
 aJ
 bR
 cb
 bj
-UI
+OU
 co
 aH
 cG
@@ -1218,17 +1234,17 @@ aa
 aa
 ah
 at
-KR
-aV
-CX
-mn
+wd
+lZ
+tl
+Li
 aJ
 aL
 aJ
 aJ
 aL
 aB
-cj
+HR
 cp
 aJ
 bc
@@ -1239,7 +1255,7 @@ aa
 aa
 ab
 ab
-iN
+Nd
 ab
 ab
 bl
@@ -1251,7 +1267,7 @@ aL
 cg
 ab
 ab
-aM
+kL
 ab
 ab
 aa
@@ -1259,8 +1275,8 @@ aa
 (15,1,1) = {"
 ab
 ab
-au
-VW
+iG
+YT
 aW
 ab
 bm
@@ -1271,7 +1287,7 @@ bA
 aL
 bm
 ab
-cq
+dx
 af
 cH
 ab
@@ -1281,7 +1297,7 @@ ab
 ab
 aF
 af
-kO
+Ko
 aX
 ab
 bn
@@ -1292,23 +1308,23 @@ bT
 aL
 aP
 ab
-cr
+ey
 bi
-Qs
-ag
+ZI
+jQ
 ab
 "}
 (17,1,1) = {"
 ab
 aF
 av
-aO
+zn
 aN
 ab
 aB
 aL
 bB
-Es
+If
 bU
 bT
 bj
@@ -1320,11 +1336,11 @@ af
 ab
 "}
 (18,1,1) = {"
-eo
+ME
 aF
 aw
-sA
-aZ
+SW
+tc
 ab
 bo
 aB
@@ -1334,30 +1350,30 @@ aB
 bj
 bk
 ab
-ct
+um
 cH
-ag
+jQ
 af
-eo
+ME
 "}
 (19,1,1) = {"
 ab
 aF
 ax
-JJ
-ba
+kd
+Hj
 ab
 bp
 ab
-bD
+XQ
 ab
-bV
+hY
 ab
 ch
 ab
-cu
+Hg
 af
-zp
+fd
 af
 ab
 "}
@@ -1365,8 +1381,8 @@ ab
 ab
 ai
 ay
-jN
-aZ
+hx
+tc
 ab
 ad
 ab
@@ -1379,15 +1395,15 @@ ab
 aE
 bm
 bi
-ag
+jQ
 ab
 "}
 (21,1,1) = {"
 ab
 ab
-az
-az
-az
+gM
+gM
+gM
 ab
 bq
 ab
@@ -1397,9 +1413,9 @@ bX
 ab
 ci
 ab
-az
-az
-az
+gM
+gM
+gM
 ab
 ab
 "}

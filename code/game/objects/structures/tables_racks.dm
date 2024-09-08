@@ -39,6 +39,8 @@
 	max_integrity = 100
 	integrity_failure = 0.33
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
+
 /obj/structure/table/Initialize(mapload, _buildstack)
 	. = ..()
 	if(_buildstack)
@@ -315,7 +317,7 @@
 		check_break(M)
 
 /obj/structure/table/glass/proc/check_break(mob/living/M)
-	if(M.has_gravity() && M.mob_size > MOB_SIZE_SMALL && !(M.movement_type & FLYING))
+	if(M.has_gravity() && M.mob_size > MOB_SIZE_SMALL && !(M.movement_type & (FLOATING|FLYING)))
 		table_shatter(M)
 
 /obj/structure/table/glass/proc/table_shatter(mob/living/victim)
@@ -566,7 +568,7 @@
 	var/mob/living/carbon/human/patient = null
 	var/obj/machinery/computer/operating/computer = null
 
-/obj/structure/table/optable/Initialize()
+/obj/structure/table/optable/Initialize(mapload)
 	. = ..()
 	initial_link()
 

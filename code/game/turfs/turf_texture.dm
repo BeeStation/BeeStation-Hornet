@@ -27,6 +27,8 @@
 	///Associated texture
 	var/datum/turf_texture/parent_texture
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/turf_texture)
+
 /atom/movable/turf_texture/Initialize(mapload, datum/turf_texture/_texture)
 	. = ..()
 	var/datum/turf_texture/texture = new _texture()

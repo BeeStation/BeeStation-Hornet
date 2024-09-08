@@ -68,6 +68,12 @@
 		SPECIES_PERK_NAME = "Asimov Superiority",
 		SPECIES_PERK_DESC = "The AI and their cyborgs are often (but not always) subservient only \
 			to humans. As a human, silicons are required to both protect and obey you under the Asimov lawset.",
+	),
+	list(
+		SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+		SPECIES_PERK_ICON = "users",
+		SPECIES_PERK_NAME = "Indomitable Human Spirit",
+		SPECIES_PERK_DESC = "You're a human, you were born to inherit the stars!",
 	))
 
 	if(CONFIG_GET(flag/enforce_human_authority))

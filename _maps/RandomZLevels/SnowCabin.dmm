@@ -375,7 +375,7 @@
 /area/awaymission/cabin)
 "bg" = (
 /obj/machinery/door/window/westleft{
-	name = "manager's desk"
+	name = "Manager's Desk"
 	},
 /turf/open/floor/carpet,
 /area/awaymission/cabin)
@@ -1381,7 +1381,7 @@
 "eq" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "garage_cabin";
-	name = "garage door"
+	name = "Garage Door"
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating/snowed/temperatre,
@@ -1715,7 +1715,6 @@
 	desc = "It is a ghostly cat.";
 	icon = 'icons/mob/mob.dmi';
 	icon_state = "catghost";
-	layer = 3;
 	max_integrity = 66666;
 	name = "Cat"
 	},
@@ -1861,11 +1860,7 @@
 	},
 /area/awaymission/cabin/caves/mountain)
 "fZ" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/fulltile{
-	desc = "Enjoy the view.";
-	name = "window"
-	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/awaymission/cabin/caves/mountain)
 "gb" = (
@@ -2183,13 +2178,12 @@
 /obj/structure/sign/warning/fire{
 	pixel_y = 32
 	},
-/obj/machinery/space_heater,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 "hg" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "janitor closet"
+	name = "Janitor Closet"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -2299,7 +2293,7 @@
 /area/awaymission/cabin)
 "hy" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "heater storage"
+	name = "Heater Storage"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -2458,14 +2452,12 @@
 /obj/item/claymore/weak/ceremonial{
 	desc = "Brought to you by the guys in charge of making replica katana toys!";
 	force = 1;
-	layer = 3.01;
 	name = "replica claymore";
 	pixel_x = 5;
 	pixel_y = 8;
 	throwforce = 2
 	},
 /obj/item/shield/riot/roman/fake{
-	layer = 3.01;
 	pixel_x = -7
 	},
 /turf/open/floor/plating/asteroid/snow,
@@ -2572,7 +2564,7 @@
 	},
 /area/awaymission/cabin/caves/sovietcave)
 "il" = (
-/obj/item/toy/prize/deathripley{
+/obj/item/toy/mecha/deathripley{
 	desc = "The mining mecha of the exploration team.";
 	name = "exploraton squad Ripley";
 	pixel_y = 15
@@ -3346,9 +3338,7 @@
 	pixel_x = -1;
 	pixel_y = 13
 	},
-/obj/item/staff{
-	layer = 3.01
-	},
+/obj/item/staff,
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
 "kB" = (
@@ -3363,7 +3353,6 @@
 /obj/item/gun/magic/wand{
 	desc = "It's just a fancy staff so that holy clerics and priests look cool. What? You didn't think someone would leave a REAL magic artifact with a snowman out in the cold, did you?";
 	icon_state = "revivewand";
-	layer = 3.01;
 	name = "holy staff";
 	pixel_y = -2
 	},

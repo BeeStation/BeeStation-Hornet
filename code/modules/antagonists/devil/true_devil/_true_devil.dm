@@ -58,7 +58,9 @@
 	real_name = name
 
 /mob/living/carbon/true_devil/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	var/datum/antagonist/devil/devilinfo = mind.has_antag_datum(/datum/antagonist/devil)
 	devilinfo.greet()
 	mind.announce_objectives()
@@ -128,8 +130,8 @@
 	var/weakness = check_weakness(I, user)
 	apply_damage(I.force * weakness, I.damtype, def_zone)
 	var/message_verb = ""
-	if(I.attack_verb?.len)
-		message_verb = "[pick(I.attack_verb)]"
+	if(length(I.attack_verb_continuous))
+		message_verb = "[pick(I.attack_verb_continuous)]"
 	else if(I.force)
 		message_verb = "attacked"
 

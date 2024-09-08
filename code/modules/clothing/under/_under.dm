@@ -42,14 +42,16 @@
 	if(!attach_accessory(I, user))
 		return ..()
 
-/obj/item/clothing/under/update_clothes_damaged_state(damaging = TRUE)
+/obj/item/clothing/under/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_inv_w_uniform()
-	if(has_sensor > NO_SENSORS)
+	if(damaged_state == CLOTHING_SHREDDED && has_sensor > NO_SENSORS)
 		has_sensor = BROKEN_SENSORS
-		update_sensors(NO_SENSORS)
+	else if(damaged_state == CLOTHING_PRISTINE && has_sensor == BROKEN_SENSORS)
+		has_sensor = HAS_SENSORS
+	update_sensors(NO_SENSORS)
 
 /obj/item/clothing/under/Initialize(mapload)
 	. = ..()

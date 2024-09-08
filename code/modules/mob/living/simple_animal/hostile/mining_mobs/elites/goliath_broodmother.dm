@@ -29,7 +29,6 @@
 	health = 400
 	melee_damage = 30
 	armour_penetration = 30
-	attacktext = "beats down on"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	speed = 2
@@ -167,7 +166,8 @@
 	maxHealth = 15
 	health = 15
 	melee_damage = 5
-	attacktext = "bashes against"
+	attack_verb_continuous = "bashes against"
+	attack_verb_simple = "bash against"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	speed = 2
@@ -209,6 +209,8 @@
 		deltimer(timerid)
 		timerid = addtimer(CALLBACK(src, PROC_REF(retract)), 10, TIMER_STOPPABLE)
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/goliath_tentacle/broodmother/patch)
+
 /obj/effect/temp_visual/goliath_tentacle/broodmother/patch/Initialize(mapload, new_spawner)
 	. = ..()
 	var/tentacle_locs = spiral_range_turfs(1, get_turf(src))
@@ -235,3 +237,8 @@
 /obj/item/crusher_trophy/broodmother_tongue/on_mark_detonation(mob/living/target, mob/living/user)
 	if(rand(1, 100) <= bonus_value && target.stat != DEAD)
 		new /obj/effect/temp_visual/goliath_tentacle/broodmother/patch(get_turf(target), user)
+
+#undef TENTACLE_PATCH
+#undef SPAWN_CHILDREN
+#undef RAGE
+#undef CALL_CHILDREN
