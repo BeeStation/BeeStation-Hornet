@@ -42584,7 +42584,7 @@
 	dir = 1
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = s;
+	id = "testlab";
 	name = "Test Chamber Blast Door"
 	},
 /turf/open/floor/iron,

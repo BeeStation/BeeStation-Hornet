@@ -13830,12 +13830,12 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "emZ" = (
-/obj/machinery/door/poddoor/preopen{
-	id = s;
-	name = "Test Chamber Blast Door"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "testlab";
+	name = "Test Chamber Blast Door"
 	},
 /turf/open/floor/engine,
 /area/science/explab)

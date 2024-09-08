@@ -41545,7 +41545,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/eastright{
 	dir = 1;
-	name = "Artifact containment";
+	name = "Artifact Containment";
 	req_access_txt = "47"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
