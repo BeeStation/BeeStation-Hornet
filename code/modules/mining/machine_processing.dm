@@ -173,7 +173,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 		machine.console = src
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/mineral/processing_unit_console/attackby(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))
@@ -287,7 +287,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit)
 		console.machine = src
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 c
 /obj/machinery/mineral/processing_unit/proc/process_ore(obj/item/stack/ore/O)
 	if(QDELETED(O))

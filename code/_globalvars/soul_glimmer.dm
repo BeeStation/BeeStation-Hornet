@@ -1,8 +1,8 @@
 /*
-    Colours and assignments for psychic sense
-    colour
-    color
-    :trolled:
+	Colours and assignments for psychic sense
+	colour
+	color
+	:trolled:
 */
 
 //ALL the psychic soul colours

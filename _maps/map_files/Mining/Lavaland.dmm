@@ -937,7 +937,7 @@
 "gH" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "labor";
-	name = "labor camp blast door"
+	name = "labor Camp Blast Door"
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/open/floor/iron/techmaint,
@@ -1824,7 +1824,7 @@
 "me" = (
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/research{
-	name = "tachyon-doppler array booth";
+	name = "tachyon-doppler Array Booth";
 	req_access_txt = "7"
 	},
 /obj/effect/turf_decal/stripes/closeup{
@@ -4445,7 +4445,7 @@
 /obj/machinery/door/window/westleft{
 	base_state = "right";
 	icon_state = "right";
-	name = "Unisex bathroom"
+	name = "Unisex Bathroom"
 	},
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_y = 32
@@ -5581,7 +5581,7 @@
 /area/lavaland/surface/outdoors/explored)
 "PK" = (
 /obj/machinery/door/airlock/engineering/glass{
-	name = "mining relay room";
+	name = "mining Relay Room";
 	req_access_txt = "48"
 	},
 /obj/structure/cable/yellow{
@@ -6600,7 +6600,7 @@
 /area/mine/laborcamp)
 "WD" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Radioisotope containment room";
+	name = "Radioisotope Containment Room";
 	req_access_txt = "48"
 	},
 /obj/structure/cable{

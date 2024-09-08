@@ -1,9 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/enzyme{
-	layer = 5
-	},
+/obj/item/reagent_containers/food/condiment/enzyme,
 /obj/item/reagent_containers/food/condiment/flour,
 /turf/open/floor/plating,
 /area/template_noop)

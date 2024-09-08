@@ -292,7 +292,7 @@
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		SEND_SOUND(user,'sound/items/sheath.ogg')
 		if(do_after(user, 15, target = src))
-			to_chat(user, "<span class='clowntext'>It's not within your power to erase the [lowertext(cultist_name)].</span>")
+			to_chat(user, "<span class='clowntext'>It's not within your power to erase the [LOWER_TEXT(cultist_name)].</span>")
 	else if(istype(I, /obj/item/nullrod))
 		user.say("BEGONE FOUL MAGIKS!!", forced = "nullrod")
 		to_chat(user, "<span class='danger'>You try to disrupt the magic of [src] with the [I], and nothing happens to the crude crayon markings. You feel foolish.</span>")

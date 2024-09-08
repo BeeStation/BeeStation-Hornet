@@ -546,10 +546,10 @@
 /datum/design/healthanalyzer
 	name = "Health Analyzer"
 	id = "healthanalyzer"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 50)
 	build_path = /obj/item/healthanalyzer
-	category = list("hacked", "Medical", "Medical Designs")
+	category = list("Medical", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/pillbottle

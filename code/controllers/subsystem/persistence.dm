@@ -363,3 +363,5 @@ SUBSYSTEM_DEF(persistence)
 		data += list(outfit.get_json_data())
 
 	WRITE_FILE(file, json_encode(data))
+
+#undef FILE_ANTAG_REP

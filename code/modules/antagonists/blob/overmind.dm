@@ -47,6 +47,8 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	var/list/strain_choices
 	var/need_reroll_strain = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
+
 /mob/camera/blob/Initialize(mapload, starting_points = 60)
 	validate_location()
 	blob_points = starting_points
