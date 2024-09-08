@@ -15,7 +15,7 @@
 /obj/structure/window/plastitanium,
 /obj/machinery/door/poddoor/shutters{
 	id = "syndieshutters";
-	name = "blast shutters"
+	name = "blast Shutters"
 	},
 /obj/structure/grille,
 /turf/open/floor/plating,
@@ -180,7 +180,7 @@
 "aY" = (
 /obj/machinery/door/poddoor{
 	id = "smindicate";
-	name = "outer blast door"
+	name = "outer Blast Door"
 	},
 /obj/machinery/button/door{
 	id = "smindicate";

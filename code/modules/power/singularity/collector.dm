@@ -38,7 +38,7 @@
 	radio.canhear_range = 0
 	radio.recalculateChannels()
 
-/obj/machinery/power/rad_collector/anchored/Initialize()
+/obj/machinery/power/rad_collector/anchored/Initialize(mapload)
 	. = ..()
 	set_anchored(TRUE)
 

@@ -1,5 +1,8 @@
 GLOBAL_LIST_EMPTY(station_turfs)
 GLOBAL_LIST_EMPTY(created_baseturf_lists)
+
+CREATION_TEST_IGNORE_SELF(/turf)
+
 /turf
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.

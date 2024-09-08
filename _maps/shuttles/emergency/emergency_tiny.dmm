@@ -68,8 +68,7 @@
 	},
 /obj/item/flashlight/lamp/green{
 	pixel_x = -4;
-	pixel_y = 11;
-	layer = 4
+	pixel_y = 11
 	},
 /obj/item/toy/crayon/red,
 /obj/item/toy/crayon/blue{
@@ -674,7 +673,6 @@
 /area/shuttle/escape)
 "ZY" = (
 /obj/machinery/shower{
-	layer = 4;
 	name = "emergency shower";
 	pixel_y = 7
 	},

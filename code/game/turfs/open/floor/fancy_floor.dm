@@ -433,16 +433,16 @@
 			A.narsie_act()
 
 /turf/open/floor/carpet/break_tile()
-    broken = TRUE
-    make_plating()
-    if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
-        QUEUE_SMOOTH_NEIGHBORS(src)
+	broken = TRUE
+	make_plating()
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/open/floor/carpet/burn_tile()
-    burnt = TRUE
-    make_plating()
-    if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
-        QUEUE_SMOOTH_NEIGHBORS(src)
+	burnt = TRUE
+	make_plating()
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/open/floor/carpet/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE

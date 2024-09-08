@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SELF(/turf/closed)
+
 /turf/closed
 	layer = CLOSED_TURF_LAYER
 	opacity = TRUE

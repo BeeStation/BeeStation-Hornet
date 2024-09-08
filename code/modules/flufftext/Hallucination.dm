@@ -104,6 +104,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /obj/effect/hallucination/singularity_act()
 	return
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple)
+
 /obj/effect/hallucination/simple/Initialize(mapload, var/mob/living/carbon/T)
 	. = ..()
 	target = T
@@ -225,6 +227,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	image_icon = 'icons/mob/alien.dmi'
 	image_state = "alienh_pounce"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple/xeno)
+
 /obj/effect/hallucination/simple/xeno/Initialize(mapload, mob/living/carbon/T)
 	. = ..()
 	name = "alien hunter ([rand(1, 1000)])"
@@ -267,6 +271,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /obj/effect/hallucination/simple/clown
 	image_icon = 'icons/mob/animal.dmi'
 	image_state = "clown"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple/clown)
 
 /obj/effect/hallucination/simple/clown/Initialize(mapload, mob/living/carbon/T, duration)
 	..(loc, T)
@@ -1070,6 +1076,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	if(image && target.client)
 		target.client.images -= image
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/danger)
+
 /obj/effect/hallucination/danger/Initialize(mapload, _target)
 	. = ..()
 	target = _target
@@ -1082,6 +1090,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 /obj/effect/hallucination/danger/lava
 	name = "lava"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/danger/lava)
 
 /obj/effect/hallucination/danger/lava/Initialize(mapload, _target)
 	. = ..()
@@ -1104,6 +1114,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 /obj/effect/hallucination/danger/chasm
 	name = "chasm"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/danger/chasm)
 
 /obj/effect/hallucination/danger/chasm/Initialize(mapload, _target)
 	. = ..()
@@ -1179,7 +1191,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		if(fakemob)
 			sleep(rand(20, 50))
 			to_chat(target, "<span class='deadsay'><b>DEAD: [fakemob.name]</b> says, \"[pick("rip","why did i just drop dead?","hey [target.first_name()]","git gud","you too?","is the AI rogue?",\
-			 "i[prob(50)?" fucking":""] hate [pick("blood cult", "clock cult", "revenants", "this round","this","myself","admins","you")]")]\"</span>")
+				"i[prob(50)?" fucking":""] hate [pick("blood cult", "clock cult", "revenants", "this round","this","myself","admins","you")]")]\"</span>")
 	sleep(rand(70,90))
 	target.set_screwyhud(SCREWYHUD_NONE)
 	target.SetParalyzed(0)
@@ -1325,3 +1337,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	H.preparePixelProjectile(target, start)
 	H.fire()
 	qdel(src)
+
+#undef HAL_LINES_FILE
+#undef FAKE_FLOOD_EXPAND_TIME
+#undef FAKE_FLOOD_MAX_RADIUS

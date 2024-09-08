@@ -31,3 +31,5 @@
 		spell.charge_counter = spell.charge_max
 		spell.recharging = FALSE
 		spell.update_icon()
+
+#undef HEALTH_LOST_PER_SOUL_TAP

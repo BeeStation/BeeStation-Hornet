@@ -65,7 +65,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/stacking_unit_console)
 		to_chat(user, "<span class='notice'>You link [src] to the console in [buffer_parent]'s buffer.</span>")
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You store linkage information in [buffer_parent]'s buffer.</span>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/mineral/stacking_unit_console/Topic(href, href_list)
 	if(..())
@@ -141,7 +141,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/stacking_machine)
 		to_chat(user, "<span class='notice'>You link [src] to the console in [buffer_parent]'s buffer.</span>")
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You store linkage information in [buffer_parent]'s buffer.</span>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/mineral/stacking_machine/proc/process_sheet(obj/item/stack/sheet/inp)
 	if(QDELETED(inp))

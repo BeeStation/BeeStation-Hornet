@@ -137,3 +137,6 @@
 	if(default_deconstruction_crowbar(I))
 		return
 	return ..()
+
+#undef ENGINE_HEAT_TARGET
+#undef ENGINE_HEATING_POWER

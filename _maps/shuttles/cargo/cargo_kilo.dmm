@@ -159,7 +159,6 @@
 	},
 /obj/machinery/button/door{
 	id = "QMLoaddoor";
-	layer = 4;
 	name = "Off Ramp Toggle";
 	pixel_x = -24;
 	pixel_y = 6;
@@ -167,7 +166,6 @@
 	},
 /obj/machinery/button/door{
 	id = "QMLoaddoor2";
-	layer = 4;
 	name = "On Ramp Toggle";
 	pixel_x = -24;
 	pixel_y = -6;

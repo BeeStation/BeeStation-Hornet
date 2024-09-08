@@ -51,3 +51,5 @@
 /obj/machinery/atmospherics/components/unary/tank/nitrogen
 	icon_state = "red"
 	gas_type = /datum/gas/nitrogen
+
+#undef AIR_CONTENTS

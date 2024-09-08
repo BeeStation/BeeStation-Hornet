@@ -165,6 +165,8 @@
 	var/can_drop = FALSE
 	var/fake = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/arm_blade)
+
 /obj/item/melee/arm_blade/Initialize(mapload,silent,synthetic)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
@@ -232,6 +234,8 @@
 	throw_speed = 0
 	requires_wielding = FALSE
 	equip_time = 0
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 
 /obj/item/gun/magic/tentacle/Initialize(mapload, silent)
 	. = ..()

@@ -535,3 +535,10 @@
 /obj/projectile/beam/beam_rifle/hitscan/aiming_beam/on_hit()
 	qdel(src)
 	return BULLET_ACT_BLOCK
+
+#undef ZOOM_LOCK_AUTOZOOM_FREEMOVE
+#undef ZOOM_LOCK_AUTOZOOM_ANGLELOCK
+#undef ZOOM_LOCK_CENTER_VIEW
+#undef ZOOM_LOCK_OFF
+#undef AUTOZOOM_PIXEL_STEP_FACTOR
+#undef AIMING_BEAM_ANGLE_CHANGE_THRESHOLD

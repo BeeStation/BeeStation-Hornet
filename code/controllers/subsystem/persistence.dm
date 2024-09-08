@@ -330,3 +330,5 @@ SUBSYSTEM_DEF(persistence)
 	var/json_file = file("data/paintings.json")
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(paintings))
+
+#undef FILE_ANTAG_REP

@@ -537,7 +537,7 @@
 		var/datum/species/species_type = pick(race) //this worked with the old code, somehow, and it works here...
 		H.set_species(species_type)
 		H.reagents.del_reagent(type)
-		to_chat(H, "<span class='warning'>You've become \a [lowertext(initial(species_type.name))]!</span>")
+		to_chat(H, "<span class='warning'>You've become \a [LOWER_TEXT(initial(species_type.name))]!</span>")
 		return
 	..()
 
@@ -1459,7 +1459,7 @@
 	color = "#FFFFFF" // white
 	random_color_list = list("#FFFFFF") //doesn't actually change appearance at all
 
- /* used by crayons, can't color living things but still used for stuff like food recipes */
+/* used by crayons, can't color living things but still used for stuff like food recipes */
 
 /datum/reagent/colorful_reagent/powder/red/crayon
 	name = "Red Crayon Powder"

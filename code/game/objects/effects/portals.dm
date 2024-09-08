@@ -85,6 +85,8 @@
 	if(Adjacent(user))
 		teleport(user)
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/portal)
+
 /obj/effect/portal/Initialize(mapload, _creator, _lifespan = 0, obj/effect/portal/_linked, automatic_link = FALSE, turf/hard_target_override, atmos_link_override)
 	. = ..()
 	GLOB.portals += src
@@ -205,6 +207,8 @@
 	desc = "An unwavering portal that will never fade."
 	var/id // var edit or set id in map editor
 	hardlinked = FALSE // dont qdel my portal nerd
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/portal/permanent)
 
 /obj/effect/portal/permanent/Initialize(mapload, _creator, _lifespan = 0, obj/effect/portal/_linked, automatic_link = FALSE, turf/hard_target_override, atmos_link_override)
 	. = ..()

@@ -22,3 +22,9 @@ export SPACEMAN_DMM_VERSION=suite-1.7.1
 
 # Python version for mapmerge and other tools
 export PYTHON_VERSION=3.11.2
+
+#hypnagogic repo
+export CUTTER_REPO=spacestation13/hypnagogic
+
+#hypnagogic git tag
+export CUTTER_VERSION=v4.0.0

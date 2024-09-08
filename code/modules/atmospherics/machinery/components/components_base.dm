@@ -27,7 +27,7 @@
 		component_mixture.volume = 200
 		airs[i] = component_mixture
 
-/obj/machinery/atmospherics/components/Initialize()
+/obj/machinery/atmospherics/components/Initialize(mapload)
 	. = ..()
 
 	if(hide)
