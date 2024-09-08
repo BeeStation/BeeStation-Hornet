@@ -625,8 +625,6 @@ SUBSYSTEM_DEF(explosions)
 
 	currentpart = SSEXPLOSIONS_TURFS
 
-#undef SSAIR_REBUILD_PIPENETS
-
 #undef EXPLOSION_THROW_SPEED
 #undef SSEX_TURF
 #undef SSEX_OBJ
