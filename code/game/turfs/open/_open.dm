@@ -35,13 +35,6 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 	///Is this floor no-slip?
 	var/traction = FALSE
 
-/turf/open/Initialize(mapload)
-	. = ..()
-	if(broken)
-		break_tile(TRUE)
-	if(burnt)
-		burn_tile(TRUE)
-
 /turf/open/ComponentInitialize()
 	. = ..()
 	if(wet)

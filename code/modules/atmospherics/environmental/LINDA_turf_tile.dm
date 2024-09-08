@@ -52,7 +52,7 @@
 	var/max_share = 0
 	#endif
 
-/turf/open/Initialize()
+/turf/open/Initialize(mapload)
 	if(!blocks_air)
 		air = create_gas_mixture()
 		if(planetary_atmos)
@@ -60,6 +60,10 @@
 				var/datum/gas_mixture/immutable/planetary/mix = new
 				mix.parse_string_immutable(initial_gas_mix)
 				SSair.planetary[initial_gas_mix] = mix
+	if(broken)
+		break_tile(TRUE)
+	if(burnt)
+		burn_tile(TRUE)
 	. = ..()
 
 /turf/open/Destroy()
@@ -689,3 +693,6 @@ Then we space some of our heat, and think about if we should stop conducting.
 			(heat_capacity * sharer.heat_capacity / (heat_capacity + sharer.heat_capacity)) //The larger the combined capacity the less is shared
 		temperature -= heat / heat_capacity //The higher your own heat cap the less heat you get from this arrangement
 		sharer.temperature += heat / sharer.heat_capacity
+
+#undef LAST_SHARE_CHECK
+#undef PLANET_SHARE_CHECK
