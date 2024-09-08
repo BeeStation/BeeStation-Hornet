@@ -11,6 +11,8 @@
 	var/turf/target
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/acid)
+
 /obj/effect/acid/Initialize(mapload, acid_pwr, acid_amt)
 	. = ..()
 

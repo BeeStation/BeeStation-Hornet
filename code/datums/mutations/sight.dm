@@ -34,7 +34,7 @@
 
 /datum/mutation/thermal
 	name = "Thermal Vision"
-	desc = "The mutation enables the growth of Heat Pits in the eyes, not unlike those of a reptile, which can visually percieve the unique infrared thermal signature of living creatures."
+	desc = "The mutation enables the growth of Heat Pits in the eyes, not unlike those of a reptile, which can visually perceive the unique infrared thermal signature of living creatures."
 	quality = POSITIVE
 	difficulty = 18
 	instability = 25

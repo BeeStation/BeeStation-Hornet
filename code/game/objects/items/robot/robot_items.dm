@@ -1058,3 +1058,5 @@
 	if(!istype(stored, /obj/item/reagent_containers/glass))
 		. += "You are currently holding [stored]."
 		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
+
+#undef PKBORG_DAMPEN_CYCLE_DELAY
