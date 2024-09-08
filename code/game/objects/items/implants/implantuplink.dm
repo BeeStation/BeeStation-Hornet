@@ -9,6 +9,8 @@
 	/// The uplink flags of the implant uplink inside, only checked during initialisation so modifying it after initialisation will do nothing
 	var/uplink_flag = UPLINK_TRAITORS
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/implant/uplink)
+
 /obj/item/implant/uplink/Initialize(mapload, owner, uplink_flag)
 	. = ..()
 	AddComponent(/datum/component/uplink, _owner = owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = uplink_flag, starting_tc = starting_tc)
@@ -28,6 +30,8 @@
 /obj/item/implanter/uplink
 	name = "implanter (uplink)"
 	imp_type = /obj/item/implant/uplink
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/implanter/uplink)
 
 /obj/item/implanter/uplink/Initialize(mapload, uplink_flag = UPLINK_TRAITORS)
 	imp = new imp_type(src, null, uplink_flag)

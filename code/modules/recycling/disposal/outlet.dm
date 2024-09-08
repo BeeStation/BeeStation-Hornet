@@ -13,6 +13,8 @@
 	var/start_eject = 0
 	var/eject_range = 2
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposaloutlet)
+
 /obj/structure/disposaloutlet/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()
 

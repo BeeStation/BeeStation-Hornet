@@ -207,3 +207,5 @@
 	..()
 	boarding_dir = dir
 
+#undef OPEN_DURATION
+#undef CLOSE_DURATION

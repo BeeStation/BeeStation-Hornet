@@ -17,7 +17,7 @@
 					/obj/item/knife/kitchen = 2,
 					/obj/item/book/granter/crafting_recipe/cooking_sweets_101 = 2)
 	contraband = list(/obj/item/kitchen/rollingpin = 2,
-					  /obj/item/knife/butcher = 2)
+						/obj/item/knife/butcher = 2)
 	refill_canister = /obj/item/vending_refill/dinnerware
 	default_price = 5
 	extra_price = 50

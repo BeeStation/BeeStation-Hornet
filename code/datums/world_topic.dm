@@ -194,10 +194,10 @@
 	var/list/admins = list()
 	for(var/client/admin in GLOB.admins)
 		admins[++admins.len] = list("ckey" = admin.ckey,
-			            "key" = admin.key,
-			            "rank" = admin.holder.rank.name,
-			            "stealth" = admin.holder.fakekey ? TRUE : FALSE,
-			            "afk" = admin.is_afk())
+						"key" = admin.key,
+						"rank" = admin.holder.rank.name,
+						"stealth" = admin.holder.fakekey ? TRUE : FALSE,
+						"afk" = admin.is_afk())
 	statuscode = 200
 	response = "Admin list fetched"
 	data = admins

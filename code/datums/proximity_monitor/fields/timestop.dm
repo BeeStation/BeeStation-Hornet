@@ -20,6 +20,8 @@
 	///if true, immune atoms moving ends the timestop instead of duration.
 	var/channelled = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
+
 /obj/effect/timestop/Initialize(mapload, radius, time, list/immune_atoms, start = TRUE)	//Immune atoms assoc list atom = TRUE
 	. = ..()
 	if(!isnull(time))

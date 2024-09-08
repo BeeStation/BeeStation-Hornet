@@ -22,11 +22,11 @@ GLOBAL_LIST_INIT(cable_colors, list(
 /* Cable directions (d1 and d2)
 
 
-  9   1   5
+	9   1   5
 	\ | /
-  8 - 0 - 4
+	8 - 0 - 4
 	/ | \
-  10  2   6
+	10  2   6
 
 If d1 = 0 and d2 = 0, there's no cable
 If d1 = 0 and d2 = dir, it's a O-X cable, getting from the center of the tile to dir (knot cable)
@@ -84,6 +84,8 @@ By design, d1 is the smallest direction and d2 is the highest
 	color = "#ffffff"
 
 // the power cable object
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
+
 /obj/structure/cable/Initialize(mapload, param_color)
 	. = ..()
 
@@ -521,6 +523,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 /obj/item/stack/cable_coil/get_recipes()
 	return GLOB.cable_coil_recipes
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount = null, param_color = null)
 	. = ..()

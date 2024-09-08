@@ -50,6 +50,8 @@
 		else
 			. += "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
+
 /obj/structure/window/Initialize(mapload, direct)
 	. = ..()
 	if(direct)

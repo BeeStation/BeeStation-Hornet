@@ -153,6 +153,8 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 	var/currentuser
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/durand_shield)
+
 /obj/durand_shield/Initialize(mapload, _chassis, _layer, _dir)
 	. = ..()
 	chassis = _chassis

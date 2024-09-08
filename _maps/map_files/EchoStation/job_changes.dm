@@ -36,4 +36,11 @@ MAP_REMOVE_JOB(virologist)
 	spawn_positions = 1
 	total_positions = 1
 
+//TODO: Convert this into a mapping config please
+/datum/controller/subsystem/mapping/Initialize()
+	. = ..()
+	MAP_JOB_CHECK
+	GLOB.disabled_tagger_locations += "Virology"
+	GLOB.disabled_tagger_locations += "Law Office"
+
 #undef JOB_MODIFICATION_MAP_NAME

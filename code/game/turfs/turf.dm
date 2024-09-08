@@ -1,5 +1,8 @@
 GLOBAL_LIST_EMPTY(station_turfs)
 GLOBAL_LIST_EMPTY(created_baseturf_lists)
+
+CREATION_TEST_IGNORE_SELF(/turf)
+
 /turf
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
@@ -203,7 +206,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/attack_hand(mob/user)
 	// Show a zmove radial when clicked
 	if(get_turf(user) == src)
-		if(!user.has_gravity(src) || (user.movement_type & FLYING))
+		if(!user.has_gravity(src) || (user.movement_type & (FLOATING|FLYING)))
 			show_zmove_radial(user)
 			return
 		else if(allow_z_travel)

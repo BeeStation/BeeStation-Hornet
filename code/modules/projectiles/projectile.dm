@@ -934,3 +934,6 @@
 
 /obj/projectile/experience_pressure_difference()
 	return
+
+#undef MOVES_HITSCAN
+#undef MUZZLE_EFFECT_PIXEL_INCREMENT

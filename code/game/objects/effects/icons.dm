@@ -4,9 +4,13 @@
 	name = ""
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/icon)
+
 /obj/effect/icon/Initialize(mapload, icon/render_source)
 	. = ..()
 	overlays = list(render_source)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/icon/temp)
 
 /obj/effect/icon/temp/Initialize(mapload, icon/render_source, duration)
 	. = ..()

@@ -205,6 +205,8 @@
 	icon_state = "medi_holo"
 	duration = 30
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
+
 /obj/effect/temp_visual/medical_holosign/Initialize(mapload, creator)
 	. = ..()
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE) //make some noise!
@@ -603,6 +605,8 @@
 	///Base light_range that can be set on Initialize to use in smooth light range expansions and contractions.
 	var/base_light_range = 4
 
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/flashlight/spotlight)
 
 /obj/item/flashlight/spotlight/Initialize(mapload, _light_range, _light_power, _light_color)
 	. = ..()

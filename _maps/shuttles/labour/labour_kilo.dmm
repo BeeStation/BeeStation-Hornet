@@ -87,8 +87,7 @@
 	req_one_access_txt = "63;42;38"
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 1
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
@@ -159,9 +158,6 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
-	},
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
 	},
 /obj/structure/chair/fancy/shuttle{
 	dir = 4

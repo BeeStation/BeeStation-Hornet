@@ -54,6 +54,8 @@ Slimecrossing Armor
 	anchored = TRUE
 	max_integrity = 10
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
+
 /obj/structure/light_prism/Initialize(mapload, var/newcolor)
 	. = ..()
 	color = newcolor

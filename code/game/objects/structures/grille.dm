@@ -195,13 +195,13 @@
 			W.play_tool_sound(src, 100)
 			set_anchored(!anchored)
 			user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
-								 "<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
+								"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
 			return
 	else if(istype(W, /obj/item/stack/rods) && broken)
 		var/obj/item/stack/rods/R = W
 		if(!shock(user, 90 * W.siemens_coefficient))
 			user.visible_message("<span class='notice'>[user] rebuilds the broken grille.</span>", \
-								 "<span class='notice'>You rebuild the broken grille.</span>")
+								"<span class='notice'>You rebuild the broken grille.</span>")
 			repair_grille()
 			R.use(1)
 			return
@@ -372,7 +372,7 @@
 	device.id = id
 	initialized_device = 1
 
-/obj/structure/grille/prison/Initialize()
+/obj/structure/grille/prison/Initialize(mapload)
 	. = ..()
 	if(!initialized_device)
 		setup_device()
@@ -399,3 +399,5 @@
 /obj/structure/grille/prison/Destroy()
 	QDEL_NULL(device)
 	return ..()
+
+#undef CLEAR_TILE_MOVE_LIMIT

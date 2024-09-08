@@ -8,7 +8,7 @@
 
 	light_range = 0
 
-/obj/item/organ/cyberimp/bci/Initialize()
+/obj/item/organ/cyberimp/bci/Initialize(mapload)
 	. = ..()
 
 	var/obj/item/integrated_circuit/circuit = new(src)
@@ -18,11 +18,11 @@
 		new /obj/item/circuit_component/bci_core,
 	), SHELL_CAPACITY_SMALL, starting_circuit = circuit)
 
-/obj/item/organ/cyberimp/bci/Insert(mob/living/carbon/reciever, special, drop_if_replaced)
+/obj/item/organ/cyberimp/bci/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
 	. = ..()
 
 	// Organs are put in nullspace, but this breaks circuit interactions
-	forceMove(reciever)
+	forceMove(receiver)
 
 /obj/item/organ/cyberimp/bci/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced)
 	if (owner)
@@ -42,6 +42,8 @@
 
 	/// A reference to the action button itself
 	var/datum/action/innate/bci_action/bci_action
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 
 /obj/item/circuit_component/equipment_action/bci/Destroy()
 	QDEL_NULL(bci_action)
@@ -69,7 +71,7 @@
 
 /obj/item/circuit_component/equipment_action/bci/update_action()
 	bci_action.name = button_name.value
-	bci_action.button_icon_state = "[replacetextEx(lowertext(icon_options.value), " ", "_")]"
+	bci_action.button_icon_state = "[replacetextEx(LOWER_TEXT(icon_options.value), " ", "_")]"
 
 /datum/action/innate/bci_action
 	name = "Action"
@@ -271,7 +273,7 @@
 
 	COOLDOWN_DECLARE(message_cooldown)
 
-/obj/machinery/bci_implanter/Initialize()
+/obj/machinery/bci_implanter/Initialize(mapload)
 	. = ..()
 	occupant_typecache = typecacheof(/mob/living/carbon)
 

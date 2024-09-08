@@ -93,11 +93,11 @@
 
 ///type and all subtypes should always immediately call Initialize in New()
 #define INITIALIZE_IMMEDIATE(X) ##X/New(loc, ...){\
-    ..();\
-    if(!(flags_1 & INITIALIZED_1)) {\
-        args[1] = TRUE;\
-        SSatoms.InitAtom(src, FALSE, args);\
-    }\
+	..();\
+	if(!(flags_1 & INITIALIZED_1)) {\
+		args[1] = TRUE;\
+		SSatoms.InitAtom(src, FALSE, args);\
+	}\
 }
 
 //! ### SS initialization hints
@@ -169,7 +169,7 @@
 #define INIT_ORDER_XKEYSCORE		-10
 #define INIT_ORDER_STICKY_BAN		-10
 #define INIT_ORDER_LIGHTING			-20
-#define INIT_ORDER_SHUTTLE			-21
+#define INIT_ORDER_SHUTTLE			-21 // After atoms have been initialised to prevent mix-ups
 #define INIT_ORDER_ZCOPY			-22 // this should go after lighting and most objects being placed
 #define INIT_ORDER_MINOR_MAPPING	-40
 #define INIT_ORDER_PATH				-50

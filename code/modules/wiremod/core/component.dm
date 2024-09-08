@@ -76,7 +76,7 @@
 /obj/item/circuit_component/Initialize(mapload)
 	. = ..()
 	if(name == COMPONENT_DEFAULT_NAME)
-		name = "[lowertext(display_name)] [COMPONENT_DEFAULT_NAME]"
+		name = "[LOWER_TEXT(display_name)] [COMPONENT_DEFAULT_NAME]"
 	populate_options()
 	populate_ports()
 	if(circuit_flags & CIRCUIT_FLAG_INPUT_SIGNAL)
@@ -237,7 +237,7 @@
  * This is to only return false if flow of execution should be stopped because something bad has happened (e.g. no power)
  * Returning no value in input_received() is not an issue because it means flow of execution will continue even if the component failed to execute properly.
  *
- * Return value indicates whether or not a circuit part can recieve input
+ * Return value indicates whether or not a circuit part can receive input
  * Arguments:
  * * port - Can be null. The port that sent the input
  */
