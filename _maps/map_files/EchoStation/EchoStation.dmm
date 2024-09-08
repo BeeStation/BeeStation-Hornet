@@ -5791,7 +5791,7 @@
 	},
 /obj/machinery/door/poddoor/incinerator_toxmix{
 	id = "EmergancyescapeShutterengine";
-	name = "Emergancy escape Shutters"
+	name = "Emergancy Escape Shutters"
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -16572,7 +16572,7 @@
 	},
 /obj/machinery/button/door{
 	id = "EmergancyescapeShutterengine";
-	name = "Emergancy escape Shutters";
+	name = "Emergancy Escape Shutters";
 	pixel_y = 26
 	},
 /turf/open/floor/plating,
@@ -41031,7 +41031,7 @@
 	},
 /obj/machinery/button/door{
 	id = "EmergancyescapeShutterengine";
-	name = "Emergancy escape Shutters";
+	name = "Emergancy Escape Shutters";
 	pixel_y = 26;
 	pixel_x = -27;
 	req_one_access_txt = "32"
