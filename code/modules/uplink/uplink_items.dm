@@ -947,7 +947,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /datum/uplink_item/ammo/shotgun/meteor
 	name = "12g Meteorslug Shells"
 	desc = "An alternative 8-round meteorslug magazine for use in the Bulldog shotgun. \
-            Great for blasting airlocks off their frames and knocking down enemies."
+			Great for blasting airlocks off their frames and knocking down enemies."
 	item = /obj/item/ammo_box/magazine/m12g/meteor
 	purchasable_from = UPLINK_NUKE_OPS
 
@@ -1760,7 +1760,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /datum/uplink_item/device_tools/syndicate_teleporter
 	name = "Experimental Syndicate Jaunter"
 	desc = "The Syndicate jaunter is a handheld device that jaunts the user 4-8 meters forward. \
-		Anyone caught in the wake of the jaunter will be knocked off their feet and recieve minor damage. \
+		Anyone caught in the wake of the jaunter will be knocked off their feet and receive minor damage. \
 		Due to the Syndicate's more limited research of teleportation technologies, it is incapable of phasing the user \
 		through solid matter nor is it capable of teleporting them across longer ranges."
 	item = /obj/item/teleporter

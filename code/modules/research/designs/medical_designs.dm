@@ -62,6 +62,16 @@
 	build_path = /obj/item/reagent_containers/glass/beaker/meta
 	category = list("Medical Designs")
 
+/datum/design/blood_pack
+	name = "Blood Pack"
+	desc = "An empty pack for blood transfusions"
+	id = "blood_pack"
+	build_type = PROTOLATHE
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+	materials = list(/datum/material/plastic = 500)
+	build_path = /obj/item/reagent_containers/blood
+	category = list("Medical Designs")
+
 /datum/design/bluespacesyringe
 	name = "Bluespace Syringe"
 	desc = "An advanced syringe that can hold 60 units of chemicals"

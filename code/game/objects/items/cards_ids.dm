@@ -1287,7 +1287,7 @@ update_label("John Doe", "Clowny")
 	icon_state = "rawsecurity"
 	hud_state = JOB_HUD_RAWSECURITY
 
- // ---- ???? ----
+// ---- ???? ----
 /obj/item/card/id/job/unknown
 	name = "Job card - unassigned"
 	icon_state = "id"

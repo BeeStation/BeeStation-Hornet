@@ -48,6 +48,8 @@
 	mutatelist = list()
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05, /datum/reagent/medicine/silibinin = 0.1)
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/galaxythistle)
+
 /obj/item/seeds/galaxythistle/Initialize(mapload,nogenes)
 	. = ..()
 	if(!nogenes)

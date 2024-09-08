@@ -36,7 +36,7 @@
 				beaker = null
 				. = TRUE
 		if("input")
-			var/input_reagent = replacetext(lowertext(capped_input(usr, "Enter the name of any reagent", "Input")), " ", "") //95% of the time, the reagent id is a lowercase/no spaces version of the name
+			var/input_reagent = replacetext(LOWER_TEXT(capped_input(usr, "Enter the name of any reagent", "Input")), " ", "") //95% of the time, the reagent id is a lowercase/no spaces version of the name
 
 			if (isnull(input_reagent))
 				return

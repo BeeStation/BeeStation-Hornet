@@ -534,7 +534,7 @@
 					/obj/item/storage/backpack/virology = 2,
 					/obj/item/storage/backpack/satchel/vir = 2)
 	contraband = list(/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 1,
-					/obj/item/clothing/head/bio_hood/plague = 1,
+					/obj/item/clothing/head/costume/plague = 1,
 					/obj/item/clothing/mask/gas/plaguedoctor = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/viro_wardrobe
 	dept_req_for_free = ACCOUNT_MED_BITFLAG

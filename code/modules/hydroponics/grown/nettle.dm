@@ -81,6 +81,8 @@
 /obj/item/food/grown/nettle/basic
 	seed = /obj/item/seeds/nettle
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/nettle/basic)
+
 /obj/item/food/grown/nettle/basic/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
 	force = round((5 + seed.potency / 5), 1)
@@ -94,6 +96,8 @@
 	force = 25
 	throwforce = 12
 	discovery_points = 300
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/nettle/death)
 
 /obj/item/food/grown/nettle/death/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()

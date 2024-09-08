@@ -96,6 +96,8 @@
 	var/transformeffects = SLIME_EFFECT_DEFAULT
 	var/mob/master
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
+
 /mob/living/simple_animal/slime/Initialize(mapload, new_colour="grey", new_is_adult=FALSE)
 	GLOB.total_slimes++
 	var/datum/action/innate/slime/feed/F = new
@@ -520,6 +522,8 @@
 /mob/living/simple_animal/slime/can_be_implanted()
 	return TRUE
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
+
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
 	. = ..(mapload, pick(slime_colours), prob(50))
 
@@ -547,6 +551,8 @@
 /mob/living/simple_animal/slime/proc/make_master(mob/user)
 	Friends[user] += SLIME_FRIENDSHIP_ATTACK * 2
 	master = user
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/rainbow)
 
 /mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour="rainbow", new_is_adult)
 	. = ..(mapload, new_colour, new_is_adult)

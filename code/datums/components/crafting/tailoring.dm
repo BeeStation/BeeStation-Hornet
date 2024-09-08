@@ -70,8 +70,8 @@
 	time = 45
 	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL)
 	reqs = list(/obj/item/clothing/mask/gas/old = 1,
-				  /obj/item/assembly/voice = 1,
-				  /obj/item/stack/cable_coil = 5)
+					/obj/item/assembly/voice = 1,
+					/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/hudsunsec

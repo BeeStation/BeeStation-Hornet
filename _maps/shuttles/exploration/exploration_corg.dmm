@@ -535,7 +535,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "yz" = (
-/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/n2,
+/obj/machinery/atmospherics/components/trinary/filter/atmos/n2/flipped,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "yM" = (
@@ -968,7 +968,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ZB" = (
-/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/o2,
+/obj/machinery/atmospherics/components/trinary/filter/atmos/o2/flipped,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ZM" = (
