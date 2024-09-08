@@ -3220,7 +3220,7 @@
 /area/hallway/primary/port)
 "aOz" = (
 /obj/structure/flora/grass/jungle,
-/mob/living/carbon/monkey,
+mob/living/carbon/human/species/monkey,
 /turf/open/floor/plating/dirt/jungle,
 /area/medical/genetics)
 "aOE" = (
@@ -26102,7 +26102,7 @@
 /turf/open/floor/carpet/green,
 /area/crew_quarters/dorms)
 "hqQ" = (
-/mob/living/carbon/human/species/monkey,
+mob/living/carbon/human/species/monkey,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
@@ -26224,7 +26224,7 @@
 "hsX" = (
 /obj/item/food/grown/banana,
 /obj/structure/flora/ausbushes/fullgrass,
-/mob/living/carbon/monkey,
+mob/living/carbon/human/species/monkey,
 /turf/open/floor/grass/no_border,
 /area/medical/genetics)
 "hsZ" = (
@@ -30841,15 +30841,6 @@
 /turf/open/floor/iron,
 /area/security/checkpoint/engineering)
 "jeQ" = (
-/mob/living/carbon/human/species/monkey,
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/light_switch{
 	pixel_x = -7;
 	pixel_y = 26
@@ -32982,21 +32973,6 @@
 	dir = 10
 	},
 /area/science/research)
-"jUf" = (
-/mob/living/carbon/human/species/monkey/punpun,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	id = "barcounter";
-	name = "Bar Counter Shutters"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron/cafeteria_red,
-/area/crew_quarters/bar)
 "jUk" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -34128,20 +34104,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
-"kuw" = (
-/obj/structure/window/reinforced,
-/mob/living/carbon/human/species/monkey,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/closed/wall/r_wall,
-/area/medical/genetics)
 "kuC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -36642,7 +36604,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "lrF" = (
-/mob/living/carbon/human/species/monkey,
+mob/living/carbon/human/species/monkey,
 /obj/machinery/flasher{
 	id = "monkeypen";
 	pixel_y = 23
@@ -39054,21 +39016,6 @@
 /obj/effect/landmark/start/warden,
 /turf/open/floor/iron/dark,
 /area/security/warden)
-"mtV" = (
-/mob/living/carbon/human/species/monkey,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/closed/wall/r_wall,
-/area/medical/genetics)
 "muj" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -50581,18 +50528,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/fitness)
 "rcr" = (
-/mob/living/carbon/human/species/monkey,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
 /area/medical/genetics)
@@ -51970,15 +51905,6 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit)
 "rAl" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/mob/living/carbon/human/species/monkey,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -53640,7 +53566,7 @@
 "sgR" = (
 /obj/item/grown/bananapeel,
 /obj/structure/flora/ausbushes/fullgrass,
-/mob/living/carbon/monkey,
+mob/living/carbon/human/species/monkey,
 /turf/open/floor/grass/no_border,
 /area/medical/genetics)
 "sgX" = (
@@ -55594,7 +55520,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/mob/living/carbon/monkey/punpun,
+mob/living/carbon/human/species/monkey/punpun,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "sSg" = (
@@ -60622,7 +60548,7 @@
 /turf/open/floor/iron,
 /area/quartermaster/miningdock)
 "uOE" = (
-/mob/living/carbon/human/species/monkey,
+mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "uOJ" = (
@@ -65839,15 +65765,6 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "wWV" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/mob/living/carbon/human/species/monkey,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/camera/autoname/directional/east,
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow{
@@ -105934,7 +105851,7 @@ iBf
 pyQ
 nbP
 akk
-jUf
+sny
 gXH
 sXG
 agr
@@ -110332,8 +110249,8 @@ bon
 rcr
 bon
 jeQ
-mtV
-kuw
+bon
+bon
 bon
 ias
 ias
