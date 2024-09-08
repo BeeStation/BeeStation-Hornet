@@ -7014,7 +7014,7 @@
 	dir = 4;
 	icon_state = "rightsecure";
 	name = "Secondary AI Core Access";
-	obj_integrity = 300;
+	atom_integrity = 300;
 	pixel_x = 4;
 	req_access_txt = "16"
 	},
@@ -7046,7 +7046,7 @@
 	dir = 8;
 	icon_state = "leftsecure";
 	name = "Tertiary AI Core Access";
-	obj_integrity = 300;
+	atom_integrity = 300;
 	pixel_x = -3;
 	req_access_txt = "16"
 	},
@@ -43018,7 +43018,7 @@
 	dir = 4;
 	icon_state = "rightsecure";
 	name = "Primary AI Core Access";
-	obj_integrity = 300;
+	atom_integrity = 300;
 	req_access_txt = "16"
 	},
 /obj/machinery/camera/directional/north{
@@ -77601,7 +77601,7 @@
 	dir = 8;
 	icon_state = "leftsecure";
 	name = "Primary AI Core Access";
-	obj_integrity = 300;
+	atom_integrity = 300;
 	req_access_txt = "16"
 	},
 /obj/machinery/newscaster{
