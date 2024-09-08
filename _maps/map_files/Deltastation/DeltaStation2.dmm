@@ -33601,22 +33601,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/siding/wood,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/airlock/science{
-	name = "exploration Preperation Room";
-	req_access_txt = "49"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/wood,
 /area/quartermaster/exploration_prep)
 "ePC" = (
@@ -61872,22 +61856,6 @@
 	name = "exploration preperation room";
 	req_access_txt = "49"
 	},
-/obj/machinery/door/firedoor,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/door/morgue{
-	name = "exploration Preperation Room";
-	req_access_txt = "49"
-	},
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_prep)
 "nFG" = (
@@ -63285,24 +63253,6 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
-"ocF" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/science{
-	name = "exploration Preperation Room";
-	req_access_txt = "49"
-	},
-/turf/closed/wall,
-/area/quartermaster/exploration_prep)
 "oes" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -74959,25 +74909,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/science/research)
-"rMy" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/airlock/science{
-	name = "exploration Preperation Room";
-	req_access_txt = "49"
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/decal/cleanable/glass,
-/turf/open/floor/plating,
-/area/quartermaster/exploration_prep)
 "rMB" = (
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = -8;
@@ -125765,7 +125696,7 @@ ndX
 pYd
 uBh
 fyC
-ocF
+eHD
 gwI
 aBE
 tMC
@@ -126531,7 +126462,7 @@ aaa
 aaO
 fxq
 dsQ
-rMy
+aFN
 iwU
 eqs
 wNo
