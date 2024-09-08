@@ -10816,11 +10816,6 @@
 "fdh" = (
 /turf/open/openspace,
 /area/ai_monitored/turret_protected/aisat/maint)
-"fdi" = (
-/turf/closed/wall,
-/area/hallway/primary/central{
-	name = "-2 Primary Hallway"
-	})
 "fdq" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -127207,7 +127202,7 @@ jME
 agQ
 qRI
 oln
-fdi
+agQ
 amg
 swS
 gwg
@@ -127721,7 +127716,7 @@ wZF
 uir
 uir
 rId
-fdi
+agQ
 bPo
 vHu
 ueV
