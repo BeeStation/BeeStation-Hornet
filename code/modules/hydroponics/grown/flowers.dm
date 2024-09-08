@@ -95,6 +95,8 @@
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
 	rarity = 30
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/flower/trumpet)
+
 /obj/item/seeds/flower/trumpet/Initialize(mapload,nogenes)
 	. = ..()
 	if(!nogenes)
@@ -280,9 +282,12 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 3
-	attack_verb = list("roasted", "scorched", "burned")
+	attack_verb_continuous = list("roasts", "scorches", "burns")
+	attack_verb_simple = list("roast", "scorch", "burn")
 	grind_results = list(/datum/reagent/consumable/capsaicin = 0, /datum/reagent/consumable/condensedcapsaicin = 0)
 	discovery_points = 300
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grown/novaflower)
 
 /obj/item/grown/novaflower/Initialize(mapload, obj/item/seeds/new_seed)
 	..()

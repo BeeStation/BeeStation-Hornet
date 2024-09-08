@@ -69,3 +69,5 @@
 	new /obj/item/stack/sheet/brass(target, sheets)
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 	to_chat(user, "<span class='brass'>You fabricate [sheets] brass.</span>")
+
+#undef BRASS_POWER_COST

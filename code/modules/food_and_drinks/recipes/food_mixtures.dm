@@ -165,18 +165,16 @@
 	id = "vegancakebatter"
 	required_reagents = list(/datum/reagent/consumable/soymilk = 15, /datum/reagent/consumable/flour = 15, /datum/reagent/consumable/sugar = 5)
 
-/datum/chemical_reaction/ricebowl
-	name = "Rice Bowl"
-	id = "ricebowl"
+/datum/chemical_reaction/uncooked_rice
+	name = "Uncooked Rice"
+	id = "uncookedrice"
 	required_reagents = list(/datum/reagent/consumable/rice = 10, /datum/reagent/water = 10)
-	required_container = /obj/item/reagent_containers/glass/bowl
 	mix_message = "The rice absorbs the water."
 
-/datum/chemical_reaction/ricebowl/on_reaction(datum/reagents/holder)
+/datum/chemical_reaction/uncooked_rice/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	new /obj/item/food/salad/ricebowl(location)
-	if(holder?.my_atom)
-		qdel(holder.my_atom)
+	for(var/i in 1 to created_volume)
+		new /obj/item/food/uncooked_rice(location)
 
 /datum/chemical_reaction/bbqsauce
 	name = "BBQ Sauce"

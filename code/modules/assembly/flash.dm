@@ -147,7 +147,7 @@
 	if(!istype(newflash))
 		return
 	if(bulb)
-		to_chat("<span class='warning'>You fail to put the bulb into \the [src] as it already has a bulb in it.</spawn>")
+		to_chat(user, "<span class='warning'>You fail to put the bulb into \the [src] as it already has a bulb in it.</spawn>")
 		return
 	user.transferItemToLoc(newflash, src)
 	bulb = newflash
@@ -255,7 +255,7 @@
 				to_chat(M, "<span class='userdanger'>You are blinded by [src]!</span>")
 			//Will be 0 if the user has no stmaina loss, will be 1 if they are in stamcrit
 			var/flash_proportion = CLAMP01(M.getStaminaLoss() / (M.maxHealth - M.crit_threshold))
-			if (!(M.mobility_flags & MOBILITY_STAND))
+			if (M.body_position == LYING_DOWN)
 				flash_proportion = 1
 			if(flash_proportion > 0.4)
 				M.Paralyze(70 * flash_proportion)
@@ -459,3 +459,5 @@
 #undef FLASH_USE
 #undef FLASH_USE_BURNOUT
 #undef FLASH_FAIL
+
+#undef CONFUSION_STACK_MAX_MULTIPLIER

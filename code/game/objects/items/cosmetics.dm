@@ -60,16 +60,16 @@
 			return
 		if(H == user)
 			user.visible_message("<span class='notice'>[user] does [user.p_their()] lips with \the [src].</span>", \
-								 "<span class='notice'>You take a moment to apply \the [src]. Perfect!</span>")
+								"<span class='notice'>You take a moment to apply \the [src]. Perfect!</span>")
 			H.lip_style = "lipstick"
 			H.lip_color = colour
 			H.update_body()
 		else
 			user.visible_message("<span class='warning'>[user] begins to do [H]'s lips with \the [src].</span>", \
-								 "<span class='notice'>You begin to apply \the [src] on [H]'s lips...</span>")
+								"<span class='notice'>You begin to apply \the [src] on [H]'s lips...</span>")
 			if(do_after(user, 20, target = H))
 				user.visible_message("[user] does [H]'s lips with \the [src].", \
-									 "<span class='notice'>You apply \the [src] on [H]'s lips.</span>")
+									"<span class='notice'>You apply \the [src] on [H]'s lips.</span>")
 				H.lip_style = "lipstick"
 				H.lip_color = colour
 				H.update_body()
@@ -90,10 +90,10 @@
 				H.update_body()
 			else
 				user.visible_message("<span class='warning'>[user] begins to wipe [H]'s lipstick off with \the [src].</span>", \
-								 	 "<span class='notice'>You begin to wipe off [H]'s lipstick...</span>")
+									"<span class='notice'>You begin to wipe off [H]'s lipstick...</span>")
 				if(do_after(user, 10, target = H))
 					user.visible_message("[user] wipes [H]'s lipstick off with \the [src].", \
-										 "<span class='notice'>You wipe off [H]'s lipstick.</span>")
+										"<span class='notice'>You wipe off [H]'s lipstick.</span>")
 					H.lip_style = null
 					H.update_body()
 	else
@@ -255,7 +255,8 @@
 	throw_speed = 3
 	throw_range = 6
 	hitsound = 'sound/weapons/genhit.ogg'
-	attack_verb = list("stubbed", "poked")
+	attack_verb_continuous = list("stubs", "pokes")
+	attack_verb_simple = list("stub", "poke")
 	extended = 0
 	var/extended_force = 10
 	var/extended_throwforce = 7
@@ -273,7 +274,8 @@
 		w_class = WEIGHT_CLASS_SMALL //if it becomes normal you can decapitate a guy with a straight razor
 		throwforce = extended_throwforce
 		icon_state = extended_icon_state
-		attack_verb = list("slashed", "stabbed", "sliced", "slit", "shaved", "diced", "cut")
+		attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+		attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		sharpness = IS_SHARP
 		bleed_force = BLEED_SURFACE
@@ -283,7 +285,8 @@
 		w_class = WEIGHT_CLASS_TINY
 		throwforce = initial(throwforce)
 		icon_state = initial(icon_state)
-		attack_verb = list("stubbed", "poked")
+		attack_verb_continuous = list("stubs", "pokes")
+		attack_verb_simple = list("stub", "poke")
 		hitsound = 'sound/weapons/genhit.ogg'
 		sharpness = IS_BLUNT
 		bleed_force = 0

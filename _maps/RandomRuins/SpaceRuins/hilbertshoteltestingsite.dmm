@@ -145,7 +145,7 @@
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "z" = (
 /obj/machinery/door/airlock/vault{
-	name = "secured door";
+	name = "secured Door";
 	req_access = 207
 	},
 /obj/effect/mapping_helpers/airlock/locked,

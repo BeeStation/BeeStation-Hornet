@@ -247,11 +247,12 @@
 		if(!rep_value)
 			rep_value = 0
 		return rep_value
-	. = CONFIG_GET(keyed_list/antag_rep)[lowertext(title)]
+	. = CONFIG_GET(keyed_list/antag_rep)[LOWER_TEXT(title)]
 	if(. == null)
 		return antag_rep
 
 //Don't override this unless the job transforms into a non-human (Silicons do this for example)
+//Returning FALSE is considered a failure. A null or mob return is a successful equip.
 /datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
 	if(!H)
 		return FALSE

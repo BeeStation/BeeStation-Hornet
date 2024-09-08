@@ -1,5 +1,8 @@
 // Held by /obj/machinery/modular_computer to reduce amount of copy-pasted code.
 //TODO: REFACTOR THIS SPAGHETTI CODE, MAKE IT A COMPUTER_HARDWARE COMPONENT OR REMOVE IT
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/processor)
+
 /obj/item/modular_computer/processor
 	name = "processing unit"
 	desc = "You shouldn't see this. If you do, report it."

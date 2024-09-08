@@ -91,6 +91,8 @@
 
 	var/static/active_phylacteries = 0
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/phylactery)
+
 /obj/item/phylactery/Initialize(mapload, datum/mind/newmind)
 	. = ..()
 	mind = newmind

@@ -26,6 +26,8 @@
 	// create a new disposal
 	// find the attached trunk (if present) and init gas resvr.
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
+
 /obj/machinery/disposal/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()
 
@@ -139,11 +141,10 @@
 		else
 			target.visible_message("<span class='danger'>[user] has placed [target] in [src].</span>", "<span class='userdanger'>[user] has placed you in [src].</span>")
 			log_combat(user, target, "stuffed", addition="into [src]")
-			target.LAssailant = WEAKREF(user)
 			. = TRUE
 		update_appearance()
 
-/obj/machinery/disposal/relaymove(mob/user)
+/obj/machinery/disposal/relaymove(mob/living/user, direction)
 	attempt_escape(user)
 
 // resist to escape the bin
@@ -431,6 +432,8 @@
 		return
 	..()
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal/deliveryChute)
+
 /obj/machinery/disposal/deliveryChute/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()
 	trunk = locate() in loc
@@ -490,3 +493,5 @@
 
 /obj/machinery/disposal/deliveryChute/newHolderDestination(obj/structure/disposalholder/H)
 	H.destinationTag = 1
+
+#undef SEND_PRESSURE

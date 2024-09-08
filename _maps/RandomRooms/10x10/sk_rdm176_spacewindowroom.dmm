@@ -1,0 +1,143 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/effect/mapping_helpers/space_window_placer,
+/turf/open/space/basic,
+/area/template_noop)
+"k" = (
+/obj/machinery/light/floor,
+/turf/open/floor/iron,
+/area/template_noop)
+"t" = (
+/turf/open/floor/iron,
+/area/template_noop)
+"G" = (
+/obj/effect/mapping_helpers/space_window_placer,
+/obj/effect/spawner/lootdrop/maintenance/four,
+/turf/open/space/basic,
+/area/template_noop)
+"Y" = (
+/obj/effect/mapping_helpers/space_window_placer,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/space/basic,
+/area/template_noop)
+
+(1,1,1) = {"
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+"}
+(2,1,1) = {"
+b
+k
+t
+t
+t
+t
+t
+t
+k
+b
+"}
+(3,1,1) = {"
+b
+t
+G
+b
+t
+t
+b
+G
+t
+b
+"}
+(4,1,1) = {"
+b
+t
+b
+k
+t
+t
+k
+b
+t
+b
+"}
+(5,1,1) = {"
+b
+t
+t
+t
+Y
+Y
+t
+t
+t
+b
+"}
+(6,1,1) = {"
+b
+t
+t
+t
+b
+Y
+t
+t
+t
+b
+"}
+(7,1,1) = {"
+b
+t
+b
+k
+t
+t
+k
+b
+t
+b
+"}
+(8,1,1) = {"
+b
+t
+G
+b
+t
+t
+b
+G
+t
+b
+"}
+(9,1,1) = {"
+b
+k
+t
+t
+t
+t
+t
+t
+k
+b
+"}
+(10,1,1) = {"
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+"}

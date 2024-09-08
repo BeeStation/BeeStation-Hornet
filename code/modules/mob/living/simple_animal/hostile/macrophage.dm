@@ -5,10 +5,14 @@
 	speak_emote = list("Blubbers")
 	emote_hear = list("Blubbers")
 	melee_damage = 1
-	attacktext = "pierces"
-	response_help  = "shoos"
-	response_disarm = "swats away"
-	response_harm   = "squashes"
+	attack_verb_continuous = "pierces"
+	attack_verb_simple = "pierce"
+	response_help_continuous = "shoos"
+	response_help_simple = "shoo"
+	response_disarm_continuous = "swats away"
+	response_disarm_simple = "swat away"
+	response_harm_continuous = "squashes"
+	response_harm_simple = "squash"
 	maxHealth = 6
 	health = 6
 	spacewalk = TRUE
@@ -65,7 +69,7 @@
 					to_chat(src, "<span class ='notice'>You infect [M] with [D]!</span>")
 		else if(aggressive)
 			M.visible_message("<span class='danger'>the [src] begins penetrating [M]' protection!</span>", \
-	 				 "<span class='danger'>[src] begins penetrating your protection!</span>")
+					"<span class='danger'>[src] begins penetrating your protection!</span>")
 			if(do_after(src, 1.5 SECONDS, M))
 				for(var/datum/disease/D in infections)
 					if(M.ForceContractDisease(D))

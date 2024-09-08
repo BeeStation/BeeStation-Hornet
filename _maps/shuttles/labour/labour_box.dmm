@@ -117,8 +117,7 @@
 "r" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/labor)
@@ -132,8 +131,7 @@
 	req_one_access_txt = "63;42;38"
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 1
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)

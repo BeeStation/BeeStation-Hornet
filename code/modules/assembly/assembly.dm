@@ -1,4 +1,3 @@
-
 /obj/item/assembly
 	name = "assembly"
 	desc = "A small electronic device that should never exist."

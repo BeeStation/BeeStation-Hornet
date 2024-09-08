@@ -134,7 +134,7 @@
 	var/fall_chance = 1
 	if(owner.m_intent == MOVE_INTENT_RUN)
 		fall_chance += 2
-	if(prob(fall_chance) && (owner.mobility_flags & MOBILITY_STAND))
+	if(prob(fall_chance) && owner.body_position == STANDING_UP)
 		to_chat(owner, "<span class='warning'>Your leg gives out!</span>")
 		owner.Paralyze(35)
 
@@ -211,7 +211,7 @@
 				word = copytext(word, 1, suffix_foundon)
 			word = html_decode(word)
 
-			if(lowertext(word) in common_words)
+			if(LOWER_TEXT(word) in common_words)
 				new_message += word + suffix
 			else
 				if(prob(30) && message_split.len > 2)
