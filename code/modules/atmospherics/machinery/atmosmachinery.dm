@@ -76,11 +76,6 @@
 	return ..()
 	//return QDEL_HINT_FINDREFERENCE
 
-/obj/machinery/atmospherics/atmosinit(list/node_connects)
-	. = ..()
-	if(process)
-		SSair.start_processing_machine(src)
-
 /obj/machinery/atmospherics/proc/destroy_network()
 	return
 
@@ -124,6 +119,9 @@
 			if(can_be_node(target, i))
 				nodes[i] = target
 				break
+
+	if(process)
+		SSair.start_processing_machine(src)
 	update_icon()
 
 /obj/machinery/atmospherics/proc/setPipingLayer(new_layer)
