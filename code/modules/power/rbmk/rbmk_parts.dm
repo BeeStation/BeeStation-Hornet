@@ -11,7 +11,7 @@
 	var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor
 	var/active = FALSE
 
-/obj/machinery/computer/reactor/Initialize()
+/obj/machinery/computer/reactor/Initialize(mapload)
 	. = ..()
 
 /obj/machinery/computer/reactor/control_rods

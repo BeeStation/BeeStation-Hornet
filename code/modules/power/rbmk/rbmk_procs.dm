@@ -190,9 +190,9 @@ Arguments:
 	return null
 
 /*
- Called when a part gets deleted around the rbmk, called on Destroy() of the rbmk core in rbmk_core.dm
-Unregister the signals attached to the core from the various machines, if only_signals is false it will also call deactivate()
-Arguments:
+ * Called when a part gets deleted around the rbmk, called on Destroy() of the rbmk core in rbmk_core.dm
+ * Unregister the signals attached to the core from the various machines, if only_signals is false it will also call deactivate()
+ * Arguments:
  * only_signals: default FALSE, if true the proc will not call the deactivate() proc
  */
 
