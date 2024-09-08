@@ -2221,9 +2221,8 @@
 	},
 /obj/machinery/button/door{
 	id = "EmergancyescapeShutter";
-	name = "Emergancy escape Shutters";
-	pixel_x = 32;
-	req_one_access_txt = "7;29;12"
+	name = "Emergancy Escape Shutters";
+	pixel_x = 32
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
