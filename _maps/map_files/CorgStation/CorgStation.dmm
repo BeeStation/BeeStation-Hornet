@@ -13831,8 +13831,8 @@
 /area/maintenance/starboard/aft)
 "emZ" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "telelab";
-	name = "test chamber blast door"
+	id = s;
+	name = "Test Chamber Blast Door"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -64878,8 +64878,8 @@
 /area/maintenance/starboard/central)
 "uVx" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "telelab";
-	name = "test chamber blast door"
+	id = "testlab";
+	name = "Test Chamber Blast Door"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "testlab";
@@ -69352,7 +69352,7 @@
 	dir = 4
 	},
 /obj/machinery/button/door{
-	id = "telelab";
+	id = "testlab";
 	name = "Test Chamber Blast Doors";
 	pixel_y = 38
 	},

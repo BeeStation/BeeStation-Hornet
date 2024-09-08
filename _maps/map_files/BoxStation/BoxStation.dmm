@@ -20525,9 +20525,6 @@
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "eXl" = (
@@ -22469,11 +22466,10 @@
 /turf/open/floor/iron,
 /area/crew_quarters/fitness)
 "fPn" = (
-/obj/structure/railing{
-	dir = 4;
-	layer = 3.2
-	},
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/railing{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "fPr" = (
@@ -25534,7 +25530,7 @@
 "gZx" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "testlab";
-	name = "test chamber blast door"
+	name = "Test Chamber Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -36455,14 +36451,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
-/obj/machinery/door/airlock/research/glass{
-	name = "Test Chamber";
-	req_access_txt = "47"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "testlab";
-	name = "test chamber blast door"
-	},
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
 	},
@@ -36477,6 +36465,14 @@
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "testlab";
+	name = "Test Chamber Blast Door"
+	},
+/obj/machinery/door/airlock/research/glass{
+	name = "Test Chamber";
+	req_access_txt = "47"
 	},
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
@@ -66586,10 +66582,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
-/obj/machinery/door/airlock/research/glass{
-	name = "Test Chamber";
-	req_access_txt = "47"
-	},
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
 	},
@@ -66604,6 +66596,10 @@
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
+	},
+/obj/machinery/door/airlock/research/glass{
+	name = "Test Chamber";
+	req_access_txt = "47"
 	},
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
@@ -68646,8 +68642,7 @@
 /area/hallway/primary/central)
 "ycy" = (
 /obj/structure/railing{
-	dir = 4;
-	layer = 3.2
+	dir = 4
 	},
 /turf/open/floor/iron/stairs,
 /area/science/misc_lab)

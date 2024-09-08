@@ -10918,11 +10918,11 @@
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "fjT" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "telelab";
-	name = "test chamber blast door"
+	id = "testlab";
+	name = "Test Chamber Blast Door"
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/explab)
 "fkk" = (
@@ -42572,10 +42572,6 @@
 	},
 /area/bridge)
 "vaI" = (
-/obj/machinery/door/poddoor/preopen{
-	id = "telelab";
-	name = "test chamber blast door"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -42586,6 +42582,10 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = s;
+	name = "Test Chamber Blast Door"
 	},
 /turf/open/floor/iron,
 /area/science/explab)
@@ -43532,16 +43532,16 @@
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "vCQ" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "telelab";
-	name = "test chamber blast door"
-	},
 /obj/machinery/button/door{
-	id = "telelab";
+	id = "testlab";
 	name = "Test Chamber Blast Doors";
 	pixel_y = -30
 	},
+/obj/machinery/door/poddoor/preopen{
+	id = "testlab";
+	name = "Test Chamber Blast Door"
+	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/explab)
 "vDt" = (

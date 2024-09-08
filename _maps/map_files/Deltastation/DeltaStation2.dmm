@@ -12806,7 +12806,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "testlab";
-	name = "test Chamber Blast Door"
+	name = "Test Chamber Blast Door"
 	},
 /turf/open/floor/engine,
 /area/science/explab)
@@ -46324,7 +46324,7 @@
 /area/medical/genetics)
 "iOy" = (
 /obj/machinery/button/door{
-	id = "experimentor";
+	id = "testlab";
 	name = "Experimentor Door Control";
 	pixel_x = 24;
 	req_access_txt = "47"
@@ -58614,7 +58614,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "testlab";
-	name = "test Chamber Blast Door"
+	name = "Test Chamber Blast Door"
 	},
 /turf/open/floor/plating,
 /area/science/explab)

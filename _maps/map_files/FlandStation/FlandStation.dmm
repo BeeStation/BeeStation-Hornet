@@ -41557,8 +41557,8 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/poddoor/preopen{
-	id = "telelab";
-	name = "test chamber blast door"
+	id = "testlab";
+	name = "Test Chamber Blast Door"
 	},
 /turf/open/floor/engine,
 /area/science/explab)
@@ -70530,8 +70530,8 @@
 /area/maintenance/department/engine)
 "rXA" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "telelab";
-	name = "test chamber blast door"
+	id = "testlab";
+	name = "Test Chamber Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
