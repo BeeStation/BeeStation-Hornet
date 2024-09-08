@@ -28921,7 +28921,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/green/visible,
+/obj/machinery/atmospherics/pipe/manifold/green/visible{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "ouX" = (
@@ -47098,9 +47100,10 @@
 	dir = 9
 	},
 /obj/structure/table,
-/obj/item/storage/part_replacer/engi{
-	pixel_y = 5
-	},
+/obj/item/stock_parts/matter_bin/super,
+/obj/item/stock_parts/matter_bin/super,
+/obj/item/stock_parts/micro_laser/ultra,
+/obj/item/stock_parts/micro_laser/ultra,
 /obj/item/screwdriver{
 	pixel_y = 3
 	},
