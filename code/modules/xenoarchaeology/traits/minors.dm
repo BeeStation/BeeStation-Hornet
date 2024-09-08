@@ -845,11 +845,11 @@
 		return
 	var/atom/A = parent.parent
 	controller = A._AddComponent(list(/datum/component/deadchat_control, "democracy", list(
-			 "up" = CALLBACK(src, PROC_REF(haunted_step), A, NORTH),
-			 "down" = CALLBACK(src, PROC_REF(haunted_step), A, SOUTH),
-			 "left" = CALLBACK(src, PROC_REF(haunted_step), A, WEST),
-			 "right" = CALLBACK(src, PROC_REF(haunted_step), A, EAST),
-			 "activate" = CALLBACK(src, PROC_REF(activate_parent), A)), move_delay))
+			"up" = CALLBACK(src, PROC_REF(haunted_step), A, NORTH),
+			"down" = CALLBACK(src, PROC_REF(haunted_step), A, SOUTH),
+			"left" = CALLBACK(src, PROC_REF(haunted_step), A, WEST),
+			"right" = CALLBACK(src, PROC_REF(haunted_step), A, EAST),
+			"activate" = CALLBACK(src, PROC_REF(activate_parent), A)), move_delay))
 	addtimer(CALLBACK(src, PROC_REF(do_wail)), 35 SECONDS)
 
 /datum/xenoartifact_trait/minor/haunted/Destroy(force, ...)

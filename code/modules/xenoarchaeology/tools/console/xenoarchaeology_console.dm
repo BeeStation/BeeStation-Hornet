@@ -259,3 +259,6 @@
 	name = "research and development listing console (Computer Board)"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/xenoarchaeology_console
+
+#undef STABILITY_COST
+#undef STABILITY_GAIN
