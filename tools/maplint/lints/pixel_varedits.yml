@@ -2,3 +2,7 @@
   banned_variables:
   - step_x
   - step_y
+  pixel_x:
+    deny: [0]
+  pixel_y:
+    deny: [0]
