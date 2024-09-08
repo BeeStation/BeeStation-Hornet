@@ -377,6 +377,8 @@
 	var/obj/item/organ/eyes/robotic/glow/parent
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
+
 /obj/effect/abstract/eye_lighting/Initialize(mapload, light_object_range, light_object_power, current_color_string, light_flags)
 	. = ..()
 	parent = loc
@@ -436,3 +438,5 @@
 	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
 	P?.remove()
 	return ..()
+
+#undef RGB2EYECOLORSTRING

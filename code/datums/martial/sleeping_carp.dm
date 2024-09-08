@@ -246,3 +246,9 @@
 	if(!ISWIELDED(src))
 		return ..()
 	return 0
+
+#undef WRIST_WRENCH_COMBO
+#undef BACK_KICK_COMBO
+#undef STOMACH_KNEE_COMBO
+#undef HEAD_KICK_COMBO
+#undef ELBOW_DROP_COMBO

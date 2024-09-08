@@ -46,6 +46,8 @@
 	/// Amount of matter for RCD
 	var/matter_amount = 0
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
+
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	if(new_amount != null)
 		amount = new_amount

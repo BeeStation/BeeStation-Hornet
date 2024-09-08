@@ -15,6 +15,8 @@
 	///our reagent goal has been reached, so now we lock our inputs and start emptying
 	var/emptying = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/reaction_chamber)
+
 /obj/machinery/plumbing/reaction_chamber/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/reaction_chamber, bolt)

@@ -16,6 +16,8 @@
 
 	var/cell_connectors = TRUE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_construct)
+
 /obj/structure/light_construct/Initialize(mapload, ndir, building)
 	. = ..()
 	if(building)

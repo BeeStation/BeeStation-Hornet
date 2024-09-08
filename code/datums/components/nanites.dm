@@ -298,11 +298,11 @@
 	for(var/datum/nanite_program/program as anything in programs)
 		program.on_death(gibbed)
 
-/datum/component/nanites/proc/receive_signal(datum/source, code, source = "an unidentified source")
+/datum/component/nanites/proc/receive_signal(datum/source, code, signal_source = "an unidentified source")
 	SIGNAL_HANDLER
 
 	for(var/datum/nanite_program/program as anything in programs)
-		program.receive_nanite_signal(code, source)
+		program.receive_nanite_signal(code, signal_source)
 
 /datum/component/nanites/proc/receive_comm_signal(datum/source, comm_code, comm_message, comm_source = "an unidentified source")
 	SIGNAL_HANDLER
