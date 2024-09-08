@@ -21639,9 +21639,11 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment{
-	dir = 9
+	dir = 2
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
