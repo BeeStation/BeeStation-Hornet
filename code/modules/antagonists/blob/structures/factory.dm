@@ -49,6 +49,8 @@
 
 /obj/structure/blob/factory/lone //A blob factory that functions without a pulses
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/factory/lone)
+
 /obj/structure/blob/factory/lone/Initialize(mapload, owner_overmind)
 	. = ..()
 	START_PROCESSING(SSobj, src)

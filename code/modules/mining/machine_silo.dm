@@ -188,7 +188,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/ore_silo)
 DEFINE_BUFFER_HANDLER(/obj/machinery/ore_silo)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You log [src] in the [buffer_parent]'s buffer.</span>")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/ore_silo/proc/silo_log(obj/machinery/M, action, amount, noun, list/mats)

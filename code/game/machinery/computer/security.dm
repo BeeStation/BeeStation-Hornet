@@ -19,6 +19,8 @@
 	var/order = 1 // -1 = Descending - 1 = Ascending
 	light_color = LIGHT_COLOR_RED
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
+
 /obj/machinery/computer/secure_data/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	AddComponent(/datum/component/usb_port, list(
