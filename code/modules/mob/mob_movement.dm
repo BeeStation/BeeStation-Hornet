@@ -315,9 +315,9 @@
 	return FALSE
 
 /**
-   * Finds a target near a mob that is viable for pushing off when moving.
-   * Takes the intended movement direction as input.
-  */
+ * Finds a target near a mob that is viable for pushing off when moving.
+ * Takes the intended movement direction as input.
+*/
 /mob/get_spacemove_backup(moving_direction)
 	for(var/atom/pushover as anything in range(1, get_turf(src)))
 		if(pushover == src)

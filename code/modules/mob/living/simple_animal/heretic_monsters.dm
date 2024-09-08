@@ -191,6 +191,8 @@
  * * spawn_bodyparts - whether we spawn additional armsy bodies until we reach length.
  * * worm_length - the length of the worm we're creating. Below 3 doesn't work very well.
  */
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/armsy)
+
 /mob/living/simple_animal/hostile/heretic_summon/armsy/Initialize(mapload, spawn_bodyparts = TRUE, worm_length = 6)
 	. = ..()
 	if(worm_length < 3)
@@ -365,6 +367,8 @@
 	maxHealth = 400
 	health = 400
 	melee_damage = 50
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/armsy/prime)
 
 /mob/living/simple_animal/hostile/heretic_summon/armsy/prime/Initialize(mapload, spawn_bodyparts = TRUE, worm_length = 9)
 	. = ..()

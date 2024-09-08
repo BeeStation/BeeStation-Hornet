@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
+
 /turf/open/openspace
 	name = "open space"
 	desc = "Watch your step!"

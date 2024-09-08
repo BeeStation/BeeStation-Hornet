@@ -304,3 +304,8 @@
 	A.GiveTarget(target)
 	A.friends = user
 	A.faction = user.faction.Copy()
+
+#undef LEGIONNAIRE_CHARGE
+#undef HEAD_DETACH
+#undef BONFIRE_TELEPORT
+#undef SPEW_SMOKE

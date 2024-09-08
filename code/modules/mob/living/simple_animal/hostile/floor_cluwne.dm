@@ -7,6 +7,11 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 #define STAGE_ATTACK 4
 #define MANIFEST_DELAY 9
 
+/// How long we put the target so sleep for (during sacrifice).
+#define SACRIFICE_SLEEP_DURATION 12 SECONDS
+/// How long sacrifices must stay in the shadow realm to survive.
+#define SACRIFICE_REALM_DURATION 2.5 MINUTES
+
 /mob/living/simple_animal/hostile/floor_cluwne
 	name = "???"
 	desc = "...."
@@ -633,3 +638,6 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 #undef STAGE_TORMENT
 #undef STAGE_ATTACK
 #undef MANIFEST_DELAY
+
+#undef SACRIFICE_SLEEP_DURATION
+#undef SACRIFICE_REALM_DURATION

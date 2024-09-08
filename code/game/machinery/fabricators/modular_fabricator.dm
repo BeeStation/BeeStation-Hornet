@@ -513,3 +513,5 @@
 
 /obj/machinery/modular_fabricator/proc/set_working_sprite()
 	return
+
+#undef MODFAB_MAX_POWER_USE

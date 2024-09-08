@@ -498,9 +498,9 @@
 					return
 				src.active1 = null
 				src.active2 = null
-				t1 = lowertext(t1)
+				t1 = LOWER_TEXT(t1)
 				for(var/datum/data/record/R in GLOB.data_core.medical)
-					if((lowertext(R.fields["name"]) == t1 || t1 == lowertext(R.fields["id"]) || t1 == lowertext(R.fields["b_dna"])))
+					if((LOWER_TEXT(R.fields["name"]) == t1 || t1 == LOWER_TEXT(R.fields["id"]) || t1 == LOWER_TEXT(R.fields["b_dna"])))
 						src.active2 = R
 					else
 						//Foreach continue //goto(3229)
