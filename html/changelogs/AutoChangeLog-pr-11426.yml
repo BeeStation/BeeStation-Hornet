@@ -1,0 +1,9 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - tweak: Players are no longer limited to a single positronic brain per round.
+  - tweak: Cyborgs may no longer have duplicate names, unless they are being rebuilt
+      from the same brain that was previously a cyborg - if you are respawning as
+      a fresh cyborg and do not choose a different character profile first, you will
+      be given the default cyborg name instead of becoming a second copy of the same
+      cyborg.
