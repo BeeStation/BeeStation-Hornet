@@ -558,34 +558,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
-"bO" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -26
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/table,
-/obj/machinery/reagentgrinder{
-	pixel_y = 6
-	},
-/obj/item/kitchen/rollingpin{
-	pixel_x = 8
-	},
-/obj/item/knife/kitchen{
-	pixel_x = 16
-	},
-/obj/item/reagent_containers/food/condiment/sugar{
-	pixel_x = -9;
-	pixel_y = 14
-	},
-/obj/item/reagent_containers/food/condiment/enzyme{
-	pixel_x = -5;
-	pixel_y = 6
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/shuttle/abandoned/bar)
 "bQ" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned/bridge)
@@ -651,6 +623,35 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
+"cd" = (
+/obj/structure/table,
+/obj/machinery/light/small/built{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/paper_bin{
+	pixel_x = -4
+	},
+/obj/item/pen{
+	pixel_x = -4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Salvage Ship Bridge APC";
+	pixel_y = 24
+	},
+/obj/item/camera{
+	pixel_x = 12;
+	pixel_y = 6
+	},
+/obj/item/storage/photo_album{
+	pixel_x = 14
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned/bridge)
 "ce" = (
 /obj/structure/table,
 /obj/machinery/airalarm/all_access{
@@ -837,6 +838,18 @@
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/engine)
+"cJ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "Salvage Ship Cargo APC";
+	pixel_x = -24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned/cargo)
 "cK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1132,6 +1145,24 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
+"dJ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	name = "Salvage Ship Engineering APC";
+	pixel_y = -24
+	},
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/iron/twenty,
+/obj/item/stack/sheet/glass{
+	amount = 10
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 10
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plating,
+/area/shuttle/abandoned/engine)
 "dK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1201,6 +1232,10 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
+/area/shuttle/abandoned/bar)
+"dS" = (
+/obj/machinery/smartfridge,
+/turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
 "dT" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1292,6 +1327,34 @@
 /obj/machinery/advanced_airlock_controller/directional/east,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
+/area/shuttle/abandoned/bar)
+"ed" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = -26
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/table,
+/obj/machinery/reagentgrinder{
+	pixel_y = 6
+	},
+/obj/item/kitchen/rollingpin{
+	pixel_x = 8
+	},
+/obj/item/knife/kitchen{
+	pixel_x = 16
+	},
+/obj/item/reagent_containers/food/condiment/sugar{
+	pixel_x = -9;
+	pixel_y = 14
+	},
+/obj/item/reagent_containers/food/condiment/enzyme{
+	pixel_x = -5;
+	pixel_y = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
 "ee" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1392,6 +1455,48 @@
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
+"fb" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/table,
+/obj/item/trash/plate{
+	pixel_x = -6;
+	pixel_y = -2
+	},
+/obj/item/trash/plate{
+	pixel_x = -6
+	},
+/obj/item/trash/plate{
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/obj/item/trash/plate{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/item/trash/plate{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/kitchen/fork{
+	pixel_x = 12;
+	pixel_y = 3
+	},
+/obj/item/kitchen/fork{
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Salvage Ship Bar APC";
+	pixel_y = 24
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/shuttle/abandoned/bar)
 "gf" = (
 /obj/effect/turf_decal/bot_white,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1438,25 +1543,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/bridge)
-"hn" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/table,
-/obj/structure/bedsheetbin,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable,
-/obj/machinery/power/apc{
-	name = "Salvage Ship Crew Quarters APC";
-	pixel_y = -24
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/cafeteria,
-/area/shuttle/abandoned/crew)
 "hv" = (
 /obj/effect/turf_decal/box/white/corners{
 	dir = 1
@@ -1465,53 +1551,6 @@
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
-"iE" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable,
-/obj/machinery/power/apc{
-	name = "Salvage Ship Engineering APC";
-	pixel_y = -24
-	},
-/obj/structure/closet/crate,
-/obj/item/stack/sheet/iron/twenty,
-/obj/item/stack/sheet/glass{
-	amount = 10
-	},
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 10
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plating,
-/area/shuttle/abandoned/engine)
-"kh" = (
-/obj/structure/table,
-/obj/machinery/light/small/built{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/paper_bin{
-	pixel_x = -4
-	},
-/obj/item/pen{
-	pixel_x = -4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Salvage Ship Bridge APC";
-	pixel_y = 24
-	},
-/obj/item/camera{
-	pixel_x = 12;
-	pixel_y = 6
-	},
-/obj/item/storage/photo_album{
-	pixel_x = 14
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned/bridge)
 "ko" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/external,
@@ -1654,10 +1693,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/engine)
-"oO" = (
-/obj/machinery/smartfridge,
-/turf/open/floor/iron,
-/area/shuttle/abandoned/bar)
 "oQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1839,6 +1874,25 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/bridge)
+"ur" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/table,
+/obj/structure/bedsheetbin,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	name = "Salvage Ship Crew Quarters APC";
+	pixel_y = -24
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria,
+/area/shuttle/abandoned/crew)
 "uV" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/bed,
@@ -1901,93 +1955,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/shuttle/abandoned/bar)
-"wx" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/table,
-/obj/item/plate{
-	pixel_x = -6;
-	pixel_y = -2
-	},
-/obj/item/plate{
-	pixel_x = -6
-	},
-/obj/item/plate{
-	pixel_x = -6;
-	pixel_y = 2
-	},
-/obj/item/plate{
-	pixel_x = -6;
-	pixel_y = 4
-	},
-/obj/item/plate{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/kitchen/fork{
-	pixel_x = 12;
-	pixel_y = 3
-	},
-/obj/item/kitchen/fork{
-	pixel_x = 6;
-	pixel_y = 3
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Salvage Ship Bar APC";
-	pixel_y = 24;
-	req_access = null
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/table,
-/obj/item/trash/plate{
-	pixel_x = -6;
-	pixel_y = -2
-	},
-/obj/item/trash/plate{
-	pixel_x = -6
-	},
-/obj/item/trash/plate{
-	pixel_x = -6;
-	pixel_y = 2
-	},
-/obj/item/trash/plate{
-	pixel_x = -6;
-	pixel_y = 4
-	},
-/obj/item/trash/plate{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/kitchen/fork{
-	pixel_x = 12;
-	pixel_y = 3
-	},
-/obj/item/kitchen/fork{
-	pixel_x = 6;
-	pixel_y = 3
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Salvage Ship Bar APC";
-	pixel_y = 24
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
 "yL" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2325,18 +2292,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
-"Hq" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "Salvage Ship Cargo APC";
-	pixel_x = -24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned/cargo)
 "Ij" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -2945,7 +2900,7 @@ cH
 ac
 cZ
 dr
-iE
+dJ
 ac
 ab
 "}
@@ -3017,7 +2972,7 @@ bK
 Fb
 ZZ
 cy
-Hq
+cJ
 cP
 db
 yP
@@ -3146,7 +3101,7 @@ aH
 Jx
 bq
 bD
-wx
+fb
 rl
 GG
 uW
@@ -3223,7 +3178,7 @@ WN
 ai
 bF
 bQ
-kh
+cd
 hg
 cD
 bQ
@@ -3231,7 +3186,7 @@ cU
 qi
 dB
 dQ
-bO
+ed
 bD
 "}
 (21,1,1) = {"
@@ -3268,7 +3223,7 @@ bQ
 bD
 dl
 dD
-oO
+dS
 bD
 bD
 "}
@@ -3277,7 +3232,7 @@ aj
 Ij
 KM
 CW
-hn
+ur
 ai
 bR
 yT
