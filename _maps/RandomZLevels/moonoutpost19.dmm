@@ -522,7 +522,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -797,7 +796,6 @@
 "cR" = (
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged4";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -838,7 +836,6 @@
 "cW" = (
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -847,7 +844,6 @@
 "cX" = (
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged3";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -865,7 +861,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 1;
-	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
 	},
@@ -945,7 +940,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 1;
-	heat_capacity = 1e+006;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
 	},
@@ -1015,7 +1009,6 @@
 "do" = (
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged1";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -1363,8 +1356,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/white/side{
-	dir = 4;
-	heat_capacity = 1e+006
+	dir = 4
 	},
 /area/awaymission/moonoutpost19/research)
 "ei" = (
@@ -1540,8 +1532,7 @@
 	network = list("mo19","mo19r")
 	},
 /turf/open/floor/iron/white/side{
-	dir = 6;
-	heat_capacity = 1e+006
+	dir = 6
 	},
 /area/awaymission/moonoutpost19/research)
 "eN" = (
@@ -2388,8 +2379,7 @@
 /obj/structure/table/optable,
 /obj/structure/alien/weeds,
 /turf/open/floor/iron/white/side{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/moonoutpost19/research)
 "gU" = (
@@ -2398,8 +2388,7 @@
 	},
 /obj/structure/alien/weeds,
 /turf/open/floor/iron/white/side{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/moonoutpost19/research)
 "gV" = (
@@ -2409,8 +2398,7 @@
 /obj/item/clothing/suit/apron/surgical,
 /obj/structure/alien/weeds,
 /turf/open/floor/iron/white/side{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/moonoutpost19/research)
 "gW" = (
@@ -2527,8 +2515,7 @@
 /obj/structure/table,
 /obj/item/storage/box/gloves,
 /turf/open/floor/iron/white/corner{
-	dir = 8;
-	heat_capacity = 1e+006
+	dir = 8
 	},
 /area/awaymission/moonoutpost19/research)
 "hq" = (
@@ -2638,8 +2625,7 @@
 	pixel_x = 28
 	},
 /turf/open/floor/iron/white/side{
-	dir = 8;
-	heat_capacity = 1e+006
+	dir = 8
 	},
 /area/awaymission/moonoutpost19/research)
 "hB" = (
@@ -2705,8 +2691,7 @@
 	req_access = null
 	},
 /turf/open/floor/iron/white/side{
-	dir = 8;
-	heat_capacity = 1e+006
+	dir = 8
 	},
 /area/awaymission/moonoutpost19/research)
 "hI" = (
@@ -2738,8 +2723,7 @@
 "hO" = (
 /obj/structure/table,
 /turf/open/floor/iron/white/side{
-	dir = 8;
-	heat_capacity = 1e+006
+	dir = 8
 	},
 /area/awaymission/moonoutpost19/research)
 "hP" = (
@@ -2887,16 +2871,14 @@
 /obj/structure/closet/l3closet,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white/side{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/moonoutpost19/research)
 "ig" = (
 /obj/structure/closet/l3closet,
 /obj/machinery/light/small/broken,
 /turf/open/floor/iron/white/side{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/moonoutpost19/research)
 "ih" = (
@@ -2907,15 +2889,13 @@
 	pixel_y = -30
 	},
 /turf/open/floor/iron/white/side{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/moonoutpost19/research)
 "ii" = (
 /obj/structure/table,
 /turf/open/floor/iron/white/corner{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/moonoutpost19/research)
 "ij" = (
@@ -3188,7 +3168,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched2"
 	},
 /area/awaymission/moonoutpost19/arrivals)
@@ -3200,7 +3179,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched1"
 	},
 /area/awaymission/moonoutpost19/arrivals)
@@ -3253,7 +3231,6 @@
 "je" = (
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched2"
 	},
 /area/awaymission/moonoutpost19/arrivals)
@@ -3321,7 +3298,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched1"
 	},
 /area/awaymission/moonoutpost19/arrivals)
@@ -3351,7 +3327,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched1"
 	},
 /area/awaymission/moonoutpost19/arrivals)
@@ -3362,7 +3337,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched2"
 	},
 /area/awaymission/moonoutpost19/arrivals)
@@ -3434,7 +3408,6 @@
 /obj/item/paper/fluff/awaymissions/moonoutpost19/food_specials,
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched1"
 	},
 /area/awaymission/moonoutpost19/arrivals)
@@ -3559,7 +3532,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -3571,7 +3543,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged1";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -3607,7 +3578,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -3619,7 +3589,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged3";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -3762,8 +3731,7 @@
 /area/awaymission/moonoutpost19/arrivals)
 "ky" = (
 /turf/open/floor/iron/white/corner{
-	dir = 8;
-	heat_capacity = 1e+006
+	dir = 8
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kz" = (
@@ -3781,7 +3749,6 @@
 "kB" = (
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -3799,7 +3766,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged4";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -3815,7 +3781,6 @@
 "kF" = (
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged5";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -3853,8 +3818,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white/corner{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kO" = (
@@ -3938,8 +3902,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white/corner{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "lg" = (
@@ -4526,7 +4489,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -4641,7 +4603,6 @@
 "ni" = (
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -4654,7 +4615,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -4703,7 +4663,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged1";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -4871,7 +4830,6 @@
 /obj/item/toy/cards/deck,
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged1";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
@@ -4914,7 +4872,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251

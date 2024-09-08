@@ -9,7 +9,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged2"
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -29,7 +28,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged1"
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -45,7 +43,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched2"
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -73,14 +70,12 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged4"
 	},
 /area/awaymission/undergroundoutpost45/central)
 "ar" = (
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "damaged3"
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -815,7 +810,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched1"
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -864,8 +858,7 @@
 	req_access_txt = "201"
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "dR" = (
@@ -1568,15 +1561,13 @@
 "gC" = (
 /obj/machinery/vending/dinnerware,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "gD" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "gE" = (
@@ -1584,8 +1575,7 @@
 	pixel_y = 28
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "gF" = (
@@ -1599,16 +1589,14 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "gG" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "gH" = (
@@ -1652,8 +1640,7 @@
 /area/awaymission/undergroundoutpost45/research)
 "gO" = (
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "gP" = (
@@ -1663,8 +1650,7 @@
 	pixel_y = 6
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "gU" = (
@@ -1727,8 +1713,7 @@
 	},
 /obj/item/reagent_containers/dropper,
 /turf/open/floor/iron/white/side{
-	dir = 8;
-	heat_capacity = 1e+006
+	dir = 8
 	},
 /area/awaymission/undergroundoutpost45/research)
 "hc" = (
@@ -1787,8 +1772,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hq" = (
@@ -1796,15 +1780,13 @@
 /obj/item/stack/package_wrap,
 /obj/item/reagent_containers/food/condiment/enzyme,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hr" = (
 /obj/structure/table,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hs" = (
@@ -1822,8 +1804,7 @@
 	pixel_y = 6
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hu" = (
@@ -1899,8 +1880,7 @@
 /obj/item/stock_parts/micro_laser,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white/side{
-	dir = 8;
-	heat_capacity = 1e+006
+	dir = 8
 	},
 /area/awaymission/undergroundoutpost45/research)
 "hH" = (
@@ -1912,8 +1892,7 @@
 	dir = 10
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hR" = (
@@ -1925,16 +1904,14 @@
 	pixel_x = 3
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hS" = (
 /obj/structure/table,
 /obj/item/food/mint,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hT" = (
@@ -1942,8 +1919,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hU" = (
@@ -1953,8 +1929,7 @@
 /obj/structure/table,
 /obj/item/book/manual/chef_recipes,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hV" = (
@@ -2034,8 +2009,7 @@
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/matter_bin,
 /turf/open/floor/iron/white/side{
-	dir = 8;
-	heat_capacity = 1e+006
+	dir = 8
 	},
 /area/awaymission/undergroundoutpost45/research)
 "ip" = (
@@ -2045,16 +2019,14 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "iq" = (
 /obj/structure/table,
 /obj/item/kitchen/rollingpin,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "ir" = (
@@ -2063,8 +2035,7 @@
 	},
 /obj/machinery/processor,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "is" = (
@@ -2184,8 +2155,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white/side{
-	dir = 8;
-	heat_capacity = 1e+006
+	dir = 8
 	},
 /area/awaymission/undergroundoutpost45/research)
 "iE" = (
@@ -2197,8 +2167,7 @@
 	dir = 5
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "iK" = (
@@ -2207,8 +2176,7 @@
 	dir = 10
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "iL" = (
@@ -2234,7 +2202,6 @@
 /obj/item/radio/off,
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched1"
 	},
 /area/awaymission/undergroundoutpost45/gateway)
@@ -2338,16 +2305,14 @@
 	pixel_y = -32
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "je" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/disposalpipe/junction,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "jf" = (
@@ -2361,8 +2326,7 @@
 /obj/item/reagent_containers/food/condiment/sugar,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "jg" = (
@@ -2578,7 +2542,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched1"
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
@@ -2644,8 +2607,7 @@
 	req_access_txt = "201"
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "kf" = (
@@ -3435,7 +3397,6 @@
 "mc" = (
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched1"
 	},
 /area/awaymission/undergroundoutpost45/gateway)
@@ -3474,8 +3435,7 @@
 	req_access_txt = "201"
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "mi" = (
@@ -3730,8 +3690,7 @@
 	dir = 6
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "mN" = (
@@ -3740,29 +3699,25 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "mO" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "mP" = (
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "mQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "mU" = (
@@ -3863,15 +3818,13 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "nl" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "nm" = (
@@ -3879,16 +3832,14 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "nn" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/chair,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "np" = (
@@ -4060,8 +4011,7 @@
 /obj/item/radio/off,
 /obj/item/laser_pointer,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "nP" = (
@@ -4078,8 +4028,7 @@
 	pixel_y = -2
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "nQ" = (
@@ -4091,8 +4040,7 @@
 	},
 /obj/item/pen,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "nR" = (
@@ -4106,8 +4054,7 @@
 	network = list("uo45r")
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "nS" = (
@@ -4125,8 +4072,7 @@
 	pixel_x = 4
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "nU" = (
@@ -4366,8 +4312,7 @@
 "ox" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "oy" = (
@@ -4390,8 +4335,7 @@
 	req_access_txt = "201"
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "oz" = (
@@ -4401,15 +4345,13 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "oA" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "oB" = (
@@ -4417,8 +4359,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "oD" = (
@@ -4629,8 +4570,7 @@
 	pixel_y = -32
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "pe" = (
@@ -4639,8 +4579,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "pf" = (
@@ -4648,8 +4587,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "pg" = (
@@ -4658,8 +4596,7 @@
 	pixel_y = -27
 	},
 /turf/open/floor/iron/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
+	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
 "pj" = (
@@ -5074,15 +5011,13 @@
 	req_access_txt = "201"
 	},
 /turf/open/floor/iron/white/side{
-	dir = 6;
-	heat_capacity = 1e+006
+	dir = 6
 	},
 /area/awaymission/undergroundoutpost45/research)
 "qr" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white/side{
-	dir = 8;
-	heat_capacity = 1e+006
+	dir = 8
 	},
 /area/awaymission/undergroundoutpost45/research)
 "qs" = (
@@ -5306,8 +5241,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white/side{
-	dir = 4;
-	heat_capacity = 1e+006
+	dir = 4
 	},
 /area/awaymission/undergroundoutpost45/research)
 "qV" = (
@@ -5324,8 +5258,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white/side{
-	dir = 8;
-	heat_capacity = 1e+006
+	dir = 8
 	},
 /area/awaymission/undergroundoutpost45/research)
 "qY" = (
@@ -5406,7 +5339,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched1"
 	},
 /area/awaymission/undergroundoutpost45/engineering)
@@ -5556,8 +5488,7 @@
 	dir = 9
 	},
 /turf/open/floor/iron/white/side{
-	dir = 4;
-	heat_capacity = 1e+006
+	dir = 4
 	},
 /area/awaymission/undergroundoutpost45/research)
 "rH" = (
@@ -5577,8 +5508,7 @@
 /obj/structure/table,
 /obj/item/storage/box/gloves,
 /turf/open/floor/iron/white/side{
-	dir = 8;
-	heat_capacity = 1e+006
+	dir = 8
 	},
 /area/awaymission/undergroundoutpost45/research)
 "rL" = (
@@ -5912,24 +5842,21 @@
 	pixel_y = -32
 	},
 /turf/open/floor/iron/white/corner{
-	dir = 4;
-	heat_capacity = 1e+006
+	dir = 4
 	},
 /area/awaymission/undergroundoutpost45/research)
 "sw" = (
 /obj/structure/closet/l3closet,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/iron/white/side{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "sx" = (
 /obj/structure/closet/l3closet,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white/side{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "sy" = (
@@ -5944,8 +5871,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white/side{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "sz" = (
@@ -5955,8 +5881,7 @@
 	pixel_y = 6
 	},
 /turf/open/floor/iron/white/corner{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "sA" = (
@@ -6287,8 +6212,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/white/corner{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/undergroundoutpost45/engineering)
 "tw" = (
@@ -6302,8 +6226,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/white/corner{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/undergroundoutpost45/engineering)
 "tx" = (
@@ -6601,7 +6524,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched2"
 	},
 /area/awaymission/undergroundoutpost45/engineering)
@@ -6760,8 +6682,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark/corner{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/undergroundoutpost45/engineering)
 "uV" = (
@@ -6959,8 +6880,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark/corner{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/undergroundoutpost45/engineering)
 "vt" = (
@@ -7195,7 +7115,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched2"
 	},
 /area/awaymission/undergroundoutpost45/engineering)
@@ -7263,7 +7182,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched1"
 	},
 /area/awaymission/undergroundoutpost45/mining)
@@ -7698,7 +7616,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched2"
 	},
 /area/awaymission/undergroundoutpost45/mining)
@@ -7858,7 +7775,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched1"
 	},
 /area/awaymission/undergroundoutpost45/mining)
@@ -7899,7 +7815,6 @@
 	},
 /turf/open/floor/iron{
 	dir = 8;
-	heat_capacity = 1e+006;
 	icon_state = "floorscorched1"
 	},
 /area/awaymission/undergroundoutpost45/mining)
@@ -8411,8 +8326,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white/corner{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/undergroundoutpost45/engineering)
 "Cs" = (
@@ -9802,8 +9716,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/corner{
-	dir = 1;
-	heat_capacity = 1e+006
+	dir = 1
 	},
 /area/awaymission/undergroundoutpost45/engineering)
 "Rl" = (
