@@ -1,0 +1,12 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Service borg glasses and graspers are no longer covered in industrial
+      glue and can actually be used to serve drinks again
+  - tweak: Service and Medical cyborgs can now synthesize standard, 50u drinking glasses
+      and beakers respectively with their graspers. Simply use their grasping tool
+      with nothing in it to produce one.
+  - tweak: Medical and service cyborgs can both hold a much wider variety of reagent
+      containers now
+  - tweak: Service cyborgs can now synthesize a wider variety of drinks instead of
+      being primarily focused on alcoholic beverages.
