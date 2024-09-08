@@ -751,3 +751,5 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		return
 
 	heart.beating = !status
+
+#undef BALLMER_POINTS

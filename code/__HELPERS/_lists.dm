@@ -279,9 +279,9 @@
 	return list_to_clear.len < start_len
 
 /**
- Returns list containing all the entries from first list that are not present in second.
- If skiprep = 1, repeated elements are treated as one.
- If either of arguments is not a list, returns null
+ * Returns list containing all the entries from first list that are not present in second.
+ * If skiprep = 1, repeated elements are treated as one.
+ * If either of arguments is not a list, returns null
 */
 /proc/difflist(list/first, list/second, skiprep=0)
 	if(!islist(first) || !islist(second))
@@ -296,9 +296,9 @@
 	return result
 
 /**
- Returns list containing entries that are in either list but not both.
- If skipref = 1, repeated elements are treated as one.
- If either of arguments is not a list, returns null
+ * Returns list containing entries that are in either list but not both.
+ * If skipref = 1, repeated elements are treated as one.
+ * If either of arguments is not a list, returns null
  */
 /proc/unique_merge_list(list/first, list/second, skiprep=0)
 	if(!islist(first) || !islist(second))
@@ -672,9 +672,9 @@
 		copied_list[key_or_value] = new_value
 
 /**
- takes an input_key, as text, and the list of keys already used, outputting a replacement key in the format of "[input_key] ([number_of_duplicates])" if it finds a duplicate
-
- use this for lists of things that might have the same name, like mobs or objects, that you plan on giving to a player as input
+ * takes an input_key, as text, and the list of keys already used, outputting a replacement key in the format of "[input_key] ([number_of_duplicates])" if it finds a duplicate
+ *
+ * use this for lists of things that might have the same name, like mobs or objects, that you plan on giving to a player as input
 */
 /proc/avoid_assoc_duplicate_keys(input_key, list/used_key_list)
 	if(!input_key || !istype(used_key_list))
@@ -700,9 +700,9 @@
 		.[thing] = TRUE
 
 /*!
- #### Definining a counter as a series of key -> numeric value entries
+#### Definining a counter as a series of key -> numeric value entries
 
- #### All these procs modify in place.
+#### All these procs modify in place.
 */
 
 /proc/counterlist_scale(list/L, scalar)

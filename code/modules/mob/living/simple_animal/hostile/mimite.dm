@@ -69,7 +69,7 @@
 	var/eventongoing = TRUE
 	var/remaining_replications = 4
 
-/mob/living/simple_animal/hostile/mimite/Initialize()
+/mob/living/simple_animal/hostile/mimite/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	AddElement(/datum/element/point_of_interest)
@@ -336,7 +336,7 @@
 	cut_overlays()
 	add_overlay("[icon_state]_door")
 
-/mob/living/simple_animal/hostile/mimite/crate/Initialize()
+/mob/living/simple_animal/hostile/mimite/crate/Initialize(mapload)
 	..()
 	icon_state = pick("crate","weapon_crate","secgear_crate","private_crate")
 	icon_living = icon_state

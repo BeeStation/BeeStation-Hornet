@@ -211,6 +211,8 @@
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.1)
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/chanter/jupitercup)
+
 /obj/item/seeds/chanter/jupitercup/Initialize(mapload,nogenes)
 	. = ..()
 	if(!nogenes)

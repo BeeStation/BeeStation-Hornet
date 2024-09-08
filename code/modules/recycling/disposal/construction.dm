@@ -19,6 +19,8 @@
 		return
 	density = anchorvalue ? initial(pipe_type.density) : FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalconstruct)
+
 /obj/structure/disposalconstruct/Initialize(mapload, _pipe_type, _dir = SOUTH, flip = FALSE, obj/make_from)
 	. = ..()
 	if(make_from)

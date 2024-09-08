@@ -27,7 +27,7 @@
 
 	ai_controller = /datum/ai_controller/basic_controller/cockroach
 
-/mob/living/basic/cockroach/Initialize()
+/mob/living/basic/cockroach/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	AddElement(/datum/element/death_drops, list(/obj/effect/decal/cleanable/insectguts))

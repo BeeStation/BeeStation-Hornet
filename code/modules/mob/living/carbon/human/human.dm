@@ -1157,6 +1157,8 @@
 	var/race = null
 	var/use_random_name = TRUE
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
+
 /mob/living/carbon/human/species/Initialize(mapload, specific_race)
 	. = ..()
 	set_species(race || specific_race)

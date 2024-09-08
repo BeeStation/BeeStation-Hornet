@@ -8,6 +8,8 @@
 	var/timer = 480 //eventually the person will be freed
 	var/mob/living/petrified_mob
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/statue/petrified)
+
 /obj/structure/statue/petrified/Initialize(mapload, mob/living/L, statue_timer)
 	. = ..()
 	if(statue_timer)

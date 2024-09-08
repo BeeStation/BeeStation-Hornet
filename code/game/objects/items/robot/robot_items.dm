@@ -841,7 +841,7 @@
 /**********************************************************************
 						Borg apparatus
 ***********************************************************************/
-//These are tools that can hold only specific items. For example, the mediborg gets one that can only hold beakers and bottles.
+//These are tools that can hold only specific items. For example, the mediborg and service borg get one that can only hold reagent containers
 
 /obj/item/borg/apparatus/
 	name = "unknown storage apparatus"
@@ -923,33 +923,28 @@
 		return
 	. = ..()
 
-/////////////////
-//beaker holder//
-/////////////////
+////////////////////
+//container holder//
+////////////////////
 
-/obj/item/borg/apparatus/beaker
-	name = "beaker storage apparatus"
-	desc = "A special apparatus for carrying beakers without spilling the contents."
+/obj/item/borg/apparatus/container
+	name = "container storage apparatus"
+	desc = "A special apparatus for carrying containers without spilling the contents. It can also synthesize new beakers!"
 	icon_state = "borg_beaker_apparatus"
-	storable = list(/obj/item/reagent_containers/glass/beaker,
-				/obj/item/reagent_containers/glass/bottle)
+	storable = list(/obj/item/reagent_containers/glass)
+	var/defaultcontainer = /obj/item/reagent_containers/glass/beaker
 
-/obj/item/borg/apparatus/beaker/Initialize(mapload)
-	. = ..()
-	stored = new /obj/item/reagent_containers/glass/beaker/large(src)
-	RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, TYPE_PROC_REF(/atom, update_icon))
-	update_icon()
-
-/obj/item/borg/apparatus/beaker/Destroy()
+/obj/item/borg/apparatus/container/Destroy()
 	if(stored)
 		var/obj/item/reagent_containers/C = stored
 		C.SplashReagents(get_turf(src))
 		QDEL_NULL(stored)
 	. = ..()
 
-/obj/item/borg/apparatus/beaker/examine()
+/obj/item/borg/apparatus/container/examine()
 	. = ..()
-	if(stored)
+	//apparatus/container/service means this will not always be true.
+	if(istype(stored, /obj/item/reagent_containers/glass))
 		var/obj/item/reagent_containers/C = stored
 		. += "The apparatus currently has [C] secured, which contains:"
 		if(length(C.reagents.reagent_list))
@@ -959,7 +954,7 @@
 			. += "Nothing."
 		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
 
-/obj/item/borg/apparatus/beaker/update_overlays()
+/obj/item/borg/apparatus/container/update_overlays()
 	. = ..()
 	var/mutable_appearance/arm = mutable_appearance(icon = icon, icon_state = "borg_beaker_apparatus_arm")
 	if(stored)
@@ -976,7 +971,14 @@
 		arm.pixel_y = arm.pixel_y - 5
 	. += arm
 
-/obj/item/borg/apparatus/beaker/attack_self(mob/living/silicon/robot/user)
+/obj/item/borg/apparatus/container/attack_self(mob/living/silicon/robot/user)
+	if(!stored)
+		var/newcontainer = new defaultcontainer(src)
+		stored = newcontainer
+		to_chat(user, "<span class='notice'>You synthesize a new [newcontainer]!</span>")
+		playsound(src, 'sound/machines/click.ogg', 10, 1)
+		update_icon()
+		return
 	if(stored && !user.client?.keys_held["Alt"] && user.a_intent != "help")
 		var/obj/item/reagent_containers/C = stored
 		C.SplashReagents(get_turf(user))
@@ -984,9 +986,9 @@
 		return
 	. = ..()
 
-/obj/item/borg/apparatus/beaker/extra
-	name = "secondary beaker storage apparatus"
-	desc = "A supplementary beaker storage apparatus."
+/obj/item/borg/apparatus/container/extra
+	name = "container storage apparatus"
+	desc = "A supplementary container storage apparatus."
 
 ////////////////////
 //engi part holder//
@@ -1033,10 +1035,11 @@
 //versatile service holder//
 ////////////////////
 
-/obj/item/borg/apparatus/beaker/service
+/obj/item/borg/apparatus/container/service
 	name = "versatile service grasper"
-	desc = "Specially designed for carrying glasses, food and seeds."
+	desc = "Specially designed for carrying glasses, food and seeds. It can also synthesize glasses for drinks!"
 	storable = list(/obj/item/reagent_containers/food,
+	/obj/item/reagent_containers/glass,
 	/obj/item/seeds,
 	/obj/item/storage/fancy/donut_box,
 	/obj/item/storage/fancy/egg_box,
@@ -1046,9 +1049,14 @@
 	/obj/item/reagent_containers/glass/bottle,
 	/obj/item/reagent_containers/glass/bucket
 	)
+	defaultcontainer = /obj/item/reagent_containers/food/drinks/drinkingglass
 
-/obj/item/borg/apparatus/beaker/service/examine()
+
+/obj/item/borg/apparatus/container/service/examine()
 	. = ..()
-	if(stored)
+	//Parent type handles this type. All other objects held are handled here.
+	if(!istype(stored, /obj/item/reagent_containers/glass))
 		. += "You are currently holding [stored]."
 		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
+
+#undef PKBORG_DAMPEN_CYCLE_DELAY

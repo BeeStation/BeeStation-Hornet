@@ -63,9 +63,6 @@
 	if(require_twohands)
 		ADD_TRAIT(parent, TRAIT_NEEDS_TWO_HANDS, ABSTRACT_ITEM_TRAIT)
 
-// Inherit the new values passed to the component
-#define ISWIELDED(O) (SEND_SIGNAL(O, COMSIG_ITEM_CHECK_WIELDED) & COMPONENT_IS_WIELDED)
-
 /datum/component/two_handed/InheritComponent(datum/component/two_handed/new_comp, original, require_twohands, wieldsound, unwieldsound, \
 		force_multiplier, force_wielded, force_unwielded, block_power_wielded, block_power_unwielded, icon_wielded, \
 		unwield_on_swap, auto_wield, ignore_attack_self)

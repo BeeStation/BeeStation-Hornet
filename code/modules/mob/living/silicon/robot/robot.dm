@@ -297,8 +297,12 @@
 	if(custom_name)
 		changed_name = custom_name
 	if(changed_name == "" && C && C.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
-		if(apply_pref_name(/datum/preference/name/cyborg, C))
-			return //built in camera handled in proc
+		if(check_cyborg_name(C, mmi))
+			if(apply_pref_name(/datum/preference/name/cyborg, C))
+				return //built in camera handled in proc
+		else
+			//Failed the vibe check on name theft, time to randomize it
+			changed_name = get_standard_name()
 	if(!changed_name)
 		changed_name = get_standard_name()
 
@@ -670,7 +674,7 @@
 		src.connected_ai = null
 	lawupdate = FALSE
 	set_lockcharge(FALSE)
-	scrambledcodes = TRUE_DEVIL
+	scrambledcodes = TRUE
 	//Disconnect it's camera so it's not so easily tracked.
 	if(!QDELETED(builtInCamera))
 		QDEL_NULL(builtInCamera)

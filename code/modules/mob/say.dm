@@ -120,7 +120,7 @@
 		return message
 	if(is_banned_from(ckey, "Emote"))
 		return copytext(message, customsaypos + 1)
-	mods[MODE_CUSTOM_SAY_EMOTE] = trim_right(lowertext(copytext_char(message, 1, customsaypos)))
+	mods[MODE_CUSTOM_SAY_EMOTE] = trim_right(LOWER_TEXT(copytext_char(message, 1, customsaypos)))
 	message = trim_left(copytext(message, customsaypos + 1))
 	if(!message)
 		mods[MODE_CUSTOM_SAY_ERASE_INPUT] = TRUE
@@ -152,7 +152,7 @@
 		else if(key == ";" && !mods[MODE_HEADSET] && stat == CONSCIOUS)
 			mods[MODE_HEADSET] = TRUE
 		else if((key in GLOB.department_radio_prefixes) && length(message) > length(key) + 1 && !mods[RADIO_EXTENSION])
-			key = lowertext(message[1 + length(key)])
+			key = LOWER_TEXT(message[1 + length(key)])
 			var/valid_extension = GLOB.department_radio_keys[key]
 			var/valid_say_mode = SSradio.saymodes[key]
 			if(valid_extension || valid_say_mode)
@@ -181,3 +181,5 @@
 		if(!message)
 			return
 	return message
+
+#undef MESSAGE_MODS_LENGTH

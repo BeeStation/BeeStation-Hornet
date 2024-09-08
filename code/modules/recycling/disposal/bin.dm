@@ -26,6 +26,8 @@
 	// create a new disposal
 	// find the attached trunk (if present) and init gas resvr.
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
+
 /obj/machinery/disposal/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()
 
@@ -431,6 +433,8 @@
 		return
 	..()
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal/deliveryChute)
+
 /obj/machinery/disposal/deliveryChute/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()
 	trunk = locate() in loc
@@ -490,3 +494,5 @@
 
 /obj/machinery/disposal/deliveryChute/newHolderDestination(obj/structure/disposalholder/H)
 	H.destinationTag = 1
+
+#undef SEND_PRESSURE

@@ -183,7 +183,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	else
 		if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 			to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/computer/cloning/AltClick(mob/user)
 	. = ..()
@@ -624,7 +624,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		R.fields["body_only"] = 0
 
 	if(!body_only || experimental && mob_occupant.stat != DEAD)
-	    //Add an implant if needed
+		//Add an implant if needed
 		var/obj/item/implant/health/imp
 		for(var/obj/item/implant/health/HI in mob_occupant.implants)
 			imp = HI
@@ -658,3 +658,5 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	circuit = /obj/item/circuitboard/computer/cloning/prototype
 	clonepod_type = /obj/machinery/clonepod/experimental
 	experimental = TRUE
+
+#undef AUTOCLONING_MINIMAL_LEVEL
