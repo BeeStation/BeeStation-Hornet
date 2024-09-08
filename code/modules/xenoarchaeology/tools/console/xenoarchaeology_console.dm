@@ -38,7 +38,7 @@
 	///Is this console the main character?
 	var/is_main_console = FALSE
 
-/obj/machinery/computer/xenoarchaeology_console/Initialize()
+/obj/machinery/computer/xenoarchaeology_console/Initialize(mapload)
 	. = ..()
 	//Link up with SS to see if we're the choosen one
 	if(!SSxenoarchaeology.main_console)

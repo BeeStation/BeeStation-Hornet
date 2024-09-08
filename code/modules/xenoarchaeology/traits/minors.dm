@@ -1105,7 +1105,7 @@
 	var/atom/movable/AM = parent?.parent
 	if(!AM)
 		return ..()
-	REMOVE_TRAIT(AM, TRAIT_NODROP, src)
+	REMOVE_TRAIT(AM, TRAIT_NODROP, "[REF(src)]")
 	deltimer(sticky_timer)
 	return ..()
 
