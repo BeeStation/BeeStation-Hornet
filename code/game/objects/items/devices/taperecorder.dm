@@ -408,7 +408,7 @@
 	unspool()
 	..()
 
-/obj/item/tape/Initialize()
+/obj/item/tape/Initialize(mapload)
 	. = ..()
 	initial_icon_state = icon_state //random tapes will set this after choosing their icon
 	var/mycolor = random_short_color()
