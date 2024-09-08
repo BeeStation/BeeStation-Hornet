@@ -114,6 +114,8 @@
 	to_chat(src, "<span class='notice'>Your job is to answer [owner]'s question(s) and you are given this form to assist in that.</span>")
 	to_chat(src, "<span class='notice'>Don't be stupid with this or you will face the consequences.</span>")
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
+
 /mob/camera/imaginary_friend/mrat/Initialize(mapload, _trauma)
 	. = ..()
 	costume = new

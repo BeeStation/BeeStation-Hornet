@@ -40,8 +40,6 @@
 #define LASER "laser"
 /// Involves a melee attack or a thrown object.
 #define MELEE "melee"
-/// Involves magic.
-#define MAGIC "magic"
 /// Bleed prevention
 #define BLEED "bleed"
 

@@ -11,7 +11,8 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	mouse_opacity = MOUSE_OPACITY_ICON
 	move_to_delay = 5
-	friendly = "floats near"
+	friendly_verb_continuous = "floats near"
+	friendly_verb_simple = "float near"
 	speak_emote = list("puffs")
 	vision_range = 5
 	speed = 0
@@ -21,7 +22,8 @@
 	base_pixel_x = -16
 	obj_damage = 0
 	melee_damage = 0
-	attacktext = "chomps"
+	attack_verb_continuous = "chomps"
+	attack_verb_simple = "chomp"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "is avoided by the"
 	vision_range = 5
@@ -123,7 +125,7 @@
 	var/list/datum/disease/fugu_diseases = list()
 	var/list/banned_mobs = list(/mob/living/simple_animal/hostile/holoparasite)
 
-/obj/item/fugu_gland/Initialize()
+/obj/item/fugu_gland/Initialize(mapload)
 	. = ..()
 	fugu_diseases += new /datum/disease/advance/random(rand(1, 6), 4 + (rand(1, 5)), guaranteed_symptoms = list(/datum/symptom/growth))
 

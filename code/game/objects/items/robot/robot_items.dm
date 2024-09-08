@@ -1052,3 +1052,5 @@
 	if(stored)
 		. += "You are currently holding [stored]."
 		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
+
+#undef PKBORG_DAMPEN_CYCLE_DELAY

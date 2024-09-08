@@ -1166,7 +1166,7 @@
 				"label" = "Slot [buffer_index]:[scanner_occupant.real_name]",
 				"UI" = scanner_occupant.dna.uni_identity,
 				"UE" = scanner_occupant.dna.unique_enzymes,
-				"blood_type" = scanner_occupant.dna.blood_type.name
+				"blood_type" = scanner_occupant.dna.blood_type
 			)
 
 			return
@@ -1732,7 +1732,7 @@
 	tgui_console_chromosomes.Cut()
 	tgui_advinjector_mutations.Cut()
 
-  // ------------------------------------------------------------------------ //
+	// ------------------------------------------------------------------------ //
 	// GUARD CHECK - Can we genetically modify the occupant? This check will have
 	//  previously included checks to make sure the DNA Scanner is still
 	//  operational

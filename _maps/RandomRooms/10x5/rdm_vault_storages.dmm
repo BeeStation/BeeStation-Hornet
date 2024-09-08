@@ -11,7 +11,7 @@
 "e" = (
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/vault{
-	name = "abandoned vault door";
+	name = "Abandoned Vault";
 	desc = "It opens and closes. What's behind this forgotten door?"
 	},
 /turf/open/floor/plating,
@@ -55,7 +55,7 @@
 /area/template_noop)
 "x" = (
 /obj/machinery/door/airlock/vault{
-	name = "abandoned vault door";
+	name = "Abandoned Vault";
 	desc = "It opens and closes. What's behind this forgotten door?"
 	},
 /obj/effect/mapping_helpers/airlock/locked,

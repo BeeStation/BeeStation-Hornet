@@ -29,6 +29,8 @@
 	/// Allows us to replace the plating we are attacking if our baseturfs are the same.
 	var/replace_plating = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile)
+
 /obj/item/stack/tile/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
 	pixel_x = rand(-3, 3)

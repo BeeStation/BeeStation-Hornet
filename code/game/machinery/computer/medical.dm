@@ -498,9 +498,9 @@
 					return
 				src.active1 = null
 				src.active2 = null
-				t1 = lowertext(t1)
+				t1 = LOWER_TEXT(t1)
 				for(var/datum/data/record/R in GLOB.data_core.medical)
-					if((lowertext(R.fields["name"]) == t1 || t1 == lowertext(R.fields["id"]) || t1 == lowertext(R.fields["b_dna"])))
+					if((LOWER_TEXT(R.fields["name"]) == t1 || t1 == LOWER_TEXT(R.fields["id"]) || t1 == LOWER_TEXT(R.fields["b_dna"])))
 						src.active2 = R
 					else
 						//Foreach continue //goto(3229)
@@ -579,8 +579,7 @@
 					if(3)
 						R.fields["age"] = rand(AGE_MIN, AGE_MAX)
 					if(4)
-						var/datum/blood_type/blood = random_blood_type()
-						R.fields["blood_type"] = blood.name
+						R.fields["blood_type"] = random_blood_type()
 					if(5)
 						R.fields["p_stat"] = pick("*Unconscious*", "Active", "Physically Unfit")
 					if(6)

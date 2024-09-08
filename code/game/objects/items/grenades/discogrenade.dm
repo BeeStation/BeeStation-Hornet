@@ -47,6 +47,8 @@
 	var/range = 5
 	var/power = 3
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grenade/discogrenade/subgrenade)
+
 /obj/item/grenade/discogrenade/subgrenade/Initialize(mapload, duplicate = FALSE)
 	. = ..()
 	active = TRUE

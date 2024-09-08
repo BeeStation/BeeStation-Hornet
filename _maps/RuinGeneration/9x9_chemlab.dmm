@@ -119,7 +119,7 @@
 /area/ruin)
 "aT" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
-/turf/closed/wall,
+/turf/open/floor/iron/white,
 /area/ruin)
 "aV" = (
 /obj/effect/abstract/doorway_marker{
@@ -269,9 +269,7 @@
 /turf/open/floor/iron/white,
 /area/ruin)
 "Px" = (
-/obj/machinery/chem_dispenser{
-	layer = 2.7
-	},
+/obj/machinery/chem_dispenser,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},

@@ -14,7 +14,7 @@
 	sight = SEE_SELF
 	throwforce = 0
 
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	unsuitable_atmos_damage = 0
 	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -24,7 +24,8 @@
 	status_flags = 0
 	wander = FALSE
 	density = FALSE
-	movement_type = FLYING
+	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	move_resist = MOVE_FORCE_OVERPOWERING
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -139,6 +140,12 @@
 	var/list/tab_data = ..()
 	tab_data["Cogs Available"] = GENERATE_STAT_TEXT("[cogs] Cogs")
 	return tab_data
+
+/mob/living/simple_animal/eminence/med_hud_set_health()
+	return
+
+/mob/living/simple_animal/eminence/med_hud_set_status()
+	return
 
 /mob/living/simple_animal/eminence/update_health_hud()
 	return
@@ -332,4 +339,8 @@
 	canhear_range = 0
 	radio_silent = TRUE
 	prison_radio = TRUE
-	broadcasting = TRUE
+
+
+/obj/item/radio/borg/eminence/Initialize(mapload)
+	. = ..()
+	set_broadcasting(TRUE)

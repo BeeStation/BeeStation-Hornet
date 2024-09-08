@@ -52,10 +52,8 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/update_hair()
 	dna.species.handle_hair(src)
 
-//used when putting/removing clothes that hide certain mutant body parts to just update those and not update the whole body.
 /mob/living/carbon/human/proc/update_mutant_bodyparts()
 	dna.species.handle_mutant_bodyparts(src)
-
 
 /mob/living/carbon/human/update_body()
 	remove_overlay(BODY_LAYER)
@@ -214,18 +212,15 @@ There are several things that need to be remembered:
 
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_GLOVES) + 1])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_GLOVES) + 1]
-		inv.update_appearance()
+		inv.update_icon()
 
-	if(!gloves && blood_in_hands && (num_hands > 0))
+	if(!gloves && blood_in_hands)
 		var/mutable_appearance/bloody_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands", -GLOVES_LAYER)
 		if(num_hands < 2)
 			if(has_left_hand(FALSE))
 				bloody_overlay.icon_state = "bloodyhands_left"
 			else if(has_right_hand(FALSE))
 				bloody_overlay.icon_state = "bloodyhands_right"
-		var/list/blood_dna = return_blood_DNA()
-		if(length(blood_dna))
-			bloody_overlay.color = get_blood_dna_color(return_blood_DNA())
 
 		overlays_standing[GLOVES_LAYER] = bloody_overlay
 
@@ -681,10 +676,10 @@ There are several things that need to be remembered:
 /*
 Does everything in relation to building the /mutable_appearance used in the mob's overlays list
 covers:
- inhands and any other form of worn item
- centering large appearances
- layering appearances on custom layers
- building appearances from custom icon files
+	inhands and any other form of worn item
+	centering large appearances
+	layering appearances on custom layers
+	building appearances from custom icon files
 
 By Remie Richards (yes I'm taking credit because this just removed 90% of the copypaste in update_icons())
 

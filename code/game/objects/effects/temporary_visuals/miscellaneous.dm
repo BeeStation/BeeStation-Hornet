@@ -4,17 +4,16 @@
 	duration = 5
 	randomdir = FALSE
 	layer = BELOW_MOB_LAYER
-	color = COLOR_BLOOD
 	var/splatter_type = "splatter"
 
-/obj/effect/temp_visual/dir_setting/bloodsplatter/Initialize(mapload, set_dir, set_color)
-	if(ISDIAGONALDIR(set_dir))
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting/bloodsplatter)
+
+/obj/effect/temp_visual/dir_setting/bloodsplatter/Initialize(mapload, set_dir)
+	if(set_dir in GLOB.diagonals)
 		icon_state = "[splatter_type][pick(1, 2, 6)]"
 	else
 		icon_state = "[splatter_type][pick(3, 4, 5)]"
 	. = ..()
-	if(set_color)
-		color = set_color
 	var/target_pixel_x = 0
 	var/target_pixel_y = 0
 	switch(set_dir)
@@ -45,7 +44,6 @@
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter
 	splatter_type = "xsplatter"
-	color = null
 
 /obj/effect/temp_visual/dir_setting/speedbike_trail
 	name = "speedbike trails"
@@ -133,10 +131,14 @@
 /obj/effect/temp_visual/dir_setting/curse/long // Necro Sect Usage
 	duration = 330
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting/curse)
+
 /obj/effect/temp_visual/dir_setting/curse/Initialize(mapload, set_dir)
 	. = ..()
 	if(fades)
 		animate(src, alpha = 0, time = 32)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting/curse/long)
 
 /obj/effect/temp_visual/dir_setting/curse/long/Initialize(mapload, set_dir)
 	. = ..()
@@ -169,6 +171,8 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	pixel_y = -16
 	duration = 50
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/bsa_splash)
 
 /obj/effect/temp_visual/bsa_splash/Initialize(mapload, dir)
 	. = ..()
@@ -215,6 +219,8 @@
 	desc = "It's a decoy!"
 	duration = 15
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/decoy)
+
 /obj/effect/temp_visual/decoy/Initialize(mapload, atom/mimiced_atom)
 	. = ..()
 	alpha = initial(alpha)
@@ -223,6 +229,8 @@
 		appearance = mimiced_atom.appearance
 		setDir(mimiced_atom.dir)
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/decoy/fading)
 
 /obj/effect/temp_visual/decoy/fading/Initialize(mapload, atom/mimiced_atom)
 	. = ..()
@@ -304,6 +312,8 @@
 	icon = 'icons/mob/mob.dmi'
 	duration = 15
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/gib_animation)
+
 /obj/effect/temp_visual/gib_animation/Initialize(mapload, gib_icon)
 	icon_state = gib_icon // Needs to be before ..() so icon is correct
 	. = ..()
@@ -314,6 +324,8 @@
 /obj/effect/temp_visual/dust_animation
 	icon = 'icons/mob/mob.dmi'
 	duration = 15
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dust_animation)
 
 /obj/effect/temp_visual/dust_animation/Initialize(mapload, dust_icon)
 	icon_state = dust_icon // Before ..() so the correct icon is flick()'d
@@ -328,6 +340,8 @@
 	name = "healing glow"
 	icon_state = "heal"
 	duration = 15
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/heal)
 
 /obj/effect/temp_visual/heal/Initialize(mapload, set_color)
 	if(set_color)
@@ -370,6 +384,8 @@
 /obj/effect/temp_visual/impact_effect
 	icon_state = "impact_bullet"
 	duration = 5
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/impact_effect)
 
 /obj/effect/temp_visual/impact_effect/Initialize(mapload, x, y)
 	pixel_x = x
@@ -427,6 +443,8 @@
 /obj/effect/temp_visual/love_heart/invisible
 	icon_state = null
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/love_heart/invisible)
+
 /obj/effect/temp_visual/love_heart/invisible/Initialize(mapload, mob/seer)
 	. = ..()
 	var/image/I = image(icon = 'icons/effects/effects.dmi', icon_state = "heart", layer = ABOVE_MOB_LAYER, loc = src)
@@ -441,6 +459,8 @@
 	icon_state = "bleed0"
 	duration = 10
 	var/shrink = TRUE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/bleed)
 
 /obj/effect/temp_visual/bleed/Initialize(mapload, atom/size_calc_target)
 	. = ..()
@@ -465,6 +485,8 @@
 /obj/effect/temp_visual/warp_cube
 	duration = 5
 	var/outgoing = TRUE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/warp_cube)
 
 /obj/effect/temp_visual/warp_cube/Initialize(mapload, atom/teleporting_atom, warp_color, new_outgoing)
 	. = ..()
@@ -495,8 +517,11 @@
 	icon_state = ""
 	layer = ABOVE_ALL_MOB_LAYER
 	anchored = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/status = 0
 	var/delay = 0
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/constructing_effect)
 
 /obj/effect/constructing_effect/Initialize(mapload, rcd_delay, rcd_status)
 	. = ..()
@@ -540,6 +565,8 @@
 	icon_state = "smoke"
 	duration = 15
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/steam)
+
 /obj/effect/temp_visual/steam/Initialize(mapload, steam_direction)
 	. = ..()
 	setDir(steam_direction)
@@ -582,6 +609,8 @@
 /obj/effect/temp_visual/launchpad
 	icon_state = "shield"
 	alpha = 0
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/launchpad)
 
 /obj/effect/temp_visual/launchpad/Initialize(mapload, time)
 	duration = time

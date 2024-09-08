@@ -55,10 +55,9 @@ Striking a noncultist, however, will tear their flesh."}
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "rended")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "rend")
 	force = 23
-	/// Force dealt to people that have holy protection, including from holding bibles
-	var/holy_force = 16
 
 /obj/item/melee/cultblade/Initialize(mapload)
 	. = ..()
@@ -67,7 +66,7 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
 		user.visible_message("<span class='warning'>[user] cringes as they strike [target]!</span>", \
-							 "<span class='userdanger'>Your arm throbs and your brain hurts!</span>")
+							"<span class='userdanger'>Your arm throbs and your brain hurts!</span>")
 		user.adjustStaminaLoss(rand(force/2,force))
 		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(force/10,force/2))
 	if (target.anti_magic_check(magic = FALSE, holy = TRUE))
@@ -476,7 +475,8 @@ Striking a noncultist, however, will tear their flesh."}
 	throw_speed = 2
 	armour_penetration = 30
 	block_upgrade_walk = 1
-	attack_verb = list("attacked", "impaled", "stabbed", "tore", "gored")
+	attack_verb_continuous = list("attacks", "impales", "stabs", "tears", "lacerates", "gores")
+	attack_verb_simple = list("attack", "impale", "stab", "tear", "lacerate", "gore")
 	sharpness = IS_SHARP
 	bleed_force = BLEED_CUT
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -739,7 +739,8 @@ Striking a noncultist, however, will tear their flesh."}
 	max_integrity = 50
 	w_class = WEIGHT_CLASS_BULKY
 	block_flags = BLOCKING_PROJECTILE
-	attack_verb = list("bumped", "prodded")
+	attack_verb_continuous = list("bumps", "prods")
+	attack_verb_simple = list("bump", "prod")
 	hitsound = 'sound/weapons/smash.ogg'
 	var/illusions = 4
 
