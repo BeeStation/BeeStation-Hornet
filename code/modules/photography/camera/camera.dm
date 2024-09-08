@@ -260,3 +260,5 @@
 		p.set_picture(picture, TRUE, TRUE)
 		if(CONFIG_GET(flag/picture_logging_camera))
 			picture.log_to_file()
+
+#undef CAMERA_PICTURE_SIZE_HARD_LIMIT

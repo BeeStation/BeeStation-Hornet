@@ -59,7 +59,7 @@
 	foodtypes = GROSS
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/food/badrecipe/Initialize()
+/obj/item/food/badrecipe/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ITEM_GRILLED,  PROC_REF(OnGrill))
 
