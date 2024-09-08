@@ -19,7 +19,7 @@
 /obj/structure/crate_shelf/tall
 	capacity = 12
 
-/obj/structure/crate_shelf/Initialize()
+/obj/structure/crate_shelf/Initialize(mapload)
 	. = ..()
 	shelf_contents = new/list(capacity) // Initialize our shelf's contents list, this will be used later.
 	var/stack_layer // This is used to generate the sprite layering of the shelf pieces.
