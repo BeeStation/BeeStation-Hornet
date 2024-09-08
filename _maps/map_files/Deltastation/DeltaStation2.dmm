@@ -34262,15 +34262,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
-"fah" = (
-/obj/machinery/camera{
-	c_tag = "Science - Experimentor";
-	dir = 1;
-	name = "science camera";
-	network = list("ss13","rd")
-	},
-/turf/open/floor/engine,
-/area/science/explab)
 "fak" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -85759,11 +85750,6 @@
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
 "voU" = (
-/obj/machinery/camera{
-	c_tag = "Science - Experimentation Lab";
-	name = "science camera";
-	network = list("ss13","rd")
-	},
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/stripes/line,
@@ -124131,7 +124117,7 @@ sRy
 djA
 nzk
 duw
-fah
+duw
 djA
 lgV
 jXa

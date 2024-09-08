@@ -58730,6 +58730,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/camera/autoname/directional/south,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "nEO" = (
@@ -68158,9 +68159,6 @@
 /obj/item/book/manual/wiki/xenoarchaeology{
 	pixel_x = -5;
 	pixel_y = 6
-	},
-/obj/machinery/camera/autoname{
-	dir = 10
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/explab)

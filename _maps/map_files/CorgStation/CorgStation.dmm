@@ -2052,11 +2052,11 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
 "azc" = (
+/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "testlab";
-	name = "test Chamber Blast Door"
+	name = "Test Chamber Blast Door"
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/explab)
 "azd" = (
@@ -64880,10 +64880,6 @@
 /obj/machinery/door/poddoor/preopen{
 	id = "testlab";
 	name = "Test Chamber Blast Door"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "testlab";
-	name = "test Chamber Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
