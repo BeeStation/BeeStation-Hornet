@@ -3891,7 +3891,7 @@
 /obj/item/toy/plush/flushed,
 /obj/machinery/button/door{
 	id = "EmergancyescapeShutter";
-	name = "Emergancy escape Shutters";
+	name = "Emergancy Escape Shutters";
 	pixel_y = 26
 	},
 /turf/open/floor/plating,
@@ -28680,7 +28680,7 @@
 /area/crew_quarters/heads/captain/private)
 "oqB" = (
 /obj/machinery/smartfridge/organ,
-/turf/closed/wall,
+/turf/open/space/basic,
 /area/science/robotics)
 "oqF" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -43615,7 +43615,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/button/door{
 	id = "EmergancyescapeShutter";
-	name = "Emergancy escape Shutters";
+	name = "Emergancy Escape Shutters";
 	pixel_y = 26;
 	pixel_x = 27
 	},
