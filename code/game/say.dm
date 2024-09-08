@@ -1,5 +1,5 @@
 /*
- 	Miauw's big Say() rewrite.
+	Miauw's big Say() rewrite.
 	This file has the basic atom/movable level speech procs.
 	And the base of the send_speech() proc, which is the core of saycode.
 */
@@ -223,6 +223,8 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	var/obj/item/radio/radio
 
 INITIALIZE_IMMEDIATE(/atom/movable/virtualspeaker)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/virtualspeaker)
+
 /atom/movable/virtualspeaker/Initialize(mapload, atom/movable/M, _radio)
 	. = ..()
 	radio = _radio

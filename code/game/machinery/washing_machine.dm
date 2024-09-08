@@ -197,7 +197,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	var/max_wash_capacity = 5
 	var/datum/looping_sound/washing_machine/soundloop
 
-/obj/machinery/washing_machine/Initialize()
+/obj/machinery/washing_machine/Initialize(mapload)
 	. = ..()
 	soundloop = new(src,  FALSE)
 
@@ -320,9 +320,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	if(WM.color_source)
 		dye_item(WM.color_source.dye_color)
-	else
-		appearance_change(src)
-		src.desc = initial(src)
+		return
+	appearance_change(src)
+	desc = initial(desc)
 
 /obj/item/gun/energy/laser/practice/dye_item(dye_color, dye_key)
 	. = ..()

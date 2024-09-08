@@ -71,6 +71,8 @@
 	///optional proc to callback to when the udder generates milk
 	var/datum/callback/on_generate_callback
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/udder)
+
 /obj/item/udder/Initialize(mapload, udder_mob, on_generate_callback, reagent_produced_typepath = /datum/reagent/consumable/milk)
 	src.udder_mob = udder_mob
 	src.on_generate_callback = on_generate_callback

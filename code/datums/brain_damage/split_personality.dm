@@ -127,6 +127,8 @@
 	var/mob/living/carbon/body
 	var/datum/brain_trauma/severe/split_personality/trauma
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
+
 /mob/living/split_personality/Initialize(mapload, _trauma)
 	if(iscarbon(loc))
 		body = loc

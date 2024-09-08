@@ -78,7 +78,7 @@
 		return TRUE
 	if(!loc)
 		return FALSE
-	if(machine_stat & EMPED)
+	if(machine_stat & (EMPED|OVERHEATED))
 		return FALSE
 	var/area/A = get_area(src)		// make sure it's in an area
 	if(!A)
@@ -89,6 +89,7 @@
 /obj/machinery/proc/use_power(amount, chan = power_channel)
 	var/area/A = get_area(src) // make sure it's in an area
 	A?.use_power(amount, chan)
+	SEND_SIGNAL(src, COMSIG_MACHINERY_POWER_USED, amount, chan)
 
 /**
   * An alternative to 'use_power', this proc directly costs the APC in direct charge, as opposed to being calculated periodically.

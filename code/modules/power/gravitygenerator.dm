@@ -405,6 +405,18 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		setting = value
 		shake_everyone()
 
+/obj/machinery/gravity_generator/main/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
+	. = ..()
+	on = FALSE
+	update_list()
+
+/obj/machinery/gravity_generator/main/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
+	. = ..()
+	if(charge_count != 0 && charging_state != POWER_UP)
+		on = TRUE
+	update_list()
+
+
 // Misc
 
 /obj/item/paper/guides/jobs/engi/gravity_gen
@@ -421,3 +433,11 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	<li>Mend the damaged framework with a welding tool.</li>
 	<li>Add additional plasteel plating.</li>
 	<li>Secure the additional plating with a wrench.</li></ol>"}
+
+#undef POWER_IDLE
+#undef POWER_UP
+#undef POWER_DOWN
+#undef GRAV_NEEDS_SCREWDRIVER
+#undef GRAV_NEEDS_WELDING
+#undef GRAV_NEEDS_PLASTEEL
+#undef GRAV_NEEDS_WRENCH

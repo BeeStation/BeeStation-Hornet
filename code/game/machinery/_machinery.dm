@@ -1,89 +1,84 @@
-/**
- * Machines in the world, such as computers, pipes, and airlocks.
- *
- *Overview:
- *  Used to create objects that need a per step proc call.  Default definition of 'Initialize()'
- *  stores a reference to src machine in global 'machines list'.  Default definition
- *  of 'Destroy' removes reference to src machine in global 'machines list'.
- *
- *Class Variables:
- *  use_power (num)
- *     current state of auto power use.
- *     Possible Values:
- *        NO_POWER_USE -- no auto power use
- *        IDLE_POWER_USE -- machine is using power at its idle power level
- *        ACTIVE_POWER_USE -- machine is using power at its active power level
- *
- *  active_power_usage (num)
- *     Value for the amount of power to use when in active power mode
- *
- *  idle_power_usage (num)
- *     Value for the amount of power to use when in idle power mode
- *
- *  power_channel (num)
- *     What channel to draw from when drawing power for power mode
- *     Possible Values:
- *        AREA_USAGE_EQUIP:1 -- Equipment Channel
- *        AREA_USAGE_LIGHT:2 -- Lighting Channel
- *        AREA_USAGE_ENVIRON:3 -- Environment Channel
- *
- *  component_parts (list)
- *     A list of component parts of machine used by frame based machines.
- *
- *  machine_stat (bitflag)
- *     Machine status bit flags.
- *     Possible bit flags:
- *        BROKEN -- Machine is broken
- *        NOPOWER -- No power is being supplied to machine.
- *        MAINT -- machine is currently under going maintenance.
- *        EMPED -- temporary broken by EMP pulse
- *
- *Class Procs:
- *  Initialize()
- *
- *  Destroy()
- *
- *	update_mode_power_usage()
- *		updates the static_power_usage var of this machine and makes its static power usage from its area accurate.
- *		called after the idle or active power usage has been changed.
- *
- *	update_power_channel()
- *		updates the static_power_usage var of this machine and makes its static power usage from its area accurate.
- *		called after the power_channel var has been changed or called to change the var itself.
- *
- *	unset_static_power()
- *		completely removes the current static power usage of this machine from its area.
- *		used in the other power updating procs to then readd the correct power usage.
- *
- *
- *     Default definition uses 'use_power', 'power_channel', 'active_power_usage',
- *     'idle_power_usage', 'powered()', and 'use_power()' implement behavior.
- *
- *  powered(chan = -1)         'modules/power/power.dm'
- *     Checks to see if area that contains the object has power available for power
- *     channel given in 'chan'. -1 defaults to power_channel
- *
- *  use_power(amount, chan=-1)   'modules/power/power.dm'
- *     Deducts 'amount' from the power channel 'chan' of the area that contains the object.
- *
- *  power_change()               'modules/power/power.dm'
- *     Called by the area that contains the object when ever that area under goes a
- *     power state change (area runs out of power, or area channel is turned off).
- *
- *  RefreshParts()               'game/machinery/machine.dm'
- *     Called to refresh the variables in the machine that are contributed to by parts
- *     contained in the component_parts list. (example: glass and material amounts for
- *     the autolathe)
- *
- *     Default definition does nothing.
- *
- *  process()                  'game/machinery/machine.dm'
- *     Called by the 'machinery subsystem' once per machinery tick for each machine that is listed in its 'machines' list.
- *
- *  process_atmos()
- *     Called by the 'air subsystem' once per atmos tick for each machine that is listed in its 'atmos_machines' list.
- * Compiled by Aygar
- */
+/*
+Overview:
+	Used to create objects that need a per step proc call.  Default definition of 'Initialize()'
+	stores a reference to src machine in global 'machines list'.  Default definition
+	of 'Destroy' removes reference to src machine in global 'machines list'.
+
+Class Variables:
+	use_power (num)
+		current state of auto power use.
+		Possible Values:
+		NO_POWER_USE -- no auto power use
+		IDLE_POWER_USE -- machine is using power at its idle power level
+		ACTIVE_POWER_USE -- machine is using power at its active power level
+
+	active_power_usage (num)
+		Value for the amount of power to use when in active power mode
+
+	idle_power_usage (num)
+		Value for the amount of power to use when in idle power mode
+
+	power_channel (num)
+		What channel to draw from when drawing power for power mode
+		Possible Values:
+			AREA_USAGE_EQUIP:0 -- Equipment Channel
+			AREA_USAGE_LIGHT:2 -- Lighting Channel
+			AREA_USAGE_ENVIRON:3 -- Environment Channel
+
+	component_parts (list)
+		A list of component parts of machine used by frame based machines.
+
+	machine_stat (bitflag)
+		Machine status bit flags.
+		Possible bit flags:
+			BROKEN -- Machine is broken
+			NOPOWER -- No power is being supplied to machine.
+			MAINT -- machine is currently under going maintenance.
+			EMPED -- temporary broken by EMP pulse
+
+Class Procs:
+	Initialize()                     'game/machinery/machine.dm'
+
+	Destroy()                   'game/machinery/machine.dm'
+
+	auto_use_power()            'game/machinery/machine.dm'
+		This proc determines how power mode power is deducted by the machine.
+		'auto_use_power()' is called by the 'master_controller' game_controller every
+		tick.
+
+		Return Value:
+			return:1 -- if object is powered
+			return:0 -- if object is not powered.
+
+		Default definition uses 'use_power', 'power_channel', 'active_power_usage',
+		'idle_power_usage', 'powered()', and 'use_power()' implement behavior.
+
+	powered(chan = -1)         'modules/power/power.dm'
+		Checks to see if area that contains the object has power available for power
+		channel given in 'chan'. -1 defaults to power_channel
+
+	use_power(amount, chan=-1)   'modules/power/power.dm'
+		Deducts 'amount' from the power channel 'chan' of the area that contains the object.
+
+	power_change()               'modules/power/power.dm'
+		Called by the area that contains the object when ever that area under goes a
+		power state change (area runs out of power, or area channel is turned off).
+
+	RefreshParts()               'game/machinery/machine.dm'
+		Called to refresh the variables in the machine that are contributed to by parts
+		contained in the component_parts list. (example: glass and material amounts for
+		the autolathe)
+
+		Default definition does nothing.
+
+	process()                  'game/machinery/machine.dm'
+		Called by the 'machinery subsystem' once per machinery tick for each machine that is listed in its 'machines' list.
+
+	process_atmos()
+		Called by the 'air subsystem' once per atmos tick for each machine that is listed in its 'atmos_machines' list.
+
+	Compiled by Aygar
+*/
 
 /obj/machinery
 	name = "machinery"
@@ -520,7 +515,7 @@
 /obj/machinery/can_interact(mob/user)
 	var/silicon = issilicon(user)
 	var/admin_ghost = IsAdminGhost(user)
-	var/living = isliving(user)
+	var/living = ishuman(user) // /mob/living/carbon/HUMANS, not /mob/living.
 
 	if((machine_stat & (NOPOWER|BROKEN)) && !(interaction_flags_machine & INTERACT_MACHINE_OFFLINE)) // Check if the machine is broken, and if we can still interact with it if so
 		return FALSE
@@ -748,10 +743,12 @@
 		if(!panel_open)
 			panel_open = TRUE
 			icon_state = icon_state_open
+			set_machine_stat(machine_stat & MAINT)
 			to_chat(user, "<span class='notice'>You open the maintenance hatch of [src].</span>")
 		else
 			panel_open = FALSE
 			icon_state = icon_state_closed
+			set_machine_stat(machine_stat & ~MAINT)
 			to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
 		return TRUE
 	return FALSE

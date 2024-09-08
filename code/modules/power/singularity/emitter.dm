@@ -59,7 +59,7 @@
 	var/last_projectile_params
 
 
-/obj/machinery/power/emitter/welded/Initialize()
+/obj/machinery/power/emitter/welded/Initialize(mapload)
 	welded = TRUE
 	. = ..()
 

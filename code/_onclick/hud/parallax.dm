@@ -264,6 +264,8 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer)
+
 /atom/movable/screen/parallax_layer/Initialize(mapload, view)
 	. = ..()
 	if (!view)
@@ -314,6 +316,8 @@
 
 /atom/movable/screen/parallax_layer/random/space_gas
 	icon_state = "random_layer1"
+
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer/random/space_gas)
 
 /atom/movable/screen/parallax_layer/random/space_gas/Initialize(mapload, view)
 	. = ..()

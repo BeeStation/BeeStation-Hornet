@@ -15,8 +15,7 @@
 "d" = (
 /obj/structure/table,
 /obj/item/stack/rods{
-	amount = 5;
-	layer = 3.3
+	amount = 5
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/assembly/prox_sensor{
