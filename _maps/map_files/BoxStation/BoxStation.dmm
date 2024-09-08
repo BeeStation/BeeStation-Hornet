@@ -253,7 +253,7 @@
 "adg" = (
 /obj/item/grown/bananapeel,
 /obj/structure/flora/ausbushes/fullgrass,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/grass/no_border,
 /area/medical/genetics)
 "adm" = (
@@ -9142,7 +9142,7 @@
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "bSU" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/flasher{
 	id = "monkeypen";
 	pixel_y = 23
@@ -10484,7 +10484,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "bZT" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "bZU" = (
@@ -19572,7 +19572,7 @@
 "evS" = (
 /obj/item/food/grown/banana,
 /obj/structure/flora/ausbushes/fullgrass,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/grass/no_border,
 /area/medical/genetics)
 "evY" = (
@@ -32732,7 +32732,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/mob/living/carbon/monkey/punpun,
+/mob/living/carbon/human/species/monkey/punpun,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "jDW" = (
@@ -37341,7 +37341,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "lqk" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
@@ -50729,7 +50729,7 @@
 /area/security/brig)
 "rcL" = (
 /obj/structure/flora/grass/jungle,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/plating/dirt/jungle,
 /area/medical/genetics)
 "rcN" = (
