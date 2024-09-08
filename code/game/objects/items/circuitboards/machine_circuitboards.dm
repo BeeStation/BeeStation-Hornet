@@ -480,6 +480,8 @@
 		/obj/machinery/smartfridge/disks = "disks")
 	needs_anchored = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
+
 /obj/item/circuitboard/machine/smartfridge/Initialize(mapload, new_type)
 	if(new_type)
 		build_path = new_type

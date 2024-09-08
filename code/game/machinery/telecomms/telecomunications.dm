@@ -18,7 +18,8 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	icon = 'icons/obj/machines/telecomms.dmi'
 	critical_machine = TRUE
 	light_color = LIGHT_COLOR_CYAN
-	/// list of machines this machine is linked to
+	network_id = __NETWORK_SERVER
+	/// /// list of machines this machine is linked to
 	var/list/links = list()
 	/**
 	 * associative lazylist list of the telecomms_type of linked telecomms machines and a list of said machines.
@@ -49,6 +50,8 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	/// Is it a hidden machine?
 	var/hide = FALSE
 
+	var/datum/component/server/server_component
+
 /// relay signal to all linked machinery that are of type [filter]. If signal has been sent [amount] times, stop sending
 /obj/machinery/telecomms/proc/relay_information(datum/signal/subspace/signal, filter, copysig, amount = 20)
 
@@ -59,11 +62,15 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 		CRASH("null or non /obj/machinery/telecomms typepath given as the filter argument! given typepath: [filter]")
 
 	var/send_count = 0
-
 	// Apply some lag based on traffic rates
 	var/netlag = round(traffic / 50)
 	if(netlag > signal.data["slow"])
 		signal.data["slow"] = netlag
+
+	// Aply some lag from throttling
+	var/efficiency = get_efficiency()
+	var/throttling = (10 - 10 * efficiency)
+	signal.data["slow"] += throttling
 
 	// Loop through all linked machines and send the signal or copy.
 
@@ -86,7 +93,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 
 	if(send_count > 0 && is_freq_listening(signal))
 		traffic++
-
+	use_power(active_power_usage)
 	return send_count
 
 /obj/machinery/telecomms/proc/relay_direct_information(datum/signal/signal, obj/machinery/telecomms/machine)
@@ -103,6 +110,9 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 
 /obj/machinery/telecomms/Initialize(mapload)
 	. = ..()
+	server_component = AddComponent(/datum/component/server) // they generate heat
+	update_network() // we try to connect to NTnet
+	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
 	GLOB.telecomms_list += src
 	if(mapload && autolinkers.len)
 		return INITIALIZE_HINT_LATELOAD
@@ -114,11 +124,22 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 			add_automatic_link(telecomms_machine)
 
 /obj/machinery/telecomms/Destroy()
+	UnregisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE)
+	server_component = null
 	GLOB.telecomms_list -= src
 	for(var/obj/machinery/telecomms/comm in GLOB.telecomms_list)
 		remove_link(comm)
 	links = list()
 	return ..()
+
+/obj/machinery/telecomms/proc/get_temperature()
+	return server_component.temperature
+
+/obj/machinery/telecomms/proc/get_efficiency()
+	return server_component.efficiency
+
+/obj/machinery/telecomms/proc/get_overheat_temperature()
+	return server_component.overheated_temp
 
 // Used in auto linking
 /obj/machinery/telecomms/proc/add_automatic_link(obj/machinery/telecomms/T)
@@ -136,6 +157,39 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 				add_new_link(T)
 				return
 
+/obj/machinery/telecomms/proc/update_network()
+	var/area/A = get_area(src)
+	if(!network || network == "NULL" || !A)
+		return
+	var/new_network_id = NETWORK_NAME_COMBINE(__NETWORK_SERVER, network) // should result in something like SERVER.TCOMMSAT
+	if(!A.network_root_id)
+		log_telecomms("Area '[A.name]([REF(A)])' has no network network_root_id, force assigning in object [src]([REF(src)])")
+		SSnetworks.lookup_area_root_id(A)
+		new_network_id = NETWORK_NAME_COMBINE(A.network_root_id, new_network_id) // should result in something like SS13.SERVER.TCOMMSAT
+	else
+		log_telecomms("Created [src]([REF(src)] in nullspace, assuming network to be in station")
+		new_network_id = NETWORK_NAME_COMBINE(STATION_NETWORK_ROOT, new_network_id) // should result in something like SS13.SERVER.TCOMMSAT
+	new_network_id = simple_network_name_fix(new_network_id) // make sure the network name is valid
+	var/datum/ntnet/new_network = SSnetworks.create_network_simple(new_network_id)
+	new_network.move_interface(GetComponent(/datum/component/ntnet_interface), new_network_id, network_id)
+	network_id = new_network_id
+
+/obj/machinery/telecomms/proc/ntnet_receive(datum/source, datum/netdata/data)
+
+	//Check radio signal jamming
+	if(is_jammed(JAMMER_PROTECTION_WIRELESS) || machine_stat & (BROKEN|NOPOWER|MAINT|EMPED))
+		return
+
+	switch(data.data["type"])
+		if(PACKET_TYPE_PING) // we respond to the ping with our status
+			var/list/send_data = list()
+			send_data["name"] = name
+			send_data["temperature"] = get_temperature()
+			send_data["overheat_temperature"] = get_overheat_temperature()
+			send_data["efficiency"] = get_efficiency()
+			send_data["overheated"] = (machine_stat & OVERHEATED)
+
+			ntnet_send(send_data, data.data["sender_id"])
 
 /obj/machinery/telecomms/update_icon()
 	if(on)
@@ -153,7 +207,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	var/newState = on
 
 	if(toggled)
-		if(machine_stat & (BROKEN|NOPOWER|EMPED)) // if powered, on. if not powered, off. if too damaged, off
+		if(machine_stat & (BROKEN|NOPOWER|EMPED|OVERHEATED)) // if powered, on. if not powered, off. if too damaged, off
 			newState = FALSE
 		else
 			newState = TRUE

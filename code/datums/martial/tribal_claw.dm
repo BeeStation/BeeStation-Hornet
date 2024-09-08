@@ -108,3 +108,8 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 	to_chat(usr, "<span class='notice'>Face Scratch</span>: Harm Disarm. Damages your target's head and confuses them for a short time.")
 	to_chat(usr, "<span class='notice'>Jugular Cut</span>: Harm Harm Grab. Causes your target to rapidly lose blood, works only if you grab your target by their neck, if they are sleeping, or in critical condition.")
 	to_chat(usr, "<span class='notice'>Tail Grab</span>: Disarm Harm Grab Grab. Grabs your target by their neck and makes them unable to talk for a short time.")
+
+#undef TAIL_SWEEP_COMBO
+#undef FACE_SCRATCH_COMBO
+#undef JUGULAR_CUT_COMBO
+#undef TAIL_GRAB_COMBO

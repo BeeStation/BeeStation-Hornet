@@ -154,6 +154,8 @@
 /obj/item/dullahan_relay
 	var/mob/living/owner
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/dullahan_relay)
+
 /obj/item/dullahan_relay/Initialize(mapload,new_owner)
 	. = ..()
 	owner = new_owner

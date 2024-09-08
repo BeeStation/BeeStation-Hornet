@@ -57,6 +57,8 @@
 		if(STATE_FINISHED)
 			. += "<span class='boldwarning'>You shouldn't be seeing this, tell a coder!</span>"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/camera_assembly)
+
 /obj/structure/camera_assembly/Initialize(mapload, ndir, building)
 	. = ..()
 	if(building)
@@ -188,7 +190,7 @@
 		return
 	for(var/i in tempnetwork)
 		tempnetwork -= i
-		tempnetwork += lowertext(i)
+		tempnetwork += LOWER_TEXT(i)
 	state = STATE_FINISHED
 	var/obj/machinery/camera/C = new(loc, src)
 	forceMove(C)

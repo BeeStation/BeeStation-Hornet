@@ -119,6 +119,12 @@
 
 /datum/crafting_recipe/food/grapetart
 	name = "Grape tart"
+	reqs = list(
+			/datum/reagent/consumable/milk = 5,
+			/datum/reagent/consumable/sugar = 5,
+			/obj/item/food/pie/plain = 1,
+			/obj/item/food/grown/grapes = 3
+			)
 	result = /obj/item/food/pie/grapetart
 	reqs = list(
 		/datum/reagent/consumable/milk = 5,
@@ -130,6 +136,13 @@
 
 /datum/crafting_recipe/food/mimetart
 	name = "Mime tart"
+	always_available = FALSE
+	reqs = list(
+			/datum/reagent/consumable/milk = 5,
+			/datum/reagent/consumable/sugar = 5,
+			/obj/item/food/pie/plain = 1,
+			/datum/reagent/consumable/nothing = 5
+			)
 	result = /obj/item/food/pie/mimetart
 	reqs = list(
 		/datum/reagent/consumable/milk = 5,
@@ -142,6 +155,13 @@
 
 /datum/crafting_recipe/food/berrytart
 	name = "Berry tart"
+	always_available = FALSE
+	reqs = list(
+			/datum/reagent/consumable/milk = 5,
+			/datum/reagent/consumable/sugar = 5,
+			/obj/item/food/pie/plain = 1,
+			/obj/item/food/grown/berries = 3
+			)
 	result = /obj/item/food/pie/berrytart
 	reqs = list(
 		/datum/reagent/consumable/milk = 5,
@@ -154,6 +174,14 @@
 
 /datum/crafting_recipe/food/cocoalavatart
 	name = "Chocolate Lava tart"
+	always_available = FALSE
+	reqs = list(
+			/datum/reagent/consumable/milk = 5,
+			/datum/reagent/consumable/sugar = 5,
+			/obj/item/food/pie/plain = 1,
+			/obj/item/food/chocolatebar = 3,
+			/obj/item/slime_extract = 1 //The reason you dont know how to make it!
+			)
 	result = /obj/item/food/pie/cocoalavatart
 	reqs = list(
 		/datum/reagent/consumable/milk = 5,

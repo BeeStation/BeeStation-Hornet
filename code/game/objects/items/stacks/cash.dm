@@ -13,6 +13,8 @@
 	resistance_flags = FLAMMABLE
 	var/value = 0
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/spacecash)
+
 /obj/item/stack/spacecash/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
 	update_desc()

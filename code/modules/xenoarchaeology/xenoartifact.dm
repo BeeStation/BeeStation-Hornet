@@ -58,6 +58,8 @@
 	AddComponent(/datum/component/xenoartifact_pricing)
 	AddComponent(/datum/component/discoverable, XENOA_DP, TRUE) //Same values as original artifacts from exploration
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
+
 /obj/item/xenoartifact/Initialize(mapload, difficulty)
 	. = ..()
 
@@ -422,6 +424,8 @@
 /obj/item/xenoartifact/maint //Semi-toddler-safe version, for maint loot table.
 	material = XENOA_BLUESPACE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact/maint)
+
 /obj/item/xenoartifact/maint/Initialize(mapload, difficulty)
 	if(prob(1))
 		material = pick(XENOA_PLASMA, XENOA_URANIUM, XENOA_BANANIUM)
@@ -446,7 +450,9 @@
 /datum/component/xenoartifact_pricing/proc/update_price(datum/source, f_price)
 	price = f_price
 
- ///Objective version for exploration
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact/objective)
+
+//Objective version for exploration
 /obj/item/xenoartifact/objective/Initialize(mapload, difficulty)
 	traits += new /datum/xenoartifact_trait/special/objective
 	. = ..()

@@ -881,6 +881,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	return (TOXLOSS|OXYLOSS)
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/mask/vape)
+
 /obj/item/clothing/mask/vape/Initialize(mapload, param_color)
 	. = ..()
 	create_reagents(chem_volume, NO_REACT)

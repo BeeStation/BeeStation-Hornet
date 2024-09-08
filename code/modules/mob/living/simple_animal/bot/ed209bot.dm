@@ -45,6 +45,8 @@
 	var/cell_type = /obj/item/stock_parts/cell
 	var/vest_type = /obj/item/clothing/suit/armor/vest
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
+
 /mob/living/simple_animal/bot/ed209/Initialize(mapload,created_name,created_lasercolor)
 	. = ..()
 	if(created_name)
