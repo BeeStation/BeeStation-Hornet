@@ -128,8 +128,8 @@
 	result = /obj/item/food/pie/grapetart
 	reqs = list(
 		/datum/reagent/consumable/milk = 5,
-        /datum/reagent/consumable/sugar = 5,
-        /obj/item/food/pie/plain = 1,
+		/datum/reagent/consumable/sugar = 5,
+		/obj/item/food/pie/plain = 1,
 		/obj/item/food/grown/grapes = 3
 	)
 	subcategory = CAT_PIE
