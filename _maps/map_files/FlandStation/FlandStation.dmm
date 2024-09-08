@@ -92,9 +92,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/minor/twentyfive_percent_cyborg_mask,
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/maintenance/port/fore)
 "abA" = (
 /obj/structure/sink{
@@ -1669,9 +1667,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/asteroid/nearstation)
 "awC" = (
 /obj/machinery/power/solar{
@@ -6050,9 +6046,7 @@
 "bvF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/maintenance/port/central)
 "bvG" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
@@ -22473,9 +22467,7 @@
 "fKo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/maintenance/department/medical)
 "fKP" = (
 /obj/structure/cable/yellow{
@@ -22642,9 +22634,7 @@
 "fLR" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/spawner/lootdrop/trap/reusable,
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/maintenance/port/central)
 "fMh" = (
 /obj/item/storage/secure/safe{
@@ -33851,9 +33841,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/maintenance/starboard/fore)
 "iEc" = (
 /obj/machinery/status_display/ai{
@@ -48384,9 +48372,7 @@
 /turf/open/floor/iron/white,
 /area/science/lobby)
 "moy" = (
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/maintenance/port/central)
 "moD" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -67793,9 +67779,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/maintenance/starboard/aft)
 "rxd" = (
 /turf/closed/wall,
@@ -82643,9 +82627,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/maintenance/port/central)
 "veG" = (
 /obj/structure/cable/yellow{
@@ -93350,9 +93332,7 @@
 	dir = 4
 	},
 /obj/item/wirecutters,
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/maintenance/port/central)
 "xxD" = (
 /obj/effect/turf_decal/delivery,

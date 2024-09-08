@@ -25606,9 +25606,7 @@
 	network = list("ss13","medbay")
 	},
 /obj/machinery/vending/wardrobe/medi_wardrobe,
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/medical/storage)
 "eDT" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -43326,9 +43324,7 @@
 	dir = 8
 	},
 /obj/effect/loot_jobscale/medical/first_aid_kit,
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/medical/storage)
 "lqg" = (
 /obj/structure/flora/ausbushes/grassybush,
