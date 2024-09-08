@@ -1,0 +1,6 @@
+author: Ghommie, XeonMations
+delete-after: true
+changes:
+  - bugfix: Fixed space movement
+  - bugfix: Proper floating animations when in no gravity
+  - bugfix: Possibly fixed an oversight which involved highpop and floating animations
