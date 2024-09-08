@@ -48,6 +48,8 @@
 	var/first_cycle = TRUE
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hotspot)
+
 /obj/effect/hotspot/Initialize(mapload, starting_volume, starting_temperature)
 	. = ..()
 	SSair.hotspots += src

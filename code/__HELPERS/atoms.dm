@@ -142,25 +142,6 @@
 		return TRUE
 	return FALSE
 
-/*
-rough example of the "cone" made by the 3 dirs checked
- B
-  \
-   \
-    >
-      <
-       \
-        \
-B --><-- A
-        /
-       /
-      <
-     >
-    /
-   /
- B
-*/
-
 ///ultra range (no limitations on distance, faster than range for distances > 8); including areas drastically decreases performance
 /proc/urange(dist = 0, atom/center = usr, orange = FALSE, areas = FALSE)
 	if(!dist)

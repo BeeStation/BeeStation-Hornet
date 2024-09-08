@@ -1,10 +1,3 @@
-#define VALUE_MODE_NUM 0
-#define VALUE_MODE_TEXT 1
-#define VALUE_MODE_FLAG 2
-
-#define KEY_MODE_TEXT 0
-#define KEY_MODE_TYPE 1
-
 /datum/config_entry
 	var/name	//read-only, this is determined by the last portion of the derived entry type
 	var/config_entry_value
@@ -25,7 +18,7 @@
 /datum/config_entry/New()
 	if(type == abstract_type)
 		CRASH("Abstract config entry [type] instatiated!")
-	name = lowertext(type2top(type))
+	name = LOWER_TEXT(type2top(type))
 	if(islist(config_entry_value))
 		var/list/L = config_entry_value
 		default = L.Copy()
@@ -178,7 +171,7 @@
 	if(key_pos || value_mode == VALUE_MODE_FLAG)
 		key_name = copytext(str_val, 1, key_pos)
 		if(!case_sensitive)
-			key_name = lowertext(key_name)
+			key_name = LOWER_TEXT(key_name)
 		if(key_pos)
 			key_value = copytext(str_val, key_pos + length(str_val[key_pos]))
 		var/new_key

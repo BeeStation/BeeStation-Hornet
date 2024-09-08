@@ -190,3 +190,35 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 /// Normal behavior - success!
 #define PREFERENCE_LOAD_SUCCESS 3
 
+// Priorities must be in order!
+/// The default priority level
+#define PREFERENCE_PRIORITY_DEFAULT 1
+
+/// The priority at which species runs, needed for external organs to apply properly.
+#define PREFERENCE_PRIORITY_SPECIES 2
+
+/// The priority at which gender is determined, needed for proper randomization.
+#define PREFERENCE_PRIORITY_GENDER 3
+
+/// The priority at which body model is decided, applied after gender so we can
+/// make sure they're non-binary.
+#define PREFERENCE_PRIORITY_BODY_MODEL 4
+
+/// The priority at which eye color is applied, needed so IPCs get the right screen color.
+#define PREFERENCE_PRIORITY_EYE_COLOR 5
+
+/// The priority at which hair color is applied, needed so IPCs get the right antenna color.
+#define PREFERENCE_PRIORITY_HAIR_COLOR 6
+
+/// The priority at which names are decided, needed for proper randomization.
+#define PREFERENCE_PRIORITY_NAMES 7
+
+/// The maximum preference priority, keep this updated, but don't use it for `priority`.
+#define MAX_PREFERENCE_PRIORITY PREFERENCE_PRIORITY_NAMES
+
+/// For choiced preferences, this key will be used to set display names in constant data.
+#define CHOICED_PREFERENCE_DISPLAY_NAMES "display_names"
+
+/// For main feature preferences, this key refers to a feature considered supplemental.
+/// For instance, hair color being supplemental to hair.
+#define SUPPLEMENTAL_FEATURE_KEY "supplemental_feature"

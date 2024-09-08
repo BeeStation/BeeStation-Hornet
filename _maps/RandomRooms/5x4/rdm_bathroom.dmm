@@ -66,7 +66,6 @@
 	dir = 1
 	},
 /obj/structure/sink{
-	layer = 4;
 	pixel_y = 25
 	},
 /obj/structure/mirror{

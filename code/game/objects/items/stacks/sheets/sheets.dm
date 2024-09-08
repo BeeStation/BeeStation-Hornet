@@ -17,6 +17,8 @@
 	///What type of wall does this sheet spawn
 	var/walltype
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet)
+
 /obj/item/stack/sheet/Initialize(mapload, new_amount, merge)
 	. = ..()
 	pixel_x = rand(-4, 4)
