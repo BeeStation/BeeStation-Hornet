@@ -8983,7 +8983,7 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "enH" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/broken,
 /turf/open/floor/plating,
 /area/asteroid/paradise/surface/water)
 "enI" = (
@@ -9514,6 +9514,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
+"eAL" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/mineral/titanium,
+/area/asteroid/paradise/surface/water)
 "eAO" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -19133,7 +19138,8 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/mineral/plastitanium,
 /area/asteroid/paradise/surface/water)
 "jxW" = (
 /obj/effect/turf_decal/stripes/line{
@@ -19834,6 +19840,10 @@
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/planetary,
 /area/asteroid/paradise)
+"jMm" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "jMz" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -26281,7 +26291,7 @@
 /area/engine/engineering)
 "ndN" = (
 /obj/structure/frame,
-/obj/machinery/light/small{
+/obj/machinery/light/small/broken{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -32274,6 +32284,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "qfC" = (
+/obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating,
 /area/asteroid/paradise/surface/water)
 "qfG" = (
@@ -33416,6 +33427,7 @@
 /area/asteroid/paradise/surface)
 "qMg" = (
 /obj/item/clothing/suit/space/hardsuit/exploration,
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/plating,
 /area/asteroid/paradise/surface/water)
 "qMA" = (
@@ -36810,6 +36822,9 @@
 	},
 /turf/open/floor/iron/dark,
 /area/chapel/office)
+"snd" = (
+/turf/open/floor/mineral/plastitanium,
+/area/asteroid/paradise/surface/water)
 "snu" = (
 /turf/closed/wall,
 /area/crew_quarters/cryopods)
@@ -37773,6 +37788,13 @@
 "sSJ" = (
 /turf/closed/wall,
 /area/chapel/main)
+"sSK" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/loading_area{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/asteroid/paradise/surface/water)
 "sSV" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Medbay Maintenance";
@@ -39080,7 +39102,7 @@
 /area/medical/medbay/central)
 "tub" = (
 /obj/effect/decal/cleanable/blood/gibs/torso,
-/turf/open/floor/plating,
+/turf/open/floor/mineral/plastitanium,
 /area/asteroid/paradise/surface/water)
 "tuw" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -43918,6 +43940,7 @@
 /obj/effect/spawner/randomexplorer{
 	icon_state = "Random Exploration Crew"
 	},
+/obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating,
 /area/asteroid/paradise/surface/water)
 "vLx" = (
@@ -44044,7 +44067,11 @@
 	pixel_x = 5;
 	pixel_y = -3
 	},
-/turf/open/floor/plating,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
 /area/asteroid/paradise/surface/water)
 "vOX" = (
 /obj/machinery/disposal/bin,
@@ -264745,7 +264772,7 @@ sNi
 sNi
 sNi
 sNi
-qfC
+jMm
 hQa
 ygx
 sNi
@@ -265515,11 +265542,11 @@ sNi
 sNi
 sNi
 kpb
-qfC
+sSK
 sNi
 sNi
 sNi
-qfC
+eAL
 jEA
 sNi
 sNi
@@ -266286,7 +266313,7 @@ sNi
 sNi
 sNi
 sNi
-qfC
+jMm
 qfC
 jxy
 tub
@@ -266545,7 +266572,7 @@ sNi
 sNi
 sNi
 mCQ
-qfC
+snd
 gOf
 nuZ
 mCQ

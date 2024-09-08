@@ -390,6 +390,8 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 /obj/effect/mob_spawn/human/explorer
 	name = "freezer"
 	desc = "It's a card-locked storage unit."
+	short_desc = "It's a miracle to have survived the crash!"
+	flavour_text = "Note to self: Don't let HAMMOND drive."
 	outfit = /datum/outfit/job/exploration_crew
 	icon = 'icons/mob/landmarks.dmi'
 	icon_state = "Ghetto Stasis"
