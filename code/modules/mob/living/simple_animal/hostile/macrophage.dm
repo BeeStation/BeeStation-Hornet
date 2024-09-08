@@ -69,7 +69,7 @@
 					to_chat(src, "<span class ='notice'>You infect [M] with [D]!</span>")
 		else if(aggressive)
 			M.visible_message("<span class='danger'>the [src] begins penetrating [M]' protection!</span>", \
-	 				 "<span class='danger'>[src] begins penetrating your protection!</span>")
+					"<span class='danger'>[src] begins penetrating your protection!</span>")
 			if(do_after(src, 1.5 SECONDS, M))
 				for(var/datum/disease/D in infections)
 					if(M.ForceContractDisease(D))

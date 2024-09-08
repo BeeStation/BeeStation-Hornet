@@ -630,7 +630,7 @@
 		"antivirus3",
 		"bluespacebeaker",
 		"bluespacesyringe",
-    "bluespace_capsule",
+	"bluespace_capsule",
 		"bs_rped",
 		"minerbag_holding",
 		"ore_silo",

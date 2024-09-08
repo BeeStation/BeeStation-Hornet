@@ -15,6 +15,8 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 	var/range = 8
 	var/power_usage_per_teleport = 1500
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/bluespace_anchor)
+
 /obj/machinery/bluespace_anchor/Initialize(mapload, obj/item/stock_parts/cell/cell)
 	. = ..()
 	//Move the cell

@@ -12,6 +12,8 @@
 	var/poster_type
 	var/obj/structure/sign/poster/poster_structure
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
+
 /obj/item/poster/Initialize(mapload, obj/structure/sign/poster/new_poster_structure)
 	. = ..()
 	poster_structure = new_poster_structure

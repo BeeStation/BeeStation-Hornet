@@ -13,6 +13,8 @@
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/extinguisher_cabinet, 29)
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/extinguisher_cabinet)
+
 /obj/structure/extinguisher_cabinet/Initialize(mapload, ndir, building)
 	. = ..()
 	if(building)

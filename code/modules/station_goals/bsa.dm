@@ -50,7 +50,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/bsa/back)
 DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/back)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You store linkage information in [buffer_parent]'s buffer.</span>")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/bsa/front
@@ -63,7 +63,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/bsa/front)
 DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/front)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You store linkage information in [buffer_parent]'s buffer.</span>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/bsa/middle
 	name = "Bluespace Artillery Fusor"
@@ -87,7 +87,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 			FLUSH_BUFFER(buffer_parent)
 	else
 		to_chat(user, "<span class='warning'>[buffer_parent]'s data buffer is empty!</span>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/bsa/middle/proc/check_completion()
 	var/obj/machinery/bsa/front/front = front_ref?.resolve()
@@ -202,6 +202,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	// wires will attach to this
 	terminal = new /obj/machinery/power/terminal/invisible(T)
 	terminal.master = src
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 
 /obj/machinery/power/bsa/full/Initialize(mapload, cannon_direction = WEST)
 	. = ..()
