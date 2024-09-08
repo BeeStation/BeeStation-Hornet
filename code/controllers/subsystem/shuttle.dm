@@ -61,7 +61,8 @@ SUBSYSTEM_DEF(shuttle)
 	var/shuttles_loaded = FALSE
 
 /datum/controller/subsystem/shuttle/Initialize()
-	initial_load()
+	// 30 seconds max to load, don't hold up everything if SSshuttles throws an exception and fails to load
+	AWAIT(initial_load(), 30 SECONDS)
 
 	if(!arrivals)
 		WARNING("No /obj/docking_port/mobile/arrivals placed on the map!")
@@ -74,14 +75,13 @@ SUBSYSTEM_DEF(shuttle)
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/shuttle/proc/initial_load()
-	DECLARE_ASYNC
+	RETURN_TYPE(/datum/task)
 	shuttles_loaded = TRUE
 	var/datum/task/parent_task = new()
 	for(var/s in stationary)
 		var/obj/docking_port/stationary/S = s
 		parent_task.add_subtask(S.load_roundstart())
-	// 30 seconds max to load, don't hold up everything if SSshuttles throws an exception and fails to load
-	AWAIT(parent_task, 30 SECONDS)
+	return parent_task
 
 /datum/controller/subsystem/shuttle/fire()
 	for(var/thing in mobile)
