@@ -241,6 +241,8 @@ GLOBAL_VAR(cult_ratvar)
 	var/ratvar_target
 	var/next_attack_tick
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/eldritch/ratvar)
+
 /obj/eldritch/ratvar/Initialize(mapload, starting_energy = 50)
 	singularity = WEAKREF(AddComponent(
 		/datum/component/singularity, \

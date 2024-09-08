@@ -53,7 +53,7 @@
 
 	if(isliving(crossing_movable))
 		var/mob/living/crossing_mob = crossing_movable
-		if(crossing_mob.mob_size > MOB_SIZE_SMALL && !(crossing_mob.movement_type & FLYING))
+		if(crossing_mob.mob_size > MOB_SIZE_SMALL && !(crossing_mob.movement_type & (FLOATING|FLYING)))
 			if(HAS_TRAIT(crossing_mob, TRAIT_PACIFISM))
 				crossing_mob.visible_message("<span class='notice'>[crossing_mob] carefully steps over [parent_as_living].</span>", "<span class='notice'>You carefully step over [parent_as_living] to avoid hurting it.</span>")
 				return

@@ -15,7 +15,7 @@
 	var/lethal = FALSE
 	var/moretrauma = FALSE
 	threshold_desc = "<b>transmission 12:</b> The disease's damage reaches lethal levels.<br>\
-					  <b>Speed 9:</b> Host's brain develops even more traumas than normal."
+						<b>Speed 9:</b> Host's brain develops even more traumas than normal."
 
 /datum/symptom/braindamage/severityset(datum/disease/advance/A)
 	. = ..()
@@ -23,7 +23,7 @@
 		severity += 1
 	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
 		threshold_desc = "<b>transmission 7:</b> The disease's damage reaches lethal levels.<br>\
-					  <b>Speed 6:</b> Host's brain develops even more traumas than normal."
+						<b>Speed 6:</b> Host's brain develops even more traumas than normal."
 
 /datum/symptom/braindamage/Start(datum/disease/advance/A)
 	if(!..())

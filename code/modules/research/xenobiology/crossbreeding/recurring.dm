@@ -3,6 +3,9 @@ Recurring extracts:
 	Generates a new charge every few seconds.
 	If depleted of its' last charge, stops working.
 */
+
+CREATION_TEST_IGNORE_SELF(/obj/item/slimecross/recurring)
+
 /obj/item/slimecross/recurring
 	name = "recurring extract"
 	desc = "A tiny, glowing core, wrapped in several layers of goo."
