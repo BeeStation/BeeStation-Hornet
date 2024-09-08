@@ -10923,16 +10923,6 @@
 	id = "telelab";
 	name = "test chamber blast door"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "testlab";
-	name = "test Chamber Blast Door"
-	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/explab)
 "fkk" = (
@@ -21687,23 +21677,6 @@
 /obj/item/xenoartifact,
 /obj/item/xenoartifact,
 /obj/item/xenoartifact,
-/obj/machinery/camera/autoname{
-	dir = 9;
-	network = list("ss13","rd")
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/computer/xenoartifact_console,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/camera/autoname/directional/north{
 	network = list("ss13","rd")
 	},
@@ -42610,15 +42583,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "testlab";
-	name = "test Chamber Blast Door"
-	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -43578,16 +43542,6 @@
 	name = "Test Chamber Blast Doors";
 	pixel_y = -30
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "testlab";
-	name = "test Chamber Blast Door"
-	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/explab)
 "vDt" = (

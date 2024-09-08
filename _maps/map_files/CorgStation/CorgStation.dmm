@@ -2052,17 +2052,12 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
 "azc" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/door/poddoor/preopen{
 	id = "testlab";
 	name = "test Chamber Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
-/turf/closed/wall/r_wall,
+/turf/open/floor/plating,
 /area/science/explab)
 "azd" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
@@ -13838,11 +13833,6 @@
 /obj/machinery/door/poddoor/preopen{
 	id = "telelab";
 	name = "test chamber blast door"
-	},
-/obj/machinery/button/door{
-	id = "telelab";
-	name = "Test Chamber Blast Doors";
-	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -62478,25 +62468,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/medical/virology)
-"uiL" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "telelab";
-	name = "test chamber blast door"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "testlab";
-	name = "test Chamber Blast Door"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/plating,
-/area/science/explab)
 "uiO" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/loot_jobscale/armoury/wt550,
@@ -64906,15 +64877,9 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "uVx" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "telelab";
 	name = "test chamber blast door"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "testlab";
@@ -69385,6 +69350,11 @@
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
+	},
+/obj/machinery/button/door{
+	id = "telelab";
+	name = "Test Chamber Blast Doors";
+	pixel_y = 38
 	},
 /turf/open/floor/iron/white,
 /area/science/explab)
@@ -103602,7 +103572,7 @@ lWn
 ejA
 ejA
 ejA
-uiL
+uVx
 uQU
 lqO
 sPG

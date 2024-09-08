@@ -22495,19 +22495,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
-"fPy" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "testlab";
-	name = "test Chamber Blast Door"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/closed/wall/r_wall,
-/area/science/misc_lab)
 "fPz" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -40027,19 +40014,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"mMY" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "testlab";
-	name = "test Chamber Blast Door"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/iron,
-/area/science/misc_lab)
 "mNg" = (
 /obj/effect/turf_decal/tile/dark_green/half/contrasted{
 	dir = 1
@@ -41251,19 +41225,6 @@
 /area/science/research)
 "nmN" = (
 /obj/machinery/holopad,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "testlab";
-	name = "test Chamber Blast Door"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
 /turf/open/floor/iron,
 /area/science/misc_lab)
 "nmS" = (
@@ -62583,22 +62544,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"vEF" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "testlab";
-	name = "test Chamber Blast Door"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/iron,
-/area/science/misc_lab)
 "vES" = (
 /obj/structure/plasticflaps,
 /turf/open/floor/plating,
@@ -115623,7 +115568,7 @@ kgz
 oHo
 uvM
 uZn
-fPy
+eCO
 cNW
 jaY
 cNW
@@ -116904,9 +116849,9 @@ bUn
 lEW
 bEC
 iaX
-vEF
+kgz
 nmN
-mMY
+oHo
 kxf
 vDZ
 oYU

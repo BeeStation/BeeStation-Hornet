@@ -24049,16 +24049,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "testlab";
-	name = "test Chamber Blast Door"
-	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/engine,
 /area/science/explab)
 "euJ" = (
@@ -31145,29 +31135,6 @@
 /obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/iron,
 /area/crew_quarters/heads/chief)
-"gYY" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/railing{
-	dir = 4;
-	layer = 3.2
-	},
-/obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "testlab";
-	name = "test Chamber Blast Door"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/iron/white,
-/area/science/explab)
 "gZs" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -53977,26 +53944,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/trimline/purple/filled/warning{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/iron/white,
 /area/science/explab)
 "pmT" = (
@@ -57082,7 +57029,7 @@
 /obj/item/xenoartifact,
 /obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/iron/dark,
-/area/maintenance/starboard/secondary)
+/area/science/explab)
 "qvb" = (
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -60244,7 +60191,7 @@
 	pixel_y = 8
 	},
 /turf/open/floor/iron/dark,
-/area/maintenance/starboard/secondary)
+/area/science/explab)
 "rDV" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -62859,7 +62806,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
-/area/maintenance/starboard/secondary)
+/area/science/explab)
 "sxa" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -63286,7 +63233,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/white,
-/area/maintenance/starboard/secondary)
+/area/science/explab)
 "sDX" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
@@ -70341,20 +70288,6 @@
 /obj/machinery/light/floor,
 /turf/open/floor/iron/dark,
 /area/aisat)
-"uZI" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "testlab";
-	name = "test Chamber Blast Door"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/iron/dark,
-/area/science/explab)
 "vaq" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "xenobio1";
@@ -73324,22 +73257,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/purple/filled/line,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/regular,
-/obj/item/clothing/neck/stethoscope,
-/obj/machinery/airalarm/directional/east,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
 /turf/open/floor/iron/white,
 /area/science/explab)
 "waP" = (
@@ -114141,7 +114058,7 @@ cgq
 qVx
 bKV
 bKV
-gYY
+bKV
 bKV
 qWQ
 ujx
@@ -114398,7 +114315,7 @@ cgq
 fbF
 vET
 vET
-uZI
+vET
 qkE
 oIp
 mjp
@@ -115422,7 +115339,7 @@ hFA
 dbE
 bST
 sqD
-dwL
+cgq
 swm
 rDN
 quM
@@ -115679,17 +115596,17 @@ lKE
 ccz
 bST
 upc
-dwL
-dwL
-dwL
-dwL
-dwL
-dwL
-dwL
+cgq
+cgq
+cgq
+cgq
+cgq
+cgq
+cgq
 cJp
-dwL
-dwL
-dwL
+cgq
+cgq
+cgq
 ror
 jnJ
 mjJ

@@ -3148,6 +3148,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"avA" = (
+/obj/structure/sign/warning/securearea,
+/turf/closed/wall/r_wall,
+/area/science/explab)
 "avG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -12800,16 +12804,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/door/poddoor/preopen{
 	id = "testlab";
 	name = "test Chamber Blast Door"
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/engine,
 /area/science/explab)
 "bKL" = (
@@ -58613,20 +58611,11 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "mKV" = (
-/obj/structure/sign/warning/securearea,
 /obj/effect/spawner/structure/window/reinforced,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/preopen{
 	id = "testlab";
 	name = "test Chamber Blast Door"
 	},
-/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plating,
 /area/science/explab)
 "mLp" = (
@@ -92683,20 +92672,6 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/hallway/secondary/exit/departure_lounge)
-"xsU" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "testlab";
-	name = "test Chamber Blast Door"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/science/explab)
 "xtg" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 6
@@ -124928,7 +124903,7 @@ uDq
 wHI
 muP
 dXg
-xsU
+mKV
 duw
 duw
 duw
@@ -125185,7 +125160,7 @@ tXy
 sOH
 eGF
 iOy
-djA
+avA
 vYz
 lln
 jKc
