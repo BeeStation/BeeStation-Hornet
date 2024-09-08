@@ -224,7 +224,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	req_access_txt = "49";
-	name = "Exploration Shuttle airlock"
+	name = "Exploration Shuttle Airlock"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1

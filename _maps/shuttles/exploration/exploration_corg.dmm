@@ -239,7 +239,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/shuttle{
 	req_access_txt = "49";
-	name = "Exploration Tank Storage"
+	name = "Shuttle Tank Storage"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -289,7 +289,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
 	req_access_txt = "49";
-	name = "Exploration Shuttle airlock"
+	name = "Exploration Shuttle Airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -325,7 +325,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
 	req_access_txt = "49";
-	name = "Exploration Shuttle airlock"
+	name = "Exploration Shuttle Airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -457,7 +457,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
 	req_access_txt = "49";
-	name = "Exploration Shuttle airlock"
+	name = "Exploration Shuttle Airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -610,22 +610,13 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/shuttle/glass{
 	autoclose = 0.1;
-	name = "Exploration Engine";
+	name = "Shuttle Engine";
 	req_access_txt = "49"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"BW" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/atmospherics/components/trinary/filter/atmos/n2/flipped,
-/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
 "CY" = (
 /obj/effect/turf_decal/bot,
@@ -704,7 +695,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/item/kirbyplants/random,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Il" = (
@@ -719,7 +709,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
 	req_access_txt = "49";
-	name = "Exploration Shuttle airlock"
+	name = "Exploration Shuttle Airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -916,7 +906,7 @@
 "Pm" = (
 /obj/machinery/door/airlock/shuttle{
 	req_access_txt = "49";
-	name = "Exploration Storage"
+	name = "Shuttle Storage"
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
@@ -939,7 +929,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/shuttle{
-	name = "Shuttle cockpit";
+	name = "Shuttle Cockpit";
 	req_access_txt = "49"
 	},
 /obj/effect/turf_decal/stripes/closeup{
@@ -960,7 +950,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
 	req_access_txt = "49";
-	name = "Exploration Shuttle airlock"
+	name = "Exploration Shuttle Airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -970,12 +960,6 @@
 /area/shuttle/exploration)
 "QN" = (
 /obj/machinery/firealarm/directional/south,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/atmospherics/components/trinary/filter/atmos/o2/flipped,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "Ri" = (
@@ -986,7 +970,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
 	req_access_txt = "49";
-	name = "Exploration Shuttle airlock"
+	name = "Exploration Shuttle Airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -1080,7 +1064,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
 	req_access_txt = "49";
-	name = "Exploration Shuttle airlock"
+	name = "Exploration Shuttle Airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -1111,7 +1095,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Wp" = (
-/obj/item/kirbyplants/random,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/airalarm/directional/south{
 	locked = 0
@@ -1196,7 +1179,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
 	req_access_txt = "49";
-	name = "Exploration Shuttle airlock"
+	name = "Exploration Shuttle Airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -1441,7 +1424,7 @@ jB
 Us
 pz
 QN
-BW
+df
 uv
 UJ
 ug

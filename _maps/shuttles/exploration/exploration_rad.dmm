@@ -116,7 +116,7 @@
 	},
 /obj/machinery/door/airlock/external/glass{
 	req_access_txt = "49";
-	name = "Exploration Shuttle airlock"
+	name = "Exploration Shuttle Airlock"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)

@@ -242,7 +242,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/machinery/door/airlock/shuttle/glass,
+/obj/machinery/door/airlock/shuttle/glass{
+	name = "Shuttle Cockpit"
+	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/mineral/plastitanium,
@@ -358,13 +360,7 @@
 	},
 /obj/effect/turf_decal/box,
 /obj/machinery/firealarm/directional/south,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 4
-	},
 /obj/machinery/portable_atmospherics/canister/plasma,
-/obj/machinery/power/apc/auto_name/directional/west{
-	pixel_x = -24
-	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Co" = (
@@ -469,10 +465,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "WX" = (
-/obj/machinery/newscaster{
-	pixel_x = 32;
-	pixel_y = 1
-	},
 /obj/machinery/door/firedoor/border_only,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -543,7 +535,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	req_access_txt = "49";
-	name = "Exploration Shuttle airlock"
+	name = "Exploration Shuttle Airlock"
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
