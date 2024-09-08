@@ -4,8 +4,7 @@
 	colour vs color
 */
 
-/mob
-	var/current_correction
+/mob/var/current_correction
 
 /datum/client_colour/area_color
 	colour = list(rgb(255, 0, 0), rgb(0, 255, 0), rgb(0, 0, 255))

@@ -347,9 +347,7 @@
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
 "UO" = (
-/obj/item/kirbyplants/random{
-	layer = 3.3
-	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
 "Vo" = (

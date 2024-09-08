@@ -144,7 +144,7 @@
 
 
 /mob/living/simple_animal/hostile/poison/bees/AttackingTarget()
- 	//Pollinate
+	//Pollinate
 	if(istype(target, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/Hydro = target
 		pollinate(Hydro)
@@ -330,3 +330,14 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
+
+#undef BEE_IDLE_ROAMING
+#undef BEE_IDLE_GOHOME
+#undef BEE_PROB_GOHOME
+#undef BEE_PROB_GOROAM
+#undef BEE_TRAY_RECENT_VISIT
+#undef BEE_DEFAULT_COLOUR
+#undef BEE_POLLINATE_YIELD_CHANCE
+#undef BEE_POLLINATE_PEST_CHANCE
+#undef BEE_POLLINATE_POTENCY_CHANCE
+#undef BEE_FOODGROUPS

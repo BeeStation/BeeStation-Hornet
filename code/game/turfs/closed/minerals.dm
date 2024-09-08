@@ -521,10 +521,6 @@
 	var/activated_name = null
 	var/mutable_appearance/activated_overlay
 
-/turf/closed/mineral/gibtonite/Initialize(mapload)
-	det_time = rand(8,10) //So you don't know exactly when the hot potato will explode
-	. = ..()
-
 /turf/closed/mineral/gibtonite/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) && stage == 1)
 		user.visible_message("<span class='notice'>[user] holds [I] to [src]...</span>", "<span class='notice'>You use [I] to locate where to cut off the chain reaction and attempt to stop it...</span>")

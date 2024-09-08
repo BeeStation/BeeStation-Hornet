@@ -2275,12 +2275,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/datum/gas_mixture/current = H.loc.return_air()
 			if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
 				return TRUE
-	if(H.movement_type & FLYING)
+	if(H.movement_type & (FLYING|FLOATING))
 		return TRUE
 	return FALSE
 
 /datum/species/proc/negates_gravity(mob/living/carbon/human/H)
-	if(H.movement_type & FLYING)
+	if(H.movement_type & (FLYING|FLOATING))
 		return TRUE
 	return FALSE
 
@@ -2545,7 +2545,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/get_species_perks()
 	var/list/species_perks = list()
 
-	// Let us get every perk we can concieve of in one big list.
+	// Let us get every perk we can conceive of in one big list.
 	// The order these are called (kind of) matters.
 	// Species unique perks first, as they're more important than genetic perks,
 	// and language perk last, as it comes at the end of the perks list
@@ -2740,7 +2740,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
 			SPECIES_PERK_ICON = "tint",
 			SPECIES_PERK_NAME = initial(exotic_blood.name),
-			SPECIES_PERK_DESC = "[name] blood is [initial(exotic_blood.name)], which can make recieving medical treatment harder.",
+			SPECIES_PERK_DESC = "[name] blood is [initial(exotic_blood.name)], which can make receiving medical treatment harder.",
 		))
 
 	// Otherwise otherwise, see if they have an exotic bloodtype set
@@ -2749,7 +2749,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
 			SPECIES_PERK_ICON = "tint",
 			SPECIES_PERK_NAME = "Exotic Blood",
-			SPECIES_PERK_DESC = "[plural_form] have \"[exotic_bloodtype]\" type blood, which can make recieving medical treatment harder.",
+			SPECIES_PERK_DESC = "[plural_form] have \"[exotic_bloodtype]\" type blood, which can make receiving medical treatment harder.",
 		))
 
 	return to_add

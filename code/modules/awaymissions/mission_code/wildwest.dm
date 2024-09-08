@@ -31,7 +31,7 @@
 	requires_power = FALSE
 
 
- ////////// wildwest papers
+////////// wildwest papers
 
 /obj/item/paper/fluff/awaymissions/wildwest/grinder
 	default_raw_text = "meat grinder requires sacri"

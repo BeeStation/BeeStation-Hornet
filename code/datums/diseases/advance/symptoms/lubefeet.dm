@@ -14,7 +14,7 @@
 	var/morelube = FALSE
 	var/clownshoes = FALSE
 	threshold_desc = "<b>Transmission 10:</b> The host sweats even more profusely, lubing almost every tile they walk over<br>\
-					  <b>Resistance 14:</b> The host's feet turn into a pair of clown shoes."
+						<b>Resistance 14:</b> The host's feet turn into a pair of clown shoes."
 
 /datum/symptom/lubefeet/severityset(datum/disease/advance/A)
 	. = ..()
@@ -22,7 +22,7 @@
 		severity += 1
 	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
 		threshold_desc = "<b>Transmission 8:</b> The host sweats even more profusely, lubing almost every tile they walk over<br>\
-					  <b>Resistance 8:</b> The host's feet turn into a pair of clown shoes."
+						<b>Resistance 8:</b> The host's feet turn into a pair of clown shoes."
 
 /datum/symptom/lubefeet/Start(datum/disease/advance/A)
 	if(!..())

@@ -132,7 +132,7 @@
 	if(CHAT_FILTER_CHECK(name))
 		alert(usr, "Filename contains prohibited words.")
 		return
-	if(!reject_bad_text(name, 32, ascii_only = TRUE, alphanumeric_only = TRUE, underscore_allowed = TRUE) || lowertext(name) != name)
+	if(!reject_bad_text(name, 32, ascii_only = TRUE, alphanumeric_only = TRUE, underscore_allowed = TRUE) || LOWER_TEXT(name) != name)
 		alert(usr, "All filenames must be 32 characters or less, lowercase, and cannot contain: < > / and \\")
 		return
 	return name

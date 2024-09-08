@@ -1,7 +1,7 @@
-/// Helper that allows for atoms to recieve buffer information
+/// Helper that allows for atoms to receive buffer information
 #define REGISTER_BUFFER_HANDLER(TYPEPATH) ##TYPEPATH/ComponentInitialize() {\
 		. = ..();\
-		RegisterSignal(src, COMSIG_PARENT_RECIEVE_BUFFER, PROC_REF(_buffer_handler));\
+		RegisterSignal(src, COMSIG_PARENT_RECEIVE_BUFFER, PROC_REF(_buffer_handler));\
 	}\
 
 #define DEFINE_BUFFER_HANDLER(TYPEPATH) ##TYPEPATH/proc/_buffer_handler(datum/source, mob/user, atom/buffer, obj/item/buffer_parent)
@@ -26,7 +26,7 @@
 
 /datum/component/buffer/proc/intercept_attack(datum/source, atom/attack_target, mob/user, params)
 	SIGNAL_HANDLER
-	if ((SEND_SIGNAL(attack_target, COMSIG_PARENT_RECIEVE_BUFFER, user, target, parent) & COMPONENT_BUFFER_RECIEVED))
+	if ((SEND_SIGNAL(attack_target, COMSIG_PARENT_RECEIVE_BUFFER, user, target, parent) & COMPONENT_BUFFER_RECEIVED))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	return NONE
 

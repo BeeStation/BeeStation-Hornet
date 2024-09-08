@@ -125,7 +125,7 @@
 		else if (isliving(thing))
 			. = 1
 			var/mob/living/L = thing
-			if(L.movement_type & FLYING)
+			if(L.movement_type & (FLOATING|FLYING))
 				continue	//YOU'RE FLYING OVER IT
 			var/buckle_check = L.buckled
 			if(isobj(buckle_check))

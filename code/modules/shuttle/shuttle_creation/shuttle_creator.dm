@@ -1,5 +1,3 @@
-#define SHUTTLE_CREATOR_MAX_SIZE CONFIG_GET(number/max_shuttle_size)
-#define CUSTOM_SHUTTLE_LIMIT CONFIG_GET(number/max_shuttle_count)
 //This must be in the order of the direction bitflags
 #define CARDINAL_DIRECTIONS_X list(0, 0, -1, 1)
 #define CARDINAL_DIRECTIONS_Y list(-1, 1, 0, 0)

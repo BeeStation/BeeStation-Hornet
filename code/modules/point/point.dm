@@ -93,6 +93,8 @@
 	plane = POINT_PLANE
 	duration = POINT_TIME
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/point)
+
 /obj/effect/temp_visual/point/Initialize(mapload, set_invis = 0)
 	. = ..()
 	var/atom/old_loc = loc

@@ -12,6 +12,7 @@
 	idle_power_usage = 5
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/smartfridge
+	opacity = TRUE
 
 	var/tgui_theme = null // default theme as null is Nanotrasen theme.
 
@@ -117,10 +118,10 @@
 			if(loaded)
 				if(contents.len >= max_n_of_items)
 					user.visible_message("[user] loads \the [src] with \the [O].", \
-									 "<span class='notice'>You fill \the [src] with \the [O].</span>")
+									"<span class='notice'>You fill \the [src] with \the [O].</span>")
 				else
 					user.visible_message("[user] loads \the [src] with \the [O].", \
-										 "<span class='notice'>You load \the [src] with \the [O].</span>")
+									"<span class='notice'>You load \the [src] with \the [O].</span>")
 				if(O.contents.len > 0)
 					to_chat(user, "<span class='warning'>Some items are refused.</span>")
 				if (visible_contents)
@@ -137,7 +138,7 @@
 				if(accept_check(I))
 					load(I)
 					user.visible_message("[user] inserts \the [I] into \the [src].", \
-									 "<span class='notice'>You insert \the [I] into \the [src].</span>")
+									"<span class='notice'>You insert \the [I] into \the [src].</span>")
 					O.cut_overlays()
 					O.icon_state = "evidenceobj"
 					O.desc = "A container for holding body parts."
@@ -288,6 +289,7 @@
 	use_power = NO_POWER_USE
 	visible_contents = FALSE
 	has_emissive = FALSE
+	opacity = FALSE
 	var/drying = FALSE
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
@@ -565,6 +567,7 @@
 	icon_state = "disktoaster"
 	pass_flags = PASSTABLE
 	visible_contents = FALSE
+	opacity = FALSE
 
 /obj/machinery/smartfridge/disks/accept_check(obj/item/O)
 	if(istype(O, /obj/item/disk/))
