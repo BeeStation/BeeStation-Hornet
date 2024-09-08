@@ -1929,7 +1929,6 @@
 "hU" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4;
-
 	},
 /obj/structure/table,
 /obj/item/book/manual/chef_recipes,
