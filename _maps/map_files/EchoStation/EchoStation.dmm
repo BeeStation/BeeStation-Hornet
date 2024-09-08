@@ -3253,6 +3253,9 @@
 /obj/structure/sign/departments/minsky/security/command,
 /turf/closed/wall/r_wall,
 /area/bridge/meeting_room)
+"bnG" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/asteroid/paradise/surface/water)
 "bnW" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/flashbangs{
@@ -8784,6 +8787,10 @@
 "ehJ" = (
 /turf/open/openspace,
 /area/maintenance/department/chapel)
+"eio" = (
+/obj/structure/sign/nanotrasen,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/asteroid/paradise/surface/water)
 "eit" = (
 /obj/structure/toilet{
 	pixel_x = -1;
@@ -8975,6 +8982,10 @@
 /obj/machinery/space_heater,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
+"enH" = (
+/obj/machinery/light/small,
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "enI" = (
 /obj/effect/turf_decal/box/white,
 /obj/structure/cable/yellow{
@@ -14365,6 +14376,13 @@
 	},
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
+"gOf" = (
+/obj/structure/frame/computer{
+	anchored = 1;
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "gOB" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
@@ -16388,6 +16406,12 @@
 	dir = 9
 	},
 /area/hallway/primary/central)
+"hQa" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "hQk" = (
 /turf/open/floor/plating/rust,
 /area/science/mixing)
@@ -19105,6 +19129,12 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"jxy" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "jxW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -19355,6 +19385,12 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
+"jEA" = (
+/obj/machinery/door/airlock/external/glass{
+	autoclose = 0.1
+	},
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "jEC" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/siding/white,
@@ -20815,6 +20851,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
+"kpb" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration";
+	name = "Exploration Shuttle Shutters";
+	pixel_x = 25
+	},
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "kpC" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/railing,
@@ -25283,6 +25331,10 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
+"mCQ" = (
+/obj/structure/girder,
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "mDm" = (
 /obj/structure/rack,
 /obj/item/rollerbed{
@@ -26227,6 +26279,13 @@
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engineering)
+"ndN" = (
+/obj/structure/frame,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "ndP" = (
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -26769,6 +26828,9 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/storage)
+"nuZ" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/asteroid/paradise/surface/water)
 "nve" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -30939,6 +31001,15 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
+"pBb" = (
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 4
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "pBg" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -31574,6 +31645,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/maintenance/department/engine/atmos)
+"pRb" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "pRW" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -32196,6 +32273,9 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"qfC" = (
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "qfG" = (
 /obj/machinery/flasher/portable,
 /turf/open/floor/iron/dark,
@@ -33107,6 +33187,10 @@
 /obj/machinery/telecomms/processor/preset_four,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
+"qEH" = (
+/obj/structure/extinguisher_cabinet/directional/north,
+/turf/open/floor/plating/beach/water,
+/area/asteroid/paradise/surface/water)
 "qEU" = (
 /obj/machinery/light{
 	dir = 8
@@ -33330,6 +33414,10 @@
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/grass,
 /area/asteroid/paradise/surface)
+"qMg" = (
+/obj/item/clothing/suit/space/hardsuit/exploration,
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "qMA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -34839,6 +34927,10 @@
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 1
 	},
+/area/asteroid/paradise/surface/water)
+"rtC" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
 /area/asteroid/paradise/surface/water)
 "rtG" = (
 /obj/machinery/button/door{
@@ -38868,6 +38960,13 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
+"tqM" = (
+/obj/structure/frame,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "tqW" = (
 /obj/effect/turf_decal/tile/blue/half{
 	dir = 8
@@ -38979,6 +39078,10 @@
 "ttY" = (
 /turf/closed/wall,
 /area/medical/medbay/central)
+"tub" = (
+/obj/effect/decal/cleanable/blood/gibs/torso,
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "tuw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/chair/fancy/sofa/old/left{
@@ -43438,6 +43541,10 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
+"vzW" = (
+/obj/structure/girder,
+/turf/open/floor/plating/beach/water,
+/area/asteroid/paradise/surface/water)
 "vAb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -43807,6 +43914,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
+"vLm" = (
+/obj/effect/spawner/randomexplorer{
+	icon_state = "Random Exploration Crew"
+	},
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "vLx" = (
 /obj/structure/sign/painting/library{
 	pixel_y = 1
@@ -43921,6 +44034,18 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/bridge/meeting_room)
+"vOH" = (
+/obj/structure/closet/crate/science,
+/obj/item/radio/headset/headset_exploration{
+	pixel_x = -1;
+	pixel_y = -1
+	},
+/obj/item/clothing/under/rank/cargo/exploration{
+	pixel_x = 5;
+	pixel_y = -3
+	},
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "vOX" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
@@ -46325,6 +46450,12 @@
 /obj/machinery/power/emitter,
 /turf/open/floor/iron,
 /area/engine/engineering)
+"wXT" = (
+/obj/machinery/shuttle/engine/plasma{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "wXX" = (
 /obj/machinery/light/small/broken/directional/east,
 /turf/open/floor/plating/dirt/planetary,
@@ -48306,6 +48437,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/lab)
+"xRv" = (
+/obj/machinery/door/airlock/shuttle,
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/water)
 "xRJ" = (
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "engsm";
@@ -48936,6 +49071,12 @@
 	name = "Swims-the-ocean"
 	},
 /turf/open/floor/plating/beach/deep_water,
+/area/asteroid/paradise/surface/water)
+"ygx" = (
+/obj/machinery/atmospherics/components/unary/plasma_refiner{
+	dir = 1
+	},
+/turf/open/floor/plating,
 /area/asteroid/paradise/surface/water)
 "ygB" = (
 /obj/structure/disposalpipe/segment,
@@ -264090,7 +264231,7 @@ sNi
 sNi
 sNi
 sNi
-sNi
+wXT
 sNi
 sNi
 sNi
@@ -264347,10 +264488,10 @@ sNi
 sNi
 sNi
 sNi
+tqM
+pBb
 sNi
-sNi
-sNi
-sNi
+bnG
 sNi
 sNi
 sNi
@@ -264604,9 +264745,9 @@ sNi
 sNi
 sNi
 sNi
-sNi
-sNi
-sNi
+qfC
+hQa
+ygx
 sNi
 sNi
 sNi
@@ -264860,12 +265001,12 @@ sNi
 sNi
 sNi
 sNi
+mCQ
 sNi
+vOH
+vLm
 sNi
-sNi
-sNi
-sNi
-sNi
+nuZ
 sNi
 sNi
 hcI
@@ -265116,13 +265257,13 @@ sNi
 sNi
 sNi
 sNi
+pRb
 sNi
 sNi
 sNi
 sNi
 sNi
-sNi
-sNi
+nuZ
 sNi
 sNi
 dBr
@@ -265373,13 +265514,13 @@ sNi
 sNi
 sNi
 sNi
+kpb
+qfC
 sNi
 sNi
 sNi
-sNi
-sNi
-sNi
-sNi
+qfC
+jEA
 sNi
 sNi
 hcI
@@ -265630,13 +265771,13 @@ sNi
 sNi
 sNi
 sNi
+nuZ
+ndN
+qMg
 sNi
 sNi
-sNi
-sNi
-sNi
-sNi
-sNi
+enH
+eio
 sNi
 sNi
 dBr
@@ -265888,13 +266029,13 @@ sNi
 sNi
 sNi
 sNi
+xRv
+nuZ
+qEH
 sNi
 sNi
-sNi
-sNi
-sNi
-sNi
-sNi
+qfC
+vzW
 sNi
 hcI
 sNi
@@ -266145,12 +266286,12 @@ sNi
 sNi
 sNi
 sNi
+qfC
+qfC
+jxy
+tub
 sNi
-sNi
-sNi
-sNi
-sNi
-sNi
+nuZ
 sNi
 sNi
 dBr
@@ -266403,11 +266544,11 @@ sNi
 sNi
 sNi
 sNi
-sNi
-sNi
-sNi
-sNi
-sNi
+mCQ
+qfC
+gOf
+nuZ
+mCQ
 sNi
 sNi
 hcI
@@ -266660,10 +266801,10 @@ sNi
 sNi
 sNi
 sNi
-sNi
-sNi
-sNi
-sNi
+rtC
+rtC
+rtC
+rtC
 sNi
 sNi
 sNi

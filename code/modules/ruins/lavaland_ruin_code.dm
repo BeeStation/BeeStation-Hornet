@@ -117,6 +117,7 @@
 	assignedrole = "Lavaland Syndicate"
 	use_cooldown = TRUE
 	banType = ROLE_LAVALAND_SYNDICATE
+	stasis_machine = /obj/machinery/sleeper/syndie/empty
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/special(mob/living/new_spawn)
 	new_spawn.grant_language(/datum/language/codespeak)

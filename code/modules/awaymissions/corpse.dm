@@ -35,6 +35,8 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	var/use_cooldown = FALSE
 	/// If this should ignore admins disabling ghost roles (like lavaland roles), since it's actually an antagonist.
 	var/is_antagonist = FALSE
+	var/broken_legs = FALSE
+	var/stasis_machine
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/effect/mob_spawn/attack_ghost(mob/user)
@@ -54,6 +56,9 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 		return
 	log_game("[key_name(user)] became [mob_name]")
 	create(ckey = user.ckey)
+
+/obj/effect/mob_spawn/attack_hand(mob/user)
+	balloon_alert(user, "You can't open this.")
 
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
@@ -79,7 +84,14 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	return
 
 /obj/effect/mob_spawn/proc/create(ckey, name)
-	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
+	var/T = get_turf(src)
+	var/mob/living/M = new mob_type(T) //living mobs only
+	if(stasis_machine != null)
+		if(istype(stasis_machine, /obj/machinery/))
+			var/obj/machinery/stasis = new stasis_machine(T)
+			stasis.dir = dir
+		else
+			new stasis_machine(T)
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
 		if(!mob_gender)
@@ -91,6 +103,9 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 		M.ForceContractDisease(new disease)
 	if(death)
 		M.death(1) //Kills the new mob
+	if(broken_legs)
+		M.apply_damage(damage = 30,damagetype = BRUTE, def_zone = BODY_ZONE_L_LEG, blocked = FALSE, forced = TRUE)
+		M.apply_damage(damage = 30,damagetype = BRUTE, def_zone = BODY_ZONE_R_LEG, blocked = FALSE, forced = TRUE)
 
 	M.adjustOxyLoss(oxy_damage)
 	M.adjustBruteLoss(brute_damage)
@@ -372,6 +387,44 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 /obj/effect/mob_spawn/human/miner/explorer
 	outfit = /datum/outfit/job/miner/equipped
 
+/obj/effect/mob_spawn/human/explorer
+	name = "freezer"
+	desc = "It's a card-locked storage unit."
+	outfit = /datum/outfit/job/exploration_crew
+	icon = 'icons/mob/landmarks.dmi'
+	icon_state = "Ghetto Stasis"
+	ghost_usable = TRUE
+	roundstart = FALSE
+	death = FALSE
+	broken_legs = TRUE
+	use_cooldown = TRUE
+	oxy_damage = 30
+	brute_damage = 10
+	burn_damage = 15
+	banType = BAN_ROLE_ALL_GHOST
+	stasis_machine = /obj/structure/closet/secure_closet/freezer/opened
+
+/obj/effect/mob_spawn/human/explorer/scientist
+	outfit = /datum/outfit/job/exploration_crew/scientist
+
+/obj/effect/mob_spawn/human/explorer/medic
+	outfit = /datum/outfit/job/exploration_crew/medic
+
+/obj/effect/mob_spawn/human/explorer/engineer
+	outfit = /datum/outfit/job/exploration_crew/engineer
+
+/obj/effect/spawner/randomexplorer
+	icon = 'icons/mob/landmarks.dmi'
+	icon_state = "Exploration Crew"
+	name = "spawn a random explorer"
+	desc = "Automagically transforms into a random ghost useable explorer. If you see this while in a shift, please create a bug report."
+
+/obj/effect/spawner/randomexplorer/Initialize(mapload)
+	..()
+	var/obj/effect/mob_spawn/human/explorer/E = pick(subtypesof(/obj/effect/mob_spawn/human/explorer))
+	new E(loc)
+
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/mob_spawn/human/plasmaman
 	mob_species = /datum/species/plasmaman

@@ -359,6 +359,12 @@
 	)
 	efficiency = 2.5
 
+/obj/machinery/sleeper/syndie/empty
+	roundstart_chems = list(
+		/datum/reagent/medicine/morphine = 80
+	)
+
+
 /obj/machinery/sleeper/syndie/fullupgrade
 	circuit = /obj/item/circuitboard/machine/sleeper/fullupgrade
 

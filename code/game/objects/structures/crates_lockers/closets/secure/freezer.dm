@@ -1,4 +1,5 @@
 /obj/structure/closet/secure_closet/freezer
+	name = "freezer"
 	icon_state = "freezer"
 	var/jones = FALSE
 	door_anim_squish = 0.22
@@ -7,6 +8,9 @@
 	icon_emagged = "freezer_emagged"
 	icon_locked = "freezer_locked"
 	icon_unlocked = "freezer_unlocked"
+
+/obj/structure/closet/secure_closet/freezer/opened
+	opened = TRUE
 
 /obj/structure/closet/secure_closet/freezer/Destroy()
 	recursive_organ_check(src)
