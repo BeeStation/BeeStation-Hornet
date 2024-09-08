@@ -121,3 +121,6 @@
 /datum/station_trait/quick_shuttle/on_round_start()
 	. = ..()
 	SSshuttle.supply.callTime *= 0.5
+
+#undef PARTY_COOLDOWN_LENGTH_MIN
+#undef PARTY_COOLDOWN_LENGTH_MAX

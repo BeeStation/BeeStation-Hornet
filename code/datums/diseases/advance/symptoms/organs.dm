@@ -14,8 +14,8 @@
 	var/trauma_heal_mild = FALSE
 	var/trauma_heal_severe = FALSE
 	threshold_desc = "<b>Resistance 6:</b> Heals minor brain traumas.<br>\
-					  <b>Resistance 9:</b> Heals severe brain traumas.<br>\
-					  <b>Transmission 8:</b> Purges alcohol in the bloodstream."
+						<b>Resistance 9:</b> Heals severe brain traumas.<br>\
+						<b>Transmission 8:</b> Purges alcohol in the bloodstream."
 
 /datum/symptom/mind_restoration/Start(datum/disease/advance/A)
 	if(!..())
@@ -125,7 +125,7 @@
 	var/curing = FALSE
 	var/regenorgans = FALSE
 	threshold_desc = "<b>Stealth 4:</b> The host will regenerate missing organs over a long period of time.<br>\
-					  <b>Stage Speed 10:</b> The virus causes the host's internal organs to gain some self-correcting behaviour, preventing heart attacks and appendicitis.<br>"
+						<b>Stage Speed 10:</b> The virus causes the host's internal organs to gain some self-correcting behaviour, preventing heart attacks and appendicitis.<br>"
 
 /datum/symptom/organ_restoration/severityset(datum/disease/advance/A)
 	. = ..()

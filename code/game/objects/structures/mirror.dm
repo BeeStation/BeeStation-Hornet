@@ -14,6 +14,8 @@
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror, 28)
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
+
 /obj/structure/mirror/Initialize(mapload, dir, building)
 	. = ..()
 	if(icon_state == "mirror_broke" && !broken)

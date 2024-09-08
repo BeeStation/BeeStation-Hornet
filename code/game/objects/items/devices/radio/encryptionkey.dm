@@ -20,7 +20,7 @@
 	if(LAZYLEN(channels))
 		var/list/examine_text_list = list()
 		for(var/i in channels)
-			examine_text_list += "[GLOB.channel_tokens[i]] - [lowertext(i)]"
+			examine_text_list += "[GLOB.channel_tokens[i]] - [LOWER_TEXT(i)]"
 
 		. += "<span class='notice'>It can access the following channels; [jointext(examine_text_list, ", ")].</span>"
 

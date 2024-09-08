@@ -43,6 +43,8 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	/datum/strippable_item/mob_item_slot/neck
 )))
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
+
 /mob/living/carbon/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/toggle_resting)

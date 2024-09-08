@@ -135,3 +135,6 @@
 			owner.toxloss += 15
 		if(2)
 			owner.toxloss += 5
+
+#undef LIVER_DEFAULT_TOX_TOLERANCE
+#undef LIVER_DEFAULT_TOX_LETHALITY

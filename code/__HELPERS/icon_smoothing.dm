@@ -295,7 +295,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 		if(smooth_directional) { \
 			if(atom.dir != dir) { \
 				break set_adj_in_dir; \
-		 	}; \
+			}; \
 		}; \
 
 	#define SET_ADJ_IN_DIR(direction, direction_flag) \
