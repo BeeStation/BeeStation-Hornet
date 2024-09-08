@@ -2,6 +2,9 @@
   banned_variables:
   - step_x
   - step_y
+
+"*":
+  banned_variables:
     pixel_x:
       deny: [0]
     pixel_y:
