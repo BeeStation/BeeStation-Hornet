@@ -37185,7 +37185,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "fZS" = (
-mob/living/carbon/human/species/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "fZX" = (
@@ -51097,7 +51097,7 @@ mob/living/carbon/human/species/monkey,
 /area/science/xenobiology)
 "kqK" = (
 /obj/machinery/deepfryer,
-mob/living/carbon/human/species/monkey/punpun,
+/mob/living/carbon/human/species/monkey/punpun,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
@@ -54023,7 +54023,7 @@ mob/living/carbon/human/species/monkey/punpun,
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
-mob/living/carbon/human/species/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/medical/genetics)
 "llb" = (
@@ -60461,7 +60461,7 @@ mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-mob/living/carbon/human/species/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/medical/genetics)
 "niK" = (
@@ -79353,7 +79353,7 @@ mob/living/carbon/human/species/monkey,
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/end,
-mob/living/carbon/human/species/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/medical/genetics)
 "tkF" = (
