@@ -188,7 +188,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 /obj/machinery/atmospherics/components/unary/rbmk/core/Initialize(mapload)
 	. = ..()
 	grill_loop = new(src, FALSE)
-	radio = new(src)
+	radio = new/obj/item/radio(src)
 	radio.keyslot = new radio_key
 	radio.listening = FALSE
 	radio.recalculateChannels()
