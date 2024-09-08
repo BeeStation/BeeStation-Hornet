@@ -4236,6 +4236,7 @@
 	name = "kitchen Cabinet";
 	req_access_txt = "201"
 	},
+/area/awaymission/moonoutpost19/arrivals)
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/sugar,
