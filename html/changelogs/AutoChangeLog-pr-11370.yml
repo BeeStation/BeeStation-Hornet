@@ -1,0 +1,4 @@
+author: Patience
+delete-after: true
+changes:
+  - bugfix: Bandanas can now be worn in the head/neck slots without error texture
