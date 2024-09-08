@@ -63,7 +63,7 @@
 
 /obj/machinery/atmospherics/components/trinary/mixer/process_atmos()
 	..()
-	if(!on || !(nodes[1] && nodes[2] && nodes[3]) && !is_operational)
+	if(!on || !(nodes[1] && nodes[2] && nodes[3] && parents[1] && parents[2] && parents[3]) && !is_operational)
 		return
 
 	//Get those gases, mah boiiii
