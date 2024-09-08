@@ -20,9 +20,9 @@
 /savefile/byond_version = MIN_COMPILER_VERSION
 #endif
 
-#if defined(FASTDMM) || defined(CIBUILDING)
+// #if defined(FASTDMM) || defined(CIBUILDING)
 #define YES_I_WANT_515
-#endif
+// #endif
 // Temporary 515 block until it is completely compatible.
 // AnturK says there are issues with savefiles that would make it dangerous to test merge,
 // and so this check is in place to stop serious damage.

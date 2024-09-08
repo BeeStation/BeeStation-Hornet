@@ -23,10 +23,6 @@
 #include "crafting_tests.dm"
 #include "breath.dm"
 
-// Del the World.
-// This unit test creates and qdels almost every atom in the code, checking for errors with initialization and harddels on deletion.
-// It is disabled by default for now due to the large amount of consistent errors it produces. Run the "dm: find hard deletes" task to enable it.
-#ifdef REFERENCE_TRACKING_FAST
 /*
 #include "create_and_destroy.dm"
 */
@@ -39,7 +35,6 @@
 #endif
 
 #include "food_edibility_check.dm"
-#include "gas_transfer.dm"
 #include "gamemode_sanity.dm"
 #include "greyscale_config.dm"
 #include "heretic_knowledge.dm"
