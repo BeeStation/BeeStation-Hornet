@@ -1,0 +1,4 @@
+author: SuperPantsHero
+delete-after: true
+changes:
+  - bugfix: fixed RCD and RPD upgrades
