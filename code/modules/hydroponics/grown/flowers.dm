@@ -95,6 +95,8 @@
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
 	rarity = 30
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/flower/trumpet)
+
 /obj/item/seeds/flower/trumpet/Initialize(mapload,nogenes)
 	. = ..()
 	if(!nogenes)
@@ -284,6 +286,8 @@
 	attack_verb_simple = list("roast", "scorch", "burn")
 	grind_results = list(/datum/reagent/consumable/capsaicin = 0, /datum/reagent/consumable/condensedcapsaicin = 0)
 	discovery_points = 300
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grown/novaflower)
 
 /obj/item/grown/novaflower/Initialize(mapload, obj/item/seeds/new_seed)
 	..()

@@ -122,3 +122,8 @@ GLOBAL_PROTECT(picture_logging_prefix)
 GLOBAL_LIST_EMPTY(harddel_log)
 GLOBAL_PROTECT(harddel_log)
 #endif
+
+#if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
+GLOBAL_VAR(test_log)
+GLOBAL_PROTECT(test_log)
+#endif

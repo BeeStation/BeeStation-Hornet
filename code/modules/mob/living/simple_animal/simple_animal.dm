@@ -585,7 +585,7 @@
 	if(!selhand)
 		selhand = (active_hand_index % held_items.len)+1
 	if(istext(selhand))
-		selhand = lowertext(selhand)
+		selhand = LOWER_TEXT(selhand)
 		if(selhand == "right" || selhand == "r")
 			selhand = 2
 		if(selhand == "left" || selhand == "l")

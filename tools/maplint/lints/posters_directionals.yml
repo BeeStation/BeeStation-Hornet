@@ -1,0 +1,6 @@
+disabled: true
+help: "Use the directional variants when possible."
+/obj/structure/sign/poster:
+  banned_variables:
+    pixel_x:
+    pixel_y:

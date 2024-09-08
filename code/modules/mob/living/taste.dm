@@ -1,6 +1,6 @@
 //Taste defines
 #define NO_TASTE_SENSITIVITY -1
-#define DEFAULT_TASTE_SENSITIVITY 15 
+#define DEFAULT_TASTE_SENSITIVITY 15
 
 /mob/living
 	var/last_taste_time
@@ -35,3 +35,5 @@
 			last_taste_text = text_output
 
 #undef DEFAULT_TASTE_SENSITIVITY
+
+#undef NO_TASTE_SENSITIVITY

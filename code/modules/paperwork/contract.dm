@@ -91,6 +91,8 @@
 	name = "paper- infernal contract"
 	contractType = CONTRACT_UNWILLING
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/contract/infernal)
+
 /obj/item/paper/contract/infernal/Initialize(mapload, mob/living/nTarget, datum/mind/nOwner)
 	. = ..()
 	if(!istype(nOwner))

@@ -11,6 +11,8 @@
 	health_regen = 0 //we regen in Life() instead of when pulsed
 	resistance_flags = LAVA_PROOF
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/core)
+
 /obj/structure/blob/core/Initialize(mapload, client/new_overmind = null, placed = 0)
 	GLOB.blob_cores += src
 	START_PROCESSING(SSobj, src)

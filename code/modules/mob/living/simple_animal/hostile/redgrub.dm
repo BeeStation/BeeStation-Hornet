@@ -49,7 +49,7 @@
 	new /obj/effect/decal/cleanable/insectguts(drop_location())
 	playsound(drop_location(), 'sound/effects/blobattack.ogg', 60, TRUE)
 
-/mob/living/simple_animal/hostile/redgrub/Initialize()
+/mob/living/simple_animal/hostile/redgrub/Initialize(mapload)
 	. = ..()
 	grub_diseases += new /datum/disease/advance/random(rand(3, 6), 9, rand(3, 4), guaranteed_symptoms = list(/datum/symptom/parasite))
 	food = rand(15, 50)
