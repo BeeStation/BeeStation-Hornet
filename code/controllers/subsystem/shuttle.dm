@@ -74,11 +74,14 @@ SUBSYSTEM_DEF(shuttle)
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/shuttle/proc/initial_load()
+	DECLARE_ASYNC
 	shuttles_loaded = TRUE
+	var/datum/task/parent_task = new()
 	for(var/s in stationary)
 		var/obj/docking_port/stationary/S = s
-		S.load_roundstart()
-		CHECK_TICK
+		parent_task.add_subtask(S.load_roundstart())
+	// 30 seconds max to load, don't hold up everything if SSshuttles throws an exception and fails to load
+	AWAIT(parent_task, 30 SECONDS)
 
 /datum/controller/subsystem/shuttle/fire()
 	for(var/thing in mobile)

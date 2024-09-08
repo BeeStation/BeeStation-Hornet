@@ -264,6 +264,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 	. = ..()
 
 /obj/docking_port/stationary/proc/load_roundstart()
+	DECLARE_ASYNC
 	if(json_key)
 		var/sid = SSmapping.config.shuttles[json_key]
 		roundstart_template = SSmapping.shuttle_templates[sid]
@@ -277,7 +278,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 			CRASH("Invalid path ([roundstart_template]) passed to docking port.")
 
 	if(roundstart_template)
-		SSshuttle.action_load(roundstart_template, src)
+		var/datum/async_map_generator/shuttle_loader = SSshuttle.action_load(roundstart_template, src)
+		UNTIL(shuttle_loader.completed)
+	ASYNC_FINISH
 
 /obj/docking_port/stationary/transit
 	name = "In Transit"
