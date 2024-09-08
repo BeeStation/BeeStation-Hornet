@@ -145,7 +145,6 @@
 	))
 	GLOB.zclear_atoms += src
 
-
 /obj/machinery/airalarm/examine(mob/user)
 	. = ..()
 	switch(buildstage)
@@ -878,6 +877,8 @@
 
 /obj/machinery/airalarm/away //general away mission access
 	req_access = list(ACCESS_AWAY_GENERAL)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/airalarm)
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
 

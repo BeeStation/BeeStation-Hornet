@@ -300,9 +300,6 @@
 					. += C
 	return .
 
-
-
-
 //remove the old powernet and replace it with a new one throughout the network.
 /proc/propagate_network(obj/O, datum/powernet/PN)
 	var/list/worklist = list()
