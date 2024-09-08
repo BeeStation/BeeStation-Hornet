@@ -9430,25 +9430,11 @@
 /turf/open/floor/plating,
 /area/bridge/meeting_room)
 "eyV" = (
-/obj/item/circuitboard/machine/shuttle/engine/plasma,
-/obj/item/circuitboard/machine/shuttle/engine/plasma,
-/obj/item/circuitboard/machine/shuttle/engine/plasma,
-/obj/item/circuitboard/machine/shuttle/heater,
-/obj/item/circuitboard/machine/shuttle/heater,
-/obj/item/circuitboard/machine/shuttle/heater,
-/obj/item/circuitboard/machine/plasma_refiner,
-/obj/item/circuitboard/machine/exploration_equipment_vendor,
-/obj/item/shuttle_creator,
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/circuitboard/computer/shuttle/exploration_shuttle,
-/obj/structure/closet/crate/secure/engineering{
-	name = "extended shuttle construction kit";
-	req_one_access_txt = "19;32"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/turf_decal/sand/plating,
+/obj/machinery/pipedispenser,
 /turf/open/floor/iron/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "ezs" = (
@@ -9798,19 +9784,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
-"eEQ" = (
-/obj/item/clothing/under/rank/cargo/exploration{
-	pixel_x = 5;
-	pixel_y = -3
-	},
-/obj/item/radio/headset/headset_exploration{
-	pixel_x = -1;
-	pixel_y = -1
-	},
-/obj/effect/decal/cleanable/blood/gibs/torso,
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/iron/techmaint/planetary,
-/area/asteroid/paradise/surface)
 "eFI" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -11701,9 +11674,26 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "fBR" = (
+/obj/item/circuitboard/machine/shuttle/engine/plasma,
+/obj/item/circuitboard/machine/shuttle/engine/plasma,
+/obj/item/circuitboard/machine/shuttle/engine/plasma,
+/obj/item/circuitboard/machine/shuttle/heater,
+/obj/item/circuitboard/machine/shuttle/heater,
+/obj/item/circuitboard/machine/shuttle/heater,
+/obj/item/circuitboard/machine/plasma_refiner,
+/obj/item/circuitboard/machine/exploration_equipment_vendor,
+/obj/item/shuttle_creator,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/circuitboard/computer/shuttle/exploration_shuttle,
+/obj/structure/closet/crate/secure/engineering{
+	name = "extended shuttle construction kit";
+	req_one_access_txt = "19;32"
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/item/encryptionkey/headset_expteam,
+/obj/item/encryptionkey/headset_expteam,
 /turf/open/floor/iron/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "fBW" = (
@@ -19838,6 +19828,16 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/gibs/torso,
+/obj/item/clothing/under/rank/cargo/exploration{
+	pixel_x = 5;
+	pixel_y = -3
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/radio/headset/headset_exploration{
+	pixel_x = -1;
+	pixel_y = -1
 	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/asteroid/paradise/surface)
@@ -256751,7 +256751,7 @@ rxi
 rxi
 rxi
 pFg
-eEQ
+uXr
 rxi
 rxi
 kxS
