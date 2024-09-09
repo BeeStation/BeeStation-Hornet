@@ -1064,6 +1064,10 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/airless,
 /area/maintenance/disposal)
+"avM" = (
+/obj/structure/girder,
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradise/surface/grass)
 "avP" = (
 /obj/effect/landmark/start/head_of_personnel,
 /obj/machinery/newscaster{
@@ -2743,6 +2747,10 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"bdK" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface)
 "bdN" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -2773,6 +2781,18 @@
 /obj/structure/sign/departments/custodian,
 /turf/closed/wall,
 /area/crew_quarters/cafeteria)
+"beC" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration";
+	name = "Exploration Shuttle Shutters";
+	pixel_y = 24
+	},
+/turf/open/floor/mineral/titanium,
+/area/asteroid/paradise/surface)
 "bfz" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating/asteroid/planetary,
@@ -4529,6 +4549,11 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/engine/engineering)
+"bUp" = (
+/obj/machinery/light/small/broken/directional/west,
+/obj/structure/frame,
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradise/surface)
 "bUy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
@@ -6022,6 +6047,10 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/dorms)
+"cDJ" = (
+/obj/machinery/door/airlock/shuttle,
+/turf/open/floor/mineral/titanium,
+/area/asteroid/paradise/surface)
 "cDM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -6809,6 +6838,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
+"ddK" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface/grass)
 "ddW" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -9288,6 +9321,13 @@
 "evW" = (
 /turf/closed/wall/r_wall,
 /area/science/xenobiology)
+"evY" = (
+/obj/structure/closet/crate/science,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/asteroid/paradise/surface/grass)
 "ewb" = (
 /obj/structure/frame/machine,
 /turf/open/floor/iron,
@@ -9789,6 +9829,9 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
+"eEx" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/asteroid/paradise/surface/grass)
 "eFI" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -10559,6 +10602,10 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/cable,
 /turf/open/floor/iron/solarpanel,
+/area/asteroid/paradise/surface)
+"eXP" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/mineral/plastitanium,
 /area/asteroid/paradise/surface)
 "eYg" = (
 /obj/structure/stairs{
@@ -12558,6 +12605,15 @@
 /obj/structure/fence,
 /turf/open/floor/plating/grass,
 /area/asteroid/paradise/surface)
+"fXE" = (
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradise/surface)
 "fXL" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -12610,6 +12666,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"fZk" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/frame/computer{
+	anchored = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/asteroid/paradise/surface)
 "fZy" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	alpha = 180
@@ -13864,6 +13927,13 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
+"gGF" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/asteroid/paradise/surface)
 "gGH" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -14972,6 +15042,13 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/dorms)
+"hmW" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium,
+/area/asteroid/paradise/surface)
 "hnn" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -15369,6 +15446,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/maintenance/department/bridge)
+"hvc" = (
+/obj/machinery/light/small/broken/directional/east,
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradise/surface)
 "hvh" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 10
@@ -16519,6 +16600,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/rust,
 /area/science/mixing)
+"ibU" = (
+/obj/machinery/shuttle/engine/plasma{
+	dir = 1
+	},
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradise/surface/grass)
 "idf" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/grille_or_trash,
@@ -16592,6 +16679,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
+"ifq" = (
+/obj/structure/sign/nanotrasen,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/asteroid/paradise/surface)
 "ift" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -17220,6 +17311,13 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
+"iwx" = (
+/obj/structure/flora/rock/pile,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/mineral/titanium,
+/area/asteroid/paradise/surface)
 "iwF" = (
 /obj/machinery/light{
 	light_color = "#7AC3FF"
@@ -17348,6 +17446,9 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/tech,
 /area/science/mixing)
+"iAe" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/asteroid/paradise/surface)
 "iAz" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -18739,18 +18840,8 @@
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "jox" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/closet/crate/critter,
-/mob/living/simple_animal/chicken/turkey{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
-/turf/open/floor/plating/dirt/planetary,
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/open/floor/mineral/titanium,
 /area/asteroid/paradise/surface)
 "joL" = (
 /obj/structure/flora/rock/pile,
@@ -19260,6 +19351,12 @@
 	dir = 10
 	},
 /area/hallway/primary/aft)
+"jCb" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/turf/open/floor/mineral/titanium,
+/area/asteroid/paradise/surface)
 "jCv" = (
 /obj/structure/dresser,
 /turf/open/floor/wood,
@@ -20343,6 +20440,10 @@
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
+"kaM" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradise/surface/grass)
 "kaZ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -21008,6 +21109,10 @@
 	},
 /turf/open/floor/iron,
 /area/storage/tech)
+"ktr" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradise/surface)
 "ktL" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -22362,6 +22467,13 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
+"lcI" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
+/obj/structure/frame,
+/turf/open/floor/mineral/plastitanium,
+/area/asteroid/paradise/surface)
 "lcQ" = (
 /obj/effect/landmark/start/cyborg,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -24047,6 +24159,12 @@
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
+"lRV" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradise/surface)
 "lSc" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
@@ -28197,6 +28315,12 @@
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/planetary,
 /area/quartermaster/storage)
+"odd" = (
+/obj/machinery/atmospherics/components/unary/plasma_refiner{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium,
+/area/asteroid/paradise/surface)
 "odG" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional,
 /obj/structure/curtain/directional{
@@ -28589,6 +28713,13 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/pod/dark,
 /area/maintenance/department/cargo)
+"oni" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -32;
+	pixel_y = -1
+	},
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradise/surface)
 "onC" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -37180,6 +37311,10 @@
 	dir = 9
 	},
 /area/hallway/primary/central)
+"sJp" = (
+/obj/structure/girder,
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradise/surface)
 "sJv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -38242,6 +38377,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
+"tlo" = (
+/obj/effect/turf_decal/sand/plating,
+/turf/open/floor/mineral/plastitanium,
+/area/asteroid/paradise/surface)
 "tlw" = (
 /obj/structure/stairs,
 /turf/open/floor/pod/dark,
@@ -38632,6 +38771,19 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/medical/central)
+"tsP" = (
+/mob/living/simple_animal/chicken/turkey{
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
+	health = 200;
+	maxHealth = 200;
+	melee_damage = 5;
+	minbodytemp = 2.7;
+	name = "Tom"
+	},
+/obj/structure/closet/crate/critter,
+/turf/open/floor/mineral/plastitanium,
+/area/asteroid/paradise/surface/grass)
 "tsU" = (
 /obj/machinery/porta_turret/ai{
 	dir = 4
@@ -39086,6 +39238,13 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
+"tEN" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/mineral/plastitanium,
+/area/asteroid/paradise/surface)
 "tFb" = (
 /obj/machinery/defibrillator_mount{
 	pixel_y = -24
@@ -40286,6 +40445,9 @@
 "uhc" = (
 /turf/closed/wall,
 /area/medical/surgery)
+"uhf" = (
+/turf/open/floor/mineral/plastitanium,
+/area/asteroid/paradise/surface)
 "uhk" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -41274,6 +41436,9 @@
 	dir = 1
 	},
 /area/science/research)
+"uIp" = (
+/turf/open/floor/mineral/titanium,
+/area/asteroid/paradise/surface)
 "uIx" = (
 /obj/effect/turf_decal/tile/dark_green{
 	dir = 1
@@ -41930,6 +42095,11 @@
 /obj/machinery/digital_clock/directional/east,
 /turf/open/floor/iron,
 /area/bridge)
+"uUe" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/mineral/plastitanium,
+/area/asteroid/paradise/surface)
 "uUf" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -42321,6 +42491,11 @@
 	dir = 4
 	},
 /area/hallway/primary/aft)
+"vbB" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/mineral/titanium,
+/area/asteroid/paradise/surface)
 "vbG" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/disposalpipe/segment,
@@ -45058,6 +45233,12 @@
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/iron,
 /area/maintenance/department/engine)
+"wwq" = (
+/obj/machinery/door/airlock/external/glass{
+	autoclose = 0.1
+	},
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradise/surface)
 "wwW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -45678,6 +45859,11 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"wKp" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/mineral/plastitanium,
+/area/asteroid/paradise/surface)
 "wKG" = (
 /turf/closed/wall/rust,
 /area/crew_quarters/cryopods)
@@ -47436,6 +47622,9 @@
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
+"xCs" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/asteroid/paradise/surface)
 "xCw" = (
 /obj/machinery/computer/security/hos,
 /obj/item/toy/plush/carpplushie{
@@ -254952,7 +255141,7 @@ kxS
 ygG
 rxi
 kxS
-rxi
+ktr
 kxS
 kxS
 kxS
@@ -255723,10 +255912,10 @@ kxS
 kxS
 rxi
 rxi
-kxS
-rxi
-rxi
-rxi
+eEx
+beC
+jCb
+uIp
 rxi
 rxi
 kxS
@@ -255978,12 +256167,12 @@ kxS
 hgC
 rxi
 rxi
+uhf
+cDJ
+bUp
+hmW
 rxi
-rxi
-rxi
-rxi
-rxi
-rxi
+sJp
 rxi
 rxi
 kxS
@@ -256233,17 +256422,17 @@ kxS
 kxS
 rxi
 rxi
-rxi
-rxi
-rxi
-rxi
-rxi
+bdK
+sJp
+ktr
+xCs
+tlo
 rxi
 jox
-rxi
+gGF
 kxS
-rxi
-kxS
+lcI
+ibU
 jNx
 vBi
 rxi
@@ -256490,16 +256679,16 @@ kxS
 kxS
 rxi
 kxS
-rxi
-rxi
-rxi
-rxi
-kxS
-rxi
-rxi
-rxi
-rxi
-rxi
+bdK
+eXP
+tEN
+oni
+kaM
+ktr
+ktr
+vbB
+lRV
+fXE
 rxi
 upA
 khr
@@ -256747,16 +256936,16 @@ kxS
 kxS
 rxi
 rxi
+bdK
+fZk
+wKp
+ktr
+ktr
+tsP
 rxi
-rxi
-rxi
-rxi
-rxi
-kxS
-rxi
-kxS
-rxi
-rxi
+evY
+odd
+uhf
 rxi
 pFg
 uXr
@@ -257004,16 +257193,16 @@ kxS
 rxi
 rxi
 rxi
-kxS
+ddK
+xCs
 rxi
 rxi
-rxi
-rxi
-rxi
-rxi
-rxi
-rxi
-rxi
+hvc
+uUe
+iwx
+ktr
+uUe
+iAe
 rxi
 ubz
 fBR
@@ -257262,13 +257451,13 @@ rxi
 rxi
 rxi
 kxS
-kxS
+avM
+xCs
 rxi
-rxi
-rxi
-rxi
-rxi
-rxi
+ifq
+wwq
+xCs
+xCs
 rxi
 kxS
 rxi
