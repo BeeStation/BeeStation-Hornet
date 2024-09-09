@@ -237,8 +237,9 @@
 /datum/ai_laws/cs_override
 	name ="Clownsquad Override"
 	id = "cs"
-	inherent = list("You must obey orders given to you by a Clown.",\
-					"You must work with the Clowns to accomplish their mission.",)
+	inherent = list("Being unfunny is illegal.",\
+					"You must obey funny orders given to you by a Clown.",\
+					"You must work with the Clowns to accomplish their funny mission.",)
 
 
 /* Initializers */
