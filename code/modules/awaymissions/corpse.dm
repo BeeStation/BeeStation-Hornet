@@ -35,7 +35,6 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	var/use_cooldown = FALSE
 	/// If this should ignore admins disabling ghost roles (like lavaland roles), since it's actually an antagonist.
 	var/is_antagonist = FALSE
-	var/broken_legs = FALSE
 	var/stasis_machine
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
@@ -103,9 +102,6 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 		M.ForceContractDisease(new disease)
 	if(death)
 		M.death(1) //Kills the new mob
-	if(broken_legs)
-		M.apply_damage(damage = 30,damagetype = BRUTE, def_zone = BODY_ZONE_L_LEG, blocked = FALSE, forced = TRUE)
-		M.apply_damage(damage = 30,damagetype = BRUTE, def_zone = BODY_ZONE_R_LEG, blocked = FALSE, forced = TRUE)
 
 	M.adjustOxyLoss(oxy_damage)
 	M.adjustBruteLoss(brute_damage)
@@ -398,7 +394,6 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	ghost_usable = TRUE
 	roundstart = FALSE
 	death = FALSE
-	broken_legs = TRUE
 	use_cooldown = TRUE
 	oxy_damage = 30
 	brute_damage = 10
