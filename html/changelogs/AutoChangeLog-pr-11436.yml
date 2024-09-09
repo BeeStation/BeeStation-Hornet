@@ -1,0 +1,5 @@
+author: Aramix
+delete-after: true
+changes:
+  - bugfix: fixed nanite comms programs (forced speech, skull echo, hallucination)
+      to work with nanite communication remote
