@@ -195,6 +195,7 @@
 	show_when_dead = TRUE
 
 /atom/movable/screen/fullscreen/see_through_darkness
+	invisibility = INVISIBILITY_LIGHTING
 	icon_state = "nightvision"
 	plane = LIGHTING_PLANE
 	blend_mode = BLEND_ADD

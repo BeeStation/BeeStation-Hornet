@@ -80,8 +80,6 @@
 
 /datum/hud/human/New(mob/living/carbon/human/owner)
 	..()
-	owner.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
-
 	var/atom/movable/screen/using
 	var/atom/movable/screen/inventory/inv_box
 
