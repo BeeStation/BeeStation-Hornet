@@ -242,7 +242,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 			var/datum/radial_menu_choice/choice_datum = choice_datums[choice_id]
 			if (choice_datum.info)
 				var/obj/effect/abstract/info/info_button = new(E, choice_datum.info)
-				nfo_button.plane = ABOVE_HUD_PLANE
+				info_button.plane = ABOVE_HUD_PLANE
 				info_button.layer = RADIAL_CONTENT_LAYER
 				E.vis_contents += info_button
 
