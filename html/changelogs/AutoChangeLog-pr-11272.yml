@@ -1,7 +1,0 @@
-author: PestoVerde322
-delete-after: true
-changes:
-  - bugfix: Fixed repeating categories in the crafting menu.
-  - refactor: Sorted and standardized all the recipes, please DO NOT put the recipes
-      outside of that folder and stick to the format of all the other recipes.
-  - code_imp: Rebalanced the times to craft and interaction of some recipes.
