@@ -3,31 +3,45 @@
 /obj/machinery/shuttle/engine/plasma{
 	dir = 1
 	},
-/turf/closed/wall/mineral/titanium,
+/turf/closed/wall/mineral/titanium/survival,
 /area/shuttle/pod_shuttle/emergency_pod)
 "k" = (
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 1
 	},
-/turf/closed/wall/mineral/titanium,
+/turf/closed/wall/mineral/titanium/survival,
 /area/shuttle/pod_shuttle/emergency_pod)
 "l" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 6
 	},
-/turf/closed/wall/mineral/titanium,
+/turf/closed/wall/mineral/titanium/survival,
 /area/shuttle/pod_shuttle/emergency_pod)
 "v" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 10
 	},
-/turf/closed/wall/mineral/titanium,
+/obj/docking_port/mobile{
+	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/airlock/survival_pod,
+/turf/open/floor/iron/tech,
 /area/shuttle/pod_shuttle/emergency_pod)
 "B" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle/bluespace_pod{
 	name = "emergency pod flight controller"
 	},
-/turf/open/floor/mineral/titanium/white/airless,
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
+/obj/item/storage/pod/exploration{
+	pixel_x = 32
+	},
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/pod_shuttle/emergency_pod)
 "E" = (
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
@@ -36,24 +50,16 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/item/storage/pod{
-	pixel_x = 32
-	},
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
-/turf/open/floor/mineral/titanium/white/airless,
+/turf/open/floor/iron/tech,
 /area/shuttle/pod_shuttle/emergency_pod)
 "F" = (
-/obj/machinery/door/airlock/shuttle,
-/obj/docking_port/mobile{
-	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/mineral/titanium/white/airless,
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional,
+/turf/open/floor/plating,
 /area/shuttle/pod_shuttle/emergency_pod)
 "J" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/pod_shuttle/emergency_pod)
 "T" = (
@@ -62,10 +68,10 @@
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/mineral/titanium/white/airless,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/pod_shuttle/emergency_pod)
 "X" = (
-/turf/closed/wall/mineral/titanium,
+/turf/closed/wall/mineral/titanium/survival,
 /area/shuttle/pod_shuttle/emergency_pod)
 
 (1,1,1) = {"

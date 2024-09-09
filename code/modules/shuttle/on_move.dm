@@ -303,7 +303,7 @@ All ShuttleMove procs go here
 
 /************************************Item move procs************************************/
 
-/obj/item/storage/pod/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
+/obj/item/storage/pod/emergency/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
 	// If the pod was launched, the storage will always open. The CentCom check
 	// ignores the movement of the shuttle from the staging area on CentCom to

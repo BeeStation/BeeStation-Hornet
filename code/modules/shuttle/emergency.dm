@@ -690,15 +690,19 @@
 	desc = "For extracting yourself from rough landings."
 
 /obj/item/storage/pod
-	name = "emergency space suits"
-	desc = "A wall mounted safe containing space suits. Will only open in emergencies."
+	name = "emergency storage"
+	desc = "A wall mounted safe containing equipment for emergencies."
 	anchored = TRUE
 	density = FALSE
 	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "safe"
+
+/obj/item/storage/pod/emergency
+	name = "emergency space suits"
+	desc = "A wall mounted safe containing space suits. Will only open in emergencies."
 	var/unlocked = FALSE
 
-/obj/item/storage/pod/PopulateContents()
+/obj/item/storage/pod/emergency/PopulateContents()
 	new /obj/item/clothing/head/helmet/space/orange(src)
 	new /obj/item/clothing/head/helmet/space/orange(src)
 	new /obj/item/clothing/suit/space/orange(src)
@@ -712,29 +716,46 @@
 	new /obj/item/survivalcapsule(src)
 	new /obj/item/storage/toolbox/emergency(src)
 
-/obj/item/storage/pod/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/pod/emergency/attackby(obj/item/W, mob/user, params)
 	if (can_interact(user))
 		return ..()
 
-/obj/item/storage/pod/attack_hand(mob/user)
+/obj/item/storage/pod/emergency/attack_hand(mob/user)
 	if (can_interact(user))
 		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SHOW, user)
 	return TRUE
 
-/obj/item/storage/pod/MouseDrop(over_object, src_location, over_location)
+/obj/item/storage/pod/emergency/MouseDrop(over_object, src_location, over_location)
 	if(can_interact(usr))
 		return ..()
 
-/obj/item/storage/pod/AltClick(mob/user)
+/obj/item/storage/pod/emergency/AltClick(mob/user)
 	if(!can_interact(user))
 		return
 
-/obj/item/storage/pod/can_interact(mob/user)
+/obj/item/storage/pod/emergency/can_interact(mob/user)
 	if(!..())
 		return FALSE
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED || unlocked)
 		return TRUE
 	to_chat(user, "The storage unit will only unlock during a Red or Delta security alert.")
+
+/obj/item/storage/pod/exploration
+	name = "emergency equipment"
+
+/obj/item/storage/pod/exploration/PopulateContents()
+	new /obj/item/clothing/head/helmet/space/orange(src)
+	new /obj/item/clothing/suit/space/orange(src)
+	new /obj/item/clothing/mask/gas/old(src)
+	new /obj/item/tank/internals/oxygen/red(src)
+	new /obj/item/pickaxe/emergency(src)
+	new /obj/item/storage/toolbox/emergency(src)
+	new /obj/item/reagent_containers/syringe(src)
+	new /obj/item/reagent_containers/glass/bottle/epinephrine(src)
+	new /obj/item/stack/medical/gauze(src)
+	new /obj/item/radio(src)
+	new /obj/item/gps/mining/exploration(src)
+
 
 /obj/docking_port/mobile/emergency/backup
 	name = "backup shuttle"
