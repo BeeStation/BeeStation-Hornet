@@ -190,7 +190,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	grill_loop = new(src, FALSE)
 	radio = new/obj/item/radio(src)
 	radio.keyslot = new radio_key
-	radio.listening = FALSE
+	radio.set_listening(FALSE)
 	radio.recalculateChannels()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
