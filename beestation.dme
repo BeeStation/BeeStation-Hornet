@@ -17,7 +17,7 @@
 #include "code\__byond_version_compat.dm"
 #include "code\_compile_options.dm"
 #include "code\_debugger.dm"
-#ifdef defined(OPENDREAM) && defined(CIBUILDING)
+#if defined(OPENDREAM) && defined(CIBUILDING)
 #include "code\_pragma_config.dm"
 #endif
 #include "code\world.dm"
