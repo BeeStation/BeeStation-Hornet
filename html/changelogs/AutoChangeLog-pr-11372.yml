@@ -1,0 +1,6 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: fixes clothing eating checks
+  - tweak: eating clothes is now based on what tongue you have, rather than what species
+      you are
