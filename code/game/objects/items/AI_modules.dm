@@ -638,6 +638,7 @@ AI MODULES
 	desc = "An ERT override AI module: 'Reconfigures the AI's core laws.'"
 	law_id = "ert"
 	key_override = TRUE
+	law_override = TRUE
 
 /******************** Deathsquad Override ******************/
 /obj/item/aiModule/core/full/deathsquad // Applies Deathsquad laws
