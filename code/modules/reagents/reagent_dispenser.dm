@@ -126,6 +126,8 @@
 	layer = ABOVE_WINDOW_LAYER
 	reagent_id = /datum/reagent/consumable/condensedcapsaicin
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/peppertank, 30)
+
 /obj/structure/reagent_dispensers/peppertank/Initialize(mapload)
 	. = ..()
 	if(prob(1))
@@ -182,6 +184,7 @@
 	layer = ABOVE_WINDOW_LAYER
 	reagent_id = /datum/reagent/consumable/virus_food
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/virusfood, 30)
 
 /obj/structure/reagent_dispensers/cooking_oil
 	name = "vat of cooking oil"

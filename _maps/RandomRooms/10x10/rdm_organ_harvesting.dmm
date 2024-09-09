@@ -268,7 +268,7 @@
 /turf/open/floor/eighties,
 /area/template_noop)
 "Nh" = (
-/obj/effect/turf_decal/techfloor{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 4;
 	name = "doormat"
 	},
@@ -347,9 +347,7 @@
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
 "UO" = (
-/obj/item/kirbyplants/random{
-	layer = 3.3
-	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
 "Vo" = (

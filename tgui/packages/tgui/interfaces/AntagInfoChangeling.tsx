@@ -45,7 +45,7 @@ export const AntagInfoChangeling = (_props, context) => {
           <Stack.Item>
             <IntroductionSection />
           </Stack.Item>
-          <Stack.Item>
+          <Stack.Item grow={3}>
             <ObjectivesSection objectives={objectives} />
           </Stack.Item>
           <Stack.Item grow={4}>

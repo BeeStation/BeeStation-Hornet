@@ -25,7 +25,7 @@
 	. = ..()
 	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
 
-/obj/machinery/atmospherics/components/Initialize()
+/obj/machinery/atmospherics/components/Initialize(mapload)
 	. = ..()
 
 	if(hide)
@@ -36,8 +36,9 @@
 /obj/machinery/atmospherics/components/proc/update_icon_nopipes()
 	return
 
-/obj/machinery/atmospherics/components/proc/hide_pipe(datum/source, covered)
-	showpipe = !covered
+/obj/machinery/atmospherics/components/proc/hide_pipe(datum/source, underfloor_accessibility)
+	SIGNAL_HANDLER
+	showpipe = !!underfloor_accessibility
 	update_icon()
 
 /obj/machinery/atmospherics/components/update_icon()

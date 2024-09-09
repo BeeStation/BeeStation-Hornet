@@ -1,23 +1,19 @@
 /*Composed of 7 parts :
 
- 3 Particle Emitters
- 1 Power Box
- 1 Fuel Chamber
- 1 End Cap
- 1 Control computer
-
- Setup map
-
-   |EC|
- CC|FC|
-   |PB|
- PE|PE|PE
-
+ * 3 Particle Emitters
+ * 1 Power Box
+ * 1 Fuel Chamber
+ * 1 End Cap
+ * 1 Control computer
+ *
+ * Setup map
+ *
+ *   |EC|
+ * CC|FC|
+ *   |PB|
+ * PE|PE|PE
+ *
 */
-#define PA_CONSTRUCTION_UNSECURED  0
-#define PA_CONSTRUCTION_UNWIRED    1
-#define PA_CONSTRUCTION_PANEL_OPEN 2
-#define PA_CONSTRUCTION_COMPLETE   3
 
 /obj/structure/particle_accelerator
 	name = "Particle Accelerator"
@@ -27,7 +23,7 @@
 	anchored = FALSE
 	density = TRUE
 	max_integrity = 500
-	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 80, STAMINA = 0)
+	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 80, STAMINA = 0, BLEED = 0)
 
 	var/obj/machinery/particle_accelerator/control_box/master = null
 	var/construction_state = PA_CONSTRUCTION_UNSECURED

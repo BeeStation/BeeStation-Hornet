@@ -7,7 +7,7 @@
 	max_integrity = 140
 	deflect_chance = 60
 	internal_damage_threshold = 60
-	armor = list(MELEE = -20,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = -20,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
 	max_temperature = 25000
 	operation_req_access = list(ACCESS_THEATRE)
 	internals_req_access = list(ACCESS_MECH_SCIENCE, ACCESS_THEATRE)
@@ -59,19 +59,19 @@
 						[js_byjax]
 						[js_dropdowns]
 						function SSticker() {
-						    setInterval(function(){
-						        window.location='byond://?src=[REF(src)]&update_content=1';
-						        document.body.style.color = get_rand_color_string();
-						      document.body.style.background = get_rand_color_string();
-						    }, 1000);
+							setInterval(function(){
+								window.location='byond://?src=[REF(src)]&update_content=1';
+								document.body.style.color = get_rand_color_string();
+								document.body.style.background = get_rand_color_string();
+							}, 1000);
 						}
 
 						function get_rand_color_string() {
-						    var color = new Array;
-						    for(var i=0;i<3;i++){
-						        color.push(Math.floor(Math.random()*255));
-						    }
-						    return "rgb("+color.toString()+")";
+							var color = new Array;
+							for(var i=0;i<3;i++){
+								color.push(Math.floor(Math.random()*255));
+							}
+							return "rgb("+color.toString()+")";
 						}
 
 						window.onload = function() {
@@ -96,7 +96,7 @@
 						</div>
 						</body>
 						</html>
-					 "}
+					"}
 	return output
 
 /obj/vehicle/sealed/mecha/combat/honker/get_commands()

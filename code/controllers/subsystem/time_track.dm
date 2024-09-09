@@ -43,8 +43,7 @@ SUBSYSTEM_DEF(time_track)
 	)
 #endif
 
-/datum/controller/subsystem/time_track/Initialize(start_timeofday)
-	. = ..()
+/datum/controller/subsystem/time_track/Initialize()
 	GLOB.perf_log = "[GLOB.log_directory]/perf-[GLOB.round_id ? GLOB.round_id : "NULL"]-[SSmapping.config?.map_name].csv"
 #ifdef SENDMAPS_PROFILE
 	world.Profile(PROFILE_RESTART, type = "sendmaps")
@@ -86,6 +85,7 @@ SUBSYSTEM_DEF(time_track)
 		)
 #endif
 	)
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/time_track/fire()
 

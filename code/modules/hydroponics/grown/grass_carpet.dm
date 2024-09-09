@@ -146,6 +146,8 @@
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
 
 //clover
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/grass/shamrock)
+
 /obj/item/food/grown/grass/shamrock/Initialize(mapload, /obj/item/seeds/new_seed)
 	. = ..()
 	if(prob(0.001)) // 0.001% chance to be a clover

@@ -198,7 +198,7 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "AI Core shutters";
-	name = "AI core shutters"
+	name = "AI Core Shutters"
 	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
@@ -273,7 +273,7 @@
 /obj/effect/decal/cleanable/robot_debris/old,
 /obj/machinery/camera{
 	c_tag = "Telecomms - Server Room - Aft-Port";
-	dir = 9;
+	dir = 6;
 	network = list("ss13","tcomms")
 	},
 /obj/effect/decal/cleanable/blood/tracks,
@@ -353,7 +353,7 @@
 /area/ruin/unpowered)
 "WX" = (
 /obj/machinery/door/airlock/grunge{
-	name = "AI research room"
+	name = "AI Research Room"
 	},
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)

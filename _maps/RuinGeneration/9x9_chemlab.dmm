@@ -119,7 +119,7 @@
 /area/ruin)
 "aT" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
-/turf/closed/wall,
+/turf/open/floor/iron/white,
 /area/ruin)
 "aV" = (
 /obj/effect/abstract/doorway_marker{
@@ -206,9 +206,7 @@
 /turf/open/floor/iron/white,
 /area/ruin)
 "FI" = (
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
+/obj/machinery/camera/autoname/directional/east,
 /obj/structure/rack,
 /obj/item/storage/box/beakers,
 /obj/item/storage/box/medsprays,
@@ -271,9 +269,7 @@
 /turf/open/floor/iron/white,
 /area/ruin)
 "Px" = (
-/obj/machinery/chem_dispenser{
-	layer = 2.7
-	},
+/obj/machinery/chem_dispenser,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},

@@ -65,7 +65,7 @@
 /area/ruin/unpowered)
 "m" = (
 /obj/machinery/door/airlock/vault{
-	name = "secured door";
+	name = "secured Door";
 	req_access = 207
 	},
 /obj/structure/fans/tiny,

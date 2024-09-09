@@ -27,7 +27,7 @@
 			current_name = changeling.mimicing
 	if(wear_mask && istype(wear_mask, /obj/item/clothing/mask))
 		var/obj/item/clothing/mask/modulator = wear_mask
-		current_name = modulator.get_name(usr, current_name)
+		current_name = modulator.get_name(src, current_name)
 	return current_name
 
 /mob/living/carbon/human/IsVocal()

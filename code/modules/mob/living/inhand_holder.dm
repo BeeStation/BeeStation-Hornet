@@ -12,6 +12,8 @@
 	///We are currently releasing the mob held in holder
 	var/releasing = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder)
+
 /obj/item/clothing/head/mob_holder/Initialize(mapload, mob/living/M, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags = NONE)
 	. = ..()
 	if(head_icon)
@@ -86,13 +88,15 @@
 	releasing = FALSE
 	return TRUE
 
-/obj/item/clothing/head/mob_holder/relaymove(mob/user)
+/obj/item/clothing/head/mob_holder/relaymove(mob/living/user, direction)
 	release()
 
 /obj/item/clothing/head/mob_holder/container_resist()
 	release()
 
 /obj/item/clothing/head/mob_holder/rabbit
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder/rabbit)
 
 /obj/item/clothing/head/mob_holder/rabbit/Initialize(mapload, mob/living/M, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags = NONE)
 	var/mob/living/simple_animal/chicken/rabbit/normal/rabbit = new(src)

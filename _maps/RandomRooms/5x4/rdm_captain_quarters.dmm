@@ -36,7 +36,6 @@
 	pixel_y = 6
 	},
 /obj/structure/sink{
-	layer = 4;
 	pixel_y = 25
 	},
 /obj/structure/mirror{
@@ -53,7 +52,6 @@
 /obj/structure/bed,
 /obj/item/bedsheet/captain,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/effect/landmark/start/captain,
 /obj/machinery/light_switch{
 	pixel_x = 23
 	},
@@ -94,7 +92,11 @@
 	req_access = list(20);
 	name = "captain's locker"
 	},
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/item/clothing/head/collectable/captain,
+/obj/item/toy/figure/captain{
+	pixel_x = 4;
+	pixel_y = -7
+	},
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "G" = (
@@ -154,9 +156,7 @@
 	name = "Bathroom"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/barricade/wooden/crude{
-	layer = 4
-	},
+/obj/structure/barricade/wooden/crude,
 /turf/open/floor/iron/white,
 /area/template_noop)
 

@@ -380,7 +380,6 @@
 		addiction_tick++
 	if(C && need_mob_update) //some of the metabolized reagents had effects on the mob that requires some updates.
 		C.updatehealth()
-		C.update_mobility()
 		C.update_stamina()
 	update_total()
 
@@ -941,7 +940,7 @@
 
 	 *--- How to add a new random reagent category ---*
 		1. add a new flag at 'code\__DEFINES\reagents.dm' and `var/list/chem_defines` below
-			i.e.) `#define CHEMICAL_SOMETHING_NEW (1<10)`
+			i.e.) `define CHEMICAL_SOMETHING_NEW (1<10)`
 		2. add a new static variable which is corresponding to the new flag.
 			i.e.) `var/static/list/random_reagents_xx = list() // CHEMICAL_SOMETHING_NEW`
 		3. add the new static variable to the 'random_reagent' list
@@ -1022,5 +1021,7 @@
 /proc/get_chem_id(chem_name)
 	for(var/X in GLOB.chemical_reagents_list)
 		var/datum/reagent/R = GLOB.chemical_reagents_list[X]
-		if(ckey(chem_name) == ckey(lowertext(R.name)))
+		if(ckey(chem_name) == ckey(LOWER_TEXT(R.name)))
 			return X
+
+#undef CHEMICAL_QUANTISATION_LEVEL
