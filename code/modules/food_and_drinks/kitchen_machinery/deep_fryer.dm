@@ -1,23 +1,6 @@
 /*
 April 3rd, 2014 marks the day this machine changed the face of the kitchen on NTStation13
 God bless America.
-          ___----------___
-        _--                ----__
-       -                         ---_
-      -___    ____---_              --_
-  __---_ .-_--   _ O _-                -
- -      -_-       ---                   -
--   __---------___                       -
-- _----                                  -
- -     -_                                 _
- `      _-                                 _
-       _                           _-_  _-_ _
-      _-                   ____    -_  -   --
-      -   _-__   _    __---    -------       -
-     _- _-   -_-- -_--                        _
-     -_-                                       _
-    _-                                          _
-    -
 */
 
 /// The deep fryer pings after this long, letting people know it's "perfect"

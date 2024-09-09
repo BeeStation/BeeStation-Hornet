@@ -312,7 +312,7 @@
 	if(..())
 		playsound(user.loc, 'sound/emotes/dwoop.ogg', 50)
 
- // Clown Robotic Tongue ONLY. Henk.
+// Clown Robotic Tongue ONLY. Henk.
 
 /datum/emote/living/carbon/human/robot_tongue/clown/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())

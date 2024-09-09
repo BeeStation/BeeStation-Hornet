@@ -59,7 +59,7 @@
 					/obj/item/clothing/under/suit/sl = 1,
 					/obj/item/clothing/mask/fakemoustache = 1,
 					/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 1,
-					/obj/item/clothing/head/bio_hood/plague = 1,
+					/obj/item/clothing/head/costume/plague = 1,
 					/obj/item/clothing/mask/gas/plaguedoctor = 1,
 					/obj/item/clothing/suit/toggle/owlwings = 1,
 					/obj/item/clothing/under/costume/owl = 1,
@@ -133,16 +133,16 @@
 					/obj/item/clothing/under/costume/joker = 2,
 					/obj/item/clothing/suit/costume/joker = 2,
 					/obj/item/clothing/under/dress/sailor = 1,
-        			/obj/item/clothing/head/wig/random = 3,
+					/obj/item/clothing/head/wig/random = 3,
 					/obj/item/clothing/head/costume/delinquent = 1,
 					/obj/item/clothing/ears/headphones = 2)
 
 	contraband = list(/obj/item/clothing/suit/costume/judgerobe = 1,
-		              /obj/item/clothing/head/costume/powdered_wig = 1,
-		              /obj/item/gun/magic/wand = 2,
-		              /obj/item/clothing/glasses/sunglasses/advanced/garb = 2,
-		              /obj/item/clothing/glasses/blindfold = 1,
-		              /obj/item/clothing/mask/muzzle = 2)
+						/obj/item/clothing/head/costume/powdered_wig = 1,
+						/obj/item/gun/magic/wand = 2,
+						/obj/item/clothing/glasses/sunglasses/advanced/garb = 2,
+						/obj/item/clothing/glasses/blindfold = 1,
+						/obj/item/clothing/mask/muzzle = 2)
 
 	premium = list(/obj/item/clothing/suit/costume/pirate/captain = 2,
 				   /obj/item/clothing/head/costume/pirate/captain = 2,

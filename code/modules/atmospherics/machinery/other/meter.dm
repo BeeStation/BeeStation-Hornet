@@ -25,6 +25,8 @@
 	name = "distribution loop gas flow meter"
 	id_tag = ATMOS_GAS_MONITOR_LOOP_DISTRIBUTION
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)
+
 /obj/machinery/meter/Initialize(mapload, new_piping_layer)
 	if(!isnull(new_piping_layer))
 		target_layer = new_piping_layer

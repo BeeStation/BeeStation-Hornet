@@ -31,7 +31,7 @@ Bonus
 	suffixes = list(" Psychosis")
 	var/fake_healthy = FALSE
 	threshold_desc = "<b>Stage Speed 7:</b> Increases the amount of hallucinations.<br>\
-					  <b>Stealth 2:</b> The virus mimics positive symptoms.."
+						<b>Stealth 2:</b> The virus mimics positive symptoms.."
 
 /datum/symptom/hallucigen/severityset(datum/disease/advance/A)
 	. = ..()

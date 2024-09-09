@@ -29,6 +29,8 @@
 	///How long does it take to apply on yourself?
 	var/self_delay = 2 SECONDS
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
+
 /obj/item/stack/medical/Initialize(mapload, new_amount, merge, mob/user)
 	. = ..()
 	if(reagent)
@@ -127,7 +129,7 @@
 		valid = TRUE
 
 	if (!valid)
-		to_chat("<span class='warning'>[message]</span>")
+		to_chat(user, "<span class='warning'>[message]</span>")
 		C.balloon_alert(user, message)
 		return
 
@@ -242,3 +244,5 @@
 
 /obj/item/stack/medical/gauze/adv/one
 	amount = 1
+
+#undef REAGENT_AMOUNT_PER_ITEM

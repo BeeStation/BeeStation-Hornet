@@ -461,3 +461,5 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 // =====
 /obj/item/organ/regenerative_core/battle_royale
 	preserved = TRUE
+
+#undef BATTLE_ROYALE_AVERBS

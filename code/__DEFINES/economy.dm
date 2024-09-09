@@ -9,10 +9,10 @@
 #define PAYCHECK_COMMAND_DEPT 80 // given from department budget
 #define PAYCHECK_VIP 2000
 /*	Note: The current intention for crazy amount of money to VIP is that they can be a rich shitter
-		  or be targeted by antags for their money - oh, my, being rich isn't always good.
-		  The first buff to their money was to 2,000 credits. Nerf is fine if you think it's necessary,
-		  but if you decrease their payment too much, they'll be no longer interested.
-		  I recommend to nerf their gimmick spawn chance instead. */
+			or be targeted by antags for their money - oh, my, being rich isn't always good.
+			The first buff to their money was to 2,000 credits. Nerf is fine if you think it's necessary,
+			but if you decrease their payment too much, they'll be no longer interested.
+			I recommend to nerf their gimmick spawn chance instead. */
 
 
 #define PAYCHECK_WELFARE 20 //NEETbucks

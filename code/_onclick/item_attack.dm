@@ -131,7 +131,7 @@
 	else
 		user.record_accidental_poking()
 		M.attacked_by(src, user)
-		M.time_of_last_attack_recieved = time
+		M.time_of_last_attack_received = time
 		user.time_of_last_attack_dealt = time
 		user.check_for_accidental_attack()
 
@@ -258,5 +258,5 @@
 	if(time_of_last_attack_dealt > time) //We attacked again after the proc got called
 		return
 	//10 seconds passed after we last attacked someone - either it was an accident, or we robusted someone into being horizontal
-	if(time_of_last_attack_dealt > time_of_last_attack_recieved + 100)
+	if(time_of_last_attack_dealt > time_of_last_attack_received + 100)
 		SSblackbox.record_feedback("tally", "accidental_attack_data", 1, "Lasted ten seconds of not being hit after hitting somoene")
