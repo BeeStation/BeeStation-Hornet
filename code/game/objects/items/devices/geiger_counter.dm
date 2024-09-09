@@ -17,7 +17,7 @@
 
 /obj/item/geiger_counter/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_IN_RANGE_OF_IRRADIATION, .proc/on_pre_potential_irradiation)
+	RegisterSignal(src, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation))
 
 /obj/item/geiger_counter/examine(mob/user)
 	. = ..()
