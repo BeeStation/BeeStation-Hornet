@@ -2106,6 +2106,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	restricted_roles = list(JOB_NAME_ASSISTANT)
 	surplus = 0
 
+/datum/uplink_item/role_restricted/clown_squad
+	name = "Clown Squad AI Board"
+	desc = "If the AI is ever on your butt, make it follow your word! (It won't make the AI go away from you on its own.)"
+	cost = 4
+	item = /obj/item/aiModule/syndicate
+	restricted_roles = list(JOB_NAME_CLOWN)
+	surplus = 0
+
 /datum/uplink_item/role_restricted/pie_cannon
 	name = "Banana Cream Pie Cannon"
 	desc = "A special pie cannon for a special clown, this gadget can hold up to 20 pies and automatically fabricates one every two seconds!"
