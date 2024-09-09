@@ -83,7 +83,7 @@
  */
 
 /***********************************************
- Medical HUD! Basic mode needs suit sensors on.
+ * Medical HUD! Basic mode needs suit sensors on.
 ************************************************/
 
 //HELPERS
@@ -238,7 +238,7 @@
 
 
 /***********************************************
- Security HUDs! Basic mode shows only the job.
+ * Security HUDs! Basic mode shows only the job.
 ************************************************/
 
 //HOOKS
@@ -309,7 +309,7 @@
 	holder.icon_state = null
 
 /***********************************************
- Diagnostic HUDs!
+ * Diagnostic HUDs!
 ************************************************/
 
 /mob/living/proc/hud_set_nanite_indicator()

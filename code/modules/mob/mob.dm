@@ -1285,3 +1285,5 @@
 /mob/proc/active_storage_deleted(datum/source)
 	SIGNAL_HANDLER
 	set_active_storage(null)
+
+#undef MOB_FACE_DIRECTION_DELAY

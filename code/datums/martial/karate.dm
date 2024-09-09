@@ -121,3 +121,8 @@
 	to_chat(usr, "<span class='notice'>Jumping Knee</span>: Harm Disarm Harm. Deals significant stamina damage and knocks your opponent down briefly.")
 	to_chat(usr, "<span class='notice'>Karate Chop</span>: Grab Harm Disarm. Very briefly confuses your opponent and blurs their vision.")
 	to_chat(usr, "<span class='notice'>Floor Stomp</span>: Harm Grab Harm. Deals brute and stamina damage if your opponent isn't standing up.")
+
+#undef CALF_KICK_COMBO
+#undef FLOOR_KICK_COMBO
+#undef JUMPING_KNEE_COMBO
+#undef KARATE_CHOP_COMBO
