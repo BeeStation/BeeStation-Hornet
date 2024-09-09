@@ -1,6 +1,7 @@
 // DM Environment file for beestation.dme.
 // All manual changes should be made outside the BEGIN_ and END_ blocks.
 // New source code should be placed in .dm files: choose File/New --> Code File.
+
 // BEGIN_INTERNALS
 // END_INTERNALS
 
@@ -12,14 +13,17 @@
 #define DEBUG
 // END_PREFERENCES
 
+// BEGIN_MANUAL
+#if defined(OPENDREAM) && defined(CIBUILDING)
+#include "code\_pragma_config.dm"
+#endif
+// END_MANUAL
+
 // BEGIN_INCLUDE
 #include "_maps\_basemap.dm"
 #include "code\__byond_version_compat.dm"
 #include "code\_compile_options.dm"
 #include "code\_debugger.dm"
-#if defined(OPENDREAM) && defined(CIBUILDING)
-#include "code\_pragma_config.dm"
-#endif
 #include "code\world.dm"
 #include "code\__DEFINES\_click.dm"
 #include "code\__DEFINES\_globals.dm"
