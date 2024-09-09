@@ -125,7 +125,7 @@
 		words.len = 30
 
 	for(var/word in words)
-		word = lowertext(trim(word))
+		word = LOWER_TEXT(trim(word))
 		if(!word)
 			words -= word
 			continue
@@ -147,7 +147,7 @@
 
 /proc/play_vox_word(word, z_level, mob/only_listener)
 
-	word = lowertext(word)
+	word = LOWER_TEXT(word)
 
 	if(GLOB.vox_sounds[word])
 
@@ -155,7 +155,7 @@
 		var/sound/voice = sound(sound_file, wait = 1, channel = CHANNEL_VOX)
 		voice.status = SOUND_STREAM
 
- 		// If there is no single listener, broadcast to everyone in the same z level
+		// If there is no single listener, broadcast to everyone in the same z level
 		if(!only_listener)
 			// Play voice for all mobs in the z level
 			for(var/mob/M in GLOB.player_list)

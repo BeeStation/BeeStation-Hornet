@@ -15,7 +15,7 @@
 	var/uwu = FALSE
 	var/dnacounter = 0
 	threshold_desc = "<b>Transmission 4:</b>The symptom mutates the language center of the host's brain, causing them to speak in an infuriating dialect. Known to drive hosts to suicide.<br>\
-					  <b>Stealth 4:</b>Hosts are overcome with a dysmorphic mania, causing them to glorify the idea of becoming more catlike. May cause irrational behaviour, and, in extreme cases, major body restructuring."
+						<b>Stealth 4:</b>Hosts are overcome with a dysmorphic mania, causing them to glorify the idea of becoming more catlike. May cause irrational behaviour, and, in extreme cases, major body restructuring."
 
 /datum/symptom/toxoplasmosis/severityset(datum/disease/advance/A)
 	. = ..()
@@ -25,7 +25,7 @@
 		severity += 2
 	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
 		threshold_desc = "<b>Transmission 4:</b>The symptom mutates the language center of the host's brain, causing them to speak in an infuriating dialect. Known to drive hosts to suicide.<br>\
-					  <b>Stealth 0:</b>Hosts are overcome with a dysmorphic mania, causing them to glorify the idea of becoming more catlike. May cause irrational behaviour, and, in extreme cases, major body restructuring."
+						<b>Stealth 0:</b>Hosts are overcome with a dysmorphic mania, causing them to glorify the idea of becoming more catlike. May cause irrational behaviour, and, in extreme cases, major body restructuring."
 
 
 /datum/symptom/toxoplasmosis/Start(datum/disease/advance/A)

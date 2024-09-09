@@ -1,5 +1,3 @@
-#define ACTION_BUTTON_DEFAULT_BACKGROUND "default"
-
 /atom/movable/screen/movable/action_button
 	var/datum/action/linked_action
 	var/actiontooltipstyle = ""
@@ -252,3 +250,5 @@
 	var/matrix/M = matrix()
 	M.Translate(x_offset,y_offset)
 	button.transform = M
+
+#undef AB_MAX_COLUMNS

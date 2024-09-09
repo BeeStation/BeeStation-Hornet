@@ -8,6 +8,11 @@
 /obj/item/pen,
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
+"bW" = (
+/obj/effect/turf_decal/bot_red,
+/mob/living/simple_animal/bot/secbot/derelict,
+/turf/open/floor/iron/tech/grid,
+/area/ruin/unpowered)
 "cw" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
@@ -193,14 +198,11 @@
 /obj/effect/spawner/lootdrop/ruinloot/important,
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
-"BT" = (
-/obj/machinery/door/airlock/highsecurity,
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "AI Core shutters";
-	name = "AI core shutters"
+"Co" = (
+/obj/machinery/door/airlock/grunge{
+	name = "AI Research Room"
 	},
-/turf/open/floor/circuit/red,
+/turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "CO" = (
 /obj/structure/table/reinforced,
@@ -222,6 +224,11 @@
 	dir = 4
 	},
 /turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"GD" = (
+/mob/living/silicon/robot/derelict,
+/obj/machinery/recharge_station,
+/turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "GZ" = (
 /obj/effect/decal/cleanable/blood/tracks,
@@ -259,11 +266,6 @@
 "Kp" = (
 /obj/structure/table/glass,
 /obj/item/mmi/posibrain,
-/turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
-"Kx" = (
-/mob/living/silicon/robot/derelict,
-/obj/machinery/recharge_station,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "KU" = (
@@ -336,6 +338,15 @@
 "SV" = (
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
+"WB" = (
+/obj/machinery/door/airlock/highsecurity,
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "AI Core shutters";
+	name = "AI Core Shutters"
+	},
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
 "WV" = (
 /obj/machinery/light{
 	dir = 4
@@ -351,12 +362,6 @@
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
 /turf/open/floor/carpet/black,
-/area/ruin/unpowered)
-"WX" = (
-/obj/machinery/door/airlock/grunge{
-	name = "AI research room"
-	},
-/turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "Xd" = (
 /obj/effect/turf_decal/caution/stand_clear,
@@ -384,11 +389,6 @@
 	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
-"ZS" = (
-/obj/effect/turf_decal/bot_red,
-/mob/living/simple_animal/bot/secbot/derelict,
-/turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
 
 (1,1,1) = {"
 JS
@@ -410,11 +410,11 @@ JS
 eH
 tj
 er
-Kx
+GD
 MV
 JS
 hB
-ZS
+bW
 JG
 Os
 hB
@@ -427,7 +427,7 @@ SV
 SV
 SV
 SV
-WX
+Co
 RT
 SV
 tV
@@ -502,7 +502,7 @@ NP
 Ib
 Xd
 tO
-BT
+WB
 qg
 SV
 iT
