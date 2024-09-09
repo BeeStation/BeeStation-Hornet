@@ -1928,6 +1928,11 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/bridge)
+"aMI" = (
+/obj/machinery/aug_manipulator,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/white,
+/area/science/robotics)
 "aMY" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/dirt/planetary,
@@ -18115,7 +18120,14 @@
 	},
 /area/asteroid/paradise/surface)
 "iWJ" = (
-/obj/machinery/aug_manipulator,
+/obj/structure/table/reinforced,
+/obj/item/mmi{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/obj/item/mmi{
+	pixel_y = 11
+	},
 /turf/open/floor/iron/white,
 /area/science/robotics)
 "iWK" = (
@@ -28681,7 +28693,8 @@
 /area/crew_quarters/heads/captain/private)
 "oqB" = (
 /obj/machinery/smartfridge/organ,
-/turf/open/space/basic,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/white,
 /area/science/robotics)
 "oqF" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -44737,14 +44750,9 @@
 /area/medical/medbay/central)
 "wps" = (
 /obj/structure/table/reinforced,
-/obj/item/mmi{
-	pixel_x = 2;
-	pixel_y = 3
+/obj/item/storage/backpack/duffelbag/sec/surgery{
+	pixel_y = 5
 	},
-/obj/item/mmi{
-	pixel_y = 11
-	},
-/obj/item/storage/backpack/duffelbag/sec/surgery,
 /obj/machinery/requests_console{
 	department = "Robotics Lab";
 	name = "Robotics RC";
@@ -197095,7 +197103,7 @@ ise
 ohi
 iWJ
 wps
-ohi
+aMI
 jhW
 xiY
 eni
