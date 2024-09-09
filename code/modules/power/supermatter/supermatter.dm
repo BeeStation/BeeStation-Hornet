@@ -823,18 +823,18 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		matter_power += 200
 
 	//Some poor sod got eaten, go ahead and irradiate people nearby.
-	radiation_pulse(src, max_range = 6, threshold = 0.3, chance = 30)
-	for(var/mob/living/L in range(10))
-		investigate_log("has irradiated [key_name(L)] after consuming [AM].", INVESTIGATE_ENGINES)
-		if (HAS_TRAIT(near_mob, TRAIT_RADIMMUNE) || issilicon(near_mob))
+	radiation_pulse(AM, max_range = 6, threshold = 0.3, chance = 30)
+	for(var/mob/living/near_mob in range(10))
+		investigate_log("has irradiated [key_name(near_mob)] after consuming [AM].", INVESTIGATE_ENGINES)
+		if(HAS_TRAIT(near_mob, TRAIT_RADIMMUNE) || issilicon(near_mob))
 			continue
 		if(ishuman(near_mob) && SSradiation.wearing_rad_protected_clothing(near_mob))
 			continue
-		if(L in viewers(get_turf(src)))
-			L.show_message("<span class='danger'>As \the [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,\
+		if(near_mob in viewers(get_turf(src)))
+			near_mob.show_message("<span class='danger'>As \the [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,\
 				"<span class='danger'>The unearthly ringing subsides and you find your skin covered in new radiation burns.</span>", MSG_AUDIBLE)
 		else
-			L.show_message("<span class='italics'>An unearthly ringing and fills your ears, and you find your skin covered in new radiation burns.</span>", MSG_AUDIBLE)
+			near_mob.show_message("<span class='italics'>An unearthly ringing and fills your ears, and you find your skin covered in new radiation burns.</span>", MSG_AUDIBLE)
 
 /obj/machinery/power/supermatter_crystal/proc/disengage_field()
 	if(QDELETED(src))

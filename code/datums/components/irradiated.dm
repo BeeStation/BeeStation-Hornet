@@ -131,12 +131,12 @@
 
 	var/obj/affected_limb = human_parent.get_bodypart(ran_zone())
 	human_parent.visible_message(
-		span_boldwarning("[human_parent]'s [affected_limb.name] bubbles unnaturally, then bursts into blisters!"),
-		span_boldwarning("Your [affected_limb.name] bubbles unnaturally, then bursts into blisters!"),
+		"<span class = 'boldwarning'>[human_parent]'s [affected_limb.name] bubbles unnaturally, then bursts into blisters!</span>",
+		"<span class = 'boldwarning'>Your [affected_limb.name] bubbles unnaturally, then bursts into blisters!</span>",
 	)
 
 	if (human_parent.is_blind())
-		to_chat(human_parent, span_boldwarning("Your [affected_limb.name] feels like it's bubbling, then burns like hell!"))
+		to_chat(human_parent, "<span class = 'boldwarning'>Your [affected_limb.name] feels like it's bubbling, then burns like hell!</span>")
 
 	human_parent.apply_damage(RADIATION_BURN_SPLOTCH_DAMAGE, BURN, affected_limb)
 	playsound(
@@ -170,7 +170,7 @@
 
 	if (isitem(parent))
 		qdel(src)
-		return COMPONENT_CLEANED
+		return TRUE
 
 	COOLDOWN_START(src, clean_cooldown, RADIATION_CLEAN_IMMUNITY_TIME)
 
@@ -179,10 +179,10 @@
 
 	if (isliving(source))
 		var/mob/living/living_source = source
-		to_chat(user, span_boldannounce("[icon2html(geiger_counter, user)] Subject is irradiated. Contamination traces back to roughly [DisplayTimeText(world.time - beginning_of_irradiation, 5)] ago. Current toxin levels: [living_source.getToxLoss()]."))
+		to_chat(user, "<span class = 'boldannounce'>[icon2html(geiger_counter, user)] Subject is irradiated. Contamination traces back to roughly [DisplayTimeText(world.time - beginning_of_irradiation, 5)] ago. Current toxin levels: [living_source.getToxLoss()].</span>")
 	else
 		// In case the green wasn't obvious enough...
-		to_chat(user, span_boldannounce("[icon2html(geiger_counter, user)] Target is irradiated."))
+		to_chat(user, "<span class = 'boldannounce'>[icon2html(geiger_counter, user)] Target is irradiated.</span>")
 
 	return COMSIG_GEIGER_COUNTER_SCAN_SUCCESSFUL
 

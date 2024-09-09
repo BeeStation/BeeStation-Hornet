@@ -97,8 +97,6 @@
 	to_chat(user, "<span class='notice'>[icon2html(src, user)] [isliving(target) ? "Subject" : "Target"] is free of radioactive contamination.</span>")
 
 /obj/item/geiger_counter/AltClick(mob/living/user)
-	. = ..()
-	(mob/living/user)
 	if(!scanning)
 		to_chat(usr, "<span class='warning'>[src] must be on to reset its radiation level!</span>")
 		return FALSE
@@ -106,9 +104,3 @@
 	last_perceived_radiation_danger = null
 	update_icon()
 	return TRUE
-
-#undef RAD_LEVEL_NORMAL
-#undef RAD_LEVEL_MODERATE
-#undef RAD_LEVEL_HIGH
-#undef RAD_LEVEL_VERY_HIGH
-#undef RAD_LEVEL_CRITICAL

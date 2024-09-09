@@ -28,6 +28,9 @@
 /// Flag for the mutation ref search system. Search will include advanced injector mutations
 #define SEARCH_ADV_INJ 8
 
+#define GENETIC_DAMAGE_PULSE_UNIQUE_IDENTITY "ui"
+#define GENETIC_DAMAGE_PULSE_UNIQUE_FEATURES "uf"
+
 /// Boilerplate define for whenever a cooldown is upgraded.
 /// This will recalculate the current timeout if the given cooldown is currently active.
 #define CALCULATE_UPGRADED_TIMEOUT(cd_index, to_index, new_length) \
@@ -119,6 +122,8 @@
 
 	/// Index of the enzyme being modified during delayed enzyme pulse operations
 	var/genetic_damage_pulse_index = 0
+	/// Which dna string to edit with the pulse
+	var/genetic_damage_pulse_type
 	/// World time when the enzyme pulse should complete
 	COOLDOWN_DECLARE(genetic_damage_pulse_timer)
 
@@ -1226,10 +1231,11 @@
 				return
 
 			var/type = params["type"]
+			genetic_damage_pulse_type = type
 			var/obj/item/dnainjector/timed/I
 
 			switch(type)
-				if("ui")
+				if(GENETIC_DAMAGE_PULSE_UNIQUE_IDENTITY)
 					// GUARD CHECK - There's currently no way to save partial genetic data.
 					//  However, if this is the case, we can't make a complete injector and
 					//  this catches that edge case
@@ -1370,8 +1376,10 @@
 
 			// Set the appropriate timer and index to pulse. This is then managed
 			//  later on in process()
+			var/type = params["type"]
+			genetic_damage_pulse_type = type
 			var/len = length_char(scanner_occupant.dna.uni_identity)
-			COOLDOWN_START(src, genetic_damage_pulse_timer, radduration * 10)
+			COOLDOWN_START(src, genetic_damage_pulse_timer, pulse_duration * 10)
 			genetic_damage_pulse_index = WRAP(text2num(params["index"]), 1, len + 1)
 			START_PROCESSING(SSobj, src)
 			return
@@ -1588,7 +1596,7 @@
 	var/damage_increase = rand(100/(connected_scanner.damage_coeff ** 2),250/(connected_scanner.damage_coeff ** 2))
 
 	switch(type)
-		if("ui")
+		if(GENETIC_DAMAGE_PULSE_UNIQUE_IDENTITY)
 			// GUARD CHECK - There's currently no way to save partial genetic data.
 			//  However, if this is the case, we can't make a complete injector and
 			//  this catches that edge case
@@ -2085,13 +2093,13 @@
 	// GUARD CHECK - Can we genetically modify the occupant? Includes scanner
 	//  operational guard checks.
 	// If we can't, abort the procedure.
-	if(!can_modify_occupant())
+	if(!can_modify_occupant() || ((genetic_damage_pulse_type != GENETIC_DAMAGE_PULSE_UNIQUE_IDENTITY) && (genetic_damage_pulse_type != GENETIC_DAMAGE_PULSE_UNIQUE_FEATURES)))
 		genetic_damage_pulse_index = 0
 		STOP_PROCESSING(SSobj, src)
 		return
 
 	var/len = length_char(scanner_occupant.dna.uni_identity)
- 	var/num = randomize_GENETIC_DAMAGE_accuracy(genetic_damage_pulse_index, pulse_duration + (connected_scanner.precision_coeff ** 2), len) //Each manipulator level above 1 makes randomization as accurate as selected time + manipulator lvl^2  //Value is this high for the same reason as with laser - not worth the hassle of upgrading if the bonus is low
+	var/num = randomize_GENETIC_DAMAGE_accuracy(genetic_damage_pulse_index, pulse_duration + (connected_scanner.precision_coeff ** 2), len) //Each manipulator level above 1 makes randomization as accurate as selected time + manipulator lvl^2  //Value is this high for the same reason as with laser - not worth the hassle of upgrading if the bonus is low
 	var/hex = copytext_char(scanner_occupant.dna.uni_identity, num, num + 1)
 	hex = scramble(hex, pulse_strength, pulse_duration)
 
@@ -2099,6 +2107,7 @@
 	scanner_occupant.updateappearance(mutations_overlay_update = 1)
 
 	genetic_damage_pulse_index = 0
+	genetic_damage_pulse_type = null
 	STOP_PROCESSING(SSobj, src)
 	return
 

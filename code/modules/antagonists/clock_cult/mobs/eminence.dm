@@ -70,9 +70,6 @@
 /mob/living/simple_animal/eminence/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
 	return FALSE
 
-/mob/living/simple_animal/eminence/rad_act(amount)
-	return
-
 /mob/living/simple_animal/eminence/Initialize(mapload)
 	. = ..()
 	GLOB.clockcult_eminence = src

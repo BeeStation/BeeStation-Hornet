@@ -1498,7 +1498,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * - time_since_irradiated: The amount of time since the mob was first irradiated
  * - delta_time: The amount of time that has passed since the last tick
  */
-/datum/species/proc/handle_radiation(mob/living/carbon/human/source, time_since_irradiated, delta_time)
+/datum/species/proc/handle_radiation(mob/living/carbon/human/H, time_since_irradiated, delta_time)
 	if(time_since_irradiated > RAD_MOB_KNOCKDOWN && DT_PROB(RAD_MOB_KNOCKDOWN_PROB, delta_time))
 		if(!H.IsParalyzed())
 			H.emote("collapse")

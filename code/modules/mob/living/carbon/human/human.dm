@@ -96,7 +96,6 @@
 			tab_data["Toxin Levels"] = GENERATE_STAT_TEXT("[getToxLoss()]")
 			tab_data["Burn Severity"] = GENERATE_STAT_TEXT("[getFireLoss()]")
 			tab_data["Brute Trauma"] = GENERATE_STAT_TEXT("[getBruteLoss()]")
-			tab_data["Radiation Levels"] = GENERATE_STAT_TEXT("[radiation] rad")
 			tab_data["Body Temperature"] = GENERATE_STAT_TEXT("[bodytemperature-T0C] degrees C ([bodytemperature*1.8-459.67] degrees F)")
 
 			//Diseases

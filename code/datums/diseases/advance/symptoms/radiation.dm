@@ -42,7 +42,7 @@
 
 /datum/symptom/radiation/proc/radiate(mob/living/carbon/M)
 	to_chat(M, "<span class='danger'>You feel a wave of pain throughout your body!</span>")
-	M.radiation += 75 * power
+	ADD_TRAIT(M, TRAIT_IRRADIATED, "radiation symptom")
 	return 1
 
 /datum/symptom/radconversion
@@ -86,13 +86,12 @@
 		return
 	var/mob/living/M = A.affected_mob
 	if(A.stage >= 4)
-		if(M.radiation)
-			M.radiation -= max(M.radiation * 0.05, min(10, M.radiation))
+		if(HAS_TRAIT(M, TRAIT_IRRADIATED))
+			REMOVE_TRAIT(M, TRAIT_IRRADIATED, "radconversion symptom")
 			M.take_overall_damage(2)
-			if(prob(5))
-				if(M.stat != DEAD)
-					to_chat(M, "<span class='userdanger'>A tear opens in your flesh!</span>")
-				M.add_splatter_floor()
+			if(M.stat != DEAD)
+				to_chat(M, "<span class='userdanger'>A tear opens in your flesh!</span>")
+			M.add_splatter_floor()
 		if(M.getToxLoss() && toxheal)
 			M.adjustToxLoss(-2, forced = TRUE) //this is removing foreign contaminants, it's not a toxinheal drug. of course its safe for slimes
 			M.take_overall_damage(1)
@@ -105,5 +104,5 @@
 			M.take_overall_damage(burn = 2) //this uses burn, so as not to make it so you can heal brute to heal all the damage types this deals, and it isn't a no-brainer to use with Pituitary
 			if(prob(5) && M.stat != DEAD)
 				to_chat(M, "<span class='userdanger'>A nasty rash appears on your skin!</span>")
-	else if(prob(2) && ((M.getCloneLoss() && cellheal) || (M.getToxLoss() && toxheal) || M.radiation) && M.stat != DEAD)
+	else if(prob(2) && ((M.getCloneLoss() && cellheal) || (M.getToxLoss() && toxheal) || HAS_TRAIT(M, TRAIT_IRRADIATED)) && M.stat != DEAD)
 		to_chat(M, "<span class='notice'>You feel a tingling sensation</span>")

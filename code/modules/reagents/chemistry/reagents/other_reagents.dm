@@ -1014,7 +1014,7 @@
 	/// How much tox damage to deal per tick
 	var/tox_damage = 0.5
 
-/datum/reagent/uranium/on_mob_life(mob/living/carbon/M)
+/datum/reagent/uranium/on_mob_life(mob/living/carbon/M, delta_time)
 	M.adjustToxLoss(tox_damage * delta_time * REM)
 	..()
 

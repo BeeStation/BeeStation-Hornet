@@ -49,7 +49,7 @@
 		M.domutcheck()
 	..()
 
-/datum/reagent/toxin/mutagen/on_mob_life(mob/living/carbon/C)
+/datum/reagent/toxin/mutagen/on_mob_life(mob/living/carbon/C, delta_time)
 	C.adjustToxLoss(0.5 * delta_time * REM)
 	return ..()
 
@@ -371,7 +371,7 @@
 	toxpwr = 0
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/toxin/polonium/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/polonium/on_mob_life(mob/living/carbon/M, delta_time)
 	if (!HAS_TRAIT(M, TRAIT_IRRADIATED) && SSradiation.can_irradiate_basic(M))
 		M.AddComponent(/datum/component/irradiated)
 	else

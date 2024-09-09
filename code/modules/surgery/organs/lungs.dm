@@ -289,22 +289,18 @@
 
 	// Tritium
 		var/trit_pp = PP(breath,GAS_TRITIUM)
-		if (trit_pp > 50)
-			breather.radiation += trit_pp/2 //If you're breathing in half an atmosphere of radioactive gas, you fucked up.
-		else
-			breather.radiation += trit_pp/10
 		// If you're breathing in half an atmosphere of radioactive gas, you fucked up.
-		if (trit_pp > tritium_irradiation_moles_min && SSradiation.can_irradiate_basic(breather))
+		if (trit_pp > tritium_irradiation_moles_min && SSradiation.can_irradiate_basic(H))
 			var/lerp_scale = min(tritium_irradiation_moles_max, trit_pp - tritium_irradiation_moles_min) / (tritium_irradiation_moles_max - tritium_irradiation_moles_min)
 			var/chance = LERP(tritium_irradiation_probability_min, tritium_irradiation_probability_max, lerp_scale)
 			if (prob(chance))
-				breather.AddComponent(/datum/component/irradiated)
+				H.AddComponent(/datum/component/irradiated)
 
 		gas_breathed = PP(breath,GAS_TRITIUM)
 
 		if (trit_pp > 0)
 			var/ratio = gas_breathed * 15
-			breather.adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
+			H.adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
 
 		breath.adjust_moles(GAS_TRITIUM, -gas_breathed)
 

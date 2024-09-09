@@ -579,7 +579,7 @@
 	REMOVE_TRAIT(L, TRAIT_HALT_RADIATION_EFFECTS, "[type]")
 	return ..()
 
-/datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/carbon/M)
+/datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/carbon/M, delta_time)
 	if (HAS_TRAIT(M, TRAIT_IRRADIATED))
 		M.adjustToxLoss(-1 * REM * delta_time)
 

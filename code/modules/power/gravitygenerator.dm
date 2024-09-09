@@ -297,12 +297,11 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/main/proc/enable()
 	charging_state = POWER_IDLE
 	on = TRUE
-	update_use_power(ACTIVE_POWER_USE)
+	use_power = ACTIVE_POWER_USE
 
 	if (!SSticker.IsRoundInProgress())
 		return
 
-	soundloop.start()
 	if (!gravity_in_level())
 		investigate_log("was brought online and is now producing gravity for this level.", INVESTIGATE_GRAVITY)
 		message_admins("The gravity generator was brought online [ADMIN_VERBOSEJMP(src)]")
@@ -314,12 +313,11 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/main/proc/disable()
 	charging_state = POWER_IDLE
 	on = FALSE
-	update_use_power(IDLE_POWER_USE)
+	use_power = IDLE_POWER_USE
 
 	if (!SSticker.IsRoundInProgress())
 		return
 
-	soundloop.stop()
 	if (gravity_in_level())
 		investigate_log("was brought offline and there is now no gravity for this level.", INVESTIGATE_GRAVITY)
 		message_admins("The gravity generator was brought offline with no backup generator. [ADMIN_VERBOSEJMP(src)]")

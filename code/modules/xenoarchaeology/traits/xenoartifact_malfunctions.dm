@@ -136,7 +136,7 @@
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT | PLASMA_TRAIT
 
 /datum/xenoartifact_trait/malfunction/radioactive/on_init(obj/item/xenoartifact/X)
-	X.rad_act(25)
+	radiation_pulse(X.loc, max_range = 25, threshold = 0.3)
 
 /datum/xenoartifact_trait/malfunction/radioactive/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/geiger_counter))
@@ -149,7 +149,7 @@
 	return TRUE
 
 /datum/xenoartifact_trait/malfunction/radioactive/activate(obj/item/xenoartifact/X)
-	X.rad_act(25)
+	radiation_pulse(X.loc, max_range = 25, threshold = 0.3)
 
 //============
 // twin, makes an evil twin of the target
