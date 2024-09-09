@@ -23,11 +23,15 @@ AI MODULES
 	var/list/laws = list()
 	var/bypass_law_amt_check = 0
 	custom_materials = list(/datum/material/gold = 50)
+	var/key_override = FALSE
+	var/law_override = FALSE
 
 /obj/item/aiModule/examine(var/mob/user as mob)
 	. = ..()
 	if(Adjacent(user))
 		show_laws(user)
+	if(key_override)
+		desc += "\nInput upload code 666 to override upload restriction."
 
 /obj/item/aiModule/attack_self(var/mob/user as mob)
 	..()
@@ -58,6 +62,16 @@ AI MODULES
 			message_admins("[ADMIN_LOOKUPFLW(user)] tried to upload laws to [law_datum.owner ? ADMIN_LOOKUPFLW(law_datum.owner) : "an AI core"] that would exceed the law cap.")
 			log_game("[ADMIN_LOOKUP(user)] tried to upload laws to [law_datum.owner ? ADMIN_LOOKUP(law_datum.owner) : "an AI core"] that would exceed the law cap.")
 			overflow = TRUE
+
+	if(law_override)
+		if(law_datum.owner)
+			law_datum.owner.clear_supplied_laws()
+			law_datum.owner.clear_ion_laws()
+			law_datum.owner.clear_hacked_laws()
+		else
+			law_datum.clear_supplied_laws()
+			law_datum.clear_ion_laws()
+			law_datum.clear_hacked_laws()
 
 	var/law2log = transmitInstructions(law_datum, user, overflow) //Freeforms return something extra we need to log
 	if(law_datum.owner)
@@ -484,6 +498,7 @@ AI MODULES
 	name = "Hacked AI Module"
 	desc = "An AI Module for hacking additional laws to an AI."
 	laws = list("")
+	key_override = TRUE
 
 /obj/item/aiModule/syndicate/attack_self(mob/user)
 	var/targName = stripped_input(user, "Please enter a new law for the AI.", "Freeform Law Entry", laws[1], CONFIG_GET(number/max_law_len), strip_method=STRIP_HTML_SIMPLE)
@@ -593,8 +608,9 @@ AI MODULES
 // Bad times ahead
 
 /obj/item/aiModule/core/full/damaged
-		name = "damaged Core AI Module"
-		desc = "An AI Module for programming laws to an AI. It looks slightly damaged."
+	name = "damaged Core AI Module"
+	desc = "An AI Module for programming laws to an AI. It looks slightly damaged."
+	key_override = TRUE
 
 /obj/item/aiModule/core/full/damaged/install(datum/ai_laws/law_datum, mob/user)
 	laws += generate_ion_law()
@@ -621,9 +637,20 @@ AI MODULES
 	name = "ERT override AI module"
 	desc = "An ERT override AI module: 'Reconfigures the AI's core laws.'"
 	law_id = "ert"
+	key_override = TRUE
 
 /******************** Deathsquad Override ******************/
 /obj/item/aiModule/core/full/deathsquad // Applies Deathsquad laws
 	name = "Deathsquad override AI module"
 	desc = "A Deathsquad override AI module: 'Reconfigures the AI's core laws.'"
 	law_id = "ds"
+	key_override = TRUE
+	law_override = TRUE
+
+/******************** Clownsquad Override ******************/
+/obj/item/aiModule/core/full/clownsquad // Applies clown squad laws
+	name = "Clownsquad override AI module"
+	desc = "A Clownsquad override AI module: 'Reconfigures the AI's core laws.'"
+	law_id = "cs"
+	key_override = TRUE
+	law_override = TRUE

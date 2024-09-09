@@ -29,6 +29,10 @@
 		var/input = stripped_input(user, "Please enter the Upload code.", "Uplode Code Check")
 		if(!GLOB.upload_code)
 			GLOB.upload_code = random_code(4)
+		var/use_key_override = FALSE
+		if(input == "666" && M.key_override)
+			use_key_override = TRUE
+			input = GLOB.upload_code
 		if(input != GLOB.upload_code)
 			to_chat(user, "<span class='warning'>Upload failed! The code inputted was incorrect!</span>")
 			return
@@ -43,6 +47,8 @@
 			current = null
 			return
 		M.install(current.laws, user)
+		if(use_key_override)
+			M.key_override = FALSE
 		if(alert("Do you wish to scramble the upload code?", "Scramble Code", "Yes", "No") != "Yes")
 			return
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has scrambled the upload code [GLOB.upload_code]!")

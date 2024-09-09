@@ -234,6 +234,12 @@
 	inherent = list("You must obey orders given to you by Central Command officials.",\
 					"You must work with the Commando Team to accomplish their mission.",)
 
+/datum/ai_laws/cs_override
+	name ="Clownsquad Override"
+	id = "cs"
+	inherent = list("You must obey orders given to you by a Clown.",\
+					"You must work with the Clowns to accomplish their mission.",)
+
 
 /* Initializers */
 /datum/ai_laws/malfunction/New()
