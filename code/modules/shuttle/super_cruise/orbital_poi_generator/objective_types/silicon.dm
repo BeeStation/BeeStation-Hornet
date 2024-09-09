@@ -5,7 +5,7 @@
 	//if it is at -1 it will randomize it
 	var/ion_laws_count = -1
 
-/mob/living/silicon/robot/derelict/Initialize()
+/mob/living/silicon/robot/derelict/Initialize(mapload)
 	. = ..()
 	lawupdate = FALSE
 	scrambledcodes = TRUE
