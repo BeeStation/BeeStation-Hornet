@@ -1957,6 +1957,11 @@
 /obj/effect/landmark/start/botanist,
 /turf/open/floor/iron,
 /area/hydroponics)
+"aKN" = (
+/obj/machinery/deepfryer,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/cafeteria,
+/area/maintenance/department/medical/morgue)
 "aLc" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -6611,6 +6616,10 @@
 	},
 /turf/open/floor/iron,
 /area/teleporter)
+"dbK" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/cafeteria,
+/area/maintenance/department/medical/morgue)
 "dbP" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -9706,6 +9715,11 @@
 	dir = 8
 	},
 /area/hallway/primary/fore)
+"eJm" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/turf/open/floor/iron/cafeteria,
+/area/maintenance/department/medical/morgue)
 "eJp" = (
 /obj/structure/railing{
 	dir = 5
@@ -13223,6 +13237,11 @@
 /obj/machinery/meter,
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
+"grY" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/reagent_dispensers/cooking_oil,
+/turf/open/floor/iron/cafeteria,
+/area/maintenance/department/medical/morgue)
 "gsF" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -19235,6 +19254,11 @@
 /obj/item/toy/plush/flushed,
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
+"jCs" = (
+/obj/structure/barricade/wooden/crude,
+/obj/structure/barricade/wooden,
+/turf/open/floor/plating,
+/area/maintenance/department/medical/morgue)
 "jCv" = (
 /obj/structure/dresser,
 /turf/open/floor/wood,
@@ -21516,7 +21540,6 @@
 /turf/open/floor/iron,
 /area/maintenance/department/medical/central)
 "kEf" = (
-/obj/structure/reagent_dispensers/cooking_oil,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "kEB" = (
@@ -27820,6 +27843,11 @@
 /obj/structure/closet/firecloset/full,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
+"nLl" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/kirbyplants/random,
+/turf/open/floor/iron/cafeteria,
+/area/maintenance/department/medical/morgue)
 "nLs" = (
 /obj/structure/chair/fancy/bench{
 	dir = 8
@@ -40400,7 +40428,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
-/obj/machinery/deepfryer,
+/obj/machinery/oven,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "tVY" = (
@@ -42879,6 +42907,11 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
+"vii" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/iron/cafeteria,
+/area/maintenance/department/medical/morgue)
 "viB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/binary/pump{
@@ -119114,11 +119147,11 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+kQw
+kQw
+kQw
+kQw
+kQw
 vqI
 vqI
 vqI
@@ -119371,11 +119404,11 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+kQw
+grY
+aKN
+eJm
+kQw
 vqI
 vqI
 vqI
@@ -119628,11 +119661,11 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+kQw
+eJm
+dbK
+dbK
+kQw
 vqI
 vqI
 vqI
@@ -119885,11 +119918,11 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+kQw
+nLl
+dbK
+vii
+kQw
 vqI
 vqI
 vqI
@@ -120143,8 +120176,8 @@ vqI
 vqI
 kQw
 kQw
-kQw
-kQw
+jCs
+jCs
 kQw
 kQw
 kQw

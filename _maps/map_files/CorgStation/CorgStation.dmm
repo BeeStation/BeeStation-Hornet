@@ -39757,14 +39757,9 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "mGf" = (
-/obj/machinery/microwave{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/structure/table/reinforced,
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/red,
+/obj/machinery/oven,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "mGg" = (
@@ -52104,6 +52099,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/machinery/icecream_vat,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen/coldroom)
 "qOc" = (
@@ -53972,6 +53968,15 @@
 	},
 /turf/open/floor/iron,
 /area/science/misc_lab/range)
+"ruH" = (
+/obj/effect/turf_decal/tile/red,
+/obj/structure/table/reinforced,
+/obj/machinery/microwave{
+	desc = "Cooks and boils stuff, somehow.";
+	pixel_y = 7
+	},
+/turf/open/floor/iron/white,
+/area/crew_quarters/kitchen)
 "ruI" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -71231,8 +71236,8 @@
 	pixel_y = -5;
 	req_access_txt = "28"
 	},
-/obj/machinery/icecream_vat,
 /obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/processor,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "wXO" = (
@@ -110241,7 +110246,7 @@ uuV
 uir
 tIp
 rbi
-kan
+ruH
 gWp
 gyr
 tmF

@@ -11509,6 +11509,12 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
+"cfS" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 9
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "cge" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/jacket/letterman_nanotrasen,
@@ -14058,6 +14064,9 @@
 /area/gateway)
 "cCq" = (
 /obj/machinery/deepfryer,
+/obj/effect/turf_decal/siding/white{
+	dir = 10
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "cCu" = (
@@ -22239,6 +22248,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/landmark/start/cook,
+/obj/effect/turf_decal/siding/white,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "fzt" = (
@@ -25392,6 +25402,9 @@
 "gJj" = (
 /obj/structure/table,
 /obj/machinery/microwave,
+/obj/effect/turf_decal/siding/white{
+	dir = 6
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "gJm" = (
@@ -25725,7 +25738,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/machinery/oven,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "gRw" = (
@@ -34506,6 +34519,7 @@
 /area/ai_monitored/nuke_storage)
 "kpy" = (
 /obj/machinery/processor,
+/obj/effect/turf_decal/siding/white,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "kpH" = (
@@ -38573,6 +38587,12 @@
 	},
 /turf/open/floor/wood,
 /area/library)
+"lUq" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 5
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "lUw" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -39611,6 +39631,7 @@
 /area/security/prison)
 "muT" = (
 /obj/structure/table,
+/obj/effect/turf_decal/siding/white,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "mvI" = (
@@ -40385,6 +40406,14 @@
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
+"mNN" = (
+/obj/structure/table,
+/obj/machinery/microwave,
+/obj/effect/turf_decal/siding/white{
+	dir = 8
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "mOf" = (
 /obj/item/storage/box/bodybags,
 /obj/item/reagent_containers/syringe{
@@ -51847,6 +51876,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "ruM" = (
@@ -53201,10 +53233,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit)
-"rUV" = (
-/obj/machinery/vending/dinnerware,
-/turf/open/floor/iron/checker,
-/area/crew_quarters/kitchen)
 "rVa" = (
 /obj/machinery/camera/directional/north,
 /obj/structure/disposalpipe/segment{
@@ -55240,6 +55268,9 @@
 /obj/item/food/piedough,
 /obj/item/food/dough{
 	pixel_x = -4
+	},
+/obj/effect/turf_decal/siding/white{
+	dir = 8
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
@@ -63039,6 +63070,7 @@
 "vPA" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/vending/dinnerware,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "vPD" = (
@@ -66446,6 +66478,9 @@
 	pixel_x = 13;
 	pixel_y = 17
 	},
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "xkq" = (
@@ -67157,6 +67192,9 @@
 /area/lawoffice)
 "xwv" = (
 /obj/machinery/gibber,
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "xwA" = (
@@ -68450,6 +68488,12 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"xZQ" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "xZT" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/black/fourcorners,
@@ -107131,8 +107175,8 @@ jJX
 vPA
 dZF
 vpf
-aVz
-gJj
+cfS
+mNN
 sJK
 cCq
 psd
@@ -107388,7 +107432,7 @@ guF
 vel
 dZF
 vgA
-aVz
+xZQ
 aVD
 nGC
 kpy
@@ -107901,8 +107945,8 @@ eWt
 nue
 ssw
 dZF
-rUV
-aVz
+sZa
+xZQ
 pkl
 aVz
 muT
@@ -108159,7 +108203,7 @@ fOt
 aEY
 dZF
 gRb
-aVz
+lUq
 xko
 xwv
 gJj

@@ -26572,7 +26572,7 @@
 	},
 /obj/machinery/camera/autoname/directional/west,
 /obj/effect/turf_decal/bot,
-/obj/machinery/deepfryer,
+/obj/machinery/oven,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "irG" = (
@@ -40375,6 +40375,7 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "mOk" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/machinery/deepfryer,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "mOm" = (

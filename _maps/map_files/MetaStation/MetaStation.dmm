@@ -14613,6 +14613,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/food_cart,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bUq" = (
@@ -34940,10 +34941,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
-"ici" = (
-/obj/machinery/food_cart,
-/turf/open/floor/iron/checker,
-/area/crew_quarters/kitchen)
 "icl" = (
 /obj/item/radio/intercom{
 	pixel_x = -29
@@ -41920,7 +41917,9 @@
 /obj/item/reagent_containers/glass/beaker{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/condiment/enzyme,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	pixel_y = 6
+	},
 /obj/item/food/mint,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
@@ -55646,17 +55645,13 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
 "pMW" = (
-/obj/structure/table,
-/obj/machinery/microwave{
-	pixel_x = -3;
-	pixel_y = 4
-	},
 /obj/machinery/button/door{
 	id = "kitchenwindow";
 	name = "Window Shutter Control";
 	pixel_x = -26;
 	req_access_txt = "28"
 	},
+/obj/machinery/oven,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "pNj" = (
@@ -64022,7 +64017,9 @@
 /area/crew_quarters/heads/captain/private)
 "sPq" = (
 /obj/structure/table/reinforced,
-/obj/machinery/dish_drive,
+/obj/machinery/dish_drive{
+	pixel_y = 6
+	},
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
@@ -64393,7 +64390,7 @@
 	},
 /obj/structure/table,
 /obj/machinery/dish_drive{
-	pixel_y = 5
+	pixel_y = 12
 	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
@@ -68196,6 +68193,11 @@
 "ukv" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/structure/table,
+/obj/machinery/microwave{
+	pixel_x = -3;
+	pixel_y = 4
 	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
@@ -112710,8 +112712,8 @@ xTu
 ikT
 bKe
 pMW
+ujJ
 tDj
-ici
 ukv
 sSS
 bST
