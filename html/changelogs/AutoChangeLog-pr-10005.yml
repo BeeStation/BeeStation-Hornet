@@ -1,8 +1,0 @@
-author: rkz, Tralezab, Timberpoes, Ghommie
-delete-after: true
-changes:
-  - refactor: refactors species.dm organs and features
-  - code_imp: folded default_features into mutant_bodyparts
-  - bugfix: fixed hacky override for lizards, now spines work in the preference menu
-      from the get-go.
-  - tweak: sensory regeneration no longer sprouts new tails
