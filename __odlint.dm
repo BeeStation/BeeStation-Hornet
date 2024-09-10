@@ -2,7 +2,7 @@
 // Its purpose is to enable multiple lints (pragmas) that are supported by OpenDream to better validate the codebase
 // These are essentially nitpicks the DM compiler should pick up on but doesnt
 
-#if !defined(SPACEMAN_DMM) && defined(OPENDREAM)
+#if defined(CIBUILDING) && defined(OPENDREAM)
 // This is in a separate file as a hack to avoid SpacemanDMM
 // evaluating the #pragma lines, even if its outside a block it cares about
 // (Also so people can code-own it. Shoutout to AA)
