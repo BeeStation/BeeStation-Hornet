@@ -9,7 +9,7 @@
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN
 
-/obj/item/food/dough/MakeBakeable()
+/obj/item/food/dough/make_bakeable()
 	AddComponent(/datum/component/bakeable, /obj/item/food/bread/plain, rand(30 SECONDS, 45 SECONDS), TRUE, TRUE)
 
 // Dough + rolling pin = flat dough
@@ -25,7 +25,7 @@
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN
 
-/obj/item/food/flatdough/MakeBakeable()
+/obj/item/food/flatdough/make_bakeable()
 	AddComponent(/datum/component/bakeable, /obj/item/food/pizzabread, rand(30 SECONDS, 45 SECONDS), TRUE, TRUE)
 
 // sliceable into 3xdoughslices
@@ -55,7 +55,7 @@
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN
 
-/obj/item/food/doughslice/MakeBakeable()
+/obj/item/food/doughslice/make_bakeable()
 	AddComponent(/datum/component/bakeable, /obj/item/food/bun, rand(20 SECONDS, 25 SECONDS), TRUE, TRUE)
 
 /obj/item/food/bun
@@ -81,7 +81,7 @@
 	tastes = list("batter" = 1)
 	foodtypes = GRAIN | DAIRY
 
-/obj/item/food/cakebatter/MakeBakeable()
+/obj/item/food/cakebatter/make_bakeable()
 	AddComponent(/datum/component/bakeable, /obj/item/food/cake/plain, rand(70 SECONDS, 90 SECONDS), TRUE, TRUE)
 
 // Cake batter + rolling pin = pie dough
@@ -97,7 +97,7 @@
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN | DAIRY
 
-/obj/item/food/piedough/MakeBakeable()
+/obj/item/food/piedough/make_bakeable()
 	AddComponent(/datum/component/bakeable, /obj/item/food/pie/plain, rand(30 SECONDS, 45 SECONDS), TRUE, TRUE)
 
 /obj/item/food/piedough/make_processable()
@@ -113,7 +113,7 @@
 	tastes = list("raw pastry" = 1)
 	foodtypes = GRAIN | DAIRY
 
-/obj/item/food/rawpastrybase/MakeBakeable()
+/obj/item/food/rawpastrybase/make_bakeable()
 	AddComponent(/datum/component/bakeable, /obj/item/food/pastrybase, rand(20 SECONDS, 25 SECONDS), TRUE, TRUE)
 
 /obj/item/food/pastrybase

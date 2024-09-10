@@ -42,7 +42,7 @@
 	var/baking_time_long = 30 SECONDS
 
 //donk pockets cook quick... try not to burn them using an unoptimal tool
-/obj/item/food/donkpocket/MakeBakeable()
+/obj/item/food/donkpocket/make_bakeable()
 	AddComponent(/datum/component/bakeable, microwaved_type, rand(25 SECONDS, 30 SECONDS), TRUE, TRUE)
 
 /obj/item/food/donkpocket/warm
@@ -61,7 +61,7 @@
 	baking_time_long = 15 SECONDS
 
 ///Override for fast-burning food
-/obj/item/food/donkpocket/warm/MakeBakeable()
+/obj/item/food/donkpocket/warm/make_bakeable()
 	AddComponent(/datum/component/bakeable, /obj/item/food/badrecipe, rand(10 SECONDS, 15 SECONDS), FALSE)
 
 /obj/item/food/donkpocket/dankpocket
