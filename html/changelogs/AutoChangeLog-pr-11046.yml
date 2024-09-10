@@ -1,0 +1,10 @@
+author: SyncIt21, 13spacemen, SuperSayu, ZephyrTFA, MrMelbert, TiviPlus, AnturK, LemonInTheDark,
+  Kylerace, Ghilker, Fikou, Ben10Omintrix, Ghommie, ShizCalev, SyncIt21, Timberpoes,
+  stylemistake, MacBlaze1, robbertapir, timothymtorres, haukeschuemann, JohnFulpWillard,
+  XeonMations
+delete-after: true
+changes:
+  - refactor: Updated assembly code to be more in line with TG"s
+  - refactor: Updated beam datum code to be more in line with TG"s as well
+  - bugfix: Fixed infrared sensors creating two beams when thrown diagonally
+  - rscadd: Added the ability to place assemblies on welding tanks
