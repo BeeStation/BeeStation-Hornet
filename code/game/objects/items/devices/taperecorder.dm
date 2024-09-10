@@ -51,12 +51,6 @@
 			return "<span class='notice'><b>[mins]</b>m <b>[secs]</b>s</span>"
 	return "<span class='notice'><b>NO TAPE INSERTED</b></span>"
 
-/obj/item/taperecorder/AltClick(mob/user)
-	. = ..()
-	if(!can_interact(user))
-		return
-	play()
-
 /obj/item/taperecorder/proc/update_available_icons()
 	icons_available = list()
 
