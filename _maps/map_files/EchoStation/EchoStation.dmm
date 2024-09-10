@@ -30578,7 +30578,7 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/obj/item/knife/carrotshiv{
+/obj/item/knife/shiv/carrot{
 	pixel_x = 6;
 	pixel_y = 3
 	},

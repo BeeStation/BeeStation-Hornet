@@ -30,7 +30,7 @@
 	///Current state of smoke coming from the oven
 	var/smoke_state = OVEN_SMOKE_STATE_NONE
 
-/obj/machinery/oven/Initialize()
+/obj/machinery/oven/Initialize(mapload)
 	. = ..()
 	oven_loop = new(src)
 	add_tray_to_oven(new /obj/item/plate/oven_tray(src)) //Start with a tray
@@ -104,7 +104,7 @@
 	oven_tray.pixel_y = OVEN_TRAY_Y_OFFSET
 	oven_tray.pixel_x = OVEN_TRAY_X_OFFSET
 
-	RegisterSignal(used_tray, COMSIG_MOVABLE_MOVED, .proc/ItemMoved)
+	RegisterSignal(used_tray, COMSIG_MOVABLE_MOVED, PROC_REF(ItemMoved))
 	update_baking_audio()
 	update_appearance()
 
