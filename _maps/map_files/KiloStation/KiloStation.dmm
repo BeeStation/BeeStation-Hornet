@@ -19909,8 +19909,7 @@
 "cop" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering{
-	name = "Engineering Desk";
-	req_one_access_txt = "10;24"
+	name = "Engineering Desk"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -19924,6 +19923,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/construction,
 /turf/open/floor/iron/dark,
 /area/engine/break_room)
 "cot" = (

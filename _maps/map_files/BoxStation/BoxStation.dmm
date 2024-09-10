@@ -1477,8 +1477,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/engineering/glass{
-	name = "Engineering Foyer";
-	req_one_access_txt = "32"
+	name = "Engineering Foyer"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -1487,6 +1486,7 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/station/engineering,
 /turf/open/floor/iron,
 /area/engine/break_room)
 "avy" = (
@@ -34199,8 +34199,7 @@
 /area/crew_quarters/bar)
 "kjp" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Security Office";
-	req_access_txt = "63"
+	name = "Security Office"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -34212,6 +34211,7 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/station/security/outpost,
 /turf/open/floor/iron,
 /area/security/checkpoint/engineering)
 "kjL" = (
