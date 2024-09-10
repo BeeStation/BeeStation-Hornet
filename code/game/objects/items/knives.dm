@@ -156,9 +156,9 @@
 /obj/item/knife/shiv
 	name = "glass shiv"
 	desc = "A crude knife fashioned by wrapping some cable around a glass shard. It looks like it could be thrown with some force.. and stick. Good to throw at someone chasing you"
-	icon = 'icons/obj/weapons/knife.dmi'
+	icon = 'icons/obj/knives.dmi'
 	icon_state = "shiv"
-	inhand_icon_state = "shiv"
+	item_state = "shiv"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	force = 8 // 3 more than base glass shard
