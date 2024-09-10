@@ -39,6 +39,9 @@
 	else
 		return COMPONENT_INCOMPATIBLE
 
+	if(ismovable(parent))
+		RegisterSignal(parent, COMSIG_ATOM_INTERCEPT_TELEPORT, PROC_REF(on_intercept_teleport))
+
 /datum/component/anti_magic/proc/on_equip(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
 
@@ -65,6 +68,8 @@
 	user.update_alt_appearances()
 
 /datum/component/anti_magic/Destroy(force, silent)
+	if(ismovable(parent))
+		UnregisterSignal(parent, COMSIG_ATOM_INTERCEPT_TELEPORT)
 	if(ismob(parent)) //If the component is attached to an item, it should go through on_drop instead.
 		var/mob/user = parent
 		UnregisterSignal(user, COMSIG_MOB_RECEIVE_MAGIC)
@@ -84,3 +89,11 @@
 			if(charges <= 0)
 				expire?.Invoke(user)
 		return COMPONENT_BLOCK_MAGIC
+
+// Realistically, it shouldn't get to this point if parent is a mob because prior checks SHOULD factor in anti_magic
+// But if we do get to this point, parent is most likely an item and we should cancel the teleport in that case
+/datum/component/anti_magic/proc/on_intercept_teleport(datum/source, channel, turf/origin, turf/destination)
+	SIGNAL_HANDLER
+
+	if((holy && channel == TELEPORT_CHANNEL_CULT) || (magic && channel == TELEPORT_CHANNEL_MAGIC))
+		return COMPONENT_BLOCK_TELEPORT

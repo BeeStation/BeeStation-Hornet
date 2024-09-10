@@ -187,7 +187,7 @@
 			if(QDELETED(src)) // it's bad when someone spams this...
 				return
 			var/turf/targetturf = get_random_station_turf()
-			if(!do_teleport(user, targetturf, channel = TELEPORT_CHANNEL_CULT, forced=TRUE))
+			if(!do_teleport(user, targetturf, channel = TELEPORT_CHANNEL_CULT, bypass_area_restriction=TRUE))
 				to_chat(user,  "<span class='revenwarning'>You have failed to recall yourself to the station... You should try again.</span>")
 			else
 				user.reveal(80)
