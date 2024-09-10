@@ -271,6 +271,10 @@
 		message_admins("[ADMIN_LOOKUPFLW(user)] erased a [target_rune.cultist_name] rune with a null rod.")
 	SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_NARNAR] = TRUE
 
+// The nullrod by itself does not block cult/wizard teleports
+/obj/item/nullrod/intercept_teleport(channel, turf/origin, turf/destination)
+	return
+
 /obj/item/nullrod/godhand
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
