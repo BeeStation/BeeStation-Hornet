@@ -46410,9 +46410,7 @@
 /obj/effect/landmark/event_spawn,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/disposalpipe/sorting/mail/destination/kitchen/flip{
-	dir = 1
-	},
+/obj/structure/disposalpipe/sorting/mail/destination/kitchen,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "iJK" = (
@@ -74719,8 +74717,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/disposalpipe/junction/yjunction{
-	dir = 8
+/obj/structure/disposalpipe/junction/flip{
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
