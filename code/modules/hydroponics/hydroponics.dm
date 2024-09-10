@@ -788,8 +788,8 @@
 				investigate_log("had Kudzu planted in it by [key_name(user)] at [AREACOORD(src)]","kudzu")
 			if(!user.transferItemToLoc(O, src))
 				return
-			if(!istype(O, /obj/item/seeds)) //If the given item is supposed to be a seed, but isn't a subtype of a seed, use the item's seed variable instead.
-				O = O.fake_seed
+			if(!istype(O, /obj/item/seeds)) //If the given item is supposed to be a seed, but isn't a subtype of /obj/item/seed
+				O = O.fake_seed // use the item's fake_seed variable instead.
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
 			myseed = O

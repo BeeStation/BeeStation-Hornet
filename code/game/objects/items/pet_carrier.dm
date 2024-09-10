@@ -24,6 +24,7 @@
 	var/occupant_weight = 0
 	var/max_occupants = 3 //Hard-cap so you can't have infinite mice or something in one carrier
 	var/max_occupant_weight = MOB_SIZE_SMALL //This is calculated from the mob sizes of occupants
+	COOLDOWN_DECLARE(movement_cooldown)
 
 /obj/item/pet_carrier/Destroy()
 	if(occupants.len)
@@ -120,10 +121,10 @@
 		container_resist(user)
 
 /obj/item/pet_carrier/container_resist(mob/living/user)
-	if(world.time < user.last_special)
+	if(!COOLDOWN_FINISHED(src, movement_cooldown))
 		return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
-	user.last_special = world.time + CLICK_CD_BREAKOUT
+	COOLDOWN_START(src, movement_cooldown, CLICK_CD_BREAKOUT)
 	if(user.mob_size <= MOB_SIZE_SMALL)
 		to_chat(user, "<span class='notice'>You poke a limb through [src]'s bars and start fumbling for the lock switch... (This will take some time.)</span>")
 		to_chat(loc, "<span class='warning'>You see [user] reach through the bars and fumble for the lock switch!</span>")

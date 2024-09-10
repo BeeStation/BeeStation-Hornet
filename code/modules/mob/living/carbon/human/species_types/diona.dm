@@ -49,7 +49,7 @@
 
 	var/datum/action/diona/split/split_ability //All dionae start with this, this is for splitting apart completely.
 	var/datum/action/diona/partition/partition_ability //All dionae start with this as well, this is for splitting off a nymph from food.
-	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = null
+	var/datum/weakref/drone_ref
 
 	var/time_spent_in_light
 	var/informed_nymph = FALSE //If the user was informed that they can release a nymph via food.
@@ -87,8 +87,8 @@
 			time_spent_in_light = 0  //No light? Reset the timer.
 
 /datum/species/diona/spec_updatehealth(mob/living/carbon/human/H)
-	var/datum/mind/M = H.mind
-	if(H.stat != CONSCIOUS && !M && drone) //If the home body is not fully conscious, they dont have a mind and have a drone
+	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
+	if(H.stat != CONSCIOUS && !H.mind && drone) //If the home body is not fully conscious, they dont have a mind and have a drone
 		drone.switch_ability.Trigger(H) //Bring them home.
 
 /datum/species/diona/handle_mutations_and_radiation(mob/living/carbon/human/H)
@@ -122,11 +122,12 @@
 		H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
 
 /datum/species/diona/spec_death(gibbed, mob/living/carbon/human/H)
+	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
+	if(drone)
+		drone = null
 	if(gibbed)
 		QDEL_NULL(H)
 		return
-	if(drone)
-		drone = null
 	split_ability.Trigger(TRUE)
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
@@ -148,8 +149,7 @@
 	partition_ability.Remove(H)
 	QDEL_NULL(partition_ability)
 	REMOVE_TRAIT(H, TRAIT_MOBILE, "diona")
-	if(drone)
-		drone = null
+	qdel(drone_ref)
 	for(var/status_effect as anything in H.status_effects)
 		if(status_effect == STATUS_EFFECT_PLANTHEALING)
 			H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)

@@ -314,7 +314,7 @@
 	base_icon_state = "control"
 	action_icon_state = "control"
 	var/has_drone = FALSE //If the diona has a drone active or not, for their special mutation.
-	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = null
+	var/datum/weakref/drone_ref
 
 /obj/effect/proc_holder/spell/self/drone/cast(list/targets, mob/user = usr)
 	. = ..()
@@ -323,28 +323,28 @@
 		return
 	CHECK_DNA_AND_SPECIES(C)
 	var/datum/species/diona/S = C.dna.species
-	if(!has_drone)
-		if(do_after(C, 5 SECONDS, C, NONE, TRUE))
-			has_drone = TRUE
-			var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = new(C.loc)
-			nymph.is_drone = TRUE
-			nymph.drone_parent = C
-			nymph.switch_ability = new
-			nymph.switch_ability.Grant(nymph)
-			drone = nymph
-			S.drone = nymph
-	else if(has_drone)
+	if(has_drone)
+		var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
 		if(drone.stat == DEAD || QDELETED(drone))
 			to_chat(C, "You can't seem to find the psychic link with your nymph.")
 			has_drone = FALSE
 		else
 			to_chat(C, "Switching to nymph...")
-			SwitchTo(drone, C)
+			SwitchTo(C)
 	else
-		to_chat(C, "Something fucked up, tell the admins and coders to figure out what went wrong!")
+		if(!do_after(C, 5 SECONDS, C, NONE, TRUE))
+			return
+		has_drone = TRUE
+		var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = new(C.loc)
+		nymph.is_drone = TRUE
+		nymph.drone_parent = C
+		nymph.switch_ability = new
+		nymph.switch_ability.Grant(nymph)
+		drone_ref = WEAKREF(nymph)
+		S.drone_ref = WEAKREF(nymph)
 
-
-/obj/effect/proc_holder/spell/self/drone/proc/SwitchTo(mob/living/simple_animal/hostile/retaliate/nymph/drone, mob/living/carbon/M)
+/obj/effect/proc_holder/spell/self/drone/proc/SwitchTo(mob/living/carbon/M)
+	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
 	if(drone.stat == DEAD || QDELETED(drone)) //sanity check
 		return
 	var/datum/mind/C = M.mind
