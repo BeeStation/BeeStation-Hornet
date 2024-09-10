@@ -128,8 +128,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 	return ..()
 
-/mob
-	var/hud_type = /datum/hud
+/mob/var/hud_type = /datum/hud
 
 /mob/proc/create_mob_hud()
 	if(!client || hud_used)

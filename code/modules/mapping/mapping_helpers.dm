@@ -1,6 +1,6 @@
 //Landmarks and other helpers which speed up the mapping process and reduce the number of unique instances/subtypes of items/turf/ect
 
-
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/baseturf_helper)
 
 /obj/effect/baseturf_helper //Set the baseturfs of every turf in the /area/ it is placed.
 	name = "baseturf editor"
@@ -87,6 +87,7 @@
 	name = "lavaland baseturf editor"
 	baseturf = /turf/open/lava/smooth/lava_land_surface
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 
 /obj/effect/mapping_helpers
 	icon = 'icons/effects/mapping_helpers.dmi'
@@ -331,6 +332,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/pipe_color = ""
 	var/hide = FALSE
 
+	FASTDMM_PROP(\
+		pipe_type = PIPE_TYPE_AUTO,\
+		pipe_interference_group = "atmos-[piping_layer]"\
+	)
+
 	var/list/pipe_types = list(
 		/obj/machinery/atmospherics/pipe/simple/general/visible,
 		/obj/machinery/atmospherics/pipe/simple/general/visible,
@@ -338,7 +344,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 		/obj/machinery/atmospherics/pipe/manifold4w/general/visible
 	)
 
-/obj/effect/mapping_helpers/simple_pipes/Initialize()
+/obj/effect/mapping_helpers/simple_pipes/Initialize(mapload)
 	preform_layer(piping_layer, pipe_color)
 	qdel(src)
 
@@ -428,7 +434,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	color = rgb(128, 0, 128) // purple in-between pipe
 
 // Instead of using our current layer, we use
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/Initialize()
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/Initialize(mapload)
 	preform_layer(2, rgb(0, 0, 255), override_name = "air supply pipe")
 	preform_layer(4, rgb(255, 0, 0), override_name = "scrubbers pipe")
 
@@ -448,36 +454,39 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 /obj/effect/mapping_helpers/color_correction
 	name = "color correction helper"
 	icon_state = "color_correction"
+	late = TRUE
 	var/color_correction = /datum/client_colour/area_color/cold
 
-/obj/effect/mapping_helpers/color_correction/Initialize(mapload)
-	. = ..()
+/obj/effect/mapping_helpers/color_correction/LateInitialize()
 	var/area/A = get_area(get_turf(src))
 	A.color_correction = color_correction
+	qdel(src)
 
 //Make any turf non-slip
 /obj/effect/mapping_helpers/make_non_slip
 	name = "non slip helper"
 	icon_state = "no_slip"
+	late = TRUE
 	///Do we add the grippy visual
 	var/grip_visual = TRUE
 
-/obj/effect/mapping_helpers/make_non_slip/Initialize(mapload)
-	. = ..()
+/obj/effect/mapping_helpers/make_non_slip/LateInitialize()
 	var/turf/open/T = get_turf(src)
 	if(isopenturf(T))
 		T?.make_traction(grip_visual)
+	qdel(src)
 
 //Change this areas turf texture
 /obj/effect/mapping_helpers/tile_breaker
 	name = "area turf texture helper"
 	icon_state = "tile_breaker"
+	late = TRUE
 
-/obj/effect/mapping_helpers/tile_breaker/Initialize(mapload)
-	. = ..()
+/obj/effect/mapping_helpers/tile_breaker/LateInitialize()
 	var/turf/open/floor/T = get_turf(src)
 	if(istype(T, /turf/open/floor))
 		T.break_tile()
+	qdel(src)
 
 //Virology helper- if virologist is enabled, set airlocks to virology access, set
 /obj/effect/mapping_helpers/virology

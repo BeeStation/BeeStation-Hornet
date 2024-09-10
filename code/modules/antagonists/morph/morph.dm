@@ -308,3 +308,5 @@
 	log_game("[key_name(S)] was spawned as a morph by an event.")
 	spawned_mobs += S
 	return SUCCESSFUL_SPAWN
+
+#undef MORPH_COOLDOWN

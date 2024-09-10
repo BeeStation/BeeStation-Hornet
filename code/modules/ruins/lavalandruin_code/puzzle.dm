@@ -353,3 +353,5 @@
 	var/obj/structure/puzzle_element/E = pick(cube.elements)
 	prisoner.forceMove(E)
 	return TRUE
+
+#undef COLLAPSE_DURATION

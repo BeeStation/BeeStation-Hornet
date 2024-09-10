@@ -226,8 +226,8 @@
 		model_cache = placing_template.modelCache
 		set_stage(GENERATE_STAGE_BUILD_COORDINATES_START)
 		return
-	//Set these all to be the same reference
-	model_cache = placing_template.modelCache = list()
+	// Build the model cache by ourselves
+	model_cache = list()
 	set_stage(GENERATE_STAGE_BUILD_CACHE)
 	//Set the grid models
 	grid_models = placing_template.grid_models

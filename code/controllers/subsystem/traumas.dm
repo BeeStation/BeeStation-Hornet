@@ -148,7 +148,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/structure/sign/departments/medbay, /obj/machinery/door/airlock/medical, /obj/machinery/sleeper, /obj/machinery/stasis,
 			/obj/machinery/dna_scannernew, /obj/machinery/atmospherics/components/unary/cryo_cell, /obj/item/surgical_drapes,
 			/obj/item/retractor, /obj/item/hemostat, /obj/item/cautery, /obj/item/surgicaldrill, /obj/item/scalpel, /obj/item/circular_saw,
-			/obj/item/clothing/suit/bio_suit/plaguedoctorsuit, /obj/item/clothing/head/bio_hood/plague, /obj/item/clothing/mask/gas/plaguedoctor)),
+			/obj/item/clothing/suit/bio_suit/plaguedoctorsuit, /obj/item/clothing/head/costume/plague, /obj/item/clothing/mask/gas/plaguedoctor)),
 
 		"authority"   = typecacheof(list(
 			/obj/item/clothing/under/rank/captain,  /obj/item/clothing/under/rank/civilian/head_of_personnel,
@@ -231,13 +231,13 @@ SUBSYSTEM_DEF(traumas)
 						)
 
 	phobia_species = list("lizards" = typecacheof(list(/datum/species/lizard)),
-						  "skeletons" = typecacheof(list(/datum/species/skeleton, /datum/species/plasmaman)),
-						  "conspiracies" = typecacheof(list(/datum/species/abductor, /datum/species/lizard)),
-						  "robots" = typecacheof(list(/datum/species/android)),
-						  "the supernatural" = typecacheof(list(/datum/species/golem/clockwork, /datum/species/golem/runic)),
-						  "aliens" = typecacheof(list(/datum/species/abductor, /datum/species/pod,
-						  /datum/species/shadow)),
-						  "anime" = typecacheof(list(/datum/species/human/felinid))
-						 )
+							"skeletons" = typecacheof(list(/datum/species/skeleton, /datum/species/plasmaman)),
+							"conspiracies" = typecacheof(list(/datum/species/abductor, /datum/species/lizard)),
+							"robots" = typecacheof(list(/datum/species/android)),
+							"the supernatural" = typecacheof(list(/datum/species/golem/clockwork, /datum/species/golem/runic)),
+							"aliens" = typecacheof(list(/datum/species/abductor, /datum/species/pod,
+							/datum/species/shadow)),
+							"anime" = typecacheof(list(/datum/species/human/felinid))
+						)
 
 	return SS_INIT_SUCCESS
