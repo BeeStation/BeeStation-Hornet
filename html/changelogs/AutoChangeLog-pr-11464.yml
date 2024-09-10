@@ -1,4 +1,0 @@
-author: PowerfulBacon, AffectedArc
-delete-after: true
-changes:
-  - server: Enforces warnings in OD lints aggressively.
