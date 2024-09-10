@@ -62,10 +62,6 @@
 	var/should_draw_greyscale = TRUE //Limbs need this information as a back-up incase they are generated outside of a carbon (limbgrower)
 	var/species_color = ""
 	var/mutation_color = ""
-	/// The colour of damage done to this bodypart
-	var/damage_color = ""
-	/// Should we even use a color?
-	var/use_damage_color = FALSE
 	var/no_update = 0
 
 	var/animal_origin = null //for nonhuman bodypart (e.g. monkey)
@@ -134,14 +130,16 @@
 		var/mob/living/carbon/human/H = C
 		if(HAS_TRAIT(C, TRAIT_LIMBATTACHMENT))
 			if(!H.get_bodypart(body_zone) && !animal_origin)
+				user.temporarilyRemoveItemFromInventory(src, TRUE)
+				if(!attach_limb(C))
+					to_chat(user, "<span class='warning'>[H]'s body rejects [src]!</span>")
+					forceMove(H.loc)
 				if(H == user)
 					H.visible_message("<span class='warning'>[H] jams [src] into [H.p_their()] empty socket!</span>",\
 					"<span class='notice'>You force [src] into your empty socket, and it locks into place!</span>")
 				else
 					H.visible_message("<span class='warning'>[user] jams [src] into [H]'s empty socket!</span>",\
 					"<span class='notice'>[user] forces [src] into your empty socket, and it locks into place!</span>")
-				user.temporarilyRemoveItemFromInventory(src, TRUE)
-				attach_limb(C)
 				return
 	..()
 
@@ -523,7 +521,7 @@
 	if(no_update)
 		return
 
-	if(!is_creating || !owner)
+	if(!is_creating)
 		return
 
 	if(!animal_origin && ishuman(C))
@@ -537,7 +535,6 @@
 		else
 			skin_tone = ""
 
-		use_damage_color = S.use_damage_color
 		if(((MUTCOLORS in S.species_traits) || (DYNCOLORS in S.species_traits)) && uses_mutcolor) //Ethereal code. Motherfuckers.
 			if(S.fixed_mut_color)
 				species_color = S.fixed_mut_color
@@ -585,14 +582,11 @@
 		image_dir = SOUTH
 		if(dmg_overlay_type)
 			if(brutestate)
-				var/image/bruteoverlay = image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_[brutestate]0", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), image_dir)
-				if(use_damage_color)
-					bruteoverlay.color = damage_color
-				. += bruteoverlay
+				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_[brutestate]0", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), image_dir)
 			if(burnstate)
 				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_0[burnstate]", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), image_dir)
 
-	var/image/limb = image(layer = -BODYPARTS_LAYER, dir = image_dir)
+	var/image/limb = image(layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER), dir = image_dir)
 	var/image/aux
 	. += limb
 
@@ -717,7 +711,8 @@
 		be possessed by the devil? This arm appears to be possessed by no \
 		one though."
 	//icon_state = "default_human_l_arm"
-	attack_verb = list("slapped", "punched")
+	attack_verb_continuous = list("slaps", "punches")
+	attack_verb_simple = list("slap", "punch")
 	max_damage = 50
 	max_stamina_damage = 50
 	body_zone = BODY_ZONE_L_ARM
@@ -821,7 +816,8 @@
 	desc = "Over 87% of humans are right handed. That figure is much lower \
 		among humans missing their right arm."
 	//icon_state = "default_human_r_arm"
-	attack_verb = list("slapped", "punched")
+	attack_verb_continuous = list("slaps", "punches")
+	attack_verb_simple = list("slap", "punch")
 	max_damage = 50
 	max_stamina_damage = 50
 	body_zone = BODY_ZONE_R_ARM
@@ -926,7 +922,8 @@
 	desc = "Some athletes prefer to tie their left shoelaces first for good \
 		luck. In this instance, it probably would not have helped."
 	//icon_state = "default_human_l_leg"
-	attack_verb = list("kicked", "stomped")
+	attack_verb_continuous = list("kicks", "stomps")
+	attack_verb_simple = list("kick", "stomp")
 	max_damage = 50
 	body_zone = BODY_ZONE_L_LEG
 	body_part = LEG_LEFT
@@ -1024,7 +1021,8 @@
 		The hokey pokey has certainly changed a lot since space colonisation."
 	// alternative spellings of 'pokey' are available
 	//icon_state = "default_human_r_leg"
-	attack_verb = list("kicked", "stomped")
+	attack_verb_continuous = list("kicks", "stomps")
+	attack_verb_simple = list("kick", "stomp")
 	max_damage = 50
 	body_zone = BODY_ZONE_R_LEG
 	body_part = LEG_RIGHT

@@ -31,7 +31,7 @@
 	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_act))
 
 /datum/component/forensics/UnregisterFromParent()
-    UnregisterSignal(parent, list(COMSIG_COMPONENT_CLEAN_ACT))
+	UnregisterSignal(parent, list(COMSIG_COMPONENT_CLEAN_ACT))
 
 /datum/component/forensics/PostTransfer()
 	if(!isatom(parent))
@@ -47,12 +47,6 @@
 /datum/component/forensics/proc/wipe_blood_DNA()
 	blood_DNA = null
 	return TRUE
-
-/datum/component/forensics/proc/is_bloody(datum/source, clean_types)
-	if(!isitem(parent))
-		return FALSE
-
-	return length(blood_DNA) > 0
 
 /datum/component/forensics/proc/wipe_fibers()
 	fibers = null
@@ -210,6 +204,5 @@
 		return
 	if(!length(blood_DNA))
 		return
-	if(isitem(parent))
-		var/obj/item/I = parent
-		I.AddElement(/datum/element/decal/blood, initial(I.icon) || I.icon, initial(I.icon_state) || I.icon_state, _color = get_blood_dna_color(blood_DNA))
+	var/obj/item/I = parent
+	I.AddElement(/datum/element/decal/blood) //TODO: make decals actually work on all the items, it doesnt appear on a lot of them for some reason

@@ -7,12 +7,22 @@
 	health = 200
 	bubble_icon = "robot"
 	designation = "Default" //used for displaying the prefix & getting the current module of cyborg
-	has_limbs = 1
+	has_limbs = TRUE
 	hud_type = /datum/hud/robot
+
 	radio = /obj/item/radio/borg
+
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
-	light_system = MOVABLE_LIGHT
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_on = FALSE
+
+	//AI shell
+	var/shell = FALSE
+	var/deployed = FALSE
+	var/mob/living/silicon/ai/mainframe = null
+	var/datum/action/innate/undeployment/undeployment_action = new
+
+// ------------------------------------------ Parts
 	var/custom_name = ""
 	var/braintype = "Cyborg"
 	var/obj/item/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
@@ -20,10 +30,6 @@
 	///The last time this mob was flashed. Used for flash cooldowns
 	var/last_flashed = 0
 
-	var/shell = FALSE
-	var/deployed = FALSE
-	var/mob/living/silicon/ai/mainframe = null
-	var/datum/action/innate/undeployment/undeployment_action = new
 
 	var/obj/item/clockwork/clockwork_slab/internal_clock_slab = null
 	var/ratvar = FALSE
@@ -291,8 +297,12 @@
 	if(custom_name)
 		changed_name = custom_name
 	if(changed_name == "" && C && C.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
-		if(apply_pref_name(/datum/preference/name/cyborg, C))
-			return //built in camera handled in proc
+		if(check_cyborg_name(C, mmi))
+			if(apply_pref_name(/datum/preference/name/cyborg, C))
+				return //built in camera handled in proc
+		else
+			//Failed the vibe check on name theft, time to randomize it
+			changed_name = get_standard_name()
 	if(!changed_name)
 		changed_name = get_standard_name()
 
@@ -664,7 +674,7 @@
 		src.connected_ai = null
 	lawupdate = FALSE
 	set_lockcharge(FALSE)
-	scrambledcodes = TRUE_DEVIL
+	scrambledcodes = TRUE
 	//Disconnect it's camera so it's not so easily tracked.
 	if(!QDELETED(builtInCamera))
 		QDEL_NULL(builtInCamera)
@@ -976,7 +986,7 @@
 		return
 	if(stat == DEAD)
 		sight = (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_in_dark = 8
+		see_in_dark = NIGHTVISION_FOV_RANGE
 		see_invisible = SEE_INVISIBLE_OBSERVER
 		return
 
@@ -1003,12 +1013,12 @@
 	if(sight_mode & BORGXRAY)
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		see_invisible = SEE_INVISIBLE_LIVING
-		see_in_dark = 8
+		see_in_dark = NIGHTVISION_FOV_RANGE
 
 	if(sight_mode & BORGTHERM)
 		sight |= SEE_MOBS
 		see_invisible = min(see_invisible, SEE_INVISIBLE_LIVING)
-		see_in_dark = 8
+		see_in_dark = NIGHTVISION_FOV_RANGE
 
 	if(see_override)
 		see_invisible = see_override

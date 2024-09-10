@@ -35,7 +35,7 @@
 			return
 	target.visible_message("<span class='warning'>[chassis] starts to drill [target].</span>", \
 					"<span class='userdanger'>[chassis] starts to drill [target]...</span>", \
-					 "<span class='italics'>You hear drilling.</span>")
+					"<span class='italics'>You hear drilling.</span>")
 
 	// You can't drill harder by clicking more.
 	if(!(target in source.do_afters) && do_after_cooldown(target, source))
@@ -136,11 +136,8 @@
 			if(isalien(target))
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target.drop_location(), splatter_dir)
 			else
-				var/splatter_color = null
-				if(iscarbon(target))
-					var/mob/living/carbon/carbon_target = target
-					splatter_color = carbon_target.dna.blood_type.blood_color
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target.drop_location(), splatter_dir, splatter_color)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target.drop_location(), splatter_dir)
+
 
 		//organs go everywhere
 		if(target_part && prob(10 * drill_level))

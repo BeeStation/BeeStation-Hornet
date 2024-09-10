@@ -22,7 +22,7 @@
 	status_flags = CANSTUN|CANPUSH
 	a_intent = INTENT_HARM //so we always get pushed instead of trying to swap
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	hud_type = /datum/hud/ai
 	med_hud = DATA_HUD_MEDICAL_BASIC
 	sec_hud = DATA_HUD_SECURITY_BASIC
@@ -106,6 +106,8 @@
 	var/atom/movable/screen/ai/modpc/interfaceButton
 	var/obj/effect/overlay/holo_pad_hologram/ai_hologram
 	var/obj/machinery/holopad/current_holopad
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	default_access_list = get_all_accesses()
@@ -1038,6 +1040,8 @@
 /mob/living/silicon/ai/resist()
 	return
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
+
 /mob/living/silicon/ai/spawned/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	if(!target_ai)
 		target_ai = src //cheat! just give... ourselves as the spawned AI, because that's technically correct
@@ -1053,7 +1057,6 @@
 
 /mob/living/silicon/ai/zMove(dir, feedback = FALSE, feedback_to = src)
 	. = eyeobj.zMove(dir, feedback, feedback_to)
-
 
 /// Proc to hook behavior to the changes of the value of [aiRestorePowerRoutine].
 /mob/living/silicon/ai/proc/setAiRestorePowerRoutine(new_value)
@@ -1073,3 +1076,18 @@
 
 /mob/living/silicon/on_handsblocked_end()
 	return // AIs have no hands
+
+/mob/living/silicon/ai/verb/change_photo_camera_radius()
+	set category = "AI Commands"
+	set name = "Adjust Camera Zoom"
+	set desc = "Change the zoom of your builtin camera."
+
+	if(incapacitated())
+		return
+	if(isnull(aicamera))
+		to_chat(usr, "<span class='warning'>You don't have a built-in camera!</span>")
+		return
+
+	aicamera.adjust_zoom(src)
+
+#undef CALL_BOT_COOLDOWN

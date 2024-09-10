@@ -811,11 +811,6 @@
 /mob/living/carbon/human/can_hold_items()
 	return TRUE
 
-/mob/living/carbon/human/update_gravity(has_gravity,override = 0)
-	if(dna && dna.species) //prevents a runtime while a human is being monkeyfied
-		override = dna.species.override_float
-	..()
-
 /mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0)
 	if(blood && (NOBLOOD in dna.species.species_traits))
 		if(message)
@@ -1160,6 +1155,8 @@
 
 /mob/living/carbon/human/species
 	var/race = null
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
 /mob/living/carbon/human/species/Initialize(mapload, specific_race)
 	. = ..()

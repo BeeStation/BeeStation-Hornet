@@ -410,29 +410,18 @@ GENE SCANNER
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/datum/species/S = H.dna.species
-		var/mutant = FALSE
-		if(H.dna.check_mutation(HULK))
-			mutant = TRUE
-		else if(S.mutantlungs != initial(S.mutantlungs))
-			mutant = TRUE
-		else if(S.mutant_brain != initial(S.mutant_brain))
-			mutant = TRUE
-		else if(S.mutant_heart != initial(S.mutant_heart))
-			mutant = TRUE
-		else if(S.mutanteyes != initial(S.mutanteyes))
-			mutant = TRUE
-		else if(S.mutantears != initial(S.mutantears))
-			mutant = TRUE
-		else if(S.mutanthands != initial(S.mutanthands))
-			mutant = TRUE
-		else if(S.mutanttongue != initial(S.mutanttongue))
-			mutant = TRUE
-		else if(S.mutanttail != initial(S.mutanttail))
-			mutant = TRUE
-		else if(S.mutantliver != initial(S.mutantliver))
-			mutant = TRUE
-		else if(S.mutantstomach != initial(S.mutantstomach))
-			mutant = TRUE
+		var/mutant = H.dna.check_mutation(HULK) \
+			|| S.mutantlungs != initial(S.mutantlungs) \
+			|| S.mutantbrain != initial(S.mutantbrain) \
+			|| S.mutantheart != initial(S.mutantheart) \
+			|| S.mutanteyes != initial(S.mutanteyes) \
+			|| S.mutantears != initial(S.mutantears) \
+			|| S.mutanthands != initial(S.mutanthands) \
+			|| S.mutanttongue != initial(S.mutanttongue) \
+			|| S.mutantliver != initial(S.mutantliver) \
+			|| S.mutantstomach != initial(S.mutantstomach) \
+			|| S.mutantappendix != initial(S.mutantappendix) \
+			|| S.mutantwings != initial(S.mutantwings)
 
 		message += "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>"
 		message += "<span class='info'>Core temperature: [round(H.coretemperature-T0C,0.1)] &deg;C ([round(H.coretemperature*1.8-459.67,0.1)] &deg;F)</span>"
@@ -462,14 +451,14 @@ GENE SCANNER
 				else if (H.is_bandaged())
 					message += "<span class='alert'><b>Subject is bleeding (Bandaged)!</b></span>"
 			var/blood_percent =  round((C.blood_volume / BLOOD_VOLUME_NORMAL)*100)
-			var/blood_type = C.dna.blood_type.name
+			var/blood_type = C.dna.blood_type
 			if(blood_id != /datum/reagent/blood)//special blood substance
 				var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 				if(R)
 					blood_type = R.name
 				else
 					blood_type = blood_id
-			var/blood_info = "[blood_type] (Compatible: [jointext(get_blood_type(blood_type), ", ")])"
+			var/blood_info = "[blood_type] (Compatible: [jointext(get_safe_blood(blood_type), ", ")])"
 			if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
 				message += "<span class='alert'>Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span> <span class='info'>type: [blood_info]</span>"
 			else if(C.blood_volume <= BLOOD_VOLUME_OKAY)
@@ -1034,6 +1023,8 @@ GENE SCANNER
 	var/default_scanning_module = /obj/item/stock_parts/scanning_module
 	/// Cooldown for when the extrapolator can be used next.
 	COOLDOWN_DECLARE(usage_cooldown)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 
 /obj/item/extrapolator/Initialize(mapload, obj/item/stock_parts/scanning_module/starting_scanner)
 	. = ..()

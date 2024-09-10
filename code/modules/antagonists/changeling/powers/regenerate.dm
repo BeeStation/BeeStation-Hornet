@@ -26,8 +26,8 @@
 			C.regenerate_limbs(1)
 		if(!user.getorganslot(ORGAN_SLOT_BRAIN))
 			var/obj/item/organ/brain/B
-			if(C.has_dna() && C.dna.species.mutant_brain)
-				B = new C.dna.species.mutant_brain()
+			if(C.has_dna() && C.dna.species.mutantbrain)
+				B = new C.dna.species.mutantbrain()
 			else
 				B = new()
 			B.organ_flags &= ~ORGAN_VITAL
@@ -89,10 +89,12 @@
 	health = 50
 	maxHealth = 50
 	melee_damage = 3
-	attacktext = "bites"
-	response_help  = "pokes"
-	response_disarm = "shoos"
-	response_harm   = "steps on"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	response_disarm_continuous = "shoos"
+	response_disarm_simple = "shoo"
+	response_harm_continuous = "steps on"
+	response_harm_simple = "step on"
 	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB

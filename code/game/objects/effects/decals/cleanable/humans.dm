@@ -1,9 +1,8 @@
 /obj/effect/decal/cleanable/blood
 	name = "blood"
-	desc = "It's weird and gooey. Perhaps it's the chef's cooking?"
+	desc = "It's red and gooey. Perhaps it's the chef's cooking?"
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "floor1"
-	color = COLOR_BLOOD
 	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
 	blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
@@ -42,13 +41,14 @@
 	if(bloodiness > 20)
 		bloodiness -= BLOOD_AMOUNT_PER_DECAL
 		get_timer()
+		return FALSE
 	else
 		name = dryname
 		desc = drydesc
 		bloodiness = 0
-		var/temp_color = ReadHSV(RGBtoHSV(color || COLOR_WHITE))
-		color = HSVtoRGB(hsv(temp_color[1], temp_color[2], max(temp_color[3] - 100,min(temp_color[3],10))))
+		color =  COLOR_GRAY //not all blood splatters have their own sprites... It still looks pretty nice
 		STOP_PROCESSING(SSobj, src)
+		return TRUE
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	C.add_blood_DNA(return_blood_DNA())
@@ -57,11 +57,11 @@
 	return ..()
 
 /obj/effect/decal/cleanable/blood/old
-	name = "dried blood"
-	desc = "Looks like it's been here a while.  Eew."
 	bloodiness = 0
 	icon_state = "floor1-old"
 	var/list/datum/disease/diseases = list()
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
 
 /obj/effect/decal/cleanable/blood/old/Initialize(mapload, list/datum/disease/diseases)
 	add_blood_DNA(list("Non-human DNA" = random_blood_type())) // Needs to happen before ..()
@@ -79,8 +79,6 @@
 /obj/effect/decal/cleanable/blood/splatter
 	icon_state = "gibbl1"
 	random_icon_states = list("gibbl1", "gibbl2", "gibbl3", "gibbl4", "gibbl5")
-	dryname = "dried tracks"
-	drydesc = "Some old bloody tracks left by wheels. Machines are evil, perhaps."
 
 /obj/effect/decal/cleanable/blood/tracks
 	name = "tracks"
@@ -91,19 +89,15 @@
 	dryname = "dried tracks"
 	drydesc = "Some old bloody tracks left by wheels. Machines are evil, perhaps."
 
-/obj/effect/decal/cleanable/blood/trail_holder //not a child of blood on purpose //nice fucking descriptive comment jackass, fuck you //hello fikou //terrible
+/obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
 	name = "blood"
 	icon = 'icons/effects/blood.dmi'
 	desc = "Your instincts say you shouldn't be following these."
 	//beauty = -50
-	icon_state = null
-	random_icon_states = null
 	var/list/existing_dirs = list()
 
-/obj/effect/decal/cleanable/blood/trail_holder/glowy
-	light_power = 0.5
-	light_range = 0.25
-	light_color = "#7fff7f"
+/obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
+	return TRUE
 
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
@@ -120,24 +114,24 @@
 	///Information about the diseases our streaking spawns
 	var/list/streak_diseases
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/gibs)
+
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/liquidgibs, 5)
-	var/mutable_appearance/gib_overlay = mutable_appearance(icon, "[icon_state]-overlay", appearance_flags = RESET_COLOR)
-	add_overlay(gib_overlay)
 	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
 
 /obj/effect/decal/cleanable/blood/gibs/Destroy()
 	LAZYNULL(streak_diseases)
 	return ..()
 
+/obj/effect/decal/cleanable/blood/gibs/replace_decal(obj/effect/decal/cleanable/C)
+	return FALSE //Never fail to place us
+
 /obj/effect/decal/cleanable/blood/gibs/dry()
 	. = ..()
 	if(!.)
 		return
-
-/obj/effect/decal/cleanable/blood/gibs/replace_decal(obj/effect/decal/cleanable/C)
-	return FALSE //Never fail to place us
 
 /obj/effect/decal/cleanable/blood/gibs/ex_act(severity, target)
 	return
@@ -169,9 +163,7 @@
 		return
 	if(mapload)
 		for (var/i = 1, i < range, i++)
-			var/obj/effect/decal/cleanable/blood/splatter/splat = new /obj/effect/decal/cleanable/blood/splatter(loc, streak_diseases)
-			if(!QDELETED(splat) && HAS_BLOOD_DNA(src))
-				splat.add_blood_DNA(src.return_blood_DNA())
+			new /obj/effect/decal/cleanable/blood/splatter(loc, streak_diseases)
 			if (!step_to(src, get_step(src, direction), 0))
 				break
 		return
@@ -216,6 +208,8 @@
 	dryname = "old rotting gibs"
 	drydesc = "Space Jesus, why didn't anyone clean this up? They smell terrible."
 	var/list/datum/disease/diseases = list()
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/gibs/old)
 
 /obj/effect/decal/cleanable/blood/gibs/old/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()

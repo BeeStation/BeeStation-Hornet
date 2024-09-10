@@ -242,16 +242,15 @@
 			if(isalien(L))
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			var/obj/item/bodypart/B = L.get_bodypart(def_zone)
-			if(B && !IS_ORGANIC_LIMB(B)) // So if you hit a robotic, it sparks instead of bloodspatters
-				do_sparks(2, FALSE, target.loc)
-			else
-				var/splatter_color = null
-				if(iscarbon(L))
-					var/mob/living/carbon/carbon_target = L
-					splatter_color = carbon_target.dna.blood_type.blood_color
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, splatter_color)
-			if(prob(33))
-				L.add_splatter_floor(target_loca)
+			if(B)
+				if(!IS_ORGANIC_LIMB(B)) // So if you hit a robotic, it sparks instead of bloodspatters
+					do_sparks(2, FALSE, target.loc)
+					if(prob(25))
+						new /obj/effect/decal/cleanable/oil(target_loca)
+				else
+					new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir)
+				if(prob(33))
+					L.add_splatter_floor(target_loca)
 		else if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 
@@ -306,7 +305,7 @@
 	if(firer && HAS_TRAIT(firer, TRAIT_NICE_SHOT))
 		best_angle += NICE_SHOT_RICOCHET_BONUS
 	for(var/mob/living/L in range(ricochet_auto_aim_range, src.loc))
-		if(L.stat == DEAD || !isInSight(src, L))
+		if(L.stat == DEAD || !is_in_sight(src, L))
 			continue
 		var/our_angle = abs(closer_angle_difference(Angle, get_angle(src.loc, L.loc)))
 		if(our_angle < best_angle)
@@ -932,3 +931,6 @@
 
 /obj/projectile/experience_pressure_difference()
 	return
+
+#undef MOVES_HITSCAN
+#undef MUZZLE_EFFECT_PIXEL_INCREMENT

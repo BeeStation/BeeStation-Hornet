@@ -6,6 +6,9 @@
 /// Two mobs one is facing a person, but the other is perpendicular
 #define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR 3 //! Do I win the most informative but also most stupid define award?
 
+/proc/random_blood_type()
+	return pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
+
 /proc/random_eye_color()
 	switch(pick(20;"brown",20;"hazel",20;"grey",15;"blue",15;"green",1;"amber",1;"albino"))
 		if("brown")
@@ -771,6 +774,25 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		fully_replace_character_name(oldname,newname)
 		return TRUE
 	return FALSE
+
+/// Special handler for cyborg naming to check if cyborg name preferences match a name that has already been used. Returns TRUE if preferences are good to use and FALSE if not.
+/mob/proc/check_cyborg_name(client/C, obj/item/mmi/mmi)
+	var/name = C?.prefs?.read_character_preference(/datum/preference/name/cyborg)
+
+	//Name is original, add it to the list to prevent it from being used again and return TRUE
+	if(!(name in GLOB.cyborg_name_list))
+		GLOB.cyborg_name_list += name
+		mmi.original_name = name
+		return TRUE
+
+	//Name is not original, but is this the original user of the name? If so we still return TRUE but do not need to add it to the list
+	else if(name == mmi.original_name)
+		return TRUE
+
+	//This name has already been taken and this is not the original user, return FALSE
+	else
+		to_chat(C.mob, "<span class='warning'>Cyborg name already used this round by another character, your name has been randomized</span>")
+		return FALSE
 
 /proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)

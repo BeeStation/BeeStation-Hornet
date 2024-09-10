@@ -104,7 +104,7 @@
 		/obj/item/clothing/head/costume/kitty = 5,
 		/obj/item/coin/antagtoken = 5,
 		/obj/item/clothing/suit/costume/cardborg = 10,
-		/obj/item/toy/prize/honk = 10,
+		/obj/item/toy/mecha/honk = 10,
 		/obj/item/bedsheet/patriot = 2,
 		/obj/item/bedsheet/rainbow = 2,
 		/obj/item/bedsheet/captain = 2,
