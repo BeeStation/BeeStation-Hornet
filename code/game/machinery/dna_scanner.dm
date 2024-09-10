@@ -17,7 +17,7 @@
 	var/breakout_time = 1200
 	var/ignore_id = FALSE
 
-/obj/machinery/dna_scannernew/Initialize()
+/obj/machinery/dna_scannernew/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/dna_scanner(src)
 
@@ -118,7 +118,7 @@
 
 	return TRUE
 
-/obj/machinery/dna_scannernew/relaymove(mob/user as mob)
+/obj/machinery/dna_scannernew/relaymove(mob/living/user, direction)
 	if(user.stat || (locked && !state_open))
 		if(message_cooldown <= world.time)
 			message_cooldown = world.time + 50
@@ -148,8 +148,7 @@
 	toggle_open(user)
 
 /obj/machinery/dna_scannernew/MouseDrop_T(mob/target, mob/user)
-	var/mob/living/L = user
-	if(user.stat || (isliving(user) && (!(L.mobility_flags & MOBILITY_STAND) || !(L.mobility_flags & MOBILITY_UI))) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser() || locked)
+	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser() || locked)
 		return
 	close_machine(target)
 

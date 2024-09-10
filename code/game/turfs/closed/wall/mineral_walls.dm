@@ -171,6 +171,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WOOD_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WOOD_WALLS)
+	custom_materials = list(/datum/material/wood = 4000)
 	max_integrity = 200
 	damage_deflection = 0
 

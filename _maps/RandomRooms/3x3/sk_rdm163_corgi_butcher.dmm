@@ -11,7 +11,7 @@
 	},
 /obj/item/toy/plush/nukeplushie,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "d" = (
 /obj/effect/turf_decal/stripes/line{
@@ -56,9 +56,9 @@
 	req_access_txt = "1"
 	},
 /obj/structure/window/reinforced/spawner,
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizard_plushie,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "I" = (
 /obj/structure/bed/dogbed,
@@ -75,7 +75,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/toy/plush/snakeplushie,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "J" = (
 /obj/effect/turf_decal/stripes/line,

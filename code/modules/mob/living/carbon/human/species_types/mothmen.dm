@@ -83,7 +83,7 @@
 /datum/action/innate/cocoon
 	name = "Cocoon"
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	button_icon_state = "wrap_0"
 	icon_icon = 'icons/mob/actions/actions_animal.dmi'
 
@@ -155,7 +155,7 @@
 	icon_state = "cocoon_moth"
 	anchored = TRUE
 	max_integrity = 10
-    ///Determines whether or not the mothperson is still regenerating their wings
+	///Determines whether or not the mothperson is still regenerating their wings
 	var/done_regenerating = FALSE
 
 /obj/structure/moth_cocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

@@ -27,9 +27,9 @@
 
 
 /mob/proc/get_item_for_held_index(i)
-    if(!length(held_items))
-        return null
-    return held_items[i]
+	if(!length(held_items))
+		return null
+	return held_items[i]
 
 //Odd = left. Even = right
 /mob/proc/held_index_to_dir(i)
@@ -227,21 +227,21 @@
 
 	// If the item is a stack and we're already holding a stack then merge
 	if (istype(I, /obj/item/stack))
-		var/obj/item/stack/I_stack = I
+		var/obj/item/stack/item_stack = I
 		var/obj/item/stack/active_stack = get_active_held_item()
 
-		if (I_stack.zero_amount())
+		if (item_stack.is_zero_amount(delete_if_zero = TRUE))
 			return FALSE
 
 		if (merge_stacks)
-			if (istype(active_stack) && active_stack.can_merge(I_stack))
-				if (I_stack.merge(active_stack))
+			if (istype(active_stack) && active_stack.can_merge(item_stack))
+				if (item_stack.merge(active_stack))
 					to_chat(usr, "<span class='notice'>Your [active_stack.name] stack now contains [active_stack.get_amount()] [active_stack.singular_name]\s.</span>")
 					return TRUE
 			else
 				var/obj/item/stack/inactive_stack = get_inactive_held_item()
-				if (istype(inactive_stack) && inactive_stack.can_merge(I_stack))
-					if (I_stack.merge(inactive_stack))
+				if (istype(inactive_stack) && inactive_stack.can_merge(item_stack))
+					if (item_stack.merge(inactive_stack))
 						to_chat(usr, "<span class='notice'>Your [inactive_stack.name] stack now contains [inactive_stack.get_amount()] [inactive_stack.singular_name]\s.</span>")
 						return TRUE
 
@@ -426,8 +426,8 @@
 	return obscured
 
 
-/obj/item/proc/equip_to_best_slot(mob/M)
-	if(src != M.get_active_held_item())
+/obj/item/proc/equip_to_best_slot(mob/M, swap = FALSE, check_hand = TRUE)
+	if(check_hand && src != M.get_active_held_item())
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
 		return FALSE
 
@@ -456,6 +456,9 @@
 /mob/verb/quick_equip()
 	set name = "quick-equip"
 	set hidden = 1
+
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return TRUE
 
 	var/obj/item/I = get_active_held_item()
 	if (I)
@@ -504,7 +507,7 @@
 			var/obj/item/bodypart/BP = new path ()
 			BP.owner = src
 			BP.held_index = i
-			bodyparts += BP
+			add_bodypart(BP)
 			hand_bodyparts[i] = BP
 	..() //Don't redraw hands until we have organs for them
 

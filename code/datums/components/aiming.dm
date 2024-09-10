@@ -334,7 +334,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 
 /datum/component/aiming/proc/aim_react_act(choice)
 	if(choice == SURRENDER)
-		target.emote(SURRENDER)
+		target.emote(SURRENDER,intentional = TRUE)
 	QDEL_NULL(choice_menu_target)
 
 // Shows a crosshair effect when aiming at a target

@@ -3,7 +3,8 @@
 
 /obj/item/clothing/under/trek
 	can_adjust = FALSE
-
+	icon = 'icons/obj/clothing/under/trek.dmi'
+	worn_icon = 'icons/mob/clothing/under/trek.dmi'
 
 //TOS
 /obj/item/clothing/under/trek/command
@@ -17,7 +18,7 @@
 	desc = "The uniform worn by engineering/security officers."
 	icon_state = "trek_engsec"
 	item_state = "r_suit"
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0) //more sec than eng, but w/e.
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 10) //more sec than eng, but w/e.
 	strip_delay = 50
 
 /obj/item/clothing/under/trek/medsci

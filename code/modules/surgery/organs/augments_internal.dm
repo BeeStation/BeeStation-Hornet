@@ -114,7 +114,7 @@
 
 /obj/item/organ/cyberimp/brain/anti_stun/Insert()
 	. = ..()
-	RegisterSignal(owner, signalCache, PROC_REF(on_signal))
+	RegisterSignals(owner, signalCache, PROC_REF(on_signal))
 
 /obj/item/organ/cyberimp/brain/anti_stun/proc/on_signal(datum/source, amount)
 	SIGNAL_HANDLER
@@ -151,7 +151,7 @@
 	var/list/advanced_surgeries = list()
 	var/static/datum/techweb/linked_techweb
 
-/obj/item/organ/cyberimp/brain/linkedsurgery/Initialize()
+/obj/item/organ/cyberimp/brain/linkedsurgery/Initialize(mapload)
 	. = ..()
 	if(isnull(linked_techweb))
 		linked_techweb = SSresearch.science_tech

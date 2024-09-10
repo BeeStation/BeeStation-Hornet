@@ -1,3 +1,7 @@
+// / Breathing types. Lungs can access either by these or by a string, which will be considered a gas ID.
+#define BREATH_OXY		/datum/breathing_class/oxygen
+#define BREATH_PLASMA	/datum/breathing_class/plasma
+
 /obj/item/organ/lungs
 	var/failed = FALSE
 	var/operated = FALSE	//whether we can still have our damages fixed through surgery
@@ -349,6 +353,9 @@
 			if(prob(20))
 				to_chat(H, "<span class='warning'>You feel [hot_message] in your [name]!</span>")
 
+	// The air you breathe out should match your body temperature
+	breath.set_temperature(H.bodytemperature)
+
 /obj/item/organ/lungs/on_life()
 	..()
 	if((!failed) && ((organ_flags & ORGAN_FAILING)))
@@ -426,3 +433,6 @@
 	)
 #undef PP
 #undef PP_MOLES
+
+#undef BREATH_OXY
+#undef BREATH_PLASMA

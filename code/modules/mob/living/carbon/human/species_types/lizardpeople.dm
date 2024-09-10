@@ -37,7 +37,7 @@
 	species_r_leg = /obj/item/bodypart/r_leg/lizard
 
 /// Lizards are cold blooded and do not stabilize body temperature naturally
-/datum/species/lizard/natural_bodytemperature_stabilization(datum/gas_mixture/environment, mob/living/carbon/human/H)
+/datum/species/lizard/body_temperature_core(mob/living/carbon/human/humi)
 	return
 
 /datum/species/lizard/random_name(gender, unique, lastname, attempts)
@@ -86,7 +86,7 @@
 	return null
 
 /*
- Lizard subspecies: ASHWALKERS
+	Lizard subspecies: ASHWALKERS
 */
 /datum/species/lizard/ashwalker
 	name = "Ash Walker"
@@ -97,3 +97,9 @@
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/lungs/ashwalker
 	digitigrade_customization = DIGITIGRADE_FORCED
+
+/datum/species/lizard/ashwalker/spec_life(mob/living/carbon/human/H)
+	. = ..()
+	H.cauterise_wounds(0.1)
+	if (H.blood_volume < BLOOD_VOLUME_NORMAL && !H.is_bleeding())
+		H.blood_volume += 0.5

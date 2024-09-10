@@ -742,8 +742,8 @@
 			R.module.remove_module(C, TRUE)
 
 /obj/item/borg/upgrade/beaker_app
-	name = "beaker storage apparatus"
-	desc = "A supplementary beaker storage apparatus for medical cyborgs."
+	name = "container storage apparatus"
+	desc = "A supplementary container storage apparatus for medical cyborgs."
 	icon_state = "cyborg_upgrade3"
 	require_module = TRUE
 	module_type = list(/obj/item/robot_module/medical)
@@ -752,7 +752,7 @@
 /obj/item/borg/upgrade/beaker_app/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
-		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
+		var/obj/item/borg/apparatus/container/extra/E = locate() in R.module.modules
 		if(E)
 			to_chat(user, "<span class='warning'>This unit has no room for additional beaker storage.</span>")
 			return FALSE
@@ -764,10 +764,9 @@
 /obj/item/borg/upgrade/beaker_app/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
-		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
+		var/obj/item/borg/apparatus/container/extra/E = locate() in R.module.modules
 		if (E)
 			R.module.remove_module(E, TRUE)
-
 
 /obj/item/borg/upgrade/speciality
 	name = "Speciality Module"
@@ -820,7 +819,7 @@
 /obj/item/borg/upgrade/speciality/kitchen
 	name = "Cook Speciality"
 	desc = "A service cyborg upgrade allowing for basic food handling."
-	hat = /obj/item/clothing/head/chefhat
+	hat = /obj/item/clothing/head/utility/chefhat
 	addmodules = list (
 		/obj/item/knife/kitchen,
 		/obj/item/kitchen/rollingpin,
@@ -835,7 +834,7 @@
 /obj/item/borg/upgrade/speciality/botany
 	name = "Botany Speciality"
 	desc = "A service cyborg upgrade allowing for plant tending and manipulation."
-	hat = /obj/item/clothing/head/rice_hat
+	hat = /obj/item/clothing/head/costume/rice_hat
 	addmodules = list (
 		/obj/item/storage/bag/plants/portaseeder,
 		/obj/item/cultivator,
@@ -850,7 +849,7 @@
 /obj/item/borg/upgrade/speciality/casino
 	name = "Gambler Speciality"
 	desc = "It's not crew harm if they do it themselves!"
-	hat = /obj/item/clothing/head/rabbitears
+	hat = /obj/item/clothing/head/costume/rabbitears
 	addmodules = list (
 		/obj/item/gobbler,
 		/obj/item/storage/pill_bottle/dice_cup/cyborg,

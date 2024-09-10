@@ -110,8 +110,10 @@
 
 /datum/action/item_action/organ_action/pumpkin_head_candy/Trigger()
 	. = ..()
-	if(iscarbon(owner) && !IS_DEAD_OR_INCAP(owner))
-		var/mob/living/carbon/H = owner
+	if(!iscarbon(owner))
+		return
+	var/mob/living/carbon/H = owner
+	if(!IS_DEAD_OR_INCAP(H))
 		//Get candy if we have it
 		var/obj/item/type
 		if(available_candy.len)

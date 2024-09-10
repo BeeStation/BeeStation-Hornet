@@ -128,34 +128,6 @@
 		playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
 	..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
-
-/mob/living/mech_melee_attack(obj/mecha/M)
-	if(M.occupant.a_intent == INTENT_HARM)
-		M.do_attack_animation(src)
-		if(M.damtype == BRUTE)
-			step_away(src,M,15)
-		switch(M.damtype)
-			if(BRUTE)
-				Knockdown(20)
-				take_overall_damage(rand(M.force/2, M.force))
-				playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
-			if(BURN)
-				take_overall_damage(0, rand(M.force/2, M.force))
-				playsound(src, 'sound/items/welder.ogg', 50, 1)
-			if(TOX)
-				M.mech_toxin_damage(src)
-			else
-				return
-		updatehealth()
-		visible_message("<span class='danger'>[M.name] hits [src]!</span>", \
-						"<span class='userdanger'>[M.name] hits you!</span>", null, COMBAT_MESSAGE_RANGE)
-		log_combat(M.occupant, src, "attacked", M, "(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
-	else
-		step_away(src,M)
-		log_combat(M.occupant, src, "pushed", M, important = FALSE)
-		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>", \
-						"<span class='warning'>[M] pushes you out of the way.</span>", null, 5)
-
 /mob/living/fire_act()
 	adjust_fire_stacks(3)
 	IgniteMob()
@@ -186,54 +158,57 @@
 			var/mob/living/carbon/human/H = user
 			if(H.dna.species.grab_sound)
 				sound_to_play = H.dna.species.grab_sound
-		playsound(src.loc, sound_to_play, 50, 1, -1)
+		playsound(src.loc, sound_to_play, 50, TRUE, -1)
 
 		if(user.grab_state) //only the first upgrade is instantaneous
 			var/old_grab_state = user.grab_state
 			var/grab_upgrade_time = instant ? 0 : 30
 			visible_message("<span class='danger'>[user] starts to tighten [user.p_their()] grip on [src]!</span>", \
-				"<span class='userdanger'>[user] starts to tighten [user.p_their()] grip on you!</span>")
+							"<span class='userdanger'>[user] starts to tighten [user.p_their()] grip on you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, user)
+			to_chat(user, "<span class='danger'>You start to tighten your grip on [src]!</span>")
 			switch(user.grab_state)
 				if(GRAB_AGGRESSIVE)
 					log_combat(user, src, "attempted to neck grab", addition="neck grab")
 				if(GRAB_NECK)
 					log_combat(user, src, "attempted to strangle", addition="kill grab")
 			if(!do_after(user, grab_upgrade_time, src))
-				return 0
+				return FALSE
 			if(!user.pulling || user.pulling != src || user.grab_state != old_grab_state)
-				return 0
+				return FALSE
 			if(user.a_intent != INTENT_GRAB)
 				to_chat(user, "<span class='notice'>You must be on grab intent to upgrade your grab further!</span>")
-				return 0
+				return FALSE
 		user.setGrabState(user.grab_state + 1)
 		switch(user.grab_state)
 			if(GRAB_AGGRESSIVE)
 				var/add_log = ""
 				if(HAS_TRAIT(user, TRAIT_PACIFISM))
 					visible_message("<span class='danger'>[user] firmly grips [src]!</span>",
-									"<span class='danger'>[user] firmly grips you!</span>")
+									"<span class='danger'>[user] firmly grips you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, user)
+					to_chat(user, "<span class='danger'>You firmly grip [src]!</span>")
 					add_log = " (pacifist)"
 				else
 					visible_message("<span class='danger'>[user] grabs [src] aggressively!</span>", \
-									"<span class='userdanger'>[user] grabs you aggressively!</span>")
+									"<span class='userdanger'>[user] grabs you aggressively!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, user)
+					to_chat(user, "<span class='danger'>You grab [src] aggressively!</span>")
 				stop_pulling()
 				log_combat(user, src, "grabbed", addition="aggressive grab[add_log]")
 			if(GRAB_NECK)
 				log_combat(user, src, "grabbed", addition="neck grab")
 				visible_message("<span class='danger'>[user] grabs [src] by the neck!</span>",\
-								"<span class='userdanger'>[user] grabs you by the neck!</span>")
-				update_mobility() //we fall down
+								"<span class='userdanger'>[user] grabs you by the neck!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, user)
+				to_chat(user, "<span class='danger'>You grab [src] by the neck!</span>")
 				if(!buckled && !density)
 					Move(user.loc)
 			if(GRAB_KILL)
 				log_combat(user, src, "strangled", addition="kill grab")
 				visible_message("<span class='danger'>[user] is strangling [src]!</span>", \
-								"<span class='userdanger'>[user] is strangling you!</span>")
-				update_mobility() //we fall down
+								"<span class='userdanger'>[user] is strangling you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, user)
+				to_chat(user, "<span class='danger'>You're strangling [src]!</span>")
 				if(!buckled && !density)
 					Move(user.loc)
 		user.set_pull_offsets(src, grab_state)
-		return 1
+		return TRUE
 
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
@@ -254,7 +229,8 @@
 		log_combat(M, src, "attacked")
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", \
-				"<span class='userdanger'>\The [M.name] glomps you!</span>", null, COMBAT_MESSAGE_RANGE)
+						"<span class='userdanger'>\The [M.name] glomps you!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, M)
+		to_chat(M, "<span class='danger'>You glomp [src]!</span>")
 		return TRUE
 
 /mob/living/attack_basic_mob(mob/living/basic/user)
@@ -280,8 +256,9 @@
 /mob/living/attack_animal(mob/living/simple_animal/M)
 	M.face_atom(src)
 	if(M.melee_damage == 0)
-		visible_message("<span class='notice'>\The [M] [M.friendly] [src]!</span>", \
-						"<span class='notice'>\The [M] [M.friendly] you!</span>", null, COMBAT_MESSAGE_RANGE)
+		visible_message("<span class='notice'>\The [M] [M.friendly_verb_continuous] [src]!</span>", \
+						"<span class='notice'>\The [M] [M.friendly_verb_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, M)
+		to_chat(M, "<span class='notice'>You [M.friendly_verb_simple] [src]!</span>")
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_PACIFISM))
 		to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
@@ -290,8 +267,9 @@
 	if(M.attack_sound)
 		playsound(loc, M.attack_sound, 50, 1, 1)
 	M.do_attack_animation(src)
-	visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
-					"<span class='userdanger'>\The [M] [M.attacktext] you!</span>", null, COMBAT_MESSAGE_RANGE)
+	visible_message("<span class='danger'>\The [M] [M.attack_verb_continuous] [src]!</span>", \
+					"<span class='userdanger'>\The [M] [M.attack_verb_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, M)
+	to_chat(M, "<span class='danger'>You [M.attack_verb_simple] [src]!</span>")
 	log_combat(M, src, "attacked")
 	return TRUE
 
@@ -313,7 +291,8 @@
 		log_combat(M, src, "attacked")
 		playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 		visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-						"<span class='userdanger'>[M.name] bites you!</span>", null, COMBAT_MESSAGE_RANGE)
+							"<span class='userdanger'>[M.name] bites you!</span>", "<span class='hear'>You hear a chomp!</span>", COMBAT_MESSAGE_RANGE, M)
+		to_chat(M, "<span class='danger'>You bite [src]!</span>")
 		return TRUE
 	return FALSE
 
@@ -321,7 +300,8 @@
 	switch(L.a_intent)
 		if("help")
 			visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>", \
-							"<span class='notice'>[L.name] rubs its head against you.</span>")
+							"<span class='notice'>[L.name] rubs its head against you.</span>", null, null, L)
+			to_chat(L, "<span class='notice'>You rub your head against [src].</span>")
 			return FALSE
 
 		else
@@ -333,12 +313,14 @@
 			if(prob(90))
 				log_combat(L, src, "attacked")
 				visible_message("<span class='danger'>[L.name] bites [src]!</span>", \
-								"<span class='userdanger'>[L.name] bites you!</span>", null, COMBAT_MESSAGE_RANGE)
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+								"<span class='userdanger'>[L.name] bites you!</span>", "<span class='hear'>You hear a chomp!</span>", COMBAT_MESSAGE_RANGE, L)
+				to_chat(L, "<span class='danger'>You bite [src]!</span>")
+				playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
 				return TRUE
 			else
 				visible_message("<span class='danger'>[L.name]'s bite misses [src]!</span>", \
-								"<span class='userdanger'>[L.name]'s bite misses you!</span>", null, COMBAT_MESSAGE_RANGE)
+								"<span class='danger'>You avoid [L.name]'s bite!</span>", "<span class='hear'>You hear the sound of jaws snapping shut!</span>", COMBAT_MESSAGE_RANGE, L)
+				to_chat(L, "<span class='warning'>Your bite misses [src]!</span>")
 	return FALSE
 
 /mob/living/attack_alien(mob/living/carbon/alien/humanoid/M)
@@ -346,7 +328,8 @@
 	switch(M.a_intent)
 		if ("help")
 			visible_message("<span class='notice'>[M] caresses [src] with its scythe-like arm.</span>", \
-				"<span class='notice'>[M] caresses you with its scythe-like arm.</span>")
+							"<span class='notice'>[M] caresses you with its scythe-like arm.</span>", null, null, M)
+			to_chat(M, "<span class='notice'>You caress [src] with your scythe-like arm.</span>")
 			return FALSE
 		if ("grab")
 			grabbedby(M)
@@ -467,7 +450,6 @@
 	if(!used_item)
 		used_item = get_active_held_item()
 	..()
-	setMovetype(movement_type & ~FLOATING) // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
 /mob/living/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
 	. = ..()
@@ -495,7 +477,7 @@
 		. += weapon.spread_unwielded
 	// Nothing to hold onto, slight penalty for flying around in space
 	var/default_speed = get_config_multiplicative_speed() + CONFIG_GET(number/movedelay/run_delay)
-	var/current_speed = cached_multiplicative_slowdown || total_multiplicative_slowdown()
+	var/current_speed = cached_multiplicative_slowdown
 	var/move_time = last_move_time
 	// Check for being buckled to mobs and vehicles
 	if (buckled)
@@ -538,3 +520,97 @@
 		// This means walking will improve your accuracy by a total of 12.
 		// This is only really useful if you are using a gun with a shield.
 		. = max(0, . + speed_delta * 8)
+
+/mob/living/proc/is_shove_knockdown_blocked()
+	return FALSE
+
+/// Universal disarm effect, can be used by other components that also want a similar effect to pushback
+/// and stun.
+/mob/living/proc/disarm_effect(mob/living/carbon/user, silent = FALSE)
+	var/turf/target_oldturf = loc
+	var/shove_dir = get_dir(user.loc, target_oldturf)
+	var/turf/target_shove_turf = get_step(loc, shove_dir)
+	var/mob/living/carbon/human/target_collateral_human
+	var/obj/structure/table/target_table
+	var/obj/machinery/disposal/bin/target_disposal_bin
+	var/turf/open/indestructible/sound/pool/target_pool	//This list is getting pretty long, but its better than calling shove_act or something on every atom
+	var/shove_blocked = FALSE //Used to check if a shove is blocked so that if it is knockdown logic can be applied
+
+	//Thank you based whoneedsspace
+	target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
+	if(target_collateral_human)
+		shove_blocked = TRUE
+	else
+		Move(target_shove_turf, shove_dir)
+		if(get_turf(src) == target_oldturf)
+			target_table = locate(/obj/structure/table) in target_shove_turf.contents
+			target_disposal_bin = locate(/obj/machinery/disposal/bin) in target_shove_turf.contents
+			target_pool = istype(target_shove_turf, /turf/open/indestructible/sound/pool) ? target_shove_turf : null
+			shove_blocked = TRUE
+
+	if(IsKnockdown())
+		var/target_held_item = get_active_held_item()
+		if(target_held_item)
+			if (!silent)
+				visible_message("<span class='danger'>[user.name] kicks \the [target_held_item] out of [src]'s hand!</span>",
+								"<span class='danger'>[user.name] kicks \the [target_held_item] out of your hand!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "disarms [target_held_item]", "disarm")
+		else
+			if (!silent)
+				visible_message("<span class='danger'>[user.name] kicks [name] onto [p_their()] side!</span>",
+								"<span class='danger'>[user.name] kicks you onto your side!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "kicks", "disarm", "onto their side (paralyzing)")
+		Paralyze(SHOVE_CHAIN_PARALYZE) //duration slightly shorter than disarm cd
+	if(shove_blocked && !is_shove_knockdown_blocked() && !buckled)
+		var/directional_blocked = FALSE
+		if(shove_dir in GLOB.cardinals) //Directional checks to make sure that we're not shoving through a windoor or something like that
+			var/target_turf = get_turf(src)
+			for(var/obj/O in target_turf)
+				if(O.flags_1 & ON_BORDER_1 && O.dir == shove_dir && O.density)
+					directional_blocked = TRUE
+					break
+			if(target_turf != target_shove_turf) //Make sure that we don't run the exact same check twice on the same tile
+				for(var/obj/O in target_shove_turf)
+					if(O.flags_1 & ON_BORDER_1 && O.dir == turn(shove_dir, 180) && O.density)
+						directional_blocked = TRUE
+						break
+		if((!target_table && !target_collateral_human && !target_disposal_bin && !target_pool && !IsKnockdown()) || directional_blocked)
+			Knockdown(SHOVE_KNOCKDOWN_SOLID)
+			Immobilize(SHOVE_IMMOBILIZE_SOLID)
+			if (!silent)
+				user.visible_message("<span class='danger'>[user.name] shoves [name], knocking [p_them()] down!</span>",
+					"<span class='danger'>You shove [name], knocking [p_them()] down!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "shoved", "disarm", "knocking them down")
+		else if(target_table)
+			Paralyze(SHOVE_KNOCKDOWN_TABLE)
+			if (!silent)
+				user.visible_message("<span class='danger'>[user.name] shoves [name] onto \the [target_table]!</span>",
+					"<span class='danger'>You shove [name] onto \the [target_table]!</span>", null, COMBAT_MESSAGE_RANGE)
+			throw_at(target_table, 1, 1, null, FALSE) //1 speed throws with no spin are basically just forcemoves with a hard collision check
+			log_combat(user, src, "shoved", "disarm", "onto [target_table] (table)")
+		else if(target_collateral_human)
+			Knockdown(SHOVE_KNOCKDOWN_HUMAN)
+			target_collateral_human.Knockdown(SHOVE_KNOCKDOWN_COLLATERAL)
+			if (!silent)
+				user.visible_message("<span class='danger'>[user.name] shoves [name] into [target_collateral_human.name]!</span>",
+					"<span class='danger'>You shove [name] into [target_collateral_human.name]!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "shoved", "disarm", "into [target_collateral_human.name]")
+		else if(target_disposal_bin)
+			Knockdown(SHOVE_KNOCKDOWN_SOLID)
+			forceMove(target_disposal_bin)
+			if (!silent)
+				user.visible_message("<span class='danger'>[user.name] shoves [name] into \the [target_disposal_bin]!</span>",
+					"<span class='danger'>You shove [name] into \the [target_disposal_bin]!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "shoved", "disarm", "into [target_disposal_bin] (disposal bin)")
+		else if(target_pool)
+			Knockdown(SHOVE_KNOCKDOWN_SOLID)
+			forceMove(target_pool)
+			if (!silent)
+				user.visible_message("<span class='danger'>[user.name] shoves [name] into \the [target_pool]!</span>",
+					"<span class='danger'>You shove [name] into \the [target_pool]!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "shoved", "disarm", "into [target_pool] (swimming pool)")
+	else
+		if (!silent)
+			user.visible_message("<span class='danger'>[user.name] shoves [name]!</span>",
+				"<span class='danger'>You shove [name]!</span>", null, COMBAT_MESSAGE_RANGE)
+		log_combat(user, src, "shoved", "disarm")

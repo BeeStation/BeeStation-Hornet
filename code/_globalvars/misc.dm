@@ -3,8 +3,6 @@ GLOBAL_VAR_INIT(TAB, "&nbsp;&nbsp;&nbsp;&nbsp;")
 
 GLOBAL_DATUM_INIT(data_core, /datum/datacore, new)
 
-GLOBAL_VAR_INIT(bsa_unlock, FALSE)	//! BSA unlocked by head ID swipes
-
 GLOBAL_LIST_EMPTY(player_details)	//! ckey -> /datum/player_details
 
 ///All currently running polls held as datums

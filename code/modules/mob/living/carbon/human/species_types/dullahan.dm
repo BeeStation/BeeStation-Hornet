@@ -25,7 +25,7 @@
 
 /datum/species/dullahan/on_species_gain(mob/living/carbon/human/H, datum/species/old_species)
 	. = ..()
-	REMOVE_TRAIT(src, TRAIT_HEARING_SENSITIVE, TRAIT_GENERIC)
+	H.lose_hearing_sensitivity(TRAIT_GENERIC)
 	var/obj/item/bodypart/head/head = H.get_bodypart(BODY_ZONE_HEAD)
 	if(head)
 		head.drop_limb()
@@ -154,11 +154,16 @@
 /obj/item/dullahan_relay
 	var/mob/living/owner
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/dullahan_relay)
+
 /obj/item/dullahan_relay/Initialize(mapload,new_owner)
 	. = ..()
 	owner = new_owner
 	START_PROCESSING(SSobj, src)
 	become_hearing_sensitive(ROUNDSTART_TRAIT)
+
+/obj/item/dullahan_relay/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+	owner.Hear(arglist(args))
 
 /obj/item/dullahan_relay/process()
 	if(!istype(loc, /obj/item/bodypart/head) || QDELETED(owner))

@@ -140,6 +140,6 @@
 	layer = ABOVE_MOB_LAYER
 
 /obj/structure/railing/sec/corner
-	icon_state = "sec_railing_corner"
+	icon_state = "railing_corner"
 	density = FALSE
 	climbable = FALSE

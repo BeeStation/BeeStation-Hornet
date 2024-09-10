@@ -16,8 +16,8 @@
 	var/replacebody = FALSE
 	var/robustbits = FALSE
 	threshold_desc = "<b>Stage Speed 4:</b>The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
-                      <b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
-                      <b>Stage Speed 12:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
+						<b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
+						<b>Stage Speed 12:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
 
 /datum/symptom/robotic_adaptation/OnAdd(datum/disease/advance/A)
 	A.infectable_biotypes |= MOB_ROBOTIC
@@ -32,8 +32,8 @@
 		severity += 1 //at this stage, even one EMP will hurt, a lot.
 	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
 		threshold_desc = "<b>Always:</b>The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
-                      <b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
-                      <b>Stage Speed 6:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
+						<b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
+						<b>Stage Speed 6:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
 
 
 /datum/symptom/robotic_adaptation/Start(datum/disease/advance/A)
@@ -68,7 +68,7 @@
 			switch(O.slot) //i hate doing it this way, but the cleaner way runtimes and does not work
 				if(ORGAN_SLOT_BRAIN)
 					O.name = "enigmatic gearbox"
-					O.desc ="An engineer would call this inconcievable wonder of gears and metal a 'black box'"
+					O.desc ="An engineer would call this inconceivable wonder of gears and metal a 'black box'"
 					O.icon_state = "brain-clock"
 					O.status = ORGAN_ROBOTIC
 					O.organ_flags = ORGAN_SYNTHETIC
@@ -288,7 +288,7 @@
 
 /obj/item/organ/brain/clockwork
 	name = "enigmatic gearbox"
-	desc ="An engineer would call this inconcievable wonder of gears and metal a 'black box'"
+	desc ="An engineer would call this inconceivable wonder of gears and metal a 'black box'"
 	icon_state = "brain-clock"
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
@@ -329,7 +329,7 @@
 	desc = "A pair of thin metallic membranes."
 	flight_level = WINGS_FLIGHTLESS
 	wing_type = "Clockwork"
-	icon_state = "clockwork"
+	icon_state = "clockwings"
 	basewings = "moth_wings"
 	canopen = FALSE
 

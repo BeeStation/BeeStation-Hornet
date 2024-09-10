@@ -30,7 +30,7 @@
 
 /datum/objective/crew/foodhoard
 	var/datum/crafting_recipe/food/targetfood
-	var/obj/item/reagent_containers/food/foodpath
+	var/obj/item/food/foodpath
 	explanation_text = "Personally deliver at least (Something broke, yell on GitHub) to CentCom."
 	jobs = JOB_NAME_COOK
 
@@ -283,7 +283,7 @@
 
 /datum/objective/crew/pwrgame/New()
 	. = ..()
-	var/list/possible_targets = list(/obj/item/clothing/mask/gas, /obj/item/clothing/head/welding, /obj/item/clothing/head/ushanka, /obj/item/clothing/gloves/color/yellow, /obj/item/clothing/mask/gas/owl_mask)
+	var/list/possible_targets = list(/obj/item/clothing/mask/gas, /obj/item/clothing/head/utility/welding, /obj/item/clothing/head/costume/ushanka, /obj/item/clothing/gloves/color/yellow, /obj/item/clothing/mask/gas/owl_mask)
 	if(prob(10))
 		possible_targets += list(/obj/item/clothing/suit/space)
 	clothing_target = pick(possible_targets)

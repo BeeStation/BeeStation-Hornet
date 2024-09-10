@@ -143,10 +143,15 @@
 	///LazyList of all balloon alerts currently on this atom
 	var/list/balloon_alerts
 
-	/// How much luminosity should we have by default?
-	var/base_luminosity = 0
+	/// What is our default level of luminosity, if you want inherent luminosity
+	/// withing an atom's type, set luminosity instead and we will manage it for you.
+	/// Always use set_base_luminosity instead of directly modifying this
+	VAR_PRIVATE/base_luminosity = 0
 	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
-	var/_emissive_count = 0
+	VAR_PRIVATE/_emissive_count = 0
+
+	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
+	var/list/eye_users
 
 /**
   * Called when an atom is created in byond (built in engine proc)
@@ -207,6 +212,8 @@
   * * /turf/Initialize
   * * /turf/open/space/Initialize
   */
+CREATION_TEST_IGNORE_SUBTYPES(/atom)
+
 /atom/proc/Initialize(mapload, ...)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
@@ -269,6 +276,7 @@
   * Top level of the destroy chain for most atoms
   *
   * Cleans up the following:
+  * * Removes clients who use this, and resets their eye
   * * Removes alternate apperances from huds that see them
   * * qdels the reagent holder from atoms if it exists
   * * clears the orbiters list
@@ -276,6 +284,14 @@
   * * clears the light object
   */
 /atom/Destroy()
+	for(var/client/each_client as anything in eye_users)
+		eye_users -= each_client
+		if(isnull(each_client.mob))
+			stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
+			continue
+		each_client.mob.reset_perspective()
+	eye_users = null
+
 	if(alternate_appearances)
 		for(var/current_alternate_appearance in alternate_appearances)
 			var/datum/atom_hud/alternate_appearance/selected_alternate_appearance = alternate_appearances[current_alternate_appearance]
@@ -777,7 +793,7 @@
   * Default behaviour is to send a warning that the user can't move while buckled as long
   * as the buckle_message_cooldown has expired (50 ticks)
   */
-/atom/proc/relaymove(mob/user)
+/atom/proc/relaymove(mob/living/user, direction)
 	if(buckle_message_cooldown <= world.time)
 		buckle_message_cooldown = world.time + 50
 		to_chat(user, "<span class='warning'>You can't move while buckled to [src]!</span>")
@@ -1035,7 +1051,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	while (do_after(user, 1 SECONDS, src, NONE, FALSE, CALLBACK(STR, TYPE_PROC_REF(/datum/component/storage, handle_mass_item_insertion), things, src_object, user, progress)))
 		stoplag(1)
-	qdel(progress)
+	progress.end_progress()
 	to_chat(user, "<span class='notice'>You dump as much of [src_object.parent]'s contents into [STR.insert_preposition]to [src] as you can.</span>")
 	STR.orient2hud(user)
 	src_object.orient2hud(user)
@@ -1083,7 +1099,6 @@
 /atom/proc/update_remote_sight(mob/living/user)
 	return
 
-
 /**
   * Hook for running code when a dir change occurs
   *
@@ -1098,10 +1113,6 @@
 /atom/proc/try_face(newdir)
 	setDir(newdir)
 	return TRUE
-
-///Handle melee attack by a mech
-/atom/proc/mech_melee_attack(obj/mecha/M)
-	return
 
 /**
   * Called when the atom log's in or out
@@ -1240,6 +1251,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EXPLOSION, "Explosion")
 	VV_DROPDOWN_OPTION(VV_HK_RADIATE, "Radiate")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
+	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
 	if(greyscale_colors)
 		VV_DROPDOWN_OPTION(VV_HK_MODIFY_GREYSCALE, "Modify greyscale colors")
@@ -1331,6 +1343,10 @@
 	if(href_list[VV_HK_EDIT_FILTERS] && check_rights(R_VAREDIT))
 		var/client/C = usr.client
 		C?.open_filter_editor(src)
+
+	if(href_list[VV_HK_EDIT_COLOR_MATRIX] && check_rights(R_VAREDIT))
+		var/client/C = usr.client
+		C?.open_color_matrix_editor(src)
 
 /atom/vv_get_header()
 	. = ..()
@@ -1533,6 +1549,8 @@
 			log_comment(log_text)
 		if(LOG_TELECOMMS)
 			log_telecomms(log_text)
+		if(LOG_ECON)
+			log_econ(log_text)
 		if(LOG_OOC)
 			log_ooc(log_text)
 		if(LOG_ADMIN)
@@ -1604,6 +1622,7 @@
 		user = A_ref.resolve()
 	var/ssource = key_name(user)
 	var/starget = key_name(target)
+	var/datum/tool_atom = object
 
 	var/mob/living/living_target = target
 	var/hp = istype(living_target) ? " (NEWHP: [living_target.health]) " : ""
@@ -1613,8 +1632,8 @@
 		stam = "(STAM: [C.getStaminaLoss()]) "
 
 	var/sobject = ""
-	if(object && !isitem(object))
-		sobject = " with [object]"
+	if(object)
+		sobject = " with [object][(istype(tool_atom) ? " ([tool_atom.type])" : "")]"
 	var/saddition = ""
 	if(addition)
 		saddition = " [addition]"
@@ -1626,7 +1645,6 @@
 
 	if (important && isliving(user) && isliving(target))
 		var/mob/living/living_user = user
-		var/datum/tool_atom = object
 		SScombat_logging.log_combat(living_user, living_target, istype(tool_atom) ? tool_atom.type : object)
 
 	if(user != target)
@@ -1636,15 +1654,16 @@
 /**
   * Log for buying items from the uplink
   *
-  * 1 argument is for the user that bought the item
-  * 2 argument is for the item that was purchased
-  * 3 argument is for the uplink type (traitor/contractor)
+  * [buyer]: is for the user that bought the item
+  * [object]: is for the item that was purchased
+  * [type]: is for the uplink type (traitor/contractor)
+  * [is_bonus]: is given TRUE when an item is given for free
  */
-/proc/log_uplink_purchase(mob/buyer, atom/object, type = "\improper uplink")
-	var/message = "has bought [object] from \a [type]"
+/proc/log_uplink_purchase(mob/buyer, atom/object, type = "\improper uplink", is_bonus = FALSE)
+	var/message = "has [!is_bonus ? "bought" : "received a bonus item"] [object] from \a [type]"
 	buyer.log_message(message, LOG_GAME)
 	if(isnull(locate(/datum/antagonist) in buyer.mind?.antag_datums))
-		message_admins("[ADMIN_LOOKUPFLW(buyer)] has bought [object] from \a [type] as a non-antagonist.")
+		message_admins("[ADMIN_LOOKUPFLW(buyer)] has [!is_bonus ? "bought" : "received a bonus item"] [object] from \a [type] as a non-antagonist.")
 
 /atom/proc/add_filter(name,priority,list/params)
 	LAZYINITLIST(filter_data)
@@ -1714,7 +1733,7 @@
 	if(custom_materials) //Only runs if custom materials existed at first. Should usually be the case but check anyways
 		for(var/i in custom_materials)
 			var/datum/material/custom_material = SSmaterials.GetMaterialRef(i)
-			custom_material.on_removed(src, material_flags) //Remove the current materials
+			custom_material.on_removed(src, custom_materials[i], material_flags) //Remove the current materials
 
 	if(!length(materials))
 		custom_materials = null
@@ -1726,6 +1745,25 @@
 			custom_material.on_applied(src, materials[x] * multiplier * material_modifier, material_flags)
 
 	custom_materials = SSmaterials.FindOrCreateMaterialCombo(materials, multiplier)
+
+/**Returns the material composition of the atom.
+  *
+  * Used when recycling items, specifically to turn alloys back into their component mats.
+  *
+  * Exists because I'd need to add a way to un-alloy alloys or otherwise deal
+  * with people converting the entire stations material supply into alloys.
+  *
+  * Arguments:
+  * - flags: A set of flags determining how exactly the materials are broken down.
+  */
+/atom/proc/get_material_composition(breakdown_flags=NONE)
+	. = list()
+	var/list/cached_materials = custom_materials
+	for(var/mat in cached_materials)
+		var/datum/material/material = SSmaterials.GetMaterialRef(mat)
+		var/list/material_comp = material.return_composition(cached_materials[material], breakdown_flags)
+		for(var/comp_mat in material_comp)
+			.[comp_mat] += material_comp[comp_mat]
 
 /// Returns the indice in filters of the given filter name.
 /// If it is not found, returns null.
@@ -1763,6 +1801,14 @@
   */
 /atom/proc/setClosed()
 	return
+
+/**
+  * Used to attempt to charge an object with a payment component.
+  *
+  * Use this if an atom needs to attempt to charge another atom.
+  */
+/atom/proc/attempt_charge(var/atom/sender, var/atom/target, var/extra_fees = 0)
+	return SEND_SIGNAL(sender, COMSIG_OBJ_ATTEMPT_CHARGE, target, extra_fees)
 
 /**
 * Instantiates the AI controller of this atom. Override this if you want to assign variables first.
@@ -1896,7 +1942,16 @@
 	if (isnull(base_luminosity))
 		base_luminosity = initial(luminosity)
 
-	if (_emissive_count)
-		luminosity = max(max(base_luminosity, affecting_dynamic_lumi), 1)
+	if (UNLINT(_emissive_count))
+		UNLINT(luminosity = max(max(base_luminosity, affecting_dynamic_lumi), 1))
 	else
-		luminosity = max(base_luminosity, affecting_dynamic_lumi)
+		UNLINT(luminosity = max(base_luminosity, affecting_dynamic_lumi))
+
+#define set_base_luminosity(target, new_value)\
+if (UNLINT(target.base_luminosity != new_value)) {\
+	UNLINT(target.base_luminosity = new_value);\
+	target.update_luminosity();\
+}
+
+/atom/movable/proc/get_orbitable()
+	return src

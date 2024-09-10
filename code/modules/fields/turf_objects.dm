@@ -13,6 +13,8 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/datum/proximity_monitor/advanced/parent = null
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/proximity_checker/advanced)
+
 /obj/effect/abstract/proximity_checker/advanced/Initialize(mapload, _monitor)
 	if(_monitor)
 		parent = _monitor

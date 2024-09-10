@@ -123,9 +123,9 @@
 	desc = "Now this is what island exploration is all about.";
 	name = "Treasure Chest"
 	},
-/obj/item/clothing/head/pirate,
+/obj/item/clothing/head/costume/pirate,
 /obj/item/clothing/glasses/eyepatch,
-/obj/item/clothing/suit/pirate,
+/obj/item/clothing/suit/costume/pirate,
 /obj/item/melee/sabre{
 	desc = "This isn't real however it can trick someone into thinking you have something real..";
 	force = 0;
@@ -466,14 +466,14 @@
 "bs" = (
 /obj/machinery/door/airlock/sandstone{
 	id_tag = "changlinhut2";
-	name = "changing room"
+	name = "Changing Room 2"
 	},
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "bt" = (
 /obj/machinery/door/airlock/sandstone{
 	id_tag = "changlinhut1";
-	name = "changing room"
+	name = "Changing Room 1"
 	},
 /turf/open/floor/wood,
 /area/awaymission/beach)
@@ -597,7 +597,7 @@
 	pixel_y = 8
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bM" = (
 /obj/structure/mirror{
@@ -607,7 +607,7 @@
 /obj/structure/sink{
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bN" = (
 /obj/structure/mirror{
@@ -617,7 +617,7 @@
 /obj/structure/sink{
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bO" = (
 /obj/structure/table/wood,
@@ -633,7 +633,7 @@
 /area/awaymission/beach)
 "bQ" = (
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bR" = (
 /obj/machinery/button/door{
@@ -644,7 +644,7 @@
 	specialfunctions = 4
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bS" = (
 /obj/machinery/button/door{
@@ -655,7 +655,7 @@
 	specialfunctions = 4
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bT" = (
 /obj/structure/bed,
@@ -702,18 +702,18 @@
 "bX" = (
 /obj/machinery/door/airlock/sandstone{
 	id_tag = "toilet1";
-	name = "restroom stall"
+	name = "Restroom 1"
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bY" = (
 /obj/machinery/door/airlock/sandstone{
 	id_tag = "toilet2";
-	name = "restroom stall"
+	name = "Restroom 2"
 	},
 /obj/effect/turf_decal/sand,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/awaymission/beach)
 "bZ" = (
 /obj/structure/dresser{

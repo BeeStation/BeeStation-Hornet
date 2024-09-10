@@ -9,7 +9,7 @@
 /area/template_noop)
 "ce" = (
 /obj/effect/decal/cleanable/glass,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "dn" = (
 /obj/machinery/shower{
@@ -35,7 +35,7 @@
 /area/template_noop)
 "fb" = (
 /obj/effect/decal/cleanable/oil,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "fy" = (
 /obj/machinery/shower,
@@ -74,7 +74,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "lo" = (
 /obj/structure/reagent_dispensers/water_cooler,
@@ -96,7 +96,7 @@
 /area/template_noop)
 "mQ" = (
 /obj/item/toy/beach_ball,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "nv" = (
 /obj/effect/decal/cleanable/glass,
@@ -112,7 +112,7 @@
 /area/template_noop)
 "os" = (
 /obj/effect/decal/cleanable/vomit/old,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "oZ" = (
 /obj/machinery/light/small{
@@ -125,7 +125,7 @@
 	icon_state = "floor5"
 	},
 /obj/structure/curtain,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "qP" = (
 /obj/structure/table,
@@ -148,7 +148,7 @@
 /area/template_noop)
 "sZ" = (
 /obj/structure/curtain,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "th" = (
 /obj/structure/chair/stool,
@@ -162,7 +162,7 @@
 /area/template_noop)
 "xe" = (
 /obj/effect/landmark/blobstart,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "xL" = (
 /turf/closed/wall,
@@ -172,7 +172,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "AU" = (
 /obj/structure/table,
@@ -215,7 +215,7 @@
 /area/template_noop)
 "HZ" = (
 /obj/item/chair/stool,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "Ig" = (
 /obj/effect/decal/cleanable/glass,
@@ -232,11 +232,11 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "JJ" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "Mj" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "NQ" = (
 /obj/machinery/light/small{
@@ -255,7 +255,7 @@
 /area/template_noop)
 "Pg" = (
 /obj/structure/chair/stool,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "Qx" = (
 /obj/structure/closet,
@@ -306,7 +306,7 @@
 /area/template_noop)
 "Xz" = (
 /obj/item/cigbutt/roach,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "Yy" = (
 /obj/structure/table,
@@ -319,7 +319,7 @@
 /area/template_noop)
 "YW" = (
 /obj/item/stack/spacecash/c20,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "Zs" = (
 /obj/structure/closet/firecloset/full,

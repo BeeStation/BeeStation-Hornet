@@ -1,5 +1,5 @@
 /*
- 	Miauw's big Say() rewrite.
+	Miauw's big Say() rewrite.
 	This file has the basic atom/movable level speech procs.
 	And the base of the send_speech() proc, which is the core of saycode.
 */
@@ -36,15 +36,18 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	//SHOULD_BE_PURE(TRUE) // TODO: Make calls to this actually pure. Its a lot of work, best done in its own PR.
 	return TRUE
 
-/atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language = null, list/message_mods = list())
+/atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language, list/message_mods = list())
 	var/rendered = compose_message(src, message_language, message, , spans, message_mods)
 	var/list/show_overhead_message_to = list()
-	for(var/atom/movable/AM as() in get_hearers_in_view(range, source, SEE_INVISIBLE_MAXIMUM))
-		if(ismob(AM))
-			var/mob/M = AM
+	for(var/atom/movable/hearing_movable as anything in get_hearers_in_view(range, source, SEE_INVISIBLE_MAXIMUM))
+		if(!hearing_movable)//theoretically this should use as anything because it shouldnt be able to get nulls but there are reports that it does.
+			stack_trace("somehow theres a null returned from get_hearers_in_view() in send_speech!")
+			continue
+		if(ismob(hearing_movable))
+			var/mob/M = hearing_movable
 			if(M.should_show_chat_message(source, message_language, FALSE, is_heard = TRUE))
 				show_overhead_message_to += M
-		AM.Hear(rendered, src, message_language, message, , spans, message_mods)
+		hearing_movable.Hear(rendered, src, message_language, message, , spans, message_mods)
 	if(length(show_overhead_message_to))
 		create_chat_message(src, message_language, show_overhead_message_to, message, spans, message_mods)
 
@@ -98,6 +101,10 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	var/messagepart
 
 	var/languageicon = ""
+	var/space = " "
+	if(message_mods[MODE_CUSTOM_SAY_EMOTE])
+		if(!should_have_space_before_emote(html_decode(message_mods[MODE_CUSTOM_SAY_EMOTE])[1]))
+			space = null
 	if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
 		messagepart = message_mods[MODE_CUSTOM_SAY_EMOTE]
 	else
@@ -107,7 +114,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		if(istype(D) && D.display_icon(src))
 			languageicon = "[D.get_icon()] "
 
-	messagepart = " <span class='message'>[say_emphasis(messagepart)]</span></span>"
+	messagepart = "[space]<span class='message'>[say_emphasis(messagepart)]</span></span>"
 
 	return "[spanpart1][spanpart2][freqpart][languageicon][compose_track_href(speaker, namepart)][namepart][compose_job(speaker, message_language, raw_message, radio_freq)][endspanpart][messagepart]"
 
@@ -216,6 +223,8 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	var/obj/item/radio/radio
 
 INITIALIZE_IMMEDIATE(/atom/movable/virtualspeaker)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/virtualspeaker)
+
 /atom/movable/virtualspeaker/Initialize(mapload, atom/movable/M, _radio)
 	. = ..()
 	radio = _radio

@@ -32,6 +32,7 @@
 /obj/effect/spawner/Destroy(force)
 	SHOULD_CALL_PARENT(FALSE)
 	moveToNullspace()
+	return QDEL_HINT_QUEUE
 
 /obj/effect/list_container
 	name = "list container"
@@ -77,6 +78,10 @@
 	plane = STARLIGHT_PLANE
 	transform = matrix(2, 0, 0, 0, 2, 0)
 
+/obj/effect/fullbright/starlight/starfloor
+	icon_state = "grey"
+	transform = matrix(1.5, 0, 0, 0, 1.5, 0)
+
 /obj/effect/abstract/marker
 	name = "marker"
 	icon = 'icons/effects/effects.dmi'
@@ -95,31 +100,5 @@
 /obj/effect/abstract/marker/at
 	name = "active turf marker"
 
-
-/obj/effect/dummy/lighting_obj
-	name = "lighting fx obj"
-	desc = "Tell a coder if you're seeing this."
-	icon_state = "nothing"
-	light_color = "#FFFFFF"
-	light_system = MOVABLE_LIGHT
-	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+/obj/effect/abstract/directional_lighting
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/obj/effect/dummy/lighting_obj/Initialize(mapload, _range, _power, _color, _duration)
-	. = ..()
-	if(!isnull(_range))
-		set_light_range(_range)
-	if(!isnull(_power))
-		set_light_power(_power)
-	if(!isnull(_color))
-		set_light_color(_color)
-	if(_duration)
-		QDEL_IN(src, _duration)
-
-/obj/effect/dummy/lighting_obj/moblight
-	name = "mob lighting fx"
-
-/obj/effect/dummy/lighting_obj/moblight/Initialize(mapload, _color, _range, _power, _duration)
-	. = ..()
-	if(!ismob(loc))
-		return INITIALIZE_HINT_QDEL

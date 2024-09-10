@@ -124,6 +124,8 @@
 	var/exposed = 0 // can you currently put an item inside
 	var/obj/item/hiddenitem = null // what's in the urinal
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
+
 /obj/structure/urinal/Initialize(mapload)
 	. = ..()
 	hiddenitem = new /obj/item/food/urinalcake
@@ -206,6 +208,7 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "rubberducky"
 	item_state = "rubberducky"
+	worn_icon_state = "duck"
 
 
 /obj/structure/sink
@@ -466,13 +469,13 @@
 	alpha = 255
 
 /obj/structure/curtain/proc/toggle(mob/M)
-    if (check(M))
-        open = !open
-        playsound(loc, 'sound/effects/curtain.ogg', 50, 1)
-        update_appearance()
+	if (check(M))
+		open = !open
+		playsound(loc, 'sound/effects/curtain.ogg', 50, 1)
+		update_appearance()
 
 /obj/structure/curtain/proc/check(mob/M)
-    return TRUE
+	return TRUE
 
 /obj/structure/curtain/directional
 	icon_type = "bounty"

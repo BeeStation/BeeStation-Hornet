@@ -176,7 +176,7 @@
 	arm_hud.begin_timer(arming_cooldown_length)
 	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(display_examine))
 	RegisterSignal(target, COMSIG_PARENT_PREQDELETED, PROC_REF(on_bomb_destroyed))
-	RegisterSignal(target, boom_signals, PROC_REF(kaboom))
+	RegisterSignals(target, boom_signals, PROC_REF(kaboom))
 	bomb_disarm_timers[target] = addtimer(CALLBACK(src, PROC_REF(disable), target), master_stats.potential * 18 * 10, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
 	bombs += target
 
@@ -304,7 +304,9 @@
 /atom/movable/screen/holoparasite/explosive
 	var/datum/holoparasite_ability/major/explosive/ability
 
-/atom/movable/screen/holoparasite/explosive/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/explosive/_ability)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/explosive)
+
+/atom/movable/screen/holoparasite/explosive/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/explosive/_ability)
 	. = ..()
 	if(!istype(_ability))
 		CRASH("Tried to make explosive holoparasite HUD without proper reference to explosive ability")

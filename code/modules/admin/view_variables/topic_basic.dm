@@ -57,7 +57,8 @@
 
 	if(href_list[VV_HK_MARK] && check_rights(R_VAREDIT))
 		usr.client.mark_datum(target)
-
+	if(href_list[VV_HK_TAG])
+		usr.client.tag_datum(target)
 	if(href_list[VV_HK_ADDCOMPONENT])
 		if(!check_rights(R_VAREDIT))
 			return

@@ -167,7 +167,7 @@
 			arguments["commit_hash"] = GLOB.revdata.originmastercommit
 		if(to_set.len)
 			arguments["round_id"] = GLOB.round_id
-			var/datum/DBQuery/query_round_game_mode = SSdbcore.NewQuery(
+			var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery(
 				"UPDATE [format_table_name("round")] SET [to_set.Join(", ")] WHERE id = :round_id",
 				arguments
 			)
@@ -396,8 +396,8 @@
 
 	print_command_report(intercepttext, "Central Command Status Summary", announce=FALSE)
 	priority_announce("A summary has been copied and printed to all communications consoles.", "Enemy communication intercepted. Security level elevated.", ANNOUNCER_INTERCEPT)
-	if(GLOB.security_level < SEC_LEVEL_BLUE)
-		set_security_level(SEC_LEVEL_BLUE)
+	if(SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_BLUE)
+		SSsecurity_level.set_level(SEC_LEVEL_BLUE)
 
 
 /*
@@ -714,7 +714,7 @@
 				if(L.suiciding)	//Suicider
 					msg += "<b>[L.name]</b> ([L.key]), the [L.job] (<span class='boldannounce'>Suicide</span>)\n"
 					failed = TRUE //Disconnected client
-				if(!failed && L.stat == UNCONSCIOUS)
+				if(!failed && (L.stat == UNCONSCIOUS || L.stat == HARD_CRIT))
 					msg += "<b>[L.name]</b> ([L.key]), the [L.job] (Dying)\n"
 					failed = TRUE //Unconscious
 				if(!failed && L.stat == DEAD)

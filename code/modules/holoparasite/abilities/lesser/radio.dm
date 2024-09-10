@@ -34,7 +34,7 @@
 		binary = TRUE
 		radio.keyslot.translate_binary = TRUE
 	if(!can_talk)
-		radio.wires.cut(WIRE_TX)
+		radio.wires.cut(WIRE_TX, null)
 	radio.recalculateChannels()
 	generate_regex()
 
@@ -58,7 +58,7 @@
 	if(binary)
 		channels += "use [MODE_TOKEN_BINARY] for [MODE_BINARY]"
 	for(var/channel in radio.channels)
-		channels += "use [GLOB.channel_tokens[channel]] for [lowertext(channel)]"
+		channels += "use [GLOB.channel_tokens[channel]] for [LOWER_TEXT(channel)]"
 	text += "<span class='holoparasite'>[english_list(channels)]</span>"
 	return text.Join("\n")
 
@@ -69,7 +69,7 @@
 	subspace_transmission = TRUE
 	radio_silent = TRUE
 
-/obj/item/radio/holoparasite/Initialize()
+/obj/item/radio/holoparasite/Initialize(mapload)
 	. = ..()
 	keyslot = new /obj/item/encryptionkey/holoparasite
 

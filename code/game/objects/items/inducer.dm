@@ -106,7 +106,10 @@
 	var/coefficient = 1
 	var/obj/item/organ/stomach/battery/battery
 	if(istype(A, /obj/item/gun/energy))
-		to_chat(user,"Error unable to interface with device")
+		to_chat(user, "<span class='alert'>Error unable to interface with device.</span>")
+		return FALSE
+	if(istype(A, /obj/item/clothing/suit/space))
+		to_chat(user, "<span class='alert'>Error unable to interface with device.</span>")
 		return FALSE
 	if(istype(A, /obj))
 		O = A

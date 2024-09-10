@@ -3,7 +3,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 "Random" = FALSE, //not a true color, will pick a random color
 "Burgundy" = LIGHT_COLOR_FLARE,
 "Bronze" = LIGHT_COLOR_ORANGE,
-"Yellow" = LIGHT_COLOR_YELLOW,
+"Yellow" = LIGHT_COLOR_DIM_YELLOW,
 "Lime" = LIGHT_COLOR_SLIME_LAMP,
 "Olive" = LIGHT_COLOR_GREEN,
 "Jade" = LIGHT_COLOR_BLUEGREEN,
@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 	"Alt-click to select a color. Current color is [picked_color].</span>"
 
 /obj/item/stack/marker_beacon/update_icon()
-	icon_state = "marker[lowertext(picked_color)]"
+	icon_state = "marker[LOWER_TEXT(picked_color)]"
 
 /obj/item/stack/marker_beacon/attack_self(mob/user)
 	if(!isturf(user.loc))
@@ -74,13 +74,15 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "markerrandom"
 	layer = BELOW_OPEN_DOOR_LAYER
-	armor = list(MELEE = 50,  BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 25, BIO = 100, RAD = 100, FIRE = 25, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 50,  BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 25, BIO = 100, RAD = 100, FIRE = 25, ACID = 0, STAMINA = 0, BLEED = 0)
 	max_integrity = 50
 	anchored = TRUE
 	light_range = 2
 	light_power = 3
 	var/remove_speed = 15
 	var/picked_color
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/marker_beacon)
 
 /obj/structure/marker_beacon/Initialize(mapload, set_color)
 	. = ..()
@@ -101,7 +103,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 /obj/structure/marker_beacon/update_icon()
 	while(!picked_color || !GLOB.marker_beacon_colors[picked_color])
 		picked_color = pick(GLOB.marker_beacon_colors)
-	icon_state = "marker[lowertext(picked_color)]-on"
+	icon_state = "marker[LOWER_TEXT(picked_color)]-on"
 	set_light(light_range, light_power, GLOB.marker_beacon_colors[picked_color])
 
 /obj/structure/marker_beacon/attack_hand(mob/living/user)

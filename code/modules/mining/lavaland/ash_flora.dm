@@ -2,12 +2,13 @@
 //This includes: The structures, their produce, their seeds and the crafting recipe for the mushroom bowl
 
 /obj/structure/flora/ash
-	gender = PLURAL
-	layer = PROJECTILE_HIT_THRESHOLD_LAYER //sporangiums up don't shoot
-	icon = 'icons/obj/lavaland/ash_flora.dmi'
-	icon_state = "l_mushroom"
 	name = "large mushrooms"
 	desc = "A number of large mushrooms, covered in a faint layer of ash and what can only be spores."
+	icon = 'icons/obj/lavaland/ash_flora.dmi'
+	icon_state = "l_mushroom1"
+	base_icon_state = "l_mushroom"
+	gender = PLURAL
+	layer = PROJECTILE_HIT_THRESHOLD_LAYER //sporangiums up don't shoot
 	var/harvested_name = "shortened mushrooms"
 	var/harvested_desc = "Some quickly regrowing mushrooms, formerly known to be quite large."
 	var/needs_sharp_harvest = TRUE
@@ -20,14 +21,13 @@
 	var/harvest_message_high = "You harvest and collect shavings from several mushroom caps."
 	var/destroy_on_harvest = FALSE
 	var/harvested = FALSE
-	var/base_icon
 	var/regrowth_time_low = 8 MINUTES
 	var/regrowth_time_high = 16 MINUTES
 
 /obj/structure/flora/ash/Initialize(mapload)
 	. = ..()
-	base_icon = "[icon_state][rand(1, 4)]"
-	icon_state = base_icon
+	base_icon_state = "[base_icon_state][rand(1, 4)]"
+	icon_state = base_icon_state
 
 /obj/structure/flora/ash/proc/harvest(user)
 	if(harvested)
@@ -47,7 +47,7 @@
 
 	if(destroy_on_harvest)
 		Destroy()
-	icon_state = "[base_icon]p"
+	icon_state = "[base_icon_state]p"
 	name = harvested_name
 	desc = harvested_desc
 	harvested = TRUE
@@ -55,7 +55,7 @@
 	return 1
 
 /obj/structure/flora/ash/proc/regrow()
-	icon_state = base_icon
+	icon_state = base_icon_state
 	name = initial(name)
 	desc = initial(desc)
 	harvested = FALSE
@@ -81,9 +81,10 @@
 	regrowth_time_low = 4200
 
 /obj/structure/flora/ash/leaf_shroom
-	icon_state = "s_mushroom"
 	name = "leafy mushrooms"
 	desc = "A number of mushrooms, each of which surrounds a greenish sporangium with a number of leaf-like structures."
+	icon_state = "s_mushroom1"
+	base_icon_state = "s_mushroom"
 	harvested_name = "leafless mushrooms"
 	harvested_desc = "A bunch of formerly-leafed mushrooms, with their sporangiums exposed. Scandalous?"
 	harvest = /obj/item/food/grown/ash_flora/mushroom_leaf
@@ -97,9 +98,10 @@
 	regrowth_time_high = 6000
 
 /obj/structure/flora/ash/cap_shroom
-	icon_state = "r_mushroom"
 	name = "tall mushrooms"
 	desc = "Several mushrooms, the larger of which have a ring of conks at the midpoint of their stems."
+	icon_state = "r_mushroom1"
+	base_icon_state = "r_mushroom"
 	harvested_name = "small mushrooms"
 	harvested_desc = "Several small mushrooms near the stumps of what likely were larger mushrooms."
 	harvest = /obj/item/food/grown/ash_flora/mushroom_cap
@@ -112,9 +114,10 @@
 	regrowth_time_high = 5400
 
 /obj/structure/flora/ash/stem_shroom
-	icon_state = "t_mushroom"
 	name = "numerous mushrooms"
 	desc = "A large number of mushrooms, some of which have long, fleshy stems. They're radiating light!"
+	icon_state = "t_mushroom1"
+	base_icon_state = "t_mushroom"
 	light_range = 1.5
 	light_power = 2.1
 	harvested_name = "tiny mushrooms"
@@ -129,9 +132,10 @@
 	regrowth_time_high = 6000
 
 /obj/structure/flora/ash/cacti
-	icon_state = "cactus"
 	name = "fruiting cacti"
 	desc = "Several prickly cacti, brimming with ripe fruit and covered in a thin layer of ash."
+	icon_state = "cactus1"
+	base_icon_state = "cactus"
 	harvested_name = "cacti"
 	harvested_desc = "A bunch of prickly cacti. You can see fruits slowly growing beneath the covering of ash."
 	harvest = /obj/item/food/grown/ash_flora/cactus_fruit
@@ -146,9 +150,10 @@
 
 
 /obj/structure/flora/ash/strange
-	icon_state = "xpod"
 	name = "strange plant"
 	desc = "An alient plant born under warming glow of space radiation. What mysteries does it hold? Botanist should know."
+	icon_state = "xpod1"
+	base_icon_state = "xpod"
 	harvest = /obj/item/food/grown/random
 	needs_sharp_harvest = FALSE
 	harvest_amount_high = 2
@@ -286,13 +291,6 @@
 	reagents_add = list(/datum/reagent/consumable/tinlux = 0.04, /datum/reagent/consumable/nutriment/vitamin = 0.02, /datum/reagent/drug/space_drugs = 0.02)
 
 //CRAFTING
-
-/datum/crafting_recipe/mushroom_bowl
-	name = "Mushroom Bowl"
-	result = /obj/item/reagent_containers/glass/bowl/mushroom_bowl
-	reqs = list(/obj/item/food/grown/ash_flora/shavings = 5)
-	time = 30
-	category = CAT_PRIMAL
 
 /obj/item/reagent_containers/glass/bowl/mushroom_bowl
 	name = "mushroom bowl"

@@ -18,6 +18,7 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/cmd_admin_pm_panel,		/*admin-pm list*/
 	/client/proc/stop_sounds,
 	/client/proc/mark_datum_mapview,
+	/client/proc/tag_datum_mapview,
 	/client/proc/requests,
 	)
 GLOBAL_LIST_INIT(admin_verbs_admin, world.AVerbsAdmin())
@@ -76,6 +77,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/delete_book,
 	/client/proc/cmd_admin_send_pda_msg,
 	/client/proc/fax_panel, /*send a paper to fax*/
+	/datum/admins/proc/display_tags,
 	)
 GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel, /client/proc/old_ban_panel))
 GLOBAL_PROTECT(admin_verbs_ban)
@@ -178,6 +180,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/jump_to_ruin,
 	/client/proc/generate_ruin,
 	/client/proc/clear_dynamic_transit,
+	/client/proc/run_empty_query,
 	/client/proc/fucky_wucky,
 	/client/proc/toggle_medal_disable,
 	/client/proc/view_runtimes,
@@ -189,6 +192,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/datum/admins/proc/create_or_modify_area,
 	/datum/admins/proc/fixcorruption,
 	#ifdef TESTING
+	/client/proc/check_missing_sprites,
 	/client/proc/run_dynamic_simulations,
 	#endif
 	#ifdef SENDMAPS_PROFILE
@@ -828,7 +832,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	if(!bookid)
 		return
 
-	var/datum/DBQuery/query_library_print = SSdbcore.NewQuery(
+	var/datum/db_query/query_library_print = SSdbcore.NewQuery(
 		"SELECT * FROM [format_table_name("library")] WHERE id=:id AND isnull(deleted)",
 		list("id" = bookid)
 	)
@@ -840,7 +844,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	var/title = query_library_print.item[3]
 	var/confirmation = alert(src,"Are you sure you want to delete the book with author [author] and title [title]?","Guy Montag Incarnate","Yes","No")
 	if(confirmation == "Yes")
-		var/datum/DBQuery/query_burn_book = SSdbcore.NewQuery(
+		var/datum/db_query/query_burn_book = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("library")] SET deleted = 1 WHERE id=:id",
 			list("id" = bookid)
 		)

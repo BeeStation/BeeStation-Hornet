@@ -4,6 +4,10 @@
 # In the event that multiple org members are to be informed of changes
 # to the same file or dir, add them to the end under Multiple Owners
 
+# Mapping
+
+/_maps @BeeStation/beestation-mapping
+
 # crossedfall
 
 .dockerignore @crossedfall
@@ -25,10 +29,6 @@ Dockerfile @crossedfall
 /code/game/machinery/shuttle @powerfulbacon
 /code/modules/shuttle/super_cruise @powerfulbacon
 /code/modules/shuttle/shuttle_creation @powerfulbacon
-
-# pestoverde322
-
-/_maps @pestoverde322
 
 # itsmeow
 

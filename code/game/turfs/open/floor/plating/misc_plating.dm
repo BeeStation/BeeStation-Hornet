@@ -127,7 +127,7 @@
 	resistance_flags = INDESTRUCTIBLE
 	var/static/datum/gas_mixture/immutable/planetary/GM
 
-/turf/open/floor/plating/grass/Initialize()
+/turf/open/floor/plating/grass/Initialize(mapload)
 	if(!GM)
 		GM = new
 	. = ..()
@@ -166,7 +166,6 @@
 	icon_state = "water"
 	baseturfs = /turf/open/floor/plating/beach/water
 	slowdown = 3
-	var/obj/effect/water_overlay = null
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = 'sound/effects/splash.ogg'
 	footstep = FOOTSTEP_WATER
@@ -175,18 +174,6 @@
 	heavyfootstep = FOOTSTEP_WATER
 
 // pool.dm copy paste
-
-/turf/open/floor/plating/beach/water/Initialize(mapload)
-	. = ..()
-	water_overlay = new /obj/effect/overlay/poolwater(get_turf(src))
-
-/turf/open/floor/plating/beach/water/proc/set_colour(colour)
-	water_overlay.color = colour
-
-/turf/open/floor/plating/beach/water/end/ChangeTurf(path, list/new_baseturfs, flags)
-	if(water_overlay)
-		qdel(water_overlay)
-	. = ..()
 
 /turf/open/CanPass(atom/movable/mover, turf/target)
 	var/datum/component/swimming/S = mover.GetComponent(/datum/component/swimming) //If you're swimming around, you don't really want to stop swimming just like that do you?
@@ -238,7 +225,7 @@
 	. = ..()
 	if(user != dropping)
 		dropping.visible_message("<span class='notice'>[user] starts to lower [dropping] down into [src].</span>", \
-		 "<span class='notice'>You start to lower [dropping] down into [src].</span>")
+			"<span class='notice'>You start to lower [dropping] down into [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>You start climbing down into [src]...")
 	if(do_after(user, 4 SECONDS, target = dropping))
@@ -298,6 +285,7 @@
 /turf/open/floor/plating/beach/deep_water
 	desc = "Deep water. What if there's sharks?"
 	icon_state = "water_deep"
+	name = "deep water"
 	density = 1 //no swimming
 
 /turf/open/floor/plating/beach/coastline_t
@@ -416,3 +404,7 @@
 /turf/open/floor/plating/snowed/temperatre
 	initial_temperature = 255.37
 
+/turf/open/floor/plating/elevatorshaft
+	name = "elevator shaft"
+	icon_state = "elevatorshaft"
+	base_icon_state = "elevatorshaft"

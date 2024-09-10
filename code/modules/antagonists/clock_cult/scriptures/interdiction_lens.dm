@@ -20,7 +20,6 @@
 	anchored = TRUE
 	break_message = "<span class='warning'>The interdiction lens breaks into multiple fragments, which gently float to the ground.</span>"
 	max_integrity = 150
-	obj_integrity = 150
 	minimum_power = 5
 	var/enabled = FALSE			//Misnomer - Whether we want to be enabled or not, processing would be if we are enabled
 	var/processing = FALSE
@@ -67,7 +66,7 @@
 	for(var/mob/living/L in viewers(INTERDICTION_LENS_RANGE, src))
 		if(!is_servant_of_ratvar(L) && use_power(5))
 			L.apply_status_effect(STATUS_EFFECT_INTERDICTION)
-	for(var/obj/mecha/M in dview(INTERDICTION_LENS_RANGE, src, SEE_INVISIBLE_MINIMUM))
+	for(var/obj/vehicle/sealed/mecha/M in dview(INTERDICTION_LENS_RANGE, src, SEE_INVISIBLE_MINIMUM))
 		if(use_power(5))
 			M.emp_act(EMP_HEAVY)
 			M.take_damage(400 * delta_time)
@@ -122,3 +121,5 @@
 
 /obj/item/borg/projectile_dampen/clockcult/process_recharge()
 	energy = maxenergy
+
+#undef INTERDICTION_LENS_RANGE

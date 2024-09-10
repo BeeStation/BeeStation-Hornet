@@ -130,6 +130,9 @@
 	foodtypes = MEAT | TOXIC
 	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/food/spiderleg/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/boiledspiderleg, rand(50 SECONDS, 60 SECONDS), TRUE, TRUE)
+
 /obj/item/food/cornedbeef
 	name = "corned beef and cabbage"
 	desc = "Now you can feel like a real tourist vacationing in Ireland."
@@ -158,19 +161,167 @@
 	foodtypes = MEAT | ALCOHOL
 	w_class = WEIGHT_CLASS_SMALL
 
+//Raw
+
+/obj/item/food/raw_meatball
+	name = "raw meatball"
+	desc = "A great meal all round. Not a cord of wood. Kinda raw"
+	icon = 'icons/obj/food/meat.dmi'
+	icon_state = "raw_meatball"
+	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 2)
+	tastes = list("meat" = 1)
+	foodtypes = MEAT | RAW
+	w_class = WEIGHT_CLASS_SMALL
+	var/meatball_type = /obj/item/food/meatball
+	var/patty_type = /obj/item/food/raw_patty
+
+/obj/item/food/raw_meatball/make_grillable()
+	AddComponent(/datum/component/grillable, meatball_type, rand(30 SECONDS, 40 SECONDS), TRUE)
+
+/obj/item/food/raw_meatball/make_processable()
+	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, patty_type, 1, 20)
+
+/obj/item/food/raw_meatball/human
+	name = "strange raw meatball"
+	meatball_type = /obj/item/food/meatball/human
+	patty_type = /obj/item/food/raw_patty/human
+
+/obj/item/food/raw_meatball/corgi
+	name = "raw corgi meatball"
+	meatball_type = /obj/item/food/meatball/corgi
+	patty_type = /obj/item/food/raw_patty/corgi
+
+/obj/item/food/raw_meatball/xeno
+	name = "raw xeno meatball"
+	meatball_type = /obj/item/food/meatball/xeno
+	patty_type = /obj/item/food/raw_patty/xeno
+
+/obj/item/food/raw_meatball/bear
+	name = "raw bear meatball"
+	meatball_type = /obj/item/food/meatball/bear
+	patty_type = /obj/item/food/raw_patty/bear
+
+/obj/item/food/raw_meatball/chicken
+	name = "raw chicken meatball"
+	meatball_type = /obj/item/food/meatball/chicken
+	patty_type = /obj/item/food/raw_patty/chicken
+
+//Cooked
+
 /obj/item/food/meatball
 	name = "meatball"
 	desc = "A great meal all round. Not a cord of wood."
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "meatball"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment/protein = 2,
-		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment/protein = 2
 	)
 	tastes = list("meat" = 1)
 	foodtypes = MEAT
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/meatball/human
+	name = "strange meatball"
+
+/obj/item/food/meatball/corgi
+	name = "corgi meatball"
+
+/obj/item/food/meatball/bear
+	name = "bear meatball"
+	tastes = list("meat" = 1, "salmon" = 1)
+
+/obj/item/food/meatball/xeno
+	name = "xenomorph meatball"
+	tastes = list("meat" = 1, "acid" = 1)
+
+/obj/item/food/meatball/chicken
+	name = "chicken meatball"
+	tastes = list("chicken" = 1)
+	icon_state = "chicken_meatball"
+
+/obj/item/food/raw_patty
+	name = "raw patty"
+	desc = "I'm.....NOT REAAADDYY."
+	icon = 'icons/obj/food/meat.dmi'
+	icon_state = "raw_patty"
+	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 2)
+	tastes = list("meat" = 1)
+	foodtypes = MEAT | RAW
+	w_class = WEIGHT_CLASS_SMALL
+	var/patty_type = /obj/item/food/patty/plain
+
+/obj/item/food/raw_patty/make_grillable()
+	AddComponent(/datum/component/grillable, patty_type, rand(30 SECONDS, 40 SECONDS), TRUE)
+
+/obj/item/food/raw_patty/human
+	name = "strange raw patty"
+	patty_type = /obj/item/food/patty/human
+
+/obj/item/food/raw_patty/corgi
+	name = "raw corgi patty"
+	patty_type = /obj/item/food/patty/corgi
+
+/obj/item/food/raw_patty/bear
+	name = "raw bear patty"
+	tastes = list("meat" = 1, "salmon" = 1)
+	patty_type = /obj/item/food/patty/bear
+
+/obj/item/food/raw_patty/xeno
+	name = "raw xenomorph patty"
+	tastes = list("meat" = 1, "acid" = 1)
+	patty_type = /obj/item/food/patty/xeno
+
+/obj/item/food/raw_patty/chicken
+	name = "raw chicken patty"
+	tastes = list("chicken" = 1)
+	patty_type = /obj/item/food/patty/chicken
+
+/obj/item/food/patty
+	name = "patty"
+	desc = "The nanotrasen patty is the patty for you and me!"
+	icon = 'icons/obj/food/meat.dmi'
+	icon_state = "patty"
+	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 2)
+	tastes = list("meat" = 1)
+	foodtypes = MEAT
+	w_class = WEIGHT_CLASS_SMALL
+
+///Exists purely for the crafting recipe (because itll take subtypes)
+/obj/item/food/patty/plain
+
+/obj/item/food/patty/human
+	name = "strange patty"
+
+/obj/item/food/patty/corgi
+	name = "corgi patty"
+
+/obj/item/food/patty/bear
+	name = "bear patty"
+	tastes = list("meat" = 1, "salmon" = 1)
+
+/obj/item/food/patty/xeno
+	name = "xenomorph patty"
+	tastes = list("meat" = 1, "acid" = 1)
+
+/obj/item/food/patty/chicken
+	name = "chicken patty"
+	tastes = list("chicken" = 1)
+	icon_state = "chicken_patty"
+
+/obj/item/food/raw_sausage
+	name = "raw sausage"
+	desc = "A piece of mixed, long meat, but then raw"
+	icon = 'icons/obj/food/meat.dmi'
+	icon_state = "raw_sausage"
+	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 5, /datum/reagent/consumable/nutriment/vitamin = 2)
+	tastes = list("meat" = 1)
+	foodtypes = MEAT | RAW
+	eatverbs = list("bite","chew","nibble","gobble","chomp")
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/raw_sausage/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/sausage, rand(60 SECONDS, 75 SECONDS), TRUE)
 
 /obj/item/food/sausage
 	name = "sausage"
@@ -190,6 +341,15 @@
 
 /obj/item/food/sausage/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/salami, 6, 3 SECONDS, table_required = TRUE,/*  screentip_verb = "Slice"*/)
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/sausage/american, 1, 3 SECONDS, table_required = TRUE)
+
+/obj/item/food/sausage/american
+	name = "american sausage"
+	desc = "Snip."
+	icon_state = "american_sausage"
+
+/obj/item/food/sausage/american/make_processable() //or else it would make itself? Lmao
+	return
 
 /obj/item/food/salami
 	name = "salami"
@@ -218,7 +378,10 @@
 	tastes = list("meat" = 1, "onions" = 1, "garlic" = 1)
 	foodtypes = MEAT | RAW
 	w_class = WEIGHT_CLASS_SMALL
-	microwaved_type = /obj/item/food/khinkali
+
+/obj/item/food/rawkhinkali/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/khinkali, rand(50 SECONDS, 60 SECONDS), TRUE)
+
 /obj/item/food/khinkali
 	name = "khinkali"
 	desc = "One hundred khinkalis? Do I look like a pig?"
