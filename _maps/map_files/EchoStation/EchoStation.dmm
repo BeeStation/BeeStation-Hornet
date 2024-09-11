@@ -17,7 +17,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/computer/crew{
-	req_one_access = list(5,4)
+	req_access = list(5,4)
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/patients_rooms)
@@ -32193,13 +32193,13 @@
 /obj/machinery/button/door/incinerator_vent_atmos_aux{
 	pixel_x = 24;
 	pixel_y = 8;
-	req_one_access = null;
+	req_access = null;
 	req_access_txt = "11"
 	},
 /obj/machinery/button/door/incinerator_vent_atmos_main{
 	pixel_x = 24;
 	pixel_y = -8;
-	req_one_access = null;
+	req_access = null;
 	req_access_txt = "11"
 	},
 /obj/machinery/button/ignition/incinerator/atmos{
@@ -32926,7 +32926,7 @@
 /obj/machinery/door/airlock/public/glass/incinerator{
 	frequency = null;
 	req_access_txt = "11";
-	req_one_access = null
+	req_access = null
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/asteroid/paradise)
@@ -39967,7 +39967,7 @@
 	},
 /obj/machinery/computer/crew{
 	dir = 8;
-	req_one_access = list(5,4)
+	req_access = list(5,4)
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
@@ -45689,7 +45689,7 @@
 	},
 /obj/machinery/computer/crew{
 	dir = 4;
-	req_one_access = list(5,4,3)
+	req_access = list(5,4,3)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 5

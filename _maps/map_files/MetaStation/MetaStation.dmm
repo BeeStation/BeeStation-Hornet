@@ -79307,7 +79307,7 @@
 "yhk" = (
 /obj/machinery/computer/crew{
 	dir = 8;
-	req_one_access = list(5,4)
+	req_access = list(5,4)
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/grid/steel,

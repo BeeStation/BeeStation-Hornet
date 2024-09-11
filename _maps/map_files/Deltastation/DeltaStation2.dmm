@@ -87228,7 +87228,7 @@
 "vOs" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/computer/crew{
-	req_one_access = list(5,4)
+	req_access = list(5,4)
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
@@ -95316,7 +95316,7 @@
 "ykD" = (
 /obj/machinery/computer/crew{
 	dir = 1;
-	req_one_access = list(5,4)
+	req_access = list(5,4)
 	},
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners,
 /obj/effect/turf_decal/tile/blue/opposingcorners{

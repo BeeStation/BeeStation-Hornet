@@ -1812,7 +1812,7 @@
 	dir = 1
 	},
 /obj/machinery/teleport/hub{
-	req_one_access = "32"
+	req_access = "32"
 	},
 /obj/item/gps{
 	gpstag = "TP0"
@@ -30792,7 +30792,7 @@
 /obj/machinery/computer/med_data/laptop{
 	dir = 1;
 	pixel_y = 6;
-	req_one_access = null;
+	req_access = null;
 	req_access_txt = "5"
 	},
 /turf/open/floor/iron/white,
