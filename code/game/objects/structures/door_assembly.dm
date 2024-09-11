@@ -167,7 +167,6 @@
 		if(EP.adapt_circuit(user, 25))
 			var/obj/item/electronics/airlock/AE = new(src)
 			AE.accesses = EP.electronics.accesses
-			AE.one_access = EP.electronics.one_access
 			AE.unres_sides = EP.electronics.unres_sides
 			AE.play_tool_sound(src, 100)
 			user.visible_message("[user] installs the electronics into the airlock assembly.", \
@@ -264,7 +263,6 @@
 					door = new airlock_type( loc )
 				door.setDir(dir)
 				door.unres_sides = electronics.unres_sides
-				//door.req_access = req_access
 				door.electronics = electronics
 				door.heat_proof = heat_proof_finished
 				door.security_level = AIRLOCK_SECURITY_NONE

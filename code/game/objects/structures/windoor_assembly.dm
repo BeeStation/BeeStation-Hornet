@@ -235,7 +235,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/windoor_assembly)
 				if(EP.adapt_circuit(user, 25))
 					var/obj/item/electronics/airlock/AE = new(src)
 					AE.accesses = EP.electronics.accesses
-					AE.one_access = EP.electronics.one_access
 					AE.unres_sides = EP.electronics.unres_sides
 					if(!user.transferItemToLoc(AE, src))
 						qdel(AE)
