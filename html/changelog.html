@@ -56,10 +56,52 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">10 September 2024</h2>
+			<h3 class="author">PowerfulBacon, AffectedArc updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="server">Enforces warnings in OD lints aggressively.</li>
+			</ul>
+			<h3 class="author">SyncIt21, 13spacemen, SuperSayu, ZephyrTFA, MrMelbert, TiviPlus, AnturK, LemonInTheDark, Kylerace, Ghilker, Fikou, Ben10Omintrix, Ghommie, ShizCalev, SyncIt21, Timberpoes, stylemistake, MacBlaze1, robbertapir, timothymtorres, haukeschuemann, JohnFulpWillard, XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Updated assembly code to be more in line with TG"s</li>
+				<li class="refactor">Updated beam datum code to be more in line with TG"s as well</li>
+				<li class="bugfix">Fixed infrared sensors creating two beams when thrown diagonally</li>
+				<li class="rscadd">Added the ability to place assemblies on welding tanks</li>
+			</ul>
+			<h3 class="author">rkz, Tralezab, Timberpoes, Ghommie updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">refactors species.dm organs and features</li>
+				<li class="code_imp">folded default_features into mutant_bodyparts</li>
+				<li class="bugfix">fixed hacky override for lizards, now spines work in the preference menu from the get-go.</li>
+				<li class="tweak">sensory regeneration no longer sprouts new tails</li>
+			</ul>
+
 			<h2 class="date">09 September 2024</h2>
+			<h3 class="author">Aramix updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed nanite comms programs (forced speech, skull echo, hallucination) to work with nanite communication remote</li>
+			</ul>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed repeating categories in the crafting menu.</li>
+				<li class="refactor">Sorted and standardized all the recipes, please DO NOT put the recipes outside of that folder and stick to the format of all the other recipes.</li>
+				<li class="code_imp">Rebalanced the times to craft and interaction of some recipes.</li>
+			</ul>
 			<h3 class="author">PowerfulBacon updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">Holoparasites, Mindslave Lasso and The Blast Cannon are no longer purchasable by wizards or traitors due to being broken.</li>
+			</ul>
+			<h3 class="author">Tsar-Salat updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixes clothing eating checks</li>
+				<li class="tweak">eating clothes is now based on what tongue you have, rather than what species you are</li>
+			</ul>
+			<h3 class="author">rkz, PaxilManiac, Kryson, Qustinnus, nightred, Greniza, junkgle01 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Separates plates from food sprites, into their own item. They come in three sizes, and break when thrown!</li>
+				<li class="tweak">Serving Trays can now be attached to belts, anticipating its increased usage.</li>
+				<li class="rscadd">resprites brioche, Vanilla, and ChocolateStrawberry cakes</li>
+				<li class="code_imp">removed duplicate update of plane, when layer is already changed</li>
 			</ul>
 
 			<h2 class="date">08 September 2024</h2>
@@ -899,51 +941,6 @@
 			<h3 class="author">tonty updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">crewmembers no longer get cold feet when attempting to piggyback eachother</li>
-			</ul>
-
-			<h2 class="date">10 July 2024</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">minor port of set_eye() and reset_perspective() proc from TG, #PR 69115 (LemonInTheDark)</li>
-				<li class="code_imp">improved basic game system to track client's currently used eye</li>
-				<li class="tweak">advanced camera is now visible by anyone even if it's currently used by someone. (This doesn't support the shuttle docking system, because it uses different one.)</li>
-				<li class="bugfix">minor fix that advanced camera was still usable even if you're locker'ed</li>
-			</ul>
-			<h3 class="author">MarkusLarsson421 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Changed PopulateItems() to check if it should be empty or not.</li>
-				<li class="tweak">Changed Medkits to not use their empty variable.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removes unconciousness from mech brute attacks</li>
-			</ul>
-			<h3 class="author">XeonMations updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">NT's mapping department has repaired radstation's security disposals loop. It now works properly.</li>
-			</ul>
-			<h3 class="author">spockye updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed Rad decals</li>
-				<li class="bugfix">fixed half tiles</li>
-				<li class="rscdel">removes Captain spawner from rdm_captain_quarters.dmm</li>
-				<li class="tweak">replaces item spawner in rdm_captain_quarters.dmm</li>
-				<li class="rscadd">Added glass floors and catwalk floors to corg station</li>
-				<li class="rscadd">small decal additions and changes to corg station</li>
-				<li class="rscadd">fixes to fland station</li>
-				<li class="rscadd">glass tiles to fland station</li>
-			</ul>
-
-			<h2 class="date">09 July 2024</h2>
-			<h3 class="author">Howluinb updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Digitigrade Lizards will no longer get their toe stubbed on tables.</li>
-			</ul>
-			<h3 class="author">TsunamiAnt updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">paper frames now take 10 paper and 2 wood to craft</li>
-				<li class="tweak">paper bundle is now also called that</li>
-				<li class="rscadd">add description text to paper bundle to show people you can just cut it open</li>
 			</ul>
 		</div>
 

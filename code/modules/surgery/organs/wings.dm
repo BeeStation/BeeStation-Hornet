@@ -24,7 +24,7 @@
 
 /obj/item/organ/wings/proc/Refresh(mob/living/carbon/human/H)
 	H.dna.species.mutant_bodyparts -= "[basewings]open"
-	if(!(basewings in H.dna.species.mutant_bodyparts))
+	if(!(H.dna.species.mutant_bodyparts[basewings]))
 		H.dna.species.mutant_bodyparts |= basewings
 		H.dna.features[basewings] = wing_type
 		H.update_body()
@@ -56,16 +56,16 @@
 	if(wingsound)
 		playsound(H, wingsound, 100, 7)
 	if(basewings == "wings" || basewings == "moth_wings")
-		if("wings" in H.dna.species.mutant_bodyparts)
+		if(H.dna.species.mutant_bodyparts["wings"])
 			H.dna.species.mutant_bodyparts -= "wings"
 			H.dna.species.mutant_bodyparts |= "wingsopen"
-		else if("wingsopen" in H.dna.species.mutant_bodyparts)
+		else if(H.dna.species.mutant_bodyparts["wingsopen"])
 			H.dna.species.mutant_bodyparts -= "wingsopen"
 			H.dna.species.mutant_bodyparts |= "wings"
-		else if("moth_wings" in H.dna.species.mutant_bodyparts)
+		else if(H.dna.species.mutant_bodyparts["moth_wings"])
 			H.dna.species.mutant_bodyparts |= "moth_wingsopen"
 			H.dna.species.mutant_bodyparts -= "moth_wings"
-		else if("moth_wingsopen" in H.dna.species.mutant_bodyparts)
+		else if(H.dna.species.mutant_bodyparts["moth_wingsopen"])
 			H.dna.species.mutant_bodyparts -= "moth_wingsopen"
 			H.dna.species.mutant_bodyparts |= "moth_wings"
 		else //it appears we don't actually have wing icons. apply them!!

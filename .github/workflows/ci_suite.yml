@@ -4,8 +4,6 @@ on:
     branches:
     - master
     - 'project/**'
-    - 'gh-readonly-queue/master/**'
-    - 'gh-readonly-queue/project/**'
   pull_request:
     branches:
     - master
