@@ -10,7 +10,6 @@
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
 	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
-	default_features = list("diona_leaves" = "None", "diona_thorns" = "None", "diona_flowers" = "None", "diona_moss" = "None", "diona_mushroom" = "None", "diona_antennae" = "None", "body_size" = "Normal", "diona_eyes" = "None", "diona_pbody" = "None")
 	inherent_factions = list("plants", "vines", "diona")
 	attack_verb = "slash"
 	attack_sound = 'sound/emotes/diona/hit.ogg'
@@ -33,12 +32,12 @@
 
 	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
 	mutanttongue = /obj/item/organ/tongue/diona //Dungeon's sprite
-	mutant_brain = /obj/item/organ/brain/diona //SS14 sprite
+	mutantbrain = /obj/item/organ/brain/diona //SS14 sprite
 	mutantliver = /obj/item/organ/liver/diona //Dungeon's sprite
 	mutantlungs = /obj/item/organ/lungs/diona //Dungeon's sprite
 	mutantstomach = /obj/item/organ/stomach/diona //SS14 sprite
 	mutantears = /obj/item/organ/ears/diona //SS14 sprite
-	mutant_heart = /obj/item/organ/heart/diona //Dungeon's sprite
+	mutantheart = /obj/item/organ/heart/diona //Dungeon's sprite
 
 	species_chest = /obj/item/bodypart/chest/diona
 	species_head = /obj/item/bodypart/head/diona
