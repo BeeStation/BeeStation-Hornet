@@ -81,7 +81,6 @@
 			return
 		if("toggle_trait")
 			var/trait_key = params["trait_name"]
-			//TODO: Make sure this doesn't have crazy overhead - Racc
 			var/list/focus = list(SSxenoarchaeology.labeler_traits.activators, SSxenoarchaeology.labeler_traits.minors, SSxenoarchaeology.labeler_traits.majors, SSxenoarchaeology.labeler_traits.malfunctions)
 			for(var/list/foci as() in focus)
 				if(!(trait_key in foci))

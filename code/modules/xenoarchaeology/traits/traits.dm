@@ -101,11 +101,6 @@
 		if(can_pearl)
 			UnregisterSignal(A, COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER))
 			UnregisterSignal(A, COMSIG_MOVABLE_MOVED)
-	/*
-		If we ever need trait pearls to keep the initialized trait, remove this.
-		You might have to implement a reverse state for some traits though, like dense.
-		- Racc : PLAYTEST
-	*/
 	if(pensive)
 		qdel(src)
 	parent = null

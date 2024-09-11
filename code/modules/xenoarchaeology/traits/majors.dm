@@ -61,7 +61,6 @@
 	Hollow
 	Captures the target for an amount of time
 */
-//TODO: This sometimes fucks peoples camera. It'll release them, but the camera acts if they're still inside  - Racc
 /datum/xenoartifact_trait/major/hollow
 	material_desc = "hollow"
 	label_name = "Hollow"

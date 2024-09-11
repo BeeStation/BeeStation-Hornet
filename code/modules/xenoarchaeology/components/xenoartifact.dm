@@ -364,8 +364,7 @@
 	if(!get_turf(target) || locate(parent) in target.contents)
 		return
 	var/atom/A = parent
-	var/datum/beam/xenoa_beam/B = new((!isturf(A.loc) ? A.loc : A), (!isturf(target.loc) ? target.loc : target), time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
-	B.color_override = artifact_type.material_color
+	var/datum/beam/xenoa_beam/B = new((!isturf(A.loc) ? A.loc : A), (!isturf(target.loc) ? target.loc : target), time=1.5 SECONDS, beam_color = artifact_type.material_color, icon='icons/obj/xenoarchaeology/xenoartifact.dmi', icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
 	INVOKE_ASYNC(B, TYPE_PROC_REF(/datum/beam, Start))
 
 /datum/component/xenoartifact/proc/anti_check(atom/target, type = XENOA_ACTIVATION_CONTACT)

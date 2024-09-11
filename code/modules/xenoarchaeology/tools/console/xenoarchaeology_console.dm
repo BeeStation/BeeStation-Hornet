@@ -1,4 +1,3 @@
-//TODO: Fix a million artifacts spawning in one crate - Racc
 ///Stability lost on purchase
 #define STABILITY_COST 30
 ///Stability gained on-tick
@@ -222,7 +221,7 @@
 	var/rnd_reward = max(0, (artifact.custom_price*artifact_component.artifact_type.rnd_rate)*success_rate) * bonus_rate
 		//Discovery Points
 	var/dp_reward = max(0, (artifact.custom_price*artifact_component.artifact_type.dp_rate)*success_rate) * bonus_rate
-		//Money //TODO: Check if this is sufficient - Racc : PLAYTEST
+		//Money
 	var/monetary_reward = FLOOR(((artifact.custom_price * success_rate * 1.5)^1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate, 1)
 	//Alloctae
 	if(is_main_console)

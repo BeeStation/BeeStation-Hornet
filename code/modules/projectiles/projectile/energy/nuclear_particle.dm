@@ -52,7 +52,6 @@
 			name = "impossibly strong nuclear particle"
 			damage = 30
 
-//TODO: Consider adding an atmos requirement - Racc : CONSULT, PLAYTEST
 /obj/projectile/energy/nuclear_particle/scan_moved_turf()
 	. = ..()
 	//Do a gas check first
@@ -61,7 +60,6 @@
 	if((air?.get_moles(GAS_TRITIUM) < MOLES_GAS_VISIBLE))
 		return
 	for(var/obj/item/I in loc)
-		//TODO: Consider using some fancy math here, or something - Racc : CONSULT, PLAYTEST
 		if(!prob(33))
 			continue
 		//Proceed with artifact logic
