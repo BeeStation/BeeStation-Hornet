@@ -5910,7 +5910,6 @@
 "Sg" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table/reinforced,
-/obj/item/circuitboard/machine/rad_collector,
 /obj/item/circuitboard/machine/smoke_machine{
 	pixel_x = 12;
 	pixel_y = -7

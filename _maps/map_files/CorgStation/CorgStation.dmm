@@ -2588,11 +2588,11 @@
 /area/science/test_area)
 "aFr" = (
 /obj/structure/window/plasma/reinforced,
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 6
 	},
 /obj/structure/cable,
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "aFu" = (
@@ -2846,13 +2846,13 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 1
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 5
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "aJa" = (
@@ -2898,15 +2898,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
-"aJW" = (
-/obj/structure/window/plasma/reinforced,
-/obj/machinery/atmospherics/pipe/manifold/general/visible{
-	dir = 1
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/cable,
-/turf/open/floor/circuit/green,
-/area/engine/supermatter)
 "aJZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -3256,11 +3247,11 @@
 /area/engine/engine_room)
 "aOd" = (
 /obj/structure/window/plasma/reinforced,
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 1
 	},
 /obj/structure/cable,
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "aOn" = (
@@ -3673,11 +3664,11 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 1
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/manifold/general/visible,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "aSC" = (
@@ -63916,21 +63907,9 @@
 	pixel_x = 8;
 	pixel_y = 7
 	},
-/obj/item/circuitboard/machine/rad_collector{
-	pixel_x = 7;
-	pixel_y = 5
-	},
 /obj/item/circuitboard/machine/smes{
 	pixel_x = 6;
 	pixel_y = 3
-	},
-/obj/item/circuitboard/machine/rad_collector{
-	pixel_x = 5;
-	pixel_y = 1
-	},
-/obj/item/circuitboard/machine/rad_collector{
-	pixel_x = 4;
-	pixel_y = -1
 	},
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -88840,7 +88819,7 @@ aVT
 rXf
 aPU
 auG
-aJW
+aOd
 aCQ
 tZH
 asE

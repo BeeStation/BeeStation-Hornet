@@ -5111,19 +5111,6 @@
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
-"bDL" = (
-/obj/machinery/atmospherics/pipe/manifold/general/visible{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "bDT" = (
 /obj/machinery/nanite_programmer,
 /obj/effect/turf_decal/stripes/line{
@@ -26466,7 +26453,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/iron/tech,
 /area/engine/supermatter)
 "iqd" = (
@@ -59497,7 +59484,6 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "sQB" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
 	},
@@ -59507,6 +59493,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "sQJ" = (
@@ -65342,7 +65329,6 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "uFI" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 5
 	},
@@ -65352,6 +65338,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "uFU" = (
@@ -71522,7 +71509,6 @@
 /turf/open/floor/carpet/purple,
 /area/chapel/main)
 "wMj" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 8
 	},
@@ -71532,6 +71518,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "wMI" = (
@@ -72648,7 +72635,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "xhl" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 4
 	},
@@ -72658,6 +72644,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "xhA" = (
@@ -108172,7 +108159,7 @@ mKJ
 mKJ
 nFA
 wMj
-bDL
+wMj
 uFI
 mKJ
 rIo

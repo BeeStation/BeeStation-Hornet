@@ -52712,7 +52712,6 @@
 /turf/open/floor/iron/sepia,
 /area/construction/mining/aux_base)
 "nwa" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 1
@@ -52720,6 +52719,7 @@
 /obj/effect/turf_decal/stripes/red/line,
 /obj/structure/cable,
 /obj/structure/window/plasma/reinforced,
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "nwg" = (
@@ -69194,7 +69194,6 @@
 /turf/open/floor/iron/techmaint,
 /area/maintenance/port)
 "rOa" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 10
@@ -69202,6 +69201,7 @@
 /obj/effect/turf_decal/stripes/red/line,
 /obj/structure/cable,
 /obj/structure/window/plasma/reinforced,
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "rOe" = (
@@ -78578,7 +78578,6 @@
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
 "uhu" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -78594,6 +78593,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 1
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "uhJ" = (
@@ -82814,7 +82814,6 @@
 	},
 /area/engine/atmos)
 "vhm" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -82828,6 +82827,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 1
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "vhn" = (
@@ -83605,7 +83605,6 @@
 /turf/open/floor/iron/sepia,
 /area/engine/engineering)
 "vqc" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 1
@@ -83617,6 +83616,7 @@
 	c_tag = "Supermatter Chamber";
 	network = list("engine")
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "vqq" = (

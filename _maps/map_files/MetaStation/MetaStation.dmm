@@ -20717,9 +20717,9 @@
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 1
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable,
 /obj/structure/window/plasma/reinforced,
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "dbb" = (
@@ -21099,9 +21099,9 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 10
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable,
 /obj/structure/window/plasma/reinforced,
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "deU" = (
@@ -21202,26 +21202,26 @@
 /area/engine/supermatter)
 "dfk" = (
 /obj/machinery/atmospherics/pipe/manifold/general/visible,
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/structure/window/plasma/reinforced{
 	dir = 1
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "dfm" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/structure/window/plasma/reinforced{
 	dir = 1
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "dfp" = (

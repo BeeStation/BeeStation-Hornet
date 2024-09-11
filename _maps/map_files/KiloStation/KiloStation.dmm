@@ -21748,7 +21748,6 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "cxW" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
@@ -21758,6 +21757,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -21785,7 +21785,6 @@
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "cxZ" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
@@ -21795,6 +21794,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -24678,7 +24678,6 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "cLz" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
@@ -24688,6 +24687,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -24771,7 +24771,6 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "cLN" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
@@ -24781,6 +24780,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
