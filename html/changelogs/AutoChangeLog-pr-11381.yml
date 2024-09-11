@@ -1,0 +1,5 @@
+author: XeonMations
+delete-after: true
+changes:
+  - tweak: Tapes now hold 20 minutes worth of recordings, 10 on each side.
+  - rscadd: Added more sounds to the universal recorder.
