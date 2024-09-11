@@ -1,4 +1,4 @@
-help: "Space is only allowed next to specific types"
+help: "Space isn't supposed to be under doors or windows"
 /turf/open/space:
   banned_neighbors:
   - /obj/machinery/door
