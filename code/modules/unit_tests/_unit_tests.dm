@@ -52,6 +52,7 @@
 #include "reagent_id_typos.dm"
 #include "reagent_recipe_collisions.dm"
 #include "security_levels.dm"
+#include "serving_tray.dm"
 #include "shuttle_width_height_correctness.dm"
 #include "siunit.dm"
 #include "spawn_humans.dm"

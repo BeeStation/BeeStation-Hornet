@@ -140,7 +140,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 		if(!T || !is_station_level(T.z))
 			continue
 
-		if(L in GLOB.overminds || (L.pass_flags & PASSBLOB))
+		if((L in GLOB.overminds) || (L.pass_flags & PASSBLOB))
 			continue
 
 		var/area/Ablob = get_area(T)
