@@ -299,9 +299,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// We are ignoring gravity
 #define TRAIT_IGNORING_GRAVITY "ignores_gravity"
-/// Sources for TRAIT_IGNORING_GRAVITY
-#define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 /// We have some form of forced gravity acting on us
 #define TRAIT_FORCED_GRAVITY "forced_gravity"
+#define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
+#define TRAIT_NEGATES_GRAVITY "negates_gravity"
 
 // END TRAIT DEFINES
