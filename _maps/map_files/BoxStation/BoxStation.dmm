@@ -4544,6 +4544,7 @@
 /obj/effect/turf_decal/tile/brown/opposingcorners{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/sepia,
 /area/quartermaster/miningdock)
 "bbS" = (
@@ -4717,6 +4718,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/quartermaster/miningdock)
 "beq" = (
@@ -14383,6 +14385,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark,
 /area/quartermaster/miningdock)
 "cJr" = (
@@ -15292,6 +15295,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/structure/disposalpipe/junction,
 /turf/open/floor/iron/dark,
 /area/quartermaster/office)
 "daL" = (
@@ -21375,6 +21379,9 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
+/obj/structure/disposalpipe/junction{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/office)
 "fwU" = (
@@ -25378,6 +25385,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/shaft_miner,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/sepia,
 /area/quartermaster/miningdock)
 "hce" = (
@@ -29908,6 +29916,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark,
 /area/quartermaster/miningdock)
 "iOZ" = (
@@ -34531,6 +34540,9 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 5
 	},
 /turf/open/floor/plating,
@@ -39931,6 +39943,7 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark,
 /area/quartermaster/miningdock)
 "mSi" = (
@@ -40885,6 +40898,9 @@
 /obj/machinery/newscaster/directional/south,
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/office)
@@ -45093,9 +45109,6 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "pap" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -45110,6 +45123,9 @@
 	},
 /obj/effect/turf_decal/tile/brown/opposingcorners{
 	dir = 1
+	},
+/obj/structure/disposalpipe/junction/flip{
+	dir = 8
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/office)
@@ -52277,6 +52293,15 @@
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
+"rPN" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/quartermaster/office)
 "rPV" = (
 /obj/structure/closet/masks,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
@@ -55850,6 +55875,9 @@
 	icon_state = "2-8"
 	},
 /obj/effect/landmark/start/shaft_miner,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/miningdock)
 "tiP" = (
@@ -66597,6 +66625,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/miningdock)
 "xsB" = (
@@ -67408,6 +67439,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/sepia,
 /area/quartermaster/office)
 "xKf" = (
@@ -92444,7 +92476,7 @@ wEf
 cvJ
 nQI
 bqt
-vXV
+rPN
 jZP
 pxz
 ucW
@@ -92459,7 +92491,7 @@ bGo
 bHE
 bHE
 bHE
-bCq
+bTz
 bHE
 bHE
 bCq
