@@ -1,0 +1,5 @@
+help: "Space is only allowed next to specific types"
+/turf/open/space:
+  banned_neighbors:
+  - /obj/machinery/door
+  - /obj/effect/spawner/structure/window
