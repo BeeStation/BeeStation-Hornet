@@ -44165,14 +44165,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/warehouse)
-"iHn" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/food/donut,
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/item/radio/headset/headset_sec,
-/turf/open/floor/iron,
-/area/security/brig)
 "iHy" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/disposalpipe/segment,
@@ -53483,6 +53475,21 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
+"lCb" = (
+/obj/machinery/door/window/westleft{
+	name = "Monkey Pen";
+	pixel_y = 1;
+	req_access_txt = "9";
+	dir = 1
+	},
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/mob/living/carbon/human/species/monkey,
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron/showroomfloor,
+/area/medical/genetics)
 "lCW" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/machinery/vending/hydroseeds,
@@ -54285,6 +54292,17 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/storage)
+"lQh" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/mob/living/carbon/human/species/monkey,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron/dark,
+/area/medical/virology)
 "lQP" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
@@ -60957,6 +60975,19 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/library)
+"odQ" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
+/obj/machinery/door/window/westleft{
+	name = "Monkey Pen";
+	pixel_y = 1;
+	req_access_txt = "9";
+	dir = 1
+	},
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron/dark,
+/area/medical/virology)
 "odW" = (
 /obj/machinery/vending/wardrobe/atmos_wardrobe,
 /obj/effect/turf_decal/bot,
@@ -66306,19 +66337,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/shuttledock)
-"pPN" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
-	},
-/obj/machinery/door/window/westleft{
-	name = "Monkey Pen";
-	pixel_y = 1;
-	req_access_txt = "9";
-	dir = 1
-	},
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron/dark,
-/area/medical/virology)
 "pPO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -67033,17 +67051,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness/recreation)
-"qbG" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
-/mob/living/carbon/human/species/monkey,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron/dark,
-/area/medical/virology)
 "qbO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
@@ -70994,6 +71001,27 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/medical/cryo)
+"rrS" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-17";
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/obj/machinery/light_switch{
+	pixel_x = 24;
+	pixel_y = 40
+	},
+/obj/machinery/button/door{
+	id = "bar_1";
+	name = "Bar Shutters Toggle";
+	pixel_x = 24;
+	pixel_y = 24;
+	req_access_txt = "25"
+	},
+/mob/living/carbon/human/species/monkey/punpun,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "rsy" = (
 /obj/machinery/fax/med,
 /obj/structure/table/glass,
@@ -87674,14 +87702,6 @@
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
-"wTN" = (
-/mob/living/carbon/human/species/monkey,
-/mob/living/carbon/human/species/monkey,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/medical/virology)
 "wTY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -89090,6 +89110,14 @@
 "xqW" = (
 /turf/closed/wall,
 /area/quartermaster/exploration_prep)
+"xqZ" = (
+/mob/living/carbon/human/species/monkey,
+/mob/living/carbon/human/species/monkey,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/medical/virology)
 "xri" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -89859,21 +89887,6 @@
 /obj/item/stack/medical/gauze,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
-"xEQ" = (
-/obj/machinery/door/window/westleft{
-	name = "Monkey Pen";
-	pixel_y = 1;
-	req_access_txt = "9";
-	dir = 1
-	},
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 8
-	},
-/mob/living/carbon/human/species/monkey,
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron/showroomfloor,
-/area/medical/genetics)
 "xFi" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L14"
@@ -90693,6 +90706,14 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
 /area/bridge)
+"xTS" = (
+/obj/structure/table/reinforced,
+/obj/item/clipboard,
+/obj/item/food/donut/plain,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/item/radio/headset/headset_sec,
+/turf/open/floor/iron,
+/area/security/brig)
 "xTW" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -91611,27 +91632,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
-"yio" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-17";
-	pixel_x = 8;
-	pixel_y = 3
-	},
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = 40
-	},
-/obj/machinery/button/door{
-	id = "bar_1";
-	name = "Bar Shutters Toggle";
-	pixel_x = 24;
-	pixel_y = 24;
-	req_access_txt = "25"
-	},
-/mob/living/carbon/human/species/monkey/punpun,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar)
 "yis" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -110680,7 +110680,7 @@ ejj
 nxV
 eRb
 dsx
-iHn
+xTS
 gtG
 fll
 wVu
@@ -111133,7 +111133,7 @@ aNG
 pME
 gHb
 imK
-xEQ
+lCb
 aNG
 bCi
 uPx
@@ -112702,7 +112702,7 @@ bAN
 uli
 lvi
 ukd
-wTN
+xqZ
 afe
 vWW
 lzt
@@ -112959,7 +112959,7 @@ vlT
 kvt
 cnx
 lbk
-pPN
+odQ
 atK
 twN
 bJi
@@ -113216,7 +113216,7 @@ vlT
 rJv
 eIV
 jXV
-qbG
+lQh
 afe
 xCs
 bJi
@@ -118598,7 +118598,7 @@ oVg
 fZV
 btI
 lSk
-yio
+rrS
 kJV
 mgS
 omi
