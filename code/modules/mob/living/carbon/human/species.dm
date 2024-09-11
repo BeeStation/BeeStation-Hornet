@@ -812,7 +812,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.remove_overlay(BODY_ADJ_LAYER)
 	H.remove_overlay(BODY_FRONT_LAYER)
 
-	//REMOVE_LUM_SOURCE(H, LUM_SOURCE_MUTANT_BODYPART)
+	REMOVE_LUM_SOURCE(H, LUM_SOURCE_MUTANT_BODYPART)
 
 	if(!mutant_bodyparts)
 		return
