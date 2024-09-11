@@ -198,7 +198,7 @@
 	if(confirm == "Yes")
 		var/turf/T = get_turf(src.loc)
 		T.visible_message("<span class='notice'>[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\"</span>", null, \
-		 "<span class='notice'>[src] bleeps electronically.</span>")
+			"<span class='notice'>[src] bleeps electronically.</span>")
 
 		suicide_log()
 

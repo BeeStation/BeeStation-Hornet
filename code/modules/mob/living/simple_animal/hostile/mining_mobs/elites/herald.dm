@@ -195,7 +195,8 @@
 	icon_state = "herald_mirror"
 	deathmessage = "shatters violently!"
 	deathsound = 'sound/effects/glassbr1.ogg'
-	movement_type = FLYING
+	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	del_on_death = TRUE
 	is_mirror = TRUE
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/my_master = null
@@ -271,3 +272,8 @@
 	var/static/list/directional_shot_angles = list(0, 45, 90, 135, 180, 225, 270, 315)
 	playsound(get_turf(owner), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(reactionshot), owner), 10)
+
+#undef HERALD_TRISHOT
+#undef HERALD_DIRECTIONALSHOT
+#undef HERALD_TELESHOT
+#undef HERALD_MIRROR

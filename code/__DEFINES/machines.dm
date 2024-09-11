@@ -176,3 +176,71 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 	"redalert",
 	"shuttle",
 ))
+
+// Holopad defines
+// ---------------------------------------------------
+
+#define HOLOPAD_MAX_DIAL_TIME 200
+
+#define HOLORECORD_DELAY	"delay"
+#define HOLORECORD_SAY		"say"
+#define HOLORECORD_SOUND	"sound"
+#define HOLORECORD_LANGUAGE	"lang"
+#define HOLORECORD_PRESET	"preset"
+#define HOLORECORD_RENAME "rename"
+
+#define HOLORECORD_MAX_LENGTH 200
+
+// Camera defines
+// ---------------------------------------------------
+
+#define CAMERA_UPGRADE_XRAY 1
+#define CAMERA_UPGRADE_EMP_PROOF 2
+#define CAMERA_UPGRADE_MOTION 4
+
+// Status Display defines
+// ---------------------------------------------------
+
+#define SD_BLANK 0  // 0 = Blank
+#define SD_EMERGENCY 1  // 1 = Emergency Shuttle timer
+#define SD_MESSAGE 2  // 2 = Arbitrary message(s)
+#define SD_PICTURE 3  // 3 = alert picture
+
+// Assembly defines
+// ---------------------------------------------------
+
+#define WIRE_RECEIVE		(1<<0)
+#define WIRE_PULSE			(1<<1)
+#define WIRE_PULSE_SPECIAL	(1<<2)
+#define WIRE_RADIO_RECEIVE	(1<<3)
+#define WIRE_RADIO_PULSE	(1<<4)
+
+// Camera defines
+// ---------------------------------------------------
+
+#define CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
+
+// Circulator defines
+// ---------------------------------------------------
+
+#define CIRCULATOR_HOT 0
+#define CIRCULATOR_COLD 1
+
+// Particle Accelerator defines
+// ---------------------------------------------------
+
+#define PA_CONSTRUCTION_UNSECURED  0
+#define PA_CONSTRUCTION_UNWIRED    1
+#define PA_CONSTRUCTION_PANEL_OPEN 2
+#define PA_CONSTRUCTION_COMPLETE   3
+
+// Solar defines
+// ---------------------------------------------------
+
+#define SOLAR_MAX_DIST 40
+#define SOLARGENRATE 1500
+
+// Genpop defines
+// ---------------------------------------------------
+
+#define SENTENCE_MAX_TIMER 10 HOURS //Permabrig.

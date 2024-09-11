@@ -68,6 +68,8 @@
 		H.update_body()
 		H.fully_replace_character_name(null, H.dna.species.random_name(gender))
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
+
 /obj/effect/mob_spawn/human/ash_walker/Initialize(mapload, datum/team/ashwalkers/ashteam)
 	. = ..()
 	var/area/A = get_area(src)
@@ -101,6 +103,8 @@
 	travel the stars with a single declaration: \"Yeah go do whatever.\" Though you are bound to the one who created you, it is customary in your society to repeat those same words to newborn \
 	golems, so that no golem may ever be forced to serve again."
 	banType = ROLE_FREE_GOLEM
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 
 /obj/effect/mob_spawn/human/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
 	if(species) //spawners list uses object name to register so this goes before ..()
@@ -354,6 +358,8 @@
 	var/datum/mind/owner
 	assignedrole = "SuperFriend"
 	banType = ROLE_DEMONIC_FRIEND
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/demonic_friend)
 
 /obj/effect/mob_spawn/human/demonic_friend/Initialize(mapload, datum/mind/owner_mind, obj/effect/proc_holder/spell/targeted/summon_friend/summoning_spell)
 	. = ..()

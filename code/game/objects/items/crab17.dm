@@ -39,6 +39,7 @@
 	pixel_z = -8
 	layer = LARGE_MOB_LAYER
 	max_integrity = 600
+	max_hit_damage = 30
 	/// when this gets at this hp, it will run away! oh no!
 	var/next_health_to_teleport
 	var/mob/living/carbon/human/bogdanoff
@@ -49,6 +50,8 @@
 	/// the less player you have, the less crab-17 will toxic. maximum at 20 pop
 	var/player_modifier = 1
 
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 
 /obj/structure/checkoutmachine/Initialize(mapload, mob/living/user)
 	bogdanoff = user
@@ -256,6 +259,8 @@
 	var/obj/effect/dumpeetFall/DF
 	var/obj/structure/checkoutmachine/dump
 	var/mob/living/carbon/human/bogdanoff
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/dumpeetTarget)
 
 /obj/effect/dumpeetTarget/Initialize(mapload, user)
 	. = ..()

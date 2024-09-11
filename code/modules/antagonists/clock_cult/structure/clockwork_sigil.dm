@@ -126,3 +126,6 @@
 	if(istype(C))
 		C.silent += 15
 	qdel(src)
+
+#undef SIGIL_INVOKATION_ALPHA
+#undef SIGIL_INVOKED_ALPHA

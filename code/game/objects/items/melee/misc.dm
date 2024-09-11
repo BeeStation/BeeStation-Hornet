@@ -327,10 +327,6 @@
 
 			add_fingerprint(user)
 
-			if(!iscarbon(user))
-				target.LAssailant = null
-			else
-				target.LAssailant = WEAKREF(user)
 			cooldown_check = world.time + cooldown
 		else
 			var/wait_desc = get_wait_description()
@@ -514,10 +510,6 @@
 
 		add_fingerprint(user)
 
-		if(!iscarbon(user))
-			target.LAssailant = null
-		else
-			target.LAssailant = WEAKREF(user)
 		COOLDOWN_START(src, cooldown_check, cooldown)
 
 //Telescopic Baton
@@ -743,10 +735,6 @@
 
 			target.visible_message(desc["visible"], desc["local"])
 
-			if(!iscarbon(user))
-				target.LAssailant = null
-			else
-				target.LAssailant = user
 			cooldown_check = world.time + cooldown
 		else
 			var/wait_desc = get_wait_description()
@@ -1029,7 +1017,7 @@
 		return
 	if(is_type_in_typecache(target, ovens))
 		if(held_sausage && held_sausage.roasted)
-			to_chat("Your [held_sausage] has already been cooked.")
+			to_chat(user, "Your [held_sausage] has already been cooked.")
 			return
 		if(istype(target, /obj/anomaly) && get_dist(user, target) < 10)
 			to_chat(user, "You send [held_sausage] towards [target].")
@@ -1084,10 +1072,5 @@
 		var/throw_dir = get_dir(user,target)
 		var/turf/throw_at = get_ranged_target_turf(target, throw_dir, knockbackpower)
 		target.throw_at(throw_at, throw_range, 3)
-
-		if(!iscarbon(user))
-			target.LAssailant = null
-		else
-			target.LAssailant = user
 
 		cooldown = world.time + 15

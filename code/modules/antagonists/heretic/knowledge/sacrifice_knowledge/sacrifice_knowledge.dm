@@ -473,3 +473,6 @@
 	)
 
 	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target))
+
+#undef SACRIFICE_SLEEP_DURATION
+#undef SACRIFICE_REALM_DURATION
