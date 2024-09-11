@@ -43,6 +43,8 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	/datum/strippable_item/mob_item_slot/neck
 )))
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
+
 /mob/living/carbon/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/toggle_resting)
@@ -241,11 +243,10 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	id = "teratoma"
 	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
-	default_features = list("mcolor" = "FFF", "wings" = "None")
 	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	changesource_flags = MIRROR_BADMIN
-	mutant_brain = /obj/item/organ/brain/tumor
+	mutantbrain = /obj/item/organ/brain/tumor
 	mutanttongue = /obj/item/organ/tongue/teratoma
 
 	species_chest = /obj/item/bodypart/chest/monkey/teratoma

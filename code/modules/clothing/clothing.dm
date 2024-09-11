@@ -126,10 +126,11 @@
 /obj/item/clothing/attack(mob/attacker, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return //Harm intent does not eat
-	//if(!ismoth(attacker) || !ispsyphoza(attacker))
-	//	return ..() //Not a clotheater species? No Clotheating!
-	//if((clothing_flags & NOTCONSUMABLE) && (resistance_flags & INDESTRUCTIBLE) && (armor.getRating(MELEE) != 0))
-	//	return ..() //Any remaining flags that make eating it impossible?
+	var/obj/item/organ/tongue/tongue = attacker.getorganslot(ORGAN_SLOT_TONGUE)
+	if(!istype(tongue, /obj/item/organ/tongue/moth) && !istype(tongue, /obj/item/organ/tongue/psyphoza))
+		return ..() //Not a clotheater tongue? No Clotheating!
+	if((clothing_flags & NOTCONSUMABLE) && (resistance_flags & INDESTRUCTIBLE) && (armor.getRating(MELEE) != 0))
+		return ..() //Any remaining flags that make eating it impossible?
 
 	if (isnull(moth_snack))
 		moth_snack = new
@@ -476,21 +477,21 @@ BLIND     // can't see anything
 	else if(istype(src.loc, /mob))
 		var/mob/living/carbon/human/wearer = src.loc
 		wearer.visible_message("<span class='notice'>[user] tries to set [wearer]'s sensors.</span>", \
-						 "<span class='warning'>[user] is trying to set your sensors.</span>", null, COMBAT_MESSAGE_RANGE)
+						"<span class='warning'>[user] is trying to set your sensors.</span>", null, COMBAT_MESSAGE_RANGE)
 		if(do_after(user, SENSOR_CHANGE_DELAY, wearer))
 			switch(sensor_selection)
 				if(SENSORS_OFF)
 					wearer.visible_message("<span class='warning'>[user] disables [wearer]'s remote sensing equipment.</span>", \
-						 "<span class='warning'>[user] disables your remote sensing equipment.</span>", null, COMBAT_MESSAGE_RANGE)
+						"<span class='warning'>[user] disables your remote sensing equipment.</span>", null, COMBAT_MESSAGE_RANGE)
 				if(SENSORS_BINARY)
 					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to binary.</span>", \
-						 "<span class='notice'>[user] turns your remote sensors to binary.</span>", null, COMBAT_MESSAGE_RANGE)
+						"<span class='notice'>[user] turns your remote sensors to binary.</span>", null, COMBAT_MESSAGE_RANGE)
 				if(SENSORS_VITALS)
 					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to track vitals.</span>", \
-						 "<span class='notice'>[user] turns your remote sensors to track vitals.</span>", null, COMBAT_MESSAGE_RANGE)
+						"<span class='notice'>[user] turns your remote sensors to track vitals.</span>", null, COMBAT_MESSAGE_RANGE)
 				if(SENSORS_TRACKING)
 					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to maximum.</span>", \
-						 "<span class='notice'>[user] turns your remote sensors to maximum.</span>", null, COMBAT_MESSAGE_RANGE)
+						"<span class='notice'>[user] turns your remote sensors to maximum.</span>", null, COMBAT_MESSAGE_RANGE)
 			update_sensors(sensor_selection)
 			log_combat(user, wearer, "changed sensors to [switchMode]")
 	if(ishuman(loc) || ismonkey(loc))

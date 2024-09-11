@@ -139,6 +139,8 @@ SUBSYSTEM_DEF(spatial_grid)
 	RegisterSignal(SSdcs, COMSIG_GLOB_NEW_Z, PROC_REF(propogate_spatial_grid_to_new_z))
 	RegisterSignal(SSdcs, COMSIG_GLOB_EXPANDED_WORLD_BOUNDS, PROC_REF(after_world_bounds_expanded))
 
+	return SS_INIT_SUCCESS
+
 ///add a movable to the pre init queue for whichever type is specified so that when the subsystem initializes they get added to the grid
 /datum/controller/subsystem/spatial_grid/proc/enter_pre_init_queue(atom/movable/waiting_movable, type)
 	RegisterSignal(waiting_movable, COMSIG_PARENT_PREQDELETED, PROC_REF(queued_item_deleted), override = TRUE)
@@ -598,3 +600,7 @@ SUBSYSTEM_DEF(spatial_grid)
 #undef GRID_CELL_ADD
 #undef GRID_CELL_REMOVE
 #undef GRID_CELL_SET
+
+#undef NUMBER_OF_PREGENERATED_ORANGES_EARS
+#undef BOUNDING_BOX_MIN
+#undef BOUNDING_BOX_MAX

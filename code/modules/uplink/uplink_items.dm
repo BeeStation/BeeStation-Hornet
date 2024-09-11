@@ -7,6 +7,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		var/datum/uplink_item/I = new path
 		if(!I.item)
 			continue
+		if (I.disabled)
+			continue
 		if (!(I.purchasable_from & uplink_flag))
 			continue
 		if(I.player_minimum && I.player_minimum > GLOB.joined_player_list.len)
@@ -137,6 +139,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	var/spawn_amount = 1	//How many times we should run the spawn
 	var/additional_uplink_entry	= null	//Bonus items you gain if you purchase it
 	var/is_bonus = FALSE // entry in 'additional_uplink_entry' will have this as TRUE. Used for logging detail
+	var/disabled = FALSE
 
 /datum/uplink_item/New()
 	. = ..()
@@ -623,6 +626,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	player_minimum = 25
 	restricted = TRUE
 	refundable = TRUE
+	disabled = TRUE	// #11096: Currently in a broken state, cannot recall as they will immediately manifest and cannot move despite having range stats.
 
 /**
  * Only allow holoparasites to be refunded if the injector is unused.
@@ -947,7 +951,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /datum/uplink_item/ammo/shotgun/meteor
 	name = "12g Meteorslug Shells"
 	desc = "An alternative 8-round meteorslug magazine for use in the Bulldog shotgun. \
-            Great for blasting airlocks off their frames and knocking down enemies."
+			Great for blasting airlocks off their frames and knocking down enemies."
 	item = /obj/item/ammo_box/magazine/m12g/meteor
 	purchasable_from = UPLINK_NUKE_OPS
 
@@ -1760,7 +1764,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /datum/uplink_item/device_tools/syndicate_teleporter
 	name = "Experimental Syndicate Jaunter"
 	desc = "The Syndicate jaunter is a handheld device that jaunts the user 4-8 meters forward. \
-		Anyone caught in the wake of the jaunter will be knocked off their feet and recieve minor damage. \
+		Anyone caught in the wake of the jaunter will be knocked off their feet and receive minor damage. \
 		Due to the Syndicate's more limited research of teleportation technologies, it is incapable of phasing the user \
 		through solid matter nor is it capable of teleporting them across longer ranges."
 	item = /obj/item/teleporter
@@ -2119,6 +2123,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/gun/blastcannon
 	cost = 14							//High cost because of the potential for extreme damage in the hands of a skilled scientist.
 	restricted_roles = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST)
+	disabled = TRUE // ! #11288 - Reported as non-functional
 
 /datum/uplink_item/role_restricted/crushmagboots
 	name = "Crushing Magboots"
@@ -2363,6 +2368,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	player_minimum = 25
 	restricted = TRUE
 	restricted_roles = list(JOB_NAME_COOK, JOB_NAME_CHAPLAIN)
+	disabled = TRUE	// #11096: Currently in a broken state, cannot recall as they will immediately manifest and cannot move despite having range stats.
 
 /datum/uplink_item/role_restricted/ez_clean_bundle
 	name = "EZ Clean Grenade Bundle"
@@ -2492,7 +2498,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/storage/backpack/duffelbag/clown/syndie
 
 /datum/uplink_item/badass/surprise_cake
-	name = "Rigged towering cake"
+	name = "Rigged Towering Cake"
 	desc = "For hosting a surprise birthday party for the Captain, with a flashy surprise."
 	item = /obj/structure/popout_cake/nukeop
 	cost = 4
@@ -2572,3 +2578,4 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/mob_lasso/traitor
 	cost = 3
 	surplus = 0
+	disabled = TRUE	// #11346 Currently in a broken state, lasso'd mobs will never unregister a target once they have locked onto one, making them unusable.

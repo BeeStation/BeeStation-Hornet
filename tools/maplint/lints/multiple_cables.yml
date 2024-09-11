@@ -1,0 +1,5 @@
+# This is handled correctly by mapping unit tests
+disabled: true
+=/obj/structure/cable:
+  banned_neighbors:
+  - =/obj/structure/cable
