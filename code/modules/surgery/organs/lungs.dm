@@ -366,6 +366,8 @@
 		failed = FALSE
 	return
 
+/obj/item/organ/lungs/get_availability(datum/species/S)
+	return !(TRAIT_NOBREATH in S.species_traits)
 
 /obj/item/organ/lungs/plasmaman
 	name = "plasma filter"
