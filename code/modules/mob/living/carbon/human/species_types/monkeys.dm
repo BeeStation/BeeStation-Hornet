@@ -24,6 +24,7 @@
 	sexes = TRUE
 	species_language_holder = /datum/language_holder/monkey
 
+	mutant_organs = list(/obj/item/organ/tail/monkey)
 	species_l_arm = /obj/item/bodypart/l_arm/monkey
 	species_r_arm = /obj/item/bodypart/r_arm/monkey
 	species_head = /obj/item/bodypart/head/monkey
