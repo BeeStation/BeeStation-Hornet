@@ -565,7 +565,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
 /obj/item/holoparasite_creator/carp
 	name = "holocarp fishsticks"
 	desc = "Using the power of Carp'sie, you can catch a carp from byond the veil of Carpthulu, and bind it to your fleshy flesh form."
-	icon = 'icons/obj/food/food.dmi'
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "fishfingers"
 	theme = /datum/holoparasite_theme/carp
 	allow_multiple = TRUE

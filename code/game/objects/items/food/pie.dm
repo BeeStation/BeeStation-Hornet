@@ -293,7 +293,7 @@
 /obj/item/food/pie/cocoalavatart
 	name = "chocolate lava tart"
 	desc = "A tasty dessert made of chocolate, with a liquid core." //But it doesn't even contain chocolate...
-	icon_state = "cocoalavatart"
+	icon_state = "cocolavatart"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/nutriment/vitamin = 4,
