@@ -102,6 +102,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	target.dna.features["spines"] = "None"
 	target.dna.features["tail_human"] = "Cat"
 	target.dna.features["tail_lizard"] = "Smooth"
+	target.dna.features["tail_monkey"] = "Monkey"
 	target.dna.features["apid_stripes"] = "thick"
 	target.dna.features["apid_headstripes"] = "thick"
 	target.dna.features["apid_antenna"] = "curled"
