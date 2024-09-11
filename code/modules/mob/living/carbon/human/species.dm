@@ -841,7 +841,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "tail_human"
 
-	if("tail_monkey" in mutant_bodyparts)
+	if(mutant_bodyparts["tail_monkey"])
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "tail_monkey"
 
