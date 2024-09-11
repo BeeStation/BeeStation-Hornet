@@ -420,7 +420,6 @@
 		"plasmaman_tank",
 		"power control",
 		"powermonitor",
-		"rad_collector",
 		"recharger",
 		"recycler",
 		"researchdisk_locator",
