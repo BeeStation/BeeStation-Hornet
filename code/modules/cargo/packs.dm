@@ -6,9 +6,8 @@
 	var/current_supply
 	var/max_supply = 5
 	var/cost = 400 // Minimum cost, or infinite points are possible. I've already had to fix it once because someone didn't listen. Don't be THAT person.
-	var/access = FALSE
+	var/list/access = list()
 	var/access_budget = FALSE //prevents people from requesting stupid stuff with their department's budget via app
-	var/access_any = FALSE
 	var/list/contains = null
 	var/crate_name = "crate"
 	var/desc = ""//no desc by default
@@ -34,9 +33,7 @@
 		C = new crate_type(A)
 		C.name = crate_name
 	if(access)
-		C.req_access = list(access)
-	if(access_any)
-		C.req_one_access = access_any
+		C.req_access = access
 
 	fill(C)
 	return C
@@ -329,7 +326,7 @@
 	desc = "Keep those invasive species OUT. Contains a scythe, gasmask, and two anti-weed chemical grenades. Warranty void if used on ambrosia. Requires Hydroponics access to open."
 	cost = 800
 	max_supply = 3
-	access = ACCESS_HYDROPONICS
+	access = list(ACCESS_HYDROPONICS)
 	contains = list(/obj/item/scythe,
 					/obj/item/clothing/mask/gas,
 					/obj/item/grenade/chem_grenade/antiweed,
@@ -343,7 +340,7 @@
 
 /datum/supply_pack/security
 	group = "Security"
-	access = ACCESS_SECURITY
+	access = list(ACCESS_SECURITY)
 	access_budget = ACCESS_SECURITY
 	crate_type = /obj/structure/closet/crate/secure/gear
 
@@ -389,9 +386,8 @@
 	desc = "Contains one speedloader of .38 DumDum ammunition, good for embedding in soft targets. Requires Security or Forensics access to open."
 	cost = 1200
 	max_supply = 4
-	access = FALSE
+	access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	small_item = TRUE
-	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	contains = list(/obj/item/ammo_box/c38/dumdum)
 	crate_name = ".38 match crate"
 
@@ -400,9 +396,8 @@
 	desc = "Contains one speedloader of match grade .38 ammunition, perfect for showing off trickshots. Requires Security or Forensics access to open."
 	cost = 1200
 	max_supply = 3
-	access = FALSE
+	access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	small_item = TRUE
-	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	contains = list(/obj/item/ammo_box/c38/match)
 	crate_name = ".38 match crate"
 
@@ -537,7 +532,7 @@
 
 /datum/supply_pack/security/armory
 	group = "Armory"
-	access = ACCESS_ARMORY
+	access = list(ACCESS_ARMORY)
 	access_budget = ACCESS_ARMORY
 	crate_type = /obj/structure/closet/crate/secure/weapon
 
@@ -695,7 +690,7 @@
 	desc = "Burn, baby burn. Contains three incendiary grenades, three plasma canisters, and a flamethrower. Requires Armory access to open."
 	cost = 1200
 	max_supply = 3
-	access = ACCESS_HEADS
+	access = list(ACCESS_HEADS)
 	contains = list(/obj/item/flamethrower/full,
 					/obj/item/tank/internals/plasma,
 					/obj/item/tank/internals/plasma,
@@ -1104,7 +1099,7 @@
 	desc = "Through advanced bluespace-shenanigans, our engineers have managed to fit an entire shuttle engine into one tiny little crate. Requires CE access to open."
 	cost = 5000
 	max_supply = 2
-	access = ACCESS_CE
+	access = list(ACCESS_CE)
 	access_budget = ACCESS_CE
 	contains = list(/obj/structure/shuttle/engine/propulsion/burst/cargo)
 	crate_name = "shuttle engine crate"
@@ -1280,7 +1275,7 @@
 	desc = "Useful for powering forcefield generators while destroying locked crates and intruders alike. Contains two high-powered energy emitters. Requires CE access to open."
 	cost = 1200
 	max_supply = 5
-	access = ACCESS_CE
+	access = list(ACCESS_CE)
 	contains = list(/obj/machinery/power/emitter,
 					/obj/machinery/power/emitter)
 	crate_name = "emitter crate"
@@ -1313,7 +1308,7 @@
 	desc = "A supermassive black hole or hyper-powered teslaball are the perfect way to spice up any party! This \"My First Apocalypse\" kit contains everything you need to build your own Particle Accelerator! Ages 10 and up."
 	cost = 2700
 	max_supply = 3
-	access = ACCESS_CE
+	access = list(ACCESS_CE)
 	access_budget = ACCESS_CE
 	contains = list(/obj/structure/particle_accelerator/fuel_chamber,
 					/obj/machinery/particle_accelerator/control_box,
@@ -1341,7 +1336,7 @@
 	desc = "The key to unlocking the power of Lord Singuloth. Particle Accelerator not included."
 	cost = 4700
 	max_supply = 3
-	access = ACCESS_CE
+	access = list(ACCESS_CE)
 	access_budget = ACCESS_CE
 	contains = list(/obj/machinery/the_singularitygen)
 	crate_name = "singularity generator crate"
@@ -1385,7 +1380,7 @@
 	desc = "The power of the heavens condensed into a single crystal. Requires CE access to open."
 	cost = 10000
 	max_supply = 1
-	access = ACCESS_CE
+	access = list(ACCESS_CE)
 	access_budget = ACCESS_CE
 	contains = list(/obj/machinery/power/supermatter_crystal/shard)
 	crate_name = "supermatter shard crate"
@@ -1409,7 +1404,7 @@
 	desc = "The key to unlocking the power of the Tesla energy ball. Particle Accelerator not included."
 	cost = 5000
 	max_supply = 2
-	access = ACCESS_CE
+	access = list(ACCESS_CE)
 	access_budget = ACCESS_CE
 	contains = list(/obj/machinery/the_singularitygen/tesla)
 	crate_name = "tesla generator crate"
@@ -1532,7 +1527,7 @@
 	desc = "Contains a canister of BZ. Requires Atmospherics access to open."
 	cost = 8000
 	max_supply = 3
-	access = ACCESS_ATMOSPHERICS
+	access = list(ACCESS_ATMOSPHERICS)
 	access_budget = ACCESS_ATMOSPHERICS
 	contains = list(/obj/machinery/portable_atmospherics/canister/bz)
 	crate_name = "BZ canister crate"
@@ -1543,7 +1538,7 @@
 	desc = "Contains a canister of Carbon Dioxide. Requires Atmospherics access to open."
 	cost = 1200
 	max_supply = 3
-	access = ACCESS_ATMOSPHERICS
+	access = list(ACCESS_ATMOSPHERICS)
 	access_budget = ACCESS_ATMOSPHERICS
 	contains = list(/obj/machinery/portable_atmospherics/canister/carbon_dioxide)
 	crate_name = "carbon dioxide canister crate"
@@ -1591,7 +1586,7 @@
 	desc = "Contains a canister of Nitrous Oxide. Requires Atmospherics access to open."
 	cost = 2400
 	max_supply = 5
-	access = ACCESS_ATMOSPHERICS
+	access = list(ACCESS_ATMOSPHERICS)
 	access_budget = ACCESS_ATMOSPHERICS
 	contains = list(/obj/machinery/portable_atmospherics/canister/nitrous_oxide)
 	crate_name = "nitrous oxide canister crate"
@@ -1817,7 +1812,7 @@
 	desc = "Contains a bulk supply of saline-glucose condensed into a single canister that should last several days, with a large pump to fill containers with. Direct injection of saline should be left to medical professionals as the pump is capable of overdosing patients. Requires medbay access to open."
 	cost = 1200
 	max_supply = 4
-	access = ACCESS_MEDICAL
+	access = list(ACCESS_MEDICAL)
 	contains = list(/obj/machinery/iv_drip/saline)
 
 /datum/supply_pack/medical/randomvirus //contains 5 utility viro symptoms. If virus customizing is on, contains 5 random cultures instead
@@ -1825,7 +1820,7 @@
 	desc = "Contains five experimental disease cultures for epidemiological research"
 	cost = 3000
 	max_supply = 3
-	access = ACCESS_VIROLOGY
+	access = list(ACCESS_VIROLOGY)
 	access_budget = ACCESS_VIROLOGY
 	contains = list(/obj/item/reagent_containers/glass/bottle/inorganic_virion,
 					/obj/item/reagent_containers/glass/bottle/necrotic_virion,
@@ -1849,7 +1844,7 @@
 	desc = "Contains the necessary supplies to start an epidemiological research lab. P.A.N.D.E.M.I.C. not included. Comes with a free virologist action figure!"
 	cost = 1500
 	max_supply = 4
-	access = ACCESS_VIROLOGY
+	access = list(ACCESS_VIROLOGY)
 	contains = list(/obj/item/food/monkeycube,
 					/obj/item/reagent_containers/food/drinks/bottle/virusfood,
 					/obj/item/reagent_containers/glass/bottle/mutagen,
@@ -1874,7 +1869,7 @@
 	desc = "Contains several contagious virus samples, ranging from annoying to lethal. Balled-up jeans not included. Requires CMO access to open."
 	cost = 2000
 	max_supply = 3
-	access = ACCESS_CMO
+	access = list(ACCESS_CMO)
 	access_budget = ACCESS_VIROLOGY
 	contraband = TRUE
 	contains = list(/obj/item/reagent_containers/glass/bottle/fake_gbs,
@@ -1892,7 +1887,7 @@
 	desc = "Contains a replacement P.A.N.D.E.M.I.C. in case the ones in virology get destroyed or you want to build a new lab."
 	cost = 7500
 	max_supply = 2
-	access = ACCESS_VIROLOGY
+	access = list(ACCESS_VIROLOGY)
 	contains = list(/obj/machinery/computer/pandemic)
 	crate_name = "P.A.N.D.E.M.I.C. Replacement Crate"
 	dangerous = TRUE
@@ -1920,7 +1915,7 @@
 	desc = "Everything you need to burn something to the ground, this contains three plasma assembly sets. Each set contains a plasma tank, igniter, proximity sensor, and timer! Warranty void if exposed to high temperatures. Requires Toxins access to open."
 	cost = 800
 	max_supply = 3
-	access = ACCESS_TOX_STORAGE
+	access = list(ACCESS_TOX_STORAGE)
 	access_budget = ACCESS_TOX_STORAGE
 	contains = list(/obj/item/tank/internals/plasma,
 					/obj/item/tank/internals/plasma,
@@ -1942,7 +1937,7 @@
 	desc = "The tools you need to replace those finicky humans with a loyal robot army! Contains four proximity sensors, two empty first aid kits, two health analyzers, two red hardhats, two mechanical toolboxes, and two cleanbot assemblies! Requires Robotics access to open."
 	cost = 1200
 	max_supply = 4
-	access = ACCESS_ROBOTICS
+	access = list(ACCESS_ROBOTICS)
 	access_budget = ACCESS_ROBOTICS
 	contains = list(/obj/item/assembly/prox_sensor,
 					/obj/item/assembly/prox_sensor,
@@ -1966,7 +1961,7 @@
 	desc = "If you are looking for an improvement that makes your station more suitable for silicons, this is the pack for you! Contains all the materials required to put together a recharging station. Tools not included."
 	cost = 2500
 	max_supply = 4
-	access = ACCESS_ROBOTICS
+	access = list(ACCESS_ROBOTICS)
 	contains = list(/obj/item/stack/sheet/iron/five,
 					/obj/item/stack/cable_coil/random/five,
 					/obj/item/circuitboard/machine/cyborgrecharger,
@@ -1998,8 +1993,7 @@
 	desc = "These high powered Shield Wall Generators are guaranteed to keep any unwanted lifeforms on the outside, where they belong! Contains four shield wall generators. Requires Teleporter access to open."
 	cost = 1700
 	max_supply = 4
-	access = ACCESS_TELEPORTER
-	access = ACCESS_TELEPORTER
+	access = list(ACCESS_TELEPORTER)
 	contains = list(/obj/machinery/shieldwallgen,
 					/obj/machinery/shieldwallgen,
 					/obj/machinery/shieldwallgen,
@@ -2029,7 +2023,7 @@
 	desc = "The key ingredient for making a lot of people very angry very fast. Contains two tank transfer valves. Requires RD access to open."
 	cost = 4000
 	max_supply = 3
-	access = ACCESS_RD
+	access = list(ACCESS_RD)
 	contains = list(/obj/item/transfer_valve,
 					/obj/item/transfer_valve)
 	crate_name = "tank transfer valves crate"
@@ -2041,7 +2035,7 @@
 	desc = "In case a freak accident has rendered the xenobiology lab non-functional! Contains two grey slime extracts, some plasma, and the required circuit boards to set up your xenobiology lab up and running! Requires Xenobiology access to open."
 	cost = 10000
 	max_supply = 2
-	access = ACCESS_XENOBIOLOGY
+	access = list(ACCESS_XENOBIOLOGY)
 	access_budget = ACCESS_XENOBIOLOGY
 	contains = list(/obj/item/slime_extract/grey,
 					/obj/item/slime_extract/grey,
@@ -2224,7 +2218,7 @@
 	desc = "All the miners died too fast? Assistant wants to get a taste of life off-station? Either way, this kit is the best way to turn a regular crewman into an ore-producing, monster-slaying machine. Contains meson goggles, a pickaxe, advanced mining scanner, cargo headset, ore bag, gasmask, an explorer suit and a miner ID upgrade. Requires QM access to open."
 	cost = 800
 	max_supply = 4
-	access = ACCESS_QM
+	access = list(ACCESS_QM)
 	access_budget = ACCESS_MINING_STATION
 	contains = list(/obj/item/storage/backpack/duffelbag/mining_conscript)
 	crate_name = "shaft miner starter kit"
@@ -2446,7 +2440,7 @@
 	desc = "Designed by Aussec's Advanced Warfare Research Division, these high-yield, Clown-grade cream pies are powered by a synergy of performance and efficiency. Guaranteed to provide maximum results."
 	cost = 6000
 	max_supply = 4
-	access = ACCESS_THEATRE
+	access = list(ACCESS_THEATRE)
 	access_budget = ACCESS_THEATRE
 	contains = list(/obj/item/storage/backpack/duffelbag/clown/cream_pie)
 	crate_name = "party equipment crate"
@@ -3005,7 +2999,7 @@
 	desc = "Supply the station's entertainers with the equipment of their trade with these Nanotrasen-approved costumes! Contains a full clown and mime outfit, along with a bike horn and a bottle of nothing."
 	cost = 1000
 	max_supply = 3
-	access = ACCESS_THEATRE
+	access = list(ACCESS_THEATRE)
 	contains = list(/obj/item/storage/backpack/clown,
 					/obj/item/clothing/shoes/clown_shoes,
 					/obj/item/clothing/mask/gas/clown_hat,

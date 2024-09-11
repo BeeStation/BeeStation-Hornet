@@ -622,7 +622,7 @@
 "jK" = (
 /obj/machinery/door/airlock/shuttle{
 	name = "Emergency Shuttle Airlock";
-	req_one_access_txt = "63"
+	req_access_txt = "63"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -772,7 +772,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/command{
 	name = "Shuttle Control";
-	req_one_access_txt = "19"
+	req_access_txt = "19"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -845,7 +845,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/command{
 	name = "Shuttle Control";
-	req_one_access_txt = "19"
+	req_access_txt = "19"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
@@ -854,7 +854,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/airlock/security/glass{
 	name = "Holding Area";
-	req_one_access_txt = "19"
+	req_access_txt = "19"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,

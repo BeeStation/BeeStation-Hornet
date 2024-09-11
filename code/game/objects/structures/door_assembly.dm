@@ -268,10 +268,7 @@
 				door.electronics = electronics
 				door.heat_proof = heat_proof_finished
 				door.security_level = AIRLOCK_SECURITY_NONE
-				if(electronics.one_access)
-					door.req_one_access = electronics.accesses
-				else
-					door.req_access = electronics.accesses
+				door.req_access = electronics.accesses
 				if(created_name)
 					door.name = created_name
 				else if(electronics.passed_name)

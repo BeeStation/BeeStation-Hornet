@@ -1060,7 +1060,7 @@
 "hn" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Division Atrium";
-	req_one_access_txt = "47,54"
+	req_access_txt = "47,54"
 	},
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -1389,7 +1389,7 @@
 "jo" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Division Atrium";
-	req_one_access_txt = "47,54"
+	req_access_txt = "47,54"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -5603,7 +5603,7 @@
 "PL" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "EVA Atrium";
-	req_one_access_txt = "47,54"
+	req_access_txt = "47,54"
 	},
 /obj/structure/barricade/wooden/crude,
 /obj/effect/turf_decal/stripes/closeup{
@@ -6659,7 +6659,7 @@
 "Xm" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Division Atrium";
-	req_one_access_txt = "47,54"
+	req_access_txt = "47,54"
 	},
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -6825,7 +6825,7 @@
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Division Atrium";
-	req_one_access_txt = "47,54"
+	req_access_txt = "47,54"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,

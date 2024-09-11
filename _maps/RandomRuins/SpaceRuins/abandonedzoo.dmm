@@ -173,7 +173,7 @@
 "aD" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Bio Containment";
-	req_one_access_txt = "47"
+	req_access_txt = "47"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -709,7 +709,7 @@
 "AX" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Bio Containment";
-	req_one_access_txt = "47"
+	req_access_txt = "47"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -737,7 +737,7 @@
 "Hx" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Bio Containment";
-	req_one_access_txt = "47"
+	req_access_txt = "47"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -783,7 +783,7 @@
 "VW" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Bio Containment";
-	req_one_access_txt = "47"
+	req_access_txt = "47"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"

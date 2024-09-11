@@ -303,11 +303,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/windoor_assembly)
 							windoor.base_state = "rightsecure"
 						windoor.setDir(dir)
 						windoor.set_density(FALSE)
-
-						if(electronics.one_access)
-							windoor.req_one_access = electronics.accesses
-						else
-							windoor.req_access = electronics.accesses
+						windoor.req_access = electronics.accesses
 						windoor.electronics = electronics
 						electronics.forceMove(windoor)
 						if(created_name)
@@ -326,11 +322,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/windoor_assembly)
 							windoor.base_state = "right"
 						windoor.setDir(dir)
 						windoor.set_density(FALSE)
-
-						if(electronics.one_access)
-							windoor.req_one_access = electronics.accesses
-						else
-							windoor.req_access = electronics.accesses
+						windoor.req_access = electronics.accesses
 						windoor.electronics = electronics
 						electronics.forceMove(windoor)
 						if(created_name)

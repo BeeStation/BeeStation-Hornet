@@ -66,22 +66,17 @@
 		if(n)
 			. += n
 
-//Call this before using req_access or req_one_access directly
+//Call this before using req_access directly
 /obj/proc/gen_access()
 	//These generations have been moved out of /obj/New() because they were slowing down the creation of objects that never even used the access system.
-	if(!req_access)
-		req_access = list()
+	if(!length(req_access))
 		for(var/a in text2access(req_access_txt))
-			req_access |= a
-	if(!req_one_access)
-		req_one_access = list()
-		for(var/b in text2access(req_one_access_txt))
-			req_one_access |= b
+			req_access += a
 
 // Check if an item has access to this object
 /obj/proc/check_access(obj/item/I)
+	check_access_list("hello")
 	return check_access_list(I ? I.GetAccess() : null)
-
 
 /obj/proc/check_access_list(list/accesses_to_check)
 	gen_access()
@@ -89,22 +84,16 @@
 	if(!islist(req_access)) //something's very wrong
 		return TRUE
 
-	if(!req_access.len && !length(req_one_access))
+	if(!req_access.len)
 		return TRUE
 
 	if(!length(accesses_to_check) || !islist(accesses_to_check))
 		return FALSE
 
-	for(var/each_code in req_access)
-		if(!(each_code in accesses_to_check)) //doesn't have this access
-			return FALSE
-
-	if(length(req_one_access))
-		for(var/each_code in req_one_access)
-			if(each_code in accesses_to_check) //has an access from the single access list
-				return TRUE
-		return FALSE
-	return TRUE
+	for(var/access_code in req_access)
+		if(access_code in accesses_to_check)
+			return TRUE
+	return FALSE
 
 /*
  * Checks if this packet can access this device

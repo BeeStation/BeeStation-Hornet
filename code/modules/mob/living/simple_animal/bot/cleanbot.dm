@@ -432,7 +432,7 @@
 		QDEL_NULL(knife)
 
 /obj/machinery/bot_core/cleanbot
-	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
+	req_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
 
 
 /mob/living/simple_animal/bot/cleanbot/get_controls(mob/user)
@@ -469,4 +469,4 @@
 		update_controls()
 
 /obj/machinery/bot_core/cleanbot/medbay
-	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS, ACCESS_MEDICAL)
+	req_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS, ACCESS_MEDICAL)

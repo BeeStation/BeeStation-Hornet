@@ -649,7 +649,7 @@
 /area/shuttle/escape)
 "Xn" = (
 /obj/machinery/door/airlock/security{
-	req_one_access_txt = "2;19"
+	req_access_txt = "2;19"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/mineral/plastitanium/red/brig,

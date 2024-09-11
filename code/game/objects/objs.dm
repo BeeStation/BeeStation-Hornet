@@ -40,8 +40,6 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	// Access levels, used in modules\jobs\access.dm
 	var/list/req_access = list()
 	var/req_access_txt = null
-	var/list/req_one_access = list()
-	var/req_one_access_txt = null
 	/// Custom fire overlay icon
 	var/custom_fire_overlay
 

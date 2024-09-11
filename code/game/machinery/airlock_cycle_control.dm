@@ -657,12 +657,12 @@
 				if(I != 1)
 					access_str += ", "
 				access_str += get_access_desc(airlock.req_access[I])
-		if(islist(airlock.req_one_access) && airlock.req_one_access.len)
-			access_str = airlock.req_one_access.len > 1 ? "One of " : ""
-			for(var/I in 1 to airlock.req_one_access.len)
+		if(islist(airlock.req_access) && airlock.req_access.len)
+			access_str = airlock.req_access.len > 1 ? "One of " : ""
+			for(var/I in 1 to airlock.req_access.len)
 				if(I != 1)
 					access_str += ", "
-				access_str += get_access_desc(airlock.req_one_access[I])
+				access_str += get_access_desc(airlock.req_access[I])
 
 		data["airlocks"] += list(list(
 			"role" = airlocks[airlock],

@@ -101,7 +101,7 @@
 "F" = (
 /obj/machinery/door/window/southleft{
 	name = "Gulag";
-	req_one_access_txt = "63;42;38"
+	req_access_txt = "63;42;38"
 	},
 /obj/machinery/button/flasher{
 	id = "gulagshuttleflasher";

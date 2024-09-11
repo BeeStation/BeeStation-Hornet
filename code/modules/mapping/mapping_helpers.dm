@@ -170,12 +170,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 	icon_state = "access_helper"
 
 /obj/effect/mapping_helpers/airlock/access/payload(obj/machinery/door/airlock/airlock)
-	if(airlock.req_one_access_txt == "null")
-		airlock.req_one_access += access
+	if(airlock.req_access_txt == null)
+		airlock.req_access += access
 
 //SECURITY
 /obj/effect/mapping_helpers/airlock/access/station/security
 	access = ACCESS_SECURITY
+	icon_state = "security"
 	color = "#DE3A3A"
 /obj/effect/mapping_helpers/airlock/access/station/security/brig
 	access = ACCESS_BRIG
@@ -195,6 +196,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 //MEDICAL
 /obj/effect/mapping_helpers/airlock/access/station/medical
 	access = ACCESS_MEDICAL
+	icon_state = "medbay"
 	color = "#52B4E9"
 /obj/effect/mapping_helpers/airlock/access/station/medical/morgue
 	access = ACCESS_MORGUE
@@ -214,6 +216,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 //SCIENCE
 /obj/effect/mapping_helpers/airlock/access/station/science
 	access = ACCESS_TOX
+	icon_state = "science"
 	color = "#D381C9"
 /obj/effect/mapping_helpers/airlock/access/station/science/storage
 	access = ACCESS_TOX_STORAGE
@@ -233,6 +236,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 //ENGINEERING
 /obj/effect/mapping_helpers/airlock/access/station/engineering
 	access = ACCESS_CONSTRUCTION
+	icon_state = "engineering"
 	color = "#EFB341"
 /obj/effect/mapping_helpers/airlock/access/station/engineering/engineering
 	access = ACCESS_ENGINE
@@ -252,6 +256,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 //COMMAND
 /obj/effect/mapping_helpers/airlock/access/station/command
 	access = ACCESS_HEADS
+	icon_state = "central_command"
 	color = "#486091"
 /obj/effect/mapping_helpers/airlock/access/station/command/ai_upload
 	access = ACCESS_AI_UPLOAD
@@ -274,11 +279,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 /obj/effect/mapping_helpers/airlock/access/station/command/gateway
 	access = ACCESS_GATEWAY
 /obj/effect/mapping_helpers/airlock/access/station/command/mini_sat
+	icon_state = "silicon"
 	access = ACCESS_MINISAT
 
 //SERVICE
 /obj/effect/mapping_helpers/airlock/access/station/service
 	color = "#9FED58"
+	icon_state = "service"
 /obj/effect/mapping_helpers/airlock/access/station/service/chapel
 	access = ACCESS_CHAPEL_OFFICE
 /obj/effect/mapping_helpers/airlock/access/station/service/bar
@@ -301,6 +308,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 //SUPPLY
 /obj/effect/mapping_helpers/airlock/access/station/supply
 	access = ACCESS_CARGO
+	icon_state = "supply"
 	color = "#A46106"
 /obj/effect/mapping_helpers/airlock/access/station/supply/qm
 	access = ACCESS_QM
@@ -320,6 +328,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 //BEGIN CENTCOM ACCESS
 /obj/effect/mapping_helpers/airlock/access/admin
 	access = ACCESS_CENT_GENERAL
+	icon_state = "central_command"
 	color = "#9FED58"
 /obj/effect/mapping_helpers/airlock/access/admin/thunder
 	access = ACCESS_CENT_THUNDER
@@ -341,6 +350,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 //Antagonists
 /obj/effect/mapping_helpers/airlock/access/antagonists
 	color = "#DE3A3A"
+	icon_state = "antagonist"
 /obj/effect/mapping_helpers/airlock/access/antagonists/syndicate
 	access = ACCESS_SYNDICATE
 /obj/effect/mapping_helpers/airlock/access/antagonists/syndicate/leader
@@ -357,6 +367,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 //Away Missions or Ruins
 /obj/effect/mapping_helpers/airlock/access/away
 	access = ACCESS_AWAY_GENERAL
+	icon_state = "away"
 	color = "#D4D4D4"
 /obj/effect/mapping_helpers/airlock/access/away/maintenance
 	access = ACCESS_AWAY_MAINT

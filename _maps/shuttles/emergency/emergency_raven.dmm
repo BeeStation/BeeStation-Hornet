@@ -1939,7 +1939,7 @@
 "Vw" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Cockpit";
-	req_one_access_txt = "2;19"
+	req_access_txt = "2;19"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -2025,7 +2025,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary";
-	req_one_access_txt = "2;19"
+	req_access_txt = "2;19"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,

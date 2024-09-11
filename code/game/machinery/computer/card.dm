@@ -17,7 +17,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	desc = "You can use this to manage jobs and ID access."
 	icon_screen = "id"
 	icon_keyboard = "generic_key"
-	req_one_access = list(ACCESS_HEADS, ACCESS_CHANGE_IDS)
+	req_access = list(ACCESS_HEADS, ACCESS_CHANGE_IDS)
 	circuit = /obj/item/circuitboard/computer/card
 	var/mode = 0
 	var/printing = null

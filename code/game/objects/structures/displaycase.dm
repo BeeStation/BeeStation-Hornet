@@ -259,10 +259,7 @@
 			if(electronics)
 				electronics.forceMove(sale)
 				sale.electronics = electronics
-				if(electronics.one_access)
-					sale.req_one_access = electronics.accesses
-				else
-					sale.req_access = electronics.accesses
+				sale.req_access = electronics.accesses
 			qdel(src)
 			qdel(M)
 
@@ -278,10 +275,7 @@
 			if(electronics)
 				electronics.forceMove(display)
 				display.electronics = electronics
-				if(electronics.one_access)
-					display.req_one_access = electronics.accesses
-				else
-					display.req_access = electronics.accesses
+				display.req_access = electronics.accesses
 			qdel(src)
 	else
 		return ..()
@@ -617,4 +611,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/showpiece_dummy)
 
 /obj/structure/displaycase/forsale/kitchen
 	desc = "A display case with an ID-card swiper. Use your ID to purchase the contents. Meant for the bartender and chef."
-	req_one_access = list(ACCESS_KITCHEN, ACCESS_BAR)
+	req_access = list(ACCESS_KITCHEN, ACCESS_BAR)
