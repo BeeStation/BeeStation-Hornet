@@ -114,8 +114,8 @@
 		return // Ghosts busted.
 	if(!isturf(user.loc) || user.incapacitated() || !(user.mobility_flags & MOBILITY_STAND))
 		return // If the user is in a weird state, don't bother trying.
-	if(get_dist(drop_atom, src) != 1 || get_dist(drop_atom, user) != 1)
-		return // Check whether the crate is exactly 1 tile from the shelf and the user.
+	if(get_dist(user, src) != 1 || get_dist(drop_atom, user) != 1)
+		return // Check whether the user is next to the shelf and if the crate is next to the user.
 	if(istype(drop_atom, /turf/open) && istype(loc, /obj/structure/crate_shelf) && user.Adjacent(drop_atom))
 		var/obj/structure/crate_shelf/shelf = loc
 		return shelf.unload(src, user, drop_atom) // If we're being dropped onto a turf, and we're inside of a crate shelf, unload.
