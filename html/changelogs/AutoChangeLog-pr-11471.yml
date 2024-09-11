@@ -1,5 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - bugfix: Fixed a bad del on vending machines due to two unused variables being
-      qdeleted.
