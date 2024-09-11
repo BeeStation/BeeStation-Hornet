@@ -16,6 +16,7 @@
 	var/destinationTag = NONE	// changes if contains a delivery container
 	var/tomail = FALSE			// contains wrapped package
 	var/hasmob = FALSE			// contains a mob
+	var/unsorted = TRUE			// have we been sorted yet?
 
 /obj/structure/disposalholder/Destroy()
 	QDEL_NULL(gas)
@@ -114,9 +115,9 @@
 	if(!T)
 		return null
 
-	var/fdir = turn(dir, 180)	// flip the movement direction
+	var/fdir = dir_inverse_multiz(dir)	// flip the movement direction
 	for(var/obj/structure/disposalpipe/P in T)
-		if(fdir & P.dpdir)		// find pipe direction mask that matches flipped dir
+		if (P.can_enter_from_dir(fdir))
 			return P
 	// if no matching pipe, return null
 	return null

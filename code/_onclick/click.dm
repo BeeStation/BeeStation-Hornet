@@ -185,6 +185,7 @@
 
 	var/list/closed = list()
 	var/list/checking = list(ultimate_target)
+
 	while (checking.len && depth > 0)
 		var/list/next = list()
 		--depth
@@ -192,7 +193,8 @@
 		for(var/atom/target in checking)  // will filter out nulls
 			if(closed[target] || isarea(target))  // avoid infinity situations
 				continue
-			if(isturf(target) || isturf(target.loc) || HasDirectAccess(target) || (isobj(target) && target.flags_1 & IS_ONTOP_1)) //Directly accessible atoms
+
+			if(isturf(target) || isturf(target.loc) || HasDirectAccess(target) || (ismovable(target) && target.flags_1 & IS_ONTOP_1)) //Directly accessible atoms
 				if(Adjacent(target) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
 					return TRUE
 
@@ -527,3 +529,6 @@
 			return TRUE
 
 	return FALSE
+
+#undef MAX_SAFE_BYOND_ICON_SCALE_TILES
+#undef MAX_SAFE_BYOND_ICON_SCALE_PX

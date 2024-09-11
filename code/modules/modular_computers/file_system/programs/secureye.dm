@@ -34,7 +34,7 @@
 	// Convert networks to lowercase
 	for(var/i in network)
 		network -= i
-		network += lowertext(i)
+		network += LOWER_TEXT(i)
 	// Initialize map objects
 	cam_screen = new
 	cam_screen.name = "screen"
@@ -185,3 +185,5 @@
 			continue
 		camlist["[cam.c_tag]"] = cam
 	return camlist
+
+#undef DEFAULT_MAP_SIZE

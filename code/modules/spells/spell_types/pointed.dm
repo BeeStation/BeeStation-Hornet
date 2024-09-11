@@ -36,7 +36,7 @@
 /obj/effect/proc_holder/spell/pointed/proc/on_activation(mob/user)
 	return
 
- /**
+/**
   *
   * What happens upon pointed spell deactivation.
   *
@@ -63,7 +63,7 @@
 	remove_ranged_ability()
 	return TRUE
 
- /**
+/**
   *
   * Specific spell checks for InterceptClickOn() targets.
   *

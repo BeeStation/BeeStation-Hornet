@@ -30,7 +30,7 @@
 /*
  * Overrideable proc which gets the stat content for the selected tab.
  */
- //33.774 CPU time
+//33.774 CPU time
 /mob/proc/get_stat(selected_tab)
 	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to do something weird with the stat tab (Most likely attempting to exploit it to gain privillages).")
@@ -496,3 +496,5 @@
 
 #undef MAX_ITEMS_TO_READ
 #undef MAX_ICONS_PER_TILE
+
+#undef STAT_PANEL_TAG
