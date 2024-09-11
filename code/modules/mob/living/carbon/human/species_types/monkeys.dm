@@ -15,6 +15,8 @@
 	inherent_traits = list(
 		TRAIT_DISCOORDINATED,
 		TRAIT_VENTCRAWLER_NUDE,
+		TRAIT_PRIMITIVE,
+		TRAIT_INFERIORFORM,
 		TRAIT_WEAK_SOUL,
 	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN | SLIME_EXTRACT
@@ -77,7 +79,9 @@
 				"<span class='danger'>You avoid [user]'s bite!</span>", "<span class='hear'>You hear jaws snapping shut!</span>", COMBAT_MESSAGE_RANGE, user)
 			to_chat(user, "<span class='danger'>Your bite misses [victim]!</span>")
 			return TRUE
-		///REMINDER TO MYSELF TO CORRECT THESE RAND VALUES LATER
+		///Monkeys are of a few mobs remaining in beecode that use randomized damage apply_damage(rand()) for some attacks.
+		///It was the perogative a few years ago to standardize most attack procs to the same consistent damage everytime, but we are not the same codebase as then.
+		///If someone wants to change this status quo by either reintroducing RNG attacks, or killing them entirely, that should be its own pr and include every remaining case.
 		victim.apply_damage(rand(1, 3), BRUTE, affecting, armor)
 		victim.visible_message("<span class='danger'>[name] bites [victim]!</span>",
 			"<span class='userdanger'>[name] bites you!</span>", "<span class='hear'>You hear a chomp!</span>", COMBAT_MESSAGE_RANGE, name)
@@ -189,11 +193,10 @@
 		TRAIT_NOGUNS,
 		TRAIT_NONECRODISEASE,
 	)
-	default_features = list("mcolor" = "FFF", "wings" = "None")
 	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	changesource_flags = MIRROR_BADMIN
-	mutant_brain = /obj/item/organ/brain/tumor
+	mutantbrain = /obj/item/organ/brain/tumor
 	mutanttongue = /obj/item/organ/tongue/teratoma
 
 	species_chest = /obj/item/bodypart/chest/monkey/teratoma

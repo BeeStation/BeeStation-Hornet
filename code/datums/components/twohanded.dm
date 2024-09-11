@@ -167,7 +167,7 @@
 			to_chat(user, "<span class='notice'>[parent] is too cumbersome to carry in one hand!</span>")
 			user.dropItemToGround(parent, force=TRUE)
 		else
-			if(ismonkey(user))
+			if(HAS_TRAIT(user, TRAIT_INFERIORFORM)) //monkeys
 				to_chat(user, "<span class='warning'>You don't have the upper body strength to hold this in two hands!</span>")
 			else
 				to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")

@@ -144,7 +144,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NONECRODISEASE	"nonecrodisease"
 #define TRAIT_NICE_SHOT			"nice_shot" //hnnnnnnnggggg..... you're pretty good....
 #define TRAIT_ALWAYS_STUBS      "always_stubs_toe" //you will always stub your toe on tables, even if you're wearing shoes
-#define TRAIT_NAIVE				"naive" //All dead people will appear as sleeping.
+//All dead people will appear as sleeping.
+#define TRAIT_NAIVE "naive"
+//Catch-all inherent species trait for when we want a carbon to not be mentally developed enough to understand how to operate something (ashwalkers, monkeys)
+#define TRAIT_PRIMITIVE "primitive"
+//Catch-all inherent species trait for when we want a carbon to not physically be able to operate something (monkeys)
+#define TRAIT_INFERIORFORM "inferiorform"
 #define TRAIT_DROPS_ITEMS_ON_DEATH "drops_items_on_death" //used for battle royale
 #define TRAIT_DRINKSBLOOD		"drinks_blood"
 #define TRAIT_MINDSWAPPED		"mindswapped"

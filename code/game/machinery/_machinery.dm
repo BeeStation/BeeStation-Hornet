@@ -168,8 +168,12 @@ Class Procs:
 
 /obj/machinery/computer/can_interact(mob/user)
 	var/mob/living/living_user = user
-	if(ismonkey(living_user))
-		to_chat(src, "<span class='warning'>You do not have the dexterity for this!</span>")
+	//Quick check for lesserbeings (monkeys, teratomas)
+	if(HAS_TRAIT(living_user, TRAIT_INFERIORFORM))
+		to_chat(living_user, "<span class='notice'>What is this thing?! Your fingers dance around the buttons.</span>")
+		//We fuck around on the keys for a bit, like any toddler would
+		if(do_after(living_user, 2 SECONDS, src))
+			to_chat(living_user, "<span class='warning'> Shiny! Not much use to me though!</span>")
 	else
 		. = ..()
 

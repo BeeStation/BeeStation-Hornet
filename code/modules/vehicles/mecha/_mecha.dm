@@ -964,6 +964,9 @@
 /obj/vehicle/sealed/mecha/mob_try_enter(mob/M)
 	if(!ishuman(M)) // no silicons or drones in mechas.
 		return
+	if(HAS_TRAIT(M, TRAIT_PRIMITIVE)) //lavalanders & monkeys beware
+		to_chat(M, "<span class='warning'>The knowledge to use this device eludes you!</span>")
+		return
 	log_message("[M] tries to move into [src].", LOG_MECHA)
 	if(!operation_allowed(M))
 		to_chat(M, "<span class='warning'>Access denied. Insufficient operation keycodes.</span>")
