@@ -417,27 +417,6 @@
 	},
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai)
-"ace" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/obj/structure/closet{
-	name = "bible locker"
-	},
-/obj/item/storage/book/bible{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/storage/book/bible,
-/obj/item/storage/book/bible{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/plating,
-/area/maintenance/fore)
 "acg" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -598,12 +577,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
-"acL" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/old_skeleton,
-/turf/open/floor/plating,
-/area/maintenance/fore)
 "acN" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/corner{
@@ -2276,6 +2249,20 @@
 	},
 /turf/open/space/basic,
 /area/solar/port/fore)
+"akS" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/maintenance/fore)
 "akU" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -3613,24 +3600,6 @@
 	},
 /turf/open/floor/wood,
 /area/chapel/office)
-"asb" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/maintenance/fore)
 "asc" = (
 /obj/machinery/power/smes{
 	charge = 5e+006
@@ -6753,6 +6722,24 @@
 	burnt = 1
 	},
 /area/maintenance/port/fore)
+"aIC" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/maintenance/fore)
 "aIG" = (
 /turf/closed/wall/r_wall/rust,
 /area/engine/atmos)
@@ -25540,20 +25527,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"cKm" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/maintenance/fore)
 "cKo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -32253,6 +32226,27 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
+"eGl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/structure/closet{
+	name = "bible locker"
+	},
+/obj/item/storage/book/bible{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/book/bible,
+/obj/item/storage/book/bible{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plating,
+/area/maintenance/fore)
 "eGw" = (
 /obj/machinery/status_display/ai{
 	pixel_x = 32
@@ -44170,14 +44164,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/warehouse)
-"iHn" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/food/donut,
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/item/radio/headset/headset_sec,
-/turf/open/floor/iron,
-/area/security/brig)
 "iHy" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/disposalpipe/segment,
@@ -59607,6 +59593,22 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig/aft)
+"nKO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/grille/broken,
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/maintenance/fore)
 "nKU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -60506,6 +60508,12 @@
 	burnt = 1
 	},
 /area/maintenance/starboard/fore)
+"nXr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/obj/effect/spawner/lootdrop/old_skeleton,
+/turf/open/floor/plating,
+/area/maintenance/fore)
 "nXN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -64730,6 +64738,14 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/noslip/white,
 /area/security/prison)
+"poG" = (
+/obj/structure/table/reinforced,
+/obj/item/clipboard,
+/obj/item/food/donut/plain,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/item/radio/headset/headset_sec,
+/turf/open/floor/iron,
+/area/security/brig)
 "poY" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -82766,22 +82782,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
-"vwz" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/grille/broken,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/maintenance/fore)
 "vwM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -110701,7 +110701,7 @@ ejj
 nxV
 eRb
 dsx
-iHn
+poG
 gtG
 fll
 wVu
@@ -114744,7 +114744,7 @@ adQ
 adH
 adH
 lqH
-ace
+eGl
 aWG
 uEe
 osq
@@ -115772,7 +115772,7 @@ adH
 adH
 adH
 lrC
-acL
+nXr
 aWG
 bsZ
 aWG
@@ -116542,7 +116542,7 @@ ahO
 ahW
 adH
 adH
-vwz
+nKO
 cBc
 tKN
 fOQ
@@ -117575,7 +117575,7 @@ odh
 eou
 adH
 cFZ
-asb
+aIC
 cFd
 btA
 hBV
@@ -118613,7 +118613,7 @@ cKb
 rJg
 wuf
 nXO
-cKm
+akS
 sah
 oVg
 fZV

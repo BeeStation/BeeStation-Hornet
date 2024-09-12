@@ -7887,6 +7887,13 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/iron,
 /area/chapel/main)
+"cDN" = (
+/obj/structure/closet/crate/coffin,
+/obj/machinery/door/window/eastleft{
+	name = "Coffin Storage"
+	},
+/turf/open/floor/iron/techmaint,
+/area/chapel/office)
 "cDX" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -12562,6 +12569,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"eag" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/old_skeleton,
+/turf/open/floor/iron/techmaint,
+/area/chapel/office)
 "eaz" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -48602,13 +48616,6 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/plating,
 /area/vacant_room/commissary/commissary1)
-"puT" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/spawner/lootdrop/old_skeleton,
-/turf/open/floor/iron/techmaint,
-/area/chapel/office)
 "pva" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
@@ -50360,13 +50367,6 @@
 	dir = 1
 	},
 /area/science/lobby)
-"pWx" = (
-/obj/item/trash/plate,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/cigbutt,
-/obj/effect/landmark/blobstart,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "pWy" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line,
@@ -69316,6 +69316,13 @@
 "waw" = (
 /turf/closed/wall,
 /area/quartermaster/sorting)
+"waS" = (
+/obj/item/plate,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/cigbutt,
+/obj/effect/landmark/blobstart,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "waT" = (
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
 	dir = 8
@@ -70905,13 +70912,6 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
-"wES" = (
-/obj/structure/closet/crate/coffin,
-/obj/machinery/door/window/eastleft{
-	name = "Coffin Storage"
-	},
-/turf/open/floor/iron/techmaint,
-/area/chapel/office)
 "wFl" = (
 /obj/structure/sign/departments/minsky/security/evac,
 /turf/closed/wall,
@@ -111916,8 +111916,8 @@ rbT
 oLP
 kiN
 rNr
-puT
-wES
+eag
+cDN
 fNU
 rNr
 dea
@@ -113535,7 +113535,7 @@ ePm
 bWm
 ibc
 iBH
-pWx
+waS
 drU
 oUC
 tlT
