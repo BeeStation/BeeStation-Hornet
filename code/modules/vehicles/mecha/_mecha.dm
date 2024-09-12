@@ -1159,6 +1159,60 @@
 /obj/vehicle/sealed/mecha/portableConnectorReturnAir()
 	return internal_tank.return_air()
 
+///////////////////////
+////// Ammo stuff /////
+///////////////////////
+
+/obj/vehicle/sealed/mecha/proc/ammo_resupply(obj/item/mecha_ammo/A, mob/user,fail_chat_override = FALSE)
+	if(!A.rounds)
+		if(!fail_chat_override)
+			to_chat(user, "<span class='warning'>This box of ammo is empty!</span>")
+		return FALSE
+	var/ammo_needed
+	var/found_gun
+	for(var/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/gun in equipment)
+		ammo_needed = 0
+
+		if(!istype(gun, /obj/item/mecha_parts/mecha_equipment/weapon/ballistic) && gun.ammo_type == A.ammo_type)
+			continue
+		found_gun = TRUE
+		if(A.direct_load)
+			ammo_needed = initial(gun.projectiles) - gun.projectiles
+		else
+			ammo_needed = gun.projectiles_cache_max - gun.projectiles_cache
+
+		if(!ammo_needed)
+			continue
+		if(ammo_needed < A.rounds)
+			if(A.direct_load)
+				gun.projectiles = gun.projectiles + ammo_needed
+			else
+				gun.projectiles_cache = gun.projectiles_cache + ammo_needed
+			playsound(get_turf(user),A.load_audio,50,TRUE)
+			to_chat(user, "<span class='notice'>You add [ammo_needed] [A.round_term][ammo_needed > 1?"s":""] to the [gun.name]</span>")
+			A.rounds = A.rounds - ammo_needed
+			if(A.custom_materials)
+				A.set_custom_materials(A.custom_materials, A.rounds / initial(A.rounds))
+			A.update_name()
+			return TRUE
+
+		if(A.direct_load)
+			gun.projectiles = gun.projectiles + A.rounds
+		else
+			gun.projectiles_cache = gun.projectiles_cache + A.rounds
+		playsound(get_turf(user),A.load_audio,50,TRUE)
+		to_chat(user, "<span class='notice'>You add [A.rounds] [A.round_term][A.rounds > 1?"s":""] to the [gun.name]</span>")
+		A.rounds = 0
+		A.set_custom_materials(list(/datum/material/iron=2000))
+		A.update_name()
+		return TRUE
+	if(!fail_chat_override)
+		if(found_gun)
+			to_chat(user, "<span class='notice'>You can't fit any more ammo of this type!</span>")
+		else
+			to_chat(user, "<span class='notice'>None of the equipment on this exosuit can use this ammo!</span>")
+	return FALSE
+
 /obj/vehicle/sealed/mecha/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	if(mecha_flags & HAS_LIGHTS)
