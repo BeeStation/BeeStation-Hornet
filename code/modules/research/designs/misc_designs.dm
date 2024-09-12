@@ -550,3 +550,31 @@
 	build_path = /obj/item/paper_reader
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
+
+/////////////////////////////////////////
+/////////Coffeemaker Stuff///////////////
+/////////////////////////////////////////
+
+/datum/design/coffeepot
+	name = "Coffeepot"
+	id = "coffeepot"
+	build_type = PROTOLATHE | AWAY_LATHE
+	materials = list(/datum/material/glass = 500, /datum/material/plastic = 500)
+	build_path = /obj/item/reagent_containers/cup/coffeepot
+	category = list(RND_CATEGORY_EQUIPMENT)
+
+/datum/design/coffeepot_bluespace
+	name = "Bluespace Coffeepot"
+	id = "bluespace_coffeepot"
+	build_type = PROTOLATHE | AWAY_LATHE
+	materials = list(/datum/material/iron = 1000, /datum/material/plastic = 500, /datum/material/bluespace = 500)
+	build_path = /obj/item/reagent_containers/cup/coffeepot/bluespace
+	category = list(RND_CATEGORY_EQUIPMENT)
+
+/datum/design/coffee_cartridge
+	name = "Blank Coffee Cartridge"
+	id = "coffee_cartridge"
+	build_type = PROTOLATHE | AWAY_LATHE
+	materials = list(/datum/material/plastic = 1000)
+	build_path = /obj/item/blank_coffee_cartridge
+	category = list(RND_CATEGORY_EQUIPMENT)

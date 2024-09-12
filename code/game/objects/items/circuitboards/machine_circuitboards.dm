@@ -1180,6 +1180,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 		/obj/item/stock_parts/manipulator = 1)
 	needs_anchored = FALSE
 
+/obj/item/circuitboard/machine/coffeemaker
+	name = "Coffeemaker (Machine Board)"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	build_path = /obj/machinery/coffeemaker
+	req_components = list(
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/reagent_containers/cup/beaker = 2,
+		/obj/item/stock_parts/water_recycler = 1,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+	)
+
 /obj/item/circuitboard/machine/techfab/department/service
 	name = "departmental techfab - service (Machine Board)"
 	icon_state = "service"

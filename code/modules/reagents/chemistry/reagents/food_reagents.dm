@@ -849,3 +849,11 @@
 	if(prob(10))
 		M.say(pick("I hate my wife.", "I just want to grill for God's sake.", "I wish I could just go on my lawnmower and cut the grass.", "Yep, Quake. That was a good game...", "Yeah, my PDA has wi-fi. A wife I hate."), forced = /datum/reagent/consumable/char)
 	..()
+
+/datum/reagent/consumable/creamer
+	name = "Coffee Creamer"
+	description = "Powdered milk for cheap coffee. How delightful."
+	taste_description = "milk"
+	color = "#efeff0"
+	nutriment_factor = 1.5 * REAGENTS_METABOLISM
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED

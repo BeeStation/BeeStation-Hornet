@@ -1,2 +1,6 @@
 crate_close.ogg and crate_open.ogg are made by lawnjelly
 (https://freesound.org/people/lawnjelly/sounds/156892/)
+
+coffeemaker_brew.ogg originally made by Adriana Lopez (Acekat13X31), edited to reduce length and added fade
+(https://freesound.org/people/Acekat13X31/sounds/515685/)
+This is licensed under CC-BY 4.0, found at https://creativecommons.org/licenses/by/4.0/
