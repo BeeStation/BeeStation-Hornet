@@ -48606,7 +48606,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/closet/crate/coffin,
+/obj/effect/spawner/lootdrop/old_skeleton,
 /turf/open/floor/iron/techmaint,
 /area/chapel/office)
 "pva" = (
@@ -70908,8 +70908,7 @@
 "wES" = (
 /obj/structure/closet/crate/coffin,
 /obj/machinery/door/window/eastleft{
-	name = "Coffin Storage";
-	req_access_txt = "22"
+	name = "Coffin Storage"
 	},
 /turf/open/floor/iron/techmaint,
 /area/chapel/office)

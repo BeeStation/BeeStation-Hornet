@@ -21907,8 +21907,7 @@
 "djX" = (
 /obj/structure/closet/crate/coffin,
 /obj/machinery/door/window/eastleft{
-	name = "Coffin Storage";
-	req_access_txt = "22"
+	name = "Coffin Storage"
 	},
 /turf/open/floor/plating,
 /area/chapel/main)
@@ -25593,6 +25592,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/security/nuke_storage)
+"eDL" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/old_skeleton,
+/turf/open/floor/plating,
+/area/chapel/main)
 "eDN" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -99911,7 +99917,7 @@ oGb
 xSh
 eFN
 cLa
-cPC
+eDL
 djX
 cPC
 cMI

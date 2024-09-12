@@ -543,3 +543,9 @@
 		/obj/item/stack/ore/uranium = 2,
 		/obj/item/stack/ore/diamond = 2)
 
+/obj/effect/spawner/lootdrop/old_skeleton
+	name = "25% living 75% empty"
+	loot = list(/obj/effect/mob_spawn/human/old_skeleton/coffin = 1,
+				/obj/structure/closet/crate/coffin = 3)
+	lootdoubles = FALSE
+

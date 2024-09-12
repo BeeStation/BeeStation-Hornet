@@ -431,18 +431,22 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 /obj/effect/mob_spawn/human/old_skeleton
 	death = FALSE
 	roundstart = FALSE
-	icon = 'icons/mob/landmarks.dmi'
-	icon_state = "Coffin Stasis"
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "remains"
 	short_desc = "By unknown powers, your old skeletal remains have been reanimated!"
 	flavour_text = "Walk this mortal plane and discover a reason to live."
 	assignedrole = "Skeleton"
 	use_cooldown = TRUE
 	banType = BAN_ROLE_ALL_GHOST
-	stasis_machine = /obj/structure/closet/crate/coffin/opened
 	name = "sealed coffin"
 	mob_name = "skeleton"
 	mob_species = /datum/species/skeleton
 	mob_gender = NEUTER
+
+/obj/effect/mob_spawn/human/old_skeleton/coffin
+	icon = 'icons/mob/landmarks.dmi'
+	icon_state = "Coffin Stasis"
+	stasis_machine = /obj/structure/closet/crate/coffin/opened
 
 /obj/effect/mob_spawn/human/plasmaman
 	mob_species = /datum/species/plasmaman

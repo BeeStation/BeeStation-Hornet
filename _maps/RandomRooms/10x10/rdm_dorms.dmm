@@ -52,7 +52,7 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/remains/human,
+/obj/effect/mob_spawn/human/old_skeleton,
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "mB" = (

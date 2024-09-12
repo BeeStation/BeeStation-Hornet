@@ -5791,6 +5791,14 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron,
 /area/engine/engine_room)
+"bEu" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/structure/closet/crate/coffin,
+/turf/open/floor/iron/dark,
+/area/chapel/office)
 "bEw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -6768,6 +6776,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/effect/spawner/lootdrop/old_skeleton,
 /turf/open/floor/iron/dark,
 /area/chapel/office)
 "bSu" = (
@@ -92278,8 +92287,8 @@ aMT
 aMT
 oxd
 oZJ
-bSr
-bSr
+bEu
+bEu
 bSr
 jDv
 oxd
