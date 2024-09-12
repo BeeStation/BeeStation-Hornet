@@ -214,7 +214,6 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 #define WIRE_PULSE_SPECIAL	(1<<2)
 #define WIRE_RADIO_RECEIVE	(1<<3)
 #define WIRE_RADIO_PULSE	(1<<4)
-#define ASSEMBLY_BEEP_VOLUME 5
 
 // Camera defines
 // ---------------------------------------------------
