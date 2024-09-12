@@ -251,6 +251,8 @@ Difficulty: Medium
 	icon_state = "miner_death"
 	duration = 15
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting/miner_death)
+
 /obj/effect/temp_visual/dir_setting/miner_death/Initialize(mapload, set_dir)
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(fade_out))

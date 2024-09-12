@@ -252,6 +252,7 @@
 		"pandemic",
 		"sleeper",
 		"soda_dispenser",
+		"blood_pack",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -626,7 +627,7 @@
 		"antivirus3",
 		"bluespacebeaker",
 		"bluespacesyringe",
-    "bluespace_capsule",
+	"bluespace_capsule",
 		"bs_rped",
 		"minerbag_holding",
 		"ore_silo",
@@ -986,6 +987,7 @@
 		"asimov_module",
 		"borg_ai_control",
 		"corporate_module",
+		"maintain_module",
 		"default_module",
 		"freeform_module",
 		"freeformcore_module",
@@ -2265,7 +2267,7 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 1000)
 	export_price = 5000
-	
+
 /datum/techweb_node/nanite_cc
 	id = "nanite_cc"
 	tech_tier = 5

@@ -10,6 +10,8 @@
 	active_power_usage = 80
 	var/eat_dir = SOUTH
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/grinder_chemical)
+
 /obj/machinery/plumbing/grinder_chemical/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_supply, bolt)

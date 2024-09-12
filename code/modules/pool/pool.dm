@@ -90,7 +90,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	. = ..()
 	if(user != dropping)
 		dropping.visible_message("<span class='notice'>[user] starts to lower [dropping] down into [src].</span>", \
-		 "<span class='notice'>You start to lower [dropping] down into [src].</span>")
+			"<span class='notice'>You start to lower [dropping] down into [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>You start climbing down into [src]...</span>")
 	if(do_after(user, 4 SECONDS, target = dropping))

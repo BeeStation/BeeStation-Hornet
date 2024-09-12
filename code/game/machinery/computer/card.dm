@@ -698,7 +698,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				update_modify_manifest()
 
 		if ("demote")
-			if(inserted_modify_id.assignment in head_subordinates || inserted_modify_id.assignment == "Assistant")
+			if((inserted_modify_id.assignment in head_subordinates) || inserted_modify_id.assignment == "Assistant")
 				inserted_modify_id.assignment = "Demoted"
 				log_id("[key_name(usr)] demoted [inserted_modify_id], unassigning the card without affecting access, using [inserted_scan_id] at [AREACOORD(usr)].")
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
@@ -897,7 +897,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				say("Insufficient access to create a new bank account.")
 				return
 			var/datum/bank_account/B = SSeconomy.get_budget_account(initial(target_paycheck))
-			switch(alert("Would you like to open a new bank account?\nIt will cost 1,000 credits in [lowertext(initial(target_paycheck))] budget.","Open a new account","Yes","No"))
+			switch(alert("Would you like to open a new bank account?\nIt will cost 1,000 credits in [LOWER_TEXT(initial(target_paycheck))] budget.","Open a new account","Yes","No"))
 				if("No")
 					return
 				if("Yes")

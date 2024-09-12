@@ -182,6 +182,7 @@
 
 //SNOWFLAKE END
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 
 /obj/structure/closet/supplypod/Initialize(mapload, customStyle = FALSE)
 	. = ..()
@@ -634,6 +635,8 @@
 		verticle_offset = initial(verticle_offset)
 	pixel_y = verticle_offset
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone_effect)
+
 /obj/effect/pod_landingzone_effect
 	name = ""
 	desc = ""
@@ -641,10 +644,14 @@
 	icon_state = "LZ_Slider"
 	layer = PROJECTILE_HIT_THRESHOLD_LAYER
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone_effect)
+
 /obj/effect/pod_landingzone_effect/Initialize(mapload, obj/structure/closet/supplypod/pod)
 	. = ..()
 	transform = matrix() * 1.5
 	animate(src, transform = matrix()*0.01, time = pod.delays[POD_TRANSIT]+pod.delays[POD_FALLING])
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone)
 
 /obj/effect/pod_landingzone //This is the object that forceMoves the supplypod to it's location
 	name = "Landing Zone Indicator"
@@ -658,6 +665,8 @@
 	var/obj/structure/closet/supplypod/pod //The supplyPod that will be landing ontop of this pod_landingzone
 	var/obj/effect/pod_landingzone_effect/helper
 	var/list/smoke_effects = new /list(13)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone)
 
 /obj/effect/pod_landingzone/Initialize(mapload, podParam, single_order = null, clientman)
 	. = ..()

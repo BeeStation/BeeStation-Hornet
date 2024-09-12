@@ -101,3 +101,9 @@
 #define SHUTTLE_DANGER_SUBPAR 1
 /// Possibility for most people on this shuttle to die with little effort
 #define SHUTTLE_DANGER_HIGH 2
+
+#define CUSTOM_SHUTTLE_ACCELERATION_SCALE 10
+#define CUSTOM_SHUTTLE_MIN_THRUST_TO_WEIGHT 1
+
+#define SHUTTLE_CREATOR_MAX_SIZE CONFIG_GET(number/max_shuttle_size)
+#define CUSTOM_SHUTTLE_LIMIT CONFIG_GET(number/max_shuttle_count)

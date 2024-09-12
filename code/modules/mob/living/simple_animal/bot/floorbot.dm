@@ -40,6 +40,8 @@
 	var/toolbox = /obj/item/storage/toolbox/mechanical
 	var/toolbox_color = ""
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/floorbot)
+
 /mob/living/simple_animal/bot/floorbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
 	toolbox_color = new_toolbox_color
@@ -339,7 +341,7 @@
 		playsound(src, 'sound/effects/whistlereset.ogg', 50, TRUE)
 		return
 	if(isspaceturf(target_turf))
-		 //Must be a hull breach or in line mode to continue.
+		//Must be a hull breach or in line mode to continue.
 		if(!is_hull_breach(target_turf) && !targetdirection)
 			target = null
 			return
