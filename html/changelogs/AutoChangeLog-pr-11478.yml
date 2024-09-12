@@ -1,7 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Races with a mutant heart will always spawn with their heart now. This
-      means nightmares are no longer totally heartless. This means nightmares spawn
-      with a light eater again, since this is directly tied to them having a heart.
-      We love spaghetti in coderhaus
