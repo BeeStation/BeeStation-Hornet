@@ -57,7 +57,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	create(ckey = user.ckey)
 
 /obj/effect/mob_spawn/attack_hand(mob/user)
-	balloon_alert(user, "You can't open this.")
+	balloon_alert(user, "It seems to be locked.")
 
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
