@@ -1,4 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - code_imp: Introduces a new mapping linter check for windows and doors on space
