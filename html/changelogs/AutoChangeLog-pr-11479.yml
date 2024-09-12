@@ -1,0 +1,4 @@
+author: XeonMations
+delete-after: true
+changes:
+  - bugfix: Fixed the player panel showing an error when opened.
