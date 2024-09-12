@@ -249,11 +249,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/airalarm/syndicate{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/bridge)
 "az" = (
@@ -444,10 +441,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/airalarm/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/hallway)
 "aU" = (
@@ -1016,10 +1010,7 @@
 "cg" = (
 /obj/machinery/suit_storage_unit/syndicate,
 /obj/effect/turf_decal/box,
-/obj/machinery/airalarm/syndicate{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/eva)
 "ch" = (
@@ -1177,11 +1168,8 @@
 	pixel_x = -4;
 	pixel_y = -4
 	},
-/obj/machinery/airalarm/syndicate{
-	dir = 4;
-	pixel_x = -24
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/medical)
 "cx" = (
@@ -1450,10 +1438,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/airalarm/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/airlock)
 "dm" = (
@@ -1493,10 +1478,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/airalarm/syndicate{
-	dir = 4;
-	pixel_x = -24
-	},
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/airlock)
 "ds" = (
@@ -2023,16 +2005,16 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/armory)
 "ei" = (
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 1;
-	name = "Connector to Ship"
-	},
 /obj/machinery/door/window{
 	dir = 1;
 	name = "Systems Chamber";
 	req_access_txt = "150"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 1;
+	name = "Connector to Ship"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/armory)
 "ej" = (
@@ -2128,10 +2110,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26
 	},
-/obj/machinery/airalarm/syndicate{
-	pixel_y = 24;
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/armory)
 "eq" = (
@@ -2228,11 +2207,8 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/machinery/airalarm/syndicate{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/airlock)
 "vN" = (

@@ -7650,18 +7650,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
-"uq" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/shuttledock{
-	checkdir = 1;
-	name = "syndicate Blast Door";
-	turftype = /turf/open/floor/plating/asteroid/snow
-	},
-/turf/open/space/basic,
-/area/space)
 "ur" = (
 /obj/structure/cable/white{
 	icon_state = "1-2"
@@ -7674,17 +7662,6 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/ferry)
-"ut" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "nukeop_ready";
-	name = "shuttle Dock"
-	},
-/turf/open/space/basic,
-/area/space)
 "uu" = (
 /obj/effect/turf_decal/weather/dirt/corner{
 	dir = 8
@@ -27901,38 +27878,38 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
 Rk
 Rk
 Tk
@@ -28158,7 +28135,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -28415,7 +28392,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -28672,7 +28649,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -28929,7 +28906,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -29186,7 +29163,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -29443,7 +29420,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -29700,7 +29677,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -29957,7 +29934,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -30214,7 +30191,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -30471,7 +30448,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -30728,7 +30705,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -30985,7 +30962,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -31242,7 +31219,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -31499,7 +31476,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -31756,7 +31733,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -32013,7 +31990,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -32270,7 +32247,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -32527,7 +32504,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -32784,7 +32761,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -33041,7 +33018,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -33298,7 +33275,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -33555,7 +33532,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -33812,7 +33789,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -34069,7 +34046,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -34326,7 +34303,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -34583,7 +34560,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -34840,7 +34817,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -35097,7 +35074,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -35354,7 +35331,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -35611,7 +35588,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -35868,7 +35845,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -36125,7 +36102,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -36382,7 +36359,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -36445,7 +36422,7 @@ aa
 aa
 aa
 aa
-uq
+aa
 aa
 aa
 aa
@@ -36639,7 +36616,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -36702,7 +36679,6 @@ aa
 aa
 aa
 aa
-uq
 aa
 aa
 aa
@@ -36720,7 +36696,8 @@ aa
 aa
 aa
 aa
-ut
+aa
+aa
 aa
 aa
 aa
@@ -36896,7 +36873,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -36959,7 +36936,7 @@ aa
 aa
 aa
 aa
-uq
+aa
 aa
 aa
 aa
@@ -37153,7 +37130,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -37216,7 +37193,7 @@ aa
 aa
 aa
 aa
-uq
+aa
 aa
 aa
 aa
@@ -37410,7 +37387,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -37473,7 +37450,7 @@ aa
 aa
 aa
 aa
-uq
+aa
 aa
 aa
 aa
@@ -37667,7 +37644,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -37730,7 +37707,7 @@ aa
 aa
 aa
 aa
-uq
+aa
 aa
 aa
 aa
@@ -37924,7 +37901,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -37987,7 +37964,7 @@ aa
 aa
 aa
 aa
-uq
+aa
 aa
 aa
 aa
@@ -38181,7 +38158,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -38244,7 +38221,7 @@ aa
 aa
 aa
 aa
-uq
+aa
 aa
 aa
 aa
@@ -38438,7 +38415,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -38501,7 +38478,7 @@ aa
 aa
 aa
 aa
-uq
+aa
 aa
 aa
 aa
@@ -38695,7 +38672,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -38758,7 +38735,7 @@ aa
 aa
 aa
 aa
-uq
+aa
 aa
 aa
 aa
@@ -38952,7 +38929,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -39015,7 +38992,7 @@ aa
 aa
 aa
 aa
-uq
+aa
 aa
 aa
 aa
@@ -39209,7 +39186,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -39272,7 +39249,7 @@ aa
 aa
 aa
 aa
-uq
+aa
 aa
 aa
 aa
@@ -39466,7 +39443,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -39529,7 +39506,7 @@ Rk
 aa
 aa
 aa
-uq
+aa
 aa
 aa
 aa
@@ -39723,7 +39700,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -39980,7 +39957,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -40237,7 +40214,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -40494,7 +40471,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -40751,7 +40728,7 @@ aa
 aa
 aa
 aa
-aa
+Rk
 aa
 aa
 aa
@@ -41008,35 +40985,35 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
 Rk
 Rk
 Rk
