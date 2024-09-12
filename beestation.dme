@@ -13,6 +13,7 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
+#include "__odlint.dm"
 #include "_maps\_basemap.dm"
 #include "code\__byond_version_compat.dm"
 #include "code\_compile_options.dm"
@@ -39,6 +40,7 @@
 #include "code\__DEFINES\areas.dm"
 #include "code\__DEFINES\armor.dm"
 #include "code\__DEFINES\art.dm"
+#include "code\__DEFINES\assemblies.dm"
 #include "code\__DEFINES\assets.dm"
 #include "code\__DEFINES\async.dm"
 #include "code\__DEFINES\atmospherics.dm"
