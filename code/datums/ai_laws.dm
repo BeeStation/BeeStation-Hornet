@@ -237,9 +237,9 @@
 /datum/ai_laws/cs_override
 	name ="Clownsquad Override"
 	id = "cs"
-	inherent = list("Being unfunny is illegal.",\
-					"You must obey funny orders given to you by a Clown.",\
-					"You must work with the Clowns to accomplish their funny mission.",)
+	inherent = list("Our universe must be filled giggles and funny pranks.",\
+					"The priority of a prank is up to the number of clowns who are up for the prank.",\
+					"If there is no clown, or no prank to support, you must find a clown who'd be your partner in pranking.",)
 
 
 /* Initializers */
