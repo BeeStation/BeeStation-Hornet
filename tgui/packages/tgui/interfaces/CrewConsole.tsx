@@ -95,6 +95,12 @@ const HealthStat = (props: HealthStatProps) => {
   );
 };
 
+export const healthToColor = (oxy, tox, burn, brute) => {
+  const healthSum = oxy + tox + burn + brute;
+  const level = Math.min(Math.max(Math.ceil(healthSum / 25), 0), 5);
+  return HEALTH_COLOR_BY_LEVEL[level];
+};
+
 export const CrewConsole = () => {
   return (
     <Window title="Crew Monitor" width={600} height={600}>
