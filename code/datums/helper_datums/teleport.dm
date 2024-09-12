@@ -18,7 +18,7 @@
 		return FALSE
 
 	// Checks bluespace anchors
-	if(channel != TELEPORT_CHANNEL_WORMHOLE && channel != TELEPORT_CHANNEL_FREE)
+	if(channel != TELEPORT_CHANNEL_WORMHOLE && channel != TELEPORT_CHANNEL_FREE && channel != TELEPORT_CHANNEL_GATEWAY)
 		var/cur_zlevel = cur_turf.get_virtual_z_level()
 		var/dest_zlevel = dest_turf.get_virtual_z_level()
 		for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
@@ -149,6 +149,9 @@
 		tele_play_specials(teleatom, destturf, effectout, asoundout)
 		if(ismegafauna(teleatom))
 			message_admins("[teleatom] [ADMIN_FLW(teleatom)] has teleported from [ADMIN_VERBOSEJMP(curturf)] to [ADMIN_VERBOSEJMP(destturf)].")
+
+	if(ismegafauna(teleatom))
+		message_admins("[teleatom] [ADMIN_FLW(teleatom)] has teleported from [ADMIN_VERBOSEJMP(curturf)] to [ADMIN_VERBOSEJMP(destturf)].")
 
 	if(ismob(teleatom))
 		var/mob/M = teleatom
@@ -310,3 +313,39 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 	transform = matrix() * 0
 	animate(src, time = 10 SECONDS, transform = matrix(), alpha = 255)
 	animate(time = 0.5 SECONDS, transform = matrix() * 0, alpha = 0)
+
+// mob-level gateway teleport checks
+/mob/living/carbon/intercept_teleport(channel, turf/origin, turf/destination)
+	. = ..()
+
+	if(. == COMPONENT_BLOCK_TELEPORT || channel != TELEPORT_CHANNEL_GATEWAY)
+		return
+
+	// Checking for exile implants
+	if(!isnull(implants))
+		for(var/obj/item/implant/exile/baddie in implants)
+			visible_message("<span class='warning'>The portal bends inward, but [src] can't seem to pass through it!</span>", "<span class='warning'>The portal has detected your [baddie] and not letting you through!</span>")
+			return COMPONENT_BLOCK_TELEPORT
+
+	// Ashwalker check
+	if(is_species(src, /datum/species/lizard/ashwalker))
+		visible_message("<span class='warning'>The portal bends inward, but [src] can't seem to pass through it!</span>", "<span class='warning'>You can seem to go through the portal!</span>")
+		return COMPONENT_BLOCK_TELEPORT
+
+/mob/living/simple_animal/hostile/megafauna/intercept_teleport(channel, turf/origin, turf/destination)
+	. = ..()
+
+	if(. == COMPONENT_BLOCK_TELEPORT || channel != TELEPORT_CHANNEL_GATEWAY)
+		return
+
+	visible_message("<span class='warning'>The portal bends inward, but [src] can't seem to pass through it!</span>", "<span class='warning'>You can't seem to pass through the portal!</span>")
+	return COMPONENT_BLOCK_TELEPORT
+
+/mob/living/simple_animal/hostile/asteroid/elite/intercept_teleport(channel, turf/origin, turf/destination)
+	. = ..()
+
+	if(. == COMPONENT_BLOCK_TELEPORT || channel != TELEPORT_CHANNEL_GATEWAY)
+		return
+
+	visible_message("<span class='warning'>The portal bends inward, but [src] can't seem to pass through it!</span>", "<span class='warning'>You can't seem to pass through the portal!</span>")
+	return COMPONENT_BLOCK_TELEPORT
