@@ -176,6 +176,12 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/machinery/door/window{
+	dir = 4;
+	icon_state = "right";
+	name = "Tactical Shower";
+	opacity = 1
+	},
 /turf/open/floor/iron/freezer,
 /area/syndicate_mothership/control)
 "az" = (
@@ -299,6 +305,9 @@
 	},
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/effect/turf_decal/trimline/neutral/warning{
+	dir = 5
 	},
 /turf/open/floor/iron/dark/side{
 	dir = 5
@@ -483,10 +492,6 @@
 	dir = 1
 	},
 /obj/structure/closet/cardboard,
-/obj/structure/closet/body_bag{
-	pixel_x = 11;
-	pixel_y = -20
-	},
 /obj/item/storage/crayons{
 	pixel_x = 2;
 	pixel_y = 5
@@ -589,8 +594,11 @@
 "by" = (
 /obj/effect/turf_decal/box/corners,
 /obj/structure/closet/crate/large{
-	layer = 3.0
+	layer = 3.0;
+	pixel_y = 13;
+	pixel_x = -2
 	},
+/obj/effect/turf_decal/trimline/neutral/warning,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
 "bz" = (
@@ -1301,6 +1309,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 6
 	},
+/obj/effect/turf_decal/trimline/neutral/warning{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
@@ -1509,6 +1520,9 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/oil/streak,
+/obj/effect/turf_decal/trimline/neutral/warning{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},
@@ -2095,6 +2109,14 @@
 	},
 /obj/effect/turf_decal/edges/techfloor,
 /obj/structure/fluff/empty_sleeper/syndicate,
+/obj/item/storage/pill_bottle/neurine{
+	pixel_y = -14;
+	pixel_x = -10
+	},
+/obj/item/reagent_containers/pill/floorpill{
+	pixel_y = -24;
+	pixel_x = -6
+	},
 /turf/open/floor/iron/tech/grid,
 /area/syndicate_mothership/control)
 "fb" = (
@@ -2213,6 +2235,7 @@
 /area/syndicate_mothership/control)
 "fq" = (
 /obj/effect/turf_decal/box/corners,
+/obj/effect/turf_decal/trimline/neutral/warning,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
 "fr" = (
@@ -3554,10 +3577,11 @@
 "jf" = (
 /obj/structure/closet/crate/large{
 	layer = 3.0;
-	pixel_x = 5;
-	pixel_y = 7
+	pixel_x = 4;
+	pixel_y = 6
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/trimline/neutral/warning,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
 "jg" = (
@@ -4137,6 +4161,9 @@
 	dir = 1;
 	icon_state = "box_corners"
 	},
+/obj/effect/turf_decal/trimline/neutral/warning{
+	dir = 1
+	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
 "kG" = (
@@ -4333,9 +4360,12 @@
 	pixel_x = -15;
 	pixel_y = 10
 	},
-/obj/item/trash/can,
 /obj/effect/decal/cleanable/oil{
 	icon_state = "gib7"
+	},
+/obj/structure/closet/body_bag{
+	pixel_x = 11;
+	pixel_y = 12
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
@@ -4774,10 +4804,6 @@
 /area/centcom/supply)
 "mH" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/smartfridge,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/white,
@@ -4804,6 +4830,9 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/north,
+/obj/effect/turf_decal/trimline/neutral/warning{
+	dir = 9
+	},
 /turf/open/floor/iron/dark/side{
 	dir = 9
 	},
@@ -4918,17 +4947,9 @@
 /turf/open/floor/glass/reinforced/plasma,
 /area/syndicate_mothership/control)
 "mZ" = (
-/obj/machinery/smartfridge,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/chem_dispenser/drinks/beer,
 /obj/structure/table/wood,
-/turf/closed/indestructible{
-	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood"
-	},
+/turf/open/floor/wood,
 /area/centcom/holding)
 "nb" = (
 /turf/closed/indestructible/abductor,
@@ -7304,6 +7325,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
 /turf/open/floor/iron/freezer,
 /area/syndicate_mothership/control)
 "tE" = (
@@ -8474,6 +8498,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/trimline/neutral,
 /obj/machinery/light/floor,
+/obj/item/trash/can{
+	pixel_y = 32;
+	pixel_x = 7
+	},
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
 "wF" = (
@@ -9171,12 +9199,6 @@
 /turf/open/floor/pod/light,
 /area/syndicate_mothership/control)
 "yP" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 8
-	},
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
 /obj/structure/urinal{
 	pixel_y = 28
 	},
@@ -10379,16 +10401,6 @@
 /obj/effect/landmark/ert_spawn,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
-"Cb" = (
-/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/machinery/door/window{
-	dir = 8;
-	icon_state = "right";
-	name = "Tactical Shower";
-	opacity = 1
-	},
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "Cc" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -10700,8 +10712,8 @@
 /obj/effect/turf_decal/trimline/red/line,
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/item/clothing/head/cone{
-	pixel_x = -6;
-	pixel_y = -15;
+	pixel_x = -2;
+	pixel_y = -22;
 	layer = 4.1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -10820,15 +10832,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/evac)
 "Db" = (
-/obj/item/storage/pill_bottle/neurine{
-	pixel_y = 17;
-	pixel_x = -10
-	},
 /obj/machinery/firealarm/directional/west,
-/obj/item/reagent_containers/pill/floorpill{
-	pixel_y = 6;
-	pixel_x = -6
-	},
 /obj/effect/landmark/start/nukeop_leader,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/syndicate_mothership/control)
@@ -11028,6 +11032,9 @@
 	dir = 4
 	},
 /obj/item/toy/plush/beeplushie,
+/obj/effect/turf_decal/trimline/neutral/warning{
+	dir = 1
+	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
 "DC" = (
@@ -11992,10 +11999,13 @@
 /area/tdome/tdomeobserve)
 "Gn" = (
 /obj/structure/closet/crate/large{
-	pixel_y = 1;
-	pixel_x = -1
+	pixel_y = -3;
+	pixel_x = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/trimline/neutral/warning{
+	dir = 1
+	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
 "Go" = (
@@ -12595,10 +12605,6 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
-"HN" = (
-/obj/machinery/smartfridge,
-/turf/closed/indestructible/hotelwall,
-/area/centcom/holding)
 "HO" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -12762,12 +12768,6 @@
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
 "Ij" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/white{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/syndicate_mothership/control)
@@ -14110,6 +14110,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
+/obj/structure/window/reinforced/tinted{
 	dir = 4
 	},
 /turf/open/floor/iron/freezer,
@@ -15850,9 +15853,8 @@
 	icon_state = "box_corners"
 	},
 /obj/structure/closet/crate/large,
-/obj/structure/closet/crate/large{
-	pixel_x = -15;
-	pixel_y = -11
+/obj/effect/turf_decal/trimline/neutral/warning{
+	dir = 1
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
@@ -16191,10 +16193,6 @@
 	},
 /turf/open/water/air,
 /area/syndicate_mothership/control)
-"QT" = (
-/obj/machinery/chem_dispenser/drinks,
-/turf/closed/indestructible/hotelwall,
-/area/centcom/holding)
 "QV" = (
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/window/reinforced/spawner/east,
@@ -16561,10 +16559,6 @@
 /area/centcom/evac)
 "RO" = (
 /obj/machinery/chem_dispenser/drinks/beer,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/chem_dispenser/drinks,
 /obj/structure/table/wood,
 /turf/open/floor/wood,
@@ -17997,6 +17991,7 @@
 	pixel_y = 28;
 	use_power = 0
 	},
+/obj/machinery/smartfridge,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "VA" = (
@@ -18186,6 +18181,7 @@
 /obj/effect/turf_decal/box/corners{
 	dir = 8
 	},
+/obj/effect/turf_decal/trimline/neutral/warning,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
 "Wb" = (
@@ -18709,6 +18705,7 @@
 /area/centcom/ferry)
 "Xz" = (
 /obj/structure/closet/cardboard,
+/obj/effect/turf_decal/trimline/neutral/warning,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
 "XA" = (
@@ -35620,7 +35617,7 @@ HX
 Gn
 jf
 ce
-rk
+kY
 Xz
 Pp
 ku
@@ -39225,7 +39222,7 @@ ku
 ku
 ku
 yP
-Cb
+Ij
 Ij
 wa
 Ko
@@ -45453,7 +45450,7 @@ Nd
 XL
 Nd
 Nd
-HN
+Nd
 Nd
 Xk
 Yo
@@ -48282,7 +48279,7 @@ Nd
 Vz
 Fh
 YJ
-QT
+Nd
 Xk
 Ya
 UE
