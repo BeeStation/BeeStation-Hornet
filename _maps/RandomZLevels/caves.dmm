@@ -425,9 +425,7 @@
 	},
 /area/awaymission/caves/BMP_asteroid/level_four)
 "bm" = (
-/obj/machinery/gateway/centeraway{
-	calibrated = 0
-	},
+/obj/machinery/gateway/centeraway,
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
@@ -1679,8 +1677,8 @@
 "qo" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
+	attack_verb_continuous = list("bashes","bludgeons","thrashes","whacks");
+	attack_verb_simple = list("bash","bludgeon","thrash","whack");
 	desc = "A pickaxe thats been left to rust.";
 	force = 1;
 	name = "rusty pickaxe";
@@ -1883,8 +1881,8 @@
 "CL" = (
 /obj/structure/table,
 /obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
+	attack_verb_continuous = list("bashes","bludgeons","thrashes","whacks");
+	attack_verb_simple = list("bash","bludgeon","thrash","whack");
 	desc = "A pickaxe thats been left to rust.";
 	force = 1;
 	name = "rusty pickaxe";
@@ -1892,8 +1890,8 @@
 	throwforce = 1
 	},
 /obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
+	attack_verb_continuous = list("bashes","bludgeons","thrashes","whacks");
+	attack_verb_simple = list("bash","bludgeon","thrash","whack");
 	desc = "A pickaxe thats been left to rust.";
 	force = 1;
 	name = "rusty pickaxe";
@@ -1920,8 +1918,8 @@
 	name = "Mining cart"
 	},
 /obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
+	attack_verb_continuous = list("bashes","bludgeons","thrashes","whacks");
+	attack_verb_simple = list("bash","bludgeon","thrash","whack");
 	desc = "A pickaxe thats been left to rust.";
 	force = 1;
 	name = "rusty pickaxe";
@@ -2055,8 +2053,8 @@
 /area/awaymission/caves/northblock)
 "NZ" = (
 /obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
+	attack_verb_continuous = list("bashes","bludgeons","thrashes","whacks");
+	attack_verb_simple = list("bash","bludgeon","thrash","whack");
 	desc = "A pickaxe thats been left to rust.";
 	force = 1;
 	name = "rusty pickaxe";
@@ -2081,8 +2079,8 @@
 	name = "Mining cart"
 	},
 /obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
+	attack_verb_continuous = list("bashes","bludgeons","thrashes","whacks");
+	attack_verb_simple = list("bash","bludgeon","thrash","whack");
 	desc = "A pickaxe thats been left to rust.";
 	force = 1;
 	name = "rusty pickaxe";

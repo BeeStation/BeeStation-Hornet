@@ -1808,9 +1808,7 @@
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hu" = (
-/obj/machinery/gateway/centeraway{
-	calibrated = 0
-	},
+/obj/machinery/gateway/centeraway,
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/gateway)
 "hw" = (
@@ -6676,7 +6674,7 @@
 /obj/machinery/computer/atmos_control{
 	dir = 4;
 	name = "Distribution and Waste Monitor";
-	sensors = list("UO45_air_sensor" = "Mixed Air Supply Tank", "UO45_distro_meter" = "Distribution Loop", "UO45_waste_meter" = "Waste Loop")
+	sensors = list("UO45_air_sensor"="Mixed Air Supply Tank","UO45_distro_meter"="Distribution Loop","UO45_waste_meter"="Waste Loop")
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -8320,7 +8318,7 @@
 	input_tag = "UO45_air_in";
 	name = "Mixed Air Supply Control";
 	output_tag = "UO45_air_out";
-	sensors = list("UO45_air_sensor" = "Tank")
+	sensors = list("UO45_air_sensor"="Tank")
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -9575,7 +9573,7 @@
 	input_tag = "UO45_mix_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "UO45_mix_in";
-	sensors = list("UO45_mix_sensor" = "Tank")
+	sensors = list("UO45_mix_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 6
@@ -9710,7 +9708,7 @@
 /obj/machinery/computer/atmos_control{
 	dir = 4;
 	name = "Tank Monitor";
-	sensors = list("UO45_n2_sensor" = "Nitrogen", "UO45_o2_sensor" = "Oxygen", "UO45_mix_sensor" = "Gas Mix Tank")
+	sensors = list("UO45_n2_sensor"="Nitrogen","UO45_o2_sensor"="Oxygen","UO45_mix_sensor"="Gas Mix Tank")
 	},
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
@@ -9917,7 +9915,7 @@
 	input_tag = "UO45_n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "UO45_n2_out";
-	sensors = list("UO45_n2_sensor" = "Tank")
+	sensors = list("UO45_n2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
@@ -10416,7 +10414,7 @@
 	input_tag = "UO45_o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "UO45_o2_out";
-	sensors = list("UO45_o2_sensor" = "Tank")
+	sensors = list("UO45_o2_sensor"="Tank")
 	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /turf/open/floor/iron,

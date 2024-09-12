@@ -164,9 +164,7 @@
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
 "aP" = (
-/obj/machinery/gateway/centeraway{
-	calibrated = 0
-	},
+/obj/machinery/gateway/centeraway,
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
 "aR" = (
@@ -1741,9 +1739,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/research)
-"fk" = (
-/turf/open/floor/iron/white,
-/area/awaymission/moonoutpost19/research)
 "fl" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2935,10 +2930,6 @@
 	dir = 8
 	},
 /turf/open/floor/iron/freezer,
-/area/awaymission/moonoutpost19/arrivals)
-"io" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
 /area/awaymission/moonoutpost19/arrivals)
 "ip" = (
 /obj/structure/table/reinforced,
@@ -32988,7 +32979,7 @@ ea
 jq
 jU
 ku
-io
+lA
 ba
 ld
 mc
@@ -33245,7 +33236,7 @@ dZ
 jr
 jU
 kv
-io
+lA
 ba
 ld
 md
@@ -33502,7 +33493,7 @@ ea
 js
 jV
 ku
-io
+lA
 ba
 lA
 mc
@@ -34016,7 +34007,7 @@ ea
 ju
 jU
 ku
-io
+lA
 ld
 lD
 lD
@@ -34273,7 +34264,7 @@ dZ
 jr
 jV
 kv
-io
+lA
 lc
 lE
 mf
@@ -34530,13 +34521,13 @@ ea
 jv
 jV
 kv
-io
+lA
 ba
 ba
 ba
-io
+lA
 mL
-io
+lA
 ba
 ba
 ba
@@ -34793,7 +34784,7 @@ ba
 ba
 mv
 lM
-io
+lA
 ba
 ba
 ba
@@ -35046,13 +35037,13 @@ jY
 kx
 hI
 hI
-io
-io
-io
+lA
+lA
+lA
 mM
-io
-io
-io
+lA
+lA
+lA
 hI
 hI
 hI
@@ -35291,7 +35282,7 @@ gF
 gR
 gR
 gR
-fk
+hj
 hj
 hN
 ea
@@ -35818,12 +35809,12 @@ jF
 kO
 lh
 lH
-io
-io
+lA
+lA
 hI
-io
-io
-io
+lA
+lA
+lA
 hI
 nB
 nL
@@ -36075,7 +36066,7 @@ kz
 hJ
 hJ
 hJ
-io
+lA
 ba
 mO
 ba
@@ -36315,7 +36306,7 @@ fg
 fy
 eu
 go
-fk
+hj
 gT
 ea
 hm
@@ -36572,7 +36563,7 @@ fh
 fz
 ee
 gp
-fk
+hj
 gU
 dZ
 hn
@@ -36583,7 +36574,7 @@ ig
 dZ
 ba
 ba
-io
+lA
 kc
 kB
 jC
@@ -36840,7 +36831,7 @@ ih
 ea
 ba
 ba
-io
+lA
 kd
 kC
 kP
@@ -37097,7 +37088,7 @@ ii
 ea
 ba
 ba
-io
+lA
 ke
 kD
 IH
@@ -37339,9 +37330,9 @@ dZ
 eh
 eh
 eM
-fk
+hj
 fB
-fk
+hj
 gr
 gJ
 gW
@@ -37598,9 +37589,9 @@ ex
 eN
 fl
 fC
-fk
-fk
-fk
+hj
+hj
+hj
 gX
 dZ
 ba
@@ -37614,7 +37605,7 @@ ba
 wX
 kg
 kE
-io
+lA
 ba
 ba
 ba
@@ -37871,7 +37862,7 @@ ja
 jB
 Ik
 kF
-io
+lA
 ba
 ba
 ba
@@ -38128,7 +38119,7 @@ ba
 jC
 ki
 kG
-io
+lA
 ba
 ba
 ba
@@ -38894,7 +38885,7 @@ ba
 ba
 ba
 ba
-io
+lA
 jc
 jF
 jV
@@ -39151,7 +39142,7 @@ ba
 ba
 ba
 ba
-io
+lA
 jd
 jF
 jU
@@ -42233,7 +42224,7 @@ ba
 ba
 ba
 ba
-io
+lA
 Bn
 xH
 zl
@@ -42490,7 +42481,7 @@ ba
 ba
 ba
 ba
-io
+lA
 ZB
 Ey
 zl
@@ -42747,7 +42738,7 @@ ba
 ba
 ba
 ba
-io
+lA
 WB
 Xd
 LQ
@@ -43530,7 +43521,7 @@ lt
 lR
 lS
 mD
-io
+lA
 ba
 ba
 ba
@@ -43787,7 +43778,7 @@ iX
 lS
 lR
 mE
-io
+lA
 ba
 ba
 ba
@@ -44044,7 +44035,7 @@ iX
 lR
 lR
 mF
-io
+lA
 ba
 ba
 ba
@@ -44807,7 +44798,7 @@ ba
 hJ
 hJ
 hI
-io
+lA
 hJ
 hJ
 hJ
