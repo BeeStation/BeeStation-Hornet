@@ -169,10 +169,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 	var/access
 	icon_state = "access_helper"
 
-/obj/effect/mapping_helpers/airlock/access/payload(obj/machinery/door/airlock/airlock)
-	if(airlock.req_access_txt == null)
-		airlock.req_access += access
-
 //SECURITY
 /obj/effect/mapping_helpers/airlock/access/station/security
 	access = ACCESS_SECURITY

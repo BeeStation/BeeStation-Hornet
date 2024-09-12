@@ -1486,7 +1486,6 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/station/engineering,
 /turf/open/floor/iron,
 /area/engine/break_room)
 "avy" = (
@@ -9609,7 +9608,6 @@
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics"
 	},
-/obj/effect/mapping_helpers/airlock/access/station/engineering/atmospherics,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bVT" = (
@@ -11455,7 +11453,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/station/engineering/engineering,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cfF" = (
@@ -12250,8 +12247,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/engineering,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/external_airlocks,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "cmw" = (
@@ -12752,7 +12747,6 @@
 	name = "Supermatter Chamber"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/engineering,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "cqF" = (
@@ -12852,7 +12846,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/station/engineering/engineering,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "cru" = (
@@ -20198,8 +20191,7 @@
 /area/teleporter)
 "eIa" = (
 /obj/machinery/door/airlock/engineering{
-	name = "Telecommunications";
-	req_access_txt = "61"
+	name = "Telecommunications"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -21011,7 +21003,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/engineering,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "eXx" = (
@@ -21889,9 +21880,7 @@
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/bar/atrium)
 "fqQ" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
+/obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -24264,7 +24253,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/station/engineering/engineering,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "gos" = (
@@ -24375,7 +24363,6 @@
 /obj/machinery/door/airlock/maintenance/glass{
 	name = "Atmospherics External Airlock"
 	},
-/obj/effect/mapping_helpers/airlock/access/station/engineering/atmospherics,
 /turf/open/floor/iron,
 /area/maintenance/aft)
 "gqv" = (
@@ -25072,8 +25059,6 @@
 	name = "Engineering External Access"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/engineering,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/external_airlocks,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "gDA" = (
@@ -26006,7 +25991,6 @@
 	name = "Supermatter Engine Room"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/engineering,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "gZT" = (
@@ -26054,7 +26038,6 @@
 	cycle_id = "atmos_external"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold/visible,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/external_airlocks,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "haz" = (
@@ -26149,7 +26132,6 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/engineering,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "hcQ" = (
@@ -28262,7 +28244,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/station/engineering/external_airlocks,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "hSv" = (
@@ -32448,7 +32429,6 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/atmospherics,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "jyC" = (
@@ -32871,8 +32851,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/engineering,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/external_airlocks,
 /turf/open/floor/catwalk_floor,
 /area/engine/engineering)
 "jHD" = (
@@ -34213,7 +34191,6 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/station/security/outpost,
 /turf/open/floor/iron,
 /area/security/checkpoint/engineering)
 "kjL" = (
@@ -35451,7 +35428,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/station/engineering/atmospherics,
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/aft)
 "kGP" = (
@@ -37266,6 +37242,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/mapping_helpers/airlock/access/station/command/heads/ce,
 /turf/open/floor/iron,
 /area/crew_quarters/heads/chief)
 "loo" = (
@@ -39421,7 +39398,6 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Supermatter Engine Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/station/engineering/engineering,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "mpr" = (
@@ -45040,8 +45016,6 @@
 	name = "Engineering External Access"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/engineering,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/external_airlocks,
 /turf/open/floor/catwalk_floor,
 /area/engine/engineering)
 "oKv" = (
@@ -45370,8 +45344,7 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/engineering/glass{
-	name = "Server Room";
-	req_access_txt = "61"
+	name = "Server Room"
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 8
@@ -46917,8 +46890,7 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/engineering/glass{
-	name = "Server Room";
-	req_access_txt = "61"
+	name = "Server Room"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -51901,7 +51873,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/station/engineering/engineering,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "rvl" = (
@@ -52519,7 +52490,6 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/engineering,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "rHq" = (
@@ -52899,7 +52869,6 @@
 	name = "Atmospherics"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/atmospherics,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "rOO" = (
@@ -53779,7 +53748,6 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/station/command/mini_sat,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "sip" = (
@@ -55347,7 +55315,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/engineering,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "sLO" = (
@@ -63092,8 +63059,7 @@
 /area/science/mixing)
 "vPI" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Control Room";
-	req_access_txt = "19; 61"
+	name = "Control Room"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
@@ -63591,7 +63557,6 @@
 /obj/machinery/door/airlock/external{
 	name = "Atmospherics External Airlock"
 	},
-/obj/effect/mapping_helpers/airlock/access/station/engineering/external_airlocks,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "waz" = (
@@ -67049,8 +67014,6 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/station/command,
-/obj/effect/mapping_helpers/airlock/access/station/engineering/tech_storage,
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
 "xug" = (

@@ -111,10 +111,20 @@
 /obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
 
+	var/area/A = get_area(src)
 	//Get the area hack difficulty
 	if (mapload)
-		var/area/A = get_area(src)
 		wire_security_level = max(wire_security_level, A.airlock_hack_difficulty)
+
+	//declares airlock access
+	//access priority: req_access_txt (var edit) > mapping access helper > area access code.
+	if(!req_access_txt)
+		var/has_mapping_helpers = FALSE
+		for(var/obj/effect/mapping_helpers/airlock/access/AH in loc.contents)
+			has_mapping_helpers = TRUE
+			req_access += list(AH.access)
+		if(!has_mapping_helpers)
+			req_access = A.access
 
 	wires = set_wires(wire_security_level)
 	if(frequency)
