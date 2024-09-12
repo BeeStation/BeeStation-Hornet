@@ -18,7 +18,7 @@
 
 /obj/item/mecha_ammo/update_desc()
 	. = ..()
-	desc = rounds ? initial(desc) : "An exosuit ammuniton box that has since been emptied. Please recycle."
+	desc = rounds ? initial(desc) : "An exosuit ammuniton box that has since been emptied. It can be safely folded for recycling."
 
 /obj/item/mecha_ammo/update_icon_state()
 	icon_state = rounds ? initial(icon_state) : "empty"
@@ -39,11 +39,14 @@
 	. = ..()
 	if(rounds)
 		. += "There [rounds > 1?"are":"is"] [rounds] [round_term][rounds > 1?"s":""] left."
+	else
+		. += "<span class='notice'>Use in-hand to fold it into a sheet of iron.</span>"
 
 /obj/item/mecha_ammo/incendiary
 	name = "incendiary ammo box"
 	desc = "A box of incendiary ammunition for use with exosuit weapons."
 	icon_state = "incendiary"
+	custom_materials = list(/datum/material/iron=6000)
 	rounds = 24
 	ammo_type = "incendiary"
 
@@ -51,6 +54,7 @@
 	name = "scattershot ammo box"
 	desc = "A box of scaled-up buckshot, for use in exosuit shotguns."
 	icon_state = "scattershot"
+	custom_materials = list(/datum/material/iron=6000)
 	rounds = 40
 	ammo_type = "scattershot"
 
@@ -58,6 +62,7 @@
 	name = "machine gun ammo box"
 	desc = "A box of linked ammunition, designed for the Ultra AC 2 exosuit weapon."
 	icon_state = "lmg"
+	custom_materials = list(/datum/material/iron = 4000)
 	rounds = 300
 	ammo_type = "lmg"
 
@@ -65,6 +70,7 @@
 	name = "breaching missiles"
 	desc = "A box of large missiles, ready for loading into a BRM-6 exosuit missile rack."
 	icon_state = "missile_br"
+	custom_materials = list(/datum/material/iron=8000,/datum/material/gold=500)
 	rounds = 6
 	round_term = "missile"
 	direct_load = TRUE
@@ -94,6 +100,7 @@
 	name = "launchable flashbang clusters"
 	desc = "A box of clustered flashbangs, for use with a specialized exosuit cluster launcher. Cannot be primed by hand."
 	icon_state = "clusterbang"
+	custom_materials = list(/datum/material/iron=6000,/datum/material/gold=1500,/datum/material/uranium=1500)
 	rounds = 3
 	round_term = "cluster"
 	direct_load = TRUE

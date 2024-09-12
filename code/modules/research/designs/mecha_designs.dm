@@ -170,7 +170,7 @@
 	id = "mech_scattershot_ammo"
 	build_type = PROTOLATHE | MECHFAB
 	build_path = /obj/item/mecha_ammo/scattershot
-	materials = list(MAT_METAL=6000)
+	materials = list(/datum/material/iron=6000)
 	construction_time = 20
 	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -192,7 +192,7 @@
 	id = "mech_carbine_ammo"
 	build_type = PROTOLATHE | MECHFAB
 	build_path = /obj/item/mecha_ammo/incendiary
-	materials = list(MAT_METAL=6000)
+	materials = list(/datum/material/iron=6000)
 	construction_time = 20
 	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -267,7 +267,7 @@
 	id = "mech_grenade_launcher_ammo"
 	build_type = PROTOLATHE | MECHFAB
 	build_path = /obj/item/mecha_ammo/flashbang
-	materials = list(MAT_METAL=4000,MAT_GOLD=500,MAT_SILVER=500)
+	materials = list(/datum/material/iron=4000,/datum/material/gold=500)
 	construction_time = 20
 	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -279,7 +279,7 @@
 	id = "mech_missile_rack"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/breaching
-	materials = list(MAT_METAL=22000,MAT_GOLD=6000,MAT_SILVER=8000)
+	materials = list(/datum/material/iron=22000,/datum/material/gold=6000,/datum/material/silver=8000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
@@ -289,7 +289,7 @@
 	id = "mech_missile_rack_ammo"
 	build_type = PROTOLATHE | MECHFAB
 	build_path = /obj/item/mecha_ammo/missiles_br
-	materials = list(MAT_METAL=8000,MAT_GOLD=500,MAT_SILVER=500)
+	materials = list(/datum/material/iron=8000,/datum/material/gold=500)
 	construction_time = 20
 	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -312,7 +312,7 @@
 	id = "clusterbang_launcher_ammo"
 	build_type = PROTOLATHE | MECHFAB
 	build_path = /obj/item/mecha_ammo/clusterbang
-	materials = list(MAT_METAL=6000,MAT_GOLD=1500,MAT_URANIUM=1500)
+	materials = list(/datum/material/iron=6000,/datum/material/gold=1500,/datum/material/uranium=1500)
 	construction_time = 20
 	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -464,7 +464,7 @@
 	id = "mech_lmg_ammo"
 	build_type = PROTOLATHE | MECHFAB
 	build_path = /obj/item/mecha_ammo/lmg
-	materials = list(MAT_METAL=4000)
+	materials = list(/datum/material/iron=4000)
 	construction_time = 20
 	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
