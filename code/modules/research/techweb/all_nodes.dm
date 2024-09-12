@@ -19,6 +19,7 @@
 		"beaker",
 		"bucket",
 		"circuit_imprinter",
+		"coffeemaker",
 		"coffeepot",
 		"coffee_cartridge",
 		"conveyor_belt",
