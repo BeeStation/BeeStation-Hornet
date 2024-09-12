@@ -1,5 +1,3 @@
-#define SIGIL_TRANSMISSION_RANGE 4
-
 //==================================//
 // !      Sigil of Transmission     ! //
 //==================================//

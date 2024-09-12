@@ -27,7 +27,7 @@
 #define MODE_KEY_BINARY "b"
 #define MODE_TOKEN_BINARY ":b"
 
- #define WHISPER_MODE "the type of whisper"
+#define WHISPER_MODE "the type of whisper"
 #define MODE_WHISPER "whisper"
 #define MODE_WHISPER_CRIT "whispercrit"
 
@@ -63,6 +63,7 @@
 #define SPAN_MEGAPHONE "megaphone"
 #define SPAN_CLOWN "clowntext"
 #define SPAN_SINGING "singing"
+#define SPAN_TAPE_RECORDER "tape_recorder"
 
 //bitflag #defines for return value of the radio() proc.
 #define ITALICS			(1<<0)
@@ -108,3 +109,9 @@
 
 ///How far away blind people can see visible messages from
 #define BLIND_TEXT_DIST 2
+
+// Emote flags
+
+#define EMOTE_AUDIBLE (1<<0)
+#define EMOTE_ANIMATED (1<<1)
+

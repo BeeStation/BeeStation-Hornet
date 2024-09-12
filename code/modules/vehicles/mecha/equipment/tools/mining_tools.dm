@@ -35,7 +35,7 @@
 			return
 	target.visible_message("<span class='warning'>[chassis] starts to drill [target].</span>", \
 					"<span class='userdanger'>[chassis] starts to drill [target]...</span>", \
-					 "<span class='italics'>You hear drilling.</span>")
+					"<span class='italics'>You hear drilling.</span>")
 
 	// You can't drill harder by clicking more.
 	if(!(target in source.do_afters) && do_after_cooldown(target, source))
@@ -176,7 +176,7 @@
 		qdel(src)
 	if(istype(loc, /obj/vehicle/sealed/mecha/working) && scanning_time <= world.time)
 		var/obj/vehicle/sealed/mecha/working/mecha = loc
-		if(!mecha.occupants)
+		if(!LAZYLEN(mecha.occupants))
 			return
 		scanning_time = world.time + equip_cooldown
 		mineral_scan_pulse(get_turf(src))

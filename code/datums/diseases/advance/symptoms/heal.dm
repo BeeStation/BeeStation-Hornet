@@ -55,7 +55,7 @@
 	var/food_conversion = FALSE
 	desc = "The virus rapidly breaks down any foreign chemicals in the bloodstream."
 	threshold_desc = "<b>Resistance 7:</b> Increases chem removal speed.<br>\
-					  <b>Stage Speed 6:</b> Consumed chemicals nourish the host."
+						<b>Stage Speed 6:</b> Consumed chemicals nourish the host."
 
 /datum/symptom/heal/chem/Start(datum/disease/advance/A)
 	if(!..())
@@ -90,8 +90,8 @@
 	var/stabilize = FALSE
 	var/active_coma = FALSE //to prevent multiple coma procs
 	threshold_desc = "<b>Stealth 2:</b> Host appears to die when falling into a coma, triggering symptoms that activate on death.<br>\
-					  <b>Resistance 4:</b> The virus also stabilizes the host while they are in critical condition.<br>\
-					  <b>Stage Speed 7:</b> Increases healing speed."
+						<b>Resistance 4:</b> The virus also stabilizes the host while they are in critical condition.<br>\
+						<b>Stage Speed 7:</b> Increases healing speed."
 
 /datum/symptom/heal/coma/Start(datum/disease/advance/A)
 	if(!..())
@@ -188,7 +188,7 @@
 	var/scarcounter = 0
 
 	threshold_desc = "<b>Stage Speed 8:</b> Doubles healing speed.<br>\
-					  <b>Resistance 10:</b> Improves healing threshold."
+						<b>Resistance 10:</b> Improves healing threshold."
 
 /datum/symptom/heal/surface/Start(datum/disease/advance/A)
 	if(!..())
@@ -238,9 +238,9 @@
 	var/triple_metabolism = FALSE
 	var/reduced_hunger = FALSE
 	desc = "The virus causes the host's metabolism to accelerate rapidly, making them process chemicals twice as fast,\
-	 but also causing increased hunger."
+		but also causing increased hunger."
 	threshold_desc = "<b>Stealth 3:</b> Reduces hunger rate.<br>\
-					  <b>Stage Speed 10:</b> Chemical metabolization is tripled instead of doubled."
+						<b>Stage Speed 10:</b> Chemical metabolization is tripled instead of doubled."
 
 /datum/symptom/heal/metabolism/Start(datum/disease/advance/A)
 	if(!..())

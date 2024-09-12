@@ -71,7 +71,7 @@
 
 // /datum/component/two_handed signals
 #define COMSIG_TWOHANDED_WIELD "twohanded_wield"              //from base of datum/component/two_handed/proc/wield(mob/living/carbon/user): (/mob/user)
-      #define COMPONENT_TWOHANDED_BLOCK_WIELD 1
+		#define COMPONENT_TWOHANDED_BLOCK_WIELD 1
 #define COMSIG_TWOHANDED_UNWIELD "twohanded_unwield"          //from base of datum/component/two_handed/proc/unwield(mob/living/carbon/user): (/mob/user)
 
 // /datum/action signals
@@ -120,5 +120,5 @@
 #define COMSIG_PARENT_MOVED_RELAY "parent_moved_relay"
 
 /// Called when a buffer tries to send some stored data to something (datum/source, mob/user, datum/buffer, obj/item/buffer_parent) (buffer item may be null)
-#define COMSIG_PARENT_RECIEVE_BUFFER "recieve_buffer"
-	#define COMPONENT_BUFFER_RECIEVED (1 << 0)
+#define COMSIG_PARENT_RECEIVE_BUFFER "receive_buffer"
+	#define COMPONENT_BUFFER_RECEIVED (1 << 0)

@@ -147,7 +147,7 @@
 	if(!istype(newflash))
 		return
 	if(bulb)
-		to_chat("<span class='warning'>You fail to put the bulb into \the [src] as it already has a bulb in it.</spawn>")
+		to_chat(user, "<span class='warning'>You fail to put the bulb into \the [src] as it already has a bulb in it.</spawn>")
 		return
 	user.transferItemToLoc(newflash, src)
 	bulb = newflash
@@ -459,3 +459,5 @@
 #undef FLASH_USE
 #undef FLASH_USE_BURNOUT
 #undef FLASH_FAIL
+
+#undef CONFUSION_STACK_MAX_MULTIPLIER
