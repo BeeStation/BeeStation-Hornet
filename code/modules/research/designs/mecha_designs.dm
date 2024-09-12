@@ -272,7 +272,6 @@
 	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/* Removed for balance purposes, per https://github.com/BeeStation/BeeStation-Hornet/pull/2935
 /datum/design/mech_missile_rack
 	name = "Exosuit Weapon (BRM-6 Missile Rack)"
 	desc = "Allows for the construction of an BRM-6 Breaching Missile Rack."
@@ -293,7 +292,6 @@
 	construction_time = 20
 	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-*/
 
 /datum/design/clusterbang_launcher
 	name = "Exosuit Weapon (SOB-3 Clusterbang Launcher)"
