@@ -1,9 +1,5 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/item/storage/pod{
-	pixel_x = -25;
-	unlocked = 1
-	},
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/loading_area,
 /obj/structure/closet/crate/miningcar{
@@ -41,6 +37,17 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
+/area/shuttle/mining)
+"i" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/item/storage/pod/exploration{
+	pixel_x = -25;
+	pixel_y = -25
+	},
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
 "j" = (
 /obj/structure/shuttle/engine/propulsion/left,
@@ -171,7 +178,7 @@ s
 I
 e
 e
-X
+i
 a
 j
 "}

@@ -19,15 +19,14 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/storage/pod{
-	pixel_x = -26;
-	unlocked = 1
-	},
 /obj/machinery/camera/autoname/directional/south{
 	network = list("ss13","cargo")
 	},
 /obj/effect/turf_decal/loading_area{
 	dir = 4
+	},
+/obj/item/storage/pod/exploration{
+	pixel_x = -25
 	},
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
