@@ -2597,7 +2597,7 @@
 	dir = 1
 	},
 /obj/structure/sign/poster/contraband/busty_backdoor_xeno_babes_6{
-	pixel_x = -33
+	pixel_x = -32
 	},
 /turf/open/floor/iron/tech/grid,
 /area/syndicate_mothership/control)
@@ -4776,7 +4776,6 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/smartfridge,
@@ -4922,7 +4921,6 @@
 /obj/machinery/smartfridge,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/chem_dispenser/drinks/beer,
@@ -5952,17 +5950,12 @@
 	pixel_y = 9;
 	pixel_x = -7
 	},
-/obj/item/trash/plate{
-	pixel_x = 5;
-	pixel_y = 1
+/obj/item/plate{
+	pixel_x = 9
 	},
-/obj/item/trash/plate{
-	pixel_x = 5;
-	pixel_y = 4
-	},
-/obj/item/trash/plate{
-	pixel_x = 5;
-	pixel_y = 7
+/obj/item/plate{
+	pixel_x = 11;
+	pixel_y = 2
 	},
 /turf/open/floor/wood/big,
 /area/syndicate_mothership/control)
@@ -7660,7 +7653,6 @@
 "uq" = (
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/poddoor/shuttledock{
@@ -7685,7 +7677,6 @@
 "ut" = (
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/poddoor/shutters{
@@ -9067,10 +9058,6 @@
 /area/syndicate_mothership/control)
 "yx" = (
 /obj/structure/table/wood,
-/obj/item/trash/plate{
-	pixel_x = 1;
-	pixel_y = 1
-	},
 /obj/item/trash/candle{
 	pixel_x = -7;
 	pixel_y = 12
@@ -9586,9 +9573,7 @@
 	name = "tactical swivel chair"
 	},
 /obj/effect/turf_decal/siding/dark,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 27
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/glass/reinforced/plasma,
 /area/syndicate_mothership/control)
 "zT" = (
@@ -14302,6 +14287,17 @@
 /obj/structure/lattice,
 /turf/open/space,
 /area/space)
+"Md" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/plate_shard{
+	icon_state = "plate_shard3"
+	},
+/obj/item/plate_shard{
+	pixel_x = 8;
+	pixel_y = -5
+	},
+/turf/open/floor/wood/big,
+/area/syndicate_mothership/control)
 "Me" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/trimline/red/warning{
@@ -15891,9 +15887,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 27
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/iron/dark/textured_corner,
 /area/syndicate_mothership/control)
 "Qc" = (
@@ -16592,7 +16586,6 @@
 /obj/machinery/chem_dispenser/drinks/beer,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/chem_dispenser/drinks,
@@ -32573,7 +32566,7 @@ Tk
 Tk
 ku
 VR
-zC
+Md
 pU
 qj
 DT
