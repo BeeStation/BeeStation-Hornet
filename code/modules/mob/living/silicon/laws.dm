@@ -2,7 +2,7 @@
 	return
 
 /mob/living/silicon/proc/laws_sanity_check()
-	if (!laws)
+	if (!laws && !derelict)
 		make_laws()
 
 /mob/living/silicon/proc/deadchat_lawchange()

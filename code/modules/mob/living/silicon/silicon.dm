@@ -54,6 +54,9 @@
 	var/obj/item/card/id/internal_id_card
 	var/currently_stating_laws = FALSE
 
+	//whether or not this is a cyborg on a derelict station or not
+	var/derelict = FALSE
+
 	mobchatspan = "centcom"
 
 /mob/living/silicon/Initialize(mapload)
