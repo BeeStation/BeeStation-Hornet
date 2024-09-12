@@ -365,8 +365,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 /obj/item/xenoartifact/proc/create_beam(atom/target)
 	if((locate(src) in target?.contents) || !get_turf(target))
 		return
-	var/datum/beam/xenoa_beam/B = new((!isturf(loc) ? loc : src), target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
-	B.set_color(material)
+	var/datum/beam/xenoa_beam/B =  src.Beam(BeamTarget=target,icon_state = "xenoa_beam",icon='icons/obj/xenoarchaeology/xenoartifact.dmi', time = 1.5 SECONDS, beam_type=/obj/effect/ebeam/xenoa_ebeam)
+	B.beam_color = material
 	INVOKE_ASYNC(B, TYPE_PROC_REF(/datum/beam/xenoa_beam, Start))
 
 ///Default template used to interface with activator signals.
@@ -466,10 +466,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact/objective)
 	name = "artifact beam"
 
 /datum/beam/xenoa_beam
-	var/color
-
-/datum/beam/xenoa_beam/proc/set_color(col) //Custom proc to set beam colour
-	color = col
 
 /datum/beam/xenoa_beam/Draw()
 	var/Angle = round(get_angle(origin,target))
@@ -487,7 +483,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact/objective)
 		if(QDELETED(src))
 			break
 		var/obj/effect/ebeam/xenoa_ebeam/X = new(origin_turf) // Start Xenoartifact - This assigns colour to the beam
-		X.color = color
+		X.color = beam_color
 		X.owner = src
 		elements += X // End Xenoartifact
 
