@@ -12,6 +12,7 @@
 	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
 	var/list/no_coexistence_typecache //Used so you can't have specific spells together
 	var/no_random = FALSE // This is awful one to be a part of randomness - i.e.) soul tap
+	var/disabled = FALSE // Is this item disabled due to having issues? Must provide an issue reference and description of issue.
 
 /datum/spellbook_entry/New()
 	..()
@@ -21,6 +22,8 @@
 	return TRUE
 
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user,obj/item/spellbook/book) // Specific circumstances
+	if (disabled)
+		return FALSE
 	if(book.uses<cost || limit == 0)
 		return FALSE
 	for(var/spell in user.mind.spell_list)
@@ -414,6 +417,7 @@
 	It would be wise to avoid buying these with anything capable of causing you to swap bodies with others."
 	item_path = /obj/item/holoparasite_creator/wizard
 	category = "Assistance"
+	disabled = TRUE	// #11096: Currently in a broken state, cannot recall as they will immediately manifest and cannot move despite having range stats.
 
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"
