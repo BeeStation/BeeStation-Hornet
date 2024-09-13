@@ -1,0 +1,5 @@
+/obj/machinery/camera/autoname : /obj/machinery/camera/autoname{@OLD}
+/obj/machinery/camera/autoname/directional/north : /obj/machinery/camera/directional/north{@OLD}
+/obj/machinery/camera/autoname/directional/south : /obj/machinery/camera/directional/south{@OLD}
+/obj/machinery/camera/autoname/directional/east : /obj/machinery/camera/directional/east{@OLD}
+/obj/machinery/camera/autoname/directional/west : /obj/machinery/camera/directional/west{@OLD}

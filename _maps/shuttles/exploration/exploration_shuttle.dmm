@@ -262,7 +262,7 @@
 	pixel_x = 32;
 	pixel_y = 1
 	},
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/directional/east,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "G" = (

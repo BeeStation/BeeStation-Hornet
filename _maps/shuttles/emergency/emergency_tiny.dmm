@@ -469,7 +469,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/directional/east{
 	network = list("evac")
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -599,7 +599,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/directional/west{
 	network = list("evac")
 	},
 /turf/open/floor/circuit/green{

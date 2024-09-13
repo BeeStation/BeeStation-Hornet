@@ -13890,7 +13890,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/directional/west{
 	network = list("ss13", "security")
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -31786,7 +31786,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/captain)
 "eMU" = (
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/directional/south{
 	network = list("ss13", "prison")
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -36792,7 +36792,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "gxo" = (
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/directional/south{
 	network = list("ss13", "prison")
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -43240,7 +43240,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/directional/west{
 	network = list("ss13", "security")
 	},
 /obj/item/kirbyplants{
@@ -44447,7 +44447,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/corner,
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/directional/east,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -52402,7 +52402,7 @@
 	dir = 8
 	},
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/directional/east,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
@@ -54050,7 +54050,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/effect/turf_decal/tile/neutral,
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/directional/east{
 	network = list("ss13", "security")
 	},
 /turf/open/floor/iron,
@@ -56595,7 +56595,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/directional/east{
 	network = list("ss13", "security")
 	},
 /turf/open/floor/iron/dark,
@@ -58988,7 +58988,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron,
 /area/quartermaster/exploration_dock)
 "nKp" = (
@@ -63655,7 +63655,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 25
 	},
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/directional/east{
 	network = list("ss13", "security")
 	},
 /turf/open/floor/iron,
@@ -63894,7 +63894,7 @@
 /obj/machinery/vending/wallmed/lite{
 	pixel_y = 26
 	},
-/obj/machinery/camera/autoname/directional/north,
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "plt" = (
@@ -64976,7 +64976,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/directional/west,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
@@ -70797,7 +70797,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/directional/west{
 	network = list("ss13", "security")
 	},
 /obj/machinery/rnd/production/techfab/department/security,
@@ -83496,7 +83496,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/box,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -87704,7 +87704,7 @@
 /obj/structure/closet{
 	name = "Evidence Closet"
 	},
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/brig/aft)
 "wWj" = (
@@ -91473,7 +91473,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/machinery/light,
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/directional/south{
 	network = list("ss13", "security")
 	},
 /obj/machinery/firealarm/directional/south,
