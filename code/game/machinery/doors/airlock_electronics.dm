@@ -4,8 +4,6 @@
 	custom_price = 5
 	/// A list of all granted accesses
 	var/list/accesses = list()
-	// Whether or not the door should require ALL or ONE of the listed accesses
-	var/one_access = TRUE
 	/// Unrestricted sides, or sides of the airlock that will open regardless of access
 	var/unres_sides = 0
 	///what name are we passing to the finished airlock

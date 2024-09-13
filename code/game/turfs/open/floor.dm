@@ -241,7 +241,7 @@
 				if(the_rcd.airlock_electronics)
 					new_window.name = the_rcd.airlock_electronics.passed_name || initial(new_window.name)
 					new_window.req_access = the_rcd.airlock_electronics.accesses.Copy()
-					new_window.one_access = the_rcd.airlock_electronics.one_access.Copy()
+					new_window.one_access = the_rcd.airlock_electronics.one_access
 				new_window.autoclose = TRUE
 				new_window.update_icon()
 				return TRUE
