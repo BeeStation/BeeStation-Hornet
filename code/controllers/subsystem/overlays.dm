@@ -139,5 +139,3 @@ SUBSYSTEM_DEF(overlays)
 			overlays |= cached_other
 	else if(cut_old)
 		cut_overlays()
-
-#undef ZM_AUTOMANGLE
