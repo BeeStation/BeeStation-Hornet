@@ -194,6 +194,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 	color = "#DE3A3A"
 /obj/effect/mapping_helpers/airlock/access/station/security/brig
 	access = list(ACCESS_BRIG)
+/obj/effect/mapping_helpers/airlock/access/station/security/forensics
+	access = list(ACCESS_FORENSICS_LOCKERS)
 /obj/effect/mapping_helpers/airlock/access/station/security/armoury
 	access = list(ACCESS_ARMORY)
 /obj/effect/mapping_helpers/airlock/access/station/security/prison
