@@ -188,12 +188,12 @@
  * Heals an object.
  */
 /datum/holoparasite_ability/major/healing/proc/heal_obj(obj/target)
-	var/old_integrity = target.obj_integrity
-	target.obj_integrity = min(target.obj_integrity + (target.max_integrity * 0.1), target.max_integrity)
-	if(old_integrity > target.obj_integrity)
+	var/old_integrity = target.get_integrity()
+	target.repair_damage(target.get_integrity() + (target.max_integrity * 0.1), target.max_integrity)
+	if(old_integrity > target.get_integrity())
 		SSblackbox.record_feedback("associative", "holoparasite_obj_damage_healed", 1, list(
 			"target" = replacetext("[target.type]", "/obj/", ""),
-			"amount" = max(old_integrity - target.obj_integrity, 0)
+			"amount" = max(old_integrity - target.get_integrity(), 0)
 		))
 
 /**

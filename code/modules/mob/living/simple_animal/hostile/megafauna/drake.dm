@@ -15,8 +15,8 @@ It acts as a melee creature, chasing down and attacking its target while also us
 Whenever possible, the drake will breathe fire directly at it's target, igniting and heavily damaging anything caught in the blast.
 It also often causes lava to pool from the ground around you - many nearby turfs will temporarily turn into lava, dealing damage to anything on the turfs.
 The drake also utilizes its wings to fly into the sky, flying after its target and attempting to slam down on them. Anything near when it slams down takes huge damage.
- - Sometimes it will chain these swooping attacks over and over, making swiftness a necessity.
- - Sometimes, it will encase its target in an arena of lava
+	- Sometimes it will chain these swooping attacks over and over, making swiftness a necessity.
+	- Sometimes, it will encase its target in an arena of lava
 
 When an ash drake dies, it leaves behind a chest that contains a bottle of dragon's blood with several effects, ranging from turning the imbiber into a lizard, skeleton or just making them lavaproof.
 
@@ -31,13 +31,15 @@ Difficulty: Medium
 	desc = "Guardians of the necropolis."
 	health = 1250
 	maxHealth = 1250
-	attacktext = "chomps"
+	attack_verb_continuous = "chomps"
+	attack_verb_simple = "chomp"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
 	icon_state = "dragon"
 	icon_living = "dragon"
 	icon_dead = "dragon_dead"
-	friendly = "stares down"
+	friendly_verb_continuous = "stares down"
+	friendly_verb_simple = "stare down"
 	speak_emote = list("roars")
 	armour_penetration = 40
 	melee_damage = 40
@@ -269,7 +271,7 @@ Difficulty: Medium
 		new /obj/effect/hotspot(T)
 		T.hotspot_expose(700,50,1)
 		for(var/mob/living/L in T.contents)
-			if(L in hit_list || L == source)
+			if((L in hit_list) || L == source)
 				continue
 			hit_list += L
 			L.adjustFireLoss(20)
@@ -411,6 +413,8 @@ Difficulty: Medium
 	light_range = 2
 	duration = 13
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/lava_warning)
+
 /obj/effect/temp_visual/lava_warning/Initialize(mapload, var/reset_time = 10)
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(fall), reset_time)
@@ -479,6 +483,8 @@ Difficulty: Medium
 	duration = 10
 	randomdir = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dragon_flight)
+
 /obj/effect/temp_visual/dragon_flight/Initialize(mapload, negative)
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(flight), negative)
@@ -527,6 +533,8 @@ Difficulty: Medium
 	layer = BELOW_MOB_LAYER
 	light_range = 2
 	duration = 9
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/target)
 
 /obj/effect/temp_visual/target/Initialize(mapload, list/flame_hit)
 	. = ..()
@@ -578,3 +586,8 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser/grant_achievement(medaltype,scoretype)
 	return
+
+#undef DRAKE_SWOOP_HEIGHT
+#undef DRAKE_SWOOP_DIRECTION_CHANGE_RANGE
+#undef SWOOP_DAMAGEABLE
+#undef SWOOP_INVULNERABLE

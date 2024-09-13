@@ -151,7 +151,7 @@
 	var/list/advanced_surgeries = list()
 	var/static/datum/techweb/linked_techweb
 
-/obj/item/organ/cyberimp/brain/linkedsurgery/Initialize()
+/obj/item/organ/cyberimp/brain/linkedsurgery/Initialize(mapload)
 	. = ..()
 	if(isnull(linked_techweb))
 		linked_techweb = SSresearch.science_tech

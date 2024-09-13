@@ -12,7 +12,6 @@
 	unwrench_path = /obj/item/clockwork/trap_placer/skewer
 	buckle_lying = FALSE
 	max_integrity = 40
-	obj_integrity = 40
 	var/cooldown = 0
 	var/extended = FALSE
 	var/mutable_appearance/stab_overlay
@@ -28,7 +27,7 @@
 	var/target_stabbed = FALSE
 	density = TRUE
 	for(var/mob/living/M in get_turf(src))
-		if(M.incorporeal_move || M.is_flying())
+		if(M.incorporeal_move || M.movement_type & (FLOATING|FLYING))
 			continue
 		if(buckle_mob(M, TRUE))
 			target_stabbed = TRUE

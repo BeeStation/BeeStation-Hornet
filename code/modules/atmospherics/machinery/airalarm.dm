@@ -180,6 +180,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
 	var/list/air_vent_info = list()
 	var/list/air_scrub_info = list()
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/airalarm)
+
 /obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
 	. = ..()
 	wires = new /datum/wires/airalarm(src)
@@ -865,7 +867,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
 		new /obj/item/stack/sheet/iron(loc, 2)
 		var/obj/item/I = new /obj/item/electronics/airalarm(loc)
 		if(!disassembled)
-			I.obj_integrity = I.max_integrity * 0.5
+			I.take_damage(I.max_integrity * 0.5, sound_effect=FALSE)
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 

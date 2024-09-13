@@ -27,7 +27,7 @@
 		if(WIRE_LIMIT)
 			C.visible_message("[icon2html(C, viewers(holder))]<b>[C]</b> makes a large whirring noise.")
 
-/datum/wires/particle_accelerator/control_box/on_cut(wire, mend)
+/datum/wires/particle_accelerator/control_box/on_cut(wire, mob/user, mend)
 	var/obj/machinery/particle_accelerator/control_box/C = holder
 	switch(wire)
 		if(WIRE_POWER)

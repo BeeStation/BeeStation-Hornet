@@ -109,6 +109,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define XENOBIOLOGY_COMPATIBLE		(1<<9)
 /// Are hidden stashes allowed to spawn here?
 #define HIDDEN_STASH_LOCATION		(1<<10)
+/// Indicates that this area uses an APC from another location (Skips the unit tests for APCs)
+#define REMOTE_APC					(1<<11)
 
 /*
 	These defines are used specifically with the atom/pass_flags bitmask
@@ -177,7 +179,6 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define MOBILITY_PULL			(1<<6)		//! can pull things
 
 #define MOBILITY_FLAGS_DEFAULT (MOBILITY_MOVE | MOBILITY_STAND | MOBILITY_PICKUP | MOBILITY_USE | MOBILITY_UI | MOBILITY_STORAGE | MOBILITY_PULL)
-#define MOBILITY_FLAGS_INTERACTION (MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_UI | MOBILITY_STORAGE)
 
 // radiation
 #define RAD_PROTECT_CONTENTS (1<<0)
@@ -200,7 +201,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 	if(HAS_TRAIT_FROM_ONLY(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL))\
 		REMOVE_TRAIT(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL);\
 	else if(!HAS_TRAIT(x, TRAIT_KEEP_TOGETHER))\
-	 	x.appearance_flags &= ~KEEP_TOGETHER
+		x.appearance_flags &= ~KEEP_TOGETHER
 
 //dir macros
 ///Returns true if the dir is diagonal, false otherwise

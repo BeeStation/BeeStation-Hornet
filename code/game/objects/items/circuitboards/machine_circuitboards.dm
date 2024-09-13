@@ -480,6 +480,8 @@
 		/obj/machinery/smartfridge/disks = "disks")
 	needs_anchored = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
+
 /obj/item/circuitboard/machine/smartfridge/Initialize(mapload, new_type)
 	if(new_type)
 		build_path = new_type
@@ -506,6 +508,7 @@
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/cell = 1,
 		/obj/item/stack/cable_coil = 3)
 	needs_anchored = FALSE
 

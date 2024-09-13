@@ -42,7 +42,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 #ifndef TESTING
 	//disable the integrated byond vv in the client side debugging tools since it doesn't respect vv read protections
-	if (lowertext(hsrc_command) == "_debug")
+	if (LOWER_TEXT(hsrc_command) == "_debug")
 		return
 #endif
 
@@ -555,6 +555,14 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 //////////////
 
 /client/Del()
+	if(!gc_destroyed)
+		Destroy() //Clean up signals and timers.
+	return ..()
+
+/client/Destroy()
+	GLOB.clients -= src
+	GLOB.directory -= ckey
+	GLOB.mentors -= src
 	log_access("Logout: [key_name(src)]")
 	GLOB.ahelp_tickets.ClientLogout(src)
 	GLOB.mhelp_tickets.ClientLogout(src)
@@ -586,14 +594,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		var/atom/eye_thing = eye
 		LAZYREMOVE(eye_thing.eye_users, src)
 	GLOB.requests.client_logout(src)
-	GLOB.directory -= ckey
-	GLOB.clients -= src
-	GLOB.mentors -= src
+
 	SSambience.remove_ambience_client(src)
 	Master.UpdateTickRate()
-	return ..()
-
-/client/Destroy()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
@@ -820,7 +823,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 			sleep(15 SECONDS) //Longer sleep here since this would trigger if a client tries to reconnect manually because the inital reconnect failed
 
-			 //we sleep after telling the client to reconnect, so if we still exist something is up
+			//we sleep after telling the client to reconnect, so if we still exist something is up
 			log_access("Forced disconnect: [key] [computer_id] [address] - CID randomizer check")
 
 			qdel(src)
@@ -985,7 +988,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(isatom(new_eye))
 		LAZYADD(new_eye.eye_users, src)
 
-	// SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye) // use this when you want a thing from TG
+	// SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye) // use this when you want a thing from TG //This is from planecube pr, dragon, we most certainly dont want from that pr
 
 
 /client/proc/add_verbs_from_config()
@@ -1130,7 +1133,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(response.errored || response.status_code != 200 || response.body == "[]")
 		return
 
-	bans = json_decode(response["body"])
+	bans = json_decode(response.body)
 	for(var/list/ban in bans)
 		var/list/ban_attributes = ban["banAttributes"]
 		if(ban_attributes["BeeStationGlobal"])
@@ -1157,3 +1160,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/proc/increase_score(achievement_type, mob/user, value)
 	return player_details.achievements.increase_score(achievement_type, user, value)
+
+#undef LIMITER_SIZE
+#undef CURRENT_SECOND
+#undef SECOND_COUNT
+#undef CURRENT_MINUTE
+#undef MINUTE_COUNT
+#undef ADMINSWARNED_AT

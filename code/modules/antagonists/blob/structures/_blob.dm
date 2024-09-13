@@ -21,6 +21,8 @@
 	var/atmosblock = FALSE //if the blob blocks atmos and heat spread
 	var/mob/camera/blob/overmind
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
+
 /obj/structure/blob/Initialize(mapload, owner_overmind)
 	. = ..()
 	if(owner_overmind)
@@ -332,10 +334,13 @@
 	name = "normal blob"
 	icon_state = "blob"
 	light_range = 0
-	obj_integrity = 21 //doesn't start at full health
 	max_integrity = 25
 	health_regen = 1
 	brute_resist = 0.25
+
+/obj/structure/blob/normal/Initialize(mapload)
+	. = ..()
+	update_integrity(21) //doesn't start at full health
 
 /obj/structure/blob/normal/scannerreport()
 	if(obj_integrity <= 15)

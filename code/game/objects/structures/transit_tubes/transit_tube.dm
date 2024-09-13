@@ -13,6 +13,8 @@
 	var/exit_delay = 1
 	var/enter_delay = 0
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/transit_tube)
+
 /obj/structure/transit_tube/Initialize(mapload, newdirection)
 	. = ..()
 	if(newdirection)
