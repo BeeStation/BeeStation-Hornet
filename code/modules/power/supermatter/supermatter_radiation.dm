@@ -22,7 +22,7 @@
 	// A standard N2 SM seems to produce a value of around 1,500.
 	var/power_factor = min(power, MAX_ACCEPTED_POWER_OUTPUT)
 
-	var/integrity = 1 - CLAMP01(damage / explosion_point)
+	var/integrity = 1.01 - CLAMP01(damage / explosion_point)
 
 	// When integrity goes down, the threshold (from an observable point of view, rads) go up.
 	// However, the power factor must go up as well, otherwise turning off the emitters

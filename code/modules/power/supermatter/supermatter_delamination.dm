@@ -69,7 +69,7 @@
 /datum/supermatter_delamination/proc/call_singulo()
 	var/obj/anomaly/singularity/created_singularity = new(supermatter_turf)
 	created_singularity.energy = 800
-	created_singularity.consume(src)
+	created_singularity.consume(supermatter_turf)
 	should_spawn_anomalies = FALSE
 	message_admins("The Supermatter Crystal has created a singularity [ADMIN_JMP(created_singularity)].")
 

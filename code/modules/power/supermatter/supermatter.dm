@@ -73,7 +73,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 
 	var/matter_power = 0
-	var/last_rads = 0
 	var/zap_cutoff = 1500 //The cutoff for a bolt jumping, grows with heat, lowers with higher mol count,
 
 	//Temporary values so that we can optimize this
@@ -221,7 +220,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	data["active"] = TRUE
 	data["SM_integrity"] = get_integrity_percent()
 	data["SM_power"] = power
-	data["SM_radiation"] = last_rads
 	data["SM_ambienttemp"] = air.return_temperature()
 	data["SM_ambientpressure"] = air.return_pressure()
 	data["SM_bad_moles_amount"] = MOLE_PENALTY_THRESHOLD / gasefficency
@@ -609,7 +607,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		if(zap_count >= 1)
 			playsound(src.loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10)
 			for(var/i in 1 to zap_count)
-				supermatter_zap(src, range, clamp(power*2, 4000, 20000), list(), flags, zap_cutoff, power, zap_icon, color)
+				supermatter_zap(src, range, clamp(power*2, 4000, 20000), flags, list(), zap_cutoff, power, zap_icon, color)
 
 
 		if(removed && removed.return_temperature())
@@ -622,15 +620,15 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		range = clamp(power / env.return_pressure() * 10, 2, 8)
 		if(power > POWER_PENALTY_THRESHOLD)
 			playsound(src.loc, 'sound/weapons/emitter2.ogg', 100, 1, extrarange = 10)
-			supermatter_zap(src, range, min(power*2, 20000))
-			supermatter_zap(src, range, min(power*2, 20000))
+			supermatter_zap(src, range, min(power*2, 20000), flags)
+			supermatter_zap(src, range, min(power*2, 20000), flags)
 			if(power > SEVERE_POWER_PENALTY_THRESHOLD)
-				supermatter_zap(src, range, min(power*2, 20000))
+				supermatter_zap(src, range, min(power*2, 20000), flags)
 				if(power > CRITICAL_POWER_PENALTY_THRESHOLD)
-					supermatter_zap(src, range, min(power*2, 20000))
+					supermatter_zap(src, range, min(power*2, 20000), flags)
 		else if (damage > damage_penalty_point && prob(20))
 			playsound(src.loc, 'sound/weapons/emitter2.ogg', 100, 1, extrarange = 10)
-			supermatter_zap(src, range, clamp(power*2, 4000, 20000))
+			supermatter_zap(src, range, clamp(power*2, 4000, 20000), flags)
 
 		if(prob(15) && power > POWER_PENALTY_THRESHOLD)
 			supermatter_pull(src, power/750)
@@ -1000,7 +998,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(zap_str < zap_cutoff)
 		return
 
-	var/target
+	var/atom/target
 	var/list/arctargets = list()
 	//Making a new copy so additons further down the recursion do not mess with other arcs
 	var/list/targets_copy = targets_hit.Copy()
@@ -1052,7 +1050,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		if(prob(80))
 			zap_flags &= ~ZAP_MACHINE_EXPLOSIVE
 		if(istype(target, /obj/machinery/power/tesla_coil))
-			var/obj/machinery/power/tesla_coil/coil = target
 			//In the best situation we can expect this to grow up to 2120kw before a delam/IT'S GONE TOO FAR FRED SHUT IT DOWN
 			//The formula for power gen is zap_str * zap_mod / 2 * capacitor rating, between 1 and 4
 			var/multi = 10
@@ -1092,15 +1089,19 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		//Then we finish it all up
 		//This gotdamn variable is a boomer and keeps giving me problems
 		var/turf/T = get_turf(target)
+		if(!T)
+			return
 		var/pressure = T.return_air().return_pressure()
+		if(pressure == 0) //Fucking atmos code.
+			pressure = 1
 		//We get our range with the strength of the zap and the pressure, the lower the former and the higher the latter the better
 		var/new_range = clamp(zap_str / pressure * 10, 2, 7)
 		if(prob(5))
 			zap_str -= (zap_str/10)
-			supermatter_zap(target, new_range, zap_str, targets_copy)
-			supermatter_zap(target, new_range, zap_str, targets_copy)
+			supermatter_zap(target, new_range, zap_str, zap_flags, targets_copy)
+			supermatter_zap(target, new_range, zap_str, zap_flags, targets_copy)
 		else
-			supermatter_zap(target, new_range, zap_str, targets_copy)
+			supermatter_zap(target, new_range, zap_str, zap_flags, targets_copy)
 
 /obj/machinery/power/supermatter_crystal/proc/is_power_processing()
 	if(!power_changes) //Still toggled off from a failed atmos tick at some point
