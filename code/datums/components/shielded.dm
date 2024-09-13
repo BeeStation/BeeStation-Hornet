@@ -188,7 +188,7 @@
 		to_chat(user, "<span class='warning'>The rune can only be used on battlemage armour!</span>")
 		return
 
-		max_integrity += recharge_rune.added_shield
-		charge_recovery(recharge_rune.added_shield)
-		to_chat(user, "<span class='notice'>You charge \the [parent]. It can now absorb [current_integrity] hits.</span>")
-		qdel(recharge_rune)
+	max_integrity += recharge_rune.added_shield
+	adjust_charge(recharge_rune.added_shield)
+	to_chat(user, "<span class='notice'>You charge \the [parent]. It can now absorb [current_integrity] hits.</span>")
+	qdel(recharge_rune)
