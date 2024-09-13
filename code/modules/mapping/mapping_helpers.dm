@@ -236,7 +236,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 	access = list(ACCESS_TOX_STORAGE)
 /obj/effect/mapping_helpers/airlock/access/station/science/robotics
 	access = list(ACCESS_ROBOTICS)
-/obj/effect/mapping_helpers/airlock/access/station/science/researchh
+/obj/effect/mapping_helpers/airlock/access/station/science/research
 	access = list(ACCESS_RESEARCH)
 /obj/effect/mapping_helpers/airlock/access/station/science/exploration
 	access = list(ACCESS_EXPLORATION)
@@ -264,8 +264,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 	access = list(ACCESS_MECH_ENGINE)
 /obj/effect/mapping_helpers/airlock/access/station/engineering/external_airlocks
 	access = list(ACCESS_EXTERNAL_AIRLOCKS)
-/obj/effect/mapping_helpers/airlock/access/station/engineering/maintenance
-	access = list(ACCESS_MAINT_TUNNELS)
 
 //COMMAND
 /obj/effect/mapping_helpers/airlock/access/station/command
