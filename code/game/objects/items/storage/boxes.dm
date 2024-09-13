@@ -526,8 +526,8 @@
 /obj/item/storage/box/donkpockets
 
 /obj/item/storage/box/donkpockets/PopulateContents()
-    for(var/i in 1 to 6)
-        new donktype(src)
+	for(var/i in 1 to 6)
+		new donktype(src)
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"

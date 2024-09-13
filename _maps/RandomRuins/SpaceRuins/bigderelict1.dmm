@@ -863,7 +863,7 @@
 /obj/machinery/door/airlock/public/glass,
 /obj/machinery/door/poddoor{
 	id = "bigderelictcheckpoint";
-	name = "checkpoint security doors"
+	name = "checkpoint Security Doors"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"

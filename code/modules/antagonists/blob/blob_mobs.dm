@@ -118,6 +118,8 @@
 	var/list/datum/disease/spore_diseases = list()
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
+
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
 		factory = linked_node

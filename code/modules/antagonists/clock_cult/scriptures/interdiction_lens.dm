@@ -121,3 +121,5 @@
 
 /obj/item/borg/projectile_dampen/clockcult/process_recharge()
 	energy = maxenergy
+
+#undef INTERDICTION_LENS_RANGE

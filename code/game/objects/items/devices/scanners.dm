@@ -410,29 +410,18 @@ GENE SCANNER
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/datum/species/S = H.dna.species
-		var/mutant = FALSE
-		if(H.dna.check_mutation(HULK))
-			mutant = TRUE
-		else if(S.mutantlungs != initial(S.mutantlungs))
-			mutant = TRUE
-		else if(S.mutant_brain != initial(S.mutant_brain))
-			mutant = TRUE
-		else if(S.mutant_heart != initial(S.mutant_heart))
-			mutant = TRUE
-		else if(S.mutanteyes != initial(S.mutanteyes))
-			mutant = TRUE
-		else if(S.mutantears != initial(S.mutantears))
-			mutant = TRUE
-		else if(S.mutanthands != initial(S.mutanthands))
-			mutant = TRUE
-		else if(S.mutanttongue != initial(S.mutanttongue))
-			mutant = TRUE
-		else if(S.mutanttail != initial(S.mutanttail))
-			mutant = TRUE
-		else if(S.mutantliver != initial(S.mutantliver))
-			mutant = TRUE
-		else if(S.mutantstomach != initial(S.mutantstomach))
-			mutant = TRUE
+		var/mutant = H.dna.check_mutation(HULK) \
+			|| S.mutantlungs != initial(S.mutantlungs) \
+			|| S.mutantbrain != initial(S.mutantbrain) \
+			|| S.mutantheart != initial(S.mutantheart) \
+			|| S.mutanteyes != initial(S.mutanteyes) \
+			|| S.mutantears != initial(S.mutantears) \
+			|| S.mutanthands != initial(S.mutanthands) \
+			|| S.mutanttongue != initial(S.mutanttongue) \
+			|| S.mutantliver != initial(S.mutantliver) \
+			|| S.mutantstomach != initial(S.mutantstomach) \
+			|| S.mutantappendix != initial(S.mutantappendix) \
+			|| S.mutantwings != initial(S.mutantwings)
 
 		message += "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>"
 		message += "<span class='info'>Core temperature: [round(H.coretemperature-T0C,0.1)] &deg;C ([round(H.coretemperature*1.8-459.67,0.1)] &deg;F)</span>"
@@ -1034,6 +1023,8 @@ GENE SCANNER
 	var/default_scanning_module = /obj/item/stock_parts/scanning_module
 	/// Cooldown for when the extrapolator can be used next.
 	COOLDOWN_DECLARE(usage_cooldown)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 
 /obj/item/extrapolator/Initialize(mapload, obj/item/stock_parts/scanning_module/starting_scanner)
 	. = ..()
