@@ -276,6 +276,7 @@
 				electronics.forceMove(display)
 				display.electronics = electronics
 				display.req_access = electronics.accesses
+				display.one_access = electronics.one_access
 			qdel(src)
 	else
 		return ..()

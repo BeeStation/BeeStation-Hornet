@@ -167,6 +167,7 @@
 		if(EP.adapt_circuit(user, 25))
 			var/obj/item/electronics/airlock/AE = new(src)
 			AE.accesses = EP.electronics.accesses
+			AE.one_access = EP.electronics.one_access
 			AE.unres_sides = EP.electronics.unres_sides
 			AE.play_tool_sound(src, 100)
 			user.visible_message("[user] installs the electronics into the airlock assembly.", \
@@ -267,6 +268,7 @@
 				door.heat_proof = heat_proof_finished
 				door.security_level = AIRLOCK_SECURITY_NONE
 				door.req_access = electronics.accesses
+				door.one_access = electronics.one_access
 				if(created_name)
 					door.name = created_name
 				else if(electronics.passed_name)

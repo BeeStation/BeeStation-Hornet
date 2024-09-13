@@ -4,6 +4,8 @@
 	custom_price = 5
 	/// A list of all granted accesses
 	var/list/accesses = list()
+	// Whether or not the door should require ALL or ONE of the listed accesses
+	var/one_access = TRUE
 	/// Unrestricted sides, or sides of the airlock that will open regardless of access
 	var/unres_sides = 0
 	///what name are we passing to the finished airlock
@@ -51,6 +53,7 @@
 /obj/item/electronics/airlock/ui_data()
 	var/list/data = list()
 	data["accesses"] = accesses
+	data["one_access"] = one_access
 	data["unres_direction"] = unres_sides
 	data["passedName"] = passed_name
 	data["passedCycleId"] = passed_cycle_id
@@ -62,9 +65,13 @@
 	switch(action)
 		if("clear_all")
 			accesses = list()
+			one_access = TRUE
 			. = TRUE
 		if("grant_all")
 			accesses = get_all_accesses()
+			. = TRUE
+		if("one_access")
+			one_access = !one_access
 			. = TRUE
 		if("set")
 			var/access = text2num(params["access"])

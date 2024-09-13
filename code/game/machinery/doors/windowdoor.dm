@@ -317,6 +317,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 						var/obj/item/electronics/airlock/ae
 						if(!electronics)
 							ae = new/obj/item/electronics/airlock(drop_location())
+							ae.one_access = one_access
 							ae.accesses = req_access
 						else
 							ae = electronics

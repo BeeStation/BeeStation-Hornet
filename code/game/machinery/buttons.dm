@@ -36,6 +36,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 
 	if(req_access.len)
 		board = new(src)
+		board.one_access = one_access
 		board.accesses = req_access
 
 
@@ -77,6 +78,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 				to_chat(user, "<span class='warning'>\The [W] is stuck to you!</span>")
 				return
 			board = W
+			one_access = board.one_access
 			req_access = board.accesses
 			to_chat(user, "<span class='notice'>You add [W] to the button.</span>")
 
