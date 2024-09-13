@@ -1,4 +1,0 @@
-hint: "Manual camera networks have been deprecated, please create or use a subtype instead."
-/obj/machinery/computer/security:
-  banned_variables:
-    network:
