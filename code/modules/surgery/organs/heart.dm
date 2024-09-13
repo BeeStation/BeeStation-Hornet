@@ -99,6 +99,8 @@
 		failed = TRUE
 
 /obj/item/organ/heart/get_availability(datum/species/S)
+	if(S.mutantheart)
+		return TRUE //always give heart if mutant is defined
 	return !(NOBLOOD in S.species_traits)
 
 /obj/item/organ/heart/cursed
