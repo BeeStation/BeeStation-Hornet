@@ -1337,18 +1337,22 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/checkpoint/supply
 	name = "Security Post - Cargo Bay"
 	icon_state = "checkpoint_supp"
+	access = list(ACCESS_SECURITY, ACCESS_HOP)
 
 /area/security/checkpoint/engineering
 	name = "Security Post - Engineering"
 	icon_state = "checkpoint_engi"
+	access = list(ACCESS_SECURITY, ACCESS_CE)
 
 /area/security/checkpoint/medical
 	name = "Security Post - Medbay"
 	icon_state = "checkpoint_med"
+	access = list(ACCESS_SECURITY, ACCESS_CMO)
 
 /area/security/checkpoint/science
 	name = "Security Post - Science"
 	icon_state = "checkpoint_sci"
+	access = list(ACCESS_SECURITY, ACCESS_RD)
 
 /area/security/checkpoint/science/research
 	name = "Security Post - Research Division"
