@@ -230,3 +230,8 @@
 	description = "<span class='nicegreen'>The starlight emanating from space is so mesmerizing.</span>"
 	mood_change = 10
 	timeout = 10 MINUTES
+
+/datum/mood_event/bigplush
+	description = "<span class='nicegreen'>Holding that big plush was quite nice.</span>"
+	mood_change = 1
+	timeout = 10 SECONDS

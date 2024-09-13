@@ -35,6 +35,7 @@ SUBSYSTEM_DEF(job)
 		JOB_NAME_AI,
 		JOB_NAME_ASSISTANT,
 		JOB_NAME_CYBORG,
+		JOB_NAME_POSIBRAIN,
 		JOB_NAME_CAPTAIN,
 		JOB_NAME_HEADOFPERSONNEL,
 		JOB_NAME_HEADOFSECURITY,
@@ -45,8 +46,7 @@ SUBSYSTEM_DEF(job)
 		JOB_NAME_DEPUTY,
 		JOB_NAME_GIMMICK)
 
-/datum/controller/subsystem/job/Initialize(timeofday)
-	SSmapping.HACK_LoadMapConfig()
+/datum/controller/subsystem/job/Initialize()
 	if(!occupations.len)
 		SetupOccupations()
 	if(CONFIG_GET(flag/load_jobs_from_txt))
@@ -66,7 +66,7 @@ SUBSYSTEM_DEF(job)
 			crew_obj_jobs["[job]"] += list(type)
 		qdel(obj)
 
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/job/Recover()
 	occupations = SSjob.occupations
@@ -554,7 +554,14 @@ SUBSYSTEM_DEF(job)
 				newplayer.new_character = living_mob
 			else
 				M = living_mob
-
+		else
+			if(!isnull(new_mob)) //Detect fail condition on equip
+			//if equip() is somehow able to fail, send them back to lobby
+				var/mob/dead/new_player/NP = new()
+				NP.ckey = M.client.ckey
+				qdel(M)
+				to_chat(M, "Error equipping [rank]. Returning to lobby.</b>")
+				return null
 		SSpersistence.antag_rep_change[M.client.ckey] += job.GetAntagRep()
 
 		if(M.client.holder)

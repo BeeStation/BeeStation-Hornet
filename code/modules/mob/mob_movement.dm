@@ -164,21 +164,23 @@
   * Called by client/Move()
   */
 /client/proc/Process_Grab()
-	if(mob.pulledby)
-		if((mob.pulledby == mob.pulling) && (mob.pulledby.grab_state == GRAB_PASSIVE))			//Don't autoresist passive grabs if we're grabbing them too.
-			return
-		if(mob.incapacitated(ignore_restraints = 1))
-			move_delay = world.time + 10
-			return TRUE
-		else if(mob.restrained(ignore_grab = 1))
-			move_delay = world.time + 10
-			to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
-			return TRUE
-		else if(mob.pulledby.grab_state == GRAB_AGGRESSIVE)
-			move_delay = world.time + 10
-			return TRUE
-		else
-			return mob.resist_grab(1)
+	if(!mob.pulledby)
+		return FALSE
+
+	if(mob.pulledby == mob.pulling && mob.pulledby.grab_state == GRAB_PASSIVE) //Don't autoresist passive grabs if we're grabbing them too.
+		return FALSE
+	if(mob.incapacitated(ignore_restraints = TRUE))
+		COOLDOWN_START(src, move_delay, 1 SECONDS)
+		return TRUE
+	else if(HAS_TRAIT(mob, TRAIT_RESTRAINED))
+		COOLDOWN_START(src, move_delay, 1 SECONDS)
+		to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
+		return TRUE
+	else if(mob.pulledby.grab_state == GRAB_AGGRESSIVE)
+		COOLDOWN_START(src, move_delay, 1 SECONDS)
+		return TRUE
+	else
+		return mob.resist_grab(1)
 
 /**
   * Allows mobs to ignore density and phase through objects
@@ -302,7 +304,8 @@
   * You can move in space if you have a spacewalk ability
   */
 /mob/Process_Spacemove(movement_dir = 0)
-	if(spacewalk || ..())
+	. = ..()
+	if(. ||spacewalk)
 		return TRUE
 	var/atom/movable/backup = get_spacemove_backup(movement_dir)
 	if(backup)
@@ -313,9 +316,9 @@
 	return FALSE
 
 /**
-   * Finds a target near a mob that is viable for pushing off when moving.
-   * Takes the intended movement direction as input.
-  */
+ * Finds a target near a mob that is viable for pushing off when moving.
+ * Takes the intended movement direction as input.
+*/
 /mob/get_spacemove_backup(moving_direction)
 	for(var/atom/pushover as anything in range(1, get_turf(src)))
 		if(pushover == src)

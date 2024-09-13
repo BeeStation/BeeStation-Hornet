@@ -8,6 +8,8 @@
 	var/timer = 480 //eventually the person will be freed
 	var/mob/living/petrified_mob
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/statue/petrified)
+
 /obj/structure/statue/petrified/Initialize(mapload, mob/living/L, statue_timer)
 	. = ..()
 	if(statue_timer)
@@ -19,6 +21,7 @@
 		L.visible_message("<span class='warning'>[L]'s skin rapidly turns to marble!</span>", "<span class='userdanger'>Your body freezes up! Can't... move... can't...  think...</span>")
 		L.forceMove(src)
 		ADD_TRAIT(L, TRAIT_MUTE, STATUE_MUTE)
+		ADD_TRAIT(L, TRAIT_NO_BLOOD, STATUE_MUTE)
 		L.faction += "mimic" //Stops mimics from instaqdeling people in statues
 		L.status_flags |= GODMODE
 		obj_integrity = L.health + 100 //stoning damaged mobs will result in easier to shatter statues
@@ -60,6 +63,7 @@
 		petrified_mob.status_flags &= ~GODMODE
 		petrified_mob.forceMove(loc)
 		REMOVE_TRAIT(petrified_mob, TRAIT_MUTE, STATUE_MUTE)
+		REMOVE_TRAIT(petrified_mob, TRAIT_NO_BLOOD, STATUE_MUTE)
 		petrified_mob.take_overall_damage((petrified_mob.health - obj_integrity + 100)) //any new damage the statue incurred is transfered to the mob
 		petrified_mob.faction -= "mimic"
 		petrified_mob = null
@@ -81,7 +85,6 @@
 		return 0
 	var/obj/structure/statue/petrified/S = new(loc, src, statue_timer)
 	S.name = "statue of [name]"
-	bleedsuppress = 1
 	S.copy_overlays(src)
 	var/newcolor = list(rgb(77,77,77), rgb(150,150,150), rgb(28,28,28), rgb(0,0,0))
 	S.add_atom_colour(newcolor, FIXED_COLOUR_PRIORITY)

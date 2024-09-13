@@ -42,9 +42,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},

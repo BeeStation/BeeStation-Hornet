@@ -13,6 +13,8 @@
 	var/recharge_start_delay = 20 SECONDS
 	/// Once we go unhit long enough to recharge, we replenish charges this often. The floor is effectively 1 second, AKA how often SSdcs processes
 	var/charge_increment_delay = 1 SECONDS
+	/// How many charges we recover on each charge increment
+	var/charge_recovery = 1
 	/// What .dmi we're pulling the shield icon from
 	var/shield_icon_file = 'icons/effects/effects.dmi'
 	/// What icon is used when someone has a functional shield up
@@ -34,6 +36,7 @@
 		max_integrity = 60,
 		recharge_start_delay = 20 SECONDS,
 		charge_increment_delay = 1 SECONDS,
+		charge_recovery = 20,
 		shield_icon_file = 'icons/effects/effects.dmi',
 		shield_icon = "shield-old",
 		shield_inhand = FALSE,
@@ -47,6 +50,8 @@
 	src.max_integrity = max_integrity
 	src.recharge_start_delay = recharge_start_delay
 	src.charge_increment_delay = charge_increment_delay
+	src.charge_recovery = charge_recovery
+	src.lose_multiple_charges = lose_multiple_charges
 	src.shield_icon_file = shield_icon_file
 	src.shield_icon = shield_icon
 	src.shield_inhand = shield_inhand
@@ -62,7 +67,7 @@
 	if(wearer)
 		shield_icon = "broken"
 		UnregisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS)
-		wearer.update_icon()
+		wearer.update_appearance(UPDATE_ICON)
 		wearer = null
 	QDEL_NULL(on_hit_effects)
 	return ..()
@@ -71,7 +76,7 @@
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equipped))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(lost_wearer))
 	RegisterSignal(parent, COMSIG_ITEM_HIT_REACT, PROC_REF(on_hit_react))
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(check_recharge_item))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(check_recharge_rune))
 
 /datum/component/shielded/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED, COMSIG_ITEM_HIT_REACT, COMSIG_PARENT_ATTACKBY))
@@ -89,13 +94,16 @@
 
 	var/obj/item/item_parent = parent
 	COOLDOWN_START(src, charge_add_cd, charge_increment_delay)
-	var/needs_update = current_integrity == 0
-	current_integrity += 20
-	if(wearer && needs_update)
-		wearer.update_icon()
+	adjust_charge(charge_recovery)
 	playsound(item_parent, 'sound/magic/charge.ogg', 50, TRUE)
 	if(current_integrity == max_integrity)
 		playsound(item_parent, 'sound/machines/ding.ogg', 50, TRUE)
+
+/datum/component/shielded/proc/adjust_charge(change)
+	var/needs_update = current_integrity == 0
+	current_integrity = clamp(current_integrity + change, 0, max_integrity)
+	if(wearer && needs_update)
+		wearer.update_appearance(UPDATE_ICON)
 
 /// Check if we've been equipped to a valid slot to shield
 /datum/component/shielded/proc/on_equipped(datum/source, mob/user, slot)
@@ -109,7 +117,7 @@
 	RegisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
 	RegisterSignal(wearer, COMSIG_PARENT_QDELETING, PROC_REF(lost_wearer))
 	if(current_integrity)
-		wearer.update_icon()
+		wearer.update_appearance(UPDATE_ICON)
 
 /// Either we've been dropped or our wearer has been QDEL'd. Either way, they're no longer our problem
 /datum/component/shielded/proc/lost_wearer(datum/source, mob/user)
@@ -117,7 +125,7 @@
 
 	if(wearer)
 		UnregisterSignal(wearer, list(COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_PARENT_QDELETING))
-		wearer.update_icon()
+		wearer.update_appearance(UPDATE_ICON)
 		wearer = null
 
 /// Used to draw the shield overlay on the wearer
@@ -132,7 +140,7 @@
  * This proc fires when we're hit, and is responsible for checking if we're charged, then deducting one + returning that we're blocking if so.
  * It then runs the callback in [/datum/component/shielded/var/on_hit_effects] which handles the messages/sparks (so the visuals)
  */
-/datum/component/shielded/proc/on_hit_react(datum/source, mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+/datum/component/shielded/proc/on_hit_react(datum/source, mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	SIGNAL_HANDLER
 
 	COOLDOWN_START(src, recently_hit_cd, recharge_start_delay)
@@ -156,7 +164,7 @@
 		return
 
 	if (!current_integrity)
-		wearer.update_icon()
+		wearer.update_appearance(UPDATE_ICON)
 
 	START_PROCESSING(SSdcs, src) // if we DO recharge, start processing so we can do that
 
@@ -171,16 +179,17 @@
 	if(current_integrity <= 0)
 		owner.visible_message("<span class='warning'>[owner]'s shield overloads!</span>")
 
-/datum/component/shielded/proc/check_recharge_item(datum/source, obj/item/item, mob/living/user)
+/datum/component/shielded/proc/check_recharge_rune(datum/source, obj/item/wizard_armour_charge/recharge_rune, mob/living/user)
 	SIGNAL_HANDLER
 
-	if(istype(item, /obj/item/wizard_armour_charge))
-		. = COMPONENT_NO_AFTERATTACK
-		var/obj/item/wizard_armour_charge/recharge_rune = item
-		if(!istype(parent, /obj/item/clothing/suit/space/hardsuit/shielded/wizard))
-			to_chat(user, "<span class='warning'>The rune can only be used on battlemage armour!</span>")
-			return
+	if(!istype(recharge_rune))
+		return
+	. = COMPONENT_NO_AFTERATTACK
+	if(!istype(parent, /obj/item/clothing/suit/space/hardsuit/shielded/wizard))
+		to_chat(user, "<span class='warning'>The rune can only be used on battlemage armour!</span>")
+		return
 
-		current_integrity += recharge_rune.added_shield
+		max_integrity += recharge_rune.added_shield
+		charge_recovery(recharge_rune.added_shield)
 		to_chat(user, "<span class='notice'>You charge \the [parent]. It can now absorb [current_integrity] hits.</span>")
 		qdel(recharge_rune)

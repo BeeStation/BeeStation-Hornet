@@ -39,19 +39,6 @@
 		overlay_x = 19, \
 		overlay_y = 13)
 
-/obj/item/gun/energy/e_gun/mini/heads
-	name = "Personal Tiny Self Defense Gun"
-	desc = "The PTSD gun has a built-in flashlight and the ability to recharge itself in two minutes. PTSD is standard issue for leadership within Nanotrasen. It has two settings: disable and kill."
-	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser) ///uses the hos disabler rounds to slightly weaken the disabler count and also to avoid encountering a visual bug where the gun is out of charge but displays that it has one enough for another shot.
-	selfcharge = 1
-	charge_delay = 20
-	can_charge = FALSE ///Not compatible with fast charging stations, must recharge slowly.
-	icon_state = "personal"
-	item_state = "gun"
-	ammo_x_offset = 2
-	charge_sections = 2
-	single_shot_type_overlay = FALSE
-
 /obj/item/gun/energy/e_gun/stun
 	name = "tactical energy gun"
 	desc = "Military issue energy gun, is able to fire stun rounds."
@@ -86,6 +73,13 @@
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
+
+/obj/item/gun/energy/e_gun/hos/contents_explosion(severity, target)
+	if (!ammo_type || !cell)
+		name = "\improper Broken X-01 MultiPhase Energy Gun"
+		desc = "This is an expensive, modern recreation of an antique laser gun. This gun had several unique firemodes, but lacked the ability to recharge over time. Seems too be damaged to the point of not functioning, but still valuable."
+		icon_state = "hoslaser_broken"
+		update_icon()
 
 /obj/item/gun/energy/e_gun/dragnet
 	name = "\improper DRAGnet"

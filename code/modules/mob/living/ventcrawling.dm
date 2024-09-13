@@ -12,11 +12,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 	if(stat)
 		to_chat(src, "You must be conscious to do this!")
 		return
-	if(IsStun() || IsParalyzed())
-		to_chat(src, "You can't vent crawl while you're stunned!")
+	if(HAS_TRAIT(src, TRAIT_IMMOBILIZED))
+		to_chat(src, "<span class='warning'>You can't move into the vent!</span>")
 		return
-	if(restrained())
-		to_chat(src, "You can't vent crawl while you're restrained!")
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		to_chat(src, "<span class='warning'>You need to be able to use your hands to ventcrawl!</span>")
 		return
 	if(has_buckled_mobs())
 		to_chat(src, "You can't vent crawl with other creatures on you!")
@@ -102,7 +102,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 					A.pipe_vision_img.plane = ABOVE_HUD_PLANE
 				client.images += A.pipe_vision_img
 				pipes_shown += A.pipe_vision_img
-	setMovetype(movement_type | VENTCRAWLING)
+	ADD_TRAIT(src, TRAIT_MOVE_VENTCRAWLING, VENTCRAWLING_TRAIT)
 
 
 /mob/living/proc/remove_ventcrawl()
@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 		for(var/image/current_image in pipes_shown)
 			client.images -= current_image
 	pipes_shown.len = 0
-	setMovetype(movement_type & ~VENTCRAWLING)
+	REMOVE_TRAIT(src, TRAIT_MOVE_VENTCRAWLING, VENTCRAWLING_TRAIT)
 
 
 

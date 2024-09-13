@@ -184,7 +184,6 @@
 /area/shuttle/escape)
 "aA" = (
 /obj/structure/tank_dispenser/oxygen{
-	layer = 2.7;
 	pixel_x = -1;
 	pixel_y = 2
 	},

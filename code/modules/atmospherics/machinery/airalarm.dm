@@ -44,6 +44,7 @@
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm_bitem"
 	result_path = /obj/machinery/airalarm
+	pixel_shift = 24
 
 #define AALARM_MODE_SCRUBBING 1
 #define AALARM_MODE_VENTING 2 //makes draught
@@ -61,7 +62,7 @@
 	name = "air alarm"
 	desc = "A machine that monitors atmosphere levels and alerts if the area is dangerous."
 	icon = 'icons/obj/monitors.dmi'
-	icon_state = "alarm0"
+	icon_state = "alarmp"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 8
@@ -69,7 +70,7 @@
 	req_access = list(ACCESS_ATMOSPHERICS)
 	max_integrity = 250
 	integrity_failure = 0.33
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
@@ -170,21 +171,7 @@
 /obj/machinery/airalarm/away //general away mission access
 	req_access = list(ACCESS_AWAY_GENERAL)
 
-/obj/machinery/airalarm/directional/north //Pixel offsets get overwritten on New()
-	dir = SOUTH
-	pixel_y = 24
-
-/obj/machinery/airalarm/directional/south
-	dir = NORTH
-	pixel_y = -24
-
-/obj/machinery/airalarm/directional/east
-	dir = WEST
-	pixel_x = 24
-
-/obj/machinery/airalarm/directional/west
-	dir = EAST
-	pixel_x = -24
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
 
 //all air alarms in area are connected via magic
 /area
@@ -192,6 +179,8 @@
 	var/list/air_scrub_names = list()
 	var/list/air_vent_info = list()
 	var/list/air_scrub_info = list()
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/airalarm)
 
 /obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
 	. = ..()
@@ -202,8 +191,6 @@
 	if(nbuild)
 		buildstage = 0
 		panel_open = TRUE
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
-		pixel_y = (dir & 3)? (dir == 1 ? -24 : 24) : 0
 
 	if(name == initial(name))
 		name = "[get_area_name(src)] Air Alarm"
@@ -619,7 +606,26 @@
 					"set_internal_pressure" = 0
 				), signal_source)
 
-/obj/machinery/airalarm/update_icon()
+/obj/machinery/airalarm/update_appearance(updates)
+	. = ..()
+
+	if(panel_open || (machine_stat & (NOPOWER|BROKEN)) || shorted)
+		set_light(0)
+		return
+
+	var/area/our_area = get_area(src)
+	var/color
+	switch(max(danger_level, !!our_area.active_alarms[ALARM_ATMOS]))
+		if(0)
+			color = "#03A728" // green
+		if(1)
+			color = "#EC8B2F" // yellow
+		if(2)
+			color = "#DA0205" // red
+
+	set_light(1.4, 1, color)
+
+/obj/machinery/airalarm/update_icon_state()
 	if(panel_open)
 		switch(buildstage)
 			if(2)
@@ -628,20 +634,29 @@
 				icon_state = "alarm_b2"
 			if(0)
 				icon_state = "alarm_b1"
-		return
+		return ..()
+
+	icon_state = "alarmp"
+	return ..()
+
+/obj/machinery/airalarm/update_overlays()
+	. = ..()
 
 	if((machine_stat & (NOPOWER|BROKEN)) || shorted)
-		icon_state = "alarmp"
 		return
 
 	var/area/our_area = get_area(src)
+	var/state
 	switch(max(danger_level, !!our_area.active_alarms[ALARM_ATMOS]))
 		if(0)
-			icon_state = "alarm0"
+			state = "alarm0"
 		if(1)
-			icon_state = "alarm2" //yes, alarm2 is yellow alarm
+			state = "alarm2" //yes, alarm2 is yellow alarm
 		if(2)
-			icon_state = "alarm1"
+			state = "alarm1"
+
+	. += mutable_appearance(icon, state)
+	. += emissive_appearance(icon, state, alpha = src.alpha)
 
 /obj/machinery/airalarm/process()
 	if((machine_stat & (NOPOWER|BROKEN)) || shorted)
@@ -852,7 +867,7 @@
 		new /obj/item/stack/sheet/iron(loc, 2)
 		var/obj/item/I = new /obj/item/electronics/airalarm(loc)
 		if(!disassembled)
-			I.obj_integrity = I.max_integrity * 0.5
+			I.take_damage(I.max_integrity * 0.5, sound_effect=FALSE)
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 

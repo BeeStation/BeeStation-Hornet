@@ -1,6 +1,3 @@
-#define TRAITOR_HUMAN "human"
-#define TRAITOR_AI	  "AI"
-
 /datum/antagonist/traitor
 	name = "Traitor"
 	roundend_category = "traitors"
@@ -245,7 +242,7 @@
 		backstory_text += "<span class='redtext'>No backstory was selected!</span><br>"
 	result += backstory_text
 
-	var/special_role_text = lowertext(name)
+	var/special_role_text = LOWER_TEXT(name)
 
 	if (contractor_hub)
 		result += contractor_round_end()

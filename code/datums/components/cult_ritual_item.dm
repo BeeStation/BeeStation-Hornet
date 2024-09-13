@@ -221,7 +221,7 @@
 		log_game("[rune.cultist_name] rune erased by [key_name(cultist)] with [parent].")
 		message_admins("[ADMIN_LOOKUPFLW(cultist)] erased a [rune.cultist_name] rune with [parent].")
 
-	to_chat(cultist, "<span class='notice'>You carefully erase the [lowertext(rune.cultist_name)] rune.</span>")
+	to_chat(cultist, "<span class='notice'>You carefully erase the [LOWER_TEXT(rune.cultist_name)] rune.</span>")
 	qdel(rune)
 
 /*
@@ -304,6 +304,9 @@
 
 	if(cultist.blood_volume)
 		cultist.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)) // *cuts arm* *bone explodes* ever have one of those days?
+		if (iscarbon(cultist))
+			var/mob/living/carbon/carbon_cultist = cultist
+			carbon_cultist.add_bleeding(BLEED_TINY)
 
 	var/scribe_mod = initial(rune_to_scribe.scribe_delay)
 	if(!initial(rune_to_scribe.no_scribe_boost) && (our_turf.type in turfs_that_boost_us))
@@ -327,7 +330,7 @@
 	var/obj/effect/rune/made_rune = new rune_to_scribe(our_turf, chosen_keyword)
 	made_rune.add_mob_blood(cultist)
 
-	to_chat(cultist, "<span class='cult'>The [lowertext(made_rune.cultist_name)] rune [made_rune.cultist_desc]</span>")
+	to_chat(cultist, "<span class='cult'>The [LOWER_TEXT(made_rune.cultist_name)] rune [made_rune.cultist_desc]</span>")
 	SSblackbox.record_feedback("tally", "cult_runes_scribed", 1, made_rune.cultist_name)
 
 	return TRUE

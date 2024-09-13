@@ -4,7 +4,6 @@
 	icon_state = "ionrifle"
 	item_state = null //so the human update icon uses the icon_state instead.
 	worn_icon_state = null
-	shaded_charge = TRUE
 	w_class = WEIGHT_CLASS_HUGE
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
@@ -149,7 +148,8 @@
 	item_state = "plasmacutter"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	flags_1 = CONDUCT_1
-	attack_verb = list("attacked", "slashed", "cut", "sliced")
+	attack_verb_continuous = list("attacks", "slashes", "cuts", "slices")
+	attack_verb_simple = list("attack", "slash", "cut", "slice")
 	force = 12
 	sharpness = IS_SHARP
 	can_charge = FALSE

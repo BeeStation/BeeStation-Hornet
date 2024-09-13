@@ -3,10 +3,10 @@ SUBSYSTEM_DEF(minor_mapping)
 	init_order = INIT_ORDER_MINOR_MAPPING
 	flags = SS_NO_FIRE
 
-/datum/controller/subsystem/minor_mapping/Initialize(timeofday)
+/datum/controller/subsystem/minor_mapping/Initialize()
 	trigger_migration(CONFIG_GET(number/mice_roundstart))
 	place_satchels()
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/minor_mapping/proc/trigger_migration(num_mice=10)
 	var/list/exposed_wires = find_exposed_wires()
@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(minor_mapping)
 		var/turf/T = pick_n_take(turfs)
 		var/obj/item/storage/backpack/satchel/flat/F = new(T)
 
-		SEND_SIGNAL(F, COMSIG_OBJ_HIDE, T.underfloor_accessibility < UNDERFLOOR_VISIBLE)
+		SEND_SIGNAL(F, COMSIG_OBJ_HIDE, T.underfloor_accessibility)
 		amount--
 
 /proc/find_exposed_wires()

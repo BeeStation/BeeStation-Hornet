@@ -1,0 +1,5 @@
+help: "Space isn't supposed to be under doors or windows"
+/turf/open/space:
+  banned_neighbors:
+  - /obj/machinery/door
+  - /obj/effect/spawner/structure/window

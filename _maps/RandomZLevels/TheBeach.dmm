@@ -466,14 +466,14 @@
 "bs" = (
 /obj/machinery/door/airlock/sandstone{
 	id_tag = "changlinhut2";
-	name = "changing room"
+	name = "Changing Room 2"
 	},
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "bt" = (
 /obj/machinery/door/airlock/sandstone{
 	id_tag = "changlinhut1";
-	name = "changing room"
+	name = "Changing Room 1"
 	},
 /turf/open/floor/wood,
 /area/awaymission/beach)
@@ -702,7 +702,7 @@
 "bX" = (
 /obj/machinery/door/airlock/sandstone{
 	id_tag = "toilet1";
-	name = "restroom stall"
+	name = "Restroom 1"
 	},
 /obj/effect/turf_decal/sand,
 /turf/open/floor/iron/white,
@@ -710,7 +710,7 @@
 "bY" = (
 /obj/machinery/door/airlock/sandstone{
 	id_tag = "toilet2";
-	name = "restroom stall"
+	name = "Restroom 2"
 	},
 /obj/effect/turf_decal/sand,
 /turf/open/floor/iron/white,

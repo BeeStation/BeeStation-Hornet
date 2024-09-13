@@ -12,6 +12,7 @@
 	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
 	var/list/no_coexistence_typecache //Used so you can't have specific spells together
 	var/no_random = FALSE // This is awful one to be a part of randomness - i.e.) soul tap
+	var/disabled = FALSE // Is this item disabled due to having issues? Must provide an issue reference and description of issue.
 
 /datum/spellbook_entry/New()
 	..()
@@ -21,6 +22,8 @@
 	return TRUE
 
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user,obj/item/spellbook/book) // Specific circumstances
+	if (disabled)
+		return FALSE
 	if(book.uses<cost || limit == 0)
 		return FALSE
 	for(var/spell in user.mind.spell_list)
@@ -397,6 +400,7 @@
 	It would be wise to avoid buying these with anything capable of causing you to swap bodies with others."
 	item_path = /obj/item/holoparasite_creator/wizard
 	category = "Assistance"
+	disabled = TRUE	// #11096: Currently in a broken state, cannot recall as they will immediately manifest and cannot move despite having range stats.
 
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"
@@ -724,16 +728,16 @@
 	dat += {"
 	<head>
 		<style type="text/css">
-      		body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }
-      		ul#tabs { list-style-type: none; margin: 30px 0 0 0; padding: 0 0 0.3em 0; }
-      		ul#tabs li { display: inline; }
-      		ul#tabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.3em; text-decoration: none; }
-      		ul#tabs li a:hover { background-color: #f1f0ee; }
-      		ul#tabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 0.7em 0.3em 0.38em 0.3em; }
-      		div.tabContent { border: 1px solid #c9c3ba; padding: 0.5em; background-color: #f1f0ee; }
-      		div.tabContent.hide { display: none; }
-    	</style>
-  	</head>
+				body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }
+				ul#tabs { list-style-type: none; margin: 30px 0 0 0; padding: 0 0 0.3em 0; }
+				ul#tabs li { display: inline; }
+				ul#tabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.3em; text-decoration: none; }
+				ul#tabs li a:hover { background-color: #f1f0ee; }
+				ul#tabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 0.7em 0.3em 0.38em 0.3em; }
+				div.tabContent { border: 1px solid #c9c3ba; padding: 0.5em; background-color: #f1f0ee; }
+				div.tabContent.hide { display: none; }
+		</style>
+		</head>
 	"}
 	dat += {"[content]</body></html>"}
 	return dat
@@ -784,13 +788,13 @@
 	return
 
 /obj/item/spellbook/Topic(href, href_list)
-	..()
-	var/mob/living/carbon/human/H = usr
+	. = ..()
 
-	if(H.stat || H.restrained())
+	if(usr.stat != CONSCIOUS || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
-	if(!ishuman(H))
+	if(!ishuman(usr))
 		return TRUE
+	var/mob/living/carbon/human/H = usr
 
 	if(H.mind.special_role == "apprentice")
 		temp = "If you got caught sneaking a peek from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not."

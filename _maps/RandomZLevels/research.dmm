@@ -536,8 +536,7 @@
 "ct" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
-/obj/machinery/airalarm{
-	dir = 4;
+/obj/machinery/airalarm/directional/west{
 	pixel_x = -32
 	},
 /turf/open/floor/iron/dark,
@@ -846,7 +845,7 @@
 "eb" = (
 /obj/machinery/door/poddoor{
 	id = "cryopodg2";
-	name = "cryogenetic genetics blastdoor"
+	name = "Gryogenetics"
 	},
 /turf/open/floor/iron/stairs,
 /area/awaymission/research/interior/genetics)
@@ -948,8 +947,7 @@
 /turf/open/floor/plating,
 /area/awaymission/research/interior/security)
 "eT" = (
-/obj/machinery/airalarm{
-	dir = 4;
+/obj/machinery/airalarm/directional/west{
 	pixel_x = -32
 	},
 /turf/open/floor/iron/dark,
@@ -1262,7 +1260,7 @@
 "hK" = (
 /obj/machinery/door/poddoor{
 	id = "cryopodg1";
-	name = "cryogenetic genetics blastdoor"
+	name = "Gryogenetics"
 	},
 /turf/open/floor/iron/stairs{
 	dir = 1
@@ -1555,7 +1553,7 @@
 /turf/open/floor/iron,
 /area/awaymission/research/interior/dorm)
 "iZ" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/blue,
@@ -1999,11 +1997,9 @@
 /area/awaymission/research/interior/dorm)
 "lN" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
-/obj/machinery/airalarm{
-	dir = 8;
+/obj/machinery/airalarm/directional/east{
 	pixel_x = 32
 	},
 /turf/open/floor/iron/yellowsiding{
@@ -2054,7 +2050,7 @@
 /turf/open/floor/wood,
 /area/awaymission/research/interior/dorm)
 "lU" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /turf/open/floor/iron/yellowsiding{
 	dir = 4
 	},
@@ -2199,8 +2195,7 @@
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/open/floor/grass,
 /area/awaymission/research/interior/escapepods)
@@ -2208,8 +2203,7 @@
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/open/floor/grass,
 /area/awaymission/research/interior/escapepods)
@@ -2217,8 +2211,7 @@
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/open/floor/grass,
 /area/awaymission/research/interior/escapepods)
@@ -2247,8 +2240,7 @@
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/escapepods)
 "mX" = (
-/obj/machinery/airalarm{
-	dir = 8;
+/obj/machinery/airalarm/directional/east{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/green{
@@ -3365,7 +3357,7 @@
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
 "DK" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -3406,7 +3398,7 @@
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/cryo)
 "Ex" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -3802,7 +3794,7 @@
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/medbay)
 "Kf" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -3995,8 +3987,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/airalarm{
-	dir = 4;
+/obj/machinery/airalarm/directional/west{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
@@ -4353,7 +4344,7 @@
 /turf/open/floor/plating,
 /area/awaymission/research/interior/escapepods)
 "TF" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
@@ -4398,8 +4389,7 @@
 	id = "cryopodg1";
 	name = "panic lockdown button"
 	},
-/obj/machinery/airalarm{
-	dir = 1;
+/obj/machinery/airalarm/directional/south{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -4764,7 +4754,7 @@
 	id = "cryopodg2";
 	name = "panic lockdown button"
 	},
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,

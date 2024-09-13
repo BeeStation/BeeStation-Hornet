@@ -1,6 +1,6 @@
 #define TURF_IS_MIMICKING(T) (isturf(T) && (T:z_flags & Z_MIMIC_BELOW))
 
-#define CHECK_OO_EXISTENCE(OO) if (OO && !MOVABLE_IS_ON_ZTURF(OO) && !OO:destruction_timer) { OO:destruction_timer = QDEL_IN(OO, 10 SECONDS); }
+#define CHECK_OO_EXISTENCE(OO) if (OO && !MOVABLE_IS_ON_ZTURF(OO) && !OO:destruction_timer) { OO:destruction_timer = QDEL_IN_STOPPABLE(OO, 10 SECONDS); }
 #define UPDATE_OO_IF_PRESENT CHECK_OO_EXISTENCE(src:bound_overlay); if (src:bound_overlay) { update_above(); }
 
 // These aren't intended to be used anywhere else, they just can't be undef'd because DM is dum.
@@ -54,6 +54,8 @@ GLOBAL_LIST_INIT(z_defines, list(
 #define ZMM_AUTOMANGLE      (1 << 4)	//! Behaves the same as ZMM_MANGLE_PLANES, but is automatically applied by SSoverlays. Do not manually use.
 
 // convenience flags
+// This is intended for use on dev-defined openspace turfs, don't put _OVERWRITE in here unless you feel like having people ask why their zturfs are empty
+#define Z_MIMIC_DEFAULTS (Z_MIMIC_BELOW)	//! Common defaults for zturfs.
 #define ZMM_WIDE_LOAD (ZMM_LOOKAHEAD | ZMM_LOOKBESIDE)	//! Atom is big and needs to scan one extra turf in both X and Y. This only extends the range by one turf. Cheap, but not free.
 
 /*

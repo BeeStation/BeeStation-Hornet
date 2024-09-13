@@ -10,8 +10,8 @@
 	selection_color = "#dddddd"
 	exp_type_department = EXP_TYPE_GIMMICK
 
-	access = list(ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS)
+	base_access = list(ACCESS_MAINT_TUNNELS)
+	extra_access = list()
 
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = ACCOUNT_CIV_BITFLAG
@@ -38,8 +38,8 @@
 
 	outfit = /datum/outfit/job/gimmick/barber
 
-	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
+	base_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
+	extra_access = list()
 
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
@@ -71,8 +71,8 @@
 
 	outfit = /datum/outfit/job/gimmick/stage_magician
 
-	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
+	base_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
+	extra_access = list()
 
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
@@ -110,8 +110,8 @@
 
 	outfit = /datum/outfit/job/gimmick/psychiatrist
 
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
+	base_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
+	extra_access = list()
 
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
@@ -139,8 +139,8 @@
 
 	outfit = /datum/outfit/job/gimmick/vip
 
-	access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
-	minimal_access = list(ACCESS_MAINT_TUNNELS)
+	base_access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
+	extra_access = list()
 
 	departments = DEPT_BITFLAG_VIP
 	bank_account_department = ACCOUNT_VIP_BITFLAG
