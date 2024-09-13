@@ -73,7 +73,7 @@
 
 /obj/item/geiger_counter/equipped(mob/user, slot, initial)
 	. = ..()
-	RegisterSignal(user, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation))
+	RegisterSignal(user, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation), TRUE)
 
 /obj/item/geiger_counter/dropped(mob/user, silent = FALSE)
 	. = ..()

@@ -48,6 +48,9 @@
 #define HALLUCINATION_RANGE(P) (min(7, round(P ** 0.25)))
 
 
+#define DEFAULT_ZAP_ICON_STATE "sm_arc"
+#define SLIGHTLY_CHARGED_ZAP_ICON_STATE "sm_arc_supercharged"
+#define OVER_9000_ZAP_ICON_STATE "sm_arc_dbz_referance" //Witty I know
 
 //If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
 #define SUPERMATTER_DELAM_PERCENT 5

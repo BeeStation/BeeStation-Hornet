@@ -995,6 +995,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	return FALSE
 
 /**
+  * Respond to a electric bolt action on our item
+  *
+  * Default behaviour is to return, we define here to allow for cleaner code later on
+  */
+/atom/proc/zap_act(power, zap_flags, shocked_targets)
+	return
+
+/**
   * Respond to our atom being teleported
   *
   * Default behaviour is to send COMSIG_ATOM_TELEPORT_ACT

@@ -13,21 +13,27 @@
 
 	circuit = /obj/item/circuitboard/machine/tesla_coil
 
-	var/tesla_flags = TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE
+	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_LOW_POWER_GEN 	///Flags of the zap that the coil releases when the wire is pulsed
 	var/power_loss = 2
-	var/input_power_multiplier = 1
-	var/zap_cooldown = 100
-	var/last_zap = 0
+	var/input_power_multiplier = 1 										 		///Multiplier for power conversion
+	var/zap_cooldown = 100 														///Cooldown between pulsed zaps
+	var/last_zap = 0 															///Reference to the last zap done
+	var/stored_energy = 0 														///Amount of power stored inside the coil to be released in the powernet
 
 	var/datum/techweb/linked_techweb
 
 /obj/machinery/power/tesla_coil/power
 	circuit = /obj/item/circuitboard/machine/tesla_coil/power
 
+/obj/machinery/power/tesla_coil/power/anchored
+	anchored = TRUE
+
 /obj/machinery/power/tesla_coil/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/tesla_coil(src)
 	linked_techweb = SSresearch.science_tech
+	if(anchored)
+		connect_to_network()
 
 /obj/machinery/power/tesla_coil/Destroy()
 	QDEL_NULL(wires)
@@ -80,25 +86,26 @@
 
 	return ..()
 
-/obj/machinery/power/tesla_coil/tesla_act(power, tesla_flags, shocked_targets)
-	if(anchored && !panel_open)
-		obj_flags |= BEING_SHOCKED
-		//don't lose arc power when it's not connected to anything
-		//please place tesla coils all around the station to maximize effectiveness
-		var/power_produced = powernet ? power / power_loss : power
-		add_avail(power_produced*input_power_multiplier)
-		flick("coilhit", src)
-		playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
-		tesla_zap(src, 5, power_produced, tesla_flags, shocked_targets)
-		var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_ENG_ID)
-		if(D)
-			D.adjust_money(min(power_produced, 1))
-		if(istype(linked_techweb))
-			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, min(power_produced, 1)) // x4 coils = ~240/m point bonus for R&D
-		addtimer(CALLBACK(src, PROC_REF(reset_shocked)), 10)
-		tesla_buckle_check(power)
-	else
-		..()
+/obj/machinery/power/tesla_coil/process(delta_time)
+	var/power_produced = min(stored_energy, (stored_energy * 0.04) + 1000) * delta_time
+	add_avail(power_produced)
+	stored_energy -= power_produced
+
+/obj/machinery/power/tesla_coil/zap_act(power, zap_flags, shocked_targets)
+	if(!anchored || panel_open)
+		return ..()
+	obj_flags |= BEING_SHOCKED
+	addtimer(CALLBACK(src, .proc/reset_shocked), 1 SECONDS)
+	flick("coilhit", src)
+	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
+	if(!(zap_flags & ZAP_GENERATES_POWER)) //Prevent infinite recursive power
+		return 0
+	if(zap_flags & ZAP_LOW_POWER_GEN)
+		power /= 10
+	zap_buckle_check(power)
+	var/power_removed = powernet ? power * input_power_multiplier : power
+	stored_energy += max((power_removed - 80) * 200, 0)
+	return max(power - power_removed, 0) //You get back the amount we didn't use
 
 /obj/machinery/power/tesla_coil/proc/zap()
 	if((last_zap + zap_cooldown) > world.time || !powernet)
@@ -109,8 +116,8 @@
 	var/power = (powernet.avail/2)
 	add_load(power)
 	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
-	tesla_zap(src, 10, power/(coeff/2), tesla_flags)
-	tesla_buckle_check(power/(coeff/2))
+	tesla_zap(src, 10, power/(coeff/2), zap_flags)
+	zap_buckle_check(power/(coeff/2))
 
 // Tesla R&D researcher
 /obj/machinery/power/tesla_coil/research
@@ -120,14 +127,14 @@
 	circuit = /obj/item/circuitboard/machine/tesla_coil/research
 	power_loss = 20 // something something, high voltage + resistance
 
-/obj/machinery/power/tesla_coil/research/tesla_act(power, tesla_flags, shocked_things)
+/obj/machinery/power/tesla_coil/research/zap_act(power, zap_flags, shocked_things)
 	if(anchored && !panel_open)
 		obj_flags |= BEING_SHOCKED
 		var/power_produced = powernet ? power / power_loss : power
 		add_avail(power_produced*input_power_multiplier)
 		flick("rpcoilhit", src)
 		playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
-		tesla_zap(src, 5, power_produced, tesla_flags, shocked_things)
+		tesla_zap(src, 5, power_produced, zap_flags, shocked_things)
 		var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_ENG_ID)//x4 coils give ~ 768 credits per minute
 		if(D)
 			D.adjust_money(min(power_produced, 3)*2)
@@ -135,7 +142,7 @@
 			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, min(power_produced, 3)*2)
 			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, min(power_produced, 3)*2) // x4 coils with a pulse per second or so = ~744/m point bonus for R&D
 		addtimer(CALLBACK(src, PROC_REF(reset_shocked)), 10)
-		tesla_buckle_check(power)
+		zap_buckle_check(power)
 	else
 		..()
 
@@ -168,6 +175,9 @@
 	buckle_lying = FALSE
 	buckle_requires_restraints = TRUE
 
+/obj/machinery/power/grounding_rod/anchored
+	anchored = TRUE
+
 /obj/machinery/power/grounding_rod/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
 	. = ..()
 	if(. == SUCCESSFUL_UNFASTEN)
@@ -188,9 +198,9 @@
 
 	return ..()
 
-/obj/machinery/power/grounding_rod/tesla_act(var/power)
+/obj/machinery/power/grounding_rod/zap_act(var/power)
 	if(anchored && !panel_open)
 		flick("grounding_rodhit", src)
-		tesla_buckle_check(power)
+		zap_buckle_check(power)
 	else
 		..()

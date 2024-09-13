@@ -91,6 +91,6 @@
 /obj/machinery/power/rtg/abductor/fire_act(exposed_temperature, exposed_volume)
 	overload()
 
-/obj/machinery/power/rtg/abductor/tesla_act()
+/obj/machinery/power/rtg/abductor/zap_act()
 	..() //extend the zap
 	overload()
