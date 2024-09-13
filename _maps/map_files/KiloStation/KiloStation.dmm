@@ -20661,9 +20661,6 @@
 	},
 /area/maintenance/port/aft)
 "csW" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -27191,6 +27188,9 @@
 /obj/machinery/door/airlock/external{
 	name = "Solar Maintenance";
 	req_access_txt = "10; 13"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
