@@ -92,7 +92,7 @@
 // Alert based pin, works only on blue/red alert
 /obj/item/firing_pin/alert
 	name = "alert firing pin"
-	desc = "This firing pin only allows weapons to be fired if the required alert level is reached or exceeded."
+	desc = "This firing pin only allows weapons to be fired if the required alert level is reached or exceeded. The required alert level can be changed with a multitool prior to installation."
 	fail_message = "<span class='warning'>INSUFFICIENT ALERT LEVEL.</span>"
 	icon_state = "firing_pin_blue"
 	var/req_alert = SEC_LEVEL_BLUE // What alert level is required to fire
