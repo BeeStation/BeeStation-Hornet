@@ -76,7 +76,6 @@
 	//Add to orbital map
 	var/datum/orbital_map/map = SSorbits.orbital_maps[src.orbital_map_index]
 	map.add_body(src)
-
 	//If orbits has already setup, then post map setup
 	if(SSorbits.orbits_setup)
 		post_map_setup()
