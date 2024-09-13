@@ -37,8 +37,8 @@
 	job.total_positions = total_positions || spawn_positions
 
 /// * job_name<string/JOB_DEFINES>: 		JOB_NAME macros from jobs.dm
-/// * access_to_give<number, list, null]>: 	gives new access(es) to this job in this station map
-/// * access_to_remove<number, list, null>:	removes existing access(es) to this job in this station map
+/// * access_to_give<number/ACCESS_DEFINES, list/[ACCESS_DEFINES], null>: 	gives new access(es) to this job in this station map
+/// * access_to_remove<number/ACCESS_DEFINES, list/[ACCESS_DEFINES], null>:	removes existing access(es) to this job in this station map
 /datum/map_adjustment/proc/change_job_access(job_name, list/access_to_give = null, list/access_to_remove = null) // it's fine not to be a list
 	SHOULD_NOT_OVERRIDE(TRUE)
 	var/datum/job/job = SSjob.GetJob(job_name)
