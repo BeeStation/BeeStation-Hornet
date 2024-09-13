@@ -1,8 +1,0 @@
-author: rkz, TiviPlus, TemporalOroboros, Timberpoes, MLGTASTICa
-delete-after: true
-changes:
-  - refactor: refactors mech initialization
-  - refactor: refactors medical mech tools
-  - code_imp: adds lazylist support for vehicle occupants
-  - bugfix: Phazons no longer can exponentially increase speed by phasing through
-      certain things...
