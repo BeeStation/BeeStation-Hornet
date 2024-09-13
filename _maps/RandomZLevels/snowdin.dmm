@@ -11939,12 +11939,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post)
-"Se" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/awaymission/snowdin/post/mining_dock)
 "Sf" = (
 /obj/item/shard,
 /obj/item/retractor,
@@ -59637,9 +59631,9 @@ xW
 xW
 xW
 LJ
-Se
+Oq
 wL
-Se
+Oq
 ZI
 Qx
 Lm
@@ -59892,7 +59886,7 @@ xW
 xW
 xW
 wL
-Se
+Oq
 GD
 GZ
 xy

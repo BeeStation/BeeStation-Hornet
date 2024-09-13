@@ -205,6 +205,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
+"aY" = (
+/obj/structure/table,
+/obj/item/plate,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/awaymission/moonoutpost19/arrivals)
 "aZ" = (
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/iron/dark,
@@ -469,18 +475,6 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/hive)
-"bX" = (
-/obj/machinery/conveyor{
-	id = "awaysyndie"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plating{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
 "bY" = (
 /obj/machinery/mineral/unloading_machine{
 	dir = 1;
@@ -491,78 +485,6 @@
 /obj/structure/alien/weeds,
 /turf/open/floor/plating{
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"bZ" = (
-/obj/structure/sign/poster/contraband/syndicate_recruitment{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/loading_area{
-	dir = 8
-	},
-/obj/structure/alien/weeds,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"ca" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"cd" = (
-/obj/machinery/airalarm/unlocked{
-	pixel_y = 23;
-	req_access = null;
-	req_access_txt = "150";
-	dir = 1
-	},
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "floorscorched2";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"ce" = (
-/obj/structure/sign/warning/biohazard{
-	pixel_y = 32
-	},
-/obj/structure/alien/weeds/node,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"cf" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"cg" = (
-/obj/structure/sign/warning/securearea{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "ci" = (
@@ -616,15 +538,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/syndicate)
-"co" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
 "cp" = (
 /turf/open/floor/iron{
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
@@ -655,16 +568,6 @@
 	},
 /turf/open/floor/iron{
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"cu" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cw" = (
@@ -710,33 +613,11 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/syndicate)
-"cC" = (
-/obj/machinery/mineral/processing_unit{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plating{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
 "cD" = (
 /obj/machinery/mineral/processing_unit_console{
 	machinedir = 8
 	},
 /turf/closed/wall,
-/area/awaymission/moonoutpost19/syndicate)
-"cE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
 /area/awaymission/moonoutpost19/syndicate)
 "cG" = (
 /obj/structure/grille/broken,
@@ -748,6 +629,18 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/syndicate)
+"cI" = (
+/obj/structure/disposaloutlet,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/open/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/main)
 "cM" = (
 /obj/item/storage/box/lights/mixed,
 /obj/effect/decal/cleanable/dirt,
@@ -780,27 +673,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/syndicate)
-"cQ" = (
-/obj/machinery/conveyor_switch/oneway{
-	id = "awaysyndie";
-	name = "mining conveyor"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"cR" = (
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "damaged4";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
 "cT" = (
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock{
@@ -822,48 +694,6 @@
 	name = "Dorm 2"
 	},
 /turf/open/floor/wood,
-/area/awaymission/moonoutpost19/syndicate)
-"cV" = (
-/obj/structure/alien/weeds/node,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"cW" = (
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "damaged2";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"cX" = (
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "damaged3";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"cY" = (
-/obj/structure/closet/crate,
-/obj/item/stack/sheet/iron{
-	amount = 12
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/alien/weeds,
-/obj/effect/turf_decal/bot{
-	dir = 1
-	},
-/turf/open/floor/iron{
-	dir = 1;
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
 /area/awaymission/moonoutpost19/syndicate)
 "cZ" = (
 /obj/machinery/button/door{
@@ -909,40 +739,11 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/hive)
-"de" = (
-/obj/machinery/mineral/stacking_machine{
-	dir = 1;
-	input_dir = 1;
-	output_dir = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plating{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
 "df" = (
 /obj/machinery/mineral/stacking_unit_console{
 	machinedir = 8
 	},
 /turf/closed/wall,
-/area/awaymission/moonoutpost19/syndicate)
-"dg" = (
-/obj/structure/closet/crate,
-/obj/item/stack/sheet/glass{
-	amount = 10
-	},
-/obj/structure/alien/weeds,
-/obj/effect/turf_decal/bot{
-	dir = 1
-	},
-/turf/open/floor/iron{
-	dir = 1;
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
 /area/awaymission/moonoutpost19/syndicate)
 "dh" = (
 /obj/structure/chair/wood/normal,
@@ -977,42 +778,6 @@
 	req_access_txt = "150"
 	},
 /turf/open/floor/wood,
-/area/awaymission/moonoutpost19/syndicate)
-"dl" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/loading_area,
-/obj/structure/alien/weeds,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"dm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"dn" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"do" = (
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "damaged1";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
 /area/awaymission/moonoutpost19/syndicate)
 "dq" = (
 /obj/structure/table/wood,
@@ -1078,39 +843,10 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/main)
-"dw" = (
-/obj/structure/tank_dispenser/oxygen{
-	oxygentanks = 9
-	},
-/obj/machinery/light/small/broken{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/plating{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
 "dx" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"dy" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/space/syndicate/orange,
-/obj/item/clothing/mask/gas,
-/obj/item/pickaxe/drill,
-/obj/item/clothing/head/helmet/space/syndicate/orange,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/open/floor/plating{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "dz" = (
@@ -1125,32 +861,6 @@
 "dA" = (
 /turf/closed/mineral,
 /area/awaymission/moonoutpost19/main)
-"dB" = (
-/obj/structure/sign/warning/vacuum{
-	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
-	name = "\improper HOSTILE ATMOSPHERE AHEAD";
-	pixel_y = -32
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/open/floor/plating{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"dD" = (
-/obj/structure/rack,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/plating{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
 "dE" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	desc = "Your instincts say you shouldn't be following these.";
@@ -1191,25 +901,6 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/main)
-"dI" = (
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/external{
-	density = 0;
-	icon_state = "open";
-	opacity = 0;
-	req_access_txt = "150";
-	set_obj_flags = "EMAGGED"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/turf/open/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
 "dJ" = (
 /obj/item/storage/bag/ore,
 /turf/open/floor/plating/asteroid{
@@ -1220,25 +911,6 @@
 /obj/item/pickaxe/drill,
 /turf/open/floor/plating/asteroid{
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
-	},
-/area/awaymission/moonoutpost19/main)
-"dL" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"dM" = (
-/turf/open/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
 	},
 /area/awaymission/moonoutpost19/main)
 "dN" = (
@@ -1292,6 +964,19 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/main)
+"dU" = (
+/obj/structure/closet/crate,
+/obj/item/storage/bag/ore,
+/obj/structure/alien/weeds,
+/obj/item/mining_scanner,
+/obj/item/shovel,
+/obj/item/pickaxe,
+/turf/open/floor/plating{
+	broken = 1;
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "dV" = (
 /obj/structure/alien/weeds/node,
 /obj/structure/alien/resin/wall,
@@ -1577,6 +1262,23 @@
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/engine,
 /area/awaymission/moonoutpost19/research)
+"eR" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	desc = "Your instincts say you shouldn't be following these.";
+	dir = 9;
+	icon_state = "ltrails_1"
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "eS" = (
 /obj/machinery/power/port_gen/pacman{
 	name = "P.A.C.M.A.N.-type portable generator"
@@ -1958,6 +1660,16 @@
 /obj/structure/alien/resin/wall,
 /turf/open/floor/engine,
 /area/awaymission/moonoutpost19/research)
+"fI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "fJ" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	desc = "Has a valve and pump attached to it. This one has been applied with an acid-proof coating.";
@@ -2019,6 +1731,17 @@
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/research)
+"fS" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "fV" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -2254,6 +1977,14 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/research)
+"gB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "gC" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/iron,
@@ -2485,9 +2216,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/research)
-"hj" = (
-/turf/open/floor/iron/white,
-/area/awaymission/moonoutpost19/research)
+"hg" = (
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "damaged5";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "hk" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg,
@@ -3340,6 +3076,13 @@
 	icon_state = "floorscorched2"
 	},
 /area/awaymission/moonoutpost19/arrivals)
+"jx" = (
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "jB" = (
 /obj/structure/grille,
 /turf/open/floor/plating{
@@ -3357,6 +3100,19 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
+/area/awaymission/moonoutpost19/arrivals)
+"jE" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	desc = "Your instincts say you shouldn't be following these.";
+	dir = 8;
+	icon_state = "ltrails_1"
+	},
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "floorscorched2";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
 /area/awaymission/moonoutpost19/arrivals)
 "jF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3526,74 +3282,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
-"kc" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "floorscorched2";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"kd" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "damaged1";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"ke" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"kf" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"kg" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "floorscorched1";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"ki" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "damaged3";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "kj" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3746,52 +3434,9 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
-"kB" = (
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "damaged2";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "kC" = (
 /turf/open/floor/plating{
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"kD" = (
-/obj/effect/decal/cleanable/generic,
-/obj/effect/decal/remains/human{
-	desc = "They look like human remains. The skeleton is curled up in fetal position with the hands placed near the throat."
-	},
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "damaged4";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"kE" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"kF" = (
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "damaged5";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"kG" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kH" = (
@@ -3934,18 +3579,6 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/arrivals)
-"lk" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "lm" = (
 /obj/machinery/door/airlock{
 	id_tag = "awaydorm1";
@@ -3986,32 +3619,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/awaymission/moonoutpost19/arrivals)
-"lv" = (
-/turf/open/floor/iron/showroomfloor{
-	temperature = 273.15
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"lw" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
-	},
-/turf/open/floor/iron/showroomfloor{
-	temperature = 273.15
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"lx" = (
-/obj/structure/closet/crate{
-	desc = "It's a storage unit for kitchen clothes and equipment.";
-	name = "Kitchen Crate"
-	},
-/obj/item/storage/box/mousetraps,
-/obj/item/clothing/under/suit/waiter,
-/turf/open/floor/iron/showroomfloor{
-	temperature = 273.15
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "ly" = (
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 23;
@@ -4021,22 +3628,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/syndicate)
-"lA" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/awaymission/moonoutpost19/arrivals)
-"lD" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/open/floor/plating{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "lE" = (
 /obj/structure/shuttle/engine/propulsion/burst/right{
 	dir = 4
@@ -4062,24 +3653,6 @@
 	dir = 6
 	},
 /turf/open/floor/iron,
-/area/awaymission/moonoutpost19/arrivals)
-"lI" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"lJ" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
 /area/awaymission/moonoutpost19/arrivals)
 "lK" = (
 /obj/structure/bed,
@@ -4125,18 +3698,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/suit/hooded/chaplain_hoodie,
 /turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/arrivals)
-"lU" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/remains/human{
-	desc = "They look like human remains. The skeleton is sitting upright with its legs tucked in and hands still holding onto its arms."
-	},
-/obj/item/gun/ballistic/shotgun/sc_pump,
-/turf/open/floor/iron/showroomfloor{
-	temperature = 273.15
-	},
 /area/awaymission/moonoutpost19/arrivals)
 "lV" = (
 /obj/structure/table,
@@ -4206,13 +3767,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
-"mh" = (
-/obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "mi" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/cleanable/dirt,
@@ -4225,48 +3779,6 @@
 /obj/structure/table,
 /obj/item/storage/backpack/satchel/leather/withwallet,
 /turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/arrivals)
-"mm" = (
-/obj/structure/closet/secure_closet{
-	locked = 0;
-	name = "kitchen Cabinet";
-	req_access_txt = "201"
-	},
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/sugar,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/showroomfloor{
-	temperature = 273.15
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"mn" = (
-/obj/structure/closet/secure_closet/freezer{
-	locked = 0;
-	name = "meat fridge";
-	req_access_txt = "201"
-	},
-/obj/item/food/meat/slab/monkey,
-/obj/item/food/meat/slab/monkey,
-/obj/item/food/meat/slab/monkey,
-/obj/item/food/meat/slab/monkey,
-/turf/open/floor/iron/showroomfloor{
-	temperature = 273.15
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"mo" = (
-/obj/structure/closet/secure_closet/freezer{
-	locked = 0;
-	name = "refrigerator";
-	req_access_txt = "201"
-	},
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/storage/fancy/egg_box,
-/turf/open/floor/iron/showroomfloor{
-	temperature = 273.15
-	},
 /area/awaymission/moonoutpost19/arrivals)
 "mp" = (
 /obj/structure/table,
@@ -4319,14 +3831,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/awaymission/moonoutpost19/arrivals)
-"mx" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
 /area/awaymission/moonoutpost19/arrivals)
 "my" = (
 /obj/structure/table/wood,
@@ -4464,36 +3968,6 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/arrivals)
-"mP" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/blood/tracks{
-	desc = "Your instincts say you shouldn't be following these.";
-	dir = 9;
-	icon_state = "ltrails_1"
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"mQ" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	desc = "Your instincts say you shouldn't be following these.";
-	dir = 8;
-	icon_state = "ltrails_1"
-	},
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "floorscorched2";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "mR" = (
 /obj/machinery/door/airlock{
 	id_tag = "awaydorm2";
@@ -4549,19 +4023,6 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/mineral/titanium/yellow,
 /area/awaymission/moonoutpost19/arrivals)
-"mZ" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	desc = "Your instincts say you shouldn't be following these.";
-	icon_state = "ltrails_1"
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "na" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
@@ -4600,26 +4061,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/mineral/titanium/blue,
 /area/awaymission/moonoutpost19/arrivals)
-"ni" = (
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "floorscorched2";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"nj" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "damaged2";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "nk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/candy,
@@ -4652,22 +4093,6 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/arrivals)
-"nq" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	desc = "Your instincts say you shouldn't be following these.";
-	icon_state = "ltrails_2"
-	},
-/obj/machinery/camera/directional/west{
-	c_tag = "Dormitories";
-	network = list("mo19")
-	},
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "damaged1";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "ns" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
@@ -4677,24 +4102,9 @@
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/arrivals)
-"nu" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"ny" = (
-/obj/machinery/airalarm/unlocked{
-	dir = 4;
-	pixel_x = 23;
-	req_access = null
-	},
-/obj/effect/turf_decal/tile/neutral,
+"nv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron{
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	temperature = 251
@@ -4730,30 +4140,6 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/main)
-"nF" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	desc = "Your instincts say you shouldn't be following these.";
-	dir = 8;
-	icon_state = "ltrails_1"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"nG" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	desc = "Your instincts say you shouldn't be following these.";
-	dir = 6;
-	icon_state = "ltrails_1"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "nH" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
@@ -4786,20 +4172,6 @@
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/arrivals)
-"nM" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666";
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "nO" = (
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock{
@@ -4825,16 +4197,6 @@
 /obj/item/storage/box/lights/mixed,
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/arrivals)
-"nS" = (
-/obj/structure/table,
-/obj/item/toy/cards/deck,
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "damaged1";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "nT" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
 	locked = 0;
@@ -4854,49 +4216,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/arrivals)
-"nW" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"nX" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666";
-	dir = 8
-	},
-/turf/open/floor/iron{
-	dir = 8;
-	icon_state = "floorscorched2";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"nY" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/generic,
-/obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"nZ" = (
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/main)
 "oa" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#666666"
@@ -4905,18 +4224,6 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/arrivals)
-"oc" = (
-/obj/structure/disposaloutlet,
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/turf/open/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/main)
 "od" = (
 /obj/item/shard{
 	icon_state = "small"
@@ -4954,6 +4261,21 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/research)
+"oW" = (
+/obj/structure/tank_dispenser/oxygen{
+	oxygentanks = 9
+	},
+/obj/machinery/light/small/broken{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plating{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "pg" = (
 /obj/item/radio/off,
 /obj/item/screwdriver{
@@ -4972,17 +4294,10 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/syndicate)
-"qb" = (
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 23;
-	req_access = null;
-	req_access_txt = "150"
-	},
-/obj/machinery/light/broken{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted,
+"pV" = (
 /turf/open/floor/iron{
+	dir = 8;
+	icon_state = "damaged3";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	temperature = 251
 	},
@@ -5002,6 +4317,14 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
+"qs" = (
+/turf/open/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/main)
 "qv" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating{
@@ -5013,12 +4336,42 @@
 	broken = 1
 	},
 /area/awaymission/moonoutpost19/arrivals)
+"qB" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "qI" = (
 /obj/machinery/gateway{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
+/area/awaymission/moonoutpost19/syndicate)
+"qW" = (
+/obj/machinery/airalarm/unlocked{
+	dir = 4;
+	pixel_x = 23;
+	req_access = null
+	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"qZ" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
 /area/awaymission/moonoutpost19/syndicate)
 "rd" = (
 /obj/structure/filingcabinet,
@@ -5028,6 +4381,13 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/research)
+"rS" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "rY" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -5079,6 +4439,53 @@
 	broken = 1
 	},
 /area/awaymission/moonoutpost19/research)
+"sR" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/plating{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"sS" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	desc = "Your instincts say you shouldn't be following these.";
+	dir = 8;
+	icon_state = "ltrails_1"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"sX" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"sY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "tf" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -5087,6 +4494,29 @@
 	burnt = 1
 	},
 /area/awaymission/moonoutpost19/research)
+"tz" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "damaged3";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"tP" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 8
+	},
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "floorscorched2";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "tU" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -5095,26 +4525,25 @@
 	broken = 1
 	},
 /area/awaymission/moonoutpost19/research)
-"uI" = (
-/obj/item/kirbyplants{
-	desc = "A plastic potted plant.";
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
+"tW" = (
+/obj/structure/table,
+/obj/item/toy/cards/deck,
 /turf/open/floor/iron{
+	dir = 8;
+	icon_state = "damaged1";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
-"vq" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/red/half/contrasted,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
+"vh" = (
+/obj/structure/table,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = 32
 	},
+/obj/item/plate,
+/obj/item/cigbutt,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
 /area/awaymission/moonoutpost19/syndicate)
 "vM" = (
 /obj/structure/closet/crate/bin,
@@ -5126,18 +4555,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
-"vN" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	desc = "Your instincts say you shouldn't be following these.";
-	dir = 8;
-	icon_state = "ltrails_2"
-	},
-/turf/open/floor/plating{
-	broken = 1;
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "vV" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -5145,6 +4562,16 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/arrivals)
+"vY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "wp" = (
 /obj/item/cigbutt,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -5157,14 +4584,21 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
-"wX" = (
-/obj/effect/spawner/structure/window/reinforced,
+"wS" = (
+/obj/structure/sign/warning/vacuum{
+	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
+	name = "\improper HOSTILE ATMOSPHERE AHEAD";
+	pixel_y = -32
+	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/open/floor/plating{
-	broken = 1;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	temperature = 251
 	},
-/area/awaymission/moonoutpost19/arrivals)
+/area/awaymission/moonoutpost19/syndicate)
 "xg" = (
 /obj/item/cigbutt,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -5198,6 +4632,11 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
+/area/awaymission/moonoutpost19/arrivals)
+"yb" = (
+/turf/open/floor/iron/showroomfloor{
+	temperature = 273.15
+	},
 /area/awaymission/moonoutpost19/arrivals)
 "yh" = (
 /obj/effect/decal/cleanable/xenoblood,
@@ -5239,37 +4678,73 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
-"zl" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/awaymission/moonoutpost19/arrivals)
-"zT" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted,
+"zh" = (
+/obj/structure/alien/weeds,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/iron{
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
+"zk" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating{
+	broken = 1;
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"zl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/awaymission/moonoutpost19/arrivals)
+"zD" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
+"zP" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/generic,
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "zZ" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/arrivals)
+"Ac" = (
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "damaged2";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "Al" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/syndicate)
-"Bn" = (
-/obj/structure/table,
-/obj/item/trash/plate,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
+"AG" = (
+/obj/structure/closet/crate/bin,
+/obj/item/plate,
+/obj/item/food/badrecipe,
+/turf/open/floor/iron/cafeteria{
+	dir = 5
+	},
 /area/awaymission/moonoutpost19/arrivals)
 "Bs" = (
 /obj/structure/cable{
@@ -5280,21 +4755,33 @@
 	broken = 1
 	},
 /area/awaymission/moonoutpost19/research)
-"Bv" = (
-/obj/structure/grille/broken,
-/obj/item/stack/rods,
-/obj/item/shard,
-/obj/effect/decal/cleanable/blood/tracks{
-	desc = "Your instincts say you shouldn't be following these.";
-	dir = 8;
-	icon_state = "ltrails_2"
+"BZ" = (
+/obj/machinery/airalarm/directional/east{
+	pixel_x = 23;
+	req_access = null;
+	req_access_txt = "150"
 	},
-/turf/open/floor/plating{
-	broken = 1;
+/obj/machinery/light/broken{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/iron{
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	temperature = 251
 	},
-/area/awaymission/moonoutpost19/arrivals)
+/area/awaymission/moonoutpost19/syndicate)
+"Ca" = (
+/obj/machinery/mineral/processing_unit{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "CF" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/security_space_law,
@@ -5310,6 +4797,14 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
+"CK" = (
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "damaged4";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "CL" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
@@ -5322,30 +4817,25 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
-"DN" = (
-/obj/structure/closet/crate,
-/obj/item/storage/bag/ore,
-/obj/structure/alien/weeds,
-/obj/item/mining_scanner,
-/obj/item/shovel,
-/obj/item/pickaxe,
-/turf/open/floor/plating{
-	broken = 1;
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
+"Dm" = (
+/obj/machinery/light/small{
+	dir = 1
 	},
-/area/awaymission/moonoutpost19/syndicate)
-"DR" = (
-/obj/machinery/light/small/broken{
+/obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/red/half/contrasted,
-/turf/open/floor/iron{
+/obj/structure/table,
+/obj/structure/bedsheetbin,
+/obj/item/clothing/neck/tie/black,
+/obj/item/clothing/under/suit/black,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria{
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	temperature = 251
 	},
-/area/awaymission/moonoutpost19/syndicate)
+/area/awaymission/moonoutpost19/arrivals)
 "DU" = (
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = -30
@@ -5355,6 +4845,38 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/research)
+"DW" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "damaged1";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"Ed" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"Eg" = (
+/obj/machinery/washing_machine,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "Ek" = (
 /obj/structure/chair{
 	dir = 4
@@ -5398,6 +4920,14 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
+"EJ" = (
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "floorscorched2";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "EU" = (
 /obj/structure/sign/departments/science{
 	pixel_y = 32
@@ -5408,15 +4938,25 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
-"FJ" = (
-/obj/structure/table,
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = 32
+"Fy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/loading_area,
+/obj/structure/alien/weeds,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
 	},
-/obj/item/trash/plate,
-/obj/item/cigbutt,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
+/area/awaymission/moonoutpost19/syndicate)
+"FF" = (
+/obj/machinery/light/small/broken{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
 /area/awaymission/moonoutpost19/syndicate)
 "FN" = (
 /obj/item/stack/rods,
@@ -5431,17 +4971,45 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/research)
-"Go" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
+"FR" = (
+/obj/machinery/conveyor{
+	id = "awaysyndie"
 	},
-/turf/open/floor/iron{
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating{
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
-"GN" = (
+"GE" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	desc = "Your instincts say you shouldn't be following these.";
+	dir = 6;
+	icon_state = "ltrails_1"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"GG" = (
+/obj/structure/closet/secure_closet/freezer{
+	locked = 0;
+	name = "meat fridge";
+	req_access_txt = "201"
+	},
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
+/turf/open/floor/iron/showroomfloor{
+	temperature = 273.15
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"GO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron{
@@ -5471,6 +5039,17 @@
 	burnt = 1
 	},
 /area/awaymission/moonoutpost19/syndicate)
+"HF" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "HG" = (
 /obj/structure/closet/secure_closet{
 	icon_state = "sec";
@@ -5495,17 +5074,11 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/research)
-"HV" = (
-/obj/structure/closet/crate/bin,
-/obj/item/trash/plate,
-/obj/item/food/badrecipe,
-/turf/open/floor/iron/cafeteria{
-	dir = 5
-	},
-/area/awaymission/moonoutpost19/arrivals)
-"Ik" = (
-/obj/structure/cable{
-	icon_state = "4-8"
+"HQ" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	desc = "Your instincts say you shouldn't be following these.";
+	dir = 8;
+	icon_state = "ltrails_2"
 	},
 /turf/open/floor/plating{
 	broken = 1;
@@ -5513,6 +5086,15 @@
 	temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
+"HW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds,
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "In" = (
 /obj/machinery/gateway{
 	dir = 5
@@ -5528,15 +5110,6 @@
 	broken = 1
 	},
 /area/awaymission/moonoutpost19/research)
-"IH" = (
-/obj/structure/grille/broken,
-/obj/item/stack/rods,
-/turf/open/floor/plating{
-	broken = 1;
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "II" = (
 /obj/machinery/gateway{
 	dir = 9
@@ -5544,18 +5117,18 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
-"Jc" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
+"Jx" = (
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/iron{
+	amount = 12
 	},
-/area/awaymission/moonoutpost19/arrivals)
-"Jk" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds,
+/obj/effect/turf_decal/bot{
 	dir = 1
 	},
 /turf/open/floor/iron{
+	dir = 1;
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	temperature = 251
 	},
@@ -5567,6 +5140,44 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/syndicate)
+"JL" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
+"JV" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
+"KC" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"KJ" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plating{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "KQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -5574,19 +5185,28 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
-"KX" = (
-/obj/machinery/washing_machine,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/cafeteria{
+"LB" = (
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	temperature = 251
 	},
-/area/awaymission/moonoutpost19/arrivals)
+/area/awaymission/moonoutpost19/main)
 "LE" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
+/area/awaymission/moonoutpost19/syndicate)
+"LK" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
 /area/awaymission/moonoutpost19/syndicate)
 "LQ" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -5604,6 +5224,33 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
+"LX" = (
+/obj/structure/grille/broken,
+/obj/item/stack/rods,
+/obj/item/shard,
+/obj/effect/decal/cleanable/blood/tracks{
+	desc = "Your instincts say you shouldn't be following these.";
+	dir = 8;
+	icon_state = "ltrails_2"
+	},
+/turf/open/floor/plating{
+	broken = 1;
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"Mc" = (
+/obj/structure/sign/warning/securearea{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "Mm" = (
 /obj/machinery/door/airlock/medical{
 	name = "Research Division";
@@ -5614,13 +5261,93 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/moonoutpost19/research)
+"Ms" = (
+/obj/machinery/conveyor_switch/oneway{
+	id = "awaysyndie";
+	name = "mining conveyor"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "MU" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/syndicate)
-"Nf" = (
+"MY" = (
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "damaged2";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"MZ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
+"NP" = (
+/obj/machinery/mineral/stacking_machine{
+	dir = 1;
+	input_dir = 1;
+	output_dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
+"Ol" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"Oy" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/awaymission/moonoutpost19/research)
+"Oz" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"OB" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/highcap/fifteen_k{
 	name = "Worn-out APC";
@@ -5637,39 +5364,34 @@
 	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
-"NJ" = (
-/obj/structure/alien/weeds,
-/obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
-"Ot" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 1
+"OO" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
 	},
 /turf/open/floor/iron{
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	temperature = 251
 	},
-/area/awaymission/moonoutpost19/syndicate)
-"Oy" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/oil,
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/awaymission/moonoutpost19/research)
+/area/awaymission/moonoutpost19/arrivals)
 "OT" = (
 /obj/machinery/gateway{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
+/area/awaymission/moonoutpost19/syndicate)
+"Ph" = (
+/obj/structure/sign/warning/biohazard{
+	pixel_y = 32
+	},
+/obj/structure/alien/weeds/node,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
 /area/awaymission/moonoutpost19/syndicate)
 "Pq" = (
 /obj/machinery/gateway{
@@ -5678,15 +5400,49 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
-"QH" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
+"Ps" = (
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/external{
+	density = 0;
+	icon_state = "open";
+	opacity = 0;
+	req_access_txt = "150";
+	set_obj_flags = "EMAGGED"
 	},
-/turf/open/floor/iron{
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
+"PG" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"Qc" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"Qn" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating{
+	broken = 1;
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "QP" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -5695,17 +5451,14 @@
 	broken = 1
 	},
 /area/awaymission/moonoutpost19/research)
-"Rz" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 8
+"Rw" = (
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/area/awaymission/moonoutpost19/syndicate)
-"RA" = (
-/obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron{
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	temperature = 251
@@ -5726,12 +5479,91 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/syndicate)
+"RN" = (
+/obj/item/kirbyplants{
+	desc = "A plastic potted plant.";
+	pixel_y = 3
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "Se" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
+/area/awaymission/moonoutpost19/syndicate)
+"Sm" = (
+/obj/structure/grille/broken,
+/obj/item/stack/rods,
+/turf/open/floor/plating{
+	broken = 1;
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"So" = (
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/remains/human{
+	desc = "They look like human remains. The skeleton is curled up in fetal position with the hands placed near the throat."
+	},
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "damaged4";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"Su" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
+"SE" = (
+/obj/structure/closet/crate{
+	desc = "It's a storage unit for kitchen clothes and equipment.";
+	name = "Kitchen Crate"
+	},
+/obj/item/storage/box/mousetraps,
+/obj/item/clothing/under/suit/waiter,
+/turf/open/floor/iron/showroomfloor{
+	temperature = 273.15
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"SJ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "floorscorched2";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"Ta" = (
+/obj/structure/sign/poster/contraband/syndicate_recruitment{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/obj/structure/alien/weeds,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
 /area/awaymission/moonoutpost19/syndicate)
 "Td" = (
 /obj/structure/table,
@@ -5741,6 +5573,14 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/research)
+"Tz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "TM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -5748,28 +5588,38 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
-"TX" = (
-/turf/open/floor/plating{
-	broken = 1;
+"TZ" = (
+/obj/structure/closet/secure_closet/freezer{
+	locked = 0;
+	name = "refrigerator";
+	req_access_txt = "201"
+	},
+/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/storage/fancy/egg_box,
+/turf/open/floor/iron/showroomfloor{
+	temperature = 273.15
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"Ue" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 24
+	},
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "damaged2";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	temperature = 251
 	},
-/area/awaymission/moonoutpost19/syndicate)
+/area/awaymission/moonoutpost19/arrivals)
 "Ul" = (
 /obj/effect/decal/cleanable/xenoblood,
 /obj/effect/decal/cleanable/xenoblood/xgibs,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
-"Um" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/alien/weeds,
-/obj/effect/turf_decal/tile/red/half/contrasted,
-/turf/open/floor/iron{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
-/area/awaymission/moonoutpost19/syndicate)
 "Uo" = (
 /obj/machinery/gateway{
 	dir = 6
@@ -5778,17 +5628,77 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
+"Uv" = (
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "old sink";
+	pixel_y = 28
+	},
+/turf/open/floor/iron/showroomfloor{
+	temperature = 273.15
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "Ux" = (
 /turf/open/floor/plating{
 	broken = 1
 	},
 /area/awaymission/moonoutpost19/research)
+"UF" = (
+/obj/structure/alien/weeds/node,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "UZ" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/syndicate)
+"Vp" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
+"VM" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	desc = "Your instincts say you shouldn't be following these.";
+	icon_state = "ltrails_2"
+	},
+/obj/machinery/camera/directional/west{
+	c_tag = "Dormitories";
+	network = list("mo19")
+	},
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "damaged1";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"VY" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	desc = "Your instincts say you shouldn't be following these.";
+	icon_state = "ltrails_1"
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "Wf" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -5796,30 +5706,23 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/arrivals)
+"Wi" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/remains/human{
+	desc = "They look like human remains. The skeleton is sitting upright with its legs tucked in and hands still holding onto its arms."
+	},
+/obj/item/gun/ballistic/shotgun/sc_pump,
+/turf/open/floor/iron/showroomfloor{
+	temperature = 273.15
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "WB" = (
 /obj/structure/table,
 /obj/item/trash/raisins,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/awaymission/moonoutpost19/arrivals)
-"WM" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/table,
-/obj/structure/bedsheetbin,
-/obj/item/clothing/neck/tie/black,
-/obj/item/clothing/under/suit/black,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/cafeteria{
-	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
-	temperature = 251
-	},
 /area/awaymission/moonoutpost19/arrivals)
 "Xd" = (
 /obj/structure/chair{
@@ -5831,6 +5734,57 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
+"Xj" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/space/syndicate/orange,
+/obj/item/clothing/mask/gas,
+/obj/item/pickaxe/drill,
+/obj/item/clothing/head/helmet/space/syndicate/orange,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plating{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
+"Xk" = (
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "damaged1";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
+"Yh" = (
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/glass{
+	amount = 10
+	},
+/obj/structure/alien/weeds,
+/obj/effect/turf_decal/bot{
+	dir = 1
+	},
+/turf/open/floor/iron{
+	dir = 1;
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
+"Ym" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron{
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
+"Yq" = (
+/turf/open/floor/plating{
+	broken = 1;
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "Yx" = (
 /obj/machinery/gateway,
 /obj/structure/cable{
@@ -5839,12 +5793,51 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
+"YD" = (
+/obj/structure/closet/secure_closet{
+	locked = 0;
+	name = "kitchen Cabinet";
+	req_access_txt = "201"
+	},
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/sugar,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/showroomfloor{
+	temperature = 273.15
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "YH" = (
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
+"YZ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "floorscorched1";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/arrivals)
+"Zv" = (
+/obj/machinery/airalarm/unlocked{
+	pixel_y = 23;
+	req_access = null;
+	req_access_txt = "150";
+	dir = 1
+	},
+/turf/open/floor/iron{
+	dir = 8;
+	icon_state = "floorscorched2";
+	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
+	temperature = 251
+	},
+/area/awaymission/moonoutpost19/syndicate)
 "ZB" = (
 /obj/structure/table,
 /obj/item/cigbutt,
@@ -30936,9 +30929,9 @@ ba
 ba
 ba
 lc
-lA
-lA
-lA
+io
+io
+io
 lc
 ba
 ba
@@ -32733,13 +32726,13 @@ jT
 kt
 hI
 ba
-lA
+io
 mb
 ms
 mI
 ms
 mb
-lA
+io
 ba
 ba
 ba
@@ -33504,13 +33497,13 @@ jV
 ku
 io
 ba
-lA
+io
 mc
 mc
 mr
 mc
 mc
-lA
+io
 ba
 ba
 ba
@@ -34018,13 +34011,13 @@ jU
 ku
 io
 ld
-lD
-lD
+sR
+sR
 mu
 mr
 mY
-lD
-lD
+sR
+sR
 ld
 ba
 ba
@@ -35057,7 +35050,7 @@ hI
 hI
 hI
 hI
-nW
+fS
 ba
 ba
 ba
@@ -35292,7 +35285,7 @@ gR
 gR
 gR
 fk
-hj
+fk
 hN
 ea
 iu
@@ -35314,7 +35307,7 @@ zZ
 nA
 nK
 Wf
-dM
+qs
 ba
 ba
 ba
@@ -35546,14 +35539,14 @@ fX
 gm
 gG
 gS
-hj
-hj
-hj
+fk
+fk
+fk
 hF
 hN
 ie
-hj
-hj
+fk
+fk
 Mm
 xO
 jU
@@ -35571,7 +35564,7 @@ zZ
 lM
 lN
 Wf
-dM
+qs
 ba
 ba
 ba
@@ -35828,7 +35821,7 @@ hI
 nB
 nL
 hI
-nW
+fS
 ba
 ba
 ba
@@ -36320,8 +36313,8 @@ gT
 ea
 hm
 hy
-hj
-hj
+fk
+fk
 if
 dZ
 ba
@@ -36576,16 +36569,16 @@ fk
 gU
 dZ
 hn
-hj
-hj
-hj
+fk
+fk
+fk
 ig
 dZ
 ba
 ba
 io
-kc
-kB
+SJ
+MY
 jC
 ba
 ba
@@ -36834,14 +36827,14 @@ gV
 ea
 eK
 hz
-hj
+fk
 hF
 ih
 ea
 ba
 ba
 io
-kd
+DW
 kC
 kP
 ba
@@ -37098,9 +37091,9 @@ ea
 ba
 ba
 io
-ke
-kD
-IH
+Ed
+So
+Sm
 li
 ba
 ba
@@ -37355,8 +37348,8 @@ ea
 ba
 hV
 hI
-kf
-kE
+sX
+Qc
 hI
 lj
 ba
@@ -37611,9 +37604,9 @@ ba
 ba
 ba
 ba
-wX
-kg
-kE
+zk
+YZ
+Qc
 io
 ba
 ba
@@ -37869,8 +37862,8 @@ ba
 ba
 ja
 jB
-Ik
-kF
+Qn
+hg
 io
 ba
 ba
@@ -37881,7 +37874,7 @@ ba
 ba
 hI
 jC
-Bv
+LX
 jC
 jC
 jC
@@ -38126,8 +38119,8 @@ ba
 ba
 ba
 jC
-ki
-kG
+tz
+nv
 io
 ba
 ba
@@ -38137,11 +38130,11 @@ ba
 ba
 ba
 hI
-KX
-vN
-nM
-nS
-nX
+Eg
+HQ
+Ol
+tW
+tP
 jC
 ba
 ba
@@ -38394,10 +38387,10 @@ hI
 hI
 hJ
 hJ
-WM
-nF
-kE
-kB
+Dm
+sS
+Qc
+MY
 kC
 jC
 jC
@@ -38595,13 +38588,13 @@ aU
 bv
 bF
 aU
-bX
-bX
-cC
-bX
-bX
-de
-dl
+FR
+FR
+Ca
+FR
+FR
+NP
+Fy
 aU
 ac
 ac
@@ -38643,19 +38636,19 @@ jD
 jU
 jF
 kS
-lk
-lI
-lI
-lI
-mP
-mZ
-ni
-nq
-kG
-nG
-kE
-kE
-kE
+Oz
+KC
+KC
+KC
+eR
+VY
+EJ
+VM
+nv
+GE
+Qc
+Qc
+Qc
 oa
 jC
 ba
@@ -38858,7 +38851,7 @@ cD
 cn
 cn
 df
-dm
+vY
 aU
 aU
 aU
@@ -38900,20 +38893,20 @@ jF
 jV
 jG
 kR
-GN
-lJ
-mh
-mx
-mQ
-kF
-nj
-mh
-ny
-mx
-Jc
-lJ
-nY
-uI
+GO
+OO
+jx
+gB
+jE
+hg
+Ue
+jx
+qW
+gB
+PG
+OO
+zP
+RN
 jC
 ba
 ba
@@ -39109,18 +39102,18 @@ yC
 LE
 JH
 aU
-bZ
-co
-cE
-cQ
-cV
-cE
-dn
+Ta
+qB
+Su
+Ms
+UF
+Su
+qZ
 aU
-dw
-dB
+oW
+wS
 aU
-dL
+Vp
 ba
 ba
 ba
@@ -39366,18 +39359,18 @@ xg
 LE
 El
 bO
-ca
+Ym
 cp
-ca
-cR
-cW
-ca
-ca
+Ym
+CK
+Ac
+Ym
+Ym
 du
 dx
-TX
-dI
-dM
+Yq
+Ps
+qs
 ba
 ba
 ba
@@ -39623,16 +39616,16 @@ ly
 UZ
 pM
 bP
-Um
-RA
-vq
-qb
-cX
-vq
-do
+HW
+rS
+Tz
+BZ
+pV
+Tz
+Xk
 aU
-dy
-dD
+Xj
+KJ
 aU
 dA
 ba
@@ -39877,16 +39870,16 @@ ac
 ac
 aU
 EA
-FJ
+vh
 Al
 aU
 bP
 cr
 cG
 aU
-cY
-dg
-DN
+Jx
+Yh
+dU
 aU
 aU
 aU
@@ -40137,9 +40130,9 @@ at
 at
 at
 at
-Ot
-Jk
-Rz
+fI
+JV
+JL
 aU
 aU
 aU
@@ -40197,13 +40190,13 @@ hJ
 lM
 lN
 hI
-dM
+qs
 ba
 ba
 ba
-dM
-dM
-dM
+qs
+qs
+qs
 od
 ba
 ba
@@ -40394,9 +40387,9 @@ bq
 bA
 MU
 at
-cd
-ca
-Go
+Zv
+Ym
+sY
 aU
 cZ
 dh
@@ -40454,13 +40447,13 @@ nz
 lN
 nQ
 nV
-nZ
-nZ
-nZ
-nZ
-nZ
-oc
-dM
+LB
+LB
+LB
+LB
+LB
+cI
+qs
 ba
 ba
 ba
@@ -40651,9 +40644,9 @@ br
 bB
 RI
 at
-ce
-ca
-QH
+Ph
+Ym
+zD
 cT
 da
 di
@@ -40711,13 +40704,13 @@ hI
 qv
 nR
 hJ
-dM
+qs
 ba
 ba
 ba
-dM
-dM
-dM
+qs
+qs
+qs
 ba
 oe
 ba
@@ -40908,9 +40901,9 @@ bs
 bC
 bC
 bQ
-cf
+Rw
 ct
-Nf
+OB
 aU
 aU
 aU
@@ -41165,9 +41158,9 @@ bt
 bD
 yT
 at
-cg
-cu
-Go
+Mc
+MZ
+sY
 cU
 db
 dj
@@ -41422,9 +41415,9 @@ bu
 bE
 eP
 at
-DR
-zT
-NJ
+FF
+LK
+zh
 aU
 dc
 dk
@@ -41475,9 +41468,9 @@ lN
 hJ
 ba
 ba
-dM
-dM
-nu
+qs
+qs
+HF
 ba
 ba
 ba
@@ -42234,7 +42227,7 @@ ba
 ba
 ba
 io
-Bn
+aY
 xH
 zl
 LQ
@@ -44552,7 +44545,7 @@ iY
 jo
 jR
 ks
-HV
+AG
 hJ
 lu
 hJ
@@ -44811,9 +44804,9 @@ io
 hJ
 hJ
 hJ
-lv
-lv
-mm
+yb
+yb
+YD
 hJ
 ba
 ba
@@ -45068,9 +45061,9 @@ ba
 ba
 ba
 hI
-lw
-lv
-mn
+Uv
+yb
+GG
 hJ
 ba
 ba
@@ -45325,9 +45318,9 @@ ba
 ba
 ba
 hI
-lx
-lU
-mo
+SE
+Wi
+TZ
 hI
 ba
 ba

@@ -5803,10 +5803,6 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/centcom/holding)
-"wk" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/iron/dark,
-/area/centcom/supplypod)
 "wl" = (
 /obj/machinery/light,
 /turf/open/floor/wood,
@@ -13107,7 +13103,7 @@
 /area/centcom/control)
 "XK" = (
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/iron,
+/turf/open/floor/plating,
 /area/centcom/supplypod)
 "XL" = (
 /obj/machinery/door/airlock/wood,
@@ -13156,10 +13152,6 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
-"XT" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/space/basic,
-/area/centcom/supplypod)
 "XW" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
@@ -64494,8 +64486,8 @@ Yn
 Yn
 Yn
 Yn
-wk
-wk
+XK
+XK
 Yn
 Yn
 Yn
@@ -66283,8 +66275,8 @@ RC
 qx
 qx
 qx
-XT
-XT
+XK
+XK
 Yn
 Yn
 Yn

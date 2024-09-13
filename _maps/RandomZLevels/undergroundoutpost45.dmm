@@ -217,10 +217,6 @@
 /obj/item/clothing/under/suit/black/skirt,
 /turf/open/floor/carpet,
 /area/awaymission/undergroundoutpost45/central)
-"bd" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/space,
-/area/awaymission/undergroundoutpost45/central)
 "bi" = (
 /obj/structure/sink{
 	pixel_y = 25
@@ -415,21 +411,6 @@
 	},
 /turf/closed/wall,
 /area/awaymission/undergroundoutpost45/central)
-"bW" = (
-/obj/structure/glowshroom/single,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 351.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"bX" = (
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 351.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
 "bY" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -846,6 +827,14 @@
 	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
+"dK" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "dO" = (
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
@@ -1000,14 +989,6 @@
 	},
 /turf/closed/wall,
 /area/awaymission/undergroundoutpost45/central)
-"eu" = (
-/turf/open/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9
-	},
-/area/awaymission/undergroundoutpost45/caves)
 "ev" = (
 /obj/item/clothing/under/misc/pj,
 /obj/structure/closet/secure_closet/personal/cabinet{
@@ -1070,13 +1051,6 @@
 /obj/machinery/door/airlock/external,
 /turf/open/floor/plating,
 /area/awaymission/undergroundoutpost45/central)
-"eJ" = (
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
 "eM" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -1088,6 +1062,14 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
+"eN" = (
+/obj/structure/alien/resin/membrane,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "eO" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/grass,
@@ -1158,16 +1140,6 @@
 "fm" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall/r_wall/rust,
-/area/awaymission/undergroundoutpost45/central)
-"fn" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
 /area/awaymission/undergroundoutpost45/central)
 "fo" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -1303,16 +1275,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
-"fJ" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/central)
 "fK" = (
 /turf/closed/wall/r_wall,
 /area/awaymission/undergroundoutpost45/crew_quarters)
@@ -1441,14 +1403,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
-"gf" = (
-/obj/structure/glowshroom/single,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
 "gg" = (
 /turf/closed/wall/r_wall/rust,
 /area/awaymission/undergroundoutpost45/crew_quarters)
@@ -1549,14 +1503,6 @@
 "gA" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/crew_quarters)
-"gB" = (
-/obj/machinery/light/small,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "gC" = (
 /obj/machinery/vending/dinnerware,
@@ -1719,26 +1665,6 @@
 "hc" = (
 /turf/closed/wall/r_wall/rust,
 /area/awaymission/undergroundoutpost45/research)
-"hd" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/research)
-"he" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "hf" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1756,16 +1682,22 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"hh" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+"hi" = (
+/obj/machinery/light/small,
 /turf/open/floor/plating/asteroid{
 	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
 	temperature = 363.9;
 	name = "Cave Floor"
 	},
-/area/awaymission/undergroundoutpost45/crew_quarters)
+/area/awaymission/undergroundoutpost45/research)
+"hj" = (
+/obj/structure/glowshroom/single,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "hp" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -25
@@ -1807,6 +1739,17 @@
 	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"ht" = (
+/obj/machinery/light/small,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/engineering)
 "hu" = (
 /obj/machinery/gateway/centeraway{
 	calibrated = 0
@@ -2492,14 +2435,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/undergroundoutpost45/gateway)
-"jL" = (
-/obj/machinery/light/small,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/gateway)
 "jM" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/spawner/structure/window,
@@ -2518,14 +2453,6 @@
 "jO" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
-/area/awaymission/undergroundoutpost45/research)
-"jP" = (
-/obj/machinery/light/small,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
 /area/awaymission/undergroundoutpost45/research)
 "jQ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -2681,6 +2608,15 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"kr" = (
+/obj/structure/alien/resin/wall,
+/obj/structure/alien/weeds,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "kw" = (
 /obj/structure/closet/l3closet,
 /turf/open/floor/plating,
@@ -3650,16 +3586,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/gateway)
-"mI" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/gateway)
 "mJ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall/r_wall/rust,
@@ -4309,6 +4235,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/engineering)
+"ow" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "ox" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/open/floor/iron/cafeteria{
@@ -4659,37 +4595,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"pu" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 6
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"pv" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"pw" = (
-/obj/machinery/light/small,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/engineering)
 "px" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
@@ -4892,14 +4797,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/freezer,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"qa" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
 "qb" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -5071,36 +4968,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"qz" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/on{
-	dir = 4
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"qA" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
-	dir = 1
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"qB" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 9
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
 "qC" = (
 /obj/machinery/vending/cola,
 /turf/open/floor/iron/dark,
@@ -6359,6 +6226,14 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/undergroundoutpost45/research)
+"tQ" = (
+/obj/machinery/light/small,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/gateway)
 "tR" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -6432,16 +6307,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/crew_quarters)
-"ub" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "uc" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -6720,6 +6585,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
+"uY" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 9
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "uZ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -6825,19 +6700,6 @@
 /obj/machinery/door/airlock/external,
 /turf/open/floor/plating,
 /area/awaymission/undergroundoutpost45/research)
-"vl" = (
-/obj/structure/disposaloutlet{
-	dir = 8
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
 "vm" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
@@ -6991,16 +6853,6 @@
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/engine/o2,
 /area/awaymission/undergroundoutpost45/engineering)
-"vH" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/research)
 "vI" = (
 /turf/closed/wall/r_wall/rust,
 /area/awaymission/undergroundoutpost45/mining)
@@ -7214,16 +7066,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/mining)
-"wj" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/mining)
 "wk" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
@@ -7344,6 +7186,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/mining)
+"wI" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 6
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "wK" = (
 /obj/machinery/door/airlock{
 	name = "Private Restroom"
@@ -7432,6 +7284,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/mining)
+"wZ" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/gibs/down,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "xb" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -7847,177 +7708,7 @@
 /obj/effect/turf_decal/sand,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/mining)
-"yg" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/mining)
-"yh" = (
-/obj/structure/ore_box,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yi" = (
-/obj/structure/closet/crate,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yj" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/effect/mob_spawn/human,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yk" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yl" = (
-/obj/structure/alien/weeds,
-/obj/structure/glowshroom/single,
-/obj/effect/decal/cleanable/blood/gibs/down,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"ym" = (
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/gibs/core,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yn" = (
-/obj/structure/alien/weeds,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yo" = (
-/obj/structure/alien/weeds,
-/obj/structure/alien/resin/wall,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yp" = (
-/obj/structure/alien/weeds,
-/obj/effect/mob_spawn/human,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yq" = (
-/obj/effect/decal/cleanable/blood/splatter,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yr" = (
-/obj/effect/decal/cleanable/blood/gibs/up,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yt" = (
-/obj/structure/alien/weeds,
-/obj/structure/glowshroom/single,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yu" = (
-/obj/structure/alien/resin/wall,
-/obj/structure/alien/weeds,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yw" = (
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/splatter,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yz" = (
-/obj/structure/alien/resin/membrane,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yA" = (
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/gibs/down,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yB" = (
-/obj/effect/decal/cleanable/blood/gibs/limb,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yC" = (
-/obj/effect/decal/cleanable/blood/splatter,
-/obj/effect/mob_spawn/human,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
-"yD" = (
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/splatter,
-/obj/effect/mob_spawn/human,
+"yv" = (
 /turf/open/floor/plating/asteroid{
 	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
 	temperature = 363.9;
@@ -8034,16 +7725,6 @@
 	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
-"yH" = (
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/gibs/down,
-/obj/effect/mob_spawn/human,
-/turf/open/floor/plating/asteroid{
-	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
-	temperature = 363.9;
-	name = "Cave Floor"
-	},
-/area/awaymission/undergroundoutpost45/caves)
 "yP" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -8076,9 +7757,29 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/central)
+"zf" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "zi" = (
 /turf/open/space,
 /area/space/nearstation)
+"zm" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/mob_spawn/human,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "zq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -8103,6 +7804,16 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
+"zw" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/research)
 "zB" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/barman_recipes,
@@ -8212,12 +7923,6 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
-"Be" = (
-/obj/structure/table,
-/obj/item/trash/plate,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "Bv" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
@@ -8329,6 +8034,16 @@
 	dir = 1
 	},
 /area/awaymission/undergroundoutpost45/engineering)
+"Cr" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "Cs" = (
 /obj/structure/chair,
 /obj/effect/decal/cleanable/dirt,
@@ -8365,6 +8080,15 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"CR" = (
+/obj/structure/alien/weeds,
+/obj/effect/mob_spawn/human,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "CS" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -8391,6 +8115,12 @@
 	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
+"DF" = (
+/obj/structure/table,
+/obj/item/plate,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "DJ" = (
 /obj/machinery/vending/boozeomat,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -8478,6 +8208,15 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
+"Eq" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/resin/wall,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "Ev" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
@@ -8491,6 +8230,16 @@
 	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
+"EG" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/mining)
 "EK" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -8504,6 +8253,15 @@
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"EM" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/gibs/core,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "ET" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -8518,6 +8276,15 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
+"EW" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/mob_spawn/human,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "Fe" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
@@ -8611,6 +8378,14 @@
 	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
+"FX" = (
+/obj/effect/decal/cleanable/blood/gibs/limb,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "FZ" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/cigarettes{
@@ -8816,6 +8591,14 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"Hp" = (
+/obj/structure/glowshroom/single,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 351.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "Hq" = (
 /obj/machinery/gateway{
 	dir = 10
@@ -9053,6 +8836,14 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
+"Kl" = (
+/obj/machinery/light/small,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "Kp" = (
 /obj/structure/table,
 /obj/item/trash/chips,
@@ -9145,6 +8936,15 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"KW" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "La" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -9155,6 +8955,26 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
+"Ld" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/crew_quarters)
+"Le" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/mining)
 "Lg" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -9226,6 +9046,14 @@
 	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"LD" = (
+/obj/structure/closet/crate,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "LF" = (
 /obj/structure/table/wood,
 /turf/open/floor/carpet/grimy,
@@ -9423,6 +9251,26 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"NA" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
+"NC" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/central)
 "NG" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -9537,6 +9385,14 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
+"Pj" = (
+/turf/open/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "Pn" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
@@ -9559,6 +9415,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/central)
+"PO" = (
+/obj/structure/alien/weeds,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "PQ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -9584,6 +9448,16 @@
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
+"Qa" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/gibs/down,
+/obj/effect/mob_spawn/human,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "Qb" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron/white,
@@ -9621,6 +9495,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
+"Qv" = (
+/obj/effect/decal/cleanable/blood/gibs/up,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "Qz" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
@@ -9697,6 +9579,16 @@
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
+"QY" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/mob_spawn/human,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "QZ" = (
 /obj/item/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
@@ -9788,6 +9680,19 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"RR" = (
+/obj/structure/disposaloutlet{
+	dir = 8
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "RW" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -9908,6 +9813,15 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"Te" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "Tk" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
@@ -9988,6 +9902,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
+"TU" = (
+/obj/structure/alien/weeds,
+/obj/structure/glowshroom/single,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "TY" = (
 /obj/machinery/light{
 	dir = 4
@@ -10006,6 +9929,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/gateway)
+"Uj" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "Uo" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/table,
@@ -10077,6 +10008,16 @@
 	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
+"UJ" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/gateway)
 "UN" = (
 /obj/machinery/light{
 	dir = 1
@@ -10277,6 +10218,14 @@
 	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
+"VT" = (
+/obj/structure/ore_box,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "VU" = (
 /obj/machinery/door/window/southright{
 	name = "Bar Door";
@@ -10341,6 +10290,16 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
+"Xa" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/research)
 "Xm" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
@@ -10371,6 +10330,13 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"XF" = (
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 351.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "XN" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -10380,6 +10346,16 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/central)
+"XO" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
 /area/awaymission/undergroundoutpost45/central)
 "Yo" = (
 /obj/structure/cable{
@@ -10546,6 +10522,16 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"Zy" = (
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 "ZA" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -10631,6 +10617,16 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
+"ZP" = (
+/obj/structure/alien/weeds,
+/obj/structure/glowshroom/single,
+/obj/effect/decal/cleanable/blood/gibs/down,
+/turf/open/floor/plating/asteroid{
+	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
+	temperature = 363.9;
+	name = "Cave Floor"
+	},
+/area/awaymission/undergroundoutpost45/caves)
 
 (1,1,1) = {"
 aa
@@ -29061,8 +29057,8 @@ ad
 ad
 ad
 ad
-yj
-ym
+zm
+EM
 ad
 ad
 ad
@@ -29318,9 +29314,9 @@ ad
 ad
 ad
 ad
-yk
-yw
-yn
+KW
+Te
+PO
 ad
 ad
 ad
@@ -29575,10 +29571,10 @@ ad
 ad
 ad
 ad
-yt
-yn
-eJ
-yz
+TU
+PO
+yv
+eN
 ad
 ad
 ad
@@ -29833,9 +29829,9 @@ ad
 ad
 ad
 ad
-yn
-eJ
-yB
+PO
+yv
+FX
 ad
 ad
 ad
@@ -30091,12 +30087,12 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-yr
+yv
+yv
+Qv
 ad
-yA
-yj
+wZ
+zm
 ad
 ad
 ad
@@ -30349,11 +30345,11 @@ ad
 ad
 ad
 ad
-yC
-eJ
-yw
-ym
-yH
+EW
+yv
+Te
+EM
+Qa
 ad
 ad
 ad
@@ -30600,17 +30596,17 @@ ad
 ad
 ad
 ad
-yj
-ym
-yo
-yu
+zm
+EM
+Eq
+kr
 ad
 ad
 ad
-eJ
-yn
-eJ
-yz
+yv
+PO
+yv
+eN
 ad
 ad
 ad
@@ -30856,17 +30852,17 @@ ad
 ad
 ad
 ad
-yj
-yk
-yn
-yp
-yo
+zm
+KW
+PO
+CR
+Eq
 ad
 ad
 ad
-gf
-eJ
-yq
+hj
+yv
+dK
 ad
 ad
 ad
@@ -31114,16 +31110,16 @@ ad
 ad
 ad
 ad
-yl
-eJ
-yq
-ym
+ZP
+yv
+dK
+EM
 ad
 ad
-yz
-eJ
-eJ
-yz
+eN
+yv
+yv
+eN
 ad
 ad
 ad
@@ -31323,7 +31319,7 @@ lt
 mb
 mG
 gw
-eJ
+yv
 ad
 ad
 ad
@@ -31372,21 +31368,21 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-yn
+yv
+yv
+yv
+PO
 ad
-yD
-eJ
-eJ
-ad
-ad
+QY
+yv
+yv
 ad
 ad
 ad
-yj
-yn
+ad
+ad
+zm
+PO
 ad
 ad
 ad
@@ -31580,8 +31576,8 @@ ls
 mc
 mH
 gw
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -31630,20 +31626,20 @@ ad
 ad
 ad
 ad
-yr
-yn
-yn
-yn
-yn
-eJ
-eJ
+Qv
+PO
+PO
+PO
+PO
+yv
+yv
 ad
 ad
 ad
 ad
-yp
-ym
-yA
+CR
+EM
+wZ
 ad
 ad
 ad
@@ -31837,8 +31833,8 @@ kl
 gK
 gw
 gv
-eJ
-gf
+yv
+hj
 ad
 ad
 ad
@@ -31889,18 +31885,18 @@ ad
 ad
 ad
 ad
-yn
-eJ
-eJ
-eJ
-eJ
-yC
-yz
-yr
-gf
-yq
-eJ
-yo
+PO
+yv
+yv
+yv
+yv
+EW
+eN
+Qv
+hj
+dK
+yv
+Eq
 ad
 ad
 ad
@@ -32093,10 +32089,10 @@ kD
 lv
 md
 gU
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -32146,18 +32142,18 @@ ad
 ad
 ad
 ad
-yz
-eJ
-eJ
-eJ
-yn
-eJ
-eJ
-eJ
-eJ
-eJ
-yo
-yu
+eN
+yv
+yv
+yv
+PO
+yv
+yv
+yv
+yv
+yv
+Eq
+kr
 ad
 ad
 ad
@@ -32350,10 +32346,10 @@ kE
 lw
 me
 gU
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -32403,15 +32399,15 @@ ad
 ad
 ad
 ad
-yp
-yq
-eJ
-yn
-yn
-ym
-eJ
-yn
-yn
+CR
+dK
+yv
+PO
+PO
+EM
+yv
+PO
+PO
 ad
 ad
 ad
@@ -32607,10 +32603,10 @@ kF
 lx
 gw
 gv
-mI
-eJ
-eJ
-eJ
+UJ
+yv
+yv
+yv
 ad
 ad
 ad
@@ -32660,15 +32656,15 @@ ad
 ad
 ad
 ad
-yA
-yn
-eJ
-yn
+wZ
+PO
+yv
+PO
 ad
 ad
-yw
-yj
-yk
+Te
+zm
+KW
 ad
 ad
 ad
@@ -32856,18 +32852,18 @@ gL
 gv
 gv
 gv
-gf
-eJ
-eJ
+hj
+yv
+yv
 gv
 kG
 ly
 gw
-eJ
-eJ
-eJ
-eJ
-gf
+yv
+yv
+yv
+yv
+hj
 ad
 ad
 ad
@@ -32918,8 +32914,8 @@ ad
 ad
 ad
 ad
-yn
-eJ
+PO
+yv
 ad
 ad
 ad
@@ -33111,20 +33107,20 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
 gU
 kH
 ly
 gU
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -33165,8 +33161,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -33176,7 +33172,7 @@ ad
 ad
 ad
 ad
-yz
+eN
 ad
 ad
 ad
@@ -33367,22 +33363,22 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
 gU
 kI
 lz
 gU
-eJ
-eJ
-eJ
-eJ
-eJ
-gf
+yv
+yv
+yv
+yv
+yv
+hj
 ad
 ad
 ad
@@ -33423,8 +33419,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -33433,7 +33429,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -33624,23 +33620,23 @@ ad
 ad
 ad
 ad
-gf
-eJ
-gf
-eJ
-eJ
-eJ
+hj
+yv
+hj
+yv
+yv
+yv
 gU
 kH
 ly
 gU
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -33681,16 +33677,16 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -33882,22 +33878,22 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-jL
+yv
+yv
+yv
+yv
+tQ
 gw
 kJ
 lA
 gw
-mI
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+UJ
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -33939,14 +33935,14 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -34139,22 +34135,22 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
 gU
 kH
 ly
 gU
-eJ
-eJ
-gf
-eJ
-eJ
-gf
-eJ
+yv
+yv
+hj
+yv
+yv
+hj
+yv
 ad
 ad
 ad
@@ -34196,14 +34192,14 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -34395,23 +34391,23 @@ ad
 ad
 ad
 ad
-eJ
-gf
-eJ
-eJ
-eJ
-eJ
+yv
+hj
+yv
+yv
+yv
+yv
 gU
 kK
 lB
 gU
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -34454,13 +34450,13 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -34652,22 +34648,22 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
 gU
 kG
 ly
 gU
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -34712,11 +34708,11 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -34910,20 +34906,20 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-gf
+yv
+yv
+yv
+yv
+hj
 gw
 kH
 lC
 gv
-eJ
-gf
-eJ
-eJ
-gf
+yv
+hj
+yv
+yv
+hj
 ad
 ad
 ad
@@ -34970,9 +34966,9 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -35168,16 +35164,16 @@ ad
 ad
 ad
 ad
-eJ
-gf
-eJ
+yv
+hj
+yv
 gz
 gw
 kL
 lD
 gv
 hc
-eJ
+yv
 ad
 gz
 hc
@@ -35227,9 +35223,9 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
@@ -35484,8 +35480,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -35741,8 +35737,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -35998,7 +35994,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -36255,7 +36251,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -36511,8 +36507,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -36712,8 +36708,8 @@ hF
 ij
 iC
 hc
-eJ
-eJ
+yv
+yv
 gz
 kR
 lJ
@@ -36767,8 +36763,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -36969,8 +36965,8 @@ hG
 ik
 iD
 hc
-eJ
-eJ
+yv
+yv
 hH
 kS
 lK
@@ -37024,8 +37020,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -37034,8 +37030,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -37226,8 +37222,8 @@ hH
 hH
 hc
 gz
-eJ
-eJ
+yv
+yv
 hH
 kR
 lL
@@ -37281,18 +37277,18 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
 ad
 ad
-eJ
-gf
-eJ
-eJ
-eJ
+yv
+hj
+yv
+yv
+yv
 ad
 ad
 ad
@@ -37477,14 +37473,14 @@ ad
 ad
 ad
 ad
-eJ
-hd
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+zw
+yv
+yv
+yv
+yv
+yv
+yv
 hH
 kR
 lM
@@ -37538,18 +37534,18 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-gf
+yv
+yv
+yv
+yv
+hj
 ad
 ad
 ad
@@ -37733,15 +37729,15 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-jP
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+hi
 gz
 kT
 lN
@@ -37795,18 +37791,18 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -37990,15 +37986,15 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-gf
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+hj
+yv
+yv
+yv
+yv
+yv
 hH
 kR
 lM
@@ -38053,17 +38049,17 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
 ad
-gf
-eJ
-eJ
-eJ
-eJ
-eJ
+hj
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -38247,15 +38243,15 @@ ad
 ad
 ad
 ad
-gf
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+hj
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 hH
 kU
 lM
@@ -38310,17 +38306,17 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -38503,16 +38499,16 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-gf
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+hj
+yv
 hH
 kV
 lM
@@ -38530,7 +38526,7 @@ sw
 to
 tR
 gz
-eJ
+yv
 ad
 ad
 ad
@@ -38568,15 +38564,15 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -38760,15 +38756,15 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-gf
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+hj
+yv
+yv
 gz
 gz
 kW
@@ -38787,9 +38783,9 @@ sx
 tn
 tP
 hc
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
@@ -38825,15 +38821,15 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
-gf
-eJ
-eJ
-gf
+hj
+yv
+yv
+hj
 ad
 ad
 ad
@@ -39018,14 +39014,14 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 gz
 gn
 kV
@@ -39046,8 +39042,8 @@ UF
 hc
 hc
 hc
-vH
-eJ
+Xa
+yv
 ad
 ad
 ad
@@ -39083,14 +39079,14 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
@@ -39275,14 +39271,14 @@ aC
 aC
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 gz
 iL
 Qb
@@ -39303,8 +39299,8 @@ Jm
 gy
 yG
 hH
-eu
-eJ
+Pj
+yv
 ad
 ad
 ad
@@ -39337,18 +39333,18 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
@@ -39532,13 +39528,13 @@ fQ
 aC
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 gz
 gz
@@ -39560,9 +39556,9 @@ tU
 uw
 DR
 vk
-eu
-eJ
-eJ
+Pj
+yv
+yv
 ad
 ad
 ad
@@ -39593,19 +39589,19 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
-eJ
-eJ
-gf
+yv
+yv
+hj
 ad
 ad
 ad
@@ -39789,13 +39785,13 @@ fR
 aC
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-gf
+yv
+yv
+yv
+yv
+yv
+yv
+hj
 ad
 ad
 gz
@@ -39817,10 +39813,10 @@ tV
 ux
 uP
 hH
-eu
-eJ
-eJ
-eJ
+Pj
+yv
+yv
+yv
 ad
 ad
 ad
@@ -39849,21 +39845,21 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-gf
+yv
+yv
+yv
+hj
 ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
@@ -40045,15 +40041,15 @@ fC
 fS
 aC
 ad
-gf
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+hj
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 gy
 kZ
@@ -40074,10 +40070,10 @@ tW
 hc
 hc
 hc
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -40104,23 +40100,23 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
 ad
 ad
 ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -40302,15 +40298,15 @@ fD
 aC
 aC
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 gx
 la
@@ -40319,27 +40315,23 @@ mm
 gy
 nu
 nX
-eJ
-eJ
-gf
-eJ
-eJ
-eJ
+yv
+yv
+hj
+yv
+yv
+yv
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-ad
-ad
-ad
-ad
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -40360,10 +40352,14 @@ ad
 ad
 ad
 ad
-gf
-eJ
-eJ
-gf
+ad
+ad
+ad
+ad
+hj
+yv
+yv
+hj
 ad
 ad
 ad
@@ -40372,12 +40368,12 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -40560,14 +40556,14 @@ fT
 aC
 ad
 ad
-eJ
-eJ
-he
-eJ
-eJ
-eJ
-eJ
-gf
+yv
+yv
+Cr
+yv
+yv
+yv
+yv
+hj
 ad
 gy
 lb
@@ -40576,23 +40572,23 @@ mn
 gy
 nu
 nY
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-gf
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-gf
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+hj
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+hj
+yv
 ad
 ad
 ad
@@ -40629,12 +40625,12 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -40836,19 +40832,19 @@ nY
 gr
 gr
 gr
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -40886,17 +40882,17 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
-eJ
-eJ
-eJ
-ad
-ad
+yv
+yv
+yv
 ad
 ad
-eJ
+ad
+ad
+yv
 ad
 ad
 ad
@@ -41094,18 +41090,18 @@ VN
 QZ
 gr
 gr
-eJ
-gf
-eJ
-eJ
-eJ
-gf
-eJ
-eJ
-eJ
-eJ
-eJ
-gf
+yv
+hj
+yv
+yv
+yv
+hj
+yv
+yv
+yv
+yv
+yv
+hj
 ad
 ad
 ad
@@ -41144,16 +41140,16 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
-eJ
+yv
 ad
-eJ
+yv
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -41351,21 +41347,18 @@ ld
 pm
 Pz
 gr
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
-eJ
-ad
-ad
-ad
+yv
 ad
 ad
 ad
@@ -41401,15 +41394,18 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-ad
-eJ
 ad
 ad
-eJ
-eJ
+ad
+yv
+yv
+yv
+ad
+yv
+ad
+ad
+yv
+yv
 ad
 ad
 ad
@@ -41608,21 +41604,18 @@ ld
 gs
 Ss
 gr
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
-eJ
-ad
-ad
-ad
+yv
 ad
 ad
 ad
@@ -41662,10 +41655,13 @@ ad
 ad
 ad
 ad
-eJ
 ad
 ad
-eJ
+ad
+yv
+ad
+ad
+yv
 ad
 ad
 ad
@@ -41843,15 +41839,15 @@ RW
 fE
 fV
 ae
-eJ
-eJ
-eJ
-eJ
-hh
-eJ
-eJ
-eJ
-gf
+yv
+yv
+yv
+yv
+Ld
+yv
+yv
+yv
+hj
 gg
 gg
 ko
@@ -41865,18 +41861,18 @@ oG
 LJ
 MS
 gr
-eJ
-eJ
-gf
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+hj
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -41919,10 +41915,10 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -42100,16 +42096,16 @@ RW
 fE
 aF
 aP
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 fK
 gs
 lf
@@ -42124,16 +42120,16 @@ fN
 fK
 gg
 gg
-eJ
-eJ
-eJ
-eJ
-gf
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+hj
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -42176,9 +42172,9 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -42357,16 +42353,16 @@ fr
 fG
 fW
 aP
-eJ
-eJ
-eJ
-gf
-eJ
-eJ
-gf
-eJ
-eJ
-eJ
+yv
+yv
+yv
+hj
+yv
+yv
+hj
+yv
+yv
+yv
 gr
 gA
 gs
@@ -42381,19 +42377,16 @@ pQ
 qs
 qY
 gg
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
 ad
 ad
-eJ
-eJ
-eJ
-ad
-ad
-ad
+yv
+yv
+yv
 ad
 ad
 ad
@@ -42428,14 +42421,17 @@ ad
 ad
 ad
 ad
-eJ
+ad
+ad
+ad
+yv
 ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
@@ -42614,16 +42610,16 @@ en
 fH
 fX
 aP
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 gr
 gs
 gs
@@ -42638,21 +42634,17 @@ pR
 qt
 mt
 gg
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-ad
-ad
-ad
-ad
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -42684,14 +42676,18 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+ad
+ad
+ad
+ad
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -42871,16 +42867,16 @@ TY
 fI
 fY
 an
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 gg
 gs
 lg
@@ -42896,18 +42892,16 @@ fO
 fO
 gg
 ad
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-ad
-ad
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -42947,8 +42941,10 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+ad
+ad
+yv
+yv
 ad
 ad
 ad
@@ -43128,10 +43124,10 @@ ae
 ae
 an
 an
-eJ
-eJ
-eJ
-gf
+yv
+yv
+yv
+hj
 gg
 gr
 gr
@@ -43153,23 +43149,23 @@ qu
 mu
 fO
 ad
-eJ
-eJ
-eJ
-eJ
-gf
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-gf
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+hj
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+hj
+yv
+yv
+yv
 ad
 ad
 ad
@@ -43204,8 +43200,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -43375,7 +43371,7 @@ uh
 ct
 dc
 aD
-bd
+aP
 dZ
 aS
 aP
@@ -43384,14 +43380,14 @@ fd
 ae
 ad
 ad
-gf
-eJ
-eJ
-eJ
+hj
+yv
+yv
+yv
 gg
 gg
 Kp
-Be
+DF
 We
 Iy
 Sq
@@ -43411,24 +43407,24 @@ qZ
 fN
 ad
 ad
-gf
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-gf
-eJ
-eJ
-eJ
+hj
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+hj
+yv
+yv
+yv
 ad
 ad
 ad
@@ -43456,12 +43452,12 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -43639,12 +43635,12 @@ aS
 eR
 BP
 ae
-eJ
-eJ
-eJ
-eJ
-eJ
-gB
+yv
+yv
+yv
+yv
+yv
+Kl
 gg
 JH
 BO
@@ -43669,24 +43665,24 @@ fO
 fO
 fK
 gg
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -43715,10 +43711,10 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -43896,12 +43892,12 @@ aS
 aS
 Rw
 aP
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
 gr
 TJ
 KA
@@ -43927,8 +43923,8 @@ sA
 ts
 gg
 gg
-eJ
-eJ
+yv
+yv
 vI
 vI
 vI
@@ -43936,15 +43932,15 @@ vI
 vJ
 vI
 vI
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -43975,7 +43971,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -44153,12 +44149,12 @@ eb
 eb
 Rw
 aP
-eJ
-eJ
-gf
-eJ
-eJ
-eJ
+yv
+yv
+hj
+yv
+yv
+yv
 gr
 Xx
 De
@@ -44184,8 +44180,8 @@ sB
 pX
 tX
 gg
-eJ
-vl
+yv
+RR
 vJ
 wb
 rs
@@ -44195,15 +44191,15 @@ wb
 vI
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -44231,8 +44227,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -44410,12 +44406,12 @@ aS
 eS
 Rw
 aP
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
 gr
 EK
 Rv
@@ -44454,16 +44450,16 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -44488,7 +44484,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -44497,7 +44493,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -44655,7 +44651,7 @@ ad
 ad
 ad
 ad
-bX
+XF
 an
 cN
 de
@@ -44667,12 +44663,12 @@ eb
 eb
 BP
 aP
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
 gr
 Kw
 TF
@@ -44714,13 +44710,13 @@ vI
 vI
 vJ
 vI
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -44744,8 +44740,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -44754,7 +44750,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -44911,8 +44907,8 @@ ad
 ad
 ad
 ad
-bX
-bW
+XF
+Hp
 ae
 cN
 df
@@ -44924,12 +44920,12 @@ aS
 aS
 Rl
 an
-fJ
-eJ
-eJ
-eJ
-gf
-eJ
+NC
+yv
+yv
+yv
+hj
+yv
 gg
 Hc
 LY
@@ -44971,14 +44967,14 @@ xE
 xl
 xl
 vJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-yh
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+VT
 ad
 ad
 ad
@@ -45000,8 +44996,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -45010,9 +45006,9 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
@@ -45167,9 +45163,9 @@ ad
 ad
 ad
 ad
-bW
-bX
-bX
+Hp
+XF
+XF
 an
 cN
 de
@@ -45182,9 +45178,9 @@ eb
 ME
 an
 an
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 fK
@@ -45231,11 +45227,11 @@ vI
 vI
 vI
 vI
-yg
-eJ
-eJ
-eJ
-yi
+Le
+yv
+yv
+yv
+LD
 ad
 ad
 ad
@@ -45256,8 +45252,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -45268,7 +45264,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -45424,9 +45420,9 @@ ad
 ad
 ad
 ad
-bX
-bX
-bX
+XF
+XF
+XF
 an
 dG
 df
@@ -45488,16 +45484,16 @@ ww
 xZ
 yc
 ww
-eu
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+Pj
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -45513,7 +45509,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -45524,8 +45520,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -45681,9 +45677,9 @@ ad
 ad
 ad
 ad
-bX
-bX
-bX
+XF
+XF
+XF
 aP
 cP
 df
@@ -45745,20 +45741,20 @@ xX
 ya
 yd
 yf
-eu
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+Pj
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -45767,22 +45763,22 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -45939,8 +45935,8 @@ ad
 ad
 ad
 ad
-bW
-bX
+Hp
+XF
 aP
 cQ
 dg
@@ -46002,45 +45998,45 @@ xY
 yb
 ye
 ww
-eu
-eJ
-eJ
-eJ
-eJ
-eJ
+Pj
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
-eJ
-eJ
-gf
+yv
+yv
+hj
 ad
 ad
 ad
@@ -46196,8 +46192,8 @@ ad
 ad
 ad
 ad
-bX
-bX
+XF
+XF
 an
 GH
 cc
@@ -46259,46 +46255,46 @@ vI
 vI
 vI
 vI
-yg
-eJ
-eJ
-eJ
-eJ
-eJ
+Le
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
 ad
-eJ
+yv
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-ad
-ad
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
+yv
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-gf
-eJ
-eJ
-eJ
-eJ
+ad
+ad
+yv
+yv
+yv
+yv
+yv
+hj
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -46453,8 +46449,8 @@ ad
 ad
 ad
 ad
-bX
-bX
+XF
+XF
 an
 cS
 pn
@@ -46482,29 +46478,29 @@ jB
 jZ
 Js
 ae
-eJ
-eJ
-eJ
-eJ
-eJ
-hh
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+Ld
+yv
+yv
+yv
 gr
 rQ
 sF
 gr
-eJ
-eJ
-eJ
-eJ
-eJ
-wj
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+EG
+yv
+yv
+yv
+yv
 ad
 vJ
 xu
@@ -46512,16 +46508,16 @@ xB
 xJ
 xQ
 vI
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -46530,12 +46526,12 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -46548,14 +46544,14 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -46710,8 +46706,8 @@ ad
 ad
 ad
 ad
-bW
-bX
+Hp
+XF
 an
 cT
 cc
@@ -46739,29 +46735,29 @@ jC
 ka
 kw
 an
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 gr
 rR
 sG
 gr
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 vI
 xu
@@ -46769,16 +46765,16 @@ xC
 xK
 xR
 vJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -46787,9 +46783,9 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
@@ -46806,14 +46802,14 @@ ad
 ad
 ad
 ad
-gf
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+hj
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -46967,8 +46963,8 @@ ad
 ad
 ad
 ad
-bX
-bX
+XF
+XF
 ae
 cU
 dh
@@ -46996,45 +46992,45 @@ jC
 Dw
 kx
 an
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 gr
 rS
 sF
 gr
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 vI
 xv
 xD
 xL
 xS
 vI
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -47045,9 +47041,9 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
@@ -47064,12 +47060,12 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -47253,43 +47249,43 @@ vq
 kc
 an
 an
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-gB
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+Kl
 gg
 rT
 sH
 gg
-ub
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+ow
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 vI
 vI
 vJ
 vI
 vJ
 vI
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -47303,9 +47299,9 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
@@ -47323,9 +47319,9 @@ ad
 ad
 ad
 ad
-eJ
-gf
-eJ
+yv
+hj
+yv
 ad
 ad
 ad
@@ -47493,8 +47489,8 @@ Ca
 eH
 eV
 an
-eJ
-eJ
+yv
+yv
 gd
 fm
 fm
@@ -47509,43 +47505,43 @@ fm
 jE
 an
 ae
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 gr
 rQ
 sF
 gr
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -47561,8 +47557,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -47580,7 +47576,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -47750,59 +47746,59 @@ aP
 eI
 aP
 an
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-fn
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-qz
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+XO
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+NA
 gr
 rU
 sI
 gr
-qz
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+NA
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -47819,8 +47815,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -47837,7 +47833,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -48003,61 +47999,61 @@ ad
 ad
 ad
 ad
-eu
-eu
-eu
-fn
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-qA
+Pj
+Pj
+Pj
+XO
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+Zy
 rg
 Yo
 Ta
 rg
-qB
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+uY
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -48076,9 +48072,9 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
@@ -48094,7 +48090,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -48261,54 +48257,54 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-pu
-qa
-qB
+yv
+yv
+yv
+yv
+yv
+wI
+Uj
+uY
 fK
 GB
 FN
 fK
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -48334,8 +48330,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -48345,13 +48341,13 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -48522,29 +48518,29 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-pv
+yv
+yv
+yv
+yv
+zf
 ni
 ni
 ln
@@ -48557,11 +48553,11 @@ qb
 qb
 ni
 ni
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -48592,8 +48588,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -48601,8 +48597,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -48782,26 +48778,26 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-pv
+yv
+yv
+yv
+yv
+zf
 ni
 qC
 rh
@@ -48849,16 +48845,16 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -49041,24 +49037,24 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-pv
+yv
+yv
+yv
+yv
+yv
+zf
 qb
 qD
 ri
@@ -49107,14 +49103,14 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -49299,23 +49295,23 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-pv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+zf
 qb
 qD
 rj
@@ -49364,8 +49360,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -49556,23 +49552,23 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-pw
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+ht
 ni
 ln
 Kf
@@ -49621,9 +49617,9 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
@@ -49813,24 +49809,24 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-pv
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+zf
+yv
 ni
 ni
 sc
@@ -49879,8 +49875,8 @@ ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -50071,23 +50067,23 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
-eJ
-eJ
-pv
-eJ
+yv
+yv
+zf
+yv
 ni
 Sh
 YZ
@@ -50136,9 +50132,9 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
@@ -50331,11 +50327,11 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -50343,8 +50339,8 @@ ad
 ad
 ad
 ad
-pv
-eJ
+zf
+yv
 ni
 NQ
 se
@@ -50388,15 +50384,15 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -50647,15 +50643,15 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
 ad
 ad
-eJ
-eJ
-eJ
+yv
+yv
+yv
 ad
 ad
 ad
@@ -50907,17 +50903,17 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -51164,7 +51160,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -51421,7 +51417,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -51672,13 +51668,13 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -51935,7 +51931,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -52192,7 +52188,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -52449,7 +52445,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -52706,7 +52702,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -52952,8 +52948,8 @@ ad
 ad
 ad
 ad
-eJ
-gf
+yv
+hj
 ad
 ad
 ad
@@ -52963,7 +52959,7 @@ ad
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
@@ -53206,21 +53202,21 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -53463,21 +53459,21 @@ ad
 ad
 ad
 ad
-eJ
-gf
-eJ
+yv
+hj
+yv
 ad
 ad
 ad
-eJ
+yv
 ad
 ad
 ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -53719,22 +53715,22 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-gf
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+hj
+yv
+yv
+yv
 ad
 ad
 ad
 ad
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -53976,22 +53972,22 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-gf
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+hj
+yv
 ad
-eJ
-eJ
+yv
+yv
 ad
 ad
 ad
@@ -54233,22 +54229,22 @@ ad
 ad
 ad
 ad
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -54491,20 +54487,20 @@ ad
 ad
 ad
 ad
-gf
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+hj
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -54748,19 +54744,19 @@ ad
 ad
 ad
 ad
-eJ
-gf
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
-eJ
+yv
+hj
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
+yv
 ad
 ad
 ad
@@ -55012,11 +55008,11 @@ ad
 ad
 ad
 ad
-eJ
-gf
-eJ
-eJ
-eJ
+yv
+hj
+yv
+yv
+yv
 ad
 ad
 ad
