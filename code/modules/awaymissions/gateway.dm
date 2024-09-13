@@ -42,6 +42,9 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		self_teleport(AM) // This is so that if you're drag-clicking yourself into the gateway it'll appear as if you're entering it
 		return
 
+	if(isnull(linked_gateway))
+		return
+
 	var/turf/dest_turf = get_step(get_turf(linked_gateway), SOUTH)
 	if(!pre_check_teleport(AM, dest_turf))
 		to_chat(user, "<span class='warning'>You can't seem to push [AM] into [src]...")
@@ -103,6 +106,9 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 /// Do a teleport initiated by the target
 /obj/machinery/gateway/proc/self_teleport(atom/movable/AM)
+	if(isnull(linked_gateway))
+		return
+
 	var/turf/dest_turf = get_step(get_turf(linked_gateway), SOUTH)
 	if(!pre_check_teleport(AM, dest_turf))
 		return
@@ -183,7 +189,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 /obj/machinery/gateway/centerstation/Initialize(mapload)
 	. = ..()
-	if(!GLOB.the_gateway)
+	if(isnull(GLOB.the_gateway))
 		GLOB.the_gateway = src
 	update_icon()
 	linked_gateway = locate(/obj/machinery/gateway/centeraway)
