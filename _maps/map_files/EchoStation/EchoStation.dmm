@@ -1575,7 +1575,6 @@
 "aFp" = (
 /obj/machinery/door/window/eastright{
 	name = "Research and Development Desk";
-	req_access_txt = "47";
 	req_access_txt = 0
 	},
 /obj/structure/table/reinforced,
@@ -9435,7 +9434,6 @@
 "eCq" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = 0;
 	req_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/stripes/closeup,
@@ -26398,7 +26396,6 @@
 	dir = 1;
 	icon_state = "right";
 	id_tag = "Bountydoors";
-	req_access_txt = null;
 	req_access_txt = "31;48;26"
 	},
 /obj/effect/mapping_helpers/airlock/unres{
@@ -28899,7 +28896,6 @@
 "orB" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = 0;
 	req_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/stripes/closeup,
@@ -32193,14 +32189,12 @@
 /obj/machinery/button/door/incinerator_vent_atmos_aux{
 	pixel_x = 24;
 	pixel_y = 8;
-	req_access = null;
-	req_access_txt = "11"
+	req_access = list(11)
 	},
 /obj/machinery/button/door/incinerator_vent_atmos_main{
 	pixel_x = 24;
 	pixel_y = -8;
-	req_access = null;
-	req_access_txt = "11"
+	req_access = list(11)
 	},
 /obj/machinery/button/ignition/incinerator/atmos{
 	pixel_x = 38;
@@ -35862,7 +35856,6 @@
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Teleporter & E.V.A";
-	req_access_txt = "12";
 	req_access_txt = "17;19"
 	},
 /obj/effect/turf_decal/stripes/closeup{
@@ -40122,7 +40115,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = 0;
 	req_access_txt = "1;4"
 	},
 /obj/machinery/door/firedoor,
