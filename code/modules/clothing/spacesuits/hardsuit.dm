@@ -586,6 +586,10 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/element/radiation_protected_clothing)
+
 /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	name = "elite syndicate hardsuit"
 	desc = "An elite version of the syndicate hardsuit, with improved armour and fireproofing. It is in travel mode."
@@ -598,6 +602,10 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	cell = /obj/item/stock_parts/cell/bluespace
+
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/element/radiation_protected_clothing)
 
 //The Owl Hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/owl

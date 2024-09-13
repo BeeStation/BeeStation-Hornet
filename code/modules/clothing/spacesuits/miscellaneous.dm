@@ -237,6 +237,10 @@ Contains:
 	beacon_colour = "#ecaa48"
 	beacon_zdiff_colour = "#daa960"
 
+/obj/item/clothing/head/helmet/space/hardsuit/ert/engi/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/element/radiation_protected_clothing)
+
 /obj/item/clothing/suit/space/hardsuit/ert/engi
 	name = "emergency response team engineering hardsuit"
 	desc = "The standard issue hardsuit of the ERT, this one has orange highlights. Offers superb protection against environmental hazards."
@@ -244,6 +248,10 @@ Contains:
 	item_state = "ert_engineer"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engi
 	jetpack = /obj/item/tank/jetpack/suit
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/engi/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/element/radiation_protected_clothing)
 
 	//ERT Medical
 /obj/item/clothing/head/helmet/space/hardsuit/ert/med
