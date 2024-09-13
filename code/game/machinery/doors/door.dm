@@ -56,10 +56,6 @@
 	explosion_block = EXPLOSION_BLOCK_PROC
 	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(check_security_level))
 
-	//Check for access var edit.
-	//Check for mapping helper.
-	//Check for area code.
-
 /obj/machinery/door/examine(mob/user)
 	. = ..()
 	if(red_alert_access)

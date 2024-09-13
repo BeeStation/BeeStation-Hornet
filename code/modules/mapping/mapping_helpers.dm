@@ -165,222 +165,240 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 	else
 		airlock.abandoned = TRUE
 
+/obj/effect/mapping_helpers/airlock/all_codes
+	name = "Require All Codes"
+	icon_state = "all_codes"
+
+/obj/effect/mapping_helpers/airlock/all_codes/payload(obj/machinery/door/airlock/airlock)
+	airlock.one_access = FALSE
+
+/obj/effect/mapping_helpers/airlock/all_codes/one_code
+	name = "Require One Code"
+	icon_state = "one_code"
+
+/obj/effect/mapping_helpers/airlock/all_codes/one_code/payload(obj/machinery/door/airlock/airlock)
+	airlock.one_access = TRUE
+	icon_state = "one_code"
+
 /obj/effect/mapping_helpers/airlock/access
-	var/access
+	var/list/access
 	icon_state = "access_helper"
+
+/obj/effect/mapping_helpers/airlock/access/station/maintenance
+	access = list(ACCESS_MAINT_TUNNELS)
 
 //SECURITY
 /obj/effect/mapping_helpers/airlock/access/station/security
-	access = ACCESS_SECURITY
+	access = list(ACCESS_SECURITY)
 	icon_state = "security"
 	color = "#DE3A3A"
 /obj/effect/mapping_helpers/airlock/access/station/security/brig
-	access = ACCESS_BRIG
+	access = list(ACCESS_BRIG)
 /obj/effect/mapping_helpers/airlock/access/station/security/armoury
-	access = ACCESS_ARMORY
+	access = list(ACCESS_ARMORY)
 /obj/effect/mapping_helpers/airlock/access/station/security/prison
-	access = ACCESS_PRISONER
+	access = list(ACCESS_PRISONER)
 /obj/effect/mapping_helpers/airlock/access/station/security/brig_phys
-	access = ACCESS_BRIGPHYS
+	access = list(ACCESS_BRIGPHYS)
 /obj/effect/mapping_helpers/airlock/access/station/security/court
-	access = ACCESS_COURT
+	access = list(ACCESS_COURT)
 /obj/effect/mapping_helpers/airlock/access/station/security/outpost
-	access = ACCESS_SEC_DOORS
+	access = list(ACCESS_SEC_DOORS)
 /obj/effect/mapping_helpers/airlock/access/station/security/mech
-	access = ACCESS_MECH_SECURITY
+	access = list(ACCESS_MECH_SECURITY)
 
 //MEDICAL
 /obj/effect/mapping_helpers/airlock/access/station/medical
-	access = ACCESS_MEDICAL
+	access = list(ACCESS_MEDICAL)
 	icon_state = "medbay"
 	color = "#52B4E9"
 /obj/effect/mapping_helpers/airlock/access/station/medical/morgue
-	access = ACCESS_MORGUE
+	access = list(ACCESS_MORGUE)
 /obj/effect/mapping_helpers/airlock/access/station/medical/genetics
-	access = ACCESS_GENETICS
+	access = list(ACCESS_GENETICS)
 /obj/effect/mapping_helpers/airlock/access/station/medical/chemistry
-	access = ACCESS_CHEMISTRY
+	access = list(ACCESS_CHEMISTRY)
 /obj/effect/mapping_helpers/airlock/access/station/medical/virology
-	access = ACCESS_VIROLOGY
+	access = list(ACCESS_VIROLOGY)
 /obj/effect/mapping_helpers/airlock/access/station/medical/surgery
-	access = ACCESS_SURGERY
+	access = list(ACCESS_SURGERY)
 /obj/effect/mapping_helpers/airlock/access/station/medical/cloning
-	access = ACCESS_CLONING
+	access = list(ACCESS_CLONING)
 /obj/effect/mapping_helpers/airlock/access/station/medical/mech
-	access = ACCESS_MECH_MEDICAL
+	access = list(ACCESS_MECH_MEDICAL)
 
 //SCIENCE
 /obj/effect/mapping_helpers/airlock/access/station/science
-	access = ACCESS_TOX
+	access = list(ACCESS_TOX)
 	icon_state = "science"
 	color = "#D381C9"
 /obj/effect/mapping_helpers/airlock/access/station/science/storage
-	access = ACCESS_TOX_STORAGE
+	access = list(ACCESS_TOX_STORAGE)
 /obj/effect/mapping_helpers/airlock/access/station/science/robotics
-	access = ACCESS_ROBOTICS
+	access = list(ACCESS_ROBOTICS)
 /obj/effect/mapping_helpers/airlock/access/station/science/researchh
-	access = ACCESS_RESEARCH
+	access = list(ACCESS_RESEARCH)
 /obj/effect/mapping_helpers/airlock/access/station/science/exploration
-	access = ACCESS_EXPLORATION
+	access = list(ACCESS_EXPLORATION)
 /obj/effect/mapping_helpers/airlock/access/station/science/xenobiology
-	access = ACCESS_XENOBIOLOGY
+	access = list(ACCESS_XENOBIOLOGY)
 /obj/effect/mapping_helpers/airlock/access/station/science/servers
-	access = ACCESS_RD_SERVER
+	access = list(ACCESS_RD_SERVER)
 /obj/effect/mapping_helpers/airlock/access/station/science/mech
-	access = ACCESS_MECH_SCIENCE
+	access = list(ACCESS_MECH_SCIENCE)
 
 //ENGINEERING
 /obj/effect/mapping_helpers/airlock/access/station/engineering
-	access = ACCESS_CONSTRUCTION
+	access = list(ACCESS_CONSTRUCTION)
 	icon_state = "engineering"
 	color = "#EFB341"
 /obj/effect/mapping_helpers/airlock/access/station/engineering/engineering
-	access = ACCESS_ENGINE
+	access = list(ACCESS_ENGINE)
 /obj/effect/mapping_helpers/airlock/access/station/engineering/tech_storage
-	access = ACCESS_TECH_STORAGE
+	access = list(ACCESS_TECH_STORAGE)
 /obj/effect/mapping_helpers/airlock/access/station/engineering/atmospherics
-	access = ACCESS_ATMOSPHERICS
+	access = list(ACCESS_ATMOSPHERICS)
 /obj/effect/mapping_helpers/airlock/access/station/engineering/telecomms
-	access = ACCESS_TCOMSAT
+	access = list(ACCESS_TCOMSAT)
 /obj/effect/mapping_helpers/airlock/access/station/engineering/mech
-	access = ACCESS_MECH_ENGINE
-/obj/effect/mapping_helpers/airlock/access/station/engineering/maintenance
-	access = ACCESS_MAINT_TUNNELS
+	access = list(ACCESS_MECH_ENGINE)
 /obj/effect/mapping_helpers/airlock/access/station/engineering/external_airlocks
-	access = ACCESS_EXTERNAL_AIRLOCKS
+	access = list(ACCESS_EXTERNAL_AIRLOCKS)
+/obj/effect/mapping_helpers/airlock/access/station/engineering/maintenance
+	access = list(ACCESS_MAINT_TUNNELS)
 
 //COMMAND
 /obj/effect/mapping_helpers/airlock/access/station/command
-	access = ACCESS_HEADS
+	access = list(ACCESS_HEADS)
 	icon_state = "central_command"
 	color = "#486091"
 /obj/effect/mapping_helpers/airlock/access/station/command/ai_upload
-	access = ACCESS_AI_UPLOAD
+	access = list(ACCESS_AI_UPLOAD)
 /obj/effect/mapping_helpers/airlock/access/station/command/teleporter
-	access = ACCESS_TELEPORTER
+	access = list(ACCESS_TELEPORTER)
 /obj/effect/mapping_helpers/airlock/access/station/command/eva
-	access = ACCESS_EVA
+	access = list(ACCESS_EVA)
 /obj/effect/mapping_helpers/airlock/access/station/command/heads/cap
-	access = ACCESS_CAPTAIN
+	access = list(ACCESS_CAPTAIN)
 /obj/effect/mapping_helpers/airlock/access/station/command/heads/cmo
-	access = ACCESS_CMO
+	access = list(ACCESS_CMO)
 /obj/effect/mapping_helpers/airlock/access/station/command/heads/rd
-	access = ACCESS_RD
+	access = list(ACCESS_RD)
 /obj/effect/mapping_helpers/airlock/access/station/command/heads/ce
-	access = ACCESS_CE
+	access = list(ACCESS_CE)
 /obj/effect/mapping_helpers/airlock/access/station/command/heads/hop
-	access = ACCESS_HOP
+	access = list(ACCESS_HOP)
 /obj/effect/mapping_helpers/airlock/access/station/command/heads/hos
-	access = ACCESS_HOS
+	access = list(ACCESS_HOS)
 /obj/effect/mapping_helpers/airlock/access/station/command/gateway
-	access = ACCESS_GATEWAY
+	access = list(ACCESS_GATEWAY)
 /obj/effect/mapping_helpers/airlock/access/station/command/mini_sat
 	icon_state = "silicon"
-	access = ACCESS_MINISAT
+	access = list(ACCESS_MINISAT)
 
 //SERVICE
 /obj/effect/mapping_helpers/airlock/access/station/service
 	color = "#9FED58"
 	icon_state = "service"
 /obj/effect/mapping_helpers/airlock/access/station/service/chapel
-	access = ACCESS_CHAPEL_OFFICE
+	access = list(ACCESS_CHAPEL_OFFICE)
 /obj/effect/mapping_helpers/airlock/access/station/service/bar
-	access = ACCESS_BAR
+	access = list(ACCESS_BAR)
 /obj/effect/mapping_helpers/airlock/access/station/service/janitor
-	access = ACCESS_JANITOR
+	access = list(ACCESS_JANITOR)
 /obj/effect/mapping_helpers/airlock/access/station/service/crematorium
-	access = ACCESS_CREMATORIUM
+	access = list(ACCESS_CREMATORIUM)
 /obj/effect/mapping_helpers/airlock/access/station/service/kitchen
-	access = ACCESS_KITCHEN
+	access = list(ACCESS_KITCHEN)
 /obj/effect/mapping_helpers/airlock/access/station/service/hydroponics
-	access = ACCESS_HYDROPONICS
+	access = list(ACCESS_HYDROPONICS)
 /obj/effect/mapping_helpers/airlock/access/station/service/library
-	access = ACCESS_LIBRARY
+	access = list(ACCESS_LIBRARY)
 /obj/effect/mapping_helpers/airlock/access/station/service/lawyer
-	access = ACCESS_LAWYER
+	access = list(ACCESS_LAWYER)
 /obj/effect/mapping_helpers/airlock/access/station/service/theater
-	access = ACCESS_THEATRE
+	access = list(ACCESS_THEATRE)
 
 //SUPPLY
 /obj/effect/mapping_helpers/airlock/access/station/supply
-	access = ACCESS_CARGO
+	access = list(ACCESS_CARGO)
 	icon_state = "supply"
 	color = "#A46106"
 /obj/effect/mapping_helpers/airlock/access/station/supply/qm
-	access = ACCESS_QM
+	access = list(ACCESS_QM)
 /obj/effect/mapping_helpers/airlock/access/station/supply/mining
-	access = ACCESS_MINING
+	access = list(ACCESS_MINING)
 /obj/effect/mapping_helpers/airlock/access/station/supply/mail
-	access = ACCESS_MAILSORTING
+	access = list(ACCESS_MAILSORTING)
 /obj/effect/mapping_helpers/airlock/access/station/supply/vault
-	access = ACCESS_VAULT
+	access = list(ACCESS_VAULT)
 /obj/effect/mapping_helpers/airlock/access/station/supply/mining_outpost
-	access = ACCESS_MINING_STATION
+	access = list(ACCESS_MINING_STATION)
 /obj/effect/mapping_helpers/airlock/access/station/supply/aux_base
-	access = ACCESS_AUX_BASE
+	access = list(ACCESS_AUX_BASE)
 /obj/effect/mapping_helpers/airlock/access/station/supply/mech
-	access = ACCESS_MECH_MINING
+	access = list(ACCESS_MECH_MINING)
 
 //BEGIN CENTCOM ACCESS
 /obj/effect/mapping_helpers/airlock/access/admin
-	access = ACCESS_CENT_GENERAL
+	access = list(ACCESS_CENT_GENERAL)
 	icon_state = "central_command"
 	color = "#9FED58"
 /obj/effect/mapping_helpers/airlock/access/admin/thunder
-	access = ACCESS_CENT_THUNDER
+	access = list(ACCESS_CENT_THUNDER)
 /obj/effect/mapping_helpers/airlock/access/admin/specops
-	access = ACCESS_CENT_SPECOPS
+	access = list(ACCESS_CENT_SPECOPS)
 /obj/effect/mapping_helpers/airlock/access/admin/medical
-	access = ACCESS_CENT_MEDICAL
+	access = list(ACCESS_CENT_MEDICAL)
 /obj/effect/mapping_helpers/airlock/access/admin/dorms
-	access = ACCESS_CENT_LIVING
+	access = list(ACCESS_CENT_LIVING)
 /obj/effect/mapping_helpers/airlock/access/admin/storage
-	access = ACCESS_CENT_STORAGE
+	access = list(ACCESS_CENT_STORAGE)
 /obj/effect/mapping_helpers/airlock/access/admin/teleporter
-	access = ACCESS_CENT_TELEPORTER
+	access = list(ACCESS_CENT_TELEPORTER)
 /obj/effect/mapping_helpers/airlock/access/admin/captain
-	access = ACCESS_CENT_CAPTAIN
+	access = list(ACCESS_CENT_CAPTAIN)
 /obj/effect/mapping_helpers/airlock/access/admin/bar
-	access = ACCESS_CENT_BAR
+	access = list(ACCESS_CENT_BAR)
 
 //Antagonists
 /obj/effect/mapping_helpers/airlock/access/antagonists
 	color = "#DE3A3A"
 	icon_state = "antagonist"
 /obj/effect/mapping_helpers/airlock/access/antagonists/syndicate
-	access = ACCESS_SYNDICATE
+	access = list(ACCESS_SYNDICATE)
 /obj/effect/mapping_helpers/airlock/access/antagonists/syndicate/leader
-	access = ACCESS_SYNDICATE_LEADER
+	access = list(ACCESS_SYNDICATE_LEADER)
 /obj/effect/mapping_helpers/airlock/access/antagonists/pirates
-	access = ACCESS_PIRATES
+	access = list(ACCESS_PIRATES)
 /obj/effect/mapping_helpers/airlock/access/antagonists/bounty_hunters
-	access = ACCESS_HUNTERS
+	access = list(ACCESS_HUNTERS)
 /obj/effect/mapping_helpers/airlock/access/antagonists/blood_cult/
-	access = ACCESS_BLOODCULT
+	access = list(ACCESS_BLOODCULT)
 /obj/effect/mapping_helpers/airlock/access/antagonists/clock_cult/
-	access = ACCESS_CLOCKCULT
+	access = list(ACCESS_CLOCKCULT)
 
 //Away Missions or Ruins
 /obj/effect/mapping_helpers/airlock/access/away
-	access = ACCESS_AWAY_GENERAL
+	access = list(ACCESS_AWAY_GENERAL)
 	icon_state = "away"
 	color = "#D4D4D4"
 /obj/effect/mapping_helpers/airlock/access/away/maintenance
-	access = ACCESS_AWAY_MAINT
+	access = list(ACCESS_AWAY_MAINT)
 /obj/effect/mapping_helpers/airlock/access/away/medical
-	access = ACCESS_AWAY_MED
+	access = list(ACCESS_AWAY_MED)
 /obj/effect/mapping_helpers/airlock/access/away/security
-	access = ACCESS_AWAY_SEC
+	access = list(ACCESS_AWAY_SEC)
 /obj/effect/mapping_helpers/airlock/access/away/engineering
-	access = ACCESS_AWAY_ENGINE
+	access = list(ACCESS_AWAY_ENGINE)
 /obj/effect/mapping_helpers/airlock/access/away/generic1
-	access = ACCESS_AWAY_GENERIC1
+	access = list(ACCESS_AWAY_GENERIC1)
 /obj/effect/mapping_helpers/airlock/access/away/generic2
-	access = ACCESS_AWAY_GENERIC2
+	access = list(ACCESS_AWAY_GENERIC2)
 /obj/effect/mapping_helpers/airlock/access/away/generic3
-	access = ACCESS_AWAY_GENERIC3
+	access = list(ACCESS_AWAY_GENERIC3)
 /obj/effect/mapping_helpers/airlock/access/away/generic4
-	access = ACCESS_AWAY_GENERIC4
+	access = list(ACCESS_AWAY_GENERIC4)
 
 //APC helpers
 /obj/effect/mapping_helpers/apc

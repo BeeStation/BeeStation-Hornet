@@ -122,7 +122,7 @@
 		var/has_mapping_helpers = FALSE
 		for(var/obj/effect/mapping_helpers/airlock/access/AH in loc.contents)
 			has_mapping_helpers = TRUE
-			req_access += list(AH.access)
+			req_access += AH.access
 		if(!has_mapping_helpers)
 			req_access = A.access
 
