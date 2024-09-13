@@ -126,6 +126,7 @@
 			if(initial(each_adjust.map_file_name) != map_file)
 				continue
 			SSmapping.map_adjustment = new each_adjust() // we use this later
+			SSmapping.map_adjustment.on_map_config_load()
 			break
 
 	// "map_file": ["Lower.dmm", "Upper.dmm"]

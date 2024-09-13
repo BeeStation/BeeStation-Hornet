@@ -22,3 +22,7 @@
 	change_job_position(JOB_NAME_LAWYER, 1)
 	change_job_position(JOB_NAME_BOTANIST, 1)
 	change_job_access(JOB_NAME_ASSISTANT, ACCESS_MAINT_TUNNELS) // sample code
+
+/datum/map_adjustment/EchoStation/on_map_config_load()
+	GLOB.disabled_tagger_locations += "Virology"
+	GLOB.disabled_tagger_locations += "Law Office"

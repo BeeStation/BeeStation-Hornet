@@ -21,6 +21,11 @@
 	/// Jobs that this station map won't use
 	var/list/blacklisted_jobs
 
+/// called on map config is loaded.
+/// You need to change things manually here.
+/datum/map_adjustment/proc/on_map_config_load()
+	return
+
 /// called upon job datum creation. Override this proc to change.
 /datum/map_adjustment/proc/job_change()
 	return
