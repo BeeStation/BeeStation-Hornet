@@ -137,6 +137,9 @@
 	///The areas specific color correction
 	var/color_correction = /datum/client_colour/area_color
 
+	/// What networks should cameras in this area belong to?
+	var/list/camera_networks = list()
+
 /**
   * A list of teleport locations
   *

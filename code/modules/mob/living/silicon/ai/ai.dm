@@ -31,7 +31,7 @@
 	radio = /obj/item/radio/headset/silicon/ai
 	can_buckle_to = FALSE
 	var/battery = 200 //emergency power if the AI's APC is off
-	var/list/network = list("ss13")
+	var/list/network = list(CAMERA_NETWORK_STATION)
 	var/list/connected_robots = list()
 
 	/// Station alert datum for showing alerts UI
@@ -178,7 +178,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	GLOB.shuttle_caller_list += src
 
 	builtInCamera = new (src)
-	builtInCamera.network = list("ss13")
+	builtInCamera.network = list(CAMERA_NETWORK_STATION)
 
 	ADD_TRAIT(src, TRAIT_PULL_BLOCKED, ROUNDSTART_TRAIT)
 	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, ROUNDSTART_TRAIT)

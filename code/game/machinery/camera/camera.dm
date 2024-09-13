@@ -13,7 +13,7 @@
 	max_integrity = 100
 	integrity_failure = 0.5
 	var/default_camera_icon = "camera" //the camera's base icon used by update_icon - icon_state is primarily used for mapping display purposes.
-	var/list/network = list("ss13")
+	var/list/network = list(CAMERA_NETWORK_STATION)
 	var/c_tag = null
 	var/status = TRUE
 	var/current_state = TRUE
@@ -53,7 +53,6 @@
 	var/datum/alarm_handler/alarm_manager
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera, 0)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/autoname, 0)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/emp_proof, 0)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/motion, 0)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
@@ -62,7 +61,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
 	name = "Hardened Bomb-Test Camera"
 	desc = "A specially-reinforced camera with a long lasting battery, used to monitor the bomb testing site. An external light is attached to the top."
 	c_tag = "Bomb Testing Site"
-	network = list("rd","toxins")
+	network = list(CAMERA_NETWORK_RESEARCH, CAMERA_NETWORK_TOXINS_TEST)
 	use_power = NO_POWER_USE //Test site is an unpowered area
 	invuln = TRUE
 	light_range = 10
@@ -72,9 +71,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 /obj/machinery/camera/Initialize(mapload, obj/structure/camera_assembly/CA)
 	. = ..()
-	for(var/i in network)
-		network -= i
-		network += LOWER_TEXT(i)
+	var/static/list/autonames_in_areas = list()
+
+	// Calculate area code
+	var/area/camera_area = get_area(src)
+	if (istype(camera_area, /area/space))
+		var/turf/connected_wall = get_step(src, dir)
+		camera_area = get_area(connected_wall)
+
+	// Calculate the camera tag
+	if (!c_tag)
+		c_tag = "[format_text(camera_area.name)] #[++autonames_in_areas[camera_area]]"
 	var/obj/structure/camera_assembly/assembly
 	if(CA)
 		assembly = CA

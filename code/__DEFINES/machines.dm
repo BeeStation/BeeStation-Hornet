@@ -244,3 +244,22 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 // ---------------------------------------------------
 
 #define SENTENCE_MAX_TIMER 10 HOURS //Permabrig.
+
+// Camera defines
+// ---------------------------------------------------
+
+#define CAMERA_NETWORK_STATION "ss13"
+#define CAMERA_NETWORK_VAULT "vault"
+#define CAMERA_NETWORK_RESEARCH "research"
+#define CAMERA_NETWORK_ENGINEERING "engineer"
+#define CAMERA_NETWORK_MEDICAL "medical"
+#define CAMERA_NETWORK_THUNDERDOME "thunder"
+#define CAMERA_NETWORK_AUXBASE "auxbase"
+#define CAMERA_NETWORK_LABOR "labor"
+#define CAMERA_NETWORK_PRISON "prison"
+#define CAMERA_NETWORK_MINE "mine"
+#define CAMERA_NETWORK_TOXINS_TEST "toxins_test"
+#define CAMERA_NETWORK_INTERROGATION "interrogation"
+#define CAMERA_NETWORK_MINISAT "minisat"
+#define CAMERA_NETWORK_AI_UPLOAD "aiupload"
+#define CAMERA_NETWORK_PRIVATE "private"
