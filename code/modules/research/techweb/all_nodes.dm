@@ -1671,7 +1671,7 @@
 		"adv_engi",
 		"weaponry",
 	)
-	design_ids = list("pin_loyalty")
+	design_ids = list("pin_alert")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 

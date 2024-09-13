@@ -89,6 +89,31 @@
 		return TRUE
 	return FALSE
 
+// Alert based pin, works only on blue/red alert
+/obj/item/firing_pin/alert
+	name = "alert firing pin"
+	desc = "This firing pin only allows weapons to be fired if the required alert level is reached or exceeded."
+	fail_message = "<span class='warning'>INSUFFICIENT ALERT LEVEL.</span>"
+	icon_state = "firing_pin_blue"
+	var/req_alert = SEC_LEVEL_BLUE // What alert level is required to fire
+
+/obj/item/firing_pin/alert/attackby(obj/item/I, mob/living/user, params)
+	if(I.tool_behaviour == TOOL_MULTITOOL)
+		if(req_alert == SEC_LEVEL_BLUE)
+			req_alert = SEC_LEVEL_RED
+			icon_state = "firing_pin_red"
+			to_chat(user, "<span class='notice'>You adjust the firing pin to only fire on red alert or higher.</span>")
+		else
+			req_alert = SEC_LEVEL_BLUE
+			icon_state = "firing_pin_blue"
+			to_chat(user, "<span class='notice'>You adjust the firing pin to only fire on blue alert or higher.</span>")
+
+
+
+/obj/item/firing_pin/alert/pin_auth(mob/living/user)
+	if(SSsecurity_level.get_current_level_as_number() >= req_alert)
+		return TRUE
+	return FALSE
 
 // Implant pin, checks for implant
 /obj/item/firing_pin/implant
