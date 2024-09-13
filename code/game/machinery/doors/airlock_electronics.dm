@@ -51,7 +51,7 @@
 /obj/item/electronics/airlock/ui_data()
 	var/list/data = list()
 	data["accesses"] = accesses
-	data["one_access"] = one_access
+	data["oneAccess"] = one_access
 	data["unres_direction"] = unres_sides
 	data["passedName"] = passed_name
 	data["passedCycleId"] = passed_cycle_id
@@ -63,7 +63,6 @@
 	switch(action)
 		if("clear_all")
 			accesses = list()
-			one_access = TRUE
 			. = TRUE
 		if("grant_all")
 			accesses = get_all_accesses()
