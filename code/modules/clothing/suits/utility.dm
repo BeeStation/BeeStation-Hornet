@@ -138,6 +138,10 @@
 	equip_delay_other = 60
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
+/obj/item/clothing/head/utility/radiation/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
+
 /obj/item/clothing/suit/utility/radiation
 	name = "radiation suit"
 	desc = "A suit that protects against radiation. The label reads, 'Made with lead. Please do not consume insulation.'"
@@ -158,3 +162,4 @@
 /obj/item/clothing/suit/utility/radiation/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
+	AddElement(/datum/element/radiation_protected_clothing)
