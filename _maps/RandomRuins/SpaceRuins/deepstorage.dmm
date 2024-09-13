@@ -2508,8 +2508,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "fU" = (
 /obj/machinery/camera/directional/north{
-	c_tag = "Bunker entrance";
-	network = list("bunker1")
+	c_tag = "Bunker entrance"
 	},
 /obj/structure/sign/warning/securearea{
 	pixel_y = 32

@@ -3,3 +3,4 @@
 /obj/machinery/camera/autoname/directional/south : /obj/machinery/camera/directional/south{@OLD}
 /obj/machinery/camera/autoname/directional/east : /obj/machinery/camera/directional/east{@OLD}
 /obj/machinery/camera/autoname/directional/west : /obj/machinery/camera/directional/west{@OLD}
+/obj/machinery/camera/@SUBTYPES : /obj/machinery/camera/@SUBTYPES{@OLD;network=@SKIP}

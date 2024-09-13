@@ -885,8 +885,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 10;
-	network = list("ss13","rd")
+	dir = 10
 	},
 /turf/open/floor/iron,
 /area/space)

@@ -2027,9 +2027,7 @@
 /area/ai_monitored/nuke_storage)
 "aBW" = (
 /obj/structure/lattice,
-/obj/machinery/camera/directional/west{
-	network = list("minisat")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/space,
 /area/space/nearstation)
 "aBZ" = (
@@ -2081,9 +2079,7 @@
 /area/maintenance/central)
 "aCI" = (
 /obj/machinery/computer/security/mining,
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron,
 /area/quartermaster/miningdock)
 "aCJ" = (
@@ -4161,9 +4157,7 @@
 /turf/closed/wall,
 /area/crew_quarters/toilet/locker)
 "aXX" = (
-/obj/machinery/camera/directional/north{
-	network = list("minisat")
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/space,
 /area/space/nearstation)
 "aYe" = (
@@ -5014,9 +5008,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/structure/table/wood/fancy,
 /obj/item/soulstone/anybody/chaplain,
 /obj/item/organ/heart,
@@ -6374,9 +6366,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
 	},
@@ -7413,9 +7403,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
@@ -7995,9 +7983,7 @@
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -9227,9 +9213,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/camera/directional/north{
-	network = list("ss13, prison")
-	},
+/obj/machinery/camera/directional/north,
 /obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron/techmaint,
 /area/security/prison/shielded)
@@ -13586,9 +13570,7 @@
 /obj/structure/sign/poster/official/do_not_question{
 	pixel_x = -32
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, security")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "cyQ" = (
@@ -13791,9 +13773,7 @@
 /area/quartermaster/warehouse)
 "cAE" = (
 /obj/structure/table,
-/obj/machinery/camera/directional/west{
-	network = list("ss13","engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "cAF" = (
@@ -15269,9 +15249,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/structure/disposalpipe/junction/flip{
 	dir = 2
 	},
@@ -15310,13 +15288,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"cMg" = (
-/obj/structure/lattice,
-/obj/machinery/camera/directional/west{
-	network = list("ss13","minisat")
-	},
-/turf/open/space,
-/area/space/nearstation)
 "cMm" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
@@ -16081,9 +16052,7 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
-/obj/machinery/camera/directional/north{
-	network = list("ss13, security, prison")
-	},
+/obj/machinery/camera/directional/north,
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron,
 /area/security/courtroom)
@@ -16098,8 +16067,7 @@
 /area/bridge)
 "dcL" = (
 /obj/machinery/camera/directional/north{
-	c_tag = "MiniSat AI Chamber South";
-	network = list("aicore")
+	c_tag = "MiniSat AI Chamber South"
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
@@ -16640,8 +16608,7 @@
 /obj/item/key/security,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/camera/motion/directional/south{
-	c_tag = "Armory - External";
-	network = list("ss13","security")
+	c_tag = "Armory - External"
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
@@ -17499,8 +17466,7 @@
 /obj/item/clothing/mask/cigarette/cigar,
 /obj/item/lighter,
 /obj/machinery/camera/directional/east{
-	c_tag = "Detective's Office";
-	network = list("ss13","security")
+	c_tag = "Detective's Office"
 	},
 /obj/machinery/button/door{
 	id = "detective_shutters";
@@ -18095,9 +18061,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hop)
 "dQQ" = (
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/dark,
 /area/chapel/main)
 "dRx" = (
@@ -18307,9 +18271,7 @@
 /area/vacant_room/office)
 "dUO" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/camera/directional/north{
-	network = list("ss13","engine")
-	},
+/obj/machinery/camera/directional/north,
 /obj/machinery/power/apc/highcap/fifteen_k{
 	areastring = "/area/engine/engineering";
 	dir = 1;
@@ -18685,9 +18647,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/camera/directional/north{
-	network = list("ss13","security")
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "ecV" = (
@@ -20001,9 +19961,7 @@
 /obj/item/folder/white,
 /obj/item/pen,
 /obj/item/clothing/neck/stethoscope,
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "eDN" = (
@@ -21580,9 +21538,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/camera/directional/east{
-	network = list("ss13","engine")
-	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "fjl" = (
@@ -22983,9 +22939,7 @@
 	pixel_y = 33
 	},
 /obj/effect/landmark/prisonspawn,
-/obj/machinery/camera/directional/north{
-	network = list("ss13, prison")
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/prison,
 /area/security/prison)
 "fPr" = (
@@ -23398,9 +23352,7 @@
 	req_access_txt = "65"
 	},
 /obj/machinery/light/small,
-/obj/machinery/camera/directional/south{
-	network = list("minisat")
-	},
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "fWD" = (
@@ -23806,9 +23758,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/camera/directional/south{
-	network = list("ss13","prison")
-	},
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "gdO" = (
@@ -25298,9 +25248,7 @@
 	},
 /obj/machinery/firealarm/directional/east,
 /obj/structure/closet/bombcloset/security,
-/obj/machinery/camera/directional/east{
-	network = list("ss13","security")
-	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
 "gHJ" = (
@@ -25367,8 +25315,7 @@
 	pixel_y = -24
 	},
 /obj/machinery/camera/motion/directional/south{
-	c_tag = "MiniSat AI Chamber North";
-	network = list("aicore")
+	c_tag = "MiniSat AI Chamber North"
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
@@ -25757,9 +25704,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "gSu" = (
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "gSK" = (
@@ -26076,9 +26021,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/camera/directional/west{
-	network = list("minisat")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/atmos)
 "hbp" = (
@@ -26596,9 +26539,7 @@
 /area/security/brig)
 "hnr" = (
 /obj/machinery/telecomms/receiver/preset_left,
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/circuit/telecomms,
 /area/tcommsat/server)
 "hnD" = (
@@ -26656,9 +26597,7 @@
 	name = "killroom vent";
 	pressure_checks = 0
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)
 "hoL" = (
@@ -27053,9 +26992,7 @@
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "hwE" = (
-/obj/machinery/camera/directional/east{
-	network = list("ss13","prison")
-	},
+/obj/machinery/camera/directional/east,
 /obj/item/radio/intercom{
 	desc = "Talk through this. It looks like it has been modified to not broadcast.";
 	name = "Prison Intercom (General)";
@@ -27180,9 +27117,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/camera/directional/north{
-	network = list("ss13","engine")
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "hzb" = (
@@ -27372,9 +27307,7 @@
 /obj/structure/sign/departments/minsky/supply/cargo{
 	pixel_x = -32
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -27809,9 +27742,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/structure/cable,
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
@@ -28384,9 +28315,7 @@
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible{
 	dir = 1
 	},
-/obj/machinery/camera/directional/north{
-	network = list("ss13","engine")
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "hWq" = (
@@ -28628,9 +28557,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/computer/cargo{
@@ -29910,9 +29837,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -30
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13","engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "ixj" = (
@@ -30697,9 +30622,7 @@
 /turf/open/floor/iron/white,
 /area/medical/surgery)
 "iPN" = (
-/obj/machinery/camera/directional/east{
-	network = list("ss13, security")
-	},
+/obj/machinery/camera/directional/east,
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
 /area/security/brig)
@@ -31142,9 +31065,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/camera/directional/east{
-	network = list("ss13","engine")
-	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "iYT" = (
@@ -31239,9 +31160,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
@@ -32767,9 +32686,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13","engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "jFF" = (
@@ -33436,9 +33353,7 @@
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible{
 	dir = 1
 	},
-/obj/machinery/camera/directional/north{
-	network = list("ss13","engine")
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "jTo" = (
@@ -34489,9 +34404,7 @@
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "kph" = (
-/obj/machinery/camera/directional/north{
-	network = list("ss13","rd")
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/engine,
 /area/science/explab)
 "kpk" = (
@@ -35184,9 +35097,7 @@
 	dir = 1;
 	pixel_y = -26
 	},
-/obj/machinery/camera/directional/south{
-	network = list("ss13","engine")
-	},
+/obj/machinery/camera/directional/south,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "kCf" = (
@@ -35695,9 +35606,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/camera/directional/east{
-	network = list("minisat")
-	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/service)
 "kJV" = (
@@ -36203,8 +36112,7 @@
 /area/medical/medbay/lobby)
 "kTk" = (
 /obj/machinery/camera/motion/directional/south{
-	c_tag = "AI Upload Chamber - External";
-	network = list("aiupload")
+	c_tag = "AI Upload Chamber - External"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -38263,9 +38171,7 @@
 /obj/item/clothing/mask/balaclava,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/machinery/camera/directional/north{
-	network = list("ss13","security")
-	},
+/obj/machinery/camera/directional/north,
 /obj/structure/reagent_dispensers/peppertank/directional/west,
 /turf/open/floor/iron/dark,
 /area/security/main)
@@ -38737,9 +38643,7 @@
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Port to Filter"
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "lZR" = (
@@ -38842,9 +38746,7 @@
 	},
 /obj/item/storage/box/deputy,
 /obj/item/toy/figure/hos,
-/obj/machinery/camera/directional/north{
-	network = list("ss13","security")
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "mcV" = (
@@ -39893,8 +39795,7 @@
 /area/security/checkpoint/science)
 "mCb" = (
 /obj/machinery/camera/directional/north{
-	c_tag = "Warden's Office";
-	network = list("ss13, security")
+	c_tag = "Warden's Office"
 	},
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical{
@@ -40207,9 +40108,7 @@
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13","prison")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/prison,
 /area/security/prison)
 "mJF" = (
@@ -40275,9 +40174,7 @@
 /obj/machinery/light_switch{
 	pixel_y = 28
 	},
-/obj/machinery/camera/directional/north{
-	network = list("ss13","rd")
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/white,
 /area/science/explab)
 "mLr" = (
@@ -40370,8 +40267,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera/directional/north{
-	c_tag = "AI Upload Chamber - Fore";
-	network = list("aiupload")
+	c_tag = "AI Upload Chamber - Fore"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
@@ -41850,9 +41746,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/directional/east,
-/obj/machinery/camera/motion/directional/east{
-	network = list("aiupload")
-	},
+/obj/machinery/camera/motion/directional/east,
 /obj/item/kirbyplants/photosynthetic,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -43185,9 +43079,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/firealarm/directional/south,
-/obj/machinery/camera/motion/directional/south{
-	network = list("aiupload")
-	},
+/obj/machinery/camera/motion/directional/south,
 /turf/open/floor/iron/grid/steel,
 /area/ai_monitored/turret_protected/ai_upload)
 "nTL" = (
@@ -44214,9 +44106,7 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "orQ" = (
@@ -45366,9 +45256,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
@@ -45946,9 +45834,7 @@
 	pixel_y = -22
 	},
 /obj/machinery/light/small,
-/obj/machinery/camera/directional/south{
-	network = list("ss13, security")
-	},
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
 "phr" = (
@@ -46511,9 +46397,7 @@
 /area/maintenance/aft)
 "prn" = (
 /obj/structure/lattice,
-/obj/machinery/camera/directional/east{
-	network = list("minisat")
-	},
+/obj/machinery/camera/directional/east,
 /turf/open/space,
 /area/space/nearstation)
 "prs" = (
@@ -47229,9 +47113,7 @@
 	dir = 8
 	},
 /obj/machinery/vending/wardrobe/sec_wardrobe,
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
@@ -47260,9 +47142,7 @@
 	pixel_x = -30
 	},
 /obj/machinery/rnd/production/techfab/department/cargo,
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron,
 /area/quartermaster/office)
 "pEC" = (
@@ -47636,9 +47516,7 @@
 /turf/open/floor/iron/grid,
 /area/medical/patients_rooms)
 "pLw" = (
-/obj/machinery/camera/directional/south{
-	network = list("ss13, security")
-	},
+/obj/machinery/camera/directional/south,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
@@ -49577,9 +49455,7 @@
 "qEO" = (
 /obj/machinery/computer/nanite_cloud_controller,
 /obj/effect/turf_decal/bot,
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/dark,
 /area/science/nanite)
 "qET" = (
@@ -49804,9 +49680,7 @@
 /obj/machinery/status_display/evac{
 	pixel_x = -32
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/tile/dark_blue{
 	dir = 8
 	},
@@ -49829,9 +49703,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/camera/directional/south{
-	network = list("ss13","security")
-	},
+/obj/machinery/camera/directional/south,
 /obj/structure/reagent_dispensers/peppertank/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -50005,9 +49877,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/camera/directional/south{
-	network = list("ss13, security")
-	},
+/obj/machinery/camera/directional/south,
 /obj/machinery/light,
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -50708,9 +50578,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/camera/directional/east{
-	network = list("ss13, prison")
-	},
+/obj/machinery/camera/directional/east,
 /obj/effect/turf_decal/arrows{
 	dir = 1
 	},
@@ -51207,8 +51075,7 @@
 /area/quartermaster/office)
 "rkd" = (
 /obj/machinery/camera/motion/directional/west{
-	c_tag = "MiniSat Core Hallway";
-	network = list("aicore")
+	c_tag = "MiniSat Core Hallway"
 	},
 /obj/machinery/firealarm{
 	dir = 4;
@@ -52829,9 +52696,7 @@
 /obj/effect/landmark/secequipment,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/camera/directional/south{
-	network = list("ss13","security")
-	},
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "rOk" = (
@@ -53168,9 +53033,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "rUj" = (
-/obj/machinery/camera/directional/east{
-	network = list("ss13","prison")
-	},
+/obj/machinery/camera/directional/east,
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -53876,8 +53739,7 @@
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera/directional/north{
-	c_tag = "Incinerator";
-	network = list("ss13","turbine")
+	c_tag = "Incinerator"
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/maintenance/disposal/incinerator)
@@ -53912,9 +53774,7 @@
 	req_access = null;
 	req_access_txt = "65"
 	},
-/obj/machinery/camera/directional/west{
-	network = list("minisat")
-	},
+/obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -55255,9 +55115,7 @@
 /obj/machinery/computer/security/qm{
 	dir = 4
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 8
 	},
@@ -57927,9 +57785,7 @@
 /obj/machinery/computer/card/minor/ce{
 	dir = 4
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/chief)
@@ -58854,9 +58710,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13","engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
@@ -59258,9 +59112,7 @@
 	name = "Solitary confinement timer";
 	pixel_y = 32
 	},
-/obj/machinery/camera/directional/west{
-	network = list("minisat")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/tech,
 /area/security/prison/shielded)
 "umF" = (
@@ -59646,9 +59498,7 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "usI" = (
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/open/floor/iron/dark/side{
 	dir = 8
@@ -60535,9 +60385,7 @@
 /area/crew_quarters/bar/atrium)
 "uRa" = (
 /obj/machinery/light/small,
-/obj/machinery/camera/directional/south{
-	network = list("minisat")
-	},
+/obj/machinery/camera/directional/south,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
@@ -61254,9 +61102,7 @@
 /area/maintenance/fore/secondary)
 "vhZ" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
-/obj/machinery/camera/directional/east{
-	network = list("ss13, security")
-	},
+/obj/machinery/camera/directional/east,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
@@ -61386,8 +61232,7 @@
 	pixel_y = -24
 	},
 /obj/machinery/camera/motion/directional/south{
-	c_tag = "AI Upload Chamber - Starboard";
-	network = list("aiupload")
+	c_tag = "AI Upload Chamber - Starboard"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -61965,9 +61810,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/camera/directional/south{
-	network = list("minisat")
-	},
+/obj/machinery/camera/directional/south,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
@@ -62144,9 +61987,7 @@
 /area/hydroponics)
 "vyv" = (
 /obj/structure/chair/fancy/bench/right,
-/obj/machinery/camera/directional/south{
-	network = list("ss13","prison","security")
-	},
+/obj/machinery/camera/directional/south,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
@@ -62341,9 +62182,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/camera/directional/south{
-	network = list("ss13, prison")
-	},
+/obj/machinery/camera/directional/south,
 /turf/open/floor/prison,
 /area/security/prison)
 "vCs" = (
@@ -63243,9 +63082,7 @@
 /turf/open/floor/iron,
 /area/quartermaster/miningdock)
 "vUv" = (
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/machinery/light_switch{
 	pixel_x = -28
 	},
@@ -63257,9 +63094,7 @@
 	pixel_x = 5;
 	pixel_y = -32
 	},
-/obj/machinery/camera/directional/south{
-	network = list("ss13, security")
-	},
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
 "vUB" = (
@@ -64194,9 +64029,7 @@
 /area/hallway/secondary/command)
 "wmW" = (
 /obj/machinery/vending/wardrobe/engi_wardrobe,
-/obj/machinery/camera/directional/east{
-	network = list("ss13","engine")
-	},
+/obj/machinery/camera/directional/east,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
@@ -65624,9 +65457,7 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
 "wQW" = (
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "wRS" = (
@@ -65661,9 +65492,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "wSx" = (
@@ -67462,13 +67291,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/hydroponics)
-"xEl" = (
-/obj/structure/lattice,
-/obj/machinery/camera/directional/east{
-	network = list("ss13","minisat")
-	},
-/turf/open/space,
-/area/space/nearstation)
 "xEr" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Firefighting Equipment";
@@ -68027,9 +67849,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/camera/directional/south{
-	network = list("ss13, security")
-	},
+/obj/machinery/camera/directional/south,
 /obj/structure/closet/secure_closet/evidence,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -68490,9 +68310,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/camera/directional/east{
-	network = list("ss13","engine")
-	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "ybz" = (
@@ -68503,9 +68321,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/camera/directional/west{
-	network = list("ss13, engine")
-	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron,
 /area/science/storage)
 "ybK" = (
@@ -103629,7 +103445,7 @@ aaa
 aaa
 aaa
 aaf
-xEl
+prn
 aaf
 aaa
 aaa
@@ -107227,7 +107043,7 @@ aaa
 aaa
 aaa
 aaf
-cMg
+aBW
 aaf
 aaa
 aaa

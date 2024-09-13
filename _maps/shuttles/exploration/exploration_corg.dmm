@@ -153,8 +153,7 @@
 /area/shuttle/exploration)
 "hc" = (
 /obj/machinery/camera/directional/east{
-	name = "Exploration Shuttle";
-	network = list("exploration shuttle")
+	name = "Exploration Shuttle"
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 4
