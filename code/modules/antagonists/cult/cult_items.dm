@@ -233,7 +233,7 @@ Striking a noncultist, however, will tear their flesh."}
 	// note that these charges don't regenerate
 	AddComponent(/datum/component/shielded, \
 		max_integrity = 100, \
-		recharge_start_delay = 0 SECONDS, \
+		charge_recovery = 0 SECONDS, \
 		shield_icon_file = 'icons/effects/cult_effects.dmi', \
 		shield_icon = "shield-cult", \
 		shield_flags = ENERGY_SHEILD_BLOCK_PROJECTILES, \

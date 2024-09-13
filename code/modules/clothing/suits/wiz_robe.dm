@@ -221,7 +221,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/suit/space/hardsuit/shielded/wizard/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 400, recharge_start_delay = 0 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-red")
+	AddComponent(/datum/component/shielded, max_integrity = 600, charge_recovery = 0 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-red")
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
 	name = "battlemage helmet"

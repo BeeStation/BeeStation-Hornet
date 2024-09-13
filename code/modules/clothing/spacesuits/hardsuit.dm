@@ -954,13 +954,13 @@
 	allowed = null
 	greyscale_config = /datum/greyscale_config/ctf_standard
 	greyscale_config_worn = /datum/greyscale_config/ctf_standard_worn
-	greyscale_colors = "#ffffff"am/master
+	greyscale_colors = "#ffffff"
 
 	///Icon state to be fed into the shielded component
 	var/team_shield_icon = "shield-old"
 
 /obj/item/clothing/suit/armor/vest/ctf/setup_shielding()
-	AddComponent(/datum/component/shielded, max_charges = 150, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 30, lose_multiple_charges = TRUE, shield_icon = team_shield_icon)
+	AddComponent(/datum/component/shielded, max_integrity = 150, charge_recovery = 30, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = team_shield_icon)
 
 // LIGHT SHIELDED VEST
 
@@ -973,7 +973,7 @@
 	slowdown = -0.25
 
 /obj/item/clothing/suit/armor/vest/ctf/light/setup_shielding()
-	AddComponent(/datum/component/shielded, max_charges = 30, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 30, lose_multiple_charges = TRUE, shield_icon = team_shield_icon)
+	AddComponent(/datum/component/shielded, max_integrity = 50, charge_recovery = 30, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = team_shield_icon)
 
 // RED TEAM SUITS
 
@@ -1030,7 +1030,7 @@
 	jetpack = /obj/item/tank/jetpack/suit
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/setup_shielding()
-	AddComponent(/datum/component/shielded, max_charges = 3, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 1, lose_multiple_charges = FALSE, shield_icon = "shield-red")
+	AddComponent(/datum/component/shielded, max_integrity = 60, charge_recovery = 20, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-red")
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/ComponentInitialize()
 	. = ..()
@@ -1093,7 +1093,7 @@
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
 /obj/item/clothing/suit/space/hardsuit/shielded/swat/setup_shielding()
-	AddComponent(/datum/component/shielded, max_charges = 4, recharge_start_delay = 1.5 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-old")
+	AddComponent(/datum/component/shielded, max_integrity = 80, charge_recovery = 20, recharge_start_delay = 1.5 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-old")
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat
 	name = "death commando helmet"
@@ -1138,7 +1138,7 @@
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
 /obj/item/clothing/suit/space/hardsuit/shielded/doomguy/setup_shielding()
-	AddComponent(/datum/component/shielded, max_charges = 1, recharge_start_delay = 1 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-old")
+	AddComponent(/datum/component/shielded, max_integrity = 20, charge_recovery = 20, recharge_start_delay = 1 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-old")
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
 	name = "juggernaut helmet"

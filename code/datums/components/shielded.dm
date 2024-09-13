@@ -9,12 +9,12 @@
 	var/max_integrity
 	/// How many charges we currently have
 	var/current_integrity
-	/// How long we have to avoid being hit to replenish charges. If set to 0, we never recharge lost charges
+	/// How long we have to avoid being hit to replenish charges.
 	var/recharge_start_delay = 20 SECONDS
 	/// Once we go unhit long enough to recharge, we replenish charges this often. The floor is effectively 1 second, AKA how often SSdcs processes
 	var/charge_increment_delay = 1 SECONDS
-	/// How many charges we recover on each charge increment
-	var/charge_recovery = 1
+	/// How many charges we recover on each charge increment. If set to 0, we don't recharge
+	var/charge_recovery = 20
 	/// What .dmi we're pulling the shield icon from
 	var/shield_icon_file = 'icons/effects/effects.dmi'
 	/// What icon is used when someone has a functional shield up
@@ -34,9 +34,9 @@
 
 /datum/component/shielded/Initialize(
 		max_integrity = 60,
+		charge_recovery = 20,
 		recharge_start_delay = 20 SECONDS,
 		charge_increment_delay = 1 SECONDS,
-		charge_recovery = 20,
 		shield_icon_file = 'icons/effects/effects.dmi',
 		shield_icon = "shield-old",
 		shield_inhand = FALSE,
@@ -60,7 +60,7 @@
 	src.on_hit_effects = run_hit_callback || CALLBACK(src, PROC_REF(default_run_hit_callback))
 
 	current_integrity = max_integrity
-	if(recharge_start_delay)
+	if(charge_recovery)
 		START_PROCESSING(SSdcs, src)
 
 /datum/component/shielded/Destroy(force, silent)
@@ -158,7 +158,7 @@
 	INVOKE_ASYNC(src, PROC_REF(actually_run_hit_callback), owner, attack_text, current_integrity)
 
 
-	if(!recharge_start_delay) // if recharge_start_delay is 0, we don't recharge
+	if(!charge_recovery) // if charge_recovery is 0, we don't recharge
 		if(!current_integrity) // obviously if someone ever adds a manual way to replenish charges, change this
 			qdel(src)
 		return
