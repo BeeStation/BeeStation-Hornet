@@ -1,0 +1,4 @@
+author: MarkusLarsson421
+delete-after: true
+changes:
+  - balance: Allows Cyborgs to have their selected module reset via a pulse.
