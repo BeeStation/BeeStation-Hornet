@@ -3542,7 +3542,6 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "axx" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 6
 	},
@@ -3552,6 +3551,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "axy" = (
@@ -3570,7 +3570,6 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "axB" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 10
 	},
@@ -3580,6 +3579,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "axC" = (
@@ -3848,31 +3848,18 @@
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 8
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "ayK" = (
 /obj/machinery/power/supermatter_crystal/engine,
 /turf/open/floor/engine,
-/area/engine/supermatter)
-"ayL" = (
-/obj/machinery/atmospherics/pipe/manifold/general/visible{
-	dir = 4
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "ayM" = (
 /obj/structure/cable{
@@ -4122,21 +4109,7 @@
 	},
 /turf/open/floor/plating,
 /area/engine/supermatter)
-"azT" = (
-/obj/machinery/power/rad_collector/anchored,
-/obj/machinery/atmospherics/pipe/manifold/general/visible{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/turf/open/floor/circuit/green,
-/area/engine/supermatter)
 "azU" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 4
 	},
@@ -4146,6 +4119,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
+/obj/machinery/power/tesla_coil/power,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "azX" = (
@@ -16720,7 +16694,6 @@
 /turf/open/space,
 /area/space/nearstation)
 "cje" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -20062,7 +20035,6 @@
 /turf/open/space,
 /area/space/nearstation)
 "cAK" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -120657,7 +120629,7 @@ auZ
 awg
 axx
 ayJ
-azT
+ayJ
 aAU
 aCl
 awg
@@ -121684,7 +121656,7 @@ atU
 avd
 awg
 axB
-ayL
+azU
 azU
 aAY
 aCl
