@@ -289,6 +289,10 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
+/obj/item/clothing/head/helmet/space/hardsuit/engine/elite/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/element/radiation_protected_clothing)
+
 /obj/item/clothing/suit/space/hardsuit/engine/elite
 	icon_state = "hardsuit-white"
 	name = "advanced hardsuit"
@@ -300,6 +304,10 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
 	jetpack = /obj/item/tank/jetpack/suit
 	cell = /obj/item/stock_parts/cell/super
+
+/obj/item/clothing/suit/space/hardsuit/engine/elite/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/element/radiation_protected_clothing)
 
 	//Mining hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/mining
