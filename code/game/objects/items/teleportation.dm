@@ -202,7 +202,7 @@
 		return
 	current_location = get_turf(user)	//Recheck.
 	current_area = current_location.loc
-	var/turf/dest_turf = get_teleport_turf(teleport_target)
+	var/turf/dest_turf = get_teleport_turf(get_turf(teleport_target))
 	if(isnull(current_area) || !check_teleport(user, dest_turf, channel = TELEPORT_CHANNEL_BLUESPACE) || is_away_level(current_location.z) || is_centcom_level(current_location.z))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return

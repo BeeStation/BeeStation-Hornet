@@ -11,7 +11,10 @@
 /proc/check_teleport(atom/movable/teleatom, turf/dest_turf, channel = TELEPORT_CHANNEL_BLUESPACE, bypass_area_restriction = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT)
 	var/turf/cur_turf = get_turf(teleatom)
 
-	if(!istype(cur_turf) || !istype(dest_turf) || dest_turf.is_transition_turf())
+	if(!istype(dest_turf))
+		stack_trace("Destination [dest_turf] is not a turf.")
+		return FALSE
+	if(!istype(cur_turf) || dest_turf.is_transition_turf())
 		return FALSE
 
 	// Checks bluespace anchors
