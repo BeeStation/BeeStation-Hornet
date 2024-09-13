@@ -946,10 +946,6 @@
 	worn_icon = 'icons/mob/clothing/suits/ctf.dmi'
 	icon_state = "standard"
 	// Adding TRAIT_NODROP is done when the CTF spawner equips people
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/ctf
-	armor = list(MELEE = 0,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 100, RAD = 100, FIRE = 95, ACID = 95, STAMINA = 0)
-	slowdown = 0
-	shield_integrity = 100
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0) // CTF gear gives no protection outside of the shield
 	allowed = null
 	greyscale_config = /datum/greyscale_config/ctf_standard
