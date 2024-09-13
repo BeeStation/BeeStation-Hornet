@@ -1061,8 +1061,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 					multi = 20
 				if(CRITICAL_POWER_PENALTY_THRESHOLD to INFINITY)
 					multi = 40
-			coil.zap_act(zap_str * multi, zap_flags, list())
-			zap_str /= 3 //Coils should take a lot out of the power of the zap
+			if(zap_flags & ZAP_SUPERMATTER_FLAGS)
+				var/remaining_power = target.zap_act(zap_str * multi, zap_flags)
+				zap_str = remaining_power / multi //Coils should take a lot out of the power of the zap
+			else
+				zap_str /= 3
 
 		else if(istype(target, /obj/machinery/power/grounding_rod))
 			var/obj/machinery/power/grounding_rod/rod = target
