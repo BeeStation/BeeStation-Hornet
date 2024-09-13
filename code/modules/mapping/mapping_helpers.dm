@@ -181,7 +181,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 	icon_state = "one_code"
 
 /obj/effect/mapping_helpers/airlock/access
-	var/list/access
+	var/list/access = list()
 	icon_state = "access_helper"
 
 /obj/effect/mapping_helpers/airlock/access/station/maintenance
