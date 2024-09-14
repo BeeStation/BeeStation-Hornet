@@ -184,6 +184,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 	var/list/access = list()
 	icon_state = "access_helper"
 
+/obj/effect/mapping_helpers/airlock/access/payload(obj/machinery/door/airlock/airlock)
+	//check so it has no req_access_txt
+	if(req_access_txt)
+		return
+	airlock.access += access
+
 /obj/effect/mapping_helpers/airlock/access/station/maintenance
 	access = list(ACCESS_MAINT_TUNNELS)
 
