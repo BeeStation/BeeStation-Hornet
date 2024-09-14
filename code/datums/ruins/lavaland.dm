@@ -43,7 +43,6 @@
 	suffix = "lavaland_surface_seed_vault.dmm"
 	cost = 5
 	allow_duplicates = FALSE
-	always_place = TRUE
 
 /datum/map_template/ruin/lavaland/ash_walker
 	name = "Ash Walker Nest"
@@ -71,7 +70,6 @@
 	cost = 5
 	suffix = "lavaland_surface_golem_ship.dmm"
 	allow_duplicates = FALSE
-	always_place = TRUE
 
 /datum/map_template/ruin/lavaland/animal_hospital
 	name = "Animal Hospital"
