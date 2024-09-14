@@ -137,9 +137,6 @@
 	///The areas specific color correction
 	var/color_correction = /datum/client_colour/area_color
 
-	//Access codes of which doors will use if no other option is available.
-	var/list/access = list()
-
 /**
   * A list of teleport locations
   *

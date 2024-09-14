@@ -822,11 +822,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/chapel/main
 	name = "Chapel"
-	access = null
 
 /area/chapel/main/monastery
 	name = "Monastery"
-	access = null
 
 /area/chapel/office
 	name = "Chapel Office"
@@ -836,7 +834,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Chapel Asteroid"
 	icon_state = "explored"
 	sound_environment = SOUND_AREA_ASTEROID
-	access = null
 
 /area/chapel/asteroid/monastery
 	name = "Monastery Asteroid"
@@ -1223,7 +1220,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER)  // JUSTICE!
 	mood_job_reverse = TRUE
 	mood_message = "<span class='warning'>I'm trapped here with little hope of escape!\n</span>"
-	access = null
 
 /area/security/prison/shielded
 	name = "Prison Wing Shielded area"
@@ -1440,7 +1436,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "garden"
 	mood_bonus = 2
 	mood_message = "<span class='nicegreen'>It's so peaceful in here!\n</span>"
-	access = null
 
 /area/hydroponics/garden/abandoned
 	name = "Abandoned Garden"
@@ -1572,7 +1567,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/storage/primary
 	name = "Primary Tool Storage"
 	icon_state = "primarystorage"
-	access = null
 
 /area/storage/primary/get_turf_textures()
 	return GLOB.turf_texture_hallway
