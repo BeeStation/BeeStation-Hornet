@@ -127,7 +127,7 @@
 /datum/config_entry/flag/popup_admin_pm	// adminPMs to non-admins show in a pop-up 'reply' window when set
 
 /datum/config_entry/number/fps
-	config_entry_value = 20
+	config_entry_value = 60
 	integer = FALSE
 	min_val = 1
 	max_val = 100   //byond will start crapping out at 50, so this is just ridic
