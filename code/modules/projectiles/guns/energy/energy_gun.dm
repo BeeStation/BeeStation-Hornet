@@ -69,6 +69,7 @@
     ammo_x_offset = 4
     resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
     flags_1 = PREVENT_CONTENTS_EXPLOSION_1
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/gun/energy/e_gun/hos/contents_explosion(severity, target)
 	if (!ammo_type || !cell)
