@@ -1308,6 +1308,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
 	camera_networks = list(CAMERA_NETWORK_VAULT)
 
+/area/ai_monitored/nuke_storage
+	name = "Vault"
+	icon_state = "nuke_storage"
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
+	camera_networks = list(CAMERA_NETWORK_VAULT)
+
 /area/security/checkpoint
 	name = "Security Checkpoint"
 	icon_state = "checkpoint"
