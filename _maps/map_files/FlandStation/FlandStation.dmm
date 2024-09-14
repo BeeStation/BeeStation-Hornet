@@ -46014,7 +46014,7 @@
 "lFm" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
-/obj/item/storage/box/firingpins,
+/obj/item/storage/box/firingpins/alert,
 /obj/item/storage/box/firingpins{
 	pixel_x = 3;
 	pixel_y = 3

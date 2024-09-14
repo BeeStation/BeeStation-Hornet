@@ -44674,7 +44674,7 @@
 	dir = 4
 	},
 /obj/item/folder/red,
-/obj/item/storage/box/firingpins,
+/obj/item/storage/box/firingpins/alert,
 /obj/item/key/security,
 /obj/item/key/security,
 /turf/open/floor/iron/dark,

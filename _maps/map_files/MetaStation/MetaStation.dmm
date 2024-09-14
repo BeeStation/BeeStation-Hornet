@@ -38984,7 +38984,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/firingpins,
+/obj/item/storage/box/firingpins/alert,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/tech/grid,
 /area/security/main)
