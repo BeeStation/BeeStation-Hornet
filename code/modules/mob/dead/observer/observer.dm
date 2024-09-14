@@ -15,6 +15,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	see_in_dark = 100
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	invisibility = INVISIBILITY_SPIRIT
+	//appearance_flags = LONG_GLIDE
 	hud_type = /datum/hud/ghost
 	movement_type = FLYING | FLOATING
 	light_system = MOVABLE_LIGHT
@@ -329,8 +330,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(updatedir)
 		setDir(direct)//only update dir if we actually need it, so overlays won't spin on base sprites that don't have directions of their own
 
-	if(glide_size_override)
-		set_glide_size(glide_size_override)
+	//if(glide_size_override)
+	//	set_glide_size(glide_size_override)
 	if(NewLoc)
 		abstract_move(NewLoc)
 	else
@@ -697,7 +698,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			if(istype(target) && (target != src))
 				check_orbitable(target)
 				return
-				
+
 		if(href_list["x"] && href_list["y"] && href_list["z"])
 			var/tx = text2num(href_list["x"])
 			var/ty = text2num(href_list["y"])
