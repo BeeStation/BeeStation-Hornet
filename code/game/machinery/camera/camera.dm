@@ -27,10 +27,6 @@
 	var/thisemp
 	var/list/previous_network
 
-	FASTDMM_PROP(\
-		pinned_vars = list("name", "network", "c_tag")\
-	)
-
 	//OTHER
 
 	var/view_range = 7
