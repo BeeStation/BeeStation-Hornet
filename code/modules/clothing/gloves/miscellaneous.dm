@@ -26,6 +26,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30, STAMINA = 0, BLEED = 0)
+	material = "leather"
 
 /obj/item/clothing/gloves/combat
 	name = "combat gloves"
@@ -42,6 +43,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 20, BLEED = 10)
+	material = "durathread"
 
 /obj/item/clothing/gloves/bracer
 	name = "bone bracers"

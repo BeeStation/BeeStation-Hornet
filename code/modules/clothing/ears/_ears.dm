@@ -6,6 +6,7 @@
 	throwforce = 0
 	slot_flags = ITEM_SLOT_EARS
 	resistance_flags = NONE
+	material = null
 
 /obj/item/clothing/ears/earmuffs
 	name = "earmuffs"

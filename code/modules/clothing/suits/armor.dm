@@ -14,6 +14,7 @@
 	armor = list(MELEE = 30,  BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30, BLEED = 50)
 	clothing_flags = THICKMATERIAL
 	slowdown = 0.08
+	material = "durathread"
 
 /obj/item/clothing/suit/armor/Initialize(mapload)
 	. = ..()

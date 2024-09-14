@@ -64,6 +64,9 @@
 	/// A lazily initiated "food" version of the clothing for moths
 	var/obj/item/food/clothing/moth_snack
 
+	/// What should we get when we cut this piece of clothing
+	var/material = "cloth"
+
 /obj/item/clothing/Initialize(mapload)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
 		actions_types += /datum/action/item_action/toggle_voice_box
@@ -138,7 +141,34 @@
 		moth_snack.clothing = WEAKREF(src)
 	moth_snack.attack(attacker, user, params)
 
+/obj/item/clothing/proc/salvage(obj/item/W, mob/user, params)
+	if(!HAS_BLOOD_DNA(src))
+		switch(material)
+			if("cloth")
+				new /obj/item/stack/sheet/cotton/cloth(src.drop_location(), 3)
+			if("leather")
+				new /obj/item/stack/sheet/leather(src.drop_location(), 3)
+			if("durathread")
+				new /obj/item/stack/sheet/cotton/cloth/durathread(src.drop_location(), 3)
+	else
+		switch(material)
+			if("cloth")
+				new /obj/item/stack/sheet/cotton/cloth/bloody(src.drop_location(), 3)
+			if("leather")
+				new /obj/item/stack/sheet/leather(src.drop_location(), 3) //Bloody leather and durathread will exist soon
+			if("durathread")
+				new /obj/item/stack/sheet/cotton/cloth/durathread(src.drop_location(), 3)
+	playsound(loc, 'sound/items/wirecutter.ogg', 50, 1, -1)
+	qdel(src)
+
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
+	if((W.tool_behaviour == TOOL_WIRECUTTER || W.is_sharp()) && material != null && do_after(user, 1.5 SECONDS))
+		salvage(src)
+		user.visible_message("[user] cuts [src] into pieces of [material] with [W].", \
+		"<span class='notice'>You cut [src] into pieces of [material] with [W].</span>", \
+		"<span class='italics'>You hear cutting.</span>")
+		return TRUE
+
 	if(!istype(W, repairable_by))
 		return ..()
 
