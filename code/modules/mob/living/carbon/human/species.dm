@@ -98,6 +98,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//Breathing! Most changes are in mutantlungs, though
 	var/breathid = "o2"
 
+	//Blank list. As it runs through regenerate_organs, organs that are missing are added in sequential order to the list
+	//List is called in health analyzer and displays all missing organs
 	var/list/required_organs = list()
 
 	//Do NOT remove by setting to null. use OR make a RESPECTIVE TRAIT (removing stomach? add the NOSTOMACH trait to your species)
