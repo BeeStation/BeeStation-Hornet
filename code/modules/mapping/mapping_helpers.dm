@@ -186,7 +186,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 
 /obj/effect/mapping_helpers/airlock/access/payload(obj/machinery/door/airlock/airlock)
 	//check so it has no req_access_txt
-	if(!req_access_txt)
+	if(airlock.req_access_txt == null)
 		airlock.req_access += access
 
 /obj/effect/mapping_helpers/airlock/access/station/maintenance
