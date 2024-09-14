@@ -77,6 +77,7 @@
 #include "mapping\check_area_apc.dm"
 #include "mapping\check_camera_attachment.dm"
 #include "mapping\check_disposals.dm"
+#include "mapping\check_glass_on_space.dm"
 #include "mapping\check_light_attachment.dm"
 #include "mapping\check_multiple_objects.dm"
 #include "mapping\map_test.dm"
