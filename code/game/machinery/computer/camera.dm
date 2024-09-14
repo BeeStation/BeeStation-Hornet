@@ -301,7 +301,7 @@
 	desc = "Damn, they better have the beestation channel on these things."
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "entertainment_blank"
-	network = list(CAMERA_NETWORK_THUNDERDOME)
+	network = list(CAMERA_NETWORK_THUNDERDOME, CAMERA_NETWORK_COURT)
 	density = FALSE
 	circuit = null
 	long_ranged = TRUE

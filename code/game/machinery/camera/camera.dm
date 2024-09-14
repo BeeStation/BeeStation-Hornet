@@ -82,6 +82,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 	// Calculate the camera tag
 	if (!c_tag)
 		c_tag = "[format_text(camera_area.name)] #[++autonames_in_areas[camera_area]]"
+	network = camera_area.camera_networks
 	var/obj/structure/camera_assembly/assembly
 	if(CA)
 		assembly = CA
