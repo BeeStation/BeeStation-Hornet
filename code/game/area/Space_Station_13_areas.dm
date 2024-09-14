@@ -257,6 +257,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Bridge Maintenance"
 	icon_state = "maint_bridge"
 	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
+	camera_networks = list(CAMERA_NETWORK_PRIVATE)
 
 /area/maintenance/department/engine
 	name = "Engineering Maintenance"
@@ -538,7 +539,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 
 	color_correction = /datum/client_colour/area_color/cold_ish
-	camera_networks = list(CAMERA_NETWORK_STATION)
+	camera_networks = list(CAMERA_NETWORK_PRIVATE)
 
 /area/bridge/meeting_room
 	name = "Heads of Staff Meeting Room"
