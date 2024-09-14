@@ -65,7 +65,7 @@
 	var/obj/item/food/clothing/moth_snack
 
 	/// What should we get when we cut this piece of clothing
-	var/material = "cloth"
+	var/salvage_material = "cloth"
 
 /obj/item/clothing/Initialize(mapload)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
@@ -143,7 +143,7 @@
 
 /obj/item/clothing/proc/salvage(obj/item/W, mob/user, params)
 	if(!HAS_BLOOD_DNA(src))
-		switch(material)
+		switch(salvage_material)
 			if("cloth")
 				new /obj/item/stack/sheet/cotton/cloth(src.drop_location(), 3)
 			if("leather")
@@ -151,7 +151,7 @@
 			if("durathread")
 				new /obj/item/stack/sheet/cotton/cloth/durathread(src.drop_location(), 3)
 	else
-		switch(material)
+		switch(salvage_material)
 			if("cloth")
 				new /obj/item/stack/sheet/cotton/cloth/bloody(src.drop_location(), 3)
 			if("leather")
@@ -162,10 +162,10 @@
 	qdel(src)
 
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
-	if((W.tool_behaviour == TOOL_WIRECUTTER || W.is_sharp()) && material != null && do_after(user, 1.5 SECONDS))
+	if((W.tool_behaviour == TOOL_WIRECUTTER || W.is_sharp()) && salvage_material != null && do_after(user, 1.5 SECONDS))
 		salvage(src)
-		user.visible_message("[user] cuts [src] into pieces of [material] with [W].", \
-		"<span class='notice'>You cut [src] into pieces of [material] with [W].</span>", \
+		user.visible_message("[user] cuts [src] into pieces of [salvage_material] with [W].", \
+		"<span class='notice'>You cut [src] into pieces of [salvage_material] with [W].</span>", \
 		"<span class='hear'>You hear cutting.</span>")
 		return TRUE
 
