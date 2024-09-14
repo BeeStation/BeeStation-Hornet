@@ -348,7 +348,7 @@
 		H.update_body()
 		return
 	if(istype(H))
-		if(!(H.dna.species.mutant_bodyparts["tail_human"]))
+		if(!("tail_human" in H.dna.species.mutant_bodyparts))
 			H.dna.features["tail_human"] = tail_type
 			H.dna.species.mutant_bodyparts |= "tail_human"
 		H.update_body()
