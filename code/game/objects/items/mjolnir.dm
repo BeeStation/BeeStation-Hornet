@@ -84,6 +84,8 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	var/obj/item/mjolnir/contained
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
+
 /obj/structure/anchored_mjolnir/Initialize(mapload, obj/item/mjolnir/god_hammer)
 	. = ..()
 	//Put the hammer inside of ourselves
@@ -139,6 +141,8 @@
 	speed = 0.3
 	var/obj/item/mjolnir/contained
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/mjolnir)
+
 /obj/projectile/mjolnir/Initialize(mapload, obj/item/mjolnir/contained_hammer)
 	. = ..()
 	contained = contained_hammer
@@ -156,7 +160,7 @@
 	if (isobj(target))
 		var/obj/hit_structure = target
 		hit_structure.take_damage(120)
-		if (hit_structure.obj_integrity > 0)
+		if (hit_structure.get_integrity() > 0)
 			qdel(src)
 	if (isliving(target))
 		var/mob/living/hit_mob = target

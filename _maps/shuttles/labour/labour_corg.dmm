@@ -22,8 +22,7 @@
 "g" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 1
+	dir = 4
 	},
 /obj/structure/table,
 /obj/machinery/recharger{

@@ -63,6 +63,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/atom/movable/screen/healths
 	var/atom/movable/screen/healthdoll
 	var/atom/movable/screen/internals
+	var/atom/movable/screen/spacesuit
 
 	// subtypes can override this to force a specific UI style
 	var/ui_style
@@ -127,8 +128,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 	return ..()
 
-/mob
-	var/hud_type = /datum/hud
+/mob/var/hud_type = /datum/hud
 
 /mob/proc/create_mob_hud()
 	if(!client || hud_used)

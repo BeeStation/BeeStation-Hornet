@@ -28,7 +28,7 @@ handles linking back and forth.
 
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
 	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(check_z_disconnect))
-	RegisterSignal(parent, COMSIG_PARENT_RECIEVE_BUFFER, PROC_REF(recieve_buffer))
+	RegisterSignal(parent, COMSIG_PARENT_RECEIVE_BUFFER, PROC_REF(receive_buffer))
 
 	var/turf/T = get_turf(parent)
 	if (force_connect || (mapload && is_station_level(T.z)))
@@ -121,7 +121,7 @@ handles linking back and forth.
 		if (silo.remote_attackby(parent, user, I, mat_container_flags))
 			return COMPONENT_NO_AFTERATTACK
 
-/datum/component/remote_materials/proc/recieve_buffer(datum/source, mob/user, datum/buffer, obj/item/buffer_parent)
+/datum/component/remote_materials/proc/receive_buffer(datum/source, mob/user, datum/buffer, obj/item/buffer_parent)
 	if (!QDELETED(buffer) && istype(buffer, /obj/machinery/ore_silo))
 		var/atom/P = parent
 		if (!is_valid_link(P, buffer))
@@ -142,7 +142,7 @@ handles linking back and forth.
 		mat_container = silo.GetComponent(/datum/component/material_container)
 		to_chat(user, "<span class='notice'>You connect [parent] to [silo] from the multitool's buffer.</span>")
 		SEND_SIGNAL(parent, COMSIG_REMOTE_MATERIALS_CHANGED)
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 
 /datum/component/remote_materials/proc/on_hold()
 	return silo && silo.holds["[get_area(parent)]/[category]"]

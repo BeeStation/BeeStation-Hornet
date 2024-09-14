@@ -10,6 +10,8 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	/turf/open/floor/dock/drydock
 )))
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
+
 //NORTH default dir
 /obj/docking_port
 	invisibility = INVISIBILITY_ABSTRACT
@@ -262,6 +264,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	. = ..()
 
 /obj/docking_port/stationary/proc/load_roundstart()
+	DECLARE_ASYNC
 	if(json_key)
 		var/sid = SSmapping.config.shuttles[json_key]
 		roundstart_template = SSmapping.shuttle_templates[sid]
@@ -275,7 +278,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			CRASH("Invalid path ([roundstart_template]) passed to docking port.")
 
 	if(roundstart_template)
-		SSshuttle.action_load(roundstart_template, src)
+		var/datum/async_map_generator/shuttle_loader = SSshuttle.action_load(roundstart_template, src)
+		UNTIL(shuttle_loader.completed)
+	ASYNC_FINISH
 
 /obj/docking_port/stationary/transit
 	name = "In Transit"
@@ -309,6 +314,8 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 	var/list/shuttle_areas
 
+	///Speed multiplier based on station alert level
+	var/alert_coeff = ALERT_COEFF_BLUE
 	///used as a timer (if you want time left to complete move, use timeLeft proc)
 	var/timer
 	var/last_timer_length
@@ -939,6 +946,20 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	last_timer_length *= multiple
 	setTimer(time_remaining)
 
+/obj/docking_port/mobile/proc/alert_coeff_change(new_coeff)
+	if(isnull(new_coeff))
+		return
+
+	var/time_multiplier = new_coeff / alert_coeff
+	var/time_remaining = timer - world.time
+	if(time_remaining < 0 || !last_timer_length)
+		return
+
+	time_remaining *= time_multiplier
+	last_timer_length *= time_multiplier
+	alert_coeff = new_coeff
+	setTimer(time_remaining)
+
 /obj/docking_port/mobile/proc/invertTimer()
 	if(!last_timer_length)
 		return
@@ -1185,3 +1206,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 /obj/docking_port/mobile/emergency/on_emergency_dock()
 	return
+
+#ifdef TESTING
+#undef DOCKING_PORT_HIGHLIGHT
+#endif

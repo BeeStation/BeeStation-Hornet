@@ -72,6 +72,8 @@
 	// Last time we spoke
 	var/last_speech
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
+
 /mob/living/simple_animal/bot/atmosbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
@@ -301,7 +303,7 @@
 		//Add adjacent turfs
 		for(var/direction in list(NORTH, SOUTH, EAST, WEST))
 			var/turf/adjacent_turf = get_step(checking_turf, direction)
-			if(adjacent_turf in checked_turfs || !adjacent_turf.CanAtmosPass(adjacent_turf))
+			if((adjacent_turf in checked_turfs) || !adjacent_turf.CanAtmosPass(adjacent_turf))
 				continue
 			var/datum/gas_mixture/checking_air = checking_turf.return_air()
 			if (!checking_air)
@@ -388,3 +390,18 @@
 
 	do_sparks(3, TRUE, src)
 	..()
+
+#undef ATMOSBOT_MAX_AREA_SCAN
+#undef ATMOSBOT_HOLOBARRIER_COOLDOWN
+#undef ATMOSBOT_MAX_PRESSURE_CHANGE
+#undef ATMOSBOT_MAX_SCRUB_CHANGE
+#undef ATMOSBOT_CHECK_BREACH
+#undef ATMOSBOT_LOW_OXYGEN
+#undef ATMOSBOT_HIGH_TOXINS
+#undef ATMOSBOT_BAD_TEMP
+#undef ATMOSBOT_AREA_STABLE
+#undef ATMOSBOT_NOTHING
+#undef ATMOSBOT_DEPLOY_BARRIER
+#undef ATMOSBOT_VENT_AIR
+#undef ATMOSBOT_SCRUB_TOXINS
+#undef ATMOSBOT_TEMPERATURE_CONTROL

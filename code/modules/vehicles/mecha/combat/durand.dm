@@ -140,7 +140,6 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 	invisibility = INVISIBILITY_MAXIMUM //no showing on right-click
 	pixel_y = 4
 	max_integrity = 10000
-	obj_integrity = 10000
 	anchored = TRUE
 	light_system = MOVABLE_LIGHT
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
@@ -153,6 +152,8 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 	var/switching = FALSE
 	var/currentuser
 
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/durand_shield)
 
 /obj/durand_shield/Initialize(mapload, _chassis, _layer, _dir)
 	. = ..()
@@ -180,7 +181,7 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 /obj/durand_shield/proc/activate(datum/source, mob/owner, list/signal_args)
 	SIGNAL_HANDLER
 	currentuser = owner
-	if(!chassis?.occupants)
+	if(!LAZYLEN(chassis?.occupants))
 		return
 	if(switching && !signal_args[1])
 		return

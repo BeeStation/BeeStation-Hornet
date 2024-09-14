@@ -10,7 +10,8 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("warned", "cautioned", "smashed")
+	attack_verb_continuous = list("warns", "cautions", "smashes")
+	attack_verb_simple = list("warn", "caution", "smash")
 
 /obj/item/choice_beacon
 	name = "choice beacon"
@@ -176,10 +177,10 @@
 	info_text = "Sword Saint, Wandering Vagabond - 1600's. \n<span class='notice'>Comes with a replica katana</span>"
 
 /obj/item/storage/box/hero/ronin/PopulateContents()
-    new /obj/item/clothing/under/costume/kamishimo(src)
-    new /obj/item/clothing/head/costume/rice_hat(src)
-    new /obj/item/katana/weak/curator(src)
-    new /obj/item/clothing/shoes/sandal(src)
+	new /obj/item/clothing/under/costume/kamishimo(src)
+	new /obj/item/clothing/head/costume/rice_hat(src)
+	new /obj/item/katana/weak/curator(src)
+	new /obj/item/clothing/shoes/sandal(src)
 
 /obj/item/choice_beacon/augments
 	name = "augment beacon"
@@ -371,7 +372,8 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "skub"
 	w_class = WEIGHT_CLASS_BULKY
-	attack_verb = list("skubbed")
+	attack_verb_continuous = list("skubs")
+	attack_verb_simple = list("skub")
 
 /obj/item/skub/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] has declared themself as anti-skub! The skub tears them apart!</span>")

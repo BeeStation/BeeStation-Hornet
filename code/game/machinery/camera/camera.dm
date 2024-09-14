@@ -1,7 +1,3 @@
-#define CAMERA_UPGRADE_XRAY 1
-#define CAMERA_UPGRADE_EMP_PROOF 2
-#define CAMERA_UPGRADE_MOTION 4
-
 /obj/machinery/camera
 	name = "security camera"
 	desc = "A wireless camera used to monitor rooms. It is powered by a long-life internal battery."
@@ -72,11 +68,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
 	light_range = 10
 	start_active = TRUE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
+
 /obj/machinery/camera/Initialize(mapload, obj/structure/camera_assembly/CA)
 	. = ..()
 	for(var/i in network)
 		network -= i
-		network += lowertext(i)
+		network += LOWER_TEXT(i)
 	var/obj/structure/camera_assembly/assembly
 	if(CA)
 		assembly = CA
@@ -398,7 +396,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
 			assembly_ref = null
 		else
 			var/obj/item/I = new /obj/item/wallframe/camera (loc)
-			I.obj_integrity = I.max_integrity * 0.5
+			I.update_integrity(I.max_integrity * 0.5)
 			new /obj/item/stack/cable_coil(loc, 2)
 	qdel(src)
 

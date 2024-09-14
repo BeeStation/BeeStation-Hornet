@@ -23,8 +23,7 @@
 /mob/living/changeNext_move(num)
 	var/mod = next_move_modifier
 	var/adj = next_move_adjust
-	for(var/i in status_effects)
-		var/datum/status_effect/S = i
+	for(var/datum/status_effect/S as anything in status_effects)
 		mod *= S.nextmove_modifier()
 		adj += S.nextmove_adjust()
 	next_move = world.time + ((num + adj)*mod)
@@ -41,6 +40,7 @@
 /atom/Click(location,control,params)
 	if(flags_1 & INITIALIZED_1)
 		SEND_SIGNAL(src, COMSIG_CLICK, location, control, params, usr)
+
 		usr.ClickOn(src, params)
 
 /atom/DblClick(location,control,params)
@@ -185,6 +185,7 @@
 
 	var/list/closed = list()
 	var/list/checking = list(ultimate_target)
+
 	while (checking.len && depth > 0)
 		var/list/next = list()
 		--depth
@@ -192,7 +193,8 @@
 		for(var/atom/target in checking)  // will filter out nulls
 			if(closed[target] || isarea(target))  // avoid infinity situations
 				continue
-			if(isturf(target) || isturf(target.loc) || HasDirectAccess(target) || (isobj(target) && target.flags_1 & IS_ONTOP_1)) //Directly accessible atoms
+
+			if(isturf(target) || isturf(target.loc) || HasDirectAccess(target) || (ismovable(target) && target.flags_1 & IS_ONTOP_1)) //Directly accessible atoms
 				if(Adjacent(target) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
 					return TRUE
 
@@ -527,3 +529,6 @@
 			return TRUE
 
 	return FALSE
+
+#undef MAX_SAFE_BYOND_ICON_SCALE_TILES
+#undef MAX_SAFE_BYOND_ICON_SCALE_PX
