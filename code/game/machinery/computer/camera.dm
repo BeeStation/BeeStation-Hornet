@@ -350,6 +350,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertai
 	desc = "A telescreen with access to the medbay's camera network."
 	network = list(CAMERA_NETWORK_MEDICAL)
 
+/obj/machinery/computer/security/telescreen/medical
+	name = "medical telescreen"
+	desc = "A telescreen with access to the medbay's camera network."
+	network = list(CAMERA_NETWORK_MEDICAL)
+
 /obj/machinery/computer/security/telescreen/vault
 	name = "vault monitor"
 	desc = "A telescreen that connects to the vault's camera network."
