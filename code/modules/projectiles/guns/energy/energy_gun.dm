@@ -60,19 +60,15 @@
 	icon_state = "decloner"
 
 /obj/item/gun/energy/e_gun/hos
-	name = "\improper X-01 MultiPhase Energy Gun"
-	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
-	gun_charge = 1200
-	icon_state = "hoslaser"
-	w_class = WEIGHT_CLASS_LARGE
-	force = 10
-	automatic = 1
-	fire_rate = 3
-	full_auto = TRUE
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler/hos)
-	ammo_x_offset = 4
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	investigate_flags = ADMIN_INVESTIGATE_TARGET
+    name = "\improper X-01 MultiPhase Energy Gun"
+    desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
+    icon_state = "hoslaser"
+    w_class = WEIGHT_CLASS_LARGE
+    force = 10
+    ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/ion/hos)
+    ammo_x_offset = 4
+    resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+    flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 
 /obj/item/gun/energy/e_gun/hos/contents_explosion(severity, target)
 	if (!ammo_type || !cell)
