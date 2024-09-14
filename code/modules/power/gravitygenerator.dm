@@ -415,6 +415,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 				GLOB.gravity_generators["[theZ]"] |= src
 			else
 				GLOB.gravity_generators["[theZ]"] -= src
+			SSmapping.calculate_z_level_gravity(z)
 
 /obj/machinery/gravity_generator/main/proc/change_setting(value)
 	if(value != setting)

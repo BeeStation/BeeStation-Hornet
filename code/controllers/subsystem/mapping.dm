@@ -117,6 +117,7 @@ SUBSYSTEM_DEF(mapping)
 	generate_station_area_list()
 	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE))
 	initialize_reserved_level(transit.z_value)
+	calculate_default_z_level_gravities()
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/mapping/fire(resumed)
@@ -680,6 +681,10 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		var/area/our_area = to_contain.loc
 		our_area.contained_turfs += to_contain
 
+/datum/controller/subsystem/mapping/proc/calculate_default_z_level_gravities()
+	for(var/z_level in 1 to length(z_list))
+		calculate_z_level_gravity(z_level)
+
 /datum/controller/subsystem/mapping/proc/generate_z_level_linkages()
 	for(var/z_level in 1 to length(z_list))
 		generate_linkages_for_z_level(z_level)
@@ -708,6 +713,6 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	for(var/obj/machinery/gravity_generator/main/grav_gen as anything in GLOB.gravity_generators["[z_level_number]"])
 		max_gravity = max(grav_gen.setting, max_gravity)
 
-	max_gravity = max_gravity || level_trait(z_level_number, ZTRAIT_GRAVITY) || 0//just to make sure no nulls
+	max_gravity = max_gravity || level_trait(z_level_number, ZTRAIT_GRAVITY) || 0 //just to make sure no nulls
 	gravity_by_z_level[z_level_number] = max_gravity
 	return max_gravity

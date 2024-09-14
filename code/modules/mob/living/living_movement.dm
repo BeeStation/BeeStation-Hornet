@@ -21,8 +21,8 @@
 		refresh_gravity()
 
 	// Going to do area gravity checking here
-	var/area/old_area = old_turf.loc
-	var/area/new_area = new_turf.loc
+	var/area/old_area = get_area(old_turf)
+	var/area/new_area = get_area(new_turf)
 	// If the area gravity has changed, then it's possible that our state has changed, so update
 	if(old_area.has_gravity != new_area.has_gravity)
 		refresh_gravity()
