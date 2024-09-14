@@ -45,3 +45,5 @@
 /obj/machinery/computer/security/@SUBTYPES : /obj/machinery/computer/security/@SUBTYPES{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
 /skip/obj/machinery/computer/security : /obj/machinery/computer/security{@OLD}
 /skip/obj/machinery/computer/security/telescreen : /obj/machinery/computer/security/telescreen{@OLD}
+
+/obj/machinery/computer/security/telescreen/engineer : /obj/machinery/computer/security/telescreen/engine{@OLD}

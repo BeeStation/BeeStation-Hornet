@@ -12050,7 +12050,7 @@
 	pixel_x = -38;
 	req_access_txt = "24"
 	},
-/obj/machinery/computer/security/telescreen/engineer{
+/obj/machinery/computer/security/telescreen/engine{
 	dir = 4;
 	pixel_x = -24
 	},

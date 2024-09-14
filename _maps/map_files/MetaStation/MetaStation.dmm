@@ -6325,7 +6325,7 @@
 /obj/machinery/computer/secure_data{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen/engineer{
+/obj/machinery/computer/security/telescreen/engine{
 	dir = 8;
 	pixel_x = 32
 	},
@@ -70700,7 +70700,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/computer/security/telescreen/engineer{
+/obj/machinery/computer/security/telescreen/engine{
 	dir = 8;
 	pixel_x = 32
 	},
