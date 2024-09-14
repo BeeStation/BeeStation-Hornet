@@ -149,10 +149,6 @@
 	name = "Cave Floor"
 	},
 /area/awaymission/undergroundoutpost45/research)
-"bd" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/space,
-/area/awaymission/undergroundoutpost45/central)
 "be" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
@@ -43375,7 +43371,7 @@ Ba
 Kj
 Mr
 aD
-bd
+qE
 uO
 Or
 qE

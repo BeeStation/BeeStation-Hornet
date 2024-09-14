@@ -1604,6 +1604,7 @@
 #include "code\game\objects\structures\bedsheet_bin.dm"
 #include "code\game\objects\structures\bot_elevator.dm"
 #include "code\game\objects\structures\catwalk.dm"
+#include "code\game\objects\structures\crateshelf.dm"
 #include "code\game\objects\structures\destructible_structures.dm"
 #include "code\game\objects\structures\displaycase.dm"
 #include "code\game\objects\structures\divine.dm"
