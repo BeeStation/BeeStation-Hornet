@@ -166,7 +166,7 @@
 		salvage(src)
 		user.visible_message("[user] cuts [src] into pieces of [material] with [W].", \
 		"<span class='notice'>You cut [src] into pieces of [material] with [W].</span>", \
-		"<span class='italics'>You hear cutting.</span>")
+		"<span class='hear'>You hear cutting.</span>")
 		return TRUE
 
 	if(!istype(W, repairable_by))
