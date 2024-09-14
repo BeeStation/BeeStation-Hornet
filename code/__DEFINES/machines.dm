@@ -263,10 +263,10 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 #define CAMERA_NETWORK_INTERROGATION "interrogation"
 #define CAMERA_NETWORK_MINISAT "minisat"
 #define CAMERA_NETWORK_AI_UPLOAD "aiupload"
-#define CAMERA_NETWORK_TCOMMS "tcomms"			// TODO
-#define CAMERA_NETWORK_COURT "court"			// TODO
-#define CAMERA_NETWORK_EVAC "evac"				// TODO
-#define CAMERA_NETWORK_CARAVAN_SYNDICATE "caravan_syndicate"				// TODO
+#define CAMERA_NETWORK_TCOMMS "tcomms"
+#define CAMERA_NETWORK_COURT "court"
+#define CAMERA_NETWORK_EVAC "evac"
+#define CAMERA_NETWORK_CARAVAN_SYNDICATE "caravan_syndicate"
 
 // Off-station networks
 #define CAMERA_NETWORK_BUNKER "bunker"

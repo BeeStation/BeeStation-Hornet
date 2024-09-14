@@ -1245,6 +1245,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "courtroom"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
+	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_COURT)
 
 /area/security/prison
 	name = "Prison Wing"
@@ -1618,7 +1619,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Telecomms Storage"
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	icon_state = "green"
-	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
+	camera_networks = list(CAMERA_NETWORK_ENGINEERING, CAMERA_NETWORK_TCOMMS)
 
 /area/storage/eva
 	name = "EVA Storage"
@@ -1797,7 +1798,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 											'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg', 'sound/ambience/ambimystery.ogg')
 	network_root_id = STATION_NETWORK_ROOT	// They should of unpluged the router before they left
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
-	camera_networks = list(CAMERA_NETWORK_MINISAT, CAMERA_NETWORK_ENGINEERING)
+	camera_networks = list(CAMERA_NETWORK_MINISAT, CAMERA_NETWORK_ENGINEERING, CAMERA_NETWORK_TCOMMS)
 
 /area/tcommsat/computer
 	name = "Telecomms Control Room"
