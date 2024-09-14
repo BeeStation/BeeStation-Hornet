@@ -42,18 +42,23 @@
 
 /obj/item/robot_suit/update_overlays()
 	. = ..()
-	if(l_arm)
-		. += "[l_arm.icon_state]+o"
-	if(r_arm)
-		. += "[r_arm.icon_state]+o"
-	if(chest)
-		. += "[chest.icon_state]+o"
-	if(l_leg)
-		. += "[l_leg.icon_state]+o"
-	if(r_leg)
-		. += "[r_leg.icon_state]+o"
-	if(head)
-		. += "[head.icon_state]+o"
+	/*
+		There is a code that changes limb icon_state
+			` limb.icon_state = "[limb_id]_[body_zone][is_dimorphic ? "_[limb_gender]" : ""]" `
+		This is why you need to use initial() here.
+	*/
+	if(l_arm && initial(l_arm.icon_state))
+		. += "[initial(l_arm.icon_state)]+o"
+	if(r_arm && initial(r_arm.icon_state))
+		. += "[initial(r_arm.icon_state)]+o"
+	if(chest && initial(chest.icon_state))
+		. += "[initial(chest.icon_state)]+o"
+	if(l_leg && initial(l_leg.icon_state))
+		. += "[initial(l_leg.icon_state)]+o"
+	if(r_leg && initial(r_leg.icon_state))
+		. += "[initial(r_leg.icon_state)]+o"
+	if(head && initial(head.icon_state))
+		. += "[initial(head.icon_state)]+o"
 
 /obj/item/robot_suit/proc/check_completion()
 	if(src.l_arm && src.r_arm)
