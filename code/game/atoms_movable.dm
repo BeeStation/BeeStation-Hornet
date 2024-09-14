@@ -6,8 +6,6 @@
 	var/move_stacks = 0 //how many times a this movable had movement procs called on it since Moved() was last called
 	var/last_move = null
 	var/last_move_time = 0
-	/// A list containing arguments for Moved().
-	VAR_PRIVATE/tmp/list/active_movement
 	var/anchored = FALSE
 	var/move_resist = MOVE_RESIST_DEFAULT
 	var/move_force = MOVE_FORCE_DEFAULT
@@ -329,7 +327,6 @@
  * most of the time you want forceMove()
  */
 /atom/movable/proc/abstract_move(atom/new_loc)
-	RESOLVE_ACTIVE_MOVEMENT // This should NEVER happen, but, just in case...
 	var/atom/old_loc = loc
 	move_stacks++
 	loc = new_loc
@@ -343,9 +340,6 @@
 	. = FALSE
 	if(!newloc || newloc == loc)
 		return
-
-	// A mid-movement... movement... occured, resolve that first.
-	RESOLVE_ACTIVE_MOVEMENT
 
 	if(!direction)
 		direction = get_dir(src, newloc)
@@ -392,7 +386,6 @@
 	var/area/newarea = get_area(newloc)
 	move_stacks++
 
-	SET_ACTIVE_MOVEMENT(oldloc, direction, FALSE, old_locs)
 	loc = newloc
 
 	. = TRUE
@@ -413,7 +406,7 @@
 	if(oldarea != newarea)
 		newarea.Entered(src, oldarea)
 
-	RESOLVE_ACTIVE_MOVEMENT
+	Moved(oldloc, direction)
 
 ////////////////////////////////////////
 
@@ -649,13 +642,8 @@
 
 /atom/movable/proc/doMove(atom/destination)
 	. = FALSE
-	RESOLVE_ACTIVE_MOVEMENT
-
 	move_stacks++
 	var/atom/oldloc = loc
-
-	SET_ACTIVE_MOVEMENT(oldloc, NONE, TRUE, null)
-
 	if(destination)
 		if(pulledby)
 			pulledby.stop_pulling()
@@ -688,7 +676,7 @@
 			if(old_area)
 				old_area.Exited(src, null)
 
-	RESOLVE_ACTIVE_MOVEMENT
+	Moved(oldloc, NONE, TRUE)
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
 //And when an object or action applies a force on src, see newtonian_move() below

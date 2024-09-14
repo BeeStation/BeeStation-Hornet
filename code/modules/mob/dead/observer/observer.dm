@@ -136,8 +136,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 		remove_verb(/mob/dead/observer/verb/boo)
 		remove_verb(/mob/dead/observer/verb/possess)
 
-	AddElement(/datum/element/movetype_handler)
-
 	add_to_dead_mob_list()
 
 	for(var/v in GLOB.active_alternate_appearances)
@@ -153,6 +151,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	data_huds_on = 1
 
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
+	AddElement(/datum/element/movetype_handler)
 	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 
 /mob/dead/observer/get_photo_description(obj/item/camera/camera)
@@ -698,7 +697,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			if(istype(target) && (target != src))
 				check_orbitable(target)
 				return
-
 		if(href_list["x"] && href_list["y"] && href_list["z"])
 			var/tx = text2num(href_list["x"])
 			var/ty = text2num(href_list["y"])
@@ -707,7 +705,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			if(istype(target))
 				abstract_move(target)
 				return
-
 		if(href_list["reenter"])
 			reenter_corpse()
 			return
