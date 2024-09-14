@@ -1,11 +1,11 @@
-/obj/machinery/camera/autoname : /obj/machinery/camera/autoname{@OLD}
+/obj/machinery/camera/autoname : /obj/machinery/camera{@OLD}
 /obj/machinery/camera/autoname/directional/north : /obj/machinery/camera/directional/north{@OLD}
 /obj/machinery/camera/autoname/directional/south : /obj/machinery/camera/directional/south{@OLD}
 /obj/machinery/camera/autoname/directional/east : /obj/machinery/camera/directional/east{@OLD}
 /obj/machinery/camera/autoname/directional/west : /obj/machinery/camera/directional/west{@OLD}
 /obj/machinery/camera/@SUBTYPES : /obj/machinery/camera/@SUBTYPES{@OLD;network=@SKIP}
-/obj/machinery/computer/security/telescreen/turbine : /obj/machinery/computer/security/telescreen/engine{@OLD}
 
+/obj/machinery/computer/security/telescreen/turbine : /obj/machinery/computer/security/telescreen/engine{@OLD}
 /obj/machinery/computer/security/telescreen{network = list("xeno")} : /obj/machinery/computer/security/telescreen/research{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
 /obj/machinery/computer/security/telescreen{network = list("aiupload")} : /obj/machinery/computer/security/telescreen/aiupload{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
 /obj/machinery/computer/security/telescreen{network = list("ss13")} : /obj/machinery/computer/security/telescreen{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}

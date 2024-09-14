@@ -34221,7 +34221,7 @@
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "kmK" = (
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 6
 	},
 /turf/open/floor/carpet/green,

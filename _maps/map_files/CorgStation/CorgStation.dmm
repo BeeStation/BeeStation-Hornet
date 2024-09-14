@@ -5956,7 +5956,7 @@
 /turf/open/floor/iron/white,
 /area/medical/storage)
 "bGC" = (
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 10
 	},
 /obj/machinery/light_switch{
@@ -7550,7 +7550,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "cfY" = (
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 6
 	},
 /turf/open/floor/iron/freezer,
@@ -8184,7 +8184,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 10
 	},
 /turf/open/floor/wood,
@@ -10770,7 +10770,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "dmN" = (
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 10
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -35343,7 +35343,7 @@
 	name = "Captain RC";
 	pixel_x = 32
 	},
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 6
 	},
 /obj/effect/landmark/start/captain,
@@ -40545,7 +40545,7 @@
 "mUT" = (
 /obj/structure/chair/fancy/sofa/old/right,
 /obj/effect/landmark/start/assistant,
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 10
 	},
 /obj/item/radio/intercom{
@@ -45013,7 +45013,7 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "ovb" = (
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 9
 	},
 /obj/effect/turf_decal/box/corners{
@@ -46647,7 +46647,7 @@
 /area/maintenance/port)
 "oYM" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/green,
@@ -73431,7 +73431,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 6
 	},
 /obj/machinery/requests_console{

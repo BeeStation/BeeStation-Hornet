@@ -29151,7 +29151,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/machinery/camera/autoname,
+/obj/machinery/camera,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "dVi" = (
@@ -31609,7 +31609,7 @@
 /turf/open/floor/iron,
 /area/security/courtroom)
 "eKG" = (
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -57679,7 +57679,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -69891,7 +69891,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 9
 	},
 /turf/open/floor/iron/showroomfloor,
@@ -74829,7 +74829,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -75675,7 +75675,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 10
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -86052,7 +86052,7 @@
 "wAf" = (
 /obj/machinery/airalarm/directional/south,
 /obj/structure/table/reinforced,
-/obj/machinery/camera/autoname,
+/obj/machinery/camera,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "wAo" = (
@@ -86936,7 +86936,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/camera/autoname,
+/obj/machinery/camera,
 /turf/open/floor/iron/showroomfloor,
 /area/science/shuttledock)
 "wOj" = (
@@ -88467,7 +88467,7 @@
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 1
 	},
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 8
 	},
 /turf/open/floor/iron/showroomfloor,
