@@ -172,24 +172,6 @@
 	foodtypes = SUGAR | GRAIN
 	tastes = list("easter")
 
-/datum/crafting_recipe/food/hotcrossbun
-	name = "Hot-Cross Bun"
-	reqs = list(
-		/obj/item/food/bread/plain = 1,
-		/datum/reagent/consumable/sugar = 1
-	)
-	result = /obj/item/food/hotcrossbun
-	subcategory = CAT_MISCFOOD
-
-/datum/crafting_recipe/food/briochecake
-	name = "Brioche cake"
-	reqs = list(
-		/obj/item/food/cake/plain = 1,
-		/datum/reagent/consumable/sugar = 2
-	)
-	result = /obj/item/food/cake/brioche
-	subcategory = CAT_MISCFOOD
-
 /obj/item/food/scotchegg
 	name = "scotch egg"
 	desc = "A boiled egg wrapped in a delicious, seasoned meatball."
@@ -198,38 +180,8 @@
 	bite_consumption = 3
 	food_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
 
-/datum/crafting_recipe/food/scotchegg
-	name = "Scotch egg"
-	reqs = list(
-		/datum/reagent/consumable/sodiumchloride = 1,
-		/datum/reagent/consumable/blackpepper = 1,
-		/obj/item/food/boiledegg = 1,
-		/obj/item/food/meatball = 1
-	)
-	result = /obj/item/food/scotchegg
-	subcategory = CAT_MISCFOOD
-
-/datum/crafting_recipe/food/mammi
-	name = "Mammi"
-	reqs = list(
-		/obj/item/food/bread/plain = 1,
-		/obj/item/food/chocolatebar = 1,
-		/datum/reagent/consumable/milk = 5
-	)
-	result = /obj/item/food/soup/mammi
-	subcategory = CAT_MISCFOOD
-
 /obj/item/food/chocolatebunny
 	name = "chocolate bunny"
 	desc = "Contains less than 10% real rabbit!"
 	icon_state = "chocolatebunny"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/cocoa = 2, /datum/reagent/consumable/nutriment/vitamin = 1)
-
-/datum/crafting_recipe/food/chocolatebunny
-	name = "Chocolate bunny"
-	reqs = list(
-		/datum/reagent/consumable/sugar = 2,
-		/obj/item/food/chocolatebar = 1
-	)
-	result = /obj/item/food/chocolatebunny
-	subcategory = CAT_MISCFOOD

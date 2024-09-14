@@ -108,6 +108,7 @@
 	attack_verb_simple = "hit"
 	attack_sound = 'sound/weapons/genhit1.ogg'
 	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	del_on_death = TRUE
 	deathmessage = "explodes into a cloud of gas!"
 	gold_core_spawnable = HOSTILE_SPAWN
@@ -116,6 +117,8 @@
 	var/is_zombie = FALSE
 	var/list/datum/disease/spore_diseases = list()
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))

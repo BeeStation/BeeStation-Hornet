@@ -133,6 +133,8 @@ Metals Sheets
 /obj/item/stack/sheet/brass/get_recipes()
 	return GLOB.brass_recipes
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/brass)
+
 /obj/item/stack/sheet/brass/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	pixel_x = 0
@@ -164,6 +166,8 @@ Metals Sheets
 
 /obj/item/stack/sheet/bronze/get_recipes()
 	return GLOB.bronze_recipes
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/bronze)
 
 /obj/item/stack/sheet/bronze/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()

@@ -28,7 +28,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 			to_chat(user, "<span class='notice'>You upload the data from the [buffer_parent.name]'s buffer.</span>")
 		else
 			to_chat(user, "<span class='warning'>[src] cannot handle any more connections!</span>")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/computer/launchpad/proc/launchpad_deleted(datum/source)

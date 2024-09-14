@@ -73,6 +73,7 @@
 	maxHealth = 1
 	health = 1
 	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	melee_damage = 2
 	attack_verb_continuous = "slashes"
 	attack_verb_simple = "slash"

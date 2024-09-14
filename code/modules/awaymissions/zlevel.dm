@@ -51,10 +51,10 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "awaymission
 		var/name = null
 
 		if (pos)
-			name = lowertext(copytext(t, 1, pos))
+			name = LOWER_TEXT(copytext(t, 1, pos))
 
 		else
-			name = lowertext(t)
+			name = LOWER_TEXT(t)
 
 		if (!name)
 			continue

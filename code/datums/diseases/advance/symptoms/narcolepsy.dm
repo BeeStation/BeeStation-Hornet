@@ -29,7 +29,7 @@ Bonus
 	var/sleepy_ticks = 0
 	var/stamina = FALSE
 	threshold_desc = "<b>Transmission 7:</b> Also relaxes the muscles, weakening and slowing the host.<br>\
-					  <b>Resistance 10:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
+						<b>Resistance 10:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
 
 /datum/symptom/narcolepsy/severityset(datum/disease/advance/A)
 	. = ..()

@@ -204,8 +204,7 @@
 /area/shuttle/pirate)
 "hO" = (
 /obj/structure/railing{
-	dir = 9;
-	layer = 4.1
+	dir = 9
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
@@ -274,8 +273,7 @@
 /area/shuttle/pirate)
 "jT" = (
 /obj/structure/railing{
-	dir = 8;
-	layer = 4.1
+	dir = 8
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
@@ -417,9 +415,8 @@
 /turf/open/floor/grass/no_border,
 /area/shuttle/pirate)
 "mV" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste{
-	dir = 4;
-	piping_layer = 4
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste/layer4{
+	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/pirate)
@@ -694,8 +691,7 @@
 /area/shuttle/pirate)
 "sS" = (
 /obj/structure/rack{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -919,8 +915,7 @@
 /area/shuttle/pirate)
 "zL" = (
 /obj/structure/railing{
-	dir = 8;
-	layer = 4.1
+	dir = 8
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
@@ -1050,8 +1045,7 @@
 	pixel_x = 10
 	},
 /obj/structure/sign/departments/cargo{
-	pixel_y = 32;
-	layer = 2.8
+	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -1336,8 +1330,7 @@
 	aidisabled = 1;
 	dir = 1;
 	name = "Pirate Corvette APC";
-	pixel_y = 24;
-	req_access = null
+	pixel_y = 24
 	},
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/delivery,
@@ -1646,8 +1639,7 @@
 /area/shuttle/pirate)
 "Py" = (
 /obj/structure/rack{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/item/restraints/legcuffs/bola/tactical,
 /obj/item/restraints/legcuffs/bola{
@@ -1688,8 +1680,7 @@
 /area/shuttle/pirate)
 "QI" = (
 /obj/structure/rack{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/item/ammo_box/magazine/m12g/breacher{
 	pixel_x = -7;
@@ -2225,8 +2216,7 @@
 	dir = 8
 	},
 /obj/structure/railing{
-	dir = 8;
-	layer = 4.1
+	dir = 8
 	},
 /obj/structure/table_frame/wood,
 /obj/item/restraints/handcuffs/cable/white,
