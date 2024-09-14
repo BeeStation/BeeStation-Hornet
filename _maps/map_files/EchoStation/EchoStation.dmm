@@ -20646,9 +20646,11 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 5
 	},
-/obj/item/card/id/job/station_engineer,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light_switch/directional/west,
+/obj/item/card/id/job/atmospheric_technician{
+	access = list(11)
+	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "kgl" = (
@@ -42252,8 +42254,6 @@
 "uTq" = (
 /obj/item/circuitboard/machine/shuttle/engine/plasma,
 /obj/item/circuitboard/machine/shuttle/engine/plasma,
-/obj/item/circuitboard/machine/shuttle/engine/plasma,
-/obj/item/circuitboard/machine/shuttle/heater,
 /obj/item/circuitboard/machine/shuttle/heater,
 /obj/item/circuitboard/machine/shuttle/heater,
 /obj/item/circuitboard/machine/plasma_refiner,
