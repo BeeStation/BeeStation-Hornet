@@ -27,9 +27,6 @@
 
 	notify_ghosts("Someone won a pulse rifle as a prize!", source = src, action = NOTIFY_ORBIT, header = "Pulse rifle prize")
 
-/obj/item/gun/energy/pulse/loyalpin
-	pin = /obj/item/firing_pin/implant/mindshield
-
 /obj/item/gun/energy/pulse/carbine
 	name = "pulse carbine"
 	desc = "A compact variant of the pulse rifle with less firepower but easier storage."
@@ -46,9 +43,6 @@
 		light_overlay = "flight", \
 		overlay_x = 18, \
 		overlay_y = 12)
-
-/obj/item/gun/energy/pulse/carbine/loyalpin
-	pin = /obj/item/firing_pin/implant/mindshield
 
 /obj/item/gun/energy/pulse/carbine/cyborg
 	name = "pulse carbine"
@@ -76,9 +70,6 @@
 	automatic = 0
 	fire_rate = 1.5
 	weapon_weight = WEAPON_LIGHT
-
-/obj/item/gun/energy/pulse/pistol/loyalpin
-	pin = /obj/item/firing_pin/implant/mindshield
 
 /obj/item/gun/energy/pulse/destroyer
 	name = "pulse destroyer"

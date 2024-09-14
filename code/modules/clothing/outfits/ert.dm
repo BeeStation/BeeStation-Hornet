@@ -55,7 +55,7 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
 		/obj/item/melee/baton/loaded=1,
-		/obj/item/gun/energy/pulse/pistol/loyalpin=1)
+		/obj/item/gun/energy/pulse/pistol=1)
 	l_pocket = /obj/item/melee/transforming/energy/sword/saber
 
 /datum/outfit/ert/security
@@ -88,7 +88,7 @@
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/handcuffs=1,
 		/obj/item/melee/baton/loaded=1,
-		/obj/item/gun/energy/pulse/carbine/loyalpin=1)
+		/obj/item/gun/energy/pulse/carbine=1)
 
 
 /datum/outfit/ert/medic
@@ -122,7 +122,7 @@
 	l_hand = /obj/item/storage/firstaid/advanced/compact
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
 		/obj/item/melee/baton/loaded=1,
-		/obj/item/gun/energy/pulse/pistol/loyalpin=1,
+		/obj/item/gun/energy/pulse/pistol=1,
 		/obj/item/reagent_containers/hypospray/combat/nanites=1)
 
 /datum/outfit/ert/engineer
@@ -157,7 +157,7 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
 		/obj/item/melee/baton/loaded=1,
-		/obj/item/gun/energy/pulse/pistol/loyalpin=1,
+		/obj/item/gun/energy/pulse/pistol=1,
 		/obj/item/construction/rcd/combat=1,
 		/obj/item/bluespace_anchor=1)
 
@@ -450,7 +450,7 @@
 	r_pocket = /obj/item/shield/energy
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 	belt = /obj/item/gun/ballistic/revolver/mateba
-	l_hand = /obj/item/gun/energy/pulse/loyalpin
+	l_hand = /obj/item/gun/energy/pulse
 	id = /obj/item/card/id/centcom
 	ears = /obj/item/radio/headset/headset_cent/alt
 

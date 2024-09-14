@@ -92,22 +92,22 @@
 // Alert based pin, works only on blue/red alert
 /obj/item/firing_pin/alert
 	name = "alert firing pin"
-	desc = "This firing pin only allows weapons to be fired if the required alert level is reached or exceeded. The required alert level can be changed with a multitool prior to installation."
+	desc = "This firing pin only allows weapons to be fired if the blue alert level is reached or exceeded. It looks like it can be adjusted to check for red alert by alt clicking."
 	fail_message = "<span class='warning'>INSUFFICIENT ALERT LEVEL.</span>"
 	icon_state = "firing_pin_blue"
 	var/req_alert = SEC_LEVEL_BLUE // What alert level is required to fire
 
-/obj/item/firing_pin/alert/attackby(obj/item/I, mob/living/user, params)
-	if(I.tool_behaviour == TOOL_MULTITOOL)
-		if(req_alert == SEC_LEVEL_BLUE)
-			req_alert = SEC_LEVEL_RED
-			icon_state = "firing_pin_red"
-			to_chat(user, "<span class='notice'>You adjust the firing pin to only fire on red alert or higher.</span>")
-		else
-			req_alert = SEC_LEVEL_BLUE
-			icon_state = "firing_pin_blue"
-			to_chat(user, "<span class='notice'>You adjust the firing pin to only fire on blue alert or higher.</span>")
-
+/obj/item/firing_pin/alert/AltClick(mob/user)
+	if(req_alert == SEC_LEVEL_BLUE)
+		req_alert = SEC_LEVEL_RED
+		icon_state = "firing_pin_red"
+		desc = "This firing pin only allows weapons to be fired if the red alert level is reached or exceeded. It looks like it can be adjusted to check for blue alert by alt clicking."
+		to_chat(user, "<span class='notice'>You adjust the firing pin to only fire on red alert or higher.</span>")
+	else
+		req_alert = SEC_LEVEL_BLUE
+		icon_state = "firing_pin_blue"
+		desc = "This firing pin only allows weapons to be fired if the blue alert level is reached or exceeded. It looks like it can be adjusted to check for red alert by alt clicking."
+		to_chat(user, "<span class='notice'>You adjust the firing pin to only fire on blue alert or higher.</span>")
 
 
 /obj/item/firing_pin/alert/pin_auth(mob/living/user)
@@ -128,12 +128,6 @@
 			if(req_implant && I.type == req_implant)
 				return TRUE
 	return FALSE
-
-/obj/item/firing_pin/implant/mindshield
-	name = "mindshield firing pin"
-	desc = "This Security firing pin authorizes the weapon for only mindshield-implanted users."
-	icon_state = "firing_pin_loyalty"
-	req_implant = /obj/item/implant/mindshield
 
 /obj/item/firing_pin/implant/pindicate
 	name = "syndicate firing pin"
