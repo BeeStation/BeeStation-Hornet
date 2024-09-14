@@ -3668,11 +3668,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the engine containment area.";
+/obj/machinery/computer/security/telescreen/engineer{
 	dir = 8;
-	name = "Engine Monitor";
-	network = list("engine");
 	pixel_x = 32
 	},
 /turf/open/floor/iron/sepia,
@@ -14536,10 +14533,7 @@
 	},
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/item/dest_tagger,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the RD's goons and the AI's satellite from the safety of his office.";
-	name = "Research Monitor";
-	network = list("rd","minisat");
+/obj/machinery/computer/security/telescreen/rd{
 	pixel_y = 30
 	},
 /turf/open/floor/iron/dark,
@@ -20842,11 +20836,8 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 10
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for monitoring medbay to ensure patient safety.";
+/obj/machinery/computer/security/telescreen/cmo{
 	dir = 1;
-	name = "Medbay Monitor";
-	network = list("medbay");
 	pixel_y = -28
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -24403,11 +24394,8 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching Prison Wing holding areas.";
+/obj/machinery/computer/security/telescreen/prison{
 	dir = 8;
-	name = "Prison Monitor";
-	network = list("prison");
 	pixel_x = 31;
 	pixel_y = 1
 	},
@@ -34632,8 +34620,6 @@
 "iOM" = (
 /obj/machinery/computer/security/telescreen{
 	dir = 8;
-	name = "Station Monitor";
-	network = list("ss13");
 	pixel_x = 24
 	},
 /obj/machinery/computer/secure_data{
@@ -39810,7 +39796,6 @@
 	},
 /obj/machinery/computer/security/telescreen{
 	dir = 1;
-	network = list("ss13");
 	pixel_y = -30
 	},
 /turf/open/floor/wood,
@@ -44167,10 +44152,7 @@
 	pixel_x = 28;
 	pixel_y = 1
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching Prison Wing holding areas.";
-	name = "Prison Monitor";
-	network = list("prison");
+/obj/machinery/computer/security/telescreen/prison{
 	pixel_y = 30
 	},
 /obj/structure/chair,
@@ -54351,10 +54333,7 @@
 /obj/item/clothing/mask/muzzle,
 /obj/item/clothing/mask/muzzle,
 /obj/structure/table/reinforced,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching Prison Wing holding areas.";
-	name = "Prison Monitor";
-	network = list("prison");
+/obj/machinery/computer/security/telescreen/prison{
 	pixel_x = 30
 	},
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
@@ -65003,10 +64982,8 @@
 /area/hallway/primary/central)
 "qLi" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/security/telescreen{
-	dir = 4;
-	name = "Test Chamber Monitor";
-	network = list("xeno")
+/obj/machinery/computer/security/telescreen/research{
+	dir = 4
 	},
 /turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
@@ -80590,11 +80567,8 @@
 	pixel_y = 24;
 	req_access_txt = "3"
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching Prison Wing holding areas.";
+/obj/machinery/computer/security/telescreen/prison{
 	dir = 8;
-	name = "Security Monitor";
-	network = list("ss13","labor");
 	pixel_x = 31;
 	pixel_y = 1
 	},
@@ -89192,11 +89166,8 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the RD's goons and the AI's satellite from the safety of his office.";
+/obj/machinery/computer/security/telescreen/rd{
 	dir = 4;
-	name = "Research Monitor";
-	network = list("rd","minisat");
 	pixel_x = -26
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{

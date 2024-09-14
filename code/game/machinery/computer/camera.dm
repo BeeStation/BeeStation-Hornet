@@ -235,6 +235,11 @@
 	network = list(CAMERA_NETWORK_RESEARCH)
 	circuit = /obj/item/circuitboard/computer/research
 
+/obj/machinery/computer/security/security
+	name = "internal security camera console"
+	desc = "Accesses various cameras on the security camera network."
+	network = list(CAMERA_NETWORK_PRISON, CAMERA_NETWORK_LABOR)
+
 /obj/machinery/computer/security/hos
 	name = "\improper Head of Security's camera console"
 	desc = "A custom security console with added access to the labor camp network."
@@ -252,6 +257,16 @@
 	desc = "A console with access to the mining, auxillary base and vault camera networks."
 	network = list(CAMERA_NETWORK_MINE, CAMERA_NETWORK_VAULT, CAMERA_NETWORK_AUXBASE)
 	circuit = null
+
+/obj/machinery/computer/security/medbay
+	name = "medbay camera console"
+	desc = "A console to access the medical camera network"
+	network = list(CAMERA_NETWORK_MEDICAL)
+
+/obj/machinery/computer/security/caravansyndicate
+	name = "shuttle camera console"
+	desc = "A console to monitor the outside status of the shuttle."
+	network = list(CAMERA_NETWORK_CARAVAN_SYNDICATE)
 
 // TELESCREENS
 
@@ -317,7 +332,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertai
 /obj/machinery/computer/security/telescreen/rd
 	name = "\improper Research Director's telescreen"
 	desc = "Used for watching the AI and the RD's goons from the safety of his office."
-	network = list(CAMERA_NETWORK_RESEARCH)
+	// Can't see minisat since it would expose the AI core
+	network = list(CAMERA_NETWORK_RESEARCH, CAMERA_NETWORK_AI_UPLOAD)
 
 /obj/machinery/computer/security/telescreen/research
 	name = "research telescreen"
@@ -362,7 +378,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertai
 /obj/machinery/computer/security/telescreen/prison
 	name = "prison monitor"
 	desc = "A telescreen that connects to the permabrig's camera network."
-	network = list(CAMERA_NETWORK_PRISON)
+	network = list(CAMERA_NETWORK_PRISON, CAMERA_NETWORK_LABOR)
 
 /obj/machinery/computer/security/telescreen/auxbase
 	name = "auxillary base monitor"
@@ -378,5 +394,25 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertai
 	name = "\improper AI upload monitor"
 	desc = "A telescreen that connects to the AI upload's camera network."
 	network = list(CAMERA_NETWORK_AI_UPLOAD)
+
+/obj/machinery/computer/security/telescreen/tcomms
+	name = "telecommunications monitor"
+	desc = "A telescreen that connects to the telecommunications camera network."
+	network = list(CAMERA_NETWORK_TCOMMS)
+
+/obj/machinery/computer/security/telescreen/court
+	name = "court monitor"
+	desc = "A telescreen that connects to the courtrooms's camera network."
+	network = list(CAMERA_NETWORK_COURT)
+
+/obj/machinery/computer/security/telescreen/evac
+	name = "evacuation shuttle monitor"
+	desc = "A telescreen that connects to the camera network of the evacuation shuttle."
+	network = list(CAMERA_NETWORK_EVAC)
+
+/obj/machinery/computer/security/telescreen/bunker
+	name = "bunker monitor"
+	desc = "A telescreen that connects to the camera network of the bunker."
+	network = list(CAMERA_NETWORK_BUNKER)
 
 #undef DEFAULT_MAP_SIZE

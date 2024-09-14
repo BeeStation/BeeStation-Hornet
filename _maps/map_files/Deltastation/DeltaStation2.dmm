@@ -12050,11 +12050,8 @@
 	pixel_x = -38;
 	req_access_txt = "24"
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the Engine.";
+/obj/machinery/computer/security/telescreen/engineer{
 	dir = 4;
-	name = "Engine Monitor";
-	network = list("engine");
 	pixel_x = -24
 	},
 /obj/effect/turf_decal/tile/yellow{
@@ -12147,10 +12144,7 @@
 /area/bridge)
 "bBM" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the RD's goons and the AI's satellite from the safety of his office.";
-	name = "Research Monitor";
-	network = list("rd","minisat");
+/obj/machinery/computer/security/telescreen/rd{
 	pixel_y = 2
 	},
 /turf/open/floor/iron/dark,
@@ -18278,11 +18272,8 @@
 	c_tag = "Engineering - Central";
 	name = "engineering camera"
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the singularity chamber.";
+/obj/machinery/computer/security/telescreen/engine{
 	dir = 4;
-	name = "Engine Containment Telescreen";
-	network = list("singularity");
 	pixel_x = -30
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -23342,9 +23333,8 @@
 /area/science/xenobiology)
 "cTC" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/security/telescreen{
-	dir = 4;
-	network = list("xeno")
+/obj/machinery/computer/security/telescreen/research{
+	dir = 4
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
@@ -71648,10 +71638,7 @@
 /turf/open/floor/iron,
 /area/storage/tech)
 "qVl" = (
-/obj/machinery/computer/security{
-	name = "Medbay camera console";
-	network = list("medbay")
-	},
+/obj/machinery/computer/security/medbay,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -82998,10 +82985,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
 "uxD" = (
-/obj/machinery/computer/security{
-	name = "Medbay camera console";
-	network = list("medbay")
-	},
+/obj/machinery/computer/security/medbay,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
 "uxY" = (
@@ -90887,11 +90871,8 @@
 /obj/machinery/computer/secure_data{
 	dir = 4
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for monitoring medbay to ensure patient safety.";
+/obj/machinery/computer/security/telescreen/cmo{
 	dir = 1;
-	name = "Medbay Monitor";
-	network = list("medbay");
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{

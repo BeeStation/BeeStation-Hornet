@@ -2632,10 +2632,7 @@
 /area/security/nuke_storage)
 "azU" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching Prison Wing holding areas.";
-	name = "Prison Monitor";
-	network = list("prison");
+/obj/machinery/computer/security/telescreen/prison{
 	pixel_y = 30
 	},
 /obj/item/flashlight/lamp/green{
@@ -6328,11 +6325,8 @@
 /obj/machinery/computer/secure_data{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for monitoring the engine.";
+/obj/machinery/computer/security/telescreen/engineer{
 	dir = 8;
-	name = "Engine Monitor";
-	network = list("engine");
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/red/half,
@@ -21744,11 +21738,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for the Auxillary Mining Base.";
+/obj/machinery/computer/security/telescreen/auxbase{
 	dir = 1;
-	name = "Auxillary Base Monitor";
-	network = list("auxbase");
 	pixel_y = -28
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -22047,10 +22038,7 @@
 /area/maintenance/department/science/xenobiology)
 "dmi" = (
 /obj/machinery/computer/security,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching Prison Wing holding areas.";
-	name = "Prison Monitor";
-	network = list("prison");
+/obj/machinery/computer/security/telescreen/prison{
 	pixel_y = 30
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -37349,10 +37337,8 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "iXO" = (
-/obj/machinery/computer/security/telescreen{
+/obj/machinery/computer/security/telescreen/tcomms{
 	dir = 8;
-	name = "Telecomms Camera Monitor";
-	network = list("tcomms");
 	pixel_x = 26
 	},
 /obj/machinery/computer/telecomms/monitor{
@@ -41239,10 +41225,7 @@
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/pen/red,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching Prison Wing holding areas.";
-	name = "Prison Monitor";
-	network = list("prison");
+/obj/machinery/computer/security/telescreen/prison{
 	pixel_y = 30
 	},
 /obj/item/flashlight/lamp/green{
@@ -49257,10 +49240,8 @@
 /area/quartermaster/storage)
 "nyg" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/security/telescreen{
+/obj/machinery/computer/security/telescreen/research{
 	dir = 8;
-	name = "Test Chamber Monitor";
-	network = list("xeno");
 	pixel_x = 3;
 	pixel_y = 2
 	},
@@ -50603,11 +50584,8 @@
 /area/hallway/primary/central)
 "nVt" = (
 /obj/machinery/computer/secure_data,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for monitoring medbay to ensure patient safety.";
+/obj/machinery/computer/security/telescreen/cmo{
 	dir = 4;
-	name = "Medbay Monitor";
-	network = list("medbay");
 	pixel_x = 1;
 	pixel_y = 32
 	},
@@ -54620,11 +54598,8 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the test chamber.";
+/obj/machinery/computer/security/telescreen/toxins{
 	dir = 8;
-	name = "Test Chamber Telescreen";
-	network = list("toxins");
 	pixel_x = 30
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -56189,11 +56164,8 @@
 	dir = 8
 	},
 /obj/item/book/manual/wiki/security_space_law,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the RD's goons from the safety of his office.";
+/obj/machinery/computer/security/telescreen/rd{
 	dir = 8;
-	name = "Research Monitor";
-	network = list("rd");
 	pixel_x = 28;
 	pixel_y = 2
 	},
@@ -59528,10 +59500,7 @@
 "rhx" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching Prison Wing holding areas.";
-	name = "Prison Monitor";
-	network = list("prison");
+/obj/machinery/computer/security/telescreen/prison{
 	pixel_x = 32
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -65703,11 +65672,8 @@
 	pixel_y = 32
 	},
 /obj/machinery/porta_turret/ai,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the RD's goons from the safety of his office.";
+/obj/machinery/computer/security/telescreen/rd{
 	dir = 4;
-	name = "Research Monitor";
-	network = list("rd");
 	pixel_x = -28
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -67384,11 +67350,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the AI Upload.";
+/obj/machinery/computer/security/telescreen/aiupload{
 	dir = 4;
-	name = "AI Upload Monitor";
-	network = list("aiupload");
 	pixel_x = -29
 	},
 /turf/open/floor/iron/dark,
@@ -70737,11 +70700,8 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for monitoring the engine.";
+/obj/machinery/computer/security/telescreen/engineer{
 	dir = 8;
-	name = "Engine Monitor";
-	network = list("engine");
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -78362,10 +78322,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "xTR" = (
-/obj/machinery/computer/security{
-	name = "Medbay camera console";
-	network = list("medbay")
-	},
+/obj/machinery/computer/security/medbay,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
 "xTV" = (
@@ -78430,11 +78387,8 @@
 	pixel_x = 24;
 	pixel_y = -24
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the test chamber.";
+/obj/machinery/computer/security/telescreen/toxins{
 	dir = 8;
-	name = "Test Chamber Telescreen";
-	network = list("toxins");
 	pixel_x = 30
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -78794,10 +78748,7 @@
 /turf/open/floor/iron/dark/smooth_half,
 /area/security/brig)
 "ybO" = (
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching Prison Wing holding areas.";
-	name = "Prison Monitor";
-	network = list("prison");
+/obj/machinery/computer/security/telescreen/prison{
 	pixel_x = 32
 	},
 /turf/closed/wall/r_wall,

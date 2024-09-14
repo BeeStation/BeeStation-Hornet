@@ -525,8 +525,7 @@
 	pixel_x = 1;
 	pixel_y = -30
 	},
-/obj/machinery/computer/security/telescreen/entertainment{
-	network = list("evac");
+/obj/machinery/computer/security/telescreen/evac{
 	pixel_x = 32;
 	pixel_y = -1
 	},

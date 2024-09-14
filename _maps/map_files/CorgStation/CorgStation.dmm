@@ -11650,10 +11650,7 @@
 /area/hallway/primary/starboard)
 "dEK" = (
 /obj/structure/closet/toolcloset,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for the Auxillary Mining Base.";
-	name = "Auxillary Base Monitor";
-	network = list("auxbase");
+/obj/machinery/computer/security/telescreen/auxbase{
 	pixel_y = 28
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -35076,11 +35073,8 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the test chamber.";
+/obj/machinery/computer/security/telescreen/toxins{
 	dir = 8;
-	name = "Test Chamber Telescreen";
-	network = list("toxins");
 	pixel_x = -32
 	},
 /turf/open/floor/iron/white,
@@ -35777,11 +35771,8 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the test chamber.";
+/obj/machinery/computer/security/telescreen/toxins{
 	dir = 8;
-	name = "Test Chamber Telescreen";
-	network = list("toxins");
 	pixel_x = -32
 	},
 /turf/open/floor/iron/white,
@@ -56840,10 +56831,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/computer/security{
-	network = list("security");
-	name = "brig cameras console"
-	},
+/obj/machinery/computer/security/security,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "sqJ" = (

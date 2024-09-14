@@ -8312,9 +8312,6 @@
 /area/medical/storage)
 "dXn" = (
 /obj/machinery/computer/security/wooden_tv{
-	desc = "Welcome to KOZU 5... your number one source for weather, news, and entertainment. And now, the weather forecast for tomorrow...";
-	name = "Budget TV";
-	network = list("public");
 	pixel_x = 2;
 	pixel_y = 8
 	},
@@ -15594,8 +15591,6 @@
 /obj/item/camera/detective,
 /obj/machinery/computer/security/telescreen{
 	dir = 8;
-	name = "Station Monitor";
-	network = list("ss13");
 	pixel_x = 24
 	},
 /obj/machinery/camera/directional/north,
@@ -20327,7 +20322,6 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/computer/security/telescreen/entertainment{
-	network = list("thunder","court","public");
 	pixel_x = -1;
 	pixel_y = 31
 	},
@@ -27382,7 +27376,6 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/computer/security/telescreen/entertainment{
-	network = list("thunder","court","public");
 	pixel_x = -1;
 	pixel_y = 31
 	},
@@ -30971,11 +30964,8 @@
 	icon_state = "4-32"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the AI Upload.";
+/obj/machinery/computer/security/telescreen/aiupload{
 	dir = 4;
-	name = "AI Upload Monitor";
-	network = list("aiupload");
 	pixel_x = -29
 	},
 /obj/structure/table/reinforced,
@@ -40114,11 +40104,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching Prison Wing holding areas.";
+/obj/machinery/computer/security/telescreen/prison{
 	dir = 8;
-	name = "Prison Monitor";
-	network = list("prison");
 	pixel_x = 31;
 	pixel_y = 1
 	},
@@ -47222,8 +47209,7 @@
 	dir = 10
 	},
 /obj/machinery/computer/security/mining{
-	dir = 1;
-	network = list("vault","cargo")
+	dir = 1
 	},
 /obj/machinery/camera/directional/south,
 /obj/structure/sign/painting/library{
@@ -47533,11 +47519,8 @@
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for monitoring medbay to ensure patient safety.";
+/obj/machinery/computer/security/telescreen/cmo{
 	dir = 1;
-	name = "Medbay Monitor";
-	network = list("medbay");
 	pixel_x = 1;
 	pixel_y = -32
 	},

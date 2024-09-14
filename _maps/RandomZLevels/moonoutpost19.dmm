@@ -735,11 +735,6 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for monitoring the research division and the labs within.";
-	name = "research monitor";
-	network = list("mo19x","mo19r")
-	},
 /turf/open/floor/iron/cafeteria{
 	dir = 5
 	},
@@ -3898,12 +3893,6 @@
 "Ks" = (
 /obj/structure/table/reinforced,
 /obj/structure/alien/weeds,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the contents of the xenobiology containment pen.";
-	dir = 8;
-	name = "xenobiology monitor";
-	network = list("mo19x")
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -5262,11 +5251,6 @@
 	},
 /obj/machinery/light/small{
 	dir = 8
-	},
-/obj/machinery/computer/security{
-	desc = "Used to access the various cameras on the outpost.";
-	dir = 4;
-	network = list("mo19r","mo19")
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1

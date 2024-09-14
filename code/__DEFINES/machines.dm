@@ -248,6 +248,7 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 // Camera defines
 // ---------------------------------------------------
 
+// Station networks
 #define CAMERA_NETWORK_STATION "ss13"
 #define CAMERA_NETWORK_VAULT "vault"
 #define CAMERA_NETWORK_RESEARCH "research"
@@ -262,4 +263,13 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 #define CAMERA_NETWORK_INTERROGATION "interrogation"
 #define CAMERA_NETWORK_MINISAT "minisat"
 #define CAMERA_NETWORK_AI_UPLOAD "aiupload"
+#define CAMERA_NETWORK_TCOMMS "tcomms"			// TODO
+#define CAMERA_NETWORK_COURT "court"			// TODO
+#define CAMERA_NETWORK_EVAC "evac"				// TODO
+#define CAMERA_NETWORK_CARAVAN_SYNDICATE "caravan_syndicate"				// TODO
+
+// Off-station networks
+#define CAMERA_NETWORK_BUNKER "bunker"
+
+// Special
 #define CAMERA_NETWORK_PRIVATE "private"
