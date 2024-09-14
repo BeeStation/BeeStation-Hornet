@@ -5,7 +5,7 @@ import { AccessList } from './common/AccessList';
 
 export const AirlockElectronics = (props, context) => {
   const { act, data } = useBackend(context);
-  const { oneAccess, unres_direction, passedName, passedCycleId } = data;
+  const { oneAccess, maintenance, unres_direction, passedName, passedCycleId } = data;
   const regions = data.regions || [];
   const accesses = data.accesses || [];
   return (
@@ -18,6 +18,13 @@ export const AirlockElectronics = (props, context) => {
                 icon={oneAccess ? 'unlock' : 'lock'}
                 content={oneAccess ? 'One' : 'All'}
                 onClick={() => act('one_access')}
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Maintenance">
+              <Button
+                icon={maintenance ? 'unlock' : 'lock'}
+                content={maintenance ? 'Yes' : 'No'}
+                onClick={() => act('maintenance')}
               />
             </LabeledList.Item>
             <LabeledList.Item label="Unrestricted Access">

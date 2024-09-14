@@ -1461,6 +1461,7 @@
 			if(!electronics)
 				ae = new/obj/item/electronics/airlock(loc)
 				gen_access()
+				ae.maintenance = maintenance
 				if(req_one_access.len)
 					ae.one_access = 1
 					ae.accesses = req_one_access

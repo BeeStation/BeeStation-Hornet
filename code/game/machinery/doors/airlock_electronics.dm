@@ -6,6 +6,8 @@
 	var/list/accesses = list()
 	/// If the airlock should require ALL or only ONE of the listed accesses
 	var/one_access = 0
+	// decides if the airlock should be affected by emergency maintenance acccess or not
+	var/maintenance = 0
 	/// Unrestricted sides, or sides of the airlock that will open regardless of access
 	var/unres_sides = 0
 	///what name are we passing to the finished airlock
@@ -54,6 +56,7 @@
 	var/list/data = list()
 	data["accesses"] = accesses
 	data["oneAccess"] = one_access
+	data["maintenance"] = maintenance
 	data["unres_direction"] = unres_sides
 	data["passedName"] = passed_name
 	data["passedCycleId"] = passed_cycle_id
@@ -66,12 +69,16 @@
 		if("clear_all")
 			accesses = list()
 			one_access = 0
+			maintenance = TRUE
 			. = TRUE
 		if("grant_all")
 			accesses = get_all_accesses()
 			. = TRUE
 		if("one_access")
 			one_access = !one_access
+			. = TRUE
+		if("maintenance")
+			maintenance = !maintenance
 			. = TRUE
 		if("set")
 			var/access = text2num(params["access"])
