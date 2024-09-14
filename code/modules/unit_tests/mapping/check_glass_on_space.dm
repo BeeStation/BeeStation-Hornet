@@ -2,5 +2,6 @@
 	if(!isgroundlessturf(check_turf)) //Check for openspace, lava, space, etc.
 		//Pass if Not Groundless
 		return
-	if(check_turf.contains(/obj/structure/window))
-		return "Window is on a Groundless Tile (Space/Openspace/Lava most likely)"
+	for(var/A as() in check_turf)
+		if(istype(A, /obj/structure/window))
+			return "Window is on a Groundless Tile (Space/Openspace/Lava most likely)"
