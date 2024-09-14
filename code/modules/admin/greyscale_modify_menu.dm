@@ -135,13 +135,13 @@
 
 		if("recolor")
 			var/index = text2num(params["color_index"])
-			var/new_color = lowertext(params["new_color"])
+			var/new_color = LOWER_TEXT(params["new_color"])
 			if(split_colors[index] != new_color)
 				split_colors[index] = new_color
 				queue_refresh()
 
 		if("recolor_from_string")
-			var/full_color_string = lowertext(params["color_string"])
+			var/full_color_string = LOWER_TEXT(params["color_string"])
 			if(full_color_string != split_colors.Join())
 				ReadColorsFromString(full_color_string)
 				queue_refresh()

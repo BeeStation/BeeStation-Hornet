@@ -52,10 +52,8 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/update_hair()
 	dna.species.handle_hair(src)
 
-//used when putting/removing clothes that hide certain mutant body parts to just update those and not update the whole body.
 /mob/living/carbon/human/proc/update_mutant_bodyparts()
 	dna.species.handle_mutant_bodyparts(src)
-
 
 /mob/living/carbon/human/update_body()
 	remove_overlay(BODY_LAYER)
@@ -678,10 +676,10 @@ There are several things that need to be remembered:
 /*
 Does everything in relation to building the /mutable_appearance used in the mob's overlays list
 covers:
- inhands and any other form of worn item
- centering large appearances
- layering appearances on custom layers
- building appearances from custom icon files
+	inhands and any other form of worn item
+	centering large appearances
+	layering appearances on custom layers
+	building appearances from custom icon files
 
 By Remie Richards (yes I'm taking credit because this just removed 90% of the copypaste in update_icons())
 

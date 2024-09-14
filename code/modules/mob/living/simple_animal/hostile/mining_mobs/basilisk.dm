@@ -22,7 +22,8 @@
 	health = 100
 	obj_damage = 60
 	melee_damage = 12
-	attacktext = "bites into"
+	attack_verb_continuous = "bites into"
+	attack_verb_simple = "bite into"
 	a_intent = INTENT_HARM
 	speak_emote = list("chitters")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -72,12 +73,13 @@
 	base_pixel_x = -10
 	throw_message = "bounces harmlessly off of"
 	melee_damage = 15
-	attacktext = "impales"
+	attack_verb_continuous = "impales"
+	attack_verb_simple = "impale"
 	a_intent = INTENT_HARM
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	stat_attack = HARD_CRIT
-	movement_type = FLYING
+	is_flying_animal = TRUE
 	robust_searching = 1
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing
 	loot = list()

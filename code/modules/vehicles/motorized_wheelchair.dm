@@ -25,6 +25,7 @@
 		power_efficiency = C.rating
 	var/datum/component/riding/D = GetComponent(/datum/component/riding)
 	D.vehicle_move_delay = round(1.5 * delay_multiplier) / speed
+	D.empable = TRUE
 
 
 /obj/vehicle/ridden/wheelchair/motorized/get_cell()

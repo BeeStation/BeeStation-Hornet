@@ -11,15 +11,6 @@
 "ac" = (
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/bridge)
-"ae" = (
-/obj/structure/window/plastitanium,
-/obj/machinery/door/poddoor/shutters{
-	id = "syndieshutters";
-	name = "blast shutters"
-	},
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/shuttle/syndicate/bridge)
 "af" = (
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/hallway)
@@ -31,11 +22,6 @@
 "ah" = (
 /obj/machinery/computer/crew/syndie,
 /obj/effect/turf_decal/bot_white,
-/turf/open/floor/iron/dark,
-/area/shuttle/syndicate/bridge)
-"ai" = (
-/obj/item/toy/plush/sillycons/engi/syndie,
-/obj/structure/table/reinforced,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/bridge)
 "aj" = (
@@ -177,35 +163,6 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/shuttle/syndicate/airlock)
-"aY" = (
-/obj/machinery/door/poddoor{
-	id = "smindicate";
-	name = "outer blast door"
-	},
-/obj/machinery/button/door{
-	id = "smindicate";
-	name = "external door control";
-	pixel_y = 26;
-	req_access_txt = "150"
-	},
-/obj/docking_port/mobile{
-	dheight = 1;
-	dir = 8;
-	dwidth = 12;
-	height = 17;
-	hidden = 1;
-	id = "syndicate";
-	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
-	name = "syndicate infiltrator";
-	port_direction = 4;
-	width = 23
-	},
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plating,
 /area/shuttle/syndicate/airlock)
 "aZ" = (
 /turf/open/floor/iron/dark,
@@ -569,6 +526,35 @@
 	},
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/bridge)
+"gs" = (
+/obj/machinery/door/poddoor{
+	id = "smindicate";
+	name = "outer Blast Door"
+	},
+/obj/machinery/button/door{
+	id = "smindicate";
+	name = "external door control";
+	pixel_y = 26;
+	req_access_txt = "150"
+	},
+/obj/docking_port/mobile{
+	dheight = 1;
+	dir = 8;
+	dwidth = 12;
+	height = 17;
+	hidden = 1;
+	id = "syndicate";
+	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
+	name = "syndicate infiltrator";
+	port_direction = 4;
+	width = 23
+	},
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/syndicate/airlock)
 "he" = (
 /obj/structure/table/reinforced,
 /obj/machinery/status_display/ai{
@@ -860,6 +846,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
+"Ht" = (
+/obj/item/toy/plush/sillycons/engi/syndie,
+/obj/structure/table/reinforced,
+/turf/open/floor/iron/dark,
+/area/shuttle/syndicate/bridge)
 "Mn" = (
 /obj/machinery/door/airlock/external{
 	name = "E.V.A. Gear Storage";
@@ -927,6 +918,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/armory)
+"TO" = (
+/obj/structure/window/plastitanium,
+/obj/machinery/door/poddoor/shutters{
+	id = "syndieshutters";
+	name = "blast Shutters"
+	},
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/shuttle/syndicate/bridge)
 "Ub" = (
 /obj/machinery/door/airlock/external{
 	name = "Ready Room";
@@ -1103,7 +1103,7 @@ aa
 aa
 "}
 (7,1,1) = {"
-ae
+TO
 ah
 ao
 Af
@@ -1128,8 +1128,8 @@ af
 aa
 "}
 (8,1,1) = {"
-ae
-ai
+TO
+Ht
 ap
 Af
 au
@@ -1153,7 +1153,7 @@ cv
 aa
 "}
 (9,1,1) = {"
-ae
+TO
 aj
 aq
 Af
@@ -1178,7 +1178,7 @@ cw
 aa
 "}
 (10,1,1) = {"
-ae
+TO
 ak
 ap
 Ft
@@ -1203,7 +1203,7 @@ cx
 aa
 "}
 (11,1,1) = {"
-ae
+TO
 al
 ar
 Af
@@ -1338,7 +1338,7 @@ aa
 pd
 aB
 aB
-aY
+gs
 bd
 aB
 bm

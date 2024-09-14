@@ -8,6 +8,11 @@
 	var/friend_initialized = FALSE
 
 /datum/brain_trauma/special/imaginary_friend/on_gain()
+	var/mob/living/M = owner
+	// dead or clientless mobs dont get the brain trauma
+	if(M.stat == DEAD || !M.client)
+		qdel(src)
+		return
 	..()
 	make_friend()
 	get_ghost()
@@ -78,7 +83,9 @@
 	var/datum/action/innate/imaginary_hide/hide
 
 /mob/camera/imaginary_friend/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	greet()
 	Show()
 
@@ -86,6 +93,8 @@
 	to_chat(src, "<span class='notice'><b>You are the imaginary friend of [owner]!</b></span>")
 	to_chat(src, "<span class='notice'>You are absolutely loyal to your friend, no matter what.</span>")
 	to_chat(src, "<span class='notice'>You cannot directly influence the world around you, but you can see what [owner] cannot.</span>")
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 
 /mob/camera/imaginary_friend/Initialize(mapload, _trauma)
 	. = ..()

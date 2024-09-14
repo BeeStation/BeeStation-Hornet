@@ -2803,6 +2803,13 @@
 					/mob/living/simple_animal/hostile/retaliate/poison/snake)
 	crate_name = "snake crate"
 
+/datum/supply_pack/critter/capybara
+	name = "Capybara Crate"
+	desc = "Coconut doggy"
+	cost = 10000
+	contains = list(/mob/living/simple_animal/pet/dog/corgi/capybara)
+	crate_name = "capybara crate"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Costumes & Toys /////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

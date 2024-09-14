@@ -476,7 +476,6 @@
 	icon_state = "ratvargrille"
 	name = "cog grille"
 	desc = "A strangely-shaped grille."
-	broken_type = /obj/structure/grille/ratvar/broken
 
 /obj/structure/grille/ratvar/Initialize(mapload)
 	. = ..()
@@ -497,6 +496,33 @@
 /obj/structure/grille/ratvar/ratvar_act()
 	return
 
+/obj/structure/grille/ratvar/obj_break()
+	. = ..()
+	if(!broken && !(flags_1 & NODECONSTRUCT_1))
+		icon_state = "brokenratvargrille"
+		density = FALSE
+		obj_integrity = 20
+		broken = TRUE
+		rods_amount = 1
+		rods_broken = FALSE
+		var/drop_loc = drop_location()
+		var/obj/R = new rods_type(drop_loc, rods_broken)
+		if(QDELETED(R)) // the rods merged with something on the tile
+			R = locate(rods_type) in drop_loc
+		if(R)
+			transfer_fingerprints_to(R)
+
+/obj/structure/grille/ratvar/repair_grille()
+	if(broken)
+		icon_state = "ratvargrille"
+		density = TRUE
+		obj_integrity = max_integrity
+		broken = FALSE
+		rods_amount = 2
+		rods_broken = TRUE
+		return TRUE
+	return FALSE
+
 /obj/structure/grille/ratvar/broken
 	icon_state = "brokenratvargrille"
 	density = FALSE
@@ -504,8 +530,6 @@
 	rods_type = /obj/item/stack/sheet/brass
 	rods_amount = 1
 	rods_broken = FALSE
-	grille_type = /obj/structure/grille/ratvar
-	broken_type = null
 
 /obj/structure/grille/ratvar/broken/Initialize(mapload)
 	. = ..()
@@ -574,6 +598,8 @@
 	for(var/i in 1 to 4)
 		. += new /obj/item/clockwork/alloy_shards/medium/gear_bit(location)
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window/reinforced/clockwork)
+
 /obj/structure/window/reinforced/clockwork/Initialize(mapload, direct)
 	made_glow = TRUE
 	new /obj/effect/temp_visual/ratvar/window(get_turf(src))
@@ -582,3 +608,9 @@
 
 /obj/structure/window/reinforced/clockwork/fulltile/unanchored
 	anchored = FALSE
+
+#undef COGWALL_DECON_TOOLS
+#undef COGWALL_START_DECON_MESSAGES
+#undef COGWALL_END_DECON_MESSAGES
+#undef COGWALL_START_RECON_MESSAGES
+#undef COGWALL_END_RECON_MESSAGES
