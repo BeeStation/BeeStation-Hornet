@@ -26,7 +26,7 @@
 
 /datum/element/forced_gravity/proc/gravity_check(datum/source, turf/location, list/gravs)
 	SIGNAL_HANDLER
-	if(!ignore_space && isspaceturf(location))
+	if(!ignore_space && location.force_no_gravity)
 		return FALSE
 	gravs += gravity
 
