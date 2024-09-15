@@ -22,17 +22,25 @@
 		balloon_alert(src, "navigation on cooldown!")
 		return
 	addtimer(CALLBACK(src, PROC_REF(create_navigation)), world.tick_lag)
+/*
+	if(!isatom(src) || !compare_z_with(user) || get_dist(get_turf(src), user) > MAX_NAVIGATE_RANGE)
 
 /mob/living/proc/create_navigation()
-	if(incapacitated())
-		to_chat(src, "<span class='notice'>You are not conscious enough to do that.</span>")
-		return
 	var/list/filtered_navigation_list = list()
 	for(var/each_nav_id in GLOB.navigate_destinations)
 		var/obj/effect/landmark/navigate_destination/each_nav = GLOB.navigate_destinations[each_nav_id]
 		if(!each_nav || !each_nav.is_available_to_user(src))
 			continue
 		filtered_navigation_list[each_nav_id] = each_nav
+*/
+
+/mob/living/proc/create_navigation()
+	var/list/filtered_navigation_list = list()
+	for(var/atom/each_nav_id in GLOB.navigate_destinations)
+		if(!isatom(each_nav_id) || each_nav_id.z != z || get_dist(each_nav_id, src) > MAX_NAVIGATE_RANGE)
+			continue
+		var/destination_name = GLOB.navigate_destinations[each_nav_id]
+		filtered_navigation_list[each_nav_id] = each_nav_id
 
 	if(!is_reserved_level(z)) //don't let us path to nearest staircase or ladder on shuttles in transit
 		if(z > 1)
@@ -49,10 +57,8 @@
 
 	if(isnull(target_destination))
 		return
-	if(isatom(target_destination) && !target_destination.is_available_to_user(src))
-		return
 	if(incapacitated())
-		return
+		to_chat(src, "<span class='notice'>You are currently incapacitated to use the navigation system!</span>")
 
 	// automatically change your destination to another floor
 	if(istype(target_destination, /obj/effect/landmark/navigate_destination))

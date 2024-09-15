@@ -562,12 +562,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 		actual_key = "[navigation_id] ([++fail_assoc_count])"
 	GLOB.navigate_destinations[navigation_id] = src
 
-/// Checks if this destination is available to a user.
-/obj/effect/landmark/navigate_destination/proc/is_available_to_user(mob/user)
-	if(!isatom(src) || !compare_z_with(user) || get_dist(get_turf(src), user) > MAX_NAVIGATE_RANGE)
-		return FALSE
-	return TRUE
-
 /// Checks if each z of this destination and a user.
 /// * FALSE: target destination doesn't exist, or z-groups are different (i.e. Station to Lavaland)
 /// * 1: very exactly same z
