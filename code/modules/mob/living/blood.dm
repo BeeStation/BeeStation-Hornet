@@ -562,3 +562,5 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	if (istype(user))
 		REMOVE_TRAIT(user, TRAIT_BLEED_HELD, ACTION_TRAIT)
 	return ..()
+
+#undef BLOOD_DRIP_RATE_MOD

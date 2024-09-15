@@ -135,6 +135,13 @@
 
 	QDEL_IN(src, PROGRESSBAR_ANIMATION_TIME)
 
+///Progress bars are very generic, and what hangs a ref to them depends heavily on the context in which they're used
+///So let's make hunting harddels easier yeah?
+/datum/progressbar/dump_harddel_info()
+	if(harddel_deets_dumped)
+		return
+	harddel_deets_dumped = TRUE
+	return "Location type: [bar_loc.type], User type: [user.type]"
 
 #undef PROGRESSBAR_ANIMATION_TIME
 #undef PROGRESSBAR_HEIGHT

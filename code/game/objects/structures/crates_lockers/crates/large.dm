@@ -26,8 +26,8 @@
 			tear_manifest(user)
 
 		user.visible_message("[user] pries \the [src] open.", \
-							 "<span class='notice'>You pry open \the [src].</span>", \
-							 "<span class='italics'>You hear splitting wood.</span>")
+							"<span class='notice'>You pry open \the [src].</span>", \
+							"<span class='italics'>You hear splitting wood.</span>")
 		playsound(src.loc, 'sound/weapons/slashmiss.ogg', 75, 1)
 
 		var/turf/T = get_turf(src)

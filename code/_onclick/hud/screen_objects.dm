@@ -245,6 +245,8 @@
 	/// A reference to the object in the slot. Grabs or items, generally.
 	var/datum/component/storage/master = null
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
+
 /atom/movable/screen/close/Initialize(mapload, new_master)
 	. = ..()
 	master = new_master
@@ -451,6 +453,8 @@
 	plane = HUD_PLANE
 	/// A reference to the object in the slot. Grabs or items, generally.
 	var/datum/component/storage/master = null
+
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 
 /atom/movable/screen/storage/Initialize(mapload, new_master)
 	. = ..()
@@ -716,6 +720,8 @@
 
 INITIALIZE_IMMEDIATE(/atom/movable/screen/splash)
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/splash)
+
 /atom/movable/screen/splash/Initialize(mapload, client/C, visible, use_previous_title)
 	. = ..()
 	if(!istype(C))
@@ -756,6 +762,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/splash)
 
 /atom/movable/screen/component_button
 	var/atom/movable/screen/parent
+
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 
 /atom/movable/screen/component_button/Initialize(mapload, atom/movable/screen/parent)
 	. = ..()

@@ -488,6 +488,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/ruin
 	var/datum/map_template/ruin/ruin_template
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
+
 /obj/effect/landmark/ruin/Initialize(mapload, my_ruin_template)
 	. = ..()
 	name = "ruin_[GLOB.ruin_landmarks.len + 1]"
