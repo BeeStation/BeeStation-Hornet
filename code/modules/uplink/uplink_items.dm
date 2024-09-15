@@ -680,6 +680,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 7
 	purchasable_from = ~UPLINK_CLOWN_OPS
 
+/datum/uplink_item/dangerous/APS
+	name = "Stechkin APS"
+	= "The original Russian version of a widely used Syndicate sidearm. Uses 9mm ammo."
+	= /obj/item/gun/ballistic/automatic/pistol/APS
+	purchasable_from = UPLINK_NUKE_OPS
+	cost = 12
+	surplus = 0
+
 /datum/uplink_item/dangerous/derringer
 	name = "'Infiltrator' Coat Pistol"
 	desc = "For the deeply embedded agent; a very compact dual-barreled handgun chambered in .38-special. Compatible with \
