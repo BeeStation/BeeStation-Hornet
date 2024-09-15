@@ -27,7 +27,7 @@
 		var/datum/sprite_accessory/markings = GLOB.diona_leaves_list[markings_name]
 		var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
-		if (markings_name != "None")
+		if (markings_name != FEATURE_NONE)
 			for (var/body_part in body_parts)
 				var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
 				body_part_icon.crop(1, 1, 32, 32)

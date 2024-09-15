@@ -13,7 +13,7 @@
 		var/datum/sprite_accessory/stripe = GLOB.apid_stripes_list[stripe_name]
 
 		var/datum/universal_icon/icon_with_stripes = uni_icon('icons/mob/species/apid/bodyparts.dmi', "apid_chest_m", dir = SOUTH)
-		if (stripe.icon_state != "none")
+		if (stripe_name != FEATURE_NONE)
 			var/datum/universal_icon/stripes_icon = uni_icon(stripe.icon, "m_apid_stripes_[stripe.icon_state]_ADJ", dir = SOUTH)
 			stripes_icon.blend_color(COLOR_YELLOW, ICON_MULTIPLY)
 			icon_with_stripes.blend_icon(stripes_icon, ICON_OVERLAY)

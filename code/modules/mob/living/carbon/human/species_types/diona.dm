@@ -70,20 +70,20 @@
 	if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 		H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
-	if(isturf(H.loc)) //else, there's considered to be no light
-		var/turf/T = H.loc
-		light_amount = min(1,T.get_lumcount()) - 0.5
-		H.adjust_nutrition(light_amount * 7)
-		if(light_amount > 0.2) //Is there light here?
-			time_spent_in_light++  //If so, how long have we been somewhere with light?
-			if(time_spent_in_light > 5) //More than 5 seconds spent in the light
-				if(H.stat != CONSCIOUS)
-					H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
-					return
-				H.apply_status_effect(STATUS_EFFECT_PLANTHEALING)
-		else
-			H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
-			time_spent_in_light = 0  //No light? Reset the timer.
+	if(!isturf(H.loc)) //else, there's considered to be no light
+		H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+		time_spent_in_light = 0  //No light? Reset the timer.
+		return
+	var/turf/T = H.loc
+	light_amount = min(1,T.get_lumcount()) - 0.5
+	H.adjust_nutrition(light_amount * 7)
+	if(light_amount > 0.2) //Is there light here?
+		time_spent_in_light++  //If so, how long have we been somewhere with light?
+		if(time_spent_in_light > 5) //More than 5 seconds spent in the light
+			if(H.stat != CONSCIOUS)
+				H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+				return
+			H.apply_status_effect(STATUS_EFFECT_PLANTHEALING)
 
 /datum/species/diona/spec_updatehealth(mob/living/carbon/human/H)
 	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
