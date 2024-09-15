@@ -200,7 +200,7 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/unholywater
 	name = "flask of unholy water"
-	desc = "Toxic to nonbelievers; reinvigorating to the faithful - this flask may be sipped or thrown."
+	desc = "Toxic to nonbelievers, reinvigorating to the faithful."
 	icon_state = "holyflask"
 	list_reagents = list(/datum/reagent/fuel/unholywater = 100)
 	foodtype = NONE
