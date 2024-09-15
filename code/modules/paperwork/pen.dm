@@ -85,12 +85,7 @@
 	font = CHARCOAL_FONT
 	custom_materials = null
 
-/datum/crafting_recipe/charcoal_stylus
-	name = "Charcoal Stylus"
-	result = /obj/item/pen/charcoal
-	reqs = list(/obj/item/stack/sheet/wood = 1, /datum/reagent/ash = 30)
-	time = 30
-	category = CAT_PRIMAL
+
 
 
 /obj/item/pen/fountain/captain
@@ -226,7 +221,8 @@
  * (Alan) Edaggers
  */
 /obj/item/pen/edagger
-	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut") //these wont show up if the pen is off
+	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts") //these won't show up if the pen is off
+	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	var/on = FALSE
 
 /obj/item/pen/edagger/Initialize(mapload)

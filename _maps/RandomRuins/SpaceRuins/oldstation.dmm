@@ -2305,13 +2305,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/sec)
-"hd" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small,
-/obj/structure/table,
-/obj/item/trash/plate,
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/ancientstation/deltacorridor)
 "he" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair{
@@ -2538,17 +2531,6 @@
 /obj/item/kitchen/rollingpin,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/ancientstation/kitchen)
-"hU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/reagent_containers/food/condiment/enzyme{
-	layer = 5
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
-	},
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/has_grav/ancientstation/kitchen)
 "hV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -2740,12 +2722,6 @@
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/has_grav/ancientstation/kitchen)
-"iM" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/trash/plate,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/ancientstation/kitchen)
 "iN" = (
@@ -3810,6 +3786,12 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/engi)
+"nN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/plate,
+/turf/open/floor/iron/cafeteria,
+/area/ruin/space/has_grav/ancientstation/kitchen)
 "nT" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bottle/sacid{
@@ -3949,6 +3931,13 @@
 /obj/structure/toilet,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation)
+"sX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
+/obj/structure/table,
+/obj/item/plate,
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/ancientstation/deltacorridor)
 "ta" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -4209,6 +4198,15 @@
 	dir = 5
 	},
 /area/ruin/space/has_grav/ancientstation/betanorth)
+"CJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/food/condiment/enzyme,
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria,
+/area/ruin/space/has_grav/ancientstation/kitchen)
 "Dj" = (
 /obj/structure/transit_tube{
 	dir = 4
@@ -6765,7 +6763,7 @@ fI
 gt
 gZ
 hv
-hU
+CJ
 ht
 ht
 iL
@@ -6912,7 +6910,7 @@ hx
 ht
 ht
 ht
-iM
+nN
 ja
 cn
 jH
@@ -7723,7 +7721,7 @@ aa
 bD
 fP
 gH
-hd
+sX
 bD
 aa
 aa

@@ -48,6 +48,8 @@
 	var/first_cycle = TRUE
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hotspot)
+
 /obj/effect/hotspot/Initialize(mapload, starting_volume, starting_temperature)
 	. = ..()
 	SSair.hotspots += src
@@ -233,10 +235,5 @@
 
 /obj/effect/hotspot/singularity_pull()
 	return
-
-/obj/effect/dummy/lighting_obj/moblight/fire
-	name = "fire"
-	light_color = LIGHT_COLOR_FIRE
-	light_range = LIGHT_RANGE_FIRE
 
 #undef INSUFFICIENT

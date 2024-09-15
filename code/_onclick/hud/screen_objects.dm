@@ -17,6 +17,21 @@
 	appearance_flags = APPEARANCE_UI
 	/// A reference to the owner HUD, if any.
 	var/datum/hud/hud = null
+	/**
+	 * Map name assigned to this object.
+	 * Automatically set by /client/proc/add_obj_to_map.
+	 */
+	var/assigned_map
+	/**
+	 * Mark this object as garbage-collectible after you clean the map
+	 * it was registered on.
+	 *
+	 * This could probably be changed to be a proc, for conditional removal.
+	 * But for now, this works.
+	 */
+	var/del_on_map_removal = TRUE
+	///Can we throw things at this
+	var/can_throw_target = FALSE
 
 /atom/movable/screen/examine(mob/user)
 	return list()
@@ -218,6 +233,8 @@
 	/// A reference to the object in the slot. Grabs or items, generally.
 	var/datum/component/storage/master = null
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
+
 /atom/movable/screen/close/Initialize(mapload, new_master)
 	. = ..()
 	master = new_master
@@ -341,6 +358,11 @@
 		return
 	C.update_action_buttons_icon()
 
+/atom/movable/screen/spacesuit
+	name = "Space suit cell status"
+	icon_state = "spacesuit_0"
+	screen_loc = ui_spacesuit
+
 /atom/movable/screen/mov_intent
 	name = "run/walk toggle"
 	icon = 'icons/mob/screen_midnight.dmi'
@@ -399,7 +421,7 @@
 /atom/movable/screen/rest/Click()
 	if(isliving(usr))
 		var/mob/living/L = usr
-		L.lay_down()
+		L.toggle_resting()
 
 /atom/movable/screen/rest/update_icon_state()
 	var/mob/living/user = hud?.mymob
@@ -419,6 +441,8 @@
 	plane = HUD_PLANE
 	/// A reference to the object in the slot. Grabs or items, generally.
 	var/datum/component/storage/master = null
+
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 
 /atom/movable/screen/storage/Initialize(mapload, new_master)
 	. = ..()
@@ -684,6 +708,8 @@
 
 INITIALIZE_IMMEDIATE(/atom/movable/screen/splash)
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/splash)
+
 /atom/movable/screen/splash/Initialize(mapload, client/C, visible, use_previous_title)
 	. = ..()
 	if(!istype(C))
@@ -724,6 +750,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/splash)
 
 /atom/movable/screen/component_button
 	var/atom/movable/screen/parent
+
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 
 /atom/movable/screen/component_button/Initialize(mapload, atom/movable/screen/parent)
 	. = ..()

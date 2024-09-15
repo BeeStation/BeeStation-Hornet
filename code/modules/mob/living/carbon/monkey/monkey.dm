@@ -14,8 +14,14 @@
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
 	unique_name = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
-	bodyparts = list(/obj/item/bodypart/chest/monkey, /obj/item/bodypart/head/monkey, /obj/item/bodypart/l_arm/monkey,
-					/obj/item/bodypart/r_arm/monkey, /obj/item/bodypart/r_leg/monkey, /obj/item/bodypart/l_leg/monkey)
+	bodyparts = list(
+		/obj/item/bodypart/chest/monkey,
+		/obj/item/bodypart/head/monkey,
+		/obj/item/bodypart/l_arm/monkey,
+		/obj/item/bodypart/r_arm/monkey,
+		/obj/item/bodypart/r_leg/monkey,
+		/obj/item/bodypart/l_leg/monkey
+	)
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
 	ai_controller = /datum/ai_controller/monkey
@@ -37,9 +43,11 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	/datum/strippable_item/mob_item_slot/neck
 )))
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
+
 /mob/living/carbon/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
 	add_verb(/mob/living/proc/mob_sleep)
-	add_verb(/mob/living/proc/lay_down)
+	add_verb(/mob/living/proc/toggle_resting)
 
 	icon_state = null
 
@@ -136,6 +144,8 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	return FALSE
 
 /mob/living/carbon/monkey/canBeHandcuffed()
+	if(num_hands < 2)
+		return FALSE
 	return TRUE
 
 /mob/living/carbon/monkey/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null)
@@ -233,11 +243,10 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	id = "teratoma"
 	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
-	default_features = list("mcolor" = "FFF", "wings" = "None")
 	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	changesource_flags = MIRROR_BADMIN
-	mutant_brain = /obj/item/organ/brain/tumor
+	mutantbrain = /obj/item/organ/brain/tumor
 	mutanttongue = /obj/item/organ/tongue/teratoma
 
 	species_chest = /obj/item/bodypart/chest/monkey/teratoma

@@ -33,7 +33,7 @@
 			msg = "Wow, [source.p_they()] sucks."
 
 	user.visible_message("<span class='notice'>[user] stops and looks intently at [source].</span>", \
-						 "<span class='notice'>You appraise [source]... [msg]</span>")
+						"<span class='notice'>You appraise [source]... [msg]</span>")
 
 /datum/element/art/proc/on_examine(atom/source, mob/user, list/examine_texts)
 	SIGNAL_HANDLER
@@ -49,6 +49,6 @@
 	var/mult = 1
 	if(isobj(source))
 		var/obj/art_piece = source
-		mult = art_piece.obj_integrity/art_piece.max_integrity
+		mult = art_piece.get_integrity() / art_piece.max_integrity
 
 	apply_moodlet(source, user, impressiveness * mult)

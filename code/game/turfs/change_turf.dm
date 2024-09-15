@@ -85,6 +85,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	var/old_lighting_corner_SW = lighting_corner_SW
 	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_directional_opacity = directional_opacity
+	var/old_dynamic_lumcount = dynamic_lumcount
+	var/old_rcd_memory = rcd_memory
 	var/old_opacity = opacity
 
 	// Z-Mimic: copy above
@@ -132,17 +134,22 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		new_turf.AfterChange(flags)
 
 	new_turf.blueprint_data = old_bp
+	new_turf.rcd_memory = old_rcd_memory
 
 	lighting_corner_NE = old_lighting_corner_NE
 	lighting_corner_SE = old_lighting_corner_SE
 	lighting_corner_SW = old_lighting_corner_SW
 	lighting_corner_NW = old_lighting_corner_NW
 
+	dynamic_lumcount = old_dynamic_lumcount
+
 	if(SSlighting.initialized)
 		lighting_object = old_lighting_object
+
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
 
+		//Bacon's Starlight lighting
 		if(fullbright_type != old_fullbright_type)
 			if (!fullbright_type)
 				lighting_build_overlay()
