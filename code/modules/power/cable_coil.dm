@@ -115,8 +115,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 		to_chat(user, "<span class='warning'>You can only lay cables on top of exterior catwalks and plating!</span>")
 		return
 
-	if (locate(/obj/structure/cable) in T)
-		to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
+	for (var/obj/structure/cable/wire in T)
+		if (wire.cable_color != cable_color)
+			continue
+		if (wire.forced_power_node)
+			to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
+			return
+		if (!use(1))
+			to_chat(user, "<span class='warning'>There is no cable left!</span>")
+			return
+		to_chat(user, "<span class='warning'You add a node to the [wire]!</span>")
+		wire.forced_power_node = TRUE
+		wire.has_power_node = TRUE
+		wire.update_appearance(UPDATE_ICON)
 		return
 
 	if (isopenspace(T))

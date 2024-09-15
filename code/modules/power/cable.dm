@@ -217,6 +217,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		to_chat(user, get_power_info())
 		shock(user, 5, 0.2)
 
+	else if (istype(W, /obj/item/stack/cable_coil))
+		// Pass the click down to the turf instead
+		return T.attackby(W, user, params)
+
 	add_fingerprint(user)
 
 /obj/structure/cable/examine(mob/user)
