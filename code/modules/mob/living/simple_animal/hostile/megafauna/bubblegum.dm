@@ -29,12 +29,14 @@ Difficulty: Hard
 	desc = "In what passes for a hierarchy among slaughter demons, this one is king."
 	health = 1250
 	maxHealth = 1250
-	attacktext = "rends"
+	attack_verb_continuous = "rends"
+	attack_verb_simple = "rend"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	icon_state = "bubblegum"
 	icon_living = "bubblegum"
 	icon_dead = ""
-	friendly = "stares down"
+	friendly_verb_continuous = "stares down"
+	friendly_verb_simple = "stare down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("gurgles")
 	armour_penetration = 40
@@ -313,7 +315,7 @@ Difficulty: Hard
 	if(BUBBLEGUM_IS_ENRAGED)
 		return TRUE
 	return isliving(target) && HAS_TRAIT(target, TRAIT_INCAPACITATED)
-	
+
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_retreat_distance()
 	return (be_aggressive() ? null : initial(retreat_distance))
@@ -568,7 +570,8 @@ Difficulty: Hard
 	icon_state = "bloodbrood"
 	icon_living = "bloodbrood"
 	icon_aggro = "bloodbrood"
-	attacktext = "pierces"
+	attack_verb_continuous = "pierces"
+	attack_verb_simple = "pierce"
 	color = "#C80000"
 	density = FALSE
 	faction = list("mining", "boss")
@@ -579,3 +582,7 @@ Difficulty: Hard
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum))
 		return TRUE
 	return FALSE
+
+#undef BUBBLEGUM_SMASH
+#undef BUBBLEGUM_CAN_ENRAGE
+#undef BUBBLEGUM_IS_ENRAGED

@@ -2045,9 +2045,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "iU" = (
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden,
@@ -2091,9 +2089,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "ja" = (
 /obj/effect/turf_decal/stripes/red/corner{

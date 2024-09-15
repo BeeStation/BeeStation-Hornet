@@ -134,19 +134,25 @@
 	icon_state = "egg-[eggcolor]"
 
 /obj/item/suprise_egg/proc/dispensePrize(turf/where)
-	var/static/list/prize_list = list(/obj/item/clothing/head/costume/bunnyhead,
-	/obj/item/clothing/suit/bunnysuit,
-	/obj/item/food/grown/carrot,
-	/obj/item/food/chocolateegg,
-	/obj/item/toy/balloon,
-	/obj/item/toy/gun,
-	/obj/item/toy/sword,
-	/obj/item/toy/foamblade,
-	/obj/item/toy/prize/ripley,
-	/obj/item/toy/prize/honk,
-	/obj/item/toy/plush/carpplushie,
-	/obj/item/toy/redbutton,
-	/obj/item/clothing/head/collectable/rabbitears)
+	var/static/list/prize_list = list(
+		/obj/item/clothing/head/costume/bunnyhead,
+		/obj/item/clothing/suit/bunnysuit,
+		/obj/item/food/grown/carrot,
+		/obj/item/toy/balloon,
+		/obj/item/toy/gun,
+		/obj/item/toy/sword,
+		/obj/item/toy/talking/AI,
+		/obj/item/toy/talking/owl,
+		/obj/item/toy/talking/griffin,
+		/obj/item/toy/minimeteor,
+		/obj/item/toy/clockwork_watch,
+		/obj/item/toy/toy_xeno,
+		/obj/item/toy/foamblade,
+		/obj/item/toy/plush/carpplushie,
+		/obj/item/toy/redbutton,
+		/obj/item/toy/windupToolbox,
+		/obj/item/clothing/head/collectable/rabbitears
+	) + subtypesof(/obj/item/toy/mecha)
 	var/won = pick(prize_list)
 	new won(where)
 	new/obj/item/food/chocolateegg(where)

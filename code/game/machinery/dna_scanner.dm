@@ -17,7 +17,7 @@
 	var/breakout_time = 1200
 	var/ignore_id = FALSE
 
-/obj/machinery/dna_scannernew/Initialize()
+/obj/machinery/dna_scannernew/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/dna_scanner(src)
 

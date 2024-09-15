@@ -39,7 +39,10 @@
 		. += "<span class='notice'>- Recharging <b>[recharge_coeff*10]%</b> cell charge per cycle.</span>"
 		if(charging)
 			var/obj/item/stock_parts/cell/C = charging.get_cell()
-			if(C)
+			if (istype(charging, /obj/item/ammo_box/magazine/recharge))
+				var/obj/item/ammo_box/magazine/recharge/magazine = charging
+				. += "<span class='notice'>- \The [charging]'s cell is at <b>[magazine.ammo_count() / magazine.max_ammo]%</b>.</span>"
+			else if(C)
 				. += "<span class='notice'>- \The [charging]'s cell is at <b>[C.percent()]%</b>.</span>"
 			else
 				. += "<span class='notice'>- \The [charging] has no power cell installed.</span>"
@@ -85,6 +88,14 @@
 				var/obj/item/gun/energy/E = G
 				if(!E.can_charge)
 					to_chat(user, "<span class='notice'>Your gun has no external power connector.</span>")
+					balloon_alert(user, "This gun cannot be charged.")
+					return 1
+
+			if (istype(G, /obj/item/gun/ballistic))
+				var/obj/item/gun/ballistic/gun = G
+				if (ispath(gun.mag_type, /obj/item/ammo_box/magazine/recharge))
+					to_chat(user, "<span class='notice'>You need to charge the magazine of this gun!</span>")
+					balloon_alert(user, "Remove the magazine first!")
 					return 1
 
 			if(!user.transferItemToLoc(G, src))

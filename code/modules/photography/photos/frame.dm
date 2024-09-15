@@ -78,6 +78,8 @@
 
 #undef FRAME_DEFINE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/picture_frame)
+
 /obj/structure/sign/picture_frame/Initialize(mapload, dir, building)
 	. = ..()
 	AddElement(/datum/element/art, OK_ART)

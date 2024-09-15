@@ -158,11 +158,14 @@
 	throw_speed = 0
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = IS_SHARP
 	bleed_force = BLEED_CUT
 	var/can_drop = FALSE
 	var/fake = FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/arm_blade)
 
 /obj/item/melee/arm_blade/Initialize(mapload,silent,synthetic)
 	. = ..()
@@ -231,6 +234,8 @@
 	throw_speed = 0
 	requires_wielding = FALSE
 	equip_time = 0
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 
 /obj/item/gun/magic/tentacle/Initialize(mapload, silent)
 	. = ..()

@@ -39,11 +39,13 @@ Difficulty: Hard
 	desc = "A massive metal club that hangs in the air as though waiting. It'll make you dance to its beat."
 	health = 1250
 	maxHealth = 1250
-	attacktext = "clubs"
+	attack_verb_continuous = "clubs"
+	attack_verb_simple = "club"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	icon_state = "hierophant"
 	icon_living = "hierophant"
-	friendly = "stares down"
+	friendly_verb_continuous = "stares down"
+	friendly_verb_simple = "stare down"
 	icon = 'icons/mob/lavaland/hierophant_new.dmi'
 	faction = list("boss") //asteroid mobs? get that shit out of my beautiful square house
 	speak_emote = list("preaches")
@@ -482,6 +484,8 @@ Difficulty: Hard
 	layer = BELOW_MOB_LAYER
 	var/mob/living/caster //who made this, anyway
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/hierophant)
+
 /obj/effect/temp_visual/hierophant/Initialize(mapload, new_caster)
 	. = ..()
 	if(new_caster)
@@ -492,6 +496,8 @@ Difficulty: Hard
 	duration = 3
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	randomdir = FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/hierophant/squares)
 
 /obj/effect/temp_visual/hierophant/squares/Initialize(mapload, new_caster)
 	. = ..()
@@ -509,6 +515,8 @@ Difficulty: Hard
 	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	duration = 100
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/hierophant/wall)
 
 /obj/effect/temp_visual/hierophant/wall/Initialize(mapload, new_caster)
 	. = ..()
@@ -534,6 +542,8 @@ Difficulty: Hard
 	var/friendly_fire_check = FALSE //if blasts produced apply friendly fire
 	var/monster_damage_boost = TRUE
 	var/damage = 10
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/hierophant/chaser)
 
 /obj/effect/temp_visual/hierophant/chaser/Initialize(mapload, new_caster, new_target, new_speed, is_friendly_fire)
 	. = ..()
@@ -615,6 +625,8 @@ Difficulty: Hard
 	var/list/hit_things = list() //we hit these already, ignore them
 	var/friendly_fire_check = FALSE
 	var/bursting = FALSE //if we're bursting and need to hit anyone crossing us
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/hierophant/blast)
 
 /obj/effect/temp_visual/hierophant/blast/Initialize(mapload, new_caster, friendly_fire, defuse)
 	. = ..()

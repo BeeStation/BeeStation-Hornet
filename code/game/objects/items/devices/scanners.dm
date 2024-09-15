@@ -287,8 +287,6 @@ GENE SCANNER
 						healthy = FALSE
 				if(healthy)
 					message += "\t<span class='info'>Healthy.</span>"
-			else
-				message += "\t<span class='alert'>Subject does not have ears.</span>"
 			var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
 			message += "\t<span class='info'><b>==EYE STATUS==</b></span>"
 			if(istype(eyes))
@@ -310,9 +308,6 @@ GENE SCANNER
 					healthy = FALSE
 				if(healthy)
 					message += "\t<span class='info'>Healthy.</span>"
-			else
-				message += "\t<span class='alert'>Subject does not have eyes.</span>"
-
 
 	// Body part damage report
 	if(iscarbon(M))
@@ -348,6 +343,7 @@ GENE SCANNER
 		var/minor_damage
 		var/major_damage
 		var/max_damage
+		var/list/missing_organ_list = list()
 		var/report_organs = FALSE
 
 		//Piece together the lists to be reported
@@ -377,7 +373,10 @@ GENE SCANNER
 				else
 					minor_damage = "\t<span class='info'>Mildly Damaged Organs: "
 					minor_damage += organ.name
-
+		for(var/obj/item/organ/each_organ as anything in H.dna.species.required_organs) //Start checking against the carbon mob, seeing if there is any organs missing.
+			if(isnull(H.getorgan(each_organ))) //Can we find the given organ in the mob?
+				missing_organ_list += initial(each_organ.name) //If not, add it to the list.
+				report_organs = TRUE
 		if(report_organs)	//we either finish the list, or set it to be empty if no organs were reported in that category
 			if(!max_damage)
 				max_damage = "\t<span class='alert'>Non-Functional Organs: </span>"
@@ -394,6 +393,8 @@ GENE SCANNER
 			message += minor_damage
 			message += major_damage
 			message += max_damage
+			if(length(missing_organ_list)) //If we have missing organs, display them in a fancy list.
+				message += "\t<span class='alert'>Missing Organs: [english_list(missing_organ_list)]</span>"
 		//Genetic damage
 		if(advanced && H.has_dna())
 			message += "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>"
@@ -409,29 +410,18 @@ GENE SCANNER
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/datum/species/S = H.dna.species
-		var/mutant = FALSE
-		if(H.dna.check_mutation(HULK))
-			mutant = TRUE
-		else if(S.mutantlungs != initial(S.mutantlungs))
-			mutant = TRUE
-		else if(S.mutant_brain != initial(S.mutant_brain))
-			mutant = TRUE
-		else if(S.mutant_heart != initial(S.mutant_heart))
-			mutant = TRUE
-		else if(S.mutanteyes != initial(S.mutanteyes))
-			mutant = TRUE
-		else if(S.mutantears != initial(S.mutantears))
-			mutant = TRUE
-		else if(S.mutanthands != initial(S.mutanthands))
-			mutant = TRUE
-		else if(S.mutanttongue != initial(S.mutanttongue))
-			mutant = TRUE
-		else if(S.mutanttail != initial(S.mutanttail))
-			mutant = TRUE
-		else if(S.mutantliver != initial(S.mutantliver))
-			mutant = TRUE
-		else if(S.mutantstomach != initial(S.mutantstomach))
-			mutant = TRUE
+		var/mutant = H.dna.check_mutation(HULK) \
+			|| S.mutantlungs != initial(S.mutantlungs) \
+			|| S.mutantbrain != initial(S.mutantbrain) \
+			|| S.mutantheart != initial(S.mutantheart) \
+			|| S.mutanteyes != initial(S.mutanteyes) \
+			|| S.mutantears != initial(S.mutantears) \
+			|| S.mutanthands != initial(S.mutanthands) \
+			|| S.mutanttongue != initial(S.mutanttongue) \
+			|| S.mutantliver != initial(S.mutantliver) \
+			|| S.mutantstomach != initial(S.mutantstomach) \
+			|| S.mutantappendix != initial(S.mutantappendix) \
+			|| S.mutantwings != initial(S.mutantwings)
 
 		message += "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>"
 		message += "<span class='info'>Core temperature: [round(H.coretemperature-T0C,0.1)] &deg;C ([round(H.coretemperature*1.8-459.67,0.1)] &deg;F)</span>"
@@ -1033,6 +1023,8 @@ GENE SCANNER
 	var/default_scanning_module = /obj/item/stock_parts/scanning_module
 	/// Cooldown for when the extrapolator can be used next.
 	COOLDOWN_DECLARE(usage_cooldown)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 
 /obj/item/extrapolator/Initialize(mapload, obj/item/stock_parts/scanning_module/starting_scanner)
 	. = ..()

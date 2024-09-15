@@ -11,6 +11,8 @@
 	projectile_type = /obj/projectile/beam/wormhole/orange
 	select_name = "orange"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/ammo_casing/energy/wormhole)
+
 /obj/item/ammo_casing/energy/wormhole/Initialize(mapload, obj/item/gun/energy/wormhole_projector/wh)
 	. = ..()
 	gun = WEAKREF(wh)

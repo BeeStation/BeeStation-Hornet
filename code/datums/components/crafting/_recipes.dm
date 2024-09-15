@@ -3,20 +3,20 @@
 	///in-game display name -  Optional, if not set uses result name
 	var/name = ""
 	///type paths of items consumed associated with how many are needed
-	var/reqs[] = list()
+	var/list/reqs[] = list()
 	//type paths of items explicitly not allowed as an ingredient
-	var/blacklist[] = list()
+	var/list/blacklist[] = list()
 	//type path of item resulting from this craft
 	var/result
 	//type paths of items needed but not consumed
-	var/tools[] = list()
-	//time in deciseconds
-	var/time = 30
+	var/list/tools[] = list()
+	//time in Seconds
+	var/time = 3 SECONDS
 	//type paths of items that will be placed in the result
-	var/parts[] = list()
-	//like tools but for reagents
-	var/chem_catalysts[] = list()
-	//where it shows up in the crafting UI
+	var/list/parts[] = list()
+	//type paths of reagents that will be placed in the result
+	var/list/chem_catalysts[] = list()
+	//where it shows up in the crafting UI, as well it's subcategory
 	var/category = CAT_NONE
 	var/subcategory = CAT_NONE
 	//Set to FALSE if it needs to be learned first.

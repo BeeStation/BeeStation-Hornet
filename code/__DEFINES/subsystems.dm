@@ -93,11 +93,11 @@
 
 ///type and all subtypes should always immediately call Initialize in New()
 #define INITIALIZE_IMMEDIATE(X) ##X/New(loc, ...){\
-    ..();\
-    if(!(flags_1 & INITIALIZED_1)) {\
-        args[1] = TRUE;\
-        SSatoms.InitAtom(src, FALSE, args);\
-    }\
+	..();\
+	if(!(flags_1 & INITIALIZED_1)) {\
+		args[1] = TRUE;\
+		SSatoms.InitAtom(src, FALSE, args);\
+	}\
 }
 
 //! ### SS initialization hints
@@ -136,6 +136,7 @@
 #define INIT_ORDER_INSTRUMENTS		82
 #define INIT_ORDER_GREYSCALE 		81
 #define INIT_ORDER_VIS				80
+#define INIT_ORDER_SECURITY_LEVEL 79 // We need to load before events so that it has a security level to choose from.
 #define INIT_ORDER_ACHIEVEMENTS 	77
 #define INIT_ORDER_RESEARCH			75
 #define INIT_ORDER_ORBITS			74 //Other things use the orbital map, so it needs to be made early on.
@@ -149,7 +150,8 @@
 #define INIT_ORDER_MAPPING			50
 #define INIT_ORDER_EARLY_ASSETS		48
 #define INIT_ORDER_TIMETRACK		47
-#define INIT_ORDER_NETWORKS			45
+#define INIT_ORDER_NETWORKS 45
+#define INIT_ORDER_SPATIAL_GRID 43
 #define INIT_ORDER_ECONOMY			40
 #define INIT_ORDER_OUTPUTS			35
 #define INIT_ORDER_ATOMS			30
@@ -167,12 +169,11 @@
 #define INIT_ORDER_XKEYSCORE		-10
 #define INIT_ORDER_STICKY_BAN		-10
 #define INIT_ORDER_LIGHTING			-20
-#define INIT_ORDER_SHUTTLE			-21
+#define INIT_ORDER_SHUTTLE			-21 // After atoms have been initialised to prevent mix-ups
 #define INIT_ORDER_ZCOPY			-22 // this should go after lighting and most objects being placed
 #define INIT_ORDER_MINOR_MAPPING	-40
 #define INIT_ORDER_PATH				-50
 #define INIT_ORDER_EXPLOSIONS		-69
-#define INIT_ORDER_ELEVATOR			-70
 #define INIT_ORDER_BAN_CACHE		-98
 //Near the end, logs the costs of initialize
 #define INIT_ORDER_INIT_PROFILER -99

@@ -16,9 +16,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	deathmessage = "splatters into a pile of black gunk!"
 	del_on_death = TRUE
-	response_help = "touches"
-	response_disarm = "pushes"
-	response_harm = "hits"
+
 	speed = 3
 	maxHealth = 50
 	health = 50
@@ -30,7 +28,6 @@
 	aggro_vision_range = 4
 	armour_penetration = 10
 	rapid_melee = 2
-	attacktext = "slashes"
 	attack_sound = 'sound/effects/meatslap.ogg'
 	emote_taunt = list("growls")
 	speak_emote = list("chitters")
@@ -73,7 +70,7 @@
 	var/eventongoing = TRUE
 	var/remaining_replications = 4
 
-/mob/living/simple_animal/hostile/mimite/Initialize()
+/mob/living/simple_animal/hostile/mimite/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/point_of_interest)
 	GLOB.all_mimites += src
@@ -317,7 +314,6 @@
 	icon = 'icons/obj/storage/crates.dmi'
 	icon_state = "crate"
 	icon_living = "crate"
-	attacktext = "bites"
 	speak_emote = list("clatters")
 	vision_range = 0
 	aggro_vision_range = 0
@@ -340,7 +336,7 @@
 	cut_overlays()
 	add_overlay("[icon_state]_door")
 
-/mob/living/simple_animal/hostile/mimite/crate/Initialize()
+/mob/living/simple_animal/hostile/mimite/crate/Initialize(mapload)
 	..()
 	icon_state = pick("crate","weapon_crate","secgear_crate","private_crate")
 	icon_living = icon_state

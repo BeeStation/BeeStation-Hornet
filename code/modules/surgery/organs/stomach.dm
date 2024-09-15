@@ -4,7 +4,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_STOMACH
-	attack_verb = list("gored", "squished", "slapped", "digested")
+	attack_verb_continuous = list("gores", "squishes", "slaps", "digests")
+	attack_verb_simple = list("gore", "squish", "slap", "digest")
 	desc = "Onaka ga suite imasu."
 
 	healing_factor = STANDARD_ORGAN_HEALING
@@ -41,6 +42,9 @@
 		if(prob((damage/10) * nutriment.volume * nutriment.volume))
 			H.vomit(damage)
 			to_chat(H, "<span class='warning'>Your stomach reels in pain as you're incapable of holding down all that food!</span>")
+
+/obj/item/organ/stomach/get_availability(datum/species/S)
+	return !(NOSTOMACH in S.species_traits)
 
 /obj/item/organ/stomach/proc/handle_disgust(mob/living/carbon/human/H)
 	if(H.disgust)
@@ -151,7 +155,8 @@
 	name = "micro-cell"
 	icon_state = "microcell"
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("assault and battery'd")
+	attack_verb_continuous = list("assault and batteries")
+	attack_verb_simple = list("assault and battery")
 	desc = "A micro-cell, for IPC use. Do not swallow."
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC

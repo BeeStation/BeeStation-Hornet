@@ -13,7 +13,8 @@
 	move_to_delay = 2 SECONDS
 	ranged = 1
 	ranged_cooldown_time = 80
-	friendly = "wails at"
+	friendly_verb_continuous = "wails at"
+	friendly_verb_simple = "wail at"
 	speak_emote = list("bellows")
 	vision_range = 4
 	speed = 3
@@ -21,7 +22,8 @@
 	health = 150
 	obj_damage = 100
 	melee_damage = 25
-	attacktext = "pulverizes"
+	attack_verb_continuous = "pulverizes"
+	attack_verb_simple = "pulverize"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	vision_range = 5
@@ -154,6 +156,8 @@
 	layer = BELOW_MOB_LAYER
 	var/mob/living/spawner
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/goliath_tentacle)
+
 /obj/effect/temp_visual/goliath_tentacle/Initialize(mapload, mob/living/new_spawner)
 	. = ..()
 	for(var/obj/effect/temp_visual/goliath_tentacle/T in loc)
@@ -166,6 +170,8 @@
 		M.gets_drilled()
 	deltimer(timerid)
 	timerid = addtimer(CALLBACK(src, PROC_REF(tripanim)), 7, TIMER_STOPPABLE)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/goliath_tentacle/original)
 
 /obj/effect/temp_visual/goliath_tentacle/original/Initialize(mapload, new_spawner)
 	. = ..()
@@ -200,4 +206,4 @@
 /obj/effect/temp_visual/goliath_tentacle/proc/retract()
 	icon_state = "Goliath_tentacle_retract"
 	deltimer(timerid)
-	timerid = QDEL_IN(src, 7)
+	timerid = QDEL_IN_STOPPABLE(src, 7)

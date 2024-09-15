@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SELF(/turf/open)
+
 /turf/open
 	plane = FLOOR_PLANE
 	can_hit = FALSE
@@ -220,7 +222,7 @@
 	return TRUE
 
 /turf/open/handle_slip(mob/living/carbon/slipper, knockdown_amount, obj/O, lube, paralyze_amount, force_drop)
-	if(slipper.movement_type & FLYING)
+	if(slipper.movement_type & (FLOATING|FLYING))
 		return 0
 	if(has_gravity(src))
 		var/obj/buckled_obj

@@ -37,6 +37,8 @@
 	var/forgedseal = 0
 	var/copy_type = null
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/documents/photocopy)
+
 /obj/item/documents/photocopy/Initialize(mapload, obj/item/documents/copy=null)
 	. = ..()
 	if(copy)

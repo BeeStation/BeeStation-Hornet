@@ -32,6 +32,8 @@
 	///Camera action button to move down a Z level
 	var/datum/action/innate/camera_multiz_down/move_down_action = new
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
+
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	GLOB.navigation_computers += src
@@ -361,6 +363,8 @@
 	use_static = FALSE
 	var/list/placement_images = list()
 	var/list/placed_images = list()
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 
 /mob/camera/ai_eye/remote/shuttle_docker/Initialize(mapload, obj/machinery/computer/camera_advanced/origin)
 	src.origin = origin

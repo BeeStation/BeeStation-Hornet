@@ -14,8 +14,8 @@
 	var/strong_blob
 	var/node_blob
 	threshold_desc = "<b>Resistance 11:</b> There is a chance to spawn a factory blob, instead of a normal blob.<br> \
-					  <b>Resistance 8:</b> Spawns a strong blob instead of a normal blob \
-					  <b>Resistance 14:</b> Has a chance to spawn a blob node instead of a normal blob<br>"
+						<b>Resistance 8:</b> Spawns a strong blob instead of a normal blob \
+						<b>Resistance 14:</b> Has a chance to spawn a blob node instead of a normal blob<br>"
 
 /datum/symptom/blobspores/severityset(datum/disease/advance/A)
 	. = ..()
@@ -23,8 +23,8 @@
 		severity += 1
 	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
 		threshold_desc = "<b>Always:</b> There is a chance to spawn a factory blob, instead of a normal blob.<br> \
-					  <b>Always:</b> Spawns a strong blob instead of a normal blob \
-					  <b>Resistance 8:</b> Has a chance to spawn a blob node instead of a normal blob<br>"
+						<b>Always:</b> Spawns a strong blob instead of a normal blob \
+						<b>Resistance 8:</b> Has a chance to spawn a blob node instead of a normal blob<br>"
 
 
 /datum/symptom/blobspores/Start(datum/disease/advance/A)

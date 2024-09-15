@@ -9,6 +9,9 @@
 #define CAT_TAILORING "tailoring"
 #define CAT_CLOTHING "Clothing"
 #define CAT_EYEWEAR "Eyewear"
+#define CAT_STRUCTURE "Structures"
+
+// foodstuffs & drinks
 #define CAT_FOOD "Foods"
 #define CAT_BREAD "Breads"
 #define CAT_BURGER "Burgers"
@@ -21,9 +24,9 @@
 #define CAT_PIE "Pies"
 #define CAT_PIZZA "Pizzas"
 #define CAT_SALAD "Salads"
+#define CAT_SEAFOOD "Seafood"
 #define CAT_SANDWICH "Sandwiches"
 #define CAT_SOUP "Soups"
 #define CAT_SPAGHETTI "Spaghettis"
 #define CAT_ICE "Frozen"
 #define CAT_DRINK "Drinks"
-#define CAT_STRUCTURE "Structures"
