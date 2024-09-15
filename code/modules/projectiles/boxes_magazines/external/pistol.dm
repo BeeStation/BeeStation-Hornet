@@ -53,7 +53,7 @@
 	caliber = "9mm"
 	max_ammo = 15
 
-/obj/item/ammo_box/magazine/pistolm9mm/ap
+/obj/item/ammo_box/magazine/pistolm9mm/inc
 	name = "pistol magazine (9mm incendiary)"
 	icon_state = "9x19p-8"
 	ammo_type = /obj/item/ammo_casing/c9mm/inc
