@@ -526,7 +526,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 			B.pixel_y += rand(-6, 6)
 	return INITIALIZE_HINT_QDEL
 
-#define MAX_NAVIGATE_RANGE 125
+#define MAX_NAVIGATE_RANGE 128
 //Landmark that creates destinations for the navigate verb to path to
 /obj/effect/landmark/navigate_destination
 	name = "navigate verb destination"
@@ -592,3 +592,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 /obj/effect/landmark/navigate_destination/Destroy()
 	. = ..()
 	GLOB.navigate_destinations -= navigation_id
+
+#undef MAX_NAVIGATE_RANGE
