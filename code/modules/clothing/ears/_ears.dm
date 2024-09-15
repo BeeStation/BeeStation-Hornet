@@ -6,7 +6,9 @@
 	throwforce = 0
 	slot_flags = ITEM_SLOT_EARS
 	resistance_flags = NONE
-	salvage_material = null
+	salvage_material = /obj/item/stack/sheet/iron
+	salvage_material_bloody = null
+	salvage_amount = 2
 
 /obj/item/clothing/ears/earmuffs
 	name = "earmuffs"

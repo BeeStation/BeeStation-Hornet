@@ -12,6 +12,8 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
 	clothing_flags = SNUG_FIT
+	salvage_material = /obj/item/stack/sheet/plastic
+	secondary_salvage_material = /obj/item/flashlight
 
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
@@ -83,6 +85,7 @@
 	cold_protection = HEAD
 	heat_protection = HEAD
 	dog_fashion = /datum/dog_fashion/head
+	salvage_material = /obj/item/stack/sheet/plasteel
 
 /obj/item/clothing/head/utility/hardhat/dblue
 	icon_state = "hardhat0_dblue"
@@ -176,6 +179,9 @@
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 10)
 	light_range = 2 //luminosity when on
 	flags_cover = HEADCOVERSEYES
+	salvage_material = /obj/item/seeds/pumpkin
+	salvage_amount = 1
+	secondary_salvage_material = null
 
 /obj/item/clothing/head/utility/hardhat/reindeer
 	name = "novelty reindeer hat"

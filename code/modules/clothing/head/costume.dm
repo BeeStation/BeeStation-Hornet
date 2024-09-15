@@ -105,6 +105,7 @@
 	clothing_flags = SNUG_FIT
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	salvage_material = /obj/item/stack/sheet/cardboard
 
 	dog_fashion = /datum/dog_fashion/head/cardborg
 
@@ -127,6 +128,7 @@
 	icon_state = "clockwork_helmet_old"
 	flags_inv = HIDEEARS|HIDEHAIR
 	armor = list(MELEE = 5,  BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20, STAMINA = 30)
+	salvage_material = /obj/item/stack/sheet/bronze
 
 /obj/item/clothing/head/hooded/flashsuit
 	name = "flash button"

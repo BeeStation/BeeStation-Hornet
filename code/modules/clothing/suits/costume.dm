@@ -11,6 +11,7 @@
 	item_state = "armor"
 	body_parts_covered = CHEST|GROIN
 	hoodtype = /obj/item/clothing/head/hooded/flashsuit
+	secondary_salvage_material = /obj/item/assembly/flash/handheld
 
 /obj/item/clothing/suit/costume/pirate
 	name = "pirate coat"

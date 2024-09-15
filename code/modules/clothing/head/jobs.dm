@@ -36,6 +36,7 @@
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
 	dying_key = DYE_REGISTRY_CAP
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 //Captain: This is no longer space-worthy
 /obj/item/clothing/head/hats/caphat/parade
@@ -53,6 +54,7 @@
 	armor = list(MELEE = 25,  BULLET = 15, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30, BLEED = 15)
 	dog_fashion = /datum/dog_fashion/head/hop
 	dying_key = DYE_REGISTRY_CAP
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 //Chaplain
 /obj/item/clothing/head/chaplain/nun_hood
@@ -80,6 +82,7 @@
 	var/candy_cooldown = 0
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/detective
 	dog_fashion = /datum/dog_fashion/head/detective
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/fedora/det_hat/Initialize(mapload)
 	. = ..()
@@ -172,6 +175,7 @@
 	desc =  "A beret made from durathread, its resilient fibres provide some protection to the wearer."
 	icon_state = "beretdurathread"
 	armor = list(MELEE = 15,  BULLET = 25, LASER = 15, ENERGY = 20, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 5, STAMINA = 20, BLEED = 45)
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 //Security
 
@@ -183,6 +187,7 @@
 	strip_delay = 80
 	dynamic_hair_suffix = ""
 	dying_key = DYE_REGISTRY_CAP
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/hats/hos/syndicate
 	name = "syndicate cap"
@@ -208,6 +213,7 @@
 	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 60, STAMINA = 30, BLEED = 25)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/hats/warden/drill
 	name = "warden's campaign hat"
@@ -284,6 +290,7 @@
 	icon_state = "beret_corporate_warden"
 	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 60, STAMINA = 30, BLEED = 25)
 	strip_delay = 60
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/beret/sec
 	name = "security beret"
@@ -292,6 +299,7 @@
 	armor = list(MELEE = 35,  BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30, BLEED = 25)
 	strip_delay = 60
 	dog_fashion = null
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/beret/corpsec
 	name = "corporate security beret"
@@ -299,6 +307,7 @@
 	icon_state = "beret_corporate_officer"
 	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 30, BLEED = 25)
 	strip_delay = 60
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/beret/spacepol
 	name = "spacepol officer beret"
@@ -306,6 +315,7 @@
 	icon_state = "beret_corporate_officer"
 	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 30, BLEED = 25)
 	strip_delay = 60
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/beret/sec/navyhos
 	name = "head of security's beret"
@@ -386,6 +396,7 @@
 	icon_state = "beret_centcom_captain"
 	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80, stamina = 80, BLEED = 80)
 	strip_delay = 120
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/beret/ccofficer
 	name = "central command officer beret"
@@ -393,6 +404,7 @@
 	icon_state = "beret_centcom_officer"
 	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80, stamina = 80, BLEED = 80)
 	strip_delay = 120
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/beret/ccofficernavy
 	name = "central command naval officer beret"
@@ -400,6 +412,7 @@
 	icon_state = "beret_centcom_officer_navy"
 	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80, stamina = 80, BLEED = 80)
 	strip_delay = 120
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 //For blueshields, but those aren't in so I renamed them to centcom guards
 /obj/item/clothing/head/beret/ccguard
@@ -408,6 +421,7 @@
 	icon_state = "beret_centcom_officer"
 	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30, stamina = 30, BLEED = 20)
 	strip_delay = 60
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/beret/ccguardnavy
 	name = "navy officer beret"
@@ -415,6 +429,7 @@
 	icon_state = "beret_centcom_officer_navy"
 	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30, stamina = 30, BLEED = 20)
 	strip_delay = 60
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/beret/sergeant
 	name = "spacepol sergeant beret"
@@ -422,6 +437,7 @@
 	icon_state = "beret_centcom_officer_navy"
 	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30, stamina = 30, BLEED = 20)
 	strip_delay = 60
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/beret/captain
 	name = "captain beret"
@@ -429,6 +445,7 @@
 	icon_state = "beret_captain"
 	armor = list(melee = 50, bullet = 30, laser = 20, energy = 30, bomb = 15, bio = 10, rad = 10, fire = 10, acid = 60, stamina = 40, BLEED = 20)
 	strip_delay = 90
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 //CentCom
@@ -439,6 +456,7 @@
 	greyscale_colors = "#46b946#f2c42e"
 	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, FIRE = 100, ACID = 90)
 	strip_delay = 10 SECONDS
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 #undef DRILL_DEFAULT
 #undef DRILL_SHOUTING

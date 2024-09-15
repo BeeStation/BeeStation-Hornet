@@ -66,6 +66,7 @@
 	desc = "Fuzzy."
 	icon_state = "bearpelt"
 	item_state = "bearpelt"
+	salvage_material = /obj/item/stack/sheet/leather
 
 /obj/item/clothing/head/flatcap
 	name = "flat cap"

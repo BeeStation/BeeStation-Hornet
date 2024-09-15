@@ -14,6 +14,7 @@
 	attack_verb_simple = list("warn", "caution", "smash")
 	resistance_flags = NONE
 	dynamic_hair_suffix = ""
+	salvage_material = /obj/item/stack/sheet/plastic
 
 /obj/item/clothing/head/cowboy
 	name = "ranching hat"
@@ -21,11 +22,13 @@
 	icon = 'icons/obj/clothing/head/cowboy.dmi'
 	worn_icon = 'icons/mob/clothing/head/cowboy.dmi'
 	icon_state = "cowboy_alt"
+	salvage_material = /obj/item/stack/sheet/leather
 
 /obj/item/clothing/head/cowboy/science
 	name = "slime ranching hat"
 	desc = "King of the labs, the half slime half man mutant, the slimeboy."
 	icon_state = "cowboy_alt_science"
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
 
 /////////////////
 //DONATOR ITEMS//

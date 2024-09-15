@@ -14,6 +14,8 @@
 	light_range = 2 //luminosity when on
 	flags_cover = HEADCOVERSEYES
 	heat = 1000 //use round numbers, guh
+	salvage_material = /obj/item/food/cake/birthday
+	salvage_amount = 1
 
 	dog_fashion = /datum/dog_fashion/head
 
@@ -63,6 +65,7 @@
 	force_on = 18 //same as epen (but much more obvious)
 	light_range = 3 //ditto
 	heat = 0
+	salvage_material = /obj/item/food/cake/birthday/energy
 
 /obj/item/clothing/head/utility/hardhat/cakehat/energycake/turn_on(mob/living/user)
 	playsound(user, 'sound/weapons/saberon.ogg', 5, TRUE)

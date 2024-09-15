@@ -9,7 +9,11 @@
 	equip_delay_other = 25
 	resistance_flags = NONE
 	custom_materials = list(/datum/material/glass = 250)
-	salvage_material = null
+	salvage_material = /obj/item/stack/rods
+	secondary_salvage_material = /obj/item/stack/sheet/glass
+	salvage_material_bloody = null
+	salvage_amount = 2
+	secondary_salvage_amount = 1
 	var/vision_flags = 0
 	var/darkness_view = 2//Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING	//admin only for now
@@ -112,6 +116,7 @@
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
+	secondary_salvage_material = /obj/item/stack/sheet/mineral/uranium
 
 /obj/item/clothing/glasses/meson/gar
 	name = "gar mesons"
@@ -182,6 +187,7 @@
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
+	secondary_salvage_material = /obj/item/stack/sheet/mineral/uranium
 
 /obj/item/clothing/glasses/science/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is tightening \the [src]'s straps around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -192,6 +198,10 @@
 	desc = "Yarr."
 	icon_state = "eyepatch"
 	item_state = "eyepatch"
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	secondary_salvage_material = null
+	salvage_material_bloody = /obj/item/stack/sheet/cotton/cloth/bloody
+	salvage_amount = 1
 
 /obj/item/clothing/glasses/monocle
 	name = "monocle"
@@ -413,6 +423,10 @@
 	tint = 3
 	darkness_view = 1
 	dog_fashion = /datum/dog_fashion/head
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	secondary_salvage_material = null
+	salvage_material_bloody = /obj/item/stack/sheet/cotton/cloth/bloody
+	salvage_amount = 1
 
 /obj/item/clothing/glasses/blindfold/white
 	name = "blind personnel blindfold"

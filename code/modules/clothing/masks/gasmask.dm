@@ -10,6 +10,8 @@
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	resistance_flags = NONE
+	salvage_material = /obj/item/stack/sheet/iron
+	secondary_salvage_material = /obj/item/stack/sheet/glass
 
 /obj/item/clothing/mask/gas/atmos/centcom
 	name = "\improper CentCom gas mask"
@@ -54,6 +56,7 @@
 	icon_state = "plaguedoctor"
 	item_state = "gas_mask"
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 2, ENERGY = 2, BOMB = 0, BIO = 75, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
+	salvage_material = /obj/item/stack/sheet/leather
 
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"

@@ -3,6 +3,8 @@
 	desc = "A paper sack with crude holes cut out for eyes. Useful for hiding one's identity or ugliness."
 	icon_state = "papersack"
 	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS|HIDESNOUT
+	salvage_material = /obj/item/paper
+	salvage_amount = 5
 
 /obj/item/clothing/head/costume/papersack/smiley
 	name = "paper sack hat"

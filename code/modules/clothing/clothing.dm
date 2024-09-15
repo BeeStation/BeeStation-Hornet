@@ -65,7 +65,15 @@
 	var/obj/item/food/clothing/moth_snack
 
 	/// What should we get when we cut this piece of clothing
-	var/salvage_material = "cloth"
+	var/salvage_material = /obj/item/stack/sheet/cotton/cloth
+	/// For complex items, what other material type do we get when salvaging?
+	var/secondary_salvage_material = null
+	/// What should we get when this piece of clothing is salvaged while bloody
+	var/salvage_material_bloody = /obj/item/stack/sheet/cotton/cloth/bloody
+	/// The amount of materials we should get upon salvage
+	var/salvage_amount = 3
+	/// The amount of secondary materials we should get upon salvage
+	var/secondary_salvage_amount = 1
 
 /obj/item/clothing/Initialize(mapload)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
@@ -142,33 +150,21 @@
 	moth_snack.attack(attacker, user, params)
 
 /obj/item/clothing/proc/salvage(obj/item/W, mob/user, params)
-	if(!HAS_BLOOD_DNA(src))
-		switch(salvage_material)
-			if("cloth")
-				new /obj/item/stack/sheet/cotton/cloth(src.drop_location(), 3)
-			if("leather")
-				new /obj/item/stack/sheet/leather(src.drop_location(), 3)
-			if("durathread")
-				new /obj/item/stack/sheet/cotton/cloth/durathread(src.drop_location(), 3)
+	if(!HAS_BLOOD_DNA(src) || salvage_material_bloody = null)
+		new salvage_material(loc(), salvage_amount)
+		user.visible_message("[user] cuts [src] into pieces of [initial(salvage_material.name)] with [W].", \
+			"<span class='notice'>You cut [src] into pieces of [initial(salvage_material.name)] with [W].</span>", \
+			"<span class='hear'>You hear cutting.</span>")
 	else
-		switch(salvage_material)
-			if("cloth")
-				new /obj/item/stack/sheet/cotton/cloth/bloody(src.drop_location(), 3)
-			if("leather")
-				new /obj/item/stack/sheet/leather(src.drop_location(), 3) //Bloody leather and durathread will exist soon
-			if("durathread")
-				new /obj/item/stack/sheet/cotton/cloth/durathread(src.drop_location(), 3)
-	playsound(loc, 'sound/items/wirecutter.ogg', 50, 1, -1)
+		new salvage_material_bloody(loc(), salvage_amount)
+		user.visible_message("[user] cuts [src] into pieces of [initial(salvage_material_bloody.name)] with [W].", \
+			"<span class='notice'>You cut [src] into pieces of [initial(salvage_material_bloody.name)] with [W].</span>", \
+			"<span class='hear'>You hear cutting.</span>")
+	if(secondary_salvage_material != null)
+		new secondary_salvage_material(loc(), secondary_salvage_amount)
 	qdel(src)
 
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
-	if((W.tool_behaviour == TOOL_WIRECUTTER || W.is_sharp()) && salvage_material != null && do_after(user, 1.5 SECONDS))
-		salvage(src)
-		user.visible_message("[user] cuts [src] into pieces of [salvage_material] with [W].", \
-		"<span class='notice'>You cut [src] into pieces of [salvage_material] with [W].</span>", \
-		"<span class='hear'>You hear cutting.</span>")
-		return TRUE
-
 	if(!istype(W, repairable_by))
 		return ..()
 
@@ -190,6 +186,12 @@
 				return TRUE
 			repair(user, params)
 			return TRUE
+	if((W.tool_behaviour == TOOL_WIRECUTTER || W.is_sharp()) && salvage_material != null)
+		var/obj/item/equipped = get_item_by_slot()
+		if(equipped = null)
+			if(do_after(user, 1.5 SECONDS))
+				salvage(src, user, params)
+		return TRUE
 
 	return ..()
 

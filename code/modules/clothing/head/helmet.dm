@@ -17,6 +17,9 @@
 	flags_inv = HIDEHAIR
 	bang_protect = 1
 	clothing_flags = THICKMATERIAL
+	salvage_material = /obj/item/stack/sheet/iron
+	secondary_salvage_material = /obj/item/stack/sheet/leather
+	secondary_salvage_amount = 2
 
 /obj/item/clothing/head/helmet/Initialize(mapload)
 	. = ..()
@@ -123,6 +126,7 @@
 	visor_flags_inv = HIDEFACE|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	salvage_material = /obj/item/stack/sheet/plasteel
 
 /obj/item/clothing/head/helmet/toggleable/riot/Initialize(mapload)
 	. = ..()
@@ -179,6 +183,7 @@
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	strip_delay = 80
+	salvage_material = /obj/item/stack/sheet/plasteel
 
 /obj/item/clothing/head/helmet/police
 	name = "police officer's hat"
@@ -220,10 +225,12 @@
 	icon_state = "roman"
 	item_state = "roman"
 	strip_delay = 100
+	salvage_material = /obj/item/stack/sheet/bronze
 
 /obj/item/clothing/head/helmet/roman/fake
 	desc = "An ancient helmet made of plastic and leather."
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0, BLEED = 10)
+	salvage_material = /obj/item/stack/sheet/plastic
 
 /obj/item/clothing/head/helmet/roman/legionnaire
 	name = "\improper Roman legionnaire helmet"
@@ -234,6 +241,7 @@
 /obj/item/clothing/head/helmet/roman/legionnaire/fake
 	desc = "An ancient helmet made of plastic and leather. Has a red crest on top of it."
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0, BLEED = 10)
+	salvage_material = /obj/item/stack/sheet/plastic
 
 /obj/item/clothing/head/helmet/gladiator
 	name = "gladiator helmet"
@@ -291,6 +299,8 @@
 	icon_state = "skull"
 	item_state = "skull"
 	strip_delay = 100
+	salvage_material = /obj/item/stack/sheet/bone
+	secondary_salvage_material = null
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"
@@ -300,6 +310,7 @@
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 20,  BULLET = 40, LASER = 30, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50, STAMINA = 30, BLEED = 60)
 	strip_delay = 60
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/helmet/rus_helmet
 	name = "russian helmet"
@@ -329,3 +340,5 @@
 	worn_icon_state = "cowboy_outlaw"
 	body_parts_covered = HEAD
 	armor = list(MELEE = 25,  BULLET = 25, LASER = 20, ENERGY = 10, BOMB = 30, BIO = 30, RAD = 20, FIRE = 0, ACID = 40, STAMINA = 25, BLEED = 15)
+	salvage_material = /obj/item/stack/sheet/leather
+	secondary_salvage_material = null
