@@ -71,8 +71,12 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	. = ..()
 	holder = null
 
+/// Applies this reagent to an [/atom]
+/datum/reagent/proc/expose_atom(atom/A, volume)
+	return
+
 /// Applies this reagent to a [/mob/living]
-/datum/reagent/proc/reaction_mob(mob/living/M, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0, obj/item/bodypart/affecting)
+/datum/reagent/proc/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection = 0, obj/item/bodypart/affecting)
 	if(!istype(M))
 		return FALSE
 	if(method == VAPOR) //smoke, foam, spray
@@ -84,12 +88,12 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	return TRUE
 
 /// Applies this reagent to an [/obj]
-/datum/reagent/proc/reaction_obj(obj/O, volume)
+/datum/reagent/proc/expose_obj(obj/O, volume)
 	return
 
 
 /// Applies this reagent to a [/turf]
-/datum/reagent/proc/reaction_turf(turf/T, volume)
+/datum/reagent/proc/expose_turf(turf/T, volume)
 	return
 
 /// Called from [/datum/reagents/proc/metabolize]

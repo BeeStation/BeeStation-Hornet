@@ -102,7 +102,7 @@
 	if (alert(user, "Are you sure you want to empty the cloning pod?", "Empty Reagent Storage:", "Yes", "No") != "Yes")
 		return
 	to_chat(user, "<span class='notice'>You empty \the [src]'s release valve onto the floor.</span>")
-	reagents.reaction(user.loc)
+	reagents.expose(user.loc)
 	src.reagents.clear_reagents()
 
 /obj/machinery/clonepod/attack_ai(mob/user)

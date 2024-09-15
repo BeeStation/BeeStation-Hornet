@@ -136,7 +136,7 @@
 	A.wash(CLEAN_RAD | CLEAN_TYPE_WEAK) // Clean radiation non-instantly
 	A.wash(CLEAN_WASH)
 	SEND_SIGNAL(A, COMSIG_ADD_MOOD_EVENT, "shower", /datum/mood_event/nice_shower)
-	reagents.reaction(A, TOUCH, reaction_volume)
+	reagents.expose(A, TOUCH, reaction_volume)
 
 	if(isliving(A))
 		check_heat(A)
