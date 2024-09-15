@@ -1,3 +1,5 @@
+#define MAX_NAVIGATE_RANGE 128
+
 /mob/living
 	/// Cooldown of the navigate() verb.
 	COOLDOWN_DECLARE(navigate_cooldown)
@@ -161,3 +163,5 @@
 		target = stairs_bro.z == z ? stairs_bro : get_step_multiz(stairs_bro, UP)
 
 	return target
+
+#undef MAX_NAVIGATE_RANGE
