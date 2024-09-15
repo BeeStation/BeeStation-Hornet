@@ -25,7 +25,7 @@
 	src.table_required = table_required
 
 	RegisterSignal(target, COMSIG_ATOM_TOOL_ACT(tool_behaviour), PROC_REF(try_process))
-	RegisterSignal(target, COMSIG_PARENT_EXAMINE, .proc/OnExamine)
+	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(OnExamine))
 
 /datum/element/processable/Detach(datum/target)
 	. = ..()
