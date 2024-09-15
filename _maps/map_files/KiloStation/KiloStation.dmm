@@ -1454,6 +1454,10 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/camera/directional/south{
+	c_tag = "Fore Hallway Vault";
+	name = "fore camera"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "ahz" = (
@@ -4943,6 +4947,9 @@
 	dir = 4
 	},
 /obj/machinery/vending/cigarette,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/fore)
 "aDj" = (
@@ -32980,10 +32987,6 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
 "hsL" = (
-/obj/machinery/camera/directional/south{
-	c_tag = "Fore Hallway Vault";
-	name = "fore camera"
-	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/iron,
@@ -48654,9 +48657,6 @@
 	pixel_y = 4
 	},
 /obj/item/pen,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
@@ -63393,10 +63393,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hydroponics)
-"txL" = (
-/obj/machinery/smartfridge/chemistry/preloaded,
-/turf/closed/wall,
-/area/medical/chemistry)
 "txX" = (
 /obj/item/wallframe/light_fixture/small{
 	dir = 4;
@@ -97935,7 +97931,7 @@ kvM
 uPQ
 iKi
 mnu
-txL
+lkt
 tpY
 uqJ
 udd
