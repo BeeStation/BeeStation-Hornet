@@ -4947,6 +4947,9 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "aDj" = (
@@ -7305,13 +7308,6 @@
 "aZF" = (
 /turf/closed/wall/r_wall,
 /area/science/server)
-"aZH" = (
-/obj/effect/turf_decal/box,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/engine,
-/area/ai_monitored/turret_protected/ai_upload)
 "aZJ" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/mech_bay_recharge_floor,
@@ -10962,15 +10958,19 @@
 	luminosity = 2
 	},
 /area/ai_monitored/turret_protected/ai_upload)
-"byI" = (
-/turf/open/floor/engine,
-/area/ai_monitored/turret_protected/ai_upload)
 "byJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/turf/open/floor/engine,
+/area/ai_monitored/turret_protected/ai_upload)
+"byK" = (
+/obj/effect/turf_decal/box,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai_upload)
@@ -11088,6 +11088,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/turf/open/floor/engine,
+/area/ai_monitored/turret_protected/ai_upload)
+"bzg" = (
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai_upload)
 "bzj" = (
@@ -15158,12 +15161,6 @@
 /obj/machinery/telecomms/processor/preset_four,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
-"ccV" = (
-/turf/open/floor/engine{
-	initial_gas_mix = "n2=100;TEMP=80";
-	name = "mainframe floor"
-	},
-/area/tcommsat/server)
 "ccX" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
@@ -15541,6 +15538,12 @@
 "ceN" = (
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"ceO" = (
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
+/area/tcommsat/server)
 "ceP" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -46682,15 +46685,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/genetics)
-"mIh" = (
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/hydroponics)
 "mIl" = (
 /obj/structure/sign/warning/vacuum{
 	pixel_x = 32
@@ -48781,9 +48775,6 @@
 /turf/open/floor/iron,
 /area/bridge)
 "nFj" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -52207,6 +52198,15 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"oVf" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/obj/effect/turf_decal/tile/blue,
+/turf/open/floor/iron,
+/area/hydroponics)
 "oVg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -62195,6 +62195,15 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/entry)
+"sXc" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/hydroponics)
 "sXg" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -65558,15 +65567,6 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/bridge)
-"urA" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/green/half/contrasted,
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/iron,
-/area/hydroponics)
 "urJ" = (
 /obj/structure/closet,
 /obj/item/clothing/suit/apron/purple_bartender,
@@ -105505,7 +105505,7 @@ arl
 arl
 bha
 gXA
-byI
+bzg
 byJ
 bzf
 aZK
@@ -105746,7 +105746,7 @@ ajP
 cda
 cdo
 cdK
-ccV
+ceO
 cfd
 wXy
 cfB
@@ -105762,8 +105762,8 @@ bwp
 wHs
 cdc
 heU
-byI
-aZH
+bzg
+byK
 djH
 bzk
 cNU
@@ -106276,8 +106276,8 @@ byj
 sgH
 cdc
 cEW
-byI
-aZH
+bzg
+byK
 lPJ
 cNW
 cNU
@@ -106535,7 +106535,7 @@ arl
 bAw
 byR
 bas
-byI
+bzg
 bzb
 bze
 cOe
@@ -107028,7 +107028,7 @@ fvk
 mOG
 ahh
 ahh
-ccV
+ceO
 cdC
 ceJ
 cNL
@@ -110398,11 +110398,11 @@ mmO
 xqH
 bjn
 miv
-mIh
+sXc
 oSG
-mIh
+sXc
 lam
-mIh
+sXc
 lam
 jGs
 mAf
@@ -110655,7 +110655,7 @@ ubM
 icj
 bmF
 szg
-mIh
+sXc
 pBX
 wNg
 lam
@@ -110912,7 +110912,7 @@ eOE
 nZX
 bjn
 sLd
-mIh
+sXc
 lEK
 wTL
 slz
@@ -111172,9 +111172,9 @@ fep
 kfZ
 lam
 tLE
-urA
+oVf
 ehr
-urA
+oVf
 vgt
 drL
 kEB
@@ -111427,7 +111427,7 @@ hjG
 dcu
 mUE
 ehr
-urA
+oVf
 yar
 sXZ
 vNK
