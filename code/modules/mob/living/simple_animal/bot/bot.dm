@@ -935,8 +935,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return
 	switch(action)
 		if("power")
-			//on = !on
-			// update_appearance() TODO-ARAMIX: check if this is needed, or if update_icon is ok
 			if(bot_core.allowed(usr) || !locked)
 				if (on)
 					turn_off()

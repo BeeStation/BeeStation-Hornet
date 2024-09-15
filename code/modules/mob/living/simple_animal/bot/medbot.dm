@@ -205,7 +205,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		if("stationary_mode")
 			stationary_mode = !stationary_mode
 			path = list()
-			//update_appearance() //TODO-ARAMIX: perhaps replace with update_icon()
 		if("synth_epi")
 			synth_epi = !synth_epi
 		if("sync_tech")

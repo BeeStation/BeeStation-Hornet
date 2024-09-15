@@ -446,7 +446,7 @@
 /mob/living/simple_animal/bot/cleanbot/ui_act(action, params)
 	if (..())
 		return
-	if(!issilicon(usr) && !IsAdminGhost(usr) && !(bot_core.allowed(usr) || !locked))
+	if(!(bot_core.allowed(usr) || usr.has_unlimited_silicon_privilege) || locked)
 		return
 	switch(action)
 		if("clean_blood")
