@@ -291,6 +291,6 @@
 	if(!can_have_cabling())
 		return null
 	for(var/obj/structure/cable/C in src)
-		if(C.wants_node)
+		if(C.has_power_node)
 			return C
 	return null

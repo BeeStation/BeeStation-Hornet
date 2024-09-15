@@ -9,11 +9,10 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	"red" = "#ff0000"
 	))
 
-
-///////////////////////////////
-//CABLE STRUCTURE
-///////////////////////////////
-
+/proc/get_cable(turf/location, cable_color)
+	for (var/obj/structure/cable/cable in location)
+		if (cable.cable_color == cable_color)
+			return cable
 
 ////////////////////////////////
 // Definitions
@@ -29,7 +28,9 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
 	var/datum/powernet/powernet
 	/// Are we a single cable that wants to be a node?
-	var/wants_node = FALSE
+	var/has_power_node = FALSE
+	/// Have we been manually given a power node and should keep it when we change?
+	var/forced_power_node = FALSE
 	var/obj/structure/cable/north
 	var/obj/structure/cable/east
 	var/obj/structure/cable/south
@@ -78,17 +79,28 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 /obj/structure/cable/Initialize(mapload, param_color)
 	. = ..()
 
-	for (var/obj/structure/cable/cable in get_turf(src))
-		if (cable == src)
-			continue
-		stack_trace("A cable was created when one already exists at [COORD(src)].")
-		return INITIALIZE_HINT_QDEL
+	if (mapload)
+		for (var/obj/structure/cable/cable in get_turf(src))
+			if (cable == src || cable.cable_color != cable_color)
+				continue
+			stack_trace("A cable was created when one already exists at [COORD(src)].")
+			return INITIALIZE_HINT_QDEL
+
+	// If we have a powered machine, become a node-worthy cable
+	if (mapload && (locate(/obj/machinery/power) in get_turf(src)))
+		has_power_node = TRUE
+		forced_power_node = TRUE
+
+	var/list/cable_colors = GLOB.cable_colors
+	cable_color = param_color || cable_color || pick(cable_colors)
+	if(cable_colors[cable_color])
+		cable_color = cable_colors[cable_color]
 
 	// Locate adjacent tiles
-	north = locate(/obj/structure/cable) in get_step(src, NORTH)
-	south = locate(/obj/structure/cable) in get_step(src, SOUTH)
-	east = locate(/obj/structure/cable) in get_step(src, EAST)
-	west = locate(/obj/structure/cable) in get_step(src, WEST)
+	north = get_cable(get_step(src, NORTH), cable_color)
+	south = get_cable(get_step(src, SOUTH), cable_color)
+	east = get_cable(get_step(src, EAST), cable_color)
+	west = get_cable(get_step(src, WEST), cable_color)
 	north?.south = src
 	east?.west = src
 	south?.north = src
@@ -102,10 +114,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 
-	var/list/cable_colors = GLOB.cable_colors
-	cable_color = param_color || cable_color || pick(cable_colors)
-	if(cable_colors[cable_color])
-		cable_color = cable_colors[cable_color]
 	update_appearance(UPDATE_ICON)
 	linkup_adjacent()
 
@@ -122,18 +130,30 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 /obj/structure/cable/proc/set_north(new_value)
 	north = new_value
+	// Remove the power node if we no longer need it
+	if (!forced_power_node && has_power_node && (south || east || west))
+		has_power_node = FALSE
 	update_appearance(UPDATE_ICON)
 
 /obj/structure/cable/proc/set_south(new_value)
 	south = new_value
+	// Remove the power node if we no longer need it
+	if (!forced_power_node && has_power_node && (north || east || west))
+		has_power_node = FALSE
 	update_appearance(UPDATE_ICON)
 
 /obj/structure/cable/proc/set_east(new_value)
 	east = new_value
+	// Remove the power node if we no longer need it
+	if (!forced_power_node && has_power_node && (south || north || west))
+		has_power_node = FALSE
 	update_appearance(UPDATE_ICON)
 
 /obj/structure/cable/proc/set_west(new_value)
 	west = new_value
+	// Remove the power node if we no longer need it
+	if (!forced_power_node && has_power_node && (south || east || north))
+		has_power_node = FALSE
 	update_appearance(UPDATE_ICON)
 
 /obj/structure/cable/deconstruct(disassembled = TRUE)
@@ -160,7 +180,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 /obj/structure/cable/update_icon()
 	var/list/adjacencies = list()
-	if (wants_node)
+	if (has_power_node)
 		adjacencies += "0"
 	if (north)
 		adjacencies += "1"
@@ -298,10 +318,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	if (!powernet)
 		var/datum/powernet/newPN = new()
 		newPN.add_cable(src)
-	if (wants_node)
+	if (has_power_node)
 		var/turf/location = get_turf(src)
 		for (var/obj/machinery/power/apc/apc in location)
-			if (apc.terminal.powernet == powernet)
+			if (apc.terminal == null || apc.terminal.powernet == powernet)
 				continue
 			if(!apc.terminal.connect_to_network())
 				apc.terminal.disconnect_from_network()
@@ -336,7 +356,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		return
 
 	// Disconnect machines connected to nodes
-	if(wants_node) // if we cut a node (O-X) cable
+	if(has_power_node) // if we cut a node (O-X) cable
 		for(var/obj/machinery/power/P in location)
 			if(!P.connect_to_network()) //can't find a node cable on a the turf to connect to
 				P.disconnect_from_network() //remove from current network
