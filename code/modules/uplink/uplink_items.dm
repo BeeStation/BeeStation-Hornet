@@ -1212,6 +1212,15 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
 
+/datum/uplink_item/ammo/pistolaps/hp
+	name = "9mm HP Handgun Magazine"
+	desc = "An additional 15-round 9mm HP magazine, compatible with the Stechkin APS pistol, found in the Spetsnaz Pyro bundle."
+	item = /obj/item/ammo_box/magazine/pistolm9mm/hp
+	cost = 3
+	purchasable_from = UPLINK_NUKE_OPS
+	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
+
 /datum/uplink_item/ammo/toydarts
 	name = "Box of Riot Darts"
 	desc = "A box of 40 Donksoft riot darts, for reloading any compatible foam dart magazine. Don't forget to share!"

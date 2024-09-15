@@ -60,6 +60,13 @@
 	caliber = "9mm"
 	max_ammo = 15
 
+/obj/item/ammo_box/magazine/pistolm9mm/hp
+	name = "pistol magazine (9mm HP)"
+	icon_state = "9x19p-8"
+	ammo_type = /obj/item/ammo_casing/c9mm/hp
+	caliber = "9mm"
+	max_ammo = 15
+
 /obj/item/ammo_box/magazine/pistolm9mm/update_icon()
 	..()
 	icon_state = "9x19p-[ammo_count() ? "8" : "0"]"
