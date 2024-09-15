@@ -15260,6 +15260,13 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
+"dVT" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/old_skeleton,
+/turf/open/floor/iron/dark,
+/area/chapel/main)
 "dWg" = (
 /obj/effect/turf_decal/guideline/guideline_in/red{
 	dir = 4
@@ -20660,13 +20667,6 @@
 	},
 /turf/open/floor/wood,
 /area/library)
-"foQ" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/spawner/lootdrop/old_skeleton,
-/turf/open/floor/iron/dark,
-/area/chapel/main)
 "foR" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32;
@@ -22158,6 +22158,17 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/science/explab)
+"fGL" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
 "fGN" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
@@ -31558,13 +31569,6 @@
 /obj/machinery/hydroponics/constructable,
 /turf/open/floor/grass,
 /area/hydroponics/garden)
-"ibc" = (
-/obj/structure/closet/crate/coffin,
-/obj/machinery/door/window/eastleft{
-	name = "Coffin Storage"
-	},
-/turf/open/floor/iron/dark,
-/area/chapel/main)
 "ibd" = (
 /turf/open/floor/catwalk_floor,
 /area/drydock)
@@ -34652,6 +34656,13 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/execution/transfer)
+"iOi" = (
+/obj/structure/closet/crate/coffin,
+/obj/machinery/door/window/eastleft{
+	name = "Coffin Storage"
+	},
+/turf/open/floor/iron/dark,
+/area/chapel/main)
 "iOo" = (
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder{
@@ -95218,12 +95229,6 @@
 	},
 /turf/open/floor/grass,
 /area/hallway/secondary/entry)
-"xOR" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/space/basic,
-/area/security/prison)
 "xOV" = (
 /obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall,
@@ -118602,8 +118607,8 @@ yjW
 yjW
 djL
 yjW
-foQ
-ibc
+dVT
+iOi
 due
 woq
 edb
@@ -131775,7 +131780,7 @@ pXI
 xnb
 pXI
 pXI
-xOR
+fGL
 agP
 iyG
 wYw

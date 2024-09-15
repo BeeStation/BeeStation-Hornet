@@ -2609,6 +2609,14 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/security/main)
+"aFS" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/structure/closet/crate/coffin,
+/turf/open/floor/iron/dark,
+/area/chapel/office)
 "aFX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -5791,14 +5799,6 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron,
 /area/engine/engine_room)
-"bEu" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/structure/closet/crate/coffin,
-/turf/open/floor/iron/dark,
-/area/chapel/office)
 "bEw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -6771,14 +6771,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/warden)
-"bSr" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/effect/spawner/lootdrop/old_skeleton,
-/turf/open/floor/iron/dark,
-/area/chapel/office)
 "bSu" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -22912,12 +22904,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/science/shuttle)
-"hoD" = (
-/obj/machinery/door/poddoor{
-	id = "deathdoor"
-	},
-/turf/open/space/basic,
-/area/security/execution/education)
 "hoR" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -23221,6 +23207,12 @@
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
+"htY" = (
+/obj/machinery/door/poddoor{
+	id = "deathdoor"
+	},
+/turf/open/floor/plating,
+/area/security/execution/education)
 "huQ" = (
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
@@ -31509,6 +31501,14 @@
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
+"kdi" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/effect/spawner/lootdrop/old_skeleton,
+/turf/open/floor/iron/dark,
+/area/chapel/office)
 "kdj" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron/white,
@@ -92287,9 +92287,9 @@ aMT
 aMT
 oxd
 oZJ
-bEu
-bEu
-bSr
+aFS
+aFS
+kdi
 jDv
 oxd
 mYD
@@ -118643,9 +118643,9 @@ aMT
 anT
 aMT
 naL
-hoD
-hoD
-hoD
+htY
+htY
+htY
 naL
 naL
 tof
