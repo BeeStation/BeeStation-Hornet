@@ -83,6 +83,9 @@
 		LoadComponent(pocket_storage_component_path)
 	if(can_be_bloody && ((body_parts_covered & FEET) || (flags_inv & HIDESHOES)))
 		LoadComponent(/datum/component/bloodysoles)
+	/// If we have something to salvage, add processable
+	if(salvage_material)
+		AddElement(/datum/element/processable, TOOL_WIRECUTTER, salvage_material, 1, 3 SECONDS, table_required = TRUE)
 
 	if(!icon_state)
 		item_flags |= ABSTRACT
@@ -150,18 +153,18 @@
 	moth_snack.attack(attacker, user, params)
 
 /obj/item/clothing/proc/salvage(obj/item/W, mob/user, params)
-	if(!HAS_BLOOD_DNA(src) || salvage_material_bloody = null)
-		new salvage_material(loc(), salvage_amount)
-		user.visible_message("[user] cuts [src] into pieces of [initial(salvage_material.name)] with [W].", \
-			"<span class='notice'>You cut [src] into pieces of [initial(salvage_material.name)] with [W].</span>", \
+	if(!(HAS_BLOOD_DNA(src)) || isnull(salvage_material_bloody))
+		//new salvage_materialy(loc(), salvage_amount) //These should probably be typepaths or vars, but are ordered like procs
+		user.visible_message("[user] cuts [src] into pieces of [initial(salvage_material)] with [W].", \
+			"<span class='notice'>You cut [src] into pieces of [initial(salvage_material)] with [W].</span>", \
 			"<span class='hear'>You hear cutting.</span>")
 	else
-		new salvage_material_bloody(loc(), salvage_amount)
-		user.visible_message("[user] cuts [src] into pieces of [initial(salvage_material_bloody.name)] with [W].", \
-			"<span class='notice'>You cut [src] into pieces of [initial(salvage_material_bloody.name)] with [W].</span>", \
+		//new salvage_material_bloody(loc(), salvage_amount) //These should probably be typepaths or vars, but are ordered like procs
+		user.visible_message("[user] cuts [src] into pieces of [initial(salvage_material_bloody)] with [W].", \
+			"<span class='notice'>You cut [src] into pieces of [initial(salvage_material_bloody)] with [W].</span>", \
 			"<span class='hear'>You hear cutting.</span>")
-	if(secondary_salvage_material != null)
-		new secondary_salvage_material(loc(), secondary_salvage_amount)
+	//if(secondary_salvage_material != null)
+	//	new secondary_salvage_material(loc(), secondary_salvage_amount)
 	qdel(src)
 
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
@@ -186,12 +189,6 @@
 				return TRUE
 			repair(user, params)
 			return TRUE
-	if((W.tool_behaviour == TOOL_WIRECUTTER || W.is_sharp()) && salvage_material != null)
-		var/obj/item/equipped = get_item_by_slot()
-		if(equipped = null)
-			if(do_after(user, 1.5 SECONDS))
-				salvage(src, user, params)
-		return TRUE
 
 	return ..()
 
