@@ -682,10 +682,10 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/dangerous/APS
 	name = "Stechkin APS"
-	= "The original Russian version of a widely used Syndicate sidearm. Uses 9mm ammo."
-	= /obj/item/gun/ballistic/automatic/pistol/APS
+	desc = "The original Russian version of a widely used Syndicate sidearm. Uses 9mm ammo, not compatible with suppressors."
+	item = /obj/item/gun/ballistic/automatic/pistol/APS
 	purchasable_from = UPLINK_NUKE_OPS
-	cost = 12
+	cost = 8
 	surplus = 0
 
 /datum/uplink_item/dangerous/derringer
