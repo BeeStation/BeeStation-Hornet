@@ -350,8 +350,9 @@ All ShuttleMove procs go here
 
 /obj/structure/cable/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
-	mergeConnectedNetworks(d1)
-	mergeConnectedNetworks(d2)
+	// TODO
+	//mergeConnectedNetworks(d1)
+	//mergeConnectedNetworks(d2)
 
 /obj/structure/shuttle/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
 	. = ..()

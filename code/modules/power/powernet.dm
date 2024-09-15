@@ -14,14 +14,18 @@
 	var/viewload = 0			// the load as it appears on the power console (gradually updated)
 	var/netexcess = 0			// excess power on the powernet (typically avail-load)///////
 	var/delayedload = 0			// load applied to powernet between power ticks.
+	var/dirty = FALSE
 
 /datum/powernet/New()
 	SSmachines.powernets += src
+	// Unique index for this powernet
+	number = ++SSmachines.unique_powernets
 
 /datum/powernet/Destroy()
 	//Go away references, you suck!
 	for(var/obj/structure/cable/C in cables)
 		cables -= C
+		C.maptext = "N/A"
 		C.powernet = null
 	for(var/obj/machinery/power/M in nodes)
 		nodes -= M
@@ -39,8 +43,12 @@
 /datum/powernet/proc/remove_cable(obj/structure/cable/C)
 	cables -= C
 	C.powernet = null
+	C.maptext = "N/A"
 	if(is_empty())//the powernet is now empty...
 		qdel(src)///... delete it
+	else
+		// We need to revalidate the powernet's connectivity
+		mark_dirty()
 
 //add a cable to the current powernet
 //Warning : this proc DON'T check if the cable exists
@@ -51,7 +59,8 @@
 		else
 			C.powernet.remove_cable(C) //..remove it
 	C.powernet = src
-	cables +=C
+	cables += C
+	C.maptext = "[MAPTEXT(number)]"
 
 //remove a power machine from the current powernet
 //if the powernet is then empty, delete it
@@ -61,7 +70,6 @@
 	M.powernet = null
 	if(is_empty())//the powernet is now empty...
 		qdel(src)///... delete it
-
 
 //add a power machine to the current powernet
 //Warning : this proc DON'T check if the machine exists
@@ -99,3 +107,48 @@
 		return clamp(20 + round(avail/25000), 20, 195) + rand(-5,5)
 	else
 		return 0
+
+/// Mark the powernet as dirty and needing cable recalulation.
+/// This will queue it in the powernet propogation system, which will then fire
+/// prior to machines ticking.
+/datum/powernet/proc/mark_dirty()
+	SSmachines.queue_recalculation(src)
+
+/obj/structure/cable/var/_last_repropogation_update
+
+/// Repropogate the cables on the network, and make sure that all points along our
+/// cables are reachable from any other point in the cable.
+/datum/powernet/proc/repropogate_cables()
+	var/list/powernet_id_array = list()
+	// We need a unique propogation identifier to be able to determine if the cable
+	// was queued by this propogation run
+	var/unique_propogation_identifier = ++SSmachines.unique_powernets
+	for (var/i in 1 to length(cables))
+		// We already belong
+		var/obj/structure/cable/processing_wire = cables[i]
+		if (powernet_id_array[processing_wire] != null)
+			continue
+		var/datum/powernet/new_powernet = i == 1 ? src : new /datum/powernet
+		var/list/to_process = list(processing_wire)
+		processing_wire._last_repropogation_update = unique_propogation_identifier
+		// Process all nodes that can be reached
+		while (length(to_process))
+			processing_wire = to_process[to_process.len]
+			to_process.len--
+			powernet_id_array[processing_wire] = new_powernet
+			// Process adjacent nodes
+			if (processing_wire.north && processing_wire.north._last_repropogation_update != unique_propogation_identifier)
+				processing_wire.north._last_repropogation_update = unique_propogation_identifier
+				to_process += processing_wire.north
+			if (processing_wire.south && processing_wire.south._last_repropogation_update != unique_propogation_identifier)
+				processing_wire.south._last_repropogation_update = unique_propogation_identifier
+				to_process += processing_wire.south
+			if (processing_wire.east && processing_wire.east._last_repropogation_update != unique_propogation_identifier)
+				processing_wire.east._last_repropogation_update = unique_propogation_identifier
+				to_process += processing_wire.east
+			if (processing_wire.west && processing_wire.west._last_repropogation_update != unique_propogation_identifier)
+				processing_wire.west._last_repropogation_update = unique_propogation_identifier
+				to_process += processing_wire.west
+	for (var/obj/structure/cable/processing_wire as() in powernet_id_array)
+		var/datum/powernet/new_powernet = powernet_id_array[processing_wire]
+		new_powernet.add_cable(processing_wire)
