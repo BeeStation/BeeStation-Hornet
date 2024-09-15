@@ -5552,8 +5552,8 @@
 /area/crew_quarters/heads/hos)
 "ctM" = (
 /obj/machinery/camera/autoname/directional/north{
-	network = list("ss13","rd");
-	dir = 4
+	dir = 4;
+	network = list("ss13","rd")
 	},
 /turf/open/floor/iron/white,
 /area/science/robotics)
@@ -14684,7 +14684,9 @@
 	name = "Gas to Chamber"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/power/apc/auto_name/directional/east,
+/obj/machinery/power/apc/auto_name/directional/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -18245,7 +18247,9 @@
 	},
 /area/asteroid/paradise/surface)
 "jdW" = (
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/directional/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -22276,7 +22280,9 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
 /obj/machinery/camera/autoname/directional/north{
 	network = list("ss13","security")
 	},
@@ -28199,7 +28205,9 @@
 /turf/open/floor/carpet/purple,
 /area/library/abandoned)
 "oak" = (
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/directional/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -31555,7 +31563,7 @@
 /area/security/brig)
 "pFV" = (
 /obj/effect/spawner/structure/window,
-/turf/open/openspace,
+/turf/open/floor/plating,
 /area/hallway/primary/central)
 "pFZ" = (
 /obj/structure/railing{
@@ -31620,7 +31628,9 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -33417,7 +33427,9 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -43950,7 +43962,7 @@
 /area/hallway/primary/central)
 "vPG" = (
 /obj/effect/spawner/structure/window,
-/turf/open/openspace,
+/turf/open/floor/plating,
 /area/quartermaster/qm)
 "vPP" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
