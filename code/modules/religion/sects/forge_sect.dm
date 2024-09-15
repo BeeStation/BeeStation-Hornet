@@ -121,6 +121,16 @@
 		return ..()
 	return FALSE
 
+/datum/religion_rites/forge_shield/invoke_effect(mob/living/user, atom/movable/religious_tool)
+	for(var/obj/item/stack/sheet/mineral/adamantine/Adamantine in get_turf(religious_tool))
+		if(Adamantine.amount == 5)
+			qdel(Adamantine)
+		else(Adamantine.amount -= 5)
+		Adamantine = null
+	new /obj/item/shield/adamantineshield(get_turf(religious_tool))
+	playsound(get_turf(religious_tool), 'sound/magic/fireball.ogg', 50, TRUE)
+	return ..()
+
 /datum/religion_rites/forge_armor
 	name = "Forge Armor"
 	desc = "Spend ten adamantine to create a suit of heavy armor."
