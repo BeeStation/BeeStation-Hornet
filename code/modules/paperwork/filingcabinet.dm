@@ -81,11 +81,11 @@
 
 /obj/structure/filingcabinet/attack_tk(mob/user)
 	if(anchored)
-		attack_self_tk(user)
-	else
-		..()
+		return attack_self_tk(user)
+	return ..()
 
 /obj/structure/filingcabinet/attack_self_tk(mob/user)
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
 	if(contents.len)
 		if(prob(40 + contents.len * 5))
 			var/obj/item/I = pick(contents)

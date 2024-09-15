@@ -5,17 +5,18 @@
 #define DRILL_CANADIAN	"canadian"
 
 //Chef
-/obj/item/clothing/head/chefhat
+/obj/item/clothing/head/utility/chefhat
 	name = "chef's hat"
-	item_state = "chef"
+	item_state = "chefhat"
 	icon_state = "chef"
 	desc = "The commander in chef's head wear."
 	strip_delay = 10
 	equip_delay_other = 10
 	dynamic_hair_suffix = ""
+
 	dog_fashion = /datum/dog_fashion/head/chef
 
-/obj/item/clothing/head/chefhat/suicide_act(mob/living/user)
+/obj/item/clothing/head/utility/chefhat/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is donning [src]! It looks like [user.p_theyre()] trying to become a chef.</span>")
 	user.say("Bork Bork Bork!", forced = "chef hat suicide")
 	sleep(20)
@@ -25,19 +26,19 @@
 	return(FIRELOSS)
 
 //Captain
-/obj/item/clothing/head/caphat
+/obj/item/clothing/head/hats/caphat
 	name = "captain's hat"
 	desc = "It's good being the king."
 	icon_state = "captain"
 	item_state = "that"
 	flags_inv = 0
-	armor = list(MELEE = 25,  BULLET = 15, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
+	armor = list(MELEE = 25,  BULLET = 15, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30, BLEED = 30)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
 	dying_key = DYE_REGISTRY_CAP
 
 //Captain: This is no longer space-worthy
-/obj/item/clothing/head/caphat/parade
+/obj/item/clothing/head/hats/caphat/parade
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "capcap"
@@ -45,36 +46,37 @@
 	dog_fashion = null
 
 //Head of Personnel
-/obj/item/clothing/head/hopcap
+/obj/item/clothing/head/hats/hopcap
 	name = "head of personnel's cap"
 	icon_state = "hopcap"
 	desc = "The symbol of true bureaucratic micromanagement."
-	armor = list(MELEE = 25,  BULLET = 15, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
+	armor = list(MELEE = 25,  BULLET = 15, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30, BLEED = 15)
 	dog_fashion = /datum/dog_fashion/head/hop
 	dying_key = DYE_REGISTRY_CAP
 
 //Chaplain
-/obj/item/clothing/head/nun_hood
+/obj/item/clothing/head/chaplain/nun_hood
 	name = "nun hood"
 	desc = "Maximum piety in this star system."
 	icon_state = "nun_hood"
 	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
-/obj/item/clothing/head/bishopmitre
+/obj/item/clothing/head/chaplain/bishopmitre
 	name = "bishop mitre"
 	desc = "An opulent hat that functions as a radio to God. Or as a lightning rod, depending on who you ask."
 	icon_state = "bishopmitre"
 
-/obj/item/clothing/head/bishopmitre/black
+/obj/item/clothing/head/chaplain/bishopmitre/black
 	icon_state = "blackbishopmitre"
 
 //Detective
 /obj/item/clothing/head/fedora/det_hat
 	name = "detective's fedora"
 	desc = "There's only one man who can sniff out the dirty stench of crime, and he's likely wearing this hat."
-	armor = list(MELEE = 25,  BULLET = 5, LASER = 25, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 50, STAMINA = 25)
+	armor = list(MELEE = 25,  BULLET = 5, LASER = 25, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 50, STAMINA = 25, BLEED = 20)
 	icon_state = "detective"
+	item_state = "det_hat"
 	var/candy_cooldown = 0
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/detective
 	dog_fashion = /datum/dog_fashion/head/detective
@@ -107,6 +109,8 @@
 /obj/item/clothing/head/beret
 	name = "beret"
 	desc = "A beret, a mime's favorite headwear."
+	icon = 'icons/obj/clothing/head/beret.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret.dmi'
 	icon_state = "beret"
 	dog_fashion = /datum/dog_fashion/head/beret
 	dynamic_hair_suffix = "+generic"
@@ -167,51 +171,53 @@
 	name = "durathread beret"
 	desc =  "A beret made from durathread, its resilient fibres provide some protection to the wearer."
 	icon_state = "beretdurathread"
-	armor = list(MELEE = 15,  BULLET = 25, LASER = 15, ENERGY = 20, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 5, STAMINA = 20)
+	armor = list(MELEE = 15,  BULLET = 25, LASER = 15, ENERGY = 20, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 5, STAMINA = 20, BLEED = 45)
 
 //Security
 
-/obj/item/clothing/head/HoS
+/obj/item/clothing/head/hats/hos
 	name = "head of security cap"
 	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hoscap"
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60, STAMINA = 30)
+	armor = list(MELEE = 40,  BULLET = 30, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60, STAMINA = 30, BLEED = 30)
 	strip_delay = 80
 	dynamic_hair_suffix = ""
 	dying_key = DYE_REGISTRY_CAP
 
-/obj/item/clothing/head/HoS/syndicate
+/obj/item/clothing/head/hats/hos/syndicate
 	name = "syndicate cap"
 	desc = "A black cap fit for a high ranking syndicate officer."
 
-/obj/item/clothing/head/HoS/beret
+/obj/item/clothing/head/hats/hos/beret
 	name = "head of security beret"
+	icon = 'icons/obj/clothing/head/beret.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret.dmi'
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
 	icon_state = "hosberetblack"
 	dying_key = DYE_REGISTRY_CAP
 
-/obj/item/clothing/head/HoS/beret/syndicate
+/obj/item/clothing/head/hats/hos/beret/syndicate
 	name = "syndicate beret"
 	desc = "A black beret with thick armor padding inside. Stylish and robust."
 	dying_key = DYE_REGISTRY_CAP
 
-/obj/item/clothing/head/warden
+/obj/item/clothing/head/hats/warden
 	name = "warden's police hat"
 	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
 	icon_state = "policehelm"
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 60, STAMINA = 30)
+	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 60, STAMINA = 30, BLEED = 25)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
 
-/obj/item/clothing/head/warden/drill
+/obj/item/clothing/head/hats/warden/drill
 	name = "warden's campaign hat"
 	desc = "A special armored campaign hat with the security insignia emblazoned on it. Uses reinforced fabric to offer sufficient protection."
 	icon_state = "wardendrill"
-	item_state = "wardendrill"
+	item_state = null
 	dog_fashion = null
 	var/mode = DRILL_DEFAULT
 
-/obj/item/clothing/head/warden/drill/screwdriver_act(mob/living/carbon/human/user, obj/item/I)
+/obj/item/clothing/head/hats/warden/drill/screwdriver_act(mob/living/carbon/human/user, obj/item/I)
 	if(..())
 		return TRUE
 	switch(mode)
@@ -228,24 +234,24 @@
 			to_chat(user, "<span class='danger'>You adjust voice circuit but nothing happens, probably because it's broken.</span>")
 	return TRUE
 
-/obj/item/clothing/head/warden/drill/wirecutter_act(mob/living/user, obj/item/I)
+/obj/item/clothing/head/hats/warden/drill/wirecutter_act(mob/living/user, obj/item/I)
 	if(mode != DRILL_CANADIAN)
 		to_chat(user, "<span class='danger'>You broke the voice circuit!</span>")
 		mode = DRILL_CANADIAN
 	return TRUE
 
-/obj/item/clothing/head/warden/drill/equipped(mob/M, slot)
+/obj/item/clothing/head/hats/warden/drill/equipped(mob/M, slot)
 	. = ..()
 	if (slot == ITEM_SLOT_HEAD)
 		RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	else
 		UnregisterSignal(M, COMSIG_MOB_SAY)
 
-/obj/item/clothing/head/warden/drill/dropped(mob/M)
+/obj/item/clothing/head/hats/warden/drill/dropped(mob/M)
 	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
-/obj/item/clothing/head/warden/drill/proc/handle_speech(datum/source, mob/speech_args)
+/obj/item/clothing/head/hats/warden/drill/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
 	var/message = speech_args[SPEECH_MESSAGE]
@@ -276,14 +282,14 @@
 	name = "corporate warden beret"
 	desc = "A special black beret with the Warden's insignia in the middle. This one is commonly worn by wardens of the corporation."
 	icon_state = "beret_corporate_warden"
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 60, STAMINA = 30)
+	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 60, STAMINA = 30, BLEED = 25)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/sec
 	name = "security beret"
 	desc = "A robust beret with the security insignia emblazoned on it. Uses reinforced fabric to offer sufficient protection."
 	icon_state = "beret_badge"
-	armor = list(MELEE = 35,  BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
+	armor = list(MELEE = 35,  BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30, BLEED = 25)
 	strip_delay = 60
 	dog_fashion = null
 
@@ -291,14 +297,14 @@
 	name = "corporate security beret"
 	desc = "A special black beret for the mundane life of a corporate security officer."
 	icon_state = "beret_corporate_officer"
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 30)
+	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 30, BLEED = 25)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/spacepol
 	name = "spacepol officer beret"
 	desc = "A special black beret for the mundane life of a SpacePol officer."
 	icon_state = "beret_corporate_officer"
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 30)
+	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 30, BLEED = 25)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/sec/navyhos
@@ -310,7 +316,7 @@
 	name = "warden's beret"
 	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
 	icon_state = "wardenberet"
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 50, STAMINA = 30)
+	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 50, STAMINA = 30, BLEED = 25)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/sec/navyofficer
@@ -327,35 +333,35 @@
 	name = "engineering beret"
 	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
 	icon_state = "beret_engineering"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 10, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 10, ACID = 0, STAMINA = 0, BLEED = 0)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/atmos
 	name = "atmospherics beret"
 	desc = "A beret for those who have shown immaculate proficienty in piping. Or plumbing."
 	icon_state = "beret_atmospherics"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 10, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 10, ACID = 0, STAMINA = 0, BLEED = 0)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/ce
 	name = "chief engineer beret"
 	desc = "A white beret with the engineering insignia emblazoned on it. Its owner knows what they're doing. Probably."
 	icon_state = "beret_ce"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 20, FIRE = 30, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 20, FIRE = 30, ACID = 0, STAMINA = 0, BLEED = 0)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/sci
 	name = "science beret"
 	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
 	icon_state = "beret_sci"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, BIO = 5, RAD = 0, FIRE = 5, ACID = 10, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, BIO = 5, RAD = 0, FIRE = 5, ACID = 10, STAMINA = 0, BLEED = 0)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/supply
 	name = "supply beret"
 	desc = "A brown beret with the supply insignia emblazoned on it. You can't help but wonder how much it'd sell for."
 	icon_state = "beret_supply"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 10, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 10, ACID = 0, STAMINA = 0, BLEED = 0)
 	strip_delay = 60
 
 //Medical
@@ -363,14 +369,14 @@
 	name = "medical beret"
 	desc = "A white beret with a blue cross finely threaded into it. It has that sterile smell about it."
 	icon_state = "beret_med"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 20, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 20, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/cmo
 	name = "chief medical officer beret"
 	desc = "A baby blue beret with the insignia of Medistan. It smells very sterile."
 	icon_state = "beret_cmo"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 30, RAD = 10, FIRE = 0, ACID = 20, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 30, RAD = 10, FIRE = 0, ACID = 20, STAMINA = 0, BLEED = 0)
 	strip_delay = 60
 
 //CentCom
@@ -378,21 +384,21 @@
 	name = "central command captain beret"
 	desc = "A pure white beret with a Captain insignia of Central Command."
 	icon_state = "beret_centcom_captain"
-	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80, stamina = 80)
+	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80, stamina = 80, BLEED = 80)
 	strip_delay = 120
 
 /obj/item/clothing/head/beret/ccofficer
 	name = "central command officer beret"
 	desc = "A black Central Command Officer beret with matching insignia."
 	icon_state = "beret_centcom_officer"
-	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80, stamina = 80)
+	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80, stamina = 80, BLEED = 80)
 	strip_delay = 120
 
 /obj/item/clothing/head/beret/ccofficernavy
 	name = "central command naval officer beret"
 	desc = "A Navy beret commonly worn by Central Command Naval Officers."
 	icon_state = "beret_centcom_officer_navy"
-	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80, stamina = 80)
+	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80, stamina = 80, BLEED = 80)
 	strip_delay = 120
 
 //For blueshields, but those aren't in so I renamed them to centcom guards
@@ -400,29 +406,39 @@
 	name = "officer beret"
 	desc = "A black CentCom guard's beret."
 	icon_state = "beret_centcom_officer"
-	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30, stamina = 30)
+	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30, stamina = 30, BLEED = 20)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/ccguardnavy
 	name = "navy officer beret"
 	desc = "A navy CentCom guard's beret."
 	icon_state = "beret_centcom_officer_navy"
-	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30, stamina = 30)
+	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30, stamina = 30, BLEED = 20)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/sergeant
 	name = "spacepol sergeant beret"
 	desc = "A navy SpacePol sergeant's beret."
 	icon_state = "beret_centcom_officer_navy"
-	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30, stamina = 30)
+	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30, stamina = 30, BLEED = 20)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/captain
 	name = "captain beret"
 	desc = "A lovely blue Captain beret with a gold and white insignia."
 	icon_state = "beret_captain"
-	armor = list(melee = 50, bullet = 30, laser = 20, energy = 30, bomb = 15, bio = 10, rad = 10, fire = 10, acid = 60, stamina = 40)
+	armor = list(melee = 50, bullet = 30, laser = 20, energy = 30, bomb = 15, bio = 10, rad = 10, fire = 10, acid = 60, stamina = 40, BLEED = 20)
 	strip_delay = 90
+
+
+//CentCom
+/obj/item/clothing/head/beret/centcom_formal
+	name = "\improper CentCom Formal Beret"
+	desc = "Sometimes, a compromise between fashion and defense needs to be made. Thanks to Nanotrasen's most recent nano-fabric durability enhancements, this time, it's not the case."
+	icon_state = "beret_badge"
+	greyscale_colors = "#46b946#f2c42e"
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, FIRE = 100, ACID = 90)
+	strip_delay = 10 SECONDS
 
 #undef DRILL_DEFAULT
 #undef DRILL_SHOUTING

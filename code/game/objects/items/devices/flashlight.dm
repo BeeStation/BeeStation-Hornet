@@ -5,6 +5,7 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight"
 	item_state = "flashlight"
+	worn_icon_state = "flashlight"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -12,14 +13,16 @@
 	slot_flags = ITEM_SLOT_BELT
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
-	light_system = MOVABLE_LIGHT
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
-	var/on = FALSE
+	/// The sound the light makes when it's turned on
 	var/sound_on = 'sound/items/flashlight_on.ogg'
+	/// The sound the light makes when it's turned off
 	var/sound_off = 'sound/items/flashlight_off.ogg'
-
+	/// Is the light turned on or off currently
+	var/on = FALSE
 
 /obj/item/flashlight/Initialize(mapload)
 	. = ..()
@@ -40,16 +43,18 @@
 	if(light_system == STATIC_LIGHT)
 		update_light()
 
-
-/obj/item/flashlight/attack_self(mob/user)
+/obj/item/flashlight/proc/toggle_lights(mob/user)
 	on = !on
+	playsound(user, on ? sound_on : sound_off, 40, TRUE)
 	update_brightness(user)
 	update_action_buttons()
-	return 1
+
+/obj/item/flashlight/attack_self(mob/user)
+	toggle_lights(user)
 
 /obj/item/flashlight/suicide_act(mob/living/carbon/human/user)
 	if (user.is_blind())
-		user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on... but [user.p_theyre()] blind!</span>")
+		user.visible_message("<span class ='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on... but [user.p_theyre()] blind!</span>")
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return FIRELOSS
@@ -176,6 +181,8 @@
 	desc = "A pen-sized light, used by medical staff. It can also be used to create a hologram to alert people of incoming medical assistance."
 	icon_state = "penlight"
 	item_state = ""
+	worn_icon_state = "pen"
+	w_class = WEIGHT_CLASS_TINY
 	flags_1 = CONDUCT_1
 	light_range = 2
 	var/holo_cooldown = 0
@@ -189,7 +196,7 @@
 		var/T = get_turf(target)
 		if(locate(/mob/living) in T)
 			new /obj/effect/temp_visual/medical_holosign(T,user) //produce a holographic glow
-			holo_cooldown = world.time + 100
+			holo_cooldown = world.time + 10 SECONDS
 			return
 
 /obj/effect/temp_visual/medical_holosign
@@ -198,9 +205,11 @@
 	icon_state = "medi_holo"
 	duration = 30
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
+
 /obj/effect/temp_visual/medical_holosign/Initialize(mapload, creator)
 	. = ..()
-	playsound(loc, 'sound/machines/ping.ogg', 50, 0) //make some noise!
+	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE) //make some noise!
 	if(creator)
 		visible_message("<span class='danger'>[creator] created a medical hologram!</span>")
 
@@ -210,6 +219,7 @@
 	desc = "A robust flashlight used by security."
 	icon_state = "seclite"
 	item_state = "seclite"
+	worn_icon_state = "seclite"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	force = 9 // Not as good as a stun baton.
@@ -226,6 +236,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 10
 	light_range = 5
+	light_system = STATIC_LIGHT
 	w_class = WEIGHT_CLASS_BULKY
 	flags_1 = CONDUCT_1
 	custom_materials = null
@@ -271,6 +282,7 @@
 	var/produce_heat = 1500
 	heat = 1000
 	light_color = LIGHT_COLOR_FLARE
+	light_system = MOVABLE_LIGHT
 	grind_results = list(/datum/reagent/sulfur = 15)
 	sound_on = 'sound/items/matchstick_lit.ogg'
 	sound_off = null
@@ -355,6 +367,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/mining_righthand.dmi'
 	desc = "A mining lantern."
 	light_range = 6			// luminosity when on
+	light_system = MOVABLE_LIGHT
 
 /obj/item/flashlight/lantern/heirloom_moth
 	name = "old lantern"
@@ -442,8 +455,10 @@
 	custom_price = 10
 	w_class = WEIGHT_CLASS_SMALL
 	light_range = 4
+	light_system = MOVABLE_LIGHT
 	color = LIGHT_COLOR_GREEN
 	icon_state = "glowstick"
+	base_icon_state = "glowstick"
 	item_state = "glowstick"
 	grind_results = list(/datum/reagent/phenol = 15, /datum/reagent/hydrogen = 10, /datum/reagent/oxygen = 5) //Meth-in-a-stick
 	var/burn_pickup = FALSE	//If true, fuel will only decrease after being picked up or used in hand (Useful for mapping)
@@ -469,24 +484,30 @@
 
 /obj/item/flashlight/glowstick/proc/turn_off()
 	on = FALSE
-	update_icon()
+	update_appearance()
 
-/obj/item/flashlight/glowstick/update_icon()
-	item_state = "glowstick"
-	cut_overlays()
+/obj/item/flashlight/glowstick/update_appearance(updates=ALL)
+	. = ..()
 	if(fuel <= 0)
-		icon_state = "glowstick-empty"
-		cut_overlays()
 		set_light_on(FALSE)
-	else if(on)
-		var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
-		glowstick_overlay.color = color
-		add_overlay(glowstick_overlay)
-		item_state = "glowstick-on"
+		return
+	if(on)
 		set_light_on(TRUE)
-	else
-		icon_state = "glowstick"
-		cut_overlays()
+		return
+
+/obj/item/flashlight/glowstick/update_icon_state()
+	icon_state = "[base_icon_state][(fuel <= 0) ? "-empty" : ""]"
+	item_state = "[base_icon_state][((fuel > 0) && on) ? "-on" : ""]"
+	return ..()
+
+/obj/item/flashlight/glowstick/update_overlays()
+	. = ..()
+	if(fuel <= 0 && !on)
+		return
+
+	var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
+	glowstick_overlay.color = color
+	. += glowstick_overlay
 
 /obj/item/flashlight/glowstick/pickup(mob/user)
 	..()
@@ -538,7 +559,7 @@
 
 /obj/item/flashlight/glowstick/yellow
 	name = "yellow glowstick"
-	color = LIGHT_COLOR_YELLOW
+	color = LIGHT_COLOR_DIM_YELLOW
 
 /obj/item/flashlight/glowstick/pink
 	name = "pink glowstick"
@@ -571,7 +592,7 @@
 	name = "disco light"
 	desc = "Groovy..."
 	icon_state = null
-	light_system = STATIC_LIGHT
+	light_system = MOVABLE_LIGHT
 	light_range = 4
 	light_power = 10
 	alpha = 0
@@ -584,6 +605,8 @@
 	///Base light_range that can be set on Initialize to use in smooth light range expansions and contractions.
 	var/base_light_range = 4
 
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/flashlight/spotlight)
 
 /obj/item/flashlight/spotlight/Initialize(mapload, _light_range, _light_power, _light_color)
 	. = ..()
@@ -620,6 +643,7 @@
 /obj/item/flashlight/eyelight
 	name = "eyelight"
 	desc = "This shouldn't exist outside of someone's head, how are you seeing this?"
+	light_system = MOVABLE_LIGHT
 	light_range = 15
 	light_power = 1
 	flags_1 = CONDUCT_1

@@ -51,6 +51,7 @@
 	shrapnel_type = /obj/item/shrapnel
 	ricochet_incidence_leeway = 60
 	hit_stunned_targets = TRUE
+	bleed_force = BLEED_SURFACE
 
 /obj/projectile/bullet/shrapnel/mega
 	name = "flying shrapnel hunk"
@@ -59,6 +60,7 @@
 	ricochets_max = 4
 	ricochet_chance = 90
 	ricochet_decay_chance = 0.9
+	bleed_force = BLEED_CUT
 
 /obj/projectile/bullet/pellet/stingball
 	name = "stingball pellet"

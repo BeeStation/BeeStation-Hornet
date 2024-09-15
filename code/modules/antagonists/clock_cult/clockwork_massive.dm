@@ -6,6 +6,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	clockwork_desc = "Nezbere's magnum opus: a hulking clockwork machine capable of combining bluespace and steam power to summon Ratvar. Once activated, \
 	its instability will cause one-way bluespace rifts to open across the station to the City of Cogs, so be prepared to defend it at all costs."
 	max_integrity = 1000
+	max_hit_damage = 25
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "clockwork_gateway_components"
 	pixel_x = -32
@@ -69,24 +70,30 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		to_chat(world, pick(phase_messages))
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/deconstruct(disassembled = TRUE)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		if(!disassembled)
-			resistance_flags |= INDESTRUCTIBLE
-			visible_message("<span class='userdanger'>[src] begins to pulse uncontrollably... you might want to run!</span>")
-			sound_to_playing_players(volume = 50, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_disrupted.ogg'))
-			for(var/mob/M in GLOB.player_list)
-				var/turf/T = get_turf(M)
-				if((T && T.get_virtual_z_level() == get_virtual_z_level()) || is_servant_of_ratvar(M))
-					M.playsound_local(M, 'sound/machines/clockcult/ark_deathrattle.ogg', 100, FALSE, pressure_affected = FALSE)
-			sleep(27)
-			explosion(src, 1, 3, 8, 8)
-			sound_to_playing_players('sound/effects/explosion_distant.ogg', volume = 50)
-			for(var/obj/effect/portal/wormhole/clockcult/CC in GLOB.all_wormholes)
-				qdel(CC)
-			SSshuttle.clearHostileEnvironment(src)
-			set_security_level(SEC_LEVEL_RED)
-			sleep(300)
-			SSticker.force_ending = TRUE
+	if((flags_1 & NODECONSTRUCT_1))
+		return
+	if(disassembled)
+		return
+	resistance_flags |= INDESTRUCTIBLE
+	visible_message("<span class='userdanger'>[src] begins to pulse uncontrollably... you might want to run!</span>")
+	sound_to_playing_players(volume = 50, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_disrupted.ogg'))
+	for(var/mob/M in GLOB.player_list)
+		var/turf/T = get_turf(M)
+		if((T && T.get_virtual_z_level() == get_virtual_z_level()) || is_servant_of_ratvar(M))
+			M.playsound_local(M, 'sound/machines/clockcult/ark_deathrattle.ogg', 100, FALSE, pressure_affected = FALSE)
+	addtimer(CALLBACK(src, PROC_REF(last_call)), 27)
+
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/last_call()
+	explosion(src, 1, 3, 8, 8)
+	sound_to_playing_players('sound/effects/explosion_distant.ogg', volume = 50)
+	for(var/obj/effect/portal/wormhole/clockcult/CC in GLOB.all_wormholes)
+		qdel(CC)
+	SSshuttle.clearHostileEnvironment(src)
+	SSsecurity_level.set_level(SEC_LEVEL_RED)
+	addtimer(CALLBACK(src, PROC_REF(clockies_win)), 300)
+
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/clockies_win()
+	SSticker.force_ending = TRUE
 	qdel(src)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
@@ -128,7 +135,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/announce_gateway()
 	set_dynamic_high_impact_event("clockwork ark has opened")
 	activated = TRUE
-	set_security_level(SEC_LEVEL_DELTA)
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	mass_recall(TRUE)
 	var/grace_time = GLOB.narsie_breaching ? 0 : 1800
 	addtimer(CALLBACK(src, PROC_REF(begin_assault)), grace_time)
@@ -233,6 +240,8 @@ GLOBAL_VAR(cult_ratvar)
 	var/range = 1
 	var/ratvar_target
 	var/next_attack_tick
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/eldritch/ratvar)
 
 /obj/eldritch/ratvar/Initialize(mapload, starting_energy = 50)
 	singularity = WEAKREF(AddComponent(

@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(atoms)
 
 	initialized = INITIALIZATION_INSSATOMS
 
-/datum/controller/subsystem/atoms/Initialize(timeofday)
+/datum/controller/subsystem/atoms/Initialize()
 	//Wait until map loading is completed
 	if (length(SSasync_map_generator.executing_generators) > 0)
 		to_chat(world, "<span class='boldannounce'>Waiting for [length(SSasync_map_generator.executing_generators)] map generators...</bold>")
@@ -44,7 +44,7 @@ SUBSYSTEM_DEF(atoms)
 	setupGenetics() //to set the mutations' sequence
 	initialized = INITIALIZATION_INNEW_MAPLOAD
 	InitializeAtoms()
-	return ..()
+	return SS_INIT_SUCCESS
 
 #ifdef PROFILE_MAPLOAD_INIT_ATOM
 #define PROFILE_INIT_ATOM_BEGIN(...) var/__profile_stat_time = TICK_USAGE
@@ -271,3 +271,10 @@ SUBSYSTEM_DEF(atoms)
 		rustg_file_append(initlog, "[GLOB.log_directory]/initialize.log")
 
 #undef SUBSYSTEM_INIT_SOURCE
+
+#undef BAD_INIT_QDEL_BEFORE
+#undef BAD_INIT_DIDNT_INIT
+#undef BAD_INIT_SLEPT
+#undef BAD_INIT_NO_HINT
+#undef PROFILE_INIT_ATOM_BEGIN
+#undef PROFILE_INIT_ATOM_END

@@ -480,6 +480,8 @@
 		/obj/machinery/smartfridge/disks = "disks")
 	needs_anchored = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
+
 /obj/item/circuitboard/machine/smartfridge/Initialize(mapload, new_type)
 	if(new_type)
 		build_path = new_type
@@ -506,6 +508,7 @@
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/cell = 1,
 		/obj/item/stack/cable_coil = 3)
 	needs_anchored = FALSE
 
@@ -860,14 +863,6 @@
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stock_parts/micro_laser = 1)
 
-/obj/item/circuitboard/machine/experimentor
-	name = "E.X.P.E.R.I-MENTOR (Machine Board)"
-	icon_state = "science"
-	build_path = /obj/machinery/rnd/experimentor
-	req_components = list(
-		/obj/item/stock_parts/scanning_module = 1,
-		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/stock_parts/micro_laser = 2)
 
 /obj/item/circuitboard/machine/mech_recharger
 	name = "mechbay recharger (Machine Board)"
@@ -1054,6 +1049,13 @@
 	name = "deep fryer (Machine Board)"
 	icon_state = "service"
 	build_path = /obj/machinery/deepfryer
+	req_components = list(/obj/item/stock_parts/micro_laser = 1)
+	needs_anchored = FALSE
+
+/obj/item/circuitboard/machine/griddle
+	name = "circuit board (Griddle)"
+	icon_state = "service"
+	build_path = /obj/machinery/griddle
 	req_components = list(/obj/item/stock_parts/micro_laser = 1)
 	needs_anchored = FALSE
 
@@ -1277,6 +1279,13 @@
 
 //Misc
 
+/obj/item/circuitboard/machine/sheetifier
+	name = "Sheet-meister 2000 (Machine Board)"
+	icon_state = "supply"
+	build_path = /obj/machinery/sheetifier
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/matter_bin = 2)
 
 /obj/item/circuitboard/machine/abductor
 	name = "alien board (Report This)"

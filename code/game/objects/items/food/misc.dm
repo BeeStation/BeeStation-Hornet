@@ -59,6 +59,14 @@
 	foodtypes = GROSS
 	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/food/badrecipe/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_GRILLED,  PROC_REF(OnGrill))
+
+///Prevents grilling burnt shit from well, burning.
+/obj/item/food/badrecipe/proc/OnGrill()
+	return COMPONENT_HANDLED_GRILLING
+
 /obj/item/food/badrecipe/burn()
 	if(QDELETED(src))
 		return
@@ -69,6 +77,9 @@
 		SSfire_burning.processing -= src
 	qdel(src)
 
+// We override the parent procs here to prevent burned messes from cooking into burned messes.
+/obj/item/food/badrecipe/make_grillable()
+	return
 
 /obj/item/food/spidereggs
 	name = "spider eggs"
@@ -154,7 +165,8 @@
 	attack_weight = 2
 	armour_penetration = 80
 	//wound_bonus = -50
-	attack_verb = list("slapped", "slathered")
+	attack_verb_continuous = list("slaps", "slathers")
+	attack_verb_simple = list("slap", "slather")
 	w_class = WEIGHT_CLASS_BULKY
 	tastes = list("cherry" = 1, "crepe" = 1)
 	foodtypes = GRAIN | FRUIT | SUGAR
@@ -286,3 +298,28 @@
 
 /obj/item/food/rationpack/proc/check_liked(fraction, mob/M)	//Nobody likes rationpacks. Nobody.
 	return FOOD_DISLIKED
+
+
+/obj/item/food/onigiri
+	name = "onigiri"
+	desc = "A ball of cooked rice surrounding a filling formed into a triangular shape and wrapped in seaweed. Can add fillings!"
+	icon = 'icons/obj/food/sushi.dmi'
+	icon_state = "onigiri"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+		)
+	tastes = list("rice" = 1, "dried seaweed" = 1)
+	foodtypes = VEGETABLES
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/onigiri/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/onigiri/empty, CUSTOM_INGREDIENT_ICON_NOCHANGE, max_ingredients = 4)
+
+/obj/item/food/onigiri/empty //for custom onigiri creation
+	name = "onigiri"
+	foodtypes = VEGETABLES
+	tastes = list()
+	icon_state = "onigiri"
+	desc = "A ball of cooked rice surrounding a filling formed into a triangular shape and wrapped in seaweed."

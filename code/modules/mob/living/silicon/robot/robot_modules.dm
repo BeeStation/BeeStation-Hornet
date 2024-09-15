@@ -244,7 +244,7 @@
 		/obj/item/crowbar/cyborg,
 		/obj/item/stack/sheet/iron,
 		/obj/item/stack/rods/cyborg,
-		/obj/item/stack/tile/plasteel,
+		/obj/item/stack/tile/iron/base/cyborg,
 		/obj/item/extinguisher,
 		/obj/item/pickaxe,
 		/obj/item/t_scanner/adv_mining_scanner,
@@ -271,7 +271,7 @@
 		/obj/item/borg/charger,
 		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/reagent_containers/borghypo,
-		/obj/item/borg/apparatus/beaker,
+		/obj/item/borg/apparatus/container,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/surgical_drapes,
@@ -324,7 +324,7 @@
 		/obj/item/stack/sheet/glass,
 		/obj/item/stack/sheet/rglass/cyborg,
 		/obj/item/stack/rods/cyborg,
-		/obj/item/stack/tile/plasteel,
+		/obj/item/stack/tile/iron/base/cyborg,
 		/obj/item/stack/cable_coil,
 		/obj/item/holosign_creator/atmos)
 	emag_modules = list(/obj/item/borg/stun)
@@ -436,7 +436,7 @@
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/screwdriver/cyborg,
 		/obj/item/crowbar/cyborg,
-		/obj/item/stack/tile/plasteel,
+		/obj/item/stack/tile/iron/base/cyborg,
 		/obj/item/soap/nanotrasen,
 		/obj/item/borg/charger,
 		/obj/item/weldingtool/cyborg/mini,
@@ -508,7 +508,6 @@
 	name = "Service"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
-		/obj/item/reagent_containers/food/drinks/drinkingglass,
 		/obj/item/pen,
 		/obj/item/toy/crayon/spraycan/borg,
 		/obj/item/extinguisher/mini,
@@ -521,7 +520,7 @@
 		/obj/item/instrument/piano_synth,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/lighter,
-		/obj/item/borg/apparatus/beaker/service,
+		/obj/item/borg/apparatus/container/service,
 		/obj/item/reagent_containers/borghypo/borgshaker)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/borgshaker/hacked)
 	ratvar_modules = list(
@@ -713,7 +712,7 @@
 		/obj/item/stack/sheet/glass,
 		/obj/item/stack/sheet/rglass/cyborg,
 		/obj/item/stack/rods/cyborg,
-		/obj/item/stack/tile/plasteel,
+		/obj/item/stack/tile/iron/base/cyborg,
 		/obj/item/dest_tagger/borg,
 		/obj/item/stack/cable_coil,
 		/obj/item/card/emag,

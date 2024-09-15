@@ -45,7 +45,7 @@
 	item_state = "holdingpack"
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50, STAMINA = 0, BLEED = 0)
 	component_type = /datum/component/storage/concrete/bluespace/bag_of_holding
 
 /obj/item/storage/backpack/holding/clown
@@ -78,9 +78,10 @@
 	name = "hammerspace backpack"
 	desc = "A backpack that opens into a near infinite pocket of bluespace."
 	icon_state = "hammerspace"
+	worn_icon_state = "baguette"
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
 	component_type = /datum/component/storage/concrete/bluespace/bag_of_holding
 
 /obj/item/storage/backpack/hammerspace/ComponentInitialize()
@@ -376,15 +377,15 @@
 	qdel(C)
 
 /obj/item/storage/backpack/satchel/flat/with_tools/PopulateContents()
-	new /obj/item/stack/tile/plasteel(src)
+	new /obj/item/stack/tile/iron/base(src)
 	new /obj/item/crowbar(src)
 
 	..()
 
 /obj/item/storage/backpack/satchel/flat/treasure/PopulateContents()
 	new /obj/item/dualsaber/toy(src)
-	new /obj/item/clothing/suit/pirate(src)
-	new /obj/item/clothing/head/pirate(src)
+	new /obj/item/clothing/suit/costume/pirate(src)
+	new /obj/item/clothing/head/costume/pirate(src)
 	for(var/i in 1 to 3)
 		new /obj/item/coin/gold(src)
 
@@ -465,6 +466,22 @@
 	new /obj/item/razor(src)
 	new /obj/item/reagent_containers/medspray/sterilizine(src)
 	new /obj/item/blood_filter(src)
+	
+/obj/item/storage/backpack/duffelbag/med/implant
+	name = "surplus implants duffel bag"
+	desc = "A large duffel bag for holding implants - this one has a material inlay with space for various implants."
+	
+/obj/item/storage/backpack/duffelbag/med/implant/PopulateContents()
+	var/implants = list(/obj/item/organ/cyberimp/arm/janitor,
+						/obj/item/organ/cyberimp/arm/botany,
+						/obj/item/organ/cyberimp/arm/surgery,
+						/obj/item/organ/cyberimp/chest/nutriment,
+						/obj/item/organ/cyberimp/mouth/breathing_tube,
+						/obj/item/organ/eyes/robotic/glow,
+						/obj/item/organ/eyes/robotic/shield)
+	for(var/i in 1 to 4)
+		var/ctype = pick(implants)
+		new ctype(src)
 
 /obj/item/storage/backpack/duffelbag/sec
 	name = "security duffel bag"
@@ -524,7 +541,7 @@
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
-	
+
 /obj/item/storage/backpack/duffelbag/science
 	name = "science duffel bag"
 	desc = "A large duffel bag for holding extra tools and artifacts."
@@ -592,7 +609,7 @@
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/cautery(src)
 	new /obj/item/surgical_drapes(src)
-	new /obj/item/clothing/suit/straight_jacket(src)
+	new /obj/item/clothing/suit/jacket/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
 	new /obj/item/mmi/syndie(src)
 

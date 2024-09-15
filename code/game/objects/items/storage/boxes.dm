@@ -526,8 +526,8 @@
 /obj/item/storage/box/donkpockets
 
 /obj/item/storage/box/donkpockets/PopulateContents()
-    for(var/i in 1 to 6)
-        new donktype(src)
+	for(var/i in 1 to 6)
+		new donktype(src)
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
@@ -786,6 +786,7 @@
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
 	item_state = "zippo"
+	worn_icon_state = "lighter"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
@@ -1201,7 +1202,7 @@
 
 /obj/item/storage/box/material/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/rad_insulation, 0.50) //please datum mats no more cancer
+	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_combined_w_class = 1000
 	STR.max_w_class = WEIGHT_CLASS_GIGANTIC

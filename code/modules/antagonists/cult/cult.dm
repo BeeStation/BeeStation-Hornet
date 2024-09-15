@@ -69,6 +69,7 @@
 
 	if(cult_team.blood_target && cult_team.blood_target_image && current.client)
 		current.client.images += cult_team.blood_target_image
+	current.update_alt_appearances()
 
 /datum/antagonist/cult/proc/equip_cultist(metal=TRUE)
 	var/mob/living/carbon/C = owner.current
@@ -125,6 +126,16 @@
 		if(cult_team.cult_ascendent)
 			cult_team.ascend(current)
 
+/datum/antagonist/cult/master/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/living/current = owner.current
+	if(!cult_team.reckoning_complete)
+		reckoning.Grant(current)
+	bloodmark.Grant(current)
+	throwing.Grant(current)
+	current.update_action_buttons_icon()
+	current.apply_status_effect(/datum/status_effect/cult_master)
+
 /datum/antagonist/cult/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current = owner.current
@@ -145,6 +156,17 @@
 			REMOVE_LUM_SOURCE(H, LUM_SOURCE_HOLY)
 		H.update_body()
 
+/datum/antagonist/cult/master/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/living/current = owner.current
+	if(mob_override)
+		current = mob_override
+	reckoning.Remove(current)
+	bloodmark.Remove(current)
+	throwing.Remove(current)
+	current.update_action_buttons_icon()
+	current.remove_status_effect(/datum/status_effect/cult_master)
+
 /datum/antagonist/cult/on_removal()
 	SSticker.mode.cult -= owner
 	SSticker.mode.update_cult_icons_removed(owner)
@@ -154,6 +176,7 @@
 		owner.current.log_message("has renounced the cult of Nar'Sie!", LOG_ATTACK, color="#960000")
 	if(cult_team.blood_target && cult_team.blood_target_image && owner.current.client)
 		owner.current.client.images -= cult_team.blood_target_image
+	owner.current.update_alt_appearances()
 	. = ..()
 
 /datum/antagonist/cult/admin_add(datum/mind/new_owner,mob/admin)
@@ -209,42 +232,6 @@
 	to_chat(owner.current, "<span class='cultlarge'>You are the cult's Master</span>. As the cult's Master, you have a unique title and loud voice when communicating, are capable of marking \
 	targets, such as a location or a noncultist, to direct the cult to them, and, finally, you are capable of summoning the entire living cult to your location <b><i>once</i></b>.")
 	to_chat(owner.current, "Use these abilities to direct the cult to victory at any cost.")
-
-/datum/antagonist/cult/master/apply_innate_effects(mob/living/mob_override)
-	. = ..()
-	var/mob/living/current = owner.current
-	if(mob_override)
-		current = mob_override
-	if(!cult_team.reckoning_complete)
-		reckoning.Grant(current)
-	bloodmark.Grant(current)
-	throwing.Grant(current)
-	current.update_action_buttons_icon()
-	current.apply_status_effect(/datum/status_effect/cult_master)
-	if(cult_team.cult_risen)
-		cult_team.rise(current)
-		if(cult_team.cult_ascendent)
-			cult_team.ascend(current)
-
-/datum/antagonist/cult/master/remove_innate_effects(mob/living/mob_override)
-	. = ..()
-	var/mob/living/current = owner.current
-	if(mob_override)
-		current = mob_override
-	reckoning.Remove(current)
-	bloodmark.Remove(current)
-	throwing.Remove(current)
-	current.update_action_buttons_icon()
-	current.remove_status_effect(/datum/status_effect/cult_master)
-
-	if(ishuman(current))
-		var/mob/living/carbon/human/H = current
-		H.eye_color = initial(H.eye_color)
-		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
-		REMOVE_TRAIT(H, CULT_EYES, null)
-		if (H.remove_overlay(HALO_LAYER))
-			REMOVE_LUM_SOURCE(H, LUM_SOURCE_HOLY)
-		H.update_body()
 
 /datum/team/cult
 	name = "Bloodcult"
@@ -303,10 +290,12 @@
 /datum/team/cult/proc/ascend(cultist)
 	if(ishuman(cultist))
 		var/mob/living/carbon/human/H = cultist
+		if(H.overlays_standing[HALO_LAYER]) // It appears you have this already. Applying this again will break the overlay
+			return
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		var/istate = pick("halo1","halo2","halo3","halo4","halo5","halo6")
 		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
-		new_halo_overlay.overlays.Add(emissive_appearance('icons/effects/32x64.dmi', istate, CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER), 160))
+		new_halo_overlay.overlays.Add(emissive_appearance('icons/effects/32x64.dmi', istate, CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER), 160, filters = H.filters))
 		ADD_LUM_SOURCE(H, LUM_SOURCE_HOLY)
 		H.overlays_standing[HALO_LAYER] = new_halo_overlay
 		H.apply_overlay(HALO_LAYER)
@@ -453,3 +442,5 @@
 
 /datum/team/cult/is_gamemode_hero()
 	return SSticker.mode.name == "cult"
+
+#undef SUMMON_POSSIBILITIES

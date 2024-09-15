@@ -71,7 +71,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(special_target)
 		var/turf/T = get_turf(special_target)
 		if(T.z == z_original)
-			special_target_valid = TRUE_THRESHOLD
+			special_target_valid = TRUE
 	if(special_target_valid)
 		SSmove_manager.home_onto(src, special_target)
 		previous_distance = get_dist(src, special_target)
@@ -90,7 +90,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 			ghost.check_orbitable(src)
 
 /obj/effect/immovablerod/Moved()
-	if(!loc)
+	if(!loc || QDELETED(src))
 		return ..()
 	//Moved more than 10 tiles in 1 move.
 	var/cur_dist = get_dist(src, destination)
@@ -106,9 +106,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	special_target = null
 	destination = get_edge_target_turf(src, dir)
 	SSmove_manager.home_onto(src, destination)
-
-/obj/effect/immovablerod/ex_act(severity, target)
-	return 0
 
 /obj/effect/immovablerod/singularity_act()
 	return
@@ -128,10 +125,14 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(special_target && clong == special_target)
 		complete_trajectory()
 
-	if(isturf(clong) || isobj(clong))
+	if(isturf(clong))
 		if(clong.density)
-			EX_ACT(clong, EXPLODE_HEAVY)
-
+			var/turf/hit_turf = clong
+			hit_turf.take_damage(hit_turf.integrity, armour_penetration = 100)
+	else if (isobj(clong))
+		if(clong.density)
+			var/obj/hit_obj = clong
+			hit_obj.take_damage(hit_obj.get_integrity(), armour_penetration = 100)
 	else if(isliving(clong))
 		penetrate(clong)
 	else if(istype(clong, type))

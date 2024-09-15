@@ -14,11 +14,6 @@
 	description = "<span class='boldwarning'>CAN'T... BREATHE...</span>"
 	mood_change = -12
 
-/datum/mood_event/burnt_thumb
-	description = "<span class='warning'>I shouldn't play with lighters...</span>"
-	mood_change = -1
-	timeout = 2 MINUTES
-
 /datum/mood_event/cold
 	description = "<span class='warning'>It's way too cold in here.</span>"
 	mood_change = -5
@@ -26,16 +21,6 @@
 /datum/mood_event/hot
 	description = "<span class='warning'>It's getting hot in here.</span>"
 	mood_change = -5
-
-/datum/mood_event/creampie
-	description = "<span class='warning'>I've been creamed. Tastes like pie flavor.</span>"
-	mood_change = -2
-	timeout = 3 MINUTES
-
-/datum/mood_event/slipped
-	description = "<span class='warning'>I slipped. I should be more careful next time...</span>"
-	mood_change = -2
-	timeout = 3 MINUTES
 
 /datum/mood_event/eye_stab
 	description = "<span class='boldwarning'>AHHH my eyes, that was really sharp!</span>"
@@ -86,29 +71,6 @@
 	description = "<span class='boldwarning'>Pull it out!</span>"
 	mood_change = -7
 
-/datum/mood_event/table
-	description = "<span class='warning'>Someone threw me on a table!</span>"
-	mood_change = -2
-	timeout = 2 MINUTES
-
-/datum/mood_event/table/add_effects()
-	var/datum/component/L = owner //owner is lying about its type, its component/mood while pretending to be mob. You must cast it to use it properly
-	var/mob/living/T = L.parent
-	if(ishuman(T))
-		var/mob/living/carbon/human/H = T
-		if(iscatperson(H) || (istype(H.getorganslot(ORGAN_SLOT_EARS), /obj/item/organ/ears/cat) && istype(H.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail/cat)))
-			var/obj/item/organ/tail/tail = H.getorganslot(ORGAN_SLOT_TAIL)
-			if(tail)
-				tail.set_wagging(H, TRUE)
-				addtimer(CALLBACK(tail, TYPE_PROC_REF(/obj/item/organ/tail, set_wagging), H, FALSE), 3 SECONDS)
-			description = "<span class='nicegreen'>They want to play on the table!</span>"
-			mood_change = 2
-
-/datum/mood_event/table_headsmash
-	description = "<span class='warning'>My fucking head, that hurt...</span>"
-	mood_change = -3
-	timeout = 3 MINUTES
-
 /datum/mood_event/brain_damage
 	mood_change = -3
 
@@ -138,20 +100,6 @@
 	mood_change = -4
 	timeout = 2 MINUTES
 
-/datum/mood_event/jittery
-	description = "<span class='warning'>I'm nervous and on edge and I can't stand still!!!</span>"
-	mood_change = -2
-
-/datum/mood_event/vomit
-	description = "<span class='warning'>I just threw up. Gross.</span>"
-	mood_change = -2
-	timeout = 2 MINUTES
-
-/datum/mood_event/vomitself
-	description = "<span class='warning'>I just threw up all over myself. This is disgusting.</span>"
-	mood_change = -4
-	timeout = 3 MINUTES
-
 /datum/mood_event/painful_medicine
 	description = "<span class='warning'>Medicine may be good for me but right now it stings like hell.</span>"
 	mood_change = -5
@@ -161,11 +109,6 @@
 	description = "<span class='warning'>The rattling of those bones...It still haunts me.</span>"
 	mood_change = -4
 	timeout = 4 MINUTES
-
-/datum/mood_event/loud_gong
-	description = "<span class='warning'>That loud gong noise really hurt my ears!</span>"
-	mood_change = -3
-	timeout = 2 MINUTES
 
 /datum/mood_event/notcreeping
 	description = "<span class='warning'>The voices are not happy, and they painfully contort my thoughts into getting back on task.</span>"
@@ -202,34 +145,15 @@
 /datum/mood_event/sad_empath/add_effects(mob/sadtarget)
 	description = "<span class='warning'>[sadtarget.name] seems upset...</span>"
 
-/datum/mood_event/artbad
-	description = "<span class='warning'>I've produced better art than that from my ass.</span>\n"
-	mood_change = -2
-	timeout = 2 MINUTES
-
 /datum/mood_event/sacrifice_bad
 	description ="<span class='warning'>Those darn savages!</span>"
 	mood_change = -5
-	timeout = 2 MINUTES
-
-/datum/mood_event/artbad
-	description = "<span class='warning'>I've produced better art than that from my ass.</span>"
-	mood_change = -2
 	timeout = 2 MINUTES
 
 /datum/mood_event/gates_of_mansus
 	description = "<span class='boldwarning'>LIVING IN A PERFORMANCE IS WORSE THAN DEATH</span>"
 	mood_change = -25
 	timeout = 4 MINUTES
-
-//These are unused so far but I want to remember them to use them later
-/datum/mood_event/cloned_corpse
-	description = "<span class='boldwarning'>I recently saw my own corpse...</span>"
-	mood_change = -6
-
-/datum/mood_event/surgery
-	description = "<span class='boldwarning'>HE'S CUTTING ME OPEN!!!</span>"
-	mood_change = -8
 
 /datum/mood_event/nanite_sadness
 	description = "<span class='warning robot'>+++++++HAPPINESS SUPPRESSION+++++++</span>"
@@ -241,16 +165,10 @@
 /datum/mood_event/sec_insulated_gloves
 	description = "<span class='warning'>I look like an Assistant...</span>"
 	mood_change = -1
-
 /datum/mood_event/burnt_wings
 	description = "<span class='boldwarning'>MY PRECIOUS WINGS!!!</span>"
 	mood_change = -10
 	timeout = 10 MINUTES
-
-/datum/mood_event/aquarium_negative
-	description = "<span class='warning'>All the fish are dead...</span>"
-	mood_change = -3
-	timeout = 1.5 MINUTES
 
 /datum/mood_event/feline_dysmorphia
 	description = "<span class='boldwarning'>I'm so ugly. I wish I was cuter!</span>"
@@ -273,3 +191,8 @@
 
 /datum/mood_event/saw_holopara_death/add_effects(name)
 	description = "<span class='warning'>Oh god, [name] just painfully turned to dust... What an horrifying sight...</span>"
+
+/datum/mood_event/loud_gong
+	description = "<span class='warning'>That loud gong noise really hurt my ears!</span>"
+	mood_change = -3
+	timeout = 2 MINUTES

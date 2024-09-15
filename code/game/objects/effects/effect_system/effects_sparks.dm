@@ -28,7 +28,7 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/effect/particle_effect/sparks/LateInitialize()
-	flick("sparks", src) // replay the animation
+	flick(icon_state, src) // replay the animation
 	playsound(src, "sparks", 100, TRUE)
 	var/turf/T = loc
 	if(isturf(T))
@@ -59,3 +59,17 @@
 
 /datum/effect_system/lightning_spread
 	effect_type = /obj/effect/particle_effect/sparks/electricity
+
+// shield sparks
+/obj/effect/particle_effect/sparks/shield
+	name = "shield sparks"
+	icon_state = "shieldsparkles"
+
+/obj/effect/particle_effect/sparks/shield/Initialize(mapload)
+	. = ..()
+	// every particle has a little different color
+	var/generator/gen_color = generator("color", LIGHT_COLOR_WHITE, LIGHT_COLOR_ELECTRIC_CYAN)
+	var/rand_color = gen_color.Rand()
+	color = rand_color
+	set_light_color(rand_color)
+

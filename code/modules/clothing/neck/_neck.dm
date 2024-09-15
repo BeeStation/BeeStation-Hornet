@@ -199,14 +199,14 @@
 	icon_state = "cross"
 
 /obj/item/clothing/neck/neckerchief
-	icon = 'icons/obj/clothing/masks.dmi' //In order to reuse the bandana sprite
+	worn_icon = "empty_bandana"
 	w_class = WEIGHT_CLASS_TINY
 	var/sourceBandanaType
 
 /obj/item/clothing/neck/neckerchief/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
 	if(!isinhands)
-		var/mutable_appearance/realOverlay = mutable_appearance('icons/mob/mask.dmi', icon_state, item_layer)
+		var/mutable_appearance/realOverlay = mutable_appearance('icons/mob/clothing/mask.dmi', icon_state, item_layer)
 		realOverlay.pixel_y = -3
 		. += realOverlay
 

@@ -104,8 +104,8 @@
 	max_supply = 1
 	contains = list(/mob/living/simple_animal/bot/floorbot,
 					/mob/living/simple_animal/bot/floorbot,
-					/mob/living/simple_animal/bot/medbot,
-					/mob/living/simple_animal/bot/medbot,
+					/mob/living/simple_animal/bot/medbot/filled,
+					/mob/living/simple_animal/bot/medbot/filled,
 					/obj/item/tank/internals/air,
 					/obj/item/tank/internals/air,
 					/obj/item/tank/internals/air,
@@ -124,8 +124,8 @@
 	desc = "For when the shit hits the fan and medical can't keep up. Comes with a 7x5 Medical capsule and 2 Medibots for emergencies."
 	cost = 1100
 	max_supply = 1
-	contains = list(/mob/living/simple_animal/bot/medbot,
-					/mob/living/simple_animal/bot/medbot,
+	contains = list(/mob/living/simple_animal/bot/medbot/filled,
+					/mob/living/simple_animal/bot/medbot/filled,
 					/obj/item/survivalcapsule/medical)
 	crate_name = "emergency medical crate"
 	crate_type = /obj/structure/closet/crate/medical
@@ -135,8 +135,8 @@
 	desc = "Science gone bonkers? Beeping behind the airlock? Buy now and be the hero the station des... I mean needs! (time not included)"
 	cost = 800
 	max_supply = 2
-	contains = list(/obj/item/clothing/head/bomb_hood,
-					/obj/item/clothing/suit/bomb_suit,
+	contains = list(/obj/item/clothing/head/utility/bomb_hood,
+					/obj/item/clothing/suit/utility/bomb_suit,
 					/obj/item/clothing/mask/gas,
 					/obj/item/screwdriver,
 					/obj/item/wirecutters,
@@ -148,9 +148,9 @@
 	desc = "Only you can prevent station fires. Partner up with three firefighter suits, gas masks, flashlights, large oxygen tanks, extinguishers, and hardhats!"
 	cost = 800
 	max_supply = 2
-	contains = list(/obj/item/clothing/suit/fire/firefighter,
-					/obj/item/clothing/suit/fire/firefighter,
-					/obj/item/clothing/suit/fire/firefighter,
+	contains = list(/obj/item/clothing/suit/utility/fire/firefighter,
+					/obj/item/clothing/suit/utility/fire/firefighter,
+					/obj/item/clothing/suit/utility/fire/firefighter,
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
@@ -163,9 +163,9 @@
 					/obj/item/extinguisher/advanced,
 					/obj/item/extinguisher/advanced,
 					/obj/item/extinguisher/advanced,
-					/obj/item/clothing/head/hardhat/red,
-					/obj/item/clothing/head/hardhat/red,
-					/obj/item/clothing/head/hardhat/red)
+					/obj/item/clothing/head/utility/hardhat/red,
+					/obj/item/clothing/head/utility/hardhat/red,
+					/obj/item/clothing/head/utility/hardhat/red)
 	crate_name = "firefighting crate"
 
 /datum/supply_pack/emergency/atmostank
@@ -242,10 +242,10 @@
 	desc = "Survive the Nuclear Apocalypse and Supermatter Engine alike with two sets of Radiation suits. Each set contains a helmet, suit, and Geiger counter. We'll even throw in a bottle of vodka and some glasses too, considering the life-expectancy of people who order this."
 	cost = 800
 	max_supply = 3
-	contains = list(/obj/item/clothing/head/radiation,
-					/obj/item/clothing/head/radiation,
-					/obj/item/clothing/suit/radiation,
-					/obj/item/clothing/suit/radiation,
+	contains = list(/obj/item/clothing/head/utility/radiation,
+					/obj/item/clothing/head/utility/radiation,
+					/obj/item/clothing/suit/utility/radiation,
+					/obj/item/clothing/suit/utility/radiation,
 					/obj/item/geiger_counter,
 					/obj/item/geiger_counter,
 					/obj/item/reagent_containers/food/drinks/bottle/vodka,
@@ -315,9 +315,9 @@
 					/obj/item/clothing/gloves/combat,
 					/obj/item/clothing/gloves/combat,
 					/obj/item/clothing/gloves/combat,
-					/obj/item/clothing/head/HoS/beret/syndicate,
-					/obj/item/clothing/head/HoS/beret/syndicate,
-					/obj/item/clothing/head/HoS/beret/syndicate,
+					/obj/item/clothing/head/hats/hos/beret/syndicate,
+					/obj/item/clothing/head/hats/hos/beret/syndicate,
+					/obj/item/clothing/head/hats/hos/beret/syndicate,
 					/obj/item/clothing/suit/armor/vest,
 					/obj/item/clothing/suit/armor/vest,
 					/obj/item/clothing/suit/armor/vest)
@@ -429,15 +429,15 @@
 	max_supply = 3
 	contains = list(/obj/item/clothing/under/rank/security/officer/formal,
 					/obj/item/clothing/under/rank/security/officer/formal,
-					/obj/item/clothing/suit/security/officer,
-					/obj/item/clothing/suit/security/officer,
+					/obj/item/clothing/suit/jacket/officer/blue,
+					/obj/item/clothing/suit/jacket/officer/blue,
 					/obj/item/clothing/head/beret/sec/navyofficer,
 					/obj/item/clothing/head/beret/sec/navyofficer,
 					/obj/item/clothing/under/rank/security/warden/formal,
-					/obj/item/clothing/suit/security/warden,
+					/obj/item/clothing/suit/jacket/warden/tan,
 					/obj/item/clothing/head/beret/sec/navywarden,
 					/obj/item/clothing/under/rank/security/head_of_security/formal,
-					/obj/item/clothing/suit/security/hos,
+					/obj/item/clothing/suit/jacket/hos/blue,
 					/obj/item/clothing/head/beret/sec/navyhos)
 	crate_name = "security clothing crate"
 
@@ -505,7 +505,7 @@
 	cost = 5700 //justice comes at a price. An expensive, noisy price.
 	max_supply = 3
 	contraband = TRUE
-	contains = list(/obj/item/clothing/head/helmet/justice,
+	contains = list(/obj/item/clothing/head/helmet/toggleable/justice,
 					/obj/item/clothing/mask/gas/sechailer)
 	crate_name = "security clothing crate"
 
@@ -717,7 +717,7 @@
 					/obj/item/survivalcapsule/barricade)
 	cost = 2000
 	crate_name = "security barriers crate XL"
-	
+
 /datum/supply_pack/security/armory/capsule_checkpoints
 	name = "Security Checkpoint capsules"
 	desc = "A 3x3 checkpoint designed for allowing safely searching passing personnel. Requires Security access to open."
@@ -765,9 +765,9 @@
 	contains = list(/obj/item/clothing/suit/armor/riot,
 					/obj/item/clothing/suit/armor/riot,
 					/obj/item/clothing/suit/armor/riot,
-					/obj/item/clothing/head/helmet/riot,
-					/obj/item/clothing/head/helmet/riot,
-					/obj/item/clothing/head/helmet/riot)
+					/obj/item/clothing/head/helmet/toggleable/riot,
+					/obj/item/clothing/head/helmet/toggleable/riot,
+					/obj/item/clothing/head/helmet/toggleable/riot)
 	crate_name = "riot armor crate"
 
 /datum/supply_pack/security/armory/riotshields
@@ -822,15 +822,15 @@
 					/obj/item/clothing/gloves/botanic_leather,
 					/obj/item/clothing/gloves/color/black,
 					/obj/item/clothing/head/cowboy,
-					/obj/item/clothing/head/sombrero,
-					/obj/item/clothing/head/sombrero/green,
+					/obj/item/clothing/head/costume/sombrero,
+					/obj/item/clothing/head/costume/sombrero/green,
 					/obj/item/storage/belt/bandolier/western,
 					/obj/item/gun/ballistic/rifle/leveraction,
 					/obj/item/gun/ballistic/rifle/leveraction)
 	var/wear_outer = list(/obj/item/clothing/suit/apron/overalls,
-					/obj/item/clothing/suit/poncho,
-					/obj/item/clothing/suit/poncho/green,
-					/obj/item/clothing/suit/poncho/red)
+					/obj/item/clothing/suit/costume/poncho,
+					/obj/item/clothing/suit/costume/poncho/green,
+					/obj/item/clothing/suit/costume/poncho/red)
 	var/wear_under = list(/obj/item/clothing/under/misc/overalls,
 					/obj/item/clothing/under/misc/overalls,
 					/obj/item/clothing/under/misc/overalls,
@@ -838,7 +838,7 @@
 					/obj/item/clothing/under/suit/sl)
 	var/cursed = list(/obj/item/clothing/head/helmet/outlaw,
 					/obj/item/clothing/mask/fakemoustache,
-					/obj/item/clothing/suit/poncho/ponchoshame/outlaw,
+					/obj/item/clothing/suit/costume/poncho/ponchoshame/outlaw,
 					/obj/item/clothing/under/suit/sl,
 					/obj/item/clothing/shoes/workboots/mining,
 					/obj/item/clothing/gloves/color/black,
@@ -1002,12 +1002,12 @@
 					/obj/item/clothing/suit/hazardvest,
 					/obj/item/clothing/suit/hazardvest,
 					/obj/item/clothing/suit/hazardvest,
-					/obj/item/clothing/head/welding,
-					/obj/item/clothing/head/welding,
-					/obj/item/clothing/head/welding,
-					/obj/item/clothing/head/hardhat,
-					/obj/item/clothing/head/hardhat,
-					/obj/item/clothing/head/hardhat,
+					/obj/item/clothing/head/utility/welding,
+					/obj/item/clothing/head/utility/welding,
+					/obj/item/clothing/head/utility/welding,
+					/obj/item/clothing/head/utility/hardhat,
+					/obj/item/clothing/head/utility/hardhat,
+					/obj/item/clothing/head/utility/hardhat,
 					/obj/item/clothing/glasses/meson/engine,
 					/obj/item/clothing/glasses/meson/engine)
 	crate_name = "engineering gear crate"
@@ -1804,6 +1804,14 @@
 					/obj/item/rollerbed)
 	crate_name = "surgical supplies crate"
 
+/datum/supply_pack/medical/implants
+	name = "Surplus Implants Crate"
+	desc = "Do you want implants, but those R&D folks hasn't learnt how to do their job? Just get started with this crate containing several of our dusty surplus implants. (Surgical tools not included)"
+	cost = 1000
+	max_supply = 2
+	contains = list(/obj/item/storage/backpack/duffelbag/med/implant)
+	crate_name = "implant supplies crate"
+
 /datum/supply_pack/medical/salglucanister
 	name = "Heavy-Duty Saline Canister"
 	desc = "Contains a bulk supply of saline-glucose condensed into a single canister that should last several days, with a large pump to fill containers with. Direct injection of saline should be left to medical professionals as the pump is capable of overdosing patients. Requires medbay access to open."
@@ -1888,6 +1896,16 @@
 	contains = list(/obj/machinery/computer/pandemic)
 	crate_name = "P.A.N.D.E.M.I.C. Replacement Crate"
 	dangerous = TRUE
+
+/datum/supply_pack/medical/chem_bags
+	name = "Chembag Refill Crate"
+	desc = "Contains 3 bags, containing Bicaridine, Kelotane and Anti-toxin for when the chemist is too busy making methamphetamines."
+	cost = 1000
+	max_supply = 3
+	contains = list(/obj/item/reagent_containers/chem_bag/bicaridine,
+					/obj/item/reagent_containers/chem_bag/kelotane,
+					/obj/item/reagent_containers/chem_bag/antitoxin)
+	crate_name = "Chembag Refill Crate"
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -1934,8 +1952,8 @@
 					/obj/item/storage/firstaid,
 					/obj/item/healthanalyzer,
 					/obj/item/healthanalyzer,
-					/obj/item/clothing/head/hardhat/red,
-					/obj/item/clothing/head/hardhat/red,
+					/obj/item/clothing/head/utility/hardhat/red,
+					/obj/item/clothing/head/utility/hardhat/red,
 					/obj/item/storage/toolbox/mechanical,
 					/obj/item/storage/toolbox/mechanical,
 					/obj/item/bot_assembly/cleanbot,
@@ -2002,8 +2020,8 @@
 	desc = "Some research is best done with monkeys, yet sometimes they're just too dumb to complete more complicated tasks. These helmets should help."
 	cost = 1500
 	max_supply = 1
-	contains = list(/obj/item/clothing/head/monkey_sentience_helmet,
-					/obj/item/clothing/head/monkey_sentience_helmet)
+	contains = list(/obj/item/clothing/head/helmet/monkey_sentience_helmet,
+					/obj/item/clothing/head/helmet/monkey_sentience_helmet)
 	crate_name = "monkey mind magnification crate"
 
 /datum/supply_pack/science/transfer_valves
@@ -2318,10 +2336,10 @@
 	desc = "Bee business booming? Better be benevolent and boost botany by bestowing bi-Beekeeper-suits! Contains two beekeeper suits and matching headwear."
 	cost = 800
 	max_supply = 4
-	contains = list(/obj/item/clothing/head/beekeeper_head,
-					/obj/item/clothing/suit/beekeeper_suit,
-					/obj/item/clothing/head/beekeeper_head,
-					/obj/item/clothing/suit/beekeeper_suit)
+	contains = list(/obj/item/clothing/head/utility/beekeeper_head,
+					/obj/item/clothing/suit/utility/beekeeper_suit,
+					/obj/item/clothing/head/utility/beekeeper_head,
+					/obj/item/clothing/suit/utility/beekeeper_suit)
 	crate_name = "beekeeper suits"
 	crate_type = /obj/structure/closet/crate/hydroponics
 
@@ -2335,8 +2353,8 @@
 					/obj/item/honey_frame,
 					/obj/item/honey_frame,
 					/obj/item/queen_bee/bought,
-					/obj/item/clothing/head/beekeeper_head,
-					/obj/item/clothing/suit/beekeeper_suit,
+					/obj/item/clothing/head/utility/beekeeper_head,
+					/obj/item/clothing/suit/utility/beekeeper_suit,
 					/obj/item/melee/flyswatter)
 	crate_name = "beekeeping starter crate"
 	crate_type = /obj/structure/closet/crate/hydroponics
@@ -2785,6 +2803,13 @@
 					/mob/living/simple_animal/hostile/retaliate/poison/snake)
 	crate_name = "snake crate"
 
+/datum/supply_pack/critter/capybara
+	name = "Capybara Crate"
+	desc = "Coconut doggy"
+	cost = 10000
+	contains = list(/mob/living/simple_animal/pet/dog/corgi/capybara)
+	crate_name = "capybara crate"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Costumes & Toys /////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -2893,11 +2918,11 @@
 					/obj/item/clothing/neck/tie/blue,
 					/obj/item/clothing/neck/tie/red,
 					/obj/item/clothing/neck/tie/black,
-					/obj/item/clothing/head/bowler,
+					/obj/item/clothing/head/hats/bowler,
 					/obj/item/clothing/head/fedora,
 					/obj/item/clothing/head/flatcap,
 					/obj/item/clothing/head/beret,
-					/obj/item/clothing/head/that,
+					/obj/item/clothing/head/hats/tophat,
 					/obj/item/clothing/shoes/laceup,
 					/obj/item/clothing/shoes/laceup,
 					/obj/item/clothing/shoes/laceup,
@@ -2959,16 +2984,16 @@
 	desc = "Reenact Shakespearean plays with this assortment of outfits. Contains eight different costumes!"
 	cost = 1000
 	max_supply = 3
-	contains = list(/obj/item/clothing/head/snowman,
-					/obj/item/clothing/suit/snowman,
-					/obj/item/clothing/head/chicken,
-					/obj/item/clothing/suit/chickensuit,
+	contains = list(/obj/item/clothing/head/costume/snowman,
+					/obj/item/clothing/suit/costume/snowman,
+					/obj/item/clothing/head/costume/chicken,
+					/obj/item/clothing/suit/costume/chickensuit,
 					/obj/item/clothing/mask/gas/monkeymask,
-					/obj/item/clothing/suit/monkeysuit,
-					/obj/item/clothing/head/cardborg,
-					/obj/item/clothing/suit/cardborg,
-					/obj/item/clothing/head/xenos,
-					/obj/item/clothing/suit/xenos,
+					/obj/item/clothing/suit/costume/monkeysuit,
+					/obj/item/clothing/head/costume/cardborg,
+					/obj/item/clothing/suit/costume/cardborg,
+					/obj/item/clothing/head/costume/xenos,
+					/obj/item/clothing/suit/costume/xenos,
 					/obj/item/clothing/suit/hooded/ian_costume,
 					/obj/item/clothing/suit/hooded/carp_costume,
 					/obj/item/clothing/suit/hooded/bee_costume)
@@ -3097,9 +3122,28 @@
 
 /datum/supply_pack/costumes_toys/randomised/plush/fill(obj/structure/closet/crate/C)
 	var/plush
+	var/_temporary_list_plush = subtypesof(/obj/item/toy/plush) - /obj/item/toy/plush/carpplushie/dehy_carp
 	for(var/i in 1 to num_contained)
-		plush = pick(subtypesof(/obj/item/toy/plush))
+		plush = pick(_temporary_list_plush)
 		new plush(C)
+
+/datum/supply_pack/costumes_toys/randomised/plush_no_moths
+	name = "Plushie Crate Without Moth Plushies"
+	desc = "A crate filled with 5 plushies without all those pesky moth plushies! Might contain dangerous plushies."
+	contraband = TRUE
+	cost = 1500
+	max_supply = 5
+	num_contained = 5
+	contains = list()
+	crate_type = /obj/structure/closet/crate/wooden
+	crate_name = "plushie crate"
+
+/datum/supply_pack/costumes_toys/randomised/plush_no_moths/fill(obj/structure/closet/crate/C)
+	var/plush_nomoth
+	var/_temporary_list_plush_nomoth = subtypesof(/obj/item/toy/plush) - typesof(/obj/item/toy/plush/moth)
+	for(var/i in 1 to num_contained)
+		plush_nomoth = pick(_temporary_list_plush_nomoth)
+		new plush_nomoth(C)
 
 //////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Wardrobe Resupplies ////////////////////////////////

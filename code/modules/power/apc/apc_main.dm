@@ -30,7 +30,7 @@
 			pixel_y = dir == NORTH ? 24 : (dir == SOUTH ? -24 : INSTANCE_VAR_DEFAULT)\
 		),\
 		dir_amount = 4\
-    )
+	)
 
 	var/lon_range = 2
 	var/area/area
@@ -67,8 +67,6 @@
 	var/coverlocked = TRUE
 	///Is the AI locked from using the APC
 	var/aidisabled = 0
-
-	var/tdir = null
 
 	///Reference to our cable terminal
 	var/obj/machinery/power/terminal/terminal = null
@@ -135,35 +133,11 @@
 	if (!req_access)
 		req_access = list(ACCESS_ENGINE_EQUIP)
 	if (!armor)
-		armor = list(MELEE = 20,  BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 100, RAD = 100, FIRE = 90, ACID = 50, STAMINA = 0)
+		armor = list(MELEE = 20,  BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 100, RAD = 100, FIRE = 90, ACID = 50, STAMINA = 0, BLEED = 0)
 	..()
 	GLOB.apcs_list += src
 
 	wires = new /datum/wires/apc(src)
-	// offset 24 pixels in direction of dir
-	// this allows the APC to be embedded in a wall, yet still inside an area
-	if (building)
-		setDir(ndir)
-	tdir = dir		// to fix Vars bug
-	setDir(SOUTH)
-
-	switch(tdir)
-		if(NORTH)
-			if((pixel_y != initial(pixel_y)) && (pixel_y != 23))
-				log_mapping("APC: ([src]) at [AREACOORD(src)] with dir ([tdir] | [uppertext(dir2text(tdir))]) has pixel_y value ([pixel_y] - should be 23.)")
-			pixel_y = 23
-		if(SOUTH)
-			if((pixel_y != initial(pixel_y)) && (pixel_y != -23))
-				log_mapping("APC: ([src]) at [AREACOORD(src)] with dir ([tdir] | [uppertext(dir2text(tdir))]) has pixel_y value ([pixel_y] - should be -23.)")
-			pixel_y = -23
-		if(EAST)
-			if((pixel_y != initial(pixel_x)) && (pixel_x != 24))
-				log_mapping("APC: ([src]) at [AREACOORD(src)] with dir ([tdir] | [uppertext(dir2text(tdir))]) has pixel_x value ([pixel_x] - should be 24.)")
-			pixel_x = 24
-		if(WEST)
-			if((pixel_y != initial(pixel_x)) && (pixel_x != -25))
-				log_mapping("APC: ([src]) at [AREACOORD(src)] with dir ([tdir] | [uppertext(dir2text(tdir))]) has pixel_x value ([pixel_x] - should be -25.)")
-			pixel_x = -25
 	if (building)
 		area = get_area(src)
 		opened = APC_COVER_OPENED
@@ -172,6 +146,26 @@
 		set_machine_stat(machine_stat | MAINT)
 		update_appearance()
 		addtimer(CALLBACK(src, PROC_REF(update)), 5)
+		dir = ndir
+
+	// offset APC_PIXEL_OFFSET pixels in direction of dir
+	// this allows the APC to be embedded in a wall, yet still inside an area
+	var/offset_old
+	switch(dir)
+		if(NORTH)
+			offset_old = pixel_y
+			pixel_y = APC_PIXEL_OFFSET
+		if(SOUTH)
+			offset_old = pixel_y
+			pixel_y = -APC_PIXEL_OFFSET
+		if(EAST)
+			offset_old = pixel_x
+			pixel_x = APC_PIXEL_OFFSET
+		if(WEST)
+			offset_old = pixel_x
+			pixel_x = -APC_PIXEL_OFFSET
+	if(offset_old != APC_PIXEL_OFFSET && !building)
+		log_mapping("APC: ([src]) at [AREACOORD(src)] with dir ([dir] | [uppertext(dir2text(dir))]) has pixel_[dir & (WEST|EAST) ? "x" : "y"] value [offset_old] - should be [dir & (SOUTH|EAST) ? "-" : ""][APC_PIXEL_OFFSET]. Use the directional/ helpers!")
 
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs_list -= src

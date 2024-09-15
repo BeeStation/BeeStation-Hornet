@@ -3,7 +3,7 @@
 /datum/component/swimming
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 	var/lengths = 0 //How far have we swum?
-	var/lengths_for_bonus = 25 //If you swim this much, you'll count as having "excercised" and thus gain a buff.
+	var/lengths_for_bonus = 25 //If you swim this much, you'll count as having "exercised" and thus gain a buff.
 	var/list/species = list()
 	var/drowning = FALSE
 	var/ticks_drowned = 0
@@ -19,7 +19,7 @@
 		return INITIALIZE_HINT_QDEL //Only mobs can swim, like Ian...
 	var/mob/M = parent
 	M.visible_message("<span class='notice'>[parent] starts splashing around in the water!</span>")
-	M.add_movespeed_modifier(MOVESPEED_ID_SWIMMING, update=TRUE, priority=50, multiplicative_slowdown=slowdown, movetypes=GROUND)
+	M.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/swimming, multiplicative_slowdown=slowdown)
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(onMove))
 	RegisterSignal(parent, COMSIG_CARBON_SPECIESCHANGE, PROC_REF(onChangeSpecies))
 	RegisterSignal(parent, COMSIG_MOB_ATTACK_HAND_TURF, PROC_REF(try_leave_pool))
@@ -33,7 +33,7 @@
 	if(lengths > lengths_for_bonus)
 		var/mob/living/L = parent
 		SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "exercise", /datum/mood_event/exercise)
-		L.apply_status_effect(STATUS_EFFECT_EXERCISED) //Swimming is really good excercise!
+		L.apply_status_effect(STATUS_EFFECT_EXERCISED, 20) //Swimming is really good excercise!
 		lengths = 0
 
 //Damn edge cases
@@ -87,7 +87,7 @@
 		stop_drowning(M)
 	if(bob_tick)
 		M.pixel_y = 0
-	M.remove_movespeed_modifier(MOVESPEED_ID_SWIMMING)
+	M.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/swimming)
 	UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(parent, COMSIG_CARBON_SPECIESCHANGE)
 	UnregisterSignal(parent, COMSIG_MOB_ATTACK_HAND_TURF)
@@ -120,7 +120,7 @@
 	var/obj/item/pool/helditem = victim.get_active_held_item()
 	if(istype(helditem) && ISWIELDED(helditem))
 		return
-	return ((!(victim.mobility_flags & MOBILITY_STAND)) && (!HAS_TRAIT(victim, TRAIT_NOBREATH)))
+	return ((victim.body_position == LYING_DOWN) && (!HAS_TRAIT(victim, TRAIT_NOBREATH)))
 
 /datum/component/swimming/proc/drown(mob/living/victim)
 	if(victim.losebreath < 1)

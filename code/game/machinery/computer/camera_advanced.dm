@@ -24,12 +24,18 @@
 	var/reveal_camera_mob = FALSE
 	var/camera_mob_icon = 'icons/mob/cameramob.dmi'
 	var/camera_mob_icon_state = "marker"
+	/// I hate making this variable separately, but mob/camera/ai_eye is too complex
+	/// This takes an image to show camera_eye sprite to clients who are observers
+	var/image/camera_sprite_for_observers
+
+	/// list of mobs who are watching camera, not using it directly.
+	var/list/camera_observers = list()
 
 /obj/machinery/computer/camera_advanced/Initialize(mapload)
 	. = ..()
 	for(var/i in networks)
 		networks -= i
-		networks += lowertext(i)
+		networks += LOWER_TEXT(i)
 	if(lock_override)
 		if(lock_override & CAMERA_LOCK_STATION)
 			z_lock |= SSmapping.levels_by_trait(ZTRAIT_STATION)
@@ -104,6 +110,7 @@
 		actions += move_down_action
 
 /obj/machinery/proc/remove_eye_control(mob/living/user)
+	SIGNAL_HANDLER
 	CRASH("[type] does not implement ai eye handling")
 
 /obj/machinery/computer/camera_advanced/remove_eye_control(mob/living/user)
@@ -122,6 +129,9 @@
 			user.client.images -= eyeobj.user_image
 		user.client.view_size.unsupress()
 
+	shoo_all_observers()
+	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+
 	ConcealCameraMob()
 	eyeobj.eye_user = null
 	user.remote_control = null
@@ -134,11 +144,13 @@
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/Destroy()
+	if(current_user)
+		remove_eye_control(current_user)
+		current_user = null
 	ConcealCameraMob()
 	if(eyeobj)
 		QDEL_NULL(eyeobj)
 	QDEL_LIST(actions)
-	current_user = null
 	return ..()
 
 /obj/machinery/computer/camera_advanced/on_unset_machine(mob/M)
@@ -160,7 +172,7 @@
 	if(!is_operational) //you cant use broken machine you chumbis
 		return
 	if(current_user)
-		to_chat(user, "The console is already in use!")
+		start_observe(user)
 		return
 	var/mob/living/L = user
 
@@ -198,6 +210,41 @@
 		give_eye_control(L)
 		eyeobj.setLoc(eyeobj.loc)
 
+/obj/machinery/computer/camera_advanced/proc/start_observe(mob/user)
+	if(!user.client || !eyeobj)
+		return
+
+	if(!camera_sprite_for_observers && eyeobj.visible_icon)
+		camera_sprite_for_observers = image(eyeobj.icon, eyeobj, eyeobj.icon_state, FLY_LAYER)
+
+	if(user in camera_observers)
+		stop_observe(user)
+		return
+
+	camera_observers += user
+	if(user.client)
+		if(eyeobj.visible_icon)
+			user.client.images += camera_sprite_for_observers
+		user.reset_perspective(eyeobj)
+		if(should_supress_view_changes)
+			user.client.view_size.supress()
+	RegisterSignals(user, list(COMSIG_MOB_LOGOUT, COMSIG_MOVABLE_MOVED), PROC_REF(stop_observe))
+
+/obj/machinery/computer/camera_advanced/proc/stop_observe(mob/user)
+	SIGNAL_HANDLER
+
+	camera_observers -= user
+	if(user.client)
+		if(camera_sprite_for_observers)
+			user.client.images -= camera_sprite_for_observers
+		user.reset_perspective()
+		user.client.view_size.unsupress()
+	UnregisterSignal(user, list(COMSIG_MOB_LOGOUT, COMSIG_MOVABLE_MOVED))
+
+/obj/machinery/computer/camera_advanced/proc/shoo_all_observers()
+	for(var/each_mob in camera_observers)
+		stop_observe(each_mob)
+
 /obj/machinery/computer/camera_advanced/attack_robot(mob/user)
 	return attack_hand(user)
 
@@ -215,6 +262,8 @@
 	eyeobj.setLoc(eyeobj.loc)
 	if(should_supress_view_changes )
 		user.client.view_size.supress()
+
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(remove_eye_control))
 
 /mob/camera/ai_eye/remote
 	name = "Inactive Camera Eye"
@@ -264,9 +313,9 @@
 			user_image = image(icon,loc,icon_state,FLY_LAYER)
 			eye_user.client.images += user_image
 
-/mob/camera/ai_eye/remote/relaymove(mob/user,direct)
-	if(direct == UP || direct == DOWN)
-		zMove(direct, FALSE)
+/mob/camera/ai_eye/remote/relaymove(mob/living/user, direction)
+	if(direction == UP || direction == DOWN)
+		zMove(direction, FALSE)
 		return
 	var/initial = initial(sprint)
 	var/max_sprint = 50
@@ -275,7 +324,7 @@
 		sprint = initial
 
 	for(var/i = 0; i < max(sprint, initial); i += 20)
-		var/turf/step = get_turf(get_step(src, direct))
+		var/turf/step = get_turf(get_step(src, direction))
 		if(step)
 			setLoc(step)
 

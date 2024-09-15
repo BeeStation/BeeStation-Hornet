@@ -113,7 +113,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/spear, /obj/item/clothing/mask/gas/old)),
 
 		"lizards"   = typecacheof(list(
-			/obj/item/toy/plush/lizardplushie, /obj/item/food/kebab/tail,
+			/obj/item/toy/plush/lizard_plushie, /obj/item/food/kebab/tail,
 			/obj/item/organ/tail/lizard, /obj/item/reagent_containers/food/drinks/bottle/lizardwine)),
 
 		"skeletons" = typecacheof(list(
@@ -130,7 +130,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/clothing/under/rank/captain/parade, /obj/item/clothing/under/rank/security/head_of_security/parade, /obj/item/clothing/under/rank/security/head_of_security/parade/female,
 			/obj/item/clothing/head/helmet/abductor, /obj/item/clothing/suit/armor/abductor/vest, /obj/item/abductor/baton,
 			/obj/item/storage/belt/military/abductor, /obj/item/gun/energy/alien, /obj/item/abductor/silencer,
-			/obj/item/abductor/gizmo, /obj/item/clothing/under/rank/centcom/officer,
+			/obj/item/abductor/gizmo, /obj/item/clothing/under/rank/centcom/official,
 			/obj/item/clothing/suit/space/hardsuit/ert, /obj/item/clothing/suit/space/hardsuit/ert/sec,
 			/obj/item/clothing/suit/space/hardsuit/ert/engi, /obj/item/clothing/suit/space/hardsuit/ert/med,
 			/obj/item/clothing/suit/space/hardsuit/deathsquad, /obj/item/clothing/head/helmet/space/hardsuit/deathsquad,
@@ -148,20 +148,20 @@ SUBSYSTEM_DEF(traumas)
 			/obj/structure/sign/departments/medbay, /obj/machinery/door/airlock/medical, /obj/machinery/sleeper, /obj/machinery/stasis,
 			/obj/machinery/dna_scannernew, /obj/machinery/atmospherics/components/unary/cryo_cell, /obj/item/surgical_drapes,
 			/obj/item/retractor, /obj/item/hemostat, /obj/item/cautery, /obj/item/surgicaldrill, /obj/item/scalpel, /obj/item/circular_saw,
-			/obj/item/clothing/suit/bio_suit/plaguedoctorsuit, /obj/item/clothing/head/plaguedoctorhat, /obj/item/clothing/mask/gas/plaguedoctor)),
+			/obj/item/clothing/suit/bio_suit/plaguedoctorsuit, /obj/item/clothing/head/costume/plague, /obj/item/clothing/mask/gas/plaguedoctor)),
 
 		"authority"   = typecacheof(list(
 			/obj/item/clothing/under/rank/captain,  /obj/item/clothing/under/rank/civilian/head_of_personnel,
 			/obj/item/clothing/under/rank/security/head_of_security, /obj/item/clothing/under/rank/rnd/research_director,
 			/obj/item/clothing/under/rank/medical/chief_medical_officer, /obj/item/clothing/under/rank/engineering/chief_engineer,
-			/obj/item/clothing/under/rank/centcom/officer, /obj/item/clothing/under/rank/centcom/commander,
+			/obj/item/clothing/under/rank/centcom/official, /obj/item/clothing/under/rank/centcom/commander,
 			/obj/item/melee/classic_baton/police/telescopic, /obj/item/card/id/silver, /obj/item/card/id/gold,
 			/obj/item/card/id/captains_spare, /obj/item/card/id/centcom, /obj/machinery/door/airlock/command)),
 
 		"the supernatural"  = typecacheof(list(
 			/obj/structure/destructible/cult, /obj/item/tome,
-			/obj/item/melee/cultblade, /obj/item/cult_bastard, /obj/item/restraints/legcuffs/bola/cult,
-			/obj/item/clothing/suit/cultrobes, /obj/item/clothing/suit/space/hardsuit/cult,
+			/obj/item/melee/cultblade, /obj/item/restraints/legcuffs/bola/cult,
+			/obj/item/clothing/suit/hooded/cultrobes,
 			/obj/item/clothing/suit/hooded/cultrobes, /obj/item/clothing/head/hooded/cult_hoodie, /obj/effect/rune,
 			/obj/item/stack/sheet/runed_metal, /obj/machinery/door/airlock/cult, /obj/eldritch/narsie,
 			/obj/item/soulstone, /obj/item/clockwork,
@@ -181,19 +181,20 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/clothing/head/helmet/abductor, /obj/structure/bed/abductor, /obj/structure/table_frame/abductor,
 			/obj/structure/table/abductor, /obj/structure/table/optable/abductor, /obj/structure/closet/abductor, /obj/item/organ/heart/gland,
 			/obj/machinery/abductor, /obj/item/crowbar/abductor, /obj/item/screwdriver/abductor, /obj/item/weldingtool/abductor,
-			/obj/item/wirecutters/abductor, /obj/item/wrench/abductor, /obj/item/stack/sheet/mineral/abductor)),
+			/obj/item/wirecutters/abductor, /obj/item/wrench/abductor, /obj/item/stack/sheet/mineral/abductor,
+			/obj/item/toy/plush/slimeplushie)),
 
 		"birds" = typecacheof(list(
 			/obj/item/clothing/mask/gas/plaguedoctor,
 			/obj/item/food/cracker,
-			/obj/item/clothing/suit/chickensuit,
-			/obj/item/clothing/head/chicken,
+			/obj/item/clothing/suit/costume/chickensuit,
+			/obj/item/clothing/head/costume/chicken,
 			/obj/item/clothing/suit/toggle/owlwings,
 			/obj/item/clothing/under/costume/owl,
 			/obj/item/clothing/mask/gas/owl_mask,
 			/obj/item/clothing/under/costume/griffin,
 			/obj/item/clothing/shoes/griffin,
-			/obj/item/clothing/head/griffin,
+			/obj/item/clothing/head/costume/griffin,
 			/obj/item/clothing/head/helmet/space/freedom,
 			/obj/item/clothing/suit/space/freedom
 			)),
@@ -205,7 +206,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/food/chawanmushi,
 			/obj/item/reagent_containers/food/drinks/bottle/sake,
 			/obj/item/throwing_star,
-			/obj/item/clothing/head/kitty/genuine,
+			/obj/item/clothing/head/costume/kitty/genuine,
 			/obj/item/clothing/suit/space/space_ninja,
 			/obj/item/clothing/mask/gas/space_ninja,
 			/obj/item/clothing/shoes/space_ninja,
@@ -223,20 +224,20 @@ SUBSYSTEM_DEF(traumas)
 
 	phobia_turfs = list("space" = typecacheof(list(/turf/open/space, /turf/open/floor/holofloor/space, /turf/open/floor/fakespace)),
 						"the supernatural" = typecacheof(list(/turf/open/floor/clockwork, /turf/closed/wall/clockwork,
-						/turf/open/floor/plasteel/cult, /turf/closed/wall/mineral/cult)),
+						/turf/open/floor/cult, /turf/closed/wall/mineral/cult)),
 						"aliens" = typecacheof(list(/turf/open/floor/plating/abductor, /turf/open/floor/plating/abductor2,
 						/turf/open/floor/mineral/abductor, /turf/closed/wall/mineral/abductor)),
 						"falling" = typecacheof(list(/turf/open/chasm, /turf/open/floor/fakepit))
 						)
 
 	phobia_species = list("lizards" = typecacheof(list(/datum/species/lizard)),
-						  "skeletons" = typecacheof(list(/datum/species/skeleton, /datum/species/plasmaman)),
-						  "conspiracies" = typecacheof(list(/datum/species/abductor, /datum/species/lizard)),
-						  "robots" = typecacheof(list(/datum/species/android)),
-						  "the supernatural" = typecacheof(list(/datum/species/golem/clockwork, /datum/species/golem/runic)),
-						  "aliens" = typecacheof(list(/datum/species/abductor, /datum/species/pod,
-						  /datum/species/shadow)),
-						  "anime" = typecacheof(list(/datum/species/human/felinid))
-						 )
+							"skeletons" = typecacheof(list(/datum/species/skeleton, /datum/species/plasmaman)),
+							"conspiracies" = typecacheof(list(/datum/species/abductor, /datum/species/lizard)),
+							"robots" = typecacheof(list(/datum/species/android)),
+							"the supernatural" = typecacheof(list(/datum/species/golem/clockwork, /datum/species/golem/runic)),
+							"aliens" = typecacheof(list(/datum/species/abductor, /datum/species/pod,
+							/datum/species/shadow)),
+							"anime" = typecacheof(list(/datum/species/human/felinid))
+						)
 
-	return ..()
+	return SS_INIT_SUCCESS

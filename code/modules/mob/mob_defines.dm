@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SELF(/mob)
+
 /**
   * The mob, usually meant to be a creature of some type
   *
@@ -23,13 +25,15 @@
 	var/static/next_mob_id = 0
 
 	/// List of movement speed modifiers applying to this mob
-	var/list/movespeed_modification				//Lazy list, see mob_movespeed.dm
+	var/list/movespeed_modification	 //Lazy list, see mob_movespeed.dm
+	/// List of movement speed modifiers ignored by this mob. List -> List (id) -> List (sources)
+	var/list/movespeed_mod_immunities //Lazy list, see mob_movespeed.dm
 	/// The calculated mob speed slowdown based on the modifiers list
 	var/cached_multiplicative_slowdown
 	/// List of action speed modifiers applying to this mob
-	var/list/actionspeed_modification				//Lazy list, see mob_movespeed.dm
+	var/list/actionspeed_modification //Lazy list, see mob_movespeed.dm
 	/// List of action speed modifiers ignored by this mob. List -> List (id) -> List (sources)
-	var/list/actionspeed_mod_immunities			//Lazy list, see mob_movespeed.dm
+	var/list/actionspeed_mod_immunities //Lazy list, see mob_movespeed.dm
 	/// The calculated mob action speed slowdown based on the modifiers list
 	var/cached_multiplicative_actions_slowdown
 	/// List of action hud items the user has
@@ -91,6 +95,9 @@
 
 	/// Default body temperature
 	var/bodytemperature = BODYTEMP_NORMAL	//310.15K / 98.6F
+	/// Our body temperatue as of the last process, prevents pointless work when handling alerts
+	var/old_bodytemperature = 0
+
 	/// Drowsyness level of the mob
 	var/drowsyness = 0//Carbon
 	/// Dizziness level of the mob
@@ -117,8 +124,6 @@
 
 	/// The atom that this mob is currently buckled to
 	var/atom/movable/buckled = null//Living
-	/// The movable atom that we are currently in the process of buckling to, but haven't buckled with yet.
-	var/atom/movable/buckling
 
 	//Hands
 	///What hand is the active hand
@@ -156,9 +161,6 @@
 
 	/// Can this mob enter shuttles
 	var/move_on_shuttle = 1
-
-	///A weakref to the last mob/living/carbon to push/drag/grab this mob (exclusively used by slimes friend recognition)
-	var/datum/weakref/LAssailant = null
 
 	/**
 	  * construct spells and mime spells.

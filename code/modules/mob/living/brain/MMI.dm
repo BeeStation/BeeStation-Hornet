@@ -8,23 +8,25 @@
 	var/obj/item/radio/radio = null //Let's give it a radio.
 	var/mob/living/brain/brainmob = null //The current occupant.
 	var/mob/living/silicon/robot = null //Appears unused.
-	var/obj/mecha = null //This does not appear to be used outside of reference in mecha.dm.
+	var/obj/vehicle/sealed/mecha = null //This does not appear to be used outside of reference in mecha.dm.
 	var/obj/item/organ/brain/brain = null //The actual brain
 	var/datum/ai_laws/laws = new()
 	var/force_replace_ai_name = FALSE
 	var/overrides_aicore_laws = FALSE // Whether the laws on the MMI, if any, override possible pre-existing laws loaded on the AI core.
+	///Used to reserve an "original" cyborg name. When this mmi first becomes a cyborg, their name will be stored here in case of deconstruction.
+	var/original_name
 
 /obj/item/mmi/Initialize(mapload)
 	. = ..()
 	radio = new(src) //Spawns a radio inside the MMI.
-	radio.broadcasting = FALSE //researching radio mmis turned the robofabs into radios because this didnt start as 0.
+	radio.set_broadcasting(FALSE) //researching radio mmis turned the robofabs into radios because this didnt start as 0.
 	laws.set_laws_config()
 
 /obj/item/mmi/Destroy()
 	if(iscyborg(loc))
 		var/mob/living/silicon/robot/borg = loc
 		borg.mmi = null
-	mecha = null
+	set_mecha(null)
 	QDEL_NULL(brainmob)
 	QDEL_NULL(brain)
 	QDEL_NULL(radio)
@@ -68,7 +70,7 @@
 		log_attack("[key_name(user)] inserted [newbrain] into \the [src] at [AREACOORD(src)].")
 
 		SEND_SIGNAL(src, COMSIG_MMI_SET_BRAINMOB, newbrain.brainmob)
-		brainmob = newbrain.brainmob
+		set_brainmob(newbrain.brainmob)
 		newbrain.brainmob = null
 		brainmob.forceMove(src)
 		brainmob.container = src
@@ -101,8 +103,8 @@
 
 /obj/item/mmi/attack_self(mob/user)
 	if(!brain)
-		radio.on = !radio.on
-		to_chat(user, "<span class='notice'>You toggle [src]'s radio system [radio.on==1 ? "on" : "off"].</span>")
+		radio.set_on(!radio.is_on())
+		to_chat(user, "<span class='notice'>You toggle [src]'s radio system [radio.is_on() == TRUE ? "on" : "off"].</span>")
 	else
 		log_attack("[key_name(user)] ejected \the [brainmob] from \the [src] at [AREACOORD(src)].")
 		eject_brain(user)
@@ -144,13 +146,46 @@
 	brain.organ_flags |= ORGAN_FROZEN
 
 	brain.transfer_identity(L)
-	brainmob = brain.brainmob
+	set_brainmob(brain.brainmob)
 	brainmob.container = src
 
 	brain.name = "[L.real_name]'s brain"
 	name = "[initial(name)]: [brainmob.real_name]"
 	update_icon()
 	return
+
+/// Proc to hook behavior associated to the change in value of the [/obj/item/mmi/var/brainmob] variable.
+/obj/item/mmi/proc/set_brainmob(mob/living/brain/new_brainmob)
+	if(brainmob == new_brainmob)
+		return FALSE
+	. = brainmob
+	brainmob = new_brainmob
+	if(new_brainmob)
+		if(mecha)
+			REMOVE_TRAIT(new_brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+			REMOVE_TRAIT(new_brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
+		else
+			ADD_TRAIT(new_brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+			ADD_TRAIT(new_brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
+	if(.)
+		var/mob/living/brain/old_brainmob = .
+		ADD_TRAIT(old_brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+		ADD_TRAIT(old_brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
+
+
+/// Proc to hook behavior associated to the change in value of the [obj/vehicle/sealed/var/mecha] variable.
+/obj/item/mmi/proc/set_mecha(obj/vehicle/sealed/mecha/new_mecha)
+	if(mecha == new_mecha)
+		return FALSE
+	. = mecha
+	mecha = new_mecha
+	if(new_mecha)
+		if(!. && brainmob) // There was no mecha, there now is, and we have a brain mob that is no longer unaided.
+			REMOVE_TRAIT(brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+			REMOVE_TRAIT(brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
+	else if(. && brainmob) // There was a mecha, there no longer is one, and there is a brain mob that is now again unaided.
+		ADD_TRAIT(brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+		ADD_TRAIT(brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
 
 /obj/item/mmi/proc/replacement_ai_name()
 	return brainmob.name
@@ -164,12 +199,12 @@
 
 	if(brainmob.stat)
 		to_chat(brainmob, "<span class='warning'>Can't do that while incapacitated or dead!</span>")
-	if(!radio.on)
+	if(!radio.is_on())
 		to_chat(brainmob, "<span class='warning'>Your radio is disabled!</span>")
 		return
 
-	radio.listening = !radio.listening
-	to_chat(brainmob, "<span class='notice'>Radio is [radio.listening ? "now" : "no longer"] receiving broadcast.</span>")
+	radio.set_listening(!radio.get_listening())
+	to_chat(brainmob, "<span class='notice'>Radio is [radio.get_listening() ? "now" : "no longer"] receiving broadcast.</span>")
 
 /obj/item/mmi/emp_act(severity)
 	. = ..()
@@ -194,7 +229,7 @@
 
 /obj/item/mmi/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There is a switch to toggle the radio system [radio.on ? "off" : "on"].[brain ? " It is currently being covered by [brain]." : null]</span>"
+	. += "<span class='notice'>There is a switch to toggle the radio system [radio.is_on() ? "off" : "on"].[brain ? " It is currently being covered by [brain]." : null]</span>"
 	if(brainmob)
 		var/mob/living/brain/B = brainmob
 		if(!B.key || !B.mind || B.stat == DEAD)
@@ -206,8 +241,36 @@
 		else
 			. += "<span class='notice'>The MMI indicates the brain is active.</span>"
 
-/obj/item/mmi/relaymove(mob/user)
+/obj/item/mmi/relaymove(mob/living/user, direction)
 	return //so that the MMI won't get a warning about not being able to move if it tries to move
+
+/obj/item/mmi/proc/brain_check(mob/user)
+	var/mob/living/brain/B = brainmob
+	if(!B)
+		if(user)
+			to_chat(user, "<span class='warning'>\The [src] indicates that there is no brain present!</span>")
+		return FALSE
+	if(!B.key || !B.mind)
+		if(user)
+			to_chat(user, "<span class='warning'>\The [src] indicates that their mind is completely unresponsive!</span>")
+		return FALSE
+	if(!B.client)
+		if(user)
+			to_chat(user, "<span class='warning'>\The [src] indicates that their mind is currently inactive.</span>")
+		return FALSE
+	if(B.suiciding || brain?.suicided)
+		if(user)
+			to_chat(user, "<span class='warning'>\The [src] indicates that their mind has no will to live!</span>")
+		return FALSE
+	if(B.stat == DEAD)
+		if(user)
+			to_chat(user, "<span class='warning'>\The [src] indicates that the brain is dead!</span>")
+		return FALSE
+	if(brain?.organ_flags & ORGAN_FAILING)
+		if(user)
+			to_chat(user, "<span class='warning'>\The [src] indicates that the brain is damaged!</span>")
+		return FALSE
+	return TRUE
 
 /obj/item/mmi/syndie
 	name = "\improper Syndicate Man-Machine Interface"
@@ -217,4 +280,4 @@
 /obj/item/mmi/syndie/Initialize(mapload)
 	. = ..()
 	laws = new /datum/ai_laws/syndicate_override()
-	radio.on = FALSE
+	radio.set_on(FALSE)

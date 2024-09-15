@@ -10,7 +10,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "paint_sprayer"
 	item_state = "paint_sprayer"
-
+	worn_icon_state = "painter"
 	w_class = WEIGHT_CLASS_SMALL
 
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
@@ -486,3 +486,7 @@
 	var/datum/universal_icon/floor = uni_icon(preview_floor_icon, preview_floor_state)
 	floor.blend_icon(colored_icon, ICON_OVERLAY)
 	insert_icon("[decal]_[dir]_[replacetext(color, "#", "")]", floor)
+
+#undef PAINTER_MOST
+#undef PAINTER_MID
+#undef PAINTER_LOW

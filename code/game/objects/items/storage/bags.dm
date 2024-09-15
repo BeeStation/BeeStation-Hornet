@@ -37,9 +37,9 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
 	item_state = "trashbag"
+	worn_icon_state = "baguette"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-
 	w_class = WEIGHT_CLASS_BULKY
 	var/insertable = TRUE
 
@@ -99,6 +99,7 @@
 	desc = "A belt that opens into a near infinite pocket of bluespace."
 	icon_state = "hammerspace"
 	w_class = WEIGHT_CLASS_GIGANTIC
+	icon = 'icons/obj/storage/backpack.dmi'
 
 /obj/item/storage/bag/trash/bluespace/hammerspace/ComponentInitialize()
 	. = ..()
@@ -126,10 +127,12 @@
 	desc = "This little bugger can be used to store and transport ores."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
+	worn_icon_state = "satchel"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_POCKETS
 	w_class = WEIGHT_CLASS_NORMAL
 	component_type = /datum/component/storage/concrete/stack
-	var/spam_protection = FALSE //If this is TRUE, the holder won't receive any messages when they fail to pick up ore through crossing it
+	///If this is TRUE, the holder won't receive any messages when they fail to pick up ore through crossing it
+	var/spam_protection = FALSE
 	var/mob/listeningTo
 
 /obj/item/storage/bag/ore/ComponentInitialize()
@@ -217,6 +220,7 @@
 	name = "plant bag"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbag"
+	worn_icon_state = "plantbag"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 
@@ -226,7 +230,7 @@
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.max_combined_w_class = 100
 	STR.max_items = 100
-	STR.can_hold = typecacheof(list(/obj/item/food/grown, /obj/item/seeds, /obj/item/grown, /obj/item/reagent_containers/honeycomb, /obj/item/disk/plantgene))
+	STR.can_hold = typecacheof(list(/obj/item/food/grown, /obj/item/seeds, /obj/item/grown, /obj/item/reagent_containers/honeycomb, /obj/item/disk/plantgene, /obj/item/food/seaweed_sheet))
 
 ////////
 
@@ -266,6 +270,7 @@
 	desc = "A patented Nanotrasen storage system designed for any kind of mineral sheet."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sheetsnatcher"
+	worn_icon_state = "satchel"
 
 	var/capacity = 150 //the number of sheets it can carry.
 	w_class = WEIGHT_CLASS_NORMAL
@@ -302,6 +307,7 @@
 	desc = "A bag for books."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bookbag"
+	worn_icon_state = "bookbag"
 	w_class = WEIGHT_CLASS_BULKY //Bigger than a book because physics
 	resistance_flags = FLAMMABLE
 
@@ -318,16 +324,17 @@
  * Trays - Agouri
  */
 /obj/item/storage/bag/tray
-	name = "tray"
+	name = "serving tray"
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "tray"
+	worn_icon_state = "tray"
 	desc = "A metal tray to lay food on."
 	force = 5
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
-	w_class = WEIGHT_CLASS_BULKY
 	flags_1 = CONDUCT_1
+	slot_flags = ITEM_SLOT_BELT
 	custom_materials = list(/datum/material/iron=3000)
 
 /obj/item/storage/bag/tray/ComponentInitialize()
@@ -390,6 +397,7 @@
 	name = "chemistry bag"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bag"
+	worn_icon_state = "chembag"
 	desc = "A bag for storing pills, patches, and bottles."
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
@@ -410,6 +418,7 @@
 	name = "bio bag"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "biobag"
+	worn_icon_state = "biobag"
 	desc = "A bag for the safe transportation and disposal of biowaste and other biological materials."
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
@@ -431,6 +440,7 @@
 	name = "construction bag"
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "construction_bag"
+	worn_icon_state = "construction_bag"
 	desc = "A bag for storing small construction components."
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE

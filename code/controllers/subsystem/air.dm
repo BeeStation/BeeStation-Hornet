@@ -99,14 +99,14 @@ SUBSYSTEM_DEF(air)
 	msg += "MG:[get_max_gas_mixes()]"
 	return ..()
 
-/datum/controller/subsystem/air/Initialize(timeofday)
+/datum/controller/subsystem/air/Initialize()
 	map_loading = FALSE
 	setup_allturfs()
 	setup_atmos_machinery()
 	setup_pipenets()
 	gas_reactions = init_gas_reactions()
 	auxtools_update_reactions()
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/air/proc/extools_update_ssair()
 

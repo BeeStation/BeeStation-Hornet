@@ -124,9 +124,6 @@
 /turf/closed/mineral/random
 	var/mineralChance = 13
 
-/turf/closed/mineral/random/air
-	baseturfs = /turf/open/floor/plating/asteroid //the asteroid floor has air
-
 // Returns a list of the chances for minerals to spawn.
 /// Will only run once, and will then be cached.
 /turf/closed/mineral/random/proc/mineral_chances()
@@ -310,6 +307,24 @@
 		/obj/item/stack/ore/bluespace_crystal = 1,
 		/turf/closed/mineral/gibtonite/volcanic = 2,
 		/obj/item/stack/ore/iron = 95,
+	)
+/turf/closed/mineral/random/air
+	turf_type = /turf/open/floor/plating/asteroid
+	baseturfs = /turf/open/floor/plating/asteroid //the asteroid floor has air
+	defer_change = 1
+
+/turf/closed/mineral/random/air/mineral_chances()
+	return list(
+		/obj/item/stack/ore/iron = 70,
+		/obj/item/stack/ore/silver = 40,
+		/obj/item/stack/ore/copper = 40,
+		/obj/item/stack/ore/plasma = 35,
+		/obj/item/stack/ore/gold = 35,
+		/obj/item/stack/ore/titanium = 35,
+		/obj/item/stack/ore/uranium = 35,
+		/obj/item/stack/ore/diamond = 30,
+		/obj/item/stack/ore/bluespace_crystal = 5,
+		/turf/closed/mineral/bananium = 1,
 	)
 
 // Subtypes for mappers placing ores manually.
@@ -505,10 +520,6 @@
 	var/activated_ckey = null //These are to track who triggered the gibtonite deposit for logging purposes
 	var/activated_name = null
 	var/mutable_appearance/activated_overlay
-
-/turf/closed/mineral/gibtonite/Initialize(mapload)
-	det_time = rand(8,10) //So you don't know exactly when the hot potato will explode
-	. = ..()
 
 /turf/closed/mineral/gibtonite/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) && stage == 1)

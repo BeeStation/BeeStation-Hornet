@@ -6,7 +6,7 @@
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
 	max_integrity = 200
-	armor = list(MELEE = 50,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 50,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 0, BLEED = 0)
 
 	var/stage = 1
 	var/fixture_type = "tube"
@@ -15,6 +15,8 @@
 	var/obj/item/stock_parts/cell/cell
 
 	var/cell_connectors = TRUE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_construct)
 
 /obj/structure/light_construct/Initialize(mapload, ndir, building)
 	. = ..()
@@ -54,11 +56,14 @@
 		add_fingerprint(user)
 
 /obj/structure/light_construct/attack_tk(mob/user)
-	if(cell)
-		to_chat(user, "<span class='notice'>You telekinetically remove [cell].</span>")
-		cell.forceMove(drop_location())
-		cell.attack_tk(user)
-		remove_cell()
+	if(!cell)
+		return
+	to_chat(user, "<span class='notice'>You telekinetically remove [cell].</span>")
+	var/obj/item/stock_parts/cell/cell_reference = cell
+	cell = null
+	cell_reference.forceMove(drop_location())
+	remove_cell()
+	return cell_reference.attack_tk(user)
 
 /obj/structure/light_construct/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)

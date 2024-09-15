@@ -392,16 +392,18 @@
 	if(operating)
 		return
 	if(ismecha(AM))
-		var/obj/mecha/mecha = AM
+		var/obj/vehicle/sealed/mecha/mecha = AM
 		if(density)
-			if(mecha.occupant)
-				if(world.time - mecha.occupant.last_bumped <= 10)
-					return
-				mecha.occupant.last_bumped = world.time
-			if(locked && (allowed(mecha.occupant) || check_access_list(mecha.operation_req_access)) && aac)
+			if(mecha.occupants)
+				//Occupants are a list. Bump vars are stored on mobs, so we check those instead of mecha.occupants
+				for(var/mob/living/mecha_mobs in mecha.occupants)
+					if(world.time - mecha_mobs.last_bumped <= 10)
+						return
+					mecha_mobs.last_bumped = world.time
+			if(locked && (allowed(mecha.occupants) || check_access_list(mecha.operation_req_access)) && aac)
 				aac.request_from_door(src)
 				return
-			if(mecha.occupant && (src.allowed(mecha.occupant) || src.check_access_list(mecha.operation_req_access)))
+			if(mecha.occupants && (src.allowed(mecha.occupants) || src.check_access_list(mecha.operation_req_access)))
 				open()
 			else
 				do_animate("deny")
@@ -440,7 +442,7 @@
 				cyclelinkedairlock.delayed_close_requested = TRUE
 			else
 				addtimer(CALLBACK(cyclelinkedairlock, PROC_REF(close)), 2)
-	if(locked && allowed(user) && aac)
+	if(locked && aac && allowed(user))
 		aac.request_from_door(src)
 		return
 	..()
@@ -841,7 +843,7 @@
 /obj/machinery/door/airlock/attack_hand(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_AIRLOCK_TOUCHED, user) & COMPONENT_PREVENT_OPEN)
 		. = TRUE
-	else if(locked && allowed(user) && aac)
+	else if(locked && aac && allowed(user))
 		aac.request_from_door(src)
 		. = TRUE
 	else
@@ -1158,13 +1160,13 @@
 			user.Paralyze(60)
 			return
 		user.visible_message("<span class='notice'>[user] removes [charge] from [src].</span>", \
-							 "<span class='notice'>You gently pry out [charge] from [src] and unhook its wires.</span>")
+							"<span class='notice'>You gently pry out [charge] from [src] and unhook its wires.</span>")
 		charge.forceMove(get_turf(user))
 		charge = null
 		return
 	if(!security_level && (beingcrowbarred && panel_open && (density && welded && !operating && !hasPower() && !locked)))
 		user.visible_message("[user] removes the electronics from the airlock assembly.", \
-							 "<span class='notice'>You start to remove electronics from the airlock assembly...</span>")
+							"<span class='notice'>You start to remove electronics from the airlock assembly...</span>")
 		if(I.use_tool(src, user, 40, volume=100))
 			deconstruct(TRUE, user)
 			return TRUE
@@ -1404,7 +1406,7 @@
 /obj/machinery/door/airlock/proc/on_break()
 	if(!panel_open)
 		panel_open = TRUE
-	wires.cut_all()
+	wires.cut_all(null)
 
 /obj/machinery/door/airlock/proc/set_electrified(seconds, mob/user)
 	secondsElectrified = seconds
@@ -1426,7 +1428,7 @@
 		log_combat(user, src, message, important = FALSE)
 		add_hiddenprint(user)
 
-/obj/machinery/door/airlock/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/machinery/door/airlock/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(obj_integrity < (0.75 * max_integrity))
 		update_icon()
@@ -1449,8 +1451,7 @@
 		A.update_icon()
 
 		if(!disassembled)
-			if(A)
-				A.obj_integrity = A.max_integrity * 0.5
+			A?.update_integrity(A.max_integrity * 0.5)
 		else
 			if(user)
 				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")

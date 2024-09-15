@@ -55,7 +55,7 @@ Difficulty: Medium
 	var/transform_stop_attack = FALSE // stops the blood drunk miner from attacking after transforming his weapon until the next attack chain
 	deathmessage = "falls to the ground, decaying into glowing particles."
 	deathsound = "bodyfall"
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_HEAVY
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
 							   /datum/action/innate/megafauna_attack/kinetic_accelerator,
 							   /datum/action/innate/megafauna_attack/transform_weapon)
@@ -250,6 +250,8 @@ Difficulty: Medium
 /obj/effect/temp_visual/dir_setting/miner_death
 	icon_state = "miner_death"
 	duration = 15
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting/miner_death)
 
 /obj/effect/temp_visual/dir_setting/miner_death/Initialize(mapload, set_dir)
 	. = ..()

@@ -5,7 +5,8 @@
 /obj/item/seeds
 	name = "seed"
 	icon = 'icons/obj/hydroponics/seeds.dmi'
-	icon_state = "seed"				// Unknown plant seed - these shouldn't exist in-game.
+	icon_state = "seed" // Unknown plant seed - these shouldn't exist in-game.
+	worn_icon_state = "seed"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	var/plantname = "Plants"		// Name of plant when planted.
@@ -13,7 +14,8 @@
 	var/product						// A type path. The thing that is created when the plant is harvested.
 	var/species = ""				// Used to update icons. Should match the name in the sprites unless all icon_* are overridden.
 
-	var/growing_icon = 'icons/obj/hydroponics/growing.dmi' //the file that stores the sprites of the growing plant from this seed.
+	///the file that stores the sprites of the growing plant from this seed.
+	var/growing_icon = 'icons/obj/hydroponics/growing.dmi'
 	var/icon_grow					// Used to override grow icon (default is "[species]-grow"). You can use one grow icon for multiple closely related plants with it.
 	var/icon_dead					// Used to override dead icon (default is "[species]-dead"). You can use one dead icon for multiple closely related plants with it.
 	var/icon_harvest				// Used to override harvest icon (default is "[species]-harvest"). If null, plant will use [icon_grow][growthstages].
@@ -36,6 +38,8 @@
 
 	var/weed_rate = 1 //If the chance below passes, then this many weeds sprout during growth
 	var/weed_chance = 5 //Percentage chance per tray update to grow weeds
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 
 /obj/item/seeds/Initialize(mapload, nogenes = 0)
 	. = ..()

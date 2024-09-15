@@ -7,7 +7,8 @@
 	name = "station bounced radio"
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "radio"
-	item_state = "walkietalkie"
+	item_state = "radio"
+	worn_icon_state = "radio"
 	desc = "A basic handheld radio that communicates with local telecommunication networks."
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
@@ -21,12 +22,16 @@
 
 	var/uplink_flag = UPLINK_TRAITORS
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink)
+
 /obj/item/uplink/Initialize(mapload, owner, tc_amount = 20)
 	. = ..()
 	AddComponent(/datum/component/uplink, owner, FALSE, TRUE, uplink_flag, tc_amount)
 
 /obj/item/uplink/debug
 	name = "debug uplink"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/debug)
 
 /obj/item/uplink/debug/Initialize(mapload, owner, tc_amount = 9000)
 	. = ..()
@@ -40,6 +45,8 @@
 /obj/item/uplink/nuclear/debug
 	name = "debug nuclear uplink"
 	uplink_flag = UPLINK_NUKE_OPS
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/nuclear/debug)
 
 /obj/item/uplink/nuclear/debug/Initialize(mapload, owner, tc_amount = 9000)
 	. = ..()
@@ -62,17 +69,23 @@
 	name = "dusty radio"
 	desc = "A dusty looking radio."
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/old)
+
 /obj/item/uplink/old/Initialize(mapload, owner, tc_amount = 10)
 	. = ..()
 	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
 	hidden_uplink.name = "dusty radio"
 
 // Multitool uplink
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/multitool/uplink)
+
 /obj/item/multitool/uplink/Initialize(mapload, owner, tc_amount = 20)
 	. = ..()
 	AddComponent(/datum/component/uplink, owner, FALSE, TRUE, UPLINK_TRAITORS, tc_amount)
 
 // Pen uplink
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pen/uplink)
+
 /obj/item/pen/uplink/Initialize(mapload, owner, tc_amount = 20)
 	. = ..()
 	AddComponent(/datum/component/uplink, owner, TRUE, FALSE, UPLINK_TRAITORS, tc_amount)

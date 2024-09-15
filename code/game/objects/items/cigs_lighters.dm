@@ -50,7 +50,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		item_state = "cigon"
 		name = "lit [initial(name)]"
 		desc = "A [initial(name)]. This one is lit."
-		attack_verb = list("burnt","singed")
+		attack_verb_continuous = list("burns", "sings")
+		attack_verb_simple = list("burn", "sing")
 		START_PROCESSING(SSobj, src)
 		update_icon()
 
@@ -64,7 +65,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		item_state = "cigoff"
 		name = "burnt [initial(name)]"
 		desc = "A [initial(name)]. This one has seen better days."
-		attack_verb = list("flicked")
+		attack_verb_continuous = list("flicks")
+		attack_verb_simple = list("flick")
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/match/extinguish()
@@ -109,6 +111,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	name = "firebrand"
 	desc = "An unlit firebrand. It makes you wonder why it's not just called a stick."
 	smoketime = 40
+	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/carbon = 2)
 
 /obj/item/match/firebrand/Initialize(mapload)
@@ -174,8 +177,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	else
 		return ..()
 
-/obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/glass, mob/user, proximity)
-	. = ..()
+/obj/item/clothing/mask/cigarette/proc/dip(obj/item/reagent_containers/glass/glass, mob/user, proximity)
 	if(!proximity || lit) //can't dip if cigarette is lit (it will heat the reagents in the glass instead)
 		return
 	if(istype(glass))	//you can dip cigarettes into beakers
@@ -189,6 +191,38 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			else
 				to_chat(user, "<span class='notice'>[src] is full.</span>")
 
+/obj/item/clothing/mask/cigarette/proc/butt(mob/living/M, mob/living/user, proximity)
+	if(!istype(M))
+		return
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		return
+	if(lit && user.a_intent == INTENT_HARM)
+		force = 4
+		var/target_zone = user.get_combat_bodyzone()
+		M.apply_damage(force, BURN, target_zone)
+		qdel(src)
+		var/cig_butt = new type_butt()
+		user.put_in_hands(cig_butt)
+		new /obj/effect/decal/cleanable/ash(M.loc)
+		playsound(user, 'sound/surgery/cautery2.ogg', 25, 1)
+		return
+	if(lit && user.a_intent != INTENT_HARM)
+		smoketime -= 120
+		if(prob(40))
+			src.extinguish()
+			if(src.smoketime <= 0)
+				qdel(src)
+				var/cig_butt = new type_butt()
+				user.put_in_hands(cig_butt)
+				playsound(user, 'sound/items/cig_snuff.ogg', 25, 1)
+
+/obj/item/clothing/mask/cigarette/afterattack(var/target, mob/living/user, proximity)
+	if (istype(target, /mob/living))
+		butt(target, user, proximity)
+		. = ..()
+	else
+		. = ..()
+		dip(target, user, proximity)
 
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
 	if(lit)
@@ -200,7 +234,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 	lit = TRUE
 	name = "lit [name]"
-	attack_verb = list("burnt", "singed")
+	attack_verb_continuous = list("burns", "sings")
+	attack_verb_simple = list("burn", "sing")
 	hitsound = 'sound/items/welder.ogg'
 	damtype = BURN
 	force = 4
@@ -234,7 +269,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(!lit)
 		return
 	name = copytext_char(name, 5) //5 == length_char("lit ") + 1
-	attack_verb = null
+	attack_verb_continuous = null
+	attack_verb_simple = null
 	hitsound = null
 	damtype = BRUTE
 	force = 0
@@ -587,6 +623,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "zippo"
 	item_state = "zippo"
+	worn_icon_state = "lighter"
 	w_class = WEIGHT_CLASS_TINY
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
@@ -652,12 +689,14 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		force = 5
 		damtype = BURN
 		hitsound = 'sound/items/welder.ogg'
-		attack_verb = list("burnt", "singed")
+		attack_verb_continuous = list("burns", "sings")
+		attack_verb_simple = list("burn", "sing")
 		START_PROCESSING(SSobj, src)
 	else
 		hitsound = "swing_hit"
 		force = 0
-		attack_verb = null //human_defense.dm takes care of it
+		attack_verb_continuous = null //human_defense.dm takes care of it
+		attack_verb_simple = null
 		STOP_PROCESSING(SSobj, src)
 	set_light_on(lit)
 	update_icon()
@@ -673,15 +712,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				user.visible_message("Without even breaking stride, [user] flips open and lights [src] in one smooth movement.", "<span class='notice'>Without even breaking stride, you flip open and light [src] in one smooth movement.</span>")
 				playsound(src.loc, 'sound/items/zippo_on.ogg', 100, 1)
 			else
-				var/prot = FALSE
 				var/mob/living/carbon/human/H = user
 
-				if(istype(H) && H.gloves)
-					var/obj/item/clothing/gloves/G = H.gloves
-					if(G.max_heat_protection_temperature)
-						prot = (G.max_heat_protection_temperature > 360)
-				else
-					prot = TRUE
+				var/prot = !istype(H) || H.gloves
 
 				if(prot || prob(75))
 					user.visible_message("After a few attempts, [user] manages to light [src].", "<span class='notice'>After a few attempts, you manage to light [src].</span>")
@@ -848,6 +881,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	return (TOXLOSS|OXYLOSS)
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/mask/vape)
+
 /obj/item/clothing/mask/vape/Initialize(mapload, param_color)
 	. = ..()
 	create_reagents(chem_volume, NO_REACT)
@@ -985,7 +1020,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		if(prob(5))//small chance for the vape to break and deal damage if it's emagged
 			playsound(get_turf(src), 'sound/effects/pop_expl.ogg', 50, 0)
 			M.apply_damage(20, BURN, BODY_ZONE_HEAD)
-			M.Paralyze(300, 1, 0)
+			M.Paralyze(300)
 			var/datum/effect_system/spark_spread/sp = new /datum/effect_system/spark_spread
 			sp.set_up(5, 1, src)
 			sp.start()

@@ -36,6 +36,8 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 // Auto conveyour is always on unless unpowered
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor/auto)
+
 /obj/machinery/conveyor/auto/Initialize(mapload, newdir)
 	. = ..()
 	set_operating(TRUE)
@@ -48,6 +50,8 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		set_operating(TRUE)
 
 // create a conveyor
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
+
 /obj/machinery/conveyor/Initialize(mapload, newdir, newid)
 	. = ..()
 	if(newdir)
@@ -174,7 +178,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	if(machine_stat & NOPOWER)
 		set_operating(FALSE)
 		return FALSE
-		
+
 	if(!operating) //If we're on, start conveying so moveloops on our tile can be refreshed if they stopped for some reason
 		return
 	for(var/atom/movable/movable in get_turf(src))
@@ -257,7 +261,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor)
 	id = cswitch.id
 	LAZYADD(GLOB.conveyors_by_id[id], src)
 	to_chat(user, "<span class='notice'>You link [src] to [cswitch].</span>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 // attack with hand, move pulled object onto conveyor
 /obj/machinery/conveyor/attack_hand(mob/user)
@@ -315,6 +319,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor)
 	var/invert_icon = FALSE		// If the level points the opposite direction when it's turned on.
 
 	var/id = "" 				// must match conveyor IDs to control them
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor_switch)
 
 /obj/machinery/conveyor_switch/Initialize(mapload, newid)
 	. = ..()
@@ -408,7 +414,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You store [src] in [buffer_parent]'s buffer.</span>")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/conveyor_switch/screwdriver_act(mob/living/user, obj/item/I)
@@ -481,6 +487,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 	///id for linking
 	var/id = ""
 
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/conveyor)
 
 /obj/item/stack/conveyor/Initialize(mapload, new_amount, merge = TRUE, mob/user = null, _id)
 	. = ..()

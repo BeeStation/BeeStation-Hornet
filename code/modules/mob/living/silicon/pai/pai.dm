@@ -14,6 +14,7 @@
 	layer = BELOW_MOB_LAYER
 	can_be_held = TRUE
 	radio = /obj/item/radio/headset/silicon/pai
+	can_buckle_to = FALSE
 	move_force = 0
 	pull_force = 0
 	move_resist = 0
@@ -108,12 +109,6 @@
 	var/atom/movable/screen/ai/modpc/interface_button
 
 
-/mob/living/silicon/pai/can_unbuckle()
-	return FALSE
-
-/mob/living/silicon/pai/can_buckle()
-	return FALSE
-
 /mob/living/silicon/pai/handle_atom_del(atom/A)
 	if(A == hacking_cable)
 		hacking_cable = null
@@ -175,6 +170,11 @@
 
 	emittersemicd = TRUE
 	addtimer(CALLBACK(src, PROC_REF(emittercool)), 600)
+
+	if(!holoform)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, PAI_FOLDED)
+		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, PAI_FOLDED)
+
 	return INITIALIZE_HINT_LATELOAD
 
 
@@ -214,15 +214,17 @@
 	return TRUE
 
 /mob/living/silicon/pai/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
 	mind.assigned_role = JOB_NAME_PAI
 	notes_assets.send(client)
 	client.perspective = EYE_PERSPECTIVE
 	if(holoform)
-		client.eye = src
+		client.set_eye(src)
 	else
-		client.eye = card
+		client.set_eye(card)
 
 /mob/living/silicon/pai/get_stat_tab_status()
 	var/list/tab_data = ..()
@@ -231,9 +233,6 @@
 	else
 		tab_data["Systems"] = GENERATE_STAT_TEXT("nonfunctional")
 	return tab_data
-
-/mob/living/silicon/pai/restrained(ignore_grab)
-	. = FALSE
 
 // See software.dm for Topic()
 
@@ -299,7 +298,7 @@
 
 /datum/action/innate/pai/rest/Trigger()
 	..()
-	P.lay_down()
+	P.toggle_resting()
 
 /datum/action/innate/pai/light
 	name = "Toggle Integrated Lights"
@@ -314,9 +313,9 @@
 /mob/living/silicon/pai/Process_Spacemove(movement_dir = 0)
 	. = ..()
 	if(!.)
-		add_movespeed_modifier(MOVESPEED_ID_PAI_SPACEWALK_SPEEDMOD, TRUE, 100, multiplicative_slowdown = 2)
+		add_movespeed_modifier(/datum/movespeed_modifier/pai_spacewalk)
 		return TRUE
-	remove_movespeed_modifier(MOVESPEED_ID_PAI_SPACEWALK_SPEEDMOD, TRUE)
+	remove_movespeed_modifier(/datum/movespeed_modifier/pai_spacewalk)
 	return TRUE
 
 /mob/living/silicon/pai/examine(mob/user)

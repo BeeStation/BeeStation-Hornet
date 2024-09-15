@@ -39,6 +39,9 @@ GLOBAL_PROTECT(href_token)
 	/// Banning Panel
 	var/datum/admin_ban_panel/ban_panel
 
+	/// A lazylist of tagged datums, for quick reference with the View Tags verb
+	var/list/tagged_datums
+
 /datum/admins/New(datum/admin_rank/R, ckey, force_active = FALSE, protected)
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
@@ -88,6 +91,7 @@ GLOBAL_PROTECT(href_token)
 	deadmined = FALSE
 	if (GLOB.directory[target])
 		associate(GLOB.directory[target])	//find the client for a ckey if they are connected and associate them with us
+	load_mentors()
 
 /datum/admins/proc/deactivate()
 	if(IsAdminAdvancedProcCall())
@@ -103,6 +107,7 @@ GLOBAL_PROTECT(href_token)
 		disassociate()
 		C.add_verb(/client/proc/readmin)
 		C.update_special_keybinds()
+	load_mentors()
 
 /datum/admins/proc/associate(client/C)
 	if(IsAdminAdvancedProcCall())
@@ -111,23 +116,20 @@ GLOBAL_PROTECT(href_token)
 		log_admin("[key_name(usr)][msg]")
 		return
 
-	if(!istype(C))
-		return
-	if(C.ckey != target)
-		var/msg = " has attempted to associate with [target]'s admin datum"
-		message_admins("[key_name_admin(C)][msg]")
-		log_admin("[key_name(C)][msg]")
-		return
-	if (deadmined)
-		activate()
-	owner = C
-	owner.holder = src
-	owner.add_admin_verbs()	//TODO <--- todo what? the proc clearly exists and works since its the backbone to our entire admin system
-	owner.remove_verb(/client/proc/readmin)
-	owner.update_special_keybinds()
-	GLOB.admins |= C
-	if(istype(owner.mentor_datum))
-		owner.mentor_datum.activate()
+	if(istype(C))
+		if(C.ckey != target)
+			var/msg = " has attempted to associate with [target]'s admin datum"
+			message_admins("[key_name_admin(C)][msg]")
+			log_admin("[key_name(C)][msg]")
+			return
+		if (deadmined)
+			activate()
+		owner = C
+		owner.holder = src
+		owner.add_admin_verbs()	//TODO <--- todo what? the proc clearly exists and works since its the backbone to our entire admin system
+		owner.remove_verb(/client/proc/readmin)
+		owner.update_special_keybinds()
+		GLOB.admins |= C
 
 /datum/admins/proc/disassociate()
 	if(IsAdminAdvancedProcCall())
@@ -135,14 +137,11 @@ GLOBAL_PROTECT(href_token)
 		message_admins("[key_name_admin(usr)][msg]")
 		log_admin("[key_name(usr)][msg]")
 		return
-	if(!owner)
-		return
-	GLOB.admins -= owner
-	owner.remove_admin_verbs()
-	if(istype(owner.mentor_datum))
-		owner.mentor_datum.deactivate()
-	owner.holder = null
-	owner = null
+	if(owner)
+		GLOB.admins -= owner
+		owner.remove_admin_verbs()
+		owner.holder = null
+		owner = null
 
 /datum/admins/proc/check_for_rights(rights_required)
 	if(rights_required && !(rights_required & rank.rights))

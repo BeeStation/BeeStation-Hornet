@@ -235,27 +235,25 @@
 	turns_per_move = 5
 	speak_chance = 5
 	del_on_death = TRUE
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	search_objects = 1
 	a_intent = INTENT_HARM
 	attack_sound = 'sound/weapons/cqchit2.ogg'
-	attacktext = "punches"
+	attack_verb_continuous = "punches"
+	attack_verb_simple = "punch"
 	robust_searching = 1
 	melee_damage = 12
 	speed = 0
 	maxHealth = 100
 	health = 100
 	melee_damage = 12
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	faction = list("nanotrasenprivate")
 	status_flags = CANPUSH
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 10
 	loot = list(/obj/effect/mob_spawn/human/corpse/nanotrasensoldier)
-	response_help = "pokes"
-	response_disarm = "shoves"
-	response_harm = "hits"
 	var/cooldown = 0
 
 /mob/living/simple_animal/hostile/factory/death(gibbed)
@@ -356,7 +354,8 @@
 	maxHealth = 250
 	melee_damage = 20
 	rapid_melee = 3
-	attacktext = "hits"
+	attack_verb_continuous = "hits"
+	attack_verb_simple = "hit"
 	attack_sound = 'sound/weapons/genhit3.ogg'
 	projectilesound = 'sound/weapons/sniper_shot.ogg'
 	speak_chance = 2
@@ -392,13 +391,11 @@
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "psycho"
 	icon_living = "psycho"
-	attacktext = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	turns_per_move = 0
 	del_on_death = TRUE
-	response_help = "pokes"
-	response_disarm = "touches"
-	response_harm = "hits"
 	speak_chance = 5
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak = list("I'm not mad!","What insanity?","Kill")
@@ -415,7 +412,7 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	obj_damage = 5
 	sidestep_per_cycle = 0
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	melee_damage = 15
 	lose_patience_timeout = 350
 	loot = list(/obj/effect/mob_spawn/human/corpse/psychost)
@@ -459,7 +456,6 @@
 /mob/living/simple_animal/hostile/psycho/muzzle
 	icon_state = "psychomuzzle"
 	icon_living = "psychomuzzle"
-	attacktext = "headbutts"
 	attack_sound = null
 	speak_chance = 0
 	melee_damage = 9
@@ -507,7 +503,6 @@
 	move_to_delay = 2
 	melee_damage = 15
 	attack_sound = null
-	attacktext = "headbutts"
 	loot = list(/obj/effect/mob_spawn/human/corpse/psychost/trap)
 	var/cooldown = 0
 	var/static/list/idle_sounds
@@ -567,7 +562,8 @@
 	speak_chance = 0
 	speak = null
 	aggro_vision_range = 9
-	attacktext = "hits"
+	attack_verb_continuous = "hits"
+	attack_verb_simple = "hit"
 	attack_sound = 'sound/weapons/genhit3.ogg'
 	retreat_distance = 2
 	melee_queue_distance = 1
@@ -634,13 +630,13 @@
 	melee_damage = null
 	attack_sound = null
 	del_on_death = TRUE
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	a_intent = INTENT_HARM
 	var/det_time = 30
 	var/active = 0
 	var/cooldown = 0
 	loot = list(/obj/effect/mob_spawn/human/corpse/suicidezombie, /obj/item/grenade/syndieminibomb/concussion/frag/activated)
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	hardattacks = TRUE
 
 /mob/living/simple_animal/hostile/zombie_suicide/Aggro()
@@ -721,18 +717,18 @@
 
 /mob/living/simple_animal/hostile/syndicate/factory/boss/Shoot()
 	var/static/list/allowed_projectile_types = list(/obj/item/ammo_casing/shotgun/beanbag,
-										 /obj/item/ammo_casing/shotgun, /obj/item/ammo_casing/shotgun/incendiary,
-										 /obj/item/ammo_casing/shotgun/dragonsbreath,
-										 /obj/item/ammo_casing/shotgun/meteorslug,
-										 /obj/item/ammo_casing/shotgun/pulseslug,
-										 /obj/item/ammo_casing/shotgun/frag12,
-										 /obj/item/ammo_casing/shotgun/buckshot,
-										 /obj/item/ammo_casing/shotgun/rubbershot,
-										 /obj/item/ammo_casing/shotgun/incapacitate,
-										 /obj/item/ammo_casing/shotgun/improvised,
-										 /obj/item/ammo_casing/shotgun/ion,
-										 /obj/item/ammo_casing/shotgun/laserslug,
-										 /obj/item/ammo_casing/shotgun/breacher)
+										/obj/item/ammo_casing/shotgun, /obj/item/ammo_casing/shotgun/incendiary,
+										/obj/item/ammo_casing/shotgun/dragonsbreath,
+										/obj/item/ammo_casing/shotgun/meteorslug,
+										/obj/item/ammo_casing/shotgun/pulseslug,
+										/obj/item/ammo_casing/shotgun/frag12,
+										/obj/item/ammo_casing/shotgun/buckshot,
+										/obj/item/ammo_casing/shotgun/rubbershot,
+										/obj/item/ammo_casing/shotgun/incapacitate,
+										/obj/item/ammo_casing/shotgun/improvised,
+										/obj/item/ammo_casing/shotgun/ion,
+										/obj/item/ammo_casing/shotgun/laserslug,
+										/obj/item/ammo_casing/shotgun/breacher)
 	casingtype = pick(allowed_projectile_types)
 	..()
 	sleep(5)
@@ -789,6 +785,7 @@
 	fire_sound_volume = 60    //tried on 90 my eardrums said goodbye
 	item_state = "leveraction"
 	icon_state = "leveraction"
+	worn_icon_state = "shotgun"
 	rack_sound = "sound/weapons/leveractionrack.ogg"
 	fire_sound = "sound/weapons/leveractionshot.ogg"
 	vary_fire_sound = FALSE

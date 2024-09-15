@@ -14,10 +14,10 @@
 	},
 /area/ruin/unpowered)
 "e" = (
-/turf/open/floor/plasteel/vaporwave,
+/turf/open/floor/iron/vaporwave,
 /area/ruin/unpowered)
 "j" = (
-/turf/open/floor/plasteel/stairs/right,
+/turf/open/floor/iron/stairs/right,
 /area/ruin/unpowered)
 "k" = (
 /obj/effect/abstract/doorway_marker{
@@ -44,13 +44,13 @@
 "s" = (
 /obj/item/paper/crumpled/docslogs,
 /obj/item/pen,
-/turf/open/floor/plasteel/vaporwave,
+/turf/open/floor/iron/vaporwave,
 /area/ruin/unpowered)
 "t" = (
 /obj/structure/displaycase{
 	start_showpiece_type = /obj/item/hilbertshotel
 	},
-/turf/open/floor/plasteel/vaporwave,
+/turf/open/floor/iron/vaporwave,
 /area/ruin/unpowered)
 "u" = (
 /turf/open/floor/carpet/grimy{
@@ -65,7 +65,7 @@
 	},
 /area/ruin/unpowered)
 "A" = (
-/turf/open/floor/plasteel/stairs/medium,
+/turf/open/floor/iron/stairs/medium,
 /area/ruin/unpowered)
 "B" = (
 /obj/structure/table/glass,
@@ -82,7 +82,7 @@
 	},
 /area/ruin/unpowered)
 "E" = (
-/turf/open/floor/plasteel/stairs/left,
+/turf/open/floor/iron/stairs/left,
 /area/ruin/unpowered)
 "I" = (
 /obj/structure/table/glass,
@@ -128,7 +128,7 @@
 /area/ruin/unpowered)
 "V" = (
 /obj/machinery/door/airlock/vault{
-	name = "secured door";
+	name = "secured Door";
 	req_access = 207
 	},
 /obj/effect/mapping_helpers/airlock/locked,

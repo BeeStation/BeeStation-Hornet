@@ -46,6 +46,8 @@
 	/// Amount of matter for RCD
 	var/matter_amount = 0
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
+
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	if(new_amount != null)
 		amount = new_amount
@@ -62,15 +64,17 @@
 
 	. = ..()
 	if(merge)
-		for(var/obj/item/stack/S in loc)
-			if(can_merge(S))
-				merge(S)
-				if(QDELETED(src))
-					return
+		for(var/obj/item/stack/item_stack in loc)
+			if(item_stack == src)
+				continue
+			if(can_merge(item_stack))
+				INVOKE_ASYNC(src, PROC_REF(merge_without_del), item_stack)
+				if(is_zero_amount(delete_if_zero = FALSE))
+					return INITIALIZE_HINT_QDEL
 	update_weight()
-	update_icon()
+	update_appearance()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		COMSIG_ATOM_ENTERED = PROC_REF(on_movable_entered_occupied_turf),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -348,18 +352,18 @@
 	return TRUE
 
 /obj/item/stack/use(used, transfer = FALSE, check = TRUE) // return FALSE = borked; return TRUE = had enough
-	if(check && zero_amount())
+	if(check && is_zero_amount(delete_if_zero = TRUE))
 		return FALSE
 	if(is_cyborg)
 		return source.use_charge(used * cost)
 	if(amount < used)
 		return FALSE
 	amount -= used
-	if(check && zero_amount())
+	if(check && is_zero_amount(delete_if_zero = TRUE))
 		return TRUE
 	if(length(mats_per_unit))
 		update_custom_materials()
-	update_icon()
+	update_appearance()
 	ui_update()
 	update_weight()
 	return TRUE
@@ -376,11 +380,18 @@
 		return FALSE
 	return TRUE
 
-/obj/item/stack/proc/zero_amount()
+/**
+ * Returns TRUE if the item stack is the equivalent of a 0 amount item.
+ *
+ * Also deletes the item if delete_if_zero is TRUE and the stack does not have
+ * is_cyborg set to true.
+ */
+/obj/item/stack/proc/is_zero_amount(delete_if_zero = TRUE)
 	if(is_cyborg)
 		return source.energy < cost
 	if(amount < 1)
-		qdel(src)
+		if(delete_if_zero)
+			qdel(src)
 		return TRUE
 	return FALSE
 
@@ -396,7 +407,7 @@
 		amount += _amount
 	if(length(mats_per_unit))
 		update_custom_materials()
-	update_icon()
+	update_appearance()
 	update_weight()
 	ui_update()
 
@@ -414,26 +425,55 @@
 		return FALSE
 	return TRUE
 
-/obj/item/stack/proc/merge(obj/item/stack/S) //Merge src into S, as much as possible
-	if(QDELETED(S) || QDELETED(src) || S == src) //amusingly this can cause a stack to consume itself, let's not allow that.
-		return
+/**
+ * Merges as much of src into target_stack as possible. If present, the limit arg overrides target_stack.max_amount for transfer.
+ *
+ * This calls use() without check = FALSE, preventing the item from qdeling itself if it reaches 0 stack size.
+ *
+ * As a result, this proc can leave behind a 0 amount stack.
+ */
+/obj/item/stack/proc/merge_without_del(obj/item/stack/target_stack, limit)
+	// Cover edge cases where multiple stacks are being merged together and haven't been deleted properly.
+	// Also cover edge case where a stack is being merged into itself, which is supposedly possible.
+	if(QDELETED(target_stack))
+		CRASH("Stack merge attempted on qdeleted target stack.")
+	if(QDELETED(src))
+		CRASH("Stack merge attempted on qdeleted source stack.")
+	if(target_stack == src)
+		CRASH("Stack attempted to merge into itself.")
+
 	var/transfer = get_amount()
-	if(S.is_cyborg)
-		transfer = min(transfer, round((S.source.max_energy - S.source.energy) / S.cost))
+	if(target_stack.is_cyborg)
+		transfer = min(transfer, round((target_stack.source.max_energy - target_stack.source.energy) / target_stack.cost))
 	else
-		transfer = min(transfer, S.max_amount - S.amount)
+		transfer = min(transfer, (limit ? limit : target_stack.max_amount) - target_stack.amount)
 	if(pulledby)
-		pulledby.start_pulling(S)
-	S.copy_evidences(src)
-	use(transfer, TRUE)
-	S.add(transfer)
+		pulledby.start_pulling(target_stack)
+	target_stack.copy_evidences(src)
+	use(transfer, transfer = TRUE, check = FALSE)
+	target_stack.add(transfer)
 	return transfer
 
-/obj/item/stack/proc/on_entered(datum/source, obj/O)
+/**
+ * Merges as much of src into target_stack as possible. If present, the limit arg overrides target_stack.max_amount for transfer.
+ *
+ * This proc deletes src if the remaining amount after the transfer is 0.
+ */
+/obj/item/stack/proc/merge(obj/item/stack/target_stack, limit)
+	. = merge_without_del(target_stack, limit)
+	is_zero_amount(delete_if_zero = TRUE)
+	ui_update() //merging into stack wont update stackcrafting menu otherwise
+
+/// Signal handler for connect_loc element. Called when a movable enters the turf we're currently occupying. Merges if possible.
+/obj/item/stack/proc/on_movable_entered_occupied_turf(datum/source, atom/movable/arrived)
 	SIGNAL_HANDLER
 
-	if(can_merge(O) && !O.throwing)
-		INVOKE_ASYNC(src, PROC_REF(merge), O)
+	// Edge case. This signal will also be sent when src has entered the turf. Don't want to merge with ourselves.
+	if(arrived == src)
+		return
+
+	if(!arrived.throwing && can_merge(arrived))
+		INVOKE_ASYNC(src, PROC_REF(merge), arrived)
 
 /obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(can_merge(AM))
@@ -443,30 +483,23 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/stack/attack_hand(mob/user)
 	if(user.get_inactive_held_item() == src)
-		if(zero_amount())
+		if(is_zero_amount(delete_if_zero = TRUE))
 			return
 		return split_stack(user, 1)
 	else
 		. = ..()
 
 /obj/item/stack/AltClick(mob/living/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+	if(is_cyborg || !user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
 		return
-	if(is_cyborg)
+	if(is_zero_amount(delete_if_zero = TRUE))
 		return
-	else
-		if(zero_amount())
-			return
-		//get amount from user
-		var/max = get_amount()
-		var/stackmaterial = round(input(user,"How many sheets do you wish to take out of this stack? (Maximum  [max])") as null|num)
-		max = get_amount()
-		stackmaterial = min(max, stackmaterial)
-		if(!stackmaterial || stackmaterial < 0 || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-			return
-		else
-			split_stack(user, stackmaterial)
-			to_chat(user, "<span class='notice'>You take [stackmaterial] sheets out of the stack.</span>")
+	var/max = get_amount()
+	var/stackmaterial = tgui_input_number(user, "How many sheets do you wish to take out of this stack?", "Stack Split", max_value = max)
+	if(!stackmaterial || QDELETED(user) || QDELETED(src) || !usr.canUseTopic(src, BE_CLOSE, FALSE, NO_TK, !iscyborg(user)))
+		return
+	split_stack(user, stackmaterial)
+	to_chat(user, "<span class='notice'>You take [stackmaterial] sheets out of the stack.</span>")
 
 /** Splits the stack into two stacks.
   *
@@ -486,7 +519,8 @@
 			F.forceMove(user.drop_location())
 		add_fingerprint(user)
 		F.add_fingerprint(user)
-	zero_amount()
+
+	is_zero_amount(delete_if_zero = TRUE)
 
 /obj/item/stack/attackby(obj/item/W, mob/user, params)
 	if(can_merge(W))

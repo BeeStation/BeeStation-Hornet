@@ -91,7 +91,6 @@
 			/obj/item/trash/chips = 1,
 			/obj/item/food/deadmouse = 1,
 			/obj/item/trash/pistachios = 1,
-			/obj/item/trash/plate = 1,
 			/obj/item/trash/popcorn = 1,
 			/obj/item/trash/raisins = 1,
 			/obj/item/trash/sosjerky = 1,
@@ -335,25 +334,25 @@
 	name = "beret or rabbit ears spawner"
 	loot = list(
 		/obj/item/clothing/head/beret = 1,
-		/obj/item/clothing/head/rabbitears = 1)
+		/obj/item/clothing/head/costume/rabbitears = 1)
 
 /obj/effect/spawner/lootdrop/minor/bowler_or_that
 	name = "bowler or top hat spawner"
 	loot = list(
-		/obj/item/clothing/head/bowler = 1,
-		/obj/item/clothing/head/that = 1)
+		/obj/item/clothing/head/hats/bowler = 1,
+		/obj/item/clothing/head/hats/tophat = 1)
 
 /obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears
 	name = "kitty ears or rabbit ears spawner"
 	loot = list(
-		/obj/item/clothing/head/kitty = 1,
-		/obj/item/clothing/head/rabbitears = 1)
+		/obj/item/clothing/head/costume/kitty = 1,
+		/obj/item/clothing/head/costume/rabbitears = 1)
 
 /obj/effect/spawner/lootdrop/minor/pirate_or_bandana
 	name = "pirate hat or bandana spawner"
 	loot = list(
-		/obj/item/clothing/head/pirate = 1,
-		/obj/item/clothing/head/bandana = 1)
+		/obj/item/clothing/head/costume/pirate = 1,
+		/obj/item/clothing/head/costume/pirate/bandana = 1)
 
 /obj/effect/spawner/lootdrop/minor/twentyfive_percent_cyborg_mask
 	name = "25% cyborg mask spawner"

@@ -103,8 +103,8 @@
 		sleep(15)
 		if(loc == oldloc && user && !user.incapacitated())
 			user.visible_message("[user] has flipped [src]. It lands on [coinflip].", \
- 							 "<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
-							 "<span class='italics'>You hear the clattering of loose change.</span>")
+							"<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
+							"<span class='italics'>You hear the clattering of loose change.</span>")
 	return TRUE//did the coin flip? useful for suicide_act
 
 /obj/item/coin/gold
@@ -164,14 +164,13 @@
 /obj/item/coin/antagtoken
 	name = "antag token"
 	desc = "A novelty coin that helps the heart know what hard evidence cannot prove."
-	icon_state = "coin_valid_valid"
+	icon_state = "coin_valid"
 	custom_materials = list(/datum/material/plastic = 400)
 	sideslist = list("valid", "salad")
 	material_flags = NONE
 
 /obj/item/coin/arcade_token
 	name = "arcade token"
-	icon_state = "coin_bananium_heads"
 	custom_materials = list(/datum/material/bananium = 400)
 	desc = "A coin that allows you to redeem a prize from an arcade machine."
 	value = 0

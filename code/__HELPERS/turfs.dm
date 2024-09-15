@@ -413,3 +413,17 @@ Turf and target are separate in case you want to teleport some distance from a t
 	if(pressure <= 20 || pressure >= 550)
 		return FALSE
 	return TRUE
+
+/// returns a turf that isn't holy from the list
+/proc/get_non_holy_tile_from_list(list/turf_list)
+	if(!length(turf_list))
+		CRASH("No turf list has been given")
+	var/list/copied_turf_list = turf_list.Copy()
+	var/turf/found_tile
+	do
+		found_tile = get_turf(pick_n_take(copied_turf_list)) // uses 'pick_an_take()' proc, so an item will be drawn from the list for each iteration. also, uses 'get_turf()` just in case.
+	while(found_tile && found_tile.is_holy() && length(copied_turf_list))
+
+	if(found_tile.is_holy()) // we found no valid tile at all
+		return
+	return found_tile

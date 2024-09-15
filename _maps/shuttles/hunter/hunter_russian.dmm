@@ -19,7 +19,7 @@
 /obj/effect/mob_spawn/human/fugitive_hunter{
 	dir = 8
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "cM" = (
 /turf/template_noop,
@@ -38,14 +38,14 @@
 	dir = 4
 	},
 /obj/item/pickaxe/mini,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "ez" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
 "fd" = (
 /obj/effect/turf_decal/bot,
@@ -55,7 +55,7 @@
 /obj/effect/mob_spawn/human/fugitive_hunter{
 	dir = 4
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "fZ" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible,
@@ -73,7 +73,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/thinplating/dark/corner,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "gY" = (
 /obj/machinery/computer/fugitive_capture_computer{
@@ -83,7 +83,7 @@
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 4
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "hn" = (
 /obj/effect/turf_decal/box/corners{
@@ -94,7 +94,7 @@
 	pixel_y = -2
 	},
 /obj/item/healthanalyzer,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "iN" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -111,7 +111,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
 "jP" = (
 /obj/effect/turf_decal/stripes/closeup,
@@ -126,7 +126,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "kA" = (
 /obj/structure/tank_dispenser,
@@ -134,7 +134,7 @@
 /area/shuttle/hunter)
 "li" = (
 /obj/effect/turf_decal/caution,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
 "ly" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
@@ -232,7 +232,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/effect/decal/cleanable/plasma,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "qh" = (
 /obj/effect/turf_decal/stripes/line{
@@ -281,7 +281,7 @@
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 5
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
 "sm" = (
 /obj/effect/decal/cleanable/dirt,
@@ -292,7 +292,7 @@
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 6
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "sq" = (
 /obj/effect/turf_decal/box/corners{
@@ -301,7 +301,7 @@
 /obj/structure/closet/crate/engineering,
 /obj/item/vending_refill/dinnerware,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "sr" = (
 /obj/effect/turf_decal/stripes/line{
@@ -333,7 +333,7 @@
 /obj/effect/decal/cleanable/robot_debris{
 	pixel_x = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "tk" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -365,7 +365,7 @@
 	pixel_x = -22;
 	pixel_y = -9
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
 "vy" = (
 /obj/structure/fans/tiny,
@@ -413,8 +413,7 @@
 "wj" = (
 /obj/machinery/vending/sovietsoda,
 /obj/structure/railing{
-	dir = 4;
-	layer = 4.1
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -458,8 +457,7 @@
 "yi" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/railing{
-	dir = 4;
-	layer = 4.1
+	dir = 4
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
@@ -511,7 +509,7 @@
 /obj/structure/sign/poster/contraband/syndicate_pistol{
 	pixel_x = 32
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "zj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -541,7 +539,7 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
 "AQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -571,8 +569,7 @@
 "Ca" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/railing{
-	dir = 8;
-	layer = 4.1
+	dir = 8
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
@@ -585,16 +582,15 @@
 /area/shuttle/hunter)
 "Ck" = (
 /obj/structure/railing{
-	dir = 2;
-	layer = 3.1
+	dir = 2
 	},
 /obj/structure/closet{
 	name = "mastercraft traditional russian clothes"
 	},
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/costume/ushanka,
+/obj/item/clothing/head/costume/ushanka,
+/obj/item/clothing/head/costume/ushanka,
+/obj/item/clothing/head/costume/ushanka,
 /obj/item/clothing/under/pants/track,
 /obj/item/clothing/under/pants/track,
 /obj/item/clothing/under/pants/track,
@@ -631,7 +627,7 @@
 	pixel_x = -2;
 	pixel_y = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "Ec" = (
 /obj/machinery/light{
@@ -643,7 +639,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/thinplating/dark,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "ET" = (
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
@@ -663,8 +659,7 @@
 	dir = 5
 	},
 /obj/structure/railing{
-	dir = 4;
-	layer = 4.1
+	dir = 4
 	},
 /mob/living/simple_animal/bot/medbot{
 	name = "\improper Doctor Nikolay"
@@ -674,14 +669,12 @@
 /area/shuttle/hunter)
 "Hl" = (
 /obj/structure/railing{
-	dir = 8;
-	layer = 3.1
+	dir = 8
 	},
 /obj/structure/railing{
-	dir = 4;
-	layer = 3.1
+	dir = 4
 	},
-/turf/open/floor/plasteel/stairs,
+/turf/open/floor/iron/stairs,
 /area/shuttle/hunter)
 "HY" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -690,7 +683,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "ID" = (
-/turf/open/floor/plasteel/stairs{
+/turf/open/floor/iron/stairs{
 	dir = 1
 	},
 /area/shuttle/hunter)
@@ -753,7 +746,7 @@
 	pixel_x = 11;
 	pixel_y = 9
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
 "KU" = (
 /obj/structure/table/reinforced{
@@ -794,7 +787,7 @@
 	pixel_x = -10;
 	pixel_y = 14
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "MC" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
@@ -817,13 +810,13 @@
 /obj/effect/mob_spawn/human/fugitive_hunter{
 	dir = 4
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "Nx" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east{
+/obj/machinery/power/apc/auto_name/directional/east{
 	cell_type = /obj/item/stock_parts/cell/high/plus;
 	req_access = list(181)
 	},
@@ -842,18 +835,17 @@
 /obj/effect/turf_decal/siding/thinplating/dark/end{
 	dir = 4
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "Pz" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible,
 /obj/structure/railing{
-	dir = 1;
-	layer = 3.1
+	dir = 1
 	},
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 1
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "PE" = (
 /obj/structure/table,
@@ -879,7 +871,7 @@
 	pixel_y = -7;
 	pixel_x = -9
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "PO" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -899,8 +891,7 @@
 "QV" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/railing{
-	dir = 4;
-	layer = 4.1
+	dir = 4
 	},
 /obj/machinery/airalarm/directional/south{
 	req_access = null;
@@ -936,7 +927,7 @@
 /obj/effect/mob_spawn/human/fugitive_hunter{
 	dir = 8
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "Se" = (
 /obj/structure/table,
@@ -952,8 +943,7 @@
 	pixel_x = -3
 	},
 /obj/structure/railing{
-	dir = 4;
-	layer = 4.1
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood{
@@ -978,7 +968,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "TM" = (
 /obj/structure/cable/yellow{
@@ -995,7 +985,7 @@
 /obj/structure/sign/poster/contraband/bountyhunters{
 	pixel_x = 32
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "Ul" = (
 /obj/item/reagent_containers/food/drinks/flask/gold{
@@ -1023,8 +1013,7 @@
 /area/shuttle/hunter)
 "Uo" = (
 /obj/structure/railing{
-	dir = 2;
-	layer = 3.1
+	dir = 2
 	},
 /obj/structure/dresser,
 /turf/open/floor/mineral/plastitanium,
@@ -1057,7 +1046,7 @@
 /area/shuttle/hunter)
 "WR" = (
 /obj/machinery/light,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
 "Xd" = (
 /obj/machinery/computer/shuttle_flight/hunter{

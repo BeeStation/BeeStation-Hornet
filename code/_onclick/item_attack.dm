@@ -1,31 +1,59 @@
-
+/**
+  * This is the proc that handles the order of an item_attack.
+  *
+  * The order of procs called is:
+  * * [/atom/proc/tool_act] on the target. If it returns TRUE, the chain will be stopped.
+  * * [/obj/item/proc/pre_attack] on src. If this returns TRUE, the chain will be stopped.
+  * * [/atom/proc/attackby] on the target. If it returns TRUE, the chain will be stopped.
+  * * [/obj/item/proc/afterattack]. The return value does not matter.
+  */
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
-	if(!tool_attack_chain(user, target) && pre_attack(target, user, params))
-		// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
-		var/resolved = target.attackby(src, user, params)
-		if(!resolved && target && !QDELETED(src))
-			afterattack(target, user, 1, params)
+	if(tool_behaviour && target.tool_act(user, src, tool_behaviour))
+		return TRUE
+	if(pre_attack(target, user, params))
+		return TRUE
+	if(target.attackby(src,user, params))
+		return TRUE
+	if(QDELETED(src))
+		stack_trace("An item got deleted while performing an item attack and did not stop melee_attack_chain.")
+		return TRUE
+	if(QDELETED(target))
+		stack_trace("The target of an item attack got deleted and melee_attack_chain was not stopped.")
+		return TRUE
+	return afterattack(target, user, TRUE, params)
 
-//Checks if the item can work as a tool, calling the appropriate tool behavior on the target
-/obj/item/proc/tool_attack_chain(mob/user, atom/target)
-	if(!tool_behaviour)
-		return FALSE
 
-	return target.tool_act(user, src, tool_behaviour)
-
-
-// Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
+/// Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)
-	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user) & COMPONENT_NO_INTERACT)
-		return
+	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
 	interact(user)
 
+/**
+  * Called on the item before it hits something
+  *
+  * Arguments:
+  * * atom/A - The atom about to be hit
+  * * mob/living/user - The mob doing the htting
+  * * params - click params such as alt/shift etc
+  *
+  * See: [/obj/item/proc/melee_attack_chain]
+  */
 /obj/item/proc/pre_attack(atom/A, mob/living/user, params) //do stuff before attackby!
-	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_NO_ATTACK)
-		return FALSE
-	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
+	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+	return FALSE //return TRUE to avoid calling attackby after this proc does stuff
 
-// No comment
+/**
+  * Called on an object being hit by an item
+  *
+  * Arguments:
+  * * obj/item/W - The item hitting this atom
+  * * mob/user - The wielder of this item
+  * * params - click params such as alt/shift etc
+  *
+  * See: [/obj/item/proc/melee_attack_chain]
+  */
 /atom/proc/attackby(obj/item/W, mob/user, params)
 	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, W, user, params) & COMPONENT_NO_AFTERATTACK)
 		return TRUE
@@ -52,11 +80,22 @@
 			return
 	return I.attack(src, user)
 
-
-/obj/item/proc/attack(mob/living/M, mob/living/user)
-	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user) & COMPONENT_ITEM_NO_ATTACK)
+/**
+ * Called from [/mob/living/proc/attackby]
+ *
+ * Arguments:
+ * * mob/living/target_mob - The mob being hit by this item
+ * * mob/living/user - The mob hitting with this item
+ * * params - Click params of this attack
+ */
+/obj/item/proc/attack(mob/living/M, mob/living/user, params)
+	var/signal_return = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user, params)
+	if(signal_return & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+	if(signal_return & COMPONENT_SKIP_ATTACK)
 		return
-	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
+
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user, params)
 	SEND_SIGNAL(M, COMSIG_MOB_ITEM_ATTACKBY, user, src)
 
 	var/nonharmfulhit = FALSE
@@ -92,7 +131,7 @@
 	else
 		user.record_accidental_poking()
 		M.attacked_by(src, user)
-		M.time_of_last_attack_recieved = time
+		M.time_of_last_attack_received = time
 		user.time_of_last_attack_dealt = time
 		user.check_for_accidental_attack()
 
@@ -100,9 +139,9 @@
 	add_fingerprint(user)
 
 
-//the equivalent of the standard version of attack() but for object targets.
+/// The equivalent of the standard version of [/obj/item/proc/attack] but for object targets.
 /obj/item/proc/attack_obj(obj/O, mob/living/user)
-	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return
 	if(item_flags & NOBLUDGEON)
 		return
@@ -110,6 +149,7 @@
 	user.do_attack_animation(O)
 	O.attacked_by(src, user)
 
+/// Called from [/obj/item/proc/attack_obj] and [/obj/item/proc/attack] if the attack succeeds
 /atom/proc/attacked_by()
 	return
 
@@ -126,17 +166,17 @@
 
 /mob/living/attacked_by(obj/item/I, mob/living/user)
 	send_item_attack_message(I, user)
-	if(I.force)
-		var/armour_block = run_armor_check(null, MELEE, armour_penetration = I.armour_penetration)
-		apply_damage(I.force, I.damtype, blocked = armour_block)
-		if(I.damtype == BRUTE)
-			if(prob(33))
-				I.add_mob_blood(src)
-				var/turf/location = get_turf(src)
-				add_splatter_floor(location)
-				if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
-					user.add_mob_blood(src)
-		return TRUE //successful attack
+	if(!I.force)
+		return FALSE
+	var/armour_block = run_armor_check(null, MELEE, armour_penetration = I.armour_penetration)
+	apply_damage(I.force, I.damtype, blocked = armour_block)
+	if(I.damtype == BRUTE && prob(33))
+		I.add_mob_blood(src)
+		var/turf/location = get_turf(src)
+		add_splatter_floor(location)
+		if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
+			user.add_mob_blood(src)
+	return TRUE //successful attack
 
 /mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user, nonharmfulhit = FALSE)
 	if(I.force < force_threshold || I.damtype == STAMINA || nonharmfulhit)
@@ -150,8 +190,15 @@
 	else
 		return ..()
 
-// Proximity_flag is 1 if this afterattack was called on something adjacent, in your square, or on your person.
-// Click parameters is the params string from byond Click() code, see that documentation.
+/**
+  * Last proc in the [/obj/item/proc/melee_attack_chain]
+  *
+  * Arguments:
+  * * atom/target - The thing that was hit
+  * * mob/user - The mob doing the hitting
+  * * proximity_flag - is 1 if this afterattack was called on something adjacent, in your square, or on your person.
+  * * click_parameters - is the params string from byond [/atom/proc/Click] code, see that documentation.
+  */
 /obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, click_parameters)
@@ -165,23 +212,24 @@
 			return clamp(w_class * 6, 10, 100) // Multiply the item's weight class by 6, then clamp the value between 10 and 100
 
 /mob/living/proc/send_item_attack_message(obj/item/I, mob/living/user, hit_area)
-	var/message_verb = "attacked"
-	if(I.attack_verb && I.attack_verb.len)
-		message_verb = "[pick(I.attack_verb)]"
-	else if(!I.force)
+	if(!I.force && !length(I.attack_verb_simple) && !length(I.attack_verb_continuous))
 		return
+	var/message_verb_continuous = length(I.attack_verb_continuous) ? "[pick(I.attack_verb_continuous)]" : "attacks"
+	var/message_verb_simple = length(I.attack_verb_simple) ? "[pick(I.attack_verb_simple)]" : "attack"
 	var/message_hit_area = ""
 	if(hit_area)
 		message_hit_area = " in the [hit_area]"
-	var/attack_message = "[src] is [message_verb][message_hit_area] with [I]!"
-	var/attack_message_local = "You're [message_verb][message_hit_area] with [I]!"
+	var/attack_message_spectator = "[src] [message_verb_continuous][message_hit_area] with [I]!"
+	var/attack_message_victim = "You're [message_verb_continuous][message_hit_area] with [I]!"
+	var/attack_message_attacker = "You [message_verb_simple] [src][message_hit_area] with [I]!"
 	if(user in viewers(src))
-		attack_message = "[user] [message_verb] [src][message_hit_area] with [I]!"
-		attack_message_local = "[user] [message_verb] you[message_hit_area] with [I]!"
+		attack_message_spectator = "[user] [message_verb_continuous] [src][message_hit_area] with [I]!"
+		attack_message_victim = "[user] [message_verb_continuous] you[message_hit_area] with [I]!"
 	if(user == src)
-		attack_message_local = "You [message_verb] yourself[message_hit_area] with [I]!"
-	visible_message("<span class='danger'>[attack_message]</span>",\
-	"<span class='userdanger'>[attack_message_local]</span>", null, COMBAT_MESSAGE_RANGE)
+		attack_message_victim = "You [message_verb_simple] yourself[message_hit_area] with [I]"
+	visible_message("<span class='danger'>[attack_message_spectator]</span>",\
+		"<span class='userdanger'>[attack_message_victim]</span>", null, COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, "<span class='danger'>[attack_message_attacker]</span>")
 	return 1
 
 /mob/living/proc/send_item_poke_message(obj/item/I, mob/living/user)
@@ -210,5 +258,5 @@
 	if(time_of_last_attack_dealt > time) //We attacked again after the proc got called
 		return
 	//10 seconds passed after we last attacked someone - either it was an accident, or we robusted someone into being horizontal
-	if(time_of_last_attack_dealt > time_of_last_attack_recieved + 100)
+	if(time_of_last_attack_dealt > time_of_last_attack_received + 100)
 		SSblackbox.record_feedback("tally", "accidental_attack_data", 1, "Lasted ten seconds of not being hit after hitting somoene")

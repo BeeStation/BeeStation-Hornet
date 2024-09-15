@@ -8,7 +8,7 @@
 	debris = list(/obj/item/stack/sheet/runed_metal = 1)
 
 /obj/structure/destructible/cult/Initialize(mapload)
-	. = ..()	
+	. = ..()
 	generate_psychic_mask()
 
 /obj/structure/destructible/cult/proc/conceal() //for spells that hide cult presence
@@ -128,8 +128,8 @@
 		to_chat(user, "<span class='cult italic'>The magic in [src] is weak, it will be ready to use again in [DisplayTimeText(cooldowntime - world.time)].</span>")
 		return
 	var/list/items = list(
-		"Shielded Robe" = image(icon = 'icons/obj/clothing/suits.dmi', icon_state = "cult_armor"),
-		"Flagellant's Robe" = image(icon = 'icons/obj/clothing/suits.dmi', icon_state = "cultrobes"),
+		"Shielded Robe" = image(icon = 'icons/obj/clothing/suits/armor.dmi', icon_state = "cult_armor"),
+		"Flagellant's Robe" = image(icon = 'icons/obj/clothing/suits/armor.dmi', icon_state = "cultrobes"),
 		"Mirror Shield" = image(icon = 'icons/obj/shields.dmi', icon_state = "mirror_shield")
 		)
 	var/choice = show_radial_menu(user, src, items, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
@@ -188,11 +188,13 @@
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
 			if(ishuman(L))
+				var/mob/living/carbon/C = L
 				L.adjustBruteLoss(-5*delta_time, 0)
 				L.adjustFireLoss(-5*delta_time, 0)
 				L.updatehealth()
 				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
-					L.blood_volume += 1.0
+					L.blood_volume += 20
+				C.cauterise_wounds(1.4)
 			else if(isshade(L) || isconstruct(L))
 				var/mob/living/simple_animal/M = L
 				M.adjustHealth(-15*delta_time)

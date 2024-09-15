@@ -4,12 +4,13 @@
 	name = "picture frame"
 	desc = "The perfect showcase for your favorite deathtrap memories."
 	icon = 'icons/obj/decals.dmi'
-	custom_materials = null
+	custom_materials = list(/datum/material/wood = 2000)
 	flags_1 = 0
 	icon_state = "frame-empty"
 	result_path = /obj/structure/sign/picture_frame
 	pixel_shift = -32
 	var/obj/item/photo/displayed
+	pixel_shift = 30
 
 /obj/item/wallframe/picture/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/photo))
@@ -65,6 +66,7 @@
 	desc = "Every time you look it makes you laugh."
 	icon = 'icons/obj/decals.dmi'
 	icon_state = "frame-empty"
+	custom_materials = list(/datum/material/wood = 2000)
 	layer = ABOVE_WINDOW_LAYER
 	var/obj/item/photo/framed
 	var/persistence_id
@@ -75,6 +77,8 @@
 //Put default persistent frame defines here!
 
 #undef FRAME_DEFINE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/picture_frame)
 
 /obj/structure/sign/picture_frame/Initialize(mapload, dir, building)
 	. = ..()

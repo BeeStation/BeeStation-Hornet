@@ -7,6 +7,8 @@
 	/// What should the info button display when clicked?
 	var/info_text
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/info)
+
 /obj/effect/abstract/info/Initialize(mapload, info_text)
 	. = ..()
 

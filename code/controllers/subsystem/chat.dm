@@ -19,6 +19,11 @@ SUBSYSTEM_DEF(chat)
 	/// Assosciates a ckey with their next sequence number.
 	var/list/client_to_sequence_number = list()
 
+/datum/controller/subsystem/chat/Initialize()
+	// Just used by chat system to know that initialization is nearly finished.
+	// The to_chat checks could probably check the runlevel instead, but would require testing.
+	return SS_INIT_SUCCESS
+
 /datum/controller/subsystem/chat/proc/generate_payload(client/target, message_data)
 	var/sequence = client_to_sequence_number[target.ckey]
 	client_to_sequence_number[target.ckey] += 1

@@ -9,7 +9,7 @@
 "d" = (
 /obj/structure/window/reinforced/spawner/north,
 /obj/machinery/deepfryer,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "g" = (
 /obj/structure/window/reinforced/spawner,
@@ -19,7 +19,7 @@
 "h" = (
 /obj/machinery/door/window,
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "i" = (
 /turf/closed/wall,
@@ -33,7 +33,7 @@
 /obj/machinery/microwave,
 /obj/structure/window/reinforced/spawner,
 /obj/structure/table,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "n" = (
 /obj/structure/table,
@@ -80,7 +80,7 @@
 "A" = (
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/reagent_dispensers/cooking_oil,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "B" = (
 /mob/living/simple_animal/mouse/white,
@@ -110,7 +110,7 @@
 /obj/item/reagent_containers/food/drinks/beer{
 	pixel_x = -1
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "E" = (
 /obj/structure/sign/barsign{
@@ -168,7 +168,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "Q" = (
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "R" = (
 /obj/machinery/light/small{
@@ -212,7 +212,7 @@
 "X" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/food/bun,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 
 (1,1,1) = {"

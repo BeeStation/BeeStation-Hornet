@@ -44,7 +44,7 @@
 	if(prob(40))
 		head = /obj/item/clothing/head/helmet/alt
 	else if(prob(20))
-		head = /obj/item/clothing/head/helmet/riot
+		head = /obj/item/clothing/head/helmet/toggleable/riot
 	if(prob(50))
 		suit = /obj/item/clothing/suit/armor/bulletproof
 
@@ -101,7 +101,7 @@
 /datum/outfit/russian_hunter
 	uniform = /obj/item/clothing/under/costume/soviet
 	shoes = /obj/item/clothing/shoes/russian
-	head = /obj/item/clothing/head/bearpelt
+	head = /obj/item/clothing/head/costume/bearpelt
 	gloves = /obj/item/clothing/gloves/color/black
 	mask = /obj/item/clothing/mask/gas/old
 	ears = /obj/item/radio/headset
@@ -113,7 +113,7 @@
 	if(visualsOnly)
 		return
 	if(prob(50))
-		head = /obj/item/clothing/head/ushanka
+		head = /obj/item/clothing/head/costume/ushanka
 	else if(prob(20))
 		head = /obj/item/clothing/head/helmet/rus_ushanka
 	else if(prob(10))
@@ -129,7 +129,7 @@
 
 /datum/outfit/russian_hunter/leader
 	uniform = /obj/item/clothing/under/costume/russian_officer
-	suit = /obj/item/clothing/suit/security/officer/russian
+	suit = /obj/item/clothing/suit/jacket/officer/tan
 	head = /obj/item/clothing/head/helmet/rus_ushanka
 
 /datum/outfit/russian_hunter/leader/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

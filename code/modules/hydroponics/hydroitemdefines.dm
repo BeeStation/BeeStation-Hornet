@@ -5,6 +5,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hydro"
 	item_state = "analyzer"
+	worn_icon_state = "plantanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
@@ -59,7 +60,8 @@
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=50)
-	attack_verb = list("slashed", "sliced", "cut", "clawed")
+	attack_verb_continuous = list("slashes", "slices", "cuts", "claws")
+	attack_verb_simple = list("slash", "slice", "cut", "claw")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/cultivator/suicide_act(mob/living/user)
@@ -82,9 +84,11 @@
 	throw_speed = 3
 	throw_range = 4
 	custom_materials = list(/datum/material/iron = 15000)
-	attack_verb = list("chopped", "tore", "cut")
+	attack_verb_continuous = list("chops", "tears", "lacerates", "cuts")
+	attack_verb_simple = list("chop", "tear", "lacerate", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 
 /obj/item/hatchet/Initialize(mapload)
 	. = ..()
@@ -110,7 +114,8 @@
 	flags_1 = CONDUCT_1
 	armour_penetration = 20
 	slot_flags = ITEM_SLOT_BACK
-	attack_verb = list("chopped", "sliced", "cut", "reaped")
+	attack_verb_continuous = list("chops", "slices", "cuts", "reaps")
+	attack_verb_simple = list("chop", "slice", "cut", "reap")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/swiping = FALSE
 
@@ -131,17 +136,17 @@
 /obj/item/scythe/pre_attack(atom/A, mob/living/user, params)
 	if(swiping || !istype(A, /obj/structure/spacevine) || get_turf(A) == get_turf(user))
 		return ..()
-	else
-		var/turf/user_turf = get_turf(user)
-		var/dir_to_target = get_dir(user_turf, get_turf(A))
-		swiping = TRUE
-		var/static/list/scythe_slash_angles = list(0, 45, 90, -45, -90)
-		for(var/i in scythe_slash_angles)
-			var/turf/T = get_step(user_turf, turn(dir_to_target, i))
-			for(var/obj/structure/spacevine/V in T)
-				if(user.Adjacent(V))
-					melee_attack_chain(user, V)
-		swiping = FALSE
+	var/turf/user_turf = get_turf(user)
+	var/dir_to_target = get_dir(user_turf, get_turf(A))
+	swiping = TRUE
+	var/static/list/scythe_slash_angles = list(0, 45, 90, -45, -90)
+	for(var/i in scythe_slash_angles)
+		var/turf/T = get_step(user_turf, turn(dir_to_target, i))
+		for(var/obj/structure/spacevine/V in T)
+			if(user.Adjacent(V))
+				melee_attack_chain(user, V)
+	swiping = FALSE
+	return TRUE
 
 // *************************************
 // Nutrient defines for hydroponics

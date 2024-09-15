@@ -109,6 +109,7 @@
 		try_detonate(TRUE)
 
 /obj/machinery/syndicatebomb/examine(mob/user)
+	balloon_alert(user, "[seconds_remaining()]")
 	. = ..()
 	. += {"A digital display on it reads "[seconds_remaining()]"."}
 
@@ -272,7 +273,7 @@
 
 /obj/machinery/syndicatebomb/empty/Initialize(mapload)
 	. = ..()
-	wires.cut_all()
+	wires.cut_all(null)
 
 /obj/machinery/syndicatebomb/self_destruct
 	name = "self-destruct device"

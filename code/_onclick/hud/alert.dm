@@ -6,13 +6,13 @@
 /mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE)
 
 /* Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already
- category is a text string. Each mob may only have one alert per category; the previous one will be replaced
- path is a type path of the actual alert type to throw
- severity is an optional number that will be placed at the end of the icon_state for this alert
- For example, high pressure's icon_state is "highpressure" and can be serverity 1 or 2 to get "highpressure1" or "highpressure2"
- new_master is optional and sets the alert's icon state to "template" in the ui_style icons with the master as an overlay.
- Clicks are forwarded to master
- Override makes it so the alert is not replaced until cleared by a clear_alert with clear_override, and it's used for hallucinations.
+	category is a text string. Each mob may only have one alert per category; the previous one will be replaced
+	path is a type path of the actual alert type to throw
+	severity is an optional number that will be placed at the end of the icon_state for this alert
+	For example, high pressure's icon_state is "highpressure" and can be serverity 1 or 2 to get "highpressure1" or "highpressure2"
+	new_master is optional and sets the alert's icon state to "template" in the ui_style icons with the master as an overlay.
+	Clicks are forwarded to master
+	Override makes it so the alert is not replaced until cleared by a clear_alert with clear_override, and it's used for hallucinations.
  */
 
 	if(!category || QDELETED(src))
@@ -98,7 +98,8 @@
 	var/alerttooltipstyle = ""
 	var/override_alerts = FALSE //If it is overriding other alerts of the same type
 	var/mob/owner //Alert owner
-
+	/// The thing that this alert is showing
+	var/obj/master
 
 /atom/movable/screen/alert/MouseEntered(location,control,params)
 	if(!QDELETED(src))
@@ -327,6 +328,23 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	if(!offerer.CanReach(taker))
 		balloon_alert(owner, "You moved out of range of [offerer]!")
 		owner.clear_alert("[offerer]")
+
+/// Gives the player the option to succumb while in critical condition
+/atom/movable/screen/alert/succumb
+	name = "Succumb"
+	desc = "Shuffle off this mortal coil."
+	icon_state = "succumb"
+
+/atom/movable/screen/alert/succumb/Click()
+	if (isobserver(usr))
+		return
+	var/mob/living/living_owner = owner
+	var/last_whisper = tgui_input_text(usr, "Do you have any last words?", "Goodnight, Sweet Prince")
+	if (isnull(last_whisper) || !CAN_SUCCUMB(living_owner))
+		return
+	if (length(last_whisper))
+		living_owner.say("#[last_whisper]")
+	living_owner.succumb(whispered = length(last_whisper) > 0)
 
 //ALIENS
 
@@ -692,8 +710,7 @@ so as to remain in compliance with the most up-to-date laws."
 			reorganize_alerts(M)
 	return 1
 
-/mob
-	var/list/alerts = list() // contains /atom/movable/screen/alert only // On /mob so clientless mobs will throw alerts properly
+/mob/var/list/alerts = list() // contains /atom/movable/screen/alert only // On /mob so clientless mobs will throw alerts properly
 
 /atom/movable/screen/alert/Click(location, control, params)
 	if(!usr || !usr.client)

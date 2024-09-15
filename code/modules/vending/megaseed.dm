@@ -4,7 +4,7 @@
 	product_slogans = "THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!;Hands down the best seed selection on the station!;Also certain mushroom varieties available, more for experts! Get certified today!"
 	product_ads = "We like plants!;Grow some crops!;Grow, baby, growww!;Aw h'yeah son!"
 	icon_state = "seeds"
-	light_color = LIGHT_COLOR_GREEN
+	light_mask = "seeds-light-mask"
 	products = list(/obj/item/seeds/ambrosia = 3,
 					/obj/item/seeds/apple = 3,
 					/obj/item/seeds/cotton = 3,
@@ -43,14 +43,14 @@
 					/obj/item/seeds/wheat = 3,
 					/obj/item/seeds/whitebeet = 3)
 	contraband = list(/obj/item/seeds/amanita = 2,
-					  /obj/item/seeds/glowshroom = 2,
-					  /obj/item/seeds/liberty = 2,
-					  /obj/item/seeds/nettle = 2,
-					  /obj/item/seeds/plump = 2,
-					  /obj/item/seeds/reishi = 2,
-					  /obj/item/seeds/cannabis = 3,
-					  /obj/item/seeds/starthistle = 2,
-					  /obj/item/seeds/random = 2)
+						/obj/item/seeds/glowshroom = 2,
+						/obj/item/seeds/liberty = 2,
+						/obj/item/seeds/nettle = 2,
+						/obj/item/seeds/plump = 2,
+						/obj/item/seeds/reishi = 2,
+						/obj/item/seeds/cannabis = 3,
+						/obj/item/seeds/starthistle = 2,
+						/obj/item/seeds/random = 2)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds
 	default_price = 10
