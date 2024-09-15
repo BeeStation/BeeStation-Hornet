@@ -67,6 +67,8 @@
 
 /datum/reagents/Destroy()
 	. = ..()
+	//We're about to delete all reagents, so lets cleanup
+	addiction_list.Cut()
 	var/list/cached_reagents = reagent_list
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
@@ -567,9 +569,10 @@
 					R.metabolizing = FALSE
 					R.on_mob_end_metabolize(mob_consumer)
 				R.on_mob_delete(mob_consumer)
-			qdel(R)
+			//Clear from relevant lists
+			addiction_list -= R
 			reagent_list -= R
-			update_total()
+			qdel(R)
 			if(my_atom)
 				my_atom.on_reagent_change(DEL_REAGENT)
 	return 1
