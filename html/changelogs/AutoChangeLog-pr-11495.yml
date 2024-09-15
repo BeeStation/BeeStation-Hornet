@@ -1,0 +1,4 @@
+author: DarnTheMarn
+delete-after: true
+changes:
+  - rscdel: Removed an unused AI lawset referencing American politics
