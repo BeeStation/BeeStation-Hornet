@@ -66,7 +66,13 @@
 ///Ran when an object almost finishes grilling
 /datum/component/grillable/proc/OnExamine(atom/A, mob/user, list/examine_list)
 	SIGNAL_HANDLER
+
 	if(!current_cook_time) //Not grilled yet
+		if(positive_result)
+			if(initial(cook_result.name) == PLURAL)
+				examine_list += "<span class='notice'>[parent] can be ["<span class='bold'>grilled</span>"] into some [initial(cook_result.name)].</span>"
+			else
+				examine_list += "<span class='notice'>[parent] can be ["<span class='bold'>grilled</span>"] into \a [initial(cook_result.name)].</span>"
 		return
 
 	if(positive_result)
