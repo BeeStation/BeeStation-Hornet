@@ -4953,7 +4953,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "cea" = (
@@ -7667,10 +7667,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 9
 	},
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "dDM" = (
@@ -17663,13 +17663,13 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/manifold/green/visible{
 	dir = 8
 	},
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "iya" = (
@@ -24651,10 +24651,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/manifold/green/visible{
 	dir = 8
 	},
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "mhI" = (
@@ -28929,7 +28929,7 @@
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible{
 	dir = 4
 	},
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "oxy" = (
@@ -35850,19 +35850,6 @@
 "rSr" = (
 /turf/open/floor/iron,
 /area/ai_monitored/turret_protected/aisat/maint)
-"rSs" = (
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/machinery/atmospherics/pipe/manifold/cyan/visible{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "rSE" = (
 /obj/structure/closet/secure_closet/hydroponics{
 	req_access = null;
@@ -64455,7 +64442,7 @@ xYh
 dXI
 dXI
 ocx
-rSs
+oxk
 oxk
 dDB
 xiB

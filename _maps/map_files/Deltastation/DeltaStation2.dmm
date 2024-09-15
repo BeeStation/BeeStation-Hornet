@@ -3551,7 +3551,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "axy" = (
@@ -3579,7 +3579,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "axC" = (
@@ -3854,7 +3854,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "ayK" = (
@@ -4119,7 +4119,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "azX" = (

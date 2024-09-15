@@ -14393,7 +14393,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "cEw" = (
@@ -14418,7 +14418,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "cEz" = (
@@ -14545,7 +14545,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "cFh" = (
@@ -14558,7 +14558,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "cFj" = (

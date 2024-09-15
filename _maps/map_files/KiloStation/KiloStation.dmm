@@ -21757,7 +21757,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -21794,7 +21794,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -24687,7 +24687,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -24780,7 +24780,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},

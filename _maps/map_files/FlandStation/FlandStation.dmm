@@ -52719,7 +52719,7 @@
 /obj/effect/turf_decal/stripes/red/line,
 /obj/structure/cable,
 /obj/structure/window/plasma/reinforced,
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "nwg" = (
@@ -69201,7 +69201,7 @@
 /obj/effect/turf_decal/stripes/red/line,
 /obj/structure/cable,
 /obj/structure/window/plasma/reinforced,
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "rOe" = (
@@ -78593,7 +78593,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 1
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "uhJ" = (
@@ -82827,7 +82827,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 1
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "vhn" = (
@@ -83616,7 +83616,7 @@
 	c_tag = "Supermatter Chamber";
 	network = list("engine")
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "vqq" = (

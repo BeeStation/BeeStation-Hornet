@@ -26453,7 +26453,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/iron/tech,
 /area/engine/supermatter)
 "iqd" = (
@@ -59493,7 +59493,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "sQJ" = (
@@ -65338,7 +65338,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "uFU" = (
@@ -71518,7 +71518,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "wMI" = (
@@ -72644,7 +72644,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "xhA" = (
