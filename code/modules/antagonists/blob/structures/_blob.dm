@@ -21,6 +21,8 @@
 	var/atmosblock = FALSE //if the blob blocks atmos and heat spread
 	var/mob/camera/blob/overmind
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
+
 /obj/structure/blob/Initialize(mapload, owner_overmind)
 	. = ..()
 	if(owner_overmind)

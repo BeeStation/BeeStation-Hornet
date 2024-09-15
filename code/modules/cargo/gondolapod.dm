@@ -26,6 +26,8 @@
 	var/opened = FALSE
 	var/obj/structure/closet/supplypod/centcompod/linked_pod
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/pet/gondola/gondolapod)
+
 /mob/living/simple_animal/pet/gondola/gondolapod/Initialize(mapload, pod)
 	linked_pod = pod
 	name = linked_pod.name

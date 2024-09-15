@@ -22,6 +22,9 @@
 #define INVESTIGATE_VERB_DROPPED	"dropped"
 #define INVESTIGATE_VERB_EQUIPPED   "equipped"
 
+// The maximum number of entries allowed in the signaler investigate log, keep this relatively small to prevent performance issues when an admin tries to query it
+#define INVESTIGATE_SIGNALER_LOG_MAX_LENGTH 500
+
 // Logging types for log_message()
 #define LOG_ATTACK (1 << 0)
 #define LOG_SAY (1 << 1)

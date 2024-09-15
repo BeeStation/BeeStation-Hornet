@@ -222,6 +222,8 @@
 	var/turf/destination
 	var/has_hud_icon = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
+
 /obj/effect/temp_visual/teleportation_wake/Initialize(mapload, turf/destination)
 	// Replace any portals on the current turf
 	for (var/obj/effect/temp_visual/teleportation_wake/conflicting_portal in loc)
