@@ -13534,7 +13534,7 @@
 	},
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/quartermaster/storage)
 "bPv" = (
 /obj/item/kirbyplants/random,
