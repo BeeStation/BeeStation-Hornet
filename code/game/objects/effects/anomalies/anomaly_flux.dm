@@ -6,6 +6,8 @@
 	var/shockdamage = 20
 	var/explosive = ANOMALY_FLUX_EXPLOSIVE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly/flux)
+
 /obj/effect/anomaly/flux/Initialize(mapload, new_lifespan, drops_core = TRUE, explosive = ANOMALY_FLUX_EXPLOSIVE)
 	. = ..()
 	src.explosive = explosive

@@ -7,6 +7,11 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 #define STAGE_ATTACK 4
 #define MANIFEST_DELAY 9
 
+/// How long we put the target so sleep for (during sacrifice).
+#define SACRIFICE_SLEEP_DURATION 12 SECONDS
+/// How long sacrifices must stay in the shadow realm to survive.
+#define SACRIFICE_REALM_DURATION 2.5 MINUTES
+
 /mob/living/simple_animal/hostile/floor_cluwne
 	name = "???"
 	desc = "...."
@@ -17,7 +22,6 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	maxHealth = 250
 	health = 250
 	speed = -1
-	attacktext = "attacks"
 	attack_sound = 'sound/items/bikehorn.ogg'
 	del_on_death = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSTRANSPARENT | PASSBLOB//it's practically a ghost when unmanifested (under the floor)
@@ -42,6 +46,9 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	var/invalid_area_typecache = list(/area/space, /area/lavaland, /area/centcom, /area/shuttle/syndicate)
 	var/eating = FALSE
 	var/dontkill = FALSE //for if we just wanna curse a fucker
+	var/terrorize = FALSE //for Heretic curse, rather than kill
+	var/terror_count = 0
+	var/return_timers
 	var/obj/effect/dummy/floorcluwne_orbit/poi
 	var/obj/effect/temp_visual/fcluwne_manifest/cluwnehole
 	move_resist = INFINITY
@@ -184,22 +191,20 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			interest = 0
 			stage = STAGE_HAUNT
 			return target = current_victim
-
-	message_admins("Floor Cluwne was deleted due to a lack of valid targets, if this was a manually targeted instance please re-evaluate your choice.")
-	qdel(src)
+	if(!terrorize)
+		message_admins("Floor Cluwne was deleted due to a lack of valid targets, if this was a manually targeted instance please re-evaluate your choice.")
+		qdel(src)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Manifest()//handles disappearing and appearance anim
 	if(manifested)
 		mobility_flags &= ~MOBILITY_MOVE
-		update_mobility()
 		cluwnehole = new(src.loc)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Appear)), MANIFEST_DELAY)
 	else
 		invisibility = INVISIBILITY_SPIRIT
 		density = FALSE
 		mobility_flags |= MOBILITY_MOVE
-		update_mobility()
 		if(cluwnehole)
 			qdel(cluwnehole)
 
@@ -391,10 +396,13 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	for(var/turf/open/T in RANGE_TURFS(4, H))
 		H.add_splatter_floor(T)
 	if(do_after(src, 50, target = H))
-		H.unequip_everything()//more runtime prevention
-		if(prob(75))
+		if(terrorize)
+			begin_trauma(H)
+		else if(prob(75))
+			H.unequip_everything() //runtime prevention
 			H.gib(FALSE)
 		else
+			H.unequip_everything() //runtime prevention
 			H.cluwneify()
 			H.adjustBruteLoss(30)
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 100)
@@ -446,8 +454,190 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	name += " ([GLOB.floor_cluwnes])"
 	AddElement(/datum/element/point_of_interest)
 
+/mob/living/simple_animal/hostile/floor_cluwne/proc/begin_trauma(mob/living/carbon/human/sac_target)
+	if(!LAZYLEN(GLOB.heretic_sacrifice_landmarks))
+		CRASH("[type] - begin_trauma was called, but no floorcluwne_trauma landmarks were found!")
+
+	var/obj/effect/landmark/heretic/destination_landmark = GLOB.heretic_sacrifice_landmarks[HERETIC_PATH_ASH]
+	if(!destination_landmark)
+		CRASH("[type] - begin_trauma could not find a destination landmark to send the target!")
+
+	var/turf/destination = get_turf(destination_landmark)
+
+	sac_target.handcuffed = new /obj/item/restraints/handcuffs/energy/cult(sac_target)
+	sac_target.update_handcuffed()
+	sac_target.do_jitter_animation(100)
+
+	if(sac_target.legcuffed)
+		sac_target.legcuffed.forceMove(sac_target.drop_location())
+		sac_target.legcuffed.dropped(sac_target)
+		sac_target.legcuffed = null
+		sac_target.update_inv_legcuffed()
+
+	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (1/3))
+	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (2/3))
+
+	// Grab their ghost, just in case they're dead or something.
+	sac_target.grab_ghost()
+	// If our target is dead, try to revive them
+	// and if we fail to revive them, don't proceede the chain
+	if(!sac_target.heal_and_revive(50, "<span class='danger'>[sac_target]'s heart begins to beat with an unholy force as they return from death!</span>"))
+		return
+
+	if(sac_target.AdjustUnconscious(SACRIFICE_SLEEP_DURATION))
+		to_chat(sac_target, "<span class='hypnophrase'>Your mind feels torn apart as you fall into a shallow slumber...</span>")
+	else
+		to_chat(sac_target, "<span class='hypnophrase'>Your mind begins to tear apart as you watch dark tendrils envelop you.</span>")
+
+	sac_target.AdjustParalyzed(SACRIFICE_SLEEP_DURATION * 1.2)
+	sac_target.AdjustImmobilized(SACRIFICE_SLEEP_DURATION * 1.2)
+
+	addtimer(CALLBACK(src, PROC_REF(after_target_sleeps), sac_target, destination), SACRIFICE_SLEEP_DURATION * 0.5) // Teleport to the minigame
+
+	return TRUE
+
+/mob/living/simple_animal/hostile/floor_cluwne/proc/after_target_sleeps(mob/living/carbon/human/sac_target, turf/destination)
+	if(QDELETED(sac_target))
+		return
+
+	// Grab ghost again, just to be safe.
+	sac_target.grab_ghost()
+	// The target disconnected or something, we shouldn't bother sending them along.
+	if(!sac_target.client || !sac_target.mind)
+		return
+
+	// Send 'em to the destination. If the teleport fails, do nothing.
+	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/magic/repulse.ogg', asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE, no_wake = TRUE))
+		return
+
+	// If our target died during the (short) wait timer,
+	// and we fail to revive them (using a lower number than before), do nothing.
+	if(!sac_target.heal_and_revive(75, "<span class='danger'>[sac_target]'s heart begins to beat with an unholy force as they return from death!</span>"))
+		return
+
+	sac_target.cure_blind(null)
+	sac_target.invisibility = initial(sac_target.invisibility)
+	sac_target.density = initial(sac_target.density)
+	sac_target.set_anchored(initial(sac_target.anchored))
+	to_chat(sac_target, "<span class='big'><span class='hypnophrase'>Unnatural forces begin to claw at your very being from beyond the veil.</span></span>")
+
+	sac_target.apply_status_effect(/datum/status_effect/unholy_determination, SACRIFICE_REALM_DURATION)
+	addtimer(CALLBACK(src, PROC_REF(after_target_wakes), sac_target), SACRIFICE_SLEEP_DURATION * 0.5) // Begin the minigame
+
+/mob/living/simple_animal/hostile/floor_cluwne/proc/after_target_wakes(mob/living/carbon/human/sac_target)
+	if(QDELETED(sac_target))
+		return
+
+	// About how long should the helgrasp last? (1 metab a tick = helgrasp_time / 2 ticks (so, 1 minute = 60 seconds = 30 ticks))
+	var/helgrasp_time = 1 MINUTES
+
+	sac_target.reagents?.add_reagent(/datum/reagent/helgrasp/heretic, helgrasp_time / 20)
+	sac_target.apply_necropolis_curse(CURSE_BLINDING | CURSE_GRASPING)
+
+	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm", /datum/mood_event/shadow_realm)
+
+	sac_target.flash_act()
+	sac_target.blur_eyes(15)
+	sac_target.Jitter(10)
+	sac_target.Dizzy(10)
+	sac_target.hallucination += 12
+	sac_target.emote("scream")
+
+	to_chat(sac_target, "<span class='reallybig'><span class='hypnophrase'>The grasping hands reveal themselves to you!</span></span>")
+	to_chat(sac_target, "<span class='hypnophrase'>You feel invigorated! Fight to survive!</span>")
+	// When it runs out, let them know they're almost home free
+	addtimer(CALLBACK(src, PROC_REF(after_helgrasp_ends), sac_target), helgrasp_time)
+	// Win condition
+	var/win_timer = addtimer(CALLBACK(src, PROC_REF(return_target), sac_target), SACRIFICE_REALM_DURATION, TIMER_STOPPABLE)
+	LAZYSET(return_timers, REF(sac_target), win_timer)
+
+/**
+ * This proc is called from [proc/after_target_wakes] after the helgrasp runs out in the [sac_target].
+ *
+ * It gives them a message letting them know it's getting easier and they're almost free.
+ */
+/mob/living/simple_animal/hostile/floor_cluwne/proc/after_helgrasp_ends(mob/living/carbon/human/sac_target)
+	if(QDELETED(sac_target) || sac_target.stat == DEAD)
+		return
+
+	to_chat(sac_target, "<span class='hypnophrase'>The worst is behind you... Not much longer! Hold fast, or expire!</span>")
+
+/mob/living/simple_animal/hostile/floor_cluwne/proc/return_target(mob/living/carbon/human/sac_target)
+	if(QDELETED(sac_target))
+		return
+
+	var/current_timer = LAZYACCESS(return_timers, REF(sac_target))
+	if(current_timer)
+		deltimer(current_timer)
+	LAZYREMOVE(return_timers, REF(sac_target))
+
+	UnregisterSignal(sac_target, COMSIG_MOVABLE_Z_CHANGED)
+	UnregisterSignal(sac_target, COMSIG_MOB_DEATH)
+	sac_target.remove_status_effect(/datum/status_effect/necropolis_curse)
+	sac_target.remove_status_effect(/datum/status_effect/unholy_determination)
+	sac_target.reagents?.del_reagent(/datum/reagent/helgrasp/heretic)
+	SEND_SIGNAL(sac_target, COMSIG_CLEAR_MOOD_EVENT, "shadow_realm")
+
+	// Wherever we end up, we sure as hell won't be able to explain
+	sac_target.slurring += 20
+	sac_target.cultslurring += 20
+	sac_target.stuttering += 20
+
+	// They're already back on the station for some reason, don't bother teleporting
+	if(is_station_level(sac_target.z))
+		return
+
+	// Teleport them to a random safe coordinate on the station z level.
+	var/turf/open/floor/safe_turf = find_safe_turf(extended_safety_checks = TRUE)
+	var/obj/effect/landmark/observer_start/backup_loc = locate(/obj/effect/landmark/observer_start) in GLOB.landmarks_list
+	if(!safe_turf)
+		safe_turf = get_turf(backup_loc)
+		stack_trace("[type] - return_target was unable to find a safe turf for [sac_target] to return to. Defaulting to observer start turf.")
+
+	if(!do_teleport(sac_target, safe_turf, asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_FREE, forced = TRUE, no_wake = TRUE))
+		safe_turf = get_turf(backup_loc)
+		sac_target.forceMove(safe_turf)
+		stack_trace("[type] - return_target was unable to teleport [sac_target] to the observer start turf. Forcemoving.")
+
+	after_return_live_target(sac_target)
+
+
+/**
+ * This proc is called from [proc/return_target] if the [sac_target] survives the shadow realm.
+ *
+ * Gives the sacrifice target some after effects upon ariving back to reality.
+ */
+/mob/living/simple_animal/hostile/floor_cluwne/proc/after_return_live_target(mob/living/carbon/human/sac_target)
+	if(sac_target.stat == DEAD)
+		sac_target.revive(TRUE, TRUE)
+		sac_target.grab_ghost()
+	to_chat(sac_target, "<span class='hypnophrase'>The fight is over, but at great cost. You have been returned to the station in one piece.</span>")
+	to_chat(sac_target, "<span class='big'><span class='hypnophrase'>You don't remember anything leading up to the experience - All you can think about are those horrific hands...</span></span>")
+
+	// Oh god where are we?
+	sac_target.flash_act()
+	sac_target.Jitter(60)
+	sac_target.blur_eyes(50)
+	sac_target.Dizzy(30)
+	sac_target.AdjustKnockdown(80)
+	sac_target.adjustStaminaLoss(120)
+
+	// Glad i'm outta there, though!
+	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm_survived", /datum/mood_event/shadow_realm_live)
+	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm_survived_sadness", /datum/mood_event/shadow_realm_live_sad)
+
+	// Could use a little pick-me-up...
+	sac_target.reagents?.add_reagent(/datum/reagent/eldritchkiss, 12) //this used to kill toxinlovers, hence the snowflake reagent
+	terror_count += 1
+	if(terror_count == 2)
+		message_admins("Floor Cluwne was deleted due to reaching its max terror count")
+		qdel(src)
+
 #undef STAGE_HAUNT
 #undef STAGE_SPOOK
 #undef STAGE_TORMENT
 #undef STAGE_ATTACK
 #undef MANIFEST_DELAY
+
+#undef SACRIFICE_SLEEP_DURATION
+#undef SACRIFICE_REALM_DURATION

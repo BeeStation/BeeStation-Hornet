@@ -19,6 +19,7 @@
 		/obj/item/debug/human_spawner=1,\
 		/obj/item/debug/omnitool=1,\
 		/obj/item/xenoartifact_labeler/debug=1,\
+		/obj/item/map_template_diver=1,\
 		/obj/item/debug/orb_of_power=1
 		)
 
@@ -282,7 +283,7 @@
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 	ears = /obj/item/radio/headset/headset_cent/commander
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
-	head = /obj/item/clothing/head/helmet/space/beret
+	head = /obj/item/clothing/head/hats/centhat
 	belt = /obj/item/gun/energy/pulse/pistol/m1911
 	r_pocket = /obj/item/lighter
 	back = /obj/item/storage/backpack/satchel/leather

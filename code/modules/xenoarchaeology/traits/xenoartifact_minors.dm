@@ -81,8 +81,10 @@
 
 /datum/xenoartifact_trait/minor/sharp/on_init(obj/item/xenoartifact/X)
 	X.sharpness = IS_SHARP_ACCURATE
+	X.bleed_force = BLEED_CUT
 	X.force = X.charge_req*0.12
-	X.attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	X.attack_verb_continuous = list("cleaves", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	X.attack_verb_simple = list("cleave", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	X.attack_weight = 2
 	X.armour_penetration = 5
 
@@ -173,6 +175,8 @@
 	action_background_icon_state = "bg_spell"
 	var/obj/item/xenoartifact/xeno
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/proc_holder/spell/targeted/xeno_senitent_action)
+
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action/Initialize(mapload, var/obj/item/xenoartifact/Z)
 	. = ..()
 	xeno = Z
@@ -201,6 +205,8 @@
 	invisibility = 101
 	var/obj/item/xenoartifact/artifact
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/sentient_artifact)
+
 /obj/effect/mob_spawn/sentient_artifact/Initialize(mapload, var/obj/item/xenoartifact/Z)
 	if(!Z)
 		qdel(src)
@@ -222,12 +228,12 @@
 
 /datum/xenoartifact_trait/minor/delicate/on_init(obj/item/xenoartifact/X)
 	X.max_integrity = pick(200, 300, 500, 800, 1000)
-	X.obj_integrity = X.max_integrity
+	X.update_integrity(X.max_integrity)
 	X.alpha = X.alpha * 0.55
 
 /datum/xenoartifact_trait/minor/delicate/activate(obj/item/xenoartifact/X, atom/user)
-	if(X.obj_integrity > 0)
-		X.obj_integrity -= 100
+	if(X.get_integrity() > 0)
+		X.update_integrity(-100)
 		X.visible_message("<span class='danger'>The [X.name] cracks!</span>", "<span class='danger'>The [X.name] cracks!</span>")
 	else
 		X.visible_message("<span class='danger'>The [X.name] shatters!</span>", "<span class='danger'>The [X.name] shatters!</span>")
@@ -406,11 +412,11 @@
 
 /datum/xenoartifact_trait/minor/haunted/on_init(obj/item/xenoartifact/X)
 	controller = X._AddComponent(list(/datum/component/deadchat_control, "democracy", list(
-			 "up" = CALLBACK(src, PROC_REF(haunted_step), X, NORTH),
-			 "down" = CALLBACK(src, PROC_REF(haunted_step), X, SOUTH),
-			 "left" = CALLBACK(src, PROC_REF(haunted_step), X, WEST),
-			 "right" = CALLBACK(src, PROC_REF(haunted_step), X, EAST),
-			 "activate" = CALLBACK(src, PROC_REF(activate_parent), X)), 10 SECONDS))
+			"up" = CALLBACK(src, PROC_REF(haunted_step), X, NORTH),
+			"down" = CALLBACK(src, PROC_REF(haunted_step), X, SOUTH),
+			"left" = CALLBACK(src, PROC_REF(haunted_step), X, WEST),
+			"right" = CALLBACK(src, PROC_REF(haunted_step), X, EAST),
+			"activate" = CALLBACK(src, PROC_REF(activate_parent), X)), 10 SECONDS))
 
 /datum/xenoartifact_trait/minor/haunted/proc/haunted_step(obj/item/xenoartifact/ref, dir)
 	if(isliving(ref.loc)) //Make any mobs drop this before it moves

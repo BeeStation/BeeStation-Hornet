@@ -7,6 +7,8 @@
 	gender = NEUTER
 	var/datum/team/gang/gang
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/gang)
+
 /obj/effect/decal/gang/Initialize(mapload, datum/team/gang/G, e_name = "gang tag", rotation = 0,  mob/user)
 	if(!G)
 		qdel(src)

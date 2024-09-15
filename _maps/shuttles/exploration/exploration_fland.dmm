@@ -12,9 +12,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -275,11 +272,9 @@
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "pl" = (
-/obj/machinery/camera{
-	dir = 10
-	},
+/obj/machinery/camera,
 /turf/template_noop,
-/area/template_noop)
+/area/shuttle/exploration)
 "py" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims{
@@ -790,9 +785,6 @@
 /obj/item/mop,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/spray/cleaner,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
@@ -1034,7 +1026,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/north{
+/obj/machinery/power/apc/auto_name/directional/north{
 	cell_type = /obj/item/stock_parts/cell/high
 	},
 /turf/open/floor/iron/techmaint,

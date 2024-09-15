@@ -35,7 +35,7 @@
 	. = ..()
 	for(var/i in networks)
 		networks -= i
-		networks += lowertext(i)
+		networks += LOWER_TEXT(i)
 	if(lock_override)
 		if(lock_override & CAMERA_LOCK_STATION)
 			z_lock |= SSmapping.levels_by_trait(ZTRAIT_STATION)
@@ -313,9 +313,9 @@
 			user_image = image(icon,loc,icon_state,FLY_LAYER)
 			eye_user.client.images += user_image
 
-/mob/camera/ai_eye/remote/relaymove(mob/user,direct)
-	if(direct == UP || direct == DOWN)
-		zMove(direct, FALSE)
+/mob/camera/ai_eye/remote/relaymove(mob/living/user, direction)
+	if(direction == UP || direction == DOWN)
+		zMove(direction, FALSE)
 		return
 	var/initial = initial(sprint)
 	var/max_sprint = 50
@@ -324,7 +324,7 @@
 		sprint = initial
 
 	for(var/i = 0; i < max(sprint, initial); i += 20)
-		var/turf/step = get_turf(get_step(src, direct))
+		var/turf/step = get_turf(get_step(src, direction))
 		if(step)
 			setLoc(step)
 

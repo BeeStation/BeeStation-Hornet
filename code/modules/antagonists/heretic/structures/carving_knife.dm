@@ -7,11 +7,13 @@
 	icon_state = "rune_carver"
 	flags_1 = CONDUCT_1
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 10
 	throwforce = 20
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	actions_types = list(/datum/action/item_action/rune_shatter)
 	embedding = list(
 		ignore_throwspeed_threshold = TRUE,
@@ -170,6 +172,8 @@
 	var/carver_tip
 	/// Reference to trap owner mob
 	var/datum/weakref/owner
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/trap/eldritch)
 
 /obj/structure/trap/eldritch/Initialize(mapload, new_owner)
 	. = ..()

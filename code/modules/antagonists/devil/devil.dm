@@ -141,11 +141,11 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	return ..() + "([truename])"
 
 /proc/devilInfo(name)
-	if(GLOB.allDevils[lowertext(name)])
-		return GLOB.allDevils[lowertext(name)]
+	if(GLOB.allDevils[LOWER_TEXT(name)])
+		return GLOB.allDevils[LOWER_TEXT(name)]
 	else
 		var/datum/fakeDevil/devil = new /datum/fakeDevil(name)
-		GLOB.allDevils[lowertext(name)] = devil
+		GLOB.allDevils[LOWER_TEXT(name)] = devil
 		return devil
 
 /proc/randomDevilName()
@@ -511,7 +511,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	bane = randomdevilbane()
 	obligation = randomdevilobligation()
 	banish = randomdevilbanish()
-	GLOB.allDevils[lowertext(truename)] = src
+	GLOB.allDevils[LOWER_TEXT(truename)] = src
 
 	antag_memory += "Your devilic true name is [truename]<br>[GLOB.lawlorify[LAW][ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][bane]]<br>[GLOB.lawlorify[LAW][obligation]]<br>[GLOB.lawlorify[LAW][banish]]<br>"
 	if(issilicon(owner.current))
@@ -574,3 +574,14 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	ban = randomdevilban()
 	banish = randomdevilbanish()
 	ascendable = prob(25)
+
+#undef BLOOD_THRESHOLD
+#undef TRUE_THRESHOLD
+#undef ARCH_THRESHOLD
+#undef BASIC_DEVIL
+#undef BLOOD_LIZARD
+#undef TRUE_DEVIL
+#undef ARCH_DEVIL
+#undef LOSS_PER_DEATH
+#undef SOULVALUE
+#undef DEVILRESURRECTTIME

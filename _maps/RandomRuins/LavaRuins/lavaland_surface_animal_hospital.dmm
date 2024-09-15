@@ -393,7 +393,7 @@
 /area/ruin/powered/animal_hospital)
 "fx" = (
 /obj/structure/chair/fancy/comfy{
-	color = "#354562" ;
+	color = "#354562";
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
@@ -560,7 +560,7 @@
 /area/ruin/powered/animal_hospital)
 "qX" = (
 /obj/structure/chair/fancy/comfy{
-	color = "#354562" ;
+	color = "#354562";
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
@@ -641,7 +641,7 @@
 /area/ruin/powered/animal_hospital)
 "vf" = (
 /obj/structure/chair/fancy/comfy{
-	color = "#354562" ;
+	color = "#354562";
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,

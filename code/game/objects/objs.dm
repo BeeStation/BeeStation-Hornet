@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SELF(/obj)
+
 /obj
 	animate_movement = SLIDE_STEPS
 	speech_span = SPAN_ROBOT
@@ -8,16 +10,20 @@
 
 	var/damtype = BRUTE
 	var/force = 0
+	/// How much bleeding damage do we cause, see __DEFINES/mobs.dm
+	var/bleed_force = 0
 
 	var/datum/armor/armor
 	/// The integrity the object starts at. Defaults to max_integrity.
-	var/obj_integrity
+	VAR_PRIVATE/obj_integrity //defaults to max_integrity
 	/// The maximum integrity the object can have.
 	var/max_integrity = 500
 	/// The object will break once obj_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior, otherwise is a percentage of at what point the obj breaks. 0.5 being 50%
 	var/integrity_failure = 0
-	///Damage under this value will be completely ignored
+	/// Damage under this value will be completely ignored
 	var/damage_deflection = 0
+	/// Maximum damage that can be taken in a single hit
+	var/max_hit_damage = null
 
 	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
 	var/resistance_flags = NONE
@@ -70,8 +76,7 @@
 		armor = getArmor()
 	else if (!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
-	if(obj_integrity == null)
-		obj_integrity = max_integrity
+	obj_integrity = max_integrity
 
 	. = ..() //Do this after, else mat datums is mad.
 
@@ -299,14 +304,14 @@
 			if (result["button"] != 2) // If the user pressed the cancel button
 				// text2num conveniently returns a null on invalid values
 				armor = armor.setRating(melee = text2num(result["values"][MELEE]),\
-			                  bullet = text2num(result["values"][BULLET]),\
-			                  laser = text2num(result["values"][LASER]),\
-			                  energy = text2num(result["values"][ENERGY]),\
-			                  bomb = text2num(result["values"][BOMB]),\
-			                  bio = text2num(result["values"][BIO]),\
-			                  rad = text2num(result["values"][RAD]),\
-			                  fire = text2num(result["values"][FIRE]),\
-			                  acid = text2num(result["values"][ACID]))
+								bullet = text2num(result["values"][BULLET]),\
+								laser = text2num(result["values"][LASER]),\
+								energy = text2num(result["values"][ENERGY]),\
+								bomb = text2num(result["values"][BOMB]),\
+								bio = text2num(result["values"][BIO]),\
+								rad = text2num(result["values"][RAD]),\
+								fire = text2num(result["values"][FIRE]),\
+								acid = text2num(result["values"][ACID]))
 				log_admin("[key_name(usr)] modified the armor on [src] ([type]) to melee: [armor.melee], bullet: [armor.bullet], laser: [armor.laser], energy: [armor.energy], bomb: [armor.bomb], bio: [armor.bio], rad: [armor.rad], fire: [armor.fire], acid: [armor.acid]")
 				message_admins("<span class='notice'>[key_name_admin(usr)] modified the armor on [src] ([type]) to melee: [armor.melee], bullet: [armor.bullet], laser: [armor.laser], energy: [armor.energy], bomb: [armor.bomb], bio: [armor.bio], rad: [armor.rad], fire: [armor.fire], acid: [armor.acid]</span>")
 	if(href_list[VV_HK_MASS_DEL_TYPE])

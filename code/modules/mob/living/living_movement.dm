@@ -3,17 +3,18 @@
 	update_turf_movespeed(loc)
 	update_looking_move()
 
+
 /mob/living/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return
 	if(mover.throwing)
-		return (!density || !(mobility_flags & MOBILITY_STAND) || (mover.throwing.thrower == src && !ismob(mover)))
+		return (!density || (body_position == LYING_DOWN) || (mover.throwing.thrower == src && !ismob(mover)))
 	if(buckled == mover)
 		return TRUE
 	if(ismob(mover) && (mover in buckled_mobs))
 		return TRUE
-	return !mover.density || !(mobility_flags & MOBILITY_STAND)
+	return !mover.density || body_position == LYING_DOWN
 
 /mob/living/toggle_move_intent()
 	. = ..()
@@ -32,11 +33,12 @@
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/turf_slowdown)
 
+
 /mob/living/proc/update_pull_movespeed()
 	if(pulling)
 		if(isliving(pulling))
 			var/mob/living/L = pulling
-			if(!slowed_by_drag || (L.mobility_flags & MOBILITY_STAND) || L.buckled || grab_state >= GRAB_AGGRESSIVE)
+			if(!slowed_by_drag || L.body_position == STANDING_UP || L.buckled || grab_state >= GRAB_AGGRESSIVE)
 				remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 				return
 			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = PULL_PRONE_SLOWDOWN)

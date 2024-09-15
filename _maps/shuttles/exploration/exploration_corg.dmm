@@ -152,8 +152,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "hc" = (
-/obj/machinery/camera/autoname{
-	dir = 8;
+/obj/machinery/camera/autoname/directional/east{
 	name = "Exploration Shuttle";
 	network = list("exploration shuttle")
 	},
@@ -536,7 +535,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "yz" = (
-/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/n2,
+/obj/machinery/atmospherics/components/trinary/filter/atmos/n2/flipped,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "yM" = (
@@ -779,7 +778,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/east{
+/obj/machinery/power/apc/auto_name/directional/east{
 	locked = 0
 	},
 /obj/structure/cable/yellow,
@@ -969,7 +968,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ZB" = (
-/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/o2,
+/obj/machinery/atmospherics/components/trinary/filter/atmos/o2/flipped,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ZM" = (
