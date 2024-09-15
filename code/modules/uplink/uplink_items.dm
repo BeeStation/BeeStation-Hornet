@@ -685,7 +685,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "The original Russian version of a widely used Syndicate sidearm. Uses 9mm ammo, not compatible with suppressors."
 	item = /obj/item/gun/ballistic/automatic/pistol/APS
 	purchasable_from = UPLINK_NUKE_OPS
-	cost = 8
+	cost = 6
 	surplus = 0
 
 /datum/uplink_item/dangerous/derringer
