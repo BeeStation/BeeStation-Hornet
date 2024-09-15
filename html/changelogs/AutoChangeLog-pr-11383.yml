@@ -1,0 +1,5 @@
+author: MarkusLarsson421
+delete-after: true
+changes:
+  - tweak: Changed pre-made AI shells to spawn with a tier 1 cell instead of a null
+      cell.
