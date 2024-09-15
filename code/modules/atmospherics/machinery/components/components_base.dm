@@ -25,7 +25,7 @@
 	. = ..()
 	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
 
-/obj/machinery/atmospherics/components/Initialize()
+/obj/machinery/atmospherics/components/Initialize(mapload)
 	. = ..()
 
 	if(hide)

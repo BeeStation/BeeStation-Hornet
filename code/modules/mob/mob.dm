@@ -1289,3 +1289,5 @@
 /mob/onTransitZ(old_z,new_z)
 	..()
 	hud_used?.update_parallax(FALSE)
+
+#undef MOB_FACE_DIRECTION_DELAY

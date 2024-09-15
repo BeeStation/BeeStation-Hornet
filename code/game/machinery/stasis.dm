@@ -20,7 +20,7 @@
 	var/obj/machinery/computer/operating/op_computer
 
 // dir check for buckle_lying state
-/obj/machinery/stasis/Initialize()
+/obj/machinery/stasis/Initialize(mapload)
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
 	dir_changed(new_dir = dir)
 	. = ..()
@@ -172,7 +172,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/stasis)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You store the linking data of \the [src] in \the [buffer_parent]'s buffer. Use it on an operating computer to complete linking.</span>")
 		balloon_alert(user, "saved in buffer")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/stasis/wrench_act(mob/living/user, obj/item/I) //We want to rotate, but we need to do it in 180 degree rotations.

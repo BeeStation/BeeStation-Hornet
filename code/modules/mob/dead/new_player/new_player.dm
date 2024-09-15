@@ -554,3 +554,5 @@
 
 /mob/dead/new_player/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	return
+
+#undef LINKIFY_READY
