@@ -458,7 +458,6 @@
 		if("pest_control")
 			pests = !pests
 	get_targets()
-	return
 
 /obj/machinery/bot_core/cleanbot/medbay
 	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS, ACCESS_MEDICAL)

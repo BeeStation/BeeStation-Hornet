@@ -343,7 +343,6 @@
 				if (gas_id == id)
 					gasses[id] = !gasses[id]
 	update_icon()
-	return
 
 /mob/living/simple_animal/bot/atmosbot/update_icon()
 	if(action == ATMOSBOT_VENT_AIR && emagged == 2)

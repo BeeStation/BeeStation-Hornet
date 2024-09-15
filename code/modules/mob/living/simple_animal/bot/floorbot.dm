@@ -179,7 +179,6 @@
 					targetdirection = 8
 				if("disable")
 					targetdirection = null
-	return
 
 /mob/living/simple_animal/bot/floorbot/handle_automated_action()
 	if(!..())

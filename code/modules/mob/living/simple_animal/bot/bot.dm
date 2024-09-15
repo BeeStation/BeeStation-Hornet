@@ -977,7 +977,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 				to_chat(usr, "<span class='notice'>You eject [paicard] from [bot_name]</span>")
 				ejectpai(usr)
 	//update_controls()
-	return
 
 /mob/living/simple_animal/bot/proc/show_controls(mob/M)
 	users |= M

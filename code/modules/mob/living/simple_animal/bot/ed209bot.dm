@@ -130,7 +130,6 @@
 			arrest_type = !arrest_type
 		if("arrest_alert")
 			declare_arrests = !declare_arrests
-	return
 
 /mob/living/simple_animal/bot/ed209/proc/judgment_criteria()
 	var/final = FALSE

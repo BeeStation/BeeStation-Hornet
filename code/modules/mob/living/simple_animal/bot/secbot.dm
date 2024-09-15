@@ -130,7 +130,6 @@
 			arrest_type = !arrest_type
 		if("arrest_alert")
 			declare_arrests = !declare_arrests
-	return
 
 /mob/living/simple_animal/bot/secbot/proc/retaliate(mob/living/carbon/human/H)
 	var/judgment_criteria = judgment_criteria()

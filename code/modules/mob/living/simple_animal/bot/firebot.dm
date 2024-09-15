@@ -146,7 +146,6 @@
 		if("stationary_mode")
 			stationary_mode = !stationary_mode
 	update_icon()
-	return
 
 /mob/living/simple_animal/bot/firebot/proc/is_burning(atom/target)
 	if(ismob(target))
