@@ -3748,6 +3748,7 @@
 #include "code\modules\religion\sects\puritan_sect.dm"
 #include "code\modules\religion\sects\shadow_sect.dm"
 #include "code\modules\religion\sects\techno_sect.dm"
+#include "code\modules\religion\sects\forge_sect.dm"
 #include "code\modules\requests\request.dm"
 #include "code\modules\requests\request_manager.dm"
 #include "code\modules\research\designs.dm"
