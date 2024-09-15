@@ -173,6 +173,8 @@
 	/// Reference to trap owner mob
 	var/datum/weakref/owner
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/trap/eldritch)
+
 /obj/structure/trap/eldritch/Initialize(mapload, new_owner)
 	. = ..()
 	if(new_owner)

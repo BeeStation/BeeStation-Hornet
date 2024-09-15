@@ -83,6 +83,8 @@
 	. = ..()
 	. += "<span class='notice'>It's locked with a privacy lock, and can only be unlocked by the buyer's ID with required access.</span>"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/crate/secure/owned)
+
 /obj/structure/closet/crate/secure/owned/Initialize(mapload, datum/bank_account/_buyer_account)
 	. = ..()
 	buyer_account = _buyer_account

@@ -1,20 +1,20 @@
 
 /*
- Mecha Pilots!
- by Remie Richards
+	Mecha Pilots!
+	by Remie Richards
 
- Mecha pilot mobs are able to pilot Mecha to a rudimentary level
- This allows for certain mobs to be more of a threat (Because they're in a MECH)
+	Mecha pilot mobs are able to pilot Mecha to a rudimentary level
+	This allows for certain mobs to be more of a threat (Because they're in a MECH)
 
- Mecha Pilots can either spawn with one, or steal one!
+	Mecha Pilots can either spawn with one, or steal one!
 
- (Inherits from syndicate just to avoid copy-paste)
+	(Inherits from syndicate just to avoid copy-paste)
 
- Featuring:
- * Mecha piloting skills
- * Uses Mecha equipment
- * Uses Mecha special abilities in specific situations
- * Pure Evil Incarnate
+	Featuring:
+	* Mecha piloting skills
+	* Uses Mecha equipment
+	* Uses Mecha special abilities in specific situations
+	* Pure Evil Incarnate
 
 */
 
@@ -292,6 +292,6 @@
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/Goto(target, delay, minimum_distance)
 	if(mecha)
-		SSmove_manager.move_to(mecha, target, minimum_distance, mecha.movedelay * mecha.step_multiplier)
+		SSmove_manager.move_to(mecha, target, minimum_distance, mecha.movedelay)
 	else
 		..()

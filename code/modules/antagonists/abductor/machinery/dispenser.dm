@@ -95,6 +95,7 @@
 	active_power_usage = 0
 	max_n_of_items = 1000
 	tgui_theme = "abductor"
+	opacity = FALSE
 	var/repair_rate = 0
 	var/allowed_to_everyone = FALSE
 

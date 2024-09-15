@@ -47,6 +47,8 @@
 	var/state = 0
 	merge_type = /obj/item/stack/tile/light
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile/light)
+
 /obj/item/stack/tile/light/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	if(prob(5))

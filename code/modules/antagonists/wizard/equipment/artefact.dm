@@ -42,6 +42,8 @@
 	var/spawn_amt_left = 20
 	var/spawn_fast = 0
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
+
 /obj/effect/rend/Initialize(mapload, var/spawn_type, var/spawn_amt, var/desc, var/spawn_fast)
 	. = ..()
 	src.spawn_path = spawn_type
@@ -424,9 +426,9 @@
 		to_chat(victim, "<span class='notice'>You feel a dark presence from [A.name]</span>")
 
 /obj/item/voodoo/suicide_act(mob/living/carbon/user)
-    user.visible_message("<span class='suicide'>[user] links the voodoo doll to [user.p_them()]self and sits on it, infinitely crushing [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-    user.gib()
-    return BRUTELOSS
+	user.visible_message("<span class='suicide'>[user] links the voodoo doll to [user.p_them()]self and sits on it, infinitely crushing [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.gib()
+	return BRUTELOSS
 
 /obj/item/voodoo/fire_act(exposed_temperature, exposed_volume)
 	if(target)

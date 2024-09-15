@@ -1,6 +1,3 @@
-#define EMOTE_AUDIBLE (1<<0)
-#define EMOTE_ANIMATED (1<<1)
-
 /datum/emote
 	var/key = "" //What calls the emote
 	var/key_third_person = "" //This will also call the emote
