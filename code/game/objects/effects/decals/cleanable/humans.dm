@@ -112,6 +112,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
 
 	dryname = "rotting gibs"
 	drydesc = "They look bloody and gruesome while some terrible smell fills the air."
+	decal_reagent = /datum/reagent/liquidgibs
+	reagent_amount = 5
 	///Information about the diseases our streaking spawns
 	var/list/streak_diseases
 
@@ -119,7 +121,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/gibs)
 
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
-	reagents.add_reagent(/datum/reagent/liquidgibs, 5)
 	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
 
 /obj/effect/decal/cleanable/blood/gibs/Destroy()
