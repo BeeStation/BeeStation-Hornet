@@ -14,6 +14,10 @@
 	if(!thing)
 		return
 
+	if(thing == GLOB.vv_ghost && GLOB.vv_ghost.tag)
+		thing = GLOB.vv_ghost.tag
+		GLOB.vv_ghost = null
+
 	var/datum/asset/asset_cache_datum = get_asset_datum(/datum/asset/simple/vv)
 	asset_cache_datum.send(usr)
 
@@ -132,6 +136,8 @@
 		for(var/varname in names)
 			if(thing.can_vv_get(varname))
 				variable_html += thing.vv_get_var(varname)
+
+	var/ref_locatable = IS_REF_LOCATABLE(refid)
 
 	var/html = {"
 <html>
@@ -261,8 +267,11 @@
 					</td>
 					<td width='50%'>
 						<div align='center'>
-							<a id='refresh_link' href='?_src_=vars;
-datumrefresh=[refid];[HrefToken()]'>Refresh</a>
+							[\
+								ref_locatable \
+								? "<a id='refresh_link' href='?_src_=vars;datumrefresh=[refid];[HrefToken()]'>Refresh</a>" \
+								: "Not-refreshable" \
+							]
 							<form>
 								<select name="file" size="1"
 									onchange="handle_dropdown(this)"

@@ -126,7 +126,17 @@
 
 	//Finally, refresh if something modified the list.
 	if(href_list["datumrefresh"])
-		var/datum/DAT = locate(href_list["datumrefresh"])
-		if(istype(DAT, /datum) || istype(DAT, /client))
-			debug_variables(DAT)
+		var/datum/datum_ref = locate(href_list["datumrefresh"]) // note: this can't track 'list ref'
+		if(datum_ref)
+			debug_variables(datum_ref)
+			return
 
+		// For list, or some special byond list
+		var/real_ref = locate(href_list["datumrefresh"])
+		if(real_ref && !IS_REF_0X0(real_ref)) // some reference is not possible to recover
+			GLOB.vv_ghost.tag = real_ref
+			debug_variables(GLOB.vv_ghost) // the proc blames if it doesn't take an actual datum. We send a fake datum, by letting datum.tag hold the real reference.
+			GLOB.vv_ghost.tag = null
+			return
+
+GLOBAL_DATUM(vv_ghost, /datum) // Fake datum for vv debug_variables() proc. Am I real?
