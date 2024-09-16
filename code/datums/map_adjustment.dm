@@ -34,7 +34,8 @@
 /// * spawn_positions<number>: 			Sets the number of rounstart positions of this job, when spawning at roundstart
 /// * total_positions<number, null>: 	Sets the number of total positions of this job, including roundstart and latejoin
 /datum/map_adjustment/proc/change_job_position(job_name, spawn_positions, total_positions = null)
-	SHOULD_NOT_OVERRIDE(TRUE)
+	SHOULD_NOT_OVERRIDE(TRUE) // no reason to override for a new behaviour
+	PROTECTED_PROC(TRUE) // no reason to call this outside of /map_adjustment datum. (I didn't add _underbar_ to the proc name because you use this frequently)
 	var/datum/job/job = SSjob.GetJob(job_name)
 	if(!job)
 		CRASH("Failed to adjust a job position: [job_name]")
@@ -45,7 +46,8 @@
 /// * access_to_give<number/ACCESS_DEFINES, list/[ACCESS_DEFINES], null>: 	gives new access(es) to this job in this station map
 /// * access_to_remove<number/ACCESS_DEFINES, list/[ACCESS_DEFINES], null>:	removes existing access(es) to this job in this station map
 /datum/map_adjustment/proc/change_job_access(job_name, list/access_to_give = null, list/access_to_remove = null) // it's fine not to be a list
-	SHOULD_NOT_OVERRIDE(TRUE)
+	SHOULD_NOT_OVERRIDE(TRUE) // no reason to override for a new behaviour
+	PROTECTED_PROC(TRUE) // no reason to call this outside of /map_adjustment datum. (I didn't add _underbar_ to the proc name because you use this frequently)
 	var/datum/job/job = SSjob.GetJob(job_name)
 	if(!job)
 		CRASH("Failed to adjust a job position: [job_name]")

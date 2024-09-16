@@ -24,5 +24,5 @@
 	change_job_access(JOB_NAME_ASSISTANT, ACCESS_MAINT_TUNNELS) // sample code
 
 /datum/map_adjustment/EchoStation/on_map_config_load()
-	GLOB.disabled_tagger_locations += "Virology"
-	GLOB.disabled_tagger_locations += "Law Office"
+	exclude_tagger_destination("Virology")
+	exclude_tagger_destination("Law Office")

@@ -125,8 +125,10 @@
 		for(var/datum/map_adjustment/each_adjust as anything in subtypesof(/datum/map_adjustment))
 			if(initial(each_adjust.map_file_name) != map_file)
 				continue
-			SSmapping.map_adjustment = new each_adjust() // we use this later
+			log_world("Applying '[map_file]' map adjustment.")
+			SSmapping.map_adjustment = new each_adjust() // map_adjustment has multiple procs that'll be called from needed places (i.e. job_change)
 			SSmapping.map_adjustment.on_map_config_load()
+			log_world("Applied '[map_file]' map adjustment (on load).")
 			break
 
 	// "map_file": ["Lower.dmm", "Upper.dmm"]
