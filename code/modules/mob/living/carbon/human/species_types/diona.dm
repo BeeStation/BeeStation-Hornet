@@ -121,8 +121,7 @@
 		H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
 
 /datum/species/diona/spec_death(gibbed, mob/living/carbon/human/H)
-	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
-	drone = null
+	drone_ref = null
 	if(gibbed)
 		QDEL_NULL(H)
 		return
