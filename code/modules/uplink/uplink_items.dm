@@ -1196,7 +1196,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/ammo/pistolaps/inc
 	name = "9mm Incendiary Handgun Magazine"
-	desc = "An additional 15-round 9mm Incendiary magazine, compatible with the Stechkin APS pistol, found in the Spetsnaz Pyro bundle."
+	desc = "An additional 15-round 9mm Incendiary magazine, compatible with the Stechkin APS pistol."
 	item = /obj/item/ammo_box/magazine/pistolm9mm/inc
 	cost = 2
 	purchasable_from = UPLINK_NUKE_OPS
@@ -1205,7 +1205,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/ammo/pistolaps/ap
 	name = "9mm AP Handgun Magazine"
-	desc = "An additional 15-round 9mm AP magazine, compatible with the Stechkin APS pistol, found in the Spetsnaz Pyro bundle."
+	desc = "An additional 15-round 9mm AP magazine, compatible with the Stechkin APS pistol."
 	item = /obj/item/ammo_box/magazine/pistolm9mm/ap
 	cost = 2
 	purchasable_from = UPLINK_NUKE_OPS
@@ -1214,7 +1214,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/ammo/pistolaps/hp
 	name = "9mm HP Handgun Magazine"
-	desc = "An additional 15-round 9mm HP magazine, compatible with the Stechkin APS pistol, found in the Spetsnaz Pyro bundle."
+	desc = "An additional 15-round 9mm HP magazine, compatible with the Stechkin APS pistol."
 	item = /obj/item/ammo_box/magazine/pistolm9mm/hp
 	cost = 3
 	purchasable_from = UPLINK_NUKE_OPS
