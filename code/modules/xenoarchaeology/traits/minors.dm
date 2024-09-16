@@ -1067,7 +1067,6 @@
 	weight = 15
 	conductivity = 10
 	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
-	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
 	///Max force we can use, aka how far we throw things
 	var/max_force = 7
 
@@ -1082,7 +1081,9 @@
 		var/mob/living/L = AM.loc
 		L.dropItemToGround(AM)
 	//Get the fuck outta dodge
+	parent.cooldown_override = TRUE
 	AM.throw_at(T, max_force*(parent.trait_strength/100), 4)
+	parent.cooldown_override = FALSE
 
 /*
 	Sticky
