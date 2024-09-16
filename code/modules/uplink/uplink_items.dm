@@ -932,6 +932,42 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
 
+/datum/uplink_item/ammo/pistolaps
+	name = "9mm Handgun Magazine"
+	desc = "An additional 15-round 9mm magazine, compatible with the Stechkin APS pistol, found in the Spetsnaz Pyro bundle."
+	item = /obj/item/ammo_box/magazine/pistolm9mm
+	cost = 2
+	purchasable_from = UPLINK_NUKE_OPS
+	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
+
+/datum/uplink_item/ammo/pistolaps/inc
+	name = "9mm Incendiary Handgun Magazine"
+	desc = "An additional 15-round 9mm Incendiary magazine, compatible with the Stechkin APS pistol."
+	item = /obj/item/ammo_box/magazine/pistolm9mm/inc
+	cost = 2
+	purchasable_from = UPLINK_NUKE_OPS
+	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
+
+/datum/uplink_item/ammo/pistolaps/ap
+	name = "9mm AP Handgun Magazine"
+	desc = "An additional 15-round 9mm AP magazine, compatible with the Stechkin APS pistol."
+	item = /obj/item/ammo_box/magazine/pistolm9mm/ap
+	cost = 2
+	purchasable_from = UPLINK_NUKE_OPS
+	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
+
+/datum/uplink_item/ammo/pistolaps/hp
+	name = "9mm HP Handgun Magazine"
+	desc = "An additional 15-round 9mm HP magazine, compatible with the Stechkin APS pistol."
+	item = /obj/item/ammo_box/magazine/pistolm9mm/hp
+	cost = 3
+	purchasable_from = UPLINK_NUKE_OPS
+	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
+
 /datum/uplink_item/ammo/shotgun
 	cost = 2
 	purchasable_from = UPLINK_NUKE_OPS
@@ -1184,42 +1220,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			Strike fear into the hearts of your enemies."
 	item = /obj/item/ammo_casing/caseless/rocket/hedp
 	cost = 5
-
-/datum/uplink_item/ammo/pistolaps
-	name = "9mm Handgun Magazine"
-	desc = "An additional 15-round 9mm magazine, compatible with the Stechkin APS pistol, found in the Spetsnaz Pyro bundle."
-	item = /obj/item/ammo_box/magazine/pistolm9mm
-	cost = 2
-	purchasable_from = UPLINK_NUKE_OPS
-	illegal_tech = FALSE
-	contents_are_illegal_tech = FALSE
-
-/datum/uplink_item/ammo/pistolaps/inc
-	name = "9mm Incendiary Handgun Magazine"
-	desc = "An additional 15-round 9mm Incendiary magazine, compatible with the Stechkin APS pistol."
-	item = /obj/item/ammo_box/magazine/pistolm9mm/inc
-	cost = 2
-	purchasable_from = UPLINK_NUKE_OPS
-	illegal_tech = FALSE
-	contents_are_illegal_tech = FALSE
-
-/datum/uplink_item/ammo/pistolaps/ap
-	name = "9mm AP Handgun Magazine"
-	desc = "An additional 15-round 9mm AP magazine, compatible with the Stechkin APS pistol."
-	item = /obj/item/ammo_box/magazine/pistolm9mm/ap
-	cost = 2
-	purchasable_from = UPLINK_NUKE_OPS
-	illegal_tech = FALSE
-	contents_are_illegal_tech = FALSE
-
-/datum/uplink_item/ammo/pistolaps/hp
-	name = "9mm HP Handgun Magazine"
-	desc = "An additional 15-round 9mm HP magazine, compatible with the Stechkin APS pistol."
-	item = /obj/item/ammo_box/magazine/pistolm9mm/hp
-	cost = 3
-	purchasable_from = UPLINK_NUKE_OPS
-	illegal_tech = FALSE
-	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/toydarts
 	name = "Box of Riot Darts"
