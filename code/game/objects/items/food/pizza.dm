@@ -28,6 +28,7 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	foodtypes = GRAIN | DAIRY | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
+	decomp_type = /obj/item/food/pizzaslice/moldy
 
 /obj/item/food/pizzaslice/make_processable()
 	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, 1, 1 SECONDS, table_required = TRUE, /*screentip_verb = "Flatten"*/)
@@ -212,6 +213,27 @@
 	icon_state = "pineapplepizzaslice"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pineapple" = 2, "ham" = 2)
 	foodtypes = GRAIN | VEGETABLES | DAIRY | MEAT | FRUIT | PINEAPPLE
+
+// Moldly Pizza
+// NOT Used in cytobiology.
+/obj/item/food/pizzaslice/moldy
+	name = "moldy pizza slice"
+	desc = "This was once a perfectly good slice of pizza pie, but now it lies here, rancid and bursting with spores. \
+		What a bummer! But we should not dwell on the past, only look towards the future."
+	icon_state = "moldy_slice"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/nutriment/peptides = 3,
+		/datum/reagent/consumable/tomatojuice = 1,
+		/datum/reagent/toxin/amatoxin = 2,
+	)
+	tastes = list("stale crust" = 1, "rancid cheese" = 2, "mushroom" = 1)
+	foodtypes = GRAIN | VEGETABLES | DAIRY | GROSS
+	preserved_food = TRUE
+
+/obj/item/food/pizzaslice/moldy/bacteria
+	name = "bacteria rich moldy pizza slice"
+	desc = "Not only is this once delicious pizza encrusted with a layer of spore-spewing fungus, it also seems to shift and slide when unattended, teeming with new life."
 
 /obj/item/food/pizza/arnold
 	name = "\improper Arnold pizza"

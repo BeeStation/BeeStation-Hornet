@@ -147,6 +147,7 @@
 		/datum/reagent/liquidgibs = 5
 	)
 	decomp_req_handle = TRUE
+	decomp_type = /obj/item/food/deadmouse/moldy
 
 /obj/item/food/deadmouse/moldy
 	name = "moldy dead mouse"

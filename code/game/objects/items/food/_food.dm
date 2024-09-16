@@ -38,6 +38,10 @@
 	var/junkiness
 	///Food that's immune to decomposition.
 	var/preserved_food = FALSE
+	///Does our food normally attract ants?
+	var/ant_attracting = TRUE
+	///What our food decomposes into.
+	var/decomp_type = /obj/item/food/badrecipe/moldy
 	///Food that needs to be picked up in order to decompose.
 	var/decomp_req_handle = FALSE
 
@@ -89,7 +93,7 @@
 ///Set decomp_req_handle to TRUE to only make it decompose when someone picks it up.
 /obj/item/food/proc/make_decompose()
 	if(!preserved_food)
-		AddComponent(/datum/component/decomposition, decomp_flags = foodtypes)
+		AddComponent(/datum/component/decomposition, mapload, decomp_req_handle, decomp_flags = foodtypes, decomp_result = decomp_type, ant_attracting = ant_attracting)
 
 /obj/item/food/burn()
 	if(QDELETED(src))

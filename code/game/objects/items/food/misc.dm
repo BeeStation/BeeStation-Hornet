@@ -65,9 +65,13 @@
 	desc = "A rancid, disgusting culture of mold and ants. Somewhere under there, at <i>some point,</i> there was food."
 	food_reagents = list(/datum/reagent/consumable/mold = 30)
 
+/obj/item/food/badrecipe/moldy/bacteria
+	name = "bacteria rich moldy mess"
+	desc = "Not only is this rancid lump of disgusting bile crawling with insect life, but it is also teeming with various microscopic cultures. <i>It moves when you're not looking.</i>"
+
 /obj/item/food/badrecipe/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ITEM_GRILLED,  PROC_REF(OnGrill))
+	RegisterSignal(src, COMSIG_ITEM_GRILLED, PROC_REF(OnGrill))
 
 ///Prevents grilling burnt shit from well, burning.
 /obj/item/food/badrecipe/proc/OnGrill()

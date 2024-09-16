@@ -59,6 +59,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2
 	)
+	decomp_type = /obj/item/food/breadslice/moldy
 
 /obj/item/food/breadslice/plain/Initialize(mapload)
 	. = ..()
