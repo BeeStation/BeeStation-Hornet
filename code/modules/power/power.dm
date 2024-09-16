@@ -173,10 +173,10 @@
 // Powernet handling helpers
 //////////////////////////////////////////
 
-/obj/machinery/power/lateShuttleMove(turf/oldT, list/movement_force, move_dir)
+/obj/machinery/power/Move(atom/newloc, direct, update_dir)
 	. = ..()
-	disconnect_from_network()
-	connect_to_network()
+	if (!anchored || !connect_to_network())
+		disconnect_from_network()
 
 ///////////////////////////////////////////
 // GLOBAL PROCS for powernets handling

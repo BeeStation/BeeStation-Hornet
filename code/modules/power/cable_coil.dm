@@ -125,9 +125,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 			to_chat(user, "<span class='warning'>There is no cable left!</span>")
 			return
 		to_chat(user, "<span class='warning'You add a node to the [wire]!</span>")
-		wire.forced_power_node = TRUE
-		wire.has_power_node = TRUE
-		wire.update_appearance(UPDATE_ICON)
+		wire.add_power_node()
 		return
 
 	if (isopenspace(T))

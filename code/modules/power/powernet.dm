@@ -152,3 +152,11 @@
 	for (var/obj/structure/cable/processing_wire as() in powernet_id_array)
 		var/datum/powernet/new_powernet = powernet_id_array[processing_wire]
 		new_powernet.add_cable(processing_wire)
+		// Get connected machines
+		if (!processing_wire.has_power_node)
+			continue
+		for (var/obj/machinery/power/powered_machine in processing_wire.loc)
+			if (!powered_machine.anchored)
+				continue
+			if (!powered_machine.connect_to_network())
+				powered_machine.disconnect_from_network()

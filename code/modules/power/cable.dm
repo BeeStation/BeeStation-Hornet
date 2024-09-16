@@ -94,7 +94,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	var/list/cable_colors = GLOB.cable_colors
 	cable_color = param_color || cable_color || pick(cable_colors)
 	if(cable_colors[cable_color])
-		cable_color = cable_colors[cable_color]
+		color = cable_colors[cable_color]
 
 	// Locate adjacent tiles
 	north = get_cable(get_step(src, NORTH), cable_color)
@@ -115,7 +115,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 
 	update_appearance(UPDATE_ICON)
-	linkup_adjacent()
+	linkup_adjacent(TRUE)
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	// Update our neighbors
@@ -127,6 +127,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		cut_cable_from_powernet()				// update the powernets
 	GLOB.cable_list -= src							//remove it from global cable list
 	return ..()									// then go ahead and delete the cable
+
+/// Add a power node to this cable
+/obj/structure/cable/proc/add_power_node()
+	forced_power_node = TRUE
+	has_power_node = TRUE
+	linkup_adjacent(FALSE)
+	update_appearance(UPDATE_ICON)
 
 /obj/structure/cable/proc/set_north(new_value)
 	north = new_value
@@ -157,15 +164,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	update_appearance(UPDATE_ICON)
 
 /obj/structure/cable/deconstruct(disassembled = TRUE)
-	/*
 	if(!(flags_1 & NODECONSTRUCT_1))
 		var/turf/T = get_turf(loc)
 		if(T)
-			var/obj/R = new /obj/item/stack/cable_coil(T, d1 ? 2 : 1, cable_color)
+			var/obj/R = new /obj/item/stack/cable_coil(T, forced_power_node ? 2 : 1, cable_color)
 			if(QDELETED(R)) // the coil merged with something on the tile
 				R = locate(/obj/item/stack/cable_coil) in T
 			if(R)
 				transfer_fingerprints_to(R)
+	/*
 		var/turf/T_below = T.below()
 		if((d1 == DOWN || d2 == DOWN) && T_below)
 			for(var/obj/structure/cable/C in T_below)
@@ -298,30 +305,31 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 ////////////////////////////////////////////////
 
 /// Linkup with adjacent cables
-/obj/structure/cable/proc/linkup_adjacent()
-	if (north)
-		if (powernet)
-			merge_powernets(powernet, north.powernet)
-		else
-			north.powernet.add_cable(src)
-	if (south)
-		if (powernet)
-			merge_powernets(powernet, south.powernet)
-		else
-			south.powernet.add_cable(src)
-	if (east)
-		if (powernet)
-			merge_powernets(powernet, east.powernet)
-		else
-			east.powernet.add_cable(src)
-	if (west)
-		if (powernet)
-			merge_powernets(powernet, west.powernet)
-		else
-			west.powernet.add_cable(src)
-	if (!powernet)
-		var/datum/powernet/newPN = new()
-		newPN.add_cable(src)
+/obj/structure/cable/proc/linkup_adjacent(consoldate_powernets)
+	if (consoldate_powernets)
+		if (north)
+			if (powernet)
+				merge_powernets(powernet, north.powernet)
+			else
+				north.powernet.add_cable(src)
+		if (south)
+			if (powernet)
+				merge_powernets(powernet, south.powernet)
+			else
+				south.powernet.add_cable(src)
+		if (east)
+			if (powernet)
+				merge_powernets(powernet, east.powernet)
+			else
+				east.powernet.add_cable(src)
+		if (west)
+			if (powernet)
+				merge_powernets(powernet, west.powernet)
+			else
+				west.powernet.add_cable(src)
+		if (!powernet)
+			var/datum/powernet/newPN = new()
+			newPN.add_cable(src)
 	if (has_power_node)
 		var/turf/location = get_turf(src)
 		for (var/obj/machinery/power/apc/apc in location)
