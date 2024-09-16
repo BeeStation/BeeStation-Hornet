@@ -1211,7 +1211,7 @@
 		if(new_owner.stat < UNCONSCIOUS) // Unconcious people won't get messages
 			to_chat(new_owner, "<span class='userdanger'>You're covered in ants!</span>")
 		ants_remaining += amount_left
-		RegisterSignal(new_owner, COMSIG_COMPONENT_CLEAN_ACT, .proc/ants_washed)
+		RegisterSignal(new_owner, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(ants_washed))
 	. = ..()
 
 /datum/status_effect/ants/refresh(effect, amount_left)
@@ -1228,7 +1228,7 @@
 /datum/status_effect/ants/on_remove()
 	ants_remaining = 0
 	to_chat(owner, "<span class='notice'>All of the ants are off of your body!</span>")
-	UnregisterSignal(owner, COMSIG_COMPONENT_CLEAN_ACT, .proc/ants_washed)
+	UnregisterSignal(owner, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(ants_washed))
 	. = ..()
 
 /datum/status_effect/ants/proc/ants_washed()
