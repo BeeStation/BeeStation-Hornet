@@ -120,7 +120,7 @@ SUBSYSTEM_DEF(job)
 		type_occupations[each_job.type] = each_job
 	if(SSmapping.map_adjustment)
 		SSmapping.map_adjustment.job_change()
-		log_world("Applied '[SSmapping.map_adjustment.map_file_name]' map adjustment (job_change).")
+		log_world("Applied '[SSmapping.map_adjustment.map_file_name]' map adjustment: job_change()")
 
 	return 1
 

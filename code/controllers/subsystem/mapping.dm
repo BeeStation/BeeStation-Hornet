@@ -75,7 +75,7 @@ SUBSYSTEM_DEF(mapping)
 
 	if(map_adjustment)
 		map_adjustment.on_mapping_init()
-		log_world("Applied '[map_adjustment.map_file_name]' map adjustment (on_mapping_init).")
+		log_world("Applied '[map_adjustment.map_file_name]' map adjustment: on_mapping_init()")
 
 	initialize_biomes()
 	loadWorld()
