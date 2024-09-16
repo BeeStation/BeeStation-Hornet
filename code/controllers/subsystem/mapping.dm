@@ -73,7 +73,8 @@ SUBSYSTEM_DEF(mapping)
 			to_chat(world, "<span class='boldannounce'>Unable to load next or default map config, defaulting to Box Station</span>")
 			config = old_config
 
-	if(map_adjustment?.on_mapping_init())
+	if(map_adjustment)
+		map_adjustment.on_mapping_init()
 		log_world("Applied '[map_adjustment.map_file_name]' map adjustment (on_mapping_init).")
 
 	initialize_biomes()
