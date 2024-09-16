@@ -36,6 +36,8 @@
 	var/trash_type
 	///How much junkiness this food has? God I should remove junkiness soon
 	var/junkiness
+		///Food that's immune to decomposition.
+	var/preserved_food = FALSE
 
 /obj/item/food/Initialize(mapload)
 	. = ..()
@@ -49,6 +51,7 @@
 	make_processable()
 	make_leave_trash()
 	make_grillable()
+	make_decompose()
 
 ///This proc adds the edible component, overwrite this if you for some reason want to change some specific args like callbacks.
 /obj/item/food/proc/make_edible()
@@ -79,6 +82,11 @@
 	if(trash_type)
 		AddElement(/datum/element/food_trash, trash_type)
 	return
+
+///This proc makes things decompose. Set preserved_food to TRUE to make it never decompose.
+/obj/item/food/proc/make_decompose()
+	if(!preserved_food)
+		AddComponent(/datum/component/decomposition, decomp_flags = foodtypes)
 
 /obj/item/food/burn()
 	if(QDELETED(src))

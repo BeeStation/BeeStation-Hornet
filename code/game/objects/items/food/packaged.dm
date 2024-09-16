@@ -13,6 +13,7 @@
 	food_flags = FOOD_IN_CONTAINER
 	w_class = WEIGHT_CLASS_NORMAL
 	max_volume = 30
+	preserved_food = TRUE
 
 /obj/item/food/canned/proc/open_can(mob/user)
 	to_chat(user, "You pull back the tab of \the [src].")
