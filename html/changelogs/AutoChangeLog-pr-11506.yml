@@ -1,0 +1,4 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - rscdel: deletes some unused UI assets
