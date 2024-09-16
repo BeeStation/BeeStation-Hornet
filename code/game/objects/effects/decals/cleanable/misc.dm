@@ -220,7 +220,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/vomit/old)
 /obj/effect/decal/cleanable/ants
 	name = "space ants"
 	desc = "A small colony of space ants. They're normally used to the vacuum of space, so they can't climb too well."
-	icon = 'icons/obj/objects.dmi'
+	icon = 'icons/obj/debris.dmi'
 	icon_state = "ants"
 	//beauty = -150
 	plane = GAME_PLANE

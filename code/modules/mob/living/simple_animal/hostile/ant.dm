@@ -20,8 +20,7 @@
 	maxbodytemp = 400
 	hardattacks = TRUE
 	obj_damage = 5
-	melee_damage = 7.5
-	 // Higher health than a base carp, so much lower damage.
+	melee_damage = 7.5//Higher health than a base carp, so much lower damage.
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
 	attack_sound = 'sound/weapons/bite.ogg'
