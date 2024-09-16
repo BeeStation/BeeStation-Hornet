@@ -13,6 +13,8 @@
 	var/datum/ai_laws/laws = new()
 	var/force_replace_ai_name = FALSE
 	var/overrides_aicore_laws = FALSE // Whether the laws on the MMI, if any, override possible pre-existing laws loaded on the AI core.
+	///Used to reserve an "original" cyborg name. When this mmi first becomes a cyborg, their name will be stored here in case of deconstruction.
+	var/original_name
 
 /obj/item/mmi/Initialize(mapload)
 	. = ..()

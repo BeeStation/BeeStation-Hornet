@@ -15,19 +15,19 @@
 	transform = list(1,0,0,0, 0,1,0,0, 0,0,1,1/5, 0,0,0,1)
 
 /particles/fire_sparks
-    width = 500
-    height = 500
-    count = 3000
-    spawning = 1
-    lifespan = 40
-    fade = 20
-    position = 0
-    gravity = list(0, 1)
+	width = 500
+	height = 500
+	count = 3000
+	spawning = 1
+	lifespan = 40
+	fade = 20
+	position = 0
+	gravity = list(0, 1)
 
-    friction = 0.25
-    drift = generator("sphere", 0, 2)
-    gradient = list(0, "yellow", 1, "red")
-    color = "yellow"
+	friction = 0.25
+	drift = generator("sphere", 0, 2)
+	gradient = list(0, "yellow", 1, "red")
+	color = "yellow"
 
 /particles/flare_sparks
 	width = 500

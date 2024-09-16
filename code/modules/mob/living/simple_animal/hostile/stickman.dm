@@ -48,6 +48,8 @@
 	icon_dead = "stickdog_dead"
 	mob_biotypes = list(MOB_INORGANIC, MOB_BEAST)
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/stickman)
+
 /mob/living/simple_animal/hostile/stickman/Initialize(mapload, var/wizard_summoned)
 	. = ..()
 	new /obj/effect/temp_visual/paper_scatter(src)
