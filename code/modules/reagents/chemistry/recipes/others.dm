@@ -933,9 +933,9 @@
 	results = list(/datum/reagent/mutationtoxin/psyphoza = 5)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/amatoxin = 5)
 
-/datum/chemical_reaction/ants
+/datum/chemical_reaction/ants // Breeding ants together, high sugar cost makes this take a while to farm.
 	results = list(/datum/reagent/ants = 3)
-	required_reagents = list(/datum/reagent/ants = 2, /datum/reagent/consumable/sugar = 6)
+	required_reagents = list(/datum/reagent/ants = 2, /datum/reagent/consumable/sugar = 8)
 
 /datum/chemical_reaction/ant_slurry // We're basically glueing ants together with synthflesh & maint sludge to make a bigger ant.
 	required_reagents = list(/datum/reagent/ants = 40, /datum/reagent/medicine/synthflesh = 20, /datum/reagent/ammonia = 5)

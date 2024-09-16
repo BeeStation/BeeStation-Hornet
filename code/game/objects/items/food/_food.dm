@@ -36,8 +36,10 @@
 	var/trash_type
 	///How much junkiness this food has? God I should remove junkiness soon
 	var/junkiness
-		///Food that's immune to decomposition.
+	///Food that's immune to decomposition.
 	var/preserved_food = FALSE
+	///Food that needs to be picked up in order to decompose.
+	var/decomp_req_handle = FALSE
 
 /obj/item/food/Initialize(mapload)
 	. = ..()
@@ -84,6 +86,7 @@
 	return
 
 ///This proc makes things decompose. Set preserved_food to TRUE to make it never decompose.
+///Set decomp_req_handle to TRUE to only make it decompose when someone picks it up.
 /obj/item/food/proc/make_decompose()
 	if(!preserved_food)
 		AddComponent(/datum/component/decomposition, decomp_flags = foodtypes)
