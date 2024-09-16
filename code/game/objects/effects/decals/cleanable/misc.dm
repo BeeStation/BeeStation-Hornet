@@ -220,6 +220,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/vomit/old)
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ants"
 	//beauty = -150
+	plane = GAME_PLANE
 	layer = LOW_OBJ_LAYER
 	var/ant_bite_damage = 0.1
 	var/ant_volume
