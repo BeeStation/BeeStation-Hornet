@@ -293,8 +293,6 @@
 	/// If TRUE, this parallax will do animate() to the direction of area/var/parallax_movedir
 	var/use_hyperspace_animation = TRUE
 
-CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer)
-
 	/// If TRUE, transform will be reset to 'default_transform'
 	var/need_to_reset
 	/// Used to revert back to a proper transform
@@ -302,6 +300,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer)
 	/// used for hyperspace loop animation.
 	var/matrix/hyperspace_from
 	var/matrix/hyperspace_to
+
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer)
 
 /atom/movable/screen/parallax_layer/Initialize(mapload)
 	. = ..()
@@ -447,7 +447,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer)
 /atom/movable/screen/parallax_layer/multigrid/random/space_gas
 	grid_icon_state = "random_layer1"
 
-CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer/random/space_gas)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer/multigrid/random/space_gas)
 
 /atom/movable/screen/parallax_layer/multigrid/random/space_gas/Initialize(mapload, view)
 	. = ..()
