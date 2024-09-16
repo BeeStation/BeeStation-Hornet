@@ -345,6 +345,8 @@
 
 /obj/effect/proc_holder/spell/self/drone/proc/SwitchTo(mob/living/carbon/M)
 	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
+	if(!drone)
+		return
 	if(drone.stat == DEAD || QDELETED(drone)) //sanity check
 		return
 	var/datum/mind/C = M.mind

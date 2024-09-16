@@ -179,9 +179,8 @@
 	if(pet_carrier_full(src)) //Run the checks again, just in case
 		to_chat(user, "<span class='warning'>[src] is already carrying too much!</span>")
 		return
-	if(target.mob_size >= MOB_SIZE_HUMAN) // If the mob is small or smaller, no need for a do_after.
-		if(!do_after(user, 3 SECONDS, target)) // If the mob is small or smaller, no need for a do_after.
-			return
+	if(target.mob_size >= MOB_SIZE_HUMAN && !do_after(user, 3 SECONDS, target)) // If the mob is small or smaller, no need for a do_after.
+		return
 	user.visible_message("<span class='notice'>[user] loads [target] into [src]!</span>", \
 	"<span class='notice'>You load [target] into [src].</span>", null, null, target)
 	to_chat(target, "<span class='userdanger'>[user] loads you into [user.p_their()] [name]!</span>")

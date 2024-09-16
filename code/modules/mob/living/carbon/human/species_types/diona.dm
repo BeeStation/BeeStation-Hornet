@@ -122,8 +122,7 @@
 
 /datum/species/diona/spec_death(gibbed, mob/living/carbon/human/H)
 	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
-	if(drone)
-		drone = null
+	drone = null
 	if(gibbed)
 		QDEL_NULL(H)
 		return

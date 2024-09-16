@@ -214,16 +214,17 @@
 	adult.set_species(SPECIES_DIONA)
 
 	for(var/obj/item/bodypart/body_part in adult.bodyparts) //No limbs for you, small diona.
-		if(!istype(body_part, /obj/item/bodypart/chest) && !istype(body_part, /obj/item/bodypart/head)) // If its not a chest AND not a head
-			for(var/obj/item/organ/nymph_organ/I in body_part)
-				QDEL_NULL(I)
-			body_part.drop_limb(TRUE)
 		if(istype(body_part, /obj/item/bodypart/chest))
 			body_part.brute_dam = helpers.brute_damage
 			body_part.burn_dam = helpers.fire_damage
-		if(istype(body_part, /obj/item/bodypart/head))
+		if else(istype(body_part, /obj/item/bodypart/head))
 			body_part.brute_dam = brute_damage
 			body_part.burn_dam = fire_damage
+		else // If its not a chest AND not a head
+			for(var/obj/item/organ/nymph_organ/I in body_part)
+				QDEL_NULL(I)
+			body_part.drop_limb(TRUE)
+
 	if(!("neutral" in src.faction))
 		adult.faction = src.faction
 	if(old_name)
