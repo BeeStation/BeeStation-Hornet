@@ -23,6 +23,6 @@
 	change_job_position(JOB_NAME_BOTANIST, 1)
 	change_job_access(JOB_NAME_ASSISTANT, ACCESS_MAINT_TUNNELS) // sample code
 
-/datum/map_adjustment/EchoStation/on_map_config_load()
+/datum/map_adjustment/EchoStation/on_mapping_init()
 	exclude_tagger_destination("Virology")
 	exclude_tagger_destination("Law Office")

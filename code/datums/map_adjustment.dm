@@ -23,7 +23,7 @@
 
 /// called on map config is loaded.
 /// You need to change things manually here.
-/datum/map_adjustment/proc/on_map_config_load()
+/datum/map_adjustment/proc/on_mapping_init()
 	return
 
 /// called upon job datum creation. Override this proc to change.
