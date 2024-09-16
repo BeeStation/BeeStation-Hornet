@@ -15,17 +15,17 @@
 	gender = PLURAL // We are Ven-ant
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = MOB_ORGANIC|MOB_BUG
+	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
 	minbodytemp = 200
 	maxbodytemp = 400
-	harm_intent_damage = 4
+	hardattacks = TRUE
 	obj_damage = 5
-	melee_damage_lower = 5
-	melee_damage_upper = 10 // Higher health than a base carp, so much lower damage.
+	melee_damage = 7.5
+	 // Higher health than a base carp, so much lower damage.
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
 	attack_sound = 'sound/weapons/bite.ogg'
-	attack_vis_effect = ATTACK_EFFECT_BITE
+	//attack_vis_effect = ATTACK_EFFECT_BITE
 	butcher_results = list(/obj/effect/decal/cleanable/ants = 3) //It's just a bunch of ants glued together into a larger ant
 	response_help_continuous = "pets"
 	response_help_simple = "pet"

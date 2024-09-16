@@ -2335,7 +2335,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	if(DT_PROB(15, delta_time))
 		victim.emote("scream")
 	if(DT_PROB(2, delta_time)) // Stuns, but purges ants.
-		victim.vomit(rand(5,10), FALSE, TRUE, 1, TRUE, FALSE, purge_ratio = 1)
+		victim.vomit(rand(5,10), FALSE, TRUE, 1, TRUE, FALSE)
 	return ..()
 
 /datum/reagent/ants/on_mob_end_metabolize(mob/living/living_anthill)

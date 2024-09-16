@@ -78,7 +78,7 @@
 	blood_state = BLOOD_STATE_OIL
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	clean_type = CLEAN_TYPE_BLOOD
-	decal_reagent = /datum/reagent/fuel/oil
+	decal_reagent = /datum/reagent/oil
 	reagent_amount = 30
 
 /obj/effect/decal/cleanable/oil/attackby(obj/item/I, mob/living/user)
