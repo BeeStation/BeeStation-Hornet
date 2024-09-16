@@ -15551,7 +15551,6 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Service Maintenance";
-	req_access_txt = null;
 	req_one_access_txt = "25;26;35;28;22;37;46;38"
 	},
 /turf/open/floor/iron,
@@ -46827,6 +46826,10 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "pDz" = (
 /obj/effect/turf_decal/tile/green/opposingcorners,
+/obj/machinery/door/airlock/maintenance{
+	name = "Testing Lab Maintenance";
+	req_access_txt = "47"
+	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
 "pDB" = (
@@ -61850,13 +61853,12 @@
 /turf/open/floor/iron/grid/steel,
 /area/gateway)
 "vvj" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Service Maintenance";
-	req_access_txt = null;
-	req_one_access_txt = "25;26;35;28;22;37;46;38"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/maintenance{
+	name = "Service Maintenance";
+	req_one_access_txt = "25;26;35;28;22;37;46;38"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
