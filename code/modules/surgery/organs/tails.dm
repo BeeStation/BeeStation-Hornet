@@ -159,14 +159,14 @@
 /obj/item/organ/tail/monkey/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	..()
 	if(istype(H))
-		if(!("tail_monkey" in H.dna.species.mutant_bodyparts))
-			H.dna.species.mutant_bodyparts |= "tail_monkey"
-			H.dna.features["tail_monkey"] = tail_type
+		if(!("tail_human" in H.dna.species.mutant_bodyparts))
+			H.dna.species.mutant_bodyparts |= "tail_human"
+			H.dna.features["tail_human"] = tail_type
 			H.update_body()
 
 /obj/item/organ/tail/monkey/Remove(mob/living/carbon/human/H, special = 0, pref_load = FALSE)
 	..()
 	if(istype(H))
-		H.dna.features["tail_monkey"] = "None"
-		H.dna.species.mutant_bodyparts -= "tail_monkey"
+		H.dna.features["tail_human"] = "None"
+		H.dna.species.mutant_bodyparts -= "tail_human"
 		H.update_body()

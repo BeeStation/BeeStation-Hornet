@@ -841,10 +841,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "tail_human"
 
-	if(mutant_bodyparts["tail_monkey"])
-		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
-			bodyparts_to_add -= "tail_monkey"
-
 	if(mutant_bodyparts["waggingtail_human"])
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "waggingtail_human"
@@ -1008,8 +1004,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.apid_headstripes_list[H.dna.features["apid_headstripes"]]
 				if("psyphoza_cap")
 					S = GLOB.psyphoza_cap_list[H.dna.features["psyphoza_cap"]]
-				if("tail_monkey")
-					S = GLOB.tails_list_monkey[H.dna.features["tail_monkey"]]
 			if(!S || S.icon_state == "none")
 				continue
 
@@ -1021,7 +1015,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				ADD_LUM_SOURCE(H, LUM_SOURCE_MUTANT_BODYPART)
 
 			//A little rename so we don't have to use tail_lizard or tail_human when naming the sprites.
-			if(bodypart == "tail_lizard" || bodypart == "tail_human" || bodypart == "tail_monkey")
+			if(bodypart == "tail_lizard" || bodypart == "tail_human")
 				bodypart = "tail"
 			else if(bodypart == "waggingtail_lizard" || bodypart == "waggingtail_human")
 				bodypart = "waggingtail"

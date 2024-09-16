@@ -48,8 +48,8 @@
 	. = ..()
 	H.pass_flags |= PASSTABLE
 	H.butcher_results = knife_butcher_results
-	if(!H.dna.features["tail_monkey"] || H.dna.features["tail_monkey"] == "None")
-		H.dna.features["tail_monkey"] = "Monkey"
+	if(!H.dna.features["tail_human"] || H.dna.features["tail_human"] == "None")
+		H.dna.features["tail_human"] = "Monkey"
 		handle_mutant_bodyparts(H)
 
 	H.dna.add_mutation(RACEMUT, MUT_NORMAL)
