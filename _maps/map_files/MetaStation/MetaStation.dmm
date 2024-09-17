@@ -26234,7 +26234,6 @@
 	c_tag = "Experimentation Lab";
 	network = list("ss13","rd")
 	},
-/obj/machinery/light,
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/iron/white,
 /area/science/explab)
@@ -53363,6 +53362,9 @@
 /obj/item/healthanalyzer{
 	pixel_y = 7
 	},
+/obj/machinery/light_switch{
+	pixel_x = 23
+	},
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "oYY" = (
@@ -72023,7 +72025,6 @@
 /obj/structure/sink{
 	dir = 1
 	},
-/obj/machinery/light,
 /obj/machinery/power/apc{
 	areastring = "/area/science/explab";
 	name = "Experimentation Lab APC";
@@ -75602,6 +75603,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 10
 	},
+/obj/machinery/light,
 /turf/open/floor/iron/white,
 /area/science/explab)
 "wUu" = (

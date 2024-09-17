@@ -80,6 +80,14 @@
 		A.attack_animal(M)
 	return attack_hand(M)
 
+/obj/item/sticker/CtrlClick(mob/user)
+	. = ..()
+	if(user.a_intent != INTENT_HELP && sticker_state == STICKER_STATE_STUCK)
+		var/atom/A = loc
+		A.CtrlClick(user)
+		return
+	return ..()
+
 /obj/item/sticker/attackby(obj/item/I, mob/living/user, params)
 	//If we're stuck to something, pass the attack to our loc
 	if(sticker_state == STICKER_STATE_STUCK)
