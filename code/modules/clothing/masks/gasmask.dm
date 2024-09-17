@@ -10,8 +10,8 @@
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	resistance_flags = NONE
-	salvage_material = /obj/item/stack/sheet/iron
-	secondary_salvage_material = /obj/item/stack/rods/glass
+	salvage_material = /obj/item/stack/rods/scrap
+	secondary_salvage_material = /obj/item/stack/rods/scrap/glass
 
 /obj/item/clothing/mask/gas/atmos/centcom
 	name = "\improper CentCom gas mask"

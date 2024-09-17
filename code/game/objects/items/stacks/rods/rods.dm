@@ -57,7 +57,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 		icon_state = "[initial(icon_state)]"
 
 /obj/item/stack/rods/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WELDER)
+	if(W.tool_behaviour == TOOL_WELDER && welding_result != null)
 		if(get_amount() < amount_needed)
 			to_chat(user, "<span class='warning'>You need at least [amount_needed] of [src] to do this!</span>")
 			return
@@ -77,22 +77,90 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	else
 		return ..()
 
-/obj/item/stack/rods/glass
+/obj/item/stack/rods/scrap
+	name = "metal scraps"
+	desc = "Scraps of metal salvaged with rudimentary tools."
+	singular_name = "metal scrap"
+	icon_state = "metal_scraps"
+	item_state = "metal_scraps"
+	w_class = WEIGHT_CLASS_SMALL
+	force = 5  //being hit with this must be the equivalent of being hit with a random assortment of pebbles
+	throwforce = 5
+	mats_per_unit = list(/datum/material/iron=100)
+	max_amount = 100
+	merge_type = /obj/item/stack/rods/scrap
+	matter_amount = 0
+	source = null
+	amount_needed = 10
+
+/obj/item/stack/rods/scrap/get_recipes()
+	return GLOB.metal_scrap_recipes
+
+
+/obj/item/stack/rods/scrap/glass
 	name = "glass scraps"
-	desc = "Some glass scraps that can be used in arts and crafts."
+	desc = "Scraps of glass salvaged with rudimentary tools."
 	singular_name = "glass scrap"
-	icon_state = "glass-rods"
-	item_state = "glass-rods"
+	icon_state = "glass_scraps"
+	item_state = "glass_scraps"
 	flags_1 = NONE
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 100,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100, STAMINA = 0, BLEED = 0)
-	mats_per_unit = list(/datum/material/glass=1000)
-	merge_type = /obj/item/stack/rods/glass
+	mats_per_unit = list(/datum/material/glass=100)
+	merge_type = /obj/item/stack/rods/scrap/glass
 	attack_verb_continuous = list("stabs", "slashes", "slices", "cuts")
 	attack_verb_simple = list("stab", "slash", "slice", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	source = /datum/robot_energy_storage/glass
 	welding_result = /obj/item/stack/sheet/glass
 
-/obj/item/stack/rods/glass/get_recipes()
-	return GLOB.glass_rod_recipes
+/obj/item/stack/rods/scrap/glass/get_recipes()
+	return GLOB.glass_scrap_recipes
+
+/obj/item/stack/rods/scrap/uranium
+	name = "uranium scraps"
+	desc = "Scraps of uranium salvaged with rudimentary tools. You... probably shouldn't be holding this for too long..."
+	singular_name = "uranium scrap"
+	icon_state = "uranium_scraps"
+	item_state = "uranium_scraps"
+	flags_1 = NONE
+	mats_per_unit = list(/datum/material/glass=100)
+	merge_type = /obj/item/stack/rods/scrap/uranium
+	welding_result = /obj/item/stack/sheet/mineral/uranium
+
+/obj/item/stack/rods/scrap/uranium/Initialize(mapload, new_amount, merge, mob/user)
+	. = ..()
+	AddComponent(/datum/component/radioactive, amount / 5, source, 0)
+
+/obj/item/stack/rods/scrap/uranium/get_recipes()
+	return
+
+/obj/item/stack/rods/scrap/plasma
+	name = "plasma scraps"
+	desc = "Scraps of plasma salvaged with rudimentary tools. Try welding it, see what happens."
+	singular_name = "plasma scrap"
+	icon_state = "plasma_scraps"
+	item_state = "plasma_scraps"
+	flags_1 = NONE
+	resistance_flags = FLAMMABLE
+	max_integrity = 100
+	mats_per_unit = list(/datum/material/plasma=100)
+	merge_type = /obj/item/stack/rods/scrap/plasma
+	welding_result = null
+
+/obj/item/stack/rods/scrap/plasma/get_recipes()
+	return
+
+/obj/item/stack/rods/scrap/plasma/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
+		plasma_ignition(amount/50, user)
+	else
+		return ..()
+
+/obj/item/stack/rods/scrap/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(exposed_temperature > 300)
+		plasma_ignition(amount/50)
+
+/obj/item/stack/rods/scrap/plasma/bullet_act(obj/projectile/Proj)
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
+		plasma_ignition(amount/50, Proj?.firer)
+	. = ..()

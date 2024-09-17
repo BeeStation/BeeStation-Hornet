@@ -9,11 +9,11 @@
 	equip_delay_other = 25
 	resistance_flags = NONE
 	custom_materials = list(/datum/material/glass = 250)
-	salvage_material = /obj/item/stack/rods
-	secondary_salvage_material = /obj/item/stack/rods/glass
+	salvage_material = /obj/item/stack/rods/scrap
+	secondary_salvage_material = /obj/item/stack/rods/scrap/glass
 	salvage_material_bloody = null
-	salvage_amount = 2
-	secondary_salvage_amount = 1
+	salvage_amount = 1
+	secondary_salvage_amount = 4
 	var/vision_flags = 0
 	var/darkness_view = 2//Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING	//admin only for now
@@ -116,7 +116,8 @@
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
-	secondary_salvage_material = /obj/item/stack/sheet/mineral/uranium
+	secondary_salvage_material = /obj/item/stack/rods/scrap/uranium
+	secondary_salvage_amount = 2
 
 /obj/item/clothing/glasses/meson/gar
 	name = "gar mesons"
@@ -187,7 +188,8 @@
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
-	secondary_salvage_material = /obj/item/stack/sheet/mineral/uranium
+	secondary_salvage_material = /obj/item/stack/rods/scrap/uranium
+	secondary_salvage_amount = 2
 
 /obj/item/clothing/glasses/science/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is tightening \the [src]'s straps around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!</span>")

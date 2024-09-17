@@ -12,10 +12,6 @@
 	icon_state = "trayson-meson"
 	item_state = "trayson-meson"
 	actions_types = list(/datum/action/item_action/toggle_mode)
-	salvage_material = /obj/item/stack/rods
-	secondary_salvage_material = /obj/item/stack/sheet/mineral/plasma
-	salvage_material_bloody = null
-	salvage_amount = 2
 	secondary_salvage_amount = 1
 
 	vision_flags = NONE
