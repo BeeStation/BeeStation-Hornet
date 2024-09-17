@@ -11,7 +11,7 @@
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	resistance_flags = NONE
 	salvage_material = /obj/item/stack/sheet/iron
-	secondary_salvage_material = /obj/item/stack/sheet/glass
+	secondary_salvage_material = /obj/item/stack/rods/glass
 
 /obj/item/clothing/mask/gas/atmos/centcom
 	name = "\improper CentCom gas mask"
@@ -76,6 +76,9 @@
 	actions_types = list(/datum/action/item_action/adjust)
 	dog_fashion = /datum/dog_fashion/head/clown
 	var/list/mask_designs = list()
+	salvage_material = /obj/item/reagent_containers/food/drinks/soda_cans/canned_laughter
+	salvage_amount = 1
+	secondary_salvage_material = /obj/item/reagent_containers/spray/waterflower/superlube //Have fun clown mains
 
 /obj/item/clothing/mask/gas/clown_hat/Initialize(mapload)
 	.=..()
@@ -129,6 +132,9 @@
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/adjust)
 	var/list/mask_designs = list()
+	salvage_material = /obj/item/reagent_containers/food/drinks/bottle/bottleofnothing
+	salvage_amount = 1
+	secondary_salvage_material = /obj/item/toy/crayon/spraycan/mimecan
 
 /obj/item/clothing/mask/gas/mime/Initialize(mapload)
 	.=..()

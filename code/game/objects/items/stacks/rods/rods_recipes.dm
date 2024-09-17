@@ -8,6 +8,9 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	new/datum/stack_recipe("catwalk floor tile", /obj/item/stack/tile/catwalk_tile, 1, 4, 20), \
 	))
 
+GLOBAL_LIST_INIT(glass_rod_recipes, list ( \
+	new/datum/stack_recipe("glass shard", /obj/item/shard, 2, on_floor = FALSE, time = 1 SECONDS)))
+
 /obj/item/stack/rods/cyborg
 	merge_type = /obj/item/stack/rods
 

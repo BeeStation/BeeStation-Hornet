@@ -10,7 +10,7 @@
 	resistance_flags = NONE
 	custom_materials = list(/datum/material/glass = 250)
 	salvage_material = /obj/item/stack/rods
-	secondary_salvage_material = /obj/item/stack/sheet/glass
+	secondary_salvage_material = /obj/item/stack/rods/glass
 	salvage_material_bloody = null
 	salvage_amount = 2
 	secondary_salvage_amount = 1

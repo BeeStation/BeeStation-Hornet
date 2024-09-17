@@ -150,47 +150,44 @@
 	moth_snack.attack(attacker, user, params)
 
 /obj/item/clothing/proc/salvage(obj/item/W, mob/user, params)
-	if(!HAS_BLOOD_DNA(src) || salvage_material_bloody = null)
-		new salvage_material(loc(), salvage_amount)
-		user.visible_message("[user] cuts [src] into pieces of [initial(salvage_material.name)] with [W].", \
-			"<span class='notice'>You cut [src] into pieces of [initial(salvage_material.name)] with [W].</span>", \
-			"<span class='hear'>You hear cutting.</span>")
+	if(!HAS_BLOOD_DNA(src) || salvage_material_bloody == null)
+		new salvage_material(user.drop_location(), salvage_amount)
 	else
-		new salvage_material_bloody(loc(), salvage_amount)
-		user.visible_message("[user] cuts [src] into pieces of [initial(salvage_material_bloody.name)] with [W].", \
-			"<span class='notice'>You cut [src] into pieces of [initial(salvage_material_bloody.name)] with [W].</span>", \
-			"<span class='hear'>You hear cutting.</span>")
+		new salvage_material_bloody(user.drop_location(), salvage_amount)
 	if(secondary_salvage_material != null)
-		new secondary_salvage_material(loc(), secondary_salvage_amount)
+		new secondary_salvage_material(user.drop_location(), secondary_salvage_amount)
+	user.visible_message("[user] salvages some usable materials from [src].", \
+		"<span class='notice'>You salvage some usable materials from [src].</span>", \
+		"<span class='hear'>You hear salvaging.</span>")
+	playsound(src, 'sound/items/wirecutter.ogg', 100, TRUE)
 	qdel(src)
 
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, repairable_by))
-		return ..()
-
-	switch(damaged_clothes)
-		if(CLOTHING_PRISTINE)
-			return..()
-		if(CLOTHING_DAMAGED)
-			var/obj/item/stack/cloth_repair = W
-			cloth_repair.use(1)
-			repair(user, params)
-			return TRUE
-		if(CLOTHING_SHREDDED)
-			var/obj/item/stack/cloth_repair = W
-			if(cloth_repair.amount < 3)
-				to_chat(user, "<span class='warning'>You require 3 [cloth_repair.name] to repair [src].</span>")
+	if(istype(W, repairable_by))
+		switch(damaged_clothes)
+			if(CLOTHING_PRISTINE)
+				return..()
+			if(CLOTHING_DAMAGED)
+				var/obj/item/stack/cloth_repair = W
+				cloth_repair.use(1)
+				repair(user, params)
 				return TRUE
-			to_chat(user, "<span class='notice'>You begin fixing the damage to [src] with [cloth_repair]...</span>")
-			if(!do_after(user, 6 SECONDS, src) || !cloth_repair.use(3))
+			if(CLOTHING_SHREDDED)
+				var/obj/item/stack/cloth_repair = W
+				if(cloth_repair.amount < 3)
+					to_chat(user, "<span class='warning'>You require 3 [cloth_repair.name] to repair [src].</span>")
+					return TRUE
+				to_chat(user, "<span class='notice'>You begin fixing the damage to [src] with [cloth_repair]...</span>")
+				if(!do_after(user, 6 SECONDS, src) || !cloth_repair.use(3))
+					return TRUE
+				repair(user, params)
 				return TRUE
-			repair(user, params)
-			return TRUE
 	if((W.tool_behaviour == TOOL_WIRECUTTER || W.is_sharp()) && salvage_material != null)
-		var/obj/item/equipped = get_item_by_slot()
-		if(equipped = null)
-			if(do_after(user, 1.5 SECONDS))
-				salvage(src, user, params)
+		if(!isturf(loc) && user.get_inactive_held_item() != src)
+			to_chat(user, "<span class='warning'>You need to be holding [src] to salvage it!</span>")
+			return TRUE
+		if(do_after(user, 1.5 SECONDS))
+			salvage(src, user, params)
 		return TRUE
 
 	return ..()
