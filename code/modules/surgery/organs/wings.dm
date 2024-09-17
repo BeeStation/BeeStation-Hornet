@@ -57,17 +57,17 @@
 		playsound(H, wingsound, 100, 7)
 	if(basewings == "wings" || basewings == "moth_wings")
 		if(H.dna.species.mutant_bodyparts["wings"])
+			H.dna.species.mutant_bodyparts["wingsopen"] = H.dna.species.mutant_bodyparts["wings"]
 			H.dna.species.mutant_bodyparts -= "wings"
-			H.dna.species.mutant_bodyparts |= "wingsopen"
 		else if(H.dna.species.mutant_bodyparts["wingsopen"])
+			H.dna.species.mutant_bodyparts["wings"] = H.dna.species.mutant_bodyparts["wingsopen"]
 			H.dna.species.mutant_bodyparts -= "wingsopen"
-			H.dna.species.mutant_bodyparts |= "wings"
 		else if(H.dna.species.mutant_bodyparts["moth_wings"])
-			H.dna.species.mutant_bodyparts |= "moth_wingsopen"
+			H.dna.species.mutant_bodyparts["moth_wingsopen"] = H.dna.species.mutant_bodyparts["moth_wings"]
 			H.dna.species.mutant_bodyparts -= "moth_wings"
 		else if(H.dna.species.mutant_bodyparts["moth_wingsopen"])
+			H.dna.species.mutant_bodyparts["moth_wings"] = H.dna.species.mutant_bodyparts["moth_wingsopen"]
 			H.dna.species.mutant_bodyparts -= "moth_wingsopen"
-			H.dna.species.mutant_bodyparts |= "moth_wings"
 		else //it appears we don't actually have wing icons. apply them!!
 			Refresh(H)
 		H.update_body()
