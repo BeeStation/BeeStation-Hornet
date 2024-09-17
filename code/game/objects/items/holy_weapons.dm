@@ -157,6 +157,7 @@
 	item_flags = ISWEAPON
 	w_class = WEIGHT_CLASS_TINY
 	obj_flags = UNIQUE_RENAME
+	wound_bonus = -10
 	var/chaplain_spawnable = TRUE
 
 /obj/item/nullrod/Initialize(mapload)
@@ -330,6 +331,8 @@
 	block_level = 1
 	block_power = 30
 	sharpness = IS_SHARP
+	wound_bonus = -20
+	bare_wound_bonus = 25
 	bleed_force = BLEED_CUT
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")

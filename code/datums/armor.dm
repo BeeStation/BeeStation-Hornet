@@ -1,9 +1,9 @@
-#define ARMORID "armor-[melee]-[bullet]-[laser]-[energy]-[bomb]-[bio]-[rad]-[fire]-[acid]-[stamina]-[consume]-[bleed]"
+#define ARMORID "armor-[melee]-[bullet]-[laser]-[energy]-[bomb]-[bio]-[rad]-[fire]-[acid]-[stamina]-[consume]-[bleed]-[wound]"
 
-/proc/getArmor(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0, stamina = 0, consume = 0, bleed = 0)
+/proc/getArmor(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0, stamina = 0, consume = 0, bleed = 0, wound = 0)
 	. = locate(ARMORID)
 	if (!.)
-		. = new /datum/armor(melee, bullet, laser, energy, bomb, bio, rad, fire, acid, stamina, consume, bleed)
+		. = new /datum/armor(melee, bullet, laser, energy, bomb, bio, rad, fire, acid, stamina, consume, bleed, wound)
 
 /datum/armor
 	datum_flags = DF_USE_TAG
@@ -19,8 +19,9 @@
 	var/stamina
 	var/consume
 	var/bleed
+  	var/wound
 
-/datum/armor/New(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0, stamina = 0, consume = 0, bleed = 0)
+/datum/armor/New(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0, stamina = 0, consume = 0, bleed = 0, wound = 0)
 	src.melee = melee
 	src.bullet = bullet
 	src.laser = laser
@@ -33,13 +34,14 @@
 	src.stamina = stamina
 	src.consume = consume
 	src.bleed = bleed
+	src.wound = wound
 	tag = ARMORID
 
-/datum/armor/proc/modifyRating(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0, stamina = 0, consume = 0, bleed = 0)
-	return getArmor(src.melee+melee, src.bullet+bullet, src.laser+laser, src.energy+energy, src.bomb+bomb, src.bio+bio, src.rad+rad, src.fire+fire, src.acid+acid, src.stamina+stamina, src.consume+consume, src.bleed+bleed)
+/datum/armor/proc/modifyRating(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0, stamina = 0, consume = 0, bleed = 0, wound = 0)
+	return getArmor(src.melee+melee, src.bullet+bullet, src.laser+laser, src.energy+energy, src.bomb+bomb, src.bio+bio, src.rad+rad, src.fire+fire, src.acid+acid, src.stamina+stamina, src.consume+consume, src.bleed+bleed, src.wound+wound)
 
 /datum/armor/proc/modifyAllRatings(modifier = 0)
-	return getArmor(melee+modifier, bullet+modifier, laser+modifier, energy+modifier, bomb+modifier, bio+modifier, rad+modifier, fire+modifier, acid+modifier, stamina+modifier, consume+modifier, bleed+modifier)
+	return getArmor(melee+modifier, bullet+modifier, laser+modifier, energy+modifier, bomb+modifier, bio+modifier, rad+modifier, fire+modifier, acid+modifier, stamina+modifier, consume+modifier, bleed+modifier, wound+modifier)
 
 /datum/armor/proc/setRating(melee, bullet, laser, energy, bomb, bio, rad, fire, acid, consume, bleed)
 	return getArmor((isnull(melee) ? src.melee : melee),\
@@ -53,19 +55,20 @@
 					(isnull(acid) ? src.acid : acid),\
 					(isnull(stamina) ? src.stamina : stamina),\
 					(isnull(consume) ? src.consume : consume),\
-					(isnull(bleed) ? src.bleed : bleed))
+					(isnull(bleed) ? src.bleed : bleed), \
+					(isnull(wound) ? src.wound : wound))
 
 /datum/armor/proc/getRating(rating)
 	return vars[rating]
 
 /datum/armor/proc/getList()
-	return list(MELEE = melee, BULLET = bullet, LASER = laser, ENERGY = energy, BOMB = bomb, BIO = bio, RAD = rad, FIRE = fire, ACID = acid, STAMINA = stamina, CONSUME = consume, BLEED = bleed)
+	return list(MELEE = melee, BULLET = bullet, LASER = laser, ENERGY = energy, BOMB = bomb, BIO = bio, RAD = rad, FIRE = fire, ACID = acid, STAMINA = stamina, CONSUME = consume, BLEED = bleed, WOUND = wound)
 
 /datum/armor/proc/attachArmor(datum/armor/AA)
-	return getArmor(melee+AA.melee, bullet+AA.bullet, laser+AA.laser, energy+AA.energy, bomb+AA.bomb, bio+AA.bio, rad+AA.rad, fire+AA.fire, acid+AA.acid, stamina+AA.stamina, consume+AA.consume, bleed+AA.bleed)
+	return getArmor(melee+AA.melee, bullet+AA.bullet, laser+AA.laser, energy+AA.energy, bomb+AA.bomb, bio+AA.bio, rad+AA.rad, fire+AA.fire, acid+AA.acid, stamina+AA.stamina, consume+AA.consume, bleed+AA.bleed, wound+AA.wound)
 
 /datum/armor/proc/detachArmor(datum/armor/AA)
-	return getArmor(melee-AA.melee, bullet-AA.bullet, laser-AA.laser, energy-AA.energy, bomb-AA.bomb, bio-AA.bio, rad-AA.rad, fire-AA.fire, acid-AA.acid, stamina-AA.stamina, consume+AA.consume, bleed+AA.bleed)
+	return getArmor(melee-AA.melee, bullet-AA.bullet, laser-AA.laser, energy-AA.energy, bomb-AA.bomb, bio-AA.bio, rad-AA.rad, fire-AA.fire, acid-AA.acid, stamina-AA.stamina, consume+AA.consume, bleed+AA.bleed, wound-AA.wound)
 
 /datum/armor/vv_edit_var(var_name, var_value)
 	if (var_name == NAMEOF(src, tag))

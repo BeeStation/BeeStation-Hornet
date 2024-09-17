@@ -74,6 +74,10 @@
 		return
 	duration = world.time + original_duration
 
+//do_after modifier!
+/datum/status_effect/proc/interact_speed_modifier()
+	return 1
+
 /// Merge this status effect by applying new arguments
 /datum/status_effect/proc/merge(...)
 	return

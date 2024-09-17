@@ -88,6 +88,9 @@
 	/// What color our soul is
 	var/soul_glimmer
 
+	///What character we spawned in as- either at roundstart or latejoin, so we know for persistent scars if we ended as the same person or not
+	var/mob/original_character
+
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src
@@ -121,6 +124,7 @@
 	return language_holder
 
 /datum/mind/proc/transfer_to(mob/new_character, var/force_key_move = 0)
+	original_character = null
 	if(current)	// remove ourself from our old body's mind variable
 		current.mind = null
 		UnregisterSignal(current, COMSIG_MOB_DEATH)
@@ -157,6 +161,8 @@
 	RegisterSignal(new_character, COMSIG_MOB_DEATH, PROC_REF(set_death_time))
 	if(active || force_key_move)
 		new_character.key = key		//now transfer the key to link the client to our new body
+	if(new_character.client)
+		LAZYCLEARLIST(new_character.client.recent_examines)
 	current.update_atom_languages()
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, old_current, new_character)
 	// Update SSD indicators

@@ -47,7 +47,7 @@
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		D.emote("scream")
 		D.dropItemToGround(D.get_active_held_item())
-		D.apply_damage(5, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+		D.apply_damage(5, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM), wound_bonus = CANT_WOUND)
 		D.Stun(60)
 		return 1
 
@@ -94,7 +94,7 @@
 		D.visible_message("<span class='warning'>[A] kicks [D] in the head!</span>", \
 						"<span class='userdanger'>Your jaw is kicked by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", null, A)
 		to_chat(A, "<span class='danger'>You kick [D] in the jaw!</span>")
-		D.apply_damage(20, A.dna.species.attack_type, BODY_ZONE_HEAD, blocked = def_check)
+		D.apply_damage(20, A.dna.species.attack_type, BODY_ZONE_HEAD, blocked = def_check, wound_bonus = CANT_WOUND)
 		D.drop_all_held_items()
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		D.Stun(80)
@@ -111,7 +111,7 @@
 		to_chat(A, "<span class='danger'>You piledrive [D] with your elbow!</span>")
 		if(D.stat)
 			D.death() //FINISH HIM!
-		D.apply_damage(50, A.dna.species.attack_type, BODY_ZONE_CHEST, blocked = def_check)
+		D.apply_damage(50, A.dna.species.attack_type, BODY_ZONE_CHEST, blocked = def_check, wound_bonus = CANT_WOUND)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		return 1
 	return basic_hit(A,D)
@@ -145,7 +145,7 @@
 	D.visible_message("<span class='danger'>[A] [atk_verb]s [D]!</span>", \
 					"<span class='userdanger'>[A] [atk_verb]s you!</span>", null, null, A)
 	to_chat(A, "<span class='danger'>You [atk_verb] [D]!</span>")
-	D.apply_damage(15, BRUTE, blocked = def_check)
+	D.apply_damage(15, BRUTE, blocked = def_check, wound_bonus = CANT_WOUND, wound_bonus = CANT_WOUND)
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 	log_combat(A, D, "[atk_verb] (Sleeping Carp)", name)
 	return TRUE
@@ -203,7 +203,7 @@
 		user.Paralyze(60)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
+			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD, wound_bonus = CANT_WOUND)
 		else
 			user.take_bodypart_damage(2*force)
 		return

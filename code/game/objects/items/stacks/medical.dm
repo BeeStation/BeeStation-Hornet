@@ -28,6 +28,10 @@
 	var/stop_bleeding = 0
 	///How long does it take to apply on yourself?
 	var/self_delay = 2 SECONDS
+	/// How much sanitization to apply to burns on application
+	var/sanitization
+	/// How much we add to flesh_healing for burn wounds on application
+	var/flesh_regeneration
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 
@@ -175,6 +179,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	reagent = list(/datum/reagent/medicine/styptic_powder = REAGENT_AMOUNT_PER_ITEM)
 	grind_results = list(/datum/reagent/medicine/styptic_powder = REAGENT_AMOUNT_PER_ITEM)
 	merge_type = /obj/item/stack/medical/bruise_pack
+	self_delay = 40
+	other_delay = 20
 
 /obj/item/stack/medical/bruise_pack/one
 	amount = 1
@@ -203,12 +209,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 
 /obj/item/stack/medical/gauze
 	name = "medical gauze"
-	desc = "A roll of elastic cloth that is extremely effective at stopping bleeding, heals minor bruising."
+	desc = "A roll of elastic cloth, perfect for stabilizing all kinds of wounds, from cuts and burns, to broken bones."
 	icon_state = "gauze"
 	stop_bleeding = BLEED_CRITICAL
 	heal_creatures = TRUE //Enables gauze to be used on simplemobs for healing
 	max_amount = 12
 	merge_type = /obj/item/stack/medical/gauze
+	self_delay = 50
+	other_delay = 20
+	absorption_rate = 0.25
+	absorption_capacity = 5
+	splint_factor = 0.35
 
 /obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
@@ -230,10 +241,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 /obj/item/stack/medical/gauze/improvised
 	name = "improvised gauze"
 	singular_name = "improvised gauze"
-	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
 	stop_bleeding = BLEED_SURFACE
 	heal_creatures = FALSE
 	merge_type = /obj/item/stack/medical/gauze/improvised
+	desc = "A roll of cloth roughly cut from something that does a decent job of stabilizing wounds, but less efficiently so than real medical gauze."
+	self_delay = 60
+	other_delay = 30
+	absorption_rate = 0.15
+	absorption_capacity = 4
 
 /obj/item/stack/medical/gauze/adv
 	name = "sterilized medical gauze"

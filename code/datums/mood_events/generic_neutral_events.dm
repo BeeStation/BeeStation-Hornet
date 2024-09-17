@@ -14,9 +14,13 @@
 	description = "<span class='mood_neutral'>Someone threw me on a table!</span>"
 	timeout = 1 MINUTES
 
-/datum/mood_event/table_headsmash
-	description = "<span class='mood_neutral'>My fucking head, that hurt...</span>"
+/datum/mood_event/table_limbsmash
+	description = "<span class='warning'>That fucking table, man that hurts...</span>\n"
 	timeout = 1 MINUTES
+
+/datum/mood_event/table_limbsmash/add_effects(obj/item/bodypart/banged_limb)
+	if(banged_limb)
+		description = "<span class='warning'>My fucking [banged_limb.name], man that hurts...</span>\n"
 
 /datum/mood_event/jittery
 	description = "<span class='mood_neutral'>I'm nervous and on edge and I can't stand still!!!</span>"

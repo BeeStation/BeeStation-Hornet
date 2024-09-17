@@ -62,7 +62,7 @@
 		if(HAS_TRAIT(H, TRAIT_LIGHT_STEP))
 			damage *= 0.5
 
-		H.apply_damage(damage, BRUTE, picked_def_zone)
+		H.apply_damage(damage, BRUTE, picked_def_zone, wound_bonus = CANT_WOUND)
 		H.add_bleeding(BLEED_SCRATCH)
 
 		if(COOLDOWN_FINISHED(src, caltrop_cooldown))
