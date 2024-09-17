@@ -149,6 +149,7 @@
 				categories_associative[cat] = list()
 
 			//Calculate cost
+
 			var/list/material_cost = list()
 			for(var/material_id in D.materials)
 				material_cost += list(list(
