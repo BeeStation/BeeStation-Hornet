@@ -7119,7 +7119,7 @@
 /turf/open/floor/iron,
 /area/centcom/supplypod/loading/two)
 "Bn" = (
-/obj/item/trash/can/food/peaches{
+/obj/item/trash/canned/peaches{
 	pixel_x = 5;
 	pixel_y = 12
 	},
