@@ -115,7 +115,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 
 	update_appearance(UPDATE_ICON)
-	linkup_adjacent(TRUE)
+	linkup_adjacent(!mapload)
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	// Update our neighbors

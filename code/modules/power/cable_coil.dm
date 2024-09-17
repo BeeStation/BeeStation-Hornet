@@ -52,9 +52,22 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	update_icon()
 
 /obj/item/stack/cable_coil/attack_self(mob/user)
-	var/picked = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
-	cable_color = picked
-	update_icon()
+	//var/picked = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
+	var/list/options = list()
+	options["Universal Power Bus"] = mutable_appearance('icons/effects/colour.dmi', "rainbow")
+	options["Red"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["red"])
+	options["Yellow"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["yellow"])
+	options["Green"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["green"])
+	options["Blue"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["blue"])
+	options["Pink"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["pink"])
+	options["Orange"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["orange"])
+	var/result = show_radial_menu(user, user, options, radius = 40, tooltips = TRUE)
+	if (result)
+		if (result == "Multi-colour Power Bus")
+			cable_color = "white"
+		else
+			cable_color = lowertext(result)
+		update_icon()
 
 /obj/item/stack/cable_coil/suicide_act(mob/living/user)
 	if(locate(/obj/structure/chair/stool) in get_turf(user))
@@ -76,7 +89,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 	icon_state = "[initial(item_state)][amount < 3 ? amount : ""]"
 	name = "cable [amount < 3 ? "piece" : "coil"]"
 	color = null
-	add_atom_colour(cable_color, FIXED_COLOUR_PRIORITY)
+	add_atom_colour(GLOB.cable_colors[cable_color], FIXED_COLOUR_PRIORITY)
 
 /obj/item/stack/cable_coil/attack_hand(mob/user)
 	. = ..()
