@@ -142,11 +142,11 @@
 	var/datum/species/species = H.dna.species
 	if(wagging)
 		species.mutant_bodyparts |= list("waggingtail_lizard" = species.mutant_bodyparts["tail_lizard"],
-										 "waggingspines" = species.mutant_bodyparts["spines"])
+										"waggingspines" = species.mutant_bodyparts["spines"])
 		species.mutant_bodyparts -= list("tail_lizard", "spines")
 		. = TRUE
 	else
 		species.mutant_bodyparts |= list("tail_lizard" = species.mutant_bodyparts["waggingtail_lizard"],
-										 "spines" = species.mutant_bodyparts["waggingspines"])
+										"spines" = species.mutant_bodyparts["waggingspines"])
 		species.mutant_bodyparts -= list("waggingtail_lizard", "waggingspines")
 	H.update_body()
