@@ -1015,9 +1015,14 @@
 	glass_desc = "A glass of what appears to be refreshing Space Cola."
 
 /datum/reagent/consumable/beefbroth/on_mob_metabolize(mob/living/M)
-	to_chat(M, "<span class='warning'>That drink was way too beefy! You feel sick.</span>")
-	M.adjust_disgust(30)
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+	var/obj/item/organ/tongue/T = M.getorganslot(ORGAN_SLOT_TONGUE)
+	if(T.liked_food & MEAT)
+		to_chat(M, "<span class='notice'>That drink was PERFECTLY beefy! It's great!.</span>")
+		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_verygood)
+	else
+		to_chat(M, "<span class='warning'>That drink was way too beefy! You feel sick.</span>")
+		M.adjust_disgust(30)
+		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 	. = ..()
 
 /datum/reagent/consumable/bubble_tea
