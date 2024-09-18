@@ -80,14 +80,29 @@ def update_path(dmm_data, replacement_string, verbose=False):
         subtypes = r"(?:/\w+)*"
 
     replacement_pattern = re.compile(rf"(?P<path>{re.escape(old_path)}(?P<subtype>{subtypes}))\s*(:?{{(?P<props>.*)}})?$")
+    counter_pattern = re.compile(rf"^([>=<])(\d*)$")
 
-    def replace_def(match):
+    def replace_def(match, counter):
         if match['props']:
             old_props = string_to_props(match['props'], verbose)
         else:
             old_props = dict()
         for filter_prop in old_path_props:
-            if filter_prop not in old_props:
+            # Counter checks
+            counter_match = counter_pattern.match(filter_prop)
+            if counter_match:
+                if counter_match.group(1) == '>':
+                    if (counter > int(counter_match.group(2))):
+                        return
+                elif counter_match.group(1) == '=':
+                    if (counter == int(counter_match.group(2))):
+                        return
+                elif counter_match.group(1) == '<':
+                    if (counter < int(counter_match.group(2))):
+                        return
+                else:
+                    continue
+            elif filter_prop not in old_props:
                 if old_path_props[filter_prop] == "@UNSET":
                     continue
                 else:
@@ -134,10 +149,14 @@ def update_path(dmm_data, replacement_string, verbose=False):
             print("Replacing with: {0}".format(out_paths))
         return out_paths
 
+    counter = dict()
+
     def get_result(element):
         match = replacement_pattern.match(element)
         if match:
-            return replace_def(match)
+            new_counter = counter[match.group('path')] if counter[match.group('path')] else 0 + 1
+            counter[match.group('path')] = new_counter
+            return replace_def(match, new_counter)
         else:
             return [element]
 

@@ -44,8 +44,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 	var/list/cable_colors = GLOB.cable_colors
 	cable_color = param_color || cable_color || pick(cable_colors)
-	if(cable_colors[cable_color])
-		cable_color = cable_colors[cable_color]
 
 	pixel_x = base_pixel_x + rand(-2,2)
 	pixel_y = base_pixel_y + rand(-2,2)
@@ -58,7 +56,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	options["Red"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["red"])
 	options["Yellow"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["yellow"])
 	options["Green"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["green"])
-	options["Blue"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["blue"])
 	options["Pink"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["pink"])
 	options["Orange"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["orange"])
 	var/result = show_radial_menu(user, user, options, radius = 40, tooltips = TRUE)
@@ -162,48 +159,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 // Misc.
 /////////////////////////////
 
-/obj/item/stack/cable_coil/red
-	cable_color = "red"
-	color = "#ff0000"
-
-/obj/item/stack/cable_coil/red/one
-	amount = 1
-
-/obj/item/stack/cable_coil/yellow
-	cable_color = "yellow"
-	color = "#ffff00"
-
-/obj/item/stack/cable_coil/blue
-	cable_color = "blue"
-	color = "#1919c8"
-
-/obj/item/stack/cable_coil/green
-	cable_color = "green"
-	color = "#00aa00"
-
-/obj/item/stack/cable_coil/pink
-	cable_color = "pink"
-	color = "#ff3ccd"
-
-/obj/item/stack/cable_coil/orange
-	cable_color = "orange"
-	color = "#ff8000"
-
-/obj/item/stack/cable_coil/cyan
-	cable_color = "cyan"
-	color = "#00ffff"
-
-/obj/item/stack/cable_coil/white
-	cable_color = "white"
-
-/obj/item/stack/cable_coil/random
-	cable_color = null
-	color = "#ffffff"
-
-
-/obj/item/stack/cable_coil/random/five
-	amount = 5
-
 /obj/item/stack/cable_coil/cut
 	amount = null
 	icon_state = "coil2"
@@ -216,38 +171,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 	pixel_x = base_pixel_x + rand(-2, 2)
 	pixel_y = base_pixel_y + rand(-2, 2)
 	update_icon()
-
-/obj/item/stack/cable_coil/cut/red
-	cable_color = "red"
-	color = "#ff0000"
-
-/obj/item/stack/cable_coil/cut/yellow
-	cable_color = "yellow"
-	color = "#ffff00"
-
-/obj/item/stack/cable_coil/cut/blue
-	cable_color = "blue"
-	color = "#1919c8"
-
-/obj/item/stack/cable_coil/cut/green
-	cable_color = "green"
-	color = "#00aa00"
-
-/obj/item/stack/cable_coil/cut/pink
-	cable_color = "pink"
-	color = "#ff3ccd"
-
-/obj/item/stack/cable_coil/cut/orange
-	cable_color = "orange"
-	color = "#ff8000"
-
-/obj/item/stack/cable_coil/cut/cyan
-	cable_color = "cyan"
-	color = "#00ffff"
-
-/obj/item/stack/cable_coil/cut/white
-	cable_color = "white"
-
-/obj/item/stack/cable_coil/cut/random
-	cable_color = null
-	color = "#ffffff"

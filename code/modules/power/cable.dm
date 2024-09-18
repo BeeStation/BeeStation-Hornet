@@ -1,11 +1,8 @@
 GLOBAL_LIST_INIT(cable_colors, list(
 	"yellow" = "#ffff00",
 	"green" = "#00aa00",
-	"blue" = "#1919c8",
 	"pink" = "#ff3cc8",
 	"orange" = "#ff8000",
-	"cyan" = "#00ffff",
-	"white" = "#ffffff",
 	"red" = "#ff0000"
 	))
 
@@ -93,8 +90,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 	var/list/cable_colors = GLOB.cable_colors
 	cable_color = param_color || cable_color || pick(cable_colors)
-	if(cable_colors[cable_color])
-		color = cable_colors[cable_color]
 
 	// Locate adjacent tiles
 	north = get_cable(get_step(src, NORTH), cable_color)
@@ -203,7 +198,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	if (!north && !south && !east && !west)
 		icon_state = "0-1"
 	color = null
-	add_atom_colour(cable_color, FIXED_COLOUR_PRIORITY)
+	add_atom_colour(GLOB.cable_colors[cable_color], FIXED_COLOUR_PRIORITY)
+	switch (cable_color)
+		if ("green")
+			pixel_x = -4
+			pixel_y = -4
+		if ("blue")
+			pixel_x = -2
+			pixel_y = -2
+		if ("yellow")
+			pixel_x = 0
+			pixel_y = 0
+		if ("red")
+			pixel_x = 2
+			pixel_y = 2
+		if ("pink")
+			pixel_x = 4
+			pixel_y = 4
 
 /obj/structure/cable/attackby(obj/item/W, mob/user, params)
 	var/turf/T = get_turf(src)
