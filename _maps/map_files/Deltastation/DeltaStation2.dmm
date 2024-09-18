@@ -704,10 +704,6 @@
 	dir = 1
 	},
 /area/hallway/secondary/entry)
-"aeX" = (
-/obj/machinery/power/apc/auto_name/directional/north,
-/turf/closed/wall/r_wall,
-/area/security/brig)
 "afb" = (
 /obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/delivery,
@@ -13528,14 +13524,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
-"bOZ" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/cable/yellow,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/quartermaster/storage)
 "bPv" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/carpet/grimy,
@@ -45846,6 +45834,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/teleporter)
+"iyZ" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/structure/cable/yellow,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/quartermaster/storage)
 "izb" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -72653,10 +72649,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
-"rjz" = (
-/obj/machinery/power/apc/auto_name/directional/north,
-/turf/closed/wall/r_wall,
-/area/maintenance/disposal/incinerator)
 "rjB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -119121,7 +119113,7 @@ nlZ
 nlZ
 vtt
 tde
-rjz
+aFr
 uIt
 gtJ
 aLm
@@ -141734,7 +141726,7 @@ aaa
 aAK
 aCd
 lpo
-bOZ
+iyZ
 lpo
 aGF
 jFF
@@ -145124,7 +145116,7 @@ tnr
 bgZ
 bgZ
 bgZ
-aeX
+bgZ
 bgZ
 jFJ
 pMO
