@@ -213,3 +213,8 @@ GLOBAL_LIST_INIT(security_wintercoat_allowed, typecacheof(list(
 	/obj/item/tank/internals/emergency_oxygen,
 	/obj/item/tank/internals/plasmaman,
 	/obj/item/toy)))
+
+// Collection flags for RPED inventory
+#define COLLECT_ONE 0
+#define COLLECT_EVERYTHING 1
+#define COLLECT_SAME 2

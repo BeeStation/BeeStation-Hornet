@@ -266,6 +266,10 @@
 
 /obj/item/clothing/mask/bandana/attack_self(mob/user)
 	adjustmask(user)
+	if (mask_adjusted)
+		worn_icon = 'icons/mob/clothing/head/costume.dmi'
+	else
+		worn_icon = 'icons/mob/clothing/mask.dmi'
 
 /obj/item/clothing/mask/bandana/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE))

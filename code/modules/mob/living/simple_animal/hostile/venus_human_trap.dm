@@ -139,7 +139,7 @@
 	var/withering = FALSE
 	discovery_points = 2000
 
-/mob/living/simple_animal/hostile/venus_human_trap/Initialize()
+/mob/living/simple_animal/hostile/venus_human_trap/Initialize(mapload)
 	remove_verb(/mob/living/verb/pulled) //No pulling people into the vines
 	. = ..()
 

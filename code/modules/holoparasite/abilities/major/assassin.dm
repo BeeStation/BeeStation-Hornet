@@ -128,7 +128,9 @@
 	icon_state = "backstab"
 	var/datum/holoparasite_ability/major/assassin/ability
 
-/atom/movable/screen/holoparasite/toggle_assassin/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/assassin/_ability)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/toggle_assassin)
+
+/atom/movable/screen/holoparasite/toggle_assassin/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/assassin/_ability)
 	. = ..()
 	if(!istype(_ability))
 		CRASH("Tried to make assassin holoparasite HUD without proper reference to assassin ability")

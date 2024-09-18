@@ -47,7 +47,7 @@
 			if(WEST)
 				start_pos = locate(min(sx + range + 1, world.maxx), max(sy - range, 1), sz)
 				end_pos = locate(min(sx + range + 1, world.maxx), min(sy + range, world.maxy), sz)
-		for(var/turf/edge in get_line(start_pos, end_pos))
+		for(var/turf/edge in getline(start_pos, end_pos))
 			ADD_BARRIER_IMAGE(edge, direction)
 
 	ADD_BARRIER_IMAGE(locate(max(sx - range - 1, 1), sy + range + 1, sz), SOUTHEAST)

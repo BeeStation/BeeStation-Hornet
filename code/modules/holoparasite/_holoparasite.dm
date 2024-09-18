@@ -25,7 +25,8 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	light_on = FALSE
 	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
-	movement_type = FLYING // Immunity to chasms and landmines, etc.
+	is_flying_animal = TRUE // Immunity to chasms and landmines, etc.
+	no_flying_animation = TRUE
 	attack_sound = "punch"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -103,7 +104,9 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	/// The tracking beacon component used for the host to track the holoparasite when scouting.
 	var/datum/component/tracking_beacon/tracking_beacon
 
-/mob/living/simple_animal/hostile/holoparasite/Initialize(_mapload, _key, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/mind/_summoner, datum/holoparasite_stats/_stats)
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
+
+/mob/living/simple_animal/hostile/holoparasite/Initialize(mapload, _key, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/mind/_summoner, datum/holoparasite_stats/_stats)
 	. = ..()
 	if(!istype(_summoner))
 		stack_trace("Holoparasite initialized without a valid summoner!")
@@ -228,11 +231,11 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	. = ..()
 	if(isobserver(user) || has_matching_summoner(user))
 		if(!stats.weapon.hidden)
-			. += "<span class='holoparasite'><b>WEAPON:</b> [stats.weapon.name] - [replacetext(stats.weapon.desc, "$theme", lowertext(theme.name))]</span>"
+			. += "<span class='holoparasite'><b>WEAPON:</b> [stats.weapon.name] - [replacetext(stats.weapon.desc, "$theme", LOWER_TEXT(theme.name))]</span>"
 		if(stats.ability)
-			. += "<span class='holoparasite'><b>SPECIAL ABILITY:</b> [stats.ability.name] - [replacetext(stats.ability.desc, "$theme", lowertext(theme.name))]</span>"
+			. += "<span class='holoparasite'><b>SPECIAL ABILITY:</b> [stats.ability.name] - [replacetext(stats.ability.desc, "$theme", LOWER_TEXT(theme.name))]</span>"
 		for(var/datum/holoparasite_ability/lesser/ability as() in stats.lesser_abilities)
-			. += "<span class='holoparasite'><b>LESSER ABILITY:</b> [ability.name] - [replacetext(ability.desc, "$theme", lowertext(theme.name))]</span>"
+			. += "<span class='holoparasite'><b>LESSER ABILITY:</b> [ability.name] - [replacetext(ability.desc, "$theme", LOWER_TEXT(theme.name))]</span>"
 		. += "<span data-component=\"RadarChart\" data-width=\"300\" data-height=\"300\" data-area-color=\"[accent_color]\" data-axes=\"Damage,Defense,Speed,Potential,Range\" data-stages=\"1,2,3,4,5\" data-values=\"[stats.damage],[stats.defense],[stats.speed],[stats.potential],[stats.range]\" />"
 
 /mob/living/simple_animal/hostile/holoparasite/get_idcard(hand_first = TRUE)

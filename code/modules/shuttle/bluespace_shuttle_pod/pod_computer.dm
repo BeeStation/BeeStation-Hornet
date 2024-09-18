@@ -3,6 +3,8 @@
 	circuit = /obj/item/circuitboard/computer/shuttle/flight_control
 	var/shuttle_named = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight/custom_shuttle/bluespace_pod)
+
 /obj/machinery/computer/shuttle_flight/custom_shuttle/bluespace_pod/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	var/static/pod_shuttles = 0

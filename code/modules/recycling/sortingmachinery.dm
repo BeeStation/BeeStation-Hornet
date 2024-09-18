@@ -8,7 +8,7 @@
 	var/giftwrapped = FALSE
 	var/sortTag = 0
 
-/obj/structure/big_delivery/Initialize()
+/obj/structure/big_delivery/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
@@ -205,6 +205,8 @@
 
 	dat += "<table style='width:100%; padding:4px;'><tr>"
 	for (var/i = 1, i <= GLOB.TAGGERLOCATIONS.len, i++)
+		if (GLOB.TAGGERLOCATIONS[i] in GLOB.disabled_tagger_locations)
+			continue
 		dat += "<td><a href='?src=[REF(src)];nextTag=[i]'>[GLOB.TAGGERLOCATIONS[i]]</a></td>"
 
 		if(i%4==0)
