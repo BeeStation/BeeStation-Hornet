@@ -2,12 +2,11 @@
 /// Get displayed variable in VV variable list
 /proc/debug_variable(name, value, level, datum/owner, sanitize = TRUE, display_flags = NONE) //if D is a list, name will be index, and value will be assoc value.
 	// variables to store values
-	var/read_only = CHECK_BITFIELD(display_flags, VV_READ_ONLY)
 	var/index
 	var/list/owner_list
 	var/datum/vv_ghost/vv_spectre
 
-	// checks if a thing is /list or /vv_ghost to deliver a special list
+	// checks if a thing is /list, or /vv_ghost to deliver a special list, and then reassign name/value
 	if(owner)
 		if(istype(owner, /datum/vv_ghost))
 			vv_spectre = owner
@@ -20,7 +19,7 @@
 				value = owner_list[name]
 
 	// Builds text for single letter actions
-	if(read_only)
+	if(CHECK_BITFIELD(display_flags, VV_READ_ONLY))
 		. = "<li style='backgroundColor:white'>(READ ONLY) "
 	else if(vv_spectre)
 		. = "<li style='backgroundColor:white'>([VV_HREF_SPECIAL(vv_spectre.special_owner, VV_HK_LIST_EDIT, "E", index, vv_spectre.special_varname)]) ([VV_HREF_SPECIAL(vv_spectre.special_owner, VV_HK_LIST_CHANGE, "C", index, vv_spectre.special_varname)]) ([VV_HREF_SPECIAL(vv_spectre.special_owner, VV_HK_LIST_REMOVE, "-", index, vv_spectre.special_varname)]) "
@@ -85,7 +84,7 @@
 		return datum_value.debug_variable_value(name, level, owner, sanitize, display_flags)
 
 	// list debug
-	var/special_list_level = istext(name) ? GLOB.vv_special_lists[name] : null
+	var/special_list_level = (istext(name) && isdatum(owner)) ? GLOB.vv_special_lists[name] : null
 	if(islist(value) || special_list_level) // Some special lists arent detectable as a list through istype
 		var/list/list_value = value
 		var/list/items = list()
@@ -98,7 +97,6 @@
 			list_name = "[value]"
 		else
 			list_name = "special_list"
-
 
 		// checks if a list is safe to open. Some special list does very weird thing
 		var/is_unsafe_list = (special_list_level == VV_LIST_PROTECTED) || isappearance(owner)
