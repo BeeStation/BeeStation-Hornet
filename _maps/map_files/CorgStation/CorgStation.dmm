@@ -17019,7 +17019,6 @@
 	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
 "fRG" = (

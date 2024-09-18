@@ -3361,7 +3361,6 @@
 /area/ruin/space/has_grav/hotel/power)
 "xX" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/secondary_solars)
 "ym" = (

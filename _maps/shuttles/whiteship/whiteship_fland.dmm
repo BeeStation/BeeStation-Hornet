@@ -372,7 +372,6 @@
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 4
 	},
-/obj/structure/cable,
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)
 "rR" = (

@@ -125,15 +125,6 @@
 /obj/item/clothing/suit/toggle/labcoat/science,
 /turf/open/floor/plating,
 /area/template_noop)
-"A" = (
-/obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/sign/warning{
-	pixel_y = -32
-	},
-/obj/machinery/shieldwallgen/xenobiologyaccess,
-/turf/open/floor/plating,
-/area/template_noop)
 "B" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
@@ -258,7 +249,7 @@ b
 k
 X
 u
-A
+F
 H
 H
 f

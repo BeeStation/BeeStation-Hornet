@@ -4539,7 +4539,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/structure/cable,
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/bridge)
@@ -14166,16 +14165,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"eNB" = (
-/obj/structure/cable,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor{
-	id = "AIwindows";
-	name = "AI View Blast Door"
-	},
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/ai_monitored/turret_protected/ai)
 "eNH" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/stripes/line{
@@ -20237,7 +20226,6 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 4
 	},
-/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "gMO" = (
@@ -22822,7 +22810,6 @@
 /obj/machinery/power/terminal{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible/layer4{
 	dir = 8
@@ -35275,7 +35262,6 @@
 	dir = 8
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible/layer4{
 	dir = 4
 	},
@@ -45886,7 +45872,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/power/terminal,
 /turf/open/floor/circuit,
@@ -62742,13 +62727,6 @@
 "vFo" = (
 /turf/closed/wall,
 /area/security/checkpoint/science)
-"vFr" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/marker_beacon,
-/obj/structure/cable,
-/obj/structure/cable,
-/turf/open/space/basic,
-/area/solar/port/fore)
 "vFF" = (
 /obj/effect/turf_decal/stripes{
 	dir = 1
@@ -62842,13 +62820,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/brig/medbay)
-"vHU" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/marker_beacon,
-/obj/structure/cable,
-/obj/structure/cable,
-/turf/open/space/basic,
-/area/solar/starboard/fore)
 "vHW" = (
 /turf/open/floor/wood,
 /area/maintenance/port/aft)
@@ -67840,20 +67811,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
-"xxc" = (
-/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
-	alpha = 180
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/structure/cable,
-/obj/structure/cable,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/turret_protected/aisat/foyer)
 "xxe" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -68731,7 +68688,6 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "xNU" = (
@@ -89826,7 +89782,7 @@ yeA
 yeA
 yeA
 yeA
-vFr
+oHp
 wms
 wms
 oHp
@@ -101078,7 +101034,7 @@ oll
 bKy
 bKy
 bEc
-xxc
+rIS
 rIS
 fTn
 diF
@@ -102619,7 +102575,7 @@ kBB
 lhw
 cNC
 wxk
-eNB
+aDL
 fvW
 nnO
 pJr
@@ -115262,7 +115218,7 @@ yeA
 yeA
 yeA
 gsA
-vHU
+dSm
 cLV
 cLV
 cLV

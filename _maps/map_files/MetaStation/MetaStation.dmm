@@ -4397,11 +4397,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
-"aOP" = (
-/obj/structure/cable,
-/obj/structure/cable,
-/turf/open/floor/iron,
-/area/engine/engineering)
 "aOR" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/firecloset,
@@ -4869,7 +4864,6 @@
 /area/maintenance/aft)
 "aRn" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -5093,7 +5087,6 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 5
 	},
-/obj/structure/cable,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "aSB" = (
@@ -23052,7 +23045,6 @@
 /area/hallway/secondary/entry)
 "eAk" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -30861,7 +30853,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -34624,14 +34615,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"jps" = (
-/obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/iron,
-/area/engine/engineering)
 "jpI" = (
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment,
@@ -40726,7 +40709,6 @@
 /area/security/prison)
 "lOG" = (
 /obj/effect/landmark/xeno_spawn,
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -55530,7 +55512,6 @@
 /turf/open/floor/iron,
 /area/medical/patients_rooms)
 "rMo" = (
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/power/smes,
 /turf/open/floor/iron,
@@ -113005,7 +112986,7 @@ aHY
 aKB
 aMd
 aNr
-aOP
+aNr
 rFo
 ebX
 hwu
@@ -113260,7 +113241,7 @@ lYZ
 efn
 efn
 efn
-jps
+efn
 efn
 efn
 uRl
