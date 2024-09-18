@@ -115,12 +115,8 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "aA" = (
-/obj/structure/tank_dispenser/oxygen{
-	layer = 2.7;
-	pixel_x = -1;
-	pixel_y = 2
-	},
 /obj/effect/turf_decal/box,
+/obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "aB" = (
@@ -437,6 +433,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 8
 	},
+/obj/structure/sink,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "bJ" = (
@@ -811,10 +808,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "sb" = (
-/obj/structure/sink{
-	layer = 4;
-	pixel_y = 22
-	},
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 4
 	},
