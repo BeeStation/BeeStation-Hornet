@@ -2485,6 +2485,16 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
 /area/security/main)
+"agR" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery,
+/turf/closed/wall,
+/area/quartermaster/miningoffice)
 "agS" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line,
@@ -179163,7 +179173,7 @@ pAb
 beI
 bbd
 mbs
-bhH
+agR
 bhH
 lkE
 hpF
