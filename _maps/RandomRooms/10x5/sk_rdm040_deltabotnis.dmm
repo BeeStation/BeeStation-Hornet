@@ -121,7 +121,7 @@
 	},
 /obj/item/reagent_containers/syringe,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)

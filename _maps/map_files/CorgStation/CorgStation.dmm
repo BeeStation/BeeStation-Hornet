@@ -6704,7 +6704,7 @@
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/customs)
 "cbo" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/door/airlock/external{
 	name = "Solar Panel Airlock";
 	req_access_txt = "10"
@@ -7708,7 +7708,7 @@
 /turf/closed/wall,
 /area/maintenance/solars/port/fore)
 "cwa" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
 "cwg" = (
@@ -9256,7 +9256,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
 "dcv" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/power/solar,
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
@@ -9823,7 +9823,7 @@
 /obj/machinery/power/solar_control{
 	dir = 4
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
 "dky" = (
@@ -11542,7 +11542,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "dSp" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
@@ -11976,7 +11976,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
 "dZV" = (
@@ -12642,7 +12642,7 @@
 /turf/open/floor/iron,
 /area/security/checkpoint/customs)
 "emg" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/power/solar,
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
@@ -16798,7 +16798,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "fNQ" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
@@ -17319,7 +17319,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "fYA" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -17515,7 +17515,7 @@
 /turf/open/floor/iron,
 /area/science/lab)
 "gde" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/power/terminal{
 	dir = 4
 	},
@@ -18410,7 +18410,7 @@
 /obj/machinery/power/solar_control{
 	dir = 8
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
 "grW" = (
@@ -19452,7 +19452,7 @@
 /area/hydroponics)
 "gLD" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/space/basic,
 /area/solar/port/fore)
 "gLP" = (
@@ -21382,7 +21382,7 @@
 /area/space/nearstation)
 "hvd" = (
 /obj/machinery/power/solar,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
 "hvg" = (
@@ -21394,7 +21394,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "hvo" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
 	dir = 1
 	},
@@ -22639,7 +22639,7 @@
 /turf/open/floor/iron,
 /area/bridge)
 "hRK" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/advanced_airlock_controller/directional/west,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
@@ -23054,7 +23054,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/storage_shared)
 "hYz" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
@@ -23325,7 +23325,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
 "icu" = (
@@ -23791,7 +23791,7 @@
 /area/quartermaster/office)
 "ilc" = (
 /obj/machinery/power/tracker,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
 "iln" = (
@@ -27114,7 +27114,7 @@
 /turf/open/floor/iron,
 /area/construction/mining/aux_base)
 "juD" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
 "juK" = (
@@ -27122,7 +27122,7 @@
 	name = "Solar Panel Airlock";
 	req_access_txt = "10"
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -29177,7 +29177,7 @@
 	name = "Solar Panel Airlock";
 	req_access_txt = "10"
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
@@ -38232,7 +38232,7 @@
 /obj/machinery/airalarm/directional/west,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
 "noy" = (
@@ -38474,7 +38474,7 @@
 /area/space/nearstation)
 "nsw" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/space/basic,
 /area/solar/starboard/aft)
 "nsJ" = (
@@ -40663,7 +40663,7 @@
 /area/security/warden)
 "oft" = (
 /obj/machinery/power/tracker,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "ofx" = (
@@ -42513,7 +42513,7 @@
 /area/tcommsat/server)
 "oPJ" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/space/basic,
 /area/solar/port/aft)
 "oQg" = (
@@ -43262,7 +43262,7 @@
 /area/medical/medbay/central)
 "pgy" = (
 /obj/machinery/power/tracker,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
 "pgJ" = (
@@ -45072,7 +45072,7 @@
 /area/engine/atmos)
 "pOx" = (
 /obj/machinery/power/terminal,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
@@ -58900,7 +58900,7 @@
 /turf/open/floor/iron,
 /area/security/prison)
 "uJG" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
@@ -60258,7 +60258,7 @@
 /turf/open/floor/iron,
 /area/engine/engine_room)
 "vjC" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
 	dir = 8
 	},
@@ -61809,7 +61809,7 @@
 	name = "Solar Panel Airlock";
 	req_access_txt = "10"
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
@@ -62944,7 +62944,7 @@
 	name = "Solar Panel Airlock";
 	req_access_txt = "10"
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
@@ -64271,7 +64271,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/fitness/recreation)
 "wCx" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/door/airlock/external{
 	name = "Solar Panel Airlock";
 	req_access_txt = "10"
@@ -64619,7 +64619,7 @@
 /obj/machinery/power/solar_control{
 	dir = 8
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
 "wKb" = (

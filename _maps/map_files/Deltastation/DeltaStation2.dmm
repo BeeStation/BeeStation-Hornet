@@ -52035,7 +52035,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
 "mrr" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9

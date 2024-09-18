@@ -21282,7 +21282,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "dLH" = (
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -23129,7 +23129,7 @@
 	name = "MiniSat Access";
 	req_one_access_txt = "32;19"
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -33291,7 +33291,7 @@
 /obj/structure/transit_tube/station{
 	dir = 4
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -33772,7 +33772,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "iRz" = (
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -37124,7 +37124,7 @@
 /area/medical/surgery)
 "kpb" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -53967,7 +53967,7 @@
 /turf/open/floor/iron/white,
 /area/maintenance/aft)
 "raC" = (
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
@@ -57148,7 +57148,7 @@
 /area/security/checkpoint/science/research)
 "sqY" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/structure/transit_tube/crossing/horizontal,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -60011,7 +60011,7 @@
 /obj/structure/transit_tube/junction/flipped{
 	dir = 8
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -61579,7 +61579,7 @@
 	pixel_x = 5;
 	pixel_y = -1
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
@@ -62022,7 +62022,7 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -62460,7 +62460,7 @@
 	name = "Transit Tube Blast Door"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -65008,7 +65008,7 @@
 /obj/structure/transit_tube/curved{
 	dir = 4
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -65363,7 +65363,7 @@
 /turf/open/floor/iron,
 /area/storage/primary)
 "vDQ" = (
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
@@ -69566,7 +69566,7 @@
 /area/security/checkpoint/medical)
 "xpl" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/structure/transit_tube/crossing/horizontal,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -71335,7 +71335,7 @@
 /area/hallway/primary/aft)
 "xXx" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/structure/transit_tube/horizontal,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4

@@ -43,7 +43,7 @@
 	},
 /obj/effect/landmark/ert_spawn,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "an" = (
@@ -298,7 +298,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "bj" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "bk" = (
@@ -578,7 +578,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/item/storage/box/ids{
 	pixel_x = 6;
 	pixel_y = 12
@@ -1146,7 +1146,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/visible{
 	dir = 1
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
@@ -1377,7 +1377,7 @@
 /obj/item/folder/red,
 /obj/item/pen/red,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "fe" = (
@@ -1454,7 +1454,7 @@
 /area/centcom/control)
 "fp" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron,
 /area/centcom/ferry)
 "fr" = (
@@ -1651,7 +1651,7 @@
 	dir = 1
 	},
 /obj/machinery/meter,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
@@ -1823,7 +1823,7 @@
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "gX" = (
@@ -3648,7 +3648,7 @@
 "oJ" = (
 /obj/machinery/door/poddoor/ert,
 /obj/effect/turf_decal/delivery,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron,
 /area/centcom/ferry)
 "oM" = (
@@ -4376,7 +4376,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/centcom/ferry)
@@ -4401,7 +4401,7 @@
 /obj/item/stack/cable_coil,
 /obj/item/powertool/hand_drill,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/centcom/ferry)
@@ -4701,7 +4701,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/wood,
 /area/centcom/ferry)
 "sD" = (
@@ -4712,7 +4712,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -4951,7 +4951,7 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/wood,
 /area/centcom/ferry)
 "tE" = (
@@ -4962,7 +4962,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -4977,7 +4977,7 @@
 	pixel_y = -24
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -5249,7 +5249,7 @@
 /turf/open/floor/iron/dark/textured,
 /area/centcom/evac)
 "ur" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/wood,
 /area/centcom/ferry)
 "us" = (
@@ -5608,7 +5608,7 @@
 	req_access_txt = "109"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron,
 /area/centcom/ferry)
 "vG" = (
@@ -5863,7 +5863,7 @@
 /area/centcom/ferry)
 "wy" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron,
 /area/centcom/ferry)
 "wz" = (
@@ -6206,7 +6206,7 @@
 "xQ" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron,
 /area/centcom/ferry)
 "xR" = (
@@ -6884,11 +6884,11 @@
 /area/centcom/control)
 "AM" = (
 /obj/machinery/shuttle_manipulator,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/circuit/green,
 /area/centcom/ferry)
 "AN" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/circuit/green,
 /area/centcom/ferry)
 "AP" = (
@@ -6910,7 +6910,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron,
 /area/centcom/ferry)
 "AR" = (
@@ -6920,7 +6920,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron,
 /area/centcom/ferry)
 "AT" = (
@@ -7046,7 +7046,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -7055,7 +7055,7 @@
 "Bp" = (
 /obj/structure/chair/office,
 /obj/effect/landmark/ert_spawn,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "Bq" = (
@@ -8289,7 +8289,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "FV" = (
@@ -9046,7 +9046,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "IP" = (
@@ -9326,7 +9326,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "JH" = (
@@ -11367,7 +11367,7 @@
 /area/centcom/holding)
 "Ry" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "RA" = (
@@ -13513,7 +13513,7 @@
 /area/centcom/evac)
 "Zz" = (
 /obj/machinery/status_display/ai,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/closed/indestructible/riveted,
 /area/centcom/ferry)
 "ZB" = (

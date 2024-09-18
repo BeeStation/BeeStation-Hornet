@@ -4525,7 +4525,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/bridge)
@@ -4785,7 +4785,7 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "bEi" = (
@@ -11640,7 +11640,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "dUF" = (
@@ -30842,7 +30842,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /turf/open/space/basic,
 /area/space/nearstation)
 "kCQ" = (
@@ -33180,7 +33180,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "lsT" = (
@@ -37492,7 +37492,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "mRK" = (
@@ -41580,7 +41580,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/stripes/end,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -59436,7 +59436,7 @@
 	req_access = null;
 	req_access_txt = "65"
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/effect/landmark/start/cyborg,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/aisat/foyer)
@@ -60175,7 +60175,7 @@
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /obj/machinery/camera/autoname/directional/north{
 	c_tag = "MiniSat Upload West";
 	network = list("minisat","aiupload")
@@ -61220,7 +61220,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "vbc" = (
@@ -61787,7 +61787,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /turf/open/space/basic,
 /area/space/nearstation)
 "vnq" = (
@@ -67872,7 +67872,7 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow,
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "xxe" = (
@@ -68757,7 +68757,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/structure/cable/cyan,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "xNU" = (

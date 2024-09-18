@@ -19743,11 +19743,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
 "fzt" = (
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
@@ -22783,7 +22783,7 @@
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/multitool,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
 "goT" = (
@@ -24769,7 +24769,7 @@
 /obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/camera/motion/directional/west{
 	c_tag = "AI Chamber - Central";
 	name = "motion-sensitive ai camera";
@@ -24793,7 +24793,7 @@
 /obj/structure/sign/warning/electricshock{
 	pixel_x = 32
 	},
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -26287,7 +26287,7 @@
 /obj/structure/table,
 /obj/item/storage/toolbox/electrical,
 /obj/item/assembly/flash/handheld,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
 "hnt" = (
