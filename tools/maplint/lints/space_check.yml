@@ -23,3 +23,4 @@ help: "Doors and Windows shouldn't have groundless turfs under them (Usually spa
   banned_neighbors:
   - /obj/machinery/door
   - /obj/effect/spawner/structure/window
+
