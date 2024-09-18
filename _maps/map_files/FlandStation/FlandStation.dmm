@@ -5813,6 +5813,13 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/bridge)
+"bsi" = (
+/obj/structure/closet/crate/coffin,
+/obj/machinery/door/window/eastleft{
+	name = "Coffin Storage"
+	},
+/turf/open/floor/iron/dark,
+/area/chapel/main)
 "bsm" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/disposal/bin,
@@ -15260,13 +15267,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"dVT" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/spawner/lootdrop/old_skeleton,
-/turf/open/floor/iron/dark,
-/area/chapel/main)
 "dWg" = (
 /obj/effect/turf_decal/guideline/guideline_in/red{
 	dir = 4
@@ -22158,17 +22158,6 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/science/explab)
-"fGL" = (
-/obj/effect/spawner/structure/window/reinforced/prison,
-/obj/machinery/door/poddoor/preopen{
-	id = "Prisongate";
-	name = "Prison Blast Door"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating,
-/area/security/prison)
 "fGN" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
@@ -34656,13 +34645,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/execution/transfer)
-"iOi" = (
-/obj/structure/closet/crate/coffin,
-/obj/machinery/door/window/eastleft{
-	name = "Coffin Storage"
-	},
-/turf/open/floor/iron/dark,
-/area/chapel/main)
 "iOo" = (
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder{
@@ -79509,6 +79491,13 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/dorms)
+"usZ" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/old_skeleton,
+/turf/open/floor/iron/dark,
+/area/chapel/main)
 "uta" = (
 /obj/machinery/door/airlock{
 	name = "Cyborg Recharging Station"
@@ -87553,18 +87542,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/engine,
 /area/engine/engine_room)
-"wjr" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 1;
-	name = "Distro to Connector"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/medical)
 "wjs" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
@@ -95229,6 +95206,17 @@
 	},
 /turf/open/floor/grass,
 /area/hallway/secondary/entry)
+"xOR" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
 "xOV" = (
 /obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall,
@@ -97177,6 +97165,17 @@
 "ylJ" = (
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"ylP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/binary/pump/on{
+	dir = 1;
+	name = "Distro to Connector"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/medical)
 "ylR" = (
 /obj/effect/landmark/blobstart,
 /obj/machinery/light/small{
@@ -118607,8 +118606,8 @@ yjW
 yjW
 djL
 yjW
-dVT
-iOi
+usZ
+bsi
 due
 woq
 edb
@@ -130960,7 +130959,7 @@ enZ
 faV
 qIR
 fuW
-wjr
+ylP
 cKB
 vyE
 fuW
@@ -131780,7 +131779,7 @@ pXI
 xnb
 pXI
 pXI
-fGL
+xOR
 agP
 iyG
 wYw
