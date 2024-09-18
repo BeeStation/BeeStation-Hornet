@@ -43,14 +43,12 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	var/omni = TRUE
 
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount = null, param_color = null)
-	. = ..()
-
 	var/list/cable_colors = GLOB.cable_colors
 	cable_color = param_color || cable_color || pick(cable_colors)
 
 	pixel_x = base_pixel_x + rand(-2,2)
 	pixel_y = base_pixel_y + rand(-2,2)
-	update_icon()
+	return ..()
 
 /obj/item/stack/cable_coil/attack_self(mob/user)
 	var/list/options = list()
