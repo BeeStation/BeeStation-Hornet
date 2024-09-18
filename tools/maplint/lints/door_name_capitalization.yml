@@ -1,4 +1,3 @@
-help: "Please upper-case your door names."
 /obj/machinery/door:
   banned_variables:
     name:
