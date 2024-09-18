@@ -191,7 +191,6 @@
 
 /// A list of all the special byond lists that need to be handled different by vv.
 /// manually adding var name is recommanded.
-/// * TRUE = read_only / FALSE = can edit
 GLOBAL_LIST_INIT(vv_special_lists, list(
 	// /datum
 	"vars" = VV_LIST_READ_ONLY, // This is meant to be read-only
