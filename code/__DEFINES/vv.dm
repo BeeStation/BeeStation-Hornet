@@ -47,7 +47,7 @@
 #define VV_HREF_TARGETREF_1V(targetref, href_key, text, varname) "<a href='[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"
 //! Non-standard helper for special list vv. this doesn't use VV_HK_TARGET and REF because special list doesn't work in a sane sense.
 #define VV_HREF_SPECIAL(special_owner, href_action, text, list_index, special_varname) "<a href='?_src_=vars;[HrefToken()];[href_action]=TRUE;special_owner=[special_owner];special_varname=[special_varname];[VV_HK_VARNAME]=[list_index]'>[text]</a>"
-#define VV_HREF_SPECIAL_MENU(special_owner, href_action, special_varname) "?_src_=vars;[HrefToken()];[href_action]=TRUE;special_owner=[special_owner];special_varname=[special_varname]"
+#define VV_HREF_SPECIAL_MENU(special_owner, href_action, special_varname) "?_src_=vars;[HrefToken()];[href_action]=TRUE;[VV_HK_DO_LIST_EDIT]=TRUE;special_owner=[special_owner];special_varname=[special_varname]"
 
 #define GET_VV_TARGET locate(href_list[VV_HK_TARGET])
 #define GET_VV_VAR_TARGET href_list[VV_HK_VARNAME]
@@ -73,6 +73,9 @@
 #define VV_HK_LIST_ERASE_DUPES "listdupes"
 #define VV_HK_LIST_SHUFFLE "listshuffle"
 #define VV_HK_LIST_SET_LENGTH "listlen"
+
+// I exist alone here just for special list edit. God, why.
+#define VV_HK_DO_LIST_EDIT "do_vv_list_edit"
 
 // vv_do_basic() keys
 #define VV_HK_BASIC_EDIT "datumedit"

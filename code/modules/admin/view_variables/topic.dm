@@ -10,9 +10,9 @@
 	// for non-standard special list
 	if(href_list["special_owner"])
 		var/special_owner = locate(href_list["special_owner"])
-		if(IS_REF_0X0(special_owner) || !isdatum(special_owner))
+		if(!isdatum(special_owner))
 			return
-		if(GET_VV_VAR_TARGET)
+		if(GET_VV_VAR_TARGET || href_list[VV_HK_DO_LIST_EDIT]) // if href_list["targetvar"] exists, we do vv_edit to list. if not, it's just viewing.
 			vv_do_list(special_owner:vars[href_list["special_varname"]], href_list)
 		GLOB.vv_ghost.mark_special(href_list["special_owner"], href_list["special_varname"])
 		vv_refresh_target = GLOB.vv_ghost

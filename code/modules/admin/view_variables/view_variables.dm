@@ -117,7 +117,6 @@
 				"---",
 				"Add Item" = VV_HREF_SPECIAL_MENU(vv_spectre.special_owner, VV_HK_LIST_ADD, vv_spectre.special_varname),
 				"Remove Nulls" = VV_HREF_SPECIAL_MENU(vv_spectre.special_owner, VV_HK_LIST_ERASE_NULLS, vv_spectre.special_varname),
-				"Remove Dupes" = VV_HREF_SPECIAL_MENU(vv_spectre.special_owner, VV_HK_LIST_ERASE_DUPES, vv_spectre.special_varname),
 				"Show VV To Player" = VV_HREF_SPECIAL_MENU(vv_spectre.special_owner, VV_HK_EXPOSE, vv_spectre.special_varname),
 				"---"
 			)
