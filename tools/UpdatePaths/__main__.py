@@ -92,13 +92,13 @@ def update_path(dmm_data, replacement_string, verbose=False):
             counter_match = counter_pattern.match(filter_prop)
             if counter_match:
                 if counter_match.group(1) == '>':
-                    if (counter > int(counter_match.group(2))):
+                    if (counter <= int(counter_match.group(2))):
                         return
                 elif counter_match.group(1) == '=':
-                    if (counter == int(counter_match.group(2))):
+                    if (counter != int(counter_match.group(2))):
                         return
                 elif counter_match.group(1) == '<':
-                    if (counter < int(counter_match.group(2))):
+                    if (counter >= int(counter_match.group(2))):
                         return
                 else:
                     continue
@@ -154,7 +154,7 @@ def update_path(dmm_data, replacement_string, verbose=False):
     def get_result(element):
         match = replacement_pattern.match(element)
         if match:
-            new_counter = counter[match.group('path')] if counter[match.group('path')] else 0 + 1
+            new_counter = counter[match.group('path')] if match.group('path') in counter else 0 + 1
             counter[match.group('path')] = new_counter
             return replace_def(match, new_counter)
         else:

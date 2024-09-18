@@ -2,4 +2,5 @@
 /obj/item/stack/cable_coil/cut/@SUBTYPES : /skip{@OLD}
 /obj/item/stack/cable_coil/@SUBTYPES : /obj/item/stack/cable_coil{@OLD;cable_color=@SKIP;color=@SKIP}
 /skip : /obj/item/stack/cable_coil/cut{@OLD;cable_color=@SKIP;color=@SKIP}
-/obj/structure/cable/@SUBTYPES{>1} : /obj/structure/cable
+/obj/structure/cable/@SUBTYPES{>1} : @DELETE
+/obj/structure/cable/@SUBTYPES{=1} : /obj/structure/cable
