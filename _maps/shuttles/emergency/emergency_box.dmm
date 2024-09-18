@@ -161,6 +161,7 @@
 "ar" = (
 /obj/machinery/computer/emergency_shuttle,
 /obj/effect/turf_decal/siding/thinplating_new,
+/obj/machinery/status_display/evac/directional/north,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/escape)
 "as" = (
@@ -570,6 +571,11 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
+"FC" = (
+/obj/structure/chair/fancy/shuttle,
+/obj/machinery/status_display/evac/directional/north,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
 "Gx" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Airlock";
@@ -717,6 +723,11 @@
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"Vh" = (
+/obj/structure/table,
+/obj/machinery/status_display/evac/directional/north,
+/turf/open/floor/iron/techmaint,
+/area/shuttle/escape)
 "XC" = (
 /obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
 	dir = 1
@@ -785,7 +796,7 @@ ae
 jX
 al
 ad
-aA
+FC
 aG
 aG
 aG
@@ -855,7 +866,7 @@ bi
 bk
 "}
 (6,1,1) = {"
-JW
+ad
 ar
 ag
 qO
@@ -909,7 +920,7 @@ JW
 Np
 ai
 ai
-az
+ad
 yM
 bm
 mU
@@ -935,7 +946,7 @@ ae
 BN
 ap
 ad
-aM
+Vh
 aE
 PC
 af
