@@ -10,7 +10,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// The current active slot, and the one that will be saved as active
 	var/default_slot = 1
 	/// The maximum number of slots we're allowed to contain
-	var/max_save_slots = 3
+	var/max_save_slots = 10
 	/// Cache for the current active character slot
 	var/datum/preferences_holder/preferences_character/character_data
 	/// Cache for player datumized preferences
@@ -115,7 +115,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(!IS_GUEST_KEY(parent.key))
 			unlock_content = !!parent.IsByondMember()
 			if(unlock_content)
-				max_save_slots = 8
+				max_save_slots = 16
 			log_preferences("[parent.ckey]: Checked BYOND membership: [unlock_content ? "MEMBER" : "NONMEMBER"].")
 	else
 		CRASH("attempted to create a preferences datum without a client!")
@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(pref_load == PREFERENCE_LOAD_SUCCESS || pref_load == PREFERENCE_LOAD_NO_DATA)
 		log_preferences("[parent?.ckey]: Player preferences loaded and applied.")
 		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
-			max_save_slots += 1
+			max_save_slots += 2
 		// Apply the loaded preferences!!
 		if(istype(parent))
 			apply_all_client_preferences()

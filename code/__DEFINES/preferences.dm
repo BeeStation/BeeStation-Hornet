@@ -87,8 +87,8 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 	HELMET_PROTECTIVE,
 ))
 
-// True value of max save slots (3 is default, 8 is byond member, +1 to either if you have the extra slot loadout entry). Potential max is 9
-#define TRUE_MAX_SAVE_SLOTS 9
+// True value of max save slots (10 is default, 16 is byond member, +2 to either if you have the extra slot loadout entry). Potential max is 18
+#define TRUE_MAX_SAVE_SLOTS 18
 
 // Values for /datum/preference/preference_type
 /// This preference is character specific.
