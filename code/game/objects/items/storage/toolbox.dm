@@ -241,14 +241,14 @@
 /obj/item/storage/toolbox/artistic/PopulateContents()
 	new /obj/item/storage/crayons(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil/red(src)
-	new /obj/item/stack/cable_coil/yellow(src)
-	new /obj/item/stack/cable_coil/blue(src)
-	new /obj/item/stack/cable_coil/green(src)
-	new /obj/item/stack/cable_coil/pink(src)
-	new /obj/item/stack/cable_coil/orange(src)
-	new /obj/item/stack/cable_coil/cyan(src)
-	new /obj/item/stack/cable_coil/white(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
 
 /obj/item/storage/toolbox/ammo
 	name = "ammo box (7.62mm)"

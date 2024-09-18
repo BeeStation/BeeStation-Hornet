@@ -171,3 +171,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 	pixel_x = base_pixel_x + rand(-2, 2)
 	pixel_y = base_pixel_y + rand(-2, 2)
 	update_icon()
+
+/obj/item/stack/cable_coil/one
+	amount = 1

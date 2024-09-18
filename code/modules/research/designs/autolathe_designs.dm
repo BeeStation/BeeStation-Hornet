@@ -156,7 +156,7 @@
 	id = "cable_coil"
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 10, /datum/material/glass = 5)
-	build_path = /obj/item/stack/cable_coil/red/one
+	build_path = /obj/item/stack/cable_coil/one
 	category = list("initial","Tools","Tool Designs")
 	maxstack = MAXCOIL
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
