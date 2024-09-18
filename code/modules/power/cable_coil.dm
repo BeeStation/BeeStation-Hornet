@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		if (result == "Multi-colour Power Bus")
 			cable_color = "white"
 		else
-			cable_color = lowertext(result)
+			cable_color = LOWER_TEXT(result)
 		update_icon()
 
 /obj/item/stack/cable_coil/suicide_act(mob/living/user)

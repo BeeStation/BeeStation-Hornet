@@ -1,6 +1,8 @@
 /// Max number of unanchored items that will be moved from a tile when attempting to add a window to a grille.
 #define CLEAR_TILE_MOVE_LIMIT 20
 
+WANTS_POWER_NODE(/obj/structure/grille)
+
 /obj/structure/grille
 	desc = "A flimsy framework of iron rods."
 	name = "grille"

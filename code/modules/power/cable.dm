@@ -79,11 +79,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 			stack_trace("A cable was created when one already exists at [COORD(src)].")
 			return INITIALIZE_HINT_QDEL
 
-	// If we have a powered machine, become a node-worthy cable
-	if (mapload && (locate(/obj/machinery/power) in get_turf(src)))
-		has_power_node = TRUE
-		forced_power_node = TRUE
-
 	var/list/cable_colors = GLOB.cable_colors
 	cable_color = param_color || cable_color || pick(cable_colors)
 
