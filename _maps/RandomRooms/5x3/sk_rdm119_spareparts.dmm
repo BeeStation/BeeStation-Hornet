@@ -51,7 +51,7 @@
 "h" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/iron/ten,
-/obj/item/stack/cable_coil/random/five,
+/obj/item/stack/cable_coil,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)

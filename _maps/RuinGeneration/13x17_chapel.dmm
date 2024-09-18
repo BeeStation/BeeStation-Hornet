@@ -223,7 +223,7 @@
 /area/ruin/unpowered)
 "Kd" = (
 /obj/structure/frame/machine,
-/obj/item/stack/cable_coil/random/five,
+/obj/item/stack/cable_coil,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "Lc" = (

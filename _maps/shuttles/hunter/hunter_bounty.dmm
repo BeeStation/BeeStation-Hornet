@@ -38,9 +38,7 @@
 /area/shuttle/hunter)
 "az" = (
 /obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/simple/purple/hidden,
 /turf/open/floor/plating,
@@ -50,9 +48,7 @@
 	cell_type = /obj/item/stock_parts/cell/high/plus;
 	req_access = list(181)
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/manifold/purple/hidden{
 	dir = 1
@@ -244,9 +240,7 @@
 /area/shuttle/hunter)
 "jA" = (
 /obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/manifold/purple/hidden,
 /turf/open/floor/plating{
@@ -365,9 +359,7 @@
 /area/shuttle/hunter)
 "nY" = (
 /obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/purple/hidden,
 /turf/open/floor/plating{
 	broken = 1
@@ -400,9 +392,7 @@
 /area/shuttle/hunter)
 "pC" = (
 /obj/effect/turf_decal/edges/techfloor,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/purple/hidden,
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
@@ -416,9 +406,7 @@
 	pixel_y = 15;
 	pixel_x = -10
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/simple/purple/hidden{
 	dir = 8
@@ -458,9 +446,7 @@
 /area/shuttle/hunter)
 "qS" = (
 /obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/manifold4w/purple/hidden,
 /turf/open/floor/plating,
@@ -567,9 +553,7 @@
 "xf" = (
 /obj/structure/lattice/catwalk/over,
 /obj/effect/decal/cleanable/glass,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/purple/hidden{
 	dir = 10
 	},
@@ -581,9 +565,7 @@
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/turf_decal/box,
 /obj/item/wrench,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/button/door{
 	id = "hunters_engines";
 	name = "engine lockdown";
@@ -647,9 +629,7 @@
 /area/shuttle/hunter)
 "Fv" = (
 /obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/manifold/purple/hidden{
 	dir = 8
@@ -688,9 +668,7 @@
 	req_access_txt = "181"
 	},
 /obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/purple/hidden,
 /turf/open/floor/plating,
 /area/shuttle/hunter)

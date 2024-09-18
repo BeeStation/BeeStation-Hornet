@@ -136,16 +136,12 @@
 /obj/effect/turf_decal/box/white/corners{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "aB" = (
 /obj/effect/turf_decal/box/white/corners,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "aC" = (
@@ -163,9 +159,7 @@
 	name = "Mining Shuttle External Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
@@ -180,7 +174,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "aF" = (
@@ -197,9 +191,7 @@
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "aI" = (
@@ -213,9 +205,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/docking_port/mobile{
 	dwidth = 3;
 	height = 10;
@@ -337,9 +327,7 @@
 /area/shuttle/mining/large)
 "aW" = (
 /obj/effect/turf_decal/stripes/white/line,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/pod/light,
 /area/shuttle/mining/large)
