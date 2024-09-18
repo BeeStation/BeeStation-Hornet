@@ -55,7 +55,7 @@
 			if(C)
 				transfer_fingerprints_to(C)
 				C.add_fingerprint(user)
-			playsound(src, 'sound/items/wirecutter.ogg', 100, TRUE)
+			playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 100, TRUE)
 			qdel(src)
 			to_chat(user, "<span class='notice'>You tear [src] up.</span>")
 			return TRUE

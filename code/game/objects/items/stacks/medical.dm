@@ -220,7 +220,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 			user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
 				"<span class='notice'>You cut [src] into pieces of cloth with [I].</span>", \
 				"<span class='italics'>You hear cutting.</span>")
-			playsound(src, 'sound/items/wirecutter.ogg', 100, TRUE)
+			playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 100, TRUE)
 			use(2)
 	else
 		return ..()

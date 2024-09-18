@@ -150,16 +150,16 @@
 	moth_snack.attack(attacker, user, params)
 
 /obj/item/clothing/proc/salvage(obj/item/W, mob/user, params)
-	if(!HAS_BLOOD_DNA(src) || salvage_material_bloody == null)
-		new salvage_material(user.drop_location(), salvage_amount)
+	if(HAS_BLOOD_DNA(src) && salvage_material == /obj/item/stack/sheet/cotton/cloth)
+		new /obj/item/stack/sheet/cotton/cloth/bloody(user.drop_location(), salvage_amount)
 	else
-		new salvage_material_bloody(user.drop_location(), salvage_amount)
+		new salvage_material(user.drop_location(), salvage_amount)
 	if(secondary_salvage_material != null)
 		new secondary_salvage_material(user.drop_location(), secondary_salvage_amount)
 	user.visible_message("[user] salvages some usable materials from [src].", \
 		"<span class='notice'>You salvage some usable materials from [src].</span>", \
 		"<span class='hear'>You hear salvaging.</span>")
-	playsound(src, 'sound/items/wirecutter.ogg', 100, TRUE)
+	playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 100, TRUE) //this sounds more like scissors
 	qdel(src)
 
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
@@ -182,11 +182,11 @@
 					return TRUE
 				repair(user, params)
 				return TRUE
-	if((W.tool_behaviour == TOOL_WIRECUTTER || W.is_sharp()) && salvage_material != null)
+	if((istype(W, /obj/item/wirecutters/scissors)) && salvage_material != null)
 		if(!isturf(loc) && user.get_inactive_held_item() != src)
-			to_chat(user, "<span class='warning'>You need to be holding [src] to salvage it!</span>")
+			to_chat(user, "<span class='warning'>You need to be holding [src] or set it down somewhere to salvage it!</span>")
 			return TRUE
-		if(do_after(user, 1.5 SECONDS))
+		if(do_after(user, 1.5 / W.toolspeed SECONDS))
 			salvage(src, user, params)
 		return TRUE
 

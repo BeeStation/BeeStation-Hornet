@@ -376,7 +376,7 @@
 		return
 	if((attacking_item.tool_behaviour == TOOL_WIRECUTTER || attacking_item.is_sharp()))
 		new /obj/item/stack/rods/scrap/paper(user.drop_location(), 5)
-		playsound(src, 'sound/items/wirecutter.ogg', 100, TRUE)
+		playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 100, TRUE)
 		user.visible_message("[user] cuts [src] into tiny pieces.", \
 				"<span class='notice'>You cut [src] into tiny pieces.</span>", \
 				"<span class='hear'>You hear cutting.</span>")

@@ -99,6 +99,18 @@
 	return ..()
 
 /obj/item/paper_bin/attackby(obj/item/I, mob/user, params)
+	if((I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp()))
+		if(total_paper > 0)
+			new /obj/item/stack/rods/scrap/paper(user.drop_location(), 5)
+			playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 100, TRUE)
+			user.visible_message("[user] cuts a paper sheet into tiny pieces.", \
+				"<span class='notice'>You cut a paper sheet into tiny pieces.</span>", \
+				"<span class='hear'>You hear cutting.</span>")
+			total_paper--
+			update_icon()
+		else
+			to_chat(user, "<span class='notice'>The paper tray is empty!.</span>")
+		return TRUE
 	if(istype(I, /obj/item/paper))
 		var/obj/item/paper/P = I
 		if(!user.transferItemToLoc(P, src))

@@ -218,6 +218,11 @@
 	if(attached_accessory)
 		. += "\A [attached_accessory] is attached to it."
 
+/obj/item/clothing/under/salvage(obj/item/W, mob/user, params)
+	remove_accessory(user)
+	return ..()
+
+
 /obj/item/clothing/under/rank
 	dying_key = DYE_REGISTRY_UNDER
 
