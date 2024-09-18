@@ -2345,6 +2345,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/circuitboard/machine/thermomachine,
+/obj/item/analyzer/ranged,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "vP" = (
