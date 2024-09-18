@@ -68731,9 +68731,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "vRV" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
