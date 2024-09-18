@@ -2,6 +2,8 @@
 // The cable coil object, used for laying cable
 ///////////////////////////////////////////////
 
+#define OMNI_CABLE "Omni Cable"
+
 ////////////////////////////////
 // Definitions
 ////////////////////////////////
@@ -37,7 +39,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	usesound = 'sound/items/deconstruct.ogg'
 	cost = 1
 	source = /datum/robot_energy_storage/wire
-	var/cable_color = "red"
+	var/cable_color = "white"
+	var/omni = TRUE
 
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount = null, param_color = null)
 	. = ..()
@@ -52,7 +55,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 /obj/item/stack/cable_coil/attack_self(mob/user)
 	//var/picked = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
 	var/list/options = list()
-	options["Universal Power Bus"] = mutable_appearance('icons/effects/colour.dmi', "rainbow")
+	options[OMNI_CABLE] = mutable_appearance('icons/effects/colour.dmi', "rainbow")
 	options["Red"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["red"])
 	options["Yellow"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["yellow"])
 	options["Green"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["green"])
@@ -60,10 +63,12 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	options["Orange"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["orange"])
 	var/result = show_radial_menu(user, user, options, radius = 40, tooltips = TRUE)
 	if (result)
-		if (result == "Multi-colour Power Bus")
+		if (result == OMNI_CABLE)
 			cable_color = "white"
+			omni = TRUE
 		else
 			cable_color = LOWER_TEXT(result)
+			omni = FALSE
 		update_icon()
 
 /obj/item/stack/cable_coil/suicide_act(mob/living/user)
@@ -126,7 +131,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 		return
 
 	for (var/obj/structure/cable/wire in T)
-		if (wire.cable_color != cable_color)
+		if (wire.cable_color != cable_color && !omni && !wire.omni)
 			continue
 		if (wire.forced_power_node)
 			to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
@@ -153,7 +158,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 		to_chat(user, "<span class='warning'>There is no cable left!</span>")
 		return
 
-	new /obj/structure/cable(T, cable_color)
+	if (omni)
+		new /obj/structure/cable/omni(T, cable_color)
+	else
+		new /obj/structure/cable(T, cable_color)
 
 //////////////////////////////
 // Misc.
@@ -174,3 +182,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 
 /obj/item/stack/cable_coil/one
 	amount = 1
+
+#undef OMNI_CABLE

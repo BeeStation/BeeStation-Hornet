@@ -3,12 +3,13 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	"green" = "#00aa00",
 	"pink" = "#ff3cc8",
 	"orange" = "#ff8000",
-	"red" = "#ff0000"
+	"red" = "#ff0000",
+	"white" = "#ffffff"
 	))
 
-/proc/get_cable(turf/location, cable_color)
+/proc/get_cable(turf/location, cable_color, omni)
 	for (var/obj/structure/cable/cable in location)
-		if (cable.cable_color == cable_color)
+		if (cable.omni || omni || cable.cable_color == cable_color)
 			return cable
 
 ////////////////////////////////
@@ -32,6 +33,8 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	var/obj/structure/cable/east
 	var/obj/structure/cable/south
 	var/obj/structure/cable/west
+	/// Are we an omni cable?
+	var/omni = FALSE
 
 	FASTDMM_PROP(\
 		pipe_type = PIPE_TYPE_CABLE,\
@@ -66,27 +69,34 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	pixel_x = 4
 	pixel_y = 4
 
+/obj/structure/cable/omni
+	cable_color = "white"
+	color = "#ffffff"
+	omni = TRUE
+
 // the power cable object
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 /obj/structure/cable/Initialize(mapload, param_color)
 	. = ..()
 
-	if (mapload)
-		for (var/obj/structure/cable/cable in get_turf(src))
-			if (cable == src || cable.cable_color != cable_color)
-				continue
-			stack_trace("A cable was created when one already exists at [COORD(src)].")
-			return INITIALIZE_HINT_QDEL
+// If building for CI then we will check to ensure that cables are not incorrectly overlapping.
+#ifdef CIBUILDING
+	for (var/obj/structure/cable/cable in get_turf(src))
+		if (cable == src || cable.cable_color != cable_color || omni || cable.omni)
+			continue
+		stack_trace("A cable was created when one already exists at [COORD(src)].")
+		return INITIALIZE_HINT_QDEL
+#endif
 
 	var/list/cable_colors = GLOB.cable_colors
 	cable_color = param_color || cable_color || pick(cable_colors)
 
 	// Locate adjacent tiles
-	north = get_cable(get_step(src, NORTH), cable_color)
-	south = get_cable(get_step(src, SOUTH), cable_color)
-	east = get_cable(get_step(src, EAST), cable_color)
-	west = get_cable(get_step(src, WEST), cable_color)
+	north = get_cable(get_step(src, NORTH), cable_color, omni)
+	south = get_cable(get_step(src, SOUTH), cable_color, omni)
+	east = get_cable(get_step(src, EAST), cable_color, omni)
+	west = get_cable(get_step(src, WEST), cable_color, omni)
 	north?.south = src
 	east?.west = src
 	south?.north = src
@@ -194,7 +204,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		if ("green")
 			pixel_x = -4
 			pixel_y = -4
-		if ("blue")
+		if ("orange")
 			pixel_x = -2
 			pixel_y = -2
 		if ("yellow")
