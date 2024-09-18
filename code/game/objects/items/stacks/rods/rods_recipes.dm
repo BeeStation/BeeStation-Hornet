@@ -19,7 +19,9 @@ GLOBAL_LIST_INIT(plasma_scrap_recipes, list ( \
 
 GLOBAL_LIST_INIT(paper_scrap_recipes, list ( \
 	new/datum/stack_recipe("paper sheet", /obj/item/paper, 5, on_floor = FALSE, time = 0.5 SECONDS), \
-	new/datum/stack_recipe("paper slip", /obj/item/card/id/paper, 25, on_floor = FALSE, time = 0.5 SECONDS)))
+	new/datum/stack_recipe("paper slip", /obj/item/card/id/paper, 25, on_floor = FALSE, time = 0.5 SECONDS), \
+	new/datum/stack_recipe("paper cup", /obj/item/reagent_containers/food/drinks/sillycup, 5, on_floor = FALSE, time = 0.5 SECONDS), \
+	new/datum/stack_recipe("paper sack", /obj/item/storage/box/papersack, 25, on_floor = FALSE, time = 1 SECONDS)))
 
 /obj/item/stack/rods/cyborg
 	merge_type = /obj/item/stack/rods

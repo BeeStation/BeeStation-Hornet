@@ -109,6 +109,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 /obj/item/stack/rods/scrap/silver/get_recipes()
 	return
 
+/obj/item/stack/rods/scrap/gold
+	name = "gold scraps"
+	desc = "Scraps of gold salvaged with rudimentary tools. It can be welded into a gold sheet."
+	singular_name = "gold scrap"
+	icon_state = "gold_scraps"
+	item_state = "gold_scraps"
+	mats_per_unit = list(/datum/material/gold=100)
+	merge_type = /obj/item/stack/rods/scrap/gold
+	welding_result = /obj/item/stack/sheet/mineral/gold
+
+/obj/item/stack/rods/scrap/gold/get_recipes()
+	return
+
 /obj/item/stack/rods/scrap/plasteel
 	name = "plasteel scraps"
 	desc = "Scraps of plasteel salvaged with rudimentary tools. It can be welded into a plasteel sheet."
@@ -219,7 +232,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 /obj/item/stack/rods/scrap/silver/get_recipes()
 	return
 
-//Yes hello, Joon here, I know paper is tecnically not a mineral butI wanted a way to make crafting with paper easier since paper doesn't stack
+//Yes hello, Joon here, I know paper is tecnically not a mineral but I wanted a way to make crafting with paper easier since paper doesn't stack
 //salvaging the paper scraps requires you to have a wirecutter anyways so might as well be able to craft while avoiding the crafting menu
 /obj/item/stack/rods/scrap/paper
 	name = "paper scraps"
