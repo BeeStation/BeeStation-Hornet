@@ -12,7 +12,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
 	clothing_flags = SNUG_FIT
-	salvage_material = /obj/item/stack/sheet/plastic
+	salvage_material = /obj/item/stack/rods/scrap/plastic
 	secondary_salvage_material = /obj/item/flashlight
 
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
@@ -85,7 +85,7 @@
 	cold_protection = HEAD
 	heat_protection = HEAD
 	dog_fashion = /datum/dog_fashion/head
-	salvage_material = /obj/item/stack/sheet/plasteel
+	salvage_material = /obj/item/stack/rods/scrap/plasteel
 
 /obj/item/clothing/head/utility/hardhat/dblue
 	icon_state = "hardhat0_dblue"
@@ -122,6 +122,8 @@
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	///Icon state of the welding visor.
 	var/visor_state = "weldvisor"
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 5
 
 /obj/item/clothing/head/utility/hardhat/welding/Initialize(mapload)
 	. = ..()

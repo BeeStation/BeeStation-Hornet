@@ -5,6 +5,7 @@
 	var/hud_trait = null //Used for topic calls. Just because you have a HUD display doesn't mean you should be able to interact with stuff. If something uses multiple traits, make it a list.
 	var/hud_type = null	//If something uses multiple huds, make it a list.
 	var/atom/movable/screen/plane_master/data_hud/glitching_hud
+	secondary_salvage_amount = 1
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
 	..()
@@ -135,8 +136,8 @@
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
-	salvage_material = /obj/item/stack/sheet/mineral/uranium
-	salvage_amount = 1
+	salvage_material = /obj/item/stack/rods/scrap/uranium
+	salvage_amount = 2
 	secondary_salvage_material = /obj/item/clothing/glasses/hud/health
 
 /obj/item/clothing/glasses/hud/health/sunglasses
@@ -182,8 +183,8 @@
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
-	salvage_material = /obj/item/stack/sheet/mineral/uranium
-	salvage_amount = 1
+	salvage_material = /obj/item/stack/rods/scrap/uranium
+	salvage_amount = 2
 	secondary_salvage_material = /obj/item/clothing/glasses/hud/diagnostic
 
 /obj/item/clothing/glasses/hud/diagnostic/sunglasses
@@ -292,7 +293,7 @@
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
-	salvage_material = /obj/item/stack/sheet/mineral/uranium
+	salvage_material = /obj/item/stack/rods/scrap/uranium
 	salvage_amount = 1
 	secondary_salvage_material = /obj/item/clothing/glasses/hud/security
 

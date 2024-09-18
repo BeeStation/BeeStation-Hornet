@@ -4,7 +4,7 @@
 	icon_state = "papersack"
 	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS|HIDESNOUT
 	salvage_material = /obj/item/paper
-	salvage_amount = 5
+	salvage_amount = 25
 
 /obj/item/clothing/head/costume/papersack/smiley
 	name = "paper sack hat"

@@ -140,8 +140,10 @@
 	transfer_prints = FALSE
 	actions_types = list(/datum/action/item_action/artifact_pincher_mode)
 	var/safety = FALSE
-	salvage_material = /obj/item/stack/sheet/iron
-	secondary_salvage_material = /obj/item/stack/sheet/mineral/silver
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 4
+	secondary_salvage_material = /obj/item/stack/rods/scrap/silver
+	secondary_salvage_amount = 2
 
 /datum/action/item_action/artifact_pincher_mode
 	name = "Toggle Safety"

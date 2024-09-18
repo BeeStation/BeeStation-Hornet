@@ -11,4 +11,5 @@
 	name = "magnificent crown"
 	desc = "A crown worn by only the highest emperors of the <s>land</s> space."
 	icon_state = "fancycrown"
-	secondary_salvage_material = /obj/item/stack/sheet/mineral/diamond
+	salvage_material = /obj/item/stack/sheet/mineral/diamond
+	salvage_amount = 1

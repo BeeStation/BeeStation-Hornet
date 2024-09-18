@@ -11,6 +11,7 @@
 	armor = list(MELEE = 30,  BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
 	strip_delay = 80
 	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/hats/centcom_cap
 	name = "\improper CentCom commander cap"
@@ -20,6 +21,7 @@
 	flags_inv = 0
 	armor = list(MELEE = 30,  BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
 	strip_delay = (8 SECONDS)
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/costume/canada
 	name = "striped red tophat"
@@ -46,6 +48,7 @@
 	permeability_coefficient = 0.01
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 	flags_inv = HIDEHAIR
+	secondary_salvage_material = /obj/item/stack/sheet/leather
 
 /obj/item/clothing/head/costume/nursehat
 	name = "nurse's hat"

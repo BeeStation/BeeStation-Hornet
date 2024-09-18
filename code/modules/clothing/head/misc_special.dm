@@ -26,7 +26,8 @@
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = FIRE_PROOF
-	salvage_material = /obj/item/stack/sheet/iron
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 3
 
 /obj/item/clothing/head/utility/welding/attack_self(mob/user)
 	weldingvisortoggle(user)

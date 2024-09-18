@@ -79,7 +79,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 
 /obj/item/stack/rods/scrap
 	name = "metal scraps"
-	desc = "Scraps of metal salvaged with rudimentary tools."
+	desc = "Scraps of metal salvaged with rudimentary tools. It can be welded into an iron sheet."
 	singular_name = "metal scrap"
 	icon_state = "metal_scraps"
 	item_state = "metal_scraps"
@@ -96,10 +96,51 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 /obj/item/stack/rods/scrap/get_recipes()
 	return GLOB.metal_scrap_recipes
 
+/obj/item/stack/rods/scrap/silver
+	name = "silver scraps"
+	desc = "Scraps of silver salvaged with rudimentary tools. It can be welded into a silver sheet."
+	singular_name = "silver scrap"
+	icon_state = "silver_scraps"
+	item_state = "silver_scraps"
+	mats_per_unit = list(/datum/material/silver=100)
+	merge_type = /obj/item/stack/rods/scrap/silver
+	welding_result = /obj/item/stack/sheet/mineral/silver
+
+/obj/item/stack/rods/scrap/silver/get_recipes()
+	return
+
+/obj/item/stack/rods/scrap/plasteel
+	name = "plasteel scraps"
+	desc = "Scraps of plasteel salvaged with rudimentary tools. It can be welded into a plasteel sheet."
+	singular_name = "plasteel scrap"
+	icon_state = "plasteel_scraps"
+	item_state = "plasteel_scraps"
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0, BLEED = 0)
+	resistance_flags = FIRE_PROOF
+	mats_per_unit = list(/datum/material/alloy/plasteel=100)
+	merge_type = /obj/item/stack/rods/scrap/plasteel
+	welding_result = /obj/item/stack/sheet/plasteel
+
+/obj/item/stack/rods/scrap/plasteel/get_recipes()
+	return
+
+/obj/item/stack/rods/scrap/bronze
+	name = "bronze scraps"
+	desc = "Scraps of bronze salvaged with rudimentary tools. It can be welded into a bronze sheet."
+	singular_name = "bronze scrap"
+	icon_state = "bronze_scraps"
+	item_state = "bronze_scraps"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	mats_per_unit = list(/datum/material/copper=50, /datum/material/iron=50)
+	merge_type = /obj/item/stack/rods/scrap/bronze
+	welding_result = /obj/item/stack/sheet/bronze
+
+/obj/item/stack/rods/scrap/bronze/get_recipes()
+	return
 
 /obj/item/stack/rods/scrap/glass
 	name = "glass scraps"
-	desc = "Scraps of glass salvaged with rudimentary tools."
+	desc = "Scraps of glass salvaged with rudimentary tools. It can be welded into a glass sheet."
 	singular_name = "glass scrap"
 	icon_state = "glass_scraps"
 	item_state = "glass_scraps"
@@ -118,7 +159,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 
 /obj/item/stack/rods/scrap/uranium
 	name = "uranium scraps"
-	desc = "Scraps of uranium salvaged with rudimentary tools. You... probably shouldn't be holding this for too long..."
+	desc = "Scraps of uranium salvaged with rudimentary tools. Can be welded into an uranium bar. You... probably shouldn't be holding this for too long..."
 	singular_name = "uranium scrap"
 	icon_state = "uranium_scraps"
 	item_state = "uranium_scraps"
@@ -148,7 +189,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	welding_result = null
 
 /obj/item/stack/rods/scrap/plasma/get_recipes()
-	return
+	return GLOB.plasma_scrap_recipes
 
 /obj/item/stack/rods/scrap/plasma/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
@@ -164,3 +205,32 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
 		plasma_ignition(amount/50, Proj?.firer)
 	. = ..()
+
+/obj/item/stack/rods/scrap/plastic
+	name = "plastic scraps"
+	desc = "Scraps of plastic salvaged with rudimentary tools. It can be welded into a plastic sheet."
+	singular_name = "plastic scrap"
+	icon_state = "plastic_scraps"
+	item_state = "plastic_scraps"
+	mats_per_unit = list(/datum/material/plastic=100)
+	merge_type = /obj/item/stack/rods/scrap/plastic
+	welding_result = /obj/item/stack/sheet/plastic
+
+/obj/item/stack/rods/scrap/silver/get_recipes()
+	return
+
+/obj/item/stack/rods/scrap/paper
+	name = "paper scraps"
+	desc = "Scraps of paper cut haphazardly."
+	singular_name = "paper scrap"
+	icon_state = "paper_scraps"
+	item_state = "paper_scraps"
+	flags_1 = NONE
+	resistance_flags = FLAMMABLE
+	max_integrity = 100
+	mats_per_unit = null
+	merge_type = /obj/item/stack/rods/scrap/paper
+	welding_result = null
+
+/obj/item/stack/rods/scrap/paper/get_recipes()
+	return GLOB.paper_scrap_recipes
