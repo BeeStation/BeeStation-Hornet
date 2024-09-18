@@ -71,9 +71,9 @@
 /area/ruin/space/has_grav/powered)
 "o" = (
 /obj/structure/table,
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
 /obj/item/storage/toolbox/electrical,
 /turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/powered)

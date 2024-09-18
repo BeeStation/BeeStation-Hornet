@@ -390,12 +390,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "sh" = (
@@ -464,9 +459,7 @@
 /obj/machinery/power/smes{
 	charge = 1e+006
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "up" = (
@@ -609,9 +602,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Cu" = (
@@ -686,9 +677,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "JP" = (

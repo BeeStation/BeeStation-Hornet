@@ -133,11 +133,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "L" = (
-/obj/item/stack/cable_coil/red,
-/turf/open/floor/plating,
-/area/template_noop)
-"M" = (
-/obj/item/rcl/pre_loaded,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plating,
 /area/template_noop)
 "P" = (
@@ -218,7 +214,7 @@ l
 u
 L
 V
-M
+L
 D
 "}
 (6,1,1) = {"
