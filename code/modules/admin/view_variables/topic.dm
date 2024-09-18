@@ -4,17 +4,36 @@
 	if( (usr.client != src) || !src.holder || !holder.CheckAdminHref(href, href_list))
 		return
 	var/target = GET_VV_TARGET
+	var/vv_refresh_target /// If this var has a reference, vv window will be auto-refreshed
+
 	vv_do_basic(target, href_list, href)
-	if(istype(target, /datum))
-		var/datum/D = target
-		D.vv_do_topic(href_list)
+	// for non-standard special list
+	if(href_list["special_owner"])
+		var/special_owner = locate(href_list["special_owner"])
+		if(IS_REF_0X0(special_owner) || !isdatum(special_owner))
+			return
+		if(GET_VV_VAR_TARGET)
+			vv_do_list(special_owner:vars[href_list["special_varname"]], href_list)
+		GLOB.vv_ghost.mark_special(href_list["special_owner"], href_list["special_varname"])
+		vv_refresh_target = GLOB.vv_ghost
+	// for standard /list
 	else if(islist(target))
 		vv_do_list(target, href_list)
-	if(href_list["Vars"])
-		var/datum/vars_target = locate(href_list["Vars"])
-		if(href_list["special_varname"]) // Some special vars can't be located even if you have their ref, you have to use this instead
-			vars_target = vars_target.vars[href_list["special_varname"]]
-		debug_variables(vars_target)
+		GLOB.vv_ghost.mark_list_ref(target)
+		vv_refresh_target = GLOB.vv_ghost
+	// for standard /datum
+	else if(istype(target, /datum))
+		var/datum/D = target
+		D.vv_do_topic(href_list)
+
+	// if there is no `href_list["target"]`, we check `href_list["Vars"]` to see if we want see it
+	if(!target && !vv_refresh_target)
+		vv_refresh_target = locate(href_list["Vars"])
+		// "Vars" means we want to view-variables this thing.
+
+	if(vv_refresh_target)
+		debug_variables(vv_refresh_target)
+		return
 
 //Stuff below aren't in dropdowns/etc.
 
@@ -122,21 +141,3 @@
 				log_admin(log_msg)
 				admin_ticket_log(L, "<font color='blue'>[log_msg]</font>")
 				vv_update_display(L, Text, "[newamt]")
-
-
-	//Finally, refresh if something modified the list.
-	if(href_list["datumrefresh"])
-		var/datum/datum_ref = locate(href_list["datumrefresh"]) // note: this can't track 'list ref'
-		if(datum_ref)
-			debug_variables(datum_ref)
-			return
-
-		// For list, or some special byond list
-		var/real_ref = locate(href_list["datumrefresh"])
-		if(real_ref && !IS_REF_0X0(real_ref)) // some reference is not possible to recover
-			GLOB.vv_ghost.tag = real_ref
-			debug_variables(GLOB.vv_ghost) // the proc blames if it doesn't take an actual datum. We send a fake datum, by letting datum.tag hold the real reference.
-			GLOB.vv_ghost.tag = null
-			return
-
-GLOBAL_DATUM(vv_ghost, /datum) // Fake datum for vv debug_variables() proc. Am I real?

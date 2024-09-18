@@ -28,7 +28,7 @@
 // 	some hardcoded byond references (like filters) are not possible to get back through locate().
 // 	If you try so, you'll get ref[0x0]. This macros are made for it.
 #define REF_TEXT_0X0 ("\[0x0\]")
-/// Checks if you can take back a reference through locate(). If locate() returns [0x0], it's not locatable
-#define IS_REF_LOCATABLE(thing) (thing && (istext(thing) ? REF(locate(thing)) : REF(locate(REF(thing)))) != REF_TEXT_0X0)
-/// Checks if locate() returns [0x0]
+/// Checks if you can take back a reference through locate(). If locate() returns [0x0], it's not locatable.
+#define IS_REF_LOCATABLE(thing) (thing && ((istext(thing) ? REF(locate(thing)) : REF(locate(REF(thing)))) != REF_TEXT_0X0)) // currently unusued
+/// Checks if the current ref id is [0x0], without using locate().
 #define IS_REF_0X0(thing) (thing && ((istext(thing) ? thing : REF(thing)) == REF_TEXT_0X0))

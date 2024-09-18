@@ -45,6 +45,9 @@
 #define VV_HREF_TARGETREF(targetref, href_key, text) "<a href='[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)]'>[text]</a>"
 #define VV_HREF_TARGET_1V(target, href_key, text, varname) "<a href='[VV_HREF_TARGET_INTERNAL(target, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"		//for stuff like basic varedits, one variable
 #define VV_HREF_TARGETREF_1V(targetref, href_key, text, varname) "<a href='[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"
+//! Non-standard helper for special list vv. this doesn't use VV_HK_TARGET and REF because special list doesn't work in a sane sense.
+#define VV_HREF_SPECIAL(special_owner, href_action, text, list_index, special_varname) "<a href='?_src_=vars;[HrefToken()];[href_action]=TRUE;special_owner=[special_owner];special_varname=[special_varname];[VV_HK_VARNAME]=[list_index]'>[text]</a>"
+#define VV_HREF_SPECIAL_MENU(special_owner, href_action, special_varname) "?_src_=vars;[HrefToken()];[href_action]=TRUE;special_owner=[special_owner];special_varname=[special_varname]"
 
 #define GET_VV_TARGET locate(href_list[VV_HK_TARGET])
 #define GET_VV_VAR_TARGET href_list[VV_HK_VARNAME]
@@ -179,3 +182,35 @@
 
 /// ALWAYS render a reduced list, useful for fuckoff big datums that need to be condensed for the sake of client load
 #define VV_ALWAYS_CONTRACT_LIST (1<<0)
+#define VV_READ_ONLY (1<<1)
+
+
+#define VV_LIST_PROTECTED (1) /// Can not vv the list. Doing vv this list is not safe.
+#define VV_LIST_READ_ONLY (2) /// Can vv the list, but can not edit.
+#define VV_LIST_EDITABLE (3) /// Can vv the list, and edit.
+
+/// A list of all the special byond lists that need to be handled different by vv.
+/// manually adding var name is recommanded.
+/// * TRUE = read_only / FALSE = can edit
+GLOBAL_LIST_INIT(vv_special_lists, list(
+	// /datum
+	"vars" = VV_LIST_READ_ONLY, // This is meant to be read-only
+	// /atom
+	"overlays" = VV_LIST_EDITABLE,
+	"underlays" = VV_LIST_EDITABLE,
+	"vis_contents" = VV_LIST_EDITABLE,
+	"vis_locs" = VV_LIST_READ_ONLY,
+	"contents" = VV_LIST_EDITABLE,
+	"locs" = VV_LIST_READ_ONLY,
+	"verbs" = VV_LIST_READ_ONLY, // I don't believe anyone in live server
+	"filters" = VV_LIST_PROTECTED, // This is not good to change in vv, yet.
+	// /client
+	"bounds" = VV_LIST_PROTECTED, // DM document says it's read-only. Better not to edit this.
+	"images" = VV_LIST_EDITABLE,
+	"screen" = VV_LIST_EDITABLE,
+))
+// NOTE: this is highly attached to how /datum/vv_ghost works.
+
+#ifndef DEBUG
+GLOBAL_PROTECT(vv_special_lists) // changing this in live server is a bad idea
+#endif

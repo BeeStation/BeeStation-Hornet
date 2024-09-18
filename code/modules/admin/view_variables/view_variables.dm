@@ -14,24 +14,39 @@
 	if(!thing)
 		return
 
-	if(thing == GLOB.vv_ghost && GLOB.vv_ghost.tag)
-		thing = GLOB.vv_ghost.tag
-		GLOB.vv_ghost = null
-
 	var/datum/asset/asset_cache_datum = get_asset_datum(/datum/asset/simple/vv)
 	asset_cache_datum.send(usr)
 
-	var/isappearance = isappearance(thing)
+	// vv_ghost part. exotique abyss code
+	var/static/datum/vv_ghost/vv_spectre = new() /// internal purpose
+	var/special_list_level /// protected level of special list
+	var/is_vv_readonly /// checks if the special list is not vv editable, as read-only
+	if(thing == GLOB.vv_ghost)
+		if(GLOB.vv_ghost.list_ref)
+			thing = vv_spectre.deliver_list_ref()
+		else if(GLOB.vv_ghost.special_owner)
+			thing = vv_spectre.deliver_special()
+			special_list_level = GLOB.vv_special_lists[vv_spectre.special_varname]
+			is_vv_readonly = (special_list_level && (special_list_level != VV_LIST_EDITABLE)) ? VV_READ_ONLY : null
+		else
+			return // vv_ghost is not meant to be vv'ed
+
+	var/isappearance = isappearance(thing) // TG has a version of handling /appearance stuff, by mirroring the appearance. Our version is accessing /appearance directly. Just be noted.
 	var/islist = islist(thing) || (!isdatum(thing) && hascall(thing, "Cut")) // Some special lists dont count as lists, but can be detected by if they have list procs
 	if(!islist && !isdatum(thing) && !isappearance)
 		return
 
+	// Builds texts(and icon) for vv window, to provide info.
 	var/title = ""
 	var/refid = REF(thing)
 	var/icon/sprite
 	var/hash
 
-	var/type = islist? /list : (isappearance ? "/appearance" : thing.type)
+	var/type = \
+		vv_spectre.special_varname ? "/special_list ([vv_spectre.special_varname])" \
+		: islist ? /list \
+		: isappearance ? "/appearance" \
+		: thing.type
 	var/no_icon = FALSE
 
 	if(isatom(thing))
@@ -73,6 +88,7 @@
 
 	var/ref_line = "@[copytext(refid, 2, -1)]" // get rid of the brackets, add a @ prefix for copy pasting in asay
 
+	// Builds text that if a datum we're editing has some flags
 	var/marked_line
 	if(holder && holder.marked_datum && holder.marked_datum == thing)
 		marked_line = VV_MSG_MARKED
@@ -87,17 +103,34 @@
 	if(!islist && thing.gc_destroyed)
 		deleted_line = VV_MSG_DELETED
 
+	// Builds a menu of dropdown-options
 	var/list/dropdownoptions
-	if (islist)
-		dropdownoptions = list(
-			"---",
-			"Add Item" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_ADD),
-			"Remove Nulls" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_ERASE_NULLS),
-			"Remove Dupes" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_ERASE_DUPES),
-			"Set len" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_SET_LENGTH),
-			"Shuffle" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_SHUFFLE),
-			"Show VV To Player" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_EXPOSE),
-			"---"
+	if (islist || special_list_level)
+		if(is_vv_readonly) // vv_ghost thing. I know this is cringe
+			dropdownoptions = list(
+				"---",
+				"Show VV To Player" = VV_HREF_SPECIAL_MENU(vv_spectre.special_owner, VV_HK_EXPOSE, vv_spectre.special_varname),
+				"---"
+			)
+		else if(special_list_level) // another vv_ghost thing
+			dropdownoptions = list(
+				"---",
+				"Add Item" = VV_HREF_SPECIAL_MENU(vv_spectre.special_owner, VV_HK_LIST_ADD, vv_spectre.special_varname),
+				"Remove Nulls" = VV_HREF_SPECIAL_MENU(vv_spectre.special_owner, VV_HK_LIST_ERASE_NULLS, vv_spectre.special_varname),
+				"Remove Dupes" = VV_HREF_SPECIAL_MENU(vv_spectre.special_owner, VV_HK_LIST_ERASE_DUPES, vv_spectre.special_varname),
+				"Show VV To Player" = VV_HREF_SPECIAL_MENU(vv_spectre.special_owner, VV_HK_EXPOSE, vv_spectre.special_varname),
+				"---"
+			)
+		else // standard dropdown options for sane /list
+			dropdownoptions = list(
+				"---",
+				"Add Item" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_ADD),
+				"Remove Nulls" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_ERASE_NULLS),
+				"Remove Dupes" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_ERASE_DUPES),
+				"Set len" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_SET_LENGTH),
+				"Shuffle" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_SHUFFLE),
+				"Show VV To Player" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_EXPOSE),
+				"---"
 			)
 		for(var/i in 1 to length(dropdownoptions))
 			var/name = dropdownoptions[i]
@@ -108,6 +141,7 @@
 	else
 		dropdownoptions = thing.vv_get_dropdown()
 
+	// Builds text for name of each variable in the thing you're editing.
 	var/list/names = list()
 	if(isappearance)
 		var/static/list/virtual_appearance_vars = build_virtual_appearance_vars()
@@ -119,14 +153,15 @@
 	sleep(1 TICKS)
 
 	var/list/variable_html = list()
-	if(islist)
+	if(islist || special_list_level)
 		var/list/list_value = thing
 		for(var/i in 1 to list_value.len)
 			var/key = list_value[i]
 			var/value
 			if(IS_NORMAL_LIST(list_value) && IS_VALID_ASSOC_KEY(key))
 				value = list_value[key]
-			variable_html += debug_variable(i, value, 0, list_value)
+			variable_html += debug_variable(i, value, 0, special_list_level ? vv_spectre : thing, display_flags = is_vv_readonly)
+			// special_list_level exists? We send vv_ghost instead. debug_variable will handle the vv_ghost different... hehe, hell.
 	else if(isappearance)
 		names = sort_list(names)
 		for(var/varname in names)
@@ -137,7 +172,13 @@
 			if(thing.can_vv_get(varname))
 				variable_html += thing.vv_get_var(varname)
 
-	var/ref_locatable = IS_REF_LOCATABLE(refid)
+	// href key "Vars" only does refreshing. I hate that name because it's contextless.
+	// "special_owner" and "special_varname" must exist at the same time, to access a special list directly, because such special list is not possible to be accessed through locate(refID)
+	// For example, you can't access /client/images internal variable by 'locate(that_client_images_list_ref)'. Yes, This sucks
+	var/refresh_link = \
+		vv_spectre.special_varname \
+		? "<a id='refresh_link' href='?_src_=vars;[HrefToken()];special_owner=[vv_spectre.special_owner];special_varname=[vv_spectre.special_varname]'>Refresh</a>" \
+		: "<a id='refresh_link' href='?_src_=vars;[HrefToken()];Vars=[refid]'>Refresh</a>"
 
 	var/html = {"
 <html>
@@ -267,11 +308,7 @@
 					</td>
 					<td width='50%'>
 						<div align='center'>
-							[\
-								ref_locatable \
-								? "<a id='refresh_link' href='?_src_=vars;datumrefresh=[refid];[HrefToken()]'>Refresh</a>" \
-								: "Not-refreshable" \
-							]
+							[refresh_link]
 							<form>
 								<select name="file" size="1"
 									onchange="handle_dropdown(this)"
@@ -316,6 +353,7 @@
 	</body>
 </html>
 "}
+	vv_spectre.reset()
 	src << browse(html, "window=variables[refid];size=475x650")
 
 /client/proc/vv_update_display(datum/thing, span, content)

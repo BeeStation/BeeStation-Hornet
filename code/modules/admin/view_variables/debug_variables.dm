@@ -1,17 +1,33 @@
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
 /// Get displayed variable in VV variable list
 /proc/debug_variable(name, value, level, datum/owner, sanitize = TRUE, display_flags = NONE) //if D is a list, name will be index, and value will be assoc value.
+	// variables to store values
+	var/read_only = CHECK_BITFIELD(display_flags, VV_READ_ONLY)
+	var/index
+	var/list/owner_list
+	var/datum/vv_ghost/vv_spectre
+
+	// checks if a thing is /list or /vv_ghost to deliver a special list
 	if(owner)
-		if(islist(owner))
-			var/index = name
-			var/list/owner_list = owner
+		if(istype(owner, /datum/vv_ghost))
+			vv_spectre = owner
+		if(islist(owner) || vv_spectre)
+			index = name
+			owner_list = vv_spectre.special_ref || owner
 			if (value)
 				name = owner_list[name] //name is really the index until this line
 			else
 				value = owner_list[name]
-			. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_EDIT, "E", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_CHANGE, "C", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_REMOVE, "-", index)]) "
-		else
-			. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_EDIT, "E", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_CHANGE, "C", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_MASSEDIT, "M", name)]) "
+
+	// Builds text for single letter actions
+	if(read_only)
+		. = "<li style='backgroundColor:white'>(READ ONLY) "
+	else if(vv_spectre)
+		. = "<li style='backgroundColor:white'>([VV_HREF_SPECIAL(vv_spectre.special_owner, VV_HK_LIST_EDIT, "E", index, vv_spectre.special_varname)]) ([VV_HREF_SPECIAL(vv_spectre.special_owner, VV_HK_LIST_CHANGE, "C", index, vv_spectre.special_varname)]) ([VV_HREF_SPECIAL(vv_spectre.special_owner, VV_HK_LIST_REMOVE, "-", index, vv_spectre.special_varname)]) "
+	else if(owner_list)
+		. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_EDIT, "E", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_CHANGE, "C", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_REMOVE, "-", index)]) "
+	else if(owner)
+		. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_EDIT, "E", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_CHANGE, "C", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_MASSEDIT, "M", name)]) "
 	else
 		. = "<li>"
 
@@ -59,7 +75,7 @@
 
 	var/isfilter = isfilter(value)
 	if(isfilter && !isdatum(owner) && !isappearance(owner)) // each filter in atom.filters
-		return "/filter (<span class='value'>[value:type]</span>)"
+		return "/[value] (<span class='value'>[value:type]</span>)"
 
 	if(isfile(value))
 		return "<span class='value'>'[value]'</span>"
@@ -69,21 +85,25 @@
 		return datum_value.debug_variable_value(name, level, owner, sanitize, display_flags)
 
 	// list debug
-	if(islist(value) || (name in GLOB.vv_special_lists)) // Some special lists arent detectable as a list through istype
+	var/special_list_level = istext(name) ? GLOB.vv_special_lists[name] : null
+	if(islist(value) || special_list_level) // Some special lists arent detectable as a list through istype
 		var/list/list_value = value
 		var/list/items = list()
 
 		// Saves a list name format
-		var/is_special_list
-		if(name in GLOB.vv_special_lists)
-			is_special_list = "special_"
-		var/special_list_name_holder = isfilter ? ":filters" : null
+		var/list_name
+		if(isnull(special_list_level))
+			list_name = "list"
+		else if(isfilter)
+			list_name = "[value]"
+		else
+			list_name = "special_list"
 
+
+		// checks if a list is safe to open. Some special list does very weird thing
+		var/is_unsafe_list = (special_list_level == VV_LIST_PROTECTED) || isappearance(owner)
 		// This is becuse some lists either dont count as lists or a locate on their ref will return null
-		var/link_vars = is_special_list ? "Vars=[REF(owner)];special_varname=[name]" : "Vars=[REF(value)]"
-
-		// checks if a list is safe to open. atom/filters does very weird thing
-		var/is_unsafe_list = isfilter ? TRUE : FALSE
+		var/link_vars = is_unsafe_list ? null : (special_list_level ? "special_owner=[REF(owner)];special_varname=[name]" : "Vars=[REF(value)]")
 		// do not make a href hyperlink to open a list if it's not safe. filters aren't recommended to open
 		var/a_open = is_unsafe_list ? null : "<a href='?_src_=vars;[HrefToken()];[link_vars]'>"
 		var/a_close = is_unsafe_list ? null : "</a>"
@@ -101,9 +121,9 @@
 
 				items += debug_variable(key, val, level + 1, sanitize = sanitize)
 
-			return "[a_open]/[is_special_list]list[special_list_name_holder] ([length(list_value)])[a_close]<ul>[items.Join()]</ul>"
+			return "[a_open]/[list_name] ([length(list_value)])[a_close]<ul>[items.Join()]</ul>"
 		else
-			return "[a_open]/[is_special_list]list[special_list_name_holder] ([length(list_value)])[a_close]"
+			return "[a_open]/[list_name] ([length(list_value)])[a_close]"
 
 	if(name in GLOB.bitfields)
 		var/list/flags = list()
