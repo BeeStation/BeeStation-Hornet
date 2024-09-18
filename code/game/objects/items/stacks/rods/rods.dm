@@ -219,6 +219,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 /obj/item/stack/rods/scrap/silver/get_recipes()
 	return
 
+//Yes hello, Joon here, I know paper is tecnically not a mineral butI wanted a way to make crafting with paper easier since paper doesn't stack
+//salvaging the paper scraps requires you to have a wirecutter anyways so might as well be able to craft while avoiding the crafting menu
 /obj/item/stack/rods/scrap/paper
 	name = "paper scraps"
 	desc = "Scraps of paper cut haphazardly."

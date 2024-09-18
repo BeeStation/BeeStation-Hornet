@@ -11,6 +11,7 @@
 	resistance_flags = NONE
 	permeability_coefficient = 0.05 //Thick soles, and covers the ankle
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
 	name = "\improper SWAT boots"
@@ -28,6 +29,7 @@
 	equip_delay_other = 50
 	permeability_coefficient = 0.9
 	strip_delay = 5
+	salvage_material = /obj/item/stack/sheet/wood
 
 /obj/item/clothing/shoes/sandal/alt
 	desc = "A pair of shiny black wooden sandals."
@@ -53,6 +55,8 @@
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 75, STAMINA = 0, BLEED = 0)
 	can_be_bloody = FALSE
 	custom_price = 100
+	salvage_material = /obj/item/stack/rods/scrap/plastic
+	salvage_amount = 5
 
 /obj/item/clothing/shoes/galoshes/dry
 	name = "absorbent galoshes"
@@ -78,6 +82,8 @@
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes/clown
 	var/datum/component/waddle
 	var/enabled_waddle = TRUE
+	salvage_material = /obj/item/food/pie/cream //Everyone knows keep 10 pies in their boots
+	salvage_amount = 10
 
 /obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
 	. = ..()
@@ -137,6 +143,7 @@
 	item_state = "jackboots"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+
 /obj/item/clothing/shoes/jackboots/fast
 	name = "modified jackboots"
 	desc = "Security combat boots for combat scenarios or combat situations. This pair seems to be modified with lighter materials."
@@ -211,6 +218,7 @@
 	desc = "The height of fashion, and they're pre-polished!"
 	icon_state = "laceups"
 	equip_delay_other = 50
+	salvage_material = /obj/item/stack/sheet/leather
 
 /obj/item/clothing/shoes/roman
 	name = "roman sandals"
@@ -220,6 +228,7 @@
 	strip_delay = 100
 	equip_delay_other = 100
 	permeability_coefficient = 0.9
+	salvage_material = /obj/item/stack/sheet/leather
 
 /obj/item/clothing/shoes/griffin
 	name = "griffon boots"
@@ -242,6 +251,10 @@
 	var/jumpspeed = 3
 	var/recharging_rate = 60 //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 5
+	secondary_salvage_material = /obj/item/stack/rods/scrap/silver
+	secondary_salvage_amount = 5
 
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
 	if(!isliving(user))
@@ -277,6 +290,8 @@
 	desc = "A giant, clunky pair of shoes crudely made out of bronze. Why would anyone wear these?"
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_treads"
+	salvage_material = /obj/item/stack/rods/scrap/bronze
+	salvage_amount = 5
 
 /obj/item/clothing/shoes/bronze/Initialize(mapload)
 	. = ..()
@@ -294,6 +309,8 @@
 	light_range = 2
 	light_power = 3
 	light_on = FALSE
+	secondary_salvage_material = /obj/item/stack/cable_coil
+	secondary_salvage_amount = 15
 
 /obj/item/clothing/shoes/kindleKicks/ui_action_click(mob/user, action)
 	if(active)

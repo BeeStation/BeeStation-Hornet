@@ -121,6 +121,11 @@ Contains:
 	strip_delay = 40
 	equip_delay_other = 20
 	flags_cover = HEADCOVERSEYES
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	salvage_material_bloody = /obj/item/stack/sheet/cotton/cloth/bloody
+	salvage_amount = 2
+	secondary_salvage_material = null
+
 
 /obj/item/clothing/head/helmet/space/pirate/bandana
 	name = "pirate bandana"
@@ -140,6 +145,9 @@ Contains:
 	armor = list(MELEE = 30,  BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 60, ACID = 75, STAMINA = 20, BLEED = 20)
 	strip_delay = 40
 	equip_delay_other = 20
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
+	salvage_amount = 3
+	secondary_salvage_material = null
 
 	//Emergency Response Team suits
 /obj/item/clothing/head/helmet/space/hardsuit/ert

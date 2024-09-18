@@ -7,6 +7,10 @@
 	item_state = "santahat"
 	flags_cover = HEADCOVERSEYES
 	dog_fashion = /datum/dog_fashion/head/santa
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	salvage_material_bloody = /obj/item/stack/sheet/cotton/cloth/bloody
+	salvage_amount = 2
+	secondary_salvage_material = null
 
 /obj/item/clothing/suit/space/santa
 	name = "Santa's suit"
@@ -17,3 +21,7 @@
 	item_state = "santa"
 	slowdown = 0
 	allowed = list(/obj/item) //for stuffing exta special presents
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	salvage_material_bloody = /obj/item/stack/sheet/cotton/cloth/bloody
+	salvage_amount = 3
+	secondary_salvage_material = null

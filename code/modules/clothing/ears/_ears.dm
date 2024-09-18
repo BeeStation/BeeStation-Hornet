@@ -9,8 +9,8 @@
 	salvage_material = /obj/item/stack/rods/scrap
 	secondary_salvage_material = /obj/item/stack/rods/scrap/glass
 	salvage_material_bloody = null
-	salvage_amount = 5
-	secondary_salvage_amount = 5
+	salvage_amount = 3
+	secondary_salvage_amount = 3
 
 /obj/item/clothing/ears/earmuffs
 	name = "earmuffs"
