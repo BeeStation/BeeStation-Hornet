@@ -24,7 +24,7 @@ SUBSYSTEM_DEF(communications)
 		silicon_message_cooldown = world.time + COMMUNICATION_COOLDOWN_AI
 	else
 		if(emagged)
-			priority_announce(html_decode(user.treat_message(input)), null, 'sound/misc/announce_syndi.ogg', "Syndicate Captain", has_important_message = TRUE, auth_id = auth_id)
+			priority_announce(html_decode(user.treat_message(input)), null, 'sound/misc/announce_syndi.ogg', "Syndicate", has_important_message = TRUE, auth_id = auth_id)
 		else
 			priority_announce(html_decode(user.treat_message(input)), null, 'sound/misc/announce.ogg', "Captain", has_important_message = TRUE, auth_id = auth_id)
 		nonsilicon_message_cooldown = world.time + COMMUNICATION_COOLDOWN
