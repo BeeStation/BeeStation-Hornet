@@ -53,7 +53,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	update_icon()
 
 /obj/item/stack/cable_coil/attack_self(mob/user)
-	//var/picked = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
 	var/list/options = list()
 	options[OMNI_CABLE] = mutable_appearance('icons/effects/colour.dmi', "rainbow")
 	options["Red"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["red"])

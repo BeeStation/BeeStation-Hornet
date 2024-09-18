@@ -25,7 +25,6 @@
 	//Go away references, you suck!
 	for(var/obj/structure/cable/C in cables)
 		cables -= C
-		C.maptext = "N/A"
 		C.powernet = null
 	for(var/obj/machinery/power/M in nodes)
 		nodes -= M
@@ -43,7 +42,6 @@
 /datum/powernet/proc/remove_cable(obj/structure/cable/C)
 	cables -= C
 	C.powernet = null
-	C.maptext = "N/A"
 	if(is_empty())//the powernet is now empty...
 		qdel(src)///... delete it
 	else
@@ -60,7 +58,6 @@
 			C.powernet.remove_cable(C) //..remove it
 	C.powernet = src
 	cables += C
-	C.maptext = "[MAPTEXT(number)]"
 
 //remove a power machine from the current powernet
 //if the powernet is then empty, delete it
