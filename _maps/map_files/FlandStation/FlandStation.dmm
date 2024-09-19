@@ -87542,7 +87542,6 @@
 	dir = 1;
 	name = "Distro to Connector"
 	},
-/obj/effect/mapping_helpers/airlock/abandoned,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -95213,10 +95212,15 @@
 /turf/open/floor/grass,
 /area/hallway/secondary/entry)
 "xOR" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/security/prison)
 "xOV" = (
 /obj/structure/sign/warning/vacuum/external,
