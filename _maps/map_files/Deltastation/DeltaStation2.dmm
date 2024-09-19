@@ -7995,6 +7995,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/machinery/icecream_vat,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "baC" = (
@@ -9589,11 +9590,13 @@
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "blt" = (
-/obj/machinery/icecream_vat,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/delivery,
+/obj/structure/rack,
+/obj/item/clothing/head/utility/chefhat,
+/obj/item/reagent_containers/glass/bowl,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "blu" = (
@@ -9604,12 +9607,13 @@
 /area/hallway/primary/fore)
 "blv" = (
 /obj/structure/table/reinforced,
+/obj/effect/turf_decal/bot,
+/obj/item/plate/small,
 /obj/item/food/mint,
 /obj/item/reagent_containers/food/condiment/enzyme{
-	pixel_y = 5
+	pixel_y = 5;
+	pixel_x = -4
 	},
-/obj/effect/turf_decal/bot,
-/obj/item/book/manual/wiki/cooking_to_serve_man,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "blw" = (
@@ -11714,6 +11718,18 @@
 	},
 /turf/open/floor/circuit/green,
 /area/ai_monitored/turret_protected/ai)
+"bzb" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "kitchenside";
+	name = "Kitchen Hall Shutters"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
+/obj/item/storage/box/donkpockets,
+/obj/effect/spawner/lootdrop/donkpockets,
+/turf/open/floor/iron,
+/area/crew_quarters/kitchen)
 "bzd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
@@ -28545,6 +28561,9 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 4
+	},
 /turf/open/floor/iron/smooth,
 /area/tcommsat/server)
 "dHZ" = (
@@ -31010,6 +31029,11 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
+"ecI" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/oven,
+/turf/open/floor/iron,
+/area/crew_quarters/kitchen)
 "ecL" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -32076,6 +32100,16 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"enU" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/edges/borderfloor,
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 1
+	},
+/turf/open/floor/iron/smooth,
+/area/tcommsat/server)
 "enV" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -32128,6 +32162,10 @@
 "epV" = (
 /obj/structure/sign/warning/electricshock{
 	pixel_y = -32
+	},
+/obj/effect/turf_decal/edges/borderfloor,
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 1
 	},
 /turf/open/floor/iron/smooth,
 /area/tcommsat/server)
@@ -39102,6 +39140,15 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/hor)
+"gvW" = (
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 4
+	},
+/turf/open/floor/iron/smooth,
+/area/tcommsat/server)
 "gwp" = (
 /obj/structure/chair/fancy/sofa/old/right{
 	color = "#742925"
@@ -41881,16 +41928,15 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main)
 "hnN" = (
-/obj/structure/rack,
 /obj/machinery/button/door{
 	id = "kitchenwindows";
 	name = "Kitchen Privacy Control";
 	pixel_y = -26;
 	req_access_txt = "28"
 	},
-/obj/item/clothing/head/utility/chefhat,
 /obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/glass/bowl,
+/obj/structure/table/reinforced,
+/obj/item/book/manual/wiki/cooking_to_serve_man,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "hnV" = (
@@ -43618,6 +43664,12 @@
 /area/security/prison)
 "hQb" = (
 /obj/machinery/firealarm/directional/east,
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 8
+	},
 /turf/open/floor/iron/smooth,
 /area/tcommsat/server)
 "hQc" = (
@@ -44007,6 +44059,11 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard)
+"hUJ" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/mob/living/carbon/monkey/punpun,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "hVg" = (
 /obj/structure/table/wood/fancy,
 /obj/item/organ/heart,
@@ -46142,6 +46199,12 @@
 	name = "telecomms camera";
 	network = list("ss13","tcomms")
 	},
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 4
+	},
 /turf/open/floor/iron/smooth,
 /area/tcommsat/server)
 "iEs" = (
@@ -46466,6 +46529,10 @@
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/west,
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 9
+	},
+/obj/effect/turf_decal/tile/techfloor,
 /turf/open/floor/iron/smooth,
 /area/tcommsat/server)
 "iJQ" = (
@@ -49695,6 +49762,12 @@
 	name = "telecomms camera";
 	network = list("ss13","tcomms")
 	},
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 8
+	},
 /turf/open/floor/iron/smooth,
 /area/tcommsat/server)
 "jRV" = (
@@ -51259,7 +51332,7 @@
 "knL" = (
 /obj/machinery/telecomms/server/presets/engineering,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/iron/telecomms,
 /area/tcommsat/server)
@@ -52576,6 +52649,18 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/qm)
+"kMr" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 5
+	},
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 8
+	},
+/turf/open/floor/iron/smooth,
+/area/tcommsat/server)
 "kMI" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -54833,10 +54918,19 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/wood,
 /area/bridge/showroom/corporate)
+"lBr" = (
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 8
+	},
+/turf/open/floor/iron/smooth,
+/area/tcommsat/server)
 "lBv" = (
 /obj/machinery/telecomms/server/presets/supply,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/iron/telecomms,
 /area/tcommsat/server)
@@ -56413,6 +56507,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
+"maE" = (
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 3
+	},
+/turf/open/floor/iron/smooth,
+/area/tcommsat/server)
 "maQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -62552,12 +62655,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/locker)
-"nUK" = (
-/obj/machinery/deepfryer,
-/mob/living/carbon/monkey/punpun,
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/crew_quarters/kitchen)
 "nUN" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -69031,8 +69128,6 @@
 "qer" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/donkpockets,
-/obj/item/storage/box/donkpockets,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "qeD" = (
@@ -74224,6 +74319,15 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/engine/engineering)
+"rJr" = (
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 10
+	},
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 4
+	},
+/turf/open/floor/iron/smooth,
+/area/tcommsat/server)
 "rJs" = (
 /obj/structure/closet/athletic_mixed,
 /obj/item/pool/pool_noodle,
@@ -74971,6 +75075,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
+"rVk" = (
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 6
+	},
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 1
+	},
+/turf/open/floor/iron/smooth,
+/area/tcommsat/server)
 "rVm" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -75789,6 +75902,12 @@
 "siA" = (
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 4
 	},
 /turf/open/floor/iron/smooth,
 /area/tcommsat/server)
@@ -79496,9 +79615,7 @@
 /area/quartermaster/storage)
 "toF" = (
 /obj/machinery/telecomms/server/presets/common,
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
-	dir = 4
-	},
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/iron/telecomms,
 /area/tcommsat/server)
 "tpl" = (
@@ -82026,6 +82143,12 @@
 /obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
 	},
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 4
+	},
 /turf/open/floor/iron/smooth,
 /area/tcommsat/server)
 "uge" = (
@@ -82922,6 +83045,12 @@
 "utR" = (
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 8
 	},
 /turf/open/floor/iron/smooth,
 /area/tcommsat/server)
@@ -90801,6 +90930,13 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
+"wOY" = (
+/obj/effect/turf_decal/edges/borderfloor,
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 1
+	},
+/turf/open/floor/iron/smooth,
+/area/tcommsat/server)
 "wPa" = (
 /obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
@@ -94350,6 +94486,12 @@
 "xVY" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 8
 	},
 /turf/open/floor/iron/smooth,
 /area/tcommsat/server)
@@ -132492,7 +132634,7 @@ rOT
 etm
 ttZ
 bdJ
-nUK
+ybT
 bgs
 bhQ
 bjF
@@ -132734,7 +132876,7 @@ ieu
 aDL
 bVe
 mFN
-kPf
+hUJ
 oIn
 sVh
 qKU
@@ -132775,14 +132917,14 @@ swQ
 bIH
 kSY
 iJK
-cSI
-cSI
+gvW
+gvW
 iEp
 uga
-cSI
-cSI
+gvW
+gvW
 siA
-cSI
+rJr
 bUG
 aaa
 aaa
@@ -133006,7 +133148,7 @@ rOT
 hhO
 evr
 bdJ
-ybT
+ecI
 bgu
 bhS
 bjF
@@ -133031,7 +133173,7 @@ bKH
 bKH
 bKH
 bUG
-cSI
+maE
 cSI
 cSI
 fcr
@@ -133039,7 +133181,7 @@ qaA
 wvZ
 pJZ
 eSz
-vzo
+enU
 gRj
 aad
 aad
@@ -133553,7 +133695,7 @@ qDD
 ibC
 dCQ
 bvc
-cSI
+wOY
 bUG
 coe
 coe
@@ -133778,7 +133920,7 @@ aKC
 bcl
 aYC
 bfi
-bfi
+bzb
 bfi
 bjL
 aYC
@@ -135095,7 +135237,7 @@ qDD
 ibC
 jgF
 knL
-cSI
+wOY
 bUG
 coe
 coe
@@ -135601,7 +135743,7 @@ bKH
 bKH
 bKH
 bUG
-cSI
+maE
 cSI
 cSI
 njs
@@ -135609,7 +135751,7 @@ pcR
 fxl
 vgZ
 nUN
-vzo
+enU
 gRj
 aad
 aad
@@ -135858,15 +136000,15 @@ uWP
 fMk
 bIV
 rlk
-utR
-cSI
-cSI
+kMr
+lBr
+lBr
 xVY
 dHX
 jRP
 hQb
 utR
-cSI
+rVk
 bUG
 aaa
 aaa
