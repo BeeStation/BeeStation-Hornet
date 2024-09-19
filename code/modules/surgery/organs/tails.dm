@@ -32,7 +32,8 @@
 	if(istype(H))
 		var/default_part = H.dna.species.mutant_bodyparts["tail_human"]
 		if(!default_part || default_part == "None")
-			H.dna.features["tail_human"] = H.dna.species.mutant_bodyparts["tail_human"] = tail_type
+			H.dna.species.mutant_bodyparts["tail_human"] = tail_type
+			H.dna.features["tail_human"] = tail_type
 			H.update_body()
 
 /obj/item/organ/tail/cat/Remove(mob/living/carbon/human/H,  special = 0, pref_load = FALSE)
@@ -58,12 +59,12 @@
 		return FALSE
 	var/datum/species/species = H.dna.species
 	if(wagging)
+		species.mutant_bodyparts["waggingtail_human"] = species.mutant_bodyparts["tail_human"]
 		species.mutant_bodyparts -= "tail_human"
-		species.mutant_bodyparts |= "waggingtail_human"
 		. = TRUE
 	else
+		species.mutant_bodyparts["tail_human"] = species.mutant_bodyparts["waggingtail_human"]
 		species.mutant_bodyparts -= "waggingtail_human"
-		species.mutant_bodyparts |= "tail_human"
 	H.update_body()
 
 /obj/item/organ/tail/lizard
@@ -102,10 +103,10 @@
 		var/obj/item/organ/tail/lizard/new_tail = new /obj/item/organ/tail/lizard()
 
 		new_tail.tail_type = C.dna.features["tail_lizard"]
-		C.dna.species.mutant_bodyparts |= "tail_lizard"
+		C.dna.species.mutant_bodyparts["tail_lizard"] = new_tail.tail_type
 
 		new_tail.spines = C.dna.features["spines"]
-		C.dna.species.mutant_bodyparts |= "spines"
+		C.dna.species.mutant_bodyparts["spines"] = new_tail.spines
 
 		// organ.Insert will qdel any existing organs in the same slot, so
 		// we don't need to manage that.
@@ -142,12 +143,14 @@
 		return
 	var/datum/species/species = H.dna.species
 	if(wagging)
+		species.mutant_bodyparts |= list("waggingtail_lizard" = species.mutant_bodyparts["tail_lizard"],
+										"waggingspines" = species.mutant_bodyparts["spines"])
 		species.mutant_bodyparts -= list("tail_lizard", "spines")
-		species.mutant_bodyparts |= list("waggingtail_lizard", "waggingspines")
 		. = TRUE
 	else
+		species.mutant_bodyparts |= list("tail_lizard" = species.mutant_bodyparts["waggingtail_lizard"],
+										"spines" = species.mutant_bodyparts["waggingspines"])
 		species.mutant_bodyparts -= list("waggingtail_lizard", "waggingspines")
-		species.mutant_bodyparts |= list("tail_lizard", "spines")
 	H.update_body()
 
 /obj/item/organ/tail/monkey

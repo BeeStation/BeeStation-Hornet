@@ -704,10 +704,6 @@
 	dir = 1
 	},
 /area/hallway/secondary/entry)
-"aeX" = (
-/obj/machinery/power/apc/auto_name/directional/north,
-/turf/closed/wall/r_wall,
-/area/security/brig)
 "afb" = (
 /obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/delivery,
@@ -13528,6 +13524,14 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
+"bOZ" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/structure/cable/yellow,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/quartermaster/storage)
 "bPv" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/carpet/grimy,
@@ -15143,6 +15147,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"bZs" = (
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron/grid/steel,
+/area/medical/virology)
 "bZu" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -27432,19 +27440,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/science/research)
-"dAc" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/end,
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron,
-/area/medical/genetics)
 "dAk" = (
 /obj/structure/sign/departments/minsky/engineering/engineering,
 /turf/closed/wall/r_wall,
@@ -38189,23 +38184,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/genetics/cloning)
-"ggA" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
-	},
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron,
-/area/medical/genetics)
 "ggZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -40772,6 +40750,23 @@
 	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
+"gVF" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron,
+/area/medical/genetics)
 "gVS" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/light{
@@ -60943,14 +60938,6 @@
 	},
 /turf/open/floor/iron/white/telecomms,
 /area/tcommsat/server)
-"nvm" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/cable/yellow,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/quartermaster/storage)
 "nvn" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -64428,22 +64415,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"oBK" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/window/westright{
-	dir = 4;
-	name = "'Monkey Pen";
-	req_access_txt = "9"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron,
-/area/medical/genetics)
 "oBU" = (
 /obj/machinery/computer/atmos_control/tank/plasma_tank{
 	dir = 4
@@ -65978,6 +65949,12 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
 /area/engine/storage_shared)
+"pcK" = (
+/obj/machinery/deepfryer,
+/mob/living/carbon/human/species/monkey/punpun,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/crew_quarters/kitchen)
 "pcR" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -67204,6 +67181,22 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/aft)
+"pyx" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/door/window/westright{
+	dir = 4;
+	name = "'Monkey Pen";
+	req_access_txt = "9"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron,
+/area/medical/genetics)
 "pzk" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -72689,10 +72682,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
-"rjz" = (
-/obj/machinery/power/apc/auto_name/directional/north,
-/turf/closed/wall/r_wall,
-/area/maintenance/disposal/incinerator)
 "rjB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -72917,6 +72906,19 @@
 /obj/structure/chair/office/light,
 /turf/open/floor/iron/white,
 /area/medical/surgery)
+"rnO" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/end,
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron,
+/area/medical/genetics)
 "rnZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -82994,10 +82996,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/aft)
-"uuL" = (
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron/grid/steel,
-/area/medical/virology)
 "uuW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -88568,12 +88566,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
 /area/maintenance/starboard/aft)
-"wiB" = (
-/obj/machinery/deepfryer,
-/mob/living/carbon/human/species/monkey/punpun,
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/crew_quarters/kitchen)
 "wiO" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -119121,7 +119113,7 @@ nlZ
 nlZ
 vtt
 tde
-rjz
+aFr
 uIt
 gtJ
 aLm
@@ -132500,7 +132492,7 @@ rOT
 etm
 ttZ
 bdJ
-wiB
+pcK
 bgs
 bhQ
 bjF
@@ -135141,10 +135133,10 @@ cRd
 dbu
 pIp
 dvc
-ggA
+gVF
 hIW
-oBK
-dAc
+pyx
+rnO
 dvc
 ybx
 isk
@@ -139777,7 +139769,7 @@ jMM
 mKL
 mKL
 dPq
-uuL
+bZs
 bkC
 wLH
 sPz
@@ -140034,8 +140026,8 @@ vau
 lII
 aqa
 dPq
-uuL
-uuL
+bZs
+bZs
 oQr
 rjR
 hFD
@@ -140292,7 +140284,7 @@ icT
 mKL
 dPq
 uyH
-uuL
+bZs
 pQj
 kqr
 jky
@@ -141734,7 +141726,7 @@ aaa
 aAK
 aCd
 lpo
-nvm
+bOZ
 lpo
 aGF
 jFF
@@ -145124,7 +145116,7 @@ tnr
 bgZ
 bgZ
 bgZ
-aeX
+bgZ
 bgZ
 jFJ
 pMO
