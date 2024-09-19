@@ -1,7 +1,0 @@
-author: rkz, cobby
-delete-after: true
-changes:
-  - bugfix: fixes mind nulls upon transformation. Should resolve antag datums leaving
-      lings and mobs losing the ability to speak after transforming
-  - bugfix: regen organs now considers unremovable organs, like heretic hearts. You
-      wont have your heretic heart qdel'd if you are ahealed.
