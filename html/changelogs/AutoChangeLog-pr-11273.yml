@@ -1,7 +1,0 @@
-author: PestoVerde322
-delete-after: true
-changes:
-  - tweak: The Unholy flask is now a bottle instead of a "bottle" (a beaker disguised
-      as so)
-  - balance: Due to the nature of bottles being breakable, the amount of Unholy water
-      has been raised from 50u to 100u
