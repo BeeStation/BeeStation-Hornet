@@ -7176,10 +7176,6 @@
 	dir = 4
 	},
 /area/hallway/primary/central)
-"cmw" = (
-/obj/machinery/power/apc/auto_name/directional/north,
-/turf/closed/wall/r_wall,
-/area/security/prison/shielded)
 "cnr" = (
 /obj/machinery/airalarm/directional/west,
 /obj/machinery/computer/slot_machine,
@@ -26566,15 +26562,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
-"irC" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/camera/autoname/directional/west,
-/obj/effect/turf_decal/bot,
-/obj/machinery/oven,
-/turf/open/floor/iron/white,
-/area/crew_quarters/kitchen)
 "irG" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt,
@@ -40373,11 +40360,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
-"mOk" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
-/obj/machinery/deepfryer,
-/turf/open/floor/iron,
-/area/hallway/secondary/service)
 "mOm" = (
 /obj/machinery/light{
 	dir = 4
@@ -46649,6 +46631,15 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
+"oNz" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/camera/autoname/directional/west,
+/obj/effect/turf_decal/bot,
+/obj/machinery/oven,
+/turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "oNA" = (
 /obj/effect/turf_decal/siding/wood{
@@ -61441,6 +61432,11 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"tup" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/machinery/deepfryer,
+/turf/open/floor/iron,
+/area/hallway/secondary/service)
 "tuq" = (
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -104990,7 +104986,7 @@ nFk
 bDs
 pVy
 ifC
-cmw
+ifC
 avj
 ifC
 qLO
@@ -113483,7 +113479,7 @@ mVN
 mVN
 oQE
 pFE
-irC
+oNz
 kDA
 nAr
 nSH
@@ -114760,7 +114756,7 @@ tiF
 vtI
 jPq
 xhM
-mOk
+tup
 fwL
 jSk
 mBT

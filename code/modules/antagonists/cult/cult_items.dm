@@ -293,14 +293,6 @@ Striking a noncultist, however, will tear their flesh."}
 		user.Paralyze(100)
 		user.adjust_blindness(30)
 
-/obj/item/reagent_containers/glass/beaker/unholywater
-	name = "flask of unholy water"
-	desc = "Toxic to nonbelievers; reinvigorating to the faithful - this flask may be sipped or thrown."
-	icon = 'icons/obj/drinks.dmi'
-	icon_state = "holyflask"
-	color = "#333333"
-	list_reagents = list(/datum/reagent/fuel/unholywater = 50)
-
 /obj/item/shuttle_curse
 	name = "cursed orb"
 	desc = "You peer within this smokey orb and glimpse terrible fates befalling the escape shuttle."

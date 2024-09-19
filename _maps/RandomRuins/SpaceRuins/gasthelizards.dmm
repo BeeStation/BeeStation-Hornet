@@ -131,6 +131,19 @@
 /obj/item/food/meat/slab/human/mutant/lizard,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
+"p" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/gasthelizard)
+"q" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/port_gen/pacman,
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/gasthelizard)
 "r" = (
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
@@ -153,6 +166,9 @@
 	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
@@ -197,6 +213,9 @@
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
 "B" = (
@@ -239,9 +258,7 @@
 	pixel_x = -4;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/glass/bottle/chloralhydrate{
-	name = "chloral hydrate bottle"
-	},
+/obj/item/reagent_containers/glass/bottle/chloralhydrate,
 /obj/item/reagent_containers/glass/bottle/toxin{
 	pixel_x = 6;
 	pixel_y = 8
@@ -285,6 +302,7 @@
 	},
 /obj/machinery/light,
 /obj/structure/table,
+/obj/item/stack/sheet/mineral/plasma/five,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
 "O" = (
@@ -453,7 +471,7 @@ d
 i
 X
 u
-B
+p
 B
 B
 B
@@ -469,7 +487,7 @@ e
 j
 Y
 v
-B
+p
 B
 B
 U
@@ -485,7 +503,7 @@ f
 k
 X
 u
-B
+p
 B
 K
 c
@@ -501,7 +519,7 @@ e
 j
 Y
 v
-B
+p
 G
 L
 c
@@ -517,7 +535,7 @@ g
 k
 X
 u
-B
+p
 B
 M
 c
@@ -533,7 +551,7 @@ e
 j
 Y
 v
-B
+p
 B
 N
 c
@@ -549,7 +567,7 @@ f
 k
 X
 u
-B
+p
 B
 O
 c
@@ -565,7 +583,7 @@ h
 l
 Y
 w
-B
+q
 B
 O
 c

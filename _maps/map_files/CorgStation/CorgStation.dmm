@@ -6951,6 +6951,17 @@
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
+"bVQ" = (
+/obj/machinery/power/apc/auto_name/directional/west{
+	pixel_x = -24
+	},
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/machinery/icecream_vat,
+/turf/open/floor/iron/white,
+/area/crew_quarters/kitchen/coldroom)
 "bWu" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Library Maintenance";
@@ -12661,6 +12672,12 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"dTy" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/red,
+/obj/machinery/oven,
+/turf/open/floor/iron/white,
+/area/crew_quarters/kitchen)
 "dTN" = (
 /obj/structure/chair/office,
 /obj/effect/landmark/start/warden,
@@ -22903,12 +22920,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/science/shuttle)
-"hoD" = (
-/obj/machinery/door/poddoor{
-	id = "deathdoor"
-	},
-/turf/open/space/basic,
-/area/security/execution/education)
 "hoR" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -39756,12 +39767,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
-"mGf" = (
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/red,
-/obj/machinery/oven,
-/turf/open/floor/iron/white,
-/area/crew_quarters/kitchen)
 "mGg" = (
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
@@ -49225,6 +49230,15 @@
 	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
+"pQE" = (
+/obj/effect/turf_decal/tile/red,
+/obj/structure/table/reinforced,
+/obj/machinery/microwave{
+	desc = "Cooks and boils stuff, somehow.";
+	pixel_y = 7
+	},
+/turf/open/floor/iron/white,
+/area/crew_quarters/kitchen)
 "pQJ" = (
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating,
@@ -52091,17 +52105,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/department/chapel/monastery)
-"qNY" = (
-/obj/machinery/power/apc/auto_name/directional/west{
-	pixel_x = -24
-	},
-/obj/structure/cable/yellow,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/machinery/icecream_vat,
-/turf/open/floor/iron/white,
-/area/crew_quarters/kitchen/coldroom)
 "qOc" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Access"
@@ -53808,6 +53811,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/department/chapel/monastery)
+"rrz" = (
+/obj/machinery/door/poddoor{
+	id = "deathdoor"
+	},
+/turf/open/floor/plating,
+/area/security/execution/education)
 "rrF" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
@@ -53968,15 +53977,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/misc_lab/range)
-"ruH" = (
-/obj/effect/turf_decal/tile/red,
-/obj/structure/table/reinforced,
-/obj/machinery/microwave{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_y = 7
-	},
-/turf/open/floor/iron/white,
-/area/crew_quarters/kitchen)
 "ruI" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -71228,18 +71228,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"wXw" = (
-/obj/machinery/button/door{
-	id = "kitchenconveyor";
-	name = "Kitchen Belt Shutters";
-	pixel_x = -27;
-	pixel_y = -5;
-	req_access_txt = "28"
-	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/processor,
-/turf/open/floor/iron/white,
-/area/crew_quarters/kitchen)
 "wXO" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/yellow{
@@ -74293,6 +74281,18 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
+"xUC" = (
+/obj/machinery/button/door{
+	id = "kitchenconveyor";
+	name = "Kitchen Belt Shutters";
+	pixel_x = -27;
+	pixel_y = -5;
+	req_access_txt = "28"
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/processor,
+/turf/open/floor/iron/white,
+/area/crew_quarters/kitchen)
 "xUK" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -109989,7 +109989,7 @@ lAK
 ayL
 cyL
 gNF
-wXw
+xUC
 aYT
 nTo
 clk
@@ -110246,7 +110246,7 @@ uuV
 uir
 tIp
 rbi
-ruH
+pQE
 gWp
 gyr
 tmF
@@ -110503,7 +110503,7 @@ uYN
 lVf
 qEP
 wWq
-mGf
+dTy
 aYT
 xrD
 eQR
@@ -112559,7 +112559,7 @@ vUC
 chJ
 vve
 bGC
-qNY
+bVQ
 vUC
 fpc
 tin
@@ -118639,9 +118639,9 @@ aMT
 anT
 aMT
 naL
-hoD
-hoD
-hoD
+rrz
+rrz
+rrz
 naL
 naL
 tof
