@@ -87542,7 +87542,6 @@
 	dir = 1;
 	name = "Distro to Connector"
 	},
-/obj/effect/mapping_helpers/airlock/abandoned,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
