@@ -35,16 +35,9 @@
 
 /mob/living/simple_animal/hostile/heretic_summon/Initialize(mapload)
 	. = ..()
-	add_spells()
-
-/**
- * Add_spells
- *
- * Goes through spells_to_add and adds each spell to the mind.
- */
-/mob/living/simple_animal/hostile/heretic_summon/proc/add_spells()
-	for(var/spell in spells_to_add)
-		AddSpell(new spell())
+	for(var/spell in actions_to_add)
+		var/datum/action/cooldown/spell/new_spell = new spell(src)
+		new_spell.Grant(src)
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet
 	name = "Raw Prophet"
@@ -57,11 +50,11 @@
 	maxHealth = 50
 	health = 50
 	sight = SEE_MOBS|SEE_OBJS|SEE_TURFS
-	spells_to_add = list(
-		/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash/long,
-		/obj/effect/proc_holder/spell/pointed/manse_link,
-		/obj/effect/proc_holder/spell/targeted/telepathy/eldritch,
-		/obj/effect/proc_holder/spell/targeted/blind/eldritch,
+	actions_to_add = list(
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/ash/long,
+		/datum/action/cooldown/spell/list_target/telepathy/eldritch,
+		/datum/action/cooldown/spell/pointed/blind/eldritch,
+		/datum/action/innate/expand_sight,
 	)
 
 	/// A assoc list of [mob/living ref] to [datum/action ref] - all the mobs linked to our mansus network.
@@ -170,7 +163,7 @@
 	ranged_cooldown_time = 5
 	ranged = TRUE
 	rapid = 1
-	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/worm_contract)
+	actions_to_add = list(/datum/action/cooldown/spell/worm_contract)
 	///Previous segment in the chain
 	var/mob/living/simple_animal/hostile/heretic_summon/armsy/back
 	///Next segment in the chain
@@ -383,9 +376,9 @@
 	health = 75
 	melee_damage = 20
 	sight = SEE_TURFS
-	spells_to_add = list(
-		/obj/effect/proc_holder/spell/aoe_turf/rust_conversion/small,
-		/obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave/short,
+	actions_to_add = list(
+		/datum/action/cooldown/spell/aoe/rust_conversion/small,
+		/datum/action/cooldown/spell/basic_projectile/rust_wave/short,
 	)
 
 /mob/living/simple_animal/hostile/heretic_summon/rust_spirit/setDir(newdir)
@@ -421,10 +414,10 @@
 	health = 75
 	melee_damage = 20
 	sight = SEE_TURFS
-	spells_to_add = list(
-		/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash,
-		/obj/effect/proc_holder/spell/pointed/cleave,
-		/obj/effect/proc_holder/spell/targeted/fire_sworn,
+	actions_to_add = list(
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/ash,
+		/datum/action/cooldown/spell/pointed/cleave,
+		/datum/action/cooldown/spell/fire_sworn,
 	)
 
 /mob/living/simple_animal/hostile/heretic_summon/stalker
@@ -438,8 +431,8 @@
 	health = 150
 	melee_damage = 20
 	sight = SEE_MOBS
-	spells_to_add = list(
-		/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash,
-		/obj/effect/proc_holder/spell/targeted/shapeshift/eldritch,
-		/obj/effect/proc_holder/spell/targeted/emplosion/eldritch,
+	actions_to_add = list(
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/ash,
+		/datum/action/cooldown/spell/shapeshift/eldritch,
+		/datum/action/cooldown/spell/emp/eldritch,
 	)

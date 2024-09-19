@@ -112,10 +112,15 @@
 #include "icon_smoothing_unit_test.dm"
 #include "merge_type.dm"
 #include "metabolizing.dm"
+#include "mindbound_actions.dm"
 #include "missing_icons.dm"
 #include "ntnetwork_tests.dm"
 #include "preference_species.dm"
 #include "projectiles.dm"
+#include "spell_invocations.dm"
+#include "spell_mindswap.dm"
+#include "spell_names.dm"
+#include "spell_shapeshift.dm"
 #include "stat_mc.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
@@ -127,6 +132,7 @@
 #include "unit_test.dm"
 #include "random_ruin_mapsize.dm"
 #include "walls_have_sheets.dm"
+#include "wizard_loadout.dm"
 #include "worn_icons.dm"
 
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter

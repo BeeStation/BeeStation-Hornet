@@ -49,7 +49,8 @@
 		/obj/item/reagent_containers/glass/bottle/necropolis_seed			= 5,
 		/obj/item/borg/upgrade/modkit/lifesteal								= 5,
 		/obj/item/shared_storage/red										= 5,
-		/obj/item/staff/storm												= 5
+		/obj/item/staff/storm												= 5,
+		/obj/item/book/granter/action/spell/summonitem						= 5,
 	)
 
 	if(..())
@@ -792,6 +793,7 @@
 		new /obj/item/dragons_blood(src)
 		new /obj/item/clothing/suit/hooded/cloak/drake(src)	 //Drake armor crafted only by Ashwalkers now, but still available as drop for miners
 		new /obj/item/crusher_trophy/tail_spike(src)
+	//new /obj/item/book/granter/action/spell/sacredflame(src) It's supposed to drop from the dragon but idk if you guys want it like that tell me in the review code
 
 
 // Ghost Sword - left in for other references and admin shenanigans

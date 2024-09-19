@@ -38,3 +38,62 @@
 /obj/item/implant/radio/antenna/Initialize()
 	. = ..()
 	radio.name = "internal antenna"
+
+
+/datum/mutation/mindreader
+	name = "Mind Reader"
+	desc = "The affected person can look into the recent memories of others."
+	quality = POSITIVE
+	text_gain_indication = "<span class='notice'>You hear distant voices at the corners of your mind.</span>"
+	text_lose_indication = "<span class='notice'>The distant voices fade.</span>"
+	power_path = /datum/action/cooldown/spell/pointed/mindread
+	instability = 40
+	difficulty = 8
+	locked = TRUE
+
+/datum/action/cooldown/spell/pointed/mindread
+	name = "Mindread"
+	desc = "Read the target's mind."
+	button_icon_state = "mindread"
+	cooldown_time = 5 SECONDS
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	antimagic_flags = MAGIC_RESISTANCE_MIND
+
+	ranged_mousepointer = 'icons/effects/mouse_pointers/mindswap_target.dmi'
+
+/datum/action/cooldown/spell/pointed/mindread/is_valid_target(atom/cast_on)
+	if(!isliving(cast_on))
+		return FALSE
+	var/mob/living/living_cast_on = cast_on
+	if(!living_cast_on.mind)
+		to_chat(owner, span_warning("[cast_on] has no mind to read!"))
+		return FALSE
+	if(living_cast_on.stat == DEAD)
+		to_chat(owner, span_warning("[cast_on] is dead!"))
+		return FALSE
+
+	return TRUE
+
+/datum/action/cooldown/spell/pointed/mindread/cast(mob/living/cast_on)
+	. = ..()
+	if(cast_on.can_block_magic(MAGIC_RESISTANCE_MIND, charge_cost = 0))
+		to_chat(owner, span_warning("As you reach into [cast_on]'s mind, \
+			you are stopped by a mental blockage. It seems you've been foiled."))
+		return
+
+	if(cast_on == owner)
+		to_chat(owner, span_warning("You plunge into your mind... Yep, it's your mind."))
+		return
+
+	to_chat(owner, span_boldnotice("You plunge into [cast_on]'s mind..."))
+	if(prob(20))
+		// chance to alert the read-ee
+		to_chat(cast_on, span_danger("You feel something foreign enter your mind."))
+
+	var/list/recent_speech = list()
+	var/list/say_log = list()
+	var/log_source = cast_on.logging
+	//this whole loop puts the read-ee's say logs into say_log in an easy to access way
+	for(var/log_type in log_source)
+		var/nlog_type = text2num(log_type)
+		if(nlog_type & LOG_SAY)

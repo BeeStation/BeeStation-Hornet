@@ -93,8 +93,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/init_ringtone = "beep"
 	/// If the device starts with its ringer on
 	var/init_ringer_on = TRUE
-	/// The action for enabling/disabling the flashlight
-	var/datum/action/item_action/toggle_computer_light/light_action
 	/// Stored pAI card
 	var/obj/item/paicard/stored_pai_card
 	/// If the device is capable of storing a pAI
@@ -111,7 +109,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	idle_threads = list()
 	update_id_display()
 	if(has_light)
-		light_action = new(src)
+		add_item_action(/datum/action/item_action/toggle_computer_light)
 	update_icon()
 	add_messenger()
 
@@ -153,10 +151,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	return ..()
 
 /obj/item/modular_computer/ui_action_click(mob/user, actiontype)
-	if(istype(actiontype, light_action))
+	if(istype(actiontype, /datum/action/item_action/toggle_computer_light))
 		toggle_flashlight()
-	else
-		..()
+		return
+
+	return ..()
 
 /// From [/datum/newscaster/feed_network/proc/save_photo]
 /obj/item/modular_computer/proc/save_photo(icon/photo)

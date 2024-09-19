@@ -50,15 +50,29 @@
 				/obj/effect/decal/cleanable/blood/innards, \
 				/obj/item/organ/heart/demon)
 	del_on_death = TRUE
+	var/crawl_type = /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 	discovery_points = 3000
 
-/mob/living/simple_animal/slaughter/Initialize(mapload)
+/mob/living/simple_animal/hostile/imp/slaughter/Initialize(mapload)
 	. = ..()
-	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
-	AddSpell(bloodspell)
-	if(istype(loc, /obj/effect/dummy/phased_mob/slaughter))
-		bloodspell.phased = TRUE
+	var/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/crawl = new crawl_type(src)
+	crawl.Grant(src)
+	RegisterSignal(src, list(COMSIG_MOB_ENTER_JAUNT, COMSIG_MOB_AFTER_EXIT_JAUNT), .proc/on_crawl)
+
+/// Whenever we enter or exit blood crawl, reset our bonus and hitstreaks.
+/mob/living/simple_animal/hostile/imp/slaughter/proc/on_crawl(datum/source)
+	SIGNAL_HANDLER
+
+	// Grant us a speed boost if we're on the mortal plane
+	if(isturf(loc))
+		add_movespeed_modifier(/datum/movespeed_modifier/slaughter)
+		addtimer(CALLBACK(src, .proc/remove_movespeed_modifier, /datum/movespeed_modifier/slaughter), 6 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+	// Reset our streaks
+	current_hitstreak = 0
+	wound_bonus = initial(wound_bonus)
+	bare_wound_bonus = initial(bare_wound_bonus)
 
 /obj/effect/decal/cleanable/blood/innards
 	name = "pile of viscera"
@@ -67,12 +81,6 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "innards"
 	random_icon_states = null
-
-/mob/living/simple_animal/slaughter/phasein()
-	. = ..()
-	add_movespeed_modifier(/datum/movespeed_modifier/slaughter)
-	addtimer(CALLBACK(src, PROC_REF(remove_movespeed_modifier), /datum/movespeed_modifier/slaughter, TRUE), 6 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
-
 
 //The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
 /obj/item/organ/heart/demon
@@ -88,28 +96,34 @@
 /obj/item/organ/heart/demon/attack(mob/M, mob/living/carbon/user, obj/target)
 	if(M != user)
 		return ..()
-	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
-						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] your mouth and devour it!</span>")
-	playsound(user, 'sound/magic/demon_consume.ogg', 50, 1)
-	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
-		if(knownspell.type == /obj/effect/proc_holder/spell/bloodcrawl)
-			to_chat(user, "<span class='warning'>...and you don't feel any different.</span>")
-			qdel(src)
-			return
-	user.visible_message("<span class='warning'>[user]'s eyes flare a deep crimson!</span>", \
-						 "<span class='userdanger'>You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!</span>")
+	user.visible_message(span_warning(
+		"[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!"),
+		span_danger("An unnatural hunger consumes you. You raise [src] your mouth and devour it!"),
+		)
+	playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
+
+	if(locate(/datum/action/cooldown/spell/jaunt/bloodcrawl) in user.actions)
+		to_chat(user, span_warning("...and you don't feel any different."))
+		qdel(src)
+		return
+
+	user.visible_message(
+		span_warning("[user]'s eyes flare a deep crimson!"),
+		span_userdanger("You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!"),
+	)
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
 	src.Insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E
 
-/obj/item/organ/heart/demon/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/internal/heart/demon/Insert(mob/living/carbon/M, special = 0)
 	..()
-	if(M.mind)
-		M.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
+	// Gives a non-eat-people crawl to the new owner
+	var/datum/action/cooldown/spell/jaunt/bloodcrawl/crawl = new(M)
+	crawl.Grant(M)
 
-/obj/item/organ/heart/demon/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/internal/heart/demon/Remove(mob/living/carbon/M, special = 0)
 	..()
-	if(M.mind)
-		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/bloodcrawl)
+	var/datum/action/cooldown/spell/jaunt/bloodcrawl/crawl = locate() in M.actions
+	qdel(crawl)
 
 /obj/item/organ/heart/demon/Stop()
 	return 0 // Always beating.
@@ -135,6 +149,7 @@
 	deathmessage = "fades out, as all of its friends are released from its \
 		prison of hugs."
 	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
+	crawl_type = /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny
 
 	// Keep the people we hug!
 	var/list/consumed_mobs = list()
@@ -153,10 +168,6 @@
 	released and fully healed, because in the end it's just a jape, \
 	sibling!</B>"
 
-/mob/living/simple_animal/slaughter/laughter/Destroy()
-	release_friends()
-	. = ..()
-
 /mob/living/simple_animal/slaughter/laughter/ex_act(severity)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
@@ -166,29 +177,3 @@
 			adjustBruteLoss(60)
 		if(EXPLODE_LIGHT)
 			adjustBruteLoss(30)
-
-/mob/living/simple_animal/slaughter/laughter/proc/release_friends()
-	if(!consumed_mobs)
-		return
-
-	for(var/mob/living/M in consumed_mobs)
-		if(!M)
-			continue
-		var/turf/T = find_safe_turf()
-		if(!T)
-			T = get_turf(src)
-		M.forceMove(T)
-		if(M.revive(full_heal = TRUE, admin_revive = TRUE))
-			M.grab_ghost(force = TRUE)
-			playsound(T, feast_sound, 50, 1, -1)
-			to_chat(M, "<span class='clowntext'>You leave [src]'s warm embrace,	and feel ready to take on the world.</span>")
-
-/mob/living/simple_animal/slaughter/laughter/bloodcrawl_swallow(var/mob/living/victim)
-	if(consumed_mobs)
-		// Keep their corpse so rescue is possible
-		consumed_mobs += victim
-	else
-		// Be safe and just eject the corpse
-		victim.forceMove(get_turf(victim))
-		victim.exit_blood_effect()
-		victim.visible_message("[victim] falls out of the air, covered in blood, looking highly confused. And dead.")

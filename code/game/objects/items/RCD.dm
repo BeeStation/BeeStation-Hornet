@@ -1015,6 +1015,10 @@ RLD
 	desc = "It contains the design for chairs, stools, tables, and glass tables."
 	upgrade = RCD_UPGRADE_FURNISHING
 
+/datum/action/item_action/pick_color
+	name = "Choose A Color"
+
+
 #undef GLOW_MODE
 #undef LIGHT_MODE
 #undef REMOVE_MODE

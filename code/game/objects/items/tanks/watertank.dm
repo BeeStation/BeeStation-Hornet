@@ -721,6 +721,9 @@
 	update_icon()
 	user.update_inv_back() //for overlays update
 
+/datum/action/item_action/activate_injector
+	name = "Activate Injector"
+
 //Operator backpack spray
 /obj/item/watertank/op
 	name = "backpack water tank"

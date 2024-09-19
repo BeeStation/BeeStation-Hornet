@@ -519,6 +519,7 @@ update_label("John Doe", "Clowny")
 		/obj/item/card/id/golem,
 		/obj/item/card/id/pass), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
+	add_item_action(chameleon_card_action)
 
 /obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity)
 	if(!proximity)

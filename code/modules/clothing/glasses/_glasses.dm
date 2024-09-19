@@ -479,6 +479,7 @@
 	chameleon_action.chameleon_name = "Glasses"
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/glasses/changeling, only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
+	add_item_action(chameleon_action)
 
 /obj/item/clothing/glasses/thermal/syndi/emp_act(severity)
 	. = ..()
@@ -543,10 +544,35 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	vision_correction = 1  // why should the eye of a god have bad vision?
+	var/datum/action/cooldown/scan/scan_ability
 
 /obj/item/clothing/glasses/godeye/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, EYE_OF_GOD_TRAIT)
+	scan_ability = new(src)
+
+/obj/item/clothing/glasses/godeye/Destroy()
+	QDEL_NULL(scan_ability)
+	return ..()
+
+
+/obj/item/clothing/glasses/godeye/equipped(mob/living/user, slot)
+	. = ..()
+	if(ishuman(user) && slot == ITEM_SLOT_EYES)
+		ADD_TRAIT(src, TRAIT_NODROP, EYE_OF_GOD_TRAIT)
+		pain(user)
+		scan_ability.Grant(user)
+
+/obj/item/clothing/glasses/godeye/dropped(mob/living/user)
+	. = ..()
+	// Behead someone, their "glasses" drop on the floor
+	// and thus, the god eye should no longer be sticky
+	REMOVE_TRAIT(src, TRAIT_NODROP, EYE_OF_GOD_TRAIT)
+	scan_ability.Remove(user)
+
+/obj/item/clothing/glasses/godeye/proc/pain(mob/living/victim)
+	to_chat(victim, span_userdanger("You experience blinding pain, as [src] burrows into your skull."))
+	victim.emote("scream")
+	victim.flash_act()
 
 /obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, src) && W != src && W.loc == user)
@@ -561,6 +587,47 @@
 			to_chat(user, "<span class='notice'>The eye winks at you and vanishes into the abyss, you feel really unlucky.</span>")
 		qdel(src)
 	..()
+
+/datum/action/cooldown/scan
+	name = "Scan"
+	desc = "Scan an enemy, to get their location and stagger them, increasing their time between attacks."
+	background_icon_state = "bg_clock"
+	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	button_icon_state = "scan"
+
+	click_to_activate = TRUE
+	cooldown_time = 45 SECONDS
+	ranged_mousepointer = 'icons/effects/mouse_pointers/scan_target.dmi'
+
+/datum/action/cooldown/scan/IsAvailable()
+	return ..() && isliving(owner)
+
+/datum/action/cooldown/scan/Activate(atom/scanned)
+	StartCooldown(15 SECONDS)
+
+	if(owner.stat != CONSCIOUS)
+		return FALSE
+	if(!isliving(scanned) || scanned == owner)
+		owner.balloon_alert(owner, "invalid scanned!")
+		return FALSE
+
+	var/mob/living/living_owner = owner
+	var/mob/living/living_scanned = scanned
+	living_scanned.apply_status_effect(/datum/status_effect/stagger)
+	var/datum/status_effect/agent_pinpointer/scan_pinpointer = living_owner.apply_status_effect(/datum/status_effect/agent_pinpointer/scan)
+	scan_pinpointer.scan_target = living_scanned
+
+	living_scanned.set_timed_status_effect(100 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+	to_chat(living_scanned, span_warning("You've been staggered!"))
+	living_scanned.add_filter("scan", 2, list("type" = "outline", "color" = COLOR_YELLOW, "size" = 1))
+	addtimer(CALLBACK(living_scanned, /atom/.proc/remove_filter, "scan"), 30 SECONDS)
+
+	owner.playsound_local(get_turf(owner), 'sound/magic/smoke.ogg', 50, TRUE)
+	owner.balloon_alert(owner, "[living_scanned] scanned")
+	addtimer(CALLBACK(src, /atom/.proc/balloon_alert, owner, "scan recharged"), cooldown_time)
+
+	StartCooldown()
+	return TRUE
 
 /obj/item/clothing/glasses/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE))

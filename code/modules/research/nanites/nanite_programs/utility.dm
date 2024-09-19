@@ -370,7 +370,7 @@
 
 /datum/action/innate/nanite_button/proc/update_icon(icon, color)
 	button_icon_state = "[icon]_[color]"
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/nanite_program/dermal_button/toggle
 	name = "Dermal Toggle"
