@@ -440,7 +440,7 @@
 /obj/machinery/microwave/proc/open()
 	open = TRUE
 	update_appearance()
-	addtimer(CALLBACK(src, .proc/close), 0.8 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(close)), 0.8 SECONDS)
 
 /obj/machinery/microwave/proc/close()
 	open = FALSE
