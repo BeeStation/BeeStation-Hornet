@@ -129,6 +129,7 @@
 	color = "#8291a1"
 	armor = list(MELEE = 15, BULLET = 25, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, STAMINA = 30)
 	hoodtype = /obj/item/clothing/head/hooded/hoodie/durathread
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/hooded/hoodie/durathread
 	name = "durathread hoodie hood"

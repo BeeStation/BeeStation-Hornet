@@ -13,6 +13,7 @@
 	clothing_flags = SNUG_FIT | THICKMATERIAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread //No idea what this should be, no magical cloth to my knowledge
 
 /obj/item/clothing/head/wizard/red
 	name = "red wizard hat"
@@ -42,6 +43,7 @@
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
 	clothing_flags = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
 
 /obj/item/clothing/head/wizard/marisa
 	name = "witch hat"
@@ -81,6 +83,7 @@
 	equip_delay_other = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	clothing_flags = THICKMATERIAL
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/suit/wizrobe/ComponentInitialize()
 	. = ..()
@@ -146,6 +149,7 @@
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0, BLEED = 0)
 	resistance_flags = FLAMMABLE
 	clothing_flags = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
 
 /obj/item/clothing/head/wizard/marisa/fake
 	name = "witch hat"
@@ -156,6 +160,7 @@
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0, BLEED = 0)
 	resistance_flags = FLAMMABLE
 	clothing_flags = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
 
 /obj/item/clothing/suit/wizrobe/marisa/fake
 	name = "witch robe"
@@ -167,6 +172,7 @@
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0, BLEED = 0)
 	resistance_flags = FLAMMABLE
 	clothing_flags = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
 
 /obj/item/clothing/suit/wizrobe/paper
 	name = "papier-mache robe" // no non-latin characters!
@@ -176,6 +182,7 @@
 	var/robe_charge = TRUE
 	actions_types = list(/datum/action/item_action/stickmen)
 	clothing_flags = NONE
+	salvage_material = /obj/item/stack/rods/scrap/paper
 
 
 /obj/item/clothing/suit/wizrobe/paper/ui_action_click(mob/user, action)
@@ -216,6 +223,7 @@
 	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 70, BLEED = 70)
 	slowdown = 0
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	salvage_material = /obj/item/stack/rods/scrap/plasteel //As above, no idea what this should be honestly
 
 /obj/item/clothing/suit/space/hardsuit/shielded/wizard/setup_shielding()
 	AddComponent(/datum/component/shielded, max_charges = 15, recharge_start_delay = 0 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 1, lose_multiple_charges = FALSE, shield_icon = "shield-red")
@@ -230,6 +238,7 @@
 	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 70, BLEED = 70)
 	actions_types = null //No inbuilt light
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	salvage_material = /obj/item/stack/rods/scrap/plasteel
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/attack_self(mob/user)
 	return

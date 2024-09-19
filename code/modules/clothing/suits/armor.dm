@@ -109,6 +109,8 @@
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	dog_fashion = null
+	secondary_salvage_material = /obj/item/stack/sheet/leather
+	secondary_salvage_amount = 2
 
 /obj/item/clothing/suit/armor/vest/capcarapace
 	name = "captain's carapace"
@@ -119,6 +121,8 @@
 	armor = list(MELEE = 50,  BULLET = 40, LASER = 50, ENERGY = 60, BOMB = 25, BIO = 0, RAD = 0, FIRE = 100, ACID = 90, STAMINA = 40, BLEED = 60)
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
+	secondary_salvage_material = /obj/item/stack/rods/scrap/plasteel
+	secondary_salvage_amount = 2
 
 /obj/item/clothing/suit/armor/vest/capcarapace/syndicate
 	name = "syndicate captain's vest"
@@ -154,6 +158,8 @@
 	equip_delay_other = 60
 	slowdown = 0.15
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+	secondary_salvage_material = /obj/item/stack/rods/scrap/plasteel
+	secondary_salvage_amount = 2
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
@@ -164,6 +170,7 @@
 	armor = list(MELEE = 35,  BULLET = 25, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 20, BLEED = 50)
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
 	slowdown = 0.1
+	salvage_material = /obj/item/stack/sheet/bone
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "bulletproof armor"
@@ -184,6 +191,7 @@
 	armor = list(MELEE = 10,  BULLET = 10, LASER = 60, ENERGY = 80, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 40, BLEED = 10)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/hit_reflect_chance = 40
+	salvage_material = null //I wanted to do something fun with it but sadly its indestructible... maybe in the future...
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect(def_zone)
 	if(!(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN))) //If not shot where ablative is covering you, you don't get the reflection bonus!
@@ -216,6 +224,8 @@
 	armor = list(MELEE = 80,  BULLET = 80, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90, STAMINA = 60, BLEED = 70)
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 	slowdown = 0.3
+	secondary_salvage_material = /obj/item/stack/rods/scrap/plasteel
+	secondary_salvage_amount = 5
 
 /obj/item/clothing/suit/armor/tdome
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -260,6 +270,10 @@
 	item_state = "knight_green"
 	move_sound = null
 	slowdown = 0.08
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 10
+	secondary_salvage_amount = /obj/item/stack/sheet/leather
+	secondary_salvage_amount = 2
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"

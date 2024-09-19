@@ -12,6 +12,9 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT
 	resistance_flags = ACID_PROOF
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	salvage_material = /obj/item/stack/rods/scrap/plastic
+	secondary_salvage_material = /obj/item/stack/rods/scrap/glass
+	secondary_salvage_amount = 2
 
 /obj/item/clothing/suit/bio_suit
 	name = "bio suit"
@@ -32,6 +35,10 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = ACID_PROOF
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	salvage_amount = 2
+	secondary_salvage_material = /obj/item/stack/rods/scrap/plastic
+	secondary_salvage_amount = 3
 
 /obj/item/clothing/suit/bio_suit/ComponentInitialize()
 	. = ..()
@@ -55,10 +62,12 @@
 /obj/item/clothing/head/bio_hood/security
 	armor = list(MELEE = 25,  BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 80, FIRE = 30, ACID = 100, STAMINA = 20, BLEED = 10)
 	icon_state = "bio_security"
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/suit/bio_suit/security
 	armor = list(MELEE = 25,  BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 80, FIRE = 30, ACID = 100, STAMINA = 20, BLEED = 10)
 	icon_state = "bio_security"
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 //Janitor's biosuit, grey with purple arms
@@ -93,3 +102,4 @@
 	item_state = "bio_suit"
 	strip_delay = 40
 	equip_delay_other = 20
+	salvage_material = /obj/item/stack/sheet/leather

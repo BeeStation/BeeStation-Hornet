@@ -99,10 +99,10 @@
 	return ..()
 
 /obj/item/paper_bin/attackby(obj/item/I, mob/user, params)
-	if((I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp()))
+	if((I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())) //Doing this the same way as in item/paper
 		if(total_paper > 0)
 			new /obj/item/stack/rods/scrap/paper(user.drop_location(), 5)
-			playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 100, TRUE)
+			playsound(user, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
 			user.visible_message("[user] cuts a paper sheet into tiny pieces.", \
 				"<span class='notice'>You cut a paper sheet into tiny pieces.</span>", \
 				"<span class='hear'>You hear cutting.</span>")

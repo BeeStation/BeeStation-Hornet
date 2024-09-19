@@ -46,7 +46,7 @@
 	return
 
 /obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
+	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp()) //keeping this because its what people will expect
 		if(do_after(user, 1.5 SECONDS))
 			var/turf/T = get_turf(src)
 			var/obj/item/stack/sheet/cotton/cloth/C = new (T, 3)
@@ -55,7 +55,7 @@
 			if(C)
 				transfer_fingerprints_to(C)
 				C.add_fingerprint(user)
-			playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 100, TRUE)
+			playsound(user, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
 			qdel(src)
 			to_chat(user, "<span class='notice'>You tear [src] up.</span>")
 			return TRUE

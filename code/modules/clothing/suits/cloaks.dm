@@ -67,6 +67,9 @@
 	hoodtype = /obj/item/clothing/head/hooded/cloakhood/goliath
 	body_parts_covered = CHEST|GROIN|ARMS
 	resistance_flags = FIRE_PROOF
+	salvage_material = /obj/item/stack/sheet/animalhide/goliath_hide
+	secondary_salvage_material = /obj/item/stack/sheet/sinew
+	secondary_salvage_amount = 2
 
 /obj/item/clothing/head/hooded/cloakhood/goliath
 	name = "goliath cloak hood"
@@ -90,6 +93,10 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
 	high_pressure_multiplier = 0.4
+	salvage_material = /obj/item/stack/sheet/animalhide/ashdrake
+	salvage_amount = 5
+	secondary_salvage_material = /obj/item/stack/sheet/bone
+	secondary_salvage_amount = 10
 
 /obj/item/clothing/head/hooded/cloakhood/drake
 	name = "drake helm"
@@ -112,6 +119,10 @@
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
+	salvage_material = /obj/item/stack/sheet/bone
+	salvage_amount = 8
+	secondary_salvage_material = /obj/item/stack/sheet/sinew
+	secondary_salvage_amount = 3
 
 /obj/item/clothing/head/hooded/cloakhood/bone
 	name = "bone helmet"

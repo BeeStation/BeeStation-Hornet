@@ -10,6 +10,9 @@
 	can_adjust = FALSE
 	strip_delay = 100
 	resistance_flags = NONE
+	salvage_material = /obj/item/stack/rods/scrap/bronze
+	salvage_amount = 2
+	secondary_salvage_material = /obj/item/stack/sheet/leather
 
 /obj/item/clothing/under/costume/jabroni
 	name = "jabroni outfit"
@@ -101,6 +104,9 @@
 	can_adjust = FALSE
 	resistance_flags = NONE
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	salvage_material = /obj/item/stack/rods/scrap/bronze
+	salvage_amount = 2
+	secondary_salvage_material = /obj/item/stack/sheet/leather
 
 /obj/item/clothing/under/costume/gladiator/ash_walker
 	desc = "This gladiator uniform appears to be covered in ash and fairly dated."
@@ -297,6 +303,7 @@
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/under/costume/swagoutfit
 	name = "swag outfit"

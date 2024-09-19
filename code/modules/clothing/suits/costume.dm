@@ -156,6 +156,7 @@
 	body_parts_covered = CHEST|GROIN
 	flags_inv = HIDEJUMPSUIT
 	dog_fashion = /datum/dog_fashion/back
+	salvage_material = /obj/item/stack/sheet/cardboard
 
 /obj/item/clothing/suit/costume/cardborg/equipped(mob/living/user, slot)
 	..()
@@ -241,6 +242,8 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT	//Space carp like space, so you should too
 	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/pneumatic_cannon/speargun)
 	hoodtype = /obj/item/clothing/head/hooded/carp_hood
+	secondary_salvage_material = /obj/item/food/fishmeat/carp //its "synthetic" after all
+	secondary_salvage_amount = 2
 
 //Carpsuit, bestsuit, lovesuit
 
@@ -281,6 +284,8 @@
 	allowed = list()
 	hoodtype = /obj/item/clothing/head/hooded/ian_hood
 	dog_fashion = /datum/dog_fashion/back
+	salvage_material = /obj/item/stack/sheet/animalhide/corgi
+	salvage_amount = 3
 
 /obj/item/clothing/suit/hooded/bee_costume // It's Hip!
 	name = "bee costume"
@@ -304,6 +309,8 @@
 	allowed = list()
 	actions_types = list(/datum/action/item_action/toggle_human_head)
 	hoodtype = /obj/item/clothing/head/hooded/human_head
+	salvage_material = /obj/item/stack/sheet/animalhide/human
+	salvage_amount = 3
 
 /obj/item/clothing/suit/costume/striped_sweater
 	name = "striped sweater"
@@ -337,6 +344,8 @@
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	allowed = list(/obj/item/clothing/mask/facehugger/toy)
+	salvage_material = /obj/item/stack/sheet/animalhide/xeno
+	salvage_amount = 2
 
 /obj/item/clothing/suit/costume/nemes
 	name = "pharoah tunic"
@@ -351,6 +360,7 @@
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass_old"
 	armor = list(MELEE = 5,  BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20, STAMINA = 30)
+	salvage_material = /obj/item/stack/rods/scrap/bronze
 
 /obj/item/clothing/suit/costume/joker
 	name = "comedian coat"

@@ -42,6 +42,9 @@
 	strip_delay = 60
 	equip_delay_other = 60
 	resistance_flags = FIRE_PROOF
+	salvage_material = /obj/item/stack/sheet/cotton/cloth //These here are possibly waiting for a special fire resistant cloth type
+	secondary_salvage_material = /obj/item/stack/rods/scrap/plastic
+	secondary_salvage_amount = 5
 
 /obj/item/clothing/suit/utility/fire/firefighter
 	icon_state = "firesuit"
@@ -82,6 +85,9 @@
 	equip_delay_other = 70
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
+	secondary_salvage_material = /obj/item/stack/rods/scrap/plasteel
+	secondary_salvage_amount = 2
 
 
 /obj/item/clothing/suit/utility/bomb_suit
@@ -104,6 +110,9 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
+	secondary_salvage_material = /obj/item/stack/rods/scrap/plasteel
+	secondary_salvage_amount = 5
 
 /obj/item/clothing/head/utility/bomb_hood/security
 	icon_state = "bombsuit_sec"
@@ -138,6 +147,7 @@
 	equip_delay_other = 60
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	rad_flags = RAD_PROTECT_CONTENTS
+	salvage_material = /obj/item/stack/rods/scrap/plastic //There is no lead yet, so this will do for now
 
 /obj/item/clothing/suit/utility/radiation
 	name = "radiation suit"
@@ -156,6 +166,7 @@
 	equip_delay_other = 60
 	flags_inv = HIDEJUMPSUIT
 	rad_flags = RAD_PROTECT_CONTENTS
+	salvage_material = /obj/item/stack/rods/scrap/plastic //There is no lead yet, so this will do for now
 
 /obj/item/clothing/suit/utility/radiation/ComponentInitialize()
 	. = ..()

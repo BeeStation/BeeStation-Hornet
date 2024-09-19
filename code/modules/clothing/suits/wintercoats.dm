@@ -46,6 +46,7 @@
 	item_state = "coatcaptain"
 	armor = list(MELEE = 25,  BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 20)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/captain
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread //There is no fur so we're using this specially because these are armoured
 
 /obj/item/clothing/suit/hooded/wintercoat/captain/Initialize(mapload)
 	. = ..()
@@ -62,6 +63,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
 	armor = list(MELEE = 15,  BULLET = 15, LASER = 40, ENERGY = 50, BOMB = 25, BIO = 0, RAD = 0, FIRE = 60, ACID = 45, STAMINA = 40)
 	slowdown = 0.04
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/suit/hooded/wintercoat/security/Initialize(mapload)
 	. = ..()
@@ -94,6 +96,7 @@
 	armor = list(MELEE = 25,  BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 45, STAMINA = 40)
 	heat_protection = CHEST|GROIN|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/detective
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/hooded/winterhood/detective
 	icon_state = "winterhood_detective"
@@ -129,6 +132,8 @@
 	)
 	armor = list(MELEE = 10,  BULLET = 0, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 20, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 20)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/brigphys
+	secondary_salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
+	secondary_salvage_amount = 2
 
 /obj/item/clothing/head/hooded/winterhood/brigphys
 	icon_state = "winterhood_brigphys"
@@ -377,6 +382,7 @@
 	resistance_flags = FIRE_PROOF
 	high_pressure_multiplier = 0.4
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/miner
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/suit/hooded/wintercoat/miner/Initialize(mapload)
 	. = ..()
@@ -476,6 +482,7 @@
 	item_state = "coatcentcom"
 	armor = list(MELEE = 35, BULLET = 40, LASER = 40, ENERGY = 50, BOMB = 35, BIO = 10, RAD = 10, FIRE = 10, ACID = 60)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/centcom
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/suit/hooded/wintercoat/centcom/Initialize(mapload)
 	. = ..()

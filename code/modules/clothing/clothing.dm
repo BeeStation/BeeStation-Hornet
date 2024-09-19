@@ -159,7 +159,7 @@
 	user.visible_message("[user] salvages some usable materials from [src].", \
 		"<span class='notice'>You salvage some usable materials from [src].</span>", \
 		"<span class='hear'>You hear salvaging.</span>")
-	playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 100, TRUE) //this sounds more like scissors
+	playsound(user, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE) //this sounds more like scissors
 	qdel(src)
 
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
