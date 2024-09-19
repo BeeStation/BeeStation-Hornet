@@ -1,0 +1,7 @@
+/obj/effect/mapping_helpers/airlock:
+  required_neighbors:
+  - /obj/machinery/door
+
+/obj/effect/mapping_helpers/apc:
+  required_neighbors:
+  - /obj/machinery/power/apc
