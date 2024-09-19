@@ -122,7 +122,6 @@ Contains:
 	equip_delay_other = 20
 	flags_cover = HEADCOVERSEYES
 	salvage_material = /obj/item/stack/sheet/cotton/cloth
-	salvage_material_bloody = /obj/item/stack/sheet/cotton/cloth/bloody
 	salvage_amount = 2
 	secondary_salvage_material = null
 

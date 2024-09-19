@@ -11,7 +11,6 @@
 	custom_materials = list(/datum/material/glass = 250)
 	salvage_material = /obj/item/stack/rods/scrap
 	secondary_salvage_material = /obj/item/stack/rods/scrap/glass
-	salvage_material_bloody = null
 	salvage_amount = 1
 	secondary_salvage_amount = 4
 	var/vision_flags = 0
@@ -202,7 +201,6 @@
 	item_state = "eyepatch"
 	salvage_material = /obj/item/stack/sheet/cotton/cloth
 	secondary_salvage_material = null
-	salvage_material_bloody = /obj/item/stack/sheet/cotton/cloth/bloody
 	salvage_amount = 1
 
 /obj/item/clothing/glasses/monocle
@@ -427,7 +425,6 @@
 	dog_fashion = /datum/dog_fashion/head
 	salvage_material = /obj/item/stack/sheet/cotton/cloth
 	secondary_salvage_material = null
-	salvage_material_bloody = /obj/item/stack/sheet/cotton/cloth/bloody
 	salvage_amount = 1
 
 /obj/item/clothing/glasses/blindfold/white

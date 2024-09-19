@@ -8,7 +8,6 @@
 	resistance_flags = NONE
 	salvage_material = /obj/item/stack/rods/scrap
 	secondary_salvage_material = /obj/item/stack/rods/scrap/glass
-	salvage_material_bloody = null
 	salvage_amount = 3
 	secondary_salvage_amount = 3
 

@@ -265,7 +265,6 @@
 	emissive_state = "hudpatch_emissive"
 	salvage_material = /obj/item/stack/sheet/cotton/cloth
 	secondary_salvage_material = /obj/item/clothing/glasses/hud/security
-	salvage_material_bloody = /obj/item/stack/sheet/cotton/cloth/bloody
 	salvage_amount = 1
 
 /obj/item/clothing/glasses/hud/security/sunglasses

@@ -68,8 +68,6 @@
 	var/salvage_material = /obj/item/stack/sheet/cotton/cloth
 	/// For complex items, what other material type do we get when salvaging?
 	var/secondary_salvage_material = null
-	/// What should we get when this piece of clothing is salvaged while bloody
-	var/salvage_material_bloody = /obj/item/stack/sheet/cotton/cloth/bloody
 	/// The amount of materials we should get upon salvage
 	var/salvage_amount = 3
 	/// The amount of secondary materials we should get upon salvage
