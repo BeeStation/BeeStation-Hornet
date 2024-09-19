@@ -1,0 +1,5 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: Tails and wings now no longer lose their appearance upon emoting or otherwise
+      using them.
