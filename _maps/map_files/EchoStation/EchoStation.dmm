@@ -5977,8 +5977,8 @@
 /obj/machinery/button/door{
 	id = "EmergancyescapeShutterengine";
 	name = "Emergancy Escape Shutters";
-	pixel_y = 26;
 	pixel_x = -27;
+	pixel_y = 26;
 	req_one_access_txt = "32"
 	},
 /turf/open/floor/plating/asteroid/planetary,
@@ -6548,8 +6548,8 @@
 	receive_ore_updates = 1
 	},
 /obj/machinery/camera/autoname/directional/north{
-	network = list("ss13","rd");
-	dir = 4
+	dir = 4;
+	network = list("ss13","rd")
 	},
 /turf/open/floor/iron/white,
 /area/science/robotics)
@@ -6572,20 +6572,20 @@
 	pixel_y = -2
 	},
 /obj/item/clothing/glasses/meson{
-	pixel_y = 7;
-	pixel_x = -6
+	pixel_x = -6;
+	pixel_y = 7
 	},
 /obj/item/clothing/glasses/meson{
-	pixel_y = 7;
-	pixel_x = -6
+	pixel_x = -6;
+	pixel_y = 7
 	},
 /obj/item/clothing/glasses/meson/engine{
-	pixel_y = 10;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 10
 	},
 /obj/item/clothing/glasses/meson/engine{
-	pixel_y = 10;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 10
 	},
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible{
 	dir = 8
@@ -7729,9 +7729,9 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light,
 /obj/structure/sign/map/echo{
-	pixel_y = -32;
 	dir = 8;
-	name = "map - level 0"
+	name = "map - level 0";
+	pixel_y = -32
 	},
 /turf/open/floor/iron/freezer,
 /area/hallway/primary/fore)
@@ -10087,9 +10087,9 @@
 "ePA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/sign/map/echo{
-	pixel_x = -32;
 	dir = 8;
-	name = "map - level 0"
+	name = "map - level 0";
+	pixel_x = -32
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
@@ -13021,8 +13021,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/green/visible,
 /obj/machinery/atmospherics/components/binary/volume_pump{
-	name = "Loop to Gas Output";
-	dir = 8
+	dir = 8;
+	name = "Loop to Gas Output"
 	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/dark,
@@ -17295,9 +17295,9 @@
 	dir = 8
 	},
 /obj/structure/sign/map/echo{
-	pixel_x = -32;
 	dir = 1;
-	name = "map - level 3"
+	name = "map - level 3";
+	pixel_x = -32
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
@@ -18368,7 +18368,9 @@
 	},
 /area/asteroid/paradise/surface)
 "jdW" = (
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/directional/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -21816,8 +21818,8 @@
 	dir = 4
 	},
 /obj/machinery/power/apc/auto_name/directional/west{
-	pixel_x = -24;
-	cell_type = /obj/item/stock_parts/cell/hyper
+	cell_type = /obj/item/stock_parts/cell/hyper;
+	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -22377,7 +22379,9 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
 /obj/machinery/camera/autoname/directional/north{
 	network = list("ss13","security")
 	},
@@ -23137,9 +23141,9 @@
 	icon_state = "4-8"
 	},
 /obj/structure/sign/map/echo{
-	pixel_y = 32;
 	dir = 1;
-	name = "map - level 1"
+	name = "map - level 1";
+	pixel_y = 32
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/hallway/primary/fore)
@@ -23346,8 +23350,8 @@
 	},
 /obj/structure/sign/map/echo{
 	dir = 4;
-	pixel_x = 32;
-	name = "map - level 1"
+	name = "map - level 1";
+	pixel_x = 32
 	},
 /turf/open/openspace,
 /area/hallway/primary/fore)
@@ -28371,7 +28375,9 @@
 /turf/open/floor/carpet/purple,
 /area/library/abandoned)
 "oak" = (
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/directional/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -29184,8 +29190,8 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/sign/map/echo{
 	dir = 1;
-	pixel_x = 32;
-	name = "map - level 3"
+	name = "map - level 3";
+	pixel_x = 32
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/crew_quarters/dorms)
@@ -31292,8 +31298,8 @@
 /obj/effect/spawner/randomvend/cola,
 /obj/machinery/airalarm/directional/west,
 /obj/structure/sign/map/echo{
-	pixel_y = 32;
-	name = "map - level 2"
+	name = "map - level 2";
+	pixel_y = 32
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
@@ -31445,9 +31451,9 @@
 	icon_state = "4-8"
 	},
 /obj/structure/sign/map/echo{
-	pixel_y = 32;
 	dir = 4;
-	name = "map - level 3"
+	name = "map - level 3";
+	pixel_y = 32
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/asteroid/paradise/surface)
@@ -31785,7 +31791,7 @@
 /area/security/brig)
 "pFV" = (
 /obj/effect/spawner/structure/window,
-/turf/open/openspace,
+/turf/open/floor/plating,
 /area/hallway/primary/central)
 "pGn" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -31808,7 +31814,9 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -33171,8 +33179,8 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/binary/volume_pump{
-	name = "Loop to Gas Output";
-	dir = 8
+	dir = 8;
+	name = "Loop to Gas Output"
 	},
 /obj/machinery/atmospherics/pipe/simple/green/visible,
 /turf/open/floor/iron/dark,
@@ -33553,7 +33561,9 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -33637,8 +33647,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/sign/map/echo{
-	pixel_y = 32;
-	name = "map - level 2"
+	name = "map - level 2";
+	pixel_y = 32
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/asteroid/paradise/surface)
@@ -35560,8 +35570,8 @@
 	},
 /obj/item/kirbyplants/random,
 /obj/structure/sign/map/echo{
-	pixel_y = -32;
-	name = "map - level 2"
+	name = "map - level 2";
+	pixel_y = -32
 	},
 /turf/open/floor/iron/dark/corner{
 	dir = 1
@@ -35994,7 +36004,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/directional/east,
+/obj/machinery/power/apc/auto_name/directional/east{
+	pixel_x = 24
+	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "rPo" = (
@@ -38013,8 +38025,8 @@
 /obj/machinery/button/door{
 	id = "EmergancyescapeShutter";
 	name = "Emergancy Escape Shutters";
-	pixel_y = 26;
-	pixel_x = 27
+	pixel_x = 27;
+	pixel_y = 26
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
