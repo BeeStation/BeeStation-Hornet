@@ -68,6 +68,18 @@
 		M.swap_hand()
 	return 1
 
+/atom/movable/screen/navigate
+	name = "navigate"
+	icon = 'icons/mob/screen_midnight.dmi'
+	icon_state = "navigate"
+	screen_loc = ui_navigate_menu
+
+/atom/movable/screen/navigate/Click()
+	if(!isliving(usr))
+		return TRUE
+	var/mob/living/navigator = usr
+	navigator.navigate()
+
 /atom/movable/screen/craft
 	name = "crafting menu"
 	icon = 'icons/mob/screen_midnight.dmi'
