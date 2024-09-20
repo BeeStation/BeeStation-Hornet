@@ -170,7 +170,7 @@
 #define INIT_ORDER_XKEYSCORE		-10
 #define INIT_ORDER_STICKY_BAN		-10
 #define INIT_ORDER_LIGHTING			-20
-#define INIT_ORDER_SHUTTLE			-21
+#define INIT_ORDER_SHUTTLE			-21 // After atoms have been initialised to prevent mix-ups
 #define INIT_ORDER_ZCOPY			-22 // this should go after lighting and most objects being placed
 #define INIT_ORDER_MINOR_MAPPING	-40
 #define INIT_ORDER_PATH				-50

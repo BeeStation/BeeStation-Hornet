@@ -1,7 +1,7 @@
 /datum/action/innate/dash
 	name = "Dash"
 	desc = "Teleport to the targeted location."
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "jetboot"
 	var/current_charges = 1
 	var/max_charges = 1

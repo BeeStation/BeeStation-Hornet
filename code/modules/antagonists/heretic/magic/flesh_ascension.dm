@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/targeted/shed_human_form
 	name = "Shed form"
 	desc = "Shed your fragile form, become one with the arms, become one with the emperor."
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "worm_ascend"
 	invocation = "REALITY UNCOIL!"
 	invocation_type = INVOCATION_SHOUT
@@ -53,7 +53,7 @@
 	range = -1
 	include_user = TRUE
 	charge_max = 300
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "worm_contract"
 
 /obj/effect/proc_holder/spell/targeted/worm_contract/cast(list/targets, mob/user)

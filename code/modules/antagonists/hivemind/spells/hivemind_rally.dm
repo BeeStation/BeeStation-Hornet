@@ -9,7 +9,7 @@
 	max_targets = 0
 	include_user = 1
 	antimagic_allowed = TRUE
-	action_icon = 'icons/mob/actions/actions_hive.dmi'
+	action_icon = 'icons/hud/actions/actions_hive.dmi'
 	action_background_icon_state = "bg_hive"
 	action_icon_state = "rally"
 

@@ -245,7 +245,7 @@ GLOBAL_VAR(clockcult_eminence)
 					prefix = "Cogwatcher"
 				else if(role in JOB_NAME_CLOWN)
 					prefix = "Clonker"
-				else if((role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN)) || (role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_UNASSIGNED)))
+				else if((role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN)))
 					prefix = "Cogworker"
 				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
 					prefix = "Warrior"
