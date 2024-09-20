@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/targeted/hive_add
 	name = "Assimilate Vessel"
 	desc = "We silently add an unsuspecting target to the hive."
-	action_icon = 'icons/mob/actions/actions_hive.dmi'
+	action_icon = 'icons/hud/actions/actions_hive.dmi'
 	action_background_icon_state = "bg_hive"
 	selection_type = "view"
 	action_icon_state = "add"
