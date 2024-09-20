@@ -56,7 +56,7 @@
 	return listing
 
 /datum/rnd_lister/proc/replenish_stock(amount = 1)
-	for(var/i in 1 to amount)
+	for(var/listing_index in 1 to amount)
 		var/atom/listing = get_new_stock()
 		current_stock += listing
 
@@ -69,8 +69,8 @@
 	var/list/artifact_types = list(XENOA_BLUESPACE = 1, XENOA_PLASMA = 1, XENOA_URANIUM = 1, XENOA_BANANIUM = 1)
 
 /datum/rnd_lister/artifact_seller/get_new_stock()
-	var/datum/xenoartifact_material/M = pick_weight(artifact_types)
-	var/obj/item/xenoartifact/artifact = new(null, M)
+	var/datum/xenoartifact_material/material = pick_weight(artifact_types)
+	var/obj/item/xenoartifact/artifact = new(null, material)
 	return artifact
 
 /*

@@ -55,25 +55,25 @@
 /obj/projectile/energy/nuclear_particle/scan_moved_turf()
 	. = ..()
 	//Do a gas check first
-	var/turf/T = get_turf(src)
-	var/datum/gas_mixture/air = T?.return_air()
+	var/turf/turf = get_turf(src)
+	var/datum/gas_mixture/air = turf?.return_air()
 	if((air?.get_moles(GAS_TRITIUM) < MOLES_GAS_VISIBLE))
 		return
-	for(var/obj/item/I in loc)
+	for(var/obj/item/item in loc)
 		if(!prob(33))
 			continue
 		//Proceed with artifact logic
-		var/datum/component/xenoartifact/X = I.GetComponent(/datum/component/xenoartifact)
-		if(X)
+		var/datum/component/xenoartifact/artifact_datum = item.GetComponent(/datum/component/xenoartifact)
+		if(artifact_datum)
 			continue
 		//Check for any pearls attached to the item first
 		var/trait_list = list()
-		for(var/obj/item/sticker/trait_pearl/P in I.contents)
-			trait_list += P.stored_trait
-			qdel(P)
+		for(var/obj/item/sticker/trait_pearl/pearl in item.contents)
+			trait_list += pearl.stored_trait
+			qdel(pearl)
 		//Make the item an artifact
-		I.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/pearl, length(trait_list) ? trait_list : null, TRUE, FALSE)
-		playsound(I, 'sound/magic/staff_change.ogg', 50, TRUE)
+		item.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/pearl, length(trait_list) ? trait_list : null, TRUE, FALSE)
+		playsound(item, 'sound/magic/staff_change.ogg', 50, TRUE)
 		qdel(src)
 		break
 

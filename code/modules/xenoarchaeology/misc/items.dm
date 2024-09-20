@@ -37,13 +37,13 @@
 
 /*
 	objective variant
-	spawns with objective trait, shouldn't effect labelling.
+	spawns with objective trait, shouldn'trait_datum effect labelling.
 */
 /obj/item/xenoartifact/objective/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
-	var/datum/component/xenoartifact/X = GetComponent(/datum/component/xenoartifact)
-	X?.add_individual_trait(/datum/xenoartifact_trait/misc/objective)
+	var/datum/component/xenoartifact/artifact_component = GetComponent(/datum/component/xenoartifact)
+	artifact_component?.add_individual_trait(/datum/xenoartifact_trait/misc/objective)
 
 /*
 	No trait variant
@@ -62,10 +62,10 @@
 
 /obj/item/xenoartifact/tutorial/Initialize(mapload, _artifact_type)
 	. = ..()
-	var/obj/item/sticker/sticky_note/artifact_tutorial/S = new(loc)
-	S.afterattack(src, src, TRUE)
-	S.pixel_y = rand(-5, 5)
-	S.pixel_x = rand(-5, 5)
+	var/obj/item/sticker/sticky_note/artifact_tutorial/sticker = new(loc)
+	sticker.afterattack(src, src, TRUE)
+	sticker.pixel_y = rand(-5, 5)
+	sticker.pixel_x = rand(-5, 5)
 
 /obj/item/xenoartifact/tutorial/add_artifact_component()
 	AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/bluespace, list(/datum/xenoartifact_trait/activator/sturdy, /datum/xenoartifact_trait/minor/slippery, /datum/xenoartifact_trait/minor/charged, /datum/xenoartifact_trait/minor/cooling, /datum/xenoartifact_trait/major/hollow))
@@ -78,10 +78,10 @@
 
 /obj/item/xenoartifact/pre_labeled/ComponentInitialize()
 	. = ..()
-	var/datum/component/xenoartifact/X = GetComponent(/datum/component/xenoartifact)
+	var/datum/component/xenoartifact/artifact_component = GetComponent(/datum/component/xenoartifact)
 	var/trait_list = list()
-	for(var/i in X.artifact_traits)
-		for(var/datum/xenoartifact_trait/T in X.artifact_traits[i])
-			trait_list += T.type
-	var/obj/item/sticker/xenoartifact_label/old/P = new(get_turf(src), trait_list)
-	P.afterattack(src, src, TRUE)
+	for(var/i in artifact_component.artifact_traits)
+		for(var/datum/xenoartifact_trait/trait_datum in artifact_component.artifact_traits[i])
+			trait_list += trait_datum.type
+	var/obj/item/sticker/xenoartifact_label/old/label = new(get_turf(src), trait_list)
+	label.afterattack(src, src, TRUE)

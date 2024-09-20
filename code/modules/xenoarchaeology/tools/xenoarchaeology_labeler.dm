@@ -82,7 +82,7 @@
 		if("toggle_trait")
 			var/trait_key = params["trait_name"]
 			var/list/focus = list(SSxenoarchaeology.labeler_traits.activators, SSxenoarchaeology.labeler_traits.minors, SSxenoarchaeology.labeler_traits.majors, SSxenoarchaeology.labeler_traits.malfunctions)
-			for(var/list/foci as() in focus)
+			for(var/list/foci as anything in focus)
 				if(!(trait_key in foci))
 					continue
 				//Selected traits
@@ -172,8 +172,8 @@
 	if(skip_label)
 		skip_label = FALSE
 		return
-	var/obj/item/xenoartifact/no_traits/A = new(get_turf(loc))
-	A.AddComponent(/datum/component/xenoartifact, material, length(label_traits) ? label_traits : null, TRUE, TRUE, patch_traits)
+	var/obj/item/xenoartifact/no_traits/artifact = new(get_turf(loc))
+	artifact.AddComponent(/datum/component/xenoartifact, material, length(label_traits) ? label_traits : null, TRUE, TRUE, patch_traits)
 
 /*
 	Sticker for labeler, so we can label artifact's with their traits
@@ -209,7 +209,7 @@
 	traits = _traits.Copy()
 	if(length(traits))
 		examine_override = "Traits:"
-		for(var/datum/xenoartifact_trait/trait_datum as() in traits)
+		for(var/datum/xenoartifact_trait/trait_datum as anything in traits)
 			examine_override = "[examine_override]\n	- [initial(trait_datum.label_name)]"
 	//Setup a random appearance
 	icon_state = "sticker_[pick(list("star", "box", "tri", "round"))]"
@@ -235,10 +235,10 @@
 		//Build list of artifact's traits
 		var/list/artifact_traits = list()
 		for(var/trait in artifact.artifact_traits)
-			for(var/datum/xenoartifact_trait/trait_datum as() in artifact.artifact_traits[trait])
+			for(var/datum/xenoartifact_trait/trait_datum as anything in artifact.artifact_traits[trait])
 				artifact_traits += trait_datum
 		//Compare them to ours
-		for(var/datum/xenoartifact_trait/trait_datum as() in traits)
+		for(var/datum/xenoartifact_trait/trait_datum as anything in traits)
 			if(locate(trait_datum) in artifact_traits)
 				target.custom_price *= XENOA_LABEL_REWARD
 			else

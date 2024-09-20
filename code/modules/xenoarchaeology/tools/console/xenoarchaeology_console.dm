@@ -238,7 +238,7 @@
 		if(0.9 to INFINITY)
 			success_type = "incredible discovery"
 		else
-			success_type = prob(1/100) ? "scientific failure." : "who let the clown in?"
+			success_type = prob(99/100) ? "scientific failure." : "who let the clown in?"
 	if(radio_solved_notice)
 		radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
 		[attempted_bonus ? "with a bonus achieved of [100 * (bonus / (max_bonus||1))]%, " : ""]\

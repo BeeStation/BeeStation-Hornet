@@ -63,26 +63,26 @@
 
 /datum/component/discoverable/artifact/discovery_scan(datum/techweb/linked_techweb, mob/user)
 	//Already scanned our atom.
-	var/atom/A = parent
+	var/atom/atom_parent = parent
 	if(scanned)
-		to_chat(user, "<span class='warning'>[A] has already been analysed.</span>")
+		to_chat(user, "<span class='warning'>[atom_parent] has already been analysed.</span>")
 		return
 	//Is it *even* an artifact
-	var/datum/component/xenoartifact/X = A.GetComponent(/datum/component/xenoartifact)
-	if(!X)
+	var/datum/component/xenoartifact/artifact_datum = atom_parent.GetComponent(/datum/component/xenoartifact)
+	if(!artifact_datum)
 		return
 	//Loop through artfact traits
 	var/total_payout = 0
 	var/discovered_traits = 0
-	for(var/i in X.artifact_traits)
-		for(var/datum/xenoartifact_trait/T as() in X.artifact_traits[i])	
+	for(var/trait in artifact_datum.artifact_traits)
+		for(var/datum/xenoartifact_trait/trait_datum as() in artifact_datum.artifact_traits[trait])
 			//Already scanned another of this type.
-			var/discover_id = get_discover_id?.Invoke() || T.type
+			var/discover_id = get_discover_id?.Invoke() || trait_datum.type
 			if(linked_techweb.scanned_atoms[discover_id] && !unique)
 				continue
-			if(A.flags_1 & HOLOGRAM_1)
+			if(atom_parent.flags_1 & HOLOGRAM_1)
 				continue
-			total_payout += T.discovery_reward
+			total_payout += trait_datum.discovery_reward
 			discovered_traits += 1
 			linked_techweb.scanned_atoms[discover_id] = TRUE
 	scanned = TRUE
@@ -90,7 +90,7 @@
 		linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, total_payout)
 		playsound(user, 'sound/machines/terminal_success.ogg', 60)
 		to_chat(user, "<span class='notice'>New datapoint scanned, [total_payout] discovery points gained.\n[discovered_traits] new traits discovered!</span>")
-		pulse_effect(get_turf(A), 4)
+		pulse_effect(get_turf(atom_parent), 4)
 	else
 		playsound(user, 'sound/machines/uplinkerror.ogg', 60)
-		to_chat(user, "<span class='warning'>No new traits detected in [A].</span>")
+		to_chat(user, "<span class='warning'>No new traits detected in [atom_parent].</span>")

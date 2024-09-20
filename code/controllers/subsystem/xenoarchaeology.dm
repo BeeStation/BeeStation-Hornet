@@ -41,7 +41,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 
 /datum/controller/subsystem/xenoarchaeology/Initialize(timeofday)
 	. = ..()
-	//Poplate seller & artifact personalities
+//Poplate seller & artifact personalities
 	xenoa_seller_names = world.file2list("strings/names/science_seller.txt")
 	xenoa_seller_dialogue = world.file2list("strings/science_dialogue.txt")
 	xenoa_artifact_names = world.file2list("strings/names/artifact_sentience.txt")
@@ -53,20 +53,30 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	if(!length(xenoa_artifact_names))
 		xenoa_artifact_names = list("Brock Enn")
 
-	//Dirty unwashed masses
-	xenoa_all_traits = compile_artifact_weights(/datum/xenoartifact_trait)
-	xenoa_all_traits_keyed = compile_artifact_weights(/datum/xenoartifact_trait, TRUE)
+//Dirty unwashed masses
+	var/list/standard_traits = typesof(/datum/xenoartifact_trait) - list(/datum/xenoartifact_trait, /datum/xenoartifact_trait/activator, /datum/xenoartifact_trait/minor, /datum/xenoartifact_trait/major, /datum/xenoartifact_trait/malfunction)
+	xenoa_all_traits = list()
+	xenoa_all_traits_keyed = list()
+	for(var/datum/xenoartifact_trait/trait as anything in standard_traits)
+		if(initial(trait.flags) & XENOA_HIDE_TRAIT)
+			continue
+		xenoa_all_traits_keyed[initial(trait.label_name)] = trait
+		xenoa_all_traits[trait] = initial(trait.rarity)
 
-	//Compatabilities
-	xenoa_item_incompatible = compile_artifact_compatibilties(TRAIT_INCOMPATIBLE_ITEM)
-	xenoa_mob_incompatible = compile_artifact_compatibilties(TRAIT_INCOMPATIBLE_MOB)
-	xenoa_structure_incompatible = compile_artifact_compatibilties(TRAIT_INCOMPATIBLE_STRUCTURE)
-
-	//Labeler
+//Compatabilities & labeler
 	labeler_traits = new()
 	labeler_traits.compile_artifact_whitelist(/datum/xenoartifact_material)
 	labeler_traits_filter = list()
 	for(var/datum/xenoartifact_trait/trait as anything in xenoa_all_traits)
+	//Compat
+		var/flags = initial(trait.incompatabilities)
+		if(flags & TRAIT_INCOMPATIBLE_ITEM)
+			xenoa_item_incompatible += trait
+		if(flags & TRAIT_INCOMPATIBLE_MOB)
+			xenoa_mob_incompatible += trait
+		if(flags & TRAIT_INCOMPATIBLE_STRUCTURE)
+			xenoa_structure_incompatible += trait
+	//Label
 		trait = new trait() //Instantiate so we can access a PROC
 		var/list/hints = trait.get_dictionary_hint()
 		for(var/each_hint in hints)
@@ -75,7 +85,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 			labeler_traits_filter[each_hint["icon"]] += list("[initial(trait.label_name)]")
 		QDEL_NULL(trait)
 
-	//Populate traits by material
+//Populate traits by material
 	material_traits = list()
 	for(var/datum/xenoartifact_material/material_index as anything in typesof(/datum/xenoartifact_material))
 		if(SSxenoarchaeology.material_traits[initial(material_index.material_parent)])
@@ -119,32 +129,6 @@ SUBSYSTEM_DEF(xenoarchaeology)
 
 	main_console = null
 	SEND_SIGNAL(src, COMSIG_XENOA_NEW_CONSOLE)
-
-///Proc used to compile trait weights into a list
-/datum/controller/subsystem/xenoarchaeology/proc/compile_artifact_weights(path, keyed = FALSE)
-	if(!ispath(path))
-		return
-	var/list/temp = subtypesof(path)
-	var/list/weighted = list()
-	for(var/datum/xenoartifact_trait/trait as anything in temp)
-		if(initial(trait.flags) & XENOA_HIDE_TRAIT)
-			continue
-		//Filter out abstract types
-		if(trait == /datum/xenoartifact_trait/activator || trait == /datum/xenoartifact_trait/minor || trait == /datum/xenoartifact_trait/major || trait == /datum/xenoartifact_trait/malfunction)
-			continue
-		if(keyed)
-			weighted[initial(trait.label_name)] = (trait)
-		else
-			weighted[(trait)] = initial(trait.rarity) //The (trait) will not work if it is trait
-	return weighted
-
-///Compile a list of traits from a given compatability flag/s
-/datum/controller/subsystem/xenoarchaeology/proc/compile_artifact_compatibilties(flags)
-	var/list/output = list()
-	for(var/datum/xenoartifact_trait/trait as anything in xenoa_all_traits)
-		if(initial(trait.incompatabilities) & flags)
-			output += trait
-	return output
 
 ///Get a trait incompatability list based on the passed type
 /datum/controller/subsystem/xenoarchaeology/proc/get_trait_incompatibilities(atom/type)
