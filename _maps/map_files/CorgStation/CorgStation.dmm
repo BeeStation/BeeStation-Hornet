@@ -22907,7 +22907,7 @@
 /obj/machinery/door/poddoor{
 	id = "deathdoor"
 	},
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/security/execution/education)
 "hoR" = (
 /obj/structure/cable/yellow{
