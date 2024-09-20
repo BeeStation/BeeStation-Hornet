@@ -75,8 +75,6 @@
 	..()
 	var/mob/living/silicon/robot/mymobR = mymob
 
-	mymobR.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
-
 	var/atom/movable/screen/using
 
 	using = new/atom/movable/screen/language_menu
