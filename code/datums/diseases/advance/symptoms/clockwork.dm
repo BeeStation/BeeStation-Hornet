@@ -350,7 +350,7 @@
 	if(istype(H))
 		if(!(H.dna.species.mutant_bodyparts["tail_human"]))
 			H.dna.features["tail_human"] = tail_type
-			H.dna.species.mutant_bodyparts |= "tail_human"
+			H.dna.species.mutant_bodyparts["tail_human"] = tail_type
 		H.update_body()
 
 /obj/item/organ/tail/clockwork/Remove(mob/living/carbon/human/H,  special = 0, pref_load = FALSE)
