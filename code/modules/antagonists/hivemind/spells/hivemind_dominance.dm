@@ -7,7 +7,7 @@
 	invocation_type = INVOCATION_NONE
 	clothes_req = 0
 	human_req = 1
-	action_icon = 'icons/mob/actions/actions_hive.dmi'
+	action_icon = 'icons/hud/actions/actions_hive.dmi'
 	action_background_icon_state = "bg_hive"
 	action_icon_state = "assim"
 	antimagic_allowed = TRUE

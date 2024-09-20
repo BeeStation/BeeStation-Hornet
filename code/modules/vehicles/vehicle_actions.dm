@@ -93,7 +93,7 @@
 
 /datum/action/vehicle
 	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_INCAPACITATED | AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions_vehicle.dmi'
+	icon_icon = 'icons/hud/actions/actions_vehicle.dmi'
 	button_icon_state = "vehicle_eject"
 	var/obj/vehicle/vehicle_target
 

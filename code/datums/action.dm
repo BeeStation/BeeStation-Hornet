@@ -8,10 +8,10 @@
 	var/buttontooltipstyle = ""
 	var/transparent_when_unavailable = TRUE
 
-	var/button_icon = 'icons/mob/actions/backgrounds.dmi' //This is the file for the BACKGROUND icon
+	var/button_icon = 'icons/hud/actions/backgrounds.dmi' //This is the file for the BACKGROUND icon
 	var/background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND //And this is the state for the background icon
 
-	var/icon_icon = 'icons/mob/actions.dmi' //This is the file for the ACTION icon
+	var/icon_icon = 'icons/hud/actions/action_generic.dmi' //This is the file for the ACTION icon
 	var/button_icon_state = "default" //And this is the state for the action icon
 	var/mob/owner
 
@@ -211,12 +211,12 @@
 
 /datum/action/item_action/rcl_col
 	name = "Change Cable Color"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "rcl_rainbow"
 
 /datum/action/item_action/rcl_gui
 	name = "Toggle Fast Wiring Gui"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "rcl_gui"
 
 /datum/action/item_action/startchainsaw
@@ -289,7 +289,7 @@
 
 /datum/action/item_action/toggle_spacesuit
 	name = "Toggle Suit Thermal Regulator"
-	icon_icon = 'icons/mob/actions/actions_spacesuit.dmi'
+	icon_icon = 'icons/hud/actions/actions_spacesuit.dmi'
 	button_icon_state = "thermal_off"
 
 /datum/action/item_action/toggle_spacesuit/New(Target)
@@ -314,7 +314,7 @@
 /datum/action/item_action/toggle_unfriendly_fire
 	name = "Toggle Friendly Fire \[ON\]"
 	desc = "Toggles if the club's blasts cause friendly fire."
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "vortex_ff_on"
 
 /datum/action/item_action/toggle_unfriendly_fire/Trigger()
@@ -335,7 +335,7 @@
 /datum/action/item_action/vortex_recall
 	name = "Vortex Recall"
 	desc = "Recall yourself, and anyone nearby, to an attuned hierophant beacon at any time.<br>If the beacon is still attached, will detach it."
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "vortex_recall"
 
 /datum/action/item_action/vortex_recall/IsAvailable()
@@ -363,12 +363,12 @@
 
 /datum/action/item_action/toggle_beacon
 	name = "Toggle Hardsuit Locator Beacon"
-	icon_icon = 'icons/mob/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "toggle-transmission"
 
 /datum/action/item_action/toggle_beacon_hud
 	name = "Toggle Hardsuit Locator HUD"
-	icon_icon = 'icons/mob/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "toggle-hud"
 
 /datum/action/item_action/toggle_beacon_hud/explorer
@@ -376,7 +376,7 @@
 
 /datum/action/item_action/toggle_beacon_frequency
 	name = "Toggle Hardsuit Locator Frequency"
-	icon_icon = 'icons/mob/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change-code"
 
 /datum/action/item_action/crew_monitor
@@ -453,7 +453,7 @@
 
 /datum/action/item_action/toggle_research_scanner
 	name = "Toggle Research Scanner"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "scan_mode"
 	var/active = FALSE
 
@@ -510,7 +510,7 @@
 /datum/action/item_action/cult_dagger
 	name = "Draw Blood Rune"
 	desc = "Use the ritual dagger to create a powerful blood rune"
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
+	icon_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "draw"
 	buttontooltipstyle = "cult"
 	background_icon_state = "bg_demon"
@@ -549,7 +549,7 @@
 	desc = "Find inner peace, here, in the box."
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	background_icon_state = "bg_agent"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "deploy_box"
 	///The type of closet this action spawns.
 	var/boxtype = /obj/structure/closet/cardboard/agent
@@ -708,14 +708,14 @@
 /datum/action/item_action/stickmen
 	name = "Summon Stick Minions"
 	desc = "Allows you to summon faithful stickmen allies to aide you in battle."
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "art_summon"
 
 //surf_ss13
 /datum/action/item_action/bhop
 	name = "Activate Jump Boots"
 	desc = "Activates the jump boot's internal propulsion system, allowing the user to dash over 4-wide gaps."
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "jetboot"
 
 /datum/action/language_menu
@@ -735,20 +735,20 @@
 /datum/action/item_action/wheelys
 	name = "Toggle Wheely-Heel's Wheels"
 	desc = "Pops out or in your wheely-heel's wheels."
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "wheelys"
 
 /datum/action/item_action/kindleKicks
 	name = "Activate Kindle Kicks"
 	desc = "Kick you feet together, activating the lights in your Kindle Kicks."
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "kindleKicks"
 
 //Small sprites
 /datum/action/small_sprite
 	name = "Toggle Giant Sprite"
 	desc = "Others will always see you as giant."
-	icon_icon = 'icons/mob/actions/actions_xeno.dmi'
+	icon_icon = 'icons/hud/actions/actions_xeno.dmi'
 	button_icon_state = "smallqueen"
 	background_icon_state = "bg_alien"
 	var/small = FALSE
@@ -760,7 +760,7 @@
 	small_icon_state = "alienq"
 
 /datum/action/small_sprite/megafauna
-	icon_icon = 'icons/mob/actions/actions_xeno.dmi'
+	icon_icon = 'icons/hud/actions/actions_xeno.dmi'
 	small_icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 
 /datum/action/small_sprite/megafauna/drake
@@ -805,7 +805,7 @@
 /datum/action/item_action/storage_gather_mode
 	name = "Switch gathering mode"
 	desc = "Switches the gathering mode of a storage object."
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "storage_gather_switch"
 
 /datum/action/item_action/storage_gather_mode/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
