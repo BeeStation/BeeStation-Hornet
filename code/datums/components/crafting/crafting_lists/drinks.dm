@@ -95,8 +95,15 @@
 	)
 	category = CAT_DRINK
 
-//flask of unholy water is a beaker for some reason, I will try making it a bottle and add it here once the antag freeze is over. t. kryson
-//lazy lazy devs not doing their job and letting the code debt getting bigger and bigger IT'S BEEN 7 YEARS FFS
+/datum/crafting_recipe/unholybottle
+	name = "Unholy Water Flask"
+	result = /obj/item/reagent_containers/food/drinks/bottle/unholywater
+	time = 3 SECONDS
+	reqs = list(
+		/obj/item/reagent_containers/food/drinks/bottle/blank = 1,
+		/datum/reagent/fuel/unholywater = 100
+	)
+	category = CAT_DRINK
 
 /datum/crafting_recipe/nothingbottle
 	name = "Nothing Bottle"
