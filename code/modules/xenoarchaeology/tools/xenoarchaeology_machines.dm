@@ -39,10 +39,10 @@
 	. = ..()
 	empty_contents()
 
-/obj/machinery/xenoarchaeology_machine/proc/register_contents(atom/A)
-	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(unregister_contents))
-	RegisterSignal(A, COMSIG_MOVABLE_MOVED, PROC_REF(unregister_contents))
-	held_contents += A
+/obj/machinery/xenoarchaeology_machine/proc/register_contents(atom/atom_target)
+	RegisterSignal(atom_target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_contents))
+	RegisterSignal(atom_target, COMSIG_MOVABLE_MOVED, PROC_REF(unregister_contents))
+	held_contents += atom_target
 
 /obj/machinery/xenoarchaeology_machine/proc/unregister_contents(datum/source)
 	SIGNAL_HANDLER
@@ -59,9 +59,9 @@
 		target.forceMove(get_turf(src))
 		unregister_contents(target)
 		return
-	for(var/atom/movable/A in held_contents)
-		A.forceMove(get_turf(src))
-		unregister_contents(A)
+	for(var/atom/movable/AM in held_contents)
+		AM.forceMove(get_turf(src))
+		unregister_contents(AM)
 
 //Circuitboard
 /obj/item/circuitboard/machine/xenoarchaeology_machine
@@ -91,18 +91,18 @@
 	var/atom/target = get_target()
 	var/total_weight = 0
 	var/label_weight = 0
-	for(var/atom/A in target)
-		var/datum/component/xenoartifact/X = A.GetComponent(/datum/component/xenoartifact)
-		if(X)
-			total_weight += X.get_material_weight()
+	for(var/atom/atom_target in target)
+		var/datum/component/xenoartifact/artifact_component = atom_target.GetComponent(/datum/component/xenoartifact)
+		if(artifact_component)
+			total_weight += artifact_component.get_material_weight()
 		//If there's a label and we're obliged to 'help' the player
-		var/obj/item/sticker/xenoartifact_label/L = locate(/obj/item/sticker/xenoartifact_label) in A.contents
-		if(L)
-			for(var/datum/xenoartifact_trait/T as() in L.traits)
+		var/obj/item/sticker/xenoartifact_label/label = locate(/obj/item/sticker/xenoartifact_label) in atom_target.contents
+		if(label)
+			for(var/datum/xenoartifact_trait/T as() in label.traits)
 				say("[initial(T.label_name)] - Weight: [initial(T.weight)]")
 				label_weight += initial(T.weight)
-		else if(isitem(A) || isliving(A))
-			if(isliving(A))
+		else if(isitem(atom_target) || isliving(atom_target))
+			if(isliving(atom_target))
 				if(prob(1))
 					say("Unexpected Fatass Detected!")
 					say("Get the fuck off me, lardass!")
@@ -140,18 +140,18 @@
 	var/atom/target = get_target()
 	var/total_conductivity = 0
 	var/label_conductivity = 0
-	for(var/atom/A in target)
-		var/datum/component/xenoartifact/X = A.GetComponent(/datum/component/xenoartifact)
-		if(X)
-			total_conductivity += X.get_material_conductivity()
+	for(var/atom/atom_target in target)
+		var/datum/component/xenoartifact/artifact_component = atom_target.GetComponent(/datum/component/xenoartifact)
+		if(artifact_component)
+			total_conductivity += artifact_component.get_material_conductivity()
 		//If there's a label and we're obliged to 'help' the player
-		var/obj/item/sticker/xenoartifact_label/L = locate(/obj/item/sticker/xenoartifact_label) in A.contents
-		if(L)
-			for(var/datum/xenoartifact_trait/T as() in L.traits)
+		var/obj/item/sticker/xenoartifact_label/label = locate(/obj/item/sticker/xenoartifact_label) in atom_target.contents
+		if(label)
+			for(var/datum/xenoartifact_trait/T as() in label.traits)
 				say("[initial(T.label_name)] - conductivity: [initial(T.conductivity)]")
 				label_conductivity += initial(T.conductivity)
-		else if(isitem(A) || isliving(A))
-			if(isliving(A))
+		else if(isitem(atom_target) || isliving(atom_target))
+			if(isliving(atom_target))
 				if(prob(1))
 					say("Unexpected Fatass Detected!")
 					say("Get the fuck off me, lardass!")
@@ -191,11 +191,11 @@
 
 /obj/machinery/xenoarchaeology_machine/calibrator/tutorial/Initialize(mapload, _artifact_type)
 	. = ..()
-	var/obj/item/sticker/sticky_note/calibrator_tutorial/S = new(loc)
-	S.afterattack(src, src, TRUE)
-	unregister_contents(S)
-	S.pixel_y = rand(-8, 8)
-	S.pixel_x = rand(-8, 8)
+	var/obj/item/sticker/sticky_note/calibrator_tutorial/label = new(loc)
+	label.afterattack(src, src, TRUE)
+	unregister_contents(label)
+	label.pixel_y = rand(-8, 8)
+	label.pixel_x = rand(-8, 8)
 
 /obj/machinery/xenoarchaeology_machine/calibrator/Initialize(mapload, _artifact_type)
 	. = ..()
@@ -212,8 +212,8 @@
 
 /obj/machinery/xenoarchaeology_machine/calibrator/RefreshParts()
 	//Should only be one, but I'm lazy and this seems safe
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		reward_rate = M.rating / 4
+	for(var/obj/item/stock_parts/manipulator/part in component_parts)
+		reward_rate = part.rating / 4
 
 /obj/machinery/xenoarchaeology_machine/calibrator/examine(mob/user)
 	. = ..()
@@ -223,12 +223,12 @@
 	if(length(held_contents))
 		return ..()
 	else
-		var/turf/T = get_turf(src)
-		for(var/obj/item/I in T.contents)
+		var/turf/turf = get_turf(src)
+		for(var/obj/item/item in turf.contents)
 			if(move_inside && length(held_contents) >= max_contents)
 				return
-			I.forceMove(src)
-			register_contents(I)
+			item.forceMove(src)
+			register_contents(item)
 
 /obj/machinery/xenoarchaeology_machine/calibrator/AltClick(mob/user)
 	. = ..()
@@ -236,23 +236,23 @@
 		playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
 		return
 	playsound(src, 'sound/machines/uplinkpurchase.ogg', 50, TRUE)
-	for(var/atom/A as() in contents-radio)
+	for(var/atom/atom_target as() in contents-radio)
 		var/solid_as = TRUE
 		//Once we find an artifact-
-		var/datum/component/xenoartifact/X = A.GetComponent(/datum/component/xenoartifact)
+		var/datum/component/xenoartifact/artifact_component = atom_target.GetComponent(/datum/component/xenoartifact)
 		//We then want to find a sticker attached to it-
-		var/obj/item/sticker/xenoartifact_label/L = locate(/obj/item/sticker/xenoartifact_label) in A.contents
+		var/obj/item/sticker/xenoartifact_label/label = locate(/obj/item/sticker/xenoartifact_label) in atom_target.contents
 		//Early checks
-		if(!X || !L || X?.calibrated || X?.calcified)
+		if(!artifact_component || !label || artifact_component?.calibrated || artifact_component?.calcified)
 			var/decision = "No"
-			if(!L && X)
+			if(!label && artifact_component)
 				say("No label detected!")
-				if(!X.calcified)
-					decision = tgui_alert(user, "Do you want to continue, this will destroy [A]?", "Calcify Artifact", list("Yes", "No"))
+				if(!artifact_component.calcified)
+					decision = tgui_alert(user, "Do you want to continue, this will destroy [atom_target]?", "Calcify Artifact", list("Yes", "No"))
 			if(decision == "No")
 				//This stops us from spitting out stuff we shouldn't, mostly
-				if(A in held_contents)
-					empty_contents(A)
+				if(atom_target in held_contents)
+					empty_contents(atom_target)
 				continue
 			else
 				solid_as = FALSE
@@ -260,24 +260,24 @@
 		var/score = 0
 		var/max_score = 0
 		if(solid_as) //This is kinda wacky but it's for a player option so idc
-			for(var/i in X.artifact_traits)
-				for(var/datum/xenoartifact_trait/T in X.artifact_traits[i])
-					if(T.contribute_calibration)
-						if(!(locate(T) in L.traits))
+			for(var/trait in artifact_component.artifact_traits)
+				for(var/datum/xenoartifact_trait/trait_datum in artifact_component.artifact_traits[trait])
+					if(trait_datum.contribute_calibration)
+						if(!(locate(trait_datum) in label.traits))
 							solid_as = FALSE
 						else
 							score += 1
-					max_score = T.contribute_calibration ?  max_score + 1 : max_score
+					max_score = trait_datum.contribute_calibration ?  max_score + 1 : max_score
 		//Check against label length, for extra labeled traits
 		var/label_length = 0
-		for(var/datum/xenoartifact_trait/T as() in L?.traits)
-			if(initial(T.contribute_calibration))
+		for(var/datum/xenoartifact_trait/trait_datum as() in label?.traits)
+			if(initial(trait_datum.contribute_calibration))
 				label_length += 1
 		if(label_length != max_score)
 			solid_as = FALSE
 		//FX
 		INVOKE_ASYNC(src, PROC_REF(do_cooking_sounds), solid_as)
-		cooking_timer = addtimer(CALLBACK(src, PROC_REF(finish_cooking), A, X, score, max_score, solid_as), cooking_time, TIMER_STOPPABLE)
+		cooking_timer = addtimer(CALLBACK(src, PROC_REF(finish_cooking), atom_target, artifact_component, score, max_score, solid_as), cooking_time, TIMER_STOPPABLE)
 
 /obj/machinery/xenoarchaeology_machine/calibrator/proc/do_cooking_sounds(status)
 	playsound(src, 'sound/machines/capacitor_charge.ogg', 50, TRUE)
@@ -286,34 +286,34 @@
 	sleep(2 SECONDS)
 	playsound(src, status ? 'sound/machines/microwave/microwave-end.ogg' : 'sound/machines/buzz-two.ogg', 50, TRUE)
 
-/obj/machinery/xenoarchaeology_machine/calibrator/proc/finish_cooking(atom/A, datum/component/xenoartifact/X, score, max_score, solid_as)
+/obj/machinery/xenoarchaeology_machine/calibrator/proc/finish_cooking(atom/atom_target, datum/component/xenoartifact/artifact_component, score, max_score, solid_as)
 	//Timer
 	if(cooking_timer)
 		deltimer(cooking_timer)
 	cooking_timer = null
-	empty_contents(A)
+	empty_contents(atom_target)
 	//If we're cooked
 	if(!solid_as)
-		X.calcify()
+		artifact_component.calcify()
 		return
 	//Scoring & success
 	if(score)
 		var/success_rate = score / max_score
-		var/dp_reward = max(0, (A.custom_price*X.artifact_type.dp_rate)*success_rate) * reward_rate
+		var/dp_reward = max(0, (atom_target.custom_price*artifact_component.artifact_type.dp_rate)*success_rate) * reward_rate
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, dp_reward)
 		//Announce this, for honor or shame
-		var/message = "[A] has been calibrated, and generated [dp_reward] Discovery Points!"
+		var/message = "[atom_target] has been calibrated, and generated [dp_reward] Discovery Points!"
 		say(message)
 		radio?.talk_into(src, message, RADIO_CHANNEL_SCIENCE)
 	//Calibrate the artifact
-	X.calibrate()
+	artifact_component.calibrate()
 	//Prompt user to delete or keep malfunctions
-	var/decision = tgui_alert(usr, "Do you want to calcify [A]'s malfunctions?", "Remove Malfunctions", list("Yes", "No"))
+	var/decision = tgui_alert(usr, "Do you want to calcify [atom_target]'s malfunctions?", "Remove Malfunctions", list("Yes", "No"))
 	if(decision == "Yes")
-		for(var/i in X.artifact_traits)
-			for(var/datum/xenoartifact_trait/T in X.artifact_traits[i])
-				if(istype(T, /datum/xenoartifact_trait/malfunction))
-					qdel(T)
+		for(var/i in artifact_component.artifact_traits)
+			for(var/datum/xenoartifact_trait/trait_datum in artifact_component.artifact_traits[i])
+				if(istype(trait_datum, /datum/xenoartifact_trait/malfunction))
+					qdel(trait_datum)
 
 //Circuitboard
 /obj/item/circuitboard/machine/xenoarchaeology_machine/calibrator

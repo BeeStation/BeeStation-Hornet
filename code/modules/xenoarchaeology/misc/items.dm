@@ -37,7 +37,7 @@
 
 /*
 	objective variant
-	spawns with objective trait, shouldn'trait_datum effect labelling.
+	spawns with objective trait, shouldn't effect labelling.
 */
 /obj/item/xenoartifact/objective/ComponentInitialize()
 	. = ..()

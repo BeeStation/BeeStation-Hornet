@@ -28,15 +28,15 @@
 
 /datum/xenoartifact_trait/minor/charged/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	parent.trait_strength *= 1.25
+	component_parent.trait_strength *= 1.25
 	setup_generic_touch_hint()
 
 /datum/xenoartifact_trait/minor/charged/remove_parent(datum/source, pensive)
-	if(!parent)
+	if(!component_parent)
 		return ..()
-	parent.trait_strength /= 1.25
+	component_parent.trait_strength /= 1.25
 	return ..()
 
 /datum/xenoartifact_trait/minor/charged/do_hint(mob/user, atom/item)
@@ -48,7 +48,7 @@
 	if(!ismovable(target))
 		return
 	//Build particle holder
-	particle_holder = new(parent?.parent)
+	particle_holder = new(component_parent?.parent)
 	particle_holder.add_emitter(/obj/emitter/electrified, "electrified", 10)
 	//Layer onto parent
 	target.vis_contents += particle_holder
@@ -82,10 +82,10 @@
 
 /datum/xenoartifact_trait/minor/capacitive/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
 	current_charge = max_charges
-	parent.cooldown_disabled = TRUE
+	component_parent.cooldown_disabled = TRUE
 	setup_generic_item_hint()
 
 /datum/xenoartifact_trait/minor/capacitive/trigger(datum/source, _priority, atom/override)
@@ -93,13 +93,13 @@
 	if(!.)
 		return
 	if(current_charge)
-		parent.reset_timer()
+		component_parent.reset_timer()
 		current_charge -= 1
-		parent.cooldown_disabled = TRUE
+		component_parent.cooldown_disabled = TRUE
 	else
-		playsound(get_turf(parent?.parent), 'sound/machines/capacitor_charge.ogg', 50, TRUE)
+		playsound(get_turf(component_parent?.parent), 'sound/machines/capacitor_charge.ogg', 50, TRUE)
 		current_charge = max_charges
-		parent.cooldown_disabled = FALSE
+		component_parent.cooldown_disabled = FALSE
 
 /datum/xenoartifact_trait/minor/capacitive/do_hint(mob/user, atom/item)
 	if(istype(item, /obj/item/multitool))
@@ -130,28 +130,28 @@
 
 /datum/xenoartifact_trait/minor/dense/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	var/obj/item/A = parent.parent
+	var/obj/item/item_parent = component_parent.parent
 	//Density
-	old_density = A.density
-	A.density = TRUE
+	old_density = item_parent.density
+	item_parent.density = TRUE
 	//Atom flag
-	old_atom_flag = A.interaction_flags_atom
-	A.interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
+	old_atom_flag = item_parent.interaction_flags_atom
+	item_parent.interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
 	//Item flag
-	if(isitem(A))
-		old_item_flag = A.interaction_flags_item
-		A.interaction_flags_item = INTERACT_ATOM_ATTACK_HAND
+	if(isitem(item_parent))
+		old_item_flag = item_parent.interaction_flags_item
+		item_parent.interaction_flags_item = INTERACT_ATOM_ATTACK_HAND
 
 /datum/xenoartifact_trait/minor/dense/remove_parent(datum/source, pensive)
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return ..()
-	var/obj/item/A = parent.parent
-	A.density = old_density
-	A.interaction_flags_atom = old_atom_flag
-	if(isitem(A))
-		A.interaction_flags_item = old_item_flag
+	var/obj/item/item_parent = component_parent.parent
+	item_parent.density = old_density
+	item_parent.interaction_flags_atom = old_atom_flag
+	if(isitem(item_parent))
+		item_parent.interaction_flags_item = old_item_flag
 	return ..()
 
 /datum/xenoartifact_trait/minor/dense/get_dictionary_hint()
@@ -181,28 +181,28 @@
 
 /datum/xenoartifact_trait/minor/sharp/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	var/obj/item/A = parent.parent
-	if(isitem(A))
+	var/obj/item/item_parent = component_parent.parent
+	if(isitem(item_parent))
 		//Sharpness
-		old_sharp = A.sharpness
-		A.sharpness = IS_SHARP
+		old_sharp = item_parent.sharpness
+		item_parent.sharpness = IS_SHARP
 		//Force
-		old_force = A.force
-		A.force = max_force * (parent.trait_strength/100)
+		old_force = item_parent.force
+		item_parent.force = max_force * (component_parent.trait_strength/100)
 		//Verbs
-		old_verbs = A.attack_verb_simple
-		A.attack_verb_simple = attack_verbs
+		old_verbs = item_parent.attack_verb_simple
+		item_parent.attack_verb_simple = attack_verbs
 
 /datum/xenoartifact_trait/minor/sharp/remove_parent(datum/source, pensive)
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	var/obj/item/A = parent.parent
-	if(isitem(A))
-		A.sharpness = old_sharp
-		A.force = old_force
-		A.attack_verb_simple = old_verbs
+	var/obj/item/item_parent = component_parent.parent
+	if(isitem(item_parent))
+		item_parent.sharpness = old_sharp
+		item_parent.force = old_force
+		item_parent.attack_verb_simple = old_verbs
 	return ..()
 
 /datum/xenoartifact_trait/minor/sharp/get_dictionary_hint()
@@ -224,20 +224,20 @@
 
 /datum/xenoartifact_trait/minor/cooling/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
 	setup_generic_touch_hint()
 
 /datum/xenoartifact_trait/minor/cooling/do_hint(mob/user, atom/item)
 	. = ..()
-	to_chat(user, "<span class='warning'>[parent?.parent] feels cool to the touch!</span>")
+	to_chat(user, "<span class='warning'>[component_parent?.parent] feels cool to the touch!</span>")
 
 /datum/xenoartifact_trait/minor/cooling/generate_trait_appearance(atom/movable/target)
 	. = ..()
 	if(!ismovable(target))
 		return
 	//Build particle holder
-	particle_holder = new(parent?.parent)
+	particle_holder = new(component_parent?.parent)
 	particle_holder.add_emitter(/obj/emitter/snow, "snow", 10)
 	//Layer onto parent
 	target.vis_contents += particle_holder
@@ -271,15 +271,15 @@
 
 /datum/xenoartifact_trait/minor/sentient/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
 	//Register a signal to KILL!
-	RegisterSignal(parent, COMSIG_XENOA_CALCIFIED, PROC_REF(suicide))
+	RegisterSignal(component_parent, COMSIG_XENOA_CALCIFIED, PROC_REF(suicide))
 	//Setup ghost canidates and mob spawners
 	if(SSticker.HasRoundStarted())
 		INVOKE_ASYNC(src, PROC_REF(get_canidate))
 	else
-		mob_spawner = new(parent.parent, src)
+		mob_spawner = new(component_parent.parent, src)
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
 	QDEL_NULL(sentience)
@@ -291,38 +291,38 @@
 		sentience.key = M.ckey
 
 /datum/xenoartifact_trait/minor/sentient/proc/get_canidate()
-	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the maleviolent force inside the [parent?.parent]?", ROLE_SENTIENT_XENOARTIFACT, null, 8 SECONDS)
-	if(LAZYLEN(candidates) && parent?.parent)
+	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the maleviolent force inside the [component_parent?.parent]?", ROLE_SENTIENT_XENOARTIFACT, null, 8 SECONDS)
+	if(LAZYLEN(candidates) && component_parent?.parent)
 		var/mob/dead/observer/O = pick(candidates)
 		if(istype(O) && O.ckey) //I though LAZYLEN would catch this, I guess NULL is getting injected somewhere
 			setup_sentience(O.ckey)
 			return
-	mob_spawner = new(parent?.parent, src)
+	mob_spawner = new(component_parent?.parent, src)
 
 /datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(ckey)
-	var/atom/A = parent?.parent
-	if(!parent?.parent || !ckey || !A?.loc)
+	var/atom/atom_parent = component_parent?.parent
+	if(!component_parent?.parent || !ckey || !atom_parent?.loc)
 		return
 	//Sentience
-	sentience = new(parent?.parent)
+	sentience = new(component_parent?.parent)
 	sentience.name = pick(SSxenoarchaeology.xenoa_artifact_names)
-	sentience.real_name = "[sentience.name] - [parent?.parent]"
+	sentience.real_name = "[sentience.name] - [component_parent?.parent]"
 	sentience.key = ckey
 	sentience.status_flags |= GODMODE
 	ADD_TRAIT(sentience, TRAIT_ARTIFACT_IGNORE, TRAIT_GENERIC)
 	//Stop them from wriggling away
-	var/atom/movable/AM = parent.parent
-	AM.buckle_mob(AM, TRUE)
+	var/atom/movable/movable = component_parent.parent
+	movable.buckle_mob(movable, TRUE)
 	//Action
-	var/obj/effect/proc_holder/spell/targeted/artifact_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/artifact_senitent_action(parent?.parent, parent)
+	var/obj/effect/proc_holder/spell/targeted/artifact_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/artifact_senitent_action(component_parent?.parent, component_parent)
 	sentience.AddSpell(P)
 	//Display traits to sentience
 	to_chat(sentience, "<span class='notice'>Your traits are: \n</span>")
-	for(var/index in parent.artifact_traits)
-		for(var/datum/xenoartifact_trait/T as() in parent.artifact_traits[index])
+	for(var/index in component_parent.artifact_traits)
+		for(var/datum/xenoartifact_trait/T as() in component_parent.artifact_traits[index])
 			to_chat(sentience, "<span class='notice'>[T.label_name]\n</span>")
 			sentience.add_memory(T.label_name)
-	playsound(get_turf(parent?.parent), 'sound/items/haunted/ghostitemattack.ogg', 50, TRUE)
+	playsound(get_turf(component_parent?.parent), 'sound/items/haunted/ghostitemattack.ogg', 50, TRUE)
 	//Cleanup
 	QDEL_NULL(mob_spawner)
 
@@ -416,12 +416,12 @@
 	. = ..()
 	if(!.)
 		return
-	playsound(get_turf(parent?.parent), 'sound/effects/glass_step.ogg', 50, TRUE)
+	playsound(get_turf(component_parent?.parent), 'sound/effects/glass_step.ogg', 50, TRUE)
 	if(current_uses)
 		current_uses -= 1
 	else if(prob(50)) //After we run out of uses, there is a 50% on use for it to break
-		parent.calcify()
-		playsound(get_turf(parent?.parent), 'sound/effects/glassbr1.ogg', 50, TRUE)
+		component_parent.calcify()
+		playsound(get_turf(component_parent?.parent), 'sound/effects/glassbr1.ogg', 50, TRUE)
 
 /datum/xenoartifact_trait/minor/delicate/generate_trait_appearance(atom/target)
 	. = ..()
@@ -454,13 +454,13 @@
 	. = ..()
 	if(!.)
 		return
-	for(var/atom/target in oview(parent.target_range, get_turf(parent?.parent)))
-		if(length(parent.targets) > (max_extra_targets * (parent.trait_strength/100)))
+	for(var/atom/target in oview(component_parent.target_range, get_turf(component_parent?.parent)))
+		if(length(component_parent.targets) > (max_extra_targets * (component_parent.trait_strength/100)))
 			continue
 		//Only add mobs or items
 		if(!ismob(target) && !isitem(target))
 			continue
-		parent.register_target(target)
+		component_parent.register_target(target)
 
 /*
 	Scoped
@@ -495,23 +495,23 @@
 
 /datum/xenoartifact_trait/minor/ringed/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
 	//Item equipping
-	var/obj/item/A = parent.parent
-	if(isitem(A))
-		old_wearable = A.slot_flags
-		A.slot_flags |= ITEM_SLOT_GLOVES
+	var/obj/item/item_parent = component_parent.parent
+	if(isitem(item_parent))
+		old_wearable = item_parent.slot_flags
+		item_parent.slot_flags |= ITEM_SLOT_GLOVES
 		//Action
-		RegisterSignal(A, COMSIG_ITEM_EQUIPPED, PROC_REF(equip_action))
-		RegisterSignal(A, COMSIG_ITEM_DROPPED, PROC_REF(drop_action))
+		RegisterSignal(item_parent, COMSIG_ITEM_EQUIPPED, PROC_REF(equip_action))
+		RegisterSignal(item_parent, COMSIG_ITEM_DROPPED, PROC_REF(drop_action))
 
 /datum/xenoartifact_trait/minor/ringed/remove_parent(datum/source, pensive)
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return ..()
-	var/obj/item/A = parent.parent
-	if(isitem(A))
-		A.slot_flags = old_wearable
+	var/obj/item/item_parent = component_parent.parent
+	if(isitem(item_parent))
+		item_parent.slot_flags = old_wearable
 	return ..()
 
 /datum/xenoartifact_trait/minor/ringed/get_dictionary_hint()
@@ -536,8 +536,8 @@
 	INVOKE_ASYNC(src, PROC_REF(cool_async_action), item, living, params)
 
 /datum/xenoartifact_trait/minor/ringed/proc/cool_async_action(obj/item, mob/living, params)
-	var/atom/A = parent?.parent
-	A?.attackby(item, living, params)
+	var/atom/atom_parent = component_parent?.parent
+	atom_parent?.attackby(item, living, params)
 
 //Variant for when the user attacks
 /datum/xenoartifact_trait/minor/ringed/attack
@@ -566,8 +566,8 @@
 /datum/xenoartifact_trait/minor/ringed/attack/proc/other_cool_async_action(mob/user, mob/target, params)
 	if(user == target)
 		return
-	var/obj/item/A = parent?.parent
-	A?.afterattack(target, user, TRUE)
+	var/obj/item/item_parent = component_parent?.parent
+	item_parent?.afterattack(target, user, TRUE)
 
 /*
 	Shielded
@@ -592,28 +592,28 @@
 
 /datum/xenoartifact_trait/minor/shielded/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	var/obj/item/A = parent.parent
-	if(isitem(A))
+	var/obj/item/item_parent = component_parent.parent
+	if(isitem(item_parent))
 		//Level
-		old_block_level = A.block_level
-		A.block_level = ROUND_UP(max_block_level * (parent.trait_strength/100))
+		old_block_level = item_parent.block_level
+		item_parent.block_level = ROUND_UP(max_block_level * (component_parent.trait_strength/100))
 		//power
-		old_block_power = A.block_power
-		A.block_power = ROUND_UP(max_block_power * (parent.trait_strength/100))
+		old_block_power = item_parent.block_power
+		item_parent.block_power = ROUND_UP(max_block_power * (component_parent.trait_strength/100))
 		//upgrade
-		old_block_upgrade = A.block_upgrade_walk
-		A.block_upgrade_walk = 1
+		old_block_upgrade = item_parent.block_upgrade_walk
+		item_parent.block_upgrade_walk = 1
 
 /datum/xenoartifact_trait/minor/shielded/remove_parent(datum/source, pensive)
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return ..()
-	var/obj/item/A = parent.parent
-	if(isitem(A))
-		A.block_level = old_block_level
-		A.block_power = old_block_power
-		A.block_upgrade_walk = old_block_upgrade
+	var/obj/item/item_parent = component_parent.parent
+	if(isitem(item_parent))
+		item_parent.block_level = old_block_level
+		item_parent.block_power = old_block_power
+		item_parent.block_upgrade_walk = old_block_upgrade
 	return ..()
 
 /datum/xenoartifact_trait/minor/shielded/get_dictionary_hint()
@@ -637,19 +637,19 @@
 
 /datum/xenoartifact_trait/minor/aerodynamic/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	var/atom/movable/A = parent.parent
-	if(ismovable(A))
-		old_throw_range = A.throw_range
-		A.throw_range = 9
+	var/atom/movable/movable = component_parent.parent
+	if(ismovable(movable))
+		old_throw_range = movable.throw_range
+		movable.throw_range = 9
 
 /datum/xenoartifact_trait/minor/aerodynamic/remove_parent(datum/source, pensive)
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return ..()
-	var/atom/movable/A = parent.parent
-	if(ismovable(A))
-		A.throw_range = old_throw_range
+	var/atom/movable/movable = component_parent.parent
+	if(ismovable(movable))
+		movable.throw_range = old_throw_range
 	return ..()
 
 /datum/xenoartifact_trait/minor/aerodynamic/get_dictionary_hint()
@@ -684,10 +684,10 @@
 
 /datum/xenoartifact_trait/minor/signaller/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
 	setup_generic_item_hint()
-	if(!(locate(/datum/xenoartifact_trait/activator/signal) in parent.artifact_traits[TRAIT_PRIORITY_ACTIVATOR]))
+	if(!(locate(/datum/xenoartifact_trait/activator/signal) in component_parent.artifact_traits[TRAIT_PRIORITY_ACTIVATOR]))
 		addtimer(CALLBACK(src, PROC_REF(do_sonar)), 2 SECONDS)
 
 /datum/xenoartifact_trait/minor/signaller/Destroy(force, ...)
@@ -710,7 +710,7 @@
 	. = ..()
 	if(!ismovable(target))
 		return
-	particle_holder = new(parent?.parent)
+	particle_holder = new(component_parent?.parent)
 	particle_holder.add_emitter(/obj/emitter/sonar/out, "sonar", 10)
 	target.vis_contents += particle_holder
 
@@ -732,7 +732,7 @@
 /datum/xenoartifact_trait/minor/signaller/proc/do_sonar(repeat = TRUE)
 	if(QDELETED(src))
 		return
-	playsound(get_turf(parent?.parent), 'sound/effects/ping.ogg', 60, TRUE)
+	playsound(get_turf(component_parent?.parent), 'sound/effects/ping.ogg', 60, TRUE)
 	var/rand_time = rand(6, 12) SECONDS
 	addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time)
 
@@ -755,18 +755,18 @@
 
 /datum/xenoartifact_trait/minor/anchor/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	var/atom/movable/AM = parent.parent
-	if(ismovable(AM))
-		RegisterSignal(AM, COMSIG_ATOM_TOOL_ACT(TOOL_WRENCH), PROC_REF(toggle_anchor))
+	var/atom/movable/movable = component_parent.parent
+	if(ismovable(movable))
+		RegisterSignal(movable, COMSIG_ATOM_TOOL_ACT(TOOL_WRENCH), PROC_REF(toggle_anchor))
 
 /datum/xenoartifact_trait/minor/anchor/remove_parent(datum/source, pensive)
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return ..()
-	var/atom/movable/AM = parent.parent
-	if(ismovable(AM))
-		AM.anchored = FALSE
+	var/atom/movable/movable = component_parent.parent
+	if(ismovable(movable))
+		movable.anchored = FALSE
 	return ..()
 
 /datum/xenoartifact_trait/minor/anchor/trigger(datum/source, _priority, atom/override)
@@ -778,17 +778,17 @@
 /datum/xenoartifact_trait/minor/anchor/proc/toggle_anchor(datum/source, mob/living/user, obj/item/I, list/recipes)
 	SIGNAL_HANDLER
 
-	var/atom/movable/AM = parent?.parent
+	var/atom/movable/movable = component_parent?.parent
 	//handle being held
-	if(isliving(AM.loc))
-		var/mob/living/M = AM.loc
-		M.dropItemToGround(AM)
+	if(isliving(movable.loc))
+		var/mob/living/M = movable.loc
+		M.dropItemToGround(movable)
 	//Anchor
-	if(ismovable(AM) && isturf(AM.loc))
-		AM.anchored = !AM.anchored
-		playsound(get_turf(parent?.parent), 'sound/items/handling/wrench_pickup.ogg', 50, TRUE)
+	if(ismovable(movable) && isturf(movable.loc))
+		movable.anchored = !movable.anchored
+		playsound(get_turf(component_parent?.parent), 'sound/items/handling/wrench_pickup.ogg', 50, TRUE)
 	//Message
-	AM.visible_message("<span class='warning'>[AM] [AM.anchored ? "anchors to" : "unanchors from"] [get_turf(AM)]!</span>", allow_inside_usr = TRUE)
+	movable.visible_message("<span class='warning'>[movable] [movable.anchored ? "anchors to" : "unanchors from"] [get_turf(movable)]!</span>", allow_inside_usr = TRUE)
 
 /*
 	Slippery
@@ -807,13 +807,13 @@
 
 /datum/xenoartifact_trait/minor/slippery/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	var/atom/A = parent.parent
-	slip_comp = A.AddComponent(/datum/component/slippery, 60)
+	var/atom/atom_parent = component_parent.parent
+	slip_comp = atom_parent.AddComponent(/datum/component/slippery, 60)
 
 /datum/xenoartifact_trait/minor/slippery/remove_parent(datum/source, pensive)
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return ..()
 	slip_comp.RemoveComponent()
 	slip_comp = null
@@ -842,15 +842,15 @@
 
 /datum/xenoartifact_trait/minor/haunted/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	var/atom/A = parent.parent
-	controller = A._AddComponent(list(/datum/component/deadchat_control, "democracy", list(
-			"up" = CALLBACK(src, PROC_REF(haunted_step), A, NORTH),
-			"down" = CALLBACK(src, PROC_REF(haunted_step), A, SOUTH),
-			"left" = CALLBACK(src, PROC_REF(haunted_step), A, WEST),
-			"right" = CALLBACK(src, PROC_REF(haunted_step), A, EAST),
-			"activate" = CALLBACK(src, PROC_REF(activate_parent), A)), move_delay))
+	var/atom/atom_parent = component_parent.parent
+	controller = atom_parent._AddComponent(list(/datum/component/deadchat_control, "democracy", list(
+			"up" = CALLBACK(src, PROC_REF(haunted_step), atom_parent, NORTH),
+			"down" = CALLBACK(src, PROC_REF(haunted_step), atom_parent, SOUTH),
+			"left" = CALLBACK(src, PROC_REF(haunted_step), atom_parent, WEST),
+			"right" = CALLBACK(src, PROC_REF(haunted_step), atom_parent, EAST),
+			"activate" = CALLBACK(src, PROC_REF(activate_parent), atom_parent)), move_delay))
 	addtimer(CALLBACK(src, PROC_REF(do_wail)), 35 SECONDS)
 
 /datum/xenoartifact_trait/minor/haunted/Destroy(force, ...)
@@ -859,7 +859,7 @@
 
 /datum/xenoartifact_trait/minor/haunted/do_hint(mob/user, atom/item)
 	if(istype(item, /obj/item/storage/book/bible))
-		to_chat(user, "<span class='warning'>[item] upsets the sprits of [parent?.parent]!</span>")
+		to_chat(user, "<span class='warning'>[item] upsets the sprits of [component_parent?.parent]!</span>")
 		return ..()
 
 /datum/xenoartifact_trait/minor/haunted/get_dictionary_hint()
@@ -870,14 +870,14 @@
 /datum/xenoartifact_trait/minor/haunted/proc/do_wail(repeat = TRUE)
 	if(QDELETED(src))
 		return
-	var/atom/A = parent.parent
-	if(isturf(A.loc))
-		playsound(get_turf(parent?.parent), 'sound/spookoween/ghost_whisper_short.ogg', 30, TRUE)
+	var/atom/atom_parent = component_parent.parent
+	if(isturf(atom_parent.loc))
+		playsound(get_turf(component_parent?.parent), 'sound/spookoween/ghost_whisper_short.ogg', 30, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(do_wail)), 35 SECONDS)
 
 
 /datum/xenoartifact_trait/minor/haunted/proc/haunted_step(atom/movable/target, dir)
-	if(parent.calcified)
+	if(component_parent.calcified)
 		return
 	//Make any mobs drop this before it moves
 	if(isliving(target.loc))
@@ -887,12 +887,12 @@
 	step(target, dir)
 
 /datum/xenoartifact_trait/minor/haunted/proc/activate_parent()
-	if(parent.calcified)
+	if(component_parent.calcified)
 		return
 	//Find a target
-	for(var/atom/target in oview(parent.target_range, get_turf(parent?.parent)))
-		parent.register_target(target, TRUE)
-		parent.trigger(TRUE)
+	for(var/atom/target in oview(component_parent.target_range, get_turf(component_parent?.parent)))
+		component_parent.register_target(target, TRUE)
+		component_parent.trigger(TRUE)
 		return
 
 //Instant variant, no move delay. Can only move when not seen
@@ -909,10 +909,10 @@
 	var/seek_distance = 9
 
 /datum/xenoartifact_trait/minor/haunted/instant/haunted_step(atom/movable/target, dir)
-	if(parent.calcified)
+	if(component_parent.calcified)
 		return
 	//This may seem scary, and expensive, but it's only called WHEN ghosts try to move the artifact
-	var/list/mobs = oview(seek_distance, parent.parent)
+	var/list/mobs = oview(seek_distance, component_parent.parent)
 	for(var/mob/living/M in mobs)
 		if(!M.stat && M.ckey)
 			return
@@ -954,8 +954,8 @@
 	. = ..()
 	if(!. || bleed_timer)
 		return
-	playsound(parent.parent, 'sound/effects/splat.ogg', 50, TRUE)
-	new blood_splat(get_turf(parent.parent))
+	playsound(component_parent.parent, 'sound/effects/splat.ogg', 50, TRUE)
+	new blood_splat(get_turf(component_parent.parent))
 	bleed_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), bleed_duration, TIMER_STOPPABLE)
 
 /datum/xenoartifact_trait/minor/bleed/get_dictionary_hint()
@@ -966,7 +966,7 @@
 	. = ..()
 	if(!bleed_timer)
 		return
-	var/obj/effect/decal/cleanable/blood/tracks/T = new blood_tracks(get_turf(parent.parent))
+	var/obj/effect/decal/cleanable/blood/tracks/T = new blood_tracks(get_turf(component_parent.parent))
 	T.setDir(dir)
 
 /datum/xenoartifact_trait/minor/bleed/proc/reset_timer()
@@ -1019,9 +1019,9 @@
 	. = ..()
 	if(!.)
 		return
-	var/turf/T = get_turf(parent.parent)
-	var/pull_steps = max_pull_steps * (parent.trait_strength/100)
-	var/pull_range = max_pull_range * (parent.trait_strength/100)
+	var/turf/T = get_turf(component_parent.parent)
+	var/pull_steps = max_pull_steps * (component_parent.trait_strength/100)
+	var/pull_range = max_pull_range * (component_parent.trait_strength/100)
 	for(var/obj/M in orange(pull_range, T))
 		if(M.anchored || !(M.flags_1 & CONDUCT_1))
 			continue
@@ -1035,13 +1035,13 @@
 	. = ..()
 	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("pull metalic objects towards it"))
 
-/datum/xenoartifact_trait/minor/magnetic/proc/magnetize(atom/movable/AM, atom/target, _pull_steps)
+/datum/xenoartifact_trait/minor/magnetic/proc/magnetize(atom/movable/movable, atom/target, _pull_steps)
 	for(var/i in 1 to _pull_steps)
-		magnetic_direction(AM, target)
+		magnetic_direction(movable, target)
 		sleep(1)
 
-/datum/xenoartifact_trait/minor/magnetic/proc/magnetic_direction(atom/movable/AM, atom/target)
-	step_towards(AM, target)
+/datum/xenoartifact_trait/minor/magnetic/proc/magnetic_direction(atom/movable/movable, atom/target)
+	step_towards(movable, target)
 
 //Inverse variant
 /datum/xenoartifact_trait/minor/magnetic/push
@@ -1054,8 +1054,8 @@
 	. = ..()
 	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("push metalic objects away from it"))
 
-/datum/xenoartifact_trait/minor/magnetic/push/magnetic_direction(atom/movable/AM, atom/target)
-	step_away(AM, target)
+/datum/xenoartifact_trait/minor/magnetic/push/magnetic_direction(atom/movable/movable, atom/target)
+	step_away(movable, target)
 
 /*
 	Impulsing
@@ -1075,16 +1075,16 @@
 	. = ..()
 	if(!.)
 		return
-	var/turf/T = get_edge_target_turf(get_turf(parent.parent), pick(NORTH, EAST, SOUTH, WEST))
-	var/atom/movable/AM = parent.parent
+	var/turf/T = get_edge_target_turf(get_turf(component_parent.parent), pick(NORTH, EAST, SOUTH, WEST))
+	var/atom/movable/movable = component_parent.parent
 	//handle being held
-	if(isliving(AM.loc))
-		var/mob/living/L = AM.loc
-		L.dropItemToGround(AM)
+	if(isliving(movable.loc))
+		var/mob/living/L = movable.loc
+		L.dropItemToGround(movable)
 	//Get the fuck outta dodge
-	parent.cooldown_override = TRUE
-	AM.throw_at(T, max_force*(parent.trait_strength/100), 4)
-	parent.cooldown_override = FALSE
+	component_parent.cooldown_override = TRUE
+	movable.throw_at(T, max_force*(component_parent.trait_strength/100), 4)
+	component_parent.cooldown_override = FALSE
 
 /*
 	Sticky
@@ -1104,10 +1104,10 @@
 	var/sticky_timer
 
 /datum/xenoartifact_trait/minor/sticky/remove_parent(datum/source, pensive)
-	var/atom/movable/AM = parent?.parent
-	if(!AM)
+	var/atom/movable/movable = component_parent?.parent
+	if(!movable)
 		return ..()
-	REMOVE_TRAIT(AM, TRAIT_NODROP, "[REF(src)]")
+	REMOVE_TRAIT(movable, TRAIT_NODROP, "[REF(src)]")
 	deltimer(sticky_timer)
 	return ..()
 
@@ -1115,13 +1115,13 @@
 	. = ..()
 	if(!.)
 		return
-	var/atom/movable/AM = parent.parent
-	AM.visible_message("<span class='warning'>[AM] starts secreting a sticky substance!</span>", TRUE, allow_inside_usr = TRUE)
-	if(HAS_TRAIT_FROM(AM, TRAIT_NODROP, "[REF(src)]"))
+	var/atom/movable/movable = component_parent.parent
+	movable.visible_message("<span class='warning'>[movable] starts secreting a sticky substance!</span>", TRUE, allow_inside_usr = TRUE)
+	if(HAS_TRAIT_FROM(movable, TRAIT_NODROP, "[REF(src)]"))
 		return
-	ADD_TRAIT(AM, TRAIT_NODROP, "[REF(src)]")
+	ADD_TRAIT(movable, TRAIT_NODROP, "[REF(src)]")
 	sticky_timer = addtimer(CALLBACK(src, PROC_REF(unstick)), sticky_time, TIMER_STOPPABLE)
 
 /datum/xenoartifact_trait/minor/sticky/proc/unstick()
-	var/atom/movable/AM = parent.parent
-	REMOVE_TRAIT(AM, TRAIT_NODROP, "[REF(src)]")
+	var/atom/movable/movable = component_parent.parent
+	REMOVE_TRAIT(movable, TRAIT_NODROP, "[REF(src)]")

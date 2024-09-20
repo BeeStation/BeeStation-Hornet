@@ -18,19 +18,19 @@
 	. = ..()
 	if(!.)
 		return
-	for(var/mob/living/M in oview(XENOA_TRAIT_BALLOON_HINT_DIST, get_turf(parent.parent)))
+	for(var/mob/living/M in oview(XENOA_TRAIT_BALLOON_HINT_DIST, get_turf(component_parent.parent)))
 		do_hint(M)
 
 /datum/xenoartifact_trait/malfunction/do_hint(mob/user, atom/item)
 	//If they have science goggles, or equivilent, they are shown exatcly what trait this is
 	if(!user?.can_see_reagents())
 		return
-	var/atom/A = parent.parent
-	if(!isturf(A.loc))
-		A = A.loc
-	A.balloon_alert(user, label_name, parent.artifact_type.material_color, offset_y = 8)
+	var/atom/atom_parent = component_parent.parent
+	if(!isturf(atom_parent.loc))
+		atom_parent = atom_parent.loc
+	atom_parent.balloon_alert(user, label_name, component_parent.artifact_type.material_color, offset_y = 8)
 	//show_in_chat doesn't work
-	to_chat(user, "<span class='notice'>[parent.parent] : [label_name]</span>")
+	to_chat(user, "<span class='notice'>[component_parent.parent] : [label_name]</span>")
 
 /*
 	Parallel Entity Retrieval
@@ -61,7 +61,7 @@
 
 //Keep this here so inheritance & poly is easier
 /datum/xenoartifact_trait/malfunction/animal/proc/build_summon()
-	var/turf/T = get_turf(parent.parent)
+	var/turf/T = get_turf(component_parent.parent)
 	var/mob/living/M = new summon_type(T)
 	summons += M
 	RegisterSignal(M, COMSIG_MOB_DEATH, PROC_REF(handle_death))
@@ -109,10 +109,10 @@
 /datum/xenoartifact_trait/malfunction/animal/twin/build_summon(atom/target)
 	if(!target || !isitem(target) && !ismob(target) || length(summons) >= max_summons)
 		return
-	var/mob/living/simple_animal/hostile/twin/T = new(get_turf(parent.parent))
+	var/mob/living/simple_animal/hostile/twin/T = new(get_turf(component_parent.parent))
 	//Setup appearance for evil twin
 	T.appearance = target.appearance
-	T.color = parent.artifact_type.material_color
+	T.color = component_parent.artifact_type.material_color
 	//Handle limit and hardel
 	summons += T
 	RegisterSignal(T, COMSIG_PARENT_QDELETING, PROC_REF(handle_death))
@@ -210,9 +210,9 @@
 	. = ..()
 	if(!.)
 		return
-	var/turf/T = get_turf(parent.parent)
+	var/turf/T = get_turf(component_parent.parent)
 	playsound(T, 'sound/effects/bamf.ogg', 50, TRUE)
-	for(var/turf/open/turf in RANGE_TURFS(max(1, 4*(parent.trait_strength/100)), T))
+	for(var/turf/open/turf in RANGE_TURFS(max(1, 4*(component_parent.trait_strength/100)), T))
 		if(!locate(/obj/effect/safe_fire) in turf)
 			new /obj/effect/safe_fire(turf)
 
@@ -256,10 +256,10 @@
 	. = ..()
 	if(!.)
 		return
-	var/atom/A = parent.parent
-	A.rad_act(max_rad*(parent.trait_strength/100))
+	var/atom/atom_parent = component_parent.parent
+	atom_parent.rad_act(max_rad*(component_parent.trait_strength/100))
 	for(var/atom/target in focus)
-		target.rad_act(max_rad*(parent.trait_strength/100))
+		target.rad_act(max_rad*(component_parent.trait_strength/100))
 	dump_targets()
 	clear_focus()
 
@@ -283,11 +283,11 @@
 
 /datum/xenoartifact_trait/malfunction/explosion/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	var/obj/A = parent.parent
+	var/obj/obj_parent = component_parent.parent
 	//Make the artifact robust so it doesn't destroy itself
-	A.armor = list(MELEE = 20,  BULLET = 0, LASER = 20, ENERGY = 10, BOMB = 500, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 10)
+	obj_parent.armor = list(MELEE = 20,  BULLET = 0, LASER = 20, ENERGY = 10, BOMB = 500, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 10)
 	//Build indicator appearance
 	exploding_indicator = new()
 	exploding_indicator.appearance = mutable_appearance('icons/obj/xenoarchaeology/xenoartifact.dmi', "explosion_warning", plane = LOWEST_EVER_PLANE)
@@ -295,9 +295,9 @@
 	exploding_indicator.vis_flags = VIS_UNDERLAY
 	exploding_indicator.appearance_flags = KEEP_APART
 	//Get it nearby so we can render it later
-	A.vis_contents += exploding_indicator
+	obj_parent.vis_contents += exploding_indicator
 	//Register a signal to cancel the process
-	RegisterSignal(parent, COMSIG_XENOA_CALCIFIED, PROC_REF(cancel_explosion))
+	RegisterSignal(component_parent, COMSIG_XENOA_CALCIFIED, PROC_REF(cancel_explosion))
 
 /datum/xenoartifact_trait/malfunction/explosion/Destroy(force, ...)
 	. = ..()
@@ -307,34 +307,34 @@
 	. = ..()
 	if(!. || exploding)
 		return
-	var/atom/A = parent.parent
-	A.visible_message("<span class='warning'>The [A] begins to heat up, it's delaminating!</span>", allow_inside_usr = TRUE)
-	exploding = addtimer(CALLBACK(src, PROC_REF(explode)), 30*(parent.trait_strength/100) SECONDS, TIMER_STOPPABLE)
+	var/atom/atom_parent = component_parent.parent
+	atom_parent.visible_message("<span class='warning'>The [atom_parent] begins to heat up, it's delaminating!</span>", allow_inside_usr = TRUE)
+	exploding = addtimer(CALLBACK(src, PROC_REF(explode)), 30*(component_parent.trait_strength/100) SECONDS, TIMER_STOPPABLE)
 	//Fancy effect to alert players
-	A.add_filter("explosion_indicator", 1.1, layering_filter(render_source = exploding_indicator.render_target, blend_mode = BLEND_INSET_OVERLAY))
-	A.add_filter("wave_effect", 5, wave_filter(x = 1, size = 0.6))
-	var/filter = A.get_filter("wave_effect")
+	atom_parent.add_filter("explosion_indicator", 1.1, layering_filter(render_source = exploding_indicator.render_target, blend_mode = BLEND_INSET_OVERLAY))
+	atom_parent.add_filter("wave_effect", 5, wave_filter(x = 1, size = 0.6))
+	var/filter = atom_parent.get_filter("wave_effect")
 	animate(filter, offset = 5, time = 5 SECONDS, loop = -1)
 	animate(offset = 0, time = 5 SECONDS)
 
 /datum/xenoartifact_trait/malfunction/explosion/proc/explode()
-	var/atom/A = parent.parent
-	A.remove_filter("explosion_indicator")
-	A.remove_filter("wave_effect")
-	if(parent.calcified) //Just in-case this somehow happens
+	var/atom/atom_parent = component_parent.parent
+	atom_parent.remove_filter("explosion_indicator")
+	atom_parent.remove_filter("wave_effect")
+	if(component_parent.calcified) //Just in-case this somehow happens
 		return
-	explosion(get_turf(parent.parent), max_explosion/3*(parent.trait_strength/100), max_explosion/2*(parent.trait_strength/100), max_explosion*(parent.trait_strength/100), max_explosion*(parent.trait_strength/100))
-	parent.calcify()
+	explosion(get_turf(component_parent.parent), max_explosion/3*(component_parent.trait_strength/100), max_explosion/2*(component_parent.trait_strength/100), max_explosion*(component_parent.trait_strength/100), max_explosion*(component_parent.trait_strength/100))
+	component_parent.calcify()
 
 //Tidy stuff up when we're calcified
 /datum/xenoartifact_trait/malfunction/explosion/proc/cancel_explosion()
 	SIGNAL_HANDLER
 
-	var/atom/A = parent.parent
-	A.remove_filter("explosion_indicator")
-	A.remove_filter("wave_effect")
+	var/atom/atom_parent = component_parent.parent
+	atom_parent.remove_filter("explosion_indicator")
+	atom_parent.remove_filter("wave_effect")
 	deltimer(exploding)
-	UnregisterSignal(parent, COMSIG_XENOA_CALCIFIED)
+	UnregisterSignal(component_parent, COMSIG_XENOA_CALCIFIED)
 
 /*
 	Mass Hallucinatory Injection
@@ -377,7 +377,7 @@
 			var/mob/living/carbon/C = M
 			C.vomit(distance = rand(1, 2))
 		else
-			new /obj/effect/decal/cleanable/vomit(get_turf(parent.parent))
+			new /obj/effect/decal/cleanable/vomit(get_turf(component_parent.parent))
 	dump_targets()
 	clear_focus()
 
@@ -401,7 +401,7 @@
 	for(var/mob/living/carbon/M in focus)
 		var/obj/item/organ/O = M.getorganslot(target_organ_slot)
 		O?.Remove(M)
-		O?.forceMove(get_turf(parent.parent))
+		O?.forceMove(get_turf(component_parent.parent))
 	dump_targets()
 	clear_focus()
 

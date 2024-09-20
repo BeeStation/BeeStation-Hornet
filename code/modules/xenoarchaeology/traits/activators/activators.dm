@@ -22,10 +22,10 @@
 	if(target && HAS_TRAIT(target, TRAIT_ARTIFACT_IGNORE))
 		return FALSE
 	//Stop traits that don't register targets activating when we feel them
-	if(parent?.anti_check(target, type))
+	if(component_parent?.anti_check(target, type))
 		return FALSE
-	parent.register_target(target, force, type)
-	parent.trigger()
+	component_parent.register_target(target, force, type)
+	component_parent.trigger()
 	return TRUE
 
 ///Translates a (atom/target) input
@@ -54,16 +54,16 @@
 /datum/xenoartifact_trait/activator/proc/translation_type_d(datum/source, atom/target)
 	SIGNAL_HANDLER
 
-	var/atom/A = parent?.parent
-	if(!A.density)
+	var/atom/atom_parent = component_parent?.parent
+	if(!atom_parent.density)
 		return
 	trigger_artifact(target)
 
 /datum/xenoartifact_trait/activator/proc/check_item_safety(atom/item)
 	//Anti artifact check
-	var/datum/component/anti_artifact/A = item.GetComponent(/datum/component/anti_artifact)
-	if(A?.charges)
-		A.charges -= 1
+	var/datum/component/anti_artifact/anti_component = item.GetComponent(/datum/component/anti_artifact)
+	if(anti_component?.charges)
+		anti_component.charges -= 1
 		return TRUE
 	//Trait check
 	if(HAS_TRAIT(item, TRAIT_ARTIFACT_IGNORE))
@@ -83,23 +83,23 @@
 
 /datum/xenoartifact_trait/activator/sturdy/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
 	//Register all the relevant signals we trigger from
-	RegisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
-	RegisterSignal(parent?.parent, COMSIG_MOVABLE_IMPACT, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
-	RegisterSignal(parent?.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
-	RegisterSignal(parent?.parent, COMSIG_ITEM_AFTERATTACK, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_c))
-	RegisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
+	RegisterSignal(component_parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
+	RegisterSignal(component_parent?.parent, COMSIG_MOVABLE_IMPACT, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+	RegisterSignal(component_parent?.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+	RegisterSignal(component_parent?.parent, COMSIG_ITEM_AFTERATTACK, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_c))
+	RegisterSignal(component_parent?.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
 
 /datum/xenoartifact_trait/activator/sturdy/remove_parent(datum/source, pensive)
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return ..()
-	UnregisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY)
-	UnregisterSignal(parent?.parent, COMSIG_MOVABLE_IMPACT)
-	UnregisterSignal(parent?.parent, COMSIG_ITEM_ATTACK_SELF)
-	UnregisterSignal(parent?.parent, COMSIG_ITEM_AFTERATTACK)
-	UnregisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND)
+	UnregisterSignal(component_parent?.parent, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(component_parent?.parent, COMSIG_MOVABLE_IMPACT)
+	UnregisterSignal(component_parent?.parent, COMSIG_ITEM_ATTACK_SELF)
+	UnregisterSignal(component_parent?.parent, COMSIG_ITEM_AFTERATTACK)
+	UnregisterSignal(component_parent?.parent, COMSIG_ATOM_ATTACK_HAND)
 	return ..()
 
 /datum/xenoartifact_trait/activator/sturdy/translation_type_b(datum/source, atom/item, atom/target)
@@ -108,14 +108,14 @@
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
 /datum/xenoartifact_trait/activator/sturdy/translation_type_d(datum/source, atom/item, atom/target)
-	var/atom/A = parent?.parent
-	if(!isliving(A?.loc) && !A?.density || check_item_safety(item))
+	var/atom/atom_parent = component_parent?.parent
+	if(!isliving(atom_parent?.loc) && !atom_parent?.density || check_item_safety(item))
 		return
 	trigger_artifact(target || item, XENOA_ACTIVATION_TOUCH)
 
 /datum/xenoartifact_trait/activator/sturdy/translation_type_a(datum/source, atom/target)
-	var/atom/A = parent?.parent
-	if(isliving(A?.loc))
+	var/atom/atom_parent = component_parent?.parent
+	if(isliving(atom_parent?.loc))
 		trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 		return
 	trigger_artifact(target)
@@ -150,23 +150,23 @@
 	else
 		if(HAS_TRAIT(target, TRAIT_ARTIFACT_IGNORE))
 			return FALSE
-		if(parent.anti_check(target, type))
+		if(component_parent.anti_check(target, type))
 			return FALSE
 		searching = !searching
 		indicator_hint(searching)
 
 /datum/xenoartifact_trait/activator/sturdy/timed/process(delta_time)
-	if(!searching || search_cooldown_timer || !parent)
+	if(!searching || search_cooldown_timer || !component_parent)
 		return
-	playsound(get_turf(parent?.parent), 'sound/effects/clock_tick.ogg', 60, TRUE)
-	for(var/atom/target in oview(parent.target_range, get_turf(parent?.parent)))
+	playsound(get_turf(component_parent?.parent), 'sound/effects/clock_tick.ogg', 60, TRUE)
+	for(var/atom/target in oview(component_parent.target_range, get_turf(component_parent?.parent)))
 		//Only add mobs
 		if(!ismob(target))
 			continue
 		trigger_artifact(target, XENOA_ACTIVATION_CONTACT, FALSE, TRUE)
 		break
-	if(!length(parent.targets))
-		parent.trigger()
+	if(!length(component_parent.targets))
+		component_parent.trigger()
 	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 
 /datum/xenoartifact_trait/activator/sturdy/timed/get_dictionary_hint()
@@ -179,8 +179,8 @@
 	search_cooldown_timer = null
 
 /datum/xenoartifact_trait/activator/sturdy/timed/proc/indicator_hint(engaging = FALSE)
-	var/atom/A = parent?.parent
-	A?.balloon_alert_to_viewers("[A] [!engaging ? "stops ticking" : "starts ticking"]!")
+	var/atom/atom_parent = component_parent?.parent
+	atom_parent?.balloon_alert_to_viewers("[atom_parent] [!engaging ? "stops ticking" : "starts ticking"]!")
 
 /*
 	Flammable
@@ -199,18 +199,18 @@
 
 /datum/xenoartifact_trait/activator/flammable/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	RegisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
-	RegisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
-	RegisterSignal(parent?.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+	RegisterSignal(component_parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
+	RegisterSignal(component_parent?.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
+	RegisterSignal(component_parent?.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
 
 /datum/xenoartifact_trait/activator/flammable/remove_parent(datum/source, pensive)
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return ..()
-	UnregisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY)
-	UnregisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND)
-	UnregisterSignal(parent?.parent, COMSIG_ITEM_ATTACK_SELF)
+	UnregisterSignal(component_parent?.parent, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(component_parent?.parent, COMSIG_ATOM_ATTACK_HAND)
+	UnregisterSignal(component_parent?.parent, COMSIG_ITEM_ATTACK_SELF)
 	return ..()
 
 /datum/xenoartifact_trait/activator/flammable/translation_type_a(datum/source, atom/target)
@@ -223,7 +223,7 @@
 	if(isitem(I) && I.is_hot() && !check_item_safety(item))
 		if(HAS_TRAIT(item, TRAIT_ARTIFACT_IGNORE))
 			return FALSE
-		if(parent.anti_check(target, XENOA_ACTIVATION_TOUCH))
+		if(component_parent.anti_check(target, XENOA_ACTIVATION_TOUCH))
 			return FALSE
 		lit = TRUE
 		indicator_hint(1)
@@ -231,8 +231,8 @@
 		START_PROCESSING(SSobj, src)
 
 /datum/xenoartifact_trait/activator/flammable/translation_type_d(datum/source, atom/target)
-	var/atom/A = parent?.parent
-	if(A?.density)
+	var/atom/atom_parent = component_parent?.parent
+	if(atom_parent?.density)
 		lit = FALSE
 		indicator_hint()
 
@@ -241,7 +241,7 @@
 		return ..()
 	if(search_cooldown_timer)
 		return
-	for(var/atom/target in oview(parent.target_range, get_turf(parent?.parent)))
+	for(var/atom/target in oview(component_parent.target_range, get_turf(component_parent?.parent)))
 		//Only add mobs
 		if(!ismob(target))
 			continue
@@ -261,8 +261,8 @@
 	search_cooldown_timer = null
 
 /datum/xenoartifact_trait/activator/flammable/proc/indicator_hint(engaging = FALSE)
-	var/atom/A = parent?.parent
-	A?.balloon_alert_to_viewers("[A] [engaging ? "flicks on" : "snuffs out."]!")
+	var/atom/atom_parent = component_parent?.parent
+	atom_parent?.balloon_alert_to_viewers("[atom_parent] [engaging ? "flicks on" : "snuffs out."]!")
 
 /*
 	Signal
@@ -301,7 +301,7 @@
 
 /datum/xenoartifact_trait/activator/signal/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
 	setup_generic_item_hint()
 	sound_timer = addtimer(CALLBACK(src, PROC_REF(do_sonar)), 5 SECONDS)
@@ -316,7 +316,7 @@
 	if(!ismovable(target))
 		return
 	//Build particle holder
-	particle_holder = new(parent?.parent)
+	particle_holder = new(component_parent?.parent)
 	particle_holder.add_emitter(/obj/emitter/sonar, "sonar", 9)
 	//Layer onto parent
 	target.vis_contents += particle_holder
@@ -346,23 +346,23 @@
 		return
 	if(signal.data["code"] != code)
 		return
-	for(var/atom/target in oview(parent.target_range, get_turf(parent?.parent)))
+	for(var/atom/target in oview(component_parent.target_range, get_turf(component_parent?.parent)))
 		//Only add mobs
 		if(!ismob(target))
 			continue
 		trigger_artifact(target, XENOA_ACTIVATION_CONTACT)
 		break
-	if(!length(parent.targets))
-		parent.trigger()
+	if(!length(component_parent.targets))
+		component_parent.trigger()
 
 /datum/xenoartifact_trait/activator/signal/proc/do_sonar(repeat = TRUE)
 	if(QDELETED(src))
 		return
-	var/atom/A = parent.parent
-	if(isturf(A.loc))
-		playsound(get_turf(parent?.parent), 'sound/effects/ping.ogg', 60, TRUE)
+	var/atom/atom_parent = component_parent.parent
+	if(isturf(atom_parent.loc))
+		playsound(get_turf(component_parent?.parent), 'sound/effects/ping.ogg', 60, TRUE)
 	var/rand_time = rand(5, 15) SECONDS
-	sound_timer = addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time / (isturf(A.loc) ? 2 : 1))
+	sound_timer = addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time / (isturf(atom_parent.loc) ? 2 : 1))
 
 /*
 	ABSTRACT
@@ -378,14 +378,14 @@
 
 /datum/xenoartifact_trait/activator/item_key/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	RegisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
+	RegisterSignal(component_parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
 
 /datum/xenoartifact_trait/activator/item_key/remove_parent(datum/source, pensive)
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return ..()
-	UnregisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(component_parent?.parent, COMSIG_PARENT_ATTACKBY)
 	return ..()
 
 /datum/xenoartifact_trait/activator/item_key/translation_type_b(datum/source, atom/item, atom/target)
@@ -393,7 +393,7 @@
 		. = item?.type == key_item.type
 	else
 		. = istype(item, key_item)
-	return (. && !parent.use_cooldown_timer)
+	return (. && !component_parent.use_cooldown_timer)
 
 /*
 	Cell
@@ -448,9 +448,9 @@
 	return list(XENOA_TRAIT_HINT_TRIGGER("coin"), XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("accept coins to activate"))
 
 /datum/xenoartifact_trait/activator/item_key/greedy/proc/handle_input(atom/item, atom/target)
-	var/atom/movable/AM = item
-	AM.forceMove(parent.parent)
-	playsound(parent.parent, 'sound/items/coinflip.ogg', 50, TRUE)
+	var/atom/movable/movable = item
+	movable.forceMove(component_parent.parent)
+	playsound(component_parent.parent, 'sound/items/coinflip.ogg', 50, TRUE)
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
 //Credit variant
@@ -469,11 +469,11 @@
 /datum/xenoartifact_trait/activator/item_key/greedy/credit/handle_input(atom/item, atom/target)
 	var/obj/item/holochip/C = item
 	if(C.credits < credit_requirement)
-		to_chat(target, "<span class='warning'>[parent.parent] demands more than your meager offering!</span>")
-		playsound(parent.parent, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		to_chat(target, "<span class='warning'>[component_parent.parent] demands more than your meager offering!</span>")
+		playsound(component_parent.parent, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
-	C.forceMove(parent.parent)
-	playsound(parent.parent, 'sound/machines/terminal_insert_disc.ogg', 50, TRUE)
+	C.forceMove(component_parent.parent)
+	playsound(component_parent.parent, 'sound/machines/terminal_insert_disc.ogg', 50, TRUE)
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 	credit_requirement += 1
 
@@ -491,14 +491,14 @@
 
 /datum/xenoartifact_trait/activator/weighted/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	RegisterSignal(parent?.parent, COMSIG_ITEM_EQUIPPED, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
+	RegisterSignal(component_parent?.parent, COMSIG_ITEM_EQUIPPED, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
 
 /datum/xenoartifact_trait/activator/weighted/remove_parent(datum/source, pensive)
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return ..()
-	UnregisterSignal(parent?.parent, COMSIG_ITEM_EQUIPPED)
+	UnregisterSignal(component_parent?.parent, COMSIG_ITEM_EQUIPPED)
 	return ..()
 
 /datum/xenoartifact_trait/activator/weighted/translation_type_d(datum/source, atom/target)
@@ -518,14 +518,14 @@
 
 /datum/xenoartifact_trait/activator/pitched/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	RegisterSignal(parent?.parent, COMSIG_MOVABLE_IMPACT, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+	RegisterSignal(component_parent?.parent, COMSIG_MOVABLE_IMPACT, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
 
 /datum/xenoartifact_trait/activator/pitched/remove_parent(datum/source, pensive)
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return ..()
-	UnregisterSignal(parent?.parent, COMSIG_MOVABLE_IMPACT)
+	UnregisterSignal(component_parent?.parent, COMSIG_MOVABLE_IMPACT)
 	return ..()
 
 /*
@@ -547,7 +547,7 @@
 	var/maneater = FALSE
 
 /datum/xenoartifact_trait/activator/sturdy/hungry/trigger_artifact(atom/target, type, force)
-	if(parent.anti_check(target, type) || parent.calcified || get_dist(target, parent?.parent) > parent?.target_range)
+	if(component_parent.anti_check(target, type) || component_parent.calcified || get_dist(target, component_parent?.parent) > component_parent?.target_range)
 		return FALSE
 	//Find a food item
 	var/mob/living/M = target
@@ -555,29 +555,29 @@
 	if(isliving(M))
 		var/list/sides = list("left", "right")
 		for(var/i in sides)
-			var/atom/A = M.get_held_items_for_side(i)
-			if(A) //Not pre-checking A can cause some runtimes
-				edible = SEND_SIGNAL(A, COMSIG_FOOD_FEED_ITEM, parent?.parent)
+			var/atom/atom_parent = M.get_held_items_for_side(i)
+			if(atom_parent) //Not pre-checking atom_parent can cause some runtimes
+				edible = SEND_SIGNAL(atom_parent, COMSIG_FOOD_FEED_ITEM, component_parent?.parent)
 	if(!edible && target)
-		edible = SEND_SIGNAL(target, COMSIG_FOOD_FEED_ITEM, parent?.parent)
+		edible = SEND_SIGNAL(target, COMSIG_FOOD_FEED_ITEM, component_parent?.parent)
 	//If food
-	var/atom/movable/AM = parent.parent
+	var/atom/movable/movable = component_parent.parent
 	if(edible)
-		playsound(AM.loc, 'sound/items/eatfood.ogg', 60, 1, 1)
+		playsound(movable.loc, 'sound/items/eatfood.ogg', 60, 1, 1)
 		return ..()
 	//Otherwise, nibble the target, and spit them out, they're gross, ew
 	if(isliving(M) && !bite_timer)
-		playsound(AM.loc, 'sound/weapons/bite.ogg', 60, 1, 1)
-		AM.do_attack_animation(M)
+		playsound(movable.loc, 'sound/weapons/bite.ogg', 60, 1, 1)
+		movable.do_attack_animation(M)
 		var/affecting = M.get_bodypart(pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 		var/armour_block = M.run_armor_check(null, MELEE, armour_penetration = 0)
 		M.apply_damage(15, BRUTE, affecting, armour_block)
 		bite_timer = addtimer(CALLBACK(src, PROC_REF(handle_timer)), bite_cooldown, TIMER_STOPPABLE)
 		if(!maneater)
-			M.visible_message("<span class='warning'>[AM] bites [M], it didn't quite like the taste!</span>", "<span class='warning'>[AM] bites you!\n[AM] doesn't like that taste!</span>")
+			M.visible_message("<span class='warning'>[movable] bites [M], it didn't quite like the taste!</span>", "<span class='warning'>[movable] bites you!\n[movable] doesn't like that taste!</span>")
 			return FALSE
 		else
-			M.visible_message("<span class='warning'>[AM] bites [M], it loves the taste!</span>", "<span class='warning'>[AM] bites you!\n[AM] loves that taste!</span>")
+			M.visible_message("<span class='warning'>[movable] bites [M], it loves the taste!</span>", "<span class='warning'>[movable] bites you!\n[movable] loves that taste!</span>")
 			return ..()
 	return FALSE
 
@@ -622,22 +622,22 @@
 
 /datum/xenoartifact_trait/activator/edible/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	parent.parent.AddComponent(/datum/component/edible,\
+	component_parent.parent.AddComponent(/datum/component/edible,\
 		initial_reagents = food_reagents,\
 		foodtypes = RAW | MEAT | GORE,\
 		volume = INFINITY,\
 		pre_eat = CALLBACK(src, PROC_REF(pre_eat)),\
 		after_eat = CALLBACK(src, PROC_REF(after_eat)),\
 		eat_time = bite_time,\
-		bite_consumption = (max_bite_reagents * (parent.trait_strength/100)))
-	RegisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
+		bite_consumption = (max_bite_reagents * (component_parent.trait_strength/100)))
+	RegisterSignal(component_parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
 
 /datum/xenoartifact_trait/activator/edible/remove_parent(datum/source, pensive = TRUE)
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return ..()
-	var/datum/component/edible/E = parent.parent.GetComponent(/datum/component/edible)
+	var/datum/component/edible/E = component_parent.parent.GetComponent(/datum/component/edible)
 	E.RemoveComponent()
 	return ..()
 
@@ -685,11 +685,11 @@
 
 /datum/xenoartifact_trait/activator/edible/random/after_eat(mob/living/eater, mob/feeder, bitecount, bitesize)
 	. = ..()
-	var/atom/A = parent.parent
-	for(var/datum/reagent/R in A.reagents.reagent_list)
+	var/atom/atom_parent = component_parent.parent
+	for(var/datum/reagent/R in atom_parent.reagents.reagent_list)
 		if(R.type in food_reagents)
 			R.volume = 300/random_reagents
-	A.reagents.update_total()
+	atom_parent.reagents.update_total()
 
 /*
 	Observational
@@ -703,15 +703,15 @@
 
 /datum/xenoartifact_trait/activator/examine/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
 	//Register all the relevant signals we trigger from
-	RegisterSignal(parent?.parent, COMSIG_PARENT_EXAMINE, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+	RegisterSignal(component_parent?.parent, COMSIG_PARENT_EXAMINE, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
 
 /datum/xenoartifact_trait/activator/examine/remove_parent(datum/source, pensive)
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return ..()
-	UnregisterSignal(parent?.parent, COMSIG_PARENT_EXAMINE)
+	UnregisterSignal(component_parent?.parent, COMSIG_PARENT_EXAMINE)
 	return ..()
 
 /datum/xenoartifact_trait/activator/examine/translation_type_a(datum/source, atom/target)

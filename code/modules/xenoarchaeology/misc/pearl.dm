@@ -25,24 +25,24 @@
 	var/list/pearl_index = list(TRAIT_PRIORITY_ACTIVATOR = 0, TRAIT_PRIORITY_MINOR = 0, TRAIT_PRIORITY_MAJOR = 0, TRAIT_PRIORITY_MALFUNCTION = 0)
 	var/datum/xenoartifact_material/pearl/material = /datum/xenoartifact_material/pearl
 	var/list/trait_blacklist = list()
-	for(var/obj/item/sticker/trait_pearl/P in target.contents)
-		trait_blacklist += P.stored_trait.blacklist_traits
-		trait_blacklist += P.stored_trait.type
+	for(var/obj/item/sticker/trait_pearl/pearl in target.contents)
+		trait_blacklist += pearl.stored_trait.blacklist_traits
+		trait_blacklist += pearl.stored_trait.type
 		//Just check against generic pearl limits
-		if(istype(P.stored_trait, /datum/xenoartifact_trait/activator) && pearl_index[TRAIT_PRIORITY_ACTIVATOR] < initial(material.trait_activators))
+		if(istype(pearl.stored_trait, /datum/xenoartifact_trait/activator) && pearl_index[TRAIT_PRIORITY_ACTIVATOR] < initial(material.trait_activators))
 			pearl_index[TRAIT_PRIORITY_ACTIVATOR] += 1
-		else if(istype(P.stored_trait, /datum/xenoartifact_trait/minor) && pearl_index[TRAIT_PRIORITY_MINOR] < initial(material.trait_minors))
+		else if(istype(pearl.stored_trait, /datum/xenoartifact_trait/minor) && pearl_index[TRAIT_PRIORITY_MINOR] < initial(material.trait_minors))
 			pearl_index[TRAIT_PRIORITY_MINOR] += 1
-		else if(istype(P.stored_trait, /datum/xenoartifact_trait/major) && pearl_index[TRAIT_PRIORITY_MAJOR] < initial(material.trait_majors))
+		else if(istype(pearl.stored_trait, /datum/xenoartifact_trait/major) && pearl_index[TRAIT_PRIORITY_MAJOR] < initial(material.trait_majors))
 			pearl_index[TRAIT_PRIORITY_MAJOR] += 1
-		else if(istype(P.stored_trait, /datum/xenoartifact_trait/malfunction) && pearl_index[TRAIT_PRIORITY_MALFUNCTION] < initial(material.trait_malfunctions))
+		else if(istype(pearl.stored_trait, /datum/xenoartifact_trait/malfunction) && pearl_index[TRAIT_PRIORITY_MALFUNCTION] < initial(material.trait_malfunctions))
 			pearl_index[TRAIT_PRIORITY_MALFUNCTION] += 1
 		else
 			to_chat(user, "<span class='warning'>You are unable to affix [src] to [target].</span>")
 			return
 	//Go through blacklist manually becuase ``in`` is a bitch and doesn't work right, even with ``.type``
-	for(var/i in trait_blacklist)
-		if(istype(stored_trait, i))
+	for(var/trait in trait_blacklist)
+		if(istype(stored_trait, trait))
 			to_chat(user, "<span class='warning'>You are unable to affix [src] to [target].</span>")
 			return
 	//Affix if we're chilling

@@ -38,11 +38,11 @@
 	if(!can_stick(target) || !proximity_flag)
 		return
 	var/sound_in = 'sound/machines/buzz-sigh.ogg'
-	var/datum/component/xenoartifact/X = target.GetComponent(/datum/component/xenoartifact)
-	if(X)
-		if(X.calibrated)
+	var/datum/component/xenoartifact/artifact_component = target.GetComponent(/datum/component/xenoartifact)
+	if(artifact_component)
+		if(artifact_component.calibrated)
 			sound_in = 'sound/machines/click.ogg'
-			RegisterSignal(X, COMSIG_XENOA_TRIGGER, PROC_REF(catch_activation))
+			RegisterSignal(artifact_component, COMSIG_XENOA_TRIGGER, PROC_REF(catch_activation))
 		else
 			say("Error: [target] needs to be calibrated.")
 	else
@@ -66,7 +66,7 @@
 		//Message
 		if(!use_radio)
 			return
-		var/datum/component/xenoartifact/X = source
-		var/message = "[X.parent] has generated [reward_amount] points of [reward] at [get_area(get_turf(src))]."
+		var/datum/component/xenoartifact/artifact_component = source
+		var/message = "[artifact_component.parent] has generated [reward_amount] points of [reward] at [get_area(get_turf(src))]."
 		say(message)
 		radio?.talk_into(src, message, RADIO_CHANNEL_SCIENCE)

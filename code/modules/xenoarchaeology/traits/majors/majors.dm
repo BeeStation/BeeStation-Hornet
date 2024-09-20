@@ -14,7 +14,7 @@
 	. = ..()
 	if(!.)
 		return
-	for(var/mob/living/M in view(XENOA_TRAIT_BALLOON_HINT_DIST, get_turf(parent.parent)))
+	for(var/mob/living/M in view(XENOA_TRAIT_BALLOON_HINT_DIST, get_turf(component_parent.parent)))
 		do_hint(M)
 
 /*
@@ -36,22 +36,22 @@
 	. = ..()
 	if(!.)
 		return
-	playsound(get_turf(parent.parent), 'sound/machines/defib_zap.ogg', 50, TRUE)
-	do_sparks(3, FALSE, parent.parent)
+	playsound(get_turf(component_parent.parent), 'sound/machines/defib_zap.ogg', 50, TRUE)
+	do_sparks(3, FALSE, component_parent.parent)
 	//electrocute targets
 	for(var/atom/target in focus)
 		if(iscarbon(target))
 			var/mob/living/carbon/victim = target
-			victim.electrocute_act(max_damage*(parent.trait_strength/100), parent.parent, 1, 1) //Deal a max of 25
+			victim.electrocute_act(max_damage*(component_parent.trait_strength/100), component_parent.parent, 1, 1) //Deal a max of 25
 		else if(istype(target, /obj/item/stock_parts/cell))
 			var/obj/item/stock_parts/cell/C = target
-			C.give((parent.trait_strength/100)*C.maxcharge) //Yes, this is potentially potentially powerful, but it will be cool
-		var/atom/log_atom = parent.parent
-		log_game("[parent] in [log_atom] electrocuted [key_name_admin(target)] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
+			C.give((component_parent.trait_strength/100)*C.maxcharge) //Yes, this is potentially potentially powerful, but it will be cool
+		var/atom/log_atom = component_parent.parent
+		log_game("[component_parent] in [log_atom] electrocuted [key_name_admin(target)] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 	//If there's an exposed cable below us, charge it
-	var/obj/structure/cable/C = locate(/obj/structure/cable) in get_turf(parent.parent)
+	var/obj/structure/cable/C = locate(/obj/structure/cable) in get_turf(component_parent.parent)
 	if(C?.invisibility <= UNDERFLOOR_HIDDEN)
-		C.powernet?.newavail += max_cable_charge*(parent.trait_strength/100)
+		C.powernet?.newavail += max_cable_charge*(component_parent.trait_strength/100)
 	//Get rid of anything else, since we can't interact with it
 	dump_targets()
 	//Tidy up focus too
@@ -81,23 +81,23 @@
 			if(M.anchored)
 				unregister_target(target)
 				continue
-			var/atom/movable/AM = parent.parent
+			var/atom/movable/movable = component_parent.parent
 			//handle being held
-			if(!isturf(AM.loc) && locate(AM.loc) in focus)
-				if(isliving(AM.loc))
-					var/mob/living/L = AM.loc
-					L.dropItemToGround(AM, TRUE)
+			if(!isturf(movable.loc) && locate(movable.loc) in focus)
+				if(isliving(movable.loc))
+					var/mob/living/L = movable.loc
+					L.dropItemToGround(movable, TRUE)
 				else
-					AM.forceMove(get_turf(AM.loc))
-			M.forceMove(AM)
+					movable.forceMove(get_turf(movable.loc))
+			M.forceMove(movable)
 			//Buckle targets to artifact
-			AM.buckle_mob(M)
+			movable.buckle_mob(M)
 			//Paralyze so they don't break shit, I know they would if they were able to move
 			if(isliving(M))
 				var/mob/living/L = M
-				L.Paralyze(hold_time*(parent.trait_strength/100), ignore_canstun = TRUE)
+				L.Paralyze(hold_time*(component_parent.trait_strength/100), ignore_canstun = TRUE)
 			//Add timer to undo this - becuase the hold time is longer than an actual artifact cooldown, we need to do this per-mob
-			addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/xenoartifact_trait, un_trigger), M), hold_time*(parent.trait_strength/100))
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/xenoartifact_trait, un_trigger), M), hold_time*(component_parent.trait_strength/100))
 		else
 			unregister_target(target)
 	clear_focus()
@@ -106,11 +106,11 @@
 	focus = override ? list(override) : targets
 	if(!length(focus))
 		return ..()
-	var/atom/movable/AM = parent.parent
-	AM.unbuckle_all_mobs()
+	var/atom/movable/movable = component_parent.parent
+	movable.unbuckle_all_mobs()
 	for(var/atom/movable/target in focus)
-		if(target.loc == AM) //If they somehow get out
-			target.forceMove(get_turf(AM))
+		if(target.loc == movable) //If they somehow get out
+			target.forceMove(get_turf(movable))
 			if(isliving(target))
 				var/mob/living/L = target
 				L.Knockdown(2 SECONDS)
@@ -138,10 +138,10 @@
 	. = ..()
 	if(!.)
 		return
-	var/turf/T = get_turf(parent.parent)
+	var/turf/T = get_turf(component_parent.parent)
 	if(!T)
 		return
-	new /obj/effect/timestop(T, 2, ((parent.trait_strength/100)*max_time), parent.parent)
+	new /obj/effect/timestop(T, 2, ((component_parent.trait_strength/100)*max_time), component_parent.parent)
 
 /*
 	Barreled
@@ -170,12 +170,12 @@
 		return
 	for(var/atom/target in focus)
 		var/turf/T = get_turf(target)
-		if(get_turf(parent.parent) == T)
-			T = get_edge_target_turf(parent.parent, pick(NORTH, EAST, SOUTH, WEST))
+		if(get_turf(component_parent.parent) == T)
+			T = get_edge_target_turf(component_parent.parent, pick(NORTH, EAST, SOUTH, WEST))
 		var/obj/projectile/P = new choosen_projectile()
-		P.preparePixelProjectile(T, parent.parent)
+		P.preparePixelProjectile(T, component_parent.parent)
 		P.fire()
-		playsound(get_turf(parent.parent), 'sound/mecha/mech_shield_deflect.ogg', 50, TRUE)
+		playsound(get_turf(component_parent.parent), 'sound/mecha/mech_shield_deflect.ogg', 50, TRUE)
 	dump_targets()
 	clear_focus()
 
@@ -227,10 +227,10 @@
 		if(istype(target, choosen_animal) || IS_DEAD_OR_INCAP(target))
 			continue
 		transform(target)
-		var/atom/log_atom = parent.parent
-		log_game("[parent] in [log_atom] transformed [key_name_admin(target)] into [choosen_animal] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
+		var/atom/log_atom = component_parent.parent
+		log_game("[component_parent] in [log_atom] transformed [key_name_admin(target)] into [choosen_animal] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 		//Add timer to undo this
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/xenoartifact_trait, un_trigger), target), animal_time*(parent.trait_strength/100))
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/xenoartifact_trait, un_trigger), target), animal_time*(component_parent.trait_strength/100))
 	clear_focus()
 
 /datum/xenoartifact_trait/major/animalize/un_trigger(atom/override, handle_parent = FALSE)
@@ -307,13 +307,13 @@
 	INVOKE_ASYNC(src, PROC_REF(do_emp)) //empluse() calls stoplag(), which calls sleep()
 
 /datum/xenoartifact_trait/major/emp/proc/do_emp()
-	var/turf/T = get_turf(parent.parent)
+	var/turf/T = get_turf(component_parent.parent)
 	if(!T)
 		return
 	playsound(T, 'sound/magic/disable_tech.ogg', 50, TRUE)
-	empulse(T, max(1, parent.trait_strength*0.03), max(1, parent.trait_strength*0.05, 1))
-	var/atom/log_atom = parent.parent
-	log_game("[parent] in [log_atom] made an EMP at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
+	empulse(T, max(1, component_parent.trait_strength*0.03), max(1, component_parent.trait_strength*0.05, 1))
+	var/atom/log_atom = component_parent.parent
+	log_game("[component_parent] in [log_atom] made an EMP at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 
 /*
 	Displaced
@@ -333,9 +333,9 @@
 		return
 	for(var/atom/movable/target in focus)
 		if(!target.anchored)
-			do_teleport(target, get_turf(target), (parent.trait_strength*0.3)+1, channel = TELEPORT_CHANNEL_BLUESPACE)
-			var/atom/log_atom = parent.parent
-			log_game("[parent] in [log_atom] teleported [key_name_admin(target)] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
+			do_teleport(target, get_turf(target), (component_parent.trait_strength*0.3)+1, channel = TELEPORT_CHANNEL_BLUESPACE)
+			var/atom/log_atom = component_parent.parent
+			log_game("[component_parent] in [log_atom] teleported [key_name_admin(target)] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 		unregister_target(target)
 	dump_targets()
 	clear_focus()
@@ -374,9 +374,9 @@
 
 /datum/xenoartifact_trait/major/illuminating/proc/do_light()
 	lit = !lit
-	var/atom/light_source = parent.parent
+	var/atom/light_source = component_parent.parent
 	if(lit)
-		light_source.set_light(parent.trait_strength*0.04, min(parent.trait_strength*0.1, 10), color)
+		light_source.set_light(component_parent.trait_strength*0.04, min(component_parent.trait_strength*0.1, 10), color)
 	else
 		light_source.set_light(0, 0)
 
@@ -391,9 +391,9 @@
 
 /datum/xenoartifact_trait/major/illuminating/shadow/do_light()
 	lit = !lit
-	var/atom/light_source = parent.parent
+	var/atom/light_source = component_parent.parent
 	if(lit)
-		light_source.set_light(parent.trait_strength*0.04, min(parent.trait_strength*0.1, 10)*-1, color)
+		light_source.set_light(component_parent.trait_strength*0.04, min(component_parent.trait_strength*0.1, 10)*-1, color)
 	else
 		light_source.set_light(0, 0)
 
@@ -421,22 +421,22 @@
 	. = ..()
 	if(!.)
 		return
-	var/time = wall_time*(parent.trait_strength/100)
+	var/time = wall_time*(component_parent.trait_strength/100)
 	//Don't use a switch case, we just pass through the ifs and add walls as we go
 	if(wall_size >= 1)
-		new /obj/effect/forcefield/xenoartifact_type(get_turf(parent.parent), time)
+		new /obj/effect/forcefield/xenoartifact_type(get_turf(component_parent.parent), time)
 	if(wall_size >= 2)
 		//If we're not making a symetrical design, pick a random orientation
 		var/outcome = pick(0, 1)
 		if(outcome || wall_size >= 3)
-			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, NORTH), time)
-			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, SOUTH), time)
+			new /obj/effect/forcefield/xenoartifact_type(get_step(component_parent.parent, NORTH), time)
+			new /obj/effect/forcefield/xenoartifact_type(get_step(component_parent.parent, SOUTH), time)
 		else
-			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, EAST), time)
-			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, WEST), time)
+			new /obj/effect/forcefield/xenoartifact_type(get_step(component_parent.parent, EAST), time)
+			new /obj/effect/forcefield/xenoartifact_type(get_step(component_parent.parent, WEST), time)
 	if(wall_size >= 3)
-		new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, WEST), time)
-		new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, EAST), time)
+		new /obj/effect/forcefield/xenoartifact_type(get_step(component_parent.parent, WEST), time)
+		new /obj/effect/forcefield/xenoartifact_type(get_step(component_parent.parent, EAST), time)
 
 /datum/xenoartifact_trait/major/forcefield/get_dictionary_hint()
 	. = ..()
@@ -467,13 +467,13 @@
 	. = ..()
 	if(!.)
 		return
-	var/atom/A = parent.parent
-	var/final_time = exchange_window*(parent.trait_strength/100)
+	var/atom/atom_parent = component_parent.parent
+	var/final_time = exchange_window*(component_parent.trait_strength/100)
 	for(var/mob/living/target in focus)
 		//Build exchange hint
-		if(!A.render_target)
-			A.render_target = "[REF(A)]"
-		target.add_filter("exchange_overlay", 100, layering_filter(render_source = A.render_target))
+		if(!atom_parent.render_target)
+			atom_parent.render_target = "[REF(atom_parent)]"
+		target.add_filter("exchange_overlay", 100, layering_filter(render_source = atom_parent.render_target))
 		//Animate it
 		var/filter = target.get_filter("exchange_overlay")
 		if(filter)
@@ -568,9 +568,9 @@
 		if(target.reagents)
 			playsound(get_turf(target), pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE)
 			var/datum/reagents/R = target.reagents
-			R.add_reagent(formula, formula_amount*(parent.trait_strength/100))
-			var/atom/log_atom = parent.parent
-			log_game("[parent] in [log_atom] injected [key_name_admin(target)] with [formula_amount*(parent.trait_strength/100)]u of [formula] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
+			R.add_reagent(formula, formula_amount*(component_parent.trait_strength/100))
+			var/atom/log_atom = component_parent.parent
+			log_game("[component_parent] in [log_atom] injected [key_name_admin(target)] with [formula_amount*(component_parent.trait_strength/100)]u of [formula] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 		unregister_target(target)
 	dump_targets()
 	clear_focus()
@@ -622,13 +622,13 @@
 	for(var/atom/movable/target in focus)
 		if(target.anchored)
 			return
-		var/turf/parent_turf = get_turf(parent.parent)
+		var/turf/parent_turf = get_turf(component_parent.parent)
 		var/turf/T
 		if(force_dir)
 			T = get_edge_target_turf(parent_turf, get_dir(parent_turf, get_turf(target)) || pick(NORTH, EAST, SOUTH, WEST))
 		else
 			T = parent_turf
-		target.throw_at(T, max_force*(parent.trait_strength/100), 4)
+		target.throw_at(T, max_force*(component_parent.trait_strength/100), 4)
 		unregister_target(target)
 	dump_targets()
 	clear_focus()
@@ -663,7 +663,7 @@
 	. = ..()
 	if(!.)
 		return
-	playsound(get_turf(parent.parent), noise, 50, FALSE)
+	playsound(get_turf(component_parent.parent), noise, 50, FALSE)
 
 /datum/xenoartifact_trait/major/noise/get_dictionary_hint()
 	. = ..()
@@ -712,7 +712,7 @@
 	. = ..()
 	if(!.)
 		return
-	var/turf/T = get_turf(parent.parent)
+	var/turf/T = get_turf(component_parent.parent)
 	var/datum/gas_mixture/air = T.return_air()
 	var/input_id = initial(choosen_target.id)
 	var/output_id = initial(choosen_exchange.id)
@@ -745,14 +745,14 @@
 
 /datum/xenoartifact_trait/major/shadow_realm/register_parent(datum/source)
 	. = ..()
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return
-	GLOB.destabliization_exits += parent?.parent
+	GLOB.destabliization_exits += component_parent?.parent
 
 /datum/xenoartifact_trait/major/shadow_realm/remove_parent(datum/source, pensive)
-	if(!parent?.parent)
+	if(!component_parent?.parent)
 		return ..()
-	GLOB.destabliization_exits -= parent.parent
+	GLOB.destabliization_exits -= component_parent.parent
 	return ..()
 
 /datum/xenoartifact_trait/major/shadow_realm/trigger(datum/source, _priority, atom/override)
@@ -763,13 +763,13 @@
 		if(target.anchored)
 			continue
 		//handle being held
-		var/atom/movable/AM = parent.parent
-		if(!isturf(AM.loc) && locate(AM.loc) in focus)
-			if(isliving(AM.loc))
-				var/mob/living/L = AM.loc
-				L.dropItemToGround(AM, TRUE)
+		var/atom/movable/movable = component_parent.parent
+		if(!isturf(movable.loc) && locate(movable.loc) in focus)
+			if(isliving(movable.loc))
+				var/mob/living/L = movable.loc
+				L.dropItemToGround(movable, TRUE)
 			else
-				AM.forceMove(get_turf(AM.loc))
+				movable.forceMove(get_turf(movable.loc))
 		//Banish target
 		target.forceMove(pick(GLOB.destabilization_spawns))
 	dump_targets()
@@ -801,7 +801,7 @@
 
 /datum/xenoartifact_trait/major/smoke/proc/make_smoke()
 	var/datum/effect_system/smoke_spread/E = new()
-	E.set_up(max_size*(parent.trait_strength/100), get_turf(parent.parent))
+	E.set_up(max_size*(component_parent.trait_strength/100), get_turf(component_parent.parent))
 	E.start()
 
 //Foam variant
@@ -817,7 +817,7 @@
 
 /datum/xenoartifact_trait/major/smoke/foam/make_smoke()
 	var/datum/effect_system/foam_spread/E = new()
-	E.set_up(max_size*(parent.trait_strength/100), get_turf(parent.parent))
+	E.set_up(max_size*(component_parent.trait_strength/100), get_turf(component_parent.parent))
 	E.start()
 
 //Chem smoke variant
@@ -842,7 +842,7 @@
 	var/datum/effect_system/smoke_spread/chem/E = new()
 	var/datum/reagents/R = new(formula_amount)
 	R.add_reagent(formula, formula_amount)
-	E.set_up(R, max_size*(parent.trait_strength/100), get_turf(parent.parent))
+	E.set_up(R, max_size*(component_parent.trait_strength/100), get_turf(component_parent.parent))
 	E.start()
 
 /datum/xenoartifact_trait/major/smoke/chem/get_dictionary_hint()
@@ -861,7 +861,7 @@
 	var/datum/effect_system/foam_spread/E = new()
 	var/datum/reagents/R = new(formula_amount)
 	R.add_reagent(formula, formula_amount)
-	E.set_up(max_size*(parent.trait_strength/100), get_turf(parent.parent), R)
+	E.set_up(max_size*(component_parent.trait_strength/100), get_turf(component_parent.parent), R)
 	E.start()
 
 /datum/xenoartifact_trait/major/smoke/chem/foam/get_dictionary_hint()
@@ -974,8 +974,8 @@
 	. = ..()
 	if(!.)
 		return
-	var/turf/T = get_turf(parent.parent)
-	var/flash_range = max_flash_range * (parent.trait_strength/100)
+	var/turf/T = get_turf(component_parent.parent)
+	var/flash_range = max_flash_range * (component_parent.trait_strength/100)
 	playsound(T, 'sound/weapons/flashbang.ogg', 100, TRUE, 8, 0.9)
 	new /obj/effect/dummy/lighting_obj (T, flash_range + 2, 4, COLOR_WHITE, 2)
 	for(var/mob/living/M in viewers(flash_range, T))
@@ -991,7 +991,7 @@
 	//When distance is 0, will be 1
 	//When distance is 7, will be 0
 	//Can be less than 0 due to hearers being a circular radius.
-	var/distance_proportion = max(1 - (distance / (max_flash_range * (parent.trait_strength/100))), 0)
+	var/distance_proportion = max(1 - (distance / (max_flash_range * (component_parent.trait_strength/100))), 0)
 
 	if(M.flash_act(intensity = 1, affect_silicon = 1))
 		if(distance_proportion)
@@ -1005,8 +1005,8 @@
 		return
 	var/distance = max(0,get_dist(get_turf(src),T))
 	M.show_message("<span class='warning'>BANG</span>", MSG_AUDIBLE)
-	var/atom/A = parent.parent
-	if(!distance || A.loc == M || A.loc == M.loc)	//Stop allahu akbarring rooms with this.
+	var/atom/atom_parent = component_parent.parent
+	if(!distance || atom_parent.loc == M || atom_parent.loc == M.loc)	//Stop allahu akbarring rooms with this.
 		M.Paralyze(20)
 		M.Knockdown(200)
 		M.soundbang_act(1, 200, 10, 15)
@@ -1015,7 +1015,7 @@
 			M.Paralyze(5)
 			M.Knockdown(30)
 
-		var/distance_proportion = max(1 - (distance / (max_flash_range * (parent.trait_strength/100))), 0)
+		var/distance_proportion = max(1 - (distance / (max_flash_range * (component_parent.trait_strength/100))), 0)
 		if(distance_proportion)
 			M.soundbang_act(1, 200 * distance_proportion, rand(0, 5))
 
@@ -1039,7 +1039,7 @@
 	for(var/atom/target in focus)
 		if(iscarbon(target))
 			var/mob/living/carbon/victim = target
-			victim.adjust_fire_stacks(max_stacks*(parent.trait_strength/100))
+			victim.adjust_fire_stacks(max_stacks*(component_parent.trait_strength/100))
 			victim.IgniteMob()
 		else
 			target.fire_act(1000, 500)
@@ -1089,7 +1089,7 @@
 	if(!.)
 		return
 	for(var/obj/machinery/hydroponics/target in focus)
-		target.age += max_aging * (parent.trait_strength/100)
+		target.age += max_aging * (component_parent.trait_strength/100)
 	dump_targets()
 	clear_focus()
 
