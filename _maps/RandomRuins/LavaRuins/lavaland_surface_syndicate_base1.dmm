@@ -1978,7 +1978,7 @@
 	},
 /obj/machinery/door/airlock/science{
 	req_access_txt = "150";
-	name = "science lal interior airlock"
+	name = "Science Lab Interior Airlock"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -2129,7 +2129,7 @@
 	},
 /obj/machinery/door/airlock/science{
 	req_access_txt = "150";
-	name = "science lal exterior airlock"
+	name = "Science Lal Exterior Airlock"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
