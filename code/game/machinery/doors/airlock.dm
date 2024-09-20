@@ -93,7 +93,7 @@
 	var/list/part_overlays
 	var/panel_attachment = "right"
 	var/note_attachment = "left"
-	var/maintenance = FALSE //whether or not the door should be affected by emergency maintenance mode
+	var/is_maint_emergency = FALSE //whether or not the door should be affected by emergency maintenance mode
 
 	var/cyclelinkeddir = 0
 	var/obj/machinery/door/airlock/cyclelinkedairlock
@@ -1461,7 +1461,7 @@
 			if(!electronics)
 				ae = new/obj/item/electronics/airlock(loc)
 				gen_access()
-				ae.maintenance = maintenance
+				ae.is_maint_emergency = is_maint_emergency
 				if(req_one_access.len)
 					ae.one_access = 1
 					ae.accesses = req_one_access
@@ -1527,7 +1527,7 @@
 	data["shock"] = secondsElectrified == MACHINE_NOT_ELECTRIFIED ? 2 : 0
 	data["shock_timeleft"] = secondsElectrified
 	data["id_scanner"] = !aiDisabledIdScanner
-	data["emergency"] = emergency // access
+	data["is_maint_emergency"] = is_maint_emergency // access
 	data["locked"] = locked // bolted
 	data["lights"] = lights // bolt lights
 	data["safe"] = safe // safeties
@@ -1667,13 +1667,13 @@
 	return new /datum/wires/airlock(src, wire_security_level)
 
 /obj/machinery/door/airlock/proc/set_door_to_all_access()
-	if(maintenance && is_station_level(src.z))
+	if(is_maint_emergency && is_station_level(src.z))
 		emergency = TRUE
 		update_icon()
 		wires.ui_update()
 
 /obj/machinery/door/airlock/proc/remove_door_from_all_access()
-	if(maintenance && is_station_level(src.z))
+	if(is_maint_emergency && is_station_level(src.z))
 		emergency = FALSE
 		update_icon()
 		wires.ui_update()
