@@ -254,7 +254,7 @@
 	name = "Evolve"
 	desc = "Evolve into your adult form with the help of another nymph."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/mob/actions/actions_spells.dmi'
+	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "grow"
 
 /datum/action/nymph/evolve/Trigger()
@@ -283,7 +283,7 @@
 	name = "Return"
 	desc = "Return back into your adult form."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/mob/actions/actions_spells.dmi'
+	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "return"
 
 /datum/action/nymph/SwitchFrom/Trigger(drone_parent, forced)

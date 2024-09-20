@@ -1,5 +1,5 @@
 /datum/hud/nymph
-	ui_style = 'icons/mob/screen_gen.dmi'
+	ui_style = 'icons/hud/screen_gen.dmi'
 
 /datum/hud/nymph/New(mob/living/simple_animal/hostile/retaliate/nymph/owner)
 	..()

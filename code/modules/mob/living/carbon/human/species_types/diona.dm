@@ -171,7 +171,7 @@
 	name = "Split"
 	desc = "Split into our seperate nymphs."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/mob/actions/actions_spells.dmi'
+	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "split"
 	var/Activated = FALSE
 
@@ -242,7 +242,7 @@
 	name = "Partition"
 	desc = "Allow a nymph to partition from our gestalt self."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/mob/actions/actions_spells.dmi'
+	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "grow"
 	var/ability_partition_cooldown
 
