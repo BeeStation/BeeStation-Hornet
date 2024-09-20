@@ -309,6 +309,7 @@
 	sentience.real_name = "[sentience.name] - [parent?.parent]"
 	sentience.key = ckey
 	sentience.status_flags |= GODMODE
+	ADD_TRAIT(sentience, TRAIT_ARTIFACT_IGNORE, TRAIT_GENERIC)
 	//Stop them from wriggling away
 	var/atom/movable/AM = parent.parent
 	AM.buckle_mob(AM, TRUE)
