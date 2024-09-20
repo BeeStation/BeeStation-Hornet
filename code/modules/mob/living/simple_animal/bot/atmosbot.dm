@@ -303,7 +303,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 		//Add adjacent turfs
 		for(var/direction in list(NORTH, SOUTH, EAST, WEST))
 			var/turf/adjacent_turf = get_step(checking_turf, direction)
-			if(adjacent_turf in checked_turfs || !adjacent_turf.CanAtmosPass(adjacent_turf))
+			if((adjacent_turf in checked_turfs) || !adjacent_turf.CanAtmosPass(adjacent_turf))
 				continue
 			var/datum/gas_mixture/checking_air = checking_turf.return_air()
 			if (!checking_air)

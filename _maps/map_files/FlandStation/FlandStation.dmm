@@ -13760,6 +13760,21 @@
 	dir = 1
 	},
 /area/hallway/primary/central)
+"dDq" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "aicoredoor";
+	name = "AI Core Shutter"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	icon_state = "rightsecure";
+	name = "Primary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/turf/open/floor/engine,
+/area/ai_monitored/turret_protected/ai)
 "dDv" = (
 /obj/structure/lattice/catwalk/over,
 /obj/item/stack/marker_beacon{
@@ -14950,6 +14965,17 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/engine/break_room)
+"dRG" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
 "dRJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/watertank,
@@ -21863,6 +21889,29 @@
 	},
 /turf/open/floor/iron/dark,
 /area/gateway)
+"fDt" = (
+/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/door/window{
+	base_state = "right";
+	dir = 4;
+	icon_state = "right";
+	name = "Secure Creature Pen Shield Holder";
+	atom_integrity = 300
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/sign/warning/electricshock{
+	pixel_x = -32
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plating,
+/area/science/xenobiology)
 "fDw" = (
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 4
@@ -23214,38 +23263,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
-"fTU" = (
-/obj/effect/landmark/start/ai/secondary,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	name = "Common Channel";
-	pixel_x = 28
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	listening = 0;
-	name = "Custom Channel";
-	pixel_y = 24
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	frequency = 1447;
-	name = "Private Channel";
-	pixel_y = -28
-	},
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 8;
-	icon_state = "rightsecure";
-	name = "Secondary AI Core Access";
-	atom_integrity = 300;
-	req_access_txt = "16"
-	},
-/turf/open/floor/circuit/red,
-/area/ai_monitored/turret_protected/ai)
 "fTX" = (
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
@@ -24075,29 +24092,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_smes)
-"geN" = (
-/obj/machinery/shieldwallgen/xenobiologyaccess,
-/obj/machinery/door/window{
-	base_state = "right";
-	dir = 4;
-	icon_state = "right";
-	name = "Secure Creature Pen Shield Holder";
-	atom_integrity = 300
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/sign/warning/electricshock{
-	pixel_x = -32
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/open/floor/plating,
-/area/science/xenobiology)
 "gfc" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/chair/fancy/comfy{
@@ -24776,22 +24770,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
-"gnN" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 1;
-	icon_state = "rightsecure";
-	name = "Primary AI Core Access";
-	atom_integrity = 300;
-	req_access_txt = "16"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "aicoredoor";
-	name = "AI Core Shutter"
-	},
-/turf/open/floor/engine,
-/area/ai_monitored/turret_protected/ai)
 "gnX" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -25606,28 +25584,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/library/lounge)
-"gzm" = (
-/obj/machinery/shieldwallgen/xenobiologyaccess,
-/obj/machinery/door/window{
-	base_state = "leftsecure";
-	dir = 4;
-	icon_state = "leftsecure";
-	name = "Secure Creature Pen Shield Holder";
-	atom_integrity = 300;
-	req_access_txt = "47"
-	},
-/obj/structure/sign/warning/electricshock{
-	pixel_x = -32
-	},
-/obj/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/plating,
-/area/science/xenobiology)
 "gzo" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/external{
@@ -25785,6 +25741,28 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port)
+"gAA" = (
+/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/door/window{
+	base_state = "leftsecure";
+	dir = 4;
+	icon_state = "leftsecure";
+	name = "Secure Creature Pen Shield Holder";
+	atom_integrity = 300;
+	req_access_txt = "47"
+	},
+/obj/structure/sign/warning/electricshock{
+	pixel_x = -32
+	},
+/obj/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plating,
+/area/science/xenobiology)
 "gAI" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -28189,21 +28167,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
-"hih" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "aicoredoor";
-	name = "AI Core Shutter"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	icon_state = "rightsecure";
-	name = "Primary AI Core Access";
-	atom_integrity = 300;
-	req_access_txt = "16"
-	},
-/turf/open/floor/engine,
-/area/ai_monitored/turret_protected/ai)
 "hij" = (
 /obj/machinery/airalarm/directional/south{
 	pixel_y = -22
@@ -29687,6 +29650,22 @@
 	dir = 6
 	},
 /area/hallway/primary/central)
+"hDS" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 1;
+	icon_state = "rightsecure";
+	name = "Primary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "aicoredoor";
+	name = "AI Core Shutter"
+	},
+/turf/open/floor/engine,
+/area/ai_monitored/turret_protected/ai)
 "hDX" = (
 /obj/structure/girder,
 /obj/structure/cable/yellow{
@@ -32210,38 +32189,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/hydroponics)
-"iki" = (
-/obj/effect/landmark/start/ai/secondary,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	listening = 0;
-	name = "Custom Channel";
-	pixel_y = 24
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	frequency = 1447;
-	name = "Private Channel";
-	pixel_y = -28
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	name = "Common Channel";
-	pixel_x = 28
-	},
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 8;
-	icon_state = "rightsecure";
-	name = "Secondary AI Core Access";
-	atom_integrity = 300;
-	req_access_txt = "16"
-	},
-/turf/open/floor/circuit/red,
-/area/ai_monitored/turret_protected/ai)
 "ikr" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -62661,6 +62608,38 @@
 /obj/machinery/shieldgen,
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
+"qhl" = (
+/obj/effect/landmark/start/ai/secondary,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Common Channel";
+	pixel_x = 28
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	listening = 0;
+	name = "Custom Channel";
+	pixel_y = 24
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	frequency = 1447;
+	name = "Private Channel";
+	pixel_y = -28
+	},
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 8;
+	icon_state = "rightsecure";
+	name = "Secondary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/turf/open/floor/circuit/red,
+/area/ai_monitored/turret_protected/ai)
 "qhu" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -71096,6 +71075,17 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/storage/primary)
+"slb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/binary/pump/on{
+	dir = 1;
+	name = "Distro to Connector"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/medical)
 "slp" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -72638,6 +72628,38 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/vault,
 /area/crew_quarters/heads/hor)
+"sEZ" = (
+/obj/effect/landmark/start/ai/secondary,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	listening = 0;
+	name = "Custom Channel";
+	pixel_y = 24
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	frequency = 1447;
+	name = "Private Channel";
+	pixel_y = -28
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Common Channel";
+	pixel_x = 28
+	},
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 8;
+	icon_state = "rightsecure";
+	name = "Secondary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/turf/open/floor/circuit/red,
+/area/ai_monitored/turret_protected/ai)
 "sFd" = (
 /obj/effect/turf_decal/guideline/guideline_in/red{
 	dir = 1
@@ -87536,18 +87558,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/engine,
 /area/engine/engine_room)
-"wjr" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 1;
-	name = "Distro to Connector"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/medical)
 "wjs" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
@@ -95212,12 +95222,6 @@
 	},
 /turf/open/floor/grass,
 /area/hallway/secondary/entry)
-"xOR" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/space/basic,
-/area/security/prison)
 "xOV" = (
 /obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall,
@@ -130949,7 +130953,7 @@ enZ
 faV
 qIR
 fuW
-wjr
+slb
 cKB
 vyE
 fuW
@@ -131055,13 +131059,13 @@ eNp
 ozc
 oYg
 dlC
-geN
+fDt
 rxv
 lis
 tCO
 lis
 ide
-gzm
+gAA
 siW
 qTo
 mFv
@@ -131769,7 +131773,7 @@ pXI
 xnb
 pXI
 pXI
-xOR
+dRG
 agP
 iyG
 wYw
@@ -153568,9 +153572,9 @@ flv
 gLC
 eYA
 bti
-gnN
+hDS
 fLF
-hih
+dDq
 bti
 ifi
 rPA
@@ -154851,13 +154855,13 @@ aYu
 aYu
 kOu
 kOu
-fTU
+qhl
 kOu
 goB
 gQS
 hnr
 kOu
-iki
+sEZ
 kOu
 kOu
 aYu

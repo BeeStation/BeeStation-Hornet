@@ -126,10 +126,11 @@
 /obj/item/clothing/attack(mob/attacker, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return //Harm intent does not eat
-	//if(!ismoth(attacker) || !ispsyphoza(attacker))
-	//	return ..() //Not a clotheater species? No Clotheating!
-	//if((clothing_flags & NOTCONSUMABLE) && (resistance_flags & INDESTRUCTIBLE) && (armor.getRating(MELEE) != 0))
-	//	return ..() //Any remaining flags that make eating it impossible?
+	var/obj/item/organ/tongue/tongue = attacker.getorganslot(ORGAN_SLOT_TONGUE)
+	if(!istype(tongue, /obj/item/organ/tongue/moth) && !istype(tongue, /obj/item/organ/tongue/psyphoza))
+		return ..() //Not a clotheater tongue? No Clotheating!
+	if((clothing_flags & NOTCONSUMABLE) && (resistance_flags & INDESTRUCTIBLE) && (armor.getRating(MELEE) != 0))
+		return ..() //Any remaining flags that make eating it impossible?
 
 	if (isnull(moth_snack))
 		moth_snack = new

@@ -5,11 +5,11 @@
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_DRINKSBLOOD)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
-	default_features = list("mcolor" = "FFF", "tail_human" = "None", "ears" = "None", "wings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list("tail_human" = "None", "ears" = "None", "wings" = "None", "body_size" = "Normal")
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 	exotic_bloodtype = "U"
 	use_skintones = TRUE
-	mutant_heart = /obj/item/organ/heart/vampire
+	mutantheart = /obj/item/organ/heart/vampire
 	mutanttongue = /obj/item/organ/tongue/vampire
 	examine_limb_id = SPECIES_HUMAN
 	skinned_type = /obj/item/stack/sheet/animalhide/human

@@ -181,7 +181,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/durand_shield)
 /obj/durand_shield/proc/activate(datum/source, mob/owner, list/signal_args)
 	SIGNAL_HANDLER
 	currentuser = owner
-	if(!chassis?.occupants)
+	if(!LAZYLEN(chassis?.occupants))
 		return
 	if(switching && !signal_args[1])
 		return

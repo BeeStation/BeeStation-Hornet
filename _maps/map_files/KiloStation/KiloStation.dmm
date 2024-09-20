@@ -2200,6 +2200,19 @@
 	},
 /turf/open/floor/plating/airless,
 /area/engine/atmos)
+"akt" = (
+/obj/effect/landmark/start/roboticist,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/science/robotics/lab)
 "aku" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/decal/cleanable/dirt,
@@ -18450,28 +18463,6 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
-"cdW" = (
-/obj/machinery/turretid{
-	icon_state = "control_stun";
-	name = "AI Chamber turret control";
-	pixel_x = 3;
-	pixel_y = 28
-	},
-/obj/machinery/door/window{
-	base_state = "leftsecure";
-	dir = 8;
-	icon_state = "leftsecure";
-	name = "Primary AI Core Access";
-	atom_integrity = 300;
-	req_access_txt = "16"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "AI Core shutters";
-	name = "AI Core Shutter"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/engine,
-/area/ai_monitored/turret_protected/ai)
 "cdX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -18529,38 +18520,6 @@
 	},
 /turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
-"cef" = (
-/obj/effect/landmark/start/ai/secondary,
-/obj/item/radio/intercom{
-	freerange = 1;
-	listening = 0;
-	name = "Custom Channel";
-	pixel_x = -10;
-	pixel_y = 22
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	name = "Common Channel";
-	pixel_x = -27
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	frequency = 1447;
-	name = "Private Channel";
-	pixel_x = -10;
-	pixel_y = -25
-	},
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 4;
-	icon_state = "rightsecure";
-	name = "Secondary AI Core Access";
-	atom_integrity = 300;
-	pixel_x = 4;
-	req_access_txt = "16"
-	},
-/turf/open/floor/circuit/red,
-/area/ai_monitored/turret_protected/ai)
 "ceg" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/bot,
@@ -18582,38 +18541,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/engine,
-/area/ai_monitored/turret_protected/ai)
-"ceo" = (
-/obj/effect/landmark/start/ai/secondary,
-/obj/item/radio/intercom{
-	freerange = 1;
-	listening = 0;
-	name = "Custom Channel";
-	pixel_x = 10;
-	pixel_y = 22
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	name = "Common Channel";
-	pixel_x = 27
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	frequency = 1447;
-	name = "Private Channel";
-	pixel_x = 10;
-	pixel_y = -25
-	},
-/obj/machinery/door/window{
-	base_state = "leftsecure";
-	dir = 8;
-	icon_state = "leftsecure";
-	name = "Tertiary AI Core Access";
-	atom_integrity = 300;
-	pixel_x = -3;
-	req_access_txt = "16"
-	},
-/turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
 "cep" = (
 /obj/effect/turf_decal/stripes/line{
@@ -19014,26 +18941,6 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/iron/showroomfloor,
 /area/engine/atmos)
-"cfK" = (
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 4;
-	icon_state = "rightsecure";
-	name = "Primary AI Core Access";
-	atom_integrity = 300;
-	req_access_txt = "16"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "AI Core shutters";
-	name = "AI Core Shutter"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/light_switch{
-	pixel_x = 6;
-	pixel_y = 24
-	},
-/turf/open/floor/engine,
-/area/ai_monitored/turret_protected/ai)
 "cfL" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 5
@@ -21635,23 +21542,6 @@
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
 /area/maintenance/port/aft)
-"csW" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/solars/port/aft)
 "csX" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/corner{
@@ -28136,16 +28026,6 @@
 	burnt = 1
 	},
 /area/maintenance/port/fore)
-"dnt" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/external{
-	name = "Solar Maintenance";
-	req_access_txt = "10; 13"
-	},
-/turf/open/floor/plating,
-/area/maintenance/solars/port/aft)
 "dny" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/blue{
@@ -28628,16 +28508,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"dwD" = (
-/obj/effect/landmark/start/roboticist,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/science/robotics/lab)
 "dxi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -29344,6 +29214,20 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/library)
+"dIu" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/solars/port/aft)
 "dIS" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -44165,14 +44049,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/warehouse)
-"iHn" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/food/donut,
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/item/radio/headset/headset_sec,
-/turf/open/floor/iron,
-/area/security/brig)
 "iHy" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/disposalpipe/segment,
@@ -45153,6 +45029,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
+"iVU" = (
+/obj/structure/table,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "iWi" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -47124,47 +47010,6 @@
 	broken = 1
 	},
 /area/maintenance/starboard)
-"jzV" = (
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/assembly/prox_sensor{
-	desc = "Used for scanning and alerting when someone enters a certain proximity. This one is slightly shifted to the left.";
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/assembly/prox_sensor{
-	desc = "Used for scanning and alerting when someone enters a certain proximity. This one is slightly shifted to the left.";
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/assembly/prox_sensor{
-	desc = "Used for scanning and alerting when someone enters a certain proximity. This one is slightly shifted to the left.";
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/assembly/prox_sensor{
-	desc = "Used for scanning and alerting when someone enters a certain proximity. This one is slightly shifted to the left.";
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/stock_parts/cell/high/plus,
-/obj/item/stock_parts/cell/high/plus,
-/obj/item/stock_parts/cell/high/plus,
-/obj/item/crowbar/red,
-/obj/item/toy/figure/roboticist{
-	pixel_x = 6
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/light_switch{
-	pixel_y = 24
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "jAh" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -61393,6 +61238,38 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/robotics/lab)
+"olH" = (
+/obj/effect/landmark/start/ai/secondary,
+/obj/item/radio/intercom{
+	freerange = 1;
+	listening = 0;
+	name = "Custom Channel";
+	pixel_x = -10;
+	pixel_y = 22
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Common Channel";
+	pixel_x = -27
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	frequency = 1447;
+	name = "Private Channel";
+	pixel_x = -10;
+	pixel_y = -25
+	},
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 4;
+	icon_state = "rightsecure";
+	name = "Secondary AI Core Access";
+	atom_integrity = 300;
+	pixel_x = 4;
+	req_access_txt = "16"
+	},
+/turf/open/floor/circuit/red,
+/area/ai_monitored/turret_protected/ai)
 "olP" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
@@ -62377,6 +62254,14 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
+"oCd" = (
+/obj/structure/table/reinforced,
+/obj/item/clipboard,
+/obj/item/food/donut/plain,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/item/radio/headset/headset_sec,
+/turf/open/floor/iron,
+/area/security/brig)
 "oCl" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -67286,6 +67171,44 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/main)
+"qgg" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)"
+	},
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)"
+	},
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)"
+	},
+/obj/machinery/camera/directional/north{
+	c_tag = "Robotics Lab";
+	name = "science camera";
+	network = list("ss13","rd")
+	},
+/obj/machinery/power/apc{
+	areastring = "/area/science/robotics/lab";
+	dir = 1;
+	name = "Robotics Lab APC";
+	pixel_y = 24
+	},
+/obj/item/stack/package_wrap,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "qgm" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/secure_closet/personal,
@@ -67808,6 +67731,38 @@
 	},
 /turf/open/floor/iron,
 /area/bridge)
+"qqL" = (
+/obj/effect/landmark/start/ai/secondary,
+/obj/item/radio/intercom{
+	freerange = 1;
+	listening = 0;
+	name = "Custom Channel";
+	pixel_x = 10;
+	pixel_y = 22
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Common Channel";
+	pixel_x = 27
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	frequency = 1447;
+	name = "Private Channel";
+	pixel_x = 10;
+	pixel_y = -25
+	},
+/obj/machinery/door/window{
+	base_state = "leftsecure";
+	dir = 8;
+	icon_state = "leftsecure";
+	name = "Tertiary AI Core Access";
+	atom_integrity = 300;
+	pixel_x = -3;
+	req_access_txt = "16"
+	},
+/turf/open/floor/circuit/red,
+/area/ai_monitored/turret_protected/ai)
 "qrv" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -71399,6 +71354,28 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"rAC" = (
+/obj/machinery/turretid{
+	icon_state = "control_stun";
+	name = "AI Chamber turret control";
+	pixel_x = 3;
+	pixel_y = 28
+	},
+/obj/machinery/door/window{
+	base_state = "leftsecure";
+	dir = 8;
+	icon_state = "leftsecure";
+	name = "Primary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "AI Core shutters";
+	name = "AI Core Shutter"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/engine,
+/area/ai_monitored/turret_protected/ai)
 "rAX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -73624,6 +73601,50 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/locker)
+"soC" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/assembly/prox_sensor{
+	desc = "Used for scanning and alerting when someone enters a certain proximity. This one is slightly shifted to the left.";
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/assembly/prox_sensor{
+	desc = "Used for scanning and alerting when someone enters a certain proximity. This one is slightly shifted to the left.";
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/assembly/prox_sensor{
+	desc = "Used for scanning and alerting when someone enters a certain proximity. This one is slightly shifted to the left.";
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/assembly/prox_sensor{
+	desc = "Used for scanning and alerting when someone enters a certain proximity. This one is slightly shifted to the left.";
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/stock_parts/cell/high/plus,
+/obj/item/stock_parts/cell/high/plus,
+/obj/item/stock_parts/cell/high/plus,
+/obj/item/crowbar/red,
+/obj/item/toy/figure/roboticist{
+	pixel_x = 6
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/light_switch{
+	pixel_y = 24
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "soM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -76845,6 +76866,26 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
+"trR" = (
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 4;
+	icon_state = "rightsecure";
+	name = "Primary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "AI Core shutters";
+	name = "AI Core Shutter"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light_switch{
+	pixel_x = 6;
+	pixel_y = 24
+	},
+/turf/open/floor/engine,
+/area/ai_monitored/turret_protected/ai)
 "trS" = (
 /obj/item/wallframe/light_fixture/small{
 	dir = 4;
@@ -83573,41 +83614,6 @@
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
-"vJJ" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Robotics Lab";
-	name = "science camera";
-	network = list("ss13","rd")
-	},
-/obj/machinery/power/apc{
-	areastring = "/area/science/robotics/lab";
-	dir = 1;
-	name = "Robotics Lab APC";
-	pixel_y = 24
-	},
-/obj/item/stack/package_wrap,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/item/healthanalyzer,
-/obj/item/healthanalyzer,
-/obj/item/healthanalyzer,
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "vJR" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/retaliate/goose/vomit,
@@ -85226,13 +85232,6 @@
 /obj/effect/landmark/start/chemist,
 /turf/open/floor/iron/dark,
 /area/medical/chemistry)
-"wiW" = (
-/obj/structure/table,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "wjk" = (
 /obj/machinery/light{
 	dir = 1
@@ -85410,6 +85409,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hydroponics)
+"wlX" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/external{
+	name = "Solar Maintenance";
+	req_access_txt = "10; 13"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/solars/port/aft)
 "wmq" = (
 /obj/machinery/status_display/evac{
 	pixel_x = -32
@@ -106317,7 +106329,7 @@ aeU
 aeU
 aeU
 cnS
-dnt
+wlX
 coB
 aUz
 aeU
@@ -106574,7 +106586,7 @@ aUz
 aeU
 aeU
 cnS
-csW
+dIu
 cnP
 aeU
 aeu
@@ -110680,7 +110692,7 @@ ejj
 nxV
 eRb
 dsx
-iHn
+oCd
 gtG
 fll
 wVu
@@ -119575,7 +119587,7 @@ aAg
 aAg
 asZ
 asZ
-cef
+olH
 asZ
 asZ
 aAg
@@ -120346,7 +120358,7 @@ aay
 acd
 cdY
 cdZ
-cdW
+rAC
 cdY
 acx
 acR
@@ -120860,7 +120872,7 @@ aaU
 aaN
 cdZ
 cdY
-cfK
+trR
 cdY
 abV
 acj
@@ -121631,7 +121643,7 @@ asZ
 asZ
 aAg
 asZ
-ceo
+qqL
 asZ
 aAg
 asZ
@@ -127838,7 +127850,7 @@ baH
 xNS
 aXW
 bam
-vJJ
+qgg
 ixh
 gjd
 pzN
@@ -128352,8 +128364,8 @@ cFi
 cFi
 cFi
 aZS
-wiW
-dwD
+iVU
+akt
 xgC
 sjd
 aXP
@@ -128609,7 +128621,7 @@ ybx
 cFi
 cFi
 aZS
-jzV
+soC
 pqL
 xdx
 daU

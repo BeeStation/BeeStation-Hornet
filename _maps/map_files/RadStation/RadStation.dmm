@@ -6739,10 +6739,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/prison)
-"cmw" = (
-/obj/machinery/power/apc/auto_name/directional/north,
-/turf/closed/wall/r_wall,
-/area/security/prison/shielded)
 "cnr" = (
 /obj/machinery/airalarm/directional/west,
 /obj/machinery/computer/slot_machine,
@@ -9371,17 +9367,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room)
-"dcd" = (
-/obj/effect/landmark/start/ai/secondary,
-/obj/machinery/door/window{
-	base_state = "leftsecure";
-	icon_state = "leftsecure";
-	name = "Tertiary AI Core Access";
-	atom_integrity = 300;
-	req_access_txt = "16"
-	},
-/turf/open/floor/engine/o2,
-/area/ai_monitored/turret_protected/ai)
 "dcf" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/newscaster{
@@ -50360,13 +50345,6 @@
 	dir = 1
 	},
 /area/science/lobby)
-"pWx" = (
-/obj/item/trash/plate,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/cigbutt,
-/obj/effect/landmark/blobstart,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "pWy" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line,
@@ -58854,6 +58832,13 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/engine/gravity_generator)
+"sIH" = (
+/obj/item/plate,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/cigbutt,
+/obj/effect/landmark/blobstart,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "sIV" = (
 /obj/machinery/vending/custom{
 	pixel_y = -1
@@ -60697,6 +60682,17 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
+"tme" = (
+/obj/effect/landmark/start/ai/secondary,
+/obj/machinery/door/window{
+	base_state = "leftsecure";
+	icon_state = "leftsecure";
+	name = "Tertiary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/turf/open/floor/engine/o2,
+/area/ai_monitored/turret_protected/ai)
 "tmn" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/cable/yellow{
@@ -104989,7 +104985,7 @@ nFk
 bDs
 pVy
 ifC
-cmw
+ifC
 wkK
 ifC
 gIf
@@ -108022,7 +108018,7 @@ xze
 uuQ
 uuQ
 uTv
-dcd
+tme
 ahL
 vsb
 ycm
@@ -109564,7 +109560,7 @@ iVd
 uuQ
 uuQ
 uTv
-dcd
+tme
 ahL
 mhA
 aoX
@@ -113536,7 +113532,7 @@ ePm
 bWm
 ibc
 iBH
-pWx
+sIH
 drU
 oUC
 tlT
