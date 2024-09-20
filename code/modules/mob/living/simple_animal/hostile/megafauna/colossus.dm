@@ -64,7 +64,7 @@ Difficulty: Very Hard
 
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now firing in a spiral.</span>"
 	chosen_attack_num = 1
@@ -875,7 +875,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	range = -1
 	include_user = TRUE
 	selection_type = "view"
-	action_icon = 'icons/mob/actions/actions_spells.dmi'
+	action_icon = 'icons/hud/actions/actions_spells.dmi'
 	action_icon_state = "exit_possession"
 	sound = null
 

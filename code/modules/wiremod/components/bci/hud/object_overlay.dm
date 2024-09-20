@@ -98,7 +98,7 @@
 	if(!isnull(existing_overlay))
 		qdel(existing_overlay)
 
-	var/image/cool_overlay = image(icon = 'icons/mob/screen_bci.dmi', loc = target_atom, icon_state = options_map[object_overlay_options.value], layer = RIPPLE_LAYER)
+	var/image/cool_overlay = image(icon = 'icons/hud/screen_bci.dmi', loc = target_atom, icon_state = options_map[object_overlay_options.value], layer = RIPPLE_LAYER)
 
 	if(image_pixel_x.value != null)
 		cool_overlay.pixel_x = image_pixel_x.value
