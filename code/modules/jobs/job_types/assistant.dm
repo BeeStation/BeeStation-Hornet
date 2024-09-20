@@ -17,7 +17,7 @@ Assistant
 	base_access = list()	//See /datum/job/assistant/get_access()
 	extra_access = list()	//See /datum/job/assistant/get_access()
 
-	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
+	job_flags = STATION_JOB_FLAGS
 
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = NONE // nothing is free for them

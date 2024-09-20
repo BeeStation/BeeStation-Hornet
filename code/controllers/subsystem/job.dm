@@ -565,11 +565,11 @@ SUBSYSTEM_DEF(job)
 			if(!isnull(new_mob)) //Detect fail condition on equip
 			//if equip() is somehow able to fail, send them back to lobby
 				var/mob/dead/new_player/NP = new()
-				NP.ckey = M.client.ckey
+				NP.ckey = player_client.ckey
 				qdel(M)
 				to_chat(M, "Error equipping [job.title]. Returning to lobby.</b>")
 				return null
-		SSpersistence.antag_rep_change[M.client.ckey] += job.GetAntagRep()
+		SSpersistence.antag_rep_change[player_client.ckey] += job.GetAntagRep()
 
 		if(player_client.holder)
 			if(CONFIG_GET(flag/auto_deadmin_players) || player_client?.prefs.read_player_preference(/datum/preference/toggle/deadmin_always))

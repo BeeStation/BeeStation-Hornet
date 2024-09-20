@@ -454,7 +454,7 @@ SUBSYSTEM_DEF(ticker)
 			continue
 		// Keep a rolling tally of who'll get the cap's spare ID vault code.
 		// Check assigned_role's priority and curate the candidate list appropriately.
-		var/player_assigned_role_captaincy = new_player_human.mind.assigned_role
+		var/player_assigned_role_captaincy = new_player_human.mind.assigned_role.title
 		var/spare_id_priority = SSjob.chain_of_command[player_assigned_role_captaincy]
 		if(spare_id_priority)
 			if(spare_id_priority < highest_rank)
@@ -483,9 +483,9 @@ SUBSYSTEM_DEF(ticker)
 			captainless = FALSE
 			var/acting_captain = !(player_assigned_role == JOB_NAME_CAPTAIN)
 			SSjob.promote_to_captain(new_player_living, acting_captain)
-			OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), "Due to extreme staffing shortages, newly promoted Acting Captain [new_player_living.name] on deck!"))
+			OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), "Due to extreme staffing shortages, newly promoted Acting Captain [new_player_living.real_name] on deck!"))
 		if((player_assigned_role.job_flags & JOB_ASSIGN_QUIRKS) && ishuman(new_player_living) && CONFIG_GET(flag/roundstart_traits))
-			SSquirks.AssignQuirks(new_player_living, new_player_mob.client)
+			SSquirks.AssignQuirks(new_player_living.mind, new_player_mob.client)
 		CHECK_TICK
 
 	if(captainless)
