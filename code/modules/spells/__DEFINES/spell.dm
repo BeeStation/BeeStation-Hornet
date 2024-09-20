@@ -9,7 +9,7 @@
 	var/ranged_clickcd_override = -1
 	var/has_action = TRUE
 	var/datum/action/spell_action/action = null
-	var/action_icon = 'icons/mob/actions/actions_spells.dmi'
+	var/action_icon = 'icons/hud/actions/actions_spells.dmi'
 	var/action_icon_state = "spell_default"
 	var/action_background_icon_state = "bg_spell"
 	var/base_action = /datum/action/spell_action
@@ -160,7 +160,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	/// Base typecache of clothing needed to cast spells. Do not modify, make a separate static var in subtypes if necessary.
 	var/static/list/casting_clothes_base
 
-	action_icon = 'icons/mob/actions/actions_spells.dmi'
+	action_icon = 'icons/hud/actions/actions_spells.dmi'
 	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_spell"
 	base_action = /datum/action/spell_action/spell
