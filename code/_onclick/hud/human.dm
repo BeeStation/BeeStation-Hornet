@@ -1,5 +1,5 @@
 /atom/movable/screen/human
-	icon = 'icons/mob/screen_midnight.dmi'
+	icon = 'icons/hud/style/screen_midnight.dmi'
 
 /atom/movable/screen/human/toggle
 	name = "toggle"
@@ -35,7 +35,7 @@
 	invisibility = INVISIBILITY_ABSTRACT
 
 /atom/movable/screen/devil/soul_counter
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	name = "souls owned"
 	icon_state = "Devil-6"
 	screen_loc = ui_devilsouldisplay
