@@ -144,24 +144,6 @@ SUBSYSTEM_DEF(xenoarchaeology)
 
 	return list()
 
-///Proc for labeler baking
-/datum/controller/subsystem/xenoarchaeology/proc/get_trait_list_stats(list/trait_type)
-	var/list/temp = list()
-	for(var/datum/xenoartifact_trait/trait as anything in trait_type)
-		var/name = initial(trait.label_name)
-		//generate tool tips
-		temp += list(name)
-		var/datum/xenoartifact_trait/hint_holder = new trait()
-		labeler_tooltip_stats["[name]"] = list("weight" = initial(trait.weight), "conductivity" = initial(trait.conductivity), "alt_name" = initial(trait.alt_label_name), "desc" = initial(trait.label_desc), "hints" = hint_holder.get_dictionary_hint())
-		qdel(hint_holder)
-		//Generate material availability
-		var/list/materials = list(XENOA_BLUESPACE, XENOA_PLASMA, XENOA_URANIUM, XENOA_BANANIUM, XENOA_PEARL)
-		labeler_tooltip_stats["[name]"]["availability"] = list()
-		for(var/datum/xenoartifact_material/M as anything in materials)
-			if(initial(M.trait_flags) & initial(trait.flags))
-				labeler_tooltip_stats["[name]"]["availability"] += list(list("color" = initial(M.material_color), "icon" = initial(M.label_icon)))
-	return temp
-
 /*
 	Datum for holding a bunch of listed traits for a certain material
 	Thanks, EvilDragon
