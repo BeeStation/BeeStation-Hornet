@@ -7,28 +7,28 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	var/obj/machinery/computer/xenoarchaeology_console/main_console
 
 	//All the traits - before we sort them, semi needed for generation
-	var/list/xenoa_all_traits
+	var/list/xenoa_all_traits = list()
 	///All traits indexed by name, used for labelling stuff
-	var/list/xenoa_all_traits_keyed
+	var/list/xenoa_all_traits_keyed = list()
 
 	///Names for science sellers & artifacts
-	var/list/xenoa_seller_names
-	var/list/xenoa_seller_dialogue
-	var/list/xenoa_artifact_names
+	var/list/xenoa_seller_names = list()
+	var/list/xenoa_seller_dialogue = list()
+	var/list/xenoa_artifact_names = list()
 
 	///Whitelist for traits by material type
-	var/list/material_traits
+	var/list/material_traits = list()
 
 	///Incompatability lists - Partial future proofing some stuff
-	var/list/xenoa_item_incompatible
-	var/list/xenoa_mob_incompatible
-	var/list/xenoa_structure_incompatible
+	var/list/xenoa_item_incompatible = list()
+	var/list/xenoa_mob_incompatible = list()
+	var/list/xenoa_structure_incompatible = list()
 
 	///Labeler trait lists, basically just names
 	var/datum/xenoa_material_traits/stats/labeler_traits
 	///Other labeler shit
 	var/list/labeler_tooltip_stats = list()
-	var/list/labeler_traits_filter
+	var/list/labeler_traits_filter = list()
 
 	///Material weights, basically rarity - Also used to populate some other lists
 	var/list/xenoartifact_material_weights = list(XENOA_BLUESPACE = 10, XENOA_PLASMA = 8, XENOA_URANIUM = 5, XENOA_BANANIUM = 1)
