@@ -232,4 +232,5 @@ h1.alert, h2.alert		{color: #000000;}
 
 .monkeyhive				{color: #774704;}
 .monkeylead				{color: #774704;	font-size: 2;}
+.tape_recorder			{color: #ff0000;	font-family: 'Courier New', cursive, sans-serif;}
 </style>"}
