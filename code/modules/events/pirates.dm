@@ -442,7 +442,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	else if("pirate" in H.faction) //can't ransom your fellow pirates to CentCom!
 		return 0
 	else
-		if(H.mind.assigned_role in GLOB.command_positions)
+		if(H.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 			return 3000
 		else
 			return 1000

@@ -75,7 +75,7 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/fire_cone_meteors
 	name = "Fire Cone With Meteors"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now shooting fire at your target and raining fire around you.</span>"
 	chosen_attack_num = 2
@@ -271,7 +271,7 @@ Difficulty: Medium
 		new /obj/effect/hotspot(T)
 		T.hotspot_expose(700,50,1)
 		for(var/mob/living/L in T.contents)
-			if(L in hit_list || L == source)
+			if((L in hit_list) || L == source)
 				continue
 			hit_list += L
 			L.adjustFireLoss(20)
@@ -528,7 +528,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dragon_flight)
 	animate(src, pixel_z = 0, time = duration)
 
 /obj/effect/temp_visual/target
-	icon = 'icons/mob/actions/actions_items.dmi'
+	icon = 'icons/hud/actions/actions_items.dmi'
 	icon_state = "sniper_zoom"
 	layer = BELOW_MOB_LAYER
 	light_range = 2

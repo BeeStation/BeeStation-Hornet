@@ -13,6 +13,7 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
+#include "__odlint.dm"
 #include "_maps\_basemap.dm"
 #include "code\__byond_version_compat.dm"
 #include "code\_compile_options.dm"
@@ -39,6 +40,7 @@
 #include "code\__DEFINES\areas.dm"
 #include "code\__DEFINES\armor.dm"
 #include "code\__DEFINES\art.dm"
+#include "code\__DEFINES\assemblies.dm"
 #include "code\__DEFINES\assets.dm"
 #include "code\__DEFINES\async.dm"
 #include "code\__DEFINES\atmospherics.dm"
@@ -68,7 +70,7 @@
 #include "code\__DEFINES\crafting.dm"
 #include "code\__DEFINES\cult.dm"
 #include "code\__DEFINES\database.dm"
-#include "code\__DEFINES\departments.dm"
+#include "code\__DEFINES\department.dm"
 #include "code\__DEFINES\devices.dm"
 #include "code\__DEFINES\directional.dm"
 #include "code\__DEFINES\diseases.dm"
@@ -333,7 +335,6 @@
 #include "code\_globalvars\lists\ambience.dm"
 #include "code\_globalvars\lists\client.dm"
 #include "code\_globalvars\lists\flavor_misc.dm"
-#include "code\_globalvars\lists\jobs.dm"
 #include "code\_globalvars\lists\maintenance_loot.dm"
 #include "code\_globalvars\lists\mapping.dm"
 #include "code\_globalvars\lists\mobs.dm"
@@ -432,6 +433,7 @@
 #include "code\controllers\subsystem\communications.dm"
 #include "code\controllers\subsystem\dbcore.dm"
 #include "code\controllers\subsystem\dcs.dm"
+#include "code\controllers\subsystem\department.dm"
 #include "code\controllers\subsystem\disease.dm"
 #include "code\controllers\subsystem\early_assets.dm"
 #include "code\controllers\subsystem\economy.dm"
@@ -1602,6 +1604,7 @@
 #include "code\game\objects\structures\bedsheet_bin.dm"
 #include "code\game\objects\structures\bot_elevator.dm"
 #include "code\game\objects\structures\catwalk.dm"
+#include "code\game\objects\structures\crateshelf.dm"
 #include "code\game\objects\structures\destructible_structures.dm"
 #include "code\game\objects\structures\displaycase.dm"
 #include "code\game\objects\structures\divine.dm"
