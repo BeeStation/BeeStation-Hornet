@@ -767,7 +767,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	/// Throwforce when the saw is opened.
 	var/open_throwforce = 20
 
-/obj/item/melee/cleaving_saw/Initialize()
+/obj/item/melee/cleaving_saw/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/transforming, \
 		transform_cooldown_time = (CLICK_CD_MELEE * 0.25), \

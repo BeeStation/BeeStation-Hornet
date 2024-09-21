@@ -400,7 +400,7 @@
 	// It cauterises the wound it causes
 	bleed_force = 0
 
-/obj/item/scalpel/advanced/Initialize()
+/obj/item/scalpel/advanced/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/transforming, \
 		force_on = force + 1, \
@@ -442,7 +442,7 @@
 	icon_state = "adv_retractor"
 	toolspeed = 0.7
 
-/obj/item/retractor/advanced/Initialize()
+/obj/item/retractor/advanced/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/transforming, \
 		force_on = force, \

@@ -233,7 +233,7 @@
 	/// Whether or pen is extended
 	var/extended = FALSE
 
-/obj/item/pen/edagger/Initialize()
+/obj/item/pen/edagger/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, _speed = 6 SECONDS, _butcher_sound = 'sound/weapons/blade1.ogg')
 	AddComponent(/datum/component/transforming, \

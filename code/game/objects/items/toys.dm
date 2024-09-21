@@ -278,7 +278,7 @@
 	/// The color of our fake energy sword
 	var/saber_color = "blue"
 
-/obj/item/toy/sword/Initialize()
+/obj/item/toy/sword/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/transforming, \
 		throw_speed_on = throw_speed, \

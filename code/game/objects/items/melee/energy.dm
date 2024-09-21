@@ -32,7 +32,7 @@
 	/// The heat given off when active.
 	var/active_heat = 3500
 
-/obj/item/melee/energy/Initialize()
+/obj/item/melee/energy/Initialize(mapload)
 	. = ..()
 	make_transformable()
 	AddComponent(/datum/component/butchering, _speed = 5 SECONDS, _butcher_sound = active_hitsound)
