@@ -63,7 +63,7 @@
 	E.Activate()
 
 /datum/action/innate/fugu
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	icon_icon = 'icons/hud/actions/actions_animal.dmi'
 
 /datum/action/innate/fugu/expand
 	name = "Inflate"
