@@ -699,7 +699,7 @@
 
 /obj/item/storage/backpack/duffelbag/syndie/firestarter/PopulateContents()
 	new /obj/item/clothing/under/syndicate/soviet(src)
-	new /obj/item/flamethrower
+	new /obj/item/flamethrower/full/tank
 	new /obj/item/tank/internals/plasma
 	new /obj/item/tank/internals/plasma
 	new /obj/item/clothing/suit/space/hardsuit/syndi/elite(src)
