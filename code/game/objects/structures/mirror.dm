@@ -12,6 +12,10 @@
 	layer = ABOVE_WINDOW_LAYER
 	var/magical = FALSE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror, 28)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
+
 /obj/structure/mirror/Initialize(mapload, dir, building)
 	. = ..()
 	if(icon_state == "mirror_broke" && !broken)
@@ -54,13 +58,15 @@
 	return ..()
 
 /obj/structure/mirror/obj_break(damage_flag, mapload)
-	if(!broken && !(flags_1 & NODECONSTRUCT_1))
-		icon_state = "mirror_broke"
-		if(!mapload)
-			playsound(src, "shatter", 70, 1)
-		if(desc == initial(desc))
-			desc = "Oh no, seven years of bad luck!"
-		broken = TRUE
+	. = ..()
+	if(broken || (flags_1 & NODECONSTRUCT_1))
+		return
+	icon_state = "mirror_broke"
+	if(!mapload)
+		playsound(src, "shatter", 70, 1)
+	if(desc == initial(desc))
+		desc = "Oh no, seven years of bad luck!"
+	broken = TRUE
 
 /obj/structure/mirror/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))

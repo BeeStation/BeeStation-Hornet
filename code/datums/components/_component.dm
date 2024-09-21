@@ -325,12 +325,17 @@
 	var/list/dc = datum_components
 	if(!dc)
 		return null
-	var/datum/component/C = dc[c_type]
-	if(C)
-		if(length(C))
-			C = C[1]
-		if(C.type == c_type)
-			return C
+	var/list/components = dc[c_type]
+	var/datum/component/component
+	if(components)
+		if(length(components))
+			component = components[1]
+		else if (istype(components, /datum/component))
+			component = components
+	if (component == null)
+		return null
+	if(component.type == c_type)
+		return component
 	return null
 
 /datum/proc/GetComponents(c_type)
@@ -365,7 +370,7 @@
 			old_comp = GetExactComponent(nt)
 		else
 			old_comp = GetComponent(dt)
-			
+
 		if(old_comp)
 			switch(dm)
 				if(COMPONENT_DUPE_UNIQUE)

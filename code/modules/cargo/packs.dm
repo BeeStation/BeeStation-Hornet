@@ -1804,6 +1804,14 @@
 					/obj/item/rollerbed)
 	crate_name = "surgical supplies crate"
 
+/datum/supply_pack/medical/implants
+	name = "Surplus Implants Crate"
+	desc = "Do you want implants, but those R&D folks hasn't learnt how to do their job? Just get started with this crate containing several of our dusty surplus implants. (Surgical tools not included)"
+	cost = 1000
+	max_supply = 2
+	contains = list(/obj/item/storage/backpack/duffelbag/med/implant)
+	crate_name = "implant supplies crate"
+
 /datum/supply_pack/medical/salglucanister
 	name = "Heavy-Duty Saline Canister"
 	desc = "Contains a bulk supply of saline-glucose condensed into a single canister that should last several days, with a large pump to fill containers with. Direct injection of saline should be left to medical professionals as the pump is capable of overdosing patients. Requires medbay access to open."
@@ -2794,6 +2802,13 @@
 					/mob/living/simple_animal/hostile/retaliate/poison/snake,
 					/mob/living/simple_animal/hostile/retaliate/poison/snake)
 	crate_name = "snake crate"
+
+/datum/supply_pack/critter/capybara
+	name = "Capybara Crate"
+	desc = "Coconut doggy"
+	cost = 10000
+	contains = list(/mob/living/simple_animal/pet/dog/corgi/capybara)
+	crate_name = "capybara crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Costumes & Toys /////////////////////////////////

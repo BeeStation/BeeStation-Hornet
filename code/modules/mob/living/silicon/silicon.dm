@@ -6,7 +6,7 @@
 	verb_exclaim = "declares"
 	verb_yell = "alarms"
 	initial_language_holder = /datum/language_holder/synthetic
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	bubble_icon = "machine"
 	weather_immunities = list("ash")
 	possible_a_intents = list(INTENT_HELP, INTENT_HARM)
@@ -391,7 +391,7 @@
 		return
 	if(Autochan == "Default") //Autospeak on whatever frequency to which the radio is set, usually Common.
 		radiomod = ";"
-		Autochan += " ([radio.frequency])"
+		Autochan += " ([radio.get_frequency()])"
 	else if(Autochan == "None") //Prevents use of the radio for automatic annoucements.
 		radiomod = ""
 	else	//For department channels, if any, given by the internal radio.
@@ -468,6 +468,18 @@
 
 /mob/living/silicon/hears_radio()
 	return FALSE
+
+/mob/living/silicon/on_floored_start()
+	return // Silicons are always standing by default.
+
+/mob/living/silicon/on_floored_end()
+	return // Silicons are always standing by default.
+
+/mob/living/silicon/on_lying_down()
+	return // Silicons are always standing by default.
+
+/mob/living/silicon/on_standing_up()
+	return // Silicons are always standing by default.
 
 /**
  * Records an IC event log entry in the cyborg's internal tablet.

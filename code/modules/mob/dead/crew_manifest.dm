@@ -25,7 +25,7 @@
 		"command" = list(
 			"name" = "Command",
 			"huds" = GLOB.command_huds,
-			"jobs" = GLOB.command_positions,
+			"jobs" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND),
 			"order" = SSjob.chain_of_command
 		),
 		"order" = ordering,

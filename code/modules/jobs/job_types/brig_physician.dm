@@ -1,7 +1,7 @@
 /datum/job/brig_physician
 	title = JOB_NAME_BRIGPHYSICIAN
 	description = "Tend to the health of Security Officers and Prisoners, help out at Medbay if you have free time."
-	department_for_prefs = DEPT_BITFLAG_SEC
+	department_for_prefs = DEPT_NAME_SECURITY
 	department_head_for_prefs = JOB_NAME_HEADOFSECURITY
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "chief medical officer"
@@ -14,8 +14,8 @@
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/brig_physician
 
-	access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS, ACCESS_MECH_MEDICAL)
-	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS, ACCESS_MECH_MEDICAL)
+	base_access = list(ACCESS_BRIGPHYS, ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_MECH_MEDICAL)
+	extra_access = list()
 
 	departments = DEPT_BITFLAG_MED | DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_MED_BITFLAG

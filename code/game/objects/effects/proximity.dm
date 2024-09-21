@@ -100,6 +100,8 @@
 	anchored = TRUE
 	var/datum/proximity_monitor/monitor
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/proximity_checker)
+
 /obj/effect/abstract/proximity_checker/Initialize(mapload, datum/proximity_monitor/_monitor)
 	. = ..()
 	if(_monitor)

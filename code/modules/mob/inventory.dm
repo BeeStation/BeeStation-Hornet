@@ -27,9 +27,9 @@
 
 
 /mob/proc/get_item_for_held_index(i)
-    if(!length(held_items))
-        return null
-    return held_items[i]
+	if(!length(held_items))
+		return null
+	return held_items[i]
 
 //Odd = left. Even = right
 /mob/proc/held_index_to_dir(i)
@@ -457,6 +457,9 @@
 	set name = "quick-equip"
 	set hidden = 1
 
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return TRUE
+
 	var/obj/item/I = get_active_held_item()
 	if (I)
 		I.equip_to_best_slot(src)
@@ -504,7 +507,7 @@
 			var/obj/item/bodypart/BP = new path ()
 			BP.owner = src
 			BP.held_index = i
-			bodyparts += BP
+			add_bodypart(BP)
 			hand_bodyparts[i] = BP
 	..() //Don't redraw hands until we have organs for them
 

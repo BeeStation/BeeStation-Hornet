@@ -19,6 +19,7 @@
 		/obj/item/debug/human_spawner=1,\
 		/obj/item/debug/omnitool=1,\
 		/obj/item/xenoartifact_labeler/debug=1,\
+		/obj/item/map_template_diver=1,\
 		/obj/item/debug/orb_of_power=1
 		)
 
@@ -237,13 +238,13 @@
 	name = JOB_CENTCOM_COMMANDER
 
 	uniform = /obj/item/clothing/under/rank/centcom/commander
-	suit = /obj/item/clothing/suit/armor/bulletproof
+	suit = /obj/item/clothing/suit/armor/centcom_formal
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset/headset_cent/commander
 	glasses = /obj/item/clothing/glasses/eyepatch
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
-	head = /obj/item/clothing/head/hats/centhat
+	head = /obj/item/clothing/head/hats/centcom_cap
 	belt = /obj/item/gun/ballistic/revolver/mateba
 	r_pocket = /obj/item/lighter
 	l_pocket = /obj/item/ammo_box/a357
@@ -282,7 +283,7 @@
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 	ears = /obj/item/radio/headset/headset_cent/commander
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
-	head = /obj/item/clothing/head/helmet/space/beret
+	head = /obj/item/clothing/head/hats/centhat
 	belt = /obj/item/gun/energy/pulse/pistol/m1911
 	r_pocket = /obj/item/lighter
 	back = /obj/item/storage/backpack/satchel/leather

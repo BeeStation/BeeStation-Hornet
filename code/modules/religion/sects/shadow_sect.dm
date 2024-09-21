@@ -24,9 +24,9 @@
 	var/faithful_used = FALSE
 
 /datum/religion_sect/shadow_sect/is_available(mob/user)
-    if(isshadow(user))
-        return TRUE
-    return FALSE
+	if(isshadow(user))
+		return TRUE
+	return FALSE
 
 //Shadow sect doesn't heal
 /datum/religion_sect/shadow_sect/sect_bless(mob/living/blessed, mob/living/user)
@@ -318,7 +318,8 @@
 				break
 	if(!rite_target)
 		return FALSE
-	ADD_TRAIT(rite_target, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
+	rite_target.AddComponent(/datum/component/anti_magic, MAGIC_TRAIT, _magic = TRUE, _holy = FALSE)
+	//glowing wings overlay
 	to_chat(rite_target, "<span class='userdanger'>You are grateful to have been converted to the dark by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 	playsound(rite_target, 'sound/weapons/fwoosh.ogg', 75, 0)
 	rite_target.visible_message("<span class='notice'>[rite_target] has been blessed by the rite of [name]!</span>")
@@ -406,3 +407,5 @@
 			faithful.AddComponent(/datum/component/dark_favor, faithful)
 			faithful.set_light(2, -2, DARKNESS_INVERSE_COLOR)
 		playsound(obs, 'sound/hallucinations/wail.ogg', 50, TRUE)
+
+#undef DARKNESS_INVERSE_COLOR

@@ -15,6 +15,8 @@ Simple datum which is instanced once per type and is used for every object of sa
 	var/greyscale_colors
 	///Base alpha of the material, is used for greyscale icons.
 	var/alpha
+	///Bitflags that influence how SSmaterials handles this material.
+	var/init_flags = MATERIAL_INIT_MAPLOAD
 	///Materials "Traits". its a map of key = category | Value = Bool. Used to define what it can be used for
 	var/list/categories = list()
 	///The type of sheet this material creates. This should be replaced as soon as possible by greyscale sheets
@@ -39,6 +41,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 	var/texture_layer_icon_state
 	///a cached icon for the texture filter
 	var/cached_texture_filter_icon
+	
 
 /datum/material/New()
 	. = ..()
@@ -66,6 +69,9 @@ Simple datum which is instanced once per type and is used for every object of sa
 		source.opacity = FALSE
 	if(material_flags & MATERIAL_ADD_PREFIX)
 		source.name = "[name] [source.name]"
+
+	//if(beauty_modifier)
+	//	source.AddElement(/datum/element/beauty, beauty_modifier * amount)
 
 	if(istype(source, /obj)) //objs
 		on_applied_obj(source, amount, material_flags)
@@ -132,6 +138,12 @@ Simple datum which is instanced once per type and is used for every object of sa
 		O.barefootstep = turf_sound_override
 		O.clawfootstep = turf_sound_override
 		O.heavyfootstep = turf_sound_override
+	if(alpha < 255) //We can see through you, so we want to see stuff happening below you. Either space, or multi-z
+		T.enable_zmimic()
+		if(isspaceturf(T.baseturfs[1]))
+			T.fullbright_type = FULLBRIGHT_STARLIGHT
+			T.luminosity = 2
+
 	return
 
 /datum/material/proc/get_greyscale_config_for(datum/greyscale_config/config_path)
@@ -143,7 +155,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 		return path
 
 ///This proc is called when the material is removed from an object.
-/datum/material/proc/on_removed(atom/source, material_flags)
+/datum/material/proc/on_removed(atom/source, amount, material_flags)
 	if(material_flags & MATERIAL_COLOR) //Prevent changing things with pre-set colors, to keep colored toolboxes their looks for example
 		if(color)
 			source.remove_atom_colour(FIXED_COLOUR_PRIORITY, color)
@@ -159,13 +171,13 @@ Simple datum which is instanced once per type and is used for every object of sa
 		source.name = initial(source.name)
 
 	if(istype(source, /obj)) //objs
-		on_removed_obj(source, material_flags)
+		on_removed_obj(source, amount, material_flags)
 
 	if(istype(source, /turf)) //turfs
-		on_removed_turf(source, material_flags)
+		on_removed_turf(source, amount, material_flags)
 
 ///This proc is called when the material is removed from an object specifically.
-/datum/material/proc/on_removed_obj(obj/o, material_flags)
+/datum/material/proc/on_removed_obj(obj/o, amount, material_flags)
 	if(material_flags & MATERIAL_AFFECT_STATISTICS)
 		var/new_max_integrity = initial(o.max_integrity)
 		o.modify_max_integrity(new_max_integrity)
@@ -181,7 +193,11 @@ Simple datum which is instanced once per type and is used for every object of sa
 		)
 
 /datum/material/proc/on_removed_turf(turf/T, material_flags)
-	return
+	if(alpha < 255)
+		T.disable_zmimic()
+		if(ispath(READ_BASETURF(T), /turf/open/space))
+			T.fullbright_type = FULLBRIGHT_DEFAULT
+			T.luminosity = 1
 
 /**
  * This proc is called when the mat is found in an item that's consumed by accident. see /obj/item/proc/on_accidental_consumption.
@@ -192,6 +208,16 @@ Simple datum which is instanced once per type and is used for every object of sa
 /datum/material/proc/on_accidental_mat_consumption(mob/living/carbon/M, obj/item/S)
 	return FALSE
 
+/** Returns the composition of this material.
+  *
+  * Mostly used for alloys when breaking down materials.
+  *
+  * Arguments:
+  * - amount: The amount of the material to break down.
+  * - breakdown_flags: Some flags dictating how exactly this material is being broken down.
+  */
+/datum/material/proc/return_composition(amount=1, breakdown_flags=NONE)
+	return list((src) = amount) // Yes we need the parenthesis, without them BYOND stringifies src into "src" and things break.
 
 /// Returns GLOB.recipes of a material to modify the recipes.
 /// This will be only called once from SSMaterials.

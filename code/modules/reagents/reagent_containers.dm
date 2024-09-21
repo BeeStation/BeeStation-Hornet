@@ -31,6 +31,8 @@
 	///Does this container prevent grinding?
 	var/prevent_grinding = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
+
 /obj/item/reagent_containers/Initialize(mapload, vol)
 	. = ..()
 	if(isnum_safe(vol) && vol > 0)

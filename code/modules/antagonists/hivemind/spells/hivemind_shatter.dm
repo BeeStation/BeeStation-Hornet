@@ -10,7 +10,7 @@
 /obj/effect/proc_holder/spell/target_hive/hive_shatter/Initialize(mapload)
 	. = ..()
 	if(!special_roles)
-		special_roles = GLOB.security_positions.Copy() + JOB_NAME_CAPTAIN
+		special_roles = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY) + JOB_NAME_CAPTAIN
 
 /obj/effect/proc_holder/spell/target_hive/hive_shatter/cast(list/targets, mob/living/user = usr)
 	var/mob/living/carbon/human/target = targets[1]

@@ -79,6 +79,8 @@
 		to_chat(mecha_attacker, "<span class='danger'>You push [src] out of the way.</span>")
 
 /mob/living/carbon/human/mech_melee_attack(obj/vehicle/sealed/mecha/mecha_attacker, mob/user)
+	if(!user)
+		stack_trace("Warning: [src] had mech_melee_attack called on them with no mob?")
 	if(user.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
@@ -93,9 +95,7 @@
 			switch(mecha_attacker.damtype)
 				if(BRUTE)
 					if(mecha_attacker.force > 35) // durand and other heavy mechas
-						Unconscious(20)
-					else if(mecha_attacker.force > 20 && !IsKnockdown()) // lightweight mechas like gygax
-						Knockdown(40)
+						Knockdown(20)
 					update |= temp.receive_damage(dmg, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 				if(FIRE)

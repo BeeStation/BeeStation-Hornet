@@ -235,10 +235,10 @@
 //==================================//
 
 /datum/action/innate/clockcult
-	icon_icon = 'icons/mob/actions/actions_clockcult.dmi'
+	icon_icon = 'icons/hud/actions/actions_clockcult.dmi'
 	background_icon_state = "bg_clock"
 	buttontooltipstyle = "brass"
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 
 /datum/action/innate/clockcult/quick_bind
 	name = "Quick Bind"

@@ -127,7 +127,7 @@
 	resistance_flags = INDESTRUCTIBLE
 	var/static/datum/gas_mixture/immutable/planetary/GM
 
-/turf/open/floor/plating/grass/Initialize()
+/turf/open/floor/plating/grass/Initialize(mapload)
 	if(!GM)
 		GM = new
 	. = ..()
@@ -225,7 +225,7 @@
 	. = ..()
 	if(user != dropping)
 		dropping.visible_message("<span class='notice'>[user] starts to lower [dropping] down into [src].</span>", \
-		 "<span class='notice'>You start to lower [dropping] down into [src].</span>")
+			"<span class='notice'>You start to lower [dropping] down into [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>You start climbing down into [src]...")
 	if(do_after(user, 4 SECONDS, target = dropping))
@@ -404,3 +404,7 @@
 /turf/open/floor/plating/snowed/temperatre
 	initial_temperature = 255.37
 
+/turf/open/floor/plating/elevatorshaft
+	name = "elevator shaft"
+	icon_state = "elevatorshaft"
+	base_icon_state = "elevatorshaft"

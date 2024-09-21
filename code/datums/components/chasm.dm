@@ -69,7 +69,7 @@
 		return FALSE
 	if(!isliving(AM) && !isobj(AM))
 		return FALSE
-	if(is_type_in_typecache(AM, forbidden_types) || AM.throwing || (AM.movement_type & FLOATING))
+	if(is_type_in_typecache(AM, forbidden_types) || AM.throwing || (AM.movement_type & (FLOATING|FLYING)))
 		return FALSE
 	//Flies right over the chasm
 	if(ismob(AM))
@@ -78,8 +78,6 @@
 			var/mob/buckled_to = M.buckled
 			if((!ismob(M.buckled) || (buckled_to.buckled != M)) && !droppable(M.buckled))
 				return FALSE
-		if(M.is_flying())
-			return FALSE
 		if(ishuman(AM))
 			var/mob/living/carbon/human/H = AM
 			if(istype(H.belt, /obj/item/wormhole_jaunter))
@@ -116,19 +114,25 @@
 		if (isliving(AM))
 			var/mob/living/L = AM
 			L.notransform = TRUE
-			L.Paralyze(20 SECONDS)
+			L.Paralyze(2 SECONDS)
+
+		if(ismecha(AM))
+			var/obj/vehicle/sealed/mecha/mech = AM
+			mech.canmove = FALSE
 
 		var/oldtransform = AM.transform
 		var/oldcolor = AM.color
 		var/oldalpha = AM.alpha
-		animate(AM, transform = matrix() - matrix(), alpha = 0, color = rgb(0, 0, 0), time = 10)
+		animate(AM, transform = matrix() - matrix(), alpha = 0, color = rgb(0, 0, 0), time = 15)
 		for(var/i in 1 to 5)
 			//Make sure the item is still there after our sleep
 			if(!AM || QDELETED(AM))
 				return
 			AM.pixel_y--
-			sleep(2)
-
+			sleep(3)
+			if(i == 2 && ismecha(AM))
+				var/obj/vehicle/sealed/mecha/mech = AM
+				mech.Eject() //ABORT ABORT
 		//Make sure the item is still there after our sleep
 		if(!AM || QDELETED(AM))
 			return
