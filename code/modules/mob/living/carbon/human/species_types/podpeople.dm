@@ -58,10 +58,10 @@
 				H.Paralyze(100)
 				H.visible_message("<span class='warning'>[H] writhes in pain as [H.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
 				if(prob(80))
-					H.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+					H.easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
 				else
-					H.easy_randmut(POSITIVE)
-				H.randmuti()
+					H.easy_random_mutate(POSITIVE)
+				H.random_mutate_unique_identity()
 				H.domutcheck()
 			else
 				H.adjustFireLoss(rand(5,15))

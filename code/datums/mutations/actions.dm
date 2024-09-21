@@ -33,7 +33,7 @@
 		possible = list()
 		var/list/prints = sniffed.return_fingerprints()
 		for(var/mob/living/carbon/potential_target in GLOB.carbon_list)
-			if(prints[rustg_hash_string(RUSTG_HASH_MD5, potential_target.dna.uni_identity)])
+			if(prints[rustg_hash_string(RUSTG_HASH_MD5, potential_target.dna.unique_identity)])
 				possible |= potential_target
 		if(!length(possible))
 			to_chat(user, "<span class='warning'>Despite your best efforts, there are no scents to be found on [sniffed]...</span>")

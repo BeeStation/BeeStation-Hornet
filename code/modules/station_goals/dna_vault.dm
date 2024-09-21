@@ -114,10 +114,10 @@
 	//humans
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(dna[H.dna.uni_identity])
+		if(dna[H.dna.unique_identity])
 			to_chat(user, "<span class='notice'>Humanoid data already present in local storage.</span>")
 			return
-		dna[H.dna.uni_identity] = 1
+		dna[H.dna.unique_identity] = 1
 		to_chat(user, "<span class='notice'>Humanoid data added to local storage.</span>")
 
 /obj/machinery/dna_vault

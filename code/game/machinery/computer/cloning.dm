@@ -524,7 +524,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		temp = "Cloning cycle already in progress."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 	else
-		pod.growclone(mob_occupant.real_name, dna.uni_identity, dna.mutation_index, null, null, clone_species, dna.blood_type, mob_occupant.faction)
+		pod.growclone(mob_occupant.real_name, dna.unique_identity, dna.mutation_index, null, null, clone_species, dna.blood_type, mob_occupant.faction)
 		temp = "[mob_occupant.real_name] => Cloning data sent to pod."
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 		log_cloning("[user ? key_name(user) : "Unknown"] cloned [key_name(mob_occupant)] with [src] at [AREACOORD(src)].")
@@ -601,7 +601,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	else
 		R.fields["id"] = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 7)+copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.mind), -4)
 	R.fields["UE"] = dna.unique_enzymes
-	R.fields["UI"] = dna.uni_identity
+	R.fields["UI"] = dna.unique_identity
 	R.fields["SE"] = dna.mutation_index
 	R.fields["blood_type"] = dna.blood_type
 	R.fields["features"] = dna.features

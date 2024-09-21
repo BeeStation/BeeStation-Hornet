@@ -278,7 +278,7 @@
 		G.fields["active_dept"]	= SSjob.GetJobActiveDepartment(assignment)
 		G.fields["age"]			= H.age
 		G.fields["species"]	= H.dna.species.name
-		G.fields["fingerprint"]	= rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)
+		G.fields["fingerprint"]	= rustg_hash_string(RUSTG_HASH_MD5, H.dna.unique_identity)
 		G.fields["p_stat"]		= "Active"
 		G.fields["m_stat"]		= "Stable"
 		switch(H.gender)
@@ -329,7 +329,7 @@
 				L.fields["gender"] = "Other"
 		L.fields["blood_type"]	= H.dna.blood_type
 		L.fields["b_dna"]		= H.dna.unique_enzymes
-		L.fields["identity"]	= H.dna.uni_identity
+		L.fields["identity"]	= H.dna.unique_identity
 		L.fields["species"]		= H.dna.species.type
 		L.fields["features"]	= H.dna.features
 		L.fields["character_appearance"] = character_appearance

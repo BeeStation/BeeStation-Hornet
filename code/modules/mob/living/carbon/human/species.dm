@@ -280,7 +280,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		ORGAN_SLOT_TONGUE = mutanttongue,
 		ORGAN_SLOT_LIVER = mutantliver,
 		ORGAN_SLOT_STOMACH = mutantstomach,
-		ORGAN_SLOT_WINGS = mutantwings
+		ORGAN_SLOT_EXTERNAL_WINGS = mutantwings
 	)
 
 	var/list/slot_organs = list(
@@ -1476,7 +1476,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(radiation > RAD_MOB_MUTATE)
 		if(prob(1))
 			to_chat(H, "<span class='danger'>You mutate!</span>")
-			H.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+			H.easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
 			H.emote("gasp")
 			H.domutcheck()
 
