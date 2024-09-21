@@ -55,7 +55,7 @@
 	var/turf/target_turf = pick(validturfs)
 	if(!target_turf)
 		return
-	var/list/obj/effect/portal/created = create_portal_pair(ourturf, target_turf, 300, 1, /obj/effect/portal/anom)
+	var/list/obj/effect/portal/created = create_portal_pair(ourturf, target_turf, src, 300, 1, /obj/effect/portal/anom)
 	message_admins("[ADMIN_LOOKUPFLW(source)] used a Wormhole Generator in [ADMIN_VERBOSEJMP(ourturf)]")
 	log_game("[key_name(source)] used a Wormhole Generator in [AREACOORD(ourturf)]")
 	QDEL_LIST_IN(created, rand(150,300))
