@@ -42,8 +42,11 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	var/cable_color = "white"
 	var/omni = TRUE
 
-/obj/item/stack/cable_coil/Initialize(mapload, new_amount = null, param_color = null)
+/obj/item/stack/cable_coil/Initialize(mapload, new_amount = null, param_color = null, param_omni = FALSE)
 
+	if (param_color && !param_omni)
+		cable_color = param_color
+		omni = FALSE
 	pixel_x = base_pixel_x + rand(-2,2)
 	pixel_y = base_pixel_y + rand(-2,2)
 	update_appearance(UPDATE_ICON)
@@ -124,24 +127,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 // Clicking on a turf will place the wire, which will join to surrounding tiles
 /obj/item/stack/cable_coil/proc/place_turf(turf/T, mob/user, dirnew)
 	if(!isturf(user.loc))
-		return
+		return TRUE
 
 	if(!isturf(T) || T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE || !T.can_have_cabling())
 		to_chat(user, "<span class='warning'>You can only lay cables on top of exterior catwalks and plating!</span>")
-		return
+		return TRUE
 
 	for (var/obj/structure/cable/wire in T)
 		if (wire.cable_color != cable_color && !omni && !wire.omni)
 			continue
 		if (wire.forced_power_node)
 			to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
-			return
+			return TRUE
 		if (!use(1))
 			to_chat(user, "<span class='warning'>There is no cable left!</span>")
-			return
+			return TRUE
 		to_chat(user, "<span class='warning'>You add a node to the [wire]!</span>")
 		wire.add_power_node()
-		return
+		return TRUE
 
 	if (isopenspace(T))
 		var/turf/below_turf = GET_TURF_BELOW(T)
@@ -149,19 +152,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 			CRASH("Openspace exists without a turf below it.")
 		if (!use(2))
 			to_chat(user, "<span class='warning'>You need at least 2 pieces of cable to wire between decks!</span>")
-			return
+			return TRUE
 		new /obj/structure/cable(T, cable_color)
 		new /obj/structure/cable(below_turf, cable_color)
-		return
+		return TRUE
 
 	if (!use(1))
 		to_chat(user, "<span class='warning'>There is no cable left!</span>")
-		return
+		return TRUE
 
 	if (omni)
 		new /obj/structure/cable/omni(T, cable_color)
 	else
 		new /obj/structure/cable(T, cable_color)
+	return TRUE
 
 //////////////////////////////
 // Misc.

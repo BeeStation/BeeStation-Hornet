@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	name = "power cable"
 	desc = "A flexible, superconducting insulated cable for heavy-duty power transfer."
 	icon = 'icons/obj/power_cond/cables.dmi'
-	icon_state = "0-1-2-4-8"
+	icon_state = "0"
 	layer = WIRE_LAYER //Above hidden pipes, GAS_PIPE_HIDDEN_LAYER
 	anchored = TRUE
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
@@ -106,6 +106,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	north?.update_appearance(UPDATE_ICON)
 	east?.update_appearance(UPDATE_ICON)
 
+	pixel_x = 0
+	pixel_y = 0
+
 	GLOB.cable_list += src //add it to the global cable list
 
 	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
@@ -163,7 +166,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		var/turf/T = get_turf(loc)
 		if(T)
-			var/obj/R = new /obj/item/stack/cable_coil(T, forced_power_node ? 2 : 1, cable_color)
+			var/obj/item/stack/cable_coil/R = new /obj/item/stack/cable_coil(T, forced_power_node ? 2 : 1, cable_color, omni)
 			if(QDELETED(R)) // the coil merged with something on the tile
 				R = locate(/obj/item/stack/cable_coil) in T
 			if(R)
@@ -202,22 +205,29 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		remove_atom_colour(FIXED_COLOUR_PRIORITY)
 	else
 		add_atom_colour(GLOB.cable_colors[cable_color], FIXED_COLOUR_PRIORITY)
+		// Calculate pixel shifts
+		remove_filter(list("displace_wire", "omni-connection-up", "omni-connection-left", "omni-connection-down", "omni-connection-right"))
+		var/shift_amount = 0
 		switch (cable_color)
 			if ("green")
-				pixel_x = -4
-				pixel_y = -4
+				shift_amount = -4
 			if ("orange")
-				pixel_x = -2
-				pixel_y = -2
+				shift_amount = -2
 			if ("yellow")
-				pixel_x = 0
-				pixel_y = 0
+				shift_amount = 0
 			if ("red")
-				pixel_x = 2
-				pixel_y = 2
+				shift_amount = 2
 			if ("pink")
-				pixel_x = 4
-				pixel_y = 4
+				shift_amount = 4
+		add_filter("displace_wire", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-wire"), size=shift_amount))
+		if (north && north.omni)
+			add_filter("omni-connection-up", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-up"), size=shift_amount))
+		if (south && south.omni)
+			add_filter("omni-connection-down", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-down"), size=shift_amount))
+		if (west && west.omni)
+			add_filter("omni-connection-left", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-left"), size=shift_amount))
+		if (east && east.omni)
+			add_filter("omni-connection-right", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-right"), size=shift_amount))
 
 /obj/structure/cable/attackby(obj/item/W, mob/user, params)
 	var/turf/T = get_turf(src)
