@@ -26,7 +26,7 @@
 	src.use_large_steam_sprite = use_large_steam_sprite
 
 	RegisterSignal(parent, COMSIG_ITEM_GRILLED, PROC_REF(OnGrill))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE,  PROC_REF(OnExamine))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE,  PROC_REF(on_examine))
 
 ///Ran every time an item is grilled by something
 /datum/component/grillable/proc/OnGrill(datum/source, atom/used_grill, delta_time = 1)
@@ -64,7 +64,7 @@
 	qdel(parent)
 
 ///Ran when an object almost finishes grilling
-/datum/component/grillable/proc/OnExamine(atom/A, mob/user, list/examine_list)
+/datum/component/grillable/proc/on_examine(atom/A, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
 	if(!current_cook_time) //Not grilled yet
