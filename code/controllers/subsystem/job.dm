@@ -98,6 +98,25 @@ SUBSYSTEM_DEF(job)
 
 	job_manager_blacklisted = SSjob.job_manager_blacklisted
 
+/datum/controller/subsystem/job/proc/get_last_resort_spawn_points()
+	var/area/shuttle/arrival/arrivals_area = GLOB.areas_by_type[/area/shuttle/arrival]
+	if(!isnull(arrivals_area))
+		var/list/turf/available_turfs = list()
+		for (var/list/zlevel_turfs as anything in arrivals_area.get_zlevel_turf_lists())
+			for (var/turf/arrivals_turf as anything in zlevel_turfs)
+				var/obj/structure/chair/shuttle_chair = locate() in arrivals_turf
+				if(!isnull(shuttle_chair))
+					return shuttle_chair
+				if(arrivals_turf.is_blocked_turf(TRUE))
+					continue
+				available_turfs += arrivals_turf
+
+		if(length(available_turfs))
+			return pick(available_turfs)
+
+	stack_trace("Unable to find last resort spawn point.")
+	return (locate(/obj/effect/landmark/error) in GLOB.landmarks_list) || locate(4,4,1)
+
 /datum/controller/subsystem/job/proc/set_overflow_role(new_overflow_role)
 	var/datum/job/new_overflow = GetJob(new_overflow_role)
 	if(!new_overflow || new_overflow.lock_flags)
@@ -327,6 +346,59 @@ SUBSYSTEM_DEF(job)
 		return 1
 	return 0
 
+/// Returns an atom where the mob should spawn in.
+/datum/job/proc/get_roundstart_spawn_point()
+	if(random_spawns_possible)
+		if(HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS))
+			return SSjob.SendToLateJoin(living_mob)
+		if(HAS_TRAIT(SSstation, STATION_TRAIT_RANDOM_ARRIVALS))
+			return SSjob.DropLandAtRandomHallwayPoint(living_mob)
+		if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
+			return SSjob.SpawnLandAtRandom(living_mob, (typesof(/area/hallway) | typesof(/area/crew_quarters/bar) | typesof(/area/crew_quarters/dorms)))
+	if(length(GLOB.jobspawn_overrides[title]))
+		return pick(GLOB.jobspawn_overrides[title])
+	var/obj/effect/landmark/start/spawn_point = get_default_roundstart_spawn_point()
+	if(!spawn_point) //if there isn't a spawnpoint send them to latejoin, if there's no latejoin go yell at your mapper
+		return get_latejoin_spawn_point()
+	return spawn_point
+
+/// Handles finding and picking a valid roundstart effect landmark spawn point, in case no uncommon different spawning events occur.
+/datum/job/proc/get_default_roundstart_spawn_point()
+	for(var/obj/effect/landmark/start/spawn_point as anything in GLOB.start_landmarks_list)
+		if(spawn_point.name != title)
+			continue
+		. = spawn_point
+		if(spawn_point.used) //so we can revert to spawning them on top of eachother if something goes wrong
+			continue
+		spawn_point.used = TRUE
+		break
+	if(!.)
+		log_mapping("Job [title] ([type]) couldn't find a round start spawn point.")
+
+
+/// Finds a valid latejoin spawn point, checking for events and special conditions.
+/datum/job/proc/get_latejoin_spawn_point()
+	if(length(GLOB.jobspawn_overrides[title])) //We're doing something special today.
+		return pick(GLOB.jobspawn_overrides[title])
+	if(length(SSjob.latejoin_trackers))
+		return pick(SSjob.latejoin_trackers)
+	return SSjob.get_last_resort_spawn_points()
+
+
+/// Spawns the mob to be played as, taking into account preferences and the desired spawn point.
+/datum/job/proc/get_spawn_mob(client/player_client, atom/spawn_point)
+	var/mob/living/spawn_instance
+	if(ispath(spawn_type, /mob/living/silicon/ai))
+		// This is unfortunately necessary because of snowflake AI init code. To be refactored.
+		spawn_instance = new spawn_type(get_turf(spawn_point), null, player_client.mob)
+	else
+		spawn_instance = new spawn_type(player_client.mob.loc)
+		spawn_point.JoinPlayerHere(spawn_instance, TRUE)
+	spawn_instance.apply_prefs_job(player_client, src)
+	if(!player_client)
+		qdel(spawn_instance)
+		return // Disconnected while checking for the appearance ban.
+	return spawn_instance
 
 /** Proc DivideOccupations
  *  fills var "assigned_role" for all ready players.

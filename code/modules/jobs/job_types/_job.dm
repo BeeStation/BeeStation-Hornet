@@ -530,3 +530,20 @@
 	// If this checks fails, then the name will have been handled during initialization.
 	if(player_client.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME && check_cyborg_name(player_client, mmi))
 		apply_pref_name(/datum/preference/name/cyborg, player_client)
+/**
+ * Called after a successful roundstart spawn.
+ * Client is not yet in the mob.
+ * This happens after after_spawn()
+ */
+/datum/job/proc/after_roundstart_spawn(mob/living/spawning, client/player_client)
+	SHOULD_CALL_PARENT(TRUE)
+
+
+/**
+ * Called after a successful latejoin spawn.
+ * Client is in the mob.
+ * This happens after after_spawn()
+ */
+/datum/job/proc/after_latejoin_spawn(mob/living/spawning)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, src, spawning)

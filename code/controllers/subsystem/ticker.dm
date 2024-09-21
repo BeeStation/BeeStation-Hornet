@@ -424,7 +424,11 @@ SUBSYSTEM_DEF(ticker)
 	for(var/mob/dead/new_player/player in GLOB.player_list)
 		if(player.ready == PLAYER_READY_TO_PLAY && player.mind)
 			GLOB.joined_player_list += player.ckey
-			player.create_character(FALSE)
+			var/atom/destination = player.mind.assigned_role.get_roundstart_spawn_point()
+			if(!destination) // Failed to fetch a proper roundstart location, won't be going anywhere.
+				player.new_player_panel()
+				continue
+			player.create_character(destination)
 		else
 			player.new_player_panel()
 		CHECK_TICK
@@ -476,9 +480,10 @@ SUBSYSTEM_DEF(ticker)
 		if(!new_player_living.mind)
 			CHECK_TICK
 			continue
-		var/datum/job/player_assigned_role = SSjob.GetJob(new_player_living.mind.assigned_role.title)
+		var/datum/job/player_assigned_role = new_player_living.mind.assigned_role
 		if(player_assigned_role.job_flags & JOB_EQUIP_RANK)
-			SSjob.EquipRank(new_player_living, player_assigned_role, new_player_mob.client, FALSE)
+			SSjob.EquipRank(new_player_living, player_assigned_role, new_player_mob.client)
+		player_assigned_role.after_roundstart_spawn(new_player_living, new_player_mob.client)
 		if(picked_spare_id_candidate == new_player_mob)
 			captainless = FALSE
 			var/acting_captain = !(player_assigned_role == JOB_NAME_CAPTAIN)
