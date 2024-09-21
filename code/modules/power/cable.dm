@@ -193,29 +193,31 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		adjacencies += "4"
 	if (west)
 		adjacencies += "8"
+	if (length(adjacencies) <= 1)
+		adjacencies.Insert(1, "0")
+	if (omni)
+		adjacencies += "o"
 	icon_state = jointext(adjacencies, "-")
-	if (length(icon_state) == 1)
-		icon_state = "0-[icon_state]"
-	if (!north && !south && !east && !west)
-		icon_state = "0-1"
-	color = null
-	add_atom_colour(GLOB.cable_colors[cable_color], FIXED_COLOUR_PRIORITY)
-	switch (cable_color)
-		if ("green")
-			pixel_x = -4
-			pixel_y = -4
-		if ("orange")
-			pixel_x = -2
-			pixel_y = -2
-		if ("yellow")
-			pixel_x = 0
-			pixel_y = 0
-		if ("red")
-			pixel_x = 2
-			pixel_y = 2
-		if ("pink")
-			pixel_x = 4
-			pixel_y = 4
+	if (omni)
+		remove_atom_colour(FIXED_COLOUR_PRIORITY)
+	else
+		add_atom_colour(GLOB.cable_colors[cable_color], FIXED_COLOUR_PRIORITY)
+		switch (cable_color)
+			if ("green")
+				pixel_x = -4
+				pixel_y = -4
+			if ("orange")
+				pixel_x = -2
+				pixel_y = -2
+			if ("yellow")
+				pixel_x = 0
+				pixel_y = 0
+			if ("red")
+				pixel_x = 2
+				pixel_y = 2
+			if ("pink")
+				pixel_x = 4
+				pixel_y = 4
 
 /obj/structure/cable/attackby(obj/item/W, mob/user, params)
 	var/turf/T = get_turf(src)

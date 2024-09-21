@@ -43,16 +43,15 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	var/omni = TRUE
 
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount = null, param_color = null)
-	var/list/cable_colors = GLOB.cable_colors
-	cable_color = param_color || cable_color || pick(cable_colors)
 
 	pixel_x = base_pixel_x + rand(-2,2)
 	pixel_y = base_pixel_y + rand(-2,2)
+	update_appearance(UPDATE_ICON)
 	return ..()
 
 /obj/item/stack/cable_coil/attack_self(mob/user)
 	var/list/options = list()
-	options[OMNI_CABLE] = mutable_appearance('icons/effects/colour.dmi', "rainbow")
+	options[OMNI_CABLE] = mutable_appearance('icons/obj/power.dmi', "omni-coil")
 	options["Red"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["red"])
 	options["Yellow"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["yellow"])
 	options["Green"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["green"])
@@ -85,10 +84,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 ///////////////////////////////////
 
 /obj/item/stack/cable_coil/update_icon()
-	icon_state = "[initial(item_state)][amount < 3 ? amount : ""]"
-	name = "cable [amount < 3 ? "piece" : "coil"]"
-	color = null
-	add_atom_colour(GLOB.cable_colors[cable_color], FIXED_COLOUR_PRIORITY)
+	if (omni)
+		icon_state = "omni-coil[amount < 3 ? amount : ""]"
+		name = "omni-cable [amount < 3 ? "piece" : "coil"]"
+		remove_atom_colour(FIXED_COLOUR_PRIORITY)
+	else
+		icon_state = "[initial(item_state)][amount < 3 ? amount : ""]"
+		name = "cable [amount < 3 ? "piece" : "coil"]"
+		add_atom_colour(GLOB.cable_colors[cable_color], FIXED_COLOUR_PRIORITY)
 
 /obj/item/stack/cable_coil/attack_hand(mob/user)
 	. = ..()
@@ -136,7 +139,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 		if (!use(1))
 			to_chat(user, "<span class='warning'>There is no cable left!</span>")
 			return
-		to_chat(user, "<span class='warning'You add a node to the [wire]!</span>")
+		to_chat(user, "<span class='warning'>You add a node to the [wire]!</span>")
 		wire.add_power_node()
 		return
 
