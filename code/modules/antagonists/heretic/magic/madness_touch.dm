@@ -3,7 +3,7 @@
 /obj/effect/proc_holder/spell/pointed/touch/mad_touch
 	name = "Touch of Madness"
 	desc = "A touch spell that drains your enemy's sanity."
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "mad_touch"
 	action_background_icon_state = "bg_ecult"
 	requires_heretic_focus = TRUE
