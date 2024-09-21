@@ -594,9 +594,6 @@
 	if(dna.features["ipc_chassis"])
 		dna.features["ipc_chassis"] = GLOB.ipc_chassis_list[deconstruct_block(getblock(features, DNA_IPC_CHASSIS_BLOCK), GLOB.ipc_chassis_list.len)]
 
-	for(var/obj/item/organ/external/external_organ in internal_organs)
-		external_organ.mutate_feature(features, src)
-
 	// Ensure we update the skin tone of all non-foreign bodyparts
 	for(var/obj/item/bodypart/part in bodyparts)
 		if(part.no_update)
