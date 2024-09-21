@@ -56,6 +56,58 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">21 September 2024</h2>
+			<h3 class="author">Aramix updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed the electronic paper reader infinitely reading out the first paragraph in a paper</li>
+			</ul>
+			<h3 class="author">Programs-The-Station updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">The electricians have rewired Echostation's Medbay APC.</li>
+			</ul>
+
+			<h2 class="date">20 September 2024</h2>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Moved (almost) all the HUD elements into it's own folder.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">All living mobs can now see in the darkness around them.</li>
+			</ul>
+
+			<h2 class="date">19 September 2024</h2>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Tails and wings now no longer lose their appearance upon emoting or otherwise using them.</li>
+			</ul>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">The Unholy flask is now a bottle instead of a "bottle" (a beaker disguised as so)</li>
+				<li class="balance">Due to the nature of bottles being breakable, the amount of Unholy water has been raised from 50u to 100u</li>
+			</ul>
+			<h3 class="author">Programs-The-Station updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Modifies map lint: no glass on groundless turfs.</li>
+			</ul>
+			<h3 class="author">rkz, cobby updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixes mind nulls upon transformation. Should resolve antag datums leaving lings and mobs losing the ability to speak after transforming</li>
+				<li class="bugfix">regen organs now considers unremovable organs, like heretic hearts. You wont have your heretic heart qdel'd if you are ahealed.</li>
+			</ul>
+
+			<h2 class="date">17 September 2024</h2>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Implements the ability to lint for required neighbors in maplint.</li>
+			</ul>
+
+			<h2 class="date">16 September 2024</h2>
+			<h3 class="author">Tsar-Salat updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">deletes some unused UI assets</li>
+			</ul>
+
 			<h2 class="date">15 September 2024</h2>
 			<h3 class="author">DarnTheMarn updated:</h3>
 			<ul class="changes bgimages16">
@@ -828,74 +880,6 @@
 			<ul class="changes bgimages16">
 				<li class="balance">rebalanced the pirate shuttle</li>
 				<li class="bugfix">some misc decal changes for the pirate shuttle</li>
-			</ul>
-
-			<h2 class="date">19 July 2024</h2>
-			<h3 class="author">Aramix updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">added a new 'divable' var in closets controlling interaction with skittish trait</li>
-				<li class="tweak">supply pods are now not divable</li>
-			</ul>
-
-			<h2 class="date">18 July 2024</h2>
-			<h3 class="author">Hardly3D updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added new hairstyle: Short Bangs 2</li>
-			</ul>
-			<h3 class="author">ToasterBan updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">stunbatons only shove on disarm intent</li>
-			</ul>
-			<h3 class="author">Tsar-Salat updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">placing lightswitch frame uses the correct pixelshift</li>
-				<li class="bugfix">weird camera thing</li>
-			</ul>
-			<h3 class="author">ro5490 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">If all Mimites are dead, an announcement plays.</li>
-				<li class="rscadd">If the Mimite event hits 60 minutes and mimites still alive, they stop replicating entirely</li>
-				<li class="tweak">tweaked replication rate of the Mimites, and added a replication limit</li>
-				<li class="balance">Nerfed Mimite health and ambush venom. Remember that they can be scanned with Discovery Scanners and examine can reveal them.</li>
-				<li class="bugfix">fixed a few runtimes regarding Mimites</li>
-				<li class="code_imp">Threshold Define, and add destroy for Mimites</li>
-			</ul>
-
-			<h2 class="date">17 July 2024</h2>
-			<h3 class="author">rkz, esainane, fippefi, TastyFish updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">emissives for air alarms & request consoles</li>
-				<li class="refactor">Wall mounted and directional objects have undergone major internal simplification. Please report anything unusual!</li>
-				<li class="bugfix">You can no longer stack an indefinite amount of Intercoms on the same wall.</li>
-				<li class="bugfix">Wall mounted items on top of the wall now consistently check against other items on top of the wall, and items coming out of the wall now consistently check against other items coming out of the wall.</li>
-				<li class="bugfix">The various directional pixel offsets within an APC, Fire Extinguisher Cabinet, Intercom, or Newscaster have been made consistent with each other.</li>
-				<li class="bugfix">The pixel offsets of Intercoms, Fire Alarms, Fire Extinguisher Cabinets, Flashers, and Newscasters have been made consistent between roundstart and constructed instances.</li>
-			</ul>
-
-			<h2 class="date">16 July 2024</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Rebalances bleeding making it significantly more dangerous, it now has a status effect.</li>
-				<li class="balance">You can now hold your bleeding wounds to slow the rate of blood-loss.</li>
-				<li class="balance">Burn weapons can cauterise bleeding wounds.</li>
-				<li class="bugfix">Medical items that heal multiple types of damage will now function if only 1 of those types of damages need healing, rather than all of them.</li>
-				<li class="rscadd">Blood type and volume percentage will now show up on medhuds.</li>
-				<li class="balance">Surgery tables and stasis beds will now temporarilly stop your bleeding while you are lying on them.</li>
-			</ul>
-			<h3 class="author">rkz, MLGTASTICa updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixes ody mechhuds</li>
-			</ul>
-
-			<h2 class="date">15 July 2024</h2>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Modular Fabricators no longer dump the contents of a connected ore silo onto the ground</li>
-			</ul>
-			<h3 class="author">Programs-The-Station updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Printed Positronic Brains will now show the correct locations to ghosts on creation, instead of null.</li>
-				<li class="bugfix">Random Hardcoded pAI jobcode value.</li>
 			</ul>
 		</div>
 
