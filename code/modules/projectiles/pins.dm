@@ -97,6 +97,10 @@
 	icon_state = "firing_pin_blue"
 	var/req_alert = SEC_LEVEL_BLUE // What alert level is required to fire
 
+/obj/item/firing_pin/alert/red //Unused for now but could be useful
+	req_alert = SEC_LEVEL_RED
+	icon_state = "firing_pin_red"
+
 /obj/item/firing_pin/alert/AltClick(mob/user)
 	if(req_alert == SEC_LEVEL_BLUE)
 		req_alert = SEC_LEVEL_RED
