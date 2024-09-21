@@ -81,3 +81,6 @@
 	qdel(flood_image_holders)
 	flood_image_holders = list()
 	return ..()
+
+#undef FAKE_FLOOD_EXPAND_TIME
+#undef FAKE_FLOOD_MAX_RADIUS

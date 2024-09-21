@@ -135,7 +135,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	updateUsrDialog()
 	return
 /* Should more cryos be buildable?
-    /obj/item/circuitboard/cryopodcontrol
+	/obj/item/circuitboard/cryopodcontrol
 	name = "Circuit board (Cryogenic Oversight Console)"
 	build_path = "/obj/machinery/computer/cryopod"
 	origin_tech = "programming=1"
@@ -380,7 +380,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	if(target == user && world.time - target.client.cryo_warned > 5 MINUTES)//if we haven't warned them in the last 5 minutes
 		var/caught = FALSE
 		var/datum/antagonist/A = target.mind.has_antag_datum(/datum/antagonist)
-		if(target.mind.assigned_role in GLOB.command_positions)
+		if(target.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 			alert("You're a Head of Staff![generic_plsnoleave_message]")
 			caught = TRUE
 		if(A)

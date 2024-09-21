@@ -27,7 +27,8 @@
 	maxbodytemp = INFINITY
 	healable = 0
 	faction = list("cult")
-	movement_type = FLYING
+	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	pressure_resistance = 100
 	unique_name = 1
 	AIStatus = AI_OFF //normal constructs don't have AI
@@ -504,7 +505,7 @@
 /datum/action/innate/seek_prey
 	name = "Seek the Harvest"
 	desc = "None can hide from Nar'Sie, activate to track a survivor attempting to flee the red harvest!"
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
+	icon_icon = 'icons/hud/actions/actions_cult.dmi'
 	background_icon_state = "bg_demon"
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"

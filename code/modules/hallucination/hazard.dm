@@ -42,6 +42,8 @@
 	if(image && target.client)
 		target.client.images -= image
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/danger)
+
 /obj/effect/hallucination/danger/Initialize(mapload, _target)
 	. = ..()
 	target = _target
@@ -54,6 +56,8 @@
 
 /obj/effect/hallucination/danger/lava
 	name = "lava"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/danger/lava)
 
 /obj/effect/hallucination/danger/lava/Initialize(mapload, _target)
 	. = ..()
@@ -76,6 +80,8 @@
 
 /obj/effect/hallucination/danger/chasm
 	name = "chasm"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/danger/chasm)
 
 /obj/effect/hallucination/danger/chasm/Initialize(mapload, _target)
 	. = ..()
@@ -134,6 +140,8 @@
 /obj/effect/hallucination/simple/xeno
 	image_icon = 'icons/mob/alien.dmi'
 	image_state = "alienh_pounce"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple/xeno)
 
 /obj/effect/hallucination/simple/xeno/Initialize(mapload, mob/living/carbon/T)
 	. = ..()
@@ -207,6 +215,8 @@
 /obj/effect/hallucination/simple/clown
 	image_icon = 'icons/mob/animal.dmi'
 	image_state = "clown"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple/clown)
 
 /obj/effect/hallucination/simple/clown/Initialize(mapload, mob/living/carbon/T, duration)
 	..(loc, T)

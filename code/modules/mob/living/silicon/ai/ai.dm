@@ -107,6 +107,8 @@
 	var/obj/effect/overlay/holo_pad_hologram/ai_hologram
 	var/obj/machinery/holopad/current_holopad
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
+
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	default_access_list = get_all_accesses()
 	. = ..()
@@ -1004,7 +1006,7 @@
 /datum/action/innate/deploy_shell
 	name = "Deploy to AI Shell"
 	desc = "Wirelessly control a specialized cyborg shell."
-	icon_icon = 'icons/mob/actions/actions_AI.dmi'
+	icon_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_shell"
 
 /datum/action/innate/deploy_shell/Trigger()
@@ -1016,7 +1018,7 @@
 /datum/action/innate/deploy_last_shell
 	name = "Reconnect to shell"
 	desc = "Reconnect to the most recently used AI shell."
-	icon_icon = 'icons/mob/actions/actions_AI.dmi'
+	icon_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_last_shell"
 	var/mob/living/silicon/robot/last_used_shell
 
@@ -1037,6 +1039,8 @@
 
 /mob/living/silicon/ai/resist()
 	return
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 
 /mob/living/silicon/ai/spawned/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	if(!target_ai)
@@ -1085,3 +1089,5 @@
 		return
 
 	aicamera.adjust_zoom(src)
+
+#undef CALL_BOT_COOLDOWN

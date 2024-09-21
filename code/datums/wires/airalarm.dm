@@ -5,9 +5,9 @@
 		set_instance_vars(\
 			pixel_x = (dir & 3)? INSTANCE_VAR_DEFAULT : (dir == 4 ? -24 : 24),\
 			pixel_y = (dir & 3)? (dir == 1 ? -24 : 24) : INSTANCE_VAR_DEFAULT\
-        ),\
+		),\
 		dir_amount = 4\
-    )
+	)
 
 /datum/wires/airalarm/New(atom/holder)
 	wires = list(

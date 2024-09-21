@@ -170,3 +170,5 @@
 		if("supermatter")
 			SEND_SOUND(target, 'sound/magic/charge.ogg')
 			to_chat(target, "<span class='boldannounce'>You feel reality distort for a moment...</span>")
+
+#undef HAL_LINES_FILE

@@ -33,6 +33,8 @@
 /obj/item/stock_parts/cell/get_cell()
 	return src
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
+
 /obj/item/stock_parts/cell/Initialize(mapload, override_maxcharge)
 	. = ..()
 	START_PROCESSING(SSobj, src)

@@ -35,6 +35,6 @@
 	icon = 'icons/obj/radio.dmi'//maybe make a unique sprite later. not important
 	icon_state = "walkietalkie"
 
-/obj/item/implant/radio/antenna/Initialize()
+/obj/item/implant/radio/antenna/Initialize(mapload)
 	. = ..()
 	radio.name = "internal antenna"

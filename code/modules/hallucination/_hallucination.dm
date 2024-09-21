@@ -113,6 +113,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /obj/effect/hallucination/singularity_act()
 	return
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple)
+
 /obj/effect/hallucination/simple/Initialize(mapload, mob/living/carbon/T)
 	. = ..()
 	if(!T)

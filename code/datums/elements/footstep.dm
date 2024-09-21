@@ -62,7 +62,7 @@
 	if(!istype(turf))
 		return
 
-	if(!turf.footstep || source.buckled || source.throwing || source.movement_type & (VENTCRAWLING | FLYING))
+	if(!turf.footstep || source.buckled || source.throwing || source.movement_type & (VENTCRAWLING | FLOATING | FLYING))
 		return
 
 	if(source.body_position == LYING_DOWN) //play crawling sound if we're lying
