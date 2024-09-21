@@ -257,7 +257,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/bundles_TC/firestarter
 	name = "Spetsnaz Pyro bundle"
-	desc = "For systematic suppression of carbon lifeforms in close quarters: Contains a lethal New Russian backpack spray, Elite hardsuit, \
+	desc = "For systematic suppression of carbon lifeforms in close quarters: Contains a lethal Flamethrower, Two plasma tanks, Elite hardsuit, \
 			Stechkin APS pistol, two magazines, a minibomb and a stimulant syringe. \
 			Order NOW and comrade Boris will throw in an extra tracksuit."
 	item = /obj/item/storage/backpack/duffelbag/syndie/firestarter
