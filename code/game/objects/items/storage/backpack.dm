@@ -699,9 +699,9 @@
 
 /obj/item/storage/backpack/duffelbag/syndie/firestarter/PopulateContents()
 	new /obj/item/clothing/under/syndicate/soviet(src)
-	new /obj/item/flamethrower/full/tank
-	new /obj/item/tank/internals/plasma
-	new /obj/item/tank/internals/plasma
+	new /obj/item/flamethrower/full/tank(src)
+	new /obj/item/tank/internals/plasma(src)
+	new /obj/item/tank/internals/plasma(src)
 	new /obj/item/clothing/suit/space/hardsuit/syndi/elite(src)
 	new /obj/item/gun/ballistic/automatic/pistol/APS(src)
 	new /obj/item/ammo_box/magazine/pistolm9mm(src)
