@@ -135,6 +135,33 @@
 			return "None"
 		return dat.Join("<br>")
 
+/**
+ * get_quirk_string() is used to get a printable string of all the quirk traits someone has for certain criteria
+ *
+ * Arguments:
+ * * Medical- If we want the long, fancy descriptions that show up in medical records, or if not, just the name
+ * * Category- Which types of quirks we want to print out. Defaults to everything
+ * * from_scan- If the source of this call is like a health analyzer or HUD, in which case QUIRK_HIDE_FROM_MEDICAL hides the quirk.
+ */
+/mob/living/proc/get_quirk_string(medical = FALSE, category = CAT_QUIRK_ALL, from_scan = FALSE)
+	var/list/dat = list()
+	for(var/datum/quirk/candidate as anything in mind.quirks)
+		switch(category)
+			if(CAT_QUIRK_MAJOR_DISABILITY)
+				if(candidate.value >= -4)
+					continue
+			if(CAT_QUIRK_MINOR_DISABILITY)
+				if(!ISINRANGE(candidate.value, -4, -1))
+					continue
+			if(CAT_QUIRK_NOTES)
+				if(candidate.value < 0)
+					continue
+		dat += medical ? candidate.medical_record_text : candidate.name
+
+	if(!dat.len)
+		return medical ? "No issues have been declared." : "None"
+	return medical ?  dat.Join("<br>") : dat.Join(", ")
+
 /datum/quirk/proc/read_choice_preference(path)
 	var/client/qclient = GLOB.directory[ckey(quirk_holder.key)]
 	var/pref = qclient?.prefs.read_character_preference(path)

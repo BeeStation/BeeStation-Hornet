@@ -3,6 +3,8 @@ GLOBAL_VAR_INIT(TAB, "&nbsp;&nbsp;&nbsp;&nbsp;")
 
 GLOBAL_DATUM_INIT(data_core, /datum/datacore, new)
 
+GLOBAL_DATUM_INIT(manifest, /datum/manifest, new)
+
 GLOBAL_LIST_EMPTY(player_details)	//! ckey -> /datum/player_details
 
 ///All currently running polls held as datums
