@@ -1,0 +1,5 @@
+author: Aramix
+delete-after: true
+changes:
+  - bugfix: fixed the electronic paper reader infinitely reading out the first paragraph
+      in a paper
