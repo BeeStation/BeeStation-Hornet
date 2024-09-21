@@ -203,7 +203,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple)
 	for(var/turf/FT in flood_turfs)
 		for(var/dir in GLOB.cardinals)
 			var/turf/T = get_step(FT, dir)
-			if((T in flood_turfs) || !FT.CanAtmosPass(T))
+			if((T in flood_turfs) || !FT.can_atmos_pass(T))
 				continue
 			var/image/new_plasma = image(image_icon,T,image_state,FLY_LAYER)
 			new_plasma.alpha = 50

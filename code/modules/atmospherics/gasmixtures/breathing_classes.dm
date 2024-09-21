@@ -17,27 +17,36 @@
 /datum/breathing_class/proc/get_effective_pp(datum/gas_mixture/breath)
 	var/mol = 0
 	for(var/gas in gases)
-		mol += breath.get_moles(gas) * gases[gas]
+		mol += GET_MOLES(gas,breath) * gases[gas]
 	return (mol/breath.total_moles()) * breath.return_pressure()
 
 /datum/breathing_class/oxygen
 	gases = list(
-		GAS_O2 = 1,
-		GAS_PLUOXIUM = 8,
-		GAS_CO2 = -0.7, // CO2 isn't actually toxic, just an asphyxiant
+		/datum/gas/oxygen = 1,
+		/datum/gas/pluoxium = 8,
+		/datum/gas/carbon_dioxide = -0.7, // CO2 isn't actually toxic, just an asphyxiant
 	)
 	products = list(
-		GAS_CO2 = 1,
+		/datum/gas/carbon_dioxide = 1,
 	)
 
 /datum/breathing_class/plasma
 	gases = list(
-		GAS_PLASMA = 1
+		/datum/gas/plasma = 1
 	)
 	products = list(
-		GAS_CO2 = 1
+		/datum/gas/carbon_dioxide = 1
 	)
 	low_alert_category = "not_enough_tox"
 	low_alert_datum = /atom/movable/screen/alert/not_enough_tox
 	high_alert_category = "too_much_tox"
 	high_alert_datum = /atom/movable/screen/alert/too_much_tox
+
+/proc/breathing_class_list()
+	var/list/breathing_classes = list()
+	for(var/breathing_class_path in subtypesof(/datum/breathing_class))
+		var/datum/breathing_class/class = new breathing_class_path
+		breathing_classes[breathing_class_path] = class
+	return breathing_classes
+
+GLOBAL_LIST_INIT(breathing_class_info, breathing_class_list())

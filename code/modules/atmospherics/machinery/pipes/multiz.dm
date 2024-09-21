@@ -32,7 +32,7 @@
 	pipe = mutable_appearance(icon, "pipe-[piping_layer]")
 	return ..()
 
-/obj/machinery/atmospherics/pipe/multiz/SetInitDirections()
+/obj/machinery/atmospherics/pipe/multiz/set_init_directions()
 	initialize_directions = dir
 
 /obj/machinery/atmospherics/pipe/multiz/update_icon()

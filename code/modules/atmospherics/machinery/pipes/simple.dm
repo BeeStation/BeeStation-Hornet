@@ -22,7 +22,7 @@
 		pipe_interference_group = "atmos-[piping_layer]"\
 	)
 
-/obj/machinery/atmospherics/pipe/simple/SetInitDirections()
+/obj/machinery/atmospherics/pipe/simple/set_init_directions()
 	if(dir in GLOB.diagonals)
 		initialize_directions = dir
 		return

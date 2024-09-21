@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 
 	if(vent_found)
 		var/datum/pipeline/vent_found_parent = vent_found.parents[1]
-		if(vent_found_parent && (vent_found_parent.members.len || vent_found_parent.other_atmosmch))
+		if(vent_found_parent && (vent_found_parent.members.len || vent_found_parent.other_atmos_machines))
 			visible_message("<span class='notice'>[src] begins climbing into the ventilation system.</span>" ,"<span class='notice'>You begin climbing into the ventilation system.</span>")
 
 			if(!do_after(src, 25, target = vent_found))
@@ -86,9 +86,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 		return
 	var/list/totalMembers = list()
 
-	for(var/datum/pipeline/P in starting_machine.returnPipenets())
+	for(var/datum/pipeline/P in starting_machine.return_pipenets())
 		totalMembers += P.members
-		totalMembers += P.other_atmosmch
+		totalMembers += P.other_atmos_machines
 
 	if(!totalMembers.len)
 		return

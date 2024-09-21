@@ -1345,14 +1345,14 @@
 "gc" = (
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
-	initial_temperature = 120
+	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
 "gd" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
-	initial_temperature = 120
+	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
 "ge" = (
@@ -1363,7 +1363,7 @@
 /obj/effect/spawner/lootdrop/snowdin/dungeonheavy,
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
-	initial_temperature = 120
+	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
 "gg" = (
@@ -1577,14 +1577,14 @@
 /obj/effect/decal/remains/human,
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
-	initial_temperature = 120
+	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
 "gV" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
-	initial_temperature = 120
+	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
 "gW" = (
@@ -1752,7 +1752,7 @@
 /obj/structure/destructible/cult/pylon,
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
-	initial_temperature = 120
+	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
 "hG" = (
@@ -1894,7 +1894,7 @@
 /obj/effect/spawner/lootdrop/snowdin/dungeonmid,
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
-	initial_temperature = 120
+	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
 "im" = (
@@ -1904,7 +1904,7 @@
 	},
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
-	initial_temperature = 120
+	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
 "in" = (
@@ -1914,7 +1914,7 @@
 	},
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
-	initial_temperature = 120
+	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
 "is" = (
@@ -2204,7 +2204,7 @@
 	},
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
-	initial_temperature = 120
+	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
 "jQ" = (
@@ -2494,7 +2494,7 @@
 /obj/effect/spawner/lootdrop/snowdin/dungeonlite,
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
-	initial_temperature = 120
+	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
 "lU" = (
@@ -3583,7 +3583,7 @@
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
-	initial_temperature = 120
+	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
 "qh" = (
@@ -8077,7 +8077,7 @@
 /turf/open/floor/mineral/plastitanium{
 	initial_gas_mix = "o2=22;n2=82;TEMP=180";
 	planetary_atmos = 1;
-	initial_temperature = 180
+	temperature = 180
 	},
 /area/awaymission/snowdin/cave)
 "EF" = (
@@ -8089,7 +8089,7 @@
 /turf/open/floor/mineral/plastitanium{
 	initial_gas_mix = "o2=22;n2=82;TEMP=180";
 	planetary_atmos = 1;
-	initial_temperature = 180
+	temperature = 180
 	},
 /area/awaymission/snowdin/cave)
 "EG" = (
@@ -8103,7 +8103,7 @@
 /turf/open/floor/mineral/plastitanium{
 	initial_gas_mix = "o2=22;n2=82;TEMP=180";
 	planetary_atmos = 1;
-	initial_temperature = 180
+	temperature = 180
 	},
 /area/awaymission/snowdin/cave)
 "EH" = (

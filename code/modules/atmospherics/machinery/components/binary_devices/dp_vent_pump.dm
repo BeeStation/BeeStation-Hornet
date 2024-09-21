@@ -47,7 +47,7 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/update_icon_nopipes()
 	cut_overlays()
 	if(showpipe)
-		var/image/cap = getpipeimage(icon, "dpvent_cap", dir, piping_layer = piping_layer)
+		var/image/cap = get_pipe_image(icon, "dpvent_cap", dir, piping_layer = piping_layer)
 		add_overlay(cap)
 
 	if(welded)
@@ -81,16 +81,14 @@
 
 		if(pressure_delta > 0)
 			if(air1.return_temperature() > 0)
-				var/transfer_moles = pressure_delta*environment.return_volume()/(air1.return_temperature() * R_IDEAL_GAS_EQUATION)
+				var/transfer_moles = (pressure_delta*environment.volume)/(air1.return_temperature() * R_IDEAL_GAS_EQUATION)
 
 				loc.assume_air_moles(air1, transfer_moles)
 
-				air_update_turf()
+				air_update_turf(FALSE, FALSE)
 
 				var/datum/pipeline/parent1 = parents[1]
-				if(!parent1)
-					return
-				parent1.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
+				parent1.update = TRUE
 
 	else //external -> output
 		if(environment.return_pressure() > 0)
@@ -103,10 +101,10 @@
 
 			if(moles_delta > 0)
 				loc.transfer_air(air2, moles_delta)
-				air_update_turf()
+				air_update_turf(FALSE, FALSE)
 
 				var/datum/pipeline/parent2 = parents[2]
-				parent2.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
+				parent2.update = TRUE
 
 	//Radio remote control
 
@@ -133,7 +131,7 @@
 	))
 	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/atmosinit()
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/atmos_init()
 	..()
 	if(frequency)
 		set_frequency(frequency)
@@ -221,8 +219,8 @@
 	..()
 	var/datum/gas_mixture/air1 = airs[1]
 	var/datum/gas_mixture/air2 = airs[2]
-	air1.set_volume(1000)
-	air2.set_volume(1000)
+	air1.volume = 1000
+	air2.volume = 1000
 
 // Mapping
 

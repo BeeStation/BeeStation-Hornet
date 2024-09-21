@@ -1225,7 +1225,7 @@
 	sleep(open_speed - 1)
 	density = FALSE
 	z_flags &= ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
-	air_update_turf(1)
+	air_update_turf(TRUE, FALSE)
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
 	update_icon(AIRLOCK_OPEN, 1)
@@ -1270,12 +1270,12 @@
 	if(air_tight)
 		set_density(TRUE)
 		z_flags |= (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
-		air_update_turf(1)
+		air_update_turf(TRUE, TRUE)
 	sleep(1)
 	if(!air_tight)
 		set_density(TRUE)
 		z_flags |= (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
-		air_update_turf(1)
+		air_update_turf(TRUE, TRUE)
 	sleep(open_speed - 1)
 	if(!safe)
 		crush()

@@ -86,7 +86,7 @@
 /obj/machinery/portable_atmospherics/pump/Destroy()
 	var/turf/T = get_turf(src)
 	T.assume_air(air_contents)
-	air_update_turf()
+	air_update_turf(FALSE, FALSE)
 	QDEL_NULL(pump)
 	return ..()
 
@@ -100,23 +100,27 @@
 		add_overlay("siphon-connector")
 
 /obj/machinery/portable_atmospherics/pump/process_atmos()
-	..()
 	if(!on)
 		pump.airs[1] = null
 		pump.airs[2] = null
 		return
 
 	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/temp_air_contents = return_air()
+	var/datum/gas_mixture/temp_holding_air_contents = holding.return_air()
 	if(direction == PUMP_OUT) // Hook up the internal pump.
-		pump.airs[1] = holding ? holding.air_contents : air_contents
-		pump.airs[2] = holding ? air_contents : T.return_air()
+		pump.airs[1] = holding ? temp_holding_air_contents : temp_air_contents
+		pump.airs[2] = holding ? temp_air_contents : T.return_air()
 	else
-		pump.airs[1] = holding ? air_contents : T.return_air()
-		pump.airs[2] = holding ? holding.air_contents : air_contents
+		pump.airs[1] = holding ? temp_air_contents : T.return_air()
+		pump.airs[2] = holding ? temp_holding_air_contents : temp_air_contents
 
 	pump.process_atmos() // Pump gas.
 	if(!holding)
-		air_update_turf() // Update the environment if needed.
+		air_update_turf(FALSE, FALSE) // Update the environment if needed.
+
+	return 	..()
+
 
 /obj/machinery/portable_atmospherics/pump/emp_act(severity)
 	. = ..()
@@ -125,6 +129,8 @@
 	if(is_operational)
 		if(prob(50 / severity))
 			on = !on
+			if(on)
+				SSair.start_processing_machine(src)
 		if(prob(100 / severity))
 			direction = PUMP_OUT
 		pump.target_pressure = rand(0, 100 * ONE_ATMOSPHERE)
@@ -166,7 +172,8 @@
 	if(holding)
 		data["holding"] = list()
 		data["holding"]["name"] = holding.name
-		data["holding"]["pressure"] = round(holding.air_contents.return_pressure())
+		var/datum/gas_mixture/holding_mix = holding.return_air()
+		data["holding"]["pressure"] = round(holding_mix.return_pressure())
 	else
 		data["holding"] = null
 	return data
@@ -177,9 +184,11 @@
 	switch(action)
 		if("power")
 			on = !on
+			if(on)
+				SSair.start_processing_machine(src)
 			if(on && !holding)
-				var/plasma = air_contents.get_moles(GAS_PLASMA)
-				var/n2o = air_contents.get_moles(GAS_NITROUS)
+				var/plasma = GET_MOLES(/datum/gas/plasma, air_contents)
+				var/n2o = GET_MOLES(/datum/gas/nitrous_oxide, air_contents)
 				if(n2o || plasma)
 					message_admins("[ADMIN_LOOKUPFLW(usr)] turned on a pump that contains [n2o ? "N2O" : ""][n2o && plasma ? " & " : ""][plasma ? "Plasma" : ""] at [ADMIN_VERBOSEJMP(src)]")
 					log_admin("[key_name(usr)] turned on a pump that contains [n2o ? "N2O" : ""][n2o && plasma ? " & " : ""][plasma ? "Plasma" : ""] at [AREACOORD(src)]")

@@ -17,12 +17,13 @@
 /obj/machinery/atmospherics/components/unary/tank/New()
 	..()
 	var/datum/gas_mixture/air_contents = airs[1]
-	air_contents.set_volume(volume)
-	air_contents.set_temperature(T20C)
+	air_contents.volume = volume
+	air_contents.temperature = (T20C)
 	if(gas_type)
-		air_contents.set_moles(gas_type, AIR_CONTENTS)
-		name = "[name] ([GLOB.gas_data.names[gas_type]])"
-	setPipingLayer(piping_layer)
+		SET_MOLES(gas_type, air_contents, AIR_CONTENTS)
+
+		name = "[name] ([GLOB.meta_gas_info[gas_type][META_GAS_NAME]])"
+	set_piping_layer(piping_layer)
 
 
 /obj/machinery/atmospherics/components/unary/tank/air
@@ -32,22 +33,23 @@
 /obj/machinery/atmospherics/components/unary/tank/air/New()
 	..()
 	var/datum/gas_mixture/air_contents = airs[1]
-	air_contents.set_moles(GAS_O2, AIR_CONTENTS * 0.2)
-	air_contents.set_moles(GAS_N2, AIR_CONTENTS * 0.8)
+	SET_MOLES(/datum/gas/oxygen, air_contents, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
+	SET_MOLES(/datum/gas/nitrogen, air_contents, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
+
 
 /obj/machinery/atmospherics/components/unary/tank/carbon_dioxide
-	gas_type = GAS_CO2
+	gas_type = /datum/gas/carbon_dioxide
 
 /obj/machinery/atmospherics/components/unary/tank/plasma
 	icon_state = "orange"
-	gas_type = GAS_PLASMA
+	gas_type = /datum/gas/plasma
 
 /obj/machinery/atmospherics/components/unary/tank/oxygen
 	icon_state = "blue"
-	gas_type = GAS_O2
+	gas_type = /datum/gas/oxygen
 
 /obj/machinery/atmospherics/components/unary/tank/nitrogen
 	icon_state = "red"
-	gas_type = GAS_N2
+	gas_type = /datum/gas/nitrogen
 
 #undef AIR_CONTENTS

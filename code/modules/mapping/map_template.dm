@@ -106,7 +106,7 @@
 				)
 		)
 		for(var/turf/affected_turf as anything in template_and_bordering_turfs)
-			affected_turf.air_update_turf(TRUE)
+			affected_turf.air_update_turf(TRUE, TRUE)
 			affected_turf.levelupdate()
 
 /datum/map_template/proc/load_new_z(orbital_body_type, list/level_traits = list(ZTRAIT_AWAY = TRUE))
@@ -150,7 +150,7 @@
 							locate(min(T.x+width, world.maxx), min(T.y+height, world.maxy), T.z))
 	for(var/L in border)
 		var/turf/turf_to_disable = L
-		turf_to_disable.ImmediateDisableAdjacency()
+		turf_to_disable.immediate_disable_adjacency()
 
 	// Accept cached maps, but don't save them automatically - we don't want
 	// ruins clogging up memory for the whole round.

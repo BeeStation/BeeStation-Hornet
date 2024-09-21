@@ -119,7 +119,7 @@
 				investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", INVESTIGATE_ATMOS)
 	update_icon()
 
-/obj/machinery/atmospherics/components/binary/pressure_valve/atmosinit()
+/obj/machinery/atmospherics/components/binary/pressure_valve/atmos_init()
 	. = ..()
 	if(frequency)
 		set_frequency(frequency)

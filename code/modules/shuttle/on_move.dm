@@ -33,7 +33,7 @@ All ShuttleMove procs go here
 				if(M.pulledby)
 					M.pulledby.stop_pulling()
 				M.stop_pulling()
-				M.visible_message("<span class='warning'>[shuttle] slams into [M]!</span>")
+				M.visible_message("<span class='warning>'[shuttle] slams into [M]!</span>")
 				SSblackbox.record_feedback("tally", "shuttle_gib", 1, M.type)
 				M.gib()
 
@@ -73,13 +73,10 @@ All ShuttleMove procs go here
 
 	if(isopenturf(src))
 		var/turf/open/after_src_terf = src
-		update_air_ref(isspaceturf(src) ? 0 : (after_src_terf.planetary_atmos ? 1 : 2))
-	else
-		update_air_ref(-1)
 
 	//Air stuff
-	newT.air_update_turf(TRUE)
-	air_update_turf(TRUE)
+	newT.air_update_turf(TRUE, FALSE)
+	air_update_turf(TRUE, TRUE)
 
 	return TRUE
 
@@ -119,8 +116,8 @@ All ShuttleMove procs go here
 	return TRUE
 
 /turf/proc/lateShuttleMove(turf/oldT)
-	air_update_turf(TRUE)
-	oldT.air_update_turf(TRUE)
+	air_update_turf(TRUE, blocks_air)
+	oldT.air_update_turf(TRUE, oldT.blocks_air)
 
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -258,20 +255,20 @@ All ShuttleMove procs go here
 					break
 
 			if(!connected)
-				nullifyNode(i)
+				nullify_node(i)
 
 		if(!nodes[i])
 			missing_nodes = TRUE
 
 	if(missing_nodes)
-		atmosinit()
+		atmos_init()
 		for(var/obj/machinery/atmospherics/A in pipeline_expansion())
-			A.atmosinit()
-			if(A.returnPipenet())
-				A.addMember(src)
+			A.atmos_init()
+			if(A.return_pipenet())
+				A.add_member(src)
 		SSair.add_to_rebuild_queue(src)
 	else
-		// atmosinit() calls update_icon(), so we don't need to call it
+		// atmos_init() calls update_icon(), so we don't need to call it
 		update_icon()
 
 /obj/machinery/navbeacon/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)

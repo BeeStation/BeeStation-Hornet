@@ -198,8 +198,9 @@
 
 	// Priority 3: use internals tank.
 	var/obj/item/tank/I = owner.internal
-	if(I && I.air_contents && I.air_contents.total_moles() >= num && use_fuel)
-		T.assume_air_moles(I.air_contents, num)
+	var/datum/gas_mixture/I_air = I.return_air()
+	if(I && I_air && I_air.total_moles() >= num && use_fuel)
+		T.assume_air_moles(I_air, num)
 
 	toggle(silent = TRUE)
 	return 0

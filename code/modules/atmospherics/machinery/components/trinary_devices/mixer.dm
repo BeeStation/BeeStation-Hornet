@@ -39,13 +39,13 @@
 	for(var/direction in GLOB.cardinals)
 		if(!(direction & initialize_directions))
 			continue
-		var/obj/machinery/atmospherics/node = findConnecting(direction)
+		var/obj/machinery/atmospherics/node = find_connecting(direction)
 
 		var/image/cap
 		if(node)
-			cap = getpipeimage(icon, "cap", direction, node.pipe_color, piping_layer = piping_layer, trinary = TRUE)
+			cap = get_pipe_image(icon, "cap", direction, node.pipe_color, piping_layer = piping_layer, trinary = TRUE)
 		else
-			cap = getpipeimage(icon, "cap", direction, piping_layer = piping_layer, trinary = TRUE)
+			cap = get_pipe_image(icon, "cap", direction, piping_layer = piping_layer, trinary = TRUE)
 
 		add_overlay(cap)
 
@@ -58,7 +58,7 @@
 /obj/machinery/atmospherics/components/trinary/mixer/New()
 	..()
 	var/datum/gas_mixture/air3 = airs[3]
-	air3.set_volume(300)
+	air3.volume = 300
 	airs[3] = air3
 
 /obj/machinery/atmospherics/components/trinary/mixer/process_atmos()
@@ -116,15 +116,15 @@
 	if(transfer_moles1)
 		air1.transfer_to(air3, transfer_moles1)
 		var/datum/pipeline/parent1 = parents[1]
-		parent1.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
+		parent1.update = TRUE
 
 	if(transfer_moles2)
 		air2.transfer_to(air3, transfer_moles2)
 		var/datum/pipeline/parent2 = parents[2]
-		parent2.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
+		parent2.update = TRUE
 
 	var/datum/pipeline/parent3 = parents[3]
-	parent3.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
+	parent3.update = TRUE
 
 
 /obj/machinery/atmospherics/components/trinary/mixer/ui_state(mob/user)

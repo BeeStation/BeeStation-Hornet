@@ -7,16 +7,16 @@
 
 
 	var/on = FALSE
-	var/volume_rate = 1000
+	var/volume_rate = 500
 	var/overpressure_m = 80
 	volume = 1000
 
-	var/list/scrubbing = list(GAS_PLASMA, GAS_CO2, GAS_NITROUS, GAS_BZ, GAS_NITRYL, GAS_TRITIUM, GAS_HYPERNOB, GAS_H2O)
+	var/list/scrubbing = list(/datum/gas/plasma, /datum/gas/carbon_dioxide, /datum/gas/nitrous_oxide, /datum/gas/bz, /datum/gas/nitryl, /datum/gas/tritium, /datum/gas/hypernoblium, /datum/gas/water_vapor)
 
 /obj/machinery/portable_atmospherics/scrubber/Destroy()
 	var/turf/T = get_turf(src)
 	T.assume_air(air_contents)
-	air_update_turf()
+	air_update_turf(FALSE, FALSE)
 	return ..()
 
 /obj/machinery/portable_atmospherics/scrubber/update_icon()
@@ -29,15 +29,16 @@
 		add_overlay("scrubber-connector")
 
 /obj/machinery/portable_atmospherics/scrubber/process_atmos()
-	..()
+	. = ..()
 	if(!on)
 		return
 
 	if(holding)
-		scrub(holding.air_contents)
+		scrub(holding.return_air())
 	else
 		var/turf/T = get_turf(src)
 		scrub(T.return_air())
+
 
 /obj/machinery/portable_atmospherics/scrubber/proc/scrub(var/datum/gas_mixture/mixture)
 	if(air_contents.return_pressure() >= overpressure_m * ONE_ATMOSPHERE)
@@ -45,7 +46,7 @@
 
 	mixture.scrub_into(air_contents, volume_rate / mixture.return_volume(), scrubbing)
 	if(!holding)
-		air_update_turf()
+		air_update_turf(FALSE, FALSE)
 
 /obj/machinery/portable_atmospherics/scrubber/emp_act(severity)
 	. = ..()
@@ -54,6 +55,8 @@
 	if(is_operational)
 		if(prob(50 / severity))
 			on = !on
+			if(on)
+				SSair.start_processing_machine(src)
 		update_appearance()
 
 
@@ -75,13 +78,14 @@
 
 	data["id_tag"] = -1 //must be defined in order to reuse code between portable and vent scrubbers
 	data["filter_types"] = list()
-	for(var/id in GLOB.gas_data.ids)
-		data["filter_types"] += list(list("gas_id" = id, "gas_name" = GLOB.gas_data.names[id], "enabled" = (id in scrubbing)))
+	for(var/gas_type in subtypesof(/datum/gas))
+		data["filter_types"] += list(list("gas_id" = GLOB.meta_gas_info[gas_type][META_GAS_ID], "gas_name" = GLOB.meta_gas_info[gas_type][META_GAS_NAME], "enabled" = (gas_type in scrubbing)))
 
 	if(holding)
 		data["holding"] = list()
 		data["holding"]["name"] = holding.name
-		data["holding"]["pressure"] = round(holding.air_contents.return_pressure())
+		var/datum/gas_mixture/holding_mix = holding.return_air()
+		data["holding"]["pressure"] = round(holding_mix.return_pressure())
 	else
 		data["holding"] = null
 	return data
@@ -102,6 +106,8 @@
 	switch(action)
 		if("power")
 			on = !on
+			if(on)
+				SSair.start_processing_machine(src)
 			. = TRUE
 		if("eject")
 			if(holding)
@@ -137,14 +143,18 @@
 		on = FALSE
 		update_icon()
 	use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
-	if(!on)
-		return
 
-	..()
+	if(!on)
+		return ..()
+
+	excited = TRUE
+
 	if(!holding)
 		var/turf/T = get_turf(src)
-		for(var/turf/AT in T.GetAtmosAdjacentTurfs(alldir = TRUE))
+		for(var/turf/AT in T.get_atmos_adjacent_turfs(alldir = TRUE))
 			scrub(AT.return_air())
+
+	return ..()
 
 /obj/machinery/portable_atmospherics/scrubber/huge/attackby(obj/item/W, mob/user)
 	if(default_unfasten_wrench(user, W))

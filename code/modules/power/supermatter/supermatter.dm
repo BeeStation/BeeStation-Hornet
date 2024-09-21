@@ -222,14 +222,14 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/list/gasdata = list()
 	if(air.total_moles())
 		data["SM_moles"] = air.total_moles()
-		for(var/gasid in air.get_gases())
+		for(var/gasid in air.gases)
 			gasdata.Add(list(list(
-			"name"= GLOB.gas_data.names[gasid],
-			"amount" = round(100*air.get_moles(gasid)/air.total_moles(),0.01))))
+			"name"= GLOB.meta_gas_info[gasid][META_GAS_NAME],
+			"amount" = round(100*GET_MOLES(gasid, air)/air.total_moles(),0.01))))
 	else
-		for(var/gasid in air.get_gases())
+		for(var/gasid in air.gases)
 			gasdata.Add(list(list(
-				"name"= GLOB.gas_data.names[gasid],
+				"name"=  air.gases[gasid][GAS_META][META_GAS_NAME],
 				"amount" = 0)))
 	data["gases"] = gasdata
 	return data
@@ -457,15 +457,15 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		//Can cause an overestimation of mol count, should stabalize things though.
 		//Prevents huge bursts of gas/heat when a large amount of something is introduced
 		//They range between 0 and 1
-		plasmacomp += clamp(max(removed.get_moles(GAS_PLASMA)/combined_gas, 0) - plasmacomp, -1, gas_change_rate)
-		o2comp += clamp(max(removed.get_moles(GAS_O2)/combined_gas, 0) - o2comp, -1, gas_change_rate)
-		co2comp += clamp(max(removed.get_moles(GAS_CO2)/combined_gas, 0) - co2comp, -1, gas_change_rate)
-		pluoxiumcomp += clamp(max(removed.get_moles(GAS_PLUOXIUM)/combined_gas, 0) - pluoxiumcomp, -1, gas_change_rate)
-		tritiumcomp += clamp(max(removed.get_moles(GAS_TRITIUM)/combined_gas, 0) - tritiumcomp, -1, gas_change_rate)
-		bzcomp += clamp(max(removed.get_moles(GAS_BZ)/combined_gas, 0) - bzcomp, -1, gas_change_rate)
+		plasmacomp += clamp(max(GET_MOLES(/datum/gas/plasma, removed)/combined_gas, 0) - plasmacomp, -1, gas_change_rate)
+		o2comp += clamp(max(GET_MOLES(/datum/gas/oxygen, removed)/combined_gas, 0) - o2comp, -1, gas_change_rate)
+		co2comp += clamp(max(GET_MOLES(/datum/gas/carbon_dioxide, removed)/combined_gas, 0) - co2comp, -1, gas_change_rate)
+		pluoxiumcomp += clamp(max(GET_MOLES(/datum/gas/pluoxium, removed)/combined_gas, 0) - pluoxiumcomp, -1, gas_change_rate)
+		tritiumcomp += clamp(max(GET_MOLES(/datum/gas/tritium, removed)/combined_gas, 0) - tritiumcomp, -1, gas_change_rate)
+		bzcomp += clamp(max(GET_MOLES(/datum/gas/bz, removed)/combined_gas, 0) - bzcomp, -1, gas_change_rate)
 
-		n2ocomp += clamp(max(removed.get_moles(GAS_NITROUS)/combined_gas, 0) - n2ocomp, -1, gas_change_rate)
-		n2comp += clamp(max(removed.get_moles(GAS_N2)/combined_gas, 0) - n2comp, -1, gas_change_rate)
+		n2ocomp += clamp(max(GET_MOLES(/datum/gas/nitrous_oxide, removed)/combined_gas, 0) - n2ocomp, -1, gas_change_rate)
+		n2comp += clamp(max(GET_MOLES(/datum/gas/nitrogen, removed)/combined_gas, 0) - n2comp, -1, gas_change_rate)
 
 		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + tritiumcomp + bzcomp - pluoxiumcomp - n2comp, 0), 1)
 
@@ -516,18 +516,18 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		//Also keep in mind we are only adding this temperature to (efficiency)% of the one tile the rock
 		//is on. An increase of 4*C @ 25% efficiency here results in an increase of 1*C / (#tilesincore) overall.
-		removed.set_temperature(removed.return_temperature() + ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER))
+		removed.temperature = (removed.return_temperature() + ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER))
 
-		removed.set_temperature(max(0, min(removed.return_temperature(), 2500 * dynamic_heat_modifier)))
+		removed.temperature = (max(0, min(removed.return_temperature(), 2500 * dynamic_heat_modifier)))
 
 		//Calculate how much gas to release
-		removed.adjust_moles(GAS_PLASMA, max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0))
+		removed.gases[/datum/gas/plasma][MOLES] += max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0)
 
-		removed.adjust_moles(GAS_O2, max(((device_energy + removed.return_temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
+		removed.gases[/datum/gas/oxygen][MOLES] += max(((device_energy + removed.return_temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
 
 		if(produces_gas)
 			env.merge(removed)
-			air_update_turf()
+			air_update_turf(FALSE, FALSE)
 
 	for(var/mob/living/carbon/human/l in viewers(HALLUCINATION_RANGE(power), src)) // If they can see it without mesons on.  Bad on them.
 		if(HAS_TRAIT(l, TRAIT_MADNESS_IMMUNE) || (l.mind && HAS_TRAIT(l.mind, TRAIT_MADNESS_IMMUNE)))

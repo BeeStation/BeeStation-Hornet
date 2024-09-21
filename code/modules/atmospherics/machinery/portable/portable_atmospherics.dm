@@ -7,24 +7,28 @@
 	anchored = FALSE
 	interacts_with_air = TRUE
 
+		///Stores the gas mixture of the portable component. Don't access this directly, use return_air() so you support the temporary processing it provides
 	var/datum/gas_mixture/air_contents
+
 	var/obj/machinery/atmospherics/components/unary/portables_connector/connected_port
 	var/obj/item/tank/holding
 
 	var/volume = 0
 	var/maximum_pressure = 90 * ONE_ATMOSPHERE
 
+	///Used to track if anything of note has happen while running process_atmos()
+	var/excited = TRUE
+
 /obj/machinery/portable_atmospherics/Initialize(mapload)
 	. = ..()
 	air_contents = new(volume)
-	air_contents.set_temperature(T20C)
+	air_contents.temperature = (T20C)
 	SSair.start_processing_machine(src)
 
 /obj/machinery/portable_atmospherics/Destroy()
 	SSair.stop_processing_machine(src)
 	disconnect()
-	qdel(air_contents)
-	air_contents = null
+	QDEL_NULL(air_contents)
 	return ..()
 
 /obj/machinery/portable_atmospherics/ex_act(severity, target)
@@ -35,7 +39,7 @@
 		//This explosion will destroy the can, release its air.
 		var/turf/T = get_turf(src)
 		T.assume_air(air_contents)
-		T.air_update_turf()
+		T.air_update_turf(FALSE, FALSE)
 
 	return ..()
 
@@ -44,10 +48,14 @@
 		return atmosanalyzer_scan(user, holding, TRUE)
 
 /obj/machinery/portable_atmospherics/process_atmos()
-	if(!connected_port && air_contents != null && src != null) // Pipe network handles reactions if connected.
-		air_contents.react(src)
+	if(!connected_port) // Pipe network handles reactions if connected, and we can't stop processing if there's a port effecting our mix
+		excited = (excited | air_contents.react(src))
+		if(!excited)
+			return PROCESS_KILL
+	excited = FALSE
 
 /obj/machinery/portable_atmospherics/return_air()
+	SSair.start_processing_machine(src)
 	return air_contents
 
 /obj/machinery/portable_atmospherics/return_analyzable_air()
@@ -65,12 +73,14 @@
 	//Perform the connection
 	connected_port = new_port
 	connected_port.connected_device = src
-	connected_port.parents[1].update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
+	var/datum/pipeline/connected_port_parent = connected_port.parents[1]
+	connected_port_parent.reconcile_air()
 
 	set_anchored(TRUE) //Prevent movement
 	pixel_x = new_port.pixel_x
 	pixel_y = new_port.pixel_y
 
+	SSair.start_processing_machine(src)
 	update_appearance()
 	return TRUE
 
@@ -88,6 +98,7 @@
 	pixel_x = 0
 	pixel_y = 0
 
+	SSair.start_processing_machine(src)
 	update_appearance()
 	return TRUE
 
@@ -116,6 +127,8 @@
 		holding = null
 	if(new_tank)
 		holding = new_tank
+
+	SSair.start_processing_machine(src)
 	update_appearance()
 	return TRUE
 

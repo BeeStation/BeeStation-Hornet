@@ -12,7 +12,7 @@
 		pipe_interference_group = "atmos-[piping_layer]"\
 	)
 
-/obj/machinery/atmospherics/components/unary/SetInitDirections()
+/obj/machinery/atmospherics/components/unary/set_init_directions()
 	initialize_directions = dir
 
 /obj/machinery/atmospherics/components/unary/on_construction()

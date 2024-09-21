@@ -1,6 +1,9 @@
 #define CRYOMOBS 'icons/obj/cryo_mobs.dmi'
 #define CRYO_MULTIPLY_FACTOR 1.5 // Multiply factor is used with efficiency to multiply Tx quantity and how much extra is transfered to occupant magically.
 #define CRYO_TX_QTY 0.4 // Tx quantity is how much volume should be removed from the cell's beaker - multiplied by delta_time
+#define CRYO_MIN_GAS_MOLES 5
+#define MAX_TEMPERATURE 4000
+
 
 /obj/machinery/atmospherics/components/unary/cryo_cell
 	name = "cryo cell"
@@ -223,7 +226,7 @@
 			beaker.reagents.trans_to(occupant, (CRYO_TX_QTY / (efficiency * CRYO_MULTIPLY_FACTOR)) * delta_time, efficiency * CRYO_MULTIPLY_FACTOR, method = VAPOR) // Transfer reagents.
 		use_power(1000 * efficiency)
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/process_atmos()
 	..()
@@ -233,7 +236,7 @@
 
 	var/datum/gas_mixture/air1 = airs[1]
 
-	if(!nodes[1] || !airs[1] || air1.get_moles(GAS_O2) < 5) // Turn off if the machine won't work due to not having enough moles to operate.
+	if(!nodes[1] || !airs[1] || GET_MOLES(/datum/gas/oxygen, air1) < 5) // Turn off if the machine won't work due to not having enough moles to operate.
 		on = FALSE
 		update_icon()
 		var/msg = "Aborting. Not enough gas present to operate."
@@ -254,10 +257,10 @@
 
 			var/heat = ((1 - cold_protection) * 0.1 + conduction_coefficient) * temperature_delta * (air_heat_capacity * heat_capacity / (air_heat_capacity + heat_capacity))
 
-			air1.set_temperature(max(air1.return_temperature() - heat / air_heat_capacity, TCMB))
+			air1.temperature = max(air1.return_temperature() - heat / air_heat_capacity, TCMB)
 			mob_occupant.adjust_bodytemperature(heat / heat_capacity, TCMB)
 
-		air1.set_moles(GAS_O2, max(0,air1.get_moles(GAS_O2) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.
+		SET_MOLES(/datum/gas/oxygen, air1, max(0,GET_MOLES(/datum/gas/oxygen, air1) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.
 
 	update_parents()
 
@@ -467,19 +470,21 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/default_change_direction_wrench(mob/user, obj/item/wrench/W)
 	. = ..()
 	if(.)
-		SetInitDirections()
+		set_init_directions()
 		var/obj/machinery/atmospherics/node = nodes[1]
 		if(node)
 			node.disconnect(src)
 			nodes[1] = null
 		nullifyPipenet(parents[1])
-		atmosinit()
+		atmos_init()
 		node = nodes[1]
 		if(node)
-			node.atmosinit()
-			node.addMember(src)
+			node.atmos_init()
+			node.add_member(src)
 		SSair.add_to_rebuild_queue(src)
 
 #undef CRYOMOBS
 #undef CRYO_MULTIPLY_FACTOR
 #undef CRYO_TX_QTY
+#undef CRYO_MIN_GAS_MOLES
+#undef MAX_TEMPERATURE

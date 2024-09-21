@@ -190,7 +190,6 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/reload_configuration,
 	/client/proc/give_all_spells,
 	/datum/admins/proc/create_or_modify_area,
-	/datum/admins/proc/fixcorruption,
 	#ifdef TESTING
 	/client/proc/check_missing_sprites,
 	/client/proc/run_dynamic_simulations,
@@ -813,6 +812,9 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	var/datum/gas_mixture/GM = new
 	for(var/turf/open/F in view())
+		if(F.blocks_air)
+		//skip walls
+			continue
 		GM.parse_gas_string(F.initial_gas_mix)
 		F.copy_air(GM)
 		F.update_visuals()

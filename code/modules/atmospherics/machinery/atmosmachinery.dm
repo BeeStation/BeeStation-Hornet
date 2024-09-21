@@ -43,6 +43,9 @@
 	/// whether it can be painted
 	var/paintable = FALSE
 
+	///Is the thing being rebuilt by SSair or not. Prevents list blaot
+	var/rebuilding = FALSE
+
 /obj/machinery/atmospherics/examine(mob/user)
 	. = ..()
 	if(is_type_in_list(src, GLOB.ventcrawl_machinery) && isliving(user))
@@ -61,14 +64,14 @@
 	..()
 	if(process)
 		SSair.start_processing_machine(src)
-	SetInitDirections()
+	set_init_directions()
 
 /obj/machinery/atmospherics/Destroy()
 	for(var/i in 1 to device_type)
-		nullifyNode(i)
+		nullify_node(i)
 
 	SSair.stop_processing_machine(src)
-	SSair.pipenets_needing_rebuilt -= src
+	SSair.rebuild_queue -= src
 
 	if(pipe_vision_img)
 		qdel(pipe_vision_img)
@@ -79,23 +82,34 @@
 /obj/machinery/atmospherics/proc/destroy_network()
 	return
 
-/obj/machinery/atmospherics/proc/build_network()
-	// Called to build a network from this node
+/// This should only be called by SSair as part of the rebuild queue.
+/// Handles rebuilding pipelines after init or they've been changed.
+/obj/machinery/atmospherics/proc/rebuild_pipes()
+	var/list/targets = get_rebuild_targets()
+	rebuilding = FALSE
+	for(var/datum/pipeline/build_off as anything in targets)
+		build_off.build_pipeline(src) //This'll add to the expansion queue
+
+/**
+ * Returns a list of new pipelines that need to be built up
+ */
+/obj/machinery/atmospherics/proc/get_rebuild_targets()
 	return
 
-/obj/machinery/atmospherics/proc/nullifyNode(i)
-	if(nodes[i])
-		var/obj/machinery/atmospherics/N = nodes[i]
-		N.disconnect(src)
-		nodes[i] = null
+/obj/machinery/atmospherics/proc/nullify_node(i)
+	if(!nodes[i])
+		return
+	var/obj/machinery/atmospherics/node_machine = nodes[i]
+	node_machine.disconnect(src)
+	nodes[i] = null
 
-/obj/machinery/atmospherics/proc/getNodeConnects()
+/obj/machinery/atmospherics/proc/get_node_connects()
 	var/list/node_connects = list()
 	node_connects.len = device_type
 
 	for(var/i in 1 to device_type)
 		for(var/D in GLOB.cardinals)
-			if(D & GetInitDirections())
+			if(D & get_init_directions())
 				if(D in node_connects)
 					continue
 				node_connects[i] = D
@@ -110,9 +124,9 @@
 			setDir(EAST)
 
 //this is called just after the air controller sets up turfs
-/obj/machinery/atmospherics/proc/atmosinit(list/node_connects)
+/obj/machinery/atmospherics/proc/atmos_init(list/node_connects)
 	if(!node_connects) //for pipes where order of nodes doesn't matter
-		node_connects = getNodeConnects()
+		node_connects = get_node_connects()
 
 	for(var/i in 1 to device_type)
 		for(var/obj/machinery/atmospherics/target in get_step(src,node_connects[i]))
@@ -121,7 +135,7 @@
 				break
 	update_icon()
 
-/obj/machinery/atmospherics/proc/setPipingLayer(new_layer)
+/obj/machinery/atmospherics/proc/set_piping_layer(new_layer)
 	piping_layer = (pipe_flags & PIPING_DEFAULT_LAYER_ONLY) ? PIPING_LAYER_DEFAULT : new_layer
 	update_icon()
 
@@ -129,18 +143,18 @@
 	return connection_check(target, piping_layer)
 
 //Find a connecting /obj/machinery/atmospherics in specified direction
-/obj/machinery/atmospherics/proc/findConnecting(direction, prompted_layer)
+/obj/machinery/atmospherics/proc/find_connecting(direction, prompted_layer)
 	for(var/obj/machinery/atmospherics/target in get_step_multiz(src, direction))
 		if(target.initialize_directions & get_dir(target,src) && !istype(target, /obj/machinery/atmospherics/pipe/multiz))
 			if(connection_check(target, prompted_layer))
 				return target
 
 /obj/machinery/atmospherics/proc/connection_check(obj/machinery/atmospherics/target, given_layer)
-	if(isConnectable(target, given_layer) && target.isConnectable(src, given_layer) && (target.initialize_directions & get_dir(target,src) || istype(target, /obj/machinery/atmospherics/pipe/multiz)))
+	if(is_connectable(target, given_layer) && target.is_connectable(src, given_layer) && (target.initialize_directions & get_dir(target,src) || istype(target, /obj/machinery/atmospherics/pipe/multiz)))
 		return TRUE
 	return FALSE
 
-/obj/machinery/atmospherics/proc/isConnectable(obj/machinery/atmospherics/target, given_layer)
+/obj/machinery/atmospherics/proc/is_connectable(obj/machinery/atmospherics/target, given_layer)
 	if(isnull(given_layer))
 		given_layer = piping_layer
 	if((target.piping_layer == given_layer) || (target.pipe_flags & PIPING_ALL_LAYER))
@@ -150,22 +164,22 @@
 /obj/machinery/atmospherics/proc/pipeline_expansion()
 	return nodes
 
-/obj/machinery/atmospherics/proc/SetInitDirections()
+/obj/machinery/atmospherics/proc/set_init_directions()
 	return
 
-/obj/machinery/atmospherics/proc/GetInitDirections()
+/obj/machinery/atmospherics/proc/get_init_directions()
 	return initialize_directions
 
-/obj/machinery/atmospherics/proc/returnPipenet()
+/obj/machinery/atmospherics/proc/return_pipenet()
 	return
 
-/obj/machinery/atmospherics/proc/returnPipenetAir()
+/obj/machinery/atmospherics/proc/return_pipenet_airs()
 	return
 
-/obj/machinery/atmospherics/proc/setPipenet()
+/obj/machinery/atmospherics/proc/set_pipenet()
 	return
 
-/obj/machinery/atmospherics/proc/replacePipenet()
+/obj/machinery/atmospherics/proc/replace_pipenet()
 	return
 
 /obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
@@ -180,7 +194,7 @@
 	if(istype(W, /obj/item/pipe)) //lets you autodrop
 		var/obj/item/pipe/pipe = W
 		if(user.dropItemToGround(pipe))
-			pipe.setPipingLayer(piping_layer) //align it with us
+			pipe.set_piping_layer(piping_layer) //align it with us
 			return TRUE
 	else
 		return ..()
@@ -247,14 +261,14 @@
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(can_unwrench)
 			var/obj/item/pipe/stored = new construction_type(loc, null, dir, src)
-			stored.setPipingLayer(piping_layer)
+			stored.set_piping_layer(piping_layer)
 			if(!disassembled)
 				stored.take_damage(stored.max_integrity * 0.5, sound_effect=FALSE)
 			transfer_fingerprints_to(stored)
 			. = stored
 	..()
 
-/obj/machinery/atmospherics/proc/getpipeimage(iconset, iconstate, direction, col=rgb(255,255,255), piping_layer=3, trinary = FALSE)
+/obj/machinery/atmospherics/proc/get_pipe_image(iconset, iconstate, direction, col=rgb(255,255,255), piping_layer=3, trinary = FALSE)
 
 	//Add identifiers for the iconset
 	if(iconsetids[iconset] == null)
@@ -275,13 +289,13 @@
 	if(can_unwrench)
 		add_atom_colour(obj_color, FIXED_COLOUR_PRIORITY)
 		pipe_color = obj_color
-	setPipingLayer(set_layer)
-	atmosinit()
+	set_piping_layer(set_layer)
+	atmos_init()
 	var/list/nodes = pipeline_expansion()
 	for(var/obj/machinery/atmospherics/A in nodes)
-		A.atmosinit()
-		A.addMember(src)
-	build_network()
+		A.atmos_init()
+		A.add_member(src)
+	SSair.add_to_rebuild_queue(src)
 
 /obj/machinery/atmospherics/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	if(istype(arrived, /mob/living))
@@ -301,14 +315,14 @@
 		return
 	if(user in buckled_mobs)// fixes buckle ventcrawl edgecase fuck bug
 		return
-	var/obj/machinery/atmospherics/target_move = findConnecting(direction, user.ventcrawl_layer)
+	var/obj/machinery/atmospherics/target_move = find_connecting(direction, user.ventcrawl_layer)
 	if(target_move)
 		if(target_move.can_crawl_through())
 			if(is_type_in_typecache(target_move, GLOB.ventcrawl_machinery))
 				user.forceMove(target_move.loc) //handle entering and so on.
 				user.visible_message("<span class='notice'>You hear something squeezing through the ducts...</span>", "<span class='notice'>You climb out the ventilation system.")
 			else
-				var/list/pipenetdiff = returnPipenets() ^ target_move.returnPipenets()
+				var/list/pipenetdiff = return_pipenets() ^ target_move.return_pipenets()
 				if(pipenetdiff.len)
 					user.update_pipe_vision(target_move)
 				user.forceMove(target_move)
@@ -334,7 +348,7 @@
 /obj/machinery/atmospherics/proc/can_crawl_through()
 	return TRUE
 
-/obj/machinery/atmospherics/proc/returnPipenets()
+/obj/machinery/atmospherics/proc/return_pipenets()
 	return list()
 
 /obj/machinery/atmospherics/update_remote_sight(mob/user)

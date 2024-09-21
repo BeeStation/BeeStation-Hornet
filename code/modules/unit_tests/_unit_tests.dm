@@ -21,6 +21,9 @@
 #include "component_tests.dm"
 #include "connect_loc.dm"
 #include "crafting_tests.dm"
+#include "breath.dm"
+#include "gas_transfer.dm"
+
 /*
 #include "create_and_destroy.dm"
 */

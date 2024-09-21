@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	distribute_pressure = ONE_ATMOSPHERE * O2STANDARD
 	actions_types = list(/datum/action/item_action/set_internals, /datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
-	var/gas_type = GAS_O2
+	var/gas_type = /datum/gas/oxygen
 	var/on = FALSE
 	var/stabilizers = FALSE
 	var/full_speed = TRUE // If the jetpack will have a speedboost in space/nograv or not
@@ -29,7 +29,7 @@
 
 /obj/item/tank/jetpack/populate_gas()
 	if(gas_type)
-		air_contents.set_moles(gas_type, ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)))
+		SET_MOLES(gas_type, air_contents, ((6 * ONE_ATMOSPHERE * volume / (R_IDEAL_GAS_EQUATION * T20C))))
 
 /obj/item/tank/jetpack/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/toggle_jetpack))
@@ -335,8 +335,11 @@
 /obj/item/tank/jetpack/combustion/populate_gas()
 	var/moles_full = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 	var/ideal_o2_percent = (1 / PLASMA_OXYGEN_FULLBURN) * 2
-	air_contents.set_moles(GAS_PLASMA, moles_full * (1 - ideal_o2_percent))
-	air_contents.set_moles(GAS_O2, moles_full * ideal_o2_percent)
+	var/datum/gas_mixture/temp_air_contents = return_air()
+
+	SET_MOLES(/datum/gas/plasma, temp_air_contents, moles_full*(1-ideal_o2_percent))
+	SET_MOLES(/datum/gas/oxygen, temp_air_contents, moles_full*ideal_o2_percent)
+
 
 /obj/item/tank/jetpack/combustion/allow_thrust(num, mob/living/user, use_fuel = TRUE)
 	if(!on || !known_user)
@@ -346,16 +349,17 @@
 		return
 
 	var/potential_energy = 0
+	var/datum/gas_mixture/our_mix = return_air()
 	// Minified version of plasmafire burn reaction, with a "controlled" burnrate adjustment due to the high energy output of the reaction
 	// Also produces no waste products (CO2/Trit)
 	var/oxygen_burn_rate = (OXYGEN_BURN_RATE_BASE - 1)
 	var/plasma_burn_rate = 0
-	if(air_contents.get_moles(GAS_O2) > air_contents.get_moles(GAS_PLASMA)*PLASMA_OXYGEN_FULLBURN)
-		plasma_burn_rate = air_contents.get_moles(GAS_PLASMA)/PLASMA_BURN_RATE_DELTA
+	if(GET_MOLES(/datum/gas/oxygen, our_mix) > GET_MOLES(/datum/gas/plasma, our_mix) * PLASMA_OXYGEN_FULLBURN)
+		plasma_burn_rate = GET_MOLES(/datum/gas/plasma, our_mix)/PLASMA_BURN_RATE_DELTA
 	else
-		plasma_burn_rate = (air_contents.get_moles(GAS_O2)/PLASMA_OXYGEN_FULLBURN)/PLASMA_BURN_RATE_DELTA
+		plasma_burn_rate = (GET_MOLES(/datum/gas/plasma, our_mix)/PLASMA_OXYGEN_FULLBURN)/PLASMA_BURN_RATE_DELTA
 	if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
-		plasma_burn_rate = min(plasma_burn_rate,air_contents.get_moles(GAS_PLASMA),air_contents.get_moles(GAS_O2)/oxygen_burn_rate) //Ensures matter is conserved properly
+		plasma_burn_rate = min(plasma_burn_rate,GET_MOLES(/datum/gas/plasma, our_mix),GET_MOLES(/datum/gas/oxygen, our_mix)/oxygen_burn_rate) //Ensures matter is conserved properly
 		potential_energy = FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 
 	// Normalize thrust volume to joules
@@ -369,8 +373,8 @@
 
 	// Consume
 	if(use_fuel)
-		air_contents.set_moles(GAS_PLASMA, QUANTIZE(air_contents.get_moles(GAS_PLASMA) - plasma_burn_rate))
-		air_contents.set_moles(GAS_O2, QUANTIZE(air_contents.get_moles(GAS_O2) - (plasma_burn_rate * oxygen_burn_rate)))
+		SET_MOLES(/datum/gas/plasma, our_mix, QUANTIZE(GET_MOLES(/datum/gas/plasma, our_mix) - plasma_burn_rate))
+		SET_MOLES(/datum/gas/oxygen, our_mix, QUANTIZE(GET_MOLES(/datum/gas/oxygen, our_mix) - (plasma_burn_rate * oxygen_burn_rate)))
 	update_fade(15)
 	update_lifespan(4)
 
@@ -382,7 +386,7 @@
 	icon_state = "jetpack-black"
 	item_state =  "jetpack-black"
 	distribute_pressure = 0
-	gas_type = GAS_CO2
+	gas_type = /datum/gas/carbon_dioxide
 
 // Integrated suit jetpacks
 // These use the tanks of a suit's suit storage instead of an internal tank, and their parent hardsuit assigns their known user.
@@ -430,7 +434,7 @@
 		return
 	var/mob/living/carbon/human/H = user
 	tank = H.s_store
-	air_contents = tank.air_contents
+	air_contents = tank.return_air()
 	RegisterSignals(tank, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING), PROC_REF(on_tank_drop))
 	START_PROCESSING(SSobj, src)
 	..()

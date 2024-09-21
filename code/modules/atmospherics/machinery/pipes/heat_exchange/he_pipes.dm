@@ -14,7 +14,7 @@
 
 	add_atom_colour("#404040", FIXED_COLOUR_PRIORITY)
 
-/obj/machinery/atmospherics/pipe/heat_exchanging/isConnectable(obj/machinery/atmospherics/pipe/heat_exchanging/target, given_layer, HE_type_check = TRUE)
+/obj/machinery/atmospherics/pipe/heat_exchanging/is_connectable(obj/machinery/atmospherics/pipe/heat_exchanging/target, given_layer, HE_type_check = TRUE)
 	if(istype(target, /obj/machinery/atmospherics/pipe/heat_exchanging) != HE_type_check)
 		return FALSE
 	. = ..()
@@ -25,7 +25,7 @@
 
 	var/turf/T = loc
 	if(istype(T))
-		if(isclosedturf(T))
+		if(T.blocks_air)
 			environment_temperature = T.return_temperature()
 		else
 			var/turf/open/OT = T
@@ -47,7 +47,7 @@
 		for(var/m in buckled_mobs)
 			var/mob/living/L = m
 			L.bodytemperature = avg_temp
-		pipe_air.set_temperature(avg_temp)
+		pipe_air.temperature = (avg_temp)
 
 /obj/machinery/atmospherics/pipe/heat_exchanging/process(delta_time)
 	if(!parent)

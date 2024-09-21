@@ -7,7 +7,7 @@
 	density = FALSE
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER
-	CanAtmosPass = ATMOS_PASS_NO
+	can_atmos_pass = ATMOS_PASS_NO
 
 /obj/structure/plasticflaps/opaque
 	opacity = TRUE
@@ -105,4 +105,10 @@
 
 /obj/structure/plasticflaps/Initialize(mapload)
 	. = ..()
-	air_update_turf(TRUE)
+	air_update_turf(TRUE, TRUE)
+
+/obj/structure/plasticflaps/Destroy()
+	var/atom/oldloc = loc
+	. = ..()
+	if (oldloc)
+		oldloc.air_update_turf(TRUE, FALSE)
