@@ -280,7 +280,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		ORGAN_SLOT_TONGUE = mutanttongue,
 		ORGAN_SLOT_LIVER = mutantliver,
 		ORGAN_SLOT_STOMACH = mutantstomach,
-		ORGAN_SLOT_EXTERNAL_WINGS = mutantwings
+		ORGAN_SLOT_WINGS = mutantwings
 	)
 
 	var/list/slot_organs = list(
