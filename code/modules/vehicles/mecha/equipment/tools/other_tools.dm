@@ -14,7 +14,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/teleporter/action(mob/source, atom/target, params)
 	var/area/ourarea = get_area(src)
-	if(!action_checks(target) || ourarea & TELEPORT_ALLOW_NONE)
+	if(!action_checks(target) || ourarea.teleport_restriction >= TELEPORT_ALLOW_NONE)
 		return
 	var/turf/T = get_turf(target)
 	if(T)
@@ -36,7 +36,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/wormhole_generator/action(mob/source, atom/target, params)
 	var/area/ourarea = get_area(src)
-	if(!action_checks(target) || (ourarea & TELEPORT_ALLOW_NONE))
+	if(!action_checks(target) || (ourarea.teleport_restriction >= TELEPORT_ALLOW_NONE))
 		return
 	var/area/targetarea = pick(get_areas_in_range(100, chassis))
 	if(!targetarea)//Literally middle of nowhere how did you even get here
