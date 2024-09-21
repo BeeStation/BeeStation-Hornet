@@ -511,6 +511,7 @@
 		/mob/living/simple_animal/crab,
 		/mob/living/simple_animal/hostile/retaliate/goose,
 		/mob/living/simple_animal/parrot,
+		/mob/living/simple_animal/hostile/lizard,
 	)
 
 /obj/item/choice_beacon/radial/pets/generate_options(mob/living/target)
