@@ -612,7 +612,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
   * Produces a signal COMSIG_PARENT_EXAMINE
   */
 /atom/proc/examine(mob/user)
-	. = list("[get_examine_string(user, TRUE)].")
+	. = list("[get_examine_string(user, TRUE)]")
 
 	if(desc)
 		. += desc
