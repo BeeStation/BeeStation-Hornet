@@ -342,7 +342,7 @@
 
 	var/num_heads = 0
 	for(var/mob/player in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
-		if(player.client && (player.mind.assigned_role in GLOB.command_positions))
+		if(player.client && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
 			num_heads++
 	// Give normal sacrifice objective
 	var/datum/objective/minor_sacrifice/sac_objective = new()
@@ -622,7 +622,7 @@
 		return TRUE
 	// You can ALWAYS sacrifice heads of staff if you need to do so.
 	var/datum/objective/major_sacrifice/major_sacc_objective = locate() in objectives
-	if(major_sacc_objective && !major_sacc_objective.check_completion() && (target_mind.assigned_role in GLOB.command_positions))
+	if(major_sacc_objective && !major_sacc_objective.check_completion() && (target_mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
 		return TRUE
 
 /*

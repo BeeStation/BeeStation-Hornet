@@ -79,7 +79,7 @@
 
 /datum/action/innate/psychic_plane
 	name = "Psychic Plane"
-	icon_icon = 'icons/mob/actions/actions_hive.dmi'
+	icon_icon = 'icons/hud/actions/actions_hive.dmi'
 	button_icon_state = "scan"
 	background_icon_state = "bg_hive"
 	var/datum/psychic_plane/psychic_plane
