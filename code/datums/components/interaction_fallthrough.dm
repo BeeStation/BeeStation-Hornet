@@ -12,15 +12,15 @@
 	. = ..()
 	src.priority = priority
 
-/datum/component/interaction_fallthrough/Attach(datum/target)
+/datum/component/interaction_fallthrough/RegisterWithParent()
 	. = ..()
-	if (!isatom(target))
+	if (!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
-	var/atom/atom_source = source
+	var/atom/atom_source = parent
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(parent_moved))
 	RegisterSignal(atom_source.loc, COMSIG_TURF_ATTACK_FALLTHROUGH, PROC_REF(attack_fallthrough))
 
-/datum/component/interaction_fallthrough/Detach(datum/source, ...)
+/datum/component/interaction_fallthrough/UnregisterFromParent()
 	. = ..()
 	if (!isatom(source))
 		CRASH("An interaction fallthrough element somehow ended up on a /datum!")

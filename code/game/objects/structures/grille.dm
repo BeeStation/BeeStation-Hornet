@@ -208,7 +208,6 @@ WANTS_POWER_NODE(/obj/structure/grille)
 			repair_grille()
 			R.use(1)
 		return TRUE
-	return ..()
 
 //window placing begin
 	else if(is_glass_sheet(W))

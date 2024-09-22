@@ -9,11 +9,11 @@
   */
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params, no_fallthrough = FALSE)
 	SHOULD_NOT_OVERRIDE(TRUE)
-	if(tool_behaviour && target.tool_act(user, src, tool_behaviour))
+	if (tool_behaviour && target.tool_act(user, src, tool_behaviour))
 		return TRUE
-	if(pre_attack(target, user, params))
+	if (pre_attack(target, user, params))
 		return TRUE
-	if(target.attackby(src,user, params))
+	if (target.attackby(src,user, params))
 		return TRUE
 	if (afterattack(target, user, TRUE, params))
 		return TRUE
@@ -21,10 +21,10 @@
 		var/turf/fallthrough_target = get_turf(target)
 		if (fallthrough_target?.attack_fallthrough(user, src, target, params))
 			return TRUE
-	if(QDELETED(src))
+	if (QDELETED(src))
 		stack_trace("An item got deleted while performing an item attack and did not stop melee_attack_chain. ([target.type] was attacked by [type])")
 		return TRUE
-	if(QDELETED(target))
+	if (QDELETED(target))
 		stack_trace("The target of an item attack got deleted and melee_attack_chain was not stopped. ([target.type] was attacked by [type])")
 		return TRUE
 	return FALSE
