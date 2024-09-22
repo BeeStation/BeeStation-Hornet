@@ -73,7 +73,7 @@
 	},
 /obj/machinery/power/apc{
 	dir = 8;
-	pixel_x = -25
+	pixel_x = -24
 	},
 /obj/structure/closet/secure_closet/engineering_electrical,
 /obj/structure/cable{
@@ -112,7 +112,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Gravity Generator APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -170,7 +170,7 @@
 /area/space/nearstation)
 "aC" = (
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/openspace,
+/turf/open/floor/plating,
 /area/security)
 "aD" = (
 /obj/structure/cable{
@@ -382,7 +382,7 @@
 "bj" = (
 /obj/machinery/power/apc{
 	dir = 8;
-	pixel_x = -25
+	pixel_x = -24
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -489,7 +489,7 @@
 "bB" = (
 /obj/machinery/power/apc{
 	dir = 8;
-	pixel_x = -25
+	pixel_x = -24
 	},
 /obj/structure/cable,
 /obj/structure/cable{
@@ -528,7 +528,7 @@
 	},
 /obj/machinery/power/apc{
 	dir = 8;
-	pixel_x = -25
+	pixel_x = -24
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -609,7 +609,7 @@
 	},
 /obj/machinery/power/apc{
 	dir = 8;
-	pixel_x = -25
+	pixel_x = -24
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -946,7 +946,7 @@
 /obj/structure/cable,
 /obj/machinery/power/apc{
 	dir = 8;
-	pixel_x = -25
+	pixel_x = -24
 	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/cable{
@@ -979,7 +979,7 @@
 	},
 /obj/machinery/power/apc{
 	dir = 8;
-	pixel_x = -25
+	pixel_x = -24
 	},
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
@@ -1267,7 +1267,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
 /turf/open/floor/iron{
 	dir = 4
 	},
@@ -1283,7 +1285,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
 /turf/open/floor/iron{
 	dir = 9
 	},
@@ -1665,8 +1669,8 @@
 /area/bridge)
 "rS" = (
 /obj/machinery/elevator_interface/primary{
-	preset_z = 1;
-	pixel_y = -24
+	pixel_y = -24;
+	preset_z = 1
 	},
 /turf/open/floor/iron,
 /area/construction)
@@ -1792,7 +1796,9 @@
 /turf/open/floor/iron,
 /area/construction)
 "Cc" = (
-/obj/machinery/power/apc/auto_name/directional/west,
+/obj/machinery/power/apc/auto_name/directional/west{
+	pixel_x = -24
+	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -1885,8 +1891,8 @@
 /area/construction)
 "Hp" = (
 /obj/machinery/elevator_interface/primary{
-	preset_z = 1;
-	pixel_y = -24
+	pixel_y = -24;
+	preset_z = 1
 	},
 /obj/machinery/light,
 /turf/open/floor/plating,
@@ -2021,8 +2027,8 @@
 /area/construction)
 "OJ" = (
 /obj/machinery/elevator_interface/primary{
-	preset_z = 1;
-	pixel_y = -24
+	pixel_y = -24;
+	preset_z = 1
 	},
 /turf/open/floor/iron,
 /area/security)
@@ -2137,7 +2143,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "Yi" = (
-/obj/machinery/power/apc/auto_name/directional/west,
+/obj/machinery/power/apc/auto_name/directional/west{
+	pixel_x = -24
+	},
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
