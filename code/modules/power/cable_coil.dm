@@ -148,14 +148,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 	for (var/obj/structure/cable/wire in T)
 		if (wire.cable_color != cable_color && !omni && !wire.omni)
 			continue
-		if (wire.forced_power_node)
+		var/obj/structure/cable/resolved_wire = wire.resolve_ambiguous_target(user)
+		if (!resolved_wire)
+			return TRUE
+		if (resolved_wire.forced_power_node)
 			to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
 			return TRUE
 		if (!use(1))
 			to_chat(user, "<span class='warning'>There is no cable left!</span>")
 			return TRUE
-		to_chat(user, "<span class='notice'>You add a node to the [wire], allowing it to connect to machines and structures!</span>")
-		wire.add_power_node()
+		to_chat(user, "<span class='notice'>You add a node to the [resolved_wire], allowing it to connect to machines and structures!</span>")
+		resolved_wire.add_power_node()
 		return TRUE
 
 	if (isopenspace(T))

@@ -307,16 +307,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		return FALSE
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
-		if (shock(user, 50))
+		var/obj/structure/cable/target = resolve_ambiguous_target(user)
+		if (!target)
+			return TRUE
+		if (target.shock(user, 50))
 			return TRUE
 		user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
-		investigate_log("was cut by [key_name(usr)] in [AREACOORD(src)]", INVESTIGATE_WIRES)
-		deconstruct()
+		target.investigate_log("was cut by [key_name(usr)] in [AREACOORD(target)]", INVESTIGATE_WIRES)
+		target.deconstruct()
 		return TRUE
 
 	else if(W.tool_behaviour == TOOL_MULTITOOL)
-		to_chat(user, get_power_info())
-		shock(user, 5, 0.2)
+		var/obj/structure/cable/target = resolve_ambiguous_target(user)
+		if (!target)
+			return TRUE
+		to_chat(user, target.get_power_info())
+		target.shock(user, 5, 0.2)
 		return TRUE
 
 	else if (istype(W, /obj/item/stack/cable_coil))
@@ -325,6 +331,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 	add_fingerprint(user)
 	return ..()
+
+/obj/structure/cable/proc/resolve_ambiguous_target(mob/user)
+	var/list/targets = list()
+	var/list/results = list()
+	for (var/obj/structure/cable/cable in loc)
+		targets["Cable [cable.omni ? "(Omni)" : "([cable.cable_color])"]"] = cable.appearance
+		results["Cable [cable.omni ? "(Omni)" : "([cable.cable_color])"]"] = cable
+	if (length(targets) <= 1)
+		return src
+	var/result = show_radial_menu(user, user, targets, tooltips = TRUE)
+	if (!result)
+		return null
+	return results[result]
 
 /obj/structure/cable/examine(mob/user)
 	. = ..()
