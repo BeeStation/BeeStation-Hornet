@@ -236,12 +236,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	. = ..()
 	underlays.Cut()
 	if (multiz)
-		// Shouldn't happen, but show a zbox anyway
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 		. += mutable_appearance(icon, "box", appearance_flags = RESET_COLOR)
 		. += mutable_appearance(icon, "boxlight", appearance_flags = RESET_COLOR)
 		. += emissive_appearance(icon, "boxlight", layer)
-		// Add a transformer
 		sound_loop = new (src, TRUE)
 	else if (sound_loop)
 		QDEL_NULL(sound_loop)
@@ -448,15 +446,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 //////////////////////////////////////////////
 // Powernets handling helpers
 //////////////////////////////////////////////
-
-//should be called after placing a cable which extends another cable, creating a "smooth" cable that no longer terminates in the centre of a turf.
-//needed as this can, unlike other placements, disconnect cables
-/obj/structure/cable/proc/denode()
-	var/turf/T1 = loc
-	if(!T1)
-		return
-
-	CRASH("Denode is not implemented")
 
 // cut the cable's powernet at this cable and updates the powergrid
 /obj/structure/cable/proc/cut_cable_from_powernet(remove=TRUE)
