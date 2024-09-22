@@ -5365,7 +5365,7 @@
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "Vw" = (
-/obj/machinery/shieldwallgen{
+/obj/machinery/power/shieldwallgen{
 	locked = 0;
 	req_access = null
 	},
@@ -5403,7 +5403,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/shieldwallgen{
+/obj/machinery/power/shieldwallgen{
 	locked = 0;
 	req_access = null
 	},

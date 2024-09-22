@@ -33622,7 +33622,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
 "hGq" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/structure/window/reinforced{
 	dir = 1;
 	pixel_y = 2
@@ -41064,7 +41064,7 @@
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "kwD" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/structure/window/reinforced{
 	dir = 1;
 	pixel_y = 2
@@ -48415,7 +48415,7 @@
 /turf/open/floor/iron/white,
 /area/science/mixing)
 "nep" = (
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
@@ -53748,7 +53748,7 @@
 /turf/open/floor/iron/dark,
 /area/science/storage)
 "oWN" = (
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -78929,7 +78929,7 @@
 	},
 /area/security/brig)
 "ybX" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/teleporter)

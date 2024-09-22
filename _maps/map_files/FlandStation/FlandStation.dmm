@@ -12758,7 +12758,7 @@
 /turf/open/floor/iron/sepia,
 /area/science/shuttle)
 "dnl" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -24076,7 +24076,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/engine_smes)
 "geN" = (
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /obj/machinery/door/window{
 	base_state = "right";
 	dir = 4;
@@ -25607,7 +25607,7 @@
 /turf/open/floor/iron/dark,
 /area/library/lounge)
 "gzm" = (
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /obj/machinery/door/window{
 	base_state = "leftsecure";
 	dir = 4;
@@ -51865,7 +51865,7 @@
 /area/crew_quarters/kitchen)
 "njM" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /turf/open/floor/engine,
 /area/maintenance/department/engine)
 "nkl" = (
@@ -61592,7 +61592,7 @@
 /area/construction)
 "pSW" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
@@ -68569,7 +68569,7 @@
 /area/quartermaster/storage)
 "rGR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot,
 /obj/machinery/light_switch{
 	pixel_x = 24;
@@ -70513,7 +70513,7 @@
 /turf/open/floor/iron/dark/side,
 /area/quartermaster/sorting)
 "sdo" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
@@ -72082,7 +72082,7 @@
 "syr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /turf/open/floor/engine,
 /area/maintenance/department/engine)
 "syz" = (
@@ -86884,7 +86884,7 @@
 /turf/open/floor/iron,
 /area/science/lab)
 "was" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/machinery/light{
 	dir = 4
 	},

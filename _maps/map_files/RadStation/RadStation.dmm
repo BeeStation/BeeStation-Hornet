@@ -11242,7 +11242,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "dCs" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
@@ -32304,7 +32304,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/cafeteria)
 "klv" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -51259,7 +51259,7 @@
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
 "qfl" = (
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -52362,7 +52362,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "qAI" = (
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -75433,7 +75433,7 @@
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "xZJ" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1

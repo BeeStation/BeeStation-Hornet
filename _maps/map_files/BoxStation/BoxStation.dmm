@@ -7649,7 +7649,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "bJI" = (
@@ -15747,7 +15747,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /obj/structure/sign/poster/official/safety_eye_protection{
 	pixel_x = 32
 	},
@@ -20185,7 +20185,7 @@
 /turf/open/space,
 /area/space/nearstation)
 "eHX" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/black/fourcorners,
 /obj/structure/cable/yellow{
@@ -35282,7 +35282,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit)
 "kDN" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4

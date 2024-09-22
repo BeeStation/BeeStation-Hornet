@@ -53305,7 +53305,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/engine/atmos)
 "lMF" = (
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -58528,7 +58528,7 @@
 	},
 /area/maintenance/starboard/fore)
 "nEb" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced{
 	dir = 4
@@ -59620,7 +59620,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -62055,7 +62055,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "oHq" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot,
 /obj/machinery/light{
 	dir = 8
@@ -66700,7 +66700,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "qfW" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot,
 /obj/machinery/firealarm{
 	dir = 4;
@@ -71383,7 +71383,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},

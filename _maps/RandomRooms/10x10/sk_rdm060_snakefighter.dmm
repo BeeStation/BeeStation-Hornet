@@ -141,7 +141,7 @@
 /obj/structure/sign/warning{
 	pixel_y = -32
 	},
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /turf/open/floor/plating,
 /area/template_noop)
 "B" = (
@@ -192,7 +192,7 @@
 /obj/structure/sign/warning{
 	pixel_y = -32
 	},
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /turf/open/floor/plating,
 /area/template_noop)
 "G" = (
@@ -236,7 +236,7 @@
 /obj/structure/sign/warning{
 	pixel_y = -32
 	},
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /turf/open/floor/plating,
 /area/template_noop)
 "R" = (

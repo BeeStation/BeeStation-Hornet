@@ -426,6 +426,8 @@
 		"researchdisk_locator",
 		"rped",
 		"scanner_gate",
+		"shieldwallgen",
+		"shieldwallgen_atmos",
 		"solarcontrol",
 		"stack_console",
 		"stack_machine",
