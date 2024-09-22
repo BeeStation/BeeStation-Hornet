@@ -93,18 +93,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	cable_color = param_color || cable_color || pick(cable_colors)
 
 	// Locate adjacent tiles
-	north = get_cable(get_step(src, NORTH), cable_color, omni)
-	south = get_cable(get_step(src, SOUTH), cable_color, omni)
-	east = get_cable(get_step(src, EAST), cable_color, omni)
-	west = get_cable(get_step(src, WEST), cable_color, omni)
-	north?.south = src
-	east?.west = src
-	south?.north = src
-	west?.east = src
-	south?.update_appearance(UPDATE_ICON)
-	west?.update_appearance(UPDATE_ICON)
-	north?.update_appearance(UPDATE_ICON)
-	east?.update_appearance(UPDATE_ICON)
+	reform_connections()
 
 	pixel_x = 0
 	pixel_y = 0
@@ -118,14 +107,31 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	// Update our neighbors
-	north?.set_south(null)
-	east?.set_west(null)
-	south?.set_north(null)
-	west?.set_east(null)
+	clear_connections()
 	if(powernet)
 		cut_cable_from_powernet()				// update the powernets
 	GLOB.cable_list -= src							//remove it from global cable list
 	return ..()									// then go ahead and delete the cable
+
+/obj/structure/cable/proc/clear_connections()
+	north?.set_south(null)
+	east?.set_west(null)
+	south?.set_north(null)
+	west?.set_east(null)
+
+/obj/structure/cable/proc/reform_connections()
+	north = get_cable(get_step(src, NORTH), cable_color, omni)
+	south = get_cable(get_step(src, SOUTH), cable_color, omni)
+	east = get_cable(get_step(src, EAST), cable_color, omni)
+	west = get_cable(get_step(src, WEST), cable_color, omni)
+	north?.south = src
+	east?.west = src
+	south?.north = src
+	west?.east = src
+	south?.update_appearance(UPDATE_ICON)
+	west?.update_appearance(UPDATE_ICON)
+	north?.update_appearance(UPDATE_ICON)
+	east?.update_appearance(UPDATE_ICON)
 
 /// Add a power node to this cable
 /obj/structure/cable/proc/add_power_node()
@@ -331,22 +337,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 /// Linkup with adjacent cables
 /obj/structure/cable/proc/linkup_adjacent(consoldate_powernets)
 	if (consoldate_powernets)
-		if (north)
+		// Don't linkup if they have no powernet, for example in the case of
+		// shuttle moving where we get a null powernet until we land
+		if (north?.powernet)
 			if (powernet)
 				merge_powernets(powernet, north.powernet)
 			else
 				north.powernet.add_cable(src)
-		if (south)
+		if (south?.powernet)
 			if (powernet)
 				merge_powernets(powernet, south.powernet)
 			else
 				south.powernet.add_cable(src)
-		if (east)
+		if (east?.powernet)
 			if (powernet)
 				merge_powernets(powernet, east.powernet)
 			else
 				east.powernet.add_cable(src)
-		if (west)
+		if (west?.powernet)
 			if (powernet)
 				merge_powernets(powernet, west.powernet)
 			else
@@ -396,3 +404,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		for(var/obj/machinery/power/P in location)
 			if(!P.connect_to_network()) //can't find a node cable on a the turf to connect to
 				P.disconnect_from_network() //remove from current network
+
+/obj/structure/cable/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
+	. = ..()
+	cut_cable_from_powernet(FALSE)
+
+/obj/structure/cable/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
+	. = ..()
+	clear_connections()
+	reform_connections()
+	linkup_adjacent(TRUE)
