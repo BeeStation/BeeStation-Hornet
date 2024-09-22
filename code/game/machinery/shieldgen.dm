@@ -35,9 +35,9 @@
 /obj/structure/emergency_shield/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BURN)
-			playsound(loc, 'sound/effects/empulse.ogg', 75, 1)
+			playsound(loc, 'sound/effects/empulse.ogg', 75, TRUE)
 		if(BRUTE)
-			playsound(loc, 'sound/effects/empulse.ogg', 75, 1)
+			playsound(loc, 'sound/effects/empulse.ogg', 75, TRUE)
 
 /obj/structure/emergency_shield/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
@@ -94,7 +94,7 @@
 
 /obj/machinery/shieldgen/proc/shields_up()
 	active = TRUE
-	update_icon()
+	update_appearance()
 	move_resist = INFINITY
 
 	for(var/turf/open/space/target_tile in RANGE_TURFS(shield_range, src))
@@ -105,7 +105,7 @@
 /obj/machinery/shieldgen/proc/shields_down()
 	active = FALSE
 	move_resist = initial(move_resist)
-	update_icon()
+	update_appearance()
 	QDEL_LIST(deployed_shields)
 
 /obj/machinery/shieldgen/process(delta_time)
@@ -165,7 +165,7 @@
 			obj_integrity = max_integrity
 			set_machine_stat(machine_stat & ~BROKEN)
 			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
-			update_icon()
+			update_appearance()
 
 	else if(W.tool_behaviour == TOOL_WRENCH)
 		if(locked)
@@ -198,7 +198,7 @@
 /obj/machinery/shieldgen/on_emag(mob/user)
 	..()
 	locked = FALSE
-	playsound(src, "sparks", 100, 1)
+	playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	to_chat(user, "<span class='warning'>You short out the access controller.</span>")
 
 /obj/machinery/shieldgen/update_icon_state()
@@ -286,7 +286,7 @@
 	else
 		for(var/direction in GLOB.cardinals)
 			cleanup_field(direction)
-	update_icon()
+	update_appearance()
 
 /obj/machinery/power/shieldwallgen/update_icon_state()
 	if(active)
@@ -364,14 +364,14 @@
 	var/turf/turf = get_turf(src)
 //	update_cable_icons_on_turf(T) - Removed because smartwire Revert
 	var/obj/structure/cable/cable = locate(/obj/structure/cable) in turf
-	cable.update_icon()
+	cable.update_appearance()
 	if(. == SUCCESSFUL_UNFASTEN && anchored)
 		connect_to_network()
 
 
 /obj/machinery/power/shieldwallgen/attackby(obj/item/item, mob/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, item))
-		update_icon()
+		update_appearance()
 		updateUsrDialog()
 		return TRUE
 
@@ -653,7 +653,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 	name = "holofield wall"
 	desc = "An energy shield capable of blocking gas movement."
 	icon = 'icons/effects/effects.dmi'
-	con_state = "holofield"
+	icon_state = "holofield"
 	density = FALSE
 	CanAtmosPass = ATMOS_PASS_NO
 	CanAtmosPassVertical = 1
