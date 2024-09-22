@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(department)
 
 	// I don't like this here, but this globallist can't take proper values on its declaration.
 	GLOB.exp_jobsmap = list(
-		EXP_TYPE_CREW = 	"titles" = get_all_jobs()),
+		EXP_TYPE_CREW = 	get_all_jobs(),
 		EXP_TYPE_COMMAND = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND),
 		EXP_TYPE_ENGINEERING = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING),
 		EXP_TYPE_MEDICAL = 	SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL),
