@@ -20,6 +20,10 @@
 	var/name = "Unknown"
 	/// The character's rank
 	var/rank
+	/// The character's HUD icon
+	var/hud
+	/// The character's department
+	var/active_department
 	/// The character's species
 	var/species
 
@@ -33,6 +37,8 @@
 	initial_rank = "Unassigned",
 	name = "Unknown",
 	rank = "Unassigned",
+	hud = "None",
+	active_department = "None",
 	species = "Human",
 )
 	src.age = age
@@ -44,6 +50,8 @@
 	src.initial_rank = rank
 	src.name = name
 	src.rank = rank
+	src.hud = hud
+	src.active_department = active_department
 	src.species = species
 
 /**
@@ -90,6 +98,8 @@
 	initial_rank = "Unassigned",
 	name = "Unknown",
 	rank = "Unassigned",
+	hud = "None",
+	active_department = "None",
 	species = "Human",
 	/// Crew specific
 	lock_ref,
@@ -139,6 +149,8 @@
 	initial_rank = "Unassigned",
 	name = "Unknown",
 	rank = "Unassigned",
+	hud = "None",
+	active_department = "None",
 	species = "Human",
 	/// Locked specific
 	datum/dna/locked_dna,
