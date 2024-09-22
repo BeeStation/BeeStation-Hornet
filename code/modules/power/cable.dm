@@ -76,6 +76,7 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	pixel_y = 4
 
 /obj/structure/cable/omni
+	icon_state = "0-o"
 	cable_color = "white"
 	color = "#ffffff"
 	omni = TRUE
