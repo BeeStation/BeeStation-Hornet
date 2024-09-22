@@ -8,21 +8,22 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	gender = MALE
 	turns_per_move = 5
-	response_help = "pokes"
-	response_disarm = "gently pushes aside"
-	response_harm = "punches"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "punches"
+	response_harm_simple = "punch"
 	a_intent = INTENT_HARM
 	maxHealth = 100
 	health = 100
 	speed = 0
 	melee_damage = 10
-	attacktext = "hits"
+	attack_verb_continuous = "hits"
+	attack_verb_simple = "hit"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	del_on_death = FALSE
-
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/nanotrasenpeace //this should be in a different file
 	name = "\improper Nanotrasen Private Security Officer"
@@ -33,17 +34,15 @@
 	icon_dead = null
 	icon_gib = "syndicate_gib"
 	turns_per_move = 5
-	response_help = "pokes"
-	response_disarm = "shoves"
-	response_harm = "hits"
 	speed = 0
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 	vision_range = 3
 	maxHealth = 100
 	health = 100
 	melee_damage = 12
-	attacktext = "punches"
+	attack_verb_continuous = "punches"
+	attack_verb_simple = "punch"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	faction = list("nanotrasenprivate")
 	a_intent = INTENT_HARM

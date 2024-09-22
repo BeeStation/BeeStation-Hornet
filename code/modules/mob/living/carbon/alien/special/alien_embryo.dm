@@ -20,6 +20,8 @@
 
 /obj/item/organ/body_egg/alien_embryo/on_life()
 	. = ..()
+	if(!owner)
+		return
 	switch(stage)
 		if(2, 3)
 			if(prob(2))
@@ -54,9 +56,6 @@
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/body_egg/alien_embryo/egg_process()
-	var/mob/living/L = owner
-	if(IS_IN_STASIS(L))
-		return
 	if(!next_stage_time)
 		COOLDOWN_START(src, next_stage_time, 30 SECONDS)
 		return
@@ -78,15 +77,13 @@
 				return
 		AttemptGrow()
 
-
-
 /obj/item/organ/body_egg/alien_embryo/proc/AttemptGrow(kill_on_success = TRUE)
 	if(!owner || bursting)
 		return
 
 	bursting = TRUE
 
-	var/list/candidates = pollGhostCandidates("Do you want to play as an alien larva that will burst out of [owner]?", ROLE_ALIEN, /datum/role_preference/midround_ghost/xenomorph, 10 SECONDS, POLL_IGNORE_ALIEN_LARVA) // separate poll from xeno event spawns
+	var/list/candidates = poll_ghost_candidates("Do you want to play as an alien larva that will burst out of [owner]?", ROLE_ALIEN, /datum/role_preference/midround_ghost/xenomorph, 10 SECONDS, POLL_IGNORE_ALIEN_LARVA) // separate poll from xeno event spawns
 
 	if(QDELETED(src) || QDELETED(owner))
 		return
@@ -105,23 +102,27 @@
 	var/mob/living/carbon/alien/larva/new_xeno = new(xeno_loc)
 	new_xeno.key = ghost.key
 	SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg',0,0,0,100))	//To get the player's attention
-	new_xeno.mobility_flags = NONE //so we don't move during the bursting animation
+	ADD_TRAIT(new_xeno, TRAIT_IMMOBILIZED, type) //so we don't move during the bursting animation
+	ADD_TRAIT(new_xeno, TRAIT_HANDS_BLOCKED, type)
 	new_xeno.notransform = 1
 	new_xeno.invisibility = INVISIBILITY_MAXIMUM
 
 	sleep(6)
 
 	if(QDELETED(src) || QDELETED(owner))
-		return
+		qdel(new_xeno)
+		CRASH("AttemptGrow failed due to the early qdeletion of source or owner.")
 
 	if(new_xeno)
-		new_xeno.mobility_flags = MOBILITY_FLAGS_DEFAULT
+		REMOVE_TRAIT(new_xeno, TRAIT_IMMOBILIZED, type)
+		REMOVE_TRAIT(new_xeno, TRAIT_HANDS_BLOCKED, type)
 		new_xeno.notransform = 0
 		new_xeno.invisibility = 0
 
 	var/mob/living/carbon/host = owner
 	if(kill_on_success)
 		new_xeno.visible_message("<span class='danger'>[new_xeno] bursts out of [owner] in a shower of gore!</span>", "<span class='userdanger'>You exit [owner], your previous host.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+		owner.investigate_log("has been killed by an alien larva chestburst.", INVESTIGATE_DEATHS)
 		var/obj/item/bodypart/BP = owner.get_bodypart(BODY_ZONE_CHEST)
 		if(BP)
 			BP.receive_damage(brute = 200) // Kill them dead

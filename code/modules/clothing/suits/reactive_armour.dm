@@ -2,17 +2,18 @@
 	name = "reactive armour shell"
 	desc = "An experimental suit of armour, awaiting installation of an anomaly core."
 	icon_state = "reactiveoff"
-	icon = 'icons/obj/clothing/suits.dmi'
+	icon = 'icons/obj/clothing/suits/armor.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/reactive_armour_shell/attackby(obj/item/weapon, mob/user, params)
 	..()
 	var/static/list/anomaly_armour_types = list(
-		/obj/effect/anomaly/bluespace 	            = /obj/item/clothing/suit/armor/reactive/teleport,
-		/obj/effect/anomaly/bioscrambler			= /obj/item/clothing/suit/armor/reactive/bioscrambling,
-		/obj/effect/anomaly/flux 	           		= /obj/item/clothing/suit/armor/reactive/tesla,
-		/obj/effect/anomaly/grav	                = /obj/item/clothing/suit/armor/reactive/repulse,
-		/obj/effect/anomaly/hallucination			= /obj/item/clothing/suit/armor/reactive/hallucinating
+		/obj/effect/anomaly/bluespace = /obj/item/clothing/suit/armor/reactive/teleport,
+		/obj/effect/anomaly/bioscrambler = /obj/item/clothing/suit/armor/reactive/bioscrambling,
+		/obj/effect/anomaly/flux = /obj/item/clothing/suit/armor/reactive/tesla,
+		/obj/effect/anomaly/grav = /obj/item/clothing/suit/armor/reactive/repulse,
+		/obj/effect/anomaly/hallucination = /obj/item/clothing/suit/armor/reactive/hallucinating,
+		/obj/effect/anomaly/blood = /obj/item/clothing/suit/armor/reactive/bleed
 		)
 
 	if(istype(weapon, /obj/item/assembly/signaler/anomaly))
@@ -32,7 +33,7 @@
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 10)
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
@@ -389,4 +390,33 @@
 /obj/item/clothing/suit/armor/reactive/bioscrambling/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message("<span class='danger'>[src] blocks [attack_text], but pulls a massive charge of biohazard material into [owner] from the surrounding environment!</span>")
 	bioscrambler_pulse(owner, range, TRUE, TRUE)
+	return TRUE
+
+//Bleeding
+
+/obj/item/clothing/suit/armor/reactive/bleed
+	name = "reactive bleed armor"
+	desc = "An experimental suit of armor with sensitive detectors hooked up to a biohazard release valve. It has some kind of blood boiling anomaly inside."
+	cooldown_message = "<span class='danger'>Your blood runs cold...</span>"
+	emp_message = "<span class='warning'>Oh fuck...</span>"
+	///Range of the effect.
+	var/range = 4
+
+/obj/item/clothing/suit/armor/reactive/bleed/cooldown_activation(mob/living/carbon/human/owner)
+	var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
+	sparks.set_up(1, 1, src)
+	sparks.start()
+	return ..()
+
+/obj/item/clothing/suit/armor/reactive/bleed/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	owner.visible_message("<span class='danger'>[src] blocks [attack_text], the blood anomaly from within releasing a massive cloud of razors!</span>")
+	owner.AddComponent(/datum/component/pellet_cloud, projectile_type=/obj/projectile/bullet/shrapnel/bleed, magnitude=3)
+	playsound(src, 'sound/weapons/shrapnel.ogg', 70, TRUE)
+	return TRUE
+
+/obj/item/clothing/suit/armor/reactive/bleed/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	owner.visible_message("<span class='danger'>[src] blocks [attack_text], but pulls a massive charge of biohazard material into [owner] from the surrounding environment!</span>")
+	owner.AddComponent(/datum/component/pellet_cloud, projectile_type=/obj/projectile/bullet/shrapnel/bleed, magnitude=5)
+	owner.add_bleeding(BLEED_CRITICAL)
+	playsound(src, 'sound/weapons/shrapnel.ogg', 70, TRUE)
 	return TRUE

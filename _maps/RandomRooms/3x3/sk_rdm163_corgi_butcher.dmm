@@ -11,7 +11,7 @@
 	},
 /obj/item/toy/plush/nukeplushie,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "d" = (
 /obj/effect/turf_decal/stripes/line{
@@ -19,11 +19,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "k" = (
-/obj/item/reagent_containers/food/snacks/burger/corgi,
+/obj/item/food/burger/corgi,
 /obj/structure/table,
 /obj/machinery/microwave{
 	pixel_y = 8
@@ -56,9 +56,9 @@
 	req_access_txt = "1"
 	},
 /obj/structure/window/reinforced/spawner,
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizard_plushie,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "I" = (
 /obj/structure/bed/dogbed,
@@ -71,17 +71,17 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/obj/item/kitchen/knife/butcher,
+/obj/item/knife/butcher,
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/toy/plush/snakeplushie,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "J" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "N" = (
@@ -94,7 +94,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "X" = (

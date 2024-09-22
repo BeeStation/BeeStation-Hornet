@@ -4,7 +4,8 @@
 	icon_state = "timer"
 	custom_materials = list(/datum/material/iron=500, /datum/material/glass=50)
 	attachable = TRUE
-
+	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 
 	var/timing = FALSE
 	var/time = 10
@@ -21,7 +22,7 @@
 /obj/item/assembly/timer/proc/manual_suicide(mob/living/user)
 	user.visible_message("<span class='suicide'>[user]'s time is up!</span>")
 	user.adjustOxyLoss(200)
-	user.death(0)
+	user.death(FALSE)
 
 /obj/item/assembly/timer/Initialize(mapload)
 	. = ..()

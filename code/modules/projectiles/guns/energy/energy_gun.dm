@@ -6,12 +6,16 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	modifystate = 1
-	can_flashlight = TRUE
 	ammo_x_offset = 3
-	flight_x_offset = 15
-	flight_y_offset = 10
 	weapon_weight = WEAPON_MEDIUM
 	dual_wield_spread = 60
+
+/obj/item/gun/energy/e_gun/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 15, \
+		overlay_y = 10)
 
 /obj/item/gun/energy/e_gun/mini
 	name = "miniature energy gun"
@@ -22,26 +26,18 @@
 	gun_charge = 600
 	ammo_x_offset = 2
 	charge_sections = 3
-	can_flashlight = FALSE // Can't attach or detach the flashlight, and override it's icon update
 	weapon_weight = WEAPON_LIGHT
+	single_shot_type_overlay = FALSE
 
-/obj/item/gun/energy/e_gun/mini/heads
-	name = "Personal Tiny Self Defense Gun"
-	desc = "The PTSD gun has a built-in flashlight and the ability to recharge itself in two minutes. PTSD is standard issue for leadership within Nanotrasen. It has two settings: disable and kill."
-	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser) ///uses the hos disabler rounds to slightly weaken the disabler count and also to avoid encountering a visual bug where the gun is out of charge but displays that it has one enough for another shot. 
-	selfcharge = 1
-	charge_delay = 20
-	can_charge = FALSE 			///Not compatible with fast charging stations, must recharge slowly. 
-	icon_state = "personal"
-	item_state = "gun"
-	ammo_x_offset = 2
-	charge_sections = 2
-	flight_x_offset = 13
-	flight_y_offset = 12
-
-/obj/item/gun/energy/e_gun/mini/Initialize(mapload)
-	set_gun_light(new /obj/item/flashlight/seclite(src))
-	return ..()
+/obj/item/gun/energy/e_gun/mini/add_seclight_point()
+	// The mini energy gun's light comes attached but is unremovable.
+	AddComponent(/datum/component/seclite_attachable, \
+		starting_light = new /obj/item/flashlight/seclite(src), \
+		is_light_removable = FALSE, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "mini-light", \
+		overlay_x = 19, \
+		overlay_y = 13)
 
 /obj/item/gun/energy/e_gun/stun
 	name = "tactical energy gun"
@@ -68,7 +64,7 @@
 	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
 	gun_charge = 1200
 	icon_state = "hoslaser"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	force = 10
 	automatic = 1
 	fire_rate = 3
@@ -78,6 +74,13 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/gun/energy/e_gun/hos/contents_explosion(severity, target)
+	if (!ammo_type || !cell)
+		name = "\improper Broken X-01 MultiPhase Energy Gun"
+		desc = "This is an expensive, modern recreation of an antique laser gun. This gun had several unique firemodes, but lacked the ability to recharge over time. Seems too be damaged to the point of not functioning, but still valuable."
+		icon_state = "hoslaser_broken"
+		update_icon()
+
 /obj/item/gun/energy/e_gun/dragnet
 	name = "\improper DRAGnet"
 	desc = "The \"Dynamic Rapid-Apprehension of the Guilty\" net is a revolution in law enforcement technology."
@@ -86,10 +89,12 @@
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/net, /obj/item/ammo_casing/energy/trap)
-	can_flashlight = FALSE
 	ammo_x_offset = 1
 	fire_rate = 1.5
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
+
+/obj/item/gun/energy/e_gun/dragnet/add_seclight_point()
+	return
 
 /obj/item/gun/energy/e_gun/dragnet/snare
 	name = "Energy Snare Launcher"
@@ -106,11 +111,13 @@
 	gun_charge = 10000
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 	weapon_weight = WEAPON_HEAVY
-	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
 	automatic = 1
 	fire_rate = 5
+
+/obj/item/gun/energy/e_gun/turret/add_seclight_point()
+	return
 
 /obj/item/gun/energy/e_gun/nuclear
 	name = "advanced energy gun"
@@ -157,15 +164,27 @@
 		return
 	fail_chance = min(fail_chance + round(15/severity), 100)
 
-/obj/item/gun/energy/e_gun/nuclear/update_icon()
-	..()
+/obj/item/gun/energy/e_gun/nuclear/update_overlays()
+	. = ..()
 	if(reactor_overloaded)
-		add_overlay("[icon_state]_fail_3")
+		. += "[icon_state]_fail_3"
+		if (emissive_charge)
+			. += emissive_appearance(icon, "[icon_state]_fail_3", layer, alpha = 80)
+			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else
 		switch(fail_tick)
 			if(0)
-				add_overlay("[icon_state]_fail_0")
+				. += "[icon_state]_fail_0"
+				if (emissive_charge)
+					. += emissive_appearance(icon, "[icon_state]_fail_0", layer, alpha = 80)
+					ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 			if(1 to 150)
-				add_overlay("[icon_state]_fail_1")
+				. += "[icon_state]_fail_1"
+				if (emissive_charge)
+					. += emissive_appearance(icon, "[icon_state]_fail_1", layer, alpha = 80)
+					ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 			if(151 to INFINITY)
-				add_overlay("[icon_state]_fail_2")
+				. += "[icon_state]_fail_2"
+				if (emissive_charge)
+					. += emissive_appearance(icon, "[icon_state]_fail_2", layer, alpha = 80)
+					ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)

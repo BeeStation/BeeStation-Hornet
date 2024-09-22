@@ -113,6 +113,8 @@ DEFINE_BITFIELD(smoothing_junction, list(
 	smoothing_flags &= ~SMOOTH_QUEUED
 	if(!z) //nullspace are not sending their best
 		CRASH("[type] called smooth_icon() without being on a z-level")
+		// * NOTE: it can throw runtime if the atom is abstract type in nullspace, but somehow it called 'smmoth_icon()' due to smoothing vars.
+		// In this case, you need to nullify values of smoothing_flags and related list vars.
 	if(smoothing_flags & SMOOTH_CORNERS)
 		if(smoothing_flags & SMOOTH_DIAGONAL_CORNERS)
 			corners_diagonal_smooth(calculate_adjacencies())
@@ -241,29 +243,36 @@ DEFINE_BITFIELD(smoothing_junction, list(
 	if((source_area.area_limited_icon_smoothing && !istype(target_area, source_area.area_limited_icon_smoothing)) || (target_area.area_limited_icon_smoothing && !istype(source_area, target_area.area_limited_icon_smoothing)))
 		return NO_ADJ_FOUND
 
+	var/atom/match //Used later in a special check
+
 	if(isnull(canSmoothWith)) //special case in which it will only smooth with itself
 		if(isturf(src))
-			return (type == target_turf.type) ? ADJ_FOUND : NO_ADJ_FOUND
-		var/atom/matching_obj = locate(type) in target_turf
-		return (matching_obj && matching_obj.type == type) ? ADJ_FOUND : NO_ADJ_FOUND
+			match = (type == target_turf.type) ? target_turf : null
+		else
+			var/atom/matching_obj = locate(type) in target_turf
+			match = (matching_obj && matching_obj.type == type) ? matching_obj : null
 
-	if(!isnull(target_turf.smoothing_groups))
+	if(isnull(match) && !isnull(target_turf.smoothing_groups))
 		for(var/target in canSmoothWith)
-			if(!(canSmoothWith[target] & target_turf.smoothing_groups[target]))
-				continue
-			return ADJ_FOUND
+			if(canSmoothWith[target] & target_turf.smoothing_groups[target])
+				match = target_turf
 
-	if(smoothing_flags & SMOOTH_OBJ)
+	if(isnull(match) && smoothing_flags & SMOOTH_OBJ)
 		for(var/am in target_turf)
 			var/atom/movable/thing = am
 			if(!thing.anchored || isnull(thing.smoothing_groups))
 				continue
 			for(var/target in canSmoothWith)
-				if(!(canSmoothWith[target] & thing.smoothing_groups[target]))
-					continue
-				return ADJ_FOUND
+				if(canSmoothWith[target] & thing.smoothing_groups[target])
+					match = thing
 
-	return NO_ADJ_FOUND
+	if(isnull(match))
+		return NO_ADJ_FOUND
+	. = ADJ_FOUND
+
+	if(smoothing_flags & SMOOTH_DIRECTIONAL)
+		if(match.dir != dir)
+			return NO_ADJ_FOUND
 
 /**
   * Basic smoothing proc. The atom checks for adjacent directions to smooth with and changes the icon_state based on that.
@@ -279,6 +288,15 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 	var/smooth_border = (smoothing_flags & SMOOTH_BORDER)
 	var/smooth_obj = (smoothing_flags & SMOOTH_OBJ)
+	var/smooth_directional = (smoothing_flags & SMOOTH_DIRECTIONAL)
+	var/skip_corners = (smoothing_flags & SMOOTH_BITMASK_SKIP_CORNERS)
+
+	#define EXTRA_CHECKS(atom) \
+		if(smooth_directional) { \
+			if(atom.dir != dir) { \
+				break set_adj_in_dir; \
+			}; \
+		}; \
 
 	#define SET_ADJ_IN_DIR(direction, direction_flag) \
 		set_adj_in_dir: { \
@@ -289,6 +307,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 					if(neighbor_smoothing_groups) { \
 						for(var/target in canSmoothWith) { \
 							if(canSmoothWith[target] & neighbor_smoothing_groups[target]) { \
+								EXTRA_CHECKS(neighbor); \
 								new_junction |= direction_flag; \
 								break set_adj_in_dir; \
 							}; \
@@ -302,6 +321,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 							}; \
 							for(var/target in canSmoothWith) { \
 								if(canSmoothWith[target] & thing_smoothing_groups[target]) { \
+									EXTRA_CHECKS(thing); \
 									new_junction |= direction_flag; \
 									break set_adj_in_dir; \
 								}; \
@@ -317,7 +337,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 	for(var/direction in GLOB.cardinals) //Cardinal case first.
 		SET_ADJ_IN_DIR(direction, direction)
 
-	if(!(new_junction & (NORTH|SOUTH)) || !(new_junction & (EAST|WEST)))
+	if(skip_corners || !(new_junction & (NORTH|SOUTH)) || !(new_junction & (EAST|WEST)))
 		set_smoothed_icon_state(new_junction)
 		return
 
@@ -338,7 +358,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 	set_smoothed_icon_state(new_junction)
 
 	#undef SET_ADJ_IN_DIR
-
+	#undef EXTRA_CHECKS
 
 ///Changes the icon state based on the new junction bitmask. Returns the old junction value.
 /atom/proc/set_smoothed_icon_state(new_junction)
@@ -499,3 +519,91 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 #undef DEFAULT_UNDERLAY_ICON
 #undef DEFAULT_UNDERLAY_ICON_STATE
+
+
+
+// These are subtypes of some smoothing objects.
+// This is used to identify if there's any artefact in your smoothing sprites in practice.
+/turf/closed/wall/debug
+	name = "Sprite smoothing debugging walls"
+	var/static/list/family = list()
+
+/turf/closed/wall/debug/Initialize(mapload)
+	. = ..()
+	family += src
+
+/turf/closed/wall/debug/Destroy()
+	. = ..()
+	family -= src
+
+/turf/closed/wall/debug/attack_hand(mob/user)
+	. = ..()
+	sprite_smooth_debug(user, family, src.parent_type)
+
+/obj/structure/table/debug
+	name = "Sprite smoothing debugging table"
+	var/static/list/family = list()
+
+/obj/structure/table/debug/Initialize(mapload)
+	. = ..()
+	family += src
+
+/obj/structure/table/debug/Destroy()
+	. = ..()
+	family -= src
+
+/obj/structure/table/debug/attack_hand(mob/user)
+	. = ..()
+	sprite_smooth_debug(user, family, src.parent_type)
+
+/turf/open/floor/carpet/debug
+	name = "Sprite smoothing debugging floor"
+	var/static/list/family = list()
+
+/turf/open/floor/carpet/debug/Initialize(mapload)
+	. = ..()
+	family += src
+
+/turf/open/floor/carpet/debug/Destroy()
+	. = ..()
+	family -= src
+
+/turf/open/floor/carpet/debug/attack_hand(mob/user)
+	. = ..()
+	sprite_smooth_debug(user, family, /turf/open)
+
+/proc/sprite_smooth_debug(mob/user, list/family, desired_subtypes)
+	// we don't want to see types that don't have smoothing.
+	var/static/list/filtered_list = list()
+	if(!filtered_list[desired_subtypes])
+		var/list/L = list()
+		var/list/temp_list = make_types_fancy(typesof(desired_subtypes))
+		for(var/each in temp_list)
+			var/atom/A = temp_list[each]
+			if(!initial(A.canSmoothWith) || !(initial(A.smoothing_flags) & SMOOTH_BITMASK) || findtext(initial(A.name), "Sprite smoothing debugging"))
+				continue
+			L[each] = A
+		filtered_list[desired_subtypes] = L
+
+	// actual code
+	var/atom/target = pick_closest_path(desired_subtypes, filtered_list[desired_subtypes])
+	if(!target)
+		return
+
+	target = new target(get_turf(locate(1,1,1)))
+	target.invisibility = INVISIBILITY_ABSTRACT
+	for(var/atom/each in family)
+		if(QDELETED(each))
+			continue
+		each.icon = target.icon
+		each.base_icon_state = target.base_icon_state
+		each.smoothing_flags = target.smoothing_flags
+		each.smoothing_groups = target.smoothing_groups.Copy()
+		each.canSmoothWith = target.canSmoothWith.Copy()
+	for(var/atom/each in family)
+		each.bitmask_smooth()
+	if(isturf(target))
+		var/turf/T = target
+		T.ScrapeAway()
+	else
+		qdel(target)

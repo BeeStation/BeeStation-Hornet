@@ -34,7 +34,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "j" = (
@@ -49,7 +49,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "k" = (
@@ -74,7 +74,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "s" = (
@@ -96,7 +96,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/open/floor/plasteel/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/space)
 "v" = (
 /obj/machinery/power/solar_control{
@@ -118,7 +118,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "w" = (
@@ -163,7 +163,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/open/floor/plasteel/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/space)
 "M" = (
 /obj/structure/window/reinforced{
@@ -171,7 +171,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "Q" = (
@@ -192,7 +192,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/open/floor/plasteel/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/space)
 "V" = (
 /obj/machinery/door/window/westleft{

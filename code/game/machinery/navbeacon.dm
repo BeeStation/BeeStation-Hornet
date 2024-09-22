@@ -9,7 +9,7 @@
 	desc = "A radio beacon used for bot navigation."
 	layer = UNDER_CATWALK
 	max_integrity = 500
-	armor = list(MELEE = 70,  BULLET = 70, LASER = 70, ENERGY = 70, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0)
+	armor = list(MELEE = 70,  BULLET = 70, LASER = 70, ENERGY = 70, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0, BLEED = 0)
 
 	var/open = FALSE		// true if cover is open
 	var/locked = TRUE		// true if controls are locked
@@ -72,8 +72,8 @@
 
 /obj/machinery/navbeacon/attackby(obj/item/I, mob/user, params)
 	var/turf/T = loc
-	if(T.intact)
-		return		// prevent intraction when T-scanner revealed
+	if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
+		return // prevent interaction when T-scanner revealed
 
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		open = !open
@@ -105,7 +105,7 @@
 	. = ..()
 	var/ai = isAI(user)
 	var/turf/T = loc
-	if(T.intact)
+	if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		return		// prevent intraction when T-scanner revealed
 
 	if(!open && !ai)	// can't alter controls if not open, unless you're an AI

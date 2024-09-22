@@ -5,9 +5,9 @@
 	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH, TRAIT_NONECRODISEASE)
-	default_features = list("mcolor" = "FFF", "tail_human" = "None", "ears" = "None", "wings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list("mcolor" = "FFF", "tail_human" = "None", "ears" = "None", "wings" = "None", "body_size" = "Normal")
 	use_skintones = TRUE
-	mutant_brain = /obj/item/organ/brain/dullahan
+	mutantbrain = /obj/item/organ/brain/dullahan
 	mutanteyes = /obj/item/organ/eyes/dullahan
 	mutanttongue = /obj/item/organ/tongue/dullahan
 	mutantears = /obj/item/organ/ears/dullahan
@@ -25,7 +25,7 @@
 
 /datum/species/dullahan/on_species_gain(mob/living/carbon/human/H, datum/species/old_species)
 	. = ..()
-	REMOVE_TRAIT(src, TRAIT_HEARING_SENSITIVE, TRAIT_GENERIC)
+	H.lose_hearing_sensitivity(TRAIT_GENERIC)
 	var/obj/item/bodypart/head/head = H.get_bodypart(BODY_ZONE_HEAD)
 	if(head)
 		head.drop_limb()
@@ -44,14 +44,15 @@
 	H.regenerate_limb(BODY_ZONE_HEAD,FALSE)
 	..()
 
-/datum/species/dullahan/spec_life(mob/living/carbon/human/H)
+/datum/species/dullahan/spec_life(mob/living/carbon/human/human)
 	if(QDELETED(myhead))
 		myhead = null
-		H.gib()
-	var/obj/item/bodypart/head/head2 = H.get_bodypart(BODY_ZONE_HEAD)
+		human.investigate_log("has been gibbed by the loss of [human.p_their()] head.", INVESTIGATE_DEATHS)
+		human.gib()
+	var/obj/item/bodypart/head/head2 = human.get_bodypart(BODY_ZONE_HEAD)
 	if(head2)
 		myhead = null
-		H.gib()
+		human.gib()
 
 /datum/species/dullahan/proc/update_vision_perspective(mob/living/carbon/human/H)
 	var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
@@ -153,11 +154,16 @@
 /obj/item/dullahan_relay
 	var/mob/living/owner
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/dullahan_relay)
+
 /obj/item/dullahan_relay/Initialize(mapload,new_owner)
 	. = ..()
 	owner = new_owner
 	START_PROCESSING(SSobj, src)
 	become_hearing_sensitive(ROUNDSTART_TRAIT)
+
+/obj/item/dullahan_relay/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+	owner.Hear(arglist(args))
 
 /obj/item/dullahan_relay/process()
 	if(!istype(loc, /obj/item/bodypart/head) || QDELETED(owner))
@@ -179,6 +185,7 @@
 		if(H.dna.species.id == SPECIES_DULLAHAN)
 			var/datum/species/dullahan/D = H.dna.species
 			D.myhead = null
+			owner.investigate_log("has been gibbed by the destruction of their head/body relay.", INVESTIGATE_DEATHS)
 			owner.gib()
 	owner = null
 	return ..()

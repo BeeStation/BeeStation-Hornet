@@ -16,6 +16,12 @@
 	path = /obj/item/toy/eightball
 	cost = 500
 
+/datum/gear/misc/tarotdeck
+	display_name = "Tarot Deck"
+	description = "A full 78 card deck of Tarot Cards, no refunds on false predicitons."
+	path = /obj/item/toy/cards/deck/tarot
+	cost = 600
+
 /datum/gear/misc/antagtoken
 	display_name = "Discount Antag Token"
 	description = "Says \"Made in China\" on the back. Seems fishy."

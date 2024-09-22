@@ -2,9 +2,12 @@
 
 /mob/living/simple_animal/pet/dog
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "bops"
+	response_disarm_simple = "bop"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
 	speak_emote = list("barks", "woofs")
 	speak_language = /datum/language/metalanguage
@@ -19,7 +22,7 @@
 	chat_color = "#ECDA88"
 	mobchatspan = "corgi"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 //Corgis and pugs are now under one dog subtype
 
@@ -30,7 +33,7 @@
 	icon_state = "corgi"
 	icon_living = "corgi"
 	icon_dead = "corgi_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
+	butcher_results = list(/obj/item/food/meat/slab/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -67,7 +70,7 @@
 	icon_state = "pug"
 	icon_living = "pug"
 	icon_dead = "pug_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/pug = 3)
+	butcher_results = list(/obj/item/food/meat/slab/pug = 3)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	worn_slot_flags = ITEM_SLOT_HEAD
 	collar_type = "pug"
@@ -82,7 +85,7 @@
 	icon_state = "bullterrier"
 	icon_living = "bullterrier"
 	icon_dead = "bullterrier_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/corgi = 3) // Would feel redundant to add more new dog meats.
+	butcher_results = list(/obj/item/food/meat/slab/corgi = 3) // Would feel redundant to add more new dog meats.
 	gold_core_spawnable = FRIENDLY_SPAWN
 	worn_slot_flags = ITEM_SLOT_HEAD //by popular demand
 	collar_type = "bullterrier"
@@ -367,9 +370,12 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	desc = "It's the HoP's beloved corgi."
 	var/turns_since_scan = 0
 	var/obj/movement_target
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "bops"
+	response_disarm_simple = "bop"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 	var/age = 0
@@ -465,9 +471,9 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 			if(!movement_target || !(src in viewers(3, movement_target.loc)))
 				movement_target = null
 				stop_automated_movement = 0
-				for(var/obj/item/reagent_containers/food/snacks/S in oview(3, src))
-					if(isturf(S.loc) || ishuman(S.loc))
-						movement_target = S
+				for(var/obj/item/potential_snack in oview(src,3))
+					if(IS_EDIBLE(potential_snack) && (isturf(potential_snack.loc) || ishuman(potential_snack.loc)))
+						movement_target = potential_snack
 						break
 			if(movement_target)
 				stop_automated_movement = 1
@@ -512,6 +518,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	playsound(src, 'sound/magic/demon_dies.ogg', 75, TRUE)
 	var/mob/living/simple_animal/pet/dog/corgi/narsie/N = new(loc)
 	N.setDir(dir)
+	investigate_log("has been gibbed by Nar'Sie.", INVESTIGATE_DEATHS)
 	gib()
 
 /mob/living/simple_animal/pet/dog/corgi/narsie
@@ -540,6 +547,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 					P.mind.hasSoul = FALSE //Nars-Ian ate your soul; you don't have one anymore
 				else
 					visible_message("<span class='cult big bold'>... Aw, someone beat me to this one.</span>")
+			P.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
 			P.gib()
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/update_corgi_fluff()
@@ -658,9 +666,12 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	icon_state = "lisa"
 	icon_living = "lisa"
 	icon_dead = "lisa_dead"
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "bops"
+	response_disarm_simple = "bop"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
 	held_state = "lisa"
 	worn_slot_flags = ITEM_SLOT_HEAD
 	var/turns_since_scan = 0
@@ -715,3 +726,60 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	else
 		if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
 			emote("me", 1, "growls!")
+
+/mob/living/simple_animal/pet/dog/corgi/cardigan
+	name = "\improper cardigan corgi"
+	real_name = "Cardigan Welsh corgi"
+	desc = "Ian's tailed cousin"
+	icon_state = "cardigan_corgi"
+	icon_living = "cardigan_corgi"
+	icon_dead = "cardigan_corgi_dead"
+	childtype = /mob/living/simple_animal/pet/dog/corgi/puppy/cardigan //Only one type of puppy
+	held_state = "cardigan_corgi"
+
+/mob/living/simple_animal/pet/dog/corgi/puppy/cardigan
+	name = "\improper cardigan corgi puppy"
+	real_name = "Cardigan Welsh corgi"
+	desc = "It's a corgi puppy!"
+	icon_state = "cardigan_puppy"
+	icon_living = "cardigan_puppy"
+	icon_dead = "cardigan_puppy_dead"
+	density = FALSE
+	pass_flags = PASSMOB
+	mob_size = MOB_SIZE_SMALL
+	collar_type = "puppy"
+	worn_slot_flags = ITEM_SLOT_HEAD
+
+/mob/living/simple_animal/pet/dog/corgi/capybara
+	name = "\improper capybara"
+	real_name = "capybara"
+	desc = "It's a capybara."
+	icon_state = "capybara"
+	icon_living = "capybara"
+	icon_dead = "capybara_dead"
+	held_state = null
+	can_be_held = FALSE
+	butcher_results = list()
+	childtype = list()
+
+	animal_species = /mob/living/simple_animal/pet/dog
+
+/mob/living/simple_animal/pet/dog/corgi/capybara/update_corgi_fluff()
+	// First, change back to defaults
+	name = real_name
+	desc = initial(desc)
+	// BYOND/DM doesn't support the use of initial on lists.
+	speak = list("Bark!", "Squee!", "Squee.")
+	speak_emote = list("barks", "squeaks")
+	emote_hear = list("barks!", "squees!", "squeaks!", "yaps.", "squeaks.")
+	emote_see = list("shakes its head.", "medidates on peace.", "looks to be in peace.", "shivers.")
+	desc = initial(desc)
+	set_light(0)
+
+	if(inventory_head && inventory_head.dog_fashion)
+		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
+		DF.apply(src)
+
+	if(inventory_back && inventory_back.dog_fashion)
+		var/datum/dog_fashion/DF = new inventory_back.dog_fashion(src)
+		DF.apply(src)

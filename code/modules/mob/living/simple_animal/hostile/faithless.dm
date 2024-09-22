@@ -8,21 +8,25 @@
 	gender = MALE
 	speak_chance = 0
 	turns_per_move = 5
-	response_help = "passes through"
-	response_disarm = "shoves"
-	response_harm = "hits"
+	response_help_continuous = "passes through"
+	response_help_simple = "pass through"
+	response_disarm_continuous = "swings through"
+	response_disarm_simple = "swing through"
+	response_harm_continuous = "punches through"
+	response_harm_simple = "punch through"
 	emote_taunt = list("wails")
 	taunt_chance = 25
 	speed = 0
 	maxHealth = 80
 	health = 80
 	spacewalk = TRUE
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 
 	obj_damage = 50
 	melee_damage = 15
-	attacktext = "grips"
+	attack_verb_continuous = "grips"
+	attack_verb_simple = "grip"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 	speak_emote = list("growls")
 
@@ -32,5 +36,12 @@
 	faction = list("faithless")
 	gold_core_spawnable = HOSTILE_SPAWN
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	hardattacks = TRUE
+
+/mob/living/simple_animal/hostile/faithless/faithful
+	name = "Faithsworn"
+	desc = "A creature made of pure faith from shadowpeople."
+	melee_damage = 20
+	gold_core_spawnable = NO_SPAWN
+	del_on_death = TRUE

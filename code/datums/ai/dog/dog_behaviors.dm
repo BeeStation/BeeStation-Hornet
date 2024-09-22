@@ -11,7 +11,7 @@
 	var/obj/item/fetch_thing = controller.blackboard[BB_FETCH_TARGET]
 
 	//either we can't pick it up, or we'd rather eat it, so stop trying.
-	if(fetch_thing.anchored || !isturf(fetch_thing.loc) || istype(fetch_thing, /obj/item/reagent_containers/food) || !living_pawn.CanReach(fetch_thing))
+	if(fetch_thing.anchored || !isturf(fetch_thing.loc) || istype(fetch_thing, /obj/item/food) || !living_pawn.CanReach(fetch_thing))
 		finish_action(controller, FALSE)
 		return
 
@@ -62,7 +62,7 @@
 	var/atom/pawn = controller.pawn
 	pawn.visible_message("<span class='notice'>[pawn] drops [carried_item].</span>")
 	carried_item.forceMove(get_turf(pawn))
-	controller.blackboard[BB_SIMPLE_CARRY_ITEM] = null
+	controller.blackboard -= BB_SIMPLE_CARRY_ITEM
 	return TRUE
 
 
@@ -108,7 +108,7 @@
 /datum/ai_behavior/eat_snack/perform(delta_time, datum/ai_controller/controller)
 	. = ..()
 	var/obj/item/snack = controller.current_movement_target
-	if(!istype(snack) || !istype(snack, /obj/item/reagent_containers/food) || !(isturf(snack.loc) || ishuman(snack.loc)))
+	if(!istype(snack) || !istype(snack, /obj/item/food) || !(isturf(snack.loc) || ishuman(snack.loc)))
 		finish_action(controller, FALSE)
 
 	var/mob/living/living_pawn = controller.pawn

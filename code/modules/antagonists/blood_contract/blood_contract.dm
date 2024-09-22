@@ -41,6 +41,6 @@
 		log_game("[key_name(P)] was selected to kill [key_name(H)] by blood contract") // holy shit why is there no antag datum. I'm doing a huge refactor so I don't have time for one but I had to add this log here
 		to_chat(P, "<span class='userdanger'>You have an overwhelming desire to kill [H]. [H.p_theyve(TRUE)] been marked red! Whoever [H.p_they()] [H.p_were()], friend or foe, go kill [H.p_them()]!</span>")
 
-		var/obj/item/I = new /obj/item/kitchen/knife/butcher(get_turf(P))
+		var/obj/item/I = new /obj/item/knife/butcher(get_turf(P))
 		P.put_in_hands(I, del_on_fail=TRUE)
 		QDEL_IN(I, duration)

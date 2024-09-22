@@ -15,6 +15,7 @@
 	output_port_type = PORT_TYPE_LIST
 
 /obj/item/circuit_component/indexer/write/populate_ports()
+	. = ..()
 	value_port = add_input_port("Value", PORT_TYPE_ANY)
 
 /obj/item/circuit_component/indexer/write/Destroy()
@@ -22,7 +23,6 @@
 	return ..()
 
 /obj/item/circuit_component/indexer/write/calculate_output(var/index, var/list/list_input)
-
 	list_input[index] = islist(value_port.value) ? null : value_port.value
 	output.set_output(list_input)
 

@@ -15,7 +15,6 @@
 	clicksound = 'sound/machines/pda_button1.ogg'
 
 	var/efficiency = 1.25
-	var/min_health = -25
 	var/list/available_chems
 	var/controls_inside = FALSE
 	/// the maximum amount of chem containers the sleeper can hold. Value can be changed by parts tier and RefreshParts()
@@ -86,7 +85,6 @@
 
 	max_vials = 5 + E
 	efficiency = initial(efficiency) * sqrt(I)
-	min_health = initial(min_health) * E
 	available_chems = list()
 
 	//Eject chems
@@ -108,9 +106,9 @@
 		if (length(inserted_vials) >= max_vials)
 			to_chat(user, "<span class='warning'>[src] cannot hold any more!</span>")
 			return
+		if(!user.transferItemToLoc(I, null))
+			return
 		user.visible_message("<span class='notice'>[user] inserts \the [I] into \the [src]</span>", "<span class='notice'>You insert \the [I] into \the [src]</span>")
-		user.temporarilyRemoveItemFromInventory(I)
-		I.forceMove(null)
 		inserted_vials += I
 		ui_update()
 		return
@@ -131,7 +129,7 @@
 	if (!state_open && gone == occupant)
 		container_resist(gone)
 
-/obj/machinery/sleeper/relaymove(mob/user)
+/obj/machinery/sleeper/relaymove(mob/living/user, direction)
 	if (!state_open)
 		container_resist(user)
 
@@ -158,14 +156,13 @@
 	if(is_operational && occupant)
 		open_machine()
 
+
 /obj/machinery/sleeper/MouseDrop_T(mob/target, mob/user)
-	if(user.stat || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser())
+	if(HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser())
 		return
-	if(isliving(user))
-		var/mob/living/L = user
-		if(!(L.mobility_flags & MOBILITY_STAND))
-			return
+
 	close_machine(target)
+
 
 /obj/machinery/sleeper/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -333,7 +330,7 @@
 			stored_vial.reagents.copy_to(occupant, 10)
 		if(user)
 			playsound(src, pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE, 2)
-			log_combat(user, occupant, "injected [stored_vial.reagents.get_reagents()] into", addition = "via [src]")
+			log_combat(user, occupant, "injected [stored_vial.reagents.get_reagents()] into", addition = "via [src]", important = FALSE)
 		use_power(100)
 		return TRUE
 
@@ -344,8 +341,7 @@
 	var/obj/item/reagent_containers/stored_vial = inserted_vials[chem]
 	for (var/datum/reagent/reagent in stored_vial.reagents.reagent_list)
 		var/amount = mob_occupant.reagents.get_reagent_amount(reagent.type) + 10 <= 16 * efficiency
-		var/occ_health = mob_occupant.health > min_health || reagent.type == /datum/reagent/medicine/epinephrine
-		if (!amount || !occ_health)
+		if(!amount)
 			return FALSE
 	return TRUE
 

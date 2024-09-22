@@ -23,7 +23,7 @@
 		new /datum/data/vendor_equipment("Charge Detonator",			/obj/item/exploration_detonator,									10000),
 		new /datum/data/vendor_equipment("Multi-Purpose Energy Gun",	/obj/item/gun/energy/e_gun/mini/exploration,						20000),
 		new /datum/data/vendor_equipment("Expanded E. Oxygen Tank",		/obj/item/tank/internals/emergency_oxygen/engi,						1000),
-		new /datum/data/vendor_equipment("Survival Knife",				/obj/item/kitchen/knife/combat/survival,							1000),
+		new /datum/data/vendor_equipment("Survival Knife",				/obj/item/knife/combat/survival,							1000),
 		new /datum/data/vendor_equipment("Pizza",						/obj/item/pizzabox/margherita,										200),
 		new /datum/data/vendor_equipment("Whiskey",						/obj/item/reagent_containers/food/drinks/bottle/whiskey,			1000),
 		new /datum/data/vendor_equipment("Absinthe",					/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,	1000),

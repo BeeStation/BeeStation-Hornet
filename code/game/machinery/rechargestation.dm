@@ -42,7 +42,7 @@
 		process_occupant(delta_time)
 	return 1
 
-/obj/machinery/recharge_station/relaymove(mob/user)
+/obj/machinery/recharge_station/relaymove(mob/living/user, direction)
 	if(user.stat)
 		return
 	open_machine()
@@ -95,10 +95,6 @@
 			icon_state = (occupant ? "borgcharger1" : "borgcharger2")
 	else
 		icon_state = (state_open ? "borgcharger-u0" : "borgcharger-u1")
-
-/obj/machinery/recharge_station/power_change()
-	..()
-	update_icon()
 
 /obj/machinery/recharge_station/proc/process_occupant(delta_time)
 	if(!occupant)

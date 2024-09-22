@@ -18,7 +18,7 @@
 	///Cooldown for radio, prevents spam
 	COOLDOWN_DECLARE(radio_cooldown)
 
-/obj/machinery/ecto_sniffer/Initialize()
+/obj/machinery/ecto_sniffer/Initialize(mapload)
 	. = ..()
 	wires = new/datum/wires/ecto_sniffer(src)
 	radio = new(src)

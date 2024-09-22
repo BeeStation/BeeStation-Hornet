@@ -15,6 +15,7 @@
 	var/image/silicon_image = image(icon = 'icons/effects/heretic.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "heretic_rune", silicon_image)
+	generate_psychic_mask()
 
 /obj/effect/heretic_rune/examine(mob/user)
 	. = ..()

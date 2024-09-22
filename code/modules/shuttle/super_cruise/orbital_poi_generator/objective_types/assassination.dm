@@ -114,7 +114,7 @@
 	r_pocket = /obj/item/grenade/smokebomb
 	id = /obj/item/card/id/away/old
 	neck = /obj/item/clothing/neck/crucifix
-	head = /obj/item/clothing/head/HoS/beret/syndicate
+	head = /obj/item/clothing/head/hats/hos/beret/syndicate
 
 //=====================
 // Super Spy
@@ -154,7 +154,7 @@
 	backpack_contents = list(
 		/obj/item/stamp/clown = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
+		/obj/item/food/grown/banana = 1,
 		/obj/item/instrument/bikehorn = 1,
 		)
 

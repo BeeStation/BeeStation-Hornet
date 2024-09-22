@@ -3,7 +3,7 @@
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "k" = (
 /obj/structure/bodycontainer/morgue{
@@ -12,7 +12,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "m" = (
 /obj/structure/bodycontainer/morgue{
@@ -21,24 +21,24 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "o" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
 "q" = (
 /obj/effect/spawner/lootdrop/ruinloot/basic,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "r" = (
 /obj/structure/bodycontainer/morgue{
 	dir = 2
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "s" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "B" = (
 /obj/structure/bodycontainer/morgue{
@@ -47,7 +47,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "H" = (
 /obj/structure/bodycontainer/morgue{
@@ -56,7 +56,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "I" = (
 /obj/structure/bodycontainer/morgue{
@@ -65,17 +65,17 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "J" = (
 /obj/effect/spawner/lootdrop/ruinloot/medical,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "O" = (
-/obj/effect/mapping_helpers/dead_body_placer{
+/obj/effect/mapping_helpers/dead_body_placer/ruin_morgue{
 	bodycount = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "V" = (
 /obj/structure/bodycontainer/morgue{
@@ -84,7 +84,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 
 (1,1,1) = {"

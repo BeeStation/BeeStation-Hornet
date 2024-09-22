@@ -254,12 +254,12 @@ export class ButtonInput extends Component {
             this.commitResult(e);
           }}
           onKeyDown={(e) => {
-            if (e.keyCode === KEY_ENTER) {
+            if (e.key === 'Enter' || e.keyCode === KEY_ENTER) {
               this.setInInput(false);
               this.commitResult(e);
               return;
             }
-            if (e.keyCode === KEY_ESCAPE) {
+            if (e.key === 'Esc' || e.keyCode === KEY_ESCAPE) {
               this.setInInput(false);
             }
           }}

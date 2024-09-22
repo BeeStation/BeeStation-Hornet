@@ -32,7 +32,7 @@
 	if(QDELETED(src) || QDELETED(X) || QDELETED(AM))
 		return
 	var/turf/T = get_turf(X.loc)
-	AM.anchored = FALSE
+	AM.set_anchored(FALSE)
 	AM.forceMove(T)
 	if(spawn_russian)
 		new /mob/living/simple_animal/hostile/russian(T)
@@ -198,7 +198,7 @@
 ///============
 /datum/xenoartifact_trait/major/invisible //One step closer to the one ring
 	label_name = "Transparent"
-	label_desc = "Transparent: The shape of the Artifact is difficult to percieve. You feel the need to call it, precious..."
+	label_desc = "Transparent: The shape of the Artifact is difficult to perceive. You feel the need to call it, precious..."
 	weight = 25
 	var/list/victims = list()
 

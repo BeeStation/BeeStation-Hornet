@@ -56,6 +56,7 @@
 	var/datum/mind/owner
 	var/datum/antagonist/devil/devil_datum
 	icon_state = "paper_onfire"
+	show_written_words = FALSE
 
 /obj/item/paper/contract/infernal/power
 	name = "paper- contract for infernal power"
@@ -90,6 +91,8 @@
 	name = "paper- infernal contract"
 	contractType = CONTRACT_UNWILLING
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/contract/infernal)
+
 /obj/item/paper/contract/infernal/Initialize(mapload, mob/living/nTarget, datum/mind/nOwner)
 	. = ..()
 	if(!istype(nOwner))
@@ -99,7 +102,7 @@
 	target = nTarget
 	update_text()
 
-/obj/item/paper/contract/infernal/suicide_act(mob/user)
+/obj/item/paper/contract/infernal/suicide_act(mob/living/user)
 	if(signed && (user == target.current) && istype(user, /mob/living/carbon/human/))
 		var/mob/living/carbon/human/H = user
 		H.say("OH GREAT INFERNO!  I DEMAND YOU COLLECT YOUR BOUNTY IMMEDIATELY!", forced = "infernal contract suicide")

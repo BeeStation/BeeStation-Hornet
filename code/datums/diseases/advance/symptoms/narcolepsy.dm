@@ -29,7 +29,7 @@ Bonus
 	var/sleepy_ticks = 0
 	var/stamina = FALSE
 	threshold_desc = "<b>Transmission 7:</b> Also relaxes the muscles, weakening and slowing the host.<br>\
-					  <b>Resistance 10:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
+						<b>Resistance 10:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
 
 /datum/symptom/narcolepsy/severityset(datum/disease/advance/A)
 	. = ..()
@@ -46,7 +46,11 @@ Bonus
 		symptom_delay_max = 20
 
 /datum/symptom/narcolepsy/Activate(var/datum/disease/advance/A)
+	if(!..())
+		return
 	var/mob/living/M = A.affected_mob
+	if(M.stat >= DEAD)
+		return
 	//this ticks even when on cooldown
 	switch(sleep_level) //Works sorta like morphine
 		if(10 to 19)

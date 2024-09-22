@@ -15,7 +15,7 @@
 	maxbodytemp = 360
 	unique_name = 1
 	a_intent = INTENT_HARM
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	initial_language_holder = /datum/language_holder/empty
 	var/mob/camera/blob/overmind = null
@@ -55,7 +55,7 @@
 /mob/living/simple_animal/hostile/blob/fire_act(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature)
-		adjustFireLoss(CLAMP(0.01 * exposed_temperature, 1, 5))
+		adjustFireLoss(clamp(0.01 * exposed_temperature, 1, 5))
 	else
 		adjustFireLoss(5)
 
@@ -104,17 +104,21 @@
 	melee_damage = 4
 	obj_damage = 20
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	attacktext = "hits"
+	attack_verb_continuous = "hits"
+	attack_verb_simple = "hit"
 	attack_sound = 'sound/weapons/genhit1.ogg'
-	movement_type = FLYING
+	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	del_on_death = TRUE
 	deathmessage = "explodes into a cloud of gas!"
 	gold_core_spawnable = HOSTILE_SPAWN
 	var/death_cloud_size = 1 //size of cloud produced from a dying spore
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
-	var/list/disease = list()
+	var/list/datum/disease/spore_diseases = list()
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
@@ -124,15 +128,13 @@
 	/*var/datum/disease/advance/random/blob/R = new //either viro is cooperating with xenobio, or a blob has spawned and the round is probably over sooner than they can make a virus for this
 	disease += R*/
 
-/mob/living/simple_animal/hostile/blob/blobspore/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(scan)
-		E.scan(src, disease, user)
-	else
-		if(E.create_culture(disease, user))
-			dust()
-			user.visible_message("<span class='danger'>[user] stabs [src] with [E], sucking it up!</span>", \
-	 				 "<span class='danger'>You stab [src] with [E]'s probe, destroying it!</span>")
-	return TRUE
+/mob/living/simple_animal/hostile/blob/blobspore/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	if(!dry_run && !EXTRAPOLATOR_ACT_CHECK(., EXTRAPOLATOR_ACT_PRIORITY_SPECIAL) && extrapolator.create_culture(user, spore_diseases))
+		user.visible_message("<span class='danger'>[user] stabs [src] with [extrapolator], sucking it up!</span>", \
+				"<span class='danger'>You stab [src] with [extrapolator]'s probe, destroying it!</span>")
+		dust()
+		EXTRAPOLATOR_ACT_SET(., EXTRAPOLATOR_ACT_PRIORITY_SPECIAL)
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life()
 	if(!is_zombie && isturf(src.loc))
@@ -243,7 +245,8 @@
 	damage_coeff = list(BRUTE = 0.5, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	melee_damage = 20
 	obj_damage = 60
-	attacktext = "slams"
+	attack_verb_continuous = "slams"
+	attack_verb_simple = "slam"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	verb_say = "gurgles"
 	verb_ask = "demands"
@@ -308,10 +311,10 @@
 	..()
 	if(overmind) //if we have an overmind, we're doing chemical reactions instead of pure damage
 		melee_damage = 4
-		attacktext = overmind.blobstrain.blobbernaut_message
+		attack_verb_continuous = overmind.blobstrain.blobbernaut_message
 	else
 		melee_damage = initial(melee_damage)
-		attacktext = initial(attacktext)
+		attack_verb_continuous = overmind.blobstrain.blobbernaut_message
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
 	..(gibbed)

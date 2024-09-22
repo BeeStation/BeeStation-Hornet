@@ -42,7 +42,7 @@
 		update_parents()
 
 /obj/machinery/atmospherics/components/unary/passive_vent/can_crawl_through()
-	return TRUE
+	return TRUE // we don't care about power or being broken
 
 /obj/machinery/atmospherics/components/unary/passive_vent/layer2
 	piping_layer = 2

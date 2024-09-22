@@ -19,6 +19,8 @@
 	var/order = 1 // -1 = Descending - 1 = Ascending
 	light_color = LIGHT_COLOR_RED
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
+
 /obj/machinery/computer/secure_data/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	AddComponent(/datum/component/usb_port, list(
@@ -180,6 +182,13 @@
 	icon_state = "laptop"
 	icon_screen = "seclaptop"
 	icon_keyboard = "laptop_key"
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+
 	clockwork = TRUE //it'd look weird
 	broken_overlay_emissive = TRUE
 	pass_flags = PASSTABLE
@@ -517,7 +526,7 @@ What a mess.*/
 								GLOB.data_core.payCitation(active2.fields["id"], text2num(href_list["cdataid"]), pay)
 								to_chat(usr, "<span class='notice'>You have paid [pay] credit\s towards your fine.</span>")
 								if (pay == diff || pay > diff || pay >= diff)
-									investigate_log("[key_name(usr)] paid off their citation for <strong>[p.crimeName]</strong> ([p.fine]).", INVESTIGATE_RECORDS)
+									usr.investigate_log(" paid off their citation for <strong>[p.crimeName]</strong> ([p.fine]).", INVESTIGATE_RECORDS)
 									to_chat(usr, "<span class='notice'>The fine has been paid in full.</span>")
 								qdel(C)
 								playsound(src, "terminal_type", 25, FALSE)
@@ -583,7 +592,7 @@ What a mess.*/
 								default_description += "[c.crimeDetails]\n"
 
 						var/headerText = stripped_input(usr, "Please enter Poster Heading (Max 7 Chars):", "Print Wanted Poster", "WANTED", 8)
-						var/posternum = CLAMP((input("Number of posters to print (Max 5):","Number:",1) as num|null), 1, 5)
+						var/posternum = clamp((input("Number of posters to print (Max 5):","Number:",1) as num|null), 1, 5)
 						var/info = stripped_multiline_input(usr, "Please input a description for the poster:", "Print Wanted Poster", default_description, null)
 						if(info)
 							printing = 1
@@ -602,7 +611,7 @@ What a mess.*/
 						var/default_description = "A poster declaring [missing_name] to be a missing individual, missed by Nanotrasen. Report any sightings to security immediately."
 
 						var/headerText = stripped_input(usr, "Please enter Poster Heading (Max 7 Chars):", "Print Missing Persons Poster", "MISSING", 8)
-						var/posternum = CLAMP((input("Number of posters to print (Max 5):","Number:",1) as num|null), 1, 5)
+						var/posternum = clamp((input("Number of posters to print (Max 5):","Number:",1) as num|null), 1, 5)
 						var/info = stripped_multiline_input(usr, "Please input a description for the poster:", "Print Missing Persons Poster", default_description, null)
 						if(info)
 							printing = 1
@@ -622,7 +631,7 @@ What a mess.*/
 				temp += "<a href='?src=[REF(src)];choice=Clear Screen'>No</a>"
 
 			if("Purge All Records")
-				investigate_log("[key_name(usr)] has purged all the security records.", INVESTIGATE_RECORDS)
+				usr.investigate_log(" has purged all the security records.", INVESTIGATE_RECORDS)
 				for(var/datum/data/record/R in GLOB.data_core.security)
 					qdel(R)
 				GLOB.data_core.security.Cut()
@@ -810,7 +819,7 @@ What a mess.*/
 								return
 							var/crime = GLOB.data_core.createCrimeEntry(t1, t2, authenticated, station_time_timestamp())
 							GLOB.data_core.addCrime(active1.fields["id"], crime)
-							investigate_log("[key_name(usr)] has added a crime '<strong>[t1]</strong>': '[t2]' to [active1.fields["name"]] via security records.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has added a crime '<strong>[t1]</strong>': '[t2]' to [active1.fields["name"]] via security records.", INVESTIGATE_RECORDS)
 					if("crim_delete")
 						if(istype(active1, /datum/data/record))
 							if(href_list["cdataid"])
@@ -824,7 +833,7 @@ What a mess.*/
 								if(!canUseSecurityRecordsConsole(usr, t1, null, a2))
 									return
 								GLOB.data_core.addCrimeDetails(active1.fields["id"], href_list["cdataid"], t1)
-								investigate_log("[key_name(usr)] has set crime details ([t1]) to [active1.fields["name"]] via security records.", INVESTIGATE_RECORDS)
+								usr.investigate_log(" has set crime details ([t1]) to [active1.fields["name"]] via security records.", INVESTIGATE_RECORDS)
 					if("citation_add")
 						if(istype(active1, /datum/data/record))
 							var/maxFine = CONFIG_GET(number/maxfine)
@@ -856,13 +865,13 @@ What a mess.*/
 									signal.send_to_receivers()
 									usr.log_message("(PDA: Citation Server) sent \"[message]\" to [signal.format_target()]", LOG_PDA)
 							GLOB.data_core.addCitation(active1.fields["id"], crime)
-							investigate_log("[key_name(usr)] has added a citation '<strong>[t1]</strong>' ([fine] credits) to [active1.fields["name"]] via security records.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has added a citation '<strong>[t1]</strong>' ([fine] credits) to [active1.fields["name"]] via security records.", INVESTIGATE_RECORDS)
 					if("citation_delete")
 						if(istype(active1, /datum/data/record))
 							if(href_list["cdataid"])
 								if(!canUseSecurityRecordsConsole(usr, "delete", null, a2))
 									return
-								investigate_log("[key_name(usr)] has deleted [active1.fields["name"]]'s citation '[active1.fields["id"]]'.", INVESTIGATE_RECORDS)
+								usr.investigate_log(" has deleted [active1.fields["name"]]'s citation '[active1.fields["id"]]'.", INVESTIGATE_RECORDS)
 								GLOB.data_core.removeCitation(active1.fields["id"], href_list["cdataid"])
 					if("notes")
 						if(istype(active2, /datum/data/record))
@@ -870,7 +879,7 @@ What a mess.*/
 							if(!canUseSecurityRecordsConsole(usr, t1, null, a2))
 								return
 							active2.fields["notes"] = t1
-							investigate_log("[key_name(usr)] has set [active1.fields["name"]]'s security records important notes to '[t1]'.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has set [active1.fields["name"]]'s security records important notes to '[t1]'.", INVESTIGATE_RECORDS)
 					if("criminal")
 						if(istype(active2, /datum/data/record))
 							temp = "<h5>Criminal Status:</h5>"
@@ -922,18 +931,18 @@ What a mess.*/
 									active2.fields["criminal"] = "Paroled"
 								if("released")
 									active2.fields["criminal"] = "Discharged"
-							investigate_log("[key_name(usr)] has changed [active1.fields["name"]]'s security records status from <strong>[old_field]</strong> to <strong>[active2.fields["criminal"]]</strong>.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has changed [active1.fields["name"]]'s security records status from <strong>[old_field]</strong> to <strong>[active2.fields["criminal"]]</strong>.", INVESTIGATE_RECORDS)
 							for(var/mob/living/carbon/human/H in GLOB.carbon_list)
 								H.sec_hud_set_security_status()
 					if("Delete Record (Security) Execute")
-						investigate_log("[key_name(usr)] has <strong>deleted</strong> the security records for [active1.fields["name"]].", INVESTIGATE_RECORDS)
+						usr.investigate_log(" has <strong>deleted</strong> the security records for [active1.fields["name"]].", INVESTIGATE_RECORDS)
 						if(active2)
 							qdel(active2)
 							active2 = null
 
 					if("Delete Record (ALL) Execute")
 						if(active1)
-							investigate_log("[key_name(usr)] has deleted all records for [active1.fields["name"]].", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has deleted all records for [active1.fields["name"]].", INVESTIGATE_RECORDS)
 							if(isAI(usr) || iscyborg(usr))
 								message_admins("[ADMIN_LOOKUPFLW(usr)] has deleted all records for [active1.fields["name"]] as Borg/AI Player.")
 							for(var/datum/data/record/R in GLOB.data_core.medical)

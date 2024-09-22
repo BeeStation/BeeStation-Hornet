@@ -232,7 +232,7 @@ SUBSYSTEM_DEF(zclear)
 				var/nullspaced_mob_names = ""
 				var/valid = FALSE
 				for(var/mob/M as() in nullspaced_mobs)
-					if(M.key || M.get_ghost(FALSE, TRUE))
+					if(M.key || !M.soul_departed())
 						nullspaced_mob_names += " - [M.name]\n"
 						valid = TRUE
 				if(valid)
@@ -330,8 +330,9 @@ SUBSYSTEM_DEF(zclear)
 		var/turf/newT
 		if(istype(T, /turf/open/space))
 			newT = T
+			newT.baseturfs = /turf/baseturf_bottom
 		else
-			newT = T.ChangeTurf(/turf/open/space, flags = CHANGETURF_IGNORE_AIR | CHANGETURF_DEFER_CHANGE)
+			newT = T.ChangeTurf(/turf/open/space, /turf/baseturf_bottom, flags = CHANGETURF_IGNORE_AIR | CHANGETURF_DEFER_CHANGE)
 		var/area/old_area = newT.loc
 		if(!istype(newT.loc, /area/space))
 			var/area/newA = GLOB.areas_by_type[/area/space]
@@ -347,3 +348,6 @@ SUBSYSTEM_DEF(zclear)
 	var/tracking
 	//Callback when completed, z value passed as parameters
 	var/datum/callback/completion_callback
+
+#undef CLEAR_TURF_PROCESSING_TIME
+#undef CHECK_ZLEVEL_TICKS

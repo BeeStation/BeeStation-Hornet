@@ -9,7 +9,9 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
-	intact = FALSE //Makes it clearer to players that pipes/wires are destroyed when a shuttle lands on them
+	max_integrity = 500
+	overfloor_placed = FALSE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 
 /turf/open/floor/dock/crowbar_act(mob/living/user, obj/item/I)
 	return pry_tile(I, user)
@@ -63,13 +65,13 @@
 		else
 			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
 		return
-	if(istype(C, /obj/item/stack/tile/plasteel))
+	if(istype(C, /obj/item/stack/tile/iron))
 		if(!can_build)
 			to_chat(user, "<span class='warning'>[src] can't support anything more!</span>")
 			return
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
-			var/obj/item/stack/tile/plasteel/S = C
+			var/obj/item/stack/tile/iron/S = C
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)

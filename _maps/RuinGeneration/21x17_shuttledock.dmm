@@ -3,37 +3,37 @@
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "c" = (
 /obj/item/kirbyplants/random,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "h" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "i" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "k" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "q" = (
-/obj/machinery/vending/cola/random,
-/turf/open/floor/plasteel,
+/obj/effect/spawner/randomvend/cola,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "u" = (
-/obj/machinery/vending/snack/random,
-/turf/open/floor/plasteel,
+/obj/effect/spawner/randomvend/snack,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "v" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/structure/fans/tiny,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "A" = (
 /turf/template_noop,
@@ -44,7 +44,7 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor/window,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "F" = (
 /turf/closed/wall,
@@ -53,7 +53,7 @@
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/firedoor/window,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 
 (1,1,1) = {"

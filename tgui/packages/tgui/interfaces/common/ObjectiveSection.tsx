@@ -1,5 +1,5 @@
 import { BooleanLike } from 'common/react';
-import { Box, Section, Stack } from '../../components';
+import { Section, Stack } from '../../components';
 import { sanitizeText } from '../../sanitize';
 
 export type Objective = {
@@ -27,7 +27,7 @@ export const ObjectivesSection = (props: Props, _context) => {
                 <span
                   // eslint-disable-next-line react/no-danger
                   dangerouslySetInnerHTML={{
-                    __html: sanitizeText(objective.explanation),
+                    __html: sanitizeText(objective.explanation, false),
                   }}
                 />
               </Stack.Item>

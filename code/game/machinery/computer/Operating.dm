@@ -15,12 +15,8 @@
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/machinery/computer/operating/Initialize(mapload)
-	..()
-	linked_techweb = SSresearch.science_tech
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/machinery/computer/operating/LateInitialize()
 	. = ..()
+	linked_techweb = SSresearch.science_tech
 	link_with_table()
 
 /obj/machinery/computer/operating/Destroy()
@@ -125,7 +121,7 @@
 		if(SOFT_CRIT)
 			data["patient"]["stat"] = "Conscious"
 			data["patient"]["statstate"] = "average"
-		if(UNCONSCIOUS)
+		if(UNCONSCIOUS, HARD_CRIT)
 			data["patient"]["stat"] = "Unconscious"
 			data["patient"]["statstate"] = "average"
 		if(DEAD)
@@ -186,7 +182,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/operating)
 	new_stasis_bed.op_computer = src
 	sbed = new_stasis_bed
 	to_chat(user, "<span class='notice'>You link \the [src] with \the [new_stasis_bed] to its [dir2text(get_dir(src, new_stasis_bed))].</span>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 #undef MENU_OPERATION
 #undef MENU_SURGERIES

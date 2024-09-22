@@ -29,7 +29,7 @@
 
 /datum/quirk/blooddeficiency/on_process(delta_time)
 	var/mob/living/carbon/human/H = quirk_target
-	if(NOBLOOD in H.dna.species.species_traits) //can't lose blood if your species doesn't have any
+	if((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD)) //can't lose blood if your species doesn't have any
 		return
 	else if(H.blood_volume > (BLOOD_VOLUME_SAFE - 25)) // just barely survivable without treatment
 		H.blood_volume -= 0.275 * delta_time
@@ -141,7 +141,7 @@
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/heirloom_type
 
-	if(is_species(H, /datum/species/moth) && prob(50))
+	if((ismoth(H)) && prob(50))
 		heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
 	else
 		switch(quirk_holder.assigned_role)
@@ -153,11 +153,11 @@
 			if(JOB_NAME_JANITOR)
 				heirloom_type = pick(/obj/item/mop, /obj/item/clothing/suit/caution, /obj/item/reagent_containers/glass/bucket)
 			if(JOB_NAME_COOK)
-				heirloom_type = pick(/obj/item/reagent_containers/food/condiment/saltshaker, /obj/item/kitchen/rollingpin, /obj/item/clothing/head/chefhat)
+				heirloom_type = pick(/obj/item/reagent_containers/food/condiment/saltshaker, /obj/item/kitchen/rollingpin, /obj/item/clothing/head/utility/chefhat)
 			if(JOB_NAME_BOTANIST)
 				heirloom_type = pick(/obj/item/cultivator, /obj/item/reagent_containers/glass/bucket, /obj/item/storage/bag/plants, /obj/item/toy/plush/beeplushie)
 			if(JOB_NAME_BARTENDER)
-				heirloom_type = pick(/obj/item/reagent_containers/glass/rag, /obj/item/clothing/head/that, /obj/item/reagent_containers/food/drinks/shaker)
+				heirloom_type = pick(/obj/item/reagent_containers/glass/rag, /obj/item/clothing/head/hats/tophat, /obj/item/reagent_containers/food/drinks/shaker)
 			if(JOB_NAME_CURATOR)
 				heirloom_type = pick(/obj/item/pen/fountain, /obj/item/storage/pill_bottle/dice)
 			if(JOB_NAME_CHAPLAIN)
@@ -185,18 +185,18 @@
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/book/manual/wiki/security_space_law)
 			//RnD
 			if(JOB_NAME_RESEARCHDIRECTOR)
-				heirloom_type = /obj/item/toy/plush/slimeplushie
+				heirloom_type = pick(typesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random)
 			if(JOB_NAME_SCIENTIST)
-				heirloom_type = /obj/item/toy/plush/slimeplushie
+				heirloom_type = pick(typesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random)
 			if(JOB_NAME_ROBOTICIST)
-				heirloom_type = pick(subtypesof(/obj/item/toy/prize)) //look at this nerd
+				heirloom_type = pick(subtypesof(/obj/item/toy/mecha)) //look at this nerd
 			//Medical
 			if(JOB_NAME_CHIEFMEDICALOFFICER)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/deployable/bodybag)
+				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen)
 			if(JOB_NAME_MEDICALDOCTOR)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/deployable/bodybag)
+				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen, /obj/item/scalpel)
 			if(JOB_NAME_PARAMEDIC)
-				heirloom_type = pick(/obj/item/deployable/bodybag)
+				heirloom_type = pick(/obj/item/flashlight/pen, /obj/item/sensor_device)
 			if(JOB_NAME_CHEMIST)
 				heirloom_type = /obj/item/reagent_containers/glass/chem_heirloom
 			if(JOB_NAME_VIROLOGIST)
@@ -205,9 +205,9 @@
 				heirloom_type = /obj/item/clothing/under/shorts/purple
 			//Engineering
 			if(JOB_NAME_CHIEFENGINEER)
-				heirloom_type = pick(/obj/item/clothing/head/hardhat/white, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
+				heirloom_type = pick(/obj/item/clothing/head/utility/hardhat/white, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
 			if(JOB_NAME_STATIONENGINEER)
-				heirloom_type = pick(/obj/item/clothing/head/hardhat, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
+				heirloom_type = pick(/obj/item/clothing/head/utility/hardhat, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
 			if(JOB_NAME_ATMOSPHERICTECHNICIAN)
 				heirloom_type = pick(/obj/item/lighter, /obj/item/lighter/greyscale, /obj/item/storage/box/matches)
 			//Supply
@@ -297,21 +297,11 @@
 
 /datum/quirk/hypersensitive
 	name = "Hypersensitive"
-	desc = "For better or worse, everything seems to affect your mood more than it should."
+	desc = "Bad things affect your mood more than they should."
 	icon = "flushed"
 	value = -1
 	gain_text = "<span class='danger'>You seem to make a big deal out of everything.</span>"
 	lose_text = "<span class='notice'>You don't seem to make a big deal out of everything anymore.</span>"
-
-/datum/quirk/hypersensitive/add()
-	var/datum/component/mood/mood = quirk_target.GetComponent(/datum/component/mood)
-	if(mood)
-		mood.mood_modifier += 0.5
-
-/datum/quirk/hypersensitive/remove()
-	var/datum/component/mood/mood = quirk_target.GetComponent(/datum/component/mood)
-	if(mood)
-		mood.mood_modifier -= 0.5
 
 /datum/quirk/light_drinker
 	name = "Light Drinker"
@@ -356,7 +346,7 @@
 	if(H.dna.species.id in list("shadow", "nightmare"))
 		return //we're tied with the dark, so we don't get scared of it; don't cleanse outright to avoid cheese
 	var/turf/T = get_turf(quirk_target)
-	if(T.get_lumcount() <= 0.2)
+	if(T.get_lumcount() <= LIGHTING_TILE_IS_DARK)
 		if(quirk_target.m_intent == MOVE_INTENT_RUN)
 			to_chat(quirk_target, "<span class='warning'>Easy, easy, take it slow... you're in the dark...</span>")
 			quirk_target.toggle_move_intent()
@@ -426,7 +416,7 @@
 	var/slot_string = "limb"
 
 /datum/quirk/prosthetic_limb/on_spawn()
-	var/limb_slot = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/limb_slot = read_choice_preference(/datum/preference/choiced/quirk/prosthetic_limb_location) || pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) // default to random
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/bodypart/old_part = H.get_bodypart(limb_slot)
 	var/obj/item/bodypart/prosthetic
@@ -541,6 +531,7 @@
 
 /datum/quirk/junkie/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
+	reagent_type = reagent_type || read_choice_preference(/datum/preference/choiced/quirk/junkie_drug)
 	if (!reagent_type)
 		reagent_type = pick(drug_list)
 	reagent_instance = new reagent_type()
@@ -602,12 +593,9 @@
 	process = TRUE
 
 /datum/quirk/junkie/smoker/on_spawn()
-	drug_container_type = pick(/obj/item/storage/fancy/cigarettes,
-		/obj/item/storage/fancy/cigarettes/cigpack_midori,
-		/obj/item/storage/fancy/cigarettes/cigpack_uplift,
-		/obj/item/storage/fancy/cigarettes/cigpack_robust,
-		/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-		/obj/item/storage/fancy/cigarettes/cigpack_carp)
+	drug_container_type = read_choice_preference(/datum/preference/choiced/quirk/smoker_cigarettes)
+	if(!drug_container_type)
+		drug_container_type = pick(GLOB.smoker_cigarettes)
 	. = ..()
 
 /datum/quirk/junkie/smoker/announce_drugs()
@@ -638,7 +626,7 @@
 	var/drink_types = list(/obj/item/reagent_containers/food/drinks/bottle/ale,
 					/obj/item/reagent_containers/food/drinks/bottle/beer,
 					/obj/item/reagent_containers/food/drinks/bottle/gin,
-		            /obj/item/reagent_containers/food/drinks/bottle/whiskey,
+					/obj/item/reagent_containers/food/drinks/bottle/whiskey,
 					/obj/item/reagent_containers/food/drinks/bottle/vodka,
 					/obj/item/reagent_containers/food/drinks/bottle/rum,
 					/obj/item/reagent_containers/food/drinks/bottle/applejack)
@@ -647,7 +635,9 @@
 	var/obj/item/reagent_containers/food/drinks/bottle/drink_instance
 
 /datum/quirk/alcoholic/on_spawn()
-	drink_instance = pick(drink_types)
+	drink_instance = read_choice_preference(/datum/preference/choiced/quirk/alcohol_type)
+	if(!drink_instance)
+		drink_instance = pick(drink_types)
 	drink_instance = new drink_instance()
 	var/list/slots = list("in your backpack" = ITEM_SLOT_BACKPACK)
 	var/mob/living/carbon/human/H = quirk_target
@@ -708,7 +698,7 @@
 	var/trauma
 
 /datum/quirk/trauma/add()
-	trauma = new trauma_type
+	trauma = new trauma_type(read_choice_preference(/datum/preference/choiced/quirk/phobia))
 	var/mob/living/carbon/human/H = quirk_target
 	H.gain_trauma(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
 

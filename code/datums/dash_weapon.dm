@@ -1,7 +1,7 @@
 /datum/action/innate/dash
 	name = "Dash"
 	desc = "Teleport to the targeted location."
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "jetboot"
 	var/current_charges = 1
 	var/max_charges = 1
@@ -47,7 +47,7 @@
 			to_chat(user, "<span class='warning'>You cannot dash here!</span>")
 
 /datum/action/innate/dash/proc/charge()
-	current_charges = CLAMP(current_charges + 1, 0, max_charges)
+	current_charges = clamp(current_charges + 1, 0, max_charges)
 	owner.update_action_buttons_icon()
 	if(recharge_sound)
 		playsound(dashing_item, recharge_sound, 50, 1)

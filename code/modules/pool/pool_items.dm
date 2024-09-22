@@ -6,7 +6,8 @@
 	damtype = STAMINA
 	w_class = WEIGHT_CLASS_BULKY
 	block_sound = 'sound/weapons/tap.ogg'
-	attack_verb = list("wacked")
+	attack_verb_continuous = list("smashes", "slams", "whacks", "thwacks")
+	attack_verb_simple = list("smash", "slam", "whack", "thwack")
 
 
 /obj/item/pool/Initialize(mapload)
@@ -54,7 +55,7 @@
 /obj/item/pool/pool_noodle/proc/jedi_spin(mob/living/user) //rip complex code, but this fucked up blocking
 	user.emote("flip")
 
-/obj/item/pool/pool_noodle/suicide_act(mob/user)
+/obj/item/pool/pool_noodle/suicide_act(mob/living/user)
 	if(suiciding)
 		return SHAME
 	suiciding = TRUE

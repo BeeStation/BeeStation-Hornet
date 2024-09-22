@@ -175,55 +175,50 @@
 		if(N.new_character)
 			log_manifest(N.ckey,N.new_character.mind,N.new_character)
 		if(ishuman(N.new_character))
-			manifest_inject(N.new_character)
+			manifest_inject(N.new_character, send_signal = FALSE)
 		CHECK_TICK
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /datum/datacore/proc/manifest_modify(name, assignment, hudstate)
 	var/datum/data/record/foundrecord = find_record("name", name, GLOB.data_core.general)
 	if(foundrecord)
 		foundrecord.fields["rank"] = assignment
 		foundrecord.fields["hud"] = hudstate
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /datum/datacore/proc/get_manifest()
+	/// assoc-ing to head names, so that we give their name an officer mark on crew manifest
+	var/static/list/heads
+	if(!heads) // do not do this in pre-runtime.
+		heads = make_associative(SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
+	/// Takes a result of each crew data in a format
 	var/list/manifest_out = list()
-	var/list/dept_list = list(
-		"Command" = DEPT_BITFLAG_COM,
-		"Very Important People" = DEPT_BITFLAG_VIP,
-		"Security" = DEPT_BITFLAG_SEC,
-		"Engineering" = DEPT_BITFLAG_ENG,
-		"Medical" = DEPT_BITFLAG_MED,
-		"Science" = DEPT_BITFLAG_SCI,
-		"Supply" = DEPT_BITFLAG_CAR,
-		"Service" = DEPT_BITFLAG_SRV,
-		"Civilian" = DEPT_BITFLAG_CIV,
-		"Silicon" = DEPT_BITFLAG_SILICON
-	)
+
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		var/name = t.fields["name"]
 		var/rank = t.fields["rank"]
+		var/hud = t.fields["hud"]
 		var/dept_bitflags = t.fields["active_dept"]
-		var/has_department = FALSE
-		for(var/department in dept_list)
-			if(dept_bitflags & dept_list[department])
-				if(!manifest_out[department])
-					manifest_out[department] = list()
-				manifest_out[department] += list(list(
-					"name" = name,
-					"rank" = rank
-				))
-				has_department = TRUE
-		if(!has_department)
-			if(!manifest_out["Misc"])
-				manifest_out["Misc"] = list()
-			manifest_out["Misc"] += list(list(
-				"name" = name,
-				"rank" = rank
-			))
-	//Sort the list by 'departments' primarily so command is on top.
+		var/entry = list("name" = name, "rank" = rank, "hud" = hud)
+		if(dept_bitflags)
+			for(var/datum/department_group/department as anything in SSdepartment.get_department_by_bitflag(dept_bitflags))
+				LAZYINITLIST(manifest_out[department.dept_id])
+				// Append to beginning of list if captain or department head
+				var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || (department.dept_id != DEPT_NAME_COMMAND && heads[rank])
+				var/list/_internal = manifest_out[department.dept_id]
+				_internal.Insert(put_at_top, list(entry))
+		else
+			LAZYINITLIST(manifest_out["Misc"])
+			var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || (heads[rank])
+			var/list/_internal = manifest_out["Misc"]
+			_internal.Insert(put_at_top, list(entry))
+
+	// 'manifest_out' is not sorted.
 	var/list/sorted_out = list()
-	for(var/department in (dept_list += "Misc"))
-		if(!isnull(manifest_out[department]))
-			sorted_out[department] = manifest_out[department]
+	for(var/datum/department_group/department as anything in SSdepartment.sorted_department_for_manifest)
+		if(isnull(manifest_out[department.dept_id]))
+			continue
+		sorted_out[department.manifest_category_name] = manifest_out[department.dept_id] // this also changes a department name.
 	return sorted_out
 
 /datum/datacore/proc/get_manifest_html(monochrome = FALSE)
@@ -255,7 +250,7 @@
 	return dat
 
 
-/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H)
+/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H, send_signal = TRUE)
 	set waitfor = FALSE
 	var/static/list/show_directions = list(SOUTH, WEST)
 	if(H.mind && (H.mind.assigned_role != H.mind.special_role))
@@ -340,6 +335,8 @@
 		L.fields["character_appearance"] = character_appearance
 		L.fields["mindref"]		= H.mind
 		locked += L
+	if(send_signal)
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 	return
 
 /**

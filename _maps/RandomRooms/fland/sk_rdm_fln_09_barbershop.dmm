@@ -6,7 +6,7 @@
 /obj/structure/table/wood,
 /obj/item/clothing/head/wig/random,
 /obj/item/clothing/head/wig/random,
-/turf/open/floor/plasteel/ameridiner,
+/turf/open/floor/iron/ameridiner,
 /area/template_noop)
 "c" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -25,7 +25,7 @@
 /obj/item/retractor,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/clothing/suit/apron/surgical,
-/obj/item/deployable/rollerbed,
+/obj/item/rollerbed,
 /obj/item/tank/internals/anesthetic,
 /obj/structure/closet/cardboard,
 /obj/item/cautery,
@@ -57,7 +57,7 @@
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
-/turf/open/floor/plasteel/ameridiner,
+/turf/open/floor/iron/ameridiner,
 /area/template_noop)
 "r" = (
 /obj/effect/landmark/start/randommaint/backalley_doc,
@@ -89,7 +89,7 @@
 /obj/item/razor{
 	pixel_x = -5
 	},
-/turf/open/floor/plasteel/ameridiner,
+/turf/open/floor/iron/ameridiner,
 /area/template_noop)
 "y" = (
 /obj/structure/mirror{
@@ -100,7 +100,7 @@
 	color = "#742925";
 	dir = 8
 	},
-/turf/open/floor/plasteel/ameridiner,
+/turf/open/floor/iron/ameridiner,
 /area/template_noop)
 "B" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -128,7 +128,7 @@
 	pixel_x = 2;
 	pixel_y = 14
 	},
-/turf/open/floor/plasteel/ameridiner,
+/turf/open/floor/iron/ameridiner,
 /area/template_noop)
 "G" = (
 /turf/open/floor/wood,
@@ -173,7 +173,7 @@
 	pixel_x = -8;
 	pixel_y = 5
 	},
-/turf/open/floor/plasteel/ameridiner,
+/turf/open/floor/iron/ameridiner,
 /area/template_noop)
 "M" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -217,7 +217,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Barber Shop"
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/template_noop)
 "Y" = (
 /obj/structure/chair/fancy/sofa/old/left{

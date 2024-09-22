@@ -9,6 +9,9 @@
 /obj/item/paper/fluff/shuttles/daniel
 	default_raw_text = "i love daniel<br>daniel is my best friend<br><br>you are tearing me apart elise"
 
+/obj/item/paper/crumpled/bloody/cursed_western
+	name = "blood-stained note"
+	default_raw_text = "The duel was at high noon but you drew early...<br>There's no honor in killing a man with his back turned.<br><br>Take your prize and wear it with shame."
 
 ////////////	Job guides n' fluff
 

@@ -84,6 +84,7 @@
 	desc = "If you see this, and you're not a ghost, yell at coders"
 	icon = 'icons/turf/debug.dmi'
 	icon_state = "genturf"
+	resistance_flags = INDESTRUCTIBLE
 	///Can be: null, GENTURF_HINT_OPEN or GENTURF_HINT_CLOSED
 	var/genturf_hint
 	///Should the generation be ran even if the area forbids it?
@@ -93,3 +94,5 @@
 	name = "planet generation area"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	map_generator = /datum/map_generator/jungle_generator
+
+#undef BIOME_RANDOM_SQUARE_DRIFT

@@ -1,9 +1,9 @@
 #define BP_MAX_ROOM_SIZE 300
 
 GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/engineering, \
-															    /area/engine/supermatter, \
-															    /area/engine/atmospherics_engine, \
-															    /area/ai_monitored/turret_protected/ai))
+																/area/engine/supermatter, \
+																/area/engine/atmospherics_engine, \
+																/area/ai_monitored/turret_protected/ai))
 
 // Gets an atmos isolated contained space
 // Returns an associative list of turf|dirs pairs
@@ -107,6 +107,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		FD.CalculateAffectingAreas()
 
 	to_chat(creator, "<span class='notice'>You have created a new area, named [newA.name]. It is now weather proof, and constructing an APC will allow it to be powered.</span>")
+	log_game("[key_name(creator)] created a new area: [AREACOORD(creator)] (previously \"[oldA.name]\")")
 	return TRUE
 
 #undef BP_MAX_ROOM_SIZE

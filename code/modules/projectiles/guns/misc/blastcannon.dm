@@ -4,7 +4,7 @@
 	icon_state = "empty_blastcannon"
 	var/icon_state_loaded = "loaded_blastcannon"
 	item_state = "blastcannon_empty"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	force = 10
 	fire_sound = 'sound/weapons/blastcannon.ogg'
 	item_flags = NONE
@@ -122,6 +122,8 @@
 	var/hugbox = TRUE
 	range = 150
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/blastwave)
+
 /obj/projectile/blastwave/Initialize(mapload, _h, _m, _l)
 	heavyr = _h
 	mediumr = _m
@@ -149,7 +151,7 @@
 				if(prob(wallbreak_chance))
 					W.dismantle_wall(TRUE, TRUE)
 		else
-			loc.ex_act(amount_destruction)
+			EX_ACT(loc, amount_destruction)
 	else
 		qdel(src)
 

@@ -16,8 +16,7 @@
 	var/breakout_time = 450
 
 /obj/machinery/abductor/experiment/MouseDrop_T(mob/target, mob/user)
-	var/mob/living/L = user
-	if(user.stat || (isliving(user) && (!(L.mobility_flags & MOBILITY_STAND) || !(L.mobility_flags & MOBILITY_UI))) || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
+	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
 		return
 	if(isabductor(target))
 		return
@@ -101,7 +100,7 @@
 			var/mob/living/mob_occupant = occupant
 			if(mob_occupant.stat == DEAD)
 				return
-			flash = experiment(mob_occupant, params["experiment_type"], usr, params["objective"])
+			flash = experiment(mob_occupant, params["experiment_type"], usr)
 			return TRUE
 
 /**
@@ -112,7 +111,7 @@
  * * type The type of experiment to be performed
  * * user The mob starting the experiment
  */
-/obj/machinery/abductor/experiment/proc/experiment(mob/occupant, type, mob/user, custom_objective)
+/obj/machinery/abductor/experiment/proc/experiment(mob/occupant, type, mob/user)
 	LAZYINITLIST(history)
 	var/mob/living/carbon/human/H = occupant
 
@@ -147,16 +146,7 @@
 				to_chat(H, "<span class='warning'>You feel intensely watched.</span>")
 		sleep(5)
 		user_abductor.team.abductees += H.mind
-		if(custom_objective)
-			if(OOC_FILTER_CHECK(custom_objective))
-				message_admins("[ADMIN_LOOKUPFLW(user)] attempted to imprint [ADMIN_LOOKUPFLW(occupant)] with the custom abductee objective '[custom_objective]', however it was blocked by the OOC filter!")
-				log_admin("[key_name(user)] attempted to imprint [key_name(occupant)] with the custom abductee objective '[custom_objective]', however it was blocked by the OOC filter!")
-				custom_objective = null
-			else
-				deadchat_broadcast("<span class='deadsay'><b>[H]</b> has been imprinted with the custom abductee objective: <b>[custom_objective]</b></span>", follow_target = occupant, turf_target = get_turf(occupant), message_type = DEADCHAT_REGULAR)
-				log_game("[key_name(user)] imprinted [key_name(occupant)] with the custom abductee objective '[custom_objective]'.")
-				message_admins("[ADMIN_LOOKUPFLW(user)] imprinted [ADMIN_LOOKUPFLW(occupant)] with the custom abductee objective '[custom_objective]'.")
-		H.mind.add_antag_datum(new /datum/antagonist/abductee(custom_objective))
+		H.mind.add_antag_datum(/datum/antagonist/abductee)
 
 		for(var/obj/item/organ/heart/gland/G in H.internal_organs)
 			G.Start()
@@ -186,6 +176,7 @@
 /obj/machinery/abductor/experiment/proc/send_back(mob/living/carbon/human/H)
 	H.Sleeping(160)
 	H.uncuff()
+	H.cauterise_wounds()
 	if(console && console.pad && console.pad.teleport_target)
 		do_teleport(H, console.pad.teleport_target, channel = TELEPORT_CHANNEL_BLINK, no_effects = TRUE, teleport_mode = TELEPORT_MODE_ABDUCTORS)
 		return

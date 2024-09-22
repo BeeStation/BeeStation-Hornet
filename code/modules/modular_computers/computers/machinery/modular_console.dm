@@ -3,9 +3,13 @@
 	desc = "A stationary computer."
 
 	icon = 'icons/obj/modular_console.dmi'
-	icon_state = "console"
+	icon_state = "console-0"
+	base_icon_state = "console"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL | SMOOTH_BITMASK_SKIP_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
+	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	icon_state_powered = "console"
-	icon_state_unpowered = "console-off"
+	icon_state_unpowered = "console" //These are the same because the base modifies the icon, which messes with smoothing
 	screen_icon_state_menu = "menu"
 	hardware_flag = PROGRAM_CONSOLE
 	density = TRUE
@@ -15,7 +19,7 @@
 	steel_sheet_cost = 10
 	light_strength = 2
 	max_integrity = 300
-	integrity_failure = 150
+	integrity_failure = 0.5
 	var/console_department = "" // Used in New() to set network tag according to our area.
 
 /obj/machinery/modular_computer/console/buildable/Initialize(mapload)
@@ -30,6 +34,8 @@
 
 /obj/machinery/modular_computer/console/Initialize(mapload)
 	. = ..()
+	QUEUE_SMOOTH(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	var/obj/item/computer_hardware/battery/battery_module = cpu.all_components[MC_CELL]
 	if(battery_module)
 		qdel(battery_module)
@@ -53,3 +59,20 @@
 	if(cpu)
 		cpu.screen_on = 1
 	update_icon()
+
+/obj/machinery/modular_computer/console/Destroy()
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	. = ..()
+
+/obj/machinery/modular_computer/console/update_icon()
+	. = ..()
+
+	var/keyboard = "keyboard"
+	if ((machine_stat & NOPOWER) || !(cpu?.use_power()))
+		keyboard = "keyboard_off"
+	add_overlay(keyboard)
+
+	icon_state = "[icon_state]-[smoothing_junction]"
+
+	if(machine_stat & BROKEN)
+		add_overlay("broken-[smoothing_junction]")

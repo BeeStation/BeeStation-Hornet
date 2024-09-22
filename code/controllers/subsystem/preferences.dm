@@ -19,12 +19,13 @@ SUBSYSTEM_DEF(preferences)
 		return
 	datums[ckey] = WEAKREF(prefs)
 	prefs.ui_update() // for queue preview
+	log_preferences("[ckey]: Queued preference write.")
 
 /datum/controller/subsystem/preferences/fire(resumed)
 	for(var/ckey in datums)
 		var/datum/weakref/ref = datums[ckey]
 		var/datum/preferences/prefs = ref.resolve()
-		if(!prefs)
+		if(QDELETED(prefs))
 			datums -= ckey
 			continue
 		if(prefs.save_locked) // don't save right now, but stay queued

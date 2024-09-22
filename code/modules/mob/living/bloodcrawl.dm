@@ -8,7 +8,7 @@
 	invisibility = 60
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-/obj/effect/dummy/phased_mob/slaughter/relaymove(mob/user, direction)
+/obj/effect/dummy/phased_mob/slaughter/relaymove(mob/living/user, direction)
 	forceMove(get_step(src,direction))
 
 /obj/effect/dummy/phased_mob/slaughter/ex_act()
@@ -127,7 +127,9 @@
 	src.revive(full_heal = 1)
 
 	// No defib possible after laughter
-	victim.adjustBruteLoss(1000)
+	victim.apply_damage(1000, BRUTE)
+	if(victim.stat != DEAD)
+		victim.investigate_log("has been killed by being consumed by a slaugter demon.", INVESTIGATE_DEATHS)
 	victim.death()
 	bloodcrawl_swallow(victim)
 	return TRUE
@@ -165,7 +167,7 @@
 	if(!B)
 		return
 	forceMove(B.loc)
-	src.client.eye = src
+	src.client.set_eye(src)
 	src.visible_message("<span class='warning'><B>[src] rises out of the pool of blood!</B></span>")
 	exit_blood_effect(B)
 	if(iscarbon(src))

@@ -39,7 +39,7 @@
 /obj/machinery/power/terminal/proc/dismantle(mob/living/user, obj/item/I)
 	if(isturf(loc))
 		var/turf/T = loc
-		if(T.intact)
+		if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 			to_chat(user, "<span class='warning'>You must first expose the power terminal!</span>")
 			return
 
@@ -65,3 +65,7 @@
 /obj/machinery/power/terminal/wirecutter_act(mob/living/user, obj/item/I)
 	dismantle(user, I)
 	return TRUE
+
+/obj/machinery/power/terminal/invisible
+	name = ""
+	icon_state = ""

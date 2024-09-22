@@ -7,8 +7,8 @@
 	var/description
 
 	///Job access. The use of minimal_access or access is determined by a config setting: config.jobs_have_minimal_access
-	var/list/minimal_access = list()		//Useful for servers which prefer to only have access given to the places a job absolutely needs (Larger server population)
-	var/list/access = list()				//Useful for servers which either have fewer players, so each person needs to fill more than one role, or servers which like to give more access, so players can't hide forever in their super secure departments (I'm looking at you, chemistry!)
+	var/list/base_access = list()  // access list that's basically given to jobs.
+	var/list/extra_access = list() // EXTRA access list that's given in lowpop.
 
 	///Determines who can demote this position
 	var/department_head = list()
@@ -19,6 +19,9 @@
 	///Bitflags for the job
 	var/flag = NONE //Deprecated //Except not really, still used throughout the codebase
 	var/auto_deadmin_role_flags = NONE
+
+	/// flags with the job lock reasons. If this flag exists, it's not available anyway.
+	var/lock_flags = NONE
 
 	/// If this job should show in the preferences menu
 	var/show_in_prefs = TRUE
@@ -119,6 +122,13 @@
 	. = ..()
 	lightup_areas = typecacheof(lightup_areas)
 	minimal_lightup_areas = typecacheof(minimal_lightup_areas)
+
+	if(!config_check())
+		lock_flags |= JOB_LOCK_REASON_CONFIG
+	if(!map_check())
+		lock_flags |= JOB_LOCK_REASON_MAP
+	if(lock_flags || gimmick)
+		SSjob.job_manager_blacklisted |= title
 
 /// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 /// H is usually a human unless an /equip override transformed it
@@ -237,15 +247,16 @@
 		if(!rep_value)
 			rep_value = 0
 		return rep_value
-	. = CONFIG_GET(keyed_list/antag_rep)[lowertext(title)]
+	. = CONFIG_GET(keyed_list/antag_rep)[LOWER_TEXT(title)]
 	if(. == null)
 		return antag_rep
 
 //Don't override this unless the job transforms into a non-human (Silicons do this for example)
+//Returning FALSE is considered a failure. A null or mob return is a successful equip.
 /datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
 	if(!H)
 		return FALSE
-	if(CONFIG_GET(flag/enforce_human_authority) && (title in GLOB.command_positions))
+	if(CONFIG_GET(flag/enforce_human_authority) && (title in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
 		if(H.dna.species.id != SPECIES_HUMAN)
 			H.set_species(/datum/species/human)
 			H.apply_pref_name(/datum/preference/name/backup_human, preference_source)
@@ -269,21 +280,18 @@
 
 	if(!visualsOnly && announce)
 		announce(H)
-	dormant_disease_check(H)
+	H.give_random_dormant_disease(biohazard, (title == JOB_NAME_CLOWN || title == JOB_NAME_MIME) ? 0 : 4)
 
 /datum/job/proc/get_access()
 	if(!config)	//Needed for robots.
-		return src.minimal_access.Copy()
+		return base_access.Copy()
 
-	. = list()
-
-	if(CONFIG_GET(flag/jobs_have_minimal_access))
-		. = src.minimal_access.Copy()
-	else
-		. = src.access.Copy()
+	. = base_access.Copy()
+	if(!CONFIG_GET(flag/jobs_have_minimal_access))
+		. |= extra_access
 
 	if(CONFIG_GET(flag/everyone_has_maint_access)) //Config has global maint access set
-		. |= list(ACCESS_MAINT_TUNNELS)
+		. |= ACCESS_MAINT_TUNNELS
 
 /datum/job/proc/announce_head(var/mob/living/carbon/human/H, var/channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
 	if(H && GLOB.announcement_systems.len)
@@ -331,6 +339,16 @@
 /datum/job/proc/map_check()
 	return TRUE
 
+/datum/job/proc/get_lock_reason()
+	if(lock_flags & JOB_LOCK_REASON_ABSTRACT)
+		return "Not a real job"
+	else if(lock_flags & JOB_LOCK_REASON_CONFIG)
+		return "Disabled by server configuration"
+	else if(lock_flags & JOB_LOCK_REASON_MAP)
+		return "Not available on this map"
+	else if(lock_flags) // somehow flag exists
+		return "Unknown: [lock_flags]"
+
 /datum/job/proc/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>")
 
@@ -345,7 +363,7 @@
 	belt = /obj/item/modular_computer/tablet/pda
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/sneakers/black
-	box = /obj/item/storage/box/survival
+	box = /obj/item/storage/box/survival/normal
 
 	var/backpack = /obj/item/storage/backpack
 	var/satchel  = /obj/item/storage/backpack/satchel
@@ -422,38 +440,7 @@
 
 //Warden and regular officers add this result to their get_access()
 /datum/job/proc/check_config_for_sec_maint()
-	if(CONFIG_GET(flag/security_has_maint_access))
-		return list(ACCESS_MAINT_TUNNELS)
-	return list()
-
-//why is this as part of a job? because it's something every human receives at roundstart after all other initializations and factors job in. it fits best with the equipment proc
-//this gives a dormant disease for the virologist to check for. if this disease actually does something to the mob... call me, or your local coder
-/datum/job/proc/dormant_disease_check(mob/living/carbon/human/H)
-	var/datum/symptom/guaranteed
-	var/sickrisk = 1
-	var/unfunny = 4
-	if((flag == CLOWN) || (flag == MIME))
-		unfunny = 0
-	if(islizard(H) || iscatperson(H))
-		sickrisk += 0.5 //these races like eating diseased mice, ew
-	if(MOB_INORGANIC in H.mob_biotypes)
-		sickrisk -= 0.5
-		guaranteed = /datum/symptom/inorganic_adaptation
-	else if(MOB_ROBOTIC in H.mob_biotypes)
-		sickrisk -= 0.75
-		guaranteed = /datum/symptom/robotic_adaptation
-	else if(MOB_UNDEAD in H.mob_biotypes)//this doesnt matter if it's not halloween, but...
-		sickrisk -= 0.25
-		guaranteed = /datum/symptom/undead_adaptation
-	else if(!(MOB_ORGANIC in H.mob_biotypes))
-		return //this mob cant be given a disease
-	if(prob (min(100, (biohazard * sickrisk))))
-		var/datum/disease/advance/scandisease = new /datum/disease/advance/random(rand(2, 4), 9, unfunny, guaranteed, infected = H)
-		scandisease.dormant = TRUE
-		scandisease.spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
-		scandisease.spread_text = "None"
-		scandisease.visibility_flags |= HIDDEN_SCANNER
-		H.ForceContractDisease(scandisease)
+	return CONFIG_GET(flag/security_has_maint_access)
 
 /// Applies the preference options to the spawning mob, taking the job into account. Assumes the client has the proper mind.
 /mob/living/proc/apply_prefs_job(client/player_client, datum/job/job)
@@ -517,5 +504,5 @@
 			mmi.brainmob.real_name = organic_name //the name of the brain inside the cyborg is the robotized human's name.
 			mmi.brainmob.name = organic_name
 	// If this checks fails, then the name will have been handled during initialization.
-	if(player_client.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
+	if(player_client.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME && check_cyborg_name(player_client, mmi))
 		apply_pref_name(/datum/preference/name/cyborg, player_client)

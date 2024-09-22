@@ -11,7 +11,7 @@
 	owner.dna.add_mutation(EPILEPSY)
 	owner.setOrganLoss(ORGAN_SLOT_BRAIN, 199)
 
-	playsound(owner.loc, 'sound/misc/bikehorn_creepy.ogg', 50, 1)
+	playsound(owner.loc, 'sound/misc/bikehorn_creepy.ogg', vol = 50, vary = TRUE)
 	owner.equip_to_slot_or_del(new /obj/item/storage/backpack/clown(owner), ITEM_SLOT_BACK) // this is purely for cosmetic purposes incase they aren't wearing anything in that slot
 	if(!istype(owner.wear_mask, /obj/item/clothing/mask/cluwne))
 		if(!owner.doUnEquip(owner.wear_mask))

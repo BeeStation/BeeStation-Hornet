@@ -52,8 +52,8 @@
 	power_channel = AREA_USAGE_ENVIRON
 	req_access = list(ACCESS_ATMOSPHERICS)
 	max_integrity = 250
-	integrity_failure = 80
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0)
+	integrity_failure = 0.2
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
 
@@ -742,16 +742,16 @@
 			scan()
 			. = TRUE
 		if("interior_pressure")
-			interior_pressure = CLAMP(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
+			interior_pressure = clamp(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
 			. = TRUE
 		if("exterior_pressure")
-			exterior_pressure = CLAMP(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
+			exterior_pressure = clamp(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
 			. = TRUE
 		if("depressurization_margin")
-			depressurization_margin = CLAMP(text2num(params["pressure"]), 0.15, 40)
+			depressurization_margin = clamp(text2num(params["pressure"]), 0.15, 40)
 			. = TRUE
 		if("skip_delay")
-			skip_delay = CLAMP(text2num(params["skip_delay"]), 0, 1200)
+			skip_delay = clamp(text2num(params["skip_delay"]), 0, 1200)
 			. = TRUE
 
 	if(.)
@@ -821,7 +821,7 @@
 		new /obj/item/stack/sheet/iron(loc, 2)
 		var/obj/item/I = new /obj/item/electronics/advanced_airlock_controller(loc)
 		if(!disassembled)
-			I.obj_integrity = I.max_integrity * 0.5
+			I.take_damage(I.max_integrity * 0.5, sound_effect = FALSE)
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 
@@ -853,3 +853,18 @@
 		for(var/obj/machinery/door/airlock/A in T)
 			if(A.aac)
 				A.aac.update_docked_status(TRUE)
+
+#undef AIRLOCK_CYCLESTATE_INOPEN
+#undef AIRLOCK_CYCLESTATE_INOPENING
+#undef AIRLOCK_CYCLESTATE_INCLOSING
+#undef AIRLOCK_CYCLESTATE_CLOSED
+#undef AIRLOCK_CYCLESTATE_OUTCLOSING
+#undef AIRLOCK_CYCLESTATE_OUTOPENING
+#undef AIRLOCK_CYCLESTATE_OUTOPEN
+#undef AIRLOCK_CYCLESTATE_DOCKED
+#undef AIRLOCK_CYCLESTATE_ERROR
+
+#undef AIRLOCK_CYCLEROLE_INT_PRESSURIZE
+#undef AIRLOCK_CYCLEROLE_INT_DEPRESSURIZE
+#undef AIRLOCK_CYCLEROLE_EXT_PRESSURIZE
+#undef AIRLOCK_CYCLEROLE_EXT_DEPRESSURIZE

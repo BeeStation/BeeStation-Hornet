@@ -3,10 +3,11 @@
 /mob/living/carbon/alien/larva/attack_hand(mob/living/carbon/human/M)
 	if(..())
 		playsound(loc, "punch", 25, 1, -1)
-		log_combat(M, src, "attacked")
+		log_combat(M, src, "attacked", M)
 		visible_message("<span class='danger'>[M] kicks [src]!</span>", \
-				"<span class='userdanger'>[M] kicks you!</span>", null, COMBAT_MESSAGE_RANGE)
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
+				"<span class='userdanger'>[M] kicks you!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, M)
+		to_chat(M, "<span class='danger'>You kick [src]!</span>")
+		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
 		apply_damage(M.dna.species.punchdamage, BRUTE, affecting)
 
 /mob/living/carbon/alien/larva/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)

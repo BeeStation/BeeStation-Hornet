@@ -140,12 +140,19 @@ CREATE TABLE IF NOT EXISTS `SS13_characters` (
 	`feature_mcolor` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_human_tail` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_human_ears` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_psyphoza_cap` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`helmet_style` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`preferred_ai_core_display` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`preferred_security_department` VARCHAR(32) COLLATE 'utf8mb4_general_ci',
 	`joblessrole` TINYINT(4) UNSIGNED,
 	`job_preferences` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
 	`all_quirks` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
+	`quirk_prosthetic_limb_location` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`quirk_phobia` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`quirk_multilingual_language` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`quirk_smoker_cigarettes` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`quirk_junkie_drug` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`quirk_alcohol_type` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`equipped_gear` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
 	`role_preferences` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
 	`randomize` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
@@ -490,7 +497,7 @@ CREATE TABLE IF NOT EXISTS `SS13_schema_revision` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`major`,`minor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 0);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 2);
 
 
 

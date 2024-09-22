@@ -10,8 +10,9 @@
 	block_upgrade_walk = 1
 	throw_speed = 3
 	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
+	w_class = WEIGHT_CLASS_LARGE
+	attack_verb_continuous = list("mops", "bashes", "bludgeons", "whacks")
+	attack_verb_simple = list("mop", "bash", "bludgeon", "whack")
 	resistance_flags = FLAMMABLE
 	var/mopping = 0
 	var/mopcount = 0
@@ -29,12 +30,9 @@
 	GLOB.janitor_devices -= src
 	return ..()
 
-/obj/item/mop/proc/clean(turf/A)
+/obj/item/mop/proc/clean(turf/A, mob/living/cleaner)
 	if(reagents.has_reagent(/datum/reagent/water, 1) || reagents.has_reagent(/datum/reagent/water/holywater, 1) || reagents.has_reagent(/datum/reagent/consumable/ethanol/vodka, 1) || reagents.has_reagent(/datum/reagent/space_cleaner, 1))
-		SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_MEDIUM)
-		for(var/obj/effect/O in A)
-			if(is_cleanable(O))
-				qdel(O)
+		A.wash(CLEAN_SCRUB)
 	reagents.reaction(A, TOUCH, 10)	//Needed for proper floor wetting.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
@@ -125,6 +123,8 @@
 	force = 10
 	throwforce = 18
 	throw_speed = 4
-	attack_verb = list("mopped", "stabbed", "shanked", "jousted")
+	attack_verb_continuous = list("mops", "stabs", "shanks", "jousts")
+	attack_verb_simple = list("mop", "stab", "shank", "joust")
 	sharpness = IS_SHARP
+	bleed_force = BLEED_SURFACE
 	embedding = list("armour_block" = 40)

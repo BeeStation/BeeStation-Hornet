@@ -1,7 +1,3 @@
-#define CAMERA_UPGRADE_XRAY 1
-#define CAMERA_UPGRADE_EMP_PROOF 2
-#define CAMERA_UPGRADE_MOTION 4
-
 /obj/machinery/camera
 	name = "security camera"
 	desc = "A wireless camera used to monitor rooms. It is powered by a long-life internal battery."
@@ -13,13 +9,14 @@
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
 
-	armor = list(MELEE = 50,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 50,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 50, STAMINA = 0, BLEED = 0)
 	max_integrity = 100
-	integrity_failure = 50
+	integrity_failure = 0.5
 	var/default_camera_icon = "camera" //the camera's base icon used by update_icon - icon_state is primarily used for mapping display purposes.
 	var/list/network = list("ss13")
 	var/c_tag = null
 	var/status = TRUE
+	var/current_state = TRUE
 	var/start_active = FALSE //If it ignores the random chance to start broken on round start
 	var/invuln = null
 	var/obj/item/camera_bug/bug = null
@@ -46,7 +43,6 @@
 
 	// Upgrades bitflag
 	var/upgrades = 0
-	var/datum/component/empprotection/emp_component
 
 	var/internal_light = TRUE //Whether it can light up when an AI views it
 
@@ -55,6 +51,12 @@
 
 	///Represents a signal source of camera alarms about movement or camera tampering
 	var/datum/alarm_handler/alarm_manager
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera, 0)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/autoname, 0)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/emp_proof, 0)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/motion, 0)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
 
 /obj/machinery/camera/preset/toxins //Bomb test site in space
 	name = "Hardened Bomb-Test Camera"
@@ -66,11 +68,13 @@
 	light_range = 10
 	start_active = TRUE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
+
 /obj/machinery/camera/Initialize(mapload, obj/structure/camera_assembly/CA)
 	. = ..()
 	for(var/i in network)
 		network -= i
-		network += lowertext(i)
+		network += LOWER_TEXT(i)
 	var/obj/structure/camera_assembly/assembly
 	if(CA)
 		assembly = CA
@@ -101,6 +105,16 @@
 
 	alarm_manager = new(src)
 
+/obj/machinery/camera/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/jam_receiver, JAMMER_PROTECTION_CAMERAS)
+	RegisterSignal(src, COMSIG_ATOM_JAMMED, PROC_REF(update_jammed))
+	RegisterSignal(src, COMSIG_ATOM_UNJAMMED, PROC_REF(update_jammed))
+
+/obj/machinery/camera/proc/update_jammed(datum/source)
+	SIGNAL_HANDLER
+	update_camera(null, FALSE)
+
 /obj/machinery/proc/create_prox_monitor()
 	if(!proximity_monitor)
 		proximity_monitor = new(src, 1)
@@ -110,7 +124,7 @@
 	create_prox_monitor()
 
 /obj/machinery/camera/Destroy()
-	if(can_use())
+	if(current_state)
 		toggle_cam(null, 0) //kick anyone viewing out and remove from the camera chunks
 	GLOB.cameranet.removeCamera(src)
 	GLOB.cameranet.cameras -= src
@@ -119,7 +133,6 @@
 		LAZYREMOVE(myarea.cameras, src)
 	QDEL_NULL(alarm_manager)
 	QDEL_NULL(assembly_ref)
-	QDEL_NULL(emp_component)
 	if(bug)
 		bug.bugged_cameras -= c_tag
 		if(bug.current == src)
@@ -155,13 +168,13 @@
 		return
 	if(!(. & EMP_PROTECT_SELF))
 		if(prob(150/severity))
-			update_icon()
+			update_appearance()
 			previous_network = network
 			network = list()
 			GLOB.cameranet.removeCamera(src)
 			set_light(0)
 			emped = emped+1  //Increase the number of consecutive EMP's
-			update_icon()
+			update_appearance()
 			thisemp = emped //Take note of which EMP this proc is for
 			for(var/i in GLOB.player_list)
 				var/mob/M = i
@@ -175,7 +188,7 @@
 	triggerCameraAlarm() //camera alarm triggers even if multiple EMPs are in effect.
 	if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
 		network = previous_network
-		update_icon()
+		update_appearance()
 		if(can_use())
 			GLOB.cameranet.addCamera(src)
 		emped = 0 //Resets the consecutive EMP count
@@ -207,7 +220,7 @@
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You screw the camera's panel [panel_open ? "open" : "closed"].</span>")
 	I.play_tool_sound(src)
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/camera/wirecutter_act(mob/living/user, obj/item/I)
@@ -383,21 +396,28 @@
 			assembly_ref = null
 		else
 			var/obj/item/I = new /obj/item/wallframe/camera (loc)
-			I.obj_integrity = I.max_integrity * 0.5
+			I.update_integrity(I.max_integrity * 0.5)
 			new /obj/item/stack/cable_coil(loc, 2)
 	qdel(src)
 
-/obj/machinery/camera/update_icon() //TO-DO: Make panel open states, xray camera, and indicator lights overlays instead.
-	if(!status)
+/obj/machinery/camera/update_icon_state() //TO-DO: Make panel open states, xray camera, and indicator lights overlays instead.
+	if(!current_state)
 		icon_state = "[default_camera_icon]_off"
 	else if (machine_stat & EMPED)
 		icon_state = "[default_camera_icon]_emp"
 	else
 		icon_state = "[default_camera_icon][in_use_lights ? "_in_use" : ""]"
+	return ..()
 
 /obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	status = !status
+	update_camera(user, displaymessage)
+
+/obj/machinery/camera/proc/update_camera(mob/user, displaymessage = TRUE)
 	if(can_use())
+		if (current_state)
+			return
+		current_state = TRUE
 		GLOB.cameranet.addCamera(src)
 		if (isturf(loc))
 			myarea = get_area(src)
@@ -405,6 +425,9 @@
 		else
 			myarea = null
 	else
+		if (!current_state)
+			return
+		current_state = FALSE
 		set_light(0)
 		GLOB.cameranet.removeCamera(src)
 		if (isarea(myarea))
@@ -423,7 +446,7 @@
 			visible_message("<span class='danger'>\The [src] [change_msg]!</span>")
 
 		playsound(src, 'sound/items/wirecutter.ogg', 100, TRUE)
-	update_icon() //update Initialize() if you remove this.
+	update_appearance() //update Initialize() if you remove this.
 
 	// now disconnect anyone using the camera
 	//Apparently, this will disconnect anyone even if the camera was re-activated.

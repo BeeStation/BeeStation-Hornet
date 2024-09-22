@@ -6,6 +6,7 @@
 	var/attack_cooldown = 0
 	var/attack_cooldown_time = 20 //How long, in deciseconds, the cooldown of attacks is
 
+
 /mob/living/simple_animal/slime/Life()
 	set invisibility = 0
 	if(notransform)
@@ -26,11 +27,13 @@
 				handle_mood()
 				handle_speech()
 
-// Unlike most of the simple animals, slimes support UNCONSCIOUS
+// Unlike most of the simple animals, slimes support UNCONSCIOUS. This is an ugly hack.
 /mob/living/simple_animal/slime/update_stat()
-	if(stat == UNCONSCIOUS && health > 0)
-		return
-	..()
+	switch(stat)
+		if(UNCONSCIOUS, HARD_CRIT)
+			if(health > 0)
+				return
+	return ..()
 
 /mob/living/simple_animal/slime/process()
 	if(stat == DEAD || !Target || client || buckled)
@@ -70,14 +73,18 @@
 	addtimer(VARSET_CALLBACK(src, special_process, TRUE), (sleeptime + 2), TIMER_UNIQUE)
 
 /mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/environment)
-	if(!environment)
-		return
 
 	var/loc_temp = get_temperature(environment)
+	var/divisor = 10 /// The divisor controls how fast body temperature changes, lower causes faster changes
 
-	adjust_bodytemperature(adjust_body_temperature(bodytemperature, loc_temp, 1))
+	if(abs(loc_temp - bodytemperature) > 50) // If the difference is great, reduce the divisor for faster stabilization
+		divisor = 5
 
-	//Account for massive pressure differences
+	if(loc_temp < bodytemperature) // It is cold here
+		if(!on_fire) // Do not reduce body temp when on fire
+			adjust_bodytemperature((loc_temp - bodytemperature) / divisor)
+	else // This is a hot place
+		adjust_bodytemperature((loc_temp - bodytemperature) / divisor)
 
 	if(bodytemperature < (T0C + 5)) // start calculating temperature damage etc
 
@@ -97,40 +104,24 @@
 			environment.adjust_moles(GAS_O2, plas_amt)
 			adjustBruteLoss(plas_amt ? -2 : 0)
 
-		if(stat == CONSCIOUS && stasis)
-			to_chat(src, "<span class='danger'>Nerve gas in the air has put you in stasis!</span>")
-			set_stat(UNCONSCIOUS)
-			powerlevel = 0
-			rabid = 0
-			update_mobility()
-			regenerate_icons()
-		else if(stat == UNCONSCIOUS && !stasis)
-			to_chat(src, "<span class='notice'>You wake up from the stasis.</span>")
-			set_stat(CONSCIOUS)
-			update_mobility()
-			regenerate_icons()
+		switch(stat)
+			if(CONSCIOUS)
+				if(stasis)
+					to_chat(src, "<span class='danger'>Nerve gas in the air has put you in stasis!</span>")
+					set_stat(UNCONSCIOUS)
+					powerlevel = 0
+					rabid = FALSE
+					regenerate_icons()
+			if(UNCONSCIOUS, HARD_CRIT)
+				if(!stasis)
+					to_chat(src, "<span class='notice'>You wake up from the stasis.</span>")
+					set_stat(CONSCIOUS)
+					regenerate_icons()
 
 	updatehealth()
 
 
 	return //TODO: DEFERRED
-
-/mob/living/simple_animal/slime/proc/adjust_body_temperature(current, loc_temp, boost)
-	var/temperature = current
-	var/difference = abs(current-loc_temp)	//get difference
-	var/increments// = difference/10			//find how many increments apart they are
-	if(difference > 50)
-		increments = difference/5
-	else
-		increments = difference/10
-	var/change = increments*boost	// Get the amount to change by (x per increment)
-	var/temp_change
-	if(current < loc_temp)
-		temperature = min(loc_temp, temperature+change)
-	else if(current > loc_temp)
-		temperature = max(loc_temp, temperature-change)
-	temp_change = (temperature - current)
-	return temp_change
 
 /mob/living/simple_animal/slime/handle_status_effects(delta_time)
 	..()
@@ -154,10 +145,6 @@
 	if(M.stat == DEAD)
 		if(client)
 			to_chat(src, "<i>This subject does not have a strong enough life energy anymore...</i>")
-		else if(!rabid && !attacked)
-			var/mob/last_to_hurt = M.LAssailant?.resolve()
-			if(last_to_hurt && last_to_hurt != M && prob(50))
-				add_friendship(last_to_hurt, 1)
 		//we go rabid after finishing to feed on a human with a client.
 		if(M.client && ishuman(M))
 			rabid = 1
@@ -228,8 +215,6 @@
 				powerlevel += gainpower
 
 /mob/living/simple_animal/slime/proc/handle_targets()
-	update_mobility()
-
 	if(attacked > 50)
 		attacked = 50
 
@@ -292,19 +277,19 @@
 		if (Leader)
 			if(holding_still)
 				holding_still = max(holding_still - 1, 0)
-			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc))
+			else if(!HAS_TRAIT(src, TRAIT_IMMOBILIZED) && isturf(loc))
 				step_to(src, Leader)
 		else if(hungry)
 			if (holding_still)
 				holding_still = max(holding_still - hungry, 0)
-			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(50))
+			else if(!HAS_TRAIT(src, TRAIT_IMMOBILIZED) && isturf(loc) && prob(50))
 				step(src, pick(GLOB.cardinals))
 		else
 			if(holding_still)
 				holding_still = max(holding_still - 1, 0)
 			else if (docile && pulledby)
 				holding_still = 10
-			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(33))
+			else if(!HAS_TRAIT(src, TRAIT_IMMOBILIZED) && isturf(loc) && prob(33))
 				step(src, pick(GLOB.cardinals))
 	else if(!special_process)
 		special_process = TRUE
@@ -413,7 +398,7 @@
 					to_say = "ATTACK!?!?"
 				else if (Friends[who] >= SLIME_FRIENDSHIP_ATTACK)
 					for (var/mob/living/L in view(7,src)-list(src,who))
-						if (findtext(phrase, lowertext(L.name)))
+						if (findtext(phrase, LOWER_TEXT(L.name)))
 							if (isslime(L))
 								to_say = "NO... [L] slime friend"
 								add_friendship(who, -1) //Don't ask a slime to attack its friend

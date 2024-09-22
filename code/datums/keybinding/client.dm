@@ -63,3 +63,17 @@
 
 /datum/keybinding/client/zoomin/up(client/user)
 	winset(user, "mapwindow.map", "zoom=[user.prefs.read_player_preference(/datum/preference/numeric/pixel_size)]")
+
+/datum/keybinding/client/fullscreen
+	keys = list("F11")
+	name = "fullscreen"
+	full_name = "Toggle Fullscreen"
+	description = "Switch between windowed and fullscreen mode."
+	keybind_signal = COMSIG_KB_CLIENT_FULLSCREEN
+
+/datum/keybinding/client/fullscreen/down(client/user)
+	. = ..()
+	if (.)
+		return
+	var/previous_result = user.prefs?.read_player_preference(/datum/preference/toggle/fullscreen)
+	user.prefs?.update_preference(/datum/preference/toggle/fullscreen, !previous_result)

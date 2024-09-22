@@ -274,14 +274,6 @@
 	category = list("Research Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/board/experimentor
-	name = "Machine Design (E.X.P.E.R.I-MENTOR Board)"
-	desc = "The circuit board for an E.X.P.E.R.I-MENTOR."
-	id = "experimentor"
-	build_path = /obj/item/circuitboard/machine/experimentor
-	category = list("Research Machinery")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
-
 /datum/design/board/protolathe
 	name = "Machine Design (Protolathe Board)"
 	desc = "The circuit board for a protolathe."
@@ -571,6 +563,14 @@
 	category = list ("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
+/datum/design/board/griddle
+	name = "Machine Design (Griddle)"
+	desc = "The circuit board for a Griddle."
+	id = "griddle"
+	build_path = /obj/item/circuitboard/machine/griddle
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
 /datum/design/board/donksofttoyvendor
 	name = "Machine Design (Donksoft Toy Vendor Board)"
 	desc = "The circuit board for a Donksoft Toy Vendor."
@@ -707,3 +707,27 @@
 	build_path = /obj/item/circuitboard/machine/fax
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SERVICE
 	category = list("Misc. Machinery")
+
+/datum/design/board/turnstile
+	name = "Machine Design (Turnstile)"
+	desc = "The circuit board for a turnstile machine."
+	id = "turnstile"
+	build_path = /obj/item/circuitboard/machine/turnstile
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	category = list("Misc. Machinery")
+
+/datum/design/board/genpop_interface
+	name = "Machine Design (Prisoner Management Interface)"
+	desc = "The circuit board for a prisonner management interface."
+	id = "genpop_interface"
+	build_path = /obj/item/electronics/genpop_interface
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	category = list("Misc. Machinery")
+
+/datum/design/board/sheetifier
+	name = "Sheetifier"
+	desc = "This machine turns weird things into sheets."
+	id = "sheetifier"
+	build_path = /obj/item/circuitboard/machine/sheetifier
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL

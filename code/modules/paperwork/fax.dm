@@ -35,14 +35,14 @@
 	)
 	/// List of types which should be allowed to be faxed if hacked
 	var/static/list/exotic_types = list(
-		/obj/item/reagent_containers/food/snacks/pizzaslice,
+		/obj/item/food/pizzaslice,
 		/obj/item/food/breadslice,
-		/obj/item/reagent_containers/food/snacks/donkpocket,
-		/obj/item/reagent_containers/food/snacks/cookie,
-		/obj/item/reagent_containers/food/snacks/sugarcookie,
-		/obj/item/reagent_containers/food/snacks/oatmealcookie,
-		/obj/item/reagent_containers/food/snacks/raisincookie,
-		/obj/item/reagent_containers/food/snacks/pancakes,
+		/obj/item/food/donkpocket,
+		/obj/item/food/cookie,
+		/obj/item/food/cookie/sugar,
+		/obj/item/food/cookie/oatmeal,
+		/obj/item/food/cookie/raisin,
+		/obj/item/food/pancakes,
 		/obj/item/throwing_star,
 		/obj/item/stack/spacecash,
 		/obj/item/holochip,
@@ -74,7 +74,7 @@
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
 	// Override in subtypes
-	radio.on = FALSE
+	radio.set_on(FALSE)
 
 	// Mapping Error checking
 	if(!mapload)
@@ -511,7 +511,7 @@
 
 /obj/machinery/fax/centcom/Initialize(mapload)
 	. = ..()
-	radio.on = TRUE
+	radio.set_on(TRUE)
 	radio.keyslot = new /obj/item/encryptionkey/headset_cent
 	radio.recalculateChannels()
 
@@ -522,7 +522,7 @@
 
 /obj/machinery/fax/bridge/Initialize(mapload)
 	. = ..()
-	radio.on = TRUE
+	radio.set_on(TRUE)
 	radio.keyslot = new /obj/item/encryptionkey/headset_com
 	radio.recalculateChannels()
 
@@ -533,7 +533,7 @@
 
 /obj/machinery/fax/cargo/Initialize(mapload)
 	. = ..()
-	radio.on = TRUE
+	radio.set_on(TRUE)
 	radio.keyslot = new /obj/item/encryptionkey/headset_cargo
 	radio.recalculateChannels()
 
@@ -544,7 +544,7 @@
 
 /obj/machinery/fax/eng/Initialize(mapload)
 	. = ..()
-	radio.on = TRUE
+	radio.set_on(TRUE)
 	radio.keyslot = new /obj/item/encryptionkey/headset_eng
 	radio.recalculateChannels()
 
@@ -555,7 +555,7 @@
 
 /obj/machinery/fax/law/Initialize(mapload)
 	. = ..()
-	radio.on = TRUE
+	radio.set_on(TRUE)
 	radio.keyslot = new /obj/item/encryptionkey/headset_srvsec
 	radio.recalculateChannels()
 
@@ -566,7 +566,7 @@
 
 /obj/machinery/fax/med/Initialize(mapload)
 	. = ..()
-	radio.on = TRUE
+	radio.set_on(TRUE)
 	radio.keyslot = new /obj/item/encryptionkey/headset_med
 	radio.recalculateChannels()
 
@@ -577,7 +577,7 @@
 
 /obj/machinery/fax/sci/Initialize(mapload)
 	. = ..()
-	radio.on = TRUE
+	radio.set_on(TRUE)
 	radio.keyslot = new /obj/item/encryptionkey/headset_sci
 	radio.recalculateChannels()
 
@@ -588,7 +588,7 @@
 
 /obj/machinery/fax/sec/Initialize(mapload)
 	. = ..()
-	radio.on = TRUE
+	radio.set_on(TRUE)
 	radio.keyslot = new /obj/item/encryptionkey/headset_sec
 	radio.recalculateChannels()
 
@@ -599,6 +599,6 @@
 
 /obj/machinery/fax/service/Initialize(mapload)
 	. = ..()
-	radio.on = TRUE
+	radio.set_on(TRUE)
 	radio.keyslot = new /obj/item/encryptionkey/headset_service
 	radio.recalculateChannels()

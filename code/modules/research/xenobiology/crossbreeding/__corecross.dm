@@ -41,9 +41,9 @@ To add a crossbreed:
 	var/discovery_points = 750
 
 /obj/item/slimecross/examine(mob/user)
-    . = ..()
-    if(effect_desc)
-        . += "<span class='notice'>[effect_desc]</span>"
+	. = ..()
+	if(effect_desc)
+		. += "<span class='notice'>[effect_desc]</span>"
 
 /obj/item/slimecross/Initialize(mapload)
 	. = ..()

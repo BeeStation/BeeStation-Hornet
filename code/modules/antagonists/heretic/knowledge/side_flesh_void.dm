@@ -32,7 +32,7 @@
 		/datum/heretic_knowledge/summon/raw_prophet,
 	)
 	required_atoms = list(
-		/obj/item/kitchen/knife = 1,
+		/obj/item/knife = 1,
 		/obj/item/shard = 1,
 		/obj/item/paper = 1,
 	)

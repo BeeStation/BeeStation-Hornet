@@ -36,11 +36,16 @@
 // any nonhumans created in that time would experience the same effect.
 INITIALIZE_IMMEDIATE(/obj/item/organ)
 
-/obj/item/organ/Initialize()
+/obj/item/organ/Initialize(mapload)
 	. = ..()
 	if(organ_flags & ORGAN_EDIBLE)
-		AddComponent(/datum/component/edible, initial_reagents = food_reagents, foodtypes = RAW | MEAT | GORE, \
-			pre_eat = CALLBACK(src, PROC_REF(pre_eat)), on_compost = CALLBACK(src, PROC_REF(pre_compost)) , after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
+		AddComponent(/datum/component/edible,\
+		initial_reagents = food_reagents,\
+		foodtypes = RAW | MEAT | GORE,\
+		volume = 10,\
+		pre_eat = CALLBACK(src, PROC_REF(pre_eat)),\
+		on_compost = CALLBACK(src, PROC_REF(pre_compost)),\
+		after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
 
 /obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	if(!iscarbon(M) || owner == M)
@@ -67,20 +72,22 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	STOP_PROCESSING(SSobj, src)
 
 //Special is for instant replacement like autosurgeons
-/obj/item/organ/proc/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
+/obj/item/organ/proc/Remove(mob/living/carbon/organ_owner, special = FALSE, pref_load = FALSE)
 	owner = null
-	if(M)
-		M.internal_organs -= src
-		if(M.internal_organs_slot[slot] == src)
-			M.internal_organs_slot.Remove(slot)
-		if((organ_flags & ORGAN_VITAL) && !special && !(M.status_flags & GODMODE))
-			M.death()
+	if(organ_owner)
+		organ_owner.internal_organs -= src
+		if(organ_owner.internal_organs_slot[slot] == src)
+			organ_owner.internal_organs_slot.Remove(slot)
+		if((organ_flags & ORGAN_VITAL) && !special && !(organ_owner.status_flags & GODMODE))
+			if(organ_owner.stat != DEAD)
+				organ_owner.investigate_log("has been killed by losing a vital organ ([src]).", INVESTIGATE_DEATHS)
+			organ_owner.death()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.Remove(M)
+		A.Remove(organ_owner)
 
-	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, M)
-	SEND_SIGNAL(M, COMSIG_CARBON_LOSE_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
+	SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src)
 
 	START_PROCESSING(SSobj, src)
 
@@ -149,8 +156,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 /obj/item/organ/proc/check_for_surgery(mob/living/carbon/human/H)
 	for(var/datum/surgery/S in H.surgeries)
-		if(S.location == H.zone_selected)
-			return	TRUE			//no snacks mid surgery
+		return TRUE			//no snacks mid surgery
 	return FALSE
 
 /obj/item/organ/item_action_slot_check(slot,mob/user)
@@ -162,7 +168,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return
 	if(maximum < damage)
 		return
-	damage = CLAMP(damage + d, 0, maximum)
+	damage = clamp(damage + d, 0, maximum)
 	var/mess = check_damage_thresholds(owner)
 	prev_damage = damage
 	if(mess && owner)
@@ -211,22 +217,47 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return
 
 	else
-		if(!getorganslot(ORGAN_SLOT_LUNGS))
-			var/obj/item/organ/lungs/L = new()
+		var/obj/item/organ/lungs/L = getorganslot(ORGAN_SLOT_LUNGS)
+		if(!L)
+			L = new()
 			L.Insert(src)
+		L.setOrganDamage(0)
 
-		if(!getorganslot(ORGAN_SLOT_HEART))
-			var/obj/item/organ/heart/H = new()
+		var/obj/item/organ/heart/H = getorganslot(ORGAN_SLOT_HEART)
+		if(!H)
+			H = new()
 			H.Insert(src)
+		H.setOrganDamage(0)
 
-		if(!getorganslot(ORGAN_SLOT_TONGUE))
-			var/obj/item/organ/tongue/T = new()
+		var/obj/item/organ/tongue/T = getorganslot(ORGAN_SLOT_TONGUE)
+		if(!T)
+			T = new()
 			T.Insert(src)
+		T.setOrganDamage(0)
 
-		if(!getorganslot(ORGAN_SLOT_EYES))
-			var/obj/item/organ/eyes/E = new()
-			E.Insert(src)
+		var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
+		if(!eyes)
+			eyes = new()
+			eyes.Insert(src)
+		eyes.setOrganDamage(0)
 
-		if(!getorganslot(ORGAN_SLOT_EARS))
-			var/obj/item/organ/ears/ears = new()
+		var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
+		if(!ears)
+			ears = new()
 			ears.Insert(src)
+		ears.setOrganDamage(0)
+
+/** get_availability
+  * returns whether the species should innately have this organ.
+  *
+  * regenerate organs works with generic organs, so we need to get whether it can accept certain organs just by what this returns.
+  * This is set to return true or false, depending on if a species has a specific organless trait. stomach for example checks if the species has NOSTOMACH and return based on that.
+  * Arguments:
+  * S - species, needed to return whether the species has an organ specific trait
+  */
+/obj/item/organ/proc/get_availability(datum/species/S)
+	return TRUE
+
+/// Called before organs are replaced in regenerate_organs with new ones
+/obj/item/organ/proc/before_organ_replacement(obj/item/organ/replacement)
+	return

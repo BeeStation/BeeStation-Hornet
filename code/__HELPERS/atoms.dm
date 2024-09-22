@@ -47,7 +47,7 @@
 		. += our_turf
 
 /// Step-towards method of determining whether one atom can see another. Similar to viewers()
-/proc/can_see(atom/source, atom/target, length=5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
+/proc/can_see(atom/source, atom/target, length=7) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
 	var/turf/current = get_turf(source)
 	var/turf/target_turf = get_turf(target)
 	var/steps = 1
@@ -132,7 +132,7 @@
 		return FALSE
 	if(isliving(source))
 		var/mob/living/source_mob = source
-		if(source_mob.mobility_flags & MOBILITY_STAND)
+		if(source_mob.body_position == LYING_DOWN)
 			return FALSE
 	var/goal_dir = get_dir(source, target)
 	var/clockwise_source_dir = turn(source.dir, -45)
@@ -141,25 +141,6 @@
 	if(source.dir == goal_dir || clockwise_source_dir == goal_dir || anticlockwise_source_dir == goal_dir)
 		return TRUE
 	return FALSE
-
-/*
-rough example of the "cone" made by the 3 dirs checked
- B
-  \
-   \
-    >
-      <
-       \
-        \
-B --><-- A
-        /
-       /
-      <
-     >
-    /
-   /
- B
-*/
 
 ///ultra range (no limitations on distance, faster than range for distances > 8); including areas drastically decreases performance
 /proc/urange(dist = 0, atom/center = usr, orange = FALSE, areas = FALSE)

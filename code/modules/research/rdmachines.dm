@@ -13,7 +13,7 @@
 	var/requires_console = TRUE
 	var/disabled = FALSE
 	var/obj/machinery/computer/rdconsole/linked_console
-	var/obj/item/loaded_item = null //the item loaded inside the machine (currently only used by experimentor and destructive analyzer)
+	var/obj/item/loaded_item = null //the item loaded inside the machine (currently only used by the destructive analyzer)
 
 /obj/machinery/rnd/proc/reset_busy()
 	busy = FALSE
@@ -93,14 +93,14 @@
 		loaded_item.forceMove(loc)
 	..()
 
-/obj/machinery/rnd/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
+/obj/machinery/rnd/proc/AfterMaterialInsert(item_inserted, id_inserted, amount_inserted)
 	var/stack_name
-	if(ispath(type_inserted, /obj/item/stack/ore/bluespace_crystal))
+	if(istype(item_inserted, /obj/item/stack/ore/bluespace_crystal))
 		stack_name = "bluespace"
 		use_power(MINERAL_MATERIAL_AMOUNT / 10)
 	else
-		var/obj/item/stack/S = type_inserted
-		stack_name = initial(S.name)
+		var/obj/item/stack/S = item_inserted
+		stack_name = S.name
 		use_power(min(1000, (amount_inserted / 100)))
 	add_overlay("protolathe_[stack_name]")
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, cut_overlay), "protolathe_[stack_name]"), 10)

@@ -16,7 +16,8 @@
 	if(I)
 		cut_overlay(I)
 		drone_overlays[cache_index] = null
-
+		return TRUE
+	return FALSE
 
 /mob/living/simple_animal/drone/update_inv_hands()
 	remove_overlay(DRONE_HANDS_LAYER)
@@ -33,7 +34,7 @@
 		if(!r_state)
 			r_state = r_hand.icon_state
 
-		var/mutable_appearance/r_hand_overlay = r_hand.build_worn_icon(default_layer = DRONE_HANDS_LAYER, default_icon_file = r_hand.righthand_file, isinhands = TRUE)
+		var/mutable_appearance/r_hand_overlay = r_hand.build_worn_icon(src, default_layer = DRONE_HANDS_LAYER, default_icon_file = r_hand.righthand_file, isinhands = TRUE)
 		if(y_shift)
 			r_hand_overlay.pixel_y += y_shift
 
@@ -50,7 +51,7 @@
 		if(!l_state)
 			l_state = l_hand.icon_state
 
-		var/mutable_appearance/l_hand_overlay = l_hand.build_worn_icon(default_layer = DRONE_HANDS_LAYER, default_icon_file = l_hand.lefthand_file, isinhands = TRUE)
+		var/mutable_appearance/l_hand_overlay = l_hand.build_worn_icon(src, default_layer = DRONE_HANDS_LAYER, default_icon_file = l_hand.lefthand_file, isinhands = TRUE)
 		if(y_shift)
 			l_hand_overlay.pixel_y += y_shift
 
@@ -80,11 +81,10 @@
 		if(client && hud_used && hud_used.hud_shown)
 			head.screen_loc = ui_drone_head
 			client.screen += head
-		var/used_head_icon = 'icons/mob/clothing/head.dmi'
+		var/used_head_icon = 'icons/mob/clothing/head/utility.dmi'
 		if(istype(head, /obj/item/clothing/mask))
-			used_head_icon = 'icons/mob/mask.dmi'
-
-		var/mutable_appearance/head_overlay = head.build_worn_icon(default_layer = DRONE_HEAD_LAYER, default_icon_file = used_head_icon)
+			used_head_icon = 'icons/mob/clothing/mask.dmi'
+		var/mutable_appearance/head_overlay = head.build_worn_icon(src, default_layer = DRONE_HEAD_LAYER, default_icon_file = used_head_icon)
 		head_overlay.pixel_y -= 15
 
 		drone_overlays[DRONE_HEAD_LAYER] = head_overlay

@@ -6,13 +6,13 @@
 
 // The default UI style is the first one in the list
 GLOBAL_LIST_INIT(available_ui_styles, list(
-	"Midnight" = 'icons/mob/screen_midnight.dmi',
-	"Plasmafire" = 'icons/mob/screen_plasmafire.dmi',
-	"Slimecore" = 'icons/mob/screen_slimecore.dmi',
-	"Operative" = 'icons/mob/screen_operative.dmi',
-	"Clockwork" = 'icons/mob/screen_clockwork.dmi',
-	"Trasen-Knox" = 'icons/mob/screen_trasenknox.dmi',
-	"Retro" = 'icons/mob/screen_retro.dmi'
+	"Midnight" = 'icons/hud/style/screen_midnight.dmi',
+	"Plasmafire" = 'icons/hud/style/screen_plasmafire.dmi',
+	"Slimecore" = 'icons/hud/style/screen_slimecore.dmi',
+	"Operative" = 'icons/hud/style/screen_operative.dmi',
+	"Clockwork" = 'icons/hud/style/screen_clockwork.dmi',
+	"Trasen-Knox" = 'icons/hud/style/screen_trasenknox.dmi',
+	"Retro" = 'icons/hud/style/screen_retro.dmi'
 ))
 
 /proc/ui_style2icon(ui_style)
@@ -25,6 +25,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/hud_version = HUD_STYLE_STANDARD	//Current displayed version of the HUD
 	var/inventory_shown = FALSE		//Equipped item inventory
 	var/hotkey_ui_hidden = FALSE	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
+	/// Should the mob be able to see in the darkness immediately surrounding their mob?
 
 	var/atom/movable/screen/ling/chems/lingchemdisplay
 	var/atom/movable/screen/ling/sting/lingstingdisplay
@@ -42,6 +43,8 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/atom/movable/screen/rest_icon
 	var/atom/movable/screen/throw_icon
 	var/atom/movable/screen/module_store_icon
+
+	var/custom_hud_locs = FALSE
 
 	var/list/static_inventory = list() //the screen objects which are static
 	var/list/toggleable_inventory = list() //the screen objects which can be hidden
@@ -61,6 +64,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/atom/movable/screen/healths
 	var/atom/movable/screen/healthdoll
 	var/atom/movable/screen/internals
+	var/atom/movable/screen/spacesuit
 
 	// subtypes can override this to force a specific UI style
 	var/ui_style
@@ -87,7 +91,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	for(var/mytype in subtypesof(/atom/movable/plane_master_controller))
 		var/atom/movable/plane_master_controller/controller_instance = new mytype(null, src)
 		plane_master_controllers[controller_instance.name] = controller_instance
-
 
 /datum/hud/Destroy()
 	if(mymob?.hud_used == src)
@@ -125,8 +128,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 	return ..()
 
-/mob
-	var/hud_type = /datum/hud
+/mob/var/hud_type = /datum/hud
 
 /mob/proc/create_mob_hud()
 	if(!client || hud_used)
@@ -171,7 +173,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 			screenmob.client.screen += hide_actions_toggle
 
-			if(action_intent)
+			if(action_intent && !custom_hud_locs)
 				action_intent.screen_loc = initial(action_intent.screen_loc) //Restore intent selection to the original position
 
 		if(HUD_STYLE_REDUCED)	//Reduced HUD
@@ -192,7 +194,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 				var/atom/movable/screen/hand = hand_slots[h]
 				if(hand)
 					screenmob.client.screen += hand
-			if(action_intent)
+			if(action_intent && !custom_hud_locs)
 				screenmob.client.screen += action_intent		//we want the intent switcher visible
 				action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.
 

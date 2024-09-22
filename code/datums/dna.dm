@@ -16,18 +16,23 @@
 	var/default_mutation_genes[DNA_MUTATION_BLOCKS] //List of the default genes from this mutation to allow DNA Scanner highlighting
 	var/stability = 100
 	var/scrambled = FALSE //Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
-	var/current_body_size = BODY_SIZE_NORMAL //This is a size multiplier, it starts at "1".
+	var/current_body_size = BODY_SIZE_NORMAL
+	//Holder for the displacement appearance, related to species height
+	var/icon/height_displacement
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
 		holder = new_holder
+	height_displacement = icon('icons/effects/64x64.dmi', "height_displacement")
 
 /datum/dna/Destroy()
 	if(iscarbon(holder))
 		var/mob/living/carbon/cholder = holder
 		if(cholder?.dna == src)
 			cholder.dna = null
+	holder?.remove_filter("species_height_displacement")
 	holder = null
+	QDEL_NULL(height_displacement)
 
 	if(delete_species)
 		QDEL_NULL(species)
@@ -275,7 +280,7 @@
 	uni_identity = generate_uni_identity()
 	if(!skip_index) //I hate this
 		generate_dna_blocks()
-	features = random_features()
+	features = random_features(holder.gender)
 
 
 /datum/dna/stored //subtype used by brain mob's stored_dna
@@ -296,20 +301,22 @@
 	return
 
 /////////////////////////// DNA MOB-PROCS //////////////////////
-/datum/dna/proc/update_body_size()
-	if(!holder || !features["body_size"])
+/datum/dna/proc/update_body_size(force)
+	var/list/heights = species?.get_species_height()
+	if((!holder || !features["body_size"] || !length(heights)) && !force)
 		return
 
-	var/desired_size = GLOB.body_sizes[features["body_size"]]
+	var/desired_size = heights[features["body_size"]]
 
-	if(desired_size == current_body_size || current_body_size == 0)
+	if(desired_size == current_body_size && !force)
 		return
 
-	var/change_multiplier = desired_size / current_body_size
-	var/translate = ((change_multiplier-1) * 32) * 0.5
-	holder.transform = holder.transform.Scale(change_multiplier)
-	holder.transform = holder.transform.Translate(0, translate)
-	current_body_size = desired_size
+	//Weird little fix - if height < 0, our guy gets cut off!! We can fix this by layering an invisible 64x64 icon, aka the displacement
+	holder.remove_filter("height_cutoff_fix")
+	holder.add_filter("height_cutoff_fix", 1, layering_filter(icon = height_displacement, color = "#ffffff00"))
+	//Build / setup displacement filter
+	holder.remove_filter("species_height_displacement")
+	holder.add_filter("species_height_displacement", 1.1, displacement_map_filter(icon = height_displacement, y = 8, size = desired_size))
 
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
 	return
@@ -655,7 +662,7 @@
 				if(length(elligible_organs))
 					var/obj/item/organ/O = pick(elligible_organs)
 					O.Remove(src)
-					visible_message("<span class='danger'>[src] vomits up their [O.name]!</span>", "<span class='danger'>You vomit up your [O.name]!</span>") //no "vomit up your the heart"
+					visible_message("<span class='danger'>[src] vomits up [p_their()] [O.name]!</span>", "<span class='danger'>You vomit up your [O.name]!</span>") //no "vomit up your the heart"
 					O.forceMove(drop_location())
 					if(prob(20))
 						O.animate_atom_living()
@@ -665,11 +672,14 @@
 	else
 		switch(rand(0,5))
 			if(0)
+				investigate_log("has been gibbed by DNA instability.", INVESTIGATE_DEATHS)
 				gib()
 			if(1)
+				investigate_log("has been dusted by DNA instability.", INVESTIGATE_DEATHS)
 				dust()
 
 			if(2)
+				investigate_log("has been killed by DNA instability.", INVESTIGATE_DEATHS)
 				death()
 				petrify(INFINITY)
 			if(3)
@@ -678,6 +688,7 @@
 					if(BP)
 						BP.dismember()
 					else
+						investigate_log("has been gibbed by DNA instability.", INVESTIGATE_DEATHS)
 						gib()
 				else
 					set_species(/datum/species/dullahan)

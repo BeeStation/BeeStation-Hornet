@@ -13,6 +13,8 @@
 	resistance_flags = FLAMMABLE
 	var/value = 0
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/spacecash)
+
 /obj/item/stack/spacecash/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
 	update_desc()
@@ -29,7 +31,7 @@
 	. = ..()
 	update_desc()
 
-/obj/item/stack/spacecash/use(used, transfer = FALSE)
+/obj/item/stack/spacecash/use(used, transfer = FALSE, check = TRUE)
 	. = ..()
 	update_desc()
 
@@ -37,38 +39,46 @@
 	icon_state = "spacecash"
 	singular_name = "one credit bill"
 	value = 1
+	merge_type = /obj/item/stack/spacecash/c1
 
 /obj/item/stack/spacecash/c10
 	icon_state = "spacecash10"
 	singular_name = "ten credit bill"
 	value = 10
+	merge_type = /obj/item/stack/spacecash/c10
 
 /obj/item/stack/spacecash/c20
 	icon_state = "spacecash20"
 	singular_name = "twenty credit bill"
 	value = 20
+	merge_type = /obj/item/stack/spacecash/c20
 
 /obj/item/stack/spacecash/c50
 	icon_state = "spacecash50"
 	singular_name = "fifty credit bill"
 	value = 50
+	merge_type = /obj/item/stack/spacecash/c50
 
 /obj/item/stack/spacecash/c100
 	icon_state = "spacecash100"
 	singular_name = "one hundred credit bill"
 	value = 100
+	merge_type = /obj/item/stack/spacecash/c100
 
 /obj/item/stack/spacecash/c200
 	icon_state = "spacecash200"
 	singular_name = "two hundred credit bill"
 	value = 200
+	merge_type = /obj/item/stack/spacecash/c200
 
 /obj/item/stack/spacecash/c500
 	icon_state = "spacecash500"
 	singular_name = "five hundred credit bill"
 	value = 500
+	merge_type = /obj/item/stack/spacecash/c500
 
 /obj/item/stack/spacecash/c1000
 	icon_state = "spacecash1000"
 	singular_name = "one thousand credit bill"
 	value = 1000
+	merge_type = /obj/item/stack/spacecash/c1000

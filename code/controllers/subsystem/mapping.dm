@@ -54,19 +54,17 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/space_level/empty_space
 	var/num_of_res_levels = 1
 
-//dlete dis once #39770 is resolved
-/datum/controller/subsystem/mapping/proc/HACK_LoadMapConfig()
-	if(!config)
+/datum/controller/subsystem/mapping/PreInit()
+	..()
 #ifdef FORCE_MAP
-		config = load_map_config(FORCE_MAP, MAP_DIRECTORY)
+	config = load_map_config(FORCE_MAP, MAP_DIRECTORY)
 #else
-		config = load_map_config(error_if_missing = FALSE)
+	config = load_map_config(error_if_missing = FALSE)
 #endif
 
-/datum/controller/subsystem/mapping/Initialize(timeofday)
-	HACK_LoadMapConfig()
+/datum/controller/subsystem/mapping/Initialize()
 	if(initialized)
-		return
+		return SS_INIT_SUCCESS
 	if(config.defaulted)
 		var/old_config = config
 		config = global.config.defaultmap
@@ -115,7 +113,7 @@ SUBSYSTEM_DEF(mapping)
 	generate_station_area_list()
 	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE))
 	initialize_reserved_level(transit.z_value)
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/mapping/fire(resumed)
 	// Cache for sonic speed
@@ -182,7 +180,7 @@ SUBSYSTEM_DEF(mapping)
 		qdel(T, TRUE)
 
 /* Nuke threats, for making the blue tiles on the station go RED
-   Used by the AI doomsday and the self-destruct nuke.
+	Used by the AI doomsday and the self-destruct nuke.
 */
 
 /datum/controller/subsystem/mapping/proc/add_nuke_threat(datum/nuke)
@@ -279,6 +277,7 @@ SUBSYSTEM_DEF(mapping)
 	return parsed_maps
 
 /datum/controller/subsystem/mapping/proc/LoadStationRooms()
+#ifndef UNIT_TESTS
 	var/start_time = REALTIMEOFDAY
 	for(var/obj/effect/spawner/room/R as() in random_room_spawners)
 		var/list/possibletemplates = list()
@@ -298,9 +297,11 @@ SUBSYSTEM_DEF(mapping)
 				template.spawned = TRUE
 			template.stationinitload(get_turf(R), centered = template.centerspawner)
 		SSmapping.random_room_spawners -= R
+		R.after_place(null, get_turf(R), null, null)
 		qdel(R)
 	random_room_spawners = null
 	INIT_ANNOUNCE("Loaded Random Rooms in [(REALTIMEOFDAY - start_time)/10]s!")
+#endif
 
 /datum/controller/subsystem/mapping/proc/loadWorld()
 	//if any of these fail, something has gone horribly, HORRIBLY, wrong
@@ -318,7 +319,7 @@ SUBSYSTEM_DEF(mapping)
 	LoadStationRooms()
 
 	if(SSdbcore.Connect())
-		var/datum/DBQuery/query_round_map_name = SSdbcore.NewQuery({"
+		var/datum/db_query/query_round_map_name = SSdbcore.NewQuery({"
 			UPDATE [format_table_name("round")] SET map_name = :map_name WHERE id = :round_id
 		"}, list("map_name" = config.map_name, "round_id" = GLOB.round_id))
 		query_round_map_name.Execute()

@@ -23,7 +23,7 @@
 	for (var/job_name in jobs)
 		var/datum/job/located = SSjob.GetJob(job_name)
 		total += located.current_positions
-	total = CEILING(CLAMP(total * linear_scaling_rate, minimum, maximum), 1)
+	total = CEILING(clamp(total * linear_scaling_rate, minimum, maximum), 1)
 	lootcount = total
 	if(!length(loot))
 		qdel(src)

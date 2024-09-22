@@ -65,7 +65,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/stacking_unit_console)
 		to_chat(user, "<span class='notice'>You link [src] to the console in [buffer_parent]'s buffer.</span>")
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You store linkage information in [buffer_parent]'s buffer.</span>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/mineral/stacking_unit_console/Topic(href, href_list)
 	if(..())
@@ -114,7 +114,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/stacking_unit_console)
 	if(console)
 		console.machine = null
 		console = null
-	materials = null
+	custom_materials = null
 	return ..()
 
 /obj/machinery/mineral/stacking_machine/HasProximity(atom/movable/AM)
@@ -141,7 +141,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/stacking_machine)
 		to_chat(user, "<span class='notice'>You link [src] to the console in [buffer_parent]'s buffer.</span>")
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You store linkage information in [buffer_parent]'s buffer.</span>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/mineral/stacking_machine/proc/process_sheet(obj/item/stack/sheet/inp)
 	if(QDELETED(inp))
@@ -154,9 +154,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/stacking_machine)
 	qdel(inp)
 
 	if(materials.silo && !materials.on_hold()) //Dump the sheets to the silo
-		var/matlist = storage.materials & materials.mat_container.materials
+		var/matlist = storage.custom_materials & materials.mat_container.materials
 		if (length(matlist))
-			var/inserted = materials.mat_container.insert_stack(storage)
+			var/inserted = materials.mat_container.insert_item(storage)
 			materials.silo_log(src, "collected", inserted, "sheets", matlist)
 			if (QDELETED(storage))
 				stack_list -= key

@@ -1,9 +1,9 @@
 GLOBAL_LIST_EMPTY(possible_items)
 /datum/objective/steal
 	name = "steal"
+	martyr_compatible = FALSE
 	var/datum/objective_item/targetinfo = null //Save the chosen item datum so we can access it later.
 	var/obj/item/steal_target = null //Needed for custom objectives (they're just items, not datums).
-	martyr_compatible = 0
 
 /datum/objective/steal/get_target()
 	return steal_target
@@ -81,9 +81,12 @@ GLOBAL_LIST_EMPTY(possible_items)
 		if(!isliving(M.current))
 			continue
 
-		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		var/list/all_items = M.current.GetAllContents(/obj/item)	//this should get things in cheesewheels, books, etc.
 
-		for(var/obj/I in all_items) //Check for items
+		for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in M.holoparasite_holder?.holoparasites)
+			all_items |= holopara.GetAllContents(/obj/item)
+
+		for(var/obj/I as() in all_items) //Check for items
 			if(istype(I, steal_target))
 				if(!targetinfo) //If there's no targetinfo, then that means it was a custom objective. At this point, we know you have the item, so return 1.
 					return TRUE
@@ -110,7 +113,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 
 /datum/objective/steal/exchange
 	name = "exchange"
-	martyr_compatible = 0
+	martyr_compatible = FALSE
 
 /datum/objective/steal/exchange/admin_edit(mob/admin)
 	return

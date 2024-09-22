@@ -12,7 +12,7 @@
 	possible_locs = list(BODY_ZONE_CHEST)
 	self_operable = TRUE
 
-/datum/surgery/advanced/viral_bonding/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/advanced/viral_bonding/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(!..())
 		return FALSE
 	if(!LAZYLEN(target.diseases))
@@ -31,12 +31,12 @@
 
 	return TRUE
 
-/datum/surgery_step/viral_bond/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/viral_bond/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You start heating [target]'s bone marrow with [tool]...</span>",
 		"[user] starts heating [target]'s bone marrow with [tool]...",
 		"[user] starts heating something in [target]'s chest with [tool]...")
 
-/datum/surgery_step/viral_bond/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/viral_bond/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>[target]'s bone marrow begins pulsing slowly. The viral bonding is complete.</span>",
 		"[target]'s bone marrow begins pulsing slowly.",
 		"[user] finishes the operation.")

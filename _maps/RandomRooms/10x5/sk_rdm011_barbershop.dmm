@@ -20,7 +20,7 @@
 	pixel_y = 4
 	},
 /obj/effect/decal/cleanable/blood,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "c" = (
 /obj/effect/decal/cleanable/glass,
@@ -47,12 +47,12 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "i" = (
 /obj/structure/table,
 /obj/item/paper/pamphlet/ruin/spacehotel,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "j" = (
 /turf/closed/wall,
@@ -67,7 +67,7 @@
 /obj/item/retractor,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/clothing/suit/apron/surgical,
-/obj/item/deployable/rollerbed,
+/obj/item/rollerbed,
 /obj/item/tank/internals/anesthetic,
 /obj/structure/closet/cardboard,
 /obj/item/cautery,
@@ -102,7 +102,7 @@
 	pixel_x = -8;
 	pixel_y = 5
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "n" = (
 /obj/structure/dresser,
@@ -115,20 +115,20 @@
 "o" = (
 /obj/effect/landmark/start/randommaint/backalley_doc,
 /obj/effect/decal/cleanable/blood/drip,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "p" = (
 /obj/structure/chair/office/light{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/food/tomato_smudge,
-/turf/open/floor/plasteel/ameridiner,
+/turf/open/floor/iron/ameridiner,
 /area/template_noop)
 "q" = (
 /obj/structure/table,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/effect/decal/cleanable/blood,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "r" = (
 /obj/structure/window/spawner/west,
@@ -176,7 +176,7 @@
 "y" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/blood/bubblegum,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "z" = (
 /obj/structure/closet/crate/freezer{

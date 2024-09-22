@@ -87,7 +87,7 @@
 	..()
 	new /obj/item/storage/box/suitbox/cmo(src)
 	new /obj/item/storage/backpack/duffelbag/med(src)
-	new /obj/item/clothing/suit/toggle/labcoat/med/cmo(src)
+	new /obj/item/clothing/suit/toggle/labcoat/cmo(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/radio/headset/heads/cmo(src)
 
@@ -116,7 +116,8 @@
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/healthanalyzer/advanced(src)
 	new /obj/item/wallframe/defib_mount(src)
-	new /obj/item/gun/energy/e_gun/mini/heads(src)
+	new /obj/item/gun/ballistic/automatic/pistol/service/cmo(src)
+	new /obj/item/ammo_box/magazine/recharge/service(src)
 
 /obj/item/storage/box/suitbox/cmo
 	name = "compression box of chief medical officer outfits"

@@ -33,14 +33,14 @@
 /obj/item/circuit_component/counter_overlay/register_shell(atom/movable/shell)
 	if(istype(shell, /obj/item/organ/cyberimp/bci))
 		bci = shell
-		RegisterSignal(shell, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(on_organ_removed))
+		RegisterSignal(shell, COMSIG_ORGAN_REMOVED, PROC_REF(on_organ_removed))
 
 /obj/item/circuit_component/counter_overlay/unregister_shell(atom/movable/shell)
 	bci = null
 	QDEL_NULL(counter_appearance)
 	for(var/number in numbers)
 		QDEL_NULL(number)
-	UnregisterSignal(shell, COMSIG_CARBON_LOSE_ORGAN)
+	UnregisterSignal(shell, COMSIG_ORGAN_REMOVED)
 
 /obj/item/circuit_component/counter_overlay/input_received(datum/port/input/port)
 	if(!bci)
@@ -56,7 +56,7 @@
 	numbers = list()
 
 	QDEL_NULL(counter_appearance)
-	var/image/counter = image(icon = 'icons/mob/screen_bci.dmi', icon_state = "hud_numbers", loc = owner)
+	var/image/counter = image(icon = 'icons/hud/screen_bci.dmi', icon_state = "hud_numbers", loc = owner)
 	if(image_pixel_x.value)
 		counter.pixel_x = image_pixel_x.value
 	if(image_pixel_y.value)
@@ -73,7 +73,7 @@
 
 	for(var/i = 1 to 3)
 		var/cur_num = round(cleared_number / (10 ** (3 - i))) % 10
-		var/image/number = image(icon = 'icons/mob/screen_bci.dmi', icon_state = "hud_number_[cur_num]", loc = owner)
+		var/image/number = image(icon = 'icons/hud/screen_bci.dmi', icon_state = "hud_number_[cur_num]", loc = owner)
 
 		if(image_pixel_x.value)
 			number.pixel_x = image_pixel_x.value + (i - 1) * 9

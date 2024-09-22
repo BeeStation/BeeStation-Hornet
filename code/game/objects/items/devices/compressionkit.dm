@@ -41,7 +41,7 @@
 
 /obj/item/compressionkit/afterattack(atom/target, mob/user, proximity)
 	. = ..()
-	if(!proximity || !target)
+	if(!proximity || !target || length(user.progressbars))
 		return
 	else
 		if(charges == 0)
@@ -50,27 +50,25 @@
 			return
 	if(istype(target, /obj/item))
 		var/obj/item/O = target
-		if(O.w_class == 1)
-			playsound(get_turf(src), 'sound/machines/buzz-two.ogg', 50, 1)
-			to_chat(user, "<span class='notice'>[target] cannot be compressed smaller!.</span>")
-			return
 		if(O.GetComponent(/datum/component/storage))
 			to_chat(user, "<span class='notice'>You can't make this item any smaller without compromising its storage functions!.</span>")
 			return
-		if(O.w_class > 1)
-			playsound(get_turf(src), 'sound/weapons/flash.ogg', 50, 1)
-			user.visible_message("<span class='warning'>[user] is compressing [O] with their bluespace compression kit!</span>")
-			if(do_after(user, 40, O) && charges > 0 && O.w_class > 1)
-				playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 50, 1)
-				sparks()
-				flash_lighting_fx(3, 3, LIGHT_COLOR_CYAN)
-				O.w_class -= 1
-				// O.force_mult -= damage_multiplier
-				charges -= 1
-				to_chat(user, "<span class='notice'>You successfully compress [target]! The compressor now has [charges] charges.</span>")
-		else
-			to_chat(user, "<span class='notice'>Anomalous error. Summon a coder.</span>")
-
+		if(O.w_class == WEIGHT_CLASS_TINY)
+			playsound(get_turf(src), 'sound/machines/buzz-two.ogg', 50, 1)
+			to_chat(user, "<span class='notice'>[target] cannot be compressed smaller!.</span>")
+			return
+		playsound(get_turf(src), 'sound/weapons/flash.ogg', 50, 1)
+		user.visible_message("<span class='warning'>[user] is compressing [O] with their bluespace compression kit!</span>")
+		if(do_after(user, 40, O) && charges > 0 && O.w_class > 1)
+			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 50, 1)
+			sparks()
+			flash_lighting_fx(3, 3, LIGHT_COLOR_CYAN)
+			if(!O.weight_class_down())
+				//This item does not have a normal weight class for some reason, because small items should have already been caught above
+				to_chat(user, "<span class='danger'>Bluespace compression has encountered a critical error and stopped working, please report this your superiors.</span>")
+				return
+			charges -= 1
+			to_chat(user, "<span class='notice'>You successfully compress [target]! The compressor now has [charges] charges.</span>")
 
 /obj/item/compressionkit/attackby(obj/item/I, mob/user, params)
 	..()

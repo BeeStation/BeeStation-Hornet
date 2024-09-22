@@ -4,7 +4,8 @@
 	icon_state = "tonguenormal"
 	zone = BODY_ZONE_PRECISE_MOUTH
 	slot = ORGAN_SLOT_TONGUE
-	attack_verb = list("licked", "slobbered", "slapped", "frenched", "tongued")
+	attack_verb_continuous = list("licks", "slobbers", "slaps", "frenches", "tongues")
+	attack_verb_simple = list("lick", "slobber", "slap", "french", "tongue")
 	var/list/languages_possible
 	var/say_mod = "says"
 	var/ask_mod = "asks"
@@ -33,7 +34,8 @@
 		/datum/language/slime,
 		/datum/language/sylvan,
 		/datum/language/terrum,
-		/datum/language/uncommon))
+		/datum/language/uncommon,
+		/datum/language/sonus))
 
 /obj/item/organ/tongue/Initialize(mapload)
 	. = ..()
@@ -217,7 +219,8 @@
 	desc = "Apparently skeletons alter the sounds they produce through oscillation of their teeth, hence their characteristic rattling."
 	icon_state = "tonguebone"
 	say_mod = "rattles"
-	attack_verb = list("bitten", "chattered", "chomped", "enamelled", "boned")
+	attack_verb_continuous = list("bites", "chatters", "chomps", "enamelles", "bones")
+	attack_verb_simple = list("bite", "chatter", "chomp", "enamel", "bone")
 	taste_sensitivity = 101 // skeletons cannot taste anything
 	modifies_speech = TRUE
 	liked_food = GROSS | MEAT | RAW | GORE
@@ -255,7 +258,8 @@
 	organ_flags = NONE
 	icon_state = "tonguerobot"
 	say_mod = "states"
-	attack_verb = list("beeped", "booped")
+	attack_verb_continuous = list("beeps", "boops")
+	attack_verb_simple = list("beep", "boop")
 	modifies_speech = TRUE
 	taste_sensitivity = 25 // not as good as an organic tongue
 
@@ -291,7 +295,8 @@
 	desc = "A sophisticated ethereal organ, capable of synthesising speech via electrical discharge."
 	icon_state = "electrotongue"
 	say_mod = "crackles"
-	attack_verb = list("shocked", "jolted", "zapped")
+	attack_verb_continuous = list("shocks", "jolts", "zaps")
+	attack_verb_simple = list("shock", "jolt", "zap")
 	taste_sensitivity = 101 // Not a tongue, they can't taste shit
 	toxic_food = NONE
 
@@ -364,3 +369,26 @@
 	desc = "It's an odd tongue, seemingly made of plant matter."
 	disliked_food = MEAT | DAIRY
 	liked_food = VEGETABLES | FRUIT | GRAIN | CLOTH //cannibals apparently
+
+/obj/item/organ/tongue/podperson/pumpkin
+	modifies_speech = TRUE
+	///Is this tongue carved?
+	var/carved = FALSE
+
+/obj/item/organ/tongue/podperson/pumpkin/handle_speech(datum/source, list/speech_args)
+	var/message = speech_args[SPEECH_MESSAGE]
+	if((message[1] != "*" || message[1] != "#") && !carved)
+		message = "..."
+		to_chat(owner, "<span class='warning'>Something is covering your mouth!</span>")
+		to_chat(owner, "<span class='notice'>Try carving your head.</span>")
+	speech_args[SPEECH_MESSAGE] = message
+
+/obj/item/organ/tongue/psyphoza
+	name = "fungal tongue"
+	desc = "Black and moldy."
+	icon_state = "tonguepsyphoza"
+	say_mod = "clicks"
+	//Black tongue
+	color = "#1b1b1b"
+	liked_food = RAW | GROSS
+	disliked_food = DAIRY

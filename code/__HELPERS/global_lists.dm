@@ -44,6 +44,7 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_antenna, GLOB.apid_antenna_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_stripes, GLOB.apid_stripes_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_headstripes, GLOB.apid_headstripes_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/psyphoza_cap, GLOB.psyphoza_cap_list)
 
 	//Species
 	for(var/spath in subtypesof(/datum/species))
@@ -72,6 +73,8 @@
 		LAZYADD(GLOB.keybindings_by_name_to_key[instance.name], LAZYCOPY(instance.keys))
 
 	init_crafting_recipes(GLOB.crafting_recipes)
+
+	init_religion_sects()
 
 /// Inits the crafting recipe list, sorting crafting recipe requirements in the process.
 /proc/init_crafting_recipes(list/crafting_recipes)
@@ -137,7 +140,6 @@ GLOBAL_LIST_INIT(WALLITEMS_INTERIOR, typecacheof(list(
 	/obj/machinery/computer/security/telescreen,
 	/obj/machinery/embedded_controller/radio/simple_vent_controller,
 	/obj/item/storage/secure/safe,
-	/obj/machinery/door_timer,
 	/obj/machinery/flasher,
 	/obj/machinery/keycard_auth,
 	/obj/structure/mirror,
@@ -159,3 +161,8 @@ GLOBAL_LIST_INIT(WALLITEMS_INVERSE, typecacheof(list(
 	/obj/structure/light_construct,
 	/obj/machinery/light
 	)))
+
+/proc/init_religion_sects()
+	for(var/path in subtypesof(/datum/religion_sect))
+		var/datum/religion_sect/each_sect = new path()
+		GLOB.religion_sect_datums += each_sect

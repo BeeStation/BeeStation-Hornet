@@ -32,8 +32,8 @@ Bonus
 	bodies = list("Ditz")
 	var/brain_damage = FALSE
 	threshold_desc = "<b>Resistance 6:</b> Causes brain damage over time.<br>\
-					  <b>Transmission 6:</b> Increases confusion duration.<br>\
-					  <b>Stealth 4:</b> The symptom remains hidden until active."
+						<b>Transmission 6:</b> Increases confusion duration.<br>\
+						<b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/confusion/severityset(datum/disease/advance/A)
 	. = ..()
@@ -54,6 +54,8 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	switch(A.stage)
 		if(1, 2, 3, 4)
 			if(prob(base_message_chance) && !suppress_warning)

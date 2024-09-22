@@ -28,6 +28,8 @@
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	switch(A.stage)
 		if(1)
 			if(prob(10))
@@ -54,7 +56,7 @@
 	severity = 0 //this is, at base level, somewhat negative. low levels of radiation will become brute damage and a danger to a host, where otherwise they'd have no effect
 	symptom_delay_min = 1
 	symptom_delay_max = 1
-	var/toxheal = FALSE 
+	var/toxheal = FALSE
 	var/cellheal = FALSE
 	suffixes = list(" Aptosis")
 	threshold_desc = "<b>Stage Speed 6:</b> The disease also kills off contaminated cells, converting Toxin damage to Brute damage, at an efficient rate.<br>\
@@ -64,15 +66,18 @@
 	. = ..()
 	if(A.stage_rate >= 6)
 		severity -= 1
-	if(A.resistance >= 12)
+	if(A.resistance >= 12 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		severity -= 1
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Stage Speed 6:</b> The disease also kills off contaminated cells, converting Toxin damage to Brute damage, at an efficient rate.<br>\
+					<b>Always:</b> The disease also kills off genetically damaged cells and their neighbors, converting Cellular damage into Burn damage, at an inefficient rate."
 
 /datum/symptom/radconversion/Start(datum/disease/advance/A)
 	if(!..())
 		return
 	if(A.stage_rate >= 6)
 		toxheal = TRUE
-	if(A.resistance >= 12)
+	if(A.resistance >= 12 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		cellheal = TRUE
 
 
@@ -85,18 +90,20 @@
 			M.radiation -= max(M.radiation * 0.05, min(10, M.radiation))
 			M.take_overall_damage(2)
 			if(prob(5))
-				to_chat(M, "<span class='userdanger'>A tear opens in your flesh!</span>")
+				if(M.stat != DEAD)
+					to_chat(M, "<span class='userdanger'>A tear opens in your flesh!</span>")
 				M.add_splatter_floor()
 		if(M.getToxLoss() && toxheal)
 			M.adjustToxLoss(-2, forced = TRUE) //this is removing foreign contaminants, it's not a toxinheal drug. of course its safe for slimes
 			M.take_overall_damage(1)
 			if(prob(5))
-				to_chat(M, "<span class='userdanger'>A tear opens in your flesh!</span>")
+				if(M.stat != DEAD)
+					to_chat(M, "<span class='userdanger'>A tear opens in your flesh!</span>")
 				M.add_splatter_floor()
 		if(M.getCloneLoss() && cellheal)
 			M.adjustCloneLoss(-1)
 			M.take_overall_damage(burn = 2) //this uses burn, so as not to make it so you can heal brute to heal all the damage types this deals, and it isn't a no-brainer to use with Pituitary
-			if(prob(5))
+			if(prob(5) && M.stat != DEAD)
 				to_chat(M, "<span class='userdanger'>A nasty rash appears on your skin!</span>")
-	else if(prob(2) && ((M.getCloneLoss() && cellheal) || (M.getToxLoss() && toxheal) || M.radiation))
+	else if(prob(2) && ((M.getCloneLoss() && cellheal) || (M.getToxLoss() && toxheal) || M.radiation) && M.stat != DEAD)
 		to_chat(M, "<span class='notice'>You feel a tingling sensation</span>")

@@ -9,18 +9,24 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/storage/box/fakesyndiesuit = 2,
 		/obj/item/storage/crayons = 2,
 		/obj/item/toy/spinningtoy = 2,
-		/obj/item/toy/prize/ripley = 1,
-		/obj/item/toy/prize/fireripley = 1,
-		/obj/item/toy/prize/deathripley = 1,
-		/obj/item/toy/prize/gygax = 1,
-		/obj/item/toy/prize/durand = 1,
-		/obj/item/toy/prize/honk = 1,
-		/obj/item/toy/prize/marauder = 1,
-		/obj/item/toy/prize/seraph = 1,
-		/obj/item/toy/prize/mauler = 1,
-		/obj/item/toy/prize/odysseus = 1,
-		/obj/item/toy/prize/phazon = 1,
-		/obj/item/toy/prize/reticence = 1,
+		/obj/item/toy/mecha/ripley = 1,
+		/obj/item/toy/mecha/ripleymkii = 1,
+		/obj/item/toy/mecha/hauler = 1,
+		/obj/item/toy/mecha/clarke = 1,
+		/obj/item/toy/mecha/odysseus = 1,
+		/obj/item/toy/mecha/gygax = 1,
+		/obj/item/toy/mecha/durand = 1,
+		//obj/item/toy/mecha/savannahivanov = 1,
+		/obj/item/toy/mecha/phazon = 1,
+		/obj/item/toy/mecha/honk = 1,
+		/obj/item/toy/mecha/darkgygax = 1,
+		/obj/item/toy/mecha/mauler = 1,
+		/obj/item/toy/mecha/darkhonk = 1,
+		/obj/item/toy/mecha/deathripley = 1,
+		/obj/item/toy/mecha/reticence = 1,
+		/obj/item/toy/mecha/marauder = 1,
+		/obj/item/toy/mecha/seraph = 1,
+		/obj/item/toy/mecha/firefighter = 1,
 		/obj/item/toy/cards/deck = 2,
 		/obj/item/toy/nuke = 2,
 		/obj/item/toy/minimeteor = 2,
@@ -51,7 +57,10 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/clothing/shoes/wheelys = 2,
 		/obj/item/clothing/shoes/kindleKicks = 2,
 		/obj/item/toy/plush/moth/random = 2,
+		/obj/item/toy/plush/shark = 2,
+		/obj/item/toy/plush/slimeplushie/random = 2,
 		/obj/item/toy/plush/flushed = 2,
+		/obj/item/toy/plush/flushed/rainbow = 1,
 		/obj/item/toy/plush/gondola = 2,
 		/obj/item/toy/plush/rouny = 2,
 		/obj/item/storage/box/heretic_asshole = 1,
@@ -71,27 +80,25 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	icon_state = "arcade"
 	icon_keyboard = "no_keyboard"
 	icon_screen = "invaders"
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+
 	clockwork = TRUE //it'd look weird
 	broken_overlay_emissive = TRUE
+	light_color = LIGHT_COLOR_GREEN
 	var/list/prize_override
 	var/prizeselect = /obj/item/coin/arcade_token
-	light_color = LIGHT_COLOR_GREEN
 
 /obj/machinery/computer/arcade/proc/Reset()
 	return
 
 /obj/machinery/computer/arcade/Initialize(mapload)
 	. = ..()
-	// If it's a generic arcade machine, pick a random arcade
-	// circuit board for it and make the new machine
-	if(!circuit)
-		var/list/gameodds = list(/obj/item/circuitboard/computer/arcade/battle = 49,
-							/obj/item/circuitboard/computer/arcade/orion_trail = 49,
-							/obj/item/circuitboard/computer/arcade/amputation = 2)
-		var/thegame = pick_weight(gameodds)
-		var/obj/item/circuitboard/CB = new thegame()
-		new CB.build_path(loc, CB)
-		return INITIALIZE_HINT_QDEL
+
 	Reset()
 
 /obj/machinery/computer/arcade/proc/prizevend(mob/user)
@@ -320,6 +327,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		temp = "You have been crushed! GAME OVER"
 		playsound(loc, 'sound/arcade/lose.ogg', 50, 1, extrarange = -3, falloff_exponent = 10)
 		if(obj_flags & EMAGGED)
+			usr.investigate_log("has been gibbed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
 			usr.gib()
 		SSblackbox.record_feedback("nested tally", "arcade_results", 1, list("loss", "hp", (obj_flags & EMAGGED ? "emagged":"normal")))
 
@@ -341,15 +349,6 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	updateUsrDialog()
 
 // *** THE ORION TRAIL ** //
-
-/obj/item/gamer_pamphlet
-	name = "pamphlet - \'Violent Video Games and You\'"
-	desc = "A pamphlet encouraging the reader to maintain a balanced lifestyle and take care of their mental health, while still enjoying video games in a healthy way. You probably don't need this..."
-	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "pamphlet"
-	item_state = "paper"
-	w_class = WEIGHT_CLASS_TINY
-
 
 #define ORION_TRAIL_WINTURN		9
 
@@ -415,7 +414,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 /obj/machinery/computer/arcade/orion_trail/Initialize(mapload)
 	. = ..()
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
+	Radio.set_listening(FALSE)
 
 /obj/machinery/computer/arcade/orion_trail/kobayashi
 	name = "Kobayashi Maru control computer"
@@ -471,7 +470,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 	if(gamers[gamer] == -1)
 		say("WARNING: Continued antisocial behavior detected: Dispensing self-help literature.")
-		new /obj/item/gamer_pamphlet(get_turf(src))
+		new /obj/item/paper/pamphlet/violent_video_games(drop_location())
 		gamers[gamer]--
 		return
 
@@ -524,6 +523,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 		if(obj_flags & EMAGGED)
 			to_chat(user, "<span class='userdanger'>You're never going to make it to Orion...</span>")
+			user.investigate_log("has been killed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
 			user.death()
 			obj_flags &= ~EMAGGED //removes the emagged status after you lose
 			gameStatus = ORION_STATUS_START
@@ -731,6 +731,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			if(settlers.len == 0 || alive == 0)
 				say("The last crewmember [sheriff], shot themselves, GAME OVER!")
 				if(obj_flags & EMAGGED)
+					usr.investigate_log("has been killed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
 					usr.death(0)
 					obj_flags &= EMAGGED
 				gameStatus = ORION_STATUS_GAMEOVER
@@ -743,6 +744,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			else if(obj_flags & EMAGGED)
 				if(usr.name == sheriff)
 					say("The crew of the ship chose to kill [usr.name]!")
+					usr.investigate_log("has been killed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
 					usr.death(0)
 
 			if(event == ORION_TRAIL_LING) //only ends the ORION_TRAIL_LING event, since you can do this action in multiple places

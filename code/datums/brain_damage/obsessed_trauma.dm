@@ -1,7 +1,9 @@
+#define OBSESSION_REVEAL_TIME	7.5 MINUTES //! After this amount of time is spent near the target, the obsession trauma will reveal its true nature to health analyzers.
+
 /datum/brain_trauma/special/obsessed
 	name = "Psychotic Schizophrenia"
 	desc = "Patient has a subtype of delusional disorder, becoming irrationally attached to someone."
-	scan_desc = "psychotic schizophrenic delusions"
+	scan_desc = "monophobia"
 	gain_text = "If you see this message, make a github issue report. The trauma initialized wrong."
 	lose_text = "<span class='warning'>The voices in your head fall silent.</span>"
 	can_gain = TRUE
@@ -11,6 +13,8 @@
 	var/datum/objective/spendtime/attachedobsessedobj
 	var/datum/antagonist/obsessed/antagonist
 	var/viewing = FALSE //it's a lot better to store if the owner is watching the obsession than checking it twice between two procs
+	var/revealed = FALSE
+	var/static/true_scan_desc = "psychotic schizophrenic delusions"
 
 	var/total_time_creeping = 0 //just for roundend fun
 	var/time_spent_away = 0
@@ -50,6 +54,8 @@
 	if(viewing)
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "creeping", /datum/mood_event/creeping, obsession.name)
 		total_time_creeping += 2 SECONDS
+		if(!revealed && (total_time_creeping >= OBSESSION_REVEAL_TIME))
+			reveal()
 		time_spent_away = 0
 		if(attachedobsessedobj)//if an objective needs to tick down, we can do that since traumas coexist with the antagonist datum
 			attachedobsessedobj.timer -= 2 SECONDS //mob subsystem ticks every 2 seconds(?), remove 20 deciseconds from the timer. sure, that makes sense.
@@ -72,6 +78,11 @@
 /datum/brain_trauma/special/obsessed/on_hug(mob/living/hugger, mob/living/hugged)
 	if(hugged == obsession.current)
 		obsession_hug_count++
+
+/datum/brain_trauma/special/obsessed/proc/reveal()
+	revealed = TRUE
+	scan_desc = true_scan_desc
+	to_chat(owner, "<span class='hypnophrase'>The deep, overwhelming concern for <span class='name'>[obsession.name]</span> within you continues to blossom, making you suddenly feel as if your obsessive behavior is somewhat more obvious...</span>")
 
 /datum/brain_trauma/special/obsessed/proc/on_obsession_cryoed()
 	SIGNAL_HANDLER
@@ -107,3 +118,5 @@
 	if(length(possible_targets))
 		chosen_victim = pick_weight(possible_targets)
 	return chosen_victim
+
+#undef OBSESSION_REVEAL_TIME

@@ -358,7 +358,6 @@
 	requirements = list(101,101,70,40,30,20,10,10,10,10)
 	antag_cap = 3
 	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
-	blocking_rules = list(/datum/dynamic_ruleset/latejoin/provocateur)
 	// I give up, just there should be enough heads with 35 players...
 	minimum_players = 35
 	/// How much threat should be injected when the revolution wins?
@@ -395,7 +394,6 @@
 	if(revolution.members.len)
 		revolution.update_objectives()
 		revolution.update_heads()
-		SSshuttle.registerHostileEnvironment(revolution)
 		return DYNAMIC_EXECUTE_SUCCESS
 	log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
 	return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
@@ -546,11 +544,11 @@
 	var/rampupdelta = 5
 
 /datum/dynamic_ruleset/roundstart/meteor/rule_process()
-	if(nometeors || meteordelay > world.time - SSticker.round_start_time)
+	if(nometeors || meteordelay > (mode.simulated_time || world.time) - SSticker.round_start_time)
 		return
 
 	var/list/wavetype = GLOB.meteors_normal
-	var/meteorminutes = (world.time - SSticker.round_start_time - meteordelay) / 10 / 60
+	var/meteorminutes = ((mode.simulated_time || world.time) - SSticker.round_start_time - meteordelay) / 10 / 60
 
 	if (prob(meteorminutes))
 		wavetype = GLOB.meteors_threatening
@@ -558,7 +556,7 @@
 	if (prob(meteorminutes/2))
 		wavetype = GLOB.meteors_catastrophic
 
-	var/ramp_up_final = CLAMP(round(meteorminutes/rampupdelta), 1, 10)
+	var/ramp_up_final = clamp(round(meteorminutes/rampupdelta), 1, 10)
 
 	spawn_meteors(ramp_up_final, wavetype)
 
@@ -608,6 +606,11 @@
 	main_cult.setup_objectives()
 	//Create team
 	for(var/datum/mind/servant_mind in assigned)
+		if(!ismob(servant_mind?.current)) // user disconnected and was not assigned a mob.
+			log_game("DYNAMIC: Clockcult mind \"[servant_mind?.key]\" was lost during execute() - adding a cogscarab.")
+			assigned -= servant_mind
+			new /obj/effect/mob_spawn/drone/cogscarab(pick_n_take(spawns))
+			continue
 		servant_mind.current.forceMove(pick_n_take(spawns))
 		servant_mind.current.set_species(/datum/species/human)
 		var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(servant_mind.current, team=main_cult)
@@ -649,7 +652,7 @@
 	var/datum/team/incursion/incursion_team
 
 /datum/dynamic_ruleset/roundstart/incursion/ready(population, forced = FALSE)
-	required_candidates = CLAMP(get_antag_cap(population), CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
+	required_candidates = clamp(get_antag_cap(population), CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
 	return ..()
 
 /datum/dynamic_ruleset/roundstart/incursion/pre_execute(population)

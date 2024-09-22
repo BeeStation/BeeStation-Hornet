@@ -1,10 +1,3 @@
-/datum/crafting_recipe/food
-	var/real_parts
-	category = CAT_FOOD
-
-/datum/crafting_recipe/food/New()
-	real_parts = parts.Copy()
-	parts |= reqs
 
 //////////////////////////////////////////FOOD MIXTURES////////////////////////////////////
 
@@ -18,7 +11,7 @@
 /datum/chemical_reaction/tofu/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/tofu(location)
+		new /obj/item/food/tofu(location)
 	return
 
 /datum/chemical_reaction/chocolate_bar
@@ -29,7 +22,7 @@
 /datum/chemical_reaction/chocolate_bar/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/chocolatebar(location)
+		new /obj/item/food/chocolatebar(location)
 	return
 
 
@@ -42,7 +35,7 @@
 /datum/chemical_reaction/chocolate_bar2/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/chocolatebar(location)
+		new /obj/item/food/chocolatebar(location)
 	return
 
 /datum/chemical_reaction/hot_cocoa
@@ -101,7 +94,7 @@
 /datum/chemical_reaction/cheesewheel/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/store/cheesewheel(location)
+		new /obj/item/food/cheese/wheel(location)
 
 /datum/chemical_reaction/synthmeat
 	name = "synthmeat"
@@ -112,7 +105,7 @@
 /datum/chemical_reaction/synthmeat/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/meat/slab/synthmeat(location)
+		new /obj/item/food/meat/slab/synthmeat(location)
 
 /datum/chemical_reaction/hot_ramen
 	name = "Hot Ramen"
@@ -130,12 +123,12 @@
 	name = "Imitation Carpmeat"
 	id = "imitationcarpmeat"
 	required_reagents = list(/datum/reagent/toxin/carpotoxin = 5)
-	required_container = /obj/item/reagent_containers/food/snacks/tofu
+	required_container = /obj/item/food/tofu
 	mix_message = "The mixture becomes similar to carp meat."
 
 /datum/chemical_reaction/imitationcarpmeat/on_reaction(datum/reagents/holder)
 	var/location = get_turf(holder.my_atom)
-	new /obj/item/reagent_containers/food/snacks/carpmeat/imitation(location)
+	new /obj/item/food/fishmeat/carp/imitation(location)
 	if(holder && holder.my_atom)
 		qdel(holder.my_atom)
 
@@ -148,7 +141,7 @@
 /datum/chemical_reaction/dough/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/dough(location)
+		new /obj/item/food/dough(location)
 
 /datum/chemical_reaction/cakebatter
 	name = "Cake Batter"
@@ -159,24 +152,22 @@
 /datum/chemical_reaction/cakebatter/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/cakebatter(location)
+		new /obj/item/food/cakebatter(location)
 
 /datum/chemical_reaction/cakebatter/vegan
 	id = "vegancakebatter"
 	required_reagents = list(/datum/reagent/consumable/soymilk = 15, /datum/reagent/consumable/flour = 15, /datum/reagent/consumable/sugar = 5)
 
-/datum/chemical_reaction/ricebowl
-	name = "Rice Bowl"
-	id = "ricebowl"
+/datum/chemical_reaction/uncooked_rice
+	name = "Uncooked Rice"
+	id = "uncookedrice"
 	required_reagents = list(/datum/reagent/consumable/rice = 10, /datum/reagent/water = 10)
-	required_container = /obj/item/reagent_containers/glass/bowl
 	mix_message = "The rice absorbs the water."
 
-/datum/chemical_reaction/ricebowl/on_reaction(datum/reagents/holder)
+/datum/chemical_reaction/uncooked_rice/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	new /obj/item/reagent_containers/food/snacks/salad/ricebowl(location)
-	if(holder?.my_atom)
-		qdel(holder.my_atom)
+	for(var/i in 1 to created_volume)
+		new /obj/item/food/uncooked_rice(location)
 
 /datum/chemical_reaction/bbqsauce
 	name = "BBQ Sauce"
