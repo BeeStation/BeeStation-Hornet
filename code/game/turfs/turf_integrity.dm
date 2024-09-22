@@ -214,7 +214,7 @@
 
 	//the istype cascade has been spread among various procs for easy overriding
 	if(try_clean(W, user, T) || try_wallmount(W, user, T) || try_decon(W, user, T) || try_destroy(W, user, T))
-		return
+		return TRUE
 
 	return ..() || (W.attack_turf(src, user))
 
