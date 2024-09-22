@@ -13,7 +13,7 @@
 
 /datum/action/blink
 	name = "Blink"
-	icon_icon = 'icons/mob/actions/actions_hive.dmi'
+	icon_icon = 'icons/hud/actions/actions_hive.dmi'
 	button_icon_state = "see"						//Feel free to replace
 
 /datum/action/blink/Trigger()

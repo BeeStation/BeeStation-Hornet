@@ -98,6 +98,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//Breathing! Most changes are in mutantlungs, though
 	var/breathid = "o2"
 
+	//Blank list. As it runs through regenerate_organs, organs that are missing are added in sequential order to the list
+	//List is called in health analyzer and displays all missing organs
 	var/list/required_organs = list()
 
 	//Do NOT remove by setting to null. use OR make a RESPECTIVE TRAIT (removing stomach? add the NOSTOMACH trait to your species)
@@ -250,7 +252,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 //Please override this locally if you want to define when what species qualifies for what rank if human authority is enforced.
 /datum/species/proc/qualifies_for_rank(rank, list/features)
-	if(rank in GLOB.command_positions)
+	if(rank in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 		return 0
 	return 1
 
@@ -306,15 +308,17 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		neworgan = new neworgan()
 		var/should_have = neworgan.get_availability(src) //organ proc that points back to a species trait (so if the species is supposed to have this organ)
 
-		if(oldorgan && (!should_have || replace_current) && !(oldorgan.zone in excluded_zones))
+		if(oldorgan && (!should_have || replace_current) && !(oldorgan.zone in excluded_zones) && !(oldorgan.organ_flags & (ORGAN_UNREMOVABLE)))
 			if(slot == ORGAN_SLOT_BRAIN)
 				var/obj/item/organ/brain/brain = oldorgan
 				if(!brain.decoy_override)//"Just keep it if it's fake" - confucius, probably
 					brain.Remove(C,TRUE, TRUE) //brain argument used so it doesn't cause any... sudden death.
 					QDEL_NULL(brain)
-			oldorgan.Remove(C,TRUE)
-			required_organs -= oldorgan
-			QDEL_NULL(oldorgan)
+					oldorgan = null
+			else
+				oldorgan.Remove(C, special = TRUE)
+				required_organs -= oldorgan
+				QDEL_NULL(oldorgan) //we cannot just tab this out because we need to skip the deleting if it is a decoy brain.
 
 		if(oldorgan)
 			oldorgan.setOrganDamage(0)
