@@ -197,11 +197,15 @@
 /turf/open/floor/noslip/dark,
 /area/shuttle/exploration)
 "uG" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "wW" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /obj/structure/chair/stool/bar/directional/west,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
@@ -223,7 +227,9 @@
 	width = 13
 	},
 /obj/structure/fans/tiny,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "zr" = (
@@ -259,7 +265,9 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "CH" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -394,7 +402,9 @@
 /area/shuttle/exploration)
 "PL" = (
 /obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /obj/structure/table,
 /obj/machinery/recharger,
 /obj/machinery/camera/autoname/directional/east{
@@ -410,7 +420,9 @@
 /area/shuttle/exploration)
 "QO" = (
 /obj/machinery/door/firedoor/border_only,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/shuttle/glass{
 	autoclose = 0.1
@@ -418,9 +430,21 @@
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Sb" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /obj/effect/decal/cleanable/oil/streak,
 /turf/open/floor/iron/techmaint,
+/area/shuttle/exploration)
+"SH" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "SS" = (
 /obj/machinery/portable_atmospherics/canister/plasma,
@@ -440,7 +464,9 @@
 /area/shuttle/exploration)
 "UF" = (
 /obj/machinery/power/port_gen/pacman,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "WU" = (
@@ -562,7 +588,7 @@ gQ
 js
 Ai
 wW
-CH
+SH
 CH
 QO
 Sb

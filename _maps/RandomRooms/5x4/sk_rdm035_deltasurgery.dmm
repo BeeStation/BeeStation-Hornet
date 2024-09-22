@@ -12,7 +12,7 @@
 "b" = (
 /obj/structure/closet/secure_closet/medical2,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/pink,
+/obj/structure/cable/white,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (

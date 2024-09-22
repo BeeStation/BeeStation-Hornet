@@ -98,7 +98,9 @@
 "ar" = (
 /obj/machinery/telecomms/relay/preset/mining,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 "as" = (
@@ -132,7 +134,9 @@
 	name = "nanotrasen power storage unit"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 "aw" = (
@@ -142,7 +146,12 @@
 	pixel_y = 23
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 "ax" = (
@@ -192,12 +201,24 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/awaymission/cabin)
+"aD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating,
+/area/awaymission/cabin)
 "aF" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 "aG" = (
@@ -347,7 +368,9 @@
 /area/awaymission/cabin)
 "bf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 "bg" = (
@@ -787,14 +810,18 @@
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "cz" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "cA" = (
 /obj/machinery/door/airlock/command{
 	name = "Manager's Office"
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "cB" = (
@@ -843,8 +870,16 @@
 /turf/open/floor/iron/freezer,
 /area/awaymission/cabin)
 "cH" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/carpet,
+/area/awaymission/cabin)
+"cI" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood,
 /area/awaymission/cabin)
 "cJ" = (
 /obj/structure/table,
@@ -876,7 +911,9 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Maintenance"
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 "cM" = (
@@ -945,7 +982,9 @@
 "db" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/glass,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 "dc" = (
@@ -995,7 +1034,9 @@
 /area/awaymission/cabin)
 "di" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 "dj" = (
@@ -1051,7 +1092,9 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 "dt" = (
@@ -2174,6 +2217,13 @@
 	},
 /turf/open/floor/carpet,
 /area/awaymission/cabin)
+"hm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/awaymission/cabin)
 "hn" = (
 /obj/structure/sign/poster/official/high_class_martini{
 	pixel_y = 32
@@ -2198,8 +2248,22 @@
 	name = "Generator Room"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
+/area/awaymission/cabin)
+"hs" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/carpet,
+/area/awaymission/cabin)
+"ht" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/carpet,
 /area/awaymission/cabin)
 "hu" = (
 /obj/structure/table/reinforced,
@@ -2220,6 +2284,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/cabin)
+"hx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating,
+/area/awaymission/cabin)
 "hy" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Heater Storage"
@@ -2231,7 +2302,9 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/oil,
 /obj/effect/decal/cleanable/generic,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 "hB" = (
@@ -2239,19 +2312,31 @@
 /obj/structure/sign/poster/contraband/missing_gloves{
 	pixel_x = 32
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 "hC" = (
 /obj/machinery/gateway,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/wood,
+/area/awaymission/cabin)
+"hD" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "hE" = (
 /obj/machinery/door/airlock/wood{
 	name = "Gateway"
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "hF" = (
@@ -2264,7 +2349,16 @@
 /area/awaymission/cabin)
 "hG" = (
 /obj/effect/landmark/awaystart,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/carpet,
+/area/awaymission/cabin)
+"hH" = (
+/obj/effect/landmark/awaystart,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/carpet,
 /area/awaymission/cabin)
 "hJ" = (
@@ -4571,7 +4665,9 @@
 	name = "geothermal generator"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -5092,7 +5188,9 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -5134,7 +5232,9 @@
 /area/awaymission/cabin/caves/mountain)
 "Yr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -34608,7 +34708,7 @@ an
 aU
 an
 cz
-cz
+cI
 cL
 db
 di
@@ -34617,7 +34717,7 @@ hA
 hB
 di
 cL
-cz
+hD
 aq
 an
 dB
@@ -35376,9 +35476,9 @@ aw
 aF
 bf
 hr
-cH
-cH
-cH
+hs
+hs
+ht
 an
 bk
 bJ
@@ -35629,7 +35729,7 @@ ac
 dB
 ax
 ar
-bf
+hm
 ed
 hu
 an
@@ -35643,9 +35743,9 @@ an
 cc
 cp
 hC
-cz
-cz
-hG
+cI
+cI
+hH
 hj
 an
 dB
@@ -35885,8 +35985,8 @@ ac
 ac
 dB
 ax
-bf
-bf
+aD
+hx
 ed
 hv
 an

@@ -114,7 +114,9 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -140,7 +142,9 @@
 /area/template_noop)
 "ie" = (
 /obj/machinery/power/terminal,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -196,7 +200,9 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "lc" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -619,7 +625,9 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "EC" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "EF" = (
@@ -803,7 +811,9 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Ok" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -867,7 +877,9 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "QD" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /obj/item/stack/sheet/mineral/plasma,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -968,7 +980,9 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "Uo" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},

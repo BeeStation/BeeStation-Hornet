@@ -9,7 +9,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/item/stack/cable_coil/cut,
+/obj/item/stack/cable_coil/cut/random,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
