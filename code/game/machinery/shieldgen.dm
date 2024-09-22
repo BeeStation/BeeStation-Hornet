@@ -489,6 +489,17 @@
 	anchored = TRUE
 	active = ACTIVE_SETUPFIELDS
 
+/obj/machinery/power/shieldwallgen/atmos/strong //these are for ruins and large hangars, try to not use them on ships
+	name = "high power holofield generator"
+	desc = "A holofield generator designed for use in starbase bays."
+	circuit = /obj/item/circuitboard/machine/shieldwallgen/atmos/strong
+	shield_range = 20
+	active_power_usage = 1000
+
+/obj/machinery/power/shieldwallgen/atmos/strong/roundstart
+	anchored = TRUE
+	active = ACTIVE_SETUPFIELDS
+
 /obj/machinery/power/shieldwallgen/atmos/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
@@ -592,6 +603,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 			return
 
 		drain_power(50)
+
+//Atmos shields suck more power
+/obj/machinery/shieldwall/atmos/process()
+	if(needs_power)
+		if(!gen_primary || !gen_primary.active || !gen_secondary || !gen_secondary.active)
+			qdel(src)
+			return
+
+		drain_power(500)
 
 /obj/machinery/shieldwall/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
