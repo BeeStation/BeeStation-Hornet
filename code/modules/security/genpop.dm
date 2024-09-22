@@ -392,8 +392,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	try crime_list = json_decode(file2text(config_file))
 	catch(var/exception/e)
 		message_admins("<span class='boldannounce'>[e] caught on [e.file]:[e.line].</span>")
-		load_default_crimelist()
-		return
+		CRASH("Unable to read config/space_law.json. Fix this issue, as there are no backups!")
 	//we need to get the names of each crime for the regex
 	for(var/key in crime_list)
 		var/value = crime_list[key]
@@ -405,30 +404,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 		return
 
 	// Form the valid crime regex
-	var/regex_string = "^(Attempted )?([jointext(crime_names, "|")])( \\(Repeat offender\\))?$"
-	valid_crime_name_regex = regex(regex_string, "gm")
-
-/obj/machinery/genpop_interface/proc/load_default_crimelist()
-	crime_list = list()
-	//Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
-	message_admins("<span class='boldannounce'>Failed to read the space_law config file! Defaulting to hardcoded datums.</span>") //Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
-	for (var/datum/crime/crime_path as() in subtypesof(/datum/crime))
-		// Ignore this crime, it is abstract
-		if (isnull(initial(crime_path.name)))
-			continue
-		// We need to know about this crime for the regex
-		crime_names += initial(crime_path.name)
-		// Create the category if it is needed
-		if (!islist(crime_list[initial(crime_path.category)]))
-			crime_list[initial(crime_path.category)] = list()
-		// Add crimes to that category
-		crime_list[initial(crime_path.category)] += list(list(
-			"name" = initial(crime_path.name),
-			"tooltip" = initial(crime_path.tooltip),
-			"colour" = initial(crime_path.colour),
-			"icon" = initial(crime_path.icon),
-			"sentence" = initial(crime_path.sentence),
-			))
 	var/regex_string = "^(Attempted )?([jointext(crime_names, "|")])( \\(Repeat offender\\))?$"
 	valid_crime_name_regex = regex(regex_string, "gm")
 
