@@ -528,10 +528,11 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 #define STEALTH_MODE_TRAIT "stealth_mode"
 
 /client/proc/enable_stealth_mode()
-	var/new_key = ckeyEx(stripped_input(usr, "Enter your desired display name.", "Fake Key", key, 26))
+	var/new_key = ckeyEx(stripped_input(usr, "Enter your desired display name.", "Fake Key", key, max_length=26))
 	if(!new_key)
 		return
 	holder.fakekey = new_key
+	reset_badges()
 	createStealthKey()
 	if(isobserver(mob))
 		mob.invisibility = INVISIBILITY_MAXIMUM //JUST IN CASE
@@ -540,7 +541,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		mob.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 	ADD_TRAIT(mob, TRAIT_ORBITING_FORBIDDEN, STEALTH_MODE_TRAIT)
-	QDEL_NULL(mob.orbiters)
+	QDEL_NULL(mob.orbit_datum)
 
 	log_admin("[key_name(usr)] has turned stealth mode ON")
 	message_admins("[key_name_admin(usr)] has turned stealth mode ON")
