@@ -1,8 +1,0 @@
-author: rkz, LemonInTheDark, MrMelbert, Mothblocks, NotRanged, Dennok, TemporalOroboros,
-  Timothymtorres, AnturK
-delete-after: true
-changes:
-  - code_imp: removes sleep() from hallucination code
-  - bugfix: fixes infinite bubblegum hallucination
-  - bugfix: fixes xenomorph hallucination shitcode
-  - bugfix: plasmaflood hallucination no longer blocks clicks
