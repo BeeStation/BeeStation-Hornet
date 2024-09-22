@@ -339,7 +339,7 @@
 	ask_mod = "inquisitively blorbles"
 	yell_mod = "shrilly blorbles"
 	exclaim_mod = "loudly blorbles"
-	liked_food = MEAT //cause slimes are mostly carnivores, however the ability to consume RAW or GORE was lost when spliced with humans
+	liked_food = MEAT | BUGS //cause slimes are mostly carnivores, however the ability to consume RAW or GORE was lost when spliced with humans
 	toxic_food = NONE
 	disliked_food = NONE
 
@@ -353,7 +353,7 @@
 	say_mod = "flutters"
 	icon_state = "tonguemoth"
 	liked_food = VEGETABLES | DAIRY | CLOTH
-	disliked_food = FRUIT | GROSS | GORE
+	disliked_food = FRUIT | GROSS | BUGS | GORE
 	toxic_food = MEAT | RAW
 
 /obj/item/organ/tongue/teratoma
@@ -367,7 +367,7 @@
 /obj/item/organ/tongue/podperson
 	name = "plant tongue"
 	desc = "It's an odd tongue, seemingly made of plant matter."
-	disliked_food = MEAT | DAIRY
+	disliked_food = MEAT | DAIRY | BUGS
 	liked_food = VEGETABLES | FRUIT | GRAIN | CLOTH //cannibals apparently
 
 /obj/item/organ/tongue/podperson/pumpkin
