@@ -128,7 +128,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 /obj/structure/cable/ComponentInitialize()
 	. = ..()
 	// If our interaction fails, then we will happily accept it
-	AddComponent(src, /datum/component/interaction_fallthrough, INTERACTION_FALLTHROUGH_PRIORITY_CABLES)
+	AddComponent(/datum/component/interaction_fallthrough, INTERACTION_FALLTHROUGH_PRIORITY_CABLES)
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	// Update our neighbors
