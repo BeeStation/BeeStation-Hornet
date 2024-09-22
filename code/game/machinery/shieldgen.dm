@@ -485,6 +485,7 @@
 	req_access = list()
 	locked = FALSE
 	shield_range = 8
+	layer = WALL_OBJ_LAYER
 
 /obj/machinery/power/shieldwallgen/atmos/roundstart
 	anchored = TRUE
@@ -652,12 +653,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 	name = "holofield wall"
 	desc = "An energy shield capable of blocking gas movement."
 	icon = 'icons/effects/effects.dmi'
-	icon_state = "holofan_new"
+	con_state = "holofield"
 	density = FALSE
 	CanAtmosPass = ATMOS_PASS_NO
 	CanAtmosPassVertical = 1
 	hardshield = FALSE
-	layer = UNDERDOOR
+	layer = ABOVE_MOB_LAYER
 	light_color = "#f6e384"
 	light_system = MOVABLE_LIGHT //for instant visual feedback reguardless of lag
 
