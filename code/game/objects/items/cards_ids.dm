@@ -613,13 +613,13 @@ update_label("John Doe", "Clowny")
 			actions += chameleon_action
 			chameleon_action.Grant(user)
 			log_game("[key_name(user)] has removed the disguise lock on the agent ID ([name]) with [W]")
-			return
+			return TRUE
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the agent ID ([name]) with [W]")
-			return
+			return TRUE
 	. = ..()
 
 // broken chameleon agent card

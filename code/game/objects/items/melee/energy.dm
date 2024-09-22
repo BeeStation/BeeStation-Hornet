@@ -227,6 +227,7 @@
 				user.update_inv_hands()
 		else
 			balloon_alert(user, "It's already fabulous!")
+		return TRUE
 	else
 		return ..()
 

@@ -5,23 +5,29 @@
   * * [/atom/proc/tool_act] on the target. If it returns TRUE, the chain will be stopped.
   * * [/obj/item/proc/pre_attack] on src. If this returns TRUE, the chain will be stopped.
   * * [/atom/proc/attackby] on the target. If it returns TRUE, the chain will be stopped.
-  * * [/obj/item/proc/afterattack]. The return value does not matter.
+  * * [/obj/item/proc/afterattack]. If it returns TRUE, the chain will be stopped.
   */
-/obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
+/obj/item/proc/melee_attack_chain(mob/user, atom/target, params, no_fallthrough = FALSE)
+	SHOULD_NOT_OVERRIDE(TRUE)
 	if(tool_behaviour && target.tool_act(user, src, tool_behaviour))
 		return TRUE
 	if(pre_attack(target, user, params))
 		return TRUE
 	if(target.attackby(src,user, params))
 		return TRUE
+	if (afterattack(target, user, TRUE, params))
+		return TRUE
+	if (!no_fallthrough)
+		var/turf/fallthrough_target = get_turf(target)
+		if (fallthrough_target?.attack_fallthrough(user, src, target, params))
+			return TRUE
 	if(QDELETED(src))
-		stack_trace("An item got deleted while performing an item attack and did not stop melee_attack_chain.")
+		stack_trace("An item got deleted while performing an item attack and did not stop melee_attack_chain. ([target.type] was attacked by [type])")
 		return TRUE
 	if(QDELETED(target))
-		stack_trace("The target of an item attack got deleted and melee_attack_chain was not stopped.")
+		stack_trace("The target of an item attack got deleted and melee_attack_chain was not stopped. ([target.type] was attacked by [type])")
 		return TRUE
-	return afterattack(target, user, TRUE, params)
-
+	return FALSE
 
 /// Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)
@@ -31,6 +37,8 @@
 
 /**
   * Called on the item before it hits something
+  * Return TRUE if a valid interaction or attack ocurred, which will
+  * prevent the attack from propogating forward in the attack chain.
   *
   * Arguments:
   * * atom/A - The atom about to be hit
@@ -46,6 +54,8 @@
 
 /**
   * Called on an object being hit by an item
+  * Return TRUE if a valid interaction or attack ocurred, which will
+  * prevent the attack from propogating forward in the attack chain.
   *
   * Arguments:
   * * obj/item/W - The item hitting this atom
@@ -82,6 +92,8 @@
 
 /**
  * Called from [/mob/living/proc/attackby]
+  * Return TRUE if a valid interaction or attack ocurred, which will
+  * prevent the attack from propogating forward in the attack chain.
  *
  * Arguments:
  * * mob/living/target_mob - The mob being hit by this item
@@ -192,6 +204,8 @@
 
 /**
   * Last proc in the [/obj/item/proc/melee_attack_chain]
+  * Return TRUE if a valid interaction or attack ocurred, which will
+  * prevent the attack from propogating forward in the attack chain.
   *
   * Arguments:
   * * atom/target - The thing that was hit
@@ -203,6 +217,34 @@
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, click_parameters)
 
+/**
+  * Called when a user attacks something and the attack is not handled, in which
+  * case it falls through to the turf so that other atoms on the turf can register
+  * their interest in performing an action even if not the direct target.
+  *
+  * Return TRUE if a valid interaction or attack ocurred, which will
+  * prevent the attack from propogating forward in the attack chain.
+  *
+  * Arguments:
+  * * mob/living/user - The mob doing the htting
+  * * obj/item/item - The item being used to attack
+  * * atom/target - The original target
+  * * params - click params such as alt/shift etc
+  *
+  * See: [/obj/item/proc/melee_attack_chain]
+  */
+/turf/proc/attack_fallthrough(mob/living/user, obj/item/item, atom/target, params)
+	var/datum/fallthrough_reference/result_pointer = new()
+	SEND_SIGNAL(src, COMSIG_TURF_ATTACK_FALLTHROUGH, user, item, target, params, result_pointer)
+	if (!result_pointer.target)
+		return FALSE
+	// Back into the attack chain we go...
+	// Make sure not to fallthrough multiple times, else we get an infinite loop
+	return item.melee_attack_chain(user, result_pointer.target, params, no_fallthrough = TRUE)
+
+/datum/fallthrough_reference
+	var/atom/target = null
+	var/priority = -INFINITY
 
 /obj/item/proc/get_clamped_volume()
 	if(w_class)

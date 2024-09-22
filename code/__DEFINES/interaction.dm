@@ -1,3 +1,12 @@
+/**
+ * Interaction fallthrough priorities
+ */
+
+#define INTERACTION_FALLTHROUGH_PRIORITY_CABLES 10
+
+/**
+ * Interaction Flags
+ */
 
 #define INTERACT_ATOM_REQUIRES_ANCHORED 			(1<<0)	//! whether can_interact() checks for anchored. only works on movables.
 #define INTERACT_ATOM_ATTACK_HAND 					(1<<1)	//! calls try_interact() on attack_hand() and returns that.
@@ -21,3 +30,4 @@
 #define INTERACT_MACHINE_SET_MACHINE 		(1<<6)		//! MACHINES HAVE THIS BY DEFAULT, SOMEONE SHOULD RUN THROUGH MACHINES AND REMOVE IT FROM THINGS LIKE LIGHT SWITCHES WHEN POSSIBLE!!--------------------------
 												//This flag determines if a machine set_machine's the user when the user uses it, making updateUsrDialog make the user re-call interact() on it.
 												//THIS FLAG IS ON ALL MACHINES BY DEFAULT, NEEDS TO BE RE-EVALUATED LATER!!
+

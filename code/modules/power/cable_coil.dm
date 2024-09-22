@@ -119,6 +119,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 // Cable laying procedures
 //////////////////////////////////////////////
 
+/obj/item/stack/cable_coil/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	// Check for the item being used in afterattack
+	if (..())
+		return TRUE
+	// Check for attacks
+	if (user.a_intent == INTENT_HARM)
+		return FALSE
+	// Interact with the turf
+	var/turf/T = get_turf(target)
+	T.attackby(src, user, click_parameters)
+	return TRUE
+
 /obj/item/stack/cable_coil/attack_turf(turf/T, mob/living/user)
 	place_turf(T, user)
 	return TRUE

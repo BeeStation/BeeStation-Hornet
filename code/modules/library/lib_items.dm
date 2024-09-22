@@ -252,53 +252,53 @@
 	if(istype(I, /obj/item/pen))
 		if(user.is_blind())
 			to_chat(user, "<span class='warning'> As you are trying to write on the book, you suddenly feel very stupid!</span>")
-			return
+			return TRUE
 		if(unique)
 			to_chat(user, "<span class='warning'>These pages don't seem to take the ink well! Looks like you can't modify it.</span>")
-			return
+			return TRUE
 		var/literate = user.is_literate()
 		if(!literate)
 			to_chat(user, "<span class='notice'>You scribble illegibly on the cover of [src]!</span>")
-			return
+			return TRUE
 		var/choice = input("What would you like to change?") in list("Title", "Contents", "Author", "Cancel")
 		if(!user.canUseTopic(src, BE_CLOSE, literate))
-			return
+			return TRUE
 		switch(choice)
 			if("Title")
 				var/newtitle = reject_bad_text(stripped_input(user, "Write a new title:"))
 				if(!user.canUseTopic(src, BE_CLOSE, literate))
-					return
+					return TRUE
 				if (length(newtitle) > 50)
 					to_chat(user, "That title won't fit on the cover!")
-					return
+					return TRUE
 				if(!newtitle)
 					to_chat(user, "That title is invalid.")
-					return
+					return TRUE
 				else
 					name = newtitle
 					title = newtitle
 			if("Contents")
 				var/content = stripped_input(user, "Write your book's contents (HTML NOT allowed):","","",8192)
 				if(!user.canUseTopic(src, BE_CLOSE, literate))
-					return
+					return TRUE
 				if(!content)
 					to_chat(user, "The content is invalid.")
-					return
+					return TRUE
 				else
 					dat += content
 			if("Author")
 				var/newauthor = stripped_input(user, "Write the author's name:")
 				if(!user.canUseTopic(src, BE_CLOSE, literate))
-					return
+					return TRUE
 				if(!newauthor)
 					to_chat(user, "The name is invalid.")
-					return
+					return TRUE
 				else if(length(newauthor) > 45)
 					to_chat(user, "That name is too long!")
 				else
 					author = newauthor
 			else
-				return
+				return TRUE
 
 	else if(istype(I, /obj/item/barcodescanner))
 		var/obj/item/barcodescanner/scanner = I
@@ -319,14 +319,14 @@
 						if(b.bookname == name)
 							scanner.computer.checkouts.Remove(b)
 							to_chat(user, "[I]'s screen flashes: 'Book stored in buffer. Book has been checked in.'")
-							return
+							return TRUE
 					to_chat(user, "[I]'s screen flashes: 'Book stored in buffer. No active check-out record found for current title.'")
 				if(3)
 					scanner.book = src
 					for(var/obj/item/book in scanner.computer.inventory)
 						if(book == src)
 							to_chat(user, "[I]'s screen flashes: 'Book stored in buffer. Title already present in inventory, aborting to avoid duplicate entry.'")
-							return
+							return TRUE
 					scanner.computer.inventory.Add(src)
 					to_chat(user, "[I]'s screen flashes: 'Book stored in buffer. Title added to general inventory.'")
 
@@ -341,14 +341,15 @@
 			if(user.is_holding(src))
 				qdel(src)
 				user.put_in_hands(B)
-				return
+				return TRUE
 			else
 				B.forceMove(drop_location())
 				qdel(src)
-				return
-		return
+				return TRUE
+		return TRUE
 	else
 		..()
+	return TRUE
 
 
 /*

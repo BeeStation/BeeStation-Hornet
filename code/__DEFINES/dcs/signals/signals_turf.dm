@@ -15,3 +15,5 @@
 #define COMSIG_TURF_AFTER_SHUTTLE_MOVE "turf_after_shuttle_move"
 /// from base of /datum/turf_reservation/proc/Release: (datum/turf_reservation/reservation)
 #define COMSIG_TURF_RESERVATION_RELEASED "turf_reservation_released"
+/// from base of /turf/proc/attack_fallthrough(mob/living/user, obj/item/item, atom/target, params, datum/fallthrough_reference/result_pointer)
+#define COMSIG_TURF_ATTACK_FALLTHROUGH "turf_attack_fallthrough"

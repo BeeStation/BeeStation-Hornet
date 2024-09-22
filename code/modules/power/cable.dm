@@ -125,6 +125,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	update_appearance(UPDATE_ICON)
 	linkup_adjacent(!mapload)
 
+/obj/structure/cable/ComponentInitialize()
+	. = ..()
+	// If our interaction fails, then we will happily accept it
+	AddComponent(src, /datum/component/interaction_fallthrough, INTERACTION_FALLTHROUGH_PRIORITY_CABLES)
+
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	// Update our neighbors
 	clear_connections()
@@ -300,10 +305,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 /obj/structure/cable/attackby(obj/item/W, mob/user, params)
 	var/turf/T = get_turf(src)
 	if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
-		return
+		return FALSE
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if (shock(user, 50))
-			return
+			return TRUE
 		user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
 		investigate_log("was cut by [key_name(usr)] in [AREACOORD(src)]", INVESTIGATE_WIRES)
 		deconstruct()
@@ -312,12 +317,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	else if(W.tool_behaviour == TOOL_MULTITOOL)
 		to_chat(user, get_power_info())
 		shock(user, 5, 0.2)
+		return TRUE
 
 	else if (istype(W, /obj/item/stack/cable_coil))
 		// Pass the click down to the turf instead
 		return T.attackby(W, user, params)
 
 	add_fingerprint(user)
+	return ..()
 
 /obj/structure/cable/examine(mob/user)
 	. = ..()

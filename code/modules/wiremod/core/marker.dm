@@ -26,7 +26,7 @@
 	clear_marked_atom()
 	return TRUE
 
-/obj/item/multitool/circuit/melee_attack_chain(mob/user, atom/target, params)
+/obj/item/multitool/circuit/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(marked_atom || !user.Adjacent(target))
 		return ..()
 

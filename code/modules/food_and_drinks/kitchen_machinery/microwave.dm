@@ -104,14 +104,14 @@
 
 /obj/machinery/microwave/attackby(obj/item/O, mob/user, params)
 	if(operating)
-		return
+		return TRUE
 	if(default_deconstruction_crowbar(O))
-		return
+		return TRUE
 
 	if(dirty < 100)
 		if(default_deconstruction_screwdriver(user, icon_state, icon_state, O) || default_unfasten_wrench(user, O))
 			update_icon()
-			return
+			return TRUE
 
 	if(panel_open && is_wire_tool(O))
 		wires.interact(user)
@@ -129,11 +129,11 @@
 				user.visible_message("[user] fixes \the [src].", "<span class='notice'>You fix \the [src].</span>")
 				broken = 0
 				update_icon()
-				return FALSE //to use some fuel
+				return TRUE
 		else
 			to_chat(user, "<span class='warning'>It's broken!</span>")
 			return TRUE
-		return
+		return TRUE
 
 	if(istype(O, /obj/item/reagent_containers/spray))
 		var/obj/item/reagent_containers/spray/clean_spray = O
@@ -177,7 +177,7 @@
 				ingredients += S
 		if(loaded)
 			to_chat(user, "<span class='notice'>You insert [loaded] items into \the [src].</span>")
-		return
+		return TRUE
 
 	if(O.w_class <= WEIGHT_CLASS_NORMAL && !istype(O, /obj/item/storage) && user.a_intent == INTENT_HELP)
 		if(ingredients.len >= max_n_of_items)
@@ -185,13 +185,13 @@
 			return TRUE
 		if(!user.transferItemToLoc(O, src))
 			to_chat(user, "<span class='warning'>\The [O] is stuck to your hand!</span>")
-			return FALSE
+			return TRUE
 
 		ingredients += O
 		user.visible_message("[user] has added \a [O] to \the [src].", "<span class='notice'>You add [O] to \the [src].</span>")
-		return
+		return TRUE
 
-	..()
+	return ..()
 
 /obj/machinery/microwave/AltClick(mob/user)
 	if(user.canUseTopic(src, !issilicon(usr)))

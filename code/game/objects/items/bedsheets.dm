@@ -56,6 +56,7 @@
 			C.add_fingerprint(user)
 		qdel(src)
 		to_chat(user, "<span class='notice'>You tear [src] up.</span>")
+		return TRUE
 	else
 		return ..()
 

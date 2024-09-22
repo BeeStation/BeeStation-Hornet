@@ -123,24 +123,26 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/picture_frame)
 			playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 			to_chat(user, "<span class='notice'>You unsecure [name].</span>")
 			deconstruct()
+		return TRUE
 
 	else if(I.tool_behaviour == TOOL_WIRECUTTER && framed)
 		framed.forceMove(drop_location())
 		framed = null
 		user.visible_message("<span class='warning'>[user] cuts away [framed] from [src]!</span>")
-		return
+		return TRUE
 
 	else if(istype(I, /obj/item/photo))
 		if(!framed)
 			var/obj/item/photo/P = I
 			if(!user.transferItemToLoc(P, src))
-				return
+				return TRUE
 			framed = P
 			update_icon()
 		else
 			to_chat(user, "<span class=notice>\The [src] already contains a photo.</span>")
+		return TRUE
 
-	..()
+	return ..()
 
 /obj/structure/sign/picture_frame/attack_hand(mob/user)
 	. = ..()
