@@ -143,17 +143,16 @@
 	material_flags = NONE
 
 /obj/item/storage/toolbox/electrical/PopulateContents()
-	var/pickedcolor = pick("red","yellow","green","blue","pink","orange","cyan","white")
 	new /obj/item/screwdriver(src)
 	new /obj/item/wirecutters(src)
 	new /obj/item/t_scanner(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pickedcolor)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pickedcolor)
+	new /obj/item/stack/cable_coil(src,MAXCOIL)
+	new /obj/item/stack/cable_coil(src,MAXCOIL)
 	if(prob(5))
 		new /obj/item/clothing/gloves/color/yellow(src)
 	else
-		new /obj/item/stack/cable_coil(src,MAXCOIL,pickedcolor)
+		new /obj/item/stack/cable_coil(src, MAXCOIL)
 
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
@@ -184,12 +183,11 @@
 	material_flags = NONE
 
 /obj/item/storage/toolbox/drone/PopulateContents()
-	var/pickedcolor = pick("red","yellow","green","blue","pink","orange","cyan","white")
 	new /obj/item/screwdriver(src)
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pickedcolor)
+	new /obj/item/stack/cable_coil(src,MAXCOIL)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
 

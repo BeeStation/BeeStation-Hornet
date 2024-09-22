@@ -84,7 +84,7 @@
 				to_chat(user, "<span class='notice'>You remove the cables.</span>")
 				state = 2
 				icon_state = "2"
-				new /obj/item/stack/cable_coil(drop_location(), 5, TRUE, user)
+				new /obj/item/stack/cable_coil(drop_location(), 5)
 				return
 			if(istype(P, /obj/item/stack/sheet/glass))
 				if(!P.tool_start_check(user, amount=2))

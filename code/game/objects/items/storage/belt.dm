@@ -124,7 +124,7 @@
 	new /obj/item/powertool/jaws_of_life(src)
 	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
 	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pick("red","yellow","orange"))
+	new /obj/item/stack/cable_coil(src,MAXCOIL)
 	new /obj/item/extinguisher/mini(src)
 	new /obj/item/analyzer/ranged(src)
 	//much roomier now that we've managed to remove two tools
@@ -136,7 +136,7 @@
 	new /obj/item/crowbar(src)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pick("red","yellow","orange"))
+	new /obj/item/stack/cable_coil(src,MAXCOIL)
 
 /obj/item/storage/belt/utility/full/engi/PopulateContents()
 	new /obj/item/screwdriver(src)
@@ -145,7 +145,7 @@
 	new /obj/item/crowbar(src)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pick("red","yellow","orange"))
+	new /obj/item/stack/cable_coil(src,MAXCOIL)
 
 
 /obj/item/storage/belt/utility/atmostech/PopulateContents()

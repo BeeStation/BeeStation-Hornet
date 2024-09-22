@@ -142,7 +142,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 		if (!use(1))
 			to_chat(user, "<span class='warning'>There is no cable left!</span>")
 			return TRUE
-		to_chat(user, "<span class='warning'>You add a node to the [wire]!</span>")
+		to_chat(user, "<span class='notice'>You add a node to the [wire], allowing it to connect to machines and structures!</span>")
 		wire.add_power_node()
 		return TRUE
 
@@ -150,11 +150,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 		var/turf/below_turf = GET_TURF_BELOW(T)
 		if (!below_turf)
 			CRASH("Openspace exists without a turf below it.")
-		if (!use(2))
-			to_chat(user, "<span class='warning'>You need at least 2 pieces of cable to wire between decks!</span>")
+		if (!(locate(/obj/structure/cable) in below_turf))
+			if (!use(2))
+				to_chat(user, "<span class='warning'>You need at least 2 pieces of cable to wire between decks!</span>")
+				return TRUE
+			if (omni)
+				new /obj/structure/cable/omni(below_turf, cable_color)
+			else
+				new /obj/structure/cable(below_turf, cable_color)
+		else if (!use(1))
+			to_chat(user, "<span class='warning'>There is no cable left!</span>")
 			return TRUE
-		new /obj/structure/cable(T, cable_color)
-		new /obj/structure/cable(below_turf, cable_color)
+		if (omni)
+			new /obj/structure/cable/omni(T, cable_color, TRUE)
+		else
+			new /obj/structure/cable(T, cable_color, TRUE)
 		return TRUE
 
 	if (!use(1))

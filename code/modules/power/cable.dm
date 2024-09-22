@@ -33,8 +33,14 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	var/obj/structure/cable/east
 	var/obj/structure/cable/south
 	var/obj/structure/cable/west
+	var/obj/structure/cable/up
+	var/obj/structure/cable/down
 	/// Are we an omni cable?
 	var/omni = FALSE
+	/// Are we a multi-z cable?
+	var/multiz = FALSE
+	// Sound loop for transformer boxes
+	VAR_PRIVATE/datum/looping_sound/transformer/sound_loop = null
 
 	FASTDMM_PROP(\
 		pipe_type = PIPE_TYPE_CABLE,\
@@ -77,7 +83,7 @@ GLOBAL_LIST_INIT(cable_colors, list(
 // the power cable object
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
-/obj/structure/cable/Initialize(mapload, param_color)
+/obj/structure/cable/Initialize(mapload, param_color, multiz = FALSE)
 	. = ..()
 
 // If building for CI then we will check to ensure that cables are not incorrectly overlapping.
@@ -91,6 +97,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 	var/list/cable_colors = GLOB.cable_colors
 	cable_color = param_color || cable_color || pick(cable_colors)
+
+	// Check for multi-z status on mapload
+	if (multiz || (mapload && isopenspace(loc) && !(locate(/obj/structure/lattice/catwalk) in loc)))
+		var/obj/structure/cable/below_cable = locate(/obj/structure/cable) in GET_TURF_BELOW(loc)
+		if (below_cable)
+			down = below_cable
+			below_cable.up = src
+			below_cable.update_appearance(UPDATE_ICON)
+			// Make sure to record this so that we can reform on multi-z shuttle movements
+			src.multiz = TRUE
+			below_cable.multiz = TRUE
+			has_power_node = TRUE
+			below_cable.has_power_node = TRUE
 
 	// Locate adjacent tiles
 	reform_connections()
@@ -111,6 +130,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	if(powernet)
 		cut_cable_from_powernet()				// update the powernets
 	GLOB.cable_list -= src							//remove it from global cable list
+	if (sound_loop)
+		QDEL_NULL(sound_loop)
 	return ..()									// then go ahead and delete the cable
 
 /obj/structure/cable/proc/clear_connections()
@@ -118,6 +139,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	east?.set_west(null)
 	south?.set_north(null)
 	west?.set_east(null)
+	down?.set_up(null)
+	up?.set_down(null)
 
 /obj/structure/cable/proc/reform_connections()
 	north = get_cable(get_step(src, NORTH), cable_color, omni)
@@ -132,6 +155,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	west?.update_appearance(UPDATE_ICON)
 	north?.update_appearance(UPDATE_ICON)
 	east?.update_appearance(UPDATE_ICON)
+	if (multiz)
+		var/obj/structure/cable/below_cable = locate(/obj/structure/cable) in GET_TURF_BELOW(loc)
+		if (below_cable)
+			below_cable.set_up(src)
+		var/obj/structure/cable/above_cable = locate(/obj/structure/cable) in GET_TURF_ABOVE(loc)
+		if (above_cable)
+			above_cable.set_down(src)
 
 /// Add a power node to this cable
 /obj/structure/cable/proc/add_power_node()
@@ -168,6 +198,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		has_power_node = FALSE
 	update_appearance(UPDATE_ICON)
 
+/obj/structure/cable/proc/set_down(new_value)
+	down = new_value
+	down?.up = src
+	update_appearance(UPDATE_ICON)
+	down?.update_appearance(UPDATE_ICON)
+
+/obj/structure/cable/proc/set_up(new_value)
+	up = new_value
+	up?.down = src
+	update_appearance(UPDATE_ICON)
+	up?.update_appearance(UPDATE_ICON)
+
 /obj/structure/cable/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		var/turf/T = get_turf(loc)
@@ -177,20 +219,41 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 				R = locate(/obj/item/stack/cable_coil) in T
 			if(R)
 				transfer_fingerprints_to(R)
-	/*
-		var/turf/T_below = T.below()
-		if((d1 == DOWN || d2 == DOWN) && T_below)
-			for(var/obj/structure/cable/C in T_below)
-				if(C.d1 == UP || C.d2 == UP)
-					C.deconstruct()
-	*/
+		if (multiz)
+			if (up)
+				up.down = null
+				up.deconstruct()
+			if (down)
+				down.up = null
+				down.deconstruct()
 	..()
 
 ///////////////////////////////////
 // General procedures
 ///////////////////////////////////
 
-/obj/structure/cable/update_icon()
+/obj/structure/cable/update_overlays()
+	. = ..()
+	underlays.Cut()
+	if (multiz)
+		// Shouldn't happen, but show a zbox anyway
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+		. += mutable_appearance(icon, "box", appearance_flags = RESET_COLOR)
+		. += mutable_appearance(icon, "boxlight", appearance_flags = RESET_COLOR)
+		. += emissive_appearance(icon, "boxlight", layer)
+		// Add a transformer
+		sound_loop = new (src, TRUE)
+	else if (sound_loop)
+		QDEL_NULL(sound_loop)
+	if (up)
+		if (down)
+			underlays += mutable_appearance(icon, "32", appearance_flags = RESET_COLOR)
+		. += mutable_appearance(icon, "16", appearance_flags = RESET_COLOR)
+	else if (down)
+		underlays += mutable_appearance(icon, "32", appearance_flags = RESET_COLOR)
+
+/obj/structure/cable/update_icon_state()
+	. = ..()
 	var/list/adjacencies = list()
 	if (has_power_node)
 		adjacencies += "0"
@@ -202,7 +265,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		adjacencies += "4"
 	if (west)
 		adjacencies += "8"
-	if (length(adjacencies) <= 1)
+	if (length(adjacencies) <= 1 && !has_power_node)
 		adjacencies.Insert(1, "0")
 	if (omni)
 		adjacencies += "o"
@@ -240,15 +303,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		return
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
-		//if(d1 == UP || d2 == UP)
-		//	to_chat(user, "<span class='warning'>You must cut this cable from above.</span>")
-		//	return
 		if (shock(user, 50))
 			return
 		user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
 		investigate_log("was cut by [key_name(usr)] in [AREACOORD(src)]", INVESTIGATE_WIRES)
 		deconstruct()
-		return
+		return TRUE
 
 	else if(W.tool_behaviour == TOOL_MULTITOOL)
 		to_chat(user, get_power_info())
@@ -359,6 +419,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 				merge_powernets(powernet, west.powernet)
 			else
 				west.powernet.add_cable(src)
+		if (up?.powernet)
+			if (powernet)
+				merge_powernets(powernet, up.powernet)
+			else
+				up.powernet.add_cable(src)
+		if (down?.powernet)
+			if (powernet)
+				merge_powernets(powernet, down.powernet)
+			else
+				down.powernet.add_cable(src)
 		if (!powernet)
 			var/datum/powernet/newPN = new()
 			newPN.add_cable(src)
@@ -414,3 +484,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	clear_connections()
 	reform_connections()
 	linkup_adjacent(TRUE)
+
+/datum/looping_sound/transformer
+	mid_sounds = list('sound/machines/transformer.ogg' = 1)
+	mid_length = 9
+	volume = 100
