@@ -55,7 +55,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/leather/wetleather)
 			wetness = initial(wetness)
 			use(1)
 
-/obj/item/stack/sheet/leather/wetleather/microwave_act(obj/machinery/microwave/MW)
+/obj/item/stack/sheet/leather/wetleather/microwave_act(obj/machinery/microwave/microwave)
 	..()
 	new /obj/item/stack/sheet/leather(drop_location(), amount)
 	qdel(src)
