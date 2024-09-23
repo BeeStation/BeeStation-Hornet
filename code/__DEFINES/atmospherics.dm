@@ -214,7 +214,7 @@
 /// -14°C kitchen coldroom, just might lose your tail; higher amount of mol to reach about 101.3 kpA
 #define KITCHEN_COLDROOM_ATMOS "o2=26;n2=97;TEMP=[COLD_ROOM_TEMP]"
 /// used in the holodeck burn test program
-#define BURNMIX_ATMOS "o2=100;plasma=200;TEMP=370" //used in the holodeck burn test program
+#define BURNMIX_ATMOS "o2=2500;plasma=5000;TEMP=370" //used in the holodeck burn test program
 
 //ATMOSPHERICS DEPARTMENT GAS TANK TURFS
 #define ATMOS_TANK_N2O				"n2o=6000;TEMP=293.15"
