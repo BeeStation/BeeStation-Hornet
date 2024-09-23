@@ -478,14 +478,10 @@
 
 // ai attack - make lights flicker, because why not
 
-/obj/machinery/light/attack_ai(mob/user)
+/obj/machinery/light/attack_silicon(mob/user)
 	no_emergency = !no_emergency
 	to_chat(user, "<span class='notice'>Emergency lights for this fixture have been [no_emergency ? "disabled" : "enabled"].</span>")
 	update(FALSE)
-	return
-
-/obj/machinery/light/attack_robot(mob/user)
-	attack_ai(user)
 	return
 
 // attack with hand - remove tube/bulb
