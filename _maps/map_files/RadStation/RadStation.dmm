@@ -68207,8 +68207,7 @@
 "vEV" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4;
-	name = "Air to Distro";
-	target_pressure = 500
+	name = "Air to Distro"
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/tech,

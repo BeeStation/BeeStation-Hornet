@@ -26230,8 +26230,7 @@
 "gHl" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4;
-	name = "Air to Distro";
-	target_pressure = 500
+	name = "Air to Distro"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
