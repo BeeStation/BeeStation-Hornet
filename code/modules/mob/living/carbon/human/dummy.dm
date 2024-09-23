@@ -93,6 +93,14 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	target.dna.features["ipc_antenna"] = "None"
 	target.dna.features["ipc_chassis"] = "Morpheus Cyberkinetics (Custom)"
 	target.dna.features["psyphoza_cap"] = "Portobello"
+	target.dna.features["diona_leaves"] = "None"
+	target.dna.features["diona_thorns"] = "None"
+	target.dna.features["diona_flowers"] = "None"
+	target.dna.features["diona_moss"] = "None"
+	target.dna.features["diona_mushroom"] = "None"
+	target.dna.features["diona_antennae"] = "None"
+	target.dna.features["diona_eyes"] = "None"
+	target.dna.features["diona_pbody"] = "None"
 
 /// Provides a dummy that is consistently bald, white, naked, etc.
 /mob/living/carbon/human/dummy/consistent

@@ -94,9 +94,6 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		return FALSE
 	if(is_occupied() || QDELETED(brainmob) || QDELETED(src) || QDELETED(user))
 		return FALSE
-	if(user.ckey in GLOB.posi_key_list)
-		to_chat(user, "<span class='warning'>Positronic brain spawns limited to 1 per round.</span>")
-		return FALSE
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SILICONS))
 		to_chat(user, "<span class='warning'>Central Command has temporarily outlawed posibrain sentience in this sector...</span>")
 		return FALSE
@@ -108,9 +105,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		return FALSE
 	if(brainmob.suiciding) //clear suicide status if the old occupant suicided.
 		brainmob.set_suicide(FALSE)
-	var/ckey = user.ckey
-	if(transfer_personality(user))
-		GLOB.posi_key_list += ckey
+	transfer_personality(user)
 
 	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
 	pj.remove_posi_slot(src)

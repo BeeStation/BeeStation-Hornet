@@ -120,7 +120,6 @@
 	desc = "That's all you can say!"
 	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "omelette"
-	trash_type = /obj/item/trash/plate
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 10,
 		/datum/reagent/consumable/nutriment/vitamin = 3
@@ -158,7 +157,6 @@
 		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/nutriment = 3
 	)
-	trash_type = /obj/item/trash/plate
 	w_class = WEIGHT_CLASS_SMALL
 	tastes = list("egg" = 1, "bacon" = 1, "bun" = 1)
 	foodtypes = MEAT | BREAKFAST | GRAIN

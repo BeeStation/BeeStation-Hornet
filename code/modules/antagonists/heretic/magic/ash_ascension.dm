@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/targeted/fire_sworn
 	name = "Oath of Flame"
 	desc = "For a minute, you will passively create a ring of fire around you."
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "fire_ring"
 	action_background_icon_state = "bg_ecult"
 	invocation = "FL'MS"
@@ -53,7 +53,7 @@
 	invocation = "C'SC'DE"
 	invocation_type = INVOCATION_WHISPER
 	range = 4
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "fire_ring"
 	action_background_icon_state = "bg_ecult"
 
@@ -80,7 +80,7 @@
 /obj/effect/proc_holder/spell/pointed/ash_final
 	name = "Nightwatcher's Rite"
 	desc = "A powerful spell that releases 5 streams of fire away from you."
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "flames"
 	action_background_icon_state = "bg_ecult"
 	invocation = "F'RE"
@@ -127,7 +127,7 @@
 			if(L.anti_magic_check())
 				L.visible_message("<span class='danger'>The spell bounces off of [L]!</span>","<span class='danger'>The spell bounces off of you!</span>")
 				continue
-			if(L in hit_list || L == source)
+			if((L in hit_list) || L == source)
 				continue
 			hit_list += L
 			L.adjustFireLoss(20)
