@@ -268,6 +268,8 @@
 	var/mob/living/simple_animal/shade/sentience/sentience
 	///Mob spawner for ghosts
 	var/obj/effect/mob_spawn/sentient_artifact/mob_spawner
+	///Ref to our landmark
+	var/obj/effect/landmark/landmark
 
 /datum/xenoartifact_trait/minor/sentient/register_parent(datum/source)
 	. = ..()
@@ -280,10 +282,13 @@
 		INVOKE_ASYNC(src, PROC_REF(get_canidate))
 	else
 		mob_spawner = new(component_parent.parent, src)
+	//Landmarking
+	landmark = new(component_parent?.parent)
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
 	QDEL_NULL(sentience)
 	QDEL_NULL(mob_spawner)
+	QDEL_NULL(landmark)
 	return ..()
 
 /datum/xenoartifact_trait/minor/sentient/proc/handle_ghost(datum/source, mob/M, list/examine_text)
@@ -321,7 +326,11 @@
 	for(var/index in component_parent.artifact_traits)
 		for(var/datum/xenoartifact_trait/T as() in component_parent.artifact_traits[index])
 			to_chat(sentience, "<span class='notice'>[T.label_name]\n</span>")
-			sentience.add_memory(T.label_name)
+			var/trait_name = T.label_name
+			trait_name = replacetext(trait_name, "Δ", "delta")
+			trait_name = replacetext(trait_name, "Σ", "sigma")
+			trait_name = replacetext(trait_name, "Ω", "omega")
+			sentience.add_memory(trait_name)
 	playsound(get_turf(component_parent?.parent), 'sound/items/haunted/ghostitemattack.ogg', 50, TRUE)
 	//Cleanup
 	QDEL_NULL(mob_spawner)
@@ -839,6 +848,8 @@
 	var/datum/component/deadchat_control/controller
 	///How long between moves
 	var/move_delay = 8 SECONDS
+	///Ref to our landmark
+	var/obj/effect/landmark/landmark
 
 /datum/xenoartifact_trait/minor/haunted/register_parent(datum/source)
 	. = ..()
@@ -852,9 +863,12 @@
 			"right" = CALLBACK(src, PROC_REF(haunted_step), atom_parent, EAST),
 			"activate" = CALLBACK(src, PROC_REF(activate_parent), atom_parent)), move_delay))
 	addtimer(CALLBACK(src, PROC_REF(do_wail)), 35 SECONDS)
+	//Landmark
+	landmark = new(component_parent?.parent)
 
 /datum/xenoartifact_trait/minor/haunted/Destroy(force, ...)
 	QDEL_NULL(controller)
+	QDEL_NULL(landmark)
 	return ..()
 
 /datum/xenoartifact_trait/minor/haunted/do_hint(mob/user, atom/item)
