@@ -1054,6 +1054,9 @@
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
+"LR" = (
+/turf/closed/wall/r_wall/syndicate/nodiagonal,
+/area/shuttle/syndicate/eva)
 "Mn" = (
 /obj/machinery/door/airlock/external{
 	name = "E.V.A.";
@@ -1072,6 +1075,9 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
+"NL" = (
+/turf/closed/wall/r_wall/syndicate/nodiagonal,
+/area/shuttle/syndicate/airlock)
 "NP" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -1273,7 +1279,7 @@ pI
 pI
 ax
 aJ
-aJ
+aK
 bq
 Ri
 Hs
@@ -1292,7 +1298,7 @@ aa
 aa
 aa
 ax
-ax
+LR
 su
 vj
 aR
@@ -1367,7 +1373,7 @@ ac
 ac
 aa
 ax
-ax
+LR
 aS
 aU
 aZ
@@ -1592,7 +1598,7 @@ aa
 aa
 aa
 aB
-aB
+NL
 xh
 Cz
 aT
@@ -1617,13 +1623,13 @@ aa
 aa
 aa
 pd
-aB
+NL
 bd
 aY
 bd
 aB
 bm
-bm
+bj
 UF
 bQ
 bX
