@@ -3,6 +3,8 @@
 	var/list/general = list()
 	/// This list tracks characters spawned in the world and cannot be modified in-game. Currently referenced by respawn_character().
 	var/list/locked = list()
+	/// Total number of security rapsheet prints. Changes the header.
+	var/print_count = 0
 
 /// Builds the list of crew records for all crew members.
 /datum/manifest/proc/build()
@@ -104,7 +106,7 @@
 		rank = assignment,
 		species = record_dna.species.name,
 		// Locked specifics
-		locked_dna = record_dna,
+		dna_ref = record_dna,
 		mind_ref = person.mind,
 	)
 
