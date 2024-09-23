@@ -85,12 +85,6 @@
 "aB" = (
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/airlock)
-"aD" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
-	},
-/turf/open/floor/circuit/red,
-/area/shuttle/syndicate/hallway)
 "aJ" = (
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/medical)
@@ -103,9 +97,6 @@
 /area/shuttle/syndicate/airlock)
 "aR" = (
 /obj/machinery/suit_storage_unit/syndicate,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /turf/open/floor/circuit/red,
 /area/shuttle/syndicate/eva)
 "aS" = (
@@ -113,22 +104,13 @@
 /obj/item/radio/intercom/syndicate{
 	pixel_x = 26
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
 /turf/open/floor/circuit/red,
 /area/shuttle/syndicate/eva)
 "aT" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
 /turf/open/floor/circuit/red,
 /area/shuttle/syndicate/airlock)
 "aU" = (
 /obj/machinery/suit_storage_unit/syndicate,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
 /obj/machinery/light/red{
 	dir = 4
 	},
@@ -141,9 +123,6 @@
 	},
 /obj/machinery/light/red{
 	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
 	},
 /turf/open/floor/circuit/red,
 /area/shuttle/syndicate/airlock)
@@ -174,6 +153,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
 "bc" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/airlock)
 "bd" = (
@@ -190,6 +172,9 @@
 "be" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/delivery/white,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
 "bg" = (
@@ -206,6 +191,9 @@
 	},
 /obj/machinery/recharger,
 /obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/airlock)
 "bj" = (
@@ -361,11 +349,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/medical)
 "bL" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 5
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/hallway)
@@ -375,6 +366,9 @@
 	name = "Equipment"
 	},
 /obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -407,7 +401,9 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/medical)
 "bU" = (
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/hallway)
 "bV" = (
@@ -508,6 +504,19 @@
 	},
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/bridge)
+"eS" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/syndicate/eva)
+"fb" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/syndicate/airlock)
 "gE" = (
 /obj/effect/spawner/structure/window/plastitanium,
 /obj/machinery/door/poddoor/shutters{
@@ -563,6 +572,9 @@
 	pixel_y = 25;
 	req_access_txt = "150"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
 "iF" = (
@@ -571,6 +583,7 @@
 /obj/item/stack/cable_coil/white,
 /obj/item/crowbar/red,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
 "jp" = (
@@ -579,6 +592,8 @@
 	req_access_txt = "150"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/bridge)
 "kp" = (
@@ -606,6 +621,9 @@
 	name = "tactical chair"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
 "mt" = (
@@ -628,13 +646,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/armory)
 "nS" = (
 /obj/machinery/recharge_station,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
 /turf/open/floor/circuit/red,
 /area/shuttle/syndicate/armory)
 "pd" = (
@@ -643,6 +659,13 @@
 	},
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/bridge)
+"pm" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/syndicate/hallway)
 "pI" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "syndieshutterseva";
@@ -667,6 +690,9 @@
 /obj/structure/sign/poster/contraband/c20r{
 	pixel_y = 32
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/airlock)
 "qg" = (
@@ -676,6 +702,9 @@
 	},
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
 	pixel_x = 32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
@@ -687,6 +716,9 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/status_display/evac{
 	pixel_x = -32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
@@ -706,14 +738,17 @@
 /obj/item/radio/intercom/syndicate{
 	pixel_x = -26
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
-"su" = (
-/obj/machinery/suit_storage_unit/syndicate,
+"rY" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 4
 	},
-/turf/open/floor/circuit/red,
+/turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
 "sE" = (
 /obj/structure/chair/fancy/shuttle{
@@ -728,16 +763,22 @@
 	pixel_y = 25;
 	req_access_txt = "150"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
+/area/shuttle/syndicate/hallway)
+"tI" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/hallway)
 "tW" = (
 /obj/structure/table/optable,
 /obj/item/clothing/gloves/color/latex,
 /obj/structure/mirror{
 	pixel_y = -32
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
 	},
 /turf/open/floor/circuit/red,
 /area/shuttle/syndicate/medical)
@@ -749,15 +790,18 @@
 	},
 /obj/item/storage/box/zipties,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
-"vj" = (
+"va" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/stripes/line{
-	dir = 4
+	dir = 1
 	},
-/obj/machinery/suit_storage_unit/syndicate,
-/turf/open/floor/circuit/red,
-/area/shuttle/syndicate/eva)
+/turf/open/floor/iron/dark,
+/area/shuttle/syndicate/hallway)
 "vA" = (
 /obj/structure/sign/poster/contraband/syndicate_pistol{
 	pixel_y = -32
@@ -768,18 +812,18 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
-"wt" = (
-/obj/effect/turf_decal/stripes/end,
-/turf/open/floor/circuit/red,
-/area/shuttle/syndicate/hallway)
 "wJ" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/structure/table/reinforced,
 /obj/item/aicard,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/armory)
 "wK" = (
@@ -791,14 +835,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
-"xh" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/circuit/red,
-/area/shuttle/syndicate/airlock)
 "yk" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -810,6 +849,8 @@
 	dir = 4;
 	pixel_x = 11
 	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
 "yv" = (
@@ -824,6 +865,9 @@
 /obj/item/radio/intercom/syndicate{
 	pixel_x = -26
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
 "zw" = (
@@ -834,9 +878,6 @@
 /obj/item/radio/intercom/syndicate{
 	pixel_x = -26
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
 /turf/open/floor/circuit/red,
 /area/shuttle/syndicate/airlock)
 "zN" = (
@@ -845,6 +886,16 @@
 /obj/effect/spawner/structure/window/plastitanium,
 /turf/open/floor/plating/airless,
 /area/shuttle/syndicate/armory)
+"Ab" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/syndicate/eva)
 "Af" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -866,8 +917,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/tank_dispenser/oxygen,
 /obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
+"Bq" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/iron/dark,
+/area/shuttle/syndicate/hallway)
 "Cf" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -879,6 +936,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/syndicate,
 /obj/item/crowbar/red,
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/airlock)
 "Cs" = (
@@ -890,21 +948,9 @@
 	pixel_x = 4
 	},
 /obj/machinery/light/red,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
 /turf/open/floor/circuit/red,
 /area/shuttle/syndicate/medical)
-"Cz" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/circuit/red,
-/area/shuttle/syndicate/airlock)
 "CZ" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
 /turf/open/floor/circuit/red,
 /area/shuttle/syndicate/hallway)
 "Do" = (
@@ -918,6 +964,19 @@
 	},
 /obj/structure/sign/poster/contraband/cc64k_ad{
 	pixel_x = 32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/syndicate/hallway)
+"Dp" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
@@ -933,6 +992,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/backpack/duffelbag/syndie/surgery,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
 "Fn" = (
@@ -974,8 +1034,18 @@
 	name = "Exit"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/airlock)
+"Gi" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/syndicate/eva)
 "Gz" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -993,6 +1063,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/airlock)
 "Hf" = (
@@ -1000,9 +1073,6 @@
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/item/reagent_containers/glass/beaker,
 /obj/item/reagent_containers/dropper,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
 /turf/open/floor/circuit/red,
 /area/shuttle/syndicate/medical)
 "Hs" = (
@@ -1020,9 +1090,6 @@
 /obj/machinery/telecomms/allinone{
 	intercept = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /turf/open/floor/circuit/red,
 /area/shuttle/syndicate/armory)
 "KW" = (
@@ -1034,6 +1101,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/armory)
+"Lk" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/syndicate/hallway)
 "Lv" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -1063,6 +1137,12 @@
 	req_access_txt = "150"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
 "MJ" = (
@@ -1073,6 +1153,9 @@
 /area/shuttle/syndicate/bridge)
 "NF" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
 "NL" = (
@@ -1104,6 +1187,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/armory)
 "Qs" = (
@@ -1114,6 +1198,9 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/status_display/ai{
 	pixel_x = 32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
@@ -1144,12 +1231,21 @@
 /obj/structure/bed/roller,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
+"Rp" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/dark,
+/area/shuttle/syndicate/hallway)
+"RQ" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/syndicate/eva)
 "Sc" = (
 /obj/machinery/recharge_station,
 /obj/machinery/light/red,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
 /turf/open/floor/circuit/red,
 /area/shuttle/syndicate/armory)
 "SG" = (
@@ -1169,12 +1265,21 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
+"Tn" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/syndicate/airlock)
 "Ub" = (
 /obj/machinery/door/airlock/external{
 	name = "Ready Room";
 	req_access_txt = "150"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
 "UF" = (
@@ -1195,6 +1300,9 @@
 	pixel_y = 25;
 	req_access_txt = "150"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
 "VF" = (
@@ -1206,10 +1314,16 @@
 	pixel_x = 25;
 	pixel_y = 25
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/airlock)
 "Xt" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/airlock)
 "Xz" = (
@@ -1219,12 +1333,20 @@
 /obj/machinery/door/window{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/end,
 /turf/open/floor/circuit/red,
 /area/shuttle/syndicate/hallway)
 "Yv" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
+/area/shuttle/syndicate/hallway)
+"Zd" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/hallway)
 "Zu" = (
 /obj/effect/spawner/structure/window/plastitanium,
@@ -1236,6 +1358,9 @@
 	name = "tactical chair"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
 
@@ -1299,8 +1424,8 @@ aa
 aa
 ax
 LR
-su
-vj
+aR
+aR
 aR
 be
 aJ
@@ -1325,8 +1450,8 @@ aa
 ax
 wr
 iD
-NF
-NF
+Gi
+Gi
 NF
 bk
 bs
@@ -1349,9 +1474,9 @@ aa
 aa
 ax
 Bn
-NF
-NF
-NF
+rY
+Ab
+RQ
 SY
 aJ
 bt
@@ -1376,7 +1501,7 @@ ax
 LR
 aS
 aU
-aZ
+eS
 aZ
 aJ
 bu
@@ -1426,8 +1551,8 @@ yv
 qY
 lD
 Zu
-Yv
-Yv
+Bq
+Dp
 rC
 Yv
 Yv
@@ -1445,14 +1570,14 @@ aj
 aq
 Af
 jp
-Yv
-aD
+Rp
 CZ
-wt
-Yv
+CZ
+CZ
+va
 Ub
-Yv
-aD
+Rp
+CZ
 CZ
 CZ
 CZ
@@ -1476,13 +1601,13 @@ Do
 Qs
 ZM
 Zu
-Yv
-Yv
+pm
+Lk
 qg
-Yv
-Yv
-bL
-bU
+Lk
+Lk
+Zd
+tI
 Zu
 af
 cr
@@ -1549,8 +1674,8 @@ aa
 aa
 aB
 qf
-Xt
-Xt
+Tn
+Tn
 Xt
 vA
 bm
@@ -1575,8 +1700,8 @@ aa
 aB
 Co
 VF
-Xt
-Xt
+fb
+fb
 GT
 bn
 bz
@@ -1599,8 +1724,8 @@ aa
 aa
 aB
 NL
-xh
-Cz
+aT
+aT
 aT
 bi
 bm
