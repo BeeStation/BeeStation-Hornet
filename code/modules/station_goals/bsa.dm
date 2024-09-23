@@ -314,12 +314,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	ui_update()
 
 /obj/machinery/power/bsa/full/process(delta_time)
-	if(cell.percent() >= 100 || terminal.surplus() < 1)
+	var/excess = terminal.surplus()
+	if(cell.percent() >= 100 || excess < idle_power_usage) // do we have full charge or is there not enough power for basic charging?
 		return
-	terminal.add_load(idle_power_usage)
-	var/charge = clamp(terminal.surplus() * delta_time, 0, active_power_usage)
-	terminal.add_load(charge)
-	cell.give(charge * charge_efficiency)
+	var/avail_power = excess - idle_power_usage
+	var/power = clamp(avail_power, 0, active_power_usage)
+	var/avail_charge = power * charge_efficiency
+	terminal.add_load(power + idle_power_usage)
+x	cell.give(avail_charge)
 	update_appearance(UPDATE_OVERLAYS)
 	last_charge_quarter = FLOOR(cell.percent() / 25, 1)
 	ui_update()
@@ -371,6 +373,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	data["unlocked"] = GLOB.bsa_unlock
 	data["charge"] = cannon ? cannon.cell.charge : 0
 	data["max_charge"] = cannon ? cannon.cell.maxcharge : 0
+	data["formatted_charge"] = cannon ? display_power(cannon.cell.charge) : "0 W"
 	data["targets"] = get_available_targets()
 	if(!QDELETED(target))
 		data["target"] = list(REF(target), get_target_name())
