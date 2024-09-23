@@ -30,6 +30,9 @@ SUBSYSTEM_DEF(music)
 	// List of spatial audio tracks. Sending them to the client is relatively cheap, so we
 	// actually just send them to everyone whether they are playing or not
 	var/list/spatial_audio_tracks = list()
+	// Random offset of the station to make getting a modified clientside GPS slightly harder
+	var/random_offset_x
+	var/random_offset_y
 
 /datum/controller/subsystem/music/Initialize()
 	// Load up the last song we played
@@ -38,6 +41,8 @@ SUBSYSTEM_DEF(music)
 	var/datum/task/music_loader = load_tracks_async()
 	if (!login_music)
 		music_loader.continue_with(CALLBACK(src, PROC_REF(select_title_music)))
+	random_offset_x = rand(0, 1000000)
+	random_offset_y = rand(0, 1000000)
 
 /datum/controller/subsystem/music/proc/load_tracks_async()
 	DECLARE_ASYNC
@@ -267,3 +272,5 @@ SUBSYSTEM_DEF(music)
 
 /datum/controller/subsystem/music/stat_entry()
 	. = ..("Tracks: [length(audio_tracks)], GlobPlaying: [length(global_audio_tracks)], SpatialPlaying: [length(spatial_audio_tracks)]")
+
+#undef LAST_LOBBY_MUSIC_TXT

@@ -68,8 +68,8 @@
 		payload["y"] = 0
 		payload["z"] = 0
 	else
-		payload["x"] = location.x
-		payload["y"] = location.y
+		payload["x"] = location.x + SSmusic.random_offset_x
+		payload["y"] = location.y + SSmusic.random_offset_y
 		payload["z"] = location.z
 	payload["range"] = track.radius
 	payload["flags"] = track.playing_flags
@@ -91,8 +91,8 @@
 		payload["y"] = 0
 		payload["z"] = 0
 	else
-		payload["x"] = location.x
-		payload["y"] = location.y
+		payload["x"] = location.x + SSmusic.random_offset_x
+		payload["y"] = location.y + SSmusic.random_offset_y
 		payload["z"] = location.z
 	window.send_message("audio/updateMusicPosition", payload)
 
@@ -118,8 +118,8 @@
 	if(!is_ready())
 		return
 	var/list/payload = list()
-	payload["x"] = x
-	payload["y"] = y
+	payload["x"] = x + SSmusic.random_offset_x
+	payload["y"] = y + SSmusic.random_offset_y
 	payload["z"] = z
 	window.send_message("audio/updateListener", payload)
 
