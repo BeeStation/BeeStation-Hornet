@@ -1718,6 +1718,7 @@
 #include "code\game\turfs\turf_integrity.dm"
 #include "code\game\turfs\turf_texture.dm"
 #include "code\game\turfs\closed\_closed.dm"
+#include "code\game\turfs\closed\indestructible.dm"
 #include "code\game\turfs\closed\minerals.dm"
 #include "code\game\turfs\closed\walls.dm"
 #include "code\game\turfs\closed\wall\material_walls.dm"
