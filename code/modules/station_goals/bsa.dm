@@ -323,7 +323,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	var/power = clamp(avail_power, 0, active_power_usage)
 	var/avail_charge = power * charge_efficiency
 	terminal.add_load(power + idle_power_usage)
-x	cell.give(avail_charge)
+	cell.give(avail_charge)
 	update_appearance(UPDATE_OVERLAYS)
 	last_charge_quarter = FLOOR(cell.percent() / 25, 1)
 	ui_update()
