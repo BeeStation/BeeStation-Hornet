@@ -30,14 +30,11 @@
 			active_apc.remote_control = null
 			active_apc = null
 
-/obj/machinery/computer/apc_control/attack_ai(mob/user)
+/obj/machinery/computer/apc_control/attack_silicon(mob/user)
 	if(!IsAdminGhost(user))
 		to_chat(user,"<span class='warning'>[src] does not support AI control.</span>") //You already have APC access, cheater!
 		return
 	..(user)
-
-/obj/machinery/computer/apc_control/attack_robot(mob/user)
-	attack_ai(user)
 
 /obj/machinery/computer/apc_control/proc/check_apc(obj/machinery/power/apc/APC)
 	return APC.get_virtual_z_level() == get_virtual_z_level() && !APC.malfhack && !APC.aidisabled && !(APC.obj_flags & EMAGGED) && !APC.machine_stat && !istype(APC.area, /area/ai_monitored) && !APC.area.outdoors

@@ -116,12 +116,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/sparker, 26)
 	update_appearance()
 	return TRUE
 
-/obj/machinery/sparker/attack_ai()
+/obj/machinery/sparker/attack_silicon()
 	if (anchored)
 		return ignite()
-
-/obj/machinery/sparker/attack_robot()
-	return attack_ai()
 
 /obj/machinery/sparker/proc/ignite()
 	if (!(powered()))
