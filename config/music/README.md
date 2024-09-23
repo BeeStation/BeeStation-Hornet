@@ -14,6 +14,7 @@ These are valid properties in the json:
 - jukebox: 0 or 1 depending on whether this should show in the jukebox.
 - lobbymusic: 0 or 1 depending on whether this should play in the lobby.
 - roundend: 0 or 1 depending on whether this sound should play when the round ends.
+- disabled: If set to 1, will not be loaded
 
 Any other properties will be ignored, so you can add "comment" if you wish to provide more information.
 

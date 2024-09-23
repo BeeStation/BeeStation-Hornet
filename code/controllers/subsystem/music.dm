@@ -122,6 +122,8 @@ SUBSYSTEM_DEF(music)
 	var/full_file = rustg_file_read("config/music/music.json")
 	var/list/decoded_file = json_decode(full_file)
 	for (var/list/thing in decoded_file)
+		if (thing["disabled"])
+			continue
 		var/datum/audio_track/track = new()
 		track.title = thing["title"]
 		track.artist = thing["artist"]
