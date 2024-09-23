@@ -51,13 +51,15 @@ SUBSYSTEM_DEF(music)
 		return loading_tracks
 	loading_tracks = .
 	if (audio_tracks)
+		loading_tracks = null
 		ASYNC_RETURN(audio_tracks)
 	audio_tracks = list()
 	audio_tracks_by_url = list()
 	// Check if we are using a config override
-	if (rustg_file_exists("config/music.json"))
+	if (rustg_file_exists("config/music/music.json"))
 		try
 			load_json_tracks()
+			loading_tracks = null
 			ASYNC_RETURN(audio_tracks)
 		catch(var/exception/e)
 			log_config("Music.json failed to load.")
@@ -83,6 +85,8 @@ SUBSYSTEM_DEF(music)
 			output_track["artist"] = track.artist
 		if (track.album)
 			output_track["album"] = track.album
+		// License generates twice so that you can pick the format
+		// that you want to use
 		if (track.license)
 			output_track["license"] = track.license
 		if (track.license)
@@ -111,10 +115,11 @@ SUBSYSTEM_DEF(music)
 	message_admins(json_encode(track_list))
 #endif
 	log_world("Successfully loaded [length(audio_tracks)] songs from datums")
+	loading_tracks = null
 	ASYNC_RETURN(audio_tracks)
 
 /datum/controller/subsystem/music/proc/load_json_tracks()
-	var/full_file = rustg_file_read("config/music.json")
+	var/full_file = rustg_file_read("config/music/music.json")
 	var/list/decoded_file = json_decode(full_file)
 	for (var/list/thing in decoded_file)
 		var/datum/audio_track/track = new()
@@ -181,7 +186,7 @@ SUBSYSTEM_DEF(music)
 			last_song = track
 			continue
 		login_music_playlist += track
-	// ONE MORE SONG. ONE MORE SONG.
+	// Insert the last song at the end of the playlist to prevent repeats
 	if (last_song)
 		login_music_playlist += last_song
 	if (!length(login_music_playlist))
@@ -225,6 +230,12 @@ SUBSYSTEM_DEF(music)
 			return
 
 /datum/controller/subsystem/music/proc/play_global_music(datum/playing_track/playing)
+	if (playing.audio._failed)
+		return FALSE
+	if(!playing.audio._audio_asset && !findtext(playing.audio._web_sound_url, GLOB.is_http_protocol))
+		playing.audio.load()
+		if (playing.audio._failed)
+			return FALSE
 	for (var/client/client in GLOB.clients)
 		var/hear = client.prefs.read_player_preference(/datum/preference/toggle/sound_lobby)
 		// If this is a title music, don't play it to anyone who has skipped title music
@@ -232,6 +243,7 @@ SUBSYSTEM_DEF(music)
 			continue
 		playing.internal_play_to_client(client)
 	global_audio_tracks += playing
+	return TRUE
 
 /datum/controller/subsystem/music/proc/stop_global_music(datum/playing_track/playing)
 	if (!(playing in global_audio_tracks))

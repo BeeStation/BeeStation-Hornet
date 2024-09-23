@@ -182,8 +182,13 @@
 
 /datum/holiday/april_fools/celebrate()
 	SSjob.set_overflow_role(JOB_NAME_CLOWN)
-	//SSticker.login_music = 'sound/ambience/clown.ogg'
-	CRASH("TODO: Not implemented")
+	// Re-write the clown music
+	if (SSmusic.login_music)
+		SSmusic.stop_global_music(SSmusic.login_music)
+		SSmusic.login_music = null
+	var/datum/audio_track/clown/music = new /datum/audio_track/clown()
+	music.track_flags |= TRACK_FLAG_ALL
+	SSmusic.select_title_music(list(music))
 
 /datum/holiday/spess
 	name = "Cosmonautics Day"

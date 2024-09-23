@@ -55,17 +55,22 @@
 		_web_sound_url = SSassets.transport.get_asset_url(_audio_asset.audio_name, _audio_asset.assets[_audio_asset.audio_name])
 		if (duration)
 			safe_duration = TRUE
+		else
+			message_admins("Audio file [title] was loaded without a duration provided. Please contact your server owner.")
+			log_world("Audio file [title] was loaded without a duration provided. This will use a fallback client-driven voting system which may be exploited. Please update this.")
 		return
 	// Start by doing a safe setup
 	_web_sound_url = url
 	// Attempt to load youtube DLL
 	var/ytdl = CONFIG_GET(string/invoke_youtubedl)
 	if(!ytdl)
+		message_admins("Failed to load audio; youtube-dl is not configured.")
 		log_world("Youtube-dl was not configured, action unavailable") //Check config.txt for the INVOKE_YOUTUBEDL value
 		_failed = TRUE
 		return
 	url = trim(url)
 	if(findtext(url, ":") && !findtext(url, GLOB.is_http_protocol))
+		message_admins("Failed to load audio; audio URL was rejected.")
 		log_world("Attempting to load an audio-track with a non-HTTPS URL which has been rejected.")
 		_failed = TRUE
 		return
@@ -75,6 +80,7 @@
 	var/stdout = output[SHELLEO_STDOUT]
 	var/stderr = output[SHELLEO_STDERR]
 	if (errorlevel)
+		message_admins("Failed to load audio; failed to retrieve URL.")
 		log_world("Failed to retrieve URL: [stderr]")
 		_failed = TRUE
 		return
@@ -82,6 +88,7 @@
 	try
 		data = json_decode(stdout)
 	catch(var/exception/e)
+		message_admins("Failed to load audio; failed to parse URL.")
 		log_world("Parsing URL failed: [e]: [stdout]")
 		_failed = TRUE
 		return
@@ -95,6 +102,9 @@
 	duration = data["duration"] * 1 SECONDS
 	if (duration)
 		safe_duration = TRUE
+	else
+		message_admins("Audio file [title] was loaded without a duration provided. Please contact your server owner.")
+		log_world("Audio file [title] was loaded without a duration provided. This will use a fallback client-driven voting system which may be exploited. Please update this.")
 	upload_date = data["upload_date"]
 	log_world("Successfully loaded internet song: [title] by [artist].")
 

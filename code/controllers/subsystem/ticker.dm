@@ -1,4 +1,3 @@
-#define ROUND_START_MUSIC_LIST "strings/round_start_sounds.txt"
 GLOBAL_LIST_EMPTY(roundstart_areas_lights_on)
 
 SUBSYSTEM_DEF(ticker)
@@ -682,5 +681,3 @@ SUBSYSTEM_DEF(ticker)
 			round_end_sound = "sound/roundend/[pick(tracks)]"
 
 	SEND_SOUND(world, sound(round_end_sound))
-
-#undef ROUND_START_MUSIC_LIST
