@@ -3,6 +3,8 @@
 	var/list/general = list()
 	/// This list tracks characters spawned in the world and cannot be modified in-game. Currently referenced by respawn_character().
 	var/list/locked = list()
+	//List used entirely just for cloning.
+	var/list/cloning = list()
 	/// Total number of security rapsheet prints. Changes the header.
 	var/print_count = 0
 
@@ -137,3 +139,48 @@
 		return
 
 	target.rank = assignment
+
+/**
+ * Supporing proc for getting general records
+ * and using them as pAI ui data. This gets
+ * medical information - or what I would deem
+ * medical information - and sends it as a list.
+ *
+ * @return - list(general_records_out)
+ */
+/datum/manifest/proc/get_general_records()
+	if(!GLOB.manifest.general)
+		return list()
+	/// The array of records
+	var/list/general_records_out = list()
+	for(var/datum/record/crew/gen_record as anything in GLOB.manifest.general)
+		/// The object containing the crew info
+		var/list/crew_record = list()
+		crew_record["ref"] = REF(gen_record)
+		crew_record["name"] = gen_record.name
+		crew_record["physical_health"] = gen_record.physical_status
+		crew_record["mental_health"] = gen_record.mental_status
+		general_records_out += list(crew_record)
+	return general_records_out
+
+/**
+ * Supporing proc for getting secrurity records
+ * and using them as pAI ui data. Sends it as a
+ * list.
+ *
+ * @return - list(security_records_out)
+ */
+/datum/manifest/proc/get_security_records()
+	if(!GLOB.manifest.general)
+		return list()
+	/// The array of records
+	var/list/security_records_out = list()
+	for(var/datum/record/crew/sec_record as anything in GLOB.manifest.general)
+		/// The object containing the crew info
+		var/list/crew_record = list()
+		crew_record["ref"] = REF(sec_record)
+		crew_record["name"] = sec_record.name
+		crew_record["status"] = sec_record.wanted_status
+		crew_record["crimes"] = length(sec_record.crimes)
+		security_records_out += list(crew_record)
+	return security_records_out

@@ -67,8 +67,8 @@
 			else if(!. && pod.is_operational && !(pod.occupant || pod.mess) && pod.efficiency > 5)
 				. = pod
 
-/proc/grow_clone_from_record(obj/machinery/clonepod/pod, datum/data/record/R, experimental)
-	return pod.growclone(R.fields["name"], R.fields["UI"], R.fields["SE"], R.fields["mindref"], R.fields["last_death"], R.fields["mrace"], R.fields["features"], R.fields["factions"], R.fields["bank_account"], R.fields["traumas"], R.fields["body_only"], experimental)
+/proc/grow_clone_from_record(obj/machinery/clonepod/pod, datum/record/cloning/R, experimental)
+	return pod.growclone(R.name, R.uni_identity, R.SE, R.mind_ref, R.last_death, R.species, R.dna_ref.features, R.factions, R.mind_ref.account_id, R.traumas, R.body_only, experimental)
 
 /obj/machinery/computer/cloning/process()
 	if(!(scanner && LAZYLEN(pods) && autoprocess))
@@ -78,8 +78,8 @@
 		scan_occupant(scanner.occupant)
 		ui_update()
 
-	for(var/datum/data/record/R in records)
-		var/obj/machinery/clonepod/pod = GetAvailableEfficientPod(R.fields["mindref"])
+	for(var/datum/record/cloning/R in records)
+		var/obj/machinery/clonepod/pod = GetAvailableEfficientPod(R.mind_ref)
 
 		if(!pod)
 			return
@@ -89,8 +89,8 @@
 
 		var/result = grow_clone_from_record(pod, R, experimental)
 		if(result & CLONING_SUCCESS)
-			temp = "[R.fields["name"]] => Cloning cycle in progress..."
-			log_cloning("Cloning of [key_name(R.fields["mindref"])] automatically started via autoprocess - [src] at [AREACOORD(src)]. Pod: [pod] at [AREACOORD(pod)].")
+			temp = "[R.name] => Cloning cycle in progress..."
+			log_cloning("Cloning of [key_name(R.mind_ref)] automatically started via autoprocess - [src] at [AREACOORD(src)]. Pod: [pod] at [AREACOORD(pod)].")
 			SStgui.update_uis(src)
 		if(result & CLONING_DELETE_RECORD)
 			records -= R
@@ -201,14 +201,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		. = TRUE
 
 /obj/machinery/computer/cloning/proc/Save(mob/user, target)
-	var/datum/data/record/GRAB = null
-	for(var/datum/data/record/record in records)
-		if(record.fields["id"] == target)
+	var/datum/record/cloning/GRAB = null
+	for(var/datum/record/cloning/record in records)
+		if(record.id == target)
 			GRAB = record
 			break
 		else
 			continue
-	if(!GRAB || !GRAB.fields)
+	if(!GRAB)
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		scantemp = "Failed saving to disk: Data Corruption"
 		return FALSE
@@ -216,7 +216,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		scantemp = !diskette ? "Failed saving to disk: No disk." : "Failed saving to disk: Disk refuses override attempt."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
-	diskette.fields = GRAB.fields.Copy()
+	diskette.fields = GRAB.var.Copy()
 	diskette.name = "data disk - '[src.diskette.fields["name"]]'"
 	scantemp = "Saved to disk successfully."
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)

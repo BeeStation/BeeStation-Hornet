@@ -18,12 +18,12 @@
 /datum/syndicate_contract/proc/generate(blacklist)
 	contract.find_target(null, blacklist)
 
-	var/datum/data/record/record
+	var/datum/record/crew/record
 	if (contract.target)
-		record = find_record("name", contract.target.name, GLOB.data_core.general)
+		record = find_record(contract.target.name)
 
 	if (record)
-		target_rank = record.fields["rank"]
+		target_rank = record.rank
 	else
 		target_rank = "Unknown"
 

@@ -83,7 +83,7 @@
 	/// Security note
 	var/security_note
 	/// Current arrest status
-	var/wanted_status = null
+	var/wanted_status = WANTED_NONE
 
 	///Photo used for records, which we store here so we don't have to constantly make more of.
 	var/list/obj/item/photo/record_photos
@@ -136,6 +136,10 @@
 	var/datum/dna/dna_ref
 	/// Mind datum
 	var/datum/mind/mind_ref
+	// Cloning specific variables.
+	var/last_death
+	var/faction
+	var/traumas
 
 /datum/record/locked/New(
 	age = 18,
@@ -270,3 +274,57 @@
 	printed_paper.update_appearance()
 
 	return printed_paper
+
+/**
+ * Cloning record
+ */
+/datum/record/cloning
+
+	var/id
+	var/datum/dna/dna_ref
+	var/uni_identity
+	var/SE
+	var/datum/mind/mind_ref /// Mind datum
+	var/last_death
+	var/factions
+	var/traumas
+	var/body_only
+
+
+/datum/record/cloning/New(
+	id,
+	age = 18,
+	blood_type = "?",
+	character_appearance,
+	dna_string = "Unknown",
+	fingerprint = "?????",
+	gender = "Other",
+	initial_rank = "Unassigned",
+	name = "Unknown",
+	rank = "Unassigned",
+	species = "Human",
+	datum/dna/dna_ref,
+	uni_identity,
+	SE,
+	datum/mind/mind_ref,
+	last_death,
+	factions,
+	traumas,
+	body_only
+	)
+	. = ..()
+	src.id = id
+	src.dna_ref = dna_ref
+	src.uni_identity = uni_identity
+	src.SE = SE
+	src.mind_ref = mind_ref
+	src.last_death = last_death
+	src.factions = factions
+	src.traumas = traumas
+	src.body_only = body_only
+
+	GLOB.manifest.cloning += src
+
+/datum/record/cloning/Destroy()
+	GLOB.manifest.cloning -= src
+	return ..()
