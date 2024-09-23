@@ -163,6 +163,6 @@
 	cooldown = TRUE
 	for(var/obj/machinery/power/shieldwallgen/machine in GLOB.machines)
 		if(machine.id == src.id)
-			INVOKE_ASYNC(machine, /obj/machinery/power/shieldwallgen.proc/toggle)
+			INVOKE_ASYNC(machine, TYPE_PROC_REF(/obj/machinery/power/shieldwallgen, toggle))
 
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 20)

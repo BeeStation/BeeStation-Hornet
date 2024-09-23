@@ -289,6 +289,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 	custom_materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
 	pixel_shift = 24
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/shieldwallgen, 24)
+
 /obj/machinery/button/shieldwallgen
 	name = "holofield switch"
 	desc = "A remote switch for a holofield generator"

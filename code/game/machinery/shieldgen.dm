@@ -504,7 +504,7 @@
 
 /obj/machinery/power/shieldwallgen/atmos/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
 
 /obj/machinery/power/shieldwallgen/atmos/proc/can_be_rotated(mob/user, rotation_type)
 	if (anchored)
@@ -662,6 +662,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 	light_color = "#f6e384"
 	light_system = MOVABLE_LIGHT //for instant visual feedback reguardless of lag
 
-/obj/machinery/shieldwall/atmos/Initialize()
+/obj/machinery/shieldwall/atmos/Initialize(mapload)
 	. = ..()
 	air_update_turf(TRUE)

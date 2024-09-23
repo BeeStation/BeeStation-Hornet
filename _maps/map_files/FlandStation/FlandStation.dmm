@@ -46563,6 +46563,10 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/camera/autoname/directional/east,
+/obj/machinery/button/shieldwallgen/directional/east{
+	id = "arrivals";
+	name = "Arrivals"
+	},
 /turf/open/floor/engine{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
@@ -49159,6 +49163,15 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/grid/steel,
 /area/science/lobby)
+"myX" = (
+/obj/machinery/button/shieldwallgen/directional/south{
+	name = "Arrivals";
+	id = "arrivals"
+	},
+/turf/open/floor/engine{
+	initial_gas_mix = "o2=14;n2=23;TEMP=300"
+	},
+/area/docking/arrival)
 "mzh" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -55910,6 +55923,14 @@
 /obj/effect/landmark/start/detective,
 /turf/open/floor/carpet/green,
 /area/security/detectives_office)
+"ooE" = (
+/obj/effect/turf_decal/stripes/full,
+/obj/effect/turf_decal/stripes/white/full,
+/obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
+	id = "arrivals"
+	},
+/turf/open/floor/plating/airless,
+/area/docking/arrival)
 "ooT" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
@@ -87963,6 +87984,11 @@
 "woq" = (
 /turf/closed/wall,
 /area/chapel/main)
+"wot" = (
+/obj/effect/turf_decal/stripes/full,
+/obj/effect/turf_decal/stripes/white/full,
+/turf/open/floor/plating/airless,
+/area/docking/arrival)
 "wov" = (
 /obj/machinery/camera/autoname/directional/south,
 /turf/open/floor/engine{
@@ -89041,7 +89067,10 @@
 "wCd" = (
 /obj/effect/turf_decal/stripes/full,
 /obj/effect/turf_decal/stripes/white/full,
-/obj/structure/holosign/barrier/atmos/robust,
+/obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
+	dir = 1;
+	id = "arrivals"
+	},
 /turf/open/floor/plating/airless,
 /area/docking/arrival)
 "wCr" = (
@@ -109943,16 +109972,16 @@ tAB
 tAB
 tAB
 tAB
-wCd
-wCd
-wCd
-wCd
-wCd
-wCd
-wCd
-wCd
-wCd
-wCd
+ooE
+wot
+wot
+wot
+wot
+wot
+wot
+wot
+wot
+wot
 wCd
 tAB
 tAB
@@ -110726,7 +110755,7 @@ bbm
 bbm
 xhP
 gpP
-xDa
+myX
 tAB
 csJ
 csJ
