@@ -98,17 +98,12 @@
 		var/datum/component/material_container/container = GetComponent(/datum/component/material_container)
 		container.max_amount = mat_capacity
 
-	calculate_efficiency()
-	update_viewer_statics()
+	var/efficiency = 1.8
+	for(var/obj/item/stock_parts/manipulator/new_manipulator in component_parts)
+		efficiency -= new_manipulator.rating*0.2
+	creation_efficiency = max(1,efficiency) // creation_efficiency goes 1.6 -> 1.4 -> 1.2 -> 1 per level of manipulator efficiency
 
-/obj/machinery/modular_fabricator/proc/calculate_efficiency()
-	var/total_rating = 2.4
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		total_rating = (total_rating - (M.rating * 0.4))
-	creation_efficiency = max(1, total_rating)
-	//The maximum ammount will always be 100% roundstart, the minimum being 50% materials used.
-	//This was simplified to account for how insanely complex these calculatins are, however
-	//i think whatever ammount of materials you write in code that one thing costs, is what it should cost. (And that wasn't the case)
+	update_viewer_statics()
 
 /obj/machinery/modular_fabricator/examine(mob/user)
 	. += ..()
@@ -159,7 +154,7 @@
 			for(var/material_id in D.materials)
 				material_cost += list(list(
 					"name" = material_id,
-					"amount" = ( D.materials[material_id] / (MINERAL_MATERIAL_AMOUNT)) * creation_efficiency,
+					"amount" = ( D.materials[material_id] / (MINERAL_MATERIAL_AMOUNT / 2)) * creation_efficiency,
 				))
 
 			//Add

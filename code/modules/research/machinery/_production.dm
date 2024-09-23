@@ -144,7 +144,7 @@
 	var/list/data = list()
 
 	data["busy"] = busy
-	data["efficiency"] = efficiency_coeff*2 //We are multiplying this by two so that it appears correclty while not multiplying efficiency instead
+	data["efficiency"] = efficiency_coeff
 
 	data["category"] = selected_category
 	data["search"] = search
@@ -283,10 +283,10 @@
 		for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 			total_storage += M.rating * base_storage
 		materials.set_local_size(total_storage)
-	var/total_rating = 4.8
+	var/total_rating = 1.2
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		total_rating = (total_rating - (M.rating * 0.4))
-	total_rating = max(2,total_rating) //The maximum efficiency ammount will always be 0.5
+		total_rating = (total_rating - (M.rating * 0.1))
+	total_rating = clamp(total_rating, 0, 1.2)
 	if(total_rating == 0)
 		efficiency_coeff = INFINITY
 	else
