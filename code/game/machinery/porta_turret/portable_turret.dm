@@ -756,10 +756,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 /obj/machinery/porta_turret/syndicate/shuttle
 	name = "syndicate penetrator turret"
 	desc = "A ballistic penetrator auto-turret."
-	scan_range = 9
-	shot_delay = 3
-	stun_projectile = /obj/projectile/bullet/p50/penetrator/shuttle
-	lethal_projectile = /obj/projectile/bullet/p50/penetrator/shuttle
 	lethal_projectile_sound = 'sound/weapons/gunshot_smg.ogg'
 	stun_projectile_sound = 'sound/weapons/gunshot_smg.ogg'
 	armor = list(MELEE = 50,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 80, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0, BLEED = 0)
