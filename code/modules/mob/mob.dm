@@ -36,8 +36,7 @@
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
 	if(observers?.len)
-		for(var/M in observers)
-			var/mob/dead/observe = M
+		for(var/mob/dead/observe as anything in observers)
 			observe.reset_perspective(null)
 	qdel(hud_used)
 	for(var/cc in client_colours)
@@ -445,18 +444,24 @@
  */
 /mob/proc/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(TRUE)
+	/*
+	*In the future, this signal may need to be moved to the end of the proc, after the eye has been given a chance to fully updated.
+	*No issues atm, but if one occurs, try that solution first
+	*/
+	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 	if(!client)
 		return
 
 	if(new_eye)
 		if(ismovable(new_eye))
-			//Set the the thing unless it's us
+			//Set the new eye unless it's us
 			if(new_eye != src)
 				client.perspective = EYE_PERSPECTIVE
 				client.set_eye(new_eye)
 			else
 				client.set_eye(client.mob)
 				client.perspective = MOB_PERSPECTIVE
+
 		else if(isturf(new_eye))
 			//Set to the turf unless it's our current turf
 			if(new_eye != loc)
@@ -466,7 +471,7 @@
 				client.set_eye(client.mob)
 				client.perspective = MOB_PERSPECTIVE
 		else
-			//Do nothing
+			return TRUE //no setting eye to stupid things like areas or whatever
 	else
 		//Reset to common defaults: mob if on turf, otherwise current loc
 		if(isturf(loc))
@@ -1108,18 +1113,43 @@
 			client.mouse_pointer_icon = E.mouse_pointer
 
 
-///This mob is abile to read books
+/// This mob can read
 /mob/proc/is_literate()
 	return FALSE
+
+/**
+ * Checks if there is enough light where the mob is located
+ *
+ * Args:
+ *  light_amount (optional) - A decimal amount between 1.0 through 0.0 (default is 0.2)
+**/
+/mob/proc/has_light_nearby(light_amount = LIGHTING_TILE_IS_DARK)
+	var/turf/mob_location = get_turf(src)
+	return mob_location.get_lumcount() > light_amount
+
+/**
+ * Can this mob see in the dark
+ *
+ * This checks all traits, glasses, and robotic eyeball implants to see if the mob can see in the dark
+ * this does NOT check if the mob is missing it's eyeballs. Also see_in_dark is a BYOND mob var (that defaults to 2)
+**/
+/mob/proc/has_nightvision()
+	return see_in_dark >= NIGHTVISION_FOV_RANGE
 
 ///Can this mob read (is literate and not blind)
 /mob/proc/can_read(obj/O)
 	if(is_blind())
-		to_chat(src, "<span class='warning'>As you are trying to read [O], you suddenly feel very stupid!</span>")
-		return
+		to_chat(src, "<span class='warning'You are blind and can't read anything!</span>")
+		return FALSE
+		//to_chat(src, "<span class='warning'>As you are trying to read [O], you suddenly feel very stupid!</span>")
 	if(!is_literate())
-		to_chat(src, "<span class='notice'>You try to read [O], but can't comprehend any of it.</span>")
-		return
+		to_chat(src, "<span class='warning'>You try to read [O], but can't comprehend any of it.</span>")
+		return FALSE
+
+	if(!has_light_nearby() && !has_nightvision())
+		to_chat(src, "<span class='warning'>It's too dark in here to read!</span>")
+		return FALSE
+
 	return TRUE
 
 ///Can this mob hold items
@@ -1219,12 +1249,6 @@
 /mob/proc/set_nutrition(var/change) //Seriously fuck you oldcoders.
 	nutrition = max(0, change)
 
-/mob/setMovetype(newval) //Set the movement type of the mob and update it's movespeed
-	. = ..()
-	if(isnull(.))
-		return
-	update_movespeed(FALSE)
-
 /mob/proc/update_equipment_speed_mods()
 	var/speedies = equipped_speed_mods()
 	if(!speedies)
@@ -1261,3 +1285,5 @@
 /mob/proc/active_storage_deleted(datum/source)
 	SIGNAL_HANDLER
 	set_active_storage(null)
+
+#undef MOB_FACE_DIRECTION_DELAY

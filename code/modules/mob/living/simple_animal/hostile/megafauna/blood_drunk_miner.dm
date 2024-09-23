@@ -66,7 +66,7 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Dash To Target"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now dashing to your target.</span>"
 	chosen_attack_num = 1
@@ -250,6 +250,8 @@ Difficulty: Medium
 /obj/effect/temp_visual/dir_setting/miner_death
 	icon_state = "miner_death"
 	duration = 15
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting/miner_death)
 
 /obj/effect/temp_visual/dir_setting/miner_death/Initialize(mapload, set_dir)
 	. = ..()

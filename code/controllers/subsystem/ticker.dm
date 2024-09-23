@@ -276,20 +276,22 @@ SUBSYSTEM_DEF(ticker)
 
 	transfer_characters()	//transfer keys to the new mobs
 
-	for(var/I in round_start_events)
-		var/datum/callback/cb = I
-		cb.InvokeAsync()
-	LAZYCLEARLIST(round_start_events)
-
 	log_world("Game start took [(world.timeofday - init_start)/10]s")
 	round_start_time = world.time
 	round_start_timeofday = world.timeofday
 	INVOKE_ASYNC(SSdbcore, TYPE_PROC_REF(/datum/controller/subsystem/dbcore, SetRoundStart))
 
+	current_state = GAME_STATE_PLAYING
+
+	// Now that nothing can enter the callback list, fire them off
+	for(var/I in round_start_events)
+		var/datum/callback/cb = I
+		cb.InvokeAsync()
+	LAZYCLEARLIST(round_start_events)
+
 	to_chat(world, "<span class='notice'><B>Welcome to [station_name()], enjoy your stay!</B></span>")
 	SEND_SOUND(world, sound(SSstation.announcer.get_rand_welcome_sound()))
 
-	current_state = GAME_STATE_PLAYING
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	if(SSevents.holidays)
@@ -391,7 +393,7 @@ SUBSYSTEM_DEF(ticker)
 			if(mind.assigned_role == JOB_NAME_CAPTAIN)
 				captainless = FALSE
 				spare_id_candidates += N
-			else if(captainless && (mind.assigned_role in GLOB.command_positions) && !(is_banned_from(N.ckey, JOB_NAME_CAPTAIN)))
+			else if(captainless && (mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)) && !(is_banned_from(N.ckey, JOB_NAME_CAPTAIN)))
 				if(!enforce_coc)
 					spare_id_candidates += N
 				else
@@ -680,3 +682,5 @@ SUBSYSTEM_DEF(ticker)
 			round_end_sound = "sound/roundend/[pick(tracks)]"
 
 	SEND_SOUND(world, sound(round_end_sound))
+
+#undef ROUND_START_MUSIC_LIST

@@ -31,7 +31,7 @@
 
 /datum/preference/choiced/ethereal_color/deserialize(input, datum/preferences/preferences)
 	if(findtext(input, GLOB.is_color_nocrunch)) // Migrate old data
-		var/valid = assoc_key_for_value(GLOB.color_list_ethereal, lowertext(input))
+		var/valid = assoc_key_for_value(GLOB.color_list_ethereal, LOWER_TEXT(input))
 		if(!isnull(valid))
 			return valid
 	return ..()

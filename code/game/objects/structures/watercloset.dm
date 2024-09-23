@@ -469,13 +469,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	alpha = 255
 
 /obj/structure/curtain/proc/toggle(mob/M)
-    if (check(M))
-        open = !open
-        playsound(loc, 'sound/effects/curtain.ogg', 50, 1)
-        update_appearance()
+	if (check(M))
+		open = !open
+		playsound(loc, 'sound/effects/curtain.ogg', 50, 1)
+		update_appearance()
 
 /obj/structure/curtain/proc/check(mob/M)
-    return TRUE
+	return TRUE
 
 /obj/structure/curtain/directional
 	icon_type = "bounty"

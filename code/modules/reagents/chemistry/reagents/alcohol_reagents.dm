@@ -1,7 +1,3 @@
-#define ALCOHOL_THRESHOLD_MODIFIER 1 //Greater numbers mean that less alcohol has greater intoxication potential
-#define ALCOHOL_RATE 0.005 //The rate at which alcohol affects you
-#define ALCOHOL_EXPONENT 1.6 //The exponent applied to boozepwr to make higher volume alcohol at least a little bit damaging to the liver
-
 ////////////// I don't know who made this header before I refactored alcohols but I'm going to fucking strangle them because it was so ugly, holy Christ
 // ALCOHOLS //
 //////////////
@@ -1650,7 +1646,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		L.adjustToxLoss(-1)
 		L.adjustOxyLoss(-1)
 		L.adjustStaminaLoss(-1)
-	L.visible_message("<span class='warning'>[L] shivers with renewed vigor!</span>", "<span class='notice'>One taste of [lowertext(name)] fills you with energy!</span>")
+	L.visible_message("<span class='warning'>[L] shivers with renewed vigor!</span>", "<span class='notice'>One taste of [LOWER_TEXT(name)] fills you with energy!</span>")
 	if(!L.stat && heal_points == 20) //brought us out of softcrit
 		L.visible_message("<span class='danger'>[L] lurches to [L.p_their()] feet!</span>", "<span class='boldnotice'>Up and at 'em, kid.</span>")
 
@@ -2111,12 +2107,12 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/bug_spray/on_mob_life(mob/living/carbon/M)
 //Bugs should not drink Bug spray.
-	if(ismoth(M) || isflyperson(M))
+	if(ismoth(M) || isflyperson(M) || isdiona(M))
 		M.adjustToxLoss(1,0)
 	return ..()
 /datum/reagent/consumable/ethanol/bug_spray/on_mob_metabolize(mob/living/carbon/M)
 
-	if(ismoth(M) || isflyperson(M))
+	if(ismoth(M) || isflyperson(M) || isdiona(M))
 		M.emote("scream")
 	return ..()
 

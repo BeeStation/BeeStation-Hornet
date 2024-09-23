@@ -12,7 +12,8 @@
 	force = 10
 	throwforce = 20
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	actions_types = list(/datum/action/item_action/rune_shatter)
 	embedding = list(
 		ignore_throwspeed_threshold = TRUE,
@@ -127,7 +128,7 @@
 	desc = "Destroys all runes carved by this blade."
 	background_icon_state = "bg_ecult"
 	button_icon_state = "rune_break"
-	icon_icon = 'icons/mob/actions/actions_ecult.dmi'
+	icon_icon = 'icons/hud/actions/actions_heretic.dmi'
 
 /datum/action/item_action/rune_shatter/New(Target)
 	. = ..()
@@ -171,6 +172,8 @@
 	var/carver_tip
 	/// Reference to trap owner mob
 	var/datum/weakref/owner
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/trap/eldritch)
 
 /obj/structure/trap/eldritch/Initialize(mapload, new_owner)
 	. = ..()

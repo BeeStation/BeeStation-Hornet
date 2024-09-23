@@ -60,7 +60,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	//allocate a channel if necessary now so its the same for everyone
 	channel = channel || SSsounds.random_available_channel()
 
- 	// Looping through the player list has the added bonus of working for mobs inside containers
+	// Looping through the player list has the added bonus of working for mobs inside containers
 	var/sound/S = sound(get_sfx(soundin))
 	var/list/listeners = SSmobs.clients_by_zlevel[source_z].Copy()
 	/// Everyone that actually heard the sound

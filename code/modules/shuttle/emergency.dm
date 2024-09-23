@@ -611,7 +611,7 @@
 	density = FALSE
 	clockwork = TRUE //it'd look weird
 
-/obj/machinery/computer/shuttle_flight/pod/Initialize()
+/obj/machinery/computer/shuttle_flight/pod/Initialize(mapload)
 	. = ..()
 	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(check_lock))
 

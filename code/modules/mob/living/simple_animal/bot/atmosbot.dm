@@ -72,6 +72,8 @@
 	// Last time we spoke
 	var/last_speech
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
+
 /mob/living/simple_animal/bot/atmosbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
@@ -301,7 +303,7 @@
 		//Add adjacent turfs
 		for(var/direction in list(NORTH, SOUTH, EAST, WEST))
 			var/turf/adjacent_turf = get_step(checking_turf, direction)
-			if(adjacent_turf in checked_turfs || !adjacent_turf.CanAtmosPass(adjacent_turf))
+			if((adjacent_turf in checked_turfs) || !adjacent_turf.CanAtmosPass(adjacent_turf))
 				continue
 			var/datum/gas_mixture/checking_air = checking_turf.return_air()
 			if (!checking_air)
@@ -313,47 +315,35 @@
 			to_check_turfs |= adjacent_turf
 	return null
 
-/mob/living/simple_animal/bot/atmosbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<tt><b>Atmospheric Stabilizer Controls v1.1</b></tt><br><br>"
-	dat += "Status: <a href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</a><br>"
-	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<br>"
-	if(!locked || issilicon(user) || IsAdminGhost(user))
-		dat += "Breach Pressure: <a href='?src=[REF(src)];set_breach_pressure=1'>[breached_pressure]</a><br>"
-		dat += "Temperature Control: <a href='?src=[REF(src)];toggle_temp_control=1'>[temperature_control?"Enabled":"Disabled"]</a><br>"
-		dat += "Temperature Target: <a href='?src=[REF(src)];set_ideal_temperature=[ideal_temperature]'>[ideal_temperature]K</a><br>"
-		dat += "Gas Scrubbing Controls<br>"
-		for(var/gas_id in gasses)
-			var/gas_enabled = gasses[gas_id]
-			dat += "[GLOB.gas_data.names[gas_id]]: <a href='?src=[REF(src)];toggle_gas=[gas_id]'>[gas_enabled?"Scrubbing":"Not Scrubbing"]</a><br>"
-		dat += "Patrol Station: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
-	return dat
+/mob/living/simple_animal/bot/atmosbot/ui_data(mob/user)
+	var/list/data = ..()
+	if (!locked || issilicon(user) || IsAdminGhost(user))
+		data["custom_controls"]["breach_pressure"] = breached_pressure
+		data["custom_controls"]["temperature_control"] = temperature_control
+		data["custom_controls"]["ideal_temperature"] = ideal_temperature
+		data["custom_controls"]["scrub_gasses"] = gasses
+	return data
 
-/mob/living/simple_animal/bot/atmosbot/Topic(href, href_list)
-	if(..())
-		return TRUE
-
-	if(href_list["set_breach_pressure"])
-		var/new_breach_pressure = input(usr, "Pressure to scan for breaches at? (0 to 100)", "Breach Pressure") as num
-		if(!isnum(new_breach_pressure) || new_breach_pressure < 0 || new_breach_pressure > 100)
-			return
-		breached_pressure = new_breach_pressure
-	else if(href_list["toggle_temp_control"])
-		temperature_control = temperature_control ? FALSE : TRUE
-	else if(href_list["toggle_gas"])
-		var/gas_id = href_list["toggle_gas"]
-		for(var/G in gasses)
-			if("[G]" == gas_id)
-				gasses[G] = gasses[G] ? FALSE : TRUE
-	else if(href_list["set_ideal_temperature"])
-		var/new_temp = input(usr, "Set Target Temperature ([T0C]K to [T20C + 20]K)", "Target Temperature") as num
-		if(!isnum(new_temp) || new_temp < T0C || new_temp > T20C + 20)
-			return
-		ideal_temperature = new_temp
-
-	update_controls()
+/mob/living/simple_animal/bot/atmosbot/ui_act(action, params)
+	. = ..()
+	if(. || (locked && !usr.has_unlimited_silicon_privilege))
+		return
+	switch(action)
+		if("breach_pressure")
+			var/adjust_num = round(text2num(params["pressure"]))
+			adjust_num = clamp(adjust_num, 0, 100)
+			breached_pressure = adjust_num
+		if("temperature_control")
+			temperature_control = !temperature_control
+		if("ideal_temperature")
+			var/adjust_num = round(text2num(params["temperature"]))
+			adjust_num = clamp(adjust_num, T0C, T20C + 20)
+			ideal_temperature = adjust_num
+		if("scrub_gasses")
+			var/id = params["id"]
+			for(var/gas_id in gasses)
+				if (gas_id == id)
+					gasses[id] = !gasses[id]
 	update_icon()
 
 /mob/living/simple_animal/bot/atmosbot/update_icon()
@@ -388,3 +378,18 @@
 
 	do_sparks(3, TRUE, src)
 	..()
+
+#undef ATMOSBOT_MAX_AREA_SCAN
+#undef ATMOSBOT_HOLOBARRIER_COOLDOWN
+#undef ATMOSBOT_MAX_PRESSURE_CHANGE
+#undef ATMOSBOT_MAX_SCRUB_CHANGE
+#undef ATMOSBOT_CHECK_BREACH
+#undef ATMOSBOT_LOW_OXYGEN
+#undef ATMOSBOT_HIGH_TOXINS
+#undef ATMOSBOT_BAD_TEMP
+#undef ATMOSBOT_AREA_STABLE
+#undef ATMOSBOT_NOTHING
+#undef ATMOSBOT_DEPLOY_BARRIER
+#undef ATMOSBOT_VENT_AIR
+#undef ATMOSBOT_SCRUB_TOXINS
+#undef ATMOSBOT_TEMPERATURE_CONTROL

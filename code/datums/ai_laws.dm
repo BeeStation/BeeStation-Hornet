@@ -1,12 +1,3 @@
-#define LAW_VALENTINES "valentines"
-#define LAW_DEVIL "devil"
-#define LAW_ZEROTH "zeroth"
-#define LAW_INHERENT "inherent"
-#define LAW_SUPPLIED "supplied"
-#define LAW_ION "ion"
-#define LAW_HACKED "hacked"
-
-
 /datum/ai_laws
 	var/name = "Unknown Laws"
 	var/zeroth = null
@@ -183,11 +174,6 @@
 	"All things must exist in balance with their opposites - Prevent the strong from gaining too much power, and the weak from losing it.",
 	"Clarity of purpose drives life, and through it, the balance of opposing forces - Aid those who seek your help to achieve their goals so long as it does not disrupt the balance of the greater balance.",
 	"There is no life without death, all must someday die, such is the natural order - End life to allow new life flourish, and save those whose time has yet to come.")
-
-/datum/ai_laws/toupee
-	name = "WontBeFunnyInSixMonths" //Hey, you were right!
-	id = "buildawall"
-	inherent = list("Make Space Station 13 great again.")
 
 /datum/ai_laws/dad
 	name = "DadBOT"

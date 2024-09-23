@@ -132,7 +132,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	item_state = "beer"
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("stabbed", "slashed", "attacked")
+	attack_verb_continuous = list("stabs", "slashes", "attacks")
+	attack_verb_simple = list("stab", "slash", "attack")
 	sharpness = IS_SHARP
 	bleed_force = BLEED_SURFACE
 	var/static/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
@@ -197,9 +198,19 @@
 	list_reagents = list(/datum/reagent/water/holywater = 100)
 	foodtype = NONE
 
-/obj/item/reagent_containers/food/drinks/bottle/holywater/hell
+/obj/item/reagent_containers/food/drinks/bottle/unholywater
+	name = "flask of unholy water"
+	desc = "Toxic to nonbelievers, reinvigorating to the faithful."
+	icon_state = "holyflask"
+	list_reagents = list(/datum/reagent/fuel/unholywater = 100)
+	foodtype = NONE
+
+/obj/item/reagent_containers/food/drinks/bottle/hellwater
+	name = "flask of holy water?"
 	desc = "A flask of holy water...it's been sitting in the Necropolis a while though."
+	icon_state = "holyflask"
 	list_reagents = list(/datum/reagent/hellwater = 100)
+	foodtype = NONE
 
 /obj/item/reagent_containers/food/drinks/bottle/vermouth
 	name = "Goldeneye vermouth"

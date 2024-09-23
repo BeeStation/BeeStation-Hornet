@@ -47,6 +47,8 @@
 
 #define STATUS_EFFECT_ANTIMAGIC /datum/status_effect/antimagic //! grants antimagic (and reapplies if lost) for the duration
 
+#define STATUS_EFFECT_PLANTHEALING /datum/status_effect/planthealing //! Grants the user healing at a given amount, used for diona health regeneration.
+
 //---------//
 // DEBUFFS //
 //---------//
@@ -153,3 +155,4 @@
 #define IS_IN_STASIS(mob) (mob.has_status_effect(STATUS_EFFECT_STASIS))
 
 #define STATUS_EFFECT_OFFERING /datum/status_effect/offering // you are offering up an item to people
+

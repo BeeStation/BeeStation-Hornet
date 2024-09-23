@@ -29,7 +29,8 @@
 	a_intent = INTENT_HARM
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	speed = 0
-	attacktext = "chomps"
+	attack_verb_continuous = "chomps"
+	attack_verb_simple = "chomp"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	deathsound = 'sound/creatures/space_dragon_roar.ogg'
 	icon = 'icons/mob/spacedragon.dmi'
@@ -54,7 +55,8 @@
 	maxbodytemp = 1500
 	faction = list("carp")
 	pressure_resistance = 200
-	movement_type = FLYING | FLOATING // fly so you can move without gravity, float so no animation applies
+	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	/// How much endlag using Wing Gust should apply.  Each use of wing gust increments this, and it decreases over time.
 	var/tiredness = 0
 	/// A multiplier to how much each use of wing gust should add to the tiredness variable.  Set to 5 if the current rift is destroyed.
@@ -458,7 +460,7 @@
 	name = "Gust Attack"
 	desc = "Use your wings to knock back foes with gusts of air, pushing them away and stunning them. Using this too often will leave you vulnerable for longer periods of time."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/mob/actions/actions_space_dragon.dmi'
+	icon_icon = 'icons/hud/actions/actions_space_dragon.dmi'
 	button_icon_state = "gust_attack"
 	cooldown_time = 5 SECONDS // the ability takes up around 2-3 seconds
 

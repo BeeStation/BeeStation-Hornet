@@ -61,7 +61,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/asteroid
 	name = "Asteroid"
 	icon_state = "asteroid"
-	requires_power = FALSE
+	always_unpowered = TRUE
 	has_gravity = STANDARD_GRAVITY
 	ambience_index = AMBIENCE_MINING
 	sound_environment = SOUND_AREA_ASTEROID
@@ -71,8 +71,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/asteroid/nearstation
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	ambience_index = AMBIENCE_RUINS
-	always_unpowered = FALSE
-	requires_power = TRUE
 	area_flags = UNIQUE_AREA | BLOBS_ALLOWED
 
 /area/asteroid/nearstation/bomb_site
@@ -1209,6 +1207,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/brig/medbay
 	name = "Brig Bay"
 
+/area/security/brig/aft
+	name = "Brig Aft"
 
 /area/security/courtroom
 	name = "Courtroom"
@@ -1462,6 +1462,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
 	color_correction = /datum/client_colour/area_color/cold_ish
 
+/area/science/aft
+	name = "Science Aft"
+
 /area/science/lobby
 	name = "\improper Science Lobby"
 	icon_state = "science_lobby"
@@ -1493,6 +1496,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	icon_state = "tox_test"
 	lights_always_start_on = TRUE
+	always_unpowered = TRUE
 
 /area/science/mixing
 	name = "Toxins Mixing Lab"
