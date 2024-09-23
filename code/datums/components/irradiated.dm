@@ -83,6 +83,10 @@
 		return PROCESS_KILL
 
 	var/mob/living/carbon/human/human_parent = parent
+
+	if(HAS_TRAIT(parent, TRAIT_RADBOOSTER))
+		human_parent.dna?.species?.handle_radiation(human_parent, world.time - beginning_of_irradiation, delta_time)
+
 	if (human_parent.getToxLoss() == 0)
 		qdel(src)
 		return PROCESS_KILL

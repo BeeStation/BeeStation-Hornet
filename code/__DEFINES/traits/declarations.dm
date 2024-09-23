@@ -69,7 +69,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESISTHIGHPRESSURE	"resist_high_pressure"
 #define TRAIT_RESISTLOWPRESSURE	"resist_low_pressure"
 #define TRAIT_NORADDAMAGE		"no_rad_damage"
-#define TRAIT_RADIMMUNE			"rad_immunity"
 #define TRAIT_VIRUSIMMUNE		"virus_immunity"
 #define TRAIT_PIERCEIMMUNE		"pierce_immunity"
 #define TRAIT_NODISMEMBER		"dismember_immunity"
@@ -312,6 +311,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Harmful radiation effects, the toxin damage and the burns, will not occur while this trait is active
 #define TRAIT_HALT_RADIATION_EFFECTS "halt_radiation_effects"
+
+//If the species gains good things from radiation. See: Dionae
+#define TRAIT_RADBOOSTER "rad_booster"
 
 /// This clothing protects the user from radiation.
 /// This should not be used on clothing_traits, but should be applied to the clothing itself.

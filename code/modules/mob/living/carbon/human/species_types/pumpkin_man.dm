@@ -74,7 +74,7 @@
 	switch(P.type)
 		if(/obj/projectile/energy/floramut)
 			if(prob(15))
-				H.rad_act(rand(30,80))
+				ADD_TRAIT(H, TRAIT_IRRADIATED, "floramut")
 				H.Paralyze(100)
 				H.visible_message("<span class='warning'>[H] writhes in pain as [H.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
 				if(prob(80))
