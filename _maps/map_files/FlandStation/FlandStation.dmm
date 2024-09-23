@@ -66913,6 +66913,9 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
+/obj/machinery/button/shieldwallgen/directional/east{
+	name = "Arrivals"
+	},
 /turf/open/floor/engine{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
@@ -73598,12 +73601,6 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "sPU" = (
-/obj/machinery/button/shieldwallgen/directional/east{
-	name = "Arrivals"
-	},
-/obj/machinery/button/shieldwallgen/directional/east{
-	name = "Arrivals"
-	},
 /obj/machinery/camera/autoname/directional/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
