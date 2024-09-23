@@ -31820,9 +31820,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /obj/machinery/vending/wallmed{
 	pixel_x = -32
 	},
@@ -31830,6 +31827,9 @@
 	network = list("ss13","medbay")
 	},
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_4,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/medbay/central)
 "pHp" = (

@@ -28,38 +28,37 @@ GLOBAL_PROTECT(exp_to_update)
 		return (job_requirement - my_exp)
 
 /datum/job/proc/get_exp_req_amount()
-	if(title in (GLOB.command_positions | list(JOB_NAME_AI)))
+	if(title in (SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND) | list(JOB_NAME_AI)))
 		var/uerhh = CONFIG_GET(number/use_exp_restrictions_heads_hours)
 		if(uerhh)
 			return uerhh * 60
 	return exp_requirements
 
 /datum/job/proc/get_exp_req_type()
-	if(title in (GLOB.command_positions | list(JOB_NAME_AI)))
+	if(title in (SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND) | list(JOB_NAME_AI)))
 		if(CONFIG_GET(flag/use_exp_restrictions_heads_department) && exp_type_department)
 			return exp_type_department
 	return exp_type
 
 /proc/job_is_xp_locked(jobtitle)
-	if(!CONFIG_GET(flag/use_exp_restrictions_heads) && (jobtitle in (GLOB.command_positions | list(JOB_NAME_AI))))
+	if(!CONFIG_GET(flag/use_exp_restrictions_heads) && (jobtitle in (SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND) | list(JOB_NAME_AI))))
 		return FALSE
-	if(!CONFIG_GET(flag/use_exp_restrictions_other) && !(jobtitle in (GLOB.command_positions | list(JOB_NAME_AI))))
+	if(!CONFIG_GET(flag/use_exp_restrictions_other) && !(jobtitle in (SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND) | list(JOB_NAME_AI))))
 		return FALSE
 	return TRUE
 
 /client/proc/calc_exp_type(exptype)
 	var/list/explist = prefs.exp.Copy()
 	var/amount = 0
-	var/list/typelist = GLOB.exp_jobsmap[exptype]
-	if(!typelist)
-		return -1
-	for(var/job in typelist["titles"])
-		if(job in explist)
-			amount += explist[job]
+	var/list/valid_jobs = GLOB.exp_jobsmap[exptype]
+	if(valid_jobs)
+		for(var/job in valid_jobs)
+			if(job in explist)
+				amount += explist[job]
 	// Removed job support
-	typelist = GLOB.exp_removed_jobsmap[exptype]
-	if(typelist)
-		for(var/job in typelist["titles"])
+	var/list/removed_jobs = GLOB.exp_removed_jobsmap[exptype]
+	if(removed_jobs)
+		for(var/job in removed_jobs)
 			if(job in explist)
 				amount += explist[job]
 	return amount
