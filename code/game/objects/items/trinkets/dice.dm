@@ -38,7 +38,7 @@
 /obj/item/storage/pill_bottle/dice_cup
 	name = "dice cup"
 	desc = "For rolling several dice at once. A favorite of street urchins."
-	icon = 'icons/obj/dice.dmi'\
+	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicecup"
 	pill_variance = 0
 
