@@ -179,3 +179,9 @@
 
 /obj/machinery/modular_fabricator/autolathe/set_working_sprite()
 	icon_state = "autolathe_n"
+
+/obj/machinery/modular_fabricator/autolathe/calculate_efficiency()
+	var/efficiency = 3.6
+	for(var/obj/item/stock_parts/manipulator/new_manipulator in component_parts)  //I'm leaving this here in case anyone ever wants to make an autolathe with more than one manipulator
+		efficiency -= new_manipulator.rating*0.4 //Don't mind this ass math, the number always has to be double what you want because of MINERAL_MATERIAL_AMOUNT being 2000
+	creation_efficiency = max(1,efficiency) // creation_efficiency goes 1.6 -> 1.4 -> 1.2 -> 1 per level of manipulator efficiency
