@@ -90,9 +90,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 		return ..()
 
 //Let the AI trigger them directly.
-/obj/machinery/flasher/attack_silicon()
+/obj/machinery/flasher/attack_ai()
 	if (anchored)
 		return flash()
+
+/obj/machinery/flasher/attack_robot()
 
 /obj/machinery/flasher/eminence_act(mob/living/simple_animal/eminence/eminence)
 	. = ..()

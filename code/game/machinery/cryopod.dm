@@ -43,8 +43,11 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	GLOB.cryopod_computers -= src
 	..()
 
-/obj/machinery/computer/cryopod/attack_silicon()
-	return attack_hand()
+/obj/machinery/computer/cryopod/attack_ai()
+	attack_hand()
+
+/obj/machinery/computer/cryopod/attack_robot()
+	attack_hand()
 
 /obj/machinery/computer/cryopod/attack_hand(mob/user = usr)
 	if(machine_stat & (NOPOWER|BROKEN))

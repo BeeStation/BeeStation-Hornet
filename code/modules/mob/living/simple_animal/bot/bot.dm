@@ -310,7 +310,7 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/bot/attack_silicon(mob/user)
+/mob/living/simple_animal/bot/attack_ai(mob/user)
 	if(!topic_denied(user))
 		interact(user)
 	else

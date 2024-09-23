@@ -184,6 +184,4 @@
 /atom/proc/attack_robot(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_ROBOT, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
-	if(attack_silicon(user))
-		return TRUE
 	return FALSE

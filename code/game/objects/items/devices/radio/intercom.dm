@@ -56,7 +56,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/radio/intercom)
 		return
 	return ..()
 
-/obj/item/radio/intercom/attack_silicon(mob/user)
+/obj/item/radio/intercom/attack_ai(mob/user)
+	interact(user)
+
+/obj/item/radio/intercom/attack_robot(mob/user)
 	interact(user)
 
 /obj/item/radio/intercom/attack_paw(mob/user)

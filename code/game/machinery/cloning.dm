@@ -105,7 +105,10 @@
 	reagents.reaction(user.loc)
 	src.reagents.clear_reagents()
 
-/obj/machinery/clonepod/attack_silicon(mob/user)
+/obj/machinery/clonepod/attack_ai(mob/user)
+	return attack_hand(user)
+
+/obj/machinery/clonepod/attack_robot(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/clonepod/examine(mob/user)

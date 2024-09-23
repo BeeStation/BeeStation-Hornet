@@ -75,7 +75,10 @@
 		on = FALSE
 	update_icon()
 
-/turf/open/floor/light/attack_silicon(mob/user)
+/turf/open/floor/light/attack_ai(mob/user)
+	return attack_hand(user)
+
+/turf/open/floor/light/attack_robot(mob/user)
 	return attack_hand(user)
 
 /turf/open/floor/light/attackby(obj/item/C, mob/user, params)

@@ -216,6 +216,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 				P.splash(user)
 
 /obj/structure/pool_ladder/attack_robot(mob/user)
+	. = ..()
 	attack_hand(user)
 
 GLOBAL_LIST_EMPTY(pool_filters)
@@ -256,7 +257,11 @@ GLOBAL_LIST_EMPTY(pool_filters)
 
 //Brick can set the pool to low temperatures remotely. This will probably be hell on malf!
 
-/obj/machinery/pool_filter/attack_silicon(mob/user)
+/obj/machinery/pool_filter/attack_robot(mob/user)
+	. = ..()
+	wrench_act(user, null)
+
+/obj/machinery/pool_filter/attack_ai(mob/user)
 	. = ..()
 	wrench_act(user, null)
 

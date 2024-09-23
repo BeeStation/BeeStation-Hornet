@@ -193,7 +193,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	else
 		alarm(user)
 
-/obj/machinery/firealarm/attack_silicon(mob/user)
+/obj/machinery/firealarm/attack_ai(mob/user)
+	return attack_hand(user)
+
+/obj/machinery/firealarm/attack_robot(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/firealarm/attackby(obj/item/W, mob/user, params)

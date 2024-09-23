@@ -362,7 +362,10 @@
 /obj/machinery/power/bluespace_tap/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/power/bluespace_tap/attack_silicon(mob/user)
+/obj/machinery/power/bluespace_tap/attack_ai(mob/user)
+	ui_interact(user)
+
+/obj/machinery/power/bluespace_tap/attack_robot(mob/user)
 	ui_interact(user)
 
 /**
