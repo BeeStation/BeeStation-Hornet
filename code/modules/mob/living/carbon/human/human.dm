@@ -769,17 +769,17 @@
 					if(hal_screwyhud == SCREWYHUD_HEALTHY)
 						icon_num = 0
 					if(icon_num)
-						hud_used.healthdoll.add_overlay(mutable_appearance('icons/mob/screen_gen.dmi', "[BP.body_zone][icon_num]"))
+						hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone][icon_num]"))
 					//Stamina Outline (Communicate that we have stamina damage)
 					//Hallucinations will appear as regular damage
 					if(BP.stamina_dam && !hallucination)
-						var/mutable_appearance/MA = mutable_appearance('icons/mob/screen_gen.dmi', "[BP.body_zone]stam")
+						var/mutable_appearance/MA = mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone]stam")
 						MA.alpha = (BP.stamina_dam / BP.max_stamina_damage) * 70 + 30
 						hud_used.healthdoll.add_overlay(MA)
 				for(var/t in get_missing_limbs()) //Missing limbs
-					hud_used.healthdoll.add_overlay(mutable_appearance('icons/mob/screen_gen.dmi', "[t]6"))
+					hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]6"))
 				for(var/t in get_disabled_limbs()) //Disabled limbs
-					hud_used.healthdoll.add_overlay(mutable_appearance('icons/mob/screen_gen.dmi', "[t]7"))
+					hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]7"))
 			else
 				hud_used.healthdoll.icon_state = "healthdoll_DEAD"
 
@@ -810,11 +810,6 @@
 
 /mob/living/carbon/human/can_hold_items()
 	return TRUE
-
-/mob/living/carbon/human/update_gravity(has_gravity,override = 0)
-	if(dna && dna.species) //prevents a runtime while a human is being monkeyfied
-		override = dna.species.override_float
-	..()
 
 /mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0)
 	if(blood && (NOBLOOD in dna.species.species_traits))
@@ -1161,6 +1156,8 @@
 /mob/living/carbon/human/species
 	var/race = null
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
+
 /mob/living/carbon/human/species/Initialize(mapload, specific_race)
 	. = ..()
 	set_species(race || specific_race)
@@ -1304,8 +1301,8 @@
 /mob/living/carbon/human/species/plasma
 	race = /datum/species/plasmaman
 
-/mob/living/carbon/human/species/pod
-	race = /datum/species/pod
+/mob/living/carbon/human/species/diona
+	race = /datum/species/diona
 
 /mob/living/carbon/human/species/shadow
 	race = /datum/species/shadow
@@ -1332,7 +1329,7 @@
 	race = /datum/species/human/krokodil_addict
 
 /mob/living/carbon/human/species/pumpkin_man
-	race = /datum/species/pod/pumpkin_man
+	race = /datum/species/pumpkin_man
 
 /mob/living/carbon/human/species/psyphoza
 	race = /datum/species/psyphoza

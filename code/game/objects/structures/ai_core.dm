@@ -321,7 +321,7 @@ That prevents a few funky behaviors.
 /obj/structure/AIcore/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(state != AI_READY_CORE || !..())
 		return
- //Transferring a carded AI to a core.
+	//Transferring a carded AI to a core.
 	if(interaction == AI_TRANS_FROM_CARD)
 		AI.control_disabled = FALSE
 		AI.radio_enabled = TRUE

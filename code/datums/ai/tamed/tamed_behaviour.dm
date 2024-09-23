@@ -69,3 +69,5 @@
 	var/mob/living/simple_animal/simple_pawn = controller.pawn
 	if(!istype(simple_pawn) || simple_pawn.stat)
 		return
+
+#undef FOLLOW_TOLERANCE

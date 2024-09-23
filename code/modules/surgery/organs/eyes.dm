@@ -377,6 +377,8 @@
 	var/obj/item/organ/eyes/robotic/glow/parent
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
+
 /obj/effect/abstract/eye_lighting/Initialize(mapload, light_object_range, light_object_power, current_color_string, light_flags)
 	. = ..()
 	parent = loc
@@ -436,3 +438,12 @@
 	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
 	P?.remove()
 	return ..()
+
+/obj/item/organ/eyes/diona
+	name = "receptor node"
+	desc = "A combination of plant matter and neurons used to produce visual feedback."
+	icon_state = "diona_eyeballs"
+	organ_flags = ORGAN_UNREMOVABLE
+	flash_protect = -1
+
+#undef RGB2EYECOLORSTRING

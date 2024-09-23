@@ -149,25 +149,21 @@
 	var/extended_inventory = 0
 	///Are we checking the users ID
 	var/scan_id = 1
-	///Coins that we accept?
-	var/obj/item/coin/coin
-	///Bills we accept?
-	var/obj/item/stack/spacecash/bill
 	///Default price of items if not overridden
 	var/default_price = 25
 	///Default price of premium items if not overridden
 	var/extra_price = 50
-  	/**
+	/**
 	  * Is this item on station or not
 	  *
 	  * if it doesn't originate from off-station during mapload, everything is free
 	  */
 	var/onstation = TRUE //if it doesn't originate from off-station during mapload, everything is free
 
-  ///A variable to change on a per instance basis on the map that allows the instance to force cost and ID requirements
+	///A variable to change on a per instance basis on the map that allows the instance to force cost and ID requirements
 	var/onstation_override = FALSE //change this on the object on the map to override the onstation check. DO NOT APPLY THIS GLOBALLY.
 
-  ///ID's that can load this vending machine wtih refills
+	///ID's that can load this vending machine wtih refills
 	var/list/canload_access_list
 
 
@@ -185,7 +181,7 @@
 	var/light_mask
 
 /obj/item/circuitboard
-    ///determines if the circuit board originated from a vendor off station or not.
+	///determines if the circuit board originated from a vendor off station or not.
 	var/onstation = TRUE
 
 /**
@@ -228,8 +224,6 @@
 
 /obj/machinery/vending/Destroy()
 	QDEL_NULL(wires)
-	QDEL_NULL(coin)
-	QDEL_NULL(bill)
 	return ..()
 
 /obj/machinery/vending/can_speak()

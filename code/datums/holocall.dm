@@ -1,14 +1,3 @@
-#define HOLOPAD_MAX_DIAL_TIME 200
-
-#define HOLORECORD_DELAY	"delay"
-#define HOLORECORD_SAY		"say"
-#define HOLORECORD_SOUND	"sound"
-#define HOLORECORD_LANGUAGE	"lang"
-#define HOLORECORD_PRESET	"preset"
-#define HOLORECORD_RENAME "rename"
-
-#define HOLORECORD_MAX_LENGTH 200
-
 /mob/camera/ai_eye/remote/holo/setLoc()
 	. = ..()
 	var/obj/machinery/holopad/H = origin
@@ -192,7 +181,7 @@
 
 /datum/action/innate/end_holocall
 	name = "End Holocall"
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_off"
 	var/datum/holocall/hcall
 

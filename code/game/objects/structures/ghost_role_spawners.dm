@@ -10,7 +10,7 @@
 	density = TRUE
 	roundstart = FALSE
 	death = FALSE
-	mob_species = /datum/species/pod
+	mob_species = /datum/species/diona
 	short_desc = "You are a sentient ecosystem, an example of the mastery over life that your creators possessed."
 	flavour_text = "Your masters, benevolent as they were, created uncounted seed vaults and spread them across \
 	the universe to every planet they could chart. You are in one such seed vault. \
@@ -21,13 +21,10 @@
 	banType = ROLE_LIFEBRINGER
 
 /obj/effect/mob_spawn/human/seed_vault/special(mob/living/new_spawn)
-	var/plant_name = pick("Tomato", "Potato", "Broccoli", "Carrot", "Ambrosia", "Pumpkin", "Ivy", "Kudzu", "Banana", "Moss", "Flower", "Bloom", "Root", "Bark", "Glowshroom", "Petal", "Leaf", \
-	"Venus", "Sprout","Cocoa", "Strawberry", "Citrus", "Oak", "Cactus", "Pepper", "Juniper")
-	new_spawn.fully_replace_character_name(null,plant_name)
-	if(ishuman(new_spawn))
-		var/mob/living/carbon/human/H = new_spawn
-		H.underwear = "Nude" //You're a plant, partner
-		H.update_body()
+	var/mob/living/carbon/human/species/diona/H = new_spawn
+	H.fully_replace_character_name(null, H.dna.species.random_name(gender))
+	H.underwear = "Nude" //You're a plant, partner
+	H.update_body()
 
 /obj/effect/mob_spawn/human/seed_vault/Destroy()
 	new/obj/structure/fluff/empty_terrarium(get_turf(src))
@@ -68,6 +65,8 @@
 		H.update_body()
 		H.fully_replace_character_name(null, H.dna.species.random_name(gender))
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
+
 /obj/effect/mob_spawn/human/ash_walker/Initialize(mapload, datum/team/ashwalkers/ashteam)
 	. = ..()
 	var/area/A = get_area(src)
@@ -101,6 +100,8 @@
 	travel the stars with a single declaration: \"Yeah go do whatever.\" Though you are bound to the one who created you, it is customary in your society to repeat those same words to newborn \
 	golems, so that no golem may ever be forced to serve again."
 	banType = ROLE_FREE_GOLEM
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 
 /obj/effect/mob_spawn/human/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
 	if(species) //spawners list uses object name to register so this goes before ..()
@@ -354,6 +355,8 @@
 	var/datum/mind/owner
 	assignedrole = "SuperFriend"
 	banType = ROLE_DEMONIC_FRIEND
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/demonic_friend)
 
 /obj/effect/mob_spawn/human/demonic_friend/Initialize(mapload, datum/mind/owner_mind, obj/effect/proc_holder/spell/targeted/summon_friend/summoning_spell)
 	. = ..()

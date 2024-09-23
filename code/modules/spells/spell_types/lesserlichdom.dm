@@ -17,7 +17,7 @@
 	cooldown_min = 10
 	include_user = TRUE
 
-	action_icon = 'icons/mob/actions/actions_spells.dmi'
+	action_icon = 'icons/hud/actions/actions_spells.dmi'
 	action_icon_state = "skeleton"
 
 /obj/effect/proc_holder/spell/targeted/lesserlichdom/cast(list/targets,mob/user = usr)
@@ -88,6 +88,8 @@
 	var/respawn_time = 3600  //Double the time of a regular phylactery
 
 	var/static/active_phylacteries = 0
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/lesserphylactery)
 
 /obj/item/lesserphylactery/Initialize(mapload, datum/mind/newmind)
 	. = ..()

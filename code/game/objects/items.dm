@@ -227,6 +227,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	///Icons used to show the item in vendors instead of the item's actual icon, drawn from the item's icon file (just chemical.dm for now)
 	var/icon_state_preview = null
 
+	// If the item is able to be used as a seed in a hydroponics tray.
+	var/obj/item/seeds/fake_seed
 
 /obj/item/Initialize(mapload)
 
@@ -1026,8 +1028,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/grind_requirements(obj/machinery/reagentgrinder/R) //Used to check for extra requirements for grinding an object
 	return TRUE
 
- //Called BEFORE the object is ground up - use this to change grind results based on conditions
- //Use "return -1" to prevent the grinding from occurring
+//Called BEFORE the object is ground up - use this to change grind results based on conditions
+//Use "return -1" to prevent the grinding from occurring
 /obj/item/proc/on_grind()
 
 /obj/item/proc/on_juice()

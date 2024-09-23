@@ -188,7 +188,7 @@
 /datum/emote/living/carbon/human/wing/select_message_type(mob/user, intentional)
 	. = ..()
 	var/mob/living/carbon/human/H = user
-	if(("wings" in H.dna.species.mutant_bodyparts) || ("moth_wings" in H.dna.species.mutant_bodyparts))
+	if((H.dna.species.mutant_bodyparts["wings"]) || (H.dna.species.mutant_bodyparts["moth_wings"]))
 		. = "opens " + message
 	else
 		. = "closes " + message
@@ -312,7 +312,7 @@
 	if(..())
 		playsound(user.loc, 'sound/emotes/dwoop.ogg', 50)
 
- // Clown Robotic Tongue ONLY. Henk.
+// Clown Robotic Tongue ONLY. Henk.
 
 /datum/emote/living/carbon/human/robot_tongue/clown/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
@@ -337,3 +337,31 @@
 /datum/emote/living/carbon/human/robot_tongue/clown/sad/run_emote(mob/user, params)
 	if(..())
 		playsound(user.loc, 'sound/misc/sadtrombone.ogg', 50)
+
+/datum/emote/living/carbon/human/diona
+	// allow mothroach as well as human base mob - species check is done in can_run_emote
+	mob_type_allowed_typecache = list(/mob/living/carbon/human,/mob/living/simple_animal/hostile/retaliate/nymph)
+
+/datum/emote/living/carbon/human/diona/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!..())
+		return FALSE
+	if(ishuman(user))
+		return isdiona(user)
+	return istype(user, /mob/living/simple_animal/hostile/retaliate/nymph)
+
+/datum/emote/living/carbon/human/diona/chitter
+	key = "chitter"
+	key_third_person = "chitters"
+	message = "chitters"
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+	sound = 'sound/emotes/diona/chitter.ogg'
+
+/datum/emote/living/carbon/human/diona/cricket
+	key = "cricket"
+	key_third_person = "chirps"
+	message = "chirps"
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+	sound = 'sound/emotes/diona/cricket.ogg'
+	sound_volume = 30
