@@ -490,6 +490,7 @@
 /obj/machinery/power/shieldwallgen/atmos/roundstart
 	anchored = TRUE
 	active = ACTIVE_SETUPFIELDS
+	active_power_usage = 0
 
 /obj/machinery/power/shieldwallgen/atmos/strong //these are for ruins and large hangars, try to not use them on ships
 	name = "high power holofield generator"
@@ -501,6 +502,7 @@
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart
 	anchored = TRUE
 	active = ACTIVE_SETUPFIELDS
+	active_power_usage = 0
 
 /obj/machinery/power/shieldwallgen/atmos/ComponentInitialize()
 	. = ..()
@@ -660,7 +662,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 	hardshield = FALSE
 	layer = ABOVE_MOB_LAYER
 	light_color = "#f6e384"
-	light_system = MOVABLE_LIGHT //for instant visual feedback reguardless of lag
+	light_system = MOVABLE_LIGHT //for instant visual feedback regardless of lag
 
 /obj/machinery/shieldwall/atmos/Initialize(mapload)
 	. = ..()
