@@ -16957,9 +16957,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-32"
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/structure/lattice/catwalk/over,
 /turf/open/openspace,
 /area/maintenance/department/security/brig)
@@ -17458,6 +17455,16 @@
 	name = "mainframe floor"
 	},
 /area/tcommsat/computer)
+"iEM" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/numbers{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/maintenance/department/science/central)
 "iEP" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -44301,9 +44308,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/pod/dark,
@@ -48422,10 +48426,8 @@
 /obj/structure/frame/computer{
 	anchored = 1
 	},
-/obj/item/wallframe/apc{
-	pixel_x = -2;
-	pixel_y = 29
-	},
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/effect/mapping_helpers/apc/discharged,
 /turf/open/floor/iron,
 /area/science/research/abandoned)
 "ydE" = (
@@ -48505,6 +48507,9 @@
 "yeZ" = (
 /obj/effect/turf_decal/numbers{
 	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/security/brig)
@@ -198663,7 +198668,7 @@ sld
 wSN
 hRI
 emp
-nrr
+fJp
 fJp
 fJp
 aPc
@@ -198920,7 +198925,7 @@ vtn
 wCG
 tWu
 aPc
-fJp
+nrr
 fJp
 fJp
 aPc
@@ -198930,7 +198935,7 @@ aKG
 aKG
 aEn
 wlF
-czD
+iEM
 jHA
 tkq
 fYX
