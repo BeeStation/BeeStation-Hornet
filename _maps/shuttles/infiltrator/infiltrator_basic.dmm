@@ -1120,7 +1120,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/medical2,
+/obj/structure/closet/secure_closet/medical2{
+	req_access = list(150)
+	},
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
@@ -1644,7 +1646,7 @@ ac
 ac
 aa
 aB
-aB
+NL
 zw
 aX
 bc

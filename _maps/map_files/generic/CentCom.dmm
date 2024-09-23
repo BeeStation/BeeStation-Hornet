@@ -7987,6 +7987,23 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/tdome/tdomeobserve)
+"Ew" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/button/door{
+	id = "smindicate";
+	name = "external door control";
+	req_access_txt = "150";
+	pixel_x = 25;
+	pixel_y = 25
+	},
+/obj/machinery/button/door{
+	id = "smindicate";
+	name = "external door control";
+	req_access_txt = "150";
+	pixel_x = -25
+	},
+/turf/open/floor/iron,
+/area/syndicate_mothership/control)
 "Ex" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/green{
@@ -31118,7 +31135,7 @@ ng
 Mj
 Sf
 Zl
-Sf
+Ew
 Sf
 yq
 vu
