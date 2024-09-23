@@ -1,3 +1,7 @@
+#define kW *1000
+#define MW kW *1000
+#define GW MW *1000
+
 ///conversion ratio from joules to watts
 #define WATTS / 0.002
 ///conversion ratio from watts to joules
