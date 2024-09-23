@@ -1,5 +1,6 @@
 #define LAST_LOBBY_MUSIC_TXT "data/last_round_lobby_music.txt"
 
+// Undefine this to generate the default JSON configuration file based on the datums provided in the code.
 //#define GENERATE_JSON
 
 SUBSYSTEM_DEF(music)
