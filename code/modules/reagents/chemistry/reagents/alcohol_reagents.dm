@@ -2107,12 +2107,12 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/bug_spray/on_mob_life(mob/living/carbon/M)
 //Bugs should not drink Bug spray.
-	if(ismoth(M) || isflyperson(M))
+	if(ismoth(M) || isflyperson(M) || isdiona(M))
 		M.adjustToxLoss(1,0)
 	return ..()
 /datum/reagent/consumable/ethanol/bug_spray/on_mob_metabolize(mob/living/carbon/M)
 
-	if(ismoth(M) || isflyperson(M))
+	if(ismoth(M) || isflyperson(M) || isdiona(M))
 		M.emote("scream")
 	return ..()
 

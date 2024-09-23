@@ -19,6 +19,7 @@
 #define TOOL_ROLLINGPIN "rollingpin"
 #define TOOL_RUSTSCRAPER "rustscraper"
 #define TOOL_BIKEHORN		"bike horn"
+#define TOOL_SEED "seed"
 #define TOOL_BONESET		"bonesetter"
 
 // If delay between the start and the end of tool operation is less than MIN_TOOL_SOUND_DELAY,

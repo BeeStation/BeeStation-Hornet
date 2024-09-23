@@ -20661,9 +20661,6 @@
 	},
 /area/maintenance/port/aft)
 "csW" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -27192,6 +27189,9 @@
 	name = "Solar Maintenance";
 	req_access_txt = "10; 13"
 	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
 "dny" = (
@@ -27722,6 +27722,9 @@
 	},
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/robotics/lab)
@@ -46231,6 +46234,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
@@ -83268,6 +83274,9 @@
 /obj/item/healthanalyzer,
 /obj/item/healthanalyzer,
 /obj/item/healthanalyzer,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "vJR" = (
@@ -85009,6 +85018,9 @@
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)

@@ -7176,10 +7176,6 @@
 	dir = 4
 	},
 /area/hallway/primary/central)
-"cmw" = (
-/obj/machinery/power/apc/auto_name/directional/north,
-/turf/closed/wall/r_wall,
-/area/security/prison/shielded)
 "cnr" = (
 /obj/machinery/airalarm/directional/west,
 /obj/machinery/computer/slot_machine,
@@ -104989,7 +104985,7 @@ nFk
 bDs
 pVy
 ifC
-cmw
+ifC
 avj
 ifC
 qLO

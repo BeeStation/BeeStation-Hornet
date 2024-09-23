@@ -29,7 +29,7 @@
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += JOB_NAME_ASSISTANT
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		restricted_jobs += GLOB.command_positions
+		restricted_jobs += SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 
 	var/num_devils = 1
 
