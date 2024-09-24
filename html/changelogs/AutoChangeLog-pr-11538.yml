@@ -1,0 +1,4 @@
+author: ''
+delete-after: true
+changes:
+  - bugfix: fixes mech teleporter & wormhole jaunter
