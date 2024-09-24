@@ -386,7 +386,7 @@
 	frequency = FREQ_ATMOS_CONTROL
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/lavaland_output
 	name = "gas miner tank output inlet"
-	id_tag = ATMOS_GAS_MONITOR_OUTPUT_LAVALAND
+	id_tag = ATMOS_GAS_MONITOR_OUTPUT_LAVALAND_WASTE
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/layer2
 	piping_layer = 2

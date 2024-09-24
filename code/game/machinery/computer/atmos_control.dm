@@ -51,7 +51,7 @@
 	id_tag = ATMOS_GAS_MONITOR_SENSOR_SM_WASTE
 /obj/machinery/air_sensor/atmos/lavaland
 	name = "lavaland gas miner tank sensor"
-	id_tag = ATMOS_GAS_MONITOR_SENSOR_LAVALAND
+	id_tag = ATMOS_GAS_MONITOR_SENSOR_LAVALAND_WASTE
 
 /obj/machinery/air_sensor/update_icon()
 	icon_state = "gsensor[on]"
@@ -284,9 +284,9 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 
 /obj/machinery/computer/atmos_control/tank/lavaland
 	name = "Gas Mix Tank Control"
-	input_tag = ATMOS_GAS_MONITOR_INPUT_LAVALAND
-	output_tag = ATMOS_GAS_MONITOR_OUTPUT_LAVALAND
-	sensors = list(ATMOS_GAS_MONITOR_SENSOR_LAVALAND = "Lavaland Gas Miner")
+	input_tag = ATMOS_GAS_MONITOR_INPUT_LAVALAND_WASTE
+	output_tag = ATMOS_GAS_MONITOR_OUTPUT_LAVALAND_WASTE
+	sensors = list(ATMOS_GAS_MONITOR_SENSOR_LAVALAND_WASTE = "Lavaland Gas Miner")
 	circuit = /obj/item/circuitboard/computer/atmos_control/tank/mix_tank
 
 // This hacky madness is the evidence of the fact that a lot of machines were never meant to be constructable, im so sorry you had to see this

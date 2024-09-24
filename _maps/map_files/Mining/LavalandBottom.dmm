@@ -1672,7 +1672,7 @@
 /area/mine/laborcamp/security)
 "iS" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/lavaland_input,
-/turf/open/floor/engine,
+/turf/open/floor/engine/vacuum,
 /area/mine/atmospherics/gas_miner_one)
 "iV" = (
 /obj/structure/stone_tile/block/cracked,
@@ -2890,7 +2890,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/carbon_input{
 	dir = 8
 	},
-/turf/open/floor/engine,
+/turf/open/floor/engine/vacuum,
 /area/mine/atmospherics)
 "pT" = (
 /obj/machinery/light/small{
@@ -2967,7 +2967,7 @@
 /turf/closed/wall,
 /area/mine/atmospherics/incinerator)
 "qD" = (
-/turf/open/floor/engine,
+/turf/open/floor/engine/vacuum,
 /area/mine/atmospherics)
 "qH" = (
 /obj/structure/table,
@@ -3328,7 +3328,7 @@
 /area/mine/eva)
 "sF" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/lavaland_output,
-/turf/open/floor/engine,
+/turf/open/floor/engine/vacuum,
 /area/mine/atmospherics/gas_miner_one)
 "sG" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer2,
@@ -4261,7 +4261,7 @@
 /area/mine/living_quarters)
 "yd" = (
 /obj/machinery/air_sensor/atmos/lavaland,
-/turf/open/floor/engine,
+/turf/open/floor/engine/vacuum,
 /area/mine/atmospherics/gas_miner_one)
 "yg" = (
 /obj/machinery/door/airlock/external/glass,
@@ -6462,7 +6462,7 @@
 /area/lavaland/surface/outdoors/unexplored/danger)
 "Lj" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/lavaland_output,
-/turf/open/floor/engine,
+/turf/open/floor/engine/vacuum,
 /area/mine/atmospherics/gas_miner_two)
 "Lk" = (
 /obj/structure/frame/machine,
@@ -6881,7 +6881,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/engine,
+/turf/open/floor/engine/vacuum,
 /area/mine/atmospherics/gas_miner_one)
 "Oe" = (
 /obj/structure/spider/stickyweb,
@@ -7117,7 +7117,7 @@
 /area/lavaland/surface/outdoors/unexplored/danger)
 "Ps" = (
 /obj/machinery/air_sensor/atmos/lavaland,
-/turf/open/floor/engine,
+/turf/open/floor/engine/vacuum,
 /area/mine/atmospherics/gas_miner_two)
 "Pt" = (
 /obj/effect/turf_decal/stripes/line,
@@ -8230,7 +8230,7 @@
 /area/lavaland/surface/outdoors)
 "VX" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/lavaland_input,
-/turf/open/floor/engine,
+/turf/open/floor/engine/vacuum,
 /area/mine/atmospherics/gas_miner_two)
 "VZ" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -8251,7 +8251,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/carbon_output{
 	dir = 8
 	},
-/turf/open/floor/engine,
+/turf/open/floor/engine/vacuum,
 /area/mine/atmospherics)
 "Wd" = (
 /obj/structure/stone_tile/block/cracked{
@@ -8664,7 +8664,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/engine,
+/turf/open/floor/engine/vacuum,
 /area/mine/atmospherics/gas_miner_two)
 "Yp" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
