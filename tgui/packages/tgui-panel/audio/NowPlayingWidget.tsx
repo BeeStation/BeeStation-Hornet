@@ -23,7 +23,7 @@ export const NowPlayingWidget = (props, context) => {
     duration = audio.duration,
     license_name = audio.track?.options?.license_title || 'Unknown License',
     license_url = audio.track?.options?.license_url || null,
-    playing_flags = audio.track?.options?.flags || 0,
+    playing_flags = audio.track?.playing_flags || 0,
     date = !isNaN(upload_date)
       ? upload_date?.substring(0, 4) + '-' + upload_date?.substring(4, 6) + '-' + upload_date?.substring(6, 8)
       : upload_date;

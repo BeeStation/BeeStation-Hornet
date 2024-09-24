@@ -39,6 +39,7 @@
 	var/_web_sound_url
 	// Dynamic duration voting
 	var/list/voted_ckeys = list()
+	var/suppressed_error = FALSE
 
 /datum/audio_track/New()
 	// Licenses do nothing special, so we won't bother singletoning them.
@@ -96,15 +97,15 @@
 		_failed = TRUE
 		return
 	_web_sound_url = data["url"]
-	title = title || data["title"]
-	artist = data["artist"]
+	title = title || data["title"] || copytext(_web_sound_url, findlasttext(_web_sound_url, "/"))
+	artist = data["artist"] || "Unknown"
 	album = data["album"]
 	duration = data["duration"] * 1 SECONDS
 	if (duration)
 		safe_duration = TRUE
 	else
-		message_admins("Audio file [title] was loaded without a duration provided. Please contact your server owner.")
-		log_world("Audio file [title] was loaded without a duration provided. This will use a fallback client-driven voting system which may be exploited. Please update this.")
+		message_admins("Audio file [title] was loaded without a duration provided. This will use a fallback client-driven voting system which may be exploited.")
+		log_world("Audio file [title] was loaded without a duration provided. This will use a fallback client-driven voting system which may be exploited.")
 	upload_date = data["upload_date"]
 	log_world("Successfully loaded internet song: [title] by [artist].")
 

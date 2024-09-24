@@ -88,6 +88,8 @@
 	data["active"] = active
 	data["songs"] = list()
 	for(var/datum/audio_track/S in SSmusic.audio_tracks)
+		if (!(S.track_flags & TRACK_FLAG_JUKEBOX))
+			continue
 		var/list/track_data = list(
 			name = S.title
 		)
@@ -126,7 +128,7 @@
 				return
 			var/selected = params["track"]
 			for(var/datum/audio_track/S in SSmusic.audio_tracks)
-				if (S.title == selected)
+				if (S.title == selected && (S.track_flags & TRACK_FLAG_JUKEBOX))
 					selection = S
 					return TRUE
 			return FALSE

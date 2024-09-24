@@ -17,6 +17,9 @@
 	if(!. || !client)
 		return FALSE
 
+	// Try to re-feed them the lobby music (for return to lobby)
+	SSmusic.feed_lobby_music(client)
+
 	var/motd = global.config.motd
 	if(motd)
 		to_chat(src, "<div class=\"motd\">[motd]</div>", handle_whitespace=FALSE, allow_linkify = TRUE)

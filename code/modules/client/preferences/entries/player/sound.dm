@@ -43,11 +43,7 @@
 	if (value && isnewplayer(client.mob))
 		SSmusic.login_music?.internal_play_to_client(client)
 	else
-		if (client.personal_lobby_music)
-			client.personal_lobby_music.stop_playing_to(client)
-			client.personal_lobby_music = null
-		else
-			SSmusic.login_music?.stop_playing_to(client)
+		client?.tgui_panel?.stop_lobby_music()
 
 /datum/preference/toggle/sound_instruments
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES

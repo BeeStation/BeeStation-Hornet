@@ -74,6 +74,8 @@
 	// If this is already loaded, then skip
 	if (SSmusic.audio_tracks_by_url[track._web_sound_url])
 		to_chat(src, "<span class='boldwarning'Song loaded successfully!</span>")
+		var/datum/audio_track/preloaded = SSmusic.audio_tracks_by_url[track._web_sound_url]
+		preloaded.track_flags |= TRACK_FLAG_JUKEBOX
 		return
 	SSmusic.audio_tracks += track
 	SSmusic.audio_tracks_by_url[track._web_sound_url] = track
@@ -98,6 +100,7 @@
 	// If this is already loaded, then skip
 	if (SSmusic.audio_tracks_by_url[track._web_sound_url])
 		track = SSmusic.audio_tracks_by_url[track._web_sound_url]
+		track.track_flags |= TRACK_FLAG_TITLE
 	else
 		SSmusic.audio_tracks += track
 		SSmusic.audio_tracks_by_url[track._web_sound_url] = track
@@ -122,10 +125,12 @@
 	// If this is already loaded, then skip
 	if (SSmusic.audio_tracks_by_url[track._web_sound_url])
 		track = SSmusic.audio_tracks_by_url[track._web_sound_url]
+		track.track_flags |= TRACK_FLAG_TITLE
 	else
 		SSmusic.audio_tracks += track
 		SSmusic.audio_tracks_by_url[track._web_sound_url] = track
 	SSmusic.login_music_playlist.Insert(SSmusic.current_login_song + 1, track)
+	to_chat(src, "<span class='boldwarning'>Playing requested song.</span>")
 	SSmusic.play_next_lobby_song()
 
 /client/proc/play_web_sound()

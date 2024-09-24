@@ -202,7 +202,11 @@ SUBSYSTEM_DEF(music)
 	rustg_file_write(picked.title, LAST_LOBBY_MUSIC_TXT)
 
 /datum/controller/subsystem/music/proc/play_next_lobby_song()
-	login_music?.stop_playing_to_clients()
+	for (var/client/C in GLOB.clients)
+		C?.tgui_panel?.stop_lobby_music()
+	for (var/datum/playing_track/track in global_audio_tracks)
+		if (track.playing_flags & PLAYING_FLAG_TITLE_MUSIC)
+			qdel(track)
 	current_login_song ++
 	if (current_login_song > length(login_music_playlist))
 		current_login_song = 1
@@ -217,14 +221,21 @@ SUBSYSTEM_DEF(music)
 	if (!resumed)
 		index = 1
 	// Check if we need to change the title song
-	if (login_music && login_music.audio.duration && world.time > login_music.started_at + login_music.audio.duration)
+	if (login_music && ((login_music.audio.duration && world.time > login_music.started_at + login_music.audio.duration) || (login_music.audio.duration == 0 && !login_music.audio.safe_duration && world.time > login_music.started_at + 30 SECONDS)))
 		play_next_lobby_song()
 	// Run through global audio tracks
 	while (index <= length(global_audio_tracks))
 		// Check this song
 		var/datum/playing_track/playing = global_audio_tracks[index]
-		if (playing.audio.duration != 0 && world.time > playing.started_at + playing.audio.duration)
-			global_audio_tracks.Cut(index, index+1)
+		if (playing.audio.duration == 0 && !playing.audio.safe_duration && world.time > playing.started_at + 30 SECONDS)
+			message_admins("[playing.audio.title] has been playing for 30 seconds with no votes about the song length, assuming broken and removing from queue.")
+			log_world("[playing.audio.title] ([playing.audio.url]) has been playing for 30 seconds with no votes about the song length, assuming broken and removing from queue.")
+			audio_tracks_by_url -= playing.audio._web_sound_url
+			login_music_playlist -= playing.audio
+			audio_tracks -= playing.audio
+			qdel(playing)
+		else if (playing.audio.duration != 0 && world.time > playing.started_at + playing.audio.duration)
+			qdel(playing)
 		else
 			index++
 		// Someone else wants our time now, give it up
@@ -250,7 +261,6 @@ SUBSYSTEM_DEF(music)
 /datum/controller/subsystem/music/proc/stop_global_music(datum/playing_track/playing)
 	if (!(playing in global_audio_tracks))
 		return
-	global_audio_tracks -= playing
 	playing.stop_playing_to_clients()
 
 /datum/controller/subsystem/music/proc/play_spatial_music(datum/playing_track/spatial/playing)
@@ -282,6 +292,23 @@ SUBSYSTEM_DEF(music)
 	if (target.tgui_panel?.needs_spatial_audio)
 		target.mob.AddComponent(/datum/component/music_listener, target.tgui_panel)
 		target.tgui_panel.set_can_hear(!HAS_TRAIT(target.mob, TRAIT_DEAF))
+	ASYNC_FINISH
+
+/datum/controller/subsystem/music/proc/feed_lobby_music(client/target)
+	DECLARE_ASYNC
+	var/hear = target.prefs.read_player_preference(/datum/preference/toggle/sound_lobby)
+	if (!hear)
+		return
+	if (!isnewplayer(target.mob))
+		return
+	// Personal lobby music
+	if (target.personal_lobby_music)
+		target.personal_lobby_music.internal_play_to_client(target)
+	else
+		for (var/datum/playing_track/playing in global_audio_tracks)
+			if (!(playing.playing_flags & PLAYING_FLAG_TITLE_MUSIC))
+				continue
+			playing.internal_play_to_client(target)
 	ASYNC_FINISH
 
 /datum/controller/subsystem/music/stat_entry()

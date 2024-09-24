@@ -39,6 +39,11 @@ export const audioMiddleware = (store) => {
   player.onQueueEmpty(() => {
     Byond.sendMessage('music/queueEmpty');
   });
+  player.onError((currently_playing:AudioTrack) => {
+    Byond.sendMessage('music/onError', {
+      uuid: currently_playing?.uuid ?? 0,
+    });
+  });
   return (next) => (action) => {
     const { type, payload } = action;
     if (type === 'audio/playMusic') {
@@ -65,6 +70,10 @@ export const audioMiddleware = (store) => {
     if (type === 'audio/setCanHear') {
       const { can_hear } = payload;
       player.setCanHearWorld(can_hear);
+      return next(action);
+    }
+    if (type === 'audio/stopLobbyMusic') {
+      player.stopLobbyTracks();
       return next(action);
     }
     if (type === 'audio/stopPlaying') {

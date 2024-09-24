@@ -5,7 +5,7 @@
  */
 
 import { createLogger } from 'tgui/logging';
-import { AudioTrack } from './AudioTrack';
+import { AudioTrack, PlayingFlags } from './AudioTrack';
 
 const logger = createLogger('AudioPlayer');
 
@@ -30,6 +30,7 @@ export class AudioPlayer {
   onMuteSubscribers: (() => void)[];
   onUnmuteSubscribers: (() => void)[];
   onQueueEmptySubscribers: (() => void)[];
+  onErrorSubscribers: ((AudioTrack) => void)[];
   currently_playing: AudioTrack | null;
   playing_tracks: AudioTrack[];
   muted: boolean;
@@ -44,6 +45,7 @@ export class AudioPlayer {
     logger.log('starting player');
     // Set up the HTMLAudioElement node
     this.node = document.createElement('audio');
+    this.node.crossOrigin = "anonymous";
     this.node.style.setProperty('display', 'none');
     document.body.appendChild(this.node);
     // Set up other properties
@@ -55,6 +57,7 @@ export class AudioPlayer {
     this.onMuteSubscribers = [];
     this.onUnmuteSubscribers = [];
     this.onQueueEmptySubscribers = [];
+    this.onErrorSubscribers = [];
     this.currently_playing = null;
     this.muted = false;
     this.canHearWorld = true;
@@ -89,8 +92,21 @@ export class AudioPlayer {
     // Listen for playback errors
     this.node.addEventListener('error', (e) => {
       if (this.playing) {
-        logger.log('playback error', e.error);
+        logger.log('playback error', this.node.error?.code);
+      } else {
+        logger.log('loading error', this.node.error?.code);
+      }
+      if ((!this.node.error || this.node.error.code === this.node.error.MEDIA_ERR_SRC_NOT_SUPPORTED) && this.currently_playing !== null) {
+        for (let subscriber of this.onErrorSubscribers) {
+          subscriber(this.currently_playing);
+        }
+      }
+      if (this.playing) {
         this.stop();
+      } else {
+        if (this.currently_playing?.uuid) {
+          this.stopTrack(this.currently_playing?.uuid);
+        }
       }
     });
     // Check every second to stop the playback at the right time
@@ -139,6 +155,12 @@ export class AudioPlayer {
       return;
     }
     logger.log('play');
+    // Check for already playing
+    for (let current_track of this.playing_tracks) {
+      if (current_track.uuid === track.uuid) {
+        return;
+      }
+    }
     this.playing_tracks.push(track);
     this.updateQueue();
   }
@@ -190,14 +212,14 @@ export class AudioPlayer {
     }
     this.currently_playing = bestTrack;
     // Switch to the new track, play from the correct position
-    logger.log('playing', bestTrack.uuid, bestTrack.url, bestTrack.options);
     this.options = {
       pitch: bestTrack.options.pitch,
       start: (bestTrack.options.start ?? 0) + (new Date().getTime() - bestTrack.created_at) / 1000.0,
       end: bestTrack.options.end,
     };
     this.updateVolume();
-    this.node.src = bestTrack.url;
+    logger.log('playing', bestTrack.uuid, decodeURI(bestTrack.url), bestTrack.options, JSON.stringify(this.options));
+    this.node.src = decodeURI(bestTrack.url);
   }
 
   toggleMute() {
@@ -231,6 +253,20 @@ export class AudioPlayer {
     this.node.src = '';
   }
 
+  stopLobbyTracks() {
+    logger.log('stop lobby tracks');
+    if (!this.node) {
+      return;
+    }
+    for (let i = this.playing_tracks.length - 1; i >= 0; i--) {
+      let track = this.playing_tracks[i];
+      if (track.playing_flags & PlayingFlags.TITLE_MUSIC) {
+        this.playing_tracks.splice(i, 1);
+      }
+    }
+    this.updateQueue();
+  }
+
   stopTrack(uuid: number) {
     logger.log('stop track', uuid);
     if (!this.node) {
@@ -256,10 +292,12 @@ export class AudioPlayer {
 
   updateVolume() {
     if (this.node === null) {
+      logger.log('volume update (failed)');
       return;
     }
     if (this.muted) {
       this.node.volume = 0;
+      logger.log('volume update (muted)', this.node.volume);
       return;
     }
     if (this.currently_playing !== null) {
@@ -267,6 +305,7 @@ export class AudioPlayer {
         this.volume *
         this.currently_playing.updateVolume(this.listener.x, this.listener.y, this.listener.z) *
         (this.canHearWorld || this.currently_playing.positional_blend === 0 ? 1 : 0);
+      logger.log('volume update', this.node.volume);
     }
   }
 
@@ -331,5 +370,12 @@ export class AudioPlayer {
       return;
     }
     this.onQueueEmptySubscribers.push(subscriber);
+  }
+
+  onError(subscriber) {
+    if (!this.node) {
+      return;
+    }
+    this.onErrorSubscribers.push(subscriber);
   }
 }

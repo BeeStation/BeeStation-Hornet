@@ -29,7 +29,7 @@
 	payload["uuid"] = track.uuid
 	payload["url"] = track.audio._web_sound_url
 	payload["priority"] = track.priority
-	payload["flags"] = track.playing_flags
+	payload["playing_flags"] = track.playing_flags
 	payload["volume"] = track.track_volume
 	window.send_message("audio/playMusic", payload)
 	return TRUE
@@ -72,7 +72,7 @@
 		payload["y"] = location.y + SSmusic.random_offset_y
 		payload["z"] = location.z
 	payload["range"] = track.radius
-	payload["flags"] = track.playing_flags
+	payload["playing_flags"] = track.playing_flags
 	payload["volume"] = track.track_volume
 	window.send_message("audio/playWorldMusic", payload)
 	needs_spatial_audio = TRUE
@@ -95,6 +95,16 @@
 		payload["y"] = location.y + SSmusic.random_offset_y
 		payload["z"] = location.z
 	window.send_message("audio/updateMusicPosition", payload)
+
+/**
+ * Stop all lobby tracks. This is needed since if a lobby track errors, the client may
+ * be playing a different one to what the server has told them to play (since it falls back
+ * to the lower priority song)
+ */
+/datum/tgui_panel/proc/stop_lobby_music()
+	if(!is_ready())
+		return
+	window.send_message("audio/stopLobbyMusic", list())
 
 /datum/tgui_panel/proc/stop_playing(datum/playing_track/track)
 	if(!is_ready())

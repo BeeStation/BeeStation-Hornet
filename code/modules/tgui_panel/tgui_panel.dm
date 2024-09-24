@@ -129,21 +129,22 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 		track.vote_duration(client, length)
 	if (type == "music/queueEmpty")
 		needs_spatial_audio = FALSE
+	if (type == "music/onError")
+		var/uuid = text2num(payload["uuid"])
+		for (var/datum/playing_track/track in SSmusic.global_audio_tracks)
+			if (track.uuid == uuid)
+				if (!track.audio.suppressed_error)
+					message_admins("[owner_ckey] reported an error while playing song [track.audio.title]. This may be a CORS error. The errors for this song will not appear again.")
+					track.audio.suppressed_error = TRUE
+				if (track.playing_flags & PLAYING_FLAG_TITLE_MUSIC)
+					client.skip_lobby_song()
+				return
+		if (client.personal_lobby_music?.uuid == uuid)
+			client.skip_lobby_song()
+			return
+		//message_admins("[owner_ckey] reported an error while playing an unknown (UUID [uuid]). (This may be a CORS error and cannot be fixed due to being dependent on the host of the files). The errors for this song will not appear again.")
 	if (type == "music/skipLobbyMusic")
-		// Stop playing this song
-		if (client.personal_lobby_music)
-			client.personal_lobby_music.stop_playing_to(client)
-		else
-			SSmusic.login_music?.stop_playing_to(client)
-		// Find a new song to play
-		if (!client.personal_lobby_music_index)
-			client.personal_lobby_music_index = SSmusic.current_login_song
-		client.personal_lobby_music_index++
-		if (client.personal_lobby_music_index > length(SSmusic.login_music_playlist))
-			client.personal_lobby_music_index = 1
-		var/datum/audio_track/played_track = SSmusic.login_music_playlist[client.personal_lobby_music_index]
-		client.personal_lobby_music = played_track.play(PLAYING_FLAG_TITLE_MUSIC)
-		client.personal_lobby_music.internal_play_to_client(client)
+		client.skip_lobby_song()
 	if (type == "music/synchronise")
 		if (client.personal_lobby_music)
 			client.personal_lobby_music.stop_playing_to(client)
