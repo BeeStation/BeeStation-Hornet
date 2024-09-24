@@ -45,8 +45,8 @@
 /obj/machinery/computer/records/medical/ui_data(mob/user)
 	var/list/data = list()
 
-	var/has_access = authenticated && isliving(user)
-	data["authenticated"] = authenticated
+	var/has_access = (authenticated && isliving(user))|| issiliconoradminghost(user)
+	data["authenticated"] = authenticated || issiliconoradminghost(user)
 	if(!has_access)
 		return data
 

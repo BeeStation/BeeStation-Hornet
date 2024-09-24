@@ -43,17 +43,9 @@ const RecordInfo = (props, context) => {
   const { available_statuses } = data;
   const [open, setOpen] = useLocalState<boolean>(context, 'printOpen', false);
 
-  const {
-    age,
-    crew_ref,
-    fingerprint,
-    gender,
-    name,
-    note,
-    rank,
-    species,
-    wanted_status,
-  } = foundRecord;
+  const { age, crew_ref, crimes, fingerprint, gender, name, note, rank, species, wanted_status } = foundRecord;
+
+  const hasValidCrimes = !!crimes.find((crime) => !!crime.valid);
 
   return (
     <Stack fill vertical>
@@ -62,11 +54,7 @@ const RecordInfo = (props, context) => {
           buttons={
             <Stack>
               <Stack.Item>
-                <Button
-                  height="1.7rem"
-                  icon="print"
-                  onClick={() => setOpen(true)}
-                  tooltip="Print a rapsheet or poster.">
+                <Button height="1.7rem" icon="print" onClick={() => setOpen(true)} tooltip="Print a rapsheet or poster.">
                   Print
                 </Button>
               </Stack.Item>
@@ -74,18 +62,14 @@ const RecordInfo = (props, context) => {
                 <Button.Confirm
                   content="Delete"
                   icon="trash"
-                  onClick={() => act('expunge_record', { crew_ref: crew_ref })}
-                  tooltip="Expunge record data."
+                  onClick={() => act('delete_record', { crew_ref: crew_ref })}
+                  tooltip="Delete record data."
                 />
               </Stack.Item>
             </Stack>
           }
           fill
-          title={
-            <Table.Cell color={CRIMESTATUS2COLOR[wanted_status]}>
-              {name}
-            </Table.Cell>
-          }
+          title={<Table.Cell color={CRIMESTATUS2COLOR[wanted_status]}>{name}</Table.Cell>}
           wrap>
           <LabeledList>
             <LabeledList.Item
@@ -93,9 +77,10 @@ const RecordInfo = (props, context) => {
                 const isSelected = button === wanted_status;
                 return (
                   <Button
-                    key={index}
-                    icon={isSelected ? 'check' : ''}
                     color={isSelected ? CRIMESTATUS2COLOR[button] : 'grey'}
+                    disabled={button === 'Arrest' && !hasValidCrimes}
+                    icon={isSelected ? 'check' : ''}
+                    key={index}
                     onClick={() =>
                       act('set_wanted', {
                         crew_ref: crew_ref,
@@ -110,9 +95,7 @@ const RecordInfo = (props, context) => {
                 );
               })}
               label="Status">
-              <Box color={CRIMESTATUS2COLOR[wanted_status]}>
-                {wanted_status}
-              </Box>
+              <Box color={CRIMESTATUS2COLOR[wanted_status]}>{wanted_status}</Box>
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -141,26 +124,13 @@ const RecordInfo = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Species">
-              <EditableText
-                field="species"
-                target_ref={crew_ref}
-                text={species}
-              />
+              <EditableText field="species" target_ref={crew_ref} text={species} />
             </LabeledList.Item>
             <LabeledList.Item label="Gender">
-              <EditableText
-                field="gender"
-                target_ref={crew_ref}
-                text={gender}
-              />
+              <EditableText field="gender" target_ref={crew_ref} text={gender} />
             </LabeledList.Item>
             <LabeledList.Item color="good" label="Fingerprint">
-              <EditableText
-                color="good"
-                field="fingerprint"
-                target_ref={crew_ref}
-                text={fingerprint}
-              />
+              <EditableText color="good" field="fingerprint" target_ref={crew_ref} text={fingerprint} />
             </LabeledList.Item>
             <LabeledList.Item label="Note">
               <EditableText field="note" target_ref={crew_ref} text={note} />

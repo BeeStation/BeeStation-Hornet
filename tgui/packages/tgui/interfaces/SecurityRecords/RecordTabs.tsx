@@ -10,11 +10,9 @@ import { SecurityRecordsData, SecurityRecord } from './types';
 /** Tabs on left, with search bar */
 export const SecurityRecordTabs = (props, context) => {
   const { act, data } = useBackend<SecurityRecordsData>(context);
-  const { records = [] } = data;
+  const { higher_access, records = [] } = data;
 
-  const errorMessage = !records.length
-    ? 'No records found.'
-    : 'No match. Refine your search.';
+  const errorMessage = !records.length ? 'No records found.' : 'No match. Refine your search.';
 
   const [search, setSearch] = useLocalState(context, 'search', '');
 
@@ -26,11 +24,7 @@ export const SecurityRecordTabs = (props, context) => {
   return (
     <Stack fill vertical>
       <Stack.Item>
-        <Input
-          fluid
-          placeholder="Name/Job/Fingerprints"
-          onInput={(event, value) => setSearch(value)}
-        />
+        <Input fluid placeholder="Name/Job/Fingerprints" onInput={(event, value) => setSearch(value)} />
       </Stack.Item>
       <Stack.Item grow>
         <Section fill scrollable>
@@ -38,9 +32,7 @@ export const SecurityRecordTabs = (props, context) => {
             {!sorted.length ? (
               <NoticeBox>{errorMessage}</NoticeBox>
             ) : (
-              sorted.map((record, index) => (
-                <CrewTab record={record} key={index} />
-              ))
+              sorted.map((record, index) => <CrewTab record={record} key={index} />)
             )}
           </Tabs>
         </Section>
@@ -58,9 +50,10 @@ export const SecurityRecordTabs = (props, context) => {
           <Stack.Item>
             <Button.Confirm
               content="Purge"
+              disabled={!higher_access}
               icon="trash"
               onClick={() => act('purge_records')}
-              tooltip="Wipe all record data."
+              tooltip="Wipe criminal record data."
             />
           </Stack.Item>
         </Stack>
@@ -71,9 +64,7 @@ export const SecurityRecordTabs = (props, context) => {
 
 /** Individual record */
 const CrewTab = (props: { record: SecurityRecord }, context) => {
-  const [selectedRecord, setSelectedRecord] = useLocalState<
-    SecurityRecord | undefined
-  >(context, 'securityRecord', undefined);
+  const [selectedRecord, setSelectedRecord] = useLocalState<SecurityRecord | undefined>(context, 'securityRecord', undefined);
 
   const { act, data } = useBackend<SecurityRecordsData>(context);
   const { assigned_view } = data;
@@ -93,11 +84,7 @@ const CrewTab = (props: { record: SecurityRecord }, context) => {
   const isSelected = selectedRecord?.crew_ref === crew_ref;
 
   return (
-    <Tabs.Tab
-      className="candystripe"
-      label={record.name}
-      onClick={() => selectRecord(record)}
-      selected={isSelected}>
+    <Tabs.Tab className="candystripe" label={record.name} onClick={() => selectRecord(record)} selected={isSelected}>
       <Box bold={isSelected} color={CRIMESTATUS2COLOR[wanted_status]} wrap>
         <Icon name={JOB2ICON[rank] || 'question'} /> {name}
       </Box>
