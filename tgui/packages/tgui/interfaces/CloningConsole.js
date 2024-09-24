@@ -98,7 +98,7 @@ export const CloningConsole = (props, context) => {
                             <Button
                               content="Save to Disk"
                               icon="upload"
-                              disabled={diskData == null}
+                              disabled={diskData === null}
                               onClick={() =>
                                 act('save', {
                                   target: record['id'],
