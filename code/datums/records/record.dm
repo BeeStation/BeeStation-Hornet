@@ -38,7 +38,7 @@
 	name = "Unknown",
 	rank = "Unassigned",
 	hud = "None",
-	active_department = "None",
+	active_department = NONE,
 	species = "Human",
 )
 	src.age = age
@@ -99,10 +99,11 @@
 	name = "Unknown",
 	rank = "Unassigned",
 	hud = "None",
-	active_department = "None",
+	active_department = NONE,
 	species = "Human",
 	/// Crew specific
 	lock_ref,
+	medical_notes,
 	major_disabilities = "None",
 	major_disabilities_desc = "No disabilities have been diagnosed at the moment.",
 	minor_disabilities = "None",
@@ -110,6 +111,8 @@
 	physical_status = PHYSICAL_ACTIVE,
 	mental_status = MENTAL_STABLE,
 	quirk_notes,
+	security_note,
+	wanted_status = WANTED_NONE,
 )
 	. = ..()
 	src.lock_ref = lock_ref
@@ -136,10 +139,6 @@
 	var/datum/dna/dna_ref
 	/// Mind datum
 	var/datum/mind/mind_ref
-	// Cloning specific variables.
-	var/last_death
-	var/faction
-	var/traumas
 
 /datum/record/locked/New(
 	age = 18,
@@ -289,20 +288,21 @@
 	var/factions
 	var/traumas
 	var/body_only
+	var/implant
+	var/UE
+	var/bank_account
 
 
 /datum/record/cloning/New(
 	id,
-	age = 18,
+	age = "??",
 	blood_type = "?",
-	character_appearance,
 	dna_string = "Unknown",
 	fingerprint = "?????",
 	gender = "Other",
 	initial_rank = "Unassigned",
 	name = "Unknown",
-	rank = "Unassigned",
-	species = "Human",
+	species = "Unknown",
 	datum/dna/dna_ref,
 	uni_identity,
 	SE,
@@ -310,7 +310,10 @@
 	last_death,
 	factions,
 	traumas,
-	body_only
+	body_only,
+	implant,
+	UE,
+	bank_account
 	)
 	. = ..()
 	src.id = id
@@ -322,6 +325,9 @@
 	src.factions = factions
 	src.traumas = traumas
 	src.body_only = body_only
+	src.implant = implant
+	src.UE = UE
+	src.bank_account = bank_account
 
 	GLOB.manifest.cloning += src
 

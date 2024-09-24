@@ -115,8 +115,6 @@ export const NtosRecords = (props, context) => {
               Major Disabilities: {record.ma_dis}
               <br />
               Notes: {record.notes}
-              <br />
-              Notes Cont.d: {record.cnotes}
             </Section>
           ))}
       </NtosWindow.Content>

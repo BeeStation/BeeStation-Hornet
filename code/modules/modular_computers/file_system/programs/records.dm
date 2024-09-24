@@ -53,10 +53,15 @@
 			for(var/datum/record/crew/person in GLOB.manifest.general)
 				var/list/current_record = list()
 
+				current_record["name"] = person.name
+				current_record["rank"] = person.rank
+				current_record["species"] = person.species
+				current_record["gender"] = person.gender
+				current_record["age"] = person.age
+				current_record["b_dna"] = person.dna_string
 				current_record["bloodtype"] = person.blood_type
 				current_record["ma_dis"] = person.major_disabilities_desc
-				current_record["minor_disabilities"] = person.minor_disabilities_desc
-				current_record["name"] = person.name
+				current_record["mi_dis"] = person.minor_disabilities_desc
 				current_record["notes"] = person.medical_notes
 
 				all_records += list(current_record)

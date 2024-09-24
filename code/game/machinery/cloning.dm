@@ -124,7 +124,7 @@
 	name = "cloning data disk"
 	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
 	var/list/genetic_makeup_buffer = list()
-	var/list/fields = list()
+	var/datum/record/cloning/data
 	var/list/mutations = list()
 	var/max_mutations = 6
 	var/read_only = FALSE //Well,it's still a floppy disk
