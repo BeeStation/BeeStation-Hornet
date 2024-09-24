@@ -6182,7 +6182,7 @@
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "cKT" = (
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/hallway/primary/fore)
 "cLW" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -6194,7 +6194,7 @@
 /area/science/robotics)
 "cMd" = (
 /obj/structure/sign/nanotrasen,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/hallway/primary/fore)
 "cMn" = (
 /obj/structure/railing,
@@ -7310,7 +7310,7 @@
 /obj/structure/sign/directions/evac{
 	dir = 4
 	},
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/hallway/primary/fore)
 "dtZ" = (
 /obj/structure/railing/corner,
@@ -32708,7 +32708,7 @@
 /area/crew_quarters/dorms)
 "qcr" = (
 /obj/structure/sign/warning/explosives,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/asteroid/paradise/surface)
 "qcy" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -42090,7 +42090,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
 "uNa" = (
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/hallway/primary/fore)
 "uNj" = (
 /obj/structure/table/reinforced,
@@ -45114,7 +45114,7 @@
 /area/hallway/primary/central)
 "wnz" = (
 /obj/structure/sign/departments/restroom,
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/hallway/primary/fore)
 "wnT" = (
 /turf/open/floor/dock/drydock,

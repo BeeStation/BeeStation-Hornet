@@ -51,7 +51,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
 "s" = (
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/mining)
 "v" = (
 /obj/structure/ore_box,
@@ -99,7 +99,7 @@
 /turf/open/floor/iron/tech,
 /area/shuttle/mining)
 "K" = (
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/shuttle/mining)
 "O" = (
 /obj/structure/chair/fancy/shuttle{
@@ -113,7 +113,7 @@
 	pixel_x = 33;
 	pixel_y = 31
 	},
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/mining)
 "S" = (
 /obj/machinery/door/airlock/survival_pod/glass,

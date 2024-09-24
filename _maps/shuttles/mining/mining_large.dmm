@@ -9,11 +9,11 @@
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "ak" = (
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/mining/large)
 "aq" = (
 /obj/machinery/status_display/evac,
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/mining/large)
 "as" = (
 /obj/item/clothing/suit/hazardvest{
@@ -184,7 +184,7 @@
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "aF" = (
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/shuttle/mining/large)
 "aG" = (
 /obj/structure/shuttle/engine/heater,

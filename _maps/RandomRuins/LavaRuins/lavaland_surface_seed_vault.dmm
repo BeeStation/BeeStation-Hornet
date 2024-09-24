@@ -44,7 +44,7 @@
 /area/ruin/powered/seedvault)
 "br" = (
 /obj/structure/sign/warning/biohazard,
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/ruin/powered/seedvault)
 "ck" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -83,7 +83,7 @@
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "dM" = (
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/ruin/powered/seedvault)
 "dX" = (
 /obj/machinery/light/broken{
@@ -310,7 +310,7 @@
 /area/ruin/powered/seedvault)
 "mW" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/ruin/powered/seedvault)
 "nO" = (
 /obj/structure/table,
@@ -967,7 +967,7 @@
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "MJ" = (
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/ruin/powered/seedvault)
 "ML" = (
 /turf/open/floor/pod,

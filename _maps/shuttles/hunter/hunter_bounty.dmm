@@ -355,7 +355,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "nn" = (
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/hunter)
 "nL" = (
 /obj/effect/turf_decal/edges/techfloor{
@@ -771,7 +771,7 @@
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "Lo" = (
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/shuttle/hunter)
 "Lr" = (
 /obj/structure/rack,

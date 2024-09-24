@@ -11,7 +11,7 @@
 /turf/template_noop,
 /area/template_noop)
 "d" = (
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/survivalpod)
 "e" = (
 /obj/item/gps/computer,
@@ -58,7 +58,7 @@
 /area/survivalpod)
 "D" = (
 /obj/structure/sign/mining/survival,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/survivalpod)
 
 (1,1,1) = {"

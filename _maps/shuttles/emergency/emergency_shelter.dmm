@@ -29,18 +29,18 @@
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "ah" = (
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/shuttle/escape)
 "ai" = (
 /obj/structure/reagent_dispensers/peppertank,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/shuttle/escape)
 "aj" = (
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/escape)
 "ak" = (
 /obj/item/gps/computer,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/shuttle/escape)
 "al" = (
 /turf/open/floor/pod/light,
@@ -114,7 +114,7 @@
 /area/shuttle/escape)
 "aF" = (
 /obj/structure/extinguisher_cabinet,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/shuttle/escape)
 "aG" = (
 /obj/machinery/door/airlock/survival_pod{
@@ -185,7 +185,7 @@
 	name = "Emergency NanoMed";
 	use_power = 0
 	},
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/shuttle/escape)
 "aS" = (
 /obj/effect/decal/cleanable/ash,
@@ -305,7 +305,7 @@
 /area/shuttle/escape)
 "bv" = (
 /obj/machinery/status_display/evac,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/shuttle/escape)
 "bw" = (
 /obj/machinery/light/small{

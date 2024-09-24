@@ -301,24 +301,31 @@
 	. = ..()
 	T.transform = transform
 
-/turf/closed/wall/mineral/titanium/survival
+/////////////////////Plastic walls/////////////////////
+
+/turf/closed/wall/mineral/plastic
 	name = "pod wall"
 	desc = "An easily-compressable wall used for temporary shelter."
 	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "survival_pod_walls-0"
 	base_icon_state = "survival_pod_walls"
+	explosion_block = 4
+	flags_1 = CAN_BE_DIRTY_1
+	sheet_type = /obj/item/stack/sheet/plastic
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_PLASTIC_WALLS)
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
-	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+	canSmoothWith = list(SMOOTH_GROUP_PLASTIC_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+	max_integrity = 600
 
-/turf/closed/wall/mineral/titanium/survival/nodiagonal
+/turf/closed/wall/mineral/plastic/nodiagonal
 	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "survival_pod_walls-0"
 	base_icon_state = "survival_pod_walls"
 	smoothing_flags = SMOOTH_BITMASK
 
-/turf/closed/wall/mineral/titanium/survival/pod
-	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
-	canSmoothWith = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
+/turf/closed/wall/mineral/plastic/pod
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_PLASTIC_WALLS, SMOOTH_GROUP_SURVIVAL_POD)
+	canSmoothWith = list(SMOOTH_GROUP_SURVIVAL_POD)
 
 /////////////////////Plastitanium walls/////////////////////
 

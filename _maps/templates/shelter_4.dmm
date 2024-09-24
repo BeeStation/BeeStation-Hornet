@@ -16,27 +16,27 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/survivalpod)
 "ae" = (
-/turf/closed/wall/mineral/titanium/survival/pod,
+/turf/closed/wall/mineral/plastic/pod,
 /area/survivalpod)
 "af" = (
 /obj/structure/sink,
-/turf/closed/wall/mineral/titanium/survival/pod,
+/turf/closed/wall/mineral/plastic/pod,
 /area/survivalpod)
 "ag" = (
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/survivalpod)
 "ah" = (
 /obj/item/gps/computer,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "ai" = (
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/survivalpod)
 "aj" = (
 /obj/structure/sign/mining/survival{
 	dir = 8
 	},
-/turf/closed/wall/mineral/titanium/survival/pod,
+/turf/closed/wall/mineral/plastic/pod,
 /area/survivalpod)
 "ak" = (
 /turf/open/floor/pod/light,
@@ -69,7 +69,7 @@
 /area/survivalpod)
 "ar" = (
 /obj/structure/sign/poster/official/random,
-/turf/closed/wall/mineral/titanium/survival/pod,
+/turf/closed/wall/mineral/plastic/pod,
 /area/survivalpod)
 "as" = (
 /obj/machinery/light/small,
@@ -94,11 +94,11 @@
 /area/survivalpod)
 "ax" = (
 /obj/structure/extinguisher_cabinet,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/survivalpod)
 "ay" = (
 /obj/structure/mirror,
-/turf/closed/wall/mineral/titanium/survival/pod,
+/turf/closed/wall/mineral/plastic/pod,
 /area/survivalpod)
 "az" = (
 /obj/effect/turf_decal/box,
@@ -154,7 +154,7 @@
 /area/template_noop)
 "aJ" = (
 /obj/structure/sign/poster/official/random,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/survivalpod)
 "aK" = (
 /obj/machinery/door/airlock/survival_pod/glass,
@@ -177,7 +177,7 @@
 /obj/structure/sign/mining/survival{
 	dir = 4
 	},
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/survivalpod)
 "aO" = (
 /obj/structure/closet/crate,
@@ -196,7 +196,7 @@
 /obj/structure/sign/mining/survival{
 	dir = 8
 	},
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/survivalpod)
 "aT" = (
 /obj/structure/closet,
@@ -240,11 +240,11 @@
 /area/template_noop)
 "aZ" = (
 /obj/structure/sign/mining,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/survivalpod)
 "ba" = (
 /obj/machinery/vending/wallmed/survival_pod,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/survivalpod)
 "bb" = (
 /obj/structure/table,
