@@ -25,6 +25,7 @@
 	while(spawncount > 0 && vents.len)
 		var/obj/vent = pick_n_take(vents)
 		var/mob/living/simple_animal/hostile/retaliate/nymph/new_nymph = new(vent.loc)
+		spawncount--
 
 		announce_to_ghosts(new_nymph)
 		message_admins("[ADMIN_LOOKUPFLW(new_nymph)] has been spawned by an event.")
