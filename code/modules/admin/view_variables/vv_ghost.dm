@@ -1,43 +1,20 @@
 GLOBAL_DATUM_INIT(vv_ghost, /datum/vv_ghost, new) // Fake datum for vv debug_variables() proc. Am I real?
 
-/*
-	< What the hell is this vv_ghost? >
-		Our view-variables client proc doesn't like to investigate.
-		This means `debug_variables(list_reference)` won't work, because it only wants /datum.
-		vv_ghost exists to trick the proc, by storing values to bypass /datum restriction of the proc.
-		but also, it exists to deliever some special list that isn't possible to get through locate().
-
-	< Can you just do `locate([0x0_list_ref_id])`? >
-		Only an ordinary /list is possible to be located through locate()
-		First, vv takes values from 'href' texts.
-		Of course, we can get ref_id of a special list, 
-		BUT `locate(ref_id_of_special_list)` returns null. (only ordinary /list works this)
-		This is why we need to store 'special_owner', and 'special_varname'
-		We locate(special_owner), then access their special list from their var list.
-			=> special_onwer:vars[special_varname]
-
-	< Summary >
-		Two usages exist:
-		1. Store a list_ref into this datum, to deliver the list into the vv debugging system.
-		2. Store a datum's ref_id with target varname, to deliver the special list into the vv debugging system.
+/* < What the hell is this vv_ghost? >
+	Our view-variables client proc doesn't like to investigate
+	a non-standard special list like client/images, because these are not a datum.
+	vv_ghost works like a fake datum for those special lists.
 */
 
 /datum/vv_ghost
-	// variables for vv special list
-	/// Reference ID of a thing.
-	var/special_owner
+	@@ -13,10 +28,12 @@ GLOBAL_DATUM_INIT(vv_ghost, /datum/vv_ghost, new) // Fake datum for vv debug_var
 	/// which var of the reference you're s eeing
 	var/special_varname
 	/// an actual ref from above (= owner:vars[special_varname])
-	var/special_ref // this exists to remember the actual special list reference for a while.
-
-
-	// variable for ordinary lists
+	var/special_ref
 	/// a list ref that isn't special
 	var/list_ref
 
-	// variable for internal use only
-	/// a failsafe variable
 	var/ready_to_del
 
 /datum/vv_ghost/New()
