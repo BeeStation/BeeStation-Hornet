@@ -142,7 +142,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 	var/list/data = list()
 	data["min_age"] = AGE_MIN
 	data["max_age"] = AGE_MAX
-	data["character_preview_view"] = character_preview_view.assigned_map
 	return data
 
 /obj/machinery/computer/records/security/ui_act(action, list/params, datum/tgui/ui)

@@ -10,7 +10,10 @@
 
 	var/has_access = (authenticated && isliving(user)) || issiliconoradminghost(user)
 	data["authenticated"] = has_access
+	if(!has_access)
+		return data
 
+	data["character_preview_view"] = USER_PREVIEW_ASSIGNED_VIEW(user.ckey)
 	return data
 
 /obj/machinery/computer/records/ui_close(mob/user)

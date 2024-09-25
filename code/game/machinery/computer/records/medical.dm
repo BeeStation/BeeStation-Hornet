@@ -82,7 +82,6 @@
 	data["max_age"] = AGE_MAX
 	data["physical_statuses"] = PHYSICAL_STATUSES
 	data["mental_statuses"] = MENTAL_STATUSES
-	data["character_preview_view"] = character_preview_view.assigned_map
 	return data
 
 /obj/machinery/computer/records/medical/ui_act(action, list/params, datum/tgui/ui)
