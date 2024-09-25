@@ -12,6 +12,8 @@
 	var/time
 	/// Whether the crime is active or not
 	var/valid = TRUE
+	/// Player that marked the crime as invalid
+	var/voider
 	//Variables for genpop
 	var/tooltip
 	var/colour
