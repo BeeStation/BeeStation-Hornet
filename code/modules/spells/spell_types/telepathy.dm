@@ -5,7 +5,7 @@
 	clothes_req = 0
 	range = 7
 	include_user = 0
-	action_icon = 'icons/mob/actions/actions_revenant.dmi'
+	action_icon = 'icons/hud/actions/actions_revenant.dmi'
 	action_icon_state = "r_transmit"
 	action_background_icon_state = "bg_spell"
 	var/notice = "notice"
@@ -15,7 +15,7 @@
 
 /obj/effect/proc_holder/spell/targeted/telepathy/cast(list/targets, mob/living/user = usr)
 	for(var/mob/living/M in targets)
-		if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, "<span class='warning'>It appears the target's mind is ironclad! No getting a message in there!</span>")
 			return
 		var/msg = tgui_input_text(usr, "What do you wish to tell [M]?", "Telepathy")

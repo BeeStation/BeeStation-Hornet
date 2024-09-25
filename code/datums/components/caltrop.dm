@@ -55,7 +55,7 @@
 		if(!(flags & CALTROP_BYPASS_SHOES) && (H.shoes || feetCover))
 			return
 
-		if((H.movement_type & FLYING) || !(H.mobility_flags & MOBILITY_STAND)|| H.buckled)
+		if((H.movement_type & (FLYING|FLOATING)) || (H.body_position == LYING_DOWN)|| H.buckled)
 			return
 
 		var/damage = rand(min_damage, max_damage)
@@ -63,6 +63,7 @@
 			damage *= 0.5
 
 		H.apply_damage(damage, BRUTE, picked_def_zone)
+		H.add_bleeding(BLEED_SCRATCH)
 
 		if(COOLDOWN_FINISHED(src, caltrop_cooldown))
 			COOLDOWN_START(src, caltrop_cooldown, 1 SECONDS) //cooldown to avoid message spam.

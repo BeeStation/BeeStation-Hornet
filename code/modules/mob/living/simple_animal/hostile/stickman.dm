@@ -9,18 +9,16 @@
 	gender = MALE
 	speak_chance = 0
 	turns_per_move = 5
-	response_help = "pokes"
-	response_disarm = "shoves"
-	response_harm = "hits"
 	speed = 0
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	maxHealth = 100
 	health = 100
 	obj_damage = 0
 	melee_damage = 10
-	attacktext = "punches"
+	attack_verb_continuous = "punches"
+	attack_verb_simple = "punch"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
@@ -49,6 +47,8 @@
 	icon_living = "stickdog"
 	icon_dead = "stickdog_dead"
 	mob_biotypes = list(MOB_INORGANIC, MOB_BEAST)
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/stickman)
 
 /mob/living/simple_animal/hostile/stickman/Initialize(mapload, var/wizard_summoned)
 	. = ..()

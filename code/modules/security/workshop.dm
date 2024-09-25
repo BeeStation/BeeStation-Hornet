@@ -6,7 +6,6 @@
 	desc = "a computer used to control the workshop in the prison"
 
 	mapped_start_area = /area/holodeck/prison
-	linked = /area/holodeck/prison //linked area
 	program_type = /datum/map_template/holodeck/prison //load workshop programs
 	req_access = list(ACCESS_SECURITY)
 	var/startup
@@ -76,7 +75,7 @@
 /obj/machinery/computer/holodeck/prison/proc/temporary_down()
 	if(!offline)
 		say("Emergency shutdown engaged. Restarting in 2 minutes...")
-		offline_program = "offline"
+		offline_program = "workshop-offline"
 		emergency_shutdown()
 		offline = TRUE
 		offline_program = pick("donut", "plush")

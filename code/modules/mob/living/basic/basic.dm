@@ -134,14 +134,12 @@
 
 // copied from simplemobs
 /mob/living/basic/revive(full_heal = 0, admin_revive = 0)
-	if(..()) //successfully ressuscitated from death
-		icon = initial(icon)
-		icon_state = icon_living
-		set_density(initial(density))
-		mobility_flags = MOBILITY_FLAGS_DEFAULT
-		update_mobility()
-		. = 1
-		setMovetype(initial(movement_type))
+	. = ..()
+	if(!.)
+		return
+	icon = initial(icon)
+	icon_state = icon_living
+	density = initial(density)
 
 /mob/living/basic/proc/melee_attack(atom/target)
 	src.face_atom(target)
@@ -158,7 +156,7 @@
 /mob/living/basic/proc/update_basic_mob_varspeed()
 	if(speed == 0)
 		// remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
-		remove_movespeed_modifier(MOVESPEED_ID_BASIC_MOB_VARSPEED, TRUE)
+		remove_movespeed_modifier(/datum/movespeed_modifier/basicmob_varspeed)
 	// remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
-	add_movespeed_modifier(MOVESPEED_ID_BASIC_MOB_VARSPEED, TRUE, 100, multiplicative_slowdown = speed, override = TRUE)
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/basicmob_varspeed, multiplicative_slowdown = speed)
 	SEND_SIGNAL(src, POST_BASIC_MOB_UPDATE_VARSPEED)

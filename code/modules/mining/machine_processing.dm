@@ -173,7 +173,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 		machine.console = src
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/mineral/processing_unit_console/attackby(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))
@@ -218,7 +218,20 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 /obj/machinery/mineral/processing_unit/Initialize(mapload)
 	. = ..()
 	proximity_monitor = new(src, 1)
-	AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/silver, /datum/material/gold, /datum/material/diamond, /datum/material/plasma, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace), INFINITY, TRUE, /obj/item/stack)
+	var/list/allowed_materials = list(
+		/datum/material/iron,
+		/datum/material/glass,
+		/datum/material/copper,
+		/datum/material/silver,
+		/datum/material/gold,
+		/datum/material/diamond,
+		/datum/material/plasma,
+		/datum/material/uranium,
+		/datum/material/bananium,
+		/datum/material/titanium,
+		/datum/material/bluespace,
+	)
+	AddComponent(/datum/component/material_container, allowed_materials, INFINITY, MATCONTAINER_EXAMINE|BREAKDOWN_FLAGS_ORE_PROCESSOR, /obj/item/stack)
 	stored_research = new /datum/techweb/specialized/autounlocking/smelter
 	selected_material = SSmaterials.GetMaterialRef(/datum/material/iron)
 
@@ -274,19 +287,19 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit)
 		console.machine = src
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 c
 /obj/machinery/mineral/processing_unit/proc/process_ore(obj/item/stack/ore/O)
 	if(QDELETED(O))
 		return
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-	var/material_amount = materials.get_item_material_amount(O)
+	var/material_amount = materials.get_item_material_amount(O, BREAKDOWN_FLAGS_ORE_PROCESSOR)
 	if(!materials.has_space(material_amount))
 		unload_mineral(O)
 	else
 		if(allow_point_redemption)
 			stored_points += O.points * O.amount * point_upgrade
-		materials.insert_item(O)
+		materials.insert_item(O, breakdown_flags=BREAKDOWN_FLAGS_ORE_PROCESSOR)
 		qdel(O)
 
 /obj/machinery/mineral/processing_unit/proc/get_machine_data()

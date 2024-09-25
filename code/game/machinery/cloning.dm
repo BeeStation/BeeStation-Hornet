@@ -354,7 +354,7 @@
 		else if(mob_occupant && mob_occupant.cloneloss > (100 - heal_level))
 			mob_occupant.Unconscious(80)
 			var/dmg_mult = CONFIG_GET(number/damage_multiplier)
-			 //Slowly get that clone healed and finished.
+			//Slowly get that clone healed and finished.
 			mob_occupant.adjustCloneLoss(-((speed_coeff / 2) * dmg_mult), TRUE, TRUE)
 			if(reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 				reagents.remove_reagent(/datum/reagent/medicine/synthflesh, fleshamnt)
@@ -421,7 +421,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
 	else
 		return NONE
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/W, mob/user, params)
@@ -447,7 +447,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 			to_chat(user, "<span class='notice'>You force an emergency ejection. </span>")
 			go_out()
 			log_cloning("[key_name(user)] manually ejected [key_name(mob_occupant)] from [src] at [AREACOORD(src)].")
-			log_combat(user, mob_occupant, "ejected", W, "from [src]")
+			log_combat(user, mob_occupant, "ejected", W, "from [src]", important = FALSE)
 	else
 		return ..()
 
@@ -460,7 +460,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 	malfunction()
 	add_fingerprint(user)
 	log_cloning("[key_name(user)] emagged [src] at [AREACOORD(src)], causing it to malfunction.")
-	log_combat(user, src, "emagged", null, occupant ? "[occupant] inside, killing them via malfunction." : null)
+	log_combat(user, src, "emagged", null, occupant ? "[occupant] inside, killing them via malfunction." : null, important = FALSE)
 
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)

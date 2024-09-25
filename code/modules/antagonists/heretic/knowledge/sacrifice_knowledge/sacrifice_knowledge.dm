@@ -112,14 +112,14 @@
 
 	// First target, any command.
 	for(var/datum/mind/head_mind as anything in shuffle_inplace(valid_targets))
-		if(head_mind.assigned_role in GLOB.command_positions)
+		if(head_mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 			final_targets += head_mind
 			valid_targets -= head_mind
 			break
 
 	// Second target, any security
 	for(var/datum/mind/sec_mind as anything in shuffle_inplace(valid_targets))
-		if(sec_mind.assigned_role in GLOB.security_positions)
+		if(sec_mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
 			final_targets += sec_mind
 			valid_targets -= sec_mind
 			break
@@ -174,7 +174,7 @@
 
 	to_chat(user, "<span class='hypnophrase'>Your patron accepts your offer.</span>")
 
-	if(sacrifice_mind.assigned_role in GLOB.command_positions)
+	if(sacrifice_mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 		heretic_datum.adjust_knowledge_points(1)
 		heretic_datum.high_value_sacrifices++
 
@@ -439,8 +439,7 @@
 	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm_survived_sadness", /datum/mood_event/shadow_realm_live_sad)
 
 	// Could use a little pick-me-up...
-	sac_target.reagents?.add_reagent(/datum/reagent/medicine/atropine, 8)
-	sac_target.reagents?.add_reagent(/datum/reagent/medicine/epinephrine, 8)
+	sac_target.reagents?.add_reagent(/datum/reagent/eldritchkiss, 12) //this used to kill toxinlovers, hence the snowflake reagent
 
 /**
  * This proc is called from [proc/return_target] if the target dies in the shadow realm.
@@ -474,3 +473,6 @@
 	)
 
 	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target))
+
+#undef SACRIFICE_SLEEP_DURATION
+#undef SACRIFICE_REALM_DURATION

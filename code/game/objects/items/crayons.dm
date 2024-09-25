@@ -28,7 +28,8 @@
 
 	var/crayon_color = "red"
 	w_class = WEIGHT_CLASS_TINY
-	attack_verb = list("attacked", "coloured")
+	attack_verb_continuous = list("attacks", "colours")
+	attack_verb_simple = list("attack", "colour")
 	grind_results = list()
 	var/paint_color = "#FF0000" //RGB
 
@@ -226,7 +227,7 @@
 				. = TRUE
 		if("select_stencil")
 			var/stencil = params["item"]
-			if(stencil in all_drawables + randoms)
+			if(stencil in (all_drawables + randoms))
 				drawtype = stencil
 				. = TRUE
 				text_buffer = ""
@@ -257,7 +258,7 @@
 
 /obj/item/toy/crayon/proc/crayon_text_strip(text)
 	var/static/regex/crayon_r = new /regex(@"[^\w!?,.=%#&+\/\-]")
-	return replacetext(lowertext(text), crayon_r, "")
+	return replacetext(LOWER_TEXT(text), crayon_r, "")
 
 /obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
@@ -315,7 +316,7 @@
 		temp = "symbol"
 	else if(drawing in drawings)
 		temp = "drawing"
-	else if(drawing in graffiti|oriented)
+	else if(drawing in (graffiti | oriented))
 		temp = "graffiti"
 	var/gang_check = hippie_gang_check(user,target) // hippie start -- gang check and temp setting
 	if(!gang_check) return // hippie end
@@ -604,7 +605,7 @@
 
 	var/static/list/spraycan_touch_normally
 
-/obj/item/toy/crayon/spraycan/Initialize()
+/obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()
 	if(!spraycan_touch_normally)
 		spraycan_touch_normally = typecacheof(list(/obj/machinery/modular_fabricator/autolathe, /obj/structure/closet, /obj/machinery/disposal))
@@ -895,6 +896,8 @@
 	pre_noise = FALSE
 	post_noise = TRUE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/toy/crayon/spraycan/gang)
+
 /obj/item/toy/crayon/spraycan/gang/Initialize(mapload, loc, datum/team/gang/G)
 	.=..()
 	if(G)
@@ -918,3 +921,7 @@
 #undef RANDOM_ORIENTED
 #undef RANDOM_RUNE
 #undef RANDOM_ANY
+
+#undef PAINT_NORMAL
+#undef PAINT_LARGE_HORIZONTAL
+#undef PAINT_LARGE_HORIZONTAL_ICON

@@ -2,7 +2,7 @@
 	name = BODY_ZONE_HEAD
 	desc = "Didn't make sense not to live for fun, your brain gets smart but your head gets dumb."
 	icon = 'icons/mob/human_parts_greyscale.dmi'
-	icon_state = "default_human_head"
+	//icon_state = "default_human_head"
 	max_damage = 200
 	body_zone = BODY_ZONE_HEAD
 	body_part = HEAD
@@ -74,7 +74,7 @@
 		else if(brain.brain_death || brainmob?.health <= HEALTH_THRESHOLD_DEAD)
 			. += "<span class='info'>It seems to be leaking some kind of... clear fluid? The brain inside must be in pretty bad shape... There is no coming back from that.</span>"
 		else if(brainmob)
-			if(brainmob.get_ghost(FALSE, TRUE))
+			if(!brainmob.soul_departed())
 				. += "<span class='info'>Its muscles are still twitching slightly... It still seems to have a bit of life left to it.</span>"
 			else
 				. += "<span class='info'>It seems seems particularly lifeless. Perhaps there'll be a chance for them later.</span>"
@@ -94,7 +94,7 @@
 
 
 /obj/item/bodypart/head/can_dismember(obj/item/I)
-	if(!((owner.stat == DEAD) || owner.InFullCritical()))
+	if(owner.stat < HARD_CRIT)
 		return FALSE
 	return ..()
 

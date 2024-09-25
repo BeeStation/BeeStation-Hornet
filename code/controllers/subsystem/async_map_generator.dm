@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(async_map_generator)
 	name = "Async Map Generator"
 	wait = 1
 	flags = SS_TICKER | SS_NO_INIT
+	// We need to be running while shuttles are loading
 	runlevels = ALL
 
 	/// List of all currently executing generator datums
@@ -52,3 +53,12 @@ SUBSYSTEM_DEF(async_map_generator)
 			//to_chat(world, "<span class='announce'>Fully completed running map generator [current_run_index + 1].</span>")
 		//Continue to the next process
 		MC_SPLIT_TICK
+
+/datum/controller/subsystem/async_map_generator/proc/run_to_completion()
+	for (var/datum/async_map_generator/generator in executing_generators)
+		while (!generator.execute_run())
+			CHECK_TICK
+		executing_generators -= generator
+		generator.complete()
+	current_run_index = 1
+	current_run_length = 0

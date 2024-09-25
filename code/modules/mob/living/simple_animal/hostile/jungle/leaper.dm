@@ -21,13 +21,13 @@
 	base_pixel_x = -16
 	layer = LARGE_MOB_LAYER
 	speed = 10
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 	var/hopping = FALSE
 	var/hop_cooldown = 0 //Strictly for player controlled leapers
 	var/projectile_ready = FALSE //Stopping AI leapers from firing whenever they want, and only doing it after a hop has finished instead
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_HEAVY
 
 /obj/projectile/leaper
 	name = "leaper bubble"
@@ -81,12 +81,16 @@
 
 /obj/structure/leaper_bubble/Initialize(mapload)
 	. = ..()
-	float(on = TRUE)
 	QDEL_IN(src, 100)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/leaper_bubble/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/movetype_handler)
+	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, LEAPER_BUBBLE_TRAIT)
 
 /obj/structure/leaper_bubble/Destroy()
 	new /obj/effect/temp_visual/leaper_projectile_impact(get_turf(src))

@@ -141,7 +141,7 @@
 	if(user)
 		INVOKE_ASYNC(src, PROC_REF(ui_interact), user)
 	// an unlocked uplink blocks also opening the PDA or headset menu
-	return COMPONENT_NO_INTERACT
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 
 /datum/component/uplink/ui_state(mob/user)
@@ -201,6 +201,8 @@
 				"name" = I.name,
 				"cost" = I.cost,
 				"desc" = I.desc,
+				"is_illegal" = I.illegal_tech,
+				"are_contents_illegal" = I.contents_are_illegal_tech
 			))
 		data["categories"] += list(cat)
 	return data
@@ -288,8 +290,8 @@
 /datum/component/uplink/proc/new_ringtone(datum/source, mob/living/user, new_ring_text)
 	SIGNAL_HANDLER
 
-	if(trim(lowertext(new_ring_text)) != trim(lowertext(unlock_code)))
-		if(failsafe_code && trim(lowertext(new_ring_text)) == trim(lowertext(failsafe_code)))
+	if(trim(LOWER_TEXT(new_ring_text)) != trim(LOWER_TEXT(unlock_code)))
+		if(failsafe_code && trim(LOWER_TEXT(new_ring_text)) == trim(LOWER_TEXT(failsafe_code)))
 			failsafe()
 			return COMPONENT_STOP_RINGTONE_CHANGE
 		return
@@ -321,8 +323,8 @@
 	if(channel != RADIO_CHANNEL_UPLINK)
 		return
 
-	if(!findtext(lowertext(message_to_use), lowertext(unlock_code)))
-		if(failsafe_code && findtext(lowertext(message_to_use), lowertext(failsafe_code)))
+	if(!findtext(LOWER_TEXT(message_to_use), LOWER_TEXT(unlock_code)))
+		if(failsafe_code && findtext(LOWER_TEXT(message_to_use), LOWER_TEXT(failsafe_code)))
 			failsafe()
 		return
 	locked = FALSE
@@ -378,3 +380,5 @@
 		return
 	explosion(T,1,2,3)
 	qdel(parent) //Alternatively could brick the uplink.
+
+#undef PEN_ROTATIONS

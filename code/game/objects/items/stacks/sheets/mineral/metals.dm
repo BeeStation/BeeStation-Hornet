@@ -41,9 +41,8 @@ Metals Sheets
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
 	qdel(src)
 
-/obj/item/stack/sheet/iron/get_main_recipes()
-	. = ..()
-	. += GLOB.metal_recipes
+/obj/item/stack/sheet/iron/get_recipes()
+	return GLOB.metal_recipes
 
 /obj/item/stack/sheet/iron/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins whacking [user.p_them()]self over the head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -57,10 +56,11 @@ Metals Sheets
 	desc = "This sheet is an alloy of iron and plasma."
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-metal"
-	mats_per_unit = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT, /datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/alloy/plasteel=MINERAL_MATERIAL_AMOUNT)
+	material_type = /datum/material/alloy/plasteel
 	throwforce = 10
 	flags_1 = CONDUCT_1
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/plasteel
 	grind_results = list(/datum/reagent/iron = 20, /datum/reagent/toxin/plasma = 20)
@@ -69,9 +69,8 @@ Metals Sheets
 	matter_amount = 12
 	material_flags = NONE
 
-/obj/item/stack/sheet/plasteel/get_main_recipes()
-	. = ..()
-	. += GLOB.plasteel_recipes
+/obj/item/stack/sheet/plasteel/get_recipes()
+	return GLOB.plasteel_recipes
 
 /* Runed Metal */
 
@@ -96,14 +95,13 @@ Metals Sheets
 		return
 	var/turf/T = get_turf(user) //we may have moved. adjust as needed...
 	var/area/A = get_area(user)
-	if((!is_station_level(T.z) && !is_mining_level(T.z)) || (A && !(A.area_flags & BLOBS_ALLOWED)))
+	if((!is_station_level(T.z) && !is_mining_level(T.z)) || (A && !(A.area_flags & (BLOBS_ALLOWED | VALID_TERRITORY))))
 		to_chat(user, "<span class='warning'>The veil is not weak enough here.</span>")
 		return FALSE
 	return ..()
 
-/obj/item/stack/sheet/runed_metal/get_main_recipes()
-	. = ..()
-	. += GLOB.runed_metal_recipes
+/obj/item/stack/sheet/runed_metal/get_recipes()
+	return GLOB.runed_metal_recipes
 
 /* Brass - the cult one */
 
@@ -132,9 +130,10 @@ Metals Sheets
 	else
 		return ..()
 
-/obj/item/stack/sheet/brass/get_main_recipes()
-	. = ..()
-	. += GLOB.brass_recipes
+/obj/item/stack/sheet/brass/get_recipes()
+	return GLOB.brass_recipes
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/brass)
 
 /obj/item/stack/sheet/brass/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -165,9 +164,10 @@ Metals Sheets
 	else
 		return ..()
 
-/obj/item/stack/sheet/bronze/get_main_recipes()
-	. = ..()
-	. += GLOB.bronze_recipes
+/obj/item/stack/sheet/bronze/get_recipes()
+	return GLOB.bronze_recipes
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/bronze)
 
 /obj/item/stack/sheet/bronze/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()

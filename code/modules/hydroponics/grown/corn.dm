@@ -20,7 +20,7 @@
 	name = "ear of corn"
 	desc = "Needs some butter!"
 	icon_state = "corn"
-	microwaved_type = /obj/item/reagent_containers/food/snacks/popcorn
+	microwaved_type = /obj/item/food/popcorn
 	trash_type = /obj/item/grown/corncob
 	bite_consumption_mod = 2
 	foodtypes = VEGETABLES

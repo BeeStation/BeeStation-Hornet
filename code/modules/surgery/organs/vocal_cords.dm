@@ -139,7 +139,7 @@
 
 	user.say(message, spans = span_list, sanitize = FALSE)
 
-	message = lowertext(message)
+	message = LOWER_TEXT(message)
 	var/list/mob/living/listeners = list()
 	for(var/mob/living/L in hearers(8, get_turf(user)))
 		if(L.can_hear() && !L.anti_magic_check(FALSE, TRUE) && L.stat != DEAD)
@@ -150,7 +150,7 @@
 				var/mob/living/carbon/human/H = L
 				if(istype(H.ears, /obj/item/clothing/ears/earmuffs))
 					continue
-				if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+				if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 					continue
 			listeners += L
 
@@ -321,7 +321,7 @@
 	else if((findtext(message, bleed_words)))
 		cooldown = COOLDOWN_DAMAGE
 		for(var/mob/living/carbon/human/H in listeners)
-			H.bleed_rate += (5 * power_multiplier)
+			H.add_bleeding(BLEED_SURFACE)
 
 	//FIRE
 	else if((findtext(message, burn_words)))

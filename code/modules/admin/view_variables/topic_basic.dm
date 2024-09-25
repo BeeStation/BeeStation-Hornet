@@ -57,7 +57,8 @@
 
 	if(href_list[VV_HK_MARK] && check_rights(R_VAREDIT))
 		usr.client.mark_datum(target)
-
+	if(href_list[VV_HK_TAG])
+		usr.client.tag_datum(target)
 	if(href_list[VV_HK_ADDCOMPONENT])
 		if(!check_rights(R_VAREDIT))
 			return
@@ -67,23 +68,29 @@
 		names += componentsubtypes
 		names += "---Elements---"
 		names += sort_list(subtypesof(/datum/element), GLOBAL_PROC_REF(cmp_typepaths_asc))
-		var/result = input(usr, "Choose a component/element to add","better know what ur fuckin doin pal") as null|anything in names
-		if(!usr || !result || result == "---Components---" || result == "---Elements---")
+
+		var/result = tgui_input_list(usr, "Choose a component/element to add", "Add Component", names)
+		if(isnull(result))
 			return
+		if(!usr || result == "---Components---" || result == "---Elements---")
+			return
+
 		if(QDELETED(target))
 			to_chat(usr, "That thing doesn't exist anymore!")
 			return
+
 		var/list/lst = get_callproc_args()
 		if(!lst)
 			return
+
 		var/datumname = "error"
 		lst.Insert(1, result)
 		if(result in componentsubtypes)
 			datumname = "component"
-			target._AddComponent(arglist(lst))
+			target._AddComponent(lst)
 		else
 			datumname = "element"
-			target._AddElement(arglist(lst))
+			target._AddElement(lst)
 		log_admin("[key_name(usr)] has added [result] [datumname] to [target].")
 		message_admins("<span class='notice'>[key_name_admin(usr)] has added [result] [datumname] to [target].</span>")
 

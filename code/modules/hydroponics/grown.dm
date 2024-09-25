@@ -3,9 +3,13 @@
 // Data from the seeds carry over to these grown foods
 // ***********************************************************
 
+CREATION_TEST_IGNORE_SELF(/obj/item/food/grown)
+
 // Base type. Subtypes are found in /grown dir. Lavaland-based subtypes can be found in mining/ash_flora.dm
 /obj/item/food/grown
 	icon = 'icons/obj/hydroponics/harvest.dmi'
+	icon_state = "berrypile"
+	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
 	name = "fresh produce" //fix naming bug
 	max_volume = 100
 	w_class = WEIGHT_CLASS_SMALL
@@ -32,6 +36,8 @@
 	var/filling_color
 	//Amount of discovery points given for scanning
 	var/discovery_points = 0
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 
 /obj/item/food/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	if(!tastes)

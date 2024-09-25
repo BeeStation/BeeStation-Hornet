@@ -11,6 +11,10 @@
 	var/obj/item/extinguisher/stored_extinguisher
 	var/opened = FALSE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/extinguisher_cabinet, 29)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/extinguisher_cabinet)
+
 /obj/structure/extinguisher_cabinet/Initialize(mapload, ndir, building)
 	. = ..()
 	if(building)
@@ -93,15 +97,16 @@
 
 
 /obj/structure/extinguisher_cabinet/attack_tk(mob/user)
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
 	if(stored_extinguisher)
 		stored_extinguisher.forceMove(loc)
 		to_chat(user, "<span class='notice'>You telekinetically remove [stored_extinguisher] from [src].</span>")
 		stored_extinguisher = null
-		opened = 1
+		opened = TRUE
 		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
 		update_icon()
-	else
-		toggle_cabinet(user)
+		return
+	toggle_cabinet(user)
 
 
 /obj/structure/extinguisher_cabinet/attack_paw(mob/user)
@@ -133,6 +138,7 @@
 		icon_state = "extinguisher_empty"
 
 /obj/structure/extinguisher_cabinet/obj_break(damage_flag)
+	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		broken = 1
 		opened = 1
@@ -158,4 +164,4 @@
 	desc = "Used for building wall-mounted extinguisher cabinets."
 	icon_state = "extinguisher"
 	result_path = /obj/structure/extinguisher_cabinet
-	pixel_shift = -30
+	pixel_shift = 29

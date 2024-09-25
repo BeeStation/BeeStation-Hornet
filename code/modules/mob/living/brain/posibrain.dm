@@ -9,9 +9,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	var/next_ask
 	var/askDelay = 600 //one minute
 	var/searching = FALSE
-	brainmob = null
 	req_access = list(ACCESS_ROBOTICS)
-	mecha = null//This does not appear to be used outside of reference in mecha.dm.
 	braintype = "Android"
 	var/autoping = TRUE //if it pings on creation immediately
 	var/begin_activation_message = "<span class='notice'>You carefully locate the manual activation switch and start the positronic brain's boot process.</span>"
@@ -42,7 +40,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 
 /obj/item/mmi/posibrain/attack_self(mob/user)
 	if(!brainmob)
-		brainmob = new(src)
+		set_brainmob(new /mob/living/brain(src))
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SILICONS))
 		to_chat(user, "<span class='warning'>Central Command has temporarily outlawed posibrain sentience in this sector...</span>")
 		return
@@ -87,32 +85,32 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 //Two ways to activate a positronic brain. A clickable link in the ghost notif, or simply clicking the object itself.
 /obj/item/mmi/posibrain/proc/activate(mob/user)
 	if(QDELETED(brainmob))
-		return
+		return FALSE
 	if(is_banned_from(user.ckey, ROLE_POSIBRAIN))
 		to_chat(user, "<span class='warning'>You are restricted from taking positronic brain spawns at this time.</span>")
-		return
+		return FALSE
 	if(user.client.get_exp_living(TRUE) <= MINUTES_REQUIRED_BASIC)
 		to_chat(user, "<span class='warning'>You aren't allowed to take positronic brain spawns yet.</span>")
-		return
+		return FALSE
 	if(is_occupied() || QDELETED(brainmob) || QDELETED(src) || QDELETED(user))
-		return
-	if(user.ckey in GLOB.posi_key_list)
-		to_chat(user, "<span class='warning'>Positronic brain spawns limited to 1 per round.</span>")
-		return
+		return FALSE
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SILICONS))
 		to_chat(user, "<span class='warning'>Central Command has temporarily outlawed posibrain sentience in this sector...</span>")
-		return
+		return FALSE
 	if(user.suiciding) //if they suicided, they're out forever.
 		to_chat(user, "<span class='warning'>[src] fizzles slightly. Sadly it doesn't take those who suicided!</span>")
-		return
+		return FALSE
 	var/posi_ask = alert("Become a [name]? (Warning, You can no longer be cloned, and all past lives will be forgotten!)","Are you positive?","Yes","No")
 	if(posi_ask != "Yes" || QDELETED(src))
-		return
+		return FALSE
 	if(brainmob.suiciding) //clear suicide status if the old occupant suicided.
 		brainmob.set_suicide(FALSE)
-	var/ckey = user.ckey
-	if(transfer_personality(user))
-		GLOB.posi_key_list += ckey
+	transfer_personality(user)
+
+	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+	pj.remove_posi_slot(src)
+
+	return TRUE
 
 /obj/item/mmi/posibrain/transfer_identity(mob/living/carbon/C)
 	name = "[initial(name)] ([C])"
@@ -171,7 +169,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 
 /obj/item/mmi/posibrain/Initialize(mapload)
 	. = ..()
-	brainmob = new(src)
+	set_brainmob(new /mob/living/brain(src))
 	var/new_name
 	if(!LAZYLEN(possible_names))
 		new_name = pick(GLOB.posibrain_names)
@@ -181,8 +179,14 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	brainmob.real_name = brainmob.name
 	brainmob.forceMove(src)
 	brainmob.container = src
+
+	//If we are on the station level, add it to the list of available posibrains.
+	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+	pj.check_add_posi_slot(src)
+
 	if(autoping)
 		ping_ghosts("created", TRUE)
+
 
 /obj/item/mmi/posibrain/attackby(obj/item/O, mob/user)
 	return
@@ -196,3 +200,33 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		icon_state = "[initial(icon_state)]-occupied"
 	else
 		icon_state = initial(icon_state)
+
+//This Proc triggers when the Z level changes. If the Posi enters the station level, add it to the Job list.
+//If it leaves, remove it.
+/obj/item/mmi/posibrain/onTransitZ(old_z, new_z)
+	. = ..()
+
+	if(is_station_level(old_z) == is_station_level(new_z))
+		//Early Return if we aren't entering or leaving station Z level.
+		return
+
+	if(is_occupied())
+		//No need to track occupied Posis
+		return
+
+	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+
+	//Posi was on station, now is not on station
+	if(is_station_level(new_z))
+		pj.check_add_posi_slot(src)
+	else
+		pj.remove_posi_slot(src)
+
+/obj/item/mmi/posibrain/Destroy()
+	if(is_occupied())
+		//No need to track occupied Posis
+		return ..()
+
+	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+	pj.remove_posi_slot(src)
+	return ..()

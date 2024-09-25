@@ -1,6 +1,7 @@
 /datum/objective/steal_five_of_type
 	name = "steal five of"
 	explanation_text = "Steal at least five items!"
+	martyr_compatible = FALSE
 	var/list/wanted_items = list()
 	var/stolen_count = 0
 	var/thing_name = "item"

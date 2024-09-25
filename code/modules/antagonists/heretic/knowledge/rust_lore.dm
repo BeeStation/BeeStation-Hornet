@@ -78,7 +78,7 @@
 		/mob/living/simple_animal/bot,
 		/obj/item/storage/secure/safe/caps_spare,
 		/obj/machinery/door,
-		/obj/mecha
+		/obj/vehicle/sealed/mecha
 	))
 	// The reason this is not simply an isturf is because we likely don't want to hit random machinery like holopads and such!
 	if(source.a_intent == INTENT_HARM && !is_type_in_typecache(target, always_hit_typecache))
@@ -402,7 +402,7 @@
 		max_dist = max(max_dist, get_dist(found_turf, centre) + 1)
 
 	for(var/turf/nearby_turf as anything in spiral_range_turfs(max_dist, centre, FALSE))
-		if(nearby_turf in rusted_turfs || is_type_in_typecache(nearby_turf, blacklisted_turfs))
+		if((nearby_turf in rusted_turfs) || is_type_in_typecache(nearby_turf, blacklisted_turfs))
 			continue
 
 		for(var/turf/line_turf as anything in getline(nearby_turf, centre))

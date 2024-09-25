@@ -1,12 +1,8 @@
-/* In this file:
+/**
+ * PLATINGS
  *
- * Plating
- * Airless
- * Airless plating
- * Engine floor
- * Foam plating
+ * Handle interaction with tiles and lets you put stuff on top of it.
  */
-
 /turf/open/floor/plating
 	name = "plating"
 	icon_state = "plating"
@@ -19,6 +15,11 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	max_integrity = 900
 	var/attachment_holes = TRUE
+
+	/// If true, will allow tiles to replace us if the tile [wants to] [/obj/item/stack/tile/var/replace_plating].
+	/// And if our baseturfs are compatible.
+	/// See [/obj/item/stack/tile/proc/place_tile].
+	var/allow_replacement = TRUE
 
 	FASTDMM_PROP(\
 		pipe_astar_cost = 1\
@@ -82,7 +83,7 @@
 			if(do_after(user, 30, target = src))
 				if (R.get_amount() >= 1 && !istype(src, /turf/open/floor/engine))
 					PlaceOnTop(/turf/open/floor/engine, flags = CHANGETURF_INHERIT_AIR)
-					playsound(src, 'sound/items/deconstruct.ogg', 80, 1)
+					playsound(src, 'sound/items/deconstruct.ogg', 80, TRUE)
 					R.use(1)
 					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
 				return
@@ -109,15 +110,8 @@
 				for(var/M in O.buckled_mobs)
 					to_chat(user, "<span class='warning'>Someone is buckled to \the [O]! Unbuckle [M] to move \him out of the way.</span>")
 					return
-			var/obj/item/stack/tile/W = C
-			if(!W.use(1))
-				return
-			var/turf/open/floor/T = PlaceOnTop(W.turf_type, flags = CHANGETURF_INHERIT_AIR)
-			if(istype(W, /obj/item/stack/tile/light)) //TODO: get rid of this ugly check somehow
-				var/obj/item/stack/tile/light/L = W
-				var/turf/open/floor/light/F = T
-				F.state = L.state
-			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+			var/obj/item/stack/tile/tile = C
+			tile.place_tile(src, user)
 		else
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
 
@@ -151,8 +145,8 @@
 	return //jetfuel can't break steel foam...
 
 /turf/open/floor/plating/foam/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/tile/plasteel))
-		var/obj/item/stack/tile/plasteel/P = I
+	if(istype(I, /obj/item/stack/tile/iron))
+		var/obj/item/stack/tile/iron/P = I
 		if(P.use(1))
 			var/obj/L = locate(/obj/structure/lattice) in src
 			if(L)

@@ -1,7 +1,7 @@
 /// Responsible for triggering mob zfalls when they are not already triggered by structure deconstruction or moving into openspace
 SUBSYSTEM_DEF(zfall)
 	name = "Zfall"
-	flags = SS_TICKER
+	flags = SS_TICKER | SS_NO_INIT
 	wait = 5
 	runlevels = RUNLEVEL_GAME|RUNLEVEL_POSTGAME
 	priority = FIRE_PRIORITY_ZFALL

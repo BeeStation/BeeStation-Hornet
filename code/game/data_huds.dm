@@ -83,7 +83,7 @@
  */
 
 /***********************************************
- Medical HUD! Basic mode needs suit sensors on.
+ * Medical HUD! Basic mode needs suit sensors on.
 ************************************************/
 
 //HELPERS
@@ -165,7 +165,7 @@
 		var/icon/I = icon(icon, icon_state, dir)
 		holder.pixel_y = I.Height() - world.icon_size
 	else
-		stack_trace("[src] does not have a HEALTH_HUD but updates it!")
+		CRASH("[src] does not have a HEALTH_HUD but updates it!")
 
 //for carbon suit sensors
 /mob/living/carbon/med_hud_set_health()
@@ -183,7 +183,7 @@
 		else
 			holder.icon_state = "hudhealthy"
 	else
-		stack_trace("[src] does not have a HEALTH_HUD but updates it!")
+		CRASH("[src] does not have a HEALTH_HUD but updates it!")
 
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
@@ -234,11 +234,11 @@
 				if(null)
 					holder.icon_state = "hudhealthy"
 	else
-		stack_trace("[src] does not have a HEALTH_HUD but updates it!")
+		CRASH("[src] does not have a HEALTH_HUD but updates it!")
 
 
 /***********************************************
- Security HUDs! Basic mode shows only the job.
+ * Security HUDs! Basic mode shows only the job.
 ************************************************/
 
 //HOOKS
@@ -275,7 +275,7 @@
 		holder.icon_state = "hud_imp_loyal"
 
 /mob/living/proc/has_mindshield_hud_icon()
-	if(istype(get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		return FALSE
 	return HAS_TRAIT(src, TRAIT_MINDSHIELD) || HAS_TRAIT(src, TRAIT_FAKE_MINDSHIELD)
 
@@ -309,7 +309,7 @@
 	holder.icon_state = null
 
 /***********************************************
- Diagnostic HUDs!
+ * Diagnostic HUDs!
 ************************************************/
 
 /mob/living/proc/hud_set_nanite_indicator()
@@ -355,7 +355,7 @@
 	switch(stat)
 		if(CONSCIOUS)
 			holder.icon_state = "hudstat"
-		if(UNCONSCIOUS)
+		if(UNCONSCIOUS, HARD_CRIT)
 			holder.icon_state = "hudoffline"
 		else
 			holder.icon_state = "huddead2"
@@ -396,14 +396,14 @@
 /*~~~~~~~~~~~~~~~~~~~~
 	BIG STOMPY MECHS
 ~~~~~~~~~~~~~~~~~~~~~*/
-/obj/mecha/proc/diag_hud_set_mechhealth()
+/obj/vehicle/sealed/mecha/proc/diag_hud_set_mechhealth()
 	var/image/holder = hud_list[DIAG_MECH_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
 	holder.icon_state = "huddiag[RoundDiagBar(obj_integrity/max_integrity)]"
 
 
-/obj/mecha/proc/diag_hud_set_mechcell()
+/obj/vehicle/sealed/mecha/proc/diag_hud_set_mechcell()
 	var/image/holder = hud_list[DIAG_BATT_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
@@ -414,7 +414,7 @@
 		holder.icon_state = "hudnobatt"
 
 
-/obj/mecha/proc/diag_hud_set_mechstat()
+/obj/vehicle/sealed/mecha/proc/diag_hud_set_mechstat()
 	var/image/holder = hud_list[DIAG_STAT_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
@@ -422,7 +422,7 @@
 	if(internal_damage)
 		holder.icon_state = "hudwarn"
 
-/obj/mecha/proc/diag_hud_set_mechtracking() //Shows tracking beacons on the mech
+/obj/vehicle/sealed/mecha/proc/diag_hud_set_mechtracking() //Shows tracking beacons on the mech
 	var/image/holder = hud_list[DIAG_TRACK_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size

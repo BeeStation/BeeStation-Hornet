@@ -32,6 +32,8 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	obj_flags = CAN_BE_HIT | DANGEROUS_POSSESSION
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
+
 /obj/anomaly/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
 	START_PROCESSING(SSsinguloprocess, src)
@@ -62,17 +64,57 @@
 	return ..()
 
 /obj/anomaly/singularity/attack_tk(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		C.visible_message("<span class='danger'>[C]'s head begins to collapse in on itself!</span>", "<span class='userdanger'>Your head feels like it's collapsing in on itself! This was really not a good idea!</span>", "<span class='italics'>You hear something crack and explode in gore.</span>")
-		var/turf/T = get_turf(C)
-		for(var/i in 1 to 3)
-			C.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
-			new /obj/effect/gibspawner/generic(T, C)
-			sleep(1)
-		C.ghostize()
-		var/obj/item/bodypart/head/rip_u = C.get_bodypart(BODY_ZONE_HEAD)
+	if(!iscarbon(user))
+		return
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
+	var/mob/living/carbon/jedi = user
+	jedi.visible_message(
+		"<span class='danger'>[jedi]'s head begins to collapse in on itself!</span>",
+		"<span class='userdanger'>Your head feels like it's collapsing in on itself! This was really not a good idea!</span>",
+		"<span class='hear'>You hear something crack and explode in gore.</span>"
+		)
+	jedi.Stun(3 SECONDS)
+	new /obj/effect/gibspawner/generic(get_turf(jedi), jedi)
+	jedi.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
+	if(QDELETED(jedi))
+		return // damage was too much
+	if(jedi.stat == DEAD)
+		jedi.ghostize()
+		var/obj/item/bodypart/head/rip_u = jedi.get_bodypart(BODY_ZONE_HEAD)
 		rip_u.dismember(BURN) //nice try jedi
+		qdel(rip_u)
+		return
+	addtimer(CALLBACK(src, PROC_REF(carbon_tk_part_two), jedi), 0.1 SECONDS)
+
+
+/obj/anomaly/singularity/proc/carbon_tk_part_two(mob/living/carbon/jedi)
+	if(QDELETED(jedi))
+		return
+	new /obj/effect/gibspawner/generic(get_turf(jedi), jedi)
+	jedi.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
+	if(QDELETED(jedi))
+		return // damage was too much
+	if(jedi.stat == DEAD)
+		jedi.ghostize()
+		var/obj/item/bodypart/head/rip_u = jedi.get_bodypart(BODY_ZONE_HEAD)
+		if(rip_u)
+			rip_u.dismember(BURN)
+			qdel(rip_u)
+		return
+	addtimer(CALLBACK(src, PROC_REF(carbon_tk_part_three), jedi), 0.1 SECONDS)
+
+
+/obj/anomaly/singularity/proc/carbon_tk_part_three(mob/living/carbon/jedi)
+	if(QDELETED(jedi))
+		return
+	new /obj/effect/gibspawner/generic(get_turf(jedi), jedi)
+	jedi.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
+	if(QDELETED(jedi))
+		return // damage was too much
+	jedi.ghostize()
+	var/obj/item/bodypart/head/rip_u = jedi.get_bodypart(BODY_ZONE_HEAD)
+	if(rip_u)
+		rip_u.dismember(BURN)
 		qdel(rip_u)
 
 /obj/anomaly/singularity/ex_act(severity, target)
@@ -338,7 +380,7 @@
 /obj/anomaly/singularity/proc/combust_mobs()
 	for(var/mob/living/carbon/C in urange(20, src, 1))
 		C.visible_message("<span class='warning'>[C]'s skin bursts into flame!</span>", \
-						  "<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>")
+							"<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>")
 		C.adjust_fire_stacks(5)
 		C.IgniteMob()
 	return
@@ -378,10 +420,12 @@
 /obj/anomaly/singularity/deadchat_controlled
 	move_self = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity/deadchat_controlled)
+
 /obj/anomaly/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
 	. = ..()
 	AddComponent(/datum/component/deadchat_control, DEMOCRACY_MODE, list(
-	 "up" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, NORTH),
-	 "down" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, SOUTH),
-	 "left" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, WEST),
-	 "right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, EAST)))
+		"up" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, NORTH),
+		"down" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, SOUTH),
+		"left" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, WEST),
+		"right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, EAST)))

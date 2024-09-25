@@ -26,3 +26,11 @@
 
 /datum/gas_mixture/immutable/cloner/populate()
 	set_moles(GAS_N2, MOLES_O2STANDARD + MOLES_N2STANDARD)
+
+//breathable planet surface
+/datum/gas_mixture/immutable/planetary
+	initial_temperature = T20C
+
+/datum/gas_mixture/immutable/planetary/populate()
+	set_moles(GAS_O2, MOLES_O2STANDARD)
+	set_moles(GAS_N2, MOLES_N2STANDARD)

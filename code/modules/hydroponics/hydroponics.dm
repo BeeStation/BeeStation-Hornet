@@ -732,10 +732,6 @@
 		var/transfer_amount
 
 		if(IS_EDIBLE(reagent_source) || istype(reagent_source, /obj/item/reagent_containers/pill))
-			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks))
-				var/obj/item/reagent_containers/food/snacks/R = reagent_source
-				if (R.trash)
-					R.generate_trash(get_turf(user))
 			visi_msg="[user] composts [reagent_source], spreading it through [target]"
 			transfer_amount = reagent_source.reagents.total_volume
 			SEND_SIGNAL(reagent_source, COMSIG_ITEM_ON_COMPOSTED, user)
@@ -786,12 +782,14 @@
 			reagent_source.update_icon()
 		return 1
 
-	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
+	else if(O.tool_behaviour == TOOL_SEED && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)
 			if(istype(O, /obj/item/seeds/kudzu))
 				investigate_log("had Kudzu planted in it by [key_name(user)] at [AREACOORD(src)]","kudzu")
 			if(!user.transferItemToLoc(O, src))
 				return
+			if(!istype(O, /obj/item/seeds)) //If the given item is supposed to be a seed, but isn't a subtype of /obj/item/seed
+				O = O.fake_seed // use the item's fake_seed variable instead.
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
 			myseed = O
@@ -905,7 +903,7 @@
 /obj/machinery/hydroponics/proc/update_tray(mob/user)
 	harvest = 0
 	lastproduce = age
-	if(istype(myseed, /obj/item/seeds/replicapod))
+	if(istype(myseed, /obj/item/seeds/dionapod))
 		to_chat(user, "<span class='notice'>You harvest from the [myseed.plantname].</span>")
 	else if(myseed.getYield() <= 0)
 		to_chat(user, "<span class='warning'>You fail to harvest anything useful!</span>")

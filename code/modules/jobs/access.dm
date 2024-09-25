@@ -2,6 +2,8 @@
 ///returns TRUE if this mob has sufficient access to use this object.
 ///Note that this will return FALSE when passed null, unless the door doesn't require any access.
 /obj/proc/allowed(mob/accessor)
+	if(!accessor) // early return for null check. This exists because attack_tk() sends null accessor
+		return src.check_access(null)
 	if(SEND_SIGNAL(src, COMSIG_OBJ_ALLOWED, accessor) & COMPONENT_OBJ_ALLOW)
 		return TRUE
 	//check if it doesn't require any access at all

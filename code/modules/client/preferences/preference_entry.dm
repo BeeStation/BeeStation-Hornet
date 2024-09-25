@@ -1,36 +1,3 @@
-// Priorities must be in order!
-/// The default priority level
-#define PREFERENCE_PRIORITY_DEFAULT 1
-
-/// The priority at which species runs, needed for external organs to apply properly.
-#define PREFERENCE_PRIORITY_SPECIES 2
-
-/// The priority at which gender is determined, needed for proper randomization.
-#define PREFERENCE_PRIORITY_GENDER 3
-
-/// The priority at which body model is decided, applied after gender so we can
-/// make sure they're non-binary.
-#define PREFERENCE_PRIORITY_BODY_MODEL 4
-
-/// The priority at which eye color is applied, needed so IPCs get the right screen color.
-#define PREFERENCE_PRIORITY_EYE_COLOR 5
-
-/// The priority at which hair color is applied, needed so IPCs get the right antenna color.
-#define PREFERENCE_PRIORITY_HAIR_COLOR 6
-
-/// The priority at which names are decided, needed for proper randomization.
-#define PREFERENCE_PRIORITY_NAMES 7
-
-/// The maximum preference priority, keep this updated, but don't use it for `priority`.
-#define MAX_PREFERENCE_PRIORITY PREFERENCE_PRIORITY_NAMES
-
-/// For choiced preferences, this key will be used to set display names in constant data.
-#define CHOICED_PREFERENCE_DISPLAY_NAMES "display_names"
-
-/// For main feature preferences, this key refers to a feature considered supplemental.
-/// For instance, hair color being supplemental to hair.
-#define SUPPLEMENTAL_FEATURE_KEY "supplemental_feature"
-
 /// An assoc list list of types to instantiated `/datum/preference` instances
 GLOBAL_LIST_INIT(preference_entries, init_preference_entries())
 
@@ -201,6 +168,8 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 		// things running pre-assets-initialization.
 		if (!isnull(Master.current_initializing_subsystem))
 			extra_info = "Info was attempted to be retrieved while [Master.current_initializing_subsystem] was initializing."
+		else if (!MC_RUNNING())
+			extra_info = "Info was attempted to be retrieved before the MC started, but not while it was actively initializing a subsystem"
 
 		CRASH("Preference type `[preference_typepath]` is invalid! [extra_info]")
 	return get_preference_holder(preference_entry).read_preference(src, preference_entry)
@@ -460,10 +429,10 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	for (var/name in sprite_accessories)
 		var/datum/sprite_accessory/sprite_accessory = sprite_accessories[name]
 		if (istype(sprite_accessory))
-			possible_values[name] = icon(sprite_accessory.icon, sprite_accessory.icon_state)
+			possible_values[name] = uni_icon(sprite_accessory.icon, sprite_accessory.icon_state)
 		else
 			// This means it didn't have an icon state
-			possible_values[name] = icon('icons/mob/landmarks.dmi', "x")
+			possible_values[name] = uni_icon('icons/mob/landmarks.dmi', "x")
 	return possible_values
 
 /// Takes an assoc list of names to /datum/sprite_accessory and returns a value
@@ -482,15 +451,15 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	for (var/name in sprite_accessories)
 		var/datum/sprite_accessory/sprite_accessory = sprite_accessories[name]
 
-		var/icon/final_icon
+		var/datum/universal_icon/final_icon
 
 		for (var/layer in layers)
-			var/icon/icon = icon(sprite_accessory.icon, "m_[body_part]_[sprite_accessory.icon_state]_[layer]")
+			var/datum/universal_icon/icon = uni_icon(sprite_accessory.icon, "m_[body_part]_[sprite_accessory.icon_state]_[layer]")
 
 			if (isnull(final_icon))
 				final_icon = icon
 			else
-				final_icon.Blend(icon, ICON_OVERLAY)
+				final_icon.blend_icon(icon, ICON_OVERLAY)
 
 		possible_values[name] = final_icon
 

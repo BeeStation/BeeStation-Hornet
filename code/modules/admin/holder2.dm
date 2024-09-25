@@ -36,6 +36,12 @@ GLOBAL_PROTECT(href_token)
 	/// Player panel
 	var/datum/admin_player_panel/player_panel
 
+	/// Banning Panel
+	var/datum/admin_ban_panel/ban_panel
+
+	/// A lazylist of tagged datums, for quick reference with the View Tags verb
+	var/list/tagged_datums
+
 /datum/admins/New(datum/admin_rank/R, ckey, force_active = FALSE, protected)
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"

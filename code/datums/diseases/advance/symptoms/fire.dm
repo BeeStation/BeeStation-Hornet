@@ -33,9 +33,9 @@ Bonus
 	suffixes = list(" Combustion")
 	var/infective = FALSE
 	threshold_desc = "<b>Stage Speed 4:</b> Increases the intensity of the flames.<br>\
-					  <b>Stage Speed 8:</b> Further increases flame intensity.<br>\
-					  <b>Transmission 8:</b> Host will spread the virus through skin flakes when bursting into flame.<br>\
-					  <b>Stealth 4:</b> The symptom remains hidden until active."
+						<b>Stage Speed 8:</b> Further increases flame intensity.<br>\
+						<b>Transmission 8:</b> Host will spread the virus through skin flakes when bursting into flame.<br>\
+						<b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/fire/Start(datum/disease/advance/A)
 	if(!..())
@@ -55,18 +55,20 @@ Bonus
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(3)
-			if(prob(base_message_chance) && !suppress_warning)
+			if(prob(base_message_chance) && !suppress_warning && M.stat != DEAD)
 				to_chat(M, "<span class='warning'>[pick("You feel hot.", "You hear a crackling noise.", "You smell smoke.")]</span>")
 		if(4)
 			Firestacks_stage_4(M, A)
 			M.IgniteMob()
-			to_chat(M, "<span class='userdanger'>Your skin bursts into flames!</span>")
-			M.emote("scream")
+			if(M.stat != DEAD)
+				to_chat(M, "<span class='userdanger'>Your skin bursts into flames!</span>")
+				M.emote("scream")
 		if(5)
 			Firestacks_stage_5(M, A)
 			M.IgniteMob()
-			to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
-			M.emote("scream")
+			if(M.stat != DEAD)
+				to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
+				M.emote("scream")
 
 /datum/symptom/fire/proc/Firestacks_stage_4(mob/living/M, datum/disease/advance/A)
 	M.adjust_fire_stacks(1 * power)
@@ -125,8 +127,8 @@ Bonus
 	var/chems = FALSE
 	var/explosion_power = 1
 	threshold_desc = "<b>Stealth 3:</b> Doubles the intensity of the effect, but reduces its frequency.<br>\
-					  <b>Stage Speed 8:</b> Increases explosion radius when the host is wet.<br>\
-					  <b>Resistance 8:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
+						<b>Stage Speed 8:</b> Increases explosion radius when the host is wet.<br>\
+						<b>Resistance 8:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
 
 /datum/symptom/alkali/severityset(datum/disease/advance/A)
 	. = ..()
@@ -153,7 +155,7 @@ Bonus
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(3)
-			if(prob(base_message_chance))
+			if(prob(base_message_chance) && M.stat <= DEAD)
 				to_chat(M, "<span class='warning'>[pick("Your veins boil.", "You feel hot.", "You smell meat cooking.")]</span>")
 		if(4)
 			if(M.fire_stacks < 0)
@@ -161,22 +163,24 @@ Bonus
 				explosion(get_turf(M),-1,(-1 + explosion_power),(2 * explosion_power))
 			Alkali_fire_stage_4(M, A)
 			M.IgniteMob()
-			to_chat(M, "<span class='userdanger'>Your sweat bursts into flames!</span>")
-			M.emote("scream")
+			if(M.stat != DEAD)
+				to_chat(M, "<span class='userdanger'>Your sweat bursts into flames!</span>")
+				M.emote("scream")
 		if(5)
-			if(M.fire_stacks < 0)
+			if(M.fire_stacks < 0 && M.stat <= DEAD)
 				M.visible_message("<span class='warning'>[M]'s sweat sizzles and pops on contact with water!</span>")
 				explosion(get_turf(M),-1,(-1 + explosion_power),(2 * explosion_power))
 			Alkali_fire_stage_5(M, A)
 			M.IgniteMob()
-			to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
-			M.emote("scream")
+			if(M.stat != DEAD)
+				to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
+				M.emote("scream")
 
 /datum/symptom/alkali/proc/Alkali_fire_stage_4(mob/living/M, datum/disease/advance/A)
 	var/get_stacks = 6 * power
 	M.adjust_fire_stacks(get_stacks)
 	M.take_overall_damage(burn = get_stacks / 2, required_status = BODYTYPE_ORGANIC)
-	if(chems)
+	if(chems && M.stat != DEAD)
 		M.reagents.add_reagent(/datum/reagent/clf3, 2 * power)
 	return 1
 
@@ -184,6 +188,6 @@ Bonus
 	var/get_stacks = 8 * power
 	M.adjust_fire_stacks(get_stacks)
 	M.take_overall_damage(burn = get_stacks, required_status = BODYTYPE_ORGANIC)
-	if(chems)
+	if(chems && M.stat != DEAD)
 		M.reagents.add_reagent_list(list(/datum/reagent/napalm = 4 * power, /datum/reagent/clf3 = 4 * power))
 	return 1

@@ -3,7 +3,7 @@
 	icon = 'icons/obj/atmos.dmi'
 	use_power = NO_POWER_USE
 	max_integrity = 250
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 60, ACID = 30, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 60, ACID = 30, STAMINA = 0, BLEED = 0)
 	anchored = FALSE
 	interacts_with_air = TRUE
 
@@ -67,7 +67,7 @@
 	connected_port.connected_device = src
 	connected_port.parents[1].update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
-	anchored = TRUE //Prevent movement
+	set_anchored(TRUE) //Prevent movement
 	pixel_x = new_port.pixel_x
 	pixel_y = new_port.pixel_y
 

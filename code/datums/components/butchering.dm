@@ -1,9 +1,15 @@
 /datum/component/butchering
-	var/speed = 80 //time in deciseconds taken to butcher something
-	var/effectiveness = 100 //percentage effectiveness; numbers above 100 yield extra drops
-	var/bonus_modifier = 0 //percentage increase to bonus item chance
-	var/butcher_sound = 'sound/weapons/slice.ogg' //sound played when butchering
+	/// Time in deciseconds taken to butcher something
+	var/speed = 8 SECONDS
+	/// Percentage effectiveness; numbers above 100 yield extra drops
+	var/effectiveness = 100
+	/// Percentage increase to bonus item chance
+	var/bonus_modifier = 0
+	/// Sound played when butchering
+	var/butcher_sound = 'sound/weapons/slice.ogg'
+	/// Whether or not this component can be used to butcher currently. Used to temporarily disable butchering
 	var/butchering_enabled = TRUE
+	/// Whether or not this component is compatible with blunt tools.
 	var/can_be_blunt = FALSE
 
 /datum/component/butchering/Initialize(_speed, _effectiveness, _bonus_modifier, _butcher_sound, disabled, _can_be_blunt)
@@ -28,16 +34,16 @@
 	if(user.a_intent == INTENT_HARM && M.stat == DEAD && (M.butcher_results || M.guaranteed_butcher_results)) //can we butcher it?
 		if(butchering_enabled && (can_be_blunt || source.is_sharp()))
 			INVOKE_ASYNC(src, PROC_REF(startButcher), source, M, user)
-			return COMPONENT_ITEM_NO_ATTACK
+			return COMPONENT_CANCEL_ATTACK_CHAIN
 	if(user.a_intent == INTENT_GRAB && ishuman(M) && source.is_sharp())
 		var/mob/living/carbon/human/H = M
 		if(H.has_status_effect(/datum/status_effect/neck_slice))
 			user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", 1, \
 							"<span class='danger'>Their neck has already been already cut, you can't make the bleeding any worse!")
-			return COMPONENT_ITEM_NO_ATTACK
+			return COMPONENT_CANCEL_ATTACK_CHAIN
 		if((H.health <= H.crit_threshold || (user.pulling == H && user.grab_state >= GRAB_NECK) || H.IsSleeping())) // Only sleeping, neck grabbed, or crit, can be sliced.
 			INVOKE_ASYNC(src, PROC_REF(startNeckSlice), source, H, user)
-			return COMPONENT_ITEM_NO_ATTACK
+			return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/butchering/proc/startButcher(obj/item/source, mob/living/M, mob/living/user)
 	to_chat(user, "<span class='notice'>You begin to butcher [M]...</span>")
@@ -65,7 +71,7 @@
 		H.visible_message("<span class='danger'>[user] slits [H]'s throat!</span>", \
 					"<span class='userdanger'>[user] slits your throat...</span>")
 		H.apply_damage(item_force, BRUTE, BODY_ZONE_HEAD)
-		H.bleed_rate = clamp(H.bleed_rate + 20, 0, 30)
+		H.add_bleeding(BLEED_CRITICAL)
 		H.apply_status_effect(/datum/status_effect/neck_slice)
 
 /datum/component/butchering/proc/Butcher(mob/living/butcher, mob/living/meat)
