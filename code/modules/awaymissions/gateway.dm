@@ -84,7 +84,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		say_cooldown("Destination gateway not active.")
 		return FALSE
 
-	return TRUE
+	return check_teleport(AM, dest_turf, channel = TELEPORT_CHANNEL_GATEWAY)
 
 /obj/machinery/gateway/proc/check_parts()
 	. = TRUE
@@ -117,12 +117,6 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	var/turf/dest_turf = get_step(get_turf(linked_gateway), SOUTH)
 	if(!pre_check_teleport(AM, dest_turf))
 		return // Gateway off/broken
-
-	if(!check_teleport(AM, dest_turf, channel = TELEPORT_CHANNEL_GATEWAY))
-		AM.visible_message( \
-			"<span class='notice'>[AM] can't seem to go through [src]...</span>", \
-			"<span class='notice'>You can't seem to force your way through [src]...</span>")
-		return
 
 	if(ismob(AM))
 		var/mob/M = AM
