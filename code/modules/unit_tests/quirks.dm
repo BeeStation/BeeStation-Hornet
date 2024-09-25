@@ -30,9 +30,6 @@
 		if (initial(quirk_type.abstract_parent_type) == quirk_type)
 			continue
 
-		if(!isnull(quirk_type.medical_record_text))
-			continue
-
 		//Add quirk to a patient - so we can pass quirks that add a medical record after being assigned someone
 		patient.mind.add_quirk(quirk_type)
 
