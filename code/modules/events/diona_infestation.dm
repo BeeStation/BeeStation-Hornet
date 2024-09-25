@@ -22,12 +22,11 @@
 	if(!vents.len)
 		message_admins("An event attempted to spawn nymphs but no suitable vents were found. Shutting down.")
 		return MAP_ERROR
-	if(spawncount > 0 && vents.len)
+	while(spawncount > 0 && vents.len)
 		var/obj/vent = pick_n_take(vents)
 		var/mob/living/simple_animal/hostile/retaliate/nymph/new_nymph = new(vent.loc)
-		switch(length(GLOB.player_list))
-			spawncount--
+
 		announce_to_ghosts(new_nymph)
-		message_admins("[ADMIN_LOOKUPFLW(new_nymph)] has been spawned by an event.")
-		log_game("nymphs were spawned by an event.")
+		message_admins("[ADMIN_LOOKUPFLW(new_mimite)] has been spawned by an event.")
+		log_game("mimites where spawned by an event.")
 	return SUCCESSFUL_SPAWN
