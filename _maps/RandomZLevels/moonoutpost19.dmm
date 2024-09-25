@@ -163,10 +163,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
-"aP" = (
-/obj/machinery/gateway/centeraway,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "aR" = (
 /obj/machinery/light{
 	dir = 4
@@ -5005,9 +5001,6 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "qI" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
@@ -5141,13 +5134,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
-"wP" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "wX" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating{
@@ -5504,13 +5490,6 @@
 	initial_temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
-"In" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "Iz" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -5528,13 +5507,6 @@
 	initial_temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
-"II" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "Jc" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron{
@@ -5655,20 +5627,6 @@
 	broken = 1
 	},
 /area/awaymission/moonoutpost19/research)
-"OT" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
-"Pq" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "QH" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -5762,9 +5720,6 @@
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "Uo" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -5823,7 +5778,6 @@
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
 "Yx" = (
-/obj/machinery/gateway,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -40634,9 +40588,9 @@ ac
 ac
 at
 az
-II
 qI
-wP
+qI
+qI
 aV
 br
 bB
@@ -40891,8 +40845,8 @@ ac
 ac
 at
 aA
-OT
-aP
+qI
+aA
 Yx
 bg
 bs
@@ -41148,8 +41102,8 @@ ac
 ac
 at
 aB
-In
-Pq
+qI
+qI
 Uo
 bh
 bt

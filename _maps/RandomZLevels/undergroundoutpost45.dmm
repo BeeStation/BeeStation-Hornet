@@ -1807,10 +1807,6 @@
 	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"hu" = (
-/obj/machinery/gateway/centeraway,
-/turf/open/floor/iron/dark,
-/area/awaymission/undergroundoutpost45/gateway)
 "hw" = (
 /obj/structure/chair{
 	dir = 8
@@ -8303,9 +8299,6 @@
 	},
 /area/awaymission/undergroundoutpost45/research)
 "Cg" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/gateway)
@@ -8589,13 +8582,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/central)
-"FM" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/undergroundoutpost45/gateway)
 "FN" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -8814,13 +8800,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"Hq" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/undergroundoutpost45/gateway)
 "Hr" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 10
@@ -9247,7 +9226,6 @@
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "LS" = (
-/obj/machinery/gateway,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -9882,13 +9860,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
-"Sz" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/undergroundoutpost45/gateway)
 "SL" = (
 /obj/machinery/computer/station_alert{
 	dir = 1
@@ -9997,13 +9968,6 @@
 /obj/effect/turf_decal/tile/green/half/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
-"Ud" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/undergroundoutpost45/gateway)
 "Uo" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/table,
@@ -10309,13 +10273,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
-"Wz" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/undergroundoutpost45/gateway)
 "WH" = (
 /obj/machinery/biogenerator,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -10522,13 +10479,6 @@
 	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
-"Zk" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/undergroundoutpost45/gateway)
 "Zl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -30023,9 +29973,9 @@ ad
 ad
 gv
 gJ
-Ud
-Sz
-Hq
+Cg
+Cg
+Cg
 it
 iO
 jh
@@ -30280,8 +30230,8 @@ ad
 ad
 gv
 gJ
-Zk
-hu
+Cg
+gJ
 LS
 iu
 iP
@@ -30537,8 +30487,8 @@ ad
 ad
 gw
 gJ
-Wz
-FM
+Cg
+Cg
 Cg
 iv
 iQ
