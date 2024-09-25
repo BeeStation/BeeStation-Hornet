@@ -7,7 +7,6 @@ GLOBAL_DATUM_INIT(vv_ghost, /datum/vv_ghost, new) // Fake datum for vv debug_var
 */
 
 /datum/vv_ghost
-	@@ -13,10 +28,12 @@ GLOBAL_DATUM_INIT(vv_ghost, /datum/vv_ghost, new) // Fake datum for vv debug_var
 	/// which var of the reference you're s eeing
 	var/special_varname
 	/// an actual ref from above (= owner:vars[special_varname])
