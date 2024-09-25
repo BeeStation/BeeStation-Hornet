@@ -250,6 +250,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		. += mutable_appearance(icon, "16", appearance_flags = RESET_COLOR)
 	else if (down)
 		underlays += mutable_appearance(icon, "32", appearance_flags = RESET_COLOR)
+	var/shift_amount = get_shift_amount()
+	if (shift_amount != 0)
+		// Add for the sake of hitboxes
+		var/mutable_appearance/ma = mutable_appearance(icon, icon_state)
+		ma.alpha = 1
+		ma.pixel_x = -shift_amount
+		ma.pixel_y = shift_amount
+		. += ma
 
 /obj/structure/cable/update_icon_state()
 	. = ..()
@@ -275,18 +283,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		add_atom_colour(GLOB.cable_colors[cable_color], FIXED_COLOUR_PRIORITY)
 		// Calculate pixel shifts
 		remove_filter(list("displace_wire", "omni-connection-up", "omni-connection-left", "omni-connection-down", "omni-connection-right"))
-		var/shift_amount = 0
-		switch (cable_color)
-			if ("green")
-				shift_amount = -4
-			if ("orange")
-				shift_amount = -2
-			if ("yellow")
-				shift_amount = 0
-			if ("red")
-				shift_amount = 2
-			if ("pink")
-				shift_amount = 4
+		var/shift_amount = get_shift_amount()
 		add_filter("displace_wire", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-wire"), size=shift_amount))
 		if (north && north.omni)
 			add_filter("omni-connection-up", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-up"), size=shift_amount))
@@ -296,6 +293,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 			add_filter("omni-connection-left", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-left"), size=shift_amount))
 		if (east && east.omni)
 			add_filter("omni-connection-right", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-right"), size=shift_amount))
+
+/obj/structure/cable/proc/get_shift_amount()
+	switch (cable_color)
+		if ("green")
+			return -4
+		if ("orange")
+			return -2
+		if ("yellow")
+			return 0
+		if ("red")
+			return 2
+		if ("pink")
+			return 4
+	return 0
 
 /obj/structure/cable/attackby(obj/item/W, mob/user, params)
 	var/turf/T = get_turf(src)
