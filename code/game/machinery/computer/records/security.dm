@@ -149,6 +149,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 	if(.)
 		return
 
+	var/mob/user = ui.user
 	var/datum/record/crew/target
 	if(params["crew_ref"])
 		target = locate(params["crew_ref"]) in GLOB.manifest.general
@@ -157,7 +158,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 
 	switch(action)
 		if("add_crime")
-			add_crime(usr, target, params)
+			add_crime(user, target, params)
 			return TRUE
 
 		if("delete_record")
@@ -165,15 +166,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 			return TRUE
 
 		if("edit_crime")
-			edit_crime(usr, target, params)
+			edit_crime(user, target, params)
 			return TRUE
 
 		if("invalidate_crime")
-			invalidate_crime(usr, target, params)
+			invalidate_crime(user, target, params)
 			return TRUE
 
 		if("print_record")
-			print_record(usr, target, params)
+			print_record(user, target, params)
 			return TRUE
 
 		if("set_note")
@@ -199,13 +200,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 /obj/machinery/computer/records/security/proc/add_crime(mob/user, datum/record/crew/target, list/params)
 	var/input_name = trim(params["name"], MAX_CRIME_NAME_LEN)
 	if(!input_name)
-		to_chat(usr, "<span class='warning'>You must enter a name for the crime.</span>")
+		to_chat(user, "<span class='warning'>You must enter a name for the crime.</span>")
 		playsound(src, 'sound/machines/terminal_error.ogg', 75, TRUE)
 		return FALSE
 
 	var/max = CONFIG_GET(number/maxfine)
 	if(params["fine"] > max)
-		to_chat(usr, "<span class='warning'>The maximum fine is [max] credits.</span>")
+		to_chat(user, "<span class='warning'>The maximum fine is [max] credits.</span>")
 		playsound(src, 'sound/machines/terminal_error.ogg', 75, TRUE)
 		return FALSE
 
@@ -214,7 +215,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 		input_details = trim(params["details"], MAX_MESSAGE_LEN)
 
 	if(params["fine"] == 0)
-		var/datum/crime/new_crime = new(name = input_name, details = input_details, author = usr)
+		var/datum/crime/new_crime = new(name = input_name, details = input_details, author = user)
 		target.crimes += new_crime
 		target.wanted_status = WANTED_ARREST
 		investigate_log("New Crime: <strong>[input_name]</strong> | Added to [target.name] by [key_name(user)]", INVESTIGATE_RECORDS)
@@ -222,7 +223,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 		update_matching_security_huds(target.name)
 		return TRUE
 
-	var/datum/crime/citation/new_citation = new(name = input_name, details = input_details, author = usr, fine = params["fine"])
+	var/datum/crime/citation/new_citation = new(name = input_name, details = input_details, author = user, fine = params["fine"])
 
 	target.citations += new_citation
 	new_citation.alert_owner(user, src, target.name, "You have been issued a [params["fine"]]cr citation for [input_name]. Fines are payable at Security.")
@@ -309,7 +310,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 /// Handles printing records via UI. Takes the params from UI_act.
 /obj/machinery/computer/records/security/proc/print_record(mob/user, datum/record/crew/target, list/params)
 	if(printing)
-		balloon_alert(usr, "printer busy")
+		balloon_alert(user, "printer busy")
 		playsound(src, 'sound/machines/terminal_error.ogg', 100, TRUE)
 		return FALSE
 

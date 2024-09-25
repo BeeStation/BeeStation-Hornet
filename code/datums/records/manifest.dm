@@ -143,6 +143,22 @@
 	target.rank = assignment
 
 /**
+ * Using the name to find the record, and person in reference to the body, we recreate photos for the manifest (and records).
+ * Args:
+ * - name - The name of the record we're looking for, which should be the name of the person.
+ * - person - The mob we're taking pictures of to update the records.
+ * - add_height_chart - If we should add a height chart to the background of the photo.
+ */
+/datum/manifest/proc/change_pictures(name, mob/living/person, add_height_chart = FALSE)
+	var/datum/record/crew/target = find_record(name)
+	if(!target)
+		return FALSE
+
+	target.character_appearance = new(person.appearance)
+	target.recreate_manifest_photos(add_height_chart)
+	return TRUE
+
+/**
  * Supporing proc for getting general records
  * and using them as pAI ui data. This gets
  * medical information - or what I would deem

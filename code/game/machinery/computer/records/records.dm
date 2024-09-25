@@ -28,6 +28,8 @@
 	if(.)
 		return
 
+	var/mob/user = ui.user
+
 	var/datum/record/crew/target
 	if(params["crew_ref"])
 		target = locate(params["crew_ref"]) in GLOB.manifest.general
@@ -49,17 +51,17 @@
 				return FALSE
 
 			expunge_record_info(target)
-			balloon_alert(usr, "record expunged")
+			balloon_alert(user, "record expunged")
 			playsound(src, 'sound/machines/terminal_eject.ogg', 70, TRUE)
 
 			return TRUE
 
 		if("login")
-			authenticated = secure_login(usr)
+			authenticated = secure_login(user)
 			return TRUE
 
 		if("logout")
-			balloon_alert(usr, "logged out")
+			balloon_alert(user, "logged out")
 			playsound(src, 'sound/machines/terminal_off.ogg', 70, TRUE)
 			authenticated = FALSE
 
@@ -67,14 +69,14 @@
 
 		if("purge_records")
 			ui.close()
-			balloon_alert(usr, "purging records")
+			balloon_alert(user, "purging records")
 			playsound(src, 'sound/machines/terminal_alert.ogg', 70, TRUE)
 
-			if(do_after(usr, 5 SECONDS))
+			if(do_after(user, 5 SECONDS))
 				for(var/datum/record/crew/entry in GLOB.manifest.general)
 					expunge_record_info(entry)
 
-				balloon_alert(usr, "records purged")
+				balloon_alert(user, "records purged")
 				playsound(src, 'sound/machines/terminal_off.ogg', 70, TRUE)
 
 			return TRUE
@@ -84,7 +86,7 @@
 				return FALSE
 
 			playsound(src, "sound/machines/terminal_button0[rand(1, 8)].ogg", 50, TRUE)
-			update_preview(usr, params["assigned_view"], target)
+			update_preview(user, params["assigned_view"], target)
 			return TRUE
 
 	return FALSE
