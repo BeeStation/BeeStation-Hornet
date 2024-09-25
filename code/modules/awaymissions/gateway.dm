@@ -59,6 +59,9 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 	if(ismob(AM))
 		var/mob/M = AM
+		if(src in M.do_afters)
+			return // Don't enter if we're already trying to enter
+
 		user.visible_message(\
 			"<span class='warning'>[user] tries to shove [M] into [src]...</span>",\
 			"<span class='warning'>You try to shove [M] into [src]...</span>",
@@ -122,6 +125,9 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 	if(ismob(AM))
 		var/mob/M = AM
+		if(src in M.do_afters)
+			return // Don't enter if we're already trying to enter
+
 		M.visible_message( \
 			"<span class='notice'>[AM] tries to climb into [src]...</span>", \
 			"<span class='notice'>You begin climbing into [src]...</span>")
