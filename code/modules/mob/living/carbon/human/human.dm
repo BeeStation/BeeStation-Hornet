@@ -1307,8 +1307,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 /mob/living/carbon/human/species/plasma
 	race = /datum/species/plasmaman
 
-/mob/living/carbon/human/species/pod
-	race = /datum/species/pod
+/mob/living/carbon/human/species/diona
+	race = /datum/species/diona
 
 /mob/living/carbon/human/species/shadow
 	race = /datum/species/shadow
@@ -1335,7 +1335,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 	race = /datum/species/human/krokodil_addict
 
 /mob/living/carbon/human/species/pumpkin_man
-	race = /datum/species/pod/pumpkin_man
+	race = /datum/species/pumpkin_man
 
 /mob/living/carbon/human/species/psyphoza
 	race = /datum/species/psyphoza

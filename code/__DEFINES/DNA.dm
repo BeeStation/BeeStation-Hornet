@@ -57,6 +57,7 @@
 #define ACIDOOZE    /datum/mutation/human/acidooze
 #define MEDIEVAL    /datum/mutation/human/medieval
 #define SPORES      /datum/mutation/human/spores
+#define DRONE       /datum/mutation/drone
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"
@@ -158,6 +159,11 @@
 #define ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT "brain_surgical"
 #define ORGAN_SLOT_TAIL "tail"
 #define ORGAN_SLOT_WINGS "wings"
+#define ORGAN_SLOT_R_ARM_NYMPH "r_arm_nymph" //I can't think of any way of doing this better, please tell me if there is a better way.
+#define ORGAN_SLOT_L_ARM_NYMPH "l_arm_nymph"
+#define ORGAN_SLOT_R_LEG_NYMPH "r_leg_nymph"
+#define ORGAN_SLOT_L_LEG_NYMPH "l_leg_nymph"
+#define ORGAN_SLOT_CHEST_NYMPH "chest_nymph"
 
 //organ defines
 #define STANDARD_ORGAN_THRESHOLD 	100

@@ -364,18 +364,23 @@
 	disliked_food = CLOTH
 	liked_food = JUNKFOOD | FRIED | GROSS | RAW | GORE
 
-/obj/item/organ/tongue/podperson
-	name = "plant tongue"
+/obj/item/organ/tongue/diona
+	name = "diona tongue"
 	desc = "It's an odd tongue, seemingly made of plant matter."
-	disliked_food = MEAT | DAIRY
-	liked_food = VEGETABLES | FRUIT | GRAIN | CLOTH //cannibals apparently
+	icon_state = "diona_tongue"
+	say_mod = "rustles"
+	ask_mod = "quivers"
+	yell_mod = "shrieks"
+	exclaim_mod = "ripples"
+	disliked_food = DAIRY | FRUIT | GRAIN | CLOTH | VEGETABLES
+	liked_food = MEAT | RAW
 
-/obj/item/organ/tongue/podperson/pumpkin
+/obj/item/organ/tongue/diona/pumpkin
 	modifies_speech = TRUE
 	///Is this tongue carved?
 	var/carved = FALSE
 
-/obj/item/organ/tongue/podperson/pumpkin/handle_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/diona/pumpkin/handle_speech(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
 	if((message[1] != "*" || message[1] != "#") && !carved)
 		message = "..."
