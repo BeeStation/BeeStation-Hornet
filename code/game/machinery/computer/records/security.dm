@@ -189,6 +189,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 				return FALSE
 			target.wanted_status = wanted_status
 
+			update_matching_security_huds(target.name)
+
 			return TRUE
 
 	return FALSE
@@ -216,6 +218,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 		target.crimes += new_crime
 		target.wanted_status = WANTED_ARREST
 		investigate_log("New Crime: <strong>[input_name]</strong> | Added to [target.name] by [key_name(user)]", INVESTIGATE_RECORDS)
+
+		update_matching_security_huds(target.name)
 		return TRUE
 
 	var/datum/crime/citation/new_citation = new(name = input_name, details = input_details, author = usr, fine = params["fine"])
@@ -289,6 +293,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 	if(acquitted)
 		target.wanted_status = WANTED_DISCHARGED
 		investigate_log("[key_name(user)] has invalidated [target.name]'s last valid crime. Their status is now [WANTED_DISCHARGED].", INVESTIGATE_RECORDS)
+
+	update_matching_security_huds(target.name)
 
 	return TRUE
 
@@ -495,8 +501,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 		investigate_log("[parent.get_creator()] has set security records for '[names_of_entries.Join(", ")]' to [status_to_set] via circuits.", INVESTIGATE_RECORDS)
 		if(successful_set > COMP_SECURITY_ARREST_AMOUNT_TO_FLAG)
 			message_admins("[successful_set] security entries have been set to [status_to_set] by [parent.get_creator_admin()]. [ADMIN_COORDJMP(src)]")
-		for(var/mob/living/carbon/human/human as anything in GLOB.carbon_list)
-			human.sec_hud_set_security_status()
+		update_all_security_huds()
 
 #undef COMP_SECURITY_ARREST_AMOUNT_TO_FLAG
 #undef PRINTOUT_MISSING
