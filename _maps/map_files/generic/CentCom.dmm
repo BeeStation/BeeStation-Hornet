@@ -18747,10 +18747,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/control)
-"XD" = (
-/obj/structure/closet/supplypod/droppod,
-/turf/open/floor/plating/elevatorshaft,
-/area/syndicate_mothership/control)
 "XE" = (
 /obj/structure/flora/grass/jungle,
 /obj/structure/flora/ausbushes/stalkybush{
@@ -29751,9 +29747,9 @@ ZV
 Cl
 ku
 ku
-XD
+eI
 tZ
-XD
+eI
 tx
 qi
 qO
@@ -30263,7 +30259,7 @@ ku
 QO
 RD
 ku
-XD
+eI
 sE
 qc
 Fy
@@ -30779,9 +30775,9 @@ WS
 RO
 ku
 ku
-XD
+eI
 kA
-XD
+eI
 tx
 Mv
 Rd
