@@ -87,14 +87,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 		ui.open()
 
 /obj/machinery/computer/records/security/ui_data(mob/user)
-	var/list/data = list()
+	var/list/data = ..()
 
-	var/has_access =  (authenticated && isliving(user)) || issiliconoradminghost(user)
-	data["authenticated"] = authenticated || issiliconoradminghost(user)
-	if(!has_access)
-		return data
-
-	data["assigned_view"] = "preview_[user.ckey]_[REF(src)]_records"
 	data["available_statuses"] = WANTED_STATUSES()
 	data["current_user"] = user.name
 	data["higher_access"] = has_armory_access(user)
