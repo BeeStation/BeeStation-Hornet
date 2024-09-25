@@ -23,6 +23,7 @@ GLOBAL_DATUM_INIT(vv_ghost, /datum/vv_ghost, new) // Fake datum for vv debug_var
 */
 
 /datum/vv_ghost
+	// variables for vv special list
 	/// Reference ID of a thing.
 	var/special_owner
 	/// which var of the reference you're s eeing
@@ -30,9 +31,12 @@ GLOBAL_DATUM_INIT(vv_ghost, /datum/vv_ghost, new) // Fake datum for vv debug_var
 	/// an actual ref from above (= owner:vars[special_varname])
 	var/special_ref // this exists to remember the actual special list reference for a while.
 
+
+	// variable for ordinary lists
 	/// a list ref that isn't special
 	var/list_ref
 
+	// variable for internal use only
 	/// a failsafe variable
 	var/ready_to_del
 
