@@ -27,6 +27,6 @@
 		var/mob/living/simple_animal/hostile/retaliate/nymph/new_nymph = new(vent.loc)
 
 		announce_to_ghosts(new_nymph)
-		message_admins("[ADMIN_LOOKUPFLW(new_mimite)] has been spawned by an event.")
-		log_game("mimites where spawned by an event.")
+		message_admins("[ADMIN_LOOKUPFLW(new_nymph)] has been spawned by an event.")
+		log_game("diona nymphs were spawned by an event.")
 	return SUCCESSFUL_SPAWN
