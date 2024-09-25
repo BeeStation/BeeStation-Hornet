@@ -7,6 +7,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	icon_state = "off"
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	move_resist = INFINITY
 	var/active = FALSE
 	var/checkparts = TRUE
 	var/list/adjacent_parts = list()
@@ -34,9 +35,13 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	return ..()
 
 /obj/machinery/gateway/Bumped(atom/movable/AM)
+	if(!centerpiece)
+		return
 	self_teleport(AM)
 
 /obj/machinery/gateway/MouseDrop_T(atom/movable/AM, mob/user)
+	if(!centerpiece)
+		return
 	. = ..()
 	if(AM == user)
 		self_teleport(AM) // This is so that if you're drag-clicking yourself into the gateway it'll appear as if you're entering it
@@ -79,7 +84,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		say_cooldown("Destination gateway not active.")
 		return FALSE
 
-	return check_teleport(AM, dest_turf, channel = TELEPORT_CHANNEL_GATEWAY)
+	return TRUE
 
 /obj/machinery/gateway/proc/check_parts()
 	. = TRUE
@@ -111,6 +116,12 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 	var/turf/dest_turf = get_step(get_turf(linked_gateway), SOUTH)
 	if(!pre_check_teleport(AM, dest_turf))
+		return // Gateway off/broken
+
+	if(!check_teleport(AM, dest_turf, channel = TELEPORT_CHANNEL_GATEWAY))
+		AM.visible_message( \
+			"<span class='notice'>[AM] can't seem to go through [src]...</span>", \
+			"<span class='notice'>You can't seem to force your way through [src]...</span>")
 		return
 
 	if(ismob(AM))
