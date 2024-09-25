@@ -6833,7 +6833,8 @@
 	dir = 1;
 	name = "emergency shower"
 	},
-/obj/effect/turf_decal/box,
+/obj/structure/table/greyscale,
+/obj/structure/bedsheetbin,
 /turf/open/floor/noslip/blue,
 /area/space)
 "EW" = (
@@ -9453,6 +9454,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/space)
+"PH" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/space)
 "PI" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -11191,12 +11199,6 @@
 	dir = 8
 	},
 /area/hydroponics)
-"WY" = (
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/space)
 "Xa" = (
 /obj/machinery/chem_master/condimaster,
 /obj/machinery/newscaster/directional/south,
@@ -26579,7 +26581,7 @@ GR
 ep
 ep
 ep
-WY
+Ek
 ep
 bM
 bM
@@ -26758,8 +26760,8 @@ Ek
 Ov
 GR
 GR
-zD
 GR
+zD
 GR
 GR
 GR
@@ -26781,7 +26783,7 @@ GR
 bM
 bM
 ep
-WY
+Ek
 ep
 bM
 bM
@@ -26961,7 +26963,7 @@ Ov
 GR
 Tn
 pM
-ES
+pM
 GR
 bM
 GR
@@ -26983,7 +26985,7 @@ GR
 bM
 bM
 ep
-WY
+Ek
 ep
 bM
 bM
@@ -27184,8 +27186,8 @@ Ov
 GR
 bM
 bM
-ep
-WY
+PH
+Ek
 ep
 bM
 bM
@@ -27378,16 +27380,16 @@ bM
 bM
 bM
 GR
-GR
-GR
-GR
-GR
-GR
+Ov
+Ov
+Ov
+Ov
+Ov
 GR
 bM
 bM
 ep
-WY
+Ek
 ep
 bM
 bM
@@ -27579,17 +27581,17 @@ GR
 bM
 bM
 bM
-bM
-bM
-bM
-bM
-bM
-bM
-bM
+GR
+GR
+GR
+GR
+GR
+GR
+GR
 bM
 bM
 ep
-WY
+Ek
 ep
 bM
 bM
@@ -27791,7 +27793,7 @@ bM
 bM
 bM
 ep
-WY
+Ek
 ep
 bM
 bM
@@ -27993,7 +27995,7 @@ bM
 bM
 bM
 ep
-WY
+Ek
 ep
 bM
 bM
@@ -28195,7 +28197,7 @@ bM
 bM
 bM
 ep
-WY
+Ek
 ep
 bM
 bM
@@ -28397,7 +28399,7 @@ bM
 bM
 bM
 ep
-WY
+Ek
 ep
 bM
 bM
@@ -28599,7 +28601,7 @@ Zp
 bM
 bM
 ep
-WY
+Ek
 ep
 bM
 bM
@@ -28801,7 +28803,7 @@ Zp
 bM
 bM
 ep
-WY
+Ek
 ep
 bM
 bM
@@ -29003,7 +29005,7 @@ Zp
 GR
 GR
 GR
-kJ
+Or
 GR
 GR
 GR
