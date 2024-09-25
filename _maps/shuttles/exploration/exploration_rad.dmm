@@ -407,7 +407,9 @@
 	},
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/machinery/camera/directional/east,
+/obj/machinery/camera/autoname/directional/east{
+	network = list("ss13","sci")
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9
 	},

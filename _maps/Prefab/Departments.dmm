@@ -884,8 +884,9 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/camera{
-	dir = 10
+/obj/machinery/camera/autoname{
+	dir = 10;
+	network = list("ss13","rd")
 	},
 /turf/open/floor/iron,
 /area/space)
