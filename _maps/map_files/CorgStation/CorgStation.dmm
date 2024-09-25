@@ -7988,6 +7988,7 @@
 /area/engine/engineering)
 "cnH" = (
 /obj/machinery/gateway,
+/obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
 /area/gateway)
 "cnI" = (
@@ -72350,11 +72351,6 @@
 /obj/machinery/gateway{
 	dir = 10
 	},
-/obj/effect/turf_decal/arrows{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -14
-	},
 /turf/open/floor/circuit,
 /area/gateway)
 "xsd" = (
@@ -73242,9 +73238,6 @@
 "xGI" = (
 /obj/machinery/gateway{
 	dir = 6
-	},
-/obj/effect/turf_decal/arrows{
-	pixel_x = -24
 	},
 /turf/open/floor/circuit,
 /area/gateway)

@@ -14057,9 +14057,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/turf_decal/arrows{
-	pixel_x = -24
-	},
 /obj/effect/turf_decal/box/corners,
 /turf/open/floor/engine,
 /area/gateway)
@@ -20246,11 +20243,6 @@
 	},
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/effect/turf_decal/arrows{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -14
 	},
 /obj/effect/turf_decal/box/corners{
 	dir = 8
@@ -29704,6 +29696,7 @@
 "isI" = (
 /obj/machinery/gateway,
 /obj/effect/landmark/xeno_spawn,
+/obj/effect/turf_decal/box,
 /turf/open/floor/engine,
 /area/gateway)
 "isM" = (

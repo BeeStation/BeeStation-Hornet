@@ -58509,8 +58509,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
 /area/gateway)
 "pbe" = (
@@ -61909,9 +61909,6 @@
 	},
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/turf_decal/arrows{
-	pixel_x = -24
-	},
 /obj/effect/turf_decal/box/corners,
 /turf/open/floor/iron/dark,
 /area/gateway)
@@ -88643,11 +88640,6 @@
 	},
 /obj/effect/turf_decal/bot_white/left,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/turf_decal/arrows{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -14
-	},
 /obj/effect/turf_decal/box/corners{
 	dir = 8
 	},

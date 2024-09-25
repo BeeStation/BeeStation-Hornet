@@ -760,8 +760,11 @@
 /datum/dynamic_ruleset/midround/from_ghosts/swarmer/ready(forced = FALSE)
 	if(!..())
 		return FALSE
-	if(!GLOB.the_gateway)
+	if(isnull(GLOB.the_gateway))
 		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations (no gateway on map).")
+		return FALSE
+	if(!GLOB.the_gateway.active)
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations (no ACTIVE gateway on map).")
 		return FALSE
 	return TRUE
 

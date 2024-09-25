@@ -9571,11 +9571,6 @@
 /obj/effect/turf_decal/box/corners{
 	dir = 8
 	},
-/obj/effect/turf_decal/arrows{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -14
-	},
 /turf/open/floor/iron/techmaint,
 /area/gateway)
 "das" = (
@@ -26774,6 +26769,7 @@
 /area/security/brig)
 "iwt" = (
 /obj/machinery/gateway,
+/obj/effect/turf_decal/box,
 /turf/open/floor/iron/techmaint,
 /area/gateway)
 "iwO" = (
@@ -66965,9 +66961,6 @@
 	},
 /obj/effect/turf_decal/box/corners,
 /obj/machinery/airalarm/directional/east,
-/obj/effect/turf_decal/arrows{
-	pixel_x = -24
-	},
 /turf/open/floor/iron/techmaint,
 /area/gateway)
 "vjz" = (
