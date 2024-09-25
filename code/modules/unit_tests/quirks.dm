@@ -36,8 +36,8 @@
 		//Add quirk to a patient - so we can pass quirks that add a medical record after being assigned someone
 		patient.mind.add_quirk(quirk_type)
 
-		var/datum/quirk
-		for(var/datum/quirk/Q in quirks)
+		var/datum/quirk/quirk
+		for(var/datum/quirk/Q in patient.mind.quirks)
 			if(Q.type == quirk_type)
 				quirk = Q
 
