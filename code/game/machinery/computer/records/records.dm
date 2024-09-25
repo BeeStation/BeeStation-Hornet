@@ -3,7 +3,7 @@
  */
 /obj/machinery/computer/records
 	/// The character preview view for the UI.
-	var/atom/movable/screen/map_view/char_preview/character_preview_view
+	var/atom/movable/screen/map_view/character_preview_view/character_preview_view
 
 /obj/machinery/computer/records/ui_data(mob/user)
 	var/list/data = list()
@@ -20,7 +20,7 @@
 /obj/machinery/computer/records/ui_close(mob/user)
 	. = ..()
 	user.client?.screen_maps -= USER_PREVIEW_ASSIGNED_VIEW(user.ckey)
-	if((LAZYLEN(open_uis) <= 1) && character_preview_view) //only delete the preview if we're the last one to close the console.
+	if((LAZYLEN(SStgui.open_uis) <= 1) && character_preview_view) //only delete the preview if we're the last one to close the console.
 		QDEL_NULL(character_preview_view)
 
 /obj/machinery/computer/records/ui_act(action, list/params, datum/tgui/ui)
