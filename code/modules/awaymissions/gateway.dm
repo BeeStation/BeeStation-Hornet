@@ -49,6 +49,8 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 	if(isnull(linked_gateway))
 		return
+	if(AM.anchored)
+		return
 
 	var/turf/dest_turf = get_step(get_turf(linked_gateway), SOUTH)
 	if(!pre_check_teleport(AM, dest_turf))
