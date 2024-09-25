@@ -1,6 +1,0 @@
-author: Aramix
-delete-after: true
-changes:
-  - tweak: medbot no longer automatically opens its menu to the user inserting a container
-      into it if the menu wasn't already open
-  - bugfix: as a result, the old and now unused menu is no longer opened, as intended
