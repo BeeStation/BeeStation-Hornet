@@ -217,7 +217,7 @@
 			Now the bomb CAN ONLY be detonated using the timer. Manual detonation is not an option.<br>
 			Note: Nanotrasen is a pain in the neck.<br>
 			Toggle off the SAFETY.<br>
-			Note: You wouldn't believe how many Syndicate O5peratives with doctorates have forgotten this step.<br>
+			Note: You wouldn't believe how many Syndicate Operatives with doctorates have forgotten this step.<br>
 			So use the - - and + + to set a det time between 5 seconds and 10 minutes.<br>
 			Then press the timer toggle button to start the countdown.<br>
 			Now remove the auth. disk so that the buttons deactivate.<br>
