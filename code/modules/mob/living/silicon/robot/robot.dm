@@ -1192,7 +1192,7 @@
 /datum/action/innate/undeployment
 	name = "Disconnect from shell"
 	desc = "Stop controlling your shell and resume normal core operations."
-	icon_icon = 'icons/mob/actions/actions_AI.dmi'
+	icon_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_core"
 
 /datum/action/innate/undeployment/Trigger()
@@ -1236,7 +1236,7 @@
 
 /mob/living/silicon/robot/shell
 	shell = TRUE
-	cell = null
+	cell = /obj/item/stock_parts/cell/high
 
 /mob/living/silicon/robot/mouse_buckle_handling(mob/living/M, mob/living/user)
 	//Don't try buckling on INTENT_HARM so that silicons can search people's inventories without loading them

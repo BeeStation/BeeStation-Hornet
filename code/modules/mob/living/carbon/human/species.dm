@@ -98,6 +98,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//Breathing! Most changes are in mutantlungs, though
 	var/breathid = "o2"
 
+	//Blank list. As it runs through regenerate_organs, organs that are missing are added in sequential order to the list
+	//List is called in health analyzer and displays all missing organs
 	var/list/required_organs = list()
 
 	//Do NOT remove by setting to null. use OR make a RESPECTIVE TRAIT (removing stomach? add the NOSTOMACH trait to your species)
@@ -150,6 +152,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	/// What bleed status effect should we apply?
 	var/bleed_effect = STATUS_EFFECT_BLEED
+
+	// Species specific bitflags. Used for things like if the race is unable to become a changeling.
+	var/species_bitflags = NONE
 
 ///////////
 // PROCS //
@@ -250,7 +255,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 //Please override this locally if you want to define when what species qualifies for what rank if human authority is enforced.
 /datum/species/proc/qualifies_for_rank(rank, list/features)
-	if(rank in GLOB.command_positions)
+	if(rank in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 		return 0
 	return 1
 
@@ -306,15 +311,17 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		neworgan = new neworgan()
 		var/should_have = neworgan.get_availability(src) //organ proc that points back to a species trait (so if the species is supposed to have this organ)
 
-		if(oldorgan && (!should_have || replace_current) && !(oldorgan.zone in excluded_zones))
+		if(oldorgan && (!should_have || replace_current) && !(oldorgan.zone in excluded_zones) && !(oldorgan.organ_flags & (ORGAN_UNREMOVABLE)))
 			if(slot == ORGAN_SLOT_BRAIN)
 				var/obj/item/organ/brain/brain = oldorgan
 				if(!brain.decoy_override)//"Just keep it if it's fake" - confucius, probably
 					brain.Remove(C,TRUE, TRUE) //brain argument used so it doesn't cause any... sudden death.
 					QDEL_NULL(brain)
-			oldorgan.Remove(C,TRUE)
-			required_organs -= oldorgan
-			QDEL_NULL(oldorgan)
+					oldorgan = null
+			else
+				oldorgan.Remove(C, special = TRUE)
+				required_organs -= oldorgan
+				QDEL_NULL(oldorgan) //we cannot just tab this out because we need to skip the deleting if it is a decoy brain.
 
 		if(oldorgan)
 			oldorgan.setOrganDamage(0)
@@ -334,7 +341,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				continue
 			var/obj/item/organ/I = C.getorgan(mutantorgan)
 			if(I)
-				I.Remove(C)
+				I.Remove(C, TRUE)
 				required_organs -= I.type
 				QDEL_NULL(I)
 
@@ -898,6 +905,30 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(mutant_bodyparts["psyphoza_cap"])
 		if(!H.dna.features["psyphoza_cap"] || H.dna.features["psyphoza_cap"] == "None" || !HD)
 			bodyparts_to_add -= "psyphoza_cap"
+	if("diona_leaves" in mutant_bodyparts)
+		if(!H.dna.features["diona_leaves"] || H.dna.features["diona_leaves"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_leaves"
+	if("diona_thorns" in mutant_bodyparts)
+		if(!H.dna.features["diona_thorns"] || H.dna.features["diona_thorns"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_thorns"
+	if("diona_flowers" in mutant_bodyparts)
+		if(!H.dna.features["diona_flowers"] || H.dna.features["diona_flowers"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_flowers"
+	if("diona_moss" in mutant_bodyparts)
+		if(!H.dna.features["diona_moss"] || H.dna.features["diona_moss"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_moss"
+	if("diona_mushroom" in mutant_bodyparts)
+		if(!H.dna.features["diona_mushroom"] || H.dna.features["diona_mushroom"] == "None" || !HD)
+			bodyparts_to_add -= "diona_mushroom"
+	if("diona_antennae" in mutant_bodyparts)
+		if(!H.dna.features["diona_antennae"] || H.dna.features["diona_antennae"] == "None" || !HD)
+			bodyparts_to_add -= "diona_antennae"
+	if("diona_eyes" in mutant_bodyparts)
+		if(!H.dna.features["diona_eyes"] || H.dna.features["diona_eyes"] == "None" || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
+			bodyparts_to_add -= "diona_eyes"
+	if("diona_pbody" in mutant_bodyparts)
+		if(!H.dna.features["diona_pbody"] || H.dna.features["diona_pbody"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_pbody"
 
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
@@ -997,6 +1028,24 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.apid_headstripes_list[H.dna.features["apid_headstripes"]]
 				if("psyphoza_cap")
 					S = GLOB.psyphoza_cap_list[H.dna.features["psyphoza_cap"]]
+				if("diona_leaves")
+					S = GLOB.diona_leaves_list[H.dna.features["diona_leaves"]]
+				if("diona_thorns")
+					S = GLOB.diona_thorns_list[H.dna.features["diona_thorns"]]
+				if("diona_flowers")
+					S = GLOB.diona_flowers_list[H.dna.features["diona_flowers"]]
+				if("diona_moss")
+					S = GLOB.diona_moss_list[H.dna.features["diona_moss"]]
+				if("diona_mushroom")
+					S = GLOB.diona_mushroom_list[H.dna.features["diona_mushroom"]]
+				if("diona_antennae")
+					S = GLOB.diona_antennae_list[H.dna.features["diona_antennae"]]
+				if("diona_eyes")
+					S = GLOB.diona_eyes_list[H.dna.features["diona_eyes"]]
+				if("diona_pbody")
+					S = GLOB.diona_pbody_list[H.dna.features["diona_pbody"]]
+
+
 			if(!S || S.icon_state == "none")
 				continue
 
