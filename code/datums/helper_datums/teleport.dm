@@ -349,3 +349,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 
 	visible_message("<span class='warning'>The portal bends inward, but [src] can't seem to pass through it!</span>", "<span class='warning'>You can't seem to pass through the portal!</span>")
 	return COMPONENT_BLOCK_TELEPORT
+
+/mob/living/simple_animal/hostile/swarmer/intercept_teleport(channel, turf/origin, turf/destination)
+	. = ..()
+
+	if(. == COMPONENT_BLOCK_TELEPORT || channel != TELEPORT_CHANNEL_GATEWAY)
+		return
+
+	visible_message("<span class='warning'>[src] stops just before entering the portal.</span>", "<span class='warning'>Going back the way you came would not be productive. Aborting.</span>")
+	return COMPONENT_BLOCK_TELEPORT
