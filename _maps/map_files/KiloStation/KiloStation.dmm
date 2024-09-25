@@ -13162,7 +13162,7 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/port)
 "bAJ" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/machinery/requests_console{
 	department = "Detective's office";
 	name = "Detective RC";
@@ -15809,7 +15809,7 @@
 /turf/open/floor/iron/dark,
 /area/storage/primary)
 "bQL" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
@@ -17334,7 +17334,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/structure/table,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
@@ -30901,7 +30901,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "eva" = (
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /obj/machinery/newscaster{
 	pixel_y = 30
 	},
@@ -32318,7 +32318,7 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/disposal/incinerator)
 "eWs" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
@@ -42661,7 +42661,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/machinery/newscaster{
@@ -49482,7 +49482,7 @@
 /area/crew_quarters/fitness/recreation)
 "kAo" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/machinery/newscaster{
@@ -50611,7 +50611,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "kVf" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wood/end{
@@ -53978,7 +53978,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -62600,7 +62600,7 @@
 /area/space/nearstation)
 "oRZ" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
@@ -63018,7 +63018,7 @@
 /turf/open/floor/iron,
 /area/security/courtroom)
 "oYU" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/machinery/status_display/evac{
@@ -63952,7 +63952,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "plS" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
@@ -65165,7 +65165,7 @@
 /turf/closed/wall/r_wall,
 /area/quartermaster/exploration_prep)
 "pEu" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
@@ -68986,7 +68986,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
 "qVt" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/white{
 	dir = 8
@@ -72669,7 +72669,7 @@
 /turf/open/floor/iron,
 /area/construction/mining/aux_base)
 "sfd" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/machinery/requests_console{
@@ -76108,7 +76108,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
 "tmK" = (
@@ -78212,7 +78212,7 @@
 	dir = 4;
 	color = "#486091"
 	},
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /obj/machinery/newscaster{
 	pixel_y = 30
 	},
@@ -79668,7 +79668,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
@@ -85793,7 +85793,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -90736,7 +90736,7 @@
 /turf/open/floor/iron/dark,
 /area/chapel/office)
 "xTB" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/structure/cable/yellow{

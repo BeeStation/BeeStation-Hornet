@@ -2430,7 +2430,7 @@
 /turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
 "ux" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -2669,7 +2669,7 @@
 /turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
 "TH" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,

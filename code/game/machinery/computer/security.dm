@@ -5,43 +5,43 @@
 /// Editing this will cause UI issues.
 #define MAX_CRIME_NAME_LEN 24
 
-/obj/machinery/computer/secure_data
+/obj/machinery/computer/records/security
 	name = "security records console"
 	desc = "Used to view and edit personnel's security records."
 	icon_screen = "security"
 	icon_keyboard = "security_key"
 	req_one_access = list(ACCESS_SEC_RECORDS)
-	circuit = /obj/item/circuitboard/computer/secure_data
+	circuit = /obj/item/circuitboard/computer/records/security
 	light_color = LIGHT_COLOR_RED
 
 	/// The current state of the printer
 	var/printing = FALSE
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 
-/obj/machinery/computer/secure_data/syndie
+/obj/machinery/computer/records/security/syndie
 	icon_keyboard = "syndie_key"
 	req_one_access = list(ACCESS_SYNDICATE)
 
-/obj/machinery/computer/secure_data/laptop
+/obj/machinery/computer/records/security/laptop
 	name = "security laptop"
 	desc = "A cheap Nanotrasen security laptop, it functions as a security records console. It's bolted to the table."
 	icon_state = "laptop"
 	icon_screen = "seclaptop"
 	icon_keyboard = "laptop_key"
 
-/obj/machinery/computer/secure_data/laptop/syndie
+/obj/machinery/computer/records/security/laptop/syndie
 	desc = "A cheap, jailbroken security laptop. It functions as a security records console. It's bolted to the table."
 	req_one_access = list(ACCESS_SYNDICATE)
 
-/obj/machinery/computer/secure_data/Initialize(mapload, obj/item/circuitboard/C)
+/obj/machinery/computer/records/security/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	AddComponent(/datum/component/usb_port, list(
 		/obj/item/circuit_component/arrest_console_data,
 		/obj/item/circuit_component/arrest_console_arrest,
 	))
 
-/obj/machinery/computer/secure_data/emp_act(severity)
+/obj/machinery/computer/records/security/emp_act(severity)
 	. = ..()
 
 	if(machine_stat & (BROKEN|NOPOWER) || . & EMP_PROTECT_SELF)
@@ -69,13 +69,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
 			qdel(target)
 			continue
 
-/obj/machinery/computer/secure_data/attacked_by(obj/item/attacking_item, mob/living/user)
+/obj/machinery/computer/records/security/attacked_by(obj/item/attacking_item, mob/living/user)
 	. = ..()
 	if(!istype(attacking_item, /obj/item/photo))
 		return
 	insert_new_record(user, attacking_item)
 
-/obj/machinery/computer/secure_data/ui_interact(mob/user, datum/tgui/ui)
+/obj/machinery/computer/records/security/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
 	if(.)
 		return
@@ -86,7 +86,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
-/obj/machinery/computer/secure_data/ui_data(mob/user)
+/obj/machinery/computer/records/security/ui_data(mob/user)
 	var/list/data = list()
 
 	var/has_access =  (authenticated && isliving(user)) || issiliconoradminghost(user)
@@ -144,13 +144,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
 	return data
 
 
-/obj/machinery/computer/secure_data/ui_static_data(mob/user)
+/obj/machinery/computer/records/security/ui_static_data(mob/user)
 	var/list/data = list()
 	data["min_age"] = AGE_MIN
 	data["max_age"] = AGE_MAX
 	return data
 
-/obj/machinery/computer/secure_data/ui_act(action, list/params, datum/tgui/ui)
+/obj/machinery/computer/records/security/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
 	if(.)
 		return
@@ -200,7 +200,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
 	return FALSE
 
 /// Handles adding a crime to a particular record.
-/obj/machinery/computer/secure_data/proc/add_crime(mob/user, datum/record/crew/target, list/params)
+/obj/machinery/computer/records/security/proc/add_crime(mob/user, datum/record/crew/target, list/params)
 	var/input_name = trim(params["name"], MAX_CRIME_NAME_LEN)
 	if(!input_name)
 		to_chat(usr, "<span class='warning'>You must enter a name for the crime.</span>")
@@ -233,7 +233,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
 	return TRUE
 
 /// Handles editing a crime on a particular record.
-/obj/machinery/computer/secure_data/proc/edit_crime(mob/user, datum/record/crew/target, list/params)
+/obj/machinery/computer/records/security/proc/edit_crime(mob/user, datum/record/crew/target, list/params)
 	var/datum/crime/editing_crime = locate(params["crime_ref"]) in target.crimes
 	if(!editing_crime?.valid)
 		return FALSE
@@ -252,7 +252,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
 	return FALSE
 
 /// Deletes security information from a record.
-/obj/machinery/computer/secure_data/expunge_record_info(datum/record/crew/target)
+/obj/machinery/computer/records/security/expunge_record_info(datum/record/crew/target)
 	target.citations.Cut()
 	target.crimes.Cut()
 	target.security_note = null
@@ -260,7 +260,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
 	return TRUE
 
 /// Only qualified personnel can edit records.
-/obj/machinery/computer/secure_data/proc/has_armory_access(mob/user)
+/obj/machinery/computer/records/security/proc/has_armory_access(mob/user)
 	if(!isliving(user))
 		return FALSE
 	var/mob/living/player = user
@@ -275,7 +275,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
 	return TRUE
 
 /// Voids crimes, or sets someone to discharged if they have none left.
-/obj/machinery/computer/secure_data/proc/invalidate_crime(mob/user, datum/record/crew/target, list/params)
+/obj/machinery/computer/records/security/proc/invalidate_crime(mob/user, datum/record/crew/target, list/params)
 	if(!has_armory_access(user))
 		return FALSE
 	var/datum/crime/to_void = locate(params["crime_ref"]) in target.crimes
@@ -299,7 +299,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
 	return TRUE
 
 /// Finishes printing, resets the printer.
-/obj/machinery/computer/secure_data/proc/print_finish(obj/item/printable)
+/obj/machinery/computer/records/security/proc/print_finish(obj/item/printable)
 	printing = FALSE
 	playsound(src, 'sound/machines/terminal_eject.ogg', 100, TRUE)
 	printable.forceMove(loc)
@@ -307,7 +307,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
 	return TRUE
 
 /// Handles printing records via UI. Takes the params from UI_act.
-/obj/machinery/computer/secure_data/proc/print_record(mob/user, datum/record/crew/target, list/params)
+/obj/machinery/computer/records/security/proc/print_record(mob/user, datum/record/crew/target, list/params)
 	if(printing)
 		balloon_alert(usr, "printer busy")
 		playsound(src, 'sound/machines/terminal_error.ogg', 100, TRUE)
@@ -377,7 +377,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
 	/// Sends a signal on failure
 	var/datum/port/output/on_fail
 
-	var/obj/machinery/computer/secure_data/attached_console
+	var/obj/machinery/computer/records/security/attached_console
 
 /obj/item/circuit_component/arrest_console_data/populate_ports()
 	records = add_output_port("Security Records", PORT_TYPE_TABLE)
@@ -385,7 +385,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
 
 /obj/item/circuit_component/arrest_console_data/register_usb_parent(atom/movable/parent)
 	. = ..()
-	if(istype(parent, /obj/machinery/computer/secure_data))
+	if(istype(parent, /obj/machinery/computer/records/security))
 		attached_console = parent
 
 /obj/item/circuit_component/arrest_console_data/unregister_usb_parent(atom/movable/parent)
@@ -449,11 +449,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/secure_data)
 	/// Sends a signal on failure
 	var/datum/port/output/on_fail
 
-	var/obj/machinery/computer/secure_data/attached_console
+	var/obj/machinery/computer/records/security/attached_console
 
 /obj/item/circuit_component/arrest_console_arrest/register_usb_parent(atom/movable/parent)
 	. = ..()
-	if(istype(parent, /obj/machinery/computer/secure_data))
+	if(istype(parent, /obj/machinery/computer/records/security))
 		attached_console = parent
 
 /obj/item/circuit_component/arrest_console_arrest/unregister_usb_parent(atom/movable/parent)

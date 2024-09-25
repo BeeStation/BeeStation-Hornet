@@ -1,16 +1,16 @@
-/obj/machinery/computer/med_data
+/obj/machinery/computer/records/medical
 	name = "medical records console"
 	desc = "This can be used to check medical records."
 	icon_screen = "medcomp"
 	icon_keyboard = "med_key"
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
-	circuit = /obj/item/circuitboard/computer/med_data
+	circuit = /obj/item/circuitboard/computer/records/medical
 	light_color = LIGHT_COLOR_BLUE
 
-/obj/machinery/computer/med_data/syndie
+/obj/machinery/computer/records/medical/syndie
 	icon_keyboard = "syndie_key"
 
-/obj/machinery/computer/med_data/laptop
+/obj/machinery/computer/records/medical/laptop
 	name = "medical laptop"
 	desc = "A cheap Nanotrasen medical laptop, it functions as a medical records computer. It's bolted to the table."
 	icon_state = "laptop"
@@ -24,7 +24,7 @@
 	smoothing_groups = null
 	canSmoothWith = null
 
-/obj/machinery/computer/med_data/attacked_by(obj/item/attacking_item, mob/living/user)
+/obj/machinery/computer/records/medical/attacked_by(obj/item/attacking_item, mob/living/user)
 	. = ..()
 	if(!istype(attacking_item, /obj/item/photo))
 		return

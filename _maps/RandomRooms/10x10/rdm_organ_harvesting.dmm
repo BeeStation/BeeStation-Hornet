@@ -78,7 +78,7 @@
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "nR" = (
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	pixel_y = 8;
 	req_one_access = null;
 	req_one_access_txt = "5"

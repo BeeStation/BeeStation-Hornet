@@ -1160,7 +1160,7 @@
 	prereq_ids = list("comptech")
 	design_ids = list(
 		"automated_announcement",
-		"med_data",
+		"records/medical",
 		"prisonmanage",
 		"secdata",
 		"vendor",
