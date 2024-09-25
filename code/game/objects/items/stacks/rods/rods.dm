@@ -84,7 +84,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	icon_state = "metal_scraps"
 	item_state = "metal_scraps"
 	w_class = WEIGHT_CLASS_SMALL
-	material_flags = MATERIAL_EFFECT //This is necessary to ensure the rods behave as the materials would have them behave
+	material_flags = MATERIAL_EFFECTS //This is necessary to ensure the rods behave as the materials would have them behave
 	force = 5  //being hit with this must be the equivalent of being hit with a random assortment of pebbles
 	throwforce = 5
 	mats_per_unit = list(/datum/material/iron=100)
