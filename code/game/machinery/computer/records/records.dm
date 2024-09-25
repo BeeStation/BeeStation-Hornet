@@ -91,12 +91,16 @@
 /obj/machinery/computer/records/proc/create_character_preview_view(mob/user)
 	if(istype(character_preview_view))
 		return
-	character_preview_view = new(null, src)
+	character_preview_view = new()
 	if(user.client)
 		character_preview_view.register_to_client(user.client)
 	if(isnull(character_preview_view.body)) //only want to run this once
-		character_preview_view.preferences = user.client.prefs
-		character_preview_view.update_body()
+		if (isnull(character_preview_view.body))
+			character_preview_view.create_body()
+		else
+			character_preview_view.body.wipe_state()
+	// Force map view to update as well
+	character_preview_view.name = character_preview_view.name == "character_preview" ? "character_preview_1" : "character_preview"
 	return character_preview_view
 
 /// Takes a record and updates the character preview view to match it.
