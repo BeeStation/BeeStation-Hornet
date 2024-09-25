@@ -30970,7 +30970,7 @@
 	pixel_x = -12;
 	pixel_y = 7
 	},
-/obj/item/circuitboard/computer/med_data{
+/obj/item/circuitboard/computer/records/medical{
 	pixel_x = -13;
 	pixel_y = 5
 	},
