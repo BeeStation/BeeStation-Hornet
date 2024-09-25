@@ -238,7 +238,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 /area/vv_edit_var(var_name, var_value)
 	// Reference type, so please don't touch
-	if (var_name == NAMEOF(camera_networks))
+	if (var_name == NAMEOF(src, camera_networks))
 		return FALSE
 	return ..()
 

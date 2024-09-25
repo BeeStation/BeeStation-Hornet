@@ -170,7 +170,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 /obj/machinery/camera/vv_edit_var(vname, vval)
 	// Can't mess with these since they are references
-	if (vname == NAMEOF(network))
+	if (vname == NAMEOF(src, network))
 		return FALSE
 	return ..()
 
