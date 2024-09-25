@@ -290,7 +290,7 @@
 		return
 
 	var/datum/record/crew/target = find_record(perp_name)
-	if(!target || target.wanted_status == WANTED_NONE)
+	if(!target)
 		return
 
 	switch(target.wanted_status)
@@ -304,6 +304,8 @@
 			holder.icon_state = "hudparolled"
 		if(WANTED_DISCHARGED)
 			holder.icon_state = "huddischarged"
+		if(WANTED_NONE)
+			holder.icon_state = "hudnone"
 
 //Utility functions
 

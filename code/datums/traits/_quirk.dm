@@ -12,7 +12,7 @@
 	var/species_whitelist = TRUE //whether restricted_species is a whitelist or a blacklist
 	var/gain_text
 	var/lose_text
-	var/medical_record_text //This text will appear on medical records for the quirk. Not yet implemented
+	var/medical_record_text //This text will appear on medical records for the quirk.
 	var/mood_quirk = FALSE //if true, this quirk affects mood and is unavailable if moodlets are disabled
 	var/mob_trait //if applicable, apply and remove this mob quirk
 	var/process = FALSE // Does this quirk use on_process()?

@@ -98,7 +98,7 @@
 		return
 
 	var/atom/movable/screen/map_view/character_preview_view/new_view = new(null, src)
-	new_view.register_to_client(assigned_view)
+	new_view.register_to_client(user.client)
 	return new_view
 
 /// Takes a record and updates the character preview view to match it.

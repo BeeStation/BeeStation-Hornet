@@ -83,7 +83,7 @@ export const RecordPrint = (props, context) => {
             icon="file-alt"
             onClick={() => swapTabs(PRINTOUT.Rapsheet)}
             selected={printType === PRINTOUT.Rapsheet}
-            tooltip={`Prints a standard paper with the record on it. ${innocent && ' (Requires crimes)'}`}
+            tooltip={`Prints a standard paper with the record on it.${innocent ? ' (Requires crimes)' : ''}`}
             tooltipPosition="bottom">
             Rapsheet
           </Button>
@@ -92,7 +92,7 @@ export const RecordPrint = (props, context) => {
             icon="handcuffs"
             onClick={() => swapTabs(PRINTOUT.Wanted)}
             selected={printType === PRINTOUT.Wanted}
-            tooltip={`Prints a poster with mugshot and crimes.${innocent && ' (Requires crimes)'}`}
+            tooltip={`Prints a poster with mugshot and crimes.${innocent ? ' (Requires crimes)' : ''}`}
             tooltipPosition="bottom">
             Wanted
           </Button>

@@ -22,8 +22,6 @@
 	var/add_height_chart = FALSE
 	///Boolean on whether the machine is currently busy taking someone's pictures, so you can't start taking pictures while it's working.
 	var/taking_pictures = FALSE
-	///The ID of the photobooth, used to connect it to a button.
-	var/button_id = "photobooth_machine_default"
 
 /**
  * Security photobooth
@@ -35,7 +33,6 @@
 	desc = "A machine with some drapes and a camera, used to update security record photos. Requires Security access to use, and adds a height chart to the person."
 	circuit = /obj/item/circuitboard/machine/photobooth/security
 	req_one_access = list(ACCESS_SECURITY)
-	color = COLOR_GRAYISH_RED
 	add_height_chart = TRUE
 
 /obj/machinery/photobooth/Initialize(mapload)
@@ -158,58 +155,3 @@
 ///Called by a timer to turn the light off to end the flash effect.
 /obj/machinery/photobooth/proc/flash_end()
 	set_light_on(FALSE)
-
-
-/obj/machinery/button/photobooth
-	name = "photobooth control button"
-	desc = "Operates the photobooth from a distance, allowing people to update their security record photos."
-	device_type = /obj/item/assembly/control/photobooth_control
-	req_one_access = list(ACCESS_SECURITY, ACCESS_LAWYER)
-	id = "photobooth_machine_default"
-
-/obj/machinery/button/photobooth/Initialize(mapload)
-	. = ..()
-	if(device)
-		var/obj/item/assembly/control/photobooth_control/ours = device
-		ours.id = id
-
-REGISTER_BUFFER_HANDLER(/obj/machinery/button/photobooth)
-
-DEFINE_BUFFER_HANDLER(/obj/machinery/button/photobooth)
-	if (panel_open && TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, "<span class='notice'>You save the data in the [buffer_parent.name]'s buffer.</span>")
-		return COMPONENT_BUFFER_RECEIVED
-	return NONE
-
-/obj/item/assembly/control/photobooth_control
-	name = "photobooth controller"
-	desc = "A remote controller for the HoP's photobooth."
-	///Weakref to the photobooth we're connected to.
-	var/datum/weakref/booth_machine_ref
-
-/obj/item/assembly/control/photobooth_control/Initialize(mapload)
-	..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/item/assembly/control/photobooth_control/LateInitialize()
-	find_machine()
-
-/// Locate the photobooth we're linked via ID
-/obj/item/assembly/control/photobooth_control/proc/find_machine()
-	for(var/obj/machinery/photobooth/booth as anything in GLOB.machines)
-		if(booth.button_id == id)
-			booth_machine_ref = WEAKREF(booth)
-	if(booth_machine_ref)
-		return TRUE
-	return FALSE
-
-/obj/item/assembly/control/photobooth_control/activate(mob/activator)
-	if(!booth_machine_ref)
-		return
-	var/obj/machinery/photobooth/machine = booth_machine_ref.resolve()
-	if(!machine)
-		return
-	if(machine.taking_pictures)
-		balloon_alert(activator, "machine busy!")
-		return
-	machine.start_taking_pictures()
