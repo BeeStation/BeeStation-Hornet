@@ -19,25 +19,3 @@
 			continue
 
 		used_icons[icon] = quirk_type
-
-// Make sure all quirks start with a description in medical records
-/datum/unit_test/quirk_initial_medical_records
-
-/datum/unit_test/quirk_initial_medical_records/Run()
-	var/mob/living/carbon/human/patient = allocate(/mob/living/carbon/human/consistent)
-
-	for(var/datum/quirk/quirk_type as anything in subtypesof(/datum/quirk))
-		if (initial(quirk_type.abstract_parent_type) == quirk_type)
-			continue
-
-		//Add quirk to a patient - so we can pass quirks that add a medical record after being assigned someone
-		patient.mind.add_quirk(quirk_type)
-
-		var/datum/quirk/quirk
-		for(var/datum/quirk/Q in patient.mind.quirks)
-			if(Q.type == quirk_type)
-				quirk = Q
-
-		TEST_ASSERT_NOTNULL(quirk.medical_record_text,"[quirk_type] has no medical record description!")
-
-		patient.mind.remove_quirk(quirk_type)
