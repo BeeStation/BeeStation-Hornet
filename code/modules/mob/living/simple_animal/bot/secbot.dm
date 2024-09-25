@@ -104,46 +104,32 @@
 	text_dehack = "You reboot [name] and restore the target identification."
 	text_dehack_fail = "[name] refuses to accept your authority!"
 
-/mob/living/simple_animal/bot/secbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<TT><B>Securitron v1.6 controls</B></TT><BR>"
-	dat += "<BR>Status: <A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A>"
-	dat += "<BR>Behaviour controls are [locked ? "locked" : "unlocked"]"
-	dat += "<BR>Maintenance panel panel is [open ? "opened" : "closed"]"
-
+/mob/living/simple_animal/bot/secbot/ui_data(mob/user)
+	var/list/data = ..()
 	if(!locked || issilicon(user) || IsAdminGhost(user))
-		dat += "<BR>"
-		dat += "<BR>Arrest Unidentifiable Persons: <A href='?src=[REF(src)];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>"
-		dat += "<BR>Arrest for Unauthorized Weapons: <A href='?src=[REF(src)];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>"
-		dat += "<BR>Arrest for Warrant: <A href='?src=[REF(src)];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>"
-		dat += "<BR>Operating Mode: <A href='?src=[REF(src)];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>"
-		dat += "<BR>Report Arrests <A href='?src=[REF(src)];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>"
-		dat += "<BR>Auto Patrol: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>"
-	return	dat
+		data["custom_controls"]["check_id"] = idcheck
+		data["custom_controls"]["check_weapons"] = weaponscheck
+		data["custom_controls"]["check_warrants"] = check_records
+		data["custom_controls"]["handcuff_targets"] = !arrest_type
+		data["custom_controls"]["arrest_alert"] = declare_arrests
+	return data
 
-/mob/living/simple_animal/bot/secbot/Topic(href, href_list)
+/mob/living/simple_animal/bot/secbot/ui_act(action, params)
 	if(..())
-		return TRUE
-	if(!issilicon(usr) && !IsAdminGhost(usr) && !(bot_core.allowed(usr) || !locked))
-		return TRUE
-	switch(href_list["operation"])
-		if("idcheck")
+		return
+	if(!(bot_core.allowed(usr) || usr.has_unlimited_silicon_privilege) || locked)
+		return
+	switch(action)
+		if("check_id")
 			idcheck = !idcheck
-			update_controls()
-		if("weaponscheck")
+		if("check_weapons")
 			weaponscheck = !weaponscheck
-			update_controls()
-		if("ignorerec")
+		if("check_warrants")
 			check_records = !check_records
-			update_controls()
-		if("switchmode")
+		if("handcuff_targets")
 			arrest_type = !arrest_type
-			update_controls()
-		if("declarearrests")
+		if("arrest_alert")
 			declare_arrests = !declare_arrests
-			update_controls()
 
 /mob/living/simple_animal/bot/secbot/proc/retaliate(mob/living/carbon/human/H)
 	var/judgment_criteria = judgment_criteria()

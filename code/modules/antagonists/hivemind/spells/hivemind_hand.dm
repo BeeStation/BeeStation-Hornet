@@ -5,7 +5,7 @@
 	school = "evocation"
 	charge_max = 150
 	clothes_req = FALSE
-	action_icon = 'icons/mob/actions/actions_hive.dmi'
+	action_icon = 'icons/hud/actions/actions_hive.dmi'
 	action_icon_state = "hand"
 	action_background_icon_state = "bg_hive"
 

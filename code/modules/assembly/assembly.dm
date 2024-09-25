@@ -146,13 +146,6 @@
 	. = ..()
 	. += "<span class='notice'>\The [src] [secured? "is secured and ready to be used!" : "can be attached to other things."]</span>"
 
-/obj/item/assembly/attack_self(mob/user)
-	if(!user)
-		return FALSE
-	user.set_machine(src)
-	interact(user)
-	return TRUE
-
 /obj/item/assembly/ui_host(mob/user)
 	// In order, return:
 	// - The conencted wiring datum's owner, or

@@ -6,7 +6,7 @@
 	charge_max = 600
 	clothes_req = 0
 	invocation_type = INVOCATION_NONE
-	action_icon = 'icons/mob/actions/actions_hive.dmi'
+	action_icon = 'icons/hud/actions/actions_hive.dmi'
 	action_background_icon_state = "bg_hive"
 	action_icon_state = "drain"
 	human_req = 1

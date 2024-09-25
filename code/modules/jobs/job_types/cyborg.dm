@@ -1,7 +1,7 @@
 /datum/job/cyborg
 	title = JOB_NAME_CYBORG
 	description = "Follow your AI's interpretation of your laws above all else, or your own interpretation if not connected to an AI. Choose one of many modules with different tools, ask robotics for maintenance and upgrades."
-	department_for_prefs = DEPT_BITFLAG_SILICON
+	department_for_prefs = DEPT_NAME_SILICON
 	department_head_for_prefs = JOB_NAME_AI
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	faction = "Station"
