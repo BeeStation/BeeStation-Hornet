@@ -264,7 +264,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 
 /// Only qualified personnel can edit records.
 /obj/machinery/computer/records/security/proc/has_armory_access(mob/user)
-	if (HAS_SILICON_ACCESS(user))
+	if(issiliconoradminghost(user))
 		return TRUE
 	if(!isliving(user))
 		return FALSE
