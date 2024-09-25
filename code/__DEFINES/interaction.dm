@@ -1,10 +1,4 @@
 /**
- * Interaction fallthrough priorities
- */
-
-#define INTERACTION_FALLTHROUGH_PRIORITY_CABLES 10
-
-/**
  * Interaction Flags
  */
 
