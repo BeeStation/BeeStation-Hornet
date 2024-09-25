@@ -23,7 +23,7 @@
 	var/open_panel = FALSE
 	var/canprint = TRUE
 	var/list/icons_available = list()
-	var/radial_icon_file = 'icons/obj/radial_taperecorder.dmi'
+	var/radial_icon_file = 'icons/hud/radials/radial_taperecorder.dmi'
 	///Whether we've warned during this recording session that the tape is almost up.
 	var/time_warned = FALSE
 	///Seconds under which to warn that the tape is almost up.
@@ -396,7 +396,7 @@
 	var/list/timestamp_otherside = list()
 	var/unspooled = FALSE
 	var/list/icons_available = list()
-	var/radial_icon_file = 'icons/obj/radial_tape.dmi'
+	var/radial_icon_file = 'icons/hud/radials/radial_tape.dmi'
 
 /obj/item/tape/fire_act(exposed_temperature, exposed_volume)
 	unspool()

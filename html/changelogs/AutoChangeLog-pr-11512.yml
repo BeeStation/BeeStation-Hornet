@@ -1,0 +1,4 @@
+author: Joon, Finger and Dakae
+delete-after: true
+changes:
+  - bugfix: Fixed an error in the calculation for protolathe material costs
