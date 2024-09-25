@@ -54,9 +54,9 @@
 
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/simple_flying)
+	//AddElement(/datum/element/simple_flying) We lack flying traits
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_CULT_PYLONS, INNATE_TRAIT)
-	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
+	//ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	for(var/spell in construct_spells)
 		var/datum/action/new_spell = new spell(src)
 		new_spell.Grant(src)
@@ -75,10 +75,6 @@
 
 	if(icon_state)
 		add_overlay("glow_[icon_state]_[theme]")
-
-/mob/living/simple_animal/hostile/construct/Destroy()
-	QDEL_NULL(our_rune)
-	return ..()
 
 /mob/living/simple_animal/hostile/construct/Login()
 	. = ..()
@@ -250,13 +246,13 @@
 
 		var/total_refund = 0 SECONDS
 		// they're dead, and you killed them - full refund
-		if(QDELETED(living_target) || (living_target.stat == DEAD && prev_stat != DEAD))
+		if(QDELETED(L) || (L.stat == DEAD && prev_stat != DEAD))
 			total_refund += jaunt.cooldown_time
 		// you knocked them into critical
-		else if(HAS_TRAIT(living_target, TRAIT_CRITICAL_CONDITION) && prev_stat == CONSCIOUS)
+		else if(HAS_TRAIT(L, TRAIT_CRITICAL_CONDITION) && prev_stat == CONSCIOUS)
 			total_refund += crit_refund
 
-		if(living_target.stat != DEAD && prev_stat != DEAD)
+		if(L.stat != DEAD && prev_stat != DEAD)
 			total_refund += attack_refund
 
 		jaunt.next_use_time -= total_refund

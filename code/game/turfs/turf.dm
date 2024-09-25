@@ -4,6 +4,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
 
+
+	/// Turf bitflags, see code/__DEFINES/flags.dm
+	var/turf_flags = NONE
 	/// If there's a tile over a basic floor that can be ripped out
 	var/overfloor_placed = FALSE
 	/// How accessible underfloor pieces such as wires, pipes, etc are on this turf. Can be HIDDEN, VISIBLE, or INTERACTABLE.
@@ -593,3 +596,17 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		if(!ismopable(movable_content))
 			continue
 		movable_content.wash(clean_types)
+
+/**
+ * Checks whether the specified turf is blocked by something dense inside it, but ignores anything with the climbable trait
+ *
+ * Works similar to is_blocked_turf(), but ignores climbables and has less options. Primarily added for jaunting checks
+ */
+/turf/proc/is_blocked_turf_ignore_climbable()
+	if(density)
+		return TRUE
+
+	for(var/atom/movable/atom_content as anything in contents)
+		if(atom_content.density && !(atom_content.flags_1 & ON_BORDER_1) && !HAS_TRAIT(atom_content, TRAIT_CLIMBABLE))
+			return TRUE
+	return FALSE

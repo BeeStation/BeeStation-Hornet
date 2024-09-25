@@ -1007,7 +1007,7 @@
 	icon_icon = 'icons/mob/actions/actions_AI.dmi'
 	button_icon_state = "ai_shell"
 
-/datum/action/innate/deploy_shell/Trigger()
+/datum/action/innate/deploy_shell/Trigger(trigger_flags)
 	var/mob/living/silicon/ai/AI = owner
 	if(!AI)
 		return
@@ -1020,7 +1020,7 @@
 	button_icon_state = "ai_last_shell"
 	var/mob/living/silicon/robot/last_used_shell
 
-/datum/action/innate/deploy_last_shell/Trigger()
+/datum/action/innate/deploy_last_shell/Trigger(trigger_flags)
 	if(!owner)
 		return
 	if(last_used_shell)
@@ -1029,7 +1029,7 @@
 	else
 		Remove(owner) //If the last shell is blown, destroy it.
 
-/mob/living/silicon/ai/proc/disconnect_shell()
+/mob/living/silicon/ai/proc/disconnect_shell(trigger_flags)
 	if(deployed_shell) //Forcibly call back AI in event of things such as damage, EMP or power loss.
 		to_chat(src, "<span class='danger'>Your remote connection has been reset!</span>")
 		deployed_shell.undeploy()

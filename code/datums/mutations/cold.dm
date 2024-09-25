@@ -15,7 +15,7 @@
 	cooldown_time = 5 SECONDS
 	spell_requirements = NONE
 
-	item_type = /obj/item/stack/sheet/mineral/snow
+	item_type = /obj/item/stack/sheet/snow
 	delete_old = FALSE
 
 /datum/mutation/wax_saliva
@@ -26,15 +26,15 @@
 	difficulty = 10
 	energy_coeff = 1
 	locked = TRUE
-	power = /obj/effect/proc_holder/spell/targeted/conjure_item/wax
+	power_path = /datum/action/cooldown/spell/conjure_item/wax
 
-/obj/effect/proc_holder/spell/targeted/conjure_item/wax
+/datum/action/cooldown/spell/conjure_item/wax
 	name = "Secrete Wax"
 	desc = "Concentrate to spit out some wax, useful for bee-themed construction."
 	item_type = /obj/item/stack/sheet/wax
-	charge_max = 5 SECONDS
+	cooldown_time = 5 SECONDS
 	delete_old = FALSE
-	action_icon_state = "honey"
+	button_icon_state = "honey"
 
 /datum/mutation/cryokinesis
 	name = "Cryokinesis"

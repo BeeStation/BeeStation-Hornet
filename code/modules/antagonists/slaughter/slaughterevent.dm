@@ -36,7 +36,6 @@
 	var/mob/living/simple_animal/hostile/imp/slaughter/S = new(chosen)
 	new /obj/effect/dummy/phased_mob(chosen, S)
 
-	S.holder = holder
 	player_mind.transfer_to(S)
 	player_mind.assigned_role = "Slaughter Demon"
 	player_mind.special_role = "Slaughter Demon"

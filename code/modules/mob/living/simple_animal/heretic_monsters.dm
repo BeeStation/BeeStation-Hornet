@@ -31,7 +31,7 @@
 	faction = list(FACTION_HERETIC)
 	simple_mob_flags = SILENCE_RANGED_MESSAGE
 	/// Innate spells that are added when a beast is created.
-	var/list/spells_to_add
+	var/list/actions_to_add
 
 /mob/living/simple_animal/hostile/heretic_summon/Initialize(mapload)
 	. = ..()

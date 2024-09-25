@@ -106,7 +106,7 @@
 	desc = "Climb out of your vehicle!"
 	button_icon_state = "car_eject"
 
-/datum/action/vehicle/sealed/climb_out/Trigger()
+/datum/action/vehicle/sealed/climb_out/Trigger(trigger_flags)
 	if(..() && istype(vehicle_entered_target))
 		vehicle_entered_target.mob_try_exit(owner, owner)
 
@@ -118,7 +118,7 @@
 	desc = "Take your key out of the vehicle's ignition"
 	button_icon_state = "car_removekey"
 
-/datum/action/vehicle/sealed/remove_key/Trigger()
+/datum/action/vehicle/sealed/remove_key/Trigger(trigger_flags)
 	vehicle_entered_target.remove_key(owner)
 
 //CLOWN CAR ACTION DATUMS
@@ -129,14 +129,14 @@
 	var/hornsound = 'sound/items/carhorn.ogg'
 	var/last_honk_time
 
-/datum/action/vehicle/sealed/horn/Trigger()
+/datum/action/vehicle/sealed/horn/Trigger(trigger_flags)
 	if(world.time - last_honk_time > 20)
 		vehicle_entered_target.visible_message("<span class='danger'>[vehicle_entered_target] loudly honks!</span>")
 		to_chat(owner, "<span class='notice'>You press the vehicle's horn.</span>")
 		playsound(vehicle_entered_target, hornsound, 75)
 		last_honk_time = world.time
 
-/datum/action/vehicle/sealed/horn/clowncar/Trigger()
+/datum/action/vehicle/sealed/horn/clowncar/Trigger(trigger_flags)
 	if(world.time - last_honk_time > 20)
 		vehicle_entered_target.visible_message("<span class='danger'>[vehicle_entered_target] loudly honks!</span>")
 		to_chat(owner, "<span class='notice'>You press the vehicle's horn.</span>")
@@ -151,7 +151,7 @@
 	desc = "Dump all objects and people in your car on the floor."
 	button_icon_state = "car_dump"
 
-/datum/action/vehicle/sealed/DumpKidnappedMobs/Trigger()
+/datum/action/vehicle/sealed/DumpKidnappedMobs/Trigger(trigger_flags)
 	vehicle_entered_target.visible_message("<span class='danger'>[vehicle_entered_target] starts dumping the people inside of it.</span>")
 	vehicle_entered_target.DumpSpecificMobs(VEHICLE_CONTROL_KIDNAPPED)
 
@@ -161,7 +161,7 @@
 	desc = "Press one of those colorful buttons on your display panel!"
 	button_icon_state = "car_rtd"
 
-/datum/action/vehicle/sealed/RollTheDice/Trigger()
+/datum/action/vehicle/sealed/RollTheDice/Trigger(trigger_flags)
 	if(istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
 		var/obj/vehicle/sealed/car/clowncar/C = vehicle_entered_target
 		C.RollTheDice(owner)
@@ -171,7 +171,7 @@
 	desc = "Destroy them with their own fodder"
 	button_icon_state = "car_cannon"
 
-/datum/action/vehicle/sealed/Cannon/Trigger()
+/datum/action/vehicle/sealed/Cannon/Trigger(trigger_flags)
 	if(istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
 		var/obj/vehicle/sealed/car/clowncar/C = vehicle_entered_target
 		if(C.cannonbusy)
@@ -184,7 +184,7 @@
 	button_icon_state = "car_thanktheclown"
 	var/last_thank_time
 
-/datum/action/vehicle/sealed/Thank/Trigger()
+/datum/action/vehicle/sealed/Thank/Trigger(trigger_flags)
 	if(istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
 		var/obj/vehicle/sealed/car/clowncar/C = vehicle_entered_target
 		if(world.time >= last_thank_time + 60)
@@ -200,7 +200,7 @@
 	///Cooldown to next jump
 	var/next_ollie
 
-/datum/action/vehicle/ridden/scooter/skateboard/ollie/Trigger()
+/datum/action/vehicle/ridden/scooter/skateboard/ollie/Trigger(trigger_flags)
 	if(world.time > next_ollie)
 		var/obj/vehicle/ridden/scooter/skateboard/V = vehicle_target
 		if (V.grinding)
@@ -238,7 +238,7 @@
 	desc = "Do a sweet kickflip to dismount... in style."
 	button_icon_state = "skateboard_ollie"
 
-/datum/action/vehicle/ridden/scooter/skateboard/kflip/Trigger()
+/datum/action/vehicle/ridden/scooter/skateboard/kflip/Trigger(trigger_flags)
 	var/obj/vehicle/ridden/scooter/skateboard/V = vehicle_target
 	var/mob/living/L = owner
 	var/multiplier = 1

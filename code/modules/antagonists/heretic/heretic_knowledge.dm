@@ -15,6 +15,8 @@
 	var/desc = "Basic knowledge of forbidden arts."
 	/// What's shown to the heretic when the knowledge is aquired
 	var/gain_text
+	/// The abstract parent type of the knowledge, used in determine mutual exclusivity in some cases
+	var/datum/heretic_knowledge/abstract_parent_type = /datum/heretic_knowledge
 	/// The knowledge this unlocks next after learning.
 	var/list/next_knowledge = list()
 	/// What knowledge is incompatible with this. Knowledge in this list cannot be researched with this current knowledge.

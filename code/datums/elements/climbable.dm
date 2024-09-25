@@ -22,9 +22,11 @@
 	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(target, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(mousedrop_receive))
 	RegisterSignal(target, COMSIG_ATOM_BUMPED, PROC_REF(try_speedrun))
+	ADD_TRAIT(target, TRAIT_CLIMBABLE, ELEMENT_TRAIT(type))
 
 /datum/element/climbable/Detach(datum/target)
 	UnregisterSignal(target, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_PARENT_EXAMINE, COMSIG_MOUSEDROPPED_ONTO, COMSIG_ATOM_BUMPED))
+	REMOVE_TRAIT(target, TRAIT_CLIMBABLE, ELEMENT_TRAIT(type))
 	return ..()
 
 /datum/element/climbable/proc/on_examine(atom/source, mob/user, list/examine_texts)

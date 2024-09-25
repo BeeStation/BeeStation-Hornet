@@ -630,6 +630,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	message_admins("[key_name_admin(usr)] has  modified Dynamic Explosion Scale: [ex_scale]")
 
 /client/proc/give_spell(mob/T in GLOB.mob_list)
+	var/mob/spell_recipient = T
 	set category = "Fun"
 	set name = "Give Spell"
 	set desc = "Gives a spell to a mob."
@@ -681,7 +682,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set category = "Fun"
 	set name = "Remove Spell"
 	set desc = "Remove a spell from the selected mob."
-
+	var/mob/removal_target = T
 	var/list/target_spell_list = list()
 	for(var/datum/action/cooldown/spell/spell in removal_target.actions)
 		target_spell_list[spell.name] = spell

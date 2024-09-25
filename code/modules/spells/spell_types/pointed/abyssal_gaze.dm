@@ -25,7 +25,7 @@
 
 /datum/action/cooldown/spell/pointed/abyssal_gaze/cast(mob/living/carbon/cast_on)
 	. = ..()
-	if(cast_on.can_block_magic(antimagic_flags))
+	if(cast_on.anti_magic_check())
 		to_chat(owner, span_warning("The spell had no effect!"))
 		to_chat(cast_on, span_warning("You feel a freezing darkness closing in on you, but it rapidly dissipates."))
 		return FALSE

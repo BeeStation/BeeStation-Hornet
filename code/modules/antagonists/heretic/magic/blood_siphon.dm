@@ -25,7 +25,7 @@
 /datum/action/cooldown/spell/pointed/blood_siphon/cast(mob/living/cast_on)
 	. = ..()
 	playsound(owner, 'sound/magic/demon_attack1.ogg', 75, TRUE)
-	if(cast_on.can_block_magic())
+	if(cast_on.anti_magic_check())
 		owner.balloon_alert(owner, "spell blocked!")
 		cast_on.visible_message(
 			span_danger("The spell bounces off of [cast_on]!"),
@@ -51,7 +51,7 @@
 
 	if(!iscarbon(cast_on) || !iscarbon(owner))
 		return TRUE
-
+/* Missing wounds for this bit of code to work
 	var/mob/living/carbon/carbon_target = cast_on
 	var/mob/living/carbon/carbon_user = owner
 	for(var/obj/item/bodypart/bodypart as anything in carbon_user.bodyparts)
@@ -63,5 +63,5 @@
 				continue
 			iter_wound.remove_wound()
 			iter_wound.apply_wound(target_bodypart)
-
+*/
 	return TRUE

@@ -55,7 +55,7 @@
 		to_chat(owner, span_warning("This creature is too [pick("powerful", "strange", "arcane", "obscene")] to control!"))
 		return FALSE
 	if(isguardian(cast_on))
-		var/mob/living/simple_animal/hostile/guardian/stand = cast_on
+		var/mob/living/simple_animal/guardian/stand = cast_on
 		if(stand.summoner && stand.summoner == owner)
 			to_chat(owner, span_warning("Swapping minds with your own guardian would just put you back into your own head!"))
 			return FALSE
@@ -87,7 +87,7 @@
 			to_swap = stand.summoner
 
 	var/datum/mind/mind_to_swap = to_swap.mind
-	if(to_swap.can_block_magic(antimagic_flags) \
+	if(to_swap.anti_magic_check() \
 		|| mind_to_swap.has_antag_datum(/datum/antagonist/wizard) \
 		|| mind_to_swap.has_antag_datum(/datum/antagonist/cult) \
 		|| mind_to_swap.has_antag_datum(/datum/antagonist/changeling) \

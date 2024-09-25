@@ -25,7 +25,7 @@
 		nearby_spectator.flash_act(affect_silicon = FALSE)
 
 	var/mob/living/living_victim = victim
-	if(living_victim.can_block_magic(antimagic_flags))
+	if(living_victim.anti_magic_check())
 		caster.visible_message(
 			span_warning("The feedback blows [caster]'s arm off!"),
 			span_userdanger("The spell bounces from [living_victim]'s skin back into your arm!"),
@@ -52,4 +52,4 @@
 	name = "\improper smiting touch"
 	desc = "This hand of mine glows with an awesome power!"
 	icon_state = "disintegrate"
-	inhand_icon_state = "disintegrate"
+	item_state = "disintegrate"

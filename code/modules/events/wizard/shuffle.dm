@@ -102,6 +102,6 @@
 	qdel(swapper)
 
 	for(var/mob/living/carbon/human/alive_human in GLOB.alive_mob_list)
-		var/datum/effect_system/fluid_spread/smoke/smoke = new()
-		smoke.set_up(0, holder = alive_human, location = alive_human.loc)
+		var/datum/effect_system/smoke_spread/smoke = new()
+		smoke.set_up(0, alive_human.loc)
 		smoke.start()

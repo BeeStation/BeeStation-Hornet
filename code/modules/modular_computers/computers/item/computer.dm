@@ -144,8 +144,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(istype(stored_pai_card))
 		qdel(stored_pai_card)
 		remove_pai()
-	if(istype(light_action))
-		QDEL_NULL(light_action)
 	physical = null
 	remove_messenger()
 	return ..()
@@ -567,8 +565,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	set_light_on(!light_on)
 	update_icon()
 	// Show the light_on overlay on top of the action button icon
-	if(light_action?.owner)
-		light_action.UpdateButtonIcon(force = TRUE)
+	update_action_buttons(force = TRUE) //force it because we added an overlay, not changed its icon
 	return TRUE
 
 /**

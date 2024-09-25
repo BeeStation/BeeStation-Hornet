@@ -11,4 +11,4 @@
 		var/mob/living/carbon/human/wizard = allocate(/mob/living/carbon/human)
 		wizard.mind_initialize()
 		wizard.put_in_active_hand(wizard_book, forced = TRUE)
-wizard_book.wizard_loadout(wizard, loadout)
+		wizard_book.wizard_loadout(wizard, loadout)

@@ -452,6 +452,8 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 ///Whether or not to gib when the squashed mob is moved over
 #define SQUASHED_SHOULD_BE_GIBBED (1<<0)
 
+#define DOING_INTERACTION(user, interaction_key) (LAZYACCESS(user.do_afters, interaction_key))
+
 /*
  * Defines for "AI emotions", allowing the AI to expression emotions
  * with status displays via emotes.

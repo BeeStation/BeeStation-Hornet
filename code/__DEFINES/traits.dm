@@ -172,6 +172,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SLEEPIMMUNE		"sleep_immunity"
 #define TRAIT_PUSHIMMUNE		"push_immunity"
 #define TRAIT_SHOCKIMMUNE		"shock_immunity"
+#define TRAIT_HOLY				"holy"
+/// Are we immune to specifically tesla / SM shocks?
+#define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
+#define TRAIT_SNOWSTORM_IMMUNE "snowstorm_immune"
+/// Can weave webs into cloth
+#define TRAIT_WEB_WEAVER "web_weaver"
 #define TRAIT_STABLEHEART		"stable_heart"
 #define TRAIT_STABLELIVER		"stable_liver"
 #define TRAIT_NOVOMIT			"no_vomit"
@@ -276,6 +282,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_BLEEDING		"no_bleed" // The user can acquire the bleeding status effect, but will no lose blood
 #define TRAIT_BLOOD_COOLANT		"blood_coolant" // Replaces blood with coolant, meaning we overheat instead of losing air
 
+/// This mob has no soul
+#define TRAIT_NO_SOUL "no_soul"
 /// Immune to being afflicted by time stop (spell)
 #define TRAIT_TIME_STOP_IMMUNE "time_stop_immune"
 /// Whether a spider's consumed this mob
@@ -317,6 +325,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NEEDS_TWO_HANDS "needstwohands" // The items needs two hands to be carried
 
 #define TRAIT_AI_BAGATTACK "bagattack" // This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
+
+/// Climbable trait, given and taken by the climbable element when added or removed. Exists to be easily checked via HAS_TRAIT().
+#define TRAIT_CLIMBABLE "trait_climbable"
 
 /// Allows heretics to cast their spells.
 #define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
@@ -417,6 +428,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RUSTY "rust_trait"
 #define ACTION_TRAIT "action_trait"
 #define TURF_TRAIT "turf"
+#define LICH_TRAIT "lich"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"

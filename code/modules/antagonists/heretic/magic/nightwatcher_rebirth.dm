@@ -15,7 +15,7 @@
 	spell_requirements = SPELL_REQUIRES_HUMAN
 
 /datum/action/cooldown/spell/aoe/fiery_rebirth/cast(mob/living/carbon/human/cast_on)
-	cast_on.extinguish_mob()
+	cast_on.ExtinguishMob()
 	return ..()
 
 /datum/action/cooldown/spell/aoe/fiery_rebirth/get_things_to_cast_on(atom/center)
@@ -52,4 +52,4 @@
 /obj/effect/temp_visual/eldritch_smoke
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "smoke"
-duration = 10
+	duration = 10

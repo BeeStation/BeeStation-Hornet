@@ -24,7 +24,7 @@
 	return things
 
 /datum/action/cooldown/spell/aoe/sacred_flame/cast_on_thing_in_aoe(mob/living/victim, mob/living/caster)
-	if(victim.can_block_magic(antimagic_flags))
+	if(victim.anti_magic_check())
 		return
 
 	victim.adjust_fire_stacks(firestacks_to_give)
@@ -35,5 +35,5 @@
 
 /datum/action/cooldown/spell/aoe/sacred_flame/cast(mob/living/cast_on)
 	. = ..()
-	cast_on.ignite_mob()
+	cast_on.IgniteMob()
 	to_chat(cast_on, span_danger("You feel a roaring flame build up inside you!"))

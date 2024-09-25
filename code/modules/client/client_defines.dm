@@ -133,3 +133,25 @@
 
 	/// client/eye is immediately changed, and it makes a lot of errors to track eye change
 	var/datum/weakref/eye_weakref
+
+///Autoclick list of two elements, first being the clicked thing, second being the parameters.
+	var/list/atom/selected_target[2]
+	///Autoclick variable referencing the associated item.
+	var/obj/item/active_mousedown_item = null
+	///Used in MouseDrag to preserve the original mouse click parameters
+	var/mouseParams = ""
+	///Used in MouseDrag to preserve the last mouse-entered location. Weakref
+	var/datum/weakref/mouse_location_ref = null
+	///Used in MouseDrag to preserve the last mouse-entered object. Weakref
+	var/datum/weakref/mouse_object_ref
+	//Middle-mouse-button click dragtime control for aimbot exploit detection.
+	var/middragtime = 0
+	//Middle-mouse-button clicked object control for aimbot exploit detection. Weakref
+	var/datum/weakref/middle_drag_atom_ref
+
+	///used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_up_icon = null
+	///used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_down_icon = null
+	///used to override the mouse cursor so it doesnt get reset
+	var/mouse_override_icon = null

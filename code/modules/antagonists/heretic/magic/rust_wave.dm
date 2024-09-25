@@ -24,7 +24,7 @@
 	target_turf.rust_heretic_act()
 
 /datum/action/cooldown/spell/cone/staggered/entropic_plume/do_mob_cone_effect(mob/living/victim, atom/caster, level)
-	if(victim.can_block_magic(antimagic_flags) || IS_HERETIC_OR_MONSTER(victim))
+	if(victim.anti_magic_check() || IS_HERETIC_OR_MONSTER(victim))
 		return
 	victim.apply_status_effect(/datum/status_effect/amok)
 	victim.apply_status_effect(/datum/status_effect/cloudstruck, (level * 1 SECONDS))
@@ -82,7 +82,7 @@
 	damage_type = TOX
 	hitsound = 'sound/weapons/punch3.ogg'
 	trigger_range = 0
-	ignored_factions = list(FACTION_HERETIC)
+	//ignored_factions = list(FACTION_HERETIC) I am not touching projectile code with a ten metre pole
 	range = 15
 	speed = 1
 

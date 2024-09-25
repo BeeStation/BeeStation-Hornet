@@ -4,4 +4,4 @@
 	invocation = "RAAAAAAAAWR!"
 	spell_requirements = NONE
 
-	possible_shapes = list(/mob/living/simple_animal/hostile/asteroid/polarbear/lesser)
+	possible_shapes = list(/mob/living/simple_animal/hostile/bear/snow)

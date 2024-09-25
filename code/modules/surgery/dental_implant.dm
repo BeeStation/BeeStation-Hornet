@@ -22,7 +22,7 @@
 	user.transferItemToLoc(tool, target, TRUE)
 
 	var/datum/action/item_action/hands_free/activate_pill/P = new(tool)
-	P.button.name = "Activate [tool.name]"
+	name = "Activate [tool.name]"
 	P.target = tool
 	P.Grant(target)	//The pill never actually goes in an inventory slot, so the owner doesn't inherit actions from it
 
@@ -34,7 +34,7 @@
 /datum/action/item_action/hands_free/activate_pill
 	name = "Activate Pill"
 
-/datum/action/item_action/hands_free/activate_pill/Trigger()
+/datum/action/item_action/hands_free/activate_pill/Trigger(trigger_flags)
 	if(!..())
 		return FALSE
 	to_chat(owner, "<span class='warning'>You grit your teeth and burst the implanted [target.name]!</span>")

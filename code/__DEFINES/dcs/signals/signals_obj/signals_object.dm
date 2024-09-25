@@ -32,3 +32,5 @@
 ///Called when a payment component changes value
 #define COMSIG_OBJ_ATTEMPT_CHARGE_CHANGE "obj_attempt_simple_charge_change"
 
+/// called once a mindshield is implanted: (mob/user)
+#define COMSIG_MINDSHIELD_IMPLANTED "mindshield_implanted"

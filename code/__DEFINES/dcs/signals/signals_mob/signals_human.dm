@@ -6,6 +6,9 @@
 #define COMSIG_HUMAN_DISARM_HIT	"human_disarm_hit"	//! Hit by successful disarm attack (mob/living/carbon/human/attacker,zone_targeted)
 #define COMSIG_HUMAN_ATTACKED "carbon_attacked"					//hit by something that checks shields.
 
+///From mob/living/carbon/human/suicide()
+#define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
+
 //Heretics stuff
 /// Default behavior is to use a charge, so return this to blocks the mansus fist from being consumed after use.
 #define COMPONENT_BLOCK_CHARGE_USE (1<<0)

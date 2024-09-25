@@ -33,7 +33,7 @@
 			to_chat(owner, span_danger("Some dull, universal force is stopping you from jaunting here."))
 		return FALSE
 
-	if(owner_turf?.turf_flags & NOJAUNT)
+	if(owner_turf?.turf_flags & NOJAUNT_1)
 		if(feedback)
 			to_chat(owner, span_danger("An otherwordly force is preventing you from jaunting here."))
 		return FALSE

@@ -86,7 +86,7 @@
 		return
 	return ..()
 /obj/effect/immovablerod/wizard/penetrate(mob/living/penetrated)
-	if(penetrated.can_block_magic())
+	if(penetrated.anti_magic_check())
 		penetrated.visible_message(
 			span_danger("[src] hits [penetrated], but it bounces back, then vanishes!"),
 			span_userdanger("[src] hits you... but it bounces back, then vanishes!"),
@@ -100,6 +100,7 @@
 		span_danger("You hear a CLANG!"),
 		)
 	penetrated.adjustBruteLoss(70 + damage_bonus)
+/*
 /obj/effect/immovablerod/wizard/suplex_rod(mob/living/strongman)
 	var/mob/living/wizard = our_wizard?.resolve()
 	if(QDELETED(wizard))
@@ -113,6 +114,7 @@
 	wizard.Stun(6 SECONDS)
 	wizard.apply_damage(25, BRUTE)
 	return TRUE
+*/
 /**
  * Called when the wizard rod reaches it's maximum distance
  * or is otherwise stopped by something.

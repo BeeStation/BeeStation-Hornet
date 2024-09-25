@@ -184,7 +184,7 @@
 	name = "Memento Mori"
 	desc = "Bind your life to the pendant."
 
-/datum/action/item_action/hands_free/memento_mori/Trigger()
+/datum/action/item_action/hands_free/memento_mori/Trigger(trigger_flags)
 	var/obj/item/clothing/neck/necklace/memento_mori/MM = target
 	if(!MM.active_owner)
 		if(ishuman(owner))
@@ -1214,10 +1214,6 @@
 	update_icon()
 
 /obj/item/hierophant_club/ui_action_click(mob/user, action)
-	if(istype(action, /datum/action/item_action/toggle_unfriendly_fire)) //toggle friendly fire...
-		friendly_fire_check = !friendly_fire_check
-		to_chat(user, "<span class='warning'>You toggle friendly fire [friendly_fire_check ? "off":"on"]!</span>")
-		return
 	if(timer > world.time)
 		return
 	if(!user.is_holding(src)) //you need to hold the staff to teleport

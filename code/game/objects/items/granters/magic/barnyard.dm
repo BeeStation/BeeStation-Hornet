@@ -24,7 +24,7 @@
 /obj/item/book/granter/action/spell/barnyard/recoil(mob/living/user)
 	if(ishuman(user))
 		to_chat(user, "<font size='15' color='red'><b>HORSIE HAS RISEN</b></font>")
-		var/obj/item/clothing/magic_mask = new /obj/item/clothing/mask/animal/horsehead/cursed(user.drop_location())
+		var/obj/item/clothing/magic_mask = new /obj/item/clothing/mask/horsehead/cursed(user.drop_location())
 		var/mob/living/carbon/human/human_user = user
 		if(!user.dropItemToGround(human_user.wear_mask))
 			qdel(human_user.wear_mask)

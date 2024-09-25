@@ -94,7 +94,7 @@
 	button_icon_state = "mech_search_ruins"
 	COOLDOWN_DECLARE(search_cooldown)
 
-/datum/action/vehicle/sealed/mecha/mech_search_ruins/Trigger()
+/datum/action/vehicle/sealed/mecha/mech_search_ruins/Trigger(trigger_flags)
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 	if(!COOLDOWN_FINISHED(src, search_cooldown))
@@ -104,10 +104,10 @@
 		return
 	var/mob/living/living_owner = owner
 	button_icon_state = "mech_search_ruins_cooldown"
-	UpdateButtonIcon()
+	UpdateButtons()
 	COOLDOWN_START(src, search_cooldown, SEARCH_COOLDOWN)
 	addtimer(VARSET_CALLBACK(src, button_icon_state, "mech_search_ruins"), SEARCH_COOLDOWN)
-	addtimer(CALLBACK(src, PROC_REF(UpdateButtonIcon)), SEARCH_COOLDOWN)
+	addtimer(CALLBACK(src, PROC_REF(UpdateButtons)), SEARCH_COOLDOWN)
 	var/obj/pinpointed_ruin
 	for(var/obj/effect/landmark/ruin/ruin_landmark as anything in GLOB.ruin_landmarks)
 		if(ruin_landmark.z != chassis.z)

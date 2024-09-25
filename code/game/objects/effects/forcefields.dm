@@ -36,7 +36,7 @@
 		return TRUE
 	if(isliving(mover))
 		var/mob/living/living_mover = mover
-		if(living_mover.can_block_magic(antimagic_flags, charge_cost = 0))
+		if(living_mover.anti_magic_check())
 			return TRUE
 
 	return ..()

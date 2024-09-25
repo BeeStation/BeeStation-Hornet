@@ -564,7 +564,7 @@
 	syndieHelmet.update_icon()
 	for(var/X in syndieHelmet.actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 	//Update the icon_state first
 	icon_state = "hardsuit[syndieHelmet.on]-[syndieHelmet.hardsuit_type]"
 	update_icon()

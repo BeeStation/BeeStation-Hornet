@@ -529,9 +529,9 @@
 	if(!isspider(owner))
 		return FALSE
 
-	var/mob/living/simple_animal/hostile/giant_spider/spider = owner
+	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = owner
 	var/obj/structure/spider/stickyweb/web = locate() in get_turf(spider)
-	if(web && (!spider.web_sealer || istype(web, /obj/structure/spider/stickyweb/sealed)))
+	if(web && (!spider.web_sealer || istype(web, /obj/structure/spider/stickyweb)))
 		to_chat(owner, span_warning("There's already a web here!"))
 		return FALSE
 
@@ -542,7 +542,7 @@
 
 /datum/action/innate/spider/lay_web/Activate()
 	var/turf/spider_turf = get_turf(owner)
-	var/mob/living/simple_animal/hostile/giant_spider/spider = owner
+	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = owner
 	var/obj/structure/spider/stickyweb/web = locate() in spider_turf
 	if(web)
 		spider.visible_message(
@@ -559,9 +559,6 @@
 
 	if(do_after(spider, 4 SECONDS * spider.web_speed, target = spider_turf))
 		if(spider.loc == spider_turf)
-			if(web)
-				qdel(web)
-				new /obj/structure/spider/stickyweb/sealed(spider_turf)
 			new /obj/structure/spider/stickyweb(spider_turf)
 
 	spider.stop_automated_movement = FALSE
@@ -749,7 +746,7 @@
 /datum/action/innate/spider/comm/IsAvailable()
 	return ..() && istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 
-/datum/action/innate/spider/comm/Trigger()
+/datum/action/innate/spider/comm/Trigger(trigger_flags)
 	var/input = stripped_input(owner, "Input a command for your children to follow.", "Command", "")
 	if(QDELETED(src) || !input || !IsAvailable())
 		return FALSE

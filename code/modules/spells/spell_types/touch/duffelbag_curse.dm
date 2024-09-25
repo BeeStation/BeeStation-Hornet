@@ -83,4 +83,4 @@
 	name = "\improper burdening touch"
 	desc = "Where is the bar from here?"
 	icon_state = "duffelcurse"
-	inhand_icon_state = "duffelcurse"
+	item_state = "duffelcurse"

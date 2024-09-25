@@ -167,7 +167,7 @@
 	//The icon's may look differently due to overlays being applied asynchronously
 	for(var/X in actions)
 		var/datum/action/A=X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/clothing/head/helmet/space/plasmaman/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()

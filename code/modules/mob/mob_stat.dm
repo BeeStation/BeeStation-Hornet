@@ -99,9 +99,6 @@
 			if(listed_turf && sanitize(listed_turf.name) == selected_tab)
 				// Check if we can actually see the turf
 				listed_turf.render_stat_information(client, tab_data)
-			if(mind)
-				tab_data += get_spell_stat_data(mind.spell_list, selected_tab)
-			tab_data += get_spell_stat_data(mob_spell_list, selected_tab)
 	if(requires_holder && !client.holder)
 		message_admins("[ckey] attempted to access the [selected_tab] tab without sufficient rights.")
 		log_admin("[ckey] attempted to access the [selected_tab] tab without sufficient rights.")
@@ -306,13 +303,6 @@
 			listed_turf = null
 		else
 			tabs |= sanitize(listed_turf.name)
-	//Add spells
-	var/list/spells = mob_spell_list
-	if(mind)
-		spells = mind.spell_list
-	for(var/obj/effect/proc_holder/spell/S in spells)
-		if(S.can_be_cast_by(src))
-			tabs |= S.panel
 	//Holder stat tabs
 	if(client.holder)
 		tabs |= "MC"

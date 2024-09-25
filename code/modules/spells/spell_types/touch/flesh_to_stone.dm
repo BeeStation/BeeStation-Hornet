@@ -17,7 +17,7 @@
 		return FALSE
 
 	var/mob/living/living_victim = victim
-	if(living_victim.can_block_magic(antimagic_flags))
+	if(living_victim.anti_magic_check())
 		to_chat(caster, span_warning("The spell can't seem to affect [victim]!"))
 		to_chat(victim, span_warning("You feel your flesh turn to stone for a moment, then revert back!"))
 		return TRUE
@@ -30,4 +30,4 @@
 	name = "\improper petrifying touch"
 	desc = "That's the bottom line, because flesh to stone said so!"
 	icon_state = "fleshtostone"
-	inhand_icon_state = "fleshtostone"
+	item_state = "fleshtostone"

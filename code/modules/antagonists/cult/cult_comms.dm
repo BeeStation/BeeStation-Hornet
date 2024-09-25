@@ -230,11 +230,6 @@
 	/// The actual cooldown tracked of the action
 	COOLDOWN_DECLARE(cult_mark_cooldown)
 
-/datum/action/innate/cult/master/cultmark/New(Target)
-	CM = new()
-	CM.attached_action = src
-	..()
-
 /datum/action/innate/cult/master/cultmark/IsAvailable()
 	return ..() && COOLDOWN_FINISHED(src, cult_mark_cooldown)
 

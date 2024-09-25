@@ -30,7 +30,7 @@
 		to_chat(cast_on, span_notice("You concentrate really hard, but nothing happens."))
 		return
 
-	var/obj/item/organ/internal/tongue/to_fire = locate() in cast_on.internal_organs
+	var/obj/item/organ/tongue/to_fire = locate() in cast_on.internal_organs
 	if(!to_fire)
 		to_chat(cast_on, span_notice("You don't have a tongue to shoot!"))
 		return
@@ -54,7 +54,7 @@
 		"embedded_ignore_throwspeed_threshold" = TRUE,
 	)
 	w_class = WEIGHT_CLASS_SMALL
-	sharpness = SHARP_POINTY
+	sharpness = IS_SHARP
 	custom_materials = list(/datum/material/biomass = 500)
 	/// What mob "fired" our tongue
 	var/datum/weakref/fired_by_ref

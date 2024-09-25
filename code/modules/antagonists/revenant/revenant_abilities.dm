@@ -290,7 +290,7 @@
 		if(human_mob == caster)
 			continue
 		to_shock.Beam(human_mob, icon_state = "purple_lightning", time = 0.5 SECONDS)
-		if(!human_mob.can_block_magic(antimagic_flags))
+		if(!human_mob.anti_magic_check())
 			human_mob.electrocute_act(shock_damage, to_shock, flags = SHOCK_NOGLOVES)
 
 		do_sparks(4, FALSE, human_mob)
@@ -358,16 +358,18 @@
 
 // A note to future coders: do not replace this with an EMP because it will wreck malf AIs and everyone will hate you.
 /datum/action/cooldown/spell/aoe/revenant/malfunction/cast_on_thing_in_aoe(turf/victim, mob/living/simple_animal/revenant/caster)
+	/* emag code differs too much from us
 	for(var/mob/living/simple_animal/bot/bot in victim)
 		if(!(bot.bot_cover_flags & BOT_COVER_EMAGGED))
 			new /obj/effect/temp_visual/revenant(bot.loc)
 			bot.bot_cover_flags &= ~BOT_COVER_LOCKED
 			bot.bot_cover_flags |= BOT_COVER_OPEN
 			bot.emag_act(caster)
+	*/
 	for(var/mob/living/carbon/human/human in victim)
 		if(human == caster)
 			continue
-		if(human.can_block_magic(antimagic_flags))
+		if(human.anti_magic_check())
 			continue
 		to_chat(human, span_revenwarning("You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")]."))
 		new /obj/effect/temp_visual/revenant(human.loc)
@@ -379,7 +381,7 @@
 		if(prob(20))
 			if(prob(50))
 				new /obj/effect/temp_visual/revenant(thing.loc)
-			thing.emag_act(caster)
+			//thing.emag_act(caster)
 	// Only works on cyborgs, not AI!
 	for(var/mob/living/silicon/robot/cyborg in victim)
 		playsound(cyborg, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
@@ -402,14 +404,14 @@
 	for(var/mob/living/mob in victim)
 		if(mob == caster)
 			continue
-		if(mob.can_block_magic(antimagic_flags))
+		if(mob.anti_magic_check())
 			to_chat(caster, span_warning("The spell had no effect on [mob]!"))
 			continue
 		new /obj/effect/temp_visual/revenant(mob.loc)
 		if(iscarbon(mob))
 			if(ishuman(mob))
 				var/mob/living/carbon/human/H = mob
-				H.set_haircolor("#1d2953", override = TRUE) //will be reset when blight is cured
+				//H.set_haircolor("#1d2953", override = TRUE) //will be reset when blight is cured
 				var/blightfound = FALSE
 				for(var/datum/disease/revblight/blight in H.diseases)
 					blightfound = TRUE
@@ -433,5 +435,5 @@
 		QDEL_IN(shroom, 10)
 	for(var/obj/machinery/hydroponics/tray in victim)
 		new /obj/effect/temp_visual/revenant(tray.loc)
-		tray.set_pestlevel(rand(8, 10))
-		tray.set_weedlevel(rand(8, 10))
+		tray.pestlevel = (rand(8, 10))
+		tray.weedlevel = (rand(8, 10))

@@ -70,7 +70,6 @@
 
 	attached_hand = new_hand
 	RegisterSignal(attached_hand, COMSIG_ITEM_AFTERATTACK, .proc/on_hand_hit)
-	RegisterSignal(attached_hand, COMSIG_ITEM_AFTERATTACK_SECONDARY, .proc/on_secondary_hand_hit)
 	RegisterSignal(attached_hand, COMSIG_PARENT_QDELETING, .proc/on_hand_deleted)
 	RegisterSignal(attached_hand, COMSIG_ITEM_DROPPED, .proc/on_hand_dropped)
 	to_chat(cast_on, draw_message)
@@ -84,7 +83,7 @@
  */
 /datum/action/cooldown/spell/touch/proc/remove_hand(mob/living/hand_owner, reset_cooldown_after = FALSE)
 	if(!QDELETED(attached_hand))
-		UnregisterSignal(attached_hand, list(COMSIG_ITEM_AFTERATTACK, COMSIG_ITEM_AFTERATTACK_SECONDARY, COMSIG_PARENT_QDELETING, COMSIG_ITEM_DROPPED))
+		UnregisterSignal(attached_hand, list(COMSIG_ITEM_AFTERATTACK, COMSIG_PARENT_QDELETING, COMSIG_ITEM_DROPPED))
 		hand_owner?.temporarilyRemoveItemFromInventory(attached_hand)
 		QDEL_NULL(attached_hand)
 
@@ -139,7 +138,7 @@
 	if(!can_cast_spell(feedback = FALSE))
 		return
 
-	INVOKE_ASYNC(src, .proc/do_secondary_hand_hit, source, victim, caster)
+	//INVOKE_ASYNC(src, .proc/do_secondary_hand_hit, source, victim, caster)
 
 /**
  * Calls cast_on_hand_hit() from the caster onto the victim.
@@ -153,9 +152,8 @@
 	spell_feedback()
 	remove_hand(caster)
 
-/**
- * Calls do_secondary_hand_hit() from the caster onto the victim.
- */
+//Calls do_secondary_hand_hit() from the caster onto the victim.
+/*
 /datum/action/cooldown/spell/touch/proc/do_secondary_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	var/secondary_result = cast_on_secondary_hand_hit(hand, victim, caster)
 	switch(secondary_result)
@@ -172,7 +170,7 @@
 		// Cancel chain will do nothing,
 		if(SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 			return
-
+*/
 /**
  * The actual process of casting the spell on the victim from the caster.
  *
@@ -191,8 +189,8 @@
  * Return SECONDARY_ATTACK_CONTINUE_CHAIN to prevent the normal cast_on_hand_hit from calling, but still use up the hand
  * Return SECONDARY_ATTACK_CANCEL_CHAIN to prevent the spell from being used
  */
-/datum/action/cooldown/spell/touch/proc/cast_on_secondary_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
-	return SECONDARY_ATTACK_CALL_NORMAL
+///datum/action/cooldown/spell/touch/proc/cast_on_secondary_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+	//return SECONDARY_ATTACK_CALL_NORMAL
 
 /**
  * Signal proc for [COMSIG_PARENT_QDELETING] from our attached hand.
@@ -223,7 +221,7 @@
 	lefthand_file = 'icons/mob/inhands/misc/touchspell_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/touchspell_righthand.dmi'
 	icon_state = "latexballon"
-	inhand_icon_state = null
+	item_state = null
 	item_flags = NEEDS_PERMIT | ABSTRACT
 	w_class = WEIGHT_CLASS_HUGE
 	force = 0

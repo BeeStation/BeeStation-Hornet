@@ -22,6 +22,5 @@
 		flame_range = 2,
 		flash_range = 3,
 		adminlog = FALSE,
-		explosion_cause = src,
 	)
 	qdel(src)

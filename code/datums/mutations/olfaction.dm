@@ -1,3 +1,5 @@
+/* Too much code debt, In order for olfaction to work atmos and fingerprint code must be in working order. If it is then uncomment this
+
 /datum/mutation/human/olfaction
 	name = "Transcendent Olfaction"
 	desc = "Your sense of smell is comparable to that of a canine."
@@ -44,8 +46,8 @@
 
 /datum/action/cooldown/spell/olfaction/cast(mob/living/cast_on)
 	. = ..()
-	// Can we sniff? is there miasma in the air?
-	var/datum/gas_mixture/air = cast_on.loc.return_air()
+	// Can we sniff? is there miasma in the air? (Requires update to atmos to actually work teehee)
+	/*var/datum/gas_mixture/air = cast_on.loc.return_air()
 	var/list/cached_gases = air.gases
 
 	if(cached_gases[/datum/gas/miasma])
@@ -53,7 +55,7 @@
 		to_chat(cast_on, span_warning("With your overly sensitive nose, \
 			you get a whiff of stench and feel sick! Try moving to a cleaner area!"))
 		return
-
+*/
 	var/atom/sniffed = cast_on.get_active_held_item()
 	if(sniffed)
 		pick_up_target(cast_on, sniffed)
@@ -137,3 +139,5 @@
 	var/direction_text = span_bold("[dir2text(get_dir(caster, current_target))]")
 	if(direction_text)
 		to_chat(caster, span_notice("You consider [current_target]'s scent. The trail leads [direction_text]."))
+
+*/

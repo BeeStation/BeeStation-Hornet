@@ -99,11 +99,10 @@
 	if(spell_requirements & (SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_WIZARD_GARB))
 		RegisterSignal(owner, COMSIG_MOB_EQUIPPED_ITEM, .proc/update_icon_on_signal)
 	RegisterSignal(owner, list(COMSIG_MOB_ENTER_JAUNT, COMSIG_MOB_AFTER_EXIT_JAUNT), .proc/update_icon_on_signal)
-	owner.client?.stat_panel.send_message("check_spells")
-
+	//owner.client?.stat_panel.send_message("check_spells") we are missing this from code
 /datum/action/cooldown/spell/Remove(mob/living/remove_from)
 
-	remove_from.client?.stat_panel.send_message("check_spells")
+	//remove_from.client?.stat_panel.send_message("check_spells")
 	UnregisterSignal(remove_from, list(
 		COMSIG_MOB_AFTER_EXIT_JAUNT,
 		COMSIG_MOB_ENTER_JAUNT,
@@ -164,7 +163,7 @@
 
 	// If the spell requires the user has no antimagic equipped, and they're holding antimagic
 	// that corresponds with the spell's antimagic, then they can't actually cast the spell
-	if((spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC) && !owner.can_cast_magic(antimagic_flags))
+	if((spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC) && !owner.anti_magic_check())
 		if(feedback)
 			to_chat(owner, span_warning("Some form of antimagic is preventing you from casting [src]!"))
 		return FALSE
@@ -302,10 +301,12 @@
 	if(sparks_amt)
 		do_sparks(sparks_amt, FALSE, get_turf(owner))
 
-	if(ispath(smoke_type, /datum/effect_system/fluid_spread/smoke))
-		var/datum/effect_system/fluid_spread/smoke/smoke = new smoke_type()
-		smoke.set_up(smoke_amt, holder = owner, location = get_turf(owner))
+
+	if(ispath(smoke_type, /datum/effect_system/smoke_spread))
+		var/datum/effect_system/smoke_spread/smoke = new smoke_type()
+		smoke.set_up(smoke_amt, src)
 		smoke.start()
+
 
 /// Provides feedback after a spell cast occurs, in the form of a cast sound and/or invocation
 /datum/action/cooldown/spell/proc/spell_feedback()

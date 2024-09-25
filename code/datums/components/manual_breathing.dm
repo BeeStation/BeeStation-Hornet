@@ -17,7 +17,7 @@
 	button_icon_state = "add"									//Feel free to replace
 	var/datum/emote/next_emote = "inhale"
 
-/datum/action/breathe/Trigger()
+/datum/action/breathe/Trigger(trigger_flags)
 	if(owner.stat != CONSCIOUS)
 		return FALSE
 	owner.emote(next_emote)

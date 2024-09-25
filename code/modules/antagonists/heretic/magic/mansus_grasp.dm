@@ -24,7 +24,7 @@
 		return FALSE
 
 	var/mob/living/living_hit = victim
-	if(living_hit.can_block_magic(antimagic_flags))
+	if(living_hit.anti_magic_check())
 		victim.visible_message(
 			span_danger("The spell bounces off of [victim]!"),
 			span_danger("The spell bounces off of you!"),
@@ -34,10 +34,10 @@
 	if(SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, victim) & COMPONENT_BLOCK_HAND_USE)
 		return FALSE
 
-	living_hit.apply_damage(10, BRUTE, wound_bonus = CANT_WOUND)
+	living_hit.apply_damage(10, BRUTE)
 	if(iscarbon(victim))
 		var/mob/living/carbon/carbon_hit = victim
-		carbon_hit.adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/slurring/heretic)
+		//carbon_hit.adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/slurring/heretic)
 		carbon_hit.AdjustKnockdown(5 SECONDS)
 		carbon_hit.adjustStaminaLoss(80)
 
@@ -58,7 +58,7 @@
 		Causes knockdown, minor bruises, and major stamina damage. \
 		It gains additional beneficial effects as you expand your knowledge of the Mansus."
 	icon_state = "mansus"
-	inhand_icon_state = "mansus"
+	item_state = "mansus"
 
 /obj/item/melee/touch_attack/mansus_fist/Initialize(mapload)
 	. = ..()
@@ -98,10 +98,9 @@
 			playsound(carbon_user, 'sound/effects/wounds/sizzle1.ogg', 70, vary = TRUE)
 			if(prob(50))
 				carbon_user.emote("scream")
-				carbon_user.adjust_timed_status_effect(26 SECONDS, /datum/status_effect/speech/stutter)
-
+				//carbon_user.adjust_timed_status_effect(26 SECONDS, /datum/status_effect/speech/stutter)
 		source?.cast_on_hand_hit(src, user, user)
 
 		escape_our_torment++
 		stoplag(0.4 SECONDS)
-return FIRELOSS
+	return FIRELOSS

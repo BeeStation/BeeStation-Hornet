@@ -76,7 +76,7 @@
 
 /datum/action/cooldown/spell/pointed/mindread/cast(mob/living/cast_on)
 	. = ..()
-	if(cast_on.can_block_magic(MAGIC_RESISTANCE_MIND, charge_cost = 0))
+	if(cast_on.anti_magic_check())
 		to_chat(owner, span_warning("As you reach into [cast_on]'s mind, \
 			you are stopped by a mental blockage. It seems you've been foiled."))
 		return

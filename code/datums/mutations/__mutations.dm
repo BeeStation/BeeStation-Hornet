@@ -22,6 +22,10 @@
 	var/class           //Decides player accesibility, sorta
 	var/list/conflicts //any mutations that might conflict. put mutation typepath defines in here. make sure to enter it both ways (so that A conflicts with B, and B with A)
 	var/allow_transfer  //Do we transfer upon cloning?
+		/// Message given to the user upon gaining this mutation
+	var/text_gain_indication = ""
+	/// Message given to the user upon losing this mutation
+	var/text_lose_indication = ""
 	//MUT_NORMAL - A mutation that can be activated and deactived by completing a sequence
 	//MUT_EXTRA - A mutation that is in the mutations tab, and can be given and taken away through though the DNA console. Has a 0 before it's name in the mutation section of the dna console
 	//MUT_OTHER Cannot be interacted with by players through normal means. I.E. wizards mutate
@@ -69,6 +73,8 @@
 	owner = C
 	dna = C.dna
 	dna.mutations += src
+	if(text_gain_indication)
+		to_chat(owner, text_gain_indication)
 	if(length(visual_indicators))
 		var/list/mut_overlay = list(get_visual_indicator())
 		for (var/mutable_appearance/ma in mut_overlay)
@@ -104,6 +110,8 @@
 
 /datum/mutation/proc/on_losing(mob/living/carbon/owner)
 	if(istype(owner) && (owner.dna.mutations.Remove(src)))
+		if(text_lose_indication && owner.stat != DEAD)
+			to_chat(owner, text_lose_indication)
 		if(length(visual_indicators))
 			var/list/mut_overlay = list()
 			if(owner.overlays_standing[layer_used])
@@ -146,23 +154,17 @@
 				apply_overlay(CM.layer_used)
 
 /**
-	if(modified || !power || !owner)
  * Called when a chromosome is applied so we can properly update some stats
  * without having to remove and reapply the mutation from someone
  *
  * Returns `null` if no modification was done, and
  * returns an instance of a power if modification was complete
  */
-
-/datum/mutation/proc/modify() //called when a genome is applied so we can properly update some stats without having to remove and reapply the mutation from someone
+/datum/mutation/proc/modify()
 	if(modified || !power_path || !owner)
 		return
-		return
-	power.charge_max *= GET_MUTATION_ENERGY(src)
 	var/datum/action/cooldown/spell/modified_power = locate(power_path) in owner.actions
-	power.charge_counter *= GET_MUTATION_ENERGY(src)
 	if(!modified_power)
-	modified = TRUE
 		CRASH("Genetic mutation [type] called modify(), but could not find a action to modify!")
 	modified_power.cooldown_time *= GET_MUTATION_ENERGY(src) // Doesn't do anything for mutations with energy_coeff unset
 	return modified_power

@@ -279,11 +279,15 @@
 
 	src.circuit_component = circuit_component
 
-	button.maptext_x = 2
-	button.maptext_y = 0
-	update_maptext()
+	UpdateButtons()
 
 	START_PROCESSING(SSobj, src)
+
+/datum/action/innate/bci_charge_action/CreateButton()
+	var/atom/movable/screen/movable/action_button/button = ..()
+	button.maptext_x = 2
+	button.maptext_y = 0
+	return button
 
 /datum/action/innate/bci_charge_action/Destroy()
 	circuit_component.charge_action = null
@@ -293,7 +297,7 @@
 
 	return ..()
 
-/datum/action/innate/bci_charge_action/Trigger()
+/datum/action/innate/bci_charge_action/Trigger(trigger_flags)
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 
 	if (isnull(cell))
@@ -303,9 +307,14 @@
 		to_chat(owner, "<span class='info'>You can recharge it by using a cyborg recharging station.</span>")
 
 /datum/action/innate/bci_charge_action/process(delta_time)
-	update_maptext()
+	UpdateButtons()
 
-/datum/action/innate/bci_charge_action/proc/update_maptext()
+/datum/action/innate/bci_charge_action/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+	. = ..()
+	if(!.)
+		return
+	if(status_only)
+		return
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 	button.maptext = cell ? MAPTEXT("[cell.percent()]%") : ""
 

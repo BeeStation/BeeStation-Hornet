@@ -127,4 +127,4 @@
 		return FALSE
 	if(!user.mind)
 		return FALSE
-return TRUE
+	return TRUE

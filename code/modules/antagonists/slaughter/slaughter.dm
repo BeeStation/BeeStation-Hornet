@@ -69,10 +69,6 @@
 		add_movespeed_modifier(/datum/movespeed_modifier/slaughter)
 		addtimer(CALLBACK(src, .proc/remove_movespeed_modifier, /datum/movespeed_modifier/slaughter), 6 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
-	// Reset our streaks
-	current_hitstreak = 0
-	wound_bonus = initial(wound_bonus)
-	bare_wound_bonus = initial(bare_wound_bonus)
 
 /obj/effect/decal/cleanable/blood/innards
 	name = "pile of viscera"
@@ -120,7 +116,7 @@
 	var/datum/action/cooldown/spell/jaunt/bloodcrawl/crawl = new(M)
 	crawl.Grant(M)
 
-/obj/item/organ/internal/heart/demon/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/demon/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	var/datum/action/cooldown/spell/jaunt/bloodcrawl/crawl = locate() in M.actions
 	qdel(crawl)

@@ -9,7 +9,6 @@
 	var/datum/action/cooldown/alien/evolve_to_praetorian/evolution = new(src)
 	evolution.Grant(src)
 	return ..()
-	. = ..()
 
 /mob/living/carbon/alien/humanoid/drone/create_internal_organs()
 	internal_organs += new /obj/item/organ/alien/plasmavessel/large
@@ -35,7 +34,7 @@
 		return FALSE
 
 	var/mob/living/carbon/alien/humanoid/royal/evolver = owner
-	var/obj/item/organ/internal/alien/hivenode/node = evolver.getorgan(/obj/item/organ/internal/alien/hivenode)
+	var/obj/item/organ/alien/hivenode/node = evolver.getorgan(/obj/item/organ/alien/hivenode)
 	// Players are Murphy's Law. We may not expect
 	// there to ever be a living xeno with no hivenode,
 	// but they _WILL_ make it happen.

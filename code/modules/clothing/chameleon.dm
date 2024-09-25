@@ -5,7 +5,7 @@
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	button_icon_state = "random"
 
-/datum/action/item_action/chameleon/drone/randomise/Trigger()
+/datum/action/item_action/chameleon/drone/randomise/Trigger(trigger_flags)
 	if(!IsAvailable())
 		return
 
@@ -32,7 +32,7 @@
 	if (istype(target, /obj/item/clothing/mask/chameleon/drone))
 		button_icon_state = "drone_camogear_mask"
 
-/datum/action/item_action/chameleon/drone/togglehatmask/Trigger()
+/datum/action/item_action/chameleon/drone/togglehatmask/Trigger(trigger_flags)
 	if(!IsAvailable())
 		return
 
@@ -88,7 +88,7 @@
 		sortTim(standard_outfit_options, GLOBAL_PROC_REF(cmp_text_asc))
 	outfit_options = standard_outfit_options
 
-/datum/action/chameleon_outfit/Trigger()
+/datum/action/chameleon_outfit/Trigger(trigger_flags)
 	return select_outfit(owner)
 
 /datum/action/chameleon_outfit/proc/select_outfit(mob/user)
@@ -187,9 +187,7 @@
 	..()
 
 /datum/action/item_action/chameleon/change/proc/initialize_disguises()
-	if(button)
-		button.name = "Change [chameleon_name] Appearance"
-
+	name = "Change [chameleon_name] Appearance"
 	chameleon_blacklist |= typecacheof(target.type)
 	for(var/V in typesof(chameleon_type))
 		if(ispath(V) && ispath(V, /obj/item))
@@ -259,9 +257,9 @@
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)
 		if(initial(picked_item.greyscale_config) && initial(picked_item.greyscale_colors))
-			target.icon = SSgreyscale.GetColoredIconByType(initial(picked_item.greyscale_config), initial(picked_item.greyscale_colors))
+			I.icon = SSgreyscale.GetColoredIconByType(initial(picked_item.greyscale_config), initial(picked_item.greyscale_colors))
 		else
-			target.icon = initial(picked_item.icon)
+			I.icon = initial(picked_item.icon)
 		if(isidcard(I) && ispath(picked_item, /obj/item/card/id))
 			var/obj/item/card/id/ID = target
 			var/obj/item/card/id/ID_from = picked_item
@@ -281,7 +279,7 @@
 				ID.update_label()
 
 			// we're going to find a PDA that this ID card is inserted into, then force-update PDA
-			var/atom/current_holder = target.loc
+			var/atom/current_holder = target
 			if(istype(current_holder, /obj/item/computer_hardware/card_slot))
 				current_holder = current_holder.loc
 				if(istype(current_holder, /obj/item/modular_computer))
@@ -302,15 +300,15 @@
 			keepname = TRUE // do not change PDA name unnecesarily
 			update_mob_hud(item_holder)
 	if(!keepname)
-		target.name = initial(picked_item.name)
-	target.desc = initial(picked_item.desc)
-	target.icon_state = initial(picked_item.icon_state)
+		name = initial(picked_item.name)
+	//desc = initial(picked_item.desc)
+	//icon_state = initial(picked_item.icon_state)
 
 /datum/action/item_action/chameleon/change/proc/update_mob_hud(atom/card_holder)
 	// we're going to find a human, and store human ref to 'card_holder' by checking loc multiple time.
 	if(!ishuman(card_holder))
 		if(!card_holder)
-			card_holder = target.loc
+			card_holder = target
 		if(istype(card_holder, /obj/item/storage/wallet))
 			card_holder = card_holder.loc // this should be human
 		if(istype(card_holder, /obj/item/computer_hardware/card_slot))
@@ -322,7 +320,7 @@
 	var/mob/living/carbon/human/card_holding_human = card_holder
 	card_holding_human.sec_hud_set_ID()
 
-/datum/action/item_action/chameleon/change/Trigger()
+/datum/action/item_action/chameleon/change/Trigger(trigger_flags)
 	if(!IsAvailable())
 		return
 
@@ -668,9 +666,9 @@
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	chameleon_action.random_look()
 	var/datum/action/item_action/chameleon/drone/togglehatmask/togglehatmask_action = new(src)
-	togglehatmask_action.UpdateButtonIcon()
+	togglehatmask_action.UpdateButtons()
 	var/datum/action/item_action/chameleon/drone/randomise/randomise_action = new(src)
-	randomise_action.UpdateButtonIcon()
+	randomise_action.UpdateButtons()
 
 /datum/action/item_action/chameleon/tongue_change
 	name = "Tongue Change"
@@ -692,7 +690,7 @@
 		temporary_list[tongue_name] = found_item
 	tongue_list = sort_list(temporary_list)
 
-/datum/action/item_action/chameleon/tongue_change/Trigger()
+/datum/action/item_action/chameleon/tongue_change/Trigger(trigger_flags)
 	if(!IsAvailable() || !isitem(target))
 		return FALSE
 	var/obj/item/clothing/mask/target_mask = target
@@ -793,9 +791,9 @@
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	chameleon_action.random_look()
 	var/datum/action/item_action/chameleon/drone/togglehatmask/togglehatmask_action = new(src)
-	togglehatmask_action.UpdateButtonIcon()
+	togglehatmask_action.UpdateButtons()
 	var/datum/action/item_action/chameleon/drone/randomise/randomise_action = new(src)
-	randomise_action.UpdateButtonIcon()
+	randomise_action.UpdateButtons()
 
 /obj/item/clothing/mask/chameleon/drone/attack_self(mob/user)
 	to_chat(user, "<span class='notice'>[src] does not have a voice changer.</span>")

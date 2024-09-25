@@ -86,7 +86,6 @@
 
 /datum/action/innate/psychic_plane/New(our_target)
 	. = ..()
-	button.name = name
 	if(istype(our_target, /datum/psychic_plane))
 		psychic_plane = our_target
 	else

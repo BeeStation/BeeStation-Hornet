@@ -463,7 +463,7 @@
 	button_icon_state = "gust_attack"
 	cooldown_time = 5 SECONDS // the ability takes up around 2-3 seconds
 
-/datum/action/cooldown/gust_attack/Trigger()
+/datum/action/cooldown/gust_attack/Trigger(trigger_flags)
 	if(!..() || !istype(owner, /mob/living/simple_animal/hostile/space_dragon))
 		return FALSE
 	var/mob/living/simple_animal/hostile/space_dragon/S = owner

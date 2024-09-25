@@ -552,8 +552,6 @@ Striking a noncultist, however, will tear their flesh."}
 /datum/action/innate/cult/spear/Grant(mob/user, obj/blood_spear)
 	. = ..()
 	spear = blood_spear
-	button.screen_loc = "6:157,4:-2"
-	button.moved = "6:157,4:-2"
 
 /datum/action/innate/cult/spear/Activate()
 	if(owner == spear.loc || cooldown > world.time)

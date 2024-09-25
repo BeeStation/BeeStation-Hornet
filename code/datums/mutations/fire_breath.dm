@@ -53,7 +53,7 @@
 		return
 
 	our_lizard.adjust_fire_stacks(cone_levels)
-	our_lizard.ignite_mob()
+	our_lizard.IgniteMob()
 	to_chat(our_lizard, span_warning("Something in front of your mouth catches fire!"))
 
 /datum/action/cooldown/spell/cone/staggered/fire_breath/after_cast(atom/cast_on)
@@ -68,7 +68,6 @@
 		get_edge_target_turf(living_cast_on, turn(living_cast_on.dir, 180)),
 		range = self_throw_range,
 		speed = 2,
-		gentle = TRUE,
 	)
 	// Try to set us to our original direction after, so we don't end up backwards.
 	living_cast_on.setDir(original_dir)
@@ -87,9 +86,9 @@
 /datum/action/cooldown/spell/cone/staggered/fire_breath/do_mob_cone_effect(mob/living/target_mob, atom/caster, level)
 	// Further out targets take less immediate burn damage and get less fire stacks.
 	// The actual burn damage application is not blocked by fireproofing, like space dragons.
-	target_mob.apply_damage(max(10, 40 - (5 * level)), BURN, spread_damage = TRUE)
+	target_mob.apply_damage(max(10, 40 - (5 * level)), BURN)
 	target_mob.adjust_fire_stacks(max(2, 5 - level))
-	target_mob.ignite_mob()
+	target_mob.IgniteMob()
 
 /datum/action/cooldown/spell/cone/staggered/firebreath/do_obj_cone_effect(obj/target_obj, atom/caster, level)
 	// Further out objects experience less exposed_temperature and exposed_volume

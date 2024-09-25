@@ -30,7 +30,7 @@
 	/// How long it takes to lay a web
 	var/webbing_time = 4 SECONDS
 	/// The path of web that we create
-	var/web_path = /obj/structure/spider/stickyweb/genetic
+	var/web_path = /obj/structure/spider/stickyweb
 
 /datum/action/cooldown/spell/lay_genetic_web/cast(atom/cast_on)
 	var/turf/web_spot = cast_on.loc

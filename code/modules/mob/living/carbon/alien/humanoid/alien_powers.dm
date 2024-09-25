@@ -134,7 +134,7 @@ Doesn't work on other aliens/AI.*/
 	var/to_whisper = tgui_input_text(owner, title = "Alien Whisper")
 	if(QDELETED(chosen_recipient) || QDELETED(src) || QDELETED(owner) || !IsAvailable() || !to_whisper)
 		return FALSE
-	if(chosen_recipient.can_block_magic(MAGIC_RESISTANCE_MIND, charge_cost = 0))
+	if(chosen_recipient.anti_magic_check())
 		to_chat(owner, span_warning("As you reach into [chosen_recipient]'s mind, you are stopped by a mental blockage. It seems you've been foiled."))
 		return FALSE
 
@@ -282,7 +282,7 @@ Doesn't work on other aliens/AI.*/
 		span_danger("[caller] spits neurotoxin!"),
 		span_alertalien("You spit neurotoxin."),
 	)
-	var/obj/projectile/neurotoxin/neurotoxin = new /obj/projectile/neurotoxin(caller.loc)
+	var/obj/projectile/bullet/neurotoxin/neurotoxin = new /obj/projectile/bullet/neurotoxin(caller.loc)
 	neurotoxin.preparePixelProjectile(target, caller, modifiers)
 	neurotoxin.firer = caller
 	neurotoxin.fire()
@@ -363,14 +363,14 @@ Doesn't work on other aliens/AI.*/
 
 /// Gets the plasma level of this carbon's plasma vessel, or -1 if they don't have one
 /mob/living/carbon/proc/getPlasma()
-	var/obj/item/organ/internal/alien/plasmavessel/vessel = getorgan(/obj/item/organ/internal/alien/plasmavessel)
+	var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
 	if(!vessel)
 		return -1
 	return vessel.stored_plasma
 
 /// Adjusts the plasma level of the carbon's plasma vessel if they have one
 /mob/living/carbon/proc/adjustPlasma(amount)
-	var/obj/item/organ/internal/alien/plasmavessel/vessel = getorgan(/obj/item/organ/internal/alien/plasmavessel)
+	var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
 	if(!vessel)
 		return FALSE
 	vessel.stored_plasma = max(vessel.stored_plasma + amount,0)
@@ -382,3 +382,13 @@ Doesn't work on other aliens/AI.*/
 /mob/living/carbon/alien/adjustPlasma(amount)
 	. = ..()
 	updatePlasmaDisplay()
+
+//For alien evolution/promotion/queen finder procs. Checks for an active alien of that type
+/proc/get_alien_type(alienpath)
+	for(var/mob/living/carbon/alien/humanoid/A in GLOB.alive_mob_list)
+		if(!istype(A, alienpath))
+			continue
+		if(!A.key || A.stat == DEAD) //Only living aliens with a ckey are valid.
+			continue
+		return A
+	return FALSE

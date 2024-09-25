@@ -153,8 +153,8 @@
 	log_game("[key_name_admin(man)] took control of the sentient [X]. [X] located at [AREACOORD(X)]")
 	man.forceMove(X)
 	man.set_anchored(TRUE)
-	var/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/xeno_senitent_action(,X)
-	man.AddSpell(P)
+	var/datum/action/cooldown/spell/list_target/xeno_senitent_action/P = new /datum/action/cooldown/spell/list_target/xeno_senitent_action(,X)
+	P.Grant(man)
 	//show little guy his traits
 	to_chat(man, "<span class='notice'>Your traits are: \n</span>")
 	for(var/datum/xenoartifact_trait/T in X.traits)
@@ -163,30 +163,30 @@
 		playsound(get_turf(X), 'sound/items/haunted/ghostitemattack.ogg', 50, TRUE)
 	qdel(S)
 
-/obj/effect/proc_holder/spell/targeted/xeno_senitent_action //Lets sentience target goober
+/datum/action/cooldown/spell/list_target/xeno_senitent_action //Lets sentience target goober
 	name = "Activate"
 	desc = "Select a target to activate your traits on."
-	range = 1
-	charge_max = 0 SECONDS
-	clothes_req = 0
-	include_user = 0
-	action_icon = 'icons/mob/actions/actions_revenant.dmi'
-	action_icon_state = "r_transmit"
-	action_background_icon_state = "bg_spell"
+	target_radius = 1
+	cooldown_time = 0 SECONDS
+	spell_requirements = null
+	button_icon = 'icons/mob/actions/actions_revenant.dmi'
+	button_icon_state = "r_transmit"
+	background_icon_state = "bg_spell"
 	var/obj/item/xenoartifact/xeno
 
-/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/Initialize(mapload, var/obj/item/xenoartifact/Z)
-	. = ..()
+/datum/action/cooldown/spell/list_target/xeno_senitent_action/Initialize(mapload, var/obj/item/xenoartifact/Z)
+	//. = ..()
 	xeno = Z
-	range = Z.max_range+1
+	target_radius = Z.max_range+1
 
-/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+/datum/action/cooldown/spell/list_target/xeno_senitent_action/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+	. = ..()
 	if(!xeno)
 		return
 	for(var/atom/M in targets)
 		xeno.true_target += xeno.process_target(M)
 		xeno.default_activate(xeno.charge_req+10)
-		charge_max = xeno.cooldown+xeno.cooldownmod
+		cooldown_time = xeno.cooldown+xeno.cooldownmod
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
 	. = ..()

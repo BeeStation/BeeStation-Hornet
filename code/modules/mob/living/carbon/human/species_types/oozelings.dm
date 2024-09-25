@@ -19,7 +19,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/oozeling
 	swimming_component = /datum/component/swimming/dissolve
-	inert_mutation = ACIDOOZE
+	//inert_mutation = ACIDOOZE
 
 	species_chest = /obj/item/bodypart/chest/oozeling
 	species_head = /obj/item/bodypart/head/oozeling
@@ -99,7 +99,7 @@
 	if(H.blood_volume < BLOOD_VOLUME_OKAY)
 		Cannibalize_Body(H)
 	if(regenerate_limbs)
-		regenerate_limbs.UpdateButtonIcon()
+		regenerate_limbs.UpdateButtons()
 
 /datum/species/oozeling/proc/Cannibalize_Body(mob/living/carbon/human/H)
 	var/list/limbs_to_consume = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG) - H.get_missing_limbs()

@@ -373,8 +373,6 @@
 	if(!QDELETED(owner.current) && owner.current.stat != DEAD)
 		L.fully_replace_character_name(null,"[owner.name]'s best friend")
 		soullink(/datum/soullink/oneway, owner.current, L)
-		spell.friend = L
-		spell.charge_counter = spell.charge_max
 		L.mind.hasSoul = FALSE
 		var/mob/living/carbon/human/H = L
 		var/obj/item/worn = H.wear_id

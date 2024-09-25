@@ -16,7 +16,7 @@
 	icon_icon = 'icons/mob/actions/actions_hive.dmi'
 	button_icon_state = "see"						//Feel free to replace
 
-/datum/action/blink/Trigger()
+/datum/action/blink/Trigger(trigger_flags)
 	if(owner.stat != CONSCIOUS)
 		return FALSE
 	owner.emote("blink")

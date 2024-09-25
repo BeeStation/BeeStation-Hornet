@@ -369,6 +369,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	/// If provided, will display an info button that will put this text in your chat
 	var/info
 
+	/// If provided, this will be the name the radial slice hud button. This has priority over everything else.
+	var/name
+
 /datum/radial_menu_choice/Destroy(force, ...)
 	. = ..()
 	QDEL_NULL(image)

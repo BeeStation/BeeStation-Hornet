@@ -583,7 +583,7 @@
 
 	for(var/X in found.actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 	found.burn_pickup = TRUE
 
 /obj/item/flashlight/spotlight //invisible lighting source
