@@ -119,6 +119,7 @@
 	return cell
 
 /mob/living/silicon/robot/Initialize(mapload)
+	GLOB.cyborg_list += src
 	default_access_list = get_all_accesses()
 
 	spark_system = new /datum/effect_system/spark_spread()
@@ -216,6 +217,7 @@
 
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 /mob/living/silicon/robot/Destroy()
+	GLOB.cyborg_list -= src
 	var/atom/T = drop_location()//To hopefully prevent run time errors.
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		if(T)
