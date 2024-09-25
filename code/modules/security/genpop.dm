@@ -391,8 +391,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	// Generate the crime list
 	try crime_list = json_decode(file2text(config_file))
 	catch(var/exception/e)
-		message_admins("<span class='boldannounce'>[e] caught on [e.file]:[e.line].</span>")
-		CRASH("Unable to read config/space_law.json. Fix this issue, as there are no backups!")
+		CRASH("<span class='boldannounce'>Unable to read config/space_law.json: [e] caught on [e.file]:[e.line].</span>")
 	//we need to get the names of each crime for the regex
 	for(var/key in crime_list)
 		var/value = crime_list[key]
