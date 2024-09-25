@@ -129,7 +129,8 @@
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_POCKETS
 	w_class = WEIGHT_CLASS_NORMAL
 	component_type = /datum/component/storage/concrete/stack
-	var/spam_protection = FALSE //If this is TRUE, the holder won't receive any messages when they fail to pick up ore through crossing it
+	var/is_bluespace = FALSE //If this is TRUE, when picking up ores it picks up ore from neighbouring tiles as well
+	var/bs_range=1	//Range in which the bluespace satchels pick up ores from.
 	var/mob/listeningTo
 
 /obj/item/storage/bag/ore/ComponentInitialize()
@@ -168,31 +169,52 @@
 	if (istype(user.pulling, /obj/structure/ore_box))
 		box = user.pulling
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	if(STR)
-		for(var/A in tile)
-			if (!is_type_in_typecache(A, STR.can_hold))
-				continue
-			if (box)
-				user.transferItemToLoc(A, box)
-				box.ui_update()
-				show_message = TRUE
-			else if(SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, A, user, TRUE))
-				show_message = TRUE
-			else
-				if(!spam_protection)
-					to_chat(user, "<span class='warning'>Your [name] is full and can't hold any more!</span>")
-					spam_protection = TRUE
-					continue
+
+	if (STR)
+		// Handle the tile the player steps in
+		show_message=handle_items_in_turf(tile, user, box, STR)
+
+		if (is_bluespace)
+			// Loop through all tiles in the orange range around the tile if its a bluespace bag
+			var/sticky_holder=FALSE
+			for (var/turf/turf in orange(bs_range, tile))
+				show_message=handle_items_in_turf(turf, user, box, STR)
+				if(!sticky_holder)
+					if(show_message)
+						sticky_holder=TRUE
+			if(sticky_holder)
+				show_message=TRUE
+
 	if(show_message)
 		playsound(user, "rustle", 50, TRUE)
 		STR.animate_parent()
+		//Handling message perspectives semi-dynamically.
+		var/message_action_pov = box ? "offload" : "scoop up"
+		var/message_action = box ? "offloads" : "scoop up"
+		var/message_location = is_bluespace ? "around" : "beneath"
+		var/message_box_pov = box ? " into [box]" : " with your [name]"
+		var/message_box = box ? " into [box]" : " with their [name]"
+
+		user.visible_message(
+			"<span class='notice'>[user] [message_action] the ores [message_location] [user.p_them()][message_box].</span>",
+			"<span class='notice'>You [message_action_pov] the ores [message_location] you[message_box_pov].</span>"
+		)
+
+/obj/item/storage/bag/ore/proc/handle_items_in_turf(var/turf/turf, var/mob/living/user, var/obj/structure/ore_box/box, var/datum/component/storage/STR)
+	var/item_transferred = FALSE
+	for (var/A in turf)
+		if (!is_type_in_typecache(A, STR.can_hold))
+			continue
 		if (box)
-			user.visible_message("<span class='notice'>[user] offloads the ores beneath [user.p_them()] into [box].</span>", \
-			"<span class='notice'>You offload the ores beneath you into your [box].</span>")
+			user.transferItemToLoc(A, box)
+			box.ui_update()
+			item_transferred = TRUE
+		else if (SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, A, user, TRUE))
+			item_transferred = TRUE
 		else
-			user.visible_message("<span class='notice'>[user] scoops up the ores beneath [user.p_them()].</span>", \
-				"<span class='notice'>You scoop up the ores beneath you with your [name].</span>")
-	spam_protection = FALSE
+			if (!item_transferred)
+				to_chat(user, "<span class='warning'>Your [name] is full and can't hold any more!</span>")
+	return item_transferred
 
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
@@ -208,6 +230,7 @@
 	STR.max_items = INFINITY
 	STR.max_combined_w_class = INFINITY
 	STR.max_combined_stack_amount = INFINITY
+	is_bluespace = TRUE
 
 // -----------------------------
 //          Plant bag
