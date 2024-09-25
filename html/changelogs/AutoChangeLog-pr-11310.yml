@@ -1,4 +1,0 @@
-author: mystery3525
-delete-after: true
-changes:
-  - code_imp: Untangles attack_ai() and attack_robot() code
