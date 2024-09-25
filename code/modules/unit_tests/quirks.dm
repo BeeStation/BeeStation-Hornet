@@ -38,7 +38,7 @@
 
 		var/datum/quirk
 		for(var/datum/quirk/Q in quirks)
-			if(Q.type == quirktype)
+			if(Q.type == quirk_type)
 				quirk = Q
 
 		TEST_ASSERT_NOTNULL(quirk.medical_record_text,"[quirk_type] has no medical record description!")
