@@ -15,17 +15,9 @@ export const RecordPrint = (props, context) => {
   const [open, setOpen] = useLocalState<boolean>(context, 'printOpen', true);
   const [alias, setAlias] = useLocalState<string>(context, 'printAlias', name);
 
-  const [printType, setPrintType] = useLocalState<PRINTOUT>(
-    context,
-    'printType',
-    PRINTOUT.Missing
-  );
+  const [printType, setPrintType] = useLocalState<PRINTOUT>(context, 'printType', PRINTOUT.Missing);
   const [header, setHeader] = useLocalState<string>(context, 'printHeader', '');
-  const [description, setDescription] = useLocalState<string>(
-    context,
-    'printDesc',
-    ''
-  );
+  const [description, setDescription] = useLocalState<string>(context, 'printDesc', '');
 
   /** Prints the record and resets. */
   const printSheet = () => {
@@ -91,9 +83,7 @@ export const RecordPrint = (props, context) => {
             icon="file-alt"
             onClick={() => swapTabs(PRINTOUT.Rapsheet)}
             selected={printType === PRINTOUT.Rapsheet}
-            tooltip={`Prints a standard paper with the record on it. ${
-              innocent && ' (Requires crimes)'
-            }`}
+            tooltip={`Prints a standard paper with the record on it. ${innocent && ' (Requires crimes)'}`}
             tooltipPosition="bottom">
             Rapsheet
           </Button>
@@ -102,9 +92,7 @@ export const RecordPrint = (props, context) => {
             icon="handcuffs"
             onClick={() => swapTabs(PRINTOUT.Wanted)}
             selected={printType === PRINTOUT.Wanted}
-            tooltip={`Prints a poster with mugshot and crimes.${
-              innocent && ' (Requires crimes)'
-            }`}
+            tooltip={`Prints a poster with mugshot and crimes.${innocent && ' (Requires crimes)'}`}
             tooltipPosition="bottom">
             Wanted
           </Button>
@@ -117,48 +105,22 @@ export const RecordPrint = (props, context) => {
       <Stack color="label" fill vertical>
         <Stack.Item>
           <Box>Enter a Header:</Box>
-          <Input
-            onChange={(event, value) => setHeader(value)}
-            maxLength={7}
-            value={header}
-          />
-          <Button
-            icon="sync"
-            onClick={() => clearField('header')}
-            tooltip="Reset"
-          />
+          <Input onChange={(event, value) => setHeader(value)} maxLength={7} value={header} />
+          <Button icon="sync" onClick={() => clearField('header')} tooltip="Reset" />
         </Stack.Item>
         <Stack.Item>
           <Box>Enter an Alias:</Box>
-          <Input
-            onChange={(event, value) => setAlias(value)}
-            maxLength={42}
-            value={alias}
-            width="55%"
-          />
-          <Button
-            icon="sync"
-            onClick={() => clearField('alias')}
-            tooltip="Reset"
-          />
+          <Input onChange={(event, value) => setAlias(value)} maxLength={42} value={alias} width="55%" />
+          <Button icon="sync" onClick={() => clearField('alias')} tooltip="Reset" />
         </Stack.Item>
         <Stack.Item>
           <Box>Enter a Description:</Box>
           <Stack fill>
             <Stack.Item grow>
-              <Input
-                fluid
-                maxLength={150}
-                onChange={(event, value) => setDescription(value)}
-                value={description}
-              />
+              <Input fluid maxLength={150} onChange={(event, value) => setDescription(value)} value={description} />
             </Stack.Item>
             <Stack.Item>
-              <Button
-                icon="sync"
-                onClick={() => clearField('description')}
-                tooltip="Reset"
-              />
+              <Button icon="sync" onClick={() => clearField('description')} tooltip="Reset" />
             </Stack.Item>
           </Stack>
         </Stack.Item>

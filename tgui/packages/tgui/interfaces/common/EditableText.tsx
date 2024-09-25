@@ -24,11 +24,7 @@ export const EditableText = (props: Props, context) => {
   if (!field) return <> </>;
 
   const { act } = useBackend(context);
-  const [editing, setEditing] = useLocalState<boolean>(
-    context,
-    `editing_${field}`,
-    false
-  );
+  const [editing, setEditing] = useLocalState<boolean>(context, `editing_${field}`, false);
 
   return editing ? (
     <Input
@@ -64,9 +60,7 @@ export const EditableText = (props: Props, context) => {
           color="transparent"
           icon="backspace"
           ml={1}
-          onClick={() =>
-            act('edit_field', { field: field, ref: target_ref, value: '' })
-          }
+          onClick={() => act('edit_field', { field: field, ref: target_ref, value: '' })}
           tooltip="Clear"
           tooltipPosition="bottom"
         />

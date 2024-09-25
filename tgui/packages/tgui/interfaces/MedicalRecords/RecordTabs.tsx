@@ -11,9 +11,7 @@ export const MedicalRecordTabs = (props, context) => {
   const { act, data } = useBackend<MedicalRecordData>(context);
   const { records = [] } = data;
 
-  const errorMessage = !records.length
-    ? 'No records found.'
-    : 'No match. Refine your search.';
+  const errorMessage = !records.length ? 'No records found.' : 'No match. Refine your search.';
 
   const [search, setSearch] = useLocalState(context, 'search', '');
 
@@ -25,11 +23,7 @@ export const MedicalRecordTabs = (props, context) => {
   return (
     <Stack fill vertical>
       <Stack.Item>
-        <Input
-          fluid
-          onInput={(_, value) => setSearch(value)}
-          placeholder="Name/Job/DNA"
-        />
+        <Input fluid onInput={(_, value) => setSearch(value)} placeholder="Name/Job/DNA" />
       </Stack.Item>
       <Stack.Item grow>
         <Section fill scrollable>
@@ -37,9 +31,7 @@ export const MedicalRecordTabs = (props, context) => {
             {!sorted.length ? (
               <NoticeBox>{errorMessage}</NoticeBox>
             ) : (
-              sorted.map((record, index) => (
-                <CrewTab key={index} record={record} />
-              ))
+              sorted.map((record, index) => <CrewTab key={index} record={record} />)
             )}
           </Tabs>
         </Section>
@@ -55,12 +47,7 @@ export const MedicalRecordTabs = (props, context) => {
             </Button>
           </Stack.Item>
           <Stack.Item>
-            <Button.Confirm
-              content="Purge"
-              icon="trash"
-              onClick={() => act('purge_records')}
-              tooltip="Wipe all record data."
-            />
+            <Button.Confirm content="Purge" icon="trash" onClick={() => act('purge_records')} tooltip="Wipe all record data." />
           </Stack.Item>
         </Stack>
       </Stack.Item>
@@ -70,9 +57,7 @@ export const MedicalRecordTabs = (props, context) => {
 
 /** Individual crew tab */
 const CrewTab = (props: { record: MedicalRecord }, context) => {
-  const [selectedRecord, setSelectedRecord] = useLocalState<
-    MedicalRecord | undefined
-  >(context, 'medicalRecord', undefined);
+  const [selectedRecord, setSelectedRecord] = useLocalState<MedicalRecord | undefined>(context, 'medicalRecord', undefined);
 
   const { act, data } = useBackend<MedicalRecordData>(context);
   const { assigned_view } = data;

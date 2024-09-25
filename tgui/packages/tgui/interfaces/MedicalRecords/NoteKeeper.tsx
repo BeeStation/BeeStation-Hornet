@@ -12,9 +12,7 @@ export const NoteKeeper = (props, context) => {
   const { act } = useBackend<MedicalRecordData>(context);
   const { crew_ref } = foundRecord;
 
-  const [selectedNote, setSelectedNote] = useLocalState<
-    MedicalNote | undefined
-  >(context, 'selectedNote', undefined);
+  const [selectedNote, setSelectedNote] = useLocalState<MedicalNote | undefined>(context, 'selectedNote', undefined);
 
   const [writing, setWriting] = useLocalState(context, 'note', false);
 
@@ -37,28 +35,15 @@ export const NoteKeeper = (props, context) => {
 
   return (
     <Section buttons={<NoteTabs />} fill scrollable title="Notes">
-      {writing && (
-        <TextArea
-          height="100%"
-          maxLength={1024}
-          onEnter={addNote}
-          onEscape={() => setWriting(false)}
-        />
-      )}
+      {writing && <TextArea height="100%" maxLength={1024} onEnter={addNote} onEscape={() => setWriting(false)} />}
 
       {!!selectedNote && (
         <>
           <LabeledList>
-            <LabeledList.Item
-              label="Author"
-              buttons={
-                <Button color="bad" icon="trash" onClick={deleteNote} />
-              }>
+            <LabeledList.Item label="Author" buttons={<Button color="bad" icon="trash" onClick={deleteNote} />}>
               {selectedNote.author}
             </LabeledList.Item>
-            <LabeledList.Item label="Time">
-              {selectedNote.time}
-            </LabeledList.Item>
+            <LabeledList.Item label="Time">{selectedNote.time}</LabeledList.Item>
           </LabeledList>
           <Box color="label" mb={1} mt={1}>
             Content:
@@ -76,9 +61,7 @@ const NoteTabs = (props, context) => {
   if (!foundRecord) return <> </>;
   const { notes } = foundRecord;
 
-  const [selectedNote, setSelectedNote] = useLocalState<
-    MedicalNote | undefined
-  >(context, 'selectedNote', undefined);
+  const [selectedNote, setSelectedNote] = useLocalState<MedicalNote | undefined>(context, 'selectedNote', undefined);
   const [writing, setWriting] = useLocalState(context, 'note', false);
 
   /** Selects or deselects a note. */
@@ -107,9 +90,7 @@ const NoteTabs = (props, context) => {
           {index + 1}
         </Tabs.Tab>
       ))}
-      <Tooltip
-        content={multiline`Add a new note. Press enter or escape to exit view.`}
-        position="bottom">
+      <Tooltip content={multiline`Add a new note. Press enter or escape to exit view.`} position="bottom">
         <Tabs.Tab onClick={composeNew} selected={writing}>
           <Icon name="plus" /> New
         </Tabs.Tab>

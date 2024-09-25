@@ -14,19 +14,8 @@ export const MedicalRecordView = (props, context) => {
   const { act, data } = useBackend<MedicalRecordData>(context);
   const { assigned_view } = data;
 
-  const {
-    age,
-    blood_type,
-    crew_ref,
-    dna,
-    gender,
-    major_disabilities,
-    minor_disabilities,
-    name,
-    quirk_notes,
-    rank,
-    species,
-  } = foundRecord;
+  const { age, blood_type, crew_ref, dna, gender, major_disabilities, minor_disabilities, name, quirk_notes, rank, species } =
+    foundRecord;
 
   const minor_disabilities_array = getQuirkStrings(minor_disabilities);
   const major_disabilities_array = getQuirkStrings(major_disabilities);
@@ -80,33 +69,16 @@ export const MedicalRecordView = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Species">
-              <EditableText
-                field="species"
-                target_ref={crew_ref}
-                text={species}
-              />
+              <EditableText field="species" target_ref={crew_ref} text={species} />
             </LabeledList.Item>
             <LabeledList.Item label="Gender">
-              <EditableText
-                field="gender"
-                target_ref={crew_ref}
-                text={gender}
-              />
+              <EditableText field="gender" target_ref={crew_ref} text={gender} />
             </LabeledList.Item>
             <LabeledList.Item label="DNA">
-              <EditableText
-                color="good"
-                field="dna"
-                target_ref={crew_ref}
-                text={dna}
-              />
+              <EditableText color="good" field="dna" target_ref={crew_ref} text={dna} />
             </LabeledList.Item>
             <LabeledList.Item color="bad" label="Blood Type">
-              <EditableText
-                field="blood_type"
-                target_ref={crew_ref}
-                text={blood_type}
-              />
+              <EditableText field="blood_type" target_ref={crew_ref} text={blood_type} />
             </LabeledList.Item>
             <LabeledList.Item label="Minor Disabilities">
               {minor_disabilities_array.map((disability, index) => (

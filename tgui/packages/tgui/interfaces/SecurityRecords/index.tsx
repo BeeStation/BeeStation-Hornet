@@ -64,12 +64,7 @@ const AuthView = (props, context) => {
           <Stack.Item>
             <NoticeBox align="right" info>
               Secure Your Workspace.
-              <Button
-                align="right"
-                icon="lock"
-                color="good"
-                ml={2}
-                onClick={() => act('logout')}>
+              <Button align="right" icon="lock" color="good" ml={2} onClick={() => act('logout')}>
                 Log Out
               </Button>
             </NoticeBox>
