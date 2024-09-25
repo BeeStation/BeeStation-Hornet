@@ -94,6 +94,9 @@
 	character_preview_view = new(null, src)
 	if(user.client)
 		character_preview_view.register_to_client(user.client)
+	if(isnull(character_preview_view.body)) //only want to run this once
+		character_preview_view.preferences = user.client.prefs
+		character_preview_view.update_body()
 	return character_preview_view
 
 /// Takes a record and updates the character preview view to match it.
