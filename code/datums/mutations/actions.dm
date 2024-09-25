@@ -291,7 +291,7 @@
 		holder.clear_reagents()
 
 //Diona species mutation
-/datum/mutation/drone
+/datum/mutation/human/drone
 	name = "Nymph Drone"
 	desc = "An ancient mutation that gives diona the ability to send out a nymph drone."
 	quality = POSITIVE

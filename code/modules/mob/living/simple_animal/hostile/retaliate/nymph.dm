@@ -10,7 +10,6 @@
 	faction = list("diona")
 	gender = NEUTER
 	gold_core_spawnable = FRIENDLY_SPAWN
-	ventcrawler = VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_SMALL
@@ -60,6 +59,7 @@
 	name = "[initial(name)] ([instance_num])"
 	real_name = name
 	regenerate_icons()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_MUTE, "nymph")
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),

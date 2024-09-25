@@ -57,7 +57,7 @@
 #define ACIDOOZE    /datum/mutation/human/acidooze
 #define MEDIEVAL    /datum/mutation/human/medieval
 #define SPORES      /datum/mutation/human/spores
-#define DRONE       /datum/mutation/drone
+#define DRONE       /datum/mutation/human/drone
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"
