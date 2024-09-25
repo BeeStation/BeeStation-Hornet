@@ -45,6 +45,8 @@ const RecordInfo = (props, context) => {
 
   const { age, crew_ref, crimes, fingerprint, gender, name, note, rank, species, wanted_status } = foundRecord;
 
+  const { min_age, max_age } = data;
+
   const hasValidCrimes = !!crimes.find((crime) => !!crime.valid);
 
   return (
@@ -111,8 +113,8 @@ const RecordInfo = (props, context) => {
             </LabeledList.Item>
             <LabeledList.Item label="Age">
               <RestrictedInput
-                minValue={18}
-                maxValue={100}
+                minValue={min_age}
+                maxValue={max_age}
                 onEnter={(event, value) =>
                   act('edit_field', {
                     crew_ref: crew_ref,
