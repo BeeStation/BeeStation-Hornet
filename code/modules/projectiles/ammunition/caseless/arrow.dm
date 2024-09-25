@@ -77,7 +77,7 @@
 		hitsound = 'sound/items/welder.ogg'
 		name = "lit [initial(name)]"
 		desc = "An arrow with a 'tip' wrapped in cloth. Being hit with this is like being hit with a high velocity pillow. Except its on fire. Fear the pillow."
-		attack_verb = list("burnt","singed")
+		attack_verb_continuous = list("burnt","singed")
 		set_light_on(lit)
 	update_overlays()
 
@@ -139,7 +139,7 @@
 	force = 10
 	armour_penetration = 0
 	sharpness = IS_SHARP
-	attack_verb = list("stabbed", "slashed", "sliced", "cut")
+	attack_verb_continuous = list("stabbed", "slashed", "sliced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	projectile_type = /obj/projectile/bullet/reusable/arrow/glass
 	embedding = list(embed_chance=100,
