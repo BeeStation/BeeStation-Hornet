@@ -879,8 +879,7 @@
 	dir = 1
 	},
 /obj/structure/railing{
-	dir = 8;
-	layer = 3.1
+	dir = 8
 	},
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/iron/dark/textured_large,
@@ -2054,9 +2053,7 @@
 /area/tdome/arena)
 "fc" = (
 /obj/effect/turf_decal/weather/dirt/corner,
-/obj/structure/closet/crate/large{
-	layer = 4.1
-	},
+/obj/structure/closet/crate/large,
 /obj/effect/spawner/lootdrop/glowstick,
 /obj/effect/spawner/lootdrop/glowstick,
 /obj/effect/spawner/lootdrop/glowstick,
@@ -2255,8 +2252,7 @@
 	},
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /obj/structure/holosign/barrier/engineering{
-	pixel_y = 20;
-	layer = 3.0
+	pixel_y = 20
 	},
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/iron/dark,
@@ -4180,7 +4176,6 @@
 /area/centcom/control)
 "kW" = (
 /obj/structure/closet/crate/large{
-	layer = 3.0;
 	pixel_x = 4;
 	pixel_y = 6
 	},
@@ -5942,7 +5937,7 @@
 /obj/structure/chair,
 /obj/item/cigbutt/cigarbutt{
 	pixel_y = -2;
-	layer = 3.1
+	
 	},
 /turf/open/floor/iron/tech/grid,
 /area/syndicate_mothership/control)
@@ -5983,8 +5978,7 @@
 /obj/effect/turf_decal/weather/dirt,
 /obj/structure/closet/crate/trashcart{
 	pixel_y = 14;
-	pixel_x = -3;
-	layer = 3.2
+	pixel_x = -3
 	},
 /obj/item/trash/syndi_cakes{
 	pixel_x = -7;
@@ -7074,8 +7068,7 @@
 /area/centcom/ferry)
 "tp" = (
 /obj/structure/railing{
-	dir = 8;
-	layer = 3.1
+	dir = 8
 	},
 /obj/machinery/suit_storage_unit/syndicate,
 /obj/effect/turf_decal/bot_white/right,
@@ -8146,9 +8139,7 @@
 /area/syndicate_mothership/control)
 "wa" = (
 /obj/structure/grille,
-/obj/structure/barricade/wooden/crude{
-	layer = 3.3
-	},
+/obj/structure/barricade/wooden/crude,
 /obj/structure/window/plastitanium,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
@@ -13713,7 +13704,6 @@
 "KP" = (
 /obj/effect/turf_decal/box/corners,
 /obj/structure/closet/crate/large{
-	layer = 3.0;
 	pixel_y = 13;
 	pixel_x = -2
 	},
@@ -15060,8 +15050,7 @@
 /obj/effect/turf_decal/trimline/neutral/line,
 /obj/structure/fluff/hedge,
 /obj/structure/railing{
-	dir = 8;
-	layer = 3.1
+	dir = 8
 	},
 /obj/structure/flora/ausbushes/ppflowers{
 	pixel_y = 5
@@ -15236,7 +15225,6 @@
 	},
 /obj/item/toy/figure/syndie{
 	pixel_y = -9;
-	layer = 3.1;
 	pixel_x = -12
 	},
 /obj/item/disk/data{
@@ -16390,12 +16378,10 @@
 /obj/item/trash/cheesie{
 	color = "#808080";
 	pixel_x = 7;
-	pixel_y = 2;
-	layer = 2.9
+	pixel_y = 2
 	},
 /obj/structure/railing{
-	dir = 1;
-	layer = 4.1
+	dir = 1
 	},
 /obj/item/trash/sosjerky{
 	anchored = 1;
@@ -16989,13 +16975,11 @@
 "Tc" = (
 /obj/effect/turf_decal/weather/dirt,
 /obj/structure/closet/crate/large{
-	pixel_x = -6;
-	layer = 4.1
+	pixel_x = -6
 	},
 /obj/structure/closet/crate/large{
 	pixel_x = -15;
-	pixel_y = 18;
-	layer = 4.1
+	pixel_y = 18
 	},
 /obj/effect/spawner/lootdrop/donkpockets,
 /obj/effect/spawner/lootdrop/donkpockets,
@@ -17229,8 +17213,7 @@
 /area/syndicate_mothership/control)
 "TH" = (
 /obj/structure/railing{
-	dir = 4;
-	layer = 4.1
+	dir = 4
 	},
 /obj/machinery/computer/shuttle_flight/syndicate/recall{
 	dir = 8
@@ -18039,8 +18022,7 @@
 "VJ" = (
 /obj/structure/guncase,
 /obj/structure/railing{
-	dir = 4;
-	layer = 4.1
+	dir = 4
 	},
 /obj/item/gun/ballistic/automatic/pistol{
 	pixel_y = 3
@@ -18523,15 +18505,13 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/item/clothing/head/cone{
 	pixel_x = -2;
-	pixel_y = -22;
-	layer = 4.1
+	pixel_y = -22
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/tile_breaker,
 /obj/item/trash/popcorn{
 	pixel_x = 16;
-	pixel_y = -4;
-	layer = 4.2
+	pixel_y = -4
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
