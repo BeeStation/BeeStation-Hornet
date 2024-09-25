@@ -84,6 +84,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	icon_state = "metal_scraps"
 	item_state = "metal_scraps"
 	w_class = WEIGHT_CLASS_SMALL
+	material_flags = MATERIAL_EFFECT //This is necessary to ensure the rods behave as the materials would have them behave
 	force = 5  //being hit with this must be the equivalent of being hit with a random assortment of pebbles
 	throwforce = 5
 	mats_per_unit = list(/datum/material/iron=100)
@@ -177,13 +178,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	icon_state = "uranium_scraps"
 	item_state = "uranium_scraps"
 	flags_1 = NONE
-	mats_per_unit = list(/datum/material/glass=100)
+	mats_per_unit = list(/datum/material/uranium=100)
 	merge_type = /obj/item/stack/rods/scrap/uranium
 	welding_result = /obj/item/stack/sheet/mineral/uranium
-
-/obj/item/stack/rods/scrap/uranium/Initialize(mapload, new_amount, merge, mob/user)
-	. = ..()
-	AddComponent(/datum/component/radioactive, amount / 5, source, 0)
 
 /obj/item/stack/rods/scrap/uranium/get_recipes()
 	return
@@ -203,21 +200,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 
 /obj/item/stack/rods/scrap/plasma/get_recipes()
 	return GLOB.plasma_scrap_recipes
-
-/obj/item/stack/rods/scrap/plasma/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
-		plasma_ignition(amount/50, user)
-	else
-		return ..()
-
-/obj/item/stack/rods/scrap/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 300)
-		plasma_ignition(amount/50)
-
-/obj/item/stack/rods/scrap/plasma/bullet_act(obj/projectile/Proj)
-	if(!(Proj.nodamage) && Proj.damage_type == BURN)
-		plasma_ignition(amount/50, Proj?.firer)
-	. = ..()
 
 /obj/item/stack/rods/scrap/plastic
 	name = "plastic scraps"
