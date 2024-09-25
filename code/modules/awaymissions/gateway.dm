@@ -34,6 +34,19 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		linked_gateway = null
 	return ..()
 
+/obj/machinery/gateway/examine(mob/user)
+	. = ..()
+
+	if(!centerpiece)
+		. += "<span class='info'>It appears to be a part of an overall structure.</span>"
+		return
+
+	. += "<span class='info'>It appears to be [active ? (istype(linked_gateway) ? "on, and connected to a destination" : "on, and not linked") : "off"].</span>"
+
+	if(active)
+		. += ""
+		. += "<span class='info'>Use a <b>multi-tool</b> to turn it off.</span>"
+
 /obj/machinery/gateway/Bumped(atom/movable/AM)
 	if(!centerpiece)
 		return
@@ -138,7 +151,6 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 	actually_teleport(AM, dest_turf)
 
-
 /obj/machinery/gateway/proc/actually_teleport(atom/movable/AM, turf/dest_turf)
 	if(do_teleport(AM, dest_turf, no_effects = TRUE, channel = TELEPORT_CHANNEL_GATEWAY, ignore_check_teleport = TRUE)) // We've already done the check_teleport() hopefully
 		AM.visible_message("[AM] passes through [linked_gateway]!", "<span class='notice'>You pass through.</span>")
@@ -147,25 +159,39 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 /obj/machinery/gateway/update_icon()
 	icon_state = active ? "on" : "off"
 
-/obj/machinery/gateway/interact(mob/user)
-	if(!centerpiece)
-		return
-
-	if(!check_parts())
-		to_chat(user, "<span class='warning'>It seems incomplete...</span>")
-		return
-
+// Try to turn it on
+/obj/machinery/gateway/attack_hand(mob/living/user)
+	if(!active && toggleon(user))
+		user.visible_message("<span class='notice'>[user] switches [src] on.</span>", "<span class='notice'>You switch [src] on.</span>")
+		return TRUE
 	if(active)
-		toggleoff(telegraph = TRUE)
-		to_chat(user, "<span class='notice'>You turn [src] off.</span>")
-	else
-		if(toggleon(user))
-			to_chat(user, "<span class='notice'>You turn [src] on.</span>")
+		to_chat(user, "<span class='warning'>You need a multitool to turn it on!</span>")
+		return TRUE
+	return ..()
 
-	. = ..()
+// Silicons can turn it on and off however they please
+/obj/machinery/gateway/attack_silicon(mob/user)
+	if(active ? toggleoff(telegraph = TRUE) : toggleon(user))
+		to_chat(user, "<span class='notice'>You turn send a [active ? "startup" : "shutdown"] signal to [src].</span>")
+		visible_message("<span class='notice'>[src] turns on.</span>", ignored_mobs = list(user))
+		return TRUE
+	return ..()
+
+// Otherwise, you need a multitool to turn it off
+/obj/machinery/gateway/multitool_act(mob/living/user, obj/item/I)
+	if(active && toggleoff(telegraph = TRUE))
+		user.visible_message("<span class='notice'>[user] switches [src] off.</span>", "<span class='notice'>You switch [src] off.</span>")
+		return TRUE
+	else if(!active)
+		to_chat(user, "<span class='warning'>Its already on!</span>")
+		return TRUE
+	return ..()
 
 /obj/machinery/gateway/proc/toggleon(mob/user)
 	if(!centerpiece)
+		return FALSE
+	if(!check_parts())
+		to_chat(user, "<span class='warning'>It seems incomplete...</span>")
 		return
 	if(!powered())
 		to_chat(user, "<span class='warning'>It has no power!</span>")
@@ -182,6 +208,8 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	return TRUE
 
 /obj/machinery/gateway/proc/toggleoff(telegraph = FALSE)
+	if(!active)
+		return FALSE
 	for(var/obj/machinery/gateway/G in adjacent_parts)
 		G.active = FALSE
 		G.update_icon()
@@ -189,6 +217,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	update_icon()
 	if(telegraph)
 		playsound(src, 'sound/machines/terminal_off.ogg', 50, 0)
+	return TRUE
 
 /obj/machinery/gateway/safe_throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG)
 	return
