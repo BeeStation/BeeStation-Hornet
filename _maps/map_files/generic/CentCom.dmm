@@ -707,7 +707,7 @@
 	height = 5;
 	name = "recovery ship";
 	width = 3;
-	id = "pod_2_away"
+	id = "pod2_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -3510,7 +3510,7 @@
 	height = 5;
 	name = "recovery ship";
 	width = 3;
-	id = "pod_6_away"
+	id = "pod6_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -3606,7 +3606,7 @@
 	height = 5;
 	name = "recovery ship";
 	width = 3;
-	id = "pod_7_away"
+	id = "pod7_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -7638,7 +7638,7 @@
 	height = 5;
 	name = "recovery ship";
 	width = 3;
-	id = "pod_5_away"
+	id = "pod5_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -10531,7 +10531,7 @@
 	height = 5;
 	name = "recovery ship";
 	width = 3;
-	id = "pod_4_away"
+	id = "pod4_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -12191,7 +12191,7 @@
 	height = 5;
 	name = "recovery ship";
 	width = 3;
-	id = "pod_8_away"
+	id = "pod8_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -12750,7 +12750,7 @@
 	height = 5;
 	name = "recovery ship";
 	width = 3;
-	id = "pod_3_away"
+	id = "pod3_away"
 	},
 /turf/open/space/basic,
 /area/space)
