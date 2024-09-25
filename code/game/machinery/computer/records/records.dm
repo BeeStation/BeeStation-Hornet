@@ -10,10 +10,6 @@
 
 	var/has_access = (authenticated && isliving(user)) || issiliconoradminghost(user)
 	data["authenticated"] = has_access
-	if(!has_access)
-		return data
-
-	data["assigned_view"] = USER_PREVIEW_ASSIGNED_VIEW(user.ckey)
 
 	return data
 
@@ -86,7 +82,7 @@
 				return FALSE
 
 			playsound(src, "sound/machines/terminal_button0[rand(1, 8)].ogg", 50, TRUE)
-			update_preview(user, params["assigned_view"], target)
+			update_preview(user, params["character_preview_view"], target)
 			return TRUE
 
 	return FALSE
@@ -101,12 +97,12 @@
 	return character_preview_view
 
 /// Takes a record and updates the character preview view to match it.
-/obj/machinery/computer/records/proc/update_preview(mob/user, assigned_view, datum/record/crew/target)
+/obj/machinery/computer/records/proc/update_preview(mob/user, character_preview_view, datum/record/crew/target)
 	var/mutable_appearance/preview = new(target.character_appearance)
 	preview.underlays += mutable_appearance('icons/effects/effects.dmi', "static_base", alpha = 20)
 	preview.add_overlay(mutable_appearance(generate_icon_alpha_mask('icons/effects/effects.dmi', "scanline"), alpha = 20))
 
-	var/atom/movable/screen/map_view/character_preview_view/old_view = user.client?.screen_maps[assigned_view]?[1]
+	var/atom/movable/screen/map_view/character_preview_view/old_view = user.client?.screen_maps[character_preview_view]?[1]
 	if(!old_view)
 		return
 

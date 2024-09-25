@@ -60,7 +60,7 @@ const CrewTab = (props: { record: MedicalRecord }, context) => {
   const [selectedRecord, setSelectedRecord] = useLocalState<MedicalRecord | undefined>(context, 'medicalRecord', undefined);
 
   const { act, data } = useBackend<MedicalRecordData>(context);
-  const { assigned_view } = data;
+  const { character_preview_view } = data;
   const { record } = props;
   const { crew_ref, name, rank } = record;
 
@@ -70,7 +70,7 @@ const CrewTab = (props: { record: MedicalRecord }, context) => {
       setSelectedRecord(undefined);
     } else {
       setSelectedRecord(record);
-      act('view_record', { assigned_view: assigned_view, crew_ref: crew_ref });
+      act('view_record', { character_preview_view: character_preview_view, crew_ref: crew_ref });
     }
   };
 
