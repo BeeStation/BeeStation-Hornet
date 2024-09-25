@@ -78,6 +78,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 	// Calculate the camera tag
 	if (!c_tag)
 		c_tag = "[format_text(camera_area.name)] #[++autonames_in_areas[camera_area]]"
+		if (get_area(src) != camera_area)
+			c_tag = "[c_tag] (External)"
 	network = camera_area.camera_networks
 	var/obj/structure/camera_assembly/assembly
 	if(CA)
@@ -165,6 +167,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 		. += "<span class='info'>Its maintenance panel is currently open.</span>"
 		if(!status && powered())
 			. += "<span class='info'>It can reactivated with a <b>screwdriver</b>.</span>"
+
+/obj/machinery/camera/vv_edit_var(vname, vval)
+	// Can't mess with these since they are references
+	if (vname == NAMEOF(network))
+		return FALSE
+	return ..()
 
 /obj/machinery/camera/emp_act(severity)
 	. = ..()
