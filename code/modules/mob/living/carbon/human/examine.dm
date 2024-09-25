@@ -356,6 +356,11 @@
 					cyberimp_detect += CI.name
 			if(length(cyberimp_detect))
 				. += "Detected cybernetic modifications: [english_list(cyberimp_detect)]"
+			if(target_record)
+				var/health_record = target_record.physical_status
+				. += "<a href='?src=[REF(src)];hud=m;physical_status=1;examine_time=[world.time]'>\[[health_record]\]</a>"
+				health_record = target_record.mental_status
+				. += "<a href='?src=[REF(src)];hud=m;mental_status=1;examine_time=[world.time]'>\[[health_record]\]</a>"
 			target_record = find_record(perpname)
 			. += "<a href='?src=[REF(src)];hud=m;evaluation=1;examine_time=[world.time]'>\[Medical evaluation\]</a><br>"
 			if(traitstring)

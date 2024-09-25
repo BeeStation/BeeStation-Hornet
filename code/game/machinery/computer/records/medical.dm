@@ -64,6 +64,8 @@
 			gender = target.gender,
 			major_disabilities = target.major_disabilities_desc,
 			minor_disabilities = target.minor_disabilities_desc,
+			physical_status = target.physical_status,
+			mental_status = target.mental_status,
 			name = target.name,
 			notes = notes,
 			quirk_notes = target.quirk_notes,
@@ -115,6 +117,24 @@
 
 			target.medical_notes -= old_note
 			qdel(old_note)
+
+			return TRUE
+
+		if("set_physical_status")
+			var/physical_status = params["physical_status"]
+			if(!physical_status || !(physical_status in PHYSICAL_STATUSES))
+				return FALSE
+
+			target.physical_status = physical_status
+
+			return TRUE
+
+		if("set_mental_status")
+			var/mental_status = params["mental_status"]
+			if(!mental_status || !(mental_status in MENTAL_STATUSES))
+				return FALSE
+
+			target.mental_status = mental_status
 
 			return TRUE
 
