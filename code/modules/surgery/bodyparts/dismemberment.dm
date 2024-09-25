@@ -27,7 +27,9 @@
 	drop_limb()
 
 	C.update_equipment_speed_mods() // Update in case speed affecting item unequipped by dismemberment
-	C.add_bleeding(BLEED_CRITICAL)
+	var/turf/location = C.loc
+	if(istype(location))
+		C.add_splatter_floor(location)
 
 	if(QDELETED(src)) //Could have dropped into lava/explosion/chasm/whatever
 		return TRUE
@@ -58,8 +60,9 @@
 	if(HAS_TRAIT(C, TRAIT_NODISMEMBER))
 		return FALSE
 	. = list()
+	var/organ_spilled = 0
 	var/turf/T = get_turf(C)
-	C.add_bleeding(BLEED_CRITICAL)
+	C.add_splatter_floor(T)
 	playsound(get_turf(C), 'sound/misc/splort.ogg', 80, 1)
 	for(var/X in C.internal_organs)
 		var/obj/item/organ/O = X
@@ -68,11 +71,18 @@
 			continue
 		O.Remove(C)
 		O.forceMove(T)
+		organ_spilled = 1
 		. += X
 	if(cavity_item)
 		cavity_item.forceMove(T)
 		. += cavity_item
 		cavity_item = null
+		organ_spilled = 1
+
+	if(organ_spilled)
+		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
+
+
 
 //limb removal. The "special" argument is used for swapping a limb with a new one without the effects of losing a limb kicking in.
 /obj/item/bodypart/proc/drop_limb(special, dismembered)
@@ -83,7 +93,7 @@
 	SEND_SIGNAL(owner, COMSIG_CARBON_REMOVE_LIMB, src, dismembered)
 	SEND_SIGNAL(src, COMSIG_BODYPART_REMOVED, owner, dismembered)
 	update_limb(TRUE)
-	C.remove_bodypart(src)
+	C.bodyparts -= src
 
 	if(held_index)
 		C.dropItemToGround(owner.get_item_for_held_index(held_index), 1)
@@ -125,6 +135,7 @@
 	C.update_health_hud() //update the healthdoll
 	C.update_body()
 	C.update_hair()
+	C.update_mobility()
 
 	if(!Tsec)	// Tsec = null happens when a "dummy human" used for rendering icons on prefs screen gets its limbs replaced.
 		qdel(src)
@@ -177,7 +188,7 @@
 		if(C.handcuffed)
 			C.handcuffed.forceMove(drop_location())
 			C.handcuffed.dropped(C)
-			C.set_handcuffed(null)
+			C.handcuffed = null
 			C.update_handcuffed()
 		if(C.hud_used)
 			var/atom/movable/screen/inventory/hand/R = C.hud_used.hand_slots["[held_index]"]
@@ -195,7 +206,7 @@
 		if(C.handcuffed)
 			C.handcuffed.forceMove(drop_location())
 			C.handcuffed.dropped(C)
-			C.set_handcuffed(null)
+			C.handcuffed = null
 			C.update_handcuffed()
 		if(C.hud_used)
 			var/atom/movable/screen/inventory/hand/L = C.hud_used.hand_slots["[held_index]"]
@@ -252,29 +263,28 @@
 /obj/item/bodypart/proc/replace_limb(mob/living/carbon/C, special, is_creating = FALSE)
 	if(!istype(C))
 		return
-	var/obj/item/bodypart/O = C.get_bodypart(body_zone) //needs to happen before attach because multiple limbs in same zone breaks helpers
-	if(!attach_limb(C, special, is_creating))//we can attach this limb and drop the old after because of our robust bodyparts system. you know, just for a sec.
-		return
+	var/obj/item/bodypart/O = C.get_bodypart(body_zone)
 	if(O)
 		O.drop_limb(1)
+	attach_limb(C, special, is_creating)
 
 /obj/item/bodypart/head/replace_limb(mob/living/carbon/C, special, is_creating = FALSE)
 	if(!istype(C))
 		return
 	var/obj/item/bodypart/head/O = C.get_bodypart(body_zone)
-	if(!attach_limb(C, special, is_creating))
-		return
 	if(O)
-		O.drop_limb(1)
+		if(!special)
+			return
+		else
+			O.drop_limb(1)
+	attach_limb(C, special, is_creating)
 
 /obj/item/bodypart/proc/attach_limb(mob/living/carbon/C, special, is_creating = FALSE)
-	//if(SEND_SIGNAL(C, COMSIG_CARBON_ATTACH_LIMB, src, special) & COMPONENT_NO_ATTACH)
-	//	return FALSE
-	//. = TRUE
+	SEND_SIGNAL(C, COMSIG_CARBON_ATTACH_LIMB, src, special)
 	SEND_SIGNAL(src, COMSIG_BODYPART_ATTACHED, C, special)
 	moveToNullspace()
-	set_owner(C)
-	C.add_bodypart(src)
+	owner = C
+	C.bodyparts += src
 	if(held_index)
 		if(held_index > C.hand_bodyparts.len)
 			C.hand_bodyparts.len = held_index
@@ -288,7 +298,8 @@
 		C.update_inv_gloves()
 
 	if(special) //non conventional limb attachment
-		for(var/datum/surgery/S as anything in C.surgeries) //if we had an ongoing surgery to attach a new limb, we stop it.
+		for(var/X in C.surgeries) //if we had an ongoing surgery to attach a new limb, we stop it.
+			var/datum/surgery/S = X
 			var/surgery_zone = check_zone(S.location)
 			if(surgery_zone == body_zone)
 				C.surgeries -= S
@@ -306,13 +317,11 @@
 	C.updatehealth()
 	C.update_body()
 	C.update_hair()
+	C.update_mobility()
 	SEND_SIGNAL(C, COMSIG_CARBON_POST_ATTACH_LIMB, src, special)
 
 
-/obj/item/bodypart/head/attach_limb(mob/living/carbon/C, special = FALSE, abort = FALSE, is_creating = FALSE)
-	. = ..()
-	if(!.)
-		return .
+/obj/item/bodypart/head/attach_limb(mob/living/carbon/C, special, is_creating = FALSE)
 	//Transfer some head appearance vars over
 	if(brain)
 		if(brainmob)
@@ -350,10 +359,7 @@
 			AP.Grant(C)
 			break
 
-	C.updatehealth()
-	C.update_body()
-	C.update_hair()
-	C.update_damage_overlays()
+	..()
 
 /obj/item/bodypart/proc/synchronize_bodytypes(mob/living/carbon/C)
 	if(!C.dna.species)
@@ -366,15 +372,15 @@
 	C.dna.species.bodytype = all_limb_flags
 
 //Regenerates all limbs. Returns amount of limbs regenerated
-/mob/living/proc/regenerate_limbs(noheal = FALSE, list/excluded_zones = list())
-	SEND_SIGNAL(src, COMSIG_LIVING_REGENERATE_LIMBS, noheal, excluded_zones)
+/mob/living/proc/regenerate_limbs(noheal, excluded_limbs)
+	return 0
 
-/mob/living/carbon/regenerate_limbs(noheal = FALSE, list/excluded_zones = list())
-	var/list/zone_list = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
-	if(length(excluded_zones))
-		zone_list -= excluded_zones
-	for(var/limb_zone in zone_list)
-		. += regenerate_limb(limb_zone, noheal)
+/mob/living/carbon/regenerate_limbs(noheal, list/excluded_limbs)
+	var/list/limb_list = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
+	if(excluded_limbs)
+		limb_list -= excluded_limbs
+	for(var/Z in limb_list)
+		. += regenerate_limb(Z, noheal)
 
 /mob/living/proc/regenerate_limb(limb_zone, noheal)
 	return
@@ -382,7 +388,7 @@
 /mob/living/carbon/regenerate_limb(limb_zone, noheal)
 	var/obj/item/bodypart/L
 	if(get_bodypart(limb_zone))
-		return FALSE
+		return 0
 	L = newBodyPart(limb_zone, 0, 0)
 	L.replace_limb(src, TRUE, TRUE)
 	return 1

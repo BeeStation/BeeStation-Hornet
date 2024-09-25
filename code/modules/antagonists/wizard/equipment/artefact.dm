@@ -42,8 +42,6 @@
 	var/spawn_amt_left = 20
 	var/spawn_fast = 0
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
-
 /obj/effect/rend/Initialize(mapload, var/spawn_type, var/spawn_amt, var/desc, var/spawn_fast)
 	. = ..()
 	src.spawn_path = spawn_type
@@ -133,18 +131,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	)
 
 /obj/tear_in_reality/attack_tk(mob/user)
-	if(!iscarbon(user))
-		return
-	. = COMPONENT_CANCEL_ATTACK_CHAIN
-	var/mob/living/carbon/jedi = user
-	var/datum/component/mood/insaneinthemembrane = jedi.GetComponent(/datum/component/mood)
-	if(insaneinthemembrane.sanity < 15)
-		return //they've already seen it and are about to die, or are just too insane to care
-	to_chat(jedi, "<span class='userdanger'>OH GOD! NONE OF IT IS REAL! NONE OF IT IS REEEEEEEEEEEEEEEEEEEEEEEEAL!</span>")
-	insaneinthemembrane.sanity = 0
-	for(var/lore in typesof(/datum/brain_trauma/severe))
-		jedi.gain_trauma(lore)
-	addtimer(CALLBACK(src, PROC_REF(deranged), jedi), 10 SECONDS)
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		var/datum/component/mood/insaneinthemembrane = C.GetComponent(/datum/component/mood)
+		if(insaneinthemembrane.sanity < 15)
+			return //they've already seen it and are about to die, or are just too insane to care
+		to_chat(C, "<span class='userdanger'>OH GOD! NONE OF IT IS REAL! NONE OF IT IS REEEEEEEEEEEEEEEEEEEEEEEEAL!</span>")
+		insaneinthemembrane.sanity = 0
+		for(var/lore in typesof(/datum/brain_trauma/severe))
+			C.gain_trauma(lore)
+		addtimer(CALLBACK(src, PROC_REF(deranged), C), 100)
 
 /obj/tear_in_reality/proc/deranged(mob/living/carbon/C)
 	if(!C || C.stat == DEAD)
@@ -364,7 +360,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		return
 
 	var/datum/task/select_zone_task = user.select_bodyzone(user, TRUE, BODYZONE_STYLE_DEFAULT)
-	select_zone_task.continue_with(CALLBACK(src,PROC_REF(perform_voodoo), user))
+	select_zone_task.continue_with(CALLBACK(PROC_REF(perform_voodoo), user))
 
 /obj/item/voodoo/proc/perform_voodoo(mob/user, zone_selected)
 	if (!can_interact(user))
@@ -426,9 +422,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		to_chat(victim, "<span class='notice'>You feel a dark presence from [A.name]</span>")
 
 /obj/item/voodoo/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] links the voodoo doll to [user.p_them()]self and sits on it, infinitely crushing [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	user.gib()
-	return BRUTELOSS
+    user.visible_message("<span class='suicide'>[user] links the voodoo doll to [user.p_them()]self and sits on it, infinitely crushing [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+    user.gib()
+    return BRUTELOSS
 
 /obj/item/voodoo/fire_act(exposed_temperature, exposed_volume)
 	if(target)
@@ -463,7 +459,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 /obj/item/warpwhistle/proc/end_effect(mob/living/carbon/user)
 	user.invisibility = initial(user.invisibility)
 	user.status_flags &= ~GODMODE
-	REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, WARPWHISTLE_TRAIT)
+	user.update_mobility()
 
 /obj/item/warpwhistle/attack_self(mob/living/carbon/user)
 	if(!istype(user) || on_cooldown)
@@ -472,11 +468,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	last_user = user
 	var/turf/T = get_turf(user)
 	playsound(T,'sound/magic/warpwhistle.ogg', 200, 1)
-	ADD_TRAIT(user, TRAIT_IMMOBILIZED, WARPWHISTLE_TRAIT)
+	user.mobility_flags &= ~MOBILITY_MOVE
 	new /obj/effect/temp_visual/tornado(T)
 	sleep(20)
 	if(interrupted(user))
-		REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, WARPWHISTLE_TRAIT)
 		return
 	user.invisibility = INVISIBILITY_MAXIMUM
 	user.status_flags |= GODMODE
@@ -489,6 +484,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		var/turf/potential_T = find_safe_turf()
 		if(T.get_virtual_z_level() != potential_T.get_virtual_z_level() || abs(get_dist_euclidian(potential_T,T)) > 50 - breakout)
 			do_teleport(user, potential_T, channel = TELEPORT_CHANNEL_MAGIC)
+			user.mobility_flags &= ~MOBILITY_MOVE
 			T = potential_T
 			break
 		breakout += 1
@@ -512,7 +508,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	name = "tornado"
 	desc = "This thing sucks!"
 	layer = FLY_LAYER
-	randomdir = FALSE
+	randomdir = 0
 	duration = 40
 	pixel_x = 500
 

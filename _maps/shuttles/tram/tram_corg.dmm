@@ -15,9 +15,6 @@
 "h" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/chair/fancy/shuttle,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "m" = (
@@ -38,14 +35,6 @@
 /area/shuttle/pod_1)
 "p" = (
 /turf/open/floor/mineral/titanium/white,
-/area/shuttle/pod_1)
-"t" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/chair/fancy/shuttle,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "w" = (
 /obj/structure/chair/fancy/shuttle{
@@ -85,14 +74,20 @@
 /area/shuttle/pod_1)
 "E" = (
 /turf/closed/wall/mineral/titanium,
-/area/shuttle/pod_1)
+/area/template_noop)
 "I" = (
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/computer/shuttle_flight{
 	possible_destinations = "corg_north;corg_south";
 	shuttleId = "tram_corg"
 	},
 /turf/open/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
+"K" = (
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/pod_1)
 "M" = (
 /obj/structure/chair/fancy/shuttle{
@@ -123,11 +118,11 @@
 
 (1,1,1) = {"
 E
-E
+K
 S
-E
+K
 S
-E
+K
 e
 "}
 (2,1,1) = {"
@@ -137,7 +132,7 @@ p
 M
 c
 y
-E
+K
 "}
 (3,1,1) = {"
 S
@@ -150,19 +145,19 @@ m
 "}
 (4,1,1) = {"
 S
-t
+h
 p
 D
 W
 w
-E
+K
 "}
 (5,1,1) = {"
 E
-E
+K
 S
-E
+K
 S
-E
+K
 e
 "}

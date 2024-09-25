@@ -11,7 +11,7 @@ export BYOND_MINOR=1589
 export RUST_VERSION=1.70
 
 #rust_g git tag
-export RUST_G_VERSION=3.1.3
+export RUST_G_VERSION=3.1.1
 
 #node version
 export NODE_VERSION=18
@@ -25,9 +25,3 @@ export AUXMOS_VERSION=2.2.2
 
 # Python version for mapmerge and other tools
 export PYTHON_VERSION=3.11.2
-
-#hypnagogic repo
-export CUTTER_REPO=spacestation13/hypnagogic
-
-#hypnagogic git tag
-export CUTTER_VERSION=v4.0.0

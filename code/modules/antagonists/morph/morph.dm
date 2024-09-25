@@ -23,12 +23,11 @@
 	healable = 0
 	obj_damage = 50
 	melee_damage = 20
-	see_in_dark = NIGHTVISION_FOV_RANGE
+	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	vision_range = 1 // Only attack when target is close
 	wander = FALSE
-	attack_verb_continuous = "glomps"
-	attack_verb_simple = "glomp"
+	attacktext = "glomps"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	butcher_results = list(/obj/item/food/meat/slab = 2)
 
@@ -308,5 +307,3 @@
 	log_game("[key_name(S)] was spawned as a morph by an event.")
 	spawned_mobs += S
 	return SUCCESSFUL_SPAWN
-
-#undef MORPH_COOLDOWN

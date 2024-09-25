@@ -39,11 +39,6 @@
 	else if(isturf(target))
 		impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
 
-/obj/projectile/beam/laser/lesslethal
-	damage = 11
-	stamina = 18
-	icon_state = "minilaser"
-
 /obj/projectile/beam/weak
 	damage = 12
 

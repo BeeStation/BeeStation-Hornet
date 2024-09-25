@@ -162,23 +162,23 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/item/clothing/head/utility/hardhat/orange{
+/obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/utility/hardhat/orange{
+/obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/utility/hardhat/orange{
+/obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/utility/hardhat/orange{
+/obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/utility/hardhat/orange{
+/obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
@@ -1027,6 +1027,7 @@
 	dir = 4
 	},
 /obj/structure/tank_dispenser/oxygen{
+	layer = 2.7;
 	pixel_x = -1;
 	pixel_y = 2
 	},
@@ -1065,7 +1066,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/shuttle/escape)
 "Mk" = (
 /obj/effect/turf_decal/stripes/line,
@@ -1108,6 +1109,7 @@
 /area/shuttle/escape)
 "NK" = (
 /obj/structure/tank_dispenser/oxygen{
+	layer = 2.7;
 	pixel_x = -1;
 	pixel_y = 2
 	},
@@ -1274,9 +1276,9 @@
 "YC" = (
 /obj/structure/rack,
 /obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/suit/utility/fire/firefighter,
+/obj/item/clothing/suit/fire/firefighter,
 /obj/item/clothing/mask/gas,
-/obj/item/clothing/head/utility/hardhat/red,
+/obj/item/clothing/head/hardhat/red,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/corner{

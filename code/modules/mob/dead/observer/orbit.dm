@@ -105,19 +105,17 @@
 /datum/orbit_menu/ui_assets()
 	return list(
 		get_asset_datum(/datum/asset/simple/orbit),
-		get_asset_datum(/datum/asset/spritesheet_batched/job_icons),
-		get_asset_datum(/datum/asset/spritesheet_batched/antag_hud)
+		get_asset_datum(/datum/asset/spritesheet/job_icons),
+		get_asset_datum(/datum/asset/spritesheet/antag_hud)
 	)
 
-/datum/asset/spritesheet_batched/job_icons
+/datum/asset/spritesheet/job_icons
 	name = "job-icon"
 
-/datum/asset/spritesheet_batched/job_icons/create_spritesheets()
-	var/datum/icon_transformer/transform = new()
+/datum/asset/spritesheet/job_icons/create_spritesheets()
+	var/icon/I = icon('icons/mob/hud.dmi')
 	// Get the job hud part
-	transform.crop(1, 17, 8, 24)
+	I.Crop(1, 17, 8, 24)
 	// Scale it up
-	transform.scale(16, 16)
-
-	for (var/icon_state_name in icon_states('icons/mob/hud.dmi'))
-		insert_icon("job-icon-[icon_state_name]", uni_icon('icons/mob/hud.dmi', icon_state_name, transform=transform))
+	I.Scale(16, 16)
+	InsertAll("job-icon", I)

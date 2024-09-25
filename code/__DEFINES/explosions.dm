@@ -26,7 +26,9 @@
 	target.ex_act(##args);
 
 // Explodable component deletion values
+/// Makes the explodable component queue to reset its exploding status when it detonates.
+#define EXPLODABLE_NO_DELETE 0
 /// Makes the explodable component delete itself when it detonates.
-#define EXPLODABLE_DELETE_SELF 0
+#define EXPLODABLE_DELETE_SELF 1
 /// Makes the explodable component delete its parent when it detonates.
-#define EXPLODABLE_DELETE_PARENT 1
+#define EXPLODABLE_DELETE_PARENT 2

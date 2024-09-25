@@ -4,7 +4,6 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pointer"
 	item_state = "pen"
-	worn_icon_state = "pen"
 	var/pointer_icon_state
 	flags_1 = CONDUCT_1
 	item_flags = NOBLUDGEON
@@ -117,18 +116,14 @@
 
 	//robots
 	else if(iscyborg(target))
-		var/mob/living/silicon/robot/S = target
+		var/mob/living/silicon/S = target
 		log_combat(user, S, "shone in the sensors", src)
 		//chance to actually hit the eyes depends on internal component
 		if(prob(effectchance * diode.rating))
 			S.flash_act(affect_silicon = 1)
-			if(S.last_flashed + FLASHED_COOLDOWN < world.time)
-				S.last_flashed = world.time
-				S.Paralyze(5 SECONDS)
-				to_chat(S, "<span class='danger'>Your sensors were overloaded by a laser!</span>")
-				outmsg = "<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>"
-			else
-				outmsg = "<span class='warning'>You attempt to overload [S]'s sensors with the flash, but their defense protocols mitigate the effect!</span>"
+			S.Paralyze(rand(100,200))
+			to_chat(S, "<span class='danger'>Your sensors were overloaded by a laser!</span>")
+			outmsg = "<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>"
 		else
 			outmsg = "<span class='warning'>You fail to overload [S] by shining [src] at [S.p_their()] sensors!</span>"
 
@@ -148,12 +143,12 @@
 			return
 		var/mob/living/carbon/human/H = M
 		if(iscatperson(H) && !H.is_blind()) //catpeople!
-			if(user.body_position == STANDING_UP)
+			if(user.mobility_flags & MOBILITY_STAND)
 				H.setDir(get_dir(H,targloc)) // kitty always looks at the light
 				if(prob(effectchance))
 					H.visible_message("<span class='warning'>[H] makes a grab for the light!</span>","<span class='userdanger'>LIGHT!</span>")
 					H.Move(targloc)
-					log_combat(user, H, "moved with a laser pointer",src, important = FALSE)
+					log_combat(user, H, "moved with a laser pointer",src)
 				else
 					H.visible_message("<span class='notice'>[H] looks briefly distracted by the light.</span>","<span class = 'warning'> You're briefly tempted by the shiny light... </span>")
 			else
@@ -161,11 +156,9 @@
 		else if(iscat(M)) //cats!
 			var/mob/living/simple_animal/pet/cat/C = M
 			if(prob(50))
-				if(C.resting)
-					C.set_resting(FALSE, instant = TRUE)
 				C.visible_message("<span class='notice'>[C] pounces on the light!</span>","<span class='warning'>LIGHT!</span>")
 				C.Move(targloc)
-				C.Immobilize(1 SECONDS)
+				C.set_resting(TRUE, FALSE)
 			else
 				C.visible_message("<span class='notice'>[C] looks uninterested in your games.</span>","<span class='warning'>You spot [user] shining [src] at you. How insulting!</span>")
 

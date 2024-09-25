@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(machines)
 /datum/controller/subsystem/machines/Initialize()
 	makepowernets()
 	fire()
-	return SS_INIT_SUCCESS
+	return ..()
 
 
 /datum/controller/subsystem/machines/get_metrics()

@@ -37,7 +37,7 @@
 	var/result
 	switch(textcase_options.value)
 		if(COMP_TEXT_LOWER)
-			result = LOWER_TEXT(value)
+			result = lowertext(value)
 		if(COMP_TEXT_UPPER)
 			result = uppertext(value)
 

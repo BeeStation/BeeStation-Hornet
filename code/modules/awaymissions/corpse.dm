@@ -2,8 +2,6 @@
 
 //To do: Allow corpses to appear mangled, bloody, etc. Allow customizing the bodies appearance (they're all bald and white right now).
 
-CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
-
 /obj/effect/mob_spawn
 	name = "Unknown"
 	density = TRUE
@@ -474,7 +472,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 /datum/outfit/nanotrasenbridgeofficercorpse
 	name = "Bridge Officer Corpse"
 	ears = /obj/item/radio/headset/heads/head_of_personnel
-	uniform = /obj/item/clothing/under/rank/centcom/official
+	uniform = /obj/item/clothing/under/rank/centcom/officer
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
@@ -494,7 +492,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	ears = /obj/item/radio/headset/heads/captain
 	glasses = /obj/item/clothing/glasses/eyepatch
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
-	head = /obj/item/clothing/head/hats/centhat
+	head = /obj/item/clothing/head/centhat
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat/swat
 	r_pocket = /obj/item/lighter

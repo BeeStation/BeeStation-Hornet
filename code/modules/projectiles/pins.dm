@@ -6,8 +6,7 @@
 	item_state = "pen"
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
-	attack_verb_continuous = list("pokes")
-	attack_verb_simple = list("poke")
+	attack_verb = list("poked")
 	var/fail_message = "<span class='warning'>INVALID USER.</span>"
 	var/selfdestruct = 0 // Explode when user check is failed.
 	var/force_replace = 0 // Can forcefully replace other pins.

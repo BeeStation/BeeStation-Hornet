@@ -8,7 +8,7 @@
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
 	species_traits = list(NOBLOOD,NOZOMBIE,NOTRANSSTING)
 	inherent_traits = list(TRAIT_TOXIMMUNE,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_RADIMMUNE,TRAIT_EASYDISMEMBER,\
-	TRAIT_LIMBATTACHMENT,TRAIT_NOBREATH,TRAIT_NODEATH,TRAIT_FAKEDEATH,TRAIT_NOCLONELOSS, TRAIT_FAST_CUFF_REMOVAL)
+	TRAIT_LIMBATTACHMENT,TRAIT_NOBREATH,TRAIT_NODEATH,TRAIT_FAKEDEATH,TRAIT_NOCLONELOSS)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	mutanttongue = /obj/item/organ/tongue/zombie
 	var/static/list/spooks = list('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg','sound/hallucinations/veryfar_noise.ogg','sound/hallucinations/wail.ogg')
@@ -49,7 +49,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
 	/// Zombies do not stabilize body temperature they are the walking dead and are cold blooded
-/datum/species/zombie/body_temperature_core(mob/living/carbon/human/humi)
+/datum/species/zombie/natural_bodytemperature_stabilization(datum/gas_mixture/environment, mob/living/carbon/human/H)
 	return
 
 /datum/species/zombie/infectious/check_roundstart_eligible()
@@ -71,12 +71,12 @@
 	//They must be restrained, beheaded or gibbed to stop being a threat.
 	if(regen_cooldown < world.time)
 		var/heal_amt = heal_rate
-		if(HAS_TRAIT(C, TRAIT_CRITICAL_CONDITION))
+		if(C.InCritical())
 			heal_amt *= 2
 		C.heal_overall_damage(heal_amt,heal_amt)
 		C.adjustToxLoss(-heal_amt)
 		C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -heal_amt)
-	if(!HAS_TRAIT(C, TRAIT_CRITICAL_CONDITION) && prob(4))
+	if(!C.InCritical() && prob(4))
 		playsound(C, pick(spooks), 50, TRUE, 10)
 
 //Congrats you somehow died so hard you stopped being a zombie
@@ -99,14 +99,12 @@
 		infection = new()
 		infection.Insert(C)
 
-/datum/species/zombie/infectious/viral
-	name = "\improper Infected Zombie"
+/datum/species/zombie/infectious/fast
+	name = "\improper Fast Infectious Zombie"
 	id = "memezombiesfast"
 	armor = 0
 	speedmod = 0
-	inherent_biotypes = list(MOB_ORGANIC, MOB_UNDEAD, MOB_HUMANOID) //mob organic, so still susceptible to the disease that created it
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
-	mutanthands = /obj/item/zombie_hand/infectious
 
 // Your skin falls off
 /datum/species/human/krokodil_addict

@@ -267,6 +267,3 @@
 /obj/machinery/computer/pandemic/on_deconstruction()
 	eject_beaker()
 	. = ..()
-
-#undef MAIN_SCREEN
-#undef SYMPTOM_DETAILS

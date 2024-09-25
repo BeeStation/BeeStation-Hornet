@@ -47,7 +47,7 @@
 	///Stability - lowers as people buy artifacts, stops spam buying
 	var/stability = 100
 
-/obj/machinery/computer/xenoartifact_console/Initialize(mapload)
+/obj/machinery/computer/xenoartifact_console/Initialize()
 	. = ..()
 	linked_techweb = SSresearch.science_tech
 	budget = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)

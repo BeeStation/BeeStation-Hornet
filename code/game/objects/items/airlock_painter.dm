@@ -10,7 +10,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "paint_sprayer"
 	item_state = "paint_sprayer"
-	worn_icon_state = "painter"
+
 	w_class = WEIGHT_CLASS_SMALL
 
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
@@ -200,7 +200,7 @@
 	/// The full icon state of the decal being printed.
 	var/stored_decal_total = "warningline"
 	/// The type path of the spritesheet being used for the frontend.
-	var/spritesheet_type = /datum/asset/spritesheet_batched/decals // spritesheet containing previews
+	var/spritesheet_type = /datum/asset/spritesheet/decals // spritesheet containing previews
 	/// Does this printer implementation support custom colors?
 	var/supports_custom_color = FALSE
 	/// Current custom color
@@ -293,7 +293,7 @@
 
 /obj/item/airlock_painter/decal/ui_static_data(mob/user)
 	. = ..()
-	var/datum/asset/spritesheet_batched/icon_assets = get_asset_datum(spritesheet_type)
+	var/datum/asset/spritesheet/icon_assets = get_asset_datum(spritesheet_type)
 
 	.["icon_prefix"] = "[icon_assets.name]32x32"
 	.["supports_custom_color"] = supports_custom_color
@@ -350,14 +350,27 @@
 	update_decal_path()
 	. = TRUE
 
-/datum/asset/spritesheet_batched/decals
+/datum/asset/spritesheet/decals
 	name = "floor_decals"
-	ignore_dir_errors = TRUE
+	cross_round_cachable = TRUE
 
+	/// The floor icon used for blend_preview_floor()
 	var/preview_floor_icon = 'icons/turf/floors.dmi'
+	/// The floor icon state used for blend_preview_floor()
 	var/preview_floor_state = "floor"
 	/// The associated decal painter type to grab decals, colors, etc from.
 	var/painter_type = /obj/item/airlock_painter/decal
+
+/**
+ * Underlay an example floor for preview purposes, and return the new icon.
+ *
+ * Arguments:
+ * * decal - the decal to place over the example floor tile
+ */
+/datum/asset/spritesheet/decals/proc/blend_preview_floor(icon/decal)
+	var/icon/final = icon(preview_floor_icon, preview_floor_state)
+	final.Blend(decal, ICON_OVERLAY)
+	return final
 
 /**
  * Insert a specific state into the spritesheet.
@@ -367,15 +380,14 @@
  * * dir - the given direction.
  * * color - the given color.
  */
-/datum/asset/spritesheet_batched/decals/proc/insert_state(decal, dir, color)
+/datum/asset/spritesheet/decals/proc/insert_state(decal, dir, color)
 	// Special case due to icon_state names
 	var/icon_state_color = color == "yellow" ? "" : color
 
-	var/datum/universal_icon/floor = uni_icon(preview_floor_icon, preview_floor_state)
-	floor.blend_icon(uni_icon('icons/turf/decals.dmi', "[decal][icon_state_color ? "_" : ""][icon_state_color]", dir), ICON_OVERLAY)
-	insert_icon("[decal]_[dir]_[color]", floor)
+	var/icon/final = blend_preview_floor(icon('icons/turf/decals.dmi', "[decal][icon_state_color ? "_" : ""][icon_state_color]", dir))
+	Insert("[decal]_[dir]_[color]", final)
 
-/datum/asset/spritesheet_batched/decals/create_spritesheets()
+/datum/asset/spritesheet/decals/create_spritesheets()
 	// Must actually create because initial(type) doesn't work for /lists for some reason.
 	var/obj/item/airlock_painter/decal/painter = new painter_type()
 
@@ -400,7 +412,7 @@
 	stored_dir = 2
 	stored_color = "#D4D4D432"
 	stored_decal = "tile_corner"
-	spritesheet_type = /datum/asset/spritesheet_batched/decals/tiles
+	spritesheet_type = /datum/asset/spritesheet/decals/tiles
 	supports_custom_color = TRUE
 	color_list = list(
 		list("Neutral", "#D4D4D432"),
@@ -455,12 +467,11 @@
 
 	target.AddElement(/datum/element/decal, 'icons/turf/decals.dmi', source_decal, source_dir, FALSE, decal_color, null, null, decal_alpha)
 
-/datum/asset/spritesheet_batched/decals/tiles
+/datum/asset/spritesheet/decals/tiles
 	name = "floor_tile_decals"
-	ignore_dir_errors = TRUE
 	painter_type = /obj/item/airlock_painter/decal/tile
 
-/datum/asset/spritesheet_batched/decals/tiles/insert_state(decal, dir, color)
+/datum/asset/spritesheet/decals/tiles/insert_state(decal, dir, color)
 	// Account for 8-sided decals.
 	var/source_decal = decal
 	var/source_dir = dir
@@ -476,17 +487,12 @@
 		render_color = tile_type.rgba_regex.group[1]
 		render_alpha = text2num(tile_type.rgba_regex.group[2], 16)
 
-	var/datum/universal_icon/colored_icon = uni_icon('icons/turf/decals.dmi', source_decal, dir=source_dir)
-	colored_icon.blend_color("#ffffff" + num2hex(clamp(render_alpha, 0, 255), 2), ICON_MULTIPLY)
+	var/icon/colored_icon = icon('icons/turf/decals.dmi', source_decal, dir=source_dir)
+	colored_icon.ChangeOpacity(render_alpha * 0.008)
 	if(color == "custom")
-		colored_icon.blend_color("#0e0f0f", ICON_MULTIPLY)
+		colored_icon.Blend("#0e0f0f", ICON_MULTIPLY)
 	else
-		colored_icon.blend_color(render_color, ICON_MULTIPLY)
+		colored_icon.Blend(render_color, ICON_MULTIPLY)
 
-	var/datum/universal_icon/floor = uni_icon(preview_floor_icon, preview_floor_state)
-	floor.blend_icon(colored_icon, ICON_OVERLAY)
-	insert_icon("[decal]_[dir]_[replacetext(color, "#", "")]", floor)
-
-#undef PAINTER_MOST
-#undef PAINTER_MID
-#undef PAINTER_LOW
+	colored_icon = blend_preview_floor(colored_icon)
+	Insert("[decal]_[dir]_[replacetext(color, "#", "")]", colored_icon)

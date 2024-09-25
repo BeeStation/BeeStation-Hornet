@@ -127,7 +127,7 @@
 				pawn.visible_message("[pawn] can't see [blackboard[BB_ATTACK_TARGET]]!")
 				return
 			if(commander && ismob(blackboard[BB_ATTACK_TARGET]))
-				log_combat(commander, blackboard[BB_ATTACK_TARGET], "ordered [pawn] to attack", important = FALSE)
+				log_combat(commander, blackboard[BB_ATTACK_TARGET], "ordered [pawn] to attack")
 			current_movement_target = blackboard[BB_ATTACK_TARGET]
 			queue_behavior(/datum/ai_behavior/tamed_follow/attack)
 
@@ -229,10 +229,3 @@
 		return
 	set_command_mode(speaker, command)
 
-
-#undef TAMED_COMMAND_FOLLOW
-#undef TAMED_COMMAND_STOP
-#undef TAMED_COMMAND_WANDER
-#undef TAMED_COMMAND_ATTACK
-#undef ANGER_THRESHOLD_ATTACK
-#undef ANGER_RESET_TIME

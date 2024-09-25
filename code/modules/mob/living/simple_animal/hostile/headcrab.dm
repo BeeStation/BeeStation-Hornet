@@ -10,8 +10,7 @@
 	health = 50
 	maxHealth = 50
 	melee_damage = 10
-	attack_verb_continuous = "chomps"
-	attack_verb_simple = "chomp"
+	attacktext = "chomps"
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("creature")
 	robust_searching = 1

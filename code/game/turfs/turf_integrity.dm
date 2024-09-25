@@ -292,7 +292,7 @@
 	if (!can_hit)
 		return ..()
 	if(!M.melee_damage && !M.obj_damage)
-		M.emote("custom", message = "[M.friendly_verb_continuous] [src].")
+		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, emote), "custom", null, "[M.friendly] [src].")
 		return 0
 	else
 		var/play_soundeffect = 1
@@ -319,7 +319,7 @@
 // Mechs
 //====================================
 
-/turf/mech_melee_attack(obj/vehicle/sealed/mecha/M)
+/turf/mech_melee_attack(obj/mecha/M)
 	if (!can_hit)
 		return FALSE
 	M.do_attack_animation(src)

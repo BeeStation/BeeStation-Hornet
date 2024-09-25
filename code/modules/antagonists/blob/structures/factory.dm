@@ -4,7 +4,6 @@
 	icon_state = "blob_factory"
 	desc = "A thick spire of tendrils."
 	max_integrity = 200
-	max_hit_damage = 40
 	health_regen = 1
 	point_return = 25
 	resistance_flags = LAVA_PROOF
@@ -48,8 +47,6 @@
 		overmind.blob_mobs.Add(BS)
 
 /obj/structure/blob/factory/lone //A blob factory that functions without a pulses
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/factory/lone)
 
 /obj/structure/blob/factory/lone/Initialize(mapload, owner_overmind)
 	. = ..()

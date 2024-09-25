@@ -11,8 +11,6 @@
 	desc = "A currently unactivated swarmer. Swarmers can self activate at any time, it would be wise to immediately dispose of this."
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "swarmer_unactivated"
-	short_desc = "You are a swarmer!"
-	flavour_text = "Consume resources and replicate until there are no more resources left. Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable. Biological resources will be harvested at a later date; do not harm them."
 	density = FALSE
 	anchored = FALSE
 
@@ -76,11 +74,9 @@
 	hud_possible = list(ANTAG_HUD, DIAG_STAT_HUD, DIAG_HUD)
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	attack_verb_continuous = "shocks"
-	attack_verb_simple = "shock"
+	attacktext = "shocks"
 	attack_sound = 'sound/effects/empulse.ogg'
-	friendly_verb_continuous = "pinches"
-	friendly_verb_simple = "pinch"
+	friendly = "pinches"
 	speed = 0
 	faction = list("swarmer")
 	AIStatus = AI_OFF
@@ -197,9 +193,9 @@
 	return 0
 
 /obj/item/IntegrateAmount() //returns the amount of resources gained when eating this item
-	var/list/mats = get_material_composition(ALL) // Ensures that items made from plasteel, and plas/titanium/plastitaniumglass get integrated correctly.
-	if(length(mats) && (mats[SSmaterials.GetMaterialRef(/datum/material/iron)] || mats[SSmaterials.GetMaterialRef(/datum/material/glass)]))
-		return 1
+	if(custom_materials)
+		if(custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)] || custom_materials[SSmaterials.GetMaterialRef(/datum/material/glass)])
+			return 1
 	return ..()
 
 /obj/item/gun/swarmer_act()//Stops you from eating the entire armory
@@ -543,7 +539,6 @@
 
 /obj/effect/temp_visual/swarmer //temporary swarmer visual feedback objects
 	icon = 'icons/mob/swarmer.dmi'
-	icon_state = "nothing"
 	layer = BELOW_MOB_LAYER
 
 /obj/effect/temp_visual/swarmer/disintegration
@@ -613,7 +608,7 @@
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer) && !L.incorporeal_move)
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
-			L.electrocute_act(100, src, 1, flags = SHOCK_NOGLOVES|SHOCK_ILLUSION)
+			L.electrocute_act(0, src, 1, flags = SHOCK_NOGLOVES|SHOCK_ILLUSION)
 			if(iscyborg(L))
 				L.Paralyze(100)
 			qdel(src)

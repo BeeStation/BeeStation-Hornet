@@ -16,11 +16,10 @@
 	taunt_chance = 25
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/food/meat/slab/bear = 5, /obj/item/clothing/head/costume/bearpelt = 1)
-	response_help_continuous = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
+	butcher_results = list(/obj/item/food/meat/slab/bear = 5, /obj/item/clothing/head/bearpelt = 1)
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "hits"
 	maxHealth = 60
 	health = 60
 	spacewalk = TRUE
@@ -28,11 +27,9 @@
 
 	obj_damage = 60
 	melee_damage = 25
-	attack_verb_continuous = "claws"
-	attack_verb_simple = "claw"
+	attacktext = "claws"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	friendly_verb_continuous = "bear hugs"
-	friendly_verb_simple = "bear hug"
+	friendly = "bear hugs"
 	chat_color = "#CAA25B"
 
 	//Space bears aren't affected by cold.
@@ -43,7 +40,7 @@
 	faction = list("russian")
 	gold_core_spawnable = HOSTILE_SPAWN
 
-	footstep_type = FOOTSTEP_MOB_CLAW
+	do_footstep = TRUE
 
 //SPACE BEARS! SQUEEEEEEEE~     OW! FUCK! IT BIT MY HAND OFF!!
 /mob/living/simple_animal/hostile/bear/Hudson
@@ -66,7 +63,7 @@
 	icon_living = "combatbear"
 	icon_dead = "combatbear_dead"
 	faction = list("russian")
-	butcher_results = list(/obj/item/food/meat/slab/bear = 5, /obj/item/clothing/head/costume/bearpelt = 1, /obj/item/bear_armor = 1)
+	butcher_results = list(/obj/item/food/meat/slab/bear = 5, /obj/item/clothing/head/bearpelt = 1, /obj/item/bear_armor = 1)
 	melee_damage = 30
 	armour_penetration = 20
 	health = 120
@@ -123,13 +120,12 @@
 	obj_damage = 11
 	melee_damage = 1
 	armour_penetration = 0
-	response_harm_continuous = "takes a bite out of"
-	response_harm_simple = "take a bite out of"
+	response_harm = "takes a bite out of"
 	attacked_sound = 'sound/items/eatfood.ogg'
 	deathmessage = "loses its false life and collapses!"
-	butcher_results = list(/obj/item/food/butter = 6, /obj/item/food/meat/slab = 3, /obj/item/organ/brain = 1, /obj/item/organ/heart = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/butter = 6, /obj/item/food/meat/slab = 3, /obj/item/organ/brain = 1, /obj/item/organ/heart = 1)
 	attack_sound = 'sound/weapons/slap.ogg'
-	attack_verb_continuous = "slaps"
+	attacktext = "slaps"
 
 /mob/living/simple_animal/hostile/bear/butter/Life() //Heals butter bear really fast when he takes damage.
 	if(stat)
@@ -160,8 +156,28 @@
 /mob/living/simple_animal/hostile/bear/butter/AttackingTarget() //Makes some attacks by the butter bear slip those who dare cross its path.
 	if(isliving(target))
 		var/mob/living/L = target
-		if((L.body_position == STANDING_UP))
+		if((L.mobility_flags & MOBILITY_STAND))
 			L.Knockdown(20)
 			playsound(loc, 'sound/misc/slip.ogg', 15)
 			L.visible_message("<span class='danger'>[L] slips on butter!</span>")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

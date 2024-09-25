@@ -122,8 +122,6 @@
 	var/hugbox = TRUE
 	range = 150
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/blastwave)
-
 /obj/projectile/blastwave/Initialize(mapload, _h, _m, _l)
 	heavyr = _h
 	mediumr = _m

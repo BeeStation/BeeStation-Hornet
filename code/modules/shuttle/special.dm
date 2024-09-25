@@ -184,8 +184,6 @@
 	max_integrity = 1000
 	var/boot_dir = 1
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
-
 /obj/structure/table/wood/bar/Initialize(mapload, _buildstack)
 	. = ..()
 	var/static/list/loc_connections = list(
@@ -337,5 +335,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 	setDir(angle2dir(rotation+dir2angle(dir))) // No parentcall, rest of the rotate code breaks the pixel offset.
 
 #undef BASE_BEAR_DIVISOR
-
-#undef LUXURY_MESSAGE_COOLDOWN

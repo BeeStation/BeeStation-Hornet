@@ -27,8 +27,7 @@
 	maxHealth = 400
 	health = 400
 	melee_damage = 20
-	attack_verb_continuous = "preaches to"
-	attack_verb_simple = "preach to"
+	attacktext = "preaches to"
 	attack_sound = 'sound/magic/clockwork/ratvar_attack.ogg'
 	throw_message = "doesn't affect the purity of"
 	speed = 4
@@ -195,8 +194,7 @@
 	icon_state = "herald_mirror"
 	deathmessage = "shatters violently!"
 	deathsound = 'sound/effects/glassbr1.ogg'
-	is_flying_animal = TRUE
-	no_flying_animation = TRUE
+	movement_type = FLYING
 	del_on_death = TRUE
 	is_mirror = TRUE
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/my_master = null
@@ -272,8 +270,3 @@
 	var/static/list/directional_shot_angles = list(0, 45, 90, 135, 180, 225, 270, 315)
 	playsound(get_turf(owner), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(reactionshot), owner), 10)
-
-#undef HERALD_TRISHOT
-#undef HERALD_DIRECTIONALSHOT
-#undef HERALD_TELESHOT
-#undef HERALD_MIRROR

@@ -67,11 +67,9 @@
 
 /obj/machinery/modular_fabricator/Initialize(mapload)
 	if(remote_materials)
-		//We think its a protolathe/mechfab. Connectable to Ore Silo
-		AddComponent(/datum/component/remote_materials, "modfab", mapload, TRUE, auto_link, mat_container_flags=BREAKDOWN_FLAGS_LATHE)
+		AddComponent(/datum/component/remote_materials, "modfab", mapload, TRUE, auto_link)
 	else
-		//We think its a autolathe. NO Ore Silo Connection
-		AddComponent(/datum/component/material_container, SSmaterials.materialtypes_by_category[MAT_CATEGORY_RIGID], 0, MATCONTAINER_EXAMINE, null, null, CALLBACK(src, PROC_REF(AfterMaterialInsert)))
+		AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/gold, /datum/material/gold, /datum/material/silver, /datum/material/diamond, /datum/material/uranium, /datum/material/plasma, /datum/material/bluespace, /datum/material/bananium, /datum/material/titanium, /datum/material/plastic, /datum/material/adamantine), 0, TRUE, null, null, CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	. = ..()
 	stored_research = new stored_research_type
 
@@ -363,7 +361,7 @@
 	return T
 
 /obj/machinery/modular_fabricator/on_deconstruction()
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	var/datum/component/material_container/materials = get_material_container()
 	materials.retrieve_all()
 
 /obj/machinery/modular_fabricator/proc/AfterMaterialInsert(item_inserted, id_inserted, amount_inserted)
@@ -495,13 +493,12 @@
 	use_power(power)
 	materials.use_materials(materials_used)
 	if(is_stack)
-		var/obj/item/stack/N = new being_built.build_path(src.loc, multiplier)
-		N.forceMove(A) //Forcemove to the release turf to trigger ZFall
+		var/obj/item/stack/N = new being_built.build_path(A, multiplier)
 		N.update_icon()
 	else
 		for(var/i in 1 to multiplier)
-			var/obj/item/new_item = new being_built.build_path(src.loc)
-			new_item.forceMove(A) //Forcemove to the release turf to trigger ZFall
+			var/obj/item/new_item = new being_built.build_path(A)
+
 			if(length(picked_materials))
 				new_item.set_custom_materials(picked_materials, 1 / multiplier) //Ensure we get the non multiplied amount
 	being_built = null
@@ -513,5 +510,3 @@
 
 /obj/machinery/modular_fabricator/proc/set_working_sprite()
 	return
-
-#undef MODFAB_MAX_POWER_USE

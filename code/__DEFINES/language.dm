@@ -61,6 +61,5 @@ GLOBAL_LIST_INIT(multilingual_language_list, typecacheof(list(
 	/datum/language/slime,
 	/datum/language/sylvan,
 	/datum/language/terrum,
-	/datum/language/uncommon,
-	/datum/language/voltaic
+	/datum/language/uncommon
 )))

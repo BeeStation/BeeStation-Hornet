@@ -43,8 +43,6 @@
 
 #define THEME_SYNDICATE "syndicate"
 
-#define THEME_NEUTRAL "neutral"
-
 /// Map of theme name -> theme ID
 GLOBAL_LIST_INIT(ntos_device_themes_default, list(
 	"NtOS Default" = THEME_NTOS,
@@ -71,8 +69,7 @@ GLOBAL_LIST_INIT(ntos_device_themes_default, list(
 ))
 
 GLOBAL_LIST_INIT(ntos_device_themes_emagged, list(
-	"Syndix" = THEME_SYNDICATE,
-	"Neutral" = THEME_NEUTRAL,
+	"Syndix" = THEME_SYNDICATE
 ) + GLOB.ntos_device_themes_default)
 
 /// Reverse map of GLOB.ntos_device_themes_emagged

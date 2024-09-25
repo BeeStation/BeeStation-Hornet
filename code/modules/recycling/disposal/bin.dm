@@ -5,7 +5,7 @@
 /obj/machinery/disposal
 	icon = 'icons/obj/atmospherics/pipes/disposal.dmi'
 	density = TRUE
-	armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0, BLEED = 0)
+	armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0)
 	max_integrity = 200
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
@@ -26,8 +26,6 @@
 	// create a new disposal
 	// find the attached trunk (if present) and init gas resvr.
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
-
 /obj/machinery/disposal/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()
 
@@ -39,7 +37,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 
 	air_contents = new /datum/gas_mixture()
 	//gas.volume = 1.05 * CELLSTANDARD
-	update_appearance()
+	update_icon()
 
 	return INITIALIZE_HINT_LATELOAD //we need turfs to have air
 
@@ -96,7 +94,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 		if((I.item_flags & ABSTRACT) || !user.temporarilyRemoveItemFromInventory(I))
 			return
 		place_item_in_disposal(I, user)
-		update_appearance()
+		update_icon()
 		return 1 //no afterattack
 	else
 		return ..()
@@ -141,10 +139,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 		else
 			target.visible_message("<span class='danger'>[user] has placed [target] in [src].</span>", "<span class='userdanger'>[user] has placed you in [src].</span>")
 			log_combat(user, target, "stuffed", addition="into [src]")
+			target.LAssailant = WEAKREF(user)
 			. = TRUE
-		update_appearance()
+		update_icon()
 
-/obj/machinery/disposal/relaymove(mob/living/user, direction)
+/obj/machinery/disposal/relaymove(mob/user)
 	attempt_escape(user)
 
 // resist to escape the bin
@@ -159,20 +158,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 // leave the disposal
 /obj/machinery/disposal/proc/go_out(mob/user)
 	user.forceMove(loc)
-	update_appearance()
+	update_icon()
 
 // monkeys and xenos can only pull the flush lever
 /obj/machinery/disposal/attack_paw(mob/user)
 	if(machine_stat & BROKEN)
 		return
 	flush = !flush
-	update_appearance()
+	update_icon()
 
 
 // eject the contents of the disposal unit
 /obj/machinery/disposal/proc/eject()
 	pipe_eject(src, 0, FALSE)
-	update_appearance()
+	update_icon()
+
+// update the icon & overlays to reflect mode & status
+/obj/machinery/disposal/update_icon()
+	return
 
 /obj/machinery/disposal/proc/flush()
 	flushing = TRUE
@@ -253,8 +256,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 		to_chat(user, "<span class='warning'>You empty the bag.</span>")
 		for(var/obj/item/O in T.contents)
 			STR.remove_from_storage(O,src)
-		T.update_appearance()
-		update_appearance()
+		T.update_icon()
+		update_icon()
 	else
 		return ..()
 
@@ -284,29 +287,28 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	return data
 
 /obj/machinery/disposal/bin/ui_act(action, params)
-	. = ..()
-	if(.)
+	if(..())
 		return
 
 	switch(action)
 		if("handle-0")
 			flush = FALSE
-			update_appearance()
+			update_icon()
 			. = TRUE
 		if("handle-1")
 			if(!panel_open)
 				flush = TRUE
-				update_appearance()
+				update_icon()
 			. = TRUE
 		if("pump-0")
 			if(pressure_charging)
 				pressure_charging = FALSE
-				update_appearance()
+				update_icon()
 			. = TRUE
 		if("pump-1")
 			if(!pressure_charging)
 				pressure_charging = TRUE
-				update_appearance()
+				update_icon()
 			. = TRUE
 		if("eject")
 			eject()
@@ -318,7 +320,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 		if(prob(75))
 			AM.forceMove(src)
 			visible_message("<span class='notice'>[AM] lands in [src].</span>")
-			update_appearance()
+			update_icon()
 		else
 			visible_message("<span class='notice'>[AM] bounces off of [src]'s rim!</span>")
 			return ..()
@@ -329,16 +331,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	..()
 	full_pressure = FALSE
 	pressure_charging = TRUE
-	update_appearance()
+	update_icon()
 
-/obj/machinery/disposal/bin/update_overlays()
-	. = ..()
+/obj/machinery/disposal/bin/update_icon()
+	cut_overlays()
 	if(machine_stat & BROKEN)
+		pressure_charging = FALSE
+		flush = FALSE
 		return
 
 	//flush handle
 	if(flush)
-		. += "dispover-handle"
+		add_overlay("dispover-handle")
 
 	//only handle is shown if no power
 	if(machine_stat & NOPOWER || panel_open)
@@ -346,19 +350,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 
 	//check for items in disposal - occupied light
 	if(contents.len > 0)
-		. += "dispover-full"
-		. += emissive_appearance(icon, "dispover-full", layer, alpha = src.alpha)
-		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+		add_overlay("dispover-full")
 
 	//charging and ready light
 	if(pressure_charging)
-		. += "dispover-charge"
-		. += emissive_appearance(icon, "dispover-charge-glow", layer, alpha = src.alpha)
-		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+		add_overlay("dispover-charge")
 	else if(full_pressure)
-		. += "dispover-ready"
-		. += emissive_appearance(icon, "dispover-ready-glow", layer, alpha = src.alpha)
-		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+		add_overlay("dispover-ready")
 
 /obj/machinery/disposal/bin/proc/do_flush()
 	set waitfor = FALSE
@@ -411,7 +409,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	if(air_contents.return_pressure() >= SEND_PRESSURE)
 		full_pressure = TRUE
 		pressure_charging = FALSE
-		update_appearance()
+		update_icon()
 	return
 
 /obj/machinery/disposal/bin/get_remote_view_fullscreens(mob/user)
@@ -431,8 +429,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	if(istype(AM, /obj/item))
 		return
 	..()
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal/deliveryChute)
 
 /obj/machinery/disposal/deliveryChute/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()
@@ -482,7 +478,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal/deliveryChute)
 /obj/effect/CanEnterDisposals()
 	return
 
-/obj/vehicle/sealed/mecha/CanEnterDisposals()
+/obj/mecha/CanEnterDisposals()
 	return
 
 /obj/structure/spacevine/CanEnterDisposals()
@@ -493,5 +489,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal/deliveryChute)
 
 /obj/machinery/disposal/deliveryChute/newHolderDestination(obj/structure/disposalholder/H)
 	H.destinationTag = 1
-
-#undef SEND_PRESSURE

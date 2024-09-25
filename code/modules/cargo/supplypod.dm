@@ -11,8 +11,7 @@
 	allow_dense = TRUE
 	delivery_icon = null
 	can_weld_shut = FALSE
-	divable = FALSE
-	armor = list(MELEE = 30,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0, BLEED = 0)
+	armor = list(MELEE = 30,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0)
 	anchored = TRUE //So it cant slide around after landing
 	anchorable = FALSE
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
@@ -57,7 +56,7 @@
 	var/effectShrapnel = FALSE
 	var/shrapnel_type = /obj/projectile/bullet/shrapnel
 	var/shrapnel_magnitude = 3
-	var/list/reverse_option_list = list("Mobs"=FALSE,"Objects"=FALSE,"Anchored"=FALSE,"Underfloor"=FALSE,"Wallmounted"=FALSE,"Floors"=FALSE,"Walls"=FALSE, "Mecha"=FALSE)
+	var/list/reverseOptionList = list("Mobs"=FALSE,"Objects"=FALSE,"Anchored"=FALSE,"Underfloor"=FALSE,"Wallmounted"=FALSE,"Floors"=FALSE,"Walls"=FALSE)
 	var/list/turfs_in_cargo = list()
 
 /obj/structure/closet/supplypod/bluespacepod
@@ -89,8 +88,6 @@
 	delays = list(POD_TRANSIT = 40, POD_FALLING = 4, POD_OPENING = 30, POD_LEAVING = 30) //Very slow
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	max_integrity = 20
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 
 /obj/structure/closet/supplypod/Initialize(mapload, customStyle = FALSE)
 	. = ..()
@@ -361,7 +358,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 	if(to_insert.invisibility == INVISIBILITY_ABSTRACT)
 		return FALSE
 	if(ismob(to_insert))
-		if(!reverse_option_list["Mobs"])
+		if(!reverseOptionList["Mobs"])
 			return FALSE
 		if(!isliving(to_insert)) //let's not put ghosts or camera mobs inside
 			return FALSE
@@ -380,30 +377,30 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 			return FALSE
 		if(istype(obj_to_insert, /obj/effect/supplypod_rubble))
 			return FALSE
-		if((obj_to_insert.comp_lookup && obj_to_insert.comp_lookup[COMSIG_OBJ_HIDE]) && reverse_option_list["Underfloor"])
+		/*
+		if((obj_to_insert.comp_lookup && obj_to_insert.comp_lookup[COMSIG_OBJ_HIDE]) && reverseOptionList["Underfloor"])
 			return TRUE
-		else if ((obj_to_insert.comp_lookup && obj_to_insert.comp_lookup[COMSIG_OBJ_HIDE]) && !reverse_option_list["Underfloor"])
+		else if ((obj_to_insert.comp_lookup && obj_to_insert.comp_lookup[COMSIG_OBJ_HIDE]) && !reverseOptionList["Underfloor"])
 			return FALSE
-		if(isProbablyWallMounted(obj_to_insert) && reverse_option_list["Wallmounted"])
+		*/
+		if(isProbablyWallMounted(obj_to_insert) && reverseOptionList["Wallmounted"])
 			return TRUE
-		else if (isProbablyWallMounted(obj_to_insert) && !reverse_option_list["Wallmounted"])
+		else if (isProbablyWallMounted(obj_to_insert) && !reverseOptionList["Wallmounted"])
 			return FALSE
-		if(!obj_to_insert.anchored && reverse_option_list["Unanchored"])
+		if(!obj_to_insert.anchored && reverseOptionList["Unanchored"])
 			return TRUE
-		if(obj_to_insert.anchored && !ismecha(obj_to_insert) && reverse_option_list["Anchored"]) //Mecha are anchored but there is a separate option for them
-			return TRUE
-		if(ismecha(obj_to_insert) && reverse_option_list["Mecha"])
+		if(obj_to_insert.anchored && reverseOptionList["Anchored"])
 			return TRUE
 		return FALSE
 
 	else if (isturf(to_insert))
-		if(isfloorturf(to_insert) && reverse_option_list["Floors"])
+		if(isfloorturf(to_insert) && reverseOptionList["Floors"])
 			return TRUE
-		if(isfloorturf(to_insert) && !reverse_option_list["Floors"])
+		if(isfloorturf(to_insert) && !reverseOptionList["Floors"])
 			return FALSE
-		if(isclosedturf(to_insert) && reverse_option_list["Walls"])
+		if(isclosedturf(to_insert) && reverseOptionList["Walls"])
 			return TRUE
-		if(isclosedturf(to_insert) && !reverse_option_list["Walls"])
+		if(isclosedturf(to_insert) && !reverseOptionList["Walls"])
 			return FALSE
 		return FALSE
 	return TRUE
@@ -495,7 +492,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 /obj/effect/engineglow //Falling pod smoke
 	name = ""
 	icon = 'icons/obj/supplypods.dmi'
-	icon_state = "pod_glow_green"
+	icon_state = "pod_engineglow"
 	desc = ""
 	layer = GASFIRE_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -543,8 +540,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 		verticle_offset = initial(verticle_offset)
 	pixel_y = verticle_offset
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone_effect)
-
 /obj/effect/pod_landingzone_effect
 	name = ""
 	desc = ""
@@ -552,14 +547,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone_effect)
 	icon_state = "LZ_Slider"
 	layer = PROJECTILE_HIT_THRESHOLD_LAYER
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone_effect)
-
 /obj/effect/pod_landingzone_effect/Initialize(mapload, obj/structure/closet/supplypod/pod)
 	. = ..()
 	transform = matrix() * 1.5
 	animate(src, transform = matrix()*0.01, time = pod.delays[POD_TRANSIT]+pod.delays[POD_FALLING])
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone)
 
 /obj/effect/pod_landingzone //This is the object that forceMoves the supplypod to it's location
 	name = "Landing Zone Indicator"
@@ -574,7 +565,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone)
 	var/obj/effect/pod_landingzone_effect/helper
 	var/list/smoke_effects = new /list(13)
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone)
+/obj/effect/ex_act()
+	return
 
 /obj/effect/pod_landingzone/Initialize(mapload, podParam, single_order = null, clientman)
 	. = ..()

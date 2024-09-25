@@ -1,26 +1,16 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, NoticeBox, ProgressBar, Section } from '../components';
+import { Box, Button, LabeledList, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
 
 export const BluespaceArtillery = (props, context) => {
   const { act, data } = useBackend(context);
-  const { notice, connected, unlocked, target, charge, max_charge } = data;
+  const { notice, connected, unlocked, target } = data;
   return (
-    <Window width={400} height={280}>
+    <Window width={400} height={220}>
       <Window.Content>
         {!!notice && <NoticeBox>{notice}</NoticeBox>}
         {connected ? (
           <>
-            <Section title="Charge">
-              <ProgressBar
-                ranges={{
-                  good: [1, Infinity],
-                  average: [0.2, 0.99],
-                  bad: [-Infinity, 0.2],
-                }}
-                value={charge / max_charge}
-              />
-            </Section>
             <Section
               title="Target"
               buttons={<Button icon="crosshairs" disabled={!unlocked} onClick={() => act('recalibrate')} />}>

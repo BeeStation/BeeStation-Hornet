@@ -100,24 +100,6 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_headstripes, GLOB.apid_headstripes_list)
 	if(!GLOB.psyphoza_cap_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/psyphoza_cap, GLOB.psyphoza_cap_list)
-	if(!GLOB.diona_leaves_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_leaves, GLOB.diona_leaves_list)
-	if(!GLOB.diona_thorns_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_thorns, GLOB.diona_thorns_list)
-	if(!GLOB.diona_flowers_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_flowers, GLOB.diona_flowers_list)
-	if(!GLOB.diona_moss_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_moss, GLOB.diona_moss_list)
-	if(!GLOB.diona_mushroom_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_mushroom, GLOB.diona_mushroom_list)
-	if(!GLOB.diona_antennae_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_antennae, GLOB.diona_antennae_list)
-	if(!GLOB.diona_eyes_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_eyes, GLOB.diona_eyes_list)
-	if(!GLOB.diona_pbody_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_pbody, GLOB.diona_pbody_list)
-
-
 	//For now we will always return none for tail_human and ears.
 	return(
 		list(
@@ -146,15 +128,7 @@
 		"apid_stripes" = pick(GLOB.apid_stripes_list),
 		"apid_headstripes" = pick(GLOB.apid_headstripes_list),
 		"body_model" = gender == MALE ? MALE : gender == FEMALE ? FEMALE : pick(MALE, FEMALE),
-		"psyphoza_cap" = pick(GLOB.psyphoza_cap_list),
-		"diona_leaves" = pick(GLOB.diona_leaves_list),
-		"diona_thorns" = pick(GLOB.diona_thorns_list),
-		"diona_flowers" = pick(GLOB.diona_flowers_list),
-		"diona_moss" = pick(GLOB.diona_moss_list),
-		"diona_mushroom" = pick(GLOB.diona_mushroom_list),
-		"diona_antennae" = pick(GLOB.diona_antennae_list),
-		"diona_eyes" = pick(GLOB.diona_eyes_list),
-		"diona_pbody" = pick(GLOB.diona_pbody_list)
+		"psyphoza_cap" = pick(GLOB.psyphoza_cap_list)
 		)
 	)
 
@@ -353,8 +327,8 @@ GLOBAL_LIST_EMPTY(species_list)
 		if(!.)
 			break
 
-	if(!QDELETED(progbar))
-		progbar.end_progress()
+	if(progress)
+		qdel(progbar)
 
 	if(!QDELETED(target))
 		LAZYREMOVE(user.do_afters, target)
@@ -515,18 +489,6 @@ GLOBAL_LIST_EMPTY(species_list)
 	if(!HAS_TRAIT(L, TRAIT_PASSTABLE))
 		L.pass_flags &= ~PASSTABLE
 
-/proc/dance_rotate(atom/movable/AM, datum/callback/callperrotate, set_original_dir=FALSE)
-	set waitfor = FALSE
-	var/originaldir = AM.dir
-	for(var/i in list(NORTH,SOUTH,EAST,WEST,EAST,SOUTH,NORTH,SOUTH,EAST,WEST,EAST,SOUTH))
-		if(!AM)
-			return
-		AM.setDir(i)
-		callperrotate?.Invoke()
-		sleep(0.1 SECONDS)
-	if(set_original_dir)
-		AM.setDir(originaldir)
-
 //Gets the sentient mobs that are not on centcom and are alive
 /proc/get_sentient_mobs()
 	. = list()
@@ -590,7 +552,7 @@ GLOBAL_LIST_EMPTY(species_list)
 	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.
 	Given how click code currently works (Nov '13), the initiating mob will be facing the target mob most of the time
 	That said, this proc should not be used if the change facing proc of the click code is overridden at the same time*/
-	if(!isliving(target) || target.body_position == LYING_DOWN)
+	if(!ismob(target) || !(target.mobility_flags & MOBILITY_STAND))
 	//Make sure we are not doing this for things that can't have a logical direction to the players given that the target would be on their side
 		return FALSE
 	if(initator.dir == target.dir) //mobs are facing the same direction
@@ -754,20 +716,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			. = pick(ais)
 	return .
 
-/**
- * Used to get the amount of change between two body temperatures
- *
- * When passed the difference between two temperatures returns the amount of change to temperature to apply.
- * The change rate should be kept at a low value tween 0.16 and 0.02 for optimal results.
- * vars:
- * * temp_diff (required) The differance between two temperatures
- * * change_rate (optional)(Default: 0.06) The rate of range multiplyer
- */
-/proc/get_temp_change_amount(temp_diff, change_rate = 0.06)
-	if(temp_diff < 0)
-		return (log((temp_diff * -1) * change_rate + 1) * BODYTEMP_AUTORECOVERY_DIVISOR) * -1
-	return log(temp_diff * change_rate + 1) * BODYTEMP_AUTORECOVERY_DIVISOR
-
 //// Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
 /mob/proc/apply_pref_name(preference_type, client/C)
 	if(!C)
@@ -800,25 +748,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		fully_replace_character_name(oldname,newname)
 		return TRUE
 	return FALSE
-
-/// Special handler for cyborg naming to check if cyborg name preferences match a name that has already been used. Returns TRUE if preferences are good to use and FALSE if not.
-/mob/proc/check_cyborg_name(client/C, obj/item/mmi/mmi)
-	var/name = C?.prefs?.read_character_preference(/datum/preference/name/cyborg)
-
-	//Name is original, add it to the list to prevent it from being used again and return TRUE
-	if(!(name in GLOB.cyborg_name_list))
-		GLOB.cyborg_name_list += name
-		mmi.original_name = name
-		return TRUE
-
-	//Name is not original, but is this the original user of the name? If so we still return TRUE but do not need to add it to the list
-	else if(name == mmi.original_name)
-		return TRUE
-
-	//This name has already been taken and this is not the original user, return FALSE
-	else
-		to_chat(C.mob, "<span class='warning'>Cyborg name already used this round by another character, your name has been randomized</span>")
-		return FALSE
 
 /proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)

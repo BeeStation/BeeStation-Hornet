@@ -3,28 +3,28 @@
 /obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "w" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "D" = (
 /obj/structure/closet/firecloset,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "H" = (
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "J" = (
 /obj/item/kirbyplants/random,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "R" = (
 /obj/structure/closet/emcloset,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "W" = (
 /turf/closed/wall,

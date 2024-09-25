@@ -2,56 +2,11 @@
 	var/input
 	var/output
 	var/time = 40
-	/// The machine required to do this recipe
 	var/required_machine = /obj/machinery/processor
-	/// Multiplied additional food made when processed
-	var/food_multiplier = 1
 
 /datum/food_processor_process/meat
 	input = /obj/item/food/meat/slab
-	output = /obj/item/food/raw_meatball
-	food_multiplier = 3
-
-/datum/food_processor_process/cutlet
-	input = /obj/item/food/meat/cutlet/plain
-	output = /obj/item/food/raw_meatball
-
-/datum/food_processor_process/meat/human
-	input = /obj/item/food/meat/slab/human
-	output = /obj/item/food/raw_meatball/human
-
-/datum/food_processor_process/cutlet/human
-	input = /obj/item/food/meat/cutlet/plain/human
-	output = /obj/item/food/raw_meatball/human
-
-/datum/food_processor_process/meat/corgi
-	input = /obj/item/food/meat/slab/corgi
-	output = /obj/item/food/raw_meatball/corgi
-
-/datum/food_processor_process/meat/xeno
-	input = /obj/item/food/meat/slab/xeno
-	output = /obj/item/food/raw_meatball/xeno
-
-/datum/food_processor_process/cutlet/xeno
-	input = /obj/item/food/meat/cutlet/xeno
-	output = /obj/item/food/raw_meatball/xeno
-
-/datum/food_processor_process/meat/bear
-	input = /obj/item/food/meat/slab/bear
-	output = /obj/item/food/raw_meatball/bear
-
-/datum/food_processor_process/cutlet/bear
-	input = /obj/item/food/meat/cutlet/bear
-	output = /obj/item/food/raw_meatball/bear
-
-/datum/food_processor_process/meat/chicken
-	input = /obj/item/food/meat/slab/chicken
-	output = /obj/item/food/raw_meatball/chicken
-	food_multiplier = 3
-
-/datum/food_processor_process/cutlet/chicken
-	input = /obj/item/food/meat/cutlet/chicken
-	output = /obj/item/food/raw_meatball/chicken
+	output = /obj/item/food/meatball
 
 /datum/food_processor_process/bacon
 	input = /obj/item/food/meat/rawcutlet
@@ -59,23 +14,23 @@
 
 /datum/food_processor_process/potatowedges
 	input = /obj/item/food/grown/potato/wedges
-	output = /obj/item/food/fries
+	output = /obj/item/reagent_containers/food/snacks/fries
 
 /datum/food_processor_process/sweetpotato
 	input = /obj/item/food/grown/potato/sweet
-	output = /obj/item/food/yakiimo
+	output = /obj/item/reagent_containers/food/snacks/yakiimo
 
 /datum/food_processor_process/potato
 	input = /obj/item/food/grown/potato
-	output = /obj/item/food/tatortot
+	output = /obj/item/reagent_containers/food/snacks/tatortot
 
 /datum/food_processor_process/carrot
 	input = /obj/item/food/grown/carrot
-	output = /obj/item/food/carrotfries
+	output = /obj/item/reagent_containers/food/snacks/carrotfries
 
 /datum/food_processor_process/soybeans
 	input = /obj/item/food/grown/soybeans
-	output = /obj/item/food/soydope
+	output = /obj/item/reagent_containers/food/snacks/soydope
 
 /datum/food_processor_process/spaghetti
 	input = /obj/item/food/doughslice
@@ -87,11 +42,11 @@
 
 /datum/food_processor_process/tortilla
 	input = /obj/item/food/tortilla
-	output = /obj/item/food/cornchips
+	output = /obj/item/reagent_containers/food/snacks/cornchips
 
 /datum/food_processor_process/parsnip
 	input = /obj/item/food/grown/parsnip
-	output = /obj/item/food/roastparsnip
+	output = /obj/item/reagent_containers/food/snacks/roastparsnip
 
 /datum/food_processor_process/mob/slime
 	input = /mob/living/simple_animal/slime

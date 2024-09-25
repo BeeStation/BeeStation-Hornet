@@ -18,8 +18,6 @@
 	var/check_anti_magic = FALSE
 	var/check_holy = FALSE
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
-
 /obj/effect/timestop/Initialize(mapload, radius, time, list/immune_atoms, start = TRUE)	//Immune atoms assoc list atom = TRUE
 	. = ..()
 	if(!isnull(time))
@@ -86,7 +84,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 		freeze_mob(A)
 	else if(istype(A, /obj/projectile))
 		freeze_projectile(A)
-	else if(istype(A, /obj/vehicle/sealed/mecha))
+	else if(istype(A, /obj/mecha))
 		freeze_mecha(A)
 	else
 		frozen = FALSE
@@ -118,7 +116,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 		unfreeze_mob(A)
 	else if(istype(A, /obj/projectile))
 		unfreeze_projectile(A)
-	else if(istype(A, /obj/vehicle/sealed/mecha))
+	else if(istype(A, /obj/mecha))
 		unfreeze_mecha(A)
 
 	UnregisterSignal(A, COMSIG_MOVABLE_PRE_MOVE)
@@ -129,10 +127,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	global_frozen_atoms -= A
 
 
-/datum/proximity_monitor/advanced/timestop/proc/freeze_mecha(obj/vehicle/sealed/mecha/M)
+/datum/proximity_monitor/advanced/timestop/proc/freeze_mecha(obj/mecha/M)
 	M.completely_disabled = TRUE
 
-/datum/proximity_monitor/advanced/timestop/proc/unfreeze_mecha(obj/vehicle/sealed/mecha/M)
+/datum/proximity_monitor/advanced/timestop/proc/unfreeze_mecha(obj/mecha/M)
 	M.completely_disabled = FALSE
 
 
@@ -148,7 +146,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 /datum/proximity_monitor/advanced/timestop/process()
 	for(var/i in frozen_mobs)
 		var/mob/living/m = i
-		m.Stun(20, ignore_canstun = TRUE)
+		m.Stun(20, 1, 1)
 
 /datum/proximity_monitor/advanced/timestop/setup_field_turf(turf/T)
 	for(var/i in T.contents)
@@ -167,7 +165,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	if(L.anti_magic_check(check_anti_magic, check_holy))
 		immune += L
 		return
-	L.Stun(20, ignore_canstun = TRUE)
+	L.Stun(20, 1, 1)
 	SSmove_manager.stop_looping(src) //stops them mid pathing even if they're stunimmune //This is really dumb
 	if(isanimal(L))
 		var/mob/living/simple_animal/S = L
@@ -177,7 +175,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 		H.LoseTarget()
 
 /datum/proximity_monitor/advanced/timestop/proc/unfreeze_mob(mob/living/L)
-	L.AdjustStun(-20, ignore_canstun = TRUE)
+	L.AdjustStun(-20, 1, 1)
 	frozen_mobs -= L
 	if(isanimal(L))
 		var/mob/living/simple_animal/S = L

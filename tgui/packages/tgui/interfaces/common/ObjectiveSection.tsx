@@ -27,7 +27,7 @@ export const ObjectivesSection = (props: Props, _context) => {
                 <span
                   // eslint-disable-next-line react/no-danger
                   dangerouslySetInnerHTML={{
-                    __html: sanitizeText(objective.explanation, false),
+                    __html: sanitizeText(objective.explanation),
                   }}
                 />
               </Stack.Item>

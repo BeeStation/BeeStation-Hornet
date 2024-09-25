@@ -13,7 +13,6 @@
 
 import { perf } from 'common/perf';
 import { createAction } from 'common/redux';
-import { cleanupByondUIs } from './components/ByondUi';
 import { setupDrag } from './drag';
 import { focusMap } from './focus';
 import { createLogger } from './logging';
@@ -154,7 +153,6 @@ export const backendMiddleware = (store) => {
       Byond.winset(Byond.windowId, {
         'is-visible': false,
       });
-      cleanupByondUIs();
       setImmediate(() => focusMap());
     }
 

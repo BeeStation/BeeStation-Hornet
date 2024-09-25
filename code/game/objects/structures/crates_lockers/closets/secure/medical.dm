@@ -116,8 +116,7 @@
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/healthanalyzer/advanced(src)
 	new /obj/item/wallframe/defib_mount(src)
-	new /obj/item/gun/ballistic/automatic/pistol/service/cmo(src)
-	new /obj/item/ammo_box/magazine/recharge/service(src)
+	new /obj/item/gun/energy/e_gun/mini/heads(src)
 
 /obj/item/storage/box/suitbox/cmo
 	name = "compression box of chief medical officer outfits"

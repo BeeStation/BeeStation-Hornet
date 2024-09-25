@@ -176,7 +176,7 @@
 	arm_hud.begin_timer(arming_cooldown_length)
 	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(display_examine))
 	RegisterSignal(target, COMSIG_PARENT_PREQDELETED, PROC_REF(on_bomb_destroyed))
-	RegisterSignals(target, boom_signals, PROC_REF(kaboom))
+	RegisterSignal(target, boom_signals, PROC_REF(kaboom))
 	bomb_disarm_timers[target] = addtimer(CALLBACK(src, PROC_REF(disable), target), master_stats.potential * 18 * 10, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
 	bombs += target
 
@@ -304,9 +304,7 @@
 /atom/movable/screen/holoparasite/explosive
 	var/datum/holoparasite_ability/major/explosive/ability
 
-CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/explosive)
-
-/atom/movable/screen/holoparasite/explosive/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/explosive/_ability)
+/atom/movable/screen/holoparasite/explosive/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/explosive/_ability)
 	. = ..()
 	if(!istype(_ability))
 		CRASH("Tried to make explosive holoparasite HUD without proper reference to explosive ability")
@@ -318,7 +316,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/explosive)
 	desc = "Manually detonate an armed bomb trap."
 	icon_state = "explode"
 
-/atom/movable/screen/holoparasite/explosive/detonate/use()
+/atom/movable/screen/holoparasite/explosive/detonate/Click()
 	ability.manual_kaboom()
 	update_appearance()
 
@@ -361,7 +359,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/explosive)
 /atom/movable/screen/holoparasite/explosive/arm/activated()
 	return ability.arming
 
-/atom/movable/screen/holoparasite/explosive/arm/use()
+/atom/movable/screen/holoparasite/explosive/arm/Click(location, control, params)
 	if(!COOLDOWN_FINISHED(ability, arming_cooldown))
 		begin_timer(COOLDOWN_TIMELEFT(ability, arming_cooldown))
 		update_appearance()

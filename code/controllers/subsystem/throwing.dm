@@ -207,6 +207,3 @@ SUBSYSTEM_DEF(throwing)
 		thrownthing.movement_type &= ~THROWN
 
 	qdel(src)
-
-#undef MAX_THROWING_DIST
-#undef MAX_TICKS_TO_MAKE_UP

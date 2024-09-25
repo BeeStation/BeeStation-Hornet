@@ -14,7 +14,6 @@
 	layer = BELOW_MOB_LAYER
 	can_be_held = TRUE
 	radio = /obj/item/radio/headset/silicon/pai
-	can_buckle_to = FALSE
 	move_force = 0
 	pull_force = 0
 	move_resist = 0
@@ -109,6 +108,12 @@
 	var/atom/movable/screen/ai/modpc/interface_button
 
 
+/mob/living/silicon/pai/can_unbuckle()
+	return FALSE
+
+/mob/living/silicon/pai/can_buckle()
+	return FALSE
+
 /mob/living/silicon/pai/handle_atom_del(atom/A)
 	if(A == hacking_cable)
 		hacking_cable = null
@@ -170,11 +175,6 @@
 
 	emittersemicd = TRUE
 	addtimer(CALLBACK(src, PROC_REF(emittercool)), 600)
-
-	if(!holoform)
-		ADD_TRAIT(src, TRAIT_IMMOBILIZED, PAI_FOLDED)
-		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, PAI_FOLDED)
-
 	return INITIALIZE_HINT_LATELOAD
 
 
@@ -214,17 +214,15 @@
 	return TRUE
 
 /mob/living/silicon/pai/Login()
-	. = ..()
-	if(!. || !client)
-		return FALSE
+	..()
 	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
 	mind.assigned_role = JOB_NAME_PAI
 	notes_assets.send(client)
 	client.perspective = EYE_PERSPECTIVE
 	if(holoform)
-		client.set_eye(src)
+		client.eye = src
 	else
-		client.set_eye(card)
+		client.eye = card
 
 /mob/living/silicon/pai/get_stat_tab_status()
 	var/list/tab_data = ..()
@@ -233,6 +231,9 @@
 	else
 		tab_data["Systems"] = GENERATE_STAT_TEXT("nonfunctional")
 	return tab_data
+
+/mob/living/silicon/pai/restrained(ignore_grab)
+	. = FALSE
 
 // See software.dm for Topic()
 
@@ -253,7 +254,7 @@
 
 /datum/action/innate/pai
 	name = "PAI Action"
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
 	var/mob/living/silicon/pai/P
 
 /datum/action/innate/pai/Trigger()
@@ -298,11 +299,11 @@
 
 /datum/action/innate/pai/rest/Trigger()
 	..()
-	P.toggle_resting()
+	P.lay_down()
 
 /datum/action/innate/pai/light
 	name = "Toggle Integrated Lights"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	icon_icon = 'icons/mob/actions/actions_spells.dmi'
 	button_icon_state = "emp"
 	background_icon_state = "bg_tech"
 
@@ -313,9 +314,9 @@
 /mob/living/silicon/pai/Process_Spacemove(movement_dir = 0)
 	. = ..()
 	if(!.)
-		add_movespeed_modifier(/datum/movespeed_modifier/pai_spacewalk)
+		add_movespeed_modifier(MOVESPEED_ID_PAI_SPACEWALK_SPEEDMOD, TRUE, 100, multiplicative_slowdown = 2)
 		return TRUE
-	remove_movespeed_modifier(/datum/movespeed_modifier/pai_spacewalk)
+	remove_movespeed_modifier(MOVESPEED_ID_PAI_SPACEWALK_SPEEDMOD, TRUE)
 	return TRUE
 
 /mob/living/silicon/pai/examine(mob/user)

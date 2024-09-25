@@ -31,7 +31,7 @@
 		if(WIRE_DISABLE)
 			R.disabled = !R.disabled
 	ui_update()
-/datum/wires/rnd/on_cut(wire, mob/user, mend)
+/datum/wires/rnd/on_cut(wire, mend)
 	var/obj/machinery/rnd/R = holder
 	switch(wire)
 		if(WIRE_HACK)

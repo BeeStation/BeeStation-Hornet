@@ -1,6 +1,9 @@
 /*
 	AI ClickOn()
 
+	Note currently ai restrained() returns 0 in all cases,
+	therefore restrained code has been removed
+
 	The AI can double click to move the camera (this was already true but is cleaner),
 	or double click a mob to track them.
 
@@ -56,6 +59,10 @@
 		if(LAZYACCESS(modifiers, CTRL_CLICK))
 			CtrlShiftClickOn(A)
 			return
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
+		if(controlled_mech) //Are we piloting a mech? Placed here so the modifiers are not overridden.
+			controlled_mech.click_action(A, src, params) //Override AI normal click behavior.
+		return
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		ShiftClickOn(A)
 		return
@@ -65,16 +72,13 @@
 	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
 		return
-	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
-		MiddleClickOn(A, params)
-		return
 
 	if(world.time <= next_move)
 		return
 
 	if(aicamera.in_camera_mode)
 		aicamera.camera_mode_off()
-		aicamera.captureimage(pixel_turf, usr, null, aicamera.picture_size_x - 1, aicamera.picture_size_y - 1)
+		aicamera.captureimage(pixel_turf, usr)
 		return
 	if(waypoint_mode)
 		waypoint_mode = 0
@@ -140,7 +144,7 @@
 	toggle_bolt(usr)
 	add_hiddenprint(usr)
 
-/obj/machinery/door/airlock/AIAltClick(mob/living/silicon/ai/user) // Electrifies doors.
+/obj/machinery/door/airlock/AIAltClick(mob/living/silicon/ai/user) // Eletrifies doors.
 	if(obj_flags & EMAGGED)
 		return
 

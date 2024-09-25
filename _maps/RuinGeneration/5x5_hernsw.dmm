@@ -6,26 +6,26 @@
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "L" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "M" = (
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "T" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Y" = (
 /obj/effect/abstract/doorway_marker,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
 (1,1,1) = {"

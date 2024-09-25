@@ -25,14 +25,16 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	speak_chance = 0
 	turns_per_move = 5
+	response_help = "pokes"
+	response_disarm = "shoves"
+	response_harm = "hits"
 	speed = 0
-	stat_attack = HARD_CRIT
+	stat_attack = UNCONSCIOUS
 	robust_searching = 1
 	maxHealth = 100
 	health = 100
 	melee_damage = 10
-	attack_verb_continuous = "punches"
-	attack_verb_simple = "punch"
+	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier)
@@ -44,7 +46,7 @@
 	del_on_death = TRUE
 	dodging = TRUE
 	rapid_melee = 2
-	footstep_type = FOOTSTEP_MOB_SHOE
+	do_footstep = TRUE
 	mobchatspan = "syndmob"
 
 ///////////////Melee////////////
@@ -76,8 +78,7 @@
 	icon_state = "syndicate_knife"
 	icon_living = "syndicate_knife"
 	loot = list(/obj/effect/gibspawner/human)
-	attack_verb_continuous = "slashes"
-	attack_verb_simple = "slash"
+	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	status_flags = 0
 	var/projectile_deflect_chance = 0
@@ -112,8 +113,7 @@
 	melee_damage = 30
 	icon_state = "syndicate_sword"
 	icon_living = "syndicate_sword"
-	attack_verb_continuous = "slashes"
-	attack_verb_simple = "slash"
+	attacktext = "slashes"
 	attack_sound = 'sound/weapons/blade1.ogg'
 	armour_penetration = 35
 	light_color = LIGHT_COLOR_RED
@@ -285,15 +285,13 @@
 	melee_damage = 15
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	attack_verb_continuous = "cuts"
-	attack_verb_simple = "cut"
+	attacktext = "cuts"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	faction = list(FACTION_SYNDICATE)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	mob_size = MOB_SIZE_TINY
-	is_flying_animal = TRUE
-	no_flying_animation = TRUE
+	movement_type = FLYING
 	limb_destroyer = TRUE
 	speak_emote = list("states")
 	bubble_icon = "syndibot"

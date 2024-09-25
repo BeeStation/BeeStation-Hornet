@@ -1,6 +1,8 @@
 /atom/movable/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
 	var/datum/buildmode/bd
+	// If we don't do this, we get occluded by item action buttons
+	plane = ABOVE_HUD_PLANE
 
 /atom/movable/screen/buildmode/New(bld)
 	bd = bld
@@ -21,7 +23,7 @@
 		bd.toggle_modeswitch()
 	else if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		bd.mode.change_settings(usr.client)
-
+		
 	update_icon()
 	return 1
 

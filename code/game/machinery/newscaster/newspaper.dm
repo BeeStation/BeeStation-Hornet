@@ -10,8 +10,7 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 	lefthand_file = 'icons/mob/inhands/misc/books_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/books_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb_continuous = list("baps")
-	attack_verb_simple = list("bap")
+	attack_verb = list("bapped")
 	resistance_flags = FLAMMABLE
 	var/screen = 0
 	var/pages = 0

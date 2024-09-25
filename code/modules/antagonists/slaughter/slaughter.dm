@@ -6,12 +6,9 @@
 	desc = "A large, menacing creature covered in armored black scales."
 	speak_emote = list("gurgles")
 	emote_hear = list("wails","screeches")
-	response_help_continuous = "thinks better of touching"
-	response_help_simple = "think better of touching"
-	response_disarm_continuous = "flails at"
-	response_disarm_simple = "flail at"
-	response_harm_continuous = "punches"
-	response_harm_simple = "punch"
+	response_help  = "thinks better of touching"
+	response_disarm = "flails at"
+	response_harm   = "punches"
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "daemon"
 	icon_living = "daemon"
@@ -27,15 +24,14 @@
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	faction = list("slaughter")
-	attack_verb_continuous = "wildly tears into"
-	attack_verb_simple = "wildly tear into"
+	attacktext = "wildly tears into"
 	maxHealth = 200
 	health = 200
 	healable = 0
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	obj_damage = 50
 	melee_damage = 30
-	see_in_dark = NIGHTVISION_FOV_RANGE
+	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	bloodcrawl = BLOODCRAWL_EAT
 	hardattacks = TRUE
@@ -70,8 +66,8 @@
 
 /mob/living/simple_animal/slaughter/phasein()
 	. = ..()
-	add_movespeed_modifier(/datum/movespeed_modifier/slaughter)
-	addtimer(CALLBACK(src, PROC_REF(remove_movespeed_modifier), /datum/movespeed_modifier/slaughter, TRUE), 6 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	add_movespeed_modifier(MOVESPEED_ID_SLAUGHTER, update=TRUE, priority=100, multiplicative_slowdown=-1)
+	addtimer(CALLBACK(src, PROC_REF(remove_movespeed_modifier), MOVESPEED_ID_SLAUGHTER, TRUE), 6 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 
 //The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
@@ -89,7 +85,7 @@
 	if(M != user)
 		return ..()
 	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
-						"<span class='danger'>An unnatural hunger consumes you. You raise [src] your mouth and devour it!</span>")
+						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] your mouth and devour it!</span>")
 	playsound(user, 'sound/magic/demon_consume.ogg', 50, 1)
 	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
 		if(knownspell.type == /obj/effect/proc_holder/spell/bloodcrawl)
@@ -97,7 +93,7 @@
 			qdel(src)
 			return
 	user.visible_message("<span class='warning'>[user]'s eyes flare a deep crimson!</span>", \
-						"<span class='userdanger'>You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!</span>")
+						 "<span class='userdanger'>You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!</span>")
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
 	src.Insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E
 
@@ -122,9 +118,8 @@
 	desc = "A large, adorable creature covered in armor with pink bows."
 	speak_emote = list("giggles","titters","chuckles")
 	emote_hear = list("guffaws","laughs")
-	response_help_continuous = "hugs"
-	attack_verb_continuous = "wildly tickles"
-	attack_verb_simple = "wildly tickle"
+	response_help  = "hugs"
+	attacktext = "wildly tickles"
 
 	attack_sound = 'sound/items/bikehorn.ogg'
 	feast_sound = 'sound/spookoween/scary_horn2.ogg'

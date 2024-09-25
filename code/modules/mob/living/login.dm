@@ -1,8 +1,5 @@
 /mob/living/Login()
-	. = ..()
-	if(!. || !client)
-		return FALSE
-
+	..()
 	//Mind updates
 	sync_mind()
 	mind.show_memory(src, 0)

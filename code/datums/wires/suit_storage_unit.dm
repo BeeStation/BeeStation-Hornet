@@ -34,7 +34,7 @@
 				SSU.shock(usr)
 	ui_update()
 
-/datum/wires/suit_storage_unit/on_cut(wire, mob/user, mend)
+/datum/wires/suit_storage_unit/on_cut(wire, mend)
 	var/obj/machinery/suit_storage_unit/SSU = holder
 	switch(wire)
 		if(WIRE_HACK)
@@ -42,6 +42,6 @@
 		if(WIRE_SAFETY)
 			SSU.safeties = mend
 		if(WIRE_ZAP)
-			if(user)
-				SSU.shock(user)
+			if(usr)
+				SSU.shock(usr)
 	ui_update()

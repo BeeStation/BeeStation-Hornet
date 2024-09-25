@@ -18,8 +18,6 @@
 
 
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/splitter)
-
 /obj/machinery/plumbing/splitter/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/splitter, bolt)

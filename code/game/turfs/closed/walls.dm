@@ -10,7 +10,6 @@
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WALLS)
 		//note consider "canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_AIRLOCK)" if the artstyle permits it!
-	rcd_memory = RCD_MEMORY_WALL
 	explosion_block = 1
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
@@ -138,12 +137,11 @@
 		var/obj/item/wallframe/F = W
 		if(F.try_build(src, user))
 			F.attach(src, user)
-			return TRUE
-		return FALSE
+		return TRUE
 	//Poster stuff
-	else if(istype(W, /obj/item/poster) && Adjacent(user)) //no tk memes.
-		return place_poster(W,user)
-
+	else if(istype(W, /obj/item/poster))
+		place_poster(W,user)
+		return TRUE
 	return FALSE
 
 /turf/closed/wall/try_decon(obj/item/I, mob/user, turf/T)

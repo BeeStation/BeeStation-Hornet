@@ -5,7 +5,7 @@
 	button_icon_state = "fleshmend"
 	chemical_cost = 25
 	dna_cost = 2
-	req_stat = HARD_CRIT
+	req_stat = UNCONSCIOUS
 
 //Starts healing you every second for 10 seconds.
 //Can be used whilst unconscious.

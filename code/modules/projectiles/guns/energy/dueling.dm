@@ -322,12 +322,3 @@
 	gun_B.duel = D
 	D.gun_A = gun_A
 	D.gun_B = gun_B
-
-#undef DUEL_IDLE
-#undef DUEL_PREPARATION
-#undef DUEL_READY
-#undef DUEL_COUNTDOWN
-#undef DUEL_FIRING
-#undef DUEL_SETTING_A
-#undef DUEL_SETTING_B
-#undef DUEL_SETTING_C

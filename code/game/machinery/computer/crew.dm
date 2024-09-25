@@ -16,8 +16,6 @@
 
 	light_color = LIGHT_COLOR_BLUE
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/crew)
-
 /obj/machinery/computer/crew/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	AddComponent(/datum/component/usb_port, list(

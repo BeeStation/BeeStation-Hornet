@@ -5,16 +5,14 @@
  */
 /obj/item/compact_remote
 	name = "compact remote"
-	desc = "A smaller handheld device with one big button."
 	icon = 'icons/obj/wiremod.dmi'
 	icon_state = "setup_small_simple"
 	item_state = "electronic"
-	w_class = WEIGHT_CLASS_TINY
 	//worn_icon_state = "electronic"		//remember to change it later lol
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
-	light_on = FALSE
+
+	light_system = MOVABLE_LIGHT
 
 /obj/item/compact_remote/Initialize(mapload)
 	. = ..()

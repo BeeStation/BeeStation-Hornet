@@ -56,7 +56,6 @@
 
 /mob/living/simple_animal/revenant/orbit(atom/target)
 	setDir(SOUTH) // reset dir so the right directional sprites show up
-	REMOVE_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 	return ..()
 
 
@@ -155,7 +154,7 @@
 	charge_max = 0
 	panel = "Revenant Abilities"
 	message = "<span class='revennotice'>You toggle your night vision.</span>"
-	action_icon = 'icons/hud/actions/actions_revenant.dmi'
+	action_icon = 'icons/mob/actions/actions_revenant.dmi'
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
 
@@ -165,14 +164,13 @@
 	desc = "Teleport to the station."
 	charge_max = 0
 	panel = "Revenant Abilities"
-	action_icon = 'icons/hud/actions/actions_revenant.dmi'
+	action_icon = 'icons/mob/actions/actions_revenant.dmi'
 	action_icon_state = "r_teleport"
 	action_background_icon_state = "bg_revenant"
 	clothes_req = FALSE
 
 /obj/effect/proc_holder/spell/self/rev_teleport/cast(mob/living/simple_animal/revenant/user = usr)
 	if(!isrevenant(user))
-		to_chat(user, "<span class='revenwarning'>You are not revenant.</span>")
 		return
 	if(is_station_level(user.z))
 		to_chat(user, "<span class='revenwarning'>Recalling yourself to the station is only available when you're not in the station.</span>")
@@ -197,7 +195,7 @@
 /obj/effect/proc_holder/spell/targeted/telepathy/revenant
 	name = "Revenant Transmit"
 	panel = "Revenant Abilities"
-	action_icon = 'icons/hud/actions/actions_revenant.dmi'
+	action_icon = 'icons/mob/actions/actions_revenant.dmi'
 	action_icon_state = "r_transmit"
 	action_background_icon_state = "bg_revenant"
 	notice = "revennotice"
@@ -206,12 +204,11 @@
 
 /obj/effect/proc_holder/spell/targeted/telepathy/revenant/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/mob/living/M in targets)
-		if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
+		if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(user, "<span class='warning'>It appears the target's mind is ironclad! No getting a message in there!</span>")
 			return
 		if(M.anti_magic_check(magic_check, holy_check)) //hear no evil
 			to_chat(user, "<span class='[boldnotice]'>Something is blocking your power into their mind!</span>")
-			return
 
 
 		var/msg = stripped_input(usr, "What do you wish to tell [M]?", null, "")
@@ -241,7 +238,7 @@
 	name = "Phase Shift"
 	desc = "Shift in and out of your corporeal form"
 	panel = "Revenant Abilities"
-	action_icon = 'icons/hud/actions/actions_revenant.dmi'
+	action_icon = 'icons/mob/actions/actions_revenant.dmi'
 	action_icon_state = "r_phase"
 	action_background_icon_state = "bg_revenant"
 	clothes_req = FALSE
@@ -273,31 +270,27 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant
 	clothes_req = 0
-	action_icon = 'icons/hud/actions/actions_revenant.dmi'
+	action_icon = 'icons/mob/actions/actions_revenant.dmi'
 	action_background_icon_state = "bg_revenant"
 	panel = "Revenant Abilities (Locked)"
 	name = "Report this to a coder"
 	var/reveal = 80 //How long it reveals the revenant in deciseconds
 	var/stun = 20 //How long it stuns the revenant in deciseconds
-	var/locked = TRUE //revenant needs to pay essence to learn their ability
+	var/locked = TRUE //If it's locked and needs to be unlocked before use
 	var/unlock_amount = 100 //How much essence it costs to unlock
 	var/cast_amount = 50 //How much essence it costs to use
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/Initialize(mapload)
 	. = ..()
-	update_button_info()
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant/proc/update_button_info()
-	if(!locked)
-		action.name = "[initial(name)][cast_amount ? " ([cast_amount]E to cast)" : ""]"
+	if(locked)
+		name = "[initial(name)] ([unlock_amount]SE)"
 	else
-		action.name = "[initial(name)][unlock_amount ? " ([unlock_amount]SE to learn)" : ""]"
-	action.UpdateButtonIcon()
+		name = "[initial(name)] ([cast_amount]E)"
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/can_cast(mob/living/simple_animal/revenant/user = usr)
 	if(charge_counter < charge_max)
 		return FALSE
-	if(!isrevenant(user)) // If you're not a revenant, it works anyway.
+	if(!istype(user)) //Badmins, no. Badmins, don't do it.
 		return TRUE
 	if(user.inhibited)
 		return FALSE
@@ -309,29 +302,26 @@
 	return TRUE
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/proc/attempt_cast(mob/living/simple_animal/revenant/user = usr)
-	// If you're not a revenant, it works anyway.
-	if(!isrevenant(user))
+	if(!istype(user)) //If you're not a revenant, it works. Please, please, please don't give this to a non-revenant.
+		name = "[initial(name)]"
 		if(locked)
-			locked = FALSE
 			panel = "Revenant Abilities"
-			action.name = "[initial(name)]"
-		action.UpdateButtonIcon()
+			locked = FALSE
 		return TRUE
-
-	// actual revenant check
 	if(locked)
 		if (!user.unlock(unlock_amount))
 			charge_counter = charge_max
 			return FALSE
+		name = "[initial(name)] ([cast_amount]E)"
 		to_chat(user, "<span class='revennotice'>You have unlocked [initial(name)]!</span>")
 		panel = "Revenant Abilities"
 		locked = FALSE
 		charge_counter = charge_max
-		update_button_info()
 		return FALSE
 	if(!user.castcheck(-cast_amount))
 		charge_counter = charge_max
 		return FALSE
+	name = "[initial(name)] ([cast_amount]E)"
 	user.reveal(reveal)
 	user.stun(stun)
 	if(action)

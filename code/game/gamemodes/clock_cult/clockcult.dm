@@ -163,7 +163,7 @@ GLOBAL_VAR(clockcult_eminence)
 		return FALSE
 	if(ishuman(M) && (M.mind.assigned_role in list(JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN)))
 		return FALSE
-	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
+	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		return FALSE
 	if(is_servant_of_ratvar(M))
 		return FALSE
@@ -229,15 +229,15 @@ GLOBAL_VAR(clockcult_eminence)
 			if(CLOCKCULT_PREFIX_RECRUIT)
 				var/role = sender.mind?.assigned_role
 				//Ew, this could be done better with a dictionary list, but this isn't much slower
-				if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
+				if(role in GLOB.command_positions)
 					prefix = "High Priest"
-				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING))
+				else if(role in GLOB.engineering_positions)
 					prefix = "Cogturner"
-				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL))
+				else if(role in GLOB.medical_positions)
 					prefix = "Rejuvinator"
-				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE))
+				else if(role in GLOB.science_positions)
 					prefix = "Calculator"
-				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO))
+				else if(role in GLOB.supply_positions)
 					prefix = "Pathfinder"
 				else if(role in JOB_NAME_ASSISTANT)
 					prefix = "Helper"
@@ -245,11 +245,11 @@ GLOBAL_VAR(clockcult_eminence)
 					prefix = "Cogwatcher"
 				else if(role in JOB_NAME_CLOWN)
 					prefix = "Clonker"
-				else if((role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN)))
+				else if((role in GLOB.civilian_positions) || (role in GLOB.gimmick_positions))
 					prefix = "Cogworker"
-				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
+				else if(role in GLOB.security_positions)
 					prefix = "Warrior"
-				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON))
+				else if(role in GLOB.nonhuman_positions)
 					prefix = "CPU"
 			//Fallthrough is default of "Clockbrother"
 		hierophant_message += "<b>[prefix] [sender.name]</b> transmits, \"[msg]\""

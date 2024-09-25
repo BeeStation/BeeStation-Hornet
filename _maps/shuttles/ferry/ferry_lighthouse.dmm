@@ -219,6 +219,14 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/transport)
+"bb" = (
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "garbage";
+	layer = 2.5
+	},
+/turf/open/floor/wood,
+/area/shuttle/transport)
 "bc" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
@@ -407,7 +415,7 @@ au
 au
 aR
 au
-ba
+bb
 bg
 ad
 aa

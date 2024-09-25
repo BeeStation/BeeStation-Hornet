@@ -9,9 +9,9 @@ MOVEMENT_SUBSYSTEM_DEF(ai_movement)
 	///an assoc list of all ai_movement types. Assoc type to instance
 	var/list/movement_types
 
-/datum/controller/subsystem/movement/ai_movement/Initialize()
+/datum/controller/subsystem/movement/ai_movement/Initialize(timeofday)
 	SetupAIMovementInstances()
-	return SS_INIT_SUCCESS
+	return ..()
 
 /datum/controller/subsystem/movement/ai_movement/proc/SetupAIMovementInstances()
 	movement_types = list()

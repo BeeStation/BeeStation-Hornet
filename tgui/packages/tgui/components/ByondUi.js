@@ -32,8 +32,8 @@ const createByondUiElement = (elementId) => {
       Byond.sendMessage('byondui_update', { mounting: true, id: id });
     },
     unmount: () => {
-      logger.log(`hiding '${id}'`);
-      // temporarily hides the element, in case the window wants to re-use it. it will be unmounted during window unload.
+      logger.log(`unmounting '${id}'`);
+      byondUiStack[index] = null;
       Byond.winset(id, {
         'is-visible': 'false',
       });
@@ -42,24 +42,20 @@ const createByondUiElement = (elementId) => {
   };
 };
 
-// This is also called by the backend on suspend.
-export const cleanupByondUIs = () => {
-  // Cleanly unmount all UI elements
+window.addEventListener('beforeunload', () => {
+  // Cleanly unmount all visible UI elements
   for (let index = 0; index < byondUiStack.length; index++) {
     const id = byondUiStack[index];
     if (typeof id === 'string') {
-      logger.log(`unmounting '${id}' (suspend/close/beforeunload)`);
+      logger.log(`unmounting '${id}' (beforeunload)`);
       byondUiStack[index] = null;
       Byond.winset(id, {
-        'parent': '',
+        'is-visible': 'false',
       });
       Byond.sendMessage('byondui_update', { mounting: false, id: id });
     }
   }
-};
-
-window.addEventListener('beforeunload', cleanupByondUIs);
-window.addEventListener('close', cleanupByondUIs);
+});
 
 /**
  * Get the bounding box of the DOM element in display-pixels.

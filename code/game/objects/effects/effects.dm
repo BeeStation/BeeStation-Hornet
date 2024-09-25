@@ -19,7 +19,7 @@
 
 	return ..()
 
-/obj/effect/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/effect/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	return
 
 /obj/effect/fire_act(exposed_temperature, exposed_volume)
@@ -27,6 +27,9 @@
 
 /obj/effect/acid_act()
 	return
+
+/obj/effect/mech_melee_attack(obj/mecha/M)
+	return 0
 
 /obj/effect/blob_act(obj/structure/blob/B)
 	return
@@ -38,11 +41,25 @@
 	return
 
 /obj/effect/ex_act(severity, target)
-	return
+	if(target == src)
+		qdel(src)
+	else
+		switch(severity)
+			if(1)
+				qdel(src)
+			if(2)
+				if(prob(60))
+					qdel(src)
+			if(3)
+				if(prob(25))
+					qdel(src)
 
 /obj/effect/singularity_act()
 	qdel(src)
 	return 0
+
+/obj/effect/abstract/ex_act(severity, target)
+	return
 
 /obj/effect/abstract/singularity_pull()
 	return

@@ -1,86 +1,52 @@
-#define ICON_STATE_CHECKED 1 /// this dmi is checked. We don't check this one anymore.
-#define ICON_STATE_NULL 2 /// this dmi has null-named icon_state, allowing it to show a sprite on vv editor.
-
-/client/proc/debug_variables(datum/thing in world)
+/client/proc/debug_variables(datum/D in world)
 	set category = "Debug"
 	set name = "View Variables"
 	//set src in world
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
-	if(!usr.client || !usr.client.holder) //This is usr because admins can call the proc on other clients, even if they're not admins, to show them VVs.
+	if(!usr.client || !usr.client.holder)		//This is usr because admins can call the proc on other clients, even if they're not admins, to show them VVs.
 		to_chat(usr, "<span class='danger'>You need to be an administrator to access this.</span>")
 		return
 
-	if(!thing)
+	if(!D)
 		return
 
 	var/datum/asset/asset_cache_datum = get_asset_datum(/datum/asset/simple/vv)
 	asset_cache_datum.send(usr)
 
-	var/isappearance = isappearance(thing)
-	var/islist = islist(thing) || (!isdatum(thing) && hascall(thing, "Cut")) // Some special lists dont count as lists, but can be detected by if they have list procs
-	if(!islist && !isdatum(thing) && !isappearance)
+	var/islist = islist(D)
+	if(!islist && !istype(D))
 		return
 
 	var/title = ""
-	var/refid = REF(thing)
+	var/refid = REF(D)
 	var/icon/sprite
 	var/hash
 
-	var/type = islist? /list : (isappearance ? "/appearance" : thing.type)
-	var/no_icon = FALSE
+	var/type = islist? /list : D.type
 
-	if(isatom(thing))
-		sprite = getFlatIcon(thing)
-		if(!sprite)
-			no_icon = TRUE
+	if(istype(D, /atom))
+		sprite = getFlatIcon(D)
+		hash = md5(icon2base64(sprite))
+		if(hash) //Fixes VV shitting it's pants if the icon isn't valid
+			src << browse_rsc(sprite, "vv[hash].png")
 
-	else if(isimage(thing) || isappearance)
-		// icon_state=null shows first image even if dmi has no icon_state for null name.
-		// This list remembers which dmi has null icon_state, to determine if icon_state=null should display a sprite
-		// (NOTE: icon_state="" is correct, but saying null is obvious)
-		var/static/list/dmi_nullstate_checklist = list()
-		var/image/image_object = thing
-		var/icon_filename_text = "[image_object.icon]" // "icon(null)" type can exist. textifying filters it.
-		if(icon_filename_text)
-			if(image_object.icon_state)
-				sprite = icon(image_object.icon, image_object.icon_state)
-
-			else // it means: icon_state=""
-				if(!dmi_nullstate_checklist[icon_filename_text])
-					dmi_nullstate_checklist[icon_filename_text] = ICON_STATE_CHECKED
-					if("" in icon_states(image_object.icon))
-						// this dmi has nullstate. We'll allow "icon_state=null" to show image.
-						dmi_nullstate_checklist[icon_filename_text] = ICON_STATE_NULL
-
-				if(dmi_nullstate_checklist[icon_filename_text] == ICON_STATE_NULL)
-					sprite = icon(image_object.icon, image_object.icon_state)
+	title = "[D] ([REF(D)]) = [type]"
+	var/formatted_type = replacetext("[type]", "/", "<wbr>/")
 
 	var/sprite_text
 	if(sprite)
-		hash = md5(sprite)
-		src << browse_rsc(sprite, "vv[hash].png")
-		sprite_text = no_icon ? "\[NO ICON\]" : "<img src='vv[hash].png'></td><td>"
-
-	title = "[thing] ([REF(thing)]) = [type]"
-	var/formatted_type = replacetext("[type]", "/", "<wbr>/")
-
-	var/list/header = islist ? list("<b>/list</b>") : (isappearance ? vv_get_header_appearance(thing) : thing.vv_get_header())
-
-	var/ref_line = "@[copytext(refid, 2, -1)]" // get rid of the brackets, add a @ prefix for copy pasting in asay
+		sprite_text = "<img src='vv[hash].png'></td><td>"
+	var/list/header = islist(D)? list("<b>/list</b>") : D.vv_get_header()
 
 	var/marked_line
-	if(holder && holder.marked_datum && holder.marked_datum == thing)
+	if(holder && holder.marked_datum && holder.marked_datum == D)
 		marked_line = VV_MSG_MARKED
-	var/tagged_line
-	if(holder && LAZYFIND(holder.tagged_datums, thing))
-		var/tag_index = LAZYFIND(holder.tagged_datums, thing)
-		tagged_line = VV_MSG_TAGGED(tag_index)
 	var/varedited_line
-	if(!islist && (thing.datum_flags & DF_VAR_EDITED))
+	if(!islist && (D.datum_flags & DF_VAR_EDITED))
 		varedited_line = VV_MSG_EDITED
 	var/deleted_line
-	if(!islist && thing.gc_destroyed)
+	if(!islist && D.gc_destroyed)
 		deleted_line = VV_MSG_DELETED
 
 	var/list/dropdownoptions
@@ -99,39 +65,29 @@
 			var/name = dropdownoptions[i]
 			var/link = dropdownoptions[name]
 			dropdownoptions[i] = "<option value[link? "='[link]'":""]>[name]</option>"
-	else if(isappearance)
-		dropdownoptions = vv_get_dropdown_appearance(thing)
 	else
-		dropdownoptions = thing.vv_get_dropdown()
+		dropdownoptions = D.vv_get_dropdown()
 
 	var/list/names = list()
-	if(isappearance)
-		var/static/list/virtual_appearance_vars = build_virtual_appearance_vars()
-		names = virtual_appearance_vars.Copy()
-	else if(!islist)
-		for(var/varname in thing.vars)
-			names += varname
-
-	sleep(1 TICKS)
+	if(!islist)
+		for(var/V in D.vars)
+			names += V
+	sleep(1)
 
 	var/list/variable_html = list()
 	if(islist)
-		var/list/list_value = thing
-		for(var/i in 1 to list_value.len)
-			var/key = list_value[i]
+		var/list/L = D
+		for(var/i in 1 to L.len)
+			var/key = L[i]
 			var/value
-			if(IS_NORMAL_LIST(list_value) && IS_VALID_ASSOC_KEY(key))
-				value = list_value[key]
-			variable_html += debug_variable(i, value, 0, list_value)
-	else if(isappearance)
-		names = sort_list(names)
-		for(var/varname in names)
-			variable_html += debug_variable_appearance(varname, thing)
+			if(IS_NORMAL_LIST(L) && IS_VALID_ASSOC_KEY(key))
+				value = L[key]
+			variable_html += debug_variable(i, value, 0, L)
 	else
 		names = sort_list(names)
-		for(var/varname in names)
-			if(thing.can_vv_get(varname))
-				variable_html += thing.vv_get_var(varname)
+		for(var/V in names)
+			if(D.can_vv_get(V))
+				variable_html += D.vv_get_var(V)
 
 	var/html = {"
 <html>
@@ -158,8 +114,8 @@
 				var ca = document.cookie.split(';');
 				for(var i=0; i<ca.length; i++) {
 					var c = ca\[i];
-					while (c.charAt(0) == ' ') c = c.substring(1,c.length);
-					if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+					while (c.charAt(0)==' ') c = c.substring(1,c.length);
+					if (c.indexOf(name)==0) return c.substring(name.length,c.length);
 				}
 				return "";
 			}
@@ -252,9 +208,7 @@
 						</table>
 						<div align='center'>
 							<b><font size='1'>[formatted_type]</font></b>
-							<br><b><font size='1'>[ref_line]</font></b>
 							<span id='marked'>[marked_line]</span>
-							<span id='tagged'>[tagged_line]</span>
 							<span id='varedited'>[varedited_line]</span>
 							<span id='deleted'>[deleted_line]</span>
 						</div>
@@ -309,8 +263,5 @@ datumrefresh=[refid];[HrefToken()]'>Refresh</a>
 "}
 	src << browse(html, "window=variables[refid];size=475x650")
 
-/client/proc/vv_update_display(datum/thing, span, content)
-	src << output("[span]:[content]", "variables[REF(thing)].browser:replace_span")
-
-#undef ICON_STATE_CHECKED
-#undef ICON_STATE_NULL
+/client/proc/vv_update_display(datum/D, span, content)
+	src << output("[span]:[content]", "variables[REF(D)].browser:replace_span")

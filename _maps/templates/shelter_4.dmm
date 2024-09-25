@@ -27,7 +27,7 @@
 /area/survivalpod)
 "ah" = (
 /obj/item/gps/computer,
-/turf/open/floor/pod/dark,
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/survivalpod)
 "ai" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
@@ -56,15 +56,16 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "ao" = (
+/obj/structure/closet/crate,
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/fans,
+/obj/item/mecha_parts/mecha_equipment/drill,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "ap" = (
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "aq" = (
-/obj/machinery/smartfridge/survival_pod,
+/obj/machinery/vendor/mining,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "ar" = (
@@ -89,7 +90,9 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "aw" = (
-/obj/machinery/stasis/survival_pod,
+/obj/structure/closet/crate,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/stack/sheet/iron/ten,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "ax" = (
@@ -180,8 +183,7 @@
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "aO" = (
-/obj/structure/closet/crate,
-/obj/item/mecha_parts/mecha_equipment/drill,
+/obj/structure/fans,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aP" = (
@@ -285,7 +287,7 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "bi" = (
-/obj/item/clothing/head/costume/kitty/genuine,
+/obj/item/clothing/head/kitty/genuine,
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "bj" = (
@@ -314,19 +316,12 @@
 /area/survivalpod)
 "bo" = (
 /obj/item/rollerbed,
-/obj/structure/closet/crate,
-/obj/item/stack/sheet/iron/ten,
-/obj/item/storage/toolbox/mechanical,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "bp" = (
 /obj/structure/chair{
 	dir = 1
 	},
-/turf/open/floor/pod/light,
-/area/survivalpod)
-"QN" = (
-/obj/machinery/vendor/mining,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 
@@ -414,7 +409,7 @@ ab
 ag
 aP
 aU
-QN
+aU
 bb
 bg
 aZ
@@ -512,8 +507,8 @@ ab
 "}
 (11,1,1) = {"
 aa
-ai
 ah
+ap
 ap
 aA
 aE

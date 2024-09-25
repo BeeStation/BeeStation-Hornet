@@ -1,7 +1,8 @@
 /datum/job/cook
 	title = JOB_NAME_COOK
+	flag = COOK
 	description = "Whip up meals for the crew, get creative and cook different meals, request ingredients from Botany and Cargo. Make sure everyone stays well fed and happy."
-	department_for_prefs = DEPT_NAME_SERVICE
+	department_for_prefs = DEPT_BITFLAG_SRV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
@@ -12,9 +13,10 @@
 
 	outfit = /datum/outfit/job/cook
 
-	base_access = list(ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
-	extra_access = list(ACCESS_HYDROPONICS, ACCESS_BAR)
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
 
+	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
@@ -39,7 +41,7 @@
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chef
 	suit = /obj/item/clothing/suit/toggle/chef
-	head = /obj/item/clothing/head/utility/chefhat
+	head = /obj/item/clothing/head/chefhat
 	mask = /obj/item/clothing/mask/fakemoustache/italian
 	backpack_contents = list(/obj/item/sharpener = 1)
 

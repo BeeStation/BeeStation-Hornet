@@ -58,13 +58,13 @@
 	icon_state = "backseat"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "ao" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
@@ -73,7 +73,7 @@
 	icon_state = "backseat";
 	pixel_y = 15
 	},
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
@@ -99,27 +99,27 @@
 "ax" = (
 /obj/structure/fluff/bus/passable,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "ay" = (
 /obj/structure/fluff/bus/passable,
 /obj/item/storage/firstaid/regular,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "az" = (
 /obj/structure/fluff/bus/passable,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "aB" = (
 /obj/structure/fluff/bus/passable,
 /obj/effect/mine/sound/bwoink,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
@@ -127,7 +127,7 @@
 /obj/structure/fluff/bus/passable,
 /obj/item/reagent_containers/food/condiment/saltshaker,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
@@ -136,7 +136,7 @@
 	icon_state = "topdoor"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
@@ -184,7 +184,8 @@
 /area/ruin/unpowered/no_grav)
 "aM" = (
 /obj/structure/fluff/bus/passable{
-	icon_state = "bottomdoor"
+	icon_state = "bottomdoor";
+	layer = 3
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
@@ -221,7 +222,7 @@
 	icon_state = "backseat"
 	},
 /obj/effect/decal/remains/human,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
@@ -231,7 +232,7 @@
 	pixel_y = 17
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
@@ -247,7 +248,7 @@
 "ba" = (
 /obj/structure/fluff/bus/passable,
 /obj/item/banhammer,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
@@ -261,14 +262,14 @@
 	},
 /obj/item/food/meatball,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "dJ" = (
 /obj/structure/fluff/bus/passable,
 /obj/item/food/meatball,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
@@ -277,7 +278,7 @@
 	icon_state = "backseat"
 	},
 /obj/item/food/grown/cherry_bomb,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
@@ -287,7 +288,7 @@
 /obj/item/food/meatball,
 /obj/item/food/meatball,
 /obj/item/food/meatball,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
@@ -296,7 +297,7 @@
 	icon_state = "backseat"
 	},
 /obj/item/food/meatball,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
@@ -304,7 +305,7 @@
 /obj/structure/fluff/bus/passable,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/food/meatball,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
@@ -314,7 +315,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/food/meatball,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
@@ -329,7 +330,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/food/grown/citrus/orange,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
@@ -339,7 +340,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/toy/plush/awakenedplushie,
-/turf/open/floor/iron/dark/airless{
+/turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)

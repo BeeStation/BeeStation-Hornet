@@ -162,3 +162,4 @@
 		obscuredTurfs[obscured_turf] = new_static
 
 #undef UPDATE_BUFFER_TIME
+#undef CHUNK_SIZE

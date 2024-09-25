@@ -20,10 +20,8 @@
 	owner.ranged_cooldown_time = 17.5 / master_stats.speed
 	owner.melee_damage = 6 + round((master_stats.damage - 1) * 0.8) // barely stronger than a normal human punch
 	owner.obj_damage = 6 + round((master_stats.damage - 1) * 0.8)
-	owner.response_harm_continuous = "weakly punches"
-	owner.response_harm_simple = "weakly punch"
-	owner.attack_verb_continuous = "weakly punches"
-	owner.attack_verb_simple = "weakly punch"
+	owner.response_harm = "weakly punches"
+	owner.attacktext = "weakly punches"
 
 /datum/holoparasite_ability/weapon/ranged/remove()
 	. = ..()
@@ -31,7 +29,5 @@
 	owner.ranged_cooldown_time = initial(owner.ranged_cooldown_time)
 	owner.melee_damage = initial(owner.melee_damage)
 	owner.obj_damage = initial(owner.obj_damage)
-	owner.response_harm_continuous = initial(owner.response_harm_continuous)
-	owner.response_harm_simple = initial(owner.response_harm_simple)
-	owner.attack_verb_continuous = initial(owner.attack_verb_continuous)
-	owner.attack_verb_simple = initial(owner.attack_verb_simple)
+	owner.response_harm = initial(owner.response_harm)
+	owner.attacktext = initial(owner.attacktext)

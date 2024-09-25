@@ -9,11 +9,11 @@
 	var/list/values = list()
 
 	for (var/style in GLOB.available_ui_styles)
-		var/icons = GLOB.available_ui_styles[style]
+		var/icon/icons = GLOB.available_ui_styles[style]
 
-		var/datum/universal_icon/icon = uni_icon(icons, "hand_l")
-		icon.crop(1 - world.icon_size, 1, world.icon_size, world.icon_size)
-		icon.blend_icon(uni_icon(icons, "hand_r"), ICON_OVERLAY)
+		var/icon/icon = icon(icons, "hand_r")
+		icon.Crop(1, 1, world.icon_size * 2, world.icon_size)
+		icon.Blend(icon(icons, "hand_l"), ICON_OVERLAY, world.icon_size)
 
 		values[style] = icon
 

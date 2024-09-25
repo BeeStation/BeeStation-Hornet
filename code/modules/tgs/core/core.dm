@@ -1,4 +1,4 @@
-/world/TgsNew(datum/tgs_event_handler/event_handler, minimum_required_security_level = TGS_SECURITY_ULTRASAFE, datum/tgs_http_handler/http_handler = null)
+/world/TgsNew(datum/tgs_event_handler/event_handler, minimum_required_security_level = TGS_SECURITY_ULTRASAFE)
 	var/current_api = TGS_READ_GLOBAL(tgs)
 	if(current_api)
 		TGS_ERROR_LOG("API datum already set (\ref[current_api] ([current_api]))! Was TgsNew() called more than once?")
@@ -55,10 +55,7 @@
 		TGS_ERROR_LOG("Invalid parameter for event_handler: [event_handler]")
 		event_handler = null
 
-	if(!http_handler)
-		http_handler = new /datum/tgs_http_handler/byond_world_export
-
-	var/datum/tgs_api/new_api = new api_datum(event_handler, version, http_handler)
+	var/datum/tgs_api/new_api = new api_datum(event_handler, version)
 
 	TGS_WRITE_GLOBAL(tgs, new_api)
 
@@ -169,11 +166,3 @@
 	var/datum/tgs_api/api = TGS_READ_GLOBAL(tgs)
 	if(api)
 		return api.Visibility()
-
-/world/TgsTriggerEvent(event_name, list/parameters, wait_for_completion = FALSE)
-	var/datum/tgs_api/api = TGS_READ_GLOBAL(tgs)
-	if(api)
-		if(!istype(parameters, /list))
-			parameters = list()
-
-		return api.TriggerEvent(event_name, parameters, wait_for_completion)

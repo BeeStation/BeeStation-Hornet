@@ -17,7 +17,7 @@
 	dir = 8;
 	pixel_x = 27
 	},
-/obj/item/plate,
+/obj/item/trash/plate,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (

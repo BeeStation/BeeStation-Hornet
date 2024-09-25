@@ -12,10 +12,20 @@
 
 /datum/quirk/apathetic
 	name = "Apathetic"
-	desc = "You are used to the awful things that happen here, bad events affect your mood less."
+	desc = "You just don't care as much as other people. That's nice to have in a place like this, I guess."
 	icon = "meh"
 	value = 1
 	mood_quirk = TRUE
+
+/datum/quirk/apathetic/add()
+	var/datum/component/mood/mood = quirk_target.GetComponent(/datum/component/mood)
+	if(mood)
+		mood.mood_modifier -= 0.2
+
+/datum/quirk/apathetic/remove()
+	var/datum/component/mood/mood = quirk_target.GetComponent(/datum/component/mood)
+	if(mood)
+		mood.mood_modifier += 0.2
 
 /datum/quirk/drunkhealing
 	name = "Drunken Resilience"
@@ -70,7 +80,7 @@
 
 /datum/quirk/light_step
 	name = "Light Step"
-	desc = "You walk with a gentle step; stepping on sharp objects is quieter, less painful and you won't leave footprints behind you. Also, your hands and clothes will not get messed in case of stepping in blood."
+	desc = "You walk with a gentle step; stepping on sharp objects is quieter, less painful and you won't leave footprints behind you."
 	icon = "shoe-prints"
 	value = 1
 	mob_trait = TRAIT_LIGHT_STEP

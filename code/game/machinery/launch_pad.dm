@@ -59,7 +59,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/launchpad)
 DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	if (stationary && panel_open && TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You save the data in the [buffer_parent.name]'s buffer.</span>")
-		return COMPONENT_BUFFER_RECEIVED
+		return COMPONENT_BUFFER_RECIEVED
 	return NONE
 
 /obj/machinery/launchpad/attackby(obj/item/I, mob/user, params)
@@ -230,14 +230,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	var/closed = TRUE
 	var/obj/item/storage/briefcase/launchpad/briefcase
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
-
 /obj/machinery/launchpad/briefcase/Initialize(mapload, briefcase)
-	. = ..()
-	if(!briefcase)
-		log_game("[src] has been spawned without a briefcase.")
-		return INITIALIZE_HINT_QDEL
-	src.briefcase = briefcase
+    . = ..()
+    if(!briefcase)
+        log_game("[src] has been spawned without a briefcase.")
+        return INITIALIZE_HINT_QDEL
+    src.briefcase = briefcase
 
 /obj/machinery/launchpad/briefcase/Destroy()
 	if(!QDELETED(briefcase))
@@ -335,8 +333,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
 	var/sending = TRUE
 	//A weakref to our linked pad
 	var/datum/weakref/pad
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/item/launchpad_remote)
 
 /obj/item/launchpad_remote/Initialize(mapload, pad) //remote spawns linked to the briefcase pad
 	. = ..()

@@ -29,8 +29,6 @@
 
 
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/acclimator)
-
 /obj/machinery/plumbing/acclimator/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/acclimator, bolt)

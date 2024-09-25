@@ -19,14 +19,8 @@
 	spacewalk = TRUE
 	mob_size = MOB_SIZE_LARGE
 	held_items = list(null, null)
-	bodyparts = list(
-		/obj/item/bodypart/chest/devil,
-		/obj/item/bodypart/head/devil,
-		/obj/item/bodypart/l_arm/devil,
-		/obj/item/bodypart/r_arm/devil,
-		/obj/item/bodypart/r_leg/devil,
-		/obj/item/bodypart/l_leg/devil
-	)
+	bodyparts = list(/obj/item/bodypart/chest/devil, /obj/item/bodypart/head/devil, /obj/item/bodypart/l_arm/devil,
+					 /obj/item/bodypart/r_arm/devil, /obj/item/bodypart/r_leg/devil, /obj/item/bodypart/l_leg/devil)
 	hud_type = /datum/hud/devil
 	var/ascended = FALSE
 	var/mob/living/oldform
@@ -58,9 +52,7 @@
 	real_name = name
 
 /mob/living/carbon/true_devil/Login()
-	. = ..()
-	if(!. || !client)
-		return FALSE
+	..()
 	var/datum/antagonist/devil/devilinfo = mind.has_antag_datum(/datum/antagonist/devil)
 	devilinfo.greet()
 	mind.announce_objectives()
@@ -130,8 +122,8 @@
 	var/weakness = check_weakness(I, user)
 	apply_damage(I.force * weakness, I.damtype, def_zone)
 	var/message_verb = ""
-	if(length(I.attack_verb_continuous))
-		message_verb = "[pick(I.attack_verb_continuous)]"
+	if(I.attack_verb?.len)
+		message_verb = "[pick(I.attack_verb)]"
 	else if(I.force)
 		message_verb = "attacked"
 
@@ -177,14 +169,14 @@
 				visible_message("<span class='danger'>[M] punches [src]!</span>", \
 						"<span class='userdanger'>[M] punches you!</span>")
 				adjustBruteLoss(damage)
-				log_combat(M, src, "attacked", M)
+				log_combat(M, src, "attacked")
 				updatehealth()
 			if ("disarm")
-				if (body_position == LYING_DOWN && !ascended) //No stealing the arch devil's pitchfork.
+				if (!(mobility_flags & MOBILITY_STAND) && !ascended) //No stealing the arch devil's pitchfork.
 					if (prob(5))
 						Unconscious(40)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-						log_combat(M, src, "pushed", M)
+						log_combat(M, src, "pushed")
 						visible_message("<span class='danger'>[M] pushes [src] down!</span>", \
 							"<span class='userdanger'>[M] pushes you down!</span>")
 					else

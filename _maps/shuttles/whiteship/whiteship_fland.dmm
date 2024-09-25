@@ -101,7 +101,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/freezer,
+/turf/open/floor/plasteel/freezer,
 /area/shuttle/abandoned)
 "eJ" = (
 /obj/effect/turf_decal/stripes/full,
@@ -123,8 +123,7 @@
 	pixel_y = 6
 	},
 /obj/machinery/airalarm/all_access{
-	pixel_y = 22;
-	dir = 1
+	pixel_y = 22
 	},
 /obj/item/storage/backpack/duffelbag/med/surgery{
 	pixel_y = 4
@@ -211,7 +210,7 @@
 	pixel_y = 15
 	},
 /obj/structure/curtain,
-/turf/open/floor/iron/freezer,
+/turf/open/floor/plasteel/freezer,
 /area/shuttle/abandoned)
 "jb" = (
 /obj/effect/decal/cleanable/dirt,
@@ -227,7 +226,7 @@
 /area/shuttle/abandoned)
 "jR" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Power Unit"
+	name = "Power unit"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt,
@@ -292,7 +291,7 @@
 /area/shuttle/abandoned)
 "nN" = (
 /obj/machinery/smartfridge,
-/turf/open/floor/wood,
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "nT" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -689,7 +688,7 @@
 	},
 /obj/item/soap/homemade,
 /obj/machinery/light/small/built,
-/turf/open/floor/iron/freezer,
+/turf/open/floor/plasteel/freezer,
 /area/shuttle/abandoned)
 "QS" = (
 /obj/machinery/atmospherics/pipe/simple/dark/hidden,
@@ -698,7 +697,7 @@
 "Ri" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = 22
 	},
 /obj/machinery/atmospherics/pipe/manifold/dark/hidden{
@@ -777,8 +776,7 @@
 /area/shuttle/abandoned)
 "Us" = (
 /obj/machinery/airalarm/all_access{
-	pixel_y = 22;
-	dir = 1
+	pixel_y = 22
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 4

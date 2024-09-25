@@ -1,3 +1,4 @@
+#define MAX_TIMER 10 HOURS //Permabrig.
 #define PRESET_SHORT 5 MINUTES
 #define PRESET_MEDIUM 10 MINUTES
 #define PRESET_LONG 15 MINUTES
@@ -225,7 +226,7 @@ Do not modify this unless you know what you're doing. */
 
 /datum/crime/capital
 	category = CRIME_CAPITAL
-	sentence = SENTENCE_MAX_TIMER
+	sentence = MAX_TIMER
 	colour = "grey"
 
 /datum/crime/capital/murder
@@ -271,8 +272,3 @@ Do not modify this unless you know what you're doing. */
 #undef PRESET_SHORT
 #undef PRESET_MEDIUM
 #undef PRESET_LONG
-
-#undef CRIME_MINOR
-#undef CRIME_MISDEMEANOUR
-#undef CRIME_MAJOR
-#undef CRIME_CAPITAL

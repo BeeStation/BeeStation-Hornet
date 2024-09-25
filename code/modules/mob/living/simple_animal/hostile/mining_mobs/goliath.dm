@@ -13,8 +13,7 @@
 	move_to_delay = 2 SECONDS
 	ranged = 1
 	ranged_cooldown_time = 80
-	friendly_verb_continuous = "wails at"
-	friendly_verb_simple = "wail at"
+	friendly = "wails at"
 	speak_emote = list("bellows")
 	vision_range = 4
 	speed = 3
@@ -22,8 +21,7 @@
 	health = 150
 	obj_damage = 100
 	melee_damage = 25
-	attack_verb_continuous = "pulverizes"
-	attack_verb_simple = "pulverize"
+	attacktext = "pulverizes"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	vision_range = 5
@@ -35,7 +33,7 @@
 	var/pre_attack_icon = "Goliath_preattack"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 
-	footstep_type = FOOTSTEP_MOB_HEAVY
+	do_footstep = TRUE
 	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
@@ -51,7 +49,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/revive(full_heal = 0, admin_revive = 0)
 	if(..())
-		set_anchored(TRUE)
+		anchored = TRUE
 		. = 1
 
 /mob/living/simple_animal/hostile/asteroid/goliath/death(gibbed)
@@ -97,7 +95,7 @@
 	butcher_results = list(/obj/item/food/meat/slab/goliath = 2, /obj/item/stack/sheet/bone = 2)
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/goliath_hide = 1)
 	loot = list()
-	stat_attack = HARD_CRIT
+	stat_attack = UNCONSCIOUS
 	robust_searching = 1
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize(mapload)
@@ -156,8 +154,6 @@
 	layer = BELOW_MOB_LAYER
 	var/mob/living/spawner
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/goliath_tentacle)
-
 /obj/effect/temp_visual/goliath_tentacle/Initialize(mapload, mob/living/new_spawner)
 	. = ..()
 	for(var/obj/effect/temp_visual/goliath_tentacle/T in loc)
@@ -170,8 +166,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/goliath_tentacle)
 		M.gets_drilled()
 	deltimer(timerid)
 	timerid = addtimer(CALLBACK(src, PROC_REF(tripanim)), 7, TIMER_STOPPABLE)
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/goliath_tentacle/original)
 
 /obj/effect/temp_visual/goliath_tentacle/original/Initialize(mapload, new_spawner)
 	. = ..()
@@ -206,4 +200,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/goliath_tentacle/original)
 /obj/effect/temp_visual/goliath_tentacle/proc/retract()
 	icon_state = "Goliath_tentacle_retract"
 	deltimer(timerid)
-	timerid = QDEL_IN_STOPPABLE(src, 7)
+	timerid = QDEL_IN(src, 7)

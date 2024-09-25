@@ -26,7 +26,7 @@ export const CentcomPodLauncher = (props, context) => {
       theme="admin"
       title={compact ? 'Use against Helen Weinstein' : 'Supply Pod Menu (Use against Helen Weinstein)'}
       overflow="hidden"
-      width={compact ? 435 : 730}
+      width={compact ? 435 : 690}
       height={compact ? 360 : 440}>
       <CentcomPodLauncherContent />
     </Window>
@@ -135,11 +135,6 @@ const REVERSE_OPTIONS = [
   {
     title: 'Walls',
     icon: 'square',
-  },
-  {
-    title: 'Mechs',
-    key: 'Mecha',
-    icon: 'truck',
   },
 ];
 
@@ -716,7 +711,7 @@ const ReverseMenu = (props, context) => {
                 inline
                 icon={option.icon}
                 disabled={!data.effectReverse}
-                selected={option.key ? data.reverse_option_list[option.key] : data.reverse_option_list[option.title]}
+                selected={option.key ? data.reverseOptionList[option.key] : data.reverseOptionList[option.title]}
                 tooltip={option.title}
                 onClick={() =>
                   act('reverseOption', {

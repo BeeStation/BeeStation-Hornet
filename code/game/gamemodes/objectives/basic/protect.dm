@@ -1,5 +1,6 @@
 /datum/objective/protect//The opposite of killing a dude.
 	name = "protect"
+	martyr_compatible = 1
 	var/target_role_type = FALSE
 	var/human_check = TRUE
 

@@ -1,26 +1,16 @@
 #!/bin/bash
 set -euo pipefail
-
-MAP=$1
-
-echo Testing $MAP
+EXIT_CODE=0
 
 tools/deploy.sh ci_test
-mkdir -p ci_test/config
-mkdir -p ci_test/data
+mkdir ci_test/config
 
 #test config
 cp tools/ci/ci_config.txt ci_test/config/config.txt
 
-#set the map
-cp _maps/$MAP.json ci_test/data/next_map.json
-
 cd ci_test
-DreamDaemon beestation.dmb -close -trusted -verbose -params "log-directory=ci"
+ln -s $HOME/libmariadb/libmariadb.so libmariadb.so
+DreamDaemon beestation.dmb -close -trusted -verbose -params "log-directory=ci" || EXIT_CODE=$?
 
 cd ..
-
-mkdir -p data/screenshots_new
-[ -d "ci_test/data/screenshots_new" ] && cp -r ci_test/data/screenshots_new data/screenshots_new
-
 cat ci_test/data/logs/ci/clean_run.lk

@@ -4,8 +4,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "suspiciousphone"
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb_continuous = list("dumps")
-	attack_verb_simple = list("dump")
+	attack_verb = list("dumped")
 	var/activated = FALSE
 
 /obj/item/suspiciousphone/attack_self(mob/user)
@@ -34,12 +33,11 @@
 	icon = 'icons/obj/money_machine.dmi'
 	icon_state = "bogdanoff"
 	layer = TABLE_LAYER //So that the crate inside doesn't appear underneath
-	armor = list(MELEE = 30,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0, BLEED = 0)
+	armor = list(MELEE = 30,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0)
 	density = TRUE
 	pixel_z = -8
 	layer = LARGE_MOB_LAYER
 	max_integrity = 600
-	max_hit_damage = 30
 	/// when this gets at this hp, it will run away! oh no!
 	var/next_health_to_teleport
 	var/mob/living/carbon/human/bogdanoff
@@ -50,8 +48,6 @@
 	/// the less player you have, the less crab-17 will toxic. maximum at 20 pop
 	var/player_modifier = 1
 
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 
 /obj/structure/checkoutmachine/Initialize(mapload, mob/living/user)
 	bogdanoff = user
@@ -252,7 +248,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 /obj/effect/dumpeetTarget
 	name = "Landing Zone Indicator"
 	desc = "A holographic projection designating the landing zone of something. It's probably best to stand back."
-	icon = 'icons/hud/actions/actions_items.dmi'
+	icon = 'icons/mob/actions/actions_items.dmi'
 	icon_state = "sniper_zoom"
 	layer = PROJECTILE_HIT_THRESHOLD_LAYER
 	light_range = 2
@@ -260,7 +256,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 	var/obj/structure/checkoutmachine/dump
 	var/mob/living/carbon/human/bogdanoff
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/dumpeetTarget)
+/obj/effect/ex_act()
+	return
 
 /obj/effect/dumpeetTarget/Initialize(mapload, user)
 	. = ..()

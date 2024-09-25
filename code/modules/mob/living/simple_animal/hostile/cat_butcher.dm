@@ -14,14 +14,16 @@
 	ranged_cooldown_time = 30
 	speak_chance = 0
 	turns_per_move = 5
+	response_help = "pokes"
+	response_disarm = "shoves"
+	response_harm = "hits"
 	speed = 0
-	stat_attack = HARD_CRIT
+	stat_attack = UNCONSCIOUS
 	robust_searching = 1
 	maxHealth = 100
 	health = 100
 	melee_damage = 15
-	attack_verb_continuous = "slashes at"
-	attack_verb_simple = "slash at"
+	attacktext = "slashes at"
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	a_intent = INTENT_HARM
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
@@ -82,11 +84,11 @@
 	L.reagents.remove_reagent(/datum/reagent/toxin/chloralhydrate, 100)
 	if(L.blood_volume <= 500) //bandage them up and give em some blood if they're bleeding
 		L.blood_volume += 30
-		L.suppress_bloodloss(BLEED_DEEP_WOUND)
+		L.suppress_bloodloss(1800)
 	if(L.getBruteLoss() >= 50)
 		var/healing = min(L.getBruteLoss(), 120)
 		L.adjustBruteLoss(-healing)
-		L.suppress_bloodloss(BLEED_DEEP_WOUND)//bandage their ass
+		L.suppress_bloodloss(1800)//bandage their ass
 	FindTarget()
 
 /mob/living/simple_animal/hostile/cat_butcherer/proc/newvictim(var/mob/living/carbon/human/L)

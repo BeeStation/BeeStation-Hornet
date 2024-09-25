@@ -7,9 +7,10 @@
 	drag_slowdown = 1.5		// Same as a prone mob
 	max_integrity = 200
 	integrity_failure = 0.25
-	armor = list(MELEE = 20,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60, STAMINA = 0, BLEED = 0)
+	armor = list(MELEE = 20,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60, STAMINA = 0)
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	pass_flags_self = LETPASSCLICKS | PASSSTRUCTURE
+
 	var/contents_initialised = FALSE
 	var/enable_door_overlay = TRUE
 	var/has_opened_overlay = TRUE
@@ -19,7 +20,6 @@
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
-	var/divable = TRUE //controls whether someone with skittish trait can enter the closet with CtrlShiftClick
 	var/large = TRUE
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/breakout_time = 1200
@@ -121,8 +121,14 @@
 
 	//Overlay is similar enough for both that we can use the same mask for both
 	. += emissive_appearance(icon, icon_locked, src.layer)
-	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	. += locked ? icon_locked : icon_unlocked
+
+/obj/structure/closet/update_appearance(updates=ALL)
+	. = ..()
+	if((opened || broken || !secure) || !imacrate)
+		luminosity = 0
+		return
+	luminosity = 1
 
 /obj/structure/closet/proc/animate_door(var/closing = FALSE)
 	if(!door_anim_time)
@@ -174,7 +180,7 @@
 		. += "<span class='notice'>Alt-click to [locked ? "unlock" : "lock"].</span>"
 	if(isliving(user))
 		var/mob/living/L = user
-		if(divable && HAS_TRAIT(L, TRAIT_SKITTISH))
+		if(HAS_TRAIT(L, TRAIT_SKITTISH))
 			. += "<span class='notice'>Ctrl-Shift-click [src] to jump inside.</span>"
 
 /obj/structure/closet/CanAllowThrough(atom/movable/mover, border_dir)
@@ -315,7 +321,6 @@
 	qdel(src)
 
 /obj/structure/closet/obj_break(damage_flag)
-	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		bust_open()
 
@@ -368,7 +373,7 @@
 	else if(W.tool_behaviour == TOOL_WRENCH && anchorable)
 		if(isinspace() && !anchored)
 			return
-		set_anchored(!anchored)
+		setAnchored(!anchored)
 		W.play_tool_sound(src, 75)
 		user.visible_message("<span class='notice'>[user] [anchored ? "anchored" : "unanchored"] \the [src] [anchored ? "to" : "from"] the ground.</span>", \
 						"<span class='notice'>You [anchored ? "anchored" : "unanchored"] \the [src] [anchored ? "to" : "from"] the ground.</span>", \
@@ -388,7 +393,7 @@
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user)
 	if(!istype(O) || O.anchored || istype(O, /atom/movable/screen))
 		return
-	if(!istype(user) || user.incapacitated() || user.body_position == LYING_DOWN)
+	if(!istype(user) || user.incapacitated() || !(user.mobility_flags & MOBILITY_STAND))
 		return
 	if(!Adjacent(user) || !user.Adjacent(O))
 		return
@@ -426,8 +431,8 @@
 		O.forceMove(T)
 	return TRUE
 
-/obj/structure/closet/relaymove(mob/living/user, direction)
-	if(user.stat || !isturf(loc))
+/obj/structure/closet/relaymove(mob/user)
+	if(user.stat || !isturf(loc) || !isliving(user))
 		return
 	if(locked)
 		if(message_cooldown <= world.time)
@@ -440,12 +445,11 @@
 	. = ..()
 	if(.)
 		return
-	if(user.body_position == LYING_DOWN && get_dist(src, user) > 0)
+	if(!(user.mobility_flags & MOBILITY_STAND) && get_dist(src, user) > 0)
 		return
 
 	if(!toggle(user))
 		togglelock(user)
-
 
 /obj/structure/closet/attack_paw(mob/user)
 	return attack_hand(user)
@@ -456,8 +460,7 @@
 
 // tk grab then use on self
 /obj/structure/closet/attack_self_tk(mob/user)
-	if(attack_hand(user))
-		return COMPONENT_CANCEL_ATTACK_CHAIN
+	return attack_hand(user)
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in view(1)
@@ -526,7 +529,7 @@
 		togglelock(user)
 
 /obj/structure/closet/CtrlShiftClick(mob/living/user)
-	if(!(divable && HAS_TRAIT(user, TRAIT_SKITTISH)))
+	if(!HAS_TRAIT(user, TRAIT_SKITTISH))
 		return ..()
 	if(!user.canUseTopic(src, BE_CLOSE) || !isturf(user.loc))
 		return

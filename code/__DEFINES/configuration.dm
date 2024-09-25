@@ -59,10 +59,3 @@
 // Defib stats
 /// The time (in deciseconds) in which a fresh body can be defibbed
 #define DEFIB_TIME_LIMIT 900
-
-#define VALUE_MODE_NUM 0
-#define VALUE_MODE_TEXT 1
-#define VALUE_MODE_FLAG 2
-
-#define KEY_MODE_TEXT 0
-#define KEY_MODE_TYPE 1

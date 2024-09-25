@@ -3,7 +3,7 @@
 	name = "ratvar's light"
 	icon = 'icons/effects/clockwork_effects.dmi'
 	duration = 8
-	randomdir = FALSE
+	randomdir = 0
 	layer = ABOVE_NORMAL_TURF_LAYER
 
 /obj/effect/temp_visual/ratvar/door
@@ -109,8 +109,6 @@
 	pixel_x = -16
 	duration = 30
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/ratvar/prolonging_prism)
-
 /obj/effect/temp_visual/ratvar/prolonging_prism/Initialize(mapload, set_appearance)
 	. = ..()
 	if(set_appearance)
@@ -125,10 +123,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/ratvar/prolonging_prism)
 	pixel_x = -16
 
 /obj/effect/temp_visual/ratvar/geis_binding
-	icon_state = "ratvargearglow"
+	icon_state = "geisbinding"
 
 /obj/effect/temp_visual/ratvar/geis_binding/top
-	icon_state = "ratvargearglow"
+	icon_state = "geisbinding_top"
 
 /obj/effect/temp_visual/ratvar/component
 	icon = 'icons/obj/clockwork_objects.dmi'
@@ -160,8 +158,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/ratvar/prolonging_prism)
 	desc = "Steam! It's hot. It also serves as a game distribution platform."
 	icon_state = "smoke"
 	duration = 15
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/steam)
 
 /obj/effect/temp_visual/steam/Initialize(mapload, steam_direction)
 	. = ..()

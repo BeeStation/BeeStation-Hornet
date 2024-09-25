@@ -1,5 +1,4 @@
 #include "core\_definitions.dm"
-#include "core\byond_world_export.dm"
 #include "core\core.dm"
 #include "core\datum.dm"
 #include "core\tgs_version.dm"

@@ -10,6 +10,7 @@
 	desc = "A thruster for shuttles."
 	density = TRUE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
+	obj_integrity = 250
 	max_integrity = 250
 	icon = 'icons/turf/shuttle.dmi'
 	icon_state = "burst_plasma"
@@ -137,6 +138,3 @@
 	if(default_deconstruction_crowbar(I))
 		return
 	return ..()
-
-#undef ENGINE_HEAT_TARGET
-#undef ENGINE_HEATING_POWER

@@ -3,13 +3,15 @@
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 "b" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	layer = 2.9
+	},
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 "c" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable,
-/turf/open/floor/iron/solarpanel/airless,
+/turf/open/floor/plasteel/airless/solarpanel,
 /area/tdome/arena)
 "d" = (
 /obj/item/stack/rods,
@@ -21,26 +23,35 @@
 	name = "Port Solar Array"
 	},
 /obj/structure/cable,
-/turf/open/floor/iron/solarpanel/airless,
+/turf/open/floor/plasteel/airless/solarpanel,
 /area/tdome/arena)
 "f" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	layer = 2.9
+	},
 /obj/structure/cable{
+	layer = 3;
 	level = 2
 	},
 /obj/item/screwdriver,
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 "g" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	layer = 2.9
+	},
 /obj/structure/cable{
+	layer = 3;
 	level = 2
 	},
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 "h" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	layer = 2.9
+	},
 /obj/structure/cable{
+	layer = 3;
 	level = 2
 	},
 /obj/item/clothing/suit/space/fragile{
@@ -53,8 +64,11 @@
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 "i" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	layer = 2.9
+	},
 /obj/structure/cable{
+	layer = 3;
 	level = 2
 	},
 /obj/item/stack/cable_coil,
@@ -65,8 +79,11 @@
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 "k" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	layer = 2.9
+	},
 /obj/structure/cable{
+	layer = 3;
 	level = 2
 	},
 /obj/item/wrench,

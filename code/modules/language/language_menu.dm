@@ -18,27 +18,6 @@
 		ui = new(user, src, "LanguageMenu")
 		ui.open()
 
-/datum/language_menu/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet_batched/chat)
-	)
-
-/datum/language_menu/ui_static_data(mob/user)
-	var/list/data = list()
-
-	data["language_static_data"] = list()
-	for(var/lang in GLOB.all_languages)
-		var/datum/language/language = lang
-		var/list/L = list()
-
-		L["name"] = initial(language.name)
-		L["desc"] = initial(language.desc)
-		L["key"] = initial(language.key)
-		L["icon_state"] = initial(language.icon_state)
-
-		data["language_static_data"][initial(language.name)] = L
-	return data
-
 /datum/language_menu/ui_data(mob/user)
 	var/list/data = list()
 
@@ -49,7 +28,7 @@
 	else
 		data["is_living"] = FALSE
 
-	data["known_languages"] = list()
+	data["languages"] = list()
 	for(var/lang in GLOB.all_languages)
 		var/result = language_holder.has_language(lang) || language_holder.has_language(lang, TRUE)
 		if(!result)
@@ -58,6 +37,8 @@
 		var/list/L = list()
 
 		L["name"] = initial(language.name)
+		L["desc"] = initial(language.desc)
+		L["key"] = initial(language.key)
 		L["is_default"] = (language == language_holder.selected_language)
 		if(AM)
 			L["can_speak"] = AM.can_speak_language(language)
@@ -67,7 +48,7 @@
 			if(!(is_admin || HAS_TRAIT(user, TRAIT_METALANGUAGE_KEY_ALLOWED)))
 				continue
 
-		data["known_languages"] += list(L)
+		data["languages"] += list(L)
 
 	if(is_admin || isobserver(AM))
 		data["admin_mode"] = TRUE
@@ -81,6 +62,8 @@
 			var/list/L = list()
 
 			L["name"] = initial(language.name)
+			L["desc"] = initial(language.desc)
+			L["key"] = initial(language.key)
 
 			data["unknown_languages"] += list(L)
 	else
@@ -132,12 +115,6 @@
 					if("Both")
 						spoken = TRUE
 						understood = TRUE
-				if(language_holder.blocked_languages.Find(language_datum))
-					var/blocked_language_choice = alert(user,"The [language_name] language is in this mob's list of blocked languages. Do you wish to remove it so you may give the mob the [language_name] language?","[language_datum]", "Yes", "No")
-					if(blocked_language_choice == "Yes")
-						language_holder.remove_blocked_language(language_datum)
-						message_admins("[key_name_admin(user)] removed the [language_name] language from [key_name_admin(AM)]'s blocked languages list.")
-						log_admin("[key_name(user)] removed the language [language_name] from [key_name(AM)]'s blocked languages list.")
 				language_holder.grant_language(language_datum, understood, spoken)
 				if(spoken && language_datum == /datum/language/metalanguage)
 					var/yes = alert(user, "You have added speakable Metalanguage. Do you wish to give them a trait that they can use language key(,`) to say that? Otherwise, they'll have no way to say that, or, instead, you should set their default language to metalanguage.", "Give Metalangauge trait?", "Yes", "No")

@@ -1,15 +1,10 @@
 /obj/item/clothing/head/soft
 	name = "white cap"
 	desc = "It's a baseball hat in a tasteless white colour."
-	icon = 'icons/obj/clothing/head/hats.dmi'
-	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 	icon_state = "mimesoft"
-	dying_key = DYE_REGISTRY_CAP
 
 	///Is the hat flipped?
 	var/flipped = FALSE
-	///Is the hat flippable?
-	var/flippable = TRUE
 	///The color of the hat. Another knockoff item_color. Nice. Make this into GAGS sprites at some point, please.
 	var/soft_color = "mime"
 
@@ -20,7 +15,7 @@
 		flip(user)
 
 /obj/item/clothing/head/soft/proc/flip(mob/user)
-	if(!user.incapacitated() && flippable == TRUE)
+	if(!user.incapacitated())
 		flipped = !flipped
 		if(flipped)
 			icon_state = "[soft_color]soft_flipped"
@@ -100,7 +95,7 @@
 	desc = "It's a robust baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	soft_color = "sec"
-	armor = list(MELEE = 30,  BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 30, BLEED = 10)
+	armor = list(MELEE = 30,  BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 30)
 	strip_delay = 60
 
 /obj/item/clothing/head/soft/sec/brig_physician
@@ -109,11 +104,10 @@
 	soft_color = "secmed"
 
 /obj/item/clothing/head/soft/paramedic
-	name = "paramedic cap"
+	name = "EMT cap"
 	desc = "It's a baseball hat with a dark turquoise color and a reflective cross on the top."
-	icon_state = "paramedicsoft"
-	soft_color = "paramedic"
-	dog_fashion = null
+	icon_state = "emtsoft"
+	soft_color = "emt"
 
 /obj/item/clothing/head/soft/cargo
 	name = "cargo cap"
@@ -122,8 +116,3 @@
 	soft_color = "cargo"
 
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
-
-/obj/item/clothing/head/soft/denied
-	name = "ERROR cap"
-	desc = "It's a baseball hat in a tasteless ERROR ERROR ERROR ERROR ERROR ERROR!!!!"
-	icon_state = "deniedsoft"

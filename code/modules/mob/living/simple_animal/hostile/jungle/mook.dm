@@ -22,14 +22,14 @@
 	ranged_cooldown_time = 10
 	pass_flags_self = LETPASSTHROW
 	robust_searching = TRUE
-	stat_attack = HARD_CRIT
+	stat_attack = UNCONSCIOUS
 	attack_sound = 'sound/weapons/rapierhit.ogg'
 	deathsound = 'sound/voice/mook_death.ogg'
 	aggro_vision_range = 15 //A little more aggressive once in combat to balance out their really low HP
 	var/attack_state = MOOK_ATTACK_NEUTRAL
 	var/struck_target_leap = FALSE
 
-	footstep_type = FOOTSTEP_MOB_BAREFOOT
+	do_footstep = TRUE
 
 /mob/living/simple_animal/hostile/jungle/mook/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()

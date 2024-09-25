@@ -265,10 +265,4 @@
 	qdel(src)
 
 /obj/structure/beebox/unwrenched
-	anchored = FALSE
-
-#undef BEEBOX_MAX_FRAMES
-#undef BEES_RATIO
-#undef BEE_PROB_NEW_BEE
-#undef BEE_RESOURCE_HONEYCOMB_COST
-#undef BEE_RESOURCE_NEW_BEE_COST
+		anchored = FALSE

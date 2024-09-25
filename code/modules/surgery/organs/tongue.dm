@@ -4,8 +4,7 @@
 	icon_state = "tonguenormal"
 	zone = BODY_ZONE_PRECISE_MOUTH
 	slot = ORGAN_SLOT_TONGUE
-	attack_verb_continuous = list("licks", "slobbers", "slaps", "frenches", "tongues")
-	attack_verb_simple = list("lick", "slobber", "slap", "french", "tongue")
+	attack_verb = list("licked", "slobbered", "slapped", "frenched", "tongued")
 	var/list/languages_possible
 	var/say_mod = "says"
 	var/ask_mod = "asks"
@@ -219,8 +218,7 @@
 	desc = "Apparently skeletons alter the sounds they produce through oscillation of their teeth, hence their characteristic rattling."
 	icon_state = "tonguebone"
 	say_mod = "rattles"
-	attack_verb_continuous = list("bites", "chatters", "chomps", "enamelles", "bones")
-	attack_verb_simple = list("bite", "chatter", "chomp", "enamel", "bone")
+	attack_verb = list("bitten", "chattered", "chomped", "enamelled", "boned")
 	taste_sensitivity = 101 // skeletons cannot taste anything
 	modifies_speech = TRUE
 	liked_food = GROSS | MEAT | RAW | GORE
@@ -258,8 +256,7 @@
 	organ_flags = NONE
 	icon_state = "tonguerobot"
 	say_mod = "states"
-	attack_verb_continuous = list("beeps", "boops")
-	attack_verb_simple = list("beep", "boop")
+	attack_verb = list("beeped", "booped")
 	modifies_speech = TRUE
 	taste_sensitivity = 25 // not as good as an organic tongue
 
@@ -295,8 +292,7 @@
 	desc = "A sophisticated ethereal organ, capable of synthesising speech via electrical discharge."
 	icon_state = "electrotongue"
 	say_mod = "crackles"
-	attack_verb_continuous = list("shocks", "jolts", "zaps")
-	attack_verb_simple = list("shock", "jolt", "zap")
+	attack_verb = list("shocked", "jolted", "zapped")
 	taste_sensitivity = 101 // Not a tongue, they can't taste shit
 	toxic_food = NONE
 
@@ -364,23 +360,18 @@
 	disliked_food = CLOTH
 	liked_food = JUNKFOOD | FRIED | GROSS | RAW | GORE
 
-/obj/item/organ/tongue/diona
-	name = "diona tongue"
+/obj/item/organ/tongue/podperson
+	name = "plant tongue"
 	desc = "It's an odd tongue, seemingly made of plant matter."
-	icon_state = "diona_tongue"
-	say_mod = "rustles"
-	ask_mod = "quivers"
-	yell_mod = "shrieks"
-	exclaim_mod = "ripples"
-	disliked_food = DAIRY | FRUIT | GRAIN | CLOTH | VEGETABLES
-	liked_food = MEAT | RAW
+	disliked_food = MEAT | DAIRY
+	liked_food = VEGETABLES | FRUIT | GRAIN | CLOTH //cannibals apparently
 
-/obj/item/organ/tongue/diona/pumpkin
+/obj/item/organ/tongue/podperson/pumpkin
 	modifies_speech = TRUE
 	///Is this tongue carved?
 	var/carved = FALSE
 
-/obj/item/organ/tongue/diona/pumpkin/handle_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/podperson/pumpkin/handle_speech(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
 	if((message[1] != "*" || message[1] != "#") && !carved)
 		message = "..."

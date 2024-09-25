@@ -3,9 +3,8 @@
 	icon_state = "sandyfloor"
 
 /obj/effect/turf_decal/weather/snow
-	icon = 'icons/turf/overlays.dmi'
 	name = "snowy floor"
-	icon_state = "snowfloor"
+	icon_state = "snowyfloor"
 
 /obj/effect/turf_decal/weather/snow/corner
 	name = "snow corner piece"

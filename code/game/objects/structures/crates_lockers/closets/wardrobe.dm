@@ -3,14 +3,6 @@
 	desc = "It's a storage unit for standard-issue Nanotrasen attire."
 	icon_door = "blue"
 
-/obj/structure/closet/wardrobe/empty
-	name = "wardrobe"
-	desc = "It's a storage unit for standard-issue Nanotrasen attire."
-	icon_door = "blue"
-
-/obj/structure/closet/wardrobe/empty/PopulateContents()
-	return
-
 /obj/structure/closet/wardrobe/PopulateContents()
 	..()
 	for(var/i in 1 to 3)
@@ -47,12 +39,10 @@
 		new /obj/item/clothing/suit/jacket/leather(src)
 	if(prob(20))
 		new /obj/item/clothing/suit/jacket/leather/overcoat(src)
-	if(prob(30))
-		new /obj/item/clothing/shoes/jackboots_replica(src)
 	for(var/i in 1 to 3)
 		new /obj/item/clothing/shoes/sneakers/black(src)
 	for(var/i in 1 to 3)
-		new /obj/item/clothing/head/hats/tophat(src)
+		new /obj/item/clothing/head/that(src)
 	for(var/i in 1 to 3)
 		new /obj/item/clothing/head/soft/black(src)
 	new /obj/item/clothing/mask/bandana/black(src)
@@ -172,9 +162,9 @@
 
 /obj/structure/closet/wardrobe/mixed/PopulateContents()
 	if(prob(40))
-		new /obj/item/clothing/suit/jacket/bomber(src)
+		new /obj/item/clothing/suit/jacket(src)
 	if(prob(40))
-		new /obj/item/clothing/suit/jacket/bomber(src)
+		new /obj/item/clothing/suit/jacket(src)
 	new /obj/item/storage/box/suitbox/wardrobe/mixed(src)
 	new /obj/item/storage/box/suitbox/wardrobe/mixed/jumpskirt(src)
 	new /obj/item/clothing/mask/bandana/red(src)

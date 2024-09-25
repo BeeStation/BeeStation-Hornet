@@ -1,18 +1,18 @@
 /// For use with the `color_mode` var. Photos will be printed in greyscale while the var has this value.
-#define PHOTO_GREYSCALE "Greyscale"
+#define PHOTO_GREYSCALE	"Greyscale"
 /// For use with the `color_mode` var. Photos will be printed in full color while the var has this value.
-#define PHOTO_COLOR "Color"
+#define PHOTO_COLOR		"Color"
 
 /// How much toner is used for making a copy of a paper.
-#define PAPER_TONER_USE 0.125
+#define PAPER_TONER_USE		0.125
 /// How much toner is used for making a copy of a photo.
-#define PHOTO_TONER_USE 0.625
+#define PHOTO_TONER_USE		0.625
 /// How much toner is used for making a copy of a document.
-#define DOCUMENT_TONER_USE 0.75
+#define DOCUMENT_TONER_USE	0.75
 /// How much toner is used for making a copy of an ass.
-#define ASS_TONER_USE 0.625
+#define ASS_TONER_USE		0.625
 /// The maximum amount of copies you can make with one press of the copy button.
-#define MAX_COPIES_AT_ONCE 10
+#define MAX_COPIES_AT_ONCE	10
 
 /obj/machinery/photocopier
 	name = "photocopier"
@@ -45,9 +45,8 @@
 	/// Variable needed to determine the selected category of forms on Photocopier.js
 	var/category
 
-/obj/machinery/photocopier/Initialize(mapload)
+/obj/machinery/photocopier/Initialize()
 	. = ..()
-	AddComponent(/datum/component/payment, 5, SSeconomy.get_budget_account(ACCOUNT_CIV_ID), PAYMENT_CLINICAL)
 	toner_cartridge = new(src)
 
 /obj/machinery/photocopier/handle_atom_del(atom/deleting_atom)
@@ -112,8 +111,7 @@
 	return data
 
 /obj/machinery/photocopier/ui_act(action, params)
-	. = ..()
-	if(.)
+	if(..())
 		return
 
 	switch(action)
@@ -247,8 +245,6 @@
 	for(i in 1 to num_copies)
 		if(!toner_cartridge) //someone removed the toner cartridge during printing.
 			break
-		if(attempt_charge(src, user) & COMPONENT_OBJ_CANCEL_CHARGE)
-			break
 		addtimer(copy_cb, i SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(reset_busy)), i SECONDS)
 
@@ -267,8 +263,8 @@
  * * copied_item - The paper, document, or photo that was just spawned on top of the printer.
  */
 /obj/machinery/photocopier/proc/give_pixel_offset(obj/item/copied_item)
-	copied_item.pixel_x = copied_item.base_pixel_x + rand(-10, 10)
-	copied_item.pixel_y = copied_item.base_pixel_y + rand(-10, 10)
+	copied_item.pixel_x = rand(-10, 10)
+	copied_item.pixel_y = rand(-10, 10)
 
 /**
  * Handles the copying of devil contract paper. Transfers all the text, stamps and so on from the old paper, to the copy.
@@ -279,7 +275,6 @@
 /obj/machinery/photocopier/proc/make_devil_paper_copy()
 	if(!paper_copy)
 		return
-
 	var/obj/item/paper/contract/employment/E = paper_copy
 	var/obj/item/paper/contract/employment/C = new(loc, E.target.current)
 	give_pixel_offset(C)
@@ -394,13 +389,11 @@
 		object.forceMove(drop_location())
 	to_chat(user, "<span class='notice'>You take [object] out of [src]. [busy ? "The [src] comes to a halt." : ""]</span>")
 
-/obj/machinery/photocopier/wrench_act(mob/living/user, obj/item/tool)
-	. = ..()
-	default_unfasten_wrench(user, tool)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
-
 /obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/paper))
+	if(default_unfasten_wrench(user, O))
+		return
+
+	else if(istype(O, /obj/item/paper))
 		if(copier_empty())
 			if(istype(O, /obj/item/paper/contract/infernal))
 				to_chat(user, "<span class='warning'>[src] smokes, smelling of brimstone!</span>")
@@ -536,7 +529,6 @@
  */
 /obj/item/toner
 	name = "toner cartridge"
-	desc = "A small, lightweight cartridge of Nanotrasen ValueBrand toner. Fits photocopiers and autopainters alike."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
 	grind_results = list(/datum/reagent/iodine = 40, /datum/reagent/iron = 10)
@@ -549,7 +541,7 @@
 
 /obj/item/toner/large
 	name = "large toner cartridge"
-	desc = "A hefty cartridge of Nanotrasen ValueBrand toner. Fits photocopiers and autopainters alike."
+	desc = "A hefty cartridge of NanoTrasen ValueBrand toner. Fits photocopiers and autopainters alike."
 	grind_results = list(/datum/reagent/iodine = 90, /datum/reagent/iron = 10)
 	charges = 25
 	max_charges = 25

@@ -2,50 +2,50 @@
 "a" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/eight,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/template_noop)
 "b" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/template_noop)
 "c" = (
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/template_noop)
 "d" = (
 /obj/structure/table,
 /obj/item/stack/sheet/cardboard/fifty,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/template_noop)
 "e" = (
 /obj/structure/table,
 /obj/item/lightreplacer,
 /obj/machinery/light/small,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/template_noop)
 "f" = (
 /obj/structure/rack,
 /obj/item/extinguisher,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/template_noop)
 "g" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/template_noop)
 "h" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/trap/nexus/trickyspawner,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/template_noop)
 "i" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/template_noop)
 "r" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/template_noop)
 
 (1,1,1) = {"

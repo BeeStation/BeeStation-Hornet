@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(fail2topic)
 	var/max_fails
 	var/enabled = FALSE
 
-/datum/controller/subsystem/fail2topic/Initialize()
+/datum/controller/subsystem/fail2topic/Initialize(timeofday)
 	rate_limit = ((CONFIG_GET(number/topic_rate_limit)) SECONDS)
 	max_fails = CONFIG_GET(number/topic_max_fails)
 	enabled = CONFIG_GET(flag/topic_enabled)
@@ -28,7 +28,7 @@ SUBSYSTEM_DEF(fail2topic)
 	if (!enabled)
 		can_fire = FALSE
 
-	return SS_INIT_SUCCESS
+	return ..()
 
 /datum/controller/subsystem/fail2topic/fire(resumed = 0)
 	if(!resumed)

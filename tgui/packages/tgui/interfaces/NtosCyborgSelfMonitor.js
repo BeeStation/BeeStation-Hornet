@@ -34,7 +34,6 @@ export const NtosCyborgSelfMonitorContent = (_, context) => {
     printerPictures,
     printerToner,
     printerTonerMax,
-    cameraRadius,
     thrustersInstalled,
     thrustersStatus,
     selfDestructAble,
@@ -139,20 +138,6 @@ export const NtosCyborgSelfMonitorContent = (_, context) => {
                     </LabeledList.Item>
                     <LabeledList.Item label="Printer Toner">
                       <ProgressBar value={printerToner / printerTonerMax} />
-                    </LabeledList.Item>
-                    <LabeledList.Item label="Camera Radius">
-                      <Slider
-                        value={cameraRadius}
-                        step={1}
-                        stepPixelSize={25}
-                        maxValue={4}
-                        minValue={1}
-                        onChange={(e, value) =>
-                          act('cameraRadius', {
-                            ref: value,
-                          })
-                        }
-                      />
                     </LabeledList.Item>
                     {!!thrustersInstalled && (
                       <LabeledList.Item label="Toggle Thrusters">

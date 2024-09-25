@@ -8,7 +8,7 @@
 /area/template_noop)
 "b" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/template_noop)
 "c" = (
 /obj/structure/table/wood,

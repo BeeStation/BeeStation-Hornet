@@ -1,8 +1,5 @@
 // Held by /obj/machinery/modular_computer to reduce amount of copy-pasted code.
 //TODO: REFACTOR THIS SPAGHETTI CODE, MAKE IT A COMPUTER_HARDWARE COMPONENT OR REMOVE IT
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/processor)
-
 /obj/item/modular_computer/processor
 	name = "processing unit"
 	desc = "You shouldn't see this. If you do, report it."
@@ -35,7 +32,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/processor)
 	hardware_flag = machinery_computer.hardware_flag
 	max_hardware_size = machinery_computer.max_hardware_size
 	steel_sheet_cost = machinery_computer.steel_sheet_cost
-	update_integrity(machinery_computer.get_integrity())
+	obj_integrity = machinery_computer.obj_integrity
 	max_integrity = machinery_computer.max_integrity
 	integrity_failure = machinery_computer.integrity_failure
 	base_active_power_usage = machinery_computer.base_active_power_usage

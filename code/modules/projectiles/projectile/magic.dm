@@ -5,7 +5,7 @@
 	damage_type = OXY
 	nodamage = TRUE
 	armour_penetration = 100
-	armor_flag = NONE
+	armor_flag = MAGIC
 	martial_arts_no_deflect = TRUE
 
 /obj/projectile/magic/death
@@ -160,8 +160,7 @@
 		return
 
 	M.notransform = TRUE
-	ADD_TRAIT(M, TRAIT_IMMOBILIZED, MAGIC_TRAIT)
-	ADD_TRAIT(M, TRAIT_HANDS_BLOCKED, MAGIC_TRAIT)
+	M.mobility_flags = NONE
 	M.icon = null
 	M.cut_overlays()
 	M.invisibility = INVISIBILITY_ABSTRACT
@@ -351,6 +350,7 @@
 	icon_state = "lavastaff"
 	damage = 15
 	damage_type = BURN
+	armor_flag = MAGIC
 	dismemberment = 50
 	nodamage = FALSE
 	martial_arts_no_deflect = FALSE
@@ -370,6 +370,8 @@
 	damage = 20
 	damage_type = BURN
 	nodamage = FALSE
+	armour_penetration = 0
+	armor_flag = MAGIC
 	hitsound = 'sound/weapons/barragespellhit.ogg'
 	martial_arts_no_deflect = FALSE
 
@@ -387,6 +389,7 @@
 	name = "locker bolt"
 	icon_state = "locker"
 	nodamage = TRUE
+	armor_flag = MAGIC
 	martial_arts_no_deflect = FALSE
 	var/weld = TRUE
 	var/created = FALSE //prevents creation of more then one locker if it has multiple hits
@@ -429,8 +432,6 @@
 	material_drop_amount = 0
 	var/magic_icon = "cursed"
 	var/weakened_icon = "decursed"
-	icon_door = "cursed"
-	var/weakened_icon_door = "decursed"
 
 /obj/structure/closet/decay/Initialize(mapload)
 	. = ..()
@@ -462,7 +463,6 @@
 
 /obj/structure/closet/decay/proc/unmagify()
 	icon_state = weakened_icon
-	icon_door = weakened_icon_door
 	update_icon()
 	addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 
@@ -570,7 +570,7 @@
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		if(M.anti_magic_check() || istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
+		if(M.anti_magic_check() || istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			M.visible_message("<span class='warning'>[src] vanishes on contact with [target]!</span>")
 			return BULLET_ACT_BLOCK
 		for(var/x in M.get_traumas())//checks to see if the victim is already going through possession
@@ -633,6 +633,7 @@
 	damage_type = BURN
 	nodamage = FALSE
 	speed = 0.3
+	armor_flag = MAGIC
 
 	var/tesla_power = 20000
 	var/tesla_range = 15
@@ -726,4 +727,5 @@
 	damage_type = BURN
 	nodamage = FALSE
 	armour_penetration = 100
-	temperature = -200 // Cools you down greatly per hit
+	temperature = 50
+	armor_flag = MAGIC

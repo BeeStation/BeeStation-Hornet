@@ -542,7 +542,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/paper_reader
-	name = "Electronic Paper Reader"
+	name = "Eletronic Paper Reader"
 	desc = "A device to read papers for blind people."
 	id = "epaperread"
 	build_type = PROTOLATHE

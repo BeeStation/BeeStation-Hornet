@@ -2,7 +2,6 @@
 	name = "tablet computer"
 	icon = 'icons/obj/modular_tablet.dmi'
 	icon_state = "tablet-red"
-	worn_icon_state = "pda"
 	icon_state_unpowered = "tablet"
 	icon_state_powered = "tablet"
 	icon_state_menu = "menu"
@@ -274,7 +273,7 @@
 			if(!hard_drive.store_file(self_monitoring))
 				qdel(self_monitoring)
 				self_monitoring = null
-				CRASH("Cyborg [borgo]'s tablet hard drive rejected receiving a new copy of the self-management app. To fix, check the hard drive's space remaining. Please make a bug report about this.")
+				CRASH("Cyborg [borgo]'s tablet hard drive rejected recieving a new copy of the self-management app. To fix, check the hard drive's space remaining. Please make a bug report about this.")
 	return self_monitoring
 
 //Makes the light settings reflect the borg's headlamp settings
@@ -323,7 +322,7 @@
 	theme_locked = TRUE
 
 
-/obj/item/modular_computer/tablet/integrated/syndicate/Initialize(mapload)
+/obj/item/modular_computer/tablet/integrated/syndicate/Initialize()
 	. = ..()
 	if(iscyborg(borgo))
 		var/mob/living/silicon/robot/robo = borgo

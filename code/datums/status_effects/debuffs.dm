@@ -1,3 +1,5 @@
+#define TRAIT_STATUS_EFFECT(effect_id) "[effect_id]-trait"
+
 //Largely negative status effects go here, even if they have small benificial effects
 //STUN EFFECTS
 /datum/status_effect/incapacitating
@@ -6,14 +8,18 @@
 	alert_type = null
 	var/needs_update_stat = FALSE
 
-/datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration)
+/datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration, updating_canmove)
 	if(isnum_safe(set_duration))
 		duration = set_duration
 	. = ..()
-	if(. && (needs_update_stat || issilicon(owner)))
-		owner.update_stat()
+	if(.)
+		if(updating_canmove)
+			owner.update_mobility()
+			if(needs_update_stat || issilicon(owner))
+				owner.update_stat()
 
 /datum/status_effect/incapacitating/on_remove()
+	owner.update_mobility()
 	if(needs_update_stat || issilicon(owner)) //silicons need stat updates in addition to normal canmove updates
 		owner.update_stat()
 	return ..()
@@ -29,12 +35,10 @@
 		return
 	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
 	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/incapacitating/stun/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
 	return ..()
 
 
@@ -77,13 +81,11 @@
 	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
 	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
 	ADD_TRAIT(owner, TRAIT_FLOORED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/incapacitating/paralyzed/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
 	REMOVE_TRAIT(owner, TRAIT_FLOORED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
 	return ..()
 
 
@@ -115,7 +117,7 @@
 	var/mob/living/carbon/carbon_owner
 	var/mob/living/carbon/human/human_owner
 
-/datum/status_effect/incapacitating/sleeping/on_creation(mob/living/new_owner)
+/datum/status_effect/incapacitating/sleeping/on_creation(mob/living/new_owner, updating_canmove)
 	. = ..()
 	if(.)
 		if(iscarbon(owner)) //to avoid repeated istypes
@@ -183,7 +185,7 @@
 	if(owner.stat == DEAD)
 		last_dead_time = world.time
 
-/datum/status_effect/grouped/stasis/on_creation(mob/living/new_owner, set_duration)
+/datum/status_effect/grouped/stasis/on_creation(mob/living/new_owner, set_duration, updating_canmove)
 	. = ..()
 	if(.)
 		update_time_of_death()
@@ -195,14 +197,16 @@
 	if(!.)
 		return
 	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	//ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.update_mobility() // TEMPORARY
 
 /datum/status_effect/grouped/stasis/tick()
 	update_time_of_death()
 
 /datum/status_effect/grouped/stasis/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	//REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.update_mobility()
 	update_time_of_death()
 	SEND_SIGNAL(owner, COMSIG_LIVING_EXIT_STASIS)
 	return ..()
@@ -490,7 +494,7 @@
 
 /datum/status_effect/neck_slice/tick()
 	var/mob/living/carbon/human/H = owner
-	if(H.stat == DEAD || H.get_bleed_rate() < BLEED_CUT)
+	if(H.stat == DEAD || H.bleed_rate <= 8)
 		H.remove_status_effect(/datum/status_effect/neck_slice)
 	if(prob(10))
 		H.emote(pick("gasp", "gag", "choke"))
@@ -619,7 +623,7 @@
 
 /datum/status_effect/trance/tick()
 	if(stun)
-		owner.Stun(60, TRUE)
+		owner.Stun(60, TRUE, TRUE)
 	owner.dizziness = 20
 
 /datum/status_effect/trance/on_apply()
@@ -749,7 +753,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/dna_melt
 	var/kill_either_way = FALSE //no amount of removing mutations is gonna save you now
 
-/datum/status_effect/dna_melt/on_creation(mob/living/new_owner, set_duration)
+/datum/status_effect/dna_melt/on_creation(mob/living/new_owner, set_duration, updating_canmove)
 	. = ..()
 	to_chat(new_owner, "<span class='boldwarning'>My body can't handle the mutations! I need to get my mutations removed fast!</span>")
 
@@ -773,7 +777,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/go_away
 	var/direction
 
-/datum/status_effect/go_away/on_creation(mob/living/new_owner, set_duration)
+/datum/status_effect/go_away/on_creation(mob/living/new_owner, set_duration, updating_canmove)
 	. = ..()
 	direction = pick(NORTH, SOUTH, EAST, WEST)
 	new_owner.setDir(direction)
@@ -804,10 +808,10 @@
 			owner.confused = 10
 		running_toggled = TRUE
 		to_chat(owner, "<span class='warning'>You know you shouldn't be running here.</span>")
-	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/interdiction)
+	owner.add_movespeed_modifier(MOVESPEED_ID_INTERDICTION, multiplicative_slowdown=1.5)
 
 /datum/status_effect/interdiction/on_remove()
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/interdiction)
+	owner.remove_movespeed_modifier(MOVESPEED_ID_INTERDICTION)
 	if(running_toggled && owner.m_intent == MOVE_INTENT_WALK)
 		owner.toggle_move_intent(owner)
 
@@ -916,7 +920,7 @@
 	if(!ishuman(owner))
 		return
 	var/mob/living/carbon/human/H = owner
-	H.add_bleeding(BLEED_CUT)
+	H.bleed_rate += 5
 	return ..()
 
 /datum/status_effect/heretic_mark/ash
@@ -966,7 +970,7 @@
 
 		// And roughly 75% of their items will take a smack, too
 		for(var/obj/item/thing in carbon_owner.get_all_gear())
-			if(!QDELETED(thing) && prob(75) && !istype(thing, /obj/item/grenade))
+			if(!QDELETED(thing) && prob(75))
 				thing.take_damage(100)
 	return ..()
 
@@ -1195,12 +1199,12 @@
 	alert_type = /atom/movable/screen/alert/status_effect/smoke
 
 /datum/status_effect/smoke/on_apply()
-	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/smoke)
+	owner.add_movespeed_modifier(MOVESPEED_ID_SMOKE, multiplicative_slowdown=1.5)
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(check_deletion))
 	return TRUE
 
 /datum/status_effect/smoke/on_remove()
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/smoke)
+	owner.remove_movespeed_modifier(MOVESPEED_ID_SMOKE)
 
 /datum/status_effect/smoke/tick()
 	check_deletion()

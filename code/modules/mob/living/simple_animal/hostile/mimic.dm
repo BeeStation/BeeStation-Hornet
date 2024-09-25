@@ -5,10 +5,9 @@
 	icon_state = "crate"
 	icon_living = "crate"
 
-	response_help_continuous = "touches"
-	response_help_simple = "touch"
-	response_disarm_continuous = "pushes"
-	response_disarm_simple = "push"
+	response_help = "touches"
+	response_disarm = "pushes"
+	response_harm = "hits"
 	speed = 0
 	maxHealth = 250
 	health = 250
@@ -16,6 +15,7 @@
 	mob_biotypes = list(MOB_INORGANIC)
 
 	melee_damage = 10
+	attacktext = "attacks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	emote_taunt = list("growls")
 	speak_emote = list("creaks")
@@ -36,8 +36,7 @@
 
 // Aggro when you try to open them. Will also pickup loot when spawns and drop it when dies.
 /mob/living/simple_animal/hostile/mimic/crate
-	attack_verb_continuous = "bites"
-	attack_verb_simple = "bite"
+	attacktext = "bites"
 	speak_emote = list("clatters")
 	stop_automated_movement = 1
 	wander = FALSE
@@ -124,7 +123,7 @@
 	..()
 	// death of this mob means the destruction of the original stuff of the copied mob.
 	if(istype(original_of_this, /obj/machinery/vending))
-		original_of_this.take_damage(original_of_this.max_integrity, BRUTE, 0, FALSE)
+		original_of_this.take_damage(original_of_this.obj_integrity, BRUTE, 0, FALSE)
 		// currently do this to vending machines only.
 		// because the destruction of stuff (especially items) is annoying.
 
@@ -140,8 +139,6 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	var/idledamage = TRUE
 	gold_core_spawnable = NO_SPAWN
 	var/obj/original_of_this = null
-
-CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/mimic/copy)
 
 /mob/living/simple_animal/hostile/mimic/copy/Initialize(mapload, obj/original, mob/living/creator, destroy_original = 0, no_googlies = FALSE)
 	. = ..()
@@ -214,7 +211,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/mimic/copy)
 
 /mob/living/simple_animal/hostile/mimic/copy/machine
 	speak = list("HUMANS ARE IMPERFECT!", "YOU SHALL BE ASSIMILATED!", "YOU ARE HARMING YOURSELF", "You have been deemed hazardous. Will you comply?", \
-				"My logic is undeniable.", "One of us.", "FLESH IS WEAK", "THIS ISN'T WAR, THIS IS EXTERMINATION!")
+				 "My logic is undeniable.", "One of us.", "FLESH IS WEAK", "THIS ISN'T WAR, THIS IS EXTERMINATION!")
 	speak_chance = 7
 
 /mob/living/simple_animal/hostile/mimic/copy/machine/CanAttack(atom/the_target)

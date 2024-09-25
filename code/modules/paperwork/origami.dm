@@ -11,8 +11,6 @@
 	max_integrity = 50
 	var/obj/item/paper/internalPaper
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/item/origami)
-
 /obj/item/origami/Initialize(mapload, obj/item/paper/newPaper)
 	. = ..()
 	pixel_y = base_pixel_y + rand(-8, 8)

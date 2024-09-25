@@ -41,7 +41,7 @@
 	var/damage = A.dna.species.punchdamage
 
 	var/atk_verb = A.dna.species.attack_verb
-	if(D.body_position == LYING_DOWN)
+	if(!(D.mobility_flags & MOBILITY_STAND))
 		atk_verb = "kick"
 
 	switch(atk_verb)
@@ -57,9 +57,8 @@
 	if(!damage)
 		playsound(D.loc, A.dna.species.miss_sound, 25, 1, -1)
 		D.visible_message("<span class='warning'>[A]'s [atk_verb] misses [D]!</span>", \
-						"<span class='danger'>You avoid [A]'s [atk_verb]!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, A)
-		to_chat(A, "<span class='warning'>Your [atk_verb] misses [D]!</span>")
-		log_combat(A, D, "attempted to [atk_verb]", important = FALSE)
+			"<span class='userdanger'>[A]'s [atk_verb] misses you!</span>", null, COMBAT_MESSAGE_RANGE)
+		log_combat(A, D, "attempted to [atk_verb]")
 		return 0
 
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.get_combat_bodyzone(D)))
@@ -67,14 +66,13 @@
 
 	playsound(D.loc, A.dna.species.attack_sound, 25, 1, -1)
 	D.visible_message("<span class='danger'>[A] [atk_verb]ed [D]!</span>", \
-					"<span class='userdanger'>You're [atk_verb]ed by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, A)
-	to_chat(A, "<span class='danger'>You [atk_verb]ed [D]!</span>")
+			"<span class='userdanger'>[A] [atk_verb]ed you!</span>", null, COMBAT_MESSAGE_RANGE)
 
 	D.apply_damage(damage, A.dna.species.attack_type, affecting, armor_block)
 
-	log_combat(A, D, "punched", name)
+	log_combat(A, D, "punched")
 
-	if(D.body_position == LYING_DOWN)
+	if(!(D.mobility_flags & MOBILITY_STAND))
 		D.force_say(A)
 	return 1
 

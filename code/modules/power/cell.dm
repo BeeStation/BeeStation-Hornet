@@ -11,7 +11,7 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	/// note %age converted to actual charge in New
+	/// note %age conveted to actual charge in New
 	var/charge = 0
 	var/maxcharge = 1000
 	custom_materials = list(/datum/material/iron=700, /datum/material/glass=50)
@@ -33,8 +33,6 @@
 /obj/item/stock_parts/cell/get_cell()
 	return src
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
-
 /obj/item/stock_parts/cell/Initialize(mapload, override_maxcharge)
 	. = ..()
 	START_PROCESSING(SSobj, src)
@@ -44,7 +42,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	charge = maxcharge
 	if(ratingdesc)
 		desc += " This one has a rating of [display_energy(maxcharge)], and you should not swallow it."
-	update_appearance()
+	update_icon()
 
 /obj/item/stock_parts/cell/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -67,18 +65,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	else
 		return PROCESS_KILL
 
-/obj/item/stock_parts/cell/update_overlays()
-	. = ..()
+/obj/item/stock_parts/cell/update_icon()
+	cut_overlays()
 	if(grown_battery)
-		. += mutable_appearance('icons/obj/power.dmi', "grown_wires")
+		add_overlay(image('icons/obj/power.dmi',"grown_wires"))
 	if(charge < 0.01)
 		return
 	else if(charge/maxcharge >=0.995)
-		. += "cell-o2"
+		add_overlay("cell-o2")
 	else
-		. += "cell-o1"
+		add_overlay("cell-o1")
 
-/obj/item/stock_parts/cell/proc/percent() // return % charge of cell
+/obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
 	return maxcharge ? 100 * charge / maxcharge : 0 //Division by 0 protection
 
 // use power from a cell
@@ -235,7 +233,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/crap/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_appearance()
+	update_icon()
 
 /obj/item/stock_parts/cell/upgraded
 	name = "upgraded power cell"
@@ -257,7 +255,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/secborg/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_appearance()
+	update_icon()
 
 /obj/item/stock_parts/cell/pulse //200 pulse shots
 	name = "pulse rifle power cell"
@@ -290,7 +288,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/high/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_appearance()
+	update_icon()
 
 /obj/item/stock_parts/cell/super
 	name = "super-capacity power cell"
@@ -303,7 +301,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/super/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_appearance()
+	update_icon()
 
 /obj/item/stock_parts/cell/hyper
 	name = "hyper-capacity power cell"
@@ -316,7 +314,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/hyper/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_appearance()
+	update_icon()
 
 /obj/item/stock_parts/cell/bluespace
 	name = "bluespace power cell"
@@ -330,7 +328,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/bluespace/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_appearance()
+	update_icon()
 
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"
@@ -351,9 +349,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	maxcharge = 50000
 	ratingdesc = FALSE
 
-/obj/item/stock_parts/cell/infinite/abductor/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/update_icon_blocker)
+/obj/item/stock_parts/cell/infinite/abductor/update_icon()
+	return
 
 
 /obj/item/stock_parts/cell/potato
@@ -386,7 +383,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/emproof/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_appearance()
+	update_icon()
 
 /obj/item/stock_parts/cell/emproof/empty/ComponentInitialize()
 	. = ..()

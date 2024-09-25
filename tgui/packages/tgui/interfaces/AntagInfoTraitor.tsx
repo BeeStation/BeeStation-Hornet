@@ -100,32 +100,26 @@ const CodewordsSection = (_props, context) => {
   );
 };
 
-export const AntagInfoTraitorContent = (_props, context) => {
+export const AntagInfoTraitor = (_props, context) => {
   const { data } = useBackend<Info>(context);
   const { antag_name, objectives } = data;
   return (
-    <Stack vertical fill>
-      <Stack.Item>
-        <AntagInfoHeader name={antag_name || 'Traitor'} asset="traitor.png" />
-      </Stack.Item>
-      <Stack.Item grow>
-        <ObjectivesSection objectives={objectives} />
-      </Stack.Item>
-      <Stack.Item>
-        <UplinkSection />
-      </Stack.Item>
-      <Stack.Item>
-        <CodewordsSection />
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-export const AntagInfoTraitor = (_props, context) => {
-  return (
     <Window width={620} height={620} theme="syndicate">
       <Window.Content>
-        <AntagInfoTraitorContent />
+        <Stack vertical fill>
+          <Stack.Item>
+            <AntagInfoHeader name={antag_name || 'Traitor'} asset="traitor.png" />
+          </Stack.Item>
+          <Stack.Item grow>
+            <ObjectivesSection objectives={objectives} />
+          </Stack.Item>
+          <Stack.Item>
+            <UplinkSection />
+          </Stack.Item>
+          <Stack.Item>
+            <CodewordsSection />
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

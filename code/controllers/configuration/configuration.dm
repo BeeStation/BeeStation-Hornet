@@ -107,7 +107,7 @@
 	if(IsAdminAdvancedProcCall())
 		return
 
-	var/filename_to_test = world.system_type == MS_WINDOWS ? LOWER_TEXT(filename) : filename
+	var/filename_to_test = world.system_type == MS_WINDOWS ? lowertext(filename) : filename
 	if(filename_to_test in stack)
 		log_config("Warning: Config recursion detected ([english_list(stack)]), breaking!")
 		return
@@ -134,10 +134,10 @@
 		var/value = null
 
 		if(pos)
-			entry = LOWER_TEXT(copytext(L, 1, pos))
+			entry = lowertext(copytext(L, 1, pos))
 			value = copytext(L, pos + length(L[pos]))
 		else
-			entry = LOWER_TEXT(L)
+			entry = lowertext(L)
 
 		if(!entry)
 			continue
@@ -290,10 +290,10 @@
 		var/data = null
 
 		if(pos)
-			command = LOWER_TEXT(copytext(t, 1, pos))
+			command = lowertext(copytext(t, 1, pos))
 			data = copytext(t, pos + length(t[pos]))
 		else
-			command = LOWER_TEXT(t)
+			command = lowertext(t)
 
 		if(!command)
 			continue

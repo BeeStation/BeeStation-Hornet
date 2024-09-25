@@ -14,7 +14,6 @@
 	flags_1 = CONDUCT_1
 	max_amount = 60
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/copper = 5)
-	merge_type = /obj/item/stack/light_w
 
 /obj/item/stack/light_w/attackby(obj/item/O, mob/user, params)
 	if(!istype(O, /obj/item/stack/sheet/iron))
@@ -41,13 +40,9 @@
 	desc = "A floor tile, made out of glass. It produces light."
 	icon_state = "tile_e"
 	flags_1 = CONDUCT_1
-	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "smashes")
-	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "smash")
+	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
 	turf_type = /turf/open/floor/light
 	var/state = 0
-	merge_type = /obj/item/stack/tile/light
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile/light)
 
 /obj/item/stack/tile/light/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -70,16 +65,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile/light)
 	else
 		return ..()
 
-/obj/item/stack/tile/light/place_tile(turf/open/target_plating, mob/user)
-	. = ..()
-	var/turf/open/floor/light/floor = .
-	floor?.state = state
-
 /obj/item/stack/tile/light/cyborg
 	custom_materials = null
 	is_cyborg = 1
 	cost = 125
-	merge_type = /obj/item/stack/tile/light/cyborg
 
 /obj/item/stack/tile/light/cyborg/attackby(obj/item/O, mob/user, params)
 	return

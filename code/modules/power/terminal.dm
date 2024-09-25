@@ -65,7 +65,3 @@
 /obj/machinery/power/terminal/wirecutter_act(mob/living/user, obj/item/I)
 	dismantle(user, I)
 	return TRUE
-
-/obj/machinery/power/terminal/invisible
-	name = ""
-	icon_state = ""

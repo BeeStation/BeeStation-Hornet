@@ -30,7 +30,7 @@
 /area/awaymission/cabin/caves
 	name = "North Snowdin Caves"
 	icon_state = "awaycontent15"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/awaymission/cabin/caves/mountain
 	name = "North Snowdin Mountains"

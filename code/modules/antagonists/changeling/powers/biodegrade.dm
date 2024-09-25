@@ -10,7 +10,7 @@
 /datum/action/changeling/biodegrade/sting_action(mob/living/carbon/human/user)
 	. = FALSE
 
-	if(!HAS_TRAIT(user, TRAIT_RESTRAINED) && isopenturf(user.loc) && !user.legcuffed && !user.pulledby)
+	if(!user.restrained() && isopenturf(user.loc) && !user.legcuffed && !user.pulledby)
 		to_chat(user, "<span class='warning'>We are already free!</span>")
 		return
 

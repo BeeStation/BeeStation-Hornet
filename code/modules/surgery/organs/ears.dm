@@ -93,8 +93,7 @@
 
 /obj/item/organ/ears/cat
 	name = "cat ears"
-	icon = 'icons/obj/clothing/head/costume.dmi'
-	worn_icon = 'icons/mob/clothing/head/costume.dmi'
+	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "kitty"
 	bang_protect = -2
 
@@ -105,7 +104,8 @@
 		return
 	if(istype(H))
 		color = H.hair_color
-		H.dna.features["ears"] = H.dna.species.mutant_bodyparts["ears"] = "Cat"
+		H.dna.species.mutant_bodyparts |= "ears"
+		H.dna.features["ears"] = "Cat"
 		H.update_body()
 
 /obj/item/organ/ears/cat/Remove(mob/living/carbon/human/H, special = 0, pref_load = FALSE)
@@ -166,8 +166,3 @@
 			owner.Knockdown(100)
 			to_chat(owner, "<span class='warning'>Alert: Audio sensors malfunctioning</span>")
 			owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
-
-/obj/item/organ/ears/diona
-	name = "trichomes"
-	icon_state = "diona_ears"
-	desc = "A pair of plant matter based ears."

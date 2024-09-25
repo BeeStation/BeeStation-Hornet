@@ -39,7 +39,9 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "t" = (
-/obj/structure/holohoop,
+/obj/structure/holohoop{
+	layer = 3.9
+	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -87,7 +89,8 @@
 /area/template_noop)
 "I" = (
 /obj/structure/holohoop{
-	dir = 1
+	dir = 1;
+	layer = 4.1
 	},
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8

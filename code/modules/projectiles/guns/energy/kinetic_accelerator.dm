@@ -1,7 +1,6 @@
 /obj/item/gun/energy/kinetic_accelerator
 	name = "proto-kinetic accelerator"
 	desc = "A self recharging, ranged mining tool that does increased damage in low pressure."
-	automatic_charge_overlays = FALSE
 	icon_state = "kineticgun"
 	item_state = "kineticgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
@@ -9,6 +8,9 @@
 	item_flags = NONE
 	obj_flags = UNIQUE_RENAME
 	weapon_weight = WEAPON_LIGHT
+	can_flashlight = TRUE
+	flight_x_offset = 15
+	flight_y_offset = 9
 	automatic_charge_overlays = FALSE
 	var/overheat_time = 16
 	var/holds_charge = FALSE
@@ -17,19 +19,11 @@
 	can_bayonet = TRUE
 	knife_x_offset = 20
 	knife_y_offset = 12
-	has_weapon_slowdown = FALSE
 
 	var/max_mod_capacity = 100
 	var/list/modkits = list()
 
 	var/recharge_timerid
-
-/obj/item/gun/energy/kinetic_accelerator/add_seclight_point()
-	AddComponent(/datum/component/seclite_attachable, \
-		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
-		light_overlay = "flight", \
-		overlay_x = 15, \
-		overlay_y = 9)
 
 /obj/item/gun/energy/kinetic_accelerator/examine(mob/user)
 	. = ..()
@@ -224,9 +218,6 @@
 	var/obj/effect/temp_visual/kinetic_blast/K = new /obj/effect/temp_visual/kinetic_blast(target_turf)
 	K.color = color
 
-//mecha_kineticgun version of the projectile
-/obj/projectile/kinetic/mech
-	range = 5
 
 //Modkits
 /obj/item/borg/upgrade/modkit
@@ -238,14 +229,12 @@
 	require_module = 1
 	module_type = list(/obj/item/robot_module/miner)
 	module_flags = BORG_MODULE_MINER
-	///Should be the type path of mods in the same group
-	var/restricted_mod_type = null
-	///Only used if restricted_mod_type is defined. How many mods of this type are allowed?
+	var/denied_type = null
 	var/maximum_of_type = 1
-	///How much mod capacity, out of 100, does this mod use
-	var/cost = 25
-	///Will vary based on individual mod logic. Dictates the power of the mod.
-	var/modifier = 1
+	var/cost = 30
+	var/modifier = 1 //For use in any mod kit that has numerical modifiers
+	var/minebot_upgrade = TRUE
+	var/minebot_exclusive = FALSE
 
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	. = ..()
@@ -265,13 +254,20 @@
 
 /obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = TRUE
-	if(restricted_mod_type)
-		var/restricted_mod_count = 0
+	if(minebot_upgrade)
+		if(minebot_exclusive && !istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
+			to_chat(user, "<span class='notice'>The modkit you're trying to install is only rated for minebot use.</span>")
+			return FALSE
+	else if(istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
+		to_chat(user, "<span class='notice'>The modkit you're trying to install is not rated for minebot use.</span>")
+		return FALSE
+	if(denied_type)
+		var/number_of_denied = 0
 		for(var/A in KA.get_modkits())
 			var/obj/item/borg/upgrade/modkit/M = A
-			if(istype(M, restricted_mod_type))
-				restricted_mod_count++
-			if(restricted_mod_count >= maximum_of_type)
+			if(istype(M, denied_type))
+				number_of_denied++
+			if(number_of_denied >= maximum_of_type)
 				. = FALSE
 				break
 	if(KA.get_remaining_mod_capacity() >= cost)
@@ -282,7 +278,7 @@
 			playsound(loc, 'sound/items/screwdriver.ogg', 100, 1)
 			KA.modkits += src
 		else
-			to_chat(user, "<span class='notice'>You cannot install any more mods of this type. Remove mods with a crowbar and check their compatibility.</span>")
+			to_chat(user, "<span class='notice'>The modkit you're trying to install would conflict with an already installed modkit. Use a crowbar to remove existing modkits.</span>")
 	else
 		to_chat(user, "<span class='notice'>You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar to remove existing modkits.</span>")
 		. = FALSE
@@ -313,6 +309,7 @@
 	name = "range increase"
 	desc = "Increases the range of a kinetic accelerator when installed."
 	modifier = 1
+	cost = 25
 
 /obj/item/borg/upgrade/modkit/range/modify_projectile(obj/projectile/kinetic/K)
 	K.range += modifier
@@ -322,7 +319,7 @@
 /obj/item/borg/upgrade/modkit/damage
 	name = "damage increase"
 	desc = "Increases the damage of kinetic accelerator when installed."
-	modifier = 5
+	modifier = 10
 
 /obj/item/borg/upgrade/modkit/damage/modify_projectile(obj/projectile/kinetic/K)
 	K.damage += modifier
@@ -331,9 +328,9 @@
 //Cooldown
 /obj/item/borg/upgrade/modkit/cooldown
 	name = "cooldown decrease"
-	desc = "Decreases the cooldown of a kinetic accelerator. Incompatible with rapid repeater mods."
+	desc = "Decreases the cooldown of a kinetic accelerator. Not rated for minebot use."
 	modifier = 3.2
-	restricted_mod_type = /obj/item/borg/upgrade/modkit/cooldown/repeater
+	minebot_upgrade = FALSE
 
 /obj/item/borg/upgrade/modkit/cooldown/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = ..()
@@ -344,14 +341,23 @@
 	KA.overheat_time += modifier
 	..()
 
+/obj/item/borg/upgrade/modkit/cooldown/minebot
+	name = "minebot cooldown decrease"
+	desc = "Decreases the cooldown of a kinetic accelerator. Only rated for minebot use."
+	icon_state = "door_electronics"
+	icon = 'icons/obj/module.dmi'
+	denied_type = /obj/item/borg/upgrade/modkit/cooldown/minebot
+	modifier = 5
+	cost = 0
+	minebot_upgrade = TRUE
+	minebot_exclusive = TRUE
+
 
 //AoE blasts
 /obj/item/borg/upgrade/modkit/aoe
 	modifier = 0
 	var/turf_aoe = FALSE
 	var/stats_stolen = FALSE
-	restricted_mod_type = /obj/item/borg/upgrade/modkit/aoe
-	maximum_of_type = 2
 
 /obj/item/borg/upgrade/modkit/aoe/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = ..()
@@ -389,32 +395,32 @@
 
 /obj/item/borg/upgrade/modkit/aoe/turfs
 	name = "mining explosion"
-	desc = "Causes the kinetic accelerator to destroy rock in an AoE. Only two AoE mods may be installed."
+	desc = "Causes the kinetic accelerator to destroy rock in an AoE."
+	denied_type = /obj/item/borg/upgrade/modkit/aoe/turfs
 	turf_aoe = TRUE
 
 /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
 	name = "offensive mining explosion"
-	desc = "Causes the kinetic accelerator to destroy rock and damage mobs in an AoE. Only two AoE mods may be installed."
-	maximum_of_type = 2
-	modifier = 0.40
+	desc = "Causes the kinetic accelerator to destroy rock and damage mobs in an AoE."
+	maximum_of_type = 3
+	modifier = 0.25
 
 /obj/item/borg/upgrade/modkit/aoe/mobs
 	name = "offensive explosion"
-	desc = "Causes the kinetic accelerator to damage mobs in an AoE. Only two AoE mods may be installed."
-	maximum_of_type = 2
-	modifier = 0.40
+	desc = "Causes the kinetic accelerator to damage mobs in an AoE."
+	modifier = 0.2
 
 //Minebot passthrough
 /obj/item/borg/upgrade/modkit/minebot_passthrough
 	name = "minebot passthrough"
-	desc = "Causes kinetic accelerator shots to pass through minebots. Only one may be installed."
-	restricted_mod_type = /obj/item/borg/upgrade/modkit/minebot_passthrough
+	desc = "Causes kinetic accelerator shots to pass through minebots."
 	cost = 0
 
+//Tendril-unique modules
 /obj/item/borg/upgrade/modkit/cooldown/repeater
 	name = "rapid repeater"
-	desc = "Quarters the kinetic accelerator's cooldown on striking a living target, but greatly increases the base cooldown. Not compatible with any other cooldown mods."
-	restricted_mod_type = /obj/item/borg/upgrade/modkit/cooldown
+	desc = "Quarters the kinetic accelerator's cooldown on striking a living target, but greatly increases the base cooldown."
+	denied_type = /obj/item/borg/upgrade/modkit/cooldown/repeater
 	modifier = -14 //Makes the cooldown 3 seconds(with no cooldown mods) if you miss. Don't miss.
 	cost = 50
 
@@ -435,7 +441,7 @@
 	desc = "Causes kinetic accelerator shots to slightly heal the firer on striking a living target."
 	icon_state = "modkit_crystal"
 	modifier = 2.5 //Not a very effective method of healing.
-	cost = 0 //Obtained only from chests in limited quantities
+	cost = 10
 	var/static/list/damage_heal_order = list(BRUTE, BURN, OXY)
 
 /obj/item/borg/upgrade/modkit/lifesteal/projectile_prehit(obj/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
@@ -448,8 +454,9 @@
 
 /obj/item/borg/upgrade/modkit/resonator_blasts
 	name = "resonator blast"
-	desc = "Causes kinetic accelerator shots to leave and detonate resonator blasts. Only one may be installed."
-	restricted_mod_type = /obj/item/borg/upgrade/modkit/resonator_blasts
+	desc = "Causes kinetic accelerator shots to leave and detonate resonator blasts."
+	denied_type = /obj/item/borg/upgrade/modkit/resonator_blasts
+	cost = 30
 	modifier = 0.25 //A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
 
 /obj/item/borg/upgrade/modkit/resonator_blasts/projectile_strike(obj/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
@@ -463,9 +470,10 @@
 
 /obj/item/borg/upgrade/modkit/bounty
 	name = "death syphon"
-	desc = "Killing or assisting in killing a creature permanently increases your damage against that type of creature. Only one may be installed."
-	restricted_mod_type = /obj/item/borg/upgrade/modkit/bounty
+	desc = "Killing or assisting in killing a creature permanently increases your damage against that type of creature."
+	denied_type = /obj/item/borg/upgrade/modkit/bounty
 	modifier = 1.25
+	cost = 30
 	var/maximum_bounty = 25
 	var/list/bounties_reaped = list()
 
@@ -504,8 +512,9 @@
 	name = "decrease pressure penalty"
 	desc = "A syndicate modification kit that increases the damage a kinetic accelerator does in high pressure environments."
 	modifier = 2
-	restricted_mod_type = /obj/item/borg/upgrade/modkit/indoors
-	cost = 50
+	denied_type = /obj/item/borg/upgrade/modkit/indoors
+	maximum_of_type = 1
+	cost = 35
 
 /obj/item/borg/upgrade/modkit/indoors/modify_projectile(obj/projectile/kinetic/K)
 	K.pressure_decrease *= modifier
@@ -514,9 +523,9 @@
 //Trigger Guard
 /obj/item/borg/upgrade/modkit/trigger_guard
 	name = "modified trigger guard"
-	desc = "Allows creatures normally incapable of firing guns to operate the weapon when installed. Only one may be installed."
-	cost = 0
-	restricted_mod_type = /obj/item/borg/upgrade/modkit/trigger_guard
+	desc = "Allows creatures normally incapable of firing guns to operate the weapon when installed."
+	cost = 20
+	denied_type = /obj/item/borg/upgrade/modkit/trigger_guard
 
 /obj/item/borg/upgrade/modkit/trigger_guard/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = ..()
@@ -534,7 +543,7 @@
 	name = "super chassis"
 	desc = "Makes your KA yellow. All the fun of having a more powerful KA without actually having a more powerful KA."
 	cost = 0
-	restricted_mod_type = /obj/item/borg/upgrade/modkit/chassis_mod
+	denied_type = /obj/item/borg/upgrade/modkit/chassis_mod
 	var/chassis_icon = "kineticgun_u"
 	var/chassis_name = "super-kinetic accelerator"
 
@@ -557,9 +566,9 @@
 
 /obj/item/borg/upgrade/modkit/tracer
 	name = "white tracer bolts"
-	desc = "Causes kinetic accelerator bolts to have a white tracer trail and explosion. Only one may be installed."
+	desc = "Causes kinetic accelerator bolts to have a white tracer trail and explosion."
 	cost = 0
-	restricted_mod_type = /obj/item/borg/upgrade/modkit/tracer
+	denied_type = /obj/item/borg/upgrade/modkit/tracer
 	var/bolt_color = "#FFFFFF"
 
 /obj/item/borg/upgrade/modkit/tracer/modify_projectile(obj/projectile/kinetic/K)

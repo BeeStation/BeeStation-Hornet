@@ -18,13 +18,13 @@
 "h" = (
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/machinery/door/airlock/highsecurity,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "m" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1
 	},
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "w" = (
 /turf/open/floor/plating,
@@ -48,10 +48,10 @@
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "T" = (
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
 (1,1,1) = {"

@@ -36,9 +36,9 @@
 /turf/open/floor/engine/burn_tile()
 	return //unburnable
 
-/turf/open/floor/engine/make_plating(force = FALSE)
+/turf/open/floor/engine/make_plating(force = 0)
 	if(force)
-		return ..()
+		..()
 	return //unplateable
 
 /turf/open/floor/engine/try_replace_tile(obj/item/stack/tile/T, mob/user, params)

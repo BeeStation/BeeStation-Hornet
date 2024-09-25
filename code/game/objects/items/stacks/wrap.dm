@@ -9,9 +9,8 @@
 	amount = 25
 	max_amount = 25
 	resistance_flags = FLAMMABLE
-	merge_type = /obj/item/stack/wrapping_paper
 
-/obj/item/stack/wrapping_paper/use(used, transfer, check = TRUE)
+/obj/item/stack/wrapping_paper/use(used, transfer)
 	var/turf/T = get_turf(src)
 	. = ..()
 	if(QDELETED(src) && !transfer)
@@ -30,7 +29,6 @@
 	amount = 25
 	max_amount = 25
 	resistance_flags = FLAMMABLE
-	merge_type = /obj/item/stack/package_wrap
 
 /obj/item/stack/package_wrap/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] begins wrapping [user.p_them()]self in \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -113,7 +111,7 @@
 	user.visible_message("<span class='notice'>[user] wraps [target].</span>")
 	user.log_message("has used [name] on [key_name(target)]", LOG_ATTACK, color="blue")
 
-/obj/item/stack/package_wrap/use(used, transfer = FALSE, check = TRUE)
+/obj/item/stack/package_wrap/use(used, transfer = FALSE)
 	var/turf/T = get_turf(src)
 	. = ..()
 	if(QDELETED(src) && !transfer)

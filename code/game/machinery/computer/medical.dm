@@ -166,8 +166,6 @@
 						var/turf/bl = get_turf(M)
 						if(bl)	//if it can't find a turf for the medibot, then it probably shouldn't be showing up
 							bdat += "[M.name] - <b>\[[bl.x],[bl.y]\]</b> - [M.on ? "Online" : "Offline"]<br>"
-							if(!isnull(M.reagent_glass))
-								bdat += "Reservoir: \[[M.reagent_glass.reagents.total_volume]/[M.reagent_glass.reagents.maximum_volume]\]<br>"
 					if(!bdat)
 						dat += "<br><center>None detected</center>"
 					else
@@ -498,9 +496,9 @@
 					return
 				src.active1 = null
 				src.active2 = null
-				t1 = LOWER_TEXT(t1)
+				t1 = lowertext(t1)
 				for(var/datum/data/record/R in GLOB.data_core.medical)
-					if((LOWER_TEXT(R.fields["name"]) == t1 || t1 == LOWER_TEXT(R.fields["id"]) || t1 == LOWER_TEXT(R.fields["b_dna"])))
+					if((lowertext(R.fields["name"]) == t1 || t1 == lowertext(R.fields["id"]) || t1 == lowertext(R.fields["b_dna"])))
 						src.active2 = R
 					else
 						//Foreach continue //goto(3229)

@@ -10,8 +10,6 @@ GLOBAL_LIST_EMPTY(objective_computers)
 	circuit = /obj/item/circuitboard/computer/objective
 	var/list/viewing_mobs = list()
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/objective)
-
 /obj/machinery/computer/objective/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	GLOB.objective_computers += src

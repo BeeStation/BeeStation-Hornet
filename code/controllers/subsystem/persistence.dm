@@ -28,7 +28,7 @@ SUBSYSTEM_DEF(persistence)
 	if(CONFIG_GET(flag/use_antag_rep))
 		LoadAntagReputation()
 	LoadPaintings()
-	return SS_INIT_SUCCESS
+	return ..()
 
 /datum/controller/subsystem/persistence/proc/LoadPoly()
 	for(var/mob/living/simple_animal/parrot/Poly/P in GLOB.alive_mob_list)
@@ -330,5 +330,3 @@ SUBSYSTEM_DEF(persistence)
 	var/json_file = file("data/paintings.json")
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(paintings))
-
-#undef FILE_ANTAG_REP

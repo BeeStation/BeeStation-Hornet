@@ -138,20 +138,17 @@
 	///Used for changing icon states for different base sprites.
 	var/base_icon_state
 
+	///Used to show a specific icon state in certain situations - i.e.) crafting menu
+	var/icon_state_preview
 	// This veriable exists BECAUSE animating sprite (bola) has an issue to render to TGUI crafting window - it shows wrong icons.
 
 	///LazyList of all balloon alerts currently on this atom
 	var/list/balloon_alerts
 
-	/// What is our default level of luminosity, if you want inherent luminosity
-	/// withing an atom's type, set luminosity instead and we will manage it for you.
-	/// Always use set_base_luminosity instead of directly modifying this
-	VAR_PRIVATE/base_luminosity = 0
+	/// How much luminosity should we have by default?
+	var/base_luminosity = 0
 	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
-	VAR_PRIVATE/_emissive_count = 0
-
-	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
-	var/list/eye_users
+	var/_emissive_count = 0
 
 /**
   * Called when an atom is created in byond (built in engine proc)
@@ -212,8 +209,6 @@
   * * /turf/Initialize
   * * /turf/open/space/Initialize
   */
-CREATION_TEST_IGNORE_SUBTYPES(/atom)
-
 /atom/proc/Initialize(mapload, ...)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
@@ -276,7 +271,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
   * Top level of the destroy chain for most atoms
   *
   * Cleans up the following:
-  * * Removes clients who use this, and resets their eye
   * * Removes alternate apperances from huds that see them
   * * qdels the reagent holder from atoms if it exists
   * * clears the orbiters list
@@ -284,14 +278,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
   * * clears the light object
   */
 /atom/Destroy()
-	for(var/client/each_client as anything in eye_users)
-		eye_users -= each_client
-		if(isnull(each_client.mob))
-			stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
-			continue
-		each_client.mob.reset_perspective()
-	eye_users = null
-
 	if(alternate_appearances)
 		for(var/current_alternate_appearance in alternate_appearances)
 			var/datum/atom_hud/alternate_appearance/selected_alternate_appearance = alternate_appearances[current_alternate_appearance]
@@ -445,25 +431,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
   * Otherwise it simply forceMoves the atom into this atom
   */
 /atom/proc/CheckParts(list/parts_list, datum/crafting_recipe/R)
+	if(parts_list)
+		for(var/A in parts_list)
+			if(istype(A, /datum/reagent))
+				if(!reagents)
+					reagents = new()
+				reagents.reagent_list.Add(A)
+				reagents.conditional_update()
+			else if(ismovable(A))
+				var/atom/movable/M = A
+				if(isliving(M.loc))
+					var/mob/living/L = M.loc
+					L.transferItemToLoc(M, src)
+				else
+					M.forceMove(src)
+				SEND_SIGNAL(M, COMSIG_ATOM_USED_IN_CRAFT, src)
+		parts_list.Cut()
 	SEND_SIGNAL(src, COMSIG_ATOM_CHECKPARTS, parts_list, R)
-	if(!parts_list)
-		return
-
-	for(var/A in parts_list)
-		if(istype(A, /datum/reagent))
-			if(!reagents)
-				reagents = new()
-			reagents.reagent_list.Add(A)
-			reagents.conditional_update()
-		else if(ismovable(A))
-			var/atom/movable/M = A
-			if(isliving(M.loc))
-				var/mob/living/L = M.loc
-				L.transferItemToLoc(M, src)
-			else
-				M.forceMove(src)
-			SEND_SIGNAL(M, COMSIG_ATOM_USED_IN_CRAFT, src)
-	parts_list.Cut()
 
 ///Take air from the passed in gas mixture datum
 /atom/proc/assume_air(datum/gas_mixture/giver)
@@ -601,7 +585,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 ///Generate the full examine string of this atom (including icon for goonchat)
 /atom/proc/get_examine_string(mob/user, thats = FALSE)
-	return "[icon2html(src, user)] [thats? "That's ":""][get_examine_name(user)]."
+	return "[icon2html(src, user)] [thats? "That's ":""][get_examine_name(user)]"
 
 /**
   * Called when a mob examines (shift click or verb) this atom
@@ -612,7 +596,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
   * Produces a signal COMSIG_PARENT_EXAMINE
   */
 /atom/proc/examine(mob/user)
-	. = list("[get_examine_string(user, TRUE)]")
+	. = list("[get_examine_string(user, TRUE)].")
 
 	if(desc)
 		. += desc
@@ -793,7 +777,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
   * Default behaviour is to send a warning that the user can't move while buckled as long
   * as the buckle_message_cooldown has expired (50 ticks)
   */
-/atom/proc/relaymove(mob/living/user, direction)
+/atom/proc/relaymove(mob/user)
 	if(buckle_message_cooldown <= world.time)
 		buckle_message_cooldown = world.time + 50
 		to_chat(user, "<span class='warning'>You can't move while buckled to [src]!</span>")
@@ -1051,7 +1035,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	while (do_after(user, 1 SECONDS, src, NONE, FALSE, CALLBACK(STR, TYPE_PROC_REF(/datum/component/storage, handle_mass_item_insertion), things, src_object, user, progress)))
 		stoplag(1)
-	progress.end_progress()
+	qdel(progress)
 	to_chat(user, "<span class='notice'>You dump as much of [src_object.parent]'s contents into [STR.insert_preposition]to [src] as you can.</span>")
 	STR.orient2hud(user)
 	src_object.orient2hud(user)
@@ -1099,6 +1083,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 /atom/proc/update_remote_sight(mob/living/user)
 	return
 
+
 /**
   * Hook for running code when a dir change occurs
   *
@@ -1113,6 +1098,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 /atom/proc/try_face(newdir)
 	setDir(newdir)
 	return TRUE
+
+///Handle melee attack by a mech
+/atom/proc/mech_melee_attack(obj/mecha/M)
+	return
 
 /**
   * Called when the atom log's in or out
@@ -1251,7 +1240,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EXPLOSION, "Explosion")
 	VV_DROPDOWN_OPTION(VV_HK_RADIATE, "Radiate")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
-	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
 	if(greyscale_colors)
 		VV_DROPDOWN_OPTION(VV_HK_MODIFY_GREYSCALE, "Modify greyscale colors")
@@ -1343,10 +1331,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	if(href_list[VV_HK_EDIT_FILTERS] && check_rights(R_VAREDIT))
 		var/client/C = usr.client
 		C?.open_filter_editor(src)
-
-	if(href_list[VV_HK_EDIT_COLOR_MATRIX] && check_rights(R_VAREDIT))
-		var/client/C = usr.client
-		C?.open_color_matrix_editor(src)
 
 /atom/vv_get_header()
 	. = ..()
@@ -1462,7 +1446,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	to_chat(user, "<span class='notice'>You start working on [src]</span>")
 	if(process_item.use_tool(src, user, processing_time, volume=50))
 		var/atom/atom_to_create = chosen_option[TOOL_PROCESSING_RESULT]
-		var/list/atom/created_atoms = list()
+		//var/list/atom/created_atoms = list() //Customfood
 		var/amount_to_create = chosen_option[TOOL_PROCESSING_AMOUNT]
 		for(var/i = 1 to amount_to_create)
 			var/atom/created_atom = new atom_to_create(drop_location())
@@ -1472,9 +1456,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 				created_atom.pixel_x += rand(-8,8)
 				created_atom.pixel_y += rand(-8,8)
 			created_atom.OnCreatedFromProcessing(user, process_item, chosen_option, src)
-			to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.gender) == PLURAL ? "[initial(atom_to_create.name)]" : "[initial(atom_to_create.name)][plural_s(initial(atom_to_create.name))]"] from [src].</span>")
-			created_atoms.Add(created_atom)
-		SEND_SIGNAL(src, COMSIG_ATOM_PROCESSED, user, process_item, created_atoms)
+		to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.gender) == PLURAL ? "[initial(atom_to_create.name)]" : "[initial(atom_to_create.name)][plural_s(initial(atom_to_create.name))]"] from [src].</span>")
+		//SEND_SIGNAL(src, COMSIG_ATOM_PROCESSED, user, process_item, created_atoms) //Custom food
 		UsedforProcessing(user, process_item, chosen_option)
 		return
 
@@ -1549,8 +1532,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 			log_comment(log_text)
 		if(LOG_TELECOMMS)
 			log_telecomms(log_text)
-		if(LOG_ECON)
-			log_econ(log_text)
 		if(LOG_OOC)
 			log_ooc(log_text)
 		if(LOG_ADMIN)
@@ -1614,15 +1595,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
   * 3 is a verb describing the action (e.g. punched, throwed, kicked, etc.)
   * 4 is a tool with which the action was made (usually an item)
   * 5 is any additional text, which will be appended to the rest of the log line
-  * 6 if an attack isn't important, then it won't be considered for the blackbox combat log outcomes
   */
-/proc/log_combat(atom/user, atom/target, what_done, object=null, addition=null, important = TRUE)
+/proc/log_combat(atom/user, atom/target, what_done, atom/object=null, addition=null)
 	if(isweakref(user))
 		var/datum/weakref/A_ref = user
 		user = A_ref.resolve()
 	var/ssource = key_name(user)
 	var/starget = key_name(target)
-	var/datum/tool_atom = object
 
 	var/mob/living/living_target = target
 	var/hp = istype(living_target) ? " (NEWHP: [living_target.health]) " : ""
@@ -1633,7 +1612,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 	var/sobject = ""
 	if(object)
-		sobject = " with [object][(istype(tool_atom) ? " ([tool_atom.type])" : "")]"
+		sobject = " with [object]"
 	var/saddition = ""
 	if(addition)
 		saddition = " [addition]"
@@ -1643,10 +1622,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	var/message = "has [what_done] [starget][postfix]"
 	user.log_message(message, LOG_ATTACK, color="red")
 
-	if (important && isliving(user) && isliving(target))
-		var/mob/living/living_user = user
-		SScombat_logging.log_combat(living_user, living_target, istype(tool_atom) ? tool_atom.type : object)
-
 	if(user != target)
 		var/reverse_message = "has been [what_done] by [ssource][postfix]"
 		target.log_message(reverse_message, LOG_ATTACK, color="orange", log_globally=FALSE)
@@ -1654,16 +1629,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 /**
   * Log for buying items from the uplink
   *
-  * [buyer]: is for the user that bought the item
-  * [object]: is for the item that was purchased
-  * [type]: is for the uplink type (traitor/contractor)
-  * [is_bonus]: is given TRUE when an item is given for free
+  * 1 argument is for the user that bought the item
+  * 2 argument is for the item that was purchased
+  * 3 argument is for the uplink type (traitor/contractor)
  */
-/proc/log_uplink_purchase(mob/buyer, atom/object, type = "\improper uplink", is_bonus = FALSE)
-	var/message = "has [!is_bonus ? "bought" : "received a bonus item"] [object] from \a [type]"
+/proc/log_uplink_purchase(mob/buyer, atom/object, type = "\improper uplink")
+	var/message = "has bought [object] from \a [type]"
 	buyer.log_message(message, LOG_GAME)
 	if(isnull(locate(/datum/antagonist) in buyer.mind?.antag_datums))
-		message_admins("[ADMIN_LOOKUPFLW(buyer)] has [!is_bonus ? "bought" : "received a bonus item"] [object] from \a [type] as a non-antagonist.")
+		message_admins("[ADMIN_LOOKUPFLW(buyer)] has bought [object] from \a [type] as a non-antagonist.")
 
 /atom/proc/add_filter(name,priority,list/params)
 	LAZYINITLIST(filter_data)
@@ -1733,7 +1707,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	if(custom_materials) //Only runs if custom materials existed at first. Should usually be the case but check anyways
 		for(var/i in custom_materials)
 			var/datum/material/custom_material = SSmaterials.GetMaterialRef(i)
-			custom_material.on_removed(src, custom_materials[i], material_flags) //Remove the current materials
+			custom_material.on_removed(src, material_flags) //Remove the current materials
 
 	if(!length(materials))
 		custom_materials = null
@@ -1745,25 +1719,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 			custom_material.on_applied(src, materials[x] * multiplier * material_modifier, material_flags)
 
 	custom_materials = SSmaterials.FindOrCreateMaterialCombo(materials, multiplier)
-
-/**Returns the material composition of the atom.
-  *
-  * Used when recycling items, specifically to turn alloys back into their component mats.
-  *
-  * Exists because I'd need to add a way to un-alloy alloys or otherwise deal
-  * with people converting the entire stations material supply into alloys.
-  *
-  * Arguments:
-  * - flags: A set of flags determining how exactly the materials are broken down.
-  */
-/atom/proc/get_material_composition(breakdown_flags=NONE)
-	. = list()
-	var/list/cached_materials = custom_materials
-	for(var/mat in cached_materials)
-		var/datum/material/material = SSmaterials.GetMaterialRef(mat)
-		var/list/material_comp = material.return_composition(cached_materials[material], breakdown_flags)
-		for(var/comp_mat in material_comp)
-			.[comp_mat] += material_comp[comp_mat]
 
 /// Returns the indice in filters of the given filter name.
 /// If it is not found, returns null.
@@ -1801,14 +1756,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
   */
 /atom/proc/setClosed()
 	return
-
-/**
-  * Used to attempt to charge an object with a payment component.
-  *
-  * Use this if an atom needs to attempt to charge another atom.
-  */
-/atom/proc/attempt_charge(var/atom/sender, var/atom/target, var/extra_fees = 0)
-	return SEND_SIGNAL(sender, COMSIG_OBJ_ATTEMPT_CHARGE, target, extra_fees)
 
 /**
 * Instantiates the AI controller of this atom. Override this if you want to assign variables first.
@@ -1942,16 +1889,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	if (isnull(base_luminosity))
 		base_luminosity = initial(luminosity)
 
-	if (UNLINT(_emissive_count))
-		UNLINT(luminosity = max(max(base_luminosity, affecting_dynamic_lumi), 1))
+	if (_emissive_count)
+		luminosity = max(max(base_luminosity, affecting_dynamic_lumi), 1)
 	else
-		UNLINT(luminosity = max(base_luminosity, affecting_dynamic_lumi))
-
-#define set_base_luminosity(target, new_value)\
-if (UNLINT(target.base_luminosity != new_value)) {\
-	UNLINT(target.base_luminosity = new_value);\
-	target.update_luminosity();\
-}
-
-/atom/movable/proc/get_orbitable()
-	return src
+		luminosity = max(base_luminosity, affecting_dynamic_lumi)

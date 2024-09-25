@@ -17,8 +17,7 @@
 	maxHealth = 38
 	health = 38
 	melee_damage = 0
-	attack_verb_continuous = "lashes out at"
-	attack_verb_simple = "lash out at"
+	attacktext = "lashes out at"
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "falls right through the strange body of the"
@@ -66,17 +65,14 @@
 	icon_gib = "syndicate_gib"
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 1
-	friendly_verb_continuous = "buzzes near"
-	friendly_verb_simple = "buzz near"
+	friendly = "buzzes near"
 	vision_range = 10
 	speed = 3
 	maxHealth = 1
 	health = 1
-	is_flying_animal = TRUE
-	no_flying_animation = TRUE
+	movement_type = FLYING
 	melee_damage = 2
-	attack_verb_continuous = "slashes"
-	attack_verb_simple = "slash"
+	attacktext = "slashes"
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "falls right through the strange body of the"
@@ -103,8 +99,7 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	obj_damage = 60
 	melee_damage = 15
-	attack_verb_continuous = "lashes out at"
-	attack_verb_simple = "lash out at"
+	attacktext = "lashes out at"
 	speak_emote = list("echoes")
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "bounces harmlessly off of"
@@ -112,7 +107,7 @@
 	loot = list(/obj/item/organ/regenerative_core/legion)
 	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
 	del_on_death = TRUE
-	stat_attack = HARD_CRIT
+	stat_attack = UNCONSCIOUS
 	robust_searching = 1
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
@@ -164,37 +159,27 @@
 	icon_aggro = "legion_head"
 	icon_dead = "legion_head"
 	icon_gib = "syndicate_gib"
-	friendly_verb_continuous = "buzzes near"
-	friendly_verb_simple = "buzz near"
+	friendly = "buzzes near"
 	vision_range = 10
 	maxHealth = 1
 	health = 5
 	melee_damage = 12
-	attack_verb_continuous = "bites"
-	attack_verb_simple = "bite"
+	attacktext = "bites"
 	speak_emote = list("echoes")
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "is shrugged off by"
 	pass_flags = PASSTABLE
 	del_on_death = TRUE
-	stat_attack = HARD_CRIT
+	stat_attack = UNCONSCIOUS
 	robust_searching = 1
 	var/can_infest_dead = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/Life()
-	. = ..()
-	if(stat == DEAD || !isturf(loc))
-		return
-
-	for(var/mob/living/carbon/human/victim in viewers(1, src)) //Only for corpse right next to/on same tile
-		switch(victim.stat)
-			if(UNCONSCIOUS, HARD_CRIT)
-				infest(victim)
-				return //This will qdelete the legion.
-			if(DEAD)
-				if(can_infest_dead)
-					infest(victim)
-					return //This will qdelete the legion.
+	if(isturf(loc))
+		for(var/mob/living/carbon/human/H in viewers(1, src)) //Only for corpse right next to/on same tile
+			if(H.stat == UNCONSCIOUS || (can_infest_dead && H.stat == DEAD))
+				infest(H)
+	..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	visible_message("<span class='warning'>[name] burrows into the flesh of [H]!</span>")
@@ -254,7 +239,7 @@
 	weather_immunities = list("lava","ash")
 	obj_damage = 30
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	see_in_dark = NIGHTVISION_FOV_RANGE
+	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 
@@ -371,11 +356,11 @@
 			mask = /obj/item/clothing/mask/breath
 		if("Cultist")
 			uniform = /obj/item/clothing/under/costume/roman
-			suit = /obj/item/clothing/suit/hooded/cultrobes
+			suit = /obj/item/clothing/suit/cultrobes
 			suit_store = /obj/item/tome
 			shoes = /obj/item/clothing/shoes/cult
 			r_pocket = /obj/item/restraints/legcuffs/bola/cult
 			l_pocket = /obj/item/melee/cultblade/dagger
 			glasses =  /obj/item/clothing/glasses/hud/health/night/cultblind
-			backpack_contents = list(/obj/item/reagent_containers/food/drinks/bottle/unholywater = 1, /obj/item/cult_shift = 1, /obj/item/flashlight/flare/culttorch = 1, /obj/item/stack/sheet/runed_metal = 15)
+			backpack_contents = list(/obj/item/reagent_containers/glass/beaker/unholywater = 1, /obj/item/cult_shift = 1, /obj/item/flashlight/flare/culttorch = 1, /obj/item/stack/sheet/runed_metal = 15)
 	. = ..()

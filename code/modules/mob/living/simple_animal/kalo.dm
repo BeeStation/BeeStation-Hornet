@@ -7,7 +7,7 @@
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
 	held_state = "lizard"
-	footstep_type = FOOTSTEP_MOB_CLAW
+	do_footstep = TRUE
 	can_be_held = TRUE
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST, MOB_REPTILE)
 	mob_size = MOB_SIZE_SMALL
@@ -17,12 +17,9 @@
 	see_in_dark     = 5
 	speak_chance    = 1
 	turns_per_move  = 3
-	response_help_continuous = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "shoos"
-	response_disarm_simple = "shoo"
-	response_harm_continuous = "stomps on"
-	response_harm_simple = "stomp on"
+	response_help   = "pets"
+	response_disarm = "shoos"
+	response_harm   = "stomps"
 	speak = list("Hissssss!", "Squeak!")
 	speak_emote = list("hisses", "squeaks")
 	speak_language = /datum/language/metalanguage
@@ -34,7 +31,7 @@
 	minbodytemp = 50
 	maxbodytemp = 800
 	var/turns_since_scan = 0
-	var/obj/item/food/movement_target
+	var/obj/item/reagent_containers/food/snacks/movement_target
 	mobchatspan = "centcom"
 
 /mob/living/simple_animal/kalo/Destroy()
@@ -53,7 +50,7 @@
 				stop_automated_movement = 0
 			if(!movement_target || !(src in viewers(5, movement_target.loc)))
 				stop_automated_movement = 0
-				movement_target = locate(/obj/item/food) in oview(5, src) //can smell things up to 5 blocks radius
+				movement_target = locate(/obj/item/reagent_containers/food/snacks) in oview(5, src) //can smell things up to 5 blocks radius
 
 			if(movement_target)
 				stop_automated_movement = 1
@@ -72,12 +69,12 @@
 						return
 
 					if(isturf(movement_target.loc) )
-						if(movement_target.bite_consumption == 0 || prob(50))
+						if(movement_target.bitecount == 0 || prob(50))
 							INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "nibbles on \the [movement_target]")
-						movement_target.bite_consumption++
+						movement_target.bitecount++
 						taste(movement_target.reagents)
 						turns_since_scan = 2
-						if(movement_target.bite_consumption >= 4)
+						if(movement_target.bitecount >= 4)
 							if(prob(60))
 								INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "burps")
 							fully_heal()

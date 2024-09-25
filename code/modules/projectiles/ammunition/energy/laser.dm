@@ -54,16 +54,8 @@
 	select_name = "bluetag"
 	harmful = FALSE
 
-/obj/item/ammo_casing/energy/laser/bluetag/update_overlays()
-	. = ..()
-	return
-
 /obj/item/ammo_casing/energy/laser/bluetag/hitscan
 	projectile_type = /obj/projectile/beam/lasertag/bluetag/hitscan
-
-/obj/item/ammo_casing/energy/laser/bluetag/update_overlays()
-	. = ..()
-	return
 
 /obj/item/ammo_casing/energy/laser/redtag
 	projectile_type = /obj/projectile/beam/lasertag/redtag

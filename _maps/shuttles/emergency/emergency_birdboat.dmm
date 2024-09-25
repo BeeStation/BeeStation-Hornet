@@ -262,7 +262,7 @@
 /area/shuttle/escape)
 "xJ" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "bridge Door";
+	name = "bridge door";
 	req_access_txt = "19"
 	},
 /obj/machinery/door/firedoor,
@@ -297,7 +297,7 @@
 /area/shuttle/escape)
 "Wn" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "security Airlock";
+	name = "security airlock";
 	req_access_txt = "63"
 	},
 /obj/machinery/door/firedoor,

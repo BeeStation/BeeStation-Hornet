@@ -2,8 +2,6 @@
 /obj/item/seeds/flower
 	name = "pack of generic flower seeds"
 	desc = "You should not be seeing this."
-	icon_state = null
-	worn_icon_state = null
 	endurance = 10
 	maturation = 8
 	yield = 6
@@ -14,11 +12,8 @@
 /obj/item/food/grown/flower
 	name = "generic flower"
 	desc = "You should not be seeing this"
-	icon_state = null
-	worn_icon_state = null
 	slot_flags = ITEM_SLOT_HEAD
 	bite_consumption_mod = 2
-	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
 	food_reagents = null //get the unit test off our back
 	foodtypes = VEGETABLES | GROSS
 
@@ -94,8 +89,6 @@
 	genes = list(/datum/plant_gene/reagent/polypyr)
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
 	rarity = 30
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/flower/trumpet)
 
 /obj/item/seeds/flower/trumpet/Initialize(mapload,nogenes)
 	. = ..()
@@ -282,12 +275,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/flower/trumpet)
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 3
-	attack_verb_continuous = list("roasts", "scorches", "burns")
-	attack_verb_simple = list("roast", "scorch", "burn")
+	attack_verb = list("roasted", "scorched", "burned")
 	grind_results = list(/datum/reagent/consumable/capsaicin = 0, /datum/reagent/consumable/condensedcapsaicin = 0)
 	discovery_points = 300
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grown/novaflower)
 
 /obj/item/grown/novaflower/Initialize(mapload, obj/item/seeds/new_seed)
 	..()

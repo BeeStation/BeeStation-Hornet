@@ -9,10 +9,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	light_color = LIGHT_COLOR_FIRE
 	heat = 1000
-	light_system = MOVABLE_LIGHT
-	light_range = CANDLE_LUMINOSITY
-	light_power = 2
-	light_on = FALSE
 	/// How many seconds it burns for
 	var/wax = 2000
 	var/lit = FALSE
@@ -48,7 +44,7 @@
 		lit = TRUE
 		if(show_message)
 			usr.visible_message(show_message)
-		update_brightness()
+		set_light(CANDLE_LUMINOSITY)
 		START_PROCESSING(SSobj, src)
 		update_icon()
 
@@ -57,13 +53,8 @@
 		return
 	lit = FALSE
 	update_icon()
-	update_brightness()
+	set_light(0)
 	return TRUE
-
-/obj/item/candle/proc/update_brightness()
-	set_light_on(lit)
-	if(light_system == STATIC_LIGHT)
-		update_light()
 
 /obj/item/candle/extinguish()
 	put_out_candle()

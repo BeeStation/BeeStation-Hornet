@@ -5,7 +5,7 @@
 	button_icon_state = "panacea"
 	chemical_cost = 20
 	dna_cost = 1
-	req_stat = HARD_CRIT
+	req_stat = UNCONSCIOUS
 
 //Heals the things that the other regenerative abilities don't.
 /datum/action/changeling/panacea/sting_action(mob/user)

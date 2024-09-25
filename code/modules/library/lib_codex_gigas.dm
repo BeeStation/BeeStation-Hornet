@@ -108,9 +108,3 @@
 	data["name"]=currentName
 	data["currentSection"]=currentSection
 	return data
-
-#undef PRE_TITLE
-#undef TITLE
-#undef SYLLABLE
-#undef MULTIPLE_SYLLABLE
-#undef SUFFIX

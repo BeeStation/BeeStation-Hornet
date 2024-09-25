@@ -6,34 +6,34 @@
 "k" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/gloves,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "m" = (
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "u" = (
 /obj/structure/chair/office{
 	dir = 4
 	},
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "B" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "E" = (
 /obj/structure/table,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "G" = (
 /obj/structure/filingcabinet/chestdrawer,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "R" = (
 /obj/structure/filingcabinet/security,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "X" = (
 /turf/closed/wall,

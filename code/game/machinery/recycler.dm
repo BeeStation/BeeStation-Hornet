@@ -21,21 +21,7 @@
 	var/item_recycle_sound = 'sound/items/welder.ogg'
 
 /obj/machinery/recycler/Initialize(mapload)
-	var/list/allowed_materials = list(
-		/datum/material/iron,
-		/datum/material/glass,
-		/datum/material/copper,
-		/datum/material/silver,
-		/datum/material/plasma,
-		/datum/material/gold,
-		/datum/material/diamond,
-		/datum/material/plastic,
-		/datum/material/uranium,
-		/datum/material/bananium,
-		/datum/material/titanium,
-		/datum/material/bluespace
-	)
-	AddComponent(/datum/component/material_container, allowed_materials, INFINITY, MATCONTAINER_NO_INSERT|BREAKDOWN_FLAGS_RECYCLER)
+	AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/silver, /datum/material/plasma, /datum/material/gold, /datum/material/diamond, /datum/material/plastic, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace), INFINITY, FALSE, null, null, null, TRUE)
 	AddComponent(/datum/component/butchering, 1, amount_produced,amount_produced/5)
 	. = ..()
 	update_icon()
@@ -141,7 +127,7 @@
 
 /obj/machinery/recycler/proc/recycle_item(obj/item/I)
 	if(I.resistance_flags & INDESTRUCTIBLE) //indestructible item check
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
 		I.forceMove(loc)
 		return
 	I.forceMove(loc)
@@ -152,12 +138,14 @@
 			seed_modifier = round(L.seed.potency / 25)
 		new L.plank_type(src.loc, 1 + seed_modifier)
 		qdel(L)
+		return
 	else
 		var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-		var/material_amount = materials.get_item_material_amount(I, BREAKDOWN_FLAGS_RECYCLER)
+		var/material_amount = materials.get_item_material_amount(I)
 		if(!material_amount)
+			qdel(I)
 			return
-		materials.insert_item(I, material_amount, multiplier = (amount_produced / 100), breakdown_flags=BREAKDOWN_FLAGS_RECYCLER)
+		materials.insert_item(I, multiplier = (amount_produced / 100))
 		qdel(I)
 		materials.retrieve_all()
 

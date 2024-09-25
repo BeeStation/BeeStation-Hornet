@@ -25,7 +25,7 @@
 	alpha = 50
 	discovery_points = 5000
 
-	footstep_type = FOOTSTEP_MOB_CLAW
+	do_footstep = TRUE
 
 /mob/living/simple_animal/hostile/jungle/mega_arachnid/Life()
 	..()

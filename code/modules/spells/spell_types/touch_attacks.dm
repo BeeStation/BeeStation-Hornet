@@ -50,7 +50,7 @@
 	attached_hand = create_hand()
 	if(!user.put_in_hands(attached_hand))
 		remove_hand()
-		if (user.usable_hands == 0)
+		if (user.get_num_arms() <= 0)
 			to_chat(user, "<span class='warning'>You dont have any usable hands!</span>")
 		else
 			to_chat(user, "<span class='warning'>Your hands are full!</span>")
@@ -89,9 +89,7 @@
 	clothes_req = FALSE
 	var/datum/mutation/parent_mutation
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/proc_holder/spell/targeted/touch/mutation)
-
-/obj/effect/proc_holder/spell/targeted/touch/mutation/Initialize(mapload, datum/mutation/_parent)
+/obj/effect/proc_holder/spell/targeted/touch/mutation/Initialize(_mapload, datum/mutation/_parent)
 	. = ..()
 	if(!istype(_parent))
 		return INITIALIZE_HINT_QDEL

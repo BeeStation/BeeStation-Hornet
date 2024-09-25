@@ -226,7 +226,7 @@
 /obj/item/food/donut/jelly/in_box_sprite()
 	return "[replacetext(icon_state, "jelly", "donut")]_inbox"
 
-/obj/item/food/donut/jelly/Initialize(mapload)
+/obj/item/food/donut/jelly/Initialize()
 	. = ..()
 	if(extra_reagent)
 		reagents.add_reagent(extra_reagent, 3)

@@ -2,13 +2,12 @@
 	name = "generic vehicle"
 	desc = "Yell at coderbus."
 	icon = 'icons/obj/vehicles.dmi'
-	icon_state = "error"
+	icon_state = "fuckyou"
 	max_integrity = 300
-	armor = list(MELEE = 30,  BULLET = 30, LASER = 30, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 0, BLEED = 0)
+	armor = list(MELEE = 30,  BULLET = 30, LASER = 30, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 0)
 	density = TRUE
 	anchored = FALSE
-	COOLDOWN_DECLARE(cooldown_vehicle_move)
-	var/list/mob/occupants //mob = bitflags of their control level.
+	var/list/mob/occupants				//mob = bitflags of their control level.
 	var/max_occupants = 1
 	var/max_drivers = 1
 	var/movedelay = 2
@@ -60,7 +59,7 @@
 	return occupants
 
 /obj/vehicle/proc/occupant_amount()
-	return LAZYLEN(occupants)
+	return length(occupants)
 
 /obj/vehicle/proc/return_amount_of_controllers_with_flag(flag)
 	. = 0
@@ -85,13 +84,12 @@
 	return is_occupant(M) && occupants[M] & VEHICLE_CONTROL_DRIVE
 
 /obj/vehicle/proc/is_occupant(mob/M)
-	return !isnull(LAZYACCESS(occupants, M))
+	return !isnull(occupants[M])
 
 /obj/vehicle/proc/add_occupant(mob/M, control_flags)
-	if(!istype(M) || is_occupant(M))
+	if(!istype(M) || occupants[M])
 		return FALSE
-
-	LAZYSET(occupants, M, NONE)
+	occupants[M] = NONE
 	add_control_flags(M, control_flags)
 	after_add_occupant(M)
 	grant_passenger_actions(M)
@@ -109,19 +107,19 @@
 		return FALSE
 	remove_control_flags(M, ALL)
 	remove_passenger_actions(M)
-	LAZYREMOVE(occupants, M)
+	occupants -= M
 	cleanup_actions_for_mob(M)
 	after_remove_occupant(M)
 	return TRUE
 
 /obj/vehicle/proc/after_remove_occupant(mob/M)
 
-/obj/vehicle/relaymove(mob/living/user, direction)
+/obj/vehicle/relaymove(mob/user, direction)
 	if(is_driver(user))
 		return driver_move(user, direction)
 	return FALSE
 
-/obj/vehicle/proc/driver_move(mob/living/user, direction)
+/obj/vehicle/proc/driver_move(mob/user, direction)
 	if(key_type && !is_key(inserted_key))
 		to_chat(user, "<span class='warning'>[src] has no key inserted!</span>")
 		return FALSE
@@ -133,9 +131,9 @@
 	return TRUE
 
 /obj/vehicle/proc/vehicle_move(direction)
-	if(!COOLDOWN_FINISHED(src, cooldown_vehicle_move))
+	if(lastmove + movedelay > world.time)
 		return FALSE
-	COOLDOWN_START(src, cooldown_vehicle_move, movedelay)
+	lastmove = world.time
 	if(trailer)
 		var/dir_to_move = get_dir(trailer.loc, loc)
 		var/did_move = step(src, direction)
@@ -150,7 +148,7 @@
 	return
 
 /obj/vehicle/proc/add_control_flags(mob/controller, flags)
-	if(!is_occupant(controller) || !flags)
+	if(!istype(controller) || !flags)
 		return FALSE
 	occupants[controller] |= flags
 	for(var/i in GLOB.bitflags)
@@ -159,7 +157,7 @@
 	return TRUE
 
 /obj/vehicle/proc/remove_control_flags(mob/controller, flags)
-	if(!is_occupant(controller) || !flags)
+	if(!istype(controller) || !flags)
 		return FALSE
 	occupants[controller] &= ~flags
 	for(var/i in GLOB.bitflags)
@@ -167,13 +165,12 @@
 			remove_controller_actions_by_flag(controller, i)
 	return TRUE
 
-/obj/vehicle/Bump(atom/A)
+/obj/vehicle/Bump(atom/movable/M)
 	. = ..()
 	if(emulate_door_bumps)
-		if(istype(A, /obj/machinery/door))
-			var/obj/machinery/door/conditionalwall = A
+		if(istype(M, /obj/machinery/door))
 			for(var/m in occupants)
-				conditionalwall.bumpopen(m)
+				M.Bumped(m)
 
 /obj/vehicle/Move(newloc, dir)
 	. = ..()

@@ -194,8 +194,7 @@ effective or pretty fucking useless.
 	item_state = "utility"
 	worn_icon_state = "utility"
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb_continuous = list("whips", "lashes", "disciplines")
-	attack_verb_simple = list("whip", "lash", "discipline")
+	attack_verb = list("whipped", "lashed", "disciplined")
 
 	var/mob/living/carbon/human/user = null
 	var/charge = 300
@@ -259,11 +258,9 @@ effective or pretty fucking useless.
 	righthand_file = 'icons/mob/inhands/misc/bedsheet_righthand.dmi'
 	icon_state = "sheetmagician"
 	item_state = "sheetmagician"
-	worn_icon_state = "sheetblack"
 	slot_flags = ITEM_SLOT_NECK
 	layer = MOB_LAYER
-	attack_verb_continuous = null
-	attack_verb_simple = null
+	attack_verb = null
 
 /obj/item/shadowcloak/magician/attackby(obj/item/W, mob/user, params)
 	. = ..()

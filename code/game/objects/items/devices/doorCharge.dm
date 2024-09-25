@@ -11,8 +11,7 @@
 	throw_speed = 1
 	item_flags = NOBLUDGEON
 	force = 3
-	attack_verb_continuous = list("explodes", "detonates")
-	attack_verb_simple = list("explode", "detonate")
+	attack_verb = list("blown up", "exploded", "detonated")
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=30)
 
 /obj/item/doorCharge/ex_act(severity, target)

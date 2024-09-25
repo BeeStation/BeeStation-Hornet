@@ -31,7 +31,7 @@
 	return ..()
 
 /datum/component/deadchat_control/proc/deadchat_react(mob/source, message)
-	message = LOWER_TEXT(message)
+	message = lowertext(message)
 	if(!inputs[message])
 		return
 	if(deadchat_mode == ANARCHY_MODE)

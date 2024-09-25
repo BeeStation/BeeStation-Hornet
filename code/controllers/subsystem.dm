@@ -7,11 +7,7 @@
 	var/wait = 20			//time to wait (in deciseconds) between each call to fire(). Must be a positive integer.
 	var/priority = FIRE_PRIORITY_DEFAULT	//When mutiple subsystems need to run in the same tick, higher priority subsystems will run first and be given a higher share of the tick before MC_TICK_CHECK triggers a sleep
 
-	/// [Subsystem Flags][SS_NO_INIT] to control binary behavior. Flags must be set at compile time or before preinit finishes to take full effect. (You can also restart the mc to force them to process again)
-	var/flags = NONE
-
-	/// Which stage does this subsystem init at. Earlier stages can fire while later stages init.
-	var/init_stage = INITSTAGE_MAIN
+	var/flags = 0			//see MC.dm in __DEFINES Most flags must be set on world start to take full effect. (You can also restart the mc to force them to process again)
 
 	var/initialized = FALSE	//set to TRUE after it has been initialized, will obviously never be set if the subsystem doesn't initialize
 
@@ -68,7 +64,7 @@
 
 	tick_allocation_last = Master.current_ticklimit-(TICK_USAGE)
 	tick_allocation_avg = MC_AVERAGE(tick_allocation_avg, tick_allocation_last)
-
+	
 	. = SS_SLEEPING
 	fire(resumed)
 	. = state
@@ -204,17 +200,21 @@
 /// Called after the config has been loaded or reloaded.
 /datum/controller/subsystem/proc/OnConfigLoad()
 
-/**
- * Used to initialize the subsystem. This is expected to be overriden by subtypes.
- */
-/datum/controller/subsystem/Initialize()
-	return SS_INIT_NONE
+//used to initialize the subsystem AFTER the map has loaded
+/datum/controller/subsystem/Initialize(start_timeofday)
+	initialized = TRUE
+	SEND_SIGNAL(src, COMSIG_SUBSYSTEM_POST_INITIALIZE, start_timeofday)
+	var/time = (REALTIMEOFDAY - start_timeofday) / 10
+	var/msg = "Initialized [name] subsystem within [time] second[time == 1 ? "" : "s"]!"
+	testing("[msg]")
+	log_world(msg)
+	return time
 
 //hook for printing stats to the "MC" statuspanel for admins to see performance and related stats etc.
 /datum/controller/subsystem/stat_entry(msg)
 	var/list/tab_data = list()
 
-	if(can_fire && !(SS_NO_FIRE & flags) && init_stage <= Master.init_stage_completed)
+	if(can_fire && !(SS_NO_FIRE & flags))
 		msg = "[round(cost,1)]ms|[round(tick_usage,1)]%([round(tick_overrun,1)]%)|[round(ticks,0.1)]\t[msg]"
 	else
 		msg = "OFFLINE\t[msg]"

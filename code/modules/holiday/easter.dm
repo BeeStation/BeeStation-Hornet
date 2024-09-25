@@ -43,7 +43,7 @@
 	emote_hear = list("hops.")
 	emote_see = list("hops around","bounces up and down")
 	butcher_results = list(/obj/item/food/meat/slab = 1)
-	egg_type = /obj/item/suprise_egg
+	egg_type = /obj/item/food/egg/loaded
 	food_type = /obj/item/food/grown/carrot
 	eggsleft = 10
 	eggsFertile = FALSE
@@ -61,47 +61,39 @@
 	maxbodytemp = 1500
 	unsuitable_atmos_damage = 0
 
-/obj/item/storage/basket
-	name = "basket"
-	desc = "Handwoven basket."
+//Easter Baskets
+/obj/item/storage/bag/easterbasket
+	name = "Easter Basket"
 	icon = 'icons/obj/storage/basket.dmi'
 	icon_state = "basket"
-	w_class = WEIGHT_CLASS_BULKY
-	resistance_flags = FLAMMABLE
 
-/obj/item/storage/basket/ComponentInitialize()
+/obj/item/storage/bag/easterbasket/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 21
+	STR.can_hold = typecacheof(list(
+		/obj/item/food/egg,
+		/obj/item/food/chocolateegg,
+		/obj/item/food/boiledegg
+	))
 
-//Easter Baskets
-/obj/item/storage/basket/easter
-	name = "Easter Basket"
-
-/obj/item/storage/basket/easter/Initialize(mapload)
-	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.can_hold = typecacheof(list(/obj/item/food/egg, /obj/item/food/chocolateegg, /obj/item/food/boiledegg))
-
-/obj/item/storage/basket/easter/proc/countEggs()
+/obj/item/storage/bag/easterbasket/proc/countEggs()
 	cut_overlays()
 	add_overlay("basket-grass")
 	add_overlay("basket-egg[min(contents.len, 5)]")
 
-/obj/item/storage/basket/easter/Exited(atom/movable/gone, direction)
+/obj/item/storage/bag/easterbasket/Exited(atom/movable/gone, direction)
 	. = ..()
 	countEggs()
 
-/obj/item/storage/basket/easter/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+/obj/item/storage/bag/easterbasket/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	countEggs()
 
 //Bunny Suit
-/obj/item/clothing/head/costume/bunnyhead
+/obj/item/clothing/head/bunnyhead
 	name = "Easter Bunny Head"
 	icon_state = "bunnyhead"
-	item_state = null
+	item_state = "bunnyhead"
 	desc = "Considerably more cute than 'Frank'."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 
@@ -109,79 +101,116 @@
 	name = "Easter Bunny Suit"
 	desc = "Hop Hop Hop!"
 	icon_state = "bunnysuit"
-	icon = 'icons/obj/clothing/suits/costume.dmi'
-	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
-	item_state = null
+	item_state = "bunnysuit"
 	slowdown = -0.2
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
 //Egg prizes and egg spawns!
-/obj/item/surprise_egg
-	name = "wrapped egg"
-	desc = "A chocolate egg containing a little something special. Unwrap and enjoy!"
-	icon_state = "egg"
-	resistance_flags = FLAMMABLE
-	w_class = WEIGHT_CLASS_TINY
-	icon = 'icons/obj/food/egg.dmi'
-	//lefthand_file = 'icons/mob/inhands/items/food_lefthand.dmi'
-	//righthand_file = 'icons/mob/inhands/items/food_righthand.dmi'
-	obj_flags = UNIQUE_RENAME
+/obj/item/food/egg
+	var/containsPrize = FALSE
 
-/obj/item/suprise_egg/loaded/Initialize(mapload)
+/obj/item/food/egg/loaded
+	containsPrize = TRUE
+
+/obj/item/food/egg/loaded/Initialize(mapload)
 	. = ..()
 	var/eggcolor = pick("blue","green","mime","orange","purple","rainbow","red","yellow")
 	icon_state = "egg-[eggcolor]"
 
-/obj/item/suprise_egg/proc/dispensePrize(turf/where)
-	var/static/list/prize_list = list(
-		/obj/item/clothing/head/costume/bunnyhead,
-		/obj/item/clothing/suit/bunnysuit,
-		/obj/item/food/grown/carrot,
-		/obj/item/toy/balloon,
-		/obj/item/toy/gun,
-		/obj/item/toy/sword,
-		/obj/item/toy/talking/AI,
-		/obj/item/toy/talking/owl,
-		/obj/item/toy/talking/griffin,
-		/obj/item/toy/minimeteor,
-		/obj/item/toy/clockwork_watch,
-		/obj/item/toy/toy_xeno,
-		/obj/item/toy/foamblade,
-		/obj/item/toy/plush/carpplushie,
-		/obj/item/toy/redbutton,
-		/obj/item/toy/windupToolbox,
-		/obj/item/clothing/head/collectable/rabbitears
-	) + subtypesof(/obj/item/toy/mecha)
-	var/won = pick(prize_list)
+/obj/item/food/egg/proc/dispensePrize(turf/where)
+	var/won = pick(/obj/item/clothing/head/bunnyhead,
+	/obj/item/clothing/suit/bunnysuit,
+	/obj/item/food/grown/carrot,
+	/obj/item/food/chocolateegg,
+	/obj/item/toy/balloon,
+	/obj/item/toy/gun,
+	/obj/item/toy/sword,
+	/obj/item/toy/foamblade,
+	/obj/item/toy/prize/ripley,
+	/obj/item/toy/prize/honk,
+	/obj/item/toy/plush/carpplushie,
+	/obj/item/toy/redbutton,
+	/obj/item/clothing/head/collectable/rabbitears)
 	new won(where)
 	new/obj/item/food/chocolateegg(where)
 
-/obj/item/suprise_egg/attack_self(mob/user)
+/obj/item/food/egg/attack_self(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>You unwrap [src] and find a prize inside!</span>")
-	dispensePrize(get_turf(user))
-	qdel(src)
+	if(containsPrize)
+		to_chat(user, "<span class='notice'>You unwrap [src] and find a prize inside!</span>")
+		dispensePrize(get_turf(user))
+		containsPrize = FALSE
+		qdel(src)
 
 //Easter Recipes + food
-/obj/item/food/hotcrossbun
-	bite_consumption = 2
+/obj/item/reagent_containers/food/snacks/hotcrossbun
+	bitesize = 2
 	name = "hot-cross bun"
 	desc = "The Cross represents the Assistants that died for your sins."
 	icon_state = "hotcrossbun"
-	foodtypes = SUGAR | GRAIN
-	tastes = list("easter")
 
-/obj/item/food/scotchegg
+/datum/crafting_recipe/food/hotcrossbun
+	name = "Hot-Cross Bun"
+	reqs = list(
+		/obj/item/food/bread/plain = 1,
+		/datum/reagent/consumable/sugar = 1
+	)
+	result = /obj/item/reagent_containers/food/snacks/hotcrossbun
+	subcategory = CAT_MISCFOOD
+
+/datum/crafting_recipe/food/briochecake
+	name = "Brioche cake"
+	reqs = list(
+		/obj/item/food/cake/plain = 1,
+		/datum/reagent/consumable/sugar = 2
+	)
+	result = /obj/item/food/cake/brioche
+	subcategory = CAT_MISCFOOD
+
+/obj/item/reagent_containers/food/snacks/scotchegg
 	name = "scotch egg"
 	desc = "A boiled egg wrapped in a delicious, seasoned meatball."
-	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "scotchegg"
-	bite_consumption = 3
-	food_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
+	bitesize = 3
+	filling_color = "#FFFFF0"
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6)
 
-/obj/item/food/chocolatebunny
+/datum/crafting_recipe/food/scotchegg
+	name = "Scotch egg"
+	reqs = list(
+		/datum/reagent/consumable/sodiumchloride = 1,
+		/datum/reagent/consumable/blackpepper = 1,
+		/obj/item/food/boiledegg = 1,
+		/obj/item/food/meatball = 1
+	)
+	result = /obj/item/reagent_containers/food/snacks/scotchegg
+	subcategory = CAT_MISCFOOD
+
+/datum/crafting_recipe/food/mammi
+	name = "Mammi"
+	reqs = list(
+		/obj/item/food/bread/plain = 1,
+		/obj/item/food/chocolatebar = 1,
+		/datum/reagent/consumable/milk = 5
+	)
+	result = /obj/item/food/soup/mammi
+	subcategory = CAT_MISCFOOD
+
+/obj/item/reagent_containers/food/snacks/chocolatebunny
 	name = "chocolate bunny"
 	desc = "Contains less than 10% real rabbit!"
 	icon_state = "chocolatebunny"
-	food_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/cocoa = 2, /datum/reagent/consumable/nutriment/vitamin = 1)
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/cocoa = 2)
+	filling_color = "#A0522D"
+
+/datum/crafting_recipe/food/chocolatebunny
+	name = "Chocolate bunny"
+	reqs = list(
+		/datum/reagent/consumable/sugar = 2,
+		/obj/item/food/chocolatebar = 1
+	)
+	result = /obj/item/reagent_containers/food/snacks/chocolatebunny
+	subcategory = CAT_MISCFOOD

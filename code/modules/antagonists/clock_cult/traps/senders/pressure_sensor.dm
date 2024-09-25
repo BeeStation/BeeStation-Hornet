@@ -13,6 +13,7 @@
 	alpha = 60
 	layer = PRESSURE_PLATE_LAYER
 	max_integrity = 5
+	obj_integrity = 5
 
 /datum/component/clockwork_trap/pressure_sensor
 	sends_input = TRUE
@@ -34,7 +35,7 @@
 	if(istype(M))
 		if(is_servant_of_ratvar(M))
 			return
-		if(M.incorporeal_move || M.movement_type & (FLOATING|FLYING))
+		if(M.incorporeal_move || M.is_flying())
 			return
 	else
 		return

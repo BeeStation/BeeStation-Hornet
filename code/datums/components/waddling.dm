@@ -6,28 +6,23 @@
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 	if(isliving(parent))
-		RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(LivingWaddle))
+		RegisterSignals(parent, list(COMSIG_MOVABLE_MOVED), PROC_REF(LivingWaddle))
 	else
-		RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(Waddle))
+		RegisterSignals(parent, list(COMSIG_MOVABLE_MOVED), PROC_REF(Waddle))
 
 /datum/component/waddling/proc/LivingWaddle()
 	SIGNAL_HANDLER
 
-	if(isliving(parent))
-		var/mob/living/L = parent
-		if(L.incapacitated() || L.body_position == LYING_DOWN)
-			return
+	var/mob/living/L = parent
+	if(L.incapacitated() || !(L.mobility_flags & MOBILITY_STAND))
+		return
 	Waddle()
 
 /datum/component/waddling/proc/Waddle()
 	SIGNAL_HANDLER
 
-	if(!isatom(parent))
-		return
-
-	var/atom/movable/target = parent
-
-	animate(target, pixel_z = 4, time = 0)
-	var/prev_trans = matrix(target.transform)
-	animate(pixel_z = 0, transform = turn(target.transform, pick(-12, 0, 12)), time=2)
-	animate(pixel_z = 0, transform = prev_trans, time = 0)
+	var/rot_degrees = pick(-12, 0, 12)
+	var/atom/movable/AM = parent
+	animate(AM, pixel_z = 4, time = 0)
+	animate(pixel_z = 0, transform = turn(AM.transform, rot_degrees), time=2)
+	animate(pixel_z = 0, transform = turn(AM.transform, -rot_degrees), time = 0)

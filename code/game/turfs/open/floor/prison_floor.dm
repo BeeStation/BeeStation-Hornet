@@ -4,8 +4,7 @@
 	name = "secure floor"
 	desc = "Prison break-proof!"
 	icon = 'icons/turf/prisonfloor.dmi'
-	icon_state = "prisonfloor_4"
-	base_icon_state ="prisonfloor"
+	icon_state = "prisonfloor4"
 	max_integrity = 500
 	holodeck_compatible = TRUE
 	thermal_conductivity = 0.025
@@ -17,7 +16,7 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
 	baseturfs = /turf/open/floor/plating
-	var/plates_type = /obj/item/stack/tile/iron
+	var/plates_type = /obj/item/stack/tile/plasteel
 	var/plates = MAX_PRISON_PLATES
 	var/wrenching = FALSE
 
@@ -58,7 +57,7 @@
 			wrenching = FALSE
 
 /turf/open/floor/prison/update_icon_state()
-	icon_state = "[base_icon_state]_[plates]"
+	icon_state = "prisonfloor[plates]"
 	return ..()
 
 /turf/open/floor/prison/attackby(obj/item/object, mob/living/user, params)
@@ -70,8 +69,5 @@
 		return
 	return ..()
 
-/turf/open/floor/prison/dark
-	icon_state = "prisonfloordark_4"
-	base_icon_state ="prisonfloordark"
 
 #undef MAX_PRISON_PLATES

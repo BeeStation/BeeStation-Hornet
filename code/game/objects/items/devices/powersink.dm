@@ -14,7 +14,6 @@
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	flags_1 = CONDUCT_1
-	item_flags = NO_PIXEL_RANDOM_DROP
 	throwforce = 5
 	throw_speed = 1
 	throw_range = 2
@@ -25,20 +24,12 @@
 	var/mode = 0		// 0 = off, 1=clamped (off), 2=operating
 	var/admins_warned = FALSE // stop spam, only warn the admins once that we are about to boom
 
-	var/obj/structure/cable/attached
+	var/obj/structure/cable/attached		// the attached cable
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 /obj/item/powersink/update_icon_state()
 	icon_state = "powersink[mode == OPERATING]"
 	return ..()
-
-/obj/item/powersink/examine(mob/user)
-	. = ..()
-	if(mode)
-		. += "\The [src] is bolted to the floor."
-
-/obj/item/powersink/set_anchored(anchorvalue)
-	. = ..()
-	set_density(anchorvalue)
 
 /obj/item/powersink/proc/set_mode(value)
 	if(value == mode)
@@ -48,20 +39,23 @@
 			attached = null
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
-			set_anchored(FALSE)
+			anchored = FALSE
+			set_density(FALSE)
 
 		if(CLAMPED_OFF)
 			if(!attached)
 				return
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
-			set_anchored(TRUE)
+			anchored = TRUE
+			set_density(TRUE)
 
 		if(OPERATING)
 			if(!attached)
 				return
 			START_PROCESSING(SSobj, src)
-			set_anchored(TRUE)
+			anchored = TRUE
+			set_density(TRUE)
 
 	mode = value
 	update_appearance()

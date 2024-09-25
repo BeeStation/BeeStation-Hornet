@@ -15,9 +15,8 @@
 	can_unwrench = TRUE
 	welded = FALSE
 	layer = GAS_SCRUBBER_LAYER
-	hide = TRUE
 	shift_underlay_only = FALSE
-	pipe_state = "uvent"
+	hide = TRUE
 
 	interacts_with_air = TRUE
 
@@ -36,6 +35,8 @@
 	var/radio_filter_in
 
 	var/obj/machinery/advanced_airlock_controller/aac = null
+
+	pipe_state = "uvent"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/New()
 	if(!id_tag)
@@ -391,7 +392,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/layer4
 	piping_layer = 4
-	icon_state = "vent_map-4"
+	icon_state = "map_vent-4"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/on
 	on = TRUE
@@ -403,7 +404,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/on/layer4
 	piping_layer = 4
-	icon_state = "vent_map_on-4"
+	icon_state = "map_vent_on-4"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon
 	pump_direction = SIPHONING
@@ -417,7 +418,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/layer4
 	piping_layer = 4
-	icon_state = "vent_map-4"
+	icon_state = "map_vent-4"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/on
 	on = TRUE
@@ -447,27 +448,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/sm_waste
 	name = "supermatter waste output inlet"
 	id_tag = ATMOS_GAS_MONITOR_OUTPUT_SM_WASTE
-
-#define LAYER_HELPER(FULLPATH)\
-##FULLPATH/layer2 {\
-	piping_layer = 2;\
-	icon_state = "vent_map_siphon_on-2";\
-}\
-##FULLPATH/layer4 {\
-	piping_layer = 4;\
-	icon_state = "vent_map_siphon_on-4";\
-}
-
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/plasma_output)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/oxygen_output)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrogen_output)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/mix_output)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrous_output)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/carbon_output)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/incinerator_output)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxins_mixing_output)
-
-#undef LAYER_HELPER
 
 #undef INT_BOUND
 #undef EXT_BOUND

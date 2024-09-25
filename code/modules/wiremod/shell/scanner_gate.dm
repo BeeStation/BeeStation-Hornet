@@ -12,7 +12,7 @@
 	light_power = 1
 	light_on = FALSE
 
-/obj/structure/scanner_gate_shell/Initialize(mapload)
+/obj/structure/scanner_gate_shell/Initialize()
 	. = ..()
 	set_scanline("passive")
 

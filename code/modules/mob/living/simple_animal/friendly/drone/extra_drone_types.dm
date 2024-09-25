@@ -37,9 +37,7 @@
 	hidden_uplink.telecrystals = 10
 
 /mob/living/simple_animal/drone/syndrone/Login()
-	. = ..()
-	if(!. || !client)
-		return FALSE
+	..()
 	to_chat(src, "<span class='notice'>You can kill and eat other drones to increase your health!</span>" )
 
 /mob/living/simple_animal/drone/syndrone/badass
@@ -111,4 +109,4 @@
 
 /mob/living/simple_animal/drone/derelict
 	name = "derelict drone"
-	default_hatmask = /obj/item/clothing/head/costume/ushanka
+	default_hatmask = /obj/item/clothing/head/ushanka

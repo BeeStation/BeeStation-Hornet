@@ -13,7 +13,6 @@
 	refined_type = /obj/item/stack/ore/bluespace_crystal/refined
 	grind_results = list(/datum/reagent/bluespace = 20)
 	scan_state = "rock_BScrystal"
-	merge_type = /obj/item/stack/ore/bluespace_crystal
 	novariants = FALSE
 	max_amount = 50
 
@@ -65,7 +64,6 @@ STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal)
 	points = 1 //nice try, unfortunateley, they're cheap imitations, have a point for your effort.
 	refined_type = null
 	grind_results = list(/datum/reagent/bluespace = 10, /datum/reagent/silicon = 20)
-	merge_type = /obj/item/stack/ore/bluespace_crystal/artificial
 
 STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal/artificial)
 
@@ -75,6 +73,5 @@ STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal/artificial)
 	icon_state = "refined_bluespace_crystal"
 	points = 1
 	refined_type = null
-	merge_type = /obj/item/stack/ore/bluespace_crystal/refined
 
 STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal/refined)

@@ -17,11 +17,11 @@
 /turf/template_noop,
 /area/template_noop)
 "O" = (
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "S" = (
 /obj/effect/abstract/open_area_marker,
-/turf/open/floor/iron,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "T" = (
 /obj/machinery/door/airlock/external/glass,

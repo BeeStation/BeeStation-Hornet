@@ -21,7 +21,8 @@
 /obj/machinery/door/window{
 	base_state = "right";
 	dir = 4;
-	icon_state = "right"
+	icon_state = "right";
+	layer = 3
 	},
 /turf/open/floor/holofloor{
 	dir = 9;
@@ -37,7 +38,9 @@
 /area/template_noop)
 "f" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp/green,
+/obj/item/flashlight/lamp/green{
+	layer = 3.3
+	},
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -59,7 +62,8 @@
 /area/template_noop)
 "j" = (
 /obj/structure/window/reinforced{
-	dir = 4
+	dir = 4;
+	layer = 2.9
 	},
 /turf/open/floor/holofloor{
 	dir = 9;
@@ -77,7 +81,8 @@
 "l" = (
 /obj/structure/chair/stool/bar,
 /obj/structure/window/reinforced{
-	dir = 4
+	dir = 4;
+	layer = 2.9
 	},
 /turf/open/floor/holofloor{
 	dir = 9;
@@ -288,7 +293,8 @@
 "Y" = (
 /obj/structure/table/wood/bar,
 /obj/structure/window/reinforced{
-	dir = 4
+	dir = 4;
+	layer = 2.9
 	},
 /turf/open/floor/holofloor{
 	dir = 9;

@@ -1,3 +1,6 @@
+#define CUSTOM_SHUTTLE_ACCELERATION_SCALE 10
+#define CUSTOM_SHUTTLE_MIN_THRUST_TO_WEIGHT 1
+
 /obj/machinery/computer/shuttle_flight/custom_shuttle
 	name = "nanotrasen shuttle flight controller"
 	desc = "A terminal used to fly shuttles defined by the Shuttle Zoning Designator"
@@ -215,3 +218,5 @@
 	if(!istype(user) || !Adjacent(user) || !user.put_in_active_hand(designator))
 		designator.forceMove(drop_location())
 	designator_ref = null
+
+

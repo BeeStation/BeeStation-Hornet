@@ -56,7 +56,6 @@
 	var/datum/mind/owner
 	var/datum/antagonist/devil/devil_datum
 	icon_state = "paper_onfire"
-	show_written_words = FALSE
 
 /obj/item/paper/contract/infernal/power
 	name = "paper- contract for infernal power"
@@ -90,8 +89,6 @@
 /obj/item/paper/contract/infernal/unwilling
 	name = "paper- infernal contract"
 	contractType = CONTRACT_UNWILLING
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/contract/infernal)
 
 /obj/item/paper/contract/infernal/Initialize(mapload, mob/living/nTarget, datum/mind/nOwner)
 	. = ..()

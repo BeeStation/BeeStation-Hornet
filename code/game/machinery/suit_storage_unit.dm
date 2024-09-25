@@ -66,7 +66,6 @@
 	suit_type = /obj/item/clothing/suit/space/eva
 	helmet_type = /obj/item/clothing/head/helmet/space/eva
 	mask_type = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/gps
 
 /obj/machinery/suit_storage_unit/captain
 	suit_type = /obj/item/clothing/suit/space/hardsuit/swat/captain
@@ -76,22 +75,21 @@
 /obj/machinery/suit_storage_unit/engine
 	suit_type = /obj/item/clothing/suit/space/hardsuit/engine
 	mask_type = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/clothing/shoes/magboots
+	storage_type= /obj/item/clothing/shoes/magboots
 
 /obj/machinery/suit_storage_unit/ce
 	suit_type = /obj/item/clothing/suit/space/hardsuit/engine/elite
 	mask_type = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/clothing/shoes/magboots/advance
+	storage_type= /obj/item/clothing/shoes/magboots/advance
 
 /obj/machinery/suit_storage_unit/security
 	suit_type = /obj/item/clothing/suit/space/hardsuit/security
 	mask_type = /obj/item/clothing/mask/gas/sechailer
-	storage_type = /obj/item/gps/security
 
 /obj/machinery/suit_storage_unit/hos
 	suit_type = /obj/item/clothing/suit/space/hardsuit/security/head_of_security
 	mask_type = /obj/item/clothing/mask/gas/sechailer
-	storage_type = /obj/item/gps/security
+	storage_type = /obj/item/tank/internals/oxygen
 
 /obj/machinery/suit_storage_unit/atmos
 	suit_type = /obj/item/clothing/suit/space/hardsuit/engine/atmos
@@ -101,27 +99,22 @@
 /obj/machinery/suit_storage_unit/mining
 	suit_type = /obj/item/clothing/suit/hooded/explorer
 	mask_type = /obj/item/clothing/mask/gas/explorer
-	storage_type = /obj/item/gps/mining
 
 /obj/machinery/suit_storage_unit/mining/eva
 	suit_type = /obj/item/clothing/suit/space/hardsuit/mining
 	mask_type = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/gps/mining
 
 /obj/machinery/suit_storage_unit/exploration
 	suit_type = /obj/item/clothing/suit/space/hardsuit/exploration
 	mask_type = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/gps/mining/exploration
 
 /obj/machinery/suit_storage_unit/cmo
 	suit_type = /obj/item/clothing/suit/space/hardsuit/medical/cmo
 	mask_type = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/gps
 
 /obj/machinery/suit_storage_unit/rd
 	suit_type = /obj/item/clothing/suit/space/hardsuit/research_director
 	mask_type = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/gps
 
 /obj/machinery/suit_storage_unit/syndicate
 	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi
@@ -150,8 +143,8 @@
 
 /obj/machinery/suit_storage_unit/radsuit
 	name = "radiation suit storage unit"
-	suit_type = /obj/item/clothing/suit/utility/radiation
-	helmet_type = /obj/item/clothing/head/utility/radiation
+	suit_type = /obj/item/clothing/suit/radiation
+	helmet_type = /obj/item/clothing/head/radiation
 	storage_type = /obj/item/geiger_counter
 
 /obj/machinery/suit_storage_unit/bounty
@@ -159,7 +152,6 @@
 	helmet_type = /obj/item/clothing/head/helmet/space/hunter
 	suit_type = /obj/item/clothing/suit/space/hunter
 	mask_type = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/gps
 
 /obj/machinery/suit_storage_unit/open
 	state_open = TRUE
@@ -282,9 +274,9 @@
 	var/list/choices = list()
 
 	if (locked)
-		choices["unlock"] = icon('icons/hud/radials/radial_generic.dmi', "radial_unlock")
+		choices["unlock"] = icon('icons/mob/radial.dmi', "radial_unlock")
 	else if (state_open)
-		choices["close"] = icon('icons/hud/radials/radial_generic.dmi', "radial_close")
+		choices["close"] = icon('icons/mob/radial.dmi', "radial_close")
 
 		for (var/item_key in items)
 			var/item = vars[item_key]
@@ -294,9 +286,9 @@
 				// If the item doesn't exist, put a silhouette in its place
 				choices[item_key] = items[item_key]
 	else
-		choices["open"] = icon('icons/hud/radials/radial_generic.dmi', "radial_open")
-		choices["disinfect"] = icon('icons/hud/radials/radial_generic.dmi', "radial_disinfect")
-		choices["lock"] = icon('icons/hud/radials/radial_generic.dmi', "radial_lock")
+		choices["open"] = icon('icons/mob/radial.dmi', "radial_open")
+		choices["disinfect"] = icon('icons/mob/radial.dmi', "radial_disinfect")
+		choices["lock"] = icon('icons/mob/radial.dmi', "radial_lock")
 
 	var/choice = show_radial_menu(
 		user,
@@ -366,7 +358,7 @@
 		return
 	if(isliving(user))
 		var/mob/living/L = user
-		if(L.body_position == LYING_DOWN)
+		if(!(L.mobility_flags & MOBILITY_STAND))
 			return
 	var/mob/living/target = A
 	if(!state_open)
@@ -434,7 +426,7 @@
 			if(storage)
 				storage.take_damage(burn_damage * 10, BURN, FIRE)
 			// The wires get damaged too.
-			wires.cut_all(null)
+			wires.cut_all()
 		if(!toasted) //Special toast check to prevent a double finishing message.
 			if(mob_occupant)
 				visible_message("<span class='warning'>[src]'s door slides open, barraging you with the nauseating smell of charred flesh.</span>")
@@ -466,18 +458,6 @@
 		if(mob_occupant)
 			dump_inventory_contents()
 
-/obj/machinery/suit_storage_unit/process()
-	if(!suit)
-		return
-	if(!istype(suit, /obj/item/clothing/suit/space))
-		return
-	if(!suit.cell)
-		return
-
-	var/obj/item/stock_parts/cell/C = suit.cell
-	use_power(charge_rate)
-	C.give(charge_rate)
-
 /obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
 	if(!prob(prb))
 		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
@@ -486,7 +466,7 @@
 		if(electrocute_mob(user, src, src, 1, TRUE))
 			return 1
 
-/obj/machinery/suit_storage_unit/relaymove(mob/living/user, direction)
+/obj/machinery/suit_storage_unit/relaymove(mob/user)
 	if(locked)
 		if(message_cooldown <= world.time)
 			message_cooldown = world.time + 50

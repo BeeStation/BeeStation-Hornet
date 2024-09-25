@@ -14,8 +14,6 @@
 	///Warp effect holder for displacement filter to "pulse" the anomaly
 	var/atom/movable/warp_effect/warp
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly/grav)
-
 /obj/effect/anomaly/grav/Initialize(mapload, new_lifespan, drops_core)
 	. = ..()
 	var/static/list/loc_connections = list(
@@ -77,8 +75,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly/grav)
 
 /obj/effect/anomaly/grav/high
 	var/grav_field
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly/grav/high)
 
 /obj/effect/anomaly/grav/high/Initialize(mapload, new_lifespan)
 	. = ..()

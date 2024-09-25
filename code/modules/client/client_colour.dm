@@ -53,7 +53,8 @@
 	else
 		owner.update_client_colour()
 
-/mob/var/list/client_colours = list()
+/mob
+	var/list/client_colours = list()
 
 /**
   * Adds an instance of colour_type to the mob's client_colours list

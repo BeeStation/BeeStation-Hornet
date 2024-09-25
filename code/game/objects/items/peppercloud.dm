@@ -5,11 +5,10 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "pepperspray"
 	item_state = "pepperspray"
-	worn_icon_state = "spraybottle"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	volume = 75
-	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 75)
+	volume = 50
+	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 50)
 
 	item_flags = NOBLUDGEON | ISWEAPON
 	reagent_flags = OPENCONTAINER
@@ -46,7 +45,7 @@
 			return
 
 		playsound(src.loc, 'sound/effects/spray.ogg', 50, 1, -6)
-		var/trans = target.reagents.trans_to(src, 75, transfered_by = user) //transfer 75u , using the spray's transfer amount would take too long to refill
+		var/trans = target.reagents.trans_to(src, 50, transfered_by = user) //transfer 50u , using the spray's transfer amount would take too long to refill
 		to_chat(user, "<span class='notice'>You fill \the [src] with [trans] units of the contents of \the [target].</span>")
 		return
 
@@ -102,4 +101,4 @@
 	playsound(src, 'sound/weapons/grenadelaunch.ogg', 70, FALSE, -2)
 	playsound(src, 'sound/effects/smoke.ogg', 50, TRUE, -2)
 	smoke.start()
-	user.investigate_log("deployed a peppercloud at [COORD(center)].", INVESTIGATE_PEPPERSPRAY)
+	user.investigate_log("deployed a peppercloud at [COORD(center)].", INVESTIGATE_EXPERIMENTOR)

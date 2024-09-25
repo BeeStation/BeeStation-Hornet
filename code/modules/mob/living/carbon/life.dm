@@ -29,6 +29,12 @@
 		if(.) //not dead
 			handle_blood()
 
+		if(stat != DEAD)
+			var/bprv = handle_bodyparts()
+			if(bprv & BODYPART_LIFE_UPDATE_HEALTH)
+				update_stamina() //needs to go before updatehealth to remove stamcrit
+				updatehealth()
+
 		if(stat != DEAD) //Handle brain damage
 			for(var/T in get_traumas())
 				var/datum/brain_trauma/BT = T
@@ -43,11 +49,6 @@
 
 	if(stat == DEAD)
 		stop_sound_channel(CHANNEL_HEARTBEAT)
-	else
-		var/bprv = handle_bodyparts()
-		if(bprv & BODYPART_LIFE_UPDATE_HEALTH)
-			update_stamina() //needs to go before updatehealth to remove stamcrit
-			updatehealth()
 
 	//Updates the number of stored chemicals for changeling powers
 	if(hud_used?.lingchemdisplay && !isalien(src) && mind)
@@ -273,8 +274,7 @@
 
 //Fourth and final link in a breath chain
 /mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
-	// The air you breathe out should match your body temperature
-	breath.set_temperature(bodytemperature)
+	return
 
 /// Attempts to take a breath from the external or internal air tank.
 /mob/living/carbon/proc/get_breath_from_internal(volume_needed)
@@ -481,14 +481,12 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			if(DT_PROB(25, delta_time))
 				slurring += 2 * delta_time
 			jitteriness = max(jitteriness - (3 * delta_time), 0)
-			throw_alert("drunk", /atom/movable/screen/alert/drunk)
 			if(HAS_TRAIT(src, TRAIT_DRUNK_HEALING))
 				adjustBruteLoss(-0.12 * delta_time, FALSE)
 				adjustFireLoss(-0.06 * delta_time, FALSE)
 		else
 			SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "drunk")
 			sound_environment_override = SOUND_ENVIRONMENT_NONE
-			clear_alert("drunk")
 
 		if(drunkenness >= 11 && slurring < 5)
 			slurring += 1.2 * delta_time
@@ -647,12 +645,12 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 /mob/living/carbon/proc/share_bodytemperature(mob/living/carbon/M)
 	var/temp_diff = bodytemperature - M.bodytemperature
 	if(temp_diff > 0) // you are warm share the heat of life
-		M.adjust_bodytemperature((temp_diff * 0.5), use_insulation=TRUE, use_steps=TRUE) // warm up the giver
-		adjust_bodytemperature((temp_diff * -0.5), use_insulation=TRUE, use_steps=TRUE) // cool down the reciver
+		M.adjust_bodytemperature(temp_diff, use_insulation=TRUE, use_steps=TRUE) // warm up the giver
+		adjust_bodytemperature((temp_diff * -1), use_insulation=TRUE, use_steps=TRUE) // cool down the reciver
 
 	else // they are warmer leech from them
-		adjust_bodytemperature((temp_diff * -0.5) , use_insulation=TRUE, use_steps=TRUE) // warm up the reciver
-		M.adjust_bodytemperature((temp_diff * 0.5), use_insulation=TRUE, use_steps=TRUE) // cool down the giver
+		adjust_bodytemperature(temp_diff, use_insulation=TRUE, use_steps=TRUE) // warm up the reciver
+		M.adjust_bodytemperature((temp_diff * -1), use_insulation=TRUE, use_steps=TRUE) // cool down the giver
 
 /**
  * Adjust the body temperature of a mob
@@ -664,22 +662,24 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
  * * max_temp (optional) The maximum body temperature after adjustment
  * * use_insulation (optional) modifies the amount based on the amount of insulation the mob has
  * * use_steps (optional) Use the body temp divisors and max change rates
- * * capped (optional) default True used to cap step mode
+ * * hardsuit_fix (optional) num bodytemp_normal - H.bodytemperature Use hardsuit override until hardsuits fix is done...
  */
-/mob/living/carbon/adjust_bodytemperature(amount, min_temp=0, max_temp=INFINITY, use_insulation=FALSE, use_steps=FALSE, capped=TRUE)
+/mob/living/carbon/adjust_bodytemperature(amount, min_temp=0, max_temp=INFINITY, use_insulation=FALSE, use_steps=FALSE, \
+											hardsuit_fix=FALSE)
 	// apply insulation to the amount of change
 	if(use_insulation)
 		amount *= (1 - get_insulation_protection(bodytemperature + amount))
 
+	// Extra calculation for hardsuits to bleed off heat
+	if(hardsuit_fix)
+		amount += hardsuit_fix
+
 	// Use the bodytemp divisors to get the change step, with max step size
 	if(use_steps)
-		amount = (amount > 0) ? (amount / BODYTEMP_HEAT_DIVISOR) : (amount / BODYTEMP_COLD_DIVISOR)
-		// Clamp the results to the min and max step size
-		if(capped)
-			amount = (amount > 0) ? min(amount, BODYTEMP_HEATING_MAX) : max(amount, BODYTEMP_COOLING_MAX)
+		amount = (amount > 0) ? min(amount / BODYTEMP_HEAT_DIVISOR, BODYTEMP_HEATING_MAX) : max(amount / BODYTEMP_COLD_DIVISOR, BODYTEMP_COOLING_MAX)
 
 	if(bodytemperature >= min_temp && bodytemperature <= max_temp)
-		bodytemperature = clamp(bodytemperature + amount, min_temp, max_temp)
+		bodytemperature = clamp(bodytemperature + amount,min_temp,max_temp)
 
 /////////
 //LIVER//
@@ -750,5 +750,3 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		return
 
 	heart.beating = !status
-
-#undef BALLMER_POINTS

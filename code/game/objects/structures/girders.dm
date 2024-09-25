@@ -1,13 +1,7 @@
 /obj/structure/girder
 	name = "girder"
-	desc = "A large structural frame made out of iron; It requires a layer of materials before it can be considered a wall."
-	icon = 'icons/obj/smooth_structures/girders/girder.dmi'
-	icon_state = "girder-0"
-	base_icon_state = "girder"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_GIRDER)
-	canSmoothWith = list(SMOOTH_GROUP_GIRDER)
-
+	icon_state = "girder"
+	desc = "A large structural assembly made out of iron; It requires a layer of iron before it can be considered a wall."
 	anchored = TRUE
 	density = TRUE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
@@ -174,7 +168,7 @@
 						qdel(src)
 					return
 
-		if(S.sheettype != "runed")
+		if(S.sheettype && S.sheettype != "runed")
 			var/M = S.sheettype
 			if(state == GIRDER_DISPLACED)
 				if(S.get_amount() < 2)
@@ -201,16 +195,7 @@
 					S.use(2)
 					balloon_alert(user, "You add plating.")
 					var/turf/T = get_turf(src)
-					if(S.walltype)
-						T.PlaceOnTop(S.walltype)
-					else
-						var/turf/newturf = T.PlaceOnTop(/turf/closed/wall/material)
-						var/list/material_list = list()
-						if(S.material_type)
-							material_list[SSmaterials.GetMaterialRef(S.material_type)] = MINERAL_MATERIAL_AMOUNT * 2
-						if(material_list)
-							newturf.set_custom_materials(material_list)
-
+					T.PlaceOnTop(text2path("/turf/closed/wall/mineral/[M]"))
 					transfer_fingerprints_to(T)
 					qdel(src)
 				return
@@ -318,43 +303,30 @@
 	new /obj/structure/girder/cult(loc)
 	qdel(src)
 
-// Displaced girder
 /obj/structure/girder/displaced
 	name = "displaced girder"
-	desc = "A large structural frame made out of iron; It requires a layer of materials before it can be considered a wall. This one has unachored from the ground."
-	icon = 'icons/obj/structures.dmi'
-	icon_state = "displaced_girder"
-	base_icon_state = null
-	smoothing_flags = NONE
-	smoothing_groups = null
-	canSmoothWith = null
+	icon_state = "displaced"
 	anchored = FALSE
 	state = GIRDER_DISPLACED
 	girderpasschance = 25
 	max_integrity = 120
 
-// Reinforced girder
 /obj/structure/girder/reinforced
 	name = "reinforced girder"
-	desc = "A large structural frame made out of iron; This one has been reinforced and It requires a layer of plasteel before it can be considered a reinforced wall."
-	icon = 'icons/obj/smooth_structures/girders/reinforced_girder.dmi'
-	icon_state = "reinforced_girder-0"
-	base_icon_state = "reinforced_girder"
+	icon_state = "reinforced"
 	state = GIRDER_REINF
 	girderpasschance = 0
 	max_integrity = 350
 
-//////////////////////////////////////////// cult girders //////////////////////////////////////////////
-///they will get a proper smoothing icon later :D, but not today, courier pigeon's word! 4/09/24
+
+
+//////////////////////////////////////////// cult girder //////////////////////////////////////////////
+
 /obj/structure/girder/cult
 	name = "runed girder"
 	desc = "Framework made of a strange and shockingly cold metal. It doesn't seem to have any bolts."
-	icon = 'icons/obj/structures.dmi'
-	icon_state = "bloodcult_girder"
-	base_icon_state = null
-	smoothing_flags = NONE
-	smoothing_groups = null
-	canSmoothWith = null
+	icon = 'icons/obj/cult.dmi'
+	icon_state= "cultgirder"
 	can_displace = FALSE
 
 /obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
@@ -414,10 +386,7 @@
 /obj/structure/girder/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)
 		if(RCD_FLOORWALL)
-			return rcd_result_with_memory(
-				list("mode" = RCD_FLOORWALL, "delay" = 2 SECONDS, "cost" = 8),
-				get_turf(src), RCD_MEMORY_WALL,
-			)
+			return list("mode" = RCD_FLOORWALL, "delay" = 20, "cost" = 8)
 		if(RCD_DECONSTRUCT)
 			return list("mode" = RCD_DECONSTRUCT, "delay" = 20, "cost" = 13)
 	return FALSE
@@ -444,12 +413,8 @@
 /obj/structure/girder/bronze
 	name = "wall gear"
 	desc = "A girder made out of sturdy bronze, made to resemble a gear."
-	icon = 'icons/obj/structures.dmi'
-	icon_state = "clockcult_girder"
-	base_icon_state = null
-	smoothing_flags = NONE
-	smoothing_groups = null
-	canSmoothWith = null
+	icon = 'icons/obj/clockwork_objects.dmi'
+	icon_state = "wall_gear"
 	can_displace = FALSE
 
 /obj/structure/girder/bronze/attackby(obj/item/W, mob/living/user, params)

@@ -15,14 +15,13 @@
 /area/survivalpod)
 "e" = (
 /obj/item/gps/computer,
-/turf/open/floor/pod/light,
+/turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "g" = (
-/obj/machinery/stasis/survival_pod,
-/turf/open/floor/pod/light,
+/obj/machinery/smartfridge/survival_pod,
+/turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "h" = (
-/obj/machinery/smartfridge/survival_pod,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "i" = (
@@ -42,12 +41,11 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/fans,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "m" = (
 /obj/machinery/power/solar,
-/turf/open/floor/iron/solarpanel/airless,
+/turf/open/floor/plasteel/airless/solarpanel,
 /area/template_noop)
 "n" = (
 /obj/structure/bed/pod,
@@ -74,8 +72,8 @@ a
 "}
 (2,1,1) = {"
 a
-a
-a
+m
+m
 c
 b
 c
@@ -85,10 +83,10 @@ a
 "}
 (3,1,1) = {"
 a
-a
+m
 d
 d
-d
+j
 D
 d
 a
@@ -97,9 +95,9 @@ a
 (4,1,1) = {"
 a
 c
-d
+e
 l
-g
+i
 k
 d
 c
@@ -108,8 +106,8 @@ a
 (5,1,1) = {"
 b
 b
-d
-e
+j
+i
 i
 i
 j
@@ -119,7 +117,7 @@ b
 (6,1,1) = {"
 a
 c
-d
+g
 h
 i
 n
@@ -135,7 +133,7 @@ D
 j
 d
 d
-m
+a
 a
 "}
 (8,1,1) = {"
@@ -145,8 +143,8 @@ a
 c
 b
 c
-m
-m
+a
+a
 a
 "}
 (9,1,1) = {"

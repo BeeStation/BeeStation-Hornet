@@ -99,12 +99,12 @@
 	for(var/mob/living/potential_target in view_scan)
 		if(!potential_target.mind || !potential_target.ckey)
 			continue
-		if(istype(potential_target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
+		if(istype(potential_target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			continue
 		potential_targets[potential_target] = next_removal_time
 		updated += potential_target
 	for(var/mob/living/potential_target as() in potential_targets - updated)
-		if(world.time >= potential_targets[potential_target] || istype(potential_target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
+		if(world.time >= potential_targets[potential_target] || istype(potential_target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			potential_targets -= potential_target
 	if(length(potential_targets) != original_length)
 		telepathy_hud.update_icon() // update maptext
@@ -129,7 +129,7 @@
 	if(!potential_targets[target] || world.time >= potential_targets[target])
 		to_chat(owner, "<span class='warning'>You cannot communicate with [target], you have not been near [target.p_them()] recently enough!</span>")
 		return
-	if(istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
+	if(istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		to_chat(owner, "<span class='warning'>Your telepathy is blocked by the foil hat on [target]'s head!</span>")
 		return
 	if(sanitize)
@@ -191,7 +191,7 @@
 			if(!silent)
 				to_chat(responder, "<span class='warning'>It's too late to respond now!</span>")
 			return FALSE
-	if(istype(responder.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
+	if(istype(responder.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		if(!silent)
 			to_chat(responder, "<span class='warning'>Your response is blocked by the foil hat on your head!</span>")
 		return FALSE
@@ -214,9 +214,7 @@
 	accent_overlay_states = list("telepathy-accent")
 	var/datum/holoparasite_ability/lesser/telepathy/ability
 
-CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/telepathy)
-
-/atom/movable/screen/holoparasite/telepathy/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/telepathy/_ability)
+/atom/movable/screen/holoparasite/telepathy/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/telepathy/_ability)
 	. = ..()
 	if(!istype(_ability))
 		CRASH("Tried to make telepad holoparasite HUD without proper reference to telepathy ability")
@@ -240,7 +238,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/telepathy)
 	text_overlay.maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[length(ability.potential_targets)]</span></center>"
 	. |= text_overlay
 
-/atom/movable/screen/holoparasite/telepathy/use()
+/atom/movable/screen/holoparasite/telepathy/Click(location, control, params)
 	if(!length(ability.potential_targets))
 		to_chat(owner, "<span class='warning'>You haven't recently encountered any beings you can send telepathic messages to!</span>")
 		return

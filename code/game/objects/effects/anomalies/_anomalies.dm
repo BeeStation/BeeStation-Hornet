@@ -25,8 +25,6 @@
 	///How many harvested pierced realities do we spawn on destruction
 	var/max_spawned_faked = 2
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly)
-
 /obj/effect/anomaly/Initialize(mapload, new_lifespan, spawned_fake_harvested)
 	. = ..()
 

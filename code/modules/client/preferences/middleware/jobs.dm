@@ -22,9 +22,6 @@
 	if (isnull(job))
 		return FALSE
 
-	if(job.lock_flags)
-		return FALSE
-
 	if (job.faction != "Station")
 		return FALSE
 
@@ -43,11 +40,9 @@
 	for (var/datum/job/job as anything in SSjob.occupations)
 		if(!job.show_in_prefs)
 			continue
-		if(job.lock_flags & ~JOB_LOCK_REASON_MAP) // anything but map reason shouldn't be visible
-			continue
 
-		var/department_id = job.department_for_prefs
-		if (isnull(department_id))
+		var/department_flag = job.department_for_prefs
+		if (isnull(department_flag))
 			stack_trace("[job] does not have a department set, yet is a joinable occupation!")
 			continue
 
@@ -55,21 +50,19 @@
 			stack_trace("[job] does not have a description set, yet is a joinable occupation!")
 			continue
 
-		var/datum/department_group/dept = SSdepartment.department_assoc[department_id]
-		var/department_name = dept ? dept.dept_name : department_id // a bit of hardcoding. Captain/Assistant department doesn't exist, but it has a fancy theme in TGUI side.
-		if (isnull(departments[department_id]))
+		var/department_name = GLOB.dept_bitflag_to_name["[department_flag]"]
+		if (isnull(departments[department_name]))
 			var/department_head_jobname = job.department_head_for_prefs || job.department_head
 			if(islist(department_head_jobname) && length(department_head_jobname))
 				department_head_jobname = department_head_jobname[1]
 			if(length(department_head_jobname))
-				departments[department_id] = list(
+				departments[department_name] = list(
 					"head" = department_head_jobname,
 				)
 			else
-				departments[department_id] = list()
+				departments[department_name] = list()
 
 		jobs[job.title] = list(
-			"lock_reason" = job.get_lock_reason(),
 			"description" = job.description,
 			"department" = department_name,
 		)

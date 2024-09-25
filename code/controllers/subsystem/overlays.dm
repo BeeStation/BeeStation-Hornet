@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(overlays)
 /datum/controller/subsystem/overlays/Initialize()
 	initialized = TRUE
 	fire(mc_check = FALSE)
-	return SS_INIT_SUCCESS
+	return ..()
 
 
 /datum/controller/subsystem/overlays/stat_entry()
@@ -281,5 +281,3 @@ SUBSYSTEM_DEF(overlays)
 			overlays |= cached_other
 	else if(cut_old)
 		cut_overlays()
-
-#undef ZM_AUTOMANGLE

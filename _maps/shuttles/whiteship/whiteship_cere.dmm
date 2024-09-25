@@ -82,7 +82,7 @@
 /area/shuttle/abandoned)
 "aq" = (
 /obj/machinery/door/airlock/titanium{
-	name = "mech Bay"
+	name = "mech bay"
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/abandoned)
@@ -302,6 +302,7 @@
 "aO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/tank_dispenser/oxygen{
+	layer = 2.7;
 	pixel_x = -1;
 	pixel_y = 2
 	},
@@ -394,7 +395,7 @@
 /area/shuttle/abandoned)
 "bV" = (
 /obj/machinery/door/airlock/titanium{
-	name = "mech Bay External Airlock"
+	name = "mech bay external airlock"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/docking_port/mobile{

@@ -1,6 +1,6 @@
 //The code execution of the emote datum is located at code/datums/emotes.dm
 /mob/proc/emote(act, m_type, message, intentional = FALSE)
-	act = LOWER_TEXT(act)
+	act = lowertext(act)
 	var/param = message
 	var/custom_param = findchar(act, " ")
 	if(custom_param)
@@ -23,9 +23,9 @@
 /datum/emote/flip
 	key = "flip"
 	key_third_person = "flips"
-	hands_use_check = TRUE
+	restraint_check = TRUE
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)
-	mob_type_ignore_stat_typecache = list(/mob/dead/observer, /mob/living/silicon/ai)
+	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
 
 /datum/emote/flip/run_emote(mob/user, params , type_override, intentional)
 	. = ..()
@@ -38,7 +38,7 @@
 /datum/emote/spin
 	key = "spin"
 	key_third_person = "spins"
-	hands_use_check = TRUE
+	restraint_check = TRUE
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
 

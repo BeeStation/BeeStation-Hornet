@@ -16,8 +16,6 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper"
 	item_state = "paper"
-	worn_icon = 'icons/mob/clothing/head/costume.dmi'
-	worn_icon_state = "paper"
 	custom_fire_overlay = "paper_onfire_overlay"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
@@ -33,7 +31,6 @@
 	max_integrity = 50
 	dog_fashion = /datum/dog_fashion/head
 	color = COLOR_WHITE
-	dye_color = DYE_WHITE
 
 	/// Lazylist of raw, unsanitised, unparsed text inputs that have been made to the paper.
 	var/list/datum/paper_input/raw_text_inputs
@@ -162,16 +159,14 @@
  * * text - The text to append to the paper.
  * * font - The font to use.
  * * color - The font color to use.
- * * bold - Whether this text should be rendered completely bold
- * * advanced_html - Boolean that is true when the writer has R_FUN permission, which sanitizes less HTML (such as images) from the new paper_input.
+ * * bold - Whether this text should be rendered completely bold.
  */
-/obj/item/paper/proc/add_raw_text(text, font, color, bold, advanced_html)
+/obj/item/paper/proc/add_raw_text(text, font, color, bold)
 	var/new_input_datum = new /datum/paper_input(
 		text,
 		font,
 		color,
 		bold,
-		advanced_html,
 	)
 
 	input_field_count += get_input_field_count(text)
@@ -521,7 +516,7 @@
 			var/stamp_x = text2num(params["x"])
 			var/stamp_y = text2num(params["y"])
 
-			//var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+			//var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
 			var/stamp_rotation = text2num(params["rotation"])
 			var/stamp_icon_state = stamp_info["stamp_icon_state"]
 
@@ -571,7 +566,7 @@
 			// Safe to assume there are writing implement details as user.can_write(...) fails with an invalid writing implement.
 			var/writing_implement_data = holding.get_writing_implement_details()
 
-			add_raw_text(paper_input, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], check_rights_for(user?.client, R_FUN))
+			add_raw_text(paper_input, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"])
 
 			log_paper("[key_name(user)] wrote to [name]: \"[paper_input]\"")
 			to_chat(user, "You have added to your paper masterpiece!");
@@ -655,18 +650,15 @@
 	var/colour = ""
 	/// Whether to render the font bold or not.
 	var/bold = FALSE
-	/// Whether the creator has R_FUN permission, which allows for less sanitised HTML.
-	var/advanced_html = FALSE
 
-/datum/paper_input/New(_raw_text, _font, _colour, _bold, _advanced_html)
+/datum/paper_input/New(_raw_text, _font, _colour, _bold)
 	raw_text = _raw_text
 	font = _font
 	colour = _colour
 	bold = _bold
-	advanced_html = _advanced_html
 
 /datum/paper_input/proc/make_copy()
-	return new /datum/paper_input(raw_text, font, colour, bold, advanced_html);
+	return new /datum/paper_input(raw_text, font, colour, bold);
 
 /datum/paper_input/proc/to_list()
 	return list(
@@ -674,7 +666,6 @@
 		font = font,
 		color = colour,
 		bold = bold,
-		advanced_html = advanced_html,
 	)
 
 /// A single instance of a saved stamp on paper.

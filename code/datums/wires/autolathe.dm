@@ -38,16 +38,15 @@
 			A.begin_process()
 	ui_update()
 
-/datum/wires/autolathe/on_cut(wire, mob/user, mend)
+/datum/wires/autolathe/on_cut(wire, mend)
 	var/obj/machinery/modular_fabricator/autolathe/A = holder
 	switch(wire)
 		if(WIRE_HACK)
 			A.adjust_hacked(!mend)
-		if(WIRE_SHOCK)
+		if(WIRE_HACK)
 			A.shocked = !mend
 		if(WIRE_DISABLE)
 			A.disabled = !mend
 		if(WIRE_ZAP)
-			if (user)
-				A.shock(user, 50)
+			A.shock(usr, 50)
 	ui_update()

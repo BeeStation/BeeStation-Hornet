@@ -35,8 +35,7 @@
 	custom_materials = list(/datum/material/iron=5000, /datum/material/glass=2500)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
-	attack_verb_continuous = list("attacks", "pinches")
-	attack_verb_simple = list("attack", "pinch")
+	attack_verb = list("attacked", "pinched")
 	tool_behaviour = TOOL_HEMOSTAT
 	toolspeed = 1
 
@@ -50,8 +49,7 @@
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.5
-	attack_verb_continuous = list("attacks", "pinches")
-	attack_verb_simple = list("attack", "pinch")
+	attack_verb = list("attacked", "pinched")
 
 
 /obj/item/cautery
@@ -65,8 +63,7 @@
 	custom_materials = list(/datum/material/iron=2500, /datum/material/glass=750)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
-	attack_verb_continuous = list("burns")
-	attack_verb_simple = list("burn")
+	attack_verb = list("burnt")
 	tool_behaviour = TOOL_CAUTERY
 	toolspeed = 1
 
@@ -80,8 +77,7 @@
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.5
-	attack_verb_continuous = list("burns")
-	attack_verb_simple = list("burn")
+	attack_verb = list("burnt")
 
 
 /obj/item/blood_filter
@@ -94,8 +90,7 @@
 	custom_materials = list(/datum/material/iron=2000, /datum/material/glass=1500, /datum/material/silver=500)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb_continuous = list("pumps", "siphons")
-	attack_verb_simple = list("pump", "siphon")
+	attack_verb = list("pumps", "siphons")
 	tool_behaviour = TOOL_BLOODFILTER
 	toolspeed = 1
 
@@ -112,8 +107,7 @@
 	flags_1 = CONDUCT_1
 	force = 15
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb_continuous = list("drills")
-	attack_verb_simple = list("drill")
+	attack_verb = list("drilled")
 	tool_behaviour = TOOL_DRILL
 	toolspeed = 1
 
@@ -135,8 +129,7 @@
 	force = 10
 	w_class = WEIGHT_CLASS_SMALL
 	toolspeed = 0.5
-	attack_verb_continuous = list("drills")
-	attack_verb_simple = list("drill")
+	attack_verb = list("drilled")
 
 
 /obj/item/scalpel
@@ -154,11 +147,9 @@
 	throw_speed = 3
 	throw_range = 5
 	custom_materials = list(/datum/material/iron=4000, /datum/material/glass=1000)
-	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
-	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP_ACCURATE
-	bleed_force = BLEED_CUT
 	tool_behaviour = TOOL_SCALPEL
 	toolspeed = 1
 
@@ -178,12 +169,10 @@
 	throw_speed = 3
 	throw_range = 5
 	custom_materials = list(/datum/material/iron=4000, /datum/material/glass=1000)
-	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
-	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	toolspeed = 0.5
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP_ACCURATE
-	bleed_force = BLEED_CUT
 
 /obj/item/scalpel/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat", "stomach")] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -205,10 +194,8 @@
 	throw_speed = 2
 	throw_range = 5
 	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
-	attack_verb_continuous = list("attacks", "slashes", "saws", "cuts")
-	attack_verb_simple = list("attack", "slash", "saw", "cut")
+	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	sharpness = IS_SHARP
-	bleed_force = BLEED_DEEP_WOUND
 	tool_behaviour = TOOL_SAW
 	toolspeed = 1
 
@@ -231,10 +218,8 @@
 	throw_range = 5
 	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
 	toolspeed = 0.5
-	attack_verb_continuous = list("attacks", "slashes", "saws", "cuts")
-	attack_verb_simple = list("attack", "slash", "saw", "cut")
+	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	sharpness = IS_SHARP
-	bleed_force = BLEED_DEEP_WOUND
 
 /obj/item/hacksaw
 	name = "hacksaw"
@@ -250,8 +235,7 @@
 	force = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_materials = list(/datum/material/iron=12000)
-	attack_verb_continuous = list("attacks", "slashes", "saws", "cuts")
-	attack_verb_simple = list("attack", "slash", "saw", "cut")
+	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	sharpness = IS_SHARP
 	tool_behaviour = TOOL_SAW
 	toolspeed = 2
@@ -269,8 +253,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	item_state = "drapes"
 	w_class = WEIGHT_CLASS_TINY
-	attack_verb_continuous = list("slaps")
-	attack_verb_simple = list("slap")
+	attack_verb = list("slapped")
 
 /obj/item/surgical_drapes/attack(mob/living/M, mob/user)
 	attempt_initiate_surgery(src, M, user)
@@ -359,8 +342,7 @@
 	light_range = 1
 	light_color = LIGHT_COLOR_GREEN
 	sharpness = IS_SHARP_ACCURATE
-	// It cauterises the wound it causes
-	bleed_force = 0
+
 
 /obj/item/scalpel/advanced/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/machines/click.ogg', 50, TRUE)

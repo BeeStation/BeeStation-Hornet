@@ -8,9 +8,6 @@
 		//ADMIN THINGS//
 		////////////////
 
-	/// If this client has been fully initialized or not
-	var/fully_created = FALSE
-
 	/// The admin state of the client. If this is null, the client is not an admin.
 	var/datum/admins/holder = null
 	var/datum/click_intercept = null // Needs to implement InterceptClickOn(user,params,atom) proc
@@ -23,8 +20,6 @@
 
 	/// Used to cache this client's bans to save on DB queries
 	var/ban_cache = null
-	///If we are currently building this client's ban cache, this var stores the timeofday we started at
-	var/ban_cache_start = 0
 	/// Contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message	= ""
 	/// How many messages sent in the last 10 seconds
@@ -109,7 +104,7 @@
 	var/next_keysend_trip_reset = 0
 	var/keysend_tripped = FALSE
 
-	var/datum/view_data/view_size
+	var/datum/viewData/view_size
 
 	// List of all asset filenames sent to this client by the asset cache, along with their assoicated md5s
 	var/list/sent_assets = list()
@@ -130,6 +125,3 @@
 
 	/// Whether or not this client has standard hotkeys enabled
 	var/hotkeys = TRUE
-
-	/// client/eye is immediately changed, and it makes a lot of errors to track eye change
-	var/datum/weakref/eye_weakref

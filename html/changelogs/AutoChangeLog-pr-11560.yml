@@ -1,8 +1,0 @@
-author: Aramix
-delete-after: true
-changes:
-  - bugfix: fixed holoparasites with range 1 seeing a barrier
-  - bugfix: fixed holoparasites with range 1 being forced to manifest and unable to
-      recall
-  - tweak: holoparasites, holocarps and guardian decks are now available once again
-      following these fixes

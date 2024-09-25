@@ -163,9 +163,9 @@
 	. = ..()
 	if(HAS_TRAIT(add_to, TRAIT_COMPONENT_MMI))
 		return FALSE
-	ADD_TRAIT(add_to, TRAIT_COMPONENT_MMI, type)
+	ADD_TRAIT(add_to, TRAIT_COMPONENT_MMI, src)
 
 /obj/item/circuit_component/mmi/removed_from(obj/item/integrated_circuit/removed_from)
-	REMOVE_TRAIT(removed_from, TRAIT_COMPONENT_MMI, type)
+	REMOVE_TRAIT(removed_from, TRAIT_COMPONENT_MMI, src)
 	remove_current_brain()
 	return ..()

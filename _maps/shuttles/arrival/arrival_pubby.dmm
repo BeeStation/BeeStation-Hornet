@@ -75,7 +75,7 @@
 /obj/structure/window/shuttle,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "arrivy";
-	name = "ship Shutters"
+	name = "ship shutters"
 	},
 /turf/open/floor/plating,
 /area/shuttle/arrival)

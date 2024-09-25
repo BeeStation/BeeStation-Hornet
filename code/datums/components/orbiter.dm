@@ -65,7 +65,6 @@
 			orbiter.orbiting.end_orbit(orbiter)
 	current_orbiters[orbiter] = TRUE
 	orbiter.orbiting = src
-	ADD_TRAIT(orbiter, TRAIT_NO_FLOATING_ANIM, ORBITING_TRAIT)
 	RegisterSignal(orbiter, COMSIG_MOVABLE_MOVED, PROC_REF(orbiter_move_react))
 	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_BEGIN, orbiter)
 	var/matrix/initial_transform = matrix(orbiter.transform)
@@ -100,7 +99,6 @@
 	current_orbiters -= orbiter
 	orbiter.stop_orbit(src)
 	orbiter.orbiting = null
-	REMOVE_TRAIT(orbiter, TRAIT_NO_FLOATING_ANIM, ORBITING_TRAIT)
 	if(!refreshing && !length(current_orbiters) && !QDELING(src))
 		qdel(src)
 

@@ -350,12 +350,11 @@
 
 	return amount
 
-#undef SPIN_PRICE
-#undef SMALL_PRIZE
-#undef BIG_PRIZE
-#undef JACKPOT
-#undef SPIN_TIME
-#undef REEL_DEACTIVATE_DELAY
 #undef SEVEN
+#undef SPIN_TIME
+#undef JACKPOT
+#undef BIG_PRIZE
+#undef SMALL_PRIZE
+#undef SPIN_PRICE
 #undef HOLOCHIP
 #undef COIN

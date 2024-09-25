@@ -9,7 +9,6 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	range = 10
 	martial_arts_no_deflect = TRUE
-	bleed_force = 0
 	var/modified = FALSE
 	var/obj/item/pen/pen = null
 

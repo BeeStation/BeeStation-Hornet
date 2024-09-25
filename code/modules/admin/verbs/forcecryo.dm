@@ -23,7 +23,7 @@
 	target.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	target.Stun(INFINITY, ignore_canstun = TRUE)
 	target.move_resist = INFINITY
-	target.set_anchored(TRUE)
+	target.anchored = TRUE
 	target.status_flags |= GODMODE
 	// ensure they're on a turf
 	target.forceMove(target_turf)

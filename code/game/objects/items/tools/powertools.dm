@@ -6,7 +6,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=150,/datum/material/silver=50,/datum/material/titanium=25) //done for balance reasons, making them high value for research, but harder to get
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0, BLEED = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0)
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	toolspeed = 0.7
@@ -24,7 +24,6 @@
 	desc = "A simple powered hand drill. It's fitted with a screw bit."
 	icon_state = "drill_screw"
 	item_state = "drill"
-	worn_icon_state = "drill"
 
 	force = 8 //might or might not be too high, subject to change
 	throwforce = 8
@@ -51,8 +50,7 @@
 
 	hitsound = null
 
-	attack_verb_continuous = list("attacks", "bashes", "batters", "bludgeons", "whacks")
-	attack_verb_simple = list("attack", "bash", "batter", "bludgeon", "whack")
+	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 	throw_range = 7
 
 /obj/item/powertool/hand_drill/proc/become_screwdriver()
@@ -61,8 +59,7 @@
 
 	hitsound = 'sound/items/drill_hit.ogg'
 
-	attack_verb_continuous = list("drills", "screws", "jabs", "whacks")
-	attack_verb_simple = list("drill", "screw", "jab", "whack")
+	attack_verb = list("drilled", "screwed", "jabbed")
 	throw_range = 3
 
 /obj/item/powertool/hand_drill/suicide_act(mob/living/user)
@@ -92,14 +89,12 @@
 	usesound = 'sound/items/jaws_pry.ogg'
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
-	worn_icon_state = "jawsoflife"
 
 	tool_behaviour = TOOL_CROWBAR
 
 	force = 15
 	throwforce = 7
-	attack_verb_continuous = list("attacks", "bashes", "batters", "bludgeons", "whacks")
-	attack_verb_simple = list("attack", "bash", "batter", "bludgeon", "whack")
+	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 
 /obj/item/powertool/jaws_of_life/Initialize(mapload)
 	. = ..()
@@ -120,8 +115,7 @@
 
 	usesound = 'sound/items/jaws_cut.ogg'
 
-	attack_verb_continuous = list("pinches", "nips")
-	attack_verb_simple = list("pinch", "nip")
+	attack_verb = list("pinched", "nipped")
 	force = 6
 	throw_speed = 3
 
@@ -133,8 +127,7 @@
 
 	usesound = 'sound/items/jaws_pry.ogg'
 
-	attack_verb_continuous = list("attacks", "bashes", "batters", "bludgeons", "whacks")
-	attack_verb_simple = list("attack", "bash", "batter", "bludgeon", "whack")
+	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 	force = 15
 	throw_speed = 2
 
@@ -158,7 +151,7 @@
 /obj/item/powertool/jaws_of_life/attack(mob/living/carbon/C, mob/living/user)
 	if(tool_behaviour == TOOL_WIRECUTTER && istype(C) && C.handcuffed)
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
-		log_combat(user, C, "cut handcuffs from", important = FALSE)
+		log_combat(user, C, "cut handcuffs from")
 		qdel(C.handcuffed)
 		return
 	else

@@ -191,7 +191,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/bloodchill
 
 /datum/status_effect/bloodchill/on_apply()
-	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/bloodchill)
+	owner.add_movespeed_modifier("bloodchilled", TRUE, 100, NONE, override = TRUE, multiplicative_slowdown = 3)
 	return ..()
 
 /datum/status_effect/bloodchill/tick()
@@ -199,7 +199,7 @@
 		owner.adjustFireLoss(2)
 
 /datum/status_effect/bloodchill/on_remove()
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/bloodchill)
+	owner.remove_movespeed_modifier("bloodchilled")
 
 /atom/movable/screen/alert/status_effect/bloodchill
 	name = "Bloodchilled"
@@ -212,7 +212,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/bonechill
 
 /datum/status_effect/bonechill/on_apply()
-	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/bonechill)
+	owner.add_movespeed_modifier("bonechilled", TRUE, 100, NONE, override = TRUE, multiplicative_slowdown = 3)
 	return ..()
 
 /datum/status_effect/bonechill/tick()
@@ -220,12 +220,9 @@
 		owner.adjustFireLoss(1)
 		owner.Jitter(3)
 		owner.adjust_bodytemperature(-10)
-		if(ishuman(owner))
-			var/mob/living/carbon/human/humi = owner
-			humi.adjust_coretemperature(-10)
 
 /datum/status_effect/bonechill/on_remove()
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/bonechill)
+	owner.remove_movespeed_modifier("bonechilled")
 
 /atom/movable/screen/alert/status_effect/bonechill
 	name = "Bonechilled"
@@ -375,11 +372,11 @@
 	duration = 30
 
 /datum/status_effect/tarfoot/on_apply()
-	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/tarfoot)
+	owner.add_movespeed_modifier(MOVESPEED_ID_TARFOOT, update=TRUE, priority=100, multiplicative_slowdown=0.5, blacklisted_movetypes=(FLYING|FLOATING))
 	return ..()
 
 /datum/status_effect/tarfoot/on_remove()
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/tarfoot)
+	owner.remove_movespeed_modifier(MOVESPEED_ID_TARFOOT)
 
 /datum/status_effect/spookcookie
 	id = "spookcookie"
@@ -481,10 +478,7 @@
 
 /datum/status_effect/stabilized/orange/tick()
 	var/body_temperature_difference = owner.get_body_temp_normal(apply_change=FALSE) - owner.bodytemperature
-	owner.adjust_bodytemperature(min(5, body_temperature_difference))
-	if(ishuman(owner))
-		var/mob/living/carbon/human/humi = owner
-		humi.adjust_coretemperature(min(5, humi.get_body_temp_normal(apply_change=FALSE) - humi.coretemperature))
+	owner.adjust_bodytemperature(min(5,body_temperature_difference))
 	return ..()
 
 /datum/status_effect/stabilized/purple
@@ -584,12 +578,18 @@
 	return ..()
 
 /datum/status_effect/stabilized/darkpurple/tick()
-	var/obj/item/item = owner.get_active_held_item()
-	if(IS_EDIBLE(item))
-		if(item.microwave_act())
-			to_chat(owner, "<span class='warning'>[linked_extract] flares up brightly, and your hands alone are enough cook [item]!</span>")
+	var/obj/item/I = owner.get_active_held_item()
+	if(!I)
+		return
+	if(istype(I, /obj/item/reagent_containers/food/snacks))
+		var/obj/item/reagent_containers/food/snacks/F = I
+		if(F.cooked_type)
+			to_chat(owner, "<span class='warning'>[linked_extract] flares up brightly, and your hands alone are enough cook [F]!</span>")
+			var/obj/item/result = F.microwave_act()
+			if(istype(result))
+				owner.put_in_hands(result)
 	else
-		item.attackby(fire, owner)
+		I.attackby(fire, owner)
 	return ..()
 
 /datum/status_effect/stabilized/darkpurple/on_remove()
@@ -692,15 +692,15 @@
 /datum/status_effect/stabilized/sepia/tick()
 	if(prob(50) && mod > -1)
 		mod--
-		owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/sepia, multiplicative_slowdown = -1)
+		owner.add_movespeed_modifier(MOVESPEED_ID_SEPIA, override = TRUE, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
 	else if(mod < 1)
 		mod++
 		// yeah a value of 0 does nothing but replacing the trait in place is cheaper than removing and adding repeatedly
-		owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/sepia, multiplicative_slowdown = 0)
+		owner.add_movespeed_modifier(MOVESPEED_ID_SEPIA, override = TRUE, update=TRUE, priority=100, multiplicative_slowdown=0, blacklisted_movetypes=(FLYING|FLOATING))
 	return ..()
 
 /datum/status_effect/stabilized/sepia/on_remove()
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/sepia)
+	owner.remove_movespeed_modifier(MOVESPEED_ID_SEPIA)
 
 /datum/status_effect/stabilized/cerulean
 	id = "stabilizedcerulean"
@@ -759,12 +759,11 @@
 	colour = "red"
 
 /datum/status_effect/stabilized/red/on_apply()
-	. = ..()
-	owner.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/equipment_speedmod)
+	owner.ignore_slowdown("slimestatus")
+	return ..()
 
 /datum/status_effect/stabilized/red/on_remove()
-	owner.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/equipment_speedmod)
-	return ..()
+	owner.unignore_slowdown("slimestatus")
 
 /datum/status_effect/stabilized/green
 	id = "stabilizedgreen"
@@ -909,7 +908,7 @@
 	colour = "light pink"
 
 /datum/status_effect/stabilized/lightpink/on_apply()
-	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/lightpink)
+	owner.add_movespeed_modifier(MOVESPEED_ID_SLIME_STATUS, update=TRUE, priority=100, multiplicative_slowdown=-0.5, blacklisted_movetypes=(FLYING|FLOATING))
 	ADD_TRAIT(owner, TRAIT_PACIFISM, LIGHTPINK_TRAIT)
 	return ..()
 
@@ -921,7 +920,7 @@
 	return ..()
 
 /datum/status_effect/stabilized/lightpink/on_remove()
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/lightpink)
+	owner.remove_movespeed_modifier(MOVESPEED_ID_SLIME_STATUS)
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, LIGHTPINK_TRAIT)
 
 /datum/status_effect/stabilized/adamantine
@@ -938,10 +937,6 @@
 	var/obj/item/slimecross/stabilized/gold/linked = linked_extract
 	if(QDELETED(familiar))
 		familiar = new linked.mob_type(get_turf(owner.loc))
-		familiar.a_intent = INTENT_HELP
-		ADD_TRAIT(familiar, TRAIT_PACIFISM, "stabilizedgold")
-		familiar.melee_damage = 0
-		familiar.remove_verb(/mob/living/simple_animal/parrot/proc/toggle_mode) // just in case
 		familiar.name = linked.mob_name
 		familiar.del_on_death = TRUE
 		familiar.copy_languages(owner, LANGUAGE_MASTER)

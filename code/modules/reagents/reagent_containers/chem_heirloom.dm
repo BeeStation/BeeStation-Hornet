@@ -12,8 +12,6 @@
 	var/datum/reagent/rand_cont //Reagent of choice
 	var/datum/callback/roundend_callback
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers/glass/chem_heirloom)
-
 /obj/item/reagent_containers/glass/chem_heirloom/Initialize(mapload, vol)
 	..()
 	volume = 0
@@ -59,5 +57,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers/glass/chem_heirloom)
 	. = ..()
 	LAZYREMOVE(SSticker.round_end_events, roundend_callback)
 	roundend_callback = null
-
-#undef CHEM_H_VOL

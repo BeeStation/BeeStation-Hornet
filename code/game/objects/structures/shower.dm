@@ -175,7 +175,3 @@
 	layer = FLY_LAYER
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-#undef SHOWER_FREEZING
-#undef SHOWER_NORMAL
-#undef SHOWER_BOILING

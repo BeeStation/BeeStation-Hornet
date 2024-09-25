@@ -14,17 +14,13 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/food/meat/slab = 4)
-	response_help_continuous = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	faction = list("neutral")
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	attack_same = 1
-	attack_verb_continuous = "kicks"
-	attack_verb_simple = "kick"
+	attacktext = "kicks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 40
 	maxHealth = 40
@@ -35,7 +31,7 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	chat_color = "#B2CEB3"
 
-	footstep_type = FOOTSTEP_MOB_SHOE
+	do_footstep = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/goat/Initialize(mapload)
 	AddComponent(/datum/component/udder)
@@ -93,10 +89,10 @@
 	. = ..()
 	if(. && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(isdiona(H))
+		if(istype(H.dna.species, /datum/species/pod))
 			var/obj/item/bodypart/NB = pick(H.bodyparts)
 			H.visible_message("<span class='warning'>[src] takes a big chomp out of [H]!</span>", \
-									"<span class='userdanger'>[src] takes a big chomp out of your [NB]!</span>")
+								  "<span class='userdanger'>[src] takes a big chomp out of your [NB]!</span>")
 			NB.dismember()
 //cow
 /mob/living/simple_animal/cow
@@ -117,14 +113,10 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/food/meat/slab = 6)
-	response_help_continuous = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
-	attack_verb_continuous = "kicks"
-	attack_verb_simple = "kick"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
+	attacktext = "kicks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
 	maxHealth = 50
@@ -132,7 +124,7 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	chat_color = "#FFFFFF"
 
-	footstep_type = FOOTSTEP_MOB_SHOE
+	do_footstep = TRUE
 
 /mob/living/simple_animal/cow/Initialize(mapload)
 	AddComponent(/datum/component/udder)
@@ -188,14 +180,10 @@
 	speak_chance = 2
 	turns_per_move = 2
 	butcher_results = list(/obj/item/food/meat/slab/chicken = 1)
-	response_help_continuous = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
-	attack_verb_continuous = "kicks"
-	attack_verb_simple = "kick"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
+	attacktext = "kicks"
 	health = 3
 	maxHealth = 3
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -205,7 +193,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	chat_color = "#FFDC9B"
 
-	footstep_type = FOOTSTEP_MOB_CLAW
+	do_footstep = TRUE
 
 /mob/living/simple_animal/chick/Initialize(mapload)
 	. = ..()
@@ -255,14 +243,10 @@
 	butcher_results = list(/obj/item/food/meat/slab/chicken = 2)
 	var/egg_type = /obj/item/food/egg
 	var/food_type = /obj/item/food/grown/wheat
-	response_help_continuous = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
-	attack_verb_continuous = "kicks"
-	attack_verb_simple = "kick"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
+	attacktext = "kicks"
 	health = 15
 	maxHealth = 15
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -282,7 +266,7 @@
 	chat_color = "#FFDC9B"
 	mobchatspan = "stationengineer"
 
-	footstep_type = FOOTSTEP_MOB_CLAW
+	do_footstep = TRUE
 
 /mob/living/simple_animal/chicken/Initialize(mapload)
 	. = ..()
@@ -359,8 +343,7 @@
 	health = 15
 	maxHealth = 15
 	egg_type = null
-	attack_verb_continuous = "pecks"
-	attack_verb_simple = "peck"
+	attacktext = "pecks"
 	attack_sound = 'sound/creatures/turkey.ogg'
 	ventcrawler = VENTCRAWLER_ALWAYS
 	icon_prefix = "turkey"

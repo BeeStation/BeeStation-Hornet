@@ -13,10 +13,9 @@
 	speak_chance = 0
 	turns_per_move = 5
 	butcher_results = list(/obj/item/food/fishmeat/carp = 2)
-	response_help_continuous = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
+	response_help = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm = "hits"
 	emote_taunt = list("gnashes")
 	taunt_chance = 30
 	speed = 0
@@ -26,8 +25,7 @@
 
 	obj_damage = 50
 	melee_damage = 20
-	attack_verb_continuous = "bites"
-	attack_verb_simple = "bite"
+	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("gnashes")
 	chat_color = "#B15FB9"
@@ -38,8 +36,7 @@
 	minbodytemp = 0
 	maxbodytemp = 1500
 	faction = list("carp")
-	is_flying_animal = TRUE
-	no_flying_animation = TRUE
+	movement_type = FLYING
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
 

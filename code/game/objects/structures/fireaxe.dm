@@ -5,15 +5,13 @@
 	icon_state = "fireaxe"
 	anchored = TRUE
 	density = FALSE
-	armor = list(MELEE = 50,  BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 90, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor = list(MELEE = 50,  BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 90, ACID = 50, STAMINA = 0)
 	max_integrity = 150
 	integrity_failure = 0.33
 	layer = ABOVE_WINDOW_LAYER
 	var/locked = TRUE
 	var/open = FALSE
 	var/obj/item/fireaxe/fireaxe
-
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 
 /obj/structure/fireaxecabinet/Initialize(mapload)
 	. = ..()
@@ -78,7 +76,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/fireaxecabinet/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/structure/fireaxecabinet/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	if(open)
 		return
 	. = ..()
@@ -86,11 +84,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 		update_appearance()
 
 /obj/structure/fireaxecabinet/obj_break(damage_flag)
-	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		update_appearance()
 		broken = TRUE
-		playsound(src, 'sound/effects/glassbr3.ogg', 100, TRUE)
+		playsound(src, 'sound/effects/glassbr3.ogg', 100, 1)
 		new /obj/item/shard(loc)
 		new /obj/item/shard(loc)
 
@@ -136,12 +133,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 	return
 
 /obj/structure/fireaxecabinet/attack_tk(mob/user)
-	. = COMPONENT_CANCEL_ATTACK_CHAIN
 	if(locked)
 		to_chat(user, "<span class='warning'>The [name] won't budge!</span>")
 		return
-	open = !open
-	update_icon()
+	else
+		open = !open
+		update_appearance()
+		return
 
 /obj/structure/fireaxecabinet/update_icon()
 	cut_overlays()

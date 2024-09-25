@@ -16,7 +16,6 @@
 	var/destinationTag = NONE	// changes if contains a delivery container
 	var/tomail = FALSE			// contains wrapped package
 	var/hasmob = FALSE			// contains a mob
-	var/unsorted = TRUE			// have we been sorted yet?
 
 /obj/structure/disposalholder/Destroy()
 	QDEL_NULL(gas)
@@ -115,9 +114,9 @@
 	if(!T)
 		return null
 
-	var/fdir = dir_inverse_multiz(dir)	// flip the movement direction
+	var/fdir = turn(dir, 180)	// flip the movement direction
 	for(var/obj/structure/disposalpipe/P in T)
-		if (P.can_enter_from_dir(fdir))
+		if(fdir & P.dpdir)		// find pipe direction mask that matches flipped dir
 			return P
 	// if no matching pipe, return null
 	return null
@@ -136,7 +135,7 @@
 
 
 // called when player tries to move while in a pipe
-/obj/structure/disposalholder/relaymove(mob/living/user, direction)
+/obj/structure/disposalholder/relaymove(mob/user)
 	if(user.incapacitated())
 		return
 	for(var/mob/M as() in hearers(5, get_turf(src)))

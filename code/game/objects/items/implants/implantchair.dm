@@ -134,7 +134,7 @@
 			"<span class='notice'>You successfully break out of [src]!</span>")
 		open_machine()
 
-/obj/machinery/implantchair/relaymove(mob/living/user, direction)
+/obj/machinery/implantchair/relaymove(mob/user)
 	if(message_cooldown <= world.time)
 		message_cooldown = world.time + 50
 		to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
@@ -144,10 +144,9 @@
 		return
 	if(isliving(user))
 		var/mob/living/L = user
-		if(L.body_position == LYING_DOWN)
+		if(!(L.mobility_flags & MOBILITY_STAND))
 			return
 	close_machine(target)
-	
 
 /obj/machinery/implantchair/close_machine(mob/living/user)
 	if((isnull(user) || istype(user)) && state_open)
@@ -196,7 +195,7 @@
 		return FALSE
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
+		if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(H, "<span class ='userdanger'>Your trusty tinfoil hat shorts out the implant as it plunges into your skull!</span>")
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 75)
 			H.emote("scream")

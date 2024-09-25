@@ -22,8 +22,6 @@
 	///delay of constructing it throught the plumbing rcd
 	var/rcd_delay = 10
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing)
-
 /obj/machinery/plumbing/Initialize(mapload, bolt = TRUE)
 	. = ..()
 	anchored = bolt
@@ -73,8 +71,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing)
 	rcd_cost = 5
 	rcd_delay = 5
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/input)
-
 /obj/machinery/plumbing/input/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_supply, bolt)
@@ -89,8 +85,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/input)
 	rcd_cost = 5
 	rcd_delay = 5
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/output)
-
 /obj/machinery/plumbing/output/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_demand, bolt)
@@ -103,8 +97,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/output)
 	buffer = 400
 	rcd_cost = 25
 	rcd_delay = 20
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/tank)
 
 /obj/machinery/plumbing/tank/Initialize(mapload, bolt)
 	. = ..()

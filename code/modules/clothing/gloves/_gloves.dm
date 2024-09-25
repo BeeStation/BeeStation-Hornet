@@ -9,14 +9,12 @@
 	siemens_coefficient = 0.5
 	body_parts_covered = HANDS
 	slot_flags = ITEM_SLOT_GLOVES
-	attack_verb_continuous = list("challenges")
-	attack_verb_simple = list("challenge")
+	attack_verb = list("challenged")
 	var/transfer_prints = FALSE
 	strip_delay = 20
 	equip_delay_other = 40
 	// Path variable. If defined, will produced the type through interaction with wirecutters.
 	var/cut_type = null
-	dying_key = DYE_REGISTRY_GLOVES
 
 /obj/item/clothing/gloves/wash(clean_types)
 	. = ..()
@@ -31,14 +29,12 @@
 /obj/item/clothing/gloves/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands)
-		return
+		if(damaged_clothes)
+			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedgloves", item_layer)
+		if(HAS_BLOOD_DNA(src))
+			. += mutable_appearance('icons/effects/blood.dmi', "bloodyhands", item_layer)
 
-	if(damaged_clothes)
-		. += mutable_appearance('icons/effects/item_damage.dmi', "damagedgloves", item_layer)
-	if(HAS_BLOOD_DNA(src))
-		. += mutable_appearance('icons/effects/blood.dmi', "bloodyhands", item_layer)
-
-/obj/item/clothing/gloves/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
+/obj/item/clothing/gloves/update_clothes_damaged_state(damaging = TRUE)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc

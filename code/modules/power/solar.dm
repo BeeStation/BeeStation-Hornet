@@ -1,3 +1,6 @@
+#define SOLAR_MAX_DIST 40
+#define SOLARGENRATE 1500
+
 /obj/machinery/power/solar
 	name = "solar panel"
 	desc = "A solar panel. Generates electricity when in contact with sunlight."
@@ -19,8 +22,6 @@
 	var/ndir = SOUTH // target dir
 	var/turn_angle = 0
 	var/obj/machinery/power/solar_control/control = null
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 
 /obj/machinery/power/solar/Initialize(mapload, obj/item/solar_assembly/S)
 	. = ..()
@@ -49,7 +50,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 	if(!S)
 		S = new /obj/item/solar_assembly(src)
 		S.glass_type = /obj/item/stack/sheet/glass
-		S.set_anchored(TRUE)
+		S.anchored = TRUE
 	else
 		S.forceMove(src)
 	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
@@ -205,7 +206,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 		if(isinspace())
 			to_chat(user, "<span class='warning'>You can't secure [src] here.</span>")
 			return
-		set_anchored(!anchored)
+		anchored = !anchored
 		if(anchored)
 			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
 			W.play_tool_sound(src, 75)
@@ -430,7 +431,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 				A.circuit = M
 				A.state = 3
 				A.icon_state = "3"
-				A.set_anchored(TRUE)
+				A.anchored = TRUE
 				qdel(src)
 			else
 				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
@@ -441,7 +442,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 				A.circuit = M
 				A.state = 4
 				A.icon_state = "4"
-				A.set_anchored(TRUE)
+				A.anchored = TRUE
 				qdel(src)
 	else if(user.a_intent != INTENT_HARM && !(I.item_flags & NOBLUDGEON))
 		attack_hand(user)

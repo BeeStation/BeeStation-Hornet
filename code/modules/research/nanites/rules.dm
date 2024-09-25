@@ -55,7 +55,9 @@
 	desc = "Checks if the host is in critical condition."
 
 /datum/nanite_rule/crit/check_rule()
-	return HAS_TRAIT(program.host_mob, TRAIT_CRITICAL_CONDITION)
+	if(program.host_mob.InCritical())
+		return TRUE
+	return FALSE
 
 /datum/nanite_rule/death
 	name = "Death"

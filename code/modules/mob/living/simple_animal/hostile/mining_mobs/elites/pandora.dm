@@ -27,8 +27,7 @@
 	maxHealth = 400
 	health = 400
 	melee_damage = 15
-	attack_verb_continuous = "smashes into"
-	attack_verb_simple = "smash into"
+	attacktext = "smashes into the side of"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	throw_message = "merely dinks off of the"
 	speed = 4
@@ -189,8 +188,3 @@
 	var/mob/living/L = user
 	if(L && L.mind)
 		SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "hope_lavaland")
-
-#undef SINGULAR_SHOT
-#undef MAGIC_BOX
-#undef PANDORA_TELEPORT
-#undef AOE_SQUARES

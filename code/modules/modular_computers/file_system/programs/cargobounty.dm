@@ -1,5 +1,3 @@
-#define PRINTER_TIMEOUT 10
-
 /datum/computer_file/program/bounty
 	filename = "bounty"
 	filedesc = "Nanotrasen Bounty Hunter"
@@ -79,5 +77,3 @@
 				else
 					COOLDOWN_START(src, printer_ready, PRINTER_TIMEOUT)
 					computer.visible_message("<span class='notice'>\The [computer] prints out a paper.</span>")
-
-#undef PRINTER_TIMEOUT

@@ -8,14 +8,15 @@
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	response_harm_continuous = "strikes"
-	response_harm_simple = "strike"
+	response_help = "pokes"
+	response_disarm = "shoves"
+	response_harm = "strikes"
 	status_flags = 0
 	a_intent = INTENT_HARM
 	var/crusher_loot
 	var/throw_message = "bounces off of"
 	var/fromtendril = FALSE
-	see_in_dark = NIGHTVISION_FOV_RANGE
+	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	mob_size = MOB_SIZE_LARGE
 	hardattacks = TRUE //nasty_blocks wont help you here

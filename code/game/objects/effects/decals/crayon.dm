@@ -10,8 +10,6 @@
 	var/rotation = 0
 	var/paint_colour = "#FFFFFF"
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/crayon)
-
 /obj/effect/decal/cleanable/crayon/Initialize(mapload, main, type, e_name, graf_rot, alt_icon = null)
 	. = ..()
 	if(e_name)
