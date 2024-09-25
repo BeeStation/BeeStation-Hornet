@@ -5936,8 +5936,7 @@
 "qi" = (
 /obj/structure/chair,
 /obj/item/cigbutt/cigarbutt{
-	pixel_y = -2;
-	
+	pixel_y = -2
 	},
 /turf/open/floor/iron/tech/grid,
 /area/syndicate_mothership/control)
