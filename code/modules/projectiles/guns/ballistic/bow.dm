@@ -2,7 +2,7 @@
 	name = "wooden bow"
 	desc = "some sort of primitive projectile weapon. used to fire arrows."
 	icon_state = "bow"
-	icon_state_preview = "bow_unloaded"
+	icon_state_preview = "bow"
 	item_state = "bow"
 	worn_icon_state = "baguette"
 	w_class = WEIGHT_CLASS_BULKY
