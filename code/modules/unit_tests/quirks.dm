@@ -36,7 +36,10 @@
 		//Add quirk to a patient - so we can pass quirks that add a medical record after being assigned someone
 		patient.mind.add_quirk(quirk_type)
 
-		var/datum/quirk/quirk = patient.mind.has_quirk(quirk_type)
+		var/datum/quirk
+		for(var/datum/quirk/Q in quirks)
+			if(Q.type == quirktype)
+				quirk = Q
 
 		TEST_ASSERT_NOTNULL(quirk.medical_record_text,"[quirk_type] has no medical record description!")
 
