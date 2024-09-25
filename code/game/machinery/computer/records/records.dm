@@ -18,7 +18,7 @@
 
 /obj/machinery/computer/records/ui_close(mob/user)
 	. = ..()
-	user.client?.screen_maps -= USER_PREVIEW_ASSIGNED_VIEW(user.ckey)
+	user.client?.screen_maps -= character_preview_view.remote_view
 	if((LAZYLEN(SStgui.open_uis) <= 1) && character_preview_view) //only delete the preview if we're the last one to close the console.
 		QDEL_NULL(character_preview_view)
 
