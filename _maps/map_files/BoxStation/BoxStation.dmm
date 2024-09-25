@@ -14015,6 +14015,9 @@
 /obj/machinery/gateway{
 	dir = 9
 	},
+/obj/effect/turf_decal/box/corners{
+	dir = 1
+	},
 /turf/open/floor/engine,
 /area/gateway)
 "cCf" = (
@@ -14054,6 +14057,10 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/effect/turf_decal/arrows{
+	pixel_x = -24
+	},
+/obj/effect/turf_decal/box/corners,
 /turf/open/floor/engine,
 /area/gateway)
 "cCq" = (
@@ -20238,6 +20245,14 @@
 	dir = 10
 	},
 /obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/arrows{
+	dir = 1;
+	pixel_x = 24;
+	pixel_y = -14
+	},
+/obj/effect/turf_decal/box/corners{
 	dir = 8
 	},
 /turf/open/floor/engine,
@@ -66970,6 +66985,9 @@
 	dir = 5
 	},
 /obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/corners{
 	dir = 4
 	},
 /turf/open/floor/engine,

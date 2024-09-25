@@ -13891,7 +13891,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname/directional/west{
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -25879,7 +25879,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/directional/north{
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /turf/open/floor/iron,
 /area/security/brig/aft)
@@ -29172,7 +29172,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	network = list("ss13", "prison", "security")
+	network = list("ss13","prison","security")
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
@@ -29429,7 +29429,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/camera/directional/north{
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
@@ -29799,7 +29799,7 @@
 /obj/machinery/flasher/portable,
 /obj/machinery/camera/motion/directional/east{
 	c_tag = "Armory Internal";
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
@@ -31790,7 +31790,7 @@
 /area/crew_quarters/heads/captain)
 "eMU" = (
 /obj/machinery/camera/autoname/directional/south{
-	network = list("ss13", "prison")
+	network = list("ss13","prison")
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -36796,7 +36796,7 @@
 /area/maintenance/starboard/aft)
 "gxo" = (
 /obj/machinery/camera/autoname/directional/south{
-	network = list("ss13", "prison")
+	network = list("ss13","prison")
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -37640,7 +37640,7 @@
 	},
 /obj/item/kirbyplants/random,
 /obj/machinery/camera/directional/north{
-	network = list("ss13", "prison")
+	network = list("ss13","prison")
 	},
 /turf/open/floor/wood,
 /area/security/prison)
@@ -42376,7 +42376,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/camera/directional/north{
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/iron/dark,
@@ -42622,7 +42622,7 @@
 /obj/item/reagent_containers/food/drinks/soda_cans/pwr_game{
 	pixel_x = 6;
 	pixel_y = 7;
-	list_reagents = list(/datum/reagent/consumable/pwr_game = 5)
+	list_reagents = list(/datum/reagent/consumable/pwr_game=5)
 	},
 /obj/item/reagent_containers/food/drinks/britcup{
 	pixel_x = -5;
@@ -43244,7 +43244,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname/directional/west{
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /obj/item/kirbyplants{
 	icon_state = "plant-02";
@@ -43452,6 +43452,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/obj/effect/turf_decal/arrows{
+	pixel_x = -24
+	},
 /turf/open/floor/iron/dark,
 /area/gateway)
 "iLn" = (
@@ -48937,7 +48940,7 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/camera/motion/directional/south{
 	c_tag = "Armory - External";
-	network = list("ss13", "prison")
+	network = list("ss13","prison")
 	},
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
@@ -54057,7 +54060,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/effect/turf_decal/tile/neutral,
 /obj/machinery/camera/autoname/directional/east{
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /turf/open/floor/iron,
 /area/security/brig)
@@ -56602,7 +56605,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname/directional/east{
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /turf/open/floor/iron/dark,
 /area/security/main)
@@ -63662,7 +63665,7 @@
 	pixel_x = 25
 	},
 /obj/machinery/camera/autoname/directional/east{
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /turf/open/floor/iron,
 /area/security/brig/aft)
@@ -63872,7 +63875,7 @@
 	},
 /obj/machinery/camera/directional/west{
 	c_tag = "Brig Cells";
-	network = list("ss13", "prison")
+	network = list("ss13","prison")
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -70804,7 +70807,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/machinery/camera/autoname/directional/west{
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /obj/machinery/rnd/production/techfab/department/security,
 /obj/effect/turf_decal/stripes/box,
@@ -73709,7 +73712,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera/directional/north{
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -82617,6 +82620,11 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
+/obj/effect/turf_decal/arrows{
+	dir = 1;
+	pixel_x = 24;
+	pixel_y = -14
+	},
 /turf/open/floor/iron/dark,
 /area/gateway)
 "vzg" = (
@@ -86221,7 +86229,7 @@
 /obj/machinery/airalarm/directional/south,
 /obj/structure/table/reinforced,
 /obj/machinery/camera/autoname{
-	network = list("ss13", "prison")
+	network = list("ss13","prison")
 	},
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
@@ -91486,7 +91494,7 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/machinery/light,
 /obj/machinery/camera/autoname/directional/south{
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron,
