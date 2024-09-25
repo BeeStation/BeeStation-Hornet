@@ -6,6 +6,7 @@
 	icon = "hiking"
 	value = -2
 	mood_quirk = TRUE
+	medical_record_text = "Patient suffers from scoliosis."
 	gain_text = "<span class='danger'>Your back REALLY hurts!</span>"
 	lose_text = "<span class='notice'>Your back feels better.</span>"
 	process = TRUE
@@ -41,7 +42,7 @@
 	value = -4
 	gain_text = "<span class='danger'>You can't see anything.</span>"
 	lose_text = "<span class='notice'>You miraculously gain back your vision.</span>"
-	medical_record_text = "Subject has permanent blindness."
+	medical_record_text = "Patient has permanent blindness."
 
 /datum/quirk/blindness/add()
 	quirk_target.become_blind(ROUNDSTART_TRAIT)
@@ -109,7 +110,7 @@
 	mob_trait = TRAIT_DEAF
 	gain_text = "<span class='danger'>You can't hear anything.</span>"
 	lose_text = "<span class='notice'>You're able to hear again!</span>"
-	medical_record_text = "Subject's cochlear nerve is incurably damaged."
+	medical_record_text = "Patient's cochlear nerve is incurably damaged."
 
 /datum/quirk/depression
 	name = "Depression"
