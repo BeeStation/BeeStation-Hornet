@@ -93,13 +93,12 @@
 
 /// Creates a character preview view for the UI.
 /obj/machinery/computer/records/proc/create_character_preview_view(mob/user)
-	var/assigned_view = USER_PREVIEW_ASSIGNED_VIEW(user.ckey)
-	if(user.client?.screen_maps[assigned_view])
+	if(istype(character_preview_view))
 		return
-
-	var/atom/movable/screen/map_view/character_preview_view/new_view = new(null, src)
-	new_view.register_to_client(user.client)
-	return new_view
+	character_preview_view = new(null, src)
+	if(user.client)
+		character_preview_view.register_to_client(user.client)
+	return character_preview_view
 
 /// Takes a record and updates the character preview view to match it.
 /obj/machinery/computer/records/proc/update_preview(mob/user, assigned_view, datum/record/crew/target)

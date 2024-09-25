@@ -14,16 +14,14 @@ export const SecurityRecordView = (props, context) => {
   if (!foundRecord) return <NoticeBox>Nothing selected.</NoticeBox>;
 
   const { data } = useBackend<SecurityRecordsData>(context);
-  const { assigned_view } = data;
-
   const [open] = useLocalState<boolean>(context, 'printOpen', false);
 
   return (
     <Stack fill vertical>
       <Stack.Item grow>
         <Stack fill>
-          <Stack.Item>
-            <CharacterPreview height="100%" id={assigned_view} />
+          <Stack.Item grow>
+            <CharacterPreview height="100%" id={data.character_preview_view} />
           </Stack.Item>
           <Stack.Item grow>
             <CrimeWatcher />

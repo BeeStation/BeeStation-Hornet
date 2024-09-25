@@ -1,7 +1,7 @@
 import { BooleanLike } from 'common/react';
 
 export type SecurityRecordsData = {
-  assigned_view: string;
+  character_preview_view: string;
   authenticated: BooleanLike;
   available_statuses: string[];
   current_user: string;
