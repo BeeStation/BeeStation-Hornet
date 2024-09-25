@@ -228,8 +228,7 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/anyone
 	allow_any = TRUE
 
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/Initialize(mapload)
-	. = ..()
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/setup_shielding()
 	// note that these charges don't regenerate
 	AddComponent(/datum/component/shielded, \
 		max_integrity = 100, \
