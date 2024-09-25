@@ -56,7 +56,7 @@
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "m" = (
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "n" = (
 /turf/open/floor/wood{
@@ -116,7 +116,7 @@
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 
 (1,1,1) = {"

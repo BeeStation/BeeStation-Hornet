@@ -235,10 +235,11 @@
 	item_state = "holdingpack"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = NO_MAT_REDEMPTION
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
 
 /obj/item/storage/backpack/debug/ComponentInitialize()
 	. = ..()
+	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.allow_big_nesting = TRUE
 	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
@@ -327,6 +328,7 @@
 		TRAIT_SURGEON,
 		TRAIT_METALANGUAGE_KEY_ALLOWED
 	)
+	var/spacewalk_initial
 
 /obj/item/debug/orb_of_power/pickup(mob/user)
 	. = ..()
@@ -349,12 +351,17 @@
 	picker.see_override = SEE_INVISIBLE_OBSERVER
 	picker.update_sight()
 
+	spacewalk_initial = user.spacewalk
+	user.spacewalk = TRUE
 
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
 	. = ..()
 	var/obj/item/debug/orb_of_power/orb = locate() in user.get_contents()
 	if(orb)
 		return
+
+	user.spacewalk = spacewalk_initial
+
 	for(var/each in traits_to_give)
 		REMOVE_TRAIT(user, each, "debug")
 	user.remove_all_languages("debug")
@@ -370,3 +377,67 @@
 	if(!HAS_TRAIT(user, TRAIT_SECURITY_HUD))
 		hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 		hud.remove_hud_from(user)
+
+// kinda works like hilbert, but not really
+/obj/item/map_template_diver
+	name = "Pseudo-world diver"
+	desc = "A globe that you can dive into a pseudo-world, but there's no way back."
+	icon_state = "hilbertshotel"
+	w_class = WEIGHT_CLASS_TINY
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+	var/datum/map_template/map_template = /datum/map_template/debug_target
+	var/working
+	var/turf/turf_to_dive
+
+	var/live_server_warning
+
+/datum/map_template/debug_target
+	name = "Debug map to test"
+	mappath = '_maps/map_files/debug/multidir_sprite_debug.dmm'
+
+// friendly warning setter
+/obj/item/map_template_diver/Initialize(mapload)
+	. = ..()
+#ifndef DEBUG
+	live_server_warning = TRUE
+#endif
+
+/obj/item/map_template_diver/attack_self(mob/user)
+	. = ..()
+
+	if(turf_to_dive)
+		dive_into(user)
+		return
+
+	if(!check_rights_for(user.client, R_ADMIN | R_DEBUG))
+		client_alert(user.client, "Players are not allowed to use this debug item, even for fun.", "No permission, no fun")
+		return
+	if(live_server_warning)
+		client_alert(user.client, "It looks the server is actually live. Using this may cost the performance of the server. Use this again if you're sure.", "Warning")
+		live_server_warning = FALSE
+		return
+
+	if(working)
+		to_chat(user, "<span class='notice'>We're creating a map yet.</span>")
+		return
+
+	if(ispath(map_template))
+		create_map(user)
+		return
+
+/obj/item/map_template_diver/proc/create_map(mob/user)
+	set waitfor = FALSE
+
+	to_chat(user, "<span class='notice'>Creates a map template...</span>")
+	working = TRUE
+	map_template = new map_template()
+	var/datum/space_level/space_level = map_template.load_new_z(null, ZTRAITS_DEBUG)
+	turf_to_dive = locate(round((world.maxx - map_template.width)/2), round((world.maxy - map_template.height)/2), space_level.z_value)
+	to_chat(user, "<span class='notice'>Creation is completed.</span>")
+	working = FALSE
+	dive_into(user)
+
+/obj/item/map_template_diver/proc/dive_into(mob/user)
+	to_chat(user, "<span class='notice'>Teleports to the test area.</span>")
+	user.forceMove(turf_to_dive)

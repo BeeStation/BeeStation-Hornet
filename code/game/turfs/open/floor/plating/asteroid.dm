@@ -4,16 +4,15 @@
 /turf/open/floor/plating/asteroid //floor piece
 	gender = PLURAL
 	name = "asteroid sand"
-	baseturfs = /turf/open/floor/plating/asteroid
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "asteroid"
 	icon_plating = "asteroid"
+	resistance_flags = INDESTRUCTIBLE
 	postdig_icon_change = TRUE
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	max_integrity = 200
 	damage_deflection = 0
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/open/floor/plating/asteroid //Because caves do whacky shit to revert to normal
@@ -53,6 +52,9 @@
 /turf/open/floor/plating/asteroid/MakeDry()
 	return
 
+/turf/open/floor/plating/asteroid/crush()
+	return
+
 /turf/open/floor/plating/asteroid/attackby(obj/item/W, mob/user, params)
 	. = ..()
 	if(!.)
@@ -75,6 +77,26 @@
 		else if(istype(W, /obj/item/storage/bag/ore))
 			for(var/obj/item/stack/ore/O in src)
 				SEND_SIGNAL(W, COMSIG_PARENT_ATTACKBY, O)
+
+/turf/open/floor/plating/asteroid/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
+	if(the_rcd.canRturf)
+		return ..()
+
+
+/turf/open/floor/plating/asteroid/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
+	if(the_rcd.canRturf)
+		return ..()
+
+/turf/open/floor/plating/asteroid/planetary
+	var/static/datum/gas_mixture/immutable/planetary/GM
+
+/turf/open/floor/plating/asteroid/planetary/Initialize(mapload)
+	if(!GM)
+		GM = new
+	. = ..()
+	air = GM
+	update_air_ref(2)
+	return
 
 /turf/open/floor/plating/lavaland_baseturf
 	baseturfs = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
@@ -122,14 +144,22 @@
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/lava/smooth/cold
 
+/turf/open/floor/plating/asteroid/basalt/planetary
+	resistance_flags = INDESTRUCTIBLE
+	var/static/datum/gas_mixture/immutable/planetary/GM
+
+/turf/open/floor/plating/asteroid/basalt/planetary/Initialize(mapload)
+	if(!GM)
+		GM = new
+	. = ..()
+	air = GM
+	update_air_ref(2)
+	return
+
 /turf/open/floor/plating/asteroid/airless
 	initial_gas_mix = AIRLESS_ATMOS
 	baseturfs = /turf/open/floor/plating/asteroid/airless
 	turf_type = /turf/open/floor/plating/asteroid/airless
-
-// / Breathing types. Lungs can access either by these or by a string, which will be considered a gas ID.
-#define BREATH_OXY		/datum/breathing_class/oxygen
-#define BREATH_PLASMA	/datum/breathing_class/plasma
 
 /turf/open/floor/plating/asteroid/snow
 	gender = PLURAL

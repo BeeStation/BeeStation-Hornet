@@ -16,6 +16,46 @@
 	symptoms = list(new/datum/symptom/cough)
 	..()
 
+/datum/disease/advance/inorganic
+	copy_type = /datum/disease/advance
+
+/datum/disease/advance/inorganic/New()
+	name = "Benign Inorganic Virus"
+	symptoms = list(new/datum/symptom/inorganic_adaptation)
+	..()
+
+/datum/disease/advance/necrotic
+	copy_type = /datum/disease/advance
+
+/datum/disease/advance/necrotic/New()
+	name = "Benign Necrotic Virus"
+	symptoms = list(new/datum/symptom/undead_adaptation)
+	..()
+
+/datum/disease/advance/evolution
+	copy_type = /datum/disease/advance
+
+/datum/disease/advance/evolution/New()
+	name = "Benign Unstable Virus"
+	symptoms = list(new/datum/symptom/viralevolution)
+	..()
+
+/datum/disease/advance/adaptation
+	copy_type = /datum/disease/advance
+
+/datum/disease/advance/adaptation/New()
+	name = "Benign Stable Virus"
+	symptoms = list(new/datum/symptom/viraladaptation)
+	..()
+
+/datum/disease/advance/aggression
+	copy_type = /datum/disease/advance
+
+/datum/disease/advance/aggression/New()
+	name = "Benign Aggressive Virus"
+	symptoms = list(new/datum/symptom/viralreverse)
+	..()
+
 /datum/disease/advance/feline_hysteria
 	name = "Feline Hysteria"
 	desc = "A very dangerous disease supposedly engineered by the Animal Rights Coalition. Causes mass feline hysteria."
@@ -49,7 +89,7 @@
 	name = "Minor Experimental Disease"
 	max_symptoms_override = 4
 
-/datum/disease/advance/random/New(max_symptoms, max_level = 9, min_level = 1, list/guaranteed_symptoms = setsymptom, var/atom/infected)
+/datum/disease/advance/random/New(max_symptoms, max_level = 9, min_level = 1, list/guaranteed_symptoms = setsymptom, var/atom/infected, mute = TRUE, special = FALSE)
 	if(!max_symptoms)
 		max_symptoms = (2 + rand(1, (VIRUS_SYMPTOM_LIMIT - 2)))
 	if(max_symptoms_override)
@@ -75,6 +115,9 @@
 			symptoms += new chosen_symptom
 	for(var/guaranteed_symptom in guaranteed_symptoms)
 		symptoms += new guaranteed_symptom
+	if(CONFIG_GET(flag/event_symptom_thresholds))
+		event = special
+	mutable = mute
 	Finalize()
 	Refresh()
 	if(randomname)
@@ -121,5 +164,5 @@
 		dormant_disease.spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 		dormant_disease.spread_text = "None"
 		dormant_disease.visibility_flags |= HIDDEN_SCANNER
-		ForceContractDisease(dormant_disease)
+		ForceContractDisease(dormant_disease, FALSE, TRUE)
 		return TRUE

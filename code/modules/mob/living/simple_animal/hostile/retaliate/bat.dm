@@ -6,9 +6,10 @@
 	icon_dead = "bat_dead"
 	icon_gib = "bat_dead"
 	turns_per_move = 1
-	response_help = "brushes aside"
-	response_disarm = "flails at"
-	response_harm = "hits"
+	response_help_continuous = "brushes aside"
+	response_help_simple = "brush aside"
+	response_disarm_continuous = "flails at"
+	response_disarm_simple = "flail at"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	speak_chance = 0
 	maxHealth = 15
@@ -16,7 +17,8 @@
 	spacewalk = TRUE
 	see_in_dark = 10
 	melee_damage = 6
-	attacktext = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
 	butcher_results = list(/obj/item/food/meat/slab = 1)
 	pass_flags = PASSTABLE
 	faction = list("hostile")
@@ -25,7 +27,8 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
-	movement_type = FLYING
+	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	speak_emote = list("squeaks")
 	var/max_co2 = 0 //to be removed once metastation map no longer use those for Sgt Araneus
 	var/min_oxy = 0
@@ -60,5 +63,6 @@
 	melee_damage = 15
 	min_oxy = 5
 	movement_type = GROUND
-	response_help = "pets"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
 	turns_per_move = 10

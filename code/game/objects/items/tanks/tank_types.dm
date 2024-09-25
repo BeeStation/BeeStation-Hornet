@@ -136,6 +136,7 @@
 	icon_state = "plasmaman_tank_belt"
 	item_state = "plasmaman_tank_belt"
 	worn_icon_state = "plasmaman_tank_belt"
+	worn_icon = null
 	slot_flags = ITEM_SLOT_BELT
 	force = 5
 	volume = 6
@@ -159,6 +160,7 @@
 	desc = "Used for emergencies. Contains very little oxygen, so try to conserve it until you actually need it."
 	icon_state = "emergency"
 	worn_icon_state = "emergency"
+	worn_icon = null
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
@@ -177,6 +179,7 @@
 	name = "extended-capacity emergency oxygen tank"
 	icon_state = "emergency_engi"
 	worn_icon_state = "emergency_engi"
+	worn_icon = null
 	volume = 2 // should last a bit over 30 minutes if full
 
 /obj/item/tank/internals/emergency_oxygen/engi/empty/populate_gas()
@@ -185,6 +188,7 @@
 /obj/item/tank/internals/emergency_oxygen/double
 	name = "double emergency oxygen tank"
 	icon_state = "emergency_double"
+	worn_icon_state = "emergency_engi"
 	volume = 8
 
 /obj/item/tank/internals/emergency_oxygen/double/empty/populate_gas()

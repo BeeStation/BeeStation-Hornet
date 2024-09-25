@@ -60,7 +60,7 @@
 		log_preferences("[parent_ckey]: WARN - player_data load ignored.")
 		return PREFERENCE_LOAD_IGNORE
 	log_preferences("[parent_ckey]: Undatumized player preferences loading.")
-	var/datum/DBQuery/read_player_data = SSdbcore.NewQuery(
+	var/datum/db_query/read_player_data = SSdbcore.NewQuery(
 		"SELECT CAST(preference_tag AS CHAR) AS ptag, preference_value FROM [format_table_name("preferences")] WHERE ckey=:ckey",
 		list("ckey" = parent_ckey)
 	)
@@ -168,7 +168,7 @@
 		return TRUE
 	log_preferences("[parent_ckey]: Undatumized player preferences saving.")
 	dirty_undatumized_preferences_player = FALSE // we edit this immediately, since the DB query sleeps, the var could be modified during the sleep.
-	var/list/datum/DBQuery/write_queries = list() // do not rename this you muppet
+	var/list/datum/db_query/write_queries = list() // do not rename this you muppet
 
 	PREP_WRITEPREF_STR(default_slot, PREFERENCE_TAG_DEFAULT_SLOT)
 	PREP_WRITEPREF_STR(lastchangelog, PREFERENCE_TAG_LAST_CL)
@@ -243,7 +243,7 @@
 		CHARACTER_PREFERENCE_ROLE_PREFERENCES,
 	)
 
-	var/datum/DBQuery/Q = SSdbcore.NewQuery(
+	var/datum/db_query/Q = SSdbcore.NewQuery(
 		"SELECT [db_column_list(column_names)] FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot",
 		list("ckey" = parent_ckey, "slot" = slot)
 	)
@@ -360,7 +360,7 @@
 
 	new_data["ckey"] = parent_ckey
 	new_data["slot"] = character_data.slot_number
-	var/datum/DBQuery/Q = SSdbcore.NewQuery(
+	var/datum/db_query/Q = SSdbcore.NewQuery(
 		"INSERT INTO [format_table_name("characters")] (ckey, slot, [db_column_list(column_names)]) VALUES (:ckey, :slot, [db_column_list(column_names, TRUE)]) ON DUPLICATE KEY UPDATE [db_column_values(column_names)]", new_data
 	)
 	var/success = Q.warn_execute()

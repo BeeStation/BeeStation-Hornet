@@ -1,9 +1,9 @@
 GLOBAL_LIST_EMPTY(possible_items)
 /datum/objective/steal
 	name = "steal"
+	martyr_compatible = FALSE
 	var/datum/objective_item/targetinfo = null //Save the chosen item datum so we can access it later.
 	var/obj/item/steal_target = null //Needed for custom objectives (they're just items, not datums).
-	martyr_compatible = 0
 
 /datum/objective/steal/get_target()
 	return steal_target
@@ -113,7 +113,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 
 /datum/objective/steal/exchange
 	name = "exchange"
-	martyr_compatible = 0
+	martyr_compatible = FALSE
 
 /datum/objective/steal/exchange/admin_edit(mob/admin)
 	return

@@ -134,7 +134,7 @@
 		var/gender = body_part == BODY_ZONE_CHEST || body_part == BODY_ZONE_HEAD ? "_m" : ""
 		body_icon.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "human_[body_part][gender]", dir = NORTH), ICON_OVERLAY)
 	body_icon.blend_color(skintone2hex("caucasian1", include_tag = TRUE), ICON_MULTIPLY)
-	var/datum/universal_icon/jumpsuit_icon = uni_icon('icons/mob/clothing/uniform.dmi', "jumpsuit", dir = NORTH)
+	var/datum/universal_icon/jumpsuit_icon = uni_icon('icons/mob/clothing/under/color.dmi', "jumpsuit", dir = NORTH)
 	jumpsuit_icon.blend_color("#b3b3b3", ICON_MULTIPLY)
 	body_icon.blend_icon(jumpsuit_icon, ICON_OVERLAY)
 

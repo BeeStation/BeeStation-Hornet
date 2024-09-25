@@ -1,0 +1,210 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"e" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/holofloor,
+/area/template_noop)
+"i" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"j" = (
+/obj/structure/window{
+	dir = 1
+	},
+/obj/item/toy/beach_ball/holoball/dodgeball,
+/obj/structure/window,
+/obj/structure/window{
+	dir = 8
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"k" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"l" = (
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"p" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"r" = (
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"u" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"v" = (
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/holofloor,
+/area/template_noop)
+"w" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"x" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"C" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/readybutton,
+/turf/open/floor/holofloor,
+/area/template_noop)
+"D" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/turf/open/floor/holofloor,
+/area/template_noop)
+"I" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"K" = (
+/obj/structure/window{
+	dir = 1
+	},
+/obj/item/toy/beach_ball/holoball/dodgeball,
+/obj/structure/window,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"L" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"M" = (
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/turf/open/floor/holofloor,
+/area/template_noop)
+"O" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"P" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"Q" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/readybutton,
+/turf/open/floor/holofloor,
+/area/template_noop)
+"R" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"S" = (
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"T" = (
+/obj/structure/window{
+	dir = 1
+	},
+/obj/item/toy/beach_ball/holoball/dodgeball,
+/obj/structure/window,
+/obj/structure/window{
+	dir = 4
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"X" = (
+/turf/open/floor/holofloor,
+/area/template_noop)
+
+(1,1,1) = {"
+L
+O
+i
+k
+r
+x
+S
+"}
+(2,1,1) = {"
+I
+X
+u
+j
+w
+X
+R
+"}
+(3,1,1) = {"
+I
+X
+u
+K
+w
+X
+R
+"}
+(4,1,1) = {"
+Q
+X
+u
+K
+w
+X
+C
+"}
+(5,1,1) = {"
+I
+X
+u
+K
+w
+X
+R
+"}
+(6,1,1) = {"
+I
+X
+u
+T
+w
+X
+R
+"}
+(7,1,1) = {"
+P
+e
+D
+p
+l
+v
+M
+"}

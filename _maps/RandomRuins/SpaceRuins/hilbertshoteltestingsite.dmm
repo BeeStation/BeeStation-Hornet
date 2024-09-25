@@ -50,13 +50,13 @@
 	},
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "j" = (
-/turf/open/floor/plasteel/stairs/left,
+/turf/open/floor/iron/stairs/left,
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "k" = (
-/turf/open/floor/plasteel/stairs/medium,
+/turf/open/floor/iron/stairs/medium,
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "l" = (
-/turf/open/floor/plasteel/stairs/right,
+/turf/open/floor/iron/stairs/right,
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "m" = (
 /obj/structure/table/glass,
@@ -73,7 +73,7 @@
 	},
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "o" = (
-/turf/open/floor/plasteel/vaporwave,
+/turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "p" = (
 /obj/structure/table/glass,
@@ -108,7 +108,7 @@
 /obj/structure/displaycase{
 	start_showpiece_type = /obj/item/hilbertshotel
 	},
-/turf/open/floor/plasteel/vaporwave,
+/turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "u" = (
 /obj/structure/table/glass,
@@ -127,7 +127,7 @@
 "w" = (
 /obj/item/paper/crumpled/docslogs,
 /obj/item/pen,
-/turf/open/floor/plasteel/vaporwave,
+/turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "x" = (
 /obj/structure/table/glass,
@@ -145,7 +145,7 @@
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "z" = (
 /obj/machinery/door/airlock/vault{
-	name = "secured door";
+	name = "secured Door";
 	req_access = 207
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -198,17 +198,17 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered/no_grav)
 "K" = (
-/turf/open/floor/plasteel/stairs/right{
+/turf/open/floor/iron/stairs/right{
 	initial_gas_mix = "TEMP=2.7"
 	},
 /area/ruin/unpowered/no_grav)
 "U" = (
-/turf/open/floor/plasteel/stairs/medium{
+/turf/open/floor/iron/stairs/medium{
 	initial_gas_mix = "TEMP=2.7"
 	},
 /area/ruin/unpowered/no_grav)
 "X" = (
-/turf/open/floor/plasteel/stairs/left{
+/turf/open/floor/iron/stairs/left{
 	initial_gas_mix = "TEMP=2.7"
 	},
 /area/ruin/unpowered/no_grav)

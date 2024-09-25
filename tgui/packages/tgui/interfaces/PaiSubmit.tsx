@@ -12,6 +12,7 @@ type Data = {
   comments: string;
   description: string;
   name: string;
+  ready: boolean;
   default_name: string;
   default_description: string;
   default_comments: string;
@@ -138,6 +139,15 @@ const ButtonsDisplay = (props, context) => {
               })
             }>
             SUBMIT
+          </Button>
+        </Stack.Item>
+        <Stack.Item>
+          <Button
+            disabled={!data.ready}
+            color="bad"
+            onClick={() => act('delete')}
+            tooltip="Removes you from the candidate pool">
+            DELETE
           </Button>
         </Stack.Item>
       </Stack>

@@ -208,7 +208,7 @@
 	id = "rice_hat"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 300)
-	build_path = /obj/item/clothing/head/rice_hat
+	build_path = /obj/item/clothing/head/costume/rice_hat
 	category = list("initial","Organic Materials")
 
 /datum/design/carton_soy_milk
@@ -217,4 +217,12 @@
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass = 100)
 	build_path = /obj/item/reagent_containers/food/condiment/soymilk
+	category = list("initial","Food")
+
+/datum/design/seaweed_sheet
+	name = "Seaweed Sheet"
+	id = "seaweed_sheet"
+	build_type = BIOGENERATOR
+	materials = list(/datum/material/biomass= 30)
+	build_path = /obj/item/food/seaweed_sheet
 	category = list("initial","Food")

@@ -1,6 +1,6 @@
 {
 	"map_name": "Rad Station",
-	"map_link": "RadStation",
+	"map_link": "radstation",
 	"map_path": "map_files/RadStation",
 	"map_file": "RadStation.dmm",
 	"shuttles": {

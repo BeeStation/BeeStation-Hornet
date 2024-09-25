@@ -1,11 +1,11 @@
- //Suits for the pink and grey skeletons! //EVA version no longer used in favor of the Jumpsuit version
+//Suits for the pink and grey skeletons! //EVA version no longer used in favor of the Jumpsuit version
 
 
 /obj/item/clothing/suit/space/eva/plasmaman
 	name = "EVA plasma envirosuit"
 	desc = "A special plasma containment suit designed to be space-worthy, as well as worn over other clothing. Like its smaller counterpart, it can automatically extinguish the wearer in a crisis, and holds twice as many charges."
 	allowed = list(/obj/item/gun, /obj/item/ammo_casing, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 75, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 75, STAMINA = 0, BLEED = 10)
 	resistance_flags = FIRE_PROOF
 	icon_state = "plasmaman_suit"
 	item_state = "plasmaman_suit"
@@ -38,6 +38,8 @@
 /obj/item/clothing/head/helmet/space/plasmaman
 	name = "plasma envirosuit helmet"
 	desc = "A special containment helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment. It is space-worthy, and may be worn in tandem with other EVA gear."
+	icon = 'icons/obj/clothing/head/plasmaman_hats.dmi'
+	worn_icon = 'icons/mob/clothing/head/plasmaman_head.dmi'
 	icon_state = "helmet"
 	item_state = "helmet"
 	greyscale_colors = "#DF5900#A349A4#DF5900"
@@ -45,12 +47,13 @@
 	greyscale_config_inhand_left = /datum/greyscale_config/plasmaman_helmet_default_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/plasmaman_helmet_default_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/plasmaman_helmet_default_worn
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
 	strip_delay = 80
 	flash_protect = 2
 	tint = 2
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 75, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 75, STAMINA = 0, BLEED = 10)
 	resistance_flags = FIRE_PROOF
-	light_system = MOVABLE_LIGHT
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
 	light_on = FALSE
 	var/helmet_on = FALSE
@@ -129,7 +132,7 @@
 		// i know someone is gonna do it after i thought about it
 		&& !istype(item, /obj/item/clothing/head/helmet/space/plasmaman) \
 		// messy and icon can't be seen before putting on
-		&& !istype(item, /obj/item/clothing/head/foilhat))
+		&& !istype(item, /obj/item/clothing/head/costume/foilhat))
 		var/obj/item/clothing/head/hat = item
 		if(attached_hat)
 			to_chat(user, "<span class='notice'>There's already a hat on the helmet!</span>")
@@ -163,15 +166,15 @@
 	. = ..()
 	if(!isinhands)
 		if(smile)
-			var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/head.dmi', smile_state, item_layer)
+			var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/head/plasmaman_head.dmi', smile_state, item_layer)
 			M.color = smile_color
 			. += M
 		if(helmet_on)
-			. += mutable_appearance('icons/mob/clothing/head.dmi', visor_state + "_light", item_layer)
+			. += mutable_appearance('icons/mob/clothing/head/plasmaman_head.dmi', visor_state + "_light", item_layer)
 		if(!up)
-			. += mutable_appearance('icons/mob/clothing/head.dmi', visor_state + "_weld", item_layer)
+			. += mutable_appearance('icons/mob/clothing/head/plasmaman_head.dmi', visor_state + "_weld", item_layer)
 		if(attached_hat)
-			. += attached_hat.build_worn_icon(origin, attached_hat.icon_state, default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head.dmi')
+			. += attached_hat.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/default.dmi')
 
 /obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat()
 	set name = "Remove Hat"
@@ -231,9 +234,9 @@
 	cut_overlays()
 
 	if(!up)
-		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_weld"))
+		add_overlay(mutable_appearance('icons/obj/clothing/head/plasmaman_hats.dmi', visor_state + "_weld"))
 	else if(helmet_on)
-		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_light"))
+		add_overlay(mutable_appearance('icons/obj/clothing/head/plasmaman_hats.dmi', visor_state + "_light"))
 
 	return ..()
 
@@ -241,7 +244,7 @@
 	name = "security envirosuit helmet"
 	desc = "A plasmaman containment helmet designed for security officers, protecting them from burning alive, along-side other undesirables."
 	greyscale_colors = "#9F2A2E#2D2D2D#7D282D"
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 75, STAMINA = 10)
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 75, STAMINA = 10, BLEED = 10)
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/warden
 	name = "warden's envirosuit helmet"
@@ -292,7 +295,7 @@
 	name = "engineering envirosuit helmet"
 	desc = "A space-worthy helmet specially designed for engineer plasmamen, the usual purple stripes being replaced by engineering's orange."
 	greyscale_colors = "#F0DE00#D75600#F0DE00"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 10, FIRE = 100, ACID = 75, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 10, FIRE = 100, ACID = 75, STAMINA = 0, BLEED = 10)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics
@@ -332,7 +335,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/bartender/Initialize(mapload)
 	. = ..()
-	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat
 	attached_hat = hat
 	hat.forceMove(src)
 	update_icon()
@@ -458,7 +461,7 @@
 	name = "security Mk.II envirosuit helmet"
 	desc = "A stylish new iteration upon the original plasmaman containment helmet design for security officers, retaining all the old protections for a new era of fragile law enforcement."
 	greyscale_colors = "#9F2A2E#2D2D2D"
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 75, STAMINA = 10)
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 75, STAMINA = 10, BLEED = 10)
 
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/security/warden
 	name = "warden's Mk.II envirosuit helmet"
@@ -509,7 +512,7 @@
 	name = "engineering Mk.II envirosuit helmet"
 	desc = "A new iteration upon the classic space-worthy design, painted in classic engineering pigments."
 	greyscale_colors = "#E8D700#D75600"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 10, FIRE = 100, ACID = 75, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 10, FIRE = 100, ACID = 75, STAMINA = 0, BLEED = 10)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/engineering/atmospherics
@@ -639,7 +642,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/bartender/Initialize(mapload)
 	. = ..()
-	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat
 	attached_hat = hat
 	hat.forceMove(src)
 	update_icon()
@@ -710,7 +713,7 @@
 	name = "engineering protective envirosuit helmet"
 	desc = "A safer looking re-imagining of the classic space-worthy design, painted in classic engineering pigments."
 	greyscale_colors = "#E8D700#D75600"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 10, FIRE = 100, ACID = 75, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 10, FIRE = 100, ACID = 75, STAMINA = 0, BLEED = 10)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/plasmaman/protective/engineering/atmospherics
@@ -815,7 +818,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/protective/bartender/Initialize(mapload)
 	. = ..()
-	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat
 	attached_hat = hat
 	hat.forceMove(src)
 	update_icon()

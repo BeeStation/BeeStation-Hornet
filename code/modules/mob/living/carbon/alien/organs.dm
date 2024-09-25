@@ -1,5 +1,5 @@
 /obj/item/organ/alien
-	icon_state = "xgibmid2"
+	icon_state = "acid"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/toxin/acid = 10)
 	var/list/alien_powers = list()
 

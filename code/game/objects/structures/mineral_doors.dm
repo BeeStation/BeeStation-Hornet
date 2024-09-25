@@ -11,7 +11,7 @@
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
 	max_integrity = 200
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 50, STAMINA = 0, BLEED = 0)
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
@@ -40,12 +40,10 @@
 	if(!door_opened)
 		return TryToSwitchState(AM)
 
-/obj/structure/mineral_door/attack_ai(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
-	if(isAI(user)) //so the AI can't open it
-		return
-	else if(iscyborg(user)) //but cyborgs can
-		if(get_dist(user,src) <= 1) //not remotely though
-			return TryToSwitchState(user)
+/obj/structure/mineral_door/attack_robot(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
+	// so the AI can't open it but cyborgs can
+	if(get_dist(user,src) <= 1) //not remotely though
+		return TryToSwitchState(user)
 
 /obj/structure/mineral_door/attack_paw(mob/user)
 	return attack_hand(user)
@@ -130,7 +128,7 @@
 	else
 		return ..()
 
-/obj/structure/mineral_door/setAnchored(anchorvalue) //called in default_unfasten_wrench() chain
+/obj/structure/mineral_door/set_anchored(anchorvalue) //called in default_unfasten_wrench() chain
 	. = ..()
 	set_opacity(anchored ? !door_opened : FALSE)
 	air_update_turf(TRUE)

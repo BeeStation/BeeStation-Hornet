@@ -6,7 +6,7 @@
 	desc = "The food of choice for the seasoned coder (if you see this, contact DonkCo. as soon as possible)."
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3)// immediately gets overwritten. This exists to not set off the edibility unit test.
 
-/obj/item/food/donkpocket/random/Initialize()
+/obj/item/food/donkpocket/random/Initialize(mapload)
 	var/list/donkblock = list(
 	/obj/item/food/donkpocket/warm,
 	/obj/item/food/donkpocket/warm/spicy,
@@ -57,7 +57,7 @@
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 	foodtypes = GRAIN
 
-	microwaved_type = /obj/item/reagent_containers/food/snacks/badrecipe
+	microwaved_type = /obj/item/food/badrecipe
 	baking_time_short = 10 SECONDS
 	baking_time_long = 15 SECONDS
 

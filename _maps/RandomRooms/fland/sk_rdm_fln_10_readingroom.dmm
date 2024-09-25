@@ -63,7 +63,7 @@
 /obj/structure/mineral_door/wood{
 	name = "Bee Lounge"
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/template_noop)
 "y" = (
 /obj/structure/table/wood,

@@ -9,13 +9,15 @@
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
 	dir = NONE			// dir will contain dominant direction for junction pipes
 	max_integrity = 200
-	armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0)
+	armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0, BLEED = 0)
 	layer = DISPOSAL_PIPE_LAYER			// slightly lower than wires and other pipes
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	var/dpdir = NONE					// bitmask of pipe directions
 	var/initialize_dirs = NONE			// bitflags of pipe directions added on init, see \code\_DEFINES\pipe_construction.dm
 	var/flip_type						// If set, the pipe is flippable and becomes this type when flipped
 
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
 
 /obj/structure/disposalpipe/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()
@@ -45,6 +47,11 @@
 		H.active = FALSE
 		expel(H, get_turf(src), 0)
 	return ..()
+
+/obj/structure/disposalpipe/proc/can_enter_from_dir(dir)
+	if(dir & dpdir)
+		return TRUE
+	return FALSE
 
 // returns the direction of the next pipe object, given the entrance dir
 // by default, returns the bitmask of remaining directions

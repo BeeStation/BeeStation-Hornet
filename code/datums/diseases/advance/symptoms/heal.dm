@@ -55,7 +55,7 @@
 	var/food_conversion = FALSE
 	desc = "The virus rapidly breaks down any foreign chemicals in the bloodstream."
 	threshold_desc = "<b>Resistance 7:</b> Increases chem removal speed.<br>\
-					  <b>Stage Speed 6:</b> Consumed chemicals nourish the host."
+						<b>Stage Speed 6:</b> Consumed chemicals nourish the host."
 
 /datum/symptom/heal/chem/Start(datum/disease/advance/A)
 	if(!..())
@@ -70,7 +70,7 @@
 		M.reagents.remove_reagent(R.type, actual_power)
 		if(food_conversion)
 			M.adjust_nutrition(0.3)
-		if(prob(2))
+		if(prob(2) && M.stat != DEAD)
 			to_chat(M, "<span class='notice'>You feel a mild warmth as your blood purifies itself.</span>")
 	return 1
 
@@ -90,8 +90,8 @@
 	var/stabilize = FALSE
 	var/active_coma = FALSE //to prevent multiple coma procs
 	threshold_desc = "<b>Stealth 2:</b> Host appears to die when falling into a coma, triggering symptoms that activate on death.<br>\
-					  <b>Resistance 4:</b> The virus also stabilizes the host while they are in critical condition.<br>\
-					  <b>Stage Speed 7:</b> Increases healing speed."
+						<b>Resistance 4:</b> The virus also stabilizes the host while they are in critical condition.<br>\
+						<b>Stage Speed 7:</b> Increases healing speed."
 
 /datum/symptom/heal/coma/Start(datum/disease/advance/A)
 	if(!..())
@@ -123,21 +123,23 @@
 		return power
 	if(M.IsSleeping())
 		return power * 0.25 //Voluntary unconsciousness yields lower healing.
-	if(M.stat == UNCONSCIOUS)
-		return power * 0.9
-	if(M.stat == SOFT_CRIT)
-		return power * 0.5
+	switch(M.stat)
+		if(UNCONSCIOUS, HARD_CRIT)
+			return power * 0.9
+		if(SOFT_CRIT)
+			return power * 0.5
 	if(M.getBruteLoss() + M.getFireLoss() >= 70 && !active_coma)
-		to_chat(M, "<span class='warning'>You feel yourself slip into a deep, regenerative slumber.</span>")
+		if(M.stat != DEAD)
+			to_chat(M, "<span class='warning'>You feel yourself slip into a deep, regenerative slumber.</span>")
 		active_coma = TRUE
 		addtimer(CALLBACK(src, PROC_REF(coma), M), 60)
+
 
 /datum/symptom/heal/coma/proc/coma(mob/living/M)
 	if(deathgasp)
 		M.fakedeath(TRAIT_REGEN_COMA)
 	else
 		M.Unconscious(300, TRUE, TRUE)
-	M.update_mobility()
 	addtimer(CALLBACK(src, PROC_REF(uncoma), M), 300)
 
 /datum/symptom/heal/coma/proc/uncoma(mob/living/M)
@@ -148,7 +150,6 @@
 		M.cure_fakedeath(TRAIT_REGEN_COMA)
 	else
 		M.SetUnconscious(0)
-	M.update_mobility()
 
 /datum/symptom/heal/coma/Heal(mob/living/carbon/M, datum/disease/advance/A, actual_power)
 	var/heal_amt = 4 * actual_power
@@ -187,7 +188,7 @@
 	var/scarcounter = 0
 
 	threshold_desc = "<b>Stage Speed 8:</b> Doubles healing speed.<br>\
-					  <b>Resistance 10:</b> Improves healing threshold."
+						<b>Resistance 10:</b> Improves healing threshold."
 
 /datum/symptom/heal/surface/Start(datum/disease/advance/A)
 	if(!..())
@@ -214,7 +215,7 @@
 		M.adjustToxLoss(-power, FALSE, TRUE)
 
 	if(healed)
-		if(prob(10))
+		if(prob(10) && M.stat != DEAD)
 			to_chat(M, "<span class='notice'>Your wounds heal, granting you a new scar.</span>")
 		if(scarcounter >= 200 && !HAS_TRAIT(M, TRAIT_DISFIGURED))
 			ADD_TRAIT(M, TRAIT_DISFIGURED, DISEASE_TRAIT)
@@ -237,9 +238,9 @@
 	var/triple_metabolism = FALSE
 	var/reduced_hunger = FALSE
 	desc = "The virus causes the host's metabolism to accelerate rapidly, making them process chemicals twice as fast,\
-	 but also causing increased hunger."
+		but also causing increased hunger."
 	threshold_desc = "<b>Stealth 3:</b> Reduces hunger rate.<br>\
-					  <b>Stage Speed 10:</b> Chemical metabolization is tripled instead of doubled."
+						<b>Stage Speed 10:</b> Chemical metabolization is tripled instead of doubled."
 
 /datum/symptom/heal/metabolism/Start(datum/disease/advance/A)
 	if(!..())
@@ -258,7 +259,7 @@
 	C.overeatduration = max(C.overeatduration - 2, 0)
 	var/lost_nutrition = 9 - (reduced_hunger * 5)
 	C.adjust_nutrition(-lost_nutrition * HUNGER_FACTOR) //Hunger depletes at 10x the normal speed
-	if(prob(2))
+	if(prob(2) && C.stat != DEAD)
 		to_chat(C, "<span class='notice'>You feel an odd gurgle in your stomach, as if it was working much faster than normal.</span>")
 	return 1
 
@@ -291,7 +292,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	. = ..()
 	if(A.stealth >= 2) //if you combine this with pituitary disruption, you have the two most downside-heavy symptoms available
 		severity -= 1
-	if(A.transmission >= 8)
+	if(A.transmission >= 8 || A.event)
 		severity += 1
 
 /datum/symptom/EMP/Start(datum/disease/advance/A)
@@ -299,7 +300,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		return
 	if(A.stealth >= 2)
 		cellheal = TRUE
-	if(A.transmission >= 8)
+	if(A.transmission >= 8 || A.event)
 		bigemp = TRUE
 
 /datum/symptom/EMP/Activate(datum/disease/advance/A)
@@ -314,9 +315,11 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				M.reagents.add_reagent(/datum/reagent/medicine/mutadone = 1)
 			if(bigemp)
 				empulse(M.loc, 0, 1)
-			to_chat(M, "<span class='userdanger'>[pick("Your mind fills with static!", "You feel a jolt!", "Your sense of direction flickers out!")]</span>")
+			if(M.stat != DEAD)
+				to_chat(M, "<span class='userdanger'>[pick("Your mind fills with static!", "You feel a jolt!", "Your sense of direction flickers out!")]</span>")
 		else
-			to_chat(M, "<span class='notice'>[pick("You feel a slight tug toward the station's wall.", "Nearby electronics flicker.", "Your hair stands on end.")]</span>")
+			if(M.stat != DEAD)
+				to_chat(M, "<span class='notice'>[pick("You feel a slight tug toward the station's wall.", "Nearby electronics flicker.", "Your hair stands on end.")]</span>")
 	return
 
 /datum/symptom/sweat
@@ -341,13 +344,17 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/sweat/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 6)
+	if(A.transmission >= 6 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		severity -= 1
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Transmission 4:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity.<br>\
+					<b>Always:</b> The symptom heals toxin damage and purges chemicals.<br>\
+					<b>Stage speed 6:</b> The host's sweat contains traces of ammonia."
 
 /datum/symptom/sweat/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 6)
+	if(A.transmission >= 6 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		toxheal = TRUE
 	if(A.transmission >= 4)
 		bigsweat = TRUE
@@ -364,7 +371,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(!ammonia && prob(30))
 				var/turf/open/OT = get_turf(M)
 				if(istype(OT))
-					to_chat(M, "<span class='danger'>The sweat pools into a puddle!</span>")
+					if(M.stat != DEAD)
+						to_chat(M, "<span class='danger'>The sweat pools into a puddle!</span>")
 					OT.MakeSlippery(TURF_WET_WATER, min_wet_time = 10 SECONDS, wet_time_to_add = 5 SECONDS)
 			if(bigsweat)
 				var/obj/effect/sweatsplash/S = new(M.loc)
@@ -376,9 +384,11 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				if(ammonia)
 					S.reagents.add_reagent(/datum/reagent/space_cleaner, 5)
 				S.splash()
-				to_chat(M, "<span class='userdanger'>You sweat out nearly everything in your body!</span>")
+				if(M.stat != DEAD)
+					to_chat(M, "<span class='userdanger'>You sweat out nearly everything in your body!</span>")
 		else
-			to_chat(M, "<span class='notice'>[pick("You feel moist.", "Your clothes are soaked.", "You're sweating buckets!")]</span>")
+			if(M.stat != DEAD)
+				to_chat(M, "<span class='notice'>[pick("You feel moist.", "Your clothes are soaked.", "You're sweating buckets!")]</span>")
 	return
 
 /obj/effect/sweatsplash
@@ -414,15 +424,18 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/teleport/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 6)
+	if(A.resistance >= 6 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		severity -= 1
 		if(A.transmission >= 8)
 			severity -= 1
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Always:</b> The disease acts on a smaller scale, resetting burnt tissue back to a state of health.<br>\
+					<b>Transmission 8:</b> The disease becomes more active, activating in a smaller temperature range."
 
 /datum/symptom/teleport/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 6)
+	if(A.resistance >= 6 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		burnheal = TRUE
 	if(A.transmission >= 8)
 		telethreshold = -10
@@ -436,7 +449,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		if(4, 5)
 			if(burnheal)
 				M.heal_overall_damage(0, 1.5 * power) //no required_status checks here, this does all bodyparts equally
-
+			if(M.stat == DEAD)
+				return
 			if(COOLDOWN_FINISHED(src, teleport_cooldown) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
 				location_return = get_turf(M)	//sets up return point
 				to_chat(M, "<span class='warning'>The lukewarm temperature makes you feel strange!</span>")
@@ -457,7 +471,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(COOLDOWN_FINISHED(src, teleport_cooldown))
 				location_return = null
 		else
-			if(prob(7))
+			if(prob(7) && M.stat != DEAD)
 				to_chat(M, "<span class='notice'>[pick("Your warm breath fizzles out of existence.", "You feel attracted to temperate climates", "You feel like you're forgetting something")]</span>")
 	return
 
@@ -484,15 +498,19 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/growth/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= 6)
+	if(A.stage_rate >= 6 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		severity -= 1
 		if(A.stage_rate >= 12)
 			severity += 3
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Always:</b> The disease heals brute damage at a fast rate, but causes expulsion of benign tumors.<br>\
+					<b>Stage Speed 12:</b> The disease heals brute damage incredibly fast, but deteriorates cell health and causes tumors to become more advanced. The disease will also regenerate lost limbs."
+
 
 /datum/symptom/growth/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= 6)
+	if(A.stage_rate >= 6 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		bruteheal = TRUE
 		if(A.stage_rate >= 12)
 			tetsuo = TRUE
@@ -511,21 +529,22 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	switch(A.stage)
 		if(4, 5)
 			if(prob(5) && bruteheal)
-				to_chat(M, "<span class='userdanger'>You retch, and a splatter of gore escapes your gullet!</span>")
-				M.Immobilize(5)
-				M.add_splatter_floor()
-				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
-				if(prob(60) && M.mind && ishuman(M))
-					if(tetsuo && prob(15))
-						if(A.affected_mob.job == JOB_NAME_CLOWN)
-							new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
-						if(MOB_ROBOTIC in A.infectable_biotypes)
-							new /obj/effect/decal/cleanable/robot_debris(M.loc)
-							new /obj/effect/spawner/lootdrop/teratoma/robot(M.loc)
-					new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
+				if(M.stat != DEAD)
+					to_chat(M, "<span class='userdanger'>You retch, and a splatter of gore escapes your gullet!</span>")
+					M.Immobilize(5)
+					M.add_splatter_floor()
+					playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
+					if(prob(60) && M.mind && ishuman(M))
+						if(tetsuo && prob(15))
+							if(A.affected_mob.job == JOB_NAME_CLOWN)
+								new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
+							if(MOB_ROBOTIC in A.infectable_biotypes)
+								new /obj/effect/decal/cleanable/robot_debris(M.loc)
+								new /obj/effect/spawner/lootdrop/teratoma/robot(M.loc)
+						new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
 				if(tetsuo)
 					var/list/missing = M.get_missing_limbs()
-					if(prob(35) && M.mind && ishuman(M))
+					if(prob(35) && M.mind && ishuman(M) && M.stat != DEAD)
 						new /obj/effect/decal/cleanable/blood/gibs(M.loc) //yes. this is very messy. very, very messy.
 						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
 					if(missing.len) //we regrow one missing limb
@@ -558,7 +577,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				if(prob(33) && tetsuo)
 					M.adjustCloneLoss(1)
 		else
-			if(prob(5))
+			if(prob(5) && M.stat != DEAD)
 				to_chat(M, "<span class='notice'>[pick("You feel bloated.", "The station seems small.", "You are the strongest.")]</span>")
 	return
 
@@ -597,23 +616,27 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/vampirism/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 4)
+	if(A.transmission >= 4 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		severity -= 1
-	if((A.stealth >= 2) && (A.transmission >= 6) && (MOB_UNDEAD in A.infectable_biotypes))
+	if((((A.stealth >= 2) && (A.transmission >= 6) && CONFIG_GET(flag/special_symptom_thresholds)) || A.event) && A.process_dead)
 		severity -= 1
 		bodies = list("Vampir", "Blood")
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Always:</b> The virus recycles excess absorbed blood into restorative biomass, healing brute damage.<br>\
+					<b>Stage Speed 5:</b> The virus grows more aggressive, assimilating blood and healing at a faster rate, but also draining the host's blood quicker<br>\
+					<b>Transmission 6:</b> The virus aggressively assimilates blood, resulting in contiguous blood pools being absorbed by the virus, as well as sucking blood out of open wounds of subjects in physical contact with the host."
 
 /datum/symptom/vampirism/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 4)
+	if(A.transmission >= 4 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		bruteheal = TRUE
 	if(A.transmission >= 6)
 		aggression = TRUE
 		maxbloodpoints += 50
-	if(A.stage_rate >= 7)
+	if(A.stage_rate >= 7 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.stage_rate >= 5))
 		power += 1
-	if((A.stealth >= 2) && (A.transmission >= 6) && (MOB_UNDEAD in A.infectable_biotypes)) //this is low transmission for 2 reasons: transmission is hard to raise, especially with stealth, and i dont want this to be obligated to be transmittable
+	if((((A.stealth >= 2) && (A.transmission >= 6) && CONFIG_GET(flag/special_symptom_thresholds)) || A.event) && A.process_dead) //this is low transmission for 2 reasons: transmission is hard to raise, especially with stealth, and i dont want this to be obligated to be transmittable
 		vampire = TRUE
 		maxbloodpoints += 50
 		power += 1
@@ -628,7 +651,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/mob/living/carbon/M = A.affected_mob
 	switch(A.stage)
 		if(1 to 4)
-			if(prob(5))
+			if(prob(5) && M.stat != DEAD)
 				to_chat(M, "<span class='warning'>[pick("You feel cold...", "You feel a bit thirsty", "It dawns upon you that every single human on this station has warm blood pulsing through their veins.")]</span>")
 		if(5)
 			ADD_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
@@ -647,9 +670,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				if(bloodpoints > 0)
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
-						if(H.bleed_rate >= 2 && bruteheal && bloodpoints)
+						if(bruteheal && bloodpoints)
 							bloodpoints -= 1
-							H.bleed_rate = max(0, (H.bleed_rate - 2))
+							H.cauterise_wounds(0.1)
 					if(M.blood_volume < BLOOD_VOLUME_NORMAL && M.get_blood_id() == /datum/reagent/blood) //bloodloss is prioritized over healing brute
 						bloodpoints -= 1
 						M.blood_volume = max((M.blood_volume + 3 * power), BLOOD_VOLUME_NORMAL) //bloodpoints are valued at 4 units of blood volume per point, so this is diminished
@@ -661,7 +684,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				else if(prob(20) && M.blood_volume >= BLOOD_VOLUME_BAD)//the virus continues to extract blood if you dont have any stored up. higher probability due to BP value
 					M.blood_volume = (M.blood_volume - 1)
 
-			if(!bloodpoints && prob(3))
+			if(!bloodpoints && prob(3) && M.stat != DEAD)
 				to_chat(M, "<span class='warning'>[pick("You feel a pang of thirst.", "No food can sate your hunger", "Blood...")]</span>")
 
 /datum/symptom/vampirism/End(datum/disease/advance/A)
@@ -680,14 +703,14 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		var/possibledist = power + 1
 		if(M.get_blood_id() != /datum/reagent/blood)
 			possibledist = 1
-		if(!(NOBLOOD in H.dna.species.species_traits)) //if you dont have blood, well... sucks to be you
+		if(!((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD))) //if you dont have blood, well... sucks to be you
 			H.setOxyLoss(0,0) //this is so a crit person still revives if suffocated
 			if(bloodpoints >= 200 && H.health > 0 && H.blood_volume >= BLOOD_VOLUME_NORMAL) //note that you need to actually need to heal, so a maxed out virus won't be bringing you back instantly in most cases. *even so*, if this needs to be nerfed ill do it in a heartbeat
 				H.revive(0)
 				H.visible_message("<span class='warning'>[H.name]'s skin takes on a rosy hue as they begin moving. They live again!</span>", "<span class='userdanger'>As your body fills with fresh blood, you feel your limbs once more, accompanied by an insatiable thirst for blood.</span>")
 				bloodpoints = 0
 				return 0
-			else if(bloodbag && bloodbag.blood_volume && (bloodbag.stat || bloodbag.bleed_rate))
+			else if(bloodbag && bloodbag.blood_volume && (bloodbag.stat || bloodbag.is_bleeding()))
 				if(get_dist(bloodbag, H) <= 1 && bloodbag.z == H.z)
 					var/amt = ((bloodbag.stat * 2) + 2) * power
 					var/excess = max(((min(amt, bloodbag.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 2), 0)
@@ -729,7 +752,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			else
 				var/list/candidates = list()
 				for(var/mob/living/carbon/human/C in ohearers(min(bloodpoints/4, possibledist), H))
-					if(NOBLOOD in C.dna.species.species_traits)
+					if((NOBLOOD in C.dna.species.species_traits) || HAS_TRAIT(C, TRAIT_NO_BLOOD))
 						continue
 					if(C.stat && C.blood_volume && C.get_blood_id() == H.get_blood_id())
 						candidates += C
@@ -748,10 +771,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		var/mob/living/carbon/human/H = M
 		if(H.pulling && ishuman(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
 			var/mob/living/carbon/human/C = H.pulling
-			if(!C.bleed_rate && vampire && C.can_inject() && H.grab_state && C.get_blood_id() == H.get_blood_id() && !(NOBLOOD in C.dna.species.species_traits))//aggressive grab as a "vampire" starts the target bleeding
-				C.bleed_rate += 1
+			if(!C.is_bleeding() && vampire && C.can_inject() && H.grab_state && C.get_blood_id() == H.get_blood_id() && !((NOBLOOD in C.dna.species.species_traits)|| HAS_TRAIT(C, TRAIT_NO_BLOOD)))//aggressive grab as a "vampire" starts the target bleeding
+				C.add_bleeding(BLEED_SURFACE)
 				C.visible_message("<span class='warning'>Wounds open on [C.name]'s skin as [H.name] grips them tightly!</span>", "<span class='userdanger'>You begin bleeding at [H.name]'s touch!</span>")
-			if(C.blood_volume && C.can_inject() &&(C.bleed_rate && (!C.bleedsuppress || vampire )) && C.get_blood_id() == H.get_blood_id() && !(NOBLOOD in C.dna.species.species_traits))
+			if(C.blood_volume && C.can_inject() && (C.is_bleeding() && vampire) && C.get_blood_id() == H.get_blood_id() && !((NOBLOOD in C.dna.species.species_traits)|| HAS_TRAIT(C, TRAIT_NO_BLOOD)))
 				var/amt = (H.grab_state + C.stat + 2) * power
 				if(C.blood_volume)
 					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4), 0)
@@ -795,9 +818,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(ishuman(M) && aggression)//finally, attack mobs touching the host.
 		var/mob/living/carbon/human/H = M
 		for(var/mob/living/carbon/human/C in ohearers(1, H))
-			if(NOBLOOD in C.dna.species.species_traits)
+			if((NOBLOOD in C.dna.species.species_traits) || HAS_TRAIT(C, TRAIT_NO_BLOOD))
 				continue
-			if((C.pulling && C.pulling == H) || (C.loc == H.loc) && C.bleed_rate && C.get_blood_id() == H.get_blood_id())
+			if((C.pulling && C.pulling == H) || (C.loc == H.loc) && C.is_bleeding() && C.get_blood_id() == H.get_blood_id())
 				var/amt = (2 * power)
 				if(C.blood_volume)
 					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4 * power), 0)
@@ -828,16 +851,19 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/parasite/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= 2)
+	if(A.stealth >= 2 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		severity -= 2
 		prefixes = list("Symbiotic ")
 	if(A.stage_rate >= 6)
 		severity = (severity * 2)
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Always:</b>The gestating larvae can consume toxins in the host's bloodstream.<br>\
+					<b>Stage Speed 6:</b> More larvae are born, and they leave the host faster."
 
 /datum/symptom/parasite/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= 2)
+	if(A.stealth >= 2 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		toxheal = TRUE
 	if(A.stage_rate >= 6)
 		power += 1
@@ -855,7 +881,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/mob/living/carbon/M = A.affected_mob
 	switch(A.stage)
 		if(1, 2)
-			to_chat(M, "<span class='warning'>[pick("You feel something crawling in your veins!", "You feel an unpleasant throbbing.", "You hear something squishy in your ear.")]</span>")
+			if(M.stat != DEAD)
+				to_chat(M, "<span class='warning'>[pick("You feel something crawling in your veins!", "You feel an unpleasant throbbing.", "You hear something squishy in your ear.")]</span>")
 		if(3 to 5)
 			var/slowdown = 0
 			for(var/mob/living/simple_animal/hostile/redgrub/grub in grubs)//check if grubs need to be born, then feed existing grubs, or get them closer to hatching
@@ -883,14 +910,14 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				grubs += grub
 				grub.togglehibernation()
 				grub.grub_diseases += A
-			if(prob(LAZYLEN(grubs) * (6/power)))// so you know its working. power lowers this so it doesnt spam you at high grub counts
+			if(prob(LAZYLEN(grubs) * (6/power)) && M.stat != DEAD)// so you know its working. power lowers this so it doesnt spam you at high grub counts
 				to_chat(M, "<span class='warning'>You feel something squirming inside of you!</span>")
-			M.add_movespeed_modifier(MOVESPEED_ID_GRUB_VIRUS_SLOWDOWN, override = TRUE, multiplicative_slowdown = max(slowdown - 0.5, 0))
+			M.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/virus/grub_virus, multiplicative_slowdown = max(slowdown - 0.5, 0))
 
 /datum/symptom/parasite/End(datum/disease/advance/A)
 	. = ..()
 	var/mob/living/carbon/M = A.affected_mob
-	M.remove_movespeed_modifier(MOVESPEED_ID_GRUB_VIRUS_SLOWDOWN, TRUE)
+	M.remove_movespeed_modifier(/datum/movespeed_modifier/virus/grub_virus)
 	for(var/mob/living/simple_animal/hostile/redgrub/grub in grubs)
 		M.visible_message("<span class='warning'>[M] vomits up a disgusting grub!</span>", \
 				"<span class='userdanger'>You vomit a large, slithering grub!</span>")
@@ -953,6 +980,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	switch(A.stage)
 		if(2 to 3)
 			if(prob(power) && M.stat)

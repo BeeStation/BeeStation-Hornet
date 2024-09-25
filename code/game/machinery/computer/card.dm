@@ -29,26 +29,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	//if set to -1: No cooldown... probably a bad idea
 	//if set to 0: Not able to close "original" positions. You can only close positions that you have opened before
 	var/change_position_cooldown = 30
-	//Jobs you cannot open new positions for
-	var/list/blacklisted = list(
-		JOB_NAME_AI,
-		JOB_NAME_ASSISTANT,
-		JOB_NAME_CYBORG,
-		JOB_NAME_CAPTAIN,
-		JOB_NAME_HEADOFPERSONNEL,
-		JOB_NAME_HEADOFSECURITY,
-		JOB_NAME_CHIEFENGINEER,
-		JOB_NAME_RESEARCHDIRECTOR,
-		JOB_NAME_CHIEFMEDICALOFFICER,
-		JOB_NAME_BRIGPHYSICIAN,
-		JOB_NAME_DEPUTY)
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
 
 	//This is used to keep track of opened positions for jobs to allow instant closing
 	//Assoc array: "JobName" = (int)<Opened Positions>
-	var/list/opened_positions = list();
+	var/list/opened_positions = list()
 	var/obj/item/card/id/inserted_scan_id
 	var/obj/item/card/id/inserted_modify_id
 	var/list/region_access = null
@@ -60,9 +47,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/Initialize(mapload)
 	. = ..()
 	change_position_cooldown = CONFIG_GET(number/id_console_jobslot_delay)
-	for(var/G in typesof(/datum/job/gimmick))
-		var/datum/job/gimmick/J = new G
-		blacklisted += J.title
 
 	// This determines which department payment list the console will show to you.
 	if(!target_dept)
@@ -127,7 +111,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 //Check if you can't open a new position for a certain job
 /obj/machinery/computer/card/proc/job_blacklisted(jobtitle)
-	return (jobtitle in blacklisted)
+	return jobtitle == SSjob.overflow_role ? TRUE : (jobtitle in SSjob.job_manager_blacklisted)
+
+// CentCom is powerful
+/obj/machinery/computer/card/centcom/job_blacklisted(jobtitle)
+	return jobtitle == SSjob.overflow_role ? TRUE : FALSE
 
 //Logic check for Topic() if you can open the job
 /obj/machinery/computer/card/proc/can_open_job(datum/job/job)
@@ -241,7 +229,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			ID = 0
 		for(var/datum/job/job in SSjob.occupations)
 			dat += "<tr>"
-			if(job.title in blacklisted)
+			if(job_blacklisted(job.title))
 				continue
 			dat += "<td>[job.title]</td>"
 			dat += "<td>[job.current_positions]/[job.total_positions]</td>"
@@ -710,7 +698,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				update_modify_manifest()
 
 		if ("demote")
-			if(inserted_modify_id.assignment in head_subordinates || inserted_modify_id.assignment == "Assistant")
+			if((inserted_modify_id.assignment in head_subordinates) || inserted_modify_id.assignment == "Assistant")
 				inserted_modify_id.assignment = "Demoted"
 				log_id("[key_name(usr)] demoted [inserted_modify_id], unassigning the card without affecting access, using [inserted_scan_id] at [AREACOORD(usr)].")
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
@@ -909,7 +897,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				say("Insufficient access to create a new bank account.")
 				return
 			var/datum/bank_account/B = SSeconomy.get_budget_account(initial(target_paycheck))
-			switch(alert("Would you like to open a new bank account?\nIt will cost 1,000 credits in [lowertext(initial(target_paycheck))] budget.","Open a new account","Yes","No"))
+			switch(alert("Would you like to open a new bank account?\nIt will cost 1,000 credits in [LOWER_TEXT(initial(target_paycheck))] budget.","Open a new account","Yes","No"))
 				if("No")
 					return
 				if("Yes")
@@ -1003,7 +991,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	target_paycheck = ACCOUNT_ENG_ID
 	icon_screen = "idce"
 
-	light_color = LIGHT_COLOR_YELLOW
+	light_color = LIGHT_COLOR_DIM_YELLOW
 
 #undef DEPT_ALL
 #undef DEPT_GEN

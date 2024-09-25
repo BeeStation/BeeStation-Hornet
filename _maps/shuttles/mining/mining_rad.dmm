@@ -10,11 +10,10 @@
 	pixel_x = 1;
 	pixel_y = 2
 	},
-/obj/machinery/camera/autoname{
-	dir = 4;
+/obj/machinery/camera/autoname/directional/west{
 	network = list("ss13","cargo")
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
 "c" = (
 /obj/structure/shuttle/engine/propulsion/burst,
@@ -31,11 +30,11 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/box/white,
-/turf/open/floor/plasteel/tech,
+/turf/open/floor/iron/tech,
 /area/shuttle/mining)
 "f" = (
 /obj/machinery/holopad,
-/turf/open/floor/plasteel/tech,
+/turf/open/floor/iron/tech,
 /area/shuttle/mining)
 "h" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
@@ -43,23 +42,13 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/mining)
-"i" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
-/obj/effect/turf_decal/box/white,
-/turf/open/floor/plasteel/tech,
-/area/shuttle/mining)
 "j" = (
 /obj/structure/shuttle/engine/propulsion/left,
 /turf/open/floor/plating/airless,
 /area/shuttle/mining)
 "q" = (
 /obj/machinery/computer/shuttle_flight/mining,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
 "s" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
@@ -78,13 +67,12 @@
 	pixel_x = 31;
 	pixel_y = -1
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
 "C" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -96,7 +84,7 @@
 /area/shuttle/mining)
 "D" = (
 /obj/effect/turf_decal/box,
-/turf/open/floor/plasteel/tech,
+/turf/open/floor/iron/tech,
 /area/shuttle/mining)
 "G" = (
 /obj/structure/shuttle/engine/propulsion/right,
@@ -105,7 +93,10 @@
 "I" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/emergency,
-/turf/open/floor/plasteel/tech,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/tech,
 /area/shuttle/mining)
 "K" = (
 /turf/closed/wall/mineral/titanium/survival,
@@ -115,17 +106,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/box/white,
-/turf/open/floor/plasteel/tech,
-/area/shuttle/mining)
-"P" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
-	},
-/obj/effect/turf_decal/box/white,
-/turf/open/floor/plasteel/tech,
+/turf/open/floor/iron/tech,
 /area/shuttle/mining)
 "Q" = (
 /obj/machinery/status_display/evac{
@@ -159,7 +140,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/caution/stand_clear,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
 "Y" = (
 /obj/structure/table/reinforced,
@@ -170,7 +151,10 @@
 /obj/machinery/newscaster{
 	pixel_y = 33
 	},
-/turf/open/floor/plasteel/tech,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron/tech,
 /area/shuttle/mining)
 
 (1,1,1) = {"
@@ -186,7 +170,7 @@ K
 s
 I
 e
-i
+e
 X
 a
 j
@@ -204,7 +188,7 @@ c
 s
 Y
 O
-P
+O
 X
 v
 G

@@ -129,7 +129,7 @@
 				return
 			to_chat(usr, "<span class='notice'>[src] clanks to life briefly before vending [prize.equipment_name]!</span>")
 			var/obj/created = new prize.equipment_path(loc)
-			if (M.CanReach(src))
+			if (M.CanReach(src) && isitem(created))
 				M.put_in_hands(created)
 			SSblackbox.record_feedback("nested tally", "mining_equipment_bought", 1, list("[type]", "[prize.equipment_path]"))
 			. = TRUE
@@ -202,7 +202,6 @@
 		new /datum/data/vendor_equipment("Mining Bot Companion",		/mob/living/simple_animal/hostile/mining_drone,						800),
 		new /datum/data/vendor_equipment("Minebot Upgrade: Armor",		/obj/item/minebot_upgrade/health,									400),
 		new /datum/data/vendor_equipment("Minebot Upgrade: Ore Scoop",	/obj/item/minebot_upgrade/ore_pickup,								400),
-		new /datum/data/vendor_equipment("Minebot Upgrade: Cooldown",	/obj/item/borg/upgrade/modkit/cooldown/minebot,						600),
 		new /datum/data/vendor_equipment("Minebot Upgrade: Medical",	/obj/item/minebot_upgrade/medical,									800),
 		new /datum/data/vendor_equipment("Minebot Upgrade: A.I.",		/obj/item/slimepotion/slime/sentience/mining,						1000),
 		new /datum/data/vendor_equipment("Minebot Weatherproof Chassis",/obj/item/minebot_upgrade/antiweather,								1200),
@@ -251,7 +250,7 @@
 		if("Minebot Kit")
 			new /mob/living/simple_animal/hostile/mining_drone(drop_location)
 			new /obj/item/weldingtool/hugetank(drop_location)
-			new /obj/item/clothing/head/welding(drop_location)
+			new /obj/item/clothing/head/utility/welding(drop_location)
 			new /obj/item/borg/upgrade/modkit/minebot_passthrough(drop_location)
 		if("Extraction and Rescue Kit")
 			new /obj/item/extraction_pack(drop_location)

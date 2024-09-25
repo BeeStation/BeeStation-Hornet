@@ -5,7 +5,7 @@
 	button_icon_state = "regenerate"
 	chemical_cost = 10
 	dna_cost = 1
-	req_stat = UNCONSCIOUS
+	req_stat = HARD_CRIT
 
 /datum/action/changeling/regenerate/sting_action(mob/living/user)
 	..()
@@ -26,8 +26,8 @@
 			C.regenerate_limbs(1)
 		if(!user.getorganslot(ORGAN_SLOT_BRAIN))
 			var/obj/item/organ/brain/B
-			if(C.has_dna() && C.dna.species.mutant_brain)
-				B = new C.dna.species.mutant_brain()
+			if(C.has_dna() && C.dna.species.mutantbrain)
+				B = new C.dna.species.mutantbrain()
 			else
 				B = new()
 			B.organ_flags &= ~ORGAN_VITAL
@@ -73,7 +73,6 @@
 			"<span class='userdanger'>Our [BP] forms into a horrifying snake and heads towards our attackers!</span>")
 	BP.dismember()
 	BP.Destroy()
-	C.update_mobility()
 	//Deploy limbsnake
 	var/mob/living/snek = new /mob/living/simple_animal/hostile/poison/limbsnake(get_turf(user))
 	//assign faction
@@ -90,10 +89,12 @@
 	health = 50
 	maxHealth = 50
 	melee_damage = 3
-	attacktext = "bites"
-	response_help  = "pokes"
-	response_disarm = "shoos"
-	response_harm   = "steps on"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	response_disarm_continuous = "shoos"
+	response_disarm_simple = "shoo"
+	response_harm_continuous = "steps on"
+	response_harm_simple = "step on"
 	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB

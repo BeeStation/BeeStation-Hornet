@@ -21,11 +21,12 @@
 /obj/machinery/doppler_array/Initialize(mapload)
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(sense_explosion))
+	RegisterSignal(src, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(power_change))
 	printer_ready = world.time + PRINTER_TIMEOUT
 
 /obj/machinery/doppler_array/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE,null,null,CALLBACK(src,PROC_REF(rot_message)))
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE,null,null,CALLBACK(src,PROC_REF(rot_message)))
 
 /datum/data/tachyon_record
 	name = "Log Recording"
@@ -95,6 +96,8 @@
 /obj/item/paper/record_printout
 	name = "paper - Log Recording"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
+
 /obj/item/paper/record_printout/Initialize(mapload, datum/data/tachyon_record/record)
 	. = ..()
 
@@ -119,12 +122,10 @@
 /obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		if(!anchored && !isinspace())
-			anchored = TRUE
-			power_change()
+			set_anchored(TRUE)
 			to_chat(user, "<span class='notice'>You fasten [src].</span>")
 		else if(anchored)
-			anchored = FALSE
-			power_change()
+			set_anchored(FALSE)
 			to_chat(user, "<span class='notice'>You unfasten [src].</span>")
 		I.play_tool_sound(src)
 		return
@@ -135,7 +136,7 @@
 	playsound(src, 'sound/items/screwdriver2.ogg', 50, 1)
 
 /obj/machinery/doppler_array/proc/sense_explosion(datum/source,turf/epicenter,devastation_range,heavy_impact_range,light_impact_range,
-												  took,orig_dev_range,orig_heavy_range,orig_light_range)
+													took,orig_dev_range,orig_heavy_range,orig_light_range)
 	SIGNAL_HANDLER
 
 	if(machine_stat & NOPOWER)
@@ -166,8 +167,8 @@
 	R.factual_radius["shockwave_radius"] = light_impact_range
 
 	var/list/messages = list("Explosive disturbance detected.",
-							 "Epicenter at: grid ([epicenter.x], [epicenter.y]). Temporal displacement of tachyons: [took] seconds.",
-							 "Factual: Epicenter radius: [devastation_range]. Outer radius: [heavy_impact_range]. Shockwave radius: [light_impact_range].")
+							"Epicenter at: grid ([epicenter.x], [epicenter.y]). Temporal displacement of tachyons: [took] seconds.",
+							"Factual: Epicenter radius: [devastation_range]. Outer radius: [heavy_impact_range]. Shockwave radius: [light_impact_range].")
 
 	// If the bomb was capped, say its theoretical size.
 	if(devastation_range < orig_dev_range || heavy_impact_range < orig_heavy_range || light_impact_range < orig_light_range)
