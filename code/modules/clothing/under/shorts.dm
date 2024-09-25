@@ -1,6 +1,8 @@
 /obj/item/clothing/under/shorts
 	name = "athletic shorts"
 	desc = "95% Polyester, 5% Spandex!"
+	icon = 'icons/obj/clothing/under/shorts_pants_shirts.dmi'
+	worn_icon = 'icons/mob/clothing/under/shorts_pants_shirts.dmi'
 	gender = PLURAL
 	body_parts_covered = GROIN
 	fitted = NO_FEMALE_UNIFORM

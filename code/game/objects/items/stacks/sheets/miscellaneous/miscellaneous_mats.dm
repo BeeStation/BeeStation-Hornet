@@ -21,9 +21,8 @@ Miscellaneous material sheets
 	grind_results = list(/datum/reagent/consumable/honey = 20)
 	merge_type = /obj/item/stack/sheet/wax
 
-/obj/item/stack/sheet/wax/get_main_recipes()
-	. = ..()
-	. += GLOB.wax_recipes
+/obj/item/stack/sheet/wax/get_recipes()
+	return GLOB.wax_recipes
 
 /* Sandbags */
 
@@ -40,9 +39,8 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	new/datum/stack_recipe("sandbags", /obj/structure/barricade/sandbags, 1, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
 	))
 
-/obj/item/stack/sheet/sandbags/get_main_recipes()
-	. = ..()
-	. += GLOB.sandbag_recipes
+/obj/item/stack/sheet/sandbags/get_recipes()
+	return GLOB.sandbag_recipes
 
 /obj/item/emptysandbag
 	name = "empty sandbag"
@@ -76,9 +74,8 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	grind_results = list(/datum/reagent/consumable/ice = 20)
 	merge_type = /obj/item/stack/sheet/snow
 
-/obj/item/stack/sheet/snow/get_main_recipes()
-	. = ..()
-	. += GLOB.snow_recipes
+/obj/item/stack/sheet/snow/get_recipes()
+	return GLOB.snow_recipes
 
 /* Plastic */
 
@@ -91,10 +88,10 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	custom_materials = list(/datum/material/plastic=MINERAL_MATERIAL_AMOUNT)
 	throwforce = 7
 	merge_type = /obj/item/stack/sheet/plastic
+	material_type = /datum/material/plastic
 
-/obj/item/stack/sheet/plastic/get_main_recipes()
-	. = ..()
-	. += GLOB.plastic_recipes
+/obj/item/stack/sheet/plastic/get_recipes()
+	return GLOB.plastic_recipes
 
 /* Cardboard */
 
@@ -110,9 +107,8 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/cardboard
 
-/obj/item/stack/sheet/cardboard/get_main_recipes()
-	. = ..()
-	. += GLOB.cardboard_recipes
+/obj/item/stack/sheet/cardboard/get_recipes()
+	return GLOB.cardboard_recipes
 
 
 /obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
@@ -139,3 +135,17 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	desc = "A source of raw socialism, capable of bringing forth the prophesized Soviet Golem."
 	icon_state = "sheet-stalinium"
 	merge_type = /obj/item/stack/sheet/stalinium
+
+/obj/item/stack/sheet/meat
+	name = "meat sheets"
+	desc = "Something's bloody meat compressed into a nice solid sheet"
+	singular_name = "meat sheet"
+	icon_state = "sheet-meat"
+	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
+	mats_per_unit = list(/datum/material/meat = MINERAL_MATERIAL_AMOUNT)
+	merge_type = /obj/item/stack/sheet/meat
+	material_type = /datum/material/meat
+	material_modifier = 1 //None of that wussy stuff
+
+/obj/item/stack/sheet/meat/get_recipes()
+	return GLOB.meat_recipes

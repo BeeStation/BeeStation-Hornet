@@ -9,7 +9,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/west{
+/obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -167,9 +167,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "v" = (
-/obj/machinery/camera/preset{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -261,13 +258,11 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "F" = (
-/obj/machinery/camera/preset{
-	dir = 8
-	},
 /obj/machinery/newscaster{
 	pixel_x = 32;
 	pixel_y = 1
 	},
+/obj/machinery/camera/autoname/directional/east,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "G" = (
@@ -303,7 +298,7 @@
 /area/shuttle/exploration)
 "K" = (
 /obj/machinery/camera/preset{
-	dir = 5
+	dir = 10
 	},
 /obj/machinery/vendor/exploration,
 /obj/machinery/button/door{

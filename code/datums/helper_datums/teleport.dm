@@ -17,6 +17,7 @@
 		/obj/effect/mob_spawn,
 		/obj/effect/warp_cube,
 		/obj/effect/extraction_holder,
+		/obj/effect/anomaly,
 	))
 	if(delete_atoms[teleatom.type])
 		qdel(teleatom)
@@ -220,6 +221,8 @@
 	hud_possible = list(DIAG_WAKE_HUD)
 	var/turf/destination
 	var/has_hud_icon = FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 
 /obj/effect/temp_visual/teleportation_wake/Initialize(mapload, turf/destination)
 	// Replace any portals on the current turf

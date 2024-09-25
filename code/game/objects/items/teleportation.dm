@@ -110,7 +110,7 @@
 	throw_speed = 3
 	throw_range = 5
 	custom_materials = list(/datum/material/iron=10000)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/list/active_portal_pairs
 	var/max_portal_pairs = 3
@@ -123,7 +123,7 @@
 
 /obj/item/hand_tele/pre_attack(atom/target, mob/user, params)
 	if(try_dispel_portal(target, user))
-		return FALSE
+		return TRUE
 	return ..()
 
 /obj/item/hand_tele/proc/try_dispel_portal(obj/effect/portal/target, mob/user)
@@ -387,7 +387,7 @@
 /obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
 	for(var/mob/living/target in fragging_location)//Hit everything in the turf
 		// Skip any mobs that aren't standing, or aren't dense
-		if (!(target.mobility_flags & MOBILITY_STAND) || !target.density || user == target)
+		if ((target.body_position == LYING_DOWN) || !target.density || user == target)
 			continue
 		// Run armour checks and apply damage
 		var/armor_block = target.run_armor_check(BODY_ZONE_CHEST, MELEE)
@@ -395,7 +395,7 @@
 		target.Paralyze(10 * (100 - armor_block) / 100)
 		target.Knockdown(40 * (100 - armor_block) / 100)
 		// Check if we successfully knocked them down
-		if (!(target.mobility_flags & MOBILITY_STAND))
+		if (target.body_position == LYING_DOWN)
 			to_chat(target, "<span class='userdanger'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
 		else
 			to_chat(user, "<span class='userdanger'>[target] resists the force of your jaunt's wake, bringing you to stop!</span>")
@@ -405,3 +405,6 @@
 
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5
+
+#undef SOURCE_PORTAL
+#undef DESTINATION_PORTAL

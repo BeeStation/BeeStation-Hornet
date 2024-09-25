@@ -186,7 +186,7 @@
  * * new_body: The slimeperson's new body.
  */
 /datum/holoparasite_holder/proc/handle_slime_cheese(mob/living/carbon/human/old_body, mob/living/carbon/human/new_body)
-	if(!isslimeperson(old_body) || !isslimeperson(new_body) || (old_body.stat != DEAD && !old_body.InCritical()))
+	if(!isslimeperson(old_body) || !isslimeperson(new_body) || (old_body.stat != DEAD && !HAS_TRAIT(old_body, TRAIT_CRITICAL_CONDITION)))
 		return
 	var/datum/species/oozeling/slime/old_slime = old_body.dna.species
 	var/datum/species/oozeling/slime/new_slime = new_body.dna.species

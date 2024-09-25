@@ -9,7 +9,7 @@
 	greyscale_colors = "#ffff00#000000"
 	density = TRUE
 	volume = 1000
-	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 50, STAMINA = 0, BLEED = 0)
 	max_integrity = 250
 	integrity_failure = 0.4
 	pressure_resistance = 7 * ONE_ATMOSPHERE
@@ -54,7 +54,7 @@
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 	)
 
-/obj/machinery/portable_atmospherics/canister/Initialize()
+/obj/machinery/portable_atmospherics/canister/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/usb_port, list(/obj/item/circuit_component/canister_valve))
 
@@ -256,6 +256,8 @@
 	. = ..()
 	if(href_list[VV_HK_MODIFY_CANISTER_GAS])
 		usr.client.modify_canister_gas(src)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 
 /obj/machinery/portable_atmospherics/canister/Initialize(mapload, datum/gas_mixture/existing_mixture)
 	. = ..()
@@ -547,3 +549,5 @@
 			logmsg = "Valve was <b>closed</b> by [key_name(user)], stopping the transfer into \the [holding || "air"].<br>"
 	investigate_log(logmsg, INVESTIGATE_ATMOS)
 	release_log += logmsg
+
+#undef CAN_DEFAULT_RELEASE_PRESSURE

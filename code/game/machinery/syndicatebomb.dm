@@ -109,6 +109,7 @@
 		try_detonate(TRUE)
 
 /obj/machinery/syndicatebomb/examine(mob/user)
+	balloon_alert(user, "[seconds_remaining()]")
 	. = ..()
 	. += {"A digital display on it reads "[seconds_remaining()]"."}
 
@@ -129,14 +130,14 @@
 			else
 				to_chat(user, "<span class='notice'>You firmly wrench the bomb to the floor.</span>")
 				I.play_tool_sound(src)
-				setAnchored(TRUE)
+				set_anchored(TRUE)
 				if(active)
 					to_chat(user, "<span class='notice'>The bolts lock in place.</span>")
 		else
 			if(!active)
 				to_chat(user, "<span class='notice'>You wrench the bomb from the floor.</span>")
 				I.play_tool_sound(src)
-				setAnchored(FALSE)
+				set_anchored(FALSE)
 			else
 				to_chat(user, "<span class='warning'>The bolts are locked down!</span>")
 
@@ -272,7 +273,7 @@
 
 /obj/machinery/syndicatebomb/empty/Initialize(mapload)
 	. = ..()
-	wires.cut_all()
+	wires.cut_all(null)
 
 /obj/machinery/syndicatebomb/self_destruct
 	name = "self-destruct device"

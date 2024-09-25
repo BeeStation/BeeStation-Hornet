@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/targeted/hive_add
 	name = "Assimilate Vessel"
 	desc = "We silently add an unsuspecting target to the hive."
-	action_icon = 'icons/mob/actions/actions_hive.dmi'
+	action_icon = 'icons/hud/actions/actions_hive.dmi'
 	action_background_icon_state = "bg_hive"
 	selection_type = "view"
 	action_icon_state = "add"
@@ -25,7 +25,7 @@
 		revert_cast()
 		return
 
-	if((HAS_TRAIT(target, TRAIT_MINDSHIELD) && !ignore_mindshield) || istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if((HAS_TRAIT(target, TRAIT_MINDSHIELD) && !ignore_mindshield) || istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		to_chat(user, "<span class='warning'>Powerful technology protects [target.name]'s mind.</span>")
 		revert_cast()
 		return

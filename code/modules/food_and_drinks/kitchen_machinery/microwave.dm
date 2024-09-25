@@ -12,7 +12,7 @@
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/microwave
 	pass_flags = PASSTABLE
-	light_color = LIGHT_COLOR_YELLOW
+	light_color = LIGHT_COLOR_DIM_YELLOW
 	light_power = 3
 	var/wire_disabled = FALSE // is its internal wire cut?
 	var/operating = FALSE
@@ -24,9 +24,9 @@
 	var/datum/looping_sound/microwave/soundloop
 	var/list/ingredients = list() // may only contain /atom/movables
 
-	var/static/radial_examine = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_examine")
-	var/static/radial_eject = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_eject")
-	var/static/radial_use = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_use")
+	var/static/radial_examine = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_examine")
+	var/static/radial_eject = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_eject")
+	var/static/radial_use = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_use")
 
 	// we show the button even if the proc will not work
 	var/static/list/radial_options = list("eject" = radial_eject, "use" = radial_use)
@@ -348,11 +348,6 @@
 	dirty = 100
 	dirty_anim_playing = FALSE
 	operating = FALSE
-
-	for(var/obj/item/reagent_containers/food/snacks/S in src)
-		if(prob(50))
-			new /obj/item/reagent_containers/food/snacks/badrecipe(src)
-			qdel(S)
 
 	after_finish_loop()
 

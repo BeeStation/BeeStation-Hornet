@@ -9,7 +9,7 @@
 	var/base_state = "left"
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list(MELEE = 20,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 20,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0, BLEED = 0)
 	visible = FALSE
 	flags_1 = ON_BORDER_1
 	opacity = FALSE
@@ -24,6 +24,8 @@
 	var/shards = 2
 	var/rods = 2
 	var/cable = 1
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 
 /obj/machinery/door/window/Initialize(mapload, set_dir, unres_sides)
 	. = ..()
@@ -87,16 +89,18 @@
 		return
 	if(!ismob(AM))
 		if(ismecha(AM))
-			var/obj/mecha/mecha = AM
-			if(mecha.occupant && allowed(mecha.occupant))
-				open_and_close()
-			else
-				do_animate("deny")
+			var/obj/vehicle/sealed/mecha/mecha = AM
+			for(var/O in mecha.occupants)
+				var/mob/living/occupant = O
+				if(allowed(occupant))
+					open_and_close()
+					return
+			do_animate("deny")
 		return
 	if(!SSticker)
 		return
 	var/mob/M = AM
-	if(M.restrained() || ((isdrone(M) || iscyborg(M)) && M.stat))
+	if(HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) || ((isdrone(M) || iscyborg(M)) && M.stat != CONSCIOUS))
 		return
 	bumpopen(M)
 
@@ -282,7 +286,7 @@
 		if(I.tool_behaviour == TOOL_CROWBAR)
 			if(panel_open && !density && !operating)
 				user.visible_message("[user] removes the electronics from the [name].", \
-									 "<span class='notice'>You start to remove electronics from the [name]...</span>")
+									"<span class='notice'>You start to remove electronics from the [name]...</span>")
 				if(I.use_tool(src, user, 40, volume=50))
 					if(panel_open && !density && !operating && loc)
 						var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
@@ -297,7 +301,7 @@
 							if("rightsecure")
 								WA.facing = "r"
 								WA.secure = TRUE
-						WA.setAnchored(TRUE)
+						WA.set_anchored(TRUE)
 						WA.state= "02"
 						WA.setDir(dir)
 						WA.update_icon()
@@ -378,8 +382,8 @@
 		return
 
 	// Handle received packet.
-	var/command = lowertext(data.data["data"])
-	var/command_value = lowertext(data.data["data_secondary"])
+	var/command = LOWER_TEXT(data.data["data"])
+	var/command_value = LOWER_TEXT(data.data["data_secondary"])
 	switch(command)
 		if("open")
 			if(command_value == "on" && !density)
@@ -435,7 +439,7 @@
 	shards = 0
 	rods = 0
 	max_integrity = 50
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	operationdelay = 10
 	var/made_glow = FALSE
@@ -494,7 +498,7 @@
 		if(I.tool_behaviour == TOOL_CROWBAR)
 			if(panel_open && !density && !operating)
 				user.visible_message("[user] begins to deconstruct [name].", \
-									 "<span class='notice'>You start to deconstruct from the [name]...</span>")
+									"<span class='notice'>You start to deconstruct from the [name]...</span>")
 				if(I.use_tool(src, user, 40, volume=50))
 					if(panel_open && !density && !operating && loc)
 						qdel(src)
@@ -628,3 +632,42 @@
 	dir = SOUTH
 	icon_state = "rightsecure"
 	base_state = "rightsecure"
+
+/obj/machinery/door/window/checkpoint
+	icon_state = "sec_left"
+	base_state = "sec_left"
+	layer = ABOVE_MOB_LAYER
+	closingLayer = ABOVE_MOB_LAYER
+	req_access = list(ACCESS_SEC_DOORS)
+
+/obj/machinery/door/window/checkpoint/northleft
+	dir = NORTH
+
+/obj/machinery/door/window/checkpoint/eastleft
+	dir = EAST
+
+/obj/machinery/door/window/checkpoint/westleft
+	dir = WEST
+
+/obj/machinery/door/window/checkpoint/southleft
+	dir = SOUTH
+
+/obj/machinery/door/window/checkpoint/northright
+	dir = NORTH
+	icon_state = "sec_right"
+	base_state = "sec_right"
+
+/obj/machinery/door/window/checkpoint/eastright
+	dir = EAST
+	icon_state = "sec_right"
+	base_state = "sec_right"
+
+/obj/machinery/door/window/checkpoint/westright
+	dir = WEST
+	icon_state = "sec_right"
+	base_state = "sec_right"
+
+/obj/machinery/door/window/checkpoint/southright
+	dir = SOUTH
+	icon_state = "sec_right"
+	base_state = "sec_right"

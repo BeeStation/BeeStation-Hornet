@@ -7,7 +7,7 @@
 
 	density = TRUE
 	max_integrity = 300
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 30, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 30, STAMINA = 0, BLEED = 0)
 	layer = OBJ_LAYER
 	circuit = /obj/item/circuitboard/machine/thermomachine
 
@@ -263,3 +263,26 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/heater/on
 	on = TRUE
 	icon_state = "heater_1"
+
+#define QUICK_LAYER_HELPER(PATH)\
+##PATH/layer_1 {\
+	piping_layer = 1;\
+}\
+##PATH/layer_2 {\
+	piping_layer = 2;\
+}\
+##PATH/layer_4 {\
+	piping_layer = 4;\
+}\
+##PATH/layer_5 {\
+	piping_layer = 5;\
+}
+
+QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/heater)
+QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/heater/on)
+QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/on)
+QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/freezer)
+QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on)
+QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom)
+
+#undef QUICK_LAYER_HELPER

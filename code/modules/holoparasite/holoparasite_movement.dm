@@ -12,6 +12,9 @@
 	if(!can_be_manifested())
 		recall(forced = TRUE)
 		return FALSE
+	// If you got no range, you shouldn't be able to move
+	if(stats?.range == 1)
+		return FALSE
 	// You can't move out of your range yourself.
 	if(is_in_range() && !is_in_range(new_loc))
 		if(COOLDOWN_FINISHED(src, range_balloon_cooldown))

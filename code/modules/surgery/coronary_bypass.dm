@@ -1,7 +1,7 @@
 /datum/surgery/coronary_bypass
 	name = "Coronary Bypass"
 	steps = list(/datum/surgery_step/incise, /datum/surgery_step/retract_skin, /datum/surgery_step/saw, /datum/surgery_step/clamp_bleeders,
-				 /datum/surgery_step/incise_heart, /datum/surgery_step/coronary_bypass, /datum/surgery_step/close)
+				/datum/surgery_step/incise_heart, /datum/surgery_step/coronary_bypass, /datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_CHEST)
 
 /datum/surgery/coronary_bypass/can_start(mob/user, mob/living/carbon/target, target_zone)
@@ -30,11 +30,11 @@
 /datum/surgery_step/incise_heart/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if (!(NOBLOOD in H.dna.species.species_traits))
+		if (!((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD)))
 			display_results(user, target, "<span class='notice'>Blood pools around the incision in [H]'s heart.</span>",
 				"Blood pools around the incision in [H]'s heart.",
 				"")
-			H.bleed_rate += 10
+			H.add_bleeding(BLEED_DEEP_WOUND)
 			H.adjustBruteLoss(10)
 	return TRUE
 
@@ -44,7 +44,7 @@
 		display_results(user, target, "<span class='warning'>You screw up, cutting too deeply into the heart!</span>",
 			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest!</span>",
 			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest!</span>")
-		H.bleed_rate += 20
+		H.add_bleeding(BLEED_CRITICAL)
 		H.adjustOrganLoss(ORGAN_SLOT_HEART, 10)
 		H.adjustBruteLoss(10)
 
@@ -76,5 +76,5 @@
 			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest profusely!</span>",
 			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest profusely!</span>")
 		H.adjustOrganLoss(ORGAN_SLOT_HEART, 20)
-		H.bleed_rate += 30
+		H.add_bleeding(BLEED_CRITICAL)
 	return FALSE

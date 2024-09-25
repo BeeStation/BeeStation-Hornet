@@ -13,6 +13,7 @@
 	allow_objects = TRUE
 	allow_dense = TRUE
 	dense_when_open = TRUE
+	mouse_drag_pointer = TRUE
 	delivery_icon = "deliverycrate"
 	door_anim_time = 3
 	door_anim_angle = 120 // how fast the angle should go?
@@ -21,7 +22,7 @@
 	close_sound = 'sound/machines/crate_close.ogg'
 	open_sound_volume = 35
 	close_sound_volume = 50
-	drag_slowdown = 1.5
+	drag_slowdown = 0
 	imacrate = TRUE
 	var/crate_climb_time = 20
 	var/azimuth_angle_2 = 180 //in this context the azimuth angle for over 90 degree
@@ -100,11 +101,27 @@
 	animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"] = new_animation_math_sublist
 
 /obj/structure/closet/crate/attack_hand(mob/user)
-	. = ..()
-	if(.)
-		return
+	if(istype(src.loc, /obj/structure/crate_shelf))
+		return FALSE // No opening crates in shelves!!
 	if(manifest)
 		tear_manifest(user)
+	return ..()
+
+/obj/structure/closet/crate/MouseDrop(atom/drop_atom, src_location, over_location)
+	. = ..()
+	var/mob/living/user = usr
+	if(!isliving(user))
+		return // Ghosts busted.
+	if(!isturf(user.loc) || user.incapacitated() || !(user.mobility_flags & MOBILITY_STAND))
+		return // If the user is in a weird state, don't bother trying.
+	if(get_dist(user, src) != 1 || get_dist(drop_atom, user) != 1)
+		return // Check whether the user is next to the shelf and if the crate is next to the user.
+	if(istype(drop_atom, /turf/open) && istype(loc, /obj/structure/crate_shelf) && user.Adjacent(drop_atom))
+		var/obj/structure/crate_shelf/shelf = loc
+		return shelf.unload(src, user, drop_atom) // If we're being dropped onto a turf, and we're inside of a crate shelf, unload.
+	if(istype(drop_atom, /obj/structure/crate_shelf) && isturf(loc) && user.Adjacent(src))
+		var/obj/structure/crate_shelf/shelf = drop_atom
+		return shelf.load(src, user) // If we're being dropped onto a crate shelf, and we're in a turf, load.
 
 /obj/structure/closet/crate/after_open(mob/living/user, force)
 	. = ..()
@@ -189,10 +206,8 @@
 	return ..()
 
 /obj/structure/closet/crate/freezer/Initialize(mapload)
-	..()
+	. = ..()
 	recursive_organ_check(src)
-
-
 
 /obj/structure/closet/crate/freezer/blood
 	name = "blood freezer"

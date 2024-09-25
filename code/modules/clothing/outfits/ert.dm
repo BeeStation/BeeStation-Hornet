@@ -1,7 +1,7 @@
 /datum/outfit/ert
 	name = "ERT Common"
 
-	uniform = /obj/item/clothing/under/rank/centcom/officer
+	uniform = /obj/item/clothing/under/rank/centcom/official
 	mask = /obj/item/clothing/mask/gas/sechailer
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
@@ -165,7 +165,8 @@
 /datum/outfit/centcom_official
 	name = JOB_CENTCOM_OFFICIAL
 
-	uniform = /obj/item/clothing/under/rank/centcom/officer
+	uniform = /obj/item/clothing/under/rank/centcom/official
+	suit = /obj/item/clothing/suit/hooded/wintercoat/centcom
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	gloves = /obj/item/clothing/gloves/color/black
 	ears = /obj/item/radio/headset/headset_cent
@@ -176,6 +177,7 @@
 	r_pocket = /obj/item/modular_computer/tablet/pda/heads
 	l_hand = /obj/item/clipboard
 	id = /obj/item/card/id/centcom
+	backpack_contents = list(/obj/item/stamp/centcom=1)
 
 /datum/outfit/centcom_official/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -370,10 +372,11 @@
 /datum/outfit/centcom_intern/leader
 	name = "CentCom Head Intern"
 	belt = /obj/item/melee/baton/loaded
+	uniform = /obj/item/clothing/under/rank/centcom/officer_skirt
 	suit = /obj/item/clothing/suit/armor/vest
 	suit_store = /obj/item/gun/ballistic/rifle/boltaction
 	l_hand = /obj/item/megaphone
-	head = /obj/item/clothing/head/intern
+	head = /obj/item/clothing/head/hats/intern
 
 /datum/outfit/centcom_clown
 	name = "Code Banana ERT"

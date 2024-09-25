@@ -62,7 +62,7 @@
 	ambience_index = AMBIENCE_NONE
 	sound_environment = SOUND_ENVIRONMENT_DRUGGED
 	teleport_restriction = TELEPORT_ALLOW_NONE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 
 /area/tear_in_reality/Initialize(mapload)
 	. = ..()
@@ -153,6 +153,8 @@
 /atom/movable/proximity_monitor_holder
 	var/datum/proximity_monitor/monitor
 	var/datum/callback/callback
+
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 
 /atom/movable/proximity_monitor_holder/Initialize(mapload, datum/proximity_monitor/_monitor, datum/callback/_callback)
 	monitor = _monitor

@@ -4,7 +4,6 @@
 	icon = 'icons/obj/robotics.dmi'
 	icon_state = "robocolorer"
 	density = TRUE
-	obj_integrity = 200
 	max_integrity = 200
 	var/obj/item/bodypart/storedpart
 	var/initial_icon_state
@@ -16,8 +15,8 @@
 		. += "<span class='notice'>Alt-click to eject the limb.</span>"
 
 /obj/machinery/aug_manipulator/Initialize(mapload)
-    initial_icon_state = initial(icon_state)
-    return ..()
+	initial_icon_state = initial(icon_state)
+	return ..()
 
 /obj/machinery/aug_manipulator/update_icon()
 	cut_overlays()

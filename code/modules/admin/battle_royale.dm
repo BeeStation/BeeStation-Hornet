@@ -44,9 +44,9 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/clothing/suit/armor/vest/russian_coat,
 		/obj/item/clothing/suit/armor/hos/trenchcoat,
 		/obj/item/clothing/mask/chameleon,
-		/obj/item/clothing/head/centhat,
-		/obj/item/clothing/head/crown,
-		/obj/item/clothing/head/HoS/syndicate,
+		/obj/item/clothing/head/hats/centcom_cap,
+		/obj/item/clothing/head/costume/crown,
+		/obj/item/clothing/head/hats/hos/syndicate,
 		/obj/item/clothing/head/helmet,
 		/obj/item/clothing/head/helmet/clockcult,
 		/obj/item/clothing/head/helmet/space,
@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/energy_katana,
 		/obj/item/clothing/suit/space/hardsuit/shielded/syndi,
 		/obj/item/his_grace,
-		/obj/mecha/combat/marauder/mauler/loaded,
+		/obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded,
 		/obj/item/holoparasite_creator/tech,
 		/obj/item/mjolnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
@@ -206,7 +206,6 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//BR finished? Let people play as borgs/golems again
 	ENABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
 
-	world.update_status()
 	GLOB.battle_royale = null
 
 //Trigger random events and shit, update the world border
@@ -275,7 +274,6 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//Don't let anyone join as posibrains/golems etc
 	DISABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
 
-	world.update_status()
 	if(SSticker.current_state < GAME_STATE_PREGAME)
 		to_chat(world, "<span class=boldannounce>Battle Royale: Waiting for server to be ready...</span>")
 		SSticker.start_immediately = FALSE
@@ -463,3 +461,5 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 // =====
 /obj/item/organ/regenerative_core/battle_royale
 	preserved = TRUE
+
+#undef BATTLE_ROYALE_AVERBS

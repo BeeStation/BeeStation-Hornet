@@ -47,6 +47,8 @@
 	var/range = 5
 	var/power = 3
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grenade/discogrenade/subgrenade)
+
 /obj/item/grenade/discogrenade/subgrenade/Initialize(mapload, duplicate = FALSE)
 	. = ..()
 	active = TRUE
@@ -57,6 +59,14 @@
 		step_away(src, loc)
 	addtimer(CALLBACK(src, PROC_REF(prime)), rand(10, 60))
 	randomiseLightColor()
+
+/proc/rand_hex_color()
+	var/list/colors = list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f")
+	var/color=""
+	for (var/i=0;i<6;i++)
+		color = color+pick(colors)
+	return color
+
 
 /obj/item/grenade/discogrenade/subgrenade/prime(mob/living/lanced_by)
 	if(dud_flags)
@@ -113,7 +123,7 @@
 		M.show_message("<span class='warning'>You resist your inner urges to break out your best moves.</span>", 2)
 		M.set_drugginess(5)
 		return
-	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		to_chat(M, "<span class = 'userdanger'>THOSE GLOW-IN-THE-DARK NANOTRASEN LIGHTBULBS WON'T CORRUPT ME WITH THEIR AGENDA!</span>")
 		M.emote("scream")
 		return

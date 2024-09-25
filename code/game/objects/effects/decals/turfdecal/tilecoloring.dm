@@ -820,9 +820,11 @@
 	name = "dark corner"
 	color = "#0e0f0f"
 
-/obj/effect/turf_decal/dark/white/corner_ramp
+/* BriggIDP's sin
+/obj/effect/turf_decal/tile/dark/corner_ramp
 	icon_state = "dark_corner_ramp"
-	name = "white corner ramp"
+	name = "dark corner ramp"
+*/
 
 /obj/effect/turf_decal/tile/dark/opposingcorners
 	icon_state = "tile_opposing_corners"
@@ -871,6 +873,10 @@
 /obj/effect/turf_decal/tile/dark/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted dark anticorner ramp"
+
+/obj/effect/turf_decal/tile/dark
+	name = "dark corner"
+	color = "#0e0f0f"
 
 /// Random tiles
 
@@ -937,6 +943,77 @@
 /obj/effect/turf_decal/tile/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	return ..()
+
+
+
+///SPECIAL
+
+//Steelgrid
+/obj/effect/turf_decal/tile/steelgrid
+	icon_state = "steelgrid_corner"
+
+/obj/effect/turf_decal/tile/steelgrid/diagonal
+	icon_state = "steelgrid_diagonal"
+
+/obj/effect/turf_decal/tile/steelgrid/anticorner
+	icon_state = "steelgrid_anticorner"
+
+
+//techfloor
+/obj/effect/turf_decal/tile/techfloor
+	icon_state = "techfloor_corner"
+
+/obj/effect/turf_decal/tile/techfloor/diagonal
+	icon_state = "techfloor_diagonal"
+
+/obj/effect/turf_decal/tile/techfloor/anticorner
+	icon_state = "techfloor_anticorner"
+
+
+//techfloorgrid
+/obj/effect/turf_decal/tile/techfloorgrid
+	icon_state = "techfloorgrid_corner"
+
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal
+	icon_state = "techfloorgrid_diagonal"
+
+/obj/effect/turf_decal/tile/techfloorgrid/anticorner
+	icon_state = "techfloorgrid_anticorner"
+
+
+//"Rust"
+
+/obj/effect/turf_decal/tile/monorust
+	icon_state = "mono_rusted1"
+
+/obj/effect/turf_decal/tile/monorust/intensity2
+	icon_state = "mono_rusted2"
+
+/obj/effect/turf_decal/tile/monorust/intensity3
+	icon_state = "mono_rusted3"
+
+
+/obj/effect/turf_decal/tile/cornerrust
+	icon_state = "part_rusted1"
+
+/obj/effect/turf_decal/tile/cornerrust/intensity2
+	icon_state = "part_rusted2"
+
+/obj/effect/turf_decal/tile/cornerrust/intensity3
+	icon_state = "part_rusted3"
+
+
+/obj/effect/turf_decal/tile/colorrust
+	icon_state = "color_rusted"
+
+/obj/effect/turf_decal/tile/colorrust/corner
+	icon_state = "color_rustedcorner"
+
+/obj/effect/turf_decal/tile/colorrust/full
+	icon_state = "color_rustedfull"
+
+/obj/effect/turf_decal/tile/colorrust/cee
+	icon_state = "color_rustedcee"
 
 /// Trimlines
 

@@ -206,7 +206,7 @@
 		return
 	playsound(src, 'sound/weapons/emitter.ogg', 50, TRUE)
 	log_game("[key_name(user)] permanently captured the fugitive [key_name(prisoner)].")
-	chamber.occupant = null // remove the reference
+	chamber.set_occupant(null) // remove the reference
 	antag.is_captured = TRUE
 	antag.living_on_capture = prisoner.stat != DEAD
 	to_chat(prisoner, "<span class='big boldannounce'>You are thrown into a vast void of bluespace, and as you fall further into oblivion the comparatively small entrance to reality gets smaller and smaller until you cannot see it anymore. You have failed to avoid capture.</span>")

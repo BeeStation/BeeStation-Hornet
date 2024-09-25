@@ -10,7 +10,6 @@
 	power_channel = AREA_USAGE_ENVIRON
 	density = TRUE
 	pass_flags_self = PASSTRANSPARENT | PASSGRILLE | PASSSTRUCTURE
-	obj_integrity = 600
 	max_integrity = 600
 	integrity_failure = 0.35
 	//Robust! It'll be tough to break...
@@ -364,13 +363,14 @@
 	icon = 'icons/obj/machines/genpop_display.dmi'
 	icon_state = "frame"
 	pixel_shift = 32
-	inverse = 1
 	result_path = /obj/machinery/genpop_interface
 
 /obj/item/electronics/genpop_interface
 	name = "prisoner interface circuitboard"
 	icon_state = "power_mod"
 	desc = "Central processing unit for the prisoner interface."
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 
 /obj/machinery/genpop_interface/Initialize(mapload, nbuild)
 	. = ..()
@@ -384,7 +384,7 @@
 		build_static_information()
 
 	Radio = new/obj/item/radio(src)
-	Radio.listening = 0
+	Radio.set_listening(FALSE)
 	Radio.set_frequency(FREQ_SECURITY)
 
 /obj/machinery/genpop_interface/proc/build_static_information()
@@ -663,7 +663,7 @@
 				say("Prisoner has already served their time! Please apply another charge to sentence them with!")
 				return
 			if(value && isnum(value))
-				id.sentence = clamp(id.sentence + value , 0 , MAX_TIMER)
+				id.sentence = clamp(id.sentence + value , 0 , SENTENCE_MAX_TIMER)
 
 		if("release")
 			var/obj/item/card/id/prisoner/id = locate(params["id"]) in GLOB.prisoner_ids
@@ -697,6 +697,8 @@ GLOBAL_LIST_EMPTY(prisoner_ids)
 	var/sentence = 0 //'ard time innit.
 	var/crime = null //What you in for mate?
 	var/atom/assigned_locker = null //Where's our stuff then guv?
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/card/id/prisoner)
 
 /obj/item/card/id/prisoner/Initialize(mapload, _sentence, _crime, _name)
 	. = ..()
@@ -738,5 +740,3 @@ GLOBAL_LIST_EMPTY(prisoner_ids)
 		if(isliving(loc))
 			to_chat(loc, "<span class='boldnotice'>You have served your sentence! You may now exit prison through the turnstiles and collect your belongings.</span>")
 		return PROCESS_KILL
-
-#undef MAX_TIMER

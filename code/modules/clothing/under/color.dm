@@ -5,12 +5,12 @@
 	greyscale_config_inhand_left = /datum/greyscale_config/jumpsuit_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/jumpsuit_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/jumpsuit_worn
+	icon = 'icons/obj/clothing/under/color.dmi'
 	icon_state = "jumpsuit"
 	item_state = "jumpsuit"
 	worn_icon_state = "jumpsuit"
-	worn_icon = 'icons/mob/clothing/uniform.dmi'
+	worn_icon = 'icons/mob/clothing/under/color.dmi'
 	supports_variations = DIGITIGRADE_VARIATION
-	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/color/jumpskirt
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON //Doesn't require a new icon.
@@ -19,6 +19,7 @@
 	fitted = FEMALE_UNIFORM_TOP
 	icon_state = "jumpskirt"
 	desc = "A standard issue colored jumpskirt. Variety is the spice of life!"
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/color/random
 	icon_state = "random_jumpsuit"
@@ -161,6 +162,14 @@
 	name = "teal jumpskirt"
 	greyscale_colors = "#77f3b7"
 
+/obj/item/clothing/under/color/purple
+	name = "purple jumpsuit"
+	greyscale_colors = "#ad16eb"
+
+/obj/item/clothing/under/color/jumpskirt/purple
+	name = "purple jumpskirt"
+	greyscale_colors = "#ad16eb"
+
 /obj/item/clothing/under/color/lightpurple
 	name = "light purple jumpsuit"
 	greyscale_colors = "#9f70cc"
@@ -213,24 +222,24 @@
 	name = "durathread jumpsuit"
 	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
 	greyscale_colors = "#8291a1"
-	armor = list(MELEE = 10, BULLET = 15, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20)
+	armor = list(MELEE = 10, BULLET = 15, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20, BLEED = 30)
 
 /obj/item/clothing/under/color/jumpskirt/durathread
 	name = "durathread jumpskirt"
 	desc = "A jumpskirt made from durathread, its resilient fibres provide some protection to the wearer."
 	greyscale_colors = "#8291a1"
-	armor = list(MELEE = 10, BULLET = 15, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20)
+	armor = list(MELEE = 10, BULLET = 15, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20, BLEED = 30)
 
 /obj/item/clothing/under/color/rainbow
 	name = "rainbow jumpsuit"
 	desc = "A multi-colored jumpsuit!"
 	icon_state = "rainbow"
 	item_state = "rainbow"
-	can_adjust = FALSE
 	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
+	can_adjust = FALSE
 
 /obj/item/clothing/under/color/jumpskirt/rainbow
 	name = "rainbow jumpskirt"
@@ -241,3 +250,15 @@
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
+	can_adjust = FALSE
+
+/obj/item/clothing/under/color/rainbow/denied
+	name = "ERROR jumpsuit"
+	desc = "An error! A glitch! Wearing this for too long will make you go insane..."
+	icon_state = "denied"
+	item_state = null
+
+/obj/item/clothing/under/color/rainbow/denied/skirt
+	name = "ERROR jumpskirt"
+	icon_state = "denied_skirt"
+	dying_key = DYE_REGISTRY_JUMPSKIRT

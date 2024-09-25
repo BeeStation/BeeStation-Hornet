@@ -7,12 +7,12 @@
 	default_color = "00FF00"
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
-	mutant_bodyparts = list("tail_lizard", "snout", "spines", "horns", "frills", "body_markings", "legs")
+	mutant_bodyparts = list("tail_lizard" = "Smooth", "snout" = "Round", "horns" = "None",
+						"frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Normal Legs", "body_size" = "Normal")
 	mutanttongue = /obj/item/organ/tongue/lizard
-	mutanttail = /obj/item/organ/tail/lizard
+	mutant_organs = list(/obj/item/organ/tail/lizard)
 	coldmod = 1.5
 	heatmod = 0.67
-	default_features = list("mcolor" = "0F0", "tail_lizard" = "Smooth", "snout" = "Round", "horns" = "None", "frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Normal Legs", "body_size" = "Normal")
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
@@ -37,7 +37,7 @@
 	species_r_leg = /obj/item/bodypart/r_leg/lizard
 
 /// Lizards are cold blooded and do not stabilize body temperature naturally
-/datum/species/lizard/natural_bodytemperature_stabilization(datum/gas_mixture/environment, mob/living/carbon/human/H)
+/datum/species/lizard/body_temperature_core(mob/living/carbon/human/humi)
 	return
 
 /datum/species/lizard/random_name(gender, unique, lastname, attempts)
@@ -86,7 +86,7 @@
 	return null
 
 /*
- Lizard subspecies: ASHWALKERS
+	Lizard subspecies: ASHWALKERS
 */
 /datum/species/lizard/ashwalker
 	name = "Ash Walker"
@@ -97,3 +97,9 @@
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/lungs/ashwalker
 	digitigrade_customization = DIGITIGRADE_FORCED
+
+/datum/species/lizard/ashwalker/spec_life(mob/living/carbon/human/H)
+	. = ..()
+	H.cauterise_wounds(0.1)
+	if (H.blood_volume < BLOOD_VOLUME_NORMAL && !H.is_bleeding())
+		H.blood_volume += 0.5

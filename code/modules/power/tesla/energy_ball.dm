@@ -28,6 +28,8 @@
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
+
 /obj/anomaly/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	. = ..()
 	energy = starting_energy
@@ -147,14 +149,17 @@
 	dust_mobs(AM)
 
 /obj/anomaly/energy_ball/attack_tk(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		to_chat(C, "<span class='userdanger'>That was a shockingly dumb idea.</span>")
-		var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in C.internal_organs
-		C.ghostize(FALSE)
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/jedi = user
+	to_chat(jedi, "<span class='userdanger'>That was a shockingly dumb idea.</span>")
+	var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in jedi.internal_organs
+	jedi.ghostize(jedi)
+	if(rip_u)
 		qdel(rip_u)
-		C.investigate_log("had [C.p_their()] brain dusted by touching [src] with telekinesis.", INVESTIGATE_DEATHS)
-		C.death()
+	jedi.investigate_log("had [jedi.p_their()] brain dusted by touching [src] with telekinesis.", INVESTIGATE_DEATHS)
+	jedi.death()
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/anomaly/energy_ball/proc/dust_mobs(atom/A)
 	if(isliving(A))
@@ -317,3 +322,6 @@
 			var/obj/o = closest_atom
 			o.tesla_act(power, tesla_flags, shocked_targets)
 #undef TESLA_MAX_BALLS
+
+#undef TESLA_DEFAULT_POWER
+#undef TESLA_MINI_POWER

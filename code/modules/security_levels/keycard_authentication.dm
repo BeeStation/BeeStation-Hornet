@@ -25,6 +25,8 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	var/mob/triggerer = null
 	var/waiting = 0
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
+
 /obj/machinery/keycard_auth/Initialize(mapload)
 	. = ..()
 	ev = GLOB.keycard_events.addEvent("triggerEvent", CALLBACK(src, PROC_REF(triggerEvent)))
@@ -49,7 +51,7 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	var/list/data = list()
 	data["waiting"] = waiting
 	data["auth_required"] = event_source ? event_source.event : 0
-	data["red_alert"] = (seclevel2num(get_security_level()) >= SEC_LEVEL_RED) ? 1 : 0
+	data["red_alert"] = (SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED) ? 1 : 0
 	data["emergency_maint"] = GLOB.emergency_access
 	data["bsa_unlock"] = GLOB.bsa_unlock
 	return data
@@ -78,11 +80,27 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 			if(event_source)
 				event_source.trigger_event(usr)
 				event_source = null
+				update_appearance()
 				. = TRUE
 		if("bsa_unlock")
 			if(!event_source)
 				sendEvent(KEYCARD_BSA_UNLOCK)
 				. = TRUE
+
+/obj/machinery/keycard_auth/update_appearance(updates)
+	. = ..()
+
+	if(event_source && !(machine_stat & (NOPOWER|BROKEN)))
+		set_light(1.4, 0.7, "#5668E1")
+	else
+		set_light(0)
+
+/obj/machinery/keycard_auth/update_overlays()
+	. = ..()
+
+	if(event_source && !(machine_stat & (NOPOWER|BROKEN)))
+		. += mutable_appearance(icon, "auth_on")
+		. += emissive_appearance(icon, "auth_on", alpha = src.alpha)
 
 /obj/machinery/keycard_auth/proc/sendEvent(event_type)
 	triggerer = usr
@@ -97,13 +115,13 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	waiting = 0
 
 /obj/machinery/keycard_auth/proc/triggerEvent(source)
-	icon_state = "auth_on"
 	event_source = source
+	update_appearance()
 	addtimer(CALLBACK(src, PROC_REF(eventTriggered)), 20)
 
 /obj/machinery/keycard_auth/proc/eventTriggered()
-	icon_state = "auth_off"
 	event_source = null
+	update_appearance()
 
 /obj/machinery/keycard_auth/proc/trigger_event(confirmer)
 	log_game("[key_name(triggerer)] triggered and [key_name(confirmer)] confirmed event [event]")
@@ -116,7 +134,7 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	deadchat_broadcast("<span class='deadsay'><span class='name'>[confirmer]</span> confirmed [event] at <span class='name'>[A2.name]</span>.</span>", confirmer)
 	switch(event)
 		if(KEYCARD_RED_ALERT)
-			set_security_level(SEC_LEVEL_RED)
+			SSsecurity_level.set_level(SEC_LEVEL_RED)
 		if(KEYCARD_EMERGENCY_MAINTENANCE_ACCESS)
 			make_maint_all_access()
 		if(KEYCARD_BSA_UNLOCK)

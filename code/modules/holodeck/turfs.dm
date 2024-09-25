@@ -122,7 +122,7 @@
 	luminosity = 2
 
 /turf/open/floor/holofloor/hyperspace/nograv/check_gravity()
-    return FALSE
+	return FALSE
 
 /turf/open/floor/holofloor/hyperspace/Initialize(mapload)
 	icon_state = "speedspace_ns_[(x + 5*y + (y%2+1)*7)%15+1]"
@@ -190,6 +190,11 @@
 	name = "white floor"
 	desc = "A tile in a pure white color."
 	icon_state = "pure_white"
+
+/turf/open/floor/holofloor/eighties
+	name = "retro floor"
+	desc = "This one takes you back."
+	icon_state = "eighties"
 
 /turf/open/floor/holofloor/monotile/dark
 	name = "dark holotile"

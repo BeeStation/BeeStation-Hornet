@@ -270,6 +270,22 @@
 	src.handle_reactions()
 	return amount
 
+///Multiplies the reagents inside this holder by a specific amount
+/datum/reagents/proc/multiply_reagents(multiplier=1)
+	var/list/cached_reagents = reagent_list
+	if(!total_volume)
+		return
+	var/change = (multiplier - 1) //Get the % change
+	for(var/reagent in cached_reagents)
+		var/datum/reagent/T = reagent
+		if(change > 0)
+			add_reagent(T.type, T.volume * change)
+		else
+			remove_reagent(T.type, abs(T.volume * change)) //absolute value to prevent a double negative situation (removing -50% would be adding 50%)
+
+	update_total()
+	handle_reactions()
+
 /datum/reagents/proc/trans_id_to(obj/target, reagent, amount=1, preserve_data=1)//Not sure why this proc didn't exist before. It does now! /N
 	var/list/cached_reagents = reagent_list
 	if (!target)
@@ -364,7 +380,6 @@
 		addiction_tick++
 	if(C && need_mob_update) //some of the metabolized reagents had effects on the mob that requires some updates.
 		C.updatehealth()
-		C.update_mobility()
 		C.update_stamina()
 	update_total()
 
@@ -453,6 +468,9 @@
 
 						if(M.Uses > 0) // added a limit to slime cores -- Muskets requested this
 							matching_other = 1
+
+					else if(C.check_other()) //if a recipe has required_other, call this proc to see if it meets requirements
+						matching_other = 1
 				else
 					if(!C.required_container)
 						matching_container = 1
@@ -922,7 +940,7 @@
 
 	 *--- How to add a new random reagent category ---*
 		1. add a new flag at 'code\__DEFINES\reagents.dm' and `var/list/chem_defines` below
-			i.e.) `#define CHEMICAL_SOMETHING_NEW (1<10)`
+			i.e.) `define CHEMICAL_SOMETHING_NEW (1<10)`
 		2. add a new static variable which is corresponding to the new flag.
 			i.e.) `var/static/list/random_reagents_xx = list() // CHEMICAL_SOMETHING_NEW`
 		3. add the new static variable to the 'random_reagent' list
@@ -1003,5 +1021,7 @@
 /proc/get_chem_id(chem_name)
 	for(var/X in GLOB.chemical_reagents_list)
 		var/datum/reagent/R = GLOB.chemical_reagents_list[X]
-		if(ckey(chem_name) == ckey(lowertext(R.name)))
+		if(ckey(chem_name) == ckey(LOWER_TEXT(R.name)))
 			return X
+
+#undef CHEMICAL_QUANTISATION_LEVEL

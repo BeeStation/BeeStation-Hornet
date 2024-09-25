@@ -197,7 +197,7 @@
 /obj/machinery/power/generator/wrench_act(mob/living/user, obj/item/I)
 	if(!panel_open)
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	I.play_tool_sound(src)
 	if(!anchored)
 		kill_circs()
@@ -235,3 +235,5 @@
 	if(cold_circ)
 		cold_circ.generator = null
 		cold_circ = null
+
+#undef GENRATE
