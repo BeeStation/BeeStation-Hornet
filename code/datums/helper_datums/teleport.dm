@@ -8,7 +8,7 @@
  * * bypass_area_restriction: Should we ignore SOFT atom and area TRAIT_NO_TELEPORT restriction and other area-related restrictions? Defaults to FALSE
  * * teleport_mode: Teleport mode for religion/faction checks
  */
-/proc/check_teleport(atom/movable/teleatom, turf/dest_turf, channel = TELEPORT_CHANNEL_BLUESPACE, bypass_area_restriction = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT)
+/proc/check_teleport(atom/movable/teleatom, turf/dest_turf, channel = TELEPORT_CHANNEL_BLUESPACE, bypass_area_restriction = FALSE, teleport_mode = TELEPORT_ALLOW_ALL)
 	var/turf/cur_turf = get_turf(teleatom)
 
 	if(!istype(dest_turf))
@@ -37,9 +37,9 @@
 	// Checks antimagic
 	if(ismob(teleatom))
 		var/mob/tele_mob = teleatom
-		if(channel == TELEPORT_CHANNEL_CULT && tele_mob.anti_magic_check(magic = FALSE, holy = TRUE))
+		if(channel == TELEPORT_CHANNEL_CULT && tele_mob.anti_magic_check(magic = FALSE, holy = TRUE, self = TRUE))
 			return FALSE
-		if(channel == TELEPORT_CHANNEL_MAGIC && tele_mob.anti_magic_check(magic = TRUE, holy = FALSE))
+		if(channel == TELEPORT_CHANNEL_MAGIC && tele_mob.anti_magic_check(magic = TRUE, holy = FALSE, self = TRUE))
 			return FALSE
 
 	// Check for NO_TELEPORT restrictions
@@ -79,7 +79,7 @@
  * * bypass_area_restriction: Should we ignore SOFT atom and area TRAIT_NO_TELEPORT restriction and other area-related restrictions? Defaults to FALSE
  * * no_wake: Whether or not we want a teleport wake to be created
  */
-/proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE, channel=TELEPORT_CHANNEL_BLUESPACE, bypass_area_restriction = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT, ignore_check_teleport = FALSE, no_wake = FALSE)
+/proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE, channel=TELEPORT_CHANNEL_BLUESPACE, bypass_area_restriction = FALSE, teleport_mode = TELEPORT_ALLOW_ALL, ignore_check_teleport = FALSE, no_wake = FALSE)
 	// teleporting most effects just deletes them
 	var/static/list/delete_atoms = typecacheof(list(
 		/obj/effect,
@@ -137,7 +137,7 @@
 	if (!no_wake && (channel == TELEPORT_CHANNEL_BLUESPACE || channel == TELEPORT_CHANNEL_CULT || channel == TELEPORT_CHANNEL_MAGIC))
 		var/area/cur_area = curturf.loc
 		var/area/dest_area = destturf.loc
-		if(cur_area.teleport_restriction == TELEPORT_MODE_DEFAULT && dest_area.teleport_restriction == TELEPORT_MODE_DEFAULT && teleport_mode == TELEPORT_MODE_DEFAULT)
+		if(cur_area.teleport_restriction == TELEPORT_ALLOW_ALL && dest_area.teleport_restriction == TELEPORT_ALLOW_ALL && teleport_mode == TELEPORT_ALLOW_ALL)
 			new /obj/effect/temp_visual/teleportation_wake(get_turf(teleatom), destturf)
 
 	tele_play_specials(teleatom, curturf, effectin, asoundin)

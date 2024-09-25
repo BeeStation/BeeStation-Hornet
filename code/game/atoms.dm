@@ -1023,6 +1023,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 	// Recursively check contents by default. This can be overriden if we want different behavior.
 	for(var/atom/thing in contents)
+		// For the purposes of intercepting teleports, mobs on the turf don't count.
+		// We're already doing logic for intercepting teleports on the teleatom-level
+		if(isturf(src) && ismob(thing))
+			continue
 		var/result = thing.intercept_teleport(channel, origin, destination)
 		if(result == COMPONENT_BLOCK_TELEPORT)
 			return result
