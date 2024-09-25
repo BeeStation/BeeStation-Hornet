@@ -65,11 +65,13 @@ export const audioMiddleware = (store) => {
     if (type === 'audio/updateListener') {
       const { x, y, z } = payload;
       player.updateListener(x, y, z);
+      logger.log('update position', x, y, z);
       return next(action);
     }
     if (type === 'audio/setCanHear') {
       const { can_hear } = payload;
       player.setCanHearWorld(can_hear);
+      logger.log('can hear', can_hear);
       return next(action);
     }
     if (type === 'audio/stopLobbyMusic') {
@@ -92,11 +94,13 @@ export const audioMiddleware = (store) => {
     if (type === 'audio/updateVolume') {
       const { uuid, volume } = payload;
       player.setTrackVolume(uuid, volume);
+      logger.log('update music shared volume', volume);
       return next(action);
     }
     if (type === 'audio/updateMusicPosition') {
       const { uuid, x, y, z } = payload;
       player.setTrackPosition(uuid, x, y, z);
+      logger.log('update music position', x, y, z);
       return next(action);
     }
     if (type === 'settings/update' || type === 'settings/load') {

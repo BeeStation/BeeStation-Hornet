@@ -157,7 +157,7 @@ export class AudioPlayer {
     if (!this.node) {
       return;
     }
-    logger.log('play');
+    logger.log('play', track.uuid, track.url);
     // Check for already playing
     for (let current_track of this.playing_tracks) {
       if (current_track.uuid === track.uuid) {
@@ -169,6 +169,7 @@ export class AudioPlayer {
   }
 
   private updateQueue(): void {
+    logger.log('updating queue with ', this.playing_tracks.length, 'elements');
     if (this.playing_tracks.length === 0) {
       if (!this.queueEmpty) {
         for (let subscriber of this.onQueueEmptySubscribers) {
@@ -201,6 +202,7 @@ export class AudioPlayer {
     }
     // Stop playing anything as the queue is now empty
     if (bestTrack === null) {
+      logger.log('update queue found no best songs');
       if (this.playing) {
         this.stop();
       }
@@ -208,6 +210,7 @@ export class AudioPlayer {
     }
     // If the song that we want is already playing, ignore
     if (bestTrack === this.currently_playing) {
+      logger.log('update queue updated volume');
       this.updateVolume();
       return;
     } else if (this.playing) {
