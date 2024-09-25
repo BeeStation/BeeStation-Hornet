@@ -217,10 +217,6 @@
 /obj/item/clothing/under/suit/black/skirt,
 /turf/open/floor/carpet,
 /area/awaymission/undergroundoutpost45/central)
-"bd" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/space,
-/area/awaymission/undergroundoutpost45/central)
 "bi" = (
 /obj/structure/sink{
 	pixel_y = 25
@@ -313,6 +309,20 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
+"bF" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/computer/atmos_control{
+	dir = 4;
+	name = "Distribution and Waste Monitor";
+	sensors = list("UO45_air_sensor"="Mixed Air Supply Tank","UO45_distro_meter"="Distribution Loop","UO45_waste_meter"="Waste Loop")
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/corner{
+	dir = 1
+	},
+/area/awaymission/undergroundoutpost45/engineering)
 "bG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
@@ -1653,6 +1663,20 @@
 	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"gR" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/computer/atmos_control{
+	dir = 4;
+	name = "Tank Monitor";
+	sensors = list("UO45_n2_sensor"="Nitrogen","UO45_o2_sensor"="Oxygen","UO45_mix_sensor"="Gas Mix Tank")
+	},
+/obj/effect/turf_decal/tile/yellow/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/corner{
+	dir = 1
+	},
+/area/awaymission/undergroundoutpost45/engineering)
 "gU" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -6665,20 +6689,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"uU" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/computer/atmos_control{
-	dir = 4;
-	name = "Distribution and Waste Monitor";
-	sensors = list("UO45_air_sensor"="Mixed Air Supply Tank","UO45_distro_meter"="Distribution Loop","UO45_waste_meter"="Waste Loop")
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/corner{
-	dir = 1
-	},
-/area/awaymission/undergroundoutpost45/engineering)
 "uV" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
@@ -8206,12 +8216,6 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
-"Be" = (
-/obj/structure/table,
-/obj/item/trash/plate,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "Bv" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
@@ -8298,28 +8302,9 @@
 	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
-"Cg" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/undergroundoutpost45/gateway)
 "Ci" = (
 /turf/open/floor/carpet/grimy,
 /area/awaymission/undergroundoutpost45/central)
-"Co" = (
-/obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/obj/machinery/computer/atmos_control/tank{
-	input_tag = "UO45_air_in";
-	name = "Mixed Air Supply Control";
-	output_tag = "UO45_air_out";
-	sensors = list("UO45_air_sensor"="Tank")
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/white/corner{
-	dir = 1
-	},
-/area/awaymission/undergroundoutpost45/engineering)
 "Cs" = (
 /obj/structure/chair,
 /obj/effect/decal/cleanable/dirt,
@@ -8500,6 +8485,10 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"EU" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/undergroundoutpost45/gateway)
 "EV" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/n2{
 	dir = 4
@@ -8778,6 +8767,12 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"Hg" = (
+/obj/structure/table,
+/obj/item/plate,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "Hj" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -8816,6 +8811,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/grimy,
 /area/awaymission/undergroundoutpost45/central)
+"HA" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/undergroundoutpost45/gateway)
 "HD" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
@@ -9225,13 +9227,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"LS" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/undergroundoutpost45/gateway)
 "LW" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -9506,6 +9501,21 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"OY" = (
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
+/obj/machinery/computer/atmos_control/tank{
+	dir = 1;
+	input_tag = "UO45_o2_in";
+	name = "Oxygen Supply Control";
+	output_tag = "UO45_o2_out";
+	sensors = list("UO45_o2_sensor"="Tank")
+	},
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/engineering)
 "OZ" = (
 /obj/structure/chair{
 	dir = 4
@@ -9545,21 +9555,6 @@
 	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
-"PX" = (
-/obj/machinery/computer/atmos_control/tank{
-	dir = 8;
-	input_tag = "UO45_mix_in";
-	name = "Gas Mix Tank Control";
-	output_tag = "UO45_mix_in";
-	sensors = list("UO45_mix_sensor"="Tank")
-	},
-/obj/machinery/atmospherics/pipe/simple/green/visible{
-	dir = 6
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/engineering)
 "Qb" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron/white,
@@ -9681,20 +9676,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"Ri" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/computer/atmos_control{
-	dir = 4;
-	name = "Tank Monitor";
-	sensors = list("UO45_n2_sensor"="Nitrogen","UO45_o2_sensor"="Oxygen","UO45_mix_sensor"="Gas Mix Tank")
-	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/corner{
-	dir = 1
-	},
-/area/awaymission/undergroundoutpost45/engineering)
 "Rl" = (
 /obj/machinery/camera/directional/south{
 	c_tag = "Hydroponics";
@@ -9877,21 +9858,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"Tk" = (
-/obj/machinery/atmospherics/pipe/simple/green/visible{
-	dir = 4
-	},
-/obj/machinery/computer/atmos_control/tank{
-	dir = 1;
-	input_tag = "UO45_n2_in";
-	name = "Nitrogen Supply Control";
-	output_tag = "UO45_n2_out";
-	sensors = list("UO45_n2_sensor"="Tank")
-	},
-/obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/engineering)
 "Tl" = (
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/open/floor/plating{
@@ -9968,6 +9934,21 @@
 /obj/effect/turf_decal/tile/green/half/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
+"Ua" = (
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
+/obj/machinery/computer/atmos_control/tank{
+	input_tag = "UO45_air_in";
+	name = "Mixed Air Supply Control";
+	output_tag = "UO45_air_out";
+	sensors = list("UO45_air_sensor"="Tank")
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/white/corner{
+	dir = 1
+	},
+/area/awaymission/undergroundoutpost45/engineering)
 "Uo" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/table,
@@ -10278,6 +10259,21 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/central)
+"WJ" = (
+/obj/machinery/computer/atmos_control/tank{
+	dir = 8;
+	input_tag = "UO45_mix_in";
+	name = "Gas Mix Tank Control";
+	output_tag = "UO45_mix_in";
+	sensors = list("UO45_mix_sensor"="Tank")
+	},
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/engineering)
 "WK" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 4
@@ -10361,19 +10357,19 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
-"Yu" = (
+"Yy" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /obj/machinery/computer/atmos_control/tank{
 	dir = 1;
-	input_tag = "UO45_o2_in";
-	name = "Oxygen Supply Control";
-	output_tag = "UO45_o2_out";
-	sensors = list("UO45_o2_sensor"="Tank")
+	input_tag = "UO45_n2_in";
+	name = "Nitrogen Supply Control";
+	output_tag = "UO45_n2_out";
+	sensors = list("UO45_n2_sensor"="Tank")
 	},
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
 "Yz" = (
@@ -29973,9 +29969,9 @@ ad
 ad
 gv
 gJ
-Cg
-Cg
-Cg
+EU
+EU
+EU
 it
 iO
 jh
@@ -30230,9 +30226,9 @@ ad
 ad
 gv
 gJ
-Cg
+EU
 gJ
-LS
+HA
 iu
 iP
 ji
@@ -30487,9 +30483,9 @@ ad
 ad
 gw
 gJ
-Cg
-Cg
-Cg
+EU
+EU
+EU
 iv
 iQ
 jj
@@ -43323,7 +43319,7 @@ uh
 ct
 dc
 aD
-bd
+aP
 dZ
 aS
 aP
@@ -43339,7 +43335,7 @@ eJ
 gg
 gg
 Kp
-Be
+Hg
 We
 Iy
 Sq
@@ -48757,8 +48753,8 @@ rY
 sM
 tv
 uc
-Ri
-uU
+gR
+bF
 vs
 vP
 ni
@@ -52354,7 +52350,7 @@ ru
 sm
 sZ
 tH
-Tk
+Yy
 uJ
 ve
 vE
@@ -52606,7 +52602,7 @@ ln
 oZ
 pE
 qd
-Co
+Ua
 rv
 sn
 rt
@@ -53125,7 +53121,7 @@ rx
 so
 tb
 tI
-Yu
+OY
 uJ
 vg
 vG
@@ -53380,7 +53376,7 @@ ln
 qN
 qN
 Fx
-PX
+WJ
 tJ
 ur
 ni

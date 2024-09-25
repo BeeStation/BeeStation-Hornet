@@ -41,6 +41,14 @@
 	H.dna.features["apid_headstripes"] = pick(GLOB.apid_headstripes_list)
 	H.dna.features["body_model"] = H.gender
 	H.dna.features["psyphoza_cap"] = pick(GLOB.psyphoza_cap_list)
+	H.dna.features["diona_leaves"] = pick(GLOB.diona_leaves_list)
+	H.dna.features["diona_thorns"] = pick(GLOB.diona_thorns_list)
+	H.dna.features["diona_flowers"] = pick(GLOB.diona_flowers_list)
+	H.dna.features["diona_moss"] = pick(GLOB.diona_moss_list)
+	H.dna.features["diona_mushroom"] = pick(GLOB.diona_mushroom_list)
+	H.dna.features["diona_antennae"] = pick(GLOB.diona_antennae_list)
+	H.dna.features["diona_eyes"] = pick(GLOB.diona_eyes_list)
+	H.dna.features["diona_pbody"] = pick(GLOB.diona_pbody_list)
 
 	H.update_body()
 	H.update_hair()

@@ -116,12 +116,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		attack_hand(eminence)
 
-/obj/machinery/button/attack_ai(mob/user)
+/obj/machinery/button/attack_silicon(mob/user)
 	if(!panel_open)
 		return attack_hand(user)
-
-/obj/machinery/button/attack_robot(mob/user)
-	return attack_ai(user)
 
 /obj/machinery/button/proc/setup_device()
 	if(id && istype(device, /obj/item/assembly/control))
@@ -173,7 +170,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 	icon_state = "[skin]1"
 
 	if(device)
-		device.pulsed()
+		device.pulsed(user)
 
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 15)
 

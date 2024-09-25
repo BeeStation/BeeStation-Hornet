@@ -1735,6 +1735,9 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/research)
+"fk" = (
+/turf/open/floor/iron/white,
+/area/awaymission/moonoutpost19/research)
 "fl" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2476,9 +2479,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/research)
-"hj" = (
-/turf/open/floor/iron/white,
-/area/awaymission/moonoutpost19/research)
 "hk" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg,
@@ -2926,6 +2926,10 @@
 	dir = 8
 	},
 /turf/open/floor/iron/freezer,
+/area/awaymission/moonoutpost19/arrivals)
+"io" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
 /area/awaymission/moonoutpost19/arrivals)
 "ip" = (
 /obj/structure/table/reinforced,
@@ -4008,10 +4012,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/syndicate)
-"lA" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/awaymission/moonoutpost19/arrivals)
 "lD" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
@@ -5000,10 +5000,6 @@
 	broken = 1
 	},
 /area/awaymission/moonoutpost19/arrivals)
-"qI" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "rd" = (
 /obj/structure/filingcabinet,
 /obj/item/paper/fluff/awaymissions/moonoutpost19/log/kenneth,
@@ -5142,6 +5138,10 @@
 	initial_temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
+"wZ" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/moonoutpost19/syndicate)
 "xg" = (
 /obj/item/cigbutt,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -5242,12 +5242,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/syndicate)
-"Bn" = (
-/obj/structure/table,
-/obj/item/trash/plate,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/awaymission/moonoutpost19/arrivals)
 "Bs" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -5299,6 +5293,11 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
+"Dj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/moonoutpost19/syndicate)
 "DN" = (
 /obj/structure/closet/crate,
 /obj/item/storage/bag/ore,
@@ -5385,16 +5384,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
-"FJ" = (
-/obj/structure/table,
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = 32
-	},
-/obj/item/trash/plate,
-/obj/item/cigbutt,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/awaymission/moonoutpost19/syndicate)
 "FN" = (
 /obj/item/stack/rods,
 /obj/item/shard{
@@ -5472,14 +5461,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/research)
-"HV" = (
-/obj/structure/closet/crate/bin,
-/obj/item/trash/plate,
-/obj/item/food/badrecipe,
-/turf/open/floor/iron/cafeteria{
-	dir = 5
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "Ik" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -5523,6 +5504,14 @@
 	initial_temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
+"JD" = (
+/obj/structure/closet/crate/bin,
+/obj/item/plate,
+/obj/item/food/badrecipe,
+/turf/open/floor/iron/cafeteria{
+	dir = 5
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "JH" = (
 /obj/structure/closet/crate/bin,
 /obj/item/trash/syndi_cakes,
@@ -5627,6 +5616,13 @@
 	broken = 1
 	},
 /area/awaymission/moonoutpost19/research)
+"PB" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/moonoutpost19/syndicate)
 "QH" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -5682,6 +5678,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
+"SL" = (
+/obj/structure/table,
+/obj/item/plate,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/awaymission/moonoutpost19/arrivals)
 "Td" = (
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -5718,11 +5720,6 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
 	},
-/area/awaymission/moonoutpost19/syndicate)
-"Uo" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
 "Ux" = (
 /turf/open/floor/plating{
@@ -5777,12 +5774,15 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
-"Yx" = (
-/obj/structure/cable{
-	icon_state = "0-2"
+"Yt" = (
+/obj/structure/table,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = 32
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
+/obj/item/plate,
+/obj/item/cigbutt,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
 /area/awaymission/moonoutpost19/syndicate)
 "YH" = (
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
@@ -30881,9 +30881,9 @@ ba
 ba
 ba
 lc
-lA
-lA
-lA
+io
+io
+io
 lc
 ba
 ba
@@ -32678,13 +32678,13 @@ jT
 kt
 hI
 ba
-lA
+io
 mb
 ms
 mI
 ms
 mb
-lA
+io
 ba
 ba
 ba
@@ -32933,7 +32933,7 @@ ea
 jq
 jU
 ku
-lA
+io
 ba
 ld
 mc
@@ -33190,7 +33190,7 @@ dZ
 jr
 jU
 kv
-lA
+io
 ba
 ld
 md
@@ -33447,15 +33447,15 @@ ea
 js
 jV
 ku
-lA
+io
 ba
-lA
+io
 mc
 mc
 mr
 mc
 mc
-lA
+io
 ba
 ba
 ba
@@ -33961,7 +33961,7 @@ ea
 ju
 jU
 ku
-lA
+io
 ld
 lD
 lD
@@ -34218,7 +34218,7 @@ dZ
 jr
 jV
 kv
-lA
+io
 lc
 lE
 mf
@@ -34475,13 +34475,13 @@ ea
 jv
 jV
 kv
-lA
+io
 ba
 ba
 ba
-lA
+io
 mL
-lA
+io
 ba
 ba
 ba
@@ -34738,7 +34738,7 @@ ba
 ba
 mv
 lM
-lA
+io
 ba
 ba
 ba
@@ -34991,13 +34991,13 @@ jY
 kx
 hI
 hI
-lA
-lA
-lA
+io
+io
+io
 mM
-lA
-lA
-lA
+io
+io
+io
 hI
 hI
 hI
@@ -35236,8 +35236,8 @@ gF
 gR
 gR
 gR
-hj
-hj
+fk
+fk
 hN
 ea
 iu
@@ -35491,14 +35491,14 @@ fX
 gm
 gG
 gS
-hj
-hj
-hj
+fk
+fk
+fk
 hF
 hN
 ie
-hj
-hj
+fk
+fk
 Mm
 xO
 jU
@@ -35763,12 +35763,12 @@ jF
 kO
 lh
 lH
-lA
-lA
+io
+io
 hI
-lA
-lA
-lA
+io
+io
+io
 hI
 nB
 nL
@@ -36020,7 +36020,7 @@ kz
 hJ
 hJ
 hJ
-lA
+io
 ba
 mO
 ba
@@ -36260,13 +36260,13 @@ fg
 fy
 eu
 go
-hj
+fk
 gT
 ea
 hm
 hy
-hj
-hj
+fk
+fk
 if
 dZ
 ba
@@ -36517,18 +36517,18 @@ fh
 fz
 ee
 gp
-hj
+fk
 gU
 dZ
 hn
-hj
-hj
-hj
+fk
+fk
+fk
 ig
 dZ
 ba
 ba
-lA
+io
 kc
 kB
 jC
@@ -36779,13 +36779,13 @@ gV
 ea
 eK
 hz
-hj
+fk
 hF
 ih
 ea
 ba
 ba
-lA
+io
 kd
 kC
 kP
@@ -37042,7 +37042,7 @@ ii
 ea
 ba
 ba
-lA
+io
 ke
 kD
 IH
@@ -37284,9 +37284,9 @@ dZ
 eh
 eh
 eM
-hj
+fk
 fB
-hj
+fk
 gr
 gJ
 gW
@@ -37543,9 +37543,9 @@ ex
 eN
 fl
 fC
-hj
-hj
-hj
+fk
+fk
+fk
 gX
 dZ
 ba
@@ -37559,7 +37559,7 @@ ba
 wX
 kg
 kE
-lA
+io
 ba
 ba
 ba
@@ -37816,7 +37816,7 @@ ja
 jB
 Ik
 kF
-lA
+io
 ba
 ba
 ba
@@ -38073,7 +38073,7 @@ ba
 jC
 ki
 kG
-lA
+io
 ba
 ba
 ba
@@ -38839,7 +38839,7 @@ ba
 ba
 ba
 ba
-lA
+io
 jc
 jF
 jV
@@ -39096,7 +39096,7 @@ ba
 ba
 ba
 ba
-lA
+io
 jd
 jF
 jU
@@ -39822,7 +39822,7 @@ ac
 ac
 aU
 EA
-FJ
+Yt
 Al
 aU
 bP
@@ -40588,9 +40588,9 @@ ac
 ac
 at
 az
-qI
-qI
-qI
+wZ
+wZ
+wZ
 aV
 br
 bB
@@ -40845,9 +40845,9 @@ ac
 ac
 at
 aA
-qI
+wZ
 aA
-Yx
+PB
 bg
 bs
 bC
@@ -41102,9 +41102,9 @@ ac
 ac
 at
 aB
-qI
-qI
-Uo
+wZ
+wZ
+Dj
 bh
 bt
 bD
@@ -42178,8 +42178,8 @@ ba
 ba
 ba
 ba
-lA
-Bn
+io
+SL
 xH
 zl
 LQ
@@ -42435,7 +42435,7 @@ ba
 ba
 ba
 ba
-lA
+io
 ZB
 Ey
 zl
@@ -42692,7 +42692,7 @@ ba
 ba
 ba
 ba
-lA
+io
 WB
 Xd
 LQ
@@ -43475,7 +43475,7 @@ lt
 lR
 lS
 mD
-lA
+io
 ba
 ba
 ba
@@ -43732,7 +43732,7 @@ iX
 lS
 lR
 mE
-lA
+io
 ba
 ba
 ba
@@ -43989,7 +43989,7 @@ iX
 lR
 lR
 mF
-lA
+io
 ba
 ba
 ba
@@ -44497,7 +44497,7 @@ iY
 jo
 jR
 ks
-HV
+JD
 hJ
 lu
 hJ
@@ -44752,7 +44752,7 @@ ba
 hJ
 hJ
 hI
-lA
+io
 hJ
 hJ
 hJ

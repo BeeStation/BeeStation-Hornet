@@ -12,7 +12,6 @@
 	pass_flags = PASSTABLE
 	var/static/list/collectable_items = list(
 		/obj/item/trash/waffles,
-		/obj/item/trash/plate,
 		/obj/item/trash/tray,
 		/obj/item/reagent_containers/glass/bowl,
 		/obj/item/reagent_containers/food/drinks/drinkingglass,
@@ -23,7 +22,6 @@
 
 	var/static/list/disposable_items = list(
 		/obj/item/trash/waffles,
-		/obj/item/trash/plate,
 		/obj/item/trash/tray,
 		/obj/item/shard,
 		/obj/item/broken_bottle
@@ -104,11 +102,12 @@
 			else
 				step_towards(I, src)
 
-/obj/machinery/dish_drive/attack_ai(mob/living/user)
+/obj/machinery/dish_drive/attack_silicon(mob/living/user)
 	if(machine_stat)
 		return
 	to_chat(user, "<span class='notice'>You send a disposal transmission signal to [src].</span>")
 	do_the_dishes(TRUE)
+	return TRUE
 
 /obj/machinery/dish_drive/AltClick(mob/living/user)
 	if(user.canUseTopic(src, !issilicon(user)))

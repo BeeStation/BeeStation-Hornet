@@ -12,6 +12,7 @@
 	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
 	var/list/no_coexistence_typecache //Used so you can't have specific spells together
 	var/no_random = FALSE // This is awful one to be a part of randomness - i.e.) soul tap
+	var/disabled = FALSE // Is this item disabled due to having issues? Must provide an issue reference and description of issue.
 
 /datum/spellbook_entry/New()
 	..()
@@ -21,6 +22,8 @@
 	return TRUE
 
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user,obj/item/spellbook/book) // Specific circumstances
+	if (disabled)
+		return FALSE
 	if(book.uses<cost || limit == 0)
 		return FALSE
 	for(var/spell in user.mind.spell_list)
