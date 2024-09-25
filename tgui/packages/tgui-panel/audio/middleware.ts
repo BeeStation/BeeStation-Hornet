@@ -39,7 +39,7 @@ export const audioMiddleware = (store) => {
   player.onQueueEmpty(() => {
     Byond.sendMessage('music/queueEmpty');
   });
-  player.onError((currently_playing:AudioTrack) => {
+  player.onError((currently_playing: AudioTrack) => {
     Byond.sendMessage('music/onError', {
       uuid: currently_playing?.uuid ?? 0,
     });

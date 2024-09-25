@@ -45,7 +45,7 @@ export class AudioPlayer {
     logger.log('starting player');
     // Set up the HTMLAudioElement node
     this.node = document.createElement('audio');
-    this.node.crossOrigin = "anonymous";
+    this.node.crossOrigin = 'anonymous';
     this.node.style.setProperty('display', 'none');
     document.body.appendChild(this.node);
     // Set up other properties
@@ -96,7 +96,10 @@ export class AudioPlayer {
       } else {
         logger.log('loading error', this.node.error?.code);
       }
-      if ((!this.node.error || this.node.error.code === this.node.error.MEDIA_ERR_SRC_NOT_SUPPORTED) && this.currently_playing !== null) {
+      if (
+        (!this.node.error || this.node.error.code === this.node.error.MEDIA_ERR_SRC_NOT_SUPPORTED) &&
+        this.currently_playing !== null
+      ) {
         for (let subscriber of this.onErrorSubscribers) {
           subscriber(this.currently_playing);
         }
