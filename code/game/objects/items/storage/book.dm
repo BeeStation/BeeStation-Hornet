@@ -246,10 +246,6 @@
 				EX.name = "Purified [initial(EX.name)]"
 			user.visible_message("<span class='notice'>[user] has purified [SS]!</span>")
 
-// The bible by itself does not block cult/wizard teleports.
-/obj/item/storage/book/bible/intercept_teleport(channel, turf/origin, turf/destination)
-	return
-
 /obj/item/storage/book/bible/booze
 	desc = "To be applied to the head repeatedly."
 
