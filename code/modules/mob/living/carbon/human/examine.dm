@@ -348,7 +348,7 @@
 	if(perpname && (HAS_TRAIT(user, TRAIT_SECURITY_HUD) || HAS_TRAIT(user, TRAIT_MEDICAL_HUD)))
 		var/datum/record/crew/target_record = find_record(perpname)
 		if(target_record)
-			. += "<span class='deptradio'>Rank:</span> [target_record.rank]\n"
+			. += "<span class='deptradio'>Rank:</span> [target_record.rank]"
 		if(HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
 			var/list/cyberimp_detect = list()
 			for(var/obj/item/organ/cyberimp/CI in internal_organs)
