@@ -157,7 +157,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 		if (!use(1))
 			to_chat(user, "<span class='warning'>There is no cable left!</span>")
 			return TRUE
-		to_chat(user, "<span class='notice'>You add a node to the [resolved_wire], allowing it to connect to machines and structures!</span>")
+		to_chat(user, "<span class='notice'>You add a node to the [resolved_wire], allowing it to connect to machines and structures placed on top of it!</span>")
 		resolved_wire.add_power_node()
 		return TRUE
 
