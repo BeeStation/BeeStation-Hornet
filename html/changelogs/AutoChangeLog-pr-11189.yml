@@ -1,0 +1,6 @@
+author: Varo
+delete-after: true
+changes:
+  - rscadd: 'Added a bew shuttle: THE RAGE CAGE'
+  - tweak: Gives the Meta and Box shuttles some love and a fresh layer of paint
+  - bugfix: Adds a tiny fan to the Comically Large Escape Pod
