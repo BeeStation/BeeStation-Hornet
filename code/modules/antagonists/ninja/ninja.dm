@@ -7,6 +7,7 @@
 	antag_moodlet = /datum/mood_event/focused
 	var/helping_station = FALSE
 	var/give_equipment = TRUE
+	inherent_traits = TRAIT_NOGUNS
 
 /datum/antagonist/ninja/New()
 	if(helping_station)
