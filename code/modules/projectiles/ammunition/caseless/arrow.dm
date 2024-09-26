@@ -8,20 +8,62 @@
 	throwforce = 3 //good luck hitting someone with the pointy end of the arrow
 	throw_speed = 3
 
-/obj/item/ammo_casing/caseless/arrow/attacked_by(obj/item/attacking_item, mob/living/user)
-	if(istype(attacking_item, /obj/item/gun/ballistic/bow))
-		var/obj/item/gun/ballistic/bow/B = attacking_item
+/obj/item/ammo_casing/caseless/arrow/attackby(obj/item/I, mob/user, params)
+	var/obj/item/gun/ballistic/bow/B = I
+	if(istype(B, /obj/item/gun/ballistic/bow))
 		B.magazine.attackby(src, user, 0, 1)
 		to_chat(user, "<span class='notice'>You notch the arrow swiftly.</span>")
 
 /obj/item/ammo_casing/caseless/arrow/wood
-	name = "wooden arrow"
+	name = "wooden arrow shaft"
 	desc = "A pointy stick carved out of wood. Not really technogically advanced. Don't expect it to pierce any armour... or flesh..."
 	icon_state = "arrow_wood"
 	force = 5
 	armour_penetration = -20
 	projectile_type = /obj/projectile/bullet/reusable/arrow/wood
 	embedding = list(embed_chance=50,
+	fall_chance = 0,
+	jostle_chance = 10,
+	ignore_throwspeed_threshold = FALSE,
+	pain_stam_pct = 1,
+	pain_mult = 1,
+	jostle_pain_mult = 2,
+	remove_pain_mult = 2,
+	rip_time = 1.5)
+
+/obj/item/ammo_casing/caseless/arrow/wood/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/sheet/cotton/cloth))
+		var/obj/item/stack/sheet/cotton/cloth/cloth = I
+		if(cloth.amount < 2) //Is there less than two sheets of cotton?
+			user.show_message("<span class='notice'>You need at least [2 - cloth.amount] unit\s of cloth before you can wrap it onto \the [src].</span>", MSG_VISUAL)
+			return FALSE
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			cloth.use(2) //Remove two cotton from the stack.
+			user.show_message("<span class='notice'>You wrap \the [cloth.name] onto the [src].</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/cloth(get_turf(src))
+			qdel(src)
+			return TRUE
+	if(istype(I, /obj/item/shard))
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			user.show_message("<span class='notice'>You create a glass arrow with \the [I.name].</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/glass(get_turf(src))
+			qdel(src)
+			return TRUE
+	if(istype(I, /obj/item/reagent_containers/food/drinks/bottle))
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			user.show_message("<span class='notice'>You create a bottle arrow with \the [I.name].</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/bottle(get_turf(src))
+			qdel(src)
+			return TRUE
+
+/obj/item/ammo_casing/caseless/arrow/bone
+	name = "bone arrow shaft"
+	desc = "A pointy shaft carved out of bone. Not really technogically advanced, still, you don't want to get hit by this."
+	icon_state = "arrow_bone"
+	force = 6
+	armour_penetration = -10
+	projectile_type = /obj/projectile/bullet/reusable/arrow/wood
+	embedding = list(embed_chance=60,
 	fall_chance = 0,
 	jostle_chance = 10,
 	ignore_throwspeed_threshold = FALSE,
@@ -118,7 +160,7 @@
 		return
 	return ..()
 
-/obj/item/ammo_casing/caseless/arrow/cloth/burnt/proc/replace(obj/item/stack/sheet/cotton/I, mob/user) //Proc for replacing the cotton on the arrow.
+/obj/item/ammo_casing/caseless/arrow/cloth/burnt/proc/replace(obj/item/stack/sheet/cotton/cloth/I, mob/user) //Proc for replacing the cotton on the arrow.
 	if(!istype(I)) //Were we clicked on by a sheet of cotton?
 		return FALSE
 	if(I.amount < 2) //Is there less than two sheets of cotton?

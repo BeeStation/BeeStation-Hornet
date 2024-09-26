@@ -1,10 +1,23 @@
 /* Wood */
 
 GLOBAL_LIST_INIT(wood_recipes, list ( \
+	new/datum/stack_recipe_list("weapon crafting", list( \
+	new/datum/stack_recipe("baseball bat",							/obj/item/melee/baseball_bat, 5, time = 1.5 SECONDS),\
+	new/datum/stack_recipe("bow frame",								/obj/item/gun/ballistic/bow/stringless, 3, time = 2 SECONDS), \
+	new/datum/stack_recipe("wooden arrow shaft",					/obj/item/ammo_casing/caseless/arrow/wood, 1, time = 0.5 SECONDS),\
+	new/datum/stack_recipe("wooden buckler",						/obj/item/shield/riot/buckler, 20, time = 4 SECONDS), \
+	new/datum/stack_recipe("rifle stock",							/obj/item/weaponcrafting/stock, 10, time = 4 SECONDS), \
+	)),
+	null, \
+	new/datum/stack_recipe_list("pews", list( \
+		new /datum/stack_recipe("pew (middle)",						/obj/structure/chair/fancy/bench/pew, 3, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS),
+		new /datum/stack_recipe("pew (left)",						/obj/structure/chair/fancy/bench/pew/left, 3, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS),
+		new /datum/stack_recipe("pew (right)",						/obj/structure/chair/fancy/bench/pew/right, 3, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS)
+		)),
+	null, \
 	new/datum/stack_recipe("wooden sandals",						/obj/item/clothing/shoes/sandal, 1), \
 	new/datum/stack_recipe("wood floor tile",						/obj/item/stack/tile/wood, 1, 4, 20), \
 	new/datum/stack_recipe("wood table frame",						/obj/structure/table_frame/wood, 2, time = 1 SECONDS), \
-	new/datum/stack_recipe("rifle stock",							/obj/item/weaponcrafting/stock, 10, time = 4 SECONDS), \
 	new/datum/stack_recipe("rolling pin", 							/obj/item/kitchen/rollingpin, 2, time = 3 SECONDS), \
 	new/datum/stack_recipe("wooden chair",							/obj/structure/chair/wood/, 3, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS), \
 	new/datum/stack_recipe("winged wooden chair",					/obj/structure/chair/wood/wings, 3, one_per_turf = TRUE, on_floor = TRUE, time = 3 SECONDS), \
@@ -19,22 +32,14 @@ GLOBAL_LIST_INIT(wood_recipes, list ( \
 	new/datum/stack_recipe("painting frame",						/obj/item/wallframe/painting, 1, time = 1 SECONDS),\
 	new/datum/stack_recipe("display case chassis",					/obj/structure/displaycase_chassis, 5, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("easel",									/obj/structure/easel, 5, one_per_turf = TRUE, on_floor = TRUE, time = 1 SECONDS), \
-	new/datum/stack_recipe("wooden buckler",						/obj/item/shield/riot/buckler, 20, time = 4 SECONDS), \
 	new/datum/stack_recipe("apiary",								/obj/structure/beebox, 40, time = 5 SECONDS),\
 	new/datum/stack_recipe("tiki mask",								/obj/item/clothing/mask/gas/tiki_mask, 2), \
 	new/datum/stack_recipe("honey frame",							/obj/item/honey_frame, 5, time = 1 SECONDS),\
 	new/datum/stack_recipe("ore box",								/obj/structure/ore_box, 4, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS),\
 	new/datum/stack_recipe("wooden crate",							/obj/structure/closet/crate/wooden, 6, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS),\
-	new/datum/stack_recipe("baseball bat",							/obj/item/melee/baseball_bat, 5, time = 1.5 SECONDS),\
 	new/datum/stack_recipe("loom",									/obj/structure/loom, 10, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 	new/datum/stack_recipe("mortar",								/obj/item/reagent_containers/glass/mortar, 3), \
 	new/datum/stack_recipe("firebrand",								/obj/item/match/firebrand, 2, time = 10 SECONDS), \
-	null, \
-	new/datum/stack_recipe_list("pews", list(
-		new /datum/stack_recipe("pew (middle)",						/obj/structure/chair/fancy/bench/pew, 3, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS),
-		new /datum/stack_recipe("pew (left)",						/obj/structure/chair/fancy/bench/pew/left, 3, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS),
-		new /datum/stack_recipe("pew (right)",						/obj/structure/chair/fancy/bench/pew/right, 3, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS)
-		)),
 	null, \
 ))
 

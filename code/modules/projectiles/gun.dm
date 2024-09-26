@@ -86,8 +86,10 @@
 	var/pb_knockback = 0
 	var/ranged_cooldown = 0
 
-	var/damage_multiplier = 1 //Gun Damage Multiplier that affects the damage dealt by the bullets. This is the base value which wont change a thing.
-	var/speed_multiplier = 1 //Gun Bullet Speed Multiplier that affect bullet speed. This is the base value which wont change a thing. Smaller number meants FASTER.
+	/// Gun Damage Multiplier that affects the damage dealt by the bullets. This is the base value which wont change a thing.
+	var/damage_multiplier = 1
+	/// Gun Bullet Speed Multiplier that affect bullet speed. This is the base value which wont change a thing. Smaller number means FASTER.
+	var/speed_multiplier = 1
 
 	// Equipping
 	/// The time it takes for a gun to count as equipped, null to get a precalculated value
