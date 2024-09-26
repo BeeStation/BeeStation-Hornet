@@ -241,7 +241,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
 		log_combat(user, src, "inserted a [W] with [reagentlist]" )
 		add_fingerprint(user)
-		show_controls(user)
 		update_icon()
 
 	if(istype(W, /obj/item/pen)&&!locked)
