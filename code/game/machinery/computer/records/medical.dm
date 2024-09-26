@@ -138,24 +138,6 @@
 
 			return TRUE
 
-		if("set_physical_status")
-			var/physical_status = params["physical_status"]
-			if(!physical_status || !(physical_status in PHYSICAL_STATUSES))
-				return FALSE
-
-			target.physical_status = physical_status
-
-			return TRUE
-
-		if("set_mental_status")
-			var/mental_status = params["mental_status"]
-			if(!mental_status || !(mental_status in MENTAL_STATUSES))
-				return FALSE
-
-			target.mental_status = mental_status
-
-			return TRUE
-
 	return FALSE
 
 /// Deletes medical information from a record.

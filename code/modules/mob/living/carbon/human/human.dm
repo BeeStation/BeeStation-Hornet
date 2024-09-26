@@ -225,31 +225,22 @@
 					to_chat(human_user, "<span class='danger'>Patient has signs of suffocation, emergency treatment may be required!</span>")
 				if(getToxLoss() > 20)
 					to_chat(human_user, "<span class='danger'>Gathered data is inconsistent with the analysis, possible cause: poisoning.</span>")
-			if(!human_user.wear_id) //You require access from here on out.
-				to_chat(human_user, "<span class='warning'>ERROR: Invalid access</span>")
+			if(href_list["physical_status"])
+				var/physical_status = tgui_input_list(human_user, "Specify a new physical status for this person.", "Medical HUD", PHYSICAL_STATUSES, target_record.physical_status)
+				if(!physical_status || !target_record || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
+					return
+
+				target_record.physical_status = physical_status
 				return
-			var/list/access = human_user.wear_id.GetAccess()
-			if(!(ACCESS_MEDICAL in access))
-				to_chat(human_user, "<span class='warning'>ERROR: Invalid access</span>")
+
+			if(href_list["mental_status"])
+				var/mental_status = tgui_input_list(human_user, "Specify a new mental status for this person.", "Medical HUD", MENTAL_STATUSES, target_record.mental_status)
+				if(!mental_status || !target_record || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
+					return
+
+				target_record.mental_status = mental_status
 				return
 			return //Medical HUD ends here.
-
-
-		if(href_list["physical_status"])
-			var/health_status = tgui_input_list(human_user, "Specify a new physical status for this person.", "Medical HUD", PHYSICAL_STATUSES, target_record.physical_status)
-			if(!health_status || !target_record || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
-				return
-
-			target_record.physical_status = health_status
-			return
-
-		if(href_list["mental_status"])
-			var/health_status = tgui_input_list(human_user, "Specify a new mental status for this person.", "Medical HUD", MENTAL_STATUSES, target_record.mental_status)
-			if(!health_status || !target_record || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
-				return
-
-			target_record.mental_status = health_status
-			return
 
 		if(href_list["hud"] == "s")
 			var/allowed_access = null

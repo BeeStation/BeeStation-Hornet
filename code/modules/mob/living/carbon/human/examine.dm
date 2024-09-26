@@ -357,10 +357,10 @@
 			if(length(cyberimp_detect))
 				. += "Detected cybernetic modifications: [english_list(cyberimp_detect)]"
 			if(target_record)
-				var/health_record = target_record.physical_status
-				. += "<a href='?src=[REF(src)];hud=m;physical_status=1;examine_time=[world.time]'>\[[health_record]\]</a>"
-				health_record = target_record.mental_status
-				. += "<a href='?src=[REF(src)];hud=m;mental_status=1;examine_time=[world.time]'>\[[health_record]\]</a>"
+				var/physical_status = target_record.physical_status
+				. += "Physical status: <a href='?src=[REF(src)];hud=m;physical_status=1;examine_time=[world.time]'>\[[physical_status]\]</a>"
+				var/mental_status = target_record.mental_status
+				. += "Mental status: <a href='?src=[REF(src)];hud=m;mental_status=1;examine_time=[world.time]'>\[[mental_status]\]</a>"
 			target_record = find_record(perpname)
 			. += "<a href='?src=[REF(src)];hud=m;evaluation=1;examine_time=[world.time]'>\[Medical evaluation\]</a><br>"
 			if(traitstring)
@@ -368,7 +368,6 @@
 
 		if(HAS_TRAIT(user, TRAIT_SECURITY_HUD))
 			if((user.stat == CONSCIOUS || isobserver(user)) && user != src)
-			//|| !user.canmove || user.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
 				var/wanted_status = WANTED_NONE
 				var/security_note = "None."
 

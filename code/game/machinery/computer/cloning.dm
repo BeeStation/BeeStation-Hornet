@@ -307,7 +307,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	return TRUE
 
 /obj/machinery/computer/cloning/proc/Clone(mob/user, target)
-	var/datum/record/cloning/C = find_record(target)
+	var/datum/record/cloning/C
+	for(var/datum/record/cloning/record in records)
+		if(record.id == target)
+			C = record
 	//Look for that player! They better be dead!
 	if(C)
 		var/obj/machinery/clonepod/pod = GetAvailablePod()

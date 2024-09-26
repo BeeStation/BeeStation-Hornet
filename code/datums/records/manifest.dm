@@ -178,8 +178,8 @@
 		var/list/crew_record = list()
 		crew_record["ref"] = REF(gen_record)
 		crew_record["name"] = gen_record.name
-		crew_record["physical_health"] = gen_record.physical_status
-		crew_record["mental_health"] = gen_record.mental_status
+		crew_record["physical_status"] = gen_record.physical_status
+		crew_record["mental_status"] = gen_record.mental_status
 		general_records_out += list(crew_record)
 	return general_records_out
 
