@@ -50,16 +50,15 @@ GLOBAL_PROTECT(exp_to_update)
 /client/proc/calc_exp_type(exptype)
 	var/list/explist = prefs.exp.Copy()
 	var/amount = 0
-	var/list/typelist = GLOB.exp_jobsmap[exptype]
-	if(!typelist)
-		return -1
-	for(var/job in typelist["titles"])
-		if(job in explist)
-			amount += explist[job]
+	var/list/valid_jobs = GLOB.exp_jobsmap[exptype]
+	if(valid_jobs)
+		for(var/job in valid_jobs)
+			if(job in explist)
+				amount += explist[job]
 	// Removed job support
-	typelist = GLOB.exp_removed_jobsmap[exptype]
-	if(typelist)
-		for(var/job in typelist["titles"])
+	var/list/removed_jobs = GLOB.exp_removed_jobsmap[exptype]
+	if(removed_jobs)
+		for(var/job in removed_jobs)
 			if(job in explist)
 				amount += explist[job]
 	return amount
