@@ -34,6 +34,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 	species_language_holder = /datum/language_holder/synthetic
 	special_step_sounds = list('sound/effects/servostep.ogg')
+	species_bitflags = NOT_TRANSMORPHIC
 
 	species_chest = /obj/item/bodypart/chest/ipc
 	species_head = /obj/item/bodypart/head/ipc
@@ -103,7 +104,7 @@
 /datum/action/innate/change_screen
 	name = "Change Display"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "drone_vision"
 
 /datum/action/innate/change_screen/Activate()

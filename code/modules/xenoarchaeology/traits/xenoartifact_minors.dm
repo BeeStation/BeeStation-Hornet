@@ -170,7 +170,7 @@
 	charge_max = 0 SECONDS
 	clothes_req = 0
 	include_user = 0
-	action_icon = 'icons/mob/actions/actions_revenant.dmi'
+	action_icon = 'icons/hud/actions/actions_revenant.dmi'
 	action_icon_state = "r_transmit"
 	action_background_icon_state = "bg_spell"
 	var/obj/item/xenoartifact/xeno

@@ -100,27 +100,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 	text_dehack = "You restore [name]'s combat inhibitor."
 	text_dehack_fail = "[name] ignores your attempts to restrict him!"
 
-/mob/living/simple_animal/bot/ed209/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<TT><B>Security Unit v2.6 controls</B></TT><BR>"
-	dat += "<BR>Status: <A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A>"
-	dat += "<BR>Behaviour controls are [locked ? "locked" : "unlocked"]"
-	dat += "<BR>Maintenance panel panel is [open ? "opened" : "closed"]"
-
-	if(!locked || issilicon(user)|| IsAdminGhost(user))
+/mob/living/simple_animal/bot/ed209/ui_data(mob/user)
+	var/list/data = ..()
+	if (!locked || issilicon(user) || IsAdminGhost(user))
 		if(!lasercolor)
-			dat += "<BR>"
-			dat += "<BR>Arrest Unidentifiable Persons: <A href='?src=[REF(src)];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>"
-			dat += "<BR>Arrest for Unauthorized Weapons: <A href='?src=[REF(src)];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>"
-			dat += "<BR>Arrest for Warrant: <A href='?src=[REF(src)];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>"
-			dat += "<BR>Operating Mode: <A href='?src=[REF(src)];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>"
-			dat += "<BR>Report Arrests <A href='?src=[REF(src)];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>"
-			dat += "<BR>Auto Patrol <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>"
-	return dat
+			data["custom_controls"]["check_id"] = idcheck
+			data["custom_controls"]["check_weapons"] = weaponscheck
+			data["custom_controls"]["check_warrants"] = check_records
+			data["custom_controls"]["handcuff_targets"] = !arrest_type
+			data["custom_controls"]["arrest_alert"] = declare_arrests
+	return data
 
-/mob/living/simple_animal/bot/ed209/Topic(href, href_list)
+/mob/living/simple_animal/bot/ed209/ui_act(action, params)
 	if(lasercolor && ishuman(usr))
 		var/mob/living/carbon/human/H = usr
 		if((lasercolor == "b") && (istype(H.wear_suit, /obj/item/clothing/suit/redtag)))//Opposing team cannot operate it
@@ -128,24 +119,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 		else if((lasercolor == "r") && (istype(H.wear_suit, /obj/item/clothing/suit/bluetag)))
 			return
 	if(..())
-		return 1
+		return
 
-	switch(href_list["operation"])
-		if("idcheck")
+	switch(action)
+		if("check_id")
 			idcheck = !idcheck
-			update_controls()
-		if("weaponscheck")
+		if("check_weapons")
 			weaponscheck = !weaponscheck
-			update_controls()
-		if("ignorerec")
+		if("check_warrants")
 			check_records = !check_records
-			update_controls()
-		if("switchmode")
+		if("handcuff_targets")
 			arrest_type = !arrest_type
-			update_controls()
-		if("declarearrests")
+		if("arrest_alert")
 			declare_arrests = !declare_arrests
-			update_controls()
 
 /mob/living/simple_animal/bot/ed209/proc/judgment_criteria()
 	var/final = FALSE

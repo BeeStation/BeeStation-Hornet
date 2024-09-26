@@ -4,7 +4,7 @@
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 	charge_max = 100
 	clothes_req = FALSE
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "mansus_grasp"
 	action_background_icon_state = "bg_ecult"
 

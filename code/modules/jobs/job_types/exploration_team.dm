@@ -1,7 +1,7 @@
 /datum/job/exploration_crew
 	title = JOB_NAME_EXPLORATIONCREW
 	description = "Go out into space to complete different missions for loads of cash. Find and deliver back research disks for rare technologies."
-	department_for_prefs = DEPT_BITFLAG_SCI
+	department_for_prefs = DEPT_NAME_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
 	faction = "Station"

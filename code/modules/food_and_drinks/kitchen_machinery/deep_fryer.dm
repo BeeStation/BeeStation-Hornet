@@ -199,8 +199,8 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	explosion(src, devastation_range = 1, heavy_impact_range = 3, light_impact_range = 5, flame_range = 7)
 	deconstruct(FALSE)
 
-/obj/machinery/deepfryer/attack_ai(mob/user)
-	return
+/obj/machinery/deepfryer/attack_silicon(mob/user)
+	return TRUE
 
 /obj/machinery/deepfryer/attack_hand(mob/user)
 	if(frying)

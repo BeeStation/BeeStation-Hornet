@@ -80,7 +80,7 @@
 	name = "Split Body"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "slimesplit"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/split_body/IsAvailable()
@@ -161,7 +161,7 @@
 	name = "Swap Body"
 	check_flags = NONE
 	button_icon_state = "slimeswap"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/swap_body/Activate()
@@ -365,7 +365,7 @@
 	desc = "Eat a slime extract to use its properties."
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "slimeconsume"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/integrate_extract/proc/update_name()
@@ -426,7 +426,7 @@
 	desc = "Pulse the slime extract with energized jelly to activate it."
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "slimeuse1"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 	var/activation_type = SLIME_ACTIVATE_MINOR
 
@@ -813,7 +813,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	name = "Slimelink"
 	desc = "Send a psychic message to everyone connected to your slime link."
 	button_icon_state = "link_speech"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/linked_speech/Activate()
@@ -832,7 +832,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	name = "Send Thought"
 	desc = "Send a private psychic message to someone you can see."
 	button_icon_state = "send_mind"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/project_thought/Activate()
@@ -875,7 +875,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	name = "Link Minds"
 	desc = "Link someone's mind to your Slime Link, allowing them to communicate telepathically with other linked minds."
 	button_icon_state = "mindlink"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/link_minds/Activate()
@@ -915,7 +915,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	name = "Unlink Mind"
 	desc = "Forcefully disconnect a member of your Slime Link, cutting them off from the rest of the link."
 	button_icon_state = "mindunlink"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/unlink_minds/Activate()

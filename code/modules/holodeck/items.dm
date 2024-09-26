@@ -157,7 +157,7 @@
 	active_power_usage = 6
 	power_channel = AREA_USAGE_ENVIRON
 
-/obj/machinery/readybutton/attack_ai(mob/user as mob)
+/obj/machinery/readybutton/attack_silicon(mob/user as mob)
 	to_chat(user, "The station AI is not to interact with these devices.")
 	return
 
