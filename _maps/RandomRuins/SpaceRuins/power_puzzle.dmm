@@ -39,7 +39,9 @@
 /obj/machinery/power/apc/auto_name/directional/west{
 	start_charge = 0
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/materials3)
 "ak" = (
@@ -84,7 +86,18 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "as" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/storage/materials1)
+"at" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/materials1)
 "au" = (
@@ -120,7 +133,9 @@
 /obj/machinery/power/apc/auto_name/directional/east{
 	start_charge = 0
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/materials2)
@@ -152,13 +167,17 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/materials2)
 "aF" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/materials1)
 "aG" = (
 /obj/machinery/door/airlock/highsecurity,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/open/floor/iron,
@@ -186,7 +205,9 @@
 /obj/machinery/power/apc/auto_name/directional/south{
 	start_charge = 0
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central2)
 "aM" = (
@@ -194,14 +215,36 @@
 /area/ruin/space/has_grav/storage/power1)
 "aN" = (
 /obj/machinery/door/airlock/highsecurity,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/mapping_helpers/airlock/locked,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/materials1)
 "aO" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/closed/wall/r_wall,
+/area/ruin/space/has_grav/storage/power2)
+"aP" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/closed/wall/r_wall,
+/area/ruin/space/has_grav/storage/power2)
+"aQ" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/closed/wall/r_wall,
 /area/ruin/space/has_grav/storage/power2)
 "aR" = (
@@ -223,7 +266,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power1)
 "aW" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /obj/effect/decal/cleanable/blood/footprints{
 	dir = 1
 	},
@@ -271,7 +316,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/materials2)
 "bg" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/materials2)
 "bh" = (
@@ -300,11 +347,15 @@
 /obj/machinery/power/apc/auto_name/directional/east{
 	start_charge = 0
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "bo" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/closed/wall/r_wall,
 /area/ruin/space/has_grav/storage/central2)
 "bp" = (
@@ -332,7 +383,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "bu" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 9
 	},
@@ -341,18 +394,31 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/materials1)
 "bv" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "bw" = (
 /obj/machinery/door/airlock/highsecurity,
 /obj/effect/mapping_helpers/airlock/locked,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
+"bx" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/closed/wall/r_wall,
+/area/ruin/space/has_grav/storage/power2)
 "by" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/iron,
@@ -361,7 +427,9 @@
 /turf/open/space/basic,
 /area/ruin/space/has_grav/storage/central2)
 "bA" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "bB" = (
@@ -379,13 +447,17 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central2)
 "bE" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power2)
 "bF" = (
 /obj/machinery/power/smes,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power2)
 "bG" = (
@@ -403,22 +475,54 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central2)
 "bJ" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power2)
 "bK" = (
 /obj/machinery/power/apc/auto_name/directional/south{
 	start_charge = 0
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power1)
 "bL" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/storage/power1)
+"bM" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/effect/decal/cleanable/blood/footprints{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power1)
 "bN" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/blood/footprints{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/storage/power1)
+"bO" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /obj/effect/decal/cleanable/blood/footprints{
 	dir = 8
 	},
@@ -426,7 +530,12 @@
 /area/ruin/space/has_grav/storage/power1)
 "bP" = (
 /obj/machinery/door/airlock/highsecurity,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /obj/effect/decal/cleanable/blood/footprints{
 	dir = 1
 	},
@@ -440,7 +549,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power2)
 "bR" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central2)
 "bS" = (
@@ -459,7 +570,9 @@
 /obj/machinery/power/apc/auto_name/directional/west{
 	start_charge = 0
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power3)
 "bW" = (
@@ -474,7 +587,9 @@
 /obj/machinery/power/apc/auto_name/directional/east{
 	start_charge = 0
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power2)
 "bZ" = (
@@ -487,7 +602,9 @@
 /area/ruin/space/has_grav/storage/central)
 "cb" = (
 /obj/machinery/door/airlock/highsecurity,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power3)
@@ -541,14 +658,21 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power2)
 "cn" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /obj/effect/decal/cleanable/blood/footprints{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "co" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/closed/wall/r_wall,
 /area/ruin/space/has_grav/storage/central)
 "cp" = (
@@ -610,7 +734,9 @@
 	start_charge = 0
 	},
 /obj/effect/decal/cleanable/ash,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/materials1)
 "cA" = (
@@ -624,7 +750,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "cC" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
@@ -639,7 +767,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "cF" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
@@ -654,7 +784,9 @@
 "cI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "cJ" = (
@@ -664,12 +796,16 @@
 "cK" = (
 /obj/item/export_scanner,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "cL" = (
 /obj/effect/decal/cleanable/ash,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "cM" = (
@@ -724,19 +860,55 @@
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power2)
+"hg" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/storage/central)
 "sm" = (
 /obj/effect/spawner/lootdrop/glowstick,
 /obj/effect/decal/cleanable/glass,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/storage/central)
+"yH" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "Ce" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/closed/wall/r_wall,
 /area/ruin/space/has_grav/storage/materials1)
+"RF" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/closed/wall/r_wall,
+/area/ruin/space/has_grav/storage/central2)
+"Wu" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/closed/wall/r_wall,
+/area/ruin/space/has_grav/storage/central2)
 "Ys" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 
@@ -1013,7 +1185,7 @@ aY
 br
 bp
 bp
-bA
+yH
 bp
 bp
 bp
@@ -1045,7 +1217,7 @@ aY
 bs
 bp
 bp
-bA
+yH
 cN
 cO
 bp
@@ -1141,14 +1313,14 @@ aN
 bv
 cC
 cF
-bA
+hg
 cF
 bA
 cn
 bP
 aW
 aW
-aW
+bM
 cV
 aX
 aM
@@ -1163,7 +1335,7 @@ ah
 ah
 ai
 aq
-as
+at
 bT
 ch
 aI
@@ -1212,7 +1384,7 @@ ci
 co
 aX
 bY
-bN
+bO
 aX
 ct
 aM
@@ -1297,7 +1469,7 @@ ad
 am
 am
 bf
-bo
+RF
 bz
 bz
 bk
@@ -1329,7 +1501,7 @@ ad
 cr
 bZ
 cq
-bo
+RF
 bk
 bk
 bk
@@ -1361,7 +1533,7 @@ aH
 aK
 ad
 cw
-bo
+RF
 bk
 bk
 bk
@@ -1393,7 +1565,7 @@ ax
 ad
 ad
 cx
-bo
+RF
 bk
 bB
 bC
@@ -1425,7 +1597,7 @@ ax
 ad
 ad
 am
-bo
+RF
 bk
 bC
 bC
@@ -1433,8 +1605,8 @@ bC
 bC
 bC
 bk
-aO
-aO
+aP
+bx
 aR
 aR
 aR
@@ -1457,7 +1629,7 @@ ad
 ad
 ad
 am
-bo
+RF
 bk
 bD
 bC
@@ -1489,15 +1661,15 @@ am
 am
 aK
 bg
+Wu
 bo
-bo
 bR
 bR
 bR
 bR
 bR
 bo
-aO
+aQ
 bF
 bJ
 cS

@@ -25,18 +25,24 @@
 /area/tdome/arena)
 "f" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable,
+/obj/structure/cable{
+	level = 2
+	},
 /obj/item/screwdriver,
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 "g" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable,
+/obj/structure/cable{
+	level = 2
+	},
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 "h" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable,
+/obj/structure/cable{
+	level = 2
+	},
 /obj/item/clothing/suit/space/fragile{
 	pixel_x = -2;
 	pixel_y = -4
@@ -48,7 +54,9 @@
 /area/tdome/arena)
 "i" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable,
+/obj/structure/cable{
+	level = 2
+	},
 /obj/item/stack/cable_coil,
 /turf/open/floor/fakespace,
 /area/tdome/arena)
@@ -58,7 +66,9 @@
 /area/tdome/arena)
 "k" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable,
+/obj/structure/cable{
+	level = 2
+	},
 /obj/item/wrench,
 /turf/open/floor/fakespace,
 /area/tdome/arena)

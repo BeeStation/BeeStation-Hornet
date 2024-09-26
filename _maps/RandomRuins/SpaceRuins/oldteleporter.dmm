@@ -70,7 +70,9 @@
 /turf/open/floor/iron/airless,
 /area/ruin/space/oldteleporter)
 "I" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/oldteleporter)
 

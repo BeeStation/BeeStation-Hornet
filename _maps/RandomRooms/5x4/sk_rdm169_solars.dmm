@@ -1,7 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/open/space/basic,
 /area/space)
 "e" = (
@@ -76,7 +78,9 @@
 	},
 /area/template_noop)
 "s" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -86,7 +90,12 @@
 	id = "forestarboard";
 	name = "Fore-Starboard Solar Array"
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/solarpanel/airless,
 /area/space)
 "v" = (
@@ -101,19 +110,33 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating{
 	burnt = 1
 	},
 /area/template_noop)
 "w" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"x" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/space/basic,
+/area/space)
 "F" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -131,6 +154,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
+"J" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/power/solar{
+	id = "forestarboard";
+	name = "Fore-Starboard Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/space)
 "M" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -146,11 +180,27 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"T" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/power/solar{
+	id = "forestarboard";
+	name = "Fore-Starboard Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/space)
 "V" = (
 /obj/machinery/door/window/westleft{
 	dir = 1
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1;
@@ -168,14 +218,14 @@ e
 "}
 (2,1,1) = {"
 m
-t
+J
 v
 s
 "}
 (3,1,1) = {"
 g
-t
-a
+T
+x
 V
 "}
 (4,1,1) = {"
