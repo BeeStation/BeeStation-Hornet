@@ -25,10 +25,7 @@
 /area/tdome/tdomeobserve)
 "aj" = (
 /obj/machinery/computer/card/centcom,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the RD's goons and the AI's satellite from the safety of his office.";
-	name = "Research Monitor";
-	network = list("rd","minisat");
+/obj/machinery/computer/security/telescreen/rd{
 	pixel_y = 28
 	},
 /turf/open/floor/carpet/grimy,
@@ -2686,7 +2683,6 @@
 "jX" = (
 /obj/machinery/camera/directional/north{
 	c_tag = "Red Team";
-	network = list("thunder");
 	pixel_x = 11;
 	pixel_y = -9;
 	resistance_flags = 64
@@ -12706,7 +12702,6 @@
 "Ws" = (
 /obj/machinery/camera/directional/north{
 	c_tag = "Green Team";
-	network = list("thunder");
 	pixel_x = 12;
 	pixel_y = -10;
 	resistance_flags = 64

@@ -933,7 +933,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -943,12 +943,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/construction)
 "ea" = (
 /obj/structure/table,
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /obj/item/gun/magic/wand/resurrection/debug,
 /turf/open/floor/iron,
 /area/storage/primary)
@@ -1341,7 +1341,7 @@
 /turf/open/space/basic,
 /area/space)
 "fq" = (
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/directional/west,
 /obj/machinery/computer/bounty{
 	dir = 4
 	},
@@ -1616,7 +1616,7 @@
 	pixel_x = 32;
 	pixel_y = -7
 	},
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/directional/east,
 /turf/open/floor/plating,
 /area/storage/primary)
 "gh" = (
@@ -1748,7 +1748,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "gD" = (
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
 "gE" = (
@@ -1757,7 +1757,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "gF" = (
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "gG" = (

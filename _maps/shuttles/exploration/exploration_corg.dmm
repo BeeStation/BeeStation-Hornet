@@ -152,9 +152,8 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "hc" = (
-/obj/machinery/camera/autoname/directional/east{
-	name = "Exploration Shuttle";
-	network = list("exploration shuttle")
+/obj/machinery/camera/directional/east{
+	name = "Exploration Shuttle"
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 4

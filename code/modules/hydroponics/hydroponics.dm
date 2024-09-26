@@ -719,7 +719,7 @@
 			var/obj/item/reagent_containers/syringe/syr = reagent_source
 			if(syr.mode != 1)
 				to_chat(user, "<span class='warning'>You can't get any extract out of this plant.</span>")
-				return TRUE
+				return
 
 		if(!reagent_source.reagents.total_volume)
 			to_chat(user, "<span class='notice'>[reagent_source] is empty.</span>")
@@ -780,14 +780,16 @@
 			H.update_icon()
 		if(reagent_source) // If the source wasn't composted and destroyed
 			reagent_source.update_icon()
-		return TRUE
+		return 1
 
-	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
+	else if(O.tool_behaviour == TOOL_SEED && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)
 			if(istype(O, /obj/item/seeds/kudzu))
 				investigate_log("had Kudzu planted in it by [key_name(user)] at [AREACOORD(src)]","kudzu")
 			if(!user.transferItemToLoc(O, src))
-				return TRUE
+				return
+			if(!istype(O, /obj/item/seeds)) //If the given item is supposed to be a seed, but isn't a subtype of /obj/item/seed
+				O = O.fake_seed // use the item's fake_seed variable instead.
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
 			myseed = O
@@ -830,12 +832,12 @@
 			SEND_SIGNAL(O, COMSIG_TRY_STORAGE_INSERT, G, user, TRUE)
 
 	else if(default_unfasten_wrench(user, O))
-		return TRUE
+		return
 
 	else if((O.tool_behaviour == TOOL_WIRECUTTER) && unwrenchable)
 		if (!anchored)
 			to_chat(user, "<span class='warning'>Anchor the tray first!</span>")
-			return TRUE
+			return
 		using_irrigation = !using_irrigation
 		O.play_tool_sound(src)
 		user.visible_message("<span class='notice'>[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses.</span>", \
@@ -846,7 +848,7 @@
 	else if(istype(O, /obj/item/shovel/spade))
 		if(!myseed && !weedlevel)
 			to_chat(user, "<span class='warning'>[src] doesn't have any plants or weeds!</span>")
-			return TRUE
+			return
 		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>",
 			"<span class='notice'>You start digging out [src]'s plants...</span>")
 		if(O.use_tool(src, user, 50, volume=50) || (!myseed && !weedlevel))
@@ -864,7 +866,6 @@
 
 	else
 		return ..()
-	return TRUE
 
 /obj/machinery/hydroponics/can_be_unfasten_wrench(mob/user, silent)
 	if (!unwrenchable)  // case also covered by NODECONSTRUCT checks in default_unfasten_wrench
@@ -902,7 +903,7 @@
 /obj/machinery/hydroponics/proc/update_tray(mob/user)
 	harvest = 0
 	lastproduce = age
-	if(istype(myseed, /obj/item/seeds/replicapod))
+	if(istype(myseed, /obj/item/seeds/dionapod))
 		to_chat(user, "<span class='notice'>You harvest from the [myseed.plantname].</span>")
 	else if(myseed.getYield() <= 0)
 		to_chat(user, "<span class='warning'>You fail to harvest anything useful!</span>")
