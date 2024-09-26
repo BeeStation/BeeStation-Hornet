@@ -220,3 +220,8 @@
 		COOLDOWN_START(src, severe_cooldown, 10 SECONDS)
 	if(prob(emp_vulnerability/severity)) //Chance of permanent effects
 		organ_flags |= ORGAN_FAILING //Starts organ failure - gonna need replacing soon.
+
+/obj/item/organ/stomach/diona
+	name = "nutrient vessel"
+	desc = "A group of plant matter and vines, useful for digestion of light and radiation."
+	icon_state = "diona_stomach"

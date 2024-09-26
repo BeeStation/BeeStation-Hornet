@@ -18,7 +18,7 @@
 #define SPECIES_SLIMEPERSON "slime"
 #define SPECIES_STARGAZER "stargazer"
 #define SPECIES_PLASMAMAN "plasmaman"
-#define SPECIES_PODPERSON "pod"
+#define SPECIES_DIONA "diona"
 #define SPECIES_PUMPKINPERSON "pumpkin_man"
 #define SPECIES_SHADOWPERSON "shadow"
 #define SPECIES_SKELETON "skeleton"
@@ -73,6 +73,9 @@
 #define FLAG_DEBUG_SPECIES	(1<<10)
 #define FLAG_MONKEY			(1<<11)
 #define FLAG_PSYPHOZA		(1<<12)
+#define FLAG_DIONA			(1<<13)
+
+#define FEATURE_NONE "None" //For usage in species_features, for checking for marking names.
 
 // Defines for used in creating "perks" for the species preference pages.
 /// A key that designates UI icon displayed on the perk.
