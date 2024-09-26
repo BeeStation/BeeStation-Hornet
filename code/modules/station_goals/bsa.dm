@@ -152,7 +152,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	bound_width = 352
 	bound_x = -192
 	density = TRUE
-	appearance_flags = NONE //Removes default TILE_BOUND
+	appearance_flags = LONG_GLIDE //Removes default TILE_BOUND
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 	var/sound/select_sound = 'sound/machines/bsa/bsa_charge.ogg'
