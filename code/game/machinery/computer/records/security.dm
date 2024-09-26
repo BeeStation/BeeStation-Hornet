@@ -129,7 +129,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 			fingerprint = target.fingerprint,
 			gender = target.gender,
 			name = target.name,
-			note = target.security_note,
+			security_note = target.security_note,
 			rank = target.rank,
 			species = target.species,
 			wanted_status = target.wanted_status,
@@ -181,8 +181,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 			return TRUE
 
 		if("set_note")
-			var/note = params["note"]
-			target.security_note = trim(note, MAX_MESSAGE_LEN)
+			var/security_note = params["security_note"]
+			target.security_note = trim(security_note, MAX_MESSAGE_LEN)
 			return TRUE
 
 		if("set_wanted")
@@ -238,7 +238,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 /obj/machinery/computer/records/security/proc/edit_crime(mob/user, datum/record/crew/target, list/params)
 	var/datum/crime/editing_crime = locate(params["crime_ref"]) in target.crimes
 	if(!editing_crime?.valid)
-		return FALSE
+		editing_crime = locate(params["crime_ref"]) in target.citations //One last hail mary.
+		if(!editing_crime?.valid)
+			return FALSE
 
 	if(user != editing_crime.author && !has_armory_access(user)) // only warden/hos/command can edit crimes they didn't author
 		return FALSE
@@ -258,7 +260,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 /obj/machinery/computer/records/security/expunge_record_info(datum/record/crew/target)
 	target.citations.Cut()
 	target.crimes.Cut()
-	target.security_note = null
+	target.security_note = "None."
 	target.wanted_status = WANTED_NONE
 	return TRUE
 

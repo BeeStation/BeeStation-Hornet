@@ -41,7 +41,7 @@ const RecordInfo = (props, context) => {
   const { available_statuses } = data;
   const [open, setOpen] = useLocalState<boolean>(context, 'printOpen', false);
 
-  const { age, crew_ref, crimes, fingerprint, gender, name, note, rank, species, wanted_status } = foundRecord;
+  const { age, crew_ref, crimes, fingerprint, gender, name, security_note, rank, species, wanted_status } = foundRecord;
 
   const { min_age, max_age } = data;
 
@@ -133,7 +133,7 @@ const RecordInfo = (props, context) => {
               <EditableText color="good" field="fingerprint" target_ref={crew_ref} text={fingerprint} />
             </LabeledList.Item>
             <LabeledList.Item label="Note">
-              <EditableText field="security_note" target_ref={crew_ref} text={note} />
+              <EditableText field="security_note" target_ref={crew_ref} text={security_note} />
             </LabeledList.Item>
           </LabeledList>
         </Section>

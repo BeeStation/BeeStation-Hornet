@@ -38,7 +38,7 @@
 				return FALSE
 
 			var/value = trim(params["value"], MAX_BROADCAST_LEN)
-			target.vars[field] = value || "Unknown"
+			target.vars[field] = value || null
 
 			return TRUE
 
