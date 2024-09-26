@@ -173,6 +173,22 @@
 /obj/machinery/door/poddoor/shutters/preopen,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
+"wO" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 1;
+	icon_state = "rightsecure";
+	name = "Primary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
 "za" = (
 /obj/item/kirbyplants/photosynthetic{
 	pixel_y = 10
@@ -191,6 +207,15 @@
 	pixel_y = 24
 	},
 /obj/effect/spawner/lootdrop/ruinloot/important,
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"BT" = (
+/obj/machinery/door/airlock/highsecurity,
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "AI Core shutters";
+	name = "AI Core Shutters"
+	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "CO" = (
@@ -224,21 +249,6 @@
 	name = "AI Chamber Turret"
 	},
 /turf/open/floor/pod/dark,
-/area/ruin/unpowered)
-"Ja" = (
-/obj/machinery/door/airlock/grunge{
-	name = "AI Research Room"
-	},
-/turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
-"Jq" = (
-/obj/machinery/door/airlock/highsecurity,
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "AI Core shutters";
-	name = "AI Core Shutters"
-	},
-/turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "JD" = (
 /obj/structure/table/reinforced,
@@ -274,21 +284,6 @@
 "KU" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
-"Lx" = (
-/obj/effect/decal/cleanable/robot_debris/old,
-/obj/machinery/camera{
-	c_tag = "Telecomms - Server Room - Aft-Port";
-	dir = 6;
-	network = list("ss13","tcomms")
-	},
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/item/ammo_casing/c9mm{
-	dir = 8;
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "MV" = (
 /obj/structure/rack,
@@ -341,21 +336,25 @@
 "SV" = (
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
-"UM" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 1;
-	icon_state = "rightsecure";
-	name = "Primary AI Core Access";
-	atom_integrity = 300;
-	req_access_txt = "16"
+"TP" = (
+/obj/effect/decal/cleanable/robot_debris/old,
+/obj/machinery/camera{
+	c_tag = "Telecomms - Server Room - Aft-Port";
+	dir = 6
 	},
 /obj/effect/decal/cleanable/blood/tracks,
-/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
+/obj/item/ammo_casing/c9mm{
+	dir = 8;
+	pixel_x = 3;
+	pixel_y = 3
+	},
 /turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"WX" = (
+/obj/machinery/door/airlock/grunge{
+	name = "AI Research Room"
+	},
+/turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "Xd" = (
 /obj/effect/turf_decal/caution/stand_clear,
@@ -430,7 +429,7 @@ SV
 SV
 SV
 SV
-Ja
+WX
 RT
 SV
 tV
@@ -505,7 +504,7 @@ NP
 Ib
 Xd
 tO
-Jq
+BT
 qg
 SV
 iT
@@ -538,8 +537,8 @@ tO
 KU
 za
 SV
-UM
-Lx
+wO
+TP
 nN
 JS
 "}

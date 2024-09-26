@@ -449,8 +449,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/status_display/ai, 32)
 	. = ..()
 
 /obj/machinery/status_display/ai/attack_ai(mob/living/silicon/ai/user)
-	if(!isAI(user))
-		return
 	var/list/choices = list()
 	for(var/emotion_const in emotion_map)
 		var/icon_state = emotion_map[emotion_const]

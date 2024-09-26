@@ -90,7 +90,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 		return ..()
 
 //Let the AI trigger them directly.
-/obj/machinery/flasher/attack_ai()
+/obj/machinery/flasher/attack_silicon()
 	if (anchored)
 		return flash()
 

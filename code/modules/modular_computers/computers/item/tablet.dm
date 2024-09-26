@@ -384,7 +384,7 @@
 		add_overlay(mutable_appearance(init_icon, "light_overlay"))
 
 
-/obj/item/modular_computer/tablet/pda/attack_ai(mob/user)
+/obj/item/modular_computer/tablet/pda/attack_silicon(mob/user)
 	to_chat(user, "<span class='notice'>It doesn't feel right to snoop around like that...</span>")
 	return // we don't want ais or cyborgs using a private role tablet
 
