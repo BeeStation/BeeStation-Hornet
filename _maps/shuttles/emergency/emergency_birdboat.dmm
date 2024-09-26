@@ -35,12 +35,9 @@
 "ah" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
-"ai" = (
-/obj/machinery/computer/emergency_shuttle,
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/escape)
 "aj" = (
-/turf/open/floor/mineral/titanium/blue,
+/obj/structure/chair/fancy/shuttle,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "ak" = (
 /obj/item/kirbyplants{
@@ -52,22 +49,9 @@
 /obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"am" = (
-/obj/structure/chair/fancy/shuttle,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
 "an" = (
 /obj/structure/table/optable,
 /obj/item/surgical_drapes,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/escape)
-"ao" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "ap" = (
@@ -138,13 +122,6 @@
 "aE" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
-"aF" = (
-/obj/structure/table,
-/obj/machinery/light{
-	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -236,9 +213,6 @@
 	pixel_y = 5
 	},
 /obj/item/storage/firstaid/brute,
-/obj/machinery/light{
-	dir = 4
-	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "aV" = (
@@ -246,10 +220,6 @@
 	pixel_y = -32
 	},
 /turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
-"aW" = (
-/obj/structure/chair/fancy/shuttle,
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "aX" = (
 /obj/machinery/stasis,
@@ -260,17 +230,72 @@
 /obj/item/defibrillator/loaded,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
-"xJ" = (
+"jz" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
+"lL" = (
+/turf/closed/wall/mineral/titanium,
+/area/template_noop)
+"mr" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "bridge Door";
 	req_access_txt = "19"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"oq" = (
+/obj/machinery/computer/emergency_shuttle{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"ru" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"ta" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"xQ" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
+"zf" = (
+/obj/structure/table,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"EQ" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Fg" = (
+/obj/machinery/computer/secure_data,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Hy" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "Mg" = (
@@ -284,23 +309,61 @@
 	width = 14
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "MN" = (
 /obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
+/area/shuttle/escape)
+"Ok" = (
+/obj/machinery/computer/security,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"RD" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "bridge Door";
+	req_access_txt = "19"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Ti" = (
 /obj/machinery/door/airlock/titanium,
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
+"UE" = (
+/obj/machinery/computer/crew{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"Vg" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/template_noop)
 "Wn" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "security Airlock";
 	req_access_txt = "63"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Xi" = (
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 
@@ -310,12 +373,12 @@ aa
 ab
 ab
 MN
+MN
 ab
 MN
 MN
 MN
-MN
-MN
+ab
 ab
 aa
 aa
@@ -325,9 +388,9 @@ aa
 ab
 ah
 aq
-ak
-MN
-aB
+oq
+UE
+ab
 aH
 aH
 aH
@@ -339,12 +402,12 @@ aa
 (3,1,1) = {"
 aa
 ab
-ai
+ak
 ar
 aC
-xJ
-aC
-aC
+av
+ab
+ta
 aC
 aC
 aC
@@ -356,58 +419,58 @@ aa
 aa
 MN
 aj
+zf
+ru
 aC
-av
-ab
-aD
-aD
-aL
+RD
+aC
+aC
 aC
 aC
 aS
-ab
+MN
 aa
 "}
 (5,1,1) = {"
 aa
 MN
 aj
-aC
+zf
+ru
 aV
 ab
 aE
 aE
 aM
 aC
-aC
 aS
-ab
+MN
 aa
 "}
 (6,1,1) = {"
-aa
+lL
 ab
-ak
-aC
-ak
 ab
-aF
+mr
+MN
+ab
+ab
+aL
 aI
 aL
-aC
 aC
 aT
 ah
 ab
 "}
 (7,1,1) = {"
-aa
+lL
+Ok
+at
+at
+ax
 ab
-ab
-xJ
-MN
-ab
-aC
+aB
 aC
 aC
 aC
@@ -417,13 +480,13 @@ aB
 ab
 "}
 (8,1,1) = {"
-aa
-ab
-al
+lL
+Fg
+at
 at
 at
 MN
-aB
+aC
 aC
 aC
 aC
@@ -433,9 +496,9 @@ aV
 ab
 "}
 (9,1,1) = {"
-aa
-ab
-al
+Vg
+at
+at
 at
 at
 Wn
@@ -444,47 +507,47 @@ aC
 aN
 aP
 aC
-aC
-aW
+aE
+aE
 MN
 "}
 (10,1,1) = {"
-aa
-ab
-am
+Vg
+al
 at
 at
+EQ
 MN
 aC
 aC
 aN
 aP
 aC
-aC
-aW
+aD
+aD
 MN
 "}
 (11,1,1) = {"
-aa
-ab
+Vg
 al
 at
-ax
+at
+EQ
 ab
 aC
 aC
 aN
 aP
 aC
-aC
-aW
+aH
+aH
 MN
 "}
 (12,1,1) = {"
-aa
-ab
+lL
 al
 at
+Xi
 ay
 ab
 aC
@@ -518,10 +581,10 @@ ad
 an
 af
 af
-Hy
+jz
 aC
 aC
-Hy
+jz
 aQ
 af
 af
@@ -534,10 +597,10 @@ ae
 af
 af
 af
-Hy
+jz
 aC
 aC
-Hy
+jz
 af
 af
 af
@@ -547,14 +610,14 @@ ab
 (16,1,1) = {"
 ab
 af
-ao
+af
+af
 af
 ab
+aC
+aJ
 ab
-Ti
-Ti
-ab
-ab
+af
 aR
 aU
 aY
@@ -562,18 +625,18 @@ ab
 "}
 (17,1,1) = {"
 ab
-ab
-ab
-ab
-ab
+xQ
+xQ
+xQ
+xQ
 ab
 aC
-aJ
+aC
 ab
-ab
-ab
-ab
-ab
+xQ
+xQ
+xQ
+xQ
 ab
 "}
 (18,1,1) = {"
@@ -581,12 +644,12 @@ ab
 ag
 ap
 au
-ab
+ag
 ab
 Ti
 Mg
 ab
-ab
+ag
 ag
 ap
 au

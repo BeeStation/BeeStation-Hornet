@@ -27,6 +27,10 @@
 /obj/effect/turf_decal/trimline/dark/corner{
 	dir = 1
 	},
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = -16
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "ci" = (
@@ -36,6 +40,10 @@
 	pixel_y = 20
 	},
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"cm" = (
+/obj/machinery/holopad,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "cq" = (
 /obj/machinery/computer/communications{
@@ -62,10 +70,6 @@
 	pixel_y = 32
 	},
 /obj/structure/table/reinforced,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -32;
-	pixel_y = 31
-	},
 /obj/item/flashlight/lamp/green{
 	pixel_x = -4;
 	pixel_y = 11
@@ -75,10 +79,6 @@
 	pixel_x = 3
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
-"dM" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "gg" = (
 /obj/effect/turf_decal/trimline/dark/warning,
@@ -122,16 +122,12 @@
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "iw" = (
-/obj/structure/grille,
 /obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
 /obj/structure/curtain/directional{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/shuttle/escape)
-"jH" = (
-/obj/structure/sign/departments/medbay/alt,
-/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "jK" = (
 /obj/effect/turf_decal/stripes/line{
@@ -140,7 +136,7 @@
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
 	},
-/turf/open/floor/mineral/plastitanium/red/brig,
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
 "kF" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -162,27 +158,23 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "mb" = (
-/obj/effect/turf_decal/delivery,
 /obj/machinery/door/airlock/medical/glass{
 	name = "Shuttle Infirmary"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
+/obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/turf/open/floor/iron/white,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "mi" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/bot,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 32;
-	pixel_y = -1
-	},
 /obj/item/storage/pod{
 	pixel_x = 5;
 	pixel_y = 31
 	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "mC" = (
@@ -190,6 +182,7 @@
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ywflowers,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "nL" = (
@@ -200,7 +193,6 @@
 	id = "tinyflash";
 	pixel_y = 27
 	},
-/obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -208,6 +200,11 @@
 /obj/machinery/camera/directional/north{
 	network = list("evac")
 	},
+/obj/structure/closet/firecloset/full,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"oK" = (
+/obj/machinery/ai_slipper,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "pJ" = (
@@ -230,7 +227,7 @@
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-/turf/open/floor/mineral/plastitanium/red/brig,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "rc" = (
 /obj/effect/turf_decal/stripes/line{
@@ -273,9 +270,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_y = -1
-	},
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "sv" = (
@@ -285,6 +280,13 @@
 /obj/effect/turf_decal/trimline/dark/warning{
 	dir = 8
 	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
+"tF" = (
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 8
+	},
+/obj/machinery/ai_slipper,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "tQ" = (
@@ -305,6 +307,7 @@
 /obj/structure/sign/poster/official/state_laws{
 	pixel_y = -32
 	},
+/obj/machinery/holopad,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "wh" = (
@@ -329,7 +332,7 @@
 	name = "Echo emergency shuttle";
 	width = 16
 	},
-/turf/open/floor/mineral/plastitanium/red/brig,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "xB" = (
 /obj/structure/table,
@@ -368,6 +371,7 @@
 /obj/effect/spawner/structure/window/shuttle,
 /obj/structure/grille,
 /obj/structure/shuttle/engine/heater,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "xX" = (
@@ -385,6 +389,7 @@
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/palebush,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "Ae" = (
@@ -402,14 +407,11 @@
 /obj/machinery/door/airlock/shuttle{
 	name = "Emergency Shuttle Airlock"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/structure/fans/tiny,
-/turf/open/floor/mineral/plastitanium,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Bi" = (
 /obj/effect/turf_decal/trimline/dark/warning{
@@ -417,6 +419,9 @@
 	},
 /obj/effect/turf_decal/trimline/dark/corner{
 	dir = 8
+	},
+/obj/structure/sign/departments/medbay/alt{
+	pixel_x = 32
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
@@ -441,6 +446,7 @@
 	pixel_x = 26;
 	pixel_y = -25
 	},
+/obj/machinery/ai_slipper,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "CU" = (
@@ -455,6 +461,20 @@
 	dir = 4
 	},
 /turf/open/floor/plating/airless,
+/area/shuttle/escape)
+"GQ" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/fernybush,
+/obj/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/grass/no_border,
+/area/shuttle/escape)
+"GT" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "Ho" = (
 /obj/structure/table/reinforced,
@@ -483,11 +503,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"Kb" = (
-/obj/structure/grille,
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "KD" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -512,6 +527,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/ai_slipper,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Mi" = (
@@ -519,6 +535,7 @@
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/brflowers,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "MJ" = (
@@ -526,28 +543,21 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/item/radio/intercom{
-	name = "Station Intercom";
-	pixel_x = 1;
-	pixel_y = -30
-	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	network = list("evac");
 	pixel_x = 32;
 	pixel_y = -1
 	},
+/obj/item/radio/intercom/directional/south,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "No" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/stasis,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = 31;
-	pixel_y = -1
-	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/defibrillator_mount/loaded/directional/east,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Ns" = (
@@ -595,7 +605,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Pw" = (
-/obj/effect/turf_decal/delivery,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -621,10 +630,6 @@
 /obj/effect/turf_decal/trimline/dark/warning{
 	dir = 8
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 32;
-	pixel_y = -1
-	},
 /obj/item/lazarus_injector,
 /mob/living/simple_animal/bot/medbot{
 	name = "\improper emergency medibot";
@@ -634,6 +639,7 @@
 /obj/structure/sign/poster/official/help_others{
 	pixel_y = -32
 	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "Up" = (
@@ -652,7 +658,7 @@
 	req_one_access_txt = "2;19"
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/mineral/plastitanium/red/brig,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "Ys" = (
 /obj/structure/shuttle/engine/large,
@@ -679,6 +685,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/open/floor/noslip/dark,
 /area/shuttle/escape)
 
@@ -686,7 +693,7 @@
 xX
 wR
 xg
-Kb
+GT
 nL
 zK
 Mi
@@ -695,7 +702,7 @@ Aq
 Aq
 mC
 zK
-kF
+GQ
 vi
 Vn
 xX
@@ -719,31 +726,31 @@ pJ
 Ys
 "}
 (3,1,1) = {"
-Up
+GT
 bV
-UW
+cm
 wh
-Kb
+GT
 Ns
 Yt
 lm
 Ow
 gg
 Ae
-HD
+oK
 hT
 xQ
 EA
 rc
 "}
 (4,1,1) = {"
-Kb
+GT
 Ho
 UW
 Co
 Xn
 gy
-gy
+tF
 gy
 cc
 gg
@@ -773,17 +780,17 @@ nL
 xX
 "}
 (6,1,1) = {"
-Kb
+GT
 Pw
-HD
+oK
 vN
 nL
 gk
 KD
 OV
 rX
-jH
-dM
+nL
+GT
 mb
 nL
 nL
@@ -791,7 +798,7 @@ wR
 xX
 "}
 (7,1,1) = {"
-Kb
+GT
 se
 CU
 tQ
@@ -837,8 +844,8 @@ kF
 NC
 nL
 nL
-Up
-Up
+GT
+GT
 nL
 vi
 Vn
