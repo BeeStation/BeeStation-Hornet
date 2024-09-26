@@ -562,7 +562,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "aew" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -3000,7 +3000,7 @@
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "aCx" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/machinery/newscaster{
@@ -4172,7 +4172,7 @@
 /area/hallway/primary/fore)
 "aJY" = (
 /obj/structure/window/reinforced,
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -6322,7 +6322,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "aVF" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/machinery/computer/security/telescreen/engine{
@@ -6677,7 +6677,7 @@
 /turf/open/floor/iron/dark,
 /area/storage/tech)
 "aYo" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/machinery/newscaster{
 	pixel_y = 30
 	},
@@ -18885,7 +18885,7 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "cHd" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -22065,7 +22065,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
 "dmL" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/anticorner,
@@ -45363,7 +45363,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /turf/open/floor/iron/showroomfloor,
@@ -49656,7 +49656,7 @@
 	name = "Head of Security RC";
 	pixel_y = 30
 	},
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/item/storage/secure/safe/HoS{
 	pixel_x = 36;
 	pixel_y = 28
@@ -50583,7 +50583,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "nVt" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/machinery/computer/security/telescreen/cmo{
 	dir = 4;
 	pixel_x = 1;
@@ -52127,7 +52127,7 @@
 /area/maintenance/starboard/aft)
 "owo" = (
 /obj/machinery/airalarm/directional/east,
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /turf/open/floor/carpet/red,
@@ -56160,7 +56160,7 @@
 /turf/open/floor/iron,
 /area/engine/break_room)
 "pXt" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/item/book/manual/wiki/security_space_law,
@@ -59443,7 +59443,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
@@ -62552,7 +62552,7 @@
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 28
 	},
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/effect/turf_decal/tile/red/half{
 	dir = 4
 	},
@@ -63181,7 +63181,7 @@
 /turf/open/floor/iron,
 /area/construction/mining/aux_base)
 "syT" = (
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 1;
 	pixel_y = 4
 	},
@@ -67828,7 +67828,7 @@
 /turf/open/floor/wood,
 /area/lawoffice)
 "ugN" = (
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
 	},
@@ -68585,7 +68585,7 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "uvP" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
@@ -69933,7 +69933,7 @@
 /turf/open/floor/iron,
 /area/security/courtroom)
 "uWe" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -75336,7 +75336,7 @@
 "wVp" = (
 /obj/structure/table/wood,
 /obj/machinery/power/apc/auto_name/directional/north,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 8;
 	pixel_y = 4
 	},
@@ -75564,7 +75564,7 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "wZm" = (
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 4
 	},
 /obj/structure/table/reinforced,
