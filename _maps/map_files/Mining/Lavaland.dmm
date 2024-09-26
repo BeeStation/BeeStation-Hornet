@@ -319,8 +319,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Crew Area Hallway East";
-	dir = 5;
-	network = list("mine")
+	dir = 5
 	},
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/iron,
@@ -599,8 +598,7 @@
 /obj/item/folder/yellow,
 /obj/item/multitool,
 /obj/machinery/camera/directional/east{
-	c_tag = "Communications Relay";
-	network = list("mine")
+	c_tag = "Communications Relay"
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
@@ -636,8 +634,7 @@
 "eZ" = (
 /obj/machinery/camera{
 	c_tag = "Crew Area";
-	dir = 9;
-	network = list("mine")
+	dir = 9
 	},
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -1613,8 +1610,7 @@
 /area/mine/eva)
 "lt" = (
 /obj/machinery/camera/directional/east{
-	c_tag = "Sleeper Room";
-	network = list("mine")
+	c_tag = "Sleeper Room"
 	},
 /obj/structure/table,
 /obj/item/storage/firstaid/medical,
@@ -2106,8 +2102,7 @@
 /area/mine/science)
 "pu" = (
 /obj/machinery/camera/directional/south{
-	c_tag = "Labor Camp Processing Area";
-	network = list("labor")
+	c_tag = "Labor Camp Processing Area"
 	},
 /turf/open/floor/iron,
 /area/mine/laborcamp)
@@ -2149,8 +2144,7 @@
 "pF" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp External";
-	dir = 5;
-	network = list("labor")
+	dir = 5
 	},
 /obj/structure/closet/emcloset,
 /mob/living/simple_animal/bot/atmosbot{
@@ -2347,8 +2341,7 @@
 "rq" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/camera/directional/north{
-	c_tag = "Labor Camp Monitoring";
-	network = list("labor")
+	c_tag = "Labor Camp Monitoring"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -2979,8 +2972,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/directional/west{
-	c_tag = "Dormitories";
-	network = list("mine")
+	c_tag = "Dormitories"
 	},
 /turf/open/floor/wood,
 /area/mine/living_quarters)
@@ -3527,8 +3519,7 @@
 /obj/item/plant_analyzer,
 /obj/machinery/camera{
 	c_tag = "Labor Camp Hydroponics";
-	dir = 9;
-	network = list("labor")
+	dir = 9
 	},
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
@@ -3716,8 +3707,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/directional/south{
-	c_tag = "Labor Camp Foyer";
-	network = list("labor")
+	c_tag = "Labor Camp Foyer"
 	},
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -3815,8 +3805,7 @@
 "Ch" = (
 /obj/machinery/light/small,
 /obj/machinery/camera/directional/south{
-	c_tag = "Mining area External";
-	network = list("labor")
+	c_tag = "Mining area External"
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/eva)
@@ -4314,8 +4303,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland,
 /obj/structure/chair/office,
 /obj/machinery/camera/directional/east{
-	c_tag = "Communications Relay";
-	network = list("mine")
+	c_tag = "Communications Relay"
 	},
 /turf/open/floor/iron,
 /area/mine/science)
@@ -4672,8 +4660,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Gateway";
-	dir = 4;
-	network = list("mine")
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/mine/gateway)
@@ -4992,8 +4979,7 @@
 /area/mine/science)
 "Ki" = (
 /obj/machinery/camera/directional/west{
-	c_tag = "Infirmary";
-	network = list("mine")
+	c_tag = "Infirmary"
 	},
 /turf/open/floor/iron/white,
 /area/mine/living_quarters)
@@ -5096,8 +5082,7 @@
 	},
 /obj/item/toy/cards/deck,
 /obj/machinery/camera/directional/west{
-	c_tag = "Labor Camp Common area";
-	network = list("labor")
+	c_tag = "Labor Camp Common area"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/mine/laborcamp)
@@ -5421,8 +5406,7 @@
 /obj/structure/closet/secure_closet/brig,
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera/directional/east{
-	c_tag = "Labor Camp Storage";
-	network = list("labor")
+	c_tag = "Labor Camp Storage"
 	},
 /turf/open/floor/iron,
 /area/mine/laborcamp)
@@ -5769,8 +5753,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
 /obj/machinery/camera/directional/east{
-	c_tag = "Labor Camp Infirmary";
-	network = list("labor")
+	c_tag = "Labor Camp Infirmary"
 	},
 /turf/open/floor/iron/white,
 /area/mine/laborcamp)
@@ -6303,8 +6286,7 @@
 "UD" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/machinery/camera/directional/north{
-	c_tag = "Storage and Locker room";
-	network = list("mine")
+	c_tag = "Storage and Locker room"
 	},
 /turf/open/floor/iron/dark,
 /area/mine/production)
@@ -6507,8 +6489,7 @@
 "Vy" = (
 /obj/machinery/camera{
 	c_tag = "Crew Area Hallway West";
-	dir = 5;
-	network = list("mine")
+	dir = 5
 	},
 /turf/open/floor/iron,
 /area/mine/living_quarters)
@@ -7145,8 +7126,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/directional/west{
-	c_tag = "EVA";
-	network = list("mine")
+	c_tag = "EVA"
 	},
 /turf/open/floor/mech_bay_recharge_floor,
 /area/mine/eva)
