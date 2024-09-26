@@ -36,6 +36,7 @@
 	var/candrain = 0
 	var/mindrain = 200
 	var/maxdrain = 400
+	var/datum/martial_art/ninja/style = new
 
 
 /obj/item/clothing/gloves/space_ninja/Touch(atom/A,proximity)
