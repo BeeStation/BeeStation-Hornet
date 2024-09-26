@@ -4,6 +4,7 @@
 	var/list/obj/machinery/camera/motioncameras = list()
 	var/list/datum/weakref/motionTargets = list()
 	sound_environment = SOUND_ENVIRONMENT_ROOM
+	camera_networks = list(CAMERA_NETWORK_AI_UPLOAD)
 
 /area/ai_monitored/Initialize(mapload)
 	. = ..()
