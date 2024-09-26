@@ -262,7 +262,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 	target.crimes.Cut()
 	target.security_note = "None."
 	target.wanted_status = WANTED_NONE
-	update_matching_security_huds(target.name)
 	return TRUE
 
 /// Only qualified personnel can edit records.

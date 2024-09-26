@@ -72,6 +72,7 @@
 				for(var/datum/record/crew/entry in GLOB.manifest.general)
 					expunge_record_info(entry)
 
+				update_all_security_huds()
 				balloon_alert(user, "records purged")
 				playsound(src, 'sound/machines/terminal_off.ogg', 70, TRUE)
 

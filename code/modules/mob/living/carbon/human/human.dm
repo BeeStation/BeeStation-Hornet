@@ -447,7 +447,7 @@
 	if(judgment_criteria & JUDGE_RECORDCHECK)
 		var/perpname = get_face_name(get_id_name())
 		var/datum/record/crew/target = find_record(perpname)
-		if(!target)
+		if(target)
 			switch(target.wanted_status)
 				if(WANTED_ARREST)
 					threatcount += 5
