@@ -4,4 +4,4 @@
 	no_guns = TRUE
 
 /obj/item/clothing/gloves/space_ninja
-	var/datum/martial_art/ninja/style = new
+
