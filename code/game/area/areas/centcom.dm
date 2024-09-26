@@ -88,6 +88,7 @@
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
+	camera_networks = list(CAMERA_NETWORK_THUNDERDOME)
 
 /area/tdome/arena
 	name = "Thunderdome Arena"

@@ -9,6 +9,7 @@
 	ambient_buzz = 'sound/ambience/magma.ogg'
 	ambient_buzz_vol = 10
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
+	camera_networks = list(CAMERA_NETWORK_MINE)
 
 /area/mine/explored
 	name = "Mine"
