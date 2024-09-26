@@ -371,8 +371,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron,
 /area/mine/gateway)
 "dl" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
@@ -1046,6 +1045,8 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/mine/gateway)
 "ht" = (
@@ -1829,9 +1830,6 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
 /area/mine/laborcamp/security)
-"mU" = (
-/turf/closed/wall/r_wall,
-/area/mine/gateway)
 "mW" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating/lavaland,
@@ -2088,6 +2086,8 @@
 /obj/structure/closet/crate{
 	opened = 1
 	},
+/obj/item/toy/plush/moth/bluespace,
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/mine/gateway)
 "pj" = (
@@ -2267,6 +2267,7 @@
 /area/mine/science)
 "qn" = (
 /obj/structure/reagent_dispensers/fueltank,
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/mine/gateway)
 "qs" = (
@@ -2326,10 +2327,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/laborcamp/security)
-"qW" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/mine/gateway)
 "qZ" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -2441,6 +2438,7 @@
 /area/mine/science)
 "rU" = (
 /obj/structure/reagent_dispensers/watertank,
+/obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating,
 /area/mine/gateway)
 "rW" = (
@@ -2570,7 +2568,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating,
+/turf/open/floor/iron/techmaint,
 /area/mine/gateway)
 "ta" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -3488,7 +3486,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plating,
+/turf/open/floor/iron/techmaint,
 /area/mine/gateway)
 "zD" = (
 /obj/structure/table,
@@ -3938,8 +3936,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron,
 /area/mine/gateway)
 "De" = (
 /obj/structure/stone_tile/block{
@@ -4820,6 +4817,7 @@
 /area/mine/eva)
 "Jc" = (
 /obj/machinery/space_heater,
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/mine/gateway)
 "Jf" = (
@@ -5995,6 +5993,8 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/mine/gateway)
 "Sf" = (
@@ -35442,8 +35442,8 @@ RR
 RR
 RR
 xT
-xT
-mU
+RR
+To
 rU
 Jc
 Xj
@@ -35700,7 +35700,7 @@ RR
 RR
 RR
 RR
-mU
+To
 Sd
 qn
 Xj
@@ -35957,7 +35957,7 @@ RR
 RR
 RR
 RR
-mU
+To
 ho
 pg
 Xj
@@ -36210,13 +36210,13 @@ RR
 RR
 RR
 RR
-mU
-mU
-mU
-mU
-mU
+To
+To
+To
+To
+To
 sU
-mU
+To
 Xj
 GI
 Wt
@@ -37243,7 +37243,7 @@ xg
 OF
 AM
 tf
-qW
+WM
 wD
 ri
 CF
