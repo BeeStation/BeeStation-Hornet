@@ -51,9 +51,11 @@
 
 /obj/item/gun/ballistic/bow/afterattack(atom/target, mob/living/user, flag, params, aimed)
 	. = ..()
+	if(user.do_afters)
+		return
 	if(get_ammo())
 		var/obj/item/I = user.get_active_held_item()
-		if (do_after(user, pulltime SECONDS, I, IGNORE_USER_LOC_CHANGE))
+		if(do_after(user, pulltime SECONDS, I, IGNORE_USER_LOC_CHANGE))
 			to_chat(user, "<span class='notice'>You draw back the bowstring.</span>")
 			playsound(src, 'sound/weapons/bowdraw.ogg', 75, 0) //gets way too high pitched if the freq varies
 			chamber_round()
@@ -75,7 +77,7 @@
 	update_icon()
 
 /obj/item/gun/ballistic/bow/attack_self(mob/living/user)
-	if (user.do_afters)
+	if(user.do_afters)
 		return
 	if(chambered && bowstring != "disabler")
 		var/obj/item/ammo_casing/AC = magazine.get_round(0)
@@ -178,8 +180,6 @@
 			playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
 			update_icon()
 			return
-	if(bowstring == "disabler")
-		return //we return at this point to avoid trying to load arrows into energy bows
 	if(magazine.attackby(I, user, params, 1))
 		to_chat(user, "<span class='notice'>You notch the arrow.</span>")
 		update_icon()
