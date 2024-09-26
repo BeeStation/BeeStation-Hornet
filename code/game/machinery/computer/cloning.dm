@@ -648,7 +648,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	R.uni_identity = dna.uni_identity
 	R.SE = dna.mutation_index
 	R.blood_type = dna.blood_type
-	R.dna_ref = REF(dna)
+	R.dna_ref = dna
 	R.factions = mob_occupant.faction
 	R.traumas = list()
 	R.age = C.age
@@ -668,7 +668,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 
 	R.bank_account = has_bank_account
 	if(!experimental)
-		R.mind_ref = "[REF(mob_occupant.mind)]"
+		R.mind_ref = mob_occupant.mind
 		R.last_death = (mob_occupant.stat == DEAD && mob_occupant.mind) ? mob_occupant.mind.last_death : -1
 		R.body_only = body_only
 	else
