@@ -626,7 +626,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	player_minimum = 25
 	restricted = TRUE
 	refundable = TRUE
-	disabled = TRUE	// #11096: Currently in a broken state, cannot recall as they will immediately manifest and cannot move despite having range stats.
 
 /**
  * Only allow holoparasites to be refunded if the injector is unused.
@@ -2368,7 +2367,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	player_minimum = 25
 	restricted = TRUE
 	restricted_roles = list(JOB_NAME_COOK, JOB_NAME_CHAPLAIN)
-	disabled = TRUE	// #11096: Currently in a broken state, cannot recall as they will immediately manifest and cannot move despite having range stats.
 
 /datum/uplink_item/role_restricted/ez_clean_bundle
 	name = "EZ Clean Grenade Bundle"
