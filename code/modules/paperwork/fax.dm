@@ -537,6 +537,17 @@
 	radio.keyslot = new /obj/item/encryptionkey/headset_cargo
 	radio.recalculateChannels()
 
+/obj/machinery/fax/cargo/lavaland
+	name = "Mining Fax Machine"
+	fax_name = "Cargo"
+	radio_channel = RADIO_CHANNEL_SUPPLY
+
+/obj/machinery/fax/cargo/lavaland/Initialize(mapload)
+	. = ..()
+	radio.on = TRUE
+	radio.keyslot = new /obj/item/encryptionkey/headset_cargo
+	radio.recalculateChannels()
+
 /obj/machinery/fax/eng
 	name = "Engineering Fax Machine"
 	fax_name = "Engineering"
@@ -545,6 +556,17 @@
 /obj/machinery/fax/eng/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
+	radio.keyslot = new /obj/item/encryptionkey/headset_eng
+	radio.recalculateChannels()
+
+/obj/machinery/fax/eng/lavaland
+	name = "Lavaland Atmospherics Fax Machine"
+	fax_name = "Engineering"
+	radio_channel = RADIO_CHANNEL_ENGINEERING
+
+/obj/machinery/fax/eng/lavaland/Initialize(mapload)
+	. = ..()
+	radio.on = TRUE
 	radio.keyslot = new /obj/item/encryptionkey/headset_eng
 	radio.recalculateChannels()
 
@@ -581,6 +603,17 @@
 	radio.keyslot = new /obj/item/encryptionkey/headset_sci
 	radio.recalculateChannels()
 
+/obj/machinery/fax/sci/lavaland
+	name = "Science Outpost Fax Machine"
+	fax_name = "Security"
+	radio_channel = RADIO_CHANNEL_SECURITY
+
+/obj/machinery/fax/sci/lavaland/Initialize(mapload)
+	. = ..()
+	radio.on = TRUE
+	radio.keyslot = new /obj/item/encryptionkey/headset_sec
+	radio.recalculateChannels()
+
 /obj/machinery/fax/sec
 	name = "Security Fax Machine"
 	fax_name = "Security"
@@ -589,6 +622,17 @@
 /obj/machinery/fax/sec/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
+	radio.keyslot = new /obj/item/encryptionkey/headset_sec
+	radio.recalculateChannels()
+
+/obj/machinery/fax/sec/lavaland
+	name = "Gulag Fax Machine"
+	fax_name = "Security"
+	radio_channel = RADIO_CHANNEL_SECURITY
+
+/obj/machinery/fax/sec/lavaland/Initialize(mapload)
+	. = ..()
+	radio.on = TRUE
 	radio.keyslot = new /obj/item/encryptionkey/headset_sec
 	radio.recalculateChannels()
 

@@ -78,6 +78,12 @@
 	name = "Forgotten Ruin"
 	icon_state = "dk_yellow"
 
+//Nanite Ruin
+
+/area/ruin/powered/nanite_ruin
+	name = "Nanite Ruins"
+	requires_power = TRUE
+
 //Xeno Nest
 
 /area/ruin/unpowered/xenonest
@@ -93,3 +99,7 @@
 /area/ruin/unpowered/ash_walkers
 	icon_state = "red"
 	ambient_buzz = 'sound/ambience/magma.ogg'
+
+
+/area/ruin/unpowered/gas_miner
+	name = "Atmospherics Gas Miner"

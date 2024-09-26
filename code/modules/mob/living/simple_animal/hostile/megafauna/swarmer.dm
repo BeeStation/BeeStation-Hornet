@@ -63,25 +63,28 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	var/call_help_cooldown = 0
 	var/call_help_cooldown_amt = 150 //Deciseconds between calling swarmers to help us when attacked
 	var/static/list/swarmer_caps
+	var/active = TRUE
 	del_on_death = TRUE
 
 
 /mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/Initialize(mapload)
 	. = ..()
-	swarmer_caps = GLOB.AISwarmerCapsByType //for admin-edits
-	for(var/ddir in GLOB.cardinals)
-		new /obj/structure/swarmer/blockade (get_step(src, ddir))
-		var/mob/living/simple_animal/hostile/swarmer/ai/resource/R = new(loc)
-		step(R, ddir) //Step the swarmers, instead of spawning them there, incase the turf is solid
+	if(active)
+		swarmer_caps = GLOB.AISwarmerCapsByType //for admin-edits
+		for(var/ddir in GLOB.cardinals)
+			new /obj/structure/swarmer/blockade (get_step(src, ddir))
+			var/mob/living/simple_animal/hostile/swarmer/ai/resource/R = new(loc)
+			step(R, ddir) //Step the swarmers, instead of spawning them there, incase the turf is solid
 
 
 /mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/Life()
 	. = ..()
 	if(.)
-		var/createtype = GetUncappedAISwarmerType()
-		if(createtype && world.time > swarmer_spawn_cooldown && GLOB.AISwarmers.len < (GetTotalAISwarmerCap()*0.5))
-			swarmer_spawn_cooldown = world.time + swarmer_spawn_cooldown_amt
-			new createtype(loc)
+		if(active)
+			var/createtype = GetUncappedAISwarmerType()
+			if(createtype && world.time > swarmer_spawn_cooldown && GLOB.AISwarmers.len < (GetTotalAISwarmerCap()*0.5))
+				swarmer_spawn_cooldown = world.time + swarmer_spawn_cooldown_amt
+				new createtype(loc)
 
 
 /mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
@@ -90,6 +93,8 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		call_help_cooldown = world.time + call_help_cooldown_amt
 		summon_backup(25) //long range, only called max once per 15 seconds, so it's not deathlag
 
+/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/inactivate
+	active = FALSE
 
 //SWARMER AI
 //AI versions of the swarmer mini-antag
