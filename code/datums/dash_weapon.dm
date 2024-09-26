@@ -5,7 +5,7 @@
 	button_icon_state = "jetboot"
 	var/current_charges = 1
 	var/max_charges = 1
-	var/charge_rate = 250
+	var/charge_rate = 700
 	var/obj/item/dashing_item
 	var/dash_sound = 'sound/magic/blink.ogg'
 	var/recharge_sound = 'sound/magic/charge.ogg'
