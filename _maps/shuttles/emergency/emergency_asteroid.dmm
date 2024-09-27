@@ -63,9 +63,6 @@
 "az" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
-"aB" = (
-/turf/closed/wall/mineral/titanium/interior,
-/area/shuttle/escape)
 "aE" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
@@ -1052,7 +1049,7 @@ aa
 (11,1,1) = {"
 qO
 qO
-aB
+az
 aJ
 Vz
 aZ
@@ -1082,7 +1079,7 @@ aa
 (13,1,1) = {"
 qO
 qO
-aB
+az
 aK
 Vz
 aZ
@@ -1142,7 +1139,7 @@ aa
 (17,1,1) = {"
 qO
 qO
-aB
+az
 bK
 Vz
 aZ
@@ -1172,7 +1169,7 @@ aa
 (19,1,1) = {"
 qO
 qO
-aB
+az
 Dx
 Vz
 aZ
