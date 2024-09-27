@@ -1529,7 +1529,7 @@
 /area/crew_quarters/bar)
 "aqo" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/directional/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -1539,7 +1539,6 @@
 /obj/effect/turf_decal/tile/purple,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -1981,7 +1980,6 @@
 /obj/machinery/camera/directional/east{
 	c_tag = "Xenobiology Computers";
 	name = "xenobiology camera";
-	network = list("ss13","rd","xeno");
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -1995,7 +1993,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/sink{
@@ -5490,8 +5487,7 @@
 	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Mining Dock";
-	name = "cargo camera";
-	network = list("ss13","qm")
+	name = "cargo camera"
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -5499,7 +5495,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/vendor/mining,
@@ -6659,13 +6654,11 @@
 /obj/machinery/camera{
 	c_tag = "Recovery Room";
 	name = "cloning camera";
-	network = list("ss13","medical");
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/light_switch{
@@ -8179,8 +8172,7 @@
 	},
 /obj/machinery/camera/directional/east{
 	c_tag = "Toxins Burn Chamber";
-	name = "science camera";
-	network = list("ss13","rd")
+	name = "science camera"
 	},
 /obj/machinery/airalarm/mixingchamber{
 	dir = 4;
@@ -8192,7 +8184,6 @@
 /obj/effect/turf_decal/bot,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/bot,
@@ -8218,8 +8209,7 @@
 	},
 /obj/machinery/camera/directional/west{
 	c_tag = "Gravity Generator Foyer";
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/machinery/button/door{
 	id = "gravity";
@@ -8233,7 +8223,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -10582,15 +10571,13 @@
 	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Laser Room Starboard";
-	name = "laser room camera";
-	network = list("ss13","engine")
+	name = "laser room camera"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/airalarm/directional/south{
@@ -12725,7 +12712,6 @@
 /obj/machinery/camera{
 	c_tag = "Cloning Lab";
 	name = "medical camera";
-	network = list("ss13","medical");
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -12733,7 +12719,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/extinguisher_cabinet{
@@ -13856,14 +13841,11 @@
 /obj/structure/noticeboard{
 	pixel_y = 30
 	},
-/obj/machinery/camera/directional/north{
-	network = list("ss13", "security")
-	},
+/obj/machinery/camera/directional/north,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/landmark/secequipment,
@@ -15337,15 +15319,13 @@
 /obj/item/stock_parts/subspace/treatment,
 /obj/machinery/camera/directional/north{
 	c_tag = "Telecomms Storage";
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/rack,
@@ -17364,15 +17344,13 @@
 /area/quartermaster/warehouse)
 "dEV" = (
 /obj/machinery/computer/security/qm{
-	dir = 1;
-	network = list("mine","auxbase","vault","qm")
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/computer/security/qm{
@@ -17750,7 +17728,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "dLY" = (
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 8
 	},
 /obj/machinery/airalarm/server{
@@ -17761,7 +17739,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -17788,15 +17765,13 @@
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Research Director's Office";
-	name = "science camera";
-	network = list("ss13","rd")
+	name = "science camera"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/closet/secure_closet/RD,
@@ -18359,12 +18334,10 @@
 	},
 /obj/machinery/camera/motion/directional/south{
 	c_tag = "Vault";
-	name = "vault camera";
-	network = list("vault")
+	name = "vault camera"
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -19278,14 +19251,11 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/machinery/camera/autoname{
-	network = list("ss13", "prison", "security")
-	},
+/obj/machinery/camera,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /obj/effect/turf_decal/tile/neutral,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
@@ -19446,8 +19416,7 @@
 "eoU" = (
 /obj/machinery/camera/directional/north{
 	c_tag = "Chief Medical Officer's Office";
-	name = "medical camera";
-	network = list("ss13","medical")
+	name = "medical camera"
 	},
 /obj/machinery/computer/med_data,
 /obj/machinery/newscaster{
@@ -19462,7 +19431,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/bot,
@@ -19858,15 +19826,13 @@
 /obj/item/wrench,
 /obj/machinery/camera/directional/east{
 	c_tag = "Vacant Commissary";
-	name = "cargo camera";
-	network = list("ss13","qm")
+	name = "cargo camera"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/rack,
@@ -21316,13 +21282,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/camera/autoname,
+/obj/machinery/camera,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/sign/poster/official/random{
@@ -21404,8 +21369,7 @@
 "eTG" = (
 /obj/machinery/camera/directional/west{
 	c_tag = "Supermatter Terminal";
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/machinery/light_switch{
 	pixel_x = -22;
@@ -21418,7 +21382,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -22500,7 +22463,7 @@
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -22512,7 +22475,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -22563,11 +22525,7 @@
 /area/tcommsat/computer)
 "foI" = (
 /obj/structure/table,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for monitoring medbay to ensure patient safety.";
-	name = "Medbay Monitor";
-	network = list("medical")
-	},
+/obj/machinery/computer/security/telescreen/cmo,
 /obj/machinery/requests_console{
 	department = "Security";
 	departmentType = 5;
@@ -22580,7 +22538,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/tile/neutral,
@@ -23805,15 +23762,13 @@
 "fLl" = (
 /obj/machinery/camera/directional/east{
 	c_tag = "Satellite Foyer";
-	name = "satellite camera";
-	network = list("minisat")
+	name = "satellite camera"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -23838,7 +23793,7 @@
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = 32
 	},
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
@@ -23846,7 +23801,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/corner,
@@ -24143,9 +24097,7 @@
 /turf/open/floor/plating,
 /area/security/warden)
 "fQz" = (
-/obj/machinery/camera/autoname/directional/west{
-	network = list("ss13", "security")
-	},
+/obj/machinery/camera/directional/west,
 /obj/item/kirbyplants{
 	icon_state = "plant-02";
 	pixel_y = 3
@@ -24155,7 +24107,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/decal/cleanable/blood/old,
@@ -24919,12 +24870,10 @@
 	},
 /obj/machinery/camera/directional/east{
 	c_tag = "Satellite Atmospherics";
-	name = "satellite camera";
-	network = list("minisat")
+	name = "satellite camera"
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/ai_slipper{
@@ -25186,12 +25135,10 @@
 /obj/machinery/computer/nanite_chamber_control,
 /obj/machinery/camera/directional/north{
 	c_tag = "Nanite Lab";
-	name = "science camera";
-	network = list("ss13","rd")
+	name = "science camera"
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/bot,
@@ -25435,13 +25382,11 @@
 	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Chemistry";
-	name = "medical camera";
-	network = list("ss13","medical")
+	name = "medical camera"
 	},
 /obj/effect/turf_decal/bot,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/disposal/bin,
@@ -26186,8 +26131,7 @@
 	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Atmospherics Aft Tanks";
-	name = "atmospherics camera";
-	network = list("ss13","engine")
+	name = "atmospherics camera"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -26197,7 +26141,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/yellow/visible,
@@ -27610,7 +27553,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "gXX" = (
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/directional/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -27620,7 +27563,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -27777,8 +27719,7 @@
 "gZZ" = (
 /obj/machinery/camera/directional/west{
 	c_tag = "Atmospherics Port Tanks";
-	name = "atmospherics camera";
-	network = list("ss13","engine")
+	name = "atmospherics camera"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -27789,7 +27730,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/camera/directional/west{
@@ -28314,14 +28254,12 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /obj/machinery/camera/directional/east{
 	c_tag = "Atmospherics Entrance";
-	name = "atmospherics camera";
-	network = list("ss13","engine")
+	name = "atmospherics camera"
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /obj/effect/turf_decal/tile/blue,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
@@ -28503,15 +28441,12 @@
 /area/science/research)
 "hnm" = (
 /obj/item/kirbyplants/random,
-/obj/machinery/camera/directional/north{
-	network = list("ss13", "prison")
-	},
+/obj/machinery/camera/directional/north,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -29245,8 +29180,7 @@
 	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Xenobiology Closet";
-	name = "xenobiology camera";
-	network = list("ss13","rd","xeno")
+	name = "xenobiology camera"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -29259,7 +29193,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/light_switch{
@@ -29477,15 +29410,13 @@
 	},
 /obj/machinery/camera/directional/east{
 	c_tag = "Science Security Post";
-	name = "science camera";
-	network = list("ss13","rd")
+	name = "science camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table,
@@ -29766,13 +29697,11 @@
 	},
 /obj/machinery/camera/directional/east{
 	c_tag = "Auxiliary Base Construction";
-	name = "cargo camera";
-	network = list("ss13","qm")
+	name = "cargo camera"
 	},
 /obj/effect/landmark/blobstart,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -30123,15 +30052,12 @@
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
-/obj/machinery/camera/autoname/directional/east{
-	network = list("ss13", "security")
-	},
+/obj/machinery/camera/directional/east,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/item/radio{
@@ -30552,8 +30478,7 @@
 "iaD" = (
 /obj/machinery/camera/directional/east{
 	c_tag = "Supermatter Waste Line";
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/machinery/button/door{
 	id = "engineaccess";
@@ -30566,7 +30491,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -30751,7 +30675,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 10
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -30762,7 +30686,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -31357,9 +31280,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/camera/directional/north{
-	network = list("ss13", "security")
-	},
+/obj/machinery/camera/directional/north,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -31371,7 +31292,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/airalarm/directional/north,
@@ -31909,7 +31829,6 @@
 /obj/machinery/camera{
 	c_tag = "Medbay Lobby";
 	name = "medical camera";
-	network = list("ss13","medical");
 	dir = 1
 	},
 /obj/item/kirbyplants{
@@ -31917,7 +31836,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/digital_clock/directional/north,
@@ -33230,13 +33148,11 @@
 	},
 /obj/machinery/camera/directional/west{
 	c_tag = "Cargo Lockers";
-	name = "cargo camera";
-	network = list("ss13","qm")
+	name = "cargo camera"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/vending/wardrobe/cargo_wardrobe,
@@ -33559,15 +33475,13 @@
 /obj/machinery/portable_atmospherics/canister,
 /obj/machinery/camera/directional/east{
 	c_tag = "Incinerator";
-	name = "atmospherics camera";
-	network = list("ss13","engine")
+	name = "atmospherics camera"
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -37558,8 +37472,7 @@
 /obj/machinery/airalarm/directional/north,
 /obj/machinery/camera/directional/north{
 	c_tag = "Virology - Testing pens";
-	name = "virology camera";
-	network = list("ss13","medbay")
+	name = "virology camera"
 	},
 /obj/item/food/cheese/wheel{
 	pixel_x = 18
@@ -37574,7 +37487,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/airalarm/directional/north,
@@ -38361,8 +38273,7 @@
 	},
 /obj/machinery/camera/directional/west{
 	c_tag = "Engineering Foyer";
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
@@ -38378,7 +38289,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/item/kirbyplants{
@@ -38637,12 +38547,10 @@
 "kND" = (
 /obj/machinery/camera/directional/south{
 	c_tag = "Gravity Generator";
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -39152,12 +39060,10 @@
 	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Server Room";
-	name = "science camera";
-	network = list("ss13","rd")
+	name = "science camera"
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table,
@@ -39767,8 +39673,7 @@
 "ljJ" = (
 /obj/machinery/camera/directional/south{
 	c_tag = "Medical Security Post";
-	name = "medical camera";
-	network = list("ss13","medical")
+	name = "medical camera"
 	},
 /obj/machinery/light,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -39780,7 +39685,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/camera/directional/south{
@@ -39956,16 +39860,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/camera/directional/north{
-	network = list("ss13", "security")
-	},
+/obj/machinery/camera/directional/north,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wideplating/dark,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/power/apc{
@@ -40005,8 +39906,7 @@
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Atmospherics Scrubbers";
-	name = "atmospherics camera";
-	network = list("ss13","engine")
+	name = "atmospherics camera"
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
@@ -40016,7 +39916,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -40061,13 +39960,11 @@
 /obj/machinery/camera{
 	c_tag = "Port Quarter Solar";
 	dir = 9;
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/effect/landmark/xeno_spawn,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -40299,8 +40196,7 @@
 /obj/machinery/camera{
 	c_tag = "Recovery Room";
 	dir = 10;
-	name = "medical camera";
-	network = list("ss13","medical")
+	name = "medical camera"
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24
@@ -40312,7 +40208,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -40696,15 +40591,13 @@
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Starboard Quarter Solar";
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/delivery,
@@ -40880,7 +40773,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "lAr" = (
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/directional/west,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
@@ -40895,7 +40788,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -40933,8 +40825,7 @@
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Engineering Desk";
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -40946,7 +40837,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/airalarm/directional/north{
@@ -41392,15 +41282,13 @@
 /obj/machinery/shieldgen,
 /obj/machinery/camera/directional/west{
 	c_tag = "Secure Storage";
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/delivery,
@@ -42908,14 +42796,11 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/camera/autoname/directional/west{
-	network = list("ss13", "security")
-	},
+/obj/machinery/camera/directional/west,
 /obj/machinery/rnd/production/techfab/department/security,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/reagent_dispensers/peppertank{
@@ -43192,7 +43077,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -43200,7 +43085,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable/yellow{
@@ -43342,15 +43226,13 @@
 /area/maintenance/disposal/incinerator)
 "mua" = (
 /obj/machinery/computer/security/qm{
-	dir = 8;
-	network = list("mine","auxbase","vault","qm")
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/computer/security/qm{
@@ -44043,13 +43925,11 @@
 "mJx" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/camera/motion/directional/south{
-	c_tag = "Armory - External";
-	network = list("ss13", "prison")
+	c_tag = "Armory - External"
 	},
 /obj/effect/turf_decal/sand/plating,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -44886,13 +44766,11 @@
 "mZw" = (
 /obj/machinery/camera/directional/east{
 	c_tag = "Recovery Room";
-	name = "medical camera";
-	network = list("ss13","medical")
+	name = "medical camera"
 	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
@@ -44942,14 +44820,11 @@
 /obj/machinery/light_switch{
 	pixel_x = 25
 	},
-/obj/machinery/camera/autoname/directional/east{
-	network = list("ss13", "security")
-	},
+/obj/machinery/camera/directional/east,
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/effect/turf_decal/tile/neutral,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -45602,8 +45477,7 @@
 	pixel_x = -26
 	},
 /obj/machinery/camera/directional/west{
-	c_tag = "Brig Cells";
-	network = list("ss13", "prison")
+	c_tag = "Brig Cells"
 	},
 /obj/machinery/light/small,
 /obj/effect/turf_decal/tile/neutral{
@@ -45611,7 +45485,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/corner,
@@ -45682,8 +45555,7 @@
 /obj/machinery/camera{
 	c_tag = "Exploration Dock";
 	dir = 9;
-	name = "science camera";
-	network = list("ss13","rd")
+	name = "science camera"
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 1
@@ -45693,7 +45565,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -46649,15 +46520,13 @@
 /obj/machinery/airalarm/directional/east,
 /obj/machinery/camera/directional/east{
 	c_tag = "Cargo Ramps";
-	name = "cargo camera";
-	network = list("ss13","qm")
+	name = "cargo camera"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/bot,
@@ -49053,12 +48922,10 @@
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Port Bow Solar";
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/power/solar_control{
@@ -49409,8 +49276,7 @@
 "ouS" = (
 /obj/machinery/camera/directional/west{
 	c_tag = "Telecomms Monitoring";
-	name = "telecomms camera";
-	network = list("ss13","tcomms")
+	name = "telecomms camera"
 	},
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -49428,7 +49294,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/camera/directional/west{
@@ -49591,7 +49456,6 @@
 /obj/machinery/camera{
 	c_tag = "Virology - Testing pens";
 	name = "virology camera";
-	network = list("ss13","medbay");
 	dir = 10
 	},
 /obj/structure/table/glass,
@@ -49606,7 +49470,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -49828,8 +49691,7 @@
 "oAH" = (
 /obj/machinery/camera/directional/south{
 	c_tag = "Medical Security Post";
-	name = "medical camera";
-	network = list("ss13","medical")
+	name = "medical camera"
 	},
 /obj/structure/closet/secure_closet/security/med,
 /obj/item/book/manual/wiki/security_space_law,
@@ -49842,7 +49704,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/camera/directional/south{
@@ -49944,8 +49805,7 @@
 "oCg" = (
 /obj/machinery/camera/directional/south{
 	c_tag = "Xenobiology Entrance";
-	name = "science camera";
-	network = list("ss13","rd")
+	name = "science camera"
 	},
 /obj/machinery/light/small,
 /obj/structure/cable/yellow{
@@ -49965,7 +49825,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -50742,15 +50601,13 @@
 /obj/machinery/suit_storage_unit/atmos,
 /obj/machinery/camera/directional/north{
 	c_tag = "Atmospherics Lockers";
-	name = "atmospherics camera";
-	network = list("ss13","engine")
+	name = "atmospherics camera"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/suit_storage_unit/atmos,
@@ -51840,15 +51697,13 @@
 	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Laser Room Port";
-	name = "laser room camera";
-	network = list("ss13","engine")
+	name = "laser room camera"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/firealarm{
@@ -52273,13 +52128,11 @@
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Secure Tech Storage";
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -53188,15 +53041,13 @@
 	},
 /obj/machinery/camera/directional/west{
 	c_tag = "Xenobiology Labs";
-	name = "xenobiology camera";
-	network = list("ss13","rd","xeno")
+	name = "xenobiology camera"
 	},
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 8
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/airalarm/directional/west{
@@ -53452,12 +53303,10 @@
 	},
 /obj/machinery/camera/directional/east{
 	c_tag = "Telecomms Server Room";
-	name = "telecomms camera";
-	network = list("ss13","tcomms")
+	name = "telecomms camera"
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -55448,8 +55297,7 @@
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Quartermaster's Office";
-	name = "cargo camera";
-	network = list("ss13","qm")
+	name = "cargo camera"
 	},
 /obj/structure/disposalpipe/trunk,
 /obj/structure/cable/yellow{
@@ -55461,7 +55309,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/disposal/bin,
@@ -55527,12 +55374,10 @@
 "qzq" = (
 /obj/machinery/camera/directional/north{
 	c_tag = "Xenobiology Euthanization Chamber";
-	name = "xenobiology camera";
-	network = list("ss13","rd","xeno")
+	name = "xenobiology camera"
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -56937,8 +56782,7 @@
 	},
 /obj/machinery/camera/directional/east{
 	c_tag = "Cargo Office";
-	name = "cargo camera";
-	network = list("ss13","qm")
+	name = "cargo camera"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -56948,7 +56792,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table,
@@ -57139,8 +56982,7 @@
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Supermatter Cooler";
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/machinery/firealarm{
 	dir = 8;
@@ -57152,7 +56994,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/light{
@@ -57573,8 +57414,7 @@
 /obj/machinery/portable_atmospherics/pump,
 /obj/machinery/camera/directional/south{
 	c_tag = "Toxins Pumps";
-	name = "science camera";
-	network = list("ss13","rd")
+	name = "science camera"
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -57582,7 +57422,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/portable_atmospherics/pump,
@@ -58018,8 +57857,7 @@
 "rrA" = (
 /obj/machinery/camera/directional/south{
 	c_tag = "Satellite Antechamber";
-	name = "satellite camera";
-	network = list("minisat")
+	name = "satellite camera"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -58029,7 +57867,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/camera/directional/south{
@@ -58192,8 +58029,6 @@
 "ruH" = (
 /obj/machinery/computer/security/telescreen/cmo{
 	dir = 8;
-	name = "Chief Medical Officer's telescreen";
-	network = list("medical");
 	pixel_x = 28
 	},
 /obj/machinery/light{
@@ -58225,7 +58060,6 @@
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/computer/security/telescreen/cmo{
@@ -58558,14 +58392,11 @@
 /obj/machinery/light_switch{
 	pixel_x = 24
 	},
-/obj/machinery/camera/autoname/directional/east{
-	network = list("ss13", "security")
-	},
+/obj/machinery/camera/directional/east,
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/effect/turf_decal/tile/neutral,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/light_switch{
@@ -58822,15 +58653,13 @@
 	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Recovery Room";
-	name = "medical camera";
-	network = list("ss13","medical")
+	name = "medical camera"
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -59745,7 +59574,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -59753,7 +59582,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -60077,15 +59905,13 @@
 	},
 /obj/machinery/camera/directional/west{
 	c_tag = "Satellite Transit Access";
-	name = "satellite camera";
-	network = list("minisat")
+	name = "satellite camera"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -62142,8 +61968,7 @@
 "sMX" = (
 /obj/machinery/camera/directional/south{
 	c_tag = "Supermatter Engine";
-	name = "supermatter camera";
-	network = list("engine")
+	name = "supermatter camera"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -62153,7 +61978,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -62245,8 +62069,7 @@
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Operating Theatre";
-	name = "medical camera";
-	network = list("ss13","medical")
+	name = "medical camera"
 	},
 /obj/item/radio/intercom{
 	pixel_y = 24
@@ -62256,7 +62079,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -62380,8 +62202,7 @@
 /obj/machinery/camera{
 	c_tag = "Recovery Room";
 	dir = 8;
-	name = "medical camera";
-	network = list("ss13","medical")
+	name = "medical camera"
 	},
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
@@ -62394,7 +62215,6 @@
 /obj/effect/turf_decal/bot,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -62597,13 +62417,11 @@
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/machinery/camera/directional/south{
 	c_tag = "Atmospherics Desk";
-	name = "atmospherics camera";
-	network = list("ss13","engine")
+	name = "atmospherics camera"
 	},
 /obj/effect/turf_decal/delivery,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
@@ -62644,12 +62462,10 @@
 /obj/machinery/telecomms/receiver/preset_right,
 /obj/machinery/camera/directional/north{
 	c_tag = "Telecomms Server SMES";
-	name = "telecomms camera";
-	network = list("ss13","tcomms")
+	name = "telecomms camera"
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/telecomms/receiver/preset_right,
@@ -63232,15 +63048,13 @@
 /obj/effect/spawner/lootdrop/techstorage/engineering,
 /obj/machinery/camera/directional/south{
 	c_tag = "Tech Storage";
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/rack,
@@ -64182,7 +63996,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "tvJ" = (
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/directional/west,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -64194,7 +64008,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -65595,15 +65408,13 @@
 /obj/machinery/vending/wardrobe/engi_wardrobe,
 /obj/machinery/camera/directional/north{
 	c_tag = "Engineering Lockers";
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/vending/wardrobe/engi_wardrobe,
@@ -66111,14 +65922,13 @@
 /obj/machinery/vending/wallmed/lite{
 	pixel_y = 26
 	},
-/obj/machinery/camera/autoname/directional/north,
+/obj/machinery/camera/directional/north,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -67123,8 +66933,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Recovery Room";
-	name = "geneticscamera";
-	network = list("ss13","medical")
+	name = "geneticscamera"
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -67132,7 +66941,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/disposal/bin,
@@ -67772,13 +67580,11 @@
 	},
 /obj/machinery/camera/directional/west{
 	c_tag = "Satellite Maintenance";
-	name = "satellite camera";
-	network = list("minisat")
+	name = "satellite camera"
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -68092,13 +67898,11 @@
 	},
 /obj/machinery/camera/directional/east{
 	c_tag = "Toxins Storage";
-	name = "science camera";
-	network = list("ss13","rd")
+	name = "science camera"
 	},
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/firealarm{
@@ -68493,8 +68297,7 @@
 	},
 /obj/machinery/camera/directional/east{
 	c_tag = "Recovery Room";
-	name = "medical camera";
-	network = list("ss13","medical")
+	name = "medical camera"
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
@@ -68503,7 +68306,6 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
@@ -68603,14 +68405,13 @@
 /obj/structure/closet{
 	name = "Evidence Closet"
 	},
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -69082,15 +68883,13 @@
 /obj/machinery/vending/wardrobe/science_wardrobe,
 /obj/machinery/camera/directional/east{
 	c_tag = "Experimenter Lab";
-	name = "science camera";
-	network = list("ss13","rd")
+	name = "science camera"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/bot,
@@ -69149,13 +68948,11 @@
 /obj/machinery/rnd/production/protolathe/department/science,
 /obj/machinery/camera/directional/east{
 	c_tag = "Research Lab";
-	name = "science camera";
-	network = list("ss13","rd")
+	name = "science camera"
 	},
 /obj/machinery/airalarm/directional/east,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/rnd/production/protolathe/department/science,
@@ -70167,9 +69964,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/camera/directional/north{
-	network = list("ss13", "security")
-	},
+/obj/machinery/camera/directional/north,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -70178,7 +69973,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable/yellow{
@@ -70984,12 +70778,10 @@
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Morgue";
-	name = "medical camera";
-	network = list("ss13","medical")
+	name = "medical camera"
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/bodycontainer/morgue{
@@ -72219,9 +72011,7 @@
 /area/hallway/primary/aft)
 "wmr" = (
 /obj/machinery/light,
-/obj/machinery/camera/autoname/directional/south{
-	network = list("ss13", "security")
-	},
+/obj/machinery/camera/directional/south,
 /obj/machinery/firealarm/directional/south,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -72229,7 +72019,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -73346,8 +73135,7 @@
 	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Starboard Bow Solar";
-	name = "engineering camera";
-	network = list("ss13","engine")
+	name = "engineering camera"
 	},
 /obj/machinery/airalarm/directional/south{
 	pixel_y = -22
@@ -73355,7 +73143,6 @@
 /obj/structure/cable,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/delivery,
@@ -73761,11 +73548,8 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
 "wOU" = (
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the AI Upload.";
+/obj/machinery/computer/security/telescreen/aiupload{
 	dir = 4;
-	name = "AI Upload Monitor";
-	network = list("aiupload");
 	pixel_x = -28
 	},
 /obj/machinery/light/small,
@@ -73778,7 +73562,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -74224,15 +74007,13 @@
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Mech Bay";
-	name = "science camera";
-	network = list("ss13","rd")
+	name = "science camera"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/mech_bay_recharge_port,
@@ -74507,15 +74288,13 @@
 "xcL" = (
 /obj/machinery/camera/directional/south{
 	c_tag = "AI Chamber Door";
-	name = "core camera";
-	network = list("aicore")
+	name = "core camera"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -75260,15 +75039,13 @@
 	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Delivery Office";
-	name = "cargo camera";
-	network = list("ss13","qm")
+	name = "cargo camera"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/bot,
@@ -75747,15 +75524,13 @@
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "AI Chamber SMES";
-	name = "core camera";
-	network = list("aicore")
+	name = "core camera"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -76340,15 +76115,12 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/west{
-	network = list("ss13", "security")
-	},
+/obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -77329,15 +77101,13 @@
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Virology - Testing pens";
-	name = "virology camera";
-	network = list("ss13","medbay")
+	name = "virology camera"
 	},
 /obj/effect/turf_decal/tile/dark_green/anticorner/contrasted{
 	dir = 4
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
