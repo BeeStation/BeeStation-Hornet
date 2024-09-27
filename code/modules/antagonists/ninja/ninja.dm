@@ -11,16 +11,17 @@
 /datum/antagonist/ninja/New()
 	if(helping_station)
 		can_elimination_hijack = ELIMINATION_PREVENT
-		. = ..()
+	. = ..()
 
 
 /datum/antagonist/ninja/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/M = mob_override || owner.current
-	ADD_TRAIT(M, TRAIT_NOGUNS, NINJA_TRAIT)
+	ADD_TRAIT(M, TRAIT_NOGUNS, FAST_REF(src))
 	update_ninja_icons_added(M)
 
 /datum/antagonist/ninja/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/M = mob_override || owner.current
+	REMOVE_TRAIT(M, TRAIT_NOGUNS, FAST_REF(src))
 	update_ninja_icons_removed(M)
 
 /datum/antagonist/ninja/proc/equip_space_ninja(mob/living/carbon/human/H = owner.current)

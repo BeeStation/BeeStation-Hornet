@@ -133,4 +133,3 @@
 #define NO_GRAVITY_TRAIT "no-gravity"
 #define LIFECANDLE_TRAIT "lifecandle"
 #define LEAPER_BUBBLE_TRAIT "leaper-bubble"
-#define NINJA_TRAIT "ninja" //This is what happens to naughty little ninjas
