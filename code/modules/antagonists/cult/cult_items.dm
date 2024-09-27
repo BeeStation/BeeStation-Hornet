@@ -93,7 +93,7 @@ Striking a noncultist, however, will tear their flesh."}
 /datum/action/innate/dash/cult
 	name = "Rend the Veil"
 	desc = "Use the sword to shear open the flimsy fabric of this reality and teleport to your target."
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
+	icon_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "phaseshift"
 	dash_sound = 'sound/magic/enter_blood.ogg'
 	recharge_sound = 'sound/magic/exit_blood.ogg'
@@ -291,14 +291,6 @@ Striking a noncultist, however, will tear their flesh."}
 		user.Dizzy(30)
 		user.Paralyze(100)
 		user.adjust_blindness(30)
-
-/obj/item/reagent_containers/glass/beaker/unholywater
-	name = "flask of unholy water"
-	desc = "Toxic to nonbelievers; reinvigorating to the faithful - this flask may be sipped or thrown."
-	icon = 'icons/obj/drinks.dmi'
-	icon_state = "holyflask"
-	color = "#333333"
-	list_reagents = list(/datum/reagent/fuel/unholywater = 50)
 
 /obj/item/shuttle_curse
 	name = "cursed orb"

@@ -215,7 +215,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 /obj/structure/bodycontainer/crematorium/attack_robot(mob/user) //Borgs can't use crematoriums without help
 	to_chat(user, "<span class='warning'>[src] is locked against you.</span>")
-	return
+	return TRUE
 
 /obj/structure/bodycontainer/crematorium/Destroy()
 	GLOB.crematoriums.Remove(src)
@@ -395,9 +395,9 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	desc = "Apply body before burning."
 	icon_state = "cremat"
 
-/obj/structure/tray/c_tray/attack_robot(mob/user) //copied behaviour from /obj/structure/bodycontainer/crematorium
-	to_chat(user, "<span class='warning'>[src] is locked against you.</span>")
-	return
+/obj/structure/tray/c_tray/attack_silicon(mob/user) //copied behaviour from /obj/structure/bodycontainer/crematorium
+	to_chat(user, "<span class='warning'>\The [src] is locked against you.</span>")
+	return TRUE
 
 /*
  * Morgue tray
