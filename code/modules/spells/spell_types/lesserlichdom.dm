@@ -17,7 +17,7 @@
 	cooldown_min = 10
 	include_user = TRUE
 
-	action_icon = 'icons/mob/actions/actions_spells.dmi'
+	action_icon = 'icons/hud/actions/actions_spells.dmi'
 	action_icon_state = "skeleton"
 
 /obj/effect/proc_holder/spell/targeted/lesserlichdom/cast(list/targets,mob/user = usr)

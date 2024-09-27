@@ -1,16 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/structure/window/reinforced,
-/obj/effect/turf_decal/loading_area,
-/obj/structure/closet/crate/miningcar{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/machinery/camera/autoname/directional/west{
-	network = list("ss13","cargo")
-	},
-/turf/open/floor/iron/tech/grid,
-/area/shuttle/mining)
 "c" = (
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/open/floor/plating/airless,
@@ -39,14 +27,31 @@
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "i" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/loading_area,
+/obj/structure/closet/crate/miningcar{
+	pixel_x = 1;
+	pixel_y = 2
 	},
-/obj/effect/turf_decal/caution/stand_clear,
-/obj/item/storage/pod/exploration{
+/obj/machinery/camera/autoname/directional/west{
+	network = list("ss13","cargo")
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/item/storage/pod{
 	pixel_x = -25;
-	pixel_y = -25
+	unlocked = 1
 	},
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/loading_area,
+/obj/structure/closet/crate/miningcar{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
 "j" = (
@@ -122,6 +127,17 @@
 	},
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/shuttle/mining)
+"R" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/item/storage/pod/exploration{
+	pixel_x = -25;
+	pixel_y = -25
+	},
+/turf/open/floor/iron/tech/grid,
+/area/shuttle/mining)
 "S" = (
 /obj/machinery/door/airlock/survival_pod/glass,
 /obj/structure/fans/tiny,
@@ -178,8 +194,8 @@ s
 I
 e
 e
+R
 i
-a
 j
 "}
 (3,1,1) = {"
