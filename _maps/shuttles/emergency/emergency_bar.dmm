@@ -16,17 +16,26 @@
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
 /obj/machinery/newscaster/directional/west,
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/dark{
+	dir = 9
+	},
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "ag" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "ah" = (
 /obj/machinery/computer/emergency_shuttle,
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "ai" = (
 /obj/structure/table/wood,
@@ -35,67 +44,91 @@
 	pixel_x = -4;
 	pixel_y = 6
 	},
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/dark{
+	dir = 5
+	},
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "al" = (
 /obj/machinery/computer/atmos_alert{
 	dir = 4
 	},
 /obj/machinery/status_display/evac/directional/west,
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/dark{
+	dir = 9
+	},
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "am" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/dark/corner{
+	dir = 1
+	},
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "an" = (
-/turf/open/floor/carpet,
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "ao" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/dark/corner{
+	dir = 4
+	},
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "ap" = (
 /obj/machinery/computer/security{
 	dir = 8
 	},
 /obj/machinery/status_display/ai/directional/east,
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/dark{
+	dir = 5
+	},
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "aq" = (
 /obj/machinery/computer/crew{
 	dir = 4
 	},
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/dark{
+	dir = 10
+	},
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "ar" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet/directional/south,
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/dark,
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "as" = (
 /obj/item/radio/intercom/directional/south,
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/dark,
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "at" = (
 /obj/structure/table/wood/poker,
 /obj/item/storage/box/drinkingglasses,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/machinery/light,
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/dark,
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "au" = (
 /obj/machinery/computer/communications{
 	dir = 8
 	},
 /obj/machinery/camera/directional/east,
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/dark{
+	dir = 6
+	},
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "aC" = (
 /obj/structure/chair/fancy/shuttle,
@@ -421,7 +454,7 @@
 /area/shuttle/escape)
 "mB" = (
 /obj/machinery/holopad,
-/turf/open/floor/carpet,
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "oh" = (
 /obj/item/kirbyplants{
@@ -588,7 +621,8 @@
 	pixel_x = -25;
 	pixel_y = -25
 	},
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/dark,
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "GA" = (
 /obj/item/radio/intercom/directional/east,
@@ -641,7 +675,8 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/south,
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/dark,
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "Py" = (
 /obj/machinery/door/airlock/titanium{
@@ -709,7 +744,7 @@
 /area/shuttle/escape)
 "Vu" = (
 /obj/machinery/ai_slipper,
-/turf/open/floor/carpet,
+/turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "Vx" = (
 /obj/machinery/light{
