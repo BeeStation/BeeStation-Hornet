@@ -865,6 +865,11 @@
 	pixel_x = 16;
 	pixel_y = -16
 	},
+/obj/effect/turf_decal/box/corners{
+	dir = 1;
+	pixel_x = 16;
+	pixel_y = -16
+	},
 /turf/open/floor/iron/white/smooth_corner{
 	dir = 1
 	},
@@ -941,6 +946,10 @@
 /obj/effect/turf_decal/tile/blue/anticorner{
 	dir = 1
 	},
+/obj/effect/turf_decal/box/corners{
+	pixel_x = -16;
+	pixel_y = 16
+	},
 /turf/open/floor/iron/white/smooth_corner,
 /area/shuttle/escape)
 "uA" = (
@@ -956,6 +965,11 @@
 /obj/effect/turf_decal/tile/blue/anticorner{
 	dir = 8
 	},
+/obj/effect/turf_decal/box/corners{
+	dir = 4;
+	pixel_x = -16;
+	pixel_y = -16
+	},
 /turf/open/floor/iron/white/smooth_corner{
 	dir = 4
 	},
@@ -966,6 +980,7 @@
 	dir = 10
 	},
 /obj/machinery/vending/wallmed/directional/south,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "vA" = (
@@ -1026,6 +1041,7 @@
 /area/shuttle/escape)
 "xX" = (
 /obj/machinery/holopad,
+/obj/effect/turf_decal/box,
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "zd" = (
@@ -1094,6 +1110,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 1
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/white/smooth_edge,
 /area/shuttle/escape)
 "Ay" = (
@@ -1139,6 +1156,7 @@
 /area/shuttle/escape)
 "CS" = (
 /obj/machinery/holopad,
+/obj/effect/turf_decal/box,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Dx" = (
@@ -1299,6 +1317,7 @@
 "Hv" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/machinery/holopad,
+/obj/effect/turf_decal/box,
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "Hz" = (
@@ -1333,6 +1352,7 @@
 	dir = 6
 	},
 /obj/item/radio/intercom/directional/east,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Kr" = (
@@ -1606,6 +1626,11 @@
 "OM" = (
 /obj/effect/turf_decal/tile/blue/anticorner{
 	dir = 4
+	},
+/obj/effect/turf_decal/box/corners{
+	pixel_y = 16;
+	dir = 8;
+	pixel_x = 16
 	},
 /turf/open/floor/iron/white/smooth_corner{
 	dir = 8
@@ -1906,6 +1931,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/machinery/holopad,
+/obj/effect/turf_decal/box,
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "Yt" = (

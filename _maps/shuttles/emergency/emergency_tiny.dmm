@@ -32,10 +32,6 @@
 "bV" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/bot,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -31;
-	pixel_y = -1
-	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "ci" = (
@@ -163,6 +159,7 @@
 /area/shuttle/escape)
 "nQ" = (
 /obj/machinery/holopad,
+/obj/effect/turf_decal/box,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "ou" = (
@@ -174,6 +171,10 @@
 	},
 /obj/structure/sign/departments/medbay/alt{
 	pixel_x = 32
+	},
+/obj/effect/turf_decal/box/corners{
+	pixel_x = -16;
+	pixel_y = 16
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
@@ -226,6 +227,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/holopad,
+/obj/effect/turf_decal/box,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "sf" = (
@@ -238,6 +240,17 @@
 	},
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/noslip/dark,
+/area/shuttle/escape)
+"sp" = (
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 4;
+	pixel_x = -16;
+	pixel_y = -16
+	},
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "sv" = (
 /obj/effect/turf_decal/trimline/dark/warning{
@@ -254,12 +267,12 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "tn" = (
+/obj/machinery/ai_slipper,
 /obj/machinery/button/flasher{
-	id = "tinyflash";
-	pixel_x = 26;
+	id = "cockpit_flasher";
+	pixel_x = 25;
 	pixel_y = -25
 	},
-/obj/machinery/ai_slipper,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "tQ" = (
@@ -510,6 +523,17 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
+"JM" = (
+/obj/effect/turf_decal/trimline/dark/warning{
+	dir = 8
+	},
+/obj/machinery/flasher{
+	id = "cockpit_flasher";
+	pixel_x = 25;
+	pixel_y = 25
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
 "KD" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -594,6 +618,15 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
+"Pv" = (
+/obj/effect/turf_decal/trimline/dark/warning,
+/obj/effect/turf_decal/box/corners{
+	pixel_y = 16;
+	dir = 8;
+	pixel_x = 16
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
 "QG" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Shuttle Infirmary"
@@ -619,10 +652,6 @@
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "Sm" = (
-/obj/machinery/flasher{
-	id = "tinyflash";
-	pixel_y = 27
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -630,6 +659,10 @@
 /obj/machinery/camera/directional/north,
 /obj/structure/closet/firecloset/full,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"TD" = (
+/obj/structure/reagent_dispensers/peppertank/directional/north,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "TL" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -677,6 +710,11 @@
 	pixel_x = 16;
 	pixel_y = -16
 	},
+/obj/effect/turf_decal/box/corners{
+	dir = 1;
+	pixel_x = 16;
+	pixel_y = -16
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 
@@ -701,7 +739,7 @@ xX
 (2,1,1) = {"
 wR
 wR
-UW
+TD
 ac
 nL
 Ix
@@ -740,11 +778,11 @@ yf
 UW
 tn
 in
-gy
+JM
 bR
 gy
 Ze
-gg
+Pv
 Lv
 QY
 BB
@@ -761,7 +799,7 @@ wR
 Sm
 qq
 qq
-qq
+sp
 ou
 sv
 sv

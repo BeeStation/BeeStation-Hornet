@@ -314,7 +314,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 9
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "bs" = (
 /obj/structure/bed,
@@ -349,6 +349,11 @@
 	dir = 1
 	},
 /area/shuttle/escape)
+"by" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners,
+/obj/machinery/ai_slipper,
+/turf/open/floor/iron/large,
+/area/shuttle/escape)
 "bz" = (
 /obj/machinery/stasis,
 /obj/machinery/camera/directional/east,
@@ -356,7 +361,8 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
-/turf/open/floor/iron/edge{
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/white/smooth_edge{
 	dir = 8
 	},
 /area/shuttle/escape)
@@ -365,7 +371,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
 	},
-/turf/open/floor/iron/edge{
+/turf/open/floor/iron/white/smooth_edge{
 	dir = 4
 	},
 /area/shuttle/escape)
@@ -375,7 +381,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
-/turf/open/floor/iron/edge{
+/turf/open/floor/iron/white/smooth_edge{
 	dir = 8
 	},
 /area/shuttle/escape)
@@ -401,13 +407,14 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 10
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "bG" = (
 /obj/structure/table/optable,
 /obj/item/surgical_drapes,
 /obj/effect/turf_decal/trimline/blue/filled/line,
-/turf/open/floor/iron/edge{
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/white/smooth_edge{
 	dir = 1
 	},
 /area/shuttle/escape)
@@ -427,7 +434,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 6
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "bJ" = (
 /obj/machinery/light,
@@ -446,6 +453,7 @@
 /area/shuttle/escape)
 "bM" = (
 /obj/machinery/light,
+/obj/structure/reagent_dispensers/peppertank/directional/south,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bN" = (
@@ -480,7 +488,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 1
 	},
-/turf/open/floor/iron/edge,
+/turf/open/floor/iron/white/smooth_edge,
 /area/shuttle/escape)
 "cB" = (
 /obj/machinery/holopad,
@@ -534,7 +542,8 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "lL" = (
-/turf/open/floor/iron/large,
+/obj/effect/turf_decal/tile/blue/fourcorners,
+/turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "mB" = (
 /obj/structure/extinguisher_cabinet/directional/east,
@@ -573,7 +582,8 @@
 "uM" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/box,
-/turf/open/floor/iron/large,
+/obj/effect/turf_decal/tile/blue/fourcorners,
+/turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "uQ" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
@@ -585,7 +595,8 @@
 /area/shuttle/escape)
 "uW" = (
 /obj/machinery/ai_slipper,
-/turf/open/floor/iron/large,
+/obj/effect/turf_decal/tile/blue/fourcorners,
+/turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "ve" = (
 /obj/structure/closet,
@@ -602,7 +613,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 5
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "xE" = (
 /obj/machinery/door/airlock/titanium{
@@ -621,7 +632,6 @@
 	},
 /area/shuttle/escape)
 "yT" = (
-/obj/machinery/ai_slipper,
 /obj/item/radio/intercom/directional/south,
 /obj/effect/turf_decal/trimline/yellow/filled/line,
 /turf/open/floor/iron/edge{
@@ -743,7 +753,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
 	},
-/turf/open/floor/iron/edge{
+/turf/open/floor/iron/white/smooth_edge{
 	dir = 4
 	},
 /area/shuttle/escape)
@@ -759,7 +769,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/warning{
 	dir = 8
 	},
-/turf/open/floor/iron/edge{
+/turf/open/floor/iron/white/smooth_edge{
 	dir = 4
 	},
 /area/shuttle/escape)
@@ -845,7 +855,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
-/turf/open/floor/iron/edge{
+/turf/open/floor/iron/white/smooth_edge{
 	dir = 8
 	},
 /area/shuttle/escape)
@@ -967,7 +977,7 @@ qO
 (6,1,1) = {"
 xE
 Gy
-uM
+by
 yT
 ac
 aV
