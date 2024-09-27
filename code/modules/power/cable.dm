@@ -29,10 +29,10 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	var/has_power_node = FALSE
 	/// Have we been manually given a power node and should keep it when we change?
 	var/forced_power_node = FALSE
-	var/obj/structure/cable/north
-	var/obj/structure/cable/east
-	var/obj/structure/cable/south
-	var/obj/structure/cable/west
+	VAR_PRIVATE/obj/structure/cable/north
+	VAR_PRIVATE/obj/structure/cable/east
+	VAR_PRIVATE/obj/structure/cable/south
+	VAR_PRIVATE/obj/structure/cable/west
 	var/obj/structure/cable/up
 	var/obj/structure/cable/down
 	/// Are we an omni cable?
@@ -136,10 +136,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	return ..()									// then go ahead and delete the cable
 
 /obj/structure/cable/proc/clear_connections()
-	north?.set_south(null)
-	east?.set_west(null)
-	south?.set_north(null)
-	west?.set_east(null)
+	north?.clear_south()
+	east?.clear_west()
+	south?.clear_north()
+	west?.clear_east()
 	down?.set_up(null)
 	up?.set_down(null)
 
@@ -157,10 +157,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	north?.update_appearance(UPDATE_ICON)
 	east?.update_appearance(UPDATE_ICON)
 	if (multiz)
-		var/obj/structure/cable/below_cable = locate(/obj/structure/cable) in GET_TURF_BELOW(loc)
+		// Omni-cables will not connect with coloured cables along the z-axis
+		var/obj/structure/cable/below_cable = get_cable(GET_TURF_BELOW(loc), cable_color, FALSE)
 		if (below_cable)
 			below_cable.set_up(src)
-		var/obj/structure/cable/above_cable = locate(/obj/structure/cable) in GET_TURF_ABOVE(loc)
+		var/obj/structure/cable/above_cable = get_cable(GET_TURF_ABOVE(loc), cable_color, FALSE)
 		if (above_cable)
 			above_cable.set_down(src)
 
@@ -171,29 +172,29 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	linkup_adjacent(FALSE)
 	update_appearance(UPDATE_ICON)
 
-/obj/structure/cable/proc/set_north(new_value)
-	north = new_value
+/obj/structure/cable/proc/clear_north()
+	north = get_cable(get_step(src, NORTH), cable_color, omni)
 	// Remove the power node if we no longer need it
 	if (!forced_power_node && has_power_node && (south || east || west))
 		has_power_node = FALSE
 	update_appearance(UPDATE_ICON)
 
-/obj/structure/cable/proc/set_south(new_value)
-	south = new_value
+/obj/structure/cable/proc/clear_south()
+	south = get_cable(get_step(src, SOUTH), cable_color, omni)
 	// Remove the power node if we no longer need it
 	if (!forced_power_node && has_power_node && (north || east || west))
 		has_power_node = FALSE
 	update_appearance(UPDATE_ICON)
 
-/obj/structure/cable/proc/set_east(new_value)
-	east = new_value
+/obj/structure/cable/proc/clear_east()
+	east = get_cable(get_step(src, EAST), cable_color, omni)
 	// Remove the power node if we no longer need it
 	if (!forced_power_node && has_power_node && (south || north || west))
 		has_power_node = FALSE
 	update_appearance(UPDATE_ICON)
 
-/obj/structure/cable/proc/set_west(new_value)
-	west = new_value
+/obj/structure/cable/proc/clear_west()
+	west = get_cable(get_step(src, WEST), cable_color, omni)
 	// Remove the power node if we no longer need it
 	if (!forced_power_node && has_power_node && (south || east || north))
 		has_power_node = FALSE
