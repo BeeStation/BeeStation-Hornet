@@ -22,12 +22,12 @@
 	var/special_list_level /// protected level of special list
 	var/is_vv_readonly /// checks if the special list is not vv editable, as read-only
 	if(thing == GLOB.vv_ghost)
-		if(GLOB.vv_ghost.list_ref)
-			thing = vv_spectre.deliver_list_ref()
-		else if(GLOB.vv_ghost.special_owner)
+		if(GLOB.vv_ghost.special_owner)
 			thing = vv_spectre.deliver_special()
 			special_list_level = GLOB.vv_special_lists[vv_spectre.special_varname]
 			is_vv_readonly = (special_list_level && (special_list_level != VV_LIST_EDITABLE)) ? VV_READ_ONLY : null
+		else if(GLOB.vv_ghost.list_ref)
+			thing = vv_spectre.deliver_list_ref()
 		else
 			return // vv_ghost is not meant to be vv'ed
 

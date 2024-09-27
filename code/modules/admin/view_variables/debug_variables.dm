@@ -12,7 +12,7 @@
 			vv_spectre = owner
 		if(islist(owner) || vv_spectre)
 			index = name
-			owner_list = vv_spectre.special_ref || owner
+			owner_list = vv_spectre?.special_ref || owner
 			if (value)
 				name = owner_list[name] //name is really the index until this line
 			else
