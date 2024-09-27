@@ -200,7 +200,7 @@
 			item_transferred = TRUE
 	else
 		if (is_bluespace)
-			for(var/obj/item/stack/ore/ore in range(1, turf))
+			for(var/obj/item/stack/ore/ore in range(bs_range, turf))
 				if(!item_transferred)
 					item_transferred = SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, ore, user, TRUE)
 				else
