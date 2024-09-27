@@ -10,10 +10,11 @@
 		to_chat(usr, "<span class='warning'>There are no borgs to show a panel for!</span>")
 		return
 
-	if(!istype(borgo))
+	if(isnull(borgo))
 		borgo = input("Select a borg", "Select a borg", null, null) as null|anything in sort_names(GLOB.cyborg_list)
-		if(!borgo)
-			return
+
+	if(!istype(borgo))
+		return
 
 	if(QDELING(borgo))
 		to_chat(usr, "<span class='warning'>Cannot open a panel for that borg, it's being/been deleted!</span>")
