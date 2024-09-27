@@ -174,18 +174,7 @@
 
 	if (STR)
 		// Handle the tile the player steps in
-		show_message=handle_items_in_turf(tile, user, box, STR)
-
-		if (is_bluespace)
-			// Loop through all tiles in the orange range around the tile if its a bluespace bag
-			var/sticky_holder=FALSE
-			for (var/turf/turf in orange(bs_range, tile))
-				show_message=handle_items_in_turf(turf, user, box, STR)
-				if(!sticky_holder)
-					if(show_message)
-						sticky_holder=TRUE
-			if(sticky_holder)
-				show_message=TRUE
+		show_message=handle_ores_in_turf(tile, user, box)
 
 	if(show_message)
 		playsound(user, "rustle", 50, TRUE)
@@ -202,20 +191,34 @@
 			"<span class='notice'>You [message_action_pov] the ores [message_location] you[message_box_pov].</span>"
 		)
 
-/obj/item/storage/bag/ore/proc/handle_items_in_turf(var/turf/turf, var/mob/living/user, var/obj/structure/ore_box/box, var/datum/component/storage/STR)
+/obj/item/storage/bag/ore/proc/handle_ores_in_turf(var/turf/turf, var/mob/living/user, var/obj/structure/ore_box/box)
 	var/item_transferred = FALSE
-	for (var/A in turf)
-		if (!is_type_in_typecache(A, STR.can_hold))
-			continue
-		if (box)
-			user.transferItemToLoc(A, box)
+	if (box)
+		for (var/obj/item/stack/ore/ore in turf)
+			user.transferItemToLoc(ore, box)
 			box.ui_update()
 			item_transferred = TRUE
-		else if (SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, A, user, TRUE))
-			item_transferred = TRUE
+	else
+		if (is_bluespace)
+			for(var/obj/item/stack/ore/ore in range(1, turf))
+				if(!item_transferred)
+					item_transferred = SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, ore, user, TRUE)
+				else
+					SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, ore, user, TRUE)
 		else
-			if (!item_transferred)
-				to_chat(user, "<span class='warning'>Your [name] is full and can't hold any more!</span>")
+			for (var/obj/item/stack/ore/ore in turf)
+				if(!item_transferred)
+					item_transferred = SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, ore, user, TRUE)
+				else
+					SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, ore, user, TRUE)
+	// Check if any ore exists in the turf
+	var/ore_found=FALSE
+	for(var/obj/item/stack/ore/ore in turf)
+		ore_found = TRUE
+		break // If we find any ore, no need to continue the loop
+	if (ore_found)
+		to_chat(user, "<span class='warning'>Your [name] is full and can't hold any more!</span>");
+
 	return item_transferred
 
 /obj/item/storage/bag/ore/cyborg
