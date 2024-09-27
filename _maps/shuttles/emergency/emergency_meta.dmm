@@ -130,7 +130,6 @@
 /area/shuttle/escape)
 "aC" = (
 /obj/structure/table,
-/obj/item/folder/blue,
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/open/floor/iron/dark/side{
 	dir = 1
@@ -957,11 +956,10 @@
 /area/shuttle/escape)
 "AT" = (
 /obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 8
-	},
+/obj/item/paper_bin,
 /obj/item/radio/intercom/directional/south,
+/obj/item/pen,
+/obj/item/folder/blue,
 /turf/open/floor/iron/dark/side{
 	dir = 1
 	},

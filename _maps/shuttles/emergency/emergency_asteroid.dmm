@@ -166,7 +166,6 @@
 	},
 /area/shuttle/escape)
 "aT" = (
-/obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
 	},
@@ -174,23 +173,24 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/chair/fancy/corp,
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "aU" = (
-/obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark,
+/obj/structure/chair/fancy/corp,
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "aV" = (
-/obj/structure/chair/fancy/shuttle,
 /obj/item/radio/intercom/directional/north,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark,
+/obj/structure/chair/fancy/corp,
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "aW" = (
@@ -264,9 +264,6 @@
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "bk" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
 /obj/machinery/camera/directional/south,
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -274,27 +271,30 @@
 	},
 /obj/machinery/newscaster/directional/south,
 /obj/machinery/light,
+/obj/structure/chair/fancy/corp{
+	dir = 1
+	},
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "bl" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 1
+	},
+/obj/structure/chair/fancy/corp{
 	dir = 1
 	},
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "bm" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet/directional/south,
+/obj/structure/chair/fancy/corp{
+	dir = 1
+	},
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "bn" = (

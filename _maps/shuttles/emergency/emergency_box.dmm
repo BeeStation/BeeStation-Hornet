@@ -839,17 +839,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
-"RE" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/thinplating_new,
-/obj/effect/turf_decal/bot_white,
-/turf/open/floor/iron/techmaint,
-/area/shuttle/escape)
 "TU" = (
 /obj/effect/turf_decal/siding/thinplating_new/corner{
 	dir = 4
@@ -1093,7 +1082,7 @@ mU
 ao
 aM
 Ao
-RE
+aT
 aT
 aT
 aT
