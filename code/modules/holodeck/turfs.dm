@@ -157,10 +157,8 @@
 /turf/open/floor/holofloor/wood
 	icon_state = "wood"
 	tiled_dirt = FALSE
-
-/turf/open/floor/wood/Initialize(mapload)
-	GENERATE_RANDOM_ICON(80, 4)
-	return ..()
+	variant_probability = 80
+	variant_states = 4
 
 /turf/open/floor/holofloor/snow
 	gender = PLURAL

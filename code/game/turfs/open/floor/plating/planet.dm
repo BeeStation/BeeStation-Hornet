@@ -48,11 +48,8 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "wasteland"
 	slowdown = 1
-	var/floor_variance = 15
-
-/turf/open/floor/plating/dirt/jungle/wasteland/Initialize(mapload)
-	GENERATE_RANDOM_ICON(floor_variance, 13)
-	return ..()
+	variant_probability = 15
+	variant_states = 13
 
 /turf/open/floor/grass/jungle
 	name = "jungle grass"

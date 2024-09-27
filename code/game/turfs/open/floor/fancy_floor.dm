@@ -38,11 +38,8 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
 	max_integrity = 100
-	var/variant_states = 6
-
-/turf/open/floor/wood/Initialize(mapload)
-	GENERATE_RANDOM_ICON(85, variant_states)
-	return ..()
+	variant_probability = 85
+	variant_states = 6
 
 /turf/open/floor/wood/broken_states()
 	return GLOB.wood_turf_damage
@@ -53,6 +50,7 @@
 
 /turf/open/floor/wood/big
 	icon_state = "wood_big"
+	variant_probability = 80
 	variant_states = 4
 
 /turf/open/floor/wood/big/broken_states()

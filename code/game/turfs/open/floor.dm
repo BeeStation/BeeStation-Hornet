@@ -26,8 +26,16 @@
 	/// Path of the tile that this floor drops
 	var/floor_tile = null
 
+	/// Number of variant states
+	var/variant_states = 0
+	/// Probability of a variant occuring
+	var/variant_probability = 0
+
 /turf/open/floor/Initialize(mapload)
 	. = ..()
+
+	if (variant_probability && prob(variant_probability))
+		icon_state = "[icon_state][rand(1, variant_states)]"
 
 	if(mapload && prob(33))
 		MakeDirty()
