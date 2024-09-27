@@ -722,8 +722,7 @@
 	},
 /obj/structure/sink{
 	dir = 1;
-	pixel_y = 24;
-	layer = 3.3
+	pixel_y = 24
 	},
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)

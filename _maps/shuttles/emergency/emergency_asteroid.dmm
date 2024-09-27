@@ -457,8 +457,7 @@
 	},
 /obj/structure/sink{
 	dir = 1;
-	pixel_y = 24;
-	layer = 3.3
+	pixel_y = 24
 	},
 /obj/effect/turf_decal/trimline/neutral/filled/line,
 /obj/effect/turf_decal/trimline/neutral/filled/line{
@@ -646,8 +645,7 @@
 	},
 /obj/structure/sink{
 	dir = 1;
-	pixel_y = 24;
-	layer = 3.3
+	pixel_y = 24
 	},
 /obj/effect/turf_decal/trimline/neutral/filled/end{
 	dir = 4
