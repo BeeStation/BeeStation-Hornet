@@ -902,9 +902,6 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/obj/structure/sign/nanotrasen{
-	pixel_x = -32
-	},
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},
@@ -1163,9 +1160,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
-/obj/structure/sign/nanotrasen{
-	pixel_x = 32
-	},
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
@@ -1232,12 +1226,6 @@
 /obj/item/radio/intercom/directional/south,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"FO" = (
-/obj/structure/sign/nanotrasen{
-	pixel_x = 32
-	},
-/turf/template_noop,
-/area/template_noop)
 "Gd" = (
 /obj/item/reagent_containers/glass/bottle/epinephrine{
 	pixel_x = 6
@@ -1319,12 +1307,6 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
-"Hz" = (
-/obj/structure/sign/nanotrasen{
-	pixel_x = -32
-	},
-/turf/template_noop,
-/area/template_noop)
 "HH" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line,
 /turf/open/floor/iron/edge{
@@ -2070,7 +2052,7 @@ af
 aa
 aa
 aa
-FO
+aa
 aa
 "}
 (5,1,1) = {"
@@ -2101,7 +2083,7 @@ af
 af
 af
 Ky
-af
+aT
 af
 "}
 (6,1,1) = {"
@@ -2380,7 +2362,7 @@ af
 af
 af
 Ky
-af
+aT
 af
 "}
 (15,1,1) = {"
@@ -2411,7 +2393,7 @@ af
 aa
 aa
 aa
-Hz
+aa
 aa
 "}
 (16,1,1) = {"
