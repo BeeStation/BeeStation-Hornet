@@ -741,6 +741,15 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/shuttle/escape)
+"fx" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/closet/firecloset,
+/obj/effect/turf_decal/box,
+/obj/machinery/status_display/ai/directional/west,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "fH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/tank/air{
@@ -930,7 +939,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/machinery/status_display/evac/directional/east,
+/obj/machinery/status_display/ai/directional/east,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "yL" = (
@@ -1051,6 +1060,14 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"Ls" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/status_display/ai/directional/south,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 "LY" = (
 /turf/open/floor/iron/dark/side{
 	dir = 4
@@ -1120,7 +1137,7 @@
 "Rg" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
-/obj/machinery/status_display/evac/directional/east,
+/obj/machinery/status_display/ai/directional/east,
 /turf/open/floor/iron/dark/side,
 /area/shuttle/escape)
 "Ro" = (
@@ -1408,7 +1425,7 @@ ad
 (9,1,1) = {"
 ad
 bX
-ap
+fx
 Yp
 Uh
 Yp
@@ -1464,7 +1481,7 @@ bN
 aI
 aT
 ar
-bN
+Ls
 ad
 bs
 cd

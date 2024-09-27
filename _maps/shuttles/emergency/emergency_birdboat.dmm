@@ -26,6 +26,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/blue/filled/line,
+/obj/machinery/light,
 /turf/open/floor/iron/white/smooth_edge{
 	dir = 1
 	},
@@ -233,7 +234,7 @@
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 1
 	},
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/iron/edge,
@@ -351,9 +352,6 @@
 /obj/machinery/newscaster/directional/west,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
-"lL" = (
-/turf/closed/wall/mineral/titanium,
-/area/template_noop)
 "lO" = (
 /obj/effect/turf_decal/trimline/neutral/filled/warning{
 	dir = 4
@@ -434,6 +432,17 @@
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/camera/directional/east,
 /turf/open/floor/carpet/blue,
+/area/shuttle/escape)
+"rE" = (
+/obj/structure/chair/fancy/shuttle,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot_white,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/iron/techmaint,
 /area/shuttle/escape)
 "st" = (
 /obj/effect/turf_decal/trimline/neutral/filled/warning,
@@ -779,7 +788,7 @@
 /area/shuttle/escape)
 "PJ" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line,
-/obj/machinery/light/small,
+/obj/machinery/light,
 /turf/open/floor/iron/edge{
 	dir = 1
 	},
@@ -848,11 +857,6 @@
 	dir = 1
 	},
 /area/shuttle/escape)
-"Vg" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/template_noop)
 "Yo" = (
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/trimline/yellow/filled/line{
@@ -875,6 +879,7 @@
 "YX" = (
 /obj/item/radio/intercom/directional/south,
 /obj/effect/turf_decal/trimline/yellow/filled/line,
+/obj/machinery/light/small,
 /turf/open/floor/iron/edge{
 	dir = 1
 	},
@@ -982,7 +987,7 @@ MN
 aa
 "}
 (6,1,1) = {"
-lL
+ab
 ab
 ab
 ab
@@ -998,7 +1003,7 @@ ah
 ab
 "}
 (7,1,1) = {"
-lL
+ab
 Ok
 im
 OU
@@ -1014,7 +1019,7 @@ hK
 ab
 "}
 (8,1,1) = {"
-lL
+ab
 Fg
 sK
 at
@@ -1030,7 +1035,7 @@ aV
 ab
 "}
 (9,1,1) = {"
-Vg
+MN
 al
 at
 at
@@ -1046,7 +1051,7 @@ aE
 MN
 "}
 (10,1,1) = {"
-Vg
+MN
 al
 vj
 EQ
@@ -1062,7 +1067,7 @@ aL
 MN
 "}
 (11,1,1) = {"
-Vg
+MN
 AT
 Nl
 xV
@@ -1071,14 +1076,14 @@ vv
 lX
 do
 oZ
-aP
+rE
 HU
 aH
 aH
 MN
 "}
 (12,1,1) = {"
-lL
+ab
 ab
 ab
 ab
