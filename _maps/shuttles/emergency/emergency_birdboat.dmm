@@ -268,12 +268,12 @@
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "ho" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "security Airlock";
-	req_access_txt = "63"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/security/glass{
+	name = "Emergency Shuttle Brig";
+	req_access_txt = "2"
+	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "hK" = (
@@ -514,7 +514,9 @@
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "xz" = (
-/obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle"
+	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -627,6 +629,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
+"Hl" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Cargo"
+	},
+/turf/open/floor/iron,
+/area/shuttle/escape)
 "Hx" = (
 /obj/effect/turf_decal/siding/thinplating_new/corner{
 	dir = 4
@@ -721,7 +731,9 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "Mg" = (
-/obj/machinery/door/airlock/titanium,
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
 /obj/docking_port/mobile/emergency{
 	dir = 8;
 	dwidth = 6;
@@ -738,9 +750,11 @@
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Ml" = (
-/obj/machinery/door/airlock/public/glass,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Infirmary"
+	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "MM" = (
@@ -819,11 +833,21 @@
 /area/shuttle/escape)
 "RD" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "bridge Door";
+	name = "Emergency Shuttle Cockpit";
 	req_access_txt = "19"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/iron,
+/area/shuttle/escape)
+"SF" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle"
+	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "SQ" = (
@@ -837,7 +861,9 @@
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "Ti" = (
-/obj/machinery/door/airlock/titanium,
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -1089,7 +1115,7 @@ ab
 ab
 ab
 ab
-xz
+SF
 xz
 ab
 ab
@@ -1135,7 +1161,7 @@ ab
 ae
 Tf
 FV
-Ml
+Hl
 eF
 iH
 wJ

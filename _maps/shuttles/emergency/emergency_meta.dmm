@@ -1220,11 +1220,11 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "Xm" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Cargo Bay Airlock"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Cargo"
+	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "Xr" = (
