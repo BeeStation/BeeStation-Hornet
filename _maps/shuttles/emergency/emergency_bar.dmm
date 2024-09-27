@@ -94,7 +94,7 @@
 /obj/machinery/computer/communications{
 	dir = 8
 	},
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/directional/east,
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "aC" = (
@@ -206,7 +206,7 @@
 	brightness = 3;
 	dir = 8
 	},
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/directional/west,
 /obj/machinery/newscaster/directional/west,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
@@ -450,7 +450,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "rp" = (
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "rs" = (
@@ -518,7 +518,7 @@
 /area/shuttle/escape)
 "zZ" = (
 /obj/structure/chair/fancy/shuttle,
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/directional/west,
 /obj/item/radio/intercom/directional/west,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -575,7 +575,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},

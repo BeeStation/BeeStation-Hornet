@@ -22,14 +22,20 @@
 /area/shuttle/escape)
 "ap" = (
 /obj/structure/ore_box,
-/turf/open/floor/mineral/titanium/yellow,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "aq" = (
-/turf/open/floor/mineral/titanium/yellow,
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 6
+	},
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "ar" = (
 /obj/machinery/recharge_station,
-/turf/open/floor/mineral/titanium/yellow,
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 5
+	},
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "at" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
@@ -50,7 +56,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/directional/east,
 /obj/machinery/status_display/evac/directional/east,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -69,7 +75,10 @@
 /area/shuttle/escape)
 "aF" = (
 /obj/machinery/suit_storage_unit,
-/turf/open/floor/mineral/titanium/yellow,
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 9
+	},
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "aH" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
@@ -103,7 +112,7 @@
 /turf/open/floor/iron/edge,
 /area/shuttle/escape)
 "aL" = (
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
@@ -258,7 +267,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
@@ -315,7 +324,11 @@
 "bt" = (
 /obj/structure/closet/emcloset,
 /obj/structure/extinguisher_cabinet/directional/west,
-/turf/open/floor/iron/large,
+/obj/effect/turf_decal/trimline/neutral/filled/end{
+	dir = 8
+	},
+/obj/item/radio/intercom/directional/south,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "bv" = (
 /obj/item/radio/intercom/directional/south,
@@ -338,7 +351,7 @@
 /area/shuttle/escape)
 "bz" = (
 /obj/machinery/stasis,
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/directional/east,
 /obj/machinery/status_display/evac/directional/east,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
@@ -418,11 +431,14 @@
 /area/shuttle/escape)
 "bJ" = (
 /obj/machinery/light,
-/turf/open/floor/mineral/titanium/yellow,
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 10
+	},
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "bK" = (
 /obj/structure/chair/fancy/shuttle,
-/obj/machinery/camera/autoname/directional/north,
+/obj/machinery/camera/directional/north,
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 1
 	},
@@ -441,7 +457,11 @@
 	pixel_y = 24;
 	layer = 3.3
 	},
-/turf/open/floor/iron/large,
+/obj/effect/turf_decal/trimline/neutral/filled/line,
+/obj/effect/turf_decal/trimline/neutral/filled/line{
+	dir = 1
+	},
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "bP" = (
 /obj/structure/chair/fancy/shuttle{
@@ -570,7 +590,12 @@
 "ve" = (
 /obj/structure/closet,
 /obj/structure/extinguisher_cabinet/directional/west,
-/turf/open/floor/mineral/titanium/yellow,
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 8
+	},
+/turf/open/floor/iron/edge{
+	dir = 4
+	},
 /area/shuttle/escape)
 "xr" = (
 /obj/structure/extinguisher_cabinet/directional/north,
@@ -598,12 +623,10 @@
 "yT" = (
 /obj/machinery/ai_slipper,
 /obj/item/radio/intercom/directional/south,
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/escape)
-"Af" = (
-/obj/machinery/holopad,
-/obj/effect/turf_decal/box,
-/turf/open/floor/mineral/titanium/yellow,
+/obj/effect/turf_decal/trimline/yellow/filled/line,
+/turf/open/floor/iron/edge{
+	dir = 1
+	},
 /area/shuttle/escape)
 "Ca" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line,
@@ -611,6 +634,20 @@
 /turf/open/floor/iron/edge{
 	dir = 1
 	},
+/area/shuttle/escape)
+"Cf" = (
+/obj/structure/mirror/directional/north{
+	pixel_y = 32
+	},
+/obj/structure/sink{
+	dir = 1;
+	pixel_y = 24;
+	layer = 3.3
+	},
+/obj/effect/turf_decal/trimline/neutral/filled/end{
+	dir = 4
+	},
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "CC" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
@@ -630,7 +667,7 @@
 /area/shuttle/escape)
 "El" = (
 /obj/machinery/door/airlock{
-	name = "Emergency Shuttle Restroom"
+	name = "Emergency Restroom"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
@@ -669,6 +706,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/large,
+/area/shuttle/escape)
+"Gy" = (
+/obj/effect/turf_decal/trimline/yellow/filled/warning{
+	dir = 1
+	},
+/turf/open/floor/iron/edge,
 /area/shuttle/escape)
 "IQ" = (
 /obj/machinery/holopad,
@@ -737,7 +780,7 @@
 /area/shuttle/escape)
 "RT" = (
 /obj/machinery/door/airlock{
-	name = "Emergency Shuttle Restroom"
+	name = "Unit 2"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -788,7 +831,12 @@
 /area/shuttle/escape)
 "WD" = (
 /obj/machinery/status_display/evac/directional/east,
-/turf/open/floor/mineral/titanium/yellow,
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 4
+	},
+/turf/open/floor/iron/edge{
+	dir = 8
+	},
 /area/shuttle/escape)
 "XM" = (
 /obj/machinery/iv_drip,
@@ -800,6 +848,14 @@
 /turf/open/floor/iron/edge{
 	dir = 8
 	},
+/area/shuttle/escape)
+"Ym" = (
+/obj/machinery/door/airlock{
+	name = "Unit 1"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "YJ" = (
 /obj/machinery/door/firedoor,
@@ -826,7 +882,11 @@
 /obj/machinery/light/small,
 /obj/machinery/ai_slipper,
 /obj/machinery/status_display/evac/directional/south,
-/turf/open/floor/iron/large,
+/obj/effect/turf_decal/trimline/neutral/filled/line,
+/obj/effect/turf_decal/trimline/neutral/filled/line{
+	dir = 1
+	},
+/turf/open/floor/iron,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -906,8 +966,8 @@ qO
 "}
 (6,1,1) = {"
 xE
-aq
-Af
+Gy
+uM
 yT
 ac
 aV
@@ -929,8 +989,8 @@ aW
 bf
 bn
 ac
-bN
-RT
+Cf
+Ym
 sV
 qO
 "}

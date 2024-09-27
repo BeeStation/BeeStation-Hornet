@@ -757,7 +757,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "ig" = (
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/directional/east,
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "ja" = (
@@ -858,7 +858,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "uD" = (
@@ -867,7 +867,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/camera/autoname/directional/north,
+/obj/machinery/camera/directional/north,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "ve" = (
@@ -922,9 +922,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/west{
-	network = list("ss13","engine")
-	},
+/obj/machinery/camera/directional/west,
 /obj/machinery/newscaster/directional/west,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -1218,7 +1216,7 @@
 	dir = 1
 	},
 /obj/machinery/iv_drip,
-/obj/machinery/camera/autoname/directional/north,
+/obj/machinery/camera/directional/north,
 /obj/structure/bed/roller,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)

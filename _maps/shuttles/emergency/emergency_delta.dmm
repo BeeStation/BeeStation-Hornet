@@ -127,7 +127,7 @@
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
 	},
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/edge{
 	dir = 4
 	},
@@ -554,7 +554,7 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/directional/east,
 /turf/open/floor/iron/edge{
 	dir = 8
 	},
@@ -623,7 +623,7 @@
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/directional/east,
 /turf/open/floor/iron/edge{
 	dir = 8
 	},
@@ -779,7 +779,7 @@
 /area/shuttle/escape)
 "iz" = (
 /obj/structure/chair/fancy/shuttle,
-/obj/machinery/camera/autoname/directional/north,
+/obj/machinery/camera/directional/north,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "iG" = (
@@ -876,7 +876,7 @@
 /turf/open/floor/iron/edge,
 /area/shuttle/escape)
 "qU" = (
-/obj/machinery/camera/autoname/directional/north,
+/obj/machinery/camera/directional/north,
 /obj/machinery/status_display/ai/directional/north,
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
@@ -1176,7 +1176,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 5
 	},
-/obj/machinery/camera/autoname/directional/north,
+/obj/machinery/camera/directional/north,
 /obj/machinery/status_display/evac/directional/east,
 /obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron/white,
@@ -1558,7 +1558,7 @@
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
 	},
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/edge{
 	dir = 4
 	},
