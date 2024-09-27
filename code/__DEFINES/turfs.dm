@@ -71,3 +71,7 @@
  * Use instead of `A.loc.loc`.
  */
 #define get_area(A) (isarea(A) ? A : get_step(A, 0)?.loc)
+
+#define GENERATE_RANDOM_ICON(probability, max_states) if (prob(probability)) {\
+	icon_state = "[icon_state][rand(1, max_states)]";\
+}

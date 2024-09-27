@@ -47,14 +47,12 @@
 	desc = "Looks a bit dry."
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "wasteland"
-	variants = list("wasteland", "wasteland0", "wasteland1", "wasteland2", "wasteland3", "wasteland4", "wasteland5", "wasteland6", "wasteland7", "wasteland8", "wasteland9", "wasteland10", "wasteland11", "wasteland12")
 	slowdown = 1
 	var/floor_variance = 15
 
 /turf/open/floor/plating/dirt/jungle/wasteland/Initialize(mapload)
-	.=..()
-	if(prob(floor_variance))
-		icon_state = "[initial(icon_state)][rand(0,12)]"
+	GENERATE_RANDOM_ICON(floor_variance, 13)
+	return ..()
 
 /turf/open/floor/grass/jungle
 	name = "jungle grass"
