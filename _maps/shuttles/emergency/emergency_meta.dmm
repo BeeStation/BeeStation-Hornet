@@ -148,7 +148,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/grass,
+/turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "aF" = (
 /obj/machinery/computer/station_alert{
@@ -813,7 +813,7 @@
 	dir = 1;
 	pixel_y = 1
 	},
-/turf/open/floor/grass,
+/turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "pq" = (
 /obj/machinery/door/airlock/command{
@@ -1054,7 +1054,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/open/floor/grass,
+/turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "Ns" = (
 /obj/machinery/door/airlock/external{
@@ -1107,7 +1107,7 @@
 	dir = 1;
 	pixel_y = 1
 	},
-/turf/open/floor/grass,
+/turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "RM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1196,7 +1196,10 @@
 	pixel_y = 1
 	},
 /obj/structure/window/reinforced,
-/turf/open/floor/grass,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "Yo" = (
 /obj/effect/decal/cleanable/dirt,
