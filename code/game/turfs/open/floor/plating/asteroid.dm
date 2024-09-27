@@ -22,8 +22,8 @@
 	var/available_states = 12
 
 /turf/open/floor/plating/asteroid/Initialize(mapload)
-	auto_gen_variants(available_states)
-	variants[icon_state] = 20
+	if (prob(30))
+		icon_state = "[icon_state][rand(1, available_states)]"
 	return ..()
 
 /turf/open/floor/plating/asteroid/proc/getDug()
