@@ -193,26 +193,22 @@
 
 /obj/item/storage/bag/ore/proc/handle_ores_in_turf(var/turf/turf, var/mob/living/user, var/obj/structure/ore_box/box)
 	var/item_transferred = FALSE
+	var/collection_range = (is_bluespace ? bs_range : 0) // 0 means the current turf only
+	var/ore_found=FALSE
 	if (box)
 		for (var/obj/item/stack/ore/ore in turf)
 			user.transferItemToLoc(ore, box)
 			box.ui_update()
 			item_transferred = TRUE
 	else
-		if (is_bluespace)
-			for(var/obj/item/stack/ore/ore in range(bs_range, turf))
-				if(!item_transferred)
-					item_transferred = SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, ore, user, TRUE)
-				else
-					SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, ore, user, TRUE)
-		else
-			for (var/obj/item/stack/ore/ore in turf)
-				if(!item_transferred)
-					item_transferred = SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, ore, user, TRUE)
-				else
-					SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, ore, user, TRUE)
+		for (var/obj/item/stack/ore/ore in range(collection_range, turf))
+			//This logic is needed so that we can send both an ore scooping up and the full bag message,
+			//if there are too many ores in a single tile for a normal ore bag to hold
+			if (!item_transferred)
+				item_transferred = SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, ore, user, TRUE)
+			else
+				SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, ore, user, TRUE)
 	// Check if any ore exists in the turf
-	var/ore_found=FALSE
 	for(var/obj/item/stack/ore/ore in turf)
 		ore_found = TRUE
 		break // If we find any ore, no need to continue the loop
