@@ -333,6 +333,73 @@
 			do_sparks(2, 1, src)
 			qdel(src)
 
+/**
+ * attempts to take AM through all turfs in a straight line between ``A`` and ``B``,
+ * applying ``on_turf_cross`` for each turf and ``obj_damage`` to each structure encountered
+ *
+ * player-facing warnings should be handled externally from this proc
+ *
+ * arguments:
+ * * ``AM`` - movable atom to be jaunted
+ * * ``A`` - source turf for the jaunt, not necessarily ``AM``'s
+ * * ``B`` - destination turf for the jaunt, with distance maintained but direction randomized on a circle if ``scramble``
+ * * ``obj_damage`` - damage applied to structures in its path (not mobs)
+ * * ``phase`` - whether to go through structures or be impeded by them until they're broken
+ * * ``scramble`` - whether to throw off direction on a circle centered on ``A`` and tangent to ``B``
+ * * ``on_turf_cross`` - optional callback proc to call on each of the crossed turfs;
+ * takes ``turf/T`` and returns ``TRUE`` if jaunt should continue, otherwise ``FALSE`` when it should be interrupted -
+ * this however does not cause the jaunt to return a null value
+ *
+ * returns: ``turf/current_turf``, which represents where the jaunt ended, or ``null`` if the jaunt's teleport check failed
+ */
+/proc/do_jaunt(atom/movable/AM, turf/A, turf/B, obj_damage=150, phase=FALSE, scramble=FALSE, datum/callback/on_turf_cross)
+	// TODO: preconditions: check that AM and B exist
+	// might skip on this
+
+	// current loc, current area
+	var/turf/current_location = A
+	var/area/current_area = current_location.loc
+	// do teleport restriction check
+	//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if AM is not located on a turf
+	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(AM.loc))
+	// 	return null on fail
+		return
+
+	// TODO: scramble B as needed
+	// might leave this to external calculation
+
+	// getline path
+	var/list/path = getline(A, B)
+	path -= A
+	// iterate
+	for (var/turf/T in path)
+		// Step forward
+		var/turf/previous = current_location
+		current_location = T
+
+		// Check if we can move here
+		current_area = current_location.loc
+		if(!do_teleport(AM, current_location, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, commit = FALSE))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if AM is not located on a turf
+			// this check is for validity, phasing does not come into account yet
+			current_location = previous
+			break
+		// If it contains objects, try to break it
+		if (obj_damage > 0) // should skip this if not needed
+			for (var/obj/object in current_location.contents)
+				if (object.density)
+					object.take_damage(obj_damage)
+		// check if we should stop due to obstacles
+		if (!phase && current_location.is_blocked_turf(TRUE))
+			current_location = previous
+			break
+		// call on_turf_cross(current_loc)
+		if (!on_turf_cross.Invoke(current_location))
+			current_location = previous
+			break
+
+	do_teleport(AM, current_location, channel = TELEPORT_CHANNEL_BLINK)
+	return current_location
+
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
 	if(!charges)
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
