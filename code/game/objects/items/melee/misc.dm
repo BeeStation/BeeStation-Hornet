@@ -299,7 +299,7 @@
 				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 					return
 				if(check_martial_counter(H, user))
-					log_combat(user, target, "attampted to attack", src, "(blocked by martial arts)")
+					log_combat(user, target, "attempted to attack", src, "(blocked by martial arts)")
 					return
 
 			var/list/desc = get_stun_description(target, user)
@@ -540,7 +540,7 @@
 				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 					return
 				if(check_martial_counter(H, user))
-					log_combat(user, target, "attampted to attack", src, "(blocked by martial arts)")
+					log_combat(user, target, "attempted to attack", src, "(blocked by martial arts)")
 					return
 
 			var/list/desc = get_stun_description(target, user)
@@ -968,7 +968,7 @@
 		if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 			return
 		if(check_martial_counter(H, user))
-			log_combat(user, target, "attampted to attack", src, "(blocked by martial arts)")
+			log_combat(user, target, "attempted to attack", src, "(blocked by martial arts)")
 			return
 
 		var/mob/living/carbon/human/T = target
