@@ -627,6 +627,15 @@
 	admin_notes = "Has an on-board experimental cloner that creates copies of its user, alien surgery tools, and a void core that provides unlimited power."
 	credit_cost = 8000
 
+/datum/map_template/shuttle/emergency/ragecage
+	suffix = "ragecage"
+	name = "THE RAGE CAGE"
+	description = "An abandoned underground electrified fight arena turned into a shuttle. Comes with a Brig, Medbay and Cockpit included."
+	admin_notes = "It's a normal shuttle but it has a rage cage with baseball bats in the middle powered by a PACMAN, plasma included."
+	credit_cost = 7500
+	danger_level = SHUTTLE_DANGER_SUBPAR
+
+
 /datum/map_template/shuttle/emergency/zeta/prerequisites_met()
 	if(SHUTTLE_UNLOCK_ALIENTECH in SSshuttle.shuttle_purchase_requirements_met)
 		return TRUE
