@@ -327,15 +327,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
  * * ``teleport_channel`` - allows overriding of teleport channel used
  * * ``on_turf_cross`` - optional callback proc to call on each of the crossed turfs;
  * takes ``turf/T`` and returns ``TRUE`` if jaunt should continue, otherwise ``FALSE`` when it should be interrupted -
- * this however does not cause the jaunt to return a null value
+ * this however does not cause the jaunt to return a null value;
  * if the proc you wrap in a callback has multiple parameters, ``turf/T`` should be last, and will be passed from here
  *
  * returns: ``turf/current_turf``, which represents where the jaunt ended, or ``null`` if the jaunt's teleport check failed
  */
 /proc/do_jaunt(atom/movable/AM, turf/A, turf/B, obj_damage=0, phase=TRUE, teleport_channel=TELEPORT_CHANNEL_BLINK, datum/callback/on_turf_cross=null)
-	// TODO: preconditions: check that AM and B exist
-	// might skip on this
-
 	// current loc, current area
 	var/turf/current_location = A
 	var/area/current_area = current_location.loc
