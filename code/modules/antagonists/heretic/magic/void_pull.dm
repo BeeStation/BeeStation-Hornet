@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/targeted/void_pull
 	name = "Void Pull"
 	desc = "Call the void, this pulls all nearby people closer to you and damages people already around you. If they are 4 tiles or closer they are also knocked down and a short stun is applied."
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "voidpull"
 	action_background_icon_state = "bg_ecult"
 	invocation = "BR'NG F'RTH TH'M T' M'"

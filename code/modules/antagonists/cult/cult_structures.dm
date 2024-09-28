@@ -97,7 +97,7 @@
 		if("Construct Shell")
 			pickedtype += /obj/structure/constructshell
 		if("Flask of Unholy Water")
-			pickedtype += /obj/item/reagent_containers/glass/beaker/unholywater
+			pickedtype += /obj/item/reagent_containers/food/drinks/bottle/unholywater
 		else
 			return
 	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && iscultist(user) && cooldowntime <= world.time)

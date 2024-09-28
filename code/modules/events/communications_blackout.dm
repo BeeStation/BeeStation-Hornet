@@ -14,7 +14,7 @@
 						"Ionospheri:%£ MCayj^j<.3-BZZZZZZT", \
 						"#4nd%;f4y6,>£%-BZZZZZZZT")
 
-	for(var/mob/living/silicon/ai/A in GLOB.ai_list)	//AIs are always aware of communication blackouts.
+	for(var/mob/living/silicon/ai/A as anything in GLOB.ai_list)	//AIs are always aware of communication blackouts.
 		to_chat(A, "<br><span class='warning'><b>[alert]</b></span><br>")
 
 	if(prob(30) || fake)	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.

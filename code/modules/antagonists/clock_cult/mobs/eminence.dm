@@ -158,7 +158,7 @@
 /obj/effect/proc_holder/spell/targeted/eminence
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
-	action_icon = 'icons/mob/actions/actions_clockcult.dmi'
+	action_icon = 'icons/hud/actions/actions_clockcult.dmi'
 	action_icon_state = "ratvarian_spear"
 	action_background_icon_state = "bg_clock"
 	clothes_req = FALSE

@@ -1965,10 +1965,8 @@
 /obj/machinery/atmospherics/pipe/simple/orange/hidden{
 	dir = 4
 	},
-/obj/machinery/computer/security/telescreen{
+/obj/machinery/computer/security/telescreen/bunker{
 	dir = 1;
-	name = "Bunker Entrance monitor";
-	network = list("bunker1");
 	pixel_y = 2
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2508,8 +2506,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "fU" = (
 /obj/machinery/camera/directional/north{
-	c_tag = "Bunker entrance";
-	network = list("bunker1")
+	c_tag = "Bunker entrance"
 	},
 /obj/structure/sign/warning/securearea{
 	pixel_y = 32

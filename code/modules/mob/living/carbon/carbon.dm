@@ -217,24 +217,30 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		return FALSE
 
 /mob/living/carbon/resist_buckle()
-	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
-		changeNext_move(CLICK_CD_BREAKOUT)
-		last_special = world.time + CLICK_CD_BREAKOUT
-		var/buckle_cd = 60 SECONDS
-		if(handcuffed)
-			var/obj/item/restraints/O = src.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
-			buckle_cd = O.breakouttime
-		visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>", \
-					"<span class='notice'>You attempt to unbuckle yourself... (This will take around [round(buckle_cd/600,1)] minute\s, and you need to stay still.)</span>")
-		if(do_after(src, buckle_cd, target = src, timed_action_flags = IGNORE_HELD_ITEM|IGNORE_RESTRAINED))
-			if(!buckled)
-				return
-			buckled.user_unbuckle_mob(src,src)
-		else
-			if(src && buckled)
-				to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
-	else
-		buckled.user_unbuckle_mob(src,src)
+	if(!HAS_TRAIT(src, TRAIT_RESTRAINED))
+		buckled.user_unbuckle_mob(src, src)
+		return
+
+	changeNext_move(CLICK_CD_BREAKOUT)
+	last_special = world.time + CLICK_CD_BREAKOUT
+	var/buckle_cd = 60 SECONDS
+
+	if(handcuffed)
+		var/obj/item/restraints/O = src.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
+		buckle_cd = O.breakouttime
+
+	visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>", \
+				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [round(buckle_cd/600,1)] minute\s, and you need to stay still.)</span>")
+
+	if(do_after(src, buckle_cd, target = src, timed_action_flags = IGNORE_HELD_ITEM, hidden = TRUE))
+		if(!buckled)
+			to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
+		return
+
+	if(QDELETED(src) || isnull(buckled))
+		return
+
+	buckled.user_unbuckle_mob(src,src)
 
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
@@ -277,7 +283,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(!cuff_break)
 		visible_message("<span class='warning'>[src] attempts to remove [I]!</span>")
 		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [DisplayTimeText(breakouttime)] and you need to stand still.)</span>")
-		if(do_after(src, breakouttime, target = src, timed_action_flags = IGNORE_HELD_ITEM|IGNORE_RESTRAINED))
+		if(do_after(src, breakouttime, target = src, timed_action_flags = IGNORE_HELD_ITEM, hidden = TRUE))
 			clear_cuffs(I, cuff_break)
 		else
 			to_chat(src, "<span class='warning'>You fail to remove [I]!</span>")
@@ -286,7 +292,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		breakouttime = 50
 		visible_message("<span class='warning'>[src] is trying to break [I]!</span>")
 		to_chat(src, "<span class='notice'>You attempt to break [I]... (This will take around 5 seconds and you need to stand still.)</span>")
-		if(do_after(src, breakouttime, target = src, timed_action_flags = IGNORE_HELD_ITEM|IGNORE_RESTRAINED))
+		if(do_after(src, breakouttime, target = src, timed_action_flags = IGNORE_HELD_ITEM))
 			clear_cuffs(I, cuff_break)
 		else
 			to_chat(src, "<span class='warning'>You fail to break [I]!</span>")
@@ -513,7 +519,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	var/stam = getStaminaLoss()
 	if(stam >= DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
 		if(!stat)
-			if(extend_stam_crit && !HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
+			if(extend_stam_crit || !HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
 				enter_stamcrit()
 	else if(HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
 		REMOVE_TRAIT(src, TRAIT_INCAPACITATED, STAMINA)

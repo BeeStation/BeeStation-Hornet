@@ -38,6 +38,7 @@
 	icon_state = "officer_skirt"
 	item_state = "dg_suit"
 	alt_covers_chest = TRUE
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	body_parts_covered = CHEST|GROIN|ARMS
 
 /obj/item/clothing/under/rank/centcom/officer_skirt/replica
@@ -49,4 +50,5 @@
 	desc = "It's a suitskirt worn by CentCom's highest-tier Commanders."
 	icon_state = "centcom_skirt"
 	item_state = "dg_suit"
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	body_parts_covered = CHEST|GROIN|ARMS
