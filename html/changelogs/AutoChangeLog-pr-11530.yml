@@ -1,0 +1,6 @@
+author: rkz, GoldenAlpharex, Haukeschauemann
+delete-after: true
+changes:
+  - rscadd: Adds new female suit cropping.
+  - bugfix: fixes awful sideview on female characters wearing suits.
+  - bugfix: fixes vv refresh with sensors
