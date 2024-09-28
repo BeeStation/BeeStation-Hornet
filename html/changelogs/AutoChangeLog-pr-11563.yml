@@ -1,0 +1,4 @@
+author: ktlwjec
+delete-after: true
+changes:
+  - imageadd: Updates pink and plain donut colors when placed in a donut box.
