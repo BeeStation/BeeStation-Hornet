@@ -22273,7 +22273,7 @@
 	pixel_x = 12;
 	pixel_y = 4
 	},
-/obj/item/trash/can/food/peaches/maint{
+/obj/item/trash/canned/peaches/maint{
 	pixel_x = -7;
 	pixel_y = 7
 	},
@@ -35085,7 +35085,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/turret_protected/aisat_interior)
 "rtt" = (
-/obj/item/trash/can/food/beans,
+/obj/item/trash/canned/beans,
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 1
 	},
@@ -44378,7 +44378,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/science/central)
 "waB" = (
-/obj/item/trash/can/food,
+/obj/item/trash/canned,
 /turf/open/floor/plating/beach/water,
 /area/asteroid/paradise/surface/water)
 "waJ" = (
