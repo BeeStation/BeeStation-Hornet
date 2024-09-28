@@ -465,6 +465,8 @@ Class Procs:
 	if(isAI(user))
 		CRASH("An AI just tried to run attack_robot().") // They should not be running the same procs anymore.
 	. = ..()
+	if(.)
+		return
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
 		return FALSE
 	if(Adjacent(user) && can_buckle && has_buckled_mobs()) //so that borgs (but not AIs, sadly (perhaps in a future PR?)) can unbuckle people from machines
@@ -481,6 +483,8 @@ Class Procs:
 	if(iscyborg(user))
 		CRASH("A cyborg just tried to run attack_ai().") // They should not be running the same procs anymore.
 	. = ..()
+	if(.)
+		return
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
 		return FALSE
 
