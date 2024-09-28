@@ -184,6 +184,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/effect/spawner/lootdrop/crate_spawner,
 /turf/open/floor/wood,
 /area/shuttle/pirate)
 "iO" = (
@@ -498,18 +499,25 @@
 	pixel_y = 3
 	},
 /obj/item/reagent_containers/glass/bottle/black_powder{
-	pixel_x = -5;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/glass/bottle/black_powder{
 	pixel_x = 7;
 	pixel_y = 6
+	},
+/obj/item/reagent_containers/glass/bottle/black_powder{
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/glass/bottle/black_powder{
+	pixel_x = -5;
+	pixel_y = 2
 	},
 /obj/item/reagent_containers/glass/bottle/black_powder,
 /turf/open/floor/wood,
 /area/shuttle/pirate)
 "Aa" = (
 /obj/structure/grille,
+/turf/open/floor/plating,
+/area/shuttle/pirate)
+"Ax" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
 /area/shuttle/pirate)
 "AY" = (
@@ -780,9 +788,6 @@
 	id = "pirate_gun_port_port_quarter";
 	pixel_y = -8
 	},
-/obj/item/candle/infinite{
-	pixel_x = 9
-	},
 /obj/item/food/chococoin{
 	pixel_y = 7;
 	pixel_x = -3
@@ -794,6 +799,13 @@
 /obj/item/food/chococoin{
 	pixel_x = -6;
 	pixel_y = -4
+	},
+/obj/effect/spawner/lootdrop/gambling{
+	pixel_x = 4;
+	pixel_y = 5
+	},
+/obj/item/candle/infinite{
+	pixel_x = 9
 	},
 /turf/open/floor/wood,
 /area/shuttle/pirate)
@@ -1173,7 +1185,7 @@ IF
 IF
 IF
 IF
-Aa
+Ax
 XX
 Aa
 IF
@@ -1357,7 +1369,7 @@ IF
 IF
 IF
 IF
-Aa
+Ax
 lm
 gL
 gL
@@ -1374,7 +1386,7 @@ vv
 vv
 vv
 vv
-Aa
+Ax
 "}
 (13,1,1) = {"
 IF
