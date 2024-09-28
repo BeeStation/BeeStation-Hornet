@@ -36,30 +36,6 @@ Juke.setup({ file: import.meta.url }).then((code) => {
 
 const DME_NAME = 'beestation';
 
-// Stores the contents of dependencies.sh as a key value pair
-// Best way I could figure to get ahold of this stuff
-/*
-const dependencies = fs.readFileSync('dependencies.sh', 'utf8')
-  .split("\n")
-  .map((statement) => statement.replace("export", "").trim())
-  .filter((value) => !(value == "" || value.startsWith("#")))
-  .map((statement) => statement.split("="))
-  .reduce((acc, kv_pair) => {
-    acc[kv_pair[0]] = kv_pair[1];
-    return acc
-  }, {})
-
-// Canonical path for the cutter exe at this moment
-const getCutterPath = () => {
-  const ver = dependencies.CUTTER_VERSION;
-  const suffix = process.platform === 'win32' ? '.exe' : '';
-  const file_ver = ver.split('.').join('-');
-  return `tools/icon_cutter/cache/hypnagogic${file_ver}${suffix}`;
-};
-
-const cutter_path = getCutterPath();
-*/
-
 export const DefineParameter = new Juke.Parameter({
   type: 'string[]',
   alias: 'D',
@@ -81,11 +57,6 @@ export const ForceRecutParameter = new Juke.Parameter({
   name: "force-recut",
 });
 
-export const SkipIconCutter = new Juke.Parameter({
-  type: 'boolean',
-  name: "skip-icon-cutter",
-});
-
 export const WarningParameter = new Juke.Parameter({
   type: 'string[]',
   alias: 'W',
@@ -95,105 +66,6 @@ export const NoWarningParameter = new Juke.Parameter({
   type: 'string[]',
   alias: 'I',
 });
-
-/*
-export const CutterTarget = new Juke.Target({
-  onlyWhen: () => {
-    const files = Juke.glob(cutter_path);
-    return files.length == 0;
-  },
-  executes: async () => {
-    const repo = dependencies.CUTTER_REPO;
-    const ver = dependencies.CUTTER_VERSION;
-    const suffix = process.platform === 'win32' ? '.exe' : '';
-    const download_from = `https://github.com/${repo}/releases/download/${ver}/hypnagogic${suffix}`
-    await download_file(download_from, cutter_path);
-    if(process.platform !== 'win32') {
-      await Juke.exec("chmod", [
-        '+x',
-        cutter_path,
-      ]);
-    }
-  },
-});
-
-async function download_file(url, file) {
-  return new Promise((resolve, reject) => {
-    let file_stream = fs.createWriteStream(file);
-    https.get(url, function(response) {
-      if (response.statusCode === 302) {
-        file_stream.close();
-        download_file(response.headers.location, file)
-          .then((value) => resolve());
-        return;
-      }
-      if (response.statusCode !== 200) {
-        Juke.logger.error(`Failed to download ${url}: Status ${response.statusCode}`);
-        file_stream.close();
-        reject()
-        return
-      }
-      response.pipe(file_stream);
-
-      // after download completed close filestream
-      file_stream.on("finish", () => {
-        file_stream.close();
-        resolve()
-      });
-
-    }).on("error", (err) => {
-      file_stream.close();
-      Juke.rm(download_into);
-      Juke.logger.error(`Failed to download ${url}: ${err.message}`);
-      reject()
-    });
-  });
-}
-
-export const IconCutterTarget = new Juke.Target({
-  parameters: [ForceRecutParameter],
-  dependsOn: () => [
-    CutterTarget,
-  ],
-  inputs: ({ get }) => {
-    const standard_inputs = [
-      `icons\/**\/*.png.toml`,
-      `icons\/**\/*.dmi.toml`,
-      `cutter_templates\/**\/*.toml`,
-cutter_path,
-    ]
-    // Alright we're gonna search out any existing toml files and convert
-    // them to their matching .dmi or .png file
-    const existing_configs = [
-      ...Juke.glob(`icons\/**\/*.png.toml`),
-      ...Juke.glob(`icons\/**\/*.dmi.toml`),
-    ];
-    return [
-      ...standard_inputs,
-      ...existing_configs.map((file) => file.replace('.toml', '')),
-    ]
-  },
-  outputs: ({ get }) => {
-    if(get(ForceRecutParameter))
-      return [];
-    const folders = [
-      ...Juke.glob(`icons\/**\/*.png.toml`),
-      ...Juke.glob(`icons\/**\/*.dmi.toml`),
-    ];
-    return folders
-      .map((file) => file.replace(`.png.toml`, '.dmi'))
-      .map((file) => file.replace(`.dmi.toml`, '.png'));
-  },
-  executes: async () => {
-    await Juke.exec(cutter_path, [
-      '--dont-wait',
-      '--templates',
-      'cutter_templates',
-      'icons',
-    ]);
-  },
-});
-*/
 
 export const DmMapsIncludeTarget = new Juke.Target({
   executes: async () => {
@@ -213,11 +85,9 @@ export const DmMapsIncludeTarget = new Juke.Target({
 });
 
 export const DmTarget = new Juke.Target({
-  parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter, SkipIconCutter],
+  parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
   dependsOn: ({ get }) => [
     get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
-    // BeeStation: Disabled while iconCutter is not in use
-    //!get(SkipIconCutter) && IconCutterTarget,
   ],
   executes: async ({ get }) => {
     await DreamMaker(`${DME_NAME}.dme`, {
@@ -233,7 +103,6 @@ export const DmTestTarget = new Juke.Target({
   parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
   dependsOn: ({ get }) => [
     get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
-    IconCutterTarget,
   ],
   executes: async ({ get }) => {
     fs.copyFileSync(`${DME_NAME}.dme`, `${DME_NAME}.test.dme`);
@@ -264,46 +133,6 @@ export const DmTestTarget = new Juke.Target({
     }
   },
 });
-
-/*
-export const AutowikiTarget = new Juke.Target({
-  parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
-  dependsOn: ({ get }) => [
-    get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
-    IconCutterTarget,
-  ],
-  outputs: [
-    'data/autowiki_edits.txt',
-  ],
-  executes: async ({ get }) => {
-    fs.copyFileSync(`${DME_NAME}.dme`, `${DME_NAME}.test.dme`);
-    await DreamMaker(`${DME_NAME}.test.dme`, {
-      defines: ['CBT', 'AUTOWIKI', ...get(DefineParameter)],
-      warningsAsErrors: get(WarningParameter).includes('error'),
-      ignoreWarningCodes: get(NoWarningParameter),
-      namedDmVersion: get(DmVersionParameter),
-    });
-    Juke.rm('data/autowiki_edits.txt');
-    Juke.rm('data/autowiki_files', { recursive: true });
-    Juke.rm('data/logs/ci', { recursive: true });
-
-    const options = {
-      dmbFile: `${DME_NAME}.test.dmb`,
-      namedDmVersion: get(DmVersionParameter),
-    }
-    await DreamDaemon(
-      options,
-      '-close', '-trusted', '-verbose',
-      '-params', 'log-directory=ci',
-    );
-    Juke.rm('*.test.*');
-    if (!fs.existsSync('data/autowiki_edits.txt')) {
-      Juke.logger.error('Autowiki did not generate an output, exiting');
-      throw new Juke.ExitCode(1);
-    }
-  },
-})
-*/
 
 export const YarnTarget = new Juke.Target({
   parameters: [CiParameter],
