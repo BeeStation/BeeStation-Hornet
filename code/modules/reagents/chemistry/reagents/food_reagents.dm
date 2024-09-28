@@ -688,7 +688,7 @@
 /datum/reagent/consumable/maltodextrin
 	name = "Maltodextrin"
 	description = "A common filler found in processed foods. Foods containing it will leave you feeling full for a much shorter time."
-	color = "#ffffff"
+	color = "#d4e1ee"
 	chem_flags = CHEMICAL_RNG_GENERAL
 	taste_mult = 0.1 // Taste the salt and sugar not the cheap carbs
 	taste_description = "processed goodness"
@@ -699,8 +699,25 @@
 	M.adjust_nutrition(-0.3) //Each unit will match nutriment 1:1 when completely processed
 	..()
 
-////Lavaland Flora Reagents////
+/datum/reagent/consumable/maltodextrin/microplastics
+name = "Microplastics"
+description = "A byproduct of industrial clothing, Cloths containing it will weaken you in the long term!"
+Color = "#dbd6cb"
+taste_mult = 0.1 // Taste the salt and sugar not the cheap carbs
+taste_description = "Plastic"
+nutriment_factor = 0.1 // it's plastic after all, it taste really good and it's real special!
+metabolization_rate = 0.01 * REAGENTS_METABOLISM //Each unit will last 100 ticks
+overdose_threshold = 50
 
+/datum/reagent/consumable/maltodextrin/microplastics/on_mob_life(mob/living/carbon/M)
+	M.adjustToxLoss(1.5*REM, 0) //the more plastic in your body, the more it will amplify tox damage!
+	..()
+
+/datum/reagent/consumable/maltodextrin/microplastics/overdose_start(mob/living/M)
+	to_chat(M, "<span class='notice'>Something in your guts feels off...</span>")
+	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/guts_sickness, name)
+
+////Lavaland Flora Reagents////
 
 /datum/reagent/consumable/entpoly
 	name = "Entropic Polypnium"

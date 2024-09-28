@@ -58,3 +58,9 @@
 	mood_change = -100
 	timeout = 30 SECONDS
 	special_screen_obj = "mood_happiness_bad"
+
+/datum/mood_event/guts_sickness
+	mood_change = -2
+
+/datum/mood_event/guts_sickness/add_effects(food_name)
+	description = "<span class='warning'>I think I had too much [food_name]!</span>"
