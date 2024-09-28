@@ -38,6 +38,7 @@ const DME_NAME = 'beestation';
 
 // Stores the contents of dependencies.sh as a key value pair
 // Best way I could figure to get ahold of this stuff
+/*
 const dependencies = fs.readFileSync('dependencies.sh', 'utf8')
   .split("\n")
   .map((statement) => statement.replace("export", "").trim())
@@ -57,6 +58,7 @@ const getCutterPath = () => {
 };
 
 const cutter_path = getCutterPath();
+*/
 
 export const DefineParameter = new Juke.Parameter({
   type: 'string[]',
@@ -94,6 +96,7 @@ export const NoWarningParameter = new Juke.Parameter({
   alias: 'I',
 });
 
+/*
 export const CutterTarget = new Juke.Target({
   onlyWhen: () => {
     const files = Juke.glob(cutter_path);
@@ -154,16 +157,16 @@ export const IconCutterTarget = new Juke.Target({
   ],
   inputs: ({ get }) => {
     const standard_inputs = [
-      `icons/**/*.png.toml`,
-      `icons/**/*.dmi.toml`,
-      `cutter_templates/**/*.toml`,
-      cutter_path,
+      `icons\/**\/*.png.toml`,
+      `icons\/**\/*.dmi.toml`,
+      `cutter_templates\/**\/*.toml`,
+cutter_path,
     ]
     // Alright we're gonna search out any existing toml files and convert
     // them to their matching .dmi or .png file
     const existing_configs = [
-      ...Juke.glob(`icons/**/*.png.toml`),
-      ...Juke.glob(`icons/**/*.dmi.toml`),
+      ...Juke.glob(`icons\/**\/*.png.toml`),
+      ...Juke.glob(`icons\/**\/*.dmi.toml`),
     ];
     return [
       ...standard_inputs,
@@ -174,8 +177,8 @@ export const IconCutterTarget = new Juke.Target({
     if(get(ForceRecutParameter))
       return [];
     const folders = [
-      ...Juke.glob(`icons/**/*.png.toml`),
-      ...Juke.glob(`icons/**/*.dmi.toml`),
+      ...Juke.glob(`icons\/**\/*.png.toml`),
+      ...Juke.glob(`icons\/**\/*.dmi.toml`),
     ];
     return folders
       .map((file) => file.replace(`.png.toml`, '.dmi'))
@@ -190,6 +193,7 @@ export const IconCutterTarget = new Juke.Target({
     ]);
   },
 });
+*/
 
 export const DmMapsIncludeTarget = new Juke.Target({
   executes: async () => {
@@ -212,30 +216,9 @@ export const DmTarget = new Juke.Target({
   parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter, SkipIconCutter],
   dependsOn: ({ get }) => [
     get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
-    IconCutterTarget,
-    !get(SkipIconCutter) && IconCutterTarget,
+    // BeeStation: Disabled while iconCutter is not in use
+    //!get(SkipIconCutter) && IconCutterTarget,
   ],
-  inputs: [
-    '_maps/map_files/generic/**',
-    'maps/**/*.dm',
-    'code/**',
-    'goon/**',
-    'html/**',
-    'icons/**',
-    'interface/**',
-    'sound/**',
-    `${DME_NAME}.dme`,
-    NamedVersionFile,
-  ],
-  outputs: ({ get }) => {
-    if (get(DmVersionParameter)) {
-      return []; // Always rebuild when dm version is provided
-    }
-    return [
-      `${DME_NAME}.dmb`,
-      `${DME_NAME}.rsc`,
-    ]
-  },
   executes: async ({ get }) => {
     await DreamMaker(`${DME_NAME}.dme`, {
       defines: ['CBT', ...get(DefineParameter)],
@@ -434,7 +417,7 @@ export const LintTarget = new Juke.Target({
 });
 
 export const BuildTarget = new Juke.Target({
-  dependsOn: [TguiTarget, DmTarget],
+  dependsOn: [DmTarget, TguiTarget],
 });
 
 export const ServerTarget = new Juke.Target({
