@@ -1,0 +1,7 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: The "Show Borg Panel" admin verb no longer shows AI's, which are incompatible
+      with the Borg Panel
+  - code_imp: Introduced a new global list for cyborgs; cyborg_list
+  - refactor: Cleaned up some uses of silicon related mob lists
