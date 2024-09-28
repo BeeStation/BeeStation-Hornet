@@ -496,7 +496,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 	return see
 
 /obj/machinery/camera/proc/Togglelight(on=0)
-	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
+	for(var/mob/living/silicon/ai/A as anything in GLOB.ai_list)
 		for(var/obj/machinery/camera/cam in A.lit_cameras)
 			if(cam == src)
 				return
