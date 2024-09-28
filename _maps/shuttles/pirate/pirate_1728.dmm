@@ -45,8 +45,7 @@
 /area/shuttle/pirate)
 "aG" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	layer = 1
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
@@ -239,7 +238,7 @@
 "lF" = (
 /obj/machinery/button/door{
 	pixel_x = 25;
-	name = "starboard bow gun port control";
+	name = "Starboard Bow Gun Port Control";
 	req_access_txt = "180";
 	id = "pirate_gun_port_starboard_bow";
 	pixel_y = 8
@@ -338,7 +337,7 @@
 /obj/machinery/shuttle_scrambler,
 /obj/machinery/button/door{
 	pixel_x = -25;
-	name = "port bow gun port control";
+	name = "Port Bow Gun Port Control";
 	req_access_txt = "180";
 	id = "pirate_gun_port_port_bow";
 	pixel_y = 8
@@ -424,6 +423,9 @@
 	cell_type = /obj/item/stock_parts/cell/high/slime
 	},
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/open/floor/wood,
 /area/shuttle/pirate)
 "vv" = (
@@ -503,13 +505,9 @@
 	pixel_y = 6
 	},
 /obj/item/reagent_containers/glass/bottle/black_powder{
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/glass/bottle/black_powder{
 	pixel_x = -5;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/glass/bottle/black_powder,
 /turf/open/floor/wood,
 /area/shuttle/pirate)
 "Aa" = (
@@ -552,13 +550,19 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/pirate)
+"Do" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
 "DK" = (
 /obj/machinery/computer/shuttle_flight/pirate{
 	req_access_txt = "180"
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	layer = 1
+	dir = 1
 	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/wood,
@@ -589,7 +593,7 @@
 /area/shuttle/pirate)
 "FF" = (
 /obj/machinery/button/door{
-	name = "forward gun port control";
+	name = "Forward Gun Port Control";
 	req_access_txt = "180";
 	id = "pirate_gun_port_forward";
 	pixel_y = 25
@@ -712,7 +716,7 @@
 	pixel_x = -7;
 	pixel_y = 9
 	},
-/obj/item/storage/backpack/duffelbag/syndie/x4,
+/obj/item/storage/backpack/duffelbag/syndie,
 /obj/item/grenade/smokebomb{
 	pixel_x = -5
 	},
@@ -723,8 +727,7 @@
 /area/shuttle/pirate)
 "LC" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	layer = 1
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/shuttle/pirate)
@@ -754,7 +757,8 @@
 /area/shuttle/pirate)
 "Od" = (
 /obj/machinery/door/airlock/wood{
-	req_access_txt = "180"
+	req_access_txt = "180";
+	name = "Pirate Shuttle"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny,
@@ -764,8 +768,7 @@
 /area/shuttle/pirate)
 "Pe" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	layer = 1
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -783,7 +786,7 @@
 /obj/machinery/recharger,
 /obj/machinery/button/door{
 	pixel_x = -25;
-	name = "port quarter gun port control";
+	name = "Port Quarter Gun Port Control";
 	req_access_txt = "180";
 	id = "pirate_gun_port_port_quarter";
 	pixel_y = -8
@@ -822,22 +825,17 @@
 /area/shuttle/pirate)
 "PO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/porta_turret/syndicate/pod{
-	dir = 8;
-	faction = list("pirate");
-	name = "syndicate semi-auto swivel gun"
-	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/oil,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/structure/reagent_dispensers/fueltank/black_powder,
 /turf/open/floor/wood,
 /area/shuttle/pirate)
 "Ql" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	layer = 1
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
@@ -858,7 +856,7 @@
 "Rc" = (
 /obj/machinery/button/door{
 	pixel_x = 25;
-	name = "starboard quarter gun port control";
+	name = "Starboard Quarter Gun Port Control";
 	req_access_txt = "180";
 	id = "pirate_gun_port_starboard_quarter";
 	pixel_y = -8
@@ -907,7 +905,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/button/door{
 	pixel_x = -25;
-	name = "port bow gun port control";
+	name = "Port Bow Gun Port Control";
 	req_access_txt = "180";
 	id = "pirate_gun_port_port_bow";
 	pixel_y = -8
@@ -917,7 +915,7 @@
 "Sj" = (
 /obj/machinery/button/door{
 	pixel_x = 25;
-	name = "starboard bow gun port control";
+	name = "Starboard Bow Gun Port Control";
 	req_access_txt = "180";
 	id = "pirate_gun_port_starboard_bow";
 	pixel_y = -8
@@ -945,7 +943,7 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/button/door{
 	pixel_x = -25;
-	name = "port quarter gun port control";
+	name = "Port Quarter Gun Port Control";
 	req_access_txt = "180";
 	id = "pirate_gun_port_port_quarter";
 	pixel_y = 8
@@ -973,7 +971,8 @@
 /obj/structure/fans/tiny,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/machinery/door/airlock/wood{
-	req_access_txt = "180"
+	req_access_txt = "180";
+	name = "Pirate Shuttle"
 	},
 /obj/docking_port/mobile/pirate{
 	launch_status = 0;
@@ -985,7 +984,9 @@
 /turf/open/floor/wood,
 /area/shuttle/pirate)
 "Xq" = (
-/obj/structure/statue/bananium/clown,
+/obj/structure/statue/bananium/clown{
+	anchored = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/pirate)
 "Xs" = (
@@ -1056,7 +1057,7 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/button/door{
 	pixel_x = 25;
-	name = "starboard quarter gun port control";
+	name = "Starboard Quarter Gun Port Control";
 	req_access_txt = "180";
 	id = "pirate_gun_port_starboard_quarter";
 	pixel_y = 8
@@ -1220,8 +1221,8 @@ EF
 EF
 Pk
 vv
-vv
 Pk
+vv
 vv
 vv
 Aa
@@ -1275,7 +1276,7 @@ Xw
 qq
 ag
 aG
-cb
+Do
 ss
 cV
 dB
