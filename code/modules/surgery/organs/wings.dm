@@ -25,7 +25,7 @@
 /obj/item/organ/wings/proc/Refresh(mob/living/carbon/human/H)
 	H.dna.species.mutant_bodyparts -= "[basewings]open"
 	if(!(H.dna.species.mutant_bodyparts[basewings]))
-		H.dna.species.mutant_bodyparts |= basewings
+		H.dna.species.mutant_bodyparts[basewings] = wing_type
 		H.dna.features[basewings] = wing_type
 		H.update_body()
 	if(flight_level >= WINGS_FLYING)
@@ -57,17 +57,17 @@
 		playsound(H, wingsound, 100, 7)
 	if(basewings == "wings" || basewings == "moth_wings")
 		if(H.dna.species.mutant_bodyparts["wings"])
+			H.dna.species.mutant_bodyparts["wingsopen"] = H.dna.species.mutant_bodyparts["wings"]
 			H.dna.species.mutant_bodyparts -= "wings"
-			H.dna.species.mutant_bodyparts |= "wingsopen"
 		else if(H.dna.species.mutant_bodyparts["wingsopen"])
+			H.dna.species.mutant_bodyparts["wings"] = H.dna.species.mutant_bodyparts["wingsopen"]
 			H.dna.species.mutant_bodyparts -= "wingsopen"
-			H.dna.species.mutant_bodyparts |= "wings"
 		else if(H.dna.species.mutant_bodyparts["moth_wings"])
-			H.dna.species.mutant_bodyparts |= "moth_wingsopen"
+			H.dna.species.mutant_bodyparts["moth_wingsopen"] = H.dna.species.mutant_bodyparts["moth_wings"]
 			H.dna.species.mutant_bodyparts -= "moth_wings"
 		else if(H.dna.species.mutant_bodyparts["moth_wingsopen"])
+			H.dna.species.mutant_bodyparts["moth_wings"] = H.dna.species.mutant_bodyparts["moth_wingsopen"]
 			H.dna.species.mutant_bodyparts -= "moth_wingsopen"
-			H.dna.species.mutant_bodyparts |= "moth_wings"
 		else //it appears we don't actually have wing icons. apply them!!
 			Refresh(H)
 		H.update_body()
@@ -235,7 +235,7 @@
 /datum/action/innate/flight
 	name = "Toggle Flight"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "flight"
 
 /datum/action/innate/flight/Activate()

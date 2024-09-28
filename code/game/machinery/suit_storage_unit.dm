@@ -282,9 +282,9 @@
 	var/list/choices = list()
 
 	if (locked)
-		choices["unlock"] = icon('icons/mob/radial.dmi', "radial_unlock")
+		choices["unlock"] = icon('icons/hud/radials/radial_generic.dmi', "radial_unlock")
 	else if (state_open)
-		choices["close"] = icon('icons/mob/radial.dmi', "radial_close")
+		choices["close"] = icon('icons/hud/radials/radial_generic.dmi', "radial_close")
 
 		for (var/item_key in items)
 			var/item = vars[item_key]
@@ -294,9 +294,9 @@
 				// If the item doesn't exist, put a silhouette in its place
 				choices[item_key] = items[item_key]
 	else
-		choices["open"] = icon('icons/mob/radial.dmi', "radial_open")
-		choices["disinfect"] = icon('icons/mob/radial.dmi', "radial_disinfect")
-		choices["lock"] = icon('icons/mob/radial.dmi', "radial_lock")
+		choices["open"] = icon('icons/hud/radials/radial_generic.dmi', "radial_open")
+		choices["disinfect"] = icon('icons/hud/radials/radial_generic.dmi', "radial_disinfect")
+		choices["lock"] = icon('icons/hud/radials/radial_generic.dmi', "radial_lock")
 
 	var/choice = show_radial_menu(
 		user,
