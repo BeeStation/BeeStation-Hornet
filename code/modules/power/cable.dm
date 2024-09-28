@@ -285,15 +285,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		// Calculate pixel shifts
 		remove_filter(list("displace_wire", "omni-connection-up", "omni-connection-left", "omni-connection-down", "omni-connection-right"))
 		var/shift_amount = get_shift_amount()
-		add_filter("displace_wire", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-wire"), size=shift_amount))
-		if (north && north.omni)
-			add_filter("omni-connection-up", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-up"), size=shift_amount))
-		if (south && south.omni)
-			add_filter("omni-connection-down", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-down"), size=shift_amount))
-		if (west && west.omni)
-			add_filter("omni-connection-left", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-left"), size=shift_amount))
-		if (east && east.omni)
-			add_filter("omni-connection-right", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-right"), size=shift_amount))
+		// Shift amount not required if we are centered, reduces filter usage on main station wires
+		if (shift_amount)
+			layer = initial(layer)
+			add_filter("displace_wire", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-wire"), size=shift_amount))
+			if (north && north.omni)
+				add_filter("omni-connection-up", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-up"), size=shift_amount))
+			if (south && south.omni)
+				add_filter("omni-connection-down", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-down"), size=shift_amount))
+			if (west && west.omni)
+				add_filter("omni-connection-left", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-left"), size=shift_amount))
+			if (east && east.omni)
+				add_filter("omni-connection-right", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-right"), size=shift_amount))
+		else
+			// Gets slightly priority over displaced cables so that shift-click functions as intended
+			layer = initial(layer) + 0.001
 
 /obj/structure/cable/proc/get_shift_amount()
 	switch (cable_color)
