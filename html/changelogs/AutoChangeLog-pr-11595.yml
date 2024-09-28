@@ -1,4 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - bugfix: Fixed health analyzers showing bad missing organs list on morgue bodies.
