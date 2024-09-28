@@ -245,7 +245,7 @@
 	if(!wikiurl)
 		user.balloon_alert(user, "what!? these pages are blank!")
 		return
-	if(tgui_alert(user, "This will open the wiki page in your browser. Are you sure?", list("Yes", "No")) != "Yes")
+	if(tgui_alert(user, "This will open the wiki page in your browser. Are you sure?", "Open the wiki", list("Yes", "No")) != "Yes")
 		return
 
 	DIRECT_OUTPUT(user, link("[wikiurl]/[page_link]"))
