@@ -601,7 +601,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 ///Generate the full examine string of this atom (including icon for goonchat)
 /atom/proc/get_examine_string(mob/user, thats = FALSE)
-	return "[icon2html(src, user)] [thats? "That's ":""][get_examine_name(user)]."
+	return "[icon2html(src, user)] [thats? "That's ":""][get_examine_name(user)]"
 
 /**
   * Called when a mob examines (shift click or verb) this atom
@@ -612,7 +612,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
   * Produces a signal COMSIG_PARENT_EXAMINE
   */
 /atom/proc/examine(mob/user)
-	. = list("[get_examine_string(user, TRUE)]")
+	var/examine_string = get_examine_string(user, thats = TRUE)
+	if(examine_string)
+		. = list("[examine_string].")
+	else
+		. = list()
 
 	if(desc)
 		. += desc

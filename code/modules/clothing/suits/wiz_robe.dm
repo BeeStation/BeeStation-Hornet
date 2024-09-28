@@ -210,6 +210,9 @@
 	desc = "Not all wizards are afraid of getting up close and personal."
 	icon_state = "battlemage"
 	item_state = "battlemage"
+	recharge_delay = 0 // no auto-recharge
+	shield_integrity = 300
+	shield_icon = "shield-red"
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
@@ -218,7 +221,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/suit/space/hardsuit/shielded/wizard/setup_shielding()
-	AddComponent(/datum/component/shielded, max_charges = 15, recharge_start_delay = 0 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 1, lose_multiple_charges = FALSE, shield_icon = "shield-red")
+	AddComponent(/datum/component/shielded, max_integrity = 600, charge_recovery = 0 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-red")
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
 	name = "battlemage helmet"
@@ -241,4 +244,4 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "electricity2"
 	/// How many charges get restored
-	var/restored_charges = 8
+	var/added_shield = 400

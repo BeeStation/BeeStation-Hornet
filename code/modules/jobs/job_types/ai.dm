@@ -50,7 +50,7 @@
 
 	//we may have been created after our borg
 	if(SSticker.current_state == GAME_STATE_SETTING_UP)
-		for(var/mob/living/silicon/robot/R in GLOB.silicon_mobs)
+		for(var/mob/living/silicon/robot/R as anything in GLOB.cyborg_list)
 			if(!R.connected_ai)
 				R.TryConnectToAI()
 

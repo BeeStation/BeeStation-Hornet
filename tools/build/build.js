@@ -385,6 +385,11 @@ export const TguiPrettierTarget = new Juke.Target({
   executes: () => yarn('tgui:prettier'),
 });
 
+export const TguiPrettierFormatTarget = new Juke.Target({
+  dependsOn: [YarnTarget],
+  executes: () => yarn("tgui:prettier-format"),
+});
+
 export const TguiSonarTarget = new Juke.Target({
   dependsOn: [YarnTarget],
   executes: () => yarn('tgui:sonar'),

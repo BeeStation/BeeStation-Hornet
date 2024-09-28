@@ -131,7 +131,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 /obj/structure/fireaxecabinet/attack_paw(mob/living/user)
 	return attack_hand(user)
 
-/obj/structure/fireaxecabinet/attack_ai(mob/user)
+/obj/structure/fireaxecabinet/attack_silicon(mob/user)
 	toggle_lock(user)
 	return
 
