@@ -642,7 +642,6 @@
 /obj/machinery/atmospherics/pipe/simple/orange/hidden{
 	dir = 4
 	},
-/obj/machinery/ai_slipper,
 /obj/machinery/status_display/evac/directional/south,
 /turf/open/floor/iron,
 /area/shuttle/escape)
@@ -776,6 +775,23 @@
 	dir = 1
 	},
 /turf/open/floor/iron/edge,
+/area/shuttle/escape)
+"hv" = (
+/obj/effect/turf_decal/box/corners{
+	pixel_y = 16;
+	dir = 8;
+	pixel_x = 16
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"iy" = (
+/obj/effect/turf_decal/box/corners{
+	pixel_y = 16;
+	dir = 8;
+	pixel_x = 16
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners,
+/turf/open/floor/iron/large,
 /area/shuttle/escape)
 "iz" = (
 /obj/structure/chair/fancy/shuttle,
@@ -1036,8 +1052,17 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "xX" = (
-/obj/machinery/holopad,
-/obj/effect/turf_decal/box,
+/obj/machinery/holopad{
+	pixel_x = 16
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 1;
+	pixel_x = 16
+	},
+/obj/effect/turf_decal/box/corners{
+	pixel_x = 16;
+	dir = 8
+	},
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "zd" = (
@@ -1077,7 +1102,13 @@
 	},
 /area/shuttle/escape)
 "zu" = (
-/obj/machinery/ai_slipper,
+/obj/effect/turf_decal/box/corners{
+	pixel_x = -16
+	},
+/obj/effect/turf_decal/box/corners{
+	pixel_x = -16;
+	dir = 4
+	},
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "zW" = (
@@ -1151,8 +1182,15 @@
 /turf/open/floor/iron/edge,
 /area/shuttle/escape)
 "CS" = (
-/obj/machinery/holopad,
-/obj/effect/turf_decal/box,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = -16
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 1;
+	pixel_x = 16;
+	pixel_y = -16
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Dx" = (
@@ -1165,7 +1203,10 @@
 	},
 /area/shuttle/escape)
 "DG" = (
-/obj/machinery/ai_slipper,
+/obj/effect/turf_decal/box/corners{
+	pixel_x = -16;
+	pixel_y = 16
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Ec" = (
@@ -1305,6 +1346,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/machinery/holopad,
 /obj/effect/turf_decal/box,
+/turf/open/floor/iron/large,
+/area/shuttle/escape)
+"Hw" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 4;
+	pixel_x = -16;
+	pixel_y = -16
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "HH" = (
@@ -1537,11 +1587,21 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "Mi" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/holopad{
+	pixel_x = 16
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 1;
+	pixel_x = 16
+	},
+/obj/effect/turf_decal/box/corners{
+	pixel_x = 16;
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/machinery/ai_slipper,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "Ml" = (
@@ -1670,6 +1730,14 @@
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
+"QN" = (
+/obj/effect/turf_decal/box/corners{
+	pixel_x = -16;
+	pixel_y = 16
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners,
+/turf/open/floor/iron/large,
+/area/shuttle/escape)
 "QW" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
@@ -1687,8 +1755,16 @@
 	},
 /area/shuttle/escape)
 "RY" = (
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = -16
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 1;
+	pixel_x = 16;
+	pixel_y = -16
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/machinery/ai_slipper,
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "Ss" = (
@@ -1906,12 +1982,17 @@
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "Yn" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/box/corners{
+	pixel_x = -16
+	},
+/obj/effect/turf_decal/box/corners{
+	pixel_x = -16;
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/machinery/holopad,
-/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "Yt" = (
@@ -1929,6 +2010,14 @@
 	dir = 9
 	},
 /turf/open/floor/iron/white,
+/area/shuttle/escape)
+"ZZ" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 4;
+	pixel_x = -16;
+	pixel_y = -16
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -2015,7 +2104,7 @@ Vu
 uA
 bw
 CS
-bw
+hv
 bU
 Ky
 aa
@@ -2045,7 +2134,7 @@ zW
 HH
 af
 iz
-bw
+ZZ
 DG
 cG
 af
@@ -2201,7 +2290,7 @@ Vu
 Hh
 gv
 RY
-zW
+iy
 co
 Hh
 Ml
@@ -2231,8 +2320,8 @@ zW
 Vu
 Hh
 gv
-zW
-Hv
+Hw
+QN
 co
 Hh
 Ml

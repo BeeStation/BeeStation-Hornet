@@ -22,13 +22,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"bR" = (
-/obj/effect/turf_decal/trimline/dark/warning{
-	dir = 8
-	},
-/obj/machinery/ai_slipper,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/escape)
 "bV" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/bot,
@@ -136,10 +129,6 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
-"ls" = (
-/obj/machinery/ai_slipper,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "mX" = (
@@ -267,7 +256,6 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "tn" = (
-/obj/machinery/ai_slipper,
 /obj/machinery/button/flasher{
 	id = "cockpit_flasher";
 	pixel_x = 25;
@@ -482,7 +470,6 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/ai_slipper,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "HD" = (
@@ -766,7 +753,7 @@ lm
 Ow
 gg
 Ae
-ls
+HD
 hT
 xa
 EA
@@ -779,7 +766,7 @@ UW
 tn
 in
 JM
-bR
+gy
 gy
 Ze
 Pv
@@ -811,7 +798,7 @@ xX
 (6,1,1) = {"
 sT
 ec
-ls
+HD
 rZ
 nL
 gk

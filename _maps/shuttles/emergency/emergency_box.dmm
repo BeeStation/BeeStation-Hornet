@@ -374,21 +374,13 @@
 	dir = 4
 	},
 /area/shuttle/escape)
-"bz" = (
-/obj/effect/turf_decal/tile/yellow/fourcorners,
-/obj/machinery/ai_slipper,
-/turf/open/floor/iron/large,
-/area/shuttle/escape)
-"bG" = (
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 8
+"cF" = (
+/obj/effect/turf_decal/box/corners{
+	pixel_y = 16;
+	dir = 8;
+	pixel_x = 16
 	},
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 4
-	},
-/obj/machinery/ai_slipper,
-/obj/effect/turf_decal/tile/neutral/fourcorners,
-/turf/open/floor/iron/large,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "ds" = (
 /obj/structure/extinguisher_cabinet{
@@ -426,13 +418,30 @@
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "ga" = (
-/obj/machinery/ai_slipper,
+/obj/machinery/holopad{
+	pixel_x = 16
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 1;
+	pixel_x = 16
+	},
+/obj/effect/turf_decal/box/corners{
+	pixel_x = 16;
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "ij" = (
-/obj/machinery/holopad,
-/obj/effect/turf_decal/box,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = -16
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 1;
+	pixel_x = 16;
+	pixel_y = -16
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "iS" = (
@@ -525,10 +534,6 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
-"rD" = (
-/obj/machinery/ai_slipper,
-/turf/open/floor/iron,
-/area/shuttle/escape)
 "tF" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
@@ -565,10 +570,23 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "wF" = (
-/obj/machinery/holopad,
+/obj/effect/turf_decal/box/corners{
+	pixel_x = -16
+	},
+/obj/effect/turf_decal/box/corners{
+	pixel_x = -16;
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/blue/fourcorners,
-/obj/effect/turf_decal/box,
 /turf/open/floor/iron/white/smooth_large,
+/area/shuttle/escape)
+"wG" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 4;
+	pixel_x = -16;
+	pixel_y = -16
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "yh" = (
 /obj/machinery/holopad,
@@ -874,7 +892,10 @@
 /turf/open/floor/iron/techmaint,
 /area/shuttle/escape)
 "VE" = (
-/obj/machinery/ai_slipper,
+/obj/effect/turf_decal/box/corners{
+	pixel_x = -16;
+	pixel_y = 16
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "VF" = (
@@ -953,13 +974,13 @@ al
 ad
 FC
 ij
-aG
+cF
 aG
 UI
 aQ
 aC
 aC
-bG
+aC
 aC
 aC
 aW
@@ -977,7 +998,7 @@ am
 at
 ad
 aA
-aG
+wG
 VE
 aJ
 ad
@@ -990,7 +1011,7 @@ aS
 aK
 Dd
 Od
-bz
+bb
 bg
 bi
 bk
@@ -998,7 +1019,7 @@ bk
 (5,1,1) = {"
 JW
 tF
-rD
+ag
 wq
 ad
 lm
@@ -1023,7 +1044,7 @@ bk
 (6,1,1) = {"
 JW
 ar
-ag
+yh
 qO
 ad
 ad
@@ -1048,7 +1069,7 @@ bk
 (7,1,1) = {"
 JW
 tF
-yh
+ag
 ag
 IL
 Lr
@@ -1109,7 +1130,7 @@ af
 es
 aC
 aC
-bG
+aC
 aC
 aC
 TU

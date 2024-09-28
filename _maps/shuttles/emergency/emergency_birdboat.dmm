@@ -296,8 +296,15 @@
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "iH" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 1;
+	pixel_y = -16
+	},
+/obj/effect/turf_decal/box/corners{
+	pixel_y = -16;
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/machinery/ai_slipper,
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "jz" = (
@@ -420,14 +427,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
-"ra" = (
-/obj/machinery/ai_slipper,
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners,
-/turf/open/floor/iron/large,
-/area/shuttle/escape)
 "ru" = (
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/camera/directional/east,
@@ -449,10 +448,6 @@
 /turf/open/floor/iron/edge{
 	dir = 1
 	},
-/area/shuttle/escape)
-"sK" = (
-/obj/machinery/ai_slipper,
-/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "sR" = (
 /obj/effect/turf_decal/trimline/yellow/filled/line{
@@ -482,9 +477,18 @@
 /turf/open/floor/iron/techmaint,
 /area/shuttle/escape)
 "uP" = (
+/obj/machinery/holopad{
+	pixel_x = 16
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 1;
+	pixel_x = 16
+	},
+/obj/effect/turf_decal/box/corners{
+	pixel_x = 16;
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/blue/fourcorners,
-/obj/machinery/holopad,
-/obj/effect/turf_decal/box,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "vj" = (
@@ -508,9 +512,17 @@
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "wJ" = (
+/obj/machinery/holopad{
+	pixel_y = 16
+	},
+/obj/effect/turf_decal/box/corners{
+	pixel_y = 16
+	},
+/obj/effect/turf_decal/box/corners{
+	pixel_y = 16;
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/machinery/holopad,
-/obj/effect/turf_decal/box,
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "xz" = (
@@ -574,14 +586,6 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white/smooth_edge,
-/area/shuttle/escape)
-"Cy" = (
-/obj/machinery/ai_slipper,
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners,
-/turf/open/floor/iron/large,
 /area/shuttle/escape)
 "DU" = (
 /obj/structure/closet/firecloset,
@@ -686,7 +690,6 @@
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "Ki" = (
-/obj/machinery/ai_slipper,
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
 	dir = 1
@@ -851,14 +854,15 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "SQ" = (
+/obj/effect/turf_decal/box/corners{
+	pixel_x = -16
+	},
+/obj/effect/turf_decal/box/corners{
+	pixel_x = -16;
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/blue/fourcorners,
-/obj/machinery/ai_slipper,
 /turf/open/floor/iron/white/smooth_large,
-/area/shuttle/escape)
-"Tf" = (
-/obj/effect/turf_decal/tile/yellow/fourcorners,
-/obj/machinery/ai_slipper,
-/turf/open/floor/iron/large,
 /area/shuttle/escape)
 "Ti" = (
 /obj/machinery/door/airlock/titanium{
@@ -990,7 +994,7 @@ jD
 RD
 KB
 aC
-ra
+aC
 YS
 aS
 MN
@@ -1047,7 +1051,7 @@ ab
 (8,1,1) = {"
 ab
 Fg
-sK
+at
 at
 MN
 KP
@@ -1063,14 +1067,14 @@ ab
 (9,1,1) = {"
 MN
 al
-at
+vj
 at
 ho
 Em
 Hx
 ip
 Em
-Cy
+Em
 dy
 aE
 aE
@@ -1079,7 +1083,7 @@ MN
 (10,1,1) = {"
 MN
 al
-vj
+at
 EQ
 MN
 uy
@@ -1159,7 +1163,7 @@ ab
 (15,1,1) = {"
 ab
 ae
-Tf
+an
 FV
 Hl
 eF

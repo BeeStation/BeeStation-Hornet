@@ -449,7 +449,6 @@
 "jv" = (
 /obj/machinery/status_display/evac/directional/north,
 /obj/machinery/light/small,
-/obj/machinery/ai_slipper,
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)
 "kj" = (
@@ -580,10 +579,6 @@
 /obj/machinery/newscaster/directional/north,
 /turf/open/floor/wood,
 /area/shuttle/escape)
-"AJ" = (
-/obj/machinery/ai_slipper,
-/turf/open/floor/wood,
-/area/shuttle/escape)
 "AX" = (
 /obj/structure/chair/stool/bar{
 	dir = 1;
@@ -604,7 +599,6 @@
 /obj/effect/turf_decal/trimline/blue/filled/warning{
 	dir = 1
 	},
-/obj/machinery/ai_slipper,
 /turf/open/floor/iron/white/smooth_edge,
 /area/shuttle/escape)
 "Fm" = (
@@ -766,10 +760,6 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/escape)
-"Vu" = (
-/obj/machinery/ai_slipper,
-/turf/open/floor/carpet/royalblue,
-/area/shuttle/escape)
 "Vx" = (
 /obj/machinery/light{
 	dir = 8
@@ -928,7 +918,7 @@ bE
 (5,1,1) = {"
 Zp
 ag
-Vu
+an
 as
 ab
 ac
@@ -980,7 +970,7 @@ mB
 Gr
 GY
 Cv
-AJ
+kS
 hI
 hI
 hI
@@ -988,7 +978,7 @@ hI
 hI
 hI
 hI
-AJ
+kS
 zE
 ae
 ab

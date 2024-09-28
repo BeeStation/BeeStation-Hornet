@@ -199,11 +199,6 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
-"aY" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/machinery/ai_slipper,
-/turf/open/floor/iron/large,
-/area/shuttle/escape)
 "aZ" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
@@ -239,7 +234,6 @@
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "bf" = (
-/obj/machinery/ai_slipper,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 8
 	},
@@ -346,7 +340,6 @@
 /area/shuttle/escape)
 "by" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners,
-/obj/machinery/ai_slipper,
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "bz" = (
@@ -543,10 +536,6 @@
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"qf" = (
-/obj/machinery/ai_slipper,
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
 "qO" = (
 /obj/effect/spawner/structure/window/shuttle,
 /obj/machinery/door/firedoor/window,
@@ -586,11 +575,6 @@
 /turf/open/floor/iron/edge{
 	dir = 4
 	},
-/area/shuttle/escape)
-"uW" = (
-/obj/machinery/ai_slipper,
-/obj/effect/turf_decal/tile/blue/fourcorners,
-/turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "ve" = (
 /obj/structure/closet,
@@ -883,7 +867,6 @@
 /area/shuttle/escape)
 "ZD" = (
 /obj/machinery/light/small,
-/obj/machinery/ai_slipper,
 /obj/machinery/status_display/evac/directional/south,
 /obj/effect/turf_decal/trimline/neutral/filled/line,
 /obj/effect/turf_decal/trimline/neutral/filled/line{
@@ -1034,7 +1017,7 @@ ac
 iZ
 Vz
 Vz
-aY
+Vz
 Vz
 Vz
 bv
@@ -1184,7 +1167,7 @@ ac
 aM
 Vz
 Vz
-aY
+Vz
 Vz
 Vz
 aI
@@ -1240,15 +1223,15 @@ ac
 (24,1,1) = {"
 jj
 aw
-qf
 aw
 IQ
+aw
 bM
 ac
 cl
+lL
 uM
 lL
-uW
 bG
 qO
 "}
