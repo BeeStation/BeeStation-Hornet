@@ -2960,7 +2960,6 @@
 /area/hallway/secondary/entry)
 "jv" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/camera/autoname/directional/east,
 /obj/machinery/gibber,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
