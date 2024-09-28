@@ -216,7 +216,7 @@ Striking a noncultist, however, will tear their flesh."}
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist armor"
-	desc = "Empowered armor which creates a powerful shield around the user."
+	desc = "A set of runed armour scribbed with blood rites which shimmer in the light, reflecting projectiles."
 	icon_state = "cult_armor"
 	item_state = null
 	w_class = WEIGHT_CLASS_BULKY
@@ -229,18 +229,27 @@ Striking a noncultist, however, will tear their flesh."}
 	allow_any = TRUE
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/setup_shielding()
-	AddComponent(/datum/component/shielded, recharge_start_delay = 0 SECONDS, shield_icon_file = 'icons/effects/cult_effects.dmi', shield_icon = "shield-cult", run_hit_callback = CALLBACK(src, PROC_REF(shield_damaged)))
+	// note that these charges don't regenerate
+	AddComponent(/datum/component/shielded, \
+		max_integrity = 100, \
+		charge_recovery = 0 SECONDS, \
+		shield_icon_file = 'icons/effects/cult_effects.dmi', \
+		shield_icon = "shield-cult", \
+		shield_flags = ENERGY_SHEILD_BLOCK_PROJECTILES, \
+		shield_alpha = 120, \
+		run_hit_callback = CALLBACK(src, PROC_REF(shield_damaged)) \
+		)
 
 /// A proc for callback when the shield breaks, since cult robes are stupid and have different effects
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/proc/shield_damaged(mob/living/wearer, attack_text, new_current_charges)
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/proc/shield_damaged(mob/living/wearer, attack_text, current_integrity)
 	wearer.visible_message("<span class='danger'>[wearer]'s robes neutralize [attack_text] in a burst of blood-red sparks!</span>")
 	new /obj/effect/temp_visual/cult/sparks(get_turf(wearer))
-	if(new_current_charges == 0)
+	if(current_integrity == 0)
 		wearer.visible_message("<span class='danger'>The runed shield around [wearer] suddenly disappears!</span>")
 
 /obj/item/clothing/head/hooded/cult_hoodie/cult_shield
 	name = "empowered cultist helmet"
-	desc = "Empowered helmet which creates a powerful shield around the user."
+	desc = "A runed helmet scribbed with blood rites which shimmer in the light, reflecting projectiles."
 	icon_state = "cult_hoodalt"
 	armor = list(MELEE = 40,  BULLET = 30, LASER = 40, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 50, ACID = 60, STAMINA = 40, BLEED = 20)
 
