@@ -310,3 +310,70 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 	transform = matrix() * 0
 	animate(src, time = 10 SECONDS, transform = matrix(), alpha = 255)
 	animate(time = 0.5 SECONDS, transform = matrix() * 0, alpha = 0)
+
+/**
+ * attempts to take AM through all turfs in a straight line between ``A`` and ``B``,
+ * applying ``on_turf_cross`` for each turf and ``obj_damage`` to each structure encountered
+ *
+ * player-facing warnings and EMP/BoH effects should be handled externally from this proc
+ *
+ * required arguments:
+ * * ``AM`` - movable atom to be jaunted
+ * * ``A`` - source turf for the jaunt, not necessarily ``AM``'s
+ * * ``B`` - destination turf for the jaunt
+ * optional parameters:
+ * * ``obj_damage`` - damage applied to structures in its path (not mobs)
+ * * ``phase`` - whether to go through structures or be impeded by them until they're broken
+ * * ``teleport_channel`` - allows overriding of teleport channel used
+ * * ``on_turf_cross`` - optional callback proc to call on each of the crossed turfs;
+ * takes ``turf/T`` and returns ``TRUE`` if jaunt should continue, otherwise ``FALSE`` when it should be interrupted -
+ * this however does not cause the jaunt to return a null value
+ * if the proc you wrap in a callback has multiple parameters, ``turf/T`` should be last, and will be passed from here
+ *
+ * returns: ``turf/current_turf``, which represents where the jaunt ended, or ``null`` if the jaunt's teleport check failed
+ */
+/proc/do_jaunt(atom/movable/AM, turf/A, turf/B, obj_damage=0, phase=TRUE, teleport_channel=TELEPORT_CHANNEL_BLINK, datum/callback/on_turf_cross=null)
+	// TODO: preconditions: check that AM and B exist
+	// might skip on this
+
+	// current loc, current area
+	var/turf/current_location = A
+	var/area/current_area = current_location.loc
+	// do teleport restriction check
+	//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if AM is not located on a turf
+	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(AM.loc))
+	// 	fail, return null
+		return
+
+	// getline path
+	var/list/path = getline(A, B)
+	path -= A
+	// iterate
+	for (var/turf/T in path)
+		// Step forward
+		var/turf/previous = current_location
+		current_location = T
+
+		// Check if we can move here
+		current_area = current_location.loc
+		if(!do_teleport(AM, current_location, no_effects = TRUE, channel = teleport_channel, commit = FALSE))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if AM is not located on a turf
+			// this check is for validity, phasing does not come into account yet
+			current_location = previous
+			break
+		// If it contains objects, try to break it
+		if (obj_damage > 0) // should skip this if not needed
+			for (var/obj/object in current_location.contents)
+				if (object.density)
+					object.take_damage(obj_damage)
+		// check if we should stop due to obstacles
+		if (!phase && current_location.is_blocked_turf(TRUE))
+			current_location = previous
+			break
+		// call on_turf_cross(current_loc)
+		if (on_turf_cross) // optional callback should be optional
+			if (!on_turf_cross.Invoke(current_location))
+				current_location = previous
+				break
+
+	do_teleport(AM, current_location, channel = TELEPORT_CHANNEL_BLINK)
+	return current_location
