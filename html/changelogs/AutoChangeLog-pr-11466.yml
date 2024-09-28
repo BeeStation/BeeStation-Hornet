@@ -1,0 +1,8 @@
+author: mystery3525
+delete-after: true
+changes:
+  - code_imp: Add check_teleport()
+  - bugfix: Added more cult-related checks for teleports. Cults can no longer teleport
+      holy items, etc.
+  - bugfix: Clockcult teleport now respects blessing internally if it didn't already
+      check
