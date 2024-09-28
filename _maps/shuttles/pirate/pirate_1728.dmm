@@ -404,7 +404,9 @@
 /area/shuttle/pirate)
 "tD" = (
 /obj/item/chair/wood,
-/obj/effect/mob_spawn/human/skeleton,
+/obj/effect/mob_spawn/human/skeleton{
+	faction = list("pirate")
+	},
 /obj/item/broken_bottle{
 	pixel_x = 9
 	},
