@@ -39,7 +39,7 @@
 	SIGNAL_HANDLER
 	if(!isliving(user))
 		return
-	if(!INTERACTING_WITH(user, source))
+	if(!DOING_INTERACTION_WITH_TARGET(user, source))
 		INVOKE_ASYNC(src, PROC_REF(appraise), source, user) //Do not sleep the proc.
 
 /datum/element/art/proc/appraise(atom/source, mob/user)
