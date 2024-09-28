@@ -1,0 +1,1313 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ag" = (
+/obj/item/reagent_containers/food/condiment/milk{
+	pixel_x = -3;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/food/condiment/milk{
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/condiment/milk{
+	pixel_x = 7;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/condiment/milk{
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/condiment/milk{
+	pixel_y = 2;
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/food/condiment/milk{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/food/condiment/milk{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/condiment/milk{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/obj/structure/closet/crate/wooden,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8
+	},
+/obj/structure/window/reinforced/survival_pod,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"aG" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1;
+	layer = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 6;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/food/drinks/bottle/rum{
+	name = "Captain Pete's Private Reserve Cuban Spaced Rum";
+	pixel_x = -6;
+	pixel_y = 8;
+	list_reagents = list(/datum/reagent/consumable/ethanol/rum = 5)
+	},
+/obj/item/storage/box/matches,
+/obj/item/clothing/mask/cigarette/cigar,
+/obj/structure/table/wood/fancy/black,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"bn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/gun/ballistic/shotgun/doublebarrel/hook{
+	pixel_y = -5
+	},
+/obj/structure/closet/secure_closet/personal,
+/obj/item/gun/ballistic/rifle/boltaction{
+	pixel_y = 5
+	},
+/obj/effect/turf_decal/box,
+/obj/item/melee/transforming/energy/sword/pirate,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"bz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/shreds,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"cb" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"cy" = (
+/obj/item/stack/sheet/wood{
+	amount = 3
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"cV" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/barricade/wooden/crude,
+/obj/structure/window/reinforced/survival_pod,
+/turf/open/floor/plating,
+/area/shuttle/pirate)
+"dv" = (
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 8;
+	faction = list("pirate");
+	name = "syndicate semi-auto swivel gun"
+	},
+/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"dB" = (
+/obj/structure/shuttle/engine/propulsion/right,
+/turf/open/floor/plating,
+/area/shuttle/pirate)
+"fl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/turretid{
+	icon_state = "control_kill";
+	lethal = 1;
+	locked = 0;
+	req_access = null;
+	req_access_txt = "180";
+	pixel_x = 25
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"fv" = (
+/obj/structure/stairs,
+/turf/open/space/basic,
+/area/shuttle/pirate)
+"fG" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/mob_spawn/human/pirate/captain{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"fN" = (
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 8;
+	faction = list("pirate");
+	name = "syndicate semi-auto swivel gun"
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"gL" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "pirate_gun_port_starboard_bow";
+	name = "starboard bow gun port"
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/pirate)
+"hj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/drinks/bottle/rum{
+	name = "Captain Pete's Private Reserve Cuban Spaced Rum";
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"hO" = (
+/obj/structure/barricade/wooden,
+/turf/closed/wall/mineral/wood,
+/area/shuttle/pirate)
+"hX" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 4;
+	faction = list("pirate");
+	name = "syndicate semi-auto swivel gun"
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"iO" = (
+/obj/machinery/piratepad,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/coin/iron{
+	pixel_y = 1;
+	pixel_x = 6
+	},
+/obj/item/coin/titanium{
+	pixel_x = 4;
+	pixel_y = -8
+	},
+/obj/item/coin/uranium{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/coin/gold{
+	pixel_y = -6;
+	pixel_x = -8
+	},
+/obj/item/coin,
+/obj/item/coin/plasma{
+	pixel_x = -5
+	},
+/obj/effect/turf_decal/box,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"jl" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/knife/combat,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"kQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 8;
+	faction = list("pirate");
+	name = "syndicate semi-auto swivel gun"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"lm" = (
+/obj/structure/barricade/wooden,
+/obj/structure/barricade/wooden/crude,
+/turf/closed/wall/mineral/wood,
+/area/shuttle/pirate)
+"lF" = (
+/obj/machinery/button/door{
+	pixel_x = 25;
+	name = "starboard bow gun port control";
+	req_access_txt = "180";
+	id = "pirate_gun_port_starboard_bow";
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/loot_locator,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"mK" = (
+/obj/machinery/holopad,
+/obj/effect/turf_decal/box,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"nD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/shard{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/obj/item/broken_bottle,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"oh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 8;
+	faction = list("pirate");
+	name = "syndicate semi-auto swivel gun"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/robot_debris/old,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"oi" = (
+/obj/effect/mob_spawn/human/pirate{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"oQ" = (
+/obj/item/shard{
+	pixel_x = 11;
+	pixel_y = -9
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"oV" = (
+/obj/effect/decal/cleanable/ash,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"pP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/robot_debris,
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 4;
+	faction = list("pirate");
+	name = "syndicate semi-auto swivel gun"
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"qf" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/barricade/wooden,
+/obj/structure/window/reinforced/survival_pod,
+/turf/open/floor/plating,
+/area/shuttle/pirate)
+"qq" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/shard{
+	pixel_x = 11;
+	pixel_y = -9
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"rc" = (
+/obj/machinery/shuttle_scrambler,
+/obj/machinery/button/door{
+	pixel_x = -25;
+	name = "port bow gun port control";
+	req_access_txt = "180";
+	id = "pirate_gun_port_port_bow";
+	pixel_y = 8
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"rA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/ash,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"rF" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/condiment/milk{
+	pixel_y = 2;
+	pixel_x = -7
+	},
+/obj/item/candle/infinite{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/food/condiment/soymilk{
+	pixel_x = 10;
+	pixel_y = 7
+	},
+/obj/item/knife/shank,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"ss" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"sK" = (
+/obj/effect/mob_spawn/human/pirate{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"sL" = (
+/obj/machinery/computer/piratepad_control,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"tt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/stairs,
+/turf/open/space/basic,
+/area/shuttle/pirate)
+"tD" = (
+/obj/item/chair/wood,
+/obj/effect/mob_spawn/human/skeleton,
+/obj/item/broken_bottle{
+	pixel_x = 9
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"uv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 8;
+	faction = list("pirate");
+	name = "syndicate semi-auto swivel gun"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"uw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc{
+	aidisabled = 1;
+	dir = 1;
+	name = "Pirate Corvette APC";
+	req_access = null;
+	pixel_x = -25;
+	cell_type = /obj/item/stock_parts/cell/high/slime
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"vv" = (
+/turf/closed/wall/mineral/wood,
+/area/shuttle/pirate)
+"wQ" = (
+/obj/item/shard{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"ym" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/obj/item/candle/infinite{
+	pixel_x = 7;
+	pixel_y = -1
+	},
+/obj/structure/window/reinforced/survival_pod,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/obj/item/candle/infinite{
+	pixel_y = -2
+	},
+/obj/item/radio/intercom{
+	pixel_y = 5
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"zv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"zZ" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/closet/crate/secure/weapon{
+	req_access_txt = "180";
+	desc = "A secure ammo crate.";
+	name = "ammo crate"
+	},
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/lethalshot,
+/obj/item/storage/box/lethalshot,
+/obj/item/storage/box/lethalshot,
+/obj/item/storage/box/lethalshot,
+/obj/item/storage/box/lethalshot,
+/obj/structure/window/reinforced/survival_pod,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Aa" = (
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/shuttle/pirate)
+"Bh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/wood,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Cg" = (
+/obj/machinery/computer/camera_advanced/syndie,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"CR" = (
+/obj/effect/turf_decal/arrows{
+	dir = 8;
+	pixel_x = -3
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"CY" = (
+/obj/structure/barricade/wooden/crude,
+/obj/structure/closet/secure_closet/personal,
+/obj/item/gun/ballistic/shotgun/riot{
+	pixel_y = 4
+	},
+/obj/item/gun/ballistic/revolver/golden{
+	pixel_y = -3
+	},
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/stripes/line,
+/obj/item/melee/transforming/energy/sword/pirate,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"DK" = (
+/obj/machinery/computer/shuttle_flight/pirate{
+	req_access_txt = "180"
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1;
+	layer = 1
+	},
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"EF" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "pirate_gun_port_port_quarter";
+	name = "port quarter gun port"
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/pirate)
+"Fj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 4;
+	faction = list("pirate");
+	name = "syndicate semi-auto swivel gun"
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"FF" = (
+/obj/machinery/button/door{
+	name = "forward gun port control";
+	req_access_txt = "180";
+	id = "pirate_gun_port_forward";
+	pixel_y = 25
+	},
+/obj/structure/reagent_dispensers/watertank,
+/obj/item/mop{
+	pixel_x = -6;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/glass/bucket{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"FR" = (
+/obj/machinery/vending/boozeomat/all_access{
+	onstation = 0
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Gu" = (
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 8;
+	faction = list("pirate");
+	name = "syndicate semi-auto swivel gun"
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"If" = (
+/obj/item/restraints/legcuffs/bola/tactical,
+/obj/item/restraints/legcuffs/bola/tactical,
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs,
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/mask/muzzle,
+/obj/structure/closet/crate/wooden,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"IF" = (
+/turf/template_noop,
+/area/template_noop)
+"Ju" = (
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/candle{
+	pixel_y = 6;
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/food/condiment/milk{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"JA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"KM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Lv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/obj/item/storage/backpack/duffelbag/syndie/c4,
+/obj/item/grenade/empgrenade{
+	pixel_y = 4
+	},
+/obj/item/grenade/empgrenade{
+	pixel_x = 8;
+	pixel_y = 4
+	},
+/obj/item/grenade/smokebomb{
+	pixel_x = 5
+	},
+/obj/item/grenade/smokebomb{
+	pixel_x = -5
+	},
+/obj/item/candle/infinite{
+	pixel_x = -7;
+	pixel_y = 9
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"LC" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1;
+	layer = 1
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"LR" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "pirate_gun_port_forward";
+	name = "forward gun port"
+	},
+/turf/open/floor/plating,
+/area/shuttle/pirate)
+"Nd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/robot_debris/old,
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised,
+/obj/structure/closet/secure_closet/personal,
+/obj/item/gun/ballistic/rifle/leveraction{
+	pixel_y = 10
+	},
+/obj/effect/turf_decal/box,
+/obj/item/melee/transforming/energy/sword/pirate,
+/obj/item/clothing/suit/space/hardsuit/ancient,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Od" = (
+/obj/machinery/door/airlock/wood{
+	req_access_txt = "180"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/fans/tiny,
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/barricade/wooden/crude,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Pe" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1;
+	layer = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Pk" = (
+/obj/structure/barricade/wooden/crude,
+/turf/closed/wall/mineral/wood,
+/area/shuttle/pirate)
+"Pp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/obj/machinery/recharger,
+/obj/machinery/button/door{
+	pixel_x = -25;
+	name = "port quarter gun port control";
+	req_access_txt = "180";
+	id = "pirate_gun_port_port_quarter";
+	pixel_y = -8
+	},
+/obj/item/candle/infinite{
+	pixel_x = 9
+	},
+/obj/item/food/chococoin{
+	pixel_y = 7;
+	pixel_x = -3
+	},
+/obj/item/food/chococoin{
+	pixel_x = -8;
+	pixel_y = 3
+	},
+/obj/item/food/chococoin{
+	pixel_x = -6;
+	pixel_y = -4
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Pt" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "pirate_gun_port_starboard_quarter";
+	name = "starboard quarter gun port"
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/pirate)
+"PO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 8;
+	faction = list("pirate");
+	name = "syndicate semi-auto swivel gun"
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/oil,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Ql" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1;
+	layer = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/item/storage/toolbox/syndicate{
+	pixel_x = 3;
+	pixel_y = 7
+	},
+/obj/item/candle/infinite{
+	pixel_x = -6;
+	pixel_y = 1
+	},
+/obj/item/storage/wallet{
+	pixel_x = 7
+	},
+/obj/structure/table/wood/fancy/black,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Rc" = (
+/obj/machinery/button/door{
+	pixel_x = 25;
+	name = "starboard quarter gun port control";
+	req_access_txt = "180";
+	id = "pirate_gun_port_starboard_quarter";
+	pixel_y = -8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/obj/machinery/recharger,
+/obj/item/candle/infinite{
+	pixel_x = 7;
+	pixel_y = 12
+	},
+/obj/item/storage/firstaid{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Rh" = (
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/shuttle/pirate)
+"Rj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"RE" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced/survival_pod,
+/turf/open/floor/plating,
+/area/shuttle/pirate)
+"RH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/button/door{
+	pixel_x = -25;
+	name = "port bow gun port control";
+	req_access_txt = "180";
+	id = "pirate_gun_port_port_bow";
+	pixel_y = -8
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Sg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/holopad,
+/obj/effect/turf_decal/box,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Sj" = (
+/obj/machinery/button/door{
+	pixel_x = 25;
+	name = "starboard bow gun port control";
+	req_access_txt = "180";
+	id = "pirate_gun_port_starboard_bow";
+	pixel_y = -8
+	},
+/obj/item/reagent_containers/food/drinks/bottle/rum{
+	name = "Captain Pete's Private Reserve Cuban Spaced Rum";
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"SI" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 4;
+	faction = list("pirate");
+	name = "syndicate semi-auto swivel gun"
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Tv" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/button/door{
+	pixel_x = -25;
+	name = "port quarter gun port control";
+	req_access_txt = "180";
+	id = "pirate_gun_port_port_quarter";
+	pixel_y = 8
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"UX" = (
+/obj/effect/decal/cleanable/oil,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/oil/slippery,
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 4;
+	faction = list("pirate");
+	name = "syndicate semi-auto swivel gun"
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Vw" = (
+/obj/item/stack/sheet/wood/five,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Wa" = (
+/obj/structure/fans/tiny,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/machinery/door/airlock/wood{
+	req_access_txt = "180"
+	},
+/obj/docking_port/mobile/pirate{
+	launch_status = 0;
+	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
+	name = "Pirate Ship";
+	port_direction = 2;
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Xq" = (
+/obj/structure/statue/bananium/clown,
+/turf/open/floor/plating,
+/area/shuttle/pirate)
+"Xs" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Xv" = (
+/obj/machinery/door/poddoor{
+	id = "pirate_gun_port_forward";
+	name = "forward gun port"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/pirate)
+"Xw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"XX" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"XZ" = (
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 8;
+	faction = list("pirate");
+	name = "syndicate semi-auto swivel gun"
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Yj" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "pirate_gun_port_port_bow";
+	name = "port quarter gun port"
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/pirate)
+"Yz" = (
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"Zo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 4;
+	faction = list("pirate");
+	name = "syndicate semi-auto swivel gun"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"ZS" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/button/door{
+	pixel_x = 25;
+	name = "starboard quarter gun port control";
+	req_access_txt = "180";
+	id = "pirate_gun_port_starboard_quarter";
+	pixel_y = 8
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+
+(1,1,1) = {"
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+CR
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+"}
+(2,1,1) = {"
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+CR
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+"}
+(3,1,1) = {"
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+CR
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+"}
+(4,1,1) = {"
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+CR
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+"}
+(5,1,1) = {"
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+Aa
+XX
+Aa
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+"}
+(6,1,1) = {"
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+Aa
+vv
+Yj
+Yj
+Yj
+vv
+Od
+hO
+EF
+EF
+EF
+Pk
+vv
+vv
+Pk
+vv
+vv
+Aa
+"}
+(7,1,1) = {"
+IF
+IF
+IF
+IF
+vv
+vv
+hO
+Pk
+vv
+XZ
+uv
+PO
+rc
+cb
+Pp
+kQ
+oh
+dv
+Tv
+fv
+Pe
+uw
+FR
+RE
+dB
+"}
+(8,1,1) = {"
+IF
+IF
+IF
+Rh
+Xv
+fN
+bn
+sK
+RH
+oQ
+rA
+cb
+Vw
+zv
+hj
+rA
+Xw
+Xw
+qq
+ag
+aG
+cb
+ss
+cV
+dB
+"}
+(9,1,1) = {"
+Xq
+vv
+Pk
+hO
+vv
+FF
+cb
+cb
+mK
+If
+Lv
+sL
+Yz
+iO
+cb
+Cg
+rF
+Ju
+Sg
+zZ
+DK
+cb
+fG
+RE
+dB
+"}
+(10,1,1) = {"
+IF
+IF
+IF
+Rh
+LR
+Gu
+Nd
+oi
+Sj
+Bh
+Xs
+bz
+nD
+Rj
+oV
+cy
+tD
+JA
+jl
+ym
+Ql
+wQ
+KM
+RE
+dB
+"}
+(11,1,1) = {"
+IF
+IF
+IF
+IF
+vv
+Pk
+vv
+vv
+vv
+hX
+SI
+Zo
+lF
+cb
+Rc
+Fj
+UX
+pP
+ZS
+tt
+LC
+fl
+CY
+qf
+dB
+"}
+(12,1,1) = {"
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+Aa
+lm
+gL
+gL
+gL
+Pk
+Wa
+vv
+Pt
+Pt
+Pt
+vv
+lm
+vv
+vv
+vv
+vv
+Aa
+"}
+(13,1,1) = {"
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+Aa
+Yz
+Aa
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+"}
