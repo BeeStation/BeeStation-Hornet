@@ -1,5 +1,0 @@
-author: Aramix
-delete-after: true
-changes:
-  - bugfix: all escape pods should now properly arrive to the escape pod shuttle at
-      end of round
