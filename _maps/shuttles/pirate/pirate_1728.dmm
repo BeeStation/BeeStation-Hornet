@@ -321,11 +321,10 @@
 /turf/open/floor/plating,
 /area/shuttle/pirate)
 "qi" = (
-/obj/effect/turf_decal/arrows{
-	dir = 8;
-	pixel_x = -3
-	},
 /obj/structure/fans/tiny,
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/shuttle/pirate)
 "qq" = (
@@ -559,7 +558,11 @@
 	dir = 8;
 	pixel_x = -3
 	},
-/turf/open/floor/wood,
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/wood/airless,
 /area/shuttle/pirate)
 "CY" = (
 /obj/effect/turf_decal/stripes/line,
@@ -1045,7 +1048,11 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
-/turf/open/floor/wood,
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/wood/airless,
 /area/shuttle/pirate)
 "XZ" = (
 /obj/machinery/porta_turret/syndicate/pod{
@@ -1072,7 +1079,10 @@
 /turf/open/floor/plating,
 /area/shuttle/pirate)
 "Yz" = (
-/turf/open/floor/wood,
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 4
+	},
+/turf/open/floor/wood/airless,
 /area/shuttle/pirate)
 "Zo" = (
 /obj/effect/decal/cleanable/dirt,
