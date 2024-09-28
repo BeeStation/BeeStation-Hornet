@@ -2,7 +2,7 @@
 
 /obj/projectile/bullet/n762
 	name = "7.62x38mmR bullet"
-	damage = 55
+	damage = 25
 	armour_penetration = 12
 
 // .50AE (Desert Eagle)

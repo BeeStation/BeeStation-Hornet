@@ -573,6 +573,12 @@
 	label_name = "bromine"
 	list_reagents = list(/datum/reagent/bromine = 30)
 
+/obj/item/reagent_containers/glass/bottle/black_powder
+	name = "black powder bottle"
+	label_name = "black powder"
+	desc = "A small bottle. Contains Black Powder."
+	list_reagents = list(/datum/reagent/blackpowder = 30)
+
 // Bottles for mail goodies.
 
 /obj/item/reagent_containers/glass/bottle/clownstears

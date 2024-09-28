@@ -785,6 +785,10 @@
 	suffix = "default"
 	name = "pirate ship (Default)"
 
+/datum/map_template/shuttle/pirate/prehistoric
+	suffix = "1728"
+	name = "pirate ship (1728)"
+
 /datum/map_template/shuttle/hunter/space_cop
 	suffix = "space_cop"
 	name = "Police Spacevan"
