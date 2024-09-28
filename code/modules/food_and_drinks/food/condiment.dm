@@ -83,7 +83,7 @@
 	else
 		M.visible_message("<span class='warning'>[user] attempts to feed [M] from [src].</span>", \
 			"<span class='warning'>[user] attempts to feed you from [src].</span>")
-		if(!do_after(user, target = M))
+		if(!do_after(user, 3 SECONDS, target = M))
 			return
 		if(!reagents || !reagents.total_volume)
 			return // The condiment might be empty after the delay.

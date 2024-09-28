@@ -32,7 +32,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		return FALSE
 	if(range <= 0)
 		return FALSE
-	return (!permanently && attached_to_summoner) || stats?.range == 1
+	return (!permanently && attached_to_summoner)
 
 /**
  * Returns whether the holoparasite is within range of its summoner or not.

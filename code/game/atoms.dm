@@ -121,9 +121,6 @@
 	///A string of hex format colors to be used by greyscale sprites, ex: "#0054aa#badcff"
 	var/greyscale_colors
 
-	///Mobs that are currently do_after'ing this atom, to be cleared from on Destroy()
-	var/list/targeted_by
-
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
 
@@ -309,12 +306,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 	QDEL_NULL(light)
 	QDEL_NULL(ai_controller)
-
-	for(var/i in targeted_by)
-		var/mob/M = i
-		LAZYREMOVE(M.do_afters, src)
-
-	targeted_by = null
 
 	return ..()
 
@@ -601,7 +592,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 ///Generate the full examine string of this atom (including icon for goonchat)
 /atom/proc/get_examine_string(mob/user, thats = FALSE)
-	return "[icon2html(src, user)] [thats? "That's ":""][get_examine_name(user)]."
+	return "[icon2html(src, user)] [thats? "That's ":""][get_examine_name(user)]"
 
 /**
   * Called when a mob examines (shift click or verb) this atom
@@ -612,7 +603,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
   * Produces a signal COMSIG_PARENT_EXAMINE
   */
 /atom/proc/examine(mob/user)
-	. = list("[get_examine_string(user, TRUE)]")
+	var/examine_string = get_examine_string(user, thats = TRUE)
+	if(examine_string)
+		. = list("[examine_string].")
+	else
+		. = list()
 
 	if(desc)
 		. += desc
