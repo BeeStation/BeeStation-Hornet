@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Saves 1.03s on init times by altering asteroid plating initialisation logic.
