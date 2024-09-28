@@ -700,7 +700,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	screen_loc = ui_mood
 
 /atom/movable/screen/splash
-	icon = 'icons/blank_title.png'
+	icon = 'icons/blanks/blank_title.png'
 	icon_state = ""
 	screen_loc = "1,1"
 	plane = SPLASHSCREEN_PLANE
