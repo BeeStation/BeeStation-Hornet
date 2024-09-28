@@ -134,18 +134,10 @@
 			to_process.len--
 			powernet_id_array[processing_wire] = new_powernet
 			// Process adjacent nodes
-			if (processing_wire.north && processing_wire.north._last_repropogation_update != unique_propogation_identifier)
-				processing_wire.north._last_repropogation_update = unique_propogation_identifier
-				to_process += processing_wire.north
-			if (processing_wire.south && processing_wire.south._last_repropogation_update != unique_propogation_identifier)
-				processing_wire.south._last_repropogation_update = unique_propogation_identifier
-				to_process += processing_wire.south
-			if (processing_wire.east && processing_wire.east._last_repropogation_update != unique_propogation_identifier)
-				processing_wire.east._last_repropogation_update = unique_propogation_identifier
-				to_process += processing_wire.east
-			if (processing_wire.west && processing_wire.west._last_repropogation_update != unique_propogation_identifier)
-				processing_wire.west._last_repropogation_update = unique_propogation_identifier
-				to_process += processing_wire.west
+			for (var/obj/structure/cable/linked_cable as anything in processing_wire.connected)
+				if (linked_cable._last_repropogation_update != unique_propogation_identifier)
+					linked_cable._last_repropogation_update = unique_propogation_identifier
+					to_process += linked_cable
 	for (var/obj/structure/cable/processing_wire as() in powernet_id_array)
 		var/datum/powernet/new_powernet = powernet_id_array[processing_wire]
 		new_powernet.add_cable(processing_wire)
