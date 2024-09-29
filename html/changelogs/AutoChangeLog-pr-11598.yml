@@ -1,0 +1,7 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Dionae are no longer forced to die in order to split, which prevents players
+      from getting mixed messages. Unless you die as a nymph, you have not actually
+      died and retain your memories, but dying as a nymph is usually permanent so
+      be careful!
