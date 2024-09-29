@@ -353,7 +353,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 
 		// Check if we can move here
 		current_area = current_location.loc
-		if(!do_teleport(AM, current_location, no_effects = TRUE, channel = teleport_channel, commit = FALSE))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if AM is not located on a turf
+		if(!check_teleport(AM, current_location, channel = teleport_channel))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if AM is not located on a turf
 			// this check is for validity, phasing does not come into account yet
 			current_location = previous
 			break
@@ -372,5 +372,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 				current_location = previous
 				break
 
-	do_teleport(AM, current_location, channel = TELEPORT_CHANNEL_BLINK)
+	do_teleport(AM, current_location, channel = teleport_channel)
 	return current_location
