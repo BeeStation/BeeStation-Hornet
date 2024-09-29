@@ -121,7 +121,6 @@
 	damage = 15
 	armour_penetration = 0
 	embedds = TRUE
-	hitsound = 'sound/effects/hit_punch.ogg'
 	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint
 	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint
 
@@ -166,11 +165,34 @@
 	icon_state = "bonearrow_cloth_burnt"
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth/burnt/bone
 
+/obj/projectile/bullet/reusable/arrow/glass/bone
+	name = "glass bone arrow"
+	icon_state = "bonearrow_glass"
+	damage = 7
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/glass/bone
+	shrapnel_type = /obj/item/shard
+
 /obj/projectile/bullet/reusable/arrow/bottle/bone
 	name = "bone bottle arrow"
 	icon_state = "bonearrow_bottle"
 	damage = 7
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/bone
+
+/obj/projectile/bullet/reusable/arrow/hollowpoint/bone
+	name = "bone point arrow"
+	icon_state = "bonearrow_bonepoint"
+	damage = 17
+	armour_penetration = 5
+	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bone
+	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bone
+
+/obj/projectile/bullet/reusable/arrow/hollowpoint/bamboo
+	name = "bone point bamboo arrow"
+	icon_state = "bambooarrow_bonepoint"
+	damage = 10
+	armour_penetration = 10
+	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboo
+	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboo
 
 /obj/projectile/bullet/reusable/arrow/sm
 	name = "SM arrow"
