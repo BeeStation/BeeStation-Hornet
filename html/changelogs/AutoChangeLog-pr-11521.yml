@@ -1,0 +1,5 @@
+author: rkz, Mothblocks, jacklecroy, kierany9, itseasytosee
+delete-after: true
+changes:
+  - rscadd: Adds a stamina indicator hud
+  - bugfix: fixes 'ghost' item overlays

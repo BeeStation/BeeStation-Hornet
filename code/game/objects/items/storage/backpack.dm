@@ -466,11 +466,11 @@
 	new /obj/item/razor(src)
 	new /obj/item/reagent_containers/medspray/sterilizine(src)
 	new /obj/item/blood_filter(src)
-	
+
 /obj/item/storage/backpack/duffelbag/med/implant
 	name = "surplus implants duffel bag"
 	desc = "A large duffel bag for holding implants - this one has a material inlay with space for various implants."
-	
+
 /obj/item/storage/backpack/duffelbag/med/implant/PopulateContents()
 	var/implants = list(/obj/item/organ/cyberimp/arm/janitor,
 						/obj/item/organ/cyberimp/arm/botany,
@@ -695,18 +695,20 @@
 		new /obj/item/grenade/plastic/x4(src)
 
 /obj/item/storage/backpack/duffelbag/syndie/firestarter
-	desc = "A large duffel bag containing a New Russian pyro backpack sprayer, Elite hardsuit, a Stechkin APS pistol, minibomb, ammo, and other equipment."
+	desc = "A large duffel bag containing a Flamethrower, Elite hardsuit, a Stechkin APS pistol, tactical medkit, ammo, and other equipment."
 
 /obj/item/storage/backpack/duffelbag/syndie/firestarter/PopulateContents()
 	new /obj/item/clothing/under/syndicate/soviet(src)
-	new /obj/item/watertank/op(src)
+	new /obj/item/flamethrower/full/tank(src)
+	new /obj/item/tank/internals/plasma(src)
+	new /obj/item/tank/internals/plasma(src)
 	new /obj/item/clothing/suit/space/hardsuit/syndi/elite(src)
 	new /obj/item/gun/ballistic/automatic/pistol/APS(src)
 	new /obj/item/ammo_box/magazine/pistolm9mm(src)
 	new /obj/item/ammo_box/magazine/pistolm9mm(src)
 	new /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka(src)
 	new /obj/item/reagent_containers/hypospray/medipen/stimulants(src)
-	new /obj/item/grenade/syndieminibomb(src)
+	new /obj/item/storage/firstaid/tactical(src)
 
 // For ClownOps.
 /obj/item/storage/backpack/duffelbag/clown/syndie/ComponentInitialize()
