@@ -7,6 +7,10 @@
 /datum/round_event/diona_infestation
 	var/spawncount = 5
 
+/datum/round_event/diona_infestation/proc/preRunEvent()
+	if(locate(/mob/living/simple_animal/hostile/retaliate/nymph) in GLOB.alive_mob_list)
+		return EVENT_INTERRUPTED
+
 /datum/round_event/diona_infestation/start()
 	var/list/vents = list()
 	for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in GLOB.machines)
