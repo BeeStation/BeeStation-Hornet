@@ -352,7 +352,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 
 	var/datum/weakref/cannon_ref
 	var/notice
-	var/datum/target
+	var/datum/weakref/target_ref
 
 
 /obj/machinery/computer/bsa_control/ui_state(mob/user)
@@ -364,7 +364,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 		ui = new(user, src, "BluespaceArtillery")
 		ui.open()
 		ui.set_autoupdate(TRUE)
-		//Missing updates for: target GPS name changes
 
 /obj/machinery/computer/bsa_control/ui_data()
 	var/obj/machinery/power/bsa/full/cannon = cannon_ref?.resolve()
@@ -377,11 +376,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	data["max_charge"] = cannon ? cannon.cell.maxcharge : 0
 	data["formatted_charge"] = cannon ? display_power(cannon.cell.charge) : "0 W"
 	data["targets"] = get_available_targets()
-	if(!QDELETED(target))
-		data["target"] = list(REF(target), get_target_name())
+	if(target_ref?.resolve())
+		data["target"] = list(target_ref?.resolve(), get_target_name())
 	else
 		data["target"] = null
-		target = null
+		target_ref = null
 	return data
 
 /obj/machinery/computer/bsa_control/ui_act(action, params)
@@ -395,7 +394,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 			fire(usr)
 			. = TRUE
 		if("set_target")
-			target = locate(params["target"])
+			target_ref = WEAKREF(locate(params["target"]))
 			. = TRUE
 	if(.)
 		update_icon()
@@ -405,27 +404,30 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	// Find all active GPS
 	for(var/datum/component/gps/G in GLOB.GPS_list)
 		if(G.tracking)
-			targets[REF(G)] = G.gpstag
+			targets[FAST_REF(G)] = G.gpstag
 	return targets
 
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
-	if(istype(target, /area))
-		return get_area_name(target, TRUE)
-	else if(istype(target, /datum/component/gps))
-		var/datum/component/gps/G = target
-		return G.gpstag
+    var/target = target_ref?.resolve()
+    if(istype(target, /area))
+        return get_area_name(target, TRUE)
+    else if(istype(target, /datum/component/gps))
+        var/datum/component/gps/G = target
+        return G.gpstag
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
-	if(istype(target, /area))
-		return pick(get_area_turfs(target))
-	else if(istype(target, /datum/component/gps))
-		var/datum/component/gps/G = target
-		return get_turf(G.parent)
+    var/target = target_ref?.resolve()
+    if(istype(target, /area))
+        return pick(get_area_turfs(target))
+    else if(istype(target, /datum/component/gps))
+        var/datum/component/gps/G = target
+        return get_turf(G.parent)
 
 
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
 	var/obj/machinery/power/bsa/full/cannon = cannon_ref?.resolve()
+	var/target = target_ref?.resolve()
 	if(QDELETED(target))
 		notice = "Target lost!"
 		return
