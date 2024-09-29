@@ -1,13 +1,85 @@
-// teleatom: atom to teleport
-// destination: destination to teleport to
-// precision: teleport precision (0 is most precise, the default)
-// effectin: effect to show right before teleportation
-// effectout: effect to show right after teleportation
-// asoundin: soundfile to play before teleportation
-// asoundout: soundfile to play after teleportation
-// no_effects: disable the default effectin/effectout of sparks
-// forced: whether or not to ignore no_teleport
-/proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE, channel=TELEPORT_CHANNEL_BLUESPACE, forced = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT, commit = TRUE, no_wake = FALSE)
+/**
+ * Returns FALSE if we SHOULDN'T do_teleport() with the given arguments
+ *
+ * Arguments:
+ * * teleatom: The atom to teleport
+ * * dest_turf: The destination turf for the atom to go
+ * * channel: Which teleport channel/type should we try to use (for blocking checks), defaults to TELEPORT_CHANNEL_BLUESPACE
+ * * bypass_area_restriction: Should we ignore SOFT atom and area TRAIT_NO_TELEPORT restriction and other area-related restrictions? Defaults to FALSE
+ * * teleport_mode: Teleport mode for religion/faction checks
+ */
+/proc/check_teleport(atom/movable/teleatom, turf/dest_turf, channel = TELEPORT_CHANNEL_BLUESPACE, bypass_area_restriction = FALSE, teleport_mode = TELEPORT_ALLOW_ALL)
+	var/turf/cur_turf = get_turf(teleatom)
+
+	if(!istype(dest_turf))
+		stack_trace("Destination [dest_turf] is not a turf.")
+		return FALSE
+	if(!istype(cur_turf) || dest_turf.is_transition_turf())
+		return FALSE
+
+	// Checks bluespace anchors
+	if(channel != TELEPORT_CHANNEL_WORMHOLE && channel != TELEPORT_CHANNEL_FREE)
+		var/cur_zlevel = cur_turf.get_virtual_z_level()
+		var/dest_zlevel = dest_turf.get_virtual_z_level()
+		for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
+			var/anchor_zlevel = anchor.get_virtual_z_level()
+			// Not in range of our current turf or destination turf
+			if((cur_zlevel != anchor_zlevel && get_dist(cur_turf, anchor) > anchor.range) && (dest_zlevel != anchor_zlevel && get_dist(dest_turf, anchor) > anchor.range))
+				continue
+
+			// Try to activate the anchor, this also does the effect
+			if(!anchor.try_activate())
+				continue
+
+			// We're anchored, return false
+			return FALSE
+
+	// Checks antimagic
+	if(ismob(teleatom))
+		var/mob/tele_mob = teleatom
+		if(channel == TELEPORT_CHANNEL_CULT && tele_mob.anti_magic_check(magic = FALSE, holy = TRUE, self = TRUE))
+			return FALSE
+		if(channel == TELEPORT_CHANNEL_MAGIC && tele_mob.anti_magic_check(magic = TRUE, holy = FALSE, self = TRUE))
+			return FALSE
+
+	// Check for NO_TELEPORT restrictions
+	if(!bypass_area_restriction)
+		var/area/cur_area = cur_turf.loc
+		var/area/dest_area = dest_turf.loc
+		if(HAS_TRAIT(teleatom, TRAIT_NO_TELEPORT))
+			return FALSE
+		if(cur_area.teleport_restriction && cur_area.teleport_restriction != teleport_mode)
+			return FALSE
+		if(dest_area.teleport_restriction && dest_area.teleport_restriction != teleport_mode)
+			return FALSE
+
+	// Check for intercepting the teleport
+	if(cur_turf.intercept_teleport(channel, cur_turf, dest_turf) == COMPONENT_BLOCK_TELEPORT)
+		return FALSE
+	if(dest_turf.intercept_teleport(channel, cur_turf, dest_turf) == COMPONENT_BLOCK_TELEPORT)
+		return FALSE
+	if(teleatom.intercept_teleport(channel, cur_turf, dest_turf) == COMPONENT_BLOCK_TELEPORT)
+		return FALSE
+
+	return TRUE
+
+/**
+ * Returns TRUE if the teleport has been successful
+ *
+ * Arguments:
+ * * teleatom: atom to teleport
+ * * destination: destination to teleport to
+ * * precision: teleport precision (0 is most precise, the default)
+ * * effectin: effect to show right before teleportation
+ * * asoundin: soundfile to play before teleportation
+ * * asoundout: soundfile to play after teleportation
+ * * no_effects: disable the default effectin/effectout of sparks
+ * * channel: Which teleport channel/type should we try to use (for blocking checks)
+ * * ignore_check_teleport: Set this to true ONLY if you have already run check_teleport
+ * * bypass_area_restriction: Should we ignore SOFT atom and area TRAIT_NO_TELEPORT restriction and other area-related restrictions? Defaults to FALSE
+ * * no_wake: Whether or not we want a teleport wake to be created
+ */
+/proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE, channel=TELEPORT_CHANNEL_BLUESPACE, bypass_area_restriction = FALSE, teleport_mode = TELEPORT_ALLOW_ALL, ignore_check_teleport = FALSE, no_wake = FALSE)
 	// teleporting most effects just deletes them
 	var/static/list/delete_atoms = typecacheof(list(
 		/obj/effect,
@@ -23,22 +95,6 @@
 		qdel(teleatom)
 		return FALSE
 
-	//Check bluespace anchors
-	if(channel != TELEPORT_CHANNEL_WORMHOLE && channel != TELEPORT_CHANNEL_FREE)
-		for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
-			//Not nearby
-			if (anchor.get_virtual_z_level() != teleatom.get_virtual_z_level() || (get_dist(teleatom, anchor) > anchor.range && get_dist(destination, anchor) > anchor.range))
-				continue
-			//Check it
-			if(!anchor.try_activate())
-				continue
-			do_sparks(5, FALSE, teleatom)
-			playsound(anchor, 'sound/magic/repulse.ogg', 80, TRUE)
-			if(ismob(teleatom))
-				to_chat(teleatom, "<span class='warning'>You feel like you are being held in place.</span>")
-			//Anchored...
-			return FALSE
-
 	// argument handling
 	// if the precision is not specified, default to 0, but apply BoH penalties
 	if (isnull(precision))
@@ -48,8 +104,7 @@
 			if(istype(teleatom, /obj/item/storage/backpack/holding))
 				precision = rand(1,100)
 
-			var/static/list/bag_cache = typecacheof(/obj/item/storage/backpack/holding)
-			var/list/bagholding = typecache_filter_list(teleatom.GetAllContents(), bag_cache)
+			var/list/bagholding = teleatom.GetAllContents(/obj/item/storage/backpack/holding)
 			if(bagholding.len)
 				precision = max(rand(1,100)*bagholding.len,100)
 				if(isliving(teleatom))
@@ -69,34 +124,25 @@
 	var/turf/curturf = get_turf(teleatom)
 	var/turf/destturf = get_teleport_turf(get_turf(destination), precision)
 
-	if(!destturf || !curturf || destturf.is_transition_turf())
-		return FALSE
-
-	var/area/A = get_area(curturf)
-	var/area/B = get_area(destturf)
-	if(!forced && (HAS_TRAIT(teleatom, TRAIT_NO_TELEPORT)))
-		return FALSE
-
-	//Either area has teleport restriction and teleport mode isn't allowed in that area
-	if(!forced && ((A.teleport_restriction && A.teleport_restriction != teleport_mode) || (B.teleport_restriction && B.teleport_restriction != teleport_mode)))
-		return FALSE
-
-	if(SEND_SIGNAL(destturf, COMSIG_ATOM_INTERCEPT_TELEPORT, channel, curturf, destturf))
-		return FALSE
-
 	if(isobserver(teleatom))
 		teleatom.abstract_move(destturf)
 		return TRUE
 
-	if (!commit)
-		return TRUE
+	if(!ignore_check_teleport) // If we've already done it let's not check again
+		if(!check_teleport(teleatom, destturf, channel, bypass_area_restriction, teleport_mode))
+			return FALSE
 
 	// If we leave behind a wake, then create that here.
 	// Only leave a wake if we are going to a location that we can actually teleport to.
-	if (!no_wake && (channel == TELEPORT_CHANNEL_BLUESPACE || channel == TELEPORT_CHANNEL_CULT || channel == TELEPORT_CHANNEL_MAGIC) && A.teleport_restriction == TELEPORT_MODE_DEFAULT && B.teleport_restriction == TELEPORT_MODE_DEFAULT && teleport_mode == TELEPORT_MODE_DEFAULT)
-		new /obj/effect/temp_visual/teleportation_wake(get_turf(teleatom), destturf)
+	if (!no_wake && (channel == TELEPORT_CHANNEL_BLUESPACE || channel == TELEPORT_CHANNEL_CULT || channel == TELEPORT_CHANNEL_MAGIC))
+		var/area/cur_area = curturf.loc
+		var/area/dest_area = destturf.loc
+		if(cur_area.teleport_restriction == TELEPORT_ALLOW_ALL && dest_area.teleport_restriction == TELEPORT_ALLOW_ALL && teleport_mode == TELEPORT_ALLOW_ALL)
+			new /obj/effect/temp_visual/teleportation_wake(get_turf(teleatom), destturf)
 
 	tele_play_specials(teleatom, curturf, effectin, asoundin)
+
+	// Actually teleport them
 	var/success = teleatom.forceMove(destturf)
 	if (success)
 		log_game("[key_name(teleatom)] has teleported from [loc_name(curturf)] to [loc_name(destturf)]")
@@ -113,12 +159,13 @@
 	return TRUE
 
 /proc/tele_play_specials(atom/movable/teleatom, atom/location, datum/effect_system/effect, sound)
-	if (location && !isobserver(teleatom))
-		if (sound)
-			playsound(location, sound, 60, 1)
-		if (effect)
-			effect.attach(location)
-			effect.start()
+	if (!istype(location) || isobserver(teleatom))
+		return
+	if (sound)
+		playsound(location, sound, 60, 1)
+	if (effect)
+		effect.attach(location)
+		effect.start()
 
 // Safe location finder
 /proc/find_safe_turf(zlevel, list/zlevels, extended_safety_checks = FALSE, dense_atoms = TRUE)

@@ -8,7 +8,8 @@
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 10)
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
-	var/fitted = FEMALE_UNIFORM_FULL // For use in alternate clothing styles for women
+	/// The variable containing the flags for how the woman uniform cropping is supposed to interact with the sprite.
+	var/female_sprite_flags = FEMALE_UNIFORM_FULL
 	var/has_sensor = HAS_SENSORS // For the crew computer
 	var/random_sensor = TRUE
 	var/sensor_mode = NO_SENSORS
@@ -80,7 +81,7 @@
 	..()
 	if(adjusted)
 		adjusted = NORMAL_STYLE
-		fitted = initial(fitted)
+		female_sprite_flags = initial(female_sprite_flags)
 		if(!alt_covers_chest)
 			body_parts_covered |= CHEST
 
@@ -217,6 +218,73 @@
 				. += "Its vital tracker and tracking beacon appear to be enabled."
 	if(attached_accessory)
 		. += "\A [attached_accessory] is attached to it."
+
+/obj/item/clothing/under/verb/toggle()
+	set name = "Adjust Suit Sensors"
+	set category = "Object"
+	set src in usr
+	set_sensors(usr)
+
+/obj/item/clothing/under/attack_hand(mob/user)
+	if(attached_accessory && ispath(attached_accessory.pocket_storage_component_path) && loc == user)
+		attached_accessory.attack_hand(user)
+		return
+	..()
+
+/obj/item/clothing/under/AltClick(mob/user)
+	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+		return
+	else
+		if(attached_accessory)
+			remove_accessory(user)
+		else
+			rolldown()
+
+/obj/item/clothing/under/verb/jumpsuit_adjust()
+	set name = "Adjust Jumpsuit Style"
+	set category = null
+	set src in usr
+	rolldown()
+
+/obj/item/clothing/under/proc/rolldown()
+	if(!can_use(usr))
+		return
+	if(!can_adjust)
+		to_chat(usr, "<span class='warning'>You cannot wear this suit any differently!</span>")
+		return
+	if(toggle_jumpsuit_adjust())
+		to_chat(usr, "<span class='notice'>You adjust the suit to wear it more casually.</span>")
+	else
+		to_chat(usr, "<span class='notice'>You adjust the suit back to normal.</span>")
+	if(ishuman(usr))
+		var/mob/living/carbon/human/H = usr
+		H.update_inv_w_uniform()
+		H.update_body()
+
+/obj/item/clothing/under/proc/toggle_jumpsuit_adjust()
+	if(adjusted == DIGITIGRADE_STYLE)
+		return
+	adjusted = !adjusted
+	if(adjusted)
+		envirosealed = FALSE
+		if(female_sprite_flags != FEMALE_UNIFORM_TOP_ONLY)
+			female_sprite_flags = NO_FEMALE_UNIFORM
+		if(!alt_covers_chest) // for the special snowflake suits that expose the chest when adjusted
+			body_parts_covered &= ~CHEST
+			body_parts_covered &= ~ARMS
+	else
+		female_sprite_flags = initial(female_sprite_flags)
+		envirosealed = initial(envirosealed)
+		if(!alt_covers_chest)
+			body_parts_covered |= CHEST
+			body_parts_covered |= ARMS
+			if(!LAZYLEN(damage_by_parts))
+				return adjusted
+			for(var/zone in list(BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)) // ugly check to make sure we don't reenable protection on a disabled part
+				if(damage_by_parts[zone] > limb_integrity)
+					for(var/part in body_zone2cover_flags(zone))
+						body_parts_covered &= part
+	return adjusted
 
 /obj/item/clothing/under/rank
 	dying_key = DYE_REGISTRY_UNDER

@@ -1,0 +1,11 @@
+author: DrDiasyl, XeonMations
+delete-after: true
+changes:
+  - tweak: Emagged communications console announcements no longer show up as "from
+      the captain".
+  - soundadd: Code Red, Delta, and other extreme emergencies now possess more unique
+      alarm sound effect.
+  - soundadd: Making Captain announcement through emagged console; hijacking or fully
+      corrupting evacuation shuttle now plays more ominous sounds.
+  - soundadd: Making announcements through Requests Console now plays a more noticeable
+      sound.

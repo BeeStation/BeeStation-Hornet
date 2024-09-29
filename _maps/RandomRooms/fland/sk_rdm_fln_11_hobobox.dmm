@@ -3,7 +3,7 @@
 /turf/closed/wall,
 /area/template_noop)
 "c" = (
-/obj/item/trash/can/food/beans,
+/obj/item/trash/canned/beans,
 /obj/machinery/light/small{
 	dir = 4
 	},

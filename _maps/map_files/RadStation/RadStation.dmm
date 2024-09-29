@@ -31087,7 +31087,7 @@
 /area/hallway/primary/central)
 "kJH" = (
 /obj/item/cigbutt,
-/obj/item/trash/can/food{
+/obj/item/trash/canned{
 	pixel_x = -7;
 	pixel_y = 9
 	},
@@ -32947,7 +32947,7 @@
 	pixel_x = 12;
 	pixel_y = 4
 	},
-/obj/item/trash/can/food/peaches/maint{
+/obj/item/trash/canned/peaches/maint{
 	pixel_x = -7;
 	pixel_y = 7
 	},
@@ -42403,7 +42403,7 @@
 /area/engine/atmos)
 "oGE" = (
 /obj/item/cigbutt,
-/obj/item/trash/can/food{
+/obj/item/trash/canned{
 	pixel_x = -7;
 	pixel_y = 9
 	},

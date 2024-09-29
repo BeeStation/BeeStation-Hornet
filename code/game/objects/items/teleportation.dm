@@ -200,13 +200,10 @@
 			qdel(target_effect)
 			qdel(source_effect)
 		return
-	var/area/A = get_area(teleport_target)
-	if(A.teleport_restriction)
-		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
-		return
 	current_location = get_turf(user)	//Recheck.
 	current_area = current_location.loc
-	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
+	var/turf/dest_turf = get_teleport_turf(get_turf(teleport_target))
+	if(isnull(current_area) || !check_teleport(user, dest_turf, channel = TELEPORT_CHANNEL_BLUESPACE) || is_away_level(current_location.z) || is_centcom_level(current_location.z))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
 	var/list/obj/effect/portal/created = create_portal_pair(current_location, get_teleport_turf(get_turf(teleport_target)), src, 300, 1, null, atmos_link_override)
@@ -359,7 +356,7 @@
 
 		// Check if we can move here
 		current_area = current_location.loc
-		if(!do_teleport(C, current_location, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, commit = FALSE))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
+		if(!check_teleport(C, current_location, channel = TELEPORT_CHANNEL_BLINK))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 			current_location = previous
 			break
 		// If it contains objects, try to break it
