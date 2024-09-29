@@ -707,7 +707,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/trash/can/food/peaches,
 /obj/item/storage/pill_bottle/floorpill{
 	pixel_y = -9;
 	pixel_x = -12;
@@ -1333,13 +1332,6 @@
 	},
 /turf/open/floor/carpet/orange,
 /area/shuttle/escape/luxury)
-"wS" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666";
-	dir = 4
-	},
-/turf/closed/indestructible/riveted,
-/area/shuttle/escape/luxury)
 "xE" = (
 /obj/structure/pool_ladder,
 /turf/open/indestructible/sound/pool,
@@ -1361,10 +1353,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/trash/can/food/peaches{
-	pixel_x = -13;
-	pixel_y = -2
-	},
 /turf/open/floor/iron,
 /area/shuttle/escape/luxury)
 "yj" = (
@@ -2862,7 +2850,7 @@ kC
 aO
 nm
 nm
-wS
+aO
 aO
 aO
 "}
