@@ -88,8 +88,6 @@
 	/// What color our soul is
 	var/soul_glimmer
 
-	///What character we spawned in as- either at roundstart or latejoin, so we know for persistent scars if we ended as the same person or not
-	var/mob/original_character
 
 /datum/mind/New(var/key)
 	src.key = key

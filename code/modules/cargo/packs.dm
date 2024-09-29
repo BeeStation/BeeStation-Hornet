@@ -663,6 +663,12 @@
 	crate_name = "bulk energy guns crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
 
+/datum/supply_pack/security/hell_single
+	name = "Hellgun Single-Pack"
+	desc = "Contains one hellgun, an old pattern of laser gun infamous for its ability to horribly disfigure targets with burns. Technically violates the Space Geneva Convention when used on humanoids."
+	cost = 1500
+	contains = list(/obj/item/gun/energy/laser/hellgun)
+
 /datum/supply_pack/security/armory/laser
 	name = "Laser Gun Single-Pack"
 	desc = "Contains one lethal, high-energy laser gun, Requires Armory access to open."
@@ -1786,6 +1792,8 @@
 					/obj/item/reagent_containers/blood/OMinus,
 					/obj/item/storage/pill_bottle/mining,
 					/obj/item/reagent_containers/pill/neurine,
+					/obj/item/stack/medical/bone_gel,
+					/obj/item/stack/medical/bone_gel,
 					/obj/item/vending_refill/medical)
 	crate_name = "medical supplies crate"
 

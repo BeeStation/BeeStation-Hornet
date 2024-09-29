@@ -60,6 +60,7 @@
 /obj/item/clothing/under/rank/cargo/miner
 	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."
 	name = "shaft miner's jumpsuit"
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0, WOUND = 10)
 	icon_state = "miner"
 	item_state = "miner"
 

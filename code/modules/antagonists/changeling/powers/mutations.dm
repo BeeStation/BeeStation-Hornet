@@ -162,6 +162,8 @@
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = IS_SHARP
 	bleed_force = BLEED_CUT
+	wound_bonus = -60
+	bare_wound_bonus = 20
 	var/can_drop = FALSE
 	var/fake = FALSE
 

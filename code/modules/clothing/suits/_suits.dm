@@ -16,6 +16,7 @@
 	var/move_sound = null
 	var/footstep = 0
 	var/mob/listeningTo
+	limb_integrity = 0 // disabled for most exo-suits
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo
 
 /obj/item/clothing/suit/Initialize(mapload)

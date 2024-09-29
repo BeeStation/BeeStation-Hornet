@@ -92,6 +92,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/reagent_containers/spray,
+		/obj/item/stack/sticky_tape //surgical tape
 		/obj/item/reagent_containers/glass/beaker,//those will usually be used for fertilizer
 		/obj/item/reagent_containers/glass/bottle,//fertilizer bottles
 		/obj/item/reagent_containers/syringe,//blood samples for pod cloning
@@ -251,6 +252,7 @@
 		/obj/item/surgical_drapes, //for true paramedics
 		/obj/item/scalpel,
 		/obj/item/circular_saw,
+		/obj/item/bonesetter,
 		/obj/item/surgicaldrill,
 		/obj/item/retractor,
 		/obj/item/cautery,

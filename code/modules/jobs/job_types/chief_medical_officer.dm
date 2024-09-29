@@ -57,7 +57,7 @@
 	id = /obj/item/card/id/job/chief_medical_officer
 	belt = /obj/item/modular_computer/tablet/pda/heads/chief_medical_officer
 	l_pocket = /obj/item/pinpointer/crew
-	r_pocket = /obj/item/flashlight/pen
+	r_pocket = /obj/item/flashlight/pen/paramedic
 	ears = /obj/item/radio/headset/heads/cmo
 	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
 	shoes = /obj/item/clothing/shoes/sneakers/brown
@@ -77,4 +77,4 @@
 	mask = /obj/item/clothing/mask/breath
 	suit = /obj/item/clothing/suit/space/hardsuit/medical/cmo
 	suit_store = /obj/item/tank/internals/oxygen
-	r_pocket = /obj/item/flashlight/pen
+	r_pocket = /obj/item/flashlight/pen/paramedic

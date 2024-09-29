@@ -14,6 +14,7 @@
 /datum/antagonist/slaughter/greet()
 	. = ..()
 	owner.announce_objectives()
+	to_chat(owner, "<span class='warning'>You have a powerful alt-attack that slams people backwards that you can activate by shift+ctrl+clicking your target!</span>")
 
 /datum/antagonist/slaughter/get_antag_name() // makes laughter demon in the same category with slaughter demon in orbit panel
 	return "Slaughter demon"

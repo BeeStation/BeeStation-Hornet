@@ -11,6 +11,9 @@
 	amount = 5
 	max_amount = 5
 	merge_type = /obj/item/stack/sticky_tape
+	splint_factor = 0.8
+
+
 
 	var/list/conferred_embed = EMBED_HARMLESS
 	var/overwrite_existing = FALSE
@@ -44,6 +47,7 @@
 	prefix = "super sticky"
 	conferred_embed = EMBED_HARMLESS_SUPERIOR
 	merge_type = /obj/item/stack/sticky_tape
+	splint_factor = 0.6
 
 /obj/item/stack/sticky_tape/pointy
 	name = "pointy tape"
@@ -62,3 +66,13 @@
 	prefix = "super pointy"
 	conferred_embed = EMBED_POINTY_SUPERIOR
 	merge_type = /obj/item/stack/sticky_tape/pointy/super
+
+/obj/item/stack/sticky_tape/surgical
+	name = "surgical tape"
+	singular_name = "surgical tape"
+	desc = "Made for patching broken bones back together alongside bone gel, not for playing pranks."
+	//icon_state = "tape_spikes"
+	prefix = "surgical"
+	conferred_embed = list("embed_chance" = 30, "pain_mult" = 0, "jostle_pain_mult" = 0, "ignore_throwspeed_threshold" = TRUE)
+	splint_factor = 0.4
+	custom_price = 500
