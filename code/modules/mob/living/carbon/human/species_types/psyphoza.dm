@@ -206,7 +206,7 @@
 		for(var/mob/living/L in urange(9, owner, 1))
 			BS.highlight_object(L, "mob", L.dir)
 	UpdateButtons()
-	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time)Overwrite this line from the original to support my fucked up use
+	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time) //Overwrite this line from the original to support my fucked up use
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/remove()
 	owner?.clear_fullscreen("psychic_highlight")

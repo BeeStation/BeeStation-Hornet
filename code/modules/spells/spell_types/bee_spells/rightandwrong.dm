@@ -191,4 +191,5 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 		message_admins("Summon Events intensifies, events will now occur every [SSevents.frequency_lower / 600] to [SSevents.frequency_upper / 600] minutes.")
 		log_game("Summon Events was increased!")
 
+
 #undef SPECIALIST_MAGIC_PROB

@@ -183,7 +183,8 @@
 	invoking_slab.charge_overlay = slab_overlay
 	invoking_slab.update_icon()
 	invoking_slab.active_scripture = src
-	PH.add_ranged_ability(invoker, "<span class='brass'>You prepare [name]. <b>Click on a target to use.</b></span>")
+	PH.add_ranged_ability
+	to_chat(invoker, "<span class='brass'>You prepare [name]. <b>Click on a target to use.</b></span>")
 	count_down()
 	invoke_success()
 
@@ -259,8 +260,6 @@
 	if(scripture.power_cost)
 		desc += "<br>Draws <b>[scripture.power_cost]W</b> from the ark per use."
 	..(M)
-	button.locked = TRUE
-	button.ordered = TRUE
 
 /datum/action/innate/clockcult/quick_bind/Remove(mob/M)
 	if(activation_slab.invoking_scripture == scripture)
@@ -301,5 +300,3 @@
 
 /datum/action/innate/clockcult/transmit/Grant(mob/M)
 	..(M)
-	button.locked = TRUE
-	button.ordered = TRUE

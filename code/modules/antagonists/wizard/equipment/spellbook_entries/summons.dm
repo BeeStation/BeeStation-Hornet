@@ -2,18 +2,6 @@
 /// How much threat we need to let these rituals happen on dynamic
 #define MINIMUM_THREAT_FOR_RITUALS 100
 
-/datum/spellbook_entry/summon/ghosts
-	name = "Summon Ghosts"
-	desc = "Spook the crew out by making them see dead people. \
-		Be warned, ghosts are capricious and occasionally vindicative, \
-		and some will use their incredibly minor abilities to frustrate you."
-	cost = 0
-
-/datum/spellbook_entry/summon/ghosts/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
-	summon_ghosts(user)
-	playsound(get_turf(user), 'sound/effects/ghost2.ogg', 50, TRUE)
-	return ..()
-
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"
 	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. \
@@ -28,7 +16,7 @@
 	return !CONFIG_GET(flag/no_summon_guns)
 
 /datum/spellbook_entry/summon/guns/buy_spell(mob/living/carbon/human/user,obj/item/spellbook/book)
-	summon_guns(user, 10)
+	give_guns(user)
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
 	return ..()
 
@@ -46,7 +34,7 @@
 	return !CONFIG_GET(flag/no_summon_magic)
 
 /datum/spellbook_entry/summon/magic/buy_spell(mob/living/carbon/human/user,obj/item/spellbook/book)
-	summon_magic(user, 10)
+	give_magic(user, 10)
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
 	return ..()
 
@@ -67,7 +55,7 @@
 	return !CONFIG_GET(flag/no_summon_events)
 
 /datum/spellbook_entry/summon/events/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
-	summon_events(user)
+	summonevents(user)
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
 	return ..()
 

@@ -538,3 +538,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Trait for psyphoza, flag for examine logic
 #define TRAIT_PSYCHIC_SENSE "psychic_sense"
+
+/// This mob heals from cult pylons.
+#define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"

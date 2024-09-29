@@ -178,8 +178,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isspider(A) (istype(A, /mob/living/simple_animal/hostile/poison/giant_spider))
 
-#define isguardian(A) (istype(A, /mob/living/simple_animal/guardian))
-
 //Misc mobs
 #define isobserver(A) (istype(A, /mob/dead/observer))
 
