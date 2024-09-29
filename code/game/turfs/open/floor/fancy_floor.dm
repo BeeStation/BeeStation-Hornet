@@ -31,7 +31,6 @@
 /turf/open/floor/wood
 	desc = "Stylish dark wood."
 	icon_state = "wood"
-	variants = list("wood", "wood1", "wood2", "wood3", "wood4", "wood5", "wood6")
 	floor_tile = /obj/item/stack/tile/wood
 	footstep = FOOTSTEP_WOOD
 	barefootstep = FOOTSTEP_WOOD_BAREFOOT
@@ -39,16 +38,20 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
 	max_integrity = 100
+	variant_probability = 85
+	variant_states = 6
 
 /turf/open/floor/wood/broken_states()
 	return GLOB.wood_turf_damage
 
 /turf/open/floor/wood/broken
 	broken = TRUE
+	variant_states = 0
 
 /turf/open/floor/wood/big
 	icon_state = "wood_big"
-	variants = list("wood_big", "wood_big1", "wood_big2", "wood_big3", "wood_big4")
+	variant_probability = 80
+	variant_states = 4
 
 /turf/open/floor/wood/big/broken_states()
 	return GLOB.wood_big_turf_damage

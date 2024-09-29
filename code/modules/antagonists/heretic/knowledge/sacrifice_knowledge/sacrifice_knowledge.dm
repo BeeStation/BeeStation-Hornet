@@ -112,14 +112,14 @@
 
 	// First target, any command.
 	for(var/datum/mind/head_mind as anything in shuffle_inplace(valid_targets))
-		if(head_mind.assigned_role in GLOB.command_positions)
+		if(head_mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 			final_targets += head_mind
 			valid_targets -= head_mind
 			break
 
 	// Second target, any security
 	for(var/datum/mind/sec_mind as anything in shuffle_inplace(valid_targets))
-		if(sec_mind.assigned_role in GLOB.security_positions)
+		if(sec_mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
 			final_targets += sec_mind
 			valid_targets -= sec_mind
 			break
@@ -174,7 +174,7 @@
 
 	to_chat(user, "<span class='hypnophrase'>Your patron accepts your offer.</span>")
 
-	if(sacrifice_mind.assigned_role in GLOB.command_positions)
+	if(sacrifice_mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 		heretic_datum.adjust_knowledge_points(1)
 		heretic_datum.high_value_sacrifices++
 
@@ -265,7 +265,7 @@
 		return
 
 	// Send 'em to the destination. If the teleport fails, just disembowel them and stop the chain
-	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/magic/repulse.ogg', asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE, no_wake = TRUE))
+	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/magic/repulse.ogg', asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC, bypass_area_restriction = TRUE, no_wake = TRUE))
 		disembowel_target(sac_target)
 		return
 
@@ -374,7 +374,7 @@
 		safe_turf = get_turf(backup_loc)
 		stack_trace("[type] - return_target was unable to find a safe turf for [sac_target] to return to. Defaulting to observer start turf.")
 
-	if(!do_teleport(sac_target, safe_turf, asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_FREE, forced = TRUE, no_wake = TRUE))
+	if(!do_teleport(sac_target, safe_turf, asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_FREE, bypass_area_restriction = TRUE, no_wake = TRUE))
 		safe_turf = get_turf(backup_loc)
 		sac_target.forceMove(safe_turf)
 		stack_trace("[type] - return_target was unable to teleport [sac_target] to the observer start turf. Forcemoving.")

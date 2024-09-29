@@ -66,12 +66,8 @@
 	var/static/list/limb_icon_cache = list()
 
 	//halucination vars
-	var/image/halimage
-	var/image/halbody
-	var/obj/halitem
 	var/hal_screwyhud = SCREWYHUD_NONE
 	var/next_hallucination = 0
-	var/cpr_time = 1 //CPR cooldown.
 	var/damageoverlaytemp = 0
 
 	var/drunkenness = 0 //Overall drunkenness - check handle_alcohol() in life.dm for effects
