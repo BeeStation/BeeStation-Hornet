@@ -40,16 +40,21 @@
 /obj/item/weaponcrafting/attachment
 
 /obj/item/weaponcrafting/attachment/bowfangs
-	name = "Bow Fangs"
+	name = "bow fangs"
 	desc = "Fangs that can be attached to a bow to make it more suitable for hand to hand combat. It decreases accuracy, however."
 	icon_state = "bow_fangs"
 
 /obj/item/weaponcrafting/attachment/bowfangs/bone
-	name = "Bone Bow Fangs"
+	name = "bone bow fangs"
 	desc = "Fangs made out of bone that can be attached to a bow to make it more suitable for hand to hand combat. It decreases accuracy, however."
 	icon_state = "bow_fangs_bone"
 
 /obj/item/weaponcrafting/attachment/scope
-	name = "Scope"
+	name = "scope"
 	desc = "A scope that can be added to a weapon or bow to improve accuracy."
 	icon_state = "scope"
+
+/obj/item/weaponcrafting/attachment/accelerators
+	name = "accelerators"
+	desc = "Cogs meant to accelerate the velocity of a weapons projectiles."
+	icon_state = "accelerators"

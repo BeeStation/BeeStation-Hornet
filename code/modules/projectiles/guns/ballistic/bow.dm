@@ -163,6 +163,12 @@
 			update_icon()
 			qdel(I)
 			return TRUE
+		if(istype(I, /obj/item/weaponcrafting/attachment/accelerators))
+			attachment = "accelerators"
+			speed_multiplier -= 0.3
+			update_icon()
+			qdel(I)
+			return TRUE
 	if(string_cut)
 		string_update(I, user, params)
 		return TRUE
@@ -174,6 +180,8 @@
 				new /obj/item/weaponcrafting/attachment/bowfangs/bone(get_turf(src),1)
 			if(attachment == "scope")
 				new /obj/item/weaponcrafting/attachment/scope(get_turf(src),1)
+			if(attachment == "accelerators")
+				new /obj/item/weaponcrafting/attachment/accelerators(get_turf(src),1)
 			attachment = null
 			force = initial(force)
 			sharpness = initial(sharpness)
@@ -239,6 +247,8 @@
 			add_overlay("bow_fangs_bone")
 		else if(attachment == "scope")
 			add_overlay("scope")
+		else if(attachment == "accelerators")
+			add_overlay("accelerators")
 	else
 		return
 
