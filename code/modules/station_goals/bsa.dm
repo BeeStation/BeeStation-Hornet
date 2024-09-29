@@ -270,7 +270,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	winding_up = FALSE
 	playsound(get_turf(src), fire_sound, 100, 1, world.maxx, pressure_affected = FALSE, ignore_walls = TRUE)
 	for(var/mob/M in GLOB.mob_living_list)
-		if(M.get_virtual_z_level() != get_virtual_z_level())
+		if(compare_z(M.get_virtual_z_level(), get_virtual_z_level()))
 			continue
 		shake_camera(M, 15, 1)
 
