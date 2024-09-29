@@ -253,22 +253,6 @@
 	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint
 	var/reagent_amount = 5
 
-/obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboo
-	name = "bone point bamboo arrow"
-	icon_state = "bonearrow_bonepoint"
-	force = 5
-	armour_penetration = 5
-	embedding = list(embed_chance=100,
-	fall_chance = 0,
-	jostle_chance = 10,
-	ignore_throwspeed_threshold = FALSE,
-	pain_stam_pct = 1,
-	pain_mult = 1,
-	jostle_pain_mult = 1,
-	remove_pain_mult = 2,
-	rip_time = 1)
-	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboo
-
 /obj/item/ammo_casing/caseless/arrow/hollowpoint/Initialize(mapload)
 	. = ..()
 	create_reagents(reagent_amount, OPENCONTAINER)
@@ -283,6 +267,22 @@
 	if(reagents)
 		add_overlay("hollowpoint_full")
 
+/obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint
+	name = "bamboo point wooden arrow"
+	desc = "An arrow with an hollow bamboo point. Able to inject its contects onto its target."
+	icon_state = "arrow_bamboopoint"
+	force = 5
+	embedding = list(embed_chance=100,
+	fall_chance = 5,
+	jostle_chance = 10,
+	ignore_throwspeed_threshold = FALSE,
+	pain_stam_pct = 1,
+	pain_mult = 1,
+	jostle_pain_mult = 1,
+	remove_pain_mult = 0,
+	rip_time = 2)
+	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboopoint
+	reagent_amount = 7
 
 ///BONE ARROWS///
 
@@ -292,7 +292,7 @@
 	icon_state = "arrow_bone"
 	force = 4
 	armour_penetration = -10
-	projectile_type = /obj/projectile/bullet/reusable/arrow/wood
+	projectile_type = /obj/projectile/bullet/reusable/arrow/bone
 	embedding = list(embed_chance=0)
 
 /obj/item/ammo_casing/caseless/arrow/bone/attackby(obj/item/I, mob/user, params)
@@ -319,6 +319,17 @@
 			new /obj/item/ammo_casing/caseless/arrow/bottle/bone(get_turf(src))
 			qdel(src)
 			return TRUE
+	if(istype(I, /obj/item/stack/sheet/bone))
+		var/obj/item/stack/sheet/bone/bone = I
+		if(bone.amount < 2) //Is there less than two sheets of bone?
+			user.show_message("<span class='notice'>You need at least [2 - bone.amount] bone to create a bone point arrow.</span>", MSG_VISUAL)
+			return FALSE
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			bone.use(2) //Remove two bones from the stack.
+			user.show_message("<span class='notice'>You create a bone point arrow.</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/hollowpoint/bone(get_turf(src))
+			qdel(src)
+			return TRUE
 	if(I.is_sharp())
 		if(do_after(user, 1 SECONDS, I)) //Short do_after.
 			user.show_message("<span class='notice'>You sharpen \the [name].</span>", MSG_VISUAL)
@@ -327,8 +338,8 @@
 			return TRUE
 
 /obj/item/ammo_casing/caseless/arrow/bone/sharp
-	name = "bone arrow shaft"
-	desc = "A sharpened bone arrow shaft. Able to piece flesh and remain lodged, causing pain untill removed."
+	name = "sharp bone arrow shaft"
+	desc = "A sharpened bone arrow shaft. Able to piece flesh and remain lodged, causing pain until removed."
 	force = 6
 	bleed_force = BLEED_TINY
 	armour_penetration = 10
@@ -373,6 +384,129 @@
 	icon_state = "bonearrow_bonepoint"
 	force = 7
 	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bone
+
+/obj/item/ammo_casing/caseless/arrow/hollowpoint/bone/bamboopoint
+	name = "bamboo point bone arrow"
+	icon_state = "bonearrow_bamboopoint"
+	force = 6
+	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bone/bamboopoint
+
+///BAMBOO ARROWS///
+
+/obj/item/ammo_casing/caseless/arrow/bamboo
+	name = "bamboo arrow shaft"
+	desc = "An arrow shaft made out of bamboo. It is suitable to make lighter arrows that pierce their target better than other materials at the cost of damage."
+	icon_state = "arrow_wood"
+	force = 2
+	armour_penetration = -20
+	projectile_type = /obj/projectile/bullet/reusable/arrow/bamboo
+	embedding = list(embed_chance=0)
+
+/obj/item/ammo_casing/caseless/arrow/bamboo/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/sheet/cotton/cloth))
+		var/obj/item/stack/sheet/cotton/cloth/cloth = I
+		if(cloth.amount < 2) //Is there less than two sheets of cotton?
+			user.show_message("<span class='notice'>You need at least [2 - cloth.amount] unit\s of cloth before you can wrap it onto \the [src].</span>", MSG_VISUAL)
+			return FALSE
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			cloth.use(2) //Remove two cotton from the stack.
+			user.show_message("<span class='notice'>You wrap \the [cloth.name] onto the [src].</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/cloth/bamboo(get_turf(src))
+			qdel(src)
+			return TRUE
+	if(istype(I, /obj/item/shard))
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			user.show_message("<span class='notice'>You create a glass arrow with \the [I.name].</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/glass/bamboo(get_turf(src))
+			qdel(src)
+			return TRUE
+	if(istype(I, /obj/item/reagent_containers/food/drinks/bottle))
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			user.show_message("<span class='notice'>You create a bottle arrow with \the [I.name].</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/bottle/bamboo(get_turf(src))
+			qdel(src)
+			return TRUE
+	if(istype(I, /obj/item/stack/sheet/bone))
+		var/obj/item/stack/sheet/bone/bone = I
+		if(bone.amount < 2) //Is there less than two sheets of bone?
+			user.show_message("<span class='notice'>You need at least [2 - bone.amount] bone to create a bone point arrow.</span>", MSG_VISUAL)
+			return FALSE
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			bone.use(2) //Remove two bones from the stack.
+			user.show_message("<span class='notice'>You create a bone point arrow.</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboo(get_turf(src))
+			qdel(src)
+			return TRUE
+	if(I.is_sharp())
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			user.show_message("<span class='notice'>You sharpen \the [name].</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/bamboo/sharp(get_turf(src))
+			qdel(src)
+			return TRUE
+
+/obj/item/ammo_casing/caseless/arrow/bamboo/sharp
+	name = "sharp bamboo arrow shaft"
+	desc = "A sharpened bamboo arrow shaft. Able to piece flesh and remain lodged, causing pain until removed."
+	force = 4
+	bleed_force = BLEED_SURFACE
+	armour_penetration = 15
+	projectile_type = /obj/projectile/bullet/reusable/arrow/bamboo/sharp
+	embedding = list(embed_chance=100,
+	fall_chance = 0,
+	jostle_chance = 10,
+	ignore_throwspeed_threshold = FALSE,
+	pain_stam_pct = 1,
+	pain_mult = 0.5,
+	jostle_pain_mult = 1,
+	remove_pain_mult = 1,
+	rip_time = 1)
+
+/obj/item/ammo_casing/caseless/arrow/cloth/bamboo
+	name = "cloth bamboo arrow"
+	icon_state = "bambooearrow_cloth"
+	force = 4
+	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth/bamboo
+
+/obj/item/ammo_casing/caseless/arrow/cloth/burnt/bamboo
+	name = "burnt cloth bamboo arrow"
+	icon_state = "bambooarrow_cloth_burnt"
+	force = 4
+	burnt = TRUE
+	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth/bamboo
+
+/obj/item/ammo_casing/caseless/arrow/glass/bamboo
+	name = "glass bamboo arrow"
+	icon_state = "bambooarrow_glass"
+	force = 6
+	projectile_type = /obj/projectile/bullet/reusable/arrow/glass/bamboo
+
+/obj/item/ammo_casing/caseless/arrow/bottle/bamboo
+	name = "bamboo bottle arrow"
+	icon_state = "bambooarrow_bottle"
+	force = 4
+	projectile_type = /obj/projectile/bullet/reusable/arrow/bottle/bamboo
+
+/obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboo
+	name = "bamboo point arrow"
+	icon_state = "bambooarrow_bonepoint"
+	force = 5
+	armour_penetration = 5
+	embedding = list(embed_chance=100,
+	fall_chance = 0,
+	jostle_chance = 10,
+	ignore_throwspeed_threshold = FALSE,
+	pain_stam_pct = 1,
+	pain_mult = 0.5,
+	jostle_pain_mult = 1,
+	remove_pain_mult = 1,
+	rip_time = 1)
+	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboo
+
+/obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboo/bamboopoint
+	name = "bamboo point arrow"
+	icon_state = "bambooarrow_bamboopoint"
+	force = 4
+	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboo/bamboopoint
 
 /obj/item/ammo_casing/caseless/arrow/sm
 	name = "SM arrow"

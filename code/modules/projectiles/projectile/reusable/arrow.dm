@@ -119,8 +119,9 @@
 	name = "bone point wooden arrow"
 	icon_state = "arrow_bonepoint"
 	damage = 15
-	armour_penetration = 0
+	armour_penetration = 5
 	embedds = TRUE
+	bleed_force = BLEED_CUT
 	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint
 	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint
 
@@ -130,23 +131,38 @@
 
 /obj/projectile/bullet/reusable/arrow/hollowpoint/on_hit(atom/target, blocked)
 	. = ..()
-	chem_splash(get_turf(src), 1, list(reagents)) //I DON'T KNOW HOW TO INJECT, PLEASE HELP ME
+	var/mob/living/L
+	if(!istype(target, L))
+		return
+	//if(!target.can_inject(user, 1))
+	//	amount_inject = 5
+	reagents.reaction(target,INJECT,5)
+	reagents.trans_to(target,5)
+
+/obj/projectile/bullet/reusable/arrow/hollowpoint/bamboopoint
+	name = "bamboo point wooden arrow"
+	icon_state = "arrow_bamboopoint"
+	damage = 10
+	armour_penetration = 5
+	embedds = TRUE
+	bleed_force = BLEED_CUT
+	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboopoint
+	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint
+
 
 ///BONE ARROWS///
 
 /obj/projectile/bullet/reusable/arrow/bone
 	name = "bone arrow shaft"
-	icon_state = "bonearrow_wood"
 	damage = 12
 	bleed_force = 0
-	armour_penetration = 5
+	armour_penetration = 10
 	embedds = FALSE
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/bone
 	hitsound = 'sound/effects/hit_punch.ogg'
 
 /obj/projectile/bullet/reusable/arrow/bone/sharp
 	name = "sharp bone arrow shaft"
-	icon_state = "bonearrow_wood"
 	damage = 17
 	bleed_force = BLEED_SCRATCH
 	embedds = TRUE
@@ -156,43 +172,106 @@
 
 /obj/projectile/bullet/reusable/arrow/cloth/bone
 	name = "bone cloth arrow"
-	icon_state = "bonearrow_cloth"
 	damage = 12
+	bleed_force = 0
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth/bone
 
 /obj/projectile/bullet/reusable/arrow/cloth/burnt/bone
 	name = "burnt bone cloth arrow"
-	icon_state = "bonearrow_cloth_burnt"
+	bleed_force = 0
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth/burnt/bone
 
 /obj/projectile/bullet/reusable/arrow/glass/bone
 	name = "glass bone arrow"
-	icon_state = "bonearrow_glass"
 	damage = 7
-	ammo_type = /obj/item/ammo_casing/caseless/arrow/glass/bone
+	bleed_force = BLEED_SURFACE
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/bone
 	shrapnel_type = /obj/item/shard
 
 /obj/projectile/bullet/reusable/arrow/bottle/bone
 	name = "bone bottle arrow"
-	icon_state = "bonearrow_bottle"
 	damage = 7
+	bleed_force = 0
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/bone
 
 /obj/projectile/bullet/reusable/arrow/hollowpoint/bone
 	name = "bone point arrow"
-	icon_state = "bonearrow_bonepoint"
 	damage = 17
 	armour_penetration = 5
+	bleed_force = BLEED_SURFACE
 	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bone
 	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bone
 
+/obj/projectile/bullet/reusable/arrow/hollowpoint/bone/bamboopoint
+	name = "bamboo point wooden arrow"
+	damage = 12
+	armour_penetration = 10
+	embedds = TRUE
+	bleed_force = BLEED_SURFACE
+	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bone/bamboopoint
+	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bone/bamboopoint
+
+///BAMBOO ARROWS///
+
+/obj/projectile/bullet/reusable/arrow/bamboo
+	name = "bamboo arrow shaft"
+	damage = 8
+	bleed_force = 0
+	armour_penetration = 10
+	embedds = FALSE
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/bamboo
+	hitsound = 'sound/effects/hit_punch.ogg'
+
+/obj/projectile/bullet/reusable/arrow/bamboo/sharp
+	name = "sharp bamboo arrow shaft"
+	damage = 13
+	bleed_force = BLEED_CUT
+	embedds = TRUE
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/bamboo/sharp
+	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/bamboo/sharp
+	hitsound = 'sound/weapons/pierce.ogg'
+
+/obj/projectile/bullet/reusable/arrow/cloth/bamboo
+	name = "bamboo cloth arrow"
+	damage = 8
+	armour_penetration = 20
+	bleed_force = 0
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth/bamboo
+
+/obj/projectile/bullet/reusable/arrow/cloth/burnt/bamboo
+	name = "burnt bamboo cloth arrow"
+	bleed_force = 0
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth/burnt/bamboo
+
+/obj/projectile/bullet/reusable/arrow/glass/bamboo
+	name = "glass bamboo arrow"
+	damage = 3
+	bleed_force = BLEED_DEEP_WOUND
+	ammo_type = /obj/projectile/bullet/reusable/arrow/bamboo
+	shrapnel_type = /obj/item/shard
+
+/obj/projectile/bullet/reusable/arrow/bottle/bamboo
+	name = "bone bottle arrow"
+	damage = 3
+	bleed_force = BLEED_TINY
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/bamboo
+
 /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboo
 	name = "bone point bamboo arrow"
-	icon_state = "bambooarrow_bonepoint"
-	damage = 10
+	damage = 8
 	armour_penetration = 10
+	bleed_force = BLEED_SURFACE
 	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboo
 	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboo
+
+/obj/projectile/bullet/reusable/arrow/hollowpoint/bamboo/bamboopoint
+	name = "bamboo point arrow"
+	damage = 8
+	armour_penetration = 15
+	embedds = TRUE
+	bleed_force = BLEED_CUT
+	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboo/bamboopoint
+	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboo/bamboopoint
 
 /obj/projectile/bullet/reusable/arrow/sm
 	name = "SM arrow"

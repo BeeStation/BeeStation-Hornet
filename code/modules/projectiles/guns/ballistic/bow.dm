@@ -233,7 +233,7 @@
 			else if(C.lit)
 				add_overlay("[initial(C.icon_state)]lit_[(chambered ? "firing" : "loaded")]")
 			else if(C.burnt)
-				add_overlay("[initial(C.icon_state)]burnt_[(chambered ? "firing" : "loaded")]")
+				add_overlay("[initial(C.icon_state)]_[(chambered ? "firing" : "loaded")]")
 		else if(istype(AC, /obj/item/ammo_casing/caseless/arrow/bottle))
 			add_overlay("[initial(AC.icon_state)]_[(chambered ? "firing" : "loaded")]")
 		else if(istype(AC, /obj/item/ammo_casing/caseless/arrow/sm))
@@ -284,8 +284,8 @@
 /obj/item/gun/ballistic/bow/bamboo
 	name = "Bone Bow"
 	desc = "Some sort of primitive projectile weapon made of bone and wrapped sinew."
-	icon_state = "ashenbow"
-	item_state = "ashenbow"
+	icon_state = "bamboobow"
+	item_state = "bamboobow"
 	bowstring = "bamboo"
 
 /obj/item/gun/ballistic/bow/ashen/stringless
