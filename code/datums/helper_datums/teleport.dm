@@ -24,7 +24,7 @@
 		for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
 			var/anchor_zlevel = anchor.get_virtual_z_level()
 			// Not in range of our current turf or destination turf
-			if((!(cur_zlevel == anchor_zlevel && get_dist(cur_turf, anchor) <= anchor.range)) && (!(dest_zlevel == anchor_zlevel && get_dist(dest_turf, anchor) <= anchor.range)))
+			if((cur_zlevel != anchor_zlevel || get_dist(cur_turf, anchor) > anchor.range) && (dest_zlevel != anchor_zlevel || get_dist(dest_turf, anchor) > anchor.range))
 				continue
 
 			// Try to activate the anchor, this also does the effect
