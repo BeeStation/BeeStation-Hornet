@@ -181,7 +181,7 @@
 	if(!isdiona(user))
 		return FALSE
 	if(special)
-		fakeDeath(FALSE, user) //This runs when you are dead.
+		startSplitting(FALSE, user) //This runs when you are dead.
 		return TRUE
 	if(user.incapacitated(ignore_restraints = TRUE)) //Are we incapacitated right now?
 		return FALSE
@@ -190,15 +190,15 @@
 	if(do_after(user, 8 SECONDS, user, hidden = TRUE))
 		if(user.incapacitated(ignore_restraints = TRUE)) //Second check incase the ability was activated RIGHT as we were being cuffed, and thus now in cuffs when this triggers
 			return FALSE
-		fakeDeath(FALSE, user) //This runs when you manually activate the ability.
+		startSplitting(FALSE, user) //This runs when you manually activate the ability.
 		return TRUE
 
-/datum/action/diona/split/proc/fakeDeath(gibbed, mob/living/carbon/H)
+/datum/action/diona/split/proc/startSplitting(gibbed, mob/living/carbon/H)
 	if(Activated || gibbed)
 		return
 	Activated = TRUE
-	H.death() //Ha ha, we're totally dead right now
-	addtimer(CALLBACK(src, PROC_REF(split), gibbed, H), 5 SECONDS, TIMER_DELETE_ME) //Or are we?
+	H.Stun(6 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(split), gibbed, H), 5 SECONDS, TIMER_DELETE_ME)
 
 /datum/action/diona/split/proc/split(gibbed, mob/living/carbon/human/H)
 	if(gibbed)
