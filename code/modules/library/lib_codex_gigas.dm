@@ -10,7 +10,3 @@
 	author = "Forces beyond your comprehension"
 	unique = 1
 	title = "the Codex Gigas"
-	var/inUse = 0
-	var/currentName = ""
-	var/currentSection = PRE_TITLE
-
