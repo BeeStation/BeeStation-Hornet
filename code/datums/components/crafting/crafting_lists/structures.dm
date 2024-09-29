@@ -120,3 +120,16 @@
 	category = CAT_STRUCTURE
 	one_per_turf = TRUE
 
+/datum/crafting_recipe/noose
+	name = "Wall Mirror Frame"
+	result = /obj/structure/chair/noose
+	time = 4 SECONDS
+	reqs = list(
+		/obj/item/stack/cable_coil = 30,
+	)
+	category = CAT_STRUCTURE
+	dangerous_craft = TRUE
+	one_per_turf = TRUE
+
+/datum/crafting_recipe/noose/check_requirements(mob/user, list/collected_requirements)
+	return locate(/obj/structure/chair) in user.loc

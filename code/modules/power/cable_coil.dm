@@ -3,12 +3,11 @@
 ///////////////////////////////////////////////
 
 #define OMNI_CABLE "Omni Cable"
+#define CABLE_TIES "Cable Ties"
 
 ////////////////////////////////
 // Definitions
 ////////////////////////////////
-
-GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restraints", /obj/item/restraints/handcuffs/cable, 15), new/datum/stack_recipe("noose", /obj/structure/chair/noose, 30, time = 80, one_per_turf = 1, on_floor = 1)))
 
 /obj/item/stack/cable_coil
 	name = "cable coil"
@@ -52,7 +51,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	update_appearance(UPDATE_ICON)
 	return ..()
 
-/obj/item/stack/cable_coil/attack_self(mob/user)
+/obj/item/stack/cable_coil/attack_self(mob/living/user)
 	var/list/options = list()
 	options[OMNI_CABLE] = mutable_appearance('icons/obj/power.dmi', "omni-coil")
 	options["Red"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["red"])
@@ -60,8 +59,22 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	options["Green"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["green"])
 	options["Pink"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["pink"])
 	options["Orange"] = mutable_appearance('icons/obj/power.dmi', "coil", color = GLOB.cable_colors["orange"])
+	// Crafting options
+	var/mutable_appearance/cable_ties = mutable_appearance('icons/obj/items_and_weapons.dmi', "cuff", color = GLOB.cable_colors[omni ? "red" : cable_color])
+	cable_ties.maptext = MAPTEXT("<font color='white'>[amount]/15</font>")
+	cable_ties.pixel_y = 4
+	cable_ties.maptext_y = -2
+	if (amount < 15)
+		cable_ties.color = "#757575"
+	options[CABLE_TIES] = cable_ties
 	var/result = show_radial_menu(user, user, options, radius = 40, tooltips = TRUE)
 	if (result)
+		if (result == CABLE_TIES)
+			if (!use(15))
+				return
+			var/obj/item/restraints/handcuffs/cable/created = new(user.loc)
+			user.put_in_hands(created)
+			return
 		if (result == OMNI_CABLE)
 			cable_color = "white"
 			omni = TRUE
@@ -76,9 +89,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	else
 		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
-
-/obj/item/stack/cable_coil/get_recipes()
-	return GLOB.cable_coil_recipes
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 
@@ -213,3 +223,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 	amount = 1
 
 #undef OMNI_CABLE
+#undef CABLE_TIES
