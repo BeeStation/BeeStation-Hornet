@@ -139,7 +139,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	var/ex_power = 3
 	var/ready
 
-	var/power_used_per_shot = 20 MW
+	var/power_used_per_shot = 20 MEGAWATT
 	var/obj/item/stock_parts/cell/cell
 	var/obj/machinery/power/terminal/invisible/terminal
 	use_power = NO_POWER_USE
