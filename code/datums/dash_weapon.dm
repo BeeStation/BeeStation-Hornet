@@ -43,7 +43,8 @@
 			var/obj/spot2 = new phasein(new_location, user.dir)
 			spot1.Beam(spot2,beam_effect,time=2 SECONDS)
 			current_charges--
-			owner.update_action_buttons_icon()
+			if (owner)
+				owner.update_action_buttons_icon()
 			addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 		else
 			to_chat(user, "<span class='warning'>You cannot dash here!</span>")
