@@ -1090,10 +1090,6 @@
 /obj/machinery/vending/snack/teal,
 /turf/open/floor/iron/white,
 /area/shuttle/escape/luxury)
-"qn" = (
-/obj/machinery/pool_filter,
-/turf/open/indestructible/sound/pool,
-/area/shuttle/escape/luxury)
 "qs" = (
 /obj/item/food/grown/flower/forgetmenot,
 /turf/open/floor/grass/no_border,
@@ -2797,7 +2793,7 @@ aO
 (33,1,1) = {"
 aO
 ak
-qn
+di
 di
 nm
 LA
