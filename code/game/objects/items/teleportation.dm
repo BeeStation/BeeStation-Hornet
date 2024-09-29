@@ -348,7 +348,7 @@
 
 	var/datum/callback/telefrag_callback = CALLBACK(src, PROC_REF(telefrag), user)
 
-	current_location = do_jaunt(user, current_location, destination, obj_damage=150, phase=FALSE, on_turf_cross=telefrag_callback)
+	current_location = do_dash(user, current_location, destination, obj_damage=150, phase=FALSE, on_turf_cross=telefrag_callback)
 	if(!current_location)
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return

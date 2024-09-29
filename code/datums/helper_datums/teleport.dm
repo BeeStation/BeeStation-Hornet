@@ -318,21 +318,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
  * player-facing warnings and EMP/BoH effects should be handled externally from this proc
  *
  * required arguments:
- * * ``AM`` - movable atom to be jaunted
- * * ``A`` - source turf for the jaunt, not necessarily ``AM``'s
- * * ``B`` - destination turf for the jaunt
+ * * ``AM`` - movable atom to be dashed
+ * * ``A`` - source turf for the dash, not necessarily ``AM``'s
+ * * ``B`` - destination turf for the dash
  * optional parameters:
  * * ``obj_damage`` - damage applied to structures in its path (not mobs)
  * * ``phase`` - whether to go through structures or be impeded by them until they're broken
  * * ``teleport_channel`` - allows overriding of teleport channel used
  * * ``on_turf_cross`` - optional callback proc to call on each of the crossed turfs;
- * takes ``turf/T`` and returns ``TRUE`` if jaunt should continue, otherwise ``FALSE`` when it should be interrupted -
- * this however does not cause the jaunt to return a null value;
+ * takes ``turf/T`` and returns ``TRUE`` if dash should continue, otherwise ``FALSE`` when it should be interrupted -
+ * this however does not cause the dash to return a null value;
  * if the proc you wrap in a callback has multiple parameters, ``turf/T`` should be last, and will be passed from here
  *
- * returns: ``turf/current_turf``, which represents where the jaunt ended, or ``null`` if the jaunt's teleport check failed
+ * returns: ``turf/current_turf``, which represents where the dash ended, or ``null`` if the jaunt's teleport check failed
  */
-/proc/do_jaunt(atom/movable/AM, turf/A, turf/B, obj_damage=0, phase=TRUE, teleport_channel=TELEPORT_CHANNEL_BLINK, datum/callback/on_turf_cross=null)
+/proc/do_dash(atom/movable/AM, turf/A, turf/B, obj_damage=0, phase=TRUE, teleport_channel=TELEPORT_CHANNEL_BLINK, datum/callback/on_turf_cross=null)
 	// current loc, current area
 	var/turf/current_location = A
 	var/area/current_area = current_location.loc
