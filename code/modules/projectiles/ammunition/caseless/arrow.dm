@@ -14,22 +14,16 @@
 		B.magazine.attackby(src, user, 0, 1)
 		to_chat(user, "<span class='notice'>You notch the arrow swiftly.</span>")
 
+///WOOD ARROWS///
+
 /obj/item/ammo_casing/caseless/arrow/wood
 	name = "wooden arrow shaft"
-	desc = "A pointy stick carved out of wood. Not really technogically advanced. Don't expect it to pierce any armour... or flesh..."
+	desc = "An arrow shaft made out of wood. It can be fired as is, but not to great effect."
 	icon_state = "arrow_wood"
-	force = 5
+	force = 3
 	armour_penetration = -20
-	projectile_type = /obj/projectile/bullet/reusable/arrow/wood
-	embedding = list(embed_chance=50,
-	fall_chance = 0,
-	jostle_chance = 10,
-	ignore_throwspeed_threshold = FALSE,
-	pain_stam_pct = 1,
-	pain_mult = 1,
-	jostle_pain_mult = 2,
-	remove_pain_mult = 2,
-	rip_time = 1.5)
+	projectile_type = /obj/projectile/bullet/reusable/arrow
+	embedding = list(embed_chance=0)
 
 /obj/item/ammo_casing/caseless/arrow/wood/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/cotton/cloth))
@@ -55,23 +49,40 @@
 			new /obj/item/ammo_casing/caseless/arrow/bottle(get_turf(src))
 			qdel(src)
 			return TRUE
+	if(istype(I, /obj/item/stack/sheet/bone))
+		var/obj/item/stack/sheet/bone/bone = I
+		if(bone.amount < 2) //Is there less than two sheets of bone?
+			user.show_message("<span class='notice'>You need at least [2 - bone.amount] bone to create a bone point arrow.</span>", MSG_VISUAL)
+			return FALSE
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			bone.use(2) //Remove two bones from the stack.
+			user.show_message("<span class='notice'>You create a bone point arrow.</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/hollowpoint(get_turf(src))
+			qdel(src)
+			return TRUE
+	if(I.is_sharp)
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			user.show_message("<span class='notice'>You sharpen \the [name].</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/wood/sharp(get_turf(src))
+			qdel(src)
+			return TRUE
 
-/obj/item/ammo_casing/caseless/arrow/bone
-	name = "bone arrow shaft"
-	desc = "A pointy shaft carved out of bone. Not really technogically advanced, still, you don't want to get hit by this."
-	icon_state = "arrow_bone"
-	force = 6
-	armour_penetration = -10
+/obj/item/ammo_casing/caseless/arrow/wood/sharp
+	name = "sharp wooden arrow shaft"
+	desc = "An arrow shaft made out of wood that has been sharpened to be used as an improvised arrow."
+	force = 5
+	bleed_force = BLEED_SCRATCH
+	armour_penetration = 0
 	projectile_type = /obj/projectile/bullet/reusable/arrow/wood
-	embedding = list(embed_chance=60,
-	fall_chance = 0,
+	embedding = list(embed_chance=100,
+	fall_chance = 1,
 	jostle_chance = 10,
 	ignore_throwspeed_threshold = FALSE,
-	pain_stam_pct = 1,
-	pain_mult = 1,
-	jostle_pain_mult = 2,
+	pain_stam_pct = 3,
+	pain_mult = 0,
+	jostle_pain_mult = 0,
 	remove_pain_mult = 2,
-	rip_time = 1.5)
+	rip_time = 5) //This will always embed and hardly falls on its own, but does not deal any damage once inside
 
 /obj/item/ammo_casing/caseless/arrow/cloth
 	name = "cloth arrow"
@@ -176,27 +187,28 @@
 
 /obj/item/ammo_casing/caseless/arrow/glass
 	name = "glass arrow"
-	desc = "A crude 'arrow' with a glass shard as a tip. You don't want to be shot with this."
+	desc = "A crude 'arrow' with a glass shard for a tip. Upon impact, the glass will inevitably fall out of the shaft and remain lodged on the targets flesh."
 	icon_state = "arrow_glass"
-	force = 10
+	force = 7
 	armour_penetration = 0
 	sharpness = IS_SHARP
+	bleed_force = BLEED_SURFACE
 	attack_verb_continuous = list("stabbed", "slashed", "sliced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	projectile_type = /obj/projectile/bullet/reusable/arrow/glass
 	embedding = list(embed_chance=100,
 	fall_chance = 10,
-	jostle_chance = 10,
+	jostle_chance = 35,
 	ignore_throwspeed_threshold = FALSE,
 	pain_stam_pct = 1,
 	pain_mult = 0.25,
 	jostle_pain_mult = 2,
-	remove_pain_mult = 1,
-	rip_time = 5)
+	remove_pain_mult = 0.5,
+	rip_time = 5) //the small shard will be lodged in your chest cavity hurting you with every 3 steps untill it falls off
 
 /obj/item/ammo_casing/caseless/arrow/bottle
 	name = "bottle arrow"
-	desc = "A tiny bottle tied with string to an arrow. Cute, if not filled with acid."
+	desc = "A tiny bottle tied with string to an arrow shaft. Cute, if not filled with acid."
 	icon_state = "arrow_bottle"
 	force = 5
 	armour_penetration = 0
@@ -222,6 +234,145 @@
 			add_overlay("arrow_bottle_20")
 		else if(reagents.total_volume == 30)
 			add_overlay("arrow_bottle_30")
+
+/obj/item/ammo_casing/caseless/arrow/hollowpoint
+	name = "bone point wooden arrow"
+	desc = "An arrow with an hollow bone point. Able to inject its contects onto its target."
+	icon_state = "arrow_bonepoint"
+	force = 6
+	armour_penetration = 0
+	embedding = list(embed_chance=100,
+	fall_chance = 5,
+	jostle_chance = 10,
+	ignore_throwspeed_threshold = FALSE,
+	pain_stam_pct = 1,
+	pain_mult = 1,
+	jostle_pain_mult = 1,
+	remove_pain_mult = 2,
+	rip_time = 5)
+	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint
+	var/reagent_amount = 5
+
+/obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboo
+	name = "bone point bamboo arrow"
+	icon_state = "bonearrow_bonepoint"
+	force = 5
+	armour_penetration = 5
+	embedding = list(embed_chance=100,
+	fall_chance = 0,
+	jostle_chance = 10,
+	ignore_throwspeed_threshold = FALSE,
+	pain_stam_pct = 1,
+	pain_mult = 1,
+	jostle_pain_mult = 1,
+	remove_pain_mult = 2,
+	rip_time = 1)
+	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboo
+
+/obj/item/ammo_casing/caseless/arrow/hollowpoint/Initialize(mapload)
+	. = ..()
+	create_reagents(reagent_amount, OPENCONTAINER)
+
+/obj/item/ammo_casing/caseless/arrow/hollowpoint/on_reagent_change(changetype)
+	. = ..()
+	update_icon()
+
+/obj/item/ammo_casing/caseless/arrow/hollowpoint/update_icon()
+	. = ..()
+	cut_overlays()
+	if(reagents)
+		add_overlay("hollowpoint_full")
+
+
+///BONE ARROWS///
+
+/obj/item/ammo_casing/caseless/arrow/bone
+	name = "bone arrow shaft"
+	desc = "An arrow shaft carved out of bone. Arrows made with this material will generally hurt more but cause less bleeding."
+	icon_state = "arrow_bone"
+	force = 4
+	armour_penetration = -10
+	projectile_type = /obj/projectile/bullet/reusable/arrow/wood
+	embedding = list(embed_chance=0)
+
+/obj/item/ammo_casing/caseless/arrow/bone/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/sheet/cotton/cloth))
+		var/obj/item/stack/sheet/cotton/cloth/cloth = I
+		if(cloth.amount < 2) //Is there less than two sheets of cotton?
+			user.show_message("<span class='notice'>You need at least [2 - cloth.amount] unit\s of cloth before you can wrap it onto \the [src].</span>", MSG_VISUAL)
+			return FALSE
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			cloth.use(2) //Remove two cotton from the stack.
+			user.show_message("<span class='notice'>You wrap \the [cloth.name] onto the [src].</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/cloth/bone(get_turf(src))
+			qdel(src)
+			return TRUE
+	if(istype(I, /obj/item/shard))
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			user.show_message("<span class='notice'>You create a glass arrow with \the [I.name].</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/glass/bone(get_turf(src))
+			qdel(src)
+			return TRUE
+	if(istype(I, /obj/item/reagent_containers/food/drinks/bottle))
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			user.show_message("<span class='notice'>You create a bottle arrow with \the [I.name].</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/bottle/bone(get_turf(src))
+			qdel(src)
+			return TRUE
+	if(I.is_sharp)
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			user.show_message("<span class='notice'>You sharpen \the [name].</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/bone/sharp(get_turf(src))
+			qdel(src)
+			return TRUE
+
+/obj/item/ammo_casing/caseless/arrow/bone/sharp
+	name = "bone arrow shaft"
+	desc = "A sharpened bone arrow shaft. Able to piece flesh and remain lodged, causing pain untill removed."
+	force = 6
+	bleed_force = BLEED_TINY
+	armour_penetration = 10
+	projectile_type = /obj/projectile/bullet/reusable/arrow/bone/sharp
+	embedding = list(embed_chance=100,
+	fall_chance = 5,
+	jostle_chance = 10,
+	ignore_throwspeed_threshold = FALSE,
+	pain_stam_pct = 1,
+	pain_mult = 1,
+	jostle_pain_mult = 1,
+	remove_pain_mult = 2,
+	rip_time = 5) //I don't know if you ever saw something poorly carved out of bone, but let me tell you, its got worse splinters than wood. Now imagine that in your liver.
+
+/obj/item/ammo_casing/caseless/arrow/cloth/bone
+	name = "cloth bone arrow"
+	icon_state = "bonearrow_cloth"
+	force = 6
+	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth/bone
+
+/obj/item/ammo_casing/caseless/arrow/cloth/burnt/bone
+	name = "burnt cloth bone arrow"
+	icon_state = "bonearrow_cloth_burnt"
+	force = 6
+	burnt = TRUE
+	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth/burnt
+
+/obj/item/ammo_casing/caseless/arrow/glass/bone
+	name = "bone glass arrow"
+	icon_state = "bonearrow_glass"
+	force = 8
+	projectile_type = /obj/projectile/bullet/reusable/arrow/glass/bone
+
+/obj/item/ammo_casing/caseless/arrow/bottle/bone
+	name = "bone bottle arrow"
+	icon_state = "bonearrow_bottle"
+	force = 6
+	projectile_type = /obj/projectile/bullet/reusable/arrow/bottle/bone
+
+/obj/item/ammo_casing/caseless/arrow/hollowpoint/bone
+	name = "bone point arrow"
+	icon_state = "bonearrow_bonepoint"
+	force = 7
+	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bone
 
 /obj/item/ammo_casing/caseless/arrow/sm
 	name = "SM arrow"

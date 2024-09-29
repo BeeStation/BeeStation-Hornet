@@ -7,21 +7,33 @@
 	embedds = TRUE
 	ammo_type = /obj/item/ammo_casing/caseless/arrow
 
+///WOOD ARROWS///
+
 /obj/projectile/bullet/reusable/arrow/wood
-	name = "wood arrow"
+	name = "wooden arrow shaft"
 	icon_state = "arrow_wood"
-	damage = 15
+	damage = 10
+	bleed_force = BLEED_TINY
 	armour_penetration = 0
-	embedds = TRUE
+	embedds = FALSE
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/wood
-	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/wood
 	hitsound = 'sound/effects/hit_punch.ogg'
+
+/obj/projectile/bullet/reusable/arrow/wood/sharp
+	name = "sharp wood arrow shaft"
+	damage = 15
+	bleed_force = BLEED_CUT
+	embedds = TRUE
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/wood/sharp
+	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/wood/sharp
+	hitsound = 'sound/weapons/pierce.ogg'
 
 /obj/projectile/bullet/reusable/arrow/cloth
 	name = "cloth arrow"
 	icon_state = "arrow_cloth"
 	damage = 10
-	armour_penetration = 0
+	bleed_force = 0
+	armour_penetration = 10  //blunt force trauma
 	embedds = FALSE
 	light_system = MOVABLE_LIGHT
 	light_range = 3
@@ -51,44 +63,47 @@
 	if(lit)
 		lit = FALSE
 		burnt = TRUE
-		ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth/burnt
 		if(iscarbon(target) && !blocked)
 			var/mob/living/carbon/M = target
 			M.IgniteMob()
+		if(name == "cloth arrow")
+			ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth/burnt
+		else if(name == "bone cloth arrow")
+			ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth/burnt/bone
 	. = ..()
 
 /obj/projectile/bullet/reusable/arrow/cloth/update_overlays()
 	. = .. ()
 	cut_overlays()
 	if(lit)
-		add_overlay("arrow_cloth_lit")
+		add_overlay("[initial(icon_state)]_lit")
 	else if(burnt)
-		add_overlay("arrow_cloth_burnt")
+		add_overlay("[initial(icon_state)]_burnt")
 
 
 /obj/projectile/bullet/reusable/arrow/cloth/burnt
 	name = "burnt cloth arrow"
 	icon_state = "arrow_cloth_burnt"
-	damage = 10
-	armour_penetration = 0
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth/burnt
 
 /obj/projectile/bullet/reusable/arrow/glass
 	name = "glass arrow"
 	icon_state = "arrow_glass"
 	damage = 5
-	armour_penetration = 0
-	ammo_type = /obj/item/ammo_casing/caseless/arrow/glass
-	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/glass
+	embedds = TRUE
+	armour_penetration = 5
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/wood
+	shrapnel_type = /obj/item/shard
+	hitsound = 'sound/effects/glass_step.ogg'
 
 /obj/projectile/bullet/reusable/arrow/bottle
 	name = "bottle arrow"
 	icon_state = "arrow_bottle"
 	damage = 5
 	armour_penetration = 0
+	embedds = FALSE
 	hitsound = 'sound/effects/hit_punch.ogg'
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/wood
-	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/wood
 
 /obj/projectile/bullet/reusable/arrow/bottle/Initialize(mapload)
 	. = ..()
@@ -99,6 +114,63 @@
 	chem_splash(get_turf(src), 1, list(reagents))
 	playsound(src, "shatter", 75, 1)
 	new /obj/item/broken_bottle(get_turf(src))
+
+/obj/projectile/bullet/reusable/arrow/hollowpoint
+	name = "bone point wooden arrow"
+	icon_state = "arrow_bonepoint"
+	damage = 15
+	armour_penetration = 0
+	embedds = TRUE
+	hitsound = 'sound/effects/hit_punch.ogg'
+	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint
+	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint
+
+/obj/projectile/bullet/reusable/arrow/hollowpoint/Initialize(mapload)
+	. = ..()
+	create_reagents(5, NO_REACT)
+
+/obj/projectile/bullet/reusable/arrow/hollowpoint/on_hit(atom/target, blocked)
+	. = ..()
+	chem_splash(get_turf(src), 1, list(reagents)) //I DON'T KNOW HOW TO INJECT, PLEASE HELP ME
+
+///BONE ARROWS///
+
+/obj/projectile/bullet/reusable/arrow/bone
+	name = "bone arrow shaft"
+	icon_state = "bonearrow_wood"
+	damage = 12
+	bleed_force = 0
+	armour_penetration = 5
+	embedds = FALSE
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/bone
+	hitsound = 'sound/effects/hit_punch.ogg'
+
+/obj/projectile/bullet/reusable/arrow/bone/sharp
+	name = "sharp bone arrow shaft"
+	icon_state = "bonearrow_wood"
+	damage = 17
+	bleed_force = BLEED_SCRATCH
+	embedds = TRUE
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/wood/sharp
+	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/wood/sharp
+	hitsound = 'sound/weapons/pierce.ogg'
+
+/obj/projectile/bullet/reusable/arrow/cloth/bone
+	name = "bone cloth arrow"
+	icon_state = "bonearrow_cloth"
+	damage = 12
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth/bone
+
+/obj/projectile/bullet/reusable/arrow/cloth/burnt/bone
+	name = "burnt bone cloth arrow"
+	icon_state = "bonearrow_cloth_burnt"
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth/burnt/bone
+
+/obj/projectile/bullet/reusable/arrow/bottle/bone
+	name = "bone bottle arrow"
+	icon_state = "bonearrow_bottle"
+	damage = 7
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/bone
 
 /obj/projectile/bullet/reusable/arrow/sm
 	name = "SM arrow"
