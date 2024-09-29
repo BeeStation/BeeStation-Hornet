@@ -60,7 +60,7 @@
 			new /obj/item/ammo_casing/caseless/arrow/hollowpoint(get_turf(src))
 			qdel(src)
 			return TRUE
-	if(I.is_sharp)
+	if(I.is_sharp())
 		if(do_after(user, 1 SECONDS, I)) //Short do_after.
 			user.show_message("<span class='notice'>You sharpen \the [name].</span>", MSG_VISUAL)
 			new /obj/item/ammo_casing/caseless/arrow/wood/sharp(get_turf(src))
@@ -319,7 +319,7 @@
 			new /obj/item/ammo_casing/caseless/arrow/bottle/bone(get_turf(src))
 			qdel(src)
 			return TRUE
-	if(I.is_sharp)
+	if(I.is_sharp())
 		if(do_after(user, 1 SECONDS, I)) //Short do_after.
 			user.show_message("<span class='notice'>You sharpen \the [name].</span>", MSG_VISUAL)
 			new /obj/item/ammo_casing/caseless/arrow/bone/sharp(get_turf(src))
