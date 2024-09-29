@@ -28,7 +28,7 @@
 	data["card"] = !!get_id_name()
 
 	data["cyborgs"] = list()
-	for(var/mob/living/silicon/robot/R in GLOB.silicon_mobs)
+	for(var/mob/living/silicon/robot/R as anything in GLOB.cyborg_list)
 		if(!evaluate_borg(R))
 			continue
 
@@ -59,7 +59,7 @@
 
 	switch(action)
 		if("messagebot")
-			var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.silicon_mobs
+			var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.cyborg_list
 			if(!istype(R))
 				return TRUE
 			var/sender_name = get_id_name()

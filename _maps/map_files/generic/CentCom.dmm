@@ -25,10 +25,7 @@
 /area/tdome/tdomeobserve)
 "aj" = (
 /obj/machinery/computer/card/centcom,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the RD's goons and the AI's satellite from the safety of his office.";
-	name = "Research Monitor";
-	network = list("rd","minisat");
+/obj/machinery/computer/security/telescreen/rd{
 	pixel_y = 28
 	},
 /turf/open/floor/carpet/grimy,
@@ -707,7 +704,7 @@
 	height = 5;
 	name = "recovery ship";
 	width = 3;
-	id = "pod_2_away"
+	id = "pod2_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -2735,7 +2732,6 @@
 "jX" = (
 /obj/machinery/camera/directional/north{
 	c_tag = "Red Team";
-	network = list("thunder");
 	pixel_x = 11;
 	pixel_y = -9;
 	resistance_flags = 64
@@ -3510,7 +3506,7 @@
 	height = 5;
 	name = "recovery ship";
 	width = 3;
-	id = "pod_6_away"
+	id = "pod6_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -3606,7 +3602,7 @@
 	height = 5;
 	name = "recovery ship";
 	width = 3;
-	id = "pod_7_away"
+	id = "pod7_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -7119,7 +7115,7 @@
 /turf/open/floor/iron,
 /area/centcom/supplypod/loading/two)
 "Bn" = (
-/obj/item/trash/can/food/peaches{
+/obj/item/trash/canned/peaches{
 	pixel_x = 5;
 	pixel_y = 12
 	},
@@ -7638,7 +7634,7 @@
 	height = 5;
 	name = "recovery ship";
 	width = 3;
-	id = "pod_5_away"
+	id = "pod5_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -10531,7 +10527,7 @@
 	height = 5;
 	name = "recovery ship";
 	width = 3;
-	id = "pod_4_away"
+	id = "pod4_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -12191,7 +12187,7 @@
 	height = 5;
 	name = "recovery ship";
 	width = 3;
-	id = "pod_8_away"
+	id = "pod8_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -12750,7 +12746,7 @@
 	height = 5;
 	name = "recovery ship";
 	width = 3;
-	id = "pod_3_away"
+	id = "pod3_away"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -12816,7 +12812,6 @@
 "Ws" = (
 /obj/machinery/camera/directional/north{
 	c_tag = "Green Team";
-	network = list("thunder");
 	pixel_x = 12;
 	pixel_y = -10;
 	resistance_flags = 64

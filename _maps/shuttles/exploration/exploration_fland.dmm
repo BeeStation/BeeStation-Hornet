@@ -1,12 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"ax" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/grid/steel,
-/area/shuttle/exploration)
 "aA" = (
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/plastitanium,
@@ -32,23 +24,39 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/exploration)
-"ck" = (
-/obj/structure/table/reinforced,
-/obj/structure/sign/poster/contraband/power{
-	pixel_x = 32
+"bp" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/obj/machinery/power/shieldwallgen/atmos{
+	dir = 1;
+	id = 6;
+	anchored = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/tech/grid,
+/area/shuttle/exploration)
+"cs" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/trash/can/food/beans{
-	pixel_x = 6;
-	pixel_y = 3
+/obj/machinery/power/apc/auto_name/directional/north{
+	cell_type = /obj/item/stock_parts/cell/high
 	},
-/obj/item/reagent_containers/food/drinks/syndicatebeer{
-	pixel_x = -8;
-	pixel_y = 2
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/obj/machinery/light/small{
-	dir = 4;
-	light_color = "#d8b1b1"
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
@@ -102,7 +110,13 @@
 	},
 /turf/open/floor/carpet,
 /area/shuttle/exploration)
-"eJ" = (
+"eM" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"ff" = (
 /obj/machinery/light{
 	dir = 8
 	},
@@ -110,12 +124,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"eM" = (
-/obj/machinery/vending/cigarette,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "fo" = (
@@ -144,13 +152,6 @@
 	},
 /obj/item/kirbyplants/random,
 /turf/open/floor/carpet,
-/area/shuttle/exploration)
-"fZ" = (
-/obj/machinery/door/airlock/shuttle,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ge" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -210,18 +211,6 @@
 /area/shuttle/exploration)
 "iF" = (
 /turf/closed/wall/r_wall/syndicate,
-/area/shuttle/exploration)
-"ja" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
-/turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "kt" = (
 /obj/structure/table/reinforced,
@@ -289,13 +278,29 @@
 "nG" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
-"oA" = (
-/obj/effect/turf_decal/box,
-/obj/effect/decal/cleanable/generic{
-	pixel_x = 11
+"nH" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"ox" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-8"
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
@@ -362,6 +367,13 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
+"tm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/grid/steel,
+/area/shuttle/exploration)
 "tF" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -383,12 +395,35 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"uq" = (
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+"tV" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/light/small,
+/obj/structure/closet/crate/critter,
+/mob/living/simple_animal/chicken/turkey{
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
+	dir = 4;
+	health = 200;
+	maxHealth = 200;
+	melee_damage = 5;
+	minbodytemp = 2.7;
+	name = "Tom"
 	},
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/iron/grid/steel,
+/area/shuttle/exploration)
+"tY" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration";
+	name = "Exploration Shuttle Shutters";
+	pixel_x = -24
+	},
+/obj/machinery/button/shieldwallgen/directional/west{
+	pixel_y = 8;
+	id = 6
+	},
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "us" = (
 /turf/closed/wall/mineral/titanium,
@@ -404,6 +439,16 @@
 	},
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/techmaint,
+/area/shuttle/exploration)
+"ve" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "vp" = (
@@ -429,6 +474,14 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
+"vV" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/door/airlock/shuttle,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "wo" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular{
@@ -453,46 +506,6 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
-	},
-/turf/open/floor/iron/grid/steel,
-/area/shuttle/exploration)
-"xe" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
-/obj/machinery/power/shieldwallgen/atmos{
-	id = 6;
-	anchored = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/open/floor/iron/tech/grid,
-/area/shuttle/exploration)
-"xl" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"xC" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/loading_area{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
@@ -540,6 +553,13 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
+"BO" = (
+/obj/machinery/door/airlock/shuttle,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "BP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -562,42 +582,8 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
-"Cf" = (
-/obj/effect/turf_decal/box,
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "exploration";
-	name = "Exploration Shuttle Shutters";
-	pixel_x = -24
-	},
-/obj/machinery/button/shieldwallgen/directional/west{
-	pixel_y = 8;
-	id = 6
-	},
-/turf/open/floor/iron/grid/steel,
-/area/shuttle/exploration)
 "Cj" = (
 /turf/open/floor/carpet,
-/area/shuttle/exploration)
-"Cp" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
-/obj/machinery/power/shieldwallgen/atmos{
-	dir = 1;
-	id = 6;
-	anchored = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "Cx" = (
 /obj/effect/turf_decal/stripes/line{
@@ -612,6 +598,17 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint,
+/area/shuttle/exploration)
+"Cz" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/stairs,
 /area/shuttle/exploration)
 "CZ" = (
 /obj/structure/chair/stool/bar,
@@ -638,20 +635,36 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"Fm" = (
-/obj/structure/railing/corner{
-	dir = 8
+"Fs" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
 	},
-/obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
-"Gb" = (
+"FN" = (
+/obj/structure/table/reinforced,
+/obj/structure/sign/poster/contraband/power{
+	pixel_x = 32
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/trash/canned/beans{
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/drinks/syndicatebeer{
+	pixel_x = -8;
+	pixel_y = 2
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	light_color = "#d8b1b1"
+	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
-"Gc" = (
+"FQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -663,42 +676,12 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
-"Gt" = (
-/obj/effect/turf_decal/loading_area{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/iron/grid/steel,
-/area/shuttle/exploration)
-"GJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/grid/steel,
+"Gb" = (
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "HU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/techmaint,
-/area/shuttle/exploration)
-"It" = (
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Iv" = (
 /obj/machinery/firealarm{
@@ -718,13 +701,13 @@
 /obj/machinery/light/small,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
-"JF" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/door/airlock/shuttle,
+"IR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner,
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
+	icon_state = "4-8"
 	},
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "JR" = (
 /obj/structure/table/reinforced,
@@ -763,14 +746,15 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"Lx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
+"KF" = (
+/obj/structure/railing/corner{
+	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/iron/grid/steel,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "LM" = (
 /obj/effect/turf_decal/stripes/line,
@@ -780,6 +764,18 @@
 /obj/structure/chair/stool/bar,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"MA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "Nj" = (
 /obj/effect/turf_decal/box,
@@ -837,6 +833,12 @@
 	},
 /turf/open/floor/carpet,
 /area/shuttle/exploration)
+"OP" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "Pa" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/turf_decal/delivery,
@@ -851,6 +853,16 @@
 	pixel_x = 24
 	},
 /turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Pr" = (
+/obj/effect/turf_decal/box,
+/obj/effect/decal/cleanable/generic{
+	pixel_x = 11
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Qv" = (
 /obj/machinery/shuttle/engine/plasma{
@@ -903,22 +915,6 @@
 	broken = 1
 	},
 /area/shuttle/exploration)
-"RG" = (
-/obj/effect/turf_decal/box,
-/obj/machinery/light/small,
-/obj/structure/closet/crate/critter,
-/mob/living/simple_animal/chicken/turkey{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	dir = 4;
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
-/turf/open/floor/iron/grid/steel,
-/area/shuttle/exploration)
 "Sf" = (
 /obj/effect/turf_decal/box,
 /obj/structure/sign/poster/contraband/random{
@@ -951,16 +947,25 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"TJ" = (
-/obj/structure/railing{
+"Tr" = (
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/door/firedoor,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/turf/open/floor/iron/stairs,
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/obj/machinery/power/shieldwallgen/atmos{
+	id = 6;
+	anchored = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "UN" = (
 /obj/structure/table/reinforced,
@@ -1105,31 +1110,26 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
-"ZU" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
+"Zx" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/cable/yellow{
-	icon_state = "1-8"
+	icon_state = "1-2"
 	},
-/turf/open/floor/iron/techmaint,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"ZY" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+"ZB" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/power/apc/auto_name/directional/north{
-	cell_type = /obj/item/stock_parts/cell/high
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
 	},
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "2-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/iron/techmaint,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 
 (1,1,1) = {"
@@ -1139,10 +1139,10 @@ pJ
 pl
 us
 nG
-xe
-Gc
-ja
-Cp
+Tr
+FQ
+MA
+bp
 nG
 nG
 nG
@@ -1163,11 +1163,11 @@ pJ
 pJ
 nG
 uw
-xC
-Gt
-Lx
-oA
-Cf
+ZB
+ox
+Fs
+Pr
+tY
 nG
 QV
 Cj
@@ -1188,10 +1188,10 @@ nG
 nG
 vA
 zC
-GJ
+tm
 LM
 QL
-RG
+tV
 nG
 hQ
 Cj
@@ -1212,7 +1212,7 @@ py
 nG
 xd
 BP
-ax
+IR
 Oa
 Nj
 Sf
@@ -1236,7 +1236,7 @@ qX
 nG
 nG
 zG
-fZ
+BO
 nG
 nG
 nG
@@ -1246,7 +1246,7 @@ du
 du
 fW
 nG
-ZY
+cs
 Rt
 Xm
 Og
@@ -1260,17 +1260,17 @@ rb
 aA
 rj
 VZ
-xl
-Fm
-TJ
-It
-eJ
-uq
-uq
-uq
-uq
-JF
-ZU
+OP
+KF
+Cz
+nH
+ff
+Zx
+Zx
+Zx
+Zx
+vV
+ve
 HU
 hJ
 Og
@@ -1367,7 +1367,7 @@ XD
 iy
 nG
 Cx
-ck
+FN
 gM
 WU
 pJ

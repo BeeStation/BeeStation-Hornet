@@ -1,8 +1,0 @@
-author: EmoGarbage404, XeonMations, WhereAmIO, DungeonVR, Luxlator, Rukofamicom
-delete-after: true
-changes:
-  - rscadd: Added Dionae to the game, a multi-organism plant person!
-  - tweak: Changed all declarations from podperson to diona
-  - rscadd: 'New species trait: TRAIT_NORADDAMAGE'
-  - rscadd: You can now grow nymphs in botany trays via nymph seeds, which replace
-      podperson plants! Dead nymphs may also be planted to regrow a new one!

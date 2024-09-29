@@ -357,8 +357,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	STOP_PROCESSING(SSfastprocess, src)
 	SSshuttle.clearHostileEnvironment(src)
 	SSmapping.remove_nuke_threat(src)
-	for(var/A in GLOB.ai_list)
-		var/mob/living/silicon/ai/AI = A
+	for(var/mob/living/silicon/ai/AI as anything in GLOB.ai_list)
 		if(AI.doomsday_device == src)
 			AI.doomsday_device = null
 	return ..()
