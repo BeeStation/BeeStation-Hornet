@@ -21,6 +21,11 @@
 	desc = "A long piece of Silk that looks like a cable coil."
 	icon_state = "silkstring"
 
+/obj/item/weaponcrafting/leatherstring
+	name = "leather bow string"
+	desc = "A bow string made out of leather."
+	icon_state = "leatherstring"
+
 /obj/item/weaponcrafting/energy_crystal
 	name = "energy crystal"
 	desc = "An energy crystal made out of uranium used in the construction of energy weaponry. A warning lable reads 'Warning: Do Not Ingest'."
@@ -30,22 +35,21 @@
 
 /obj/item/weaponcrafting/energy_crystal/syndicate
 
-/obj/item/weaponcrafting/energy_crystal/disabler
-	name = "disabler energy crystal"
-	desc = "An energy crystal used in non-lethal security force bows."
-	custom_materials = list(/datum/material/diamond = MINERAL_MATERIAL_AMOUNT * 0.5)
-	icon_state = "crystal_disabler"
-
 // ATTACHMENTS //
 
 /obj/item/weaponcrafting/attachment
 
 /obj/item/weaponcrafting/attachment/bowfangs
 	name = "Bow Fangs"
-	desc = "Fangs that can be attached to a bow to make it more suitable for hand to hand combat."
+	desc = "Fangs that can be attached to a bow to make it more suitable for hand to hand combat. It decreases accuracy, however."
 	icon_state = "bow_fangs"
 
 /obj/item/weaponcrafting/attachment/bowfangs/bone
 	name = "Bone Bow Fangs"
-	desc = "Fangs made out of bone that can be attached to a bow to make it more suitable for hand to hand combat."
+	desc = "Fangs made out of bone that can be attached to a bow to make it more suitable for hand to hand combat. It decreases accuracy, however."
 	icon_state = "bow_fangs_bone"
+
+/obj/item/weaponcrafting/attachment/scope
+	name = "Scope"
+	desc = "A scope that can be added to a weapon or bow to improve accuracy."
+	icon_state = "scope"

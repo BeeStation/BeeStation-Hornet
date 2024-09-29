@@ -166,11 +166,11 @@
 	icon_state = "bow_clockwork"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/clockcult
-	recharge_time = 1
+	var/recharge_time = 15
 
 /obj/item/gun/ballistic/bow/clockwork/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(recharge_bolt)), recharge_time SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(recharge_bolt)), recharge_time)
 
 /obj/item/gun/ballistic/bow/clockwork/attack_self(mob/living/user)
 	if (chambered)
@@ -184,7 +184,7 @@
 			chamber_round()
 	update_icon()
 
-/obj/item/gun/ballistic/bow/clockwork/recharge_bolt()
+/obj/item/gun/ballistic/bow/clockwork/proc/recharge_bolt()
 	if(magazine.get_round(TRUE))
 		return
 	var/obj/item/ammo_casing/caseless/arrow/clockbolt/CB = new
