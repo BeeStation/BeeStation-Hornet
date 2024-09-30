@@ -19,7 +19,7 @@
 	var/stamina
 	var/consume
 	var/bleed
-  	var/wound
+	var/wound
 
 /datum/armor/New(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0, stamina = 0, consume = 0, bleed = 0, wound = 0)
 	src.melee = melee

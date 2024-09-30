@@ -110,7 +110,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		if(!try_heal_checks(patient, user, heal_brute, heal_burn))
 			return FALSE
 		if(patient.heal_bodypart_damage((heal_brute * patient.maxHealth/100)))
-			user.visible_message"<span class='infoplain'><span class='green'>[user] applies [src] on [patient].</span>></span>", "<span class='infoplain'><span class='green'>You apply [src] on [patient].</span></span>"
+			user.visible_message("<span class='infoplain'><span class='green'>[user] applies [src] on [patient].</span>></span>", "<span class='infoplain'><span class='green'>You apply [src] on [patient].</span></span>")
 			return TRUE
 	patient.balloon_alert(user, "can't heal [patient]!")
 	return FALSE
@@ -282,7 +282,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	amount = 12
 
 /obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_WIRECUTTER || I.get_sharpness())
+	if(I.tool_behaviour == TOOL_WIRECUTTER || I.sharpness)
 		if(get_amount() < 2)
 			balloon_alert(user, "not enough gauze!")
 			return

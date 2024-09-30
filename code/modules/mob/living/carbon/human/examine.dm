@@ -146,10 +146,9 @@
 		for(var/datum/wound/W in BP.wounds)
 			msg += "[W.get_examine_description(user)]\n"
 
-	for(var/X in disabled)
-		var/obj/item/bodypart/body_part = X
+	for(var/obj/item/bodypart/BP as anything in disabled)
 		var/damage_text
-		if(BP.is_disabled() != BODYPART_DISABLED_WOUND) // skip if it's disabled by a wound (cuz we'll be able to see the bone sticking out!)
+		if(BP.bodypart_disabled) // skip if it's disabled by a wound (cuz we'll be able to see the bone sticking out!)
 			if(!(BP.get_damage(include_stamina = FALSE) >= BP.max_damage)) //we don't care if it's stamcritted
 				damage_text = "limp and lifeless"
 			else

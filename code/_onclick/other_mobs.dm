@@ -11,7 +11,7 @@
 		return
 	if(!has_active_hand()) //can't attack without a hand.
 		var/obj/item/bodypart/check_arm = get_active_hand()
-		if(check_arm && check_arm.is_disabled() == BODYPART_DISABLED_WOUND)
+		if(check_arm && check_arm.bodypart_disabled)
 			to_chat(src, "<span class='warning'>The damage in your [check_arm.name] is preventing you from using it! Get it fixed, or at least splinted!</span>")
 			return
 

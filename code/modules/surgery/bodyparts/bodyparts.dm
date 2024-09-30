@@ -102,8 +102,6 @@
 	var/scars_covered_by_clothes = TRUE
 	/// Descriptions for the locations on the limb for scars to be assigned, just cosmetic
 	var/list/specific_locations = list("general area")
-	/// So we know if we need to scream if this limb hits max damage
-	var/last_maxed
 	/// How much generic bleedstacks we have on this bodypart
 	var/generic_bleedstacks
 
@@ -205,7 +203,7 @@
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
 //Damage will not exceed max_damage using this proc
 //Cannot apply negative damage
-/obj/item/bodypart/proc/receive_damage(brute = 0, burn = 0, stamina = 0, blocked = 0, updating_health = TRUE, required_status = null wound_bonus = 0, bare_wound_bonus = 0, sharpness = FALSE) // maybe separate BRUTE_SHARP and BRUTE_OTHER eventually somehow hmm
+/obj/item/bodypart/proc/receive_damage(brute = 0, burn = 0, stamina = 0, blocked = 0, updating_health = TRUE, required_status = null, wound_bonus = 0, bare_wound_bonus = 0, sharpness = FALSE) // maybe separate BRUTE_SHARP and BRUTE_OTHER eventually somehow hmm
 	SHOULD_CALL_PARENT(TRUE)
 
 	var/hit_percent = (100-blocked)/100
@@ -370,7 +368,7 @@
 		injury_mod += W.threshold_penalty
 
 	var/part_mod = -wound_resistance
-	if(is_disabled())
+	if(bodypart_disabled)
 		part_mod += disabled_wound_penalty
 
 	injury_mod += part_mod
