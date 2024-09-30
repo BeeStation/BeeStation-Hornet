@@ -109,7 +109,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/shapeshift_holder)
 		var/damage_percent = (stored.maxHealth - stored.health)/stored.maxHealth;
 		var/damapply = damage_percent * shape.maxHealth;
 
-		shape.apply_damage(damapply, source.convert_damage_type, forced = TRUE);
+		shape.apply_damage(damapply, source.convert_damage_type, forced = TRUE, wound_bonus=CANT_WOUND);
 
 	slink = soullink(/datum/soullink/shapeshift, stored , shape)
 	slink.source = src
@@ -169,7 +169,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/shapeshift_holder)
 		var/damage_percent = (shape.maxHealth - shape.health)/shape.maxHealth;
 		var/damapply = stored.maxHealth * damage_percent
 
-		stored.apply_damage(damapply, (istype(source) ? source.convert_damage_type : BRUTE), forced = TRUE) //brute is the default damage convert
+		stored.apply_damage(damapply, (istype(source) ? source.convert_damage_type : BRUTE), forced = TRUE, wound_bonus=CANT_WOUND) //brute is the default damage convert
 		stored.blood_volume = original_blood_volume
 	if(!QDELETED(shape))
 		qdel(shape)

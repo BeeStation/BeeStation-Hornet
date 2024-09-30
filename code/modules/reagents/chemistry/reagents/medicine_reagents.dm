@@ -161,6 +161,9 @@
 		M.adjustFireLoss(-power, 0)
 		M.adjustToxLoss(-power, 0, TRUE) //heals TOXINLOVERs
 		M.adjustCloneLoss(-power, 0)
+		for(var/i in M.all_wounds)
+			var/datum/wound/W = i
+			W.on_xadone(power)
 		REMOVE_TRAIT(M, TRAIT_DISFIGURED, TRAIT_GENERIC) //fixes common causes for disfiguration
 		. = 1
 	metabolization_rate = REAGENTS_METABOLISM * (0.00001 * (M.bodytemperature ** 2) + 0.5)//Metabolism rate is reduced in colder body temps making it more effective
@@ -208,6 +211,9 @@
 		M.adjustFireLoss(-1.5 * power, 0)
 		M.adjustToxLoss(-power, 0, TRUE)
 		M.adjustCloneLoss(-power, 0)
+		for(var/i in M.all_wounds)
+			var/datum/wound/W = i
+			W.on_xadone(power)
 		REMOVE_TRAIT(M, TRAIT_DISFIGURED, TRAIT_GENERIC)
 		. = 1
 	else //If not the right temperature for pyroxadone to work
@@ -247,7 +253,7 @@
 
 /datum/reagent/medicine/spaceacillin
 	name = "Spaceacillin"
-	description = "Spaceacillin will prevent a patient from conventionally spreading any diseases they are currently infected with."
+	description = "Spaceacillin will prevent a patient from conventionally spreading any diseases they are currently infected with.Also reduces infection in serious burns."
 	color = "#E1F2E6"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
@@ -392,7 +398,7 @@
 
 /datum/reagent/medicine/mine_salve
 	name = "Miner's Salve"
-	description = "A powerful painkiller. Restores bruising and burns in addition to making the patient believe they are fully healed."
+	description = "A powerful painkiller. Restores bruising and burns in addition to making the patient believe they are fully healed. Also great for treating severe burn wounds in a pinch."
 	reagent_state = LIQUID
 	color = "#6D6374"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
@@ -419,7 +425,7 @@
 				// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
 
 			if(show_message)
-				to_chat(M, "<span class='danger'>You feel your wounds fade away to nothing!</span>" )
+				to_chat(M, "<span class='danger'>You feel your injuries fade away to nothing!</span>" )
 	..()
 
 /datum/reagent/medicine/mine_salve/on_mob_end_metabolize(mob/living/M)
@@ -1732,3 +1738,11 @@
 
 /datum/reagent/medicine/stabilizing_nanites/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_NO_BLEEDING, type)
+
+// handled in cut wounds process
+/datum/reagent/medicine/coagulant
+	name = "Sanguirite"
+	description = "A coagulant used to help open cuts clot faster."
+	reagent_state = LIQUID
+	color = "#bb2424"
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM

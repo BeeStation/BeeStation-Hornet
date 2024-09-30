@@ -140,6 +140,7 @@
 		"cable_coil",
 		"cautery",
 		"circular_saw",
+		"bonesetter",
 		"crowbar",
 		"cultivator",
 		"decal_painter",
@@ -166,6 +167,7 @@
 		"wirebrush",
 		"wirecutters",
 		"wrench",
+		"surgical_tape",
 	)
 
 /datum/techweb_node/basic_circuitry
