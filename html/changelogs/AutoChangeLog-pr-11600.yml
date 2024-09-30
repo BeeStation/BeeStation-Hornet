@@ -1,5 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Mining scanners will no longer interfere with miners' ability to see flashing
-      gibtonite
