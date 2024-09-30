@@ -177,6 +177,8 @@ Difficulty: Medium
 	force = 15
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'
+	wound_bonus = -40
+	bare_wound_bonus = 20
 	var/storm_type = /datum/weather/ash_storm
 	var/storm_cooldown = 0
 	var/static/list/allowed_areas = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/outdoors/explored)

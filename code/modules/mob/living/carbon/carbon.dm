@@ -67,10 +67,32 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			if((S.self_operable || user != src) && (user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM))
 				if(S.next_step(user,user.a_intent))
 					return TRUE
+
+	if(!all_wounds || !(user.a_intent == INTENT_HELP || user == src))
+		return ..()
+
+	// The following priority/nonpriority searching is so that if we have two wounds on a limb that use the same item for treatment (gauze can bandage cuts AND splint broken bones),
+	// we prefer whichever wound is not already treated (ignore the splinted broken bone for the open cut). If there's no priority wounds that this can treat, go through the
+	// non-priority ones randomly.
+	var/list/nonpriority_wounds = list()
+	for(var/datum/wound/W in shuffle(all_wounds))
+		if(!W.treat_priority)
+			nonpriority_wounds += W
+		else if(W.treat_priority && W.try_treating(I, user))
+			return 1
+
+	for(var/datum/wound/W in shuffle(nonpriority_wounds))
+		if(W.try_treating(I, user))
+			return 1
+
 	return ..()
 
 /mob/living/carbon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/hurt = TRUE
+	var/extra_speed = 0
+	if(throwingdatum.thrower != src)
+		extra_speed = min(max(0, throwingdatum.speed - initial(throw_speed)), 3)
+
 	if(!throwingdatum || throwingdatum.force <= MOVE_FORCE_WEAK)
 		hurt = FALSE
 
@@ -85,12 +107,12 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				log_combat(victim, src, "caught [src]")
 				return
 			if(hurt)
-				victim.take_bodypart_damage(10,check_armor = TRUE)
-				take_bodypart_damage(10,check_armor = TRUE)
+				victim.take_bodypart_damage(10 + 5 * extra_speed, check_armor = TRUE, wound_bonus = extra_speed * 5)
+				take_bodypart_damage(10 + 5 * extra_speed, check_armor = TRUE, wound_bonus = extra_speed * 5)
 				victim.Paralyze(20)
 				Paralyze(20)
-				visible_message("<span class='danger'>[src] crashes into [victim], knocking them both over!</span>",\
-					"<span class='userdanger'>You violently crash into [victim]!</span>")
+				visible_message("<span class='danger'>[src] crashes into [victim] [extra_speed ? "really hard" : ""], knocking them both over!</span>",\
+				"<span class='userdanger'>You violently crash into [victim] [extra_speed ? "extra hard" : ""]!</span>")
 			playsound(src,'sound/weapons/punch1.ogg',50,1)
 
 	. = ..()
@@ -173,11 +195,16 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			return TRUE
 
 	if(thrown_thing)
-		visible_message("<span class='danger'>[src] throws [thrown_thing].</span>", \
-						"<span class='danger'>You throw [thrown_thing].</span>")
-		log_message("has thrown [thrown_thing]", LOG_ATTACK)
+		var/power_throw = 0
+		if(HAS_TRAIT(src, TRAIT_HULK))
+			power_throw++
+		if(pulling && grab_state >= GRAB_NECK)
+			power_throw++
+		visible_message("<span class='danger'>[src] throws [thrown_thing][power_throw ? " really hard!" : "."]</span>", \
+						"<span class='danger'>You throw [thrown_thing][power_throw ? " really hard!" : "."]</span>")
+		log_message("has thrown [thrown_thing] [power_throw ? "really hard" : ""]", LOG_ATTACK)
 		newtonian_move(get_dir(target, src))
-		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
+		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed + power_throw, src, null, null, null, move_force)
 		return TRUE
 	return FALSE
 
@@ -857,6 +884,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		var/datum/disease/D = thing
 		if(D.danger != DISEASE_BENEFICIAL && D.danger != DISEASE_POSITIVE)
 			D.cure(FALSE)
+	for(var/thing in all_wounds)
+		var/datum/wound/W = thing
+		W.remove_wound()
 	if(admin_revive)
 		suiciding = FALSE
 		regenerate_limbs()
@@ -1240,3 +1270,31 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		set_lying_angle(pick(90, 270))
 	else
 		set_lying_angle(new_lying_angle)
+
+/**
+  * generate_fake_scars()- for when you want to scar someone, but you don't want to hurt them first. These scars don't count for temporal scarring (hence, fake)
+  *
+  * If you want a specific wound scar, pass that wound type as the second arg, otherwise you can pass a list like WOUND_LIST_CUT to generate a random cut scar.
+  *
+  * Arguments:
+  * * num_scars- A number for how many scars you want to add
+  * * forced_type- Which wound or category of wounds you want to choose from, WOUND_LIST_BONE, WOUND_LIST_CUT, or WOUND_LIST_BURN (or some combination). If passed a list, picks randomly from the listed wounds. Defaults to all 3 types
+  */
+/mob/living/carbon/proc/generate_fake_scars(num_scars, forced_type)
+	for(var/i in 1 to num_scars)
+		var/datum/scar/S = new
+		var/obj/item/bodypart/BP = pick(bodyparts)
+
+		var/wound_type
+		if(forced_type)
+			if(islist(forced_type))
+				wound_type = pick(forced_type)
+			else
+				wound_type = forced_type
+		else
+			wound_type = pick(WOUND_LIST_BONE + WOUND_LIST_CUT + WOUND_LIST_BURN)
+
+		var/datum/wound/W = new wound_type
+		S.generate(BP, W)
+		S.fake = TRUE
+		QDEL_NULL(W)

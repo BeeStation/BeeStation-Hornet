@@ -3,10 +3,22 @@
 	damage = 41
 	armour_penetration = 0
 
+/obj/projectile/bullet/shotgun_slug/executioner
+	name = "executioner slug" // admin only, can dismember limbs
+	sharpness = TRUE
+	wound_bonus = 0
+
+/obj/projectile/bullet/shotgun_slug/pulverizer
+	name = "pulverizer slug" // admin only, can crush bones
+	sharpness = FALSE
+	wound_bonus = 0
+
 /obj/projectile/bullet/shotgun_beanbag
 	name = "beanbag slug"
 	damage = 10
 	stamina = 50
+	wound_bonus = 20
+	sharpness = FALSE
 	armour_penetration = -20
 	bleed_force = BLEED_TINY
 
@@ -70,6 +82,7 @@
 	damage = 8
 	tile_dropoff = 0.5
 	armour_penetration = 20
+	wound_bonus = -10
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"

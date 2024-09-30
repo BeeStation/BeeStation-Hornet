@@ -287,6 +287,11 @@
 
 /obj/item/gun/afterattack(atom/target, mob/living/user, flag, params, aimed)
 	. = ..()
+	if(iscarbon(target))
+			var/mob/living/carbon/C = target
+			for(var/datum/wound/W in C.all_wounds)
+				if(W.try_treating(src, user))
+					return // another coward cured!
 	return fire_gun(target, user, flag, params, aimed)
 
 /obj/item/gun/proc/fire_gun(atom/target, mob/living/user, flag, params, aimed)

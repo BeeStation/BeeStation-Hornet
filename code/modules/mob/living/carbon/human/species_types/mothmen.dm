@@ -11,7 +11,7 @@
 	id = SPECIES_MOTH
 	bodyflag = FLAG_MOTH
 	default_color = "00FF00"
-	species_traits = list(LIPS, NOEYESPRITES, HAS_MARKINGS)
+	species_traits = list(LIPS, NOEYESPRITES, HAS_MARKINGS, CAN_SCAR)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutant_bodyparts = list("moth_wings" = "Plain", "moth_antennae" = "Plain", "moth_markings" = "None", "body_size" = "Normal")
 	attack_verb = "slash"

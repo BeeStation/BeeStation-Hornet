@@ -2,7 +2,7 @@
 	name = "\improper Human"
 	id = SPECIES_HUMAN
 	default_color = "FFFFFF"
-	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
+	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS,CAN_SCAR)
 	mutant_bodyparts = list("body_size" = "Normal")
 	use_skintones = 1
 	skinned_type = /obj/item/stack/sheet/animalhide/human
