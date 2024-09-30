@@ -224,7 +224,7 @@
 
 /obj/item/sticker/xenoartifact_label/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
 	//If you somehow make traits start working with mobs, remove this isliving() check
-	if(!isliving(target) || (locate(/obj/item/sticker/xenoartifact_label) in target.contents))
+	if(ismob(target) && !isliving(target) || (locate(/obj/item/sticker/xenoartifact_label) in target.contents))
 		to_chat(user, "<span class='warning'>[target] already has a label!</span>")
 		return
 	. = ..()
