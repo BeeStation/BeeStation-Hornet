@@ -44,7 +44,7 @@
 
 /// Same as add() proc, but for those who got the eye as its observer. (see camera_advanced code)
 /datum/camerachunk/proc/single_add(mob/camera/ai_eye/eye, client/late_client)
-	if((eye in seenby) && late_client && eye.use_static)
+	if(late_client && eye.use_static && (eye in seenby))
 		late_client.images += active_static_images
 
 /// Remove an AI eye from the chunk
