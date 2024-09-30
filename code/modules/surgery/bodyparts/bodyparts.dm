@@ -816,6 +816,8 @@
 	stam_damage_coeff = 1
 	max_stamina_damage = 120
 	is_dimorphic = TRUE
+	specific_locations = list("upper chest", "lower abdomen", "midsection", "collarbone", "lower back")
+	wound_resistance = 10
 	var/obj/item/cavity_item
 
 /obj/item/bodypart/chest/can_dismember(obj/item/I)
@@ -838,6 +840,7 @@
 	icon_state = "default_monkey_chest"
 	limb_id = SPECIES_MONKEY
 	animal_origin = MONKEY_BODYPART
+	wound_resistance = -10
 
 /obj/item/bodypart/chest/monkey/teratoma
 	icon_state = "teratoma_chest"
@@ -884,6 +887,7 @@
 	px_x = -6
 	px_y = 0
 	can_be_disabled = TRUE
+	specific_locations = list("outer left forearm", "inner left wrist", "left elbow", "left bicep", "left shoulder")
 
 
 /obj/item/bodypart/l_arm/set_owner(new_owner)
@@ -949,6 +953,7 @@
 	animal_origin = MONKEY_BODYPART
 	px_x = -5
 	px_y = -3
+	wound_resistance = -10
 
 /obj/item/bodypart/l_arm/monkey/teratoma
 	icon_state = "teratoma_l_arm"
@@ -989,6 +994,7 @@
 	px_x = 6
 	px_y = 0
 	can_be_disabled = TRUE
+	specific_locations = list("outer right forearm", "inner right wrist", "right elbow", "right bicep", "right shoulder")
 
 
 /obj/item/bodypart/r_arm/set_owner(new_owner)
@@ -1054,6 +1060,7 @@
 	animal_origin = MONKEY_BODYPART
 	px_x = 5
 	px_y = -3
+	wound_resistance = -10
 
 /obj/item/bodypart/r_arm/monkey/teratoma
 	icon_state = "teratoma_r_arm"
@@ -1092,6 +1099,7 @@
 	px_y = 12
 	max_stamina_damage = 50
 	can_be_disabled = TRUE
+	specific_locations = list("inner left thigh", "outer left calf", "outer left hip", " left kneecap", "lower left shin")
 
 
 /obj/item/bodypart/l_leg/set_owner(new_owner)
@@ -1151,6 +1159,7 @@
 	limb_id = SPECIES_MONKEY
 	animal_origin = MONKEY_BODYPART
 	px_y = 4
+	wound_resistance = -10
 
 /obj/item/bodypart/l_leg/monkey/teratoma
 	icon_state = "teratoma_l_leg"
@@ -1191,6 +1200,7 @@
 	px_y = 12
 	max_stamina_damage = 50
 	can_be_disabled = TRUE
+	specific_locations = list("inner right thigh", "outer right calf", "outer right hip", "right kneecap", "lower right shin")
 
 
 /obj/item/bodypart/r_leg/set_owner(new_owner)
@@ -1250,6 +1260,7 @@
 	limb_id = SPECIES_MONKEY
 	animal_origin = MONKEY_BODYPART
 	px_y = 4
+	wound_resistance = -10
 
 /obj/item/bodypart/r_leg/monkey/teratoma
 	icon_state = "teratoma_r_leg"
