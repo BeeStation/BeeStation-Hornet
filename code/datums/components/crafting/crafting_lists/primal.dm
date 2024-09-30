@@ -129,16 +129,6 @@
 	)
 	category = CAT_PRIMAL
 
-/datum/crafting_recipe/bone_bow
-	name = "Bone Bow"
-	result = /obj/item/gun/ballistic/bow/ashen
-	time = 20 SECONDS
-	reqs = list(
-		/obj/item/stack/sheet/bone = 8,
-		/obj/item/stack/sheet/sinew = 4
-	)
-	category = CAT_PRIMAL
-
 /datum/crafting_recipe/firebrand
 	name = "Firebrand"
 	result = /obj/item/match/firebrand

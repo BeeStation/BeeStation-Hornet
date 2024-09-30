@@ -22,6 +22,9 @@ STACKSIZE_MACRO(/obj/item/stack/sheet/snow)
 /* Plastic */
 
 GLOBAL_LIST_INIT(plastic_recipes, list(
+	new/datum/stack_recipe_list("weapon crafting", list( \
+		new/datum/stack_recipe("pvc bow",	/obj/item/gun/ballistic/bow/pvc/stringless, 2, time = 1.5 SECONDS),\
+		)), \
 	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \
 	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/waterbottle/empty), \
 	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/waterbottle/large/empty,3), \

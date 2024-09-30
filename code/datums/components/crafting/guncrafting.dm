@@ -52,7 +52,20 @@
 /obj/item/weaponcrafting/attachment/scope
 	name = "scope"
 	desc = "A scope that can be added to a weapon or bow to improve accuracy."
-	icon_state = "scope"
+	icon_state = "scope" //These need a more talented spriter than me
+
+/obj/item/weaponcrafting/attachment/scope/glassless
+	name = "scope frame"
+	desc = "A scope frame lacking a glass lens."
+	icon_state = "scopeless"
+
+/obj/item/weaponcrafting/attachment/scope/glassless/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/stack/sheet/glass))
+		var/obj/item/stack/sheet/glass/G = I
+		if(G.use(1))
+			new /obj/item/weaponcrafting/attachment/scope(get_turf(src),1)
+			return TRUE
+	. = ..()
 
 /obj/item/weaponcrafting/attachment/accelerators
 	name = "accelerators"

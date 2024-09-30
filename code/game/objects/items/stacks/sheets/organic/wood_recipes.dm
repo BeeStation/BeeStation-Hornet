@@ -7,7 +7,7 @@ GLOBAL_LIST_INIT(wood_recipes, list ( \
 	new/datum/stack_recipe("wooden arrow shaft",					/obj/item/ammo_casing/caseless/arrow/wood, 1, time = 0.5 SECONDS),\
 	new/datum/stack_recipe("wooden buckler",						/obj/item/shield/riot/buckler, 20, time = 4 SECONDS), \
 	new/datum/stack_recipe("rifle stock",							/obj/item/weaponcrafting/stock, 10, time = 4 SECONDS), \
-	)),
+		)),
 	null, \
 	new/datum/stack_recipe_list("pews", list( \
 		new /datum/stack_recipe("pew (middle)",						/obj/structure/chair/fancy/bench/pew, 3, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS),
@@ -48,9 +48,12 @@ STACKSIZE_MACRO(/obj/item/stack/sheet/wood)
 /* Bamboo */
 
 GLOBAL_LIST_INIT(bamboo_recipes, list ( \
-	new/datum/stack_recipe("punji sticks trap",						/obj/structure/punji_sticks, 5, one_per_turf = TRUE, on_floor = TRUE, time = 3 SECONDS), \
-	new/datum/stack_recipe("bamboo spear",							/obj/item/spear/bamboospear, 25, time = 9 SECONDS), \
-	new/datum/stack_recipe("blow gun",								/obj/item/gun/syringe/blowgun, 10, time = 7 SECONDS), \
+	new/datum/stack_recipe_list("weapon crafting", list( \
+		new/datum/stack_recipe("bamboo bow frame",						/obj/item/gun/ballistic/bow/bamboo/stringless, 4, time = 2 SECONDS), \
+		new/datum/stack_recipe("punji sticks trap",						/obj/structure/punji_sticks, 5, one_per_turf = TRUE, on_floor = TRUE, time = 3 SECONDS), \
+		new/datum/stack_recipe("bamboo spear",							/obj/item/spear/bamboospear, 25, time = 9 SECONDS), \
+		new/datum/stack_recipe("blow gun",								/obj/item/gun/syringe/blowgun, 10, time = 7 SECONDS), \
+	)),
 	new/datum/stack_recipe("crude syringe",							/obj/item/reagent_containers/syringe/crude, 5, time = 1 SECONDS), \
 	null, \
 	new/datum/stack_recipe("bamboo stool",							/obj/structure/chair/stool/bamboo, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1 SECONDS), \
@@ -75,3 +78,15 @@ GLOBAL_LIST_INIT(paperframe_recipes, list(
 ))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/paperframes)
+
+/* Bone */
+
+GLOBAL_LIST_INIT(bone_recipes, list( \
+	new/datum/stack_recipe_list("weapon crafting", list( \
+		new/datum/stack_recipe("bone bow frame",								/obj/item/gun/ballistic/bow/ashen/stringless, 4, time = 2 SECONDS), \
+		new/datum/stack_recipe("bone bow frangs",								/obj/item/weaponcrafting/attachment/bowfangs/bone, 2, time = 1 SECONDS), \
+		)), \
+	null, \
+))
+
+STACKSIZE_MACRO(/obj/item/stack/sheet/bone)

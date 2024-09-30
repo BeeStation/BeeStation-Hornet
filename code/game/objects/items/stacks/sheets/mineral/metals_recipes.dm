@@ -5,6 +5,12 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("bar stool",									/obj/structure/chair/stool/bar, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 
 	null, \
+	new/datum/stack_recipe_list("weapon crafting", list( \
+	new/datum/stack_recipe("iron bow fangs",							/obj/item/weaponcrafting/attachment/bowfangs, 2, time = 1 SECONDS),\
+	new/datum/stack_recipe("accelerators",								/obj/item/weaponcrafting/attachment/accelerators, 2, time = 1 SECONDS),\
+	new/datum/stack_recipe("scope body",								/obj/item/weaponcrafting/attachment/scope/glassless, 1, time = 1 SECONDS),\
+	new/datum/stack_recipe("grenade casing",							/obj/item/grenade/chem_grenade), \
+		)), \
 	new/datum/stack_recipe_list("office chairs", list( \
 		new/datum/stack_recipe("dark office chair",						/obj/structure/chair/office, 5, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 		new/datum/stack_recipe("light office chair",					/obj/structure/chair/office/light, 5, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
@@ -93,7 +99,6 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("reflector frame",							/obj/structure/reflector, 5, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
 	null, \
 	new/datum/stack_recipe("pestle",									/obj/item/pestle, 1, time = 5 SECONDS), \
-	new/datum/stack_recipe("grenade casing",							/obj/item/grenade/chem_grenade), \
 	new/datum/stack_recipe("light fixture frame",						/obj/item/wallframe/light_fixture, 2), \
 	new/datum/stack_recipe("small light fixture frame",					/obj/item/wallframe/light_fixture/small, 1), \
 	null, \

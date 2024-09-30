@@ -1,6 +1,6 @@
 /obj/item/gun/ballistic/bow
 	name = "wooden bow"
-	desc = "A well balanced Bow made out of wood."
+	desc = "A well balanced bow made out of wood."
 	icon_state = "bow"
 	icon_state_preview = "bow"
 	item_state = "bow"
@@ -20,11 +20,12 @@
 	bleed_force = 0
 	pin = null
 	no_pin_required = TRUE
+	spread = 5 //The standard for bows, to allow for better bows and attachments to take effect
 	var/bowstring = "leather"
 	var/string_cut = FALSE //This may seem like a useless var, but it actually checks if the string is there even if it "isnt" (the case of energy string which has an on and off function)
 	var/attachment = null
-	var/pulltime = 1
-	// Rercharge time required for bows that create their own arrows, in seconds
+	///Time required to draw an arrow, in seconds
+	var/drawtime = 1
 	ammo_count_visible = FALSE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL //so ashwalkers can use it
 
@@ -57,7 +58,7 @@
 		return
 	if(get_ammo())
 		var/obj/item/I = user.get_active_held_item()
-		if(do_after(user, pulltime SECONDS, I, IGNORE_USER_LOC_CHANGE))
+		if(do_after(user, drawtime SECONDS, I, IGNORE_USER_LOC_CHANGE))
 			to_chat(user, "<span class='notice'>You draw back the bowstring.</span>")
 			playsound(src, 'sound/weapons/bowdraw.ogg', 75, 0) //gets way too high pitched if the freq varies
 			chamber_round()
@@ -90,7 +91,7 @@
 			return TRUE
 		else if (!chambered)
 			return TRUE
-		else if(do_after(user, pulltime SECONDS, I, IGNORE_USER_LOC_CHANGE) && !chambered)
+		else if(do_after(user, drawtime SECONDS, I, IGNORE_USER_LOC_CHANGE) && !chambered)
 			to_chat(user, "<span class='notice'>You draw back the bowstring.</span>")
 			playsound(src, 'sound/weapons/bowdraw.ogg', 75, 0) //gets way too high pitched if the freq varies
 			chamber_round()
@@ -274,38 +275,55 @@
 	return chambered
 
 /obj/item/gun/ballistic/bow/ashen
-	name = "Bone Bow"
-	desc = "Some sort of primitive projectile weapon made of bone and wrapped sinew."
+	name = "bone bow"
+	desc = "A bow carved out of bone. Well suited for melee combat, althought its robustness causes a slight delay in drawing."
 	icon_state = "ashenbow"
 	item_state = "ashenbow"
 	bowstring = "sinew"
 	force = 7
-
-/obj/item/gun/ballistic/bow/bamboo
-	name = "Bone Bow"
-	desc = "Some sort of primitive projectile weapon made of bone and wrapped sinew."
-	icon_state = "bamboobow"
-	item_state = "bamboobow"
-	bowstring = "bamboo"
+	drawtime = 1.2
 
 /obj/item/gun/ballistic/bow/ashen/stringless
 	bowstring = null
 
-/obj/item/gun/ballistic/bow/pipe
-	name = "Pipe Bow"
-	desc = "A crude projectile weapon made from cable coil, pipe and lots of bending."
-	icon_state = "pipebow"
-	item_state = "pipebow"
+/obj/item/gun/ballistic/bow/bamboo
+	name = "bamboo bow"
+	desc = "A bow made out of bamboo. Easier to draw, can be fitted into a backpack when without a string. However, it is extremely weak at melee combat."
+	icon_state = "bamboobow"
+	item_state = "bamboobow"
+	bowstring = "bamboo"
+	force = 2
+	drawtime = 0.8
+
+/obj/item/gun/ballistic/bow/bamboo/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(bowstring)
+		w_class = WEIGHT_CLASS_BULKY
+	else
+		w_class = WEIGHT_CLASS_LARGE
+
+
+/obj/item/gun/ballistic/bow/bamboo/stringless
+	bowstring = null
+
+/obj/item/gun/ballistic/bow/pvc
+	name = "pvcbBow"
+	desc = "A bow crafted with PVC piping. It's rather innacurate and it requires more effort to draw than is usual."
+	icon_state = "pvcbow"
+	item_state = "pvcbow"
 	bowstring = "cable"
-	pulltime = 1.5
+	drawtime = 1.5
 	force = 6
 	spread = 10
 
+/obj/item/gun/ballistic/bow/pvc/stringless
+	bowstring = null
+
 /obj/item/gun/ballistic/bow/syndicate //This was /bow/energy but I'm trying to make a clear distinction between energy bows (that produce their own arrows) and normal bows
 	name = "Energy Bow"
-	desc = "A crude projectile weapon made from cable coil, pipe and lots of bending."
+	desc = "A bow of Syndicate design, meant to be concealed and activated at will."
 	icon_state = "energybow"
-	pulltime = 0.5
+	drawtime = 0.5
 	bowstring = null
 	w_class = WEIGHT_CLASS_NORMAL
 	var/on = FALSE
