@@ -312,15 +312,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 	animate(time = 0.5 SECONDS, transform = matrix() * 0, alpha = 0)
 
 /**
- * attempts to take AM through all turfs in a straight line between ``A`` and ``B``,
+ * attempts to take AM through all turfs in a straight line between ``current_turf`` and ``target_turf``,
  * applying ``on_turf_cross`` for each turf and ``obj_damage`` to each structure encountered
  *
  * player-facing warnings and EMP/BoH effects should be handled externally from this proc
  *
  * required arguments:
  * * ``AM`` - movable atom to be dashed
- * * ``A`` - source turf for the dash, not necessarily ``AM``'s
- * * ``B`` - destination turf for the dash
+ * * ``current_turf`` - source turf for the dash, not necessarily ``AM``'s
+ * * ``target_turf`` - destination turf for the dash
  * optional parameters:
  * * ``obj_damage`` - damage applied to structures in its path (not mobs)
  * * ``phase`` - whether to go through structures or be impeded by them until they're broken
@@ -330,47 +330,39 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
  * this however does not cause the dash to return a null value;
  * if the proc you wrap in a callback has multiple parameters, ``turf/T`` should be last, and will be passed from here
  *
- * returns: ``turf/current_turf``, which represents where the dash ended, or ``null`` if the jaunt's teleport check failed
+ * returns: ``turf/landing_turf``, which represents where the dash ended, or ``null`` if the jaunt's teleport check failed
  */
-/proc/do_dash(atom/movable/AM, turf/A, turf/B, obj_damage=0, phase=TRUE, teleport_channel=TELEPORT_CHANNEL_BLINK, datum/callback/on_turf_cross=null)
-	// current loc, current area
-	var/turf/current_location = A
-	var/area/current_area = current_location.loc
-	// do teleport restriction check
-	//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if AM is not located on a turf
-	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(AM.loc))
-	// 	fail, return null
+/proc/do_dash(atom/movable/AM, turf/current_turf, turf/target_turf, obj_damage=0, phase=TRUE, teleport_channel=TELEPORT_CHANNEL_BLINK, datum/callback/on_turf_cross=null)
+	// current loc
+	if(!istype(current_turf) || is_away_level(current_turf.z) || is_centcom_level(current_turf.z))
 		return
 
 	// getline path
-	var/list/path = getline(A, B)
-	path -= A
+	var/turf/landing_turf = current_turf
+	var/list/path = getline(current_turf, target_turf)
+	path -= current_turf
 	// iterate
-	for (var/turf/T in path)
+	for (var/turf/checked_turf in path)
 		// Step forward
-		var/turf/previous = current_location
-		current_location = T
 
 		// Check if we can move here
-		current_area = current_location.loc
-		if(!check_teleport(AM, current_location, channel = teleport_channel))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if AM is not located on a turf
-			// this check is for validity, phasing does not come into account yet
-			current_location = previous
-			break
+		if(!check_teleport(AM, checked_turf, channel = teleport_channel))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if AM is not located on a turf
+			break // stop moving forward
 		// If it contains objects, try to break it
 		if (obj_damage > 0) // should skip this if not needed
-			for (var/obj/object in current_location.contents)
+			for (var/obj/object in checked_turf.contents)
 				if (object.density)
 					object.take_damage(obj_damage)
 		// check if we should stop due to obstacles
-		if (!phase && current_location.is_blocked_turf(TRUE))
-			current_location = previous
-			break
-		// call on_turf_cross(current_loc)
+		if (!phase && checked_turf.is_blocked_turf(TRUE))
+			break // stop moving forward
+		// call on_turf_cross(checked_turf)
 		if (on_turf_cross) // optional callback should be optional
-			if (!on_turf_cross.Invoke(current_location))
-				current_location = previous
-				break
+			if (!on_turf_cross.Invoke(checked_turf))
+				break // stop moving forward
 
-	do_teleport(AM, current_location, channel = teleport_channel)
-	return current_location
+		// increment our landing turf
+		landing_turf = checked_turf
+
+	do_teleport(AM, landing_turf, channel = teleport_channel)
+	return landing_turf

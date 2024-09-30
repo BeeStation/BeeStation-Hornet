@@ -339,26 +339,23 @@
 		return
 
 	var/turf/original_location = get_turf(user)
-	var/turf/current_location = original_location
 
 	var/teleport_distance = rand(minimum_teleport_distance,maximum_teleport_distance)
 	var/list/bagholding = user.GetAllContents(/obj/item/storage/backpack/holding)
 	var/direction = (EMP_D || length(bagholding)) ? pick(GLOB.cardinals) : user.dir
 	var/turf/destination = get_ranged_target_turf(user, direction, teleport_distance)
 
-	var/datum/callback/telefrag_callback = CALLBACK(src, PROC_REF(telefrag), user)
-
-	current_location = do_dash(user, current_location, destination, obj_damage=150, phase=FALSE, on_turf_cross=telefrag_callback)
-	if(!current_location)
+	var/turf/new_location = do_dash(user, original_location, destination, obj_damage=150, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(telefrag), user))
+	if(isnull(new_location))
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
 
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(original_location)
-	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(current_location)
+	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(new_location)
 	charges--
 	check_charges()
-	playsound(current_location, 'sound/effects/phasein.ogg', 25, 1)
-	playsound(current_location, "sparks", 50, 1)
+	playsound(new_location, 'sound/effects/phasein.ogg', 25, 1)
+	playsound(new_location, "sparks", 50, 1)
 
 /obj/item/teleporter/proc/telefrag(mob/user, turf/fragging_location)
 	for(var/mob/living/target in fragging_location)//Hit everything in the turf
