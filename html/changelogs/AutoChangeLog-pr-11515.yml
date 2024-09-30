@@ -1,0 +1,6 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - tweak: Beef broth and Beef fizz now taste great for races that likes meat
+  - balance: Lizards drinking Beef fizz will get healed a little if they drink beef
+      fizz
