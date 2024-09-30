@@ -50,6 +50,9 @@
 
 /datum/action/innate/dash/proc/dashslash(mob/user, turf/slash_location)
 	for(var/mob/living/target in slash_location)//Hit everything in the turf
+		// skip mobs that we shouldn't be able to hit
+		if (target.incorporeal_move)
+			continue
 		// Skip any mobs that aren't standing, or aren't dense
 		if ((target.body_position == LYING_DOWN) || !target.density || user == target)
 			continue
