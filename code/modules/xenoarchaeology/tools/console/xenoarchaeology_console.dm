@@ -75,11 +75,10 @@
 	for(var/datum/rnd_lister/seller as anything in sellers)
 		var/list/stock = list()
 		for(var/atom/listing as anything in seller.current_stock)
-			stock += list(list("name" = listing?.name, "description" = listing?.desc, "id" = REF(listing), "cost" = seller.get_price(listing) || 0))
-		data["sellers"] += list(list("name" = seller.name, "dialogue" = seller.dialogue, "stock" = stock, "id" = REF(seller)))
+			stock += list(list("name" = listing?.name, "description" = listing?.desc, "id" = FAST_REF(listing), "cost" = seller.get_price(listing) || 0))
+		data["sellers"] += list(list("name" = seller.name, "dialogue" = seller.dialogue, "stock" = stock, "id" = FAST_REF(seller)))
 	//Cash available
-	var/datum/bank_account/account = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
-	data["money"] = account.account_balance
+	data["money"] = budget.account_balance
 	//Audio
 	data["purchase_radio"] = radio_purchase_notice
 	data["solved_radio"] = radio_solved_notice
@@ -113,18 +112,18 @@
 		if("stock_purchase")
 			//Locate seller and purchase our item from them
 			var/datum/rnd_lister/seller = locate(params["seller_id"])
+			var/obj/item/item = locate(params["item_id"])
 			//Check if this is even possible
-			if(!(locate(params["item_id"]) in seller.current_stock))
+			if(!(item in seller.current_stock))
 				return
 			//If we got no cash
-			var/datum/bank_account/account = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
-			if(seller.get_price(locate(params["item_id"])) > account.account_balance)
+			if(seller.get_price(item) > budget.account_balance)
 				say("Insufficient funds!")
 				return
 			//Annouce it
-			if(radio_purchase_notice)
-				radio?.talk_into(src, "[locate(params["item_id"])] was requested for purchase, for [seller.get_price(locate(params["item_id"]))] credits, at [station_time_timestamp()].", RADIO_CHANNEL_SCIENCE)
-			history += list("[locate(params["item_id"])] was requested for purchase, for [seller.get_price(locate(params["item_id"]))] credits, at [station_time_timestamp()].")
+			if(radio_purchase_notice && radio)
+				radio.talk_into(src, "[item] was requested for purchase, for [seller.get_price(item)] credits, at [station_time_timestamp()].", RADIO_CHANNEL_SCIENCE)
+			history += "[item] was requested for purchase, for [seller.get_price(item)] credits, at [station_time_timestamp()]."
 			//handle ID and such
 			var/name = "*None Provided*"
 			var/rank = "*None Provided*"
@@ -144,13 +143,13 @@
 				current_pack = console_orders[current_order]
 				if(length(current_pack.contains) < max_pack_contents && (current_order in SSsupply.shoppinglist))
 					//Update pack content and cost
-					current_pack.cost += seller?.get_price(locate(params["item_id"]))
-					current_pack.contains += seller?.buy_stock(locate(params["item_id"]))
+					current_pack.cost += seller?.get_price(item)
+					current_pack.contains += seller?.buy_stock(item)
 					//Generate a new order
 					SSsupply.shoppinglist -= current_order
 					console_orders -= current_order
 					qdel(current_order)
-					current_order = new /datum/supply_order(current_pack, name, rank, ckey, "Research Material Requisition", account)
+					current_order = new /datum/supply_order(current_pack, name, rank, ckey, "Research Material Requisition", budget)
 					SSsupply.shoppinglist += current_order
 					console_orders[current_order] = current_pack
 					ui_update()
@@ -161,10 +160,11 @@
 			//If we can't, make a new order
 			current_pack = new /datum/supply_pack/science_listing()
 			current_pack.contains = list()
-			current_pack?.current_supply = max(1, current_pack.current_supply) //Don't worry about it :^)
-			current_pack.cost += seller?.get_price(locate(params["item_id"]))
-			current_pack.contains += seller?.buy_stock(locate(params["item_id"]))
-			current_order = new /datum/supply_order(current_pack, name, rank, ckey, "Research Material Requisition", account)
+			//Kinda weird, but essentially what happens is the stock is set to 0, and when we make a new one it's 0 instead of 1. Cargo code is weird and this is weirder.
+			current_pack?.current_supply = max(1, current_pack.current_supply)
+			current_pack.cost += seller?.get_price(item)
+			current_pack.contains += seller?.buy_stock(item)
+			current_order = new /datum/supply_order(current_pack, name, rank, ckey, "Research Material Requisition", budget)
 			current_order.generateRequisition(get_turf(src))
 			SSsupply.shoppinglist += current_order
 			console_orders[current_order] = current_pack
@@ -195,13 +195,13 @@
 	var/list/traits_by_type = list()
 	for(var/trait in artifact_component.artifact_traits) //By priority
 		for(var/datum/xenoartifact_trait/trait_datum in artifact_component.artifact_traits[trait]) //By trait in priorty
-			traits_by_type += list(trait_datum.type)
+			traits_by_type += trait_datum.type
 			if(trait_datum.contribute_calibration)
 				max_score += 1
 			else
 				max_bonus += 1
 	for(var/datum/xenoartifact_trait/trait_datum as anything in label.traits)
-		if((trait_datum in traits_by_type))
+		if(trait_datum in traits_by_type)
 			if(initial(trait_datum.contribute_calibration))
 				score += 1
 			else
@@ -218,11 +218,11 @@
 	var/bonus_rate = max(1, 2*(bonus/max(max_score, 1)))
 	//Rewards
 		//Research Points
-	var/rnd_reward = max(0, (artifact.custom_price*artifact_component.artifact_type.rnd_rate)*success_rate) * bonus_rate
+	var/rnd_reward = round(max(0, (artifact.custom_price*artifact_component.artifact_type.rnd_rate)*success_rate) * bonus_rate, 1)
 		//Discovery Points
-	var/dp_reward = max(0, (artifact.custom_price*artifact_component.artifact_type.dp_rate)*success_rate) * bonus_rate
+	var/dp_reward = round(max(0, (artifact.custom_price*artifact_component.artifact_type.dp_rate)*success_rate) * bonus_rate, 1)
 		//Money
-	var/monetary_reward = FLOOR(((artifact.custom_price * success_rate * 1.5)^1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate, 1)
+	var/monetary_reward = round(FLOOR(((artifact.custom_price * success_rate * 1.5)^1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate, 1), 1)
 	//Alloctae
 	if(is_main_console)
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)
@@ -238,14 +238,14 @@
 		if(0.9 to INFINITY)
 			success_type = "incredible discovery"
 		else
-			success_type = prob(99/100) ? "scientific failure." : "who let the clown in?"
+			success_type = prob(99) ? "scientific failure." : "who let the clown in?"
 	if(radio_solved_notice)
 		radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
 		[attempted_bonus ? "with a bonus achieved of [100 * (bonus / (max_bonus||1))]%, " : ""]\
 		at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of [monetary_reward] credits.",\
 	RADIO_CHANNEL_SCIENCE)
-	history += list("[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
-	at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of [monetary_reward] credits.")
+	history += "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
+	at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of [monetary_reward] credits."
 
 /obj/machinery/computer/xenoarchaeology_console/proc/be_the_guy(datum/source)
 	SIGNAL_HANDLER

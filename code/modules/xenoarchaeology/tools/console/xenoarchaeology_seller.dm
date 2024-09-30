@@ -41,11 +41,11 @@
 /datum/rnd_lister/proc/get_price(atom/listing)
 	switch(personality)
 		if(SELLER_PERSONALITY_GENEROUS)
-			return listing.custom_price * 0.8
+			return round(listing.custom_price * 0.8, 1)
 		if(SELLER_PERSONALITY_NORMAL)
 			return listing.custom_price
 		if(SELLER_PERSONALITY_STINGY)
-			return listing.custom_price * 1.5
+			return round(listing.custom_price * 1.5, 1)
 		else
 			return 0 //FOR FREE!
 

@@ -122,8 +122,11 @@
 
 ///reset all the options
 /obj/item/xenoarchaeology_labeler/proc/clear_selection()
+	label_traits.Cut()
 	label_traits = list()
+	selected_traits.Cut()
 	selected_traits = list()
+	deselected_traits.Cut()
 	deselected_traits = list()
 	ui_update()
 
@@ -160,8 +163,7 @@
 			patch_traits = !patch_traits
 			to_chat(user, "<span class='notice'>Toggled patch: [patch_traits ? "On" : "Off"].</span>")
 		if("Change Material")
-			var/list/possible_materials = subtypesof(/datum/xenoartifact_material)
-			possible_materials += /datum/xenoartifact_material
+			var/list/possible_materials = typesof(/datum/xenoartifact_material)
 			material = tgui_input_list(user, "Select artifact material.", "Select Material", possible_materials, /datum/xenoartifact_material)
 
 /obj/item/xenoarchaeology_labeler/debug/examine(mob/user)
@@ -172,7 +174,7 @@
 	if(skip_label)
 		skip_label = FALSE
 		return
-	var/obj/item/xenoartifact/no_traits/artifact = new(get_turf(loc))
+	var/obj/item/xenoartifact/no_traits/artifact = new(get_turf(src))
 	artifact.AddComponent(/datum/component/xenoartifact, material, length(label_traits) ? label_traits : null, TRUE, TRUE, patch_traits)
 
 /*
@@ -222,8 +224,8 @@
 
 /obj/item/sticker/xenoartifact_label/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
 	//If you somehow make traits start working with mobs, remove this isliving() check
-	if(!isliving(target) && (locate(/obj/item/sticker/xenoartifact_label) in target.contents))
-		to_chat(user, "<span class='watning'>[target] already has a label!</span>")
+	if(!isliving(target) || (locate(/obj/item/sticker/xenoartifact_label) in target.contents))
+		to_chat(user, "<span class='warning'>[target] already has a label!</span>")
 		return
 	. = ..()
 	if(!can_stick(target) || !proximity_flag)
