@@ -784,6 +784,25 @@
 	drop_organs()
 	qdel(src)
 
+/// Get whatever wound of the given type is currently attached to this limb, if any
+/obj/item/bodypart/proc/get_wound_type(checking_type)
+	if(isnull(wounds))
+		return
+	for(var/thing in wounds)
+		var/datum/wound/W = thing
+		if(istype(W, checking_type))
+			return W
+
+/// very rough start for updating efficiency and other stats on a body part whenever a wound is gained/lost
+/obj/item/bodypart/proc/update_wounds()
+	var/dam_mul = 1 //initial(wound_damage_multiplier)
+	// we can only have one wound per type, but remember there's multiple types
+	for(var/datum/wound/W in wounds)
+		dam_mul *= W.damage_mulitplier_penalty
+	wound_damage_multiplier = dam_mul
+	update_disabled()
+
+
 /obj/item/bodypart/chest
 	name = BODY_ZONE_CHEST
 	desc = "It's impolite to stare at a person's chest."
