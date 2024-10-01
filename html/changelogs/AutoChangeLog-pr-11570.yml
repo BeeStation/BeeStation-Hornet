@@ -1,0 +1,5 @@
+author: Therealdoooc
+delete-after: true
+changes:
+  - rscadd: Adds the Nymph Swarm event, a new way for ghosts to get into the round
+      (or a new food source)
