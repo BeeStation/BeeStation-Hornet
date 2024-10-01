@@ -16,11 +16,13 @@
 	var/has_been_installed = FALSE
 	/// List of airlocks this disk can control with program/remote_airlock
 	var/list/controllable_airlocks
+	/// A saved image used for messaging purposes
+	var/datum/picture/saved_image
 
-/obj/item/computer_hardware/hard_drive/on_remove(obj/item/modular_computer/remove_from, mob/user)
-	remove_from.shutdown_computer()
+/obj/item/computer_hardware/hard_drive/on_remove(obj/item/mainboard/remove_from, mob/user)
+	remove_from.turn_off()
 
-/obj/item/computer_hardware/hard_drive/on_install(obj/item/modular_computer/install_into, mob/living/user)
+/obj/item/computer_hardware/hard_drive/on_install(obj/item/mainboard/install_into, mob/living/user)
 	// We don't want to install again if they remove the drive
 	if(has_been_installed)
 		return
@@ -47,6 +49,18 @@
 	// 999 is a byond limit that is in place. It's unlikely someone will reach that many files anyway, since you would sooner run out of space.
 	to_chat(user, "NT-NFS File Table Status: [stored_files.len]/999")
 	to_chat(user, "Storage capacity: [used_capacity]/[max_capacity]GQ")
+
+/obj/item/computer_hardware/hard_drive/try_insert(obj/item/I, mob/living/user)
+	var/obj/item/photo/pic = I
+	if(!istype(pic))
+		return FALSE
+
+	for(var/datum/computer_file/program/messenger/messenger in stored_files)
+		saved_image = pic.picture
+		messenger.ProcessPhoto()
+		to_chat(user, "<span class='notice'>You scan \the [pic] into \the [src]'s messenger.</span>")
+		INVOKE_ASYNC(holder, TYPE_PROC_REF(/datum, ui_update)) // physical_holder.ui_update()
+	return TRUE
 
 // Use this proc to add file to the drive. Returns 1 on success and 0 on failure. Contains necessary sanity checks.
 /obj/item/computer_hardware/hard_drive/proc/store_file(var/datum/computer_file/F)

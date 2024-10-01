@@ -180,7 +180,7 @@
 	emotion_icon = "null"
 	update_icon()
 
-	pai.modularInterface?.saved_identification = pai.name
+	pai.modularInterface?.mainboard.update_id_display(pai.name)
 
 	playsound(loc, 'sound/effects/pai_boot.ogg', 50, 1, -1)
 	audible_message("\The [src] plays a cheerful startup noise!")

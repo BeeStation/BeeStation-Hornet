@@ -7,7 +7,7 @@
 	/// w_class limits which devices can contain this component. 1: PDAs/Tablets, 2: Laptops, 3-4: Consoles only
 	w_class = WEIGHT_CLASS_TINY
 	/// Computer that holds this hardware, if any.
-	var/obj/item/modular_computer/holder = null
+	var/obj/item/mainboard/holder = null
 
 	/// If the hardware uses extra power, change this.
 	var/power_usage = 0
@@ -101,16 +101,16 @@
 		. += "<span class='notice'>It seems to be slightly damaged.</span>"
 
 /// Component-side compatibility check.
-/obj/item/computer_hardware/proc/can_install(obj/item/modular_computer/install_into, mob/living/user = null)
+/obj/item/computer_hardware/proc/can_install_component(atom/movable/install_into, mob/living/user = null)
 	return can_install
 
 /// Called when component is installed into PC.
-/obj/item/computer_hardware/proc/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
+/obj/item/computer_hardware/proc/on_install(obj/item/mainboard/install_into, mob/living/user = null)
 	return
 
 /// Called when component is removed from PC.
 /obj/item/computer_hardware/proc/on_remove(obj/item/modular_computer/remove_from, mob/living/user)
-	if(remove_from.physical && !QDELETED(remove_from) && !QDELETED(src))
+	if(istype(remove_from) && !QDELETED(remove_from) && !QDELETED(src))
 		try_eject(forced = TRUE)
 
 /// Called when someone tries to insert something in it - paper in printer, card in card reader, etc.

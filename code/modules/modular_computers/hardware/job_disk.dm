@@ -20,7 +20,7 @@
 	if(holder)
 		playsound(holder, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
-/obj/item/computer_hardware/hard_drive/role/on_remove(obj/item/modular_computer/remove_from, mob/user)
+/obj/item/computer_hardware/hard_drive/role/on_remove(obj/item/mainboard/remove_from, mob/user)
 	return
 
 /obj/item/computer_hardware/hard_drive/role/Initialize(mapload)
@@ -90,7 +90,7 @@
 		progs_to_store += new /datum/computer_file/program/job_management(src)
 
 	for (var/datum/computer_file/program/prog in progs_to_store)
-		prog.usage_flags = PROGRAM_ALL
+		prog.usage_flags = PROGRAM_HARDWARE_ALL
 		prog.required_access = list()
 		prog.transfer_access = list()
 		store_file(prog)

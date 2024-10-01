@@ -8,6 +8,7 @@
 	requires_ntnet = TRUE
 	transfer_access = list(ACCESS_ROBOTICS)
 	network_destination = "cyborg remote monitoring"
+	usage_flags = (~PROGRAM_HARDWARE_SILICON)
 	size = 5
 	tgui_id = "NtosCyborgRemoteMonitor"
 	program_icon = "project-diagram"
@@ -24,7 +25,7 @@
 /datum/computer_file/program/borg_monitor/ui_data(mob/user)
 	var/list/data = list()
 
-	// Syndicate version doesn't require an ID - so we use this proc instead of computer.GetID()
+	// Syndicate version doesn't require an ID - so we use this proc instead of computer.GetID_parent()
 	data["card"] = !!get_id_name()
 
 	data["cyborgs"] = list()
@@ -77,7 +78,7 @@
 				to_chat(usr, "<span class='warning'>ERROR: Prohibited word(s) detected in message.</span>")
 				return
 			to_chat(usr, "<br><br><span class='notice'>Message to [R] (as [sender_name]) -- \"[message]\"</span><br>")
-			computer.send_sound()
+			computer.play_success_sound()
 			to_chat(R, "<br><br><span class='notice'>Message from [sender_name] -- \"[message]\"</span><br>")
 			SEND_SOUND(R, 'sound/machines/twobeep_high.ogg')
 			if(R.connected_ai)
@@ -99,7 +100,7 @@
 
 ///Gets the ID's name, if one is inserted into the device. This is a separate proc solely to be overridden by the syndicate version of the app.
 /datum/computer_file/program/borg_monitor/proc/get_id_name()
-	var/obj/item/card/id/ID = computer.GetID()
+	var/obj/item/card/id/ID = computer.GetID_parent()
 	if(!istype(ID))
 		return emagged ? "STDERR:UNDF" : FALSE
 	return ID.registered_name

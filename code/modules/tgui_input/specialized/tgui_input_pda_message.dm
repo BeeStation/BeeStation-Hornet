@@ -25,7 +25,8 @@
 	// If we are impersonating someone, we should match their computer in the (Reply) href
 	var/ref
 	for(var/obj/item/modular_computer/messenger in GetViewableDevices())
-		if(messenger.saved_identification == pda_input.name && messenger.saved_job == pda_input.job && (pda_input.send_all || messenger != pda_input.target))
+		var/obj/item/computer_hardware/identifier/id = messenger.mainboard.all_components[MC_IDENTIFY]
+		if(id.saved_identification == pda_input.name && id.saved_job == pda_input.job && (pda_input.send_all || messenger != pda_input.target))
 			ref = REF(messenger)
 			break
 	var/has_photo = !!pda_input.current_image
@@ -101,7 +102,8 @@
 	if(theme)
 		.["theme"] = theme
 	if(istype(target))
-		.["target"] = "[target.saved_identification] ([target.saved_job])"
+		var/obj/item/computer_hardware/identifier/id = target.mainboard.all_components[MC_IDENTIFY]
+		.["target"] = "[id.saved_identification] ([id.saved_job])"
 	.["everyone"] = send_all
 
 /datum/tgui_input_pda_message/ui_act(action, list/params)
@@ -130,9 +132,10 @@
 		if("select")
 			var/list/devices = list()
 			for(var/obj/item/modular_computer/messenger in GetViewableDevices(TRUE))
-				if(!messenger.saved_identification || !messenger.saved_job)
+				var/obj/item/computer_hardware/identifier/id = messenger.mainboard.all_components[MC_IDENTIFY]
+				if(!id.saved_identification || !id.saved_job)
 					continue
-				var/key_base = "[messenger.saved_identification] ([messenger.saved_job])"
+				var/key_base = "[id.saved_identification] ([id.saved_job])"
 				var/key = key_base
 				var/number = 1
 				while(key in devices)

@@ -129,10 +129,10 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 	return sorttext("[B]","[A]")
 
 /proc/cmp_pdaname_asc(obj/item/modular_computer/A, obj/item/modular_computer/B)
-	return sorttext(B?.saved_identification, A?.saved_identification)
+	return sorttext(B?.mainboard?.saved_identification(), A?.mainboard?.saved_identification())
 
 /proc/cmp_pdajob_asc(obj/item/modular_computer/A, obj/item/modular_computer/B)
-	return sorttext(B?.saved_job, A?.saved_job)
+	return sorttext(B?.mainboard?.saved_job(), A?.mainboard?.saved_job())
 
 /proc/cmp_num_string_asc(A, B)
 	return text2num(A) - text2num(B)

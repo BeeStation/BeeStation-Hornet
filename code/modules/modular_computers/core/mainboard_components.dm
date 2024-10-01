@@ -1,8 +1,8 @@
-/obj/item/modular_computer/proc/can_install_component(obj/item/computer_hardware/try_install, mob/living/user = null)
-	if(!try_install.can_install(src, user))
+/obj/item/mainboard/proc/can_install_component(obj/item/computer_hardware/try_install, mob/living/user = null)
+	if(!try_install.can_install_component(src, user))
 		return FALSE
 
-	if(try_install.w_class > max_hardware_size)
+	if(try_install.w_class > max_hardware_w_class)
 		to_chat(user, "<span class='warning'>This component is too large for \the [src]!</span>")
 		return FALSE
 
@@ -19,9 +19,8 @@
 		return FALSE
 	return TRUE
 
-
 /// Installs component.
-/obj/item/modular_computer/proc/install_component(obj/item/computer_hardware/install, mob/living/user = null)
+/obj/item/mainboard/proc/install_component(obj/item/computer_hardware/install, mob/living/user = null)
 	if(!can_install_component(install, user))
 		return FALSE
 
@@ -46,25 +45,25 @@
 	return TRUE
 
 /// Uninstalls component.
-/obj/item/modular_computer/proc/uninstall_component(obj/item/computer_hardware/yeet, mob/living/user = null, put_in_hands)
+/obj/item/mainboard/proc/uninstall_component(obj/item/computer_hardware/yeet, mob/living/user = null, put_in_hands)
 	if(yeet.holder != src) // Not our component at all.
 		return FALSE
 
 	to_chat(user, "<span class='notice'>You remove \the [yeet] from \the [src].</span>")
 
 	if(put_in_hands)
-		user.put_in_hands(yeet)
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), yeet) // user.put_in_hands(yeet)
 	else
 		yeet.forceMove(get_turf(src))
 	forget_component(yeet)
 	yeet.on_remove(src, user)
 	if(enabled && !use_power())
-		shutdown_computer()
+		turn_off()
 	update_icon()
 	return TRUE
 
 /// This isn't the "uninstall fully" proc, it just makes the computer lose all its references to the component
-/obj/item/modular_computer/proc/forget_component(obj/item/computer_hardware/wipe_memory)
+/obj/item/mainboard/proc/forget_component(obj/item/computer_hardware/wipe_memory)
 	if(wipe_memory.holder != src)
 		return FALSE
 	if(wipe_memory.expansion_hw)
@@ -73,7 +72,7 @@
 	wipe_memory.holder = null
 
 /// Checks all hardware pieces to determine if name matches, if yes, returns the hardware piece, otherwise returns null
-/obj/item/modular_computer/proc/find_hardware_by_name(name)
+/obj/item/mainboard/proc/find_hardware_by_name(name)
 	for(var/i in all_components)
 		var/obj/component = all_components[i]
 		if(component.name == name)

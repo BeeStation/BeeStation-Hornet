@@ -143,7 +143,7 @@
 				computer.visible_message("<span class='warning'>\The [computer] shows an \"I/O Error - Hard drive connection error\" warning.</span>")
 			else if(!hard_drive.store_file(logfile))
 				computer.visible_message("<span class='warning'>\The [computer] shows an \"I/O Error - Hard drive may be full. Please free some space and try again. Required space: [logfile.size]GQ\" warning.</span>")
-			computer.send_sound()
+			computer.play_success_sound()
 			return TRUE
 		if("PRG_renamechannel")
 			if(!authed)
@@ -172,6 +172,8 @@
 				return
 
 			channel.password = new_password
+			channel.password_was_set()
+
 			return TRUE
 		if("PRG_mute_user")
 			if(!authed)

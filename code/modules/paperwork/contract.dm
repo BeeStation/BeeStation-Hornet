@@ -308,7 +308,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/contract/infernal)
 		if(worn)
 			if(istype(worn, /obj/item/modular_computer/tablet/pda))
 				var/obj/item/modular_computer/tablet/pda/PDA = worn
-				var/obj/item/computer_hardware/card_slot/card = PDA.all_components[MC_CARD]
+				var/obj/item/computer_hardware/id_slot/card = PDA.mainboard.all_components[MC_ID_AUTH]
 				card.try_eject(user, TRUE) // return their ID because we are nice
 				if(card)
 					card.try_insert(id, user)

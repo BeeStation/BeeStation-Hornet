@@ -184,8 +184,7 @@
 		return
 
 	var/obj/item/modular_computer/tablet/pda/heads/pda = H.r_store
-	pda.saved_identification = H.real_name
-	pda.saved_job = JOB_CENTCOM_OFFICIAL
+	pda.mainboard.update_id_display(H.real_name, JOB_CENTCOM_OFFICIAL)
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"

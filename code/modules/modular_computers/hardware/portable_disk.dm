@@ -6,9 +6,9 @@
 	w_class = WEIGHT_CLASS_TINY
 	critical = 0
 	max_capacity = 16
-	device_type = MC_SDD
+	device_type = MC_R_HDD
 
-/obj/item/computer_hardware/hard_drive/portable/on_remove(obj/item/modular_computer/remove_from, mob/user)
+/obj/item/computer_hardware/hard_drive/portable/on_remove(obj/item/mainboard/remove_from, mob/user)
 	return //this is a floppy disk, let's not shut the computer down when it gets pulled out.
 
 /obj/item/computer_hardware/hard_drive/portable/install_default_programs()

@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(ModPCMessengers) // a list of all active messengers, similar to GLOB.PDAs (used primarily with ntmessenger.dm)
+
 #define PDA_SPAM_DELAY 1 MINUTES
 /datum/computer_file/program/messenger
 	filename = "nt_messenger"
@@ -10,7 +12,7 @@
 	size = 0
 	undeletable = TRUE // It comes by default in tablets, can't be downloaded, takes no space and should obviously not be able to be deleted.
 	available_on_ntnet = FALSE
-	usage_flags = PROGRAM_TABLET
+	usage_flags = PROGRAM_HARDWARE_TABLET | PROGRAM_HARDWARE_SILICON
 	ui_header = "ntnrc_idle.gif"
 	tgui_id = "NtosMessenger"
 	program_icon = "comment-alt"
@@ -47,15 +49,18 @@
 	/// Whether or not we're in a mime PDA.
 	var/mime_mode = FALSE
 
+/// Returns a list of messenger clients minus any in visible range
 /datum/computer_file/program/messenger/proc/ScrubMessengerList()
 	var/list/dictionary = list()
 
 	for(var/obj/item/modular_computer/messenger in GetViewableDevices(sort_by_job))
-		if(messenger.saved_identification && messenger.saved_job && !(messenger == computer))
+		var/obj/item/computer_hardware/identifier/id = messenger.mainboard.all_components[MC_IDENTIFY]
+
+		if(istype(id) && !isnull(id.saved_identification) && !isnull(id.saved_job) && !(messenger == computer))
 			var/list/data = list()
-			data["name"] = messenger.saved_identification
-			data["job"] = messenger.saved_job
-			data["ref"] = REF(messenger)
+			data["name"] = id.saved_identification
+			data["job"] = id.saved_job
+			data["ref"] = REF(messenger.mainboard)
 
 			//if(data["ref"] != REF(computer)) // you cannot message yourself (despite all my rage)
 			dictionary += list(data)
@@ -71,23 +76,26 @@
 	else
 		sortmode = GLOBAL_PROC_REF(cmp_pdaname_asc)
 
-	for(var/obj/item/modular_computer/P in sort_list(GLOB.TabletMessengers, sortmode))
-		var/obj/item/computer_hardware/hard_drive/drive = P.all_components[MC_HDD]
-		if(!drive)
+	for(var/obj/item/modular_computer/mod_pc in sort_list(GLOB.ModPCMessengers, sortmode))
+		var/obj/item/computer_hardware/hard_drive/drive = mod_pc.mainboard?.all_components[MC_HDD]
+		if(!istype(drive))
 			continue
+
+		var/obj/item/computer_hardware/identifier/id = mod_pc.mainboard?.all_components[MC_IDENTIFY]
+		if(!istype(id) || isnull(id.saved_identification) || isnull(id.saved_job) || mod_pc.messenger_invisible)
+			continue
+
 		for(var/datum/computer_file/program/messenger/app in drive.stored_files)
-			if(!P.saved_identification || !P.saved_job || P.messenger_invisible || app.monitor_hidden)
+			if(app.monitor_hidden)
 				continue
-			dictionary += P
+			dictionary += mod_pc
 
 	return dictionary
 
-/datum/computer_file/program/messenger/proc/StringifyMessengerTarget(obj/item/modular_computer/messenger)
-	return "[messenger.saved_identification] ([messenger.saved_job])"
-
 /datum/computer_file/program/messenger/proc/ProcessPhoto()
-	if(computer.saved_image)
-		var/icon/img = computer.saved_image.picture_image
+	var/datum/picture/image = holder?.saved_image
+	if(istype(image))
+		var/icon/img = image.picture_image
 		var/deter_path = "tmp_msg_photo[rand(0, 99999)].png"
 		usr << browse_rsc(img, deter_path) // funny random assignment for now, i'll make an actual key later
 		photo_path = deter_path
@@ -148,7 +156,7 @@
 
 			var/list/targets = list()
 
-			for(var/obj/item/modular_computer/mc in GetViewableDevices())
+			for(var/obj/item/mainboard/mc in GetViewableDevices())
 				targets += mc
 
 			if(targets.len > 0)
@@ -158,6 +166,7 @@
 				send_message(usr, targets, TRUE, multi_delay = disk.spam_delay)
 
 			return TRUE
+
 		if("PDA_sendMessage")
 			if(!sending_and_receiving)
 				to_chat(usr, "<span class='notice'>ERROR: Device has sending disabled.</span>")
@@ -165,11 +174,16 @@
 			var/obj/item/modular_computer/target = locate(params["ref"])
 			if(!istype(target))
 				return // we don't want tommy sending his messages to nullspace
-			if(!(target.saved_identification == params["name"] && target.saved_job == params["job"]))
+
+			var/obj/item/mainboard/target_MB = target.mainboard
+			if(!istype(target_MB))
+				return
+
+			if(!(target_MB.saved_identification() == params["name"] && target_MB.saved_job() == params["job"]))
 				to_chat(usr, "<span class='notice'>ERROR: User no longer exists.</span>")
 				return
 
-			var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
+			var/obj/item/computer_hardware/hard_drive/drive = target_MB.all_components[MC_HDD]
 
 			for(var/datum/computer_file/program/messenger/app in drive.stored_files)
 				if(!app.sending_and_receiving && !sending_virus)
@@ -183,7 +197,7 @@
 				send_message(usr, list(target))
 				return TRUE
 		if("PDA_clearPhoto")
-			computer.saved_image = null
+			holder.saved_image = null
 			photo_path = null
 			return TRUE
 		if("PDA_viewPhotos")
@@ -203,12 +217,12 @@
 			if(!length(user.aicamera.stored))
 				to_chat(user, "<span class='notice'>ERROR: No stored photos located.</span>")
 				if(ringer_status)
-					playsound(computer, 'sound/machines/terminal_error.ogg', 15, TRUE)
+					computer.play_error_sound()
 				return
 			var/datum/picture/selected_photo = user.aicamera.selectpicture(user, title = "Select Message Attachment")
 			if(!istype(selected_photo, /datum/picture))
 				return
-			computer.saved_image = selected_photo
+			holder.saved_image = selected_photo
 			ProcessPhoto()
 			return TRUE
 		if("PDA_toggleVirus")
@@ -218,9 +232,7 @@
 /datum/computer_file/program/messenger/ui_data(mob/user)
 	var/list/data = list()
 
-	var/obj/item/computer_hardware/hard_drive/role/disk = computer.all_components[MC_HDD_JOB]
-
-	data["owner"] = computer.saved_identification
+	data["owner"] = computer.saved_identification()
 	// Convert the photo object into a file so it can be rendered properly in Show Messages
 	for(var/list/message as() in messages)
 		var/datum/picture/pic = message["photo_obj"]
@@ -237,7 +249,8 @@
 	data["isSilicon"] = is_silicon
 	data["photo"] = photo_path
 
-	if(disk)
+	var/obj/item/computer_hardware/hard_drive/role/disk = computer.all_components[MC_HDD_JOB]
+	if(istype(disk))
 		data["canSpam"] = disk.spam_delay > 0
 		data["virus_attach"] = istype(disk, /obj/item/computer_hardware/hard_drive/role/virus)
 		data["sending_virus"] = sending_virus
@@ -276,7 +289,7 @@
 /datum/computer_file/program/messenger/proc/send_message(mob/living/user, list/obj/item/modular_computer/targets, everyone = FALSE, fake_name = null, fake_job = null, multi_delay = 0)
 	if(!targets.len)
 		return FALSE
-	var/target_name = length(targets) == 1 ? targets[1].saved_identification : "Everyone"
+	var/target_name = length(targets) == 1 ? targets[1].mainboard.saved_identification() : "Everyone"
 	var/message = msg_input(user, target_name)
 	if(!message)
 		return FALSE
@@ -301,20 +314,24 @@
 	// Send the signal
 	var/list/string_targets = list()
 	for (var/obj/item/modular_computer/comp in targets)
-		if (comp.saved_identification && comp.saved_job)  // != src is checked by the UI
-			string_targets += "[comp.saved_identification] ([comp.saved_job])"
+		var/saved_identification = comp.mainboard.saved_identification()
+		var/saved_job = comp.mainboard.saved_job()
+		if (saved_identification && saved_job)  // != src is checked by the UI
+			string_targets += "[saved_identification] ([saved_job])"
 
 	if (!string_targets.len)
 		return FALSE
 
+	var/obj/item/computer_hardware/hard_drive/disk = computer.all_components[MC_R_HDD]
+
 	var/datum/signal/subspace/messaging/tablet_msg/signal = new(computer, list(
-		"name" = fake_name || computer.saved_identification,
-		"job" = fake_job || computer.saved_job,
+		"name" = fake_name || computer.saved_identification(),
+		"job" = fake_job || computer.saved_job(),
 		"message" = html_decode(message),
 		"ref" = REF(computer),
 		"targets" = targets,
 		"emojis" = allow_emojis,
-		"photo" = computer.saved_image,
+		"photo" = disk.saved_image,
 		"automated" = FALSE,
 	))
 
@@ -356,7 +373,7 @@
 	to_chat(user, "<span class='info'>PDA message sent to [target_text]: [signal.format_message()]</span>")
 
 	if (ringer_status)
-		computer.send_sound()
+		computer.play_success_sound()
 
 	last_text = world.time
 	if (everyone)

@@ -47,9 +47,6 @@
 		tracking = null
 	return ..()
 
-/obj/item/camera_bug/interact(mob/user)
-	ui_interact(user)
-
 /obj/item/camera_bug/ui_interact(mob/user = usr)
 	. = ..()
 	var/datum/browser/popup = new(user, "camerabug","Camera Bug",nref=src)

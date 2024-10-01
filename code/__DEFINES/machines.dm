@@ -53,15 +53,16 @@
 #define MC_CPU "CPU"
 #define MC_HDD "HDD"
 #define MC_HDD_JOB "HDD_JOB"
-#define MC_SDD "SDD"
-#define MC_CARD "CARD"
-#define MC_CARD2 "CARD2"
+#define MC_R_HDD "REMOVABLE_HDD"
+#define MC_ID_AUTH "ID_AUTH"
+#define MC_ID_MODIFY "ID_MODIFY"
 #define MC_CART "CART"
 #define MC_NET "NET"
 #define MC_PRINT "PRINT"
 #define MC_CELL "CELL"
 #define MC_CHARGE "CHARGE"
 #define MC_AI "AI"
+#define MC_PAI "PERSONAL_AI"
 #define MC_SENSORS "SENSORS"
 #define MC_SIGNALLER "SIGNALER"
 #define MC_IDENTIFY "IDENTIFY"
@@ -83,10 +84,11 @@
 #define MIN_NTNET_LOGS 10
 
 //Program bitflags
-#define PROGRAM_ALL		(~0)
-#define PROGRAM_CONSOLE	(1<<0)
-#define PROGRAM_LAPTOP	(1<<1)
-#define PROGRAM_TABLET	(1<<2)
+#define PROGRAM_HARDWARE_ALL		(~0)
+#define PROGRAM_HARDWARE_CONSOLE	(1<<0)
+#define PROGRAM_HARDWARE_LAPTOP	(1<<1)
+#define PROGRAM_HARDWARE_TABLET	(1<<2)
+#define PROGRAM_HARDWARE_SILICON	(1<<3)
 //Program states
 #define PROGRAM_STATE_KILLED 0
 #define PROGRAM_STATE_BACKGROUND 1

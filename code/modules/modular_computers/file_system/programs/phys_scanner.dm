@@ -5,7 +5,7 @@
 	category = PROGRAM_CATEGORY_MISC
 	extended_desc = "This program allows the tablet to scan physical objects and display a data output."
 	size = 8
-	usage_flags = PROGRAM_TABLET
+	usage_flags = PROGRAM_HARDWARE_TABLET
 	available_on_ntnet = FALSE
 	tgui_id = "NtosPhysScanner"
 	program_icon = "barcode"
@@ -38,52 +38,56 @@
 /datum/computer_file/program/phys_scanner/proc/ReadCurrent()
 	return mode_to_names(current_mode)
 
-/datum/computer_file/program/phys_scanner/attack(atom/target, mob/living/user, params)
+/datum/computer_file/program/phys_scanner/attack(mob/target, mob/living/user, params)
 	switch(current_mode)
 		if(DISK_CHEM)
 			var/mob/living/carbon/carbon = target
 			if(istype(carbon))
 				user.visible_message("<span class='notice'>[user] analyzes [carbon]'s vitals.</span>", "<span class='notice'>You analyze [carbon]'s vitals.</span>")
 				last_record = chemscan(user, carbon, to_chat = FALSE)
-				return FALSE
-			else if(!istype(target, /obj/item/reagent_containers/pill/floorpill) && !istype(target, /obj/item/reagent_containers/glass/chem_heirloom))
-				if(!isnull(target.reagents))
-					if(target.reagents.reagent_list.len > 0)
-						var/reagents_length = target.reagents.reagent_list.len
-						last_record = "[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.\n"
-						for (var/re in target.reagents.reagent_list)
-							last_record += "\t [re]\n"
-					else
-						last_record = "No active chemical agents found in [target]."
-				else
-					last_record = "No significant chemical agents found in [target]."
-				return FALSE
+				return TRUE
+			if(istype(target, /obj/item/reagent_containers/pill/floorpill) || istype(target, /obj/item/reagent_containers/glass/chem_heirloom))
+				return TRUE
+			if(isnull(target.reagents))
+				last_record = "No significant chemical agents found in [target]."
+				return TRUE
+			if(target.reagents.reagent_list.len <= 0)
+				last_record = "No active chemical agents found in [target]."
+				return TRUE
+			var/reagents_length = target.reagents.reagent_list.len
+			last_record = "[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.\n"
+			for (var/re in target.reagents.reagent_list)
+				last_record += "\t [re]\n"
+			return TRUE
 		if(DISK_MED)
 			var/mob/living/carbon/carbon = target
-			if(istype(carbon))
-				user.visible_message("<span class='notice'>[user] analyzes [carbon]'s vitals.</span>", "<span class='notice'>You analyze [carbon]'s vitals.</span>")
-				last_record = healthscan(user, carbon, 1, to_chat = FALSE)
+			if(!istype(carbon))
 				return FALSE
+			user.visible_message("<span class='notice'>[user] analyzes [carbon]'s vitals.</span>", "<span class='notice'>You analyze [carbon]'s vitals.</span>")
+			last_record = healthscan(user, carbon, 1, to_chat = FALSE)
+			return TRUE
 		if(DISK_POWER)
 			var/mob/living/carbon/carbon = target
-			if(istype(carbon))
-				user.visible_message("<span class='notice'>[user] analyzes [carbon]'s radiation levels.</span>", "<span class='notice'>You analyze [carbon]'s radiation levels.</span>")
-				last_record = "Analyzing Results for [carbon]:\n"
-				if(carbon.radiation)
-					last_record += "Radiation Level: [carbon.radiation]%"
-				else
-					last_record += "No radiation detected."
+			if(!istype(carbon))
 				return FALSE
+			user.visible_message("<span class='notice'>[user] analyzes [carbon]'s radiation levels.</span>", "<span class='notice'>You analyze [carbon]'s radiation levels.</span>")
+			last_record = "Analyzing Results for [carbon]:\n"
+			if(carbon.radiation)
+				last_record += "Radiation Level: [carbon.radiation]%"
+				return TRUE
+			last_record += "No radiation detected."
+			return TRUE
 	return ..()
 
 /datum/computer_file/program/phys_scanner/attack_obj(obj/target, mob/living/user)
 	switch(current_mode)
 		if(DISK_ATMOS)
 			var/scan_result = atmosanalyzer_scan(user, target, silent = TRUE, to_chat = FALSE)
-			if(scan_result)
-				user.visible_message("[user] analyzes [icon2html(target, viewers(user))] [target]'s gas contents.", "<span class='notice'>You analyze [icon2html(target, user)] [target]'s gas contents.</span>")
-				last_record = scan_result
+			if(!scan_result)
 				return FALSE
+			user.visible_message("[user] analyzes [icon2html(target, viewers(user))] [target]'s gas contents.", "<span class='notice'>You analyze [icon2html(target, user)] [target]'s gas contents.</span>")
+			last_record = scan_result
+			return TRUE
 	return ..()
 
 /datum/computer_file/program/phys_scanner/ui_act(action, list/params, datum/tgui/ui)

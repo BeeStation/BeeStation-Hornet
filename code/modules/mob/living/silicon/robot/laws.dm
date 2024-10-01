@@ -76,9 +76,13 @@
 			if (length(temp) > 0)
 				laws.supplied[index] = temp
 
-		var/datum/computer_file/program/borg_self_monitor/program = modularInterface.get_self_monitoring()
-		if(program)
-			program.force_full_update()
+		var/obj/item/modular_computer/tablet/integrated/cyborg/borg_tablet = modularInterface
+		if(!istype(borg_tablet)) // keep a log of it
+			stack_trace("called lawsync() on a cyborg without a tablet [modularInterface] ( [modularInterface?.type] )")
+		else
+			var/datum/computer_file/program/borg_self_monitor/program = borg_tablet.get_self_monitoring()
+			if(program)
+				program.force_full_update()
 
 	picturesync()
 

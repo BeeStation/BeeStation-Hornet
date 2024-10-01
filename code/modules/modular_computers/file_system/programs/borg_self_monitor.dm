@@ -8,24 +8,26 @@
 	available_on_ntnet = FALSE
 	unsendable = TRUE
 	undeletable = TRUE
-	usage_flags = PROGRAM_TABLET
+	usage_flags = PROGRAM_HARDWARE_SILICON
 	size = 5
 	tgui_id = "NtosCyborgSelfMonitor"
 	///A typed reference to the computer, specifying the borg tablet type
 	var/obj/item/modular_computer/tablet/integrated/tablet
+	///IC log that borgs can view in their personal management app
+	var/list/borglog = list()
 
 /datum/computer_file/program/borg_self_monitor/Destroy()
 	tablet = null
 	return ..()
 
 /datum/computer_file/program/borg_self_monitor/on_start(mob/living/user)
-	if(!istype(computer, /obj/item/modular_computer/tablet/integrated))
+	tablet = computer.physical_holder
+	if(!istype(tablet))
 		to_chat(user, "<span class='warning'>A warning flashes across \the [computer]: Device Incompatible.</span>")
 		return FALSE
 	. = ..()
 	if(.)
-		tablet = computer
-		if(tablet.device_theme == THEME_SYNDICATE)
+		if(computer.device_theme == THEME_SYNDICATE)
 			program_icon_state = "command-syndicate"
 		return TRUE
 	return FALSE
@@ -34,7 +36,7 @@
 	var/list/data = list()
 	if(!iscyborg(user))
 		return data
-	var/mob/living/silicon/robot/borgo = tablet.borgo
+	var/mob/living/silicon/robot/borgo = computer.physical_holder.loc
 
 	data["name"] = borgo.name
 	data["designation"] = borgo.designation //Borgo module type
@@ -80,7 +82,7 @@
 	var/mob/living/silicon/robot/borgo = user
 
 	data["Laws"] = borgo.laws.get_law_list(TRUE, TRUE, FALSE)
-	data["borgLog"] = tablet.borglog
+	data["borgLog"] = borglog
 	data["borgUpgrades"] = borgo.upgrades
 	return data
 
@@ -116,6 +118,7 @@
 
 		if("toggleSensors")
 			borgo.toggle_sensors()
+			return TRUE
 
 		if("viewImage")
 			if(borgo.connected_ai)
@@ -133,6 +136,7 @@
 		if("lampIntensity")
 			borgo.lamp_intensity = clamp(text2num(params["ref"]), 1, 5)
 			borgo.toggle_headlamp(FALSE, TRUE)
+			return TRUE
 
 		if("cameraRadius")
 			var/obj/item/camera/siliconcam/robot_camera/borgcam = borgo.aicamera

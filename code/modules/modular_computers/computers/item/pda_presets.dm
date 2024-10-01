@@ -8,20 +8,25 @@
 	/// List of victims (of a very funny joke, that everyone loves!). Stores references to mobs.
 	var/list/slip_victims = list()
 	init_ringtone = "honk"
-	device_theme = THEME_NTOS_CLOWN_PINK // Give the clown the best theme
-	ignore_theme_pref = TRUE
+	var/cached_name
 
 /obj/item/modular_computer/tablet/pda/clown/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/slippery, 7 SECONDS, NO_SLIP_WHEN_WALKING, CALLBACK(src, PROC_REF(AfterSlip)), 5 SECONDS)
 
+/obj/item/modular_computer/tablet/pda/clown/install_modpc_hardware(obj/item/mainboard/MB)
+	. = ..()
+	MB.device_theme = THEME_NTOS_CLOWN_PINK
+	MB.ignore_theme_pref = TRUE
+
 /obj/item/modular_computer/tablet/pda/clown/proc/AfterSlip(mob/living/carbon/human/M)
-	if (istype(M) && (M.real_name != saved_identification))
-		slip_victims |= REF(M)
-		var/obj/item/computer_hardware/hard_drive/role/virus/clown/cart = all_components[MC_HDD_JOB]
-		if(istype(cart) && cart.charges < 5)
-			cart.charges++
-			playsound(src,'sound/machines/ping.ogg',30,TRUE)
+	if (!istype(M) || (M.real_name == mainboard.saved_identification()))
+		return
+	slip_victims |= REF(M)
+	var/obj/item/computer_hardware/hard_drive/role/virus/clown/cart = mainboard.all_components[MC_HDD_JOB]
+	if(istype(cart) && cart.charges < 5)
+		cart.charges++
+		playsound(src,'sound/machines/ping.ogg',30,TRUE)
 
 /obj/item/modular_computer/tablet/pda/mime
 	name = "mime PDA"
@@ -31,14 +36,12 @@
 	init_ringer_on = FALSE
 	init_ringtone = "silence"
 
-/obj/item/modular_computer/tablet/pda/mime/Initialize(mapload)
+/obj/item/modular_computer/tablet/pda/mime/install_modpc_software(obj/item/computer_hardware/hard_drive/hard_drive)
 	. = ..()
-	var/obj/item/computer_hardware/hard_drive/hdd = all_components[MC_HDD]
 
-	if(hdd)
-		for(var/datum/computer_file/program/messenger/msg in hdd.stored_files)
-			msg.mime_mode = TRUE
-			msg.allow_emojis = TRUE
+	for(var/datum/computer_file/program/messenger/msg in hard_drive.stored_files)
+		msg.mime_mode = TRUE
+		msg.allow_emojis = TRUE
 
 /obj/item/modular_computer/tablet/pda/assistant
 	name = "assistant PDA"
@@ -102,9 +105,8 @@
 	icon_state = "pda-science"
 	init_ringtone = "boom"
 
-/obj/item/modular_computer/tablet/pda/science/Initialize(mapload)
-	. = ..()
-	install_component(new /obj/item/computer_hardware/radio_card)
+/obj/item/modular_computer/tablet/pda/science
+	pda_components = list(/obj/item/computer_hardware/radio_card)
 
 /obj/item/modular_computer/tablet/pda/service
 	name = "service PDA"
@@ -113,19 +115,16 @@
 /obj/item/modular_computer/tablet/pda/heads
 	default_disk = /obj/item/computer_hardware/hard_drive/role/head
 	icon_state = "pda-heads"
-
-/obj/item/modular_computer/tablet/pda/heads/Initialize(mapload)
-	. = ..()
-	install_component(new /obj/item/computer_hardware/card_slot/secondary)
+	pda_components = list(/obj/item/computer_hardware/id_slot/secondary)
 
 /obj/item/modular_computer/tablet/pda/heads/head_of_personnel
 	name = "head of personnel PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/hop
 	icon_state = "pda-hop"
-
-/obj/item/modular_computer/tablet/pda/heads/head_of_personnel/Initialize(mapload)
-	. = ..()
-	install_component(new /obj/item/computer_hardware/printer/mini)
+	pda_components = list(
+		/obj/item/computer_hardware/id_slot/secondary,
+		/obj/item/computer_hardware/printer/mini
+	)
 
 /obj/item/modular_computer/tablet/pda/heads/head_of_security
 	name = "head of security PDA"
@@ -147,10 +146,10 @@
 	default_disk = /obj/item/computer_hardware/hard_drive/role/rd
 	insert_type = /obj/item/pen/fountain
 	icon_state = "pda-rd"
-
-/obj/item/modular_computer/tablet/pda/heads/research_director/Initialize(mapload)
-	. = ..()
-	install_component(new /obj/item/computer_hardware/radio_card)
+	pda_components = list(
+		/obj/item/computer_hardware/id_slot/secondary,
+		/obj/item/computer_hardware/radio_card
+	)
 
 /obj/item/modular_computer/tablet/pda/heads/captain
 	name = "captain PDA"
@@ -164,20 +163,14 @@
 	name = "cargo technician PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/cargo_technician
 	icon_state = "pda-cargo"
-
-/obj/item/modular_computer/tablet/pda/cargo_technician/Initialize(mapload)
-	. = ..()
-	install_component(new /obj/item/computer_hardware/printer/mini)
+	pda_components = list(/obj/item/computer_hardware/printer/mini)
 
 /obj/item/modular_computer/tablet/pda/quartermaster
 	name = "quartermaster PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/quartermaster
 	insert_type = /obj/item/pen/fountain
 	icon_state = "pda-qm"
-
-/obj/item/modular_computer/tablet/pda/quartermaster/Initialize(mapload)
-	. = ..()
-	install_component(new /obj/item/computer_hardware/printer/mini)
+	pda_components = list(/obj/item/computer_hardware/printer/mini)
 
 /obj/item/modular_computer/tablet/pda/shaft_miner
 	name = "shaft miner PDA"
@@ -192,20 +185,18 @@
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a WGW-XL-NTOS series."
 	note = "Congratulations, your -corrupted- has chosen the Thinktronic 5290 WGW-XL-NTOS Series Personal Data Assistant!"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/virus/syndicate/military
-	saved_identification = "John Doe"
-	saved_job = "Citizen"
 	icon_state = "pda-syndi"
 	messenger_invisible = TRUE
 	detonatable = FALSE
-	device_theme = THEME_SYNDICATE
-	theme_locked = TRUE
+	syndicate_themed = TRUE
 
-/obj/item/modular_computer/tablet/pda/syndicate/Initialize(mapload)
+/obj/item/modular_computer/tablet/pda/syndicate/install_modpc_hardware(obj/item/mainboard/MB)
 	. = ..()
-	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
+	var/obj/item/computer_hardware/network_card/network_card = MB.all_components[MC_NET]
 	if(istype(network_card))
-		forget_component(network_card)
-		install_component(new /obj/item/computer_hardware/network_card/advanced/norelay)
+		MB.forget_component(network_card)
+		MB.install_component(new /obj/item/computer_hardware/network_card/advanced/norelay)
+	MB.update_id_display("John Doe", "Citizen")
 
 /obj/item/modular_computer/tablet/pda/chaplain
 	name = "chaplain PDA"

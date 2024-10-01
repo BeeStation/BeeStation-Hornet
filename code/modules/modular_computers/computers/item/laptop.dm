@@ -8,7 +8,7 @@
 	icon_state_unpowered = "laptop-off"
 	icon_state_menu = "menu"
 
-	hardware_flag = PROGRAM_LAPTOP
+	hardware_flag = PROGRAM_HARDWARE_LAPTOP
 	max_hardware_size = 2
 	w_class = WEIGHT_CLASS_NORMAL
 	max_bays = 4
@@ -16,33 +16,32 @@
 	// No running around with open laptops in hands.
 	item_flags = SLOWS_WHILE_IN_HAND
 
-	screen_on = 0 		// Starts closed
-	var/start_open = TRUE	// unless this var is set to 1
+	var/screen_open = FALSE			// Starts closed
+	var/start_open = FALSE	// unless this var is set to 1
 	var/icon_state_closed = "laptop-closed"
 	var/w_class_open = WEIGHT_CLASS_BULKY
 	var/slowdown_open = TRUE
 
-/obj/item/modular_computer/laptop/examine(mob/user)
-	. = ..()
-	if(screen_on)
-		. += "<span class='notice'>Alt-click to close it.</span>"
-
 /obj/item/modular_computer/laptop/Initialize(mapload)
 	. = ..()
 
-	if(start_open && !screen_on)
+	if(start_open && !screen_open)
 		toggle_open()
 
-/obj/item/modular_computer/laptop/update_icon()
-	if(screen_on)
-		..()
-	else
-		cut_overlays()
-		icon_state = icon_state_closed
+/obj/item/modular_computer/laptop/examine(mob/user)
+	. = ..()
+	if(screen_open)
+		. += "<span class='notice'>Alt-click to close it.</span>"
+
+/obj/item/modular_computer/laptop/update_icon_state()
+	. = ..()
+	if(screen_open)
+		return ..()
+	icon_state = icon_state_closed
 
 /obj/item/modular_computer/laptop/attack_self(mob/user)
-	if(!screen_on)
-		try_toggle_open(user)
+	if(!screen_open)
+		return try_toggle_open(user)
 	else
 		return ..()
 
@@ -72,28 +71,27 @@
 	. = ..()
 	if(.)
 		return
-	if(screen_on && isturf(loc))
+	if(screen_open && isturf(loc))
 		return attack_self(user)
 
 /obj/item/modular_computer/laptop/proc/try_toggle_open(mob/living/user)
 	if(issilicon(user))
-		return
+		return TRUE
 	if(!isturf(loc) && !ismob(loc)) // No opening it in backpack.
-		return
+		return TRUE
 	if(!user.canUseTopic(src, BE_CLOSE))
-		return
+		return TRUE
 
-	toggle_open(user)
+	return toggle_open(user)
 
 
 /obj/item/modular_computer/laptop/AltClick(mob/user)
-	if(screen_on) // Close it.
-		try_toggle_open(user)
-	else
-		..()
+	if(..() || !screen_open)
+		return TRUE
+	return try_toggle_open(user)
 
 /obj/item/modular_computer/laptop/proc/toggle_open(mob/living/user=null)
-	if(screen_on)
+	if(screen_open)
 		to_chat(user, "<span class='notice'>You close \the [src].</span>")
 		slowdown = initial(slowdown)
 		w_class = initial(w_class)
@@ -102,11 +100,6 @@
 		slowdown = slowdown_open
 		w_class = w_class_open
 
-	screen_on = !screen_on
+	screen_open = !screen_open
 	update_icon()
-
-
-
-// Laptop frame, starts empty and closed.
-/obj/item/modular_computer/laptop/buildable
-	start_open = FALSE
+	return TRUE

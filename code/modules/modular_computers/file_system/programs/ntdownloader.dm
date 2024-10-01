@@ -20,7 +20,7 @@
 	var/download_completion = 0 //GQ of downloaded data.
 	var/download_netspeed = 0
 	var/downloaderror = ""
-	var/obj/item/modular_computer/my_computer = null
+	var/obj/item/mainboard/my_computer = null
 	var/emagged = FALSE
 	var/list/main_repo
 	var/list/antag_repo
@@ -31,6 +31,7 @@
 		PROGRAM_CATEGORY_SUPL,
 		PROGRAM_CATEGORY_MISC,
 	)
+	var/show_incompatible = FALSE
 
 /datum/computer_file/program/ntnetdownload/on_start()
 	. = ..()
@@ -130,21 +131,21 @@
 				downloaded_file = null
 				downloaderror = ""
 			return 1
+		if("PRG_toggle_show_incompatible")
+			show_incompatible = !show_incompatible
+			return TRUE
 	return 0
 
 /datum/computer_file/program/ntnetdownload/ui_data(mob/user)
-	my_computer = computer
-
-	if(!istype(my_computer))
-		return
-	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
-	var/list/access = card_slot?.GetAccess()
+	var/obj/item/computer_hardware/id_slot/card_slot = computer.all_components[MC_ID_AUTH]
+	var/list/access = card_slot?.GetAccess_parent()
 
 	var/list/data = list()
 
 	data["downloading"] = !!downloaded_file
 	data["error"] = downloaderror || FALSE
-	data["id_inserted"] = !!card_slot?.GetID()
+	data["id_inserted"] = !!card_slot?.GetID_parent()
+	data["show_incompatible"] = show_incompatible
 
 	// Download running. Wait please..
 	if(downloaded_file)
@@ -154,7 +155,7 @@
 		data["downloadspeed"] = download_netspeed
 		data["downloadcompletion"] = round(download_completion, 0.1)
 
-	var/obj/item/computer_hardware/hard_drive/hard_drive = my_computer.all_components[MC_HDD]
+	var/obj/item/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
 	data["disk_size"] = hard_drive.max_capacity
 	data["disk_used"] = hard_drive.used_capacity
 	data["emagged"] = emagged
@@ -184,11 +185,13 @@
 	return data
 
 /datum/computer_file/program/ntnetdownload/proc/check_compatibility(datum/computer_file/program/P)
-	var/hardflag = computer.hardware_flag
+	var/hardflag = computer.get_hardware_type()
 
-	if(P?.is_supported_by_hardware(hardflag,0))
-		return TRUE
-	return FALSE
+	if(!P?.is_supported_by_hardware(hardflag, 0))
+		return FALSE // Program in-general is not supported on this platform
+	if(!isnull(P.required_hardware) && isnull(computer.all_components[P.required_hardware]))
+		return FALSE // Missing required hardware
+	return TRUE
 
 /datum/computer_file/program/ntnetdownload/kill_program(forced)
 	abort_file_download()

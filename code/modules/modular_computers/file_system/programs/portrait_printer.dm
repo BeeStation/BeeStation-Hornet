@@ -15,7 +15,7 @@
 	program_icon_state = "dummy"
 	extended_desc = "This program connects to a Spinward Sector community art site for viewing and printing art."
 	transfer_access = list(ACCESS_LIBRARY)
-	usage_flags = PROGRAM_CONSOLE
+	usage_flags = PROGRAM_HARDWARE_CONSOLE
 	requires_ntnet = TRUE
 	size = 9
 	tgui_id = "NtosPortraitPrinter"
@@ -77,7 +77,7 @@
 	for(var/canvas_type in typesof(/obj/item/canvas))
 		printed_canvas = canvas_type
 		if(initial(printed_canvas.width) == art_width && initial(printed_canvas.height) == art_height)
-			printed_canvas = new canvas_type(get_turf(computer.physical))
+			printed_canvas = new canvas_type(get_turf(computer.physical_holder))
 			break
 	printed_canvas.fill_grid_from_icon(art_icon)
 	printed_canvas.generated_icon = art_icon
@@ -91,6 +91,6 @@
 	printed_canvas.update_icon()
 	printer.stored_paper -= CANVAS_PAPER_COST
 	to_chat(usr, "<span class='notice'>You have printed [title] onto a new canvas.</span>")
-	playsound(computer.physical, 'sound/items/poster_being_created.ogg', 100, TRUE)
+	computer.play_physical_sound('sound/items/poster_being_created.ogg', 100, TRUE)
 
 #undef CANVAS_PAPER_COST

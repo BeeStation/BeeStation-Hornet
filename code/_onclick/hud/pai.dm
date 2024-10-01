@@ -122,11 +122,11 @@
 
 /atom/movable/screen/pai/modpc/Click()
 	. = ..()
-	if(!. || !pAI.modularInterface || !pAI.modularInterface.turn_on(pAI, open_ui = FALSE))
+	if(!. || !pAI.modularInterface || !pAI.modularInterface.mainboard.turn_on(pAI, open_ui = FALSE))
 		return
-	var/obj/item/computer_hardware/hard_drive/drive = pAI.modularInterface.all_components[MC_HDD]
+	var/obj/item/computer_hardware/hard_drive/drive = pAI.modularInterface.mainboard.all_components[MC_HDD]
 	for(var/datum/computer_file/program/messenger/app in drive?.stored_files)
-		pAI.modularInterface.open_program(pAI, app)
+		pAI.modularInterface.mainboard.open_program(pAI, app)
 		pAI.modularInterface.interact(pAI)
 		break
 
