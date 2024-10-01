@@ -602,8 +602,7 @@
 /obj/structure/barricade/wooden/crude,
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/machinery/door/airlock/medical/glass{
-	name = "Chemistry Lab";
-	req_access_txt = "47,54,29"
+	name = "Chemistry Lab"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -1009,10 +1008,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/mining/glass{
-	name = "Processing Area";
-	req_access_txt = "48"
-	},
+/obj/machinery/door/airlock/public/glass,
 /turf/open/floor/iron/techmaint,
 /area/mine/gateway)
 "gG" = (
@@ -1103,8 +1099,7 @@
 /area/mine/laborcamp)
 "hn" = (
 /obj/machinery/door/airlock/research/glass{
-	name = "Research Division Atrium";
-	req_one_access_txt = "47,54"
+	name = "Research Division Atrium"
 	},
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -1373,7 +1368,8 @@
 /area/mine/science)
 "jb" = (
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station"
+	name = "Mining Station";
+	req_one_access_txt = "54;18"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/fans/tiny,
@@ -1416,8 +1412,7 @@
 /area/mine/eva)
 "jo" = (
 /obj/machinery/door/airlock/research/glass{
-	name = "Research Division Atrium";
-	req_one_access_txt = "47,54"
+	name = "Research Division Atrium"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -1850,15 +1845,13 @@
 /turf/open/floor/plating/asteroid,
 /area/mine/living_quarters)
 "mO" = (
-/obj/machinery/door/airlock/external{
-	glass = 1;
-	name = "Mining Shuttle Airlock";
-	opacity = 0
-	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass{
+	name = "Mining Shuttle Airlock"
+	},
 /turf/open/floor/iron/techmaint,
 /area/mine/production)
 "mR" = (
@@ -1911,16 +1904,16 @@
 /turf/open/floor/iron,
 /area/mine/living_quarters)
 "nu" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station EVA";
-	req_access_txt = "54"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station EVA";
+	req_one_access_txt = "54;18"
+	},
 /turf/open/floor/iron/techmaint,
 /area/mine/eva)
 "nw" = (
@@ -1940,8 +1933,7 @@
 "nH" = (
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/research{
-	name = "tachyon-doppler Array Booth";
-	req_access_txt = "7"
+	name = "tachyon-doppler Array Booth"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -2071,8 +2063,7 @@
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/research{
-	name = "Robotics Lab";
-	req_access_txt = "47,54,29"
+	name = "Robotics Lab"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -2127,15 +2118,12 @@
 /area/mine/gateway)
 "oY" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/mining/glass{
-	name = "Processing Area";
-	req_access_txt = "48"
-	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock/public/glass,
 /turf/open/floor/iron/techmaint,
 /area/mine/gateway)
 "pb" = (
@@ -2603,8 +2591,7 @@
 /obj/machinery/button/door{
 	id = "lavasci";
 	name = "Science shuttle shutters";
-	pixel_y = 28;
-	req_access_txt = "2"
+	pixel_y = 28
 	},
 /turf/open/floor/iron,
 /area/mine/science)
@@ -2625,7 +2612,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/airlock/mining{
 	name = "Mining Station Storage";
-	req_access_txt = "48"
+	req_one_access_txt = "54;18"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/closeup,
@@ -2650,8 +2637,8 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external/glass{
-	req_access_txt = "47";
-	name = "Science Outpost Airlock"
+	name = "Science Outpost Airlock";
+	req_one_access_txt = "54;18;47"
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/science)
@@ -2893,8 +2880,7 @@
 "vf" = (
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/medical/glass{
-	name = "Chemistry Lab";
-	req_access_txt = "47,54,29"
+	name = "Chemistry Lab"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -3363,7 +3349,7 @@
 "yn" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "mining Relay Room";
-	req_access_txt = "48"
+	req_one_access_txt = "54;61"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -4234,7 +4220,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Mining Station Maintenance";
-	req_access_txt = "48"
+	req_one_access_txt = "54;18"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/effect/turf_decal/stripes/closeup,
@@ -4332,7 +4318,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
 	name = "Science Outpost Airlock";
-	req_access_txt = "47"
+	req_one_access_txt = "54;18;47"
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/science)
@@ -4497,13 +4483,11 @@
 /turf/open/floor/iron,
 /area/mine/science)
 "HA" = (
-/obj/machinery/door/airlock/external{
-	glass = 1;
-	name = "Mining Shuttle Airlock";
-	opacity = 0
-	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
+	},
+/obj/machinery/door/airlock/external/glass{
+	name = "Mining Shuttle Airlock"
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/production)
@@ -4595,7 +4579,7 @@
 "Is" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Radioisotope Containment Room";
-	req_access_txt = "48"
+	req_one_access_txt = "54;18;10"
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4662,8 +4646,7 @@
 "IN" = (
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/command{
-	name = "Research Director's Office";
-	req_access_txt = "30"
+	name = "Research Director's Office"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -4740,7 +4723,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mining Station EVA";
-	req_access_txt = "54"
+	req_one_access_txt = "54;18"
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/eva)
@@ -4990,7 +4973,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/airlock/maintenance{
 	name = "Mining Station Communications";
-	req_access_txt = "48"
+	req_one_access_txt = "54;61"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
@@ -5160,10 +5143,6 @@
 /turf/open/floor/iron,
 /area/mine/science)
 "Lr" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station Bridge";
-	req_access_txt = "48"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -5177,6 +5156,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/public/glass,
 /turf/open/floor/iron/techmaint,
 /area/mine/production)
 "LC" = (
@@ -5650,7 +5630,10 @@
 /turf/open/floor/iron,
 /area/mine/science)
 "Pl" = (
-/obj/machinery/door/airlock/external/glass,
+/obj/machinery/door/airlock/external/glass{
+	name = "Science Shuttle Airlock";
+	req_one_access_txt = "54;18;47;49"
+	},
 /obj/structure/fans/tiny,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -5705,8 +5688,7 @@
 /area/lavaland/surface/outdoors/explored)
 "PL" = (
 /obj/machinery/door/airlock/research/glass{
-	name = "EVA Atrium";
-	req_one_access_txt = "47,54"
+	name = "EVA Atrium"
 	},
 /obj/structure/barricade/wooden/crude,
 /obj/effect/turf_decal/stripes/closeup{
@@ -6131,8 +6113,7 @@
 /area/mine/science)
 "SI" = (
 /obj/machinery/door/airlock/research{
-	name = "Subspace Listening Lab";
-	req_access_txt = "47"
+	name = "Subspace Listening Lab"
 	},
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -6238,7 +6219,8 @@
 /area/mine/laborcamp)
 "TC" = (
 /obj/machinery/door/airlock/medical/glass{
-	name = "Infirmary"
+	name = "Infirmary";
+	req_one_access_txt = "54;5"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -6489,8 +6471,7 @@
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/medical/glass{
-	name = "Chemistry Lab";
-	req_access_txt = "47,54,29"
+	name = "Chemistry Lab"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
@@ -6513,7 +6494,7 @@
 "VK" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mining Station EVA";
-	req_access_txt = "54"
+	req_one_access_txt = "54;18"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
@@ -6590,7 +6571,8 @@
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station"
+	name = "Mining Station";
+	req_one_access_txt = "54;18"
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/eva)
@@ -6771,8 +6753,7 @@
 /area/mine/laborcamp/security)
 "Xm" = (
 /obj/machinery/door/airlock/research/glass{
-	name = "Research Division Atrium";
-	req_one_access_txt = "47,54"
+	name = "Research Division Atrium"
 	},
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -6920,8 +6901,7 @@
 "Yi" = (
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/machinery/door/airlock/research/glass{
-	name = "Research Division Atrium";
-	req_one_access_txt = "47,54"
+	name = "Research Division Atrium"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
