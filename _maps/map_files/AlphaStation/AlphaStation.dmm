@@ -11978,17 +11978,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
-"Hn" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "garbage"
-	},
-/obj/item/trash/can/food/peaches/maint{
-	pixel_x = -7;
-	pixel_y = 7
-	},
-/turf/open/floor/catwalk_floor/iron_smooth,
-/area/maintenance/disposal)
 "Hq" = (
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /obj/structure/disposalpipe/segment{
@@ -50680,7 +50669,7 @@ xW
 tD
 eD
 ZF
-Hn
+JQ
 GB
 mN
 bM
