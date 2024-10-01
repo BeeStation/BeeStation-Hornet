@@ -1,5 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - bugfix: The Chat Client program now uses chat filters fully.
-  - tweak: PDAs now use OOC filtering instead, allowing for netspeak \o/.
