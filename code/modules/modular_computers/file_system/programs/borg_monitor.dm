@@ -73,7 +73,7 @@
 			var/message = stripped_input(usr, message = "Enter message to be sent to remote cyborg.", title = "Send Message")
 			if(!message)
 				return
-			if(CHAT_FILTER_CHECK(message))
+			if(OOC_FILTER_CHECK(message))
 				to_chat(usr, "<span class='warning'>ERROR: Prohibited word(s) detected in message.</span>")
 				return
 			to_chat(usr, "<br><br><span class='notice'>Message to [R] (as [sender_name]) -- \"[message]\"</span><br>")
