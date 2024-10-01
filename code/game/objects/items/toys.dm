@@ -789,17 +789,8 @@
 	user.visible_message(
 		"<span class='notice'>[user] presses the button on \the [src].</span>",
 		"<span class='notice'>You press the button on \the [src].</span>",
-		"<span class='notice'>You hear a soft click.</span>")
-
-/obj/item/toy/talking/codex_gigas/generate_messages()
-	var/datum/fakeDevil/devil = new
-	var/list/messages = list()
-	messages += "Some fun facts about: [devil.truename]"
-	messages += "[GLOB.lawlorify[LORE][devil.bane]]"
-	messages += "[GLOB.lawlorify[LORE][devil.obligation]]"
-	messages += "[GLOB.lawlorify[LORE][devil.ban]]"
-	messages += "[GLOB.lawlorify[LORE][devil.banish]]"
-	return messages
+		"<span class='notice'>You hear a soft click...</span>",
+		"<span class='notice'>Nothing happens, maybe it's broken?</span>",)
 
 /obj/item/toy/talking/owl
 	name = "owl action figure"
