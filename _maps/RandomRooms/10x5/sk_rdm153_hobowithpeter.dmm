@@ -126,7 +126,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "I" = (
-/obj/item/trash/can/food/peaches/maint,
+/obj/item/trash/canned/peaches/maint,
 /turf/open/floor/plating,
 /area/template_noop)
 "J" = (
@@ -164,7 +164,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/trash/can/food/beans,
+/obj/item/trash/canned/beans,
 /turf/open/floor/carpet,
 /area/template_noop)
 "Q" = (

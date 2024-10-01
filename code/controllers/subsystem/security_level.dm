@@ -46,6 +46,20 @@ SUBSYSTEM_DEF(security_level)
 
 	SSsecurity_level.current_security_level = selected_level
 
+	var/datum/radio_frequency/frequency = SSradio.return_frequency(FREQ_STATUS_DISPLAYS)
+	var/datum/signal/status_signal = new(list("command" = "alert"))
+
+	switch(SSsecurity_level.get_current_level_as_number())
+		if(SEC_LEVEL_DELTA)
+			status_signal.data["picture_state"] = "deltaalert"
+		if(SEC_LEVEL_RED)
+			status_signal.data["picture_state"] = "redalert"
+		if(SEC_LEVEL_BLUE)
+			status_signal.data["picture_state"] = "bluealert"
+		if(SEC_LEVEL_GREEN)
+			status_signal.data["picture_state"] = "greenalert"
+	frequency.post_signal(src, status_signal)
+
 	if(selected_level.looping_sound)
 		wait = selected_level.looping_sound_interval
 		can_fire = TRUE

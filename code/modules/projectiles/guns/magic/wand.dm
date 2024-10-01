@@ -142,7 +142,7 @@
 	no_den_usage = TRUE
 
 /obj/item/gun/magic/wand/teleport/zap_self(mob/living/user)
-	if(do_teleport(user, user, 10, channel = TELEPORT_CHANNEL_MAGIC))
+	if(do_teleport(user, user, 10, channel = TELEPORT_CHANNEL_MAGIC, teleport_mode = TELEPORT_ALLOW_WIZARD))
 		var/datum/effect_system/smoke_spread/smoke = new
 		smoke.set_up(3, user.loc)
 		smoke.start()
@@ -162,7 +162,7 @@
 	var/turf/origin = get_turf(user)
 	var/turf/destination = find_safe_turf()
 
-	if(do_teleport(user, destination, channel=TELEPORT_CHANNEL_MAGIC))
+	if(do_teleport(user, destination, channel=TELEPORT_CHANNEL_MAGIC, teleport_mode = TELEPORT_ALLOW_WIZARD))
 		for(var/t in list(origin, destination))
 			var/datum/effect_system/smoke_spread/smoke = new
 			smoke.set_up(0, t)

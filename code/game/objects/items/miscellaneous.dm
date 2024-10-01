@@ -359,7 +359,7 @@
 	user.last_special = world.time + CLICK_CD_BREAKOUT
 	to_chat(user, "<span class='notice'>You claw at the fabric of [src], trying to tear it open...</span>")
 	to_chat(loc, "<span class='warning'>Someone starts trying to break free of [src]!</span>")
-	if(!do_after(user, 100, target = src))
+	if(!do_after(user, 10 SECONDS, src, timed_action_flags = (IGNORE_TARGET_LOC_CHANGE|IGNORE_HELD_ITEM)))
 		to_chat(loc, "<span class='warning'>The pressure subsides. It seems that they've stopped resisting...</span>")
 		return
 	loc.visible_message("<span class='warning'>[user] suddenly appears in front of [loc]!</span>", "<span class='userdanger'>[user] breaks free of [src]!</span>")
