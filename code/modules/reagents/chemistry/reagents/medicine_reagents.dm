@@ -1046,6 +1046,25 @@
 	..()
 	. = 1
 
+/datum/reagent/medicine/quickclot
+	name = "Quick Clot"
+	description = "Encourages coagulation to stop wounds from bleeding."
+	color = "#FA7DB5"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	taste_description = "A roll of gauze"
+	overdose_threshold = 10
+
+/datum/reagent/medicine/quickclot/on_mob_life(mob/living/carbon/M)
+	M.adjustBruteLoss(-0.3/METABOLITE_PENALTY(metabolite), 0)
+	do/var/(M, stop_bleeding FAST_REF(src))
+	ADD_TRAIT(M, TRAIT_NO_BLEEDING FAST_REF(src))
+
+/datum/reagent/medicine/quickclot/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(M, TRAIT_NO_BLEEDING type)
+	. = ..()
+	. =
+
+
 //Stimulants. Used in Adrenal Implant
 /datum/reagent/medicine/amphetamine
 	name = "Amphetamine"
