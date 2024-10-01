@@ -21,9 +21,10 @@
 	pin = null
 	no_pin_required = TRUE
 	spread = 5 //The standard for bows, to allow for better bows and attachments to take effect
-	var/bowstring = "leather"
-	var/string_cut = FALSE //This may seem like a useless var, but it actually checks if the string is there even if it "isnt" (the case of energy string which has an on and off function)
-	var/attachment = null
+	var/obj/item/weaponcrafting/attachment/primary/bowstring = /obj/item/weaponcrafting/attachment/primary/silkstring
+	//This tells us wether the string has been cut or is just off in the case of bows that have on and off states
+	var/string_cut = FALSE
+	var/obj/item/weaponcrafting/attachment/secondary/attachment = null
 	///Time required to draw an arrow, in seconds
 	var/drawtime = 1
 	ammo_count_visible = FALSE
@@ -31,26 +32,6 @@
 
 /obj/item/gun/ballistic/bow/stringless
 	bowstring = null
-
-/obj/item/gun/ballistic/bow/proc/stringmultiplier()
-	if(bowstring == "cable")
-		damage_multiplier = 0.5
-		speed_multiplier = 2
-	if(bowstring == "bamboo")
-		damage_multiplier = 1
-		speed_multiplier = 1.4
-	if(bowstring == "leather" || bowstring == "silk")
-		damage_multiplier = 1
-		speed_multiplier = 1.2
-	if(bowstring == "sinew")
-		damage_multiplier = 1.2
-		speed_multiplier = 0.8
-	if(bowstring == "energy")
-		damage_multiplier = 1.5
-		speed_multiplier = 0.6
-	else if(bowstring == null) //If for some reason you happen to be able to notch an arrow without a bowstring
-		damage_multiplier = 0
-		speed_multiplier = 0
 
 /obj/item/gun/ballistic/bow/afterattack(atom/target, mob/living/user, flag, params, aimed)
 	. = ..()
@@ -69,7 +50,6 @@
 
 /obj/item/gun/ballistic/bow/chamber_round()
 	chambered = magazine.get_round(1)
-	stringmultiplier()
 
 /obj/item/gun/ballistic/bow/process_chamber()
 	chambered = null
@@ -97,116 +77,50 @@
 			chamber_round()
 	update_icon()
 
-/obj/item/gun/ballistic/bow/proc/string_update(obj/item/I, mob/user, params)
-	var/obj/item/gun/ballistic/bow/bow
-	if(istype(I, /obj/item/ammo_casing/caseless/arrow))
-		to_chat(user, "<span class='notice'>That bow has no drawstring!</span>")
-		return TRUE
-	if(istype(I, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = I
-		if (C.use(5))
-			bowstring = "cable"
-			fire_sound = initial(bow.fire_sound)
-		else
-			to_chat(user, "<span class='warning'>Not enough cable!</span>")
-	if(istype(I, /obj/item/stack/sheet/bamboo))
-		var/obj/item/stack/sheet/bamboo/B = I
-		if (B.use(2))
-			bowstring = "bamboo"
-			fire_sound = initial(bow.fire_sound)
-		else
-			to_chat(user, "<span class='warning'>Not enough bamboo!</span>")
-	if(istype(I, /obj/item/weaponcrafting/leatherstring))
-		bowstring = "leather"
-		fire_sound = initial(bow.fire_sound)
-		qdel(I)
-	if(istype(I, /obj/item/weaponcrafting/silkstring))
-		bowstring = "silk"
-		fire_sound = initial(bow.fire_sound)
-		qdel(I)
-	if(istype(I, /obj/item/stack/sheet/sinew))
-		var/obj/item/stack/sheet/sinew/S = I
-		if(S.use(2))
-			bowstring = "sinew"
-			fire_sound = initial(bow.fire_sound)
-		else
-			to_chat(user, "<span class='warning'>Not enough sinew!</span>")
-	if(istype(I, /obj/item/weaponcrafting/energy_crystal/syndicate))
-		bowstring = "energy"
-		fire_sound = initial(bow.fire_sound)
-		qdel(I)
-	string_cut = FALSE
-	update_icon()
-
 /obj/item/gun/ballistic/bow/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weaponcrafting/attachment) && !attachment)
-		if(istype(I, /obj/item/weaponcrafting/attachment/bowfangs/bone))
-			attachment = "bone_fangs"
-			force += 3
-			spread += 3
-			sharpness = IS_BLUNT
-			bleed_force = BLEED_SCRATCH
-			update_icon()
-			qdel(I)
-			return TRUE
-		if(istype(I, /obj/item/weaponcrafting/attachment/bowfangs))
-			attachment = "fangs"
-			force += 2
-			spread += 2
-			sharpness = IS_SHARP_ACCURATE
-			bleed_force = BLEED_CUT
-			update_icon()
-			qdel(I)
-			return TRUE
-		if(istype(I, /obj/item/weaponcrafting/attachment/scope))
-			attachment = "scope"
-			spread -= 5
-			update_icon()
-			qdel(I)
-			return TRUE
-		if(istype(I, /obj/item/weaponcrafting/attachment/accelerators))
-			attachment = "accelerators"
-			speed_multiplier -= 0.3
-			update_icon()
-			qdel(I)
-			return TRUE
-	if(string_cut)
-		string_update(I, user, params)
+	if(istype(I, /obj/item/weaponcrafting/attachment/secondary) && !attachment)
+		var/obj/item/weaponcrafting/attachment/secondary/A = I
+		attachment = I
+		force += A.force
+		spread += A.spread
+		sharpness = A.sharpness
+		bleed_force = A.bleed_force
+		update_icon()
+		qdel(I)
 		return TRUE
+	if(string_cut)
+		if(istype(I, /obj/item/ammo_casing/caseless/arrow))
+			to_chat(user, "<span class='notice'>That bow has no drawstring!</span>")
+			return TRUE
+		if(istype(I, /obj/item/weaponcrafting/attachment/primary))
+			var/obj/item/weaponcrafting/attachment/primary/S = I
+			bowstring = I
+			damage_multiplier = S.damage_multiplier
+			speed_multiplier = S.speed_multiplier
+			update_icon()
+			qdel(I)
+			string_cut = FALSE
+			return TRUE
 	if((istype(I, /obj/item/wirecutters) || I.sharpness) && !istype(I, /obj/item/ammo_casing/caseless/arrow))
 		if(attachment)
-			if(attachment == "fangs")
-				new /obj/item/weaponcrafting/attachment/bowfangs(get_turf(src),1)
-			if(attachment == "bone_fangs")
-				new /obj/item/weaponcrafting/attachment/bowfangs/bone(get_turf(src),1)
-			if(attachment == "scope")
-				new /obj/item/weaponcrafting/attachment/scope(get_turf(src),1)
-			if(attachment == "accelerators")
-				new /obj/item/weaponcrafting/attachment/accelerators(get_turf(src),1)
+			new attachment(get_turf(src),1)
 			attachment = null
 			force = initial(force)
+			spread = initial(spread)
 			sharpness = initial(sharpness)
 			bleed_force = initial(bleed_force)
-			update_icon()
-			return
-		if(bowstring && !get_ammo())
-			if(bowstring == "cable")
-				new /obj/item/stack/cable_coil/red(get_turf(src),5)
-			if(bowstring == "leather")
-				new /obj/item/weaponcrafting/leatherstring(get_turf(src),1)
-			if(bowstring == "bamboo")
-				new /obj/item/stack/sheet/bamboo(get_turf(src),2)
-			if(bowstring == "silk")
-				new /obj/item/weaponcrafting/silkstring(get_turf(src),1)
-			if(bowstring == "sinew")
-				new /obj/item/stack/sheet/sinew(get_turf(src),2)
-			if(bowstring == "energy")
-				new /obj/item/weaponcrafting/energy_crystal/syndicate(get_turf(src),1)
-			bowstring = null
-			string_cut = TRUE
 			playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
 			update_icon()
-			return
+			return TRUE
+		if(bowstring && !get_ammo())
+			new bowstring(get_turf(src),1)
+			bowstring = null
+			string_cut = TRUE
+			damage_multiplier = 0
+			speed_multiplier = 0
+			playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
+			update_icon()
+			return TRUE
 	if(magazine.attackby(I, user, params, 1))
 		to_chat(user, "<span class='notice'>You notch the arrow.</span>")
 		update_icon()
@@ -220,14 +134,10 @@
 /obj/item/gun/ballistic/bow/update_icon()
 	cut_overlays()
 	if(bowstring)
-		add_overlay("[bowstring][get_ammo() ? (chambered ? "_firing" : "") : ""]")
+		add_overlay("[bowstring.icon_state][get_ammo() ? (chambered ? "_firing" : "") : ""]")
 	if(get_ammo())
 		var/obj/item/ammo_casing/AC = magazine.get_round(1)
-		if(istype(AC, /obj/item/ammo_casing/caseless/arrow/wood))
-			add_overlay("[initial(AC.icon_state)]_[(chambered ? "firing" : "loaded")]")
-		else if(istype(AC, /obj/item/ammo_casing/caseless/arrow/glass))
-			add_overlay("[initial(AC.icon_state)]_[(chambered ? "firing" : "loaded")]")
-		else if(istype(AC, /obj/item/ammo_casing/caseless/arrow/cloth))
+		if(istype(AC, /obj/item/ammo_casing/caseless/arrow/cloth))
 			var/obj/item/ammo_casing/caseless/arrow/cloth/C = AC
 			if(!C.lit && !C.burnt)
 				add_overlay("[initial(C.icon_state)]_[(chambered ? "firing" : "loaded")]")
@@ -235,41 +145,25 @@
 				add_overlay("[initial(C.icon_state)]lit_[(chambered ? "firing" : "loaded")]")
 			else if(C.burnt)
 				add_overlay("[initial(C.icon_state)]_[(chambered ? "firing" : "loaded")]")
-		else if(istype(AC, /obj/item/ammo_casing/caseless/arrow/bottle))
+		else if(istype(AC, /obj/item/ammo_casing/caseless/arrow))
 			add_overlay("[initial(AC.icon_state)]_[(chambered ? "firing" : "loaded")]")
 		else if(istype(AC, /obj/item/ammo_casing/caseless/arrow/sm))
 			add_overlay("sm_[(chambered ? "firing" : "loaded")]")
 		else
-			add_overlay("arrow_[(chambered ? "firing" : "loaded")]")
+			add_overlay("arrow_[(chambered ? "firing" : "loaded")]") //if all else fails
 	if(attachment)
-		if(attachment == "fangs")
-			add_overlay("bow_fangs")
-		else if(attachment == "bone_fangs")
-			add_overlay("bow_fangs_bone")
-		else if(attachment == "scope")
-			add_overlay("scope")
-		else if(attachment == "accelerators")
-			add_overlay("accelerators")
+		add_overlay("bow_[attachment.icon_state]")
 	else
 		return
 
 /obj/item/gun/ballistic/bow/examine(mob/user)
 	. = ..()
-	switch(bowstring)
-		if("cable")
-			. += "<span class='info'>The drawstring is improvised out of cable. It looks rather weak.</span>"
-		if("leather")
-			. += "<span class='info'>The drawstring is made of leather. Standard strength.</span>"
-		if("bamboo")
-			. += "<span class='info'>The drawstring is made of bamboo fiber. Close to standard strength.</span>"
-		if("silk")
-			. += "<span class='info'>The drawstring is made of silkstring. Standard strength.</span>"
-		if("sinew")
-			. += "<span class='info'>The drawstring is made of sinew. It looks pretty strong.</span>"
-		if("energy")
-			. += "<span class='info'>The drawstring is made of pure energy. As robust as it gets.</span>"
-		if(null)
-			. += "<span class='info'>This bow has no drawstring. Not much of a bow, is it.</span>"
+	if(bowstring)
+		. += bowstring.added_description
+	if(!bowstring)
+		. += "<span class='info'>This bow has no drawstring. Not much of a bow, is it.</span>"
+	if(attachment)
+		. += attachment.added_description
 
 /obj/item/gun/ballistic/bow/can_shoot()
 	return chambered
@@ -278,7 +172,6 @@
 	name = "bone bow"
 	desc = "A bow carved out of bone. Well suited for melee combat, althought its robustness causes a slight delay in drawing."
 	icon_state = "ashenbow"
-	item_state = "ashenbow"
 	bowstring = "sinew"
 	force = 7
 	drawtime = 1.2
@@ -288,9 +181,8 @@
 
 /obj/item/gun/ballistic/bow/bamboo
 	name = "bamboo bow"
-	desc = "A bow made out of bamboo. Easier to draw, can be fitted into a backpack when without a string. However, it is extremely weak at melee combat."
+	desc = "A bow made out of bamboo. Easy to draw, can be fitted into a backpack when without a string. However, it is extremely weak at melee combat."
 	icon_state = "bamboobow"
-	item_state = "bamboobow"
 	bowstring = "bamboo"
 	force = 2
 	drawtime = 0.8
@@ -307,10 +199,9 @@
 	bowstring = null
 
 /obj/item/gun/ballistic/bow/pvc
-	name = "pvcbBow"
+	name = "pvc bow"
 	desc = "A bow crafted with PVC piping. It's rather innacurate and it requires more effort to draw than is usual."
 	icon_state = "pvcbow"
-	item_state = "pvcbow"
 	bowstring = "cable"
 	drawtime = 1.5
 	force = 6
@@ -319,7 +210,7 @@
 /obj/item/gun/ballistic/bow/pvc/stringless
 	bowstring = null
 
-/obj/item/gun/ballistic/bow/syndicate //This was /bow/energy but I'm trying to make a clear distinction between energy bows (that produce their own arrows) and normal bows
+/obj/item/gun/ballistic/bow/syndicate //Not aviable ingame yet
 	name = "Energy Bow"
 	desc = "A bow of Syndicate design, meant to be concealed and activated at will."
 	icon_state = "energybow"
@@ -330,7 +221,7 @@
 
 /obj/item/gun/ballistic/bow/syndicate/AltClick(mob/user)
 	. = ..()
-	if(!string_cut || bowstring == "energy")
+	if(!string_cut && bowstring == /obj/item/weaponcrafting/attachment/primary/energy_crystal)
 		turn_on()
 	else
 		return
@@ -338,30 +229,27 @@
 
 /obj/item/gun/ballistic/bow/syndicate/attack_self(mob/living/user)
 	. = ..()
-	if(!on && !string_cut)
+	if(!on && !string_cut && bowstring == /obj/item/weaponcrafting/attachment/primary/energy_crystal)
 		turn_on()
 
 /obj/item/gun/ballistic/bow/syndicate/proc/turn_on()
 	if(!on)
 		on = TRUE
-		bowstring = "energy"
-		hitsound = 'sound/weapons/edagger.ogg'
+		bowstring = /obj/item/weaponcrafting/attachment/primary/energy_crystal
 		w_class = WEIGHT_CLASS_BULKY
 		update_icon()
 		playsound(src, 'sound/weapons/saberon.ogg', 35, 1)
 	else
 		on = FALSE
-		force = initial(force)
-		damtype = initial(damtype)
 		bowstring = null
-		hitsound = initial(hitsound)
+		fire_sound = initial(fire_sound)
 		w_class = initial(w_class)
 		update_icon()
 		playsound(src, 'sound/weapons/saberoff.ogg', 35, 1)
 
 /obj/item/gun/ballistic/bow/energy/examine(mob/user)
 	. = ..()
-	if(!string_cut || bowstring == "energy")
+	if(!string_cut || bowstring == /obj/item/weaponcrafting/attachment/primary/energy_crystal)
 		. += "<span class='info'>Press <B>Alt-Click</B> to turn the bow on and off.</span>"
 	else
 		. += "<span class='info'>This energy bow has been mutilated and lacks an <B>Energy Crystal</B>...</span>"

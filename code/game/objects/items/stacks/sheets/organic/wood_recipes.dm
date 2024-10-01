@@ -49,6 +49,7 @@ STACKSIZE_MACRO(/obj/item/stack/sheet/wood)
 
 GLOBAL_LIST_INIT(bamboo_recipes, list ( \
 	new/datum/stack_recipe_list("weapon crafting", list( \
+		new/datum/stack_recipe("bamboo fiber string",					/obj/item/weaponcrafting/attachment/primary/bamboostring, 2, time = 1 SECONDS),\
 		new/datum/stack_recipe("bamboo bow frame",						/obj/item/gun/ballistic/bow/bamboo/stringless, 4, time = 2 SECONDS), \
 		new/datum/stack_recipe("punji sticks trap",						/obj/structure/punji_sticks, 5, one_per_turf = TRUE, on_floor = TRUE, time = 3 SECONDS), \
 		new/datum/stack_recipe("bamboo spear",							/obj/item/spear/bamboospear, 25, time = 9 SECONDS), \
@@ -78,15 +79,3 @@ GLOBAL_LIST_INIT(paperframe_recipes, list(
 ))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/paperframes)
-
-/* Bone */
-
-GLOBAL_LIST_INIT(bone_recipes, list( \
-	new/datum/stack_recipe_list("weapon crafting", list( \
-		new/datum/stack_recipe("bone bow frame",								/obj/item/gun/ballistic/bow/ashen/stringless, 4, time = 2 SECONDS), \
-		new/datum/stack_recipe("bone bow frangs",								/obj/item/weaponcrafting/attachment/bowfangs/bone, 2, time = 1 SECONDS), \
-		)), \
-	null, \
-))
-
-STACKSIZE_MACRO(/obj/item/stack/sheet/bone)

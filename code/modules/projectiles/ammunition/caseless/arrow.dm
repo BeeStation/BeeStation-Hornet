@@ -26,6 +26,7 @@
 	embedding = list(embed_chance=0)
 
 /obj/item/ammo_casing/caseless/arrow/wood/attackby(obj/item/I, mob/user, params)
+	. = ..()
 	if(istype(I, /obj/item/stack/sheet/cotton/cloth))
 		var/obj/item/stack/sheet/cotton/cloth/cloth = I
 		if(cloth.amount < 2) //Is there less than two sheets of cotton?

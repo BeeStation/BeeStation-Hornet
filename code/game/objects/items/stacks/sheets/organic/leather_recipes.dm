@@ -1,6 +1,6 @@
 GLOBAL_LIST_INIT(leather_recipes, list ( \
 	new/datum/stack_recipe_list("weapon crafting", list( \
-		new/datum/stack_recipe("leather bow string",	/obj/item/weaponcrafting/leatherstring, 2, time = 1 SECONDS),\
+		new/datum/stack_recipe("leather bow string",	/obj/item/weaponcrafting/attachment/primary/leatherstring, 2, time = 1 SECONDS), \
 		)), \
 	new/datum/stack_recipe("wallet", /obj/item/storage/wallet, 1), \
 	new/datum/stack_recipe("muzzle", /obj/item/clothing/mask/muzzle, 2), \

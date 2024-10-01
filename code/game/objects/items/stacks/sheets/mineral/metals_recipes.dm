@@ -6,9 +6,9 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 
 	null, \
 	new/datum/stack_recipe_list("weapon crafting", list( \
-	new/datum/stack_recipe("iron bow fangs",							/obj/item/weaponcrafting/attachment/bowfangs, 2, time = 1 SECONDS),\
-	new/datum/stack_recipe("accelerators",								/obj/item/weaponcrafting/attachment/accelerators, 2, time = 1 SECONDS),\
-	new/datum/stack_recipe("scope body",								/obj/item/weaponcrafting/attachment/scope/glassless, 1, time = 1 SECONDS),\
+	new/datum/stack_recipe("iron bow fangs",							/obj/item/weaponcrafting/attachment/secondary/bowfangs, 2, time = 1 SECONDS),\
+	new/datum/stack_recipe("accelerators",								/obj/item/weaponcrafting/attachment/secondary/accelerators, 2, time = 1 SECONDS),\
+	new/datum/stack_recipe("scope body",								/obj/item/weaponcrafting/attachment/secondary/scope/glassless, 1, time = 1 SECONDS),\
 	new/datum/stack_recipe("grenade casing",							/obj/item/grenade/chem_grenade), \
 		)), \
 	new/datum/stack_recipe_list("office chairs", list( \
