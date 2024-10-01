@@ -332,6 +332,12 @@
 		if(stat != DEAD || D.process_dead)
 			D.stage_act()
 
+/mob/living/carbon/handle_wounds()
+	for(var/thing in all_wounds)
+		var/datum/wound/W = thing
+		if(W.processes) // meh
+			W.handle_process()
+
 /mob/living/carbon/handle_mutations_and_radiation()
 	if(dna && dna.temporary_mutations.len)
 		for(var/mut in dna.temporary_mutations)

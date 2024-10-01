@@ -29,6 +29,8 @@
 	max_integrity = 200
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
+	wound_bonus = -110
+	bare_wound_bonus = 20
 	light_system = MOVABLE_LIGHT
 	light_range = 6
 	light_power = 1

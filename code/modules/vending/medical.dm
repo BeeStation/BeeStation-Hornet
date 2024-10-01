@@ -21,7 +21,12 @@
 					/obj/item/reagent_containers/glass/bottle/spaceacillin = 1,
 					/obj/item/reagent_containers/glass/bottle/morphine = 2,
 					/obj/item/reagent_containers/glass/bottle/toxin = 4,
-					/obj/item/reagent_containers/medspray/sterilizine = 4)
+					/obj/item/reagent_containers/medspray/sterilizine = 4,
+					/obj/item/stack/sticky_tape/surgical = 3,
+					/obj/item/healthanalyzer/wound = 4,
+					/obj/item/stack/medical/ointment = 2,
+					/obj/item/stack/medical/suture = 2,
+					/obj/item/stack/medical/bone_gel = 4)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/chloralhydrate = 1,
 						/obj/item/storage/box/hug/medical = 1,
 						/obj/item/reagent_containers/glass/bottle/random_virus = 1)

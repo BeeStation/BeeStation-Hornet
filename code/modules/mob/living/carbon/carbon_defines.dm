@@ -81,3 +81,8 @@
 
 	/// Timer id of any transformation
 	var/transformation_timer
+
+	/// All of the wounds a carbon has afflicted throughout their limbs
+	var/list/all_wounds
+	/// All of the scars a carbon has afflicted throughout their limbs
+	var/list/all_scars

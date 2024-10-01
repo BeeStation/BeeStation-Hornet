@@ -74,6 +74,7 @@
 		return
 	duration = world.time + original_duration
 
+
 /// Merge this status effect by applying new arguments
 /datum/status_effect/proc/merge(...)
 	return
