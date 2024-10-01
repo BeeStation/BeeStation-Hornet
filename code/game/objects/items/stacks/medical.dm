@@ -28,6 +28,8 @@
 	var/stop_bleeding = 0
 	///How long does it take to apply on yourself?
 	var/self_delay = 2 SECONDS
+	/// Does this apply the self-tend effect
+	var/self_tend_debuff = TRUE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 
@@ -118,12 +120,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		C.balloon_alert(user, "Cannot use on robotic limb!")
 		return
 
-	if(!(affecting.brute_dam || affecting.burn_dam))
+	if(!affecting.brute_dam && !affecting.burn_dam)
 		message = "[M]'s [parse_zone(zone_selected)] isn't hurt!</span>"
-	else
-		valid = TRUE
-
-	if((affecting.brute_dam && !affecting.burn_dam && !heal_brute) || (affecting.burn_dam && !affecting.brute_dam && !heal_burn)) //suffer
+	else if((affecting.brute_dam && !affecting.burn_dam && !heal_brute) || (affecting.burn_dam && !affecting.brute_dam && !heal_burn)) //suffer
 		message = "This type of medicine isn't appropriate for this type of wound."
 	else
 		valid = TRUE
@@ -137,7 +136,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		user.visible_message("<span class='notice'>[user] starts to apply [src] on [user.p_them()]self...</span>", "<span class='notice'>You begin applying [src] on yourself...</span>")
 		if(!do_after(user, self_delay, M))
 			return
-		C.apply_status_effect(/datum/status_effect/self_tend)
+		if (self_tend_debuff)
+			C.apply_status_effect(/datum/status_effect/self_tend)
 
 	if(stop_bleeding)
 		C.suppress_bloodloss(stop_bleeding)
@@ -205,6 +205,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	heal_creatures = TRUE //Enables gauze to be used on simplemobs for healing
 	max_amount = 12
 	merge_type = /obj/item/stack/medical/gauze
+	self_tend_debuff = FALSE
 
 /obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
@@ -230,6 +231,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	stop_bleeding = BLEED_SURFACE
 	heal_creatures = FALSE
 	merge_type = /obj/item/stack/medical/gauze/improvised
+	self_tend_debuff = TRUE
 
 /obj/item/stack/medical/gauze/adv
 	name = "sterilized medical gauze"
@@ -243,7 +245,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 
 /datum/status_effect/self_tend
 	id = "self_tend"
-	duration = 30 SECONDS
+	duration = 60 SECONDS
 	tick_interval = 1 SECONDS
 	status_type = STATUS_EFFECT_MERGE
 	on_remove_on_mob_delete = TRUE
